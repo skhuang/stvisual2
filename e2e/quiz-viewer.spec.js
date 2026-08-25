@@ -37,7 +37,8 @@ test('escape closes the overlay', async ({ page }) => {
 });
 
 test('units without a bank show no quiz button', async ({ page }) => {
-  await page.goto('/?explorer=pairwise');
+  // v-model is a foundations/diagram unit with no quiz bank (pairwise now has one).
+  await page.goto('/?explorer=v-model');
   await expect(page.getByTestId('unit-app')).toBeVisible();
   await expect(page.getByTestId('unit-quiz-btn')).toHaveCount(0);
 });

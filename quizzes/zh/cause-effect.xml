@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Cause-Effect Graphing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是原因（cause）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在因果圖（cause-effect graph）中，<strong>原因（cause）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>取自規格的一個獨立輸入條件（可為真或為假）</text><feedback><text>正確——原因是一個個別的輸入條件，取值為真或假。</text></feedback></answer>
+    <answer fraction="0"><text>程式產生的輸出或動作</text><feedback><text>那是效果（effect），不是原因。</text></feedback></answer>
+    <answer fraction="0"><text>必須被執行的一行原始碼</text><feedback><text>因果圖法屬於黑箱測試；原因來自規格，而非程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>所產生決策表的一個欄位</text><feedback><text>欄位是稍後導出的規則／測試案例；原因則是輸入條件。</text></feedback></answer>
+    <generalfeedback><text>原因是一個獨立的輸入條件——一個可成立或不成立的布林值。原因透過閱讀規格找出，並經由布林節點連到其影響的效果。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是效果（effect）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在因果圖中，<strong>效果（effect）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>系統回應其輸入而產生的輸出條件或動作</text><feedback><text>正確——效果是圖右側可觀察到的輸出／動作。</text></feedback></answer>
+    <answer fraction="0"><text>可為真或為假的輸入條件</text><feedback><text>那描述的是原因，不是效果。</text></feedback></answer>
+    <answer fraction="0"><text>兩個輸入之間的約束</text><feedback><text>約束（E／I／O／R）限制的是原因；效果則是輸出。</text></feedback></answer>
+    <answer fraction="0"><text>如 AND 或 OR 的布林運算節點</text><feedback><text>那些節點把原因連到效果；效果本身是輸出。</text></feedback></answer>
+    <generalfeedback><text>效果是輸出條件或動作。在圖中，左側的原因經由布林節點連到右側的效果，且對於給定的原因指派，每個效果最終為真或為假。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>IDENTITY 節點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當 <strong>IDENTITY</strong> 節點把一個原因連到一個效果時，代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>效果為真，恰好當該單一原因為真時（它把原因的值直接複製過去）</text><feedback><text>正確——identity 把原因值原樣傳給效果。</text></feedback></answer>
+    <answer fraction="0"><text>效果為真，恰好當該原因為假時</text><feedback><text>那是 NOT 節點，不是 identity。</text></feedback></answer>
+    <answer fraction="0"><text>效果為真，當兩個原因之一為真時</text><feedback><text>那是 OR 節點；identity 連的是單一原因。</text></feedback></answer>
+    <answer fraction="0"><text>不論原因為何，效果永遠為真</text><feedback><text>identity 反映原因的值，並非恆真節點。</text></feedback></answer>
+    <generalfeedback><text>IDENTITY 節點把一個原因連到一個效果，使 effect = cause：原因為真則效果為真，原因為假則效果為假。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>NOT 節點</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>NOT</strong>（~）節點計算什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>效果為真，恰好當其單一原因為假時（它對原因取反）</text><feedback><text>正確——NOT 反轉原因的值。</text></feedback></answer>
+    <answer fraction="0"><text>效果為真，恰好當原因為真時</text><feedback><text>那是 IDENTITY；NOT 給出相反的值。</text></feedback></answer>
+    <answer fraction="0"><text>效果為真，當多個原因全部為真時</text><feedback><text>那是 AND；NOT 只取單一原因並取反。</text></feedback></answer>
+    <answer fraction="0"><text>效果為真，當多個原因中至少一個為真時</text><feedback><text>那是 OR；NOT 對一個原因取反。</text></feedback></answer>
+    <generalfeedback><text>NOT 節點（畫作 ~）取反：原因為假時效果為真，原因為真時效果為假。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>AND 節點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於連到多個原因的效果，<strong>AND</strong>（∧）節點計算什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>效果為真，僅當所連的每一個原因都為真時</text><feedback><text>正確——AND 要求所有輸入都為真。</text></feedback></answer>
+    <answer fraction="0"><text>效果為真，當所連原因中至少一個為真時</text><feedback><text>那是 OR，不是 AND。</text></feedback></answer>
+    <answer fraction="0"><text>效果為真，當所連原因中恰好一個為真時</text><feedback><text>AND 要求全部為真，而非恰好一個。</text></feedback></answer>
+    <answer fraction="0"><text>效果只複製第一個原因的值</text><feedback><text>AND 取決於每個輸入，而非只有第一個。</text></feedback></answer>
+    <generalfeedback><text>AND 節點僅當其所有輸入原因（或中間節點）都為真時才為真；只要有任一輸入為假，效果即為假。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>OR 節點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於連到多個原因的效果，<strong>OR</strong>（∨）節點計算什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>效果為真，當所連原因中至少一個為真時</text><feedback><text>正確——OR 只需一個輸入為真。</text></feedback></answer>
+    <answer fraction="0"><text>效果為真，僅當所連原因全部為真時</text><feedback><text>那是 AND，不是 OR。</text></feedback></answer>
+    <answer fraction="0"><text>效果為真，僅當所連原因中恰好一個為真時</text><feedback><text>OR 在一個或多個為真時皆為真；「恰好一個」是不同的（O）概念。</text></feedback></answer>
+    <answer fraction="0"><text>效果為真，僅當所連原因全部為假時</text><feedback><text>那會是 NOR（OR 取反）；純 OR 在任一輸入為真時即為真。</text></feedback></answer>
+    <generalfeedback><text>OR 節點在其輸入有一個或多個為真時為真，只有在每個輸入都為假時才為假。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>互斥（E）約束</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一組原因之間，<strong>互斥（Exclusive，E）</strong>約束代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>這些原因中至多一個可為真（可以全部為假，但沒有兩個同時為真）</text><feedback><text>正確——E 允許零個或一個為真，絕不會有兩個以上為真。</text></feedback></answer>
+    <answer fraction="0"><text>這些原因中恰好一個必須為真</text><feedback><text>那是「唯一其一（O）」約束；E 也允許全部為假。</text></feedback></answer>
+    <answer fraction="0"><text>這些原因中至少一個必須為真</text><feedback><text>那是「內含（I）」約束。</text></feedback></answer>
+    <answer fraction="0"><text>這些原因必須全部同時為真</text><feedback><text>E 禁止兩個同時為真，故絕不可能要求全部為真。</text></feedback></answer>
+    <generalfeedback><text>互斥（E）：受約束的原因中至多一個為真。允許零個為真；禁止兩個以上為真。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>內含（I）約束</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一組原因之間，<strong>內含（Inclusive，I）</strong>約束代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>這些原因中至少一個必須為真（不能全部為假）</text><feedback><text>正確——I 禁止全部為假的情形；至少一個必須成立。</text></feedback></answer>
+    <answer fraction="0"><text>這些原因中至多一個可為真</text><feedback><text>那是「互斥（E）」約束。</text></feedback></answer>
+    <answer fraction="0"><text>這些原因中恰好一個必須為真</text><feedback><text>那是「唯一其一（O）」約束；I 允許多個同時為真。</text></feedback></answer>
+    <answer fraction="0"><text>這些原因完全沒有任何限制</text><feedback><text>I 確實有限制：它排除全部為假的情形。</text></feedback></answer>
+    <generalfeedback><text>內含（I）：受約束的原因中至少一個必須為真。從一個到全部的任意數目皆可；只有全部為假被禁止。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>唯一其一（O）約束</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一組原因之間，<strong>唯一其一（One-and-only-one，O）</strong>約束代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>這些原因中恰好一個為真——不多也不少</text><feedback><text>正確——O 要求恰好一個為真。</text></feedback></answer>
+    <answer fraction="0"><text>這些原因中至多一個可為真（允許全部為假）</text><feedback><text>那是互斥（E）；O 禁止全部為假的情形。</text></feedback></answer>
+    <answer fraction="0"><text>這些原因中至少一個必須為真</text><feedback><text>那是內含（I），它也允許多個為真；O 只允許一個。</text></feedback></answer>
+    <answer fraction="0"><text>這些原因要嘛全部為真、要嘛全部為假</text><feedback><text>O 要求恰好一個為真，而非全有或全無。</text></feedback></answer>
+    <generalfeedback><text>唯一其一（O）：受約束的原因中恰好一個為真。它結合了互斥（至多一個）與內含（至少一個）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>需要（R）約束</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>需要（Requires，R）</strong>約束「原因 a 需要原因 b」代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只要 a 為真，b 也必須為真（因此 a 為真而 b 為假是不可能的）</text><feedback><text>正確——R 排除了 a 為真、b 為假的組合。</text></feedback></answer>
+    <answer fraction="0"><text>只要 a 為真，b 必須為假</text><feedback><text>那正好相反；R 在 a 為真時強制 b 為真。</text></feedback></answer>
+    <answer fraction="0"><text>a 與 b 必須永遠取相同的值</text><feedback><text>R 是單向的：a 為假時 b 可為任意值；只有 a 真 b 假被禁止。</text></feedback></answer>
+    <answer fraction="0"><text>a 與 b 中恰好一個可為真</text><feedback><text>那較接近互斥／唯一其一；R 是蘊涵 a→b。</text></feedback></answer>
+    <generalfeedback><text>需要（R）是蘊涵 a→b：若 a 為真則 b 必須為真。唯一被禁止的組合是 a 為真、b 為假；其餘（含 a 為假搭配任意 b）皆允許。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>遮蔽（M）約束</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>遮蔽（Masks，M）</strong>約束「效果 a 遮蔽效果 b」代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>若效果 a 發生（為真），則效果 b 被遮蔽並強制為假</text><feedback><text>正確——M 是效果之間的約束：a 為真會抑制 b。</text></feedback></answer>
+    <answer fraction="0"><text>若原因 a 為真，原因 b 必須為真</text><feedback><text>那是需要（R），一個原因之間的約束；M 約束的是效果。</text></feedback></answer>
+    <answer fraction="0"><text>效果 a 與 b 中至多一個可發生，但任一個都可單獨發生</text><feedback><text>M 是有方向的——a 抑制 b，但 b 不抑制 a——因此不是對稱的「至多一個」。</text></feedback></answer>
+    <answer fraction="0"><text>效果 a 與 b 必須永遠一起發生</text><feedback><text>M 正好相反：當 a 發生時 b 不能發生。</text></feedback></answer>
+    <generalfeedback><text>遮蔽（M）是唯一作用於效果（而非原因）之間的約束：當效果 a 為真時，效果 b 被遮蔽（強制為假），無論圖原本對 b 計算出什麼結果。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取 identity 圖</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個效果經由 IDENTITY 節點連到單一原因：</p><pre>
+E = IDENTITY(c1)
+</pre><p>若 <code>c1 = true</code>，E 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>true</text><feedback><text>正確——identity 複製原因，故 E = c1 = true。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>identity 不取反；E 等於 c1，即 true。</text></feedback></answer>
+    <answer fraction="0"><text>未定義——一個效果至少需要兩個原因</text><feedback><text>identity 節點恰好把一個原因連到效果，這是合法的。</text></feedback></answer>
+    <answer fraction="0"><text>取決於未顯示的其他原因</text><feedback><text>該效果只經由 identity 連到 c1，故只有 c1 有影響。</text></feedback></answer>
+    <generalfeedback><text>IDENTITY 把原因原樣傳過去：E = c1。當 c1 = true 時，E = true。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀取 NOT 圖</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個效果經由 NOT 節點連到單一原因：</p><pre>
+E = ~c1
+</pre><p>若 <code>c1 = false</code>，E 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>true</text><feedback><text>正確——NOT 取反：~false = true。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>NOT 對原因取反；c1 為假時 E 為真。</text></feedback></answer>
+    <answer fraction="0"><text>沒有第二個原因就未定義</text><feedback><text>NOT 節點取單一原因；該效果是有定義的。</text></feedback></answer>
+    <answer fraction="0"><text>等於 c1</text><feedback><text>那會是 identity；NOT 給出 c1 的相反值。</text></feedback></answer>
+    <generalfeedback><text>NOT 節點給出 E = ~c1。當 c1 = false 時，E = ~false = true。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>因果圖法屬於黑箱</text></name>
+    <questiontext format="html"><text><![CDATA[<p>因果圖法是一種黑箱（以規格為基礎）的測試設計技術。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——它從規格的輸入條件與輸出導出測試，而非從原始碼。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>原因與效果都讀自規格，故此技術屬於黑箱，而非結構性測試。</text></feedback></answer>
+    <generalfeedback><text>因果圖法從規格找出輸入條件（原因）與輸出（效果），並以布林邏輯連接——這是一種黑箱技術，與程式碼的內部結構無關。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪一個約束作用於效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在五種約束型別（E、I、O、R、M）中，有四種限制的是<em>原因</em>的組合。哪一個改為限制<em>效果</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>M（遮蔽）</text><feedback><text>正確——遮蔽是作用於效果那一側的約束；E、I、O、R 都限制原因。</text></feedback></answer>
+    <answer fraction="0"><text>E（互斥）</text><feedback><text>E 限制的是原因（至多一個為真），而非效果。</text></feedback></answer>
+    <answer fraction="0"><text>R（需要）</text><feedback><text>R 限制的是原因（a→b），而非效果。</text></feedback></answer>
+    <answer fraction="0"><text>O（唯一其一）</text><feedback><text>O 限制的是原因（恰好一個為真），而非效果。</text></feedback></answer>
+    <generalfeedback><text>E、I、O、R 表達的是原因（輸入）之間的關係。M（遮蔽）是唯一連結兩個效果的約束：若第一個發生，就強制第二個為假。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Cause-Effect Graphing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 AND 效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個效果連接如下：</p><pre>
+E = c1 ∧ c2
+</pre><p>給定 <code>c1 = true</code>、<code>c2 = false</code>，E 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>false</text><feedback><text>正確——AND 需兩者皆為真；c2 為假，故 E 為假。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>AND 要求每個輸入都為真；c2 = false 使 E 為假。</text></feedback></answer>
+    <answer fraction="0"><text>未定義</text><feedback><text>兩個輸入都已給定，故 E 有定義。</text></feedback></answer>
+    <answer fraction="0"><text>等於 c1</text><feedback><text>E 取決於兩個原因；c2 為假時，不論 c1 為何 AND 皆為假。</text></feedback></answer>
+    <generalfeedback><text>E = c1 ∧ c2 = true ∧ false = false。AND 只有在所有輸入都為真時才為真。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 OR 效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個效果連接如下：</p><pre>
+E = c1 ∨ c2
+</pre><p>給定 <code>c1 = false</code>、<code>c2 = true</code>，E 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>true</text><feedback><text>正確——OR 在任一輸入為真時即為真；c2 為真。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>OR 只需一個輸入為真，而 c2 為真。</text></feedback></answer>
+    <answer fraction="0"><text>未定義</text><feedback><text>兩個輸入都已給定，故 E 有定義。</text></feedback></answer>
+    <answer fraction="0"><text>只等於 c1</text><feedback><text>E 取決於兩者；c2 為真使 OR 為真。</text></feedback></answer>
+    <generalfeedback><text>E = c1 ∨ c2 = false ∨ true = true。OR 只有在每個輸入都為假時才為假。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算帶取反輸入的 AND</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個效果連接如下：</p><pre>
+E = c1 ∧ ~c2
+</pre><p>給定 <code>c1 = true</code>、<code>c2 = false</code>，E 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>true</text><feedback><text>正確——~c2 = true 且 c1 = true，故 AND 為真。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>因 c2 為假，~c2 為真，且 true ∧ true = true。</text></feedback></answer>
+    <answer fraction="0"><text>未定義</text><feedback><text>兩個原因都已給定，故 E 有定義。</text></feedback></answer>
+    <answer fraction="0"><text>等於 c2</text><feedback><text>E 使用 ~c2，與 c1 結合後在此為真。</text></feedback></answer>
+    <generalfeedback><text>先取反：~c2 = ~false = true。再計算 E = c1 ∧ ~c2 = true ∧ true = true。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算三輸入 OR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個效果連接如下：</p><pre>
+E = c1 ∨ c2 ∨ c3
+</pre><p>給定 <code>c1 = false</code>、<code>c2 = false</code>、<code>c3 = false</code>，E 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>false</text><feedback><text>正確——OR 只有在每個輸入都為假時才為假，此處正是如此。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>三個輸入都為假，故 OR 為假。</text></feedback></answer>
+    <answer fraction="0"><text>未定義</text><feedback><text>所有輸入都已給定；E 有定義。</text></feedback></answer>
+    <answer fraction="0"><text>取決於某個約束</text><feedback><text>題目未給任何約束；三個假的 OR 就是假。</text></feedback></answer>
+    <generalfeedback><text>E = false ∨ false ∨ false = false。OR 恰好在所有輸入都為假時給出假。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>以約束表達「至多一個」</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格說：「一張訂單<em>至多</em>可套用三個優惠碼中的一個（不套用任何一個也可以）。」在這三個原因輸入之間，哪個約束能表達此意？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>E（互斥）</text><feedback><text>正確——「至多一個、允許零個」正是互斥。</text></feedback></answer>
+    <answer fraction="0"><text>O（唯一其一）</text><feedback><text>O 會強制恰好套用一個；此處允許不套用，故為 E。</text></feedback></answer>
+    <answer fraction="0"><text>I（內含）</text><feedback><text>I 要求至少一個為真；此處允許零個，故為 E。</text></feedback></answer>
+    <answer fraction="0"><text>R（需要）</text><feedback><text>R 是兩個特定原因間的蘊涵，而非「一組中至多一個」的規則。</text></feedback></answer>
+    <generalfeedback><text>「至多一個為真、且允許全部為假」是互斥（E）約束。若規格禁止全部為假，那才會是唯一其一（O）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>以約束表達「至少一個」</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格說：「必須提供至少一種聯絡方式（電話、電子郵件或地址）。」在這三個原因輸入之間，哪個約束能表達此意？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>I（內含）</text><feedback><text>正確——「至少一個」正是內含約束。</text></feedback></answer>
+    <answer fraction="0"><text>E（互斥）</text><feedback><text>E 表示至多一個；此處需要一個或多個，故為 I。</text></feedback></answer>
+    <answer fraction="0"><text>O（唯一其一）</text><feedback><text>O 表示恰好一個；此處提供多個也可以，故為 I。</text></feedback></answer>
+    <answer fraction="0"><text>M（遮蔽）</text><feedback><text>M 是效果約束，而非關於有幾個原因為真的規則。</text></feedback></answer>
+    <generalfeedback><text>「至少一個必須為真」是內含（I）約束；它只禁止全部為假的情形。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>以約束表達「恰好一個」</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格說：「必須選擇<em>恰好一種</em>付款方式——現金、卡片或禮券。」在這三個原因輸入之間，哪個約束能表達此意？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>O（唯一其一）</text><feedback><text>正確——「恰好一個」是唯一其一約束。</text></feedback></answer>
+    <answer fraction="0"><text>E（互斥）</text><feedback><text>E 允許零個為真；此處必須永遠選一個，故為 O。</text></feedback></answer>
+    <answer fraction="0"><text>I（內含）</text><feedback><text>I 允許多個為真；此處只能選一個，故為 O。</text></feedback></answer>
+    <answer fraction="0"><text>R（需要）</text><feedback><text>R 是 a→b 的蘊涵，而非「從一組中選恰好一個」的規則。</text></feedback></answer>
+    <generalfeedback><text>「恰好一個為真」結合了互斥（至多一個）與內含（至少一個）：那就是唯一其一（O）約束。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>以約束表達「需要」</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格說：「選擇<em>快遞運送</em>需要已輸入<em>送貨地址</em>。」哪個約束能表達此意？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>R（需要）：快遞運送 → 送貨地址</text><feedback><text>正確——一個原因為真會強制另一個為真。</text></feedback></answer>
+    <answer fraction="0"><text>兩個原因之間的 O（唯一其一）</text><feedback><text>規格不是「兩者恰好其一」；它是蘊涵 a→b，即 R。</text></feedback></answer>
+    <answer fraction="0"><text>兩個原因之間的 E（互斥）</text><feedback><text>E 禁止兩者同時為真；此處兩者同時為真正是預期且合法的情形。</text></feedback></answer>
+    <answer fraction="0"><text>兩個原因之間的 M（遮蔽）</text><feedback><text>M 連結的是效果；此規則連結的是兩個輸入原因，故為 R。</text></feedback></answer>
+    <generalfeedback><text>「a 需要 b」是需要（R）約束，即蘊涵 a→b：快遞運送為真會強制送貨地址為真，排除了「快遞卻無地址」的情形。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何先畫圖再做決策表</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼要先建因果圖、再轉為決策表，而不是直接測試每一種輸入組合？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>圖的邏輯與約束讓我們只導出可行且與行為相關的組合，得到可管理的測試集，而非全部 2^n 種</text><feedback><text>正確——這種有系統地縮減到有意義組合正是重點所在。</text></feedback></answer>
+    <answer fraction="0"><text>它能保證程式的敘述與分支覆蓋達到 100%</text><feedback><text>因果圖法屬黑箱；它針對輸入組合的邏輯，而非程式碼覆蓋度量。</text></feedback></answer>
+    <answer fraction="0"><text>它讓我們不必再指定預期輸出</text><feedback><text>每條規則／欄位仍帶有預期效果；此技術並未捨棄判準。</text></feedback></answer>
+    <answer fraction="0"><text>它讓窮舉測試全部 2^n 種組合跑得更快</text><feedback><text>目標是避免窮舉測試，只保留可行且相異的組合。</text></feedback></answer>
+    <generalfeedback><text>測試全部 2^n 種原因組合通常不可行。圖捕捉了邏輯與約束，將效果回溯後便得到一張決策表，其欄位即為可行且相異的組合——一個有系統且可管理的測試集。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算原因的數目</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格：「若<em>卡片有效</em>、<em>PIN 正確</em>且<em>餘額足夠</em>，則允許提款；否則交易被<em>拒絕</em>，且若 PIN 連錯三次則<em>沒收</em>卡片。」此規格暗示有幾個相異的<strong>原因</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4——卡片有效、PIN 正確、餘額足夠、PIN 連錯三次</text><feedback><text>正確——這是四個相異的輸入條件。</text></feedback></answer>
+    <answer fraction="0"><text>3——卡片有效、PIN 正確、餘額足夠</text><feedback><text>「PIN 連錯三次」是第四個相異的輸入條件。</text></feedback></answer>
+    <answer fraction="0"><text>2——允許與拒絕</text><feedback><text>「允許」與「拒絕」是效果（輸出），不是原因。</text></feedback></answer>
+    <answer fraction="0"><text>6——句中的每個名詞</text><feedback><text>只有相異的輸入條件才算原因；並非每個名詞都符合。</text></feedback></answer>
+    <generalfeedback><text>原因是相異的輸入條件：卡片有效、PIN 正確、餘額足夠、PIN 連錯三次——共四個原因。「允許」「拒絕」「沒收」則是效果。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算效果的數目</text></name>
+    <questiontext format="html"><text><![CDATA[<p>沿用同一份 ATM 規格——「……交易被<em>允許</em>或<em>拒絕</em>，且卡片可能被<em>沒收</em>」——共有幾個相異的<strong>效果</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3——允許、拒絕、沒收卡片</text><feedback><text>正確——那是三個相異的輸出條件／動作。</text></feedback></answer>
+    <answer fraction="0"><text>2——只有允許與拒絕</text><feedback><text>「沒收卡片」是第三個相異的效果。</text></feedback></answer>
+    <answer fraction="0"><text>4——與原因數目相同</text><feedback><text>原因與效果分開計算；此處有三個效果。</text></feedback></answer>
+    <answer fraction="0"><text>1——交易的結果</text><feedback><text>共有三個相異的輸出，而非一個。</text></feedback></answer>
+    <generalfeedback><text>效果是相異的輸出／動作：允許、拒絕、沒收卡片——共三個效果。計算原因與效果的數目是建圖的第一步。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 OR 餵入 AND</text></name>
+    <questiontext format="html"><text><![CDATA[<p>圖中有一個中間節點與一個效果：</p><pre>
+n1 = c1 ∨ c2
+E  = n1 ∧ c3
+</pre><p>給定 <code>c1 = false</code>、<code>c2 = true</code>、<code>c3 = true</code>，E 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>true</text><feedback><text>正確——n1 = false ∨ true = true，再 E = true ∧ true = true。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>n1 為真（因 c2），且 c3 為真，故 AND 為真。</text></feedback></answer>
+    <answer fraction="0"><text>未定義</text><feedback><text>所有原因都已給定，故 E 有定義。</text></feedback></answer>
+    <answer fraction="0"><text>等於 c1</text><feedback><text>E 取決於 c1、c2 的 OR 以及 c3，而非只有 c1。</text></feedback></answer>
+    <generalfeedback><text>先算中間節點：n1 = c1 ∨ c2 = false ∨ true = true。再算 E = n1 ∧ c3 = true ∧ true = true。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>表達一個效果遮蔽另一個</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格說：「當顯示『<em>帳號已鎖定</em>』錯誤時，不得顯示『<em>歡迎</em>』訊息。」哪個約束能表達這兩個輸出之間的關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>M（遮蔽）：帳號已鎖定效果遮蔽歡迎效果</text><feedback><text>正確——一個效果發生會強制另一個被抑制，這就是遮蔽。</text></feedback></answer>
+    <answer fraction="0"><text>兩個原因之間的 E（互斥）</text><feedback><text>這些是輸出，不是原因；效果那一側的約束是 M。</text></feedback></answer>
+    <answer fraction="0"><text>兩個原因之間的 R（需要）</text><feedback><text>R 連結原因；此處連結的是兩個效果，故為 M。</text></feedback></answer>
+    <answer fraction="0"><text>兩個原因之間的 O（唯一其一）</text><feedback><text>O 約束原因；此規則約束的是效果，故為 M。</text></feedback></answer>
+    <generalfeedback><text>當一個輸出發生就抑制另一個輸出的關係，就是遮蔽（M）約束——唯一在效果之間表達的約束。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算 NOR 效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個效果連接如下：</p><pre>
+E = ~(c1 ∨ c2)
+</pre><p>給定 <code>c1 = false</code>、<code>c2 = false</code>，E 為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>true</text><feedback><text>正確——c1 ∨ c2 = false，且 ~false = true。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>兩個假的 OR 為假，其取反為真。</text></feedback></answer>
+    <answer fraction="0"><text>未定義</text><feedback><text>兩個原因都已給定，故 E 有定義。</text></feedback></answer>
+    <answer fraction="0"><text>等於 c1 ∨ c2</text><feedback><text>NOT 節點會反轉該 OR，故 E 是 c1 ∨ c2 的相反值。</text></feedback></answer>
+    <generalfeedback><text>先算括號內：c1 ∨ c2 = false ∨ false = false。再取反：E = ~false = true。這種「只有在所有輸入都為假時才為真」的型態就是 NOR。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>O 與 E 在全部為假情形上的差異</text></name>
+    <questiontext format="html"><text><![CDATA[<p>兩份規格限制同一組原因。規格 1：「選擇恰好一個。」規格 2：「至多選擇一個。」它們所暗示的約束唯一的差別是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>規格 1 是 O（禁止全部為假）；規格 2 是 E（允許全部為假）——兩者只在「零個為真是否可行」上不同</text><feedback><text>正確——O 與 E 除了 O 禁止全部為假之外完全一致。</text></feedback></answer>
+    <answer fraction="0"><text>它們是完全相同的約束</text><feedback><text>它們在全部為假的情形上不同：O 禁止，E 允許。</text></feedback></answer>
+    <answer fraction="0"><text>規格 1 是 I，規格 2 是 O</text><feedback><text>「恰好一個」是 O，「至多一個」是 E；此處都不是內含。</text></feedback></answer>
+    <answer fraction="0"><text>規格 2 允許兩個為真，規格 1 不允許</text><feedback><text>兩者都禁止兩個以上為真；唯一差別在全部為假的情形。</text></feedback></answer>
+    <generalfeedback><text>唯一其一（O）＝恰好一個為真；互斥（E）＝至多一個為真。兩者都禁止兩個以上為真；唯一差別是 E 允許全部為假的組合而 O 不允許。因此對同一組原因，O 比 E 少一個可行組合。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Cause-Effect Graphing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>O 約束下的可行組合（3 個原因）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>三個原因 c1、c2、c3 受<strong>唯一其一（O）</strong>約束。在 2^3 = 8 種指派中，有幾種是可行的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——恰好一個為真，即 {c1}、{c2}、{c3} 之一：3 種可行指派。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是互斥（也允許全部為假）的計數；O 禁止全部為假，剩下 3。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是內含（至少一個為真）的計數；O 要求恰好一個，得 3。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>恰好一個為真有三種不同選法，故為 3。</text></feedback></answer>
+    <generalfeedback><text>在 O 之下恰好一個原因為真。列舉 8 種指派後，只有 TFF、FTF、FFT 符合——3 種可行組合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>E 約束下的可行組合（3 個原因）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>三個原因 c1、c2、c3 受<strong>互斥（E）</strong>約束。在 8 種指派中，有幾種是可行的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——至多一個為真：全部為假加上三種單一為真＝4。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 是唯一其一的計數；E 另外允許全部為假的情形，得 4。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是內含的計數；E 是「至多一個」，得 4。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>列舉「至多一個為真」得 FFF、TFF、FTF、FFT——是 4，不是 5。</text></feedback></answer>
+    <generalfeedback><text>在 E 之下至多一個原因為真。可行者：FFF、TFF、FTF、FFT——4 種組合（比 O 多一種，因為允許全部為假）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>I 約束下的可行組合（3 個原因）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>三個原因 c1、c2、c3 受<strong>內含（I）</strong>約束。在 8 種指派中，有幾種是可行的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>正確——至少一個為真只排除全部為假的情形：8 − 1 = 7。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>I 禁止全部為假的指派，故剩下 7（而非全部 8）。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 是唯一其一的計數；內含允許任意數目 ≥ 1 為真，得 7。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是互斥的計數；內含是「至少一個」，得 7。</text></feedback></answer>
+    <generalfeedback><text>在 I 之下至少一個原因為真，故只有 FFF 被禁止。剩下 8 − 1 = 7 種可行組合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>E 約束下的可行組合（2 個原因）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>兩個原因 c1、c2 受<strong>互斥（E）</strong>約束。在 2^2 = 4 種指派中，有幾種是可行的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——至多一個為真：FF、TF、FT 可行；只有 TT 被排除。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是唯一其一的計數；E 也允許 FF，得 3。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>E 禁止兩者皆為真（TT），故 4 種中只剩 3 種。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>有三種指派至多一個為真，故 3 種可行。</text></feedback></answer>
+    <generalfeedback><text>在 E 之下兩個原因至多一個為真，故 TT 不可行。可行者：FF、TF、FT——3 種組合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>O 約束下的可行組合（4 個原因）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>四個原因受<strong>唯一其一（O）</strong>約束。在 2^4 = 16 種指派中，有幾種是可行的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——恰好一個為真，而哪一個為真有 4 種選法。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 會把全部為假的情形也算入（那是互斥）；O 禁止全部為假，剩下 4。</text></feedback></answer>
+    <answer fraction="0"><text>15</text><feedback><text>15 是內含的計數（至少一個為真）；O 要求恰好一個，得 4。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>四個原因中任一個都可為那個唯一為真者，故 4。</text></feedback></answer>
+    <generalfeedback><text>在 O 之下四個原因恰好一個為真，故可行指派為 TFFF、FTFF、FFTF、FFFT——共 4 種。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>需要（R）約束下的可行組合（2 個原因）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>兩個原因 a、b 有約束 <strong>a 需要 b</strong>（a→b）。在 4 種指派中，有幾種是可行的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——只有 a 為真、b 為假被禁止；其餘 3 種可行。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>只有一種指派被排除，而非三種；剩下 3 種可行。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>組合 a 為真、b 為假違反 a→b，故只有 3 種可行。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>R 恰好排除一種組合（a 真、b 假），剩下 3。</text></feedback></answer>
+    <generalfeedback><text>a→b 只禁止（a 為真、b 為假）。可行指派為 (F,F)、(F,T)、(T,T)——3 種組合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>需要（R）約束下的可行組合（3 個原因）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>三個原因 a、b、c 只有單一約束 <strong>a 需要 b</strong>（a→b）；c 不受約束。在 2^3 = 8 種指派中，有幾種是可行的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>正確——a 為真且 b 為假，無論 c 為何值皆被禁止，從 8 種中移除 2 種。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>被移除的是兩種指派（a=T、b=F 搭配 c=F 與 c=T），而非一種，故剩 6。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>只有 a 真、b 假的情形不可行；那是 2 種指派，剩下 6。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>c 是自由的，故有 6 種指派滿足 a→b，而非 3。</text></feedback></answer>
+    <generalfeedback><text>a→b 禁止 a 為真、b 為假。c 自由時，該型態在 c=false 與 c=true 各出現一次——2 種不可行指派。故 8 − 2 = 6 種可行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>某組合在 O 之下是否可行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>原因 c1、c2、c3 受<strong>唯一其一（O）</strong>約束。指派 <code>c1 = true, c2 = true, c3 = false</code> 可行嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不可行——有兩個原因為真，但 O 只允許恰好一個為真</text><feedback><text>正確——c1 與 c2 同時為真違反 O 約束，故此欄位不可行。</text></feedback></answer>
+    <answer fraction="0"><text>可行——至少一個原因為真</text><feedback><text>「至少一個」是內含約束；O 要求恰好一個，而此處有兩個為真。</text></feedback></answer>
+    <answer fraction="0"><text>可行——c3 為假，滿足約束</text><feedback><text>O 計算整體有幾個為真；兩個為真（c1、c2）就違反，與 c3 無關。</text></feedback></answer>
+    <answer fraction="0"><text>不可行——因為 c3 必須為真</text><feedback><text>O 並不特別要求 c3；此處不可行只是因為有兩個原因為真。</text></feedback></answer>
+    <generalfeedback><text>在 O 之下至多且至少一個原因為真。此處 c1 與 c2 皆為真，故該指派不可行，不產生測試案例。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>遮蔽（M）約束下的效果值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由圖計算出兩個效果，且效果 A <strong>遮蔽</strong>效果 B。對某個輸入，圖給出 <code>A = true</code>，且原本會給出 <code>B = true</code>。套用遮蔽約束後，觀察到的效果值為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A = true、B = false——因為 A 發生，B 被遮蔽（強制為假）</text><feedback><text>正確——遮蔽在第一個效果發生時強制第二個為假。</text></feedback></answer>
+    <answer fraction="0"><text>A = true、B = true——遮蔽不改變計算出的值</text><feedback><text>遮蔽正是會覆寫 B：當 A 為真時，B 被強制為假。</text></feedback></answer>
+    <answer fraction="0"><text>A = false、B = true——B 遮蔽 A</text><feedback><text>方向是 A 遮蔽 B，故 A 維持為真，被抑制的是 B。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆為假——遮蔽會取消兩個效果</text><feedback><text>只有被遮蔽的效果（B）被強制為假；A 維持其計算值（true）。</text></feedback></answer>
+    <generalfeedback><text>遮蔽是有方向的：當遮蔽效果 A 為真時，被遮蔽效果 B 被強制為假，覆寫圖對 B 計算出的結果。A 本身不受影響，故結果為 A = true、B = false。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>AND 效果的真值點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某效果為 <code>E = c1 ∧ c2</code>，無任何約束。回溯後，有幾種原因指派（效果的「真值點」）使 E 為真？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1——只有（c1 = true, c2 = true）</text><feedback><text>正確——AND 恰好在全部為真的指派下為真。</text></feedback></answer>
+    <answer fraction="0"><text>3——除全部為假外的每種指派</text><feedback><text>那描述的是 OR；AND 只有在兩者皆為真時才為真。</text></feedback></answer>
+    <answer fraction="0"><text>2——只要 c1 為真</text><feedback><text>c1 為真而 c2 為假會使 E 為假，故並非每個 c1 為真的情形都算。</text></feedback></answer>
+    <answer fraction="0"><text>4——所有指派</text><feedback><text>只要任一原因為假 E 就為假，故並非全部 4 種指派都是真值點。</text></feedback></answer>
+    <generalfeedback><text>從 E = c1 ∧ c2 回溯，唯一使其為真的指派是 (T, T)。故此效果只有單一真值點，成為決策表中觸發 E 的一欄。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>OR 效果的真值點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某效果為 <code>E = c1 ∨ c2</code>，無任何約束。有幾種原因指派使 E 為真？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3——(T,T)、(T,F)、(F,T)</text><feedback><text>正確——OR 在除全部為假外的每種指派下皆為真。</text></feedback></answer>
+    <answer fraction="0"><text>1——只有 (T,T)</text><feedback><text>那是 AND 的情形；OR 只需一個輸入為真。</text></feedback></answer>
+    <answer fraction="0"><text>2——只有單一為真的指派</text><feedback><text>(T,T) 也使 OR 為真，故真值點有 3 個，而非 2。</text></feedback></answer>
+    <answer fraction="0"><text>4——所有指派</text><feedback><text>(F,F) 使 OR 為假，故只有 3 種指派是真值點。</text></feedback></answer>
+    <generalfeedback><text>E = c1 ∨ c2 在 (T,T)、(T,F)、(F,T) 為真，只有 (F,F) 為假。故有 3 個真值點。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由可行組合得出決策表欄位</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個因果圖有 3 個原因，受<strong>唯一其一（O）</strong>約束。若決策表對每個可行的原因組合設一欄，這張表有幾欄（也就是幾個測試案例）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3——每個可行組合一欄（恰好一個原因為真）</text><feedback><text>正確——O 留下 3 個可行組合，故 3 欄、3 個測試。</text></feedback></answer>
+    <answer fraction="0"><text>8——每種原始 2^3 組合一欄</text><feedback><text>O 約束移除了不可行組合；只剩 3 個。</text></feedback></answer>
+    <answer fraction="0"><text>4——互斥的計數</text><feedback><text>在 O 之下不允許全部為假的情形，故為 3，而非 4。</text></feedback></answer>
+    <answer fraction="0"><text>1——一欄就足夠</text><feedback><text>每個可行組合是一個相異的欄位；共有 3 個。</text></feedback></answer>
+    <generalfeedback><text>建立決策表時，每個可行的原因組合成為一欄，也就是一個測試案例。3 個原因受 O 約束時有 3 個可行組合，故 3 欄。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>E 移除的不可行組合（3 個原因）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>三個原因受<strong>互斥（E）</strong>約束。在 2^3 = 8 種原始組合中，有幾種變得<em>不可行</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4——有兩個以上原因為真的那些組合</text><feedback><text>正確——8 總數減去 4 個可行（至多一個為真）＝ 4 個不可行。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>E 之下可行者為 4（全部為假加三種單一為真），故不可行為 8 − 4 = 4。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>那會只剩 3 個可行（O 的計數）；在 E 之下有 4 個可行，故 4 個不可行。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>每個有兩個以上為真的組合都不可行——共有 4 個（TTF、TFT、FTT、TTT）。</text></feedback></answer>
+    <generalfeedback><text>在 E 之下至多一個原因為真，故 4 個組合可行（FFF、TFF、FTF、FFT）。其餘 8 − 4 = 4 個（TTF、TFT、FTT、TTT）不可行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>O 移除的不可行組合（4 個原因）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>四個原因受<strong>唯一其一（O）</strong>約束。在 2^4 = 16 種原始組合中，有幾種<em>不可行</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>12——只有 4 個組合（恰好一個為真）可行，故 16 − 4 = 12</text><feedback><text>正確——O 留下 4 個可行，故 12 個不可行。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是可行組合的數目，不是不可行的；16 − 4 = 12。</text></feedback></answer>
+    <answer fraction="0"><text>11</text><feedback><text>那會留下 5 個可行（互斥的計數）；在 O 之下只有 4 個可行，故 12 個不可行。</text></feedback></answer>
+    <answer fraction="0"><text>15</text><feedback><text>15 會只留下一個可行；O 有 4 個可行，故 12 個不可行。</text></feedback></answer>
+    <generalfeedback><text>在 O 之下四個原因恰好一個為真，得 4 個可行組合。其餘 16 − 4 = 12 個組合（全部為假或兩個以上為真）不可行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>效果在所有可行 O 欄位中的值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>原因 c1、c2、c3 受<strong>唯一其一（O）</strong>約束，且某效果為 <code>E = c1 ∨ c2 ∨ c3</code>。E 在幾個可行欄位中為真？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3——在每個可行欄位中，因為總是恰好一個原因為真</text><feedback><text>正確——O 保證有一個原因為真，故 OR 在全部 3 個可行欄位中為真。</text></feedback></answer>
+    <answer fraction="0"><text>1——只有在三者皆為真時</text><feedback><text>在 O 之下三者皆為真不可行；OR 在任一為真時即為真，此處總是如此。</text></feedback></answer>
+    <answer fraction="0"><text>0——約束使 E 為假</text><feedback><text>約束強制恰好一個為真，故 OR 為真，而非為假。</text></feedback></answer>
+    <answer fraction="0"><text>7——每個內含組合一個</text><feedback><text>在 O 之下只有 3 個可行欄位，且 E 在其中全部為真。</text></feedback></answer>
+    <generalfeedback><text>O 在每個可行欄位中強制恰好一個原因為真，故 c1 ∨ c2 ∨ c3 在每一欄都為真。共有 3 個可行欄位，E 在全部 3 個中為真。</text></generalfeedback>
+  </question>
+</quiz>

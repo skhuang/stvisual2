@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/State Transition Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在有限狀態機中，<strong>狀態（state）</strong>代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>系統所處的一種情況或模式，會一直維持到某個事件使其改變為止</text><feedback><text>正確——狀態描述系統目前的情況，直到發生轉移才會離開。</text></feedback></answer>
+    <answer fraction="0"><text>觸發改變的輸入</text><feedback><text>那是事件（event），不是狀態。</text></feedback></answer>
+    <answer fraction="0"><text>從一個情況移動到另一個情況的動作</text><feedback><text>那個移動是轉移（transition）；狀態指的是情況本身。</text></feedback></answer>
+    <answer fraction="0"><text>系統產生的輸出</text><feedback><text>輸出是動作（action）；狀態是系統停留的一種模式。</text></feedback></answer>
+    <generalfeedback><text>狀態是一種明確的模式或情況（例如 Locked、Open），系統會停留其中，直到某個事件驅使它轉移到另一個狀態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是事件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在狀態轉移測試中，<strong>事件（event，或輸入）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>發生的某件事（刺激或輸入），可能導致一次轉移</text><feedback><text>正確——事件是可能使狀態機在狀態間移動的觸發因子。</text></feedback></answer>
+    <answer fraction="0"><text>系統停留其中的一種模式</text><feedback><text>那是狀態，不是事件。</text></feedback></answer>
+    <answer fraction="0"><text>附加在轉移上的布林條件</text><feedback><text>那是護衛條件（guard），不是事件本身。</text></feedback></answer>
+    <answer fraction="0"><text>狀態機的起始點</text><feedback><text>那是初始狀態；事件是一種刺激。</text></feedback></answer>
+    <generalfeedback><text>事件（輸入／刺激）是對狀態機發生的事——例如「coin」或「push」——它可能依當前狀態與任何護衛條件而觸發一次轉移。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是轉移</text></name>
+    <questiontext format="html"><text><![CDATA[<p>狀態機中的<strong>轉移（transition）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>由事件觸發、從一個狀態移動到另一個狀態（或回到同一狀態）</text><feedback><text>正確——轉移連結了來源狀態、事件與目的狀態。</text></feedback></answer>
+    <answer fraction="0"><text>系統停留其中的模式</text><feedback><text>那是狀態；轉移是狀態之間的移動。</text></feedback></answer>
+    <answer fraction="0"><text>所有可能輸入的清單</text><feedback><text>那些是事件；轉移用事件來改變狀態。</text></feedback></answer>
+    <answer fraction="0"><text>狀態機的最終狀態</text><feedback><text>那是某個特定狀態，不是轉移。</text></feedback></answer>
+    <generalfeedback><text>轉移是由事件觸發的有向移動：來源狀態 + 事件 [護衛條件] / 動作 -&gt; 目的狀態。它也可能回到同一狀態（自迴圈 self-loop）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是護衛條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>轉移上的<strong>護衛條件（guard，或條件）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個布林條件，當事件發生時必須為真，轉移才會觸發</text><feedback><text>正確——即使事件發生，只有在護衛條件成立時該轉移才會觸發。</text></feedback></answer>
+    <answer fraction="0"><text>轉移過程中產生的輸出</text><feedback><text>那是動作（action），不是護衛條件。</text></feedback></answer>
+    <answer fraction="0"><text>觸發該轉移的事件</text><feedback><text>事件是觸發因子；護衛條件是加在其上的額外條件。</text></feedback></answer>
+    <answer fraction="0"><text>轉移的目的狀態</text><feedback><text>目的狀態是轉移抵達的地方；護衛條件決定它是否觸發。</text></feedback></answer>
+    <generalfeedback><text>護衛條件是轉移上的布林條件。當事件發生時，只有在護衛條件評估為真時該轉移才會觸發；否則就套用另一個轉移（或沒有轉移）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是動作</text></name>
+    <questiontext format="html"><text><![CDATA[<p>狀態機中的<strong>動作（action，或輸出）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>當轉移觸發時（或在某狀態中）產生的效果或輸出</text><feedback><text>正確——動作是狀態機發出的可觀察輸出。</text></feedback></answer>
+    <answer fraction="0"><text>轉移要觸發所必須成立的條件</text><feedback><text>那是護衛條件，不是動作。</text></feedback></answer>
+    <answer fraction="0"><text>系統停留其中的模式</text><feedback><text>那是狀態。</text></feedback></answer>
+    <answer fraction="0"><text>觸發改變的刺激</text><feedback><text>那是事件；動作是產生的效果。</text></feedback></answer>
+    <generalfeedback><text>動作是與轉移相關聯的輸出或效果（例如「吐出票券」），或與停留在某狀態相關。它是測試者用來確認預期行為的觀察對象。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是初始狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>狀態機的<strong>初始狀態（initial state）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在處理任何事件之前，狀態機所處的狀態</text><feedback><text>正確——它是起始狀態，通常以一個實心圓點連出的箭頭標示。</text></feedback></answer>
+    <answer fraction="0"><text>狀態機停止時所處的狀態</text><feedback><text>那是最終狀態，不是初始狀態。</text></feedback></answer>
+    <answer fraction="0"><text>任何具有自迴圈的狀態</text><feedback><text>自迴圈與哪一個是起始狀態無關。</text></feedback></answer>
+    <answer fraction="0"><text>擁有最多外向轉移的狀態</text><feedback><text>轉移數量並不決定初始狀態。</text></feedback></answer>
+    <generalfeedback><text>初始（起始）狀態是狀態機在處理任何事件前所在之處。在圖中通常以一個從實心圓連入的箭頭標示。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>狀態涵蓋的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>狀態涵蓋（state coverage）</strong>要求測試套件做到什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個狀態至少被造訪一次</text><feedback><text>正確——當每個狀態都被某個測試進入時，就達成狀態涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>每個有效轉移至少被執行一次</text><feedback><text>那是轉移涵蓋，是更強的準則。</text></feedback></answer>
+    <answer fraction="0"><text>每一對連續轉移都被執行</text><feedback><text>那是 1-switch 涵蓋，更強。</text></feedback></answer>
+    <answer fraction="0"><text>每個事件都在每個狀態中被送出</text><feedback><text>那會包含無效組合；狀態涵蓋只要求造訪每個狀態。</text></feedback></answer>
+    <generalfeedback><text>狀態涵蓋是最弱的狀態式準則：它只要求每個狀態被造訪。即使沒有執行每一個轉移，也可能達成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>轉移涵蓋的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>轉移涵蓋（transition coverage，又稱 0-switch 涵蓋）</strong>要求什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個有效轉移至少被執行一次</text><feedback><text>正確——轉移涵蓋執行每一個單一有效轉移；這就是 0-switch 涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>每個狀態至少被造訪一次</text><feedback><text>那只是狀態涵蓋，較弱。</text></feedback></answer>
+    <answer fraction="0"><text>每一對有效的連續轉移都被執行</text><feedback><text>那是 1-switch 涵蓋，比 0-switch 更強。</text></feedback></answer>
+    <answer fraction="0"><text>每個護衛條件都被評估為真與假</text><feedback><text>護衛條件取值涵蓋是另一種以條件為基礎的準則。</text></feedback></answer>
+    <generalfeedback><text>轉移（0-switch）涵蓋要求每個有效轉移至少被執行一次。由於執行一個轉移就代表造訪了它的來源與目的狀態，因此轉移涵蓋包含（subsume）狀態涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是潛行路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在狀態轉移測試中，<strong>潛行路徑（sneak path）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在規格說明不應接受該事件的狀態下卻接受了它——一條不該存在、額外的轉移</text><feedback><text>正確——潛行路徑是實作錯誤地允許的未規定轉移。</text></feedback></answer>
+    <answer fraction="0"><text>一個測試恰好漏掉的有效轉移</text><feedback><text>那只是未被涵蓋的行為，不是潛行路徑；潛行路徑是額外、不該有的轉移。</text></feedback></answer>
+    <answer fraction="0"><text>造訪每個狀態的最短路徑</text><feedback><text>那描述的是涵蓋巡訪，不是潛行路徑。</text></feedback></answer>
+    <answer fraction="0"><text>護衛條件永遠為假的轉移</text><feedback><text>永遠為假的護衛條件會產生死轉移，不是潛行路徑。</text></feedback></answer>
+    <generalfeedback><text>潛行路徑是不該有的轉移：在規格未定義該事件轉移的狀態下，實作卻對該事件有所反應。負向測試（發送未定義事件）用來偵測潛行路徑。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>0-switch 等於轉移涵蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「0-switch 涵蓋」是轉移涵蓋的另一個名稱——至少執行每一個單一有效轉移一次。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——0-switch 指單一轉移，也就是轉移涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>0-switch 涵蓋正是轉移涵蓋；1-switch 才涵蓋成對的轉移。</text></feedback></answer>
+    <generalfeedback><text>在 Chow 的 switch 術語中，0-switch 涵蓋長度為 1 的轉移序列（轉移涵蓋），1-switch 涵蓋兩個連續轉移的序列，依此類推。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>旋轉柵門：Locked 收到 coin</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個旋轉柵門有兩個狀態與兩個事件：</p><pre>
+             coin       push
+Locked       Unlocked   Locked
+Unlocked     Unlocked   Locked
+</pre><p>若柵門處於 <code>Locked</code> 且發生 <code>coin</code> 事件，下一個狀態為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unlocked</text><feedback><text>正確——Locked 列、coin 欄的格子是 Unlocked。</text></feedback></answer>
+    <answer fraction="0"><text>Locked</text><feedback><text>Locked 收到 push 時才維持 Locked，而不是 coin。</text></feedback></answer>
+    <answer fraction="0"><text>該事件在 Locked 中無效</text><feedback><text>coin 在 Locked 中有定義；該格子是 Unlocked。</text></feedback></answer>
+    <answer fraction="0"><text>狀態機沒有下一個狀態</text><feedback><text>表格對此格定義了下一個狀態（Unlocked）。</text></feedback></answer>
+    <generalfeedback><text>查表：Locked 列、coin 欄，下一個狀態是 Unlocked。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>旋轉柵門：Unlocked 收到 push</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用同一個旋轉柵門：</p><pre>
+             coin       push
+Locked       Unlocked   Locked
+Unlocked     Unlocked   Locked
+</pre><p>若柵門處於 <code>Unlocked</code> 且發生 <code>push</code> 事件，下一個狀態為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Locked</text><feedback><text>正確——Unlocked 列、push 欄的格子是 Locked。</text></feedback></answer>
+    <answer fraction="0"><text>Unlocked</text><feedback><text>Unlocked 收到 coin 時才維持 Unlocked，而不是 push。</text></feedback></answer>
+    <answer fraction="0"><text>該事件在 Unlocked 中無效</text><feedback><text>push 在 Unlocked 中有定義，且導向 Locked。</text></feedback></answer>
+    <answer fraction="0"><text>它只會回到初始狀態標記</text><feedback><text>下一個狀態是 Locked，這裡它恰好也是初始狀態，但要直接由格子讀出。</text></feedback></answer>
+    <generalfeedback><text>查表：Unlocked 列、push 欄，下一個狀態是 Locked。這模擬了一個人推過柵門並使其重新上鎖。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>圖與表的格子</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一個以「列 = 狀態、欄 = 事件」排列的狀態轉移<strong>表</strong>中，單一格子存放什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在該狀態發生該事件時所抵達的下一個狀態（若未定義則為「-」）</text><feedback><text>正確——每個格子是 (列狀態, 欄事件) 的目的狀態，未定義轉移時填破折號。</text></feedback></answer>
+    <answer fraction="0"><text>該事件已被測試的次數</text><feedback><text>格子存放下一個狀態，不是測試次數。</text></feedback></answer>
+    <answer fraction="0"><text>只有護衛條件運算式</text><feedback><text>格子給的是結果的下一個狀態；護衛條件可能限定它，但格子的內容是目的狀態。</text></feedback></answer>
+    <answer fraction="0"><text>該狀態是否為初始狀態</text><feedback><text>初始狀態標記是分開的；格子記錄的是某事件的下一個狀態。</text></feedback></answer>
+    <generalfeedback><text>狀態轉移表以狀態為列、事件為欄；每個格子指出該 (狀態, 事件) 對的下一個狀態，未定義時用「-」（或空白）。圖則以箭頭表達相同資訊。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何時適合狀態式測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>狀態轉移測試<strong>最</strong>適合哪一種系統？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>由事件驅動、模式豐富、反應取決於當前狀態的系統</text><feedback><text>正確——當行為取決於歷史／模式時（如通訊協定、UI、控制器），狀態式測試最能發揮。</text></feedback></answer>
+    <answer fraction="0"><text>純粹無狀態、輸出只取決於當前輸入的數學函式</text><feedback><text>無狀態函式沒有模式可建模；等價／邊界值測試更適合它們。</text></feedback></answer>
+    <answer fraction="0"><text>完全沒有輸入的系統</text><feedback><text>狀態機由事件／輸入驅動；毫無輸入的系統沒有可建模為轉移的東西。</text></feedback></answer>
+    <answer fraction="0"><text>只有以物件導向語言撰寫的系統</text><feedback><text>此技術與語言無關；它取決於系統是否由狀態驅動，而非語言。</text></feedback></answer>
+    <generalfeedback><text>狀態轉移測試適用於由事件驅動、模式豐富的系統——通訊協定、嵌入式控制器、UI 流程、自動販賣機——同一事件在不同狀態會產生不同結果。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>破折號格子的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在狀態轉移表中，格子裡的「-」（破折號，或空白）通常代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該事件在該狀態未定義（無效）——沒有規定的轉移</text><feedback><text>正確——破折號標示該 (狀態, 事件) 對是未定義／無效的轉移。</text></feedback></answer>
+    <answer fraction="0"><text>狀態機回到它的初始狀態</text><feedback><text>破折號表示沒有定義轉移，而不是跳回初始狀態。</text></feedback></answer>
+    <answer fraction="0"><text>該事件總是讓狀態機停留在同一狀態</text><feedback><text>自迴圈會在格子中寫出同一個狀態；破折號表示該事件在此未定義。</text></feedback></answer>
+    <answer fraction="0"><text>該轉移有一個目前為真的護衛條件</text><feedback><text>破折號表示沒有已定義的轉移，而不是護衛條件成立。</text></feedback></answer>
+    <generalfeedback><text>破折號（或空白）標示一個規格未定義轉移的 (狀態, 事件) 對——該事件在該狀態是無效的。發送它正是負向測試用來偵測潛行路徑的手段。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/State Transition Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>數門控制器的狀態數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下門控制器（格子給出下一個狀態，「-」= 未定義）：</p><pre>
+           open     close    lock     unlock
+Closed     Open     -        Locked   -
+Open       -        Closed   -        -
+Locked     -        -        -        Closed
+</pre><p>這個狀態機有幾個<strong>狀態</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——列有 Closed、Open、Locked，共三個狀態。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是事件（欄）的數量，不是狀態數。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 混淆了狀態與事件；只數列即可：3。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 是 3 列 x 4 欄（全部格子）；狀態數是列數：3。</text></feedback></answer>
+    <generalfeedback><text>每一列是一個狀態。列為 Closed、Open、Locked，所以有 3 個狀態。欄（open、close、lock、unlock）是事件，不是狀態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>數門控制器的有效轉移數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對同一個門控制器：</p><pre>
+           open     close    lock     unlock
+Closed     Open     -        Locked   -
+Open       -        Closed   -        -
+Locked     -        -        -        Closed
+</pre><p>它定義了幾個<strong>有效轉移</strong>（非破折號格子）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——Closed/open、Closed/lock、Open/close、Locked/unlock：四個非破折號格子。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 是所有格子的數量；只有非破折號格子才是有效轉移，共 4 個。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 是破折號（未定義）格子的數量，不是有效轉移數。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 是狀態數；有效轉移有 4 個。</text></feedback></answer>
+    <generalfeedback><text>只數有指明下一個狀態的格子：Closed--open--&gt;Open、Closed--lock--&gt;Locked、Open--close--&gt;Closed、Locked--unlock--&gt;Closed。共 4 個有效轉移。其餘 8 個格子是破折號（無效）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>達成狀態涵蓋但未達轉移涵蓋</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對這個門控制器，一個測試從 <code>Closed</code> 開始執行序列 <code>open</code>、<code>close</code>、<code>lock</code>。它造訪了 Closed、Open 與 Locked。以下哪個敘述為真？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它達成狀態涵蓋，但未達成轉移涵蓋——Locked--unlock--&gt;Closed 這個轉移從未被執行</text><feedback><text>正確——三個狀態都被造訪，但四個有效轉移中只執行了三個；unlock 被漏掉。</text></feedback></answer>
+    <answer fraction="0"><text>它同時達成狀態涵蓋與轉移涵蓋</text><feedback><text>它執行了 open、close、lock——但沒有 unlock，所以未達成轉移涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>它達成轉移涵蓋，但未達成狀態涵蓋</text><feedback><text>這裡它涵蓋的轉移不會多於狀態；unlock 被漏掉，因此轉移涵蓋失敗，而所有狀態都被造訪。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都未達成</text><feedback><text>三個狀態都被造訪，因此狀態涵蓋已達成。</text></feedback></answer>
+    <generalfeedback><text>此序列進入 Closed、Open 與 Locked（狀態涵蓋），使用了 open、close、lock 三個轉移。第四個有效轉移 Locked--unlock--&gt;Closed 從未被執行，因此未達成轉移涵蓋。這顯示狀態涵蓋不蘊含轉移涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>0-switch 與 1-switch 的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>0-switch</strong> 與 <strong>1-switch</strong> 涵蓋的差別是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0-switch 涵蓋每一個單一有效轉移；1-switch 涵蓋每一對有效的連續轉移</text><feedback><text>正確——0-switch = 長度 1 的序列，1-switch = 長度 2 的序列。</text></feedback></answer>
+    <answer fraction="0"><text>0-switch 涵蓋每個狀態；1-switch 涵蓋每個轉移</text><feedback><text>0-switch 是轉移涵蓋，不是狀態涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>0-switch 涵蓋成對的轉移；1-switch 涵蓋單一轉移</text><feedback><text>這把定義顛倒了。</text></feedback></answer>
+    <answer fraction="0"><text>它們是同一個準則的兩個名稱</text><feedback><text>它們不同：1-switch 要求連續的轉移對，0-switch 則不要求。</text></feedback></answer>
+    <generalfeedback><text>在 Chow 的術語中，0-switch 涵蓋執行一個轉移的序列（轉移涵蓋），1-switch 涵蓋每一對連續轉移的有效序列。一般而言，n-switch 涵蓋長度為 n+1 的轉移序列。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>找出一個未定義轉移</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對這個門控制器：</p><pre>
+           open     close    lock     unlock
+Closed     Open     -        Locked   -
+Open       -        Closed   -        -
+Locked     -        -        -        Closed
+</pre><p>以下何者依表格是一個<strong>未定義（無效）的轉移</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在狀態 <code>Open</code> 發送 <code>lock</code></text><feedback><text>正確——Open 列、lock 欄是破折號，因此此轉移未定義。</text></feedback></answer>
+    <answer fraction="0"><text>在狀態 <code>Closed</code> 發送 <code>open</code></text><feedback><text>該格子指向 Open，因此是一個有效、已定義的轉移。</text></feedback></answer>
+    <answer fraction="0"><text>在狀態 <code>Open</code> 發送 <code>close</code></text><feedback><text>該格子指向 Closed，因此是一個有效轉移。</text></feedback></answer>
+    <answer fraction="0"><text>在狀態 <code>Locked</code> 發送 <code>unlock</code></text><feedback><text>該格子指向 Closed，因此是一個有效轉移。</text></feedback></answer>
+    <generalfeedback><text>找破折號。Open 列在 open、lock、unlock 下都是破折號，所以「在 Open 發送 lock」未定義。其他三個選項各自指向一個下一個狀態，都是有效轉移。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>達成轉移涵蓋的序列</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對這個門控制器（有效轉移：Closed--open--&gt;Open、Open--close--&gt;Closed、Closed--lock--&gt;Locked、Locked--unlock--&gt;Closed），從 <code>Closed</code> 開始，哪一個序列能執行<strong>全部四個</strong>有效轉移？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>open、close、lock、unlock</text><feedback><text>正確——Closed-&gt;Open-&gt;Closed-&gt;Locked-&gt;Closed 使用了全部四個有效轉移。</text></feedback></answer>
+    <answer fraction="0"><text>open、close、open、close</text><feedback><text>這重複了 open 與 close，且從未執行 lock 或 unlock。</text></feedback></answer>
+    <answer fraction="0"><text>lock、unlock、lock、unlock</text><feedback><text>這從未執行 open 或 close，因此漏掉兩個轉移。</text></feedback></answer>
+    <answer fraction="0"><text>open、lock、unlock、close</text><feedback><text>open 之後狀態機在 Open，而 lock 在 Open 中未定義，所以此序列無效。</text></feedback></answer>
+    <generalfeedback><text>從 Closed 追蹤：open (-&gt;Open)、close (-&gt;Closed)、lock (-&gt;Locked)、unlock (-&gt;Closed)。這一個序列恰好各執行每個有效轉移一次，達成 0-switch（轉移）涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>數旋轉柵門的有效轉移</text></name>
+    <questiontext format="html"><text><![CDATA[<p>旋轉柵門表格的所有格子都有定義：</p><pre>
+             coin       push
+Locked       Unlocked   Locked
+Unlocked     Unlocked   Locked
+</pre><p>它有幾個有效轉移（自迴圈也算）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——四個格子都有定義，包含兩個自迴圈（Locked/push 與 Unlocked/coin）。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 只算了會改變狀態的轉移；自迴圈也是轉移，合計 4。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>四個格子都指明下一個狀態；數目是 4，不是 3。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 會是 1-switch 的成對數，不是單一轉移數（4）。</text></feedback></answer>
+    <generalfeedback><text>每個已定義格子是一個轉移：Locked--coin--&gt;Unlocked、Locked--push--&gt;Locked、Unlocked--coin--&gt;Unlocked、Unlocked--push--&gt;Locked。共 4 個，而自迴圈（來源與目的相同）仍算作轉移。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>下一個狀態：Closed 收到 open</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對這個門控制器：</p><pre>
+           open     close    lock     unlock
+Closed     Open     -        Locked   -
+Open       -        Closed   -        -
+Locked     -        -        -        Closed
+</pre><p>從 <code>Closed</code> 開始，發生 <code>open</code> 事件。下一個狀態為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Open</text><feedback><text>正確——Closed 列、open 欄的格子是 Open。</text></feedback></answer>
+    <answer fraction="0"><text>Locked</text><feedback><text>Closed 收到 lock 時才前往 Locked，而不是 open。</text></feedback></answer>
+    <answer fraction="0"><text>Closed</text><feedback><text>open 不會讓 Closed 維持不變；它移動到 Open。</text></feedback></answer>
+    <answer fraction="0"><text>未定義</text><feedback><text>Closed/open 格子指向 Open，因此有定義。</text></feedback></answer>
+    <generalfeedback><text>查 Closed 列、open 欄：下一個狀態是 Open。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>下一個狀態：Open 收到 lock</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對同一個門控制器，狀態機在 <code>Open</code> 且發生 <code>lock</code> 事件。依表格會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沒有定義任何行為——lock 在 Open 中無效（該格子是破折號）</text><feedback><text>正確——Open 列、lock 欄是破折號，因此此轉移未定義。</text></feedback></answer>
+    <answer fraction="0"><text>狀態機移動到 Locked</text><feedback><text>lock 只有從 Closed 才會導向 Locked；在 Open 中它未定義。</text></feedback></answer>
+    <answer fraction="0"><text>狀態機移動到 Closed</text><feedback><text>從 Open，close 才會導向 Closed；lock 在 Open 中未定義。</text></feedback></answer>
+    <answer fraction="0"><text>狀態機以自迴圈停留在 Open</text><feedback><text>破折號表示未定義，而非自迴圈；表格並未規定停留在 Open。</text></feedback></answer>
+    <generalfeedback><text>Open 列在 lock 下是破折號，因此規格未定義任何轉移。在 Open 發送 lock 正是負向測試要檢查的那種無效事件（正確的實作應拒絕它或維持狀態不變，且沒有潛行路徑）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>涵蓋所需執行的轉移數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>旋轉柵門有 2 個狀態與 4 個有效轉移。要達成<strong>轉移（0-switch）涵蓋</strong>，至少須執行幾個有效轉移？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4——每一個有效轉移</text><feedback><text>正確——轉移涵蓋要求執行全部 4 個有效轉移。</text></feedback></answer>
+    <answer fraction="0"><text>2——每個狀態一個</text><feedback><text>造訪每個狀態（2）只是狀態涵蓋；轉移涵蓋需要全部 4 個轉移。</text></feedback></answer>
+    <answer fraction="0"><text>8——每一對轉移</text><feedback><text>8 是 1-switch 的數目；0-switch 涵蓋需要 4 個單一轉移。</text></feedback></answer>
+    <answer fraction="0"><text>1——無論轉移如何，單一路徑就足夠</text><feedback><text>單一路徑可能太短而漏掉轉移；涵蓋要求全部 4 個都被執行。</text></feedback></answer>
+    <generalfeedback><text>轉移（0-switch）涵蓋要求每個有效轉移至少被執行一次。旋轉柵門有 4 個有效轉移，所以全部 4 個都須被執行（它們可以編織進一個較長的測試中，但 4 個都必須出現）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何者包含何者</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列狀態式準則之間，哪一個包含（subsumption）關係成立？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移涵蓋包含狀態涵蓋（達成所有轉移就保證所有狀態都被造訪）</text><feedback><text>正確——每個轉移都有來源與目的狀態，所以涵蓋所有轉移就會造訪所有可達狀態。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋包含轉移涵蓋</text><feedback><text>反過來才對；造訪所有狀態仍可能漏掉轉移。</text></feedback></answer>
+    <answer fraction="0"><text>這兩個準則等價</text><feedback><text>它們不等價；狀態涵蓋嚴格較弱。</text></feedback></answer>
+    <answer fraction="0"><text>兩者互不蘊含</text><feedback><text>它們有關係：轉移涵蓋蘊含狀態涵蓋。</text></feedback></answer>
+    <generalfeedback><text>因為執行一個轉移必然進入它的來源與目的狀態，所以達成轉移（0-switch）涵蓋的套件也達成狀態涵蓋。反向不成立：門的例子造訪了所有狀態卻漏掉 unlock 轉移。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>執行單一轉移的準則名稱</text></name>
+    <questiontext format="html"><text><![CDATA[<p>至少執行每一個單一有效轉移一次，且不要求任何連續對，這是哪一個具名準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0-switch（轉移）涵蓋</text><feedback><text>正確——單一轉移對應到 0-switch 涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>1-switch 涵蓋</text><feedback><text>1-switch 要求連續轉移對，較強。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋</text><feedback><text>狀態涵蓋只要求造訪狀態，不要求執行轉移。</text></feedback></answer>
+    <answer fraction="0"><text>2-switch 涵蓋</text><feedback><text>2-switch 涵蓋三個轉移的序列，更強。</text></feedback></answer>
+    <generalfeedback><text>單一轉移 = 0-switch = 轉移涵蓋。若要求連續對就是 1-switch，三連則是 2-switch。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>1-switch 的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>1-switch 涵蓋</strong>究竟要求什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每一個由兩個連續轉移構成的有效序列至少被執行一次</text><feedback><text>正確——1-switch 涵蓋所有長度為 2 的有效轉移序列。</text></feedback></answer>
+    <answer fraction="0"><text>每一個單一轉移被執行一次</text><feedback><text>那是 0-switch 涵蓋；1-switch 加上了成對的要求。</text></feedback></answer>
+    <answer fraction="0"><text>每個狀態都從至少一個其他狀態被進入</text><feedback><text>那較接近狀態涵蓋；1-switch 關乎的是轉移對。</text></feedback></answer>
+    <answer fraction="0"><text>每個護衛條件都被執行為真與假</text><feedback><text>那是以條件為基礎的概念，不是 1-switch 的定義。</text></feedback></answer>
+    <generalfeedback><text>1-switch 涵蓋要求每一對連續轉移（長度為 2 的轉移序列）都被執行。它能捕捉取決於兩個轉移順序的錯誤，而這是 0-switch 可能漏掉的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>單一路徑涵蓋所有轉移</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個狀態機有 4 個有效轉移。測試者找到一條連通的行走，能一個接一個地執行全部 4 個轉移。這條行走包含幾個轉移<strong>步驟</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4——每個有效轉移是一步，各執行一次</text><feedback><text>正確——執行每個轉移一次的行走有 4 步。</text></feedback></answer>
+    <answer fraction="0"><text>3——比轉移數少一</text><feedback><text>執行 4 個轉移的行走有 4 步，不是 3。</text></feedback></answer>
+    <answer fraction="0"><text>5——比轉移數多一</text><feedback><text>每個轉移是一步；執行 4 個轉移就是 4 步。</text></feedback></answer>
+    <answer fraction="0"><text>8——因為牽涉到成對</text><feedback><text>成對與 1-switch 有關；這裡只把 4 個轉移各執行一次，所以 4 步。</text></feedback></answer>
+    <generalfeedback><text>若一條行走能連續串起全部 4 個轉移，它恰有 4 個轉移步驟（沿途造訪 5 個狀態，含重複）。只有當這些轉移首尾相連時才可能。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>狀態涵蓋漏掉什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某套件達成了狀態機的狀態涵蓋，但未達成轉移涵蓋。它必然漏掉了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>至少有一個有效轉移從未被執行，即使它的來源與目的狀態都被其他轉移造訪過</text><feedback><text>正確——某個有效轉移被略過，而其端點仍以其他方式被抵達。</text></feedback></answer>
+    <answer fraction="0"><text>至少有一個狀態從未被造訪</text><feedback><text>若有狀態未被造訪，狀態涵蓋就會失敗；此處狀態涵蓋成立。</text></feedback></answer>
+    <answer fraction="0"><text>至少有一個狀態機中不存在的事件</text><feedback><text>涵蓋關乎已定義的轉移，而非不存在的事件。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都沒漏——這兩個準則相同</text><feedback><text>它們不同；轉移涵蓋嚴格較強，所以有東西被漏掉。</text></feedback></answer>
+    <generalfeedback><text>達成狀態涵蓋卻未達轉移涵蓋，代表每個狀態都被抵達，但某個有效轉移從未被執行（其端點透過其他轉移被造訪）。門的例子——透過 lock 造訪 Locked，卻從未執行 unlock——正是這種情況。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/State Transition Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>數 1-switch 對：旋轉柵門</text></name>
+    <questiontext format="html"><text><![CDATA[<p>旋轉柵門有以下 4 個有效轉移：</p><pre>
+t1: Locked   --coin--> Unlocked
+t2: Locked   --push--> Locked
+t3: Unlocked --coin--> Unlocked
+t4: Unlocked --push--> Locked
+</pre><p>它有幾個有效的 <strong>1-switch</strong> 序列（連續轉移的有序對）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>正確——每個狀態有 2 個轉入與 2 個轉出，得 2x2 + 2x2 = 8。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是單一轉移（0-switch）的數目，不是成對數。</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 是 4x4（所有有序對）；只有前者結束於後者起點的對才算，得 8。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>逐一列出可接合的對：共 8 個，不是 6。</text></feedback></answer>
+    <generalfeedback><text>當 target(ti) = source(tj) 時，(ti, tj) 才是有效的 1-switch 對。每個中間狀態的數目 =（轉入數）x（轉出數）。Locked：2 轉入 (t2,t4) x 2 轉出 (t1,t2) = 4；Unlocked：2 轉入 (t1,t3) x 2 轉出 (t3,t4) = 4。合計 4 + 4 = 8。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>數 1-switch 對：分支狀態機</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮這個狀態機（初始狀態 A）：</p><pre>
+       p        q
+A      B        C
+B      C        -
+C      A        -
+</pre><p>它的有效轉移為 A--p--&gt;B、A--q--&gt;C、B--p--&gt;C、C--p--&gt;A。它有幾個有效的 <strong>1-switch</strong> 序列？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——(A：1 轉入 x 2 轉出) + (B：1 轉入 x 1 轉出) + (C：2 轉入 x 1 轉出) = 2 + 1 + 2 = 5。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是單一轉移的數目；可接合的對有 5 個。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>逐一列出：(A-p,B-p)、(A-q,C-p)、(B-p,C-p)、(C-p,A-p)、(C-p,A-q) = 5，不是 6。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 少算了；C 由兩個轉移抵達，各自都可接上 C--p--&gt;A，多出兩個對。</text></feedback></answer>
+    <generalfeedback><text>對每個狀態，對數 =（轉入數）x（轉出數）。A：轉入 {C--p--&gt;A}=1，轉出 {A-p,A-q}=2 -&gt; 2。B：轉入 {A--p--&gt;B}=1，轉出 {B--p--&gt;C}=1 -&gt; 1。C：轉入 {A--q--&gt;C, B--p--&gt;C}=2，轉出 {C--p--&gt;A}=1 -&gt; 2。合計 2+1+2 = 5。明確列出：(A-p,B-p)、(A-q,C-p)、(B-p,C-p)、(C-p,A-p)、(C-p,A-q)。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>數 1-switch 對：環狀</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個狀態機循環經過三個狀態：</p><pre>
+t1: S1 --x--> S2
+t2: S2 --y--> S3
+t3: S3 --z--> S1
+</pre><p>它有幾個有效的 <strong>1-switch</strong> 序列？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——每個狀態恰有 1 轉入與 1 轉出：(t1,t2)、(t2,t3)、(t3,t1) = 3。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 會是所有有序對；只有 3 個能首尾接合。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 是 3x3；大多數對無法接上，只剩 3 個有效。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>環會閉合（t3 之後接 t1），因此有 3 個可接合對，不是 2。</text></feedback></answer>
+    <generalfeedback><text>每個狀態有 1 轉入與 1 轉出，所以每個狀態的對數 = 1x1，合計 3：(t1,t2)、(t2,t3)，以及 (t3,t1)，因為環會回到 S1。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>找出潛行路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某媒體播放器規格定義：Stopped--play--&gt;Playing、Playing--stop--&gt;Stopped、Playing--pause--&gt;Paused、Paused--play--&gt;Playing。測試時，在 <code>Paused</code> 發送 <code>stop</code> 竟使播放器跳到 Stopped，儘管規格未定義此轉移。這發現了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一條潛行路徑——在規格未定義轉移的狀態下卻接受了該事件</text><feedback><text>正確——stop 在 Paused 中未定義，實作卻對它有所反應：一條潛行路徑。</text></feedback></answer>
+    <answer fraction="0"><text>規格遺漏的一個轉移</text><feedback><text>問題在於實作多出一個未規定的轉移，而非規格遺漏——那就是潛行路徑。</text></feedback></answer>
+    <answer fraction="0"><text>某個護衛條件評估錯誤</text><feedback><text>此處沒有護衛條件；stop 只是在 Paused 未定義，卻仍觸發。</text></feedback></answer>
+    <answer fraction="0"><text>一個 1-switch 涵蓋缺口</text><feedback><text>這是多出的轉移，不是漏掉的對；它是潛行路徑，由負向測試偵測。</text></feedback></answer>
+    <generalfeedback><text>規格沒有 Paused--stop--&gt; 轉移，所以正確行為是在 Paused 忽略或拒絕 stop。實作卻轉移到 Stopped——一個不該有的多出轉移，即潛行路徑，而負向測試（發送未定義事件）正是為了揭露它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 0-switch 漏掉某錯誤</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某錯誤只在轉移 B <strong>緊接</strong>在轉移 A 之後被執行時才出現（A-然後-B 這一對會破壞狀態），但 A 與 B 各自單獨執行都正常。要可靠地逼出此錯誤需要哪一個涵蓋層級，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1-switch 涵蓋——它執行連續的轉移對，因此保證會測到 A-然後-B 的序列</text><feedback><text>正確——此錯誤取決於某個特定的對，而 1-switch（長度 2 的序列）會強制執行它。</text></feedback></answer>
+    <answer fraction="0"><text>狀態涵蓋——造訪兩個端點狀態就會觸發它</text><feedback><text>造訪狀態不會強制 A-然後-B 這個特定順序；錯誤仍可能被漏掉。</text></feedback></answer>
+    <answer fraction="0"><text>0-switch 涵蓋——各執行 A 與 B 一次就足夠</text><feedback><text>0-switch 可能在不同測試中分別執行 A 與 B，從未相鄰，因此可能漏掉這個成對錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>沒有任何涵蓋層級能找到它</text><feedback><text>1-switch 正是為了捕捉這類與順序相關的成對錯誤而設計。</text></feedback></answer>
+    <generalfeedback><text>0-switch 涵蓋只要求每個轉移各一次；A 與 B 可能在不同測試中執行、從不相鄰。此錯誤需要有序對 A-然後-B，而這正是 1-switch 涵蓋所要求的——涵蓋每一個有效的長度 2 轉移序列。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>抵達 Blocked 的序列（護衛條件）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個登入狀態機（初始狀態 LoggedOut，嘗試計數器從 0 起算）：</p><pre>
+LoggedOut --submit[valid]--> LoggedIn
+LoggedOut --submit[invalid & attempts<2]--> LoggedOut  (attempts++)
+LoggedOut --submit[invalid & attempts==2]--> Blocked
+LoggedIn  --logout--> LoggedOut
+Blocked   --adminReset--> LoggedOut
+</pre><p>哪一個事件序列能抵達 <code>Blocked</code>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>submit[invalid]、submit[invalid]、submit[invalid]——三次無效嘗試</text><feedback><text>正確——attempts 由 0-&gt;1（停留）、1-&gt;2（停留），第三次無效 submit 時 attempts==2 便前往 Blocked。</text></feedback></answer>
+    <answer fraction="0"><text>submit[invalid]、submit[invalid]——兩次無效嘗試</text><feedback><text>兩次無效 submit 後 attempts==2，但狀態機仍在 LoggedOut；還需第三次無效 submit 才會抵達 Blocked。</text></feedback></answer>
+    <answer fraction="0"><text>submit[valid]、logout、submit[invalid]</text><feedback><text>submit[valid] 前往 LoggedIn，logout 回到 LoggedOut 且 attempts 仍為 0，因此一次無效 submit 只會把計數增為 1——不是 Blocked。</text></feedback></answer>
+    <answer fraction="0"><text>submit[invalid]、adminReset</text><feedback><text>adminReset 只在 Blocked 有定義，而狀態機尚未抵達；此序列無效。</text></feedback></answer>
+    <generalfeedback><text>依 attempts 上的護衛條件追蹤：第一次無效 submit（attempts 0-&gt;1，停留 LoggedOut）、第二次無效 submit（attempts 1-&gt;2，停留 LoggedOut）、第三次無效 submit（此時 attempts==2，因此護衛條件 [invalid &amp; attempts==2] 觸發）-&gt; Blocked。需要三次無效嘗試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對未定義事件的負向測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對此登入狀態機，<code>logout</code> 只在 <code>LoggedIn</code> 有定義。測試者在 <code>LoggedOut</code> 發送 <code>logout</code>。這個<strong>負向測試</strong>的正確預期結果為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>事件被拒絕／忽略：狀態機停留在 LoggedOut（不改變狀態），可能伴隨錯誤</text><feedback><text>正確——未定義事件應維持狀態不變（或引發錯誤），絕不應悄悄轉移。</text></feedback></answer>
+    <answer fraction="0"><text>狀態機轉移到 LoggedIn</text><feedback><text>那會是潛行路徑；logout 在 LoggedOut 未定義，絕不應造成轉移。</text></feedback></answer>
+    <answer fraction="0"><text>狀態機轉移到 Blocked</text><feedback><text>Blocked 只能透過護衛條件下的失敗 submit 抵達；logout 沒有這種效果。</text></feedback></answer>
+    <answer fraction="0"><text>嘗試計數器歸零且狀態改變</text><feedback><text>logout 在 LoggedOut 未定義；正確行為是不改變狀態，而不是計數歸零並轉移。</text></feedback></answer>
+    <generalfeedback><text>負向測試發送在當前狀態未定義的事件，以檢查潛行路徑。由於 logout 在 LoggedOut 未定義，正確的實作會忽略或拒絕它並停留在 LoggedOut——任何由此產生的轉移都會是潛行路徑。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>數有效轉移：分支狀態機</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對這個表格（「-」= 未定義）：</p><pre>
+       p        q
+A      B        C
+B      C        -
+C      A        -
+</pre><p>此狀態機有幾個有效轉移？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——A/p、A/q、B/p、C/p 有定義；B 與 C 的兩個 q 格是破折號。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 數了全部格子；其中兩個（B/q、C/q）是破折號，只剩 4 個有效轉移。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 是狀態數；有效轉移有 4 個。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是此狀態機的 1-switch 對數，不是單一轉移數（4）。</text></feedback></answer>
+    <generalfeedback><text>數非破折號格子：A--p--&gt;B、A--q--&gt;C、B--p--&gt;C、C--p--&gt;A = 4 個有效轉移。B/q 與 C/q 格是破折號（未定義）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>n-switch 的一般定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Chow 的 switch 涵蓋階層中，<strong>n-switch</strong> 涵蓋要求什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每一個由 n+1 個連續轉移構成的有效序列都被執行</text><feedback><text>正確——n-switch 涵蓋長度 n+1 的轉移序列；0-switch 是單一轉移，1-switch 是成對。</text></feedback></answer>
+    <answer fraction="0"><text>每一個恰由 n 個轉移構成的有效序列都被執行</text><feedback><text>差一：n-switch 涵蓋 n+1 個轉移，所以 0-switch 是 1 個轉移。</text></feedback></answer>
+    <answer fraction="0"><text>每個狀態至少被造訪 n 次</text><feedback><text>switch 涵蓋計算的是轉移序列長度，而非重複的狀態造訪。</text></feedback></answer>
+    <answer fraction="0"><text>圖中每一條長度為 n 的路徑，不管是否有效</text><feedback><text>只有有效（已定義）的轉移序列才算，且長度為 n+1。</text></feedback></answer>
+    <generalfeedback><text>n-switch 涵蓋要求每一個由 n+1 個連續轉移構成的有效序列。因此 0-switch = 單一轉移，1-switch = 成對，2-switch = 三連。Chow 的 W 方法即以此為基礎來偵測狀態機中的錯誤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>涵蓋所需最少轉移：環狀</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個環狀狀態機有轉移 S1--x--&gt;S2、S2--y--&gt;S3、S3--z--&gt;S1。從 S1 開始，達成<strong>轉移涵蓋</strong>所需的最少轉移步驟數為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3——x、y、z 執行全部三個轉移並回到 S1</text><feedback><text>正確——三個轉移串成一條長度 3 的行走，全部涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>2——一條兩個轉移的行走就足夠</text><feedback><text>兩步只涵蓋三個轉移中的兩個；第三個被漏掉。</text></feedback></answer>
+    <answer fraction="0"><text>6——每個轉移須執行兩次</text><feedback><text>轉移涵蓋要求每個轉移各一次；3 步就足夠。</text></feedback></answer>
+    <answer fraction="0"><text>4——你必須回到起點兩次</text><feedback><text>x、y、z 已在 3 步內回到 S1 並涵蓋所有內容。</text></feedback></answer>
+    <generalfeedback><text>這些轉移連成 S1-&gt;S2-&gt;S3-&gt;S1，所以行走 x、y、z（3 步）各執行三個轉移一次並回到起點。這是轉移涵蓋的最小值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>有效與無效的 1-switch 對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對旋轉柵門的轉移 t1: Locked--coin--&gt;Unlocked、t2: Locked--push--&gt;Locked、t3: Unlocked--coin--&gt;Unlocked、t4: Unlocked--push--&gt;Locked，哪一個有序對是<strong>有效</strong>的 1-switch 序列？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(t1, t4)——t1 結束於 Unlocked，t4 起始於 Unlocked</text><feedback><text>正確——target(t1)=Unlocked=source(t4)，因此該對能有效接合。</text></feedback></answer>
+    <answer fraction="0"><text>(t1, t2)——t1 然後 t2</text><feedback><text>t1 結束於 Unlocked，但 t2 起始於 Locked，因此無法接合。</text></feedback></answer>
+    <answer fraction="0"><text>(t4, t3)——t4 然後 t3</text><feedback><text>t4 結束於 Locked，但 t3 起始於 Unlocked，因此此對無法接合。</text></feedback></answer>
+    <answer fraction="0"><text>(t2, t4)——t2 然後 t4</text><feedback><text>t2 結束於 Locked，但 t4 起始於 Unlocked，因此兩者無法連接。</text></feedback></answer>
+    <generalfeedback><text>只有當 target(ti) = source(tj) 時，1-switch 對 (ti, tj) 才有效。t1 結束於 Unlocked 且 t4 起始於 Unlocked，所以 (t1, t4) 有效。其他選項都在接合點斷開。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>護衛條件決定哪個轉移觸發</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從狀態 <code>LoggedOut</code>，此登入狀態機在同一事件 <code>submit</code> 上有兩個轉移：一個以 <code>[valid]</code> 為護衛條件通往 LoggedIn，另一個以 <code>[invalid & attempts<2]</code> 為護衛條件回到 LoggedOut。若 <code>submit</code> 以正確憑證發生，哪一個轉移會觸發？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>通往 LoggedIn 的 [valid] 轉移，因為它的護衛條件成立</text><feedback><text>正確——同一事件下，由成立的護衛條件挑選轉移。</text></feedback></answer>
+    <answer fraction="0"><text>兩個轉移同時觸發</text><feedback><text>此處護衛條件互斥；只有護衛條件成立的轉移會觸發。</text></feedback></answer>
+    <answer fraction="0"><text>[invalid] 轉移，因為它列在 LoggedOut</text><feedback><text>它的護衛條件要求無效憑證，此處為假，因此不會觸發。</text></feedback></answer>
+    <answer fraction="0"><text>都不會，因為兩個轉移共用同一事件</text><feedback><text>當護衛條件能區分時，共用事件是可以的；[valid] 護衛條件成立，因此該轉移觸發。</text></feedback></answer>
+    <generalfeedback><text>當數個轉移在同一事件上離開一個狀態時，由護衛條件挑選哪一個觸發。憑證正確時 [valid] 護衛條件為真而 [invalid ...] 護衛條件為假，因此狀態機轉移到 LoggedIn。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>1-switch 包含 0-switch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>達成 1-switch 涵蓋就自動達成 0-switch（轉移）涵蓋，因為每一對連續轉移都包含它的兩個成員轉移。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——涵蓋所有有效對代表每個轉移都出現在某一對中，因此所有單一轉移都被執行。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>1-switch 確實包含 0-switch：任何可達轉移都至少屬於一個被涵蓋的對，因此都被執行。</text></feedback></answer>
+    <generalfeedback><text>1-switch 涵蓋比 0-switch 強。執行每一個有效的長度 2 序列必然執行其構成的每個轉移，因此 1-switch 包含 0-switch（而後者又包含狀態涵蓋）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>轉移涵蓋長度：門</text></name>
+    <questiontext format="html"><text><![CDATA[<p>門控制器有 4 個有效轉移：Closed--open--&gt;Open、Open--close--&gt;Closed、Closed--lock--&gt;Locked、Locked--unlock--&gt;Closed。從 Closed 開始，達成轉移涵蓋的單一行走最少有幾個轉移步驟？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4——open、close、lock、unlock 串起全部四個並回到 Closed</text><feedback><text>正確——四個轉移都經過 Closed，所以一條 4 步行走就能全部涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>3——三步就足夠</text><feedback><text>三步只執行三個轉移；第四個被漏掉。</text></feedback></answer>
+    <answer fraction="0"><text>5——多出一步無可避免</text><feedback><text>由於每個轉移都經過 Closed，它們恰好串成 4 步，無需重複。</text></feedback></answer>
+    <answer fraction="0"><text>8——每個轉移都需重訪</text><feedback><text>轉移涵蓋要求每個轉移各一次；此處 4 步就足夠。</text></feedback></answer>
+    <generalfeedback><text>四個轉移都連到 Closed，所以行走 open (Closed-&gt;Open)、close (Open-&gt;Closed)、lock (Closed-&gt;Locked)、unlock (Locked-&gt;Closed) 將它們串成單一 4 步巡訪，各涵蓋每個轉移一次——即最小值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>數 1-switch 對：門</text></name>
+    <questiontext format="html"><text><![CDATA[<p>門控制器有以下 4 個有效轉移：</p><pre>
+d1: Closed --open--> Open
+d2: Closed --lock--> Locked
+d3: Open   --close--> Closed
+d4: Locked --unlock--> Closed
+</pre><p>它有幾個有效的 <strong>1-switch</strong> 序列（連續轉移的有序對）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>正確——Closed 有 2 轉入 x 2 轉出 = 4，Open 有 1 轉入 x 1 轉出 = 1，Locked 有 1 轉入 x 1 轉出 = 1；合計 6。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是單一轉移（0-switch）的數目，不是可接合的對。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 是旋轉柵門的對數；逐一列出此門的對得 6。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>Closed 由 d3 與 d4 進入、由 d1 與 d2 離開，單是經過 Closed 就有 4 個對；總數是 6，不是 5。</text></feedback></answer>
+    <generalfeedback><text>對每個狀態，對數 =（轉入數）x（轉出數）。Closed：轉入 {d3, d4}=2，轉出 {d1, d2}=2 -&gt; 4。Open：轉入 {d1}=1，轉出 {d3}=1 -&gt; 1。Locked：轉入 {d2}=1，轉出 {d4}=1 -&gt; 1。合計 4+1+1 = 6。明確列出：(d3,d1)、(d3,d2)、(d4,d1)、(d4,d2)、(d1,d3)、(d2,d4)。</text></generalfeedback>
+  </question>
+</quiz>

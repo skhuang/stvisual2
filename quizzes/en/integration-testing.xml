@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Integration Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What integration testing checks</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Integration testing</em> primarily aims to expose faults in:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The interactions and interfaces between modules that are combined together</text><feedback><text>Correct — integration testing targets the way separately-developed modules work together.</text></feedback></answer>
+    <answer fraction="0"><text>The internal logic of a single isolated function</text><feedback><text>That is unit testing; integration testing assumes units already work and focuses on their interactions.</text></feedback></answer>
+    <answer fraction="0"><text>The behaviour of the complete system against user requirements</text><feedback><text>That is system testing, which comes after integration.</text></feedback></answer>
+    <answer fraction="0"><text>The response time of the program under heavy load</text><feedback><text>That is performance/load testing, a non-functional concern, not integration.</text></feedback></answer>
+    <generalfeedback><text>Integration testing verifies that modules which have already passed unit testing cooperate correctly once combined — it hunts for interface and interaction faults, not for logic bugs inside a single unit.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Placing integration among the levels</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the usual ordering of test levels, integration testing sits:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>After unit testing and before system testing</text><feedback><text>Correct — units are tested first, then integrated and tested together, then the whole system.</text></feedback></answer>
+    <answer fraction="0"><text>Before unit testing</text><feedback><text>Units must pass unit testing first, otherwise interaction failures cannot be distinguished from unit bugs.</text></feedback></answer>
+    <answer fraction="0"><text>After system testing</text><feedback><text>System testing is the last of these three levels, not before integration.</text></feedback></answer>
+    <answer fraction="0"><text>It replaces unit testing entirely</text><feedback><text>Integration testing complements unit testing; it does not replace it.</text></feedback></answer>
+    <generalfeedback><text>The common progression is unit &#8594; integration &#8594; system. Integration testing builds on already unit-tested modules and precedes end-to-end system testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Big-bang integration</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Big-bang</em> integration means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All modules are combined at once and the whole assembly is tested together</text><feedback><text>Correct — big-bang integrates everything in a single step.</text></feedback></answer>
+    <answer fraction="0"><text>Modules are added one at a time from the top of the hierarchy downward</text><feedback><text>That is top-down incremental integration, not big-bang.</text></feedback></answer>
+    <answer fraction="0"><text>Modules are added one at a time from the leaves upward</text><feedback><text>That is bottom-up incremental integration, not big-bang.</text></feedback></answer>
+    <answer fraction="0"><text>Each module is tested completely in isolation before any are combined</text><feedback><text>That describes unit testing; big-bang is about combining all units simultaneously.</text></feedback></answer>
+    <generalfeedback><text>Big-bang (non-incremental) integration assembles all modules together and tests them as one. It needs little scaffolding but makes failures hard to localise.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Top-down integration</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Top-down</em> integration proceeds by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Integrating from the top of the call hierarchy downward, using stubs for not-yet-integrated lower modules</text><feedback><text>Correct — the top control modules come first; their callees are stubbed until integrated.</text></feedback></answer>
+    <answer fraction="0"><text>Integrating from the leaf modules upward, using drivers</text><feedback><text>That is bottom-up integration.</text></feedback></answer>
+    <answer fraction="0"><text>Combining all modules at once</text><feedback><text>That is big-bang integration.</text></feedback></answer>
+    <answer fraction="0"><text>Testing each module in isolation with no other modules present</text><feedback><text>That is unit testing, not an integration strategy.</text></feedback></answer>
+    <generalfeedback><text>Top-down integration starts at the top (main control) module and works down the hierarchy. Lower modules that are not yet integrated are represented by stubs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Bottom-up integration</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Bottom-up</em> integration proceeds by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Integrating from the leaf modules upward, using drivers to call the modules under test</text><feedback><text>Correct — low-level modules are integrated first, driven by temporary drivers.</text></feedback></answer>
+    <answer fraction="0"><text>Integrating from the top control module downward, using stubs</text><feedback><text>That is top-down integration.</text></feedback></answer>
+    <answer fraction="0"><text>Combining all modules simultaneously</text><feedback><text>That is big-bang integration.</text></feedback></answer>
+    <answer fraction="0"><text>Delivering the software to end users to find faults</text><feedback><text>That is closer to acceptance/field testing, not bottom-up integration.</text></feedback></answer>
+    <generalfeedback><text>Bottom-up integration starts with the lowest-level (leaf) modules and works up the hierarchy. Because their callers are not yet present, a driver is written to invoke each module under test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Sandwich integration</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Sandwich</em> (hybrid) integration is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Combining top-down and bottom-up, working from both ends toward the middle at the same time</text><feedback><text>Correct — the top layers use stubs while the bottom layers use drivers, meeting in the middle.</text></feedback></answer>
+    <answer fraction="0"><text>Combining all modules at once with no stubs or drivers</text><feedback><text>That is big-bang integration.</text></feedback></answer>
+    <answer fraction="0"><text>Strictly top-down with no bottom-up element</text><feedback><text>Pure top-down is not hybrid; sandwich mixes both directions.</text></feedback></answer>
+    <answer fraction="0"><text>Testing only the middle layer and ignoring the top and bottom</text><feedback><text>Sandwich integrates all layers; it does not ignore the ends.</text></feedback></answer>
+    <generalfeedback><text>Sandwich (hybrid) integration applies top-down to the upper layers (with stubs) and bottom-up to the lower layers (with drivers) simultaneously, converging on a target middle layer.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a stub is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>stub</em> in integration testing is a temporary piece of code that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stands in for a lower-level module that the module under test calls</text><feedback><text>Correct — a stub is called by the module under test and returns canned results.</text></feedback></answer>
+    <answer fraction="0"><text>Stands in for a higher-level module that calls the module under test</text><feedback><text>That is a driver, not a stub.</text></feedback></answer>
+    <answer fraction="0"><text>Is the final production version of a called module</text><feedback><text>A stub is a throwaway substitute, not the real module.</text></feedback></answer>
+    <answer fraction="0"><text>Is a defect deliberately injected into the code</text><feedback><text>That describes a mutant/seeded fault, not a stub.</text></feedback></answer>
+    <generalfeedback><text>A stub replaces a not-yet-integrated <strong>callee</strong>: the module under test calls it, and it returns simplified, pre-arranged values. Stubs are what top-down integration needs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a driver is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>driver</em> in integration testing is a temporary piece of code that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stands in for a higher-level module and calls the module under test</text><feedback><text>Correct — a driver is the caller: it invokes the module under test and passes inputs.</text></feedback></answer>
+    <answer fraction="0"><text>Stands in for a lower-level module that the module under test calls</text><feedback><text>That is a stub, not a driver.</text></feedback></answer>
+    <answer fraction="0"><text>Is the production main program shipped to users</text><feedback><text>A driver is a throwaway harness, not the real caller.</text></feedback></answer>
+    <answer fraction="0"><text>Is a tool that measures code coverage</text><feedback><text>That is a coverage tool, unrelated to a driver's role.</text></feedback></answer>
+    <generalfeedback><text>A driver replaces a not-yet-integrated <strong>caller</strong>: it calls the module under test, supplies inputs, and checks outputs. Drivers are what bottom-up integration needs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interface fault</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An <em>interface (integration) fault</em> is a defect that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Arises from an incorrect assumption or mismatch in how two modules communicate</text><feedback><text>Correct — e.g. wrong parameter type/order, a violated protocol, or inconsistent shared state.</text></feedback></answer>
+    <answer fraction="0"><text>Is a purely internal logic error confined to one module</text><feedback><text>That is a unit-level fault; interface faults are about communication between modules.</text></feedback></answer>
+    <answer fraction="0"><text>Is a spelling mistake in the user documentation</text><feedback><text>Documentation typos are not interface faults between software modules.</text></feedback></answer>
+    <answer fraction="0"><text>Is a hardware failure in the CPU</text><feedback><text>That is a hardware fault, not a software interface fault.</text></feedback></answer>
+    <generalfeedback><text>Interface faults surface when integrated modules interact: mismatched parameter lists, wrong call order, protocol/timing violations, or inconsistent assumptions about shared data. These are exactly what integration testing hunts for.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which strategy needs stubs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which integration strategy characteristically requires <strong>stubs</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Top-down</text><feedback><text>Correct — top-down integrates upper modules first, so their not-yet-integrated callees are stubbed.</text></feedback></answer>
+    <answer fraction="0"><text>Bottom-up</text><feedback><text>Bottom-up needs drivers, not stubs, because it starts from the leaves.</text></feedback></answer>
+    <answer fraction="0"><text>Big-bang</text><feedback><text>Big-bang assembles everything at once and typically avoids per-step stubs.</text></feedback></answer>
+    <answer fraction="0"><text>None of these ever uses stubs</text><feedback><text>Top-down relies on stubs, so this is wrong.</text></feedback></answer>
+    <generalfeedback><text>Top-down integrates from the top down; the lower modules a top module calls are not ready yet, so they are replaced by stubs. (Bottom-up pairs with drivers.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which strategy needs drivers</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which integration strategy characteristically requires <strong>drivers</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Bottom-up</text><feedback><text>Correct — bottom-up integrates leaf modules first, so a driver is written to call each one.</text></feedback></answer>
+    <answer fraction="0"><text>Top-down</text><feedback><text>Top-down needs stubs, not drivers, because it starts from the top control module.</text></feedback></answer>
+    <answer fraction="0"><text>Big-bang</text><feedback><text>Big-bang combines all modules at once and typically avoids per-step drivers.</text></feedback></answer>
+    <answer fraction="0"><text>None of these ever uses drivers</text><feedback><text>Bottom-up relies on drivers, so this is wrong.</text></feedback></answer>
+    <generalfeedback><text>Bottom-up integrates from the leaves up; the higher modules that would call them are not ready yet, so a driver is written to invoke each module under test. (Top-down pairs with stubs.)</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>A stub is called by the module under test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A stub is <em>called by</em> the module under test (the module under test invokes the stub).</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a stub is a substitute callee, so the module under test calls it.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A stub does sit below the module under test and is called by it; the caller-side substitute is the driver.</text></feedback></answer>
+    <generalfeedback><text>Direction matters: a stub is below and is called by the module under test (a substitute callee); a driver is above and calls the module under test (a substitute caller).</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>A driver is called by the module under test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A driver is <em>called by</em> the module under test (the module under test invokes the driver).</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>This reverses the direction — a driver calls the module under test, not the other way round.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — a driver is the caller: it calls the module under test. The thing the module under test calls is a stub.</text></feedback></answer>
+    <generalfeedback><text>A driver stands in for a higher-level caller, so it <em>calls</em> the module under test. Only a stub is called by the module under test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a stub substitutes for</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During integration, a stub substitutes for:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A not-yet-integrated lower-level module that the module under test calls</text><feedback><text>Correct — the stub takes the place of an absent callee.</text></feedback></answer>
+    <answer fraction="0"><text>A not-yet-integrated higher-level module that calls the module under test</text><feedback><text>That absent caller is replaced by a driver, not a stub.</text></feedback></answer>
+    <answer fraction="0"><text>A test oracle that decides pass or fail</text><feedback><text>An oracle judges results; it is not a stand-in for a module.</text></feedback></answer>
+    <answer fraction="0"><text>The database used by the whole system</text><feedback><text>A stub is a code substitute for a called module, not a data store in general.</text></feedback></answer>
+    <generalfeedback><text>A stub replaces a missing <strong>callee</strong> — a lower module the module under test would call. Top-down integration relies on stubs while the lower levels are still absent.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a driver substitutes for</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During integration, a driver substitutes for:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A not-yet-integrated higher-level module that calls the module under test</text><feedback><text>Correct — the driver takes the place of an absent caller.</text></feedback></answer>
+    <answer fraction="0"><text>A not-yet-integrated lower-level module that the module under test calls</text><feedback><text>That absent callee is replaced by a stub, not a driver.</text></feedback></answer>
+    <answer fraction="0"><text>A compiler that builds the modules</text><feedback><text>A driver is a test harness, not a build tool.</text></feedback></answer>
+    <answer fraction="0"><text>A defect report filed by a user</text><feedback><text>That is unrelated to what a driver stands in for.</text></feedback></answer>
+    <generalfeedback><text>A driver replaces a missing <strong>caller</strong> — a higher module that would invoke the module under test. Bottom-up integration relies on drivers while the upper levels are still absent.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Integration Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Top-down step 1 stubs — two children</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this call tree: <strong>A calls B and C</strong> (A is the root; B and C are its only children). Using <em>top-down</em> integration, step 1 integrates the root A and stubs its not-yet-integrated direct children. How many stubs are needed at step 1?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — A directly calls B and C, so both are stubbed: 2 stubs.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>A has two direct children (B and C), so one stub is not enough.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Only B and C are directly called by A; there is no third child.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>Top-down step 1 must stub A's callees, and A calls two modules.</text></feedback></answer>
+    <generalfeedback><text>Top-down step 1 integrates the root A alone; every module A directly calls must be stubbed. A calls B and C, so 2 stubs are needed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Top-down step 1 stubs — three children</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this call tree: <strong>M calls N, O, and P</strong> (M is the root with three children). Using <em>top-down</em> integration, how many stubs are needed at step 1 (integrating M alone)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — M directly calls N, O, and P, so all three are stubbed: 3 stubs.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>M has three direct children, not one.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>There are three direct children (N, O, P), so two stubs is too few.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>M calls exactly three modules; there is no fourth.</text></feedback></answer>
+    <generalfeedback><text>Top-down step 1 integrates M and stubs each module it directly calls. M calls N, O, and P, so 3 stubs are needed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Bottom-up driver for a single leaf</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this call tree: <strong>A calls B and C; B calls D</strong> (so D is a leaf). Using <em>bottom-up</em> integration, you integrate the leaf D first. How many <strong>drivers</strong> are needed to integrate D?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — D's real caller (B) is not integrated yet, so one driver is written to call D.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>Something must call D; since B is not ready, a driver is required.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Only one module (D) is under test, so one driver suffices.</text></feedback></answer>
+    <answer fraction="0"><text>1 stub</text><feedback><text>Bottom-up uses drivers, not stubs; and D has no callees to stub.</text></feedback></answer>
+    <generalfeedback><text>Bottom-up integrates leaves first. D has no callees (no stubs needed), but its caller B is absent, so one driver is written to invoke D: 1 driver.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Top-down stubs when integrating an intermediate module</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this call tree: <strong>R calls X and Y; X calls Z</strong>. Using <em>top-down</em> integration you have already integrated R, and now you integrate <strong>X</strong>. How many stubs must be in place for X's own not-yet-integrated callees?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — X directly calls only Z, which is not yet integrated, so one stub (for Z) is needed.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Y is a sibling of X, not a callee of X; X calls only Z.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>X calls Z, and Z is not integrated yet, so a stub for Z is required.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>X has a single callee (Z); there are not three.</text></feedback></answer>
+    <generalfeedback><text>When integrating X top-down, only X's direct callees that are still absent must be stubbed. X calls only Z, so 1 stub is needed. (Y is R's other child, unrelated to X's callees.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Bottom-up drivers for two leaves</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this call tree: <strong>A calls B and C</strong>, where B and C are both leaves. Using <em>bottom-up</em> integration with one driver per module under test, how many drivers are needed to integrate B and C as the first step?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — one driver per module under test, and two leaf modules (B and C) are being integrated: 2 drivers.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Two separate modules are under test; with one driver per module that is two drivers.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>Their caller A is not integrated yet, so drivers are required to invoke B and C.</text></feedback></answer>
+    <answer fraction="0"><text>2 stubs</text><feedback><text>Bottom-up uses drivers, not stubs; and leaves B and C have no callees to stub.</text></feedback></answer>
+    <generalfeedback><text>Bottom-up integrates leaves first. B and C are leaves whose caller A is absent, so with one driver per module under test, 2 drivers are needed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fault isolation: incremental vs big-bang</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Compared with big-bang, incremental integration generally gives:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Better fault isolation, because a failure points to the newly added module or its interface</text><feedback><text>Correct — adding modules one at a time localises where a new failure came from.</text></feedback></answer>
+    <answer fraction="0"><text>Worse fault isolation, because more scaffolding is used</text><feedback><text>Extra stubs/drivers do not worsen isolation; incremental integration improves it.</text></feedback></answer>
+    <answer fraction="0"><text>No difference in fault isolation</text><feedback><text>There is a clear difference: incremental isolates faults far better than big-bang.</text></feedback></answer>
+    <answer fraction="0"><text>Guaranteed absence of interface faults</text><feedback><text>No strategy guarantees the absence of faults; it only makes them easier to locate.</text></feedback></answer>
+    <generalfeedback><text>Because incremental integration adds one module at a time, a new failure is most likely due to the module just added or its interface — so faults are much easier to isolate than in big-bang, where everything is combined at once.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which strategy tests top-level control earliest</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which strategy exercises the <strong>top-level control logic</strong> earliest?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Top-down</text><feedback><text>Correct — top-down integrates the main control module first, so control logic is tested early.</text></feedback></answer>
+    <answer fraction="0"><text>Bottom-up</text><feedback><text>Bottom-up tests leaves first; the top-level control logic is integrated last.</text></feedback></answer>
+    <answer fraction="0"><text>Big-bang</text><feedback><text>Big-bang tests everything only after all modules are combined, not the top earliest.</text></feedback></answer>
+    <answer fraction="0"><text>None can test control logic early</text><feedback><text>Top-down does exactly this by integrating the top module first.</text></feedback></answer>
+    <generalfeedback><text>Top-down starts at the main control module, so high-level control flow and major design decisions are exercised early — one of its main advantages.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which strategy tests leaf utilities earliest</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which strategy exercises the <strong>low-level leaf/utility modules</strong> earliest?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Bottom-up</text><feedback><text>Correct — bottom-up integrates leaf modules first, so utilities are tested early.</text></feedback></answer>
+    <answer fraction="0"><text>Top-down</text><feedback><text>Top-down tests the top first; leaf utilities are integrated (or only stubbed) until late.</text></feedback></answer>
+    <answer fraction="0"><text>Big-bang</text><feedback><text>Big-bang exercises everything only after all modules are combined.</text></feedback></answer>
+    <answer fraction="0"><text>None can test leaves early</text><feedback><text>Bottom-up does exactly this by integrating the leaves first.</text></feedback></answer>
+    <generalfeedback><text>Bottom-up starts at the leaves, so low-level utility modules are thoroughly exercised early — useful when those utilities are complex or critical.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Big-bang failure localisation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team integrates all modules at once (big-bang) and a test fails. Why is diagnosing the failure typically hard?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Any of the many simultaneously-combined interfaces could be the cause, so the fault is hard to localise</text><feedback><text>Correct — with everything combined at once, poor fault isolation makes the cause hard to pin down.</text></feedback></answer>
+    <answer fraction="0"><text>Big-bang produces no test output to examine</text><feedback><text>It still produces output; the problem is isolating which interface failed, not a lack of output.</text></feedback></answer>
+    <answer fraction="0"><text>Stubs and drivers hide the real modules</text><feedback><text>Big-bang uses little scaffolding; the difficulty is the many interfaces combined at once.</text></feedback></answer>
+    <answer fraction="0"><text>Big-bang cannot detect interface faults at all</text><feedback><text>It can detect them; it just makes them hard to locate.</text></feedback></answer>
+    <generalfeedback><text>Big-bang combines all modules together, so when a failure appears any of the numerous interfaces could be responsible. This poor fault isolation is big-bang's main drawback.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Top-down early skeleton</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A frequently cited advantage of <em>top-down</em> integration is that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An early working skeleton of the system is available, since the top control structure is built first</text><feedback><text>Correct — a partial, demonstrable program emerges early.</text></feedback></answer>
+    <answer fraction="0"><text>No stubs are ever required</text><feedback><text>Top-down actually depends on stubs for its lower modules.</text></feedback></answer>
+    <answer fraction="0"><text>Low-level utility modules are fully tested first</text><feedback><text>That is a bottom-up characteristic, not top-down.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need for any regression testing</text><feedback><text>Regression testing is still needed as modules are added.</text></feedback></answer>
+    <generalfeedback><text>Because top-down builds the upper control structure first, an early demonstrable skeleton of the program appears, letting stakeholders see progress and letting major design errors surface early.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Bottom-up late control testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A drawback of <em>bottom-up</em> integration is that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The top-level control logic and user interface are integrated and tested last</text><feedback><text>Correct — high-level control and UI concerns surface late, so major design errors there appear late.</text></feedback></answer>
+    <answer fraction="0"><text>It cannot test leaf modules</text><feedback><text>Bottom-up tests leaf modules first; that is its strength, not a weakness.</text></feedback></answer>
+    <answer fraction="0"><text>It requires stubs for every leaf</text><feedback><text>Bottom-up uses drivers, not stubs, and leaves have no callees to stub.</text></feedback></answer>
+    <answer fraction="0"><text>It combines all modules at once</text><feedback><text>That describes big-bang, not bottom-up.</text></feedback></answer>
+    <generalfeedback><text>Since bottom-up integrates leaves first and the top last, the main control logic and user interface are exercised only late, so serious high-level design faults may be discovered late.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Bottom-up driver among three leaves</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this call tree: <strong>A calls B, C, and D</strong> (B, C, D are all leaves). Using <em>bottom-up</em> integration, how many drivers are needed to integrate <strong>just leaf B</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — only B is under test, and its caller A is absent, so one driver is needed.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Only B is being integrated here, not C and D, so one driver suffices.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>A is not integrated yet, so something must call B — a driver is required.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>A single module under test needs a single driver.</text></feedback></answer>
+    <generalfeedback><text>Integrating only leaf B: B has no callees (no stubs), and its caller A is absent, so exactly 1 driver is required to invoke B.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Top-down step 1 stubs with a grandchild</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this call tree: <strong>S calls T and U; T calls V</strong>. Using <em>top-down</em> integration, how many stubs are needed at step 1 (integrating the root S alone)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — at step 1 only S's direct children (T and U) are stubbed; V is not directly called by S.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>V is a callee of T, not of S; at step 1 only S's direct children are stubbed.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>S has two direct children (T and U), so one stub is not enough.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>Step 1 must stub S's direct callees, and S calls two modules.</text></feedback></answer>
+    <generalfeedback><text>Top-down step 1 integrates S and stubs only the modules S directly calls: T and U (2 stubs). V is reached only through T, which is not yet integrated, so V is not stubbed at step 1.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Big-bang scaffolding cost</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In general, big-bang integration requires fewer temporary stubs and drivers than incremental integration.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — big-bang combines all real modules at once, so it needs little per-step scaffolding; the trade-off is much poorer fault isolation.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Big-bang does typically need less scaffolding; it just pays for it with poor fault isolation.</text></feedback></answer>
+    <generalfeedback><text>Because big-bang assembles all the real modules together, it avoids most of the per-step stubs and drivers that incremental integration needs. Its cost is elsewhere: when something fails, isolating the responsible interface is hard.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Top-down stubs for two children of a subtree</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this call tree: <strong>A calls B and C; C calls D and E</strong>. Using <em>top-down</em> integration, A and B are already integrated and you now integrate <strong>C</strong>. How many stubs must be in place for C's own not-yet-integrated callees?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — C directly calls D and E, neither of which is integrated yet, so 2 stubs.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>C has two direct callees (D and E), so one stub is too few.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>C calls only D and E; B is A's other child, not a callee of C.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>C's callees D and E are absent, so stubs are required for them.</text></feedback></answer>
+    <generalfeedback><text>When integrating C top-down, only C's direct callees still absent must be stubbed. C calls D and E, so 2 stubs are needed.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Integration Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Top-down stubs at a multi-level step</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this call tree: <strong>A calls B and C; B calls D and E; C calls F</strong>. Using <em>top-down</em> integration, suppose the integrated set is exactly {A, B}. How many stubs must be in place at this point?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — integrated modules call three absent modules: A calls C (stub), and B calls D and E (two stubs) &#8594; 3 stubs.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Do not forget A still calls C: stubs are needed for C, D, and E — three in total.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>F is called by C, which is not integrated, so F is not stubbed yet; the count is 3.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Both A and B have absent callees; there are three such callees (C, D, E).</text></feedback></answer>
+    <generalfeedback><text>With integrated set {A, B}, list every call from an integrated module to a non-integrated one: A&#8594;C, B&#8594;D, B&#8594;E. (A&#8594;B is real.) That is stubs for C, D, and E = 3 stubs. F is not stubbed because its caller C is not integrated.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Bottom-up drivers for all leaves</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this call tree: <strong>A calls B and C; B calls D and E; C calls F</strong>. Using <em>bottom-up</em> integration with one driver per module under test, how many drivers are needed to integrate all the leaf modules as the first step?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — the leaves are D, E, and F; with one driver each that is 3 drivers.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>There are three leaves (D, E, F), not two.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>Only the leaf modules are integrated at the first step; B and C are not leaves.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Bottom-up uses one driver per leaf under test; there are three leaves, so 3 drivers.</text></feedback></answer>
+    <generalfeedback><text>The leaves (modules that call nothing) are D, E, and F. Bottom-up integrates the leaves first, one driver per module under test, so 3 drivers are needed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What sandwich integration achieves</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why might a team choose <em>sandwich</em> (hybrid) integration over pure top-down or pure bottom-up?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It lets high-level and low-level modules be integrated in parallel, combining top-down's early control testing with bottom-up's early utility testing</text><feedback><text>Correct — working from both ends at once gains the benefits of both directions and can shorten the schedule.</text></feedback></answer>
+    <answer fraction="0"><text>It eliminates the need for both stubs and drivers</text><feedback><text>Sandwich uses stubs (upper layers) and drivers (lower layers) — it needs both.</text></feedback></answer>
+    <answer fraction="0"><text>It integrates all modules at once like big-bang</text><feedback><text>Sandwich is incremental from both ends, not a single big-bang step.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees no interface faults will remain</text><feedback><text>No strategy guarantees the absence of faults.</text></feedback></answer>
+    <generalfeedback><text>Sandwich applies top-down to the upper layers (stubs) and bottom-up to the lower layers (drivers) simultaneously, so control logic and utility modules are both exercised early and the two efforts can proceed in parallel.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Sandwich integration weakness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A recognised weakness of <em>sandwich</em> integration is that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The middle-layer modules where the two ends meet may get less thorough isolated testing</text><feedback><text>Correct — because both ends converge on the middle, that target layer can be under-tested in isolation.</text></feedback></answer>
+    <answer fraction="0"><text>It cannot test the top-level control logic</text><feedback><text>Its top-down half exercises the control logic early; that is a strength.</text></feedback></answer>
+    <answer fraction="0"><text>It needs neither stubs nor drivers</text><feedback><text>Sandwich needs both stubs and drivers, so this is false.</text></feedback></answer>
+    <answer fraction="0"><text>It provides worse fault isolation than big-bang</text><feedback><text>Being incremental, sandwich isolates faults better than big-bang, not worse.</text></feedback></answer>
+    <generalfeedback><text>Because top-down and bottom-up converge on a middle target layer, those middle modules can end up tested mostly as part of larger assemblies rather than thoroughly in isolation — the main criticism of the sandwich approach.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why top-down can hide low-level defects</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can <em>top-down</em> integration hide defects that live in low-level modules?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stubs return simplified canned results, so the real low-level behaviour (and its bugs) is not exercised until the stub is replaced</text><feedback><text>Correct — an oversimplified stub can mask a defect that only the real module would reveal.</text></feedback></answer>
+    <answer fraction="0"><text>Top-down never executes the low-level modules at all</text><feedback><text>They are eventually integrated; the issue is that stubs stand in for them for a long time.</text></feedback></answer>
+    <answer fraction="0"><text>Drivers suppress the outputs of low-level modules</text><feedback><text>Top-down uses stubs, not drivers, and stubs — not drivers — cause the masking here.</text></feedback></answer>
+    <answer fraction="0"><text>Low-level defects are always equivalent and undetectable</text><feedback><text>They are ordinary defects; they are simply not exercised while a stub substitutes for the real module.</text></feedback></answer>
+    <generalfeedback><text>Because top-down replaces lower modules with stubs that return canned values, the real (possibly buggy) low-level logic is not run until late. An oversimplified stub can therefore mask a defect that only surfaces once the actual module is integrated.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why bottom-up delays UI/control testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In <em>bottom-up</em> integration, why might a serious flaw in the user interface or overall control flow be discovered late?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The top-level control and UI modules are integrated last, so faults in them surface only near the end</text><feedback><text>Correct — bottom-up leaves the top for last, delaying discovery of high-level design faults.</text></feedback></answer>
+    <answer fraction="0"><text>Drivers permanently replace the UI modules</text><feedback><text>Drivers are temporary; the point is that the real UI/control modules are integrated only late.</text></feedback></answer>
+    <answer fraction="0"><text>Bottom-up never tests the top-level modules</text><feedback><text>It does test them — just last, after the lower levels.</text></feedback></answer>
+    <answer fraction="0"><text>UI faults are always interface faults, which bottom-up ignores</text><feedback><text>Bottom-up does test interfaces; the delay is due to integration order, not ignoring faults.</text></feedback></answer>
+    <generalfeedback><text>Bottom-up integrates leaves first and the top control/UI modules last, so major high-level design or interface flaws in those top modules are not exercised until late in the integration schedule.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interface fault: parameter order</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is an example of an <em>interface (integration) fault</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Module A calls B as <code>B(width, height)</code> but B expects <code>B(height, width)</code>, so the arguments are swapped</text><feedback><text>Correct — mismatched parameter order across a call boundary is a classic interface fault.</text></feedback></answer>
+    <answer fraction="0"><text>A loop inside module B iterates one time too few (an off-by-one within B)</text><feedback><text>That is an internal logic (unit) fault confined to B, not an interface fault.</text></feedback></answer>
+    <answer fraction="0"><text>A local variable inside A is left uninitialised and never passed out</text><feedback><text>That is an internal fault in A; it does not concern the A&#8211;B interface.</text></feedback></answer>
+    <answer fraction="0"><text>B computes the wrong result even when called with correct arguments</text><feedback><text>That is a logic fault inside B, a unit-level concern, not an interface mismatch.</text></feedback></answer>
+    <generalfeedback><text>Interface faults occur at the boundary between modules. Passing arguments in the wrong order (a parameter mismatch) is a textbook example — the modules disagree on how they communicate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interface fault: timing/protocol</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Module A sends data to module B before B has finished initialising, so B occasionally processes garbage. This is best classified as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An interface fault of the timing/protocol kind</text><feedback><text>Correct — the modules violate the expected order/timing of their interaction.</text></feedback></answer>
+    <answer fraction="0"><text>An internal logic fault inside B's computation</text><feedback><text>B's computation may be fine; the fault is in when A interacts with B — a timing/protocol issue at the interface.</text></feedback></answer>
+    <answer fraction="0"><text>A compiler optimisation error</text><feedback><text>This is about module interaction order, not the compiler.</text></feedback></answer>
+    <answer fraction="0"><text>An equivalent mutant</text><feedback><text>That is a mutation-testing concept, unrelated to an integration timing fault.</text></feedback></answer>
+    <generalfeedback><text>When modules disagree on the order or timing of their exchanges — sending before the peer is ready — the defect lies at the interface: a protocol/timing interface fault, exactly what integration testing targets.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interface fault: shared state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Modules A and B both read and write a shared global counter, each assuming it alone modifies it, and they corrupt each other's value. This is best classified as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An interface fault arising from inconsistent assumptions about shared state</text><feedback><text>Correct — the modules interact through shared data with conflicting assumptions, an interface fault.</text></feedback></answer>
+    <answer fraction="0"><text>A pure unit fault inside A only</text><feedback><text>The problem emerges from A and B interacting via shared data, not from A alone.</text></feedback></answer>
+    <answer fraction="0"><text>A performance fault</text><feedback><text>The issue is incorrect results from shared-state conflict, not speed.</text></feedback></answer>
+    <answer fraction="0"><text>A documentation fault</text><feedback><text>The defect is in the code's shared-state interaction, not in the docs.</text></feedback></answer>
+    <generalfeedback><text>Shared-state (shared-data) faults happen when integrated modules make inconsistent assumptions about global or shared variables. The defect lives in how the modules interact, so it is an interface/integration fault.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Ordering with a shared utility (bottom-up)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this dependency graph: <strong>Main calls A and B; A calls C; B calls C and D</strong> (so C is a shared utility called by both A and B; D is a leaf). Using <em>bottom-up</em> integration, which module should be integrated earliest?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>C — it is a leaf utility called by both A and B, so it must be available before A or B can be tested with real callees</text><feedback><text>Correct — bottom-up integrates leaves first, and the shared utility C is needed by both A and B.</text></feedback></answer>
+    <answer fraction="0"><text>Main — because it is the top of the hierarchy</text><feedback><text>Integrating the root first is top-down; bottom-up starts with the leaves.</text></feedback></answer>
+    <answer fraction="0"><text>A — because it appears before B alphabetically</text><feedback><text>A is not a leaf (it calls C); bottom-up integrates the leaf C before A.</text></feedback></answer>
+    <answer fraction="0"><text>B — because it has the most callees</text><feedback><text>B is not a leaf (it calls C and D); its callees must be integrated first.</text></feedback></answer>
+    <generalfeedback><text>Bottom-up integrates from the leaves up. C and D are the leaves; the shared utility C is called by both A and B, so it should be integrated first (with a driver) before A and B can be integrated against real callees.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Regression during integration</text></name>
+    <questiontext format="html"><text><![CDATA[<p>As each new module is added during incremental integration, the previously passing integration tests are re-run to check that the new module has not broken existing interactions. This activity is called:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Regression testing</text><feedback><text>Correct — re-running earlier tests after a change guards against newly introduced breakage.</text></feedback></answer>
+    <answer fraction="0"><text>Stub replacement</text><feedback><text>Replacing a stub is part of proceeding with integration, not the re-testing of prior interactions.</text></feedback></answer>
+    <answer fraction="0"><text>Unit testing</text><feedback><text>Unit testing checks a single module in isolation, not the re-verification of prior integrated interactions.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing</text><feedback><text>Acceptance testing validates the finished system against user needs, not the effect of each newly added module.</text></feedback></answer>
+    <generalfeedback><text>Each newly integrated module can perturb interactions that already worked. Re-running the earlier integration tests to confirm nothing was broken is regression testing — an ongoing cost of incremental integration.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Top-down stubs with a shared utility</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this dependency graph: <strong>Main calls A and B; A calls C; B calls C and D</strong> (C is shared, D is a leaf). Using <em>top-down</em> integration, the integrated set is exactly {Main, A, B}. How many stubs must be in place?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — the absent callees are C (called by both A and B, but one stub) and D, giving 2 stubs.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>C is called by both A and B, but it needs only one stub; with D that is 2 stubs, not 3.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Two distinct modules are absent (C and D), so one stub is too few.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>Only C and D are absent; Main, A, and B are integrated, so 2 stubs suffice.</text></feedback></answer>
+    <generalfeedback><text>With integrated set {Main, A, B}, the calls to absent modules are A&#8594;C, B&#8594;C, and B&#8594;D. C needs only a single stub even though two modules call it, so the distinct stubs are for C and D = 2 stubs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Bottom-up scaffolding when the callee is already integrated</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this call tree: <strong>P calls Q and R; Q calls S; R calls S</strong> (S is a shared leaf). Using <em>bottom-up</em> integration, S has already been integrated and you now integrate <strong>Q</strong>. How much scaffolding does integrating Q require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1 driver and 0 stubs</text><feedback><text>Correct — Q's caller P is absent (so a driver is needed), but Q's callee S is already integrated (so no stub is needed).</text></feedback></answer>
+    <answer fraction="0"><text>1 driver and 1 stub</text><feedback><text>No stub is needed for S: S is already integrated, so Q can call the real S.</text></feedback></answer>
+    <answer fraction="0"><text>0 drivers and 1 stub</text><feedback><text>Bottom-up needs a driver here because Q's caller P is not integrated; and S is real, so no stub.</text></feedback></answer>
+    <answer fraction="0"><text>2 drivers and 0 stubs</text><feedback><text>Only Q is under test, so a single driver suffices.</text></feedback></answer>
+    <generalfeedback><text>Integrating Q bottom-up: its callee S is already integrated, so Q calls the real S (0 stubs). Its caller P is absent, so one driver is written to invoke Q. Total: 1 driver, 0 stubs.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Stub can mask a low-level defect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In top-down integration, a stub can mask a defect in the real lower-level module because the stub returns simplified, pre-arranged results instead of running the real logic.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — until the stub is replaced by the real module, the actual (possibly buggy) low-level behaviour is never exercised.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Stubs really can hide low-level defects: they return canned values rather than executing the real, possibly faulty, code.</text></feedback></answer>
+    <generalfeedback><text>A stub is an oversimplified stand-in that returns fixed results. While it substitutes for a real module, that module's genuine logic — and any defect in it — is not run, so top-down integration can hide low-level defects until the stub is replaced.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Sandwich needs both stubs and drivers</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Sandwich (hybrid) integration requires both stubs and drivers.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — its top-down part uses stubs for lower modules while its bottom-up part uses drivers for the modules under test.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Sandwich combines top-down (stubs) and bottom-up (drivers), so it needs both kinds of scaffolding.</text></feedback></answer>
+    <generalfeedback><text>Because sandwich integration works top-down on the upper layers (needing stubs for their callees) and bottom-up on the lower layers (needing drivers to call them), it requires both stubs and drivers at once.</text></generalfeedback>
+  </question>
+</quiz>

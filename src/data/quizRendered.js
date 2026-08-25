@@ -2587,6 +2587,2612 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "cause-effect": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What a cause is",
+          "text": "<p>In a cause-effect graph, what is a <strong>cause</strong>?</p>",
+          "answers": [
+            {
+              "text": "A distinct input condition (something that can be true or false) drawn from the specification",
+              "fraction": 100,
+              "feedback": "Correct — a cause is an individual input condition, evaluated as true or false."
+            },
+            {
+              "text": "An output or action the program produces",
+              "fraction": 0,
+              "feedback": "That is an effect, not a cause."
+            },
+            {
+              "text": "A line of source code that must be executed",
+              "fraction": 0,
+              "feedback": "Cause-effect graphing is black-box; causes come from the specification, not the code."
+            },
+            {
+              "text": "A column of the resulting decision table",
+              "fraction": 0,
+              "feedback": "A column is a rule/test case derived later; a cause is an input condition."
+            }
+          ],
+          "generalFeedback": "A cause is a distinct input condition — a boolean that can hold or not hold. Causes are identified by reading the specification and are wired through boolean nodes to the effects they influence.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an effect is",
+          "text": "<p>In a cause-effect graph, what is an <strong>effect</strong>?</p>",
+          "answers": [
+            {
+              "text": "An output condition or action the system produces in response to its inputs",
+              "fraction": 100,
+              "feedback": "Correct — effects are the observable outputs/actions on the right of the graph."
+            },
+            {
+              "text": "An input condition that can be true or false",
+              "fraction": 0,
+              "feedback": "That describes a cause, not an effect."
+            },
+            {
+              "text": "A constraint between two inputs",
+              "fraction": 0,
+              "feedback": "Constraints (E/I/O/R) restrict causes; an effect is an output."
+            },
+            {
+              "text": "A boolean operator node such as AND or OR",
+              "fraction": 0,
+              "feedback": "Those nodes wire causes to effects; the effect itself is the output."
+            }
+          ],
+          "generalFeedback": "An effect is an output condition or action. In the graph, causes on the left are connected through boolean nodes to effects on the right, and each effect is ultimately true or false for a given cause assignment.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The IDENTITY node",
+          "text": "<p>What does an <strong>IDENTITY</strong> node mean when it connects a cause to an effect?</p>",
+          "answers": [
+            {
+              "text": "The effect is true exactly when the single cause is true (it copies the cause's value)",
+              "fraction": 100,
+              "feedback": "Correct — identity passes the cause value straight through to the effect."
+            },
+            {
+              "text": "The effect is true exactly when the cause is false",
+              "fraction": 0,
+              "feedback": "That is the NOT node, not identity."
+            },
+            {
+              "text": "The effect is true when either of two causes is true",
+              "fraction": 0,
+              "feedback": "That is an OR node; identity connects a single cause."
+            },
+            {
+              "text": "The effect is always true regardless of the cause",
+              "fraction": 0,
+              "feedback": "Identity mirrors the cause; it is not a constant-true node."
+            }
+          ],
+          "generalFeedback": "An IDENTITY node ties one cause to one effect so that effect = cause: if the cause is true the effect is true, and if the cause is false the effect is false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The NOT node",
+          "text": "<p>What does a <strong>NOT</strong> (~) node compute?</p>",
+          "answers": [
+            {
+              "text": "The effect is true exactly when its single cause is false (it negates the cause)",
+              "fraction": 100,
+              "feedback": "Correct — NOT inverts the cause value."
+            },
+            {
+              "text": "The effect is true exactly when the cause is true",
+              "fraction": 0,
+              "feedback": "That is IDENTITY; NOT gives the opposite."
+            },
+            {
+              "text": "The effect is true when all of several causes are true",
+              "fraction": 0,
+              "feedback": "That is AND; NOT takes a single cause and negates it."
+            },
+            {
+              "text": "The effect is true when at least one of several causes is true",
+              "fraction": 0,
+              "feedback": "That is OR; NOT negates one cause."
+            }
+          ],
+          "generalFeedback": "A NOT node (drawn ~) negates: the effect is true when the cause is false and false when the cause is true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The AND node",
+          "text": "<p>What does an <strong>AND</strong> (∧) node compute for an effect wired to several causes?</p>",
+          "answers": [
+            {
+              "text": "The effect is true only when every one of the connected causes is true",
+              "fraction": 100,
+              "feedback": "Correct — AND requires all inputs true."
+            },
+            {
+              "text": "The effect is true when at least one connected cause is true",
+              "fraction": 0,
+              "feedback": "That is OR, not AND."
+            },
+            {
+              "text": "The effect is true when exactly one connected cause is true",
+              "fraction": 0,
+              "feedback": "AND requires all of them, not exactly one."
+            },
+            {
+              "text": "The effect copies the value of the first cause only",
+              "fraction": 0,
+              "feedback": "AND depends on every input, not just the first."
+            }
+          ],
+          "generalFeedback": "An AND node yields true only when all its input causes (or intermediate nodes) are true; if any input is false, the effect is false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The OR node",
+          "text": "<p>What does an <strong>OR</strong> (∨) node compute for an effect wired to several causes?</p>",
+          "answers": [
+            {
+              "text": "The effect is true when at least one of the connected causes is true",
+              "fraction": 100,
+              "feedback": "Correct — OR needs only one true input."
+            },
+            {
+              "text": "The effect is true only when all connected causes are true",
+              "fraction": 0,
+              "feedback": "That is AND, not OR."
+            },
+            {
+              "text": "The effect is true only when exactly one connected cause is true",
+              "fraction": 0,
+              "feedback": "OR is true for one or more; \"exactly one\" is a different (O) idea."
+            },
+            {
+              "text": "The effect is true only when all connected causes are false",
+              "fraction": 0,
+              "feedback": "That would be a NOR (NOT of an OR); a plain OR is true when any input is true."
+            }
+          ],
+          "generalFeedback": "An OR node yields true when one or more of its inputs is true, and false only when every input is false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The Exclusive (E) constraint",
+          "text": "<p>Among a set of causes, the <strong>Exclusive (E)</strong> constraint means what?</p>",
+          "answers": [
+            {
+              "text": "At most one of the causes may be true (they can all be false, but no two are true together)",
+              "fraction": 100,
+              "feedback": "Correct — E allows zero or one true, never two or more."
+            },
+            {
+              "text": "Exactly one of the causes must be true",
+              "fraction": 0,
+              "feedback": "That is the One-and-only-one (O) constraint; E also permits all false."
+            },
+            {
+              "text": "At least one of the causes must be true",
+              "fraction": 0,
+              "feedback": "That is the Inclusive (I) constraint."
+            },
+            {
+              "text": "All of the causes must be true together",
+              "fraction": 0,
+              "feedback": "E forbids two being true at once, so it can never require all true."
+            }
+          ],
+          "generalFeedback": "Exclusive (E): at most one of the constrained causes is true. Zero true is allowed; two or more true is forbidden.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The Inclusive (I) constraint",
+          "text": "<p>Among a set of causes, the <strong>Inclusive (I)</strong> constraint means what?</p>",
+          "answers": [
+            {
+              "text": "At least one of the causes must be true (they cannot all be false)",
+              "fraction": 100,
+              "feedback": "Correct — I forbids the all-false case; one or more must hold."
+            },
+            {
+              "text": "At most one of the causes may be true",
+              "fraction": 0,
+              "feedback": "That is the Exclusive (E) constraint."
+            },
+            {
+              "text": "Exactly one of the causes must be true",
+              "fraction": 0,
+              "feedback": "That is the One-and-only-one (O) constraint; I allows several to be true."
+            },
+            {
+              "text": "The causes have no restriction at all",
+              "fraction": 0,
+              "feedback": "I does restrict them: it rules out all being false."
+            }
+          ],
+          "generalFeedback": "Inclusive (I): at least one of the constrained causes must be true. Any number from one up to all is allowed; only all-false is forbidden.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The One-and-only-one (O) constraint",
+          "text": "<p>Among a set of causes, the <strong>One-and-only-one (O)</strong> constraint means what?</p>",
+          "answers": [
+            {
+              "text": "Exactly one of the causes is true — no more, no fewer",
+              "fraction": 100,
+              "feedback": "Correct — O requires precisely one true."
+            },
+            {
+              "text": "At most one of the causes may be true (all-false allowed)",
+              "fraction": 0,
+              "feedback": "That is Exclusive (E); O forbids the all-false case."
+            },
+            {
+              "text": "At least one of the causes must be true",
+              "fraction": 0,
+              "feedback": "That is Inclusive (I), which also allows several true; O allows only one."
+            },
+            {
+              "text": "Either all or none of the causes are true",
+              "fraction": 0,
+              "feedback": "O requires exactly one true, not all-or-none."
+            }
+          ],
+          "generalFeedback": "One-and-only-one (O): exactly one of the constrained causes is true. It is the combination of Exclusive (at most one) and Inclusive (at least one).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The Requires (R) constraint",
+          "text": "<p>The <strong>Requires (R)</strong> constraint \"cause a Requires cause b\" means what?</p>",
+          "answers": [
+            {
+              "text": "Whenever a is true, b must also be true (so a=true with b=false is impossible)",
+              "fraction": 100,
+              "feedback": "Correct — R rules out the a-true, b-false combination."
+            },
+            {
+              "text": "Whenever a is true, b must be false",
+              "fraction": 0,
+              "feedback": "That is the opposite; R forces b true when a is true."
+            },
+            {
+              "text": "a and b must always have the same value",
+              "fraction": 0,
+              "feedback": "R is one-directional: b may be true while a is false; only a-true-b-false is forbidden."
+            },
+            {
+              "text": "Exactly one of a and b may be true",
+              "fraction": 0,
+              "feedback": "That is closer to Exclusive/One-and-only-one; R is an implication a→b."
+            }
+          ],
+          "generalFeedback": "Requires (R) is the implication a→b: if a is true then b must be true. The only forbidden combination is a=true, b=false; all others (including a=false with any b) are allowed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The Masks (M) constraint",
+          "text": "<p>The <strong>Masks (M)</strong> constraint \"effect a Masks effect b\" means what?</p>",
+          "answers": [
+            {
+              "text": "If effect a occurs (is true), then effect b is masked and forced to be false",
+              "fraction": 100,
+              "feedback": "Correct — M is a constraint among effects: a true suppresses b."
+            },
+            {
+              "text": "If cause a is true, cause b must be true",
+              "fraction": 0,
+              "feedback": "That is Requires (R), a constraint among causes; M constrains effects."
+            },
+            {
+              "text": "At most one of effects a and b may occur, but either may occur alone",
+              "fraction": 0,
+              "feedback": "M is directional — a suppresses b, but b does not suppress a — so it is not a symmetric \"at most one\"."
+            },
+            {
+              "text": "Effects a and b must always occur together",
+              "fraction": 0,
+              "feedback": "M does the opposite: when a occurs, b cannot."
+            }
+          ],
+          "generalFeedback": "Masks (M) is the one constraint that applies among effects rather than causes: when effect a is true, effect b is masked (forced false), regardless of what the graph would otherwise compute for b.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read an identity graph",
+          "text": "<p>An effect is wired to a single cause by an IDENTITY node:</p><pre>\nE = IDENTITY(c1)\n</pre><p>If <code>c1 = true</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — identity copies the cause, so E = c1 = true."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Identity does not invert; E equals c1, which is true."
+            },
+            {
+              "text": "Undefined — an effect needs at least two causes",
+              "fraction": 0,
+              "feedback": "An identity node connects exactly one cause to the effect; that is valid."
+            },
+            {
+              "text": "It depends on other causes not shown",
+              "fraction": 0,
+              "feedback": "The effect is wired only to c1 via identity, so only c1 matters."
+            }
+          ],
+          "generalFeedback": "IDENTITY passes the cause straight through: E = c1. With c1 = true, E = true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read a NOT graph",
+          "text": "<p>An effect is wired to a single cause by a NOT node:</p><pre>\nE = ~c1\n</pre><p>If <code>c1 = false</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — NOT inverts: ~false = true."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "NOT negates the cause; with c1 false, E is true."
+            },
+            {
+              "text": "Undefined without a second cause",
+              "fraction": 0,
+              "feedback": "A NOT node takes a single cause; the effect is well defined."
+            },
+            {
+              "text": "Equal to c1",
+              "fraction": 0,
+              "feedback": "That would be identity; NOT gives the opposite of c1."
+            }
+          ],
+          "generalFeedback": "A NOT node gives E = ~c1. With c1 = false, E = ~false = true.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Cause-effect graphing is black-box",
+          "text": "<p>Cause-effect graphing is a black-box (specification-based) test-design technique.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — it derives tests from the specification's input conditions and outputs, not from the source code."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Causes and effects are read from the specification, so the technique is black-box, not structural."
+            }
+          ],
+          "generalFeedback": "Cause-effect graphing identifies input conditions (causes) and outputs (effects) from the specification and wires them with boolean logic — a black-box technique, independent of the code's internal structure."
+        },
+        {
+          "type": "multichoice",
+          "name": "Which constraint governs effects",
+          "text": "<p>Four of the five constraint types (E, I, O, R, M) restrict combinations of <em>causes</em>. Which one instead restricts <em>effects</em>?</p>",
+          "answers": [
+            {
+              "text": "M (Masks)",
+              "fraction": 100,
+              "feedback": "Correct — Masks is the effect-side constraint; E, I, O, R all restrict causes."
+            },
+            {
+              "text": "E (Exclusive)",
+              "fraction": 0,
+              "feedback": "E restricts causes (at most one true), not effects."
+            },
+            {
+              "text": "R (Requires)",
+              "fraction": 0,
+              "feedback": "R restricts causes (a→b), not effects."
+            },
+            {
+              "text": "O (One-and-only-one)",
+              "fraction": 0,
+              "feedback": "O restricts causes (exactly one true), not effects."
+            }
+          ],
+          "generalFeedback": "E, I, O, and R express relationships among causes (inputs). M (Masks) is the only one that relates two effects: if the first occurs, it forces the second to be false.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Evaluate an AND effect",
+          "text": "<p>An effect is wired as:</p><pre>\nE = c1 ∧ c2\n</pre><p>Given <code>c1 = true</code>, <code>c2 = false</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — AND needs both true; c2 is false, so E is false."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "AND requires every input true; c2 = false forces E false."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "Both inputs are given, so E is well defined."
+            },
+            {
+              "text": "Equal to c1",
+              "fraction": 0,
+              "feedback": "E depends on both causes; with c2 false the AND is false regardless of c1."
+            }
+          ],
+          "generalFeedback": "E = c1 ∧ c2 = true ∧ false = false. An AND is true only when all inputs are true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Evaluate an OR effect",
+          "text": "<p>An effect is wired as:</p><pre>\nE = c1 ∨ c2\n</pre><p>Given <code>c1 = false</code>, <code>c2 = true</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — OR is true when any input is true; c2 is true."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "OR needs only one true input, and c2 is true."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "Both inputs are given, so E is well defined."
+            },
+            {
+              "text": "Equal to c1 only",
+              "fraction": 0,
+              "feedback": "E depends on both; c2 being true makes the OR true."
+            }
+          ],
+          "generalFeedback": "E = c1 ∨ c2 = false ∨ true = true. An OR is false only when every input is false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Evaluate AND with a negated input",
+          "text": "<p>An effect is wired as:</p><pre>\nE = c1 ∧ ~c2\n</pre><p>Given <code>c1 = true</code>, <code>c2 = false</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — ~c2 = true and c1 = true, so the AND is true."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Since c2 is false, ~c2 is true, and true ∧ true = true."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "Both causes are given, so E is well defined."
+            },
+            {
+              "text": "Equal to c2",
+              "fraction": 0,
+              "feedback": "E uses ~c2, and combined with c1 it evaluates to true here."
+            }
+          ],
+          "generalFeedback": "First negate: ~c2 = ~false = true. Then E = c1 ∧ ~c2 = true ∧ true = true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Evaluate a three-input OR",
+          "text": "<p>An effect is wired as:</p><pre>\nE = c1 ∨ c2 ∨ c3\n</pre><p>Given <code>c1 = false</code>, <code>c2 = false</code>, <code>c3 = false</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — an OR is false only when every input is false, which is the case here."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "All three inputs are false, so the OR is false."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "All inputs are given; E is well defined."
+            },
+            {
+              "text": "Depends on a constraint",
+              "fraction": 0,
+              "feedback": "No constraint is stated; the OR of three falses is simply false."
+            }
+          ],
+          "generalFeedback": "E = false ∨ false ∨ false = false. An OR yields false precisely when all inputs are false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model \"at most one\" with a constraint",
+          "text": "<p>A spec says: \"<em>At most one</em> of the three coupon codes may be applied to an order (applying none is allowed).\" Which constraint models this among the three cause inputs?</p>",
+          "answers": [
+            {
+              "text": "E (Exclusive)",
+              "fraction": 100,
+              "feedback": "Correct — \"at most one, none allowed\" is exactly Exclusive."
+            },
+            {
+              "text": "O (One-and-only-one)",
+              "fraction": 0,
+              "feedback": "O would force exactly one to be applied; here applying none is allowed, so it is E."
+            },
+            {
+              "text": "I (Inclusive)",
+              "fraction": 0,
+              "feedback": "I requires at least one true; here zero is allowed, so it is E."
+            },
+            {
+              "text": "R (Requires)",
+              "fraction": 0,
+              "feedback": "R is an implication between two specific causes, not an \"at most one of a set\" rule."
+            }
+          ],
+          "generalFeedback": "\"At most one may be true, and all-false is allowed\" is the Exclusive (E) constraint. If the spec had forbidden all-false, it would be One-and-only-one (O).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model \"at least one\" with a constraint",
+          "text": "<p>A spec says: \"<em>At least one</em> contact method (phone, email, or address) must be provided.\" Which constraint models this among the three cause inputs?</p>",
+          "answers": [
+            {
+              "text": "I (Inclusive)",
+              "fraction": 100,
+              "feedback": "Correct — \"at least one\" is exactly the Inclusive constraint."
+            },
+            {
+              "text": "E (Exclusive)",
+              "fraction": 0,
+              "feedback": "E means at most one; here we need one or more, which is I."
+            },
+            {
+              "text": "O (One-and-only-one)",
+              "fraction": 0,
+              "feedback": "O means exactly one; here providing several is fine, so it is I."
+            },
+            {
+              "text": "M (Masks)",
+              "fraction": 0,
+              "feedback": "M is an effect constraint, not a rule about how many causes are true."
+            }
+          ],
+          "generalFeedback": "\"At least one must be true\" is the Inclusive (I) constraint; it forbids only the all-false case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model \"exactly one\" with a constraint",
+          "text": "<p>A spec says: \"<em>Exactly one</em> payment method — cash, card, or voucher — must be selected.\" Which constraint models this among the three cause inputs?</p>",
+          "answers": [
+            {
+              "text": "O (One-and-only-one)",
+              "fraction": 100,
+              "feedback": "Correct — \"exactly one\" is the One-and-only-one constraint."
+            },
+            {
+              "text": "E (Exclusive)",
+              "fraction": 0,
+              "feedback": "E allows zero true; here one must always be selected, so it is O."
+            },
+            {
+              "text": "I (Inclusive)",
+              "fraction": 0,
+              "feedback": "I allows several true; here only one may be selected, so it is O."
+            },
+            {
+              "text": "R (Requires)",
+              "fraction": 0,
+              "feedback": "R is an a→b implication, not a \"select exactly one of a set\" rule."
+            }
+          ],
+          "generalFeedback": "\"Exactly one true\" combines Exclusive (at most one) and Inclusive (at least one): that is the One-and-only-one (O) constraint.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model \"requires\" with a constraint",
+          "text": "<p>A spec says: \"Selecting <em>express shipping</em> requires that a <em>delivery address</em> has been entered.\" Which constraint models this?</p>",
+          "answers": [
+            {
+              "text": "R (Requires): express-shipping → delivery-address",
+              "fraction": 100,
+              "feedback": "Correct — one cause being true forces another to be true."
+            },
+            {
+              "text": "O (One-and-only-one) between the two causes",
+              "fraction": 0,
+              "feedback": "The spec is not \"exactly one of the two\"; it is an implication a→b, i.e. R."
+            },
+            {
+              "text": "E (Exclusive) between the two causes",
+              "fraction": 0,
+              "feedback": "E forbids both being true; here both true is exactly the intended, valid case."
+            },
+            {
+              "text": "M (Masks) between the two causes",
+              "fraction": 0,
+              "feedback": "M relates effects; this rule relates two input causes, so it is R."
+            }
+          ],
+          "generalFeedback": "\"a requires b\" is the Requires (R) constraint, the implication a→b: express-shipping true forces delivery-address true, ruling out express-shipping with no address.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why graph then decision table",
+          "text": "<p>Why do we build a cause-effect graph and then convert it to a decision table, rather than testing every input combination?</p>",
+          "answers": [
+            {
+              "text": "The graph's logic and constraints let us derive only the feasible, behaviour-relevant combinations, yielding a manageable set of tests instead of all 2^n",
+              "fraction": 100,
+              "feedback": "Correct — that systematic reduction to meaningful combinations is the whole point."
+            },
+            {
+              "text": "It guarantees 100% statement and branch coverage of the code",
+              "fraction": 0,
+              "feedback": "Cause-effect graphing is black-box; it targets input-combination logic, not code-coverage metrics."
+            },
+            {
+              "text": "It removes the need to specify expected outputs",
+              "fraction": 0,
+              "feedback": "Each rule/column still carries the expected effect; the technique does not drop the oracle."
+            },
+            {
+              "text": "It makes exhaustive testing of all 2^n combinations faster to run",
+              "fraction": 0,
+              "feedback": "The goal is to avoid exhaustive testing, keeping only the feasible, distinct combinations."
+            }
+          ],
+          "generalFeedback": "Testing all 2^n cause combinations is usually infeasible. The graph captures the logic and constraints, and tracing effects back yields a decision table whose columns are the feasible, distinct combinations — a systematic, manageable test set.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count the causes",
+          "text": "<p>Spec: \"A withdrawal is allowed if the <em>card is valid</em>, the <em>PIN is correct</em>, and the <em>balance is sufficient</em>; otherwise the transaction is <em>declined</em> and, if the PIN is wrong three times, the card is <em>retained</em>.\" How many distinct <strong>causes</strong> does this spec suggest?</p>",
+          "answers": [
+            {
+              "text": "4 — card valid, PIN correct, balance sufficient, PIN wrong three times",
+              "fraction": 100,
+              "feedback": "Correct — these are the four distinct input conditions."
+            },
+            {
+              "text": "3 — card valid, PIN correct, balance sufficient",
+              "fraction": 0,
+              "feedback": "\"PIN wrong three times\" is a fourth distinct input condition."
+            },
+            {
+              "text": "2 — allowed and declined",
+              "fraction": 0,
+              "feedback": "\"Allowed\" and \"declined\" are effects (outputs), not causes."
+            },
+            {
+              "text": "6 — every noun in the sentence",
+              "fraction": 0,
+              "feedback": "Only distinct input conditions are causes; not every noun qualifies."
+            }
+          ],
+          "generalFeedback": "Causes are the distinct input conditions: card valid, PIN correct, balance sufficient, and PIN wrong three times — four causes. \"Allowed\", \"declined\", and \"retained\" are effects.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count the effects",
+          "text": "<p>Using the same ATM spec — \"…the transaction is <em>allowed</em> or <em>declined</em>, and the card may be <em>retained</em>\" — how many distinct <strong>effects</strong> are there?</p>",
+          "answers": [
+            {
+              "text": "3 — allowed, declined, card retained",
+              "fraction": 100,
+              "feedback": "Correct — those are the three distinct output conditions/actions."
+            },
+            {
+              "text": "2 — allowed and declined only",
+              "fraction": 0,
+              "feedback": "\"Card retained\" is a third distinct effect."
+            },
+            {
+              "text": "4 — the same as the number of causes",
+              "fraction": 0,
+              "feedback": "Causes and effects are counted separately; there are three effects here."
+            },
+            {
+              "text": "1 — the transaction result",
+              "fraction": 0,
+              "feedback": "There are three distinct outputs, not one."
+            }
+          ],
+          "generalFeedback": "Effects are the distinct outputs/actions: allowed, declined, and card retained — three effects. Counting causes and effects is the first step of building the graph.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Evaluate an OR feeding an AND",
+          "text": "<p>The graph has an intermediate node and an effect:</p><pre>\nn1 = c1 ∨ c2\nE  = n1 ∧ c3\n</pre><p>Given <code>c1 = false</code>, <code>c2 = true</code>, <code>c3 = true</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — n1 = false ∨ true = true, then E = true ∧ true = true."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "n1 is true (c2), and c3 is true, so the AND is true."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "All causes are given, so E is well defined."
+            },
+            {
+              "text": "Equal to c1",
+              "fraction": 0,
+              "feedback": "E depends on the OR of c1,c2 and on c3, not on c1 alone."
+            }
+          ],
+          "generalFeedback": "Evaluate the intermediate node first: n1 = c1 ∨ c2 = false ∨ true = true. Then E = n1 ∧ c3 = true ∧ true = true.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model an effect masking another",
+          "text": "<p>A spec says: \"When the '<em>account locked</em>' error is shown, the '<em>welcome</em>' message must not be shown.\" Which constraint captures this relationship between the two outputs?</p>",
+          "answers": [
+            {
+              "text": "M (Masks): the account-locked effect masks the welcome effect",
+              "fraction": 100,
+              "feedback": "Correct — one effect occurring forces the other to be suppressed, which is Masks."
+            },
+            {
+              "text": "E (Exclusive) between two causes",
+              "fraction": 0,
+              "feedback": "These are outputs, not causes; the effect-side constraint is M."
+            },
+            {
+              "text": "R (Requires) between two causes",
+              "fraction": 0,
+              "feedback": "R relates causes; here two effects are related, so it is M."
+            },
+            {
+              "text": "O (One-and-only-one) between two causes",
+              "fraction": 0,
+              "feedback": "O constrains causes; this rule constrains effects, so it is M."
+            }
+          ],
+          "generalFeedback": "A relationship that suppresses one output when another occurs is the Masks (M) constraint — the only constraint expressed among effects.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Evaluate a NOR effect",
+          "text": "<p>An effect is wired as:</p><pre>\nE = ~(c1 ∨ c2)\n</pre><p>Given <code>c1 = false</code>, <code>c2 = false</code>, what is E?</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — c1 ∨ c2 = false, and ~false = true."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The OR of two falses is false, and its negation is true."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "Both causes are given, so E is well defined."
+            },
+            {
+              "text": "Equal to c1 ∨ c2",
+              "fraction": 0,
+              "feedback": "The NOT node inverts the OR, so E is the opposite of c1 ∨ c2."
+            }
+          ],
+          "generalFeedback": "Evaluate inside first: c1 ∨ c2 = false ∨ false = false. Then negate: E = ~false = true. This \"true only when all inputs are false\" pattern is a NOR.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "O versus E on the all-false case",
+          "text": "<p>Two specs restrict the same set of causes. Spec 1: \"select exactly one.\" Spec 2: \"select at most one.\" What is the one difference between the constraints they imply?</p>",
+          "answers": [
+            {
+              "text": "Spec 1 is O (all-false forbidden); Spec 2 is E (all-false allowed) — they differ only on whether zero-true is feasible",
+              "fraction": 100,
+              "feedback": "Correct — O and E agree except that O forbids the all-false combination."
+            },
+            {
+              "text": "They are identical constraints",
+              "fraction": 0,
+              "feedback": "They differ on the all-false case: O forbids it, E allows it."
+            },
+            {
+              "text": "Spec 1 is I and Spec 2 is O",
+              "fraction": 0,
+              "feedback": "\"Exactly one\" is O and \"at most one\" is E; neither is Inclusive here."
+            },
+            {
+              "text": "Spec 2 allows two true while Spec 1 does not",
+              "fraction": 0,
+              "feedback": "Both forbid two-or-more true; the only difference is the all-false case."
+            }
+          ],
+          "generalFeedback": "One-and-only-one (O) = exactly one true; Exclusive (E) = at most one true. Both forbid two or more true; they differ solely in that E permits the all-false combination and O does not. Hence O has one fewer feasible combination than E for the same causes.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Feasible combinations under O (3 causes)",
+          "text": "<p>Three causes c1, c2, c3 are governed by a <strong>One-and-only-one (O)</strong> constraint. Of the 2^3 = 8 assignments, how many are feasible?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — exactly one true means one of {c1}, {c2}, {c3}: 3 feasible assignments."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 would be the count under Exclusive (which also allows all-false); O forbids all-false, leaving 3."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the Inclusive count (at least one true); O requires exactly one, giving 3."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "There are three different ways for exactly one cause to be the true one, so 3."
+            }
+          ],
+          "generalFeedback": "Under O exactly one cause is true. Enumerating the 8 assignments, only TFF, FTF, FFT qualify — 3 feasible combinations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible combinations under E (3 causes)",
+          "text": "<p>Three causes c1, c2, c3 are governed by an <strong>Exclusive (E)</strong> constraint. Of the 8 assignments, how many are feasible?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — at most one true: all-false plus the three single-true assignments = 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the One-and-only-one count; E additionally allows the all-false case, giving 4."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the Inclusive count; E is \"at most one\", which yields 4."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Enumerating \"at most one true\" gives FFF, TFF, FTF, FFT — 4, not 5."
+            }
+          ],
+          "generalFeedback": "Under E at most one cause is true. Feasible: FFF, TFF, FTF, FFT — 4 combinations (one more than O, because all-false is allowed).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible combinations under I (3 causes)",
+          "text": "<p>Three causes c1, c2, c3 are governed by an <strong>Inclusive (I)</strong> constraint. Of the 8 assignments, how many are feasible?</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "Correct — at least one true rules out only the all-false case: 8 − 1 = 7."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "I forbids the all-false assignment, so 7 (not all 8) remain."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the One-and-only-one count; Inclusive allows any number ≥ 1 true, giving 7."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the Exclusive count; Inclusive is \"at least one\", which gives 7."
+            }
+          ],
+          "generalFeedback": "Under I at least one cause is true, so only FFF is forbidden. That leaves 8 − 1 = 7 feasible combinations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible combinations under E (2 causes)",
+          "text": "<p>Two causes c1, c2 are governed by an <strong>Exclusive (E)</strong> constraint. Of the 2^2 = 4 assignments, how many are feasible?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — at most one true: FF, TF, FT are feasible; only TT is ruled out."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is the One-and-only-one count; E also allows FF, giving 3."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "E forbids both true (TT), so only 3 of the 4 remain."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Three assignments have at most one true, so 3 are feasible."
+            }
+          ],
+          "generalFeedback": "Under E at most one of two causes is true, so TT is infeasible. Feasible: FF, TF, FT — 3 combinations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible combinations under O (4 causes)",
+          "text": "<p>Four causes are governed by a <strong>One-and-only-one (O)</strong> constraint. Of the 2^4 = 16 assignments, how many are feasible?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — exactly one true, and there are 4 choices of which cause is the true one."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 would include the all-false case (that is Exclusive); O forbids all-false, leaving 4."
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 is the Inclusive count (at least one true); O requires exactly one, giving 4."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Any one of the four causes may be the single true one, so 4."
+            }
+          ],
+          "generalFeedback": "Under O exactly one of the four causes is true, so the feasible assignments are TFFF, FTFF, FFTF, FFFT — 4 in all.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible combinations under Requires (2 causes)",
+          "text": "<p>Two causes a, b have the constraint <strong>a Requires b</strong> (a→b). Of the 4 assignments, how many are feasible?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — only a=true, b=false is forbidden; the other 3 are feasible."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Only one assignment is ruled out, not three; 3 remain feasible."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The combination a=true, b=false violates a→b, so only 3 are feasible."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "R rules out exactly one combination (a-true, b-false), leaving 3."
+            }
+          ],
+          "generalFeedback": "a→b forbids only (a=true, b=false). The feasible assignments are (F,F), (F,T), (T,T) — 3 combinations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feasible combinations under Requires (3 causes)",
+          "text": "<p>Three causes a, b, c have the single constraint <strong>a Requires b</strong> (a→b); c is unconstrained. Of the 2^3 = 8 assignments, how many are feasible?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — a=true with b=false is forbidden for either value of c, removing 2 of the 8."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "Two assignments are removed (a=T, b=F with c=F and with c=T), not one, so 6 remain."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Only the a-true, b-false cases are infeasible; that is 2 assignments, leaving 6."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "c is free, so 6 assignments satisfy a→b, not 3."
+            }
+          ],
+          "generalFeedback": "a→b forbids a=true, b=false. With c free, that pattern occurs for c=false and c=true — 2 infeasible assignments. So 8 − 2 = 6 are feasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is a combination feasible under O",
+          "text": "<p>Causes c1, c2, c3 are under a <strong>One-and-only-one (O)</strong> constraint. Is the assignment <code>c1 = true, c2 = true, c3 = false</code> feasible?</p>",
+          "answers": [
+            {
+              "text": "No — two causes are true, but O allows exactly one true",
+              "fraction": 100,
+              "feedback": "Correct — with c1 and c2 both true, the O constraint is violated, so this column is infeasible."
+            },
+            {
+              "text": "Yes — at least one cause is true",
+              "fraction": 0,
+              "feedback": "\"At least one\" is the Inclusive constraint; O demands exactly one, and here two are true."
+            },
+            {
+              "text": "Yes — c3 is false, satisfying the constraint",
+              "fraction": 0,
+              "feedback": "O counts how many are true overall; two true (c1, c2) violates it regardless of c3."
+            },
+            {
+              "text": "No — because c3 must be true",
+              "fraction": 0,
+              "feedback": "O does not require c3 specifically; it fails here simply because two causes are true."
+            }
+          ],
+          "generalFeedback": "Under O exactly one cause may be true. Here c1 and c2 are both true, so the assignment is infeasible and yields no test case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect value under the Masks constraint",
+          "text": "<p>Two effects are computed from the graph, and effect A <strong>Masks</strong> effect B. For some input the graph gives <code>A = true</code> and would give <code>B = true</code>. After applying the Masks constraint, what are the observed effect values?</p>",
+          "answers": [
+            {
+              "text": "A = true, B = false — because A occurs, B is masked (forced false)",
+              "fraction": 100,
+              "feedback": "Correct — Masks forces the second effect false whenever the first occurs."
+            },
+            {
+              "text": "A = true, B = true — Masks does not change computed values",
+              "fraction": 0,
+              "feedback": "Masks specifically overrides B: when A is true, B is forced false."
+            },
+            {
+              "text": "A = false, B = true — B masks A",
+              "fraction": 0,
+              "feedback": "The direction is A masks B, so A stays true and B is suppressed."
+            },
+            {
+              "text": "Both false — a mask cancels both effects",
+              "fraction": 0,
+              "feedback": "Only the masked effect (B) is forced false; A remains as computed (true)."
+            }
+          ],
+          "generalFeedback": "Masks is directional: when the masking effect A is true, the masked effect B is forced to false, overriding whatever the graph computed for B. A itself is unaffected, so the result is A = true, B = false.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "True-points of an AND effect",
+          "text": "<p>An effect is <code>E = c1 ∧ c2</code> with no constraints. Tracing back, how many cause assignments (the effect's \"true points\") make E true?</p>",
+          "answers": [
+            {
+              "text": "1 — only (c1 = true, c2 = true)",
+              "fraction": 100,
+              "feedback": "Correct — an AND is true for exactly the all-true assignment."
+            },
+            {
+              "text": "3 — every assignment except all-false",
+              "fraction": 0,
+              "feedback": "That describes an OR; an AND is true only when both are true."
+            },
+            {
+              "text": "2 — whenever c1 is true",
+              "fraction": 0,
+              "feedback": "c1 true with c2 false gives E false, so not every c1-true case counts."
+            },
+            {
+              "text": "4 — all assignments",
+              "fraction": 0,
+              "feedback": "E is false whenever either cause is false, so not all 4 assignments are true points."
+            }
+          ],
+          "generalFeedback": "Tracing back from E = c1 ∧ c2, the only assignment that makes it true is (T, T). So the effect has a single true point, which becomes one decision-table column that fires E.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "True-points of an OR effect",
+          "text": "<p>An effect is <code>E = c1 ∨ c2</code> with no constraints. How many cause assignments make E true?</p>",
+          "answers": [
+            {
+              "text": "3 — (T,T), (T,F), (F,T)",
+              "fraction": 100,
+              "feedback": "Correct — an OR is true for every assignment except all-false."
+            },
+            {
+              "text": "1 — only (T,T)",
+              "fraction": 0,
+              "feedback": "That is the AND case; an OR needs only one true input."
+            },
+            {
+              "text": "2 — only the single-true assignments",
+              "fraction": 0,
+              "feedback": "(T,T) also makes an OR true, so there are 3 true points, not 2."
+            },
+            {
+              "text": "4 — all assignments",
+              "fraction": 0,
+              "feedback": "(F,F) makes the OR false, so only 3 assignments are true points."
+            }
+          ],
+          "generalFeedback": "E = c1 ∨ c2 is true for (T,T), (T,F), (F,T) and false only for (F,F). That is 3 true points.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Decision-table columns from feasible combinations",
+          "text": "<p>A cause-effect graph has 3 causes under a <strong>One-and-only-one (O)</strong> constraint. If the decision table has one column per feasible cause combination, how many columns (and therefore test cases) does it have?</p>",
+          "answers": [
+            {
+              "text": "3 — one per feasible combination (exactly one cause true)",
+              "fraction": 100,
+              "feedback": "Correct — O leaves 3 feasible combinations, so 3 columns and 3 tests."
+            },
+            {
+              "text": "8 — one per raw 2^3 combination",
+              "fraction": 0,
+              "feedback": "The O constraint removes the infeasible combinations; only 3 remain."
+            },
+            {
+              "text": "4 — the Exclusive count",
+              "fraction": 0,
+              "feedback": "Under O the all-false case is not allowed, so it is 3, not 4."
+            },
+            {
+              "text": "1 — a single column suffices",
+              "fraction": 0,
+              "feedback": "Each feasible combination is a distinct column; there are 3."
+            }
+          ],
+          "generalFeedback": "Building the decision table, each feasible cause combination becomes one column and thus one test case. With 3 causes under O there are 3 feasible combinations, giving 3 columns.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible combinations removed by E (3 causes)",
+          "text": "<p>Three causes are governed by an <strong>Exclusive (E)</strong> constraint. How many of the 2^3 = 8 raw combinations become <em>infeasible</em>?</p>",
+          "answers": [
+            {
+              "text": "4 — the combinations with two or more causes true",
+              "fraction": 100,
+              "feedback": "Correct — 8 total minus 4 feasible (at most one true) = 4 infeasible."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Feasible under E is 4 (all-false plus three single-true), so infeasible is 8 − 4 = 4."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "That would leave only 3 feasible (the O count); under E, 4 are feasible, so 4 are infeasible."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Every combination with two or more true is infeasible — there are 4 of those (TTF, TFT, FTT, TTT)."
+            }
+          ],
+          "generalFeedback": "Under E at most one cause is true, so 4 combinations are feasible (FFF, TFF, FTF, FFT). The remaining 8 − 4 = 4 (TTF, TFT, FTT, TTT) are infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Infeasible combinations removed by O (4 causes)",
+          "text": "<p>Four causes are governed by a <strong>One-and-only-one (O)</strong> constraint. How many of the 2^4 = 16 raw combinations are <em>infeasible</em>?</p>",
+          "answers": [
+            {
+              "text": "12 — only 4 combinations (exactly one true) are feasible, so 16 − 4 = 12",
+              "fraction": 100,
+              "feedback": "Correct — O leaves 4 feasible, so 12 are infeasible."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of feasible combinations, not the infeasible ones; 16 − 4 = 12."
+            },
+            {
+              "text": "11",
+              "fraction": 0,
+              "feedback": "That would leave 5 feasible (the Exclusive count); under O only 4 are feasible, so 12 are infeasible."
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 would leave a single feasible case; O has 4 feasible, so 12 infeasible."
+            }
+          ],
+          "generalFeedback": "Under O exactly one of four causes is true, giving 4 feasible combinations. The other 16 − 4 = 12 combinations (all-false or two-or-more true) are infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect value across all feasible O columns",
+          "text": "<p>Causes c1, c2, c3 are under a <strong>One-and-only-one (O)</strong> constraint, and an effect is <code>E = c1 ∨ c2 ∨ c3</code>. In how many of the feasible columns is E true?</p>",
+          "answers": [
+            {
+              "text": "3 — in every feasible column, since exactly one cause is always true",
+              "fraction": 100,
+              "feedback": "Correct — O guarantees one cause is true, so the OR is true in all 3 feasible columns."
+            },
+            {
+              "text": "1 — only when all three are true",
+              "fraction": 0,
+              "feedback": "Under O all-three-true is infeasible; the OR is true whenever any one is true, which is always here."
+            },
+            {
+              "text": "0 — the constraint makes E false",
+              "fraction": 0,
+              "feedback": "The constraint forces exactly one true, so the OR is true, not false."
+            },
+            {
+              "text": "7 — one per Inclusive combination",
+              "fraction": 0,
+              "feedback": "Under O there are only 3 feasible columns, and E is true in all of them."
+            }
+          ],
+          "generalFeedback": "O forces exactly one cause true in every feasible column, so c1 ∨ c2 ∨ c3 is true in each. There are 3 feasible columns, and E is true in all 3.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是原因（cause）",
+          "text": "<p>在因果圖（cause-effect graph）中，<strong>原因（cause）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "取自規格的一個獨立輸入條件（可為真或為假）",
+              "fraction": 100,
+              "feedback": "正確——原因是一個個別的輸入條件，取值為真或假。"
+            },
+            {
+              "text": "程式產生的輸出或動作",
+              "fraction": 0,
+              "feedback": "那是效果（effect），不是原因。"
+            },
+            {
+              "text": "必須被執行的一行原始碼",
+              "fraction": 0,
+              "feedback": "因果圖法屬於黑箱測試；原因來自規格，而非程式碼。"
+            },
+            {
+              "text": "所產生決策表的一個欄位",
+              "fraction": 0,
+              "feedback": "欄位是稍後導出的規則／測試案例；原因則是輸入條件。"
+            }
+          ],
+          "generalFeedback": "原因是一個獨立的輸入條件——一個可成立或不成立的布林值。原因透過閱讀規格找出，並經由布林節點連到其影響的效果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是效果（effect）",
+          "text": "<p>在因果圖中，<strong>效果（effect）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "系統回應其輸入而產生的輸出條件或動作",
+              "fraction": 100,
+              "feedback": "正確——效果是圖右側可觀察到的輸出／動作。"
+            },
+            {
+              "text": "可為真或為假的輸入條件",
+              "fraction": 0,
+              "feedback": "那描述的是原因，不是效果。"
+            },
+            {
+              "text": "兩個輸入之間的約束",
+              "fraction": 0,
+              "feedback": "約束（E／I／O／R）限制的是原因；效果則是輸出。"
+            },
+            {
+              "text": "如 AND 或 OR 的布林運算節點",
+              "fraction": 0,
+              "feedback": "那些節點把原因連到效果；效果本身是輸出。"
+            }
+          ],
+          "generalFeedback": "效果是輸出條件或動作。在圖中，左側的原因經由布林節點連到右側的效果，且對於給定的原因指派，每個效果最終為真或為假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "IDENTITY 節點",
+          "text": "<p>當 <strong>IDENTITY</strong> 節點把一個原因連到一個效果時，代表什麼？</p>",
+          "answers": [
+            {
+              "text": "效果為真，恰好當該單一原因為真時（它把原因的值直接複製過去）",
+              "fraction": 100,
+              "feedback": "正確——identity 把原因值原樣傳給效果。"
+            },
+            {
+              "text": "效果為真，恰好當該原因為假時",
+              "fraction": 0,
+              "feedback": "那是 NOT 節點，不是 identity。"
+            },
+            {
+              "text": "效果為真，當兩個原因之一為真時",
+              "fraction": 0,
+              "feedback": "那是 OR 節點；identity 連的是單一原因。"
+            },
+            {
+              "text": "不論原因為何，效果永遠為真",
+              "fraction": 0,
+              "feedback": "identity 反映原因的值，並非恆真節點。"
+            }
+          ],
+          "generalFeedback": "IDENTITY 節點把一個原因連到一個效果，使 effect = cause：原因為真則效果為真，原因為假則效果為假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "NOT 節點",
+          "text": "<p><strong>NOT</strong>（~）節點計算什麼？</p>",
+          "answers": [
+            {
+              "text": "效果為真，恰好當其單一原因為假時（它對原因取反）",
+              "fraction": 100,
+              "feedback": "正確——NOT 反轉原因的值。"
+            },
+            {
+              "text": "效果為真，恰好當原因為真時",
+              "fraction": 0,
+              "feedback": "那是 IDENTITY；NOT 給出相反的值。"
+            },
+            {
+              "text": "效果為真，當多個原因全部為真時",
+              "fraction": 0,
+              "feedback": "那是 AND；NOT 只取單一原因並取反。"
+            },
+            {
+              "text": "效果為真，當多個原因中至少一個為真時",
+              "fraction": 0,
+              "feedback": "那是 OR；NOT 對一個原因取反。"
+            }
+          ],
+          "generalFeedback": "NOT 節點（畫作 ~）取反：原因為假時效果為真，原因為真時效果為假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AND 節點",
+          "text": "<p>對於連到多個原因的效果，<strong>AND</strong>（∧）節點計算什麼？</p>",
+          "answers": [
+            {
+              "text": "效果為真，僅當所連的每一個原因都為真時",
+              "fraction": 100,
+              "feedback": "正確——AND 要求所有輸入都為真。"
+            },
+            {
+              "text": "效果為真，當所連原因中至少一個為真時",
+              "fraction": 0,
+              "feedback": "那是 OR，不是 AND。"
+            },
+            {
+              "text": "效果為真，當所連原因中恰好一個為真時",
+              "fraction": 0,
+              "feedback": "AND 要求全部為真，而非恰好一個。"
+            },
+            {
+              "text": "效果只複製第一個原因的值",
+              "fraction": 0,
+              "feedback": "AND 取決於每個輸入，而非只有第一個。"
+            }
+          ],
+          "generalFeedback": "AND 節點僅當其所有輸入原因（或中間節點）都為真時才為真；只要有任一輸入為假，效果即為假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "OR 節點",
+          "text": "<p>對於連到多個原因的效果，<strong>OR</strong>（∨）節點計算什麼？</p>",
+          "answers": [
+            {
+              "text": "效果為真，當所連原因中至少一個為真時",
+              "fraction": 100,
+              "feedback": "正確——OR 只需一個輸入為真。"
+            },
+            {
+              "text": "效果為真，僅當所連原因全部為真時",
+              "fraction": 0,
+              "feedback": "那是 AND，不是 OR。"
+            },
+            {
+              "text": "效果為真，僅當所連原因中恰好一個為真時",
+              "fraction": 0,
+              "feedback": "OR 在一個或多個為真時皆為真；「恰好一個」是不同的（O）概念。"
+            },
+            {
+              "text": "效果為真，僅當所連原因全部為假時",
+              "fraction": 0,
+              "feedback": "那會是 NOR（OR 取反）；純 OR 在任一輸入為真時即為真。"
+            }
+          ],
+          "generalFeedback": "OR 節點在其輸入有一個或多個為真時為真，只有在每個輸入都為假時才為假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "互斥（E）約束",
+          "text": "<p>在一組原因之間，<strong>互斥（Exclusive，E）</strong>約束代表什麼？</p>",
+          "answers": [
+            {
+              "text": "這些原因中至多一個可為真（可以全部為假，但沒有兩個同時為真）",
+              "fraction": 100,
+              "feedback": "正確——E 允許零個或一個為真，絕不會有兩個以上為真。"
+            },
+            {
+              "text": "這些原因中恰好一個必須為真",
+              "fraction": 0,
+              "feedback": "那是「唯一其一（O）」約束；E 也允許全部為假。"
+            },
+            {
+              "text": "這些原因中至少一個必須為真",
+              "fraction": 0,
+              "feedback": "那是「內含（I）」約束。"
+            },
+            {
+              "text": "這些原因必須全部同時為真",
+              "fraction": 0,
+              "feedback": "E 禁止兩個同時為真，故絕不可能要求全部為真。"
+            }
+          ],
+          "generalFeedback": "互斥（E）：受約束的原因中至多一個為真。允許零個為真；禁止兩個以上為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "內含（I）約束",
+          "text": "<p>在一組原因之間，<strong>內含（Inclusive，I）</strong>約束代表什麼？</p>",
+          "answers": [
+            {
+              "text": "這些原因中至少一個必須為真（不能全部為假）",
+              "fraction": 100,
+              "feedback": "正確——I 禁止全部為假的情形；至少一個必須成立。"
+            },
+            {
+              "text": "這些原因中至多一個可為真",
+              "fraction": 0,
+              "feedback": "那是「互斥（E）」約束。"
+            },
+            {
+              "text": "這些原因中恰好一個必須為真",
+              "fraction": 0,
+              "feedback": "那是「唯一其一（O）」約束；I 允許多個同時為真。"
+            },
+            {
+              "text": "這些原因完全沒有任何限制",
+              "fraction": 0,
+              "feedback": "I 確實有限制：它排除全部為假的情形。"
+            }
+          ],
+          "generalFeedback": "內含（I）：受約束的原因中至少一個必須為真。從一個到全部的任意數目皆可；只有全部為假被禁止。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "唯一其一（O）約束",
+          "text": "<p>在一組原因之間，<strong>唯一其一（One-and-only-one，O）</strong>約束代表什麼？</p>",
+          "answers": [
+            {
+              "text": "這些原因中恰好一個為真——不多也不少",
+              "fraction": 100,
+              "feedback": "正確——O 要求恰好一個為真。"
+            },
+            {
+              "text": "這些原因中至多一個可為真（允許全部為假）",
+              "fraction": 0,
+              "feedback": "那是互斥（E）；O 禁止全部為假的情形。"
+            },
+            {
+              "text": "這些原因中至少一個必須為真",
+              "fraction": 0,
+              "feedback": "那是內含（I），它也允許多個為真；O 只允許一個。"
+            },
+            {
+              "text": "這些原因要嘛全部為真、要嘛全部為假",
+              "fraction": 0,
+              "feedback": "O 要求恰好一個為真，而非全有或全無。"
+            }
+          ],
+          "generalFeedback": "唯一其一（O）：受約束的原因中恰好一個為真。它結合了互斥（至多一個）與內含（至少一個）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需要（R）約束",
+          "text": "<p><strong>需要（Requires，R）</strong>約束「原因 a 需要原因 b」代表什麼？</p>",
+          "answers": [
+            {
+              "text": "只要 a 為真，b 也必須為真（因此 a 為真而 b 為假是不可能的）",
+              "fraction": 100,
+              "feedback": "正確——R 排除了 a 為真、b 為假的組合。"
+            },
+            {
+              "text": "只要 a 為真，b 必須為假",
+              "fraction": 0,
+              "feedback": "那正好相反；R 在 a 為真時強制 b 為真。"
+            },
+            {
+              "text": "a 與 b 必須永遠取相同的值",
+              "fraction": 0,
+              "feedback": "R 是單向的：a 為假時 b 可為任意值；只有 a 真 b 假被禁止。"
+            },
+            {
+              "text": "a 與 b 中恰好一個可為真",
+              "fraction": 0,
+              "feedback": "那較接近互斥／唯一其一；R 是蘊涵 a→b。"
+            }
+          ],
+          "generalFeedback": "需要（R）是蘊涵 a→b：若 a 為真則 b 必須為真。唯一被禁止的組合是 a 為真、b 為假；其餘（含 a 為假搭配任意 b）皆允許。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "遮蔽（M）約束",
+          "text": "<p><strong>遮蔽（Masks，M）</strong>約束「效果 a 遮蔽效果 b」代表什麼？</p>",
+          "answers": [
+            {
+              "text": "若效果 a 發生（為真），則效果 b 被遮蔽並強制為假",
+              "fraction": 100,
+              "feedback": "正確——M 是效果之間的約束：a 為真會抑制 b。"
+            },
+            {
+              "text": "若原因 a 為真，原因 b 必須為真",
+              "fraction": 0,
+              "feedback": "那是需要（R），一個原因之間的約束；M 約束的是效果。"
+            },
+            {
+              "text": "效果 a 與 b 中至多一個可發生，但任一個都可單獨發生",
+              "fraction": 0,
+              "feedback": "M 是有方向的——a 抑制 b，但 b 不抑制 a——因此不是對稱的「至多一個」。"
+            },
+            {
+              "text": "效果 a 與 b 必須永遠一起發生",
+              "fraction": 0,
+              "feedback": "M 正好相反：當 a 發生時 b 不能發生。"
+            }
+          ],
+          "generalFeedback": "遮蔽（M）是唯一作用於效果（而非原因）之間的約束：當效果 a 為真時，效果 b 被遮蔽（強制為假），無論圖原本對 b 計算出什麼結果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取 identity 圖",
+          "text": "<p>一個效果經由 IDENTITY 節點連到單一原因：</p><pre>\nE = IDENTITY(c1)\n</pre><p>若 <code>c1 = true</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——identity 複製原因，故 E = c1 = true。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "identity 不取反；E 等於 c1，即 true。"
+            },
+            {
+              "text": "未定義——一個效果至少需要兩個原因",
+              "fraction": 0,
+              "feedback": "identity 節點恰好把一個原因連到效果，這是合法的。"
+            },
+            {
+              "text": "取決於未顯示的其他原因",
+              "fraction": 0,
+              "feedback": "該效果只經由 identity 連到 c1，故只有 c1 有影響。"
+            }
+          ],
+          "generalFeedback": "IDENTITY 把原因原樣傳過去：E = c1。當 c1 = true 時，E = true。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀取 NOT 圖",
+          "text": "<p>一個效果經由 NOT 節點連到單一原因：</p><pre>\nE = ~c1\n</pre><p>若 <code>c1 = false</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——NOT 取反：~false = true。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "NOT 對原因取反；c1 為假時 E 為真。"
+            },
+            {
+              "text": "沒有第二個原因就未定義",
+              "fraction": 0,
+              "feedback": "NOT 節點取單一原因；該效果是有定義的。"
+            },
+            {
+              "text": "等於 c1",
+              "fraction": 0,
+              "feedback": "那會是 identity；NOT 給出 c1 的相反值。"
+            }
+          ],
+          "generalFeedback": "NOT 節點給出 E = ~c1。當 c1 = false 時，E = ~false = true。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "因果圖法屬於黑箱",
+          "text": "<p>因果圖法是一種黑箱（以規格為基礎）的測試設計技術。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——它從規格的輸入條件與輸出導出測試，而非從原始碼。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "原因與效果都讀自規格，故此技術屬於黑箱，而非結構性測試。"
+            }
+          ],
+          "generalFeedback": "因果圖法從規格找出輸入條件（原因）與輸出（效果），並以布林邏輯連接——這是一種黑箱技術，與程式碼的內部結構無關。"
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一個約束作用於效果",
+          "text": "<p>在五種約束型別（E、I、O、R、M）中，有四種限制的是<em>原因</em>的組合。哪一個改為限制<em>效果</em>？</p>",
+          "answers": [
+            {
+              "text": "M（遮蔽）",
+              "fraction": 100,
+              "feedback": "正確——遮蔽是作用於效果那一側的約束；E、I、O、R 都限制原因。"
+            },
+            {
+              "text": "E（互斥）",
+              "fraction": 0,
+              "feedback": "E 限制的是原因（至多一個為真），而非效果。"
+            },
+            {
+              "text": "R（需要）",
+              "fraction": 0,
+              "feedback": "R 限制的是原因（a→b），而非效果。"
+            },
+            {
+              "text": "O（唯一其一）",
+              "fraction": 0,
+              "feedback": "O 限制的是原因（恰好一個為真），而非效果。"
+            }
+          ],
+          "generalFeedback": "E、I、O、R 表達的是原因（輸入）之間的關係。M（遮蔽）是唯一連結兩個效果的約束：若第一個發生，就強制第二個為假。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "計算 AND 效果",
+          "text": "<p>一個效果連接如下：</p><pre>\nE = c1 ∧ c2\n</pre><p>給定 <code>c1 = true</code>、<code>c2 = false</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——AND 需兩者皆為真；c2 為假，故 E 為假。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "AND 要求每個輸入都為真；c2 = false 使 E 為假。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "兩個輸入都已給定，故 E 有定義。"
+            },
+            {
+              "text": "等於 c1",
+              "fraction": 0,
+              "feedback": "E 取決於兩個原因；c2 為假時，不論 c1 為何 AND 皆為假。"
+            }
+          ],
+          "generalFeedback": "E = c1 ∧ c2 = true ∧ false = false。AND 只有在所有輸入都為真時才為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 OR 效果",
+          "text": "<p>一個效果連接如下：</p><pre>\nE = c1 ∨ c2\n</pre><p>給定 <code>c1 = false</code>、<code>c2 = true</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——OR 在任一輸入為真時即為真；c2 為真。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "OR 只需一個輸入為真，而 c2 為真。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "兩個輸入都已給定，故 E 有定義。"
+            },
+            {
+              "text": "只等於 c1",
+              "fraction": 0,
+              "feedback": "E 取決於兩者；c2 為真使 OR 為真。"
+            }
+          ],
+          "generalFeedback": "E = c1 ∨ c2 = false ∨ true = true。OR 只有在每個輸入都為假時才為假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算帶取反輸入的 AND",
+          "text": "<p>一個效果連接如下：</p><pre>\nE = c1 ∧ ~c2\n</pre><p>給定 <code>c1 = true</code>、<code>c2 = false</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——~c2 = true 且 c1 = true，故 AND 為真。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "因 c2 為假，~c2 為真，且 true ∧ true = true。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "兩個原因都已給定，故 E 有定義。"
+            },
+            {
+              "text": "等於 c2",
+              "fraction": 0,
+              "feedback": "E 使用 ~c2，與 c1 結合後在此為真。"
+            }
+          ],
+          "generalFeedback": "先取反：~c2 = ~false = true。再計算 E = c1 ∧ ~c2 = true ∧ true = true。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算三輸入 OR",
+          "text": "<p>一個效果連接如下：</p><pre>\nE = c1 ∨ c2 ∨ c3\n</pre><p>給定 <code>c1 = false</code>、<code>c2 = false</code>、<code>c3 = false</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——OR 只有在每個輸入都為假時才為假，此處正是如此。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "三個輸入都為假，故 OR 為假。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "所有輸入都已給定；E 有定義。"
+            },
+            {
+              "text": "取決於某個約束",
+              "fraction": 0,
+              "feedback": "題目未給任何約束；三個假的 OR 就是假。"
+            }
+          ],
+          "generalFeedback": "E = false ∨ false ∨ false = false。OR 恰好在所有輸入都為假時給出假。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以約束表達「至多一個」",
+          "text": "<p>規格說：「一張訂單<em>至多</em>可套用三個優惠碼中的一個（不套用任何一個也可以）。」在這三個原因輸入之間，哪個約束能表達此意？</p>",
+          "answers": [
+            {
+              "text": "E（互斥）",
+              "fraction": 100,
+              "feedback": "正確——「至多一個、允許零個」正是互斥。"
+            },
+            {
+              "text": "O（唯一其一）",
+              "fraction": 0,
+              "feedback": "O 會強制恰好套用一個；此處允許不套用，故為 E。"
+            },
+            {
+              "text": "I（內含）",
+              "fraction": 0,
+              "feedback": "I 要求至少一個為真；此處允許零個，故為 E。"
+            },
+            {
+              "text": "R（需要）",
+              "fraction": 0,
+              "feedback": "R 是兩個特定原因間的蘊涵，而非「一組中至多一個」的規則。"
+            }
+          ],
+          "generalFeedback": "「至多一個為真、且允許全部為假」是互斥（E）約束。若規格禁止全部為假，那才會是唯一其一（O）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以約束表達「至少一個」",
+          "text": "<p>規格說：「必須提供至少一種聯絡方式（電話、電子郵件或地址）。」在這三個原因輸入之間，哪個約束能表達此意？</p>",
+          "answers": [
+            {
+              "text": "I（內含）",
+              "fraction": 100,
+              "feedback": "正確——「至少一個」正是內含約束。"
+            },
+            {
+              "text": "E（互斥）",
+              "fraction": 0,
+              "feedback": "E 表示至多一個；此處需要一個或多個，故為 I。"
+            },
+            {
+              "text": "O（唯一其一）",
+              "fraction": 0,
+              "feedback": "O 表示恰好一個；此處提供多個也可以，故為 I。"
+            },
+            {
+              "text": "M（遮蔽）",
+              "fraction": 0,
+              "feedback": "M 是效果約束，而非關於有幾個原因為真的規則。"
+            }
+          ],
+          "generalFeedback": "「至少一個必須為真」是內含（I）約束；它只禁止全部為假的情形。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以約束表達「恰好一個」",
+          "text": "<p>規格說：「必須選擇<em>恰好一種</em>付款方式——現金、卡片或禮券。」在這三個原因輸入之間，哪個約束能表達此意？</p>",
+          "answers": [
+            {
+              "text": "O（唯一其一）",
+              "fraction": 100,
+              "feedback": "正確——「恰好一個」是唯一其一約束。"
+            },
+            {
+              "text": "E（互斥）",
+              "fraction": 0,
+              "feedback": "E 允許零個為真；此處必須永遠選一個，故為 O。"
+            },
+            {
+              "text": "I（內含）",
+              "fraction": 0,
+              "feedback": "I 允許多個為真；此處只能選一個，故為 O。"
+            },
+            {
+              "text": "R（需要）",
+              "fraction": 0,
+              "feedback": "R 是 a→b 的蘊涵，而非「從一組中選恰好一個」的規則。"
+            }
+          ],
+          "generalFeedback": "「恰好一個為真」結合了互斥（至多一個）與內含（至少一個）：那就是唯一其一（O）約束。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以約束表達「需要」",
+          "text": "<p>規格說：「選擇<em>快遞運送</em>需要已輸入<em>送貨地址</em>。」哪個約束能表達此意？</p>",
+          "answers": [
+            {
+              "text": "R（需要）：快遞運送 → 送貨地址",
+              "fraction": 100,
+              "feedback": "正確——一個原因為真會強制另一個為真。"
+            },
+            {
+              "text": "兩個原因之間的 O（唯一其一）",
+              "fraction": 0,
+              "feedback": "規格不是「兩者恰好其一」；它是蘊涵 a→b，即 R。"
+            },
+            {
+              "text": "兩個原因之間的 E（互斥）",
+              "fraction": 0,
+              "feedback": "E 禁止兩者同時為真；此處兩者同時為真正是預期且合法的情形。"
+            },
+            {
+              "text": "兩個原因之間的 M（遮蔽）",
+              "fraction": 0,
+              "feedback": "M 連結的是效果；此規則連結的是兩個輸入原因，故為 R。"
+            }
+          ],
+          "generalFeedback": "「a 需要 b」是需要（R）約束，即蘊涵 a→b：快遞運送為真會強制送貨地址為真，排除了「快遞卻無地址」的情形。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何先畫圖再做決策表",
+          "text": "<p>為什麼要先建因果圖、再轉為決策表，而不是直接測試每一種輸入組合？</p>",
+          "answers": [
+            {
+              "text": "圖的邏輯與約束讓我們只導出可行且與行為相關的組合，得到可管理的測試集，而非全部 2^n 種",
+              "fraction": 100,
+              "feedback": "正確——這種有系統地縮減到有意義組合正是重點所在。"
+            },
+            {
+              "text": "它能保證程式的敘述與分支覆蓋達到 100%",
+              "fraction": 0,
+              "feedback": "因果圖法屬黑箱；它針對輸入組合的邏輯，而非程式碼覆蓋度量。"
+            },
+            {
+              "text": "它讓我們不必再指定預期輸出",
+              "fraction": 0,
+              "feedback": "每條規則／欄位仍帶有預期效果；此技術並未捨棄判準。"
+            },
+            {
+              "text": "它讓窮舉測試全部 2^n 種組合跑得更快",
+              "fraction": 0,
+              "feedback": "目標是避免窮舉測試，只保留可行且相異的組合。"
+            }
+          ],
+          "generalFeedback": "測試全部 2^n 種原因組合通常不可行。圖捕捉了邏輯與約束，將效果回溯後便得到一張決策表，其欄位即為可行且相異的組合——一個有系統且可管理的測試集。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算原因的數目",
+          "text": "<p>規格：「若<em>卡片有效</em>、<em>PIN 正確</em>且<em>餘額足夠</em>，則允許提款；否則交易被<em>拒絕</em>，且若 PIN 連錯三次則<em>沒收</em>卡片。」此規格暗示有幾個相異的<strong>原因</strong>？</p>",
+          "answers": [
+            {
+              "text": "4——卡片有效、PIN 正確、餘額足夠、PIN 連錯三次",
+              "fraction": 100,
+              "feedback": "正確——這是四個相異的輸入條件。"
+            },
+            {
+              "text": "3——卡片有效、PIN 正確、餘額足夠",
+              "fraction": 0,
+              "feedback": "「PIN 連錯三次」是第四個相異的輸入條件。"
+            },
+            {
+              "text": "2——允許與拒絕",
+              "fraction": 0,
+              "feedback": "「允許」與「拒絕」是效果（輸出），不是原因。"
+            },
+            {
+              "text": "6——句中的每個名詞",
+              "fraction": 0,
+              "feedback": "只有相異的輸入條件才算原因；並非每個名詞都符合。"
+            }
+          ],
+          "generalFeedback": "原因是相異的輸入條件：卡片有效、PIN 正確、餘額足夠、PIN 連錯三次——共四個原因。「允許」「拒絕」「沒收」則是效果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算效果的數目",
+          "text": "<p>沿用同一份 ATM 規格——「……交易被<em>允許</em>或<em>拒絕</em>，且卡片可能被<em>沒收</em>」——共有幾個相異的<strong>效果</strong>？</p>",
+          "answers": [
+            {
+              "text": "3——允許、拒絕、沒收卡片",
+              "fraction": 100,
+              "feedback": "正確——那是三個相異的輸出條件／動作。"
+            },
+            {
+              "text": "2——只有允許與拒絕",
+              "fraction": 0,
+              "feedback": "「沒收卡片」是第三個相異的效果。"
+            },
+            {
+              "text": "4——與原因數目相同",
+              "fraction": 0,
+              "feedback": "原因與效果分開計算；此處有三個效果。"
+            },
+            {
+              "text": "1——交易的結果",
+              "fraction": 0,
+              "feedback": "共有三個相異的輸出，而非一個。"
+            }
+          ],
+          "generalFeedback": "效果是相異的輸出／動作：允許、拒絕、沒收卡片——共三個效果。計算原因與效果的數目是建圖的第一步。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 OR 餵入 AND",
+          "text": "<p>圖中有一個中間節點與一個效果：</p><pre>\nn1 = c1 ∨ c2\nE  = n1 ∧ c3\n</pre><p>給定 <code>c1 = false</code>、<code>c2 = true</code>、<code>c3 = true</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——n1 = false ∨ true = true，再 E = true ∧ true = true。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "n1 為真（因 c2），且 c3 為真，故 AND 為真。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "所有原因都已給定，故 E 有定義。"
+            },
+            {
+              "text": "等於 c1",
+              "fraction": 0,
+              "feedback": "E 取決於 c1、c2 的 OR 以及 c3，而非只有 c1。"
+            }
+          ],
+          "generalFeedback": "先算中間節點：n1 = c1 ∨ c2 = false ∨ true = true。再算 E = n1 ∧ c3 = true ∧ true = true。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "表達一個效果遮蔽另一個",
+          "text": "<p>規格說：「當顯示『<em>帳號已鎖定</em>』錯誤時，不得顯示『<em>歡迎</em>』訊息。」哪個約束能表達這兩個輸出之間的關係？</p>",
+          "answers": [
+            {
+              "text": "M（遮蔽）：帳號已鎖定效果遮蔽歡迎效果",
+              "fraction": 100,
+              "feedback": "正確——一個效果發生會強制另一個被抑制，這就是遮蔽。"
+            },
+            {
+              "text": "兩個原因之間的 E（互斥）",
+              "fraction": 0,
+              "feedback": "這些是輸出，不是原因；效果那一側的約束是 M。"
+            },
+            {
+              "text": "兩個原因之間的 R（需要）",
+              "fraction": 0,
+              "feedback": "R 連結原因；此處連結的是兩個效果，故為 M。"
+            },
+            {
+              "text": "兩個原因之間的 O（唯一其一）",
+              "fraction": 0,
+              "feedback": "O 約束原因；此規則約束的是效果，故為 M。"
+            }
+          ],
+          "generalFeedback": "當一個輸出發生就抑制另一個輸出的關係，就是遮蔽（M）約束——唯一在效果之間表達的約束。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算 NOR 效果",
+          "text": "<p>一個效果連接如下：</p><pre>\nE = ~(c1 ∨ c2)\n</pre><p>給定 <code>c1 = false</code>、<code>c2 = false</code>，E 為何？</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——c1 ∨ c2 = false，且 ~false = true。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "兩個假的 OR 為假，其取反為真。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "兩個原因都已給定，故 E 有定義。"
+            },
+            {
+              "text": "等於 c1 ∨ c2",
+              "fraction": 0,
+              "feedback": "NOT 節點會反轉該 OR，故 E 是 c1 ∨ c2 的相反值。"
+            }
+          ],
+          "generalFeedback": "先算括號內：c1 ∨ c2 = false ∨ false = false。再取反：E = ~false = true。這種「只有在所有輸入都為假時才為真」的型態就是 NOR。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "O 與 E 在全部為假情形上的差異",
+          "text": "<p>兩份規格限制同一組原因。規格 1：「選擇恰好一個。」規格 2：「至多選擇一個。」它們所暗示的約束唯一的差別是什麼？</p>",
+          "answers": [
+            {
+              "text": "規格 1 是 O（禁止全部為假）；規格 2 是 E（允許全部為假）——兩者只在「零個為真是否可行」上不同",
+              "fraction": 100,
+              "feedback": "正確——O 與 E 除了 O 禁止全部為假之外完全一致。"
+            },
+            {
+              "text": "它們是完全相同的約束",
+              "fraction": 0,
+              "feedback": "它們在全部為假的情形上不同：O 禁止，E 允許。"
+            },
+            {
+              "text": "規格 1 是 I，規格 2 是 O",
+              "fraction": 0,
+              "feedback": "「恰好一個」是 O，「至多一個」是 E；此處都不是內含。"
+            },
+            {
+              "text": "規格 2 允許兩個為真，規格 1 不允許",
+              "fraction": 0,
+              "feedback": "兩者都禁止兩個以上為真；唯一差別在全部為假的情形。"
+            }
+          ],
+          "generalFeedback": "唯一其一（O）＝恰好一個為真；互斥（E）＝至多一個為真。兩者都禁止兩個以上為真；唯一差別是 E 允許全部為假的組合而 O 不允許。因此對同一組原因，O 比 E 少一個可行組合。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "O 約束下的可行組合（3 個原因）",
+          "text": "<p>三個原因 c1、c2、c3 受<strong>唯一其一（O）</strong>約束。在 2^3 = 8 種指派中，有幾種是可行的？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——恰好一個為真，即 {c1}、{c2}、{c3} 之一：3 種可行指派。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是互斥（也允許全部為假）的計數；O 禁止全部為假，剩下 3。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是內含（至少一個為真）的計數；O 要求恰好一個，得 3。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "恰好一個為真有三種不同選法，故為 3。"
+            }
+          ],
+          "generalFeedback": "在 O 之下恰好一個原因為真。列舉 8 種指派後，只有 TFF、FTF、FFT 符合——3 種可行組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "E 約束下的可行組合（3 個原因）",
+          "text": "<p>三個原因 c1、c2、c3 受<strong>互斥（E）</strong>約束。在 8 種指派中，有幾種是可行的？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——至多一個為真：全部為假加上三種單一為真＝4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是唯一其一的計數；E 另外允許全部為假的情形，得 4。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是內含的計數；E 是「至多一個」，得 4。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "列舉「至多一個為真」得 FFF、TFF、FTF、FFT——是 4，不是 5。"
+            }
+          ],
+          "generalFeedback": "在 E 之下至多一個原因為真。可行者：FFF、TFF、FTF、FFT——4 種組合（比 O 多一種，因為允許全部為假）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "I 約束下的可行組合（3 個原因）",
+          "text": "<p>三個原因 c1、c2、c3 受<strong>內含（I）</strong>約束。在 8 種指派中，有幾種是可行的？</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "正確——至少一個為真只排除全部為假的情形：8 − 1 = 7。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "I 禁止全部為假的指派，故剩下 7（而非全部 8）。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是唯一其一的計數；內含允許任意數目 ≥ 1 為真，得 7。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是互斥的計數；內含是「至少一個」，得 7。"
+            }
+          ],
+          "generalFeedback": "在 I 之下至少一個原因為真，故只有 FFF 被禁止。剩下 8 − 1 = 7 種可行組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "E 約束下的可行組合（2 個原因）",
+          "text": "<p>兩個原因 c1、c2 受<strong>互斥（E）</strong>約束。在 2^2 = 4 種指派中，有幾種是可行的？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——至多一個為真：FF、TF、FT 可行；只有 TT 被排除。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是唯一其一的計數；E 也允許 FF，得 3。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "E 禁止兩者皆為真（TT），故 4 種中只剩 3 種。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "有三種指派至多一個為真，故 3 種可行。"
+            }
+          ],
+          "generalFeedback": "在 E 之下兩個原因至多一個為真，故 TT 不可行。可行者：FF、TF、FT——3 種組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "O 約束下的可行組合（4 個原因）",
+          "text": "<p>四個原因受<strong>唯一其一（O）</strong>約束。在 2^4 = 16 種指派中，有幾種是可行的？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——恰好一個為真，而哪一個為真有 4 種選法。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 會把全部為假的情形也算入（那是互斥）；O 禁止全部為假，剩下 4。"
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 是內含的計數（至少一個為真）；O 要求恰好一個，得 4。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "四個原因中任一個都可為那個唯一為真者，故 4。"
+            }
+          ],
+          "generalFeedback": "在 O 之下四個原因恰好一個為真，故可行指派為 TFFF、FTFF、FFTF、FFFT——共 4 種。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需要（R）約束下的可行組合（2 個原因）",
+          "text": "<p>兩個原因 a、b 有約束 <strong>a 需要 b</strong>（a→b）。在 4 種指派中，有幾種是可行的？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——只有 a 為真、b 為假被禁止；其餘 3 種可行。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "只有一種指派被排除，而非三種；剩下 3 種可行。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "組合 a 為真、b 為假違反 a→b，故只有 3 種可行。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "R 恰好排除一種組合（a 真、b 假），剩下 3。"
+            }
+          ],
+          "generalFeedback": "a→b 只禁止（a 為真、b 為假）。可行指派為 (F,F)、(F,T)、(T,T)——3 種組合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需要（R）約束下的可行組合（3 個原因）",
+          "text": "<p>三個原因 a、b、c 只有單一約束 <strong>a 需要 b</strong>（a→b）；c 不受約束。在 2^3 = 8 種指派中，有幾種是可行的？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——a 為真且 b 為假，無論 c 為何值皆被禁止，從 8 種中移除 2 種。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "被移除的是兩種指派（a=T、b=F 搭配 c=F 與 c=T），而非一種，故剩 6。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只有 a 真、b 假的情形不可行；那是 2 種指派，剩下 6。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "c 是自由的，故有 6 種指派滿足 a→b，而非 3。"
+            }
+          ],
+          "generalFeedback": "a→b 禁止 a 為真、b 為假。c 自由時，該型態在 c=false 與 c=true 各出現一次——2 種不可行指派。故 8 − 2 = 6 種可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "某組合在 O 之下是否可行",
+          "text": "<p>原因 c1、c2、c3 受<strong>唯一其一（O）</strong>約束。指派 <code>c1 = true, c2 = true, c3 = false</code> 可行嗎？</p>",
+          "answers": [
+            {
+              "text": "不可行——有兩個原因為真，但 O 只允許恰好一個為真",
+              "fraction": 100,
+              "feedback": "正確——c1 與 c2 同時為真違反 O 約束，故此欄位不可行。"
+            },
+            {
+              "text": "可行——至少一個原因為真",
+              "fraction": 0,
+              "feedback": "「至少一個」是內含約束；O 要求恰好一個，而此處有兩個為真。"
+            },
+            {
+              "text": "可行——c3 為假，滿足約束",
+              "fraction": 0,
+              "feedback": "O 計算整體有幾個為真；兩個為真（c1、c2）就違反，與 c3 無關。"
+            },
+            {
+              "text": "不可行——因為 c3 必須為真",
+              "fraction": 0,
+              "feedback": "O 並不特別要求 c3；此處不可行只是因為有兩個原因為真。"
+            }
+          ],
+          "generalFeedback": "在 O 之下至多且至少一個原因為真。此處 c1 與 c2 皆為真，故該指派不可行，不產生測試案例。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "遮蔽（M）約束下的效果值",
+          "text": "<p>由圖計算出兩個效果，且效果 A <strong>遮蔽</strong>效果 B。對某個輸入，圖給出 <code>A = true</code>，且原本會給出 <code>B = true</code>。套用遮蔽約束後，觀察到的效果值為何？</p>",
+          "answers": [
+            {
+              "text": "A = true、B = false——因為 A 發生，B 被遮蔽（強制為假）",
+              "fraction": 100,
+              "feedback": "正確——遮蔽在第一個效果發生時強制第二個為假。"
+            },
+            {
+              "text": "A = true、B = true——遮蔽不改變計算出的值",
+              "fraction": 0,
+              "feedback": "遮蔽正是會覆寫 B：當 A 為真時，B 被強制為假。"
+            },
+            {
+              "text": "A = false、B = true——B 遮蔽 A",
+              "fraction": 0,
+              "feedback": "方向是 A 遮蔽 B，故 A 維持為真，被抑制的是 B。"
+            },
+            {
+              "text": "兩者皆為假——遮蔽會取消兩個效果",
+              "fraction": 0,
+              "feedback": "只有被遮蔽的效果（B）被強制為假；A 維持其計算值（true）。"
+            }
+          ],
+          "generalFeedback": "遮蔽是有方向的：當遮蔽效果 A 為真時，被遮蔽效果 B 被強制為假，覆寫圖對 B 計算出的結果。A 本身不受影響，故結果為 A = true、B = false。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AND 效果的真值點",
+          "text": "<p>某效果為 <code>E = c1 ∧ c2</code>，無任何約束。回溯後，有幾種原因指派（效果的「真值點」）使 E 為真？</p>",
+          "answers": [
+            {
+              "text": "1——只有（c1 = true, c2 = true）",
+              "fraction": 100,
+              "feedback": "正確——AND 恰好在全部為真的指派下為真。"
+            },
+            {
+              "text": "3——除全部為假外的每種指派",
+              "fraction": 0,
+              "feedback": "那描述的是 OR；AND 只有在兩者皆為真時才為真。"
+            },
+            {
+              "text": "2——只要 c1 為真",
+              "fraction": 0,
+              "feedback": "c1 為真而 c2 為假會使 E 為假，故並非每個 c1 為真的情形都算。"
+            },
+            {
+              "text": "4——所有指派",
+              "fraction": 0,
+              "feedback": "只要任一原因為假 E 就為假，故並非全部 4 種指派都是真值點。"
+            }
+          ],
+          "generalFeedback": "從 E = c1 ∧ c2 回溯，唯一使其為真的指派是 (T, T)。故此效果只有單一真值點，成為決策表中觸發 E 的一欄。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "OR 效果的真值點",
+          "text": "<p>某效果為 <code>E = c1 ∨ c2</code>，無任何約束。有幾種原因指派使 E 為真？</p>",
+          "answers": [
+            {
+              "text": "3——(T,T)、(T,F)、(F,T)",
+              "fraction": 100,
+              "feedback": "正確——OR 在除全部為假外的每種指派下皆為真。"
+            },
+            {
+              "text": "1——只有 (T,T)",
+              "fraction": 0,
+              "feedback": "那是 AND 的情形；OR 只需一個輸入為真。"
+            },
+            {
+              "text": "2——只有單一為真的指派",
+              "fraction": 0,
+              "feedback": "(T,T) 也使 OR 為真，故真值點有 3 個，而非 2。"
+            },
+            {
+              "text": "4——所有指派",
+              "fraction": 0,
+              "feedback": "(F,F) 使 OR 為假，故只有 3 種指派是真值點。"
+            }
+          ],
+          "generalFeedback": "E = c1 ∨ c2 在 (T,T)、(T,F)、(F,T) 為真，只有 (F,F) 為假。故有 3 個真值點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由可行組合得出決策表欄位",
+          "text": "<p>一個因果圖有 3 個原因，受<strong>唯一其一（O）</strong>約束。若決策表對每個可行的原因組合設一欄，這張表有幾欄（也就是幾個測試案例）？</p>",
+          "answers": [
+            {
+              "text": "3——每個可行組合一欄（恰好一個原因為真）",
+              "fraction": 100,
+              "feedback": "正確——O 留下 3 個可行組合，故 3 欄、3 個測試。"
+            },
+            {
+              "text": "8——每種原始 2^3 組合一欄",
+              "fraction": 0,
+              "feedback": "O 約束移除了不可行組合；只剩 3 個。"
+            },
+            {
+              "text": "4——互斥的計數",
+              "fraction": 0,
+              "feedback": "在 O 之下不允許全部為假的情形，故為 3，而非 4。"
+            },
+            {
+              "text": "1——一欄就足夠",
+              "fraction": 0,
+              "feedback": "每個可行組合是一個相異的欄位；共有 3 個。"
+            }
+          ],
+          "generalFeedback": "建立決策表時，每個可行的原因組合成為一欄，也就是一個測試案例。3 個原因受 O 約束時有 3 個可行組合，故 3 欄。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "E 移除的不可行組合（3 個原因）",
+          "text": "<p>三個原因受<strong>互斥（E）</strong>約束。在 2^3 = 8 種原始組合中，有幾種變得<em>不可行</em>？</p>",
+          "answers": [
+            {
+              "text": "4——有兩個以上原因為真的那些組合",
+              "fraction": 100,
+              "feedback": "正確——8 總數減去 4 個可行（至多一個為真）＝ 4 個不可行。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "E 之下可行者為 4（全部為假加三種單一為真），故不可行為 8 − 4 = 4。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "那會只剩 3 個可行（O 的計數）；在 E 之下有 4 個可行，故 4 個不可行。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "每個有兩個以上為真的組合都不可行——共有 4 個（TTF、TFT、FTT、TTT）。"
+            }
+          ],
+          "generalFeedback": "在 E 之下至多一個原因為真，故 4 個組合可行（FFF、TFF、FTF、FFT）。其餘 8 − 4 = 4 個（TTF、TFT、FTT、TTT）不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "O 移除的不可行組合（4 個原因）",
+          "text": "<p>四個原因受<strong>唯一其一（O）</strong>約束。在 2^4 = 16 種原始組合中，有幾種<em>不可行</em>？</p>",
+          "answers": [
+            {
+              "text": "12——只有 4 個組合（恰好一個為真）可行，故 16 − 4 = 12",
+              "fraction": 100,
+              "feedback": "正確——O 留下 4 個可行，故 12 個不可行。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是可行組合的數目，不是不可行的；16 − 4 = 12。"
+            },
+            {
+              "text": "11",
+              "fraction": 0,
+              "feedback": "那會留下 5 個可行（互斥的計數）；在 O 之下只有 4 個可行，故 12 個不可行。"
+            },
+            {
+              "text": "15",
+              "fraction": 0,
+              "feedback": "15 會只留下一個可行；O 有 4 個可行，故 12 個不可行。"
+            }
+          ],
+          "generalFeedback": "在 O 之下四個原因恰好一個為真，得 4 個可行組合。其餘 16 − 4 = 12 個組合（全部為假或兩個以上為真）不可行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "效果在所有可行 O 欄位中的值",
+          "text": "<p>原因 c1、c2、c3 受<strong>唯一其一（O）</strong>約束，且某效果為 <code>E = c1 ∨ c2 ∨ c3</code>。E 在幾個可行欄位中為真？</p>",
+          "answers": [
+            {
+              "text": "3——在每個可行欄位中，因為總是恰好一個原因為真",
+              "fraction": 100,
+              "feedback": "正確——O 保證有一個原因為真，故 OR 在全部 3 個可行欄位中為真。"
+            },
+            {
+              "text": "1——只有在三者皆為真時",
+              "fraction": 0,
+              "feedback": "在 O 之下三者皆為真不可行；OR 在任一為真時即為真，此處總是如此。"
+            },
+            {
+              "text": "0——約束使 E 為假",
+              "fraction": 0,
+              "feedback": "約束強制恰好一個為真，故 OR 為真，而非為假。"
+            },
+            {
+              "text": "7——每個內含組合一個",
+              "fraction": 0,
+              "feedback": "在 O 之下只有 3 個可行欄位，且 E 在其中全部為真。"
+            }
+          ],
+          "generalFeedback": "O 在每個可行欄位中強制恰好一個原因為真，故 c1 ∨ c2 ∨ c3 在每一欄都為真。共有 3 個可行欄位，E 在全部 3 個中為真。",
+          "single": true
+        }
+      ]
+    }
+  },
   "code-coverage": {
     "en": {
       "easy": [
@@ -10180,6 +12786,2502 @@ export const QUIZ_RENDERED = {
             }
           ],
           "generalFeedback": "對延伸條目表而言，完整規則數是各條件選項數的乘積——此處為 2 x 3 = 6。這推廣了 2^n 公式，後者是每個條件都恰有 2 個選項的特例。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "fuzz-testing": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What fuzzing is",
+          "text": "<p>What does a <strong>fuzzer</strong> fundamentally do?</p>",
+          "answers": [
+            {
+              "text": "It automatically feeds a program large volumes of generated or malformed inputs, watching for crashes and other failures",
+              "fraction": 100,
+              "feedback": "Correct — fuzzing is automated testing that bombards the program with many inputs and looks for observable failures."
+            },
+            {
+              "text": "It formally proves that the program has no bugs",
+              "fraction": 0,
+              "feedback": "Fuzzing finds bugs by trying inputs; it never proves the absence of bugs."
+            },
+            {
+              "text": "It statically measures how many lines a test suite covers",
+              "fraction": 0,
+              "feedback": "That is coverage measurement; a fuzzer actively runs the program on many generated inputs."
+            },
+            {
+              "text": "It translates source code into optimized machine code",
+              "fraction": 0,
+              "feedback": "That describes a compiler, not a fuzzer."
+            }
+          ],
+          "generalFeedback": "Fuzz testing (fuzzing) automatically generates many inputs — often random or malformed — runs the program on them, and reports the ones that trigger a detectable failure such as a crash. It is a bug-finding technique, not a correctness proof.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Seed corpus",
+          "text": "<p>In fuzzing, a <strong>seed corpus</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A set of sample inputs the fuzzer starts from and mutates to produce new inputs",
+              "fraction": 100,
+              "feedback": "Correct — seeds are the starting examples that mutation-based fuzzers build on."
+            },
+            {
+              "text": "The list of crashes the fuzzer has already found",
+              "fraction": 0,
+              "feedback": "Crashes are outputs of a fuzzing run; the seed corpus is the set of starting inputs."
+            },
+            {
+              "text": "The random-number generator's initial seed value",
+              "fraction": 0,
+              "feedback": "A PRNG seed is a single number; the seed corpus is a collection of example inputs."
+            },
+            {
+              "text": "The source code of the program under test",
+              "fraction": 0,
+              "feedback": "The corpus is input data, not the program's code."
+            }
+          ],
+          "generalFeedback": "The seed corpus is the initial collection of valid or interesting example inputs a mutation-based fuzzer uses as a starting point; it mutates these seeds to explore new behavior.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutation-based vs generation-based",
+          "text": "<p>How does <strong>mutation-based</strong> fuzzing differ from <strong>generation-based</strong> fuzzing?</p>",
+          "answers": [
+            {
+              "text": "Mutation-based fuzzing modifies existing seed inputs, while generation-based fuzzing builds inputs from scratch using a model or grammar of the format",
+              "fraction": 100,
+              "feedback": "Correct — one mutates given samples, the other constructs inputs from a specification."
+            },
+            {
+              "text": "Mutation-based fuzzing needs a full grammar, while generation-based fuzzing just flips bits",
+              "fraction": 0,
+              "feedback": "It is the reverse: generation-based fuzzing uses a grammar/model; mutation-based typically flips bits and splices seeds."
+            },
+            {
+              "text": "Both require the program's source code to run",
+              "fraction": 0,
+              "feedback": "Neither necessarily needs source; the distinction is how inputs are produced (mutation vs generation)."
+            },
+            {
+              "text": "They are two names for the exact same technique",
+              "fraction": 0,
+              "feedback": "They are distinct strategies for producing inputs."
+            }
+          ],
+          "generalFeedback": "Mutation-based fuzzing takes a seed corpus and applies mutations (bit flips, byte replacements, splicing) to it. Generation-based fuzzing instead synthesizes inputs from a model or grammar that describes the expected format, so it can produce well-structured inputs from the start.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Coverage-guided fuzzing",
+          "text": "<p>What defines a <strong>coverage-guided</strong> (greybox) fuzzer?</p>",
+          "answers": [
+            {
+              "text": "It instruments the program to observe code coverage and keeps inputs that reach new code, evolving its corpus toward deeper behavior",
+              "fraction": 100,
+              "feedback": "Correct — coverage feedback selects \"interesting\" inputs and drives the search."
+            },
+            {
+              "text": "It generates inputs purely at random and never looks at what the program does",
+              "fraction": 0,
+              "feedback": "That describes black-box fuzzing; coverage-guided fuzzing uses feedback."
+            },
+            {
+              "text": "It requires a full formal specification of the program",
+              "fraction": 0,
+              "feedback": "No specification is needed — just lightweight coverage instrumentation."
+            },
+            {
+              "text": "It only measures coverage after fuzzing finishes and never changes its inputs",
+              "fraction": 0,
+              "feedback": "Coverage is used online, during the run, to choose which inputs to keep and mutate further."
+            }
+          ],
+          "generalFeedback": "A coverage-guided fuzzer (e.g. AFL, libFuzzer) instruments the target to record which code edges each input exercises. Inputs that hit new coverage are saved to the corpus and mutated further, so the fuzzer gradually works its way into deeper code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The fuzzing oracle",
+          "text": "<p>When a fuzzer runs an input, what most commonly tells it that a bug was found (its <strong>oracle</strong>)?</p>",
+          "answers": [
+            {
+              "text": "A crash, a hang, a sanitizer violation, or a failed assertion during the run",
+              "fraction": 100,
+              "feedback": "Correct — these are the observable failure signals fuzzers rely on."
+            },
+            {
+              "text": "A human reads every generated input and judges it by hand",
+              "fraction": 0,
+              "feedback": "Fuzzers run millions of inputs; the oracle must be automatic, like a crash or sanitizer report."
+            },
+            {
+              "text": "The input's file size exceeding a threshold",
+              "fraction": 0,
+              "feedback": "File size does not indicate a bug; crashes, hangs, and sanitizer errors do."
+            },
+            {
+              "text": "The program producing any output at all",
+              "fraction": 0,
+              "feedback": "Normal output is expected; the oracle looks for failure signals, not ordinary output."
+            }
+          ],
+          "generalFeedback": "Because a fuzzer runs enormous numbers of inputs, its bug oracle must be automatic. The usual signals are a crash (e.g. SIGSEGV), a hang/timeout, a sanitizer-reported violation (ASan/UBSan), or a failed assertion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Black-box, grey-box, white-box",
+          "text": "<p>Which correctly orders <strong>black-box</strong>, <strong>grey-box</strong>, and <strong>white-box</strong> fuzzing by how much program internals they use?</p>",
+          "answers": [
+            {
+              "text": "Black-box uses no internal information; grey-box uses lightweight coverage feedback; white-box uses heavier program analysis such as symbolic execution",
+              "fraction": 100,
+              "feedback": "Correct — the three sit on a spectrum of increasing internal insight."
+            },
+            {
+              "text": "Black-box uses symbolic execution; grey-box uses none; white-box uses coverage",
+              "fraction": 0,
+              "feedback": "The labels are scrambled: white-box is the one that uses symbolic execution, black-box uses nothing."
+            },
+            {
+              "text": "All three use identical amounts of internal information",
+              "fraction": 0,
+              "feedback": "They differ precisely in how much internal insight they use."
+            },
+            {
+              "text": "Grey-box uses the most internal information of the three",
+              "fraction": 0,
+              "feedback": "White-box uses the most (program analysis); grey-box uses only lightweight coverage."
+            }
+          ],
+          "generalFeedback": "Black-box fuzzing treats the target as opaque (only inputs and observed crashes). Grey-box fuzzing adds lightweight instrumentation for coverage feedback. White-box fuzzing uses heavier analysis — e.g. symbolic/concolic execution — to reason about which inputs drive which paths.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Goal of fuzzing",
+          "text": "<p>A central goal of fuzzing is to automatically discover inputs that make the program crash or otherwise misbehave.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — fuzzing automates the search for failure-triggering inputs."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Finding crash- or fault-triggering inputs automatically is exactly what fuzzing is for."
+            }
+          ],
+          "generalFeedback": "Fuzzing generates many inputs and runs the program on each, aiming to find those that trigger a detectable failure — a crash, hang, sanitizer violation, or assertion failure."
+        },
+        {
+          "type": "multichoice",
+          "name": "Bit-flip mutation operator",
+          "text": "<p>A <strong>bit-flip</strong> mutation operator in a fuzzer:</p>",
+          "answers": [
+            {
+              "text": "Toggles one or more bits within a copy of an existing input",
+              "fraction": 100,
+              "feedback": "Correct — flipping bits is one of the simplest mutation operators."
+            },
+            {
+              "text": "Rewrites the program's source to invert a boolean",
+              "fraction": 0,
+              "feedback": "That would be source mutation (mutation testing); a fuzzer mutates inputs, not code."
+            },
+            {
+              "text": "Deletes the entire input and starts over from nothing",
+              "fraction": 0,
+              "feedback": "A bit flip modifies a few bits; it does not erase the whole input."
+            },
+            {
+              "text": "Recompiles the target with a different optimization level",
+              "fraction": 0,
+              "feedback": "Mutation operators change inputs, not the build configuration."
+            }
+          ],
+          "generalFeedback": "Mutation operators transform seed inputs. Common ones include bit flips (toggling bits), byte or integer replacement, insertion/deletion, and splicing two inputs together.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "AFL is coverage-guided greybox",
+          "text": "<p>AFL (American Fuzzy Lop) is a coverage-guided greybox fuzzer: it instruments the target and uses edge-coverage feedback to guide mutation.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — AFL is the canonical coverage-guided greybox fuzzer, using edge-coverage feedback."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "AFL is indeed coverage-guided and greybox; it records edge coverage via instrumentation and keeps inputs that reach new edges."
+            }
+          ],
+          "generalFeedback": "AFL popularized coverage-guided greybox fuzzing: compile-time (or QEMU-based) instrumentation records edge coverage, and inputs that hit new edges are added to the queue and mutated further."
+        },
+        {
+          "type": "multichoice",
+          "name": "libFuzzer's fuzz target",
+          "text": "<p>libFuzzer is an in-process, coverage-guided fuzzer. How do you tell it what to fuzz?</p>",
+          "answers": [
+            {
+              "text": "You write a fuzz-target function that receives a byte buffer and feeds it into the code under test",
+              "fraction": 100,
+              "feedback": "Correct — libFuzzer repeatedly calls your entry function (e.g. LLVMFuzzerTestOneInput) with generated bytes."
+            },
+            {
+              "text": "You supply a formal grammar and libFuzzer derives the target automatically",
+              "fraction": 0,
+              "feedback": "libFuzzer drives a byte buffer into a function you write; it does not require a grammar."
+            },
+            {
+              "text": "You give it only the compiled binary with no code changes",
+              "fraction": 0,
+              "feedback": "libFuzzer is in-process and links against a target function you provide."
+            },
+            {
+              "text": "You point it at the program's log files",
+              "fraction": 0,
+              "feedback": "It calls your fuzz-target function with generated input; logs are irrelevant."
+            }
+          ],
+          "generalFeedback": "libFuzzer runs in-process: you write a fuzz target (commonly) that turns the bytes into calls on the API under test. libFuzzer generates inputs, calls the target in a loop, and uses coverage feedback to guide mutation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AddressSanitizer",
+          "text": "<p>What does <strong>AddressSanitizer (ASan)</strong> contribute when fuzzing C/C++ code?</p>",
+          "answers": [
+            {
+              "text": "It detects memory errors — such as heap/stack buffer overflows and use-after-free — turning otherwise silent corruption into an immediate, visible failure",
+              "fraction": 100,
+              "feedback": "Correct — ASan makes many memory-safety bugs crash loudly so the fuzzer's oracle catches them."
+            },
+            {
+              "text": "It generates the fuzzing inputs",
+              "fraction": 0,
+              "feedback": "Input generation is the fuzzer's job; ASan is a bug detector, not a generator."
+            },
+            {
+              "text": "It proves the program is memory-safe",
+              "fraction": 0,
+              "feedback": "ASan reports errors it observes at runtime; it does not prove their absence."
+            },
+            {
+              "text": "It speeds the program up by removing bounds checks",
+              "fraction": 0,
+              "feedback": "ASan adds checks (with overhead); it does not remove them."
+            }
+          ],
+          "generalFeedback": "AddressSanitizer instruments memory accesses to detect errors like out-of-bounds reads/writes and use-after-free. Combined with fuzzing, it converts many silent memory-corruption bugs into observable crashes, strengthening the oracle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a crash signals",
+          "text": "<p>When a fuzzer reports a \"crash,\" it usually means the run:</p>",
+          "answers": [
+            {
+              "text": "Terminated abnormally — e.g. a segmentation fault or an abort — indicating a fault worth investigating",
+              "fraction": 100,
+              "feedback": "Correct — abnormal termination is the classic fuzzing bug signal."
+            },
+            {
+              "text": "Produced output that differs from a reference implementation",
+              "fraction": 0,
+              "feedback": "That is a differential-testing signal, not what \"crash\" means here."
+            },
+            {
+              "text": "Finished normally but slowly",
+              "fraction": 0,
+              "feedback": "Slow-but-normal completion is not a crash; a hang/timeout would be a separate signal."
+            },
+            {
+              "text": "Was rejected by the fuzzer's input filter",
+              "fraction": 0,
+              "feedback": "A crash is abnormal termination of the target, not input filtering."
+            }
+          ],
+          "generalFeedback": "A crash is abnormal termination of the target process — for example a segmentation fault (SIGSEGV) or an abort (SIGABRT, often from a sanitizer or assertion). The fuzzer saves the triggering input for triage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Random/black-box fuzzing",
+          "text": "<p>The simplest, purely <strong>random black-box</strong> fuzzer works by:</p>",
+          "answers": [
+            {
+              "text": "Throwing randomly generated or randomly mutated inputs at the program without using any internal feedback",
+              "fraction": 100,
+              "feedback": "Correct — pure black-box random fuzzing ignores program internals entirely."
+            },
+            {
+              "text": "Solving path constraints with an SMT solver to choose inputs",
+              "fraction": 0,
+              "feedback": "That is white-box/symbolic fuzzing, not random black-box."
+            },
+            {
+              "text": "Selecting inputs based on measured edge coverage",
+              "fraction": 0,
+              "feedback": "Using coverage feedback makes it greybox, not black-box."
+            },
+            {
+              "text": "Requiring a complete grammar of the input format",
+              "fraction": 0,
+              "feedback": "A pure random fuzzer needs no grammar; it just generates or mutates bytes."
+            }
+          ],
+          "generalFeedback": "Random black-box fuzzing simply generates or mutates inputs and observes only external behavior (did it crash?). It is cheap and easy but, without feedback, tends to plateau once the easy-to-reach code has been exercised.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fuzzing dictionary",
+          "text": "<p>A fuzzing <strong>dictionary</strong> is:</p>",
+          "answers": [
+            {
+              "text": "A set of tokens or magic values (keywords, headers, constants) the fuzzer can insert into inputs",
+              "fraction": 100,
+              "feedback": "Correct — dictionaries give the fuzzer meaningful building blocks it would rarely produce by chance."
+            },
+            {
+              "text": "A log of every crash mapped to its stack trace",
+              "fraction": 0,
+              "feedback": "That is crash triage output; a dictionary is a set of input tokens."
+            },
+            {
+              "text": "The mapping from source files to coverage counters",
+              "fraction": 0,
+              "feedback": "That is coverage bookkeeping, not a dictionary of tokens."
+            },
+            {
+              "text": "A grammar describing the entire input format",
+              "fraction": 0,
+              "feedback": "A dictionary is a flat list of useful tokens, not a full grammar."
+            }
+          ],
+          "generalFeedback": "A dictionary supplies interesting tokens — format keywords, magic bytes, or common constants — that the fuzzer can splice into inputs. This helps it get past checks that expect specific byte sequences it would almost never generate randomly.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Generation-based needs a model",
+          "text": "<p>Generation-based fuzzing requires a model or grammar of the input format in order to construct inputs.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — generation-based fuzzing builds inputs from a specification of the format, so it needs that model."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "By definition, generation-based fuzzing constructs inputs from a model/grammar; without one it would have nothing to generate from."
+            }
+          ],
+          "generalFeedback": "Generation-based (grammar-based) fuzzing synthesizes inputs from a description of the format. That model is what lets it produce structurally valid inputs, unlike mutation-based fuzzing which starts from existing seeds."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Why coverage feedback helps",
+          "text": "<p>Why does keeping inputs that reach <em>new</em> code edges make a coverage-guided fuzzer more effective?</p>",
+          "answers": [
+            {
+              "text": "Such inputs are stepping stones: they exercise new behavior and, when mutated further, are more likely to reach still-deeper code than random inputs would",
+              "fraction": 100,
+              "feedback": "Correct — new-coverage inputs seed further exploration into the program."
+            },
+            {
+              "text": "Reaching new edges guarantees a crash on the next mutation",
+              "fraction": 0,
+              "feedback": "New coverage does not guarantee a crash; it just improves the odds of exploring deeper."
+            },
+            {
+              "text": "New-coverage inputs are always smaller, which speeds execution",
+              "fraction": 0,
+              "feedback": "They are kept for the new behavior they reach, not because they are smaller."
+            },
+            {
+              "text": "Coverage feedback lets the fuzzer skip running the program",
+              "fraction": 0,
+              "feedback": "The fuzzer must still run each input; feedback tells it which results to keep."
+            }
+          ],
+          "generalFeedback": "Coverage feedback turns fuzzing into a guided search. An input that unlocks a new edge is retained because mutating it is far more likely to push into adjacent, previously unreached code than mutating an input that adds nothing new — so the corpus evolves toward deeper coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutation vs generation trade-off",
+          "text": "<p>Which best captures the trade-off between mutation-based and generation-based fuzzing?</p>",
+          "answers": [
+            {
+              "text": "Mutation-based is cheap and needs no format spec but struggles with highly structured inputs; generation-based needs a grammar to write but readily produces valid structured inputs",
+              "fraction": 100,
+              "feedback": "Correct — the trade-off is spec effort versus ability to produce valid structured inputs."
+            },
+            {
+              "text": "Mutation-based always finds more bugs than generation-based on every target",
+              "fraction": 0,
+              "feedback": "Neither dominates universally; each suits different input formats."
+            },
+            {
+              "text": "Generation-based is always cheaper to set up than mutation-based",
+              "fraction": 0,
+              "feedback": "Generation-based usually costs more up front because you must write the grammar/model."
+            },
+            {
+              "text": "Only generation-based fuzzing can use coverage feedback",
+              "fraction": 0,
+              "feedback": "Coverage feedback is orthogonal; mutation-based greybox fuzzers use it heavily."
+            }
+          ],
+          "generalFeedback": "Mutation-based fuzzing is quick to start (just supply seeds) but random mutations often break the structure of complex formats. Generation-based fuzzing invests in a grammar/model up front, which pays off for highly structured inputs (compilers, network protocols) by producing valid inputs consistently.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What makes a good seed",
+          "text": "<p>Which set of seed inputs is generally <em>best</em> for a mutation-based coverage-guided fuzzer?</p>",
+          "answers": [
+            {
+              "text": "Small, valid, diverse examples that together exercise many different features of the format",
+              "fraction": 100,
+              "feedback": "Correct — small-and-diverse valid seeds give broad, mutable starting coverage."
+            },
+            {
+              "text": "A single very large file that contains every feature at once",
+              "fraction": 0,
+              "feedback": "One huge file is slow to run and mutate; many small diverse seeds are better."
+            },
+            {
+              "text": "Random byte blobs with no relation to the format",
+              "fraction": 0,
+              "feedback": "Invalid blobs waste effort getting rejected early; valid seeds reach deeper code faster."
+            },
+            {
+              "text": "Only inputs already known to crash the program",
+              "fraction": 0,
+              "feedback": "Known crashes are for regression tests; seeds should broadly exercise valid behavior to explore from."
+            }
+          ],
+          "generalFeedback": "Good seeds are valid enough to get past early parsing, small so they run and mutate quickly, and diverse so the corpus starts with broad coverage. A pile of tiny, feature-varied valid inputs beats one giant file or random noise.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Greybox vs blackbox",
+          "text": "<p>The key practical advantage of greybox fuzzing over black-box fuzzing on the same target is that greybox:</p>",
+          "answers": [
+            {
+              "text": "Uses coverage feedback to recognize and retain inputs that reach new code, so it explores far more of the program over time",
+              "fraction": 100,
+              "feedback": "Correct — the feedback loop is exactly what greybox adds."
+            },
+            {
+              "text": "Needs no oracle because coverage replaces crash detection",
+              "fraction": 0,
+              "feedback": "Coverage guides the search but is not a bug oracle; you still need crash/sanitizer signals."
+            },
+            {
+              "text": "Guarantees full path coverage of the program",
+              "fraction": 0,
+              "feedback": "Greybox fuzzing improves coverage but guarantees nothing close to all paths."
+            },
+            {
+              "text": "Requires no instrumentation at all",
+              "fraction": 0,
+              "feedback": "The coverage feedback that defines greybox comes from lightweight instrumentation."
+            }
+          ],
+          "generalFeedback": "Black-box fuzzing sees only external behavior, so it cannot tell a \"boring\" input from one that unlocked new code. Greybox fuzzing adds lightweight coverage instrumentation, letting it keep and mutate inputs that reach new edges — a feedback loop that dramatically improves reach.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Dictionaries and magic values",
+          "text": "<p>How does supplying a dictionary help a fuzzer get past a check like <code>if (memcmp(hdr, \"PNG\", 3) == 0)</code>?</p>",
+          "answers": [
+            {
+              "text": "The dictionary contains the token \"PNG\", so the fuzzer can insert it directly instead of having to stumble onto those bytes at random",
+              "fraction": 100,
+              "feedback": "Correct — dictionaries hand the fuzzer the exact tokens the code checks for."
+            },
+            {
+              "text": "It disables the comparison so the check always passes",
+              "fraction": 0,
+              "feedback": "A dictionary supplies input tokens; it does not modify the program's checks."
+            },
+            {
+              "text": "It makes random mutation exponentially faster",
+              "fraction": 0,
+              "feedback": "It does not change mutation speed; it changes what tokens are available to insert."
+            },
+            {
+              "text": "It proves the header is correct without running the code",
+              "fraction": 0,
+              "feedback": "Dictionaries do not prove anything; they just provide useful byte sequences to try."
+            }
+          ],
+          "generalFeedback": "Randomly producing a specific multi-byte token (like \"PNG\") is unlikely. A dictionary lists such tokens so the fuzzer can splice them in directly, letting it satisfy magic-value checks and reach the code guarded behind them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Structure-aware fuzzing",
+          "text": "<p>What is the point of <strong>structure-aware</strong> fuzzing (e.g. mutating a parsed/typed representation rather than raw bytes)?</p>",
+          "answers": [
+            {
+              "text": "Mutations respect the input format, so most generated inputs stay structurally valid and reach deep logic instead of being rejected by the parser",
+              "fraction": 100,
+              "feedback": "Correct — mutating at the structural level keeps inputs valid enough to exercise deeper code."
+            },
+            {
+              "text": "It removes the need for any oracle",
+              "fraction": 0,
+              "feedback": "Structure awareness is about input validity, not bug detection; an oracle is still required."
+            },
+            {
+              "text": "It guarantees the fuzzer will find all bugs in the parser",
+              "fraction": 0,
+              "feedback": "No technique guarantees finding all bugs; it just keeps more inputs valid."
+            },
+            {
+              "text": "It works only on plain text and never on binary formats",
+              "fraction": 0,
+              "feedback": "Structure-aware fuzzing applies to binary formats too (e.g. protobuf-based fuzzers)."
+            }
+          ],
+          "generalFeedback": "For highly structured inputs, raw byte mutations are usually rejected early by the parser. Structure-aware fuzzing mutates a typed/parsed representation (or uses a grammar), so generated inputs remain well-formed and can drive the deeper semantic logic where interesting bugs live.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why keep a new-edge input",
+          "text": "<p>A coverage-guided fuzzer runs an input that reaches a brand-new edge but does not crash. What does it typically do?</p>",
+          "answers": [
+            {
+              "text": "Add it to the corpus/queue so it can be mutated further, since it may lead to still-deeper code",
+              "fraction": 100,
+              "feedback": "Correct — new coverage is valuable even without a crash, as a basis for further mutation."
+            },
+            {
+              "text": "Discard it, because only crashing inputs are worth keeping",
+              "fraction": 0,
+              "feedback": "New-coverage inputs are kept precisely because they open paths toward future crashes."
+            },
+            {
+              "text": "Immediately report it as a bug",
+              "fraction": 0,
+              "feedback": "New coverage is not a bug; only failure signals from the oracle are."
+            },
+            {
+              "text": "Stop the fuzzing campaign",
+              "fraction": 0,
+              "feedback": "Reaching new coverage is progress, not a reason to stop."
+            }
+          ],
+          "generalFeedback": "Inputs that unlock new coverage are saved and prioritized for further mutation. They act as stepping stones: mutating them is the most promising way to push execution into adjacent, not-yet-covered code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Splicing operator",
+          "text": "<p>The <strong>splicing</strong> mutation operator produces a new input by:</p>",
+          "answers": [
+            {
+              "text": "Combining a portion of one corpus input with a portion of another",
+              "fraction": 100,
+              "feedback": "Correct — splicing recombines fragments of two existing inputs."
+            },
+            {
+              "text": "Flipping a single bit in one input",
+              "fraction": 0,
+              "feedback": "That is a bit-flip, not splicing."
+            },
+            {
+              "text": "Replacing a 4-byte integer with a boundary value",
+              "fraction": 0,
+              "feedback": "That is an integer-replacement mutation, not splicing."
+            },
+            {
+              "text": "Sorting the bytes of an input in ascending order",
+              "fraction": 0,
+              "feedback": "Sorting bytes is not a standard mutation; splicing joins parts of two inputs."
+            }
+          ],
+          "generalFeedback": "Splicing (crossover) takes two inputs from the corpus and joins a prefix of one with a suffix of another, letting the fuzzer combine features discovered separately — a complement to local mutations like bit flips and byte replacement.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Corpus evolution",
+          "text": "<p>In an AFL-style fuzzer, how does the corpus (queue) evolve during a run?</p>",
+          "answers": [
+            {
+              "text": "Inputs that trigger new coverage are appended to the queue and later mutated, so the corpus grows toward inputs reaching deeper code",
+              "fraction": 100,
+              "feedback": "Correct — the queue is continually extended with interesting inputs and re-mutated."
+            },
+            {
+              "text": "The corpus is fixed at startup and never changes",
+              "fraction": 0,
+              "feedback": "A coverage-guided fuzzer's corpus grows as new-coverage inputs are found."
+            },
+            {
+              "text": "Every generated input, coverage or not, is permanently stored",
+              "fraction": 0,
+              "feedback": "Only inputs that add new coverage (or crash) are retained; the rest are discarded."
+            },
+            {
+              "text": "The corpus shrinks by one input after every execution",
+              "fraction": 0,
+              "feedback": "The corpus grows with interesting finds; it is not decremented per run."
+            }
+          ],
+          "generalFeedback": "A coverage-guided fuzzer maintains a queue of interesting inputs. When a mutated input hits new coverage, it is added to the queue; the fuzzer then keeps cycling through the queue, mutating each entry, so the corpus evolves toward inputs that reach ever-deeper behavior.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge vs block coverage",
+          "text": "<p>Why do many greybox fuzzers track <strong>edge</strong> (branch-transition) coverage rather than just <strong>basic-block</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "Edge coverage records which block-to-block transitions occur, so it distinguishes control-flow that block coverage alone would treat as identical",
+              "fraction": 100,
+              "feedback": "Correct — edges capture transitions, giving a finer signal than block hits."
+            },
+            {
+              "text": "Edge coverage requires no instrumentation while block coverage does",
+              "fraction": 0,
+              "feedback": "Both require instrumentation; edge coverage is simply more discriminating."
+            },
+            {
+              "text": "Block coverage can detect crashes but edge coverage cannot",
+              "fraction": 0,
+              "feedback": "Neither detects crashes; that is the oracle's role. The difference is granularity of the coverage signal."
+            },
+            {
+              "text": "Edge coverage is always exact while block coverage is random",
+              "fraction": 0,
+              "feedback": "Both are deterministic measurements; the point is edges are finer-grained."
+            }
+          ],
+          "generalFeedback": "Edge coverage records transitions between basic blocks, so two runs that visit the same blocks in different orders look different. This finer signal helps the fuzzer recognize more \"interesting\" inputs than block coverage, which only notes whether a block was reached.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "In-process vs fork-based fuzzing",
+          "text": "<p>Compared with a fork-based fuzzer, an in-process fuzzer like libFuzzer:</p>",
+          "answers": [
+            {
+              "text": "Runs each input by calling a target function in the same process, which is fast but requires the target to be free of state that leaks between runs",
+              "fraction": 100,
+              "feedback": "Correct — in-process execution is fast but sensitive to residual/global state."
+            },
+            {
+              "text": "Starts a fresh process for every input, giving stronger isolation but more overhead",
+              "fraction": 0,
+              "feedback": "That describes fork/exec-based fuzzing, the opposite of in-process."
+            },
+            {
+              "text": "Cannot use coverage feedback at all",
+              "fraction": 0,
+              "feedback": "libFuzzer is coverage-guided; in-process execution does not preclude feedback."
+            },
+            {
+              "text": "Requires a full input grammar to operate",
+              "fraction": 0,
+              "feedback": "libFuzzer needs no grammar; it drives a byte buffer into your fuzz target."
+            }
+          ],
+          "generalFeedback": "In-process fuzzing calls the target function repeatedly within one process, avoiding process-creation overhead and running very fast. The cost is that leftover global/static state between runs can cause non-reproducible behavior, so the target must reset cleanly each call.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sanitizers strengthen the oracle",
+          "text": "<p>Why does running a fuzzer against a sanitizer-instrumented build tend to find more bugs?</p>",
+          "answers": [
+            {
+              "text": "Sanitizers turn otherwise-silent errors (e.g. small out-of-bounds reads, integer overflow) into immediate visible failures the fuzzer's oracle can catch",
+              "fraction": 100,
+              "feedback": "Correct — sanitizers expose faults that would not crash on their own."
+            },
+            {
+              "text": "Sanitizers generate additional inputs for the fuzzer",
+              "fraction": 0,
+              "feedback": "Sanitizers detect faults; they do not generate inputs."
+            },
+            {
+              "text": "Sanitizers increase execution speed, allowing more runs",
+              "fraction": 0,
+              "feedback": "Sanitizers add overhead; the benefit is better detection, not speed."
+            },
+            {
+              "text": "Sanitizers replace the need for a corpus",
+              "fraction": 0,
+              "feedback": "A corpus is still needed; sanitizers only improve the failure signal."
+            }
+          ],
+          "generalFeedback": "Without a sanitizer, many bugs (a one-byte overread, a signed overflow) do not crash and slip past the fuzzer unnoticed. Sanitizers such as ASan and UBSan detect these at runtime and abort, so the fuzzer's crash oracle catches faults it otherwise would miss.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Hangs as an oracle signal",
+          "text": "<p>Besides crashes, a fuzzer can use a hang or timeout as a bug signal — for example to catch an input that drives the program into an infinite loop.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — excessive runtime (a hang/timeout) is a standard fuzzing signal, e.g. for potential denial-of-service loops."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Fuzzers routinely flag inputs that exceed a time limit, which can reveal infinite loops or algorithmic-complexity problems."
+            }
+          ],
+          "generalFeedback": "A hang/timeout is a legitimate oracle: if an input makes the program run far longer than a set limit, the fuzzer records it. Such inputs can expose infinite loops or worst-case algorithmic-complexity (denial-of-service) issues."
+        },
+        {
+          "type": "multichoice",
+          "name": "Coverage plateau",
+          "text": "<p>A coverage-guided fuzzer stops discovering new coverage for a long time (it plateaus). Which response is most reasonable?</p>",
+          "answers": [
+            {
+              "text": "Help it past the barrier — add better seeds, supply a dictionary, or bring in a solver/symbolic help — because random mutation alone is likely stuck on a hard check",
+              "fraction": 100,
+              "feedback": "Correct — a plateau usually means a hard-to-satisfy condition that needs extra help."
+            },
+            {
+              "text": "Conclude the program is now proven bug-free",
+              "fraction": 0,
+              "feedback": "A plateau means the fuzzer stopped making progress, not that the program is correct."
+            },
+            {
+              "text": "Delete the seed corpus to force pure randomness",
+              "fraction": 0,
+              "feedback": "Removing seeds usually hurts; the fuzzer needs better starting points, not fewer."
+            },
+            {
+              "text": "Disable the coverage instrumentation",
+              "fraction": 0,
+              "feedback": "Turning off feedback discards the very mechanism that guides exploration."
+            }
+          ],
+          "generalFeedback": "Plateaus typically mean the fuzzer is blocked by a check its mutations cannot satisfy (a magic value, checksum, or complex structure). Practical responses include richer seeds, a dictionary of expected tokens, structure-aware mutation, or hybrid fuzzing that uses a solver to get past the barrier — not treating the plateau as a proof of correctness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Integer/boundary replacement operator",
+          "text": "<p>Many fuzzers include a mutation operator that overwrites a multi-byte integer field with values like 0, -1, or INT_MAX. Why favor these particular values?</p>",
+          "answers": [
+            {
+              "text": "Boundary and extreme values disproportionately expose off-by-one, overflow, and sign-handling bugs, so trying them is more productive than purely random integers",
+              "fraction": 100,
+              "feedback": "Correct — boundary values target the edge cases where integer bugs cluster."
+            },
+            {
+              "text": "These values are guaranteed to satisfy any checksum",
+              "fraction": 0,
+              "feedback": "They have nothing to do with checksums; they target integer edge cases."
+            },
+            {
+              "text": "They make the input file smaller",
+              "fraction": 0,
+              "feedback": "Replacing an integer does not shrink the input; the point is bug-prone edge values."
+            },
+            {
+              "text": "They are the only values a coverage-guided fuzzer can generate",
+              "fraction": 0,
+              "feedback": "A fuzzer can produce many values; boundary values are just especially bug-revealing choices to try."
+            }
+          ],
+          "generalFeedback": "Integer-replacement mutations deliberately inject boundary and extreme values (0, 1, -1, max/min, powers of two nearby) because bugs — off-by-one errors, overflows, signed/unsigned confusion — tend to cluster at these edges. Trying them is far more productive than sampling integers uniformly at random.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Why a checksum defeats naive mutation fuzzing",
+          "text": "<p>A parser first verifies a CRC checksum over the input and rejects the input immediately if it fails. Why does this defeat naive mutation-based fuzzing, and what actually helps?</p>",
+          "answers": [
+            {
+              "text": "Almost every mutation breaks the checksum, so inputs are rejected before reaching deeper code; the reliable fixes are patching out (disabling) the checksum check in the harness, or symbolic/concolic execution to solve for a value that satisfies it — a fixed dictionary token and plain coverage guidance don't help here since the required checksum value varies with the rest of the input",
+              "fraction": 100,
+              "feedback": "Correct — the check is an all-or-nothing gate; the practical fix is to disable it in the fuzzing build, or use symbolic/concolic execution to solve for a valid checksum (a dictionary token or coverage gradient alone won't work, since the checksum's correct value depends on the rest of the input)."
+            },
+            {
+              "text": "The checksum makes the program run faster, so the fuzzer has less time — adding more CPU cores solves it",
+              "fraction": 0,
+              "feedback": "The problem is that mutated inputs fail the check, not runtime; more cores do not make random mutations satisfy a checksum."
+            },
+            {
+              "text": "Coverage-guided fuzzing alone trivially computes correct checksums for every input",
+              "fraction": 0,
+              "feedback": "Coverage guidance does not compute checksums; a single pass/fail check gives it almost no gradient to follow. That is an overstatement."
+            },
+            {
+              "text": "Nothing helps — such code simply cannot be fuzzed",
+              "fraction": 0,
+              "feedback": "It can be fuzzed: disabling the check in the harness, or using dictionaries/symbolic execution, are standard remedies."
+            }
+          ],
+          "generalFeedback": "A checksum guard is a single branch that almost all random mutations fail, so the fuzzer never reaches the logic behind it, and coverage feedback gives essentially no gradient to follow (it is all-or-nothing). Reliable remedies: patch out (disable) the checksum check inside the fuzzing harness, or use symbolic/concolic execution to solve for the value that satisfies it. A dictionary token and plain coverage-guided mutation alone do not help here, because the correct checksum varies with the rest of the input — those fit a fixed magic-bytes comparison, not a checksum.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Magic-bytes comparison and coverage gradient",
+          "text": "<p>For a guard <code>if (x == 0xDEADBEEF)</code> on a 32-bit input, why is plain edge coverage a weak guide, and what addresses it?</p>",
+          "answers": [
+            {
+              "text": "The comparison is all-or-nothing, so partial progress toward the constant earns no new coverage; comparison-tracking instrumentation (splitting the compare into bytes / value profiling) or a dictionary supplies the missing gradient",
+              "fraction": 100,
+              "feedback": "Correct — without a gradient the fuzzer is guessing 1-in-2³²; compare-coverage or dictionaries give it feedback."
+            },
+            {
+              "text": "Edge coverage already rewards each matching byte, so no extra help is needed",
+              "fraction": 0,
+              "feedback": "A singleyields one edge either way; plain edge coverage does not reward matching individual bytes."
+            },
+            {
+              "text": "The guard is impossible to satisfy, so fuzzing must skip it",
+              "fraction": 0,
+              "feedback": "It is satisfiable (x = 0xDEADBEEF); the issue is guiding the fuzzer there, which compare-coverage/dictionaries do."
+            },
+            {
+              "text": "Coverage feedback makes random guessing of the 4 bytes fast",
+              "fraction": 0,
+              "feedback": "Random guessing stays ~1-in-2³²; the fix is instrumentation that provides a gradient, not faster guessing."
+            }
+          ],
+          "generalFeedback": "A wide equality is a cliff: the input is either exactly right (new edge) or not (no signal), so the fuzzer has no gradient to climb and random search faces ~2³² odds. Compare-coverage instrumentation (e.g. laf-intel-style splitting into byte comparisons, or libFuzzer value profiling) rewards matching more bytes, and dictionaries supply the constant directly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Shallow reach vs deep conditions",
+          "text": "<p>Why is fuzzing strong at shallow bugs but weak at bugs guarded behind deep, specific conditions?</p>",
+          "answers": [
+            {
+              "text": "Random mutation easily exercises shallow code but is unlikely to satisfy long chains of specific conditions; symbolic/concolic execution can solve such constraints but faces path explosion",
+              "fraction": 100,
+              "feedback": "Correct — fuzzing reaches shallow code cheaply; deep specific guards need constraint solving, which has its own scaling cost."
+            },
+            {
+              "text": "Fuzzing explores all paths exhaustively, so depth is irrelevant",
+              "fraction": 0,
+              "feedback": "Fuzzing does not explore exhaustively; deep specific conditions are exactly where it struggles."
+            },
+            {
+              "text": "Deep conditions are always infeasible, so no technique can reach them",
+              "fraction": 0,
+              "feedback": "They are usually feasible; the difficulty is generating inputs that satisfy them."
+            },
+            {
+              "text": "Symbolic execution reaches deep conditions with no scaling limits",
+              "fraction": 0,
+              "feedback": "Symbolic execution helps but is limited by path explosion; that is an overstatement."
+            }
+          ],
+          "generalFeedback": "Fuzzing throws many inputs cheaply, so it readily hits shallow, easy-to-reach faults. But a bug behind several precise checks requires satisfying all of them at once, which random mutation rarely does. Symbolic/concolic execution can solve those constraints directly, at the cost of path explosion — which is why hybrid (fuzzing + symbolic) approaches exist.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Oracle limitation: silent logic bugs",
+          "text": "<p>A function returns a subtly wrong result but never crashes, hangs, or triggers a sanitizer. Why might a fuzzer miss this bug?</p>",
+          "answers": [
+            {
+              "text": "The fuzzer's oracle only detects observable failures; a wrong-but-not-crashing output passes unless a stronger oracle (assertions, a reference/differential check) is added",
+              "fraction": 100,
+              "feedback": "Correct — no failure signal means the bug is invisible to the default oracle."
+            },
+            {
+              "text": "Fuzzers automatically know the correct output for every input",
+              "fraction": 0,
+              "feedback": "They do not; that is precisely the oracle problem fuzzing faces for logic bugs."
+            },
+            {
+              "text": "Coverage feedback flags any incorrect result",
+              "fraction": 0,
+              "feedback": "Coverage measures which code ran, not whether the result was correct."
+            },
+            {
+              "text": "Sanitizers detect all incorrect return values",
+              "fraction": 0,
+              "feedback": "Sanitizers detect memory/UB errors, not general logic errors."
+            }
+          ],
+          "generalFeedback": "Fuzzing relies on an automatic oracle, which by default catches only crashes, hangs, and sanitizer/assertion failures. A logic bug that produces a wrong-but-well-formed result raises no such signal. To catch it you need a stronger oracle: inline assertions/invariants, or differential testing against a reference implementation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Corpus minimization",
+          "text": "<p>What is the goal of <strong>corpus minimization</strong> (e.g. afl-cmin)?</p>",
+          "answers": [
+            {
+              "text": "Reduce the corpus to a smaller subset of inputs that preserves the same overall coverage, so later fuzzing spends less time on redundant seeds",
+              "fraction": 100,
+              "feedback": "Correct — it prunes redundant seeds while keeping coverage."
+            },
+            {
+              "text": "Shrink a single crashing input to the smallest bytes that still crash",
+              "fraction": 0,
+              "feedback": "That is test-case minimization (afl-tmin), not corpus minimization."
+            },
+            {
+              "text": "Delete all seeds so the fuzzer starts from empty",
+              "fraction": 0,
+              "feedback": "Minimization keeps a coverage-preserving subset, not nothing."
+            },
+            {
+              "text": "Combine all seeds into one large file",
+              "fraction": 0,
+              "feedback": "It selects a minimal set of separate inputs; it does not merge them."
+            }
+          ],
+          "generalFeedback": "Corpus minimization selects the smallest subset of the corpus that still achieves the corpus's coverage, discarding inputs that add nothing new. A leaner corpus means the fuzzer cycles through it faster and wastes less effort on redundant seeds.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test-case minimization",
+          "text": "<p>After a crash is found, what does <strong>test-case minimization</strong> (e.g. afl-tmin) do?</p>",
+          "answers": [
+            {
+              "text": "Repeatedly trims the crashing input to the smallest/simplest form that still reproduces the crash, easing debugging",
+              "fraction": 100,
+              "feedback": "Correct — a minimized reproducer isolates what actually triggers the bug."
+            },
+            {
+              "text": "Removes redundant seeds from the whole corpus",
+              "fraction": 0,
+              "feedback": "That is corpus minimization; test-case minimization works on one crashing input."
+            },
+            {
+              "text": "Fixes the bug automatically",
+              "fraction": 0,
+              "feedback": "It shrinks the reproducer; it does not patch the code."
+            },
+            {
+              "text": "Expands the input with extra bytes to make the crash more reliable",
+              "fraction": 0,
+              "feedback": "Minimization removes bytes to simplify; it does not pad the input."
+            }
+          ],
+          "generalFeedback": "Test-case (crash) minimization takes a crashing input and iteratively removes or simplifies bytes as long as the crash still reproduces, yielding a small, focused reproducer that makes root-causing the bug far easier.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When generation-based beats mutation",
+          "text": "<p>For which target is generation-based (grammar-based) fuzzing most likely to outperform mutation-based fuzzing?</p>",
+          "answers": [
+            {
+              "text": "A compiler or protocol parser with a rigid, highly structured input format, where random mutations almost always produce invalid inputs rejected early",
+              "fraction": 100,
+              "feedback": "Correct — a grammar lets the fuzzer produce valid structured inputs that reach deep logic."
+            },
+            {
+              "text": "A routine that accepts an arbitrary blob of bytes with no structure",
+              "fraction": 0,
+              "feedback": "For unstructured input, mutation-based fuzzing works well and a grammar adds little."
+            },
+            {
+              "text": "Any target, since generation-based fuzzing is universally superior",
+              "fraction": 0,
+              "feedback": "Neither approach is universally best; generation-based shines specifically on structured formats."
+            },
+            {
+              "text": "A target with no oracle available",
+              "fraction": 0,
+              "feedback": "Oracle availability is orthogonal to the mutation-vs-generation choice."
+            }
+          ],
+          "generalFeedback": "When inputs must obey a strict grammar (source code for a compiler, messages for a protocol), random byte mutations are overwhelmingly rejected by the front end. A generation-based fuzzer builds inputs from the grammar, so it consistently produces valid inputs that exercise the deeper semantic logic where interesting bugs hide.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Hybrid (symbolic-assisted) fuzzing",
+          "text": "<p>In hybrid fuzzing (e.g. Driller-style), how does concolic/symbolic execution complement a greybox fuzzer?</p>",
+          "answers": [
+            {
+              "text": "When the fuzzer plateaus at a hard check, the solver computes an input that satisfies that specific branch; the new input is handed back so cheap fuzzing can continue exploring beyond it",
+              "fraction": 100,
+              "feedback": "Correct — the solver gets past narrow guards, then the fuzzer takes over again."
+            },
+            {
+              "text": "The solver replaces the fuzzer entirely and explores all paths symbolically",
+              "fraction": 0,
+              "feedback": "Symbolic execution suffers path explosion; hybrid fuzzing uses it selectively, not as a full replacement."
+            },
+            {
+              "text": "The solver generates the coverage instrumentation for the fuzzer",
+              "fraction": 0,
+              "feedback": "Instrumentation comes from the compiler/toolchain; the solver's role is satisfying hard constraints."
+            },
+            {
+              "text": "The solver acts as the bug oracle in place of sanitizers",
+              "fraction": 0,
+              "feedback": "The oracle is still crashes/sanitizers; the solver's job is producing inputs past hard branches."
+            }
+          ],
+          "generalFeedback": "Hybrid fuzzing plays to each technique's strength: the fuzzer explores cheaply and broadly, and when it gets stuck at a narrow condition (magic value, checksum), concolic execution solves that branch's constraint to produce a passing input. Control returns to the fuzzer, which explores the newly reached region — using the solver sparingly to avoid path explosion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ASan vs UBSan roles",
+          "text": "<p>How do the roles of <strong>AddressSanitizer (ASan)</strong> and <strong>UndefinedBehaviorSanitizer (UBSan)</strong> differ when fuzzing?</p>",
+          "answers": [
+            {
+              "text": "ASan targets memory-safety errors (out-of-bounds access, use-after-free); UBSan targets undefined behavior (e.g. signed integer overflow, invalid shifts, misaligned pointers)",
+              "fraction": 100,
+              "feedback": "Correct — they detect different, complementary fault classes."
+            },
+            {
+              "text": "They detect exactly the same errors, so running both is redundant",
+              "fraction": 0,
+              "feedback": "They cover different fault classes; using both broadens what the oracle catches."
+            },
+            {
+              "text": "ASan detects undefined behavior while UBSan detects memory errors",
+              "fraction": 0,
+              "feedback": "The roles are swapped: ASan is for memory errors, UBSan for undefined behavior."
+            },
+            {
+              "text": "Both generate fuzzing inputs rather than detect faults",
+              "fraction": 0,
+              "feedback": "Neither generates inputs; both are runtime fault detectors."
+            }
+          ],
+          "generalFeedback": "ASan instruments memory accesses to catch spatial/temporal memory-safety violations (buffer overflows, use-after-free). UBSan catches language-level undefined behavior such as signed overflow, out-of-range shifts, and misaligned or null pointer use. They target different fault classes, so fuzzing under both enlarges the set of detectable bugs.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Fuzzing does not prove correctness",
+          "text": "<p>If a fuzzer runs for a long time and finds no crashes, that proves the program is bug-free.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — no crashes found only means none were found within the inputs tried; fuzzing cannot prove the absence of bugs."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Fuzzing samples the input space; finding no crashes is not a proof of correctness, since untried inputs (and silent logic bugs) may still fail."
+            }
+          ],
+          "generalFeedback": "Fuzzing is a testing technique: it can reveal bugs but never prove their absence. A clean run reflects only the inputs actually explored and the failures the oracle can see; it says nothing about untried inputs or silent logic errors."
+        },
+        {
+          "type": "multichoice",
+          "name": "Value profiling / compare coverage",
+          "text": "<p>Comparison-tracking instrumentation (splitting multi-byte comparisons, or \"value profiling\") helps a coverage-guided fuzzer because it:</p>",
+          "answers": [
+            {
+              "text": "Rewards inputs that get closer to satisfying a comparison (e.g. more matching bytes), giving the search a gradient it otherwise lacks",
+              "fraction": 100,
+              "feedback": "Correct — it converts an all-or-nothing compare into incremental feedback."
+            },
+            {
+              "text": "Removes all comparisons from the program so every branch is taken",
+              "fraction": 0,
+              "feedback": "It instruments comparisons for feedback; it does not delete them from the program's logic."
+            },
+            {
+              "text": "Guarantees the fuzzer solves every equality in constant time",
+              "fraction": 0,
+              "feedback": "It improves guidance but guarantees nothing; some constraints still need a solver."
+            },
+            {
+              "text": "Replaces the need for a seed corpus",
+              "fraction": 0,
+              "feedback": "Seeds are still valuable; compare-coverage only adds a finer feedback signal."
+            }
+          ],
+          "generalFeedback": "A wide comparison normally gives feedback only when fully matched. Comparison-tracking (e.g. laf-intel splitting a 4-byte compare into per-byte compares, or libFuzzer value profiling) rewards partial matches, so the fuzzer can climb toward the target value instead of guessing it all at once.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Harness design and determinism",
+          "text": "<p>Why should a fuzz harness (fuzz target) map input bytes to program behavior <em>deterministically</em>?</p>",
+          "answers": [
+            {
+              "text": "Non-determinism (randomness, time, uninitialized state) makes crashes hard to reproduce and pollutes coverage feedback, so the same input should always behave the same way",
+              "fraction": 100,
+              "feedback": "Correct — determinism keeps coverage feedback meaningful and crashes reproducible."
+            },
+            {
+              "text": "Determinism lets the fuzzer skip running the target",
+              "fraction": 0,
+              "feedback": "The target must still run each input; determinism just makes results reliable."
+            },
+            {
+              "text": "Only deterministic targets can have bugs",
+              "fraction": 0,
+              "feedback": "Non-deterministic targets have bugs too; determinism makes them easier to find and reproduce."
+            },
+            {
+              "text": "Determinism removes the need for an oracle",
+              "fraction": 0,
+              "feedback": "An oracle is still required; determinism does not detect faults by itself."
+            }
+          ],
+          "generalFeedback": "Coverage-guided fuzzing assumes an input's behavior (and its coverage) is a function of the input. If the harness introduces randomness, wall-clock time, or leftover global state, the same bytes can behave differently — making coverage feedback noisy and crashes non-reproducible. Good harnesses derive all behavior deterministically from the input bytes.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Fuzzing needs a detectable failure signal",
+          "text": "<p>Without a detectable failure signal (crash, hang, sanitizer/assertion violation, or a reference check), a fuzzer can execute a bug-triggering input yet never report the bug.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — with no observable signal, the fuzzer has no way to recognize that anything went wrong."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A fuzzer only reports a bug when its oracle observes a failure; a fault that produces no signal passes silently."
+            }
+          ],
+          "generalFeedback": "Fuzzing depends entirely on its oracle. If a triggering input causes no crash, hang, sanitizer violation, or assertion/reference-check failure, the fuzzer sees nothing wrong and moves on — which is why strengthening the oracle (sanitizers, assertions, differential checks) is as important as generating good inputs."
+        },
+        {
+          "type": "multichoice",
+          "name": "Differential fuzzing as an oracle",
+          "text": "<p>How does <strong>differential fuzzing</strong> help catch silent logic bugs that crashes and sanitizers miss?</p>",
+          "answers": [
+            {
+              "text": "It runs the same input through two or more implementations that should agree, and flags a bug when their outputs differ",
+              "fraction": 100,
+              "feedback": "Correct — disagreement between implementations serves as an oracle for non-crashing bugs."
+            },
+            {
+              "text": "It measures which implementation runs faster and reports the slower one as buggy",
+              "fraction": 0,
+              "feedback": "Differential fuzzing compares outputs for correctness, not speed."
+            },
+            {
+              "text": "It doubles the coverage instrumentation to detect memory errors",
+              "fraction": 0,
+              "feedback": "It is an oracle technique based on output comparison, not extra memory instrumentation."
+            },
+            {
+              "text": "It proves both implementations are correct when they agree",
+              "fraction": 0,
+              "feedback": "Agreement is not proof of correctness — both could share the same bug; it only flags disagreements."
+            }
+          ],
+          "generalFeedback": "Differential fuzzing feeds one input to multiple implementations expected to behave identically (e.g. two parsers or a reference vs an optimized version) and treats any output mismatch as a bug. This provides an oracle for silent logic errors that produce no crash. Note that if both implementations share the same flaw, they can agree and still be wrong.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Coverage as a fitness signal, not a proof",
+          "text": "<p>Which statement about the role of coverage in coverage-guided fuzzing is accurate?</p>",
+          "answers": [
+            {
+              "text": "Coverage is a heuristic fitness signal that steers the search toward new code; high coverage indicates thorough exercising, not correctness or bug-freedom",
+              "fraction": 100,
+              "feedback": "Correct — coverage guides exploration but is not a correctness guarantee."
+            },
+            {
+              "text": "Reaching 100% edge coverage proves the program has no bugs",
+              "fraction": 0,
+              "feedback": "Executing code is not the same as testing it correctly; full coverage can still miss bugs (e.g. wrong-but-non-crashing results)."
+            },
+            {
+              "text": "Coverage directly decides whether a run found a bug",
+              "fraction": 0,
+              "feedback": "Coverage guides the search; the bug decision comes from the oracle (crash/sanitizer/assertion)."
+            },
+            {
+              "text": "Coverage feedback removes the need to run inputs",
+              "fraction": 0,
+              "feedback": "Coverage is obtained by running instrumented inputs; it cannot replace execution."
+            }
+          ],
+          "generalFeedback": "In coverage-guided fuzzing, coverage is a fitness signal: inputs that reach new edges are kept and mutated, steering the search deeper. But covering a line only means it ran, not that it produced a correct result — so even 100% coverage does not prove bug-freedom, and the oracle, not coverage, decides whether a run failed.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是模糊測試",
+          "text": "<p><strong>模糊測試器（fuzzer）</strong>本質上在做什麼？</p>",
+          "answers": [
+            {
+              "text": "它自動對程式餵入大量生成或畸形的輸入，並觀察是否發生當機與其他失敗",
+              "fraction": 100,
+              "feedback": "正確——模糊測試是一種自動化測試，用大量輸入轟炸程式並尋找可觀察到的失敗。"
+            },
+            {
+              "text": "它形式化地證明程式沒有任何錯誤",
+              "fraction": 0,
+              "feedback": "模糊測試藉由嘗試輸入來找出錯誤；它永遠無法證明錯誤不存在。"
+            },
+            {
+              "text": "它靜態地量測測試套件所涵蓋的行數",
+              "fraction": 0,
+              "feedback": "那是覆蓋率量測；模糊測試器會主動以大量生成的輸入執行程式。"
+            },
+            {
+              "text": "它把原始碼翻譯成最佳化過的機器碼",
+              "fraction": 0,
+              "feedback": "那描述的是編譯器，而非模糊測試器。"
+            }
+          ],
+          "generalFeedback": "模糊測試（fuzzing）自動生成大量輸入——常是隨機或畸形的——以之執行程式，並回報觸發可偵測失敗（例如當機）的那些輸入。它是一種找錯技術，而非正確性證明。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "種子語料庫",
+          "text": "<p>在模糊測試中，<strong>種子語料庫（seed corpus）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一組樣本輸入，模糊測試器以它們為起點並加以變異來產生新輸入",
+              "fraction": 100,
+              "feedback": "正確——種子是變異式模糊測試器賴以出發的起始範例。"
+            },
+            {
+              "text": "模糊測試器已經找到的當機清單",
+              "fraction": 0,
+              "feedback": "當機是模糊測試執行的輸出；種子語料庫則是起始輸入的集合。"
+            },
+            {
+              "text": "亂數產生器的初始種子值",
+              "fraction": 0,
+              "feedback": "亂數種子是單一數字；種子語料庫則是一組範例輸入。"
+            },
+            {
+              "text": "受測程式的原始碼",
+              "fraction": 0,
+              "feedback": "語料庫是輸入資料，而非程式的程式碼。"
+            }
+          ],
+          "generalFeedback": "種子語料庫是變異式模糊測試器所用的初始一組有效或有趣的範例輸入；它變異這些種子以探索新行為。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "變異式與生成式",
+          "text": "<p><strong>變異式（mutation-based）</strong>模糊測試與<strong>生成式（generation-based）</strong>模糊測試有何不同？</p>",
+          "answers": [
+            {
+              "text": "變異式模糊測試修改既有的種子輸入，生成式模糊測試則依格式的模型或文法（grammar）從頭建構輸入",
+              "fraction": 100,
+              "feedback": "正確——一者變異既有樣本，另一者依規格建構輸入。"
+            },
+            {
+              "text": "變異式模糊測試需要完整文法，生成式模糊測試只是翻轉位元",
+              "fraction": 0,
+              "feedback": "恰好相反：生成式使用文法／模型；變異式通常翻轉位元並拼接種子。"
+            },
+            {
+              "text": "兩者都必須要有程式原始碼才能執行",
+              "fraction": 0,
+              "feedback": "兩者都不一定需要原始碼；差別在於如何產生輸入（變異或生成）。"
+            },
+            {
+              "text": "它們是同一種技術的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們是產生輸入的兩種不同策略。"
+            }
+          ],
+          "generalFeedback": "變異式模糊測試取用種子語料庫並對其套用變異（位元翻轉、位元組替換、拼接）。生成式模糊測試則依描述預期格式的模型或文法合成輸入，因此一開始就能產生結構良好的輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "覆蓋率導向模糊測試",
+          "text": "<p>什麼定義了<strong>覆蓋率導向（灰箱）</strong>模糊測試器？</p>",
+          "answers": [
+            {
+              "text": "它對程式插樁以觀察程式覆蓋率，保留能抵達新程式碼的輸入，並讓語料庫朝更深的行為演進",
+              "fraction": 100,
+              "feedback": "正確——覆蓋率回饋挑選「有趣」的輸入並驅動搜尋。"
+            },
+            {
+              "text": "它純粹隨機生成輸入，從不觀察程式的行為",
+              "fraction": 0,
+              "feedback": "那描述的是黑箱模糊測試；覆蓋率導向會使用回饋。"
+            },
+            {
+              "text": "它需要程式的完整形式化規格",
+              "fraction": 0,
+              "feedback": "不需要規格——只需輕量的覆蓋率插樁。"
+            },
+            {
+              "text": "它只在模糊測試結束後才量測覆蓋率，且從不改變其輸入",
+              "fraction": 0,
+              "feedback": "覆蓋率是在執行過程中即時使用，用以決定保留與變異哪些輸入。"
+            }
+          ],
+          "generalFeedback": "覆蓋率導向模糊測試器（例如 AFL、libFuzzer）對目標插樁，記錄每個輸入所執行到的程式碼邊（edge）。命中新覆蓋率的輸入會被存入語料庫並進一步變異，因此模糊測試器會逐步深入更深的程式碼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "模糊測試的判定準則",
+          "text": "<p>當模糊測試器執行一個輸入時，什麼最常告訴它找到了錯誤（其<strong>判定準則／oracle</strong>）？</p>",
+          "answers": [
+            {
+              "text": "執行期間發生當機、卡死（hang）、消毒器（sanitizer）違規，或斷言（assertion）失敗",
+              "fraction": 100,
+              "feedback": "正確——這些是模糊測試器賴以判斷的可觀察失敗訊號。"
+            },
+            {
+              "text": "由人工逐一閱讀每個生成的輸入並親手判斷",
+              "fraction": 0,
+              "feedback": "模糊測試器會執行數百萬個輸入；判定準則必須是自動的，例如當機或消毒器報告。"
+            },
+            {
+              "text": "輸入的檔案大小超過某個門檻",
+              "fraction": 0,
+              "feedback": "檔案大小並不表示有錯誤；當機、卡死與消毒器錯誤才是。"
+            },
+            {
+              "text": "程式產生了任何輸出",
+              "fraction": 0,
+              "feedback": "正常輸出是預期中的；判定準則尋找的是失敗訊號，而非一般輸出。"
+            }
+          ],
+          "generalFeedback": "因為模糊測試器會執行極大量的輸入，它的錯誤判定準則必須是自動的。常見訊號包括當機（例如 SIGSEGV）、卡死／逾時、消毒器回報的違規（ASan／UBSan），或失敗的斷言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "黑箱、灰箱、白箱",
+          "text": "<p>下列何者正確地依「使用多少程式內部資訊」排序<strong>黑箱</strong>、<strong>灰箱</strong>與<strong>白箱</strong>模糊測試？</p>",
+          "answers": [
+            {
+              "text": "黑箱不使用任何內部資訊；灰箱使用輕量的覆蓋率回饋；白箱使用較重的程式分析，例如符號執行",
+              "fraction": 100,
+              "feedback": "正確——三者落在「內部洞察逐漸增加」的光譜上。"
+            },
+            {
+              "text": "黑箱使用符號執行；灰箱不使用任何；白箱使用覆蓋率",
+              "fraction": 0,
+              "feedback": "標籤被打亂了：使用符號執行的是白箱，黑箱什麼都不用。"
+            },
+            {
+              "text": "三者使用的內部資訊量完全相同",
+              "fraction": 0,
+              "feedback": "它們的差別正在於使用多少內部洞察。"
+            },
+            {
+              "text": "灰箱使用三者中最多的內部資訊",
+              "fraction": 0,
+              "feedback": "使用最多的是白箱（程式分析）；灰箱只用輕量的覆蓋率。"
+            }
+          ],
+          "generalFeedback": "黑箱模糊測試把目標當成不透明（只看輸入與觀察到的當機）。灰箱模糊測試加入輕量插樁以取得覆蓋率回饋。白箱模糊測試使用較重的分析——例如符號／具體符號執行——以推理哪些輸入驅動哪些路徑。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "模糊測試的目標",
+          "text": "<p>模糊測試的一個核心目標，是自動找出會使程式當機或以其他方式出錯的輸入。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——模糊測試把「尋找觸發失敗的輸入」自動化。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "自動找出觸發當機或故障的輸入，正是模糊測試的用途。"
+            }
+          ],
+          "generalFeedback": "模糊測試生成大量輸入並以之執行程式，目標是找出觸發可偵測失敗（當機、卡死、消毒器違規或斷言失敗）的輸入。"
+        },
+        {
+          "type": "multichoice",
+          "name": "位元翻轉變異運算子",
+          "text": "<p>模糊測試器中的<strong>位元翻轉（bit-flip）</strong>變異運算子會：</p>",
+          "answers": [
+            {
+              "text": "在既有輸入的副本中切換一個或多個位元",
+              "fraction": 100,
+              "feedback": "正確——翻轉位元是最簡單的變異運算子之一。"
+            },
+            {
+              "text": "改寫程式原始碼以反轉某個布林值",
+              "fraction": 0,
+              "feedback": "那會是原始碼變異（突變測試）；模糊測試器變異的是輸入，而非程式碼。"
+            },
+            {
+              "text": "刪除整個輸入並從零重新開始",
+              "fraction": 0,
+              "feedback": "位元翻轉修改的是少數位元；它不會抹除整個輸入。"
+            },
+            {
+              "text": "以不同的最佳化等級重新編譯目標",
+              "fraction": 0,
+              "feedback": "變異運算子改變的是輸入，而非建置設定。"
+            }
+          ],
+          "generalFeedback": "變異運算子轉換種子輸入。常見的包括位元翻轉（切換位元）、位元組或整數替換、插入／刪除，以及把兩個輸入拼接（splicing）在一起。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "AFL 是覆蓋率導向灰箱",
+          "text": "<p>AFL（American Fuzzy Lop）是一個覆蓋率導向的灰箱模糊測試器：它對目標插樁，並以邊覆蓋率（edge coverage）回饋來引導變異。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——AFL 是覆蓋率導向灰箱模糊測試的典型代表，使用邊覆蓋率回饋。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "AFL 確實是覆蓋率導向且灰箱的；它透過插樁記錄邊覆蓋率，並保留能抵達新邊的輸入。"
+            }
+          ],
+          "generalFeedback": "AFL 使覆蓋率導向灰箱模糊測試普及：編譯期（或以 QEMU）插樁記錄邊覆蓋率，命中新邊的輸入會被加入佇列並進一步變異。"
+        },
+        {
+          "type": "multichoice",
+          "name": "libFuzzer 的模糊目標",
+          "text": "<p>libFuzzer 是一個行程內（in-process）、覆蓋率導向的模糊測試器。你如何告訴它要模糊測試什麼？</p>",
+          "answers": [
+            {
+              "text": "你撰寫一個模糊目標函式，它接收一段位元組緩衝區，並把它餵入受測程式碼",
+              "fraction": 100,
+              "feedback": "正確——libFuzzer 會反覆以生成的位元組呼叫你的進入函式（例如 LLVMFuzzerTestOneInput）。"
+            },
+            {
+              "text": "你提供一份形式化文法，libFuzzer 自動推導出目標",
+              "fraction": 0,
+              "feedback": "libFuzzer 把位元組緩衝區驅動進你所寫的函式；它不需要文法。"
+            },
+            {
+              "text": "你只給它編譯後的執行檔，不需修改任何程式碼",
+              "fraction": 0,
+              "feedback": "libFuzzer 是行程內的，會連結到你提供的目標函式。"
+            },
+            {
+              "text": "你把它指向程式的日誌檔",
+              "fraction": 0,
+              "feedback": "它以生成的輸入呼叫你的模糊目標函式；日誌與此無關。"
+            }
+          ],
+          "generalFeedback": "libFuzzer 在行程內執行：你撰寫一個模糊目標（通常是），把位元組轉成對受測 API 的呼叫。libFuzzer 生成輸入、在迴圈中呼叫該目標，並以覆蓋率回饋引導變異。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AddressSanitizer",
+          "text": "<p>在對 C/C++ 程式碼進行模糊測試時，<strong>AddressSanitizer（ASan）</strong>提供了什麼？</p>",
+          "answers": [
+            {
+              "text": "它偵測記憶體錯誤——例如堆積／堆疊緩衝區溢位與釋放後使用（use-after-free）——把原本無聲的破壞轉為立即可見的失敗",
+              "fraction": 100,
+              "feedback": "正確——ASan 使許多記憶體安全錯誤大聲當機，讓模糊測試器的判定準則得以捕捉。"
+            },
+            {
+              "text": "它負責產生模糊測試的輸入",
+              "fraction": 0,
+              "feedback": "產生輸入是模糊測試器的工作；ASan 是錯誤偵測器，而非產生器。"
+            },
+            {
+              "text": "它證明程式是記憶體安全的",
+              "fraction": 0,
+              "feedback": "ASan 回報它在執行期觀察到的錯誤；它不證明錯誤不存在。"
+            },
+            {
+              "text": "它移除邊界檢查以加速程式",
+              "fraction": 0,
+              "feedback": "ASan 會加入檢查（並帶有額外開銷）；它不會移除檢查。"
+            }
+          ],
+          "generalFeedback": "AddressSanitizer 對記憶體存取插樁，以偵測越界讀寫與釋放後使用等錯誤。與模糊測試搭配時，它把許多無聲的記憶體破壞錯誤轉為可觀察的當機，強化判定準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "當機代表什麼",
+          "text": "<p>當模糊測試器回報一個「當機（crash）」時，通常表示該次執行：</p>",
+          "answers": [
+            {
+              "text": "異常終止——例如區段錯誤（segmentation fault）或中止（abort）——代表一個值得調查的故障",
+              "fraction": 100,
+              "feedback": "正確——異常終止是典型的模糊測試錯誤訊號。"
+            },
+            {
+              "text": "產生了與參考實作不同的輸出",
+              "fraction": 0,
+              "feedback": "那是差分測試（differential testing）的訊號，並非此處「當機」的意思。"
+            },
+            {
+              "text": "正常結束，只是比較慢",
+              "fraction": 0,
+              "feedback": "緩慢但正常地完成不是當機；卡死／逾時會是另一種獨立訊號。"
+            },
+            {
+              "text": "被模糊測試器的輸入過濾器拒絕",
+              "fraction": 0,
+              "feedback": "當機是目標的異常終止，而非輸入過濾。"
+            }
+          ],
+          "generalFeedback": "當機是目標行程的異常終止——例如區段錯誤（SIGSEGV）或中止（SIGABRT，常由消毒器或斷言引發）。模糊測試器會保存觸發它的輸入以供分類分析。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "隨機／黑箱模糊測試",
+          "text": "<p>最簡單、純<strong>隨機黑箱</strong>模糊測試器的運作方式是：</p>",
+          "answers": [
+            {
+              "text": "把隨機生成或隨機變異的輸入丟給程式，完全不使用任何內部回饋",
+              "fraction": 100,
+              "feedback": "正確——純黑箱隨機模糊測試完全忽略程式內部。"
+            },
+            {
+              "text": "以 SMT 求解器求解路徑限制式來選擇輸入",
+              "fraction": 0,
+              "feedback": "那是白箱／符號模糊測試，並非隨機黑箱。"
+            },
+            {
+              "text": "依量測到的邊覆蓋率來挑選輸入",
+              "fraction": 0,
+              "feedback": "使用覆蓋率回饋會使它成為灰箱，而非黑箱。"
+            },
+            {
+              "text": "需要輸入格式的完整文法",
+              "fraction": 0,
+              "feedback": "純隨機模糊測試器不需要文法；它只是生成或變異位元組。"
+            }
+          ],
+          "generalFeedback": "隨機黑箱模糊測試單純生成或變異輸入，並只觀察外部行為（有沒有當機？）。它便宜又容易，但沒有回饋，一旦易於抵達的程式碼被執行過後往往就會停滯（plateau）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "模糊測試字典",
+          "text": "<p>模糊測試的<strong>字典（dictionary）</strong>是指：</p>",
+          "answers": [
+            {
+              "text": "一組符記（token）或魔術值（關鍵字、標頭、常數），模糊測試器可將其插入輸入中",
+              "fraction": 100,
+              "feedback": "正確——字典提供模糊測試器靠隨機幾乎產生不出的有意義建構區塊。"
+            },
+            {
+              "text": "把每個當機對應到其呼叫堆疊軌跡的日誌",
+              "fraction": 0,
+              "feedback": "那是當機分類的輸出；字典是一組輸入符記。"
+            },
+            {
+              "text": "從原始檔到覆蓋率計數器的對應表",
+              "fraction": 0,
+              "feedback": "那是覆蓋率的記錄，而非符記字典。"
+            },
+            {
+              "text": "描述整個輸入格式的文法",
+              "fraction": 0,
+              "feedback": "字典是一份扁平的有用符記清單，而非完整文法。"
+            }
+          ],
+          "generalFeedback": "字典提供有趣的符記——格式關鍵字、魔術位元組或常見常數——模糊測試器可把它們拼接進輸入。這有助於通過那些期待特定位元組序列（而它幾乎不可能隨機生成）的檢查。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "生成式需要模型",
+          "text": "<p>生成式模糊測試需要輸入格式的模型或文法，才能建構輸入。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——生成式模糊測試依格式規格建構輸入，因此需要該模型。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "依定義，生成式模糊測試依模型／文法建構輸入；沒有它就無從生成。"
+            }
+          ],
+          "generalFeedback": "生成式（文法式）模糊測試依格式描述合成輸入。正是那個模型讓它能產生結構有效的輸入，不同於從既有種子出發的變異式模糊測試。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "為何覆蓋率回饋有幫助",
+          "text": "<p>為什麼保留能抵達<em>新</em>程式碼邊的輸入，會讓覆蓋率導向模糊測試器更有效？</p>",
+          "answers": [
+            {
+              "text": "這類輸入是墊腳石：它們執行到新行為，進一步變異後比隨機輸入更可能抵達更深的程式碼",
+              "fraction": 100,
+              "feedback": "正確——新覆蓋率的輸入是進一步深入程式的探索起點。"
+            },
+            {
+              "text": "抵達新邊保證下一次變異就會當機",
+              "fraction": 0,
+              "feedback": "新覆蓋率並不保證當機；它只是提高更深入探索的機會。"
+            },
+            {
+              "text": "新覆蓋率的輸入一定比較小，因此執行更快",
+              "fraction": 0,
+              "feedback": "保留它們是因為抵達了新行為，而非因為比較小。"
+            },
+            {
+              "text": "覆蓋率回饋讓模糊測試器可以略過執行程式",
+              "fraction": 0,
+              "feedback": "模糊測試器仍必須執行每個輸入；回饋只是告訴它該保留哪些結果。"
+            }
+          ],
+          "generalFeedback": "覆蓋率回饋把模糊測試變成一種有引導的搜尋。解鎖了新邊的輸入會被保留，因為變異它比變異毫無新意的輸入，更可能推進到相鄰、先前未抵達的程式碼——語料庫因而朝更深的覆蓋率演進。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "變異與生成的取捨",
+          "text": "<p>下列何者最能概括變異式與生成式模糊測試之間的取捨？</p>",
+          "answers": [
+            {
+              "text": "變異式便宜且不需格式規格，但難以處理高度結構化的輸入；生成式需要撰寫文法，但能輕易產生有效的結構化輸入",
+              "fraction": 100,
+              "feedback": "正確——取捨在於「規格投入」對上「能否產生有效結構化輸入」。"
+            },
+            {
+              "text": "變異式在每一個目標上都一定比生成式找到更多錯誤",
+              "fraction": 0,
+              "feedback": "兩者皆非全面勝出；各自適合不同的輸入格式。"
+            },
+            {
+              "text": "生成式的建置成本總是比變異式更低",
+              "fraction": 0,
+              "feedback": "生成式通常前期成本更高，因為你必須撰寫文法／模型。"
+            },
+            {
+              "text": "只有生成式模糊測試能使用覆蓋率回饋",
+              "fraction": 0,
+              "feedback": "覆蓋率回饋是正交的；變異式灰箱模糊測試器大量使用它。"
+            }
+          ],
+          "generalFeedback": "變異式模糊測試容易上手（只需提供種子），但隨機變異常破壞複雜格式的結構。生成式模糊測試前期投入撰寫文法／模型，對高度結構化的輸入（編譯器、網路協定）而言，能持續產生有效輸入而回本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是好的種子",
+          "text": "<p>對變異式覆蓋率導向模糊測試器而言，哪一組種子輸入通常<em>最佳</em>？</p>",
+          "answers": [
+            {
+              "text": "小巧、有效、多樣的範例，合起來能執行到格式的許多不同特性",
+              "fraction": 100,
+              "feedback": "正確——小而多樣的有效種子提供了廣泛、可變異的起始覆蓋率。"
+            },
+            {
+              "text": "一個涵蓋所有特性的超大單一檔案",
+              "fraction": 0,
+              "feedback": "單一巨檔執行與變異都慢；許多小而多樣的種子更好。"
+            },
+            {
+              "text": "與格式無關的隨機位元組團",
+              "fraction": 0,
+              "feedback": "無效團塊會浪費在早期被拒；有效種子能更快抵達更深的程式碼。"
+            },
+            {
+              "text": "只用已知會使程式當機的輸入",
+              "fraction": 0,
+              "feedback": "已知當機用於回歸測試；種子應廣泛執行有效行為以供由此探索。"
+            }
+          ],
+          "generalFeedback": "好的種子要「有效到足以通過早期剖析」、「小到能快速執行與變異」，且「多樣到讓語料庫一開始就有廣泛覆蓋率」。一堆小巧、特性各異的有效輸入，勝過一個巨檔或隨機雜訊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "灰箱與黑箱",
+          "text": "<p>在相同目標上，灰箱模糊測試相對於黑箱模糊測試的關鍵實務優勢是灰箱：</p>",
+          "answers": [
+            {
+              "text": "使用覆蓋率回饋來辨識並保留能抵達新程式碼的輸入，因此隨時間能探索到程式中更多部分",
+              "fraction": 100,
+              "feedback": "正確——這個回饋迴路正是灰箱所增加的。"
+            },
+            {
+              "text": "不需要判定準則，因為覆蓋率取代了當機偵測",
+              "fraction": 0,
+              "feedback": "覆蓋率引導搜尋，但不是錯誤判定準則；你仍需當機／消毒器訊號。"
+            },
+            {
+              "text": "保證涵蓋程式的所有路徑",
+              "fraction": 0,
+              "feedback": "灰箱模糊測試改善覆蓋率，但遠不能保證所有路徑。"
+            },
+            {
+              "text": "完全不需要任何插樁",
+              "fraction": 0,
+              "feedback": "定義灰箱的覆蓋率回饋正是來自輕量插樁。"
+            }
+          ],
+          "generalFeedback": "黑箱模糊測試只看外部行為，因此無法分辨「無聊」輸入與「解鎖新程式碼」的輸入。灰箱模糊測試加入輕量覆蓋率插樁，得以保留並變異抵達新邊的輸入——這個回饋迴路大幅提升觸及範圍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "字典與魔術值",
+          "text": "<p>提供字典如何幫助模糊測試器通過像 <code>if (memcmp(hdr, \"PNG\", 3) == 0)</code> 這樣的檢查？</p>",
+          "answers": [
+            {
+              "text": "字典包含符記 \"PNG\"，因此模糊測試器可直接插入它，不必靠隨機碰巧湊出那些位元組",
+              "fraction": 100,
+              "feedback": "正確——字典把程式檢查所需的確切符記直接交給模糊測試器。"
+            },
+            {
+              "text": "它停用該比較，使檢查永遠通過",
+              "fraction": 0,
+              "feedback": "字典提供的是輸入符記；它不會修改程式的檢查。"
+            },
+            {
+              "text": "它讓隨機變異呈指數級加速",
+              "fraction": 0,
+              "feedback": "它不改變變異速度；它改變的是可供插入的符記。"
+            },
+            {
+              "text": "它不執行程式就證明標頭正確",
+              "fraction": 0,
+              "feedback": "字典不證明任何事；它只是提供有用的位元組序列供嘗試。"
+            }
+          ],
+          "generalFeedback": "隨機產生特定的多位元組符記（例如 \"PNG\"）機率很低。字典列出這類符記，讓模糊測試器可直接拼接進去，從而滿足魔術值檢查並抵達其後守護的程式碼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "結構感知模糊測試",
+          "text": "<p><strong>結構感知（structure-aware）</strong>模糊測試（例如變異已剖析／具型別的表示，而非原始位元組）的重點是什麼？</p>",
+          "answers": [
+            {
+              "text": "變異會遵守輸入格式，因此大多數生成的輸入仍結構有效，能抵達深層邏輯，而非被剖析器早早拒絕",
+              "fraction": 100,
+              "feedback": "正確——在結構層次變異能讓輸入維持足夠有效以執行更深的程式碼。"
+            },
+            {
+              "text": "它免除了對任何判定準則的需求",
+              "fraction": 0,
+              "feedback": "結構感知關乎輸入有效性，而非錯誤偵測；仍需判定準則。"
+            },
+            {
+              "text": "它保證模糊測試器會找到剖析器中所有的錯誤",
+              "fraction": 0,
+              "feedback": "沒有技術能保證找到所有錯誤；它只是讓更多輸入維持有效。"
+            },
+            {
+              "text": "它只適用於純文字，永遠不適用於二進位格式",
+              "fraction": 0,
+              "feedback": "結構感知模糊測試也適用於二進位格式（例如以 protobuf 為基礎的模糊測試器）。"
+            }
+          ],
+          "generalFeedback": "對高度結構化的輸入而言，原始位元組變異通常會被剖析器早早拒絕。結構感知模糊測試變異已具型別／已剖析的表示（或使用文法），因此生成的輸入維持良好形式，能驅動更深、藏有有趣錯誤的語意邏輯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何保留抵達新邊的輸入",
+          "text": "<p>覆蓋率導向模糊測試器執行了一個抵達全新邊、但沒有當機的輸入。它通常會怎麼做？</p>",
+          "answers": [
+            {
+              "text": "把它加入語料庫／佇列以供進一步變異，因為它可能通往更深的程式碼",
+              "fraction": 100,
+              "feedback": "正確——即使沒有當機，新覆蓋率作為進一步變異的基礎仍有價值。"
+            },
+            {
+              "text": "丟棄它，因為只有會當機的輸入才值得保留",
+              "fraction": 0,
+              "feedback": "正因新覆蓋率的輸入開啟了通往未來當機的路徑，才會被保留。"
+            },
+            {
+              "text": "立即把它回報為錯誤",
+              "fraction": 0,
+              "feedback": "新覆蓋率不是錯誤；只有判定準則發出的失敗訊號才是。"
+            },
+            {
+              "text": "停止整個模糊測試活動",
+              "fraction": 0,
+              "feedback": "抵達新覆蓋率是進展，而非停止的理由。"
+            }
+          ],
+          "generalFeedback": "解鎖新覆蓋率的輸入會被保存並優先進一步變異。它們作為墊腳石：變異它們是把執行推進到相鄰、尚未抵達的程式碼最有前景的方式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "拼接運算子",
+          "text": "<p><strong>拼接（splicing）</strong>變異運算子產生新輸入的方式是：</p>",
+          "answers": [
+            {
+              "text": "把某個語料庫輸入的一部分與另一個輸入的一部分組合起來",
+              "fraction": 100,
+              "feedback": "正確——拼接重組兩個既有輸入的片段。"
+            },
+            {
+              "text": "翻轉某個輸入中的單一位元",
+              "fraction": 0,
+              "feedback": "那是位元翻轉，而非拼接。"
+            },
+            {
+              "text": "把一個 4 位元組整數換成邊界值",
+              "fraction": 0,
+              "feedback": "那是整數替換變異，而非拼接。"
+            },
+            {
+              "text": "把輸入的位元組依遞增順序排序",
+              "fraction": 0,
+              "feedback": "排序位元組不是標準變異；拼接是把兩個輸入的片段接合。"
+            }
+          ],
+          "generalFeedback": "拼接（crossover）取用語料庫中兩個輸入，把其中一個的前綴與另一個的後綴接合，讓模糊測試器把個別發現的特性組合起來——這是對位元翻轉、位元組替換等區域變異的補充。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "語料庫的演進",
+          "text": "<p>在 AFL 式模糊測試器中，語料庫（佇列）在執行過程中如何演進？</p>",
+          "answers": [
+            {
+              "text": "觸發新覆蓋率的輸入會被附加到佇列並稍後被變異，因此語料庫朝著抵達更深程式碼的輸入成長",
+              "fraction": 100,
+              "feedback": "正確——佇列持續被有趣的輸入擴充並再度變異。"
+            },
+            {
+              "text": "語料庫在啟動時固定，之後永不改變",
+              "fraction": 0,
+              "feedback": "覆蓋率導向模糊測試器的語料庫會隨著找到新覆蓋率的輸入而成長。"
+            },
+            {
+              "text": "每個生成的輸入，無論有無覆蓋率，都會被永久保存",
+              "fraction": 0,
+              "feedback": "只有增加新覆蓋率（或當機）的輸入才會被保留，其餘丟棄。"
+            },
+            {
+              "text": "每次執行後語料庫就減少一個輸入",
+              "fraction": 0,
+              "feedback": "語料庫隨有趣的發現成長，而非每次執行遞減。"
+            }
+          ],
+          "generalFeedback": "覆蓋率導向模糊測試器維護一個有趣輸入的佇列。當變異後的輸入命中新覆蓋率時，就會被加入佇列；模糊測試器接著不斷循環佇列、變異每一項，因此語料庫朝著抵達越來越深行為的輸入演進。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊覆蓋率與區塊覆蓋率",
+          "text": "<p>為什麼許多灰箱模糊測試器追蹤<strong>邊（分支轉移）覆蓋率</strong>，而不只是<strong>基本區塊（basic-block）覆蓋率</strong>？</p>",
+          "answers": [
+            {
+              "text": "邊覆蓋率記錄發生了哪些「區塊到區塊」的轉移，因此能區分區塊覆蓋率會視為相同的控制流",
+              "fraction": 100,
+              "feedback": "正確——邊捕捉轉移，提供比區塊命中更細緻的訊號。"
+            },
+            {
+              "text": "邊覆蓋率不需插樁，而區塊覆蓋率需要",
+              "fraction": 0,
+              "feedback": "兩者都需插樁；邊覆蓋率只是更具鑑別力。"
+            },
+            {
+              "text": "區塊覆蓋率能偵測當機，但邊覆蓋率不能",
+              "fraction": 0,
+              "feedback": "兩者都不偵測當機；那是判定準則的職責。差別在於覆蓋率訊號的細緻程度。"
+            },
+            {
+              "text": "邊覆蓋率總是精確，而區塊覆蓋率是隨機的",
+              "fraction": 0,
+              "feedback": "兩者都是確定性的量測；重點是邊更細緻。"
+            }
+          ],
+          "generalFeedback": "邊覆蓋率記錄基本區塊之間的轉移，因此兩次以不同順序造訪相同區塊的執行看起來會不同。這個更細緻的訊號幫助模糊測試器辨識出比區塊覆蓋率更多的「有趣」輸入，後者只記錄某區塊是否被抵達。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "行程內與 fork 式模糊測試",
+          "text": "<p>相較於 fork 式模糊測試器，像 libFuzzer 這樣的行程內模糊測試器：</p>",
+          "answers": [
+            {
+              "text": "在同一行程內呼叫目標函式來執行每個輸入，速度快，但要求目標不得有在多次執行間洩漏的狀態",
+              "fraction": 100,
+              "feedback": "正確——行程內執行速度快，但對殘留／全域狀態敏感。"
+            },
+            {
+              "text": "為每個輸入啟動一個全新行程，隔離更強但額外開銷更大",
+              "fraction": 0,
+              "feedback": "那描述的是 fork/exec 式模糊測試，與行程內相反。"
+            },
+            {
+              "text": "完全無法使用覆蓋率回饋",
+              "fraction": 0,
+              "feedback": "libFuzzer 是覆蓋率導向的；行程內執行並不排除回饋。"
+            },
+            {
+              "text": "需要完整的輸入文法才能運作",
+              "fraction": 0,
+              "feedback": "libFuzzer 不需文法；它把位元組緩衝區驅動進你的模糊目標。"
+            }
+          ],
+          "generalFeedback": "行程內模糊測試在單一行程內反覆呼叫目標函式，避免了建立行程的開銷，執行非常快。代價是多次執行間殘留的全域／靜態狀態可能導致無法重現的行為，因此目標必須在每次呼叫時乾淨地重置。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "消毒器強化判定準則",
+          "text": "<p>為什麼對「插入消毒器的建置」進行模糊測試往往能找到更多錯誤？</p>",
+          "answers": [
+            {
+              "text": "消毒器把原本無聲的錯誤（例如小範圍越界讀取、整數溢位）轉為立即可見的失敗，讓模糊測試器的判定準則得以捕捉",
+              "fraction": 100,
+              "feedback": "正確——消毒器暴露了那些本身不會當機的故障。"
+            },
+            {
+              "text": "消毒器為模糊測試器產生額外的輸入",
+              "fraction": 0,
+              "feedback": "消毒器偵測故障；它們不產生輸入。"
+            },
+            {
+              "text": "消毒器提升執行速度，因而能執行更多次",
+              "fraction": 0,
+              "feedback": "消毒器帶來額外開銷；好處在於更好的偵測，而非速度。"
+            },
+            {
+              "text": "消毒器取代了對語料庫的需求",
+              "fraction": 0,
+              "feedback": "仍需語料庫；消毒器只改善失敗訊號。"
+            }
+          ],
+          "generalFeedback": "沒有消毒器時，許多錯誤（一個位元組的越界讀取、有號溢位）不會當機而從模糊測試器眼前溜走。ASan、UBSan 等消毒器在執行期偵測到這些並中止，讓模糊測試器的當機判定準則捕捉到原本會漏掉的故障。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "卡死作為判定訊號",
+          "text": "<p>除了當機，模糊測試器也可以用卡死（hang）或逾時作為錯誤訊號——例如捕捉使程式陷入無窮迴圈的輸入。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——過長的執行時間（卡死／逾時）是標準的模糊測試訊號，例如用於潛在的阻斷服務迴圈。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "模糊測試器常標記超過時限的輸入，這可揭露無窮迴圈或演算法複雜度問題。"
+            }
+          ],
+          "generalFeedback": "卡死／逾時是合理的判定準則：若某輸入使程式執行遠超過設定時限，模糊測試器就會記錄它。這類輸入可暴露無窮迴圈或最壞情況演算法複雜度（阻斷服務）問題。"
+        },
+        {
+          "type": "multichoice",
+          "name": "覆蓋率停滯",
+          "text": "<p>覆蓋率導向模糊測試器長時間不再發現新覆蓋率（陷入停滯／plateau）。下列哪個回應最合理？</p>",
+          "answers": [
+            {
+              "text": "幫它越過障礙——加入更好的種子、提供字典，或引入求解器／符號執行協助——因為單靠隨機變異很可能卡在某個難以滿足的檢查",
+              "fraction": 100,
+              "feedback": "正確——停滯通常代表某個難以滿足的條件，需要額外協助。"
+            },
+            {
+              "text": "斷定程式現在已被證明無錯誤",
+              "fraction": 0,
+              "feedback": "停滯代表模糊測試器不再取得進展，而非程式正確。"
+            },
+            {
+              "text": "刪除種子語料庫以強制回到純隨機",
+              "fraction": 0,
+              "feedback": "移除種子通常有害；模糊測試器需要更好的起點，而非更少。"
+            },
+            {
+              "text": "停用覆蓋率插樁",
+              "fraction": 0,
+              "feedback": "關掉回饋等於丟棄引導探索的核心機制。"
+            }
+          ],
+          "generalFeedback": "停滯通常意味著模糊測試器被某個變異無法滿足的檢查擋住（魔術值、校驗和或複雜結構）。實務回應包括更豐富的種子、期待符記的字典、結構感知變異，或用求解器越過障礙的混合式模糊測試——而不是把停滯當成正確性的證明。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "整數／邊界替換運算子",
+          "text": "<p>許多模糊測試器包含一個變異運算子，會把多位元組整數欄位覆寫成像 0、-1 或 INT_MAX 這樣的值。為何偏好這些特定的值？</p>",
+          "answers": [
+            {
+              "text": "邊界值與極端值特別容易暴露差一（off-by-one）、溢位與正負號處理的錯誤，所以嘗試它們比純隨機整數更有成效",
+              "fraction": 100,
+              "feedback": "正確——邊界值瞄準整數錯誤群聚的邊緣情況。"
+            },
+            {
+              "text": "這些值保證能滿足任何校驗和",
+              "fraction": 0,
+              "feedback": "它們與校驗和無關；它們瞄準的是整數邊緣情況。"
+            },
+            {
+              "text": "它們使輸入檔案更小",
+              "fraction": 0,
+              "feedback": "替換整數不會縮小輸入；重點在於容易引發錯誤的邊緣值。"
+            },
+            {
+              "text": "它們是覆蓋率導向模糊測試器唯一能生成的值",
+              "fraction": 0,
+              "feedback": "模糊測試器能產生許多值；邊界值只是特別容易揭露錯誤而值得嘗試的選擇。"
+            }
+          ],
+          "generalFeedback": "整數替換變異刻意注入邊界與極端值（0、1、-1、最大／最小值、鄰近的 2 的冪次），因為錯誤——差一錯誤、溢位、有號／無號混淆——傾向群聚在這些邊緣。嘗試它們比均勻隨機取樣整數更有成效。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "為何校驗和能擊敗天真的變異式模糊測試",
+          "text": "<p>某剖析器會先驗證輸入的 CRC 校驗和，若失敗就立即拒絕該輸入。為什麼這會擊敗天真的變異式模糊測試，而真正有幫助的是什麼？</p>",
+          "answers": [
+            {
+              "text": "幾乎每個變異都會破壞校驗和，導致輸入在抵達更深程式碼前就被拒絕；可靠的補救是在測試支架中停用（移除）該校驗和檢查，或用符號／具體符號執行求解出能滿足它的數值——字典常數與單純覆蓋率導向對校驗和沒有幫助，因為正確的校驗和值會隨輸入其餘部分而變動",
+              "fraction": 100,
+              "feedback": "正確——該檢查是全有全無的關卡；實務作法是在模糊測試建置中停用它，或用符號／具體符號執行求解出有效的校驗和（字典常數或覆蓋率梯度單獨都無效，因為校驗和的正確值會隨輸入其餘部分變動）。"
+            },
+            {
+              "text": "校驗和使程式跑得更快，讓模糊測試器時間變少——增加 CPU 核心即可解決",
+              "fraction": 0,
+              "feedback": "問題在於變異後的輸入無法通過檢查，而非執行時間；更多核心無法讓隨機變異滿足校驗和。"
+            },
+            {
+              "text": "單靠覆蓋率導向模糊測試就能輕易為每個輸入算出正確的校驗和",
+              "fraction": 0,
+              "feedback": "覆蓋率導向並不會計算校驗和；單一通過／失敗的檢查幾乎不提供梯度可循。這是誇大之詞。"
+            },
+            {
+              "text": "沒有任何辦法有幫助——這類程式碼根本無法被模糊測試",
+              "fraction": 0,
+              "feedback": "它是可以被模糊測試的：在支架中停用該檢查，或使用字典／符號執行，都是標準的補救手段。"
+            }
+          ],
+          "generalFeedback": "校驗和關卡是一個單一分支，幾乎所有隨機變異都會失敗，因此模糊測試器永遠抵達不了其後的邏輯，覆蓋率回饋幾乎不提供可循的梯度（本質上是全有全無）。可靠的補救：在模糊測試支架內停用（移除）該校驗和檢查，使任何輸入都能通過；或用符號／具體符號執行求解出有效校驗和。字典常數與單靠覆蓋率導向在此都沒有幫助，因為正確的校驗和值會隨輸入其餘部分而變動——那些技術適合固定的魔術位元組比較，而非校驗和。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "魔術位元組比較與覆蓋率梯度",
+          "text": "<p>對於 32 位元輸入上的守衛 <code>if (x == 0xDEADBEEF)</code>，為什麼單純的邊覆蓋率是薄弱的引導，而什麼能改善它？</p>",
+          "answers": [
+            {
+              "text": "該比較是全有全無，因此朝常數逼近的部分進展得不到新覆蓋率；比較追蹤插樁（把比較拆成逐位元組／值剖析）或字典能補上缺失的梯度",
+              "fraction": 100,
+              "feedback": "正確——沒有梯度時模糊測試器等於在猜 2³² 分之一；比較覆蓋率或字典給它回饋。"
+            },
+            {
+              "text": "邊覆蓋率已經對每個相符的位元組給予獎勵，因此不需額外協助",
+              "fraction": 0,
+              "feedback": "單一無論如何只產生一條邊；單純的邊覆蓋率不會獎勵相符的個別位元組。"
+            },
+            {
+              "text": "該守衛無法被滿足，所以模糊測試必須略過它",
+              "fraction": 0,
+              "feedback": "它是可滿足的（x = 0xDEADBEEF）；問題在於引導模糊測試器抵達那裡，而比較覆蓋率／字典正是做這件事。"
+            },
+            {
+              "text": "覆蓋率回饋使隨機猜出這 4 個位元組變得很快",
+              "fraction": 0,
+              "feedback": "隨機猜測仍約為 2³² 分之一；解法是提供梯度的插樁，而非更快的猜測。"
+            }
+          ],
+          "generalFeedback": "寬比較是一道懸崖：輸入要嘛完全正確（新邊）、要嘛不對（無訊號），因此模糊測試器沒有梯度可攀爬，隨機搜尋面對約 2³² 的機率。比較追蹤插樁（例如 laf-intel 式把 4 位元組比較拆成逐位元組比較，或 libFuzzer 的值剖析 value profiling）會獎勵更多位元組相符，而字典則直接提供該常數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "淺層觸及與深層條件",
+          "text": "<p>為什麼模糊測試擅長淺層錯誤，卻不擅長藏在深層、特定條件之後的錯誤？</p>",
+          "answers": [
+            {
+              "text": "隨機變異容易執行到淺層程式碼，卻不太可能滿足一長串特定條件；符號／具體符號執行能求解這類限制式，但面臨路徑爆炸",
+              "fraction": 100,
+              "feedback": "正確——模糊測試便宜地抵達淺層程式碼；深層特定守衛需要限制式求解，而後者有其自身的擴充代價。"
+            },
+            {
+              "text": "模糊測試會窮舉探索所有路徑，因此深度無關緊要",
+              "fraction": 0,
+              "feedback": "模糊測試並非窮舉探索；深層特定條件正是它吃力之處。"
+            },
+            {
+              "text": "深層條件總是不可行，因此沒有技術能抵達它們",
+              "fraction": 0,
+              "feedback": "它們通常是可行的；難處在於產生滿足它們的輸入。"
+            },
+            {
+              "text": "符號執行能抵達深層條件且沒有任何擴充限制",
+              "fraction": 0,
+              "feedback": "符號執行有幫助，但受路徑爆炸限制；這是誇大之詞。"
+            }
+          ],
+          "generalFeedback": "模糊測試便宜地丟出大量輸入，因此容易命中淺層、易抵達的故障。但藏在數道精確檢查之後的錯誤需要同時滿足所有檢查，隨機變異鮮少做到。符號／具體符號執行能直接求解那些限制式，代價是路徑爆炸——這正是混合式（模糊測試＋符號）方法存在的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "判定準則的限制：無聲的邏輯錯誤",
+          "text": "<p>某函式回傳一個細微錯誤的結果，但從不當機、卡死或觸發消毒器。為什麼模糊測試器可能漏掉這個錯誤？</p>",
+          "answers": [
+            {
+              "text": "模糊測試器的判定準則只偵測可觀察的失敗；除非加入更強的判定準則（斷言、參考／差分檢查），否則「錯誤但不當機」的輸出會被放行",
+              "fraction": 100,
+              "feedback": "正確——沒有失敗訊號，錯誤對預設判定準則就是隱形的。"
+            },
+            {
+              "text": "模糊測試器自動知道每個輸入的正確輸出",
+              "fraction": 0,
+              "feedback": "它並不知道；那正是模糊測試面對邏輯錯誤時的判定準則問題（oracle problem）。"
+            },
+            {
+              "text": "覆蓋率回饋會標記任何不正確的結果",
+              "fraction": 0,
+              "feedback": "覆蓋率量測的是哪些程式碼被執行，而非結果是否正確。"
+            },
+            {
+              "text": "消毒器會偵測所有不正確的回傳值",
+              "fraction": 0,
+              "feedback": "消毒器偵測的是記憶體／未定義行為錯誤，而非一般邏輯錯誤。"
+            }
+          ],
+          "generalFeedback": "模糊測試依賴自動判定準則，而它預設只捕捉當機、卡死與消毒器／斷言失敗。一個產生「錯誤但形式良好」結果的邏輯錯誤不會引發任何此類訊號。要捕捉它，你需要更強的判定準則：內嵌的斷言／不變式，或對參考實作進行差分測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "語料庫最小化",
+          "text": "<p><strong>語料庫最小化（corpus minimization，例如 afl-cmin）</strong>的目標是什麼？</p>",
+          "answers": [
+            {
+              "text": "把語料庫縮減為一個較小、能保持相同整體覆蓋率的輸入子集，讓之後的模糊測試少花時間在冗餘種子上",
+              "fraction": 100,
+              "feedback": "正確——它在維持覆蓋率的同時修剪冗餘種子。"
+            },
+            {
+              "text": "把單一當機輸入縮到仍會當機的最小位元組",
+              "fraction": 0,
+              "feedback": "那是測試案例最小化（afl-tmin），而非語料庫最小化。"
+            },
+            {
+              "text": "刪除所有種子，讓模糊測試器從空的開始",
+              "fraction": 0,
+              "feedback": "最小化保留一個能維持覆蓋率的子集，而非什麼都不留。"
+            },
+            {
+              "text": "把所有種子合併成一個大檔案",
+              "fraction": 0,
+              "feedback": "它選出一個最小的獨立輸入集合；並不把它們合併。"
+            }
+          ],
+          "generalFeedback": "語料庫最小化選出仍能達成語料庫覆蓋率的最小子集，丟棄不增加新東西的輸入。更精簡的語料庫代表模糊測試器循環得更快，也少浪費心力在冗餘種子上。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試案例最小化",
+          "text": "<p>找到一個當機後，<strong>測試案例最小化（test-case minimization，例如 afl-tmin）</strong>會做什麼？</p>",
+          "answers": [
+            {
+              "text": "反覆修剪當機輸入，得到仍能重現當機的最小／最簡形式，以利除錯",
+              "fraction": 100,
+              "feedback": "正確——最小化後的重現案例能孤立出真正觸發錯誤的部分。"
+            },
+            {
+              "text": "從整個語料庫移除冗餘種子",
+              "fraction": 0,
+              "feedback": "那是語料庫最小化；測試案例最小化作用於單一當機輸入。"
+            },
+            {
+              "text": "自動修正該錯誤",
+              "fraction": 0,
+              "feedback": "它縮小重現案例；並不修補程式碼。"
+            },
+            {
+              "text": "在輸入中加入額外位元組使當機更可靠",
+              "fraction": 0,
+              "feedback": "最小化是移除位元組以簡化；並不為輸入加料。"
+            }
+          ],
+          "generalFeedback": "測試案例（當機）最小化取一個當機輸入，在當機仍能重現的前提下反覆移除或簡化位元組，得到一個小而聚焦的重現案例，使錯誤的根因分析容易許多。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "生成式何時勝過變異式",
+          "text": "<p>對哪一種目標而言，生成式（文法式）模糊測試最可能勝過變異式模糊測試？</p>",
+          "answers": [
+            {
+              "text": "具有僵硬、高度結構化輸入格式的編譯器或協定剖析器，隨機變異幾乎總是產生會被早早拒絕的無效輸入",
+              "fraction": 100,
+              "feedback": "正確——文法讓模糊測試器能產生抵達深層邏輯的有效結構化輸入。"
+            },
+            {
+              "text": "一個接受任意、無結構位元組團的常式",
+              "fraction": 0,
+              "feedback": "對無結構輸入，變異式模糊測試表現良好，文法幫助不大。"
+            },
+            {
+              "text": "任何目標，因為生成式模糊測試全面優越",
+              "fraction": 0,
+              "feedback": "兩種方法皆非全面最佳；生成式專門在結構化格式上發光。"
+            },
+            {
+              "text": "沒有可用判定準則的目標",
+              "fraction": 0,
+              "feedback": "判定準則的可用性與「變異對生成」的選擇是正交的。"
+            }
+          ],
+          "generalFeedback": "當輸入必須遵守嚴格文法（供編譯器的原始碼、供協定的訊息）時，隨機位元組變異絕大多數會被前端拒絕。生成式模糊測試依文法建構輸入，因此能持續產生有效輸入，執行到藏有有趣錯誤的深層語意邏輯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "混合式（符號協助）模糊測試",
+          "text": "<p>在混合式模糊測試（例如 Driller 式）中，具體符號／符號執行如何補足灰箱模糊測試器？</p>",
+          "answers": [
+            {
+              "text": "當模糊測試器在某個難關停滯時，求解器計算出滿足該特定分支的輸入；新輸入交回後，便宜的模糊測試便可繼續探索其後的區域",
+              "fraction": 100,
+              "feedback": "正確——求解器越過狹窄守衛，接著模糊測試器再度接手。"
+            },
+            {
+              "text": "求解器完全取代模糊測試器，並以符號方式探索所有路徑",
+              "fraction": 0,
+              "feedback": "符號執行受路徑爆炸所苦；混合式模糊測試選擇性地使用它，而非全面取代。"
+            },
+            {
+              "text": "求解器為模糊測試器產生覆蓋率插樁",
+              "fraction": 0,
+              "feedback": "插樁來自編譯器／工具鏈；求解器的角色是滿足困難限制式。"
+            },
+            {
+              "text": "求解器取代消毒器作為錯誤判定準則",
+              "fraction": 0,
+              "feedback": "判定準則仍是當機／消毒器；求解器的工作是產生越過困難分支的輸入。"
+            }
+          ],
+          "generalFeedback": "混合式模糊測試發揮各技術之長：模糊測試器便宜且廣泛地探索，當它卡在某個狹窄條件（魔術值、校驗和）時，具體符號執行求解該分支的限制式以產生通過的輸入。控制權交回模糊測試器，讓它探索新抵達的區域——並謹慎地使用求解器以避免路徑爆炸。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ASan 與 UBSan 的角色",
+          "text": "<p>在模糊測試時，<strong>AddressSanitizer（ASan）</strong>與<strong>UndefinedBehaviorSanitizer（UBSan）</strong>的角色有何不同？</p>",
+          "answers": [
+            {
+              "text": "ASan 針對記憶體安全錯誤（越界存取、釋放後使用）；UBSan 針對未定義行為（例如有號整數溢位、無效位移、未對齊指標）",
+              "fraction": 100,
+              "feedback": "正確——它們偵測不同、互補的故障類別。"
+            },
+            {
+              "text": "它們偵測完全相同的錯誤，因此兩個一起用是多餘的",
+              "fraction": 0,
+              "feedback": "它們涵蓋不同的故障類別；同時使用能擴大判定準則所能捕捉的範圍。"
+            },
+            {
+              "text": "ASan 偵測未定義行為，而 UBSan 偵測記憶體錯誤",
+              "fraction": 0,
+              "feedback": "角色顛倒了：ASan 用於記憶體錯誤，UBSan 用於未定義行為。"
+            },
+            {
+              "text": "兩者都是產生模糊測試輸入，而非偵測故障",
+              "fraction": 0,
+              "feedback": "兩者都不產生輸入；它們都是執行期故障偵測器。"
+            }
+          ],
+          "generalFeedback": "ASan 對記憶體存取插樁，捕捉空間／時間上的記憶體安全違規（緩衝區溢位、釋放後使用）。UBSan 捕捉語言層級的未定義行為，例如有號溢位、超範圍位移，以及未對齊或空指標的使用。它們針對不同的故障類別，因此在兩者之下進行模糊測試會擴大可偵測錯誤的集合。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "模糊測試不證明正確性",
+          "text": "<p>若模糊測試器長時間執行卻找不到任何當機，這就證明了程式沒有錯誤。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——找不到當機只代表在所嘗試的輸入中沒有找到；模糊測試無法證明錯誤不存在。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "模糊測試取樣輸入空間；找不到當機不是正確性的證明，因為未嘗試的輸入（以及無聲的邏輯錯誤）仍可能失敗。"
+            }
+          ],
+          "generalFeedback": "模糊測試是一種測試技術：它能揭露錯誤，卻永遠無法證明錯誤不存在。一次乾淨的執行只反映實際探索過的輸入，以及判定準則看得見的失敗；它對未嘗試的輸入或無聲的邏輯錯誤毫無保證。"
+        },
+        {
+          "type": "multichoice",
+          "name": "值剖析／比較覆蓋率",
+          "text": "<p>比較追蹤插樁（拆分多位元組比較，或「值剖析／value profiling」）能幫助覆蓋率導向模糊測試器，是因為它：</p>",
+          "answers": [
+            {
+              "text": "對更接近滿足某比較的輸入（例如更多位元組相符）給予獎勵，為搜尋提供原本欠缺的梯度",
+              "fraction": 100,
+              "feedback": "正確——它把全有全無的比較轉為漸進的回饋。"
+            },
+            {
+              "text": "移除程式中所有的比較，使每個分支都被走到",
+              "fraction": 0,
+              "feedback": "它對比較插樁以取得回饋；並不從程式邏輯中刪除它們。"
+            },
+            {
+              "text": "保證模糊測試器在常數時間內求解每一個相等式",
+              "fraction": 0,
+              "feedback": "它改善引導，但不保證任何事；有些限制式仍需求解器。"
+            },
+            {
+              "text": "取代對種子語料庫的需求",
+              "fraction": 0,
+              "feedback": "種子仍有價值；比較覆蓋率只是增添更細緻的回饋訊號。"
+            }
+          ],
+          "generalFeedback": "寬比較通常只在完全相符時才給回饋。比較追蹤（例如 laf-intel 把 4 位元組比較拆成逐位元組比較，或 libFuzzer 的值剖析）會獎勵部分相符，讓模糊測試器能朝目標值攀爬，而非一次全部猜對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "支架設計與確定性",
+          "text": "<p>為什麼模糊測試支架（fuzz target）應該<em>確定性地</em>把輸入位元組對應到程式行為？</p>",
+          "answers": [
+            {
+              "text": "非確定性（隨機、時間、未初始化狀態）會使當機難以重現並污染覆蓋率回饋，因此相同輸入應總是有相同行為",
+              "fraction": 100,
+              "feedback": "正確——確定性使覆蓋率回饋有意義且當機可重現。"
+            },
+            {
+              "text": "確定性讓模糊測試器能略過執行目標",
+              "fraction": 0,
+              "feedback": "目標仍必須執行每個輸入；確定性只是讓結果可靠。"
+            },
+            {
+              "text": "只有確定性的目標才會有錯誤",
+              "fraction": 0,
+              "feedback": "非確定性的目標也有錯誤；確定性只是讓它們更容易被找到與重現。"
+            },
+            {
+              "text": "確定性免除了對判定準則的需求",
+              "fraction": 0,
+              "feedback": "仍需判定準則；確定性本身並不偵測故障。"
+            }
+          ],
+          "generalFeedback": "覆蓋率導向模糊測試假設輸入的行為（及其覆蓋率）是輸入的函式。若支架引入隨機性、實際時鐘時間或殘留全域狀態，相同的位元組就可能有不同行為——使覆蓋率回饋充滿雜訊、當機無法重現。好的支架完全由輸入位元組確定性地推導出所有行為。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "模糊測試需要可偵測的失敗訊號",
+          "text": "<p>若沒有可偵測的失敗訊號（當機、卡死、消毒器／斷言違規，或參考檢查），模糊測試器可能執行了一個觸發錯誤的輸入，卻永遠不回報該錯誤。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——沒有可觀察的訊號，模糊測試器就無從得知出了問題。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "模糊測試器只有在其判定準則觀察到失敗時才回報錯誤；不產生訊號的故障會無聲地通過。"
+            }
+          ],
+          "generalFeedback": "模糊測試完全依賴其判定準則。若一個觸發錯誤的輸入不造成當機、卡死、消毒器違規或斷言／參考檢查失敗，模糊測試器就看不出任何異常而略過——這正是為何強化判定準則（消毒器、斷言、差分檢查）與生成好輸入同等重要。"
+        },
+        {
+          "type": "multichoice",
+          "name": "差分模糊測試作為判定準則",
+          "text": "<p><strong>差分模糊測試（differential fuzzing）</strong>如何幫助捕捉當機與消毒器漏掉的無聲邏輯錯誤？</p>",
+          "answers": [
+            {
+              "text": "它把相同輸入送進兩個或多個應該一致的實作，當它們的輸出不同時就標記為錯誤",
+              "fraction": 100,
+              "feedback": "正確——實作之間的分歧作為非當機錯誤的判定準則。"
+            },
+            {
+              "text": "它量測哪個實作跑得比較快，並把較慢的回報為有錯",
+              "fraction": 0,
+              "feedback": "差分模糊測試比較的是輸出的正確性，而非速度。"
+            },
+            {
+              "text": "它加倍覆蓋率插樁以偵測記憶體錯誤",
+              "fraction": 0,
+              "feedback": "它是基於輸出比較的判定準則技術，而非額外的記憶體插樁。"
+            },
+            {
+              "text": "當兩個實作一致時，它證明兩者都正確",
+              "fraction": 0,
+              "feedback": "一致並非正確性的證明——兩者可能共有相同錯誤；它只標記分歧。"
+            }
+          ],
+          "generalFeedback": "差分模糊測試把同一輸入餵給多個預期行為相同的實作（例如兩個剖析器，或參考版對最佳化版），把任何輸出不一致視為錯誤。這為不產生當機的無聲邏輯錯誤提供了判定準則。要注意：若兩個實作共有同一缺陷，它們可能一致卻仍是錯的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "覆蓋率是適應度訊號，而非證明",
+          "text": "<p>關於覆蓋率在覆蓋率導向模糊測試中的角色，下列何者正確？</p>",
+          "answers": [
+            {
+              "text": "覆蓋率是一種啟發式適應度訊號，用以把搜尋導向新程式碼；高覆蓋率代表執行得徹底，而非代表正確或無錯誤",
+              "fraction": 100,
+              "feedback": "正確——覆蓋率引導探索，但不是正確性的保證。"
+            },
+            {
+              "text": "達到 100% 邊覆蓋率就證明程式沒有錯誤",
+              "fraction": 0,
+              "feedback": "執行到程式碼不等於正確測試它；完整覆蓋率仍可能漏掉錯誤（例如錯誤但不當機的結果）。"
+            },
+            {
+              "text": "覆蓋率直接決定某次執行是否找到錯誤",
+              "fraction": 0,
+              "feedback": "覆蓋率引導搜尋；錯誤的判定來自判定準則（當機／消毒器／斷言）。"
+            },
+            {
+              "text": "覆蓋率回饋免除了執行輸入的需要",
+              "fraction": 0,
+              "feedback": "覆蓋率是靠執行插樁過的輸入取得的；它無法取代執行。"
+            }
+          ],
+          "generalFeedback": "在覆蓋率導向模糊測試中，覆蓋率是一種適應度訊號：抵達新邊的輸入會被保留並變異，把搜尋導向更深處。但涵蓋某一行只代表它被執行，而非它產生了正確結果——因此即使 100% 覆蓋率也不證明無錯誤，而且判定「某次執行是否失敗」的是判定準則，而非覆蓋率。",
           "single": true
         }
       ]
@@ -20233,6 +25335,2524 @@ export const QUIZ_RENDERED = {
           ],
           "generalFeedback": "因為基本區塊沒有內部分支，控制從頂端進入並一路執行到底部的每條敘述，故覆蓋該節點就覆蓋其所有敘述——敘述覆蓋 ≡ 節點覆蓋。",
           "single": true
+        }
+      ]
+    }
+  },
+  "integration-testing": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What integration testing checks",
+          "text": "<p><em>Integration testing</em> primarily aims to expose faults in:</p>",
+          "answers": [
+            {
+              "text": "The interactions and interfaces between modules that are combined together",
+              "fraction": 100,
+              "feedback": "Correct — integration testing targets the way separately-developed modules work together."
+            },
+            {
+              "text": "The internal logic of a single isolated function",
+              "fraction": 0,
+              "feedback": "That is unit testing; integration testing assumes units already work and focuses on their interactions."
+            },
+            {
+              "text": "The behaviour of the complete system against user requirements",
+              "fraction": 0,
+              "feedback": "That is system testing, which comes after integration."
+            },
+            {
+              "text": "The response time of the program under heavy load",
+              "fraction": 0,
+              "feedback": "That is performance/load testing, a non-functional concern, not integration."
+            }
+          ],
+          "generalFeedback": "Integration testing verifies that modules which have already passed unit testing cooperate correctly once combined — it hunts for interface and interaction faults, not for logic bugs inside a single unit.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Placing integration among the levels",
+          "text": "<p>In the usual ordering of test levels, integration testing sits:</p>",
+          "answers": [
+            {
+              "text": "After unit testing and before system testing",
+              "fraction": 100,
+              "feedback": "Correct — units are tested first, then integrated and tested together, then the whole system."
+            },
+            {
+              "text": "Before unit testing",
+              "fraction": 0,
+              "feedback": "Units must pass unit testing first, otherwise interaction failures cannot be distinguished from unit bugs."
+            },
+            {
+              "text": "After system testing",
+              "fraction": 0,
+              "feedback": "System testing is the last of these three levels, not before integration."
+            },
+            {
+              "text": "It replaces unit testing entirely",
+              "fraction": 0,
+              "feedback": "Integration testing complements unit testing; it does not replace it."
+            }
+          ],
+          "generalFeedback": "The common progression is unit &#8594; integration &#8594; system. Integration testing builds on already unit-tested modules and precedes end-to-end system testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Big-bang integration",
+          "text": "<p><em>Big-bang</em> integration means:</p>",
+          "answers": [
+            {
+              "text": "All modules are combined at once and the whole assembly is tested together",
+              "fraction": 100,
+              "feedback": "Correct — big-bang integrates everything in a single step."
+            },
+            {
+              "text": "Modules are added one at a time from the top of the hierarchy downward",
+              "fraction": 0,
+              "feedback": "That is top-down incremental integration, not big-bang."
+            },
+            {
+              "text": "Modules are added one at a time from the leaves upward",
+              "fraction": 0,
+              "feedback": "That is bottom-up incremental integration, not big-bang."
+            },
+            {
+              "text": "Each module is tested completely in isolation before any are combined",
+              "fraction": 0,
+              "feedback": "That describes unit testing; big-bang is about combining all units simultaneously."
+            }
+          ],
+          "generalFeedback": "Big-bang (non-incremental) integration assembles all modules together and tests them as one. It needs little scaffolding but makes failures hard to localise.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-down integration",
+          "text": "<p><em>Top-down</em> integration proceeds by:</p>",
+          "answers": [
+            {
+              "text": "Integrating from the top of the call hierarchy downward, using stubs for not-yet-integrated lower modules",
+              "fraction": 100,
+              "feedback": "Correct — the top control modules come first; their callees are stubbed until integrated."
+            },
+            {
+              "text": "Integrating from the leaf modules upward, using drivers",
+              "fraction": 0,
+              "feedback": "That is bottom-up integration."
+            },
+            {
+              "text": "Combining all modules at once",
+              "fraction": 0,
+              "feedback": "That is big-bang integration."
+            },
+            {
+              "text": "Testing each module in isolation with no other modules present",
+              "fraction": 0,
+              "feedback": "That is unit testing, not an integration strategy."
+            }
+          ],
+          "generalFeedback": "Top-down integration starts at the top (main control) module and works down the hierarchy. Lower modules that are not yet integrated are represented by stubs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottom-up integration",
+          "text": "<p><em>Bottom-up</em> integration proceeds by:</p>",
+          "answers": [
+            {
+              "text": "Integrating from the leaf modules upward, using drivers to call the modules under test",
+              "fraction": 100,
+              "feedback": "Correct — low-level modules are integrated first, driven by temporary drivers."
+            },
+            {
+              "text": "Integrating from the top control module downward, using stubs",
+              "fraction": 0,
+              "feedback": "That is top-down integration."
+            },
+            {
+              "text": "Combining all modules simultaneously",
+              "fraction": 0,
+              "feedback": "That is big-bang integration."
+            },
+            {
+              "text": "Delivering the software to end users to find faults",
+              "fraction": 0,
+              "feedback": "That is closer to acceptance/field testing, not bottom-up integration."
+            }
+          ],
+          "generalFeedback": "Bottom-up integration starts with the lowest-level (leaf) modules and works up the hierarchy. Because their callers are not yet present, a driver is written to invoke each module under test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sandwich integration",
+          "text": "<p><em>Sandwich</em> (hybrid) integration is best described as:</p>",
+          "answers": [
+            {
+              "text": "Combining top-down and bottom-up, working from both ends toward the middle at the same time",
+              "fraction": 100,
+              "feedback": "Correct — the top layers use stubs while the bottom layers use drivers, meeting in the middle."
+            },
+            {
+              "text": "Combining all modules at once with no stubs or drivers",
+              "fraction": 0,
+              "feedback": "That is big-bang integration."
+            },
+            {
+              "text": "Strictly top-down with no bottom-up element",
+              "fraction": 0,
+              "feedback": "Pure top-down is not hybrid; sandwich mixes both directions."
+            },
+            {
+              "text": "Testing only the middle layer and ignoring the top and bottom",
+              "fraction": 0,
+              "feedback": "Sandwich integrates all layers; it does not ignore the ends."
+            }
+          ],
+          "generalFeedback": "Sandwich (hybrid) integration applies top-down to the upper layers (with stubs) and bottom-up to the lower layers (with drivers) simultaneously, converging on a target middle layer.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a stub is",
+          "text": "<p>A <em>stub</em> in integration testing is a temporary piece of code that:</p>",
+          "answers": [
+            {
+              "text": "Stands in for a lower-level module that the module under test calls",
+              "fraction": 100,
+              "feedback": "Correct — a stub is called by the module under test and returns canned results."
+            },
+            {
+              "text": "Stands in for a higher-level module that calls the module under test",
+              "fraction": 0,
+              "feedback": "That is a driver, not a stub."
+            },
+            {
+              "text": "Is the final production version of a called module",
+              "fraction": 0,
+              "feedback": "A stub is a throwaway substitute, not the real module."
+            },
+            {
+              "text": "Is a defect deliberately injected into the code",
+              "fraction": 0,
+              "feedback": "That describes a mutant/seeded fault, not a stub."
+            }
+          ],
+          "generalFeedback": "A stub replaces a not-yet-integrated: the module under test calls it, and it returns simplified, pre-arranged values. Stubs are what top-down integration needs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a driver is",
+          "text": "<p>A <em>driver</em> in integration testing is a temporary piece of code that:</p>",
+          "answers": [
+            {
+              "text": "Stands in for a higher-level module and calls the module under test",
+              "fraction": 100,
+              "feedback": "Correct — a driver is the caller: it invokes the module under test and passes inputs."
+            },
+            {
+              "text": "Stands in for a lower-level module that the module under test calls",
+              "fraction": 0,
+              "feedback": "That is a stub, not a driver."
+            },
+            {
+              "text": "Is the production main program shipped to users",
+              "fraction": 0,
+              "feedback": "A driver is a throwaway harness, not the real caller."
+            },
+            {
+              "text": "Is a tool that measures code coverage",
+              "fraction": 0,
+              "feedback": "That is a coverage tool, unrelated to a driver's role."
+            }
+          ],
+          "generalFeedback": "A driver replaces a not-yet-integrated: it calls the module under test, supplies inputs, and checks outputs. Drivers are what bottom-up integration needs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interface fault",
+          "text": "<p>An <em>interface (integration) fault</em> is a defect that:</p>",
+          "answers": [
+            {
+              "text": "Arises from an incorrect assumption or mismatch in how two modules communicate",
+              "fraction": 100,
+              "feedback": "Correct — e.g. wrong parameter type/order, a violated protocol, or inconsistent shared state."
+            },
+            {
+              "text": "Is a purely internal logic error confined to one module",
+              "fraction": 0,
+              "feedback": "That is a unit-level fault; interface faults are about communication between modules."
+            },
+            {
+              "text": "Is a spelling mistake in the user documentation",
+              "fraction": 0,
+              "feedback": "Documentation typos are not interface faults between software modules."
+            },
+            {
+              "text": "Is a hardware failure in the CPU",
+              "fraction": 0,
+              "feedback": "That is a hardware fault, not a software interface fault."
+            }
+          ],
+          "generalFeedback": "Interface faults surface when integrated modules interact: mismatched parameter lists, wrong call order, protocol/timing violations, or inconsistent assumptions about shared data. These are exactly what integration testing hunts for.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which strategy needs stubs",
+          "text": "<p>Which integration strategy characteristically requires <strong>stubs</strong>?</p>",
+          "answers": [
+            {
+              "text": "Top-down",
+              "fraction": 100,
+              "feedback": "Correct — top-down integrates upper modules first, so their not-yet-integrated callees are stubbed."
+            },
+            {
+              "text": "Bottom-up",
+              "fraction": 0,
+              "feedback": "Bottom-up needs drivers, not stubs, because it starts from the leaves."
+            },
+            {
+              "text": "Big-bang",
+              "fraction": 0,
+              "feedback": "Big-bang assembles everything at once and typically avoids per-step stubs."
+            },
+            {
+              "text": "None of these ever uses stubs",
+              "fraction": 0,
+              "feedback": "Top-down relies on stubs, so this is wrong."
+            }
+          ],
+          "generalFeedback": "Top-down integrates from the top down; the lower modules a top module calls are not ready yet, so they are replaced by stubs. (Bottom-up pairs with drivers.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which strategy needs drivers",
+          "text": "<p>Which integration strategy characteristically requires <strong>drivers</strong>?</p>",
+          "answers": [
+            {
+              "text": "Bottom-up",
+              "fraction": 100,
+              "feedback": "Correct — bottom-up integrates leaf modules first, so a driver is written to call each one."
+            },
+            {
+              "text": "Top-down",
+              "fraction": 0,
+              "feedback": "Top-down needs stubs, not drivers, because it starts from the top control module."
+            },
+            {
+              "text": "Big-bang",
+              "fraction": 0,
+              "feedback": "Big-bang combines all modules at once and typically avoids per-step drivers."
+            },
+            {
+              "text": "None of these ever uses drivers",
+              "fraction": 0,
+              "feedback": "Bottom-up relies on drivers, so this is wrong."
+            }
+          ],
+          "generalFeedback": "Bottom-up integrates from the leaves up; the higher modules that would call them are not ready yet, so a driver is written to invoke each module under test. (Top-down pairs with stubs.)",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "A stub is called by the module under test",
+          "text": "<p>A stub is <em>called by</em> the module under test (the module under test invokes the stub).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a stub is a substitute callee, so the module under test calls it."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A stub does sit below the module under test and is called by it; the caller-side substitute is the driver."
+            }
+          ],
+          "generalFeedback": "Direction matters: a stub is below and is called by the module under test (a substitute callee); a driver is above and calls the module under test (a substitute caller)."
+        },
+        {
+          "type": "truefalse",
+          "name": "A driver is called by the module under test",
+          "text": "<p>A driver is <em>called by</em> the module under test (the module under test invokes the driver).</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This reverses the direction — a driver calls the module under test, not the other way round."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — a driver is the caller: it calls the module under test. The thing the module under test calls is a stub."
+            }
+          ],
+          "generalFeedback": "A driver stands in for a higher-level caller, so itthe module under test. Only a stub is called by the module under test."
+        },
+        {
+          "type": "multichoice",
+          "name": "What a stub substitutes for",
+          "text": "<p>During integration, a stub substitutes for:</p>",
+          "answers": [
+            {
+              "text": "A not-yet-integrated lower-level module that the module under test calls",
+              "fraction": 100,
+              "feedback": "Correct — the stub takes the place of an absent callee."
+            },
+            {
+              "text": "A not-yet-integrated higher-level module that calls the module under test",
+              "fraction": 0,
+              "feedback": "That absent caller is replaced by a driver, not a stub."
+            },
+            {
+              "text": "A test oracle that decides pass or fail",
+              "fraction": 0,
+              "feedback": "An oracle judges results; it is not a stand-in for a module."
+            },
+            {
+              "text": "The database used by the whole system",
+              "fraction": 0,
+              "feedback": "A stub is a code substitute for a called module, not a data store in general."
+            }
+          ],
+          "generalFeedback": "A stub replaces a missing— a lower module the module under test would call. Top-down integration relies on stubs while the lower levels are still absent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a driver substitutes for",
+          "text": "<p>During integration, a driver substitutes for:</p>",
+          "answers": [
+            {
+              "text": "A not-yet-integrated higher-level module that calls the module under test",
+              "fraction": 100,
+              "feedback": "Correct — the driver takes the place of an absent caller."
+            },
+            {
+              "text": "A not-yet-integrated lower-level module that the module under test calls",
+              "fraction": 0,
+              "feedback": "That absent callee is replaced by a stub, not a driver."
+            },
+            {
+              "text": "A compiler that builds the modules",
+              "fraction": 0,
+              "feedback": "A driver is a test harness, not a build tool."
+            },
+            {
+              "text": "A defect report filed by a user",
+              "fraction": 0,
+              "feedback": "That is unrelated to what a driver stands in for."
+            }
+          ],
+          "generalFeedback": "A driver replaces a missing— a higher module that would invoke the module under test. Bottom-up integration relies on drivers while the upper levels are still absent.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Top-down step 1 stubs — two children",
+          "text": "<p>Consider this call tree: <strong>A calls B and C</strong> (A is the root; B and C are its only children). Using <em>top-down</em> integration, step 1 integrates the root A and stubs its not-yet-integrated direct children. How many stubs are needed at step 1?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — A directly calls B and C, so both are stubbed: 2 stubs."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A has two direct children (B and C), so one stub is not enough."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only B and C are directly called by A; there is no third child."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "Top-down step 1 must stub A's callees, and A calls two modules."
+            }
+          ],
+          "generalFeedback": "Top-down step 1 integrates the root A alone; every module A directly calls must be stubbed. A calls B and C, so 2 stubs are needed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-down step 1 stubs — three children",
+          "text": "<p>Consider this call tree: <strong>M calls N, O, and P</strong> (M is the root with three children). Using <em>top-down</em> integration, how many stubs are needed at step 1 (integrating M alone)?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — M directly calls N, O, and P, so all three are stubbed: 3 stubs."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "M has three direct children, not one."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "There are three direct children (N, O, P), so two stubs is too few."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "M calls exactly three modules; there is no fourth."
+            }
+          ],
+          "generalFeedback": "Top-down step 1 integrates M and stubs each module it directly calls. M calls N, O, and P, so 3 stubs are needed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottom-up driver for a single leaf",
+          "text": "<p>Consider this call tree: <strong>A calls B and C; B calls D</strong> (so D is a leaf). Using <em>bottom-up</em> integration, you integrate the leaf D first. How many <strong>drivers</strong> are needed to integrate D?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — D's real caller (B) is not integrated yet, so one driver is written to call D."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "Something must call D; since B is not ready, a driver is required."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Only one module (D) is under test, so one driver suffices."
+            },
+            {
+              "text": "1 stub",
+              "fraction": 0,
+              "feedback": "Bottom-up uses drivers, not stubs; and D has no callees to stub."
+            }
+          ],
+          "generalFeedback": "Bottom-up integrates leaves first. D has no callees (no stubs needed), but its caller B is absent, so one driver is written to invoke D: 1 driver.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-down stubs when integrating an intermediate module",
+          "text": "<p>Consider this call tree: <strong>R calls X and Y; X calls Z</strong>. Using <em>top-down</em> integration you have already integrated R, and now you integrate <strong>X</strong>. How many stubs must be in place for X's own not-yet-integrated callees?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — X directly calls only Z, which is not yet integrated, so one stub (for Z) is needed."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Y is a sibling of X, not a callee of X; X calls only Z."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "X calls Z, and Z is not integrated yet, so a stub for Z is required."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "X has a single callee (Z); there are not three."
+            }
+          ],
+          "generalFeedback": "When integrating X top-down, only X's direct callees that are still absent must be stubbed. X calls only Z, so 1 stub is needed. (Y is R's other child, unrelated to X's callees.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottom-up drivers for two leaves",
+          "text": "<p>Consider this call tree: <strong>A calls B and C</strong>, where B and C are both leaves. Using <em>bottom-up</em> integration with one driver per module under test, how many drivers are needed to integrate B and C as the first step?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — one driver per module under test, and two leaf modules (B and C) are being integrated: 2 drivers."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Two separate modules are under test; with one driver per module that is two drivers."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "Their caller A is not integrated yet, so drivers are required to invoke B and C."
+            },
+            {
+              "text": "2 stubs",
+              "fraction": 0,
+              "feedback": "Bottom-up uses drivers, not stubs; and leaves B and C have no callees to stub."
+            }
+          ],
+          "generalFeedback": "Bottom-up integrates leaves first. B and C are leaves whose caller A is absent, so with one driver per module under test, 2 drivers are needed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fault isolation: incremental vs big-bang",
+          "text": "<p>Compared with big-bang, incremental integration generally gives:</p>",
+          "answers": [
+            {
+              "text": "Better fault isolation, because a failure points to the newly added module or its interface",
+              "fraction": 100,
+              "feedback": "Correct — adding modules one at a time localises where a new failure came from."
+            },
+            {
+              "text": "Worse fault isolation, because more scaffolding is used",
+              "fraction": 0,
+              "feedback": "Extra stubs/drivers do not worsen isolation; incremental integration improves it."
+            },
+            {
+              "text": "No difference in fault isolation",
+              "fraction": 0,
+              "feedback": "There is a clear difference: incremental isolates faults far better than big-bang."
+            },
+            {
+              "text": "Guaranteed absence of interface faults",
+              "fraction": 0,
+              "feedback": "No strategy guarantees the absence of faults; it only makes them easier to locate."
+            }
+          ],
+          "generalFeedback": "Because incremental integration adds one module at a time, a new failure is most likely due to the module just added or its interface — so faults are much easier to isolate than in big-bang, where everything is combined at once.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which strategy tests top-level control earliest",
+          "text": "<p>Which strategy exercises the <strong>top-level control logic</strong> earliest?</p>",
+          "answers": [
+            {
+              "text": "Top-down",
+              "fraction": 100,
+              "feedback": "Correct — top-down integrates the main control module first, so control logic is tested early."
+            },
+            {
+              "text": "Bottom-up",
+              "fraction": 0,
+              "feedback": "Bottom-up tests leaves first; the top-level control logic is integrated last."
+            },
+            {
+              "text": "Big-bang",
+              "fraction": 0,
+              "feedback": "Big-bang tests everything only after all modules are combined, not the top earliest."
+            },
+            {
+              "text": "None can test control logic early",
+              "fraction": 0,
+              "feedback": "Top-down does exactly this by integrating the top module first."
+            }
+          ],
+          "generalFeedback": "Top-down starts at the main control module, so high-level control flow and major design decisions are exercised early — one of its main advantages.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which strategy tests leaf utilities earliest",
+          "text": "<p>Which strategy exercises the <strong>low-level leaf/utility modules</strong> earliest?</p>",
+          "answers": [
+            {
+              "text": "Bottom-up",
+              "fraction": 100,
+              "feedback": "Correct — bottom-up integrates leaf modules first, so utilities are tested early."
+            },
+            {
+              "text": "Top-down",
+              "fraction": 0,
+              "feedback": "Top-down tests the top first; leaf utilities are integrated (or only stubbed) until late."
+            },
+            {
+              "text": "Big-bang",
+              "fraction": 0,
+              "feedback": "Big-bang exercises everything only after all modules are combined."
+            },
+            {
+              "text": "None can test leaves early",
+              "fraction": 0,
+              "feedback": "Bottom-up does exactly this by integrating the leaves first."
+            }
+          ],
+          "generalFeedback": "Bottom-up starts at the leaves, so low-level utility modules are thoroughly exercised early — useful when those utilities are complex or critical.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Big-bang failure localisation",
+          "text": "<p>A team integrates all modules at once (big-bang) and a test fails. Why is diagnosing the failure typically hard?</p>",
+          "answers": [
+            {
+              "text": "Any of the many simultaneously-combined interfaces could be the cause, so the fault is hard to localise",
+              "fraction": 100,
+              "feedback": "Correct — with everything combined at once, poor fault isolation makes the cause hard to pin down."
+            },
+            {
+              "text": "Big-bang produces no test output to examine",
+              "fraction": 0,
+              "feedback": "It still produces output; the problem is isolating which interface failed, not a lack of output."
+            },
+            {
+              "text": "Stubs and drivers hide the real modules",
+              "fraction": 0,
+              "feedback": "Big-bang uses little scaffolding; the difficulty is the many interfaces combined at once."
+            },
+            {
+              "text": "Big-bang cannot detect interface faults at all",
+              "fraction": 0,
+              "feedback": "It can detect them; it just makes them hard to locate."
+            }
+          ],
+          "generalFeedback": "Big-bang combines all modules together, so when a failure appears any of the numerous interfaces could be responsible. This poor fault isolation is big-bang's main drawback.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-down early skeleton",
+          "text": "<p>A frequently cited advantage of <em>top-down</em> integration is that:</p>",
+          "answers": [
+            {
+              "text": "An early working skeleton of the system is available, since the top control structure is built first",
+              "fraction": 100,
+              "feedback": "Correct — a partial, demonstrable program emerges early."
+            },
+            {
+              "text": "No stubs are ever required",
+              "fraction": 0,
+              "feedback": "Top-down actually depends on stubs for its lower modules."
+            },
+            {
+              "text": "Low-level utility modules are fully tested first",
+              "fraction": 0,
+              "feedback": "That is a bottom-up characteristic, not top-down."
+            },
+            {
+              "text": "It removes the need for any regression testing",
+              "fraction": 0,
+              "feedback": "Regression testing is still needed as modules are added."
+            }
+          ],
+          "generalFeedback": "Because top-down builds the upper control structure first, an early demonstrable skeleton of the program appears, letting stakeholders see progress and letting major design errors surface early.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottom-up late control testing",
+          "text": "<p>A drawback of <em>bottom-up</em> integration is that:</p>",
+          "answers": [
+            {
+              "text": "The top-level control logic and user interface are integrated and tested last",
+              "fraction": 100,
+              "feedback": "Correct — high-level control and UI concerns surface late, so major design errors there appear late."
+            },
+            {
+              "text": "It cannot test leaf modules",
+              "fraction": 0,
+              "feedback": "Bottom-up tests leaf modules first; that is its strength, not a weakness."
+            },
+            {
+              "text": "It requires stubs for every leaf",
+              "fraction": 0,
+              "feedback": "Bottom-up uses drivers, not stubs, and leaves have no callees to stub."
+            },
+            {
+              "text": "It combines all modules at once",
+              "fraction": 0,
+              "feedback": "That describes big-bang, not bottom-up."
+            }
+          ],
+          "generalFeedback": "Since bottom-up integrates leaves first and the top last, the main control logic and user interface are exercised only late, so serious high-level design faults may be discovered late.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottom-up driver among three leaves",
+          "text": "<p>Consider this call tree: <strong>A calls B, C, and D</strong> (B, C, D are all leaves). Using <em>bottom-up</em> integration, how many drivers are needed to integrate <strong>just leaf B</strong>?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — only B is under test, and its caller A is absent, so one driver is needed."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only B is being integrated here, not C and D, so one driver suffices."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "A is not integrated yet, so something must call B — a driver is required."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "A single module under test needs a single driver."
+            }
+          ],
+          "generalFeedback": "Integrating only leaf B: B has no callees (no stubs), and its caller A is absent, so exactly 1 driver is required to invoke B.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-down step 1 stubs with a grandchild",
+          "text": "<p>Consider this call tree: <strong>S calls T and U; T calls V</strong>. Using <em>top-down</em> integration, how many stubs are needed at step 1 (integrating the root S alone)?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — at step 1 only S's direct children (T and U) are stubbed; V is not directly called by S."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "V is a callee of T, not of S; at step 1 only S's direct children are stubbed."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "S has two direct children (T and U), so one stub is not enough."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "Step 1 must stub S's direct callees, and S calls two modules."
+            }
+          ],
+          "generalFeedback": "Top-down step 1 integrates S and stubs only the modules S directly calls: T and U (2 stubs). V is reached only through T, which is not yet integrated, so V is not stubbed at step 1.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Big-bang scaffolding cost",
+          "text": "<p>In general, big-bang integration requires fewer temporary stubs and drivers than incremental integration.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — big-bang combines all real modules at once, so it needs little per-step scaffolding; the trade-off is much poorer fault isolation."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Big-bang does typically need less scaffolding; it just pays for it with poor fault isolation."
+            }
+          ],
+          "generalFeedback": "Because big-bang assembles all the real modules together, it avoids most of the per-step stubs and drivers that incremental integration needs. Its cost is elsewhere: when something fails, isolating the responsible interface is hard."
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-down stubs for two children of a subtree",
+          "text": "<p>Consider this call tree: <strong>A calls B and C; C calls D and E</strong>. Using <em>top-down</em> integration, A and B are already integrated and you now integrate <strong>C</strong>. How many stubs must be in place for C's own not-yet-integrated callees?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — C directly calls D and E, neither of which is integrated yet, so 2 stubs."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "C has two direct callees (D and E), so one stub is too few."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "C calls only D and E; B is A's other child, not a callee of C."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "C's callees D and E are absent, so stubs are required for them."
+            }
+          ],
+          "generalFeedback": "When integrating C top-down, only C's direct callees still absent must be stubbed. C calls D and E, so 2 stubs are needed.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Top-down stubs at a multi-level step",
+          "text": "<p>Consider this call tree: <strong>A calls B and C; B calls D and E; C calls F</strong>. Using <em>top-down</em> integration, suppose the integrated set is exactly {A, B}. How many stubs must be in place at this point?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — integrated modules call three absent modules: A calls C (stub), and B calls D and E (two stubs) &#8594; 3 stubs."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Do not forget A still calls C: stubs are needed for C, D, and E — three in total."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "F is called by C, which is not integrated, so F is not stubbed yet; the count is 3."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Both A and B have absent callees; there are three such callees (C, D, E)."
+            }
+          ],
+          "generalFeedback": "With integrated set {A, B}, list every call from an integrated module to a non-integrated one: A&#8594;C, B&#8594;D, B&#8594;E. (A&#8594;B is real.) That is stubs for C, D, and E = 3 stubs. F is not stubbed because its caller C is not integrated.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottom-up drivers for all leaves",
+          "text": "<p>Consider this call tree: <strong>A calls B and C; B calls D and E; C calls F</strong>. Using <em>bottom-up</em> integration with one driver per module under test, how many drivers are needed to integrate all the leaf modules as the first step?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — the leaves are D, E, and F; with one driver each that is 3 drivers."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "There are three leaves (D, E, F), not two."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Only the leaf modules are integrated at the first step; B and C are not leaves."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Bottom-up uses one driver per leaf under test; there are three leaves, so 3 drivers."
+            }
+          ],
+          "generalFeedback": "The leaves (modules that call nothing) are D, E, and F. Bottom-up integrates the leaves first, one driver per module under test, so 3 drivers are needed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What sandwich integration achieves",
+          "text": "<p>Why might a team choose <em>sandwich</em> (hybrid) integration over pure top-down or pure bottom-up?</p>",
+          "answers": [
+            {
+              "text": "It lets high-level and low-level modules be integrated in parallel, combining top-down's early control testing with bottom-up's early utility testing",
+              "fraction": 100,
+              "feedback": "Correct — working from both ends at once gains the benefits of both directions and can shorten the schedule."
+            },
+            {
+              "text": "It eliminates the need for both stubs and drivers",
+              "fraction": 0,
+              "feedback": "Sandwich uses stubs (upper layers) and drivers (lower layers) — it needs both."
+            },
+            {
+              "text": "It integrates all modules at once like big-bang",
+              "fraction": 0,
+              "feedback": "Sandwich is incremental from both ends, not a single big-bang step."
+            },
+            {
+              "text": "It guarantees no interface faults will remain",
+              "fraction": 0,
+              "feedback": "No strategy guarantees the absence of faults."
+            }
+          ],
+          "generalFeedback": "Sandwich applies top-down to the upper layers (stubs) and bottom-up to the lower layers (drivers) simultaneously, so control logic and utility modules are both exercised early and the two efforts can proceed in parallel.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sandwich integration weakness",
+          "text": "<p>A recognised weakness of <em>sandwich</em> integration is that:</p>",
+          "answers": [
+            {
+              "text": "The middle-layer modules where the two ends meet may get less thorough isolated testing",
+              "fraction": 100,
+              "feedback": "Correct — because both ends converge on the middle, that target layer can be under-tested in isolation."
+            },
+            {
+              "text": "It cannot test the top-level control logic",
+              "fraction": 0,
+              "feedback": "Its top-down half exercises the control logic early; that is a strength."
+            },
+            {
+              "text": "It needs neither stubs nor drivers",
+              "fraction": 0,
+              "feedback": "Sandwich needs both stubs and drivers, so this is false."
+            },
+            {
+              "text": "It provides worse fault isolation than big-bang",
+              "fraction": 0,
+              "feedback": "Being incremental, sandwich isolates faults better than big-bang, not worse."
+            }
+          ],
+          "generalFeedback": "Because top-down and bottom-up converge on a middle target layer, those middle modules can end up tested mostly as part of larger assemblies rather than thoroughly in isolation — the main criticism of the sandwich approach.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why top-down can hide low-level defects",
+          "text": "<p>Why can <em>top-down</em> integration hide defects that live in low-level modules?</p>",
+          "answers": [
+            {
+              "text": "Stubs return simplified canned results, so the real low-level behaviour (and its bugs) is not exercised until the stub is replaced",
+              "fraction": 100,
+              "feedback": "Correct — an oversimplified stub can mask a defect that only the real module would reveal."
+            },
+            {
+              "text": "Top-down never executes the low-level modules at all",
+              "fraction": 0,
+              "feedback": "They are eventually integrated; the issue is that stubs stand in for them for a long time."
+            },
+            {
+              "text": "Drivers suppress the outputs of low-level modules",
+              "fraction": 0,
+              "feedback": "Top-down uses stubs, not drivers, and stubs — not drivers — cause the masking here."
+            },
+            {
+              "text": "Low-level defects are always equivalent and undetectable",
+              "fraction": 0,
+              "feedback": "They are ordinary defects; they are simply not exercised while a stub substitutes for the real module."
+            }
+          ],
+          "generalFeedback": "Because top-down replaces lower modules with stubs that return canned values, the real (possibly buggy) low-level logic is not run until late. An oversimplified stub can therefore mask a defect that only surfaces once the actual module is integrated.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why bottom-up delays UI/control testing",
+          "text": "<p>In <em>bottom-up</em> integration, why might a serious flaw in the user interface or overall control flow be discovered late?</p>",
+          "answers": [
+            {
+              "text": "The top-level control and UI modules are integrated last, so faults in them surface only near the end",
+              "fraction": 100,
+              "feedback": "Correct — bottom-up leaves the top for last, delaying discovery of high-level design faults."
+            },
+            {
+              "text": "Drivers permanently replace the UI modules",
+              "fraction": 0,
+              "feedback": "Drivers are temporary; the point is that the real UI/control modules are integrated only late."
+            },
+            {
+              "text": "Bottom-up never tests the top-level modules",
+              "fraction": 0,
+              "feedback": "It does test them — just last, after the lower levels."
+            },
+            {
+              "text": "UI faults are always interface faults, which bottom-up ignores",
+              "fraction": 0,
+              "feedback": "Bottom-up does test interfaces; the delay is due to integration order, not ignoring faults."
+            }
+          ],
+          "generalFeedback": "Bottom-up integrates leaves first and the top control/UI modules last, so major high-level design or interface flaws in those top modules are not exercised until late in the integration schedule.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interface fault: parameter order",
+          "text": "<p>Which of the following is an example of an <em>interface (integration) fault</em>?</p>",
+          "answers": [
+            {
+              "text": "Module A calls B asbut B expects, so the arguments are swapped",
+              "fraction": 100,
+              "feedback": "Correct — mismatched parameter order across a call boundary is a classic interface fault."
+            },
+            {
+              "text": "A loop inside module B iterates one time too few (an off-by-one within B)",
+              "fraction": 0,
+              "feedback": "That is an internal logic (unit) fault confined to B, not an interface fault."
+            },
+            {
+              "text": "A local variable inside A is left uninitialised and never passed out",
+              "fraction": 0,
+              "feedback": "That is an internal fault in A; it does not concern the A&#8211;B interface."
+            },
+            {
+              "text": "B computes the wrong result even when called with correct arguments",
+              "fraction": 0,
+              "feedback": "That is a logic fault inside B, a unit-level concern, not an interface mismatch."
+            }
+          ],
+          "generalFeedback": "Interface faults occur at the boundary between modules. Passing arguments in the wrong order (a parameter mismatch) is a textbook example — the modules disagree on how they communicate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interface fault: timing/protocol",
+          "text": "<p>Module A sends data to module B before B has finished initialising, so B occasionally processes garbage. This is best classified as:</p>",
+          "answers": [
+            {
+              "text": "An interface fault of the timing/protocol kind",
+              "fraction": 100,
+              "feedback": "Correct — the modules violate the expected order/timing of their interaction."
+            },
+            {
+              "text": "An internal logic fault inside B's computation",
+              "fraction": 0,
+              "feedback": "B's computation may be fine; the fault is in when A interacts with B — a timing/protocol issue at the interface."
+            },
+            {
+              "text": "A compiler optimisation error",
+              "fraction": 0,
+              "feedback": "This is about module interaction order, not the compiler."
+            },
+            {
+              "text": "An equivalent mutant",
+              "fraction": 0,
+              "feedback": "That is a mutation-testing concept, unrelated to an integration timing fault."
+            }
+          ],
+          "generalFeedback": "When modules disagree on the order or timing of their exchanges — sending before the peer is ready — the defect lies at the interface: a protocol/timing interface fault, exactly what integration testing targets.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interface fault: shared state",
+          "text": "<p>Modules A and B both read and write a shared global counter, each assuming it alone modifies it, and they corrupt each other's value. This is best classified as:</p>",
+          "answers": [
+            {
+              "text": "An interface fault arising from inconsistent assumptions about shared state",
+              "fraction": 100,
+              "feedback": "Correct — the modules interact through shared data with conflicting assumptions, an interface fault."
+            },
+            {
+              "text": "A pure unit fault inside A only",
+              "fraction": 0,
+              "feedback": "The problem emerges from A and B interacting via shared data, not from A alone."
+            },
+            {
+              "text": "A performance fault",
+              "fraction": 0,
+              "feedback": "The issue is incorrect results from shared-state conflict, not speed."
+            },
+            {
+              "text": "A documentation fault",
+              "fraction": 0,
+              "feedback": "The defect is in the code's shared-state interaction, not in the docs."
+            }
+          ],
+          "generalFeedback": "Shared-state (shared-data) faults happen when integrated modules make inconsistent assumptions about global or shared variables. The defect lives in how the modules interact, so it is an interface/integration fault.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Ordering with a shared utility (bottom-up)",
+          "text": "<p>Consider this dependency graph: <strong>Main calls A and B; A calls C; B calls C and D</strong> (so C is a shared utility called by both A and B; D is a leaf). Using <em>bottom-up</em> integration, which module should be integrated earliest?</p>",
+          "answers": [
+            {
+              "text": "C — it is a leaf utility called by both A and B, so it must be available before A or B can be tested with real callees",
+              "fraction": 100,
+              "feedback": "Correct — bottom-up integrates leaves first, and the shared utility C is needed by both A and B."
+            },
+            {
+              "text": "Main — because it is the top of the hierarchy",
+              "fraction": 0,
+              "feedback": "Integrating the root first is top-down; bottom-up starts with the leaves."
+            },
+            {
+              "text": "A — because it appears before B alphabetically",
+              "fraction": 0,
+              "feedback": "A is not a leaf (it calls C); bottom-up integrates the leaf C before A."
+            },
+            {
+              "text": "B — because it has the most callees",
+              "fraction": 0,
+              "feedback": "B is not a leaf (it calls C and D); its callees must be integrated first."
+            }
+          ],
+          "generalFeedback": "Bottom-up integrates from the leaves up. C and D are the leaves; the shared utility C is called by both A and B, so it should be integrated first (with a driver) before A and B can be integrated against real callees.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Regression during integration",
+          "text": "<p>As each new module is added during incremental integration, the previously passing integration tests are re-run to check that the new module has not broken existing interactions. This activity is called:</p>",
+          "answers": [
+            {
+              "text": "Regression testing",
+              "fraction": 100,
+              "feedback": "Correct — re-running earlier tests after a change guards against newly introduced breakage."
+            },
+            {
+              "text": "Stub replacement",
+              "fraction": 0,
+              "feedback": "Replacing a stub is part of proceeding with integration, not the re-testing of prior interactions."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing checks a single module in isolation, not the re-verification of prior integrated interactions."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing validates the finished system against user needs, not the effect of each newly added module."
+            }
+          ],
+          "generalFeedback": "Each newly integrated module can perturb interactions that already worked. Re-running the earlier integration tests to confirm nothing was broken is regression testing — an ongoing cost of incremental integration.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-down stubs with a shared utility",
+          "text": "<p>Consider this dependency graph: <strong>Main calls A and B; A calls C; B calls C and D</strong> (C is shared, D is a leaf). Using <em>top-down</em> integration, the integrated set is exactly {Main, A, B}. How many stubs must be in place?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — the absent callees are C (called by both A and B, but one stub) and D, giving 2 stubs."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "C is called by both A and B, but it needs only one stub; with D that is 2 stubs, not 3."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "Two distinct modules are absent (C and D), so one stub is too few."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "Only C and D are absent; Main, A, and B are integrated, so 2 stubs suffice."
+            }
+          ],
+          "generalFeedback": "With integrated set {Main, A, B}, the calls to absent modules are A&#8594;C, B&#8594;C, and B&#8594;D. C needs only a single stub even though two modules call it, so the distinct stubs are for C and D = 2 stubs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottom-up scaffolding when the callee is already integrated",
+          "text": "<p>Consider this call tree: <strong>P calls Q and R; Q calls S; R calls S</strong> (S is a shared leaf). Using <em>bottom-up</em> integration, S has already been integrated and you now integrate <strong>Q</strong>. How much scaffolding does integrating Q require?</p>",
+          "answers": [
+            {
+              "text": "1 driver and 0 stubs",
+              "fraction": 100,
+              "feedback": "Correct — Q's caller P is absent (so a driver is needed), but Q's callee S is already integrated (so no stub is needed)."
+            },
+            {
+              "text": "1 driver and 1 stub",
+              "fraction": 0,
+              "feedback": "No stub is needed for S: S is already integrated, so Q can call the real S."
+            },
+            {
+              "text": "0 drivers and 1 stub",
+              "fraction": 0,
+              "feedback": "Bottom-up needs a driver here because Q's caller P is not integrated; and S is real, so no stub."
+            },
+            {
+              "text": "2 drivers and 0 stubs",
+              "fraction": 0,
+              "feedback": "Only Q is under test, so a single driver suffices."
+            }
+          ],
+          "generalFeedback": "Integrating Q bottom-up: its callee S is already integrated, so Q calls the real S (0 stubs). Its caller P is absent, so one driver is written to invoke Q. Total: 1 driver, 0 stubs.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Stub can mask a low-level defect",
+          "text": "<p>In top-down integration, a stub can mask a defect in the real lower-level module because the stub returns simplified, pre-arranged results instead of running the real logic.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — until the stub is replaced by the real module, the actual (possibly buggy) low-level behaviour is never exercised."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Stubs really can hide low-level defects: they return canned values rather than executing the real, possibly faulty, code."
+            }
+          ],
+          "generalFeedback": "A stub is an oversimplified stand-in that returns fixed results. While it substitutes for a real module, that module's genuine logic — and any defect in it — is not run, so top-down integration can hide low-level defects until the stub is replaced."
+        },
+        {
+          "type": "truefalse",
+          "name": "Sandwich needs both stubs and drivers",
+          "text": "<p>Sandwich (hybrid) integration requires both stubs and drivers.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — its top-down part uses stubs for lower modules while its bottom-up part uses drivers for the modules under test."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Sandwich combines top-down (stubs) and bottom-up (drivers), so it needs both kinds of scaffolding."
+            }
+          ],
+          "generalFeedback": "Because sandwich integration works top-down on the upper layers (needing stubs for their callees) and bottom-up on the lower layers (needing drivers to call them), it requires both stubs and drivers at once."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "整合測試檢查什麼",
+          "text": "<p><em>整合測試（integration testing）</em>的主要目的是揭露下列何者中的錯誤？</p>",
+          "answers": [
+            {
+              "text": "被組合在一起的各模組之間的互動與介面",
+              "fraction": 100,
+              "feedback": "正確——整合測試針對的是各自開發的模組合併後如何協同運作。"
+            },
+            {
+              "text": "單一孤立函式的內部邏輯",
+              "fraction": 0,
+              "feedback": "那是單元測試；整合測試假設單元已可運作，著眼於它們之間的互動。"
+            },
+            {
+              "text": "整個系統對照使用者需求的行為",
+              "fraction": 0,
+              "feedback": "那是系統測試，發生在整合之後。"
+            },
+            {
+              "text": "程式在高負載下的回應時間",
+              "fraction": 0,
+              "feedback": "那是效能／負載測試，屬非功能性議題，與整合無關。"
+            }
+          ],
+          "generalFeedback": "整合測試驗證已通過單元測試的模組合併後能否正確協作——它獵捕的是介面與互動錯誤，而非單一單元內部的邏輯錯誤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "整合在測試層級中的位置",
+          "text": "<p>在常見的測試層級順序中，整合測試位於：</p>",
+          "answers": [
+            {
+              "text": "單元測試之後、系統測試之前",
+              "fraction": 100,
+              "feedback": "正確——先測單元，再把它們整合起來一起測，最後才測整個系統。"
+            },
+            {
+              "text": "單元測試之前",
+              "fraction": 0,
+              "feedback": "單元必須先通過單元測試，否則互動失敗將無法與單元錯誤區分。"
+            },
+            {
+              "text": "系統測試之後",
+              "fraction": 0,
+              "feedback": "在這三個層級中系統測試是最後一個，不會在整合之前。"
+            },
+            {
+              "text": "它完全取代單元測試",
+              "fraction": 0,
+              "feedback": "整合測試是對單元測試的補充，並非取代。"
+            }
+          ],
+          "generalFeedback": "常見流程是 單元 &#8594; 整合 &#8594; 系統。整合測試建立在已通過單元測試的模組之上，並先於端到端的系統測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "大爆炸整合",
+          "text": "<p><em>大爆炸（big-bang）</em>整合的意思是：</p>",
+          "answers": [
+            {
+              "text": "所有模組一次全部合併，整個組合體一起測試",
+              "fraction": 100,
+              "feedback": "正確——大爆炸在單一步驟中整合所有東西。"
+            },
+            {
+              "text": "從階層頂端往下，一次加入一個模組",
+              "fraction": 0,
+              "feedback": "那是由上而下（top-down）漸進式整合，不是大爆炸。"
+            },
+            {
+              "text": "從葉節點往上，一次加入一個模組",
+              "fraction": 0,
+              "feedback": "那是由下而上（bottom-up）漸進式整合，不是大爆炸。"
+            },
+            {
+              "text": "在合併之前，先把每個模組完全孤立地測完",
+              "fraction": 0,
+              "feedback": "那是單元測試；大爆炸講的是把所有單元同時合併。"
+            }
+          ],
+          "generalFeedback": "大爆炸（非漸進式）整合把所有模組一起組裝並當成一個整體測試。它幾乎不需要輔助程式，但使失敗很難定位。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由上而下整合",
+          "text": "<p><em>由上而下（top-down）</em>整合的進行方式是：</p>",
+          "answers": [
+            {
+              "text": "從呼叫階層頂端往下整合，對尚未整合的較低層模組使用樁（stub）代替",
+              "fraction": 100,
+              "feedback": "正確——頂層控制模組先整合，其被呼叫者在整合前以樁代替。"
+            },
+            {
+              "text": "從葉模組往上整合，使用驅動程式（driver）",
+              "fraction": 0,
+              "feedback": "那是由下而上整合。"
+            },
+            {
+              "text": "一次合併所有模組",
+              "fraction": 0,
+              "feedback": "那是大爆炸整合。"
+            },
+            {
+              "text": "在沒有其他模組存在的情況下孤立測試每個模組",
+              "fraction": 0,
+              "feedback": "那是單元測試，並非一種整合策略。"
+            }
+          ],
+          "generalFeedback": "由上而下整合從頂端（主控制）模組開始，沿階層往下進行。尚未整合的較低層模組以樁（stub）代表。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由下而上整合",
+          "text": "<p><em>由下而上（bottom-up）</em>整合的進行方式是：</p>",
+          "answers": [
+            {
+              "text": "從葉模組往上整合，使用驅動程式（driver）去呼叫待測模組",
+              "fraction": 100,
+              "feedback": "正確——低層模組先整合，由暫時的驅動程式來驅動它們。"
+            },
+            {
+              "text": "從頂層控制模組往下整合，使用樁（stub）",
+              "fraction": 0,
+              "feedback": "那是由上而下整合。"
+            },
+            {
+              "text": "同時合併所有模組",
+              "fraction": 0,
+              "feedback": "那是大爆炸整合。"
+            },
+            {
+              "text": "把軟體交給終端使用者去找錯誤",
+              "fraction": 0,
+              "feedback": "那較接近驗收／實地測試，不是由下而上整合。"
+            }
+          ],
+          "generalFeedback": "由下而上整合從最低層（葉）模組開始，沿階層往上進行。由於它們的呼叫者尚未存在，需寫一個驅動程式來呼叫每個待測模組。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三明治整合",
+          "text": "<p>對<em>三明治（sandwich，混合式）</em>整合最貼切的描述是：</p>",
+          "answers": [
+            {
+              "text": "結合由上而下與由下而上，同時從兩端往中間進行",
+              "fraction": 100,
+              "feedback": "正確——上層使用樁、下層使用驅動程式，兩者在中間會合。"
+            },
+            {
+              "text": "一次合併所有模組，不用任何樁或驅動程式",
+              "fraction": 0,
+              "feedback": "那是大爆炸整合。"
+            },
+            {
+              "text": "嚴格由上而下，完全沒有由下而上的成分",
+              "fraction": 0,
+              "feedback": "純由上而下不是混合式；三明治混合了兩個方向。"
+            },
+            {
+              "text": "只測中間層，忽略頂端與底端",
+              "fraction": 0,
+              "feedback": "三明治會整合所有層級，並不忽略兩端。"
+            }
+          ],
+          "generalFeedback": "三明治（混合式）整合同時對上層採由上而下（用樁）、對下層採由下而上（用驅動程式），朝目標中間層收斂。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是樁",
+          "text": "<p>整合測試中的<em>樁（stub）</em>是一段暫時性程式碼，它：</p>",
+          "answers": [
+            {
+              "text": "代替待測模組所呼叫的較低層模組",
+              "fraction": 100,
+              "feedback": "正確——樁被待測模組呼叫，並回傳預先安排好的結果。"
+            },
+            {
+              "text": "代替呼叫待測模組的較高層模組",
+              "fraction": 0,
+              "feedback": "那是驅動程式（driver），不是樁。"
+            },
+            {
+              "text": "是某個被呼叫模組的最終正式版本",
+              "fraction": 0,
+              "feedback": "樁是可丟棄的替身，不是真正的模組。"
+            },
+            {
+              "text": "是刻意注入程式碼中的缺陷",
+              "fraction": 0,
+              "feedback": "那描述的是突變體／植入的錯誤，不是樁。"
+            }
+          ],
+          "generalFeedback": "樁代替尚未整合的：待測模組呼叫它，而它回傳簡化、預設的值。由上而下整合需要的正是樁。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是驅動程式",
+          "text": "<p>整合測試中的<em>驅動程式（driver）</em>是一段暫時性程式碼，它：</p>",
+          "answers": [
+            {
+              "text": "代替較高層模組，並呼叫待測模組",
+              "fraction": 100,
+              "feedback": "正確——驅動程式是呼叫者：它呼叫待測模組並傳入輸入。"
+            },
+            {
+              "text": "代替待測模組所呼叫的較低層模組",
+              "fraction": 0,
+              "feedback": "那是樁（stub），不是驅動程式。"
+            },
+            {
+              "text": "是交付給使用者的正式主程式",
+              "fraction": 0,
+              "feedback": "驅動程式是可丟棄的測試框架，不是真正的呼叫者。"
+            },
+            {
+              "text": "是用來量測程式碼覆蓋率的工具",
+              "fraction": 0,
+              "feedback": "那是覆蓋率工具，與驅動程式的角色無關。"
+            }
+          ],
+          "generalFeedback": "驅動程式代替尚未整合的：它呼叫待測模組、提供輸入並檢查輸出。由下而上整合需要的正是驅動程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "介面錯誤",
+          "text": "<p><em>介面（整合）錯誤</em>是一種缺陷，它：</p>",
+          "answers": [
+            {
+              "text": "源自兩個模組如何溝通時的錯誤假設或不匹配",
+              "fraction": 100,
+              "feedback": "正確——例如參數型別／順序錯誤、違反協定，或對共享狀態的假設不一致。"
+            },
+            {
+              "text": "是侷限於單一模組的純內部邏輯錯誤",
+              "fraction": 0,
+              "feedback": "那是單元層級的錯誤；介面錯誤關乎模組之間的溝通。"
+            },
+            {
+              "text": "是使用者手冊裡的拼字錯誤",
+              "fraction": 0,
+              "feedback": "文件的錯字不是軟體模組之間的介面錯誤。"
+            },
+            {
+              "text": "是 CPU 的硬體故障",
+              "fraction": 0,
+              "feedback": "那是硬體錯誤，不是軟體介面錯誤。"
+            }
+          ],
+          "generalFeedback": "介面錯誤在已整合的模組互動時浮現：參數列不匹配、呼叫順序錯誤、違反協定／時序，或對共享資料的假設不一致。這些正是整合測試所要獵捕的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪種策略需要樁",
+          "text": "<p>哪一種整合策略具有需要<strong>樁（stub）</strong>的特徵？</p>",
+          "answers": [
+            {
+              "text": "由上而下",
+              "fraction": 100,
+              "feedback": "正確——由上而下先整合上層模組，因此其尚未整合的被呼叫者以樁代替。"
+            },
+            {
+              "text": "由下而上",
+              "fraction": 0,
+              "feedback": "由下而上需要的是驅動程式，不是樁，因為它從葉節點開始。"
+            },
+            {
+              "text": "大爆炸",
+              "fraction": 0,
+              "feedback": "大爆炸一次組裝所有東西，通常不需要逐步的樁。"
+            },
+            {
+              "text": "以上皆不使用樁",
+              "fraction": 0,
+              "feedback": "由上而下仰賴樁，所以此選項錯誤。"
+            }
+          ],
+          "generalFeedback": "由上而下從頂端往下整合；上層模組所呼叫的下層模組尚未就緒，因此以樁代替。（由下而上則搭配驅動程式。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪種策略需要驅動程式",
+          "text": "<p>哪一種整合策略具有需要<strong>驅動程式（driver）</strong>的特徵？</p>",
+          "answers": [
+            {
+              "text": "由下而上",
+              "fraction": 100,
+              "feedback": "正確——由下而上先整合葉模組，因此需寫一個驅動程式來呼叫每一個。"
+            },
+            {
+              "text": "由上而下",
+              "fraction": 0,
+              "feedback": "由上而下需要的是樁，不是驅動程式，因為它從頂層控制模組開始。"
+            },
+            {
+              "text": "大爆炸",
+              "fraction": 0,
+              "feedback": "大爆炸一次合併所有模組，通常不需要逐步的驅動程式。"
+            },
+            {
+              "text": "以上皆不使用驅動程式",
+              "fraction": 0,
+              "feedback": "由下而上仰賴驅動程式，所以此選項錯誤。"
+            }
+          ],
+          "generalFeedback": "由下而上從葉節點往上整合；會呼叫它們的較高層模組尚未就緒，因此需寫一個驅動程式來呼叫每個待測模組。（由上而下則搭配樁。）",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "樁是被待測模組呼叫的",
+          "text": "<p>樁是<em>被</em>待測模組<em>呼叫</em>的（待測模組會去呼叫該樁）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——樁是被呼叫者的替身，因此待測模組會呼叫它。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "樁確實位於待測模組之下並被它呼叫；位於呼叫端的替身才是驅動程式。"
+            }
+          ],
+          "generalFeedback": "方向很重要：樁在下方、被待測模組呼叫（被呼叫者的替身）；驅動程式在上方、去呼叫待測模組（呼叫者的替身）。"
+        },
+        {
+          "type": "truefalse",
+          "name": "驅動程式是被待測模組呼叫的",
+          "text": "<p>驅動程式是<em>被</em>待測模組<em>呼叫</em>的（待測模組會去呼叫該驅動程式）。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這把方向弄反了——是驅動程式呼叫待測模組，而非反過來。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——驅動程式是呼叫者：它去呼叫待測模組。被待測模組呼叫的東西才是樁。"
+            }
+          ],
+          "generalFeedback": "驅動程式代替較高層的呼叫者，因此它待測模組。只有樁才是被待測模組呼叫的。"
+        },
+        {
+          "type": "multichoice",
+          "name": "樁代替的是什麼",
+          "text": "<p>在整合過程中，樁代替的是：</p>",
+          "answers": [
+            {
+              "text": "待測模組所呼叫、但尚未整合的較低層模組",
+              "fraction": 100,
+              "feedback": "正確——樁取代缺席的被呼叫者。"
+            },
+            {
+              "text": "呼叫待測模組、但尚未整合的較高層模組",
+              "fraction": 0,
+              "feedback": "那個缺席的呼叫者由驅動程式取代，不是樁。"
+            },
+            {
+              "text": "判定通過或失敗的測試諭示（oracle）",
+              "fraction": 0,
+              "feedback": "諭示判斷結果，並不是某個模組的替身。"
+            },
+            {
+              "text": "整個系統所使用的資料庫",
+              "fraction": 0,
+              "feedback": "樁是被呼叫模組的程式碼替身，並非泛指資料儲存。"
+            }
+          ],
+          "generalFeedback": "樁代替缺席的——待測模組原本會呼叫的較低層模組。由上而下整合在下層尚未就緒時仰賴樁。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驅動程式代替的是什麼",
+          "text": "<p>在整合過程中，驅動程式代替的是：</p>",
+          "answers": [
+            {
+              "text": "呼叫待測模組、但尚未整合的較高層模組",
+              "fraction": 100,
+              "feedback": "正確——驅動程式取代缺席的呼叫者。"
+            },
+            {
+              "text": "待測模組所呼叫、但尚未整合的較低層模組",
+              "fraction": 0,
+              "feedback": "那個缺席的被呼叫者由樁取代，不是驅動程式。"
+            },
+            {
+              "text": "用來建置各模組的編譯器",
+              "fraction": 0,
+              "feedback": "驅動程式是測試框架，不是建置工具。"
+            },
+            {
+              "text": "使用者提交的缺陷報告",
+              "fraction": 0,
+              "feedback": "那與驅動程式所代替的對象無關。"
+            }
+          ],
+          "generalFeedback": "驅動程式代替缺席的——原本會呼叫待測模組的較高層模組。由下而上整合在上層尚未就緒時仰賴驅動程式。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "由上而下步驟 1 的樁——兩個子節點",
+          "text": "<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C</strong>（A 是根；B 與 C 是它僅有的子節點）。使用<em>由上而下</em>整合，步驟 1 整合根 A 並對其尚未整合的直接子節點加樁。步驟 1 需要幾個樁？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——A 直接呼叫 B 與 C，兩者都要加樁：2 個樁。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A 有兩個直接子節點（B 與 C），一個樁不夠。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "只有 B 與 C 被 A 直接呼叫；沒有第三個子節點。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "由上而下步驟 1 必須對 A 的被呼叫者加樁，而 A 呼叫兩個模組。"
+            }
+          ],
+          "generalFeedback": "由上而下步驟 1 只整合根 A；A 直接呼叫的每個模組都要加樁。A 呼叫 B 與 C，所以需要 2 個樁。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由上而下步驟 1 的樁——三個子節點",
+          "text": "<p>考慮以下呼叫樹：<strong>M 呼叫 N、O 與 P</strong>（M 是根，有三個子節點）。使用<em>由上而下</em>整合，步驟 1（只整合 M）需要幾個樁？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——M 直接呼叫 N、O 與 P，三者都要加樁：3 個樁。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "M 有三個直接子節點，不是一個。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "有三個直接子節點（N、O、P），兩個樁太少。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "M 恰好呼叫三個模組；沒有第四個。"
+            }
+          ],
+          "generalFeedback": "由上而下步驟 1 整合 M 並對它直接呼叫的每個模組加樁。M 呼叫 N、O 與 P，所以需要 3 個樁。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由下而上：單一葉節點的驅動程式",
+          "text": "<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C；B 呼叫 D</strong>（因此 D 是葉節點）。使用<em>由下而上</em>整合，你先整合葉節點 D。整合 D 需要幾個<strong>驅動程式</strong>？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——D 的真正呼叫者（B）尚未整合，因此需寫一個驅動程式來呼叫 D。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "必須有東西呼叫 D；由於 B 尚未就緒，需要一個驅動程式。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "只有一個模組（D）待測，一個驅動程式就夠。"
+            },
+            {
+              "text": "1 個樁",
+              "fraction": 0,
+              "feedback": "由下而上使用驅動程式而非樁；且 D 沒有被呼叫者可加樁。"
+            }
+          ],
+          "generalFeedback": "由下而上先整合葉節點。D 沒有被呼叫者（不需樁），但它的呼叫者 B 缺席，因此需寫一個驅動程式來呼叫 D：1 個驅動程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由上而下：整合中間模組時的樁",
+          "text": "<p>考慮以下呼叫樹：<strong>R 呼叫 X 與 Y；X 呼叫 Z</strong>。使用<em>由上而下</em>整合，你已整合了 R，現在要整合 <strong>X</strong>。需要為 X 自己尚未整合的被呼叫者準備幾個樁？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——X 只直接呼叫 Z，而 Z 尚未整合，因此需要一個樁（給 Z）。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Y 是 X 的兄弟節點，不是 X 的被呼叫者；X 只呼叫 Z。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "X 呼叫 Z，而 Z 尚未整合，因此需要給 Z 的樁。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "X 只有一個被呼叫者（Z），沒有三個。"
+            }
+          ],
+          "generalFeedback": "由上而下整合 X 時，只需對 X 尚未整合的直接被呼叫者加樁。X 只呼叫 Z，所以需要 1 個樁。（Y 是 R 的另一個子節點，與 X 的被呼叫者無關。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由下而上：兩個葉節點的驅動程式",
+          "text": "<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C</strong>，其中 B 與 C 都是葉節點。使用<em>由下而上</em>整合，並且每個待測模組配一個驅動程式，將 B 與 C 作為第一步整合需要幾個驅動程式？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——每個待測模組一個驅動程式，而正在整合兩個葉模組（B 與 C）：2 個驅動程式。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "有兩個各自獨立的待測模組；每個模組一個驅動程式即為兩個。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "它們的呼叫者 A 尚未整合，因此需要驅動程式來呼叫 B 與 C。"
+            },
+            {
+              "text": "2 個樁",
+              "fraction": 0,
+              "feedback": "由下而上使用驅動程式而非樁；且葉節點 B 與 C 沒有被呼叫者可加樁。"
+            }
+          ],
+          "generalFeedback": "由下而上先整合葉節點。B 與 C 是葉節點且呼叫者 A 缺席，因此以每個待測模組一個驅動程式計，需要 2 個驅動程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷定位：漸進式 vs 大爆炸",
+          "text": "<p>相較於大爆炸，漸進式整合通常帶來：</p>",
+          "answers": [
+            {
+              "text": "更好的缺陷定位，因為失敗會指向新加入的模組或其介面",
+              "fraction": 100,
+              "feedback": "正確——一次加入一個模組能將新失敗的來源定位。"
+            },
+            {
+              "text": "更差的缺陷定位，因為使用了較多輔助程式",
+              "fraction": 0,
+              "feedback": "額外的樁／驅動程式不會使定位變差；漸進式整合反而改善它。"
+            },
+            {
+              "text": "缺陷定位沒有差別",
+              "fraction": 0,
+              "feedback": "差別很明顯：漸進式的缺陷定位遠優於大爆炸。"
+            },
+            {
+              "text": "保證沒有介面錯誤",
+              "fraction": 0,
+              "feedback": "沒有任何策略能保證不存在錯誤；它只是讓錯誤更易定位。"
+            }
+          ],
+          "generalFeedback": "由於漸進式整合一次只加入一個模組，新的失敗最可能來自剛加入的模組或其介面——因此比一次全部合併的大爆炸容易許多定位缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪種策略最早測到頂層控制",
+          "text": "<p>哪一種策略最早測到<strong>頂層控制邏輯</strong>？</p>",
+          "answers": [
+            {
+              "text": "由上而下",
+              "fraction": 100,
+              "feedback": "正確——由上而下先整合主控制模組，因此控制邏輯很早被測到。"
+            },
+            {
+              "text": "由下而上",
+              "fraction": 0,
+              "feedback": "由下而上先測葉節點；頂層控制邏輯最後才整合。"
+            },
+            {
+              "text": "大爆炸",
+              "fraction": 0,
+              "feedback": "大爆炸要等所有模組合併後才測試一切，並非最早測頂層。"
+            },
+            {
+              "text": "沒有策略能提早測控制邏輯",
+              "fraction": 0,
+              "feedback": "由上而下正是靠先整合頂層模組做到這件事。"
+            }
+          ],
+          "generalFeedback": "由上而下從主控制模組開始，因此高階控制流程與重大設計決策很早被檢驗——這是它的主要優點之一。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪種策略最早測到葉工具模組",
+          "text": "<p>哪一種策略最早測到<strong>低層葉／工具模組</strong>？</p>",
+          "answers": [
+            {
+              "text": "由下而上",
+              "fraction": 100,
+              "feedback": "正確——由下而上先整合葉模組，因此工具模組很早被測到。"
+            },
+            {
+              "text": "由上而下",
+              "fraction": 0,
+              "feedback": "由上而下先測頂端；葉工具模組要到很晚才整合（在此之前只是被加樁）。"
+            },
+            {
+              "text": "大爆炸",
+              "fraction": 0,
+              "feedback": "大爆炸要等所有模組合併後才測試一切。"
+            },
+            {
+              "text": "沒有策略能提早測葉節點",
+              "fraction": 0,
+              "feedback": "由下而上正是靠先整合葉節點做到這件事。"
+            }
+          ],
+          "generalFeedback": "由下而上從葉節點開始，因此低層工具模組很早就被徹底檢驗——當那些工具很複雜或很關鍵時特別有用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "大爆炸的失敗定位",
+          "text": "<p>某團隊一次整合所有模組（大爆炸），某個測試失敗了。為何診斷此失敗通常很困難？</p>",
+          "answers": [
+            {
+              "text": "眾多同時合併的介面中任何一個都可能是原因，因此缺陷很難定位",
+              "fraction": 100,
+              "feedback": "正確——所有東西一次合併，缺陷定位差使得原因難以釐清。"
+            },
+            {
+              "text": "大爆炸不會產生任何可檢視的測試輸出",
+              "fraction": 0,
+              "feedback": "它仍會產生輸出；問題在於難以定位是哪個介面失敗，而非缺乏輸出。"
+            },
+            {
+              "text": "樁與驅動程式遮蔽了真正的模組",
+              "fraction": 0,
+              "feedback": "大爆炸幾乎不用輔助程式；困難在於眾多介面一次合併。"
+            },
+            {
+              "text": "大爆炸根本無法偵測介面錯誤",
+              "fraction": 0,
+              "feedback": "它偵測得到，只是使錯誤難以定位。"
+            }
+          ],
+          "generalFeedback": "大爆炸把所有模組合併在一起，因此出現失敗時，眾多介面中任何一個都可能負責。這種缺陷定位差是大爆炸的主要缺點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由上而下的早期骨架",
+          "text": "<p><em>由上而下</em>整合常被提及的一項優點是：</p>",
+          "answers": [
+            {
+              "text": "由於先建立頂層控制結構，系統很早就有一個可運作的骨架",
+              "fraction": 100,
+              "feedback": "正確——一個可展示的部分程式會提早出現。"
+            },
+            {
+              "text": "永遠不需要任何樁",
+              "fraction": 0,
+              "feedback": "由上而下其實仰賴樁來代替其下層模組。"
+            },
+            {
+              "text": "低層工具模組會最先被完整測試",
+              "fraction": 0,
+              "feedback": "那是由下而上的特徵，不是由上而下。"
+            },
+            {
+              "text": "它消除了任何回歸測試的需要",
+              "fraction": 0,
+              "feedback": "隨著模組加入仍需要回歸測試。"
+            }
+          ],
+          "generalFeedback": "由於由上而下先建立上層控制結構，一個可展示的程式骨架會提早出現，讓利害關係人看到進度，也讓重大設計錯誤提早浮現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由下而上延後控制測試",
+          "text": "<p><em>由下而上</em>整合的一項缺點是：</p>",
+          "answers": [
+            {
+              "text": "頂層控制邏輯與使用者介面最後才整合與測試",
+              "fraction": 100,
+              "feedback": "正確——高階控制與 UI 議題較晚浮現，因此那裡的重大設計錯誤會較晚出現。"
+            },
+            {
+              "text": "它無法測試葉模組",
+              "fraction": 0,
+              "feedback": "由下而上最先測葉模組；那是它的強項而非弱點。"
+            },
+            {
+              "text": "它需要為每個葉節點準備樁",
+              "fraction": 0,
+              "feedback": "由下而上使用驅動程式而非樁，且葉節點沒有被呼叫者可加樁。"
+            },
+            {
+              "text": "它一次合併所有模組",
+              "fraction": 0,
+              "feedback": "那描述的是大爆炸，不是由下而上。"
+            }
+          ],
+          "generalFeedback": "由於由下而上先整合葉節點、最後才是頂端，主控制邏輯與使用者介面較晚被檢驗，因此那些頂層模組中嚴重的高階設計錯誤可能較晚被發現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三個葉節點中的由下而上驅動程式",
+          "text": "<p>考慮以下呼叫樹：<strong>A 呼叫 B、C 與 D</strong>（B、C、D 都是葉節點）。使用<em>由下而上</em>整合，<strong>只整合葉節點 B</strong> 需要幾個驅動程式？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——這裡只有 B 待測，而它的呼叫者 A 缺席，所以需要一個驅動程式。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "這裡只整合 B，不整合 C 與 D，因此一個驅動程式就夠。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "A 尚未整合，因此必須有東西呼叫 B——需要一個驅動程式。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "單一待測模組需要單一驅動程式。"
+            }
+          ],
+          "generalFeedback": "只整合葉節點 B：B 沒有被呼叫者（不需樁），而它的呼叫者 A 缺席，因此恰好需要 1 個驅動程式來呼叫 B。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由上而下步驟 1 的樁（含孫節點）",
+          "text": "<p>考慮以下呼叫樹：<strong>S 呼叫 T 與 U；T 呼叫 V</strong>。使用<em>由上而下</em>整合，步驟 1（只整合根 S）需要幾個樁？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——步驟 1 只對 S 的直接子節點（T 與 U）加樁；V 不是被 S 直接呼叫。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "V 是 T 的被呼叫者，不是 S 的；步驟 1 只對 S 的直接子節點加樁。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "S 有兩個直接子節點（T 與 U），一個樁不夠。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "步驟 1 必須對 S 的直接被呼叫者加樁，而 S 呼叫兩個模組。"
+            }
+          ],
+          "generalFeedback": "由上而下步驟 1 整合 S 並只對 S 直接呼叫的模組加樁：T 與 U（2 個樁）。V 只能透過尚未整合的 T 到達，因此步驟 1 不對 V 加樁。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "大爆炸的輔助程式成本",
+          "text": "<p>一般而言，大爆炸整合所需的暫時性樁與驅動程式比漸進式整合少。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——大爆炸一次合併所有真實模組，因此幾乎不需逐步的輔助程式；代價是缺陷定位差得多。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "大爆炸確實通常需要較少輔助程式；它只是以缺陷定位差作為代價。"
+            }
+          ],
+          "generalFeedback": "由於大爆炸把所有真實模組一起組裝，它省去了漸進式整合所需的大部分逐步樁與驅動程式。它的代價在別處：一旦出錯，要定位負責的介面很困難。"
+        },
+        {
+          "type": "multichoice",
+          "name": "由上而下：某子樹兩個子節點的樁",
+          "text": "<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C；C 呼叫 D 與 E</strong>。使用<em>由上而下</em>整合，A 與 B 已整合，你現在要整合 <strong>C</strong>。需要為 C 自己尚未整合的被呼叫者準備幾個樁？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——C 直接呼叫 D 與 E，兩者都尚未整合，所以 2 個樁。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "C 有兩個直接被呼叫者（D 與 E），一個樁太少。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "C 只呼叫 D 與 E；B 是 A 的另一個子節點，不是 C 的被呼叫者。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "C 的被呼叫者 D 與 E 缺席，因此需要為它們加樁。"
+            }
+          ],
+          "generalFeedback": "由上而下整合 C 時，只需對 C 尚未整合的直接被呼叫者加樁。C 呼叫 D 與 E，所以需要 2 個樁。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "由上而下在多層某步驟的樁數",
+          "text": "<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C；B 呼叫 D 與 E；C 呼叫 F</strong>。使用<em>由上而下</em>整合，假設已整合的集合恰為 {A, B}。此時必須就位幾個樁？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——已整合模組共呼叫三個缺席模組：A 呼叫 C（樁），B 呼叫 D 與 E（兩個樁）&#8594; 3 個樁。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "別忘了 A 仍呼叫 C：需要給 C、D、E 的樁——共三個。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "F 被尚未整合的 C 呼叫，因此此時還不加 F 的樁；數目是 3。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "A 與 B 都有缺席的被呼叫者；這樣的被呼叫者共有三個（C、D、E）。"
+            }
+          ],
+          "generalFeedback": "已整合集合為 {A, B} 時，列出每一條「從已整合模組到未整合模組」的呼叫：A&#8594;C、B&#8594;D、B&#8594;E。（A&#8594;B 是真實的。）也就是給 C、D、E 的樁＝3 個樁。F 不加樁，因為它的呼叫者 C 尚未整合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由下而上：所有葉節點的驅動程式",
+          "text": "<p>考慮以下呼叫樹：<strong>A 呼叫 B 與 C；B 呼叫 D 與 E；C 呼叫 F</strong>。使用<em>由下而上</em>整合，並且每個待測模組配一個驅動程式，作為第一步整合所有葉模組需要幾個驅動程式？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——葉節點為 D、E、F；每個一個驅動程式即為 3 個。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "有三個葉節點（D、E、F），不是兩個。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "第一步只整合葉模組；B 與 C 不是葉節點。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "由下而上對每個待測葉節點配一個驅動程式；有三個葉節點，所以 3 個驅動程式。"
+            }
+          ],
+          "generalFeedback": "葉節點（不呼叫任何模組者）為 D、E、F。由下而上先整合葉節點，每個待測模組一個驅動程式，因此需要 3 個驅動程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三明治整合達成什麼",
+          "text": "<p>相較於純由上而下或純由下而上，團隊為何可能選擇<em>三明治</em>（混合式）整合？</p>",
+          "answers": [
+            {
+              "text": "它讓高層與低層模組能並行整合，結合由上而下的早期控制測試與由下而上的早期工具測試",
+              "fraction": 100,
+              "feedback": "正確——從兩端同時進行能兼得兩個方向的好處，並可縮短時程。"
+            },
+            {
+              "text": "它消除了對樁與驅動程式的需要",
+              "fraction": 0,
+              "feedback": "三明治使用樁（上層）與驅動程式（下層）——兩者都需要。"
+            },
+            {
+              "text": "它像大爆炸一樣一次整合所有模組",
+              "fraction": 0,
+              "feedback": "三明治是從兩端進行的漸進式，不是單一的大爆炸步驟。"
+            },
+            {
+              "text": "它保證不會殘留任何介面錯誤",
+              "fraction": 0,
+              "feedback": "沒有任何策略能保證不存在錯誤。"
+            }
+          ],
+          "generalFeedback": "三明治同時對上層採由上而下（樁）、對下層採由下而上（驅動程式），因此控制邏輯與工具模組都能提早被檢驗，且兩邊工作可並行進行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三明治整合的弱點",
+          "text": "<p><em>三明治</em>整合公認的一項弱點是：</p>",
+          "answers": [
+            {
+              "text": "兩端會合處的中間層模組可能較缺乏徹底的孤立測試",
+              "fraction": 100,
+              "feedback": "正確——由於兩端都朝中間收斂，該目標層可能未被充分地孤立測試。"
+            },
+            {
+              "text": "它無法測試頂層控制邏輯",
+              "fraction": 0,
+              "feedback": "它的由上而下部分很早就檢驗控制邏輯；那是優點。"
+            },
+            {
+              "text": "它既不需要樁也不需要驅動程式",
+              "fraction": 0,
+              "feedback": "三明治兩者都需要，所以此敘述為假。"
+            },
+            {
+              "text": "它的缺陷定位比大爆炸更差",
+              "fraction": 0,
+              "feedback": "身為漸進式，三明治的缺陷定位優於大爆炸，而非更差。"
+            }
+          ],
+          "generalFeedback": "由於由上而下與由下而上都朝一個中間目標層收斂，那些中間模組可能主要是作為較大組合體的一部分被測，而非徹底地孤立測試——這是三明治法主要受到的批評。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何由上而下可能隱藏低層缺陷",
+          "text": "<p>為何<em>由上而下</em>整合可能隱藏存在於低層模組中的缺陷？</p>",
+          "answers": [
+            {
+              "text": "樁回傳簡化的預設結果，因此真正的低層行為（及其錯誤）要到樁被替換後才會被執行",
+              "fraction": 100,
+              "feedback": "正確——過度簡化的樁可能遮蔽只有真實模組才會顯現的缺陷。"
+            },
+            {
+              "text": "由上而下根本不會執行低層模組",
+              "fraction": 0,
+              "feedback": "它們最終會被整合；問題在於樁長時間代替它們。"
+            },
+            {
+              "text": "驅動程式抑制了低層模組的輸出",
+              "fraction": 0,
+              "feedback": "由上而下使用樁而非驅動程式，而這裡造成遮蔽的是樁，不是驅動程式。"
+            },
+            {
+              "text": "低層缺陷永遠是等價的、無法偵測",
+              "fraction": 0,
+              "feedback": "它們是一般缺陷；只是在樁代替真實模組期間未被執行而已。"
+            }
+          ],
+          "generalFeedback": "由於由上而下用回傳預設值的樁來代替下層模組，真正（可能有錯的）低層邏輯要到很晚才執行。過度簡化的樁因此可能遮蔽某個缺陷，直到真實模組被整合後才顯現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何由下而上延後 UI／控制測試",
+          "text": "<p>在<em>由下而上</em>整合中，為何使用者介面或整體控制流程中的嚴重瑕疵可能較晚被發現？</p>",
+          "answers": [
+            {
+              "text": "頂層控制與 UI 模組最後才整合，因此其中的錯誤要到接近尾聲才浮現",
+              "fraction": 100,
+              "feedback": "正確——由下而上把頂端留到最後，延後了高階設計錯誤的發現。"
+            },
+            {
+              "text": "驅動程式永久取代了 UI 模組",
+              "fraction": 0,
+              "feedback": "驅動程式是暫時的；重點是真實的 UI／控制模組要到很晚才整合。"
+            },
+            {
+              "text": "由下而上從不測試頂層模組",
+              "fraction": 0,
+              "feedback": "它會測試它們——只是最後、在較低層之後才測。"
+            },
+            {
+              "text": "UI 錯誤永遠是介面錯誤，而由下而上忽略它們",
+              "fraction": 0,
+              "feedback": "由下而上確實會測介面；延後是因整合順序，而非忽略錯誤。"
+            }
+          ],
+          "generalFeedback": "由下而上先整合葉節點、最後才是頂層控制／UI 模組，因此那些頂層模組中重大的高階設計或介面瑕疵要到整合時程的很晚才被執行到。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "介面錯誤：參數順序",
+          "text": "<p>下列何者是<em>介面（整合）錯誤</em>的例子？</p>",
+          "answers": [
+            {
+              "text": "模組 A 以呼叫 B，但 B 預期的是，因此引數順序被對調",
+              "fraction": 100,
+              "feedback": "正確——跨呼叫邊界的參數順序不匹配是典型的介面錯誤。"
+            },
+            {
+              "text": "模組 B 內部的迴圈少跑一次（B 內的差一錯誤）",
+              "fraction": 0,
+              "feedback": "那是侷限於 B 的內部邏輯（單元）錯誤，不是介面錯誤。"
+            },
+            {
+              "text": "A 內部某區域變數未初始化，且從未傳出",
+              "fraction": 0,
+              "feedback": "那是 A 的內部錯誤；與 A&#8211;B 介面無關。"
+            },
+            {
+              "text": "即使以正確引數呼叫，B 仍算出錯誤結果",
+              "fraction": 0,
+              "feedback": "那是 B 內部的邏輯錯誤，屬單元層級，不是介面不匹配。"
+            }
+          ],
+          "generalFeedback": "介面錯誤發生在模組之間的邊界。以錯誤順序傳遞引數（參數不匹配）是課本級的例子——兩模組對如何溝通的認知不一致。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "介面錯誤：時序／協定",
+          "text": "<p>模組 A 在模組 B 尚未完成初始化前就把資料送給 B，導致 B 偶爾處理到垃圾資料。這最適合歸類為：</p>",
+          "answers": [
+            {
+              "text": "時序／協定類的介面錯誤",
+              "fraction": 100,
+              "feedback": "正確——兩模組違反了彼此互動的預期順序／時序。"
+            },
+            {
+              "text": "B 計算內部的邏輯錯誤",
+              "fraction": 0,
+              "feedback": "B 的計算可能沒問題；錯誤在於 A 何時與 B 互動——一個介面上的時序／協定議題。"
+            },
+            {
+              "text": "編譯器最佳化錯誤",
+              "fraction": 0,
+              "feedback": "這關乎模組互動的順序，與編譯器無關。"
+            },
+            {
+              "text": "等價突變體",
+              "fraction": 0,
+              "feedback": "那是突變測試的概念，與整合時序錯誤無關。"
+            }
+          ],
+          "generalFeedback": "當模組對交換的順序或時序認知不一致——在對方尚未就緒前就發送——缺陷便落在介面上：一個協定／時序介面錯誤，正是整合測試所針對的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "介面錯誤：共享狀態",
+          "text": "<p>模組 A 與 B 都讀寫一個共享的全域計數器，各自都假設只有自己會修改它，結果彼此破壞了對方的值。這最適合歸類為：</p>",
+          "answers": [
+            {
+              "text": "源自對共享狀態不一致假設的介面錯誤",
+              "fraction": 100,
+              "feedback": "正確——兩模組透過共享資料互動且假設互相衝突，屬介面錯誤。"
+            },
+            {
+              "text": "只在 A 內部的純單元錯誤",
+              "fraction": 0,
+              "feedback": "問題源自 A 與 B 透過共享資料互動，而非 A 單獨造成。"
+            },
+            {
+              "text": "效能錯誤",
+              "fraction": 0,
+              "feedback": "問題是共享狀態衝突導致的錯誤結果，而非速度。"
+            },
+            {
+              "text": "文件錯誤",
+              "fraction": 0,
+              "feedback": "缺陷在於程式碼的共享狀態互動，而非文件。"
+            }
+          ],
+          "generalFeedback": "共享狀態（共享資料）錯誤發生在已整合的模組對全域或共享變數做出不一致假設時。缺陷存在於模組如何互動之中，因此屬介面／整合錯誤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "含共享工具模組的整合順序（由下而上）",
+          "text": "<p>考慮以下相依圖：<strong>Main 呼叫 A 與 B；A 呼叫 C；B 呼叫 C 與 D</strong>（因此 C 是被 A 與 B 共同呼叫的共享工具；D 是葉節點）。使用<em>由下而上</em>整合，應最早整合哪個模組？</p>",
+          "answers": [
+            {
+              "text": "C——它是被 A 與 B 共同呼叫的葉工具，因此必須在 A 或 B 能以真實被呼叫者受測之前就先就緒",
+              "fraction": 100,
+              "feedback": "正確——由下而上先整合葉節點，而共享工具 C 為 A 與 B 兩者所需。"
+            },
+            {
+              "text": "Main——因為它是階層的頂端",
+              "fraction": 0,
+              "feedback": "先整合根是由上而下；由下而上從葉節點開始。"
+            },
+            {
+              "text": "A——因為它在字母順序上排在 B 之前",
+              "fraction": 0,
+              "feedback": "A 不是葉節點（它呼叫 C）；由下而上會在 A 之前先整合葉節點 C。"
+            },
+            {
+              "text": "B——因為它的被呼叫者最多",
+              "fraction": 0,
+              "feedback": "B 不是葉節點（它呼叫 C 與 D）；它的被呼叫者必須先被整合。"
+            }
+          ],
+          "generalFeedback": "由下而上從葉節點往上整合。C 與 D 是葉節點；共享工具 C 被 A 與 B 共同呼叫，因此應最先整合（配一個驅動程式），A 與 B 才能對照真實被呼叫者被整合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "整合期間的回歸",
+          "text": "<p>在漸進式整合中，每加入一個新模組時，就重新執行先前已通過的整合測試，以檢查新模組沒有破壞既有互動。這項活動稱為：</p>",
+          "answers": [
+            {
+              "text": "回歸測試（regression testing）",
+              "fraction": 100,
+              "feedback": "正確——在變更後重跑先前的測試，以防範新引入的破壞。"
+            },
+            {
+              "text": "替換樁",
+              "fraction": 0,
+              "feedback": "替換樁是整合推進的一部分，不是對先前互動的重新測試。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試孤立地檢查單一模組，不是對先前已整合互動的再驗證。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試對照使用者需求驗證完成的系統，而非每個新加入模組的影響。"
+            }
+          ],
+          "generalFeedback": "每個新整合的模組都可能擾動原本可運作的互動。重跑先前的整合測試以確認沒有東西被破壞，就是回歸測試——漸進式整合的一項持續成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "含共享工具模組的由上而下樁數",
+          "text": "<p>考慮以下相依圖：<strong>Main 呼叫 A 與 B；A 呼叫 C；B 呼叫 C 與 D</strong>（C 為共享，D 為葉節點）。使用<em>由上而下</em>整合，已整合的集合恰為 {Main, A, B}。必須就位幾個樁？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——缺席的被呼叫者是 C（被 A 與 B 共同呼叫，但只需一個樁）與 D，共 2 個樁。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "C 雖被 A 與 B 共同呼叫，但只需一個樁；連同 D 是 2 個樁，不是 3。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "有兩個相異模組缺席（C 與 D），一個樁太少。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "只有 C 與 D 缺席；Main、A、B 已整合，所以 2 個樁就夠。"
+            }
+          ],
+          "generalFeedback": "已整合集合為 {Main, A, B} 時，指向缺席模組的呼叫為 A&#8594;C、B&#8594;C 與 B&#8594;D。C 即使有兩個模組呼叫它也只需單一樁，因此相異的樁是給 C 與 D＝2 個樁。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "被呼叫者已整合時的由下而上輔助程式",
+          "text": "<p>考慮以下呼叫樹：<strong>P 呼叫 Q 與 R；Q 呼叫 S；R 呼叫 S</strong>（S 是共享葉節點）。使用<em>由下而上</em>整合，S 已被整合，你現在要整合 <strong>Q</strong>。整合 Q 需要多少輔助程式？</p>",
+          "answers": [
+            {
+              "text": "1 個驅動程式、0 個樁",
+              "fraction": 100,
+              "feedback": "正確——Q 的呼叫者 P 缺席（需要驅動程式），但 Q 的被呼叫者 S 已整合（不需樁）。"
+            },
+            {
+              "text": "1 個驅動程式、1 個樁",
+              "fraction": 0,
+              "feedback": "不需要給 S 的樁：S 已整合，Q 可呼叫真實的 S。"
+            },
+            {
+              "text": "0 個驅動程式、1 個樁",
+              "fraction": 0,
+              "feedback": "由下而上此處需要驅動程式，因為 Q 的呼叫者 P 尚未整合；而 S 是真實的，所以不需樁。"
+            },
+            {
+              "text": "2 個驅動程式、0 個樁",
+              "fraction": 0,
+              "feedback": "只有 Q 待測，一個驅動程式就夠。"
+            }
+          ],
+          "generalFeedback": "由下而上整合 Q：它的被呼叫者 S 已整合，因此 Q 呼叫真實的 S（0 個樁）。它的呼叫者 P 缺席，因此寫一個驅動程式來呼叫 Q。合計：1 個驅動程式、0 個樁。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "樁可能遮蔽低層缺陷",
+          "text": "<p>在由上而下整合中，樁可能遮蔽真實低層模組中的缺陷，因為樁回傳的是簡化、預先安排好的結果，而非執行真實邏輯。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——在樁被真實模組替換之前，真正（可能有錯的）低層行為從未被執行。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "樁確實可能隱藏低層缺陷：它回傳預設值，而非執行真實、可能有錯的程式碼。"
+            }
+          ],
+          "generalFeedback": "樁是回傳固定結果的過度簡化替身。當它代替真實模組時，該模組真正的邏輯——以及其中任何缺陷——都不會被執行，因此由上而下整合可能隱藏低層缺陷，直到樁被替換為止。"
+        },
+        {
+          "type": "truefalse",
+          "name": "三明治同時需要樁與驅動程式",
+          "text": "<p>三明治（混合式）整合同時需要樁與驅動程式。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——它的由上而下部分為下層模組使用樁，由下而上部分為待測模組使用驅動程式。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "三明治結合由上而下（樁）與由下而上（驅動程式），因此兩種輔助程式都需要。"
+            }
+          ],
+          "generalFeedback": "由於三明治整合對上層採由上而下（需為其被呼叫者加樁）、對下層採由下而上（需要驅動程式來呼叫它們），因此同時需要樁與驅動程式。"
         }
       ]
     }
@@ -35163,6 +42783,5086 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "pairwise": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What pairwise testing requires",
+          "text": "<p>What does pairwise (2-way) testing require of a test suite?</p>",
+          "answers": [
+            {
+              "text": "For every pair of parameters, every combination of their values appears together in at least one test",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly the 2-way coverage guarantee."
+            },
+            {
+              "text": "Every possible combination of all parameter values appears in some test",
+              "fraction": 0,
+              "feedback": "That is exhaustive testing; pairwise only covers value pairs, not full combinations."
+            },
+            {
+              "text": "Each individual parameter value appears in at least one test",
+              "fraction": 0,
+              "feedback": "That is weaker (each-choice) coverage; pairwise additionally requires every pair of values."
+            },
+            {
+              "text": "Exactly two tests are run for each parameter",
+              "fraction": 0,
+              "feedback": "Pairwise constrains which value pairs are covered, not a fixed number of tests per parameter."
+            }
+          ],
+          "generalFeedback": "Pairwise (2-way) testing requires that for every pair of parameters, every combination of one value from each appears together in at least one test case. It targets two-way interaction faults while using far fewer tests than exhaustive coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Empirical basis for pairwise",
+          "text": "<p>What empirical observation motivates pairwise testing?</p>",
+          "answers": [
+            {
+              "text": "Most software faults are triggered by a single factor or by an interaction of only two factors",
+              "fraction": 100,
+              "feedback": "Correct — studies of the interaction/fault-coupling of defects show most failures involve one or two factors."
+            },
+            {
+              "text": "Most software faults require every parameter to take an extreme value simultaneously",
+              "fraction": 0,
+              "feedback": "On the contrary, high-order interactions cause relatively few faults; that is why pairwise pays off."
+            },
+            {
+              "text": "Faults are distributed uniformly across all combinations of parameters",
+              "fraction": 0,
+              "feedback": "If faults were uniform across full combinations, pairwise would offer little benefit; the evidence is that low-order interactions dominate."
+            },
+            {
+              "text": "Faults only ever depend on a single input parameter",
+              "fraction": 0,
+              "feedback": "Two-way (and occasionally higher) interactions do occur; pairwise targets the common one- and two-factor cases."
+            }
+          ],
+          "generalFeedback": "Empirical fault studies found that a large majority of failures are caused by a single factor or a two-factor interaction, with progressively fewer caused by three or more factors. Pairwise testing exploits this by guaranteeing all two-way combinations at low cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What exhaustive testing means",
+          "text": "<p>For a system configured by several parameters, what does <strong>exhaustive</strong> combinatorial testing require?</p>",
+          "answers": [
+            {
+              "text": "One test for every possible combination of values across all parameters",
+              "fraction": 100,
+              "feedback": "Correct — exhaustive means the full Cartesian product of the parameter domains."
+            },
+            {
+              "text": "One test for every pair of parameter values",
+              "fraction": 0,
+              "feedback": "That is pairwise testing, a small subset of exhaustive."
+            },
+            {
+              "text": "One test per parameter",
+              "fraction": 0,
+              "feedback": "That does not even cover each value; exhaustive covers every full combination."
+            },
+            {
+              "text": "A fixed number of tests regardless of the number of parameters",
+              "fraction": 0,
+              "feedback": "Exhaustive count grows as the product of the domain sizes, so it depends heavily on the parameters."
+            }
+          ],
+          "generalFeedback": "Exhaustive testing runs every combination of parameter values — the full Cartesian product. Its size is the product of all the domain sizes, which grows explosively, which is the very problem combinatorial testing addresses.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Exhaustive count for 3 x 2 x 2",
+          "text": "<p>A feature has three parameters: the first has 3 possible values, the second has 2, and the third has 2. How many tests does <strong>exhaustive</strong> testing require?</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "Correct — 3 × 2 × 2 = 12, the product of the domain sizes."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the sum 3 + 2 + 2; exhaustive multiplies the domain sizes."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 counts only two of the three parameters (3 × 2); include the third."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is not the product of the two largest domains (3 × 2 = 6); the exhaustive count multiplies ALL domain sizes: 3 × 2 × 2 = 12."
+            }
+          ],
+          "generalFeedback": "Exhaustive testing is the product of all domain sizes: 3 × 2 × 2 = 12.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Exhaustive count for three 3-valued parameters",
+          "text": "<p>A configuration has three parameters, each with 3 possible values. How many tests does <strong>exhaustive</strong> testing require?</p>",
+          "answers": [
+            {
+              "text": "27",
+              "fraction": 100,
+              "feedback": "Correct — 3 × 3 × 3 = 27."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is 3 × 3, the product of only two parameters (and it is the pairwise lower bound here), not the full product."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is 3 + 3 (two parameters summed); exhaustive multiplies all three domain sizes."
+            },
+            {
+              "text": "81",
+              "fraction": 0,
+              "feedback": "81 is 3 to the fourth power, i.e. four parameters; here there are only three."
+            }
+          ],
+          "generalFeedback": "Exhaustive count is the product of all domain sizes: 3 × 3 × 3 = 27.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Exhaustive count for 4 x 3",
+          "text": "<p>A function has two parameters: one with 4 possible values and one with 3. How many tests does <strong>exhaustive</strong> testing require?</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "Correct — 4 × 3 = 12."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the sum 4 + 3; exhaustive multiplies the domain sizes."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 is 4 × 4; the second parameter has 3 values, not 4."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is 3 × 3; the first parameter has 4 values, not 3."
+            }
+          ],
+          "generalFeedback": "With two parameters the exhaustive count equals the product of the two domain sizes: 4 × 3 = 12. (With only two parameters, exhaustive and pairwise coincide.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What t-way testing generalizes",
+          "text": "<p>Pairwise testing is the case t = 2 of t-way (combinatorial) testing. What does general t-way testing require?</p>",
+          "answers": [
+            {
+              "text": "Every combination of values among every group of t parameters appears in at least one test",
+              "fraction": 100,
+              "feedback": "Correct — strength t means all t-tuples of values are covered."
+            },
+            {
+              "text": "Every parameter takes exactly t different values across the suite",
+              "fraction": 0,
+              "feedback": "t is the interaction strength, not the number of values a parameter takes."
+            },
+            {
+              "text": "The suite contains exactly t test cases",
+              "fraction": 0,
+              "feedback": "t is the strength of coverage, not the number of tests."
+            },
+            {
+              "text": "At most t parameters are tested at a time and the rest are ignored",
+              "fraction": 0,
+              "feedback": "All parameters are covered; t is the size of the interacting groups whose combinations must all appear."
+            }
+          ],
+          "generalFeedback": "t-way testing generalizes pairwise: for strength t, every combination of values across every set of t parameters must appear in at least one test. t = 1 is each-choice, t = 2 is pairwise, and t equal to the number of parameters is exhaustive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a covering array is",
+          "text": "<p>In combinatorial testing, what is a <strong>covering array</strong>?</p>",
+          "answers": [
+            {
+              "text": "A set of test rows in which every t-way combination of parameter values appears in at least one row",
+              "fraction": 100,
+              "feedback": "Correct — a covering array of strength t guarantees every t-tuple appears at least once."
+            },
+            {
+              "text": "A table listing every possible combination of parameter values exactly once",
+              "fraction": 0,
+              "feedback": "That is the exhaustive set; a covering array is usually much smaller and only requires each t-tuple at least once."
+            },
+            {
+              "text": "An array recording which test found which fault",
+              "fraction": 0,
+              "feedback": "That is a fault matrix, not a covering array."
+            },
+            {
+              "text": "A matrix of code-coverage percentages for each test",
+              "fraction": 0,
+              "feedback": "Covering arrays describe input-value combinations, not structural code coverage."
+            }
+          ],
+          "generalFeedback": "A covering array is a compact set of test rows over the parameters such that every combination of values for every group of t parameters appears in at least one row. For pairwise, t = 2.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of t in CA(N; t, k, v)",
+          "text": "<p>In the covering-array notation <code>CA(N; t, k, v)</code>, what does the parameter <strong>t</strong> denote?</p>",
+          "answers": [
+            {
+              "text": "The interaction strength — the size of the parameter groups whose value combinations must all be covered",
+              "fraction": 100,
+              "feedback": "Correct — t is the strength; t = 2 is pairwise."
+            },
+            {
+              "text": "The number of test rows in the array",
+              "fraction": 0,
+              "feedback": "That is N, the number of rows."
+            },
+            {
+              "text": "The number of parameters (factors)",
+              "fraction": 0,
+              "feedback": "That is k, the number of factors."
+            },
+            {
+              "text": "The number of values each parameter can take",
+              "fraction": 0,
+              "feedback": "That is v, the number of levels per factor."
+            }
+          ],
+          "generalFeedback": "In CA(N; t, k, v): N is the number of rows, t is the interaction strength, k is the number of parameters (factors), and v is the number of values (levels) each takes. Pairwise corresponds to t = 2.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Pairwise equals 2-way",
+          "text": "<p>\"Pairwise testing\" and \"2-way combinatorial testing\" refer to the same thing.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — pairwise is exactly t-way testing with t = 2."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "They are the same: pairwise is the special case t = 2 of t-way combinatorial testing."
+            }
+          ],
+          "generalFeedback": "Pairwise testing is 2-way combinatorial testing: it guarantees that every pair of values across every pair of parameters is covered at least once."
+        },
+        {
+          "type": "truefalse",
+          "name": "Exhaustive covers every combination",
+          "text": "<p>Exhaustive combinatorial testing covers every possible combination of all parameter values, and its test count is the product of all the domain sizes.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — exhaustive is the full Cartesian product, sized as the product of the domains."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Exhaustive testing does run every combination, and that count is exactly the product of the domain sizes."
+            }
+          ],
+          "generalFeedback": "Exhaustive testing runs the full Cartesian product of the parameter domains; its size is the product of all domain sizes, which is why it becomes infeasible as parameters grow."
+        },
+        {
+          "type": "multichoice",
+          "name": "What a \"pair\" is in pairwise",
+          "text": "<p>In pairwise testing, what exactly is the \"pair\" that must be covered?</p>",
+          "answers": [
+            {
+              "text": "A specific value of one parameter together with a specific value of another parameter",
+              "fraction": 100,
+              "feedback": "Correct — a pair is one value from each of two parameters, covered together in a test."
+            },
+            {
+              "text": "Two test cases that must be run consecutively",
+              "fraction": 0,
+              "feedback": "A pair refers to a combination of parameter values, not to two test cases."
+            },
+            {
+              "text": "Two different values of the same parameter",
+              "fraction": 0,
+              "feedback": "A pair spans two different parameters, one value from each."
+            },
+            {
+              "text": "A valid input paired with its expected output",
+              "fraction": 0,
+              "feedback": "That describes a test oracle, not the pair covered by pairwise testing."
+            }
+          ],
+          "generalFeedback": "A pair is one value of one parameter combined with one value of a second parameter. Pairwise coverage requires every such pair, over every choice of two parameters, to appear together in at least one test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why avoid exhaustive testing",
+          "text": "<p>Why is exhaustive combinatorial testing usually impractical for real systems?</p>",
+          "answers": [
+            {
+              "text": "The number of combinations is the product of the domain sizes, which grows explosively as parameters are added",
+              "fraction": 100,
+              "feedback": "Correct — combinatorial explosion makes the full product infeasible."
+            },
+            {
+              "text": "Exhaustive testing cannot detect any interaction faults",
+              "fraction": 0,
+              "feedback": "Exhaustive testing actually detects all interaction faults; the problem is its cost, not its power."
+            },
+            {
+              "text": "Each combination must be tested thousands of times to be valid",
+              "fraction": 0,
+              "feedback": "Each combination is tested once; the issue is the sheer number of combinations."
+            },
+            {
+              "text": "Test tools cannot represent more than two parameters at once",
+              "fraction": 0,
+              "feedback": "Tools handle many parameters; the obstacle is the exponential number of combinations."
+            }
+          ],
+          "generalFeedback": "Exhaustive testing multiplies all the domain sizes, so the count explodes as parameters and values grow (for example ten binary parameters already require 2^10 = 1024 tests). Pairwise testing keeps the guarantee for two-way interactions while cutting the count dramatically.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Strength of pairwise",
+          "text": "<p>What interaction strength t characterizes pairwise testing?</p>",
+          "answers": [
+            {
+              "text": "t = 2",
+              "fraction": 100,
+              "feedback": "Correct — pairwise means all two-parameter value combinations are covered."
+            },
+            {
+              "text": "t = 1",
+              "fraction": 0,
+              "feedback": "t = 1 is each-choice coverage (every single value), weaker than pairwise."
+            },
+            {
+              "text": "t = 3",
+              "fraction": 0,
+              "feedback": "t = 3 is three-way testing, stronger and more costly than pairwise."
+            },
+            {
+              "text": "t equals the number of parameters",
+              "fraction": 0,
+              "feedback": "t equal to the number of parameters is exhaustive testing, not pairwise."
+            }
+          ],
+          "generalFeedback": "Pairwise testing has strength t = 2: it guarantees coverage of all value combinations among every group of two parameters.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Every pair at least once",
+          "text": "<p>A valid pairwise test suite must include every pair of parameter values at least once, but it need not include each pair more than once.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the requirement is \"at least once\"; repetition is allowed but not required."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Pairwise coverage requires each pair at least once; covering some pairs more than once is permitted but not necessary."
+            }
+          ],
+          "generalFeedback": "Pairwise (covering-array) coverage requires each value pair to appear at least once. Requiring each pair the same fixed number of times would be an orthogonal array — a stronger, balanced special case."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Exhaustive count for 4 x 3 x 3 x 2",
+          "text": "<p>A system has four parameters with domain sizes 4, 3, 3, and 2. How many tests does <strong>exhaustive</strong> testing require?</p>",
+          "answers": [
+            {
+              "text": "72",
+              "fraction": 100,
+              "feedback": "Correct — 4 × 3 × 3 × 2 = 72."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is the product of only the two largest domains (4 × 3), which is the pairwise lower bound, not the exhaustive count."
+            },
+            {
+              "text": "36",
+              "fraction": 0,
+              "feedback": "36 is 4 × 3 × 3; it omits the last parameter (× 2)."
+            },
+            {
+              "text": "12 + others",
+              "fraction": 0,
+              "feedback": "Exhaustive is a product, not a sum: 4 × 3 × 3 × 2 = 72."
+            }
+          ],
+          "generalFeedback": "Exhaustive testing is the product of all domain sizes: 4 × 3 × 3 × 2 = 72.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pairwise lower bound for 3 x 3 x 2",
+          "text": "<p>A configuration has three parameters with domain sizes 3, 3, and 2. What is the minimum number of tests any pairwise (2-way) suite must contain?</p>",
+          "answers": [
+            {
+              "text": "At least 9",
+              "fraction": 100,
+              "feedback": "Correct — the lower bound is the product of the two largest domains, 3 × 3 = 9."
+            },
+            {
+              "text": "At least 18",
+              "fraction": 0,
+              "feedback": "18 is the exhaustive count (3 × 3 × 2); pairwise needs far fewer."
+            },
+            {
+              "text": "At least 3",
+              "fraction": 0,
+              "feedback": "3 (the largest single domain) only satisfies each-choice coverage, not all pairs."
+            },
+            {
+              "text": "At least 6",
+              "fraction": 0,
+              "feedback": "6 is below the bound: covering all 3 × 3 = 9 pairs of the two 3-valued parameters already forces at least 9 rows."
+            }
+          ],
+          "generalFeedback": "To cover every pair from the two 3-valued parameters you already need all 3 × 3 = 9 of their combinations, so any pairwise suite has at least 9 rows. The lower bound is the product of the two largest domains.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the two largest domains give the bound",
+          "text": "<p>Why is the minimum size of any pairwise suite at least the product of the <strong>two largest</strong> parameter domains?</p>",
+          "answers": [
+            {
+              "text": "Every pair from those two parameters must appear, and there are (largest × second-largest) such pairs, each needing its own row",
+              "fraction": 100,
+              "feedback": "Correct — no single row can cover two distinct value-pairs of the same two parameters, so you need at least that many rows."
+            },
+            {
+              "text": "Because the smallest domains determine how many rows are reusable",
+              "fraction": 0,
+              "feedback": "The bound comes from the largest domains, since they generate the most pairs to cover."
+            },
+            {
+              "text": "Because each parameter needs one row per value regardless of the others",
+              "fraction": 0,
+              "feedback": "That reasoning gives each-choice, not the pairwise bound from the two largest domains."
+            },
+            {
+              "text": "Because the suite must equal the exhaustive product divided by two",
+              "fraction": 0,
+              "feedback": "There is no such division rule; the bound is the product of the two largest domains."
+            }
+          ],
+          "generalFeedback": "Consider just the two parameters with the largest domains. Their pairs number (largest × second-largest), and a single test row fixes one value for each, so it covers only one of those pairs. Hence at least (largest × second-largest) rows are required — that product is the pairwise lower bound.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How AETG builds a suite",
+          "text": "<p>How does the AETG algorithm construct a pairwise test suite?</p>",
+          "answers": [
+            {
+              "text": "Greedily, adding one whole test row at a time that covers as many still-uncovered pairs as possible",
+              "fraction": 100,
+              "feedback": "Correct — AETG is a greedy one-row-at-a-time heuristic."
+            },
+            {
+              "text": "By enumerating every combination and then deleting redundant rows",
+              "fraction": 0,
+              "feedback": "AETG never enumerates the full product; it builds rows greedily to avoid that explosion."
+            },
+            {
+              "text": "By solving an exact integer program that guarantees the minimum suite",
+              "fraction": 0,
+              "feedback": "AETG is a heuristic; it is near-optimal, not guaranteed minimal."
+            },
+            {
+              "text": "By adding one parameter column at a time to a growing array",
+              "fraction": 0,
+              "feedback": "That describes IPOG's one-parameter-at-a-time strategy, not AETG."
+            }
+          ],
+          "generalFeedback": "AETG (Automatic Efficient Test Generator) greedily builds the suite one complete test row at a time, each time choosing a row that covers as many yet-uncovered pairs as possible. It is fast and near-optimal but not guaranteed to produce the smallest possible suite.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How IPOG builds a suite",
+          "text": "<p>What is the defining strategy of the IPOG algorithm?</p>",
+          "answers": [
+            {
+              "text": "In-Parameter-Order growth: build the array for the first parameters, then extend it one parameter at a time, filling and adding rows to cover new pairs",
+              "fraction": 100,
+              "feedback": "Correct — IPOG grows the array horizontally (add a parameter) then vertically (add rows) as needed."
+            },
+            {
+              "text": "It randomly samples rows until all pairs happen to be covered",
+              "fraction": 0,
+              "feedback": "IPOG is deterministic and constructive, not random sampling."
+            },
+            {
+              "text": "It computes the exact minimal covering array by exhaustive search",
+              "fraction": 0,
+              "feedback": "IPOG is a greedy heuristic; it is near-optimal, not guaranteed minimal."
+            },
+            {
+              "text": "It tests one parameter in isolation and ignores interactions",
+              "fraction": 0,
+              "feedback": "IPOG explicitly covers pair interactions as it extends the array parameter by parameter."
+            }
+          ],
+          "generalFeedback": "IPOG (In-Parameter-Order Generation) builds a covering array for the first two parameters, then adds one parameter at a time: it horizontally extends existing rows to cover new pairs and vertically adds rows where needed. Like AETG it is a greedy, near-optimal heuristic, not guaranteed minimal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Orthogonal array vs covering array",
+          "text": "<p>What distinguishes an <strong>orthogonal array</strong> from a general <strong>covering array</strong> for pairwise testing?</p>",
+          "answers": [
+            {
+              "text": "An orthogonal array requires each pair to appear the same fixed number of times (balanced); a covering array only requires each pair at least once",
+              "fraction": 100,
+              "feedback": "Correct — orthogonal arrays are balanced, a stronger special case."
+            },
+            {
+              "text": "An orthogonal array covers three-way combinations while a covering array covers only pairs",
+              "fraction": 0,
+              "feedback": "The distinction is balance, not strength; both can be defined at strength 2."
+            },
+            {
+              "text": "A covering array must be balanced while an orthogonal array need not be",
+              "fraction": 0,
+              "feedback": "This reverses the definitions — the orthogonal array is the balanced one."
+            },
+            {
+              "text": "An orthogonal array allows constraints while a covering array forbids them",
+              "fraction": 0,
+              "feedback": "Constraint handling is unrelated to the balance distinction between the two."
+            }
+          ],
+          "generalFeedback": "An orthogonal array requires that every pair of values appears exactly the same number of times (λ), making it balanced. A covering array only requires each pair at least once, so it is usually smaller and more flexible. Every orthogonal array is a covering array, but not vice versa.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of pairs for three 3-valued parameters",
+          "text": "<p>Three parameters each have 3 values. How many distinct value-pairs must a pairwise suite cover in total?</p>",
+          "answers": [
+            {
+              "text": "27",
+              "fraction": 100,
+              "feedback": "Correct — there are 3 parameter-pairs, each contributing 3 × 3 = 9 value-pairs: 3 × 9 = 27."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the value-pairs for a single pair of parameters; there are 3 such parameter-pairs, giving 27."
+            },
+            {
+              "text": "18",
+              "fraction": 0,
+              "feedback": "18 counts only two of the three parameter-pairs; all C(3,2) = 3 pairs of parameters count."
+            },
+            {
+              "text": "81",
+              "fraction": 0,
+              "feedback": "81 would be raising the value count to a power; the total pairs are summed over parameter-pairs: 3 × (3 × 3) = 27."
+            }
+          ],
+          "generalFeedback": "The number of value-pairs to cover is the sum over each pair of parameters of (v_i × v_j). With 3 parameters there are C(3,2) = 3 parameter-pairs, each contributing 3 × 3 = 9, for 27 in total.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of pairs for 3 x 2 x 2",
+          "text": "<p>Three parameters have domain sizes 3, 2, and 2. How many distinct value-pairs must a pairwise suite cover in total?</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "Correct — (3×2) + (3×2) + (2×2) = 6 + 6 + 4 = 16."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is the exhaustive test count (3 × 2 × 2), not the number of value-pairs."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the sum of the domain sizes; the number of pairs sums v_i × v_j over the three parameter-pairs."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 misses one parameter-pair; the three contributions are 6, 6, and 4, totalling 16."
+            }
+          ],
+          "generalFeedback": "Sum v_i × v_j over all pairs of parameters: parameters (P1=3, P2=2, P3=2) give P1-P2 = 6, P1-P3 = 6, P2-P3 = 4, for a total of 16 value-pairs.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Greedy generators and minimality",
+          "text": "<p>Greedy pairwise generators such as AETG and IPOG always produce the smallest possible covering array.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — they are near-optimal heuristics and are not guaranteed to be minimal."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "AETG and IPOG are greedy heuristics; they are fast and near-optimal but not guaranteed to yield the minimum-size array."
+            }
+          ],
+          "generalFeedback": "Finding a minimum covering array is computationally hard. AETG and IPOG use greedy heuristics that produce small, near-optimal suites quickly, but the result may be larger than the true minimum."
+        },
+        {
+          "type": "multichoice",
+          "name": "Pairwise reduction versus exhaustive",
+          "text": "<p>A system has parameters with domains 3, 3, and 3. Exhaustive testing needs 27 tests. What can we say about a pairwise suite for this system?</p>",
+          "answers": [
+            {
+              "text": "It needs at least 9 tests (the product of the two largest domains) and typically far fewer than the 27 exhaustive tests",
+              "fraction": 100,
+              "feedback": "Correct — the lower bound is 3 × 3 = 9, and a good pairwise suite is much smaller than exhaustive."
+            },
+            {
+              "text": "It needs exactly 27 tests, the same as exhaustive",
+              "fraction": 0,
+              "feedback": "Pairwise is smaller than exhaustive here; 27 is the full product."
+            },
+            {
+              "text": "It needs exactly 3 tests",
+              "fraction": 0,
+              "feedback": "3 tests cannot cover all 3 × 3 = 9 pairs of any two of the parameters."
+            },
+            {
+              "text": "It always needs the sum of the domain sizes, 9, exactly",
+              "fraction": 0,
+              "feedback": "9 is a lower bound, not always exactly achievable; and it is a product of the two largest domains, not a sum of all."
+            }
+          ],
+          "generalFeedback": "The pairwise lower bound is the product of the two largest domains: 3 × 3 = 9. A pairwise suite lies between that bound and the exhaustive 27; well-known constructions cover all pairs of three 3-valued parameters in as few as 9 rows, well below exhaustive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Balance property of orthogonal arrays",
+          "text": "<p>What is the balance (index λ) property of an orthogonal array of strength 2?</p>",
+          "answers": [
+            {
+              "text": "Every pair of values from any two columns appears in exactly λ rows",
+              "fraction": 100,
+              "feedback": "Correct — a fixed λ for every pair is what makes the array balanced."
+            },
+            {
+              "text": "Each column contains every value exactly once",
+              "fraction": 0,
+              "feedback": "That describes a permutation of a single column, not the two-column balance of an orthogonal array."
+            },
+            {
+              "text": "Every pair of values appears at least once, with no constraint on how often",
+              "fraction": 0,
+              "feedback": "\"At least once\" is the covering-array property; orthogonal arrays require exactly λ times."
+            },
+            {
+              "text": "The number of rows equals the number of columns",
+              "fraction": 0,
+              "feedback": "Rows and columns are independent; balance is about equal pair frequency, not a square shape."
+            }
+          ],
+          "generalFeedback": "In a strength-2 orthogonal array, for any two columns each ordered pair of values appears in exactly λ rows (λ is the index). This uniform frequency is stronger than the covering-array requirement of \"at least once\".",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pairwise lower bound for 4 x 3 x 3 x 2",
+          "text": "<p>A system has four parameters with domain sizes 4, 3, 3, and 2. What is the minimum number of tests any pairwise suite must contain?</p>",
+          "answers": [
+            {
+              "text": "At least 12",
+              "fraction": 100,
+              "feedback": "Correct — the two largest domains are 4 and 3, so the bound is 4 × 3 = 12."
+            },
+            {
+              "text": "At least 72",
+              "fraction": 0,
+              "feedback": "72 is the exhaustive count (4 × 3 × 3 × 2); pairwise needs far fewer."
+            },
+            {
+              "text": "At least 9",
+              "fraction": 0,
+              "feedback": "9 uses 3 × 3; the two largest domains are 4 and 3, giving 12."
+            },
+            {
+              "text": "At least 24",
+              "fraction": 0,
+              "feedback": "24 (4 × 3 × 2) uses three domains; the lower bound uses only the two largest, 4 × 3 = 12."
+            }
+          ],
+          "generalFeedback": "The pairwise lower bound is the product of the two largest domains. Here the largest are 4 and 3, so any pairwise suite needs at least 4 × 3 = 12 rows.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Orthogonal array is a covering array",
+          "text": "<p>Every orthogonal array of strength 2 is also a valid pairwise covering array.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — if every pair appears exactly λ ≥ 1 times, then in particular every pair appears at least once."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "An orthogonal array covers every pair exactly λ times, so it certainly covers every pair at least once — the covering-array requirement."
+            }
+          ],
+          "generalFeedback": "An orthogonal array is the balanced special case: each pair appears exactly λ times. Since λ ≥ 1, every pair appears at least once, so the array satisfies pairwise covering. The converse fails: a covering array need not be balanced."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why use greedy generators",
+          "text": "<p>Why are greedy heuristics like AETG and IPOG used to build pairwise suites instead of computing the exact minimum?</p>",
+          "answers": [
+            {
+              "text": "Finding a minimum covering array is computationally hard, so greedy methods trade a slightly larger suite for fast, practical generation",
+              "fraction": 100,
+              "feedback": "Correct — they give near-optimal results quickly where exact minimization is intractable."
+            },
+            {
+              "text": "Greedy methods are the only ones that can guarantee full pairwise coverage",
+              "fraction": 0,
+              "feedback": "Exact methods also guarantee coverage; greedy methods are chosen for speed, not because they are the only correct option."
+            },
+            {
+              "text": "Greedy methods always find a strictly smaller suite than any exact method",
+              "fraction": 0,
+              "feedback": "Exact methods find the true minimum; greedy suites are near-optimal and can be larger."
+            },
+            {
+              "text": "Greedy methods avoid covering some pairs, which makes them faster",
+              "fraction": 0,
+              "feedback": "Both AETG and IPOG still cover all required pairs; they are just heuristic about suite size."
+            }
+          ],
+          "generalFeedback": "Computing a provably minimum covering array is an NP-hard optimization problem. AETG and IPOG are greedy constructive heuristics that produce small, near-optimal suites in reasonable time while still guaranteeing complete pairwise coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AETG versus IPOG growth direction",
+          "text": "<p>Both AETG and IPOG are greedy pairwise generators. What is the key difference in how they grow the test suite?</p>",
+          "answers": [
+            {
+              "text": "AETG adds one complete test row at a time; IPOG adds one parameter (column) at a time, extending and adding rows as needed",
+              "fraction": 100,
+              "feedback": "Correct — AETG grows row-by-row, IPOG grows parameter-by-parameter."
+            },
+            {
+              "text": "AETG guarantees the minimum suite; IPOG guarantees only pairwise coverage",
+              "fraction": 0,
+              "feedback": "Neither guarantees minimality; both are near-optimal heuristics that guarantee pairwise coverage."
+            },
+            {
+              "text": "AETG covers only pairs; IPOG covers all combinations exhaustively",
+              "fraction": 0,
+              "feedback": "Both target pairwise (2-way) coverage; IPOG does not build the exhaustive set."
+            },
+            {
+              "text": "AETG works only for binary parameters; IPOG works for any domain size",
+              "fraction": 0,
+              "feedback": "Both handle arbitrary domain sizes; the difference is the growth strategy."
+            }
+          ],
+          "generalFeedback": "AETG constructs the suite one whole row at a time, each row greedily covering as many uncovered pairs as possible. IPOG instead builds an array for the first parameters and then adds one parameter at a time (horizontal growth), adding rows when necessary (vertical growth). Both are greedy and near-optimal, not guaranteed minimal.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Pairwise missing a three-way fault",
+          "text": "<p>Three boolean flags A, B, C each take values on/off. A fault occurs <strong>only</strong> when A=on, B=on, and C=on all hold simultaneously. Why can a pairwise suite miss this fault?</p>",
+          "answers": [
+            {
+              "text": "Pairwise only guarantees each pair (e.g. A=on with B=on) appears, but never guarantees all three on-values occur together in one test",
+              "fraction": 100,
+              "feedback": "Correct — the triggering triple is a 3-way interaction, which 2-way coverage does not guarantee."
+            },
+            {
+              "text": "Pairwise never tests any flag set to on",
+              "fraction": 0,
+              "feedback": "Pairwise does test on-values; it just may not put all three on in the same row."
+            },
+            {
+              "text": "Pairwise always tests fewer than three parameters at a time, so C is ignored",
+              "fraction": 0,
+              "feedback": "All parameters get values in every row; the gap is that the specific triple may never coincide."
+            },
+            {
+              "text": "Pairwise requires each pair to appear exactly once, which excludes the failing combination",
+              "fraction": 0,
+              "feedback": "Pairwise requires each pair at least once; the issue is 3-way, not a frequency restriction."
+            }
+          ],
+          "generalFeedback": "A pairwise suite can cover (A=on,B=on), (A=on,C=on), and (B=on,C=on) across different rows without ever placing A=on, B=on, and C=on in the same row. Since the fault needs that exact 3-way combination, pairwise (t = 2) may miss it; detecting it requires t ≥ 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Validity check: does this set cover all pairs (yes)",
+          "text": "<p>Three binary parameters A, B, C (each 0 or 1). Consider the four rows:<br>ABC = 000, 011, 101, 110.<br>Does this set cover every pair of values for every pair of parameters?</p>",
+          "answers": [
+            {
+              "text": "Yes — all four value-pairs are covered for each of the three parameter-pairs",
+              "fraction": 100,
+              "feedback": "Correct — check A,B: 00,01,10,11; A,C: 00,01,11,10; B,C: 00,11,01,10 — all present."
+            },
+            {
+              "text": "No — the pair A=1, B=1 is missing",
+              "fraction": 0,
+              "feedback": "Row 110 has A=1, B=1, so that pair is present."
+            },
+            {
+              "text": "No — the pair B=0, C=0 is missing",
+              "fraction": 0,
+              "feedback": "Row 000 has B=0, C=0, so that pair is present."
+            },
+            {
+              "text": "No — four rows can never cover all pairs of three binary parameters",
+              "fraction": 0,
+              "feedback": "Four rows suffice here (the pairwise lower bound is 2 × 2 = 4), and this set achieves it."
+            }
+          ],
+          "generalFeedback": "Enumerate each parameter-pair. A,B over the rows: (0,0),(0,1),(1,0),(1,1). A,C: (0,0),(0,1),(1,1),(1,0). B,C: (0,0),(1,1),(0,1),(1,0). Each pair-set contains all four combinations, so this is a valid pairwise covering array of just 4 rows — matching the lower bound 2 × 2 = 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Validity check: does this set cover all pairs (no)",
+          "text": "<p>Three binary parameters A, B, C (each 0 or 1). Consider the three rows:<br>ABC = 000, 011, 101.<br>Does this set cover every pair of values for every pair of parameters?</p>",
+          "answers": [
+            {
+              "text": "No — the pair A=1, B=1 never appears (and other pairs are missing too)",
+              "fraction": 100,
+              "feedback": "Correct — A,B over the rows gives only (0,0),(0,1),(1,0); (1,1) is missing."
+            },
+            {
+              "text": "Yes — all pairs are covered",
+              "fraction": 0,
+              "feedback": "The pair A=1,B=1 is absent, so coverage is incomplete."
+            },
+            {
+              "text": "No — but only because A=0, B=0 is missing",
+              "fraction": 0,
+              "feedback": "Row 000 supplies A=0,B=0; the genuinely missing pair is A=1,B=1."
+            },
+            {
+              "text": "Yes — three rows always suffice for three binary parameters",
+              "fraction": 0,
+              "feedback": "The pairwise lower bound here is 2 × 2 = 4, so three rows cannot cover all pairs."
+            }
+          ],
+          "generalFeedback": "A,B over rows 000, 011, 101 gives (0,0),(0,1),(1,0) — the pair (1,1) is never present. (B,C also misses (1,0).) With only three rows you fall below the pairwise lower bound of 2 × 2 = 4, so full pairwise coverage is impossible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Higher strength for a 3-way fault",
+          "text": "<p>If a fault is triggered only by a specific combination of three particular parameters, what is the minimum interaction strength t a covering array must have to guarantee detection?</p>",
+          "answers": [
+            {
+              "text": "t = 3 (three-way coverage)",
+              "fraction": 100,
+              "feedback": "Correct — a 3-way fault is only guaranteed to be exercised by a strength-3 (or higher) covering array."
+            },
+            {
+              "text": "t = 2 (pairwise) is sufficient",
+              "fraction": 0,
+              "feedback": "Pairwise guarantees only 2-way combinations; the specific triple may never coincide."
+            },
+            {
+              "text": "t = 1 (each-choice) is sufficient",
+              "fraction": 0,
+              "feedback": "Each-choice only guarantees each single value appears, far weaker than needed."
+            },
+            {
+              "text": "No covering array can ever guarantee it",
+              "fraction": 0,
+              "feedback": "A strength-3 covering array guarantees every 3-way combination, including the triggering one."
+            }
+          ],
+          "generalFeedback": "To guarantee that a specific 3-way value combination is exercised, the covering array must have strength t ≥ 3, since only then is every triple of parameter values guaranteed to appear together in some row.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Exhaustive for ten binary parameters",
+          "text": "<p>A system has ten independent boolean parameters (each on/off). How many tests does <strong>exhaustive</strong> testing require?</p>",
+          "answers": [
+            {
+              "text": "1024",
+              "fraction": 100,
+              "feedback": "Correct — 2^10 = 1024."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 is 2 × 10; exhaustive is 2 raised to the number of parameters, 2^10 = 1024."
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "100 is 10^2; the base is 2 (values) raised to 10 (parameters): 2^10 = 1024."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 (2 × 2) is the pairwise lower bound for binary parameters, not the exhaustive count."
+            }
+          ],
+          "generalFeedback": "Exhaustive is the product of domain sizes: for ten binary parameters that is 2^10 = 1024. A pairwise suite for the same system needs only a handful of rows, illustrating the reduction — while its lower bound stays at just 2 × 2 = 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pairwise lower bound for 5 x 4 x 3 x 2",
+          "text": "<p>A system has four parameters with domain sizes 5, 4, 3, and 2. What is the minimum number of tests any pairwise suite must contain?</p>",
+          "answers": [
+            {
+              "text": "At least 20",
+              "fraction": 100,
+              "feedback": "Correct — the two largest domains are 5 and 4, so the bound is 5 × 4 = 20."
+            },
+            {
+              "text": "At least 120",
+              "fraction": 0,
+              "feedback": "120 is the exhaustive count (5 × 4 × 3 × 2); pairwise needs far fewer."
+            },
+            {
+              "text": "At least 15",
+              "fraction": 0,
+              "feedback": "15 uses 5 × 3; the two largest domains are 5 and 4, giving 20."
+            },
+            {
+              "text": "At least 60",
+              "fraction": 0,
+              "feedback": "60 (5 × 4 × 3) uses three domains; the lower bound uses only the two largest, 5 × 4 = 20."
+            }
+          ],
+          "generalFeedback": "The pairwise lower bound is the product of the two largest domains: 5 × 4 = 20. (For reference, exhaustive here is 5 × 4 × 3 × 2 = 120.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of pairs for four binary parameters",
+          "text": "<p>Four parameters are each binary (2 values). How many distinct value-pairs must a pairwise suite cover in total?</p>",
+          "answers": [
+            {
+              "text": "24",
+              "fraction": 100,
+              "feedback": "Correct — C(4,2) = 6 parameter-pairs, each with 2 × 2 = 4 value-pairs: 6 × 4 = 24."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 is the exhaustive count (2^4), not the number of value-pairs to cover."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 would be 3 parameter-pairs × 4; there are C(4,2) = 6 parameter-pairs, giving 24."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is 4 parameters × 2 values; the number of value-pairs sums 2 × 2 over all 6 parameter-pairs."
+            }
+          ],
+          "generalFeedback": "Number of value-pairs = sum over parameter-pairs of v_i × v_j. With four binary parameters there are C(4,2) = 6 parameter-pairs, each contributing 2 × 2 = 4, for 6 × 4 = 24 value-pairs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Concrete 3-way interaction fault",
+          "text": "<p>A media player crashes only when the codec is H.265, the container is MKV, and hardware acceleration is enabled — no smaller combination triggers it. A pairwise suite over {codec, container, hw-accel, resolution} was run and passed. What does this tell us?</p>",
+          "answers": [
+            {
+              "text": "The fault is a genuine 3-way interaction that a 2-way suite is not guaranteed to expose, so passing pairwise does not prove its absence",
+              "fraction": 100,
+              "feedback": "Correct — the crash needs a specific triple, which pairwise does not guarantee to place in one row."
+            },
+            {
+              "text": "The fault cannot exist, because pairwise testing detects all interaction faults",
+              "fraction": 0,
+              "feedback": "Pairwise only guarantees 2-way interactions; 3-way faults can slip through."
+            },
+            {
+              "text": "The pairwise suite was invalid, since a correct one would always catch this",
+              "fraction": 0,
+              "feedback": "A valid pairwise suite covers all pairs but is not required to cover this triple; the suite can be correct yet miss the fault."
+            },
+            {
+              "text": "Only exhaustive testing could ever have run the H.265 codec at all",
+              "fraction": 0,
+              "feedback": "Pairwise does exercise H.265 in some rows; it just may not combine it with MKV and hw-accel together."
+            }
+          ],
+          "generalFeedback": "The crash requires the exact triple (H.265, MKV, hw-accel on). A pairwise suite guarantees every pair of these appears, but not necessarily all three in the same test, so it can pass while the 3-way fault remains. Detecting it requires a strength-3 covering array (or exhaustive testing).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of constraints on valid combinations",
+          "text": "<p>An OS parameter has values {Windows, macOS, Linux} and a browser parameter has {Safari, Chrome, Edge}. A constraint says Safari runs only on macOS, and Edge is excluded on Linux. How do such constraints affect combinatorial test generation?</p>",
+          "answers": [
+            {
+              "text": "Invalid pairs are removed from the coverage requirement, so the generator must cover only the pairs that satisfy the constraints",
+              "fraction": 100,
+              "feedback": "Correct — constraints prune infeasible combinations from what must be covered and from generated rows."
+            },
+            {
+              "text": "Constraints are ignored, and every syntactic pair is still forced into the suite",
+              "fraction": 0,
+              "feedback": "Constraint-aware generation must not emit infeasible rows such as Safari on Linux."
+            },
+            {
+              "text": "Constraints force the suite to become exhaustive",
+              "fraction": 0,
+              "feedback": "Constraints reduce, not increase, the set of feasible combinations."
+            },
+            {
+              "text": "Constraints require switching from pairwise to each-choice coverage",
+              "fraction": 0,
+              "feedback": "Pairwise still applies; the generator just excludes infeasible pairs and rows."
+            }
+          ],
+          "generalFeedback": "Constraints declare certain combinations invalid (e.g. Safari only on macOS). A constraint-aware generator excludes those infeasible pairs from the coverage obligation and never emits a row that violates a constraint, which typically shrinks both the required pairs and the suite.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why greedy suites may not be minimal",
+          "text": "<p>Two engineers each run IPOG on the same model but list the parameters in a different order and get pairwise suites of different sizes. What does this illustrate?</p>",
+          "answers": [
+            {
+              "text": "IPOG is a greedy heuristic whose result depends on choices like parameter order, so it is near-optimal but not guaranteed minimal",
+              "fraction": 100,
+              "feedback": "Correct — greedy construction can yield different, non-minimal sizes depending on ordering."
+            },
+            {
+              "text": "One of the two suites must be invalid, since a correct suite has a unique size",
+              "fraction": 0,
+              "feedback": "Both can be valid pairwise suites; valid suites need not all be the same size."
+            },
+            {
+              "text": "Pairwise coverage is undefined when parameter order changes",
+              "fraction": 0,
+              "feedback": "Pairwise coverage is well-defined regardless of order; only the heuristic's output size varies."
+            },
+            {
+              "text": "The larger suite failed to cover some pairs",
+              "fraction": 0,
+              "feedback": "Both cover all pairs by construction; the size difference reflects heuristic choices, not missing coverage."
+            }
+          ],
+          "generalFeedback": "IPOG builds the array incrementally, and decisions such as parameter order affect how efficiently rows get reused. Both suites cover all pairs, but one may be larger — showing the algorithm is near-optimal, not guaranteed to produce the minimum covering array.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3-way strength subsumes pairwise",
+          "text": "<p>Does a strength-3 (three-way) covering array also satisfy pairwise (2-way) coverage?</p>",
+          "answers": [
+            {
+              "text": "Yes — if every triple of values is covered, then in particular every pair within those triples is covered",
+              "fraction": 100,
+              "feedback": "Correct — higher strength subsumes all lower strengths."
+            },
+            {
+              "text": "No — three-way and two-way coverage are unrelated",
+              "fraction": 0,
+              "feedback": "They are related: covering all triples necessarily covers all pairs."
+            },
+            {
+              "text": "Only if the array is also an orthogonal array",
+              "fraction": 0,
+              "feedback": "Balance is not required; any strength-3 covering array already covers all pairs."
+            },
+            {
+              "text": "Only if all parameters are binary",
+              "fraction": 0,
+              "feedback": "The subsumption holds for any domain sizes, not just binary."
+            }
+          ],
+          "generalFeedback": "A strength-t covering array subsumes all strengths below t: covering every t-tuple guarantees every smaller sub-tuple is covered too. So a 3-way array automatically provides 2-way (pairwise) coverage — at greater cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of CA(N; 3, k, v)",
+          "text": "<p>What does the notation <code>CA(N; 3, k, v)</code> describe?</p>",
+          "answers": [
+            {
+              "text": "An N-row covering array over k parameters of v values each, in which every 3-way value combination is covered at least once",
+              "fraction": 100,
+              "feedback": "Correct — the 3 is the strength, so all triples are covered."
+            },
+            {
+              "text": "An array with exactly 3 rows over k parameters",
+              "fraction": 0,
+              "feedback": "The number of rows is N; the 3 is the interaction strength."
+            },
+            {
+              "text": "An array covering only 3 of the k parameters",
+              "fraction": 0,
+              "feedback": "All k parameters are covered; strength 3 means every group of 3 has all its combinations covered."
+            },
+            {
+              "text": "An array where each parameter has exactly 3 values",
+              "fraction": 0,
+              "feedback": "The number of values is v; the 3 in that position is the strength t."
+            }
+          ],
+          "generalFeedback": "CA(N; 3, k, v) is a covering array with N rows, strength t = 3, k parameters, and v values per parameter, guaranteeing every 3-way combination of values appears in at least one row.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Three-way fault can escape pairwise",
+          "text": "<p>A fault that is triggered only by a specific three-parameter interaction can pass undetected through an otherwise valid pairwise test suite.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — pairwise guarantees only 2-way combinations, so the triggering triple may never occur in one row."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Pairwise only guarantees 2-way coverage; a fault needing a specific 3-way combination can slip through a valid pairwise suite."
+            }
+          ],
+          "generalFeedback": "Pairwise (t = 2) guarantees every pair of values appears together, but not every triple. A fault requiring a particular 3-way interaction can therefore escape a fully valid pairwise suite; catching it needs strength t ≥ 3."
+        },
+        {
+          "type": "multichoice",
+          "name": "Smallest strength that equals exhaustive",
+          "text": "<p>For a system with k parameters, at what interaction strength t does t-way (covering-array) testing become equivalent to exhaustive testing?</p>",
+          "answers": [
+            {
+              "text": "When t = k (the strength equals the number of parameters)",
+              "fraction": 100,
+              "feedback": "Correct — covering every k-tuple is exactly the full Cartesian product."
+            },
+            {
+              "text": "When t = 2, since pairwise already covers everything",
+              "fraction": 0,
+              "feedback": "Pairwise covers pairs, not all full combinations; it is much smaller than exhaustive."
+            },
+            {
+              "text": "When t = 1",
+              "fraction": 0,
+              "feedback": "t = 1 is each-choice, the weakest criterion, nowhere near exhaustive."
+            },
+            {
+              "text": "t-way testing can never equal exhaustive testing",
+              "fraction": 0,
+              "feedback": "At t = k every combination of all k parameters must appear, which is exactly exhaustive."
+            }
+          ],
+          "generalFeedback": "When the strength t equals the number of parameters k, covering every t-tuple means covering every full combination of all parameters — the exhaustive Cartesian product. So exhaustive testing is the t = k case of t-way combinatorial testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is the lower bound always achievable",
+          "text": "<p>For four binary parameters, the pairwise lower bound is 2 × 2 = 4. Can a pairwise suite of exactly 4 rows actually cover all pairs for four binary parameters?</p>",
+          "answers": [
+            {
+              "text": "No — 4 rows are impossible here; the true minimum is 5, so the lower bound is not always achievable",
+              "fraction": 100,
+              "feedback": "Correct — 4 rows can cover all pairs for at most three binary parameters; a fourth forces a fifth row."
+            },
+            {
+              "text": "Yes — the lower bound is always exactly achievable",
+              "fraction": 0,
+              "feedback": "The product-of-two-largest bound is a lower bound, not always tight; here 4 rows are provably insufficient."
+            },
+            {
+              "text": "No — the true minimum is 16, the exhaustive count",
+              "fraction": 0,
+              "feedback": "Pairwise needs far fewer than exhaustive; the minimum here is 5, not 16."
+            },
+            {
+              "text": "Yes — but only if the four parameters are statistically independent",
+              "fraction": 0,
+              "feedback": "Independence does not help; 4 rows cannot cover all six parameter-pairs' combinations for four binary parameters."
+            }
+          ],
+          "generalFeedback": "Fitting all pairs of four binary parameters into 4 rows would require every pair of columns to show all four combinations exactly once — an orthogonal array of index 1, which for strength 2 admits at most (N-1)/(v-1) = 3 binary factors. A fourth factor cannot fit, so at least 5 rows are needed (and 5 suffices). The lower bound of 4 is therefore not achievable here — it bounds, but does not always equal, the minimum.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "成對測試的要求",
+          "text": "<p>成對（2-way）測試對一個測試套件的要求是什麼？</p>",
+          "answers": [
+            {
+              "text": "對於任意兩個參數，它們數值的每一種組合都至少在某一個測試中一起出現",
+              "fraction": 100,
+              "feedback": "正確——這正是 2-way 覆蓋的保證。"
+            },
+            {
+              "text": "所有參數數值的每一種完整組合都出現在某個測試中",
+              "fraction": 0,
+              "feedback": "那是窮舉測試；成對測試只覆蓋數值的「對」，而非完整組合。"
+            },
+            {
+              "text": "每個個別參數數值都至少出現在一個測試中",
+              "fraction": 0,
+              "feedback": "那是較弱的（each-choice）覆蓋；成對測試還要求覆蓋每一對數值。"
+            },
+            {
+              "text": "每個參數剛好執行兩個測試",
+              "fraction": 0,
+              "feedback": "成對測試限制的是要覆蓋哪些數值對，而非每個參數固定的測試數。"
+            }
+          ],
+          "generalFeedback": "成對（2-way）測試要求：對於每一對參數，各取其一個數值的每一種組合，都至少在某個測試案例中一起出現。它針對兩因子交互作用缺陷，同時使用遠少於窮舉的測試數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "成對測試的經驗基礎",
+          "text": "<p>是什麼經驗觀察成為成對測試的動機？</p>",
+          "answers": [
+            {
+              "text": "大多數軟體缺陷是由單一因子、或僅兩個因子的交互作用所觸發",
+              "fraction": 100,
+              "feedback": "正確——對缺陷之交互作用／故障耦合的研究顯示，多數失效只涉及一或兩個因子。"
+            },
+            {
+              "text": "大多數軟體缺陷需要所有參數同時取到極端值才會觸發",
+              "fraction": 0,
+              "feedback": "正好相反，高階交互作用造成的缺陷相對很少，這正是成對測試划算的原因。"
+            },
+            {
+              "text": "缺陷在所有參數組合上呈均勻分布",
+              "fraction": 0,
+              "feedback": "若缺陷在完整組合上均勻分布，成對測試的效益就有限；證據顯示低階交互作用居多。"
+            },
+            {
+              "text": "缺陷永遠只取決於單一個輸入參數",
+              "fraction": 0,
+              "feedback": "兩因子（偶爾更高階）交互作用確實存在；成對測試針對常見的一、二因子情形。"
+            }
+          ],
+          "generalFeedback": "經驗性缺陷研究發現，絕大多數失效由單一因子或兩因子交互作用造成，而由三個以上因子造成的則逐步遞減。成對測試以低成本保證覆蓋所有兩因子組合，正是利用了這一點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "窮舉測試的意義",
+          "text": "<p>對於由多個參數配置的系統，<strong>窮舉</strong>組合測試要求什麼？</p>",
+          "answers": [
+            {
+              "text": "對所有參數數值的每一種可能組合各執行一個測試",
+              "fraction": 100,
+              "feedback": "正確——窮舉即所有參數定義域的完整笛卡兒積。"
+            },
+            {
+              "text": "對每一對參數數值各執行一個測試",
+              "fraction": 0,
+              "feedback": "那是成對測試，是窮舉的一個小子集。"
+            },
+            {
+              "text": "每個參數執行一個測試",
+              "fraction": 0,
+              "feedback": "那甚至無法覆蓋每個數值；窮舉要覆蓋每一種完整組合。"
+            },
+            {
+              "text": "不論參數有多少，都是固定數量的測試",
+              "fraction": 0,
+              "feedback": "窮舉數量隨定義域大小之乘積成長，因此高度取決於參數。"
+            }
+          ],
+          "generalFeedback": "窮舉測試執行參數數值的每一種組合——完整的笛卡兒積。其規模是所有定義域大小的乘積，會爆炸性成長，這正是組合測試要解決的問題。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 × 2 × 2 的窮舉數量",
+          "text": "<p>某功能有三個參數：第一個有 3 種數值、第二個有 2 種、第三個有 2 種。<strong>窮舉</strong>測試需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "正確——3 × 2 × 2 = 12，即各定義域大小之乘積。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是總和 3 + 2 + 2；窮舉是把各定義域大小相乘。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 只計入三個參數中的兩個（3 × 2）；要把第三個也算進去。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 並非兩個最大定義域之乘積（3 × 2 應為 6），且那本來就是成對測試的下界，而非窮舉數。"
+            }
+          ],
+          "generalFeedback": "窮舉測試是所有定義域大小之乘積：3 × 2 × 2 = 12。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三個 3 值參數的窮舉數量",
+          "text": "<p>某組態有三個參數，每個各有 3 種數值。<strong>窮舉</strong>測試需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "27",
+              "fraction": 100,
+              "feedback": "正確——3 × 3 × 3 = 27。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是 3 × 3，只算兩個參數的乘積（也是此處的成對下界），並非完整乘積。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是 3 + 3（兩參數相加）；窮舉是把三個定義域大小相乘。"
+            },
+            {
+              "text": "81",
+              "fraction": 0,
+              "feedback": "81 是 3 的四次方，即四個參數；此處只有三個。"
+            }
+          ],
+          "generalFeedback": "窮舉數量是所有定義域大小之乘積：3 × 3 × 3 = 27。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4 × 3 的窮舉數量",
+          "text": "<p>某函式有兩個參數：一個有 4 種數值、一個有 3 種。<strong>窮舉</strong>測試需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "正確——4 × 3 = 12。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是總和 4 + 3；窮舉是把各定義域大小相乘。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 是 4 × 4；第二個參數有 3 種數值，不是 4 種。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是 3 × 3；第一個參數有 4 種數值，不是 3 種。"
+            }
+          ],
+          "generalFeedback": "兩個參數時，窮舉數量等於兩個定義域大小之乘積：4 × 3 = 12。（僅有兩個參數時，窮舉與成對相同。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "t-way 測試所推廣的內容",
+          "text": "<p>成對測試是 t-way（組合）測試中 t = 2 的情形。一般的 t-way 測試要求什麼？</p>",
+          "answers": [
+            {
+              "text": "對每一組 t 個參數，其數值的每一種組合都至少出現在一個測試中",
+              "fraction": 100,
+              "feedback": "正確——強度 t 表示所有 t 元組數值都被覆蓋。"
+            },
+            {
+              "text": "整個套件中每個參數剛好取 t 種不同數值",
+              "fraction": 0,
+              "feedback": "t 是交互作用強度，並非參數所取的數值個數。"
+            },
+            {
+              "text": "套件剛好包含 t 個測試案例",
+              "fraction": 0,
+              "feedback": "t 是覆蓋強度，不是測試數量。"
+            },
+            {
+              "text": "每次最多測試 t 個參數，其餘忽略",
+              "fraction": 0,
+              "feedback": "所有參數都被覆蓋；t 是「其組合都必須出現」的交互群組大小。"
+            }
+          ],
+          "generalFeedback": "t-way 測試推廣成對測試：對強度 t，每一組 t 個參數的數值的每一種組合都必須至少出現在一個測試中。t = 1 是 each-choice、t = 2 是成對、t 等於參數個數則是窮舉。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是覆蓋陣列",
+          "text": "<p>在組合測試中，什麼是<strong>覆蓋陣列（covering array）</strong>？</p>",
+          "answers": [
+            {
+              "text": "一組測試列，其中每一種 t-way 參數數值組合都至少出現在某一列",
+              "fraction": 100,
+              "feedback": "正確——強度 t 的覆蓋陣列保證每個 t 元組至少出現一次。"
+            },
+            {
+              "text": "一張列出所有可能參數數值組合、且每種剛好出現一次的表",
+              "fraction": 0,
+              "feedback": "那是窮舉集合；覆蓋陣列通常小得多，且只要求每個 t 元組至少出現一次。"
+            },
+            {
+              "text": "一個記錄哪個測試找到哪個缺陷的陣列",
+              "fraction": 0,
+              "feedback": "那是缺陷矩陣，不是覆蓋陣列。"
+            },
+            {
+              "text": "一個記錄每個測試程式碼覆蓋率百分比的矩陣",
+              "fraction": 0,
+              "feedback": "覆蓋陣列描述輸入數值組合，而非結構性程式碼覆蓋率。"
+            }
+          ],
+          "generalFeedback": "覆蓋陣列是一組涵蓋各參數的精簡測試列，使得每一組 t 個參數的每一種數值組合都至少出現在某一列。對成對測試而言，t = 2。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CA(N; t, k, v) 中 t 的意義",
+          "text": "<p>在覆蓋陣列記法 <code>CA(N; t, k, v)</code> 中，參數 <strong>t</strong> 代表什麼？</p>",
+          "answers": [
+            {
+              "text": "交互作用強度——其數值組合必須被完全覆蓋的參數群組大小",
+              "fraction": 100,
+              "feedback": "正確——t 是強度；t = 2 即成對。"
+            },
+            {
+              "text": "陣列中的測試列數",
+              "fraction": 0,
+              "feedback": "那是 N，即列數。"
+            },
+            {
+              "text": "參數（因子）的數量",
+              "fraction": 0,
+              "feedback": "那是 k，即因子數。"
+            },
+            {
+              "text": "每個參數可取的數值個數",
+              "fraction": 0,
+              "feedback": "那是 v，即每個因子的階數（levels）。"
+            }
+          ],
+          "generalFeedback": "在 CA(N; t, k, v) 中：N 是列數、t 是交互作用強度、k 是參數（因子）數、v 是每個參數所取的數值（階）數。成對測試對應 t = 2。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "成對等同於 2-way",
+          "text": "<p>「成對測試」與「2-way 組合測試」指的是同一件事。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——成對正是 t-way 測試中 t = 2 的特例。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "兩者相同：成對是 t-way 組合測試中 t = 2 的特例。"
+            }
+          ],
+          "generalFeedback": "成對測試就是 2-way 組合測試：它保證每一對參數的每一對數值都至少被覆蓋一次。"
+        },
+        {
+          "type": "truefalse",
+          "name": "窮舉覆蓋每一種組合",
+          "text": "<p>窮舉組合測試覆蓋所有參數數值的每一種可能組合，其測試數量為所有定義域大小之乘積。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——窮舉即完整笛卡兒積，其規模為各定義域之乘積。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "窮舉測試確實執行每一種組合，其數量正是各定義域大小之乘積。"
+            }
+          ],
+          "generalFeedback": "窮舉測試執行參數定義域的完整笛卡兒積；其規模為所有定義域大小之乘積，因此隨參數增加而變得不可行。"
+        },
+        {
+          "type": "multichoice",
+          "name": "成對測試中「對」是什麼",
+          "text": "<p>在成對測試中，必須被覆蓋的「對（pair）」究竟指什麼？</p>",
+          "answers": [
+            {
+              "text": "某個參數的一個特定數值，搭配另一個參數的一個特定數值",
+              "fraction": 100,
+              "feedback": "正確——一個「對」是取兩個參數各一個數值，並在某測試中一起出現。"
+            },
+            {
+              "text": "必須連續執行的兩個測試案例",
+              "fraction": 0,
+              "feedback": "「對」指的是參數數值的組合，而非兩個測試案例。"
+            },
+            {
+              "text": "同一參數的兩個不同數值",
+              "fraction": 0,
+              "feedback": "一個「對」橫跨兩個不同參數，各取一個數值。"
+            },
+            {
+              "text": "一個有效輸入搭配其預期輸出",
+              "fraction": 0,
+              "feedback": "那描述的是測試判準（oracle），不是成對測試要覆蓋的「對」。"
+            }
+          ],
+          "generalFeedback": "一個「對」是某參數的一個數值搭配第二個參數的一個數值。成對覆蓋要求：對於每一種兩參數的選取，其每一對數值都至少一起出現在一個測試中。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何避免窮舉測試",
+          "text": "<p>為什麼窮舉組合測試對真實系統通常不切實際？</p>",
+          "answers": [
+            {
+              "text": "組合數量是各定義域大小之乘積，會隨參數增加而爆炸性成長",
+              "fraction": 100,
+              "feedback": "正確——組合爆炸使得完整乘積不可行。"
+            },
+            {
+              "text": "窮舉測試無法偵測任何交互作用缺陷",
+              "fraction": 0,
+              "feedback": "窮舉測試其實能偵測所有交互作用缺陷；問題在於成本，而非能力。"
+            },
+            {
+              "text": "每種組合都必須測試上千次才有效",
+              "fraction": 0,
+              "feedback": "每種組合只測一次；問題在於組合的龐大數量。"
+            },
+            {
+              "text": "測試工具一次無法表示超過兩個參數",
+              "fraction": 0,
+              "feedback": "工具可處理許多參數；障礙在於組合數量呈指數成長。"
+            }
+          ],
+          "generalFeedback": "窮舉測試把所有定義域大小相乘，因此隨參數與數值增加而爆炸（例如十個二元參數已需 2^10 = 1024 個測試）。成對測試在保有兩因子交互作用保證的同時，大幅削減數量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "成對測試的強度",
+          "text": "<p>成對測試的交互作用強度 t 是多少？</p>",
+          "answers": [
+            {
+              "text": "t = 2",
+              "fraction": 100,
+              "feedback": "正確——成對表示覆蓋所有兩參數的數值組合。"
+            },
+            {
+              "text": "t = 1",
+              "fraction": 0,
+              "feedback": "t = 1 是 each-choice 覆蓋（每個單一數值），比成對弱。"
+            },
+            {
+              "text": "t = 3",
+              "fraction": 0,
+              "feedback": "t = 3 是三因子測試，比成對更強也更昂貴。"
+            },
+            {
+              "text": "t 等於參數個數",
+              "fraction": 0,
+              "feedback": "t 等於參數個數是窮舉測試，不是成對。"
+            }
+          ],
+          "generalFeedback": "成對測試的強度 t = 2：它保證覆蓋每一組兩個參數之間的所有數值組合。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "每一對至少一次",
+          "text": "<p>一個有效的成對測試套件必須包含每一對參數數值至少一次，但不需要讓任何一對出現超過一次。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——要求是「至少一次」；可以重複但非必要。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "成對覆蓋要求每一對至少一次；讓某些對出現多於一次是允許但非必要的。"
+            }
+          ],
+          "generalFeedback": "成對（覆蓋陣列）覆蓋要求每一對數值至少出現一次。若要求每一對出現相同的固定次數，那會是正交陣列——一種更強、平衡的特例。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "4 × 3 × 3 × 2 的窮舉數量",
+          "text": "<p>某系統有四個參數，定義域大小為 4、3、3、2。<strong>窮舉</strong>測試需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "72",
+              "fraction": 100,
+              "feedback": "正確——4 × 3 × 3 × 2 = 72。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 只是兩個最大定義域之乘積（4 × 3），那是成對下界，而非窮舉數。"
+            },
+            {
+              "text": "36",
+              "fraction": 0,
+              "feedback": "36 是 4 × 3 × 3；漏掉了最後一個參數（× 2）。"
+            },
+            {
+              "text": "12 加上其他",
+              "fraction": 0,
+              "feedback": "窮舉是乘積而非加總：4 × 3 × 3 × 2 = 72。"
+            }
+          ],
+          "generalFeedback": "窮舉測試是所有定義域大小之乘積：4 × 3 × 3 × 2 = 72。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 × 3 × 2 的成對下界",
+          "text": "<p>某組態有三個參數，定義域大小為 3、3、2。任何成對（2-way）套件至少必須包含多少個測試？</p>",
+          "answers": [
+            {
+              "text": "至少 9",
+              "fraction": 100,
+              "feedback": "正確——下界是兩個最大定義域之乘積，3 × 3 = 9。"
+            },
+            {
+              "text": "至少 18",
+              "fraction": 0,
+              "feedback": "18 是窮舉數（3 × 3 × 2）；成對需要遠少於此。"
+            },
+            {
+              "text": "至少 3",
+              "fraction": 0,
+              "feedback": "3（最大的單一定義域）只滿足 each-choice 覆蓋，並非所有對。"
+            },
+            {
+              "text": "至少 6",
+              "fraction": 0,
+              "feedback": "6 低於下界：覆蓋兩個 3 值參數的所有 3 × 3 = 9 個對，已迫使至少 9 列。"
+            }
+          ],
+          "generalFeedback": "要覆蓋兩個 3 值參數的每一對，就已需要它們全部 3 × 3 = 9 種組合，因此任何成對套件至少有 9 列。下界就是兩個最大定義域之乘積。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何兩個最大定義域決定下界",
+          "text": "<p>為什麼任何成對套件的最小規模，至少是<strong>兩個最大</strong>參數定義域之乘積？</p>",
+          "answers": [
+            {
+              "text": "那兩個參數的每一對都必須出現，而這樣的對共有（最大 × 次大）個，各自需要獨立一列",
+              "fraction": 100,
+              "feedback": "正確——單一列無法覆蓋同兩參數的兩個不同數值對，因此至少需要那麼多列。"
+            },
+            {
+              "text": "因為最小的定義域決定了有多少列可被重複利用",
+              "fraction": 0,
+              "feedback": "下界來自最大的定義域，因為它們產生最多需要覆蓋的對。"
+            },
+            {
+              "text": "因為每個參數不論其他參數如何，每個數值都需要一列",
+              "fraction": 0,
+              "feedback": "那種推理得到的是 each-choice，而非源自兩個最大定義域的成對下界。"
+            },
+            {
+              "text": "因為套件必須等於窮舉乘積除以二",
+              "fraction": 0,
+              "feedback": "並無這種除法規則；下界是兩個最大定義域之乘積。"
+            }
+          ],
+          "generalFeedback": "只考慮定義域最大的兩個參數。它們的對共有（最大 × 次大）個，而單一測試列為兩者各固定一個數值，所以只覆蓋其中一個對。因此至少需要（最大 × 次大）列——這個乘積即成對下界。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AETG 如何建構套件",
+          "text": "<p>AETG 演算法如何建構成對測試套件？</p>",
+          "answers": [
+            {
+              "text": "貪婪地一次加入一整列測試，每次選擇能覆蓋最多尚未覆蓋之對的列",
+              "fraction": 100,
+              "feedback": "正確——AETG 是一次一列的貪婪啟發式。"
+            },
+            {
+              "text": "先列舉所有組合，再刪除多餘的列",
+              "fraction": 0,
+              "feedback": "AETG 從不列舉完整乘積；它貪婪地建列以避免爆炸。"
+            },
+            {
+              "text": "求解一個保證最小套件的精確整數規劃",
+              "fraction": 0,
+              "feedback": "AETG 是啟發式；它近似最佳，但不保證最小。"
+            },
+            {
+              "text": "一次一個參數欄地加入不斷成長的陣列",
+              "fraction": 0,
+              "feedback": "那描述的是 IPOG 的一次一參數策略，不是 AETG。"
+            }
+          ],
+          "generalFeedback": "AETG（Automatic Efficient Test Generator）貪婪地一次建構一整列測試，每次選擇能覆蓋最多尚未覆蓋之對的列。它快速且近似最佳，但不保證產生最小的套件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "IPOG 如何建構套件",
+          "text": "<p>IPOG 演算法的核心策略是什麼？</p>",
+          "answers": [
+            {
+              "text": "In-Parameter-Order 成長：先為前幾個參數建陣列，再一次一個參數地擴展，視需要填值與加列以覆蓋新的對",
+              "fraction": 100,
+              "feedback": "正確——IPOG 先水平成長（加參數）再視需要垂直成長（加列）。"
+            },
+            {
+              "text": "隨機抽樣測試列，直到所有對剛好被覆蓋",
+              "fraction": 0,
+              "feedback": "IPOG 是決定性且建構性的，而非隨機抽樣。"
+            },
+            {
+              "text": "以窮舉搜尋計算出精確最小的覆蓋陣列",
+              "fraction": 0,
+              "feedback": "IPOG 是貪婪啟發式；它近似最佳，但不保證最小。"
+            },
+            {
+              "text": "單獨測試一個參數而忽略交互作用",
+              "fraction": 0,
+              "feedback": "IPOG 在一次一參數擴展陣列時，明確地覆蓋對的交互作用。"
+            }
+          ],
+          "generalFeedback": "IPOG（In-Parameter-Order Generation）先為前兩個參數建覆蓋陣列，再一次加入一個參數：水平擴展既有列以覆蓋新的對，並在需要時垂直加列。與 AETG 一樣是貪婪、近似最佳的啟發式，不保證最小。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "正交陣列與覆蓋陣列的差異",
+          "text": "<p>就成對測試而言，<strong>正交陣列</strong>與一般<strong>覆蓋陣列</strong>的區別是什麼？</p>",
+          "answers": [
+            {
+              "text": "正交陣列要求每一對出現相同的固定次數（平衡）；覆蓋陣列只要求每一對至少出現一次",
+              "fraction": 100,
+              "feedback": "正確——正交陣列是平衡的，是更強的特例。"
+            },
+            {
+              "text": "正交陣列覆蓋三因子組合，而覆蓋陣列只覆蓋對",
+              "fraction": 0,
+              "feedback": "區別在於平衡，而非強度；兩者都可定義於強度 2。"
+            },
+            {
+              "text": "覆蓋陣列必須平衡，而正交陣列不必",
+              "fraction": 0,
+              "feedback": "這把定義弄反了——平衡的是正交陣列。"
+            },
+            {
+              "text": "正交陣列允許約束，而覆蓋陣列禁止約束",
+              "fraction": 0,
+              "feedback": "約束處理與兩者的平衡區別無關。"
+            }
+          ],
+          "generalFeedback": "正交陣列要求每一對數值出現次數完全相同（λ），因此是平衡的。覆蓋陣列只要求每一對至少一次，所以通常更小也更有彈性。每個正交陣列都是覆蓋陣列，但反之不然。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三個 3 值參數要覆蓋的對數",
+          "text": "<p>三個參數各有 3 種數值。成對套件總共必須覆蓋多少個不同的數值對？</p>",
+          "answers": [
+            {
+              "text": "27",
+              "fraction": 100,
+              "feedback": "正確——共有 3 個參數對，每對貢獻 3 × 3 = 9 個數值對：3 × 9 = 27。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是單一參數對的數值對數；共有 3 個參數對，總計 27。"
+            },
+            {
+              "text": "18",
+              "fraction": 0,
+              "feedback": "18 只算了三個參數對中的兩個；全部 C(3,2) = 3 個參數對都要算。"
+            },
+            {
+              "text": "81",
+              "fraction": 0,
+              "feedback": "81 是把數值數取冪；總對數是把各參數對相加：3 × (3 × 3) = 27。"
+            }
+          ],
+          "generalFeedback": "要覆蓋的數值對數，是對每一對參數把 (v_i × v_j) 加總。三個參數時有 C(3,2) = 3 個參數對，各貢獻 3 × 3 = 9，總計 27。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 × 2 × 2 要覆蓋的對數",
+          "text": "<p>三個參數的定義域大小為 3、2、2。成對套件總共必須覆蓋多少個不同的數值對？</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "正確——(3×2) + (3×2) + (2×2) = 6 + 6 + 4 = 16。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 是窮舉測試數（3 × 2 × 2），而非數值對數。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是定義域大小之和；對數是把三個參數對的 v_i × v_j 加總。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 漏了一個參數對；三個貢獻為 6、6、4，合計 16。"
+            }
+          ],
+          "generalFeedback": "把所有參數對的 v_i × v_j 加總：參數（P1=3、P2=2、P3=2）給出 P1-P2 = 6、P1-P3 = 6、P2-P3 = 4，總計 16 個數值對。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "貪婪產生器與最小性",
+          "text": "<p>像 AETG 與 IPOG 這類貪婪成對產生器，總是能產生最小的覆蓋陣列。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——它們是近似最佳的啟發式，不保證最小。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "AETG 與 IPOG 是貪婪啟發式；它們快速且近似最佳，但不保證產生最小規模的陣列。"
+            }
+          ],
+          "generalFeedback": "求最小覆蓋陣列在計算上是困難的。AETG 與 IPOG 以貪婪啟發式快速產生小而近似最佳的套件，但結果可能大於真正的最小值。"
+        },
+        {
+          "type": "multichoice",
+          "name": "成對相對於窮舉的縮減",
+          "text": "<p>某系統的參數定義域為 3、3、3。窮舉測試需要 27 個測試。關於此系統的成對套件，我們可以說什麼？</p>",
+          "answers": [
+            {
+              "text": "它至少需要 9 個測試（兩個最大定義域之乘積），且通常遠少於 27 個窮舉測試",
+              "fraction": 100,
+              "feedback": "正確——下界是 3 × 3 = 9，而好的成對套件遠小於窮舉。"
+            },
+            {
+              "text": "它剛好需要 27 個測試，與窮舉相同",
+              "fraction": 0,
+              "feedback": "此處成對比窮舉小；27 是完整乘積。"
+            },
+            {
+              "text": "它剛好需要 3 個測試",
+              "fraction": 0,
+              "feedback": "3 個測試無法覆蓋任兩參數的全部 3 × 3 = 9 個對。"
+            },
+            {
+              "text": "它總是恰好需要定義域大小之和，即 9",
+              "fraction": 0,
+              "feedback": "9 是下界，未必總能達成；而且它是兩個最大定義域之乘積，並非全部之和。"
+            }
+          ],
+          "generalFeedback": "成對下界是兩個最大定義域之乘積：3 × 3 = 9。成對套件介於此下界與窮舉的 27 之間；著名的建構法能以少至 9 列覆蓋三個 3 值參數的所有對，遠低於窮舉。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "正交陣列的平衡性質",
+          "text": "<p>強度 2 之正交陣列的平衡（指標 λ）性質是什麼？</p>",
+          "answers": [
+            {
+              "text": "任兩欄的每一對數值都剛好出現在 λ 個列中",
+              "fraction": 100,
+              "feedback": "正確——每一對都固定為 λ，正是使陣列平衡的性質。"
+            },
+            {
+              "text": "每一欄剛好包含每個數值一次",
+              "fraction": 0,
+              "feedback": "那描述的是單欄的排列，而非正交陣列的兩欄平衡。"
+            },
+            {
+              "text": "每一對數值至少出現一次，對次數沒有限制",
+              "fraction": 0,
+              "feedback": "「至少一次」是覆蓋陣列的性質；正交陣列要求剛好 λ 次。"
+            },
+            {
+              "text": "列數等於欄數",
+              "fraction": 0,
+              "feedback": "列與欄彼此獨立；平衡指的是每對出現次數相同，而非方形形狀。"
+            }
+          ],
+          "generalFeedback": "在強度 2 的正交陣列中，對任兩欄，每一種有序數值對都剛好出現在 λ 個列（λ 是指標）。這種一致的出現頻率，比覆蓋陣列的「至少一次」更強。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4 × 3 × 3 × 2 的成對下界",
+          "text": "<p>某系統有四個參數，定義域大小為 4、3、3、2。任何成對套件至少必須包含多少個測試？</p>",
+          "answers": [
+            {
+              "text": "至少 12",
+              "fraction": 100,
+              "feedback": "正確——兩個最大定義域是 4 與 3，故下界是 4 × 3 = 12。"
+            },
+            {
+              "text": "至少 72",
+              "fraction": 0,
+              "feedback": "72 是窮舉數（4 × 3 × 3 × 2）；成對需要遠少於此。"
+            },
+            {
+              "text": "至少 9",
+              "fraction": 0,
+              "feedback": "9 用的是 3 × 3；兩個最大定義域是 4 與 3，得 12。"
+            },
+            {
+              "text": "至少 24",
+              "fraction": 0,
+              "feedback": "24（4 × 3 × 2）用了三個定義域；下界只用兩個最大者，4 × 3 = 12。"
+            }
+          ],
+          "generalFeedback": "成對下界是兩個最大定義域之乘積。此處最大者為 4 與 3，故任何成對套件至少需要 4 × 3 = 12 列。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "正交陣列是覆蓋陣列",
+          "text": "<p>每個強度 2 的正交陣列，也都是一個有效的成對覆蓋陣列。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——若每一對都剛好出現 λ ≥ 1 次，那每一對就至少出現一次。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "正交陣列讓每一對剛好出現 λ 次，因此必然每一對至少出現一次——即覆蓋陣列的要求。"
+            }
+          ],
+          "generalFeedback": "正交陣列是平衡的特例：每一對剛好出現 λ 次。由於 λ ≥ 1，每一對都至少出現一次，故該陣列滿足成對覆蓋。反之不成立：覆蓋陣列未必平衡。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何使用貪婪產生器",
+          "text": "<p>為什麼要用像 AETG 與 IPOG 這類貪婪啟發式來建構成對套件，而不去計算精確最小值？</p>",
+          "answers": [
+            {
+              "text": "求最小覆蓋陣列在計算上是困難的，故貪婪方法以略大的套件換取快速、實用的產生",
+              "fraction": 100,
+              "feedback": "正確——在精確最小化難以處理之處，它們快速給出近似最佳結果。"
+            },
+            {
+              "text": "只有貪婪方法能保證完整的成對覆蓋",
+              "fraction": 0,
+              "feedback": "精確方法同樣保證覆蓋；選用貪婪是為了速度，而非因為它是唯一正確的選擇。"
+            },
+            {
+              "text": "貪婪方法找到的套件總是嚴格小於任何精確方法",
+              "fraction": 0,
+              "feedback": "精確方法找到真正的最小值；貪婪套件近似最佳，可能較大。"
+            },
+            {
+              "text": "貪婪方法會避開覆蓋某些對，因此較快",
+              "fraction": 0,
+              "feedback": "AETG 與 IPOG 仍覆蓋所有必要的對；它們只是在套件規模上採啟發式。"
+            }
+          ],
+          "generalFeedback": "計算可證明為最小的覆蓋陣列是 NP-hard 的最佳化問題。AETG 與 IPOG 是貪婪建構式啟發式，在合理時間內產生小而近似最佳的套件，同時仍保證完整的成對覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AETG 與 IPOG 的成長方向",
+          "text": "<p>AETG 與 IPOG 都是貪婪成對產生器。它們在如何擴增測試套件上的關鍵差異是什麼？</p>",
+          "answers": [
+            {
+              "text": "AETG 一次加入一整列測試；IPOG 一次加入一個參數（欄），並視需要擴展與加列",
+              "fraction": 100,
+              "feedback": "正確——AETG 逐列成長，IPOG 逐參數成長。"
+            },
+            {
+              "text": "AETG 保證最小套件；IPOG 只保證成對覆蓋",
+              "fraction": 0,
+              "feedback": "兩者都不保證最小；都是保證成對覆蓋的近似最佳啟發式。"
+            },
+            {
+              "text": "AETG 只覆蓋對；IPOG 窮舉地覆蓋所有組合",
+              "fraction": 0,
+              "feedback": "兩者都以成對（2-way）覆蓋為目標；IPOG 並不建構窮舉集合。"
+            },
+            {
+              "text": "AETG 只適用於二元參數；IPOG 適用於任何定義域大小",
+              "fraction": 0,
+              "feedback": "兩者都能處理任意定義域大小；差異在於成長策略。"
+            }
+          ],
+          "generalFeedback": "AETG 一次建構一整列，每列貪婪地覆蓋盡量多的未覆蓋對。IPOG 則先為前幾個參數建陣列，再一次加入一個參數（水平成長），並在必要時加列（垂直成長）。兩者都是貪婪且近似最佳，不保證最小。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "成對測試漏掉三因子缺陷",
+          "text": "<p>三個布林旗標 A、B、C 各取 on／off。某缺陷<strong>只</strong>在 A=on、B=on、C=on 三者同時成立時才發生。為什麼成對套件可能漏掉這個缺陷？</p>",
+          "answers": [
+            {
+              "text": "成對只保證每一對（例如 A=on 與 B=on）出現，卻從不保證三個 on 值在同一個測試中一起出現",
+              "fraction": 100,
+              "feedback": "正確——觸發的三元組是一個 3-way 交互作用，而 2-way 覆蓋並不保證它。"
+            },
+            {
+              "text": "成對測試從不測試任何設為 on 的旗標",
+              "fraction": 0,
+              "feedback": "成對確實會測到 on 值；它只是可能不把三者都設為 on 放在同一列。"
+            },
+            {
+              "text": "成對測試每次都只測少於三個參數，所以 C 被忽略",
+              "fraction": 0,
+              "feedback": "每一列裡所有參數都有取值；缺口在於那個特定三元組可能永不同時出現。"
+            },
+            {
+              "text": "成對要求每一對剛好出現一次，因而排除了失效組合",
+              "fraction": 0,
+              "feedback": "成對要求每一對至少一次；問題出在 3-way，而非出現次數限制。"
+            }
+          ],
+          "generalFeedback": "成對套件可以在不同列中分別覆蓋 (A=on,B=on)、(A=on,C=on) 與 (B=on,C=on)，卻從未在同一列同時放入 A=on、B=on、C=on。由於缺陷需要這個確切的 3-way 組合，成對（t = 2）可能漏掉它；要偵測需 t ≥ 3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有效性檢查：此集合是否覆蓋所有對（是）",
+          "text": "<p>三個二元參數 A、B、C（各為 0 或 1）。考慮以下四列：<br>ABC = 000、011、101、110。<br>這個集合是否覆蓋每一對參數的每一對數值？</p>",
+          "answers": [
+            {
+              "text": "是——三個參數對各自的四個數值對都被覆蓋",
+              "fraction": 100,
+              "feedback": "正確——檢查 A,B：00,01,10,11；A,C：00,01,11,10；B,C：00,11,01,10——全部出現。"
+            },
+            {
+              "text": "否——缺少 A=1、B=1 這一對",
+              "fraction": 0,
+              "feedback": "列 110 有 A=1、B=1，因此這一對存在。"
+            },
+            {
+              "text": "否——缺少 B=0、C=0 這一對",
+              "fraction": 0,
+              "feedback": "列 000 有 B=0、C=0，因此這一對存在。"
+            },
+            {
+              "text": "否——四列絕不可能覆蓋三個二元參數的所有對",
+              "fraction": 0,
+              "feedback": "此處四列已足夠（成對下界為 2 × 2 = 4），而這個集合正好達成。"
+            }
+          ],
+          "generalFeedback": "逐一列舉每個參數對。A,B 在各列上：(0,0)、(0,1)、(1,0)、(1,1)。A,C：(0,0)、(0,1)、(1,1)、(1,0)。B,C：(0,0)、(1,1)、(0,1)、(1,0)。每個參數對集合都含全部四種組合，故這是僅 4 列的有效成對覆蓋陣列——恰好等於下界 2 × 2 = 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有效性檢查：此集合是否覆蓋所有對（否）",
+          "text": "<p>三個二元參數 A、B、C（各為 0 或 1）。考慮以下三列：<br>ABC = 000、011、101。<br>這個集合是否覆蓋每一對參數的每一對數值？</p>",
+          "answers": [
+            {
+              "text": "否——A=1、B=1 這一對從未出現（其他對也有缺漏）",
+              "fraction": 100,
+              "feedback": "正確——A,B 在各列上只給出 (0,0)、(0,1)、(1,0)；缺少 (1,1)。"
+            },
+            {
+              "text": "是——所有對都被覆蓋",
+              "fraction": 0,
+              "feedback": "A=1、B=1 這一對不存在，因此覆蓋並不完整。"
+            },
+            {
+              "text": "否——但只因為缺少 A=0、B=0",
+              "fraction": 0,
+              "feedback": "列 000 提供了 A=0、B=0；真正缺少的是 A=1、B=1。"
+            },
+            {
+              "text": "是——三列對三個二元參數永遠足夠",
+              "fraction": 0,
+              "feedback": "此處成對下界為 2 × 2 = 4，故三列無法覆蓋所有對。"
+            }
+          ],
+          "generalFeedback": "A,B 在列 000、011、101 上給出 (0,0)、(0,1)、(1,0)——(1,1) 從未出現。（B,C 也缺 (1,0)。）僅三列已低於成對下界 2 × 2 = 4，故不可能達成完整成對覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三因子缺陷所需的更高強度",
+          "text": "<p>若某缺陷只由三個特定參數的某一特定組合觸發，覆蓋陣列至少要有多高的交互作用強度 t 才能保證偵測？</p>",
+          "answers": [
+            {
+              "text": "t = 3（三因子覆蓋）",
+              "fraction": 100,
+              "feedback": "正確——3-way 缺陷只有在強度 3（或更高）的覆蓋陣列下才保證被觸發。"
+            },
+            {
+              "text": "t = 2（成對）就足夠",
+              "fraction": 0,
+              "feedback": "成對只保證 2-way 組合；那個特定三元組可能永不同時出現。"
+            },
+            {
+              "text": "t = 1（each-choice）就足夠",
+              "fraction": 0,
+              "feedback": "each-choice 只保證每個單一數值出現，遠遠不夠。"
+            },
+            {
+              "text": "沒有任何覆蓋陣列能保證它",
+              "fraction": 0,
+              "feedback": "強度 3 的覆蓋陣列保證每一種 3-way 組合，包含觸發者。"
+            }
+          ],
+          "generalFeedback": "要保證某一特定 3-way 數值組合被執行，覆蓋陣列強度須 t ≥ 3，因為唯有如此才保證每一組三個參數的數值都在某列一起出現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "十個二元參數的窮舉",
+          "text": "<p>某系統有十個彼此獨立的布林參數（各為 on／off）。<strong>窮舉</strong>測試需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "1024",
+              "fraction": 100,
+              "feedback": "正確——2^10 = 1024。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 是 2 × 10；窮舉是 2 的（參數個數）次方，2^10 = 1024。"
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "100 是 10^2；底數是 2（數值），指數是 10（參數）：2^10 = 1024。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4（2 × 2）是二元參數的成對下界，而非窮舉數。"
+            }
+          ],
+          "generalFeedback": "窮舉是各定義域大小之乘積：十個二元參數即 2^10 = 1024。同系統的成對套件只需寥寥數列，展現了縮減——而其下界仍僅為 2 × 2 = 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "5 × 4 × 3 × 2 的成對下界",
+          "text": "<p>某系統有四個參數，定義域大小為 5、4、3、2。任何成對套件至少必須包含多少個測試？</p>",
+          "answers": [
+            {
+              "text": "至少 20",
+              "fraction": 100,
+              "feedback": "正確——兩個最大定義域是 5 與 4，故下界是 5 × 4 = 20。"
+            },
+            {
+              "text": "至少 120",
+              "fraction": 0,
+              "feedback": "120 是窮舉數（5 × 4 × 3 × 2）；成對需要遠少於此。"
+            },
+            {
+              "text": "至少 15",
+              "fraction": 0,
+              "feedback": "15 用的是 5 × 3；兩個最大定義域是 5 與 4，得 20。"
+            },
+            {
+              "text": "至少 60",
+              "fraction": 0,
+              "feedback": "60（5 × 4 × 3）用了三個定義域；下界只用兩個最大者，5 × 4 = 20。"
+            }
+          ],
+          "generalFeedback": "成對下界是兩個最大定義域之乘積：5 × 4 = 20。（作為對照，此處窮舉為 5 × 4 × 3 × 2 = 120。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四個二元參數要覆蓋的對數",
+          "text": "<p>四個參數各為二元（2 種數值）。成對套件總共必須覆蓋多少個不同的數值對？</p>",
+          "answers": [
+            {
+              "text": "24",
+              "fraction": 100,
+              "feedback": "正確——C(4,2) = 6 個參數對，每對有 2 × 2 = 4 個數值對：6 × 4 = 24。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 是窮舉數（2^4），而非要覆蓋的數值對數。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 相當於 3 個參數對 × 4；此處有 C(4,2) = 6 個參數對，得 24。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是 4 參數 × 2 數值；數值對數是把 6 個參數對的 2 × 2 加總。"
+            }
+          ],
+          "generalFeedback": "數值對數 = 把各參數對的 v_i × v_j 加總。四個二元參數有 C(4,2) = 6 個參數對，各貢獻 2 × 2 = 4，得 6 × 4 = 24 個數值對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "具體的三因子交互作用缺陷",
+          "text": "<p>某媒體播放器只在編碼為 H.265、容器為 MKV、且啟用硬體加速時才當機——沒有更小的組合會觸發它。針對 {編碼, 容器, 硬體加速, 解析度} 執行的成對套件通過了。這告訴我們什麼？</p>",
+          "answers": [
+            {
+              "text": "該缺陷是真正的 3-way 交互作用，2-way 套件並不保證能揭露它，故成對通過並不能證明它不存在",
+              "fraction": 100,
+              "feedback": "正確——當機需要一個特定三元組，而成對不保證把它放在同一列。"
+            },
+            {
+              "text": "該缺陷不可能存在，因為成對測試能偵測所有交互作用缺陷",
+              "fraction": 0,
+              "feedback": "成對只保證 2-way 交互作用；3-way 缺陷可能漏網。"
+            },
+            {
+              "text": "該成對套件無效，因為正確的套件一定會抓到這個",
+              "fraction": 0,
+              "feedback": "有效成對套件覆蓋所有對，但不必覆蓋這個三元組；套件可以正確卻仍漏掉缺陷。"
+            },
+            {
+              "text": "只有窮舉測試才可能執行到 H.265 編碼",
+              "fraction": 0,
+              "feedback": "成對在某些列確實會測到 H.265；它只是可能不把它與 MKV 和硬體加速同時組合。"
+            }
+          ],
+          "generalFeedback": "當機需要確切三元組（H.265、MKV、硬體加速開）。成對套件保證這些的每一對都出現，卻未必把三者放在同一測試，因此可以通過而 3-way 缺陷仍在。要偵測它需強度 3 的覆蓋陣列（或窮舉測試）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "約束對有效組合的影響",
+          "text": "<p>某 OS 參數的數值為 {Windows, macOS, Linux}，瀏覽器參數為 {Safari, Chrome, Edge}。約束規定 Safari 只能在 macOS 上執行，且 Edge 在 Linux 上被排除。這類約束如何影響組合測試的產生？</p>",
+          "answers": [
+            {
+              "text": "無效的對會從覆蓋需求中移除，故產生器只需覆蓋滿足約束的對",
+              "fraction": 100,
+              "feedback": "正確——約束把不可行組合從需覆蓋的對與所產生的列中剔除。"
+            },
+            {
+              "text": "約束被忽略，每個語法上的對仍被強制放入套件",
+              "fraction": 0,
+              "feedback": "具約束感知的產生不得輸出如「Safari on Linux」這類不可行列。"
+            },
+            {
+              "text": "約束迫使套件變成窮舉",
+              "fraction": 0,
+              "feedback": "約束會縮減、而非增加可行組合的集合。"
+            },
+            {
+              "text": "約束要求從成對改為 each-choice 覆蓋",
+              "fraction": 0,
+              "feedback": "成對仍適用；產生器只是排除不可行的對與列。"
+            }
+          ],
+          "generalFeedback": "約束宣告某些組合無效（例如 Safari 只在 macOS）。具約束感知的產生器會把那些不可行的對從覆蓋義務中排除，且永不輸出違反約束的列，這通常同時縮小所需的對與套件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何貪婪套件未必最小",
+          "text": "<p>兩位工程師對同一模型各自執行 IPOG，但以不同的參數順序列出，得到大小不同的成對套件。這說明了什麼？</p>",
+          "answers": [
+            {
+              "text": "IPOG 是貪婪啟發式，其結果取決於參數順序等選擇，故近似最佳但不保證最小",
+              "fraction": 100,
+              "feedback": "正確——貪婪建構可因排序不同而得出不同、非最小的規模。"
+            },
+            {
+              "text": "兩個套件必有一個無效，因為正確套件有唯一大小",
+              "fraction": 0,
+              "feedback": "兩者都可以是有效成對套件；有效套件不必大小相同。"
+            },
+            {
+              "text": "參數順序改變時成對覆蓋就沒有定義",
+              "fraction": 0,
+              "feedback": "成對覆蓋不論順序都有明確定義；只有啟發式的輸出大小會變。"
+            },
+            {
+              "text": "較大的套件漏了某些對",
+              "fraction": 0,
+              "feedback": "兩者依建構都覆蓋所有對；大小差異反映啟發式選擇，而非漏覆蓋。"
+            }
+          ],
+          "generalFeedback": "IPOG 是增量建構的，而參數順序等決策會影響列被重複利用的效率。兩個套件都覆蓋所有對，但其中一個可能較大——顯示該演算法近似最佳，不保證產生最小覆蓋陣列。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3-way 強度涵蓋成對",
+          "text": "<p>強度 3（三因子）的覆蓋陣列是否也滿足成對（2-way）覆蓋？</p>",
+          "answers": [
+            {
+              "text": "是——若每個三元組數值都被覆蓋，那這些三元組內的每一對數值當然也被覆蓋",
+              "fraction": 100,
+              "feedback": "正確——較高強度涵蓋所有較低強度。"
+            },
+            {
+              "text": "否——三因子與二因子覆蓋彼此無關",
+              "fraction": 0,
+              "feedback": "它們有關：覆蓋所有三元組必然覆蓋所有對。"
+            },
+            {
+              "text": "只有當該陣列同時也是正交陣列時",
+              "fraction": 0,
+              "feedback": "不需要平衡；任何強度 3 的覆蓋陣列已覆蓋所有對。"
+            },
+            {
+              "text": "只有當所有參數都是二元時",
+              "fraction": 0,
+              "feedback": "此涵蓋關係對任意定義域大小都成立，不限二元。"
+            }
+          ],
+          "generalFeedback": "強度 t 的覆蓋陣列涵蓋所有低於 t 的強度：覆蓋每個 t 元組即保證每個更小的子元組也被覆蓋。故 3-way 陣列自動提供 2-way（成對）覆蓋——只是成本更高。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CA(N; 3, k, v) 的意義",
+          "text": "<p>記法 <code>CA(N; 3, k, v)</code> 描述什麼？</p>",
+          "answers": [
+            {
+              "text": "一個 N 列的覆蓋陣列，涵蓋 k 個各有 v 種數值的參數，其中每一種 3-way 數值組合都至少被覆蓋一次",
+              "fraction": 100,
+              "feedback": "正確——那個 3 是強度，故所有三元組都被覆蓋。"
+            },
+            {
+              "text": "一個對 k 個參數恰有 3 列的陣列",
+              "fraction": 0,
+              "feedback": "列數是 N；那個 3 是交互作用強度。"
+            },
+            {
+              "text": "一個只覆蓋 k 個參數中 3 個的陣列",
+              "fraction": 0,
+              "feedback": "所有 k 個參數都被覆蓋；強度 3 表示每一組 3 個參數的所有組合都被覆蓋。"
+            },
+            {
+              "text": "一個每個參數恰有 3 種數值的陣列",
+              "fraction": 0,
+              "feedback": "數值個數是 v；該位置的 3 是強度 t。"
+            }
+          ],
+          "generalFeedback": "CA(N; 3, k, v) 是一個 N 列、強度 t = 3、k 個參數、每參數 v 種數值的覆蓋陣列，保證每一種 3-way 數值組合都至少出現在某一列。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "三因子缺陷可逃過成對",
+          "text": "<p>只由某一特定三參數交互作用觸發的缺陷，可能未被偵測地通過一個原本有效的成對測試套件。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——成對只保證 2-way 組合，故觸發的三元組可能永不出現在同一列。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "成對只保證 2-way 覆蓋；需要特定 3-way 組合的缺陷可能溜過有效的成對套件。"
+            }
+          ],
+          "generalFeedback": "成對（t = 2）保證每一對數值一起出現，但不保證每個三元組。因此需要特定 3-way 交互作用的缺陷可能逃過完全有效的成對套件；要抓到它需強度 t ≥ 3。"
+        },
+        {
+          "type": "multichoice",
+          "name": "使 t-way 等同窮舉的最小強度",
+          "text": "<p>對於有 k 個參數的系統，t-way（覆蓋陣列）測試在什麼交互作用強度 t 時會等同於窮舉測試？</p>",
+          "answers": [
+            {
+              "text": "當 t = k（強度等於參數個數）時",
+              "fraction": 100,
+              "feedback": "正確——覆蓋每個 k 元組正是完整的笛卡兒積。"
+            },
+            {
+              "text": "當 t = 2 時，因為成對已覆蓋一切",
+              "fraction": 0,
+              "feedback": "成對覆蓋的是對，而非所有完整組合；它遠小於窮舉。"
+            },
+            {
+              "text": "當 t = 1 時",
+              "fraction": 0,
+              "feedback": "t = 1 是 each-choice，最弱的準則，遠不及窮舉。"
+            },
+            {
+              "text": "t-way 測試永遠不可能等同窮舉測試",
+              "fraction": 0,
+              "feedback": "當 t = k 時，所有 k 個參數的每一種組合都必須出現，那正是窮舉。"
+            }
+          ],
+          "generalFeedback": "當強度 t 等於參數個數 k 時，覆蓋每個 t 元組即覆蓋所有 k 個參數的每一種完整組合——即窮舉的笛卡兒積。故窮舉測試是 t-way 組合測試中 t = k 的情形。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "下界是否總能達成",
+          "text": "<p>對於四個二元參數，成對下界是 2 × 2 = 4。對四個二元參數，剛好 4 列的成對套件真的能覆蓋所有對嗎？</p>",
+          "answers": [
+            {
+              "text": "否——此處 4 列不可能；真正的最小值是 5，故下界未必總能達成",
+              "fraction": 100,
+              "feedback": "正確——4 列最多能覆蓋三個二元參數的所有對；第四個參數迫使出現第五列。"
+            },
+            {
+              "text": "是——下界總是恰好可達成",
+              "fraction": 0,
+              "feedback": "「兩個最大定義域之乘積」是下界，未必緊；此處 4 列可證明不足。"
+            },
+            {
+              "text": "否——真正的最小值是 16，即窮舉數",
+              "fraction": 0,
+              "feedback": "成對所需遠少於窮舉；此處最小值是 5，不是 16。"
+            },
+            {
+              "text": "是——但只有當四個參數在統計上獨立時",
+              "fraction": 0,
+              "feedback": "獨立性無濟於事；4 列無法覆蓋四個二元參數的全部六個參數對的組合。"
+            }
+          ],
+          "generalFeedback": "要把四個二元參數的所有對塞進 4 列，需要每一對欄都剛好各出現全部四種組合一次——即指標為 1 的正交陣列，而對強度 2 這最多容納 (N-1)/(v-1) = 3 個二元因子。第四個因子放不下，故至少需 5 列（且 5 列足夠）。因此此處下界 4 無法達成——它是最小值的界，但未必等於最小值。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "state-transition": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What a state is",
+          "text": "<p>In a finite-state machine, what does a <strong>state</strong> represent?</p>",
+          "answers": [
+            {
+              "text": "A condition or mode the system remains in until an event causes it to change",
+              "fraction": 100,
+              "feedback": "Correct — a state captures the system's current situation, held until a transition occurs."
+            },
+            {
+              "text": "The input that triggers a change",
+              "fraction": 0,
+              "feedback": "That is an event, not a state."
+            },
+            {
+              "text": "The movement from one situation to another",
+              "fraction": 0,
+              "feedback": "That movement is a transition; a state is the situation itself."
+            },
+            {
+              "text": "The output produced by the system",
+              "fraction": 0,
+              "feedback": "Output is an action; a state is a mode the system rests in."
+            }
+          ],
+          "generalFeedback": "A state is a distinct mode or condition (e.g. Locked, Open) that the system stays in until an event drives a transition to another state.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an event is",
+          "text": "<p>In state-transition testing, what is an <strong>event</strong> (or input)?</p>",
+          "answers": [
+            {
+              "text": "Something that happens (a stimulus or input) that may cause a transition",
+              "fraction": 100,
+              "feedback": "Correct — an event is the trigger that can move the machine between states."
+            },
+            {
+              "text": "A mode the system stays in",
+              "fraction": 0,
+              "feedback": "That is a state, not an event."
+            },
+            {
+              "text": "A boolean condition attached to a transition",
+              "fraction": 0,
+              "feedback": "That is a guard, not the event itself."
+            },
+            {
+              "text": "The starting point of the machine",
+              "fraction": 0,
+              "feedback": "That is the initial state; an event is a stimulus."
+            }
+          ],
+          "generalFeedback": "An event (input/stimulus) is what occurs to the machine — such as \"coin\" or \"push\" — and may trigger a transition depending on the current state and any guard.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a transition is",
+          "text": "<p>What is a <strong>transition</strong> in a state machine?</p>",
+          "answers": [
+            {
+              "text": "A move from one state to another (or the same state) triggered by an event",
+              "fraction": 100,
+              "feedback": "Correct — a transition links a source state, an event, and a destination state."
+            },
+            {
+              "text": "A mode the system rests in",
+              "fraction": 0,
+              "feedback": "That is a state; a transition is the move between states."
+            },
+            {
+              "text": "The list of all possible inputs",
+              "fraction": 0,
+              "feedback": "Those are the events; a transition uses an event to change state."
+            },
+            {
+              "text": "The final state of the machine",
+              "fraction": 0,
+              "feedback": "That is a specific state, not a transition."
+            }
+          ],
+          "generalFeedback": "A transition is a directed move triggered by an event: source state + event [guard] / action -> destination state. It may return to the same state (a self-loop).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a guard is",
+          "text": "<p>What is a <strong>guard</strong> (or condition) on a transition?</p>",
+          "answers": [
+            {
+              "text": "A boolean condition that must be true for the transition to fire when its event occurs",
+              "fraction": 100,
+              "feedback": "Correct — even if the event happens, the transition only fires when its guard holds."
+            },
+            {
+              "text": "The output produced during the transition",
+              "fraction": 0,
+              "feedback": "That is an action, not a guard."
+            },
+            {
+              "text": "The event that triggers the transition",
+              "fraction": 0,
+              "feedback": "The event is the trigger; the guard is an extra condition on it."
+            },
+            {
+              "text": "The destination state of the transition",
+              "fraction": 0,
+              "feedback": "The destination is where the transition leads; a guard decides whether it fires."
+            }
+          ],
+          "generalFeedback": "A guard is a boolean condition on a transition. When the event occurs, the transition fires only if the guard evaluates to true; otherwise a different transition (or none) applies.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an action is",
+          "text": "<p>What is an <strong>action</strong> (or output) in a state machine?</p>",
+          "answers": [
+            {
+              "text": "An effect or output produced when a transition fires (or while in a state)",
+              "fraction": 100,
+              "feedback": "Correct — actions are the observable outputs the machine emits."
+            },
+            {
+              "text": "The condition that must hold for a transition to fire",
+              "fraction": 0,
+              "feedback": "That is a guard, not an action."
+            },
+            {
+              "text": "A mode the system stays in",
+              "fraction": 0,
+              "feedback": "That is a state."
+            },
+            {
+              "text": "The stimulus that triggers a change",
+              "fraction": 0,
+              "feedback": "That is an event; the action is the effect produced."
+            }
+          ],
+          "generalFeedback": "An action is the output or effect associated with a transition (e.g. \"dispense ticket\") or with being in a state. It is what a tester observes to confirm the expected behaviour.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the initial state is",
+          "text": "<p>What is the <strong>initial state</strong> of a state machine?</p>",
+          "answers": [
+            {
+              "text": "The state the machine is in before any event has been processed",
+              "fraction": 100,
+              "feedback": "Correct — it is the starting state, usually drawn with an arrow from a solid dot."
+            },
+            {
+              "text": "The state the machine ends in when it stops",
+              "fraction": 0,
+              "feedback": "That is a final state, not the initial one."
+            },
+            {
+              "text": "Any state that has a self-loop",
+              "fraction": 0,
+              "feedback": "Self-loops are unrelated to which state is the start."
+            },
+            {
+              "text": "The state with the most outgoing transitions",
+              "fraction": 0,
+              "feedback": "The number of transitions does not determine the initial state."
+            }
+          ],
+          "generalFeedback": "The initial (start) state is where the machine begins before processing any event. In a diagram it is marked by an incoming arrow from a filled circle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "State coverage defined",
+          "text": "<p>What does <strong>state coverage</strong> require of a test suite?</p>",
+          "answers": [
+            {
+              "text": "Every state is visited at least once",
+              "fraction": 100,
+              "feedback": "Correct — state coverage is achieved when each state is entered by some test."
+            },
+            {
+              "text": "Every valid transition is exercised at least once",
+              "fraction": 0,
+              "feedback": "That is transition coverage, a stronger criterion."
+            },
+            {
+              "text": "Every pair of consecutive transitions is exercised",
+              "fraction": 0,
+              "feedback": "That is 1-switch coverage, stronger still."
+            },
+            {
+              "text": "Every event is sent in every state",
+              "fraction": 0,
+              "feedback": "That would include invalid combinations; state coverage only requires visiting each state."
+            }
+          ],
+          "generalFeedback": "State coverage is the weakest state-based criterion: it only requires that each state be visited. It can be met without exercising every transition.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Transition coverage defined",
+          "text": "<p>What does <strong>transition coverage</strong> (also called 0-switch coverage) require?</p>",
+          "answers": [
+            {
+              "text": "Every valid transition is exercised at least once",
+              "fraction": 100,
+              "feedback": "Correct — transition coverage exercises each single valid transition; this is 0-switch coverage."
+            },
+            {
+              "text": "Every state is visited at least once",
+              "fraction": 0,
+              "feedback": "That is only state coverage, which is weaker."
+            },
+            {
+              "text": "Every valid pair of consecutive transitions is exercised",
+              "fraction": 0,
+              "feedback": "That is 1-switch coverage, which is stronger than 0-switch."
+            },
+            {
+              "text": "Every guard is evaluated both true and false",
+              "fraction": 0,
+              "feedback": "Guard-value coverage is a different, condition-based criterion."
+            }
+          ],
+          "generalFeedback": "Transition (0-switch) coverage requires each valid transition to be taken at least once. Because reaching a transition means visiting its source and target states, transition coverage subsumes state coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a sneak path is",
+          "text": "<p>What is a <strong>sneak path</strong> in state-transition testing?</p>",
+          "answers": [
+            {
+              "text": "An event accepted in a state where the specification says it should not be — an undesired, extra transition",
+              "fraction": 100,
+              "feedback": "Correct — a sneak path is an unspecified transition the implementation wrongly allows."
+            },
+            {
+              "text": "A valid transition that the tests happen to miss",
+              "fraction": 0,
+              "feedback": "That is merely uncovered behaviour, not a sneak path; a sneak path is an extra, unwanted transition."
+            },
+            {
+              "text": "The shortest path that visits every state",
+              "fraction": 0,
+              "feedback": "That describes a coverage tour, not a sneak path."
+            },
+            {
+              "text": "A transition whose guard is always false",
+              "fraction": 0,
+              "feedback": "An always-false guard yields a dead transition, not a sneak path."
+            }
+          ],
+          "generalFeedback": "A sneak path is an unwanted transition: the implementation responds to an event in a state where the spec defines no transition for it. Negative testing (firing undefined events) is used to detect sneak paths.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "0-switch equals transition coverage",
+          "text": "<p>\"0-switch coverage\" is another name for transition coverage — exercising every single valid transition at least once.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — 0-switch means single transitions, i.e. transition coverage."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "0-switch coverage is exactly transition coverage; 1-switch covers pairs of transitions."
+            }
+          ],
+          "generalFeedback": "In Chow's switch terminology, 0-switch covers sequences of one transition (transition coverage), 1-switch covers sequences of two consecutive transitions, and so on."
+        },
+        {
+          "type": "multichoice",
+          "name": "Turnstile: coin in Locked",
+          "text": "<p>A turnstile has two states and two events:</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>If the turnstile is <code>Locked</code> and a <code>coin</code> event occurs, what is the next state?</p>",
+          "answers": [
+            {
+              "text": "Unlocked",
+              "fraction": 100,
+              "feedback": "Correct — the Locked row, coin column gives Unlocked."
+            },
+            {
+              "text": "Locked",
+              "fraction": 0,
+              "feedback": "Locked stays Locked on push, not on coin."
+            },
+            {
+              "text": "The event is invalid in Locked",
+              "fraction": 0,
+              "feedback": "coin is defined in Locked; the cell gives Unlocked."
+            },
+            {
+              "text": "The machine has no next state",
+              "fraction": 0,
+              "feedback": "The table defines a next state (Unlocked) for this cell."
+            }
+          ],
+          "generalFeedback": "Read the table at row Locked, column coin: the next state is Unlocked.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Turnstile: push in Unlocked",
+          "text": "<p>Using the same turnstile:</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>If the turnstile is <code>Unlocked</code> and a <code>push</code> event occurs, what is the next state?</p>",
+          "answers": [
+            {
+              "text": "Locked",
+              "fraction": 100,
+              "feedback": "Correct — the Unlocked row, push column gives Locked."
+            },
+            {
+              "text": "Unlocked",
+              "fraction": 0,
+              "feedback": "Unlocked stays Unlocked on coin, not on push."
+            },
+            {
+              "text": "The event is invalid in Unlocked",
+              "fraction": 0,
+              "feedback": "push is defined in Unlocked and leads to Locked."
+            },
+            {
+              "text": "It returns to the initial state marker only",
+              "fraction": 0,
+              "feedback": "The next state is Locked, which happens also to be the initial state here, but it is read directly from the cell."
+            }
+          ],
+          "generalFeedback": "Read the table at row Unlocked, column push: the next state is Locked. This models a person pushing through and re-locking the turnstile.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagram vs table cell",
+          "text": "<p>In a state-transition <strong>table</strong> with rows = states and columns = events, what does a single cell hold?</p>",
+          "answers": [
+            {
+              "text": "The next state reached when that event occurs in that state (or \"-\" if undefined)",
+              "fraction": 100,
+              "feedback": "Correct — each cell is the destination state for (row state, column event), or a dash when no transition is defined."
+            },
+            {
+              "text": "The number of times that event has been tested",
+              "fraction": 0,
+              "feedback": "Cells hold next states, not test counts."
+            },
+            {
+              "text": "The guard expression only",
+              "fraction": 0,
+              "feedback": "A cell gives the resulting next state; a guard may qualify it, but the cell's content is the destination."
+            },
+            {
+              "text": "Whether the state is the initial state",
+              "fraction": 0,
+              "feedback": "Initial-state marking is separate; a cell records the next state for an event."
+            }
+          ],
+          "generalFeedback": "A state-transition table lists states as rows and events as columns; each cell names the next state for that (state, event) pair, using \"-\" (or blank) when the event is not defined in that state. A diagram shows the same information as arrows.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When state-based testing fits",
+          "text": "<p>For which kind of system is state-transition testing <strong>most</strong> appropriate?</p>",
+          "answers": [
+            {
+              "text": "Event-driven, mode-rich systems whose response depends on their current state",
+              "fraction": 100,
+              "feedback": "Correct — state-based testing shines when behaviour depends on history/mode, as in protocols, UIs, and controllers."
+            },
+            {
+              "text": "Pure stateless mathematical functions whose output depends only on the current input",
+              "fraction": 0,
+              "feedback": "Stateless functions have no modes to model; equivalence/boundary testing fits them better."
+            },
+            {
+              "text": "Systems with no inputs at all",
+              "fraction": 0,
+              "feedback": "State machines are driven by events/inputs; a system with no inputs has nothing to model as transitions."
+            },
+            {
+              "text": "Only systems written in object-oriented languages",
+              "fraction": 0,
+              "feedback": "The technique is language-independent; it depends on the system being state-driven, not on the language."
+            }
+          ],
+          "generalFeedback": "State-transition testing suits event-driven, mode-rich systems — protocols, embedded controllers, UI workflows, vending machines — where the same event produces different results depending on the current state.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of a dash cell",
+          "text": "<p>In a state-transition table, what does a \"-\" (dash, or blank) in a cell usually mean?</p>",
+          "answers": [
+            {
+              "text": "That event is not defined (invalid) in that state — there is no specified transition",
+              "fraction": 100,
+              "feedback": "Correct — a dash marks an undefined/invalid transition for that (state, event) pair."
+            },
+            {
+              "text": "The machine returns to its initial state",
+              "fraction": 0,
+              "feedback": "A dash means no transition is defined, not a jump to the initial state."
+            },
+            {
+              "text": "The event always keeps the machine in the same state",
+              "fraction": 0,
+              "feedback": "A self-loop would name the same state in the cell; a dash means the event is undefined there."
+            },
+            {
+              "text": "The transition has a guard that is currently true",
+              "fraction": 0,
+              "feedback": "A dash indicates no defined transition, not a satisfied guard."
+            }
+          ],
+          "generalFeedback": "A dash (or blank) marks a (state, event) pair for which the specification defines no transition — the event is invalid in that state. Firing it is exactly what negative testing probes for sneak paths.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Count states in door table",
+          "text": "<p>Consider this door controller (cells give the next state; \"-\" = undefined):</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>How many <strong>states</strong> does this machine have?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — the rows are Closed, Open, Locked: three states."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of events (columns), not states."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 mixes states and events; count only the rows: 3."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is 3 rows x 4 columns (all cells); the state count is the number of rows: 3."
+            }
+          ],
+          "generalFeedback": "Each row is a state. The rows are Closed, Open, and Locked, so the machine has 3 states. The columns (open, close, lock, unlock) are events, not states.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count valid transitions in door table",
+          "text": "<p>For the same door controller:</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>How many <strong>valid transitions</strong> does it define (non-dash cells)?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — Closed/open, Closed/lock, Open/close, Locked/unlock: four non-dash cells."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 counts every cell; only non-dash cells are valid transitions, and there are 4."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is the number of dash (undefined) cells, not the valid transitions."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the state count; the valid transitions number 4."
+            }
+          ],
+          "generalFeedback": "Count only the cells that name a next state: Closed--open-->Open, Closed--lock-->Locked, Open--close-->Closed, Locked--unlock-->Closed. That is 4 valid transitions. The remaining 8 cells are dashes (invalid).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "State coverage but not transition coverage",
+          "text": "<p>For the door controller, a test runs the sequence <code>open</code>, <code>close</code>, <code>lock</code> starting from <code>Closed</code>. It visits Closed, Open, and Locked. Which statement is true?</p>",
+          "answers": [
+            {
+              "text": "It achieves state coverage but not transition coverage — the Locked--unlock-->Closed transition is never exercised",
+              "fraction": 100,
+              "feedback": "Correct — all three states are visited, but only 3 of the 4 valid transitions are taken; unlock is missed."
+            },
+            {
+              "text": "It achieves both state and transition coverage",
+              "fraction": 0,
+              "feedback": "It exercises open, close, lock — but not unlock, so transition coverage is not met."
+            },
+            {
+              "text": "It achieves transition coverage but not state coverage",
+              "fraction": 0,
+              "feedback": "It cannot cover more transitions than states here; unlock is missed, so transition coverage fails while all states are visited."
+            },
+            {
+              "text": "It achieves neither",
+              "fraction": 0,
+              "feedback": "All three states are visited, so state coverage is achieved."
+            }
+          ],
+          "generalFeedback": "The sequence enters Closed, Open, and Locked (state coverage) using transitions open, close, lock. The fourth valid transition, Locked--unlock-->Closed, is never taken, so transition coverage is not achieved. This shows state coverage does not imply transition coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "0-switch vs 1-switch meaning",
+          "text": "<p>What is the difference between <strong>0-switch</strong> and <strong>1-switch</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "0-switch covers each single valid transition; 1-switch covers each valid pair of consecutive transitions",
+              "fraction": 100,
+              "feedback": "Correct — 0-switch = length-1 sequences, 1-switch = length-2 sequences."
+            },
+            {
+              "text": "0-switch covers each state; 1-switch covers each transition",
+              "fraction": 0,
+              "feedback": "0-switch is transition coverage, not state coverage."
+            },
+            {
+              "text": "0-switch covers pairs of transitions; 1-switch covers single transitions",
+              "fraction": 0,
+              "feedback": "This reverses the definitions."
+            },
+            {
+              "text": "They are two names for the same criterion",
+              "fraction": 0,
+              "feedback": "They differ: 1-switch requires consecutive transition pairs, which 0-switch does not."
+            }
+          ],
+          "generalFeedback": "In Chow's terminology, 0-switch coverage exercises sequences of one transition (transition coverage) and 1-switch coverage exercises every valid sequence of two consecutive transitions. In general, n-switch covers length-(n+1) transition sequences.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify an undefined transition",
+          "text": "<p>For the door controller:</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>Which of the following is an <strong>undefined (invalid) transition</strong> according to the table?</p>",
+          "answers": [
+            {
+              "text": "Firingwhile in state",
+              "fraction": 100,
+              "feedback": "Correct — the Open row, lock column is a dash, so this transition is undefined."
+            },
+            {
+              "text": "Firingwhile in state",
+              "fraction": 0,
+              "feedback": "That cell names Open, so it is a valid, defined transition."
+            },
+            {
+              "text": "Firingwhile in state",
+              "fraction": 0,
+              "feedback": "That cell names Closed, so it is a valid transition."
+            },
+            {
+              "text": "Firingwhile in state",
+              "fraction": 0,
+              "feedback": "That cell names Closed, so it is a valid transition."
+            }
+          ],
+          "generalFeedback": "Look for a dash. The Open row has dashes under open, lock, and unlock, so \"lock in Open\" is undefined. The other three options each name a next state and are valid transitions.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sequence achieving transition coverage",
+          "text": "<p>For the door controller (valid transitions: Closed--open--&gt;Open, Open--close--&gt;Closed, Closed--lock--&gt;Locked, Locked--unlock--&gt;Closed), which single sequence starting from <code>Closed</code> exercises <strong>all four</strong> valid transitions?</p>",
+          "answers": [
+            {
+              "text": "open, close, lock, unlock",
+              "fraction": 100,
+              "feedback": "Correct — Closed->Open->Closed->Locked->Closed uses all four valid transitions."
+            },
+            {
+              "text": "open, close, open, close",
+              "fraction": 0,
+              "feedback": "This repeats open and close and never fires lock or unlock."
+            },
+            {
+              "text": "lock, unlock, lock, unlock",
+              "fraction": 0,
+              "feedback": "This never fires open or close, so it misses two transitions."
+            },
+            {
+              "text": "open, lock, unlock, close",
+              "fraction": 0,
+              "feedback": "After open the machine is in Open, where lock is undefined, so this sequence is invalid."
+            }
+          ],
+          "generalFeedback": "Trace from Closed: open (->Open), close (->Closed), lock (->Locked), unlock (->Closed). This one sequence exercises every valid transition exactly once, achieving 0-switch (transition) coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count valid transitions in turnstile",
+          "text": "<p>The turnstile table has all cells defined:</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>How many valid transitions does it have (self-loops count)?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — all four cells are defined, including the two self-loops (Locked/push and Unlocked/coin)."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 counts only the state-changing transitions; self-loops are transitions too, giving 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "All four cells name a next state; the count is 4, not 3."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 would be the 1-switch pair count, not the number of single transitions (4)."
+            }
+          ],
+          "generalFeedback": "Each defined cell is one transition: Locked--coin-->Unlocked, Locked--push-->Locked, Unlocked--coin-->Unlocked, Unlocked--push-->Locked. That is 4, and self-loops (same source and target) still count as transitions.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Next state: open in Closed",
+          "text": "<p>For the door controller:</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>Starting in <code>Closed</code>, an <code>open</code> event occurs. What is the next state?</p>",
+          "answers": [
+            {
+              "text": "Open",
+              "fraction": 100,
+              "feedback": "Correct — the Closed row, open column gives Open."
+            },
+            {
+              "text": "Locked",
+              "fraction": 0,
+              "feedback": "Closed goes to Locked on lock, not on open."
+            },
+            {
+              "text": "Closed",
+              "fraction": 0,
+              "feedback": "open does not leave Closed unchanged; it moves to Open."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "The Closed/open cell names Open, so it is defined."
+            }
+          ],
+          "generalFeedback": "Read row Closed, column open: the next state is Open.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Next state: lock in Open",
+          "text": "<p>For the same door controller, the machine is in <code>Open</code> and a <code>lock</code> event occurs. According to the table, what happens?</p>",
+          "answers": [
+            {
+              "text": "Nothing is defined — lock is invalid in Open (the cell is a dash)",
+              "fraction": 100,
+              "feedback": "Correct — the Open row, lock column is a dash, so this transition is undefined."
+            },
+            {
+              "text": "The machine moves to Locked",
+              "fraction": 0,
+              "feedback": "lock leads to Locked only from Closed; in Open it is undefined."
+            },
+            {
+              "text": "The machine moves to Closed",
+              "fraction": 0,
+              "feedback": "From Open, close leads to Closed; lock is undefined in Open."
+            },
+            {
+              "text": "The machine stays in Open as a self-loop",
+              "fraction": 0,
+              "feedback": "A dash means undefined, not a self-loop; the table does not specify staying in Open."
+            }
+          ],
+          "generalFeedback": "The Open row under lock is a dash, so the specification defines no transition. Firing lock in Open is exactly the kind of invalid event that negative testing checks (a correct implementation should reject it or leave the state unchanged, with no sneak path).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Transitions to exercise for coverage",
+          "text": "<p>The turnstile has 2 states and 4 valid transitions. To achieve <strong>transition (0-switch) coverage</strong>, how many valid transitions must be exercised at least once?</p>",
+          "answers": [
+            {
+              "text": "4 — every valid transition",
+              "fraction": 100,
+              "feedback": "Correct — transition coverage requires exercising all 4 valid transitions."
+            },
+            {
+              "text": "2 — one per state",
+              "fraction": 0,
+              "feedback": "Visiting each state (2) is only state coverage; transition coverage needs all 4 transitions."
+            },
+            {
+              "text": "8 — every pair of transitions",
+              "fraction": 0,
+              "feedback": "8 is the 1-switch count; 0-switch coverage needs the 4 single transitions."
+            },
+            {
+              "text": "1 — a single path suffices regardless of transitions",
+              "fraction": 0,
+              "feedback": "A single path can be short enough to miss transitions; coverage requires all 4 to be taken."
+            }
+          ],
+          "generalFeedback": "Transition (0-switch) coverage requires every valid transition to be taken at least once. The turnstile has 4 valid transitions, so all 4 must be exercised (they can be woven into one longer test, but all 4 must appear).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which criterion subsumes which",
+          "text": "<p>Which subsumption relationship holds among these state-based criteria?</p>",
+          "answers": [
+            {
+              "text": "Transition coverage subsumes state coverage (achieving all transitions guarantees all states are visited)",
+              "fraction": 100,
+              "feedback": "Correct — every transition has a source and target state, so covering all transitions visits all reachable states."
+            },
+            {
+              "text": "State coverage subsumes transition coverage",
+              "fraction": 0,
+              "feedback": "The reverse is true; visiting all states can still miss transitions."
+            },
+            {
+              "text": "The two criteria are equivalent",
+              "fraction": 0,
+              "feedback": "They are not equivalent; state coverage is strictly weaker."
+            },
+            {
+              "text": "Neither implies anything about the other",
+              "fraction": 0,
+              "feedback": "There is a relationship: transition coverage implies state coverage."
+            }
+          ],
+          "generalFeedback": "Because taking a transition necessarily enters its source and target states, a suite achieving transition (0-switch) coverage also achieves state coverage. The converse fails: the door example visits all states yet misses the unlock transition.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Name for exercising single transitions",
+          "text": "<p>Exercising every single valid transition at least once, with no requirement about consecutive pairs, is which named criterion?</p>",
+          "answers": [
+            {
+              "text": "0-switch (transition) coverage",
+              "fraction": 100,
+              "feedback": "Correct — single transitions correspond to 0-switch coverage."
+            },
+            {
+              "text": "1-switch coverage",
+              "fraction": 0,
+              "feedback": "1-switch requires consecutive transition pairs, which is stronger."
+            },
+            {
+              "text": "State coverage",
+              "fraction": 0,
+              "feedback": "State coverage only requires visiting states, not exercising transitions."
+            },
+            {
+              "text": "2-switch coverage",
+              "fraction": 0,
+              "feedback": "2-switch covers sequences of three transitions, stronger still."
+            }
+          ],
+          "generalFeedback": "Single transitions = 0-switch = transition coverage. Requiring consecutive pairs would be 1-switch, and triples would be 2-switch.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of 1-switch",
+          "text": "<p>What exactly does <strong>1-switch coverage</strong> require?</p>",
+          "answers": [
+            {
+              "text": "Every valid sequence of two consecutive transitions is exercised at least once",
+              "fraction": 100,
+              "feedback": "Correct — 1-switch covers all valid length-2 transition sequences."
+            },
+            {
+              "text": "Every single transition is exercised once",
+              "fraction": 0,
+              "feedback": "That is 0-switch coverage; 1-switch adds the pairing requirement."
+            },
+            {
+              "text": "Every state is entered from at least one other state",
+              "fraction": 0,
+              "feedback": "That is closer to state coverage; 1-switch is about pairs of transitions."
+            },
+            {
+              "text": "Every guard is exercised both true and false",
+              "fraction": 0,
+              "feedback": "That is a condition-based idea, not the definition of 1-switch."
+            }
+          ],
+          "generalFeedback": "1-switch coverage requires each valid pair of consecutive transitions (a length-2 transition sequence) to be exercised. It catches faults that depend on the order of two transitions, which 0-switch may miss.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Single path covering all transitions",
+          "text": "<p>A machine has 4 valid transitions. A tester finds a single connected walk that takes all 4 transitions one after another. How many transition <strong>steps</strong> does that walk contain?</p>",
+          "answers": [
+            {
+              "text": "4 — each valid transition is one step, taken once",
+              "fraction": 100,
+              "feedback": "Correct — a walk taking every transition once has 4 steps."
+            },
+            {
+              "text": "3 — one fewer than the number of transitions",
+              "fraction": 0,
+              "feedback": "A walk that takes 4 transitions has 4 steps, not 3."
+            },
+            {
+              "text": "5 — one more than the number of transitions",
+              "fraction": 0,
+              "feedback": "Each transition is one step; taking 4 transitions is 4 steps."
+            },
+            {
+              "text": "8 — because pairs are involved",
+              "fraction": 0,
+              "feedback": "Pairs relate to 1-switch; here we only take each of the 4 transitions once, so 4 steps."
+            }
+          ],
+          "generalFeedback": "If a single walk can chain all 4 transitions consecutively, it has exactly 4 transition steps (visiting 5 states along the way, counting repeats). This is possible only when the transitions connect end-to-end.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What state coverage misses",
+          "text": "<p>A suite achieves state coverage of a machine but not transition coverage. What must it be missing?</p>",
+          "answers": [
+            {
+              "text": "At least one valid transition that is never exercised, even though its source and target states are both visited by other transitions",
+              "fraction": 100,
+              "feedback": "Correct — some valid transition is skipped while its endpoints are still reached another way."
+            },
+            {
+              "text": "At least one state that is never visited",
+              "fraction": 0,
+              "feedback": "If a state were unvisited, state coverage would fail; here state coverage holds."
+            },
+            {
+              "text": "At least one event that does not exist in the machine",
+              "fraction": 0,
+              "feedback": "Coverage concerns defined transitions, not nonexistent events."
+            },
+            {
+              "text": "Nothing — the two criteria are the same",
+              "fraction": 0,
+              "feedback": "They differ; transition coverage is strictly stronger, so something is missed."
+            }
+          ],
+          "generalFeedback": "State coverage without transition coverage means every state is reached, but some valid transition is never taken (its endpoints are visited via other transitions). The door example — visiting Locked via lock but never taking unlock — is exactly this situation.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Count 1-switch pairs: turnstile",
+          "text": "<p>The turnstile has these 4 valid transitions:</p><pre>\nt1: Locked   --coin--> Unlocked\nt2: Locked   --push--> Locked\nt3: Unlocked --coin--> Unlocked\nt4: Unlocked --push--> Locked\n</pre><p>How many valid <strong>1-switch</strong> sequences (ordered pairs of consecutive transitions) does it have?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — each state has 2 transitions in and 2 out, giving 2x2 + 2x2 = 8."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of single transitions (0-switch), not the pairs."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 would be 4x4 (all ordered pairs); only pairs where the first ends where the second begins count, giving 8."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Enumerate the joinable pairs: there are 8, not 6."
+            }
+          ],
+          "generalFeedback": "A 1-switch pair (ti, tj) is valid when target(ti) = source(tj). Count per intermediate state = (transitions in) x (transitions out). Locked: 2 in (t2,t4) x 2 out (t1,t2) = 4; Unlocked: 2 in (t1,t3) x 2 out (t3,t4) = 4. Total 4 + 4 = 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count 1-switch pairs: branch machine",
+          "text": "<p>Consider this machine (initial state A):</p><pre>\n       p        q\nA      B        C\nB      C        -\nC      A        -\n</pre><p>Its valid transitions are A--p--&gt;B, A--q--&gt;C, B--p--&gt;C, C--p--&gt;A. How many valid <strong>1-switch</strong> sequences does it have?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — (A: 1 in x 2 out) + (B: 1 in x 1 out) + (C: 2 in x 1 out) = 2 + 1 + 2 = 5."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of single transitions; the joinable pairs number 5."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Enumerate: (A-p,B-p),(A-q,C-p),(B-p,C-p),(C-p,A-p),(C-p,A-q) = 5, not 6."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 undercounts; C is reached by two transitions and each can be followed by C--p-->A, adding two pairs."
+            }
+          ],
+          "generalFeedback": "For each state, pairs = (transitions in) x (transitions out). A: in {C--p-->A}=1, out {A-p,A-q}=2 -> 2. B: in {A--p-->B}=1, out {B--p-->C}=1 -> 1. C: in {A--q-->C, B--p-->C}=2, out {C--p-->A}=1 -> 2. Total 2+1+2 = 5. Explicitly: (A-p,B-p),(A-q,C-p),(B-p,C-p),(C-p,A-p),(C-p,A-q).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count 1-switch pairs: cycle",
+          "text": "<p>A machine cycles through three states:</p><pre>\nt1: S1 --x--> S2\nt2: S2 --y--> S3\nt3: S3 --z--> S1\n</pre><p>How many valid <strong>1-switch</strong> sequences does it have?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — each state has exactly 1 in and 1 out: (t1,t2),(t2,t3),(t3,t1) = 3."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 would be all ordered pairs; only 3 are joinable end-to-end."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is 3x3; most pairs do not connect, leaving 3 valid ones."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "The cycle closes (t3 then t1), so there are 3 joinable pairs, not 2."
+            }
+          ],
+          "generalFeedback": "Each state has 1 transition in and 1 out, so pairs = 1x1 per state = 3 total: (t1,t2), (t2,t3), and (t3,t1) since the cycle returns to S1.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify a sneak path",
+          "text": "<p>A media player spec defines: Stopped--play--&gt;Playing, Playing--stop--&gt;Stopped, Playing--pause--&gt;Paused, Paused--play--&gt;Playing. During testing, sending <code>stop</code> while <code>Paused</code> causes the player to jump to Stopped, even though the spec defines no such transition. What has been found?</p>",
+          "answers": [
+            {
+              "text": "A sneak path — an event accepted in a state where the spec defines no transition",
+              "fraction": 100,
+              "feedback": "Correct — stop is undefined in Paused, yet the implementation acts on it: a sneak path."
+            },
+            {
+              "text": "A missing transition the spec forgot",
+              "fraction": 0,
+              "feedback": "The problem is an extra, unspecified transition in the implementation, not a spec omission — that is a sneak path."
+            },
+            {
+              "text": "A guard evaluating incorrectly",
+              "fraction": 0,
+              "feedback": "No guard is involved; the event stop is simply not defined in Paused, yet it fires."
+            },
+            {
+              "text": "A 1-switch coverage gap",
+              "fraction": 0,
+              "feedback": "This is an extra transition, not a missing pair; it is a sneak path detected by negative testing."
+            }
+          ],
+          "generalFeedback": "The spec has no Paused--stop--> transition, so the correct behaviour is to ignore or reject stop in Paused. The implementation instead transitions to Stopped — an undesired extra transition, i.e. a sneak path, which negative testing (firing undefined events) is designed to reveal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why 0-switch misses a fault",
+          "text": "<p>A bug only appears when transition B is taken <strong>immediately after</strong> transition A (the pair A-then-B corrupts state), but each of A and B works fine in isolation. Which coverage level is needed to reliably force this fault, and why?</p>",
+          "answers": [
+            {
+              "text": "1-switch coverage — it exercises consecutive transition pairs, so the A-then-B sequence is guaranteed to be tested",
+              "fraction": 100,
+              "feedback": "Correct — the fault depends on a specific pair, which 1-switch (length-2 sequences) forces."
+            },
+            {
+              "text": "State coverage — visiting both endpoint states triggers it",
+              "fraction": 0,
+              "feedback": "Visiting states does not force the specific A-then-B ordering; the fault can be missed."
+            },
+            {
+              "text": "0-switch coverage — taking A once and B once is enough",
+              "fraction": 0,
+              "feedback": "0-switch may take A and B in separate tests, never consecutively, so it can miss the pair fault."
+            },
+            {
+              "text": "No coverage level can find it",
+              "fraction": 0,
+              "feedback": "1-switch is specifically designed to catch order-dependent pair faults."
+            }
+          ],
+          "generalFeedback": "0-switch coverage only demands each transition once; A and B could be exercised in different tests and never adjacently. The fault needs the ordered pair A-then-B, exactly what 1-switch coverage requires by covering every valid length-2 transition sequence.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sequence to reach Blocked (guard)",
+          "text": "<p>A login machine (initial state LoggedOut, attempt counter starts at 0):</p><pre>\nLoggedOut --submit[valid]--> LoggedIn\nLoggedOut --submit[invalid & attempts<2]--> LoggedOut  (attempts++)\nLoggedOut --submit[invalid & attempts==2]--> Blocked\nLoggedIn  --logout--> LoggedOut\nBlocked   --adminReset--> LoggedOut\n</pre><p>Which sequence of events reaches <code>Blocked</code>?</p>",
+          "answers": [
+            {
+              "text": "submit[invalid], submit[invalid], submit[invalid] — three invalid attempts",
+              "fraction": 100,
+              "feedback": "Correct — attempts goes 0->1 (stay), 1->2 (stay), then the third invalid submit with attempts==2 goes to Blocked."
+            },
+            {
+              "text": "submit[invalid], submit[invalid] — two invalid attempts",
+              "fraction": 0,
+              "feedback": "After two invalid submits attempts==2 but the machine is still LoggedOut; a third invalid submit is needed to reach Blocked."
+            },
+            {
+              "text": "submit[valid], logout, submit[invalid]",
+              "fraction": 0,
+              "feedback": "submit[valid] goes to LoggedIn, logout returns to LoggedOut with attempts still 0, so one invalid submit only increments to 1 — not Blocked."
+            },
+            {
+              "text": "submit[invalid], adminReset",
+              "fraction": 0,
+              "feedback": "adminReset is only defined in Blocked, and the machine is not there yet; this sequence is invalid."
+            }
+          ],
+          "generalFeedback": "Trace the guard on attempts: first invalid submit (attempts 0->1, stay LoggedOut), second invalid submit (attempts 1->2, stay LoggedOut), third invalid submit (attempts==2 now, so the guard [invalid & attempts==2] fires) -> Blocked. Three invalid attempts are required.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Negative test for undefined event",
+          "text": "<p>For the login machine, <code>logout</code> is only defined in <code>LoggedIn</code>. A tester fires <code>logout</code> while in <code>LoggedOut</code>. What is the correct expected result of this <strong>negative test</strong>?</p>",
+          "answers": [
+            {
+              "text": "The event is rejected/ignored: the machine stays in LoggedOut (no state change), possibly with an error",
+              "fraction": 100,
+              "feedback": "Correct — an undefined event should leave the state unchanged (or raise an error), never silently transition."
+            },
+            {
+              "text": "The machine transitions to LoggedIn",
+              "fraction": 0,
+              "feedback": "That would be a sneak path; logout is undefined in LoggedOut and must not cause a transition."
+            },
+            {
+              "text": "The machine transitions to Blocked",
+              "fraction": 0,
+              "feedback": "Blocked is reached only via failed submits under the guard; logout has no such effect."
+            },
+            {
+              "text": "The attempt counter resets to 0 and the state changes",
+              "fraction": 0,
+              "feedback": "logout in LoggedOut is undefined; the correct behaviour is no state change, not a counter reset with a transition."
+            }
+          ],
+          "generalFeedback": "Negative testing fires events that are undefined in the current state to check for sneak paths. Since logout is undefined in LoggedOut, a correct implementation ignores or rejects it and remains in LoggedOut — any resulting transition would be a sneak path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count valid transitions: branch machine",
+          "text": "<p>For this table (\"-\" = undefined):</p><pre>\n       p        q\nA      B        C\nB      C        -\nC      A        -\n</pre><p>How many valid transitions does the machine have?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — A/p, A/q, B/p, C/p are defined; the two q cells for B and C are dashes."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 counts every cell; two of them (B/q, C/q) are dashes, leaving 4 valid transitions."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the state count; there are 4 valid transitions."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the 1-switch pair count for this machine, not the number of single transitions (4)."
+            }
+          ],
+          "generalFeedback": "Count the non-dash cells: A--p-->B, A--q-->C, B--p-->C, C--p-->A = 4 valid transitions. The B/q and C/q cells are dashes (undefined).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "n-switch general definition",
+          "text": "<p>In Chow's switch-coverage hierarchy, what does <strong>n-switch</strong> coverage require?</p>",
+          "answers": [
+            {
+              "text": "Every valid sequence of n+1 consecutive transitions is exercised",
+              "fraction": 100,
+              "feedback": "Correct — n-switch covers length-(n+1) transition sequences; 0-switch is single transitions, 1-switch is pairs."
+            },
+            {
+              "text": "Every valid sequence of exactly n transitions is exercised",
+              "fraction": 0,
+              "feedback": "Off by one: n-switch covers n+1 transitions, so 0-switch is 1 transition."
+            },
+            {
+              "text": "Every state is visited at least n times",
+              "fraction": 0,
+              "feedback": "Switch coverage counts transition-sequence lengths, not repeated state visits."
+            },
+            {
+              "text": "Every path of length n through the diagram, ignoring validity",
+              "fraction": 0,
+              "feedback": "Only valid (defined) transition sequences count, and the length is n+1."
+            }
+          ],
+          "generalFeedback": "n-switch coverage requires every valid sequence of n+1 consecutive transitions. Thus 0-switch = single transitions, 1-switch = pairs, 2-switch = triples. Chow's W-method builds on this to detect faults in state machines.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum transitions to cover: cycle",
+          "text": "<p>A cycle machine has transitions S1--x--&gt;S2, S2--y--&gt;S3, S3--z--&gt;S1. Starting from S1, what is the minimum number of transition steps to achieve <strong>transition coverage</strong>?</p>",
+          "answers": [
+            {
+              "text": "3 — x, y, z takes all three transitions and returns to S1",
+              "fraction": 100,
+              "feedback": "Correct — the three transitions chain into one length-3 walk covering them all."
+            },
+            {
+              "text": "2 — one walk of two transitions suffices",
+              "fraction": 0,
+              "feedback": "Two steps cover only two of the three transitions; the third is missed."
+            },
+            {
+              "text": "6 — each transition must be taken twice",
+              "fraction": 0,
+              "feedback": "Transition coverage requires each transition once; 3 steps suffice."
+            },
+            {
+              "text": "4 — you must return to the start twice",
+              "fraction": 0,
+              "feedback": "x, y, z already returns to S1 in 3 steps and covers everything."
+            }
+          ],
+          "generalFeedback": "The transitions connect S1->S2->S3->S1, so the walk x, y, z (3 steps) exercises all three transitions once and returns to the start. That is the minimum for transition coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid vs invalid 1-switch pair",
+          "text": "<p>For the turnstile transitions t1: Locked--coin--&gt;Unlocked, t2: Locked--push--&gt;Locked, t3: Unlocked--coin--&gt;Unlocked, t4: Unlocked--push--&gt;Locked, which ordered pair is a <strong>valid</strong> 1-switch sequence?</p>",
+          "answers": [
+            {
+              "text": "(t1, t4) — t1 ends in Unlocked and t4 starts in Unlocked",
+              "fraction": 100,
+              "feedback": "Correct — target(t1)=Unlocked=source(t4), so the pair chains validly."
+            },
+            {
+              "text": "(t1, t2) — t1 then t2",
+              "fraction": 0,
+              "feedback": "t1 ends in Unlocked but t2 starts in Locked, so they do not chain."
+            },
+            {
+              "text": "(t4, t3) — t4 then t3",
+              "fraction": 0,
+              "feedback": "t4 ends in Locked but t3 starts in Unlocked, so this pair is not joinable."
+            },
+            {
+              "text": "(t2, t4) — t2 then t4",
+              "fraction": 0,
+              "feedback": "t2 ends in Locked but t4 starts in Unlocked, so they do not connect."
+            }
+          ],
+          "generalFeedback": "A 1-switch pair (ti, tj) is valid only when target(ti) = source(tj). t1 ends in Unlocked and t4 starts in Unlocked, so (t1, t4) is valid. The other options break at the join point.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Guard decides which transition fires",
+          "text": "<p>From state <code>LoggedOut</code>, the login machine has two transitions on the same event <code>submit</code>: one guarded <code>[valid]</code> to LoggedIn, and one guarded <code>[invalid & attempts&lt;2]</code> back to LoggedOut. If <code>submit</code> occurs with correct credentials, which transition fires?</p>",
+          "answers": [
+            {
+              "text": "The [valid] transition to LoggedIn, because its guard is the one that holds",
+              "fraction": 100,
+              "feedback": "Correct — with the same event, the guard that evaluates true selects the transition."
+            },
+            {
+              "text": "Both transitions fire simultaneously",
+              "fraction": 0,
+              "feedback": "Guards are mutually exclusive here; only the transition whose guard holds fires."
+            },
+            {
+              "text": "The [invalid] transition, because it is listed for LoggedOut",
+              "fraction": 0,
+              "feedback": "Its guard requires invalid credentials, which is false here, so it does not fire."
+            },
+            {
+              "text": "Neither, because two transitions share the event",
+              "fraction": 0,
+              "feedback": "Sharing an event is fine when guards disambiguate; the [valid] guard holds, so that transition fires."
+            }
+          ],
+          "generalFeedback": "When several transitions leave a state on the same event, their guards select which one fires. With correct credentials the [valid] guard is true and the [invalid ...] guard is false, so the machine transitions to LoggedIn.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "1-switch subsumes 0-switch",
+          "text": "<p>Achieving 1-switch coverage automatically achieves 0-switch (transition) coverage, because every pair of consecutive transitions includes both of its member transitions.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — covering all valid pairs means every transition appears as part of some pair, so all single transitions are exercised."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "1-switch does subsume 0-switch: any reachable transition is part of at least one covered pair, so it is exercised."
+            }
+          ],
+          "generalFeedback": "1-switch coverage is stronger than 0-switch. Exercising every valid length-2 sequence necessarily exercises each constituent transition, so 1-switch subsumes 0-switch (which in turn subsumes state coverage)."
+        },
+        {
+          "type": "multichoice",
+          "name": "Transition coverage length: door",
+          "text": "<p>The door controller has 4 valid transitions: Closed--open--&gt;Open, Open--close--&gt;Closed, Closed--lock--&gt;Locked, Locked--unlock--&gt;Closed. Starting from Closed, what is the minimum number of transition steps in a single walk that achieves transition coverage?</p>",
+          "answers": [
+            {
+              "text": "4 — open, close, lock, unlock chains all four and returns to Closed",
+              "fraction": 100,
+              "feedback": "Correct — the four transitions connect through Closed, so one 4-step walk covers them all."
+            },
+            {
+              "text": "3 — three steps are enough",
+              "fraction": 0,
+              "feedback": "Three steps take only three transitions; the fourth is missed."
+            },
+            {
+              "text": "5 — an extra step is unavoidable",
+              "fraction": 0,
+              "feedback": "Because every transition passes through Closed, they chain into exactly 4 steps with no repeats needed."
+            },
+            {
+              "text": "8 — each transition needs revisiting",
+              "fraction": 0,
+              "feedback": "Transition coverage needs each transition once; 4 steps suffice here."
+            }
+          ],
+          "generalFeedback": "All four transitions touch Closed, so the walk open (Closed->Open), close (Open->Closed), lock (Closed->Locked), unlock (Locked->Closed) chains them into a single 4-step tour covering every transition once — the minimum.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count 1-switch pairs: door",
+          "text": "<p>The door controller has these 4 valid transitions:</p><pre>\nd1: Closed --open--> Open\nd2: Closed --lock--> Locked\nd3: Open   --close--> Closed\nd4: Locked --unlock--> Closed\n</pre><p>How many valid <strong>1-switch</strong> sequences (ordered pairs of consecutive transitions) does it have?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — Closed has 2 in x 2 out = 4, Open has 1 in x 1 out = 1, Locked has 1 in x 1 out = 1; total 6."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of single transitions (0-switch), not the joinable pairs."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is the turnstile's pair count; enumerating this door's pairs gives 6."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Closed is entered by both d3 and d4 and left by both d1 and d2, giving 4 pairs through Closed alone; the total is 6, not 5."
+            }
+          ],
+          "generalFeedback": "For each state, pairs = (transitions in) x (transitions out). Closed: in {d3, d4}=2, out {d1, d2}=2 -> 4. Open: in {d1}=1, out {d3}=1 -> 1. Locked: in {d2}=1, out {d4}=1 -> 1. Total 4+1+1 = 6. Explicitly: (d3,d1),(d3,d2),(d4,d1),(d4,d2),(d1,d3),(d2,d4).",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是狀態",
+          "text": "<p>在有限狀態機中，<strong>狀態（state）</strong>代表什麼？</p>",
+          "answers": [
+            {
+              "text": "系統所處的一種情況或模式，會一直維持到某個事件使其改變為止",
+              "fraction": 100,
+              "feedback": "正確——狀態描述系統目前的情況，直到發生轉移才會離開。"
+            },
+            {
+              "text": "觸發改變的輸入",
+              "fraction": 0,
+              "feedback": "那是事件（event），不是狀態。"
+            },
+            {
+              "text": "從一個情況移動到另一個情況的動作",
+              "fraction": 0,
+              "feedback": "那個移動是轉移（transition）；狀態指的是情況本身。"
+            },
+            {
+              "text": "系統產生的輸出",
+              "fraction": 0,
+              "feedback": "輸出是動作（action）；狀態是系統停留的一種模式。"
+            }
+          ],
+          "generalFeedback": "狀態是一種明確的模式或情況（例如 Locked、Open），系統會停留其中，直到某個事件驅使它轉移到另一個狀態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是事件",
+          "text": "<p>在狀態轉移測試中，<strong>事件（event，或輸入）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "發生的某件事（刺激或輸入），可能導致一次轉移",
+              "fraction": 100,
+              "feedback": "正確——事件是可能使狀態機在狀態間移動的觸發因子。"
+            },
+            {
+              "text": "系統停留其中的一種模式",
+              "fraction": 0,
+              "feedback": "那是狀態，不是事件。"
+            },
+            {
+              "text": "附加在轉移上的布林條件",
+              "fraction": 0,
+              "feedback": "那是護衛條件（guard），不是事件本身。"
+            },
+            {
+              "text": "狀態機的起始點",
+              "fraction": 0,
+              "feedback": "那是初始狀態；事件是一種刺激。"
+            }
+          ],
+          "generalFeedback": "事件（輸入／刺激）是對狀態機發生的事——例如「coin」或「push」——它可能依當前狀態與任何護衛條件而觸發一次轉移。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是轉移",
+          "text": "<p>狀態機中的<strong>轉移（transition）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "由事件觸發、從一個狀態移動到另一個狀態（或回到同一狀態）",
+              "fraction": 100,
+              "feedback": "正確——轉移連結了來源狀態、事件與目的狀態。"
+            },
+            {
+              "text": "系統停留其中的模式",
+              "fraction": 0,
+              "feedback": "那是狀態；轉移是狀態之間的移動。"
+            },
+            {
+              "text": "所有可能輸入的清單",
+              "fraction": 0,
+              "feedback": "那些是事件；轉移用事件來改變狀態。"
+            },
+            {
+              "text": "狀態機的最終狀態",
+              "fraction": 0,
+              "feedback": "那是某個特定狀態，不是轉移。"
+            }
+          ],
+          "generalFeedback": "轉移是由事件觸發的有向移動：來源狀態 + 事件 [護衛條件] / 動作 -> 目的狀態。它也可能回到同一狀態（自迴圈 self-loop）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是護衛條件",
+          "text": "<p>轉移上的<strong>護衛條件（guard，或條件）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "一個布林條件，當事件發生時必須為真，轉移才會觸發",
+              "fraction": 100,
+              "feedback": "正確——即使事件發生，只有在護衛條件成立時該轉移才會觸發。"
+            },
+            {
+              "text": "轉移過程中產生的輸出",
+              "fraction": 0,
+              "feedback": "那是動作（action），不是護衛條件。"
+            },
+            {
+              "text": "觸發該轉移的事件",
+              "fraction": 0,
+              "feedback": "事件是觸發因子；護衛條件是加在其上的額外條件。"
+            },
+            {
+              "text": "轉移的目的狀態",
+              "fraction": 0,
+              "feedback": "目的狀態是轉移抵達的地方；護衛條件決定它是否觸發。"
+            }
+          ],
+          "generalFeedback": "護衛條件是轉移上的布林條件。當事件發生時，只有在護衛條件評估為真時該轉移才會觸發；否則就套用另一個轉移（或沒有轉移）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是動作",
+          "text": "<p>狀態機中的<strong>動作（action，或輸出）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "當轉移觸發時（或在某狀態中）產生的效果或輸出",
+              "fraction": 100,
+              "feedback": "正確——動作是狀態機發出的可觀察輸出。"
+            },
+            {
+              "text": "轉移要觸發所必須成立的條件",
+              "fraction": 0,
+              "feedback": "那是護衛條件，不是動作。"
+            },
+            {
+              "text": "系統停留其中的模式",
+              "fraction": 0,
+              "feedback": "那是狀態。"
+            },
+            {
+              "text": "觸發改變的刺激",
+              "fraction": 0,
+              "feedback": "那是事件；動作是產生的效果。"
+            }
+          ],
+          "generalFeedback": "動作是與轉移相關聯的輸出或效果（例如「吐出票券」），或與停留在某狀態相關。它是測試者用來確認預期行為的觀察對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是初始狀態",
+          "text": "<p>狀態機的<strong>初始狀態（initial state）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "在處理任何事件之前，狀態機所處的狀態",
+              "fraction": 100,
+              "feedback": "正確——它是起始狀態，通常以一個實心圓點連出的箭頭標示。"
+            },
+            {
+              "text": "狀態機停止時所處的狀態",
+              "fraction": 0,
+              "feedback": "那是最終狀態，不是初始狀態。"
+            },
+            {
+              "text": "任何具有自迴圈的狀態",
+              "fraction": 0,
+              "feedback": "自迴圈與哪一個是起始狀態無關。"
+            },
+            {
+              "text": "擁有最多外向轉移的狀態",
+              "fraction": 0,
+              "feedback": "轉移數量並不決定初始狀態。"
+            }
+          ],
+          "generalFeedback": "初始（起始）狀態是狀態機在處理任何事件前所在之處。在圖中通常以一個從實心圓連入的箭頭標示。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "狀態涵蓋的定義",
+          "text": "<p><strong>狀態涵蓋（state coverage）</strong>要求測試套件做到什麼？</p>",
+          "answers": [
+            {
+              "text": "每個狀態至少被造訪一次",
+              "fraction": 100,
+              "feedback": "正確——當每個狀態都被某個測試進入時，就達成狀態涵蓋。"
+            },
+            {
+              "text": "每個有效轉移至少被執行一次",
+              "fraction": 0,
+              "feedback": "那是轉移涵蓋，是更強的準則。"
+            },
+            {
+              "text": "每一對連續轉移都被執行",
+              "fraction": 0,
+              "feedback": "那是 1-switch 涵蓋，更強。"
+            },
+            {
+              "text": "每個事件都在每個狀態中被送出",
+              "fraction": 0,
+              "feedback": "那會包含無效組合；狀態涵蓋只要求造訪每個狀態。"
+            }
+          ],
+          "generalFeedback": "狀態涵蓋是最弱的狀態式準則：它只要求每個狀態被造訪。即使沒有執行每一個轉移，也可能達成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "轉移涵蓋的定義",
+          "text": "<p><strong>轉移涵蓋（transition coverage，又稱 0-switch 涵蓋）</strong>要求什麼？</p>",
+          "answers": [
+            {
+              "text": "每個有效轉移至少被執行一次",
+              "fraction": 100,
+              "feedback": "正確——轉移涵蓋執行每一個單一有效轉移；這就是 0-switch 涵蓋。"
+            },
+            {
+              "text": "每個狀態至少被造訪一次",
+              "fraction": 0,
+              "feedback": "那只是狀態涵蓋，較弱。"
+            },
+            {
+              "text": "每一對有效的連續轉移都被執行",
+              "fraction": 0,
+              "feedback": "那是 1-switch 涵蓋，比 0-switch 更強。"
+            },
+            {
+              "text": "每個護衛條件都被評估為真與假",
+              "fraction": 0,
+              "feedback": "護衛條件取值涵蓋是另一種以條件為基礎的準則。"
+            }
+          ],
+          "generalFeedback": "轉移（0-switch）涵蓋要求每個有效轉移至少被執行一次。由於執行一個轉移就代表造訪了它的來源與目的狀態，因此轉移涵蓋包含（subsume）狀態涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是潛行路徑",
+          "text": "<p>在狀態轉移測試中，<strong>潛行路徑（sneak path）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "在規格說明不應接受該事件的狀態下卻接受了它——一條不該存在、額外的轉移",
+              "fraction": 100,
+              "feedback": "正確——潛行路徑是實作錯誤地允許的未規定轉移。"
+            },
+            {
+              "text": "一個測試恰好漏掉的有效轉移",
+              "fraction": 0,
+              "feedback": "那只是未被涵蓋的行為，不是潛行路徑；潛行路徑是額外、不該有的轉移。"
+            },
+            {
+              "text": "造訪每個狀態的最短路徑",
+              "fraction": 0,
+              "feedback": "那描述的是涵蓋巡訪，不是潛行路徑。"
+            },
+            {
+              "text": "護衛條件永遠為假的轉移",
+              "fraction": 0,
+              "feedback": "永遠為假的護衛條件會產生死轉移，不是潛行路徑。"
+            }
+          ],
+          "generalFeedback": "潛行路徑是不該有的轉移：在規格未定義該事件轉移的狀態下，實作卻對該事件有所反應。負向測試（發送未定義事件）用來偵測潛行路徑。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "0-switch 等於轉移涵蓋",
+          "text": "<p>「0-switch 涵蓋」是轉移涵蓋的另一個名稱——至少執行每一個單一有效轉移一次。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——0-switch 指單一轉移，也就是轉移涵蓋。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "0-switch 涵蓋正是轉移涵蓋；1-switch 才涵蓋成對的轉移。"
+            }
+          ],
+          "generalFeedback": "在 Chow 的 switch 術語中，0-switch 涵蓋長度為 1 的轉移序列（轉移涵蓋），1-switch 涵蓋兩個連續轉移的序列，依此類推。"
+        },
+        {
+          "type": "multichoice",
+          "name": "旋轉柵門：Locked 收到 coin",
+          "text": "<p>一個旋轉柵門有兩個狀態與兩個事件：</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>若柵門處於 <code>Locked</code> 且發生 <code>coin</code> 事件，下一個狀態為何？</p>",
+          "answers": [
+            {
+              "text": "Unlocked",
+              "fraction": 100,
+              "feedback": "正確——Locked 列、coin 欄的格子是 Unlocked。"
+            },
+            {
+              "text": "Locked",
+              "fraction": 0,
+              "feedback": "Locked 收到 push 時才維持 Locked，而不是 coin。"
+            },
+            {
+              "text": "該事件在 Locked 中無效",
+              "fraction": 0,
+              "feedback": "coin 在 Locked 中有定義；該格子是 Unlocked。"
+            },
+            {
+              "text": "狀態機沒有下一個狀態",
+              "fraction": 0,
+              "feedback": "表格對此格定義了下一個狀態（Unlocked）。"
+            }
+          ],
+          "generalFeedback": "查表：Locked 列、coin 欄，下一個狀態是 Unlocked。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "旋轉柵門：Unlocked 收到 push",
+          "text": "<p>使用同一個旋轉柵門：</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>若柵門處於 <code>Unlocked</code> 且發生 <code>push</code> 事件，下一個狀態為何？</p>",
+          "answers": [
+            {
+              "text": "Locked",
+              "fraction": 100,
+              "feedback": "正確——Unlocked 列、push 欄的格子是 Locked。"
+            },
+            {
+              "text": "Unlocked",
+              "fraction": 0,
+              "feedback": "Unlocked 收到 coin 時才維持 Unlocked，而不是 push。"
+            },
+            {
+              "text": "該事件在 Unlocked 中無效",
+              "fraction": 0,
+              "feedback": "push 在 Unlocked 中有定義，且導向 Locked。"
+            },
+            {
+              "text": "它只會回到初始狀態標記",
+              "fraction": 0,
+              "feedback": "下一個狀態是 Locked，這裡它恰好也是初始狀態，但要直接由格子讀出。"
+            }
+          ],
+          "generalFeedback": "查表：Unlocked 列、push 欄，下一個狀態是 Locked。這模擬了一個人推過柵門並使其重新上鎖。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "圖與表的格子",
+          "text": "<p>在一個以「列 = 狀態、欄 = 事件」排列的狀態轉移<strong>表</strong>中，單一格子存放什麼？</p>",
+          "answers": [
+            {
+              "text": "在該狀態發生該事件時所抵達的下一個狀態（若未定義則為「-」）",
+              "fraction": 100,
+              "feedback": "正確——每個格子是 (列狀態, 欄事件) 的目的狀態，未定義轉移時填破折號。"
+            },
+            {
+              "text": "該事件已被測試的次數",
+              "fraction": 0,
+              "feedback": "格子存放下一個狀態，不是測試次數。"
+            },
+            {
+              "text": "只有護衛條件運算式",
+              "fraction": 0,
+              "feedback": "格子給的是結果的下一個狀態；護衛條件可能限定它，但格子的內容是目的狀態。"
+            },
+            {
+              "text": "該狀態是否為初始狀態",
+              "fraction": 0,
+              "feedback": "初始狀態標記是分開的；格子記錄的是某事件的下一個狀態。"
+            }
+          ],
+          "generalFeedback": "狀態轉移表以狀態為列、事件為欄；每個格子指出該 (狀態, 事件) 對的下一個狀態，未定義時用「-」（或空白）。圖則以箭頭表達相同資訊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何時適合狀態式測試",
+          "text": "<p>狀態轉移測試<strong>最</strong>適合哪一種系統？</p>",
+          "answers": [
+            {
+              "text": "由事件驅動、模式豐富、反應取決於當前狀態的系統",
+              "fraction": 100,
+              "feedback": "正確——當行為取決於歷史／模式時（如通訊協定、UI、控制器），狀態式測試最能發揮。"
+            },
+            {
+              "text": "純粹無狀態、輸出只取決於當前輸入的數學函式",
+              "fraction": 0,
+              "feedback": "無狀態函式沒有模式可建模；等價／邊界值測試更適合它們。"
+            },
+            {
+              "text": "完全沒有輸入的系統",
+              "fraction": 0,
+              "feedback": "狀態機由事件／輸入驅動；毫無輸入的系統沒有可建模為轉移的東西。"
+            },
+            {
+              "text": "只有以物件導向語言撰寫的系統",
+              "fraction": 0,
+              "feedback": "此技術與語言無關；它取決於系統是否由狀態驅動，而非語言。"
+            }
+          ],
+          "generalFeedback": "狀態轉移測試適用於由事件驅動、模式豐富的系統——通訊協定、嵌入式控制器、UI 流程、自動販賣機——同一事件在不同狀態會產生不同結果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "破折號格子的意義",
+          "text": "<p>在狀態轉移表中，格子裡的「-」（破折號，或空白）通常代表什麼？</p>",
+          "answers": [
+            {
+              "text": "該事件在該狀態未定義（無效）——沒有規定的轉移",
+              "fraction": 100,
+              "feedback": "正確——破折號標示該 (狀態, 事件) 對是未定義／無效的轉移。"
+            },
+            {
+              "text": "狀態機回到它的初始狀態",
+              "fraction": 0,
+              "feedback": "破折號表示沒有定義轉移，而不是跳回初始狀態。"
+            },
+            {
+              "text": "該事件總是讓狀態機停留在同一狀態",
+              "fraction": 0,
+              "feedback": "自迴圈會在格子中寫出同一個狀態；破折號表示該事件在此未定義。"
+            },
+            {
+              "text": "該轉移有一個目前為真的護衛條件",
+              "fraction": 0,
+              "feedback": "破折號表示沒有已定義的轉移，而不是護衛條件成立。"
+            }
+          ],
+          "generalFeedback": "破折號（或空白）標示一個規格未定義轉移的 (狀態, 事件) 對——該事件在該狀態是無效的。發送它正是負向測試用來偵測潛行路徑的手段。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "數門控制器的狀態數",
+          "text": "<p>考慮以下門控制器（格子給出下一個狀態，「-」= 未定義）：</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>這個狀態機有幾個<strong>狀態</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——列有 Closed、Open、Locked，共三個狀態。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是事件（欄）的數量，不是狀態數。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 混淆了狀態與事件；只數列即可：3。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 是 3 列 x 4 欄（全部格子）；狀態數是列數：3。"
+            }
+          ],
+          "generalFeedback": "每一列是一個狀態。列為 Closed、Open、Locked，所以有 3 個狀態。欄（open、close、lock、unlock）是事件，不是狀態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數門控制器的有效轉移數",
+          "text": "<p>對同一個門控制器：</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>它定義了幾個<strong>有效轉移</strong>（非破折號格子）？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——Closed/open、Closed/lock、Open/close、Locked/unlock：四個非破折號格子。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 是所有格子的數量；只有非破折號格子才是有效轉移，共 4 個。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是破折號（未定義）格子的數量，不是有效轉移數。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是狀態數；有效轉移有 4 個。"
+            }
+          ],
+          "generalFeedback": "只數有指明下一個狀態的格子：Closed--open-->Open、Closed--lock-->Locked、Open--close-->Closed、Locked--unlock-->Closed。共 4 個有效轉移。其餘 8 個格子是破折號（無效）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "達成狀態涵蓋但未達轉移涵蓋",
+          "text": "<p>對這個門控制器，一個測試從 <code>Closed</code> 開始執行序列 <code>open</code>、<code>close</code>、<code>lock</code>。它造訪了 Closed、Open 與 Locked。以下哪個敘述為真？</p>",
+          "answers": [
+            {
+              "text": "它達成狀態涵蓋，但未達成轉移涵蓋——Locked--unlock-->Closed 這個轉移從未被執行",
+              "fraction": 100,
+              "feedback": "正確——三個狀態都被造訪，但四個有效轉移中只執行了三個；unlock 被漏掉。"
+            },
+            {
+              "text": "它同時達成狀態涵蓋與轉移涵蓋",
+              "fraction": 0,
+              "feedback": "它執行了 open、close、lock——但沒有 unlock，所以未達成轉移涵蓋。"
+            },
+            {
+              "text": "它達成轉移涵蓋，但未達成狀態涵蓋",
+              "fraction": 0,
+              "feedback": "這裡它涵蓋的轉移不會多於狀態；unlock 被漏掉，因此轉移涵蓋失敗，而所有狀態都被造訪。"
+            },
+            {
+              "text": "兩者都未達成",
+              "fraction": 0,
+              "feedback": "三個狀態都被造訪，因此狀態涵蓋已達成。"
+            }
+          ],
+          "generalFeedback": "此序列進入 Closed、Open 與 Locked（狀態涵蓋），使用了 open、close、lock 三個轉移。第四個有效轉移 Locked--unlock-->Closed 從未被執行，因此未達成轉移涵蓋。這顯示狀態涵蓋不蘊含轉移涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "0-switch 與 1-switch 的意義",
+          "text": "<p><strong>0-switch</strong> 與 <strong>1-switch</strong> 涵蓋的差別是什麼？</p>",
+          "answers": [
+            {
+              "text": "0-switch 涵蓋每一個單一有效轉移；1-switch 涵蓋每一對有效的連續轉移",
+              "fraction": 100,
+              "feedback": "正確——0-switch = 長度 1 的序列，1-switch = 長度 2 的序列。"
+            },
+            {
+              "text": "0-switch 涵蓋每個狀態；1-switch 涵蓋每個轉移",
+              "fraction": 0,
+              "feedback": "0-switch 是轉移涵蓋，不是狀態涵蓋。"
+            },
+            {
+              "text": "0-switch 涵蓋成對的轉移；1-switch 涵蓋單一轉移",
+              "fraction": 0,
+              "feedback": "這把定義顛倒了。"
+            },
+            {
+              "text": "它們是同一個準則的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們不同：1-switch 要求連續的轉移對，0-switch 則不要求。"
+            }
+          ],
+          "generalFeedback": "在 Chow 的術語中，0-switch 涵蓋執行一個轉移的序列（轉移涵蓋），1-switch 涵蓋每一對連續轉移的有效序列。一般而言，n-switch 涵蓋長度為 n+1 的轉移序列。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "找出一個未定義轉移",
+          "text": "<p>對這個門控制器：</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>以下何者依表格是一個<strong>未定義（無效）的轉移</strong>？</p>",
+          "answers": [
+            {
+              "text": "在狀態發送",
+              "fraction": 100,
+              "feedback": "正確——Open 列、lock 欄是破折號，因此此轉移未定義。"
+            },
+            {
+              "text": "在狀態發送",
+              "fraction": 0,
+              "feedback": "該格子指向 Open，因此是一個有效、已定義的轉移。"
+            },
+            {
+              "text": "在狀態發送",
+              "fraction": 0,
+              "feedback": "該格子指向 Closed，因此是一個有效轉移。"
+            },
+            {
+              "text": "在狀態發送",
+              "fraction": 0,
+              "feedback": "該格子指向 Closed，因此是一個有效轉移。"
+            }
+          ],
+          "generalFeedback": "找破折號。Open 列在 open、lock、unlock 下都是破折號，所以「在 Open 發送 lock」未定義。其他三個選項各自指向一個下一個狀態，都是有效轉移。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "達成轉移涵蓋的序列",
+          "text": "<p>對這個門控制器（有效轉移：Closed--open--&gt;Open、Open--close--&gt;Closed、Closed--lock--&gt;Locked、Locked--unlock--&gt;Closed），從 <code>Closed</code> 開始，哪一個序列能執行<strong>全部四個</strong>有效轉移？</p>",
+          "answers": [
+            {
+              "text": "open、close、lock、unlock",
+              "fraction": 100,
+              "feedback": "正確——Closed->Open->Closed->Locked->Closed 使用了全部四個有效轉移。"
+            },
+            {
+              "text": "open、close、open、close",
+              "fraction": 0,
+              "feedback": "這重複了 open 與 close，且從未執行 lock 或 unlock。"
+            },
+            {
+              "text": "lock、unlock、lock、unlock",
+              "fraction": 0,
+              "feedback": "這從未執行 open 或 close，因此漏掉兩個轉移。"
+            },
+            {
+              "text": "open、lock、unlock、close",
+              "fraction": 0,
+              "feedback": "open 之後狀態機在 Open，而 lock 在 Open 中未定義，所以此序列無效。"
+            }
+          ],
+          "generalFeedback": "從 Closed 追蹤：open (->Open)、close (->Closed)、lock (->Locked)、unlock (->Closed)。這一個序列恰好各執行每個有效轉移一次，達成 0-switch（轉移）涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數旋轉柵門的有效轉移",
+          "text": "<p>旋轉柵門表格的所有格子都有定義：</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>它有幾個有效轉移（自迴圈也算）？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——四個格子都有定義，包含兩個自迴圈（Locked/push 與 Unlocked/coin）。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 只算了會改變狀態的轉移；自迴圈也是轉移，合計 4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "四個格子都指明下一個狀態；數目是 4，不是 3。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 會是 1-switch 的成對數，不是單一轉移數（4）。"
+            }
+          ],
+          "generalFeedback": "每個已定義格子是一個轉移：Locked--coin-->Unlocked、Locked--push-->Locked、Unlocked--coin-->Unlocked、Unlocked--push-->Locked。共 4 個，而自迴圈（來源與目的相同）仍算作轉移。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "下一個狀態：Closed 收到 open",
+          "text": "<p>對這個門控制器：</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>從 <code>Closed</code> 開始，發生 <code>open</code> 事件。下一個狀態為何？</p>",
+          "answers": [
+            {
+              "text": "Open",
+              "fraction": 100,
+              "feedback": "正確——Closed 列、open 欄的格子是 Open。"
+            },
+            {
+              "text": "Locked",
+              "fraction": 0,
+              "feedback": "Closed 收到 lock 時才前往 Locked，而不是 open。"
+            },
+            {
+              "text": "Closed",
+              "fraction": 0,
+              "feedback": "open 不會讓 Closed 維持不變；它移動到 Open。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "Closed/open 格子指向 Open，因此有定義。"
+            }
+          ],
+          "generalFeedback": "查 Closed 列、open 欄：下一個狀態是 Open。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "下一個狀態：Open 收到 lock",
+          "text": "<p>對同一個門控制器，狀態機在 <code>Open</code> 且發生 <code>lock</code> 事件。依表格會發生什麼？</p>",
+          "answers": [
+            {
+              "text": "沒有定義任何行為——lock 在 Open 中無效（該格子是破折號）",
+              "fraction": 100,
+              "feedback": "正確——Open 列、lock 欄是破折號，因此此轉移未定義。"
+            },
+            {
+              "text": "狀態機移動到 Locked",
+              "fraction": 0,
+              "feedback": "lock 只有從 Closed 才會導向 Locked；在 Open 中它未定義。"
+            },
+            {
+              "text": "狀態機移動到 Closed",
+              "fraction": 0,
+              "feedback": "從 Open，close 才會導向 Closed；lock 在 Open 中未定義。"
+            },
+            {
+              "text": "狀態機以自迴圈停留在 Open",
+              "fraction": 0,
+              "feedback": "破折號表示未定義，而非自迴圈；表格並未規定停留在 Open。"
+            }
+          ],
+          "generalFeedback": "Open 列在 lock 下是破折號，因此規格未定義任何轉移。在 Open 發送 lock 正是負向測試要檢查的那種無效事件（正確的實作應拒絕它或維持狀態不變，且沒有潛行路徑）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "涵蓋所需執行的轉移數",
+          "text": "<p>旋轉柵門有 2 個狀態與 4 個有效轉移。要達成<strong>轉移（0-switch）涵蓋</strong>，至少須執行幾個有效轉移？</p>",
+          "answers": [
+            {
+              "text": "4——每一個有效轉移",
+              "fraction": 100,
+              "feedback": "正確——轉移涵蓋要求執行全部 4 個有效轉移。"
+            },
+            {
+              "text": "2——每個狀態一個",
+              "fraction": 0,
+              "feedback": "造訪每個狀態（2）只是狀態涵蓋；轉移涵蓋需要全部 4 個轉移。"
+            },
+            {
+              "text": "8——每一對轉移",
+              "fraction": 0,
+              "feedback": "8 是 1-switch 的數目；0-switch 涵蓋需要 4 個單一轉移。"
+            },
+            {
+              "text": "1——無論轉移如何，單一路徑就足夠",
+              "fraction": 0,
+              "feedback": "單一路徑可能太短而漏掉轉移；涵蓋要求全部 4 個都被執行。"
+            }
+          ],
+          "generalFeedback": "轉移（0-switch）涵蓋要求每個有效轉移至少被執行一次。旋轉柵門有 4 個有效轉移，所以全部 4 個都須被執行（它們可以編織進一個較長的測試中，但 4 個都必須出現）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何者包含何者",
+          "text": "<p>下列狀態式準則之間，哪一個包含（subsumption）關係成立？</p>",
+          "answers": [
+            {
+              "text": "轉移涵蓋包含狀態涵蓋（達成所有轉移就保證所有狀態都被造訪）",
+              "fraction": 100,
+              "feedback": "正確——每個轉移都有來源與目的狀態，所以涵蓋所有轉移就會造訪所有可達狀態。"
+            },
+            {
+              "text": "狀態涵蓋包含轉移涵蓋",
+              "fraction": 0,
+              "feedback": "反過來才對；造訪所有狀態仍可能漏掉轉移。"
+            },
+            {
+              "text": "這兩個準則等價",
+              "fraction": 0,
+              "feedback": "它們不等價；狀態涵蓋嚴格較弱。"
+            },
+            {
+              "text": "兩者互不蘊含",
+              "fraction": 0,
+              "feedback": "它們有關係：轉移涵蓋蘊含狀態涵蓋。"
+            }
+          ],
+          "generalFeedback": "因為執行一個轉移必然進入它的來源與目的狀態，所以達成轉移（0-switch）涵蓋的套件也達成狀態涵蓋。反向不成立：門的例子造訪了所有狀態卻漏掉 unlock 轉移。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "執行單一轉移的準則名稱",
+          "text": "<p>至少執行每一個單一有效轉移一次，且不要求任何連續對，這是哪一個具名準則？</p>",
+          "answers": [
+            {
+              "text": "0-switch（轉移）涵蓋",
+              "fraction": 100,
+              "feedback": "正確——單一轉移對應到 0-switch 涵蓋。"
+            },
+            {
+              "text": "1-switch 涵蓋",
+              "fraction": 0,
+              "feedback": "1-switch 要求連續轉移對，較強。"
+            },
+            {
+              "text": "狀態涵蓋",
+              "fraction": 0,
+              "feedback": "狀態涵蓋只要求造訪狀態，不要求執行轉移。"
+            },
+            {
+              "text": "2-switch 涵蓋",
+              "fraction": 0,
+              "feedback": "2-switch 涵蓋三個轉移的序列，更強。"
+            }
+          ],
+          "generalFeedback": "單一轉移 = 0-switch = 轉移涵蓋。若要求連續對就是 1-switch，三連則是 2-switch。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "1-switch 的定義",
+          "text": "<p><strong>1-switch 涵蓋</strong>究竟要求什麼？</p>",
+          "answers": [
+            {
+              "text": "每一個由兩個連續轉移構成的有效序列至少被執行一次",
+              "fraction": 100,
+              "feedback": "正確——1-switch 涵蓋所有長度為 2 的有效轉移序列。"
+            },
+            {
+              "text": "每一個單一轉移被執行一次",
+              "fraction": 0,
+              "feedback": "那是 0-switch 涵蓋；1-switch 加上了成對的要求。"
+            },
+            {
+              "text": "每個狀態都從至少一個其他狀態被進入",
+              "fraction": 0,
+              "feedback": "那較接近狀態涵蓋；1-switch 關乎的是轉移對。"
+            },
+            {
+              "text": "每個護衛條件都被執行為真與假",
+              "fraction": 0,
+              "feedback": "那是以條件為基礎的概念，不是 1-switch 的定義。"
+            }
+          ],
+          "generalFeedback": "1-switch 涵蓋要求每一對連續轉移（長度為 2 的轉移序列）都被執行。它能捕捉取決於兩個轉移順序的錯誤，而這是 0-switch 可能漏掉的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單一路徑涵蓋所有轉移",
+          "text": "<p>一個狀態機有 4 個有效轉移。測試者找到一條連通的行走，能一個接一個地執行全部 4 個轉移。這條行走包含幾個轉移<strong>步驟</strong>？</p>",
+          "answers": [
+            {
+              "text": "4——每個有效轉移是一步，各執行一次",
+              "fraction": 100,
+              "feedback": "正確——執行每個轉移一次的行走有 4 步。"
+            },
+            {
+              "text": "3——比轉移數少一",
+              "fraction": 0,
+              "feedback": "執行 4 個轉移的行走有 4 步，不是 3。"
+            },
+            {
+              "text": "5——比轉移數多一",
+              "fraction": 0,
+              "feedback": "每個轉移是一步；執行 4 個轉移就是 4 步。"
+            },
+            {
+              "text": "8——因為牽涉到成對",
+              "fraction": 0,
+              "feedback": "成對與 1-switch 有關；這裡只把 4 個轉移各執行一次，所以 4 步。"
+            }
+          ],
+          "generalFeedback": "若一條行走能連續串起全部 4 個轉移，它恰有 4 個轉移步驟（沿途造訪 5 個狀態，含重複）。只有當這些轉移首尾相連時才可能。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "狀態涵蓋漏掉什麼",
+          "text": "<p>某套件達成了狀態機的狀態涵蓋，但未達成轉移涵蓋。它必然漏掉了什麼？</p>",
+          "answers": [
+            {
+              "text": "至少有一個有效轉移從未被執行，即使它的來源與目的狀態都被其他轉移造訪過",
+              "fraction": 100,
+              "feedback": "正確——某個有效轉移被略過，而其端點仍以其他方式被抵達。"
+            },
+            {
+              "text": "至少有一個狀態從未被造訪",
+              "fraction": 0,
+              "feedback": "若有狀態未被造訪，狀態涵蓋就會失敗；此處狀態涵蓋成立。"
+            },
+            {
+              "text": "至少有一個狀態機中不存在的事件",
+              "fraction": 0,
+              "feedback": "涵蓋關乎已定義的轉移，而非不存在的事件。"
+            },
+            {
+              "text": "什麼都沒漏——這兩個準則相同",
+              "fraction": 0,
+              "feedback": "它們不同；轉移涵蓋嚴格較強，所以有東西被漏掉。"
+            }
+          ],
+          "generalFeedback": "達成狀態涵蓋卻未達轉移涵蓋，代表每個狀態都被抵達，但某個有效轉移從未被執行（其端點透過其他轉移被造訪）。門的例子——透過 lock 造訪 Locked，卻從未執行 unlock——正是這種情況。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "數 1-switch 對：旋轉柵門",
+          "text": "<p>旋轉柵門有以下 4 個有效轉移：</p><pre>\nt1: Locked   --coin--> Unlocked\nt2: Locked   --push--> Locked\nt3: Unlocked --coin--> Unlocked\nt4: Unlocked --push--> Locked\n</pre><p>它有幾個有效的 <strong>1-switch</strong> 序列（連續轉移的有序對）？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——每個狀態有 2 個轉入與 2 個轉出，得 2x2 + 2x2 = 8。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是單一轉移（0-switch）的數目，不是成對數。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 是 4x4（所有有序對）；只有前者結束於後者起點的對才算，得 8。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "逐一列出可接合的對：共 8 個，不是 6。"
+            }
+          ],
+          "generalFeedback": "當 target(ti) = source(tj) 時，(ti, tj) 才是有效的 1-switch 對。每個中間狀態的數目 =（轉入數）x（轉出數）。Locked：2 轉入 (t2,t4) x 2 轉出 (t1,t2) = 4；Unlocked：2 轉入 (t1,t3) x 2 轉出 (t3,t4) = 4。合計 4 + 4 = 8。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數 1-switch 對：分支狀態機",
+          "text": "<p>考慮這個狀態機（初始狀態 A）：</p><pre>\n       p        q\nA      B        C\nB      C        -\nC      A        -\n</pre><p>它的有效轉移為 A--p--&gt;B、A--q--&gt;C、B--p--&gt;C、C--p--&gt;A。它有幾個有效的 <strong>1-switch</strong> 序列？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——(A：1 轉入 x 2 轉出) + (B：1 轉入 x 1 轉出) + (C：2 轉入 x 1 轉出) = 2 + 1 + 2 = 5。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是單一轉移的數目；可接合的對有 5 個。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "逐一列出：(A-p,B-p)、(A-q,C-p)、(B-p,C-p)、(C-p,A-p)、(C-p,A-q) = 5，不是 6。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 少算了；C 由兩個轉移抵達，各自都可接上 C--p-->A，多出兩個對。"
+            }
+          ],
+          "generalFeedback": "對每個狀態，對數 =（轉入數）x（轉出數）。A：轉入 {C--p-->A}=1，轉出 {A-p,A-q}=2 -> 2。B：轉入 {A--p-->B}=1，轉出 {B--p-->C}=1 -> 1。C：轉入 {A--q-->C, B--p-->C}=2，轉出 {C--p-->A}=1 -> 2。合計 2+1+2 = 5。明確列出：(A-p,B-p)、(A-q,C-p)、(B-p,C-p)、(C-p,A-p)、(C-p,A-q)。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數 1-switch 對：環狀",
+          "text": "<p>一個狀態機循環經過三個狀態：</p><pre>\nt1: S1 --x--> S2\nt2: S2 --y--> S3\nt3: S3 --z--> S1\n</pre><p>它有幾個有效的 <strong>1-switch</strong> 序列？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——每個狀態恰有 1 轉入與 1 轉出：(t1,t2)、(t2,t3)、(t3,t1) = 3。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 會是所有有序對；只有 3 個能首尾接合。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是 3x3；大多數對無法接上，只剩 3 個有效。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "環會閉合（t3 之後接 t1），因此有 3 個可接合對，不是 2。"
+            }
+          ],
+          "generalFeedback": "每個狀態有 1 轉入與 1 轉出，所以每個狀態的對數 = 1x1，合計 3：(t1,t2)、(t2,t3)，以及 (t3,t1)，因為環會回到 S1。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "找出潛行路徑",
+          "text": "<p>某媒體播放器規格定義：Stopped--play--&gt;Playing、Playing--stop--&gt;Stopped、Playing--pause--&gt;Paused、Paused--play--&gt;Playing。測試時，在 <code>Paused</code> 發送 <code>stop</code> 竟使播放器跳到 Stopped，儘管規格未定義此轉移。這發現了什麼？</p>",
+          "answers": [
+            {
+              "text": "一條潛行路徑——在規格未定義轉移的狀態下卻接受了該事件",
+              "fraction": 100,
+              "feedback": "正確——stop 在 Paused 中未定義，實作卻對它有所反應：一條潛行路徑。"
+            },
+            {
+              "text": "規格遺漏的一個轉移",
+              "fraction": 0,
+              "feedback": "問題在於實作多出一個未規定的轉移，而非規格遺漏——那就是潛行路徑。"
+            },
+            {
+              "text": "某個護衛條件評估錯誤",
+              "fraction": 0,
+              "feedback": "此處沒有護衛條件；stop 只是在 Paused 未定義，卻仍觸發。"
+            },
+            {
+              "text": "一個 1-switch 涵蓋缺口",
+              "fraction": 0,
+              "feedback": "這是多出的轉移，不是漏掉的對；它是潛行路徑，由負向測試偵測。"
+            }
+          ],
+          "generalFeedback": "規格沒有 Paused--stop--> 轉移，所以正確行為是在 Paused 忽略或拒絕 stop。實作卻轉移到 Stopped——一個不該有的多出轉移，即潛行路徑，而負向測試（發送未定義事件）正是為了揭露它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 0-switch 漏掉某錯誤",
+          "text": "<p>某錯誤只在轉移 B <strong>緊接</strong>在轉移 A 之後被執行時才出現（A-然後-B 這一對會破壞狀態），但 A 與 B 各自單獨執行都正常。要可靠地逼出此錯誤需要哪一個涵蓋層級，為什麼？</p>",
+          "answers": [
+            {
+              "text": "1-switch 涵蓋——它執行連續的轉移對，因此保證會測到 A-然後-B 的序列",
+              "fraction": 100,
+              "feedback": "正確——此錯誤取決於某個特定的對，而 1-switch（長度 2 的序列）會強制執行它。"
+            },
+            {
+              "text": "狀態涵蓋——造訪兩個端點狀態就會觸發它",
+              "fraction": 0,
+              "feedback": "造訪狀態不會強制 A-然後-B 這個特定順序；錯誤仍可能被漏掉。"
+            },
+            {
+              "text": "0-switch 涵蓋——各執行 A 與 B 一次就足夠",
+              "fraction": 0,
+              "feedback": "0-switch 可能在不同測試中分別執行 A 與 B，從未相鄰，因此可能漏掉這個成對錯誤。"
+            },
+            {
+              "text": "沒有任何涵蓋層級能找到它",
+              "fraction": 0,
+              "feedback": "1-switch 正是為了捕捉這類與順序相關的成對錯誤而設計。"
+            }
+          ],
+          "generalFeedback": "0-switch 涵蓋只要求每個轉移各一次；A 與 B 可能在不同測試中執行、從不相鄰。此錯誤需要有序對 A-然後-B，而這正是 1-switch 涵蓋所要求的——涵蓋每一個有效的長度 2 轉移序列。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "抵達 Blocked 的序列（護衛條件）",
+          "text": "<p>一個登入狀態機（初始狀態 LoggedOut，嘗試計數器從 0 起算）：</p><pre>\nLoggedOut --submit[valid]--> LoggedIn\nLoggedOut --submit[invalid & attempts<2]--> LoggedOut  (attempts++)\nLoggedOut --submit[invalid & attempts==2]--> Blocked\nLoggedIn  --logout--> LoggedOut\nBlocked   --adminReset--> LoggedOut\n</pre><p>哪一個事件序列能抵達 <code>Blocked</code>？</p>",
+          "answers": [
+            {
+              "text": "submit[invalid]、submit[invalid]、submit[invalid]——三次無效嘗試",
+              "fraction": 100,
+              "feedback": "正確——attempts 由 0->1（停留）、1->2（停留），第三次無效 submit 時 attempts==2 便前往 Blocked。"
+            },
+            {
+              "text": "submit[invalid]、submit[invalid]——兩次無效嘗試",
+              "fraction": 0,
+              "feedback": "兩次無效 submit 後 attempts==2，但狀態機仍在 LoggedOut；還需第三次無效 submit 才會抵達 Blocked。"
+            },
+            {
+              "text": "submit[valid]、logout、submit[invalid]",
+              "fraction": 0,
+              "feedback": "submit[valid] 前往 LoggedIn，logout 回到 LoggedOut 且 attempts 仍為 0，因此一次無效 submit 只會把計數增為 1——不是 Blocked。"
+            },
+            {
+              "text": "submit[invalid]、adminReset",
+              "fraction": 0,
+              "feedback": "adminReset 只在 Blocked 有定義，而狀態機尚未抵達；此序列無效。"
+            }
+          ],
+          "generalFeedback": "依 attempts 上的護衛條件追蹤：第一次無效 submit（attempts 0->1，停留 LoggedOut）、第二次無效 submit（attempts 1->2，停留 LoggedOut）、第三次無效 submit（此時 attempts==2，因此護衛條件 [invalid & attempts==2] 觸發）-> Blocked。需要三次無效嘗試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對未定義事件的負向測試",
+          "text": "<p>對此登入狀態機，<code>logout</code> 只在 <code>LoggedIn</code> 有定義。測試者在 <code>LoggedOut</code> 發送 <code>logout</code>。這個<strong>負向測試</strong>的正確預期結果為何？</p>",
+          "answers": [
+            {
+              "text": "事件被拒絕／忽略：狀態機停留在 LoggedOut（不改變狀態），可能伴隨錯誤",
+              "fraction": 100,
+              "feedback": "正確——未定義事件應維持狀態不變（或引發錯誤），絕不應悄悄轉移。"
+            },
+            {
+              "text": "狀態機轉移到 LoggedIn",
+              "fraction": 0,
+              "feedback": "那會是潛行路徑；logout 在 LoggedOut 未定義，絕不應造成轉移。"
+            },
+            {
+              "text": "狀態機轉移到 Blocked",
+              "fraction": 0,
+              "feedback": "Blocked 只能透過護衛條件下的失敗 submit 抵達；logout 沒有這種效果。"
+            },
+            {
+              "text": "嘗試計數器歸零且狀態改變",
+              "fraction": 0,
+              "feedback": "logout 在 LoggedOut 未定義；正確行為是不改變狀態，而不是計數歸零並轉移。"
+            }
+          ],
+          "generalFeedback": "負向測試發送在當前狀態未定義的事件，以檢查潛行路徑。由於 logout 在 LoggedOut 未定義，正確的實作會忽略或拒絕它並停留在 LoggedOut——任何由此產生的轉移都會是潛行路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數有效轉移：分支狀態機",
+          "text": "<p>對這個表格（「-」= 未定義）：</p><pre>\n       p        q\nA      B        C\nB      C        -\nC      A        -\n</pre><p>此狀態機有幾個有效轉移？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——A/p、A/q、B/p、C/p 有定義；B 與 C 的兩個 q 格是破折號。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 數了全部格子；其中兩個（B/q、C/q）是破折號，只剩 4 個有效轉移。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是狀態數；有效轉移有 4 個。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是此狀態機的 1-switch 對數，不是單一轉移數（4）。"
+            }
+          ],
+          "generalFeedback": "數非破折號格子：A--p-->B、A--q-->C、B--p-->C、C--p-->A = 4 個有效轉移。B/q 與 C/q 格是破折號（未定義）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "n-switch 的一般定義",
+          "text": "<p>在 Chow 的 switch 涵蓋階層中，<strong>n-switch</strong> 涵蓋要求什麼？</p>",
+          "answers": [
+            {
+              "text": "每一個由 n+1 個連續轉移構成的有效序列都被執行",
+              "fraction": 100,
+              "feedback": "正確——n-switch 涵蓋長度 n+1 的轉移序列；0-switch 是單一轉移，1-switch 是成對。"
+            },
+            {
+              "text": "每一個恰由 n 個轉移構成的有效序列都被執行",
+              "fraction": 0,
+              "feedback": "差一：n-switch 涵蓋 n+1 個轉移，所以 0-switch 是 1 個轉移。"
+            },
+            {
+              "text": "每個狀態至少被造訪 n 次",
+              "fraction": 0,
+              "feedback": "switch 涵蓋計算的是轉移序列長度，而非重複的狀態造訪。"
+            },
+            {
+              "text": "圖中每一條長度為 n 的路徑，不管是否有效",
+              "fraction": 0,
+              "feedback": "只有有效（已定義）的轉移序列才算，且長度為 n+1。"
+            }
+          ],
+          "generalFeedback": "n-switch 涵蓋要求每一個由 n+1 個連續轉移構成的有效序列。因此 0-switch = 單一轉移，1-switch = 成對，2-switch = 三連。Chow 的 W 方法即以此為基礎來偵測狀態機中的錯誤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "涵蓋所需最少轉移：環狀",
+          "text": "<p>一個環狀狀態機有轉移 S1--x--&gt;S2、S2--y--&gt;S3、S3--z--&gt;S1。從 S1 開始，達成<strong>轉移涵蓋</strong>所需的最少轉移步驟數為何？</p>",
+          "answers": [
+            {
+              "text": "3——x、y、z 執行全部三個轉移並回到 S1",
+              "fraction": 100,
+              "feedback": "正確——三個轉移串成一條長度 3 的行走，全部涵蓋。"
+            },
+            {
+              "text": "2——一條兩個轉移的行走就足夠",
+              "fraction": 0,
+              "feedback": "兩步只涵蓋三個轉移中的兩個；第三個被漏掉。"
+            },
+            {
+              "text": "6——每個轉移須執行兩次",
+              "fraction": 0,
+              "feedback": "轉移涵蓋要求每個轉移各一次；3 步就足夠。"
+            },
+            {
+              "text": "4——你必須回到起點兩次",
+              "fraction": 0,
+              "feedback": "x、y、z 已在 3 步內回到 S1 並涵蓋所有內容。"
+            }
+          ],
+          "generalFeedback": "這些轉移連成 S1->S2->S3->S1，所以行走 x、y、z（3 步）各執行三個轉移一次並回到起點。這是轉移涵蓋的最小值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有效與無效的 1-switch 對",
+          "text": "<p>對旋轉柵門的轉移 t1: Locked--coin--&gt;Unlocked、t2: Locked--push--&gt;Locked、t3: Unlocked--coin--&gt;Unlocked、t4: Unlocked--push--&gt;Locked，哪一個有序對是<strong>有效</strong>的 1-switch 序列？</p>",
+          "answers": [
+            {
+              "text": "(t1, t4)——t1 結束於 Unlocked，t4 起始於 Unlocked",
+              "fraction": 100,
+              "feedback": "正確——target(t1)=Unlocked=source(t4)，因此該對能有效接合。"
+            },
+            {
+              "text": "(t1, t2)——t1 然後 t2",
+              "fraction": 0,
+              "feedback": "t1 結束於 Unlocked，但 t2 起始於 Locked，因此無法接合。"
+            },
+            {
+              "text": "(t4, t3)——t4 然後 t3",
+              "fraction": 0,
+              "feedback": "t4 結束於 Locked，但 t3 起始於 Unlocked，因此此對無法接合。"
+            },
+            {
+              "text": "(t2, t4)——t2 然後 t4",
+              "fraction": 0,
+              "feedback": "t2 結束於 Locked，但 t4 起始於 Unlocked，因此兩者無法連接。"
+            }
+          ],
+          "generalFeedback": "只有當 target(ti) = source(tj) 時，1-switch 對 (ti, tj) 才有效。t1 結束於 Unlocked 且 t4 起始於 Unlocked，所以 (t1, t4) 有效。其他選項都在接合點斷開。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "護衛條件決定哪個轉移觸發",
+          "text": "<p>從狀態 <code>LoggedOut</code>，此登入狀態機在同一事件 <code>submit</code> 上有兩個轉移：一個以 <code>[valid]</code> 為護衛條件通往 LoggedIn，另一個以 <code>[invalid & attempts<2]</code> 為護衛條件回到 LoggedOut。若 <code>submit</code> 以正確憑證發生，哪一個轉移會觸發？</p>",
+          "answers": [
+            {
+              "text": "通往 LoggedIn 的 [valid] 轉移，因為它的護衛條件成立",
+              "fraction": 100,
+              "feedback": "正確——同一事件下，由成立的護衛條件挑選轉移。"
+            },
+            {
+              "text": "兩個轉移同時觸發",
+              "fraction": 0,
+              "feedback": "此處護衛條件互斥；只有護衛條件成立的轉移會觸發。"
+            },
+            {
+              "text": "[invalid] 轉移，因為它列在 LoggedOut",
+              "fraction": 0,
+              "feedback": "它的護衛條件要求無效憑證，此處為假，因此不會觸發。"
+            },
+            {
+              "text": "都不會，因為兩個轉移共用同一事件",
+              "fraction": 0,
+              "feedback": "當護衛條件能區分時，共用事件是可以的；[valid] 護衛條件成立，因此該轉移觸發。"
+            }
+          ],
+          "generalFeedback": "當數個轉移在同一事件上離開一個狀態時，由護衛條件挑選哪一個觸發。憑證正確時 [valid] 護衛條件為真而 [invalid ...] 護衛條件為假，因此狀態機轉移到 LoggedIn。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "1-switch 包含 0-switch",
+          "text": "<p>達成 1-switch 涵蓋就自動達成 0-switch（轉移）涵蓋，因為每一對連續轉移都包含它的兩個成員轉移。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——涵蓋所有有效對代表每個轉移都出現在某一對中，因此所有單一轉移都被執行。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "1-switch 確實包含 0-switch：任何可達轉移都至少屬於一個被涵蓋的對，因此都被執行。"
+            }
+          ],
+          "generalFeedback": "1-switch 涵蓋比 0-switch 強。執行每一個有效的長度 2 序列必然執行其構成的每個轉移，因此 1-switch 包含 0-switch（而後者又包含狀態涵蓋）。"
+        },
+        {
+          "type": "multichoice",
+          "name": "轉移涵蓋長度：門",
+          "text": "<p>門控制器有 4 個有效轉移：Closed--open--&gt;Open、Open--close--&gt;Closed、Closed--lock--&gt;Locked、Locked--unlock--&gt;Closed。從 Closed 開始，達成轉移涵蓋的單一行走最少有幾個轉移步驟？</p>",
+          "answers": [
+            {
+              "text": "4——open、close、lock、unlock 串起全部四個並回到 Closed",
+              "fraction": 100,
+              "feedback": "正確——四個轉移都經過 Closed，所以一條 4 步行走就能全部涵蓋。"
+            },
+            {
+              "text": "3——三步就足夠",
+              "fraction": 0,
+              "feedback": "三步只執行三個轉移；第四個被漏掉。"
+            },
+            {
+              "text": "5——多出一步無可避免",
+              "fraction": 0,
+              "feedback": "由於每個轉移都經過 Closed，它們恰好串成 4 步，無需重複。"
+            },
+            {
+              "text": "8——每個轉移都需重訪",
+              "fraction": 0,
+              "feedback": "轉移涵蓋要求每個轉移各一次；此處 4 步就足夠。"
+            }
+          ],
+          "generalFeedback": "四個轉移都連到 Closed，所以行走 open (Closed->Open)、close (Open->Closed)、lock (Closed->Locked)、unlock (Locked->Closed) 將它們串成單一 4 步巡訪，各涵蓋每個轉移一次——即最小值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數 1-switch 對：門",
+          "text": "<p>門控制器有以下 4 個有效轉移：</p><pre>\nd1: Closed --open--> Open\nd2: Closed --lock--> Locked\nd3: Open   --close--> Closed\nd4: Locked --unlock--> Closed\n</pre><p>它有幾個有效的 <strong>1-switch</strong> 序列（連續轉移的有序對）？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——Closed 有 2 轉入 x 2 轉出 = 4，Open 有 1 轉入 x 1 轉出 = 1，Locked 有 1 轉入 x 1 轉出 = 1；合計 6。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是單一轉移（0-switch）的數目，不是可接合的對。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是旋轉柵門的對數；逐一列出此門的對得 6。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Closed 由 d3 與 d4 進入、由 d1 與 d2 離開，單是經過 Closed 就有 4 個對；總數是 6，不是 5。"
+            }
+          ],
+          "generalFeedback": "對每個狀態，對數 =（轉入數）x（轉出數）。Closed：轉入 {d3, d4}=2，轉出 {d1, d2}=2 -> 4。Open：轉入 {d1}=1，轉出 {d3}=1 -> 1。Locked：轉入 {d2}=1，轉出 {d4}=1 -> 1。合計 4+1+1 = 6。明確列出：(d3,d1)、(d3,d2)、(d4,d1)、(d4,d2)、(d1,d3)、(d2,d4)。",
+          "single": true
+        }
+      ]
+    }
+  },
   "symbolic-execution": {
     "en": {
       "easy": [
@@ -37645,6 +50345,2556 @@ export const QUIZ_RENDERED = {
             }
           ],
           "generalFeedback": "當迭代次數為符號化時，探索 0、1、2、… 次迭代會產生越來越多路徑且無有限上限，故引擎以有界展開（或迴圈摘要）封住探索。"
+        }
+      ]
+    }
+  },
+  "test-generation": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What automated test generation is",
+          "text": "<p>What does <strong>automated test generation</strong> primarily do?</p>",
+          "answers": [
+            {
+              "text": "It uses an algorithm to produce test inputs (and often test cases) automatically, instead of a human writing each one by hand",
+              "fraction": 100,
+              "feedback": "Correct — the aim is to synthesize inputs/cases mechanically rather than hand-authoring every one."
+            },
+            {
+              "text": "It automatically decides whether every generated test passed or failed without any oracle",
+              "fraction": 0,
+              "feedback": "Deciding pass/fail is the oracle problem, which generation does not solve on its own."
+            },
+            {
+              "text": "It compiles the program under test into an optimized binary",
+              "fraction": 0,
+              "feedback": "That is a compiler; test generation produces inputs/cases, not machine code."
+            },
+            {
+              "text": "It formally proves the program has no defects",
+              "fraction": 0,
+              "feedback": "Generation finds or exercises behavior; it does not prove correctness."
+            }
+          ],
+          "generalFeedback": "Automated test generation replaces the manual authoring of test inputs with an algorithm — random, search-based, symbolic, model-based, or combinatorial. It produces the inputs (and often the calling sequence); deciding whether the observed behavior is correct still needs a separate oracle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Random test generation",
+          "text": "<p>What characterizes <strong>random test generation</strong>?</p>",
+          "answers": [
+            {
+              "text": "It samples inputs from the input domain at random, cheaply and without using any feedback about what the program did",
+              "fraction": 100,
+              "feedback": "Correct — random generation is cheap and simple precisely because it ignores program feedback."
+            },
+            {
+              "text": "It solves path conditions with a constraint solver to reach specific branches",
+              "fraction": 0,
+              "feedback": "That describes symbolic/concolic generation, not random generation."
+            },
+            {
+              "text": "It evolves a population of inputs guided by a fitness function",
+              "fraction": 0,
+              "feedback": "That is search-based generation; random generation uses no fitness guidance."
+            },
+            {
+              "text": "It derives inputs from a finite-state model of the specification",
+              "fraction": 0,
+              "feedback": "That is model-based generation; random generation ignores any model."
+            }
+          ],
+          "generalFeedback": "Random generation picks inputs from the domain at random. It is cheap, easy to implement, and needs no analysis, but it is blind: it gets no feedback and so struggles to satisfy narrow conditions that only a tiny fraction of inputs meet.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Random vs directed generation",
+          "text": "<p>How does <strong>directed</strong> (guided) generation differ from <strong>random</strong> generation?</p>",
+          "answers": [
+            {
+              "text": "Directed generation uses information about the program (coverage, path conditions, or a fitness signal) to steer inputs toward a goal, while random generation samples blindly",
+              "fraction": 100,
+              "feedback": "Correct — the distinction is whether feedback about the program guides input selection."
+            },
+            {
+              "text": "Directed generation is always cheaper than random generation",
+              "fraction": 0,
+              "feedback": "Directed methods usually cost more per input (analysis, solving, evaluation); their benefit is reaching hard targets, not lower cost."
+            },
+            {
+              "text": "Random generation guarantees higher coverage than directed generation",
+              "fraction": 0,
+              "feedback": "Random generation often plateaus on hard-to-reach code; directed methods exist precisely to beat that."
+            },
+            {
+              "text": "Directed generation never needs an oracle, but random generation does",
+              "fraction": 0,
+              "feedback": "Both need an oracle to decide correctness; neither escapes the oracle problem."
+            }
+          ],
+          "generalFeedback": "Directed (guided) generation exploits feedback — coverage, path constraints, or a fitness value — to move inputs toward an objective such as an uncovered branch. Random generation ignores such feedback. Directed methods usually pay more per input but can reach targets random sampling almost never hits.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test oracle is",
+          "text": "<p>In test generation, what is a <strong>test oracle</strong>?</p>",
+          "answers": [
+            {
+              "text": "The mechanism that decides whether the program's behavior on a given input is correct",
+              "fraction": 100,
+              "feedback": "Correct — the oracle is what judges pass/fail; it is separate from generating the input."
+            },
+            {
+              "text": "The algorithm that generates the input values",
+              "fraction": 0,
+              "feedback": "That is the generator; the oracle judges the resulting behavior, it does not produce inputs."
+            },
+            {
+              "text": "The coverage metric used to measure a test suite",
+              "fraction": 0,
+              "feedback": "Coverage measures how much code ran; the oracle decides whether the output was correct."
+            },
+            {
+              "text": "The random seed used to make a run reproducible",
+              "fraction": 0,
+              "feedback": "A seed makes generation repeatable; it does not decide correctness."
+            }
+          ],
+          "generalFeedback": "A test oracle is whatever decides whether the observed behavior for an input is acceptable — an assertion, an expected value, a reference implementation, or a metamorphic relation. Generating an input is one problem; deciding whether the result is correct is the separate oracle problem.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a fitness function is",
+          "text": "<p>In search-based test generation, what is a <strong>fitness function</strong>?</p>",
+          "answers": [
+            {
+              "text": "A numeric measure of how close a candidate test is to achieving the goal, used to guide the search toward better tests",
+              "fraction": 100,
+              "feedback": "Correct — fitness scores candidates so the search can prefer and refine the promising ones."
+            },
+            {
+              "text": "A boolean that is only true when the goal is already reached",
+              "fraction": 0,
+              "feedback": "A pure boolean gives no gradient; effective fitness varies smoothly so the search knows which candidates are closer."
+            },
+            {
+              "text": "The oracle that decides whether the output is correct",
+              "fraction": 0,
+              "feedback": "Fitness measures progress toward a coverage goal; the oracle judges correctness — different roles."
+            },
+            {
+              "text": "The random seed passed to the input generator",
+              "fraction": 0,
+              "feedback": "The seed controls reproducibility, not how good a candidate is."
+            }
+          ],
+          "generalFeedback": "A fitness function maps a candidate test to a number saying how near it is to the objective (for example, reaching a target branch). A good fitness function provides a gradient — it improves gradually as tests get closer — so a metaheuristic can climb toward the goal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Search-based software testing",
+          "text": "<p>What is <strong>search-based software testing (SBST)</strong>?</p>",
+          "answers": [
+            {
+              "text": "It reformulates test generation as an optimization problem and uses a metaheuristic (e.g. hill-climbing or a genetic algorithm) guided by a fitness function to search for tests that meet a goal",
+              "fraction": 100,
+              "feedback": "Correct — SBST turns \"find a good test\" into \"optimize this fitness function.\""
+            },
+            {
+              "text": "It exhaustively enumerates every possible input to the program",
+              "fraction": 0,
+              "feedback": "Exhaustive enumeration is usually infeasible; SBST searches selectively using fitness guidance."
+            },
+            {
+              "text": "It searches the source code for syntax errors before compilation",
+              "fraction": 0,
+              "feedback": "SBST searches the space of tests, not the source for syntax errors."
+            },
+            {
+              "text": "It queries a constraint solver for every branch condition",
+              "fraction": 0,
+              "feedback": "That is symbolic/concolic generation; SBST uses metaheuristic search driven by fitness."
+            }
+          ],
+          "generalFeedback": "SBST casts test generation as optimization: a candidate test is a point in a search space, a fitness function scores it against the goal, and a metaheuristic (hill-climbing, genetic algorithms, etc.) iteratively improves candidates toward a target such as covering a branch.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model-based test generation",
+          "text": "<p>What is <strong>model-based test generation</strong>?</p>",
+          "answers": [
+            {
+              "text": "Deriving tests automatically from a model of intended behavior, such as a finite-state machine or formal specification",
+              "fraction": 100,
+              "feedback": "Correct — the tests come from traversing/analyzing a behavioral model."
+            },
+            {
+              "text": "Building a machine-learning model that predicts which tests will fail",
+              "fraction": 0,
+              "feedback": "That is failure prediction, not deriving tests from a behavioral model."
+            },
+            {
+              "text": "Randomly mutating the source code to create faulty versions",
+              "fraction": 0,
+              "feedback": "That is mutation testing; model-based generation derives tests from a spec/FSM."
+            },
+            {
+              "text": "Measuring how many model elements a hand-written suite covers",
+              "fraction": 0,
+              "feedback": "That is model coverage measurement; generation produces the tests from the model."
+            }
+          ],
+          "generalFeedback": "Model-based test generation starts from a model of the system's intended behavior — commonly a finite-state machine, statechart, or formal specification — and derives test sequences from it, for example paths that cover every transition. The model can also supply expected results, helping with the oracle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a coverage target is",
+          "text": "<p>In coverage-driven generation, what is a <strong>coverage target</strong>?</p>",
+          "answers": [
+            {
+              "text": "A specific program element the generator is trying to exercise, such as a particular branch, statement, or path",
+              "fraction": 100,
+              "feedback": "Correct — the target is the concrete element the search is aiming to cover."
+            },
+            {
+              "text": "The total wall-clock time budget allowed for the whole run",
+              "fraction": 0,
+              "feedback": "That is a time budget, not a coverage target."
+            },
+            {
+              "text": "The oracle that decides whether the output is correct",
+              "fraction": 0,
+              "feedback": "The target is an element to reach; the oracle judges correctness separately."
+            },
+            {
+              "text": "The number of test cases the suite must contain",
+              "fraction": 0,
+              "feedback": "That is a suite-size constraint, not a coverage goal."
+            }
+          ],
+          "generalFeedback": "A coverage target is a concrete program element the generator wants a test to exercise — a branch, statement, condition, or path. Coverage-driven generation picks uncovered targets and searches for inputs that reach them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symbolic/path-based generation",
+          "text": "<p>How does <strong>symbolic (path-based)</strong> test generation obtain an input that follows a chosen path?</p>",
+          "answers": [
+            {
+              "text": "It builds the path condition — the conjunction of branch constraints along the path — and solves it with a constraint solver to get concrete input values",
+              "fraction": 100,
+              "feedback": "Correct — solving the path condition yields inputs that drive execution down that path."
+            },
+            {
+              "text": "It flips random bits in an existing input until the path changes",
+              "fraction": 0,
+              "feedback": "That is mutation-style fuzzing, not symbolic solving of a path condition."
+            },
+            {
+              "text": "It evolves a population of inputs with a genetic algorithm",
+              "fraction": 0,
+              "feedback": "That is search-based generation; symbolic generation solves constraints instead."
+            },
+            {
+              "text": "It measures coverage of an existing suite and reports the gaps",
+              "fraction": 0,
+              "feedback": "That is coverage measurement, not input synthesis by constraint solving."
+            }
+          ],
+          "generalFeedback": "Symbolic (path-based) generation treats inputs as symbols, tracks the constraints imposed by each branch along a path (the path condition), and asks a constraint/SMT solver for concrete values satisfying it. Those values drive the program down the intended path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combinatorial test generation",
+          "text": "<p>What is the idea behind <strong>combinatorial</strong> test generation (e.g. pairwise)?</p>",
+          "answers": [
+            {
+              "text": "It systematically covers combinations of parameter values (e.g. every pair) with far fewer tests than trying every full combination",
+              "fraction": 100,
+              "feedback": "Correct — combinatorial generation guarantees interaction coverage while keeping the test count small."
+            },
+            {
+              "text": "It runs every possible combination of all parameter values exhaustively",
+              "fraction": 0,
+              "feedback": "Exhaustive combination explodes; combinatorial methods cover interactions (like all pairs) with a small set instead."
+            },
+            {
+              "text": "It solves the path condition of each program path",
+              "fraction": 0,
+              "feedback": "That is symbolic generation; combinatorial generation works over parameter-value combinations."
+            },
+            {
+              "text": "It selects inputs purely at random from the domain",
+              "fraction": 0,
+              "feedback": "Combinatorial generation is systematic about interactions, not random."
+            }
+          ],
+          "generalFeedback": "Combinatorial test generation covers interactions among parameters — most commonly all pairs (pairwise / 2-way) — using a small, systematically constructed set of tests. It rests on the observation that many defects are triggered by a small number of interacting parameters, so covering low-order combinations catches many of them cheaply.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Test as an individual in SBST",
+          "text": "<p>In search-based test generation, a candidate test can be represented as an \"individual\" that a metaheuristic evaluates with a fitness function and evolves toward the goal.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — encoding a test as an individual scored by fitness is exactly how SBST applies metaheuristic search."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "SBST does encode a test as an individual (a point in the search space) and uses fitness to guide its evolution."
+            }
+          ],
+          "generalFeedback": "SBST borrows optimization vocabulary: a candidate test is an \"individual\" (or chromosome), its quality is a fitness value, and operators like mutation and crossover produce new candidates that the search selects among to approach the goal."
+        },
+        {
+          "type": "multichoice",
+          "name": "Seeding in test generation",
+          "text": "<p>What does <strong>seeding</strong> mean in test generation?</p>",
+          "answers": [
+            {
+              "text": "Starting the generator from useful prior information — such as constants from the code or existing tests — rather than from nothing",
+              "fraction": 100,
+              "feedback": "Correct — seeding injects known-useful values to give the search a head start."
+            },
+            {
+              "text": "Deleting redundant tests once generation finishes",
+              "fraction": 0,
+              "feedback": "That is minimization/reduction, not seeding."
+            },
+            {
+              "text": "Fixing the random seed only so runs are reproducible",
+              "fraction": 0,
+              "feedback": "A random seed governs reproducibility; seeding here means supplying useful starting values."
+            },
+            {
+              "text": "Deciding whether each generated output is correct",
+              "fraction": 0,
+              "feedback": "That is the oracle's job, unrelated to seeding."
+            }
+          ],
+          "generalFeedback": "Seeding supplies the generator with promising starting material — constants and string literals mined from the source, values from existing or regression tests, or a prior corpus — so the search does not begin blind. For instance, seeding the literal 42 lets a search satisfyfar sooner.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test-suite minimization",
+          "text": "<p>What is <strong>test-suite minimization</strong> (reduction)?</p>",
+          "answers": [
+            {
+              "text": "Removing redundant tests to obtain a smaller suite that still meets a chosen criterion, such as retaining the same coverage",
+              "fraction": 100,
+              "feedback": "Correct — minimization shrinks the suite while preserving a stated property like coverage."
+            },
+            {
+              "text": "Generating as many tests as possible to maximize the suite size",
+              "fraction": 0,
+              "feedback": "That is the opposite; minimization removes redundancy rather than adding tests."
+            },
+            {
+              "text": "Deciding whether each test's output is correct",
+              "fraction": 0,
+              "feedback": "That is the oracle's job, not minimization."
+            },
+            {
+              "text": "Solving path conditions to reach uncovered branches",
+              "fraction": 0,
+              "feedback": "That is symbolic generation; minimization prunes an existing suite."
+            }
+          ],
+          "generalFeedback": "Test-suite minimization removes tests judged redundant with respect to a criterion — typically keeping the same coverage with fewer tests. It lowers execution cost, but because it optimizes for coverage rather than fault detection, it can drop tests that would have caught real faults.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Generation is not verification",
+          "text": "<p>Automatically generating test inputs also automatically determines whether the program's output is correct.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "No — generating an input is separate from judging its output; deciding correctness needs an oracle."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — generation produces inputs but does not by itself decide correctness; that is the oracle problem."
+            }
+          ],
+          "generalFeedback": "Producing an input that reaches some behavior does not tell you whether that behavior is right. Deciding correctness is the separate oracle problem, and it is what keeps fully automated testing hard: generation is easy compared with verification."
+        },
+        {
+          "type": "multichoice",
+          "name": "Metamorphic relation as an oracle",
+          "text": "<p>What is a <strong>metamorphic relation</strong> used as a test oracle?</p>",
+          "answers": [
+            {
+              "text": "A relation between the outputs of related inputs that must hold even when the exact expected output is unknown",
+              "fraction": 100,
+              "feedback": "Correct — it checks a required relationship rather than a single expected value."
+            },
+            {
+              "text": "The single exact expected output value for one specific input",
+              "fraction": 0,
+              "feedback": "That is a conventional expected-value oracle; a metamorphic relation avoids needing the exact value."
+            },
+            {
+              "text": "A random seed relating two runs of the generator",
+              "fraction": 0,
+              "feedback": "A seed concerns reproducibility, not a correctness relation between outputs."
+            },
+            {
+              "text": "A coverage relation between two branches of the program",
+              "fraction": 0,
+              "feedback": "Metamorphic relations relate outputs of related inputs, not coverage of branches."
+            }
+          ],
+          "generalFeedback": "A metamorphic relation states how outputs of related inputs must relate — e.g.should equal, or sorting a permuted list should give the same result. It provides a partial oracle when the exact expected output is unknown, easing the oracle problem for automatically generated inputs.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Why random struggles with narrow guards",
+          "text": "<p>Why does random generation struggle to satisfy a narrow condition like <code>if (x == 42)</code> for a 32-bit integer <code>x</code>?</p>",
+          "answers": [
+            {
+              "text": "Only one value out of about four billion satisfies it, so a blind random draw almost never hits it",
+              "fraction": 100,
+              "feedback": "Correct — the satisfying set is a vanishing fraction of the domain, and random sampling has no way to home in on it."
+            },
+            {
+              "text": "Random generators cannot produce the integer 42 at all",
+              "fraction": 0,
+              "feedback": "They can produce 42; the problem is the probability is astronomically low, not that the value is impossible."
+            },
+            {
+              "text": "Equality comparisons are undefined for integers",
+              "fraction": 0,
+              "feedback": "Integer equality is perfectly well-defined; the difficulty is purely the low hit probability."
+            },
+            {
+              "text": "Random generation always gets stuck in an infinite loop on such guards",
+              "fraction": 0,
+              "feedback": "It does not loop forever; it simply keeps drawing values that overwhelmingly miss the single target."
+            }
+          ],
+          "generalFeedback": "An exact-equality guard is satisfied by a tiny fraction of the domain (one value in ~4 billion for a 32-bit int). Random sampling gets no feedback telling it whether it is getting closer, so its chance of hitting the target per draw is negligible. Directed methods — seeding the constant, solving, or using a distance-based fitness — reach it far more reliably.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Branch distance guiding the search",
+          "text": "<p>For the target <code>if (x == 42)</code>, how does a <strong>branch-distance</strong> fitness function guide a search toward taking the true branch?</p>",
+          "answers": [
+            {
+              "text": "It scores a candidate by how faris from 42 (e.g. |x - 42|), so the search gets a gradient rewarding inputs that move closer",
+              "fraction": 100,
+              "feedback": "Correct — turning the predicate into a distance gives the search something to minimize."
+            },
+            {
+              "text": "It returns 1 if the branch is taken and 0 otherwise, giving the search a clear signal",
+              "fraction": 0,
+              "feedback": "A pure 0/1 signal gives no gradient — the search cannot tell x=41 is better than x=1000; branch distance provides exactly that gradient."
+            },
+            {
+              "text": "It solves the constraintwith an SMT solver",
+              "fraction": 0,
+              "feedback": "That is symbolic solving; branch-distance fitness is the search-based alternative that measures nearness numerically."
+            },
+            {
+              "text": "It counts how many statements the candidate executed in total",
+              "fraction": 0,
+              "feedback": "Total statements executed does not measure closeness to satisfying the specific predicate."
+            }
+          ],
+          "generalFeedback": "Branch distance converts a predicate into a number measuring how near an input is to flipping the branch. Fora natural distance is |x - 42|: smaller means closer. The search minimizes this distance, so it can tell that x=41 is far better than x=1000 and climb toward the target — something a flat 0/1 signal cannot support.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Stating the oracle problem",
+          "text": "<p>Which statement best captures the <strong>test oracle problem</strong>?</p>",
+          "answers": [
+            {
+              "text": "Generating inputs is comparatively easy, but deciding whether the resulting behavior is correct is hard and often needs human-supplied knowledge",
+              "fraction": 100,
+              "feedback": "Correct — the hard part is judging correctness, not producing inputs."
+            },
+            {
+              "text": "It is impossible to generate any input that reaches deep code",
+              "fraction": 0,
+              "feedback": "Reaching deep code is a coverage/generation challenge; the oracle problem is about judging correctness."
+            },
+            {
+              "text": "Constraint solvers are too slow to solve any path condition",
+              "fraction": 0,
+              "feedback": "Solver performance is a symbolic-execution concern, not the oracle problem."
+            },
+            {
+              "text": "Random generation always outperforms directed generation",
+              "fraction": 0,
+              "feedback": "That is a false claim about generation strategies, unrelated to the oracle problem."
+            }
+          ],
+          "generalFeedback": "The oracle problem is that, even with an input in hand, deciding whether the program's response is correct generally requires knowing the intended behavior — an expected value, an assertion, a reference, or a relation. Because this knowledge is expensive to obtain, the oracle, not input generation, is usually the bottleneck for fully automated testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symbolic vs random vs search-based",
+          "text": "<p>Which correctly summarizes a trade-off among <strong>random</strong>, <strong>search-based</strong>, and <strong>symbolic</strong> generation for reaching a hard branch?</p>",
+          "answers": [
+            {
+              "text": "Random is cheapest but blind; search-based needs a fitness gradient to climb; symbolic can solve exact conditions but may hit solver limits and path explosion",
+              "fraction": 100,
+              "feedback": "Correct — each buys reach with a different cost and failure mode."
+            },
+            {
+              "text": "All three are equally effective and have identical costs",
+              "fraction": 0,
+              "feedback": "They differ sharply: random is cheap/blind, search-based needs gradient, symbolic needs a tractable solver."
+            },
+            {
+              "text": "Symbolic generation never needs a constraint solver",
+              "fraction": 0,
+              "feedback": "Solving path conditions with a solver is the essence of symbolic generation."
+            },
+            {
+              "text": "Search-based generation works equally well regardless of the fitness landscape",
+              "fraction": 0,
+              "feedback": "Without a gradient (e.g. the flag problem) search-based generation degenerates toward random."
+            },
+            {
+              "text": "Random generation is the only one of the three that needs no oracle",
+              "fraction": 0,
+              "feedback": "All three need an oracle to judge correctness; that is independent of how inputs are generated."
+            }
+          ],
+          "generalFeedback": "Random generation is cheap and needs no analysis but is blind, so it misses narrow targets. Search-based generation reaches targets when the fitness function offers a gradient, but stalls when it does not. Symbolic generation can solve exact conditions precisely, yet is limited by solver capability (nonlinear arithmetic, external calls) and by path explosion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Generating from an FSM",
+          "text": "<p>Given a finite-state machine specifying a component, how does model-based generation typically produce tests?</p>",
+          "answers": [
+            {
+              "text": "It derives input sequences by traversing the FSM to cover chosen elements, such as every state or every transition",
+              "fraction": 100,
+              "feedback": "Correct — walks over the FSM become test sequences with a coverage aim."
+            },
+            {
+              "text": "It flips random bits in the compiled component until it changes state",
+              "fraction": 0,
+              "feedback": "That is mutation-style fuzzing of inputs, not deriving sequences from the model."
+            },
+            {
+              "text": "It measures how many source lines the component has",
+              "fraction": 0,
+              "feedback": "That is a size metric, not test derivation from a model."
+            },
+            {
+              "text": "It proves the FSM is deadlock-free without producing any tests",
+              "fraction": 0,
+              "feedback": "That is model checking of a property; model-based generation instead emits concrete test sequences."
+            }
+          ],
+          "generalFeedback": "From an FSM, model-based generation constructs input sequences that traverse the model to satisfy a coverage goal — e.g. visiting every state, exercising every transition, or covering transition pairs. Because the model also encodes expected responses, it can additionally supply expected outputs, helping with the oracle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Approach level",
+          "text": "<p>In search-based generation, what does the <strong>approach level</strong> measure for a target branch?</p>",
+          "answers": [
+            {
+              "text": "How many of the target's controlling (nesting) decision nodes execution still failed to satisfy before it diverged away from the target",
+              "fraction": 100,
+              "feedback": "Correct — approach level counts the unsatisfied enclosing decisions between where the run went wrong and the target."
+            },
+            {
+              "text": "The numeric distance of a variable from satisfying the immediate predicate",
+              "fraction": 0,
+              "feedback": "That is branch distance; approach level is about how many enclosing decisions remained unsatisfied."
+            },
+            {
+              "text": "The total number of statements in the whole program",
+              "fraction": 0,
+              "feedback": "Program size is unrelated to how close a run came to the target."
+            },
+            {
+              "text": "The wall-clock time the candidate took to run",
+              "fraction": 0,
+              "feedback": "Run time is not a measure of proximity to the target branch."
+            }
+          ],
+          "generalFeedback": "Approach level counts, for a run that missed the target, how many of the target's control-dependent (enclosing) decision nodes were not taken toward the target — i.e. how many nesting levels away execution diverged. It is combined with the branch distance at the point of divergence to form the overall fitness for that target.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Hill-climbing vs genetic algorithm",
+          "text": "<p>How do <strong>hill-climbing</strong> and a <strong>genetic algorithm</strong> differ as metaheuristics for test generation?</p>",
+          "answers": [
+            {
+              "text": "Hill-climbing improves a single candidate by local moves and can stick in local optima; a genetic algorithm evolves a population with crossover and mutation, better at escaping local optima",
+              "fraction": 100,
+              "feedback": "Correct — local single-point search versus population-based evolution is the key distinction."
+            },
+            {
+              "text": "Hill-climbing uses a constraint solver; a genetic algorithm uses random sampling only",
+              "fraction": 0,
+              "feedback": "Neither is defined by a solver; both are metaheuristics using a fitness function, differing in local vs population search."
+            },
+            {
+              "text": "A genetic algorithm evaluates no fitness function, unlike hill-climbing",
+              "fraction": 0,
+              "feedback": "Both rely on a fitness function; the GA uses it to select among a population."
+            },
+            {
+              "text": "They are two names for the same algorithm",
+              "fraction": 0,
+              "feedback": "They are distinct search strategies with different mechanics."
+            }
+          ],
+          "generalFeedback": "Hill-climbing keeps one candidate and moves to a better neighbor each step, which is fast but can get trapped in a local optimum or on a plateau. A genetic algorithm maintains a population and applies selection, crossover, and mutation, giving it more ways to escape local optima at the cost of more evaluations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Coverage-driven generation loop",
+          "text": "<p>What is the core loop of <strong>coverage-driven</strong> test generation?</p>",
+          "answers": [
+            {
+              "text": "Identify an uncovered target, generate inputs aimed at reaching it, add successful tests, and repeat on the remaining uncovered targets",
+              "fraction": 100,
+              "feedback": "Correct — it iteratively attacks the coverage gaps."
+            },
+            {
+              "text": "Generate one huge random batch once and never look at coverage again",
+              "fraction": 0,
+              "feedback": "That is plain random generation; coverage-driven generation uses coverage feedback to pick targets each iteration."
+            },
+            {
+              "text": "Delete tests until coverage drops to zero",
+              "fraction": 0,
+              "feedback": "That is destructive and pointless; coverage-driven generation adds tests to raise coverage."
+            },
+            {
+              "text": "Decide correctness of each output and stop when all are correct",
+              "fraction": 0,
+              "feedback": "That describes oracle checking; coverage-driven generation is about reaching uncovered elements."
+            }
+          ],
+          "generalFeedback": "Coverage-driven generation measures current coverage, selects an uncovered target (branch, statement, path), and directs generation — search-based, symbolic, or otherwise — at reaching it. Tests that hit new targets are kept, and the process repeats on the remaining gaps until the budget runs out or coverage is satisfied.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why pairwise cuts test count",
+          "text": "<p>Why can <strong>pairwise</strong> generation cover all value pairs with far fewer tests than the full Cartesian product?</p>",
+          "answers": [
+            {
+              "text": "Each single test simultaneously covers many different value pairs, so a small set of well-chosen tests can include every pair",
+              "fraction": 100,
+              "feedback": "Correct — one test contributes many pairs at once, so a compact covering array suffices."
+            },
+            {
+              "text": "It silently ignores most of the parameters",
+              "fraction": 0,
+              "feedback": "Pairwise still involves all parameters; it just does not require every full combination of their values."
+            },
+            {
+              "text": "It assumes only one parameter ever matters at a time",
+              "fraction": 0,
+              "feedback": "Pairwise covers two-way interactions, not single parameters in isolation."
+            },
+            {
+              "text": "It replaces the parameters with random noise",
+              "fraction": 0,
+              "feedback": "Pairwise is a systematic construction of a covering array, not random noise."
+            }
+          ],
+          "generalFeedback": "In a covering array, each row (test) fixes a value for every parameter and therefore covers many parameter-value pairs at once. Because pairs are shared across tests, a carefully constructed small set can include every pair, so the count grows roughly logarithmically in the number of parameters rather than as the full product.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Concolic combines concrete and symbolic",
+          "text": "<p>How does <strong>concolic</strong> generation combine concrete and symbolic execution to explore new paths?</p>",
+          "answers": [
+            {
+              "text": "It runs the program on a concrete input while collecting symbolic path constraints, then negates one branch constraint and solves it to get an input for a new path",
+              "fraction": 100,
+              "feedback": "Correct — concrete execution keeps it grounded while symbolic constraints let it steer to new branches."
+            },
+            {
+              "text": "It only ever runs concrete inputs and never records any constraints",
+              "fraction": 0,
+              "feedback": "That would be plain testing; concolic execution records symbolic constraints alongside the concrete run."
+            },
+            {
+              "text": "It only reasons symbolically and never runs the program concretely",
+              "fraction": 0,
+              "feedback": "That is pure symbolic execution; concolic deliberately pairs a concrete run with the symbolic trace."
+            },
+            {
+              "text": "It evolves a population of inputs using crossover and mutation",
+              "fraction": 0,
+              "feedback": "That is a genetic algorithm; concolic uses concrete-plus-symbolic execution with a solver."
+            }
+          ],
+          "generalFeedback": "Concolic (concrete + symbolic) execution runs the program on a concrete input, recording the symbolic path condition as it goes. To reach a new path it negates one branch constraint, solves the modified condition for concrete values, and reruns. Grounding in a concrete run lets it use real values where the solver cannot reason (e.g. some library calls).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Differential oracle",
+          "text": "<p>How does a <strong>differential</strong> oracle judge a generated input?</p>",
+          "answers": [
+            {
+              "text": "It runs the input through two or more independent implementations and flags a disagreement in their outputs as a likely fault",
+              "fraction": 100,
+              "feedback": "Correct — a discrepancy between implementations signals that at least one is wrong."
+            },
+            {
+              "text": "It measures how many branches the input covered",
+              "fraction": 0,
+              "feedback": "That is coverage, not an oracle comparing outputs."
+            },
+            {
+              "text": "It requires a hand-written expected value for every input",
+              "fraction": 0,
+              "feedback": "Differential testing avoids needing a hand-written expected value by comparing implementations against each other."
+            },
+            {
+              "text": "It negates a branch constraint to reach a new path",
+              "fraction": 0,
+              "feedback": "That is concolic exploration, not a differential oracle."
+            }
+          ],
+          "generalFeedback": "A differential oracle runs the same generated input through two or more implementations that should agree (versions, a reference implementation, or alternative libraries) and treats any output disagreement as evidence of a fault. It sidesteps needing an exact expected value, though it cannot catch a bug shared identically by all implementations.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Assertions as oracles",
+          "text": "<p>Executable assertions embedded in the program (or generated with the test) can act as a partial oracle for automatically generated inputs.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — an assertion that fails on a generated input flags incorrect behavior, serving as a partial oracle."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Assertions do serve as partial oracles: when a generated input makes one fail, it reveals a fault."
+            }
+          ],
+          "generalFeedback": "Assertions encode properties that must hold at runtime. When an automatically generated input violates one, it exposes incorrect behavior, so assertions act as a partial oracle. They are partial because they check only the properties actually asserted, not full correctness."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the fitness gradient matters",
+          "text": "<p>Why does the presence of a <strong>gradient</strong> in the fitness function matter so much for search-based generation?</p>",
+          "answers": [
+            {
+              "text": "A gradient lets the search tell which candidates are closer to the goal, so it can improve step by step instead of guessing blindly",
+              "fraction": 100,
+              "feedback": "Correct — without a sense of \"closer,\" metaheuristic search has nothing to climb."
+            },
+            {
+              "text": "A gradient guarantees the target is reachable in exactly one step",
+              "fraction": 0,
+              "feedback": "It does not guarantee one step; it provides direction so the search can progress over many steps."
+            },
+            {
+              "text": "A gradient removes the need for any fitness evaluation",
+              "fraction": 0,
+              "feedback": "The gradient is a property of the fitness values, which must still be evaluated."
+            },
+            {
+              "text": "A gradient makes the oracle unnecessary",
+              "fraction": 0,
+              "feedback": "Fitness guides coverage; the oracle still judges correctness independently."
+            }
+          ],
+          "generalFeedback": "Metaheuristic search improves candidates by moving toward better fitness. If the fitness function varies smoothly with nearness to the goal (a gradient), the search can follow it. If fitness is flat except at the goal (as with a boolean flag), there is nothing to climb and the search degenerates toward random guessing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Seeding constants to hit x==42",
+          "text": "<p>A generator repeatedly fails to satisfy <code>if (x == 42)</code>. Which practical tactic most directly helps?</p>",
+          "answers": [
+            {
+              "text": "Seed the generator with constants mined from the source (including 42) so candidate inputs draw from those literal values",
+              "fraction": 100,
+              "feedback": "Correct — mining and seeding the literal makes hitting the exact guard likely."
+            },
+            {
+              "text": "Increase the population size but keep sampling values purely uniformly at random",
+              "fraction": 0,
+              "feedback": "More uniform random draws barely change the negligible per-draw odds of hitting one exact value."
+            },
+            {
+              "text": "Remove the fitness function so the search runs faster",
+              "fraction": 0,
+              "feedback": "Removing guidance makes it worse, reducing the search toward blind random."
+            },
+            {
+              "text": "Switch the oracle to a metamorphic relation",
+              "fraction": 0,
+              "feedback": "The oracle judges correctness; it does not help the generator reach the guard."
+            }
+          ],
+          "generalFeedback": "Constant seeding mines literals from the code (here, 42) and feeds them into the pool of candidate values. Because the exact constant is now available to the generator, satisfyingbecomes likely rather than astronomically improbable. This complements branch-distance fitness and symbolic solving as ways to beat narrow equality guards.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a GA does with test individuals",
+          "text": "<p>In a genetic algorithm for test generation, what do the operators do to the test individuals?</p>",
+          "answers": [
+            {
+              "text": "Selection favors fitter tests, crossover recombines parts of two tests, and mutation makes small random changes — producing a new generation",
+              "fraction": 100,
+              "feedback": "Correct — selection, crossover, and mutation together evolve the population."
+            },
+            {
+              "text": "They solve the path condition of each individual with an SMT solver",
+              "fraction": 0,
+              "feedback": "That is symbolic/concolic generation, not the genetic operators."
+            },
+            {
+              "text": "They delete every individual whose fitness is not already maximal",
+              "fraction": 0,
+              "feedback": "Selection is probabilistic and preserves diversity; it does not simply delete all non-optimal individuals."
+            },
+            {
+              "text": "They compute code coverage without running the tests",
+              "fraction": 0,
+              "feedback": "Fitness usually requires running the tests; the operators evolve individuals, they do not statically compute coverage."
+            }
+          ],
+          "generalFeedback": "A genetic algorithm evolves a population of test individuals: selection probabilistically keeps fitter ones, crossover combines material from two parents, and mutation perturbs an individual slightly. Iterating these operators, guided by the fitness function, moves the population toward tests that meet the goal.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Branch distance plus approach level",
+          "text": "<p>For a deeply nested target branch, why do search-based tools combine <strong>approach level</strong> with <strong>branch distance</strong> rather than using either alone?</p>",
+          "answers": [
+            {
+              "text": "Approach level says how many enclosing decisions execution still missed, and branch distance measures how nearly the decision where it diverged was satisfied — together they give a gradient across the nesting",
+              "fraction": 100,
+              "feedback": "Correct — the pair yields a smooth fitness that improves both as more enclosing decisions are satisfied and as the diverging one gets closer."
+            },
+            {
+              "text": "Approach level alone already gives a continuous gradient at every nesting level",
+              "fraction": 0,
+              "feedback": "Approach level is an integer that only changes when a whole enclosing decision flips; branch distance fills the gap between those steps."
+            },
+            {
+              "text": "Branch distance alone can express how many nesting levels were missed",
+              "fraction": 0,
+              "feedback": "Branch distance is local to one predicate; it does not encode how many enclosing decisions remain — that is approach level's job."
+            },
+            {
+              "text": "Combining them removes the need to execute the program",
+              "fraction": 0,
+              "feedback": "Both are computed from actual executions of candidate inputs; combining them does not avoid running the program."
+            }
+          ],
+          "generalFeedback": "For a nested target, a run may diverge several enclosing decisions before it. Approach level counts those still-unsatisfied enclosing decisions (coarse, integer steps); at the point of divergence, branch distance measures how nearly that decision was satisfied (fine gradient between steps). The usual fitness is approach level plus a normalized branch distance, so improving either lowers fitness and gives the search a continuous slope down through the nesting.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the oracle problem limits automation",
+          "text": "<p>Why does the oracle problem fundamentally limit <em>fully</em> automated testing, even with excellent input generation?</p>",
+          "answers": [
+            {
+              "text": "Generation can reach behavior automatically, but deciding whether that behavior is correct generally requires the intended specification, which must ultimately come from humans",
+              "fraction": 100,
+              "feedback": "Correct — reaching behavior is not the same as knowing it is right; correctness knowledge has to come from somewhere."
+            },
+            {
+              "text": "Because generated inputs can never reach more than half of the branches",
+              "fraction": 0,
+              "feedback": "Reachability is a coverage limitation, not the oracle problem; the oracle concerns judging correctness."
+            },
+            {
+              "text": "Because constraint solvers cannot handle any arithmetic",
+              "fraction": 0,
+              "feedback": "Solvers handle much arithmetic; that is a symbolic-execution limitation, not the oracle problem."
+            },
+            {
+              "text": "Because random generation is always faster than the program under test",
+              "fraction": 0,
+              "feedback": "Relative speed is irrelevant to whether outputs can be judged correct."
+            }
+          ],
+          "generalFeedback": "Automation is strong at producing inputs and reaching behavior, but \"the program did X\" says nothing about whether X is what it should do. Judging that needs the intended behavior — a specification, expected values, or a relation — which is not derivable from the code being tested. Partial oracles (assertions, crashes, metamorphic and differential relations) narrow the gap but do not close it, so a human-supplied notion of correctness remains the limit.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When metamorphic relations help",
+          "text": "<p>Why are <strong>metamorphic relations</strong> especially valuable for automatically generated inputs?</p>",
+          "answers": [
+            {
+              "text": "They let you check correctness without knowing each input's exact expected output, so they scale to the many inputs a generator produces",
+              "fraction": 100,
+              "feedback": "Correct — checking a relation across related inputs sidesteps per-input expected values."
+            },
+            {
+              "text": "They guarantee detection of every possible fault in the program",
+              "fraction": 0,
+              "feedback": "They only catch faults that violate the chosen relation; other faults can pass unnoticed."
+            },
+            {
+              "text": "They generate the inputs as well as judging them",
+              "fraction": 0,
+              "feedback": "They are an oracle technique; the inputs still come from a separate generator (though relations often prescribe a follow-up input)."
+            },
+            {
+              "text": "They remove the need to run the program",
+              "fraction": 0,
+              "feedback": "Checking a relation requires running the program on the related inputs."
+            }
+          ],
+          "generalFeedback": "For automatically generated inputs, hand-writing an expected output for each is infeasible. A metamorphic relation instead constrains how outputs of related inputs must relate (e.g. a source and a transformed follow-up input). If the relation is violated, a fault is exposed — no per-input expected value needed. The limitation is that it only catches violations of the specific relations chosen.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Hybrid concolic and search",
+          "text": "<p>Why might a tool <strong>combine</strong> concolic execution with search-based generation?</p>",
+          "answers": [
+            {
+              "text": "Search handles code where a solver is weak (nonlinear or opaque calls) using fitness, while concolic solving cracks exact conditions search struggles with — each covers the other's blind spot",
+              "fraction": 100,
+              "feedback": "Correct — the two techniques fail on complementary situations, so combining them widens reach."
+            },
+            {
+              "text": "Because concolic execution and search-based generation are identical, so combining them is free",
+              "fraction": 0,
+              "feedback": "They are different techniques with different strengths; the point of combining is complementarity, not redundancy."
+            },
+            {
+              "text": "To avoid ever needing to run the program under test",
+              "fraction": 0,
+              "feedback": "Both approaches run the program (concolic concretely, search to evaluate fitness)."
+            },
+            {
+              "text": "Because the combination removes the oracle problem",
+              "fraction": 0,
+              "feedback": "Neither technique judges correctness; the oracle problem remains regardless."
+            }
+          ],
+          "generalFeedback": "Concolic solving excels at exact conditions likebut stalls on constraints the solver cannot express (nonlinear arithmetic, hashing, external calls). Search-based generation can push through those with fitness guidance but stalls on narrow equalities that offer no gradient. A hybrid uses each where it is strong, so together they cover targets neither reaches alone.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimization vs fault detection",
+          "text": "<p>What is the key risk when minimizing a generated suite to preserve the same coverage?</p>",
+          "answers": [
+            {
+              "text": "Two tests with identical coverage can differ in fault-detecting power, so dropping one as \"redundant\" can lower fault detection even though coverage is unchanged",
+              "fraction": 100,
+              "feedback": "Correct — coverage equivalence does not imply equal fault-finding ability."
+            },
+            {
+              "text": "Minimization always increases both coverage and fault detection",
+              "fraction": 0,
+              "feedback": "Minimization removes tests; it cannot increase coverage, and it can reduce fault detection."
+            },
+            {
+              "text": "Minimization changes the program under test",
+              "fraction": 0,
+              "feedback": "Minimization prunes tests, not the program."
+            },
+            {
+              "text": "Minimization guarantees the same fault detection whenever coverage is kept",
+              "fraction": 0,
+              "feedback": "No such guarantee holds — equal coverage can still mean different faults caught."
+            }
+          ],
+          "generalFeedback": "Minimization keeps a subset that preserves a criterion, usually coverage. But two tests that cover the same elements can exercise them with different data and thus catch different faults. Removing one as coverage-redundant can therefore reduce the suite's fault-detection ability even while coverage stays constant — the trade-off is smaller/faster suites versus possible loss of fault detection.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The flag problem",
+          "text": "<p>Consider <code>bool flag = (a == b); ... if (flag) { target; }</code>. Why is this a hard case (\"flag problem\") for search-based generation?</p>",
+          "answers": [
+            {
+              "text": "Atthe branch distance is only 0 or 1, giving a flat fitness landscape with no gradient telling the search how to makeapproach",
+              "fraction": 100,
+              "feedback": "Correct — the boolean collapses the distance information, leaving a plateau."
+            },
+            {
+              "text": "The flag variable makes the branch impossible to ever take",
+              "fraction": 0,
+              "feedback": "The branch is reachable when a==b; the difficulty is the missing gradient, not impossibility."
+            },
+            {
+              "text": "Boolean variables cannot be represented in a search space",
+              "fraction": 0,
+              "feedback": "Booleans are representable; the issue is that they discard the distance signal from."
+            },
+            {
+              "text": "The flag guarantees an infinite loop during evaluation",
+              "fraction": 0,
+              "feedback": "There is no loop implied; the problem is a flat fitness landscape."
+            }
+          ],
+          "generalFeedback": "Storing a predicate's result in a boolean flag throws away how nearly it was satisfied. Atthe branch distance is just 0 or 1, so fitness is flat (a plateau) except at the solution, and the search gets no direction to drivetoward. Remedies include flag removal/transformation or testability transformations that recover the underlying distance.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Normalizing branch distance",
+          "text": "<p>Why is the branch distance usually <strong>normalized</strong> (e.g. into [0,1)) before being added to the approach level?</p>",
+          "answers": [
+            {
+              "text": "So one more satisfied enclosing decision (a lower approach level) always dominates any branch-distance improvement, keeping the two components correctly ordered",
+              "fraction": 100,
+              "feedback": "Correct — normalization ensures progressing a whole nesting level outranks merely getting closer within the current one."
+            },
+            {
+              "text": "Because branch distance would otherwise be negative",
+              "fraction": 0,
+              "feedback": "Branch distance is defined to be non-negative; normalization is about scale, not sign."
+            },
+            {
+              "text": "To convert the fitness into a boolean pass/fail value",
+              "fraction": 0,
+              "feedback": "Normalization keeps a continuous value; it does not collapse fitness to a boolean."
+            },
+            {
+              "text": "To make the oracle unnecessary",
+              "fraction": 0,
+              "feedback": "Normalization concerns the fitness scale, not correctness judgment."
+            }
+          ],
+          "generalFeedback": "Fitness is typically approach level plus a normalized branch distance. Bounding the distance below 1 guarantees that reducing the approach level by one (satisfying another enclosing decision) always improves fitness more than any within-level distance gain, so the search prefers real structural progress while still using the fine gradient inside a level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Path explosion in symbolic generation",
+          "text": "<p>What is <strong>path explosion</strong>, and why does it limit symbolic/concolic generation?</p>",
+          "answers": [
+            {
+              "text": "The number of feasible paths can grow combinatorially (e.g. with branches and loop iterations), so enumerating and solving them all becomes infeasible",
+              "fraction": 100,
+              "feedback": "Correct — the path count blows up, exhausting time and solver budget before all paths are covered."
+            },
+            {
+              "text": "The constraint solver returns too many satisfying assignments for a single path",
+              "fraction": 0,
+              "feedback": "Path explosion is about the number of paths to explore, not the number of solutions per path."
+            },
+            {
+              "text": "The generated inputs become too large to store",
+              "fraction": 0,
+              "feedback": "The blow-up is in paths to analyze, not primarily input size."
+            },
+            {
+              "text": "The program under test runs out of memory at runtime",
+              "fraction": 0,
+              "feedback": "Path explosion is an analysis-scaling problem for the generator, not a runtime memory fault of the target."
+            }
+          ],
+          "generalFeedback": "Each branch can double the number of paths, and loops multiply them further, so the feasible-path count grows combinatorially. Symbolic/concolic generation must pick and solve path conditions for these, and exhaustively covering them becomes intractable. Tools mitigate with search heuristics, path pruning/merging, and bounding loop unrolling.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Implicit crash oracle limits",
+          "text": "<p>Relying only on crashes as the oracle for generated inputs has a key limitation. What is it?</p>",
+          "answers": [
+            {
+              "text": "It catches only failures that manifest as a crash/abort; a wrong-but-non-crashing result passes unnoticed",
+              "fraction": 100,
+              "feedback": "Correct — silent incorrect outputs slip past a crash-only oracle."
+            },
+            {
+              "text": "It cannot detect segmentation faults",
+              "fraction": 0,
+              "feedback": "Crashes such as segmentation faults are exactly what it does detect; it misses non-crashing wrong results."
+            },
+            {
+              "text": "It requires an exact expected value for every input",
+              "fraction": 0,
+              "feedback": "A crash oracle needs no expected value — that is its appeal and also why it misses logic errors."
+            },
+            {
+              "text": "It prevents the generator from reaching deep branches",
+              "fraction": 0,
+              "feedback": "The oracle choice does not constrain which branches generation can reach."
+            }
+          ],
+          "generalFeedback": "A crash (or sanitizer/assert) oracle is fully automatic and cheap, which is why fuzzers rely on it. But it only flags failures that surface as an observable crash. A function that returns a wrong value without crashing produces no signal, so crash-only oracles miss most logic errors — motivating richer partial oracles like metamorphic and differential relations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Differential vs metamorphic choice",
+          "text": "<p>You are generating inputs for a numerical routine and have <em>no</em> independent reference implementation. Which partial oracle is applicable, and why?</p>",
+          "answers": [
+            {
+              "text": "A metamorphic relation, because it checks a required relationship among outputs of related inputs and needs no second implementation",
+              "fraction": 100,
+              "feedback": "Correct — with no reference to compare against, a metamorphic relation still gives a check."
+            },
+            {
+              "text": "A differential oracle, because it works from the single implementation alone",
+              "fraction": 0,
+              "feedback": "Differential testing needs at least two implementations to compare; with only one it is not applicable."
+            },
+            {
+              "text": "Neither, because without a reference no automated check is ever possible",
+              "fraction": 0,
+              "feedback": "Metamorphic relations provide a check even without a reference, so an automated partial oracle is still possible."
+            },
+            {
+              "text": "A coverage target, because coverage decides correctness",
+              "fraction": 0,
+              "feedback": "Coverage measures what ran, not whether the output is correct."
+            }
+          ],
+          "generalFeedback": "A differential oracle needs two or more implementations to disagree; with only one, it cannot be used. A metamorphic relation instead checks how outputs of related inputs must relate (e.g. scaling all inputs scales the output predictably), which requires only the one implementation — making it the applicable partial oracle when no reference exists.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Coverage reached does not mean bug found",
+          "text": "<p>A generator achieves 100% branch coverage. Why does this <em>not</em> establish that the program is correct?</p>",
+          "answers": [
+            {
+              "text": "Executing every branch shows the code ran, but without an oracle checking each result, wrong outputs on covered branches go undetected",
+              "fraction": 100,
+              "feedback": "Correct — coverage measures execution, not correctness; the oracle is still required."
+            },
+            {
+              "text": "100% branch coverage is mathematically impossible, so the claim must be false",
+              "fraction": 0,
+              "feedback": "Full branch coverage is often achievable; the point is that coverage alone does not judge correctness."
+            },
+            {
+              "text": "Branch coverage automatically includes an oracle for every branch",
+              "fraction": 0,
+              "feedback": "Coverage records which branches ran; it does not judge whether their results were right."
+            },
+            {
+              "text": "Because coverage always overcounts the branches actually executed",
+              "fraction": 0,
+              "feedback": "The issue is not miscounting; it is that running a branch is not the same as verifying its output."
+            }
+          ],
+          "generalFeedback": "Coverage tells you code was exercised, not that it behaved correctly. A branch can run and still return a wrong value; without an oracle asserting the expected behavior, the fault leaves no trace. So generation aimed purely at coverage maximizes execution, but detecting the resulting faults still depends entirely on the oracle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "GA escaping a plateau",
+          "text": "<p>On a fitness landscape with a plateau, why can a genetic algorithm sometimes make progress where simple hill-climbing stalls?</p>",
+          "answers": [
+            {
+              "text": "Its population diversity plus crossover and mutation let it explore several regions at once and jump across flat areas, rather than relying only on strictly-improving local moves",
+              "fraction": 100,
+              "feedback": "Correct — population-based exploration can cross plateaus that trap a single-point climber."
+            },
+            {
+              "text": "It replaces the fitness function with a constraint solver",
+              "fraction": 0,
+              "feedback": "A GA still uses fitness; it does not swap in a solver."
+            },
+            {
+              "text": "It guarantees finding the global optimum on any landscape",
+              "fraction": 0,
+              "feedback": "No metaheuristic guarantees the global optimum; a GA only improves the odds of escaping local traps."
+            },
+            {
+              "text": "It removes the plateau by changing the program under test",
+              "fraction": 0,
+              "feedback": "A GA does not modify the program; testability transformations, not the GA itself, reshape such landscapes."
+            }
+          ],
+          "generalFeedback": "Hill-climbing accepts only strictly-improving neighbors, so on a plateau it has nowhere to go. A genetic algorithm keeps a diverse population and uses crossover and mutation to sample across the space, so it can drift across flat regions and recombine partial solutions. It still offers no guarantee — a truly flat landscape (e.g. an untreated flag problem) can defeat it too — but it is more robust than pure local search.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Reachability versus a good gradient",
+          "text": "<p>If a target branch is reachable in principle, a search-based generator is guaranteed to reach it regardless of the fitness landscape.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "No — reachability does not guarantee success; without a usable gradient (e.g. the flag problem) the search can fail to find the input."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — a reachable target can still be effectively unreachable for the search if the fitness landscape offers no gradient."
+            }
+          ],
+          "generalFeedback": "Reachability is a property of the program; search success also depends on the fitness landscape. If fitness is flat except at the solution (a plateau or an untreated flag), the metaheuristic has no direction and can fail to reach a target that is perfectly reachable in principle. This is why fitness design and testability transformations matter."
+        },
+        {
+          "type": "multichoice",
+          "name": "Regression seeding across versions",
+          "text": "<p>When generating tests for a new version, why is <strong>seeding</strong> from the previous version's tests and inputs useful?</p>",
+          "answers": [
+            {
+              "text": "Prior inputs already reach much of the shared behavior, so the generator can start near relevant states and focus its budget on the changed code",
+              "fraction": 100,
+              "feedback": "Correct — reusing prior material gives a head start and concentrates effort on what changed."
+            },
+            {
+              "text": "It lets the generator skip running the program entirely",
+              "fraction": 0,
+              "feedback": "Seeding provides starting inputs; the program still must be run to evaluate them."
+            },
+            {
+              "text": "It guarantees the new version has no regressions",
+              "fraction": 0,
+              "feedback": "Seeding helps generation; it cannot guarantee the absence of regressions."
+            },
+            {
+              "text": "It removes the need for an oracle on the new version",
+              "fraction": 0,
+              "feedback": "Judging correctness on the new version still needs an oracle."
+            }
+          ],
+          "generalFeedback": "Across versions, much behavior is unchanged, so the previous suite's inputs already drive the program deep into relevant states. Seeding the generator with them means it does not rediscover that behavior from scratch and can spend its budget exploring the modified code — a practical, effective use of prior information in regression settings.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Whole-suite versus one-target-at-a-time",
+          "text": "<p>Modern SBST tools often optimize a <strong>whole suite</strong> against all coverage targets at once instead of generating a separate test per target. Why?</p>",
+          "answers": [
+            {
+              "text": "Targeting one goal at a time wastes budget on infeasible or hard targets and ignores that a single test can hit many goals; optimizing the whole suite spends effort where it pays off and exploits collateral coverage",
+              "fraction": 100,
+              "feedback": "Correct — a suite-level objective avoids stalling on one hard target and rewards tests that cover several goals at once."
+            },
+            {
+              "text": "Because a whole-suite objective removes the need for any fitness function",
+              "fraction": 0,
+              "feedback": "It still uses a fitness function — one aggregated over all targets — rather than removing it."
+            },
+            {
+              "text": "Because optimizing the whole suite guarantees 100% coverage on every program",
+              "fraction": 0,
+              "feedback": "No such guarantee exists; infeasible targets and hard landscapes still limit coverage."
+            },
+            {
+              "text": "Because it makes an oracle unnecessary for the generated tests",
+              "fraction": 0,
+              "feedback": "Correctness judgment still needs an oracle regardless of how coverage is optimized."
+            }
+          ],
+          "generalFeedback": "Generating one test per target in sequence can burn the whole budget struggling with a single infeasible or gradient-free target while easy ones wait, and it ignores that one test often covers several targets. Whole-suite (and many-objective) approaches optimize a single suite against all remaining targets together, so the search allocates effort adaptively and banks the collateral coverage that individual tests provide.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是自動化測試生成",
+          "text": "<p><strong>自動化測試生成（automated test generation）</strong>主要在做什麼？</p>",
+          "answers": [
+            {
+              "text": "它以演算法自動產生測試輸入（通常也包含測試案例），而非由人逐一手寫",
+              "fraction": 100,
+              "feedback": "正確——目標是機械化地合成輸入／案例，而非手動撰寫每一個。"
+            },
+            {
+              "text": "它在沒有任何預言（oracle）的情況下自動判斷每個生成的測試通過或失敗",
+              "fraction": 0,
+              "feedback": "判斷通過／失敗屬於預言問題，生成本身無法解決。"
+            },
+            {
+              "text": "它把受測程式編譯成最佳化過的二進位檔",
+              "fraction": 0,
+              "feedback": "那是編譯器；測試生成產生的是輸入／案例，而非機器碼。"
+            },
+            {
+              "text": "它形式化地證明程式沒有任何缺陷",
+              "fraction": 0,
+              "feedback": "生成會找出或執行行為，但不證明正確性。"
+            }
+          ],
+          "generalFeedback": "自動化測試生成以演算法取代人工撰寫測試輸入——可為隨機、搜尋式、符號式、模型式或組合式。它產生輸入（通常也含呼叫序列）；至於觀察到的行為是否正確，仍需另一個預言來判斷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "隨機測試生成",
+          "text": "<p><strong>隨機測試生成</strong>的特徵為何？</p>",
+          "answers": [
+            {
+              "text": "它從輸入定義域中隨機抽樣輸入，成本低廉，且不使用任何關於程式行為的回饋",
+              "fraction": 100,
+              "feedback": "正確——隨機生成之所以便宜簡單，正是因為它忽略程式的回饋。"
+            },
+            {
+              "text": "它用約束求解器求解路徑條件以到達特定分支",
+              "fraction": 0,
+              "feedback": "那描述的是符號／混合執行生成，而非隨機生成。"
+            },
+            {
+              "text": "它以適應度函數引導、演化一群輸入",
+              "fraction": 0,
+              "feedback": "那是搜尋式生成；隨機生成不使用任何適應度引導。"
+            },
+            {
+              "text": "它從規格的有限狀態模型推導輸入",
+              "fraction": 0,
+              "feedback": "那是模型式生成；隨機生成忽略任何模型。"
+            }
+          ],
+          "generalFeedback": "隨機生成從定義域中隨機挑選輸入。它便宜、易實作、不需分析，但很盲目：得不到回饋，因此難以滿足只有極小部分輸入能符合的狹窄條件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "隨機與導向式生成",
+          "text": "<p><strong>導向式（引導式）</strong>生成與<strong>隨機</strong>生成有何不同？</p>",
+          "answers": [
+            {
+              "text": "導向式生成利用關於程式的資訊（覆蓋率、路徑條件或適應度訊號）將輸入朝目標推進，隨機生成則盲目抽樣",
+              "fraction": 100,
+              "feedback": "正確——區別在於是否用程式的回饋來引導輸入選擇。"
+            },
+            {
+              "text": "導向式生成必定比隨機生成便宜",
+              "fraction": 0,
+              "feedback": "導向式方法每個輸入的成本通常更高（分析、求解、評估）；其好處是到達困難目標，而非更低成本。"
+            },
+            {
+              "text": "隨機生成保證比導向式生成得到更高覆蓋率",
+              "fraction": 0,
+              "feedback": "隨機生成常在難以到達的程式碼上停滯；導向式方法正是為了克服這點而存在。"
+            },
+            {
+              "text": "導向式生成永遠不需要預言，而隨機生成需要",
+              "fraction": 0,
+              "feedback": "兩者都需要預言來判斷正確性；沒有哪一種能逃離預言問題。"
+            }
+          ],
+          "generalFeedback": "導向式（引導式）生成利用回饋——覆蓋率、路徑約束或適應度值——把輸入朝目標（如未覆蓋的分支）推進。隨機生成忽略這類回饋。導向式方法每個輸入通常付出更多，但能到達隨機抽樣幾乎永遠碰不到的目標。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是測試預言",
+          "text": "<p>在測試生成中，<strong>測試預言（test oracle）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "用來判斷程式對某個輸入的行為是否正確的機制",
+              "fraction": 100,
+              "feedback": "正確——預言負責判斷通過／失敗，與生成輸入是分開的。"
+            },
+            {
+              "text": "產生輸入值的演算法",
+              "fraction": 0,
+              "feedback": "那是生成器；預言判斷產生的行為，並不產生輸入。"
+            },
+            {
+              "text": "用來量測測試套件的覆蓋率指標",
+              "fraction": 0,
+              "feedback": "覆蓋率量測程式執行了多少；預言判斷輸出是否正確。"
+            },
+            {
+              "text": "用來讓執行可重現的亂數種子",
+              "fraction": 0,
+              "feedback": "種子讓生成可重複，並不判斷正確性。"
+            }
+          ],
+          "generalFeedback": "測試預言是用來判斷某輸入對應之觀察行為是否可接受的東西——斷言、預期值、參考實作或蛻變關係。產生輸入是一個問題；判斷結果是否正確則是另一個獨立的預言問題。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是適應度函數",
+          "text": "<p>在搜尋式測試生成中，<strong>適應度函數（fitness function）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "一個數值量度，表示候選測試離達成目標有多近，用來引導搜尋朝更好的測試前進",
+              "fraction": 100,
+              "feedback": "正確——適應度為候選評分，讓搜尋能偏好並精煉有希望者。"
+            },
+            {
+              "text": "一個只有在目標已達成時才為真的布林值",
+              "fraction": 0,
+              "feedback": "純布林值沒有梯度；有效的適應度會平滑變化，讓搜尋知道哪些候選更接近。"
+            },
+            {
+              "text": "判斷輸出是否正確的預言",
+              "fraction": 0,
+              "feedback": "適應度量度朝覆蓋目標的進展；預言判斷正確性——角色不同。"
+            },
+            {
+              "text": "傳給輸入生成器的亂數種子",
+              "fraction": 0,
+              "feedback": "種子控制可重現性，而非候選的好壞。"
+            }
+          ],
+          "generalFeedback": "適應度函數把候選測試映射為一個數字，表示它離目標（例如到達目標分支）有多近。好的適應度函數提供梯度——測試越接近就逐步變好——讓後設啟發式演算法能朝目標攀升。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "搜尋式軟體測試",
+          "text": "<p>什麼是<strong>搜尋式軟體測試（SBST）</strong>？</p>",
+          "answers": [
+            {
+              "text": "它把測試生成重述為最佳化問題，用由適應度函數引導的後設啟發式演算法（如爬山法或基因演算法）搜尋能達成目標的測試",
+              "fraction": 100,
+              "feedback": "正確——SBST 把「找一個好測試」轉為「最佳化這個適應度函數」。"
+            },
+            {
+              "text": "它窮舉列出程式所有可能的輸入",
+              "fraction": 0,
+              "feedback": "窮舉通常不可行；SBST 以適應度引導有選擇地搜尋。"
+            },
+            {
+              "text": "它在編譯前搜尋原始碼中的語法錯誤",
+              "fraction": 0,
+              "feedback": "SBST 搜尋的是測試空間，而非原始碼中的語法錯誤。"
+            },
+            {
+              "text": "它為每個分支條件查詢約束求解器",
+              "fraction": 0,
+              "feedback": "那是符號／混合執行生成；SBST 使用由適應度驅動的後設啟發式搜尋。"
+            }
+          ],
+          "generalFeedback": "SBST 把測試生成當作最佳化：一個候選測試是搜尋空間中的一點，適應度函數依目標為它評分，後設啟發式演算法（爬山法、基因演算法等）反覆改良候選，朝如覆蓋某分支的目標前進。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "模型式測試生成",
+          "text": "<p>什麼是<strong>模型式測試生成（model-based test generation）</strong>？</p>",
+          "answers": [
+            {
+              "text": "從描述預期行為的模型（如有限狀態機或形式規格）自動推導測試",
+              "fraction": 100,
+              "feedback": "正確——測試來自對行為模型的走訪／分析。"
+            },
+            {
+              "text": "建立一個機器學習模型來預測哪些測試會失敗",
+              "fraction": 0,
+              "feedback": "那是失敗預測，而非從行為模型推導測試。"
+            },
+            {
+              "text": "隨機變異原始碼以製造出有缺陷的版本",
+              "fraction": 0,
+              "feedback": "那是變異測試；模型式生成是從規格／FSM 推導測試。"
+            },
+            {
+              "text": "量測手寫套件覆蓋了多少模型元素",
+              "fraction": 0,
+              "feedback": "那是模型覆蓋率量測；生成是從模型產生測試。"
+            }
+          ],
+          "generalFeedback": "模型式測試生成從系統預期行為的模型出發——常見為有限狀態機、狀態圖或形式規格——並由此推導測試序列，例如覆蓋每條轉移的路徑。模型也能提供預期結果，有助於預言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是覆蓋目標",
+          "text": "<p>在覆蓋率驅動的生成中，<strong>覆蓋目標（coverage target）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "生成器試圖執行到的特定程式元素，例如某個分支、敘述或路徑",
+              "fraction": 100,
+              "feedback": "正確——目標就是搜尋所要覆蓋的具體元素。"
+            },
+            {
+              "text": "允許整個執行使用的總時鐘時間預算",
+              "fraction": 0,
+              "feedback": "那是時間預算，而非覆蓋目標。"
+            },
+            {
+              "text": "判斷輸出是否正確的預言",
+              "fraction": 0,
+              "feedback": "目標是要到達的元素；預言另外判斷正確性。"
+            },
+            {
+              "text": "套件必須包含的測試案例數量",
+              "fraction": 0,
+              "feedback": "那是套件大小限制，而非覆蓋目標。"
+            }
+          ],
+          "generalFeedback": "覆蓋目標是生成器想讓某測試執行到的具體程式元素——分支、敘述、條件或路徑。覆蓋率驅動的生成挑選未覆蓋的目標，並搜尋能到達它的輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符號／路徑式生成",
+          "text": "<p><strong>符號式（路徑式）</strong>測試生成如何取得能沿某條路徑執行的輸入？</p>",
+          "answers": [
+            {
+              "text": "它建立路徑條件——沿該路徑各分支約束的合取——並用約束求解器求解，得到具體輸入值",
+              "fraction": 100,
+              "feedback": "正確——求解路徑條件即得到能驅動執行沿該路徑前進的輸入。"
+            },
+            {
+              "text": "它在既有輸入中隨機翻轉位元，直到路徑改變",
+              "fraction": 0,
+              "feedback": "那是變異式模糊測試，而非對路徑條件的符號求解。"
+            },
+            {
+              "text": "它用基因演算法演化一群輸入",
+              "fraction": 0,
+              "feedback": "那是搜尋式生成；符號式生成改為求解約束。"
+            },
+            {
+              "text": "它量測既有套件的覆蓋率並回報缺口",
+              "fraction": 0,
+              "feedback": "那是覆蓋率量測，而非以約束求解合成輸入。"
+            }
+          ],
+          "generalFeedback": "符號式（路徑式）生成把輸入視為符號，追蹤沿路徑各分支所加的約束（路徑條件），並向約束／SMT 求解器索取滿足它的具體值。這些值驅動程式沿預期路徑前進。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合式測試生成",
+          "text": "<p><strong>組合式（combinatorial）</strong>測試生成（如成對測試）背後的想法是什麼？</p>",
+          "answers": [
+            {
+              "text": "它以遠少於窮舉所有完整組合的測試數，系統化地覆蓋參數值的各種組合（例如每一對）",
+              "fraction": 100,
+              "feedback": "正確——組合式生成在維持互動覆蓋的同時，讓測試數保持很小。"
+            },
+            {
+              "text": "它窮舉執行所有參數值的每一種完整組合",
+              "fraction": 0,
+              "feedback": "完整組合會爆炸；組合式方法改以一小組測試覆蓋互動（如所有成對）。"
+            },
+            {
+              "text": "它求解每條程式路徑的路徑條件",
+              "fraction": 0,
+              "feedback": "那是符號式生成；組合式生成作用於參數值的組合。"
+            },
+            {
+              "text": "它純粹從定義域隨機挑選輸入",
+              "fraction": 0,
+              "feedback": "組合式生成對互動是系統化的，而非隨機。"
+            }
+          ],
+          "generalFeedback": "組合式測試生成覆蓋參數間的互動——最常見的是所有成對（成對／2-way）——用一小組系統化建構的測試達成。它立基於一個觀察：許多缺陷是由少數互動參數觸發，因此便宜地覆蓋低階組合便能抓到許多缺陷。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "SBST 中把測試視為個體",
+          "text": "<p>在搜尋式測試生成中，候選測試可被表示為一個「個體」，由後設啟發式演算法以適應度函數評估、並朝目標演化。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——把測試編碼為由適應度評分的個體，正是 SBST 套用後設啟發式搜尋的方式。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "SBST 確實把測試編碼為個體（搜尋空間中的一點），並用適應度引導其演化。"
+            }
+          ],
+          "generalFeedback": "SBST 借用最佳化的詞彙：候選測試是「個體」（或染色體），其品質是適應度值，變異與交配等運算子產生新候選，供搜尋在其中選擇以逼近目標。"
+        },
+        {
+          "type": "multichoice",
+          "name": "測試生成中的播種",
+          "text": "<p>在測試生成中，<strong>播種（seeding）</strong>是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "讓生成器從有用的先驗資訊出發——例如程式碼中的常數或既有測試——而非從零開始",
+              "fraction": 100,
+              "feedback": "正確——播種注入已知有用的值，給搜尋一個起步優勢。"
+            },
+            {
+              "text": "在生成結束後刪除多餘的測試",
+              "fraction": 0,
+              "feedback": "那是最小化／縮減，而非播種。"
+            },
+            {
+              "text": "只是固定亂數種子，讓執行可重現",
+              "fraction": 0,
+              "feedback": "亂數種子關乎可重現性；此處的播種指提供有用的起始值。"
+            },
+            {
+              "text": "判斷每個生成輸出是否正確",
+              "fraction": 0,
+              "feedback": "那是預言的工作，與播種無關。"
+            }
+          ],
+          "generalFeedback": "播種為生成器提供有希望的起始素材——從原始碼挖掘的常數與字串字面值、來自既有或回歸測試的值，或先前的語料庫——讓搜尋不必盲目起步。例如播種字面值 42，能讓搜尋更快滿足。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試套件最小化",
+          "text": "<p>什麼是<strong>測試套件最小化（minimization／縮減）</strong>？</p>",
+          "answers": [
+            {
+              "text": "移除多餘的測試，得到一個較小、但仍滿足所選準則（例如維持相同覆蓋率）的套件",
+              "fraction": 100,
+              "feedback": "正確——最小化在保留既定性質（如覆蓋率）的前提下縮小套件。"
+            },
+            {
+              "text": "盡量產生更多測試以最大化套件大小",
+              "fraction": 0,
+              "feedback": "那正好相反；最小化是移除冗餘，而非增加測試。"
+            },
+            {
+              "text": "判斷每個測試的輸出是否正確",
+              "fraction": 0,
+              "feedback": "那是預言的工作，而非最小化。"
+            },
+            {
+              "text": "求解路徑條件以到達未覆蓋的分支",
+              "fraction": 0,
+              "feedback": "那是符號式生成；最小化是修剪既有套件。"
+            }
+          ],
+          "generalFeedback": "測試套件最小化依某準則移除被判為冗餘的測試——通常是在維持相同覆蓋率下減少測試數。它降低執行成本，但因為是以覆蓋率而非找錯能力為最佳化目標，可能會刪掉原本能抓到真實缺陷的測試。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "生成不等於驗證",
+          "text": "<p>自動生成測試輸入，也就自動判定了程式的輸出是否正確。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "不對——生成輸入與判斷其輸出是分開的；判定正確性需要預言。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——生成產生輸入，但本身不判定正確性；那是預言問題。"
+            }
+          ],
+          "generalFeedback": "產生一個能觸及某行為的輸入，並不告訴你該行為是否正確。判定正確性是另一個獨立的預言問題，也正是它讓全自動測試困難：相較於驗證，生成是容易的。"
+        },
+        {
+          "type": "multichoice",
+          "name": "把蛻變關係當作預言",
+          "text": "<p>被用作測試預言的<strong>蛻變關係（metamorphic relation）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "相關輸入之輸出間必須成立的一種關係，即使不知道確切的預期輸出也能檢查",
+              "fraction": 100,
+              "feedback": "正確——它檢查的是必需的關係，而非單一預期值。"
+            },
+            {
+              "text": "某個特定輸入的單一確切預期輸出值",
+              "fraction": 0,
+              "feedback": "那是傳統的預期值預言；蛻變關係正是要避免需要確切值。"
+            },
+            {
+              "text": "連結生成器兩次執行的亂數種子",
+              "fraction": 0,
+              "feedback": "種子關乎可重現性，而非輸出間的正確性關係。"
+            },
+            {
+              "text": "程式兩個分支之間的覆蓋關係",
+              "fraction": 0,
+              "feedback": "蛻變關係連結的是相關輸入的輸出，而非分支的覆蓋。"
+            }
+          ],
+          "generalFeedback": "蛻變關係陳述相關輸入的輸出之間必須如何關聯——例如應等於，或對排序後的清單再排序其排列應得到相同結果。當確切預期輸出未知時，它提供了部分預言，緩解自動生成輸入的預言問題。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "為何隨機難以通過狹窄守衛",
+          "text": "<p>對 32 位元整數 <code>x</code>，為何隨機生成難以滿足像 <code>if (x == 42)</code> 這樣的狹窄條件？</p>",
+          "answers": [
+            {
+              "text": "大約四十億個值中只有一個能滿足它，因此盲目的隨機抽取幾乎永遠碰不到",
+              "fraction": 100,
+              "feedback": "正確——滿足集只佔定義域極小一部分，而隨機抽樣無從朝它收斂。"
+            },
+            {
+              "text": "隨機生成器根本無法產生整數 42",
+              "fraction": 0,
+              "feedback": "它能產生 42；問題在於機率低到微乎其微，而非該值不可能出現。"
+            },
+            {
+              "text": "整數的等於比較是未定義的",
+              "fraction": 0,
+              "feedback": "整數等於是完全良定義的；困難純粹來自命中機率極低。"
+            },
+            {
+              "text": "隨機生成在這類守衛上總是陷入無窮迴圈",
+              "fraction": 0,
+              "feedback": "它不會永遠迴圈；只是不斷抽到絕大多數都錯過那唯一目標的值。"
+            }
+          ],
+          "generalFeedback": "確切等於的守衛只被定義域中極小一部分滿足（32 位元整數約四十億分之一）。隨機抽樣得不到任何「是否更接近」的回饋，因此每次抽取命中的機率微乎其微。導向式方法——播種該常數、求解，或使用基於距離的適應度——則可靠得多。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以分支距離引導搜尋",
+          "text": "<p>對目標 <code>if (x == 42)</code>，<strong>分支距離（branch-distance）</strong>適應度函數如何引導搜尋走向真分支？</p>",
+          "answers": [
+            {
+              "text": "它以離 42 有多遠來為候選評分（例如 |x - 42|），使搜尋獲得獎勵更接近之輸入的梯度",
+              "fraction": 100,
+              "feedback": "正確——把述詞轉成距離，就給了搜尋一個可最小化的量。"
+            },
+            {
+              "text": "它在分支被走到時回傳 1、否則回傳 0，給搜尋一個明確訊號",
+              "fraction": 0,
+              "feedback": "純 0/1 訊號沒有梯度——搜尋無法分辨 x=41 比 x=1000 好；分支距離正好提供這個梯度。"
+            },
+            {
+              "text": "它用 SMT 求解器求解約束",
+              "fraction": 0,
+              "feedback": "那是符號求解；分支距離適應度是搜尋式的替代方案，以數值量度接近程度。"
+            },
+            {
+              "text": "它計算候選總共執行了多少敘述",
+              "fraction": 0,
+              "feedback": "總執行敘述數並不衡量離滿足該特定述詞有多近。"
+            }
+          ],
+          "generalFeedback": "分支距離把述詞轉為一個數字，量度輸入離翻轉該分支有多近。對，自然的距離是 |x - 42|：越小越近。搜尋最小化此距離，於是能分辨 x=41 遠優於 x=1000 並朝目標攀升——這是平坦的 0/1 訊號辦不到的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "陳述預言問題",
+          "text": "<p>下列何者最能刻畫<strong>測試預言問題</strong>？</p>",
+          "answers": [
+            {
+              "text": "生成輸入相對容易，但判斷所得行為是否正確卻很難，且往往需要人所提供的知識",
+              "fraction": 100,
+              "feedback": "正確——困難處在於判斷正確性，而非產生輸入。"
+            },
+            {
+              "text": "不可能生成任何能到達深層程式碼的輸入",
+              "fraction": 0,
+              "feedback": "到達深層程式碼是覆蓋／生成的挑戰；預言問題關乎判斷正確性。"
+            },
+            {
+              "text": "約束求解器太慢，無法求解任何路徑條件",
+              "fraction": 0,
+              "feedback": "求解器效能是符號執行的議題，而非預言問題。"
+            },
+            {
+              "text": "隨機生成總是勝過導向式生成",
+              "fraction": 0,
+              "feedback": "那是關於生成策略的錯誤論斷，與預言問題無關。"
+            }
+          ],
+          "generalFeedback": "預言問題是指：即使手上有了輸入，判斷程式的回應是否正確通常仍需知道預期行為——預期值、斷言、參考或關係。由於取得這種知識代價高昂，成為全自動測試瓶頸的通常是預言，而非輸入生成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符號、隨機與搜尋式的比較",
+          "text": "<p>對於到達一個困難分支，下列何者正確概括<strong>隨機</strong>、<strong>搜尋式</strong>與<strong>符號式</strong>生成之間的取捨？</p>",
+          "answers": [
+            {
+              "text": "隨機最便宜但盲目；搜尋式需要適應度梯度才能攀升；符號式能求解確切條件，但可能碰上求解器限制與路徑爆炸",
+              "fraction": 100,
+              "feedback": "正確——三者各以不同的成本與失敗模式換取到達能力。"
+            },
+            {
+              "text": "三者同樣有效，且成本完全相同",
+              "fraction": 0,
+              "feedback": "差異很大：隨機便宜／盲目、搜尋式需梯度、符號式需可處理的求解器。"
+            },
+            {
+              "text": "符號式生成永遠不需要約束求解器",
+              "fraction": 0,
+              "feedback": "以求解器求解路徑條件正是符號式生成的本質。"
+            },
+            {
+              "text": "搜尋式生成不論適應度地形如何都同樣有效",
+              "fraction": 0,
+              "feedback": "沒有梯度時（例如旗標問題），搜尋式生成會退化成接近隨機。"
+            },
+            {
+              "text": "三者中只有隨機生成不需要預言",
+              "fraction": 0,
+              "feedback": "三者都需要預言來判斷正確性；那與如何生成輸入無關。"
+            }
+          ],
+          "generalFeedback": "隨機生成便宜、不需分析但盲目，故錯過狹窄目標。搜尋式生成在適應度提供梯度時能到達目標，否則停滯。符號式生成能精確求解確切條件，卻受限於求解器能力（非線性算術、外部呼叫）與路徑爆炸。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "從 FSM 生成",
+          "text": "<p>給定一台描述某元件的有限狀態機，模型式生成通常如何產生測試？</p>",
+          "answers": [
+            {
+              "text": "它藉由走訪 FSM 來覆蓋所選元素（如每個狀態或每條轉移），從而推導出輸入序列",
+              "fraction": 100,
+              "feedback": "正確——對 FSM 的走訪化為帶有覆蓋目標的測試序列。"
+            },
+            {
+              "text": "它在編譯後的元件中隨機翻轉位元，直到它改變狀態",
+              "fraction": 0,
+              "feedback": "那是對輸入的變異式模糊測試，而非從模型推導序列。"
+            },
+            {
+              "text": "它量測元件有多少行原始碼",
+              "fraction": 0,
+              "feedback": "那是規模指標，而非從模型推導測試。"
+            },
+            {
+              "text": "它證明該 FSM 無死結，但不產生任何測試",
+              "fraction": 0,
+              "feedback": "那是對性質的模型檢驗；模型式生成則會產出具體的測試序列。"
+            }
+          ],
+          "generalFeedback": "從 FSM 出發，模型式生成建構走訪模型的輸入序列以滿足覆蓋目標——例如造訪每個狀態、執行每條轉移，或覆蓋轉移對。由於模型也編碼了預期回應，它還能提供預期輸出，有助於預言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "接近層級",
+          "text": "<p>在搜尋式生成中，<strong>接近層級（approach level）</strong>對一個目標分支量度什麼？</p>",
+          "answers": [
+            {
+              "text": "在執行偏離目標之前，還有多少個控制（巢狀）該目標的決策節點未被朝目標方向滿足",
+              "fraction": 100,
+              "feedback": "正確——接近層級計數在執行走偏處與目標之間，還有多少個包住目標的決策未被滿足。"
+            },
+            {
+              "text": "某變數離滿足當下述詞的數值距離",
+              "fraction": 0,
+              "feedback": "那是分支距離；接近層級關乎還有多少包住目標的決策未被滿足。"
+            },
+            {
+              "text": "整支程式的敘述總數",
+              "fraction": 0,
+              "feedback": "程式規模與執行離目標多近無關。"
+            },
+            {
+              "text": "候選執行所花的時鐘時間",
+              "fraction": 0,
+              "feedback": "執行時間不衡量離目標分支的接近程度。"
+            }
+          ],
+          "generalFeedback": "對錯過目標的執行，接近層級計數該目標控制相依（外圍）的決策節點中，有多少個未朝目標方向被走到——亦即執行在幾層巢狀之外就偏離了。它會與偏離點處的分支距離結合，形成該目標的整體適應度。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "爬山法與基因演算法",
+          "text": "<p>作為測試生成的後設啟發式，<strong>爬山法（hill-climbing）</strong>與<strong>基因演算法（genetic algorithm）</strong>有何不同？</p>",
+          "answers": [
+            {
+              "text": "爬山法以局部移動改良單一候選，可能卡在局部最佳；基因演算法以交配與變異演化一群候選，較擅長跳脫局部最佳",
+              "fraction": 100,
+              "feedback": "正確——單點局部搜尋 vs 族群式演化正是關鍵差異。"
+            },
+            {
+              "text": "爬山法使用約束求解器，基因演算法只用隨機抽樣",
+              "fraction": 0,
+              "feedback": "兩者都不以求解器定義；兩者都用適應度函數，差別在局部與族群搜尋。"
+            },
+            {
+              "text": "基因演算法不評估任何適應度函數，爬山法則會",
+              "fraction": 0,
+              "feedback": "兩者都仰賴適應度函數；基因演算法用它在族群中做選擇。"
+            },
+            {
+              "text": "它們是同一個演算法的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們是機制不同的兩種搜尋策略。"
+            }
+          ],
+          "generalFeedback": "爬山法只保留一個候選，每步移到較好的鄰居，快速但可能困在局部最佳或平台。基因演算法維持一個族群並套用選擇、交配與變異，因此有更多方式跳脫局部最佳，代價是更多次評估。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "覆蓋率驅動生成的迴圈",
+          "text": "<p><strong>覆蓋率驅動</strong>測試生成的核心迴圈是什麼？</p>",
+          "answers": [
+            {
+              "text": "找出一個未覆蓋的目標、生成瞄準它的輸入、把成功的測試加入，並在剩下的未覆蓋目標上重複",
+              "fraction": 100,
+              "feedback": "正確——它反覆攻擊覆蓋缺口。"
+            },
+            {
+              "text": "一次生成一大批隨機輸入，之後再也不看覆蓋率",
+              "fraction": 0,
+              "feedback": "那是普通隨機生成；覆蓋率驅動生成每一輪都用覆蓋率回饋來挑目標。"
+            },
+            {
+              "text": "不斷刪測試直到覆蓋率降到零",
+              "fraction": 0,
+              "feedback": "那既破壞又無意義；覆蓋率驅動生成是加測試以提高覆蓋率。"
+            },
+            {
+              "text": "判斷每個輸出的正確性，並在全部正確時停止",
+              "fraction": 0,
+              "feedback": "那描述的是預言檢查；覆蓋率驅動生成關乎到達未覆蓋的元素。"
+            }
+          ],
+          "generalFeedback": "覆蓋率驅動生成量測當前覆蓋率，挑選一個未覆蓋的目標（分支、敘述、路徑），並把生成——搜尋式、符號式或其他——導向到達它。命中新目標的測試被保留，此過程在剩餘缺口上重複，直到預算用盡或覆蓋率達標。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何成對測試能減少測試數",
+          "text": "<p>為何<strong>成對（pairwise）</strong>生成能以遠少於完整笛卡兒積的測試數覆蓋所有值對？</p>",
+          "answers": [
+            {
+              "text": "每個測試同時覆蓋許多不同的值對，因此一小組精選的測試就能囊括每一對",
+              "fraction": 100,
+              "feedback": "正確——一個測試一次貢獻許多對，故一個緊湊的覆蓋陣列即足夠。"
+            },
+            {
+              "text": "它悄悄忽略大部分參數",
+              "fraction": 0,
+              "feedback": "成對仍涉及所有參數；只是不要求它們所有值的每一種完整組合。"
+            },
+            {
+              "text": "它假設一次只有一個參數重要",
+              "fraction": 0,
+              "feedback": "成對覆蓋的是兩兩互動，而非孤立的單一參數。"
+            },
+            {
+              "text": "它以隨機雜訊取代參數",
+              "fraction": 0,
+              "feedback": "成對是覆蓋陣列的系統化建構，而非隨機雜訊。"
+            }
+          ],
+          "generalFeedback": "在覆蓋陣列中，每一列（測試）為每個參數固定一個值，因此一次覆蓋許多參數值對。由於對在各測試間共享，精心建構的一小組即可囊括每一對，故測試數大致隨參數數目呈對數成長，而非完整乘積。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "混合執行結合具體與符號",
+          "text": "<p><strong>混合執行（concolic）</strong>生成如何結合具體與符號執行以探索新路徑？</p>",
+          "answers": [
+            {
+              "text": "它以具體輸入執行程式並同時收集符號路徑約束，然後把某個分支約束取反並求解，得到走新路徑的輸入",
+              "fraction": 100,
+              "feedback": "正確——具體執行保持腳踏實地，符號約束則讓它能導向新分支。"
+            },
+            {
+              "text": "它只執行具體輸入，從不記錄任何約束",
+              "fraction": 0,
+              "feedback": "那只是普通測試；混合執行會在具體執行旁記錄符號約束。"
+            },
+            {
+              "text": "它只做符號推理，從不具體執行程式",
+              "fraction": 0,
+              "feedback": "那是純符號執行；混合執行刻意把具體執行與符號軌跡配對。"
+            },
+            {
+              "text": "它用交配與變異演化一群輸入",
+              "fraction": 0,
+              "feedback": "那是基因演算法；混合執行用具體加符號執行搭配求解器。"
+            }
+          ],
+          "generalFeedback": "混合執行（具體＋符號）以具體輸入執行程式，過程中記錄符號路徑條件。要到達新路徑時，它把某個分支約束取反、求解修改後的條件得到具體值，再重跑。以具體執行為基礎，讓它能在求解器無法推理處（如某些函式庫呼叫）使用真實值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "差分預言",
+          "text": "<p><strong>差分（differential）</strong>預言如何判斷一個生成的輸入？</p>",
+          "answers": [
+            {
+              "text": "它把輸入送入兩個或更多獨立實作，並把它們輸出的不一致視為可能的缺陷",
+              "fraction": 100,
+              "feedback": "正確——實作之間出現差異，代表至少有一個是錯的。"
+            },
+            {
+              "text": "它量測輸入覆蓋了多少分支",
+              "fraction": 0,
+              "feedback": "那是覆蓋率，而非比較輸出的預言。"
+            },
+            {
+              "text": "它要求為每個輸入手寫預期值",
+              "fraction": 0,
+              "feedback": "差分測試藉由讓多個實作互相比對，避免了需要手寫預期值。"
+            },
+            {
+              "text": "它把某個分支約束取反以到達新路徑",
+              "fraction": 0,
+              "feedback": "那是混合執行的探索，而非差分預言。"
+            }
+          ],
+          "generalFeedback": "差分預言把同一個生成輸入送入兩個或更多本應一致的實作（不同版本、參考實作或替代函式庫），並把任何輸出不一致當作缺陷證據。它避開了需要確切預期值，但無法抓到所有實作以相同方式共有的錯誤。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "把斷言當作預言",
+          "text": "<p>嵌在程式中（或隨測試一起生成）的可執行斷言，可作為自動生成輸入的部分預言。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——當生成的輸入使某斷言失敗，即標示出不正確的行為，成為部分預言。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "斷言確實可作為部分預言：當生成的輸入使其失敗時，就揭露了缺陷。"
+            }
+          ],
+          "generalFeedback": "斷言編碼了執行時必須成立的性質。當自動生成的輸入違反其中之一，就暴露出不正確的行為，故斷言可作為部分預言。之所以「部分」，是因為它只檢查實際被斷言的性質，而非完整正確性。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何適應度梯度很重要",
+          "text": "<p>為何適應度函數中是否存在<strong>梯度</strong>，對搜尋式生成如此重要？</p>",
+          "answers": [
+            {
+              "text": "梯度讓搜尋能分辨哪些候選更接近目標，因此能一步步改良，而非盲目亂猜",
+              "fraction": 100,
+              "feedback": "正確——沒有「更接近」的感覺，後設啟發式搜尋就無從攀升。"
+            },
+            {
+              "text": "梯度保證目標恰好一步就能到達",
+              "fraction": 0,
+              "feedback": "它不保證一步；它提供方向，讓搜尋能歷經多步前進。"
+            },
+            {
+              "text": "梯度免除了任何適應度評估",
+              "fraction": 0,
+              "feedback": "梯度是適應度值的性質，而適應度仍須被評估。"
+            },
+            {
+              "text": "梯度使預言變得不必要",
+              "fraction": 0,
+              "feedback": "適應度引導覆蓋；預言仍獨立判斷正確性。"
+            }
+          ],
+          "generalFeedback": "後設啟發式搜尋藉由朝更好的適應度移動來改良候選。若適應度隨接近目標而平滑變化（有梯度），搜尋便能循之前進。若適應度除了在目標處外都平坦（如布林旗標），就無梯度可攀，搜尋退化成接近隨機亂猜。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "播種常數以命中 x==42",
+          "text": "<p>某生成器反覆無法滿足 <code>if (x == 42)</code>。下列哪個實務手法最直接有幫助？</p>",
+          "answers": [
+            {
+              "text": "用從原始碼挖掘的常數（含 42）播種生成器，讓候選輸入從這些字面值中取用",
+              "fraction": 100,
+              "feedback": "正確——挖掘並播種該字面值，使命中確切守衛變得可能。"
+            },
+            {
+              "text": "加大族群規模，但仍以純均勻隨機抽樣取值",
+              "fraction": 0,
+              "feedback": "更多均勻隨機抽取幾乎不改變命中單一確切值那微乎其微的機率。"
+            },
+            {
+              "text": "移除適應度函數以讓搜尋更快",
+              "fraction": 0,
+              "feedback": "移除引導只會更糟，把搜尋降級為盲目隨機。"
+            },
+            {
+              "text": "把預言改成蛻變關係",
+              "fraction": 0,
+              "feedback": "預言判斷正確性；它無助於生成器到達該守衛。"
+            }
+          ],
+          "generalFeedback": "常數播種從程式碼挖掘字面值（此處為 42），並餵入候選值池。由於確切常數現在可供生成器取用，滿足變得可能，而非機率極低。這與分支距離適應度、符號求解並列，皆為突破狹窄等於守衛的方法。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "基因演算法如何處理測試個體",
+          "text": "<p>在用於測試生成的基因演算法中，各運算子對測試個體做了什麼？</p>",
+          "answers": [
+            {
+              "text": "選擇偏好較適應的測試，交配重組兩個測試的片段，變異做小幅隨機更動——共同產生新一代",
+              "fraction": 100,
+              "feedback": "正確——選擇、交配與變異一起演化族群。"
+            },
+            {
+              "text": "它們用 SMT 求解器求解每個個體的路徑條件",
+              "fraction": 0,
+              "feedback": "那是符號／混合執行生成，而非基因運算子。"
+            },
+            {
+              "text": "它們刪除每個適應度尚未達到最大的個體",
+              "fraction": 0,
+              "feedback": "選擇是機率性的並保留多樣性；不是單純刪除所有非最佳個體。"
+            },
+            {
+              "text": "它們在不執行測試的情況下計算程式覆蓋率",
+              "fraction": 0,
+              "feedback": "適應度通常需要執行測試；運算子演化個體，並不靜態計算覆蓋率。"
+            }
+          ],
+          "generalFeedback": "基因演算法演化一群測試個體：選擇機率性地保留較適應者，交配結合兩個親代的素材，變異對個體做小幅擾動。由適應度函數引導、反覆套用這些運算子，使族群朝達成目標的測試前進。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "分支距離加接近層級",
+          "text": "<p>對一個深度巢狀的目標分支，為何搜尋式工具會把<strong>接近層級</strong>與<strong>分支距離</strong>結合，而非單用其一？</p>",
+          "answers": [
+            {
+              "text": "接近層級說明執行還漏掉幾個外圍決策，分支距離則量度它偏離處的決策有多接近被滿足——兩者一起提供橫跨巢狀的梯度",
+              "fraction": 100,
+              "feedback": "正確——這對組合產生平滑的適應度：外圍決策被滿足得越多、偏離的那個越接近，適應度都會改善。"
+            },
+            {
+              "text": "單靠接近層級就已在每個巢狀層級提供連續梯度",
+              "fraction": 0,
+              "feedback": "接近層級是整數，只有在整個外圍決策翻轉時才變動；分支距離填補這些階梯之間的空隙。"
+            },
+            {
+              "text": "單靠分支距離就能表達漏掉了幾層巢狀",
+              "fraction": 0,
+              "feedback": "分支距離對單一述詞是局部的；它不編碼還剩多少外圍決策——那是接近層級的職責。"
+            },
+            {
+              "text": "結合兩者可免除執行程式",
+              "fraction": 0,
+              "feedback": "兩者都由候選輸入的實際執行算得；結合它們並不能避免執行程式。"
+            }
+          ],
+          "generalFeedback": "對巢狀目標，一次執行可能在目標之前幾個外圍決策就偏離。接近層級計數那些仍未被滿足的外圍決策（粗略、整數階梯）；在偏離點，分支距離量度該決策有多接近被滿足（階梯之間的細梯度）。常用的適應度是接近層級加上正規化後的分支距離，因此改善任一者都會降低適應度，給搜尋一條穿過巢狀的連續下坡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何預言問題限制自動化",
+          "text": "<p>即使有出色的輸入生成，為何預言問題仍從根本上限制了<em>全</em>自動測試？</p>",
+          "answers": [
+            {
+              "text": "生成能自動到達行為，但判斷該行為是否正確通常需要預期規格，而這終究得由人提供",
+              "fraction": 100,
+              "feedback": "正確——到達行為不等於知道它是對的；正確性知識必須有來源。"
+            },
+            {
+              "text": "因為生成的輸入永遠無法到達超過一半的分支",
+              "fraction": 0,
+              "feedback": "可達性是覆蓋限制，而非預言問題；預言關乎判斷正確性。"
+            },
+            {
+              "text": "因為約束求解器無法處理任何算術",
+              "fraction": 0,
+              "feedback": "求解器能處理許多算術；那是符號執行的限制，而非預言問題。"
+            },
+            {
+              "text": "因為隨機生成總是比受測程式更快",
+              "fraction": 0,
+              "feedback": "相對速度與能否判斷輸出正確無關。"
+            }
+          ],
+          "generalFeedback": "自動化擅長產生輸入與到達行為，但「程式做了 X」並不說明 X 是否是它該做的。判斷這點需要預期行為——規格、預期值或關係——而這無法從受測程式碼本身推導。部分預言（斷言、當機、蛻變與差分關係）縮小差距，卻無法消除，因此由人提供的正確性概念仍是極限。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "蛻變關係何時有幫助",
+          "text": "<p>為何<strong>蛻變關係</strong>對自動生成的輸入特別有價值？</p>",
+          "answers": [
+            {
+              "text": "它讓你不必知道每個輸入的確切預期輸出即可檢查正確性，因此能規模化到生成器產生的大量輸入",
+              "fraction": 100,
+              "feedback": "正確——檢查相關輸入間的關係，避開了逐輸入的預期值。"
+            },
+            {
+              "text": "它保證偵測到程式中每一個可能的缺陷",
+              "fraction": 0,
+              "feedback": "它只抓到違反所選關係的缺陷；其他缺陷可能不被察覺。"
+            },
+            {
+              "text": "它既生成輸入又判斷輸入",
+              "fraction": 0,
+              "feedback": "它是預言技術；輸入仍來自另一個生成器（不過關係常會指定一個後續輸入）。"
+            },
+            {
+              "text": "它免除了執行程式的需要",
+              "fraction": 0,
+              "feedback": "檢查關係需要以相關輸入執行程式。"
+            }
+          ],
+          "generalFeedback": "對自動生成的輸入，逐一手寫預期輸出並不可行。蛻變關係改為約束相關輸入之輸出必須如何關聯（例如一個源輸入與一個轉換後的後續輸入）。若關係被違反，即暴露缺陷——不需逐輸入的預期值。其限制是它只抓到所選特定關係的違反。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "混合執行與搜尋的結合",
+          "text": "<p>為何工具可能會<strong>結合</strong>混合執行與搜尋式生成？</p>",
+          "answers": [
+            {
+              "text": "搜尋以適應度處理求解器薄弱之處（非線性或不透明呼叫），而混合求解攻克搜尋難以對付的確切條件——彼此補足對方的盲點",
+              "fraction": 100,
+              "feedback": "正確——兩種技術在互補的情況下失效，故結合可擴大到達範圍。"
+            },
+            {
+              "text": "因為混合執行與搜尋式生成完全相同，所以結合它們毫無成本",
+              "fraction": 0,
+              "feedback": "它們是強項不同的兩種技術；結合的重點在互補，而非重複。"
+            },
+            {
+              "text": "為了永遠不必執行受測程式",
+              "fraction": 0,
+              "feedback": "兩種方法都會執行程式（混合執行具體地跑、搜尋為評估適應度而跑）。"
+            },
+            {
+              "text": "因為這種結合消除了預言問題",
+              "fraction": 0,
+              "feedback": "兩種技術都不判斷正確性；預言問題依然存在。"
+            }
+          ],
+          "generalFeedback": "混合求解擅長像的確切條件，但在求解器無法表達的約束（非線性算術、雜湊、外部呼叫）上停滯。搜尋式生成能以適應度引導闖過那些，卻在毫無梯度的狹窄等於上停滯。混合式在各自強項處運用兩者，故合力覆蓋任一單獨都到不了的目標。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最小化與找錯能力",
+          "text": "<p>把生成的套件最小化以維持相同覆蓋率時，關鍵風險是什麼？</p>",
+          "answers": [
+            {
+              "text": "兩個覆蓋相同的測試在找錯能力上可能不同，因此把其一當「多餘」刪掉，即使覆蓋率不變也可能降低找錯能力",
+              "fraction": 100,
+              "feedback": "正確——覆蓋率相等並不代表找錯能力相等。"
+            },
+            {
+              "text": "最小化總是同時提高覆蓋率與找錯能力",
+              "fraction": 0,
+              "feedback": "最小化是移除測試；它無法提高覆蓋率，且可能降低找錯能力。"
+            },
+            {
+              "text": "最小化會更動受測程式",
+              "fraction": 0,
+              "feedback": "最小化修剪的是測試，而非程式。"
+            },
+            {
+              "text": "只要維持覆蓋率，最小化就保證相同的找錯能力",
+              "fraction": 0,
+              "feedback": "並無此保證——覆蓋率相等仍可能抓到不同的缺陷。"
+            }
+          ],
+          "generalFeedback": "最小化保留一個滿足某準則（通常是覆蓋率）的子集。但兩個覆蓋相同元素的測試，可能以不同資料執行它們，因而抓到不同缺陷。把其一當覆蓋率冗餘而刪除，可能在覆蓋率不變下降低套件的找錯能力——這個取捨是更小／更快的套件 vs 可能損失找錯能力。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "旗標問題",
+          "text": "<p>考慮 <code>bool flag = (a == b); ... if (flag) { target; }</code>。為何這對搜尋式生成是困難情形（「旗標問題」）？</p>",
+          "answers": [
+            {
+              "text": "在處分支距離只有 0 或 1，形成平坦的適應度地形，沒有梯度告訴搜尋如何讓逼近",
+              "fraction": 100,
+              "feedback": "正確——布林值把距離資訊壓垮，只剩一片平台。"
+            },
+            {
+              "text": "旗標變數使該分支永遠不可能被走到",
+              "fraction": 0,
+              "feedback": "當 a==b 時該分支可達；困難在於缺少梯度，而非不可能。"
+            },
+            {
+              "text": "布林變數無法在搜尋空間中表示",
+              "fraction": 0,
+              "feedback": "布林可被表示；問題在於它丟棄了的距離訊號。"
+            },
+            {
+              "text": "旗標保證在評估期間造成無窮迴圈",
+              "fraction": 0,
+              "feedback": "並未隱含任何迴圈；問題是平坦的適應度地形。"
+            }
+          ],
+          "generalFeedback": "把述詞結果存進布林旗標，會丟掉它有多接近被滿足的資訊。在處分支距離只是 0 或 1，因此除了在解處外適應度都平坦（一片平台），搜尋得不到把推向的方向。補救之道包括旗標移除／轉換，或以可測試性轉換還原底層的距離。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "正規化分支距離",
+          "text": "<p>為何分支距離通常會先<strong>正規化</strong>（例如映到 [0,1)）再加到接近層級上？</p>",
+          "answers": [
+            {
+              "text": "如此一來，多滿足一個外圍決策（更低的接近層級）永遠勝過任何分支距離的改善，讓兩個成分維持正確的排序",
+              "fraction": 100,
+              "feedback": "正確——正規化確保推進整整一層巢狀，優先於在當前層內只是更接近。"
+            },
+            {
+              "text": "因為分支距離否則會是負的",
+              "fraction": 0,
+              "feedback": "分支距離依定義非負；正規化關乎尺度，而非正負號。"
+            },
+            {
+              "text": "為了把適應度轉成布林的通過／失敗值",
+              "fraction": 0,
+              "feedback": "正規化保留連續值；它不會把適應度壓成布林。"
+            },
+            {
+              "text": "為了讓預言變得不必要",
+              "fraction": 0,
+              "feedback": "正規化關乎適應度尺度，而非正確性判斷。"
+            }
+          ],
+          "generalFeedback": "適應度通常是接近層級加上正規化後的分支距離。把距離限制在小於 1，保證把接近層級減 1（滿足另一個外圍決策）永遠比任何層內的距離收穫更能改善適應度，因此搜尋偏好真正的結構性進展，同時仍利用層內的細梯度。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符號式生成的路徑爆炸",
+          "text": "<p>什麼是<strong>路徑爆炸（path explosion）</strong>，為何它限制符號／混合執行生成？</p>",
+          "answers": [
+            {
+              "text": "可行路徑數可能組合性地增長（例如隨分支與迴圈迭代），使得列舉並求解全部變得不可行",
+              "fraction": 100,
+              "feedback": "正確——路徑數爆增，在覆蓋所有路徑前就耗盡時間與求解器預算。"
+            },
+            {
+              "text": "約束求解器對單一路徑回傳太多滿足解",
+              "fraction": 0,
+              "feedback": "路徑爆炸是關於要探索的路徑數，而非每條路徑的解數。"
+            },
+            {
+              "text": "生成的輸入變得太大而無法儲存",
+              "fraction": 0,
+              "feedback": "爆增的是要分析的路徑，而非主要是輸入大小。"
+            },
+            {
+              "text": "受測程式在執行時耗盡記憶體",
+              "fraction": 0,
+              "feedback": "路徑爆炸是生成器的分析擴展性問題，而非目標的執行時記憶體錯誤。"
+            }
+          ],
+          "generalFeedback": "每個分支都可能使路徑數加倍，而迴圈更會使之相乘，因此可行路徑數組合性地增長。符號／混合執行生成必須為這些挑選並求解路徑條件，窮盡覆蓋它們變得難以處理。工具以搜尋啟發式、路徑修剪／合併，以及限制迴圈展開來緩解。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "隱式當機預言的限制",
+          "text": "<p>對生成的輸入只依賴當機作為預言，有一個關鍵限制。是什麼？</p>",
+          "answers": [
+            {
+              "text": "它只抓到以當機／中止形式顯現的失敗；錯誤但不當機的結果會被忽略",
+              "fraction": 100,
+              "feedback": "正確——沉默的不正確輸出會溜過只看當機的預言。"
+            },
+            {
+              "text": "它無法偵測記憶體區段錯誤",
+              "fraction": 0,
+              "feedback": "記憶體區段錯誤這類當機正是它能偵測的；它漏掉的是不當機的錯誤結果。"
+            },
+            {
+              "text": "它要求為每個輸入提供確切預期值",
+              "fraction": 0,
+              "feedback": "當機預言不需預期值——這既是其吸引力，也正是它漏掉邏輯錯誤的原因。"
+            },
+            {
+              "text": "它使生成器無法到達深層分支",
+              "fraction": 0,
+              "feedback": "預言的選擇不限制生成能到達哪些分支。"
+            }
+          ],
+          "generalFeedback": "當機（或消毒器／斷言）預言完全自動且便宜，這正是模糊測試依賴它的原因。但它只標示以可觀察當機顯現的失敗。一個回傳錯誤值卻不當機的函式不產生任何訊號，因此只看當機的預言漏掉大多數邏輯錯誤——這促成了更豐富的部分預言，如蛻變與差分關係。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "差分與蛻變的選擇",
+          "text": "<p>你正為一個數值常式生成輸入，且<em>沒有</em>獨立的參考實作。哪個部分預言適用，為什麼？</p>",
+          "answers": [
+            {
+              "text": "蛻變關係，因為它檢查相關輸入之輸出間必需的關係，且不需要第二個實作",
+              "fraction": 100,
+              "feedback": "正確——在沒有可比對的參考時，蛻變關係仍能提供檢查。"
+            },
+            {
+              "text": "差分預言，因為它單憑這一個實作就能運作",
+              "fraction": 0,
+              "feedback": "差分測試需要至少兩個實作來比較；只有一個時並不適用。"
+            },
+            {
+              "text": "都不行，因為沒有參考就永遠不可能有自動檢查",
+              "fraction": 0,
+              "feedback": "即使沒有參考，蛻變關係仍提供檢查，故自動的部分預言仍然可能。"
+            },
+            {
+              "text": "覆蓋目標，因為覆蓋率能判斷正確性",
+              "fraction": 0,
+              "feedback": "覆蓋率量度執行了什麼，而非輸出是否正確。"
+            }
+          ],
+          "generalFeedback": "差分預言需要兩個或更多實作才能出現不一致；只有一個時無法使用。蛻變關係改為檢查相關輸入之輸出必須如何關聯（例如把所有輸入放大，輸出應可預測地隨之放大），這只需要那唯一的實作——因此在沒有參考時，它是適用的部分預言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "達到覆蓋不代表找到錯誤",
+          "text": "<p>某生成器達到 100% 分支覆蓋率。為何這<em>不</em>足以確立程式正確？</p>",
+          "answers": [
+            {
+              "text": "執行到每個分支只表示程式碼跑過了，但若沒有預言檢查每個結果，被覆蓋分支上的錯誤輸出仍不會被察覺",
+              "fraction": 100,
+              "feedback": "正確——覆蓋率量度執行，而非正確性；預言仍是必需的。"
+            },
+            {
+              "text": "100% 分支覆蓋率在數學上不可能，故此宣稱必為假",
+              "fraction": 0,
+              "feedback": "完整分支覆蓋常可達成；重點是覆蓋率本身不判斷正確性。"
+            },
+            {
+              "text": "分支覆蓋率自動為每個分支內建了預言",
+              "fraction": 0,
+              "feedback": "覆蓋率記錄哪些分支跑過；它不判斷其結果是否正確。"
+            },
+            {
+              "text": "因為覆蓋率總是高估實際執行的分支",
+              "fraction": 0,
+              "feedback": "問題不在計數失準；而在於跑過一個分支不等於驗證其輸出。"
+            }
+          ],
+          "generalFeedback": "覆蓋率告訴你程式碼被執行了，而非它行為正確。一個分支可以跑過卻仍回傳錯誤值；若沒有斷言預期行為的預言，該缺陷不留痕跡。因此純以覆蓋率為目標的生成能最大化執行，但偵測隨之而來的缺陷仍完全取決於預言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "基因演算法跳脫平台",
+          "text": "<p>在有平台的適應度地形上，為何基因演算法有時能在簡單爬山法停滯處取得進展？</p>",
+          "answers": [
+            {
+              "text": "族群多樣性加上交配與變異，讓它同時探索多個區域並跨越平坦區，而非只依賴嚴格改善的局部移動",
+              "fraction": 100,
+              "feedback": "正確——族群式探索能跨越困住單點攀升者的平台。"
+            },
+            {
+              "text": "它以約束求解器取代適應度函數",
+              "fraction": 0,
+              "feedback": "基因演算法仍使用適應度；它不換成求解器。"
+            },
+            {
+              "text": "它保證在任何地形上找到全域最佳",
+              "fraction": 0,
+              "feedback": "沒有任何後設啟發式保證全域最佳；基因演算法只是提高跳脫局部陷阱的機會。"
+            },
+            {
+              "text": "它藉由更動受測程式來移除平台",
+              "fraction": 0,
+              "feedback": "基因演算法不修改程式；重塑此類地形的是可測試性轉換，而非基因演算法本身。"
+            }
+          ],
+          "generalFeedback": "爬山法只接受嚴格改善的鄰居，因此在平台上無處可去。基因演算法維持一個多樣的族群，並以交配與變異在空間中取樣，故能漂過平坦區並重組部分解。它仍不提供保證——真正平坦的地形（如未處理的旗標問題）也能擊敗它——但比純局部搜尋更穩健。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "可達性與良好梯度",
+          "text": "<p>只要目標分支原則上可達，搜尋式生成器就保證能到達它，與適應度地形無關。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "不對——可達性不保證成功；沒有可用的梯度時（如旗標問題），搜尋可能找不到該輸入。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——若適應度地形毫無梯度，一個可達的目標對搜尋而言仍可能實際上不可達。"
+            }
+          ],
+          "generalFeedback": "可達性是程式的性質；搜尋是否成功還取決於適應度地形。若適應度除了在解處外都平坦（平台或未處理的旗標），後設啟發式便無方向，可能到不了一個原則上完全可達的目標。這正是為何適應度設計與可測試性轉換很重要。"
+        },
+        {
+          "type": "multichoice",
+          "name": "跨版本的回歸播種",
+          "text": "<p>為新版本生成測試時，為何從舊版本的測試與輸入<strong>播種</strong>會有用？</p>",
+          "answers": [
+            {
+              "text": "先前的輸入已能到達大部分共享行為，故生成器可從相關狀態附近起步，把預算集中在改動過的程式碼",
+              "fraction": 100,
+              "feedback": "正確——重用先前素材給了起步優勢，並把心力集中在改動處。"
+            },
+            {
+              "text": "它讓生成器完全跳過執行程式",
+              "fraction": 0,
+              "feedback": "播種提供起始輸入；程式仍必須被執行以評估它們。"
+            },
+            {
+              "text": "它保證新版本沒有回歸",
+              "fraction": 0,
+              "feedback": "播種有助生成；它無法保證沒有回歸。"
+            },
+            {
+              "text": "它免除了對新版本使用預言的需要",
+              "fraction": 0,
+              "feedback": "在新版本上判斷正確性仍需要預言。"
+            }
+          ],
+          "generalFeedback": "跨版本時大量行為不變，故舊套件的輸入已把程式驅入相關的深層狀態。以它們播種生成器，代表它不必從零重新發現那些行為，而能把預算花在探索改動過的程式碼——在回歸情境中，這是對先驗資訊實用而有效的運用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "整套最佳化與逐目標",
+          "text": "<p>現代 SBST 工具常對<strong>整套</strong>測試一次針對所有覆蓋目標最佳化，而非為每個目標各生成一個測試。為什麼？</p>",
+          "answers": [
+            {
+              "text": "逐個目標會把預算浪費在不可行或困難的目標上，且忽略了單一測試可命中多個目標；整套最佳化把心力花在有回報處並善用附帶覆蓋",
+              "fraction": 100,
+              "feedback": "正確——套件層級的目標避免卡在單一困難目標，並獎勵一次覆蓋多個目標的測試。"
+            },
+            {
+              "text": "因為整套目標免除了任何適應度函數的需要",
+              "fraction": 0,
+              "feedback": "它仍使用適應度函數——一個聚合所有目標的函數——而非移除它。"
+            },
+            {
+              "text": "因為整套最佳化保證在每支程式上都達到 100% 覆蓋率",
+              "fraction": 0,
+              "feedback": "並無此保證；不可行目標與困難地形仍限制覆蓋率。"
+            },
+            {
+              "text": "因為它使生成的測試不再需要預言",
+              "fraction": 0,
+              "feedback": "不論如何最佳化覆蓋率，判斷正確性仍需要預言。"
+            }
+          ],
+          "generalFeedback": "依序為每個目標各生成一個測試，可能把整個預算耗在苦戰單一不可行或無梯度的目標上，讓容易的目標乾等，且忽略一個測試常能覆蓋多個目標。整套（以及多目標）方法對所有剩餘目標一起最佳化單一套件，故搜尋能自適應地分配心力，並收下個別測試帶來的附帶覆蓋。",
+          "single": true
         }
       ]
     }
