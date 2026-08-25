@@ -59442,9 +59442,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             "text": "<p>A parser first verifies a CRC checksum over the input and rejects the input immediately if it fails. Why does this defeat naive mutation-based fuzzing, and what actually helps?</p>",
             "answers": [
               {
-                "text": "Almost every mutation breaks the checksum, so inputs are rejected before reaching deeper code; help comes from patching out the check in the harness, or from coverage-guided/dictionary/symbolic techniques that can satisfy it",
+                "text": "Almost every mutation breaks the checksum, so inputs are rejected before reaching deeper code; the reliable fixes are patching out (disabling) the checksum check in the harness, or symbolic/concolic execution to solve for a value that satisfies it \u2014 a fixed dictionary token and plain coverage guidance don't help here since the required checksum value varies with the rest of the input",
                 "fraction": 100,
-                "feedback": "Correct \u2014 the check is an all-or-nothing gate; the practical fix is often to disable it in the fuzzing build, or to use techniques that can produce a valid checksum."
+                "feedback": "Correct \u2014 the check is an all-or-nothing gate; the practical fix is to disable it in the fuzzing build, or use symbolic/concolic execution to solve for a valid checksum (a dictionary token or coverage gradient alone won't work, since the checksum's correct value depends on the rest of the input)."
               },
               {
                 "text": "The checksum makes the program run faster, so the fuzzer has less time \u2014 adding more CPU cores solves it",
@@ -59462,7 +59462,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
                 "feedback": "It can be fuzzed: disabling the check in the harness, or using dictionaries/symbolic execution, are standard remedies."
               }
             ],
-            "generalFeedback": "A checksum guard is a single branch that almost all random mutations fail, so the fuzzer never reaches the logic behind it and coverage feedback gives little help (it is essentially all-or-nothing). Common remedies: remove or fix up the checksum inside the fuzzing harness so any input passes, supply the needed constant via a dictionary, or use symbolic/concolic execution to solve for a valid checksum. Coverage guidance alone does not magically satisfy it.",
+            "generalFeedback": "A checksum guard is a single branch that almost all random mutations fail, so the fuzzer never reaches the logic behind it, and coverage feedback gives essentially no gradient to follow (it is all-or-nothing). Reliable remedies: patch out (disable) the checksum check inside the fuzzing harness, or use symbolic/concolic execution to solve for the value that satisfies it. A dictionary token and plain coverage-guided mutation alone do not help here, because the correct checksum varies with the rest of the input \u2014 those fit a fixed magic-bytes comparison, not a checksum.",
             "single": true
           },
           {
@@ -60689,9 +60689,9 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
             "text": "<p>\u67D0\u5256\u6790\u5668\u6703\u5148\u9A57\u8B49\u8F38\u5165\u7684 CRC \u6821\u9A57\u548C\uFF0C\u82E5\u5931\u6557\u5C31\u7ACB\u5373\u62D2\u7D55\u8A72\u8F38\u5165\u3002\u70BA\u4EC0\u9EBC\u9019\u6703\u64CA\u6557\u5929\u771F\u7684\u8B8A\u7570\u5F0F\u6A21\u7CCA\u6E2C\u8A66\uFF0C\u800C\u771F\u6B63\u6709\u5E6B\u52A9\u7684\u662F\u4EC0\u9EBC\uFF1F</p>",
             "answers": [
               {
-                "text": "\u5E7E\u4E4E\u6BCF\u500B\u8B8A\u7570\u90FD\u6703\u7834\u58DE\u6821\u9A57\u548C\uFF0C\u5C0E\u81F4\u8F38\u5165\u5728\u62B5\u9054\u66F4\u6DF1\u7A0B\u5F0F\u78BC\u524D\u5C31\u88AB\u62D2\u7D55\uFF1B\u6709\u5E6B\u52A9\u7684\u662F\u5728\u6E2C\u8A66\u652F\u67B6\u4E2D\u79FB\u9664\u8A72\u6AA2\u67E5\uFF0C\u6216\u7528\u8986\u84CB\u7387\u5C0E\u5411\uFF0F\u5B57\u5178\uFF0F\u7B26\u865F\u57F7\u884C\u7B49\u80FD\u6EFF\u8DB3\u5B83\u7684\u6280\u8853",
+                "text": "\u5E7E\u4E4E\u6BCF\u500B\u8B8A\u7570\u90FD\u6703\u7834\u58DE\u6821\u9A57\u548C\uFF0C\u5C0E\u81F4\u8F38\u5165\u5728\u62B5\u9054\u66F4\u6DF1\u7A0B\u5F0F\u78BC\u524D\u5C31\u88AB\u62D2\u7D55\uFF1B\u53EF\u9760\u7684\u88DC\u6551\u662F\u5728\u6E2C\u8A66\u652F\u67B6\u4E2D\u505C\u7528\uFF08\u79FB\u9664\uFF09\u8A72\u6821\u9A57\u548C\u6AA2\u67E5\uFF0C\u6216\u7528\u7B26\u865F\uFF0F\u5177\u9AD4\u7B26\u865F\u57F7\u884C\u6C42\u89E3\u51FA\u80FD\u6EFF\u8DB3\u5B83\u7684\u6578\u503C\u2014\u2014\u5B57\u5178\u5E38\u6578\u8207\u55AE\u7D14\u8986\u84CB\u7387\u5C0E\u5411\u5C0D\u6821\u9A57\u548C\u6C92\u6709\u5E6B\u52A9\uFF0C\u56E0\u70BA\u6B63\u78BA\u7684\u6821\u9A57\u548C\u503C\u6703\u96A8\u8F38\u5165\u5176\u9918\u90E8\u5206\u800C\u8B8A\u52D5",
                 "fraction": 100,
-                "feedback": "\u6B63\u78BA\u2014\u2014\u8A72\u6AA2\u67E5\u662F\u5168\u6709\u5168\u7121\u7684\u95DC\u5361\uFF1B\u5BE6\u52D9\u4F5C\u6CD5\u5E38\u662F\u5728\u6A21\u7CCA\u6E2C\u8A66\u5EFA\u7F6E\u4E2D\u505C\u7528\u5B83\uFF0C\u6216\u7528\u80FD\u7522\u751F\u6709\u6548\u6821\u9A57\u548C\u7684\u6280\u8853\u3002"
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A72\u6AA2\u67E5\u662F\u5168\u6709\u5168\u7121\u7684\u95DC\u5361\uFF1B\u5BE6\u52D9\u4F5C\u6CD5\u662F\u5728\u6A21\u7CCA\u6E2C\u8A66\u5EFA\u7F6E\u4E2D\u505C\u7528\u5B83\uFF0C\u6216\u7528\u7B26\u865F\uFF0F\u5177\u9AD4\u7B26\u865F\u57F7\u884C\u6C42\u89E3\u51FA\u6709\u6548\u7684\u6821\u9A57\u548C\uFF08\u5B57\u5178\u5E38\u6578\u6216\u8986\u84CB\u7387\u68AF\u5EA6\u55AE\u7368\u90FD\u7121\u6548\uFF0C\u56E0\u70BA\u6821\u9A57\u548C\u7684\u6B63\u78BA\u503C\u6703\u96A8\u8F38\u5165\u5176\u9918\u90E8\u5206\u8B8A\u52D5\uFF09\u3002"
               },
               {
                 "text": "\u6821\u9A57\u548C\u4F7F\u7A0B\u5F0F\u8DD1\u5F97\u66F4\u5FEB\uFF0C\u8B93\u6A21\u7CCA\u6E2C\u8A66\u5668\u6642\u9593\u8B8A\u5C11\u2014\u2014\u589E\u52A0 CPU \u6838\u5FC3\u5373\u53EF\u89E3\u6C7A",
@@ -60709,7 +60709,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
                 "feedback": "\u5B83\u662F\u53EF\u4EE5\u88AB\u6A21\u7CCA\u6E2C\u8A66\u7684\uFF1A\u5728\u652F\u67B6\u4E2D\u505C\u7528\u8A72\u6AA2\u67E5\uFF0C\u6216\u4F7F\u7528\u5B57\u5178\uFF0F\u7B26\u865F\u57F7\u884C\uFF0C\u90FD\u662F\u6A19\u6E96\u7684\u88DC\u6551\u624B\u6BB5\u3002"
               }
             ],
-            "generalFeedback": "\u6821\u9A57\u548C\u95DC\u5361\u662F\u4E00\u500B\u55AE\u4E00\u5206\u652F\uFF0C\u5E7E\u4E4E\u6240\u6709\u96A8\u6A5F\u8B8A\u7570\u90FD\u6703\u5931\u6557\uFF0C\u56E0\u6B64\u6A21\u7CCA\u6E2C\u8A66\u5668\u6C38\u9060\u62B5\u9054\u4E0D\u4E86\u5176\u5F8C\u7684\u908F\u8F2F\uFF0C\u8986\u84CB\u7387\u56DE\u994B\u4E5F\u5E6B\u52A9\u6709\u9650\uFF08\u672C\u8CEA\u4E0A\u662F\u5168\u6709\u5168\u7121\uFF09\u3002\u5E38\u898B\u88DC\u6551\uFF1A\u5728\u6A21\u7CCA\u6E2C\u8A66\u652F\u67B6\u5167\u79FB\u9664\u6216\u4FEE\u6B63\u6821\u9A57\u548C\uFF0C\u4F7F\u4EFB\u4F55\u8F38\u5165\u90FD\u80FD\u901A\u904E\uFF1B\u7528\u5B57\u5178\u63D0\u4F9B\u6240\u9700\u5E38\u6578\uFF1B\u6216\u7528\u7B26\u865F\uFF0F\u5177\u9AD4\u7B26\u865F\u57F7\u884C\u6C42\u89E3\u51FA\u6709\u6548\u6821\u9A57\u548C\u3002\u55AE\u9760\u8986\u84CB\u7387\u5C0E\u5411\u4E26\u4E0D\u6703\u795E\u5947\u5730\u6EFF\u8DB3\u5B83\u3002",
+            "generalFeedback": "\u6821\u9A57\u548C\u95DC\u5361\u662F\u4E00\u500B\u55AE\u4E00\u5206\u652F\uFF0C\u5E7E\u4E4E\u6240\u6709\u96A8\u6A5F\u8B8A\u7570\u90FD\u6703\u5931\u6557\uFF0C\u56E0\u6B64\u6A21\u7CCA\u6E2C\u8A66\u5668\u6C38\u9060\u62B5\u9054\u4E0D\u4E86\u5176\u5F8C\u7684\u908F\u8F2F\uFF0C\u8986\u84CB\u7387\u56DE\u994B\u5E7E\u4E4E\u4E0D\u63D0\u4F9B\u53EF\u5FAA\u7684\u68AF\u5EA6\uFF08\u672C\u8CEA\u4E0A\u662F\u5168\u6709\u5168\u7121\uFF09\u3002\u53EF\u9760\u7684\u88DC\u6551\uFF1A\u5728\u6A21\u7CCA\u6E2C\u8A66\u652F\u67B6\u5167\u505C\u7528\uFF08\u79FB\u9664\uFF09\u8A72\u6821\u9A57\u548C\u6AA2\u67E5\uFF0C\u4F7F\u4EFB\u4F55\u8F38\u5165\u90FD\u80FD\u901A\u904E\uFF1B\u6216\u7528\u7B26\u865F\uFF0F\u5177\u9AD4\u7B26\u865F\u57F7\u884C\u6C42\u89E3\u51FA\u6709\u6548\u6821\u9A57\u548C\u3002\u5B57\u5178\u5E38\u6578\u8207\u55AE\u9760\u8986\u84CB\u7387\u5C0E\u5411\u5728\u6B64\u90FD\u6C92\u6709\u5E6B\u52A9\uFF0C\u56E0\u70BA\u6B63\u78BA\u7684\u6821\u9A57\u548C\u503C\u6703\u96A8\u8F38\u5165\u5176\u9918\u90E8\u5206\u800C\u8B8A\u52D5\u2014\u2014\u90A3\u4E9B\u6280\u8853\u9069\u5408\u56FA\u5B9A\u7684\u9B54\u8853\u4F4D\u5143\u7D44\u6BD4\u8F03\uFF0C\u800C\u975E\u6821\u9A57\u548C\u3002",
             "single": true
           },
           {
@@ -88708,7 +88708,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
               {
                 "text": "4",
                 "fraction": 0,
-                "feedback": "4 is the product of the two largest domains (3 \xD7 2 would be 6, not 4), and in any case that is a pairwise lower bound, not the exhaustive count."
+                "feedback": "4 is not the product of the two largest domains (3 \xD7 2 = 6); the exhaustive count multiplies ALL domain sizes: 3 \xD7 2 \xD7 2 = 12."
               }
             ],
             "generalFeedback": "Exhaustive testing is the product of all domain sizes: 3 \xD7 2 \xD7 2 = 12.",

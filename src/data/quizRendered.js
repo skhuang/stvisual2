@@ -13630,9 +13630,9 @@ export const QUIZ_RENDERED = {
           "text": "<p>A parser first verifies a CRC checksum over the input and rejects the input immediately if it fails. Why does this defeat naive mutation-based fuzzing, and what actually helps?</p>",
           "answers": [
             {
-              "text": "Almost every mutation breaks the checksum, so inputs are rejected before reaching deeper code; help comes from patching out the check in the harness, or from coverage-guided/dictionary/symbolic techniques that can satisfy it",
+              "text": "Almost every mutation breaks the checksum, so inputs are rejected before reaching deeper code; the reliable fixes are patching out (disabling) the checksum check in the harness, or symbolic/concolic execution to solve for a value that satisfies it — a fixed dictionary token and plain coverage guidance don't help here since the required checksum value varies with the rest of the input",
               "fraction": 100,
-              "feedback": "Correct — the check is an all-or-nothing gate; the practical fix is often to disable it in the fuzzing build, or to use techniques that can produce a valid checksum."
+              "feedback": "Correct — the check is an all-or-nothing gate; the practical fix is to disable it in the fuzzing build, or use symbolic/concolic execution to solve for a valid checksum (a dictionary token or coverage gradient alone won't work, since the checksum's correct value depends on the rest of the input)."
             },
             {
               "text": "The checksum makes the program run faster, so the fuzzer has less time — adding more CPU cores solves it",
@@ -13650,7 +13650,7 @@ export const QUIZ_RENDERED = {
               "feedback": "It can be fuzzed: disabling the check in the harness, or using dictionaries/symbolic execution, are standard remedies."
             }
           ],
-          "generalFeedback": "A checksum guard is a single branch that almost all random mutations fail, so the fuzzer never reaches the logic behind it and coverage feedback gives little help (it is essentially all-or-nothing). Common remedies: remove or fix up the checksum inside the fuzzing harness so any input passes, supply the needed constant via a dictionary, or use symbolic/concolic execution to solve for a valid checksum. Coverage guidance alone does not magically satisfy it.",
+          "generalFeedback": "A checksum guard is a single branch that almost all random mutations fail, so the fuzzer never reaches the logic behind it, and coverage feedback gives essentially no gradient to follow (it is all-or-nothing). Reliable remedies: patch out (disable) the checksum check inside the fuzzing harness, or use symbolic/concolic execution to solve for the value that satisfies it. A dictionary token and plain coverage-guided mutation alone do not help here, because the correct checksum varies with the rest of the input — those fit a fixed magic-bytes comparison, not a checksum.",
           "single": true
         },
         {
@@ -14877,9 +14877,9 @@ export const QUIZ_RENDERED = {
           "text": "<p>某剖析器會先驗證輸入的 CRC 校驗和，若失敗就立即拒絕該輸入。為什麼這會擊敗天真的變異式模糊測試，而真正有幫助的是什麼？</p>",
           "answers": [
             {
-              "text": "幾乎每個變異都會破壞校驗和，導致輸入在抵達更深程式碼前就被拒絕；有幫助的是在測試支架中移除該檢查，或用覆蓋率導向／字典／符號執行等能滿足它的技術",
+              "text": "幾乎每個變異都會破壞校驗和，導致輸入在抵達更深程式碼前就被拒絕；可靠的補救是在測試支架中停用（移除）該校驗和檢查，或用符號／具體符號執行求解出能滿足它的數值——字典常數與單純覆蓋率導向對校驗和沒有幫助，因為正確的校驗和值會隨輸入其餘部分而變動",
               "fraction": 100,
-              "feedback": "正確——該檢查是全有全無的關卡；實務作法常是在模糊測試建置中停用它，或用能產生有效校驗和的技術。"
+              "feedback": "正確——該檢查是全有全無的關卡；實務作法是在模糊測試建置中停用它，或用符號／具體符號執行求解出有效的校驗和（字典常數或覆蓋率梯度單獨都無效，因為校驗和的正確值會隨輸入其餘部分變動）。"
             },
             {
               "text": "校驗和使程式跑得更快，讓模糊測試器時間變少——增加 CPU 核心即可解決",
@@ -14897,7 +14897,7 @@ export const QUIZ_RENDERED = {
               "feedback": "它是可以被模糊測試的：在支架中停用該檢查，或使用字典／符號執行，都是標準的補救手段。"
             }
           ],
-          "generalFeedback": "校驗和關卡是一個單一分支，幾乎所有隨機變異都會失敗，因此模糊測試器永遠抵達不了其後的邏輯，覆蓋率回饋也幫助有限（本質上是全有全無）。常見補救：在模糊測試支架內移除或修正校驗和，使任何輸入都能通過；用字典提供所需常數；或用符號／具體符號執行求解出有效校驗和。單靠覆蓋率導向並不會神奇地滿足它。",
+          "generalFeedback": "校驗和關卡是一個單一分支，幾乎所有隨機變異都會失敗，因此模糊測試器永遠抵達不了其後的邏輯，覆蓋率回饋幾乎不提供可循的梯度（本質上是全有全無）。可靠的補救：在模糊測試支架內停用（移除）該校驗和檢查，使任何輸入都能通過；或用符號／具體符號執行求解出有效校驗和。字典常數與單靠覆蓋率導向在此都沒有幫助，因為正確的校驗和值會隨輸入其餘部分而變動——那些技術適合固定的魔術位元組比較，而非校驗和。",
           "single": true
         },
         {
@@ -42896,7 +42896,7 @@ export const QUIZ_RENDERED = {
             {
               "text": "4",
               "fraction": 0,
-              "feedback": "4 is the product of the two largest domains (3 × 2 would be 6, not 4), and in any case that is a pairwise lower bound, not the exhaustive count."
+              "feedback": "4 is not the product of the two largest domains (3 × 2 = 6); the exhaustive count multiplies ALL domain sizes: 3 × 2 × 2 = 12."
             }
           ],
           "generalFeedback": "Exhaustive testing is the product of all domain sizes: 3 × 2 × 2 = 12.",

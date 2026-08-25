@@ -40,7 +40,7 @@
     <answer fraction="100"><text>12</text><feedback><text>Correct — 3 × 2 × 2 = 12, the product of the domain sizes.</text></feedback></answer>
     <answer fraction="0"><text>7</text><feedback><text>7 is the sum 3 + 2 + 2; exhaustive multiplies the domain sizes.</text></feedback></answer>
     <answer fraction="0"><text>6</text><feedback><text>6 counts only two of the three parameters (3 × 2); include the third.</text></feedback></answer>
-    <answer fraction="0"><text>4</text><feedback><text>4 is the product of the two largest domains (3 × 2 would be 6, not 4), and in any case that is a pairwise lower bound, not the exhaustive count.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is not the product of the two largest domains (3 × 2 = 6); the exhaustive count multiplies ALL domain sizes: 3 × 2 × 2 = 12.</text></feedback></answer>
     <generalfeedback><text>Exhaustive testing is the product of all domain sizes: 3 × 2 × 2 = 12.</text></generalfeedback>
   </question>
   <question type="multichoice">

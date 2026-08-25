@@ -1,8 +1,1 @@
-[
-  "fuzz-testing",
-  "test-generation",
-  "integration-testing",
-  "pairwise",
-  "state-transition",
-  "cause-effect"
-]
+[]
