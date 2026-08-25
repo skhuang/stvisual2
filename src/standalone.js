@@ -2765,6 +2765,8 @@
       "lab.samples": "Samples",
       "lab.openRepo": "Open practice repo",
       "lab.judgeSoon": "Practice on judge (coming soon)",
+      "lab.judgeSignin": "Sign in to practice on judge",
+      "lab.judgePractice": "Practice on judge",
       "bva.param.name": "Parameter name",
       "bva.param.min": "Min",
       "bva.param.max": "Max",
@@ -5612,6 +5614,8 @@
       "lab.samples": "\u7BC4\u4F8B\u8F38\u5165\u8F38\u51FA",
       "lab.openRepo": "\u958B\u555F\u7DF4\u7FD2 repo",
       "lab.judgeSoon": "\u4E0A\u6A5F\u7DF4\u7FD2\uFF08\u5373\u5C07\u958B\u653E\uFF09",
+      "lab.judgeSignin": "\u767B\u5165\u4EE5\u5728 judge \u7DF4\u7FD2",
+      "lab.judgePractice": "\u5728 judge \u7DF4\u7FD2",
       "common.notes": "\u5099\u8A3B",
       "bva.param.name": "\u53C3\u6578\u540D\u7A31",
       "bva.param.min": "\u6700\u5C0F\u503C",
@@ -10828,6 +10832,7 @@
     },
     firebaseEnabled: false
   };
+  var JUDGE_FRONTEND_BASE = "https://ds2026summer.cs.nycu.edu.tw";
   function getResolvedCloudConfig() {
     var _a2;
     const runtimeConfig = globalThis.STVISUAL_CLOUD_CONFIG || {};
@@ -12192,15 +12197,15 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       </div>
     `;
     }
-    let cloudClient = null;
+    let cloudClient2 = null;
     try {
-      cloudClient = createCloudIntegrationClient();
+      cloudClient2 = createCloudIntegrationClient();
     } catch {
-      cloudClient = null;
+      cloudClient2 = null;
     }
     function pushRecentToCloud(list) {
-      if (!cloudClient || !state41.cloudUser || typeof cloudClient.saveLogicRecent !== "function") return;
-      cloudClient.saveLogicRecent(state41.cloudUser.uid, list).catch(() => {
+      if (!cloudClient2 || !state41.cloudUser || typeof cloudClient2.saveLogicRecent !== "function") return;
+      cloudClient2.saveLogicRecent(state41.cloudUser.uid, list).catch(() => {
       });
     }
     function persistRecent() {
@@ -12933,14 +12938,14 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
     recompute();
     render41();
-    if (cloudClient && typeof cloudClient.subscribeAuthState === "function") {
-      cloudClient.subscribeAuthState(async (user) => {
+    if (cloudClient2 && typeof cloudClient2.subscribeAuthState === "function") {
+      cloudClient2.subscribeAuthState(async (user) => {
         state41.cloudUser = user || null;
-        if (!user || typeof cloudClient.loadLogicRecent !== "function") {
+        if (!user || typeof cloudClient2.loadLogicRecent !== "function") {
           return;
         }
         try {
-          const remote = await cloudClient.loadLogicRecent(user.uid);
+          const remote = await cloudClient2.loadLogicRecent(user.uid);
           const merged = [];
           const seen = /* @__PURE__ */ new Set();
           [...remote, ...state41.recent].forEach((expr) => {
@@ -13200,11 +13205,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
   function createCloudStoragePanel() {
     var _a2;
     const root41 = document.createElement("div");
-    const client = createCloudIntegrationClient();
-    const canUseCloudAuth = client.isConfigured && client.isSupportedOrigin;
-    const canUseCloudData = !client.isMaccount;
+    const client2 = createCloudIntegrationClient();
+    const canUseCloudAuth = client2.isConfigured && client2.isSupportedOrigin;
+    const canUseCloudData = !client2.isMaccount;
     let user = null;
-    let status = canUseCloudAuth ? t("cloud.signInPrompt") : client.isSupportedOrigin ? t("cloud.firebaseMissing", { keys: client.missingKeys.join(", ") }) : client.originWarning;
+    let status = canUseCloudAuth ? t("cloud.signInPrompt") : client2.isSupportedOrigin ? t("cloud.firebaseMissing", { keys: client2.missingKeys.join(", ") }) : client2.originWarning;
     let settings = { ...DEFAULT_SETTINGS };
     let uploadedFiles = [];
     let selectedFile = null;
@@ -13229,7 +13234,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
             <p class="cloud-kicker">${t("cloud.kicker")}</p>
             <h3>${t("cloud.title")}</h3>
             <p class="cloud-subtitle">${t("cloud.subtitle")}</p>
-            ${!client.isSupportedOrigin ? `<p class="cloud-warning" data-testid="cloud-origin-warning">${t("cloud.fileWarning")}</p>` : ""}
+            ${!client2.isSupportedOrigin ? `<p class="cloud-warning" data-testid="cloud-origin-warning">${t("cloud.fileWarning")}</p>` : ""}
           </div>
           <div class="cloud-auth-actions">
             ${user ? `<span class="cloud-signed-in" data-testid="cloud-signed-in">${t("common.signedIn")}</span>` : `<button type="button" class="cloud-btn" data-testid="cloud-signin-btn" ${!canUseCloudAuth ? "disabled" : ""}>${t("common.maccountSignIn")}</button>`}
@@ -13344,11 +13349,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       </div>
     `;
       (_a3 = root41.querySelector('[data-testid="cloud-signin-btn"]')) == null ? void 0 : _a3.addEventListener("click", () => {
-        client.signIn();
+        client2.signIn();
       });
       root41.querySelector('[data-testid="cloud-signout-btn"]').addEventListener("click", async () => {
         try {
-          await client.signOutGoogle();
+          await client2.signOutGoogle();
           user = null;
           selectedFile = null;
           status = t("cloud.signedOut");
@@ -13374,7 +13379,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       });
       (_f = root41.querySelector('[data-testid="cloud-load-settings-btn"]')) == null ? void 0 : _f.addEventListener("click", async () => {
         try {
-          const loaded = await client.loadSettings(user.uid);
+          const loaded = await client2.loadSettings(user.uid);
           if (loaded) {
             settings = {
               preferredCriterion: loaded.preferredCriterion || "node",
@@ -13395,7 +13400,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         try {
           const extras = parseJson(root41.querySelector('[data-testid="cloud-extras-input"]').value);
           settings.extras = extras;
-          await client.saveSettings(user.uid, settings);
+          await client2.saveSettings(user.uid, settings);
           status = t("cloud.savedOk");
           render41();
         } catch (error) {
@@ -13421,7 +13426,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           } catch {
             content = null;
           }
-          const uploaded = await client.uploadFileToDrive(fileToUpload);
+          const uploaded = await client2.uploadFileToDrive(fileToUpload);
           uploadedFiles = [{ ...uploaded, content, fileName: fileToUpload.name, file: fileToUpload }, ...uploadedFiles].slice(0, 8);
           status = t("cloud.uploadedOk", { name: uploaded.name });
           selectedFile = null;
@@ -13486,12 +13491,12 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         }));
       });
       (_k = root41.querySelector('[data-testid="cloud-refresh-drive-btn"]')) == null ? void 0 : _k.addEventListener("click", async () => {
-        if (!user || typeof client.listDriveFiles !== "function") return;
+        if (!user || typeof client2.listDriveFiles !== "function") return;
         driveFilesLoading = true;
         status = t("cloud.refreshing");
         render41();
         try {
-          driveFiles = await client.listDriveFiles();
+          driveFiles = await client2.listDriveFiles();
           status = t("cloud.driveListed", { count: driveFiles.length });
         } catch (err) {
           status = t("cloud.driveListError", { msg: (err == null ? void 0 : err.message) || err });
@@ -13510,7 +13515,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
           try {
             status = t("cloud.downloading", { name: f.name });
             render41();
-            const content = await client.downloadDriveFile(f.id);
+            const content = await client2.downloadDriveFile(f.id);
             const sectionId = target === "graph" ? "section-graph" : "section-syntax";
             const targetSection = (_a4 = globalThis.document) == null ? void 0 : _a4.querySelector(`[data-testid="${sectionId}"]`);
             targetSection == null ? void 0 : targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -13534,21 +13539,21 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         const payload = JSON.parse(decodeURIComponent(atob(payloadStr)));
         if (!payload || !payload.explorer) return;
         uploadedResultIds.add(payloadStr);
-        await client.saveResult(user.uid, user.displayName || "", user.email || "", classCode, payload);
+        await client2.saveResult(user.uid, user.displayName || "", user.email || "", classCode, payload);
         uploadCount++;
         const badge = root41.querySelector('[data-testid="cloud-upload-count"]');
         if (badge) badge.textContent = uploadCount;
       } catch {
       }
     });
-    client.subscribeAuthState(async (nextUser) => {
+    client2.subscribeAuthState(async (nextUser) => {
       user = nextUser;
       if (!user && canUseCloudAuth) {
         status = t("cloud.signInPrompt");
         driveFiles = [];
-      } else if (user && typeof client.listDriveFiles === "function") {
+      } else if (user && typeof client2.listDriveFiles === "function") {
         try {
-          driveFiles = await client.listDriveFiles();
+          driveFiles = await client2.listDriveFiles();
         } catch {
         }
       }
@@ -14422,11 +14427,11 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       cloudMessage: "",
       customExamples: []
     };
-    let cloudClient = null;
+    let cloudClient2 = null;
     try {
-      cloudClient = createCloudIntegrationClient();
+      cloudClient2 = createCloudIntegrationClient();
     } catch {
-      cloudClient = null;
+      cloudClient2 = null;
     }
     function snapshotCurrent() {
       return {
@@ -14488,7 +14493,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     let saveTimer = null;
     let pendingSave = null;
     function pushToCloud() {
-      if (!cloudClient || !state41.cloudUser || typeof cloudClient.saveSyntaxTests !== "function") return;
+      if (!cloudClient2 || !state41.cloudUser || typeof cloudClient2.saveSyntaxTests !== "function") return;
       if (saveTimer) clearTimeout(saveTimer);
       state41.cloudStatus = "syncing";
       state41.cloudMessage = "";
@@ -14497,7 +14502,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         saveTimer = setTimeout(async () => {
           saveTimer = null;
           try {
-            await cloudClient.saveSyntaxTests(state41.cloudUser.uid, state41.programs);
+            await cloudClient2.saveSyntaxTests(state41.cloudUser.uid, state41.programs);
             state41.cloudStatus = "synced";
             state41.cloudMessage = t("syntax.cloud.synced");
           } catch (err) {
@@ -14516,7 +14521,7 @@ Content-Type: ${file.type || "application/octet-stream"}\r
         clearTimeout(saveTimer);
         saveTimer = null;
         try {
-          await cloudClient.saveSyntaxTests(state41.cloudUser.uid, state41.programs);
+          await cloudClient2.saveSyntaxTests(state41.cloudUser.uid, state41.programs);
         } catch {
         }
       } else {
@@ -14545,14 +14550,14 @@ Content-Type: ${file.type || "application/octet-stream"}\r
     }
     async function reloadFromCloud({ force = false } = {}) {
       var _a3, _b2;
-      if (!cloudClient || !state41.cloudUser) return;
-      if (typeof cloudClient.loadSyntaxTests !== "function") return;
+      if (!cloudClient2 || !state41.cloudUser) return;
+      if (typeof cloudClient2.loadSyntaxTests !== "function") return;
       await flushPendingSave();
       state41.cloudStatus = "syncing";
       state41.cloudMessage = force ? t("syntax.cloud.reloading") : "";
       updateCloudIndicator();
       try {
-        const remote = await cloudClient.loadSyntaxTests(state41.cloudUser.uid);
+        const remote = await cloudClient2.loadSyntaxTests(state41.cloudUser.uid);
         const remoteObj = remote && typeof remote === "object" ? remote : {};
         const localOnly = Object.keys(state41.programs).filter((k) => !(k in remoteObj));
         const merged = { ...remoteObj };
@@ -14979,8 +14984,8 @@ Content-Type: ${file.type || "application/octet-stream"}\r
       }
     }
     render41();
-    if (cloudClient && typeof cloudClient.subscribeAuthState === "function") {
-      cloudClient.subscribeAuthState(async (user) => {
+    if (cloudClient2 && typeof cloudClient2.subscribeAuthState === "function") {
+      cloudClient2.subscribeAuthState(async (user) => {
         state41.cloudUser = user || null;
         if (!user) {
           state41.cloudStatus = "idle";
@@ -43921,8 +43926,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     const root41 = document.createElement("div");
     root41.dataset.testid = "teacher-dashboard";
     root41.className = "td-overlay";
-    const client = createCloudIntegrationClient();
-    const disabled = Boolean(client.isMaccount);
+    const client2 = createCloudIntegrationClient();
+    const disabled = Boolean(client2.isMaccount);
     let classCode = "";
     let results = [];
     let loading = false;
@@ -44048,7 +44053,7 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         results = [];
         render41();
         try {
-          results = await client.loadCourseResults(classCode);
+          results = await client2.loadCourseResults(classCode);
           filterExplorer = "";
         } catch (err) {
           errorMsg = err.message || t("td.err.loadFailed");
@@ -99482,9 +99487,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   var body2 = null;
   var lang = "en";
   var state40 = null;
-  var attemptId = (slug) => "lab:" + slug;
-  var POLL_INTERVAL_MS = 1500;
-  var POLL_TRIES = 120;
+  var cloudClient = null;
+  var authSubscribed = false;
   function t3(k, fb) {
     const v = t(k);
     return v !== k ? v : fb || k;
@@ -99496,7 +99500,11 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     var _a2;
     return Boolean((_a2 = LAB_RENDERED[unitId]) == null ? void 0 : _a2.length);
   }
+  function client() {
+    return cloudClient || (cloudClient = createCloudIntegrationClient());
+  }
   function ensureRefs2() {
+    var _a2, _b2;
     if (overlay3) return;
     overlay3 = document.createElement("div");
     overlay3.id = "lab-viewer";
@@ -99516,8 +99524,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     document.body.appendChild(overlay3);
     body2 = overlay3.querySelector("#lab-viewer-body");
     overlay3.addEventListener("click", (e) => {
-      var _a2, _b2;
-      if (e.target === overlay3 || ((_b2 = (_a2 = e.target).closest) == null ? void 0 : _b2.call(_a2, "[data-lab-close]"))) close2();
+      var _a3, _b3;
+      if (e.target === overlay3 || ((_b3 = (_a3 = e.target).closest) == null ? void 0 : _b3.call(_a3, "[data-lab-close]"))) close2();
     });
     document.addEventListener("keydown", (e) => {
       if (overlay3 && !overlay3.hidden && e.key === "Escape") close2();
@@ -99526,6 +99534,15 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
       lang = lang === "zh" ? "en" : "zh";
       render40();
     });
+    if (!authSubscribed) {
+      authSubscribed = true;
+      try {
+        (_b2 = (_a2 = client()).subscribeAuthState) == null ? void 0 : _b2.call(_a2, () => {
+          if (state40) render40();
+        });
+      } catch {
+      }
+    }
   }
   function sampleBlock(s, i) {
     return `<div class="lab-sample">
@@ -99533,105 +99550,30 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     <div class="lab-sample-col"><strong>out</strong><pre><code>${esc24(s.out)}</code></pre></div>
   </div>`;
   }
-  function judgeBaseOf(lab) {
-    return String(lab.judgeBase || "").replace(/\/$/, "");
+  function judgeUrlOf(lab) {
+    return `${String(JUDGE_FRONTEND_BASE).replace(/\/$/, "")}/bank/${encodeURIComponent(lab.judgeProblemId)}`;
   }
-  function setJudgeStatus(html, cls) {
-    const el = overlay3 == null ? void 0 : overlay3.querySelector("#lab-judge-result");
-    if (el) el.innerHTML = `<div class="lab-judge-status ${cls || ""}">${html}</div>`;
-  }
-  function renderVerdict2(s) {
-    const v = esc24(s.verdict || "?");
-    const msg = s.message ? `<pre class="lab-judge-msg" data-testid="lab-judge-message">${esc24(s.message)}</pre>` : "";
-    return `<strong class="v-${v}" data-testid="lab-judge-verdict">${v} ${esc24(s.score)}/${esc24(s.max_score)}</strong>${msg}`;
-  }
-  function recordAttempt(lab, s) {
-    QuizAttempts.record(localStorage, attemptId(lab.slug), {
-      id: s.submission_id,
-      verdict: s.verdict,
-      score: s.score,
-      max_score: s.max_score,
-      at: Date.now()
-    });
-  }
-  async function pollSubmission(lab, sid) {
-    const base = judgeBaseOf(lab);
-    for (let i = 0; i < POLL_TRIES; i++) {
-      await new Promise((r2) => setTimeout(r2, POLL_INTERVAL_MS));
-      let r;
-      try {
-        r = await fetch(
-          `${base}/bank/submission/${encodeURIComponent(sid)}`,
-          { headers: { Accept: "application/json" }, credentials: "include" }
-        );
-      } catch {
-        continue;
-      }
-      if (!r.ok) continue;
-      const s = await r.json();
-      if (s.status === "done") {
-        recordAttempt(lab, s);
-        setJudgeStatus(renderVerdict2(s), "done");
-        return;
-      }
-    }
-    setJudgeStatus(esc24(t3("lab.judgeSlow", "Still grading \u2014 check back shortly.")), "pending");
-  }
-  async function submitTests(lab, file) {
-    const base = judgeBaseOf(lab);
-    const fd = new FormData();
-    fd.append("file", file, file.name);
-    let r;
-    try {
-      r = await fetch(
-        `${base}/bank/${encodeURIComponent(lab.judgeProblemId)}/submit`,
-        { method: "POST", body: fd, credentials: "include" }
-      );
-    } catch {
-      setJudgeStatus(esc24(t3("lab.judgeOffline", "Could not reach the judge.")), "error");
-      return;
-    }
-    if (!r.ok) {
-      const why = r.status === 429 ? t3("lab.judgeRateLimited", "Too many submissions \u2014 slow down.") : t3("lab.judgeRejected", "The judge rejected this submission.");
-      setJudgeStatus(`${esc24(why)} (${esc24(r.status)})`, "error");
-      return;
-    }
-    const { submission_id: sid } = await r.json();
-    setJudgeStatus(esc24(t3("lab.judgeWaiting", "Grading\u2026")) + ` #${esc24(sid)}`, "pending");
-    await pollSubmission(lab, sid);
-  }
-  function judgePanel(lab) {
+  function judgeControlHtml(lab, c, user) {
     if (!lab.judgeProblemId) {
       return `<button type="button" class="btn secondary" data-testid="lab-judge" aria-disabled="true" disabled>${t3("lab.judgeSoon", "Practice on judge (coming soon)")}</button>`;
     }
-    return `<div class="lab-judge" data-testid="lab-judge-panel">
-      <input type="file" accept=".py" data-testid="lab-test-file" id="lab-test-file"
-             aria-label="${esc24(t3("lab.testFile", "Your pytest file"))}">
-      <button type="button" class="btn primary" data-testid="lab-submit-tests">${esc24(t3("lab.submitTests", "Submit tests"))}</button>
-      <div id="lab-judge-result" data-testid="lab-judge-result"></div>
-    </div>`;
+    if (c && c.isConfigured && !user) {
+      return `<button type="button" class="btn secondary" data-testid="lab-judge-signin">${t3("lab.judgeSignin", "Sign in to practice on judge")}</button>`;
+    }
+    return `<a class="btn secondary" data-testid="lab-judge" href="${esc24(judgeUrlOf(lab))}" target="_blank" rel="noopener">${t3("lab.judgePractice", "Practice on judge")}</a>`;
   }
-  function wireJudge(lab) {
-    const btn = overlay3.querySelector('[data-testid="lab-submit-tests"]');
-    if (!btn) return;
-    btn.addEventListener("click", async () => {
-      var _a2;
-      const input = overlay3.querySelector('[data-testid="lab-test-file"]');
-      const file = (_a2 = input == null ? void 0 : input.files) == null ? void 0 : _a2[0];
-      if (!file) {
-        setJudgeStatus(esc24(t3("lab.judgePickFile", "Choose a test_*.py file first.")), "error");
-        return;
-      }
-      btn.disabled = true;
-      setJudgeStatus(esc24(t3("lab.judgeSending", "Uploading\u2026")), "pending");
+  function wireJudge() {
+    var _a2;
+    (_a2 = overlay3.querySelector('[data-testid="lab-judge-signin"]')) == null ? void 0 : _a2.addEventListener("click", () => {
+      var _a3, _b2;
       try {
-        await submitTests(lab, file);
-      } finally {
-        btn.disabled = false;
+        (_b2 = (_a3 = client()).signIn) == null ? void 0 : _b2.call(_a3);
+      } catch {
       }
     });
   }
   function render40() {
+    var _a2, _b2;
     if (!state40) return;
     const lab = state40.lab;
     const title = lang === "zh" ? lab.titleZh : lab.titleEn;
@@ -99640,13 +99582,19 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
     if (lab.difficulty) meta.push(t3("lab.difficulty", "Difficulty") + " " + "\u2605".repeat(lab.difficulty));
     if (lab.week) meta.push(t3("lab.week", "Week") + " " + lab.week);
     const repoBtn = lab.repoUrl ? `<a class="btn primary" data-testid="lab-open-repo" href="${lab.repoUrl}" target="_blank" rel="noopener">${t3("lab.openRepo", "Open practice repo")} \u2197</a>` : "";
+    let user = null;
+    try {
+      user = ((_b2 = (_a2 = client()).getUser) == null ? void 0 : _b2.call(_a2)) || null;
+    } catch {
+      user = null;
+    }
     body2.innerHTML = `<div class="lab-head"><h3>${esc24(title)}</h3><div class="lab-meta">${meta.map(esc24).join(" \xB7 ")}</div></div>
      <div class="lab-statement" data-testid="lab-statement">${stmt}</div>
      <h4>${t3("lab.samples", "Samples")}</h4>
      <div class="lab-samples" data-testid="lab-samples">${lab.samples.map(sampleBlock).join("")}</div>
-     <div class="lab-actions">${repoBtn} ${judgePanel(lab)}</div>`;
+     <div class="lab-actions">${repoBtn} ${judgeControlHtml(lab, client(), user)}</div>`;
     overlay3.querySelector("#lab-lang-toggle").textContent = lang === "zh" ? "EN" : "\u4E2D";
-    wireJudge(lab);
+    wireJudge();
   }
   function open2(unitId) {
     const arr = LAB_RENDERED[unitId];
