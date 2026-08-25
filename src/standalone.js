@@ -99451,6 +99451,56 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
   var LAB_RENDERED = {
     "graph-coverage": [
       {
+        "slug": "lab02-coverage",
+        "titleZh": "Lab 2 \u2014 \u6DB5\u84CB\u6E96\u5247\uFF08\u5206\u652F\u6DB5\u84CB + \u8CEA\u6578\u8DEF\u5F91\uFF09",
+        "titleEn": "Lab 2 \u2014 Coverage Criteria (branch + prime paths)",
+        "topic": "graph-coverage",
+        "week": 4,
+        "difficulty": 2,
+        "tags": [
+          "coverage",
+          "branch",
+          "prime-path",
+          "metric"
+        ],
+        "repoUrl": null,
+        "judgeUrl": null,
+        "judgeProblemId": null,
+        "judgeBase": null,
+        "statementHtml": {
+          "zh": '<h1>Lab 2 \u2014 \u6DB5\u84CB\u6E96\u5247\uFF08\u5206\u652F\u6DB5\u84CB + \u8CEA\u6578\u8DEF\u5F91\uFF09</h1>\n<p><strong>\u7B2C 2 \u7AE0\uFF08\u5716\u6DB5\u84CB\uFF09\xB7 \u7B2C 4 \u9031\u91CB\u51FA \xB7 \u7B2C 5 \u9031\u622A\u6B62 \xB7 \u96E3\u5EA6 \u2605\u2605</strong></p>\n<h2>\u76EE\u6A19</h2>\n<p>\u70BA <code>target/triangle.py</code> \u64B0\u5BEB\u4E00\u7D44 pytest \u6E2C\u8A66\uFF0C\u8981\u6C42\uFF1A</p>\n<p>1. \u9054\u5230 <strong>\u5206\u652F\u6DB5\u84CB\u7387 \u2265 90%</strong>\uFF08\u4EE5 coverage.py <code>--branch</code> \u91CF\u6E2C\uFF09\uFF0C\u4E14 2. \u8D70\u904E\u8A72\u51FD\u5F0F\u63A7\u5236\u6D41\u7A0B\u5716\uFF08CFG\uFF09\u7684<strong>\u6BCF\u4E00\u689D\u8CEA\u6578\u8DEF\u5F91</strong>\uFF08prime path\uFF09\u3002</p>\n<p>\u7B2C (1) \u9805\u7531\u8A55\u6E2C\u7CFB\u7D71\u81EA\u52D5\u91CF\u6E2C\uFF1B\u7B2C (2) \u9805\u7531\u4F60\u5728\u53CD\u601D\u5831\u544A\u4E2D\u81EA\u884C\u8AD6\u8B49\uFF1A\u5217\u51FA CFG \u7684 \u6240\u6709\u8CEA\u6578\u8DEF\u5F91\uFF0C\u4E26\u6307\u51FA\u6DB5\u84CB\u6BCF\u689D\u8DEF\u5F91\u7684\u6E2C\u8A66\u3002\u4E00\u7D44\u6E2C\u8A66\u53EF\u80FD\u9054\u5230 90% \u5206\u652F\u6DB5\u84CB\u7387\u3001 \u537B\u4ECD\u6F0F\u6389\u67D0\u689D\u8CEA\u6578\u8DEF\u5F91\u2014\u2014<strong>\u767C\u73FE\u9019\u500B\u843D\u5DEE\u6B63\u662F\u672C\u6B21\u5BE6\u9A57\u7684\u91CD\u9EDE</strong>\u3002</p>\n<h2>\u5F85\u6E2C\u76EE\u6A19</h2>\n<p><code>classify(a, b, c)</code> \u6703\u56DE\u50B3 <code>"invalid"</code>\u3001<code>"not a triangle"</code>\u3001<code>"equilateral"</code>\u3001 <code>"isosceles"</code>\u3001<code>"scalene"</code> \u5176\u4E2D\u4E4B\u4E00\u3002<code>starter/target/</code> \u4E2D\u7684\u539F\u59CB\u78BC\u8207\u8A55\u6E2C\u7CFB\u7D71 \u6240\u91CF\u6E2C\u7684\u5B8C\u5168\u76F8\u540C\uFF0C\u56E0\u6B64\u4F60\u5728\u672C\u6A5F\u770B\u5230\u7684\u6578\u5B57\u5C31\u662F\u8A55\u5206\u4F9D\u64DA\u7684\u6578\u5B57\u3002\u8ACB\u52FF\u4FEE\u6539\u5B83\u3002</p>\n<h2>\u64CD\u4F5C\u6B65\u9A5F</h2>\n<pre><code>cd starter\nmake setup      # \u5B89\u88DD pytest \u8207 coverage.py\uFF08\u53EA\u9700\u4E00\u6B21\uFF09\nmake grade      # \u57F7\u884C\u4F60\u7684\u6E2C\u8A66\u4E26\u986F\u793A\u5206\u652F\u6DB5\u84CB\u7387\uFF0C\u540C\u6642\u5217\u51FA\u672A\u6DB5\u84CB\u7684\u884C\u865F\n</code></pre>\n<p>\u521D\u59CB\u72C0\u614B\u53EA\u6709\u4E00\u500B\u7BC4\u4F8B\u6E2C\u8A66\uFF0C<code>make grade</code> \u6703\u986F\u793A 56%\u3002\u8ACB\u6301\u7E8C\u5728 <code>tests/test_triangle.py</code> \u4E2D\u589E\u52A0\u6E2C\u8A66\u6848\u4F8B\uFF0C\u76F4\u5230\u9054\u5230 \u2265 90%\u3002\u5831\u544A\u4E2D\u7684 <code>Missing</code> \u6B04\u4F4D\u6703\u6A19\u51FA\u4F60\u5C1A\u672A\u8D70\u5230\u7684\u5206\u652F\u6240\u5728\u884C\u865F\u3002</p>\n<p>\u8ACB\u64B0\u5BEB<strong>\u771F\u6B63\u7684\u9810\u8A00\uFF08oracle\uFF09</strong>\uFF1A\u65B7\u8A00\u4F60\u9810\u671F\u7684\u56DE\u50B3\u503C\u3002\u53EA\u547C\u53EB\u51FD\u5F0F\u800C\u4E0D\u65B7\u8A00\uFF0C \u96D6\u7136\u80FD\u63D0\u9AD8\u6DB5\u84CB\u7387\u537B\u6C92\u6709\u6E2C\u5230\u4EFB\u4F55\u6771\u897F\uFF0C\u800C\u53CD\u601D\u5831\u544A\u6703\u8981\u6C42\u4F60\u70BA\u81EA\u5DF1\u7684 oracle \u8FAF\u8B77\u3002</p>\n<h2>\u7E73\u4EA4\u65B9\u5F0F</h2>\n<p>\u5169\u7A2E\u65B9\u5F0F\uFF0C\u4F7F\u7528\u540C\u4E00\u5957\u8A55\u6E2C\u8207\u540C\u4E00\u5957\u8A08\u5206\uFF1A</p>\n<ul><li><strong>GitHub push</strong> \u2014 \u5C07 <code>tests/test_*.py</code> \u63A8\u9001\u5230\u4F60\u7684 <code>st-lab02-\u2026</code> repo \u7684</li></ul>\n<p>  <code>main</code> \u5206\u652F\uFF0C\u8A55\u6E2C\u7CFB\u7D71\u6703\u8A55\u5206\u4E26\u628A\u7D50\u679C\u56DE\u5831\u5728\u8A72 commit \u4E0A\u3002</p>\n<ul><li><strong>\u7DB2\u9801\u4E0A\u50B3</strong> \u2014 \u5728\u8AB2\u7A0B\u7DB2\u7AD9\u958B\u555F\u672C\u5BE6\u9A57\uFF0C\u4F7F\u7528 <strong>Submit tests</strong> \u4E0A\u50B3\u4F60\u7684</li></ul>\n<p>  <code>test_triangle.py</code>\u3002</p>\n<p>\u4F60\u6703\u5F97\u5230\u4E00\u500B\u5224\u5B9A\uFF08verdict\uFF09\u3001100 \u5206\u5236\u7684\u5206\u6578\uFF0C\u4EE5\u53CA\u91CF\u6E2C\u5230\u7684\u6DB5\u84CB\u7387\u3002\u8A08\u5206\u65B9\u5F0F\u70BA \u6DB5\u84CB\u7387 40% \u5F97 0 \u5206\u3001\u7DDA\u6027\u4E0A\u5347\u81F3 100% \u5F97 100 \u5206\uFF1B\u5224\u5B9A\u70BA <strong>AC</strong> \u7684\u9580\u6ABB\u662F <strong>\u2265 90%</strong>\u2014\u2014\u672A\u9054\u9580\u6ABB\u4ECD\u6709\u90E8\u5206\u5206\u6578\uFF0C\u4F46\u8A72\u5BE6\u9A57\u672A\u901A\u904E\u3002</p>\n<p>\u53EF\u91CD\u8907\u7E73\u4EA4\uFF0C\u4EE5\u622A\u6B62\u524D\u6700\u5F8C\u4E00\u6B21\u70BA\u6E96\u3002</p>\n<h2>\u95DC\u65BC AI</h2>\n<p>\u672C\u6B21\u5BE6\u9A57<strong>\u5141\u8A31\u4F7F\u7528 AI</strong>\uFF0C\u5305\u542B\u76F4\u63A5\u751F\u6210\u6E2C\u8A66\u3002</p>\n<p>\u4F46\u53CD\u601D\u5831\u544A\u5FC5\u9808\u6BD4\u8F03 <strong>AI \u7522\u751F\u7684\u8DEF\u5F91\u96C6\u5408</strong>\u8207<strong>\u4F60\u624B\u52D5\u63A8\u5C0E\u7684\u8DEF\u5F91\u96C6\u5408</strong>\uFF1A\u5169\u8005\u5404\u81EA \u767C\u73FE\u4E86\u4EC0\u9EBC\u5C0D\u65B9\u907A\u6F0F\u7684\u5167\u5BB9\uFF1F\u5373\u4F7F AI \u4E00\u6B21\u5C31\u751F\u51FA 95% \u6DB5\u84CB\u7387\u7684\u6E2C\u8A66\uFF0C\u5BE6\u9A57\u4ECD\u672A\u5B8C\u6210 \u2014\u2014\u771F\u6B63\u88AB\u8A55\u5206\u7684\u662F\u9019\u4EFD\u6BD4\u8F03\u3002</p>\n<h2>\u7E73\u4EA4\u9805\u76EE</h2>\n<p>1. <code>tests/test_triangle.py</code>\uFF08\u4E0A\u50B3\u81F3\u8A55\u6E2C\u7CFB\u7D71\uFF09\u3002 2. <code>reflection.md</code>\u2014\u2014\u5167\u5BB9\u8981\u6C42\u898B <code>rubric.md</code>\u3002</p>',
+          "en": `<h1>Lab 2 \u2014 Coverage Criteria (branch + prime paths)</h1>
+<p><strong>Chapter 2 (Graph Coverage) \xB7 release W4 \xB7 due W5 \xB7 difficulty \u2605\u2605</strong></p>
+<h2>Goal</h2>
+<p>Write a pytest suite for <code>target/triangle.py</code> that</p>
+<p>1. reaches <strong>branch coverage \u2265 90%</strong> (measured with coverage.py <code>--branch</code>), and 2. exercises <strong>every prime path</strong> of the function's control-flow graph.</p>
+<p>The judge measures (1) automatically. You argue (2) yourself in the reflection: list the prime paths of the CFG and name the test that covers each. A suite can hit 90% branch coverage while still missing a prime path \u2014 noticing that gap is the point of this lab.</p>
+<h2>The target</h2>
+<p><code>classify(a, b, c)</code> returns one of <code>"invalid"</code>, <code>"not a triangle"</code>, <code>"equilateral"</code>, <code>"isosceles"</code>, <code>"scalene"</code>. The source in <code>starter/target/</code> is the same source the judge measures, so your local number is your grade's number. Do not edit it.</p>
+<h2>What to do</h2>
+<pre><code>cd starter
+make setup      # pytest + coverage.py, once
+make grade      # your suite + branch coverage, with the missing lines named
+</code></pre>
+<p><code>make grade</code> starts at 56% with a single example test. Keep adding cases to <code>tests/test_triangle.py</code> until it reports \u2265 90%. The <code>Missing</code> column names the lines whose branches you have not reached yet.</p>
+<p>Write <strong>real oracles</strong>: assert the value you expect. A test that only calls the function raises coverage without testing anything, and the reflection asks you to defend your oracles.</p>
+<h2>Submitting</h2>
+<p>Two routes, same grader and same score:</p>
+<ul><li><strong>GitHub push</strong> \u2014 push <code>tests/test_*.py</code> to your <code>st-lab02-\u2026</code> repo on <code>main</code>.</li></ul>
+<p>  The judge grades the push and reports the verdict on the commit.</p>
+<ul><li><strong>Web upload</strong> \u2014 open the lab on the course site and use <strong>Submit tests</strong> to</li></ul>
+<p>  upload your <code>test_triangle.py</code>.</p>
+<p>You get back a verdict, a score out of 100, and your measured coverage. Scoring is <code>0</code> at 40% coverage rising to <code>100</code> at full coverage, and the verdict is <strong>AC</strong> only at <strong>\u2265 90%</strong> \u2014 below the bar you still earn partial credit, but the lab is not passed.</p>
+<p>You may submit repeatedly; the last on-time submission counts.</p>
+<h2>Using AI</h2>
+<p><strong>AI is allowed</strong> for this lab, including generating tests.</p>
+<p>The reflection must compare the <strong>AI-derived</strong> path set with your <strong>hand-derived</strong> one: what did each find that the other missed? An AI that produces a 95%-coverage suite in one shot has still not done the lab \u2014 the graded thinking is the comparison.</p>
+<h2>Deliverables</h2>
+<p>1. <code>tests/test_triangle.py</code> (submitted to the judge). 2. <code>reflection.md</code> \u2014 see <code>rubric.md</code> for what it must contain.</p>`
+        },
+        "samples": []
+      },
+      {
         "slug": "graph-coverage-paths",
         "titleZh": "\u8CEA\u6578\u8DEF\u5F91\u679A\u8209",
         "titleEn": "Prime path enumeration",
@@ -99464,6 +99514,8 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ],
         "repoUrl": null,
         "judgeUrl": null,
+        "judgeProblemId": null,
+        "judgeBase": null,
         "statementHtml": {
           "zh": "<h1>\u8CEA\u6578\u8DEF\u5F91\u679A\u8209</h1>\n<p>\u7D66\u5B9A\u4E00\u500B\u63A7\u5236\u6D41\u7A0B\u5716\uFF08CFG\uFF09\uFF0C\u8F38\u51FA\u5176\u6240\u6709 <strong>\u8CEA\u6578\u8DEF\u5F91</strong>\uFF08prime paths\uFF09\u3002</p>\n<h2>\u8F38\u5165\u683C\u5F0F</h2>\n<ul><li>\u7B2C\u4E00\u884C\u5169\u500B\u6574\u6578 <code>n m</code>\uFF1A\u7BC0\u9EDE\u6578\u8207\u908A\u6578\uFF08\u7BC0\u9EDE\u7DE8\u865F 0..n-1\uFF0C0 \u70BA\u5165\u53E3\uFF0Cn-1 \u70BA\u51FA\u53E3\uFF09</li><li>\u63A5\u4E0B\u4F86 <code>m</code> \u884C\uFF0C\u6BCF\u884C\u5169\u500B\u6574\u6578 <code>u v</code> \u8868\u793A\u908A u\u2192v</li></ul>\n<h2>\u8F38\u51FA\u683C\u5F0F</h2>\n<p>\u6BCF\u884C\u4E00\u689D\u8CEA\u6578\u8DEF\u5F91\uFF0C\u4EE5\u7A7A\u767D\u5206\u9694\u7BC0\u9EDE\u7DE8\u865F\uFF1B\u8DEF\u5F91\u4F9D\u300C\u9577\u5EA6\u905E\u6E1B\u3001\u518D\u5B57\u5178\u5E8F\u300D\u6392\u5E8F\u3002</p>\n<h2>\u63D0\u793A</h2>\n<ul><li>\u8CEA\u6578\u8DEF\u5F91\u662F\u300C\u6975\u5927\u7C21\u55AE\u8DEF\u5F91\u300D\uFF1A\u672C\u8EAB\u662F\u7C21\u55AE\u8DEF\u5F91\uFF0C\u4E14\u4E0D\u662F\u4EFB\u4F55\u5176\u4ED6\u7C21\u55AE\u8DEF\u5F91\u7684\u771F\u5B50\u8DEF\u5F91\u3002</li><li>\u5141\u8A31\u9996\u5C3E\u70BA\u540C\u4E00\u7BC0\u9EDE\uFF08\u8FF4\u5708\u908A\u754C\uFF09\u3002</li></ul>",
           "en": "<h1>Prime path enumeration</h1>\n<p>Given a control-flow graph (CFG), output all of its <strong>prime paths</strong>.</p>\n<h2>Input</h2>\n<ul><li>Line 1: two integers <code>n m</code> \u2014 node and edge counts (nodes 0..n-1; 0 is the entry, n-1 the exit)</li><li>Next <code>m</code> lines: two integers <code>u v</code> for edge u\u2192v</li></ul>\n<h2>Output</h2>\n<p>One prime path per line as space-separated node ids, sorted by decreasing length, then lexicographically.</p>\n<h2>Hints</h2>\n<ul><li>A prime path is a <em>maximal simple path</em>: simple, and not a proper subpath of any other simple path.</li><li>The first and last node may coincide (a loop boundary).</li></ul>"

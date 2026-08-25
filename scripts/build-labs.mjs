@@ -45,6 +45,7 @@ export function mdToHtml(md) {
 
 function readSamples(slug) {
   const dir = path.join(LABS, slug, 'samples');
+  if (!fs.existsSync(dir)) return [];   // metric labs ship no stdin/stdout samples
   const ins = fs.readdirSync(dir).filter((f) => f.endsWith('.in')).sort();
   return ins.map((f) => ({
     in: fs.readFileSync(path.join(dir, f), 'utf8'),
