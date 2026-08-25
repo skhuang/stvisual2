@@ -80,6 +80,14 @@ function uninstallFirebaseMock() {
 
 let createSyntaxCoverageExplorer;
 
+// The maccount SSO migration routes createCloudIntegrationClient() to a stubbed
+// maccount adapter whenever firebaseEnabled is false (the real default), which
+// would turn this file's Firestore-mock plumbing into a no-op. These tests exist
+// to exercise the retained Firebase sync path, so force firebaseEnabled true
+// (spreading the real resolved config) and reset the client singleton before
+// each test. Because this file also calls vi.resetModules() to avoid module-level
+// caching, the config/cloudIntegration modules must be re-imported (and re-mocked)
+// AFTER the reset so the freshly-imported SyntaxCoverageExplorer picks up the mock.
 beforeEach(async () => {
   saveSpy.mockClear();
   loadSpy.mockClear();
@@ -87,6 +95,14 @@ beforeEach(async () => {
   installFirebaseMock();
   // 重新 import 以避免模組層快取
   vi.resetModules();
+  const cfgMod = await import('../config/cloudConfig.js');
+  const realGetResolvedCloudConfig = cfgMod.getResolvedCloudConfig;
+  vi.spyOn(cfgMod, 'getResolvedCloudConfig').mockImplementation(() => ({
+    ...realGetResolvedCloudConfig(),
+    firebaseEnabled: true,
+  }));
+  const ciMod = await import('../utils/cloudIntegration.js');
+  ciMod.__resetForTests();
   ({ createSyntaxCoverageExplorer } = await import('../components/SyntaxCoverageExplorer.js'));
   globalThis.localStorage?.clear?.();
 });

@@ -24,6 +24,11 @@ export function createCloudStoragePanel() {
   const root = document.createElement('div');
   const client = createCloudIntegrationClient();
   const canUseCloudAuth = client.isConfigured && client.isSupportedOrigin;
+  // Cloud data actions (settings save/load, Drive file upload/listing) are
+  // Firebase-only. Under the maccount SSO adapter (firebaseEnabled === false,
+  // the shipped default) they are inert stubs, so hide them and keep only the
+  // auth chip (sign-in / signed-in-as).
+  const canUseCloudData = !client.isMaccount;
 
   let user = null;
   let status = canUseCloudAuth
@@ -69,6 +74,7 @@ export function createCloudStoragePanel() {
           <p data-testid="cloud-user">${user ? t('cloud.userPrefix', { name: user.email || user.uid }) : t('common.notSignedIn')}</p>
         </div>
 
+        ${canUseCloudData ? `
         <div class="cloud-grid">
           <section class="cloud-section">
             <h4>${t('cloud.section.settings')}</h4>
@@ -170,7 +176,7 @@ export function createCloudStoragePanel() {
                 </button>`
               : `<p class="cloud-class-hint">${t('cloud.class.hint')}</p>`}
           </section>` : ''}
-        </div>
+        </div>` : ''}
       </div>
     `;
 
@@ -191,24 +197,24 @@ export function createCloudStoragePanel() {
       }
     });
 
-    root.querySelector('[data-testid="cloud-criterion-select"]').addEventListener('change', (event) => {
+    root.querySelector('[data-testid="cloud-criterion-select"]')?.addEventListener('change', (event) => {
       settings.preferredCriterion = event.target.value;
     });
 
-    root.querySelector('[data-testid="cloud-notes-input"]').addEventListener('input', (event) => {
+    root.querySelector('[data-testid="cloud-notes-input"]')?.addEventListener('input', (event) => {
       settings.notes = event.target.value;
     });
 
-    root.querySelector('[data-testid="cloud-file-btn"]').addEventListener('click', () => {
+    root.querySelector('[data-testid="cloud-file-btn"]')?.addEventListener('click', () => {
       root.querySelector('[data-testid="cloud-file-input"]').click();
     });
 
-    root.querySelector('[data-testid="cloud-file-input"]').addEventListener('change', (event) => {
+    root.querySelector('[data-testid="cloud-file-input"]')?.addEventListener('change', (event) => {
       [selectedFile] = event.target.files || [];
       render();
     });
 
-    root.querySelector('[data-testid="cloud-load-settings-btn"]').addEventListener('click', async () => {
+    root.querySelector('[data-testid="cloud-load-settings-btn"]')?.addEventListener('click', async () => {
       try {
         const loaded = await client.loadSettings(user.uid);
         if (loaded) {
@@ -228,7 +234,7 @@ export function createCloudStoragePanel() {
       }
     });
 
-    root.querySelector('[data-testid="cloud-save-settings-btn"]').addEventListener('click', async () => {
+    root.querySelector('[data-testid="cloud-save-settings-btn"]')?.addEventListener('click', async () => {
       try {
         const extras = parseJson(root.querySelector('[data-testid="cloud-extras-input"]').value);
         settings.extras = extras;
@@ -242,7 +248,7 @@ export function createCloudStoragePanel() {
       }
     });
 
-    root.querySelector('[data-testid="cloud-upload-btn"]').addEventListener('click', async () => {
+    root.querySelector('[data-testid="cloud-upload-btn"]')?.addEventListener('click', async () => {
       try {
         const fileToUpload = selectedFile;
         let content = null;
