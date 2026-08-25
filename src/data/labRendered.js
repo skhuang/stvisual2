@@ -3,6 +3,29 @@
 export const LAB_RENDERED = {
   "graph-coverage": [
     {
+      "slug": "lab02-coverage",
+      "titleZh": "Lab 2 — 涵蓋準則（分支涵蓋 + 質數路徑）",
+      "titleEn": "Lab 2 — Coverage Criteria (branch + prime paths)",
+      "topic": "graph-coverage",
+      "week": 4,
+      "difficulty": 2,
+      "tags": [
+        "coverage",
+        "branch",
+        "prime-path",
+        "metric"
+      ],
+      "repoUrl": null,
+      "judgeUrl": null,
+      "judgeProblemId": null,
+      "judgeBase": null,
+      "statementHtml": {
+        "zh": "<h1>Lab 2 — 涵蓋準則（分支涵蓋 + 質數路徑）</h1>\n<p><strong>第 2 章（圖涵蓋）· 第 4 週釋出 · 第 5 週截止 · 難度 ★★</strong></p>\n<h2>目標</h2>\n<p>為 <code>target/triangle.py</code> 撰寫一組 pytest 測試，要求：</p>\n<p>1. 達到 <strong>分支涵蓋率 ≥ 90%</strong>（以 coverage.py <code>--branch</code> 量測），且 2. 走過該函式控制流程圖（CFG）的<strong>每一條質數路徑</strong>（prime path）。</p>\n<p>第 (1) 項由評測系統自動量測；第 (2) 項由你在反思報告中自行論證：列出 CFG 的 所有質數路徑，並指出涵蓋每條路徑的測試。一組測試可能達到 90% 分支涵蓋率、 卻仍漏掉某條質數路徑——<strong>發現這個落差正是本次實驗的重點</strong>。</p>\n<h2>待測目標</h2>\n<p><code>classify(a, b, c)</code> 會回傳 <code>\"invalid\"</code>、<code>\"not a triangle\"</code>、<code>\"equilateral\"</code>、 <code>\"isosceles\"</code>、<code>\"scalene\"</code> 其中之一。<code>starter/target/</code> 中的原始碼與評測系統 所量測的完全相同，因此你在本機看到的數字就是評分依據的數字。請勿修改它。</p>\n<h2>操作步驟</h2>\n<pre><code>cd starter\nmake setup      # 安裝 pytest 與 coverage.py（只需一次）\nmake grade      # 執行你的測試並顯示分支涵蓋率，同時列出未涵蓋的行號\n</code></pre>\n<p>初始狀態只有一個範例測試，<code>make grade</code> 會顯示 56%。請持續在 <code>tests/test_triangle.py</code> 中增加測試案例，直到達到 ≥ 90%。報告中的 <code>Missing</code> 欄位會標出你尚未走到的分支所在行號。</p>\n<p>請撰寫<strong>真正的預言（oracle）</strong>：斷言你預期的回傳值。只呼叫函式而不斷言， 雖然能提高涵蓋率卻沒有測到任何東西，而反思報告會要求你為自己的 oracle 辯護。</p>\n<h2>繳交方式</h2>\n<p>兩種方式，使用同一套評測與同一套計分：</p>\n<ul><li><strong>GitHub push</strong> — 將 <code>tests/test_*.py</code> 推送到你的 <code>st-lab02-…</code> repo 的</li></ul>\n<p>  <code>main</code> 分支，評測系統會評分並把結果回報在該 commit 上。</p>\n<ul><li><strong>網頁上傳</strong> — 在課程網站開啟本實驗，使用 <strong>Submit tests</strong> 上傳你的</li></ul>\n<p>  <code>test_triangle.py</code>。</p>\n<p>你會得到一個判定（verdict）、100 分制的分數，以及量測到的涵蓋率。計分方式為 涵蓋率 40% 得 0 分、線性上升至 100% 得 100 分；判定為 <strong>AC</strong> 的門檻是 <strong>≥ 90%</strong>——未達門檻仍有部分分數，但該實驗未通過。</p>\n<p>可重複繳交，以截止前最後一次為準。</p>\n<h2>關於 AI</h2>\n<p>本次實驗<strong>允許使用 AI</strong>，包含直接生成測試。</p>\n<p>但反思報告必須比較 <strong>AI 產生的路徑集合</strong>與<strong>你手動推導的路徑集合</strong>：兩者各自 發現了什麼對方遺漏的內容？即使 AI 一次就生出 95% 涵蓋率的測試，實驗仍未完成 ——真正被評分的是這份比較。</p>\n<h2>繳交項目</h2>\n<p>1. <code>tests/test_triangle.py</code>（上傳至評測系統）。 2. <code>reflection.md</code>——內容要求見 <code>rubric.md</code>。</p>",
+        "en": "<h1>Lab 2 — Coverage Criteria (branch + prime paths)</h1>\n<p><strong>Chapter 2 (Graph Coverage) · release W4 · due W5 · difficulty ★★</strong></p>\n<h2>Goal</h2>\n<p>Write a pytest suite for <code>target/triangle.py</code> that</p>\n<p>1. reaches <strong>branch coverage ≥ 90%</strong> (measured with coverage.py <code>--branch</code>), and 2. exercises <strong>every prime path</strong> of the function's control-flow graph.</p>\n<p>The judge measures (1) automatically. You argue (2) yourself in the reflection: list the prime paths of the CFG and name the test that covers each. A suite can hit 90% branch coverage while still missing a prime path — noticing that gap is the point of this lab.</p>\n<h2>The target</h2>\n<p><code>classify(a, b, c)</code> returns one of <code>\"invalid\"</code>, <code>\"not a triangle\"</code>, <code>\"equilateral\"</code>, <code>\"isosceles\"</code>, <code>\"scalene\"</code>. The source in <code>starter/target/</code> is the same source the judge measures, so your local number is your grade's number. Do not edit it.</p>\n<h2>What to do</h2>\n<pre><code>cd starter\nmake setup      # pytest + coverage.py, once\nmake grade      # your suite + branch coverage, with the missing lines named\n</code></pre>\n<p><code>make grade</code> starts at 56% with a single example test. Keep adding cases to <code>tests/test_triangle.py</code> until it reports ≥ 90%. The <code>Missing</code> column names the lines whose branches you have not reached yet.</p>\n<p>Write <strong>real oracles</strong>: assert the value you expect. A test that only calls the function raises coverage without testing anything, and the reflection asks you to defend your oracles.</p>\n<h2>Submitting</h2>\n<p>Two routes, same grader and same score:</p>\n<ul><li><strong>GitHub push</strong> — push <code>tests/test_*.py</code> to your <code>st-lab02-…</code> repo on <code>main</code>.</li></ul>\n<p>  The judge grades the push and reports the verdict on the commit.</p>\n<ul><li><strong>Web upload</strong> — open the lab on the course site and use <strong>Submit tests</strong> to</li></ul>\n<p>  upload your <code>test_triangle.py</code>.</p>\n<p>You get back a verdict, a score out of 100, and your measured coverage. Scoring is <code>0</code> at 40% coverage rising to <code>100</code> at full coverage, and the verdict is <strong>AC</strong> only at <strong>≥ 90%</strong> — below the bar you still earn partial credit, but the lab is not passed.</p>\n<p>You may submit repeatedly; the last on-time submission counts.</p>\n<h2>Using AI</h2>\n<p><strong>AI is allowed</strong> for this lab, including generating tests.</p>\n<p>The reflection must compare the <strong>AI-derived</strong> path set with your <strong>hand-derived</strong> one: what did each find that the other missed? An AI that produces a 95%-coverage suite in one shot has still not done the lab — the graded thinking is the comparison.</p>\n<h2>Deliverables</h2>\n<p>1. <code>tests/test_triangle.py</code> (submitted to the judge). 2. <code>reflection.md</code> — see <code>rubric.md</code> for what it must contain.</p>"
+      },
+      "samples": []
+    },
+    {
       "slug": "graph-coverage-paths",
       "titleZh": "質數路徑枚舉",
       "titleEn": "Prime path enumeration",
@@ -16,6 +39,8 @@ export const LAB_RENDERED = {
       ],
       "repoUrl": null,
       "judgeUrl": null,
+      "judgeProblemId": null,
+      "judgeBase": null,
       "statementHtml": {
         "zh": "<h1>質數路徑枚舉</h1>\n<p>給定一個控制流程圖（CFG），輸出其所有 <strong>質數路徑</strong>（prime paths）。</p>\n<h2>輸入格式</h2>\n<ul><li>第一行兩個整數 <code>n m</code>：節點數與邊數（節點編號 0..n-1，0 為入口，n-1 為出口）</li><li>接下來 <code>m</code> 行，每行兩個整數 <code>u v</code> 表示邊 u→v</li></ul>\n<h2>輸出格式</h2>\n<p>每行一條質數路徑，以空白分隔節點編號；路徑依「長度遞減、再字典序」排序。</p>\n<h2>提示</h2>\n<ul><li>質數路徑是「極大簡單路徑」：本身是簡單路徑，且不是任何其他簡單路徑的真子路徑。</li><li>允許首尾為同一節點（迴圈邊界）。</li></ul>",
         "en": "<h1>Prime path enumeration</h1>\n<p>Given a control-flow graph (CFG), output all of its <strong>prime paths</strong>.</p>\n<h2>Input</h2>\n<ul><li>Line 1: two integers <code>n m</code> — node and edge counts (nodes 0..n-1; 0 is the entry, n-1 the exit)</li><li>Next <code>m</code> lines: two integers <code>u v</code> for edge u→v</li></ul>\n<h2>Output</h2>\n<p>One prime path per line as space-separated node ids, sorted by decreasing length, then lexicographically.</p>\n<h2>Hints</h2>\n<ul><li>A prime path is a <em>maximal simple path</em>: simple, and not a proper subpath of any other simple path.</li><li>The first and last node may coincide (a loop boundary).</li></ul>"

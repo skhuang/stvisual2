@@ -1,5 +1,6 @@
 {
   "graph-coverage": [
+    { "slug": "lab02-coverage" },
     { "slug": "graph-coverage-paths" }
   ]
 }
