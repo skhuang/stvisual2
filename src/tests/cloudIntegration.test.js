@@ -114,4 +114,41 @@ describe('cloudIntegration — maccount dispatch', () => {
     await expect(c.loadSettings('S')).resolves.toEqual({});   // no-op, no Firestore
     expect(() => c.signInWithGoogle()).not.toThrow();          // alias -> signIn
   });
+
+  it('maccount adapter is a complete drop-in: exposes every member callers consume', async () => {
+    vi.spyOn(cfg, 'getResolvedCloudConfig').mockReturnValue({
+      firebase: {}, drive: {}, firebaseEnabled: false,
+      maccount: { workerBaseUrl: 'https://m.example', appId: 'stvisual2' } });
+    const maccount = await import('../utils/maccountClient.js');
+    vi.spyOn(maccount, 'getMaccountClient').mockReturnValue({
+      isConfigured: true, getUser: () => ({ student_id: 'S', uid: 'S' }),
+      subscribeAuthState: (cb) => { cb({ uid: 'S' }); return () => {}; },
+      signIn: vi.fn(), signOut: vi.fn(), handleRedirect: async () => false });
+    const c = createCloudIntegrationClient();
+
+    // Properties (mirror the Firebase client's shape: plain values, not methods).
+    expect(Array.isArray(c.missingKeys)).toBe(true);
+    expect(typeof c.isSupportedOrigin).toBe('boolean');
+    expect(typeof c.originWarning).toBe('string');
+    expect(c.isMaccount).toBe(true);
+
+    // Methods — none of these should be undefined.
+    const methodNames = [
+      'downloadDriveFile', 'getAccessToken', 'listDriveFiles', 'loadCourseResults',
+      'loadLogicRecent', 'loadSettings', 'loadSyntaxTests', 'saveLogicRecent',
+      'saveResult', 'saveSettings', 'saveSyntaxTests', 'signInWithGoogle',
+      'signOutGoogle', 'subscribeAuthState', 'uploadFileToDrive', 'getUser',
+      'signIn', 'signOut', 'handleRedirect',
+    ];
+    for (const name of methodNames) {
+      expect(typeof c[name]).toBe('function');
+    }
+    expect(typeof c.isConfigured).toBe('boolean');
+
+    // Must not throw / must resolve without error for the read-oriented stubs.
+    await expect(c.listDriveFiles()).resolves.toEqual([]);
+    await expect(c.downloadDriveFile('x')).rejects.toThrow('cloud download disabled');
+    await expect(c.loadCourseResults('ABC')).resolves.toEqual([]);
+    await expect(c.saveResult('uid', 'Name', 'a@b.com', 'ABC', {})).resolves.toEqual({});
+  });
 });

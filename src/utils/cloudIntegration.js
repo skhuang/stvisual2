@@ -46,6 +46,11 @@ function buildClient() {
       isMaccount: true,
       isConfigured: m.isConfigured,
       missingReason: m.missingReason,
+      // Mirrors the Firebase client's shape: these are plain properties there
+      // (not methods), so the adapter exposes inert values of the same shape.
+      missingKeys: [],
+      isSupportedOrigin: true,
+      originWarning: '',
       getUser: () => m.getUser(),
       getAccessToken: () => null,
       subscribeAuthState: (cb) => m.subscribeAuthState(cb),
@@ -61,6 +66,10 @@ function buildClient() {
       loadSyntaxTests: noop,
       saveSyntaxTests: noop,
       uploadFileToDrive: async () => { throw new Error('cloud upload disabled'); },
+      listDriveFiles: async () => [],
+      downloadDriveFile: async () => { throw new Error('cloud download disabled'); },
+      loadCourseResults: async () => [],
+      saveResult: async () => ({}),
     };
   }
 
