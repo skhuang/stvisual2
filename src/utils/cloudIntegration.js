@@ -1,4 +1,5 @@
 import { getResolvedCloudConfig } from '../config/cloudConfig.js';
+import { getMaccountClient } from './maccountClient.js';
 import { t } from '../i18n/index.js';
 
 const REQUIRED_FIREBASE_KEYS = ['apiKey', 'authDomain', 'projectId', 'appId'];
@@ -31,8 +32,38 @@ export function createCloudIntegrationClient() {
   return cachedClient;
 }
 
+export function __resetForTests() {
+  cachedClient = null;
+}
+
 function buildClient() {
   const config = getResolvedCloudConfig();
+
+  if (!config.firebaseEnabled) {
+    const m = getMaccountClient();
+    const noop = async () => ({});
+    return {
+      isMaccount: true,
+      isConfigured: m.isConfigured,
+      missingReason: m.missingReason,
+      getUser: () => m.getUser(),
+      getAccessToken: () => null,
+      subscribeAuthState: (cb) => m.subscribeAuthState(cb),
+      signIn: () => m.signIn(),
+      signInWithGoogle: () => m.signIn(), // drop-in alias; navigates away
+      signOut: () => m.signOut(),
+      signOutGoogle: () => m.signOut(),
+      handleRedirect: () => m.handleRedirect(),
+      loadSettings: noop,
+      saveSettings: noop,
+      loadLogicRecent: async () => [],
+      saveLogicRecent: noop,
+      loadSyntaxTests: noop,
+      saveSyntaxTests: noop,
+      uploadFileToDrive: async () => { throw new Error('cloud upload disabled'); },
+    };
+  }
+
   const missingKeys = getMissingFirebaseKeys(config.firebase);
   const isFileProtocol = globalThis.location?.protocol === 'file:';
   const isSupportedOrigin = !isFileProtocol;

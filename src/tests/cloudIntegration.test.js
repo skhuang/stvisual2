@@ -1,6 +1,25 @@
-import { describe, expect, it } from 'vitest';
-import { createCloudIntegrationClient } from '../utils/cloudIntegration.js';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { createCloudIntegrationClient, __resetForTests } from '../utils/cloudIntegration.js';
+import * as cfg from '../config/cloudConfig.js';
 
+// The dispatch added for maccount SSO routes createCloudIntegrationClient() to a
+// stubbed maccount adapter whenever firebaseEnabled is false (the real default).
+// These pre-existing tests exercise the Firebase branch, so force firebaseEnabled
+// true here while keeping every other resolved config value untouched, and reset
+// the module-level client cache so each test rebuilds against the active mock.
+const realGetResolvedCloudConfig = cfg.getResolvedCloudConfig;
+
+beforeEach(() => {
+  __resetForTests();
+  vi.spyOn(cfg, 'getResolvedCloudConfig').mockImplementation(() => ({
+    ...realGetResolvedCloudConfig(),
+    firebaseEnabled: true,
+  }));
+});
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 describe('cloudIntegration client', () => {
   it('exposes expected capability flags', () => {
@@ -75,5 +94,24 @@ describe('cloudIntegration — private-slides additions', () => {
     const client = createCloudIntegrationClient();
     expect(typeof client.getAccessToken).toBe('function');
     expect(client.getAccessToken()).toBe(null);
+  });
+});
+
+describe('cloudIntegration — maccount dispatch', () => {
+  it('firebase disabled -> maccount adapter with stubbed data methods', async () => {
+    vi.spyOn(cfg, 'getResolvedCloudConfig').mockReturnValue({
+      firebase: {}, drive: {}, firebaseEnabled: false,
+      maccount: { workerBaseUrl: 'https://m.example', appId: 'stvisual2' } });
+    const maccount = await import('../utils/maccountClient.js');
+    vi.spyOn(maccount, 'getMaccountClient').mockReturnValue({
+      isConfigured: true, getUser: () => ({ student_id: 'S', uid: 'S' }),
+      subscribeAuthState: (cb) => { cb({ uid: 'S' }); return () => {}; },
+      signIn: vi.fn(), signOut: vi.fn(), handleRedirect: async () => false });
+    const c = createCloudIntegrationClient();
+    expect(c.isMaccount).toBe(true);
+    expect(c.getUser().uid).toBe('S');
+    expect(c.getAccessToken()).toBe(null);
+    await expect(c.loadSettings('S')).resolves.toEqual({});   // no-op, no Firestore
+    expect(() => c.signInWithGoogle()).not.toThrow();          // alias -> signIn
   });
 });
