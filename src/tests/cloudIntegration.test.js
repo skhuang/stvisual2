@@ -1,6 +1,25 @@
-import { describe, expect, it } from 'vitest';
-import { createCloudIntegrationClient } from '../utils/cloudIntegration.js';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { createCloudIntegrationClient, __resetForTests } from '../utils/cloudIntegration.js';
+import * as cfg from '../config/cloudConfig.js';
 
+// The dispatch added for maccount SSO routes createCloudIntegrationClient() to a
+// stubbed maccount adapter whenever firebaseEnabled is false (the real default).
+// These pre-existing tests exercise the Firebase branch, so force firebaseEnabled
+// true here while keeping every other resolved config value untouched, and reset
+// the module-level client cache so each test rebuilds against the active mock.
+const realGetResolvedCloudConfig = cfg.getResolvedCloudConfig;
+
+beforeEach(() => {
+  __resetForTests();
+  vi.spyOn(cfg, 'getResolvedCloudConfig').mockImplementation(() => ({
+    ...realGetResolvedCloudConfig(),
+    firebaseEnabled: true,
+  }));
+});
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 describe('cloudIntegration client', () => {
   it('exposes expected capability flags', () => {
@@ -75,5 +94,61 @@ describe('cloudIntegration — private-slides additions', () => {
     const client = createCloudIntegrationClient();
     expect(typeof client.getAccessToken).toBe('function');
     expect(client.getAccessToken()).toBe(null);
+  });
+});
+
+describe('cloudIntegration — maccount dispatch', () => {
+  it('firebase disabled -> maccount adapter with stubbed data methods', async () => {
+    vi.spyOn(cfg, 'getResolvedCloudConfig').mockReturnValue({
+      firebase: {}, drive: {}, firebaseEnabled: false,
+      maccount: { workerBaseUrl: 'https://m.example', appId: 'stvisual2' } });
+    const maccount = await import('../utils/maccountClient.js');
+    vi.spyOn(maccount, 'getMaccountClient').mockReturnValue({
+      isConfigured: true, getUser: () => ({ student_id: 'S', uid: 'S' }),
+      subscribeAuthState: (cb) => { cb({ uid: 'S' }); return () => {}; },
+      signIn: vi.fn(), signOut: vi.fn(), handleRedirect: async () => false });
+    const c = createCloudIntegrationClient();
+    expect(c.isMaccount).toBe(true);
+    expect(c.getUser().uid).toBe('S');
+    expect(c.getAccessToken()).toBe(null);
+    await expect(c.loadSettings('S')).resolves.toEqual({});   // no-op, no Firestore
+    expect(() => c.signInWithGoogle()).not.toThrow();          // alias -> signIn
+  });
+
+  it('maccount adapter is a complete drop-in: exposes every member callers consume', async () => {
+    vi.spyOn(cfg, 'getResolvedCloudConfig').mockReturnValue({
+      firebase: {}, drive: {}, firebaseEnabled: false,
+      maccount: { workerBaseUrl: 'https://m.example', appId: 'stvisual2' } });
+    const maccount = await import('../utils/maccountClient.js');
+    vi.spyOn(maccount, 'getMaccountClient').mockReturnValue({
+      isConfigured: true, getUser: () => ({ student_id: 'S', uid: 'S' }),
+      subscribeAuthState: (cb) => { cb({ uid: 'S' }); return () => {}; },
+      signIn: vi.fn(), signOut: vi.fn(), handleRedirect: async () => false });
+    const c = createCloudIntegrationClient();
+
+    // Properties (mirror the Firebase client's shape: plain values, not methods).
+    expect(Array.isArray(c.missingKeys)).toBe(true);
+    expect(typeof c.isSupportedOrigin).toBe('boolean');
+    expect(typeof c.originWarning).toBe('string');
+    expect(c.isMaccount).toBe(true);
+
+    // Methods — none of these should be undefined.
+    const methodNames = [
+      'downloadDriveFile', 'getAccessToken', 'listDriveFiles', 'loadCourseResults',
+      'loadLogicRecent', 'loadSettings', 'loadSyntaxTests', 'saveLogicRecent',
+      'saveResult', 'saveSettings', 'saveSyntaxTests', 'signInWithGoogle',
+      'signOutGoogle', 'subscribeAuthState', 'uploadFileToDrive', 'getUser',
+      'signIn', 'signOut', 'handleRedirect',
+    ];
+    for (const name of methodNames) {
+      expect(typeof c[name]).toBe('function');
+    }
+    expect(typeof c.isConfigured).toBe('boolean');
+
+    // Must not throw / must resolve without error for the read-oriented stubs.
+    await expect(c.listDriveFiles()).resolves.toEqual([]);
+    await expect(c.downloadDriveFile('x')).rejects.toThrow('cloud download disabled');
+    await expect(c.loadCourseResults('ABC')).resolves.toEqual([]);
+    await expect(c.saveResult('uid', 'Name', 'a@b.com', 'ABC', {})).resolves.toEqual({});
   });
 });

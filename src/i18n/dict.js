@@ -2584,6 +2584,7 @@ export const messages = {
     'common.signedIn': '✓ Signed in',
     'common.notSignedIn': 'Not signed in',
     'common.googleSignIn': 'Google Sign in',
+    'common.maccountSignIn': 'Sign in with NYCU account',
     'common.signOut': 'Sign out',
 
     // Cloud panel
@@ -2649,6 +2650,7 @@ export const messages = {
     'cloud.class.results': 'result(s)',
     'cloud.class.viewResults': '📊 View Class Results',
     'td.title': 'Class Results Dashboard',
+    'dashboard.disabled': 'The class-results dashboard is temporarily unavailable while cloud sign-in is being migrated.',
     'td.close': 'Close',
     'td.classCode': 'Class Code',
     'td.codePlaceholder': 'e.g. CS101-A',
@@ -5507,6 +5509,7 @@ export const messages = {
     'common.signedIn': '✓ 已登入',
     'common.notSignedIn': '尚未登入',
     'common.googleSignIn': 'Google 登入',
+    'common.maccountSignIn': '以 NYCU 帳號登入',
     'common.signOut': '登出',
 
     'cloud.kicker': 'Google + Firebase',
@@ -5571,6 +5574,7 @@ export const messages = {
     'cloud.class.results': '筆成績',
     'cloud.class.viewResults': '📊 查看全班成績',
     'td.title': '班級成績儀表板',
+    'dashboard.disabled': '班級成績儀表板在雲端登入方式遷移期間暫時停用。',
     'td.close': '關閉',
     'td.classCode': '班級代碼',
     'td.codePlaceholder': '例如 CS101-A',

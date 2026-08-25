@@ -25,6 +25,11 @@ export function createTeacherDashboard() {
   root.className = 'td-overlay';
 
   const client = createCloudIntegrationClient();
+  // The class-results dashboard is a Firestore-backed feature. Under the maccount
+  // SSO adapter (firebaseEnabled === false, the shipped default) there is no
+  // Firestore to query, so show a short disabled notice instead of wiring up
+  // the search/table UI, and never call a data method (loadCourseResults etc.).
+  const disabled = Boolean(client.isMaccount);
 
   let classCode = '';
   let results = [];
@@ -43,6 +48,23 @@ export function createTeacherDashboard() {
   }
 
   function render() {
+    if (disabled) {
+      root.innerHTML = `
+        <div class="td-panel" role="dialog" aria-modal="true" aria-label="${t('td.title')}" data-testid="td-panel">
+          <div class="td-header">
+            <div class="td-header-left">
+              <h2 class="td-title">${t('td.title')}</h2>
+            </div>
+            <button type="button" class="td-close-btn" data-testid="td-close" aria-label="${t('td.close')}">✕</button>
+          </div>
+          <p class="td-disabled-notice" data-testid="td-disabled-notice">${t('dashboard.disabled')}</p>
+        </div>`;
+      root.querySelector('[data-testid="td-close"]').addEventListener('click', () => {
+        root.hidden = true;
+      });
+      return;
+    }
+
     const filtered = filteredResults();
     const explorerOpts = explorerOptions();
 

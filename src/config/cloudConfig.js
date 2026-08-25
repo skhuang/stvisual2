@@ -12,7 +12,14 @@ export const cloudConfig = {
     uploadFolderId: '__DRIVE_UPLOAD_FOLDER_ID__',
     privateSlidesFolderId: '__DRIVE_PRIVATE_SLIDES_FOLDER_ID__',
   },
+  maccount: {
+    workerBaseUrl: '__MACCOUNT_WORKER_URL__',
+    appId: 'stvisual2',
+  },
+  firebaseEnabled: false,
 };
+
+export const JUDGE_FRONTEND_BASE = 'https://ds2026summer.cs.nycu.edu.tw';
 
 export function getResolvedCloudConfig() {
   const runtimeConfig = globalThis.STVISUAL_CLOUD_CONFIG || {};
@@ -28,5 +35,10 @@ export function getResolvedCloudConfig() {
       ...cloudConfig.drive,
       ...(runtimeConfig.drive || {}),
     },
+    maccount: {
+      ...cloudConfig.maccount,
+      ...(runtimeConfig.maccount || {}),
+    },
+    firebaseEnabled: runtimeConfig.firebaseEnabled ?? cloudConfig.firebaseEnabled,
   };
 }

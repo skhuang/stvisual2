@@ -1,12 +1,31 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi, afterEach } from 'vitest';
+import * as ci from '../utils/cloudIntegration.js';
 import { createTeacherDashboard } from '../components/TeacherDashboard.js';
 
-function mount() {
+// These tests exercise the "enabled" (non-maccount) path — i.e. a Firebase client
+// where the class-results dashboard is expected to work. The maccount SSO adapter
+// (firebaseEnabled === false, the shipped default) is covered separately in
+// src/tests/firebaseDisabled.test.jsx.
+function mockEnabledClient(overrides = {}) {
+  return {
+    isMaccount: false,
+    getAccessToken: () => null,
+    loadCourseResults: vi.fn().mockResolvedValue([]),
+    ...overrides,
+  };
+}
+
+function mount(clientOverrides) {
   document.body.innerHTML = '';
+  vi.spyOn(ci, 'createCloudIntegrationClient').mockReturnValue(mockEnabledClient(clientOverrides));
   const el = createTeacherDashboard();
   document.body.appendChild(el);
   return el;
 }
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 describe('TeacherDashboard smoke', () => {
   it('renders root with correct testid', () => {

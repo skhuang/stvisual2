@@ -9,9 +9,11 @@ vi.mock('../utils/privateDecks.js', () => ({
 
 // Mock cloudIntegration to control accessToken.
 const mockGetAccessToken = vi.fn();
+const mockSignIn = vi.fn();
 vi.mock('../utils/cloudIntegration.js', () => ({
   createCloudIntegrationClient: () => ({
     getAccessToken: () => mockGetAccessToken(),
+    signIn: () => mockSignIn(),
   }),
   DRIVE_SCOPES: [],
 }));
@@ -49,6 +51,7 @@ describe('SlideViewer — private deck integration', () => {
   beforeEach(() => {
     mockFetchPrivateDecks.mockReset();
     mockGetAccessToken.mockReset();
+    mockSignIn.mockReset();
     mockFolderId.value = '';
   });
 
@@ -127,21 +130,13 @@ describe('SlideViewer — private deck integration', () => {
     expect(lockedBtn.disabled).toBe(true);
   });
 
-  it('clicking the sign-in row clicks the page-level cloud trigger and closes the viewer', async () => {
+  it('clicking the sign-in row triggers maccount signIn directly', async () => {
     mockFolderId.value = 'FOLDER_X';
     mockGetAccessToken.mockReturnValue(null);
-    const cloudBtn = document.createElement('button');
-    cloudBtn.setAttribute('data-app-cloud', '');
-    cloudBtn.setAttribute('data-testid', 'app-cloud-link');
-    const clickSpy = vi.fn();
-    cloudBtn.addEventListener('click', clickSpy);
-    document.body.appendChild(cloudBtn);
     openSlideViewer('sailor');
     await flushAsync();
     const signinRow = document.querySelector('[data-testid="slideviewer-signin-row"]');
     signinRow.click();
-    expect(clickSpy).toHaveBeenCalled();
-    expect(document.querySelector('[data-testid="slideviewer"]')).toBeFalsy();
-    cloudBtn.remove();
+    expect(mockSignIn).toHaveBeenCalled();
   });
 });
