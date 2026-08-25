@@ -42673,6 +42673,2590 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "state-transition": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What a state is",
+          "text": "<p>In a finite-state machine, what does a <strong>state</strong> represent?</p>",
+          "answers": [
+            {
+              "text": "A condition or mode the system remains in until an event causes it to change",
+              "fraction": 100,
+              "feedback": "Correct — a state captures the system's current situation, held until a transition occurs."
+            },
+            {
+              "text": "The input that triggers a change",
+              "fraction": 0,
+              "feedback": "That is an event, not a state."
+            },
+            {
+              "text": "The movement from one situation to another",
+              "fraction": 0,
+              "feedback": "That movement is a transition; a state is the situation itself."
+            },
+            {
+              "text": "The output produced by the system",
+              "fraction": 0,
+              "feedback": "Output is an action; a state is a mode the system rests in."
+            }
+          ],
+          "generalFeedback": "A state is a distinct mode or condition (e.g. Locked, Open) that the system stays in until an event drives a transition to another state.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an event is",
+          "text": "<p>In state-transition testing, what is an <strong>event</strong> (or input)?</p>",
+          "answers": [
+            {
+              "text": "Something that happens (a stimulus or input) that may cause a transition",
+              "fraction": 100,
+              "feedback": "Correct — an event is the trigger that can move the machine between states."
+            },
+            {
+              "text": "A mode the system stays in",
+              "fraction": 0,
+              "feedback": "That is a state, not an event."
+            },
+            {
+              "text": "A boolean condition attached to a transition",
+              "fraction": 0,
+              "feedback": "That is a guard, not the event itself."
+            },
+            {
+              "text": "The starting point of the machine",
+              "fraction": 0,
+              "feedback": "That is the initial state; an event is a stimulus."
+            }
+          ],
+          "generalFeedback": "An event (input/stimulus) is what occurs to the machine — such as \"coin\" or \"push\" — and may trigger a transition depending on the current state and any guard.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a transition is",
+          "text": "<p>What is a <strong>transition</strong> in a state machine?</p>",
+          "answers": [
+            {
+              "text": "A move from one state to another (or the same state) triggered by an event",
+              "fraction": 100,
+              "feedback": "Correct — a transition links a source state, an event, and a destination state."
+            },
+            {
+              "text": "A mode the system rests in",
+              "fraction": 0,
+              "feedback": "That is a state; a transition is the move between states."
+            },
+            {
+              "text": "The list of all possible inputs",
+              "fraction": 0,
+              "feedback": "Those are the events; a transition uses an event to change state."
+            },
+            {
+              "text": "The final state of the machine",
+              "fraction": 0,
+              "feedback": "That is a specific state, not a transition."
+            }
+          ],
+          "generalFeedback": "A transition is a directed move triggered by an event: source state + event [guard] / action -> destination state. It may return to the same state (a self-loop).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a guard is",
+          "text": "<p>What is a <strong>guard</strong> (or condition) on a transition?</p>",
+          "answers": [
+            {
+              "text": "A boolean condition that must be true for the transition to fire when its event occurs",
+              "fraction": 100,
+              "feedback": "Correct — even if the event happens, the transition only fires when its guard holds."
+            },
+            {
+              "text": "The output produced during the transition",
+              "fraction": 0,
+              "feedback": "That is an action, not a guard."
+            },
+            {
+              "text": "The event that triggers the transition",
+              "fraction": 0,
+              "feedback": "The event is the trigger; the guard is an extra condition on it."
+            },
+            {
+              "text": "The destination state of the transition",
+              "fraction": 0,
+              "feedback": "The destination is where the transition leads; a guard decides whether it fires."
+            }
+          ],
+          "generalFeedback": "A guard is a boolean condition on a transition. When the event occurs, the transition fires only if the guard evaluates to true; otherwise a different transition (or none) applies.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an action is",
+          "text": "<p>What is an <strong>action</strong> (or output) in a state machine?</p>",
+          "answers": [
+            {
+              "text": "An effect or output produced when a transition fires (or while in a state)",
+              "fraction": 100,
+              "feedback": "Correct — actions are the observable outputs the machine emits."
+            },
+            {
+              "text": "The condition that must hold for a transition to fire",
+              "fraction": 0,
+              "feedback": "That is a guard, not an action."
+            },
+            {
+              "text": "A mode the system stays in",
+              "fraction": 0,
+              "feedback": "That is a state."
+            },
+            {
+              "text": "The stimulus that triggers a change",
+              "fraction": 0,
+              "feedback": "That is an event; the action is the effect produced."
+            }
+          ],
+          "generalFeedback": "An action is the output or effect associated with a transition (e.g. \"dispense ticket\") or with being in a state. It is what a tester observes to confirm the expected behaviour.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the initial state is",
+          "text": "<p>What is the <strong>initial state</strong> of a state machine?</p>",
+          "answers": [
+            {
+              "text": "The state the machine is in before any event has been processed",
+              "fraction": 100,
+              "feedback": "Correct — it is the starting state, usually drawn with an arrow from a solid dot."
+            },
+            {
+              "text": "The state the machine ends in when it stops",
+              "fraction": 0,
+              "feedback": "That is a final state, not the initial one."
+            },
+            {
+              "text": "Any state that has a self-loop",
+              "fraction": 0,
+              "feedback": "Self-loops are unrelated to which state is the start."
+            },
+            {
+              "text": "The state with the most outgoing transitions",
+              "fraction": 0,
+              "feedback": "The number of transitions does not determine the initial state."
+            }
+          ],
+          "generalFeedback": "The initial (start) state is where the machine begins before processing any event. In a diagram it is marked by an incoming arrow from a filled circle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "State coverage defined",
+          "text": "<p>What does <strong>state coverage</strong> require of a test suite?</p>",
+          "answers": [
+            {
+              "text": "Every state is visited at least once",
+              "fraction": 100,
+              "feedback": "Correct — state coverage is achieved when each state is entered by some test."
+            },
+            {
+              "text": "Every valid transition is exercised at least once",
+              "fraction": 0,
+              "feedback": "That is transition coverage, a stronger criterion."
+            },
+            {
+              "text": "Every pair of consecutive transitions is exercised",
+              "fraction": 0,
+              "feedback": "That is 1-switch coverage, stronger still."
+            },
+            {
+              "text": "Every event is sent in every state",
+              "fraction": 0,
+              "feedback": "That would include invalid combinations; state coverage only requires visiting each state."
+            }
+          ],
+          "generalFeedback": "State coverage is the weakest state-based criterion: it only requires that each state be visited. It can be met without exercising every transition.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Transition coverage defined",
+          "text": "<p>What does <strong>transition coverage</strong> (also called 0-switch coverage) require?</p>",
+          "answers": [
+            {
+              "text": "Every valid transition is exercised at least once",
+              "fraction": 100,
+              "feedback": "Correct — transition coverage exercises each single valid transition; this is 0-switch coverage."
+            },
+            {
+              "text": "Every state is visited at least once",
+              "fraction": 0,
+              "feedback": "That is only state coverage, which is weaker."
+            },
+            {
+              "text": "Every valid pair of consecutive transitions is exercised",
+              "fraction": 0,
+              "feedback": "That is 1-switch coverage, which is stronger than 0-switch."
+            },
+            {
+              "text": "Every guard is evaluated both true and false",
+              "fraction": 0,
+              "feedback": "Guard-value coverage is a different, condition-based criterion."
+            }
+          ],
+          "generalFeedback": "Transition (0-switch) coverage requires each valid transition to be taken at least once. Because reaching a transition means visiting its source and target states, transition coverage subsumes state coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a sneak path is",
+          "text": "<p>What is a <strong>sneak path</strong> in state-transition testing?</p>",
+          "answers": [
+            {
+              "text": "An event accepted in a state where the specification says it should not be — an undesired, extra transition",
+              "fraction": 100,
+              "feedback": "Correct — a sneak path is an unspecified transition the implementation wrongly allows."
+            },
+            {
+              "text": "A valid transition that the tests happen to miss",
+              "fraction": 0,
+              "feedback": "That is merely uncovered behaviour, not a sneak path; a sneak path is an extra, unwanted transition."
+            },
+            {
+              "text": "The shortest path that visits every state",
+              "fraction": 0,
+              "feedback": "That describes a coverage tour, not a sneak path."
+            },
+            {
+              "text": "A transition whose guard is always false",
+              "fraction": 0,
+              "feedback": "An always-false guard yields a dead transition, not a sneak path."
+            }
+          ],
+          "generalFeedback": "A sneak path is an unwanted transition: the implementation responds to an event in a state where the spec defines no transition for it. Negative testing (firing undefined events) is used to detect sneak paths.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "0-switch equals transition coverage",
+          "text": "<p>\"0-switch coverage\" is another name for transition coverage — exercising every single valid transition at least once.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — 0-switch means single transitions, i.e. transition coverage."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "0-switch coverage is exactly transition coverage; 1-switch covers pairs of transitions."
+            }
+          ],
+          "generalFeedback": "In Chow's switch terminology, 0-switch covers sequences of one transition (transition coverage), 1-switch covers sequences of two consecutive transitions, and so on."
+        },
+        {
+          "type": "multichoice",
+          "name": "Turnstile: coin in Locked",
+          "text": "<p>A turnstile has two states and two events:</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>If the turnstile is <code>Locked</code> and a <code>coin</code> event occurs, what is the next state?</p>",
+          "answers": [
+            {
+              "text": "Unlocked",
+              "fraction": 100,
+              "feedback": "Correct — the Locked row, coin column gives Unlocked."
+            },
+            {
+              "text": "Locked",
+              "fraction": 0,
+              "feedback": "Locked stays Locked on push, not on coin."
+            },
+            {
+              "text": "The event is invalid in Locked",
+              "fraction": 0,
+              "feedback": "coin is defined in Locked; the cell gives Unlocked."
+            },
+            {
+              "text": "The machine has no next state",
+              "fraction": 0,
+              "feedback": "The table defines a next state (Unlocked) for this cell."
+            }
+          ],
+          "generalFeedback": "Read the table at row Locked, column coin: the next state is Unlocked.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Turnstile: push in Unlocked",
+          "text": "<p>Using the same turnstile:</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>If the turnstile is <code>Unlocked</code> and a <code>push</code> event occurs, what is the next state?</p>",
+          "answers": [
+            {
+              "text": "Locked",
+              "fraction": 100,
+              "feedback": "Correct — the Unlocked row, push column gives Locked."
+            },
+            {
+              "text": "Unlocked",
+              "fraction": 0,
+              "feedback": "Unlocked stays Unlocked on coin, not on push."
+            },
+            {
+              "text": "The event is invalid in Unlocked",
+              "fraction": 0,
+              "feedback": "push is defined in Unlocked and leads to Locked."
+            },
+            {
+              "text": "It returns to the initial state marker only",
+              "fraction": 0,
+              "feedback": "The next state is Locked, which happens also to be the initial state here, but it is read directly from the cell."
+            }
+          ],
+          "generalFeedback": "Read the table at row Unlocked, column push: the next state is Locked. This models a person pushing through and re-locking the turnstile.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagram vs table cell",
+          "text": "<p>In a state-transition <strong>table</strong> with rows = states and columns = events, what does a single cell hold?</p>",
+          "answers": [
+            {
+              "text": "The next state reached when that event occurs in that state (or \"-\" if undefined)",
+              "fraction": 100,
+              "feedback": "Correct — each cell is the destination state for (row state, column event), or a dash when no transition is defined."
+            },
+            {
+              "text": "The number of times that event has been tested",
+              "fraction": 0,
+              "feedback": "Cells hold next states, not test counts."
+            },
+            {
+              "text": "The guard expression only",
+              "fraction": 0,
+              "feedback": "A cell gives the resulting next state; a guard may qualify it, but the cell's content is the destination."
+            },
+            {
+              "text": "Whether the state is the initial state",
+              "fraction": 0,
+              "feedback": "Initial-state marking is separate; a cell records the next state for an event."
+            }
+          ],
+          "generalFeedback": "A state-transition table lists states as rows and events as columns; each cell names the next state for that (state, event) pair, using \"-\" (or blank) when the event is not defined in that state. A diagram shows the same information as arrows.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When state-based testing fits",
+          "text": "<p>For which kind of system is state-transition testing <strong>most</strong> appropriate?</p>",
+          "answers": [
+            {
+              "text": "Event-driven, mode-rich systems whose response depends on their current state",
+              "fraction": 100,
+              "feedback": "Correct — state-based testing shines when behaviour depends on history/mode, as in protocols, UIs, and controllers."
+            },
+            {
+              "text": "Pure stateless mathematical functions whose output depends only on the current input",
+              "fraction": 0,
+              "feedback": "Stateless functions have no modes to model; equivalence/boundary testing fits them better."
+            },
+            {
+              "text": "Systems with no inputs at all",
+              "fraction": 0,
+              "feedback": "State machines are driven by events/inputs; a system with no inputs has nothing to model as transitions."
+            },
+            {
+              "text": "Only systems written in object-oriented languages",
+              "fraction": 0,
+              "feedback": "The technique is language-independent; it depends on the system being state-driven, not on the language."
+            }
+          ],
+          "generalFeedback": "State-transition testing suits event-driven, mode-rich systems — protocols, embedded controllers, UI workflows, vending machines — where the same event produces different results depending on the current state.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of a dash cell",
+          "text": "<p>In a state-transition table, what does a \"-\" (dash, or blank) in a cell usually mean?</p>",
+          "answers": [
+            {
+              "text": "That event is not defined (invalid) in that state — there is no specified transition",
+              "fraction": 100,
+              "feedback": "Correct — a dash marks an undefined/invalid transition for that (state, event) pair."
+            },
+            {
+              "text": "The machine returns to its initial state",
+              "fraction": 0,
+              "feedback": "A dash means no transition is defined, not a jump to the initial state."
+            },
+            {
+              "text": "The event always keeps the machine in the same state",
+              "fraction": 0,
+              "feedback": "A self-loop would name the same state in the cell; a dash means the event is undefined there."
+            },
+            {
+              "text": "The transition has a guard that is currently true",
+              "fraction": 0,
+              "feedback": "A dash indicates no defined transition, not a satisfied guard."
+            }
+          ],
+          "generalFeedback": "A dash (or blank) marks a (state, event) pair for which the specification defines no transition — the event is invalid in that state. Firing it is exactly what negative testing probes for sneak paths.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Count states in door table",
+          "text": "<p>Consider this door controller (cells give the next state; \"-\" = undefined):</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>How many <strong>states</strong> does this machine have?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — the rows are Closed, Open, Locked: three states."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of events (columns), not states."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 mixes states and events; count only the rows: 3."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is 3 rows x 4 columns (all cells); the state count is the number of rows: 3."
+            }
+          ],
+          "generalFeedback": "Each row is a state. The rows are Closed, Open, and Locked, so the machine has 3 states. The columns (open, close, lock, unlock) are events, not states.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count valid transitions in door table",
+          "text": "<p>For the same door controller:</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>How many <strong>valid transitions</strong> does it define (non-dash cells)?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — Closed/open, Closed/lock, Open/close, Locked/unlock: four non-dash cells."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 counts every cell; only non-dash cells are valid transitions, and there are 4."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is the number of dash (undefined) cells, not the valid transitions."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the state count; the valid transitions number 4."
+            }
+          ],
+          "generalFeedback": "Count only the cells that name a next state: Closed--open-->Open, Closed--lock-->Locked, Open--close-->Closed, Locked--unlock-->Closed. That is 4 valid transitions. The remaining 8 cells are dashes (invalid).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "State coverage but not transition coverage",
+          "text": "<p>For the door controller, a test runs the sequence <code>open</code>, <code>close</code>, <code>lock</code> starting from <code>Closed</code>. It visits Closed, Open, and Locked. Which statement is true?</p>",
+          "answers": [
+            {
+              "text": "It achieves state coverage but not transition coverage — the Locked--unlock-->Closed transition is never exercised",
+              "fraction": 100,
+              "feedback": "Correct — all three states are visited, but only 3 of the 4 valid transitions are taken; unlock is missed."
+            },
+            {
+              "text": "It achieves both state and transition coverage",
+              "fraction": 0,
+              "feedback": "It exercises open, close, lock — but not unlock, so transition coverage is not met."
+            },
+            {
+              "text": "It achieves transition coverage but not state coverage",
+              "fraction": 0,
+              "feedback": "It cannot cover more transitions than states here; unlock is missed, so transition coverage fails while all states are visited."
+            },
+            {
+              "text": "It achieves neither",
+              "fraction": 0,
+              "feedback": "All three states are visited, so state coverage is achieved."
+            }
+          ],
+          "generalFeedback": "The sequence enters Closed, Open, and Locked (state coverage) using transitions open, close, lock. The fourth valid transition, Locked--unlock-->Closed, is never taken, so transition coverage is not achieved. This shows state coverage does not imply transition coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "0-switch vs 1-switch meaning",
+          "text": "<p>What is the difference between <strong>0-switch</strong> and <strong>1-switch</strong> coverage?</p>",
+          "answers": [
+            {
+              "text": "0-switch covers each single valid transition; 1-switch covers each valid pair of consecutive transitions",
+              "fraction": 100,
+              "feedback": "Correct — 0-switch = length-1 sequences, 1-switch = length-2 sequences."
+            },
+            {
+              "text": "0-switch covers each state; 1-switch covers each transition",
+              "fraction": 0,
+              "feedback": "0-switch is transition coverage, not state coverage."
+            },
+            {
+              "text": "0-switch covers pairs of transitions; 1-switch covers single transitions",
+              "fraction": 0,
+              "feedback": "This reverses the definitions."
+            },
+            {
+              "text": "They are two names for the same criterion",
+              "fraction": 0,
+              "feedback": "They differ: 1-switch requires consecutive transition pairs, which 0-switch does not."
+            }
+          ],
+          "generalFeedback": "In Chow's terminology, 0-switch coverage exercises sequences of one transition (transition coverage) and 1-switch coverage exercises every valid sequence of two consecutive transitions. In general, n-switch covers length-(n+1) transition sequences.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify an undefined transition",
+          "text": "<p>For the door controller:</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>Which of the following is an <strong>undefined (invalid) transition</strong> according to the table?</p>",
+          "answers": [
+            {
+              "text": "Firingwhile in state",
+              "fraction": 100,
+              "feedback": "Correct — the Open row, lock column is a dash, so this transition is undefined."
+            },
+            {
+              "text": "Firingwhile in state",
+              "fraction": 0,
+              "feedback": "That cell names Open, so it is a valid, defined transition."
+            },
+            {
+              "text": "Firingwhile in state",
+              "fraction": 0,
+              "feedback": "That cell names Closed, so it is a valid transition."
+            },
+            {
+              "text": "Firingwhile in state",
+              "fraction": 0,
+              "feedback": "That cell names Closed, so it is a valid transition."
+            }
+          ],
+          "generalFeedback": "Look for a dash. The Open row has dashes under open, lock, and unlock, so \"lock in Open\" is undefined. The other three options each name a next state and are valid transitions.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sequence achieving transition coverage",
+          "text": "<p>For the door controller (valid transitions: Closed--open--&gt;Open, Open--close--&gt;Closed, Closed--lock--&gt;Locked, Locked--unlock--&gt;Closed), which single sequence starting from <code>Closed</code> exercises <strong>all four</strong> valid transitions?</p>",
+          "answers": [
+            {
+              "text": "open, close, lock, unlock",
+              "fraction": 100,
+              "feedback": "Correct — Closed->Open->Closed->Locked->Closed uses all four valid transitions."
+            },
+            {
+              "text": "open, close, open, close",
+              "fraction": 0,
+              "feedback": "This repeats open and close and never fires lock or unlock."
+            },
+            {
+              "text": "lock, unlock, lock, unlock",
+              "fraction": 0,
+              "feedback": "This never fires open or close, so it misses two transitions."
+            },
+            {
+              "text": "open, lock, unlock, close",
+              "fraction": 0,
+              "feedback": "After open the machine is in Open, where lock is undefined, so this sequence is invalid."
+            }
+          ],
+          "generalFeedback": "Trace from Closed: open (->Open), close (->Closed), lock (->Locked), unlock (->Closed). This one sequence exercises every valid transition exactly once, achieving 0-switch (transition) coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count valid transitions in turnstile",
+          "text": "<p>The turnstile table has all cells defined:</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>How many valid transitions does it have (self-loops count)?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — all four cells are defined, including the two self-loops (Locked/push and Unlocked/coin)."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 counts only the state-changing transitions; self-loops are transitions too, giving 4."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "All four cells name a next state; the count is 4, not 3."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 would be the 1-switch pair count, not the number of single transitions (4)."
+            }
+          ],
+          "generalFeedback": "Each defined cell is one transition: Locked--coin-->Unlocked, Locked--push-->Locked, Unlocked--coin-->Unlocked, Unlocked--push-->Locked. That is 4, and self-loops (same source and target) still count as transitions.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Next state: open in Closed",
+          "text": "<p>For the door controller:</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>Starting in <code>Closed</code>, an <code>open</code> event occurs. What is the next state?</p>",
+          "answers": [
+            {
+              "text": "Open",
+              "fraction": 100,
+              "feedback": "Correct — the Closed row, open column gives Open."
+            },
+            {
+              "text": "Locked",
+              "fraction": 0,
+              "feedback": "Closed goes to Locked on lock, not on open."
+            },
+            {
+              "text": "Closed",
+              "fraction": 0,
+              "feedback": "open does not leave Closed unchanged; it moves to Open."
+            },
+            {
+              "text": "Undefined",
+              "fraction": 0,
+              "feedback": "The Closed/open cell names Open, so it is defined."
+            }
+          ],
+          "generalFeedback": "Read row Closed, column open: the next state is Open.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Next state: lock in Open",
+          "text": "<p>For the same door controller, the machine is in <code>Open</code> and a <code>lock</code> event occurs. According to the table, what happens?</p>",
+          "answers": [
+            {
+              "text": "Nothing is defined — lock is invalid in Open (the cell is a dash)",
+              "fraction": 100,
+              "feedback": "Correct — the Open row, lock column is a dash, so this transition is undefined."
+            },
+            {
+              "text": "The machine moves to Locked",
+              "fraction": 0,
+              "feedback": "lock leads to Locked only from Closed; in Open it is undefined."
+            },
+            {
+              "text": "The machine moves to Closed",
+              "fraction": 0,
+              "feedback": "From Open, close leads to Closed; lock is undefined in Open."
+            },
+            {
+              "text": "The machine stays in Open as a self-loop",
+              "fraction": 0,
+              "feedback": "A dash means undefined, not a self-loop; the table does not specify staying in Open."
+            }
+          ],
+          "generalFeedback": "The Open row under lock is a dash, so the specification defines no transition. Firing lock in Open is exactly the kind of invalid event that negative testing checks (a correct implementation should reject it or leave the state unchanged, with no sneak path).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Transitions to exercise for coverage",
+          "text": "<p>The turnstile has 2 states and 4 valid transitions. To achieve <strong>transition (0-switch) coverage</strong>, how many valid transitions must be exercised at least once?</p>",
+          "answers": [
+            {
+              "text": "4 — every valid transition",
+              "fraction": 100,
+              "feedback": "Correct — transition coverage requires exercising all 4 valid transitions."
+            },
+            {
+              "text": "2 — one per state",
+              "fraction": 0,
+              "feedback": "Visiting each state (2) is only state coverage; transition coverage needs all 4 transitions."
+            },
+            {
+              "text": "8 — every pair of transitions",
+              "fraction": 0,
+              "feedback": "8 is the 1-switch count; 0-switch coverage needs the 4 single transitions."
+            },
+            {
+              "text": "1 — a single path suffices regardless of transitions",
+              "fraction": 0,
+              "feedback": "A single path can be short enough to miss transitions; coverage requires all 4 to be taken."
+            }
+          ],
+          "generalFeedback": "Transition (0-switch) coverage requires every valid transition to be taken at least once. The turnstile has 4 valid transitions, so all 4 must be exercised (they can be woven into one longer test, but all 4 must appear).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which criterion subsumes which",
+          "text": "<p>Which subsumption relationship holds among these state-based criteria?</p>",
+          "answers": [
+            {
+              "text": "Transition coverage subsumes state coverage (achieving all transitions guarantees all states are visited)",
+              "fraction": 100,
+              "feedback": "Correct — every transition has a source and target state, so covering all transitions visits all reachable states."
+            },
+            {
+              "text": "State coverage subsumes transition coverage",
+              "fraction": 0,
+              "feedback": "The reverse is true; visiting all states can still miss transitions."
+            },
+            {
+              "text": "The two criteria are equivalent",
+              "fraction": 0,
+              "feedback": "They are not equivalent; state coverage is strictly weaker."
+            },
+            {
+              "text": "Neither implies anything about the other",
+              "fraction": 0,
+              "feedback": "There is a relationship: transition coverage implies state coverage."
+            }
+          ],
+          "generalFeedback": "Because taking a transition necessarily enters its source and target states, a suite achieving transition (0-switch) coverage also achieves state coverage. The converse fails: the door example visits all states yet misses the unlock transition.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Name for exercising single transitions",
+          "text": "<p>Exercising every single valid transition at least once, with no requirement about consecutive pairs, is which named criterion?</p>",
+          "answers": [
+            {
+              "text": "0-switch (transition) coverage",
+              "fraction": 100,
+              "feedback": "Correct — single transitions correspond to 0-switch coverage."
+            },
+            {
+              "text": "1-switch coverage",
+              "fraction": 0,
+              "feedback": "1-switch requires consecutive transition pairs, which is stronger."
+            },
+            {
+              "text": "State coverage",
+              "fraction": 0,
+              "feedback": "State coverage only requires visiting states, not exercising transitions."
+            },
+            {
+              "text": "2-switch coverage",
+              "fraction": 0,
+              "feedback": "2-switch covers sequences of three transitions, stronger still."
+            }
+          ],
+          "generalFeedback": "Single transitions = 0-switch = transition coverage. Requiring consecutive pairs would be 1-switch, and triples would be 2-switch.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of 1-switch",
+          "text": "<p>What exactly does <strong>1-switch coverage</strong> require?</p>",
+          "answers": [
+            {
+              "text": "Every valid sequence of two consecutive transitions is exercised at least once",
+              "fraction": 100,
+              "feedback": "Correct — 1-switch covers all valid length-2 transition sequences."
+            },
+            {
+              "text": "Every single transition is exercised once",
+              "fraction": 0,
+              "feedback": "That is 0-switch coverage; 1-switch adds the pairing requirement."
+            },
+            {
+              "text": "Every state is entered from at least one other state",
+              "fraction": 0,
+              "feedback": "That is closer to state coverage; 1-switch is about pairs of transitions."
+            },
+            {
+              "text": "Every guard is exercised both true and false",
+              "fraction": 0,
+              "feedback": "That is a condition-based idea, not the definition of 1-switch."
+            }
+          ],
+          "generalFeedback": "1-switch coverage requires each valid pair of consecutive transitions (a length-2 transition sequence) to be exercised. It catches faults that depend on the order of two transitions, which 0-switch may miss.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Single path covering all transitions",
+          "text": "<p>A machine has 4 valid transitions. A tester finds a single connected walk that takes all 4 transitions one after another. How many transition <strong>steps</strong> does that walk contain?</p>",
+          "answers": [
+            {
+              "text": "4 — each valid transition is one step, taken once",
+              "fraction": 100,
+              "feedback": "Correct — a walk taking every transition once has 4 steps."
+            },
+            {
+              "text": "3 — one fewer than the number of transitions",
+              "fraction": 0,
+              "feedback": "A walk that takes 4 transitions has 4 steps, not 3."
+            },
+            {
+              "text": "5 — one more than the number of transitions",
+              "fraction": 0,
+              "feedback": "Each transition is one step; taking 4 transitions is 4 steps."
+            },
+            {
+              "text": "8 — because pairs are involved",
+              "fraction": 0,
+              "feedback": "Pairs relate to 1-switch; here we only take each of the 4 transitions once, so 4 steps."
+            }
+          ],
+          "generalFeedback": "If a single walk can chain all 4 transitions consecutively, it has exactly 4 transition steps (visiting 5 states along the way, counting repeats). This is possible only when the transitions connect end-to-end.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What state coverage misses",
+          "text": "<p>A suite achieves state coverage of a machine but not transition coverage. What must it be missing?</p>",
+          "answers": [
+            {
+              "text": "At least one valid transition that is never exercised, even though its source and target states are both visited by other transitions",
+              "fraction": 100,
+              "feedback": "Correct — some valid transition is skipped while its endpoints are still reached another way."
+            },
+            {
+              "text": "At least one state that is never visited",
+              "fraction": 0,
+              "feedback": "If a state were unvisited, state coverage would fail; here state coverage holds."
+            },
+            {
+              "text": "At least one event that does not exist in the machine",
+              "fraction": 0,
+              "feedback": "Coverage concerns defined transitions, not nonexistent events."
+            },
+            {
+              "text": "Nothing — the two criteria are the same",
+              "fraction": 0,
+              "feedback": "They differ; transition coverage is strictly stronger, so something is missed."
+            }
+          ],
+          "generalFeedback": "State coverage without transition coverage means every state is reached, but some valid transition is never taken (its endpoints are visited via other transitions). The door example — visiting Locked via lock but never taking unlock — is exactly this situation.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Count 1-switch pairs: turnstile",
+          "text": "<p>The turnstile has these 4 valid transitions:</p><pre>\nt1: Locked   --coin--> Unlocked\nt2: Locked   --push--> Locked\nt3: Unlocked --coin--> Unlocked\nt4: Unlocked --push--> Locked\n</pre><p>How many valid <strong>1-switch</strong> sequences (ordered pairs of consecutive transitions) does it have?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — each state has 2 transitions in and 2 out, giving 2x2 + 2x2 = 8."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of single transitions (0-switch), not the pairs."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 would be 4x4 (all ordered pairs); only pairs where the first ends where the second begins count, giving 8."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Enumerate the joinable pairs: there are 8, not 6."
+            }
+          ],
+          "generalFeedback": "A 1-switch pair (ti, tj) is valid when target(ti) = source(tj). Count per intermediate state = (transitions in) x (transitions out). Locked: 2 in (t2,t4) x 2 out (t1,t2) = 4; Unlocked: 2 in (t1,t3) x 2 out (t3,t4) = 4. Total 4 + 4 = 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count 1-switch pairs: branch machine",
+          "text": "<p>Consider this machine (initial state A):</p><pre>\n       p        q\nA      B        C\nB      C        -\nC      A        -\n</pre><p>Its valid transitions are A--p--&gt;B, A--q--&gt;C, B--p--&gt;C, C--p--&gt;A. How many valid <strong>1-switch</strong> sequences does it have?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — (A: 1 in x 2 out) + (B: 1 in x 1 out) + (C: 2 in x 1 out) = 2 + 1 + 2 = 5."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of single transitions; the joinable pairs number 5."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Enumerate: (A-p,B-p),(A-q,C-p),(B-p,C-p),(C-p,A-p),(C-p,A-q) = 5, not 6."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 undercounts; C is reached by two transitions and each can be followed by C--p-->A, adding two pairs."
+            }
+          ],
+          "generalFeedback": "For each state, pairs = (transitions in) x (transitions out). A: in {C--p-->A}=1, out {A-p,A-q}=2 -> 2. B: in {A--p-->B}=1, out {B--p-->C}=1 -> 1. C: in {A--q-->C, B--p-->C}=2, out {C--p-->A}=1 -> 2. Total 2+1+2 = 5. Explicitly: (A-p,B-p),(A-q,C-p),(B-p,C-p),(C-p,A-p),(C-p,A-q).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count 1-switch pairs: cycle",
+          "text": "<p>A machine cycles through three states:</p><pre>\nt1: S1 --x--> S2\nt2: S2 --y--> S3\nt3: S3 --z--> S1\n</pre><p>How many valid <strong>1-switch</strong> sequences does it have?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — each state has exactly 1 in and 1 out: (t1,t2),(t2,t3),(t3,t1) = 3."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 would be all ordered pairs; only 3 are joinable end-to-end."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is 3x3; most pairs do not connect, leaving 3 valid ones."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "The cycle closes (t3 then t1), so there are 3 joinable pairs, not 2."
+            }
+          ],
+          "generalFeedback": "Each state has 1 transition in and 1 out, so pairs = 1x1 per state = 3 total: (t1,t2), (t2,t3), and (t3,t1) since the cycle returns to S1.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify a sneak path",
+          "text": "<p>A media player spec defines: Stopped--play--&gt;Playing, Playing--stop--&gt;Stopped, Playing--pause--&gt;Paused, Paused--play--&gt;Playing. During testing, sending <code>stop</code> while <code>Paused</code> causes the player to jump to Stopped, even though the spec defines no such transition. What has been found?</p>",
+          "answers": [
+            {
+              "text": "A sneak path — an event accepted in a state where the spec defines no transition",
+              "fraction": 100,
+              "feedback": "Correct — stop is undefined in Paused, yet the implementation acts on it: a sneak path."
+            },
+            {
+              "text": "A missing transition the spec forgot",
+              "fraction": 0,
+              "feedback": "The problem is an extra, unspecified transition in the implementation, not a spec omission — that is a sneak path."
+            },
+            {
+              "text": "A guard evaluating incorrectly",
+              "fraction": 0,
+              "feedback": "No guard is involved; the event stop is simply not defined in Paused, yet it fires."
+            },
+            {
+              "text": "A 1-switch coverage gap",
+              "fraction": 0,
+              "feedback": "This is an extra transition, not a missing pair; it is a sneak path detected by negative testing."
+            }
+          ],
+          "generalFeedback": "The spec has no Paused--stop--> transition, so the correct behaviour is to ignore or reject stop in Paused. The implementation instead transitions to Stopped — an undesired extra transition, i.e. a sneak path, which negative testing (firing undefined events) is designed to reveal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why 0-switch misses a fault",
+          "text": "<p>A bug only appears when transition B is taken <strong>immediately after</strong> transition A (the pair A-then-B corrupts state), but each of A and B works fine in isolation. Which coverage level is needed to reliably force this fault, and why?</p>",
+          "answers": [
+            {
+              "text": "1-switch coverage — it exercises consecutive transition pairs, so the A-then-B sequence is guaranteed to be tested",
+              "fraction": 100,
+              "feedback": "Correct — the fault depends on a specific pair, which 1-switch (length-2 sequences) forces."
+            },
+            {
+              "text": "State coverage — visiting both endpoint states triggers it",
+              "fraction": 0,
+              "feedback": "Visiting states does not force the specific A-then-B ordering; the fault can be missed."
+            },
+            {
+              "text": "0-switch coverage — taking A once and B once is enough",
+              "fraction": 0,
+              "feedback": "0-switch may take A and B in separate tests, never consecutively, so it can miss the pair fault."
+            },
+            {
+              "text": "No coverage level can find it",
+              "fraction": 0,
+              "feedback": "1-switch is specifically designed to catch order-dependent pair faults."
+            }
+          ],
+          "generalFeedback": "0-switch coverage only demands each transition once; A and B could be exercised in different tests and never adjacently. The fault needs the ordered pair A-then-B, exactly what 1-switch coverage requires by covering every valid length-2 transition sequence.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sequence to reach Blocked (guard)",
+          "text": "<p>A login machine (initial state LoggedOut, attempt counter starts at 0):</p><pre>\nLoggedOut --submit[valid]--> LoggedIn\nLoggedOut --submit[invalid & attempts<2]--> LoggedOut  (attempts++)\nLoggedOut --submit[invalid & attempts==2]--> Blocked\nLoggedIn  --logout--> LoggedOut\nBlocked   --adminReset--> LoggedOut\n</pre><p>Which sequence of events reaches <code>Blocked</code>?</p>",
+          "answers": [
+            {
+              "text": "submit[invalid], submit[invalid], submit[invalid] — three invalid attempts",
+              "fraction": 100,
+              "feedback": "Correct — attempts goes 0->1 (stay), 1->2 (stay), then the third invalid submit with attempts==2 goes to Blocked."
+            },
+            {
+              "text": "submit[invalid], submit[invalid] — two invalid attempts",
+              "fraction": 0,
+              "feedback": "After two invalid submits attempts==2 but the machine is still LoggedOut; a third invalid submit is needed to reach Blocked."
+            },
+            {
+              "text": "submit[valid], logout, submit[invalid]",
+              "fraction": 0,
+              "feedback": "submit[valid] goes to LoggedIn, logout returns to LoggedOut with attempts still 0, so one invalid submit only increments to 1 — not Blocked."
+            },
+            {
+              "text": "submit[invalid], adminReset",
+              "fraction": 0,
+              "feedback": "adminReset is only defined in Blocked, and the machine is not there yet; this sequence is invalid."
+            }
+          ],
+          "generalFeedback": "Trace the guard on attempts: first invalid submit (attempts 0->1, stay LoggedOut), second invalid submit (attempts 1->2, stay LoggedOut), third invalid submit (attempts==2 now, so the guard [invalid & attempts==2] fires) -> Blocked. Three invalid attempts are required.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Negative test for undefined event",
+          "text": "<p>For the login machine, <code>logout</code> is only defined in <code>LoggedIn</code>. A tester fires <code>logout</code> while in <code>LoggedOut</code>. What is the correct expected result of this <strong>negative test</strong>?</p>",
+          "answers": [
+            {
+              "text": "The event is rejected/ignored: the machine stays in LoggedOut (no state change), possibly with an error",
+              "fraction": 100,
+              "feedback": "Correct — an undefined event should leave the state unchanged (or raise an error), never silently transition."
+            },
+            {
+              "text": "The machine transitions to LoggedIn",
+              "fraction": 0,
+              "feedback": "That would be a sneak path; logout is undefined in LoggedOut and must not cause a transition."
+            },
+            {
+              "text": "The machine transitions to Blocked",
+              "fraction": 0,
+              "feedback": "Blocked is reached only via failed submits under the guard; logout has no such effect."
+            },
+            {
+              "text": "The attempt counter resets to 0 and the state changes",
+              "fraction": 0,
+              "feedback": "logout in LoggedOut is undefined; the correct behaviour is no state change, not a counter reset with a transition."
+            }
+          ],
+          "generalFeedback": "Negative testing fires events that are undefined in the current state to check for sneak paths. Since logout is undefined in LoggedOut, a correct implementation ignores or rejects it and remains in LoggedOut — any resulting transition would be a sneak path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count valid transitions: branch machine",
+          "text": "<p>For this table (\"-\" = undefined):</p><pre>\n       p        q\nA      B        C\nB      C        -\nC      A        -\n</pre><p>How many valid transitions does the machine have?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — A/p, A/q, B/p, C/p are defined; the two q cells for B and C are dashes."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 counts every cell; two of them (B/q, C/q) are dashes, leaving 4 valid transitions."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the state count; there are 4 valid transitions."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the 1-switch pair count for this machine, not the number of single transitions (4)."
+            }
+          ],
+          "generalFeedback": "Count the non-dash cells: A--p-->B, A--q-->C, B--p-->C, C--p-->A = 4 valid transitions. The B/q and C/q cells are dashes (undefined).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "n-switch general definition",
+          "text": "<p>In Chow's switch-coverage hierarchy, what does <strong>n-switch</strong> coverage require?</p>",
+          "answers": [
+            {
+              "text": "Every valid sequence of n+1 consecutive transitions is exercised",
+              "fraction": 100,
+              "feedback": "Correct — n-switch covers length-(n+1) transition sequences; 0-switch is single transitions, 1-switch is pairs."
+            },
+            {
+              "text": "Every valid sequence of exactly n transitions is exercised",
+              "fraction": 0,
+              "feedback": "Off by one: n-switch covers n+1 transitions, so 0-switch is 1 transition."
+            },
+            {
+              "text": "Every state is visited at least n times",
+              "fraction": 0,
+              "feedback": "Switch coverage counts transition-sequence lengths, not repeated state visits."
+            },
+            {
+              "text": "Every path of length n through the diagram, ignoring validity",
+              "fraction": 0,
+              "feedback": "Only valid (defined) transition sequences count, and the length is n+1."
+            }
+          ],
+          "generalFeedback": "n-switch coverage requires every valid sequence of n+1 consecutive transitions. Thus 0-switch = single transitions, 1-switch = pairs, 2-switch = triples. Chow's W-method builds on this to detect faults in state machines.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum transitions to cover: cycle",
+          "text": "<p>A cycle machine has transitions S1--x--&gt;S2, S2--y--&gt;S3, S3--z--&gt;S1. Starting from S1, what is the minimum number of transition steps to achieve <strong>transition coverage</strong>?</p>",
+          "answers": [
+            {
+              "text": "3 — x, y, z takes all three transitions and returns to S1",
+              "fraction": 100,
+              "feedback": "Correct — the three transitions chain into one length-3 walk covering them all."
+            },
+            {
+              "text": "2 — one walk of two transitions suffices",
+              "fraction": 0,
+              "feedback": "Two steps cover only two of the three transitions; the third is missed."
+            },
+            {
+              "text": "6 — each transition must be taken twice",
+              "fraction": 0,
+              "feedback": "Transition coverage requires each transition once; 3 steps suffice."
+            },
+            {
+              "text": "4 — you must return to the start twice",
+              "fraction": 0,
+              "feedback": "x, y, z already returns to S1 in 3 steps and covers everything."
+            }
+          ],
+          "generalFeedback": "The transitions connect S1->S2->S3->S1, so the walk x, y, z (3 steps) exercises all three transitions once and returns to the start. That is the minimum for transition coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid vs invalid 1-switch pair",
+          "text": "<p>For the turnstile transitions t1: Locked--coin--&gt;Unlocked, t2: Locked--push--&gt;Locked, t3: Unlocked--coin--&gt;Unlocked, t4: Unlocked--push--&gt;Locked, which ordered pair is a <strong>valid</strong> 1-switch sequence?</p>",
+          "answers": [
+            {
+              "text": "(t1, t4) — t1 ends in Unlocked and t4 starts in Unlocked",
+              "fraction": 100,
+              "feedback": "Correct — target(t1)=Unlocked=source(t4), so the pair chains validly."
+            },
+            {
+              "text": "(t1, t2) — t1 then t2",
+              "fraction": 0,
+              "feedback": "t1 ends in Unlocked but t2 starts in Locked, so they do not chain."
+            },
+            {
+              "text": "(t4, t3) — t4 then t3",
+              "fraction": 0,
+              "feedback": "t4 ends in Locked but t3 starts in Unlocked, so this pair is not joinable."
+            },
+            {
+              "text": "(t2, t4) — t2 then t4",
+              "fraction": 0,
+              "feedback": "t2 ends in Locked but t4 starts in Unlocked, so they do not connect."
+            }
+          ],
+          "generalFeedback": "A 1-switch pair (ti, tj) is valid only when target(ti) = source(tj). t1 ends in Unlocked and t4 starts in Unlocked, so (t1, t4) is valid. The other options break at the join point.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Guard decides which transition fires",
+          "text": "<p>From state <code>LoggedOut</code>, the login machine has two transitions on the same event <code>submit</code>: one guarded <code>[valid]</code> to LoggedIn, and one guarded <code>[invalid & attempts&lt;2]</code> back to LoggedOut. If <code>submit</code> occurs with correct credentials, which transition fires?</p>",
+          "answers": [
+            {
+              "text": "The [valid] transition to LoggedIn, because its guard is the one that holds",
+              "fraction": 100,
+              "feedback": "Correct — with the same event, the guard that evaluates true selects the transition."
+            },
+            {
+              "text": "Both transitions fire simultaneously",
+              "fraction": 0,
+              "feedback": "Guards are mutually exclusive here; only the transition whose guard holds fires."
+            },
+            {
+              "text": "The [invalid] transition, because it is listed for LoggedOut",
+              "fraction": 0,
+              "feedback": "Its guard requires invalid credentials, which is false here, so it does not fire."
+            },
+            {
+              "text": "Neither, because two transitions share the event",
+              "fraction": 0,
+              "feedback": "Sharing an event is fine when guards disambiguate; the [valid] guard holds, so that transition fires."
+            }
+          ],
+          "generalFeedback": "When several transitions leave a state on the same event, their guards select which one fires. With correct credentials the [valid] guard is true and the [invalid ...] guard is false, so the machine transitions to LoggedIn.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "1-switch subsumes 0-switch",
+          "text": "<p>Achieving 1-switch coverage automatically achieves 0-switch (transition) coverage, because every pair of consecutive transitions includes both of its member transitions.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — covering all valid pairs means every transition appears as part of some pair, so all single transitions are exercised."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "1-switch does subsume 0-switch: any reachable transition is part of at least one covered pair, so it is exercised."
+            }
+          ],
+          "generalFeedback": "1-switch coverage is stronger than 0-switch. Exercising every valid length-2 sequence necessarily exercises each constituent transition, so 1-switch subsumes 0-switch (which in turn subsumes state coverage)."
+        },
+        {
+          "type": "multichoice",
+          "name": "Transition coverage length: door",
+          "text": "<p>The door controller has 4 valid transitions: Closed--open--&gt;Open, Open--close--&gt;Closed, Closed--lock--&gt;Locked, Locked--unlock--&gt;Closed. Starting from Closed, what is the minimum number of transition steps in a single walk that achieves transition coverage?</p>",
+          "answers": [
+            {
+              "text": "4 — open, close, lock, unlock chains all four and returns to Closed",
+              "fraction": 100,
+              "feedback": "Correct — the four transitions connect through Closed, so one 4-step walk covers them all."
+            },
+            {
+              "text": "3 — three steps are enough",
+              "fraction": 0,
+              "feedback": "Three steps take only three transitions; the fourth is missed."
+            },
+            {
+              "text": "5 — an extra step is unavoidable",
+              "fraction": 0,
+              "feedback": "Because every transition passes through Closed, they chain into exactly 4 steps with no repeats needed."
+            },
+            {
+              "text": "8 — each transition needs revisiting",
+              "fraction": 0,
+              "feedback": "Transition coverage needs each transition once; 4 steps suffice here."
+            }
+          ],
+          "generalFeedback": "All four transitions touch Closed, so the walk open (Closed->Open), close (Open->Closed), lock (Closed->Locked), unlock (Locked->Closed) chains them into a single 4-step tour covering every transition once — the minimum.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count 1-switch pairs: door",
+          "text": "<p>The door controller has these 4 valid transitions:</p><pre>\nd1: Closed --open--> Open\nd2: Closed --lock--> Locked\nd3: Open   --close--> Closed\nd4: Locked --unlock--> Closed\n</pre><p>How many valid <strong>1-switch</strong> sequences (ordered pairs of consecutive transitions) does it have?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — Closed has 2 in x 2 out = 4, Open has 1 in x 1 out = 1, Locked has 1 in x 1 out = 1; total 6."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of single transitions (0-switch), not the joinable pairs."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is the turnstile's pair count; enumerating this door's pairs gives 6."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Closed is entered by both d3 and d4 and left by both d1 and d2, giving 4 pairs through Closed alone; the total is 6, not 5."
+            }
+          ],
+          "generalFeedback": "For each state, pairs = (transitions in) x (transitions out). Closed: in {d3, d4}=2, out {d1, d2}=2 -> 4. Open: in {d1}=1, out {d3}=1 -> 1. Locked: in {d2}=1, out {d4}=1 -> 1. Total 4+1+1 = 6. Explicitly: (d3,d1),(d3,d2),(d4,d1),(d4,d2),(d1,d3),(d2,d4).",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是狀態",
+          "text": "<p>在有限狀態機中，<strong>狀態（state）</strong>代表什麼？</p>",
+          "answers": [
+            {
+              "text": "系統所處的一種情況或模式，會一直維持到某個事件使其改變為止",
+              "fraction": 100,
+              "feedback": "正確——狀態描述系統目前的情況，直到發生轉移才會離開。"
+            },
+            {
+              "text": "觸發改變的輸入",
+              "fraction": 0,
+              "feedback": "那是事件（event），不是狀態。"
+            },
+            {
+              "text": "從一個情況移動到另一個情況的動作",
+              "fraction": 0,
+              "feedback": "那個移動是轉移（transition）；狀態指的是情況本身。"
+            },
+            {
+              "text": "系統產生的輸出",
+              "fraction": 0,
+              "feedback": "輸出是動作（action）；狀態是系統停留的一種模式。"
+            }
+          ],
+          "generalFeedback": "狀態是一種明確的模式或情況（例如 Locked、Open），系統會停留其中，直到某個事件驅使它轉移到另一個狀態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是事件",
+          "text": "<p>在狀態轉移測試中，<strong>事件（event，或輸入）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "發生的某件事（刺激或輸入），可能導致一次轉移",
+              "fraction": 100,
+              "feedback": "正確——事件是可能使狀態機在狀態間移動的觸發因子。"
+            },
+            {
+              "text": "系統停留其中的一種模式",
+              "fraction": 0,
+              "feedback": "那是狀態，不是事件。"
+            },
+            {
+              "text": "附加在轉移上的布林條件",
+              "fraction": 0,
+              "feedback": "那是護衛條件（guard），不是事件本身。"
+            },
+            {
+              "text": "狀態機的起始點",
+              "fraction": 0,
+              "feedback": "那是初始狀態；事件是一種刺激。"
+            }
+          ],
+          "generalFeedback": "事件（輸入／刺激）是對狀態機發生的事——例如「coin」或「push」——它可能依當前狀態與任何護衛條件而觸發一次轉移。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是轉移",
+          "text": "<p>狀態機中的<strong>轉移（transition）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "由事件觸發、從一個狀態移動到另一個狀態（或回到同一狀態）",
+              "fraction": 100,
+              "feedback": "正確——轉移連結了來源狀態、事件與目的狀態。"
+            },
+            {
+              "text": "系統停留其中的模式",
+              "fraction": 0,
+              "feedback": "那是狀態；轉移是狀態之間的移動。"
+            },
+            {
+              "text": "所有可能輸入的清單",
+              "fraction": 0,
+              "feedback": "那些是事件；轉移用事件來改變狀態。"
+            },
+            {
+              "text": "狀態機的最終狀態",
+              "fraction": 0,
+              "feedback": "那是某個特定狀態，不是轉移。"
+            }
+          ],
+          "generalFeedback": "轉移是由事件觸發的有向移動：來源狀態 + 事件 [護衛條件] / 動作 -> 目的狀態。它也可能回到同一狀態（自迴圈 self-loop）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是護衛條件",
+          "text": "<p>轉移上的<strong>護衛條件（guard，或條件）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "一個布林條件，當事件發生時必須為真，轉移才會觸發",
+              "fraction": 100,
+              "feedback": "正確——即使事件發生，只有在護衛條件成立時該轉移才會觸發。"
+            },
+            {
+              "text": "轉移過程中產生的輸出",
+              "fraction": 0,
+              "feedback": "那是動作（action），不是護衛條件。"
+            },
+            {
+              "text": "觸發該轉移的事件",
+              "fraction": 0,
+              "feedback": "事件是觸發因子；護衛條件是加在其上的額外條件。"
+            },
+            {
+              "text": "轉移的目的狀態",
+              "fraction": 0,
+              "feedback": "目的狀態是轉移抵達的地方；護衛條件決定它是否觸發。"
+            }
+          ],
+          "generalFeedback": "護衛條件是轉移上的布林條件。當事件發生時，只有在護衛條件評估為真時該轉移才會觸發；否則就套用另一個轉移（或沒有轉移）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是動作",
+          "text": "<p>狀態機中的<strong>動作（action，或輸出）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "當轉移觸發時（或在某狀態中）產生的效果或輸出",
+              "fraction": 100,
+              "feedback": "正確——動作是狀態機發出的可觀察輸出。"
+            },
+            {
+              "text": "轉移要觸發所必須成立的條件",
+              "fraction": 0,
+              "feedback": "那是護衛條件，不是動作。"
+            },
+            {
+              "text": "系統停留其中的模式",
+              "fraction": 0,
+              "feedback": "那是狀態。"
+            },
+            {
+              "text": "觸發改變的刺激",
+              "fraction": 0,
+              "feedback": "那是事件；動作是產生的效果。"
+            }
+          ],
+          "generalFeedback": "動作是與轉移相關聯的輸出或效果（例如「吐出票券」），或與停留在某狀態相關。它是測試者用來確認預期行為的觀察對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是初始狀態",
+          "text": "<p>狀態機的<strong>初始狀態（initial state）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "在處理任何事件之前，狀態機所處的狀態",
+              "fraction": 100,
+              "feedback": "正確——它是起始狀態，通常以一個實心圓點連出的箭頭標示。"
+            },
+            {
+              "text": "狀態機停止時所處的狀態",
+              "fraction": 0,
+              "feedback": "那是最終狀態，不是初始狀態。"
+            },
+            {
+              "text": "任何具有自迴圈的狀態",
+              "fraction": 0,
+              "feedback": "自迴圈與哪一個是起始狀態無關。"
+            },
+            {
+              "text": "擁有最多外向轉移的狀態",
+              "fraction": 0,
+              "feedback": "轉移數量並不決定初始狀態。"
+            }
+          ],
+          "generalFeedback": "初始（起始）狀態是狀態機在處理任何事件前所在之處。在圖中通常以一個從實心圓連入的箭頭標示。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "狀態涵蓋的定義",
+          "text": "<p><strong>狀態涵蓋（state coverage）</strong>要求測試套件做到什麼？</p>",
+          "answers": [
+            {
+              "text": "每個狀態至少被造訪一次",
+              "fraction": 100,
+              "feedback": "正確——當每個狀態都被某個測試進入時，就達成狀態涵蓋。"
+            },
+            {
+              "text": "每個有效轉移至少被執行一次",
+              "fraction": 0,
+              "feedback": "那是轉移涵蓋，是更強的準則。"
+            },
+            {
+              "text": "每一對連續轉移都被執行",
+              "fraction": 0,
+              "feedback": "那是 1-switch 涵蓋，更強。"
+            },
+            {
+              "text": "每個事件都在每個狀態中被送出",
+              "fraction": 0,
+              "feedback": "那會包含無效組合；狀態涵蓋只要求造訪每個狀態。"
+            }
+          ],
+          "generalFeedback": "狀態涵蓋是最弱的狀態式準則：它只要求每個狀態被造訪。即使沒有執行每一個轉移，也可能達成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "轉移涵蓋的定義",
+          "text": "<p><strong>轉移涵蓋（transition coverage，又稱 0-switch 涵蓋）</strong>要求什麼？</p>",
+          "answers": [
+            {
+              "text": "每個有效轉移至少被執行一次",
+              "fraction": 100,
+              "feedback": "正確——轉移涵蓋執行每一個單一有效轉移；這就是 0-switch 涵蓋。"
+            },
+            {
+              "text": "每個狀態至少被造訪一次",
+              "fraction": 0,
+              "feedback": "那只是狀態涵蓋，較弱。"
+            },
+            {
+              "text": "每一對有效的連續轉移都被執行",
+              "fraction": 0,
+              "feedback": "那是 1-switch 涵蓋，比 0-switch 更強。"
+            },
+            {
+              "text": "每個護衛條件都被評估為真與假",
+              "fraction": 0,
+              "feedback": "護衛條件取值涵蓋是另一種以條件為基礎的準則。"
+            }
+          ],
+          "generalFeedback": "轉移（0-switch）涵蓋要求每個有效轉移至少被執行一次。由於執行一個轉移就代表造訪了它的來源與目的狀態，因此轉移涵蓋包含（subsume）狀態涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是潛行路徑",
+          "text": "<p>在狀態轉移測試中，<strong>潛行路徑（sneak path）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "在規格說明不應接受該事件的狀態下卻接受了它——一條不該存在、額外的轉移",
+              "fraction": 100,
+              "feedback": "正確——潛行路徑是實作錯誤地允許的未規定轉移。"
+            },
+            {
+              "text": "一個測試恰好漏掉的有效轉移",
+              "fraction": 0,
+              "feedback": "那只是未被涵蓋的行為，不是潛行路徑；潛行路徑是額外、不該有的轉移。"
+            },
+            {
+              "text": "造訪每個狀態的最短路徑",
+              "fraction": 0,
+              "feedback": "那描述的是涵蓋巡訪，不是潛行路徑。"
+            },
+            {
+              "text": "護衛條件永遠為假的轉移",
+              "fraction": 0,
+              "feedback": "永遠為假的護衛條件會產生死轉移，不是潛行路徑。"
+            }
+          ],
+          "generalFeedback": "潛行路徑是不該有的轉移：在規格未定義該事件轉移的狀態下，實作卻對該事件有所反應。負向測試（發送未定義事件）用來偵測潛行路徑。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "0-switch 等於轉移涵蓋",
+          "text": "<p>「0-switch 涵蓋」是轉移涵蓋的另一個名稱——至少執行每一個單一有效轉移一次。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——0-switch 指單一轉移，也就是轉移涵蓋。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "0-switch 涵蓋正是轉移涵蓋；1-switch 才涵蓋成對的轉移。"
+            }
+          ],
+          "generalFeedback": "在 Chow 的 switch 術語中，0-switch 涵蓋長度為 1 的轉移序列（轉移涵蓋），1-switch 涵蓋兩個連續轉移的序列，依此類推。"
+        },
+        {
+          "type": "multichoice",
+          "name": "旋轉柵門：Locked 收到 coin",
+          "text": "<p>一個旋轉柵門有兩個狀態與兩個事件：</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>若柵門處於 <code>Locked</code> 且發生 <code>coin</code> 事件，下一個狀態為何？</p>",
+          "answers": [
+            {
+              "text": "Unlocked",
+              "fraction": 100,
+              "feedback": "正確——Locked 列、coin 欄的格子是 Unlocked。"
+            },
+            {
+              "text": "Locked",
+              "fraction": 0,
+              "feedback": "Locked 收到 push 時才維持 Locked，而不是 coin。"
+            },
+            {
+              "text": "該事件在 Locked 中無效",
+              "fraction": 0,
+              "feedback": "coin 在 Locked 中有定義；該格子是 Unlocked。"
+            },
+            {
+              "text": "狀態機沒有下一個狀態",
+              "fraction": 0,
+              "feedback": "表格對此格定義了下一個狀態（Unlocked）。"
+            }
+          ],
+          "generalFeedback": "查表：Locked 列、coin 欄，下一個狀態是 Unlocked。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "旋轉柵門：Unlocked 收到 push",
+          "text": "<p>使用同一個旋轉柵門：</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>若柵門處於 <code>Unlocked</code> 且發生 <code>push</code> 事件，下一個狀態為何？</p>",
+          "answers": [
+            {
+              "text": "Locked",
+              "fraction": 100,
+              "feedback": "正確——Unlocked 列、push 欄的格子是 Locked。"
+            },
+            {
+              "text": "Unlocked",
+              "fraction": 0,
+              "feedback": "Unlocked 收到 coin 時才維持 Unlocked，而不是 push。"
+            },
+            {
+              "text": "該事件在 Unlocked 中無效",
+              "fraction": 0,
+              "feedback": "push 在 Unlocked 中有定義，且導向 Locked。"
+            },
+            {
+              "text": "它只會回到初始狀態標記",
+              "fraction": 0,
+              "feedback": "下一個狀態是 Locked，這裡它恰好也是初始狀態，但要直接由格子讀出。"
+            }
+          ],
+          "generalFeedback": "查表：Unlocked 列、push 欄，下一個狀態是 Locked。這模擬了一個人推過柵門並使其重新上鎖。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "圖與表的格子",
+          "text": "<p>在一個以「列 = 狀態、欄 = 事件」排列的狀態轉移<strong>表</strong>中，單一格子存放什麼？</p>",
+          "answers": [
+            {
+              "text": "在該狀態發生該事件時所抵達的下一個狀態（若未定義則為「-」）",
+              "fraction": 100,
+              "feedback": "正確——每個格子是 (列狀態, 欄事件) 的目的狀態，未定義轉移時填破折號。"
+            },
+            {
+              "text": "該事件已被測試的次數",
+              "fraction": 0,
+              "feedback": "格子存放下一個狀態，不是測試次數。"
+            },
+            {
+              "text": "只有護衛條件運算式",
+              "fraction": 0,
+              "feedback": "格子給的是結果的下一個狀態；護衛條件可能限定它，但格子的內容是目的狀態。"
+            },
+            {
+              "text": "該狀態是否為初始狀態",
+              "fraction": 0,
+              "feedback": "初始狀態標記是分開的；格子記錄的是某事件的下一個狀態。"
+            }
+          ],
+          "generalFeedback": "狀態轉移表以狀態為列、事件為欄；每個格子指出該 (狀態, 事件) 對的下一個狀態，未定義時用「-」（或空白）。圖則以箭頭表達相同資訊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何時適合狀態式測試",
+          "text": "<p>狀態轉移測試<strong>最</strong>適合哪一種系統？</p>",
+          "answers": [
+            {
+              "text": "由事件驅動、模式豐富、反應取決於當前狀態的系統",
+              "fraction": 100,
+              "feedback": "正確——當行為取決於歷史／模式時（如通訊協定、UI、控制器），狀態式測試最能發揮。"
+            },
+            {
+              "text": "純粹無狀態、輸出只取決於當前輸入的數學函式",
+              "fraction": 0,
+              "feedback": "無狀態函式沒有模式可建模；等價／邊界值測試更適合它們。"
+            },
+            {
+              "text": "完全沒有輸入的系統",
+              "fraction": 0,
+              "feedback": "狀態機由事件／輸入驅動；毫無輸入的系統沒有可建模為轉移的東西。"
+            },
+            {
+              "text": "只有以物件導向語言撰寫的系統",
+              "fraction": 0,
+              "feedback": "此技術與語言無關；它取決於系統是否由狀態驅動，而非語言。"
+            }
+          ],
+          "generalFeedback": "狀態轉移測試適用於由事件驅動、模式豐富的系統——通訊協定、嵌入式控制器、UI 流程、自動販賣機——同一事件在不同狀態會產生不同結果。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "破折號格子的意義",
+          "text": "<p>在狀態轉移表中，格子裡的「-」（破折號，或空白）通常代表什麼？</p>",
+          "answers": [
+            {
+              "text": "該事件在該狀態未定義（無效）——沒有規定的轉移",
+              "fraction": 100,
+              "feedback": "正確——破折號標示該 (狀態, 事件) 對是未定義／無效的轉移。"
+            },
+            {
+              "text": "狀態機回到它的初始狀態",
+              "fraction": 0,
+              "feedback": "破折號表示沒有定義轉移，而不是跳回初始狀態。"
+            },
+            {
+              "text": "該事件總是讓狀態機停留在同一狀態",
+              "fraction": 0,
+              "feedback": "自迴圈會在格子中寫出同一個狀態；破折號表示該事件在此未定義。"
+            },
+            {
+              "text": "該轉移有一個目前為真的護衛條件",
+              "fraction": 0,
+              "feedback": "破折號表示沒有已定義的轉移，而不是護衛條件成立。"
+            }
+          ],
+          "generalFeedback": "破折號（或空白）標示一個規格未定義轉移的 (狀態, 事件) 對——該事件在該狀態是無效的。發送它正是負向測試用來偵測潛行路徑的手段。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "數門控制器的狀態數",
+          "text": "<p>考慮以下門控制器（格子給出下一個狀態，「-」= 未定義）：</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>這個狀態機有幾個<strong>狀態</strong>？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——列有 Closed、Open、Locked，共三個狀態。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是事件（欄）的數量，不是狀態數。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 混淆了狀態與事件；只數列即可：3。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 是 3 列 x 4 欄（全部格子）；狀態數是列數：3。"
+            }
+          ],
+          "generalFeedback": "每一列是一個狀態。列為 Closed、Open、Locked，所以有 3 個狀態。欄（open、close、lock、unlock）是事件，不是狀態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數門控制器的有效轉移數",
+          "text": "<p>對同一個門控制器：</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>它定義了幾個<strong>有效轉移</strong>（非破折號格子）？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——Closed/open、Closed/lock、Open/close、Locked/unlock：四個非破折號格子。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 是所有格子的數量；只有非破折號格子才是有效轉移，共 4 個。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是破折號（未定義）格子的數量，不是有效轉移數。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是狀態數；有效轉移有 4 個。"
+            }
+          ],
+          "generalFeedback": "只數有指明下一個狀態的格子：Closed--open-->Open、Closed--lock-->Locked、Open--close-->Closed、Locked--unlock-->Closed。共 4 個有效轉移。其餘 8 個格子是破折號（無效）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "達成狀態涵蓋但未達轉移涵蓋",
+          "text": "<p>對這個門控制器，一個測試從 <code>Closed</code> 開始執行序列 <code>open</code>、<code>close</code>、<code>lock</code>。它造訪了 Closed、Open 與 Locked。以下哪個敘述為真？</p>",
+          "answers": [
+            {
+              "text": "它達成狀態涵蓋，但未達成轉移涵蓋——Locked--unlock-->Closed 這個轉移從未被執行",
+              "fraction": 100,
+              "feedback": "正確——三個狀態都被造訪，但四個有效轉移中只執行了三個；unlock 被漏掉。"
+            },
+            {
+              "text": "它同時達成狀態涵蓋與轉移涵蓋",
+              "fraction": 0,
+              "feedback": "它執行了 open、close、lock——但沒有 unlock，所以未達成轉移涵蓋。"
+            },
+            {
+              "text": "它達成轉移涵蓋，但未達成狀態涵蓋",
+              "fraction": 0,
+              "feedback": "這裡它涵蓋的轉移不會多於狀態；unlock 被漏掉，因此轉移涵蓋失敗，而所有狀態都被造訪。"
+            },
+            {
+              "text": "兩者都未達成",
+              "fraction": 0,
+              "feedback": "三個狀態都被造訪，因此狀態涵蓋已達成。"
+            }
+          ],
+          "generalFeedback": "此序列進入 Closed、Open 與 Locked（狀態涵蓋），使用了 open、close、lock 三個轉移。第四個有效轉移 Locked--unlock-->Closed 從未被執行，因此未達成轉移涵蓋。這顯示狀態涵蓋不蘊含轉移涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "0-switch 與 1-switch 的意義",
+          "text": "<p><strong>0-switch</strong> 與 <strong>1-switch</strong> 涵蓋的差別是什麼？</p>",
+          "answers": [
+            {
+              "text": "0-switch 涵蓋每一個單一有效轉移；1-switch 涵蓋每一對有效的連續轉移",
+              "fraction": 100,
+              "feedback": "正確——0-switch = 長度 1 的序列，1-switch = 長度 2 的序列。"
+            },
+            {
+              "text": "0-switch 涵蓋每個狀態；1-switch 涵蓋每個轉移",
+              "fraction": 0,
+              "feedback": "0-switch 是轉移涵蓋，不是狀態涵蓋。"
+            },
+            {
+              "text": "0-switch 涵蓋成對的轉移；1-switch 涵蓋單一轉移",
+              "fraction": 0,
+              "feedback": "這把定義顛倒了。"
+            },
+            {
+              "text": "它們是同一個準則的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們不同：1-switch 要求連續的轉移對，0-switch 則不要求。"
+            }
+          ],
+          "generalFeedback": "在 Chow 的術語中，0-switch 涵蓋執行一個轉移的序列（轉移涵蓋），1-switch 涵蓋每一對連續轉移的有效序列。一般而言，n-switch 涵蓋長度為 n+1 的轉移序列。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "找出一個未定義轉移",
+          "text": "<p>對這個門控制器：</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>以下何者依表格是一個<strong>未定義（無效）的轉移</strong>？</p>",
+          "answers": [
+            {
+              "text": "在狀態發送",
+              "fraction": 100,
+              "feedback": "正確——Open 列、lock 欄是破折號，因此此轉移未定義。"
+            },
+            {
+              "text": "在狀態發送",
+              "fraction": 0,
+              "feedback": "該格子指向 Open，因此是一個有效、已定義的轉移。"
+            },
+            {
+              "text": "在狀態發送",
+              "fraction": 0,
+              "feedback": "該格子指向 Closed，因此是一個有效轉移。"
+            },
+            {
+              "text": "在狀態發送",
+              "fraction": 0,
+              "feedback": "該格子指向 Closed，因此是一個有效轉移。"
+            }
+          ],
+          "generalFeedback": "找破折號。Open 列在 open、lock、unlock 下都是破折號，所以「在 Open 發送 lock」未定義。其他三個選項各自指向一個下一個狀態，都是有效轉移。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "達成轉移涵蓋的序列",
+          "text": "<p>對這個門控制器（有效轉移：Closed--open--&gt;Open、Open--close--&gt;Closed、Closed--lock--&gt;Locked、Locked--unlock--&gt;Closed），從 <code>Closed</code> 開始，哪一個序列能執行<strong>全部四個</strong>有效轉移？</p>",
+          "answers": [
+            {
+              "text": "open、close、lock、unlock",
+              "fraction": 100,
+              "feedback": "正確——Closed->Open->Closed->Locked->Closed 使用了全部四個有效轉移。"
+            },
+            {
+              "text": "open、close、open、close",
+              "fraction": 0,
+              "feedback": "這重複了 open 與 close，且從未執行 lock 或 unlock。"
+            },
+            {
+              "text": "lock、unlock、lock、unlock",
+              "fraction": 0,
+              "feedback": "這從未執行 open 或 close，因此漏掉兩個轉移。"
+            },
+            {
+              "text": "open、lock、unlock、close",
+              "fraction": 0,
+              "feedback": "open 之後狀態機在 Open，而 lock 在 Open 中未定義，所以此序列無效。"
+            }
+          ],
+          "generalFeedback": "從 Closed 追蹤：open (->Open)、close (->Closed)、lock (->Locked)、unlock (->Closed)。這一個序列恰好各執行每個有效轉移一次，達成 0-switch（轉移）涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數旋轉柵門的有效轉移",
+          "text": "<p>旋轉柵門表格的所有格子都有定義：</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>它有幾個有效轉移（自迴圈也算）？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——四個格子都有定義，包含兩個自迴圈（Locked/push 與 Unlocked/coin）。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 只算了會改變狀態的轉移；自迴圈也是轉移，合計 4。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "四個格子都指明下一個狀態；數目是 4，不是 3。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 會是 1-switch 的成對數，不是單一轉移數（4）。"
+            }
+          ],
+          "generalFeedback": "每個已定義格子是一個轉移：Locked--coin-->Unlocked、Locked--push-->Locked、Unlocked--coin-->Unlocked、Unlocked--push-->Locked。共 4 個，而自迴圈（來源與目的相同）仍算作轉移。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "下一個狀態：Closed 收到 open",
+          "text": "<p>對這個門控制器：</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>從 <code>Closed</code> 開始，發生 <code>open</code> 事件。下一個狀態為何？</p>",
+          "answers": [
+            {
+              "text": "Open",
+              "fraction": 100,
+              "feedback": "正確——Closed 列、open 欄的格子是 Open。"
+            },
+            {
+              "text": "Locked",
+              "fraction": 0,
+              "feedback": "Closed 收到 lock 時才前往 Locked，而不是 open。"
+            },
+            {
+              "text": "Closed",
+              "fraction": 0,
+              "feedback": "open 不會讓 Closed 維持不變；它移動到 Open。"
+            },
+            {
+              "text": "未定義",
+              "fraction": 0,
+              "feedback": "Closed/open 格子指向 Open，因此有定義。"
+            }
+          ],
+          "generalFeedback": "查 Closed 列、open 欄：下一個狀態是 Open。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "下一個狀態：Open 收到 lock",
+          "text": "<p>對同一個門控制器，狀態機在 <code>Open</code> 且發生 <code>lock</code> 事件。依表格會發生什麼？</p>",
+          "answers": [
+            {
+              "text": "沒有定義任何行為——lock 在 Open 中無效（該格子是破折號）",
+              "fraction": 100,
+              "feedback": "正確——Open 列、lock 欄是破折號，因此此轉移未定義。"
+            },
+            {
+              "text": "狀態機移動到 Locked",
+              "fraction": 0,
+              "feedback": "lock 只有從 Closed 才會導向 Locked；在 Open 中它未定義。"
+            },
+            {
+              "text": "狀態機移動到 Closed",
+              "fraction": 0,
+              "feedback": "從 Open，close 才會導向 Closed；lock 在 Open 中未定義。"
+            },
+            {
+              "text": "狀態機以自迴圈停留在 Open",
+              "fraction": 0,
+              "feedback": "破折號表示未定義，而非自迴圈；表格並未規定停留在 Open。"
+            }
+          ],
+          "generalFeedback": "Open 列在 lock 下是破折號，因此規格未定義任何轉移。在 Open 發送 lock 正是負向測試要檢查的那種無效事件（正確的實作應拒絕它或維持狀態不變，且沒有潛行路徑）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "涵蓋所需執行的轉移數",
+          "text": "<p>旋轉柵門有 2 個狀態與 4 個有效轉移。要達成<strong>轉移（0-switch）涵蓋</strong>，至少須執行幾個有效轉移？</p>",
+          "answers": [
+            {
+              "text": "4——每一個有效轉移",
+              "fraction": 100,
+              "feedback": "正確——轉移涵蓋要求執行全部 4 個有效轉移。"
+            },
+            {
+              "text": "2——每個狀態一個",
+              "fraction": 0,
+              "feedback": "造訪每個狀態（2）只是狀態涵蓋；轉移涵蓋需要全部 4 個轉移。"
+            },
+            {
+              "text": "8——每一對轉移",
+              "fraction": 0,
+              "feedback": "8 是 1-switch 的數目；0-switch 涵蓋需要 4 個單一轉移。"
+            },
+            {
+              "text": "1——無論轉移如何，單一路徑就足夠",
+              "fraction": 0,
+              "feedback": "單一路徑可能太短而漏掉轉移；涵蓋要求全部 4 個都被執行。"
+            }
+          ],
+          "generalFeedback": "轉移（0-switch）涵蓋要求每個有效轉移至少被執行一次。旋轉柵門有 4 個有效轉移，所以全部 4 個都須被執行（它們可以編織進一個較長的測試中，但 4 個都必須出現）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何者包含何者",
+          "text": "<p>下列狀態式準則之間，哪一個包含（subsumption）關係成立？</p>",
+          "answers": [
+            {
+              "text": "轉移涵蓋包含狀態涵蓋（達成所有轉移就保證所有狀態都被造訪）",
+              "fraction": 100,
+              "feedback": "正確——每個轉移都有來源與目的狀態，所以涵蓋所有轉移就會造訪所有可達狀態。"
+            },
+            {
+              "text": "狀態涵蓋包含轉移涵蓋",
+              "fraction": 0,
+              "feedback": "反過來才對；造訪所有狀態仍可能漏掉轉移。"
+            },
+            {
+              "text": "這兩個準則等價",
+              "fraction": 0,
+              "feedback": "它們不等價；狀態涵蓋嚴格較弱。"
+            },
+            {
+              "text": "兩者互不蘊含",
+              "fraction": 0,
+              "feedback": "它們有關係：轉移涵蓋蘊含狀態涵蓋。"
+            }
+          ],
+          "generalFeedback": "因為執行一個轉移必然進入它的來源與目的狀態，所以達成轉移（0-switch）涵蓋的套件也達成狀態涵蓋。反向不成立：門的例子造訪了所有狀態卻漏掉 unlock 轉移。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "執行單一轉移的準則名稱",
+          "text": "<p>至少執行每一個單一有效轉移一次，且不要求任何連續對，這是哪一個具名準則？</p>",
+          "answers": [
+            {
+              "text": "0-switch（轉移）涵蓋",
+              "fraction": 100,
+              "feedback": "正確——單一轉移對應到 0-switch 涵蓋。"
+            },
+            {
+              "text": "1-switch 涵蓋",
+              "fraction": 0,
+              "feedback": "1-switch 要求連續轉移對，較強。"
+            },
+            {
+              "text": "狀態涵蓋",
+              "fraction": 0,
+              "feedback": "狀態涵蓋只要求造訪狀態，不要求執行轉移。"
+            },
+            {
+              "text": "2-switch 涵蓋",
+              "fraction": 0,
+              "feedback": "2-switch 涵蓋三個轉移的序列，更強。"
+            }
+          ],
+          "generalFeedback": "單一轉移 = 0-switch = 轉移涵蓋。若要求連續對就是 1-switch，三連則是 2-switch。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "1-switch 的定義",
+          "text": "<p><strong>1-switch 涵蓋</strong>究竟要求什麼？</p>",
+          "answers": [
+            {
+              "text": "每一個由兩個連續轉移構成的有效序列至少被執行一次",
+              "fraction": 100,
+              "feedback": "正確——1-switch 涵蓋所有長度為 2 的有效轉移序列。"
+            },
+            {
+              "text": "每一個單一轉移被執行一次",
+              "fraction": 0,
+              "feedback": "那是 0-switch 涵蓋；1-switch 加上了成對的要求。"
+            },
+            {
+              "text": "每個狀態都從至少一個其他狀態被進入",
+              "fraction": 0,
+              "feedback": "那較接近狀態涵蓋；1-switch 關乎的是轉移對。"
+            },
+            {
+              "text": "每個護衛條件都被執行為真與假",
+              "fraction": 0,
+              "feedback": "那是以條件為基礎的概念，不是 1-switch 的定義。"
+            }
+          ],
+          "generalFeedback": "1-switch 涵蓋要求每一對連續轉移（長度為 2 的轉移序列）都被執行。它能捕捉取決於兩個轉移順序的錯誤，而這是 0-switch 可能漏掉的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單一路徑涵蓋所有轉移",
+          "text": "<p>一個狀態機有 4 個有效轉移。測試者找到一條連通的行走，能一個接一個地執行全部 4 個轉移。這條行走包含幾個轉移<strong>步驟</strong>？</p>",
+          "answers": [
+            {
+              "text": "4——每個有效轉移是一步，各執行一次",
+              "fraction": 100,
+              "feedback": "正確——執行每個轉移一次的行走有 4 步。"
+            },
+            {
+              "text": "3——比轉移數少一",
+              "fraction": 0,
+              "feedback": "執行 4 個轉移的行走有 4 步，不是 3。"
+            },
+            {
+              "text": "5——比轉移數多一",
+              "fraction": 0,
+              "feedback": "每個轉移是一步；執行 4 個轉移就是 4 步。"
+            },
+            {
+              "text": "8——因為牽涉到成對",
+              "fraction": 0,
+              "feedback": "成對與 1-switch 有關；這裡只把 4 個轉移各執行一次，所以 4 步。"
+            }
+          ],
+          "generalFeedback": "若一條行走能連續串起全部 4 個轉移，它恰有 4 個轉移步驟（沿途造訪 5 個狀態，含重複）。只有當這些轉移首尾相連時才可能。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "狀態涵蓋漏掉什麼",
+          "text": "<p>某套件達成了狀態機的狀態涵蓋，但未達成轉移涵蓋。它必然漏掉了什麼？</p>",
+          "answers": [
+            {
+              "text": "至少有一個有效轉移從未被執行，即使它的來源與目的狀態都被其他轉移造訪過",
+              "fraction": 100,
+              "feedback": "正確——某個有效轉移被略過，而其端點仍以其他方式被抵達。"
+            },
+            {
+              "text": "至少有一個狀態從未被造訪",
+              "fraction": 0,
+              "feedback": "若有狀態未被造訪，狀態涵蓋就會失敗；此處狀態涵蓋成立。"
+            },
+            {
+              "text": "至少有一個狀態機中不存在的事件",
+              "fraction": 0,
+              "feedback": "涵蓋關乎已定義的轉移，而非不存在的事件。"
+            },
+            {
+              "text": "什麼都沒漏——這兩個準則相同",
+              "fraction": 0,
+              "feedback": "它們不同；轉移涵蓋嚴格較強，所以有東西被漏掉。"
+            }
+          ],
+          "generalFeedback": "達成狀態涵蓋卻未達轉移涵蓋，代表每個狀態都被抵達，但某個有效轉移從未被執行（其端點透過其他轉移被造訪）。門的例子——透過 lock 造訪 Locked，卻從未執行 unlock——正是這種情況。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "數 1-switch 對：旋轉柵門",
+          "text": "<p>旋轉柵門有以下 4 個有效轉移：</p><pre>\nt1: Locked   --coin--> Unlocked\nt2: Locked   --push--> Locked\nt3: Unlocked --coin--> Unlocked\nt4: Unlocked --push--> Locked\n</pre><p>它有幾個有效的 <strong>1-switch</strong> 序列（連續轉移的有序對）？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——每個狀態有 2 個轉入與 2 個轉出，得 2x2 + 2x2 = 8。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是單一轉移（0-switch）的數目，不是成對數。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 是 4x4（所有有序對）；只有前者結束於後者起點的對才算，得 8。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "逐一列出可接合的對：共 8 個，不是 6。"
+            }
+          ],
+          "generalFeedback": "當 target(ti) = source(tj) 時，(ti, tj) 才是有效的 1-switch 對。每個中間狀態的數目 =（轉入數）x（轉出數）。Locked：2 轉入 (t2,t4) x 2 轉出 (t1,t2) = 4；Unlocked：2 轉入 (t1,t3) x 2 轉出 (t3,t4) = 4。合計 4 + 4 = 8。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數 1-switch 對：分支狀態機",
+          "text": "<p>考慮這個狀態機（初始狀態 A）：</p><pre>\n       p        q\nA      B        C\nB      C        -\nC      A        -\n</pre><p>它的有效轉移為 A--p--&gt;B、A--q--&gt;C、B--p--&gt;C、C--p--&gt;A。它有幾個有效的 <strong>1-switch</strong> 序列？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——(A：1 轉入 x 2 轉出) + (B：1 轉入 x 1 轉出) + (C：2 轉入 x 1 轉出) = 2 + 1 + 2 = 5。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是單一轉移的數目；可接合的對有 5 個。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "逐一列出：(A-p,B-p)、(A-q,C-p)、(B-p,C-p)、(C-p,A-p)、(C-p,A-q) = 5，不是 6。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 少算了；C 由兩個轉移抵達，各自都可接上 C--p-->A，多出兩個對。"
+            }
+          ],
+          "generalFeedback": "對每個狀態，對數 =（轉入數）x（轉出數）。A：轉入 {C--p-->A}=1，轉出 {A-p,A-q}=2 -> 2。B：轉入 {A--p-->B}=1，轉出 {B--p-->C}=1 -> 1。C：轉入 {A--q-->C, B--p-->C}=2，轉出 {C--p-->A}=1 -> 2。合計 2+1+2 = 5。明確列出：(A-p,B-p)、(A-q,C-p)、(B-p,C-p)、(C-p,A-p)、(C-p,A-q)。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數 1-switch 對：環狀",
+          "text": "<p>一個狀態機循環經過三個狀態：</p><pre>\nt1: S1 --x--> S2\nt2: S2 --y--> S3\nt3: S3 --z--> S1\n</pre><p>它有幾個有效的 <strong>1-switch</strong> 序列？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——每個狀態恰有 1 轉入與 1 轉出：(t1,t2)、(t2,t3)、(t3,t1) = 3。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 會是所有有序對；只有 3 個能首尾接合。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是 3x3；大多數對無法接上，只剩 3 個有效。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "環會閉合（t3 之後接 t1），因此有 3 個可接合對，不是 2。"
+            }
+          ],
+          "generalFeedback": "每個狀態有 1 轉入與 1 轉出，所以每個狀態的對數 = 1x1，合計 3：(t1,t2)、(t2,t3)，以及 (t3,t1)，因為環會回到 S1。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "找出潛行路徑",
+          "text": "<p>某媒體播放器規格定義：Stopped--play--&gt;Playing、Playing--stop--&gt;Stopped、Playing--pause--&gt;Paused、Paused--play--&gt;Playing。測試時，在 <code>Paused</code> 發送 <code>stop</code> 竟使播放器跳到 Stopped，儘管規格未定義此轉移。這發現了什麼？</p>",
+          "answers": [
+            {
+              "text": "一條潛行路徑——在規格未定義轉移的狀態下卻接受了該事件",
+              "fraction": 100,
+              "feedback": "正確——stop 在 Paused 中未定義，實作卻對它有所反應：一條潛行路徑。"
+            },
+            {
+              "text": "規格遺漏的一個轉移",
+              "fraction": 0,
+              "feedback": "問題在於實作多出一個未規定的轉移，而非規格遺漏——那就是潛行路徑。"
+            },
+            {
+              "text": "某個護衛條件評估錯誤",
+              "fraction": 0,
+              "feedback": "此處沒有護衛條件；stop 只是在 Paused 未定義，卻仍觸發。"
+            },
+            {
+              "text": "一個 1-switch 涵蓋缺口",
+              "fraction": 0,
+              "feedback": "這是多出的轉移，不是漏掉的對；它是潛行路徑，由負向測試偵測。"
+            }
+          ],
+          "generalFeedback": "規格沒有 Paused--stop--> 轉移，所以正確行為是在 Paused 忽略或拒絕 stop。實作卻轉移到 Stopped——一個不該有的多出轉移，即潛行路徑，而負向測試（發送未定義事件）正是為了揭露它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 0-switch 漏掉某錯誤",
+          "text": "<p>某錯誤只在轉移 B <strong>緊接</strong>在轉移 A 之後被執行時才出現（A-然後-B 這一對會破壞狀態），但 A 與 B 各自單獨執行都正常。要可靠地逼出此錯誤需要哪一個涵蓋層級，為什麼？</p>",
+          "answers": [
+            {
+              "text": "1-switch 涵蓋——它執行連續的轉移對，因此保證會測到 A-然後-B 的序列",
+              "fraction": 100,
+              "feedback": "正確——此錯誤取決於某個特定的對，而 1-switch（長度 2 的序列）會強制執行它。"
+            },
+            {
+              "text": "狀態涵蓋——造訪兩個端點狀態就會觸發它",
+              "fraction": 0,
+              "feedback": "造訪狀態不會強制 A-然後-B 這個特定順序；錯誤仍可能被漏掉。"
+            },
+            {
+              "text": "0-switch 涵蓋——各執行 A 與 B 一次就足夠",
+              "fraction": 0,
+              "feedback": "0-switch 可能在不同測試中分別執行 A 與 B，從未相鄰，因此可能漏掉這個成對錯誤。"
+            },
+            {
+              "text": "沒有任何涵蓋層級能找到它",
+              "fraction": 0,
+              "feedback": "1-switch 正是為了捕捉這類與順序相關的成對錯誤而設計。"
+            }
+          ],
+          "generalFeedback": "0-switch 涵蓋只要求每個轉移各一次；A 與 B 可能在不同測試中執行、從不相鄰。此錯誤需要有序對 A-然後-B，而這正是 1-switch 涵蓋所要求的——涵蓋每一個有效的長度 2 轉移序列。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "抵達 Blocked 的序列（護衛條件）",
+          "text": "<p>一個登入狀態機（初始狀態 LoggedOut，嘗試計數器從 0 起算）：</p><pre>\nLoggedOut --submit[valid]--> LoggedIn\nLoggedOut --submit[invalid & attempts<2]--> LoggedOut  (attempts++)\nLoggedOut --submit[invalid & attempts==2]--> Blocked\nLoggedIn  --logout--> LoggedOut\nBlocked   --adminReset--> LoggedOut\n</pre><p>哪一個事件序列能抵達 <code>Blocked</code>？</p>",
+          "answers": [
+            {
+              "text": "submit[invalid]、submit[invalid]、submit[invalid]——三次無效嘗試",
+              "fraction": 100,
+              "feedback": "正確——attempts 由 0->1（停留）、1->2（停留），第三次無效 submit 時 attempts==2 便前往 Blocked。"
+            },
+            {
+              "text": "submit[invalid]、submit[invalid]——兩次無效嘗試",
+              "fraction": 0,
+              "feedback": "兩次無效 submit 後 attempts==2，但狀態機仍在 LoggedOut；還需第三次無效 submit 才會抵達 Blocked。"
+            },
+            {
+              "text": "submit[valid]、logout、submit[invalid]",
+              "fraction": 0,
+              "feedback": "submit[valid] 前往 LoggedIn，logout 回到 LoggedOut 且 attempts 仍為 0，因此一次無效 submit 只會把計數增為 1——不是 Blocked。"
+            },
+            {
+              "text": "submit[invalid]、adminReset",
+              "fraction": 0,
+              "feedback": "adminReset 只在 Blocked 有定義，而狀態機尚未抵達；此序列無效。"
+            }
+          ],
+          "generalFeedback": "依 attempts 上的護衛條件追蹤：第一次無效 submit（attempts 0->1，停留 LoggedOut）、第二次無效 submit（attempts 1->2，停留 LoggedOut）、第三次無效 submit（此時 attempts==2，因此護衛條件 [invalid & attempts==2] 觸發）-> Blocked。需要三次無效嘗試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對未定義事件的負向測試",
+          "text": "<p>對此登入狀態機，<code>logout</code> 只在 <code>LoggedIn</code> 有定義。測試者在 <code>LoggedOut</code> 發送 <code>logout</code>。這個<strong>負向測試</strong>的正確預期結果為何？</p>",
+          "answers": [
+            {
+              "text": "事件被拒絕／忽略：狀態機停留在 LoggedOut（不改變狀態），可能伴隨錯誤",
+              "fraction": 100,
+              "feedback": "正確——未定義事件應維持狀態不變（或引發錯誤），絕不應悄悄轉移。"
+            },
+            {
+              "text": "狀態機轉移到 LoggedIn",
+              "fraction": 0,
+              "feedback": "那會是潛行路徑；logout 在 LoggedOut 未定義，絕不應造成轉移。"
+            },
+            {
+              "text": "狀態機轉移到 Blocked",
+              "fraction": 0,
+              "feedback": "Blocked 只能透過護衛條件下的失敗 submit 抵達；logout 沒有這種效果。"
+            },
+            {
+              "text": "嘗試計數器歸零且狀態改變",
+              "fraction": 0,
+              "feedback": "logout 在 LoggedOut 未定義；正確行為是不改變狀態，而不是計數歸零並轉移。"
+            }
+          ],
+          "generalFeedback": "負向測試發送在當前狀態未定義的事件，以檢查潛行路徑。由於 logout 在 LoggedOut 未定義，正確的實作會忽略或拒絕它並停留在 LoggedOut——任何由此產生的轉移都會是潛行路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數有效轉移：分支狀態機",
+          "text": "<p>對這個表格（「-」= 未定義）：</p><pre>\n       p        q\nA      B        C\nB      C        -\nC      A        -\n</pre><p>此狀態機有幾個有效轉移？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——A/p、A/q、B/p、C/p 有定義；B 與 C 的兩個 q 格是破折號。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 數了全部格子；其中兩個（B/q、C/q）是破折號，只剩 4 個有效轉移。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是狀態數；有效轉移有 4 個。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是此狀態機的 1-switch 對數，不是單一轉移數（4）。"
+            }
+          ],
+          "generalFeedback": "數非破折號格子：A--p-->B、A--q-->C、B--p-->C、C--p-->A = 4 個有效轉移。B/q 與 C/q 格是破折號（未定義）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "n-switch 的一般定義",
+          "text": "<p>在 Chow 的 switch 涵蓋階層中，<strong>n-switch</strong> 涵蓋要求什麼？</p>",
+          "answers": [
+            {
+              "text": "每一個由 n+1 個連續轉移構成的有效序列都被執行",
+              "fraction": 100,
+              "feedback": "正確——n-switch 涵蓋長度 n+1 的轉移序列；0-switch 是單一轉移，1-switch 是成對。"
+            },
+            {
+              "text": "每一個恰由 n 個轉移構成的有效序列都被執行",
+              "fraction": 0,
+              "feedback": "差一：n-switch 涵蓋 n+1 個轉移，所以 0-switch 是 1 個轉移。"
+            },
+            {
+              "text": "每個狀態至少被造訪 n 次",
+              "fraction": 0,
+              "feedback": "switch 涵蓋計算的是轉移序列長度，而非重複的狀態造訪。"
+            },
+            {
+              "text": "圖中每一條長度為 n 的路徑，不管是否有效",
+              "fraction": 0,
+              "feedback": "只有有效（已定義）的轉移序列才算，且長度為 n+1。"
+            }
+          ],
+          "generalFeedback": "n-switch 涵蓋要求每一個由 n+1 個連續轉移構成的有效序列。因此 0-switch = 單一轉移，1-switch = 成對，2-switch = 三連。Chow 的 W 方法即以此為基礎來偵測狀態機中的錯誤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "涵蓋所需最少轉移：環狀",
+          "text": "<p>一個環狀狀態機有轉移 S1--x--&gt;S2、S2--y--&gt;S3、S3--z--&gt;S1。從 S1 開始，達成<strong>轉移涵蓋</strong>所需的最少轉移步驟數為何？</p>",
+          "answers": [
+            {
+              "text": "3——x、y、z 執行全部三個轉移並回到 S1",
+              "fraction": 100,
+              "feedback": "正確——三個轉移串成一條長度 3 的行走，全部涵蓋。"
+            },
+            {
+              "text": "2——一條兩個轉移的行走就足夠",
+              "fraction": 0,
+              "feedback": "兩步只涵蓋三個轉移中的兩個；第三個被漏掉。"
+            },
+            {
+              "text": "6——每個轉移須執行兩次",
+              "fraction": 0,
+              "feedback": "轉移涵蓋要求每個轉移各一次；3 步就足夠。"
+            },
+            {
+              "text": "4——你必須回到起點兩次",
+              "fraction": 0,
+              "feedback": "x、y、z 已在 3 步內回到 S1 並涵蓋所有內容。"
+            }
+          ],
+          "generalFeedback": "這些轉移連成 S1->S2->S3->S1，所以行走 x、y、z（3 步）各執行三個轉移一次並回到起點。這是轉移涵蓋的最小值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有效與無效的 1-switch 對",
+          "text": "<p>對旋轉柵門的轉移 t1: Locked--coin--&gt;Unlocked、t2: Locked--push--&gt;Locked、t3: Unlocked--coin--&gt;Unlocked、t4: Unlocked--push--&gt;Locked，哪一個有序對是<strong>有效</strong>的 1-switch 序列？</p>",
+          "answers": [
+            {
+              "text": "(t1, t4)——t1 結束於 Unlocked，t4 起始於 Unlocked",
+              "fraction": 100,
+              "feedback": "正確——target(t1)=Unlocked=source(t4)，因此該對能有效接合。"
+            },
+            {
+              "text": "(t1, t2)——t1 然後 t2",
+              "fraction": 0,
+              "feedback": "t1 結束於 Unlocked，但 t2 起始於 Locked，因此無法接合。"
+            },
+            {
+              "text": "(t4, t3)——t4 然後 t3",
+              "fraction": 0,
+              "feedback": "t4 結束於 Locked，但 t3 起始於 Unlocked，因此此對無法接合。"
+            },
+            {
+              "text": "(t2, t4)——t2 然後 t4",
+              "fraction": 0,
+              "feedback": "t2 結束於 Locked，但 t4 起始於 Unlocked，因此兩者無法連接。"
+            }
+          ],
+          "generalFeedback": "只有當 target(ti) = source(tj) 時，1-switch 對 (ti, tj) 才有效。t1 結束於 Unlocked 且 t4 起始於 Unlocked，所以 (t1, t4) 有效。其他選項都在接合點斷開。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "護衛條件決定哪個轉移觸發",
+          "text": "<p>從狀態 <code>LoggedOut</code>，此登入狀態機在同一事件 <code>submit</code> 上有兩個轉移：一個以 <code>[valid]</code> 為護衛條件通往 LoggedIn，另一個以 <code>[invalid & attempts<2]</code> 為護衛條件回到 LoggedOut。若 <code>submit</code> 以正確憑證發生，哪一個轉移會觸發？</p>",
+          "answers": [
+            {
+              "text": "通往 LoggedIn 的 [valid] 轉移，因為它的護衛條件成立",
+              "fraction": 100,
+              "feedback": "正確——同一事件下，由成立的護衛條件挑選轉移。"
+            },
+            {
+              "text": "兩個轉移同時觸發",
+              "fraction": 0,
+              "feedback": "此處護衛條件互斥；只有護衛條件成立的轉移會觸發。"
+            },
+            {
+              "text": "[invalid] 轉移，因為它列在 LoggedOut",
+              "fraction": 0,
+              "feedback": "它的護衛條件要求無效憑證，此處為假，因此不會觸發。"
+            },
+            {
+              "text": "都不會，因為兩個轉移共用同一事件",
+              "fraction": 0,
+              "feedback": "當護衛條件能區分時，共用事件是可以的；[valid] 護衛條件成立，因此該轉移觸發。"
+            }
+          ],
+          "generalFeedback": "當數個轉移在同一事件上離開一個狀態時，由護衛條件挑選哪一個觸發。憑證正確時 [valid] 護衛條件為真而 [invalid ...] 護衛條件為假，因此狀態機轉移到 LoggedIn。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "1-switch 包含 0-switch",
+          "text": "<p>達成 1-switch 涵蓋就自動達成 0-switch（轉移）涵蓋，因為每一對連續轉移都包含它的兩個成員轉移。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——涵蓋所有有效對代表每個轉移都出現在某一對中，因此所有單一轉移都被執行。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "1-switch 確實包含 0-switch：任何可達轉移都至少屬於一個被涵蓋的對，因此都被執行。"
+            }
+          ],
+          "generalFeedback": "1-switch 涵蓋比 0-switch 強。執行每一個有效的長度 2 序列必然執行其構成的每個轉移，因此 1-switch 包含 0-switch（而後者又包含狀態涵蓋）。"
+        },
+        {
+          "type": "multichoice",
+          "name": "轉移涵蓋長度：門",
+          "text": "<p>門控制器有 4 個有效轉移：Closed--open--&gt;Open、Open--close--&gt;Closed、Closed--lock--&gt;Locked、Locked--unlock--&gt;Closed。從 Closed 開始，達成轉移涵蓋的單一行走最少有幾個轉移步驟？</p>",
+          "answers": [
+            {
+              "text": "4——open、close、lock、unlock 串起全部四個並回到 Closed",
+              "fraction": 100,
+              "feedback": "正確——四個轉移都經過 Closed，所以一條 4 步行走就能全部涵蓋。"
+            },
+            {
+              "text": "3——三步就足夠",
+              "fraction": 0,
+              "feedback": "三步只執行三個轉移；第四個被漏掉。"
+            },
+            {
+              "text": "5——多出一步無可避免",
+              "fraction": 0,
+              "feedback": "由於每個轉移都經過 Closed，它們恰好串成 4 步，無需重複。"
+            },
+            {
+              "text": "8——每個轉移都需重訪",
+              "fraction": 0,
+              "feedback": "轉移涵蓋要求每個轉移各一次；此處 4 步就足夠。"
+            }
+          ],
+          "generalFeedback": "四個轉移都連到 Closed，所以行走 open (Closed->Open)、close (Open->Closed)、lock (Closed->Locked)、unlock (Locked->Closed) 將它們串成單一 4 步巡訪，各涵蓋每個轉移一次——即最小值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數 1-switch 對：門",
+          "text": "<p>門控制器有以下 4 個有效轉移：</p><pre>\nd1: Closed --open--> Open\nd2: Closed --lock--> Locked\nd3: Open   --close--> Closed\nd4: Locked --unlock--> Closed\n</pre><p>它有幾個有效的 <strong>1-switch</strong> 序列（連續轉移的有序對）？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——Closed 有 2 轉入 x 2 轉出 = 4，Open 有 1 轉入 x 1 轉出 = 1，Locked 有 1 轉入 x 1 轉出 = 1；合計 6。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是單一轉移（0-switch）的數目，不是可接合的對。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是旋轉柵門的對數；逐一列出此門的對得 6。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Closed 由 d3 與 d4 進入、由 d1 與 d2 離開，單是經過 Closed 就有 4 個對；總數是 6，不是 5。"
+            }
+          ],
+          "generalFeedback": "對每個狀態，對數 =（轉入數）x（轉出數）。Closed：轉入 {d3, d4}=2，轉出 {d1, d2}=2 -> 4。Open：轉入 {d1}=1，轉出 {d3}=1 -> 1。Locked：轉入 {d2}=1，轉出 {d4}=1 -> 1。合計 4+1+1 = 6。明確列出：(d3,d1)、(d3,d2)、(d4,d1)、(d4,d2)、(d1,d3)、(d2,d4)。",
+          "single": true
+        }
+      ]
+    }
+  },
   "symbolic-execution": {
     "en": {
       "easy": [

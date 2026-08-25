@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/State Transition Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What a state is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a finite-state machine, what does a <strong>state</strong> represent?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A condition or mode the system remains in until an event causes it to change</text><feedback><text>Correct — a state captures the system's current situation, held until a transition occurs.</text></feedback></answer>
+    <answer fraction="0"><text>The input that triggers a change</text><feedback><text>That is an event, not a state.</text></feedback></answer>
+    <answer fraction="0"><text>The movement from one situation to another</text><feedback><text>That movement is a transition; a state is the situation itself.</text></feedback></answer>
+    <answer fraction="0"><text>The output produced by the system</text><feedback><text>Output is an action; a state is a mode the system rests in.</text></feedback></answer>
+    <generalfeedback><text>A state is a distinct mode or condition (e.g. Locked, Open) that the system stays in until an event drives a transition to another state.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an event is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In state-transition testing, what is an <strong>event</strong> (or input)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Something that happens (a stimulus or input) that may cause a transition</text><feedback><text>Correct — an event is the trigger that can move the machine between states.</text></feedback></answer>
+    <answer fraction="0"><text>A mode the system stays in</text><feedback><text>That is a state, not an event.</text></feedback></answer>
+    <answer fraction="0"><text>A boolean condition attached to a transition</text><feedback><text>That is a guard, not the event itself.</text></feedback></answer>
+    <answer fraction="0"><text>The starting point of the machine</text><feedback><text>That is the initial state; an event is a stimulus.</text></feedback></answer>
+    <generalfeedback><text>An event (input/stimulus) is what occurs to the machine — such as "coin" or "push" — and may trigger a transition depending on the current state and any guard.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a transition is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a <strong>transition</strong> in a state machine?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A move from one state to another (or the same state) triggered by an event</text><feedback><text>Correct — a transition links a source state, an event, and a destination state.</text></feedback></answer>
+    <answer fraction="0"><text>A mode the system rests in</text><feedback><text>That is a state; a transition is the move between states.</text></feedback></answer>
+    <answer fraction="0"><text>The list of all possible inputs</text><feedback><text>Those are the events; a transition uses an event to change state.</text></feedback></answer>
+    <answer fraction="0"><text>The final state of the machine</text><feedback><text>That is a specific state, not a transition.</text></feedback></answer>
+    <generalfeedback><text>A transition is a directed move triggered by an event: source state + event [guard] / action -&gt; destination state. It may return to the same state (a self-loop).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a guard is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a <strong>guard</strong> (or condition) on a transition?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A boolean condition that must be true for the transition to fire when its event occurs</text><feedback><text>Correct — even if the event happens, the transition only fires when its guard holds.</text></feedback></answer>
+    <answer fraction="0"><text>The output produced during the transition</text><feedback><text>That is an action, not a guard.</text></feedback></answer>
+    <answer fraction="0"><text>The event that triggers the transition</text><feedback><text>The event is the trigger; the guard is an extra condition on it.</text></feedback></answer>
+    <answer fraction="0"><text>The destination state of the transition</text><feedback><text>The destination is where the transition leads; a guard decides whether it fires.</text></feedback></answer>
+    <generalfeedback><text>A guard is a boolean condition on a transition. When the event occurs, the transition fires only if the guard evaluates to true; otherwise a different transition (or none) applies.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an action is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is an <strong>action</strong> (or output) in a state machine?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An effect or output produced when a transition fires (or while in a state)</text><feedback><text>Correct — actions are the observable outputs the machine emits.</text></feedback></answer>
+    <answer fraction="0"><text>The condition that must hold for a transition to fire</text><feedback><text>That is a guard, not an action.</text></feedback></answer>
+    <answer fraction="0"><text>A mode the system stays in</text><feedback><text>That is a state.</text></feedback></answer>
+    <answer fraction="0"><text>The stimulus that triggers a change</text><feedback><text>That is an event; the action is the effect produced.</text></feedback></answer>
+    <generalfeedback><text>An action is the output or effect associated with a transition (e.g. "dispense ticket") or with being in a state. It is what a tester observes to confirm the expected behaviour.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the initial state is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the <strong>initial state</strong> of a state machine?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The state the machine is in before any event has been processed</text><feedback><text>Correct — it is the starting state, usually drawn with an arrow from a solid dot.</text></feedback></answer>
+    <answer fraction="0"><text>The state the machine ends in when it stops</text><feedback><text>That is a final state, not the initial one.</text></feedback></answer>
+    <answer fraction="0"><text>Any state that has a self-loop</text><feedback><text>Self-loops are unrelated to which state is the start.</text></feedback></answer>
+    <answer fraction="0"><text>The state with the most outgoing transitions</text><feedback><text>The number of transitions does not determine the initial state.</text></feedback></answer>
+    <generalfeedback><text>The initial (start) state is where the machine begins before processing any event. In a diagram it is marked by an incoming arrow from a filled circle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>State coverage defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>state coverage</strong> require of a test suite?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every state is visited at least once</text><feedback><text>Correct — state coverage is achieved when each state is entered by some test.</text></feedback></answer>
+    <answer fraction="0"><text>Every valid transition is exercised at least once</text><feedback><text>That is transition coverage, a stronger criterion.</text></feedback></answer>
+    <answer fraction="0"><text>Every pair of consecutive transitions is exercised</text><feedback><text>That is 1-switch coverage, stronger still.</text></feedback></answer>
+    <answer fraction="0"><text>Every event is sent in every state</text><feedback><text>That would include invalid combinations; state coverage only requires visiting each state.</text></feedback></answer>
+    <generalfeedback><text>State coverage is the weakest state-based criterion: it only requires that each state be visited. It can be met without exercising every transition.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Transition coverage defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>transition coverage</strong> (also called 0-switch coverage) require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every valid transition is exercised at least once</text><feedback><text>Correct — transition coverage exercises each single valid transition; this is 0-switch coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Every state is visited at least once</text><feedback><text>That is only state coverage, which is weaker.</text></feedback></answer>
+    <answer fraction="0"><text>Every valid pair of consecutive transitions is exercised</text><feedback><text>That is 1-switch coverage, which is stronger than 0-switch.</text></feedback></answer>
+    <answer fraction="0"><text>Every guard is evaluated both true and false</text><feedback><text>Guard-value coverage is a different, condition-based criterion.</text></feedback></answer>
+    <generalfeedback><text>Transition (0-switch) coverage requires each valid transition to be taken at least once. Because reaching a transition means visiting its source and target states, transition coverage subsumes state coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a sneak path is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a <strong>sneak path</strong> in state-transition testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An event accepted in a state where the specification says it should not be — an undesired, extra transition</text><feedback><text>Correct — a sneak path is an unspecified transition the implementation wrongly allows.</text></feedback></answer>
+    <answer fraction="0"><text>A valid transition that the tests happen to miss</text><feedback><text>That is merely uncovered behaviour, not a sneak path; a sneak path is an extra, unwanted transition.</text></feedback></answer>
+    <answer fraction="0"><text>The shortest path that visits every state</text><feedback><text>That describes a coverage tour, not a sneak path.</text></feedback></answer>
+    <answer fraction="0"><text>A transition whose guard is always false</text><feedback><text>An always-false guard yields a dead transition, not a sneak path.</text></feedback></answer>
+    <generalfeedback><text>A sneak path is an unwanted transition: the implementation responds to an event in a state where the spec defines no transition for it. Negative testing (firing undefined events) is used to detect sneak paths.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>0-switch equals transition coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"0-switch coverage" is another name for transition coverage — exercising every single valid transition at least once.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — 0-switch means single transitions, i.e. transition coverage.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>0-switch coverage is exactly transition coverage; 1-switch covers pairs of transitions.</text></feedback></answer>
+    <generalfeedback><text>In Chow's switch terminology, 0-switch covers sequences of one transition (transition coverage), 1-switch covers sequences of two consecutive transitions, and so on.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Turnstile: coin in Locked</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A turnstile has two states and two events:</p><pre>
+             coin       push
+Locked       Unlocked   Locked
+Unlocked     Unlocked   Locked
+</pre><p>If the turnstile is <code>Locked</code> and a <code>coin</code> event occurs, what is the next state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unlocked</text><feedback><text>Correct — the Locked row, coin column gives Unlocked.</text></feedback></answer>
+    <answer fraction="0"><text>Locked</text><feedback><text>Locked stays Locked on push, not on coin.</text></feedback></answer>
+    <answer fraction="0"><text>The event is invalid in Locked</text><feedback><text>coin is defined in Locked; the cell gives Unlocked.</text></feedback></answer>
+    <answer fraction="0"><text>The machine has no next state</text><feedback><text>The table defines a next state (Unlocked) for this cell.</text></feedback></answer>
+    <generalfeedback><text>Read the table at row Locked, column coin: the next state is Unlocked.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Turnstile: push in Unlocked</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Using the same turnstile:</p><pre>
+             coin       push
+Locked       Unlocked   Locked
+Unlocked     Unlocked   Locked
+</pre><p>If the turnstile is <code>Unlocked</code> and a <code>push</code> event occurs, what is the next state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Locked</text><feedback><text>Correct — the Unlocked row, push column gives Locked.</text></feedback></answer>
+    <answer fraction="0"><text>Unlocked</text><feedback><text>Unlocked stays Unlocked on coin, not on push.</text></feedback></answer>
+    <answer fraction="0"><text>The event is invalid in Unlocked</text><feedback><text>push is defined in Unlocked and leads to Locked.</text></feedback></answer>
+    <answer fraction="0"><text>It returns to the initial state marker only</text><feedback><text>The next state is Locked, which happens also to be the initial state here, but it is read directly from the cell.</text></feedback></answer>
+    <generalfeedback><text>Read the table at row Unlocked, column push: the next state is Locked. This models a person pushing through and re-locking the turnstile.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagram vs table cell</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a state-transition <strong>table</strong> with rows = states and columns = events, what does a single cell hold?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The next state reached when that event occurs in that state (or "-" if undefined)</text><feedback><text>Correct — each cell is the destination state for (row state, column event), or a dash when no transition is defined.</text></feedback></answer>
+    <answer fraction="0"><text>The number of times that event has been tested</text><feedback><text>Cells hold next states, not test counts.</text></feedback></answer>
+    <answer fraction="0"><text>The guard expression only</text><feedback><text>A cell gives the resulting next state; a guard may qualify it, but the cell's content is the destination.</text></feedback></answer>
+    <answer fraction="0"><text>Whether the state is the initial state</text><feedback><text>Initial-state marking is separate; a cell records the next state for an event.</text></feedback></answer>
+    <generalfeedback><text>A state-transition table lists states as rows and events as columns; each cell names the next state for that (state, event) pair, using "-" (or blank) when the event is not defined in that state. A diagram shows the same information as arrows.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When state-based testing fits</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For which kind of system is state-transition testing <strong>most</strong> appropriate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Event-driven, mode-rich systems whose response depends on their current state</text><feedback><text>Correct — state-based testing shines when behaviour depends on history/mode, as in protocols, UIs, and controllers.</text></feedback></answer>
+    <answer fraction="0"><text>Pure stateless mathematical functions whose output depends only on the current input</text><feedback><text>Stateless functions have no modes to model; equivalence/boundary testing fits them better.</text></feedback></answer>
+    <answer fraction="0"><text>Systems with no inputs at all</text><feedback><text>State machines are driven by events/inputs; a system with no inputs has nothing to model as transitions.</text></feedback></answer>
+    <answer fraction="0"><text>Only systems written in object-oriented languages</text><feedback><text>The technique is language-independent; it depends on the system being state-driven, not on the language.</text></feedback></answer>
+    <generalfeedback><text>State-transition testing suits event-driven, mode-rich systems — protocols, embedded controllers, UI workflows, vending machines — where the same event produces different results depending on the current state.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of a dash cell</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a state-transition table, what does a "-" (dash, or blank) in a cell usually mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>That event is not defined (invalid) in that state — there is no specified transition</text><feedback><text>Correct — a dash marks an undefined/invalid transition for that (state, event) pair.</text></feedback></answer>
+    <answer fraction="0"><text>The machine returns to its initial state</text><feedback><text>A dash means no transition is defined, not a jump to the initial state.</text></feedback></answer>
+    <answer fraction="0"><text>The event always keeps the machine in the same state</text><feedback><text>A self-loop would name the same state in the cell; a dash means the event is undefined there.</text></feedback></answer>
+    <answer fraction="0"><text>The transition has a guard that is currently true</text><feedback><text>A dash indicates no defined transition, not a satisfied guard.</text></feedback></answer>
+    <generalfeedback><text>A dash (or blank) marks a (state, event) pair for which the specification defines no transition — the event is invalid in that state. Firing it is exactly what negative testing probes for sneak paths.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/State Transition Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Count states in door table</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this door controller (cells give the next state; "-" = undefined):</p><pre>
+           open     close    lock     unlock
+Closed     Open     -        Locked   -
+Open       -        Closed   -        -
+Locked     -        -        -        Closed
+</pre><p>How many <strong>states</strong> does this machine have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — the rows are Closed, Open, Locked: three states.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the number of events (columns), not states.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 mixes states and events; count only the rows: 3.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 is 3 rows x 4 columns (all cells); the state count is the number of rows: 3.</text></feedback></answer>
+    <generalfeedback><text>Each row is a state. The rows are Closed, Open, and Locked, so the machine has 3 states. The columns (open, close, lock, unlock) are events, not states.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count valid transitions in door table</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the same door controller:</p><pre>
+           open     close    lock     unlock
+Closed     Open     -        Locked   -
+Open       -        Closed   -        -
+Locked     -        -        -        Closed
+</pre><p>How many <strong>valid transitions</strong> does it define (non-dash cells)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — Closed/open, Closed/lock, Open/close, Locked/unlock: four non-dash cells.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 counts every cell; only non-dash cells are valid transitions, and there are 4.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 is the number of dash (undefined) cells, not the valid transitions.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is the state count; the valid transitions number 4.</text></feedback></answer>
+    <generalfeedback><text>Count only the cells that name a next state: Closed--open--&gt;Open, Closed--lock--&gt;Locked, Open--close--&gt;Closed, Locked--unlock--&gt;Closed. That is 4 valid transitions. The remaining 8 cells are dashes (invalid).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>State coverage but not transition coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the door controller, a test runs the sequence <code>open</code>, <code>close</code>, <code>lock</code> starting from <code>Closed</code>. It visits Closed, Open, and Locked. Which statement is true?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It achieves state coverage but not transition coverage — the Locked--unlock--&gt;Closed transition is never exercised</text><feedback><text>Correct — all three states are visited, but only 3 of the 4 valid transitions are taken; unlock is missed.</text></feedback></answer>
+    <answer fraction="0"><text>It achieves both state and transition coverage</text><feedback><text>It exercises open, close, lock — but not unlock, so transition coverage is not met.</text></feedback></answer>
+    <answer fraction="0"><text>It achieves transition coverage but not state coverage</text><feedback><text>It cannot cover more transitions than states here; unlock is missed, so transition coverage fails while all states are visited.</text></feedback></answer>
+    <answer fraction="0"><text>It achieves neither</text><feedback><text>All three states are visited, so state coverage is achieved.</text></feedback></answer>
+    <generalfeedback><text>The sequence enters Closed, Open, and Locked (state coverage) using transitions open, close, lock. The fourth valid transition, Locked--unlock--&gt;Closed, is never taken, so transition coverage is not achieved. This shows state coverage does not imply transition coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>0-switch vs 1-switch meaning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the difference between <strong>0-switch</strong> and <strong>1-switch</strong> coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0-switch covers each single valid transition; 1-switch covers each valid pair of consecutive transitions</text><feedback><text>Correct — 0-switch = length-1 sequences, 1-switch = length-2 sequences.</text></feedback></answer>
+    <answer fraction="0"><text>0-switch covers each state; 1-switch covers each transition</text><feedback><text>0-switch is transition coverage, not state coverage.</text></feedback></answer>
+    <answer fraction="0"><text>0-switch covers pairs of transitions; 1-switch covers single transitions</text><feedback><text>This reverses the definitions.</text></feedback></answer>
+    <answer fraction="0"><text>They are two names for the same criterion</text><feedback><text>They differ: 1-switch requires consecutive transition pairs, which 0-switch does not.</text></feedback></answer>
+    <generalfeedback><text>In Chow's terminology, 0-switch coverage exercises sequences of one transition (transition coverage) and 1-switch coverage exercises every valid sequence of two consecutive transitions. In general, n-switch covers length-(n+1) transition sequences.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify an undefined transition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the door controller:</p><pre>
+           open     close    lock     unlock
+Closed     Open     -        Locked   -
+Open       -        Closed   -        -
+Locked     -        -        -        Closed
+</pre><p>Which of the following is an <strong>undefined (invalid) transition</strong> according to the table?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Firing <code>lock</code> while in state <code>Open</code></text><feedback><text>Correct — the Open row, lock column is a dash, so this transition is undefined.</text></feedback></answer>
+    <answer fraction="0"><text>Firing <code>open</code> while in state <code>Closed</code></text><feedback><text>That cell names Open, so it is a valid, defined transition.</text></feedback></answer>
+    <answer fraction="0"><text>Firing <code>close</code> while in state <code>Open</code></text><feedback><text>That cell names Closed, so it is a valid transition.</text></feedback></answer>
+    <answer fraction="0"><text>Firing <code>unlock</code> while in state <code>Locked</code></text><feedback><text>That cell names Closed, so it is a valid transition.</text></feedback></answer>
+    <generalfeedback><text>Look for a dash. The Open row has dashes under open, lock, and unlock, so "lock in Open" is undefined. The other three options each name a next state and are valid transitions.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Sequence achieving transition coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the door controller (valid transitions: Closed--open--&gt;Open, Open--close--&gt;Closed, Closed--lock--&gt;Locked, Locked--unlock--&gt;Closed), which single sequence starting from <code>Closed</code> exercises <strong>all four</strong> valid transitions?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>open, close, lock, unlock</text><feedback><text>Correct — Closed-&gt;Open-&gt;Closed-&gt;Locked-&gt;Closed uses all four valid transitions.</text></feedback></answer>
+    <answer fraction="0"><text>open, close, open, close</text><feedback><text>This repeats open and close and never fires lock or unlock.</text></feedback></answer>
+    <answer fraction="0"><text>lock, unlock, lock, unlock</text><feedback><text>This never fires open or close, so it misses two transitions.</text></feedback></answer>
+    <answer fraction="0"><text>open, lock, unlock, close</text><feedback><text>After open the machine is in Open, where lock is undefined, so this sequence is invalid.</text></feedback></answer>
+    <generalfeedback><text>Trace from Closed: open (-&gt;Open), close (-&gt;Closed), lock (-&gt;Locked), unlock (-&gt;Closed). This one sequence exercises every valid transition exactly once, achieving 0-switch (transition) coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count valid transitions in turnstile</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The turnstile table has all cells defined:</p><pre>
+             coin       push
+Locked       Unlocked   Locked
+Unlocked     Unlocked   Locked
+</pre><p>How many valid transitions does it have (self-loops count)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — all four cells are defined, including the two self-loops (Locked/push and Unlocked/coin).</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 counts only the state-changing transitions; self-loops are transitions too, giving 4.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>All four cells name a next state; the count is 4, not 3.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 would be the 1-switch pair count, not the number of single transitions (4).</text></feedback></answer>
+    <generalfeedback><text>Each defined cell is one transition: Locked--coin--&gt;Unlocked, Locked--push--&gt;Locked, Unlocked--coin--&gt;Unlocked, Unlocked--push--&gt;Locked. That is 4, and self-loops (same source and target) still count as transitions.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Next state: open in Closed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the door controller:</p><pre>
+           open     close    lock     unlock
+Closed     Open     -        Locked   -
+Open       -        Closed   -        -
+Locked     -        -        -        Closed
+</pre><p>Starting in <code>Closed</code>, an <code>open</code> event occurs. What is the next state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Open</text><feedback><text>Correct — the Closed row, open column gives Open.</text></feedback></answer>
+    <answer fraction="0"><text>Locked</text><feedback><text>Closed goes to Locked on lock, not on open.</text></feedback></answer>
+    <answer fraction="0"><text>Closed</text><feedback><text>open does not leave Closed unchanged; it moves to Open.</text></feedback></answer>
+    <answer fraction="0"><text>Undefined</text><feedback><text>The Closed/open cell names Open, so it is defined.</text></feedback></answer>
+    <generalfeedback><text>Read row Closed, column open: the next state is Open.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Next state: lock in Open</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the same door controller, the machine is in <code>Open</code> and a <code>lock</code> event occurs. According to the table, what happens?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Nothing is defined — lock is invalid in Open (the cell is a dash)</text><feedback><text>Correct — the Open row, lock column is a dash, so this transition is undefined.</text></feedback></answer>
+    <answer fraction="0"><text>The machine moves to Locked</text><feedback><text>lock leads to Locked only from Closed; in Open it is undefined.</text></feedback></answer>
+    <answer fraction="0"><text>The machine moves to Closed</text><feedback><text>From Open, close leads to Closed; lock is undefined in Open.</text></feedback></answer>
+    <answer fraction="0"><text>The machine stays in Open as a self-loop</text><feedback><text>A dash means undefined, not a self-loop; the table does not specify staying in Open.</text></feedback></answer>
+    <generalfeedback><text>The Open row under lock is a dash, so the specification defines no transition. Firing lock in Open is exactly the kind of invalid event that negative testing checks (a correct implementation should reject it or leave the state unchanged, with no sneak path).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Transitions to exercise for coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The turnstile has 2 states and 4 valid transitions. To achieve <strong>transition (0-switch) coverage</strong>, how many valid transitions must be exercised at least once?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 — every valid transition</text><feedback><text>Correct — transition coverage requires exercising all 4 valid transitions.</text></feedback></answer>
+    <answer fraction="0"><text>2 — one per state</text><feedback><text>Visiting each state (2) is only state coverage; transition coverage needs all 4 transitions.</text></feedback></answer>
+    <answer fraction="0"><text>8 — every pair of transitions</text><feedback><text>8 is the 1-switch count; 0-switch coverage needs the 4 single transitions.</text></feedback></answer>
+    <answer fraction="0"><text>1 — a single path suffices regardless of transitions</text><feedback><text>A single path can be short enough to miss transitions; coverage requires all 4 to be taken.</text></feedback></answer>
+    <generalfeedback><text>Transition (0-switch) coverage requires every valid transition to be taken at least once. The turnstile has 4 valid transitions, so all 4 must be exercised (they can be woven into one longer test, but all 4 must appear).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which criterion subsumes which</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which subsumption relationship holds among these state-based criteria?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Transition coverage subsumes state coverage (achieving all transitions guarantees all states are visited)</text><feedback><text>Correct — every transition has a source and target state, so covering all transitions visits all reachable states.</text></feedback></answer>
+    <answer fraction="0"><text>State coverage subsumes transition coverage</text><feedback><text>The reverse is true; visiting all states can still miss transitions.</text></feedback></answer>
+    <answer fraction="0"><text>The two criteria are equivalent</text><feedback><text>They are not equivalent; state coverage is strictly weaker.</text></feedback></answer>
+    <answer fraction="0"><text>Neither implies anything about the other</text><feedback><text>There is a relationship: transition coverage implies state coverage.</text></feedback></answer>
+    <generalfeedback><text>Because taking a transition necessarily enters its source and target states, a suite achieving transition (0-switch) coverage also achieves state coverage. The converse fails: the door example visits all states yet misses the unlock transition.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Name for exercising single transitions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Exercising every single valid transition at least once, with no requirement about consecutive pairs, is which named criterion?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0-switch (transition) coverage</text><feedback><text>Correct — single transitions correspond to 0-switch coverage.</text></feedback></answer>
+    <answer fraction="0"><text>1-switch coverage</text><feedback><text>1-switch requires consecutive transition pairs, which is stronger.</text></feedback></answer>
+    <answer fraction="0"><text>State coverage</text><feedback><text>State coverage only requires visiting states, not exercising transitions.</text></feedback></answer>
+    <answer fraction="0"><text>2-switch coverage</text><feedback><text>2-switch covers sequences of three transitions, stronger still.</text></feedback></answer>
+    <generalfeedback><text>Single transitions = 0-switch = transition coverage. Requiring consecutive pairs would be 1-switch, and triples would be 2-switch.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of 1-switch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What exactly does <strong>1-switch coverage</strong> require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every valid sequence of two consecutive transitions is exercised at least once</text><feedback><text>Correct — 1-switch covers all valid length-2 transition sequences.</text></feedback></answer>
+    <answer fraction="0"><text>Every single transition is exercised once</text><feedback><text>That is 0-switch coverage; 1-switch adds the pairing requirement.</text></feedback></answer>
+    <answer fraction="0"><text>Every state is entered from at least one other state</text><feedback><text>That is closer to state coverage; 1-switch is about pairs of transitions.</text></feedback></answer>
+    <answer fraction="0"><text>Every guard is exercised both true and false</text><feedback><text>That is a condition-based idea, not the definition of 1-switch.</text></feedback></answer>
+    <generalfeedback><text>1-switch coverage requires each valid pair of consecutive transitions (a length-2 transition sequence) to be exercised. It catches faults that depend on the order of two transitions, which 0-switch may miss.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Single path covering all transitions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A machine has 4 valid transitions. A tester finds a single connected walk that takes all 4 transitions one after another. How many transition <strong>steps</strong> does that walk contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 — each valid transition is one step, taken once</text><feedback><text>Correct — a walk taking every transition once has 4 steps.</text></feedback></answer>
+    <answer fraction="0"><text>3 — one fewer than the number of transitions</text><feedback><text>A walk that takes 4 transitions has 4 steps, not 3.</text></feedback></answer>
+    <answer fraction="0"><text>5 — one more than the number of transitions</text><feedback><text>Each transition is one step; taking 4 transitions is 4 steps.</text></feedback></answer>
+    <answer fraction="0"><text>8 — because pairs are involved</text><feedback><text>Pairs relate to 1-switch; here we only take each of the 4 transitions once, so 4 steps.</text></feedback></answer>
+    <generalfeedback><text>If a single walk can chain all 4 transitions consecutively, it has exactly 4 transition steps (visiting 5 states along the way, counting repeats). This is possible only when the transitions connect end-to-end.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What state coverage misses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite achieves state coverage of a machine but not transition coverage. What must it be missing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>At least one valid transition that is never exercised, even though its source and target states are both visited by other transitions</text><feedback><text>Correct — some valid transition is skipped while its endpoints are still reached another way.</text></feedback></answer>
+    <answer fraction="0"><text>At least one state that is never visited</text><feedback><text>If a state were unvisited, state coverage would fail; here state coverage holds.</text></feedback></answer>
+    <answer fraction="0"><text>At least one event that does not exist in the machine</text><feedback><text>Coverage concerns defined transitions, not nonexistent events.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — the two criteria are the same</text><feedback><text>They differ; transition coverage is strictly stronger, so something is missed.</text></feedback></answer>
+    <generalfeedback><text>State coverage without transition coverage means every state is reached, but some valid transition is never taken (its endpoints are visited via other transitions). The door example — visiting Locked via lock but never taking unlock — is exactly this situation.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/State Transition Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Count 1-switch pairs: turnstile</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The turnstile has these 4 valid transitions:</p><pre>
+t1: Locked   --coin--> Unlocked
+t2: Locked   --push--> Locked
+t3: Unlocked --coin--> Unlocked
+t4: Unlocked --push--> Locked
+</pre><p>How many valid <strong>1-switch</strong> sequences (ordered pairs of consecutive transitions) does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>Correct — each state has 2 transitions in and 2 out, giving 2x2 + 2x2 = 8.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the number of single transitions (0-switch), not the pairs.</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 would be 4x4 (all ordered pairs); only pairs where the first ends where the second begins count, giving 8.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Enumerate the joinable pairs: there are 8, not 6.</text></feedback></answer>
+    <generalfeedback><text>A 1-switch pair (ti, tj) is valid when target(ti) = source(tj). Count per intermediate state = (transitions in) x (transitions out). Locked: 2 in (t2,t4) x 2 out (t1,t2) = 4; Unlocked: 2 in (t1,t3) x 2 out (t3,t4) = 4. Total 4 + 4 = 8.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count 1-switch pairs: branch machine</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this machine (initial state A):</p><pre>
+       p        q
+A      B        C
+B      C        -
+C      A        -
+</pre><p>Its valid transitions are A--p--&gt;B, A--q--&gt;C, B--p--&gt;C, C--p--&gt;A. How many valid <strong>1-switch</strong> sequences does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — (A: 1 in x 2 out) + (B: 1 in x 1 out) + (C: 2 in x 1 out) = 2 + 1 + 2 = 5.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the number of single transitions; the joinable pairs number 5.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Enumerate: (A-p,B-p),(A-q,C-p),(B-p,C-p),(C-p,A-p),(C-p,A-q) = 5, not 6.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 undercounts; C is reached by two transitions and each can be followed by C--p--&gt;A, adding two pairs.</text></feedback></answer>
+    <generalfeedback><text>For each state, pairs = (transitions in) x (transitions out). A: in {C--p--&gt;A}=1, out {A-p,A-q}=2 -&gt; 2. B: in {A--p--&gt;B}=1, out {B--p--&gt;C}=1 -&gt; 1. C: in {A--q--&gt;C, B--p--&gt;C}=2, out {C--p--&gt;A}=1 -&gt; 2. Total 2+1+2 = 5. Explicitly: (A-p,B-p),(A-q,C-p),(B-p,C-p),(C-p,A-p),(C-p,A-q).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count 1-switch pairs: cycle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A machine cycles through three states:</p><pre>
+t1: S1 --x--> S2
+t2: S2 --y--> S3
+t3: S3 --z--> S1
+</pre><p>How many valid <strong>1-switch</strong> sequences does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — each state has exactly 1 in and 1 out: (t1,t2),(t2,t3),(t3,t1) = 3.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 would be all ordered pairs; only 3 are joinable end-to-end.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is 3x3; most pairs do not connect, leaving 3 valid ones.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>The cycle closes (t3 then t1), so there are 3 joinable pairs, not 2.</text></feedback></answer>
+    <generalfeedback><text>Each state has 1 transition in and 1 out, so pairs = 1x1 per state = 3 total: (t1,t2), (t2,t3), and (t3,t1) since the cycle returns to S1.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify a sneak path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A media player spec defines: Stopped--play--&gt;Playing, Playing--stop--&gt;Stopped, Playing--pause--&gt;Paused, Paused--play--&gt;Playing. During testing, sending <code>stop</code> while <code>Paused</code> causes the player to jump to Stopped, even though the spec defines no such transition. What has been found?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A sneak path — an event accepted in a state where the spec defines no transition</text><feedback><text>Correct — stop is undefined in Paused, yet the implementation acts on it: a sneak path.</text></feedback></answer>
+    <answer fraction="0"><text>A missing transition the spec forgot</text><feedback><text>The problem is an extra, unspecified transition in the implementation, not a spec omission — that is a sneak path.</text></feedback></answer>
+    <answer fraction="0"><text>A guard evaluating incorrectly</text><feedback><text>No guard is involved; the event stop is simply not defined in Paused, yet it fires.</text></feedback></answer>
+    <answer fraction="0"><text>A 1-switch coverage gap</text><feedback><text>This is an extra transition, not a missing pair; it is a sneak path detected by negative testing.</text></feedback></answer>
+    <generalfeedback><text>The spec has no Paused--stop--&gt; transition, so the correct behaviour is to ignore or reject stop in Paused. The implementation instead transitions to Stopped — an undesired extra transition, i.e. a sneak path, which negative testing (firing undefined events) is designed to reveal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why 0-switch misses a fault</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A bug only appears when transition B is taken <strong>immediately after</strong> transition A (the pair A-then-B corrupts state), but each of A and B works fine in isolation. Which coverage level is needed to reliably force this fault, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1-switch coverage — it exercises consecutive transition pairs, so the A-then-B sequence is guaranteed to be tested</text><feedback><text>Correct — the fault depends on a specific pair, which 1-switch (length-2 sequences) forces.</text></feedback></answer>
+    <answer fraction="0"><text>State coverage — visiting both endpoint states triggers it</text><feedback><text>Visiting states does not force the specific A-then-B ordering; the fault can be missed.</text></feedback></answer>
+    <answer fraction="0"><text>0-switch coverage — taking A once and B once is enough</text><feedback><text>0-switch may take A and B in separate tests, never consecutively, so it can miss the pair fault.</text></feedback></answer>
+    <answer fraction="0"><text>No coverage level can find it</text><feedback><text>1-switch is specifically designed to catch order-dependent pair faults.</text></feedback></answer>
+    <generalfeedback><text>0-switch coverage only demands each transition once; A and B could be exercised in different tests and never adjacently. The fault needs the ordered pair A-then-B, exactly what 1-switch coverage requires by covering every valid length-2 transition sequence.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Sequence to reach Blocked (guard)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A login machine (initial state LoggedOut, attempt counter starts at 0):</p><pre>
+LoggedOut --submit[valid]--> LoggedIn
+LoggedOut --submit[invalid & attempts<2]--> LoggedOut  (attempts++)
+LoggedOut --submit[invalid & attempts==2]--> Blocked
+LoggedIn  --logout--> LoggedOut
+Blocked   --adminReset--> LoggedOut
+</pre><p>Which sequence of events reaches <code>Blocked</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>submit[invalid], submit[invalid], submit[invalid] — three invalid attempts</text><feedback><text>Correct — attempts goes 0-&gt;1 (stay), 1-&gt;2 (stay), then the third invalid submit with attempts==2 goes to Blocked.</text></feedback></answer>
+    <answer fraction="0"><text>submit[invalid], submit[invalid] — two invalid attempts</text><feedback><text>After two invalid submits attempts==2 but the machine is still LoggedOut; a third invalid submit is needed to reach Blocked.</text></feedback></answer>
+    <answer fraction="0"><text>submit[valid], logout, submit[invalid]</text><feedback><text>submit[valid] goes to LoggedIn, logout returns to LoggedOut with attempts still 0, so one invalid submit only increments to 1 — not Blocked.</text></feedback></answer>
+    <answer fraction="0"><text>submit[invalid], adminReset</text><feedback><text>adminReset is only defined in Blocked, and the machine is not there yet; this sequence is invalid.</text></feedback></answer>
+    <generalfeedback><text>Trace the guard on attempts: first invalid submit (attempts 0-&gt;1, stay LoggedOut), second invalid submit (attempts 1-&gt;2, stay LoggedOut), third invalid submit (attempts==2 now, so the guard [invalid &amp; attempts==2] fires) -&gt; Blocked. Three invalid attempts are required.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Negative test for undefined event</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the login machine, <code>logout</code> is only defined in <code>LoggedIn</code>. A tester fires <code>logout</code> while in <code>LoggedOut</code>. What is the correct expected result of this <strong>negative test</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The event is rejected/ignored: the machine stays in LoggedOut (no state change), possibly with an error</text><feedback><text>Correct — an undefined event should leave the state unchanged (or raise an error), never silently transition.</text></feedback></answer>
+    <answer fraction="0"><text>The machine transitions to LoggedIn</text><feedback><text>That would be a sneak path; logout is undefined in LoggedOut and must not cause a transition.</text></feedback></answer>
+    <answer fraction="0"><text>The machine transitions to Blocked</text><feedback><text>Blocked is reached only via failed submits under the guard; logout has no such effect.</text></feedback></answer>
+    <answer fraction="0"><text>The attempt counter resets to 0 and the state changes</text><feedback><text>logout in LoggedOut is undefined; the correct behaviour is no state change, not a counter reset with a transition.</text></feedback></answer>
+    <generalfeedback><text>Negative testing fires events that are undefined in the current state to check for sneak paths. Since logout is undefined in LoggedOut, a correct implementation ignores or rejects it and remains in LoggedOut — any resulting transition would be a sneak path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count valid transitions: branch machine</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For this table ("-" = undefined):</p><pre>
+       p        q
+A      B        C
+B      C        -
+C      A        -
+</pre><p>How many valid transitions does the machine have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — A/p, A/q, B/p, C/p are defined; the two q cells for B and C are dashes.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 counts every cell; two of them (B/q, C/q) are dashes, leaving 4 valid transitions.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is the state count; there are 4 valid transitions.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the 1-switch pair count for this machine, not the number of single transitions (4).</text></feedback></answer>
+    <generalfeedback><text>Count the non-dash cells: A--p--&gt;B, A--q--&gt;C, B--p--&gt;C, C--p--&gt;A = 4 valid transitions. The B/q and C/q cells are dashes (undefined).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>n-switch general definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Chow's switch-coverage hierarchy, what does <strong>n-switch</strong> coverage require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every valid sequence of n+1 consecutive transitions is exercised</text><feedback><text>Correct — n-switch covers length-(n+1) transition sequences; 0-switch is single transitions, 1-switch is pairs.</text></feedback></answer>
+    <answer fraction="0"><text>Every valid sequence of exactly n transitions is exercised</text><feedback><text>Off by one: n-switch covers n+1 transitions, so 0-switch is 1 transition.</text></feedback></answer>
+    <answer fraction="0"><text>Every state is visited at least n times</text><feedback><text>Switch coverage counts transition-sequence lengths, not repeated state visits.</text></feedback></answer>
+    <answer fraction="0"><text>Every path of length n through the diagram, ignoring validity</text><feedback><text>Only valid (defined) transition sequences count, and the length is n+1.</text></feedback></answer>
+    <generalfeedback><text>n-switch coverage requires every valid sequence of n+1 consecutive transitions. Thus 0-switch = single transitions, 1-switch = pairs, 2-switch = triples. Chow's W-method builds on this to detect faults in state machines.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimum transitions to cover: cycle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A cycle machine has transitions S1--x--&gt;S2, S2--y--&gt;S3, S3--z--&gt;S1. Starting from S1, what is the minimum number of transition steps to achieve <strong>transition coverage</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 — x, y, z takes all three transitions and returns to S1</text><feedback><text>Correct — the three transitions chain into one length-3 walk covering them all.</text></feedback></answer>
+    <answer fraction="0"><text>2 — one walk of two transitions suffices</text><feedback><text>Two steps cover only two of the three transitions; the third is missed.</text></feedback></answer>
+    <answer fraction="0"><text>6 — each transition must be taken twice</text><feedback><text>Transition coverage requires each transition once; 3 steps suffice.</text></feedback></answer>
+    <answer fraction="0"><text>4 — you must return to the start twice</text><feedback><text>x, y, z already returns to S1 in 3 steps and covers everything.</text></feedback></answer>
+    <generalfeedback><text>The transitions connect S1-&gt;S2-&gt;S3-&gt;S1, so the walk x, y, z (3 steps) exercises all three transitions once and returns to the start. That is the minimum for transition coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Valid vs invalid 1-switch pair</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For the turnstile transitions t1: Locked--coin--&gt;Unlocked, t2: Locked--push--&gt;Locked, t3: Unlocked--coin--&gt;Unlocked, t4: Unlocked--push--&gt;Locked, which ordered pair is a <strong>valid</strong> 1-switch sequence?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(t1, t4) — t1 ends in Unlocked and t4 starts in Unlocked</text><feedback><text>Correct — target(t1)=Unlocked=source(t4), so the pair chains validly.</text></feedback></answer>
+    <answer fraction="0"><text>(t1, t2) — t1 then t2</text><feedback><text>t1 ends in Unlocked but t2 starts in Locked, so they do not chain.</text></feedback></answer>
+    <answer fraction="0"><text>(t4, t3) — t4 then t3</text><feedback><text>t4 ends in Locked but t3 starts in Unlocked, so this pair is not joinable.</text></feedback></answer>
+    <answer fraction="0"><text>(t2, t4) — t2 then t4</text><feedback><text>t2 ends in Locked but t4 starts in Unlocked, so they do not connect.</text></feedback></answer>
+    <generalfeedback><text>A 1-switch pair (ti, tj) is valid only when target(ti) = source(tj). t1 ends in Unlocked and t4 starts in Unlocked, so (t1, t4) is valid. The other options break at the join point.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Guard decides which transition fires</text></name>
+    <questiontext format="html"><text><![CDATA[<p>From state <code>LoggedOut</code>, the login machine has two transitions on the same event <code>submit</code>: one guarded <code>[valid]</code> to LoggedIn, and one guarded <code>[invalid & attempts&lt;2]</code> back to LoggedOut. If <code>submit</code> occurs with correct credentials, which transition fires?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The [valid] transition to LoggedIn, because its guard is the one that holds</text><feedback><text>Correct — with the same event, the guard that evaluates true selects the transition.</text></feedback></answer>
+    <answer fraction="0"><text>Both transitions fire simultaneously</text><feedback><text>Guards are mutually exclusive here; only the transition whose guard holds fires.</text></feedback></answer>
+    <answer fraction="0"><text>The [invalid] transition, because it is listed for LoggedOut</text><feedback><text>Its guard requires invalid credentials, which is false here, so it does not fire.</text></feedback></answer>
+    <answer fraction="0"><text>Neither, because two transitions share the event</text><feedback><text>Sharing an event is fine when guards disambiguate; the [valid] guard holds, so that transition fires.</text></feedback></answer>
+    <generalfeedback><text>When several transitions leave a state on the same event, their guards select which one fires. With correct credentials the [valid] guard is true and the [invalid ...] guard is false, so the machine transitions to LoggedIn.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>1-switch subsumes 0-switch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Achieving 1-switch coverage automatically achieves 0-switch (transition) coverage, because every pair of consecutive transitions includes both of its member transitions.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — covering all valid pairs means every transition appears as part of some pair, so all single transitions are exercised.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>1-switch does subsume 0-switch: any reachable transition is part of at least one covered pair, so it is exercised.</text></feedback></answer>
+    <generalfeedback><text>1-switch coverage is stronger than 0-switch. Exercising every valid length-2 sequence necessarily exercises each constituent transition, so 1-switch subsumes 0-switch (which in turn subsumes state coverage).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Transition coverage length: door</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The door controller has 4 valid transitions: Closed--open--&gt;Open, Open--close--&gt;Closed, Closed--lock--&gt;Locked, Locked--unlock--&gt;Closed. Starting from Closed, what is the minimum number of transition steps in a single walk that achieves transition coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 — open, close, lock, unlock chains all four and returns to Closed</text><feedback><text>Correct — the four transitions connect through Closed, so one 4-step walk covers them all.</text></feedback></answer>
+    <answer fraction="0"><text>3 — three steps are enough</text><feedback><text>Three steps take only three transitions; the fourth is missed.</text></feedback></answer>
+    <answer fraction="0"><text>5 — an extra step is unavoidable</text><feedback><text>Because every transition passes through Closed, they chain into exactly 4 steps with no repeats needed.</text></feedback></answer>
+    <answer fraction="0"><text>8 — each transition needs revisiting</text><feedback><text>Transition coverage needs each transition once; 4 steps suffice here.</text></feedback></answer>
+    <generalfeedback><text>All four transitions touch Closed, so the walk open (Closed-&gt;Open), close (Open-&gt;Closed), lock (Closed-&gt;Locked), unlock (Locked-&gt;Closed) chains them into a single 4-step tour covering every transition once — the minimum.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count 1-switch pairs: door</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The door controller has these 4 valid transitions:</p><pre>
+d1: Closed --open--> Open
+d2: Closed --lock--> Locked
+d3: Open   --close--> Closed
+d4: Locked --unlock--> Closed
+</pre><p>How many valid <strong>1-switch</strong> sequences (ordered pairs of consecutive transitions) does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — Closed has 2 in x 2 out = 4, Open has 1 in x 1 out = 1, Locked has 1 in x 1 out = 1; total 6.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the number of single transitions (0-switch), not the joinable pairs.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 is the turnstile's pair count; enumerating this door's pairs gives 6.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>Closed is entered by both d3 and d4 and left by both d1 and d2, giving 4 pairs through Closed alone; the total is 6, not 5.</text></feedback></answer>
+    <generalfeedback><text>For each state, pairs = (transitions in) x (transitions out). Closed: in {d3, d4}=2, out {d1, d2}=2 -&gt; 4. Open: in {d1}=1, out {d3}=1 -&gt; 1. Locked: in {d2}=1, out {d4}=1 -&gt; 1. Total 4+1+1 = 6. Explicitly: (d3,d1),(d3,d2),(d4,d1),(d4,d2),(d1,d3),(d2,d4).</text></generalfeedback>
+  </question>
+</quiz>

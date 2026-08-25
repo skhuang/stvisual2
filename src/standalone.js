@@ -88485,6 +88485,2590 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "state-transition": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What a state is",
+            "text": "<p>In a finite-state machine, what does a <strong>state</strong> represent?</p>",
+            "answers": [
+              {
+                "text": "A condition or mode the system remains in until an event causes it to change",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a state captures the system's current situation, held until a transition occurs."
+              },
+              {
+                "text": "The input that triggers a change",
+                "fraction": 0,
+                "feedback": "That is an event, not a state."
+              },
+              {
+                "text": "The movement from one situation to another",
+                "fraction": 0,
+                "feedback": "That movement is a transition; a state is the situation itself."
+              },
+              {
+                "text": "The output produced by the system",
+                "fraction": 0,
+                "feedback": "Output is an action; a state is a mode the system rests in."
+              }
+            ],
+            "generalFeedback": "A state is a distinct mode or condition (e.g. Locked, Open) that the system stays in until an event drives a transition to another state.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What an event is",
+            "text": "<p>In state-transition testing, what is an <strong>event</strong> (or input)?</p>",
+            "answers": [
+              {
+                "text": "Something that happens (a stimulus or input) that may cause a transition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an event is the trigger that can move the machine between states."
+              },
+              {
+                "text": "A mode the system stays in",
+                "fraction": 0,
+                "feedback": "That is a state, not an event."
+              },
+              {
+                "text": "A boolean condition attached to a transition",
+                "fraction": 0,
+                "feedback": "That is a guard, not the event itself."
+              },
+              {
+                "text": "The starting point of the machine",
+                "fraction": 0,
+                "feedback": "That is the initial state; an event is a stimulus."
+              }
+            ],
+            "generalFeedback": 'An event (input/stimulus) is what occurs to the machine \u2014 such as "coin" or "push" \u2014 and may trigger a transition depending on the current state and any guard.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a transition is",
+            "text": "<p>What is a <strong>transition</strong> in a state machine?</p>",
+            "answers": [
+              {
+                "text": "A move from one state to another (or the same state) triggered by an event",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a transition links a source state, an event, and a destination state."
+              },
+              {
+                "text": "A mode the system rests in",
+                "fraction": 0,
+                "feedback": "That is a state; a transition is the move between states."
+              },
+              {
+                "text": "The list of all possible inputs",
+                "fraction": 0,
+                "feedback": "Those are the events; a transition uses an event to change state."
+              },
+              {
+                "text": "The final state of the machine",
+                "fraction": 0,
+                "feedback": "That is a specific state, not a transition."
+              }
+            ],
+            "generalFeedback": "A transition is a directed move triggered by an event: source state + event [guard] / action -> destination state. It may return to the same state (a self-loop).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a guard is",
+            "text": "<p>What is a <strong>guard</strong> (or condition) on a transition?</p>",
+            "answers": [
+              {
+                "text": "A boolean condition that must be true for the transition to fire when its event occurs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 even if the event happens, the transition only fires when its guard holds."
+              },
+              {
+                "text": "The output produced during the transition",
+                "fraction": 0,
+                "feedback": "That is an action, not a guard."
+              },
+              {
+                "text": "The event that triggers the transition",
+                "fraction": 0,
+                "feedback": "The event is the trigger; the guard is an extra condition on it."
+              },
+              {
+                "text": "The destination state of the transition",
+                "fraction": 0,
+                "feedback": "The destination is where the transition leads; a guard decides whether it fires."
+              }
+            ],
+            "generalFeedback": "A guard is a boolean condition on a transition. When the event occurs, the transition fires only if the guard evaluates to true; otherwise a different transition (or none) applies.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What an action is",
+            "text": "<p>What is an <strong>action</strong> (or output) in a state machine?</p>",
+            "answers": [
+              {
+                "text": "An effect or output produced when a transition fires (or while in a state)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 actions are the observable outputs the machine emits."
+              },
+              {
+                "text": "The condition that must hold for a transition to fire",
+                "fraction": 0,
+                "feedback": "That is a guard, not an action."
+              },
+              {
+                "text": "A mode the system stays in",
+                "fraction": 0,
+                "feedback": "That is a state."
+              },
+              {
+                "text": "The stimulus that triggers a change",
+                "fraction": 0,
+                "feedback": "That is an event; the action is the effect produced."
+              }
+            ],
+            "generalFeedback": 'An action is the output or effect associated with a transition (e.g. "dispense ticket") or with being in a state. It is what a tester observes to confirm the expected behaviour.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the initial state is",
+            "text": "<p>What is the <strong>initial state</strong> of a state machine?</p>",
+            "answers": [
+              {
+                "text": "The state the machine is in before any event has been processed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it is the starting state, usually drawn with an arrow from a solid dot."
+              },
+              {
+                "text": "The state the machine ends in when it stops",
+                "fraction": 0,
+                "feedback": "That is a final state, not the initial one."
+              },
+              {
+                "text": "Any state that has a self-loop",
+                "fraction": 0,
+                "feedback": "Self-loops are unrelated to which state is the start."
+              },
+              {
+                "text": "The state with the most outgoing transitions",
+                "fraction": 0,
+                "feedback": "The number of transitions does not determine the initial state."
+              }
+            ],
+            "generalFeedback": "The initial (start) state is where the machine begins before processing any event. In a diagram it is marked by an incoming arrow from a filled circle.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "State coverage defined",
+            "text": "<p>What does <strong>state coverage</strong> require of a test suite?</p>",
+            "answers": [
+              {
+                "text": "Every state is visited at least once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 state coverage is achieved when each state is entered by some test."
+              },
+              {
+                "text": "Every valid transition is exercised at least once",
+                "fraction": 0,
+                "feedback": "That is transition coverage, a stronger criterion."
+              },
+              {
+                "text": "Every pair of consecutive transitions is exercised",
+                "fraction": 0,
+                "feedback": "That is 1-switch coverage, stronger still."
+              },
+              {
+                "text": "Every event is sent in every state",
+                "fraction": 0,
+                "feedback": "That would include invalid combinations; state coverage only requires visiting each state."
+              }
+            ],
+            "generalFeedback": "State coverage is the weakest state-based criterion: it only requires that each state be visited. It can be met without exercising every transition.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Transition coverage defined",
+            "text": "<p>What does <strong>transition coverage</strong> (also called 0-switch coverage) require?</p>",
+            "answers": [
+              {
+                "text": "Every valid transition is exercised at least once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 transition coverage exercises each single valid transition; this is 0-switch coverage."
+              },
+              {
+                "text": "Every state is visited at least once",
+                "fraction": 0,
+                "feedback": "That is only state coverage, which is weaker."
+              },
+              {
+                "text": "Every valid pair of consecutive transitions is exercised",
+                "fraction": 0,
+                "feedback": "That is 1-switch coverage, which is stronger than 0-switch."
+              },
+              {
+                "text": "Every guard is evaluated both true and false",
+                "fraction": 0,
+                "feedback": "Guard-value coverage is a different, condition-based criterion."
+              }
+            ],
+            "generalFeedback": "Transition (0-switch) coverage requires each valid transition to be taken at least once. Because reaching a transition means visiting its source and target states, transition coverage subsumes state coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a sneak path is",
+            "text": "<p>What is a <strong>sneak path</strong> in state-transition testing?</p>",
+            "answers": [
+              {
+                "text": "An event accepted in a state where the specification says it should not be \u2014 an undesired, extra transition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a sneak path is an unspecified transition the implementation wrongly allows."
+              },
+              {
+                "text": "A valid transition that the tests happen to miss",
+                "fraction": 0,
+                "feedback": "That is merely uncovered behaviour, not a sneak path; a sneak path is an extra, unwanted transition."
+              },
+              {
+                "text": "The shortest path that visits every state",
+                "fraction": 0,
+                "feedback": "That describes a coverage tour, not a sneak path."
+              },
+              {
+                "text": "A transition whose guard is always false",
+                "fraction": 0,
+                "feedback": "An always-false guard yields a dead transition, not a sneak path."
+              }
+            ],
+            "generalFeedback": "A sneak path is an unwanted transition: the implementation responds to an event in a state where the spec defines no transition for it. Negative testing (firing undefined events) is used to detect sneak paths.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "0-switch equals transition coverage",
+            "text": '<p>"0-switch coverage" is another name for transition coverage \u2014 exercising every single valid transition at least once.</p>',
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 0-switch means single transitions, i.e. transition coverage."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "0-switch coverage is exactly transition coverage; 1-switch covers pairs of transitions."
+              }
+            ],
+            "generalFeedback": "In Chow's switch terminology, 0-switch covers sequences of one transition (transition coverage), 1-switch covers sequences of two consecutive transitions, and so on."
+          },
+          {
+            "type": "multichoice",
+            "name": "Turnstile: coin in Locked",
+            "text": "<p>A turnstile has two states and two events:</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>If the turnstile is <code>Locked</code> and a <code>coin</code> event occurs, what is the next state?</p>",
+            "answers": [
+              {
+                "text": "Unlocked",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the Locked row, coin column gives Unlocked."
+              },
+              {
+                "text": "Locked",
+                "fraction": 0,
+                "feedback": "Locked stays Locked on push, not on coin."
+              },
+              {
+                "text": "The event is invalid in Locked",
+                "fraction": 0,
+                "feedback": "coin is defined in Locked; the cell gives Unlocked."
+              },
+              {
+                "text": "The machine has no next state",
+                "fraction": 0,
+                "feedback": "The table defines a next state (Unlocked) for this cell."
+              }
+            ],
+            "generalFeedback": "Read the table at row Locked, column coin: the next state is Unlocked.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Turnstile: push in Unlocked",
+            "text": "<p>Using the same turnstile:</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>If the turnstile is <code>Unlocked</code> and a <code>push</code> event occurs, what is the next state?</p>",
+            "answers": [
+              {
+                "text": "Locked",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the Unlocked row, push column gives Locked."
+              },
+              {
+                "text": "Unlocked",
+                "fraction": 0,
+                "feedback": "Unlocked stays Unlocked on coin, not on push."
+              },
+              {
+                "text": "The event is invalid in Unlocked",
+                "fraction": 0,
+                "feedback": "push is defined in Unlocked and leads to Locked."
+              },
+              {
+                "text": "It returns to the initial state marker only",
+                "fraction": 0,
+                "feedback": "The next state is Locked, which happens also to be the initial state here, but it is read directly from the cell."
+              }
+            ],
+            "generalFeedback": "Read the table at row Unlocked, column push: the next state is Locked. This models a person pushing through and re-locking the turnstile.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagram vs table cell",
+            "text": "<p>In a state-transition <strong>table</strong> with rows = states and columns = events, what does a single cell hold?</p>",
+            "answers": [
+              {
+                "text": 'The next state reached when that event occurs in that state (or "-" if undefined)',
+                "fraction": 100,
+                "feedback": "Correct \u2014 each cell is the destination state for (row state, column event), or a dash when no transition is defined."
+              },
+              {
+                "text": "The number of times that event has been tested",
+                "fraction": 0,
+                "feedback": "Cells hold next states, not test counts."
+              },
+              {
+                "text": "The guard expression only",
+                "fraction": 0,
+                "feedback": "A cell gives the resulting next state; a guard may qualify it, but the cell's content is the destination."
+              },
+              {
+                "text": "Whether the state is the initial state",
+                "fraction": 0,
+                "feedback": "Initial-state marking is separate; a cell records the next state for an event."
+              }
+            ],
+            "generalFeedback": 'A state-transition table lists states as rows and events as columns; each cell names the next state for that (state, event) pair, using "-" (or blank) when the event is not defined in that state. A diagram shows the same information as arrows.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When state-based testing fits",
+            "text": "<p>For which kind of system is state-transition testing <strong>most</strong> appropriate?</p>",
+            "answers": [
+              {
+                "text": "Event-driven, mode-rich systems whose response depends on their current state",
+                "fraction": 100,
+                "feedback": "Correct \u2014 state-based testing shines when behaviour depends on history/mode, as in protocols, UIs, and controllers."
+              },
+              {
+                "text": "Pure stateless mathematical functions whose output depends only on the current input",
+                "fraction": 0,
+                "feedback": "Stateless functions have no modes to model; equivalence/boundary testing fits them better."
+              },
+              {
+                "text": "Systems with no inputs at all",
+                "fraction": 0,
+                "feedback": "State machines are driven by events/inputs; a system with no inputs has nothing to model as transitions."
+              },
+              {
+                "text": "Only systems written in object-oriented languages",
+                "fraction": 0,
+                "feedback": "The technique is language-independent; it depends on the system being state-driven, not on the language."
+              }
+            ],
+            "generalFeedback": "State-transition testing suits event-driven, mode-rich systems \u2014 protocols, embedded controllers, UI workflows, vending machines \u2014 where the same event produces different results depending on the current state.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of a dash cell",
+            "text": '<p>In a state-transition table, what does a "-" (dash, or blank) in a cell usually mean?</p>',
+            "answers": [
+              {
+                "text": "That event is not defined (invalid) in that state \u2014 there is no specified transition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a dash marks an undefined/invalid transition for that (state, event) pair."
+              },
+              {
+                "text": "The machine returns to its initial state",
+                "fraction": 0,
+                "feedback": "A dash means no transition is defined, not a jump to the initial state."
+              },
+              {
+                "text": "The event always keeps the machine in the same state",
+                "fraction": 0,
+                "feedback": "A self-loop would name the same state in the cell; a dash means the event is undefined there."
+              },
+              {
+                "text": "The transition has a guard that is currently true",
+                "fraction": 0,
+                "feedback": "A dash indicates no defined transition, not a satisfied guard."
+              }
+            ],
+            "generalFeedback": "A dash (or blank) marks a (state, event) pair for which the specification defines no transition \u2014 the event is invalid in that state. Firing it is exactly what negative testing probes for sneak paths.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Count states in door table",
+            "text": '<p>Consider this door controller (cells give the next state; "-" = undefined):</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>How many <strong>states</strong> does this machine have?</p>',
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the rows are Closed, Open, Locked: three states."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the number of events (columns), not states."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 mixes states and events; count only the rows: 3."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 is 3 rows x 4 columns (all cells); the state count is the number of rows: 3."
+              }
+            ],
+            "generalFeedback": "Each row is a state. The rows are Closed, Open, and Locked, so the machine has 3 states. The columns (open, close, lock, unlock) are events, not states.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count valid transitions in door table",
+            "text": "<p>For the same door controller:</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>How many <strong>valid transitions</strong> does it define (non-dash cells)?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Closed/open, Closed/lock, Open/close, Locked/unlock: four non-dash cells."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 counts every cell; only non-dash cells are valid transitions, and there are 4."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 is the number of dash (undefined) cells, not the valid transitions."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 is the state count; the valid transitions number 4."
+              }
+            ],
+            "generalFeedback": "Count only the cells that name a next state: Closed--open-->Open, Closed--lock-->Locked, Open--close-->Closed, Locked--unlock-->Closed. That is 4 valid transitions. The remaining 8 cells are dashes (invalid).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "State coverage but not transition coverage",
+            "text": "<p>For the door controller, a test runs the sequence <code>open</code>, <code>close</code>, <code>lock</code> starting from <code>Closed</code>. It visits Closed, Open, and Locked. Which statement is true?</p>",
+            "answers": [
+              {
+                "text": "It achieves state coverage but not transition coverage \u2014 the Locked--unlock-->Closed transition is never exercised",
+                "fraction": 100,
+                "feedback": "Correct \u2014 all three states are visited, but only 3 of the 4 valid transitions are taken; unlock is missed."
+              },
+              {
+                "text": "It achieves both state and transition coverage",
+                "fraction": 0,
+                "feedback": "It exercises open, close, lock \u2014 but not unlock, so transition coverage is not met."
+              },
+              {
+                "text": "It achieves transition coverage but not state coverage",
+                "fraction": 0,
+                "feedback": "It cannot cover more transitions than states here; unlock is missed, so transition coverage fails while all states are visited."
+              },
+              {
+                "text": "It achieves neither",
+                "fraction": 0,
+                "feedback": "All three states are visited, so state coverage is achieved."
+              }
+            ],
+            "generalFeedback": "The sequence enters Closed, Open, and Locked (state coverage) using transitions open, close, lock. The fourth valid transition, Locked--unlock-->Closed, is never taken, so transition coverage is not achieved. This shows state coverage does not imply transition coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "0-switch vs 1-switch meaning",
+            "text": "<p>What is the difference between <strong>0-switch</strong> and <strong>1-switch</strong> coverage?</p>",
+            "answers": [
+              {
+                "text": "0-switch covers each single valid transition; 1-switch covers each valid pair of consecutive transitions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 0-switch = length-1 sequences, 1-switch = length-2 sequences."
+              },
+              {
+                "text": "0-switch covers each state; 1-switch covers each transition",
+                "fraction": 0,
+                "feedback": "0-switch is transition coverage, not state coverage."
+              },
+              {
+                "text": "0-switch covers pairs of transitions; 1-switch covers single transitions",
+                "fraction": 0,
+                "feedback": "This reverses the definitions."
+              },
+              {
+                "text": "They are two names for the same criterion",
+                "fraction": 0,
+                "feedback": "They differ: 1-switch requires consecutive transition pairs, which 0-switch does not."
+              }
+            ],
+            "generalFeedback": "In Chow's terminology, 0-switch coverage exercises sequences of one transition (transition coverage) and 1-switch coverage exercises every valid sequence of two consecutive transitions. In general, n-switch covers length-(n+1) transition sequences.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify an undefined transition",
+            "text": "<p>For the door controller:</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>Which of the following is an <strong>undefined (invalid) transition</strong> according to the table?</p>",
+            "answers": [
+              {
+                "text": "Firingwhile in state",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the Open row, lock column is a dash, so this transition is undefined."
+              },
+              {
+                "text": "Firingwhile in state",
+                "fraction": 0,
+                "feedback": "That cell names Open, so it is a valid, defined transition."
+              },
+              {
+                "text": "Firingwhile in state",
+                "fraction": 0,
+                "feedback": "That cell names Closed, so it is a valid transition."
+              },
+              {
+                "text": "Firingwhile in state",
+                "fraction": 0,
+                "feedback": "That cell names Closed, so it is a valid transition."
+              }
+            ],
+            "generalFeedback": 'Look for a dash. The Open row has dashes under open, lock, and unlock, so "lock in Open" is undefined. The other three options each name a next state and are valid transitions.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Sequence achieving transition coverage",
+            "text": "<p>For the door controller (valid transitions: Closed--open--&gt;Open, Open--close--&gt;Closed, Closed--lock--&gt;Locked, Locked--unlock--&gt;Closed), which single sequence starting from <code>Closed</code> exercises <strong>all four</strong> valid transitions?</p>",
+            "answers": [
+              {
+                "text": "open, close, lock, unlock",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Closed->Open->Closed->Locked->Closed uses all four valid transitions."
+              },
+              {
+                "text": "open, close, open, close",
+                "fraction": 0,
+                "feedback": "This repeats open and close and never fires lock or unlock."
+              },
+              {
+                "text": "lock, unlock, lock, unlock",
+                "fraction": 0,
+                "feedback": "This never fires open or close, so it misses two transitions."
+              },
+              {
+                "text": "open, lock, unlock, close",
+                "fraction": 0,
+                "feedback": "After open the machine is in Open, where lock is undefined, so this sequence is invalid."
+              }
+            ],
+            "generalFeedback": "Trace from Closed: open (->Open), close (->Closed), lock (->Locked), unlock (->Closed). This one sequence exercises every valid transition exactly once, achieving 0-switch (transition) coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count valid transitions in turnstile",
+            "text": "<p>The turnstile table has all cells defined:</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>How many valid transitions does it have (self-loops count)?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 all four cells are defined, including the two self-loops (Locked/push and Unlocked/coin)."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 counts only the state-changing transitions; self-loops are transitions too, giving 4."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "All four cells name a next state; the count is 4, not 3."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 would be the 1-switch pair count, not the number of single transitions (4)."
+              }
+            ],
+            "generalFeedback": "Each defined cell is one transition: Locked--coin-->Unlocked, Locked--push-->Locked, Unlocked--coin-->Unlocked, Unlocked--push-->Locked. That is 4, and self-loops (same source and target) still count as transitions.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Next state: open in Closed",
+            "text": "<p>For the door controller:</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>Starting in <code>Closed</code>, an <code>open</code> event occurs. What is the next state?</p>",
+            "answers": [
+              {
+                "text": "Open",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the Closed row, open column gives Open."
+              },
+              {
+                "text": "Locked",
+                "fraction": 0,
+                "feedback": "Closed goes to Locked on lock, not on open."
+              },
+              {
+                "text": "Closed",
+                "fraction": 0,
+                "feedback": "open does not leave Closed unchanged; it moves to Open."
+              },
+              {
+                "text": "Undefined",
+                "fraction": 0,
+                "feedback": "The Closed/open cell names Open, so it is defined."
+              }
+            ],
+            "generalFeedback": "Read row Closed, column open: the next state is Open.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Next state: lock in Open",
+            "text": "<p>For the same door controller, the machine is in <code>Open</code> and a <code>lock</code> event occurs. According to the table, what happens?</p>",
+            "answers": [
+              {
+                "text": "Nothing is defined \u2014 lock is invalid in Open (the cell is a dash)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the Open row, lock column is a dash, so this transition is undefined."
+              },
+              {
+                "text": "The machine moves to Locked",
+                "fraction": 0,
+                "feedback": "lock leads to Locked only from Closed; in Open it is undefined."
+              },
+              {
+                "text": "The machine moves to Closed",
+                "fraction": 0,
+                "feedback": "From Open, close leads to Closed; lock is undefined in Open."
+              },
+              {
+                "text": "The machine stays in Open as a self-loop",
+                "fraction": 0,
+                "feedback": "A dash means undefined, not a self-loop; the table does not specify staying in Open."
+              }
+            ],
+            "generalFeedback": "The Open row under lock is a dash, so the specification defines no transition. Firing lock in Open is exactly the kind of invalid event that negative testing checks (a correct implementation should reject it or leave the state unchanged, with no sneak path).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Transitions to exercise for coverage",
+            "text": "<p>The turnstile has 2 states and 4 valid transitions. To achieve <strong>transition (0-switch) coverage</strong>, how many valid transitions must be exercised at least once?</p>",
+            "answers": [
+              {
+                "text": "4 \u2014 every valid transition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 transition coverage requires exercising all 4 valid transitions."
+              },
+              {
+                "text": "2 \u2014 one per state",
+                "fraction": 0,
+                "feedback": "Visiting each state (2) is only state coverage; transition coverage needs all 4 transitions."
+              },
+              {
+                "text": "8 \u2014 every pair of transitions",
+                "fraction": 0,
+                "feedback": "8 is the 1-switch count; 0-switch coverage needs the 4 single transitions."
+              },
+              {
+                "text": "1 \u2014 a single path suffices regardless of transitions",
+                "fraction": 0,
+                "feedback": "A single path can be short enough to miss transitions; coverage requires all 4 to be taken."
+              }
+            ],
+            "generalFeedback": "Transition (0-switch) coverage requires every valid transition to be taken at least once. The turnstile has 4 valid transitions, so all 4 must be exercised (they can be woven into one longer test, but all 4 must appear).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which criterion subsumes which",
+            "text": "<p>Which subsumption relationship holds among these state-based criteria?</p>",
+            "answers": [
+              {
+                "text": "Transition coverage subsumes state coverage (achieving all transitions guarantees all states are visited)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 every transition has a source and target state, so covering all transitions visits all reachable states."
+              },
+              {
+                "text": "State coverage subsumes transition coverage",
+                "fraction": 0,
+                "feedback": "The reverse is true; visiting all states can still miss transitions."
+              },
+              {
+                "text": "The two criteria are equivalent",
+                "fraction": 0,
+                "feedback": "They are not equivalent; state coverage is strictly weaker."
+              },
+              {
+                "text": "Neither implies anything about the other",
+                "fraction": 0,
+                "feedback": "There is a relationship: transition coverage implies state coverage."
+              }
+            ],
+            "generalFeedback": "Because taking a transition necessarily enters its source and target states, a suite achieving transition (0-switch) coverage also achieves state coverage. The converse fails: the door example visits all states yet misses the unlock transition.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Name for exercising single transitions",
+            "text": "<p>Exercising every single valid transition at least once, with no requirement about consecutive pairs, is which named criterion?</p>",
+            "answers": [
+              {
+                "text": "0-switch (transition) coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 single transitions correspond to 0-switch coverage."
+              },
+              {
+                "text": "1-switch coverage",
+                "fraction": 0,
+                "feedback": "1-switch requires consecutive transition pairs, which is stronger."
+              },
+              {
+                "text": "State coverage",
+                "fraction": 0,
+                "feedback": "State coverage only requires visiting states, not exercising transitions."
+              },
+              {
+                "text": "2-switch coverage",
+                "fraction": 0,
+                "feedback": "2-switch covers sequences of three transitions, stronger still."
+              }
+            ],
+            "generalFeedback": "Single transitions = 0-switch = transition coverage. Requiring consecutive pairs would be 1-switch, and triples would be 2-switch.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Definition of 1-switch",
+            "text": "<p>What exactly does <strong>1-switch coverage</strong> require?</p>",
+            "answers": [
+              {
+                "text": "Every valid sequence of two consecutive transitions is exercised at least once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1-switch covers all valid length-2 transition sequences."
+              },
+              {
+                "text": "Every single transition is exercised once",
+                "fraction": 0,
+                "feedback": "That is 0-switch coverage; 1-switch adds the pairing requirement."
+              },
+              {
+                "text": "Every state is entered from at least one other state",
+                "fraction": 0,
+                "feedback": "That is closer to state coverage; 1-switch is about pairs of transitions."
+              },
+              {
+                "text": "Every guard is exercised both true and false",
+                "fraction": 0,
+                "feedback": "That is a condition-based idea, not the definition of 1-switch."
+              }
+            ],
+            "generalFeedback": "1-switch coverage requires each valid pair of consecutive transitions (a length-2 transition sequence) to be exercised. It catches faults that depend on the order of two transitions, which 0-switch may miss.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Single path covering all transitions",
+            "text": "<p>A machine has 4 valid transitions. A tester finds a single connected walk that takes all 4 transitions one after another. How many transition <strong>steps</strong> does that walk contain?</p>",
+            "answers": [
+              {
+                "text": "4 \u2014 each valid transition is one step, taken once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a walk taking every transition once has 4 steps."
+              },
+              {
+                "text": "3 \u2014 one fewer than the number of transitions",
+                "fraction": 0,
+                "feedback": "A walk that takes 4 transitions has 4 steps, not 3."
+              },
+              {
+                "text": "5 \u2014 one more than the number of transitions",
+                "fraction": 0,
+                "feedback": "Each transition is one step; taking 4 transitions is 4 steps."
+              },
+              {
+                "text": "8 \u2014 because pairs are involved",
+                "fraction": 0,
+                "feedback": "Pairs relate to 1-switch; here we only take each of the 4 transitions once, so 4 steps."
+              }
+            ],
+            "generalFeedback": "If a single walk can chain all 4 transitions consecutively, it has exactly 4 transition steps (visiting 5 states along the way, counting repeats). This is possible only when the transitions connect end-to-end.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What state coverage misses",
+            "text": "<p>A suite achieves state coverage of a machine but not transition coverage. What must it be missing?</p>",
+            "answers": [
+              {
+                "text": "At least one valid transition that is never exercised, even though its source and target states are both visited by other transitions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 some valid transition is skipped while its endpoints are still reached another way."
+              },
+              {
+                "text": "At least one state that is never visited",
+                "fraction": 0,
+                "feedback": "If a state were unvisited, state coverage would fail; here state coverage holds."
+              },
+              {
+                "text": "At least one event that does not exist in the machine",
+                "fraction": 0,
+                "feedback": "Coverage concerns defined transitions, not nonexistent events."
+              },
+              {
+                "text": "Nothing \u2014 the two criteria are the same",
+                "fraction": 0,
+                "feedback": "They differ; transition coverage is strictly stronger, so something is missed."
+              }
+            ],
+            "generalFeedback": "State coverage without transition coverage means every state is reached, but some valid transition is never taken (its endpoints are visited via other transitions). The door example \u2014 visiting Locked via lock but never taking unlock \u2014 is exactly this situation.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Count 1-switch pairs: turnstile",
+            "text": "<p>The turnstile has these 4 valid transitions:</p><pre>\nt1: Locked   --coin--> Unlocked\nt2: Locked   --push--> Locked\nt3: Unlocked --coin--> Unlocked\nt4: Unlocked --push--> Locked\n</pre><p>How many valid <strong>1-switch</strong> sequences (ordered pairs of consecutive transitions) does it have?</p>",
+            "answers": [
+              {
+                "text": "8",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each state has 2 transitions in and 2 out, giving 2x2 + 2x2 = 8."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the number of single transitions (0-switch), not the pairs."
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 would be 4x4 (all ordered pairs); only pairs where the first ends where the second begins count, giving 8."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "Enumerate the joinable pairs: there are 8, not 6."
+              }
+            ],
+            "generalFeedback": "A 1-switch pair (ti, tj) is valid when target(ti) = source(tj). Count per intermediate state = (transitions in) x (transitions out). Locked: 2 in (t2,t4) x 2 out (t1,t2) = 4; Unlocked: 2 in (t1,t3) x 2 out (t3,t4) = 4. Total 4 + 4 = 8.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count 1-switch pairs: branch machine",
+            "text": "<p>Consider this machine (initial state A):</p><pre>\n       p        q\nA      B        C\nB      C        -\nC      A        -\n</pre><p>Its valid transitions are A--p--&gt;B, A--q--&gt;C, B--p--&gt;C, C--p--&gt;A. How many valid <strong>1-switch</strong> sequences does it have?</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 (A: 1 in x 2 out) + (B: 1 in x 1 out) + (C: 2 in x 1 out) = 2 + 1 + 2 = 5."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the number of single transitions; the joinable pairs number 5."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "Enumerate: (A-p,B-p),(A-q,C-p),(B-p,C-p),(C-p,A-p),(C-p,A-q) = 5, not 6."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 undercounts; C is reached by two transitions and each can be followed by C--p-->A, adding two pairs."
+              }
+            ],
+            "generalFeedback": "For each state, pairs = (transitions in) x (transitions out). A: in {C--p-->A}=1, out {A-p,A-q}=2 -> 2. B: in {A--p-->B}=1, out {B--p-->C}=1 -> 1. C: in {A--q-->C, B--p-->C}=2, out {C--p-->A}=1 -> 2. Total 2+1+2 = 5. Explicitly: (A-p,B-p),(A-q,C-p),(B-p,C-p),(C-p,A-p),(C-p,A-q).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count 1-switch pairs: cycle",
+            "text": "<p>A machine cycles through three states:</p><pre>\nt1: S1 --x--> S2\nt2: S2 --y--> S3\nt3: S3 --z--> S1\n</pre><p>How many valid <strong>1-switch</strong> sequences does it have?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each state has exactly 1 in and 1 out: (t1,t2),(t2,t3),(t3,t1) = 3."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 would be all ordered pairs; only 3 are joinable end-to-end."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 is 3x3; most pairs do not connect, leaving 3 valid ones."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "The cycle closes (t3 then t1), so there are 3 joinable pairs, not 2."
+              }
+            ],
+            "generalFeedback": "Each state has 1 transition in and 1 out, so pairs = 1x1 per state = 3 total: (t1,t2), (t2,t3), and (t3,t1) since the cycle returns to S1.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify a sneak path",
+            "text": "<p>A media player spec defines: Stopped--play--&gt;Playing, Playing--stop--&gt;Stopped, Playing--pause--&gt;Paused, Paused--play--&gt;Playing. During testing, sending <code>stop</code> while <code>Paused</code> causes the player to jump to Stopped, even though the spec defines no such transition. What has been found?</p>",
+            "answers": [
+              {
+                "text": "A sneak path \u2014 an event accepted in a state where the spec defines no transition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 stop is undefined in Paused, yet the implementation acts on it: a sneak path."
+              },
+              {
+                "text": "A missing transition the spec forgot",
+                "fraction": 0,
+                "feedback": "The problem is an extra, unspecified transition in the implementation, not a spec omission \u2014 that is a sneak path."
+              },
+              {
+                "text": "A guard evaluating incorrectly",
+                "fraction": 0,
+                "feedback": "No guard is involved; the event stop is simply not defined in Paused, yet it fires."
+              },
+              {
+                "text": "A 1-switch coverage gap",
+                "fraction": 0,
+                "feedback": "This is an extra transition, not a missing pair; it is a sneak path detected by negative testing."
+              }
+            ],
+            "generalFeedback": "The spec has no Paused--stop--> transition, so the correct behaviour is to ignore or reject stop in Paused. The implementation instead transitions to Stopped \u2014 an undesired extra transition, i.e. a sneak path, which negative testing (firing undefined events) is designed to reveal.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why 0-switch misses a fault",
+            "text": "<p>A bug only appears when transition B is taken <strong>immediately after</strong> transition A (the pair A-then-B corrupts state), but each of A and B works fine in isolation. Which coverage level is needed to reliably force this fault, and why?</p>",
+            "answers": [
+              {
+                "text": "1-switch coverage \u2014 it exercises consecutive transition pairs, so the A-then-B sequence is guaranteed to be tested",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the fault depends on a specific pair, which 1-switch (length-2 sequences) forces."
+              },
+              {
+                "text": "State coverage \u2014 visiting both endpoint states triggers it",
+                "fraction": 0,
+                "feedback": "Visiting states does not force the specific A-then-B ordering; the fault can be missed."
+              },
+              {
+                "text": "0-switch coverage \u2014 taking A once and B once is enough",
+                "fraction": 0,
+                "feedback": "0-switch may take A and B in separate tests, never consecutively, so it can miss the pair fault."
+              },
+              {
+                "text": "No coverage level can find it",
+                "fraction": 0,
+                "feedback": "1-switch is specifically designed to catch order-dependent pair faults."
+              }
+            ],
+            "generalFeedback": "0-switch coverage only demands each transition once; A and B could be exercised in different tests and never adjacently. The fault needs the ordered pair A-then-B, exactly what 1-switch coverage requires by covering every valid length-2 transition sequence.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Sequence to reach Blocked (guard)",
+            "text": "<p>A login machine (initial state LoggedOut, attempt counter starts at 0):</p><pre>\nLoggedOut --submit[valid]--> LoggedIn\nLoggedOut --submit[invalid & attempts<2]--> LoggedOut  (attempts++)\nLoggedOut --submit[invalid & attempts==2]--> Blocked\nLoggedIn  --logout--> LoggedOut\nBlocked   --adminReset--> LoggedOut\n</pre><p>Which sequence of events reaches <code>Blocked</code>?</p>",
+            "answers": [
+              {
+                "text": "submit[invalid], submit[invalid], submit[invalid] \u2014 three invalid attempts",
+                "fraction": 100,
+                "feedback": "Correct \u2014 attempts goes 0->1 (stay), 1->2 (stay), then the third invalid submit with attempts==2 goes to Blocked."
+              },
+              {
+                "text": "submit[invalid], submit[invalid] \u2014 two invalid attempts",
+                "fraction": 0,
+                "feedback": "After two invalid submits attempts==2 but the machine is still LoggedOut; a third invalid submit is needed to reach Blocked."
+              },
+              {
+                "text": "submit[valid], logout, submit[invalid]",
+                "fraction": 0,
+                "feedback": "submit[valid] goes to LoggedIn, logout returns to LoggedOut with attempts still 0, so one invalid submit only increments to 1 \u2014 not Blocked."
+              },
+              {
+                "text": "submit[invalid], adminReset",
+                "fraction": 0,
+                "feedback": "adminReset is only defined in Blocked, and the machine is not there yet; this sequence is invalid."
+              }
+            ],
+            "generalFeedback": "Trace the guard on attempts: first invalid submit (attempts 0->1, stay LoggedOut), second invalid submit (attempts 1->2, stay LoggedOut), third invalid submit (attempts==2 now, so the guard [invalid & attempts==2] fires) -> Blocked. Three invalid attempts are required.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Negative test for undefined event",
+            "text": "<p>For the login machine, <code>logout</code> is only defined in <code>LoggedIn</code>. A tester fires <code>logout</code> while in <code>LoggedOut</code>. What is the correct expected result of this <strong>negative test</strong>?</p>",
+            "answers": [
+              {
+                "text": "The event is rejected/ignored: the machine stays in LoggedOut (no state change), possibly with an error",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an undefined event should leave the state unchanged (or raise an error), never silently transition."
+              },
+              {
+                "text": "The machine transitions to LoggedIn",
+                "fraction": 0,
+                "feedback": "That would be a sneak path; logout is undefined in LoggedOut and must not cause a transition."
+              },
+              {
+                "text": "The machine transitions to Blocked",
+                "fraction": 0,
+                "feedback": "Blocked is reached only via failed submits under the guard; logout has no such effect."
+              },
+              {
+                "text": "The attempt counter resets to 0 and the state changes",
+                "fraction": 0,
+                "feedback": "logout in LoggedOut is undefined; the correct behaviour is no state change, not a counter reset with a transition."
+              }
+            ],
+            "generalFeedback": "Negative testing fires events that are undefined in the current state to check for sneak paths. Since logout is undefined in LoggedOut, a correct implementation ignores or rejects it and remains in LoggedOut \u2014 any resulting transition would be a sneak path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count valid transitions: branch machine",
+            "text": '<p>For this table ("-" = undefined):</p><pre>\n       p        q\nA      B        C\nB      C        -\nC      A        -\n</pre><p>How many valid transitions does the machine have?</p>',
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 A/p, A/q, B/p, C/p are defined; the two q cells for B and C are dashes."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 counts every cell; two of them (B/q, C/q) are dashes, leaving 4 valid transitions."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 is the state count; there are 4 valid transitions."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 is the 1-switch pair count for this machine, not the number of single transitions (4)."
+              }
+            ],
+            "generalFeedback": "Count the non-dash cells: A--p-->B, A--q-->C, B--p-->C, C--p-->A = 4 valid transitions. The B/q and C/q cells are dashes (undefined).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "n-switch general definition",
+            "text": "<p>In Chow's switch-coverage hierarchy, what does <strong>n-switch</strong> coverage require?</p>",
+            "answers": [
+              {
+                "text": "Every valid sequence of n+1 consecutive transitions is exercised",
+                "fraction": 100,
+                "feedback": "Correct \u2014 n-switch covers length-(n+1) transition sequences; 0-switch is single transitions, 1-switch is pairs."
+              },
+              {
+                "text": "Every valid sequence of exactly n transitions is exercised",
+                "fraction": 0,
+                "feedback": "Off by one: n-switch covers n+1 transitions, so 0-switch is 1 transition."
+              },
+              {
+                "text": "Every state is visited at least n times",
+                "fraction": 0,
+                "feedback": "Switch coverage counts transition-sequence lengths, not repeated state visits."
+              },
+              {
+                "text": "Every path of length n through the diagram, ignoring validity",
+                "fraction": 0,
+                "feedback": "Only valid (defined) transition sequences count, and the length is n+1."
+              }
+            ],
+            "generalFeedback": "n-switch coverage requires every valid sequence of n+1 consecutive transitions. Thus 0-switch = single transitions, 1-switch = pairs, 2-switch = triples. Chow's W-method builds on this to detect faults in state machines.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimum transitions to cover: cycle",
+            "text": "<p>A cycle machine has transitions S1--x--&gt;S2, S2--y--&gt;S3, S3--z--&gt;S1. Starting from S1, what is the minimum number of transition steps to achieve <strong>transition coverage</strong>?</p>",
+            "answers": [
+              {
+                "text": "3 \u2014 x, y, z takes all three transitions and returns to S1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the three transitions chain into one length-3 walk covering them all."
+              },
+              {
+                "text": "2 \u2014 one walk of two transitions suffices",
+                "fraction": 0,
+                "feedback": "Two steps cover only two of the three transitions; the third is missed."
+              },
+              {
+                "text": "6 \u2014 each transition must be taken twice",
+                "fraction": 0,
+                "feedback": "Transition coverage requires each transition once; 3 steps suffice."
+              },
+              {
+                "text": "4 \u2014 you must return to the start twice",
+                "fraction": 0,
+                "feedback": "x, y, z already returns to S1 in 3 steps and covers everything."
+              }
+            ],
+            "generalFeedback": "The transitions connect S1->S2->S3->S1, so the walk x, y, z (3 steps) exercises all three transitions once and returns to the start. That is the minimum for transition coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Valid vs invalid 1-switch pair",
+            "text": "<p>For the turnstile transitions t1: Locked--coin--&gt;Unlocked, t2: Locked--push--&gt;Locked, t3: Unlocked--coin--&gt;Unlocked, t4: Unlocked--push--&gt;Locked, which ordered pair is a <strong>valid</strong> 1-switch sequence?</p>",
+            "answers": [
+              {
+                "text": "(t1, t4) \u2014 t1 ends in Unlocked and t4 starts in Unlocked",
+                "fraction": 100,
+                "feedback": "Correct \u2014 target(t1)=Unlocked=source(t4), so the pair chains validly."
+              },
+              {
+                "text": "(t1, t2) \u2014 t1 then t2",
+                "fraction": 0,
+                "feedback": "t1 ends in Unlocked but t2 starts in Locked, so they do not chain."
+              },
+              {
+                "text": "(t4, t3) \u2014 t4 then t3",
+                "fraction": 0,
+                "feedback": "t4 ends in Locked but t3 starts in Unlocked, so this pair is not joinable."
+              },
+              {
+                "text": "(t2, t4) \u2014 t2 then t4",
+                "fraction": 0,
+                "feedback": "t2 ends in Locked but t4 starts in Unlocked, so they do not connect."
+              }
+            ],
+            "generalFeedback": "A 1-switch pair (ti, tj) is valid only when target(ti) = source(tj). t1 ends in Unlocked and t4 starts in Unlocked, so (t1, t4) is valid. The other options break at the join point.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Guard decides which transition fires",
+            "text": "<p>From state <code>LoggedOut</code>, the login machine has two transitions on the same event <code>submit</code>: one guarded <code>[valid]</code> to LoggedIn, and one guarded <code>[invalid & attempts&lt;2]</code> back to LoggedOut. If <code>submit</code> occurs with correct credentials, which transition fires?</p>",
+            "answers": [
+              {
+                "text": "The [valid] transition to LoggedIn, because its guard is the one that holds",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with the same event, the guard that evaluates true selects the transition."
+              },
+              {
+                "text": "Both transitions fire simultaneously",
+                "fraction": 0,
+                "feedback": "Guards are mutually exclusive here; only the transition whose guard holds fires."
+              },
+              {
+                "text": "The [invalid] transition, because it is listed for LoggedOut",
+                "fraction": 0,
+                "feedback": "Its guard requires invalid credentials, which is false here, so it does not fire."
+              },
+              {
+                "text": "Neither, because two transitions share the event",
+                "fraction": 0,
+                "feedback": "Sharing an event is fine when guards disambiguate; the [valid] guard holds, so that transition fires."
+              }
+            ],
+            "generalFeedback": "When several transitions leave a state on the same event, their guards select which one fires. With correct credentials the [valid] guard is true and the [invalid ...] guard is false, so the machine transitions to LoggedIn.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "1-switch subsumes 0-switch",
+            "text": "<p>Achieving 1-switch coverage automatically achieves 0-switch (transition) coverage, because every pair of consecutive transitions includes both of its member transitions.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 covering all valid pairs means every transition appears as part of some pair, so all single transitions are exercised."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "1-switch does subsume 0-switch: any reachable transition is part of at least one covered pair, so it is exercised."
+              }
+            ],
+            "generalFeedback": "1-switch coverage is stronger than 0-switch. Exercising every valid length-2 sequence necessarily exercises each constituent transition, so 1-switch subsumes 0-switch (which in turn subsumes state coverage)."
+          },
+          {
+            "type": "multichoice",
+            "name": "Transition coverage length: door",
+            "text": "<p>The door controller has 4 valid transitions: Closed--open--&gt;Open, Open--close--&gt;Closed, Closed--lock--&gt;Locked, Locked--unlock--&gt;Closed. Starting from Closed, what is the minimum number of transition steps in a single walk that achieves transition coverage?</p>",
+            "answers": [
+              {
+                "text": "4 \u2014 open, close, lock, unlock chains all four and returns to Closed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the four transitions connect through Closed, so one 4-step walk covers them all."
+              },
+              {
+                "text": "3 \u2014 three steps are enough",
+                "fraction": 0,
+                "feedback": "Three steps take only three transitions; the fourth is missed."
+              },
+              {
+                "text": "5 \u2014 an extra step is unavoidable",
+                "fraction": 0,
+                "feedback": "Because every transition passes through Closed, they chain into exactly 4 steps with no repeats needed."
+              },
+              {
+                "text": "8 \u2014 each transition needs revisiting",
+                "fraction": 0,
+                "feedback": "Transition coverage needs each transition once; 4 steps suffice here."
+              }
+            ],
+            "generalFeedback": "All four transitions touch Closed, so the walk open (Closed->Open), close (Open->Closed), lock (Closed->Locked), unlock (Locked->Closed) chains them into a single 4-step tour covering every transition once \u2014 the minimum.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count 1-switch pairs: door",
+            "text": "<p>The door controller has these 4 valid transitions:</p><pre>\nd1: Closed --open--> Open\nd2: Closed --lock--> Locked\nd3: Open   --close--> Closed\nd4: Locked --unlock--> Closed\n</pre><p>How many valid <strong>1-switch</strong> sequences (ordered pairs of consecutive transitions) does it have?</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Closed has 2 in x 2 out = 4, Open has 1 in x 1 out = 1, Locked has 1 in x 1 out = 1; total 6."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the number of single transitions (0-switch), not the joinable pairs."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 is the turnstile's pair count; enumerating this door's pairs gives 6."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "Closed is entered by both d3 and d4 and left by both d1 and d2, giving 4 pairs through Closed alone; the total is 6, not 5."
+              }
+            ],
+            "generalFeedback": "For each state, pairs = (transitions in) x (transitions out). Closed: in {d3, d4}=2, out {d1, d2}=2 -> 4. Open: in {d1}=1, out {d3}=1 -> 1. Locked: in {d2}=1, out {d4}=1 -> 1. Total 4+1+1 = 6. Explicitly: (d3,d1),(d3,d2),(d4,d1),(d4,d2),(d1,d3),(d2,d4).",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u72C0\u614B",
+            "text": "<p>\u5728\u6709\u9650\u72C0\u614B\u6A5F\u4E2D\uFF0C<strong>\u72C0\u614B\uFF08state\uFF09</strong>\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7CFB\u7D71\u6240\u8655\u7684\u4E00\u7A2E\u60C5\u6CC1\u6216\u6A21\u5F0F\uFF0C\u6703\u4E00\u76F4\u7DAD\u6301\u5230\u67D0\u500B\u4E8B\u4EF6\u4F7F\u5176\u6539\u8B8A\u70BA\u6B62",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u72C0\u614B\u63CF\u8FF0\u7CFB\u7D71\u76EE\u524D\u7684\u60C5\u6CC1\uFF0C\u76F4\u5230\u767C\u751F\u8F49\u79FB\u624D\u6703\u96E2\u958B\u3002"
+              },
+              {
+                "text": "\u89F8\u767C\u6539\u8B8A\u7684\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E8B\u4EF6\uFF08event\uFF09\uFF0C\u4E0D\u662F\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u5F9E\u4E00\u500B\u60C5\u6CC1\u79FB\u52D5\u5230\u53E6\u4E00\u500B\u60C5\u6CC1\u7684\u52D5\u4F5C",
+                "fraction": 0,
+                "feedback": "\u90A3\u500B\u79FB\u52D5\u662F\u8F49\u79FB\uFF08transition\uFF09\uFF1B\u72C0\u614B\u6307\u7684\u662F\u60C5\u6CC1\u672C\u8EAB\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u7522\u751F\u7684\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u8F38\u51FA\u662F\u52D5\u4F5C\uFF08action\uFF09\uFF1B\u72C0\u614B\u662F\u7CFB\u7D71\u505C\u7559\u7684\u4E00\u7A2E\u6A21\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u72C0\u614B\u662F\u4E00\u7A2E\u660E\u78BA\u7684\u6A21\u5F0F\u6216\u60C5\u6CC1\uFF08\u4F8B\u5982 Locked\u3001Open\uFF09\uFF0C\u7CFB\u7D71\u6703\u505C\u7559\u5176\u4E2D\uFF0C\u76F4\u5230\u67D0\u500B\u4E8B\u4EF6\u9A45\u4F7F\u5B83\u8F49\u79FB\u5230\u53E6\u4E00\u500B\u72C0\u614B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u4E8B\u4EF6",
+            "text": "<p>\u5728\u72C0\u614B\u8F49\u79FB\u6E2C\u8A66\u4E2D\uFF0C<strong>\u4E8B\u4EF6\uFF08event\uFF0C\u6216\u8F38\u5165\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u767C\u751F\u7684\u67D0\u4EF6\u4E8B\uFF08\u523A\u6FC0\u6216\u8F38\u5165\uFF09\uFF0C\u53EF\u80FD\u5C0E\u81F4\u4E00\u6B21\u8F49\u79FB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E8B\u4EF6\u662F\u53EF\u80FD\u4F7F\u72C0\u614B\u6A5F\u5728\u72C0\u614B\u9593\u79FB\u52D5\u7684\u89F8\u767C\u56E0\u5B50\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u505C\u7559\u5176\u4E2D\u7684\u4E00\u7A2E\u6A21\u5F0F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u72C0\u614B\uFF0C\u4E0D\u662F\u4E8B\u4EF6\u3002"
+              },
+              {
+                "text": "\u9644\u52A0\u5728\u8F49\u79FB\u4E0A\u7684\u5E03\u6797\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8B77\u885B\u689D\u4EF6\uFF08guard\uFF09\uFF0C\u4E0D\u662F\u4E8B\u4EF6\u672C\u8EAB\u3002"
+              },
+              {
+                "text": "\u72C0\u614B\u6A5F\u7684\u8D77\u59CB\u9EDE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u521D\u59CB\u72C0\u614B\uFF1B\u4E8B\u4EF6\u662F\u4E00\u7A2E\u523A\u6FC0\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E8B\u4EF6\uFF08\u8F38\u5165\uFF0F\u523A\u6FC0\uFF09\u662F\u5C0D\u72C0\u614B\u6A5F\u767C\u751F\u7684\u4E8B\u2014\u2014\u4F8B\u5982\u300Ccoin\u300D\u6216\u300Cpush\u300D\u2014\u2014\u5B83\u53EF\u80FD\u4F9D\u7576\u524D\u72C0\u614B\u8207\u4EFB\u4F55\u8B77\u885B\u689D\u4EF6\u800C\u89F8\u767C\u4E00\u6B21\u8F49\u79FB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u8F49\u79FB",
+            "text": "<p>\u72C0\u614B\u6A5F\u4E2D\u7684<strong>\u8F49\u79FB\uFF08transition\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7531\u4E8B\u4EF6\u89F8\u767C\u3001\u5F9E\u4E00\u500B\u72C0\u614B\u79FB\u52D5\u5230\u53E6\u4E00\u500B\u72C0\u614B\uFF08\u6216\u56DE\u5230\u540C\u4E00\u72C0\u614B\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8F49\u79FB\u9023\u7D50\u4E86\u4F86\u6E90\u72C0\u614B\u3001\u4E8B\u4EF6\u8207\u76EE\u7684\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u505C\u7559\u5176\u4E2D\u7684\u6A21\u5F0F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u72C0\u614B\uFF1B\u8F49\u79FB\u662F\u72C0\u614B\u4E4B\u9593\u7684\u79FB\u52D5\u3002"
+              },
+              {
+                "text": "\u6240\u6709\u53EF\u80FD\u8F38\u5165\u7684\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u4E8B\u4EF6\uFF1B\u8F49\u79FB\u7528\u4E8B\u4EF6\u4F86\u6539\u8B8A\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u72C0\u614B\u6A5F\u7684\u6700\u7D42\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u67D0\u500B\u7279\u5B9A\u72C0\u614B\uFF0C\u4E0D\u662F\u8F49\u79FB\u3002"
+              }
+            ],
+            "generalFeedback": "\u8F49\u79FB\u662F\u7531\u4E8B\u4EF6\u89F8\u767C\u7684\u6709\u5411\u79FB\u52D5\uFF1A\u4F86\u6E90\u72C0\u614B + \u4E8B\u4EF6 [\u8B77\u885B\u689D\u4EF6] / \u52D5\u4F5C -> \u76EE\u7684\u72C0\u614B\u3002\u5B83\u4E5F\u53EF\u80FD\u56DE\u5230\u540C\u4E00\u72C0\u614B\uFF08\u81EA\u8FF4\u5708 self-loop\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u8B77\u885B\u689D\u4EF6",
+            "text": "<p>\u8F49\u79FB\u4E0A\u7684<strong>\u8B77\u885B\u689D\u4EF6\uFF08guard\uFF0C\u6216\u689D\u4EF6\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u5E03\u6797\u689D\u4EF6\uFF0C\u7576\u4E8B\u4EF6\u767C\u751F\u6642\u5FC5\u9808\u70BA\u771F\uFF0C\u8F49\u79FB\u624D\u6703\u89F8\u767C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5373\u4F7F\u4E8B\u4EF6\u767C\u751F\uFF0C\u53EA\u6709\u5728\u8B77\u885B\u689D\u4EF6\u6210\u7ACB\u6642\u8A72\u8F49\u79FB\u624D\u6703\u89F8\u767C\u3002"
+              },
+              {
+                "text": "\u8F49\u79FB\u904E\u7A0B\u4E2D\u7522\u751F\u7684\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u52D5\u4F5C\uFF08action\uFF09\uFF0C\u4E0D\u662F\u8B77\u885B\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u89F8\u767C\u8A72\u8F49\u79FB\u7684\u4E8B\u4EF6",
+                "fraction": 0,
+                "feedback": "\u4E8B\u4EF6\u662F\u89F8\u767C\u56E0\u5B50\uFF1B\u8B77\u885B\u689D\u4EF6\u662F\u52A0\u5728\u5176\u4E0A\u7684\u984D\u5916\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u8F49\u79FB\u7684\u76EE\u7684\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u76EE\u7684\u72C0\u614B\u662F\u8F49\u79FB\u62B5\u9054\u7684\u5730\u65B9\uFF1B\u8B77\u885B\u689D\u4EF6\u6C7A\u5B9A\u5B83\u662F\u5426\u89F8\u767C\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B77\u885B\u689D\u4EF6\u662F\u8F49\u79FB\u4E0A\u7684\u5E03\u6797\u689D\u4EF6\u3002\u7576\u4E8B\u4EF6\u767C\u751F\u6642\uFF0C\u53EA\u6709\u5728\u8B77\u885B\u689D\u4EF6\u8A55\u4F30\u70BA\u771F\u6642\u8A72\u8F49\u79FB\u624D\u6703\u89F8\u767C\uFF1B\u5426\u5247\u5C31\u5957\u7528\u53E6\u4E00\u500B\u8F49\u79FB\uFF08\u6216\u6C92\u6709\u8F49\u79FB\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u52D5\u4F5C",
+            "text": "<p>\u72C0\u614B\u6A5F\u4E2D\u7684<strong>\u52D5\u4F5C\uFF08action\uFF0C\u6216\u8F38\u51FA\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7576\u8F49\u79FB\u89F8\u767C\u6642\uFF08\u6216\u5728\u67D0\u72C0\u614B\u4E2D\uFF09\u7522\u751F\u7684\u6548\u679C\u6216\u8F38\u51FA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u52D5\u4F5C\u662F\u72C0\u614B\u6A5F\u767C\u51FA\u7684\u53EF\u89C0\u5BDF\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u8F49\u79FB\u8981\u89F8\u767C\u6240\u5FC5\u9808\u6210\u7ACB\u7684\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8B77\u885B\u689D\u4EF6\uFF0C\u4E0D\u662F\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u505C\u7559\u5176\u4E2D\u7684\u6A21\u5F0F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u89F8\u767C\u6539\u8B8A\u7684\u523A\u6FC0",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E8B\u4EF6\uFF1B\u52D5\u4F5C\u662F\u7522\u751F\u7684\u6548\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "\u52D5\u4F5C\u662F\u8207\u8F49\u79FB\u76F8\u95DC\u806F\u7684\u8F38\u51FA\u6216\u6548\u679C\uFF08\u4F8B\u5982\u300C\u5410\u51FA\u7968\u5238\u300D\uFF09\uFF0C\u6216\u8207\u505C\u7559\u5728\u67D0\u72C0\u614B\u76F8\u95DC\u3002\u5B83\u662F\u6E2C\u8A66\u8005\u7528\u4F86\u78BA\u8A8D\u9810\u671F\u884C\u70BA\u7684\u89C0\u5BDF\u5C0D\u8C61\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u521D\u59CB\u72C0\u614B",
+            "text": "<p>\u72C0\u614B\u6A5F\u7684<strong>\u521D\u59CB\u72C0\u614B\uFF08initial state\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u8655\u7406\u4EFB\u4F55\u4E8B\u4EF6\u4E4B\u524D\uFF0C\u72C0\u614B\u6A5F\u6240\u8655\u7684\u72C0\u614B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u662F\u8D77\u59CB\u72C0\u614B\uFF0C\u901A\u5E38\u4EE5\u4E00\u500B\u5BE6\u5FC3\u5713\u9EDE\u9023\u51FA\u7684\u7BAD\u982D\u6A19\u793A\u3002"
+              },
+              {
+                "text": "\u72C0\u614B\u6A5F\u505C\u6B62\u6642\u6240\u8655\u7684\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6700\u7D42\u72C0\u614B\uFF0C\u4E0D\u662F\u521D\u59CB\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u4EFB\u4F55\u5177\u6709\u81EA\u8FF4\u5708\u7684\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u81EA\u8FF4\u5708\u8207\u54EA\u4E00\u500B\u662F\u8D77\u59CB\u72C0\u614B\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u64C1\u6709\u6700\u591A\u5916\u5411\u8F49\u79FB\u7684\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u8F49\u79FB\u6578\u91CF\u4E26\u4E0D\u6C7A\u5B9A\u521D\u59CB\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u521D\u59CB\uFF08\u8D77\u59CB\uFF09\u72C0\u614B\u662F\u72C0\u614B\u6A5F\u5728\u8655\u7406\u4EFB\u4F55\u4E8B\u4EF6\u524D\u6240\u5728\u4E4B\u8655\u3002\u5728\u5716\u4E2D\u901A\u5E38\u4EE5\u4E00\u500B\u5F9E\u5BE6\u5FC3\u5713\u9023\u5165\u7684\u7BAD\u982D\u6A19\u793A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u72C0\u614B\u6DB5\u84CB\u7684\u5B9A\u7FA9",
+            "text": "<p><strong>\u72C0\u614B\u6DB5\u84CB\uFF08state coverage\uFF09</strong>\u8981\u6C42\u6E2C\u8A66\u5957\u4EF6\u505A\u5230\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u72C0\u614B\u81F3\u5C11\u88AB\u9020\u8A2A\u4E00\u6B21",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7576\u6BCF\u500B\u72C0\u614B\u90FD\u88AB\u67D0\u500B\u6E2C\u8A66\u9032\u5165\u6642\uFF0C\u5C31\u9054\u6210\u72C0\u614B\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6709\u6548\u8F49\u79FB\u81F3\u5C11\u88AB\u57F7\u884C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8F49\u79FB\u6DB5\u84CB\uFF0C\u662F\u66F4\u5F37\u7684\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u6BCF\u4E00\u5C0D\u9023\u7E8C\u8F49\u79FB\u90FD\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 1-switch \u6DB5\u84CB\uFF0C\u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u4E8B\u4EF6\u90FD\u5728\u6BCF\u500B\u72C0\u614B\u4E2D\u88AB\u9001\u51FA",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u5305\u542B\u7121\u6548\u7D44\u5408\uFF1B\u72C0\u614B\u6DB5\u84CB\u53EA\u8981\u6C42\u9020\u8A2A\u6BCF\u500B\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u72C0\u614B\u6DB5\u84CB\u662F\u6700\u5F31\u7684\u72C0\u614B\u5F0F\u6E96\u5247\uFF1A\u5B83\u53EA\u8981\u6C42\u6BCF\u500B\u72C0\u614B\u88AB\u9020\u8A2A\u3002\u5373\u4F7F\u6C92\u6709\u57F7\u884C\u6BCF\u4E00\u500B\u8F49\u79FB\uFF0C\u4E5F\u53EF\u80FD\u9054\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8F49\u79FB\u6DB5\u84CB\u7684\u5B9A\u7FA9",
+            "text": "<p><strong>\u8F49\u79FB\u6DB5\u84CB\uFF08transition coverage\uFF0C\u53C8\u7A31 0-switch \u6DB5\u84CB\uFF09</strong>\u8981\u6C42\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u6709\u6548\u8F49\u79FB\u81F3\u5C11\u88AB\u57F7\u884C\u4E00\u6B21",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8F49\u79FB\u6DB5\u84CB\u57F7\u884C\u6BCF\u4E00\u500B\u55AE\u4E00\u6709\u6548\u8F49\u79FB\uFF1B\u9019\u5C31\u662F 0-switch \u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u72C0\u614B\u81F3\u5C11\u88AB\u9020\u8A2A\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u53EA\u662F\u72C0\u614B\u6DB5\u84CB\uFF0C\u8F03\u5F31\u3002"
+              },
+              {
+                "text": "\u6BCF\u4E00\u5C0D\u6709\u6548\u7684\u9023\u7E8C\u8F49\u79FB\u90FD\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 1-switch \u6DB5\u84CB\uFF0C\u6BD4 0-switch \u66F4\u5F37\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u8B77\u885B\u689D\u4EF6\u90FD\u88AB\u8A55\u4F30\u70BA\u771F\u8207\u5047",
+                "fraction": 0,
+                "feedback": "\u8B77\u885B\u689D\u4EF6\u53D6\u503C\u6DB5\u84CB\u662F\u53E6\u4E00\u7A2E\u4EE5\u689D\u4EF6\u70BA\u57FA\u790E\u7684\u6E96\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u8F49\u79FB\uFF080-switch\uFF09\u6DB5\u84CB\u8981\u6C42\u6BCF\u500B\u6709\u6548\u8F49\u79FB\u81F3\u5C11\u88AB\u57F7\u884C\u4E00\u6B21\u3002\u7531\u65BC\u57F7\u884C\u4E00\u500B\u8F49\u79FB\u5C31\u4EE3\u8868\u9020\u8A2A\u4E86\u5B83\u7684\u4F86\u6E90\u8207\u76EE\u7684\u72C0\u614B\uFF0C\u56E0\u6B64\u8F49\u79FB\u6DB5\u84CB\u5305\u542B\uFF08subsume\uFF09\u72C0\u614B\u6DB5\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6F5B\u884C\u8DEF\u5F91",
+            "text": "<p>\u5728\u72C0\u614B\u8F49\u79FB\u6E2C\u8A66\u4E2D\uFF0C<strong>\u6F5B\u884C\u8DEF\u5F91\uFF08sneak path\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u898F\u683C\u8AAA\u660E\u4E0D\u61C9\u63A5\u53D7\u8A72\u4E8B\u4EF6\u7684\u72C0\u614B\u4E0B\u537B\u63A5\u53D7\u4E86\u5B83\u2014\u2014\u4E00\u689D\u4E0D\u8A72\u5B58\u5728\u3001\u984D\u5916\u7684\u8F49\u79FB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6F5B\u884C\u8DEF\u5F91\u662F\u5BE6\u4F5C\u932F\u8AA4\u5730\u5141\u8A31\u7684\u672A\u898F\u5B9A\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u6E2C\u8A66\u6070\u597D\u6F0F\u6389\u7684\u6709\u6548\u8F49\u79FB",
+                "fraction": 0,
+                "feedback": "\u90A3\u53EA\u662F\u672A\u88AB\u6DB5\u84CB\u7684\u884C\u70BA\uFF0C\u4E0D\u662F\u6F5B\u884C\u8DEF\u5F91\uFF1B\u6F5B\u884C\u8DEF\u5F91\u662F\u984D\u5916\u3001\u4E0D\u8A72\u6709\u7684\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "\u9020\u8A2A\u6BCF\u500B\u72C0\u614B\u7684\u6700\u77ED\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u6DB5\u84CB\u5DE1\u8A2A\uFF0C\u4E0D\u662F\u6F5B\u884C\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u8B77\u885B\u689D\u4EF6\u6C38\u9060\u70BA\u5047\u7684\u8F49\u79FB",
+                "fraction": 0,
+                "feedback": "\u6C38\u9060\u70BA\u5047\u7684\u8B77\u885B\u689D\u4EF6\u6703\u7522\u751F\u6B7B\u8F49\u79FB\uFF0C\u4E0D\u662F\u6F5B\u884C\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u6F5B\u884C\u8DEF\u5F91\u662F\u4E0D\u8A72\u6709\u7684\u8F49\u79FB\uFF1A\u5728\u898F\u683C\u672A\u5B9A\u7FA9\u8A72\u4E8B\u4EF6\u8F49\u79FB\u7684\u72C0\u614B\u4E0B\uFF0C\u5BE6\u4F5C\u537B\u5C0D\u8A72\u4E8B\u4EF6\u6709\u6240\u53CD\u61C9\u3002\u8CA0\u5411\u6E2C\u8A66\uFF08\u767C\u9001\u672A\u5B9A\u7FA9\u4E8B\u4EF6\uFF09\u7528\u4F86\u5075\u6E2C\u6F5B\u884C\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "0-switch \u7B49\u65BC\u8F49\u79FB\u6DB5\u84CB",
+            "text": "<p>\u300C0-switch \u6DB5\u84CB\u300D\u662F\u8F49\u79FB\u6DB5\u84CB\u7684\u53E6\u4E00\u500B\u540D\u7A31\u2014\u2014\u81F3\u5C11\u57F7\u884C\u6BCF\u4E00\u500B\u55AE\u4E00\u6709\u6548\u8F49\u79FB\u4E00\u6B21\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20140-switch \u6307\u55AE\u4E00\u8F49\u79FB\uFF0C\u4E5F\u5C31\u662F\u8F49\u79FB\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "0-switch \u6DB5\u84CB\u6B63\u662F\u8F49\u79FB\u6DB5\u84CB\uFF1B1-switch \u624D\u6DB5\u84CB\u6210\u5C0D\u7684\u8F49\u79FB\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 Chow \u7684 switch \u8853\u8A9E\u4E2D\uFF0C0-switch \u6DB5\u84CB\u9577\u5EA6\u70BA 1 \u7684\u8F49\u79FB\u5E8F\u5217\uFF08\u8F49\u79FB\u6DB5\u84CB\uFF09\uFF0C1-switch \u6DB5\u84CB\u5169\u500B\u9023\u7E8C\u8F49\u79FB\u7684\u5E8F\u5217\uFF0C\u4F9D\u6B64\u985E\u63A8\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u65CB\u8F49\u67F5\u9580\uFF1ALocked \u6536\u5230 coin",
+            "text": "<p>\u4E00\u500B\u65CB\u8F49\u67F5\u9580\u6709\u5169\u500B\u72C0\u614B\u8207\u5169\u500B\u4E8B\u4EF6\uFF1A</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>\u82E5\u67F5\u9580\u8655\u65BC <code>Locked</code> \u4E14\u767C\u751F <code>coin</code> \u4E8B\u4EF6\uFF0C\u4E0B\u4E00\u500B\u72C0\u614B\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Unlocked",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Locked \u5217\u3001coin \u6B04\u7684\u683C\u5B50\u662F Unlocked\u3002"
+              },
+              {
+                "text": "Locked",
+                "fraction": 0,
+                "feedback": "Locked \u6536\u5230 push \u6642\u624D\u7DAD\u6301 Locked\uFF0C\u800C\u4E0D\u662F coin\u3002"
+              },
+              {
+                "text": "\u8A72\u4E8B\u4EF6\u5728 Locked \u4E2D\u7121\u6548",
+                "fraction": 0,
+                "feedback": "coin \u5728 Locked \u4E2D\u6709\u5B9A\u7FA9\uFF1B\u8A72\u683C\u5B50\u662F Unlocked\u3002"
+              },
+              {
+                "text": "\u72C0\u614B\u6A5F\u6C92\u6709\u4E0B\u4E00\u500B\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u8868\u683C\u5C0D\u6B64\u683C\u5B9A\u7FA9\u4E86\u4E0B\u4E00\u500B\u72C0\u614B\uFF08Unlocked\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u67E5\u8868\uFF1ALocked \u5217\u3001coin \u6B04\uFF0C\u4E0B\u4E00\u500B\u72C0\u614B\u662F Unlocked\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u65CB\u8F49\u67F5\u9580\uFF1AUnlocked \u6536\u5230 push",
+            "text": "<p>\u4F7F\u7528\u540C\u4E00\u500B\u65CB\u8F49\u67F5\u9580\uFF1A</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>\u82E5\u67F5\u9580\u8655\u65BC <code>Unlocked</code> \u4E14\u767C\u751F <code>push</code> \u4E8B\u4EF6\uFF0C\u4E0B\u4E00\u500B\u72C0\u614B\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Locked",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Unlocked \u5217\u3001push \u6B04\u7684\u683C\u5B50\u662F Locked\u3002"
+              },
+              {
+                "text": "Unlocked",
+                "fraction": 0,
+                "feedback": "Unlocked \u6536\u5230 coin \u6642\u624D\u7DAD\u6301 Unlocked\uFF0C\u800C\u4E0D\u662F push\u3002"
+              },
+              {
+                "text": "\u8A72\u4E8B\u4EF6\u5728 Unlocked \u4E2D\u7121\u6548",
+                "fraction": 0,
+                "feedback": "push \u5728 Unlocked \u4E2D\u6709\u5B9A\u7FA9\uFF0C\u4E14\u5C0E\u5411 Locked\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u6703\u56DE\u5230\u521D\u59CB\u72C0\u614B\u6A19\u8A18",
+                "fraction": 0,
+                "feedback": "\u4E0B\u4E00\u500B\u72C0\u614B\u662F Locked\uFF0C\u9019\u88E1\u5B83\u6070\u597D\u4E5F\u662F\u521D\u59CB\u72C0\u614B\uFF0C\u4F46\u8981\u76F4\u63A5\u7531\u683C\u5B50\u8B80\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "\u67E5\u8868\uFF1AUnlocked \u5217\u3001push \u6B04\uFF0C\u4E0B\u4E00\u500B\u72C0\u614B\u662F Locked\u3002\u9019\u6A21\u64EC\u4E86\u4E00\u500B\u4EBA\u63A8\u904E\u67F5\u9580\u4E26\u4F7F\u5176\u91CD\u65B0\u4E0A\u9396\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5716\u8207\u8868\u7684\u683C\u5B50",
+            "text": "<p>\u5728\u4E00\u500B\u4EE5\u300C\u5217 = \u72C0\u614B\u3001\u6B04 = \u4E8B\u4EF6\u300D\u6392\u5217\u7684\u72C0\u614B\u8F49\u79FB<strong>\u8868</strong>\u4E2D\uFF0C\u55AE\u4E00\u683C\u5B50\u5B58\u653E\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u8A72\u72C0\u614B\u767C\u751F\u8A72\u4E8B\u4EF6\u6642\u6240\u62B5\u9054\u7684\u4E0B\u4E00\u500B\u72C0\u614B\uFF08\u82E5\u672A\u5B9A\u7FA9\u5247\u70BA\u300C-\u300D\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u683C\u5B50\u662F (\u5217\u72C0\u614B, \u6B04\u4E8B\u4EF6) \u7684\u76EE\u7684\u72C0\u614B\uFF0C\u672A\u5B9A\u7FA9\u8F49\u79FB\u6642\u586B\u7834\u6298\u865F\u3002"
+              },
+              {
+                "text": "\u8A72\u4E8B\u4EF6\u5DF2\u88AB\u6E2C\u8A66\u7684\u6B21\u6578",
+                "fraction": 0,
+                "feedback": "\u683C\u5B50\u5B58\u653E\u4E0B\u4E00\u500B\u72C0\u614B\uFF0C\u4E0D\u662F\u6E2C\u8A66\u6B21\u6578\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u8B77\u885B\u689D\u4EF6\u904B\u7B97\u5F0F",
+                "fraction": 0,
+                "feedback": "\u683C\u5B50\u7D66\u7684\u662F\u7D50\u679C\u7684\u4E0B\u4E00\u500B\u72C0\u614B\uFF1B\u8B77\u885B\u689D\u4EF6\u53EF\u80FD\u9650\u5B9A\u5B83\uFF0C\u4F46\u683C\u5B50\u7684\u5167\u5BB9\u662F\u76EE\u7684\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u8A72\u72C0\u614B\u662F\u5426\u70BA\u521D\u59CB\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u521D\u59CB\u72C0\u614B\u6A19\u8A18\u662F\u5206\u958B\u7684\uFF1B\u683C\u5B50\u8A18\u9304\u7684\u662F\u67D0\u4E8B\u4EF6\u7684\u4E0B\u4E00\u500B\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u72C0\u614B\u8F49\u79FB\u8868\u4EE5\u72C0\u614B\u70BA\u5217\u3001\u4E8B\u4EF6\u70BA\u6B04\uFF1B\u6BCF\u500B\u683C\u5B50\u6307\u51FA\u8A72 (\u72C0\u614B, \u4E8B\u4EF6) \u5C0D\u7684\u4E0B\u4E00\u500B\u72C0\u614B\uFF0C\u672A\u5B9A\u7FA9\u6642\u7528\u300C-\u300D\uFF08\u6216\u7A7A\u767D\uFF09\u3002\u5716\u5247\u4EE5\u7BAD\u982D\u8868\u9054\u76F8\u540C\u8CC7\u8A0A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u6642\u9069\u5408\u72C0\u614B\u5F0F\u6E2C\u8A66",
+            "text": "<p>\u72C0\u614B\u8F49\u79FB\u6E2C\u8A66<strong>\u6700</strong>\u9069\u5408\u54EA\u4E00\u7A2E\u7CFB\u7D71\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7531\u4E8B\u4EF6\u9A45\u52D5\u3001\u6A21\u5F0F\u8C50\u5BCC\u3001\u53CD\u61C9\u53D6\u6C7A\u65BC\u7576\u524D\u72C0\u614B\u7684\u7CFB\u7D71",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7576\u884C\u70BA\u53D6\u6C7A\u65BC\u6B77\u53F2\uFF0F\u6A21\u5F0F\u6642\uFF08\u5982\u901A\u8A0A\u5354\u5B9A\u3001UI\u3001\u63A7\u5236\u5668\uFF09\uFF0C\u72C0\u614B\u5F0F\u6E2C\u8A66\u6700\u80FD\u767C\u63EE\u3002"
+              },
+              {
+                "text": "\u7D14\u7CB9\u7121\u72C0\u614B\u3001\u8F38\u51FA\u53EA\u53D6\u6C7A\u65BC\u7576\u524D\u8F38\u5165\u7684\u6578\u5B78\u51FD\u5F0F",
+                "fraction": 0,
+                "feedback": "\u7121\u72C0\u614B\u51FD\u5F0F\u6C92\u6709\u6A21\u5F0F\u53EF\u5EFA\u6A21\uFF1B\u7B49\u50F9\uFF0F\u908A\u754C\u503C\u6E2C\u8A66\u66F4\u9069\u5408\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u6C92\u6709\u8F38\u5165\u7684\u7CFB\u7D71",
+                "fraction": 0,
+                "feedback": "\u72C0\u614B\u6A5F\u7531\u4E8B\u4EF6\uFF0F\u8F38\u5165\u9A45\u52D5\uFF1B\u6BEB\u7121\u8F38\u5165\u7684\u7CFB\u7D71\u6C92\u6709\u53EF\u5EFA\u6A21\u70BA\u8F49\u79FB\u7684\u6771\u897F\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u4EE5\u7269\u4EF6\u5C0E\u5411\u8A9E\u8A00\u64B0\u5BEB\u7684\u7CFB\u7D71",
+                "fraction": 0,
+                "feedback": "\u6B64\u6280\u8853\u8207\u8A9E\u8A00\u7121\u95DC\uFF1B\u5B83\u53D6\u6C7A\u65BC\u7CFB\u7D71\u662F\u5426\u7531\u72C0\u614B\u9A45\u52D5\uFF0C\u800C\u975E\u8A9E\u8A00\u3002"
+              }
+            ],
+            "generalFeedback": "\u72C0\u614B\u8F49\u79FB\u6E2C\u8A66\u9069\u7528\u65BC\u7531\u4E8B\u4EF6\u9A45\u52D5\u3001\u6A21\u5F0F\u8C50\u5BCC\u7684\u7CFB\u7D71\u2014\u2014\u901A\u8A0A\u5354\u5B9A\u3001\u5D4C\u5165\u5F0F\u63A7\u5236\u5668\u3001UI \u6D41\u7A0B\u3001\u81EA\u52D5\u8CA9\u8CE3\u6A5F\u2014\u2014\u540C\u4E00\u4E8B\u4EF6\u5728\u4E0D\u540C\u72C0\u614B\u6703\u7522\u751F\u4E0D\u540C\u7D50\u679C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7834\u6298\u865F\u683C\u5B50\u7684\u610F\u7FA9",
+            "text": "<p>\u5728\u72C0\u614B\u8F49\u79FB\u8868\u4E2D\uFF0C\u683C\u5B50\u88E1\u7684\u300C-\u300D\uFF08\u7834\u6298\u865F\uFF0C\u6216\u7A7A\u767D\uFF09\u901A\u5E38\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u4E8B\u4EF6\u5728\u8A72\u72C0\u614B\u672A\u5B9A\u7FA9\uFF08\u7121\u6548\uFF09\u2014\u2014\u6C92\u6709\u898F\u5B9A\u7684\u8F49\u79FB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7834\u6298\u865F\u6A19\u793A\u8A72 (\u72C0\u614B, \u4E8B\u4EF6) \u5C0D\u662F\u672A\u5B9A\u7FA9\uFF0F\u7121\u6548\u7684\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "\u72C0\u614B\u6A5F\u56DE\u5230\u5B83\u7684\u521D\u59CB\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u7834\u6298\u865F\u8868\u793A\u6C92\u6709\u5B9A\u7FA9\u8F49\u79FB\uFF0C\u800C\u4E0D\u662F\u8DF3\u56DE\u521D\u59CB\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u8A72\u4E8B\u4EF6\u7E3D\u662F\u8B93\u72C0\u614B\u6A5F\u505C\u7559\u5728\u540C\u4E00\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u81EA\u8FF4\u5708\u6703\u5728\u683C\u5B50\u4E2D\u5BEB\u51FA\u540C\u4E00\u500B\u72C0\u614B\uFF1B\u7834\u6298\u865F\u8868\u793A\u8A72\u4E8B\u4EF6\u5728\u6B64\u672A\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u8A72\u8F49\u79FB\u6709\u4E00\u500B\u76EE\u524D\u70BA\u771F\u7684\u8B77\u885B\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u7834\u6298\u865F\u8868\u793A\u6C92\u6709\u5DF2\u5B9A\u7FA9\u7684\u8F49\u79FB\uFF0C\u800C\u4E0D\u662F\u8B77\u885B\u689D\u4EF6\u6210\u7ACB\u3002"
+              }
+            ],
+            "generalFeedback": "\u7834\u6298\u865F\uFF08\u6216\u7A7A\u767D\uFF09\u6A19\u793A\u4E00\u500B\u898F\u683C\u672A\u5B9A\u7FA9\u8F49\u79FB\u7684 (\u72C0\u614B, \u4E8B\u4EF6) \u5C0D\u2014\u2014\u8A72\u4E8B\u4EF6\u5728\u8A72\u72C0\u614B\u662F\u7121\u6548\u7684\u3002\u767C\u9001\u5B83\u6B63\u662F\u8CA0\u5411\u6E2C\u8A66\u7528\u4F86\u5075\u6E2C\u6F5B\u884C\u8DEF\u5F91\u7684\u624B\u6BB5\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u6578\u9580\u63A7\u5236\u5668\u7684\u72C0\u614B\u6578",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u9580\u63A7\u5236\u5668\uFF08\u683C\u5B50\u7D66\u51FA\u4E0B\u4E00\u500B\u72C0\u614B\uFF0C\u300C-\u300D= \u672A\u5B9A\u7FA9\uFF09\uFF1A</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>\u9019\u500B\u72C0\u614B\u6A5F\u6709\u5E7E\u500B<strong>\u72C0\u614B</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5217\u6709 Closed\u3001Open\u3001Locked\uFF0C\u5171\u4E09\u500B\u72C0\u614B\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u4E8B\u4EF6\uFF08\u6B04\uFF09\u7684\u6578\u91CF\uFF0C\u4E0D\u662F\u72C0\u614B\u6578\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u6DF7\u6DC6\u4E86\u72C0\u614B\u8207\u4E8B\u4EF6\uFF1B\u53EA\u6578\u5217\u5373\u53EF\uFF1A3\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 \u662F 3 \u5217 x 4 \u6B04\uFF08\u5168\u90E8\u683C\u5B50\uFF09\uFF1B\u72C0\u614B\u6578\u662F\u5217\u6578\uFF1A3\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u4E00\u5217\u662F\u4E00\u500B\u72C0\u614B\u3002\u5217\u70BA Closed\u3001Open\u3001Locked\uFF0C\u6240\u4EE5\u6709 3 \u500B\u72C0\u614B\u3002\u6B04\uFF08open\u3001close\u3001lock\u3001unlock\uFF09\u662F\u4E8B\u4EF6\uFF0C\u4E0D\u662F\u72C0\u614B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6578\u9580\u63A7\u5236\u5668\u7684\u6709\u6548\u8F49\u79FB\u6578",
+            "text": "<p>\u5C0D\u540C\u4E00\u500B\u9580\u63A7\u5236\u5668\uFF1A</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>\u5B83\u5B9A\u7FA9\u4E86\u5E7E\u500B<strong>\u6709\u6548\u8F49\u79FB</strong>\uFF08\u975E\u7834\u6298\u865F\u683C\u5B50\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Closed/open\u3001Closed/lock\u3001Open/close\u3001Locked/unlock\uFF1A\u56DB\u500B\u975E\u7834\u6298\u865F\u683C\u5B50\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 \u662F\u6240\u6709\u683C\u5B50\u7684\u6578\u91CF\uFF1B\u53EA\u6709\u975E\u7834\u6298\u865F\u683C\u5B50\u624D\u662F\u6709\u6548\u8F49\u79FB\uFF0C\u5171 4 \u500B\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 \u662F\u7834\u6298\u865F\uFF08\u672A\u5B9A\u7FA9\uFF09\u683C\u5B50\u7684\u6578\u91CF\uFF0C\u4E0D\u662F\u6709\u6548\u8F49\u79FB\u6578\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u662F\u72C0\u614B\u6578\uFF1B\u6709\u6548\u8F49\u79FB\u6709 4 \u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6578\u6709\u6307\u660E\u4E0B\u4E00\u500B\u72C0\u614B\u7684\u683C\u5B50\uFF1AClosed--open-->Open\u3001Closed--lock-->Locked\u3001Open--close-->Closed\u3001Locked--unlock-->Closed\u3002\u5171 4 \u500B\u6709\u6548\u8F49\u79FB\u3002\u5176\u9918 8 \u500B\u683C\u5B50\u662F\u7834\u6298\u865F\uFF08\u7121\u6548\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9054\u6210\u72C0\u614B\u6DB5\u84CB\u4F46\u672A\u9054\u8F49\u79FB\u6DB5\u84CB",
+            "text": "<p>\u5C0D\u9019\u500B\u9580\u63A7\u5236\u5668\uFF0C\u4E00\u500B\u6E2C\u8A66\u5F9E <code>Closed</code> \u958B\u59CB\u57F7\u884C\u5E8F\u5217 <code>open</code>\u3001<code>close</code>\u3001<code>lock</code>\u3002\u5B83\u9020\u8A2A\u4E86 Closed\u3001Open \u8207 Locked\u3002\u4EE5\u4E0B\u54EA\u500B\u6558\u8FF0\u70BA\u771F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u9054\u6210\u72C0\u614B\u6DB5\u84CB\uFF0C\u4F46\u672A\u9054\u6210\u8F49\u79FB\u6DB5\u84CB\u2014\u2014Locked--unlock-->Closed \u9019\u500B\u8F49\u79FB\u5F9E\u672A\u88AB\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E09\u500B\u72C0\u614B\u90FD\u88AB\u9020\u8A2A\uFF0C\u4F46\u56DB\u500B\u6709\u6548\u8F49\u79FB\u4E2D\u53EA\u57F7\u884C\u4E86\u4E09\u500B\uFF1Bunlock \u88AB\u6F0F\u6389\u3002"
+              },
+              {
+                "text": "\u5B83\u540C\u6642\u9054\u6210\u72C0\u614B\u6DB5\u84CB\u8207\u8F49\u79FB\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u5B83\u57F7\u884C\u4E86 open\u3001close\u3001lock\u2014\u2014\u4F46\u6C92\u6709 unlock\uFF0C\u6240\u4EE5\u672A\u9054\u6210\u8F49\u79FB\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u5B83\u9054\u6210\u8F49\u79FB\u6DB5\u84CB\uFF0C\u4F46\u672A\u9054\u6210\u72C0\u614B\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u9019\u88E1\u5B83\u6DB5\u84CB\u7684\u8F49\u79FB\u4E0D\u6703\u591A\u65BC\u72C0\u614B\uFF1Bunlock \u88AB\u6F0F\u6389\uFF0C\u56E0\u6B64\u8F49\u79FB\u6DB5\u84CB\u5931\u6557\uFF0C\u800C\u6240\u6709\u72C0\u614B\u90FD\u88AB\u9020\u8A2A\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u672A\u9054\u6210",
+                "fraction": 0,
+                "feedback": "\u4E09\u500B\u72C0\u614B\u90FD\u88AB\u9020\u8A2A\uFF0C\u56E0\u6B64\u72C0\u614B\u6DB5\u84CB\u5DF2\u9054\u6210\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u5E8F\u5217\u9032\u5165 Closed\u3001Open \u8207 Locked\uFF08\u72C0\u614B\u6DB5\u84CB\uFF09\uFF0C\u4F7F\u7528\u4E86 open\u3001close\u3001lock \u4E09\u500B\u8F49\u79FB\u3002\u7B2C\u56DB\u500B\u6709\u6548\u8F49\u79FB Locked--unlock-->Closed \u5F9E\u672A\u88AB\u57F7\u884C\uFF0C\u56E0\u6B64\u672A\u9054\u6210\u8F49\u79FB\u6DB5\u84CB\u3002\u9019\u986F\u793A\u72C0\u614B\u6DB5\u84CB\u4E0D\u860A\u542B\u8F49\u79FB\u6DB5\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "0-switch \u8207 1-switch \u7684\u610F\u7FA9",
+            "text": "<p><strong>0-switch</strong> \u8207 <strong>1-switch</strong> \u6DB5\u84CB\u7684\u5DEE\u5225\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "0-switch \u6DB5\u84CB\u6BCF\u4E00\u500B\u55AE\u4E00\u6709\u6548\u8F49\u79FB\uFF1B1-switch \u6DB5\u84CB\u6BCF\u4E00\u5C0D\u6709\u6548\u7684\u9023\u7E8C\u8F49\u79FB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20140-switch = \u9577\u5EA6 1 \u7684\u5E8F\u5217\uFF0C1-switch = \u9577\u5EA6 2 \u7684\u5E8F\u5217\u3002"
+              },
+              {
+                "text": "0-switch \u6DB5\u84CB\u6BCF\u500B\u72C0\u614B\uFF1B1-switch \u6DB5\u84CB\u6BCF\u500B\u8F49\u79FB",
+                "fraction": 0,
+                "feedback": "0-switch \u662F\u8F49\u79FB\u6DB5\u84CB\uFF0C\u4E0D\u662F\u72C0\u614B\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "0-switch \u6DB5\u84CB\u6210\u5C0D\u7684\u8F49\u79FB\uFF1B1-switch \u6DB5\u84CB\u55AE\u4E00\u8F49\u79FB",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5B9A\u7FA9\u985B\u5012\u4E86\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u540C\u4E00\u500B\u6E96\u5247\u7684\u5169\u500B\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E0D\u540C\uFF1A1-switch \u8981\u6C42\u9023\u7E8C\u7684\u8F49\u79FB\u5C0D\uFF0C0-switch \u5247\u4E0D\u8981\u6C42\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 Chow \u7684\u8853\u8A9E\u4E2D\uFF0C0-switch \u6DB5\u84CB\u57F7\u884C\u4E00\u500B\u8F49\u79FB\u7684\u5E8F\u5217\uFF08\u8F49\u79FB\u6DB5\u84CB\uFF09\uFF0C1-switch \u6DB5\u84CB\u6BCF\u4E00\u5C0D\u9023\u7E8C\u8F49\u79FB\u7684\u6709\u6548\u5E8F\u5217\u3002\u4E00\u822C\u800C\u8A00\uFF0Cn-switch \u6DB5\u84CB\u9577\u5EA6\u70BA n+1 \u7684\u8F49\u79FB\u5E8F\u5217\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u627E\u51FA\u4E00\u500B\u672A\u5B9A\u7FA9\u8F49\u79FB",
+            "text": "<p>\u5C0D\u9019\u500B\u9580\u63A7\u5236\u5668\uFF1A</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>\u4EE5\u4E0B\u4F55\u8005\u4F9D\u8868\u683C\u662F\u4E00\u500B<strong>\u672A\u5B9A\u7FA9\uFF08\u7121\u6548\uFF09\u7684\u8F49\u79FB</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u72C0\u614B\u767C\u9001",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Open \u5217\u3001lock \u6B04\u662F\u7834\u6298\u865F\uFF0C\u56E0\u6B64\u6B64\u8F49\u79FB\u672A\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u5728\u72C0\u614B\u767C\u9001",
+                "fraction": 0,
+                "feedback": "\u8A72\u683C\u5B50\u6307\u5411 Open\uFF0C\u56E0\u6B64\u662F\u4E00\u500B\u6709\u6548\u3001\u5DF2\u5B9A\u7FA9\u7684\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "\u5728\u72C0\u614B\u767C\u9001",
+                "fraction": 0,
+                "feedback": "\u8A72\u683C\u5B50\u6307\u5411 Closed\uFF0C\u56E0\u6B64\u662F\u4E00\u500B\u6709\u6548\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "\u5728\u72C0\u614B\u767C\u9001",
+                "fraction": 0,
+                "feedback": "\u8A72\u683C\u5B50\u6307\u5411 Closed\uFF0C\u56E0\u6B64\u662F\u4E00\u500B\u6709\u6548\u8F49\u79FB\u3002"
+              }
+            ],
+            "generalFeedback": "\u627E\u7834\u6298\u865F\u3002Open \u5217\u5728 open\u3001lock\u3001unlock \u4E0B\u90FD\u662F\u7834\u6298\u865F\uFF0C\u6240\u4EE5\u300C\u5728 Open \u767C\u9001 lock\u300D\u672A\u5B9A\u7FA9\u3002\u5176\u4ED6\u4E09\u500B\u9078\u9805\u5404\u81EA\u6307\u5411\u4E00\u500B\u4E0B\u4E00\u500B\u72C0\u614B\uFF0C\u90FD\u662F\u6709\u6548\u8F49\u79FB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9054\u6210\u8F49\u79FB\u6DB5\u84CB\u7684\u5E8F\u5217",
+            "text": "<p>\u5C0D\u9019\u500B\u9580\u63A7\u5236\u5668\uFF08\u6709\u6548\u8F49\u79FB\uFF1AClosed--open--&gt;Open\u3001Open--close--&gt;Closed\u3001Closed--lock--&gt;Locked\u3001Locked--unlock--&gt;Closed\uFF09\uFF0C\u5F9E <code>Closed</code> \u958B\u59CB\uFF0C\u54EA\u4E00\u500B\u5E8F\u5217\u80FD\u57F7\u884C<strong>\u5168\u90E8\u56DB\u500B</strong>\u6709\u6548\u8F49\u79FB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "open\u3001close\u3001lock\u3001unlock",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Closed->Open->Closed->Locked->Closed \u4F7F\u7528\u4E86\u5168\u90E8\u56DB\u500B\u6709\u6548\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "open\u3001close\u3001open\u3001close",
+                "fraction": 0,
+                "feedback": "\u9019\u91CD\u8907\u4E86 open \u8207 close\uFF0C\u4E14\u5F9E\u672A\u57F7\u884C lock \u6216 unlock\u3002"
+              },
+              {
+                "text": "lock\u3001unlock\u3001lock\u3001unlock",
+                "fraction": 0,
+                "feedback": "\u9019\u5F9E\u672A\u57F7\u884C open \u6216 close\uFF0C\u56E0\u6B64\u6F0F\u6389\u5169\u500B\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "open\u3001lock\u3001unlock\u3001close",
+                "fraction": 0,
+                "feedback": "open \u4E4B\u5F8C\u72C0\u614B\u6A5F\u5728 Open\uFF0C\u800C lock \u5728 Open \u4E2D\u672A\u5B9A\u7FA9\uFF0C\u6240\u4EE5\u6B64\u5E8F\u5217\u7121\u6548\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F9E Closed \u8FFD\u8E64\uFF1Aopen (->Open)\u3001close (->Closed)\u3001lock (->Locked)\u3001unlock (->Closed)\u3002\u9019\u4E00\u500B\u5E8F\u5217\u6070\u597D\u5404\u57F7\u884C\u6BCF\u500B\u6709\u6548\u8F49\u79FB\u4E00\u6B21\uFF0C\u9054\u6210 0-switch\uFF08\u8F49\u79FB\uFF09\u6DB5\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6578\u65CB\u8F49\u67F5\u9580\u7684\u6709\u6548\u8F49\u79FB",
+            "text": "<p>\u65CB\u8F49\u67F5\u9580\u8868\u683C\u7684\u6240\u6709\u683C\u5B50\u90FD\u6709\u5B9A\u7FA9\uFF1A</p><pre>\n             coin       push\nLocked       Unlocked   Locked\nUnlocked     Unlocked   Locked\n</pre><p>\u5B83\u6709\u5E7E\u500B\u6709\u6548\u8F49\u79FB\uFF08\u81EA\u8FF4\u5708\u4E5F\u7B97\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56DB\u500B\u683C\u5B50\u90FD\u6709\u5B9A\u7FA9\uFF0C\u5305\u542B\u5169\u500B\u81EA\u8FF4\u5708\uFF08Locked/push \u8207 Unlocked/coin\uFF09\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u53EA\u7B97\u4E86\u6703\u6539\u8B8A\u72C0\u614B\u7684\u8F49\u79FB\uFF1B\u81EA\u8FF4\u5708\u4E5F\u662F\u8F49\u79FB\uFF0C\u5408\u8A08 4\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u56DB\u500B\u683C\u5B50\u90FD\u6307\u660E\u4E0B\u4E00\u500B\u72C0\u614B\uFF1B\u6578\u76EE\u662F 4\uFF0C\u4E0D\u662F 3\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 \u6703\u662F 1-switch \u7684\u6210\u5C0D\u6578\uFF0C\u4E0D\u662F\u55AE\u4E00\u8F49\u79FB\u6578\uFF084\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u5DF2\u5B9A\u7FA9\u683C\u5B50\u662F\u4E00\u500B\u8F49\u79FB\uFF1ALocked--coin-->Unlocked\u3001Locked--push-->Locked\u3001Unlocked--coin-->Unlocked\u3001Unlocked--push-->Locked\u3002\u5171 4 \u500B\uFF0C\u800C\u81EA\u8FF4\u5708\uFF08\u4F86\u6E90\u8207\u76EE\u7684\u76F8\u540C\uFF09\u4ECD\u7B97\u4F5C\u8F49\u79FB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0B\u4E00\u500B\u72C0\u614B\uFF1AClosed \u6536\u5230 open",
+            "text": "<p>\u5C0D\u9019\u500B\u9580\u63A7\u5236\u5668\uFF1A</p><pre>\n           open     close    lock     unlock\nClosed     Open     -        Locked   -\nOpen       -        Closed   -        -\nLocked     -        -        -        Closed\n</pre><p>\u5F9E <code>Closed</code> \u958B\u59CB\uFF0C\u767C\u751F <code>open</code> \u4E8B\u4EF6\u3002\u4E0B\u4E00\u500B\u72C0\u614B\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Open",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Closed \u5217\u3001open \u6B04\u7684\u683C\u5B50\u662F Open\u3002"
+              },
+              {
+                "text": "Locked",
+                "fraction": 0,
+                "feedback": "Closed \u6536\u5230 lock \u6642\u624D\u524D\u5F80 Locked\uFF0C\u800C\u4E0D\u662F open\u3002"
+              },
+              {
+                "text": "Closed",
+                "fraction": 0,
+                "feedback": "open \u4E0D\u6703\u8B93 Closed \u7DAD\u6301\u4E0D\u8B8A\uFF1B\u5B83\u79FB\u52D5\u5230 Open\u3002"
+              },
+              {
+                "text": "\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "Closed/open \u683C\u5B50\u6307\u5411 Open\uFF0C\u56E0\u6B64\u6709\u5B9A\u7FA9\u3002"
+              }
+            ],
+            "generalFeedback": "\u67E5 Closed \u5217\u3001open \u6B04\uFF1A\u4E0B\u4E00\u500B\u72C0\u614B\u662F Open\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0B\u4E00\u500B\u72C0\u614B\uFF1AOpen \u6536\u5230 lock",
+            "text": "<p>\u5C0D\u540C\u4E00\u500B\u9580\u63A7\u5236\u5668\uFF0C\u72C0\u614B\u6A5F\u5728 <code>Open</code> \u4E14\u767C\u751F <code>lock</code> \u4E8B\u4EF6\u3002\u4F9D\u8868\u683C\u6703\u767C\u751F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6C92\u6709\u5B9A\u7FA9\u4EFB\u4F55\u884C\u70BA\u2014\u2014lock \u5728 Open \u4E2D\u7121\u6548\uFF08\u8A72\u683C\u5B50\u662F\u7834\u6298\u865F\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Open \u5217\u3001lock \u6B04\u662F\u7834\u6298\u865F\uFF0C\u56E0\u6B64\u6B64\u8F49\u79FB\u672A\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u72C0\u614B\u6A5F\u79FB\u52D5\u5230 Locked",
+                "fraction": 0,
+                "feedback": "lock \u53EA\u6709\u5F9E Closed \u624D\u6703\u5C0E\u5411 Locked\uFF1B\u5728 Open \u4E2D\u5B83\u672A\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u72C0\u614B\u6A5F\u79FB\u52D5\u5230 Closed",
+                "fraction": 0,
+                "feedback": "\u5F9E Open\uFF0Cclose \u624D\u6703\u5C0E\u5411 Closed\uFF1Block \u5728 Open \u4E2D\u672A\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u72C0\u614B\u6A5F\u4EE5\u81EA\u8FF4\u5708\u505C\u7559\u5728 Open",
+                "fraction": 0,
+                "feedback": "\u7834\u6298\u865F\u8868\u793A\u672A\u5B9A\u7FA9\uFF0C\u800C\u975E\u81EA\u8FF4\u5708\uFF1B\u8868\u683C\u4E26\u672A\u898F\u5B9A\u505C\u7559\u5728 Open\u3002"
+              }
+            ],
+            "generalFeedback": "Open \u5217\u5728 lock \u4E0B\u662F\u7834\u6298\u865F\uFF0C\u56E0\u6B64\u898F\u683C\u672A\u5B9A\u7FA9\u4EFB\u4F55\u8F49\u79FB\u3002\u5728 Open \u767C\u9001 lock \u6B63\u662F\u8CA0\u5411\u6E2C\u8A66\u8981\u6AA2\u67E5\u7684\u90A3\u7A2E\u7121\u6548\u4E8B\u4EF6\uFF08\u6B63\u78BA\u7684\u5BE6\u4F5C\u61C9\u62D2\u7D55\u5B83\u6216\u7DAD\u6301\u72C0\u614B\u4E0D\u8B8A\uFF0C\u4E14\u6C92\u6709\u6F5B\u884C\u8DEF\u5F91\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6DB5\u84CB\u6240\u9700\u57F7\u884C\u7684\u8F49\u79FB\u6578",
+            "text": "<p>\u65CB\u8F49\u67F5\u9580\u6709 2 \u500B\u72C0\u614B\u8207 4 \u500B\u6709\u6548\u8F49\u79FB\u3002\u8981\u9054\u6210<strong>\u8F49\u79FB\uFF080-switch\uFF09\u6DB5\u84CB</strong>\uFF0C\u81F3\u5C11\u9808\u57F7\u884C\u5E7E\u500B\u6709\u6548\u8F49\u79FB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4\u2014\u2014\u6BCF\u4E00\u500B\u6709\u6548\u8F49\u79FB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8F49\u79FB\u6DB5\u84CB\u8981\u6C42\u57F7\u884C\u5168\u90E8 4 \u500B\u6709\u6548\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "2\u2014\u2014\u6BCF\u500B\u72C0\u614B\u4E00\u500B",
+                "fraction": 0,
+                "feedback": "\u9020\u8A2A\u6BCF\u500B\u72C0\u614B\uFF082\uFF09\u53EA\u662F\u72C0\u614B\u6DB5\u84CB\uFF1B\u8F49\u79FB\u6DB5\u84CB\u9700\u8981\u5168\u90E8 4 \u500B\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "8\u2014\u2014\u6BCF\u4E00\u5C0D\u8F49\u79FB",
+                "fraction": 0,
+                "feedback": "8 \u662F 1-switch \u7684\u6578\u76EE\uFF1B0-switch \u6DB5\u84CB\u9700\u8981 4 \u500B\u55AE\u4E00\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "1\u2014\u2014\u7121\u8AD6\u8F49\u79FB\u5982\u4F55\uFF0C\u55AE\u4E00\u8DEF\u5F91\u5C31\u8DB3\u5920",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u8DEF\u5F91\u53EF\u80FD\u592A\u77ED\u800C\u6F0F\u6389\u8F49\u79FB\uFF1B\u6DB5\u84CB\u8981\u6C42\u5168\u90E8 4 \u500B\u90FD\u88AB\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u8F49\u79FB\uFF080-switch\uFF09\u6DB5\u84CB\u8981\u6C42\u6BCF\u500B\u6709\u6548\u8F49\u79FB\u81F3\u5C11\u88AB\u57F7\u884C\u4E00\u6B21\u3002\u65CB\u8F49\u67F5\u9580\u6709 4 \u500B\u6709\u6548\u8F49\u79FB\uFF0C\u6240\u4EE5\u5168\u90E8 4 \u500B\u90FD\u9808\u88AB\u57F7\u884C\uFF08\u5B83\u5011\u53EF\u4EE5\u7DE8\u7E54\u9032\u4E00\u500B\u8F03\u9577\u7684\u6E2C\u8A66\u4E2D\uFF0C\u4F46 4 \u500B\u90FD\u5FC5\u9808\u51FA\u73FE\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u8005\u5305\u542B\u4F55\u8005",
+            "text": "<p>\u4E0B\u5217\u72C0\u614B\u5F0F\u6E96\u5247\u4E4B\u9593\uFF0C\u54EA\u4E00\u500B\u5305\u542B\uFF08subsumption\uFF09\u95DC\u4FC2\u6210\u7ACB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8F49\u79FB\u6DB5\u84CB\u5305\u542B\u72C0\u614B\u6DB5\u84CB\uFF08\u9054\u6210\u6240\u6709\u8F49\u79FB\u5C31\u4FDD\u8B49\u6240\u6709\u72C0\u614B\u90FD\u88AB\u9020\u8A2A\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u8F49\u79FB\u90FD\u6709\u4F86\u6E90\u8207\u76EE\u7684\u72C0\u614B\uFF0C\u6240\u4EE5\u6DB5\u84CB\u6240\u6709\u8F49\u79FB\u5C31\u6703\u9020\u8A2A\u6240\u6709\u53EF\u9054\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u72C0\u614B\u6DB5\u84CB\u5305\u542B\u8F49\u79FB\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u53CD\u904E\u4F86\u624D\u5C0D\uFF1B\u9020\u8A2A\u6240\u6709\u72C0\u614B\u4ECD\u53EF\u80FD\u6F0F\u6389\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "\u9019\u5169\u500B\u6E96\u5247\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E0D\u7B49\u50F9\uFF1B\u72C0\u614B\u6DB5\u84CB\u56B4\u683C\u8F03\u5F31\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u4E92\u4E0D\u860A\u542B",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u6709\u95DC\u4FC2\uFF1A\u8F49\u79FB\u6DB5\u84CB\u860A\u542B\u72C0\u614B\u6DB5\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u57F7\u884C\u4E00\u500B\u8F49\u79FB\u5FC5\u7136\u9032\u5165\u5B83\u7684\u4F86\u6E90\u8207\u76EE\u7684\u72C0\u614B\uFF0C\u6240\u4EE5\u9054\u6210\u8F49\u79FB\uFF080-switch\uFF09\u6DB5\u84CB\u7684\u5957\u4EF6\u4E5F\u9054\u6210\u72C0\u614B\u6DB5\u84CB\u3002\u53CD\u5411\u4E0D\u6210\u7ACB\uFF1A\u9580\u7684\u4F8B\u5B50\u9020\u8A2A\u4E86\u6240\u6709\u72C0\u614B\u537B\u6F0F\u6389 unlock \u8F49\u79FB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u57F7\u884C\u55AE\u4E00\u8F49\u79FB\u7684\u6E96\u5247\u540D\u7A31",
+            "text": "<p>\u81F3\u5C11\u57F7\u884C\u6BCF\u4E00\u500B\u55AE\u4E00\u6709\u6548\u8F49\u79FB\u4E00\u6B21\uFF0C\u4E14\u4E0D\u8981\u6C42\u4EFB\u4F55\u9023\u7E8C\u5C0D\uFF0C\u9019\u662F\u54EA\u4E00\u500B\u5177\u540D\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "0-switch\uFF08\u8F49\u79FB\uFF09\u6DB5\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u55AE\u4E00\u8F49\u79FB\u5C0D\u61C9\u5230 0-switch \u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "1-switch \u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "1-switch \u8981\u6C42\u9023\u7E8C\u8F49\u79FB\u5C0D\uFF0C\u8F03\u5F37\u3002"
+              },
+              {
+                "text": "\u72C0\u614B\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u72C0\u614B\u6DB5\u84CB\u53EA\u8981\u6C42\u9020\u8A2A\u72C0\u614B\uFF0C\u4E0D\u8981\u6C42\u57F7\u884C\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "2-switch \u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "2-switch \u6DB5\u84CB\u4E09\u500B\u8F49\u79FB\u7684\u5E8F\u5217\uFF0C\u66F4\u5F37\u3002"
+              }
+            ],
+            "generalFeedback": "\u55AE\u4E00\u8F49\u79FB = 0-switch = \u8F49\u79FB\u6DB5\u84CB\u3002\u82E5\u8981\u6C42\u9023\u7E8C\u5C0D\u5C31\u662F 1-switch\uFF0C\u4E09\u9023\u5247\u662F 2-switch\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "1-switch \u7684\u5B9A\u7FA9",
+            "text": "<p><strong>1-switch \u6DB5\u84CB</strong>\u7A76\u7ADF\u8981\u6C42\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u4E00\u500B\u7531\u5169\u500B\u9023\u7E8C\u8F49\u79FB\u69CB\u6210\u7684\u6709\u6548\u5E8F\u5217\u81F3\u5C11\u88AB\u57F7\u884C\u4E00\u6B21",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141-switch \u6DB5\u84CB\u6240\u6709\u9577\u5EA6\u70BA 2 \u7684\u6709\u6548\u8F49\u79FB\u5E8F\u5217\u3002"
+              },
+              {
+                "text": "\u6BCF\u4E00\u500B\u55AE\u4E00\u8F49\u79FB\u88AB\u57F7\u884C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 0-switch \u6DB5\u84CB\uFF1B1-switch \u52A0\u4E0A\u4E86\u6210\u5C0D\u7684\u8981\u6C42\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u72C0\u614B\u90FD\u5F9E\u81F3\u5C11\u4E00\u500B\u5176\u4ED6\u72C0\u614B\u88AB\u9032\u5165",
+                "fraction": 0,
+                "feedback": "\u90A3\u8F03\u63A5\u8FD1\u72C0\u614B\u6DB5\u84CB\uFF1B1-switch \u95DC\u4E4E\u7684\u662F\u8F49\u79FB\u5C0D\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u8B77\u885B\u689D\u4EF6\u90FD\u88AB\u57F7\u884C\u70BA\u771F\u8207\u5047",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4EE5\u689D\u4EF6\u70BA\u57FA\u790E\u7684\u6982\u5FF5\uFF0C\u4E0D\u662F 1-switch \u7684\u5B9A\u7FA9\u3002"
+              }
+            ],
+            "generalFeedback": "1-switch \u6DB5\u84CB\u8981\u6C42\u6BCF\u4E00\u5C0D\u9023\u7E8C\u8F49\u79FB\uFF08\u9577\u5EA6\u70BA 2 \u7684\u8F49\u79FB\u5E8F\u5217\uFF09\u90FD\u88AB\u57F7\u884C\u3002\u5B83\u80FD\u6355\u6349\u53D6\u6C7A\u65BC\u5169\u500B\u8F49\u79FB\u9806\u5E8F\u7684\u932F\u8AA4\uFF0C\u800C\u9019\u662F 0-switch \u53EF\u80FD\u6F0F\u6389\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u55AE\u4E00\u8DEF\u5F91\u6DB5\u84CB\u6240\u6709\u8F49\u79FB",
+            "text": "<p>\u4E00\u500B\u72C0\u614B\u6A5F\u6709 4 \u500B\u6709\u6548\u8F49\u79FB\u3002\u6E2C\u8A66\u8005\u627E\u5230\u4E00\u689D\u9023\u901A\u7684\u884C\u8D70\uFF0C\u80FD\u4E00\u500B\u63A5\u4E00\u500B\u5730\u57F7\u884C\u5168\u90E8 4 \u500B\u8F49\u79FB\u3002\u9019\u689D\u884C\u8D70\u5305\u542B\u5E7E\u500B\u8F49\u79FB<strong>\u6B65\u9A5F</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4\u2014\u2014\u6BCF\u500B\u6709\u6548\u8F49\u79FB\u662F\u4E00\u6B65\uFF0C\u5404\u57F7\u884C\u4E00\u6B21",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u57F7\u884C\u6BCF\u500B\u8F49\u79FB\u4E00\u6B21\u7684\u884C\u8D70\u6709 4 \u6B65\u3002"
+              },
+              {
+                "text": "3\u2014\u2014\u6BD4\u8F49\u79FB\u6578\u5C11\u4E00",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C 4 \u500B\u8F49\u79FB\u7684\u884C\u8D70\u6709 4 \u6B65\uFF0C\u4E0D\u662F 3\u3002"
+              },
+              {
+                "text": "5\u2014\u2014\u6BD4\u8F49\u79FB\u6578\u591A\u4E00",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B\u8F49\u79FB\u662F\u4E00\u6B65\uFF1B\u57F7\u884C 4 \u500B\u8F49\u79FB\u5C31\u662F 4 \u6B65\u3002"
+              },
+              {
+                "text": "8\u2014\u2014\u56E0\u70BA\u727D\u6D89\u5230\u6210\u5C0D",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u8207 1-switch \u6709\u95DC\uFF1B\u9019\u88E1\u53EA\u628A 4 \u500B\u8F49\u79FB\u5404\u57F7\u884C\u4E00\u6B21\uFF0C\u6240\u4EE5 4 \u6B65\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5\u4E00\u689D\u884C\u8D70\u80FD\u9023\u7E8C\u4E32\u8D77\u5168\u90E8 4 \u500B\u8F49\u79FB\uFF0C\u5B83\u6070\u6709 4 \u500B\u8F49\u79FB\u6B65\u9A5F\uFF08\u6CBF\u9014\u9020\u8A2A 5 \u500B\u72C0\u614B\uFF0C\u542B\u91CD\u8907\uFF09\u3002\u53EA\u6709\u7576\u9019\u4E9B\u8F49\u79FB\u9996\u5C3E\u76F8\u9023\u6642\u624D\u53EF\u80FD\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u72C0\u614B\u6DB5\u84CB\u6F0F\u6389\u4EC0\u9EBC",
+            "text": "<p>\u67D0\u5957\u4EF6\u9054\u6210\u4E86\u72C0\u614B\u6A5F\u7684\u72C0\u614B\u6DB5\u84CB\uFF0C\u4F46\u672A\u9054\u6210\u8F49\u79FB\u6DB5\u84CB\u3002\u5B83\u5FC5\u7136\u6F0F\u6389\u4E86\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u81F3\u5C11\u6709\u4E00\u500B\u6709\u6548\u8F49\u79FB\u5F9E\u672A\u88AB\u57F7\u884C\uFF0C\u5373\u4F7F\u5B83\u7684\u4F86\u6E90\u8207\u76EE\u7684\u72C0\u614B\u90FD\u88AB\u5176\u4ED6\u8F49\u79FB\u9020\u8A2A\u904E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u67D0\u500B\u6709\u6548\u8F49\u79FB\u88AB\u7565\u904E\uFF0C\u800C\u5176\u7AEF\u9EDE\u4ECD\u4EE5\u5176\u4ED6\u65B9\u5F0F\u88AB\u62B5\u9054\u3002"
+              },
+              {
+                "text": "\u81F3\u5C11\u6709\u4E00\u500B\u72C0\u614B\u5F9E\u672A\u88AB\u9020\u8A2A",
+                "fraction": 0,
+                "feedback": "\u82E5\u6709\u72C0\u614B\u672A\u88AB\u9020\u8A2A\uFF0C\u72C0\u614B\u6DB5\u84CB\u5C31\u6703\u5931\u6557\uFF1B\u6B64\u8655\u72C0\u614B\u6DB5\u84CB\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "\u81F3\u5C11\u6709\u4E00\u500B\u72C0\u614B\u6A5F\u4E2D\u4E0D\u5B58\u5728\u7684\u4E8B\u4EF6",
+                "fraction": 0,
+                "feedback": "\u6DB5\u84CB\u95DC\u4E4E\u5DF2\u5B9A\u7FA9\u7684\u8F49\u79FB\uFF0C\u800C\u975E\u4E0D\u5B58\u5728\u7684\u4E8B\u4EF6\u3002"
+              },
+              {
+                "text": "\u4EC0\u9EBC\u90FD\u6C92\u6F0F\u2014\u2014\u9019\u5169\u500B\u6E96\u5247\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E0D\u540C\uFF1B\u8F49\u79FB\u6DB5\u84CB\u56B4\u683C\u8F03\u5F37\uFF0C\u6240\u4EE5\u6709\u6771\u897F\u88AB\u6F0F\u6389\u3002"
+              }
+            ],
+            "generalFeedback": "\u9054\u6210\u72C0\u614B\u6DB5\u84CB\u537B\u672A\u9054\u8F49\u79FB\u6DB5\u84CB\uFF0C\u4EE3\u8868\u6BCF\u500B\u72C0\u614B\u90FD\u88AB\u62B5\u9054\uFF0C\u4F46\u67D0\u500B\u6709\u6548\u8F49\u79FB\u5F9E\u672A\u88AB\u57F7\u884C\uFF08\u5176\u7AEF\u9EDE\u900F\u904E\u5176\u4ED6\u8F49\u79FB\u88AB\u9020\u8A2A\uFF09\u3002\u9580\u7684\u4F8B\u5B50\u2014\u2014\u900F\u904E lock \u9020\u8A2A Locked\uFF0C\u537B\u5F9E\u672A\u57F7\u884C unlock\u2014\u2014\u6B63\u662F\u9019\u7A2E\u60C5\u6CC1\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u6578 1-switch \u5C0D\uFF1A\u65CB\u8F49\u67F5\u9580",
+            "text": "<p>\u65CB\u8F49\u67F5\u9580\u6709\u4EE5\u4E0B 4 \u500B\u6709\u6548\u8F49\u79FB\uFF1A</p><pre>\nt1: Locked   --coin--> Unlocked\nt2: Locked   --push--> Locked\nt3: Unlocked --coin--> Unlocked\nt4: Unlocked --push--> Locked\n</pre><p>\u5B83\u6709\u5E7E\u500B\u6709\u6548\u7684 <strong>1-switch</strong> \u5E8F\u5217\uFF08\u9023\u7E8C\u8F49\u79FB\u7684\u6709\u5E8F\u5C0D\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u72C0\u614B\u6709 2 \u500B\u8F49\u5165\u8207 2 \u500B\u8F49\u51FA\uFF0C\u5F97 2x2 + 2x2 = 8\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u55AE\u4E00\u8F49\u79FB\uFF080-switch\uFF09\u7684\u6578\u76EE\uFF0C\u4E0D\u662F\u6210\u5C0D\u6578\u3002"
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 \u662F 4x4\uFF08\u6240\u6709\u6709\u5E8F\u5C0D\uFF09\uFF1B\u53EA\u6709\u524D\u8005\u7D50\u675F\u65BC\u5F8C\u8005\u8D77\u9EDE\u7684\u5C0D\u624D\u7B97\uFF0C\u5F97 8\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u9010\u4E00\u5217\u51FA\u53EF\u63A5\u5408\u7684\u5C0D\uFF1A\u5171 8 \u500B\uFF0C\u4E0D\u662F 6\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576 target(ti) = source(tj) \u6642\uFF0C(ti, tj) \u624D\u662F\u6709\u6548\u7684 1-switch \u5C0D\u3002\u6BCF\u500B\u4E2D\u9593\u72C0\u614B\u7684\u6578\u76EE =\uFF08\u8F49\u5165\u6578\uFF09x\uFF08\u8F49\u51FA\u6578\uFF09\u3002Locked\uFF1A2 \u8F49\u5165 (t2,t4) x 2 \u8F49\u51FA (t1,t2) = 4\uFF1BUnlocked\uFF1A2 \u8F49\u5165 (t1,t3) x 2 \u8F49\u51FA (t3,t4) = 4\u3002\u5408\u8A08 4 + 4 = 8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6578 1-switch \u5C0D\uFF1A\u5206\u652F\u72C0\u614B\u6A5F",
+            "text": "<p>\u8003\u616E\u9019\u500B\u72C0\u614B\u6A5F\uFF08\u521D\u59CB\u72C0\u614B A\uFF09\uFF1A</p><pre>\n       p        q\nA      B        C\nB      C        -\nC      A        -\n</pre><p>\u5B83\u7684\u6709\u6548\u8F49\u79FB\u70BA A--p--&gt;B\u3001A--q--&gt;C\u3001B--p--&gt;C\u3001C--p--&gt;A\u3002\u5B83\u6709\u5E7E\u500B\u6709\u6548\u7684 <strong>1-switch</strong> \u5E8F\u5217\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014(A\uFF1A1 \u8F49\u5165 x 2 \u8F49\u51FA) + (B\uFF1A1 \u8F49\u5165 x 1 \u8F49\u51FA) + (C\uFF1A2 \u8F49\u5165 x 1 \u8F49\u51FA) = 2 + 1 + 2 = 5\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u55AE\u4E00\u8F49\u79FB\u7684\u6578\u76EE\uFF1B\u53EF\u63A5\u5408\u7684\u5C0D\u6709 5 \u500B\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u9010\u4E00\u5217\u51FA\uFF1A(A-p,B-p)\u3001(A-q,C-p)\u3001(B-p,C-p)\u3001(C-p,A-p)\u3001(C-p,A-q) = 5\uFF0C\u4E0D\u662F 6\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u5C11\u7B97\u4E86\uFF1BC \u7531\u5169\u500B\u8F49\u79FB\u62B5\u9054\uFF0C\u5404\u81EA\u90FD\u53EF\u63A5\u4E0A C--p-->A\uFF0C\u591A\u51FA\u5169\u500B\u5C0D\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u6BCF\u500B\u72C0\u614B\uFF0C\u5C0D\u6578 =\uFF08\u8F49\u5165\u6578\uFF09x\uFF08\u8F49\u51FA\u6578\uFF09\u3002A\uFF1A\u8F49\u5165 {C--p-->A}=1\uFF0C\u8F49\u51FA {A-p,A-q}=2 -> 2\u3002B\uFF1A\u8F49\u5165 {A--p-->B}=1\uFF0C\u8F49\u51FA {B--p-->C}=1 -> 1\u3002C\uFF1A\u8F49\u5165 {A--q-->C, B--p-->C}=2\uFF0C\u8F49\u51FA {C--p-->A}=1 -> 2\u3002\u5408\u8A08 2+1+2 = 5\u3002\u660E\u78BA\u5217\u51FA\uFF1A(A-p,B-p)\u3001(A-q,C-p)\u3001(B-p,C-p)\u3001(C-p,A-p)\u3001(C-p,A-q)\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6578 1-switch \u5C0D\uFF1A\u74B0\u72C0",
+            "text": "<p>\u4E00\u500B\u72C0\u614B\u6A5F\u5FAA\u74B0\u7D93\u904E\u4E09\u500B\u72C0\u614B\uFF1A</p><pre>\nt1: S1 --x--> S2\nt2: S2 --y--> S3\nt3: S3 --z--> S1\n</pre><p>\u5B83\u6709\u5E7E\u500B\u6709\u6548\u7684 <strong>1-switch</strong> \u5E8F\u5217\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u72C0\u614B\u6070\u6709 1 \u8F49\u5165\u8207 1 \u8F49\u51FA\uFF1A(t1,t2)\u3001(t2,t3)\u3001(t3,t1) = 3\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u6703\u662F\u6240\u6709\u6709\u5E8F\u5C0D\uFF1B\u53EA\u6709 3 \u500B\u80FD\u9996\u5C3E\u63A5\u5408\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 \u662F 3x3\uFF1B\u5927\u591A\u6578\u5C0D\u7121\u6CD5\u63A5\u4E0A\uFF0C\u53EA\u5269 3 \u500B\u6709\u6548\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u74B0\u6703\u9589\u5408\uFF08t3 \u4E4B\u5F8C\u63A5 t1\uFF09\uFF0C\u56E0\u6B64\u6709 3 \u500B\u53EF\u63A5\u5408\u5C0D\uFF0C\u4E0D\u662F 2\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u72C0\u614B\u6709 1 \u8F49\u5165\u8207 1 \u8F49\u51FA\uFF0C\u6240\u4EE5\u6BCF\u500B\u72C0\u614B\u7684\u5C0D\u6578 = 1x1\uFF0C\u5408\u8A08 3\uFF1A(t1,t2)\u3001(t2,t3)\uFF0C\u4EE5\u53CA (t3,t1)\uFF0C\u56E0\u70BA\u74B0\u6703\u56DE\u5230 S1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u627E\u51FA\u6F5B\u884C\u8DEF\u5F91",
+            "text": "<p>\u67D0\u5A92\u9AD4\u64AD\u653E\u5668\u898F\u683C\u5B9A\u7FA9\uFF1AStopped--play--&gt;Playing\u3001Playing--stop--&gt;Stopped\u3001Playing--pause--&gt;Paused\u3001Paused--play--&gt;Playing\u3002\u6E2C\u8A66\u6642\uFF0C\u5728 <code>Paused</code> \u767C\u9001 <code>stop</code> \u7ADF\u4F7F\u64AD\u653E\u5668\u8DF3\u5230 Stopped\uFF0C\u5118\u7BA1\u898F\u683C\u672A\u5B9A\u7FA9\u6B64\u8F49\u79FB\u3002\u9019\u767C\u73FE\u4E86\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u689D\u6F5B\u884C\u8DEF\u5F91\u2014\u2014\u5728\u898F\u683C\u672A\u5B9A\u7FA9\u8F49\u79FB\u7684\u72C0\u614B\u4E0B\u537B\u63A5\u53D7\u4E86\u8A72\u4E8B\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014stop \u5728 Paused \u4E2D\u672A\u5B9A\u7FA9\uFF0C\u5BE6\u4F5C\u537B\u5C0D\u5B83\u6709\u6240\u53CD\u61C9\uFF1A\u4E00\u689D\u6F5B\u884C\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u898F\u683C\u907A\u6F0F\u7684\u4E00\u500B\u8F49\u79FB",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u5728\u65BC\u5BE6\u4F5C\u591A\u51FA\u4E00\u500B\u672A\u898F\u5B9A\u7684\u8F49\u79FB\uFF0C\u800C\u975E\u898F\u683C\u907A\u6F0F\u2014\u2014\u90A3\u5C31\u662F\u6F5B\u884C\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u67D0\u500B\u8B77\u885B\u689D\u4EF6\u8A55\u4F30\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u6C92\u6709\u8B77\u885B\u689D\u4EF6\uFF1Bstop \u53EA\u662F\u5728 Paused \u672A\u5B9A\u7FA9\uFF0C\u537B\u4ECD\u89F8\u767C\u3002"
+              },
+              {
+                "text": "\u4E00\u500B 1-switch \u6DB5\u84CB\u7F3A\u53E3",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u591A\u51FA\u7684\u8F49\u79FB\uFF0C\u4E0D\u662F\u6F0F\u6389\u7684\u5C0D\uFF1B\u5B83\u662F\u6F5B\u884C\u8DEF\u5F91\uFF0C\u7531\u8CA0\u5411\u6E2C\u8A66\u5075\u6E2C\u3002"
+              }
+            ],
+            "generalFeedback": "\u898F\u683C\u6C92\u6709 Paused--stop--> \u8F49\u79FB\uFF0C\u6240\u4EE5\u6B63\u78BA\u884C\u70BA\u662F\u5728 Paused \u5FFD\u7565\u6216\u62D2\u7D55 stop\u3002\u5BE6\u4F5C\u537B\u8F49\u79FB\u5230 Stopped\u2014\u2014\u4E00\u500B\u4E0D\u8A72\u6709\u7684\u591A\u51FA\u8F49\u79FB\uFF0C\u5373\u6F5B\u884C\u8DEF\u5F91\uFF0C\u800C\u8CA0\u5411\u6E2C\u8A66\uFF08\u767C\u9001\u672A\u5B9A\u7FA9\u4E8B\u4EF6\uFF09\u6B63\u662F\u70BA\u4E86\u63ED\u9732\u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 0-switch \u6F0F\u6389\u67D0\u932F\u8AA4",
+            "text": "<p>\u67D0\u932F\u8AA4\u53EA\u5728\u8F49\u79FB B <strong>\u7DCA\u63A5</strong>\u5728\u8F49\u79FB A \u4E4B\u5F8C\u88AB\u57F7\u884C\u6642\u624D\u51FA\u73FE\uFF08A-\u7136\u5F8C-B \u9019\u4E00\u5C0D\u6703\u7834\u58DE\u72C0\u614B\uFF09\uFF0C\u4F46 A \u8207 B \u5404\u81EA\u55AE\u7368\u57F7\u884C\u90FD\u6B63\u5E38\u3002\u8981\u53EF\u9760\u5730\u903C\u51FA\u6B64\u932F\u8AA4\u9700\u8981\u54EA\u4E00\u500B\u6DB5\u84CB\u5C64\u7D1A\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1-switch \u6DB5\u84CB\u2014\u2014\u5B83\u57F7\u884C\u9023\u7E8C\u7684\u8F49\u79FB\u5C0D\uFF0C\u56E0\u6B64\u4FDD\u8B49\u6703\u6E2C\u5230 A-\u7136\u5F8C-B \u7684\u5E8F\u5217",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B64\u932F\u8AA4\u53D6\u6C7A\u65BC\u67D0\u500B\u7279\u5B9A\u7684\u5C0D\uFF0C\u800C 1-switch\uFF08\u9577\u5EA6 2 \u7684\u5E8F\u5217\uFF09\u6703\u5F37\u5236\u57F7\u884C\u5B83\u3002"
+              },
+              {
+                "text": "\u72C0\u614B\u6DB5\u84CB\u2014\u2014\u9020\u8A2A\u5169\u500B\u7AEF\u9EDE\u72C0\u614B\u5C31\u6703\u89F8\u767C\u5B83",
+                "fraction": 0,
+                "feedback": "\u9020\u8A2A\u72C0\u614B\u4E0D\u6703\u5F37\u5236 A-\u7136\u5F8C-B \u9019\u500B\u7279\u5B9A\u9806\u5E8F\uFF1B\u932F\u8AA4\u4ECD\u53EF\u80FD\u88AB\u6F0F\u6389\u3002"
+              },
+              {
+                "text": "0-switch \u6DB5\u84CB\u2014\u2014\u5404\u57F7\u884C A \u8207 B \u4E00\u6B21\u5C31\u8DB3\u5920",
+                "fraction": 0,
+                "feedback": "0-switch \u53EF\u80FD\u5728\u4E0D\u540C\u6E2C\u8A66\u4E2D\u5206\u5225\u57F7\u884C A \u8207 B\uFF0C\u5F9E\u672A\u76F8\u9130\uFF0C\u56E0\u6B64\u53EF\u80FD\u6F0F\u6389\u9019\u500B\u6210\u5C0D\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u4EFB\u4F55\u6DB5\u84CB\u5C64\u7D1A\u80FD\u627E\u5230\u5B83",
+                "fraction": 0,
+                "feedback": "1-switch \u6B63\u662F\u70BA\u4E86\u6355\u6349\u9019\u985E\u8207\u9806\u5E8F\u76F8\u95DC\u7684\u6210\u5C0D\u932F\u8AA4\u800C\u8A2D\u8A08\u3002"
+              }
+            ],
+            "generalFeedback": "0-switch \u6DB5\u84CB\u53EA\u8981\u6C42\u6BCF\u500B\u8F49\u79FB\u5404\u4E00\u6B21\uFF1BA \u8207 B \u53EF\u80FD\u5728\u4E0D\u540C\u6E2C\u8A66\u4E2D\u57F7\u884C\u3001\u5F9E\u4E0D\u76F8\u9130\u3002\u6B64\u932F\u8AA4\u9700\u8981\u6709\u5E8F\u5C0D A-\u7136\u5F8C-B\uFF0C\u800C\u9019\u6B63\u662F 1-switch \u6DB5\u84CB\u6240\u8981\u6C42\u7684\u2014\u2014\u6DB5\u84CB\u6BCF\u4E00\u500B\u6709\u6548\u7684\u9577\u5EA6 2 \u8F49\u79FB\u5E8F\u5217\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u62B5\u9054 Blocked \u7684\u5E8F\u5217\uFF08\u8B77\u885B\u689D\u4EF6\uFF09",
+            "text": "<p>\u4E00\u500B\u767B\u5165\u72C0\u614B\u6A5F\uFF08\u521D\u59CB\u72C0\u614B LoggedOut\uFF0C\u5617\u8A66\u8A08\u6578\u5668\u5F9E 0 \u8D77\u7B97\uFF09\uFF1A</p><pre>\nLoggedOut --submit[valid]--> LoggedIn\nLoggedOut --submit[invalid & attempts<2]--> LoggedOut  (attempts++)\nLoggedOut --submit[invalid & attempts==2]--> Blocked\nLoggedIn  --logout--> LoggedOut\nBlocked   --adminReset--> LoggedOut\n</pre><p>\u54EA\u4E00\u500B\u4E8B\u4EF6\u5E8F\u5217\u80FD\u62B5\u9054 <code>Blocked</code>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "submit[invalid]\u3001submit[invalid]\u3001submit[invalid]\u2014\u2014\u4E09\u6B21\u7121\u6548\u5617\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014attempts \u7531 0->1\uFF08\u505C\u7559\uFF09\u30011->2\uFF08\u505C\u7559\uFF09\uFF0C\u7B2C\u4E09\u6B21\u7121\u6548 submit \u6642 attempts==2 \u4FBF\u524D\u5F80 Blocked\u3002"
+              },
+              {
+                "text": "submit[invalid]\u3001submit[invalid]\u2014\u2014\u5169\u6B21\u7121\u6548\u5617\u8A66",
+                "fraction": 0,
+                "feedback": "\u5169\u6B21\u7121\u6548 submit \u5F8C attempts==2\uFF0C\u4F46\u72C0\u614B\u6A5F\u4ECD\u5728 LoggedOut\uFF1B\u9084\u9700\u7B2C\u4E09\u6B21\u7121\u6548 submit \u624D\u6703\u62B5\u9054 Blocked\u3002"
+              },
+              {
+                "text": "submit[valid]\u3001logout\u3001submit[invalid]",
+                "fraction": 0,
+                "feedback": "submit[valid] \u524D\u5F80 LoggedIn\uFF0Clogout \u56DE\u5230 LoggedOut \u4E14 attempts \u4ECD\u70BA 0\uFF0C\u56E0\u6B64\u4E00\u6B21\u7121\u6548 submit \u53EA\u6703\u628A\u8A08\u6578\u589E\u70BA 1\u2014\u2014\u4E0D\u662F Blocked\u3002"
+              },
+              {
+                "text": "submit[invalid]\u3001adminReset",
+                "fraction": 0,
+                "feedback": "adminReset \u53EA\u5728 Blocked \u6709\u5B9A\u7FA9\uFF0C\u800C\u72C0\u614B\u6A5F\u5C1A\u672A\u62B5\u9054\uFF1B\u6B64\u5E8F\u5217\u7121\u6548\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F9D attempts \u4E0A\u7684\u8B77\u885B\u689D\u4EF6\u8FFD\u8E64\uFF1A\u7B2C\u4E00\u6B21\u7121\u6548 submit\uFF08attempts 0->1\uFF0C\u505C\u7559 LoggedOut\uFF09\u3001\u7B2C\u4E8C\u6B21\u7121\u6548 submit\uFF08attempts 1->2\uFF0C\u505C\u7559 LoggedOut\uFF09\u3001\u7B2C\u4E09\u6B21\u7121\u6548 submit\uFF08\u6B64\u6642 attempts==2\uFF0C\u56E0\u6B64\u8B77\u885B\u689D\u4EF6 [invalid & attempts==2] \u89F8\u767C\uFF09-> Blocked\u3002\u9700\u8981\u4E09\u6B21\u7121\u6548\u5617\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C0D\u672A\u5B9A\u7FA9\u4E8B\u4EF6\u7684\u8CA0\u5411\u6E2C\u8A66",
+            "text": "<p>\u5C0D\u6B64\u767B\u5165\u72C0\u614B\u6A5F\uFF0C<code>logout</code> \u53EA\u5728 <code>LoggedIn</code> \u6709\u5B9A\u7FA9\u3002\u6E2C\u8A66\u8005\u5728 <code>LoggedOut</code> \u767C\u9001 <code>logout</code>\u3002\u9019\u500B<strong>\u8CA0\u5411\u6E2C\u8A66</strong>\u7684\u6B63\u78BA\u9810\u671F\u7D50\u679C\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E8B\u4EF6\u88AB\u62D2\u7D55\uFF0F\u5FFD\u7565\uFF1A\u72C0\u614B\u6A5F\u505C\u7559\u5728 LoggedOut\uFF08\u4E0D\u6539\u8B8A\u72C0\u614B\uFF09\uFF0C\u53EF\u80FD\u4F34\u96A8\u932F\u8AA4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u672A\u5B9A\u7FA9\u4E8B\u4EF6\u61C9\u7DAD\u6301\u72C0\u614B\u4E0D\u8B8A\uFF08\u6216\u5F15\u767C\u932F\u8AA4\uFF09\uFF0C\u7D55\u4E0D\u61C9\u6084\u6084\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "\u72C0\u614B\u6A5F\u8F49\u79FB\u5230 LoggedIn",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F\u6F5B\u884C\u8DEF\u5F91\uFF1Blogout \u5728 LoggedOut \u672A\u5B9A\u7FA9\uFF0C\u7D55\u4E0D\u61C9\u9020\u6210\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "\u72C0\u614B\u6A5F\u8F49\u79FB\u5230 Blocked",
+                "fraction": 0,
+                "feedback": "Blocked \u53EA\u80FD\u900F\u904E\u8B77\u885B\u689D\u4EF6\u4E0B\u7684\u5931\u6557 submit \u62B5\u9054\uFF1Blogout \u6C92\u6709\u9019\u7A2E\u6548\u679C\u3002"
+              },
+              {
+                "text": "\u5617\u8A66\u8A08\u6578\u5668\u6B78\u96F6\u4E14\u72C0\u614B\u6539\u8B8A",
+                "fraction": 0,
+                "feedback": "logout \u5728 LoggedOut \u672A\u5B9A\u7FA9\uFF1B\u6B63\u78BA\u884C\u70BA\u662F\u4E0D\u6539\u8B8A\u72C0\u614B\uFF0C\u800C\u4E0D\u662F\u8A08\u6578\u6B78\u96F6\u4E26\u8F49\u79FB\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CA0\u5411\u6E2C\u8A66\u767C\u9001\u5728\u7576\u524D\u72C0\u614B\u672A\u5B9A\u7FA9\u7684\u4E8B\u4EF6\uFF0C\u4EE5\u6AA2\u67E5\u6F5B\u884C\u8DEF\u5F91\u3002\u7531\u65BC logout \u5728 LoggedOut \u672A\u5B9A\u7FA9\uFF0C\u6B63\u78BA\u7684\u5BE6\u4F5C\u6703\u5FFD\u7565\u6216\u62D2\u7D55\u5B83\u4E26\u505C\u7559\u5728 LoggedOut\u2014\u2014\u4EFB\u4F55\u7531\u6B64\u7522\u751F\u7684\u8F49\u79FB\u90FD\u6703\u662F\u6F5B\u884C\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6578\u6709\u6548\u8F49\u79FB\uFF1A\u5206\u652F\u72C0\u614B\u6A5F",
+            "text": "<p>\u5C0D\u9019\u500B\u8868\u683C\uFF08\u300C-\u300D= \u672A\u5B9A\u7FA9\uFF09\uFF1A</p><pre>\n       p        q\nA      B        C\nB      C        -\nC      A        -\n</pre><p>\u6B64\u72C0\u614B\u6A5F\u6709\u5E7E\u500B\u6709\u6548\u8F49\u79FB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014A/p\u3001A/q\u3001B/p\u3001C/p \u6709\u5B9A\u7FA9\uFF1BB \u8207 C \u7684\u5169\u500B q \u683C\u662F\u7834\u6298\u865F\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u6578\u4E86\u5168\u90E8\u683C\u5B50\uFF1B\u5176\u4E2D\u5169\u500B\uFF08B/q\u3001C/q\uFF09\u662F\u7834\u6298\u865F\uFF0C\u53EA\u5269 4 \u500B\u6709\u6548\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u662F\u72C0\u614B\u6578\uFF1B\u6709\u6548\u8F49\u79FB\u6709 4 \u500B\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 \u662F\u6B64\u72C0\u614B\u6A5F\u7684 1-switch \u5C0D\u6578\uFF0C\u4E0D\u662F\u55AE\u4E00\u8F49\u79FB\u6578\uFF084\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u6578\u975E\u7834\u6298\u865F\u683C\u5B50\uFF1AA--p-->B\u3001A--q-->C\u3001B--p-->C\u3001C--p-->A = 4 \u500B\u6709\u6548\u8F49\u79FB\u3002B/q \u8207 C/q \u683C\u662F\u7834\u6298\u865F\uFF08\u672A\u5B9A\u7FA9\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "n-switch \u7684\u4E00\u822C\u5B9A\u7FA9",
+            "text": "<p>\u5728 Chow \u7684 switch \u6DB5\u84CB\u968E\u5C64\u4E2D\uFF0C<strong>n-switch</strong> \u6DB5\u84CB\u8981\u6C42\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u4E00\u500B\u7531 n+1 \u500B\u9023\u7E8C\u8F49\u79FB\u69CB\u6210\u7684\u6709\u6548\u5E8F\u5217\u90FD\u88AB\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014n-switch \u6DB5\u84CB\u9577\u5EA6 n+1 \u7684\u8F49\u79FB\u5E8F\u5217\uFF1B0-switch \u662F\u55AE\u4E00\u8F49\u79FB\uFF0C1-switch \u662F\u6210\u5C0D\u3002"
+              },
+              {
+                "text": "\u6BCF\u4E00\u500B\u6070\u7531 n \u500B\u8F49\u79FB\u69CB\u6210\u7684\u6709\u6548\u5E8F\u5217\u90FD\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u5DEE\u4E00\uFF1An-switch \u6DB5\u84CB n+1 \u500B\u8F49\u79FB\uFF0C\u6240\u4EE5 0-switch \u662F 1 \u500B\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u72C0\u614B\u81F3\u5C11\u88AB\u9020\u8A2A n \u6B21",
+                "fraction": 0,
+                "feedback": "switch \u6DB5\u84CB\u8A08\u7B97\u7684\u662F\u8F49\u79FB\u5E8F\u5217\u9577\u5EA6\uFF0C\u800C\u975E\u91CD\u8907\u7684\u72C0\u614B\u9020\u8A2A\u3002"
+              },
+              {
+                "text": "\u5716\u4E2D\u6BCF\u4E00\u689D\u9577\u5EA6\u70BA n \u7684\u8DEF\u5F91\uFF0C\u4E0D\u7BA1\u662F\u5426\u6709\u6548",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u6709\u6548\uFF08\u5DF2\u5B9A\u7FA9\uFF09\u7684\u8F49\u79FB\u5E8F\u5217\u624D\u7B97\uFF0C\u4E14\u9577\u5EA6\u70BA n+1\u3002"
+              }
+            ],
+            "generalFeedback": "n-switch \u6DB5\u84CB\u8981\u6C42\u6BCF\u4E00\u500B\u7531 n+1 \u500B\u9023\u7E8C\u8F49\u79FB\u69CB\u6210\u7684\u6709\u6548\u5E8F\u5217\u3002\u56E0\u6B64 0-switch = \u55AE\u4E00\u8F49\u79FB\uFF0C1-switch = \u6210\u5C0D\uFF0C2-switch = \u4E09\u9023\u3002Chow \u7684 W \u65B9\u6CD5\u5373\u4EE5\u6B64\u70BA\u57FA\u790E\u4F86\u5075\u6E2C\u72C0\u614B\u6A5F\u4E2D\u7684\u932F\u8AA4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6DB5\u84CB\u6240\u9700\u6700\u5C11\u8F49\u79FB\uFF1A\u74B0\u72C0",
+            "text": "<p>\u4E00\u500B\u74B0\u72C0\u72C0\u614B\u6A5F\u6709\u8F49\u79FB S1--x--&gt;S2\u3001S2--y--&gt;S3\u3001S3--z--&gt;S1\u3002\u5F9E S1 \u958B\u59CB\uFF0C\u9054\u6210<strong>\u8F49\u79FB\u6DB5\u84CB</strong>\u6240\u9700\u7684\u6700\u5C11\u8F49\u79FB\u6B65\u9A5F\u6578\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3\u2014\u2014x\u3001y\u3001z \u57F7\u884C\u5168\u90E8\u4E09\u500B\u8F49\u79FB\u4E26\u56DE\u5230 S1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E09\u500B\u8F49\u79FB\u4E32\u6210\u4E00\u689D\u9577\u5EA6 3 \u7684\u884C\u8D70\uFF0C\u5168\u90E8\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "2\u2014\u2014\u4E00\u689D\u5169\u500B\u8F49\u79FB\u7684\u884C\u8D70\u5C31\u8DB3\u5920",
+                "fraction": 0,
+                "feedback": "\u5169\u6B65\u53EA\u6DB5\u84CB\u4E09\u500B\u8F49\u79FB\u4E2D\u7684\u5169\u500B\uFF1B\u7B2C\u4E09\u500B\u88AB\u6F0F\u6389\u3002"
+              },
+              {
+                "text": "6\u2014\u2014\u6BCF\u500B\u8F49\u79FB\u9808\u57F7\u884C\u5169\u6B21",
+                "fraction": 0,
+                "feedback": "\u8F49\u79FB\u6DB5\u84CB\u8981\u6C42\u6BCF\u500B\u8F49\u79FB\u5404\u4E00\u6B21\uFF1B3 \u6B65\u5C31\u8DB3\u5920\u3002"
+              },
+              {
+                "text": "4\u2014\u2014\u4F60\u5FC5\u9808\u56DE\u5230\u8D77\u9EDE\u5169\u6B21",
+                "fraction": 0,
+                "feedback": "x\u3001y\u3001z \u5DF2\u5728 3 \u6B65\u5167\u56DE\u5230 S1 \u4E26\u6DB5\u84CB\u6240\u6709\u5167\u5BB9\u3002"
+              }
+            ],
+            "generalFeedback": "\u9019\u4E9B\u8F49\u79FB\u9023\u6210 S1->S2->S3->S1\uFF0C\u6240\u4EE5\u884C\u8D70 x\u3001y\u3001z\uFF083 \u6B65\uFF09\u5404\u57F7\u884C\u4E09\u500B\u8F49\u79FB\u4E00\u6B21\u4E26\u56DE\u5230\u8D77\u9EDE\u3002\u9019\u662F\u8F49\u79FB\u6DB5\u84CB\u7684\u6700\u5C0F\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6709\u6548\u8207\u7121\u6548\u7684 1-switch \u5C0D",
+            "text": "<p>\u5C0D\u65CB\u8F49\u67F5\u9580\u7684\u8F49\u79FB t1: Locked--coin--&gt;Unlocked\u3001t2: Locked--push--&gt;Locked\u3001t3: Unlocked--coin--&gt;Unlocked\u3001t4: Unlocked--push--&gt;Locked\uFF0C\u54EA\u4E00\u500B\u6709\u5E8F\u5C0D\u662F<strong>\u6709\u6548</strong>\u7684 1-switch \u5E8F\u5217\uFF1F</p>",
+            "answers": [
+              {
+                "text": "(t1, t4)\u2014\u2014t1 \u7D50\u675F\u65BC Unlocked\uFF0Ct4 \u8D77\u59CB\u65BC Unlocked",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014target(t1)=Unlocked=source(t4)\uFF0C\u56E0\u6B64\u8A72\u5C0D\u80FD\u6709\u6548\u63A5\u5408\u3002"
+              },
+              {
+                "text": "(t1, t2)\u2014\u2014t1 \u7136\u5F8C t2",
+                "fraction": 0,
+                "feedback": "t1 \u7D50\u675F\u65BC Unlocked\uFF0C\u4F46 t2 \u8D77\u59CB\u65BC Locked\uFF0C\u56E0\u6B64\u7121\u6CD5\u63A5\u5408\u3002"
+              },
+              {
+                "text": "(t4, t3)\u2014\u2014t4 \u7136\u5F8C t3",
+                "fraction": 0,
+                "feedback": "t4 \u7D50\u675F\u65BC Locked\uFF0C\u4F46 t3 \u8D77\u59CB\u65BC Unlocked\uFF0C\u56E0\u6B64\u6B64\u5C0D\u7121\u6CD5\u63A5\u5408\u3002"
+              },
+              {
+                "text": "(t2, t4)\u2014\u2014t2 \u7136\u5F8C t4",
+                "fraction": 0,
+                "feedback": "t2 \u7D50\u675F\u65BC Locked\uFF0C\u4F46 t4 \u8D77\u59CB\u65BC Unlocked\uFF0C\u56E0\u6B64\u5169\u8005\u7121\u6CD5\u9023\u63A5\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6709\u7576 target(ti) = source(tj) \u6642\uFF0C1-switch \u5C0D (ti, tj) \u624D\u6709\u6548\u3002t1 \u7D50\u675F\u65BC Unlocked \u4E14 t4 \u8D77\u59CB\u65BC Unlocked\uFF0C\u6240\u4EE5 (t1, t4) \u6709\u6548\u3002\u5176\u4ED6\u9078\u9805\u90FD\u5728\u63A5\u5408\u9EDE\u65B7\u958B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B77\u885B\u689D\u4EF6\u6C7A\u5B9A\u54EA\u500B\u8F49\u79FB\u89F8\u767C",
+            "text": "<p>\u5F9E\u72C0\u614B <code>LoggedOut</code>\uFF0C\u6B64\u767B\u5165\u72C0\u614B\u6A5F\u5728\u540C\u4E00\u4E8B\u4EF6 <code>submit</code> \u4E0A\u6709\u5169\u500B\u8F49\u79FB\uFF1A\u4E00\u500B\u4EE5 <code>[valid]</code> \u70BA\u8B77\u885B\u689D\u4EF6\u901A\u5F80 LoggedIn\uFF0C\u53E6\u4E00\u500B\u4EE5 <code>[invalid & attempts<2]</code> \u70BA\u8B77\u885B\u689D\u4EF6\u56DE\u5230 LoggedOut\u3002\u82E5 <code>submit</code> \u4EE5\u6B63\u78BA\u6191\u8B49\u767C\u751F\uFF0C\u54EA\u4E00\u500B\u8F49\u79FB\u6703\u89F8\u767C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u901A\u5F80 LoggedIn \u7684 [valid] \u8F49\u79FB\uFF0C\u56E0\u70BA\u5B83\u7684\u8B77\u885B\u689D\u4EF6\u6210\u7ACB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u540C\u4E00\u4E8B\u4EF6\u4E0B\uFF0C\u7531\u6210\u7ACB\u7684\u8B77\u885B\u689D\u4EF6\u6311\u9078\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u8F49\u79FB\u540C\u6642\u89F8\u767C",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u8B77\u885B\u689D\u4EF6\u4E92\u65A5\uFF1B\u53EA\u6709\u8B77\u885B\u689D\u4EF6\u6210\u7ACB\u7684\u8F49\u79FB\u6703\u89F8\u767C\u3002"
+              },
+              {
+                "text": "[invalid] \u8F49\u79FB\uFF0C\u56E0\u70BA\u5B83\u5217\u5728 LoggedOut",
+                "fraction": 0,
+                "feedback": "\u5B83\u7684\u8B77\u885B\u689D\u4EF6\u8981\u6C42\u7121\u6548\u6191\u8B49\uFF0C\u6B64\u8655\u70BA\u5047\uFF0C\u56E0\u6B64\u4E0D\u6703\u89F8\u767C\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u6703\uFF0C\u56E0\u70BA\u5169\u500B\u8F49\u79FB\u5171\u7528\u540C\u4E00\u4E8B\u4EF6",
+                "fraction": 0,
+                "feedback": "\u7576\u8B77\u885B\u689D\u4EF6\u80FD\u5340\u5206\u6642\uFF0C\u5171\u7528\u4E8B\u4EF6\u662F\u53EF\u4EE5\u7684\uFF1B[valid] \u8B77\u885B\u689D\u4EF6\u6210\u7ACB\uFF0C\u56E0\u6B64\u8A72\u8F49\u79FB\u89F8\u767C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6578\u500B\u8F49\u79FB\u5728\u540C\u4E00\u4E8B\u4EF6\u4E0A\u96E2\u958B\u4E00\u500B\u72C0\u614B\u6642\uFF0C\u7531\u8B77\u885B\u689D\u4EF6\u6311\u9078\u54EA\u4E00\u500B\u89F8\u767C\u3002\u6191\u8B49\u6B63\u78BA\u6642 [valid] \u8B77\u885B\u689D\u4EF6\u70BA\u771F\u800C [invalid ...] \u8B77\u885B\u689D\u4EF6\u70BA\u5047\uFF0C\u56E0\u6B64\u72C0\u614B\u6A5F\u8F49\u79FB\u5230 LoggedIn\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "1-switch \u5305\u542B 0-switch",
+            "text": "<p>\u9054\u6210 1-switch \u6DB5\u84CB\u5C31\u81EA\u52D5\u9054\u6210 0-switch\uFF08\u8F49\u79FB\uFF09\u6DB5\u84CB\uFF0C\u56E0\u70BA\u6BCF\u4E00\u5C0D\u9023\u7E8C\u8F49\u79FB\u90FD\u5305\u542B\u5B83\u7684\u5169\u500B\u6210\u54E1\u8F49\u79FB\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DB5\u84CB\u6240\u6709\u6709\u6548\u5C0D\u4EE3\u8868\u6BCF\u500B\u8F49\u79FB\u90FD\u51FA\u73FE\u5728\u67D0\u4E00\u5C0D\u4E2D\uFF0C\u56E0\u6B64\u6240\u6709\u55AE\u4E00\u8F49\u79FB\u90FD\u88AB\u57F7\u884C\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "1-switch \u78BA\u5BE6\u5305\u542B 0-switch\uFF1A\u4EFB\u4F55\u53EF\u9054\u8F49\u79FB\u90FD\u81F3\u5C11\u5C6C\u65BC\u4E00\u500B\u88AB\u6DB5\u84CB\u7684\u5C0D\uFF0C\u56E0\u6B64\u90FD\u88AB\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "1-switch \u6DB5\u84CB\u6BD4 0-switch \u5F37\u3002\u57F7\u884C\u6BCF\u4E00\u500B\u6709\u6548\u7684\u9577\u5EA6 2 \u5E8F\u5217\u5FC5\u7136\u57F7\u884C\u5176\u69CB\u6210\u7684\u6BCF\u500B\u8F49\u79FB\uFF0C\u56E0\u6B64 1-switch \u5305\u542B 0-switch\uFF08\u800C\u5F8C\u8005\u53C8\u5305\u542B\u72C0\u614B\u6DB5\u84CB\uFF09\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8F49\u79FB\u6DB5\u84CB\u9577\u5EA6\uFF1A\u9580",
+            "text": "<p>\u9580\u63A7\u5236\u5668\u6709 4 \u500B\u6709\u6548\u8F49\u79FB\uFF1AClosed--open--&gt;Open\u3001Open--close--&gt;Closed\u3001Closed--lock--&gt;Locked\u3001Locked--unlock--&gt;Closed\u3002\u5F9E Closed \u958B\u59CB\uFF0C\u9054\u6210\u8F49\u79FB\u6DB5\u84CB\u7684\u55AE\u4E00\u884C\u8D70\u6700\u5C11\u6709\u5E7E\u500B\u8F49\u79FB\u6B65\u9A5F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4\u2014\u2014open\u3001close\u3001lock\u3001unlock \u4E32\u8D77\u5168\u90E8\u56DB\u500B\u4E26\u56DE\u5230 Closed",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56DB\u500B\u8F49\u79FB\u90FD\u7D93\u904E Closed\uFF0C\u6240\u4EE5\u4E00\u689D 4 \u6B65\u884C\u8D70\u5C31\u80FD\u5168\u90E8\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "3\u2014\u2014\u4E09\u6B65\u5C31\u8DB3\u5920",
+                "fraction": 0,
+                "feedback": "\u4E09\u6B65\u53EA\u57F7\u884C\u4E09\u500B\u8F49\u79FB\uFF1B\u7B2C\u56DB\u500B\u88AB\u6F0F\u6389\u3002"
+              },
+              {
+                "text": "5\u2014\u2014\u591A\u51FA\u4E00\u6B65\u7121\u53EF\u907F\u514D",
+                "fraction": 0,
+                "feedback": "\u7531\u65BC\u6BCF\u500B\u8F49\u79FB\u90FD\u7D93\u904E Closed\uFF0C\u5B83\u5011\u6070\u597D\u4E32\u6210 4 \u6B65\uFF0C\u7121\u9700\u91CD\u8907\u3002"
+              },
+              {
+                "text": "8\u2014\u2014\u6BCF\u500B\u8F49\u79FB\u90FD\u9700\u91CD\u8A2A",
+                "fraction": 0,
+                "feedback": "\u8F49\u79FB\u6DB5\u84CB\u8981\u6C42\u6BCF\u500B\u8F49\u79FB\u5404\u4E00\u6B21\uFF1B\u6B64\u8655 4 \u6B65\u5C31\u8DB3\u5920\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DB\u500B\u8F49\u79FB\u90FD\u9023\u5230 Closed\uFF0C\u6240\u4EE5\u884C\u8D70 open (Closed->Open)\u3001close (Open->Closed)\u3001lock (Closed->Locked)\u3001unlock (Locked->Closed) \u5C07\u5B83\u5011\u4E32\u6210\u55AE\u4E00 4 \u6B65\u5DE1\u8A2A\uFF0C\u5404\u6DB5\u84CB\u6BCF\u500B\u8F49\u79FB\u4E00\u6B21\u2014\u2014\u5373\u6700\u5C0F\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6578 1-switch \u5C0D\uFF1A\u9580",
+            "text": "<p>\u9580\u63A7\u5236\u5668\u6709\u4EE5\u4E0B 4 \u500B\u6709\u6548\u8F49\u79FB\uFF1A</p><pre>\nd1: Closed --open--> Open\nd2: Closed --lock--> Locked\nd3: Open   --close--> Closed\nd4: Locked --unlock--> Closed\n</pre><p>\u5B83\u6709\u5E7E\u500B\u6709\u6548\u7684 <strong>1-switch</strong> \u5E8F\u5217\uFF08\u9023\u7E8C\u8F49\u79FB\u7684\u6709\u5E8F\u5C0D\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Closed \u6709 2 \u8F49\u5165 x 2 \u8F49\u51FA = 4\uFF0COpen \u6709 1 \u8F49\u5165 x 1 \u8F49\u51FA = 1\uFF0CLocked \u6709 1 \u8F49\u5165 x 1 \u8F49\u51FA = 1\uFF1B\u5408\u8A08 6\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u55AE\u4E00\u8F49\u79FB\uFF080-switch\uFF09\u7684\u6578\u76EE\uFF0C\u4E0D\u662F\u53EF\u63A5\u5408\u7684\u5C0D\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 \u662F\u65CB\u8F49\u67F5\u9580\u7684\u5C0D\u6578\uFF1B\u9010\u4E00\u5217\u51FA\u6B64\u9580\u7684\u5C0D\u5F97 6\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "Closed \u7531 d3 \u8207 d4 \u9032\u5165\u3001\u7531 d1 \u8207 d2 \u96E2\u958B\uFF0C\u55AE\u662F\u7D93\u904E Closed \u5C31\u6709 4 \u500B\u5C0D\uFF1B\u7E3D\u6578\u662F 6\uFF0C\u4E0D\u662F 5\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u6BCF\u500B\u72C0\u614B\uFF0C\u5C0D\u6578 =\uFF08\u8F49\u5165\u6578\uFF09x\uFF08\u8F49\u51FA\u6578\uFF09\u3002Closed\uFF1A\u8F49\u5165 {d3, d4}=2\uFF0C\u8F49\u51FA {d1, d2}=2 -> 4\u3002Open\uFF1A\u8F49\u5165 {d1}=1\uFF0C\u8F49\u51FA {d3}=1 -> 1\u3002Locked\uFF1A\u8F49\u5165 {d2}=1\uFF0C\u8F49\u51FA {d4}=1 -> 1\u3002\u5408\u8A08 4+1+1 = 6\u3002\u660E\u78BA\u5217\u51FA\uFF1A(d3,d1)\u3001(d3,d2)\u3001(d4,d1)\u3001(d4,d2)\u3001(d1,d3)\u3001(d2,d4)\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "symbolic-execution": {
       "en": {
         "easy": [
