@@ -59,7 +59,7 @@ export function createCloudStoragePanel() {
           <div class="cloud-auth-actions">
             ${user
               ? `<span class="cloud-signed-in" data-testid="cloud-signed-in">${t('common.signedIn')}</span>`
-              : `<button type="button" class="cloud-btn" data-testid="cloud-signin-btn" ${!canUseCloudAuth ? 'disabled' : ''}>${t('common.googleSignIn')}</button>`}
+              : `<button type="button" class="cloud-btn" data-testid="cloud-signin-btn" ${!canUseCloudAuth ? 'disabled' : ''}>${t('common.maccountSignIn')}</button>`}
             <button type="button" class="cloud-btn cloud-btn--secondary" data-testid="cloud-signout-btn" ${!user ? 'disabled' : ''}>${t('common.signOut')}</button>
           </div>
         </div>
@@ -174,18 +174,8 @@ export function createCloudStoragePanel() {
       </div>
     `;
 
-    root.querySelector('[data-testid="cloud-signin-btn"]')?.addEventListener('click', async () => {
-      try {
-        const result = await client.signInWithGoogle();
-        user = result.user;
-        status = result.hasDriveToken
-          ? t('cloud.signedInOk')
-          : t('cloud.signedInNoDrive');;
-        render();
-      } catch (error) {
-        status = error.message;
-        render();
-      }
+    root.querySelector('[data-testid="cloud-signin-btn"]')?.addEventListener('click', () => {
+      client.signIn();
     });
 
     root.querySelector('[data-testid="cloud-signout-btn"]').addEventListener('click', async () => {

@@ -2584,6 +2584,7 @@ export const messages = {
     'common.signedIn': '✓ Signed in',
     'common.notSignedIn': 'Not signed in',
     'common.googleSignIn': 'Google Sign in',
+    'common.maccountSignIn': 'Sign in with NYCU account',
     'common.signOut': 'Sign out',
 
     // Cloud panel
@@ -5507,6 +5508,7 @@ export const messages = {
     'common.signedIn': '✓ 已登入',
     'common.notSignedIn': '尚未登入',
     'common.googleSignIn': 'Google 登入',
+    'common.maccountSignIn': '以 NYCU 帳號登入',
     'common.signOut': '登出',
 
     'cloud.kicker': 'Google + Firebase',

@@ -162,9 +162,7 @@ function paint(focusTestId) {
   const signinRow = overlay.querySelector('[data-testid="slideviewer-signin-row"]');
   if (signinRow) {
     signinRow.addEventListener('click', () => {
-      const cloudBtn = document.querySelector('[data-app-cloud]');
-      closeSlideViewer();
-      cloudBtn?.click();
+      createCloudIntegrationClient().signIn();
     });
   }
   if (focusTestId) focusInViewer(focusTestId);
