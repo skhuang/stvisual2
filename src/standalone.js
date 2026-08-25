@@ -85989,6 +85989,2502 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "pairwise": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What pairwise testing requires",
+            "text": "<p>What does pairwise (2-way) testing require of a test suite?</p>",
+            "answers": [
+              {
+                "text": "For every pair of parameters, every combination of their values appears together in at least one test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is exactly the 2-way coverage guarantee."
+              },
+              {
+                "text": "Every possible combination of all parameter values appears in some test",
+                "fraction": 0,
+                "feedback": "That is exhaustive testing; pairwise only covers value pairs, not full combinations."
+              },
+              {
+                "text": "Each individual parameter value appears in at least one test",
+                "fraction": 0,
+                "feedback": "That is weaker (each-choice) coverage; pairwise additionally requires every pair of values."
+              },
+              {
+                "text": "Exactly two tests are run for each parameter",
+                "fraction": 0,
+                "feedback": "Pairwise constrains which value pairs are covered, not a fixed number of tests per parameter."
+              }
+            ],
+            "generalFeedback": "Pairwise (2-way) testing requires that for every pair of parameters, every combination of one value from each appears together in at least one test case. It targets two-way interaction faults while using far fewer tests than exhaustive coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Empirical basis for pairwise",
+            "text": "<p>What empirical observation motivates pairwise testing?</p>",
+            "answers": [
+              {
+                "text": "Most software faults are triggered by a single factor or by an interaction of only two factors",
+                "fraction": 100,
+                "feedback": "Correct \u2014 studies of the interaction/fault-coupling of defects show most failures involve one or two factors."
+              },
+              {
+                "text": "Most software faults require every parameter to take an extreme value simultaneously",
+                "fraction": 0,
+                "feedback": "On the contrary, high-order interactions cause relatively few faults; that is why pairwise pays off."
+              },
+              {
+                "text": "Faults are distributed uniformly across all combinations of parameters",
+                "fraction": 0,
+                "feedback": "If faults were uniform across full combinations, pairwise would offer little benefit; the evidence is that low-order interactions dominate."
+              },
+              {
+                "text": "Faults only ever depend on a single input parameter",
+                "fraction": 0,
+                "feedback": "Two-way (and occasionally higher) interactions do occur; pairwise targets the common one- and two-factor cases."
+              }
+            ],
+            "generalFeedback": "Empirical fault studies found that a large majority of failures are caused by a single factor or a two-factor interaction, with progressively fewer caused by three or more factors. Pairwise testing exploits this by guaranteeing all two-way combinations at low cost.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What exhaustive testing means",
+            "text": "<p>For a system configured by several parameters, what does <strong>exhaustive</strong> combinatorial testing require?</p>",
+            "answers": [
+              {
+                "text": "One test for every possible combination of values across all parameters",
+                "fraction": 100,
+                "feedback": "Correct \u2014 exhaustive means the full Cartesian product of the parameter domains."
+              },
+              {
+                "text": "One test for every pair of parameter values",
+                "fraction": 0,
+                "feedback": "That is pairwise testing, a small subset of exhaustive."
+              },
+              {
+                "text": "One test per parameter",
+                "fraction": 0,
+                "feedback": "That does not even cover each value; exhaustive covers every full combination."
+              },
+              {
+                "text": "A fixed number of tests regardless of the number of parameters",
+                "fraction": 0,
+                "feedback": "Exhaustive count grows as the product of the domain sizes, so it depends heavily on the parameters."
+              }
+            ],
+            "generalFeedback": "Exhaustive testing runs every combination of parameter values \u2014 the full Cartesian product. Its size is the product of all the domain sizes, which grows explosively, which is the very problem combinatorial testing addresses.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Exhaustive count for 3 x 2 x 2",
+            "text": "<p>A feature has three parameters: the first has 3 possible values, the second has 2, and the third has 2. How many tests does <strong>exhaustive</strong> testing require?</p>",
+            "answers": [
+              {
+                "text": "12",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3 \xD7 2 \xD7 2 = 12, the product of the domain sizes."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 is the sum 3 + 2 + 2; exhaustive multiplies the domain sizes."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 counts only two of the three parameters (3 \xD7 2); include the third."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the product of the two largest domains (3 \xD7 2 would be 6, not 4), and in any case that is a pairwise lower bound, not the exhaustive count."
+              }
+            ],
+            "generalFeedback": "Exhaustive testing is the product of all domain sizes: 3 \xD7 2 \xD7 2 = 12.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Exhaustive count for three 3-valued parameters",
+            "text": "<p>A configuration has three parameters, each with 3 possible values. How many tests does <strong>exhaustive</strong> testing require?</p>",
+            "answers": [
+              {
+                "text": "27",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3 \xD7 3 \xD7 3 = 27."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 is 3 \xD7 3, the product of only two parameters (and it is the pairwise lower bound here), not the full product."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 is 3 + 3 (two parameters summed); exhaustive multiplies all three domain sizes."
+              },
+              {
+                "text": "81",
+                "fraction": 0,
+                "feedback": "81 is 3 to the fourth power, i.e. four parameters; here there are only three."
+              }
+            ],
+            "generalFeedback": "Exhaustive count is the product of all domain sizes: 3 \xD7 3 \xD7 3 = 27.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Exhaustive count for 4 x 3",
+            "text": "<p>A function has two parameters: one with 4 possible values and one with 3. How many tests does <strong>exhaustive</strong> testing require?</p>",
+            "answers": [
+              {
+                "text": "12",
+                "fraction": 100,
+                "feedback": "Correct \u2014 4 \xD7 3 = 12."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 is the sum 4 + 3; exhaustive multiplies the domain sizes."
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 is 4 \xD7 4; the second parameter has 3 values, not 4."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 is 3 \xD7 3; the first parameter has 4 values, not 3."
+              }
+            ],
+            "generalFeedback": "With two parameters the exhaustive count equals the product of the two domain sizes: 4 \xD7 3 = 12. (With only two parameters, exhaustive and pairwise coincide.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What t-way testing generalizes",
+            "text": "<p>Pairwise testing is the case t = 2 of t-way (combinatorial) testing. What does general t-way testing require?</p>",
+            "answers": [
+              {
+                "text": "Every combination of values among every group of t parameters appears in at least one test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 strength t means all t-tuples of values are covered."
+              },
+              {
+                "text": "Every parameter takes exactly t different values across the suite",
+                "fraction": 0,
+                "feedback": "t is the interaction strength, not the number of values a parameter takes."
+              },
+              {
+                "text": "The suite contains exactly t test cases",
+                "fraction": 0,
+                "feedback": "t is the strength of coverage, not the number of tests."
+              },
+              {
+                "text": "At most t parameters are tested at a time and the rest are ignored",
+                "fraction": 0,
+                "feedback": "All parameters are covered; t is the size of the interacting groups whose combinations must all appear."
+              }
+            ],
+            "generalFeedback": "t-way testing generalizes pairwise: for strength t, every combination of values across every set of t parameters must appear in at least one test. t = 1 is each-choice, t = 2 is pairwise, and t equal to the number of parameters is exhaustive.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a covering array is",
+            "text": "<p>In combinatorial testing, what is a <strong>covering array</strong>?</p>",
+            "answers": [
+              {
+                "text": "A set of test rows in which every t-way combination of parameter values appears in at least one row",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a covering array of strength t guarantees every t-tuple appears at least once."
+              },
+              {
+                "text": "A table listing every possible combination of parameter values exactly once",
+                "fraction": 0,
+                "feedback": "That is the exhaustive set; a covering array is usually much smaller and only requires each t-tuple at least once."
+              },
+              {
+                "text": "An array recording which test found which fault",
+                "fraction": 0,
+                "feedback": "That is a fault matrix, not a covering array."
+              },
+              {
+                "text": "A matrix of code-coverage percentages for each test",
+                "fraction": 0,
+                "feedback": "Covering arrays describe input-value combinations, not structural code coverage."
+              }
+            ],
+            "generalFeedback": "A covering array is a compact set of test rows over the parameters such that every combination of values for every group of t parameters appears in at least one row. For pairwise, t = 2.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of t in CA(N; t, k, v)",
+            "text": "<p>In the covering-array notation <code>CA(N; t, k, v)</code>, what does the parameter <strong>t</strong> denote?</p>",
+            "answers": [
+              {
+                "text": "The interaction strength \u2014 the size of the parameter groups whose value combinations must all be covered",
+                "fraction": 100,
+                "feedback": "Correct \u2014 t is the strength; t = 2 is pairwise."
+              },
+              {
+                "text": "The number of test rows in the array",
+                "fraction": 0,
+                "feedback": "That is N, the number of rows."
+              },
+              {
+                "text": "The number of parameters (factors)",
+                "fraction": 0,
+                "feedback": "That is k, the number of factors."
+              },
+              {
+                "text": "The number of values each parameter can take",
+                "fraction": 0,
+                "feedback": "That is v, the number of levels per factor."
+              }
+            ],
+            "generalFeedback": "In CA(N; t, k, v): N is the number of rows, t is the interaction strength, k is the number of parameters (factors), and v is the number of values (levels) each takes. Pairwise corresponds to t = 2.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Pairwise equals 2-way",
+            "text": '<p>"Pairwise testing" and "2-way combinatorial testing" refer to the same thing.</p>',
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 pairwise is exactly t-way testing with t = 2."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "They are the same: pairwise is the special case t = 2 of t-way combinatorial testing."
+              }
+            ],
+            "generalFeedback": "Pairwise testing is 2-way combinatorial testing: it guarantees that every pair of values across every pair of parameters is covered at least once."
+          },
+          {
+            "type": "truefalse",
+            "name": "Exhaustive covers every combination",
+            "text": "<p>Exhaustive combinatorial testing covers every possible combination of all parameter values, and its test count is the product of all the domain sizes.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 exhaustive is the full Cartesian product, sized as the product of the domains."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Exhaustive testing does run every combination, and that count is exactly the product of the domain sizes."
+              }
+            ],
+            "generalFeedback": "Exhaustive testing runs the full Cartesian product of the parameter domains; its size is the product of all domain sizes, which is why it becomes infeasible as parameters grow."
+          },
+          {
+            "type": "multichoice",
+            "name": 'What a "pair" is in pairwise',
+            "text": '<p>In pairwise testing, what exactly is the "pair" that must be covered?</p>',
+            "answers": [
+              {
+                "text": "A specific value of one parameter together with a specific value of another parameter",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a pair is one value from each of two parameters, covered together in a test."
+              },
+              {
+                "text": "Two test cases that must be run consecutively",
+                "fraction": 0,
+                "feedback": "A pair refers to a combination of parameter values, not to two test cases."
+              },
+              {
+                "text": "Two different values of the same parameter",
+                "fraction": 0,
+                "feedback": "A pair spans two different parameters, one value from each."
+              },
+              {
+                "text": "A valid input paired with its expected output",
+                "fraction": 0,
+                "feedback": "That describes a test oracle, not the pair covered by pairwise testing."
+              }
+            ],
+            "generalFeedback": "A pair is one value of one parameter combined with one value of a second parameter. Pairwise coverage requires every such pair, over every choice of two parameters, to appear together in at least one test.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why avoid exhaustive testing",
+            "text": "<p>Why is exhaustive combinatorial testing usually impractical for real systems?</p>",
+            "answers": [
+              {
+                "text": "The number of combinations is the product of the domain sizes, which grows explosively as parameters are added",
+                "fraction": 100,
+                "feedback": "Correct \u2014 combinatorial explosion makes the full product infeasible."
+              },
+              {
+                "text": "Exhaustive testing cannot detect any interaction faults",
+                "fraction": 0,
+                "feedback": "Exhaustive testing actually detects all interaction faults; the problem is its cost, not its power."
+              },
+              {
+                "text": "Each combination must be tested thousands of times to be valid",
+                "fraction": 0,
+                "feedback": "Each combination is tested once; the issue is the sheer number of combinations."
+              },
+              {
+                "text": "Test tools cannot represent more than two parameters at once",
+                "fraction": 0,
+                "feedback": "Tools handle many parameters; the obstacle is the exponential number of combinations."
+              }
+            ],
+            "generalFeedback": "Exhaustive testing multiplies all the domain sizes, so the count explodes as parameters and values grow (for example ten binary parameters already require 2^10 = 1024 tests). Pairwise testing keeps the guarantee for two-way interactions while cutting the count dramatically.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Strength of pairwise",
+            "text": "<p>What interaction strength t characterizes pairwise testing?</p>",
+            "answers": [
+              {
+                "text": "t = 2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 pairwise means all two-parameter value combinations are covered."
+              },
+              {
+                "text": "t = 1",
+                "fraction": 0,
+                "feedback": "t = 1 is each-choice coverage (every single value), weaker than pairwise."
+              },
+              {
+                "text": "t = 3",
+                "fraction": 0,
+                "feedback": "t = 3 is three-way testing, stronger and more costly than pairwise."
+              },
+              {
+                "text": "t equals the number of parameters",
+                "fraction": 0,
+                "feedback": "t equal to the number of parameters is exhaustive testing, not pairwise."
+              }
+            ],
+            "generalFeedback": "Pairwise testing has strength t = 2: it guarantees coverage of all value combinations among every group of two parameters.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Every pair at least once",
+            "text": "<p>A valid pairwise test suite must include every pair of parameter values at least once, but it need not include each pair more than once.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 the requirement is "at least once"; repetition is allowed but not required.'
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Pairwise coverage requires each pair at least once; covering some pairs more than once is permitted but not necessary."
+              }
+            ],
+            "generalFeedback": "Pairwise (covering-array) coverage requires each value pair to appear at least once. Requiring each pair the same fixed number of times would be an orthogonal array \u2014 a stronger, balanced special case."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Exhaustive count for 4 x 3 x 3 x 2",
+            "text": "<p>A system has four parameters with domain sizes 4, 3, 3, and 2. How many tests does <strong>exhaustive</strong> testing require?</p>",
+            "answers": [
+              {
+                "text": "72",
+                "fraction": 100,
+                "feedback": "Correct \u2014 4 \xD7 3 \xD7 3 \xD7 2 = 72."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 is the product of only the two largest domains (4 \xD7 3), which is the pairwise lower bound, not the exhaustive count."
+              },
+              {
+                "text": "36",
+                "fraction": 0,
+                "feedback": "36 is 4 \xD7 3 \xD7 3; it omits the last parameter (\xD7 2)."
+              },
+              {
+                "text": "12 + others",
+                "fraction": 0,
+                "feedback": "Exhaustive is a product, not a sum: 4 \xD7 3 \xD7 3 \xD7 2 = 72."
+              }
+            ],
+            "generalFeedback": "Exhaustive testing is the product of all domain sizes: 4 \xD7 3 \xD7 3 \xD7 2 = 72.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Pairwise lower bound for 3 x 3 x 2",
+            "text": "<p>A configuration has three parameters with domain sizes 3, 3, and 2. What is the minimum number of tests any pairwise (2-way) suite must contain?</p>",
+            "answers": [
+              {
+                "text": "At least 9",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the lower bound is the product of the two largest domains, 3 \xD7 3 = 9."
+              },
+              {
+                "text": "At least 18",
+                "fraction": 0,
+                "feedback": "18 is the exhaustive count (3 \xD7 3 \xD7 2); pairwise needs far fewer."
+              },
+              {
+                "text": "At least 3",
+                "fraction": 0,
+                "feedback": "3 (the largest single domain) only satisfies each-choice coverage, not all pairs."
+              },
+              {
+                "text": "At least 6",
+                "fraction": 0,
+                "feedback": "6 is below the bound: covering all 3 \xD7 3 = 9 pairs of the two 3-valued parameters already forces at least 9 rows."
+              }
+            ],
+            "generalFeedback": "To cover every pair from the two 3-valued parameters you already need all 3 \xD7 3 = 9 of their combinations, so any pairwise suite has at least 9 rows. The lower bound is the product of the two largest domains.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the two largest domains give the bound",
+            "text": "<p>Why is the minimum size of any pairwise suite at least the product of the <strong>two largest</strong> parameter domains?</p>",
+            "answers": [
+              {
+                "text": "Every pair from those two parameters must appear, and there are (largest \xD7 second-largest) such pairs, each needing its own row",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no single row can cover two distinct value-pairs of the same two parameters, so you need at least that many rows."
+              },
+              {
+                "text": "Because the smallest domains determine how many rows are reusable",
+                "fraction": 0,
+                "feedback": "The bound comes from the largest domains, since they generate the most pairs to cover."
+              },
+              {
+                "text": "Because each parameter needs one row per value regardless of the others",
+                "fraction": 0,
+                "feedback": "That reasoning gives each-choice, not the pairwise bound from the two largest domains."
+              },
+              {
+                "text": "Because the suite must equal the exhaustive product divided by two",
+                "fraction": 0,
+                "feedback": "There is no such division rule; the bound is the product of the two largest domains."
+              }
+            ],
+            "generalFeedback": "Consider just the two parameters with the largest domains. Their pairs number (largest \xD7 second-largest), and a single test row fixes one value for each, so it covers only one of those pairs. Hence at least (largest \xD7 second-largest) rows are required \u2014 that product is the pairwise lower bound.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "How AETG builds a suite",
+            "text": "<p>How does the AETG algorithm construct a pairwise test suite?</p>",
+            "answers": [
+              {
+                "text": "Greedily, adding one whole test row at a time that covers as many still-uncovered pairs as possible",
+                "fraction": 100,
+                "feedback": "Correct \u2014 AETG is a greedy one-row-at-a-time heuristic."
+              },
+              {
+                "text": "By enumerating every combination and then deleting redundant rows",
+                "fraction": 0,
+                "feedback": "AETG never enumerates the full product; it builds rows greedily to avoid that explosion."
+              },
+              {
+                "text": "By solving an exact integer program that guarantees the minimum suite",
+                "fraction": 0,
+                "feedback": "AETG is a heuristic; it is near-optimal, not guaranteed minimal."
+              },
+              {
+                "text": "By adding one parameter column at a time to a growing array",
+                "fraction": 0,
+                "feedback": "That describes IPOG's one-parameter-at-a-time strategy, not AETG."
+              }
+            ],
+            "generalFeedback": "AETG (Automatic Efficient Test Generator) greedily builds the suite one complete test row at a time, each time choosing a row that covers as many yet-uncovered pairs as possible. It is fast and near-optimal but not guaranteed to produce the smallest possible suite.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "How IPOG builds a suite",
+            "text": "<p>What is the defining strategy of the IPOG algorithm?</p>",
+            "answers": [
+              {
+                "text": "In-Parameter-Order growth: build the array for the first parameters, then extend it one parameter at a time, filling and adding rows to cover new pairs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 IPOG grows the array horizontally (add a parameter) then vertically (add rows) as needed."
+              },
+              {
+                "text": "It randomly samples rows until all pairs happen to be covered",
+                "fraction": 0,
+                "feedback": "IPOG is deterministic and constructive, not random sampling."
+              },
+              {
+                "text": "It computes the exact minimal covering array by exhaustive search",
+                "fraction": 0,
+                "feedback": "IPOG is a greedy heuristic; it is near-optimal, not guaranteed minimal."
+              },
+              {
+                "text": "It tests one parameter in isolation and ignores interactions",
+                "fraction": 0,
+                "feedback": "IPOG explicitly covers pair interactions as it extends the array parameter by parameter."
+              }
+            ],
+            "generalFeedback": "IPOG (In-Parameter-Order Generation) builds a covering array for the first two parameters, then adds one parameter at a time: it horizontally extends existing rows to cover new pairs and vertically adds rows where needed. Like AETG it is a greedy, near-optimal heuristic, not guaranteed minimal.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Orthogonal array vs covering array",
+            "text": "<p>What distinguishes an <strong>orthogonal array</strong> from a general <strong>covering array</strong> for pairwise testing?</p>",
+            "answers": [
+              {
+                "text": "An orthogonal array requires each pair to appear the same fixed number of times (balanced); a covering array only requires each pair at least once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 orthogonal arrays are balanced, a stronger special case."
+              },
+              {
+                "text": "An orthogonal array covers three-way combinations while a covering array covers only pairs",
+                "fraction": 0,
+                "feedback": "The distinction is balance, not strength; both can be defined at strength 2."
+              },
+              {
+                "text": "A covering array must be balanced while an orthogonal array need not be",
+                "fraction": 0,
+                "feedback": "This reverses the definitions \u2014 the orthogonal array is the balanced one."
+              },
+              {
+                "text": "An orthogonal array allows constraints while a covering array forbids them",
+                "fraction": 0,
+                "feedback": "Constraint handling is unrelated to the balance distinction between the two."
+              }
+            ],
+            "generalFeedback": "An orthogonal array requires that every pair of values appears exactly the same number of times (\u03BB), making it balanced. A covering array only requires each pair at least once, so it is usually smaller and more flexible. Every orthogonal array is a covering array, but not vice versa.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Number of pairs for three 3-valued parameters",
+            "text": "<p>Three parameters each have 3 values. How many distinct value-pairs must a pairwise suite cover in total?</p>",
+            "answers": [
+              {
+                "text": "27",
+                "fraction": 100,
+                "feedback": "Correct \u2014 there are 3 parameter-pairs, each contributing 3 \xD7 3 = 9 value-pairs: 3 \xD7 9 = 27."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 is the value-pairs for a single pair of parameters; there are 3 such parameter-pairs, giving 27."
+              },
+              {
+                "text": "18",
+                "fraction": 0,
+                "feedback": "18 counts only two of the three parameter-pairs; all C(3,2) = 3 pairs of parameters count."
+              },
+              {
+                "text": "81",
+                "fraction": 0,
+                "feedback": "81 would be raising the value count to a power; the total pairs are summed over parameter-pairs: 3 \xD7 (3 \xD7 3) = 27."
+              }
+            ],
+            "generalFeedback": "The number of value-pairs to cover is the sum over each pair of parameters of (v_i \xD7 v_j). With 3 parameters there are C(3,2) = 3 parameter-pairs, each contributing 3 \xD7 3 = 9, for 27 in total.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Number of pairs for 3 x 2 x 2",
+            "text": "<p>Three parameters have domain sizes 3, 2, and 2. How many distinct value-pairs must a pairwise suite cover in total?</p>",
+            "answers": [
+              {
+                "text": "16",
+                "fraction": 100,
+                "feedback": "Correct \u2014 (3\xD72) + (3\xD72) + (2\xD72) = 6 + 6 + 4 = 16."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 is the exhaustive test count (3 \xD7 2 \xD7 2), not the number of value-pairs."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 is the sum of the domain sizes; the number of pairs sums v_i \xD7 v_j over the three parameter-pairs."
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "10 misses one parameter-pair; the three contributions are 6, 6, and 4, totalling 16."
+              }
+            ],
+            "generalFeedback": "Sum v_i \xD7 v_j over all pairs of parameters: parameters (P1=3, P2=2, P3=2) give P1-P2 = 6, P1-P3 = 6, P2-P3 = 4, for a total of 16 value-pairs.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Greedy generators and minimality",
+            "text": "<p>Greedy pairwise generators such as AETG and IPOG always produce the smallest possible covering array.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 they are near-optimal heuristics and are not guaranteed to be minimal."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "AETG and IPOG are greedy heuristics; they are fast and near-optimal but not guaranteed to yield the minimum-size array."
+              }
+            ],
+            "generalFeedback": "Finding a minimum covering array is computationally hard. AETG and IPOG use greedy heuristics that produce small, near-optimal suites quickly, but the result may be larger than the true minimum."
+          },
+          {
+            "type": "multichoice",
+            "name": "Pairwise reduction versus exhaustive",
+            "text": "<p>A system has parameters with domains 3, 3, and 3. Exhaustive testing needs 27 tests. What can we say about a pairwise suite for this system?</p>",
+            "answers": [
+              {
+                "text": "It needs at least 9 tests (the product of the two largest domains) and typically far fewer than the 27 exhaustive tests",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the lower bound is 3 \xD7 3 = 9, and a good pairwise suite is much smaller than exhaustive."
+              },
+              {
+                "text": "It needs exactly 27 tests, the same as exhaustive",
+                "fraction": 0,
+                "feedback": "Pairwise is smaller than exhaustive here; 27 is the full product."
+              },
+              {
+                "text": "It needs exactly 3 tests",
+                "fraction": 0,
+                "feedback": "3 tests cannot cover all 3 \xD7 3 = 9 pairs of any two of the parameters."
+              },
+              {
+                "text": "It always needs the sum of the domain sizes, 9, exactly",
+                "fraction": 0,
+                "feedback": "9 is a lower bound, not always exactly achievable; and it is a product of the two largest domains, not a sum of all."
+              }
+            ],
+            "generalFeedback": "The pairwise lower bound is the product of the two largest domains: 3 \xD7 3 = 9. A pairwise suite lies between that bound and the exhaustive 27; well-known constructions cover all pairs of three 3-valued parameters in as few as 9 rows, well below exhaustive.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Balance property of orthogonal arrays",
+            "text": "<p>What is the balance (index \u03BB) property of an orthogonal array of strength 2?</p>",
+            "answers": [
+              {
+                "text": "Every pair of values from any two columns appears in exactly \u03BB rows",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a fixed \u03BB for every pair is what makes the array balanced."
+              },
+              {
+                "text": "Each column contains every value exactly once",
+                "fraction": 0,
+                "feedback": "That describes a permutation of a single column, not the two-column balance of an orthogonal array."
+              },
+              {
+                "text": "Every pair of values appears at least once, with no constraint on how often",
+                "fraction": 0,
+                "feedback": '"At least once" is the covering-array property; orthogonal arrays require exactly \u03BB times.'
+              },
+              {
+                "text": "The number of rows equals the number of columns",
+                "fraction": 0,
+                "feedback": "Rows and columns are independent; balance is about equal pair frequency, not a square shape."
+              }
+            ],
+            "generalFeedback": 'In a strength-2 orthogonal array, for any two columns each ordered pair of values appears in exactly \u03BB rows (\u03BB is the index). This uniform frequency is stronger than the covering-array requirement of "at least once".',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Pairwise lower bound for 4 x 3 x 3 x 2",
+            "text": "<p>A system has four parameters with domain sizes 4, 3, 3, and 2. What is the minimum number of tests any pairwise suite must contain?</p>",
+            "answers": [
+              {
+                "text": "At least 12",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the two largest domains are 4 and 3, so the bound is 4 \xD7 3 = 12."
+              },
+              {
+                "text": "At least 72",
+                "fraction": 0,
+                "feedback": "72 is the exhaustive count (4 \xD7 3 \xD7 3 \xD7 2); pairwise needs far fewer."
+              },
+              {
+                "text": "At least 9",
+                "fraction": 0,
+                "feedback": "9 uses 3 \xD7 3; the two largest domains are 4 and 3, giving 12."
+              },
+              {
+                "text": "At least 24",
+                "fraction": 0,
+                "feedback": "24 (4 \xD7 3 \xD7 2) uses three domains; the lower bound uses only the two largest, 4 \xD7 3 = 12."
+              }
+            ],
+            "generalFeedback": "The pairwise lower bound is the product of the two largest domains. Here the largest are 4 and 3, so any pairwise suite needs at least 4 \xD7 3 = 12 rows.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Orthogonal array is a covering array",
+            "text": "<p>Every orthogonal array of strength 2 is also a valid pairwise covering array.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 if every pair appears exactly \u03BB \u2265 1 times, then in particular every pair appears at least once."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "An orthogonal array covers every pair exactly \u03BB times, so it certainly covers every pair at least once \u2014 the covering-array requirement."
+              }
+            ],
+            "generalFeedback": "An orthogonal array is the balanced special case: each pair appears exactly \u03BB times. Since \u03BB \u2265 1, every pair appears at least once, so the array satisfies pairwise covering. The converse fails: a covering array need not be balanced."
+          },
+          {
+            "type": "multichoice",
+            "name": "Why use greedy generators",
+            "text": "<p>Why are greedy heuristics like AETG and IPOG used to build pairwise suites instead of computing the exact minimum?</p>",
+            "answers": [
+              {
+                "text": "Finding a minimum covering array is computationally hard, so greedy methods trade a slightly larger suite for fast, practical generation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 they give near-optimal results quickly where exact minimization is intractable."
+              },
+              {
+                "text": "Greedy methods are the only ones that can guarantee full pairwise coverage",
+                "fraction": 0,
+                "feedback": "Exact methods also guarantee coverage; greedy methods are chosen for speed, not because they are the only correct option."
+              },
+              {
+                "text": "Greedy methods always find a strictly smaller suite than any exact method",
+                "fraction": 0,
+                "feedback": "Exact methods find the true minimum; greedy suites are near-optimal and can be larger."
+              },
+              {
+                "text": "Greedy methods avoid covering some pairs, which makes them faster",
+                "fraction": 0,
+                "feedback": "Both AETG and IPOG still cover all required pairs; they are just heuristic about suite size."
+              }
+            ],
+            "generalFeedback": "Computing a provably minimum covering array is an NP-hard optimization problem. AETG and IPOG are greedy constructive heuristics that produce small, near-optimal suites in reasonable time while still guaranteeing complete pairwise coverage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "AETG versus IPOG growth direction",
+            "text": "<p>Both AETG and IPOG are greedy pairwise generators. What is the key difference in how they grow the test suite?</p>",
+            "answers": [
+              {
+                "text": "AETG adds one complete test row at a time; IPOG adds one parameter (column) at a time, extending and adding rows as needed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 AETG grows row-by-row, IPOG grows parameter-by-parameter."
+              },
+              {
+                "text": "AETG guarantees the minimum suite; IPOG guarantees only pairwise coverage",
+                "fraction": 0,
+                "feedback": "Neither guarantees minimality; both are near-optimal heuristics that guarantee pairwise coverage."
+              },
+              {
+                "text": "AETG covers only pairs; IPOG covers all combinations exhaustively",
+                "fraction": 0,
+                "feedback": "Both target pairwise (2-way) coverage; IPOG does not build the exhaustive set."
+              },
+              {
+                "text": "AETG works only for binary parameters; IPOG works for any domain size",
+                "fraction": 0,
+                "feedback": "Both handle arbitrary domain sizes; the difference is the growth strategy."
+              }
+            ],
+            "generalFeedback": "AETG constructs the suite one whole row at a time, each row greedily covering as many uncovered pairs as possible. IPOG instead builds an array for the first parameters and then adds one parameter at a time (horizontal growth), adding rows when necessary (vertical growth). Both are greedy and near-optimal, not guaranteed minimal.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Pairwise missing a three-way fault",
+            "text": "<p>Three boolean flags A, B, C each take values on/off. A fault occurs <strong>only</strong> when A=on, B=on, and C=on all hold simultaneously. Why can a pairwise suite miss this fault?</p>",
+            "answers": [
+              {
+                "text": "Pairwise only guarantees each pair (e.g. A=on with B=on) appears, but never guarantees all three on-values occur together in one test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the triggering triple is a 3-way interaction, which 2-way coverage does not guarantee."
+              },
+              {
+                "text": "Pairwise never tests any flag set to on",
+                "fraction": 0,
+                "feedback": "Pairwise does test on-values; it just may not put all three on in the same row."
+              },
+              {
+                "text": "Pairwise always tests fewer than three parameters at a time, so C is ignored",
+                "fraction": 0,
+                "feedback": "All parameters get values in every row; the gap is that the specific triple may never coincide."
+              },
+              {
+                "text": "Pairwise requires each pair to appear exactly once, which excludes the failing combination",
+                "fraction": 0,
+                "feedback": "Pairwise requires each pair at least once; the issue is 3-way, not a frequency restriction."
+              }
+            ],
+            "generalFeedback": "A pairwise suite can cover (A=on,B=on), (A=on,C=on), and (B=on,C=on) across different rows without ever placing A=on, B=on, and C=on in the same row. Since the fault needs that exact 3-way combination, pairwise (t = 2) may miss it; detecting it requires t \u2265 3.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Validity check: does this set cover all pairs (yes)",
+            "text": "<p>Three binary parameters A, B, C (each 0 or 1). Consider the four rows:<br>ABC = 000, 011, 101, 110.<br>Does this set cover every pair of values for every pair of parameters?</p>",
+            "answers": [
+              {
+                "text": "Yes \u2014 all four value-pairs are covered for each of the three parameter-pairs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 check A,B: 00,01,10,11; A,C: 00,01,11,10; B,C: 00,11,01,10 \u2014 all present."
+              },
+              {
+                "text": "No \u2014 the pair A=1, B=1 is missing",
+                "fraction": 0,
+                "feedback": "Row 110 has A=1, B=1, so that pair is present."
+              },
+              {
+                "text": "No \u2014 the pair B=0, C=0 is missing",
+                "fraction": 0,
+                "feedback": "Row 000 has B=0, C=0, so that pair is present."
+              },
+              {
+                "text": "No \u2014 four rows can never cover all pairs of three binary parameters",
+                "fraction": 0,
+                "feedback": "Four rows suffice here (the pairwise lower bound is 2 \xD7 2 = 4), and this set achieves it."
+              }
+            ],
+            "generalFeedback": "Enumerate each parameter-pair. A,B over the rows: (0,0),(0,1),(1,0),(1,1). A,C: (0,0),(0,1),(1,1),(1,0). B,C: (0,0),(1,1),(0,1),(1,0). Each pair-set contains all four combinations, so this is a valid pairwise covering array of just 4 rows \u2014 matching the lower bound 2 \xD7 2 = 4.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Validity check: does this set cover all pairs (no)",
+            "text": "<p>Three binary parameters A, B, C (each 0 or 1). Consider the three rows:<br>ABC = 000, 011, 101.<br>Does this set cover every pair of values for every pair of parameters?</p>",
+            "answers": [
+              {
+                "text": "No \u2014 the pair A=1, B=1 never appears (and other pairs are missing too)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 A,B over the rows gives only (0,0),(0,1),(1,0); (1,1) is missing."
+              },
+              {
+                "text": "Yes \u2014 all pairs are covered",
+                "fraction": 0,
+                "feedback": "The pair A=1,B=1 is absent, so coverage is incomplete."
+              },
+              {
+                "text": "No \u2014 but only because A=0, B=0 is missing",
+                "fraction": 0,
+                "feedback": "Row 000 supplies A=0,B=0; the genuinely missing pair is A=1,B=1."
+              },
+              {
+                "text": "Yes \u2014 three rows always suffice for three binary parameters",
+                "fraction": 0,
+                "feedback": "The pairwise lower bound here is 2 \xD7 2 = 4, so three rows cannot cover all pairs."
+              }
+            ],
+            "generalFeedback": "A,B over rows 000, 011, 101 gives (0,0),(0,1),(1,0) \u2014 the pair (1,1) is never present. (B,C also misses (1,0).) With only three rows you fall below the pairwise lower bound of 2 \xD7 2 = 4, so full pairwise coverage is impossible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Higher strength for a 3-way fault",
+            "text": "<p>If a fault is triggered only by a specific combination of three particular parameters, what is the minimum interaction strength t a covering array must have to guarantee detection?</p>",
+            "answers": [
+              {
+                "text": "t = 3 (three-way coverage)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a 3-way fault is only guaranteed to be exercised by a strength-3 (or higher) covering array."
+              },
+              {
+                "text": "t = 2 (pairwise) is sufficient",
+                "fraction": 0,
+                "feedback": "Pairwise guarantees only 2-way combinations; the specific triple may never coincide."
+              },
+              {
+                "text": "t = 1 (each-choice) is sufficient",
+                "fraction": 0,
+                "feedback": "Each-choice only guarantees each single value appears, far weaker than needed."
+              },
+              {
+                "text": "No covering array can ever guarantee it",
+                "fraction": 0,
+                "feedback": "A strength-3 covering array guarantees every 3-way combination, including the triggering one."
+              }
+            ],
+            "generalFeedback": "To guarantee that a specific 3-way value combination is exercised, the covering array must have strength t \u2265 3, since only then is every triple of parameter values guaranteed to appear together in some row.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Exhaustive for ten binary parameters",
+            "text": "<p>A system has ten independent boolean parameters (each on/off). How many tests does <strong>exhaustive</strong> testing require?</p>",
+            "answers": [
+              {
+                "text": "1024",
+                "fraction": 100,
+                "feedback": "Correct \u2014 2^10 = 1024."
+              },
+              {
+                "text": "20",
+                "fraction": 0,
+                "feedback": "20 is 2 \xD7 10; exhaustive is 2 raised to the number of parameters, 2^10 = 1024."
+              },
+              {
+                "text": "100",
+                "fraction": 0,
+                "feedback": "100 is 10^2; the base is 2 (values) raised to 10 (parameters): 2^10 = 1024."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 (2 \xD7 2) is the pairwise lower bound for binary parameters, not the exhaustive count."
+              }
+            ],
+            "generalFeedback": "Exhaustive is the product of domain sizes: for ten binary parameters that is 2^10 = 1024. A pairwise suite for the same system needs only a handful of rows, illustrating the reduction \u2014 while its lower bound stays at just 2 \xD7 2 = 4.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Pairwise lower bound for 5 x 4 x 3 x 2",
+            "text": "<p>A system has four parameters with domain sizes 5, 4, 3, and 2. What is the minimum number of tests any pairwise suite must contain?</p>",
+            "answers": [
+              {
+                "text": "At least 20",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the two largest domains are 5 and 4, so the bound is 5 \xD7 4 = 20."
+              },
+              {
+                "text": "At least 120",
+                "fraction": 0,
+                "feedback": "120 is the exhaustive count (5 \xD7 4 \xD7 3 \xD7 2); pairwise needs far fewer."
+              },
+              {
+                "text": "At least 15",
+                "fraction": 0,
+                "feedback": "15 uses 5 \xD7 3; the two largest domains are 5 and 4, giving 20."
+              },
+              {
+                "text": "At least 60",
+                "fraction": 0,
+                "feedback": "60 (5 \xD7 4 \xD7 3) uses three domains; the lower bound uses only the two largest, 5 \xD7 4 = 20."
+              }
+            ],
+            "generalFeedback": "The pairwise lower bound is the product of the two largest domains: 5 \xD7 4 = 20. (For reference, exhaustive here is 5 \xD7 4 \xD7 3 \xD7 2 = 120.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Number of pairs for four binary parameters",
+            "text": "<p>Four parameters are each binary (2 values). How many distinct value-pairs must a pairwise suite cover in total?</p>",
+            "answers": [
+              {
+                "text": "24",
+                "fraction": 100,
+                "feedback": "Correct \u2014 C(4,2) = 6 parameter-pairs, each with 2 \xD7 2 = 4 value-pairs: 6 \xD7 4 = 24."
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 is the exhaustive count (2^4), not the number of value-pairs to cover."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 would be 3 parameter-pairs \xD7 4; there are C(4,2) = 6 parameter-pairs, giving 24."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 is 4 parameters \xD7 2 values; the number of value-pairs sums 2 \xD7 2 over all 6 parameter-pairs."
+              }
+            ],
+            "generalFeedback": "Number of value-pairs = sum over parameter-pairs of v_i \xD7 v_j. With four binary parameters there are C(4,2) = 6 parameter-pairs, each contributing 2 \xD7 2 = 4, for 6 \xD7 4 = 24 value-pairs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Concrete 3-way interaction fault",
+            "text": "<p>A media player crashes only when the codec is H.265, the container is MKV, and hardware acceleration is enabled \u2014 no smaller combination triggers it. A pairwise suite over {codec, container, hw-accel, resolution} was run and passed. What does this tell us?</p>",
+            "answers": [
+              {
+                "text": "The fault is a genuine 3-way interaction that a 2-way suite is not guaranteed to expose, so passing pairwise does not prove its absence",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the crash needs a specific triple, which pairwise does not guarantee to place in one row."
+              },
+              {
+                "text": "The fault cannot exist, because pairwise testing detects all interaction faults",
+                "fraction": 0,
+                "feedback": "Pairwise only guarantees 2-way interactions; 3-way faults can slip through."
+              },
+              {
+                "text": "The pairwise suite was invalid, since a correct one would always catch this",
+                "fraction": 0,
+                "feedback": "A valid pairwise suite covers all pairs but is not required to cover this triple; the suite can be correct yet miss the fault."
+              },
+              {
+                "text": "Only exhaustive testing could ever have run the H.265 codec at all",
+                "fraction": 0,
+                "feedback": "Pairwise does exercise H.265 in some rows; it just may not combine it with MKV and hw-accel together."
+              }
+            ],
+            "generalFeedback": "The crash requires the exact triple (H.265, MKV, hw-accel on). A pairwise suite guarantees every pair of these appears, but not necessarily all three in the same test, so it can pass while the 3-way fault remains. Detecting it requires a strength-3 covering array (or exhaustive testing).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Effect of constraints on valid combinations",
+            "text": "<p>An OS parameter has values {Windows, macOS, Linux} and a browser parameter has {Safari, Chrome, Edge}. A constraint says Safari runs only on macOS, and Edge is excluded on Linux. How do such constraints affect combinatorial test generation?</p>",
+            "answers": [
+              {
+                "text": "Invalid pairs are removed from the coverage requirement, so the generator must cover only the pairs that satisfy the constraints",
+                "fraction": 100,
+                "feedback": "Correct \u2014 constraints prune infeasible combinations from what must be covered and from generated rows."
+              },
+              {
+                "text": "Constraints are ignored, and every syntactic pair is still forced into the suite",
+                "fraction": 0,
+                "feedback": "Constraint-aware generation must not emit infeasible rows such as Safari on Linux."
+              },
+              {
+                "text": "Constraints force the suite to become exhaustive",
+                "fraction": 0,
+                "feedback": "Constraints reduce, not increase, the set of feasible combinations."
+              },
+              {
+                "text": "Constraints require switching from pairwise to each-choice coverage",
+                "fraction": 0,
+                "feedback": "Pairwise still applies; the generator just excludes infeasible pairs and rows."
+              }
+            ],
+            "generalFeedback": "Constraints declare certain combinations invalid (e.g. Safari only on macOS). A constraint-aware generator excludes those infeasible pairs from the coverage obligation and never emits a row that violates a constraint, which typically shrinks both the required pairs and the suite.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why greedy suites may not be minimal",
+            "text": "<p>Two engineers each run IPOG on the same model but list the parameters in a different order and get pairwise suites of different sizes. What does this illustrate?</p>",
+            "answers": [
+              {
+                "text": "IPOG is a greedy heuristic whose result depends on choices like parameter order, so it is near-optimal but not guaranteed minimal",
+                "fraction": 100,
+                "feedback": "Correct \u2014 greedy construction can yield different, non-minimal sizes depending on ordering."
+              },
+              {
+                "text": "One of the two suites must be invalid, since a correct suite has a unique size",
+                "fraction": 0,
+                "feedback": "Both can be valid pairwise suites; valid suites need not all be the same size."
+              },
+              {
+                "text": "Pairwise coverage is undefined when parameter order changes",
+                "fraction": 0,
+                "feedback": "Pairwise coverage is well-defined regardless of order; only the heuristic's output size varies."
+              },
+              {
+                "text": "The larger suite failed to cover some pairs",
+                "fraction": 0,
+                "feedback": "Both cover all pairs by construction; the size difference reflects heuristic choices, not missing coverage."
+              }
+            ],
+            "generalFeedback": "IPOG builds the array incrementally, and decisions such as parameter order affect how efficiently rows get reused. Both suites cover all pairs, but one may be larger \u2014 showing the algorithm is near-optimal, not guaranteed to produce the minimum covering array.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "3-way strength subsumes pairwise",
+            "text": "<p>Does a strength-3 (three-way) covering array also satisfy pairwise (2-way) coverage?</p>",
+            "answers": [
+              {
+                "text": "Yes \u2014 if every triple of values is covered, then in particular every pair within those triples is covered",
+                "fraction": 100,
+                "feedback": "Correct \u2014 higher strength subsumes all lower strengths."
+              },
+              {
+                "text": "No \u2014 three-way and two-way coverage are unrelated",
+                "fraction": 0,
+                "feedback": "They are related: covering all triples necessarily covers all pairs."
+              },
+              {
+                "text": "Only if the array is also an orthogonal array",
+                "fraction": 0,
+                "feedback": "Balance is not required; any strength-3 covering array already covers all pairs."
+              },
+              {
+                "text": "Only if all parameters are binary",
+                "fraction": 0,
+                "feedback": "The subsumption holds for any domain sizes, not just binary."
+              }
+            ],
+            "generalFeedback": "A strength-t covering array subsumes all strengths below t: covering every t-tuple guarantees every smaller sub-tuple is covered too. So a 3-way array automatically provides 2-way (pairwise) coverage \u2014 at greater cost.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of CA(N; 3, k, v)",
+            "text": "<p>What does the notation <code>CA(N; 3, k, v)</code> describe?</p>",
+            "answers": [
+              {
+                "text": "An N-row covering array over k parameters of v values each, in which every 3-way value combination is covered at least once",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the 3 is the strength, so all triples are covered."
+              },
+              {
+                "text": "An array with exactly 3 rows over k parameters",
+                "fraction": 0,
+                "feedback": "The number of rows is N; the 3 is the interaction strength."
+              },
+              {
+                "text": "An array covering only 3 of the k parameters",
+                "fraction": 0,
+                "feedback": "All k parameters are covered; strength 3 means every group of 3 has all its combinations covered."
+              },
+              {
+                "text": "An array where each parameter has exactly 3 values",
+                "fraction": 0,
+                "feedback": "The number of values is v; the 3 in that position is the strength t."
+              }
+            ],
+            "generalFeedback": "CA(N; 3, k, v) is a covering array with N rows, strength t = 3, k parameters, and v values per parameter, guaranteeing every 3-way combination of values appears in at least one row.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Three-way fault can escape pairwise",
+            "text": "<p>A fault that is triggered only by a specific three-parameter interaction can pass undetected through an otherwise valid pairwise test suite.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 pairwise guarantees only 2-way combinations, so the triggering triple may never occur in one row."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Pairwise only guarantees 2-way coverage; a fault needing a specific 3-way combination can slip through a valid pairwise suite."
+              }
+            ],
+            "generalFeedback": "Pairwise (t = 2) guarantees every pair of values appears together, but not every triple. A fault requiring a particular 3-way interaction can therefore escape a fully valid pairwise suite; catching it needs strength t \u2265 3."
+          },
+          {
+            "type": "multichoice",
+            "name": "Smallest strength that equals exhaustive",
+            "text": "<p>For a system with k parameters, at what interaction strength t does t-way (covering-array) testing become equivalent to exhaustive testing?</p>",
+            "answers": [
+              {
+                "text": "When t = k (the strength equals the number of parameters)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 covering every k-tuple is exactly the full Cartesian product."
+              },
+              {
+                "text": "When t = 2, since pairwise already covers everything",
+                "fraction": 0,
+                "feedback": "Pairwise covers pairs, not all full combinations; it is much smaller than exhaustive."
+              },
+              {
+                "text": "When t = 1",
+                "fraction": 0,
+                "feedback": "t = 1 is each-choice, the weakest criterion, nowhere near exhaustive."
+              },
+              {
+                "text": "t-way testing can never equal exhaustive testing",
+                "fraction": 0,
+                "feedback": "At t = k every combination of all k parameters must appear, which is exactly exhaustive."
+              }
+            ],
+            "generalFeedback": "When the strength t equals the number of parameters k, covering every t-tuple means covering every full combination of all parameters \u2014 the exhaustive Cartesian product. So exhaustive testing is the t = k case of t-way combinatorial testing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Is the lower bound always achievable",
+            "text": "<p>For four binary parameters, the pairwise lower bound is 2 \xD7 2 = 4. Can a pairwise suite of exactly 4 rows actually cover all pairs for four binary parameters?</p>",
+            "answers": [
+              {
+                "text": "No \u2014 4 rows are impossible here; the true minimum is 5, so the lower bound is not always achievable",
+                "fraction": 100,
+                "feedback": "Correct \u2014 4 rows can cover all pairs for at most three binary parameters; a fourth forces a fifth row."
+              },
+              {
+                "text": "Yes \u2014 the lower bound is always exactly achievable",
+                "fraction": 0,
+                "feedback": "The product-of-two-largest bound is a lower bound, not always tight; here 4 rows are provably insufficient."
+              },
+              {
+                "text": "No \u2014 the true minimum is 16, the exhaustive count",
+                "fraction": 0,
+                "feedback": "Pairwise needs far fewer than exhaustive; the minimum here is 5, not 16."
+              },
+              {
+                "text": "Yes \u2014 but only if the four parameters are statistically independent",
+                "fraction": 0,
+                "feedback": "Independence does not help; 4 rows cannot cover all six parameter-pairs' combinations for four binary parameters."
+              }
+            ],
+            "generalFeedback": "Fitting all pairs of four binary parameters into 4 rows would require every pair of columns to show all four combinations exactly once \u2014 an orthogonal array of index 1, which for strength 2 admits at most (N-1)/(v-1) = 3 binary factors. A fourth factor cannot fit, so at least 5 rows are needed (and 5 suffices). The lower bound of 4 is therefore not achievable here \u2014 it bounds, but does not always equal, the minimum.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u6210\u5C0D\u6E2C\u8A66\u7684\u8981\u6C42",
+            "text": "<p>\u6210\u5C0D\uFF082-way\uFF09\u6E2C\u8A66\u5C0D\u4E00\u500B\u6E2C\u8A66\u5957\u4EF6\u7684\u8981\u6C42\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u65BC\u4EFB\u610F\u5169\u500B\u53C3\u6578\uFF0C\u5B83\u5011\u6578\u503C\u7684\u6BCF\u4E00\u7A2E\u7D44\u5408\u90FD\u81F3\u5C11\u5728\u67D0\u4E00\u500B\u6E2C\u8A66\u4E2D\u4E00\u8D77\u51FA\u73FE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F 2-way \u8986\u84CB\u7684\u4FDD\u8B49\u3002"
+              },
+              {
+                "text": "\u6240\u6709\u53C3\u6578\u6578\u503C\u7684\u6BCF\u4E00\u7A2E\u5B8C\u6574\u7D44\u5408\u90FD\u51FA\u73FE\u5728\u67D0\u500B\u6E2C\u8A66\u4E2D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7AAE\u8209\u6E2C\u8A66\uFF1B\u6210\u5C0D\u6E2C\u8A66\u53EA\u8986\u84CB\u6578\u503C\u7684\u300C\u5C0D\u300D\uFF0C\u800C\u975E\u5B8C\u6574\u7D44\u5408\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u500B\u5225\u53C3\u6578\u6578\u503C\u90FD\u81F3\u5C11\u51FA\u73FE\u5728\u4E00\u500B\u6E2C\u8A66\u4E2D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8F03\u5F31\u7684\uFF08each-choice\uFF09\u8986\u84CB\uFF1B\u6210\u5C0D\u6E2C\u8A66\u9084\u8981\u6C42\u8986\u84CB\u6BCF\u4E00\u5C0D\u6578\u503C\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u53C3\u6578\u525B\u597D\u57F7\u884C\u5169\u500B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u6E2C\u8A66\u9650\u5236\u7684\u662F\u8981\u8986\u84CB\u54EA\u4E9B\u6578\u503C\u5C0D\uFF0C\u800C\u975E\u6BCF\u500B\u53C3\u6578\u56FA\u5B9A\u7684\u6E2C\u8A66\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u6210\u5C0D\uFF082-way\uFF09\u6E2C\u8A66\u8981\u6C42\uFF1A\u5C0D\u65BC\u6BCF\u4E00\u5C0D\u53C3\u6578\uFF0C\u5404\u53D6\u5176\u4E00\u500B\u6578\u503C\u7684\u6BCF\u4E00\u7A2E\u7D44\u5408\uFF0C\u90FD\u81F3\u5C11\u5728\u67D0\u500B\u6E2C\u8A66\u6848\u4F8B\u4E2D\u4E00\u8D77\u51FA\u73FE\u3002\u5B83\u91DD\u5C0D\u5169\u56E0\u5B50\u4EA4\u4E92\u4F5C\u7528\u7F3A\u9677\uFF0C\u540C\u6642\u4F7F\u7528\u9060\u5C11\u65BC\u7AAE\u8209\u7684\u6E2C\u8A66\u6578\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6210\u5C0D\u6E2C\u8A66\u7684\u7D93\u9A57\u57FA\u790E",
+            "text": "<p>\u662F\u4EC0\u9EBC\u7D93\u9A57\u89C0\u5BDF\u6210\u70BA\u6210\u5C0D\u6E2C\u8A66\u7684\u52D5\u6A5F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5927\u591A\u6578\u8EDF\u9AD4\u7F3A\u9677\u662F\u7531\u55AE\u4E00\u56E0\u5B50\u3001\u6216\u50C5\u5169\u500B\u56E0\u5B50\u7684\u4EA4\u4E92\u4F5C\u7528\u6240\u89F8\u767C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u7F3A\u9677\u4E4B\u4EA4\u4E92\u4F5C\u7528\uFF0F\u6545\u969C\u8026\u5408\u7684\u7814\u7A76\u986F\u793A\uFF0C\u591A\u6578\u5931\u6548\u53EA\u6D89\u53CA\u4E00\u6216\u5169\u500B\u56E0\u5B50\u3002"
+              },
+              {
+                "text": "\u5927\u591A\u6578\u8EDF\u9AD4\u7F3A\u9677\u9700\u8981\u6240\u6709\u53C3\u6578\u540C\u6642\u53D6\u5230\u6975\u7AEF\u503C\u624D\u6703\u89F8\u767C",
+                "fraction": 0,
+                "feedback": "\u6B63\u597D\u76F8\u53CD\uFF0C\u9AD8\u968E\u4EA4\u4E92\u4F5C\u7528\u9020\u6210\u7684\u7F3A\u9677\u76F8\u5C0D\u5F88\u5C11\uFF0C\u9019\u6B63\u662F\u6210\u5C0D\u6E2C\u8A66\u5212\u7B97\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u7F3A\u9677\u5728\u6240\u6709\u53C3\u6578\u7D44\u5408\u4E0A\u5448\u5747\u52FB\u5206\u5E03",
+                "fraction": 0,
+                "feedback": "\u82E5\u7F3A\u9677\u5728\u5B8C\u6574\u7D44\u5408\u4E0A\u5747\u52FB\u5206\u5E03\uFF0C\u6210\u5C0D\u6E2C\u8A66\u7684\u6548\u76CA\u5C31\u6709\u9650\uFF1B\u8B49\u64DA\u986F\u793A\u4F4E\u968E\u4EA4\u4E92\u4F5C\u7528\u5C45\u591A\u3002"
+              },
+              {
+                "text": "\u7F3A\u9677\u6C38\u9060\u53EA\u53D6\u6C7A\u65BC\u55AE\u4E00\u500B\u8F38\u5165\u53C3\u6578",
+                "fraction": 0,
+                "feedback": "\u5169\u56E0\u5B50\uFF08\u5076\u723E\u66F4\u9AD8\u968E\uFF09\u4EA4\u4E92\u4F5C\u7528\u78BA\u5BE6\u5B58\u5728\uFF1B\u6210\u5C0D\u6E2C\u8A66\u91DD\u5C0D\u5E38\u898B\u7684\u4E00\u3001\u4E8C\u56E0\u5B50\u60C5\u5F62\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D93\u9A57\u6027\u7F3A\u9677\u7814\u7A76\u767C\u73FE\uFF0C\u7D55\u5927\u591A\u6578\u5931\u6548\u7531\u55AE\u4E00\u56E0\u5B50\u6216\u5169\u56E0\u5B50\u4EA4\u4E92\u4F5C\u7528\u9020\u6210\uFF0C\u800C\u7531\u4E09\u500B\u4EE5\u4E0A\u56E0\u5B50\u9020\u6210\u7684\u5247\u9010\u6B65\u905E\u6E1B\u3002\u6210\u5C0D\u6E2C\u8A66\u4EE5\u4F4E\u6210\u672C\u4FDD\u8B49\u8986\u84CB\u6240\u6709\u5169\u56E0\u5B50\u7D44\u5408\uFF0C\u6B63\u662F\u5229\u7528\u4E86\u9019\u4E00\u9EDE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7AAE\u8209\u6E2C\u8A66\u7684\u610F\u7FA9",
+            "text": "<p>\u5C0D\u65BC\u7531\u591A\u500B\u53C3\u6578\u914D\u7F6E\u7684\u7CFB\u7D71\uFF0C<strong>\u7AAE\u8209</strong>\u7D44\u5408\u6E2C\u8A66\u8981\u6C42\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u6240\u6709\u53C3\u6578\u6578\u503C\u7684\u6BCF\u4E00\u7A2E\u53EF\u80FD\u7D44\u5408\u5404\u57F7\u884C\u4E00\u500B\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7AAE\u8209\u5373\u6240\u6709\u53C3\u6578\u5B9A\u7FA9\u57DF\u7684\u5B8C\u6574\u7B1B\u5361\u5152\u7A4D\u3002"
+              },
+              {
+                "text": "\u5C0D\u6BCF\u4E00\u5C0D\u53C3\u6578\u6578\u503C\u5404\u57F7\u884C\u4E00\u500B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6210\u5C0D\u6E2C\u8A66\uFF0C\u662F\u7AAE\u8209\u7684\u4E00\u500B\u5C0F\u5B50\u96C6\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u53C3\u6578\u57F7\u884C\u4E00\u500B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u751A\u81F3\u7121\u6CD5\u8986\u84CB\u6BCF\u500B\u6578\u503C\uFF1B\u7AAE\u8209\u8981\u8986\u84CB\u6BCF\u4E00\u7A2E\u5B8C\u6574\u7D44\u5408\u3002"
+              },
+              {
+                "text": "\u4E0D\u8AD6\u53C3\u6578\u6709\u591A\u5C11\uFF0C\u90FD\u662F\u56FA\u5B9A\u6578\u91CF\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u7AAE\u8209\u6578\u91CF\u96A8\u5B9A\u7FA9\u57DF\u5927\u5C0F\u4E4B\u4E58\u7A4D\u6210\u9577\uFF0C\u56E0\u6B64\u9AD8\u5EA6\u53D6\u6C7A\u65BC\u53C3\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u7AAE\u8209\u6E2C\u8A66\u57F7\u884C\u53C3\u6578\u6578\u503C\u7684\u6BCF\u4E00\u7A2E\u7D44\u5408\u2014\u2014\u5B8C\u6574\u7684\u7B1B\u5361\u5152\u7A4D\u3002\u5176\u898F\u6A21\u662F\u6240\u6709\u5B9A\u7FA9\u57DF\u5927\u5C0F\u7684\u4E58\u7A4D\uFF0C\u6703\u7206\u70B8\u6027\u6210\u9577\uFF0C\u9019\u6B63\u662F\u7D44\u5408\u6E2C\u8A66\u8981\u89E3\u6C7A\u7684\u554F\u984C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "3 \xD7 2 \xD7 2 \u7684\u7AAE\u8209\u6578\u91CF",
+            "text": "<p>\u67D0\u529F\u80FD\u6709\u4E09\u500B\u53C3\u6578\uFF1A\u7B2C\u4E00\u500B\u6709 3 \u7A2E\u6578\u503C\u3001\u7B2C\u4E8C\u500B\u6709 2 \u7A2E\u3001\u7B2C\u4E09\u500B\u6709 2 \u7A2E\u3002<strong>\u7AAE\u8209</strong>\u6E2C\u8A66\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "12",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20143 \xD7 2 \xD7 2 = 12\uFF0C\u5373\u5404\u5B9A\u7FA9\u57DF\u5927\u5C0F\u4E4B\u4E58\u7A4D\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u662F\u7E3D\u548C 3 + 2 + 2\uFF1B\u7AAE\u8209\u662F\u628A\u5404\u5B9A\u7FA9\u57DF\u5927\u5C0F\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u53EA\u8A08\u5165\u4E09\u500B\u53C3\u6578\u4E2D\u7684\u5169\u500B\uFF083 \xD7 2\uFF09\uFF1B\u8981\u628A\u7B2C\u4E09\u500B\u4E5F\u7B97\u9032\u53BB\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u4E26\u975E\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u4E4B\u4E58\u7A4D\uFF083 \xD7 2 \u61C9\u70BA 6\uFF09\uFF0C\u4E14\u90A3\u672C\u4F86\u5C31\u662F\u6210\u5C0D\u6E2C\u8A66\u7684\u4E0B\u754C\uFF0C\u800C\u975E\u7AAE\u8209\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u7AAE\u8209\u6E2C\u8A66\u662F\u6240\u6709\u5B9A\u7FA9\u57DF\u5927\u5C0F\u4E4B\u4E58\u7A4D\uFF1A3 \xD7 2 \xD7 2 = 12\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E09\u500B 3 \u503C\u53C3\u6578\u7684\u7AAE\u8209\u6578\u91CF",
+            "text": "<p>\u67D0\u7D44\u614B\u6709\u4E09\u500B\u53C3\u6578\uFF0C\u6BCF\u500B\u5404\u6709 3 \u7A2E\u6578\u503C\u3002<strong>\u7AAE\u8209</strong>\u6E2C\u8A66\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "27",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20143 \xD7 3 \xD7 3 = 27\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 \u662F 3 \xD7 3\uFF0C\u53EA\u7B97\u5169\u500B\u53C3\u6578\u7684\u4E58\u7A4D\uFF08\u4E5F\u662F\u6B64\u8655\u7684\u6210\u5C0D\u4E0B\u754C\uFF09\uFF0C\u4E26\u975E\u5B8C\u6574\u4E58\u7A4D\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u662F 3 + 3\uFF08\u5169\u53C3\u6578\u76F8\u52A0\uFF09\uFF1B\u7AAE\u8209\u662F\u628A\u4E09\u500B\u5B9A\u7FA9\u57DF\u5927\u5C0F\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "81",
+                "fraction": 0,
+                "feedback": "81 \u662F 3 \u7684\u56DB\u6B21\u65B9\uFF0C\u5373\u56DB\u500B\u53C3\u6578\uFF1B\u6B64\u8655\u53EA\u6709\u4E09\u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u7AAE\u8209\u6578\u91CF\u662F\u6240\u6709\u5B9A\u7FA9\u57DF\u5927\u5C0F\u4E4B\u4E58\u7A4D\uFF1A3 \xD7 3 \xD7 3 = 27\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "4 \xD7 3 \u7684\u7AAE\u8209\u6578\u91CF",
+            "text": "<p>\u67D0\u51FD\u5F0F\u6709\u5169\u500B\u53C3\u6578\uFF1A\u4E00\u500B\u6709 4 \u7A2E\u6578\u503C\u3001\u4E00\u500B\u6709 3 \u7A2E\u3002<strong>\u7AAE\u8209</strong>\u6E2C\u8A66\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "12",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144 \xD7 3 = 12\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u662F\u7E3D\u548C 4 + 3\uFF1B\u7AAE\u8209\u662F\u628A\u5404\u5B9A\u7FA9\u57DF\u5927\u5C0F\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 \u662F 4 \xD7 4\uFF1B\u7B2C\u4E8C\u500B\u53C3\u6578\u6709 3 \u7A2E\u6578\u503C\uFF0C\u4E0D\u662F 4 \u7A2E\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 \u662F 3 \xD7 3\uFF1B\u7B2C\u4E00\u500B\u53C3\u6578\u6709 4 \u7A2E\u6578\u503C\uFF0C\u4E0D\u662F 3 \u7A2E\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u500B\u53C3\u6578\u6642\uFF0C\u7AAE\u8209\u6578\u91CF\u7B49\u65BC\u5169\u500B\u5B9A\u7FA9\u57DF\u5927\u5C0F\u4E4B\u4E58\u7A4D\uFF1A4 \xD7 3 = 12\u3002\uFF08\u50C5\u6709\u5169\u500B\u53C3\u6578\u6642\uFF0C\u7AAE\u8209\u8207\u6210\u5C0D\u76F8\u540C\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "t-way \u6E2C\u8A66\u6240\u63A8\u5EE3\u7684\u5167\u5BB9",
+            "text": "<p>\u6210\u5C0D\u6E2C\u8A66\u662F t-way\uFF08\u7D44\u5408\uFF09\u6E2C\u8A66\u4E2D t = 2 \u7684\u60C5\u5F62\u3002\u4E00\u822C\u7684 t-way \u6E2C\u8A66\u8981\u6C42\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u6BCF\u4E00\u7D44 t \u500B\u53C3\u6578\uFF0C\u5176\u6578\u503C\u7684\u6BCF\u4E00\u7A2E\u7D44\u5408\u90FD\u81F3\u5C11\u51FA\u73FE\u5728\u4E00\u500B\u6E2C\u8A66\u4E2D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F37\u5EA6 t \u8868\u793A\u6240\u6709 t \u5143\u7D44\u6578\u503C\u90FD\u88AB\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u6574\u500B\u5957\u4EF6\u4E2D\u6BCF\u500B\u53C3\u6578\u525B\u597D\u53D6 t \u7A2E\u4E0D\u540C\u6578\u503C",
+                "fraction": 0,
+                "feedback": "t \u662F\u4EA4\u4E92\u4F5C\u7528\u5F37\u5EA6\uFF0C\u4E26\u975E\u53C3\u6578\u6240\u53D6\u7684\u6578\u503C\u500B\u6578\u3002"
+              },
+              {
+                "text": "\u5957\u4EF6\u525B\u597D\u5305\u542B t \u500B\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "t \u662F\u8986\u84CB\u5F37\u5EA6\uFF0C\u4E0D\u662F\u6E2C\u8A66\u6578\u91CF\u3002"
+              },
+              {
+                "text": "\u6BCF\u6B21\u6700\u591A\u6E2C\u8A66 t \u500B\u53C3\u6578\uFF0C\u5176\u9918\u5FFD\u7565",
+                "fraction": 0,
+                "feedback": "\u6240\u6709\u53C3\u6578\u90FD\u88AB\u8986\u84CB\uFF1Bt \u662F\u300C\u5176\u7D44\u5408\u90FD\u5FC5\u9808\u51FA\u73FE\u300D\u7684\u4EA4\u4E92\u7FA4\u7D44\u5927\u5C0F\u3002"
+              }
+            ],
+            "generalFeedback": "t-way \u6E2C\u8A66\u63A8\u5EE3\u6210\u5C0D\u6E2C\u8A66\uFF1A\u5C0D\u5F37\u5EA6 t\uFF0C\u6BCF\u4E00\u7D44 t \u500B\u53C3\u6578\u7684\u6578\u503C\u7684\u6BCF\u4E00\u7A2E\u7D44\u5408\u90FD\u5FC5\u9808\u81F3\u5C11\u51FA\u73FE\u5728\u4E00\u500B\u6E2C\u8A66\u4E2D\u3002t = 1 \u662F each-choice\u3001t = 2 \u662F\u6210\u5C0D\u3001t \u7B49\u65BC\u53C3\u6578\u500B\u6578\u5247\u662F\u7AAE\u8209\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u8986\u84CB\u9663\u5217",
+            "text": "<p>\u5728\u7D44\u5408\u6E2C\u8A66\u4E2D\uFF0C\u4EC0\u9EBC\u662F<strong>\u8986\u84CB\u9663\u5217\uFF08covering array\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7D44\u6E2C\u8A66\u5217\uFF0C\u5176\u4E2D\u6BCF\u4E00\u7A2E t-way \u53C3\u6578\u6578\u503C\u7D44\u5408\u90FD\u81F3\u5C11\u51FA\u73FE\u5728\u67D0\u4E00\u5217",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F37\u5EA6 t \u7684\u8986\u84CB\u9663\u5217\u4FDD\u8B49\u6BCF\u500B t \u5143\u7D44\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21\u3002"
+              },
+              {
+                "text": "\u4E00\u5F35\u5217\u51FA\u6240\u6709\u53EF\u80FD\u53C3\u6578\u6578\u503C\u7D44\u5408\u3001\u4E14\u6BCF\u7A2E\u525B\u597D\u51FA\u73FE\u4E00\u6B21\u7684\u8868",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7AAE\u8209\u96C6\u5408\uFF1B\u8986\u84CB\u9663\u5217\u901A\u5E38\u5C0F\u5F97\u591A\uFF0C\u4E14\u53EA\u8981\u6C42\u6BCF\u500B t \u5143\u7D44\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u8A18\u9304\u54EA\u500B\u6E2C\u8A66\u627E\u5230\u54EA\u500B\u7F3A\u9677\u7684\u9663\u5217",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7F3A\u9677\u77E9\u9663\uFF0C\u4E0D\u662F\u8986\u84CB\u9663\u5217\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u8A18\u9304\u6BCF\u500B\u6E2C\u8A66\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387\u767E\u5206\u6BD4\u7684\u77E9\u9663",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u9663\u5217\u63CF\u8FF0\u8F38\u5165\u6578\u503C\u7D44\u5408\uFF0C\u800C\u975E\u7D50\u69CB\u6027\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u8986\u84CB\u9663\u5217\u662F\u4E00\u7D44\u6DB5\u84CB\u5404\u53C3\u6578\u7684\u7CBE\u7C21\u6E2C\u8A66\u5217\uFF0C\u4F7F\u5F97\u6BCF\u4E00\u7D44 t \u500B\u53C3\u6578\u7684\u6BCF\u4E00\u7A2E\u6578\u503C\u7D44\u5408\u90FD\u81F3\u5C11\u51FA\u73FE\u5728\u67D0\u4E00\u5217\u3002\u5C0D\u6210\u5C0D\u6E2C\u8A66\u800C\u8A00\uFF0Ct = 2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "CA(N; t, k, v) \u4E2D t \u7684\u610F\u7FA9",
+            "text": "<p>\u5728\u8986\u84CB\u9663\u5217\u8A18\u6CD5 <code>CA(N; t, k, v)</code> \u4E2D\uFF0C\u53C3\u6578 <strong>t</strong> \u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EA4\u4E92\u4F5C\u7528\u5F37\u5EA6\u2014\u2014\u5176\u6578\u503C\u7D44\u5408\u5FC5\u9808\u88AB\u5B8C\u5168\u8986\u84CB\u7684\u53C3\u6578\u7FA4\u7D44\u5927\u5C0F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014t \u662F\u5F37\u5EA6\uFF1Bt = 2 \u5373\u6210\u5C0D\u3002"
+              },
+              {
+                "text": "\u9663\u5217\u4E2D\u7684\u6E2C\u8A66\u5217\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F N\uFF0C\u5373\u5217\u6578\u3002"
+              },
+              {
+                "text": "\u53C3\u6578\uFF08\u56E0\u5B50\uFF09\u7684\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F k\uFF0C\u5373\u56E0\u5B50\u6578\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u53C3\u6578\u53EF\u53D6\u7684\u6578\u503C\u500B\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F v\uFF0C\u5373\u6BCF\u500B\u56E0\u5B50\u7684\u968E\u6578\uFF08levels\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 CA(N; t, k, v) \u4E2D\uFF1AN \u662F\u5217\u6578\u3001t \u662F\u4EA4\u4E92\u4F5C\u7528\u5F37\u5EA6\u3001k \u662F\u53C3\u6578\uFF08\u56E0\u5B50\uFF09\u6578\u3001v \u662F\u6BCF\u500B\u53C3\u6578\u6240\u53D6\u7684\u6578\u503C\uFF08\u968E\uFF09\u6578\u3002\u6210\u5C0D\u6E2C\u8A66\u5C0D\u61C9 t = 2\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6210\u5C0D\u7B49\u540C\u65BC 2-way",
+            "text": "<p>\u300C\u6210\u5C0D\u6E2C\u8A66\u300D\u8207\u300C2-way \u7D44\u5408\u6E2C\u8A66\u300D\u6307\u7684\u662F\u540C\u4E00\u4EF6\u4E8B\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6210\u5C0D\u6B63\u662F t-way \u6E2C\u8A66\u4E2D t = 2 \u7684\u7279\u4F8B\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u76F8\u540C\uFF1A\u6210\u5C0D\u662F t-way \u7D44\u5408\u6E2C\u8A66\u4E2D t = 2 \u7684\u7279\u4F8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6210\u5C0D\u6E2C\u8A66\u5C31\u662F 2-way \u7D44\u5408\u6E2C\u8A66\uFF1A\u5B83\u4FDD\u8B49\u6BCF\u4E00\u5C0D\u53C3\u6578\u7684\u6BCF\u4E00\u5C0D\u6578\u503C\u90FD\u81F3\u5C11\u88AB\u8986\u84CB\u4E00\u6B21\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u7AAE\u8209\u8986\u84CB\u6BCF\u4E00\u7A2E\u7D44\u5408",
+            "text": "<p>\u7AAE\u8209\u7D44\u5408\u6E2C\u8A66\u8986\u84CB\u6240\u6709\u53C3\u6578\u6578\u503C\u7684\u6BCF\u4E00\u7A2E\u53EF\u80FD\u7D44\u5408\uFF0C\u5176\u6E2C\u8A66\u6578\u91CF\u70BA\u6240\u6709\u5B9A\u7FA9\u57DF\u5927\u5C0F\u4E4B\u4E58\u7A4D\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7AAE\u8209\u5373\u5B8C\u6574\u7B1B\u5361\u5152\u7A4D\uFF0C\u5176\u898F\u6A21\u70BA\u5404\u5B9A\u7FA9\u57DF\u4E4B\u4E58\u7A4D\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u7AAE\u8209\u6E2C\u8A66\u78BA\u5BE6\u57F7\u884C\u6BCF\u4E00\u7A2E\u7D44\u5408\uFF0C\u5176\u6578\u91CF\u6B63\u662F\u5404\u5B9A\u7FA9\u57DF\u5927\u5C0F\u4E4B\u4E58\u7A4D\u3002"
+              }
+            ],
+            "generalFeedback": "\u7AAE\u8209\u6E2C\u8A66\u57F7\u884C\u53C3\u6578\u5B9A\u7FA9\u57DF\u7684\u5B8C\u6574\u7B1B\u5361\u5152\u7A4D\uFF1B\u5176\u898F\u6A21\u70BA\u6240\u6709\u5B9A\u7FA9\u57DF\u5927\u5C0F\u4E4B\u4E58\u7A4D\uFF0C\u56E0\u6B64\u96A8\u53C3\u6578\u589E\u52A0\u800C\u8B8A\u5F97\u4E0D\u53EF\u884C\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6210\u5C0D\u6E2C\u8A66\u4E2D\u300C\u5C0D\u300D\u662F\u4EC0\u9EBC",
+            "text": "<p>\u5728\u6210\u5C0D\u6E2C\u8A66\u4E2D\uFF0C\u5FC5\u9808\u88AB\u8986\u84CB\u7684\u300C\u5C0D\uFF08pair\uFF09\u300D\u7A76\u7ADF\u6307\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u67D0\u500B\u53C3\u6578\u7684\u4E00\u500B\u7279\u5B9A\u6578\u503C\uFF0C\u642D\u914D\u53E6\u4E00\u500B\u53C3\u6578\u7684\u4E00\u500B\u7279\u5B9A\u6578\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u300C\u5C0D\u300D\u662F\u53D6\u5169\u500B\u53C3\u6578\u5404\u4E00\u500B\u6578\u503C\uFF0C\u4E26\u5728\u67D0\u6E2C\u8A66\u4E2D\u4E00\u8D77\u51FA\u73FE\u3002"
+              },
+              {
+                "text": "\u5FC5\u9808\u9023\u7E8C\u57F7\u884C\u7684\u5169\u500B\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u300C\u5C0D\u300D\u6307\u7684\u662F\u53C3\u6578\u6578\u503C\u7684\u7D44\u5408\uFF0C\u800C\u975E\u5169\u500B\u6E2C\u8A66\u6848\u4F8B\u3002"
+              },
+              {
+                "text": "\u540C\u4E00\u53C3\u6578\u7684\u5169\u500B\u4E0D\u540C\u6578\u503C",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u300C\u5C0D\u300D\u6A6B\u8DE8\u5169\u500B\u4E0D\u540C\u53C3\u6578\uFF0C\u5404\u53D6\u4E00\u500B\u6578\u503C\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u6709\u6548\u8F38\u5165\u642D\u914D\u5176\u9810\u671F\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u6E2C\u8A66\u5224\u6E96\uFF08oracle\uFF09\uFF0C\u4E0D\u662F\u6210\u5C0D\u6E2C\u8A66\u8981\u8986\u84CB\u7684\u300C\u5C0D\u300D\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B\u300C\u5C0D\u300D\u662F\u67D0\u53C3\u6578\u7684\u4E00\u500B\u6578\u503C\u642D\u914D\u7B2C\u4E8C\u500B\u53C3\u6578\u7684\u4E00\u500B\u6578\u503C\u3002\u6210\u5C0D\u8986\u84CB\u8981\u6C42\uFF1A\u5C0D\u65BC\u6BCF\u4E00\u7A2E\u5169\u53C3\u6578\u7684\u9078\u53D6\uFF0C\u5176\u6BCF\u4E00\u5C0D\u6578\u503C\u90FD\u81F3\u5C11\u4E00\u8D77\u51FA\u73FE\u5728\u4E00\u500B\u6E2C\u8A66\u4E2D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u907F\u514D\u7AAE\u8209\u6E2C\u8A66",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u7AAE\u8209\u7D44\u5408\u6E2C\u8A66\u5C0D\u771F\u5BE6\u7CFB\u7D71\u901A\u5E38\u4E0D\u5207\u5BE6\u969B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7D44\u5408\u6578\u91CF\u662F\u5404\u5B9A\u7FA9\u57DF\u5927\u5C0F\u4E4B\u4E58\u7A4D\uFF0C\u6703\u96A8\u53C3\u6578\u589E\u52A0\u800C\u7206\u70B8\u6027\u6210\u9577",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D44\u5408\u7206\u70B8\u4F7F\u5F97\u5B8C\u6574\u4E58\u7A4D\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "\u7AAE\u8209\u6E2C\u8A66\u7121\u6CD5\u5075\u6E2C\u4EFB\u4F55\u4EA4\u4E92\u4F5C\u7528\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u7AAE\u8209\u6E2C\u8A66\u5176\u5BE6\u80FD\u5075\u6E2C\u6240\u6709\u4EA4\u4E92\u4F5C\u7528\u7F3A\u9677\uFF1B\u554F\u984C\u5728\u65BC\u6210\u672C\uFF0C\u800C\u975E\u80FD\u529B\u3002"
+              },
+              {
+                "text": "\u6BCF\u7A2E\u7D44\u5408\u90FD\u5FC5\u9808\u6E2C\u8A66\u4E0A\u5343\u6B21\u624D\u6709\u6548",
+                "fraction": 0,
+                "feedback": "\u6BCF\u7A2E\u7D44\u5408\u53EA\u6E2C\u4E00\u6B21\uFF1B\u554F\u984C\u5728\u65BC\u7D44\u5408\u7684\u9F90\u5927\u6578\u91CF\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5DE5\u5177\u4E00\u6B21\u7121\u6CD5\u8868\u793A\u8D85\u904E\u5169\u500B\u53C3\u6578",
+                "fraction": 0,
+                "feedback": "\u5DE5\u5177\u53EF\u8655\u7406\u8A31\u591A\u53C3\u6578\uFF1B\u969C\u7919\u5728\u65BC\u7D44\u5408\u6578\u91CF\u5448\u6307\u6578\u6210\u9577\u3002"
+              }
+            ],
+            "generalFeedback": "\u7AAE\u8209\u6E2C\u8A66\u628A\u6240\u6709\u5B9A\u7FA9\u57DF\u5927\u5C0F\u76F8\u4E58\uFF0C\u56E0\u6B64\u96A8\u53C3\u6578\u8207\u6578\u503C\u589E\u52A0\u800C\u7206\u70B8\uFF08\u4F8B\u5982\u5341\u500B\u4E8C\u5143\u53C3\u6578\u5DF2\u9700 2^10 = 1024 \u500B\u6E2C\u8A66\uFF09\u3002\u6210\u5C0D\u6E2C\u8A66\u5728\u4FDD\u6709\u5169\u56E0\u5B50\u4EA4\u4E92\u4F5C\u7528\u4FDD\u8B49\u7684\u540C\u6642\uFF0C\u5927\u5E45\u524A\u6E1B\u6578\u91CF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6210\u5C0D\u6E2C\u8A66\u7684\u5F37\u5EA6",
+            "text": "<p>\u6210\u5C0D\u6E2C\u8A66\u7684\u4EA4\u4E92\u4F5C\u7528\u5F37\u5EA6 t \u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "t = 2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6210\u5C0D\u8868\u793A\u8986\u84CB\u6240\u6709\u5169\u53C3\u6578\u7684\u6578\u503C\u7D44\u5408\u3002"
+              },
+              {
+                "text": "t = 1",
+                "fraction": 0,
+                "feedback": "t = 1 \u662F each-choice \u8986\u84CB\uFF08\u6BCF\u500B\u55AE\u4E00\u6578\u503C\uFF09\uFF0C\u6BD4\u6210\u5C0D\u5F31\u3002"
+              },
+              {
+                "text": "t = 3",
+                "fraction": 0,
+                "feedback": "t = 3 \u662F\u4E09\u56E0\u5B50\u6E2C\u8A66\uFF0C\u6BD4\u6210\u5C0D\u66F4\u5F37\u4E5F\u66F4\u6602\u8CB4\u3002"
+              },
+              {
+                "text": "t \u7B49\u65BC\u53C3\u6578\u500B\u6578",
+                "fraction": 0,
+                "feedback": "t \u7B49\u65BC\u53C3\u6578\u500B\u6578\u662F\u7AAE\u8209\u6E2C\u8A66\uFF0C\u4E0D\u662F\u6210\u5C0D\u3002"
+              }
+            ],
+            "generalFeedback": "\u6210\u5C0D\u6E2C\u8A66\u7684\u5F37\u5EA6 t = 2\uFF1A\u5B83\u4FDD\u8B49\u8986\u84CB\u6BCF\u4E00\u7D44\u5169\u500B\u53C3\u6578\u4E4B\u9593\u7684\u6240\u6709\u6578\u503C\u7D44\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6BCF\u4E00\u5C0D\u81F3\u5C11\u4E00\u6B21",
+            "text": "<p>\u4E00\u500B\u6709\u6548\u7684\u6210\u5C0D\u6E2C\u8A66\u5957\u4EF6\u5FC5\u9808\u5305\u542B\u6BCF\u4E00\u5C0D\u53C3\u6578\u6578\u503C\u81F3\u5C11\u4E00\u6B21\uFF0C\u4F46\u4E0D\u9700\u8981\u8B93\u4EFB\u4F55\u4E00\u5C0D\u51FA\u73FE\u8D85\u904E\u4E00\u6B21\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8981\u6C42\u662F\u300C\u81F3\u5C11\u4E00\u6B21\u300D\uFF1B\u53EF\u4EE5\u91CD\u8907\u4F46\u975E\u5FC5\u8981\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u8986\u84CB\u8981\u6C42\u6BCF\u4E00\u5C0D\u81F3\u5C11\u4E00\u6B21\uFF1B\u8B93\u67D0\u4E9B\u5C0D\u51FA\u73FE\u591A\u65BC\u4E00\u6B21\u662F\u5141\u8A31\u4F46\u975E\u5FC5\u8981\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u6210\u5C0D\uFF08\u8986\u84CB\u9663\u5217\uFF09\u8986\u84CB\u8981\u6C42\u6BCF\u4E00\u5C0D\u6578\u503C\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21\u3002\u82E5\u8981\u6C42\u6BCF\u4E00\u5C0D\u51FA\u73FE\u76F8\u540C\u7684\u56FA\u5B9A\u6B21\u6578\uFF0C\u90A3\u6703\u662F\u6B63\u4EA4\u9663\u5217\u2014\u2014\u4E00\u7A2E\u66F4\u5F37\u3001\u5E73\u8861\u7684\u7279\u4F8B\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "4 \xD7 3 \xD7 3 \xD7 2 \u7684\u7AAE\u8209\u6578\u91CF",
+            "text": "<p>\u67D0\u7CFB\u7D71\u6709\u56DB\u500B\u53C3\u6578\uFF0C\u5B9A\u7FA9\u57DF\u5927\u5C0F\u70BA 4\u30013\u30013\u30012\u3002<strong>\u7AAE\u8209</strong>\u6E2C\u8A66\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "72",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144 \xD7 3 \xD7 3 \xD7 2 = 72\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 \u53EA\u662F\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u4E4B\u4E58\u7A4D\uFF084 \xD7 3\uFF09\uFF0C\u90A3\u662F\u6210\u5C0D\u4E0B\u754C\uFF0C\u800C\u975E\u7AAE\u8209\u6578\u3002"
+              },
+              {
+                "text": "36",
+                "fraction": 0,
+                "feedback": "36 \u662F 4 \xD7 3 \xD7 3\uFF1B\u6F0F\u6389\u4E86\u6700\u5F8C\u4E00\u500B\u53C3\u6578\uFF08\xD7 2\uFF09\u3002"
+              },
+              {
+                "text": "12 \u52A0\u4E0A\u5176\u4ED6",
+                "fraction": 0,
+                "feedback": "\u7AAE\u8209\u662F\u4E58\u7A4D\u800C\u975E\u52A0\u7E3D\uFF1A4 \xD7 3 \xD7 3 \xD7 2 = 72\u3002"
+              }
+            ],
+            "generalFeedback": "\u7AAE\u8209\u6E2C\u8A66\u662F\u6240\u6709\u5B9A\u7FA9\u57DF\u5927\u5C0F\u4E4B\u4E58\u7A4D\uFF1A4 \xD7 3 \xD7 3 \xD7 2 = 72\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "3 \xD7 3 \xD7 2 \u7684\u6210\u5C0D\u4E0B\u754C",
+            "text": "<p>\u67D0\u7D44\u614B\u6709\u4E09\u500B\u53C3\u6578\uFF0C\u5B9A\u7FA9\u57DF\u5927\u5C0F\u70BA 3\u30013\u30012\u3002\u4EFB\u4F55\u6210\u5C0D\uFF082-way\uFF09\u5957\u4EF6\u81F3\u5C11\u5FC5\u9808\u5305\u542B\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u81F3\u5C11 9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0B\u754C\u662F\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u4E4B\u4E58\u7A4D\uFF0C3 \xD7 3 = 9\u3002"
+              },
+              {
+                "text": "\u81F3\u5C11 18",
+                "fraction": 0,
+                "feedback": "18 \u662F\u7AAE\u8209\u6578\uFF083 \xD7 3 \xD7 2\uFF09\uFF1B\u6210\u5C0D\u9700\u8981\u9060\u5C11\u65BC\u6B64\u3002"
+              },
+              {
+                "text": "\u81F3\u5C11 3",
+                "fraction": 0,
+                "feedback": "3\uFF08\u6700\u5927\u7684\u55AE\u4E00\u5B9A\u7FA9\u57DF\uFF09\u53EA\u6EFF\u8DB3 each-choice \u8986\u84CB\uFF0C\u4E26\u975E\u6240\u6709\u5C0D\u3002"
+              },
+              {
+                "text": "\u81F3\u5C11 6",
+                "fraction": 0,
+                "feedback": "6 \u4F4E\u65BC\u4E0B\u754C\uFF1A\u8986\u84CB\u5169\u500B 3 \u503C\u53C3\u6578\u7684\u6240\u6709 3 \xD7 3 = 9 \u500B\u5C0D\uFF0C\u5DF2\u8FEB\u4F7F\u81F3\u5C11 9 \u5217\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u8986\u84CB\u5169\u500B 3 \u503C\u53C3\u6578\u7684\u6BCF\u4E00\u5C0D\uFF0C\u5C31\u5DF2\u9700\u8981\u5B83\u5011\u5168\u90E8 3 \xD7 3 = 9 \u7A2E\u7D44\u5408\uFF0C\u56E0\u6B64\u4EFB\u4F55\u6210\u5C0D\u5957\u4EF6\u81F3\u5C11\u6709 9 \u5217\u3002\u4E0B\u754C\u5C31\u662F\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u4E4B\u4E58\u7A4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u6C7A\u5B9A\u4E0B\u754C",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u4EFB\u4F55\u6210\u5C0D\u5957\u4EF6\u7684\u6700\u5C0F\u898F\u6A21\uFF0C\u81F3\u5C11\u662F<strong>\u5169\u500B\u6700\u5927</strong>\u53C3\u6578\u5B9A\u7FA9\u57DF\u4E4B\u4E58\u7A4D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u90A3\u5169\u500B\u53C3\u6578\u7684\u6BCF\u4E00\u5C0D\u90FD\u5FC5\u9808\u51FA\u73FE\uFF0C\u800C\u9019\u6A23\u7684\u5C0D\u5171\u6709\uFF08\u6700\u5927 \xD7 \u6B21\u5927\uFF09\u500B\uFF0C\u5404\u81EA\u9700\u8981\u7368\u7ACB\u4E00\u5217",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u55AE\u4E00\u5217\u7121\u6CD5\u8986\u84CB\u540C\u5169\u53C3\u6578\u7684\u5169\u500B\u4E0D\u540C\u6578\u503C\u5C0D\uFF0C\u56E0\u6B64\u81F3\u5C11\u9700\u8981\u90A3\u9EBC\u591A\u5217\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6700\u5C0F\u7684\u5B9A\u7FA9\u57DF\u6C7A\u5B9A\u4E86\u6709\u591A\u5C11\u5217\u53EF\u88AB\u91CD\u8907\u5229\u7528",
+                "fraction": 0,
+                "feedback": "\u4E0B\u754C\u4F86\u81EA\u6700\u5927\u7684\u5B9A\u7FA9\u57DF\uFF0C\u56E0\u70BA\u5B83\u5011\u7522\u751F\u6700\u591A\u9700\u8981\u8986\u84CB\u7684\u5C0D\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6BCF\u500B\u53C3\u6578\u4E0D\u8AD6\u5176\u4ED6\u53C3\u6578\u5982\u4F55\uFF0C\u6BCF\u500B\u6578\u503C\u90FD\u9700\u8981\u4E00\u5217",
+                "fraction": 0,
+                "feedback": "\u90A3\u7A2E\u63A8\u7406\u5F97\u5230\u7684\u662F each-choice\uFF0C\u800C\u975E\u6E90\u81EA\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u7684\u6210\u5C0D\u4E0B\u754C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5957\u4EF6\u5FC5\u9808\u7B49\u65BC\u7AAE\u8209\u4E58\u7A4D\u9664\u4EE5\u4E8C",
+                "fraction": 0,
+                "feedback": "\u4E26\u7121\u9019\u7A2E\u9664\u6CD5\u898F\u5247\uFF1B\u4E0B\u754C\u662F\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u4E4B\u4E58\u7A4D\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u8003\u616E\u5B9A\u7FA9\u57DF\u6700\u5927\u7684\u5169\u500B\u53C3\u6578\u3002\u5B83\u5011\u7684\u5C0D\u5171\u6709\uFF08\u6700\u5927 \xD7 \u6B21\u5927\uFF09\u500B\uFF0C\u800C\u55AE\u4E00\u6E2C\u8A66\u5217\u70BA\u5169\u8005\u5404\u56FA\u5B9A\u4E00\u500B\u6578\u503C\uFF0C\u6240\u4EE5\u53EA\u8986\u84CB\u5176\u4E2D\u4E00\u500B\u5C0D\u3002\u56E0\u6B64\u81F3\u5C11\u9700\u8981\uFF08\u6700\u5927 \xD7 \u6B21\u5927\uFF09\u5217\u2014\u2014\u9019\u500B\u4E58\u7A4D\u5373\u6210\u5C0D\u4E0B\u754C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "AETG \u5982\u4F55\u5EFA\u69CB\u5957\u4EF6",
+            "text": "<p>AETG \u6F14\u7B97\u6CD5\u5982\u4F55\u5EFA\u69CB\u6210\u5C0D\u6E2C\u8A66\u5957\u4EF6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8CAA\u5A6A\u5730\u4E00\u6B21\u52A0\u5165\u4E00\u6574\u5217\u6E2C\u8A66\uFF0C\u6BCF\u6B21\u9078\u64C7\u80FD\u8986\u84CB\u6700\u591A\u5C1A\u672A\u8986\u84CB\u4E4B\u5C0D\u7684\u5217",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014AETG \u662F\u4E00\u6B21\u4E00\u5217\u7684\u8CAA\u5A6A\u555F\u767C\u5F0F\u3002"
+              },
+              {
+                "text": "\u5148\u5217\u8209\u6240\u6709\u7D44\u5408\uFF0C\u518D\u522A\u9664\u591A\u9918\u7684\u5217",
+                "fraction": 0,
+                "feedback": "AETG \u5F9E\u4E0D\u5217\u8209\u5B8C\u6574\u4E58\u7A4D\uFF1B\u5B83\u8CAA\u5A6A\u5730\u5EFA\u5217\u4EE5\u907F\u514D\u7206\u70B8\u3002"
+              },
+              {
+                "text": "\u6C42\u89E3\u4E00\u500B\u4FDD\u8B49\u6700\u5C0F\u5957\u4EF6\u7684\u7CBE\u78BA\u6574\u6578\u898F\u5283",
+                "fraction": 0,
+                "feedback": "AETG \u662F\u555F\u767C\u5F0F\uFF1B\u5B83\u8FD1\u4F3C\u6700\u4F73\uFF0C\u4F46\u4E0D\u4FDD\u8B49\u6700\u5C0F\u3002"
+              },
+              {
+                "text": "\u4E00\u6B21\u4E00\u500B\u53C3\u6578\u6B04\u5730\u52A0\u5165\u4E0D\u65B7\u6210\u9577\u7684\u9663\u5217",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F IPOG \u7684\u4E00\u6B21\u4E00\u53C3\u6578\u7B56\u7565\uFF0C\u4E0D\u662F AETG\u3002"
+              }
+            ],
+            "generalFeedback": "AETG\uFF08Automatic Efficient Test Generator\uFF09\u8CAA\u5A6A\u5730\u4E00\u6B21\u5EFA\u69CB\u4E00\u6574\u5217\u6E2C\u8A66\uFF0C\u6BCF\u6B21\u9078\u64C7\u80FD\u8986\u84CB\u6700\u591A\u5C1A\u672A\u8986\u84CB\u4E4B\u5C0D\u7684\u5217\u3002\u5B83\u5FEB\u901F\u4E14\u8FD1\u4F3C\u6700\u4F73\uFF0C\u4F46\u4E0D\u4FDD\u8B49\u7522\u751F\u6700\u5C0F\u7684\u5957\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "IPOG \u5982\u4F55\u5EFA\u69CB\u5957\u4EF6",
+            "text": "<p>IPOG \u6F14\u7B97\u6CD5\u7684\u6838\u5FC3\u7B56\u7565\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "In-Parameter-Order \u6210\u9577\uFF1A\u5148\u70BA\u524D\u5E7E\u500B\u53C3\u6578\u5EFA\u9663\u5217\uFF0C\u518D\u4E00\u6B21\u4E00\u500B\u53C3\u6578\u5730\u64F4\u5C55\uFF0C\u8996\u9700\u8981\u586B\u503C\u8207\u52A0\u5217\u4EE5\u8986\u84CB\u65B0\u7684\u5C0D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014IPOG \u5148\u6C34\u5E73\u6210\u9577\uFF08\u52A0\u53C3\u6578\uFF09\u518D\u8996\u9700\u8981\u5782\u76F4\u6210\u9577\uFF08\u52A0\u5217\uFF09\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u62BD\u6A23\u6E2C\u8A66\u5217\uFF0C\u76F4\u5230\u6240\u6709\u5C0D\u525B\u597D\u88AB\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "IPOG \u662F\u6C7A\u5B9A\u6027\u4E14\u5EFA\u69CB\u6027\u7684\uFF0C\u800C\u975E\u96A8\u6A5F\u62BD\u6A23\u3002"
+              },
+              {
+                "text": "\u4EE5\u7AAE\u8209\u641C\u5C0B\u8A08\u7B97\u51FA\u7CBE\u78BA\u6700\u5C0F\u7684\u8986\u84CB\u9663\u5217",
+                "fraction": 0,
+                "feedback": "IPOG \u662F\u8CAA\u5A6A\u555F\u767C\u5F0F\uFF1B\u5B83\u8FD1\u4F3C\u6700\u4F73\uFF0C\u4F46\u4E0D\u4FDD\u8B49\u6700\u5C0F\u3002"
+              },
+              {
+                "text": "\u55AE\u7368\u6E2C\u8A66\u4E00\u500B\u53C3\u6578\u800C\u5FFD\u7565\u4EA4\u4E92\u4F5C\u7528",
+                "fraction": 0,
+                "feedback": "IPOG \u5728\u4E00\u6B21\u4E00\u53C3\u6578\u64F4\u5C55\u9663\u5217\u6642\uFF0C\u660E\u78BA\u5730\u8986\u84CB\u5C0D\u7684\u4EA4\u4E92\u4F5C\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "IPOG\uFF08In-Parameter-Order Generation\uFF09\u5148\u70BA\u524D\u5169\u500B\u53C3\u6578\u5EFA\u8986\u84CB\u9663\u5217\uFF0C\u518D\u4E00\u6B21\u52A0\u5165\u4E00\u500B\u53C3\u6578\uFF1A\u6C34\u5E73\u64F4\u5C55\u65E2\u6709\u5217\u4EE5\u8986\u84CB\u65B0\u7684\u5C0D\uFF0C\u4E26\u5728\u9700\u8981\u6642\u5782\u76F4\u52A0\u5217\u3002\u8207 AETG \u4E00\u6A23\u662F\u8CAA\u5A6A\u3001\u8FD1\u4F3C\u6700\u4F73\u7684\u555F\u767C\u5F0F\uFF0C\u4E0D\u4FDD\u8B49\u6700\u5C0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6B63\u4EA4\u9663\u5217\u8207\u8986\u84CB\u9663\u5217\u7684\u5DEE\u7570",
+            "text": "<p>\u5C31\u6210\u5C0D\u6E2C\u8A66\u800C\u8A00\uFF0C<strong>\u6B63\u4EA4\u9663\u5217</strong>\u8207\u4E00\u822C<strong>\u8986\u84CB\u9663\u5217</strong>\u7684\u5340\u5225\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6B63\u4EA4\u9663\u5217\u8981\u6C42\u6BCF\u4E00\u5C0D\u51FA\u73FE\u76F8\u540C\u7684\u56FA\u5B9A\u6B21\u6578\uFF08\u5E73\u8861\uFF09\uFF1B\u8986\u84CB\u9663\u5217\u53EA\u8981\u6C42\u6BCF\u4E00\u5C0D\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B63\u4EA4\u9663\u5217\u662F\u5E73\u8861\u7684\uFF0C\u662F\u66F4\u5F37\u7684\u7279\u4F8B\u3002"
+              },
+              {
+                "text": "\u6B63\u4EA4\u9663\u5217\u8986\u84CB\u4E09\u56E0\u5B50\u7D44\u5408\uFF0C\u800C\u8986\u84CB\u9663\u5217\u53EA\u8986\u84CB\u5C0D",
+                "fraction": 0,
+                "feedback": "\u5340\u5225\u5728\u65BC\u5E73\u8861\uFF0C\u800C\u975E\u5F37\u5EA6\uFF1B\u5169\u8005\u90FD\u53EF\u5B9A\u7FA9\u65BC\u5F37\u5EA6 2\u3002"
+              },
+              {
+                "text": "\u8986\u84CB\u9663\u5217\u5FC5\u9808\u5E73\u8861\uFF0C\u800C\u6B63\u4EA4\u9663\u5217\u4E0D\u5FC5",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5B9A\u7FA9\u5F04\u53CD\u4E86\u2014\u2014\u5E73\u8861\u7684\u662F\u6B63\u4EA4\u9663\u5217\u3002"
+              },
+              {
+                "text": "\u6B63\u4EA4\u9663\u5217\u5141\u8A31\u7D04\u675F\uFF0C\u800C\u8986\u84CB\u9663\u5217\u7981\u6B62\u7D04\u675F",
+                "fraction": 0,
+                "feedback": "\u7D04\u675F\u8655\u7406\u8207\u5169\u8005\u7684\u5E73\u8861\u5340\u5225\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B63\u4EA4\u9663\u5217\u8981\u6C42\u6BCF\u4E00\u5C0D\u6578\u503C\u51FA\u73FE\u6B21\u6578\u5B8C\u5168\u76F8\u540C\uFF08\u03BB\uFF09\uFF0C\u56E0\u6B64\u662F\u5E73\u8861\u7684\u3002\u8986\u84CB\u9663\u5217\u53EA\u8981\u6C42\u6BCF\u4E00\u5C0D\u81F3\u5C11\u4E00\u6B21\uFF0C\u6240\u4EE5\u901A\u5E38\u66F4\u5C0F\u4E5F\u66F4\u6709\u5F48\u6027\u3002\u6BCF\u500B\u6B63\u4EA4\u9663\u5217\u90FD\u662F\u8986\u84CB\u9663\u5217\uFF0C\u4F46\u53CD\u4E4B\u4E0D\u7136\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E09\u500B 3 \u503C\u53C3\u6578\u8981\u8986\u84CB\u7684\u5C0D\u6578",
+            "text": "<p>\u4E09\u500B\u53C3\u6578\u5404\u6709 3 \u7A2E\u6578\u503C\u3002\u6210\u5C0D\u5957\u4EF6\u7E3D\u5171\u5FC5\u9808\u8986\u84CB\u591A\u5C11\u500B\u4E0D\u540C\u7684\u6578\u503C\u5C0D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "27",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5171\u6709 3 \u500B\u53C3\u6578\u5C0D\uFF0C\u6BCF\u5C0D\u8CA2\u737B 3 \xD7 3 = 9 \u500B\u6578\u503C\u5C0D\uFF1A3 \xD7 9 = 27\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 \u662F\u55AE\u4E00\u53C3\u6578\u5C0D\u7684\u6578\u503C\u5C0D\u6578\uFF1B\u5171\u6709 3 \u500B\u53C3\u6578\u5C0D\uFF0C\u7E3D\u8A08 27\u3002"
+              },
+              {
+                "text": "18",
+                "fraction": 0,
+                "feedback": "18 \u53EA\u7B97\u4E86\u4E09\u500B\u53C3\u6578\u5C0D\u4E2D\u7684\u5169\u500B\uFF1B\u5168\u90E8 C(3,2) = 3 \u500B\u53C3\u6578\u5C0D\u90FD\u8981\u7B97\u3002"
+              },
+              {
+                "text": "81",
+                "fraction": 0,
+                "feedback": "81 \u662F\u628A\u6578\u503C\u6578\u53D6\u51AA\uFF1B\u7E3D\u5C0D\u6578\u662F\u628A\u5404\u53C3\u6578\u5C0D\u76F8\u52A0\uFF1A3 \xD7 (3 \xD7 3) = 27\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u8986\u84CB\u7684\u6578\u503C\u5C0D\u6578\uFF0C\u662F\u5C0D\u6BCF\u4E00\u5C0D\u53C3\u6578\u628A (v_i \xD7 v_j) \u52A0\u7E3D\u3002\u4E09\u500B\u53C3\u6578\u6642\u6709 C(3,2) = 3 \u500B\u53C3\u6578\u5C0D\uFF0C\u5404\u8CA2\u737B 3 \xD7 3 = 9\uFF0C\u7E3D\u8A08 27\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "3 \xD7 2 \xD7 2 \u8981\u8986\u84CB\u7684\u5C0D\u6578",
+            "text": "<p>\u4E09\u500B\u53C3\u6578\u7684\u5B9A\u7FA9\u57DF\u5927\u5C0F\u70BA 3\u30012\u30012\u3002\u6210\u5C0D\u5957\u4EF6\u7E3D\u5171\u5FC5\u9808\u8986\u84CB\u591A\u5C11\u500B\u4E0D\u540C\u7684\u6578\u503C\u5C0D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "16",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014(3\xD72) + (3\xD72) + (2\xD72) = 6 + 6 + 4 = 16\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 \u662F\u7AAE\u8209\u6E2C\u8A66\u6578\uFF083 \xD7 2 \xD7 2\uFF09\uFF0C\u800C\u975E\u6578\u503C\u5C0D\u6578\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u662F\u5B9A\u7FA9\u57DF\u5927\u5C0F\u4E4B\u548C\uFF1B\u5C0D\u6578\u662F\u628A\u4E09\u500B\u53C3\u6578\u5C0D\u7684 v_i \xD7 v_j \u52A0\u7E3D\u3002"
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "10 \u6F0F\u4E86\u4E00\u500B\u53C3\u6578\u5C0D\uFF1B\u4E09\u500B\u8CA2\u737B\u70BA 6\u30016\u30014\uFF0C\u5408\u8A08 16\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u6240\u6709\u53C3\u6578\u5C0D\u7684 v_i \xD7 v_j \u52A0\u7E3D\uFF1A\u53C3\u6578\uFF08P1=3\u3001P2=2\u3001P3=2\uFF09\u7D66\u51FA P1-P2 = 6\u3001P1-P3 = 6\u3001P2-P3 = 4\uFF0C\u7E3D\u8A08 16 \u500B\u6578\u503C\u5C0D\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8CAA\u5A6A\u7522\u751F\u5668\u8207\u6700\u5C0F\u6027",
+            "text": "<p>\u50CF AETG \u8207 IPOG \u9019\u985E\u8CAA\u5A6A\u6210\u5C0D\u7522\u751F\u5668\uFF0C\u7E3D\u662F\u80FD\u7522\u751F\u6700\u5C0F\u7684\u8986\u84CB\u9663\u5217\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5011\u662F\u8FD1\u4F3C\u6700\u4F73\u7684\u555F\u767C\u5F0F\uFF0C\u4E0D\u4FDD\u8B49\u6700\u5C0F\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "AETG \u8207 IPOG \u662F\u8CAA\u5A6A\u555F\u767C\u5F0F\uFF1B\u5B83\u5011\u5FEB\u901F\u4E14\u8FD1\u4F3C\u6700\u4F73\uFF0C\u4F46\u4E0D\u4FDD\u8B49\u7522\u751F\u6700\u5C0F\u898F\u6A21\u7684\u9663\u5217\u3002"
+              }
+            ],
+            "generalFeedback": "\u6C42\u6700\u5C0F\u8986\u84CB\u9663\u5217\u5728\u8A08\u7B97\u4E0A\u662F\u56F0\u96E3\u7684\u3002AETG \u8207 IPOG \u4EE5\u8CAA\u5A6A\u555F\u767C\u5F0F\u5FEB\u901F\u7522\u751F\u5C0F\u800C\u8FD1\u4F3C\u6700\u4F73\u7684\u5957\u4EF6\uFF0C\u4F46\u7D50\u679C\u53EF\u80FD\u5927\u65BC\u771F\u6B63\u7684\u6700\u5C0F\u503C\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6210\u5C0D\u76F8\u5C0D\u65BC\u7AAE\u8209\u7684\u7E2E\u6E1B",
+            "text": "<p>\u67D0\u7CFB\u7D71\u7684\u53C3\u6578\u5B9A\u7FA9\u57DF\u70BA 3\u30013\u30013\u3002\u7AAE\u8209\u6E2C\u8A66\u9700\u8981 27 \u500B\u6E2C\u8A66\u3002\u95DC\u65BC\u6B64\u7CFB\u7D71\u7684\u6210\u5C0D\u5957\u4EF6\uFF0C\u6211\u5011\u53EF\u4EE5\u8AAA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u81F3\u5C11\u9700\u8981 9 \u500B\u6E2C\u8A66\uFF08\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u4E4B\u4E58\u7A4D\uFF09\uFF0C\u4E14\u901A\u5E38\u9060\u5C11\u65BC 27 \u500B\u7AAE\u8209\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0B\u754C\u662F 3 \xD7 3 = 9\uFF0C\u800C\u597D\u7684\u6210\u5C0D\u5957\u4EF6\u9060\u5C0F\u65BC\u7AAE\u8209\u3002"
+              },
+              {
+                "text": "\u5B83\u525B\u597D\u9700\u8981 27 \u500B\u6E2C\u8A66\uFF0C\u8207\u7AAE\u8209\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u6210\u5C0D\u6BD4\u7AAE\u8209\u5C0F\uFF1B27 \u662F\u5B8C\u6574\u4E58\u7A4D\u3002"
+              },
+              {
+                "text": "\u5B83\u525B\u597D\u9700\u8981 3 \u500B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "3 \u500B\u6E2C\u8A66\u7121\u6CD5\u8986\u84CB\u4EFB\u5169\u53C3\u6578\u7684\u5168\u90E8 3 \xD7 3 = 9 \u500B\u5C0D\u3002"
+              },
+              {
+                "text": "\u5B83\u7E3D\u662F\u6070\u597D\u9700\u8981\u5B9A\u7FA9\u57DF\u5927\u5C0F\u4E4B\u548C\uFF0C\u5373 9",
+                "fraction": 0,
+                "feedback": "9 \u662F\u4E0B\u754C\uFF0C\u672A\u5FC5\u7E3D\u80FD\u9054\u6210\uFF1B\u800C\u4E14\u5B83\u662F\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u4E4B\u4E58\u7A4D\uFF0C\u4E26\u975E\u5168\u90E8\u4E4B\u548C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6210\u5C0D\u4E0B\u754C\u662F\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u4E4B\u4E58\u7A4D\uFF1A3 \xD7 3 = 9\u3002\u6210\u5C0D\u5957\u4EF6\u4ECB\u65BC\u6B64\u4E0B\u754C\u8207\u7AAE\u8209\u7684 27 \u4E4B\u9593\uFF1B\u8457\u540D\u7684\u5EFA\u69CB\u6CD5\u80FD\u4EE5\u5C11\u81F3 9 \u5217\u8986\u84CB\u4E09\u500B 3 \u503C\u53C3\u6578\u7684\u6240\u6709\u5C0D\uFF0C\u9060\u4F4E\u65BC\u7AAE\u8209\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6B63\u4EA4\u9663\u5217\u7684\u5E73\u8861\u6027\u8CEA",
+            "text": "<p>\u5F37\u5EA6 2 \u4E4B\u6B63\u4EA4\u9663\u5217\u7684\u5E73\u8861\uFF08\u6307\u6A19 \u03BB\uFF09\u6027\u8CEA\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EFB\u5169\u6B04\u7684\u6BCF\u4E00\u5C0D\u6578\u503C\u90FD\u525B\u597D\u51FA\u73FE\u5728 \u03BB \u500B\u5217\u4E2D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u4E00\u5C0D\u90FD\u56FA\u5B9A\u70BA \u03BB\uFF0C\u6B63\u662F\u4F7F\u9663\u5217\u5E73\u8861\u7684\u6027\u8CEA\u3002"
+              },
+              {
+                "text": "\u6BCF\u4E00\u6B04\u525B\u597D\u5305\u542B\u6BCF\u500B\u6578\u503C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u55AE\u6B04\u7684\u6392\u5217\uFF0C\u800C\u975E\u6B63\u4EA4\u9663\u5217\u7684\u5169\u6B04\u5E73\u8861\u3002"
+              },
+              {
+                "text": "\u6BCF\u4E00\u5C0D\u6578\u503C\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21\uFF0C\u5C0D\u6B21\u6578\u6C92\u6709\u9650\u5236",
+                "fraction": 0,
+                "feedback": "\u300C\u81F3\u5C11\u4E00\u6B21\u300D\u662F\u8986\u84CB\u9663\u5217\u7684\u6027\u8CEA\uFF1B\u6B63\u4EA4\u9663\u5217\u8981\u6C42\u525B\u597D \u03BB \u6B21\u3002"
+              },
+              {
+                "text": "\u5217\u6578\u7B49\u65BC\u6B04\u6578",
+                "fraction": 0,
+                "feedback": "\u5217\u8207\u6B04\u5F7C\u6B64\u7368\u7ACB\uFF1B\u5E73\u8861\u6307\u7684\u662F\u6BCF\u5C0D\u51FA\u73FE\u6B21\u6578\u76F8\u540C\uFF0C\u800C\u975E\u65B9\u5F62\u5F62\u72C0\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u5F37\u5EA6 2 \u7684\u6B63\u4EA4\u9663\u5217\u4E2D\uFF0C\u5C0D\u4EFB\u5169\u6B04\uFF0C\u6BCF\u4E00\u7A2E\u6709\u5E8F\u6578\u503C\u5C0D\u90FD\u525B\u597D\u51FA\u73FE\u5728 \u03BB \u500B\u5217\uFF08\u03BB \u662F\u6307\u6A19\uFF09\u3002\u9019\u7A2E\u4E00\u81F4\u7684\u51FA\u73FE\u983B\u7387\uFF0C\u6BD4\u8986\u84CB\u9663\u5217\u7684\u300C\u81F3\u5C11\u4E00\u6B21\u300D\u66F4\u5F37\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "4 \xD7 3 \xD7 3 \xD7 2 \u7684\u6210\u5C0D\u4E0B\u754C",
+            "text": "<p>\u67D0\u7CFB\u7D71\u6709\u56DB\u500B\u53C3\u6578\uFF0C\u5B9A\u7FA9\u57DF\u5927\u5C0F\u70BA 4\u30013\u30013\u30012\u3002\u4EFB\u4F55\u6210\u5C0D\u5957\u4EF6\u81F3\u5C11\u5FC5\u9808\u5305\u542B\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u81F3\u5C11 12",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u662F 4 \u8207 3\uFF0C\u6545\u4E0B\u754C\u662F 4 \xD7 3 = 12\u3002"
+              },
+              {
+                "text": "\u81F3\u5C11 72",
+                "fraction": 0,
+                "feedback": "72 \u662F\u7AAE\u8209\u6578\uFF084 \xD7 3 \xD7 3 \xD7 2\uFF09\uFF1B\u6210\u5C0D\u9700\u8981\u9060\u5C11\u65BC\u6B64\u3002"
+              },
+              {
+                "text": "\u81F3\u5C11 9",
+                "fraction": 0,
+                "feedback": "9 \u7528\u7684\u662F 3 \xD7 3\uFF1B\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u662F 4 \u8207 3\uFF0C\u5F97 12\u3002"
+              },
+              {
+                "text": "\u81F3\u5C11 24",
+                "fraction": 0,
+                "feedback": "24\uFF084 \xD7 3 \xD7 2\uFF09\u7528\u4E86\u4E09\u500B\u5B9A\u7FA9\u57DF\uFF1B\u4E0B\u754C\u53EA\u7528\u5169\u500B\u6700\u5927\u8005\uFF0C4 \xD7 3 = 12\u3002"
+              }
+            ],
+            "generalFeedback": "\u6210\u5C0D\u4E0B\u754C\u662F\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u4E4B\u4E58\u7A4D\u3002\u6B64\u8655\u6700\u5927\u8005\u70BA 4 \u8207 3\uFF0C\u6545\u4EFB\u4F55\u6210\u5C0D\u5957\u4EF6\u81F3\u5C11\u9700\u8981 4 \xD7 3 = 12 \u5217\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6B63\u4EA4\u9663\u5217\u662F\u8986\u84CB\u9663\u5217",
+            "text": "<p>\u6BCF\u500B\u5F37\u5EA6 2 \u7684\u6B63\u4EA4\u9663\u5217\uFF0C\u4E5F\u90FD\u662F\u4E00\u500B\u6709\u6548\u7684\u6210\u5C0D\u8986\u84CB\u9663\u5217\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u82E5\u6BCF\u4E00\u5C0D\u90FD\u525B\u597D\u51FA\u73FE \u03BB \u2265 1 \u6B21\uFF0C\u90A3\u6BCF\u4E00\u5C0D\u5C31\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6B63\u4EA4\u9663\u5217\u8B93\u6BCF\u4E00\u5C0D\u525B\u597D\u51FA\u73FE \u03BB \u6B21\uFF0C\u56E0\u6B64\u5FC5\u7136\u6BCF\u4E00\u5C0D\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21\u2014\u2014\u5373\u8986\u84CB\u9663\u5217\u7684\u8981\u6C42\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B63\u4EA4\u9663\u5217\u662F\u5E73\u8861\u7684\u7279\u4F8B\uFF1A\u6BCF\u4E00\u5C0D\u525B\u597D\u51FA\u73FE \u03BB \u6B21\u3002\u7531\u65BC \u03BB \u2265 1\uFF0C\u6BCF\u4E00\u5C0D\u90FD\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21\uFF0C\u6545\u8A72\u9663\u5217\u6EFF\u8DB3\u6210\u5C0D\u8986\u84CB\u3002\u53CD\u4E4B\u4E0D\u6210\u7ACB\uFF1A\u8986\u84CB\u9663\u5217\u672A\u5FC5\u5E73\u8861\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u4F7F\u7528\u8CAA\u5A6A\u7522\u751F\u5668",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u8981\u7528\u50CF AETG \u8207 IPOG \u9019\u985E\u8CAA\u5A6A\u555F\u767C\u5F0F\u4F86\u5EFA\u69CB\u6210\u5C0D\u5957\u4EF6\uFF0C\u800C\u4E0D\u53BB\u8A08\u7B97\u7CBE\u78BA\u6700\u5C0F\u503C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6C42\u6700\u5C0F\u8986\u84CB\u9663\u5217\u5728\u8A08\u7B97\u4E0A\u662F\u56F0\u96E3\u7684\uFF0C\u6545\u8CAA\u5A6A\u65B9\u6CD5\u4EE5\u7565\u5927\u7684\u5957\u4EF6\u63DB\u53D6\u5FEB\u901F\u3001\u5BE6\u7528\u7684\u7522\u751F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u7CBE\u78BA\u6700\u5C0F\u5316\u96E3\u4EE5\u8655\u7406\u4E4B\u8655\uFF0C\u5B83\u5011\u5FEB\u901F\u7D66\u51FA\u8FD1\u4F3C\u6700\u4F73\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u8CAA\u5A6A\u65B9\u6CD5\u80FD\u4FDD\u8B49\u5B8C\u6574\u7684\u6210\u5C0D\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u7CBE\u78BA\u65B9\u6CD5\u540C\u6A23\u4FDD\u8B49\u8986\u84CB\uFF1B\u9078\u7528\u8CAA\u5A6A\u662F\u70BA\u4E86\u901F\u5EA6\uFF0C\u800C\u975E\u56E0\u70BA\u5B83\u662F\u552F\u4E00\u6B63\u78BA\u7684\u9078\u64C7\u3002"
+              },
+              {
+                "text": "\u8CAA\u5A6A\u65B9\u6CD5\u627E\u5230\u7684\u5957\u4EF6\u7E3D\u662F\u56B4\u683C\u5C0F\u65BC\u4EFB\u4F55\u7CBE\u78BA\u65B9\u6CD5",
+                "fraction": 0,
+                "feedback": "\u7CBE\u78BA\u65B9\u6CD5\u627E\u5230\u771F\u6B63\u7684\u6700\u5C0F\u503C\uFF1B\u8CAA\u5A6A\u5957\u4EF6\u8FD1\u4F3C\u6700\u4F73\uFF0C\u53EF\u80FD\u8F03\u5927\u3002"
+              },
+              {
+                "text": "\u8CAA\u5A6A\u65B9\u6CD5\u6703\u907F\u958B\u8986\u84CB\u67D0\u4E9B\u5C0D\uFF0C\u56E0\u6B64\u8F03\u5FEB",
+                "fraction": 0,
+                "feedback": "AETG \u8207 IPOG \u4ECD\u8986\u84CB\u6240\u6709\u5FC5\u8981\u7684\u5C0D\uFF1B\u5B83\u5011\u53EA\u662F\u5728\u5957\u4EF6\u898F\u6A21\u4E0A\u63A1\u555F\u767C\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A08\u7B97\u53EF\u8B49\u660E\u70BA\u6700\u5C0F\u7684\u8986\u84CB\u9663\u5217\u662F NP-hard \u7684\u6700\u4F73\u5316\u554F\u984C\u3002AETG \u8207 IPOG \u662F\u8CAA\u5A6A\u5EFA\u69CB\u5F0F\u555F\u767C\u5F0F\uFF0C\u5728\u5408\u7406\u6642\u9593\u5167\u7522\u751F\u5C0F\u800C\u8FD1\u4F3C\u6700\u4F73\u7684\u5957\u4EF6\uFF0C\u540C\u6642\u4ECD\u4FDD\u8B49\u5B8C\u6574\u7684\u6210\u5C0D\u8986\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "AETG \u8207 IPOG \u7684\u6210\u9577\u65B9\u5411",
+            "text": "<p>AETG \u8207 IPOG \u90FD\u662F\u8CAA\u5A6A\u6210\u5C0D\u7522\u751F\u5668\u3002\u5B83\u5011\u5728\u5982\u4F55\u64F4\u589E\u6E2C\u8A66\u5957\u4EF6\u4E0A\u7684\u95DC\u9375\u5DEE\u7570\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "AETG \u4E00\u6B21\u52A0\u5165\u4E00\u6574\u5217\u6E2C\u8A66\uFF1BIPOG \u4E00\u6B21\u52A0\u5165\u4E00\u500B\u53C3\u6578\uFF08\u6B04\uFF09\uFF0C\u4E26\u8996\u9700\u8981\u64F4\u5C55\u8207\u52A0\u5217",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014AETG \u9010\u5217\u6210\u9577\uFF0CIPOG \u9010\u53C3\u6578\u6210\u9577\u3002"
+              },
+              {
+                "text": "AETG \u4FDD\u8B49\u6700\u5C0F\u5957\u4EF6\uFF1BIPOG \u53EA\u4FDD\u8B49\u6210\u5C0D\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u4E0D\u4FDD\u8B49\u6700\u5C0F\uFF1B\u90FD\u662F\u4FDD\u8B49\u6210\u5C0D\u8986\u84CB\u7684\u8FD1\u4F3C\u6700\u4F73\u555F\u767C\u5F0F\u3002"
+              },
+              {
+                "text": "AETG \u53EA\u8986\u84CB\u5C0D\uFF1BIPOG \u7AAE\u8209\u5730\u8986\u84CB\u6240\u6709\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u4EE5\u6210\u5C0D\uFF082-way\uFF09\u8986\u84CB\u70BA\u76EE\u6A19\uFF1BIPOG \u4E26\u4E0D\u5EFA\u69CB\u7AAE\u8209\u96C6\u5408\u3002"
+              },
+              {
+                "text": "AETG \u53EA\u9069\u7528\u65BC\u4E8C\u5143\u53C3\u6578\uFF1BIPOG \u9069\u7528\u65BC\u4EFB\u4F55\u5B9A\u7FA9\u57DF\u5927\u5C0F",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u80FD\u8655\u7406\u4EFB\u610F\u5B9A\u7FA9\u57DF\u5927\u5C0F\uFF1B\u5DEE\u7570\u5728\u65BC\u6210\u9577\u7B56\u7565\u3002"
+              }
+            ],
+            "generalFeedback": "AETG \u4E00\u6B21\u5EFA\u69CB\u4E00\u6574\u5217\uFF0C\u6BCF\u5217\u8CAA\u5A6A\u5730\u8986\u84CB\u76E1\u91CF\u591A\u7684\u672A\u8986\u84CB\u5C0D\u3002IPOG \u5247\u5148\u70BA\u524D\u5E7E\u500B\u53C3\u6578\u5EFA\u9663\u5217\uFF0C\u518D\u4E00\u6B21\u52A0\u5165\u4E00\u500B\u53C3\u6578\uFF08\u6C34\u5E73\u6210\u9577\uFF09\uFF0C\u4E26\u5728\u5FC5\u8981\u6642\u52A0\u5217\uFF08\u5782\u76F4\u6210\u9577\uFF09\u3002\u5169\u8005\u90FD\u662F\u8CAA\u5A6A\u4E14\u8FD1\u4F3C\u6700\u4F73\uFF0C\u4E0D\u4FDD\u8B49\u6700\u5C0F\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u6210\u5C0D\u6E2C\u8A66\u6F0F\u6389\u4E09\u56E0\u5B50\u7F3A\u9677",
+            "text": "<p>\u4E09\u500B\u5E03\u6797\u65D7\u6A19 A\u3001B\u3001C \u5404\u53D6 on\uFF0Foff\u3002\u67D0\u7F3A\u9677<strong>\u53EA</strong>\u5728 A=on\u3001B=on\u3001C=on \u4E09\u8005\u540C\u6642\u6210\u7ACB\u6642\u624D\u767C\u751F\u3002\u70BA\u4EC0\u9EBC\u6210\u5C0D\u5957\u4EF6\u53EF\u80FD\u6F0F\u6389\u9019\u500B\u7F3A\u9677\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6210\u5C0D\u53EA\u4FDD\u8B49\u6BCF\u4E00\u5C0D\uFF08\u4F8B\u5982 A=on \u8207 B=on\uFF09\u51FA\u73FE\uFF0C\u537B\u5F9E\u4E0D\u4FDD\u8B49\u4E09\u500B on \u503C\u5728\u540C\u4E00\u500B\u6E2C\u8A66\u4E2D\u4E00\u8D77\u51FA\u73FE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u89F8\u767C\u7684\u4E09\u5143\u7D44\u662F\u4E00\u500B 3-way \u4EA4\u4E92\u4F5C\u7528\uFF0C\u800C 2-way \u8986\u84CB\u4E26\u4E0D\u4FDD\u8B49\u5B83\u3002"
+              },
+              {
+                "text": "\u6210\u5C0D\u6E2C\u8A66\u5F9E\u4E0D\u6E2C\u8A66\u4EFB\u4F55\u8A2D\u70BA on \u7684\u65D7\u6A19",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u78BA\u5BE6\u6703\u6E2C\u5230 on \u503C\uFF1B\u5B83\u53EA\u662F\u53EF\u80FD\u4E0D\u628A\u4E09\u8005\u90FD\u8A2D\u70BA on \u653E\u5728\u540C\u4E00\u5217\u3002"
+              },
+              {
+                "text": "\u6210\u5C0D\u6E2C\u8A66\u6BCF\u6B21\u90FD\u53EA\u6E2C\u5C11\u65BC\u4E09\u500B\u53C3\u6578\uFF0C\u6240\u4EE5 C \u88AB\u5FFD\u7565",
+                "fraction": 0,
+                "feedback": "\u6BCF\u4E00\u5217\u88E1\u6240\u6709\u53C3\u6578\u90FD\u6709\u53D6\u503C\uFF1B\u7F3A\u53E3\u5728\u65BC\u90A3\u500B\u7279\u5B9A\u4E09\u5143\u7D44\u53EF\u80FD\u6C38\u4E0D\u540C\u6642\u51FA\u73FE\u3002"
+              },
+              {
+                "text": "\u6210\u5C0D\u8981\u6C42\u6BCF\u4E00\u5C0D\u525B\u597D\u51FA\u73FE\u4E00\u6B21\uFF0C\u56E0\u800C\u6392\u9664\u4E86\u5931\u6548\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u8981\u6C42\u6BCF\u4E00\u5C0D\u81F3\u5C11\u4E00\u6B21\uFF1B\u554F\u984C\u51FA\u5728 3-way\uFF0C\u800C\u975E\u51FA\u73FE\u6B21\u6578\u9650\u5236\u3002"
+              }
+            ],
+            "generalFeedback": "\u6210\u5C0D\u5957\u4EF6\u53EF\u4EE5\u5728\u4E0D\u540C\u5217\u4E2D\u5206\u5225\u8986\u84CB (A=on,B=on)\u3001(A=on,C=on) \u8207 (B=on,C=on)\uFF0C\u537B\u5F9E\u672A\u5728\u540C\u4E00\u5217\u540C\u6642\u653E\u5165 A=on\u3001B=on\u3001C=on\u3002\u7531\u65BC\u7F3A\u9677\u9700\u8981\u9019\u500B\u78BA\u5207\u7684 3-way \u7D44\u5408\uFF0C\u6210\u5C0D\uFF08t = 2\uFF09\u53EF\u80FD\u6F0F\u6389\u5B83\uFF1B\u8981\u5075\u6E2C\u9700 t \u2265 3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6709\u6548\u6027\u6AA2\u67E5\uFF1A\u6B64\u96C6\u5408\u662F\u5426\u8986\u84CB\u6240\u6709\u5C0D\uFF08\u662F\uFF09",
+            "text": "<p>\u4E09\u500B\u4E8C\u5143\u53C3\u6578 A\u3001B\u3001C\uFF08\u5404\u70BA 0 \u6216 1\uFF09\u3002\u8003\u616E\u4EE5\u4E0B\u56DB\u5217\uFF1A<br>ABC = 000\u3001011\u3001101\u3001110\u3002<br>\u9019\u500B\u96C6\u5408\u662F\u5426\u8986\u84CB\u6BCF\u4E00\u5C0D\u53C3\u6578\u7684\u6BCF\u4E00\u5C0D\u6578\u503C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u662F\u2014\u2014\u4E09\u500B\u53C3\u6578\u5C0D\u5404\u81EA\u7684\u56DB\u500B\u6578\u503C\u5C0D\u90FD\u88AB\u8986\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6AA2\u67E5 A,B\uFF1A00,01,10,11\uFF1BA,C\uFF1A00,01,11,10\uFF1BB,C\uFF1A00,11,01,10\u2014\u2014\u5168\u90E8\u51FA\u73FE\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u7F3A\u5C11 A=1\u3001B=1 \u9019\u4E00\u5C0D",
+                "fraction": 0,
+                "feedback": "\u5217 110 \u6709 A=1\u3001B=1\uFF0C\u56E0\u6B64\u9019\u4E00\u5C0D\u5B58\u5728\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u7F3A\u5C11 B=0\u3001C=0 \u9019\u4E00\u5C0D",
+                "fraction": 0,
+                "feedback": "\u5217 000 \u6709 B=0\u3001C=0\uFF0C\u56E0\u6B64\u9019\u4E00\u5C0D\u5B58\u5728\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u56DB\u5217\u7D55\u4E0D\u53EF\u80FD\u8986\u84CB\u4E09\u500B\u4E8C\u5143\u53C3\u6578\u7684\u6240\u6709\u5C0D",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u56DB\u5217\u5DF2\u8DB3\u5920\uFF08\u6210\u5C0D\u4E0B\u754C\u70BA 2 \xD7 2 = 4\uFF09\uFF0C\u800C\u9019\u500B\u96C6\u5408\u6B63\u597D\u9054\u6210\u3002"
+              }
+            ],
+            "generalFeedback": "\u9010\u4E00\u5217\u8209\u6BCF\u500B\u53C3\u6578\u5C0D\u3002A,B \u5728\u5404\u5217\u4E0A\uFF1A(0,0)\u3001(0,1)\u3001(1,0)\u3001(1,1)\u3002A,C\uFF1A(0,0)\u3001(0,1)\u3001(1,1)\u3001(1,0)\u3002B,C\uFF1A(0,0)\u3001(1,1)\u3001(0,1)\u3001(1,0)\u3002\u6BCF\u500B\u53C3\u6578\u5C0D\u96C6\u5408\u90FD\u542B\u5168\u90E8\u56DB\u7A2E\u7D44\u5408\uFF0C\u6545\u9019\u662F\u50C5 4 \u5217\u7684\u6709\u6548\u6210\u5C0D\u8986\u84CB\u9663\u5217\u2014\u2014\u6070\u597D\u7B49\u65BC\u4E0B\u754C 2 \xD7 2 = 4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6709\u6548\u6027\u6AA2\u67E5\uFF1A\u6B64\u96C6\u5408\u662F\u5426\u8986\u84CB\u6240\u6709\u5C0D\uFF08\u5426\uFF09",
+            "text": "<p>\u4E09\u500B\u4E8C\u5143\u53C3\u6578 A\u3001B\u3001C\uFF08\u5404\u70BA 0 \u6216 1\uFF09\u3002\u8003\u616E\u4EE5\u4E0B\u4E09\u5217\uFF1A<br>ABC = 000\u3001011\u3001101\u3002<br>\u9019\u500B\u96C6\u5408\u662F\u5426\u8986\u84CB\u6BCF\u4E00\u5C0D\u53C3\u6578\u7684\u6BCF\u4E00\u5C0D\u6578\u503C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5426\u2014\u2014A=1\u3001B=1 \u9019\u4E00\u5C0D\u5F9E\u672A\u51FA\u73FE\uFF08\u5176\u4ED6\u5C0D\u4E5F\u6709\u7F3A\u6F0F\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014A,B \u5728\u5404\u5217\u4E0A\u53EA\u7D66\u51FA (0,0)\u3001(0,1)\u3001(1,0)\uFF1B\u7F3A\u5C11 (1,1)\u3002"
+              },
+              {
+                "text": "\u662F\u2014\u2014\u6240\u6709\u5C0D\u90FD\u88AB\u8986\u84CB",
+                "fraction": 0,
+                "feedback": "A=1\u3001B=1 \u9019\u4E00\u5C0D\u4E0D\u5B58\u5728\uFF0C\u56E0\u6B64\u8986\u84CB\u4E26\u4E0D\u5B8C\u6574\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u4F46\u53EA\u56E0\u70BA\u7F3A\u5C11 A=0\u3001B=0",
+                "fraction": 0,
+                "feedback": "\u5217 000 \u63D0\u4F9B\u4E86 A=0\u3001B=0\uFF1B\u771F\u6B63\u7F3A\u5C11\u7684\u662F A=1\u3001B=1\u3002"
+              },
+              {
+                "text": "\u662F\u2014\u2014\u4E09\u5217\u5C0D\u4E09\u500B\u4E8C\u5143\u53C3\u6578\u6C38\u9060\u8DB3\u5920",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u6210\u5C0D\u4E0B\u754C\u70BA 2 \xD7 2 = 4\uFF0C\u6545\u4E09\u5217\u7121\u6CD5\u8986\u84CB\u6240\u6709\u5C0D\u3002"
+              }
+            ],
+            "generalFeedback": "A,B \u5728\u5217 000\u3001011\u3001101 \u4E0A\u7D66\u51FA (0,0)\u3001(0,1)\u3001(1,0)\u2014\u2014(1,1) \u5F9E\u672A\u51FA\u73FE\u3002\uFF08B,C \u4E5F\u7F3A (1,0)\u3002\uFF09\u50C5\u4E09\u5217\u5DF2\u4F4E\u65BC\u6210\u5C0D\u4E0B\u754C 2 \xD7 2 = 4\uFF0C\u6545\u4E0D\u53EF\u80FD\u9054\u6210\u5B8C\u6574\u6210\u5C0D\u8986\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E09\u56E0\u5B50\u7F3A\u9677\u6240\u9700\u7684\u66F4\u9AD8\u5F37\u5EA6",
+            "text": "<p>\u82E5\u67D0\u7F3A\u9677\u53EA\u7531\u4E09\u500B\u7279\u5B9A\u53C3\u6578\u7684\u67D0\u4E00\u7279\u5B9A\u7D44\u5408\u89F8\u767C\uFF0C\u8986\u84CB\u9663\u5217\u81F3\u5C11\u8981\u6709\u591A\u9AD8\u7684\u4EA4\u4E92\u4F5C\u7528\u5F37\u5EA6 t \u624D\u80FD\u4FDD\u8B49\u5075\u6E2C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "t = 3\uFF08\u4E09\u56E0\u5B50\u8986\u84CB\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20143-way \u7F3A\u9677\u53EA\u6709\u5728\u5F37\u5EA6 3\uFF08\u6216\u66F4\u9AD8\uFF09\u7684\u8986\u84CB\u9663\u5217\u4E0B\u624D\u4FDD\u8B49\u88AB\u89F8\u767C\u3002"
+              },
+              {
+                "text": "t = 2\uFF08\u6210\u5C0D\uFF09\u5C31\u8DB3\u5920",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u53EA\u4FDD\u8B49 2-way \u7D44\u5408\uFF1B\u90A3\u500B\u7279\u5B9A\u4E09\u5143\u7D44\u53EF\u80FD\u6C38\u4E0D\u540C\u6642\u51FA\u73FE\u3002"
+              },
+              {
+                "text": "t = 1\uFF08each-choice\uFF09\u5C31\u8DB3\u5920",
+                "fraction": 0,
+                "feedback": "each-choice \u53EA\u4FDD\u8B49\u6BCF\u500B\u55AE\u4E00\u6578\u503C\u51FA\u73FE\uFF0C\u9060\u9060\u4E0D\u5920\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u4EFB\u4F55\u8986\u84CB\u9663\u5217\u80FD\u4FDD\u8B49\u5B83",
+                "fraction": 0,
+                "feedback": "\u5F37\u5EA6 3 \u7684\u8986\u84CB\u9663\u5217\u4FDD\u8B49\u6BCF\u4E00\u7A2E 3-way \u7D44\u5408\uFF0C\u5305\u542B\u89F8\u767C\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u4FDD\u8B49\u67D0\u4E00\u7279\u5B9A 3-way \u6578\u503C\u7D44\u5408\u88AB\u57F7\u884C\uFF0C\u8986\u84CB\u9663\u5217\u5F37\u5EA6\u9808 t \u2265 3\uFF0C\u56E0\u70BA\u552F\u6709\u5982\u6B64\u624D\u4FDD\u8B49\u6BCF\u4E00\u7D44\u4E09\u500B\u53C3\u6578\u7684\u6578\u503C\u90FD\u5728\u67D0\u5217\u4E00\u8D77\u51FA\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5341\u500B\u4E8C\u5143\u53C3\u6578\u7684\u7AAE\u8209",
+            "text": "<p>\u67D0\u7CFB\u7D71\u6709\u5341\u500B\u5F7C\u6B64\u7368\u7ACB\u7684\u5E03\u6797\u53C3\u6578\uFF08\u5404\u70BA on\uFF0Foff\uFF09\u3002<strong>\u7AAE\u8209</strong>\u6E2C\u8A66\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1024",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20142^10 = 1024\u3002"
+              },
+              {
+                "text": "20",
+                "fraction": 0,
+                "feedback": "20 \u662F 2 \xD7 10\uFF1B\u7AAE\u8209\u662F 2 \u7684\uFF08\u53C3\u6578\u500B\u6578\uFF09\u6B21\u65B9\uFF0C2^10 = 1024\u3002"
+              },
+              {
+                "text": "100",
+                "fraction": 0,
+                "feedback": "100 \u662F 10^2\uFF1B\u5E95\u6578\u662F 2\uFF08\u6578\u503C\uFF09\uFF0C\u6307\u6578\u662F 10\uFF08\u53C3\u6578\uFF09\uFF1A2^10 = 1024\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4\uFF082 \xD7 2\uFF09\u662F\u4E8C\u5143\u53C3\u6578\u7684\u6210\u5C0D\u4E0B\u754C\uFF0C\u800C\u975E\u7AAE\u8209\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u7AAE\u8209\u662F\u5404\u5B9A\u7FA9\u57DF\u5927\u5C0F\u4E4B\u4E58\u7A4D\uFF1A\u5341\u500B\u4E8C\u5143\u53C3\u6578\u5373 2^10 = 1024\u3002\u540C\u7CFB\u7D71\u7684\u6210\u5C0D\u5957\u4EF6\u53EA\u9700\u5BE5\u5BE5\u6578\u5217\uFF0C\u5C55\u73FE\u4E86\u7E2E\u6E1B\u2014\u2014\u800C\u5176\u4E0B\u754C\u4ECD\u50C5\u70BA 2 \xD7 2 = 4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "5 \xD7 4 \xD7 3 \xD7 2 \u7684\u6210\u5C0D\u4E0B\u754C",
+            "text": "<p>\u67D0\u7CFB\u7D71\u6709\u56DB\u500B\u53C3\u6578\uFF0C\u5B9A\u7FA9\u57DF\u5927\u5C0F\u70BA 5\u30014\u30013\u30012\u3002\u4EFB\u4F55\u6210\u5C0D\u5957\u4EF6\u81F3\u5C11\u5FC5\u9808\u5305\u542B\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u81F3\u5C11 20",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u662F 5 \u8207 4\uFF0C\u6545\u4E0B\u754C\u662F 5 \xD7 4 = 20\u3002"
+              },
+              {
+                "text": "\u81F3\u5C11 120",
+                "fraction": 0,
+                "feedback": "120 \u662F\u7AAE\u8209\u6578\uFF085 \xD7 4 \xD7 3 \xD7 2\uFF09\uFF1B\u6210\u5C0D\u9700\u8981\u9060\u5C11\u65BC\u6B64\u3002"
+              },
+              {
+                "text": "\u81F3\u5C11 15",
+                "fraction": 0,
+                "feedback": "15 \u7528\u7684\u662F 5 \xD7 3\uFF1B\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u662F 5 \u8207 4\uFF0C\u5F97 20\u3002"
+              },
+              {
+                "text": "\u81F3\u5C11 60",
+                "fraction": 0,
+                "feedback": "60\uFF085 \xD7 4 \xD7 3\uFF09\u7528\u4E86\u4E09\u500B\u5B9A\u7FA9\u57DF\uFF1B\u4E0B\u754C\u53EA\u7528\u5169\u500B\u6700\u5927\u8005\uFF0C5 \xD7 4 = 20\u3002"
+              }
+            ],
+            "generalFeedback": "\u6210\u5C0D\u4E0B\u754C\u662F\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u4E4B\u4E58\u7A4D\uFF1A5 \xD7 4 = 20\u3002\uFF08\u4F5C\u70BA\u5C0D\u7167\uFF0C\u6B64\u8655\u7AAE\u8209\u70BA 5 \xD7 4 \xD7 3 \xD7 2 = 120\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DB\u500B\u4E8C\u5143\u53C3\u6578\u8981\u8986\u84CB\u7684\u5C0D\u6578",
+            "text": "<p>\u56DB\u500B\u53C3\u6578\u5404\u70BA\u4E8C\u5143\uFF082 \u7A2E\u6578\u503C\uFF09\u3002\u6210\u5C0D\u5957\u4EF6\u7E3D\u5171\u5FC5\u9808\u8986\u84CB\u591A\u5C11\u500B\u4E0D\u540C\u7684\u6578\u503C\u5C0D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "24",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014C(4,2) = 6 \u500B\u53C3\u6578\u5C0D\uFF0C\u6BCF\u5C0D\u6709 2 \xD7 2 = 4 \u500B\u6578\u503C\u5C0D\uFF1A6 \xD7 4 = 24\u3002"
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 \u662F\u7AAE\u8209\u6578\uFF082^4\uFF09\uFF0C\u800C\u975E\u8981\u8986\u84CB\u7684\u6578\u503C\u5C0D\u6578\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 \u76F8\u7576\u65BC 3 \u500B\u53C3\u6578\u5C0D \xD7 4\uFF1B\u6B64\u8655\u6709 C(4,2) = 6 \u500B\u53C3\u6578\u5C0D\uFF0C\u5F97 24\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 \u662F 4 \u53C3\u6578 \xD7 2 \u6578\u503C\uFF1B\u6578\u503C\u5C0D\u6578\u662F\u628A 6 \u500B\u53C3\u6578\u5C0D\u7684 2 \xD7 2 \u52A0\u7E3D\u3002"
+              }
+            ],
+            "generalFeedback": "\u6578\u503C\u5C0D\u6578 = \u628A\u5404\u53C3\u6578\u5C0D\u7684 v_i \xD7 v_j \u52A0\u7E3D\u3002\u56DB\u500B\u4E8C\u5143\u53C3\u6578\u6709 C(4,2) = 6 \u500B\u53C3\u6578\u5C0D\uFF0C\u5404\u8CA2\u737B 2 \xD7 2 = 4\uFF0C\u5F97 6 \xD7 4 = 24 \u500B\u6578\u503C\u5C0D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5177\u9AD4\u7684\u4E09\u56E0\u5B50\u4EA4\u4E92\u4F5C\u7528\u7F3A\u9677",
+            "text": "<p>\u67D0\u5A92\u9AD4\u64AD\u653E\u5668\u53EA\u5728\u7DE8\u78BC\u70BA H.265\u3001\u5BB9\u5668\u70BA MKV\u3001\u4E14\u555F\u7528\u786C\u9AD4\u52A0\u901F\u6642\u624D\u7576\u6A5F\u2014\u2014\u6C92\u6709\u66F4\u5C0F\u7684\u7D44\u5408\u6703\u89F8\u767C\u5B83\u3002\u91DD\u5C0D {\u7DE8\u78BC, \u5BB9\u5668, \u786C\u9AD4\u52A0\u901F, \u89E3\u6790\u5EA6} \u57F7\u884C\u7684\u6210\u5C0D\u5957\u4EF6\u901A\u904E\u4E86\u3002\u9019\u544A\u8A34\u6211\u5011\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u7F3A\u9677\u662F\u771F\u6B63\u7684 3-way \u4EA4\u4E92\u4F5C\u7528\uFF0C2-way \u5957\u4EF6\u4E26\u4E0D\u4FDD\u8B49\u80FD\u63ED\u9732\u5B83\uFF0C\u6545\u6210\u5C0D\u901A\u904E\u4E26\u4E0D\u80FD\u8B49\u660E\u5B83\u4E0D\u5B58\u5728",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7576\u6A5F\u9700\u8981\u4E00\u500B\u7279\u5B9A\u4E09\u5143\u7D44\uFF0C\u800C\u6210\u5C0D\u4E0D\u4FDD\u8B49\u628A\u5B83\u653E\u5728\u540C\u4E00\u5217\u3002"
+              },
+              {
+                "text": "\u8A72\u7F3A\u9677\u4E0D\u53EF\u80FD\u5B58\u5728\uFF0C\u56E0\u70BA\u6210\u5C0D\u6E2C\u8A66\u80FD\u5075\u6E2C\u6240\u6709\u4EA4\u4E92\u4F5C\u7528\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u53EA\u4FDD\u8B49 2-way \u4EA4\u4E92\u4F5C\u7528\uFF1B3-way \u7F3A\u9677\u53EF\u80FD\u6F0F\u7DB2\u3002"
+              },
+              {
+                "text": "\u8A72\u6210\u5C0D\u5957\u4EF6\u7121\u6548\uFF0C\u56E0\u70BA\u6B63\u78BA\u7684\u5957\u4EF6\u4E00\u5B9A\u6703\u6293\u5230\u9019\u500B",
+                "fraction": 0,
+                "feedback": "\u6709\u6548\u6210\u5C0D\u5957\u4EF6\u8986\u84CB\u6240\u6709\u5C0D\uFF0C\u4F46\u4E0D\u5FC5\u8986\u84CB\u9019\u500B\u4E09\u5143\u7D44\uFF1B\u5957\u4EF6\u53EF\u4EE5\u6B63\u78BA\u537B\u4ECD\u6F0F\u6389\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7AAE\u8209\u6E2C\u8A66\u624D\u53EF\u80FD\u57F7\u884C\u5230 H.265 \u7DE8\u78BC",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u5728\u67D0\u4E9B\u5217\u78BA\u5BE6\u6703\u6E2C\u5230 H.265\uFF1B\u5B83\u53EA\u662F\u53EF\u80FD\u4E0D\u628A\u5B83\u8207 MKV \u548C\u786C\u9AD4\u52A0\u901F\u540C\u6642\u7D44\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6A5F\u9700\u8981\u78BA\u5207\u4E09\u5143\u7D44\uFF08H.265\u3001MKV\u3001\u786C\u9AD4\u52A0\u901F\u958B\uFF09\u3002\u6210\u5C0D\u5957\u4EF6\u4FDD\u8B49\u9019\u4E9B\u7684\u6BCF\u4E00\u5C0D\u90FD\u51FA\u73FE\uFF0C\u537B\u672A\u5FC5\u628A\u4E09\u8005\u653E\u5728\u540C\u4E00\u6E2C\u8A66\uFF0C\u56E0\u6B64\u53EF\u4EE5\u901A\u904E\u800C 3-way \u7F3A\u9677\u4ECD\u5728\u3002\u8981\u5075\u6E2C\u5B83\u9700\u5F37\u5EA6 3 \u7684\u8986\u84CB\u9663\u5217\uFF08\u6216\u7AAE\u8209\u6E2C\u8A66\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D04\u675F\u5C0D\u6709\u6548\u7D44\u5408\u7684\u5F71\u97FF",
+            "text": "<p>\u67D0 OS \u53C3\u6578\u7684\u6578\u503C\u70BA {Windows, macOS, Linux}\uFF0C\u700F\u89BD\u5668\u53C3\u6578\u70BA {Safari, Chrome, Edge}\u3002\u7D04\u675F\u898F\u5B9A Safari \u53EA\u80FD\u5728 macOS \u4E0A\u57F7\u884C\uFF0C\u4E14 Edge \u5728 Linux \u4E0A\u88AB\u6392\u9664\u3002\u9019\u985E\u7D04\u675F\u5982\u4F55\u5F71\u97FF\u7D44\u5408\u6E2C\u8A66\u7684\u7522\u751F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7121\u6548\u7684\u5C0D\u6703\u5F9E\u8986\u84CB\u9700\u6C42\u4E2D\u79FB\u9664\uFF0C\u6545\u7522\u751F\u5668\u53EA\u9700\u8986\u84CB\u6EFF\u8DB3\u7D04\u675F\u7684\u5C0D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D04\u675F\u628A\u4E0D\u53EF\u884C\u7D44\u5408\u5F9E\u9700\u8986\u84CB\u7684\u5C0D\u8207\u6240\u7522\u751F\u7684\u5217\u4E2D\u5254\u9664\u3002"
+              },
+              {
+                "text": "\u7D04\u675F\u88AB\u5FFD\u7565\uFF0C\u6BCF\u500B\u8A9E\u6CD5\u4E0A\u7684\u5C0D\u4ECD\u88AB\u5F37\u5236\u653E\u5165\u5957\u4EF6",
+                "fraction": 0,
+                "feedback": "\u5177\u7D04\u675F\u611F\u77E5\u7684\u7522\u751F\u4E0D\u5F97\u8F38\u51FA\u5982\u300CSafari on Linux\u300D\u9019\u985E\u4E0D\u53EF\u884C\u5217\u3002"
+              },
+              {
+                "text": "\u7D04\u675F\u8FEB\u4F7F\u5957\u4EF6\u8B8A\u6210\u7AAE\u8209",
+                "fraction": 0,
+                "feedback": "\u7D04\u675F\u6703\u7E2E\u6E1B\u3001\u800C\u975E\u589E\u52A0\u53EF\u884C\u7D44\u5408\u7684\u96C6\u5408\u3002"
+              },
+              {
+                "text": "\u7D04\u675F\u8981\u6C42\u5F9E\u6210\u5C0D\u6539\u70BA each-choice \u8986\u84CB",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u4ECD\u9069\u7528\uFF1B\u7522\u751F\u5668\u53EA\u662F\u6392\u9664\u4E0D\u53EF\u884C\u7684\u5C0D\u8207\u5217\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D04\u675F\u5BA3\u544A\u67D0\u4E9B\u7D44\u5408\u7121\u6548\uFF08\u4F8B\u5982 Safari \u53EA\u5728 macOS\uFF09\u3002\u5177\u7D04\u675F\u611F\u77E5\u7684\u7522\u751F\u5668\u6703\u628A\u90A3\u4E9B\u4E0D\u53EF\u884C\u7684\u5C0D\u5F9E\u8986\u84CB\u7FA9\u52D9\u4E2D\u6392\u9664\uFF0C\u4E14\u6C38\u4E0D\u8F38\u51FA\u9055\u53CD\u7D04\u675F\u7684\u5217\uFF0C\u9019\u901A\u5E38\u540C\u6642\u7E2E\u5C0F\u6240\u9700\u7684\u5C0D\u8207\u5957\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u8CAA\u5A6A\u5957\u4EF6\u672A\u5FC5\u6700\u5C0F",
+            "text": "<p>\u5169\u4F4D\u5DE5\u7A0B\u5E2B\u5C0D\u540C\u4E00\u6A21\u578B\u5404\u81EA\u57F7\u884C IPOG\uFF0C\u4F46\u4EE5\u4E0D\u540C\u7684\u53C3\u6578\u9806\u5E8F\u5217\u51FA\uFF0C\u5F97\u5230\u5927\u5C0F\u4E0D\u540C\u7684\u6210\u5C0D\u5957\u4EF6\u3002\u9019\u8AAA\u660E\u4E86\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "IPOG \u662F\u8CAA\u5A6A\u555F\u767C\u5F0F\uFF0C\u5176\u7D50\u679C\u53D6\u6C7A\u65BC\u53C3\u6578\u9806\u5E8F\u7B49\u9078\u64C7\uFF0C\u6545\u8FD1\u4F3C\u6700\u4F73\u4F46\u4E0D\u4FDD\u8B49\u6700\u5C0F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8CAA\u5A6A\u5EFA\u69CB\u53EF\u56E0\u6392\u5E8F\u4E0D\u540C\u800C\u5F97\u51FA\u4E0D\u540C\u3001\u975E\u6700\u5C0F\u7684\u898F\u6A21\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u5957\u4EF6\u5FC5\u6709\u4E00\u500B\u7121\u6548\uFF0C\u56E0\u70BA\u6B63\u78BA\u5957\u4EF6\u6709\u552F\u4E00\u5927\u5C0F",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u53EF\u4EE5\u662F\u6709\u6548\u6210\u5C0D\u5957\u4EF6\uFF1B\u6709\u6548\u5957\u4EF6\u4E0D\u5FC5\u5927\u5C0F\u76F8\u540C\u3002"
+              },
+              {
+                "text": "\u53C3\u6578\u9806\u5E8F\u6539\u8B8A\u6642\u6210\u5C0D\u8986\u84CB\u5C31\u6C92\u6709\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u8986\u84CB\u4E0D\u8AD6\u9806\u5E8F\u90FD\u6709\u660E\u78BA\u5B9A\u7FA9\uFF1B\u53EA\u6709\u555F\u767C\u5F0F\u7684\u8F38\u51FA\u5927\u5C0F\u6703\u8B8A\u3002"
+              },
+              {
+                "text": "\u8F03\u5927\u7684\u5957\u4EF6\u6F0F\u4E86\u67D0\u4E9B\u5C0D",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u4F9D\u5EFA\u69CB\u90FD\u8986\u84CB\u6240\u6709\u5C0D\uFF1B\u5927\u5C0F\u5DEE\u7570\u53CD\u6620\u555F\u767C\u5F0F\u9078\u64C7\uFF0C\u800C\u975E\u6F0F\u8986\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "IPOG \u662F\u589E\u91CF\u5EFA\u69CB\u7684\uFF0C\u800C\u53C3\u6578\u9806\u5E8F\u7B49\u6C7A\u7B56\u6703\u5F71\u97FF\u5217\u88AB\u91CD\u8907\u5229\u7528\u7684\u6548\u7387\u3002\u5169\u500B\u5957\u4EF6\u90FD\u8986\u84CB\u6240\u6709\u5C0D\uFF0C\u4F46\u5176\u4E2D\u4E00\u500B\u53EF\u80FD\u8F03\u5927\u2014\u2014\u986F\u793A\u8A72\u6F14\u7B97\u6CD5\u8FD1\u4F3C\u6700\u4F73\uFF0C\u4E0D\u4FDD\u8B49\u7522\u751F\u6700\u5C0F\u8986\u84CB\u9663\u5217\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "3-way \u5F37\u5EA6\u6DB5\u84CB\u6210\u5C0D",
+            "text": "<p>\u5F37\u5EA6 3\uFF08\u4E09\u56E0\u5B50\uFF09\u7684\u8986\u84CB\u9663\u5217\u662F\u5426\u4E5F\u6EFF\u8DB3\u6210\u5C0D\uFF082-way\uFF09\u8986\u84CB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u662F\u2014\u2014\u82E5\u6BCF\u500B\u4E09\u5143\u7D44\u6578\u503C\u90FD\u88AB\u8986\u84CB\uFF0C\u90A3\u9019\u4E9B\u4E09\u5143\u7D44\u5167\u7684\u6BCF\u4E00\u5C0D\u6578\u503C\u7576\u7136\u4E5F\u88AB\u8986\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8F03\u9AD8\u5F37\u5EA6\u6DB5\u84CB\u6240\u6709\u8F03\u4F4E\u5F37\u5EA6\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u4E09\u56E0\u5B50\u8207\u4E8C\u56E0\u5B50\u8986\u84CB\u5F7C\u6B64\u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u6709\u95DC\uFF1A\u8986\u84CB\u6240\u6709\u4E09\u5143\u7D44\u5FC5\u7136\u8986\u84CB\u6240\u6709\u5C0D\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7576\u8A72\u9663\u5217\u540C\u6642\u4E5F\u662F\u6B63\u4EA4\u9663\u5217\u6642",
+                "fraction": 0,
+                "feedback": "\u4E0D\u9700\u8981\u5E73\u8861\uFF1B\u4EFB\u4F55\u5F37\u5EA6 3 \u7684\u8986\u84CB\u9663\u5217\u5DF2\u8986\u84CB\u6240\u6709\u5C0D\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7576\u6240\u6709\u53C3\u6578\u90FD\u662F\u4E8C\u5143\u6642",
+                "fraction": 0,
+                "feedback": "\u6B64\u6DB5\u84CB\u95DC\u4FC2\u5C0D\u4EFB\u610F\u5B9A\u7FA9\u57DF\u5927\u5C0F\u90FD\u6210\u7ACB\uFF0C\u4E0D\u9650\u4E8C\u5143\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F37\u5EA6 t \u7684\u8986\u84CB\u9663\u5217\u6DB5\u84CB\u6240\u6709\u4F4E\u65BC t \u7684\u5F37\u5EA6\uFF1A\u8986\u84CB\u6BCF\u500B t \u5143\u7D44\u5373\u4FDD\u8B49\u6BCF\u500B\u66F4\u5C0F\u7684\u5B50\u5143\u7D44\u4E5F\u88AB\u8986\u84CB\u3002\u6545 3-way \u9663\u5217\u81EA\u52D5\u63D0\u4F9B 2-way\uFF08\u6210\u5C0D\uFF09\u8986\u84CB\u2014\u2014\u53EA\u662F\u6210\u672C\u66F4\u9AD8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "CA(N; 3, k, v) \u7684\u610F\u7FA9",
+            "text": "<p>\u8A18\u6CD5 <code>CA(N; 3, k, v)</code> \u63CF\u8FF0\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B N \u5217\u7684\u8986\u84CB\u9663\u5217\uFF0C\u6DB5\u84CB k \u500B\u5404\u6709 v \u7A2E\u6578\u503C\u7684\u53C3\u6578\uFF0C\u5176\u4E2D\u6BCF\u4E00\u7A2E 3-way \u6578\u503C\u7D44\u5408\u90FD\u81F3\u5C11\u88AB\u8986\u84CB\u4E00\u6B21",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u90A3\u500B 3 \u662F\u5F37\u5EA6\uFF0C\u6545\u6240\u6709\u4E09\u5143\u7D44\u90FD\u88AB\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u5C0D k \u500B\u53C3\u6578\u6070\u6709 3 \u5217\u7684\u9663\u5217",
+                "fraction": 0,
+                "feedback": "\u5217\u6578\u662F N\uFF1B\u90A3\u500B 3 \u662F\u4EA4\u4E92\u4F5C\u7528\u5F37\u5EA6\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u53EA\u8986\u84CB k \u500B\u53C3\u6578\u4E2D 3 \u500B\u7684\u9663\u5217",
+                "fraction": 0,
+                "feedback": "\u6240\u6709 k \u500B\u53C3\u6578\u90FD\u88AB\u8986\u84CB\uFF1B\u5F37\u5EA6 3 \u8868\u793A\u6BCF\u4E00\u7D44 3 \u500B\u53C3\u6578\u7684\u6240\u6709\u7D44\u5408\u90FD\u88AB\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u6BCF\u500B\u53C3\u6578\u6070\u6709 3 \u7A2E\u6578\u503C\u7684\u9663\u5217",
+                "fraction": 0,
+                "feedback": "\u6578\u503C\u500B\u6578\u662F v\uFF1B\u8A72\u4F4D\u7F6E\u7684 3 \u662F\u5F37\u5EA6 t\u3002"
+              }
+            ],
+            "generalFeedback": "CA(N; 3, k, v) \u662F\u4E00\u500B N \u5217\u3001\u5F37\u5EA6 t = 3\u3001k \u500B\u53C3\u6578\u3001\u6BCF\u53C3\u6578 v \u7A2E\u6578\u503C\u7684\u8986\u84CB\u9663\u5217\uFF0C\u4FDD\u8B49\u6BCF\u4E00\u7A2E 3-way \u6578\u503C\u7D44\u5408\u90FD\u81F3\u5C11\u51FA\u73FE\u5728\u67D0\u4E00\u5217\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u4E09\u56E0\u5B50\u7F3A\u9677\u53EF\u9003\u904E\u6210\u5C0D",
+            "text": "<p>\u53EA\u7531\u67D0\u4E00\u7279\u5B9A\u4E09\u53C3\u6578\u4EA4\u4E92\u4F5C\u7528\u89F8\u767C\u7684\u7F3A\u9677\uFF0C\u53EF\u80FD\u672A\u88AB\u5075\u6E2C\u5730\u901A\u904E\u4E00\u500B\u539F\u672C\u6709\u6548\u7684\u6210\u5C0D\u6E2C\u8A66\u5957\u4EF6\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6210\u5C0D\u53EA\u4FDD\u8B49 2-way \u7D44\u5408\uFF0C\u6545\u89F8\u767C\u7684\u4E09\u5143\u7D44\u53EF\u80FD\u6C38\u4E0D\u51FA\u73FE\u5728\u540C\u4E00\u5217\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u53EA\u4FDD\u8B49 2-way \u8986\u84CB\uFF1B\u9700\u8981\u7279\u5B9A 3-way \u7D44\u5408\u7684\u7F3A\u9677\u53EF\u80FD\u6E9C\u904E\u6709\u6548\u7684\u6210\u5C0D\u5957\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u6210\u5C0D\uFF08t = 2\uFF09\u4FDD\u8B49\u6BCF\u4E00\u5C0D\u6578\u503C\u4E00\u8D77\u51FA\u73FE\uFF0C\u4F46\u4E0D\u4FDD\u8B49\u6BCF\u500B\u4E09\u5143\u7D44\u3002\u56E0\u6B64\u9700\u8981\u7279\u5B9A 3-way \u4EA4\u4E92\u4F5C\u7528\u7684\u7F3A\u9677\u53EF\u80FD\u9003\u904E\u5B8C\u5168\u6709\u6548\u7684\u6210\u5C0D\u5957\u4EF6\uFF1B\u8981\u6293\u5230\u5B83\u9700\u5F37\u5EA6 t \u2265 3\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F7F t-way \u7B49\u540C\u7AAE\u8209\u7684\u6700\u5C0F\u5F37\u5EA6",
+            "text": "<p>\u5C0D\u65BC\u6709 k \u500B\u53C3\u6578\u7684\u7CFB\u7D71\uFF0Ct-way\uFF08\u8986\u84CB\u9663\u5217\uFF09\u6E2C\u8A66\u5728\u4EC0\u9EBC\u4EA4\u4E92\u4F5C\u7528\u5F37\u5EA6 t \u6642\u6703\u7B49\u540C\u65BC\u7AAE\u8209\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7576 t = k\uFF08\u5F37\u5EA6\u7B49\u65BC\u53C3\u6578\u500B\u6578\uFF09\u6642",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8986\u84CB\u6BCF\u500B k \u5143\u7D44\u6B63\u662F\u5B8C\u6574\u7684\u7B1B\u5361\u5152\u7A4D\u3002"
+              },
+              {
+                "text": "\u7576 t = 2 \u6642\uFF0C\u56E0\u70BA\u6210\u5C0D\u5DF2\u8986\u84CB\u4E00\u5207",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u8986\u84CB\u7684\u662F\u5C0D\uFF0C\u800C\u975E\u6240\u6709\u5B8C\u6574\u7D44\u5408\uFF1B\u5B83\u9060\u5C0F\u65BC\u7AAE\u8209\u3002"
+              },
+              {
+                "text": "\u7576 t = 1 \u6642",
+                "fraction": 0,
+                "feedback": "t = 1 \u662F each-choice\uFF0C\u6700\u5F31\u7684\u6E96\u5247\uFF0C\u9060\u4E0D\u53CA\u7AAE\u8209\u3002"
+              },
+              {
+                "text": "t-way \u6E2C\u8A66\u6C38\u9060\u4E0D\u53EF\u80FD\u7B49\u540C\u7AAE\u8209\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u7576 t = k \u6642\uFF0C\u6240\u6709 k \u500B\u53C3\u6578\u7684\u6BCF\u4E00\u7A2E\u7D44\u5408\u90FD\u5FC5\u9808\u51FA\u73FE\uFF0C\u90A3\u6B63\u662F\u7AAE\u8209\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u5F37\u5EA6 t \u7B49\u65BC\u53C3\u6578\u500B\u6578 k \u6642\uFF0C\u8986\u84CB\u6BCF\u500B t \u5143\u7D44\u5373\u8986\u84CB\u6240\u6709 k \u500B\u53C3\u6578\u7684\u6BCF\u4E00\u7A2E\u5B8C\u6574\u7D44\u5408\u2014\u2014\u5373\u7AAE\u8209\u7684\u7B1B\u5361\u5152\u7A4D\u3002\u6545\u7AAE\u8209\u6E2C\u8A66\u662F t-way \u7D44\u5408\u6E2C\u8A66\u4E2D t = k \u7684\u60C5\u5F62\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0B\u754C\u662F\u5426\u7E3D\u80FD\u9054\u6210",
+            "text": "<p>\u5C0D\u65BC\u56DB\u500B\u4E8C\u5143\u53C3\u6578\uFF0C\u6210\u5C0D\u4E0B\u754C\u662F 2 \xD7 2 = 4\u3002\u5C0D\u56DB\u500B\u4E8C\u5143\u53C3\u6578\uFF0C\u525B\u597D 4 \u5217\u7684\u6210\u5C0D\u5957\u4EF6\u771F\u7684\u80FD\u8986\u84CB\u6240\u6709\u5C0D\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5426\u2014\u2014\u6B64\u8655 4 \u5217\u4E0D\u53EF\u80FD\uFF1B\u771F\u6B63\u7684\u6700\u5C0F\u503C\u662F 5\uFF0C\u6545\u4E0B\u754C\u672A\u5FC5\u7E3D\u80FD\u9054\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144 \u5217\u6700\u591A\u80FD\u8986\u84CB\u4E09\u500B\u4E8C\u5143\u53C3\u6578\u7684\u6240\u6709\u5C0D\uFF1B\u7B2C\u56DB\u500B\u53C3\u6578\u8FEB\u4F7F\u51FA\u73FE\u7B2C\u4E94\u5217\u3002"
+              },
+              {
+                "text": "\u662F\u2014\u2014\u4E0B\u754C\u7E3D\u662F\u6070\u597D\u53EF\u9054\u6210",
+                "fraction": 0,
+                "feedback": "\u300C\u5169\u500B\u6700\u5927\u5B9A\u7FA9\u57DF\u4E4B\u4E58\u7A4D\u300D\u662F\u4E0B\u754C\uFF0C\u672A\u5FC5\u7DCA\uFF1B\u6B64\u8655 4 \u5217\u53EF\u8B49\u660E\u4E0D\u8DB3\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u771F\u6B63\u7684\u6700\u5C0F\u503C\u662F 16\uFF0C\u5373\u7AAE\u8209\u6578",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u6240\u9700\u9060\u5C11\u65BC\u7AAE\u8209\uFF1B\u6B64\u8655\u6700\u5C0F\u503C\u662F 5\uFF0C\u4E0D\u662F 16\u3002"
+              },
+              {
+                "text": "\u662F\u2014\u2014\u4F46\u53EA\u6709\u7576\u56DB\u500B\u53C3\u6578\u5728\u7D71\u8A08\u4E0A\u7368\u7ACB\u6642",
+                "fraction": 0,
+                "feedback": "\u7368\u7ACB\u6027\u7121\u6FDF\u65BC\u4E8B\uFF1B4 \u5217\u7121\u6CD5\u8986\u84CB\u56DB\u500B\u4E8C\u5143\u53C3\u6578\u7684\u5168\u90E8\u516D\u500B\u53C3\u6578\u5C0D\u7684\u7D44\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u628A\u56DB\u500B\u4E8C\u5143\u53C3\u6578\u7684\u6240\u6709\u5C0D\u585E\u9032 4 \u5217\uFF0C\u9700\u8981\u6BCF\u4E00\u5C0D\u6B04\u90FD\u525B\u597D\u5404\u51FA\u73FE\u5168\u90E8\u56DB\u7A2E\u7D44\u5408\u4E00\u6B21\u2014\u2014\u5373\u6307\u6A19\u70BA 1 \u7684\u6B63\u4EA4\u9663\u5217\uFF0C\u800C\u5C0D\u5F37\u5EA6 2 \u9019\u6700\u591A\u5BB9\u7D0D (N-1)/(v-1) = 3 \u500B\u4E8C\u5143\u56E0\u5B50\u3002\u7B2C\u56DB\u500B\u56E0\u5B50\u653E\u4E0D\u4E0B\uFF0C\u6545\u81F3\u5C11\u9700 5 \u5217\uFF08\u4E14 5 \u5217\u8DB3\u5920\uFF09\u3002\u56E0\u6B64\u6B64\u8655\u4E0B\u754C 4 \u7121\u6CD5\u9054\u6210\u2014\u2014\u5B83\u662F\u6700\u5C0F\u503C\u7684\u754C\uFF0C\u4F46\u672A\u5FC5\u7B49\u65BC\u6700\u5C0F\u503C\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "symbolic-execution": {
       "en": {
         "easy": [

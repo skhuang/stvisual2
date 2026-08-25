@@ -40177,6 +40177,2502 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "pairwise": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What pairwise testing requires",
+          "text": "<p>What does pairwise (2-way) testing require of a test suite?</p>",
+          "answers": [
+            {
+              "text": "For every pair of parameters, every combination of their values appears together in at least one test",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly the 2-way coverage guarantee."
+            },
+            {
+              "text": "Every possible combination of all parameter values appears in some test",
+              "fraction": 0,
+              "feedback": "That is exhaustive testing; pairwise only covers value pairs, not full combinations."
+            },
+            {
+              "text": "Each individual parameter value appears in at least one test",
+              "fraction": 0,
+              "feedback": "That is weaker (each-choice) coverage; pairwise additionally requires every pair of values."
+            },
+            {
+              "text": "Exactly two tests are run for each parameter",
+              "fraction": 0,
+              "feedback": "Pairwise constrains which value pairs are covered, not a fixed number of tests per parameter."
+            }
+          ],
+          "generalFeedback": "Pairwise (2-way) testing requires that for every pair of parameters, every combination of one value from each appears together in at least one test case. It targets two-way interaction faults while using far fewer tests than exhaustive coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Empirical basis for pairwise",
+          "text": "<p>What empirical observation motivates pairwise testing?</p>",
+          "answers": [
+            {
+              "text": "Most software faults are triggered by a single factor or by an interaction of only two factors",
+              "fraction": 100,
+              "feedback": "Correct — studies of the interaction/fault-coupling of defects show most failures involve one or two factors."
+            },
+            {
+              "text": "Most software faults require every parameter to take an extreme value simultaneously",
+              "fraction": 0,
+              "feedback": "On the contrary, high-order interactions cause relatively few faults; that is why pairwise pays off."
+            },
+            {
+              "text": "Faults are distributed uniformly across all combinations of parameters",
+              "fraction": 0,
+              "feedback": "If faults were uniform across full combinations, pairwise would offer little benefit; the evidence is that low-order interactions dominate."
+            },
+            {
+              "text": "Faults only ever depend on a single input parameter",
+              "fraction": 0,
+              "feedback": "Two-way (and occasionally higher) interactions do occur; pairwise targets the common one- and two-factor cases."
+            }
+          ],
+          "generalFeedback": "Empirical fault studies found that a large majority of failures are caused by a single factor or a two-factor interaction, with progressively fewer caused by three or more factors. Pairwise testing exploits this by guaranteeing all two-way combinations at low cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What exhaustive testing means",
+          "text": "<p>For a system configured by several parameters, what does <strong>exhaustive</strong> combinatorial testing require?</p>",
+          "answers": [
+            {
+              "text": "One test for every possible combination of values across all parameters",
+              "fraction": 100,
+              "feedback": "Correct — exhaustive means the full Cartesian product of the parameter domains."
+            },
+            {
+              "text": "One test for every pair of parameter values",
+              "fraction": 0,
+              "feedback": "That is pairwise testing, a small subset of exhaustive."
+            },
+            {
+              "text": "One test per parameter",
+              "fraction": 0,
+              "feedback": "That does not even cover each value; exhaustive covers every full combination."
+            },
+            {
+              "text": "A fixed number of tests regardless of the number of parameters",
+              "fraction": 0,
+              "feedback": "Exhaustive count grows as the product of the domain sizes, so it depends heavily on the parameters."
+            }
+          ],
+          "generalFeedback": "Exhaustive testing runs every combination of parameter values — the full Cartesian product. Its size is the product of all the domain sizes, which grows explosively, which is the very problem combinatorial testing addresses.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Exhaustive count for 3 x 2 x 2",
+          "text": "<p>A feature has three parameters: the first has 3 possible values, the second has 2, and the third has 2. How many tests does <strong>exhaustive</strong> testing require?</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "Correct — 3 × 2 × 2 = 12, the product of the domain sizes."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the sum 3 + 2 + 2; exhaustive multiplies the domain sizes."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 counts only two of the three parameters (3 × 2); include the third."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the product of the two largest domains (3 × 2 would be 6, not 4), and in any case that is a pairwise lower bound, not the exhaustive count."
+            }
+          ],
+          "generalFeedback": "Exhaustive testing is the product of all domain sizes: 3 × 2 × 2 = 12.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Exhaustive count for three 3-valued parameters",
+          "text": "<p>A configuration has three parameters, each with 3 possible values. How many tests does <strong>exhaustive</strong> testing require?</p>",
+          "answers": [
+            {
+              "text": "27",
+              "fraction": 100,
+              "feedback": "Correct — 3 × 3 × 3 = 27."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is 3 × 3, the product of only two parameters (and it is the pairwise lower bound here), not the full product."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is 3 + 3 (two parameters summed); exhaustive multiplies all three domain sizes."
+            },
+            {
+              "text": "81",
+              "fraction": 0,
+              "feedback": "81 is 3 to the fourth power, i.e. four parameters; here there are only three."
+            }
+          ],
+          "generalFeedback": "Exhaustive count is the product of all domain sizes: 3 × 3 × 3 = 27.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Exhaustive count for 4 x 3",
+          "text": "<p>A function has two parameters: one with 4 possible values and one with 3. How many tests does <strong>exhaustive</strong> testing require?</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "Correct — 4 × 3 = 12."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the sum 4 + 3; exhaustive multiplies the domain sizes."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 is 4 × 4; the second parameter has 3 values, not 4."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is 3 × 3; the first parameter has 4 values, not 3."
+            }
+          ],
+          "generalFeedback": "With two parameters the exhaustive count equals the product of the two domain sizes: 4 × 3 = 12. (With only two parameters, exhaustive and pairwise coincide.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What t-way testing generalizes",
+          "text": "<p>Pairwise testing is the case t = 2 of t-way (combinatorial) testing. What does general t-way testing require?</p>",
+          "answers": [
+            {
+              "text": "Every combination of values among every group of t parameters appears in at least one test",
+              "fraction": 100,
+              "feedback": "Correct — strength t means all t-tuples of values are covered."
+            },
+            {
+              "text": "Every parameter takes exactly t different values across the suite",
+              "fraction": 0,
+              "feedback": "t is the interaction strength, not the number of values a parameter takes."
+            },
+            {
+              "text": "The suite contains exactly t test cases",
+              "fraction": 0,
+              "feedback": "t is the strength of coverage, not the number of tests."
+            },
+            {
+              "text": "At most t parameters are tested at a time and the rest are ignored",
+              "fraction": 0,
+              "feedback": "All parameters are covered; t is the size of the interacting groups whose combinations must all appear."
+            }
+          ],
+          "generalFeedback": "t-way testing generalizes pairwise: for strength t, every combination of values across every set of t parameters must appear in at least one test. t = 1 is each-choice, t = 2 is pairwise, and t equal to the number of parameters is exhaustive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a covering array is",
+          "text": "<p>In combinatorial testing, what is a <strong>covering array</strong>?</p>",
+          "answers": [
+            {
+              "text": "A set of test rows in which every t-way combination of parameter values appears in at least one row",
+              "fraction": 100,
+              "feedback": "Correct — a covering array of strength t guarantees every t-tuple appears at least once."
+            },
+            {
+              "text": "A table listing every possible combination of parameter values exactly once",
+              "fraction": 0,
+              "feedback": "That is the exhaustive set; a covering array is usually much smaller and only requires each t-tuple at least once."
+            },
+            {
+              "text": "An array recording which test found which fault",
+              "fraction": 0,
+              "feedback": "That is a fault matrix, not a covering array."
+            },
+            {
+              "text": "A matrix of code-coverage percentages for each test",
+              "fraction": 0,
+              "feedback": "Covering arrays describe input-value combinations, not structural code coverage."
+            }
+          ],
+          "generalFeedback": "A covering array is a compact set of test rows over the parameters such that every combination of values for every group of t parameters appears in at least one row. For pairwise, t = 2.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of t in CA(N; t, k, v)",
+          "text": "<p>In the covering-array notation <code>CA(N; t, k, v)</code>, what does the parameter <strong>t</strong> denote?</p>",
+          "answers": [
+            {
+              "text": "The interaction strength — the size of the parameter groups whose value combinations must all be covered",
+              "fraction": 100,
+              "feedback": "Correct — t is the strength; t = 2 is pairwise."
+            },
+            {
+              "text": "The number of test rows in the array",
+              "fraction": 0,
+              "feedback": "That is N, the number of rows."
+            },
+            {
+              "text": "The number of parameters (factors)",
+              "fraction": 0,
+              "feedback": "That is k, the number of factors."
+            },
+            {
+              "text": "The number of values each parameter can take",
+              "fraction": 0,
+              "feedback": "That is v, the number of levels per factor."
+            }
+          ],
+          "generalFeedback": "In CA(N; t, k, v): N is the number of rows, t is the interaction strength, k is the number of parameters (factors), and v is the number of values (levels) each takes. Pairwise corresponds to t = 2.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Pairwise equals 2-way",
+          "text": "<p>\"Pairwise testing\" and \"2-way combinatorial testing\" refer to the same thing.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — pairwise is exactly t-way testing with t = 2."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "They are the same: pairwise is the special case t = 2 of t-way combinatorial testing."
+            }
+          ],
+          "generalFeedback": "Pairwise testing is 2-way combinatorial testing: it guarantees that every pair of values across every pair of parameters is covered at least once."
+        },
+        {
+          "type": "truefalse",
+          "name": "Exhaustive covers every combination",
+          "text": "<p>Exhaustive combinatorial testing covers every possible combination of all parameter values, and its test count is the product of all the domain sizes.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — exhaustive is the full Cartesian product, sized as the product of the domains."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Exhaustive testing does run every combination, and that count is exactly the product of the domain sizes."
+            }
+          ],
+          "generalFeedback": "Exhaustive testing runs the full Cartesian product of the parameter domains; its size is the product of all domain sizes, which is why it becomes infeasible as parameters grow."
+        },
+        {
+          "type": "multichoice",
+          "name": "What a \"pair\" is in pairwise",
+          "text": "<p>In pairwise testing, what exactly is the \"pair\" that must be covered?</p>",
+          "answers": [
+            {
+              "text": "A specific value of one parameter together with a specific value of another parameter",
+              "fraction": 100,
+              "feedback": "Correct — a pair is one value from each of two parameters, covered together in a test."
+            },
+            {
+              "text": "Two test cases that must be run consecutively",
+              "fraction": 0,
+              "feedback": "A pair refers to a combination of parameter values, not to two test cases."
+            },
+            {
+              "text": "Two different values of the same parameter",
+              "fraction": 0,
+              "feedback": "A pair spans two different parameters, one value from each."
+            },
+            {
+              "text": "A valid input paired with its expected output",
+              "fraction": 0,
+              "feedback": "That describes a test oracle, not the pair covered by pairwise testing."
+            }
+          ],
+          "generalFeedback": "A pair is one value of one parameter combined with one value of a second parameter. Pairwise coverage requires every such pair, over every choice of two parameters, to appear together in at least one test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why avoid exhaustive testing",
+          "text": "<p>Why is exhaustive combinatorial testing usually impractical for real systems?</p>",
+          "answers": [
+            {
+              "text": "The number of combinations is the product of the domain sizes, which grows explosively as parameters are added",
+              "fraction": 100,
+              "feedback": "Correct — combinatorial explosion makes the full product infeasible."
+            },
+            {
+              "text": "Exhaustive testing cannot detect any interaction faults",
+              "fraction": 0,
+              "feedback": "Exhaustive testing actually detects all interaction faults; the problem is its cost, not its power."
+            },
+            {
+              "text": "Each combination must be tested thousands of times to be valid",
+              "fraction": 0,
+              "feedback": "Each combination is tested once; the issue is the sheer number of combinations."
+            },
+            {
+              "text": "Test tools cannot represent more than two parameters at once",
+              "fraction": 0,
+              "feedback": "Tools handle many parameters; the obstacle is the exponential number of combinations."
+            }
+          ],
+          "generalFeedback": "Exhaustive testing multiplies all the domain sizes, so the count explodes as parameters and values grow (for example ten binary parameters already require 2^10 = 1024 tests). Pairwise testing keeps the guarantee for two-way interactions while cutting the count dramatically.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Strength of pairwise",
+          "text": "<p>What interaction strength t characterizes pairwise testing?</p>",
+          "answers": [
+            {
+              "text": "t = 2",
+              "fraction": 100,
+              "feedback": "Correct — pairwise means all two-parameter value combinations are covered."
+            },
+            {
+              "text": "t = 1",
+              "fraction": 0,
+              "feedback": "t = 1 is each-choice coverage (every single value), weaker than pairwise."
+            },
+            {
+              "text": "t = 3",
+              "fraction": 0,
+              "feedback": "t = 3 is three-way testing, stronger and more costly than pairwise."
+            },
+            {
+              "text": "t equals the number of parameters",
+              "fraction": 0,
+              "feedback": "t equal to the number of parameters is exhaustive testing, not pairwise."
+            }
+          ],
+          "generalFeedback": "Pairwise testing has strength t = 2: it guarantees coverage of all value combinations among every group of two parameters.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Every pair at least once",
+          "text": "<p>A valid pairwise test suite must include every pair of parameter values at least once, but it need not include each pair more than once.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the requirement is \"at least once\"; repetition is allowed but not required."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Pairwise coverage requires each pair at least once; covering some pairs more than once is permitted but not necessary."
+            }
+          ],
+          "generalFeedback": "Pairwise (covering-array) coverage requires each value pair to appear at least once. Requiring each pair the same fixed number of times would be an orthogonal array — a stronger, balanced special case."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Exhaustive count for 4 x 3 x 3 x 2",
+          "text": "<p>A system has four parameters with domain sizes 4, 3, 3, and 2. How many tests does <strong>exhaustive</strong> testing require?</p>",
+          "answers": [
+            {
+              "text": "72",
+              "fraction": 100,
+              "feedback": "Correct — 4 × 3 × 3 × 2 = 72."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is the product of only the two largest domains (4 × 3), which is the pairwise lower bound, not the exhaustive count."
+            },
+            {
+              "text": "36",
+              "fraction": 0,
+              "feedback": "36 is 4 × 3 × 3; it omits the last parameter (× 2)."
+            },
+            {
+              "text": "12 + others",
+              "fraction": 0,
+              "feedback": "Exhaustive is a product, not a sum: 4 × 3 × 3 × 2 = 72."
+            }
+          ],
+          "generalFeedback": "Exhaustive testing is the product of all domain sizes: 4 × 3 × 3 × 2 = 72.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pairwise lower bound for 3 x 3 x 2",
+          "text": "<p>A configuration has three parameters with domain sizes 3, 3, and 2. What is the minimum number of tests any pairwise (2-way) suite must contain?</p>",
+          "answers": [
+            {
+              "text": "At least 9",
+              "fraction": 100,
+              "feedback": "Correct — the lower bound is the product of the two largest domains, 3 × 3 = 9."
+            },
+            {
+              "text": "At least 18",
+              "fraction": 0,
+              "feedback": "18 is the exhaustive count (3 × 3 × 2); pairwise needs far fewer."
+            },
+            {
+              "text": "At least 3",
+              "fraction": 0,
+              "feedback": "3 (the largest single domain) only satisfies each-choice coverage, not all pairs."
+            },
+            {
+              "text": "At least 6",
+              "fraction": 0,
+              "feedback": "6 is below the bound: covering all 3 × 3 = 9 pairs of the two 3-valued parameters already forces at least 9 rows."
+            }
+          ],
+          "generalFeedback": "To cover every pair from the two 3-valued parameters you already need all 3 × 3 = 9 of their combinations, so any pairwise suite has at least 9 rows. The lower bound is the product of the two largest domains.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the two largest domains give the bound",
+          "text": "<p>Why is the minimum size of any pairwise suite at least the product of the <strong>two largest</strong> parameter domains?</p>",
+          "answers": [
+            {
+              "text": "Every pair from those two parameters must appear, and there are (largest × second-largest) such pairs, each needing its own row",
+              "fraction": 100,
+              "feedback": "Correct — no single row can cover two distinct value-pairs of the same two parameters, so you need at least that many rows."
+            },
+            {
+              "text": "Because the smallest domains determine how many rows are reusable",
+              "fraction": 0,
+              "feedback": "The bound comes from the largest domains, since they generate the most pairs to cover."
+            },
+            {
+              "text": "Because each parameter needs one row per value regardless of the others",
+              "fraction": 0,
+              "feedback": "That reasoning gives each-choice, not the pairwise bound from the two largest domains."
+            },
+            {
+              "text": "Because the suite must equal the exhaustive product divided by two",
+              "fraction": 0,
+              "feedback": "There is no such division rule; the bound is the product of the two largest domains."
+            }
+          ],
+          "generalFeedback": "Consider just the two parameters with the largest domains. Their pairs number (largest × second-largest), and a single test row fixes one value for each, so it covers only one of those pairs. Hence at least (largest × second-largest) rows are required — that product is the pairwise lower bound.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How AETG builds a suite",
+          "text": "<p>How does the AETG algorithm construct a pairwise test suite?</p>",
+          "answers": [
+            {
+              "text": "Greedily, adding one whole test row at a time that covers as many still-uncovered pairs as possible",
+              "fraction": 100,
+              "feedback": "Correct — AETG is a greedy one-row-at-a-time heuristic."
+            },
+            {
+              "text": "By enumerating every combination and then deleting redundant rows",
+              "fraction": 0,
+              "feedback": "AETG never enumerates the full product; it builds rows greedily to avoid that explosion."
+            },
+            {
+              "text": "By solving an exact integer program that guarantees the minimum suite",
+              "fraction": 0,
+              "feedback": "AETG is a heuristic; it is near-optimal, not guaranteed minimal."
+            },
+            {
+              "text": "By adding one parameter column at a time to a growing array",
+              "fraction": 0,
+              "feedback": "That describes IPOG's one-parameter-at-a-time strategy, not AETG."
+            }
+          ],
+          "generalFeedback": "AETG (Automatic Efficient Test Generator) greedily builds the suite one complete test row at a time, each time choosing a row that covers as many yet-uncovered pairs as possible. It is fast and near-optimal but not guaranteed to produce the smallest possible suite.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How IPOG builds a suite",
+          "text": "<p>What is the defining strategy of the IPOG algorithm?</p>",
+          "answers": [
+            {
+              "text": "In-Parameter-Order growth: build the array for the first parameters, then extend it one parameter at a time, filling and adding rows to cover new pairs",
+              "fraction": 100,
+              "feedback": "Correct — IPOG grows the array horizontally (add a parameter) then vertically (add rows) as needed."
+            },
+            {
+              "text": "It randomly samples rows until all pairs happen to be covered",
+              "fraction": 0,
+              "feedback": "IPOG is deterministic and constructive, not random sampling."
+            },
+            {
+              "text": "It computes the exact minimal covering array by exhaustive search",
+              "fraction": 0,
+              "feedback": "IPOG is a greedy heuristic; it is near-optimal, not guaranteed minimal."
+            },
+            {
+              "text": "It tests one parameter in isolation and ignores interactions",
+              "fraction": 0,
+              "feedback": "IPOG explicitly covers pair interactions as it extends the array parameter by parameter."
+            }
+          ],
+          "generalFeedback": "IPOG (In-Parameter-Order Generation) builds a covering array for the first two parameters, then adds one parameter at a time: it horizontally extends existing rows to cover new pairs and vertically adds rows where needed. Like AETG it is a greedy, near-optimal heuristic, not guaranteed minimal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Orthogonal array vs covering array",
+          "text": "<p>What distinguishes an <strong>orthogonal array</strong> from a general <strong>covering array</strong> for pairwise testing?</p>",
+          "answers": [
+            {
+              "text": "An orthogonal array requires each pair to appear the same fixed number of times (balanced); a covering array only requires each pair at least once",
+              "fraction": 100,
+              "feedback": "Correct — orthogonal arrays are balanced, a stronger special case."
+            },
+            {
+              "text": "An orthogonal array covers three-way combinations while a covering array covers only pairs",
+              "fraction": 0,
+              "feedback": "The distinction is balance, not strength; both can be defined at strength 2."
+            },
+            {
+              "text": "A covering array must be balanced while an orthogonal array need not be",
+              "fraction": 0,
+              "feedback": "This reverses the definitions — the orthogonal array is the balanced one."
+            },
+            {
+              "text": "An orthogonal array allows constraints while a covering array forbids them",
+              "fraction": 0,
+              "feedback": "Constraint handling is unrelated to the balance distinction between the two."
+            }
+          ],
+          "generalFeedback": "An orthogonal array requires that every pair of values appears exactly the same number of times (λ), making it balanced. A covering array only requires each pair at least once, so it is usually smaller and more flexible. Every orthogonal array is a covering array, but not vice versa.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of pairs for three 3-valued parameters",
+          "text": "<p>Three parameters each have 3 values. How many distinct value-pairs must a pairwise suite cover in total?</p>",
+          "answers": [
+            {
+              "text": "27",
+              "fraction": 100,
+              "feedback": "Correct — there are 3 parameter-pairs, each contributing 3 × 3 = 9 value-pairs: 3 × 9 = 27."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the value-pairs for a single pair of parameters; there are 3 such parameter-pairs, giving 27."
+            },
+            {
+              "text": "18",
+              "fraction": 0,
+              "feedback": "18 counts only two of the three parameter-pairs; all C(3,2) = 3 pairs of parameters count."
+            },
+            {
+              "text": "81",
+              "fraction": 0,
+              "feedback": "81 would be raising the value count to a power; the total pairs are summed over parameter-pairs: 3 × (3 × 3) = 27."
+            }
+          ],
+          "generalFeedback": "The number of value-pairs to cover is the sum over each pair of parameters of (v_i × v_j). With 3 parameters there are C(3,2) = 3 parameter-pairs, each contributing 3 × 3 = 9, for 27 in total.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of pairs for 3 x 2 x 2",
+          "text": "<p>Three parameters have domain sizes 3, 2, and 2. How many distinct value-pairs must a pairwise suite cover in total?</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "Correct — (3×2) + (3×2) + (2×2) = 6 + 6 + 4 = 16."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is the exhaustive test count (3 × 2 × 2), not the number of value-pairs."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the sum of the domain sizes; the number of pairs sums v_i × v_j over the three parameter-pairs."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 misses one parameter-pair; the three contributions are 6, 6, and 4, totalling 16."
+            }
+          ],
+          "generalFeedback": "Sum v_i × v_j over all pairs of parameters: parameters (P1=3, P2=2, P3=2) give P1-P2 = 6, P1-P3 = 6, P2-P3 = 4, for a total of 16 value-pairs.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Greedy generators and minimality",
+          "text": "<p>Greedy pairwise generators such as AETG and IPOG always produce the smallest possible covering array.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — they are near-optimal heuristics and are not guaranteed to be minimal."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "AETG and IPOG are greedy heuristics; they are fast and near-optimal but not guaranteed to yield the minimum-size array."
+            }
+          ],
+          "generalFeedback": "Finding a minimum covering array is computationally hard. AETG and IPOG use greedy heuristics that produce small, near-optimal suites quickly, but the result may be larger than the true minimum."
+        },
+        {
+          "type": "multichoice",
+          "name": "Pairwise reduction versus exhaustive",
+          "text": "<p>A system has parameters with domains 3, 3, and 3. Exhaustive testing needs 27 tests. What can we say about a pairwise suite for this system?</p>",
+          "answers": [
+            {
+              "text": "It needs at least 9 tests (the product of the two largest domains) and typically far fewer than the 27 exhaustive tests",
+              "fraction": 100,
+              "feedback": "Correct — the lower bound is 3 × 3 = 9, and a good pairwise suite is much smaller than exhaustive."
+            },
+            {
+              "text": "It needs exactly 27 tests, the same as exhaustive",
+              "fraction": 0,
+              "feedback": "Pairwise is smaller than exhaustive here; 27 is the full product."
+            },
+            {
+              "text": "It needs exactly 3 tests",
+              "fraction": 0,
+              "feedback": "3 tests cannot cover all 3 × 3 = 9 pairs of any two of the parameters."
+            },
+            {
+              "text": "It always needs the sum of the domain sizes, 9, exactly",
+              "fraction": 0,
+              "feedback": "9 is a lower bound, not always exactly achievable; and it is a product of the two largest domains, not a sum of all."
+            }
+          ],
+          "generalFeedback": "The pairwise lower bound is the product of the two largest domains: 3 × 3 = 9. A pairwise suite lies between that bound and the exhaustive 27; well-known constructions cover all pairs of three 3-valued parameters in as few as 9 rows, well below exhaustive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Balance property of orthogonal arrays",
+          "text": "<p>What is the balance (index λ) property of an orthogonal array of strength 2?</p>",
+          "answers": [
+            {
+              "text": "Every pair of values from any two columns appears in exactly λ rows",
+              "fraction": 100,
+              "feedback": "Correct — a fixed λ for every pair is what makes the array balanced."
+            },
+            {
+              "text": "Each column contains every value exactly once",
+              "fraction": 0,
+              "feedback": "That describes a permutation of a single column, not the two-column balance of an orthogonal array."
+            },
+            {
+              "text": "Every pair of values appears at least once, with no constraint on how often",
+              "fraction": 0,
+              "feedback": "\"At least once\" is the covering-array property; orthogonal arrays require exactly λ times."
+            },
+            {
+              "text": "The number of rows equals the number of columns",
+              "fraction": 0,
+              "feedback": "Rows and columns are independent; balance is about equal pair frequency, not a square shape."
+            }
+          ],
+          "generalFeedback": "In a strength-2 orthogonal array, for any two columns each ordered pair of values appears in exactly λ rows (λ is the index). This uniform frequency is stronger than the covering-array requirement of \"at least once\".",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pairwise lower bound for 4 x 3 x 3 x 2",
+          "text": "<p>A system has four parameters with domain sizes 4, 3, 3, and 2. What is the minimum number of tests any pairwise suite must contain?</p>",
+          "answers": [
+            {
+              "text": "At least 12",
+              "fraction": 100,
+              "feedback": "Correct — the two largest domains are 4 and 3, so the bound is 4 × 3 = 12."
+            },
+            {
+              "text": "At least 72",
+              "fraction": 0,
+              "feedback": "72 is the exhaustive count (4 × 3 × 3 × 2); pairwise needs far fewer."
+            },
+            {
+              "text": "At least 9",
+              "fraction": 0,
+              "feedback": "9 uses 3 × 3; the two largest domains are 4 and 3, giving 12."
+            },
+            {
+              "text": "At least 24",
+              "fraction": 0,
+              "feedback": "24 (4 × 3 × 2) uses three domains; the lower bound uses only the two largest, 4 × 3 = 12."
+            }
+          ],
+          "generalFeedback": "The pairwise lower bound is the product of the two largest domains. Here the largest are 4 and 3, so any pairwise suite needs at least 4 × 3 = 12 rows.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Orthogonal array is a covering array",
+          "text": "<p>Every orthogonal array of strength 2 is also a valid pairwise covering array.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — if every pair appears exactly λ ≥ 1 times, then in particular every pair appears at least once."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "An orthogonal array covers every pair exactly λ times, so it certainly covers every pair at least once — the covering-array requirement."
+            }
+          ],
+          "generalFeedback": "An orthogonal array is the balanced special case: each pair appears exactly λ times. Since λ ≥ 1, every pair appears at least once, so the array satisfies pairwise covering. The converse fails: a covering array need not be balanced."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why use greedy generators",
+          "text": "<p>Why are greedy heuristics like AETG and IPOG used to build pairwise suites instead of computing the exact minimum?</p>",
+          "answers": [
+            {
+              "text": "Finding a minimum covering array is computationally hard, so greedy methods trade a slightly larger suite for fast, practical generation",
+              "fraction": 100,
+              "feedback": "Correct — they give near-optimal results quickly where exact minimization is intractable."
+            },
+            {
+              "text": "Greedy methods are the only ones that can guarantee full pairwise coverage",
+              "fraction": 0,
+              "feedback": "Exact methods also guarantee coverage; greedy methods are chosen for speed, not because they are the only correct option."
+            },
+            {
+              "text": "Greedy methods always find a strictly smaller suite than any exact method",
+              "fraction": 0,
+              "feedback": "Exact methods find the true minimum; greedy suites are near-optimal and can be larger."
+            },
+            {
+              "text": "Greedy methods avoid covering some pairs, which makes them faster",
+              "fraction": 0,
+              "feedback": "Both AETG and IPOG still cover all required pairs; they are just heuristic about suite size."
+            }
+          ],
+          "generalFeedback": "Computing a provably minimum covering array is an NP-hard optimization problem. AETG and IPOG are greedy constructive heuristics that produce small, near-optimal suites in reasonable time while still guaranteeing complete pairwise coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AETG versus IPOG growth direction",
+          "text": "<p>Both AETG and IPOG are greedy pairwise generators. What is the key difference in how they grow the test suite?</p>",
+          "answers": [
+            {
+              "text": "AETG adds one complete test row at a time; IPOG adds one parameter (column) at a time, extending and adding rows as needed",
+              "fraction": 100,
+              "feedback": "Correct — AETG grows row-by-row, IPOG grows parameter-by-parameter."
+            },
+            {
+              "text": "AETG guarantees the minimum suite; IPOG guarantees only pairwise coverage",
+              "fraction": 0,
+              "feedback": "Neither guarantees minimality; both are near-optimal heuristics that guarantee pairwise coverage."
+            },
+            {
+              "text": "AETG covers only pairs; IPOG covers all combinations exhaustively",
+              "fraction": 0,
+              "feedback": "Both target pairwise (2-way) coverage; IPOG does not build the exhaustive set."
+            },
+            {
+              "text": "AETG works only for binary parameters; IPOG works for any domain size",
+              "fraction": 0,
+              "feedback": "Both handle arbitrary domain sizes; the difference is the growth strategy."
+            }
+          ],
+          "generalFeedback": "AETG constructs the suite one whole row at a time, each row greedily covering as many uncovered pairs as possible. IPOG instead builds an array for the first parameters and then adds one parameter at a time (horizontal growth), adding rows when necessary (vertical growth). Both are greedy and near-optimal, not guaranteed minimal.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Pairwise missing a three-way fault",
+          "text": "<p>Three boolean flags A, B, C each take values on/off. A fault occurs <strong>only</strong> when A=on, B=on, and C=on all hold simultaneously. Why can a pairwise suite miss this fault?</p>",
+          "answers": [
+            {
+              "text": "Pairwise only guarantees each pair (e.g. A=on with B=on) appears, but never guarantees all three on-values occur together in one test",
+              "fraction": 100,
+              "feedback": "Correct — the triggering triple is a 3-way interaction, which 2-way coverage does not guarantee."
+            },
+            {
+              "text": "Pairwise never tests any flag set to on",
+              "fraction": 0,
+              "feedback": "Pairwise does test on-values; it just may not put all three on in the same row."
+            },
+            {
+              "text": "Pairwise always tests fewer than three parameters at a time, so C is ignored",
+              "fraction": 0,
+              "feedback": "All parameters get values in every row; the gap is that the specific triple may never coincide."
+            },
+            {
+              "text": "Pairwise requires each pair to appear exactly once, which excludes the failing combination",
+              "fraction": 0,
+              "feedback": "Pairwise requires each pair at least once; the issue is 3-way, not a frequency restriction."
+            }
+          ],
+          "generalFeedback": "A pairwise suite can cover (A=on,B=on), (A=on,C=on), and (B=on,C=on) across different rows without ever placing A=on, B=on, and C=on in the same row. Since the fault needs that exact 3-way combination, pairwise (t = 2) may miss it; detecting it requires t ≥ 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Validity check: does this set cover all pairs (yes)",
+          "text": "<p>Three binary parameters A, B, C (each 0 or 1). Consider the four rows:<br>ABC = 000, 011, 101, 110.<br>Does this set cover every pair of values for every pair of parameters?</p>",
+          "answers": [
+            {
+              "text": "Yes — all four value-pairs are covered for each of the three parameter-pairs",
+              "fraction": 100,
+              "feedback": "Correct — check A,B: 00,01,10,11; A,C: 00,01,11,10; B,C: 00,11,01,10 — all present."
+            },
+            {
+              "text": "No — the pair A=1, B=1 is missing",
+              "fraction": 0,
+              "feedback": "Row 110 has A=1, B=1, so that pair is present."
+            },
+            {
+              "text": "No — the pair B=0, C=0 is missing",
+              "fraction": 0,
+              "feedback": "Row 000 has B=0, C=0, so that pair is present."
+            },
+            {
+              "text": "No — four rows can never cover all pairs of three binary parameters",
+              "fraction": 0,
+              "feedback": "Four rows suffice here (the pairwise lower bound is 2 × 2 = 4), and this set achieves it."
+            }
+          ],
+          "generalFeedback": "Enumerate each parameter-pair. A,B over the rows: (0,0),(0,1),(1,0),(1,1). A,C: (0,0),(0,1),(1,1),(1,0). B,C: (0,0),(1,1),(0,1),(1,0). Each pair-set contains all four combinations, so this is a valid pairwise covering array of just 4 rows — matching the lower bound 2 × 2 = 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Validity check: does this set cover all pairs (no)",
+          "text": "<p>Three binary parameters A, B, C (each 0 or 1). Consider the three rows:<br>ABC = 000, 011, 101.<br>Does this set cover every pair of values for every pair of parameters?</p>",
+          "answers": [
+            {
+              "text": "No — the pair A=1, B=1 never appears (and other pairs are missing too)",
+              "fraction": 100,
+              "feedback": "Correct — A,B over the rows gives only (0,0),(0,1),(1,0); (1,1) is missing."
+            },
+            {
+              "text": "Yes — all pairs are covered",
+              "fraction": 0,
+              "feedback": "The pair A=1,B=1 is absent, so coverage is incomplete."
+            },
+            {
+              "text": "No — but only because A=0, B=0 is missing",
+              "fraction": 0,
+              "feedback": "Row 000 supplies A=0,B=0; the genuinely missing pair is A=1,B=1."
+            },
+            {
+              "text": "Yes — three rows always suffice for three binary parameters",
+              "fraction": 0,
+              "feedback": "The pairwise lower bound here is 2 × 2 = 4, so three rows cannot cover all pairs."
+            }
+          ],
+          "generalFeedback": "A,B over rows 000, 011, 101 gives (0,0),(0,1),(1,0) — the pair (1,1) is never present. (B,C also misses (1,0).) With only three rows you fall below the pairwise lower bound of 2 × 2 = 4, so full pairwise coverage is impossible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Higher strength for a 3-way fault",
+          "text": "<p>If a fault is triggered only by a specific combination of three particular parameters, what is the minimum interaction strength t a covering array must have to guarantee detection?</p>",
+          "answers": [
+            {
+              "text": "t = 3 (three-way coverage)",
+              "fraction": 100,
+              "feedback": "Correct — a 3-way fault is only guaranteed to be exercised by a strength-3 (or higher) covering array."
+            },
+            {
+              "text": "t = 2 (pairwise) is sufficient",
+              "fraction": 0,
+              "feedback": "Pairwise guarantees only 2-way combinations; the specific triple may never coincide."
+            },
+            {
+              "text": "t = 1 (each-choice) is sufficient",
+              "fraction": 0,
+              "feedback": "Each-choice only guarantees each single value appears, far weaker than needed."
+            },
+            {
+              "text": "No covering array can ever guarantee it",
+              "fraction": 0,
+              "feedback": "A strength-3 covering array guarantees every 3-way combination, including the triggering one."
+            }
+          ],
+          "generalFeedback": "To guarantee that a specific 3-way value combination is exercised, the covering array must have strength t ≥ 3, since only then is every triple of parameter values guaranteed to appear together in some row.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Exhaustive for ten binary parameters",
+          "text": "<p>A system has ten independent boolean parameters (each on/off). How many tests does <strong>exhaustive</strong> testing require?</p>",
+          "answers": [
+            {
+              "text": "1024",
+              "fraction": 100,
+              "feedback": "Correct — 2^10 = 1024."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 is 2 × 10; exhaustive is 2 raised to the number of parameters, 2^10 = 1024."
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "100 is 10^2; the base is 2 (values) raised to 10 (parameters): 2^10 = 1024."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 (2 × 2) is the pairwise lower bound for binary parameters, not the exhaustive count."
+            }
+          ],
+          "generalFeedback": "Exhaustive is the product of domain sizes: for ten binary parameters that is 2^10 = 1024. A pairwise suite for the same system needs only a handful of rows, illustrating the reduction — while its lower bound stays at just 2 × 2 = 4.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pairwise lower bound for 5 x 4 x 3 x 2",
+          "text": "<p>A system has four parameters with domain sizes 5, 4, 3, and 2. What is the minimum number of tests any pairwise suite must contain?</p>",
+          "answers": [
+            {
+              "text": "At least 20",
+              "fraction": 100,
+              "feedback": "Correct — the two largest domains are 5 and 4, so the bound is 5 × 4 = 20."
+            },
+            {
+              "text": "At least 120",
+              "fraction": 0,
+              "feedback": "120 is the exhaustive count (5 × 4 × 3 × 2); pairwise needs far fewer."
+            },
+            {
+              "text": "At least 15",
+              "fraction": 0,
+              "feedback": "15 uses 5 × 3; the two largest domains are 5 and 4, giving 20."
+            },
+            {
+              "text": "At least 60",
+              "fraction": 0,
+              "feedback": "60 (5 × 4 × 3) uses three domains; the lower bound uses only the two largest, 5 × 4 = 20."
+            }
+          ],
+          "generalFeedback": "The pairwise lower bound is the product of the two largest domains: 5 × 4 = 20. (For reference, exhaustive here is 5 × 4 × 3 × 2 = 120.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Number of pairs for four binary parameters",
+          "text": "<p>Four parameters are each binary (2 values). How many distinct value-pairs must a pairwise suite cover in total?</p>",
+          "answers": [
+            {
+              "text": "24",
+              "fraction": 100,
+              "feedback": "Correct — C(4,2) = 6 parameter-pairs, each with 2 × 2 = 4 value-pairs: 6 × 4 = 24."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 is the exhaustive count (2^4), not the number of value-pairs to cover."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 would be 3 parameter-pairs × 4; there are C(4,2) = 6 parameter-pairs, giving 24."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is 4 parameters × 2 values; the number of value-pairs sums 2 × 2 over all 6 parameter-pairs."
+            }
+          ],
+          "generalFeedback": "Number of value-pairs = sum over parameter-pairs of v_i × v_j. With four binary parameters there are C(4,2) = 6 parameter-pairs, each contributing 2 × 2 = 4, for 6 × 4 = 24 value-pairs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Concrete 3-way interaction fault",
+          "text": "<p>A media player crashes only when the codec is H.265, the container is MKV, and hardware acceleration is enabled — no smaller combination triggers it. A pairwise suite over {codec, container, hw-accel, resolution} was run and passed. What does this tell us?</p>",
+          "answers": [
+            {
+              "text": "The fault is a genuine 3-way interaction that a 2-way suite is not guaranteed to expose, so passing pairwise does not prove its absence",
+              "fraction": 100,
+              "feedback": "Correct — the crash needs a specific triple, which pairwise does not guarantee to place in one row."
+            },
+            {
+              "text": "The fault cannot exist, because pairwise testing detects all interaction faults",
+              "fraction": 0,
+              "feedback": "Pairwise only guarantees 2-way interactions; 3-way faults can slip through."
+            },
+            {
+              "text": "The pairwise suite was invalid, since a correct one would always catch this",
+              "fraction": 0,
+              "feedback": "A valid pairwise suite covers all pairs but is not required to cover this triple; the suite can be correct yet miss the fault."
+            },
+            {
+              "text": "Only exhaustive testing could ever have run the H.265 codec at all",
+              "fraction": 0,
+              "feedback": "Pairwise does exercise H.265 in some rows; it just may not combine it with MKV and hw-accel together."
+            }
+          ],
+          "generalFeedback": "The crash requires the exact triple (H.265, MKV, hw-accel on). A pairwise suite guarantees every pair of these appears, but not necessarily all three in the same test, so it can pass while the 3-way fault remains. Detecting it requires a strength-3 covering array (or exhaustive testing).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of constraints on valid combinations",
+          "text": "<p>An OS parameter has values {Windows, macOS, Linux} and a browser parameter has {Safari, Chrome, Edge}. A constraint says Safari runs only on macOS, and Edge is excluded on Linux. How do such constraints affect combinatorial test generation?</p>",
+          "answers": [
+            {
+              "text": "Invalid pairs are removed from the coverage requirement, so the generator must cover only the pairs that satisfy the constraints",
+              "fraction": 100,
+              "feedback": "Correct — constraints prune infeasible combinations from what must be covered and from generated rows."
+            },
+            {
+              "text": "Constraints are ignored, and every syntactic pair is still forced into the suite",
+              "fraction": 0,
+              "feedback": "Constraint-aware generation must not emit infeasible rows such as Safari on Linux."
+            },
+            {
+              "text": "Constraints force the suite to become exhaustive",
+              "fraction": 0,
+              "feedback": "Constraints reduce, not increase, the set of feasible combinations."
+            },
+            {
+              "text": "Constraints require switching from pairwise to each-choice coverage",
+              "fraction": 0,
+              "feedback": "Pairwise still applies; the generator just excludes infeasible pairs and rows."
+            }
+          ],
+          "generalFeedback": "Constraints declare certain combinations invalid (e.g. Safari only on macOS). A constraint-aware generator excludes those infeasible pairs from the coverage obligation and never emits a row that violates a constraint, which typically shrinks both the required pairs and the suite.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why greedy suites may not be minimal",
+          "text": "<p>Two engineers each run IPOG on the same model but list the parameters in a different order and get pairwise suites of different sizes. What does this illustrate?</p>",
+          "answers": [
+            {
+              "text": "IPOG is a greedy heuristic whose result depends on choices like parameter order, so it is near-optimal but not guaranteed minimal",
+              "fraction": 100,
+              "feedback": "Correct — greedy construction can yield different, non-minimal sizes depending on ordering."
+            },
+            {
+              "text": "One of the two suites must be invalid, since a correct suite has a unique size",
+              "fraction": 0,
+              "feedback": "Both can be valid pairwise suites; valid suites need not all be the same size."
+            },
+            {
+              "text": "Pairwise coverage is undefined when parameter order changes",
+              "fraction": 0,
+              "feedback": "Pairwise coverage is well-defined regardless of order; only the heuristic's output size varies."
+            },
+            {
+              "text": "The larger suite failed to cover some pairs",
+              "fraction": 0,
+              "feedback": "Both cover all pairs by construction; the size difference reflects heuristic choices, not missing coverage."
+            }
+          ],
+          "generalFeedback": "IPOG builds the array incrementally, and decisions such as parameter order affect how efficiently rows get reused. Both suites cover all pairs, but one may be larger — showing the algorithm is near-optimal, not guaranteed to produce the minimum covering array.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3-way strength subsumes pairwise",
+          "text": "<p>Does a strength-3 (three-way) covering array also satisfy pairwise (2-way) coverage?</p>",
+          "answers": [
+            {
+              "text": "Yes — if every triple of values is covered, then in particular every pair within those triples is covered",
+              "fraction": 100,
+              "feedback": "Correct — higher strength subsumes all lower strengths."
+            },
+            {
+              "text": "No — three-way and two-way coverage are unrelated",
+              "fraction": 0,
+              "feedback": "They are related: covering all triples necessarily covers all pairs."
+            },
+            {
+              "text": "Only if the array is also an orthogonal array",
+              "fraction": 0,
+              "feedback": "Balance is not required; any strength-3 covering array already covers all pairs."
+            },
+            {
+              "text": "Only if all parameters are binary",
+              "fraction": 0,
+              "feedback": "The subsumption holds for any domain sizes, not just binary."
+            }
+          ],
+          "generalFeedback": "A strength-t covering array subsumes all strengths below t: covering every t-tuple guarantees every smaller sub-tuple is covered too. So a 3-way array automatically provides 2-way (pairwise) coverage — at greater cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of CA(N; 3, k, v)",
+          "text": "<p>What does the notation <code>CA(N; 3, k, v)</code> describe?</p>",
+          "answers": [
+            {
+              "text": "An N-row covering array over k parameters of v values each, in which every 3-way value combination is covered at least once",
+              "fraction": 100,
+              "feedback": "Correct — the 3 is the strength, so all triples are covered."
+            },
+            {
+              "text": "An array with exactly 3 rows over k parameters",
+              "fraction": 0,
+              "feedback": "The number of rows is N; the 3 is the interaction strength."
+            },
+            {
+              "text": "An array covering only 3 of the k parameters",
+              "fraction": 0,
+              "feedback": "All k parameters are covered; strength 3 means every group of 3 has all its combinations covered."
+            },
+            {
+              "text": "An array where each parameter has exactly 3 values",
+              "fraction": 0,
+              "feedback": "The number of values is v; the 3 in that position is the strength t."
+            }
+          ],
+          "generalFeedback": "CA(N; 3, k, v) is a covering array with N rows, strength t = 3, k parameters, and v values per parameter, guaranteeing every 3-way combination of values appears in at least one row.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Three-way fault can escape pairwise",
+          "text": "<p>A fault that is triggered only by a specific three-parameter interaction can pass undetected through an otherwise valid pairwise test suite.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — pairwise guarantees only 2-way combinations, so the triggering triple may never occur in one row."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Pairwise only guarantees 2-way coverage; a fault needing a specific 3-way combination can slip through a valid pairwise suite."
+            }
+          ],
+          "generalFeedback": "Pairwise (t = 2) guarantees every pair of values appears together, but not every triple. A fault requiring a particular 3-way interaction can therefore escape a fully valid pairwise suite; catching it needs strength t ≥ 3."
+        },
+        {
+          "type": "multichoice",
+          "name": "Smallest strength that equals exhaustive",
+          "text": "<p>For a system with k parameters, at what interaction strength t does t-way (covering-array) testing become equivalent to exhaustive testing?</p>",
+          "answers": [
+            {
+              "text": "When t = k (the strength equals the number of parameters)",
+              "fraction": 100,
+              "feedback": "Correct — covering every k-tuple is exactly the full Cartesian product."
+            },
+            {
+              "text": "When t = 2, since pairwise already covers everything",
+              "fraction": 0,
+              "feedback": "Pairwise covers pairs, not all full combinations; it is much smaller than exhaustive."
+            },
+            {
+              "text": "When t = 1",
+              "fraction": 0,
+              "feedback": "t = 1 is each-choice, the weakest criterion, nowhere near exhaustive."
+            },
+            {
+              "text": "t-way testing can never equal exhaustive testing",
+              "fraction": 0,
+              "feedback": "At t = k every combination of all k parameters must appear, which is exactly exhaustive."
+            }
+          ],
+          "generalFeedback": "When the strength t equals the number of parameters k, covering every t-tuple means covering every full combination of all parameters — the exhaustive Cartesian product. So exhaustive testing is the t = k case of t-way combinatorial testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is the lower bound always achievable",
+          "text": "<p>For four binary parameters, the pairwise lower bound is 2 × 2 = 4. Can a pairwise suite of exactly 4 rows actually cover all pairs for four binary parameters?</p>",
+          "answers": [
+            {
+              "text": "No — 4 rows are impossible here; the true minimum is 5, so the lower bound is not always achievable",
+              "fraction": 100,
+              "feedback": "Correct — 4 rows can cover all pairs for at most three binary parameters; a fourth forces a fifth row."
+            },
+            {
+              "text": "Yes — the lower bound is always exactly achievable",
+              "fraction": 0,
+              "feedback": "The product-of-two-largest bound is a lower bound, not always tight; here 4 rows are provably insufficient."
+            },
+            {
+              "text": "No — the true minimum is 16, the exhaustive count",
+              "fraction": 0,
+              "feedback": "Pairwise needs far fewer than exhaustive; the minimum here is 5, not 16."
+            },
+            {
+              "text": "Yes — but only if the four parameters are statistically independent",
+              "fraction": 0,
+              "feedback": "Independence does not help; 4 rows cannot cover all six parameter-pairs' combinations for four binary parameters."
+            }
+          ],
+          "generalFeedback": "Fitting all pairs of four binary parameters into 4 rows would require every pair of columns to show all four combinations exactly once — an orthogonal array of index 1, which for strength 2 admits at most (N-1)/(v-1) = 3 binary factors. A fourth factor cannot fit, so at least 5 rows are needed (and 5 suffices). The lower bound of 4 is therefore not achievable here — it bounds, but does not always equal, the minimum.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "成對測試的要求",
+          "text": "<p>成對（2-way）測試對一個測試套件的要求是什麼？</p>",
+          "answers": [
+            {
+              "text": "對於任意兩個參數，它們數值的每一種組合都至少在某一個測試中一起出現",
+              "fraction": 100,
+              "feedback": "正確——這正是 2-way 覆蓋的保證。"
+            },
+            {
+              "text": "所有參數數值的每一種完整組合都出現在某個測試中",
+              "fraction": 0,
+              "feedback": "那是窮舉測試；成對測試只覆蓋數值的「對」，而非完整組合。"
+            },
+            {
+              "text": "每個個別參數數值都至少出現在一個測試中",
+              "fraction": 0,
+              "feedback": "那是較弱的（each-choice）覆蓋；成對測試還要求覆蓋每一對數值。"
+            },
+            {
+              "text": "每個參數剛好執行兩個測試",
+              "fraction": 0,
+              "feedback": "成對測試限制的是要覆蓋哪些數值對，而非每個參數固定的測試數。"
+            }
+          ],
+          "generalFeedback": "成對（2-way）測試要求：對於每一對參數，各取其一個數值的每一種組合，都至少在某個測試案例中一起出現。它針對兩因子交互作用缺陷，同時使用遠少於窮舉的測試數。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "成對測試的經驗基礎",
+          "text": "<p>是什麼經驗觀察成為成對測試的動機？</p>",
+          "answers": [
+            {
+              "text": "大多數軟體缺陷是由單一因子、或僅兩個因子的交互作用所觸發",
+              "fraction": 100,
+              "feedback": "正確——對缺陷之交互作用／故障耦合的研究顯示，多數失效只涉及一或兩個因子。"
+            },
+            {
+              "text": "大多數軟體缺陷需要所有參數同時取到極端值才會觸發",
+              "fraction": 0,
+              "feedback": "正好相反，高階交互作用造成的缺陷相對很少，這正是成對測試划算的原因。"
+            },
+            {
+              "text": "缺陷在所有參數組合上呈均勻分布",
+              "fraction": 0,
+              "feedback": "若缺陷在完整組合上均勻分布，成對測試的效益就有限；證據顯示低階交互作用居多。"
+            },
+            {
+              "text": "缺陷永遠只取決於單一個輸入參數",
+              "fraction": 0,
+              "feedback": "兩因子（偶爾更高階）交互作用確實存在；成對測試針對常見的一、二因子情形。"
+            }
+          ],
+          "generalFeedback": "經驗性缺陷研究發現，絕大多數失效由單一因子或兩因子交互作用造成，而由三個以上因子造成的則逐步遞減。成對測試以低成本保證覆蓋所有兩因子組合，正是利用了這一點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "窮舉測試的意義",
+          "text": "<p>對於由多個參數配置的系統，<strong>窮舉</strong>組合測試要求什麼？</p>",
+          "answers": [
+            {
+              "text": "對所有參數數值的每一種可能組合各執行一個測試",
+              "fraction": 100,
+              "feedback": "正確——窮舉即所有參數定義域的完整笛卡兒積。"
+            },
+            {
+              "text": "對每一對參數數值各執行一個測試",
+              "fraction": 0,
+              "feedback": "那是成對測試，是窮舉的一個小子集。"
+            },
+            {
+              "text": "每個參數執行一個測試",
+              "fraction": 0,
+              "feedback": "那甚至無法覆蓋每個數值；窮舉要覆蓋每一種完整組合。"
+            },
+            {
+              "text": "不論參數有多少，都是固定數量的測試",
+              "fraction": 0,
+              "feedback": "窮舉數量隨定義域大小之乘積成長，因此高度取決於參數。"
+            }
+          ],
+          "generalFeedback": "窮舉測試執行參數數值的每一種組合——完整的笛卡兒積。其規模是所有定義域大小的乘積，會爆炸性成長，這正是組合測試要解決的問題。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 × 2 × 2 的窮舉數量",
+          "text": "<p>某功能有三個參數：第一個有 3 種數值、第二個有 2 種、第三個有 2 種。<strong>窮舉</strong>測試需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "正確——3 × 2 × 2 = 12，即各定義域大小之乘積。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是總和 3 + 2 + 2；窮舉是把各定義域大小相乘。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 只計入三個參數中的兩個（3 × 2）；要把第三個也算進去。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 並非兩個最大定義域之乘積（3 × 2 應為 6），且那本來就是成對測試的下界，而非窮舉數。"
+            }
+          ],
+          "generalFeedback": "窮舉測試是所有定義域大小之乘積：3 × 2 × 2 = 12。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三個 3 值參數的窮舉數量",
+          "text": "<p>某組態有三個參數，每個各有 3 種數值。<strong>窮舉</strong>測試需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "27",
+              "fraction": 100,
+              "feedback": "正確——3 × 3 × 3 = 27。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是 3 × 3，只算兩個參數的乘積（也是此處的成對下界），並非完整乘積。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是 3 + 3（兩參數相加）；窮舉是把三個定義域大小相乘。"
+            },
+            {
+              "text": "81",
+              "fraction": 0,
+              "feedback": "81 是 3 的四次方，即四個參數；此處只有三個。"
+            }
+          ],
+          "generalFeedback": "窮舉數量是所有定義域大小之乘積：3 × 3 × 3 = 27。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4 × 3 的窮舉數量",
+          "text": "<p>某函式有兩個參數：一個有 4 種數值、一個有 3 種。<strong>窮舉</strong>測試需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "正確——4 × 3 = 12。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是總和 4 + 3；窮舉是把各定義域大小相乘。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 是 4 × 4；第二個參數有 3 種數值，不是 4 種。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是 3 × 3；第一個參數有 4 種數值，不是 3 種。"
+            }
+          ],
+          "generalFeedback": "兩個參數時，窮舉數量等於兩個定義域大小之乘積：4 × 3 = 12。（僅有兩個參數時，窮舉與成對相同。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "t-way 測試所推廣的內容",
+          "text": "<p>成對測試是 t-way（組合）測試中 t = 2 的情形。一般的 t-way 測試要求什麼？</p>",
+          "answers": [
+            {
+              "text": "對每一組 t 個參數，其數值的每一種組合都至少出現在一個測試中",
+              "fraction": 100,
+              "feedback": "正確——強度 t 表示所有 t 元組數值都被覆蓋。"
+            },
+            {
+              "text": "整個套件中每個參數剛好取 t 種不同數值",
+              "fraction": 0,
+              "feedback": "t 是交互作用強度，並非參數所取的數值個數。"
+            },
+            {
+              "text": "套件剛好包含 t 個測試案例",
+              "fraction": 0,
+              "feedback": "t 是覆蓋強度，不是測試數量。"
+            },
+            {
+              "text": "每次最多測試 t 個參數，其餘忽略",
+              "fraction": 0,
+              "feedback": "所有參數都被覆蓋；t 是「其組合都必須出現」的交互群組大小。"
+            }
+          ],
+          "generalFeedback": "t-way 測試推廣成對測試：對強度 t，每一組 t 個參數的數值的每一種組合都必須至少出現在一個測試中。t = 1 是 each-choice、t = 2 是成對、t 等於參數個數則是窮舉。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是覆蓋陣列",
+          "text": "<p>在組合測試中，什麼是<strong>覆蓋陣列（covering array）</strong>？</p>",
+          "answers": [
+            {
+              "text": "一組測試列，其中每一種 t-way 參數數值組合都至少出現在某一列",
+              "fraction": 100,
+              "feedback": "正確——強度 t 的覆蓋陣列保證每個 t 元組至少出現一次。"
+            },
+            {
+              "text": "一張列出所有可能參數數值組合、且每種剛好出現一次的表",
+              "fraction": 0,
+              "feedback": "那是窮舉集合；覆蓋陣列通常小得多，且只要求每個 t 元組至少出現一次。"
+            },
+            {
+              "text": "一個記錄哪個測試找到哪個缺陷的陣列",
+              "fraction": 0,
+              "feedback": "那是缺陷矩陣，不是覆蓋陣列。"
+            },
+            {
+              "text": "一個記錄每個測試程式碼覆蓋率百分比的矩陣",
+              "fraction": 0,
+              "feedback": "覆蓋陣列描述輸入數值組合，而非結構性程式碼覆蓋率。"
+            }
+          ],
+          "generalFeedback": "覆蓋陣列是一組涵蓋各參數的精簡測試列，使得每一組 t 個參數的每一種數值組合都至少出現在某一列。對成對測試而言，t = 2。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CA(N; t, k, v) 中 t 的意義",
+          "text": "<p>在覆蓋陣列記法 <code>CA(N; t, k, v)</code> 中，參數 <strong>t</strong> 代表什麼？</p>",
+          "answers": [
+            {
+              "text": "交互作用強度——其數值組合必須被完全覆蓋的參數群組大小",
+              "fraction": 100,
+              "feedback": "正確——t 是強度；t = 2 即成對。"
+            },
+            {
+              "text": "陣列中的測試列數",
+              "fraction": 0,
+              "feedback": "那是 N，即列數。"
+            },
+            {
+              "text": "參數（因子）的數量",
+              "fraction": 0,
+              "feedback": "那是 k，即因子數。"
+            },
+            {
+              "text": "每個參數可取的數值個數",
+              "fraction": 0,
+              "feedback": "那是 v，即每個因子的階數（levels）。"
+            }
+          ],
+          "generalFeedback": "在 CA(N; t, k, v) 中：N 是列數、t 是交互作用強度、k 是參數（因子）數、v 是每個參數所取的數值（階）數。成對測試對應 t = 2。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "成對等同於 2-way",
+          "text": "<p>「成對測試」與「2-way 組合測試」指的是同一件事。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——成對正是 t-way 測試中 t = 2 的特例。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "兩者相同：成對是 t-way 組合測試中 t = 2 的特例。"
+            }
+          ],
+          "generalFeedback": "成對測試就是 2-way 組合測試：它保證每一對參數的每一對數值都至少被覆蓋一次。"
+        },
+        {
+          "type": "truefalse",
+          "name": "窮舉覆蓋每一種組合",
+          "text": "<p>窮舉組合測試覆蓋所有參數數值的每一種可能組合，其測試數量為所有定義域大小之乘積。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——窮舉即完整笛卡兒積，其規模為各定義域之乘積。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "窮舉測試確實執行每一種組合，其數量正是各定義域大小之乘積。"
+            }
+          ],
+          "generalFeedback": "窮舉測試執行參數定義域的完整笛卡兒積；其規模為所有定義域大小之乘積，因此隨參數增加而變得不可行。"
+        },
+        {
+          "type": "multichoice",
+          "name": "成對測試中「對」是什麼",
+          "text": "<p>在成對測試中，必須被覆蓋的「對（pair）」究竟指什麼？</p>",
+          "answers": [
+            {
+              "text": "某個參數的一個特定數值，搭配另一個參數的一個特定數值",
+              "fraction": 100,
+              "feedback": "正確——一個「對」是取兩個參數各一個數值，並在某測試中一起出現。"
+            },
+            {
+              "text": "必須連續執行的兩個測試案例",
+              "fraction": 0,
+              "feedback": "「對」指的是參數數值的組合，而非兩個測試案例。"
+            },
+            {
+              "text": "同一參數的兩個不同數值",
+              "fraction": 0,
+              "feedback": "一個「對」橫跨兩個不同參數，各取一個數值。"
+            },
+            {
+              "text": "一個有效輸入搭配其預期輸出",
+              "fraction": 0,
+              "feedback": "那描述的是測試判準（oracle），不是成對測試要覆蓋的「對」。"
+            }
+          ],
+          "generalFeedback": "一個「對」是某參數的一個數值搭配第二個參數的一個數值。成對覆蓋要求：對於每一種兩參數的選取，其每一對數值都至少一起出現在一個測試中。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何避免窮舉測試",
+          "text": "<p>為什麼窮舉組合測試對真實系統通常不切實際？</p>",
+          "answers": [
+            {
+              "text": "組合數量是各定義域大小之乘積，會隨參數增加而爆炸性成長",
+              "fraction": 100,
+              "feedback": "正確——組合爆炸使得完整乘積不可行。"
+            },
+            {
+              "text": "窮舉測試無法偵測任何交互作用缺陷",
+              "fraction": 0,
+              "feedback": "窮舉測試其實能偵測所有交互作用缺陷；問題在於成本，而非能力。"
+            },
+            {
+              "text": "每種組合都必須測試上千次才有效",
+              "fraction": 0,
+              "feedback": "每種組合只測一次；問題在於組合的龐大數量。"
+            },
+            {
+              "text": "測試工具一次無法表示超過兩個參數",
+              "fraction": 0,
+              "feedback": "工具可處理許多參數；障礙在於組合數量呈指數成長。"
+            }
+          ],
+          "generalFeedback": "窮舉測試把所有定義域大小相乘，因此隨參數與數值增加而爆炸（例如十個二元參數已需 2^10 = 1024 個測試）。成對測試在保有兩因子交互作用保證的同時，大幅削減數量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "成對測試的強度",
+          "text": "<p>成對測試的交互作用強度 t 是多少？</p>",
+          "answers": [
+            {
+              "text": "t = 2",
+              "fraction": 100,
+              "feedback": "正確——成對表示覆蓋所有兩參數的數值組合。"
+            },
+            {
+              "text": "t = 1",
+              "fraction": 0,
+              "feedback": "t = 1 是 each-choice 覆蓋（每個單一數值），比成對弱。"
+            },
+            {
+              "text": "t = 3",
+              "fraction": 0,
+              "feedback": "t = 3 是三因子測試，比成對更強也更昂貴。"
+            },
+            {
+              "text": "t 等於參數個數",
+              "fraction": 0,
+              "feedback": "t 等於參數個數是窮舉測試，不是成對。"
+            }
+          ],
+          "generalFeedback": "成對測試的強度 t = 2：它保證覆蓋每一組兩個參數之間的所有數值組合。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "每一對至少一次",
+          "text": "<p>一個有效的成對測試套件必須包含每一對參數數值至少一次，但不需要讓任何一對出現超過一次。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——要求是「至少一次」；可以重複但非必要。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "成對覆蓋要求每一對至少一次；讓某些對出現多於一次是允許但非必要的。"
+            }
+          ],
+          "generalFeedback": "成對（覆蓋陣列）覆蓋要求每一對數值至少出現一次。若要求每一對出現相同的固定次數，那會是正交陣列——一種更強、平衡的特例。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "4 × 3 × 3 × 2 的窮舉數量",
+          "text": "<p>某系統有四個參數，定義域大小為 4、3、3、2。<strong>窮舉</strong>測試需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "72",
+              "fraction": 100,
+              "feedback": "正確——4 × 3 × 3 × 2 = 72。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 只是兩個最大定義域之乘積（4 × 3），那是成對下界，而非窮舉數。"
+            },
+            {
+              "text": "36",
+              "fraction": 0,
+              "feedback": "36 是 4 × 3 × 3；漏掉了最後一個參數（× 2）。"
+            },
+            {
+              "text": "12 加上其他",
+              "fraction": 0,
+              "feedback": "窮舉是乘積而非加總：4 × 3 × 3 × 2 = 72。"
+            }
+          ],
+          "generalFeedback": "窮舉測試是所有定義域大小之乘積：4 × 3 × 3 × 2 = 72。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 × 3 × 2 的成對下界",
+          "text": "<p>某組態有三個參數，定義域大小為 3、3、2。任何成對（2-way）套件至少必須包含多少個測試？</p>",
+          "answers": [
+            {
+              "text": "至少 9",
+              "fraction": 100,
+              "feedback": "正確——下界是兩個最大定義域之乘積，3 × 3 = 9。"
+            },
+            {
+              "text": "至少 18",
+              "fraction": 0,
+              "feedback": "18 是窮舉數（3 × 3 × 2）；成對需要遠少於此。"
+            },
+            {
+              "text": "至少 3",
+              "fraction": 0,
+              "feedback": "3（最大的單一定義域）只滿足 each-choice 覆蓋，並非所有對。"
+            },
+            {
+              "text": "至少 6",
+              "fraction": 0,
+              "feedback": "6 低於下界：覆蓋兩個 3 值參數的所有 3 × 3 = 9 個對，已迫使至少 9 列。"
+            }
+          ],
+          "generalFeedback": "要覆蓋兩個 3 值參數的每一對，就已需要它們全部 3 × 3 = 9 種組合，因此任何成對套件至少有 9 列。下界就是兩個最大定義域之乘積。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何兩個最大定義域決定下界",
+          "text": "<p>為什麼任何成對套件的最小規模，至少是<strong>兩個最大</strong>參數定義域之乘積？</p>",
+          "answers": [
+            {
+              "text": "那兩個參數的每一對都必須出現，而這樣的對共有（最大 × 次大）個，各自需要獨立一列",
+              "fraction": 100,
+              "feedback": "正確——單一列無法覆蓋同兩參數的兩個不同數值對，因此至少需要那麼多列。"
+            },
+            {
+              "text": "因為最小的定義域決定了有多少列可被重複利用",
+              "fraction": 0,
+              "feedback": "下界來自最大的定義域，因為它們產生最多需要覆蓋的對。"
+            },
+            {
+              "text": "因為每個參數不論其他參數如何，每個數值都需要一列",
+              "fraction": 0,
+              "feedback": "那種推理得到的是 each-choice，而非源自兩個最大定義域的成對下界。"
+            },
+            {
+              "text": "因為套件必須等於窮舉乘積除以二",
+              "fraction": 0,
+              "feedback": "並無這種除法規則；下界是兩個最大定義域之乘積。"
+            }
+          ],
+          "generalFeedback": "只考慮定義域最大的兩個參數。它們的對共有（最大 × 次大）個，而單一測試列為兩者各固定一個數值，所以只覆蓋其中一個對。因此至少需要（最大 × 次大）列——這個乘積即成對下界。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AETG 如何建構套件",
+          "text": "<p>AETG 演算法如何建構成對測試套件？</p>",
+          "answers": [
+            {
+              "text": "貪婪地一次加入一整列測試，每次選擇能覆蓋最多尚未覆蓋之對的列",
+              "fraction": 100,
+              "feedback": "正確——AETG 是一次一列的貪婪啟發式。"
+            },
+            {
+              "text": "先列舉所有組合，再刪除多餘的列",
+              "fraction": 0,
+              "feedback": "AETG 從不列舉完整乘積；它貪婪地建列以避免爆炸。"
+            },
+            {
+              "text": "求解一個保證最小套件的精確整數規劃",
+              "fraction": 0,
+              "feedback": "AETG 是啟發式；它近似最佳，但不保證最小。"
+            },
+            {
+              "text": "一次一個參數欄地加入不斷成長的陣列",
+              "fraction": 0,
+              "feedback": "那描述的是 IPOG 的一次一參數策略，不是 AETG。"
+            }
+          ],
+          "generalFeedback": "AETG（Automatic Efficient Test Generator）貪婪地一次建構一整列測試，每次選擇能覆蓋最多尚未覆蓋之對的列。它快速且近似最佳，但不保證產生最小的套件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "IPOG 如何建構套件",
+          "text": "<p>IPOG 演算法的核心策略是什麼？</p>",
+          "answers": [
+            {
+              "text": "In-Parameter-Order 成長：先為前幾個參數建陣列，再一次一個參數地擴展，視需要填值與加列以覆蓋新的對",
+              "fraction": 100,
+              "feedback": "正確——IPOG 先水平成長（加參數）再視需要垂直成長（加列）。"
+            },
+            {
+              "text": "隨機抽樣測試列，直到所有對剛好被覆蓋",
+              "fraction": 0,
+              "feedback": "IPOG 是決定性且建構性的，而非隨機抽樣。"
+            },
+            {
+              "text": "以窮舉搜尋計算出精確最小的覆蓋陣列",
+              "fraction": 0,
+              "feedback": "IPOG 是貪婪啟發式；它近似最佳，但不保證最小。"
+            },
+            {
+              "text": "單獨測試一個參數而忽略交互作用",
+              "fraction": 0,
+              "feedback": "IPOG 在一次一參數擴展陣列時，明確地覆蓋對的交互作用。"
+            }
+          ],
+          "generalFeedback": "IPOG（In-Parameter-Order Generation）先為前兩個參數建覆蓋陣列，再一次加入一個參數：水平擴展既有列以覆蓋新的對，並在需要時垂直加列。與 AETG 一樣是貪婪、近似最佳的啟發式，不保證最小。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "正交陣列與覆蓋陣列的差異",
+          "text": "<p>就成對測試而言，<strong>正交陣列</strong>與一般<strong>覆蓋陣列</strong>的區別是什麼？</p>",
+          "answers": [
+            {
+              "text": "正交陣列要求每一對出現相同的固定次數（平衡）；覆蓋陣列只要求每一對至少出現一次",
+              "fraction": 100,
+              "feedback": "正確——正交陣列是平衡的，是更強的特例。"
+            },
+            {
+              "text": "正交陣列覆蓋三因子組合，而覆蓋陣列只覆蓋對",
+              "fraction": 0,
+              "feedback": "區別在於平衡，而非強度；兩者都可定義於強度 2。"
+            },
+            {
+              "text": "覆蓋陣列必須平衡，而正交陣列不必",
+              "fraction": 0,
+              "feedback": "這把定義弄反了——平衡的是正交陣列。"
+            },
+            {
+              "text": "正交陣列允許約束，而覆蓋陣列禁止約束",
+              "fraction": 0,
+              "feedback": "約束處理與兩者的平衡區別無關。"
+            }
+          ],
+          "generalFeedback": "正交陣列要求每一對數值出現次數完全相同（λ），因此是平衡的。覆蓋陣列只要求每一對至少一次，所以通常更小也更有彈性。每個正交陣列都是覆蓋陣列，但反之不然。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三個 3 值參數要覆蓋的對數",
+          "text": "<p>三個參數各有 3 種數值。成對套件總共必須覆蓋多少個不同的數值對？</p>",
+          "answers": [
+            {
+              "text": "27",
+              "fraction": 100,
+              "feedback": "正確——共有 3 個參數對，每對貢獻 3 × 3 = 9 個數值對：3 × 9 = 27。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是單一參數對的數值對數；共有 3 個參數對，總計 27。"
+            },
+            {
+              "text": "18",
+              "fraction": 0,
+              "feedback": "18 只算了三個參數對中的兩個；全部 C(3,2) = 3 個參數對都要算。"
+            },
+            {
+              "text": "81",
+              "fraction": 0,
+              "feedback": "81 是把數值數取冪；總對數是把各參數對相加：3 × (3 × 3) = 27。"
+            }
+          ],
+          "generalFeedback": "要覆蓋的數值對數，是對每一對參數把 (v_i × v_j) 加總。三個參數時有 C(3,2) = 3 個參數對，各貢獻 3 × 3 = 9，總計 27。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3 × 2 × 2 要覆蓋的對數",
+          "text": "<p>三個參數的定義域大小為 3、2、2。成對套件總共必須覆蓋多少個不同的數值對？</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "正確——(3×2) + (3×2) + (2×2) = 6 + 6 + 4 = 16。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 是窮舉測試數（3 × 2 × 2），而非數值對數。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是定義域大小之和；對數是把三個參數對的 v_i × v_j 加總。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 漏了一個參數對；三個貢獻為 6、6、4，合計 16。"
+            }
+          ],
+          "generalFeedback": "把所有參數對的 v_i × v_j 加總：參數（P1=3、P2=2、P3=2）給出 P1-P2 = 6、P1-P3 = 6、P2-P3 = 4，總計 16 個數值對。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "貪婪產生器與最小性",
+          "text": "<p>像 AETG 與 IPOG 這類貪婪成對產生器，總是能產生最小的覆蓋陣列。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——它們是近似最佳的啟發式，不保證最小。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "AETG 與 IPOG 是貪婪啟發式；它們快速且近似最佳，但不保證產生最小規模的陣列。"
+            }
+          ],
+          "generalFeedback": "求最小覆蓋陣列在計算上是困難的。AETG 與 IPOG 以貪婪啟發式快速產生小而近似最佳的套件，但結果可能大於真正的最小值。"
+        },
+        {
+          "type": "multichoice",
+          "name": "成對相對於窮舉的縮減",
+          "text": "<p>某系統的參數定義域為 3、3、3。窮舉測試需要 27 個測試。關於此系統的成對套件，我們可以說什麼？</p>",
+          "answers": [
+            {
+              "text": "它至少需要 9 個測試（兩個最大定義域之乘積），且通常遠少於 27 個窮舉測試",
+              "fraction": 100,
+              "feedback": "正確——下界是 3 × 3 = 9，而好的成對套件遠小於窮舉。"
+            },
+            {
+              "text": "它剛好需要 27 個測試，與窮舉相同",
+              "fraction": 0,
+              "feedback": "此處成對比窮舉小；27 是完整乘積。"
+            },
+            {
+              "text": "它剛好需要 3 個測試",
+              "fraction": 0,
+              "feedback": "3 個測試無法覆蓋任兩參數的全部 3 × 3 = 9 個對。"
+            },
+            {
+              "text": "它總是恰好需要定義域大小之和，即 9",
+              "fraction": 0,
+              "feedback": "9 是下界，未必總能達成；而且它是兩個最大定義域之乘積，並非全部之和。"
+            }
+          ],
+          "generalFeedback": "成對下界是兩個最大定義域之乘積：3 × 3 = 9。成對套件介於此下界與窮舉的 27 之間；著名的建構法能以少至 9 列覆蓋三個 3 值參數的所有對，遠低於窮舉。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "正交陣列的平衡性質",
+          "text": "<p>強度 2 之正交陣列的平衡（指標 λ）性質是什麼？</p>",
+          "answers": [
+            {
+              "text": "任兩欄的每一對數值都剛好出現在 λ 個列中",
+              "fraction": 100,
+              "feedback": "正確——每一對都固定為 λ，正是使陣列平衡的性質。"
+            },
+            {
+              "text": "每一欄剛好包含每個數值一次",
+              "fraction": 0,
+              "feedback": "那描述的是單欄的排列，而非正交陣列的兩欄平衡。"
+            },
+            {
+              "text": "每一對數值至少出現一次，對次數沒有限制",
+              "fraction": 0,
+              "feedback": "「至少一次」是覆蓋陣列的性質；正交陣列要求剛好 λ 次。"
+            },
+            {
+              "text": "列數等於欄數",
+              "fraction": 0,
+              "feedback": "列與欄彼此獨立；平衡指的是每對出現次數相同，而非方形形狀。"
+            }
+          ],
+          "generalFeedback": "在強度 2 的正交陣列中，對任兩欄，每一種有序數值對都剛好出現在 λ 個列（λ 是指標）。這種一致的出現頻率，比覆蓋陣列的「至少一次」更強。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4 × 3 × 3 × 2 的成對下界",
+          "text": "<p>某系統有四個參數，定義域大小為 4、3、3、2。任何成對套件至少必須包含多少個測試？</p>",
+          "answers": [
+            {
+              "text": "至少 12",
+              "fraction": 100,
+              "feedback": "正確——兩個最大定義域是 4 與 3，故下界是 4 × 3 = 12。"
+            },
+            {
+              "text": "至少 72",
+              "fraction": 0,
+              "feedback": "72 是窮舉數（4 × 3 × 3 × 2）；成對需要遠少於此。"
+            },
+            {
+              "text": "至少 9",
+              "fraction": 0,
+              "feedback": "9 用的是 3 × 3；兩個最大定義域是 4 與 3，得 12。"
+            },
+            {
+              "text": "至少 24",
+              "fraction": 0,
+              "feedback": "24（4 × 3 × 2）用了三個定義域；下界只用兩個最大者，4 × 3 = 12。"
+            }
+          ],
+          "generalFeedback": "成對下界是兩個最大定義域之乘積。此處最大者為 4 與 3，故任何成對套件至少需要 4 × 3 = 12 列。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "正交陣列是覆蓋陣列",
+          "text": "<p>每個強度 2 的正交陣列，也都是一個有效的成對覆蓋陣列。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——若每一對都剛好出現 λ ≥ 1 次，那每一對就至少出現一次。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "正交陣列讓每一對剛好出現 λ 次，因此必然每一對至少出現一次——即覆蓋陣列的要求。"
+            }
+          ],
+          "generalFeedback": "正交陣列是平衡的特例：每一對剛好出現 λ 次。由於 λ ≥ 1，每一對都至少出現一次，故該陣列滿足成對覆蓋。反之不成立：覆蓋陣列未必平衡。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何使用貪婪產生器",
+          "text": "<p>為什麼要用像 AETG 與 IPOG 這類貪婪啟發式來建構成對套件，而不去計算精確最小值？</p>",
+          "answers": [
+            {
+              "text": "求最小覆蓋陣列在計算上是困難的，故貪婪方法以略大的套件換取快速、實用的產生",
+              "fraction": 100,
+              "feedback": "正確——在精確最小化難以處理之處，它們快速給出近似最佳結果。"
+            },
+            {
+              "text": "只有貪婪方法能保證完整的成對覆蓋",
+              "fraction": 0,
+              "feedback": "精確方法同樣保證覆蓋；選用貪婪是為了速度，而非因為它是唯一正確的選擇。"
+            },
+            {
+              "text": "貪婪方法找到的套件總是嚴格小於任何精確方法",
+              "fraction": 0,
+              "feedback": "精確方法找到真正的最小值；貪婪套件近似最佳，可能較大。"
+            },
+            {
+              "text": "貪婪方法會避開覆蓋某些對，因此較快",
+              "fraction": 0,
+              "feedback": "AETG 與 IPOG 仍覆蓋所有必要的對；它們只是在套件規模上採啟發式。"
+            }
+          ],
+          "generalFeedback": "計算可證明為最小的覆蓋陣列是 NP-hard 的最佳化問題。AETG 與 IPOG 是貪婪建構式啟發式，在合理時間內產生小而近似最佳的套件，同時仍保證完整的成對覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "AETG 與 IPOG 的成長方向",
+          "text": "<p>AETG 與 IPOG 都是貪婪成對產生器。它們在如何擴增測試套件上的關鍵差異是什麼？</p>",
+          "answers": [
+            {
+              "text": "AETG 一次加入一整列測試；IPOG 一次加入一個參數（欄），並視需要擴展與加列",
+              "fraction": 100,
+              "feedback": "正確——AETG 逐列成長，IPOG 逐參數成長。"
+            },
+            {
+              "text": "AETG 保證最小套件；IPOG 只保證成對覆蓋",
+              "fraction": 0,
+              "feedback": "兩者都不保證最小；都是保證成對覆蓋的近似最佳啟發式。"
+            },
+            {
+              "text": "AETG 只覆蓋對；IPOG 窮舉地覆蓋所有組合",
+              "fraction": 0,
+              "feedback": "兩者都以成對（2-way）覆蓋為目標；IPOG 並不建構窮舉集合。"
+            },
+            {
+              "text": "AETG 只適用於二元參數；IPOG 適用於任何定義域大小",
+              "fraction": 0,
+              "feedback": "兩者都能處理任意定義域大小；差異在於成長策略。"
+            }
+          ],
+          "generalFeedback": "AETG 一次建構一整列，每列貪婪地覆蓋盡量多的未覆蓋對。IPOG 則先為前幾個參數建陣列，再一次加入一個參數（水平成長），並在必要時加列（垂直成長）。兩者都是貪婪且近似最佳，不保證最小。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "成對測試漏掉三因子缺陷",
+          "text": "<p>三個布林旗標 A、B、C 各取 on／off。某缺陷<strong>只</strong>在 A=on、B=on、C=on 三者同時成立時才發生。為什麼成對套件可能漏掉這個缺陷？</p>",
+          "answers": [
+            {
+              "text": "成對只保證每一對（例如 A=on 與 B=on）出現，卻從不保證三個 on 值在同一個測試中一起出現",
+              "fraction": 100,
+              "feedback": "正確——觸發的三元組是一個 3-way 交互作用，而 2-way 覆蓋並不保證它。"
+            },
+            {
+              "text": "成對測試從不測試任何設為 on 的旗標",
+              "fraction": 0,
+              "feedback": "成對確實會測到 on 值；它只是可能不把三者都設為 on 放在同一列。"
+            },
+            {
+              "text": "成對測試每次都只測少於三個參數，所以 C 被忽略",
+              "fraction": 0,
+              "feedback": "每一列裡所有參數都有取值；缺口在於那個特定三元組可能永不同時出現。"
+            },
+            {
+              "text": "成對要求每一對剛好出現一次，因而排除了失效組合",
+              "fraction": 0,
+              "feedback": "成對要求每一對至少一次；問題出在 3-way，而非出現次數限制。"
+            }
+          ],
+          "generalFeedback": "成對套件可以在不同列中分別覆蓋 (A=on,B=on)、(A=on,C=on) 與 (B=on,C=on)，卻從未在同一列同時放入 A=on、B=on、C=on。由於缺陷需要這個確切的 3-way 組合，成對（t = 2）可能漏掉它；要偵測需 t ≥ 3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有效性檢查：此集合是否覆蓋所有對（是）",
+          "text": "<p>三個二元參數 A、B、C（各為 0 或 1）。考慮以下四列：<br>ABC = 000、011、101、110。<br>這個集合是否覆蓋每一對參數的每一對數值？</p>",
+          "answers": [
+            {
+              "text": "是——三個參數對各自的四個數值對都被覆蓋",
+              "fraction": 100,
+              "feedback": "正確——檢查 A,B：00,01,10,11；A,C：00,01,11,10；B,C：00,11,01,10——全部出現。"
+            },
+            {
+              "text": "否——缺少 A=1、B=1 這一對",
+              "fraction": 0,
+              "feedback": "列 110 有 A=1、B=1，因此這一對存在。"
+            },
+            {
+              "text": "否——缺少 B=0、C=0 這一對",
+              "fraction": 0,
+              "feedback": "列 000 有 B=0、C=0，因此這一對存在。"
+            },
+            {
+              "text": "否——四列絕不可能覆蓋三個二元參數的所有對",
+              "fraction": 0,
+              "feedback": "此處四列已足夠（成對下界為 2 × 2 = 4），而這個集合正好達成。"
+            }
+          ],
+          "generalFeedback": "逐一列舉每個參數對。A,B 在各列上：(0,0)、(0,1)、(1,0)、(1,1)。A,C：(0,0)、(0,1)、(1,1)、(1,0)。B,C：(0,0)、(1,1)、(0,1)、(1,0)。每個參數對集合都含全部四種組合，故這是僅 4 列的有效成對覆蓋陣列——恰好等於下界 2 × 2 = 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有效性檢查：此集合是否覆蓋所有對（否）",
+          "text": "<p>三個二元參數 A、B、C（各為 0 或 1）。考慮以下三列：<br>ABC = 000、011、101。<br>這個集合是否覆蓋每一對參數的每一對數值？</p>",
+          "answers": [
+            {
+              "text": "否——A=1、B=1 這一對從未出現（其他對也有缺漏）",
+              "fraction": 100,
+              "feedback": "正確——A,B 在各列上只給出 (0,0)、(0,1)、(1,0)；缺少 (1,1)。"
+            },
+            {
+              "text": "是——所有對都被覆蓋",
+              "fraction": 0,
+              "feedback": "A=1、B=1 這一對不存在，因此覆蓋並不完整。"
+            },
+            {
+              "text": "否——但只因為缺少 A=0、B=0",
+              "fraction": 0,
+              "feedback": "列 000 提供了 A=0、B=0；真正缺少的是 A=1、B=1。"
+            },
+            {
+              "text": "是——三列對三個二元參數永遠足夠",
+              "fraction": 0,
+              "feedback": "此處成對下界為 2 × 2 = 4，故三列無法覆蓋所有對。"
+            }
+          ],
+          "generalFeedback": "A,B 在列 000、011、101 上給出 (0,0)、(0,1)、(1,0)——(1,1) 從未出現。（B,C 也缺 (1,0)。）僅三列已低於成對下界 2 × 2 = 4，故不可能達成完整成對覆蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三因子缺陷所需的更高強度",
+          "text": "<p>若某缺陷只由三個特定參數的某一特定組合觸發，覆蓋陣列至少要有多高的交互作用強度 t 才能保證偵測？</p>",
+          "answers": [
+            {
+              "text": "t = 3（三因子覆蓋）",
+              "fraction": 100,
+              "feedback": "正確——3-way 缺陷只有在強度 3（或更高）的覆蓋陣列下才保證被觸發。"
+            },
+            {
+              "text": "t = 2（成對）就足夠",
+              "fraction": 0,
+              "feedback": "成對只保證 2-way 組合；那個特定三元組可能永不同時出現。"
+            },
+            {
+              "text": "t = 1（each-choice）就足夠",
+              "fraction": 0,
+              "feedback": "each-choice 只保證每個單一數值出現，遠遠不夠。"
+            },
+            {
+              "text": "沒有任何覆蓋陣列能保證它",
+              "fraction": 0,
+              "feedback": "強度 3 的覆蓋陣列保證每一種 3-way 組合，包含觸發者。"
+            }
+          ],
+          "generalFeedback": "要保證某一特定 3-way 數值組合被執行，覆蓋陣列強度須 t ≥ 3，因為唯有如此才保證每一組三個參數的數值都在某列一起出現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "十個二元參數的窮舉",
+          "text": "<p>某系統有十個彼此獨立的布林參數（各為 on／off）。<strong>窮舉</strong>測試需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "1024",
+              "fraction": 100,
+              "feedback": "正確——2^10 = 1024。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 是 2 × 10；窮舉是 2 的（參數個數）次方，2^10 = 1024。"
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "100 是 10^2；底數是 2（數值），指數是 10（參數）：2^10 = 1024。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4（2 × 2）是二元參數的成對下界，而非窮舉數。"
+            }
+          ],
+          "generalFeedback": "窮舉是各定義域大小之乘積：十個二元參數即 2^10 = 1024。同系統的成對套件只需寥寥數列，展現了縮減——而其下界仍僅為 2 × 2 = 4。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "5 × 4 × 3 × 2 的成對下界",
+          "text": "<p>某系統有四個參數，定義域大小為 5、4、3、2。任何成對套件至少必須包含多少個測試？</p>",
+          "answers": [
+            {
+              "text": "至少 20",
+              "fraction": 100,
+              "feedback": "正確——兩個最大定義域是 5 與 4，故下界是 5 × 4 = 20。"
+            },
+            {
+              "text": "至少 120",
+              "fraction": 0,
+              "feedback": "120 是窮舉數（5 × 4 × 3 × 2）；成對需要遠少於此。"
+            },
+            {
+              "text": "至少 15",
+              "fraction": 0,
+              "feedback": "15 用的是 5 × 3；兩個最大定義域是 5 與 4，得 20。"
+            },
+            {
+              "text": "至少 60",
+              "fraction": 0,
+              "feedback": "60（5 × 4 × 3）用了三個定義域；下界只用兩個最大者，5 × 4 = 20。"
+            }
+          ],
+          "generalFeedback": "成對下界是兩個最大定義域之乘積：5 × 4 = 20。（作為對照，此處窮舉為 5 × 4 × 3 × 2 = 120。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四個二元參數要覆蓋的對數",
+          "text": "<p>四個參數各為二元（2 種數值）。成對套件總共必須覆蓋多少個不同的數值對？</p>",
+          "answers": [
+            {
+              "text": "24",
+              "fraction": 100,
+              "feedback": "正確——C(4,2) = 6 個參數對，每對有 2 × 2 = 4 個數值對：6 × 4 = 24。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 是窮舉數（2^4），而非要覆蓋的數值對數。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 相當於 3 個參數對 × 4；此處有 C(4,2) = 6 個參數對，得 24。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是 4 參數 × 2 數值；數值對數是把 6 個參數對的 2 × 2 加總。"
+            }
+          ],
+          "generalFeedback": "數值對數 = 把各參數對的 v_i × v_j 加總。四個二元參數有 C(4,2) = 6 個參數對，各貢獻 2 × 2 = 4，得 6 × 4 = 24 個數值對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "具體的三因子交互作用缺陷",
+          "text": "<p>某媒體播放器只在編碼為 H.265、容器為 MKV、且啟用硬體加速時才當機——沒有更小的組合會觸發它。針對 {編碼, 容器, 硬體加速, 解析度} 執行的成對套件通過了。這告訴我們什麼？</p>",
+          "answers": [
+            {
+              "text": "該缺陷是真正的 3-way 交互作用，2-way 套件並不保證能揭露它，故成對通過並不能證明它不存在",
+              "fraction": 100,
+              "feedback": "正確——當機需要一個特定三元組，而成對不保證把它放在同一列。"
+            },
+            {
+              "text": "該缺陷不可能存在，因為成對測試能偵測所有交互作用缺陷",
+              "fraction": 0,
+              "feedback": "成對只保證 2-way 交互作用；3-way 缺陷可能漏網。"
+            },
+            {
+              "text": "該成對套件無效，因為正確的套件一定會抓到這個",
+              "fraction": 0,
+              "feedback": "有效成對套件覆蓋所有對，但不必覆蓋這個三元組；套件可以正確卻仍漏掉缺陷。"
+            },
+            {
+              "text": "只有窮舉測試才可能執行到 H.265 編碼",
+              "fraction": 0,
+              "feedback": "成對在某些列確實會測到 H.265；它只是可能不把它與 MKV 和硬體加速同時組合。"
+            }
+          ],
+          "generalFeedback": "當機需要確切三元組（H.265、MKV、硬體加速開）。成對套件保證這些的每一對都出現，卻未必把三者放在同一測試，因此可以通過而 3-way 缺陷仍在。要偵測它需強度 3 的覆蓋陣列（或窮舉測試）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "約束對有效組合的影響",
+          "text": "<p>某 OS 參數的數值為 {Windows, macOS, Linux}，瀏覽器參數為 {Safari, Chrome, Edge}。約束規定 Safari 只能在 macOS 上執行，且 Edge 在 Linux 上被排除。這類約束如何影響組合測試的產生？</p>",
+          "answers": [
+            {
+              "text": "無效的對會從覆蓋需求中移除，故產生器只需覆蓋滿足約束的對",
+              "fraction": 100,
+              "feedback": "正確——約束把不可行組合從需覆蓋的對與所產生的列中剔除。"
+            },
+            {
+              "text": "約束被忽略，每個語法上的對仍被強制放入套件",
+              "fraction": 0,
+              "feedback": "具約束感知的產生不得輸出如「Safari on Linux」這類不可行列。"
+            },
+            {
+              "text": "約束迫使套件變成窮舉",
+              "fraction": 0,
+              "feedback": "約束會縮減、而非增加可行組合的集合。"
+            },
+            {
+              "text": "約束要求從成對改為 each-choice 覆蓋",
+              "fraction": 0,
+              "feedback": "成對仍適用；產生器只是排除不可行的對與列。"
+            }
+          ],
+          "generalFeedback": "約束宣告某些組合無效（例如 Safari 只在 macOS）。具約束感知的產生器會把那些不可行的對從覆蓋義務中排除，且永不輸出違反約束的列，這通常同時縮小所需的對與套件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何貪婪套件未必最小",
+          "text": "<p>兩位工程師對同一模型各自執行 IPOG，但以不同的參數順序列出，得到大小不同的成對套件。這說明了什麼？</p>",
+          "answers": [
+            {
+              "text": "IPOG 是貪婪啟發式，其結果取決於參數順序等選擇，故近似最佳但不保證最小",
+              "fraction": 100,
+              "feedback": "正確——貪婪建構可因排序不同而得出不同、非最小的規模。"
+            },
+            {
+              "text": "兩個套件必有一個無效，因為正確套件有唯一大小",
+              "fraction": 0,
+              "feedback": "兩者都可以是有效成對套件；有效套件不必大小相同。"
+            },
+            {
+              "text": "參數順序改變時成對覆蓋就沒有定義",
+              "fraction": 0,
+              "feedback": "成對覆蓋不論順序都有明確定義；只有啟發式的輸出大小會變。"
+            },
+            {
+              "text": "較大的套件漏了某些對",
+              "fraction": 0,
+              "feedback": "兩者依建構都覆蓋所有對；大小差異反映啟發式選擇，而非漏覆蓋。"
+            }
+          ],
+          "generalFeedback": "IPOG 是增量建構的，而參數順序等決策會影響列被重複利用的效率。兩個套件都覆蓋所有對，但其中一個可能較大——顯示該演算法近似最佳，不保證產生最小覆蓋陣列。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "3-way 強度涵蓋成對",
+          "text": "<p>強度 3（三因子）的覆蓋陣列是否也滿足成對（2-way）覆蓋？</p>",
+          "answers": [
+            {
+              "text": "是——若每個三元組數值都被覆蓋，那這些三元組內的每一對數值當然也被覆蓋",
+              "fraction": 100,
+              "feedback": "正確——較高強度涵蓋所有較低強度。"
+            },
+            {
+              "text": "否——三因子與二因子覆蓋彼此無關",
+              "fraction": 0,
+              "feedback": "它們有關：覆蓋所有三元組必然覆蓋所有對。"
+            },
+            {
+              "text": "只有當該陣列同時也是正交陣列時",
+              "fraction": 0,
+              "feedback": "不需要平衡；任何強度 3 的覆蓋陣列已覆蓋所有對。"
+            },
+            {
+              "text": "只有當所有參數都是二元時",
+              "fraction": 0,
+              "feedback": "此涵蓋關係對任意定義域大小都成立，不限二元。"
+            }
+          ],
+          "generalFeedback": "強度 t 的覆蓋陣列涵蓋所有低於 t 的強度：覆蓋每個 t 元組即保證每個更小的子元組也被覆蓋。故 3-way 陣列自動提供 2-way（成對）覆蓋——只是成本更高。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "CA(N; 3, k, v) 的意義",
+          "text": "<p>記法 <code>CA(N; 3, k, v)</code> 描述什麼？</p>",
+          "answers": [
+            {
+              "text": "一個 N 列的覆蓋陣列，涵蓋 k 個各有 v 種數值的參數，其中每一種 3-way 數值組合都至少被覆蓋一次",
+              "fraction": 100,
+              "feedback": "正確——那個 3 是強度，故所有三元組都被覆蓋。"
+            },
+            {
+              "text": "一個對 k 個參數恰有 3 列的陣列",
+              "fraction": 0,
+              "feedback": "列數是 N；那個 3 是交互作用強度。"
+            },
+            {
+              "text": "一個只覆蓋 k 個參數中 3 個的陣列",
+              "fraction": 0,
+              "feedback": "所有 k 個參數都被覆蓋；強度 3 表示每一組 3 個參數的所有組合都被覆蓋。"
+            },
+            {
+              "text": "一個每個參數恰有 3 種數值的陣列",
+              "fraction": 0,
+              "feedback": "數值個數是 v；該位置的 3 是強度 t。"
+            }
+          ],
+          "generalFeedback": "CA(N; 3, k, v) 是一個 N 列、強度 t = 3、k 個參數、每參數 v 種數值的覆蓋陣列，保證每一種 3-way 數值組合都至少出現在某一列。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "三因子缺陷可逃過成對",
+          "text": "<p>只由某一特定三參數交互作用觸發的缺陷，可能未被偵測地通過一個原本有效的成對測試套件。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——成對只保證 2-way 組合，故觸發的三元組可能永不出現在同一列。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "成對只保證 2-way 覆蓋；需要特定 3-way 組合的缺陷可能溜過有效的成對套件。"
+            }
+          ],
+          "generalFeedback": "成對（t = 2）保證每一對數值一起出現，但不保證每個三元組。因此需要特定 3-way 交互作用的缺陷可能逃過完全有效的成對套件；要抓到它需強度 t ≥ 3。"
+        },
+        {
+          "type": "multichoice",
+          "name": "使 t-way 等同窮舉的最小強度",
+          "text": "<p>對於有 k 個參數的系統，t-way（覆蓋陣列）測試在什麼交互作用強度 t 時會等同於窮舉測試？</p>",
+          "answers": [
+            {
+              "text": "當 t = k（強度等於參數個數）時",
+              "fraction": 100,
+              "feedback": "正確——覆蓋每個 k 元組正是完整的笛卡兒積。"
+            },
+            {
+              "text": "當 t = 2 時，因為成對已覆蓋一切",
+              "fraction": 0,
+              "feedback": "成對覆蓋的是對，而非所有完整組合；它遠小於窮舉。"
+            },
+            {
+              "text": "當 t = 1 時",
+              "fraction": 0,
+              "feedback": "t = 1 是 each-choice，最弱的準則，遠不及窮舉。"
+            },
+            {
+              "text": "t-way 測試永遠不可能等同窮舉測試",
+              "fraction": 0,
+              "feedback": "當 t = k 時，所有 k 個參數的每一種組合都必須出現，那正是窮舉。"
+            }
+          ],
+          "generalFeedback": "當強度 t 等於參數個數 k 時，覆蓋每個 t 元組即覆蓋所有 k 個參數的每一種完整組合——即窮舉的笛卡兒積。故窮舉測試是 t-way 組合測試中 t = k 的情形。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "下界是否總能達成",
+          "text": "<p>對於四個二元參數，成對下界是 2 × 2 = 4。對四個二元參數，剛好 4 列的成對套件真的能覆蓋所有對嗎？</p>",
+          "answers": [
+            {
+              "text": "否——此處 4 列不可能；真正的最小值是 5，故下界未必總能達成",
+              "fraction": 100,
+              "feedback": "正確——4 列最多能覆蓋三個二元參數的所有對；第四個參數迫使出現第五列。"
+            },
+            {
+              "text": "是——下界總是恰好可達成",
+              "fraction": 0,
+              "feedback": "「兩個最大定義域之乘積」是下界，未必緊；此處 4 列可證明不足。"
+            },
+            {
+              "text": "否——真正的最小值是 16，即窮舉數",
+              "fraction": 0,
+              "feedback": "成對所需遠少於窮舉；此處最小值是 5，不是 16。"
+            },
+            {
+              "text": "是——但只有當四個參數在統計上獨立時",
+              "fraction": 0,
+              "feedback": "獨立性無濟於事；4 列無法覆蓋四個二元參數的全部六個參數對的組合。"
+            }
+          ],
+          "generalFeedback": "要把四個二元參數的所有對塞進 4 列，需要每一對欄都剛好各出現全部四種組合一次——即指標為 1 的正交陣列，而對強度 2 這最多容納 (N-1)/(v-1) = 3 個二元因子。第四個因子放不下，故至少需 5 列（且 5 列足夠）。因此此處下界 4 無法達成——它是最小值的界，但未必等於最小值。",
+          "single": true
+        }
+      ]
+    }
+  },
   "symbolic-execution": {
     "en": {
       "easy": [

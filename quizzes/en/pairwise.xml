@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Pairwise Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What pairwise testing requires</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does pairwise (2-way) testing require of a test suite?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>For every pair of parameters, every combination of their values appears together in at least one test</text><feedback><text>Correct — that is exactly the 2-way coverage guarantee.</text></feedback></answer>
+    <answer fraction="0"><text>Every possible combination of all parameter values appears in some test</text><feedback><text>That is exhaustive testing; pairwise only covers value pairs, not full combinations.</text></feedback></answer>
+    <answer fraction="0"><text>Each individual parameter value appears in at least one test</text><feedback><text>That is weaker (each-choice) coverage; pairwise additionally requires every pair of values.</text></feedback></answer>
+    <answer fraction="0"><text>Exactly two tests are run for each parameter</text><feedback><text>Pairwise constrains which value pairs are covered, not a fixed number of tests per parameter.</text></feedback></answer>
+    <generalfeedback><text>Pairwise (2-way) testing requires that for every pair of parameters, every combination of one value from each appears together in at least one test case. It targets two-way interaction faults while using far fewer tests than exhaustive coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Empirical basis for pairwise</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What empirical observation motivates pairwise testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Most software faults are triggered by a single factor or by an interaction of only two factors</text><feedback><text>Correct — studies of the interaction/fault-coupling of defects show most failures involve one or two factors.</text></feedback></answer>
+    <answer fraction="0"><text>Most software faults require every parameter to take an extreme value simultaneously</text><feedback><text>On the contrary, high-order interactions cause relatively few faults; that is why pairwise pays off.</text></feedback></answer>
+    <answer fraction="0"><text>Faults are distributed uniformly across all combinations of parameters</text><feedback><text>If faults were uniform across full combinations, pairwise would offer little benefit; the evidence is that low-order interactions dominate.</text></feedback></answer>
+    <answer fraction="0"><text>Faults only ever depend on a single input parameter</text><feedback><text>Two-way (and occasionally higher) interactions do occur; pairwise targets the common one- and two-factor cases.</text></feedback></answer>
+    <generalfeedback><text>Empirical fault studies found that a large majority of failures are caused by a single factor or a two-factor interaction, with progressively fewer caused by three or more factors. Pairwise testing exploits this by guaranteeing all two-way combinations at low cost.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What exhaustive testing means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a system configured by several parameters, what does <strong>exhaustive</strong> combinatorial testing require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>One test for every possible combination of values across all parameters</text><feedback><text>Correct — exhaustive means the full Cartesian product of the parameter domains.</text></feedback></answer>
+    <answer fraction="0"><text>One test for every pair of parameter values</text><feedback><text>That is pairwise testing, a small subset of exhaustive.</text></feedback></answer>
+    <answer fraction="0"><text>One test per parameter</text><feedback><text>That does not even cover each value; exhaustive covers every full combination.</text></feedback></answer>
+    <answer fraction="0"><text>A fixed number of tests regardless of the number of parameters</text><feedback><text>Exhaustive count grows as the product of the domain sizes, so it depends heavily on the parameters.</text></feedback></answer>
+    <generalfeedback><text>Exhaustive testing runs every combination of parameter values — the full Cartesian product. Its size is the product of all the domain sizes, which grows explosively, which is the very problem combinatorial testing addresses.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Exhaustive count for 3 x 2 x 2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A feature has three parameters: the first has 3 possible values, the second has 2, and the third has 2. How many tests does <strong>exhaustive</strong> testing require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>12</text><feedback><text>Correct — 3 × 2 × 2 = 12, the product of the domain sizes.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the sum 3 + 2 + 2; exhaustive multiplies the domain sizes.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 counts only two of the three parameters (3 × 2); include the third.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the product of the two largest domains (3 × 2 would be 6, not 4), and in any case that is a pairwise lower bound, not the exhaustive count.</text></feedback></answer>
+    <generalfeedback><text>Exhaustive testing is the product of all domain sizes: 3 × 2 × 2 = 12.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Exhaustive count for three 3-valued parameters</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A configuration has three parameters, each with 3 possible values. How many tests does <strong>exhaustive</strong> testing require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>27</text><feedback><text>Correct — 3 × 3 × 3 = 27.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is 3 × 3, the product of only two parameters (and it is the pairwise lower bound here), not the full product.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is 3 + 3 (two parameters summed); exhaustive multiplies all three domain sizes.</text></feedback></answer>
+    <answer fraction="0"><text>81</text><feedback><text>81 is 3 to the fourth power, i.e. four parameters; here there are only three.</text></feedback></answer>
+    <generalfeedback><text>Exhaustive count is the product of all domain sizes: 3 × 3 × 3 = 27.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Exhaustive count for 4 x 3</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A function has two parameters: one with 4 possible values and one with 3. How many tests does <strong>exhaustive</strong> testing require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>12</text><feedback><text>Correct — 4 × 3 = 12.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the sum 4 + 3; exhaustive multiplies the domain sizes.</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 is 4 × 4; the second parameter has 3 values, not 4.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is 3 × 3; the first parameter has 4 values, not 3.</text></feedback></answer>
+    <generalfeedback><text>With two parameters the exhaustive count equals the product of the two domain sizes: 4 × 3 = 12. (With only two parameters, exhaustive and pairwise coincide.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What t-way testing generalizes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Pairwise testing is the case t = 2 of t-way (combinatorial) testing. What does general t-way testing require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every combination of values among every group of t parameters appears in at least one test</text><feedback><text>Correct — strength t means all t-tuples of values are covered.</text></feedback></answer>
+    <answer fraction="0"><text>Every parameter takes exactly t different values across the suite</text><feedback><text>t is the interaction strength, not the number of values a parameter takes.</text></feedback></answer>
+    <answer fraction="0"><text>The suite contains exactly t test cases</text><feedback><text>t is the strength of coverage, not the number of tests.</text></feedback></answer>
+    <answer fraction="0"><text>At most t parameters are tested at a time and the rest are ignored</text><feedback><text>All parameters are covered; t is the size of the interacting groups whose combinations must all appear.</text></feedback></answer>
+    <generalfeedback><text>t-way testing generalizes pairwise: for strength t, every combination of values across every set of t parameters must appear in at least one test. t = 1 is each-choice, t = 2 is pairwise, and t equal to the number of parameters is exhaustive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a covering array is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In combinatorial testing, what is a <strong>covering array</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A set of test rows in which every t-way combination of parameter values appears in at least one row</text><feedback><text>Correct — a covering array of strength t guarantees every t-tuple appears at least once.</text></feedback></answer>
+    <answer fraction="0"><text>A table listing every possible combination of parameter values exactly once</text><feedback><text>That is the exhaustive set; a covering array is usually much smaller and only requires each t-tuple at least once.</text></feedback></answer>
+    <answer fraction="0"><text>An array recording which test found which fault</text><feedback><text>That is a fault matrix, not a covering array.</text></feedback></answer>
+    <answer fraction="0"><text>A matrix of code-coverage percentages for each test</text><feedback><text>Covering arrays describe input-value combinations, not structural code coverage.</text></feedback></answer>
+    <generalfeedback><text>A covering array is a compact set of test rows over the parameters such that every combination of values for every group of t parameters appears in at least one row. For pairwise, t = 2.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of t in CA(N; t, k, v)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the covering-array notation <code>CA(N; t, k, v)</code>, what does the parameter <strong>t</strong> denote?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The interaction strength — the size of the parameter groups whose value combinations must all be covered</text><feedback><text>Correct — t is the strength; t = 2 is pairwise.</text></feedback></answer>
+    <answer fraction="0"><text>The number of test rows in the array</text><feedback><text>That is N, the number of rows.</text></feedback></answer>
+    <answer fraction="0"><text>The number of parameters (factors)</text><feedback><text>That is k, the number of factors.</text></feedback></answer>
+    <answer fraction="0"><text>The number of values each parameter can take</text><feedback><text>That is v, the number of levels per factor.</text></feedback></answer>
+    <generalfeedback><text>In CA(N; t, k, v): N is the number of rows, t is the interaction strength, k is the number of parameters (factors), and v is the number of values (levels) each takes. Pairwise corresponds to t = 2.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Pairwise equals 2-way</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"Pairwise testing" and "2-way combinatorial testing" refer to the same thing.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — pairwise is exactly t-way testing with t = 2.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>They are the same: pairwise is the special case t = 2 of t-way combinatorial testing.</text></feedback></answer>
+    <generalfeedback><text>Pairwise testing is 2-way combinatorial testing: it guarantees that every pair of values across every pair of parameters is covered at least once.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Exhaustive covers every combination</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Exhaustive combinatorial testing covers every possible combination of all parameter values, and its test count is the product of all the domain sizes.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — exhaustive is the full Cartesian product, sized as the product of the domains.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Exhaustive testing does run every combination, and that count is exactly the product of the domain sizes.</text></feedback></answer>
+    <generalfeedback><text>Exhaustive testing runs the full Cartesian product of the parameter domains; its size is the product of all domain sizes, which is why it becomes infeasible as parameters grow.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a "pair" is in pairwise</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In pairwise testing, what exactly is the "pair" that must be covered?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A specific value of one parameter together with a specific value of another parameter</text><feedback><text>Correct — a pair is one value from each of two parameters, covered together in a test.</text></feedback></answer>
+    <answer fraction="0"><text>Two test cases that must be run consecutively</text><feedback><text>A pair refers to a combination of parameter values, not to two test cases.</text></feedback></answer>
+    <answer fraction="0"><text>Two different values of the same parameter</text><feedback><text>A pair spans two different parameters, one value from each.</text></feedback></answer>
+    <answer fraction="0"><text>A valid input paired with its expected output</text><feedback><text>That describes a test oracle, not the pair covered by pairwise testing.</text></feedback></answer>
+    <generalfeedback><text>A pair is one value of one parameter combined with one value of a second parameter. Pairwise coverage requires every such pair, over every choice of two parameters, to appear together in at least one test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why avoid exhaustive testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is exhaustive combinatorial testing usually impractical for real systems?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The number of combinations is the product of the domain sizes, which grows explosively as parameters are added</text><feedback><text>Correct — combinatorial explosion makes the full product infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>Exhaustive testing cannot detect any interaction faults</text><feedback><text>Exhaustive testing actually detects all interaction faults; the problem is its cost, not its power.</text></feedback></answer>
+    <answer fraction="0"><text>Each combination must be tested thousands of times to be valid</text><feedback><text>Each combination is tested once; the issue is the sheer number of combinations.</text></feedback></answer>
+    <answer fraction="0"><text>Test tools cannot represent more than two parameters at once</text><feedback><text>Tools handle many parameters; the obstacle is the exponential number of combinations.</text></feedback></answer>
+    <generalfeedback><text>Exhaustive testing multiplies all the domain sizes, so the count explodes as parameters and values grow (for example ten binary parameters already require 2^10 = 1024 tests). Pairwise testing keeps the guarantee for two-way interactions while cutting the count dramatically.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Strength of pairwise</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What interaction strength t characterizes pairwise testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>t = 2</text><feedback><text>Correct — pairwise means all two-parameter value combinations are covered.</text></feedback></answer>
+    <answer fraction="0"><text>t = 1</text><feedback><text>t = 1 is each-choice coverage (every single value), weaker than pairwise.</text></feedback></answer>
+    <answer fraction="0"><text>t = 3</text><feedback><text>t = 3 is three-way testing, stronger and more costly than pairwise.</text></feedback></answer>
+    <answer fraction="0"><text>t equals the number of parameters</text><feedback><text>t equal to the number of parameters is exhaustive testing, not pairwise.</text></feedback></answer>
+    <generalfeedback><text>Pairwise testing has strength t = 2: it guarantees coverage of all value combinations among every group of two parameters.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Every pair at least once</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A valid pairwise test suite must include every pair of parameter values at least once, but it need not include each pair more than once.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — the requirement is "at least once"; repetition is allowed but not required.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Pairwise coverage requires each pair at least once; covering some pairs more than once is permitted but not necessary.</text></feedback></answer>
+    <generalfeedback><text>Pairwise (covering-array) coverage requires each value pair to appear at least once. Requiring each pair the same fixed number of times would be an orthogonal array — a stronger, balanced special case.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Pairwise Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Exhaustive count for 4 x 3 x 3 x 2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A system has four parameters with domain sizes 4, 3, 3, and 2. How many tests does <strong>exhaustive</strong> testing require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>72</text><feedback><text>Correct — 4 × 3 × 3 × 2 = 72.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 is the product of only the two largest domains (4 × 3), which is the pairwise lower bound, not the exhaustive count.</text></feedback></answer>
+    <answer fraction="0"><text>36</text><feedback><text>36 is 4 × 3 × 3; it omits the last parameter (× 2).</text></feedback></answer>
+    <answer fraction="0"><text>12 + others</text><feedback><text>Exhaustive is a product, not a sum: 4 × 3 × 3 × 2 = 72.</text></feedback></answer>
+    <generalfeedback><text>Exhaustive testing is the product of all domain sizes: 4 × 3 × 3 × 2 = 72.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Pairwise lower bound for 3 x 3 x 2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A configuration has three parameters with domain sizes 3, 3, and 2. What is the minimum number of tests any pairwise (2-way) suite must contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>At least 9</text><feedback><text>Correct — the lower bound is the product of the two largest domains, 3 × 3 = 9.</text></feedback></answer>
+    <answer fraction="0"><text>At least 18</text><feedback><text>18 is the exhaustive count (3 × 3 × 2); pairwise needs far fewer.</text></feedback></answer>
+    <answer fraction="0"><text>At least 3</text><feedback><text>3 (the largest single domain) only satisfies each-choice coverage, not all pairs.</text></feedback></answer>
+    <answer fraction="0"><text>At least 6</text><feedback><text>6 is below the bound: covering all 3 × 3 = 9 pairs of the two 3-valued parameters already forces at least 9 rows.</text></feedback></answer>
+    <generalfeedback><text>To cover every pair from the two 3-valued parameters you already need all 3 × 3 = 9 of their combinations, so any pairwise suite has at least 9 rows. The lower bound is the product of the two largest domains.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the two largest domains give the bound</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is the minimum size of any pairwise suite at least the product of the <strong>two largest</strong> parameter domains?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every pair from those two parameters must appear, and there are (largest × second-largest) such pairs, each needing its own row</text><feedback><text>Correct — no single row can cover two distinct value-pairs of the same two parameters, so you need at least that many rows.</text></feedback></answer>
+    <answer fraction="0"><text>Because the smallest domains determine how many rows are reusable</text><feedback><text>The bound comes from the largest domains, since they generate the most pairs to cover.</text></feedback></answer>
+    <answer fraction="0"><text>Because each parameter needs one row per value regardless of the others</text><feedback><text>That reasoning gives each-choice, not the pairwise bound from the two largest domains.</text></feedback></answer>
+    <answer fraction="0"><text>Because the suite must equal the exhaustive product divided by two</text><feedback><text>There is no such division rule; the bound is the product of the two largest domains.</text></feedback></answer>
+    <generalfeedback><text>Consider just the two parameters with the largest domains. Their pairs number (largest × second-largest), and a single test row fixes one value for each, so it covers only one of those pairs. Hence at least (largest × second-largest) rows are required — that product is the pairwise lower bound.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How AETG builds a suite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does the AETG algorithm construct a pairwise test suite?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Greedily, adding one whole test row at a time that covers as many still-uncovered pairs as possible</text><feedback><text>Correct — AETG is a greedy one-row-at-a-time heuristic.</text></feedback></answer>
+    <answer fraction="0"><text>By enumerating every combination and then deleting redundant rows</text><feedback><text>AETG never enumerates the full product; it builds rows greedily to avoid that explosion.</text></feedback></answer>
+    <answer fraction="0"><text>By solving an exact integer program that guarantees the minimum suite</text><feedback><text>AETG is a heuristic; it is near-optimal, not guaranteed minimal.</text></feedback></answer>
+    <answer fraction="0"><text>By adding one parameter column at a time to a growing array</text><feedback><text>That describes IPOG's one-parameter-at-a-time strategy, not AETG.</text></feedback></answer>
+    <generalfeedback><text>AETG (Automatic Efficient Test Generator) greedily builds the suite one complete test row at a time, each time choosing a row that covers as many yet-uncovered pairs as possible. It is fast and near-optimal but not guaranteed to produce the smallest possible suite.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How IPOG builds a suite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the defining strategy of the IPOG algorithm?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>In-Parameter-Order growth: build the array for the first parameters, then extend it one parameter at a time, filling and adding rows to cover new pairs</text><feedback><text>Correct — IPOG grows the array horizontally (add a parameter) then vertically (add rows) as needed.</text></feedback></answer>
+    <answer fraction="0"><text>It randomly samples rows until all pairs happen to be covered</text><feedback><text>IPOG is deterministic and constructive, not random sampling.</text></feedback></answer>
+    <answer fraction="0"><text>It computes the exact minimal covering array by exhaustive search</text><feedback><text>IPOG is a greedy heuristic; it is near-optimal, not guaranteed minimal.</text></feedback></answer>
+    <answer fraction="0"><text>It tests one parameter in isolation and ignores interactions</text><feedback><text>IPOG explicitly covers pair interactions as it extends the array parameter by parameter.</text></feedback></answer>
+    <generalfeedback><text>IPOG (In-Parameter-Order Generation) builds a covering array for the first two parameters, then adds one parameter at a time: it horizontally extends existing rows to cover new pairs and vertically adds rows where needed. Like AETG it is a greedy, near-optimal heuristic, not guaranteed minimal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Orthogonal array vs covering array</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What distinguishes an <strong>orthogonal array</strong> from a general <strong>covering array</strong> for pairwise testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An orthogonal array requires each pair to appear the same fixed number of times (balanced); a covering array only requires each pair at least once</text><feedback><text>Correct — orthogonal arrays are balanced, a stronger special case.</text></feedback></answer>
+    <answer fraction="0"><text>An orthogonal array covers three-way combinations while a covering array covers only pairs</text><feedback><text>The distinction is balance, not strength; both can be defined at strength 2.</text></feedback></answer>
+    <answer fraction="0"><text>A covering array must be balanced while an orthogonal array need not be</text><feedback><text>This reverses the definitions — the orthogonal array is the balanced one.</text></feedback></answer>
+    <answer fraction="0"><text>An orthogonal array allows constraints while a covering array forbids them</text><feedback><text>Constraint handling is unrelated to the balance distinction between the two.</text></feedback></answer>
+    <generalfeedback><text>An orthogonal array requires that every pair of values appears exactly the same number of times (λ), making it balanced. A covering array only requires each pair at least once, so it is usually smaller and more flexible. Every orthogonal array is a covering array, but not vice versa.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of pairs for three 3-valued parameters</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Three parameters each have 3 values. How many distinct value-pairs must a pairwise suite cover in total?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>27</text><feedback><text>Correct — there are 3 parameter-pairs, each contributing 3 × 3 = 9 value-pairs: 3 × 9 = 27.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is the value-pairs for a single pair of parameters; there are 3 such parameter-pairs, giving 27.</text></feedback></answer>
+    <answer fraction="0"><text>18</text><feedback><text>18 counts only two of the three parameter-pairs; all C(3,2) = 3 pairs of parameters count.</text></feedback></answer>
+    <answer fraction="0"><text>81</text><feedback><text>81 would be raising the value count to a power; the total pairs are summed over parameter-pairs: 3 × (3 × 3) = 27.</text></feedback></answer>
+    <generalfeedback><text>The number of value-pairs to cover is the sum over each pair of parameters of (v_i × v_j). With 3 parameters there are C(3,2) = 3 parameter-pairs, each contributing 3 × 3 = 9, for 27 in total.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of pairs for 3 x 2 x 2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Three parameters have domain sizes 3, 2, and 2. How many distinct value-pairs must a pairwise suite cover in total?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16</text><feedback><text>Correct — (3×2) + (3×2) + (2×2) = 6 + 6 + 4 = 16.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 is the exhaustive test count (3 × 2 × 2), not the number of value-pairs.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the sum of the domain sizes; the number of pairs sums v_i × v_j over the three parameter-pairs.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 misses one parameter-pair; the three contributions are 6, 6, and 4, totalling 16.</text></feedback></answer>
+    <generalfeedback><text>Sum v_i × v_j over all pairs of parameters: parameters (P1=3, P2=2, P3=2) give P1-P2 = 6, P1-P3 = 6, P2-P3 = 4, for a total of 16 value-pairs.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Greedy generators and minimality</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Greedy pairwise generators such as AETG and IPOG always produce the smallest possible covering array.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — they are near-optimal heuristics and are not guaranteed to be minimal.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>AETG and IPOG are greedy heuristics; they are fast and near-optimal but not guaranteed to yield the minimum-size array.</text></feedback></answer>
+    <generalfeedback><text>Finding a minimum covering array is computationally hard. AETG and IPOG use greedy heuristics that produce small, near-optimal suites quickly, but the result may be larger than the true minimum.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Pairwise reduction versus exhaustive</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A system has parameters with domains 3, 3, and 3. Exhaustive testing needs 27 tests. What can we say about a pairwise suite for this system?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It needs at least 9 tests (the product of the two largest domains) and typically far fewer than the 27 exhaustive tests</text><feedback><text>Correct — the lower bound is 3 × 3 = 9, and a good pairwise suite is much smaller than exhaustive.</text></feedback></answer>
+    <answer fraction="0"><text>It needs exactly 27 tests, the same as exhaustive</text><feedback><text>Pairwise is smaller than exhaustive here; 27 is the full product.</text></feedback></answer>
+    <answer fraction="0"><text>It needs exactly 3 tests</text><feedback><text>3 tests cannot cover all 3 × 3 = 9 pairs of any two of the parameters.</text></feedback></answer>
+    <answer fraction="0"><text>It always needs the sum of the domain sizes, 9, exactly</text><feedback><text>9 is a lower bound, not always exactly achievable; and it is a product of the two largest domains, not a sum of all.</text></feedback></answer>
+    <generalfeedback><text>The pairwise lower bound is the product of the two largest domains: 3 × 3 = 9. A pairwise suite lies between that bound and the exhaustive 27; well-known constructions cover all pairs of three 3-valued parameters in as few as 9 rows, well below exhaustive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Balance property of orthogonal arrays</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the balance (index λ) property of an orthogonal array of strength 2?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every pair of values from any two columns appears in exactly λ rows</text><feedback><text>Correct — a fixed λ for every pair is what makes the array balanced.</text></feedback></answer>
+    <answer fraction="0"><text>Each column contains every value exactly once</text><feedback><text>That describes a permutation of a single column, not the two-column balance of an orthogonal array.</text></feedback></answer>
+    <answer fraction="0"><text>Every pair of values appears at least once, with no constraint on how often</text><feedback><text>"At least once" is the covering-array property; orthogonal arrays require exactly λ times.</text></feedback></answer>
+    <answer fraction="0"><text>The number of rows equals the number of columns</text><feedback><text>Rows and columns are independent; balance is about equal pair frequency, not a square shape.</text></feedback></answer>
+    <generalfeedback><text>In a strength-2 orthogonal array, for any two columns each ordered pair of values appears in exactly λ rows (λ is the index). This uniform frequency is stronger than the covering-array requirement of "at least once".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Pairwise lower bound for 4 x 3 x 3 x 2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A system has four parameters with domain sizes 4, 3, 3, and 2. What is the minimum number of tests any pairwise suite must contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>At least 12</text><feedback><text>Correct — the two largest domains are 4 and 3, so the bound is 4 × 3 = 12.</text></feedback></answer>
+    <answer fraction="0"><text>At least 72</text><feedback><text>72 is the exhaustive count (4 × 3 × 3 × 2); pairwise needs far fewer.</text></feedback></answer>
+    <answer fraction="0"><text>At least 9</text><feedback><text>9 uses 3 × 3; the two largest domains are 4 and 3, giving 12.</text></feedback></answer>
+    <answer fraction="0"><text>At least 24</text><feedback><text>24 (4 × 3 × 2) uses three domains; the lower bound uses only the two largest, 4 × 3 = 12.</text></feedback></answer>
+    <generalfeedback><text>The pairwise lower bound is the product of the two largest domains. Here the largest are 4 and 3, so any pairwise suite needs at least 4 × 3 = 12 rows.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Orthogonal array is a covering array</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Every orthogonal array of strength 2 is also a valid pairwise covering array.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — if every pair appears exactly λ ≥ 1 times, then in particular every pair appears at least once.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>An orthogonal array covers every pair exactly λ times, so it certainly covers every pair at least once — the covering-array requirement.</text></feedback></answer>
+    <generalfeedback><text>An orthogonal array is the balanced special case: each pair appears exactly λ times. Since λ ≥ 1, every pair appears at least once, so the array satisfies pairwise covering. The converse fails: a covering array need not be balanced.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why use greedy generators</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why are greedy heuristics like AETG and IPOG used to build pairwise suites instead of computing the exact minimum?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Finding a minimum covering array is computationally hard, so greedy methods trade a slightly larger suite for fast, practical generation</text><feedback><text>Correct — they give near-optimal results quickly where exact minimization is intractable.</text></feedback></answer>
+    <answer fraction="0"><text>Greedy methods are the only ones that can guarantee full pairwise coverage</text><feedback><text>Exact methods also guarantee coverage; greedy methods are chosen for speed, not because they are the only correct option.</text></feedback></answer>
+    <answer fraction="0"><text>Greedy methods always find a strictly smaller suite than any exact method</text><feedback><text>Exact methods find the true minimum; greedy suites are near-optimal and can be larger.</text></feedback></answer>
+    <answer fraction="0"><text>Greedy methods avoid covering some pairs, which makes them faster</text><feedback><text>Both AETG and IPOG still cover all required pairs; they are just heuristic about suite size.</text></feedback></answer>
+    <generalfeedback><text>Computing a provably minimum covering array is an NP-hard optimization problem. AETG and IPOG are greedy constructive heuristics that produce small, near-optimal suites in reasonable time while still guaranteeing complete pairwise coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>AETG versus IPOG growth direction</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Both AETG and IPOG are greedy pairwise generators. What is the key difference in how they grow the test suite?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>AETG adds one complete test row at a time; IPOG adds one parameter (column) at a time, extending and adding rows as needed</text><feedback><text>Correct — AETG grows row-by-row, IPOG grows parameter-by-parameter.</text></feedback></answer>
+    <answer fraction="0"><text>AETG guarantees the minimum suite; IPOG guarantees only pairwise coverage</text><feedback><text>Neither guarantees minimality; both are near-optimal heuristics that guarantee pairwise coverage.</text></feedback></answer>
+    <answer fraction="0"><text>AETG covers only pairs; IPOG covers all combinations exhaustively</text><feedback><text>Both target pairwise (2-way) coverage; IPOG does not build the exhaustive set.</text></feedback></answer>
+    <answer fraction="0"><text>AETG works only for binary parameters; IPOG works for any domain size</text><feedback><text>Both handle arbitrary domain sizes; the difference is the growth strategy.</text></feedback></answer>
+    <generalfeedback><text>AETG constructs the suite one whole row at a time, each row greedily covering as many uncovered pairs as possible. IPOG instead builds an array for the first parameters and then adds one parameter at a time (horizontal growth), adding rows when necessary (vertical growth). Both are greedy and near-optimal, not guaranteed minimal.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Pairwise Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Pairwise missing a three-way fault</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Three boolean flags A, B, C each take values on/off. A fault occurs <strong>only</strong> when A=on, B=on, and C=on all hold simultaneously. Why can a pairwise suite miss this fault?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Pairwise only guarantees each pair (e.g. A=on with B=on) appears, but never guarantees all three on-values occur together in one test</text><feedback><text>Correct — the triggering triple is a 3-way interaction, which 2-way coverage does not guarantee.</text></feedback></answer>
+    <answer fraction="0"><text>Pairwise never tests any flag set to on</text><feedback><text>Pairwise does test on-values; it just may not put all three on in the same row.</text></feedback></answer>
+    <answer fraction="0"><text>Pairwise always tests fewer than three parameters at a time, so C is ignored</text><feedback><text>All parameters get values in every row; the gap is that the specific triple may never coincide.</text></feedback></answer>
+    <answer fraction="0"><text>Pairwise requires each pair to appear exactly once, which excludes the failing combination</text><feedback><text>Pairwise requires each pair at least once; the issue is 3-way, not a frequency restriction.</text></feedback></answer>
+    <generalfeedback><text>A pairwise suite can cover (A=on,B=on), (A=on,C=on), and (B=on,C=on) across different rows without ever placing A=on, B=on, and C=on in the same row. Since the fault needs that exact 3-way combination, pairwise (t = 2) may miss it; detecting it requires t ≥ 3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Validity check: does this set cover all pairs (yes)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Three binary parameters A, B, C (each 0 or 1). Consider the four rows:<br>ABC = 000, 011, 101, 110.<br>Does this set cover every pair of values for every pair of parameters?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — all four value-pairs are covered for each of the three parameter-pairs</text><feedback><text>Correct — check A,B: 00,01,10,11; A,C: 00,01,11,10; B,C: 00,11,01,10 — all present.</text></feedback></answer>
+    <answer fraction="0"><text>No — the pair A=1, B=1 is missing</text><feedback><text>Row 110 has A=1, B=1, so that pair is present.</text></feedback></answer>
+    <answer fraction="0"><text>No — the pair B=0, C=0 is missing</text><feedback><text>Row 000 has B=0, C=0, so that pair is present.</text></feedback></answer>
+    <answer fraction="0"><text>No — four rows can never cover all pairs of three binary parameters</text><feedback><text>Four rows suffice here (the pairwise lower bound is 2 × 2 = 4), and this set achieves it.</text></feedback></answer>
+    <generalfeedback><text>Enumerate each parameter-pair. A,B over the rows: (0,0),(0,1),(1,0),(1,1). A,C: (0,0),(0,1),(1,1),(1,0). B,C: (0,0),(1,1),(0,1),(1,0). Each pair-set contains all four combinations, so this is a valid pairwise covering array of just 4 rows — matching the lower bound 2 × 2 = 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Validity check: does this set cover all pairs (no)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Three binary parameters A, B, C (each 0 or 1). Consider the three rows:<br>ABC = 000, 011, 101.<br>Does this set cover every pair of values for every pair of parameters?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — the pair A=1, B=1 never appears (and other pairs are missing too)</text><feedback><text>Correct — A,B over the rows gives only (0,0),(0,1),(1,0); (1,1) is missing.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — all pairs are covered</text><feedback><text>The pair A=1,B=1 is absent, so coverage is incomplete.</text></feedback></answer>
+    <answer fraction="0"><text>No — but only because A=0, B=0 is missing</text><feedback><text>Row 000 supplies A=0,B=0; the genuinely missing pair is A=1,B=1.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — three rows always suffice for three binary parameters</text><feedback><text>The pairwise lower bound here is 2 × 2 = 4, so three rows cannot cover all pairs.</text></feedback></answer>
+    <generalfeedback><text>A,B over rows 000, 011, 101 gives (0,0),(0,1),(1,0) — the pair (1,1) is never present. (B,C also misses (1,0).) With only three rows you fall below the pairwise lower bound of 2 × 2 = 4, so full pairwise coverage is impossible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Higher strength for a 3-way fault</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If a fault is triggered only by a specific combination of three particular parameters, what is the minimum interaction strength t a covering array must have to guarantee detection?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>t = 3 (three-way coverage)</text><feedback><text>Correct — a 3-way fault is only guaranteed to be exercised by a strength-3 (or higher) covering array.</text></feedback></answer>
+    <answer fraction="0"><text>t = 2 (pairwise) is sufficient</text><feedback><text>Pairwise guarantees only 2-way combinations; the specific triple may never coincide.</text></feedback></answer>
+    <answer fraction="0"><text>t = 1 (each-choice) is sufficient</text><feedback><text>Each-choice only guarantees each single value appears, far weaker than needed.</text></feedback></answer>
+    <answer fraction="0"><text>No covering array can ever guarantee it</text><feedback><text>A strength-3 covering array guarantees every 3-way combination, including the triggering one.</text></feedback></answer>
+    <generalfeedback><text>To guarantee that a specific 3-way value combination is exercised, the covering array must have strength t ≥ 3, since only then is every triple of parameter values guaranteed to appear together in some row.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Exhaustive for ten binary parameters</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A system has ten independent boolean parameters (each on/off). How many tests does <strong>exhaustive</strong> testing require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1024</text><feedback><text>Correct — 2^10 = 1024.</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 is 2 × 10; exhaustive is 2 raised to the number of parameters, 2^10 = 1024.</text></feedback></answer>
+    <answer fraction="0"><text>100</text><feedback><text>100 is 10^2; the base is 2 (values) raised to 10 (parameters): 2^10 = 1024.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 (2 × 2) is the pairwise lower bound for binary parameters, not the exhaustive count.</text></feedback></answer>
+    <generalfeedback><text>Exhaustive is the product of domain sizes: for ten binary parameters that is 2^10 = 1024. A pairwise suite for the same system needs only a handful of rows, illustrating the reduction — while its lower bound stays at just 2 × 2 = 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Pairwise lower bound for 5 x 4 x 3 x 2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A system has four parameters with domain sizes 5, 4, 3, and 2. What is the minimum number of tests any pairwise suite must contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>At least 20</text><feedback><text>Correct — the two largest domains are 5 and 4, so the bound is 5 × 4 = 20.</text></feedback></answer>
+    <answer fraction="0"><text>At least 120</text><feedback><text>120 is the exhaustive count (5 × 4 × 3 × 2); pairwise needs far fewer.</text></feedback></answer>
+    <answer fraction="0"><text>At least 15</text><feedback><text>15 uses 5 × 3; the two largest domains are 5 and 4, giving 20.</text></feedback></answer>
+    <answer fraction="0"><text>At least 60</text><feedback><text>60 (5 × 4 × 3) uses three domains; the lower bound uses only the two largest, 5 × 4 = 20.</text></feedback></answer>
+    <generalfeedback><text>The pairwise lower bound is the product of the two largest domains: 5 × 4 = 20. (For reference, exhaustive here is 5 × 4 × 3 × 2 = 120.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Number of pairs for four binary parameters</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Four parameters are each binary (2 values). How many distinct value-pairs must a pairwise suite cover in total?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>24</text><feedback><text>Correct — C(4,2) = 6 parameter-pairs, each with 2 × 2 = 4 value-pairs: 6 × 4 = 24.</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 is the exhaustive count (2^4), not the number of value-pairs to cover.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 would be 3 parameter-pairs × 4; there are C(4,2) = 6 parameter-pairs, giving 24.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 is 4 parameters × 2 values; the number of value-pairs sums 2 × 2 over all 6 parameter-pairs.</text></feedback></answer>
+    <generalfeedback><text>Number of value-pairs = sum over parameter-pairs of v_i × v_j. With four binary parameters there are C(4,2) = 6 parameter-pairs, each contributing 2 × 2 = 4, for 6 × 4 = 24 value-pairs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Concrete 3-way interaction fault</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A media player crashes only when the codec is H.265, the container is MKV, and hardware acceleration is enabled — no smaller combination triggers it. A pairwise suite over {codec, container, hw-accel, resolution} was run and passed. What does this tell us?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The fault is a genuine 3-way interaction that a 2-way suite is not guaranteed to expose, so passing pairwise does not prove its absence</text><feedback><text>Correct — the crash needs a specific triple, which pairwise does not guarantee to place in one row.</text></feedback></answer>
+    <answer fraction="0"><text>The fault cannot exist, because pairwise testing detects all interaction faults</text><feedback><text>Pairwise only guarantees 2-way interactions; 3-way faults can slip through.</text></feedback></answer>
+    <answer fraction="0"><text>The pairwise suite was invalid, since a correct one would always catch this</text><feedback><text>A valid pairwise suite covers all pairs but is not required to cover this triple; the suite can be correct yet miss the fault.</text></feedback></answer>
+    <answer fraction="0"><text>Only exhaustive testing could ever have run the H.265 codec at all</text><feedback><text>Pairwise does exercise H.265 in some rows; it just may not combine it with MKV and hw-accel together.</text></feedback></answer>
+    <generalfeedback><text>The crash requires the exact triple (H.265, MKV, hw-accel on). A pairwise suite guarantees every pair of these appears, but not necessarily all three in the same test, so it can pass while the 3-way fault remains. Detecting it requires a strength-3 covering array (or exhaustive testing).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of constraints on valid combinations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An OS parameter has values {Windows, macOS, Linux} and a browser parameter has {Safari, Chrome, Edge}. A constraint says Safari runs only on macOS, and Edge is excluded on Linux. How do such constraints affect combinatorial test generation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Invalid pairs are removed from the coverage requirement, so the generator must cover only the pairs that satisfy the constraints</text><feedback><text>Correct — constraints prune infeasible combinations from what must be covered and from generated rows.</text></feedback></answer>
+    <answer fraction="0"><text>Constraints are ignored, and every syntactic pair is still forced into the suite</text><feedback><text>Constraint-aware generation must not emit infeasible rows such as Safari on Linux.</text></feedback></answer>
+    <answer fraction="0"><text>Constraints force the suite to become exhaustive</text><feedback><text>Constraints reduce, not increase, the set of feasible combinations.</text></feedback></answer>
+    <answer fraction="0"><text>Constraints require switching from pairwise to each-choice coverage</text><feedback><text>Pairwise still applies; the generator just excludes infeasible pairs and rows.</text></feedback></answer>
+    <generalfeedback><text>Constraints declare certain combinations invalid (e.g. Safari only on macOS). A constraint-aware generator excludes those infeasible pairs from the coverage obligation and never emits a row that violates a constraint, which typically shrinks both the required pairs and the suite.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why greedy suites may not be minimal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two engineers each run IPOG on the same model but list the parameters in a different order and get pairwise suites of different sizes. What does this illustrate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>IPOG is a greedy heuristic whose result depends on choices like parameter order, so it is near-optimal but not guaranteed minimal</text><feedback><text>Correct — greedy construction can yield different, non-minimal sizes depending on ordering.</text></feedback></answer>
+    <answer fraction="0"><text>One of the two suites must be invalid, since a correct suite has a unique size</text><feedback><text>Both can be valid pairwise suites; valid suites need not all be the same size.</text></feedback></answer>
+    <answer fraction="0"><text>Pairwise coverage is undefined when parameter order changes</text><feedback><text>Pairwise coverage is well-defined regardless of order; only the heuristic's output size varies.</text></feedback></answer>
+    <answer fraction="0"><text>The larger suite failed to cover some pairs</text><feedback><text>Both cover all pairs by construction; the size difference reflects heuristic choices, not missing coverage.</text></feedback></answer>
+    <generalfeedback><text>IPOG builds the array incrementally, and decisions such as parameter order affect how efficiently rows get reused. Both suites cover all pairs, but one may be larger — showing the algorithm is near-optimal, not guaranteed to produce the minimum covering array.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>3-way strength subsumes pairwise</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Does a strength-3 (three-way) covering array also satisfy pairwise (2-way) coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — if every triple of values is covered, then in particular every pair within those triples is covered</text><feedback><text>Correct — higher strength subsumes all lower strengths.</text></feedback></answer>
+    <answer fraction="0"><text>No — three-way and two-way coverage are unrelated</text><feedback><text>They are related: covering all triples necessarily covers all pairs.</text></feedback></answer>
+    <answer fraction="0"><text>Only if the array is also an orthogonal array</text><feedback><text>Balance is not required; any strength-3 covering array already covers all pairs.</text></feedback></answer>
+    <answer fraction="0"><text>Only if all parameters are binary</text><feedback><text>The subsumption holds for any domain sizes, not just binary.</text></feedback></answer>
+    <generalfeedback><text>A strength-t covering array subsumes all strengths below t: covering every t-tuple guarantees every smaller sub-tuple is covered too. So a 3-way array automatically provides 2-way (pairwise) coverage — at greater cost.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of CA(N; 3, k, v)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the notation <code>CA(N; 3, k, v)</code> describe?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An N-row covering array over k parameters of v values each, in which every 3-way value combination is covered at least once</text><feedback><text>Correct — the 3 is the strength, so all triples are covered.</text></feedback></answer>
+    <answer fraction="0"><text>An array with exactly 3 rows over k parameters</text><feedback><text>The number of rows is N; the 3 is the interaction strength.</text></feedback></answer>
+    <answer fraction="0"><text>An array covering only 3 of the k parameters</text><feedback><text>All k parameters are covered; strength 3 means every group of 3 has all its combinations covered.</text></feedback></answer>
+    <answer fraction="0"><text>An array where each parameter has exactly 3 values</text><feedback><text>The number of values is v; the 3 in that position is the strength t.</text></feedback></answer>
+    <generalfeedback><text>CA(N; 3, k, v) is a covering array with N rows, strength t = 3, k parameters, and v values per parameter, guaranteeing every 3-way combination of values appears in at least one row.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Three-way fault can escape pairwise</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A fault that is triggered only by a specific three-parameter interaction can pass undetected through an otherwise valid pairwise test suite.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — pairwise guarantees only 2-way combinations, so the triggering triple may never occur in one row.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Pairwise only guarantees 2-way coverage; a fault needing a specific 3-way combination can slip through a valid pairwise suite.</text></feedback></answer>
+    <generalfeedback><text>Pairwise (t = 2) guarantees every pair of values appears together, but not every triple. A fault requiring a particular 3-way interaction can therefore escape a fully valid pairwise suite; catching it needs strength t ≥ 3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Smallest strength that equals exhaustive</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a system with k parameters, at what interaction strength t does t-way (covering-array) testing become equivalent to exhaustive testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When t = k (the strength equals the number of parameters)</text><feedback><text>Correct — covering every k-tuple is exactly the full Cartesian product.</text></feedback></answer>
+    <answer fraction="0"><text>When t = 2, since pairwise already covers everything</text><feedback><text>Pairwise covers pairs, not all full combinations; it is much smaller than exhaustive.</text></feedback></answer>
+    <answer fraction="0"><text>When t = 1</text><feedback><text>t = 1 is each-choice, the weakest criterion, nowhere near exhaustive.</text></feedback></answer>
+    <answer fraction="0"><text>t-way testing can never equal exhaustive testing</text><feedback><text>At t = k every combination of all k parameters must appear, which is exactly exhaustive.</text></feedback></answer>
+    <generalfeedback><text>When the strength t equals the number of parameters k, covering every t-tuple means covering every full combination of all parameters — the exhaustive Cartesian product. So exhaustive testing is the t = k case of t-way combinatorial testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Is the lower bound always achievable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For four binary parameters, the pairwise lower bound is 2 × 2 = 4. Can a pairwise suite of exactly 4 rows actually cover all pairs for four binary parameters?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — 4 rows are impossible here; the true minimum is 5, so the lower bound is not always achievable</text><feedback><text>Correct — 4 rows can cover all pairs for at most three binary parameters; a fourth forces a fifth row.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — the lower bound is always exactly achievable</text><feedback><text>The product-of-two-largest bound is a lower bound, not always tight; here 4 rows are provably insufficient.</text></feedback></answer>
+    <answer fraction="0"><text>No — the true minimum is 16, the exhaustive count</text><feedback><text>Pairwise needs far fewer than exhaustive; the minimum here is 5, not 16.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — but only if the four parameters are statistically independent</text><feedback><text>Independence does not help; 4 rows cannot cover all six parameter-pairs' combinations for four binary parameters.</text></feedback></answer>
+    <generalfeedback><text>Fitting all pairs of four binary parameters into 4 rows would require every pair of columns to show all four combinations exactly once — an orthogonal array of index 1, which for strength 2 admits at most (N-1)/(v-1) = 3 binary factors. A fourth factor cannot fit, so at least 5 rows are needed (and 5 suffices). The lower bound of 4 is therefore not achievable here — it bounds, but does not always equal, the minimum.</text></generalfeedback>
+  </question>
+</quiz>
