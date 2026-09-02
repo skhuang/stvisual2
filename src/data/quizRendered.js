@@ -28053,6 +28053,2502 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "flaky-diagnosis": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What is a flaky test",
+          "text": "<p>A <em>flaky test</em> is best described as a test that:</p>",
+          "answers": [
+            {
+              "text": "Passes and fails non-deterministically on the same code and the same inputs, without any change to what is under test",
+              "fraction": 100,
+              "feedback": "Correct — flakiness is a non-deterministic result on unchanged code and inputs."
+            },
+            {
+              "text": "Fails every single time it is run against a particular version of the code",
+              "fraction": 0,
+              "feedback": "That is a consistent, deterministic failure, not flakiness; a flaky test's outcome varies between runs."
+            },
+            {
+              "text": "Runs more slowly than the other tests in the suite",
+              "fraction": 0,
+              "feedback": "Slowness is a performance issue; flakiness is about a non-deterministic pass/fail outcome."
+            },
+            {
+              "text": "Fails only after the code under test is deliberately changed to introduce a bug",
+              "fraction": 0,
+              "feedback": "Detecting a real change is exactly what a good test should do; flakiness is failing without any such change."
+            }
+          ],
+          "generalFeedback": "A flaky test produces different results — sometimes pass, sometimes fail — across runs even though the code under test and the inputs are unchanged. The defining property is non-determinism: the outcome is not fully determined by what is being tested.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What determinism means for a test",
+          "text": "<p>A test is said to be <em>deterministic</em> when:</p>",
+          "answers": [
+            {
+              "text": "Given the same code and inputs, it always produces the same result (always pass, or always fail)",
+              "fraction": 100,
+              "feedback": "Correct — a deterministic test yields the same outcome every run for the same code and inputs."
+            },
+            {
+              "text": "It always passes no matter what the code does",
+              "fraction": 0,
+              "feedback": "A test that always passes is useless, not deterministic; determinism means a repeatable outcome, which may be pass or fail."
+            },
+            {
+              "text": "It finishes running in under one second",
+              "fraction": 0,
+              "feedback": "Execution speed is unrelated to determinism, which is about a repeatable outcome."
+            },
+            {
+              "text": "It uses randomly generated inputs on every run",
+              "fraction": 0,
+              "feedback": "Unseeded random inputs make a test non-deterministic; determinism is the opposite property."
+            }
+          ],
+          "generalFeedback": "Determinism means the test's result is fully determined by the code and inputs: run it a thousand times on unchanged code and it gives the same verdict every time. Flakiness is precisely a loss of determinism, and restoring determinism is the goal of remediation.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Consistent failure is not flakiness",
+          "text": "<p>A test that fails on every single run against the same code is a flaky test.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — a test that always fails is deterministic (a consistent, reproducible failure), not flaky."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: always failing is a deterministic result. Flakiness means the outcome varies non-deterministically between runs of the same code."
+            }
+          ],
+          "generalFeedback": "Flakiness is defined by non-determinism: the same code and inputs sometimes pass and sometimes fail. A test that fails every time is a consistent, reproducible failure — usually pointing at a real defect — and should be debugged as such, not labelled flaky."
+        },
+        {
+          "type": "truefalse",
+          "name": "Flakiness erodes trust and masks real bugs",
+          "text": "<p>Flaky tests are harmful mainly because they erode the team's trust in the test suite and can mask genuine failures.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — repeated false alarms make people stop trusting and stop reading test results, so a real failure hidden among them gets ignored."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is wrong: the erosion of trust and the masking of real failures are exactly the central harms of flakiness."
+            }
+          ],
+          "generalFeedback": "When a suite fails intermittently for no real reason, developers learn to shrug off red builds and simply re-run them. That destroys the signal value of the suite: a genuine regression sitting in the noise is dismissed as \"just flaky\", so real bugs slip through. Flakiness also wastes time on reruns and investigation."
+        },
+        {
+          "type": "multichoice",
+          "name": "Common cause: fixed sleeps and timing",
+          "text": "<p>Which of the following is a common cause of flaky tests?</p>",
+          "answers": [
+            {
+              "text": "Relying on a fixed sleep (for example, \"wait 100 ms\") for an asynchronous action that is sometimes not yet ready",
+              "fraction": 100,
+              "feedback": "Correct — a fixed wait is a classic timing cause: if the action occasionally takes longer, the test fails intermittently."
+            },
+            {
+              "text": "Giving each test its own fresh, isolated fixture",
+              "fraction": 0,
+              "feedback": "Fresh isolated fixtures reduce flakiness; they are a remediation, not a cause."
+            },
+            {
+              "text": "Asserting on an exact, hard-coded expected value",
+              "fraction": 0,
+              "feedback": "A precise expected value normally makes a test more deterministic, not flaky."
+            },
+            {
+              "text": "Running each test in a completely separate process",
+              "fraction": 0,
+              "feedback": "Strong isolation tends to prevent flakiness rather than cause it."
+            }
+          ],
+          "generalFeedback": "Fixed sleeps are one of the most common sources of flakiness: they encode a guess about how long an asynchronous operation takes. When the operation occasionally runs slower (a loaded machine, a slow network), the sleep expires before the action completes and the test fails — non-deterministically.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Common cause: unseeded randomness",
+          "text": "<p>A test generates its input data with a random number generator that is never given a fixed seed. Why is this a flakiness risk?</p>",
+          "answers": [
+            {
+              "text": "Each run uses different random data, so the test can pass on most runs and occasionally fail on an unlucky value",
+              "fraction": 100,
+              "feedback": "Correct — unseeded randomness makes the inputs vary run to run, producing non-deterministic outcomes."
+            },
+            {
+              "text": "Random data always makes tests run faster, which causes failures",
+              "fraction": 0,
+              "feedback": "Speed is not the issue; the problem is that the inputs differ every run, so the result is non-deterministic."
+            },
+            {
+              "text": "Random data is always invalid, so the test can never pass",
+              "fraction": 0,
+              "feedback": "Random data is not inherently invalid; the flakiness comes from the inputs varying between runs."
+            },
+            {
+              "text": "The random generator uses too much memory",
+              "fraction": 0,
+              "feedback": "Memory use is irrelevant; unseeded randomness causes flakiness by varying the inputs each run."
+            }
+          ],
+          "generalFeedback": "An unseeded random generator produces different inputs on every run. Most inputs may pass while a rare one triggers a failure, so the test's outcome varies non-deterministically. (Note that such an occasional failure may be exposing a genuine bug for a specific input.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Common cause: shared mutable state between tests",
+          "text": "<p>Which situation is a common cause of flakiness related to <em>test order</em>?</p>",
+          "answers": [
+            {
+              "text": "Tests share mutable state (for example a global variable or database rows) and one test leaves data behind that affects another",
+              "fraction": 100,
+              "feedback": "Correct — leftover shared state creates order-dependent, non-deterministic results."
+            },
+            {
+              "text": "Each test creates and tears down its own private data",
+              "fraction": 0,
+              "feedback": "Per-test private data prevents order dependence; it is a fix, not a cause."
+            },
+            {
+              "text": "Every test asserts exactly one thing",
+              "fraction": 0,
+              "feedback": "Single-assertion tests are unrelated to order dependence."
+            },
+            {
+              "text": "Tests are given descriptive names",
+              "fraction": 0,
+              "feedback": "Naming has no bearing on order dependence or flakiness."
+            }
+          ],
+          "generalFeedback": "When tests share mutable state, the outcome of one test can depend on whether — and in what order — another test ran first. Leftover data or a mutated global makes results depend on execution order, which many runners do not guarantee, producing intermittent failures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Common cause: external dependency",
+          "text": "<p>Why can calling a real external service (such as a third-party network API) from a unit test cause flakiness?</p>",
+          "answers": [
+            {
+              "text": "The external service may be slow, unavailable, or return varying data, so the test outcome depends on factors outside the code under test",
+              "fraction": 100,
+              "feedback": "Correct — an external dependency introduces variability the test cannot control, causing intermittent failures."
+            },
+            {
+              "text": "External services always return exactly the same response, which forces failures",
+              "fraction": 0,
+              "feedback": "The opposite is true: their responses and availability vary, which is what makes the test flaky."
+            },
+            {
+              "text": "Network calls make the assertions stricter",
+              "fraction": 0,
+              "feedback": "Assertion strictness is unrelated; the flakiness comes from the uncontrolled external variability."
+            },
+            {
+              "text": "The test framework forbids network access, so the test cannot compile",
+              "fraction": 0,
+              "feedback": "Frameworks generally permit network calls; the issue is the non-determinism they introduce."
+            }
+          ],
+          "generalFeedback": "A real external dependency is outside the test's control: it can be slow, temporarily down, rate-limited, or return changing data. The test then passes or fails depending on the service's state at that moment rather than on the code under test, which is exactly non-determinism.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Common cause: current date or time",
+          "text": "<p>A test uses the machine's current date/time (the wall clock) in its logic. Why is this a flakiness risk?</p>",
+          "answers": [
+            {
+              "text": "The result can depend on when the test happens to run — a particular hour, day boundary, or timezone — so it may pass at some times and fail at others",
+              "fraction": 100,
+              "feedback": "Correct — a test tied to the real clock is non-deterministic because the clock keeps changing."
+            },
+            {
+              "text": "Reading the clock is always too slow, which causes timeouts",
+              "fraction": 0,
+              "feedback": "Clock reads are fast; the problem is that the value changes over time, making the result depend on when it runs."
+            },
+            {
+              "text": "The current time is always the same, so the test is over-constrained",
+              "fraction": 0,
+              "feedback": "The current time is precisely what keeps changing; that variability is the cause."
+            },
+            {
+              "text": "Dates cannot be compared in most languages",
+              "fraction": 0,
+              "feedback": "Dates can be compared fine; the flakiness comes from depending on the live, changing clock."
+            }
+          ],
+          "generalFeedback": "Using the live wall clock ties the test's outcome to the moment it runs. It might pass during the day but fail across a midnight boundary, at month-end, or in a different timezone. Because the clock keeps changing, the result is not reproducible — the hallmark of flakiness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the flaky symptom",
+          "text": "<p>Which observed behaviour is a clear symptom of a flaky test?</p>",
+          "answers": [
+            {
+              "text": "Re-running the exact same test on the exact same commit gives a pass one time and a fail the next",
+              "fraction": 100,
+              "feedback": "Correct — a differing result on unchanged code across re-runs is the signature of flakiness."
+            },
+            {
+              "text": "The test fails, and after you fix a real bug in the code it passes",
+              "fraction": 0,
+              "feedback": "That is normal, correct behaviour: the test detected and then confirmed the fix of a real defect."
+            },
+            {
+              "text": "The test fails to compile because of a syntax error",
+              "fraction": 0,
+              "feedback": "A compile error fails deterministically every run; it is a build problem, not flakiness."
+            },
+            {
+              "text": "The test passes every time on every machine",
+              "fraction": 0,
+              "feedback": "A consistently passing test is deterministic and stable, the opposite of flaky."
+            }
+          ],
+          "generalFeedback": "Flakiness shows up as different verdicts for the same code across repeated runs. If nothing under test changed but the result flips between pass and fail, the test is flaky. Deterministic failures (a bug, a syntax error) and consistent passes are not flakiness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Common cause: unordered collection iteration",
+          "text": "<p>A test asserts that iterating a hash-based set/map yields elements in a specific order. Why is this a flakiness risk?</p>",
+          "answers": [
+            {
+              "text": "Hash-based collections do not guarantee a stable iteration order, so the order can vary between runs or environments",
+              "fraction": 100,
+              "feedback": "Correct — relying on an unspecified iteration order makes the outcome non-deterministic."
+            },
+            {
+              "text": "Hash collections can only ever hold one element",
+              "fraction": 0,
+              "feedback": "They hold many elements; the issue is that their iteration order is not guaranteed."
+            },
+            {
+              "text": "Iterating a collection always throws an exception",
+              "fraction": 0,
+              "feedback": "Iteration works normally; the flakiness comes from the unspecified order."
+            },
+            {
+              "text": "Sets and maps always iterate in sorted order",
+              "fraction": 0,
+              "feedback": "Hash-based sets/maps generally do not guarantee sorted or stable order, which is exactly the problem."
+            }
+          ],
+          "generalFeedback": "Many hash-based collections make no promise about iteration order; it can depend on hashing, insertion history, capacity, or the runtime version. Asserting a particular order against such a collection ties the test to an implementation detail that can change between runs, causing intermittent failures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Common cause: environment differences",
+          "text": "<p>A test passes on every developer laptop but fails sometimes on the CI server. Which cause of flakiness does this most suggest?</p>",
+          "answers": [
+            {
+              "text": "An environment difference — CI differs from the laptops in timing, resources, locale, or configuration",
+              "fraction": 100,
+              "feedback": "Correct — a result that depends on where it runs points to an environment-related cause."
+            },
+            {
+              "text": "The test assertions are too descriptive",
+              "fraction": 0,
+              "feedback": "Descriptive assertions do not cause environment-specific flakiness."
+            },
+            {
+              "text": "The code under test has no bugs at all",
+              "fraction": 0,
+              "feedback": "Whether the code has bugs is a separate matter; the pattern points to an environment difference."
+            },
+            {
+              "text": "The test file is too long",
+              "fraction": 0,
+              "feedback": "File length is irrelevant to environment-dependent flakiness."
+            }
+          ],
+          "generalFeedback": "A test that behaves differently by environment is depending on something the environment supplies — CPU speed and load (affecting timing), available memory, CPU/core count (affecting concurrency), default locale or timezone, or configuration. CI often differs from a laptop in exactly these ways, exposing hidden assumptions.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Flakiness wastes time on reruns",
+          "text": "<p>One real cost of flaky tests is the time developers spend re-running builds and investigating failures that turn out not to be real.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — reruns and chasing phantom failures consume real engineering time and slow the pipeline."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is wrong: wasted time on reruns and false-alarm investigation is a well-known cost of flakiness."
+            }
+          ],
+          "generalFeedback": "Beyond eroding trust and masking real failures, flakiness has a direct productivity cost: pipelines are re-triggered, engineers stop to investigate red builds that were never real, and merges are delayed. That wasted effort is a major reason flakiness is worth fixing rather than tolerating."
+        },
+        {
+          "type": "multichoice",
+          "name": "What quarantine means",
+          "text": "<p>To <em>quarantine</em> a flaky test means to:</p>",
+          "answers": [
+            {
+              "text": "Temporarily separate it so its intermittent failures no longer block the pipeline, while it is tracked and scheduled for a real fix",
+              "fraction": 100,
+              "feedback": "Correct — quarantine isolates the noise from the pipeline but the test must still be tracked and fixed."
+            },
+            {
+              "text": "Permanently delete the test from the codebase",
+              "fraction": 0,
+              "feedback": "Deleting the test throws away its coverage; quarantine keeps it, isolated and tracked, until it is fixed."
+            },
+            {
+              "text": "Automatically retry it until it eventually passes, then forget about it",
+              "fraction": 0,
+              "feedback": "Blind retry-and-forget hides the problem; quarantine explicitly keeps the test tracked for a real fix."
+            },
+            {
+              "text": "Mark it as always passing regardless of the result",
+              "fraction": 0,
+              "feedback": "Forcing a pass destroys the test's value; quarantine sets it aside from the blocking gate but keeps it honest and tracked."
+            }
+          ],
+          "generalFeedback": "Quarantine moves a known-flaky test out of the path that blocks merges, so its noise stops disrupting everyone, but it stays visible on a tracked list and is scheduled for root-cause remediation. Quarantine is a containment step, not a fix — an untracked quarantine is just a hidden bug.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Common cause: race condition in concurrent code",
+          "text": "<p>Which of the following is a common cause of flaky tests?</p>",
+          "answers": [
+            {
+              "text": "A race condition, where the outcome depends on the unpredictable interleaving of concurrent threads or operations",
+              "fraction": 100,
+              "feedback": "Correct — races make the result depend on timing of interleavings, which varies run to run."
+            },
+            {
+              "text": "Asserting on a value that is fixed and computed synchronously",
+              "fraction": 0,
+              "feedback": "A synchronous, fixed computation is deterministic; it does not cause flakiness."
+            },
+            {
+              "text": "Giving each test its own independent copy of the data",
+              "fraction": 0,
+              "feedback": "Independent per-test data reduces flakiness; it is a remediation, not a cause."
+            },
+            {
+              "text": "Writing a clear, descriptive test name",
+              "fraction": 0,
+              "feedback": "Naming has no effect on determinism; a race condition does."
+            }
+          ],
+          "generalFeedback": "A race condition means two or more concurrent operations can interleave in more than one way, and the test's result depends on which interleaving happens. Because the scheduler chooses interleavings unpredictably, the outcome varies between runs — classic flakiness, and often a symptom of a genuine concurrency bug in the code.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Symptom: passes alone, fails in the suite",
+          "text": "<p>A test passes when run by itself, but fails when run as part of the full suite. What is the most likely cause?</p>",
+          "answers": [
+            {
+              "text": "Order dependence: another test leaves behind shared state that this test relies on or is disturbed by",
+              "fraction": 100,
+              "feedback": "Correct — passing alone but failing in the suite is the classic signature of shared-state order dependence."
+            },
+            {
+              "text": "The test's assertions are simply wrong",
+              "fraction": 0,
+              "feedback": "If the assertions were wrong it would also fail when run alone; the alone/suite difference points to shared state."
+            },
+            {
+              "text": "The machine is too fast",
+              "fraction": 0,
+              "feedback": "Machine speed does not explain why the result depends on whether other tests ran; shared state does."
+            },
+            {
+              "text": "The test has too few assertions",
+              "fraction": 0,
+              "feedback": "Assertion count is unrelated; the alone-versus-suite difference indicates order dependence via shared state."
+            }
+          ],
+          "generalFeedback": "When a test's verdict changes depending on whether other tests ran first, some state is being shared between tests — a global, a static field, a cache, a file, or database rows. The fix is to isolate and reset state per test so each runs from a clean, known starting point.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symptom: intermittent failure near a timeout",
+          "text": "<p>A UI test fails intermittently right where it waits a fixed amount of time for a button to appear, but usually passes. What is the most likely cause?</p>",
+          "answers": [
+            {
+              "text": "A timing problem: the fixed wait is sometimes too short because the element occasionally takes longer to appear",
+              "fraction": 100,
+              "feedback": "Correct — an intermittent failure at a fixed wait is a timing/async readiness issue."
+            },
+            {
+              "text": "The button's text is spelled incorrectly in the assertion",
+              "fraction": 0,
+              "feedback": "A wrong string would fail consistently, not intermittently; the intermittency points to timing."
+            },
+            {
+              "text": "The test has a syntax error",
+              "fraction": 0,
+              "feedback": "A syntax error fails every run; intermittent failure at a wait indicates a timing cause."
+            },
+            {
+              "text": "The database schema is out of date",
+              "fraction": 0,
+              "feedback": "A schema problem would not appear only sometimes at a wait step; timing does."
+            }
+          ],
+          "generalFeedback": "Intermittent failure exactly at a fixed wait is the fingerprint of a timing/async problem: the element's readiness time varies, and when it exceeds the hard-coded wait the assertion runs too early. The fix is to poll for the condition (an explicit/conditional wait) instead of sleeping a fixed amount.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symptom: fails only around midnight",
+          "text": "<p>A test almost always passes, but the nightly build occasionally fails it around midnight. What cause should you suspect first?</p>",
+          "answers": [
+            {
+              "text": "A date/time dependence: the test's logic behaves differently across a day boundary",
+              "fraction": 100,
+              "feedback": "Correct — failures clustered at a time boundary point to wall-clock/date dependence."
+            },
+            {
+              "text": "The test uses too much memory only at night",
+              "fraction": 0,
+              "feedback": "Memory use is not tied to the midnight boundary; the timing of the failure points to a date dependence."
+            },
+            {
+              "text": "The assertions are too strict",
+              "fraction": 0,
+              "feedback": "Strict assertions would fail regardless of the hour; the midnight clustering indicates date/time dependence."
+            },
+            {
+              "text": "The CI server has too many cores",
+              "fraction": 0,
+              "feedback": "Core count does not explain failures specifically at midnight; a date boundary does."
+            }
+          ],
+          "generalFeedback": "Failures that cluster at a particular time (midnight, month-end, a DST change) betray reliance on the live clock. Something like \"the record was created today\" or a date arithmetic breaks when the run crosses the boundary. Inject or freeze the clock so the test controls time rather than reading it live.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symptom: fails only when tests are reordered",
+          "text": "<p>Your suite passes normally, but starts failing when the runner executes the tests in a randomized order. What does this reveal?</p>",
+          "answers": [
+            {
+              "text": "Order dependence: at least one test relies on the side effects of another, so a different order breaks it",
+              "fraction": 100,
+              "feedback": "Correct — failing under reordering is direct evidence of hidden order dependence."
+            },
+            {
+              "text": "The random-order feature of the runner is broken",
+              "fraction": 0,
+              "feedback": "Randomized order is a standard, working feature; it exposed a real dependency rather than causing one."
+            },
+            {
+              "text": "The tests are too fast to run in a new order",
+              "fraction": 0,
+              "feedback": "Speed is irrelevant; failing only under reordering shows the tests depend on execution order."
+            },
+            {
+              "text": "Randomizing order always makes correct tests fail",
+              "fraction": 0,
+              "feedback": "It does not — independent, well-isolated tests pass in any order; failure signals a real dependency."
+            }
+          ],
+          "generalFeedback": "Running tests in a randomized order is a deliberate detection technique. Properly isolated tests pass in any order; if reordering causes failures, some tests are coupled through shared state or an assumed sequence. Fix by isolating and resetting state so each test is independent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix for a fixed sleep",
+          "text": "<p>A test waits for an asynchronous result using a fixed <code>sleep(500 ms)</code> and is flaky. What is the correct deterministic fix?</p>",
+          "answers": [
+            {
+              "text": "Replace the fixed sleep with an explicit/conditional wait that polls for the result to be ready, up to a sensible timeout",
+              "fraction": 100,
+              "feedback": "Correct — waiting for the actual condition (with a timeout) removes the guesswork and the flakiness."
+            },
+            {
+              "text": "Increase the sleep to 5 seconds and leave it as a fixed sleep",
+              "fraction": 0,
+              "feedback": "A longer fixed sleep only lowers the failure rate while slowing every run; it does not remove the non-determinism."
+            },
+            {
+              "text": "Delete the assertion that checks the result",
+              "fraction": 0,
+              "feedback": "Removing the assertion hides the flakiness by no longer testing anything meaningful; that is not a fix."
+            },
+            {
+              "text": "Wrap the test in an automatic retry that runs it three times",
+              "fraction": 0,
+              "feedback": "Retrying masks the timing bug rather than fixing the root cause; the correct fix is to wait on the condition."
+            }
+          ],
+          "generalFeedback": "A fixed sleep encodes a guess about how long an async action takes. Replace it with a conditional wait that repeatedly polls the actual readiness condition and proceeds as soon as it holds, failing only after a generous timeout. This is both deterministic and usually faster than a conservative fixed sleep.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix for unseeded randomness",
+          "text": "<p>A test is flaky because it feeds unseeded random data into the code under test. What is the correct fix to make it deterministic?</p>",
+          "answers": [
+            {
+              "text": "Seed the random generator with a fixed value so the same inputs are produced on every run",
+              "fraction": 100,
+              "feedback": "Correct — a fixed seed makes the \"random\" sequence reproducible, restoring determinism."
+            },
+            {
+              "text": "Run the test more often so the rare failing value shows up less",
+              "fraction": 0,
+              "feedback": "Running more does not remove the non-determinism; a fixed seed does."
+            },
+            {
+              "text": "Catch and ignore any assertion failure the test produces",
+              "fraction": 0,
+              "feedback": "Swallowing failures disables the test; seeding the generator is the real fix."
+            },
+            {
+              "text": "Switch to a different random algorithm but still leave it unseeded",
+              "fraction": 0,
+              "feedback": "Any unseeded generator still varies each run; the fix is to fix the seed."
+            }
+          ],
+          "generalFeedback": "Seeding the generator with a constant makes it produce the same sequence every run, so the inputs — and therefore the result — are reproducible. If a particular seed exposes a genuine failure, that is a real bug to investigate and add as a fixed regression case, not something to hide by re-randomizing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix for wall-clock dependence",
+          "text": "<p>A test is flaky because its logic reads the current time from the system clock. What is the correct deterministic fix?</p>",
+          "answers": [
+            {
+              "text": "Inject or freeze the clock so the test controls the current time with a fixed, known value",
+              "fraction": 100,
+              "feedback": "Correct — controlling time (a fake/frozen clock injected into the code) removes the dependence on the live clock."
+            },
+            {
+              "text": "Only run the test at times of day when it is known to pass",
+              "fraction": 0,
+              "feedback": "Restricting the run time is a workaround that leaves the time dependence — and the flakiness — in place."
+            },
+            {
+              "text": "Add a fixed sleep before reading the clock",
+              "fraction": 0,
+              "feedback": "Sleeping does not control what value the clock returns; you must inject or freeze time."
+            },
+            {
+              "text": "Retry the test until it happens to pass",
+              "fraction": 0,
+              "feedback": "Retrying hides the time dependence rather than removing it; inject a controllable clock instead."
+            }
+          ],
+          "generalFeedback": "Make time an injected dependency (a clock the code calls) rather than reading the global wall clock. In the test, supply a fixed or scripted clock so \"now\" is a known constant. The behaviour becomes fully reproducible, including around day boundaries and across timezones.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix for an external dependency",
+          "text": "<p>A unit test is flaky because it calls a real third-party network API. What is the appropriate fix?</p>",
+          "answers": [
+            {
+              "text": "Replace the real call with a mock/stub (a test double) that returns controlled, deterministic responses",
+              "fraction": 100,
+              "feedback": "Correct — a test double removes the uncontrolled external variability, making the unit test deterministic."
+            },
+            {
+              "text": "Add a longer timeout so the slow service usually responds in time",
+              "fraction": 0,
+              "feedback": "A longer timeout only reduces one failure mode; the service can still be down or return varying data."
+            },
+            {
+              "text": "Retry the network call several times and hope it eventually works",
+              "fraction": 0,
+              "feedback": "Retrying masks the external variability rather than isolating the unit under test with a controlled double."
+            },
+            {
+              "text": "Delete the test so the network is never touched",
+              "fraction": 0,
+              "feedback": "Deleting loses coverage; the fix is to stub the dependency and keep testing the code."
+            }
+          ],
+          "generalFeedback": "A unit test should exercise your code, not a live external system. Replace the real dependency with a mock or stub that returns fixed responses (including error cases you want to test). The result no longer depends on the service's availability or data, so it is deterministic. Real integration behaviour is verified separately in dedicated integration tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix for shared state between tests",
+          "text": "<p>Several tests are flaky because they share and mutate the same database rows. What is the correct fix?</p>",
+          "answers": [
+            {
+              "text": "Isolate and reset state per test — set up fresh fixtures and tear down/clean up so each test starts from a known clean state",
+              "fraction": 100,
+              "feedback": "Correct — per-test isolation and reset removes the cross-test coupling and the order dependence."
+            },
+            {
+              "text": "Fix the order the tests run in and always run them in that order",
+              "fraction": 0,
+              "feedback": "Pinning an order hides the coupling and is brittle; the real fix is to make tests independent through isolation."
+            },
+            {
+              "text": "Run the tests more slowly so they do not collide",
+              "fraction": 0,
+              "feedback": "Slowing them down does not remove the shared mutable state; isolation and reset do."
+            },
+            {
+              "text": "Retry the whole suite until it passes",
+              "fraction": 0,
+              "feedback": "Retrying masks the shared-state problem; isolate and reset state per test instead."
+            }
+          ],
+          "generalFeedback": "The root cause is shared mutable state. Give each test its own fixtures and reset the world between tests (setup/teardown, transactions rolled back, fresh temporary resources) so no test depends on another's leftovers. Removing the inter-test dependency makes the outcome independent of execution order.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Re-running many times to reproduce",
+          "text": "<p>Running a suspected-flaky test many times (and measuring how often it fails) is a legitimate way to confirm and quantify its flakiness.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — repeated runs reproduce the intermittent failure and yield a flakiness rate you can track and act on."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is wrong: because flakiness is intermittent, repeated runs are exactly how you reproduce it and measure how often it fails."
+            }
+          ],
+          "generalFeedback": "A single run can pass by luck, so one green result does not prove a test is stable. Running it many times (locally or in CI) reproduces the intermittent failure and gives a flakiness rate — e.g. fails 3 in 100 runs — which confirms the problem and lets you prioritize and later verify the fix. This detection step is different from blindly retrying in the pipeline to force a green."
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix for unordered iteration assertion",
+          "text": "<p>A test flakily fails when it asserts that a hash-based collection iterates in a particular order. What is the correct fix?</p>",
+          "answers": [
+            {
+              "text": "Make the comparison order-independent — sort the results first, or assert on set/multiset equality rather than sequence order",
+              "fraction": 100,
+              "feedback": "Correct — comparing without depending on iteration order removes the non-determinism."
+            },
+            {
+              "text": "Run the test repeatedly until the elements happen to come out in the expected order",
+              "fraction": 0,
+              "feedback": "Relying on a lucky order is exactly the flakiness; make the assertion order-independent instead."
+            },
+            {
+              "text": "Reduce the collection to a single element so order cannot vary",
+              "fraction": 0,
+              "feedback": "Changing the data to dodge the problem weakens the test; assert order-independently instead."
+            },
+            {
+              "text": "Add a fixed sleep before iterating the collection",
+              "fraction": 0,
+              "feedback": "Sleeping does not affect iteration order; sort or compare as an unordered collection."
+            }
+          ],
+          "generalFeedback": "If the specification does not guarantee an order, the test must not assume one. Either sort both actual and expected before comparing, or compare as sets/multisets so only membership and counts matter. If a specific order genuinely is required, use an ordered collection and make that ordering explicit in the code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of quarantine",
+          "text": "<p>What is the purpose of quarantining a flaky test?</p>",
+          "answers": [
+            {
+              "text": "To stop its intermittent failures from blocking the pipeline for everyone, while it stays tracked and is scheduled for a proper fix",
+              "fraction": 100,
+              "feedback": "Correct — quarantine contains the disruption without abandoning the test or the obligation to fix it."
+            },
+            {
+              "text": "To permanently remove the test and its coverage from the project",
+              "fraction": 0,
+              "feedback": "That is deletion, which loses coverage; quarantine keeps the test tracked for repair."
+            },
+            {
+              "text": "To declare the test fixed without any further work",
+              "fraction": 0,
+              "feedback": "Quarantine is containment, not a fix; the root cause still has to be addressed."
+            },
+            {
+              "text": "To make the test run faster",
+              "fraction": 0,
+              "feedback": "Speed is not the point; quarantine is about isolating flaky noise from the blocking gate."
+            }
+          ],
+          "generalFeedback": "Quarantine unblocks the team: a known-flaky test no longer fails everyone's builds, so the suite regains signal value. But the test remains on a tracked list with an owner and a deadline for a real, root-cause fix. Quarantine that is not tracked and fixed simply becomes a permanently disabled test — a coverage gap and a hidden risk.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symptom: fails under parallel execution",
+          "text": "<p>A test passes when the suite runs single-threaded but fails intermittently once the runner executes tests in parallel. What is the most likely cause?</p>",
+          "answers": [
+            {
+              "text": "A race condition or resource contention: parallel tests interfere through a shared resource without proper isolation",
+              "fraction": 100,
+              "feedback": "Correct — new failures under parallelism point to concurrency/shared-resource contention."
+            },
+            {
+              "text": "Parallel execution always corrupts correct tests",
+              "fraction": 0,
+              "feedback": "It does not — properly isolated tests run correctly in parallel; failure signals shared-resource contention."
+            },
+            {
+              "text": "The assertions became stricter when run in parallel",
+              "fraction": 0,
+              "feedback": "Assertions do not change with parallelism; the cause is contention over a shared resource."
+            },
+            {
+              "text": "The tests have too many comments",
+              "fraction": 0,
+              "feedback": "Comments are irrelevant; the parallel-only failure indicates a race or resource contention."
+            }
+          ],
+          "generalFeedback": "Failures that appear only under parallel execution indicate tests are competing for a shared resource — the same file, port, database row, or global — without isolation, or the code under test has a race condition. Fix by isolating resources per test (unique temp files/ports/schemas) and by making the code's concurrency deterministic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Detecting order dependence proactively",
+          "text": "<p>Which practice best helps you detect hidden order dependence between tests before it causes trouble?</p>",
+          "answers": [
+            {
+              "text": "Run the suite in a randomized test order (and on different orders) so any dependence on execution sequence is exposed",
+              "fraction": 100,
+              "feedback": "Correct — randomizing order surfaces tests that secretly rely on running after another."
+            },
+            {
+              "text": "Always run the tests in the exact same alphabetical order",
+              "fraction": 0,
+              "feedback": "A fixed order can hide the dependence indefinitely; randomizing order is what exposes it."
+            },
+            {
+              "text": "Add a fixed sleep between every pair of tests",
+              "fraction": 0,
+              "feedback": "Sleeping does not reveal shared-state coupling; running in varied orders does."
+            },
+            {
+              "text": "Reduce the number of assertions in each test",
+              "fraction": 0,
+              "feedback": "Assertion count is unrelated to detecting order dependence."
+            }
+          ],
+          "generalFeedback": "Independent tests pass in any order, so deliberately shuffling the execution order (and varying the seed) is the standard way to expose tests that depend on another's side effects. Many runners offer a random-order mode with a reproducible seed precisely for this. Once exposed, isolate and reset state to remove the dependence.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix for a race-condition flaky test",
+          "text": "<p>A test is flaky because the code it exercises has a race condition between two concurrent operations. What is the correct remediation?</p>",
+          "answers": [
+            {
+              "text": "Fix the concurrency so the outcome is deterministic — add proper synchronization (or await both operations) — treating the race as the real bug it is",
+              "fraction": 100,
+              "feedback": "Correct — a race is a genuine defect; make the interleaving safe and deterministic."
+            },
+            {
+              "text": "Add a fixed sleep and hope the operations no longer overlap",
+              "fraction": 0,
+              "feedback": "A sleep only reduces the chance of the bad interleaving; the race still exists and can still fail."
+            },
+            {
+              "text": "Automatically retry the test until the good interleaving occurs",
+              "fraction": 0,
+              "feedback": "Retrying hides a real concurrency bug rather than fixing it; synchronize the operations instead."
+            },
+            {
+              "text": "Run the test on a slower machine so the timing works out",
+              "fraction": 0,
+              "feedback": "Relying on machine speed is fragile and non-portable; fix the synchronization to make the result deterministic."
+            }
+          ],
+          "generalFeedback": "A race condition is a real bug, not mere test noise: the result depends on the unpredictable order of concurrent operations. The fix is to make the code's concurrency correct and deterministic — proper locking/synchronization, or awaiting/joining both operations before asserting. Sleeps and retries only lower the failure rate while leaving the defect in place.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Diagnose: sleep then click",
+          "text": "<p>Consider this flaky end-to-end test step:</p>\n<pre><code>submitForm();\nsleep(300);            // wait for the server\nassertVisible(\"#confirmation\");</code></pre>\n<p>It passes most of the time but fails a few times a day in CI. What is the root cause and the correct fix?</p>",
+          "answers": [
+            {
+              "text": "Timing: 300 ms is sometimes too short. Replace the fixed sleep with an explicit wait that polls forto appear, up to a timeout",
+              "fraction": 100,
+              "feedback": "Correct — poll for the actual condition instead of guessing a duration."
+            },
+            {
+              "text": "The selector is wrong; changeto a different id",
+              "fraction": 0,
+              "feedback": "A wrong selector would fail every run, not intermittently; the intermittency is a timing issue."
+            },
+            {
+              "text": "Increase the sleep to 3000 ms and keep it fixed",
+              "fraction": 0,
+              "feedback": "A longer fixed sleep only reduces the failure rate while slowing every run; the non-determinism remains."
+            },
+            {
+              "text": "Wrap the whole test in a retry-three-times block",
+              "fraction": 0,
+              "feedback": "Retrying masks the timing bug; the correct fix is to wait on the confirmation element's appearance."
+            }
+          ],
+          "generalFeedback": "The confirmation element's arrival time varies with server and network load; a 300 ms guess is occasionally too short, so the assertion runs before the element exists. Replacewith a conditional wait that polls forand proceeds the instant it appears, failing only after a generous timeout — deterministic and usually faster.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why blind retry-until-green is bad",
+          "text": "<p>A team configures CI to automatically re-run any failing test up to five times and report it as passed if any attempt passes. Why is this \"rerun until green\" policy dangerous?</p>",
+          "answers": [
+            {
+              "text": "It can mask a genuine intermittent bug: a real defect that fails occasionally will be retried into a green result and never investigated",
+              "fraction": 100,
+              "feedback": "Correct — blind retry hides real, low-frequency failures that would surface in production."
+            },
+            {
+              "text": "It makes the build slower, which is the only real downside",
+              "fraction": 0,
+              "feedback": "Slower builds are a minor issue; the serious danger is that a real intermittent bug is hidden by the retries."
+            },
+            {
+              "text": "It permanently fixes the flakiness by removing the non-determinism",
+              "fraction": 0,
+              "feedback": "Retrying removes nothing; the non-determinism is still there — it is merely papered over."
+            },
+            {
+              "text": "It forces developers to write more tests",
+              "fraction": 0,
+              "feedback": "It does not; it simply hides intermittent failures, whether flaky or real."
+            }
+          ],
+          "generalFeedback": "An automatic retry cannot tell a harmless flaky failure from a real intermittent defect (a race condition, a rare data case). By reporting green whenever any attempt passes, it buries genuine low-frequency bugs that will eventually strike users. Retries can be a temporary stopgap, but they must be visible and tracked; they are not a fix, and the root cause still needs diagnosis.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose: leaked global counter",
+          "text": "<p>Test A increments a module-level global <code>counter</code> and never resets it. Test B asserts <code>counter == 1</code>. B passes when it runs first, but fails when A runs before it. What is the root cause and best fix?</p>",
+          "answers": [
+            {
+              "text": "Order dependence via leaked global state: reset the global in setup/teardown (or avoid the shared global) so each test starts from a known state",
+              "fraction": 100,
+              "feedback": "Correct — the leaked global couples the tests; resetting per test removes the dependence."
+            },
+            {
+              "text": "Test B's expected value is simply wrong; change it to 2",
+              "fraction": 0,
+              "feedback": "Hard-coding 2 just pins B to one particular execution order; the real problem is the shared, unreset global."
+            },
+            {
+              "text": "Force the runner to always execute B before A",
+              "fraction": 0,
+              "feedback": "Pinning the order hides the coupling and is fragile; make each test independent by resetting state instead."
+            },
+            {
+              "text": "Add a sleep between A and B",
+              "fraction": 0,
+              "feedback": "Sleeping does nothing about a leaked global; reset the shared state per test."
+            }
+          ],
+          "generalFeedback": "The tests communicate through a mutable global that A modifies and B reads. The result depends on run order, which is not guaranteed. Reset the global in setup/teardown, or better, eliminate the shared global so tests do not share mutable state. Then each test is independent and passes in any order.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose: assert first of a hash set",
+          "text": "<p>A test builds a hash-based set of tags and asserts that the first element returned by iteration equals <code>\"admin\"</code>. It passes on your machine but fails on some CI runs and after a language runtime upgrade. What is the root cause and correct fix?</p>",
+          "answers": [
+            {
+              "text": "The set's iteration order is not guaranteed; assert on membership (the set contains \"admin\") or sort before comparing, rather than on \"first\"",
+              "fraction": 100,
+              "feedback": "Correct — do not depend on an unspecified iteration order; test membership or a sorted result."
+            },
+            {
+              "text": "The runtime upgrade introduced a bug in the set implementation; downgrade the runtime",
+              "fraction": 0,
+              "feedback": "The set is behaving within its contract (no order guarantee); the test's assumption is the defect, not the runtime."
+            },
+            {
+              "text": "Retry the test until iteration returns \"admin\" first",
+              "fraction": 0,
+              "feedback": "Relying on a lucky order is the flakiness itself; assert order-independently instead."
+            },
+            {
+              "text": "Add more elements so \"admin\" is more likely to be first",
+              "fraction": 0,
+              "feedback": "That does not make the order deterministic; remove the dependence on ordering entirely."
+            }
+          ],
+          "generalFeedback": "A hash-based set gives no ordering guarantee; iteration order can vary by insertion history, capacity, or runtime version, which is why a runtime upgrade changed it. The test encoded an assumption the type never promised. Assert what the specification actually guarantees — membership, or equality after sorting — so the check is independent of iteration order.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose: timezone-dependent date test",
+          "text": "<p>A test formats a stored UTC timestamp and asserts it shows a specific calendar date. It passes for developers in one country but fails for a teammate in another timezone and on the CI server. What is the root cause and correct fix?</p>",
+          "answers": [
+            {
+              "text": "The code uses the machine's local timezone, so the displayed date depends on where it runs; pin/inject a fixed timezone (and clock) in the test so the result is deterministic",
+              "fraction": 100,
+              "feedback": "Correct — the hidden dependence on the local timezone must be made explicit and fixed in the test."
+            },
+            {
+              "text": "The stored timestamp is corrupted; regenerate the database",
+              "fraction": 0,
+              "feedback": "The stored UTC value is fine; the flakiness comes from converting it using the ambient local timezone."
+            },
+            {
+              "text": "Only run the test in the one timezone where it passes",
+              "fraction": 0,
+              "feedback": "Restricting where it runs hides the dependence instead of removing it; pin the timezone explicitly."
+            },
+            {
+              "text": "Add a retry so it eventually passes in every timezone",
+              "fraction": 0,
+              "feedback": "The result is deterministic per timezone, so retrying will not help; fix the timezone dependence."
+            }
+          ],
+          "generalFeedback": "Formatting a UTC instant into a local calendar date uses whatever timezone the environment defaults to, so different machines produce different dates. Make the timezone explicit — pin a fixed timezone (and, where relevant, inject a fixed clock) in the test — so the conversion is controlled and the outcome is the same everywhere.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Quarantine-and-track versus delete",
+          "text": "<p>A test is flaky and slowing down every merge. A teammate proposes simply deleting it. Why is quarantine-and-track usually the better choice?</p>",
+          "answers": [
+            {
+              "text": "Deleting discards the behaviour the test was checking, creating a silent coverage gap; quarantine unblocks the pipeline while preserving the test and the obligation to fix it",
+              "fraction": 100,
+              "feedback": "Correct — quarantine keeps the coverage and the accountability that deletion throws away."
+            },
+            {
+              "text": "Deleting a test is technically impossible in most projects",
+              "fraction": 0,
+              "feedback": "Deletion is trivially possible; the reason to prefer quarantine is that deletion loses coverage and accountability."
+            },
+            {
+              "text": "Quarantine automatically fixes the root cause of the flakiness",
+              "fraction": 0,
+              "feedback": "Quarantine does not fix anything; it contains the noise while the root cause is still owed a fix."
+            },
+            {
+              "text": "A quarantined test runs faster than a deleted one",
+              "fraction": 0,
+              "feedback": "A deleted test does not run at all; the real distinction is preserved coverage and tracking, not speed."
+            }
+          ],
+          "generalFeedback": "The flaky test was presumably checking something real. Deleting it removes the noise but also the coverage — and quietly, so no one remembers the gap. Quarantine stops the disruption to merges while keeping the test on a tracked list with an owner and a deadline, so the underlying behaviour is still verified once the root cause is fixed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Cost: alarm fatigue from a flaky suite",
+          "text": "<p>Over months, a suite becomes routinely flaky and developers get used to re-running red builds without looking. What is the most serious consequence?</p>",
+          "answers": [
+            {
+              "text": "Alarm fatigue: because failures are assumed to be flaky, a genuine regression is ignored and ships to production",
+              "fraction": 100,
+              "feedback": "Correct — the suite loses its signal value, so a real failure is dismissed as noise."
+            },
+            {
+              "text": "The tests will eventually stop compiling on their own",
+              "fraction": 0,
+              "feedback": "Flakiness does not stop code from compiling; the serious cost is that real failures get ignored."
+            },
+            {
+              "text": "The suite will automatically become deterministic over time",
+              "fraction": 0,
+              "feedback": "Flakiness does not fix itself; left alone it trains people to ignore failures."
+            },
+            {
+              "text": "The only cost is a slightly longer CI run",
+              "fraction": 0,
+              "feedback": "The dominant cost is not runtime; it is that a genuine regression hides in the noise and reaches users."
+            }
+          ],
+          "generalFeedback": "The deepest cost of chronic flakiness is human: once \"red\" usually means \"just flaky\", people stop investigating and simply re-run. A real regression then blends into the noise and is shipped. This \"cry wolf\" effect defeats the entire purpose of an automated suite, which is why flakiness must be treated as a first-class defect.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose: unseeded random exposing an edge case",
+          "text": "<p>A test builds inputs from an unseeded random generator. It passes most runs but fails roughly 1 in 50, and each failure is a real assertion mismatch. What is the best response?</p>",
+          "answers": [
+            {
+              "text": "Capture the failing input, investigate it as a possible real bug, fix it, then seed the generator (or add the case as a fixed regression test) for determinism",
+              "fraction": 100,
+              "feedback": "Correct — an occasional real mismatch may be a genuine edge-case defect; diagnose it, then make the test deterministic."
+            },
+            {
+              "text": "Immediately seed the generator to a value that always passes and move on",
+              "fraction": 0,
+              "feedback": "Choosing a passing seed without investigating may hide a genuine edge-case bug; capture and diagnose the failure first."
+            },
+            {
+              "text": "Add a retry so the 1-in-50 failure disappears from CI",
+              "fraction": 0,
+              "feedback": "Retrying buries what could be a real bug; the failing input must be examined before making the test deterministic."
+            },
+            {
+              "text": "Delete the test because random data is unreliable",
+              "fraction": 0,
+              "feedback": "Deleting discards useful coverage and ignores a possible real defect; investigate, fix, then seed."
+            }
+          ],
+          "generalFeedback": "Unseeded randomness is both a flakiness source and, sometimes, an accidental fuzzer: a rare failing input can be a genuine edge-case bug. First reproduce with the captured input and decide whether the code or the test is wrong. Fix the real defect, then restore determinism by seeding the generator or pinning the discovered case as a fixed regression test — do not simply pick a seed that hides the failure.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose: race between threads",
+          "text": "<p>A test starts two threads that both append to a shared list and then asserts the list has two elements. It occasionally sees one element or throws. What is the root cause and correct fix?</p>",
+          "answers": [
+            {
+              "text": "A race condition on the unsynchronized shared list; fix the concurrency (proper synchronization or a thread-safe structure) and make the test wait deterministically for both appends to complete",
+              "fraction": 100,
+              "feedback": "Correct — the flakiness reflects a real data race; fix the synchronization and wait on completion deterministically."
+            },
+            {
+              "text": "The list type is broken; switch to a different list and keep it unsynchronized",
+              "fraction": 0,
+              "feedback": "An ordinary list is not broken; concurrent unsynchronized mutation is the defect, so add proper synchronization."
+            },
+            {
+              "text": "Add a fixed sleep before the assertion and leave the threads unsynchronized",
+              "fraction": 0,
+              "feedback": "A sleep only lowers the failure rate; the underlying data race remains and can still corrupt the list."
+            },
+            {
+              "text": "Retry the test until both appends happen to land",
+              "fraction": 0,
+              "feedback": "Retrying hides a genuine concurrency bug that can also affect production; fix the race instead."
+            }
+          ],
+          "generalFeedback": "Two threads mutating one list without synchronization is a data race: interleavings occasionally lose an update or corrupt internal state. This is a real bug, not mere test noise. Use proper synchronization or a thread-safe collection, and have the test deterministically wait for both threads to finish (join/await) before asserting.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Determinism is the goal, retry is a stopgap",
+          "text": "<p>The goal of remediating a flaky test is to restore determinism by fixing the root cause; automatic retries may be a temporary stopgap but are not themselves a fix.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — determinism via root-cause repair is the aim; retries only paper over the symptom."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is wrong: retries do not remove the non-determinism, so they are a stopgap at best; the real fix restores determinism at the root cause."
+            }
+          ],
+          "generalFeedback": "Proper remediation makes the test deterministic again by addressing why it varies — replacing sleeps with conditional waits, seeding randomness, injecting the clock, isolating state, mocking external deps, or fixing a real concurrency bug. A retry may buy time, but it hides the symptom and can mask genuine intermittent defects, so it is never the end state."
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose: parallel tests sharing a temp file",
+          "text": "<p>Two tests each write to <code>/tmp/output.txt</code> and read it back. They pass when run one at a time but fail intermittently when the suite runs them in parallel. What is the root cause and correct fix?</p>",
+          "answers": [
+            {
+              "text": "Resource contention on the shared fixed path; give each test its own unique temporary file/directory so they cannot interfere",
+              "fraction": 100,
+              "feedback": "Correct — isolate the resource per test (a unique temp path) to remove the contention."
+            },
+            {
+              "text": "The file system is broken under load; move the tests to a different disk",
+              "fraction": 0,
+              "feedback": "The file system is fine; the tests are colliding on a single hard-coded path, so isolate per test."
+            },
+            {
+              "text": "Force the two tests to always run sequentially and never in parallel",
+              "fraction": 0,
+              "feedback": "Serializing hides the coupling and forfeits parallel speed; the clean fix is a unique path per test."
+            },
+            {
+              "text": "Add a sleep so the two writes do not happen at the same instant",
+              "fraction": 0,
+              "feedback": "A sleep is a fragile timing hack that still shares one path; use a unique temporary file per test."
+            }
+          ],
+          "generalFeedback": "Both tests use the same fixed filename, so under parallel execution one overwrites the other's data between write and read. Allocate a unique temporary file or directory per test (a fresh temp path, cleaned up in teardown) so the tests are isolated and can run in parallel deterministically.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose: created_at equals now",
+          "text": "<p>A test creates a record and asserts <code>record.created_at == now()</code>, calling the live clock again in the assertion. It fails rarely, when a tiny delay makes the two clock reads differ. What is the correct fix?</p>",
+          "answers": [
+            {
+              "text": "Inject a fixed clock so both the code and the test see the same controlled \"now\", making the timestamps compare deterministically",
+              "fraction": 100,
+              "feedback": "Correct — controlling time removes the gap between two live clock reads."
+            },
+            {
+              "text": "Read the live clock twice more and average the values",
+              "fraction": 0,
+              "feedback": "More live reads still vary; the fix is to control time with an injected clock, not to average noise."
+            },
+            {
+              "text": "Retry the assertion until the two clock reads coincide",
+              "fraction": 0,
+              "feedback": "Retrying depends on luck and leaves the time dependence in place; inject a fixed clock instead."
+            },
+            {
+              "text": "Delete the timestamp assertion entirely",
+              "fraction": 0,
+              "feedback": "Removing the check loses coverage of the timestamp behaviour; make time controllable instead."
+            }
+          ],
+          "generalFeedback": "The flakiness comes from comparing two independent reads of the live clock, which differ by the elapsed time between them. Inject a controllable clock so the code stamps the record with a fixed \"now\" and the test asserts against that same value. Alternatively assert the timestamp lies within a tolerance window — but injecting the clock is the cleanest deterministic fix.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Auto-retry can hide a real concurrency bug",
+          "text": "<p>A test fails about 1 in 20 runs due to a genuine race condition in the production code. The team adds an automatic 3× retry so CI reports it as passing. This is an acceptable resolution because CI is now green.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — the retry hides a real race condition that can still strike users; the root cause must be fixed, not masked."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: a green CI achieved by retrying conceals a genuine intermittent bug that will still manifest in production."
+            }
+          ],
+          "generalFeedback": "The 1-in-20 failure is not test noise — it is a real race condition in the code under test. Retrying until green makes the symptom disappear from CI while the defect remains and will eventually affect real users under load. The correct response is to diagnose and fix the race (proper synchronization) so the test passes deterministically for the right reason."
+        },
+        {
+          "type": "multichoice",
+          "name": "Response to a single unexplained CI failure",
+          "text": "<p>On an unchanged commit, one CI run fails a test; re-running the same commit passes. What is the most appropriate response?</p>",
+          "answers": [
+            {
+              "text": "Treat it as likely flaky: reproduce it by running the test repeatedly, track it, and diagnose the root cause — do not simply dismiss it as a one-off fluke",
+              "fraction": 100,
+              "feedback": "Correct — a pass/fail flip on unchanged code is a flakiness signal that should be reproduced, tracked, and fixed."
+            },
+            {
+              "text": "Ignore it entirely, since the re-run passed and the code did not change",
+              "fraction": 0,
+              "feedback": "Dismissing it lets flakiness (or a real intermittent bug) persist; reproduce and investigate instead."
+            },
+            {
+              "text": "Immediately delete the test to stop it from failing again",
+              "fraction": 0,
+              "feedback": "Deleting discards coverage and hides a possible real bug before it is even understood; investigate first."
+            },
+            {
+              "text": "Permanently enable retry-until-green for the whole suite",
+              "fraction": 0,
+              "feedback": "Blanket retries mask real intermittent defects across the suite; reproduce and fix the specific test instead."
+            }
+          ],
+          "generalFeedback": "A differing verdict on the same commit is the definition of flakiness and should not be waved away. Reproduce it by running the test many times to get a flakiness rate, record it on a tracked list, and diagnose the root cause. It might be a harmless timing issue or a genuine intermittent bug — you only learn which by investigating, not by shrugging or blindly retrying.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose: locale-dependent number formatting",
+          "text": "<p>A test asserts that formatting <code>1234.5</code> yields the string <code>\"1,234.5\"</code>. It passes for most of the team but fails for a teammate whose machine uses a locale where numbers are written like <code>\"1.234,5\"</code>. What is the root cause and correct fix?</p>",
+          "answers": [
+            {
+              "text": "The formatter uses the ambient default locale; pin an explicit locale in the test (or format locale-independently) so the output is the same everywhere",
+              "fraction": 100,
+              "feedback": "Correct — make the locale explicit rather than depending on the machine's default."
+            },
+            {
+              "text": "The teammate's machine has a corrupted number library; reinstall it",
+              "fraction": 0,
+              "feedback": "Nothing is corrupted — the library correctly follows that machine's locale; the test must fix the locale explicitly."
+            },
+            {
+              "text": "Retry the test until it produces the expected separators",
+              "fraction": 0,
+              "feedback": "The output is deterministic per locale, so retrying cannot help; pin the locale instead."
+            },
+            {
+              "text": "Only run the test on machines set to the expected locale",
+              "fraction": 0,
+              "feedback": "Restricting where it runs hides the hidden dependence rather than removing it; specify the locale in the test."
+            }
+          ],
+          "generalFeedback": "Number, date, and currency formatting default to the environment's locale, so grouping and decimal separators differ by machine. The test unknowingly depended on one locale. Fix it by passing an explicit locale to the formatter (or by formatting in a locale-independent way) so the produced string is deterministic across every environment.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是脆弱測試",
+          "text": "<p><em>脆弱測試（flaky test）</em>最適切的描述是一個：</p>",
+          "answers": [
+            {
+              "text": "在相同的程式碼與相同的輸入下，卻非決定性地時而通過、時而失敗的測試，且受測對象本身並未改變",
+              "fraction": 100,
+              "feedback": "正確——脆弱性正是在未改變的程式碼與輸入下出現非決定性的結果。"
+            },
+            {
+              "text": "針對某個特定版本的程式碼，每次執行都失敗的測試",
+              "fraction": 0,
+              "feedback": "那是一致、決定性的失敗，並非脆弱；脆弱測試的結果會在不同執行間變動。"
+            },
+            {
+              "text": "比測試套件中其他測試執行得更慢的測試",
+              "fraction": 0,
+              "feedback": "執行慢是效能問題；脆弱性談的是非決定性的通過／失敗結果。"
+            },
+            {
+              "text": "只有在受測程式碼被刻意改壞、植入缺陷後才失敗的測試",
+              "fraction": 0,
+              "feedback": "偵測到真正的改動正是好測試該做的事；脆弱是指在沒有這類改動下仍失敗。"
+            }
+          ],
+          "generalFeedback": "脆弱測試在不同執行間會產生不同結果——時而通過、時而失敗——即使受測程式碼與輸入都未改變。其定義性質是非決定性：結果並非完全由受測對象所決定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試的決定性是什麼意思",
+          "text": "<p>當一個測試具有<em>決定性（deterministic）</em>時，意思是：</p>",
+          "answers": [
+            {
+              "text": "在相同的程式碼與輸入下，它每次都產生相同的結果（每次都通過，或每次都失敗）",
+              "fraction": 100,
+              "feedback": "正確——決定性測試對相同的程式碼與輸入每次都給出相同結果。"
+            },
+            {
+              "text": "不論程式碼做什麼，它都一定通過",
+              "fraction": 0,
+              "feedback": "永遠通過的測試毫無用處，並非決定性；決定性是指結果可重現，而該結果可能是通過或失敗。"
+            },
+            {
+              "text": "它在一秒內就跑完",
+              "fraction": 0,
+              "feedback": "執行速度與決定性無關，決定性談的是結果可重現。"
+            },
+            {
+              "text": "它每次執行都使用隨機產生的輸入",
+              "fraction": 0,
+              "feedback": "未設種子的隨機輸入會使測試變得非決定性；決定性正好相反。"
+            }
+          ],
+          "generalFeedback": "決定性是指測試的結果完全由程式碼與輸入決定：在未改變的程式碼上跑一千次，每次都給出相同的裁決。脆弱性正是決定性的喪失，而修復的目標就是恢復決定性。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "一致失敗不是脆弱",
+          "text": "<p>對相同程式碼每次執行都失敗的測試，是脆弱測試。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——每次都失敗的測試是決定性的（一致且可重現的失敗），並非脆弱。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "此為錯誤：每次都失敗是決定性的結果。脆弱是指相同程式碼在不同執行間非決定性地變動結果。"
+            }
+          ],
+          "generalFeedback": "脆弱性由非決定性所定義：相同的程式碼與輸入時而通過、時而失敗。每次都失敗的測試是一致、可重現的失敗——通常指向真正的缺陷——應以缺陷方式除錯，而非貼上脆弱的標籤。"
+        },
+        {
+          "type": "truefalse",
+          "name": "脆弱性侵蝕信任並掩蓋真正的缺陷",
+          "text": "<p>脆弱測試之所以有害，主要是因為它侵蝕團隊對測試套件的信任，並可能掩蓋真正的失敗。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——一再的假警報讓人不再信任、也不再細看測試結果，於是夾在雜訊中的真正失敗就被忽略了。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此為錯誤：侵蝕信任與掩蓋真正失敗，正是脆弱性的核心危害。"
+            }
+          ],
+          "generalFeedback": "當套件毫無真正原因卻間歇性失敗時，開發者會學會對紅色建置聳聳肩、直接重跑。這摧毀了套件的訊號價值：藏在雜訊裡的真正回歸被當成「只是脆弱」而被打發掉，於是真正的缺陷溜了過去。脆弱性也會在重跑上浪費時間。"
+        },
+        {
+          "type": "multichoice",
+          "name": "常見原因：固定 sleep 與時序",
+          "text": "<p>下列何者是脆弱測試的常見原因？</p>",
+          "answers": [
+            {
+              "text": "對某個非同步動作依賴固定的 sleep（例如「等 100 毫秒」），而該動作有時尚未就緒",
+              "fraction": 100,
+              "feedback": "正確——固定等待是經典的時序原因：若動作偶爾花更久，測試便會間歇失敗。"
+            },
+            {
+              "text": "為每個測試各自提供全新、隔離的測試夾具",
+              "fraction": 0,
+              "feedback": "全新且隔離的夾具會降低脆弱性；它是修復手段，而非原因。"
+            },
+            {
+              "text": "對一個精確、硬寫死的預期值做斷言",
+              "fraction": 0,
+              "feedback": "精確的預期值通常讓測試更具決定性，而非更脆弱。"
+            },
+            {
+              "text": "讓每個測試在完全獨立的行程中執行",
+              "fraction": 0,
+              "feedback": "強隔離傾向於防止脆弱，而非造成脆弱。"
+            }
+          ],
+          "generalFeedback": "固定 sleep 是最常見的脆弱來源之一：它把「某個非同步操作要花多久」的猜測寫死。當該操作偶爾跑得較慢（機器負載高、網路慢），sleep 在動作完成前就到期，於是測試失敗——而且是非決定性的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "常見原因：未設種子的隨機",
+          "text": "<p>某測試以一個從未設定固定種子的亂數產生器來產生輸入資料。為什麼這是脆弱性風險？</p>",
+          "answers": [
+            {
+              "text": "每次執行都使用不同的隨機資料，因此測試可能大多數執行都通過，偶爾卻在某個不巧的值上失敗",
+              "fraction": 100,
+              "feedback": "正確——未設種子的隨機使輸入每次都不同，產生非決定性的結果。"
+            },
+            {
+              "text": "隨機資料總是讓測試跑得更快，因而造成失敗",
+              "fraction": 0,
+              "feedback": "速度不是問題所在；問題是輸入每次都不同，使結果非決定性。"
+            },
+            {
+              "text": "隨機資料一定是無效的，所以測試永遠無法通過",
+              "fraction": 0,
+              "feedback": "隨機資料本質上並非無效；脆弱性來自輸入在不同執行間變動。"
+            },
+            {
+              "text": "亂數產生器用掉太多記憶體",
+              "fraction": 0,
+              "feedback": "記憶體用量無關；未設種子的隨機是靠讓每次輸入都不同而造成脆弱。"
+            }
+          ],
+          "generalFeedback": "未設種子的亂數產生器每次執行都產生不同的輸入。大多數輸入可能通過，而某個罕見的輸入卻觸發失敗，於是測試結果非決定性地變動。（注意：這類偶發失敗有可能正是在某個特定輸入下暴露出真正的缺陷。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "常見原因：測試間共享可變狀態",
+          "text": "<p>下列哪種情形是與<em>測試順序</em>有關的常見脆弱原因？</p>",
+          "answers": [
+            {
+              "text": "測試之間共享可變狀態（例如全域變數或資料庫資料列），且某個測試留下的資料影響了另一個測試",
+              "fraction": 100,
+              "feedback": "正確——遺留的共享狀態會造成與順序相依、非決定性的結果。"
+            },
+            {
+              "text": "每個測試各自建立並拆除自己的私有資料",
+              "fraction": 0,
+              "feedback": "各測試私有的資料可防止順序相依；它是修復，而非原因。"
+            },
+            {
+              "text": "每個測試都只斷言一件事",
+              "fraction": 0,
+              "feedback": "單一斷言的測試與順序相依無關。"
+            },
+            {
+              "text": "測試被取了具描述性的名稱",
+              "fraction": 0,
+              "feedback": "命名與順序相依或脆弱性無關。"
+            }
+          ],
+          "generalFeedback": "當測試共享可變狀態時，某個測試的結果可能取決於另一個測試是否——以及以何種順序——先執行。遺留的資料或被改動的全域變數，使結果相依於執行順序，而許多執行器並不保證順序，於是產生間歇失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "常見原因：外部相依",
+          "text": "<p>為什麼在單元測試中呼叫真實的外部服務（例如第三方網路 API）會造成脆弱？</p>",
+          "answers": [
+            {
+              "text": "外部服務可能很慢、無法使用，或回傳變動的資料，使測試結果取決於受測程式碼以外的因素",
+              "fraction": 100,
+              "feedback": "正確——外部相依引入測試無法控制的變動性，造成間歇失敗。"
+            },
+            {
+              "text": "外部服務總是回傳完全相同的回應，這強迫測試失敗",
+              "fraction": 0,
+              "feedback": "恰好相反：它們的回應與可用性會變動，這正是造成脆弱的原因。"
+            },
+            {
+              "text": "網路呼叫會讓斷言變得更嚴格",
+              "fraction": 0,
+              "feedback": "斷言嚴格程度無關；脆弱來自不受控的外部變動性。"
+            },
+            {
+              "text": "測試框架禁止網路存取，所以測試無法編譯",
+              "fraction": 0,
+              "feedback": "框架一般允許網路呼叫；問題在於它們引入的非決定性。"
+            }
+          ],
+          "generalFeedback": "真實的外部相依在測試控制之外：它可能慢、暫時停機、被限流，或回傳變動的資料。此時測試的通過與否取決於當下服務的狀態，而非受測的程式碼，這正是非決定性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "常見原因：目前的日期或時間",
+          "text": "<p>某測試在其邏輯中使用了機器目前的日期／時間（掛鐘時間）。為什麼這是脆弱性風險？</p>",
+          "answers": [
+            {
+              "text": "結果可能取決於測試剛好在何時執行——某個特定小時、跨日界線或時區——因此它在某些時間通過、在另一些時間失敗",
+              "fraction": 100,
+              "feedback": "正確——綁定真實時鐘的測試是非決定性的，因為時鐘一直在變。"
+            },
+            {
+              "text": "讀取時鐘總是太慢，因而造成逾時",
+              "fraction": 0,
+              "feedback": "讀時鐘很快；問題在於它的值隨時間改變，使結果取決於何時執行。"
+            },
+            {
+              "text": "目前的時間永遠相同，所以測試被過度約束",
+              "fraction": 0,
+              "feedback": "目前的時間正是不斷在變的東西；那個變動性才是原因。"
+            },
+            {
+              "text": "在多數語言中日期無法比較",
+              "fraction": 0,
+              "feedback": "日期可以正常比較；脆弱來自依賴那持續變動的真實時鐘。"
+            }
+          ],
+          "generalFeedback": "使用真實掛鐘時間會把測試結果綁到它執行的那一刻。它可能白天通過，卻在跨越午夜界線、月底，或在不同時區失敗。因為時鐘一直在變，結果無法重現——這正是脆弱的特徵。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識脆弱症狀",
+          "text": "<p>下列哪一種觀察到的行為，是脆弱測試的明確症狀？</p>",
+          "answers": [
+            {
+              "text": "對完全相同的提交（commit）重跑完全相同的測試，一次通過、下一次卻失敗",
+              "fraction": 100,
+              "feedback": "正確——在未改變的程式碼上重跑卻結果不同，正是脆弱的標誌。"
+            },
+            {
+              "text": "測試失敗，而在你修好程式碼中一個真正的缺陷後它就通過",
+              "fraction": 0,
+              "feedback": "那是正常、正確的行為：測試偵測到真正的缺陷，並在修復後加以確認。"
+            },
+            {
+              "text": "因為語法錯誤而無法編譯",
+              "fraction": 0,
+              "feedback": "編譯錯誤每次都決定性地失敗；那是建置問題，不是脆弱。"
+            },
+            {
+              "text": "測試在每一台機器上每次都通過",
+              "fraction": 0,
+              "feedback": "一致通過的測試是決定性且穩定的，與脆弱相反。"
+            }
+          ],
+          "generalFeedback": "脆弱性表現為對相同程式碼在多次執行間給出不同裁決。若受測對象沒有任何改變，結果卻在通過與失敗間翻動，那就是脆弱。決定性的失敗（缺陷、語法錯誤）與一致的通過都不是脆弱。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "常見原因：無序集合的走訪",
+          "text": "<p>某測試斷言走訪一個以雜湊為基礎的 set／map 時，元素會以某個特定順序出現。為什麼這是脆弱性風險？</p>",
+          "answers": [
+            {
+              "text": "以雜湊為基礎的集合不保證穩定的走訪順序，因此順序可能在不同執行或環境間變動",
+              "fraction": 100,
+              "feedback": "正確——依賴未指定的走訪順序會使結果非決定性。"
+            },
+            {
+              "text": "雜湊集合永遠只能容納一個元素",
+              "fraction": 0,
+              "feedback": "它們可容納許多元素；問題在於其走訪順序未受保證。"
+            },
+            {
+              "text": "走訪集合總是拋出例外",
+              "fraction": 0,
+              "feedback": "走訪運作正常；脆弱來自未指定的順序。"
+            },
+            {
+              "text": "set 與 map 總是以排序後的順序走訪",
+              "fraction": 0,
+              "feedback": "以雜湊為基礎的 set／map 一般不保證排序或穩定的順序，這正是問題所在。"
+            }
+          ],
+          "generalFeedback": "許多以雜湊為基礎的集合對走訪順序不做任何承諾；順序可能取決於雜湊、插入歷程、容量或執行環境版本。對這類集合斷言某個特定順序，等於把測試綁在一個可能在不同執行間改變的實作細節上，造成間歇失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "常見原因：環境差異",
+          "text": "<p>某測試在每一台開發者筆電上都通過，但在 CI 伺服器上有時失敗。這最能指向哪一種脆弱原因？</p>",
+          "answers": [
+            {
+              "text": "環境差異——CI 在時序、資源、地區設定（locale）或組態上與筆電不同",
+              "fraction": 100,
+              "feedback": "正確——結果取決於在哪裡執行，指向與環境相關的原因。"
+            },
+            {
+              "text": "測試的斷言太具描述性",
+              "fraction": 0,
+              "feedback": "具描述性的斷言不會造成與環境相依的脆弱。"
+            },
+            {
+              "text": "受測程式碼完全沒有任何缺陷",
+              "fraction": 0,
+              "feedback": "程式碼是否有缺陷是另一回事；此樣態指向環境差異。"
+            },
+            {
+              "text": "測試檔案太長",
+              "fraction": 0,
+              "feedback": "檔案長度與環境相依的脆弱無關。"
+            }
+          ],
+          "generalFeedback": "依環境而有不同行為的測試，是相依於環境所提供的某些東西——CPU 速度與負載（影響時序）、可用記憶體、CPU／核心數（影響並行）、預設地區設定或時區，或組態。CI 常常正是在這些方面與筆電不同，因而暴露出隱藏的假設。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "脆弱性在重跑上浪費時間",
+          "text": "<p>脆弱測試的一項真實成本，是開發者花在重跑建置、以及調查那些結果並非真正失敗的時間。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——重跑與追查假警報會消耗真實的工程時間，並拖慢管線。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此為錯誤：在重跑與假警報調查上浪費時間，是眾所周知的脆弱成本。"
+            }
+          ],
+          "generalFeedback": "除了侵蝕信任與掩蓋真正失敗之外，脆弱性還有直接的生產力成本：管線被重新觸發、工程師停下來調查那些從來不是真的紅色建置、合併被延遲。這些被浪費的心力，正是為什麼脆弱性值得修復、而非容忍的重要原因。"
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是隔離（quarantine）",
+          "text": "<p>對一個脆弱測試進行<em>隔離（quarantine）</em>的意思是：</p>",
+          "answers": [
+            {
+              "text": "暫時把它分隔出來，使其間歇失敗不再阻塞管線，同時持續追蹤它並排定真正的修復",
+              "fraction": 100,
+              "feedback": "正確——隔離把雜訊從管線隔開，但測試仍必須被追蹤並加以修復。"
+            },
+            {
+              "text": "將該測試從程式碼庫永久刪除",
+              "fraction": 0,
+              "feedback": "刪除測試會丟掉它的涵蓋範圍；隔離則保留它、加以隔離並追蹤，直到修好為止。"
+            },
+            {
+              "text": "自動重跑它直到終於通過，然後就不管了",
+              "fraction": 0,
+              "feedback": "盲目重跑後就忘掉，只是把問題掩蓋起來；隔離則明確地持續追蹤該測試以待真正修復。"
+            },
+            {
+              "text": "不論結果如何都把它標記為永遠通過",
+              "fraction": 0,
+              "feedback": "強迫通過會摧毀測試的價值；隔離是把它從阻塞的關卡挪開，但仍保持它誠實且被追蹤。"
+            }
+          ],
+          "generalFeedback": "隔離把一個已知脆弱的測試移出阻塞合併的路徑，使其雜訊不再干擾所有人，但它仍留在一份被追蹤的清單上，並排定進行根因修復。隔離是一種圍堵手段，而非修復——未被追蹤的隔離只是一個被藏起來的缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "常見原因：並行程式碼中的競態條件",
+          "text": "<p>下列何者是脆弱測試的常見原因？</p>",
+          "answers": [
+            {
+              "text": "競態條件（race condition），亦即結果取決於並行執行緒或操作之間不可預測的交錯順序",
+              "fraction": 100,
+              "feedback": "正確——競態使結果取決於交錯的時序，而時序在不同執行間變動。"
+            },
+            {
+              "text": "對一個固定且以同步方式計算出的值做斷言",
+              "fraction": 0,
+              "feedback": "同步、固定的計算是決定性的；它不會造成脆弱。"
+            },
+            {
+              "text": "為每個測試各自提供獨立的資料副本",
+              "fraction": 0,
+              "feedback": "各測試獨立的資料會降低脆弱性；它是修復手段，而非原因。"
+            },
+            {
+              "text": "為測試寫一個清楚、具描述性的名稱",
+              "fraction": 0,
+              "feedback": "命名對決定性沒有影響；競態條件才有。"
+            }
+          ],
+          "generalFeedback": "競態條件是指兩個以上的並行操作可能以多種方式交錯，而測試的結果取決於實際發生的是哪一種交錯。因為排程器以不可預測的方式選擇交錯順序，結果便在不同執行間變動——這是經典的脆弱，也往往是程式碼中真正並行缺陷的症狀。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "症狀：單獨跑會過，整套跑會敗",
+          "text": "<p>某測試單獨執行時通過，但作為完整套件的一部分執行時卻失敗。最可能的原因是什麼？</p>",
+          "answers": [
+            {
+              "text": "順序相依：另一個測試留下了共享狀態，而這個測試依賴它、或被它擾亂",
+              "fraction": 100,
+              "feedback": "正確——單獨跑會過、整套跑會敗，正是共享狀態造成順序相依的典型標誌。"
+            },
+            {
+              "text": "這個測試的斷言根本就寫錯了",
+              "fraction": 0,
+              "feedback": "若斷言寫錯，單獨跑時也會失敗；「單獨對比整套」的差異指向共享狀態。"
+            },
+            {
+              "text": "機器太快了",
+              "fraction": 0,
+              "feedback": "機器速度無法解釋為何結果取決於其他測試是否先跑；共享狀態才能。"
+            },
+            {
+              "text": "這個測試的斷言太少",
+              "fraction": 0,
+              "feedback": "斷言數量無關；單獨與整套之間的差異指向透過共享狀態的順序相依。"
+            }
+          ],
+          "generalFeedback": "當一個測試的裁決取決於是否有其他測試先跑時，代表有某些狀態在測試間被共享——全域變數、靜態欄位、快取、檔案或資料庫資料列。修法是逐一測試地隔離並重設狀態，使每個測試都從乾淨、已知的起點開始。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "症狀：在逾時附近間歇失敗",
+          "text": "<p>某 UI 測試在它以固定時間等待某個按鈕出現之處間歇失敗，但通常會通過。最可能的原因是什麼？</p>",
+          "answers": [
+            {
+              "text": "時序問題：因為該元素偶爾要花更久才出現，固定等待有時太短",
+              "fraction": 100,
+              "feedback": "正確——在固定等待處的間歇失敗，是時序／非同步就緒問題。"
+            },
+            {
+              "text": "斷言中把按鈕的文字拼錯了",
+              "fraction": 0,
+              "feedback": "字串寫錯會一致失敗，而非間歇失敗；間歇性指向時序。"
+            },
+            {
+              "text": "這個測試有語法錯誤",
+              "fraction": 0,
+              "feedback": "語法錯誤每次都失敗；在等待處間歇失敗指向時序原因。"
+            },
+            {
+              "text": "資料庫綱要（schema）過時了",
+              "fraction": 0,
+              "feedback": "綱要問題不會只在等待步驟偶爾出現；時序才會。"
+            }
+          ],
+          "generalFeedback": "恰好在固定等待處間歇失敗，是時序／非同步問題的指紋：元素的就緒時間會變動，一旦超過寫死的等待，斷言就會太早執行。修法是輪詢該條件（明確／條件式等待），而不是固定睡一段時間。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "症狀：只在午夜前後失敗",
+          "text": "<p>某測試幾乎總是通過，但夜間建置偶爾在午夜前後讓它失敗。你應該最先懷疑哪一種原因？</p>",
+          "answers": [
+            {
+              "text": "日期／時間相依：測試的邏輯在跨日界線時有不同行為",
+              "fraction": 100,
+              "feedback": "正確——失敗聚集在某個時間界線，指向掛鐘／日期相依。"
+            },
+            {
+              "text": "測試只在夜間用掉太多記憶體",
+              "fraction": 0,
+              "feedback": "記憶體用量與午夜界線無關；失敗發生的時間點指向日期相依。"
+            },
+            {
+              "text": "斷言太嚴格",
+              "fraction": 0,
+              "feedback": "嚴格的斷言不論幾點都會失敗；聚集在午夜指向日期／時間相依。"
+            },
+            {
+              "text": "CI 伺服器的核心太多了",
+              "fraction": 0,
+              "feedback": "核心數無法解釋為何特別在午夜失敗；跨日界線才能。"
+            }
+          ],
+          "generalFeedback": "聚集在某個時間點（午夜、月底、日光節約時間切換）的失敗，透露出對真實時鐘的依賴。像是「該紀錄是今天建立的」或某段日期運算，會在跨越界線時出錯。注入或凍結時鐘，讓測試控制時間，而非讀取真實時間。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "症狀：只在測試被重新排序時失敗",
+          "text": "<p>你的套件平常通過，但當執行器以隨機順序執行測試時就開始失敗。這揭露了什麼？</p>",
+          "answers": [
+            {
+              "text": "順序相依：至少有一個測試依賴另一個測試的副作用，因此不同順序就會破壞它",
+              "fraction": 100,
+              "feedback": "正確——在重新排序下失敗，是隱藏順序相依的直接證據。"
+            },
+            {
+              "text": "執行器的隨機順序功能壞了",
+              "fraction": 0,
+              "feedback": "隨機順序是標準、正常運作的功能；它是揭露了既有的相依，而非造成相依。"
+            },
+            {
+              "text": "測試太快，無法以新順序執行",
+              "fraction": 0,
+              "feedback": "速度無關；只在重新排序時失敗，表示測試相依於執行順序。"
+            },
+            {
+              "text": "隨機化順序總是讓正確的測試失敗",
+              "fraction": 0,
+              "feedback": "並非如此——獨立、隔離良好的測試在任何順序下都通過；失敗代表存在真正的相依。"
+            }
+          ],
+          "generalFeedback": "以隨機順序執行測試是一種刻意的偵測技術。妥善隔離的測試在任何順序下都通過；若重新排序造成失敗，就代表某些測試透過共享狀態或假定的先後順序而彼此耦合。修法是隔離並重設狀態，使每個測試彼此獨立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "固定 sleep 的修法",
+          "text": "<p>某測試以固定的 <code>sleep(500 毫秒)</code> 來等待一個非同步結果，因而脆弱。正確、具決定性的修法是什麼？</p>",
+          "answers": [
+            {
+              "text": "把固定 sleep 換成明確／條件式等待，輪詢直到結果就緒，並設一個合理的逾時上限",
+              "fraction": 100,
+              "feedback": "正確——等待實際條件（並設逾時）可去除猜測與脆弱。"
+            },
+            {
+              "text": "把 sleep 加長到 5 秒，並維持是固定 sleep",
+              "fraction": 0,
+              "feedback": "更長的固定 sleep 只是降低失敗率、卻拖慢每次執行；它並未移除非決定性。"
+            },
+            {
+              "text": "刪掉檢查結果的那個斷言",
+              "fraction": 0,
+              "feedback": "移除斷言等於不再測任何有意義的東西來掩蓋脆弱；那不是修復。"
+            },
+            {
+              "text": "把測試包在自動重試中，跑三次",
+              "fraction": 0,
+              "feedback": "重試是掩蓋時序缺陷，而非修復根因；正確的修法是等待該條件成立。"
+            }
+          ],
+          "generalFeedback": "固定 sleep 把「某個非同步動作要花多久」的猜測寫死。改成條件式等待，反覆輪詢實際的就緒條件、一旦成立就立即繼續，並在寬裕的逾時後才失敗。這既具決定性，通常也比保守的固定 sleep 更快。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "未設種子的隨機的修法",
+          "text": "<p>某測試之所以脆弱，是因為它把未設種子的隨機資料餵給受測程式碼。要使它具決定性，正確的修法是什麼？</p>",
+          "answers": [
+            {
+              "text": "以固定值為亂數產生器設定種子，使每次執行都產生相同的輸入",
+              "fraction": 100,
+              "feedback": "正確——固定的種子使「隨機」序列可重現，恢復決定性。"
+            },
+            {
+              "text": "更頻繁地執行測試，讓那個罕見的失敗值較少出現",
+              "fraction": 0,
+              "feedback": "多跑並不會移除非決定性；固定種子才會。"
+            },
+            {
+              "text": "捕捉並忽略測試產生的任何斷言失敗",
+              "fraction": 0,
+              "feedback": "吞掉失敗等於停用測試；為產生器設定種子才是真正的修法。"
+            },
+            {
+              "text": "換用另一種隨機演算法，但仍然不設種子",
+              "fraction": 0,
+              "feedback": "任何未設種子的產生器每次仍會變動；修法是固定種子。"
+            }
+          ],
+          "generalFeedback": "以常數為產生器設定種子，會使它每次產生相同的序列，於是輸入——以及結果——都可重現。若某個特定種子暴露出真正的失敗，那是要調查並加入為固定回歸案例的真正缺陷，而不是靠重新隨機化來掩蓋的東西。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "掛鐘相依的修法",
+          "text": "<p>某測試之所以脆弱，是因為它的邏輯從系統時鐘讀取目前時間。正確、具決定性的修法是什麼？</p>",
+          "answers": [
+            {
+              "text": "注入或凍結時鐘，讓測試以固定、已知的值來控制目前時間",
+              "fraction": 100,
+              "feedback": "正確——控制時間（把假的／凍結的時鐘注入程式碼）可去除對真實時鐘的依賴。"
+            },
+            {
+              "text": "只在一天中已知會通過的時段執行測試",
+              "fraction": 0,
+              "feedback": "限制執行時段是一種暫時手段，時間相依——以及脆弱——仍留在原處。"
+            },
+            {
+              "text": "在讀取時鐘前加一個固定 sleep",
+              "fraction": 0,
+              "feedback": "sleep 無法控制時鐘回傳的值；你必須注入或凍結時間。"
+            },
+            {
+              "text": "重試測試直到它剛好通過",
+              "fraction": 0,
+              "feedback": "重試是掩蓋時間相依，而非移除它；改為注入一個可控的時鐘。"
+            }
+          ],
+          "generalFeedback": "把時間變成一個注入的相依（一個由程式碼呼叫的時鐘），而不是讀取全域掛鐘。在測試中提供固定或腳本化的時鐘，使「現在」成為已知的常數。行為便完全可重現，包含跨日界線與跨時區。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "外部相依的修法",
+          "text": "<p>某單元測試之所以脆弱，是因為它呼叫真實的第三方網路 API。適當的修法是什麼？</p>",
+          "answers": [
+            {
+              "text": "用 mock／stub（測試替身）取代真實呼叫，讓它回傳受控、具決定性的回應",
+              "fraction": 100,
+              "feedback": "正確——測試替身可去除不受控的外部變動性，使單元測試具決定性。"
+            },
+            {
+              "text": "加長逾時，讓那個慢的服務通常來得及回應",
+              "fraction": 0,
+              "feedback": "更長的逾時只減少一種失敗模式；服務仍可能停機或回傳變動的資料。"
+            },
+            {
+              "text": "重試網路呼叫數次，指望它終究會成功",
+              "fraction": 0,
+              "feedback": "重試是掩蓋外部變動性，而非用受控的替身把受測單元隔離開來。"
+            },
+            {
+              "text": "刪掉這個測試，使網路永遠不會被碰到",
+              "fraction": 0,
+              "feedback": "刪除會丟掉涵蓋範圍；修法是把相依 stub 掉並繼續測試程式碼。"
+            }
+          ],
+          "generalFeedback": "單元測試應該演練你的程式碼，而非真實的外部系統。用會回傳固定回應（含你想測試的錯誤情況）的 mock 或 stub 取代真實相依。結果便不再取決於服務的可用性或資料，因而具決定性。真正的整合行為則在專門的整合測試中另行驗證。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試間共享狀態的修法",
+          "text": "<p>有幾個測試之所以脆弱，是因為它們共享並改動同一批資料庫資料列。正確的修法是什麼？</p>",
+          "answers": [
+            {
+              "text": "逐一測試地隔離並重設狀態——建立全新的夾具、並拆除／清理，使每個測試都從已知的乾淨狀態開始",
+              "fraction": 100,
+              "feedback": "正確——逐一測試的隔離與重設可去除跨測試的耦合與順序相依。"
+            },
+            {
+              "text": "固定測試的執行順序，並永遠以該順序執行它們",
+              "fraction": 0,
+              "feedback": "固定順序是掩蓋耦合且很脆弱；真正的修法是透過隔離讓測試彼此獨立。"
+            },
+            {
+              "text": "讓測試跑得更慢，使它們不會相撞",
+              "fraction": 0,
+              "feedback": "放慢並不會移除共享的可變狀態；隔離與重設才會。"
+            },
+            {
+              "text": "重試整個套件直到通過",
+              "fraction": 0,
+              "feedback": "重試是掩蓋共享狀態問題；改為逐一測試地隔離並重設狀態。"
+            }
+          ],
+          "generalFeedback": "根因是共享的可變狀態。給每個測試各自的夾具，並在測試之間重設世界（setup／teardown、交易回滾、全新的暫時資源），使沒有任何測試依賴他者的遺留物。移除測試間相依後，結果便不再取決於執行順序。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "多次重跑以重現",
+          "text": "<p>多次執行一個疑似脆弱的測試（並量測它多常失敗），是一種確認並量化其脆弱性的正當做法。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——反覆執行可重現該間歇失敗，並給出可追蹤、可據以行動的脆弱率。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此為錯誤：因為脆弱是間歇性的，反覆執行正是重現它、並量測它多常失敗的方式。"
+            }
+          ],
+          "generalFeedback": "單次執行可能靠運氣通過，所以一次綠燈並不能證明測試穩定。多次執行它（在本機或 CI）可重現間歇失敗，並給出脆弱率——例如每 100 次跑失敗 3 次——這能確認問題、供你排序優先級，並在日後驗證修復。這個偵測步驟不同於在管線中盲目重試以硬湊出綠燈。"
+        },
+        {
+          "type": "multichoice",
+          "name": "無序走訪斷言的修法",
+          "text": "<p>某測試在斷言一個以雜湊為基礎的集合以某特定順序走訪時脆弱地失敗。正確的修法是什麼？</p>",
+          "answers": [
+            {
+              "text": "讓比較與順序無關——先把結果排序，或以 set／multiset 相等來斷言，而不是斷言序列順序",
+              "fraction": 100,
+              "feedback": "正確——用不依賴走訪順序的方式比較，可去除非決定性。"
+            },
+            {
+              "text": "反覆執行測試，直到元素剛好以預期的順序出現",
+              "fraction": 0,
+              "feedback": "依賴不巧的順序正是脆弱本身；改為讓斷言與順序無關。"
+            },
+            {
+              "text": "把集合縮減成單一元素，使順序不會變動",
+              "fraction": 0,
+              "feedback": "更改資料來閃避問題會削弱測試；改為以與順序無關的方式斷言。"
+            },
+            {
+              "text": "在走訪集合前加一個固定 sleep",
+              "fraction": 0,
+              "feedback": "sleep 不影響走訪順序；請排序或以無序集合方式比較。"
+            }
+          ],
+          "generalFeedback": "若規格並未保證順序，測試就不該假定順序。要嘛在比較前把實際值與預期值都排序，要嘛以 set／multiset 比較，使只有成員與數量重要。若確實需要某特定順序，就使用有序集合，並在程式碼中把該順序寫明。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "隔離的目的",
+          "text": "<p>隔離一個脆弱測試的目的是什麼？</p>",
+          "answers": [
+            {
+              "text": "讓它的間歇失敗不再為所有人阻塞管線，同時它仍被追蹤、並排定進行妥善的修復",
+              "fraction": 100,
+              "feedback": "正確——隔離圍堵了干擾，卻不放棄該測試，也不放棄修復它的義務。"
+            },
+            {
+              "text": "把該測試及其涵蓋範圍從專案永久移除",
+              "fraction": 0,
+              "feedback": "那是刪除，會丟掉涵蓋範圍；隔離則保留該測試以待修復追蹤。"
+            },
+            {
+              "text": "宣告該測試已修好，且無須任何後續工作",
+              "fraction": 0,
+              "feedback": "隔離是圍堵，而非修復；根因仍必須被處理。"
+            },
+            {
+              "text": "讓該測試跑得更快",
+              "fraction": 0,
+              "feedback": "速度不是重點；隔離是要把脆弱的雜訊從阻塞的關卡隔開。"
+            }
+          ],
+          "generalFeedback": "隔離為團隊解除阻塞：一個已知脆弱的測試不再讓大家的建置失敗，於是套件重獲訊號價值。但該測試仍留在一份被追蹤的清單上，有負責人與進行真正根因修復的期限。未被追蹤且未被修復的隔離，只會淪為一個被永久停用的測試——一個涵蓋缺口與隱藏風險。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "症狀：在並行執行下失敗",
+          "text": "<p>某測試在套件以單執行緒執行時通過，但一旦執行器以並行方式執行測試就間歇失敗。最可能的原因是什麼？</p>",
+          "answers": [
+            {
+              "text": "競態條件或資源爭用：並行的測試透過某個共享資源相互干擾，而未妥善隔離",
+              "fraction": 100,
+              "feedback": "正確——在並行下出現新的失敗，指向並行／共享資源的爭用。"
+            },
+            {
+              "text": "並行執行總是會破壞正確的測試",
+              "fraction": 0,
+              "feedback": "並非如此——妥善隔離的測試在並行下也能正確執行；失敗代表共享資源的爭用。"
+            },
+            {
+              "text": "在並行執行時斷言變得更嚴格了",
+              "fraction": 0,
+              "feedback": "斷言不會因並行而改變；原因是對共享資源的爭用。"
+            },
+            {
+              "text": "這些測試的註解太多",
+              "fraction": 0,
+              "feedback": "註解無關；只在並行時失敗指向競態或資源爭用。"
+            }
+          ],
+          "generalFeedback": "只在並行執行時出現的失敗，代表測試在爭用某個共享資源——同一個檔案、埠、資料庫資料列或全域變數——而未加隔離，或受測程式碼本身有競態條件。修法是逐一測試地隔離資源（各自唯一的暫存檔／埠／綱要），並讓程式碼的並行具決定性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "主動偵測順序相依",
+          "text": "<p>下列哪一種做法，最有助於在測試間隱藏的順序相依造成麻煩之前就偵測到它？</p>",
+          "answers": [
+            {
+              "text": "以隨機的測試順序（並以不同順序）執行套件，使任何對執行先後的相依都被暴露",
+              "fraction": 100,
+              "feedback": "正確——隨機化順序會讓那些暗中依賴「在另一個之後執行」的測試現形。"
+            },
+            {
+              "text": "永遠以完全相同的字母順序執行測試",
+              "fraction": 0,
+              "feedback": "固定順序可能無限期地掩蓋相依；隨機化順序才是使其現形的方法。"
+            },
+            {
+              "text": "在每一對測試之間加一個固定 sleep",
+              "fraction": 0,
+              "feedback": "sleep 無法揭露共享狀態的耦合；以不同順序執行才行。"
+            },
+            {
+              "text": "減少每個測試中的斷言數量",
+              "fraction": 0,
+              "feedback": "斷言數量與偵測順序相依無關。"
+            }
+          ],
+          "generalFeedback": "獨立的測試在任何順序下都通過，所以刻意打亂執行順序（並更換種子）是暴露那些依賴他者副作用之測試的標準方法。許多執行器正為此提供可重現種子的隨機順序模式。一旦暴露，就隔離並重設狀態以移除該相依。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "競態條件脆弱測試的修法",
+          "text": "<p>某測試之所以脆弱，是因為它所演練的程式碼在兩個並行操作之間有競態條件。正確的修法是什麼？</p>",
+          "answers": [
+            {
+              "text": "修正並行，使結果具決定性——加入妥善的同步（或等待兩個操作皆完成）——把競態當成它本來就是的真正缺陷來處理",
+              "fraction": 100,
+              "feedback": "正確——競態是真正的缺陷；讓交錯安全且具決定性。"
+            },
+            {
+              "text": "加一個固定 sleep，指望兩個操作不再重疊",
+              "fraction": 0,
+              "feedback": "sleep 只降低出現壞交錯的機率；競態仍然存在，仍可能失敗。"
+            },
+            {
+              "text": "自動重試測試，直到出現好的交錯順序",
+              "fraction": 0,
+              "feedback": "重試是掩蓋真正的並行缺陷，而非修復它；改為同步這些操作。"
+            },
+            {
+              "text": "在較慢的機器上執行測試，讓時序剛好對上",
+              "fraction": 0,
+              "feedback": "依賴機器速度既脆弱又不可移植；修正同步才能使結果具決定性。"
+            }
+          ],
+          "generalFeedback": "競態條件是真正的缺陷，而非單純的測試雜訊：結果取決於並行操作不可預測的先後順序。修法是讓程式碼的並行正確且具決定性——妥善的鎖定／同步，或在斷言前等待／join 兩個操作完成。sleep 與重試只是降低失敗率，卻讓缺陷留在原處。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "診斷：先 sleep 再點擊",
+          "text": "<p>請看以下這段脆弱的端對端測試步驟：</p>\n<pre><code>submitForm();\nsleep(300);            // 等伺服器\nassertVisible(\"#confirmation\");</code></pre>\n<p>它多數時候通過，但在 CI 上每天會失敗幾次。根因是什麼？正確的修法為何？</p>",
+          "answers": [
+            {
+              "text": "時序問題：300 毫秒有時太短。把固定 sleep 換成明確等待，輪詢直到出現，並設一個逾時上限",
+              "fraction": 100,
+              "feedback": "正確——輪詢實際條件，而不是猜一個時間長度。"
+            },
+            {
+              "text": "選擇器錯了；把改成別的 id",
+              "fraction": 0,
+              "feedback": "選擇器錯會每次都失敗，而非間歇失敗；間歇性是時序問題。"
+            },
+            {
+              "text": "把 sleep 加長到 3000 毫秒，並維持是固定 sleep",
+              "fraction": 0,
+              "feedback": "更長的固定 sleep 只降低失敗率、卻拖慢每次執行；非決定性仍在。"
+            },
+            {
+              "text": "把整個測試包在重試三次的區塊裡",
+              "fraction": 0,
+              "feedback": "重試是掩蓋時序缺陷；正確的修法是等待確認元素出現。"
+            }
+          ],
+          "generalFeedback": "確認元素的到達時間會隨伺服器與網路負載變動；300 毫秒的猜測偶爾太短，於是斷言在元素存在之前就執行。把換成條件式等待，輪詢、一出現就立即繼續，並在寬裕的逾時後才失敗——既具決定性，通常也更快。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為什麼盲目重試到綠燈是壞事",
+          "text": "<p>某團隊把 CI 設定成自動重跑任何失敗的測試最多五次，只要有任何一次通過就回報為通過。為什麼這種「重試到綠燈」的政策很危險？</p>",
+          "answers": [
+            {
+              "text": "它可能掩蓋一個真正的間歇缺陷：偶爾失敗的真正缺陷會被重試成綠燈，而永遠不被調查",
+              "fraction": 100,
+              "feedback": "正確——盲目重試會藏起那些會在正式環境浮現的真實低頻失敗。"
+            },
+            {
+              "text": "它讓建置變慢，而這是唯一真正的壞處",
+              "fraction": 0,
+              "feedback": "建置變慢是小問題；嚴重的危險是真正的間歇缺陷被重試掩蓋。"
+            },
+            {
+              "text": "它透過移除非決定性而永久修好脆弱",
+              "fraction": 0,
+              "feedback": "重試沒有移除任何東西；非決定性仍在，只是被蓋住而已。"
+            },
+            {
+              "text": "它迫使開發者寫更多測試",
+              "fraction": 0,
+              "feedback": "並不會；它只是把間歇失敗藏起來，不論那是脆弱或真實的。"
+            }
+          ],
+          "generalFeedback": "自動重試無法分辨無害的脆弱失敗與真正的間歇缺陷（競態條件、罕見資料情況）。只要有任一次通過就回報綠燈，等於把會最終衝擊使用者的真實低頻缺陷埋起來。重試可以是暫時的權宜之計，但必須是可見且被追蹤的；它不是修復，根因仍需診斷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷：外洩的全域計數器",
+          "text": "<p>測試 A 遞增一個模組層級的全域變數 <code>counter</code>，且從不重設它。測試 B 斷言 <code>counter == 1</code>。當 B 先跑時通過，但當 A 在 B 之前先跑時失敗。根因是什麼？最佳修法為何？</p>",
+          "answers": [
+            {
+              "text": "透過外洩全域狀態造成的順序相依：在 setup／teardown 中重設該全域變數（或避免使用共享全域），使每個測試都從已知狀態開始",
+              "fraction": 100,
+              "feedback": "正確——外洩的全域變數耦合了測試；逐一測試地重設可移除相依。"
+            },
+            {
+              "text": "測試 B 的預期值根本錯了；把它改成 2",
+              "fraction": 0,
+              "feedback": "寫死成 2 只是把 B 綁在某一個特定執行順序上；真正的問題是那個共享、未重設的全域變數。"
+            },
+            {
+              "text": "強制執行器永遠在 A 之前執行 B",
+              "fraction": 0,
+              "feedback": "固定順序是掩蓋耦合且很脆弱；改以重設狀態讓每個測試彼此獨立。"
+            },
+            {
+              "text": "在 A 與 B 之間加一個 sleep",
+              "fraction": 0,
+              "feedback": "sleep 對外洩的全域變數毫無作用；逐一測試地重設共享狀態。"
+            }
+          ],
+          "generalFeedback": "這些測試透過一個可變的全域變數溝通：A 改動它、B 讀取它。結果取決於執行順序，而順序並未受保證。在 setup／teardown 中重設該全域變數，或更好——消除這個共享全域，使測試不共享可變狀態。如此每個測試便彼此獨立，在任何順序下都通過。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷：斷言雜湊 set 的第一個元素",
+          "text": "<p>某測試建立一個以雜湊為基礎的標籤 set，並斷言走訪回傳的第一個元素等於 <code>\"admin\"</code>。它在你的機器上通過，但在某些 CI 執行、以及一次語言執行環境升級後失敗。根因是什麼？正確的修法為何？</p>",
+          "answers": [
+            {
+              "text": "該 set 的走訪順序並未受保證；改為斷言成員關係（set 含有 \"admin\"），或在比較前排序，而不是斷言「第一個」",
+              "fraction": 100,
+              "feedback": "正確——不要依賴未指定的走訪順序；測試成員關係或排序後的結果。"
+            },
+            {
+              "text": "執行環境升級在 set 實作中引入了缺陷；把執行環境降級",
+              "fraction": 0,
+              "feedback": "該 set 的行為符合其合約（不保證順序）；測試的假設才是缺陷，而非執行環境。"
+            },
+            {
+              "text": "重試測試，直到走訪先回傳 \"admin\"",
+              "fraction": 0,
+              "feedback": "依賴不巧的順序正是脆弱本身；改為以與順序無關的方式斷言。"
+            },
+            {
+              "text": "加入更多元素，使 \"admin\" 更可能排在第一個",
+              "fraction": 0,
+              "feedback": "那並不會讓順序具決定性；請徹底移除對順序的依賴。"
+            }
+          ],
+          "generalFeedback": "以雜湊為基礎的 set 不提供順序保證；走訪順序可能因插入歷程、容量或執行環境版本而變，這正是執行環境升級改變了它的原因。測試編入了一個該型別從未承諾的假設。改為斷言規格實際保證的東西——成員關係，或排序後的相等——使檢查與走訪順序無關。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷：與時區相依的日期測試",
+          "text": "<p>某測試把一個儲存的 UTC 時間戳記格式化，並斷言它顯示為某個特定的日曆日期。它對某個國家的開發者通過，但對另一個時區的隊友、以及在 CI 伺服器上失敗。根因是什麼？正確的修法為何？</p>",
+          "answers": [
+            {
+              "text": "程式碼使用了機器的本地時區，因此顯示的日期取決於它在哪裡執行；在測試中釘住／注入一個固定的時區（與時鐘），使結果具決定性",
+              "fraction": 100,
+              "feedback": "正確——必須把對本地時區的隱藏依賴明確化並加以固定。"
+            },
+            {
+              "text": "儲存的時間戳記毀損了；重新產生資料庫",
+              "fraction": 0,
+              "feedback": "儲存的 UTC 值沒問題；脆弱來自以周遭的本地時區去轉換它。"
+            },
+            {
+              "text": "只在它會通過的那一個時區執行測試",
+              "fraction": 0,
+              "feedback": "限制執行地點是掩蓋依賴，而非移除它；請明確釘住時區。"
+            },
+            {
+              "text": "加一個重試，使它終究在每個時區都通過",
+              "fraction": 0,
+              "feedback": "結果對每個時區都是決定性的，所以重試無濟於事；請修正時區相依。"
+            }
+          ],
+          "generalFeedback": "把一個 UTC 瞬間格式化為本地日曆日期，會使用環境預設的時區，於是不同機器產生不同日期。把時區明確化——在測試中釘住一個固定時區（並在相關處注入固定時鐘）——使轉換受控，結果在每個地方都相同。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "隔離並追蹤，對比刪除",
+          "text": "<p>某測試脆弱，且拖慢了每一次合併。一位隊友提議乾脆把它刪掉。為什麼「隔離並追蹤」通常是更好的選擇？</p>",
+          "answers": [
+            {
+              "text": "刪除會丟掉該測試所檢查的行為，造成無聲的涵蓋缺口；隔離則在保留該測試與修復義務的同時，為管線解除阻塞",
+              "fraction": 100,
+              "feedback": "正確——隔離保住了刪除會丟掉的涵蓋範圍與問責。"
+            },
+            {
+              "text": "在多數專案中刪除測試在技術上不可能",
+              "fraction": 0,
+              "feedback": "刪除輕而易舉；偏好隔離的理由是刪除會丟掉涵蓋範圍與問責。"
+            },
+            {
+              "text": "隔離會自動修好脆弱的根因",
+              "fraction": 0,
+              "feedback": "隔離不修任何東西；它圍堵雜訊，而根因仍欠一個修復。"
+            },
+            {
+              "text": "被隔離的測試比被刪除的測試跑得更快",
+              "fraction": 0,
+              "feedback": "被刪除的測試根本不會跑；真正的差別是保住涵蓋範圍與追蹤，而非速度。"
+            }
+          ],
+          "generalFeedback": "這個脆弱測試想必在檢查某個真實的東西。刪掉它移除了雜訊，卻也移除了涵蓋範圍——而且悄無聲息，因此沒人記得那個缺口。隔離則在停止對合併的干擾的同時，把測試留在一份被追蹤的清單上，有負責人與期限，使根因修好後該行為仍受驗證。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "成本：脆弱套件造成的警報疲勞",
+          "text": "<p>經過數月，某套件變得慣性脆弱，開發者習慣了重跑紅色建置而不細看。最嚴重的後果是什麼？</p>",
+          "answers": [
+            {
+              "text": "警報疲勞：因為失敗被假定為脆弱，一個真正的回歸被忽略而發布到正式環境",
+              "fraction": 100,
+              "feedback": "正確——套件失去訊號價值，於是真正的失敗被當成雜訊打發掉。"
+            },
+            {
+              "text": "這些測試最終會自己停止編譯",
+              "fraction": 0,
+              "feedback": "脆弱性不會讓程式碼停止編譯；嚴重的成本是真正的失敗被忽略。"
+            },
+            {
+              "text": "套件會隨時間自動變得具決定性",
+              "fraction": 0,
+              "feedback": "脆弱不會自我修復；放著不管會訓練人們忽略失敗。"
+            },
+            {
+              "text": "唯一的成本是 CI 執行稍微變長",
+              "fraction": 0,
+              "feedback": "主要成本不是執行時間；而是真正的回歸藏在雜訊裡並抵達使用者。"
+            }
+          ],
+          "generalFeedback": "慣性脆弱最深的成本是人性面：一旦「紅色」通常意味「只是脆弱」，人們便不再調查、直接重跑。此時真正的回歸就融入雜訊被發布出去。這種「狼來了」效應，擊潰了自動化套件的整個目的，這正是為什麼脆弱必須被當成一級缺陷來對待。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷：未設種子的隨機暴露出邊界案例",
+          "text": "<p>某測試以未設種子的亂數產生器建立輸入。它多數執行通過，但大約每 50 次失敗 1 次，且每次失敗都是一個真正的斷言不符。最佳的回應是什麼？</p>",
+          "answers": [
+            {
+              "text": "捕捉那個失敗的輸入，當成可能的真正缺陷來調查、加以修復，然後為產生器設定種子（或把該案例加為固定的回歸測試）以取得決定性",
+              "fraction": 100,
+              "feedback": "正確——偶發的真正不符可能是真實的邊界案例缺陷；先診斷，再讓測試具決定性。"
+            },
+            {
+              "text": "立刻把產生器的種子設成一個永遠通過的值，然後別管了",
+              "fraction": 0,
+              "feedback": "未經調查就選一個會通過的種子，可能掩蓋一個真正的邊界案例缺陷；先捕捉並診斷失敗。"
+            },
+            {
+              "text": "加一個重試，讓那個每 50 次 1 次的失敗從 CI 消失",
+              "fraction": 0,
+              "feedback": "重試會埋掉可能是真正的缺陷；在讓測試具決定性之前，必須先檢視那個失敗的輸入。"
+            },
+            {
+              "text": "刪掉這個測試，因為隨機資料不可靠",
+              "fraction": 0,
+              "feedback": "刪除會丟掉有用的涵蓋範圍並忽略可能的真正缺陷；請調查、修復，再設種子。"
+            }
+          ],
+          "generalFeedback": "未設種子的隨機既是脆弱來源，有時也是意外的模糊測試器：一個罕見的失敗輸入可能是真正的邊界案例缺陷。先用捕捉到的輸入重現，判斷是程式碼還是測試錯了。修好真正的缺陷，再以設定種子或把發現的案例釘為固定回歸測試來恢復決定性——不要只是挑一個能掩蓋失敗的種子。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷：執行緒之間的競態",
+          "text": "<p>某測試啟動兩個執行緒，兩者都往一個共享的 list 附加元素，然後斷言該 list 有兩個元素。它偶爾看到一個元素或拋出例外。根因是什麼？正確的修法為何？</p>",
+          "answers": [
+            {
+              "text": "未同步的共享 list 上的競態條件；修正並行（妥善的同步或使用執行緒安全的結構），並讓測試以決定性的方式等待兩次附加皆完成",
+              "fraction": 100,
+              "feedback": "正確——脆弱反映了真正的資料競爭；修正同步並以決定性方式等待完成。"
+            },
+            {
+              "text": "list 型別壞了；換用別的 list，並維持未同步",
+              "fraction": 0,
+              "feedback": "一般的 list 並沒有壞；並行且未同步的改動才是缺陷，所以要加入妥善的同步。"
+            },
+            {
+              "text": "在斷言前加一個固定 sleep，並讓執行緒維持未同步",
+              "fraction": 0,
+              "feedback": "sleep 只降低失敗率；底層的資料競爭仍在，仍可能破壞 list。"
+            },
+            {
+              "text": "重試測試，直到兩次附加剛好都成功",
+              "fraction": 0,
+              "feedback": "重試會掩蓋一個也可能影響正式環境的真正並行缺陷；請改為修正競態。"
+            }
+          ],
+          "generalFeedback": "兩個執行緒未同步地改動同一個 list 是資料競爭：交錯順序偶爾會遺失一次更新或破壞內部狀態。這是真正的缺陷，而非單純的測試雜訊。使用妥善的同步或執行緒安全的集合，並讓測試在斷言前以決定性方式等待兩個執行緒結束（join／await）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "決定性是目標，重試是權宜之計",
+          "text": "<p>修復脆弱測試的目標，是透過修正根因來恢復決定性；自動重試可以是暫時的權宜之計，但它本身不是修復。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——透過根因修復取得決定性才是目的；重試只是掩蓋症狀。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此為錯誤：重試並未移除非決定性，所以充其量是權宜之計；真正的修復是在根因處恢復決定性。"
+            }
+          ],
+          "generalFeedback": "妥善的修復是透過處理「它為何會變動」來讓測試重新具決定性——把 sleep 換成條件式等待、為隨機設定種子、注入時鐘、隔離狀態、mock 外部相依，或修正真正的並行缺陷。重試或許能爭取時間，但它掩蓋症狀，且可能藏起真正的間歇缺陷，所以它絕非終局。"
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷：並行測試共享一個暫存檔",
+          "text": "<p>兩個測試各自寫入 <code>/tmp/output.txt</code> 再讀回。逐一執行時它們通過，但當套件以並行方式執行它們時就間歇失敗。根因是什麼？正確的修法為何？</p>",
+          "answers": [
+            {
+              "text": "在共享固定路徑上的資源爭用；給每個測試各自唯一的暫存檔／目錄，使它們無法相互干擾",
+              "fraction": 100,
+              "feedback": "正確——逐一測試地隔離資源（唯一的暫存路徑）以移除爭用。"
+            },
+            {
+              "text": "檔案系統在負載下壞了；把測試移到別的磁碟",
+              "fraction": 0,
+              "feedback": "檔案系統沒問題；測試在一個寫死的路徑上相撞，所以要逐一測試地隔離。"
+            },
+            {
+              "text": "強制這兩個測試永遠循序執行、絕不並行",
+              "fraction": 0,
+              "feedback": "序列化是掩蓋耦合並犧牲並行速度；乾淨的修法是每個測試各自唯一的路徑。"
+            },
+            {
+              "text": "加一個 sleep，使兩次寫入不會在同一瞬間發生",
+              "fraction": 0,
+              "feedback": "sleep 是脆弱的時序把戲，且仍共用同一路徑；請為每個測試使用唯一的暫存檔。"
+            }
+          ],
+          "generalFeedback": "兩個測試使用同一個固定檔名，於是在並行執行下，一個在另一個寫入與讀回之間覆蓋了它的資料。為每個測試配置一個唯一的暫存檔或目錄（全新的暫存路徑，在 teardown 清理），使測試彼此隔離、能以決定性方式並行執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷：created_at 等於 now",
+          "text": "<p>某測試建立一筆紀錄，並斷言 <code>record.created_at == now()</code>，在斷言中再次呼叫真實時鐘。它偶爾失敗，當一個微小的延遲使兩次讀取時鐘的值不同時。正確的修法是什麼？</p>",
+          "answers": [
+            {
+              "text": "注入一個固定的時鐘，使程式碼與測試都看到相同的、受控的「現在」，讓時間戳記以決定性方式比較",
+              "fraction": 100,
+              "feedback": "正確——控制時間可去除兩次真實時鐘讀取之間的落差。"
+            },
+            {
+              "text": "再多讀真實時鐘兩次並取平均",
+              "fraction": 0,
+              "feedback": "更多真實讀取仍會變動；修法是以注入的時鐘控制時間，而非對雜訊取平均。"
+            },
+            {
+              "text": "重試斷言，直到兩次讀取時鐘剛好一致",
+              "fraction": 0,
+              "feedback": "重試靠運氣，且讓時間相依留在原處；改為注入固定時鐘。"
+            },
+            {
+              "text": "徹底刪掉時間戳記的斷言",
+              "fraction": 0,
+              "feedback": "移除檢查會丟掉對時間戳記行為的涵蓋；改為讓時間可控。"
+            }
+          ],
+          "generalFeedback": "脆弱來自比較兩次獨立的真實時鐘讀取，兩者相差它們之間流逝的時間。注入一個可控的時鐘，使程式碼以固定的「現在」為紀錄蓋章，而測試對同一個值斷言。或者斷言時間戳記落在一個容差窗內——但注入時鐘是最乾淨、具決定性的修法。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "自動重試可能掩蓋真正的並行缺陷",
+          "text": "<p>某測試因正式程式碼中一個真正的競態條件而大約每 20 次失敗 1 次。團隊加了一個自動 3 次重試，使 CI 回報為通過。因為 CI 現在是綠燈，這是一個可接受的解決方式。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——重試掩蓋了一個仍會衝擊使用者的真正競態條件；根因必須被修復，而非被掩蓋。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "此為錯誤：靠重試得到的綠燈 CI 隱藏了一個仍會在正式環境浮現的真正間歇缺陷。"
+            }
+          ],
+          "generalFeedback": "那每 20 次 1 次的失敗不是測試雜訊——它是受測程式碼中一個真正的競態條件。重試到綠燈使症狀從 CI 消失，而缺陷仍在，並終將在負載下影響真實使用者。正確的回應是診斷並修正該競態（妥善的同步），使測試因正確的理由而以決定性方式通過。"
+        },
+        {
+          "type": "multichoice",
+          "name": "對單一無法解釋的 CI 失敗的回應",
+          "text": "<p>在一個未改變的提交上，某次 CI 執行讓一個測試失敗；重跑同一個提交卻通過。最恰當的回應是什麼？</p>",
+          "answers": [
+            {
+              "text": "當成很可能是脆弱：藉由反覆執行該測試來重現它、追蹤它、並診斷根因——別只是把它當成偶發的意外而打發掉",
+              "fraction": 100,
+              "feedback": "正確——在未改變的程式碼上通過／失敗的翻動是脆弱訊號，應加以重現、追蹤並修復。"
+            },
+            {
+              "text": "完全忽略它，既然重跑通過了、程式碼又沒改",
+              "fraction": 0,
+              "feedback": "打發掉它會讓脆弱（或真正的間歇缺陷）持續存在；請改為重現並調查。"
+            },
+            {
+              "text": "立刻刪掉這個測試，讓它不再失敗",
+              "fraction": 0,
+              "feedback": "刪除會丟掉涵蓋範圍，並在還沒弄懂前就藏起一個可能的真正缺陷；先調查。"
+            },
+            {
+              "text": "為整個套件永久啟用重試到綠燈",
+              "fraction": 0,
+              "feedback": "全面重試會掩蓋整個套件的真正間歇缺陷；請改為重現並修復這個特定測試。"
+            }
+          ],
+          "generalFeedback": "在同一個提交上出現不同裁決，正是脆弱的定義，不該被揮手帶過。藉由多次執行該測試取得脆弱率來重現它，把它記在一份被追蹤的清單上，並診斷根因。它可能是無害的時序問題，也可能是真正的間歇缺陷——只有調查才知道是哪一種，而非聳肩或盲目重試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷：與地區設定相依的數字格式",
+          "text": "<p>某測試斷言把 <code>1234.5</code> 格式化會得到字串 <code>\"1,234.5\"</code>。它對團隊多數人通過，但對一位機器使用「將數字寫成 <code>\"1.234,5\"</code>」之地區設定的隊友失敗。根因是什麼？正確的修法為何？</p>",
+          "answers": [
+            {
+              "text": "格式化器使用了周遭的預設地區設定；在測試中明確釘住一個地區設定（或以與地區無關的方式格式化），使輸出在每個地方都相同",
+              "fraction": 100,
+              "feedback": "正確——把地區設定明確化，而不是依賴機器的預設。"
+            },
+            {
+              "text": "隊友的機器上數字函式庫毀損了；重新安裝它",
+              "fraction": 0,
+              "feedback": "沒有東西毀損——函式庫正確地遵循那台機器的地區設定；測試必須明確固定地區設定。"
+            },
+            {
+              "text": "重試測試，直到它產生預期的分隔符號",
+              "fraction": 0,
+              "feedback": "輸出對每個地區設定都是決定性的，所以重試無濟於事；改為釘住地區設定。"
+            },
+            {
+              "text": "只在設為預期地區設定的機器上執行測試",
+              "fraction": 0,
+              "feedback": "限制執行地點是掩蓋隱藏的依賴，而非移除它；請在測試中指定地區設定。"
+            }
+          ],
+          "generalFeedback": "數字、日期與貨幣的格式化會預設採用環境的地區設定，於是分組與小數分隔符號因機器而異。這個測試在不知情下依賴了某一個地區設定。修法是把明確的地區設定傳給格式化器（或以與地區無關的方式格式化），使產生的字串在每個環境都具決定性。",
+          "single": true
+        }
+      ]
+    }
+  },
   "fuzz-testing": {
     "en": {
       "easy": [

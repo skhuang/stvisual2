@@ -74060,6 +74060,2502 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "flaky-diagnosis": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What is a flaky test",
+            "text": "<p>A <em>flaky test</em> is best described as a test that:</p>",
+            "answers": [
+              {
+                "text": "Passes and fails non-deterministically on the same code and the same inputs, without any change to what is under test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 flakiness is a non-deterministic result on unchanged code and inputs."
+              },
+              {
+                "text": "Fails every single time it is run against a particular version of the code",
+                "fraction": 0,
+                "feedback": "That is a consistent, deterministic failure, not flakiness; a flaky test's outcome varies between runs."
+              },
+              {
+                "text": "Runs more slowly than the other tests in the suite",
+                "fraction": 0,
+                "feedback": "Slowness is a performance issue; flakiness is about a non-deterministic pass/fail outcome."
+              },
+              {
+                "text": "Fails only after the code under test is deliberately changed to introduce a bug",
+                "fraction": 0,
+                "feedback": "Detecting a real change is exactly what a good test should do; flakiness is failing without any such change."
+              }
+            ],
+            "generalFeedback": "A flaky test produces different results \u2014 sometimes pass, sometimes fail \u2014 across runs even though the code under test and the inputs are unchanged. The defining property is non-determinism: the outcome is not fully determined by what is being tested.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What determinism means for a test",
+            "text": "<p>A test is said to be <em>deterministic</em> when:</p>",
+            "answers": [
+              {
+                "text": "Given the same code and inputs, it always produces the same result (always pass, or always fail)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a deterministic test yields the same outcome every run for the same code and inputs."
+              },
+              {
+                "text": "It always passes no matter what the code does",
+                "fraction": 0,
+                "feedback": "A test that always passes is useless, not deterministic; determinism means a repeatable outcome, which may be pass or fail."
+              },
+              {
+                "text": "It finishes running in under one second",
+                "fraction": 0,
+                "feedback": "Execution speed is unrelated to determinism, which is about a repeatable outcome."
+              },
+              {
+                "text": "It uses randomly generated inputs on every run",
+                "fraction": 0,
+                "feedback": "Unseeded random inputs make a test non-deterministic; determinism is the opposite property."
+              }
+            ],
+            "generalFeedback": "Determinism means the test's result is fully determined by the code and inputs: run it a thousand times on unchanged code and it gives the same verdict every time. Flakiness is precisely a loss of determinism, and restoring determinism is the goal of remediation.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Consistent failure is not flakiness",
+            "text": "<p>A test that fails on every single run against the same code is a flaky test.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a test that always fails is deterministic (a consistent, reproducible failure), not flaky."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This is wrong: always failing is a deterministic result. Flakiness means the outcome varies non-deterministically between runs of the same code."
+              }
+            ],
+            "generalFeedback": "Flakiness is defined by non-determinism: the same code and inputs sometimes pass and sometimes fail. A test that fails every time is a consistent, reproducible failure \u2014 usually pointing at a real defect \u2014 and should be debugged as such, not labelled flaky."
+          },
+          {
+            "type": "truefalse",
+            "name": "Flakiness erodes trust and masks real bugs",
+            "text": "<p>Flaky tests are harmful mainly because they erode the team's trust in the test suite and can mask genuine failures.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 repeated false alarms make people stop trusting and stop reading test results, so a real failure hidden among them gets ignored."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "This is wrong: the erosion of trust and the masking of real failures are exactly the central harms of flakiness."
+              }
+            ],
+            "generalFeedback": 'When a suite fails intermittently for no real reason, developers learn to shrug off red builds and simply re-run them. That destroys the signal value of the suite: a genuine regression sitting in the noise is dismissed as "just flaky", so real bugs slip through. Flakiness also wastes time on reruns and investigation.'
+          },
+          {
+            "type": "multichoice",
+            "name": "Common cause: fixed sleeps and timing",
+            "text": "<p>Which of the following is a common cause of flaky tests?</p>",
+            "answers": [
+              {
+                "text": 'Relying on a fixed sleep (for example, "wait 100 ms") for an asynchronous action that is sometimes not yet ready',
+                "fraction": 100,
+                "feedback": "Correct \u2014 a fixed wait is a classic timing cause: if the action occasionally takes longer, the test fails intermittently."
+              },
+              {
+                "text": "Giving each test its own fresh, isolated fixture",
+                "fraction": 0,
+                "feedback": "Fresh isolated fixtures reduce flakiness; they are a remediation, not a cause."
+              },
+              {
+                "text": "Asserting on an exact, hard-coded expected value",
+                "fraction": 0,
+                "feedback": "A precise expected value normally makes a test more deterministic, not flaky."
+              },
+              {
+                "text": "Running each test in a completely separate process",
+                "fraction": 0,
+                "feedback": "Strong isolation tends to prevent flakiness rather than cause it."
+              }
+            ],
+            "generalFeedback": "Fixed sleeps are one of the most common sources of flakiness: they encode a guess about how long an asynchronous operation takes. When the operation occasionally runs slower (a loaded machine, a slow network), the sleep expires before the action completes and the test fails \u2014 non-deterministically.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Common cause: unseeded randomness",
+            "text": "<p>A test generates its input data with a random number generator that is never given a fixed seed. Why is this a flakiness risk?</p>",
+            "answers": [
+              {
+                "text": "Each run uses different random data, so the test can pass on most runs and occasionally fail on an unlucky value",
+                "fraction": 100,
+                "feedback": "Correct \u2014 unseeded randomness makes the inputs vary run to run, producing non-deterministic outcomes."
+              },
+              {
+                "text": "Random data always makes tests run faster, which causes failures",
+                "fraction": 0,
+                "feedback": "Speed is not the issue; the problem is that the inputs differ every run, so the result is non-deterministic."
+              },
+              {
+                "text": "Random data is always invalid, so the test can never pass",
+                "fraction": 0,
+                "feedback": "Random data is not inherently invalid; the flakiness comes from the inputs varying between runs."
+              },
+              {
+                "text": "The random generator uses too much memory",
+                "fraction": 0,
+                "feedback": "Memory use is irrelevant; unseeded randomness causes flakiness by varying the inputs each run."
+              }
+            ],
+            "generalFeedback": "An unseeded random generator produces different inputs on every run. Most inputs may pass while a rare one triggers a failure, so the test's outcome varies non-deterministically. (Note that such an occasional failure may be exposing a genuine bug for a specific input.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Common cause: shared mutable state between tests",
+            "text": "<p>Which situation is a common cause of flakiness related to <em>test order</em>?</p>",
+            "answers": [
+              {
+                "text": "Tests share mutable state (for example a global variable or database rows) and one test leaves data behind that affects another",
+                "fraction": 100,
+                "feedback": "Correct \u2014 leftover shared state creates order-dependent, non-deterministic results."
+              },
+              {
+                "text": "Each test creates and tears down its own private data",
+                "fraction": 0,
+                "feedback": "Per-test private data prevents order dependence; it is a fix, not a cause."
+              },
+              {
+                "text": "Every test asserts exactly one thing",
+                "fraction": 0,
+                "feedback": "Single-assertion tests are unrelated to order dependence."
+              },
+              {
+                "text": "Tests are given descriptive names",
+                "fraction": 0,
+                "feedback": "Naming has no bearing on order dependence or flakiness."
+              }
+            ],
+            "generalFeedback": "When tests share mutable state, the outcome of one test can depend on whether \u2014 and in what order \u2014 another test ran first. Leftover data or a mutated global makes results depend on execution order, which many runners do not guarantee, producing intermittent failures.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Common cause: external dependency",
+            "text": "<p>Why can calling a real external service (such as a third-party network API) from a unit test cause flakiness?</p>",
+            "answers": [
+              {
+                "text": "The external service may be slow, unavailable, or return varying data, so the test outcome depends on factors outside the code under test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an external dependency introduces variability the test cannot control, causing intermittent failures."
+              },
+              {
+                "text": "External services always return exactly the same response, which forces failures",
+                "fraction": 0,
+                "feedback": "The opposite is true: their responses and availability vary, which is what makes the test flaky."
+              },
+              {
+                "text": "Network calls make the assertions stricter",
+                "fraction": 0,
+                "feedback": "Assertion strictness is unrelated; the flakiness comes from the uncontrolled external variability."
+              },
+              {
+                "text": "The test framework forbids network access, so the test cannot compile",
+                "fraction": 0,
+                "feedback": "Frameworks generally permit network calls; the issue is the non-determinism they introduce."
+              }
+            ],
+            "generalFeedback": "A real external dependency is outside the test's control: it can be slow, temporarily down, rate-limited, or return changing data. The test then passes or fails depending on the service's state at that moment rather than on the code under test, which is exactly non-determinism.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Common cause: current date or time",
+            "text": "<p>A test uses the machine's current date/time (the wall clock) in its logic. Why is this a flakiness risk?</p>",
+            "answers": [
+              {
+                "text": "The result can depend on when the test happens to run \u2014 a particular hour, day boundary, or timezone \u2014 so it may pass at some times and fail at others",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a test tied to the real clock is non-deterministic because the clock keeps changing."
+              },
+              {
+                "text": "Reading the clock is always too slow, which causes timeouts",
+                "fraction": 0,
+                "feedback": "Clock reads are fast; the problem is that the value changes over time, making the result depend on when it runs."
+              },
+              {
+                "text": "The current time is always the same, so the test is over-constrained",
+                "fraction": 0,
+                "feedback": "The current time is precisely what keeps changing; that variability is the cause."
+              },
+              {
+                "text": "Dates cannot be compared in most languages",
+                "fraction": 0,
+                "feedback": "Dates can be compared fine; the flakiness comes from depending on the live, changing clock."
+              }
+            ],
+            "generalFeedback": "Using the live wall clock ties the test's outcome to the moment it runs. It might pass during the day but fail across a midnight boundary, at month-end, or in a different timezone. Because the clock keeps changing, the result is not reproducible \u2014 the hallmark of flakiness.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify the flaky symptom",
+            "text": "<p>Which observed behaviour is a clear symptom of a flaky test?</p>",
+            "answers": [
+              {
+                "text": "Re-running the exact same test on the exact same commit gives a pass one time and a fail the next",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a differing result on unchanged code across re-runs is the signature of flakiness."
+              },
+              {
+                "text": "The test fails, and after you fix a real bug in the code it passes",
+                "fraction": 0,
+                "feedback": "That is normal, correct behaviour: the test detected and then confirmed the fix of a real defect."
+              },
+              {
+                "text": "The test fails to compile because of a syntax error",
+                "fraction": 0,
+                "feedback": "A compile error fails deterministically every run; it is a build problem, not flakiness."
+              },
+              {
+                "text": "The test passes every time on every machine",
+                "fraction": 0,
+                "feedback": "A consistently passing test is deterministic and stable, the opposite of flaky."
+              }
+            ],
+            "generalFeedback": "Flakiness shows up as different verdicts for the same code across repeated runs. If nothing under test changed but the result flips between pass and fail, the test is flaky. Deterministic failures (a bug, a syntax error) and consistent passes are not flakiness.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Common cause: unordered collection iteration",
+            "text": "<p>A test asserts that iterating a hash-based set/map yields elements in a specific order. Why is this a flakiness risk?</p>",
+            "answers": [
+              {
+                "text": "Hash-based collections do not guarantee a stable iteration order, so the order can vary between runs or environments",
+                "fraction": 100,
+                "feedback": "Correct \u2014 relying on an unspecified iteration order makes the outcome non-deterministic."
+              },
+              {
+                "text": "Hash collections can only ever hold one element",
+                "fraction": 0,
+                "feedback": "They hold many elements; the issue is that their iteration order is not guaranteed."
+              },
+              {
+                "text": "Iterating a collection always throws an exception",
+                "fraction": 0,
+                "feedback": "Iteration works normally; the flakiness comes from the unspecified order."
+              },
+              {
+                "text": "Sets and maps always iterate in sorted order",
+                "fraction": 0,
+                "feedback": "Hash-based sets/maps generally do not guarantee sorted or stable order, which is exactly the problem."
+              }
+            ],
+            "generalFeedback": "Many hash-based collections make no promise about iteration order; it can depend on hashing, insertion history, capacity, or the runtime version. Asserting a particular order against such a collection ties the test to an implementation detail that can change between runs, causing intermittent failures.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Common cause: environment differences",
+            "text": "<p>A test passes on every developer laptop but fails sometimes on the CI server. Which cause of flakiness does this most suggest?</p>",
+            "answers": [
+              {
+                "text": "An environment difference \u2014 CI differs from the laptops in timing, resources, locale, or configuration",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a result that depends on where it runs points to an environment-related cause."
+              },
+              {
+                "text": "The test assertions are too descriptive",
+                "fraction": 0,
+                "feedback": "Descriptive assertions do not cause environment-specific flakiness."
+              },
+              {
+                "text": "The code under test has no bugs at all",
+                "fraction": 0,
+                "feedback": "Whether the code has bugs is a separate matter; the pattern points to an environment difference."
+              },
+              {
+                "text": "The test file is too long",
+                "fraction": 0,
+                "feedback": "File length is irrelevant to environment-dependent flakiness."
+              }
+            ],
+            "generalFeedback": "A test that behaves differently by environment is depending on something the environment supplies \u2014 CPU speed and load (affecting timing), available memory, CPU/core count (affecting concurrency), default locale or timezone, or configuration. CI often differs from a laptop in exactly these ways, exposing hidden assumptions.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Flakiness wastes time on reruns",
+            "text": "<p>One real cost of flaky tests is the time developers spend re-running builds and investigating failures that turn out not to be real.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 reruns and chasing phantom failures consume real engineering time and slow the pipeline."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "This is wrong: wasted time on reruns and false-alarm investigation is a well-known cost of flakiness."
+              }
+            ],
+            "generalFeedback": "Beyond eroding trust and masking real failures, flakiness has a direct productivity cost: pipelines are re-triggered, engineers stop to investigate red builds that were never real, and merges are delayed. That wasted effort is a major reason flakiness is worth fixing rather than tolerating."
+          },
+          {
+            "type": "multichoice",
+            "name": "What quarantine means",
+            "text": "<p>To <em>quarantine</em> a flaky test means to:</p>",
+            "answers": [
+              {
+                "text": "Temporarily separate it so its intermittent failures no longer block the pipeline, while it is tracked and scheduled for a real fix",
+                "fraction": 100,
+                "feedback": "Correct \u2014 quarantine isolates the noise from the pipeline but the test must still be tracked and fixed."
+              },
+              {
+                "text": "Permanently delete the test from the codebase",
+                "fraction": 0,
+                "feedback": "Deleting the test throws away its coverage; quarantine keeps it, isolated and tracked, until it is fixed."
+              },
+              {
+                "text": "Automatically retry it until it eventually passes, then forget about it",
+                "fraction": 0,
+                "feedback": "Blind retry-and-forget hides the problem; quarantine explicitly keeps the test tracked for a real fix."
+              },
+              {
+                "text": "Mark it as always passing regardless of the result",
+                "fraction": 0,
+                "feedback": "Forcing a pass destroys the test's value; quarantine sets it aside from the blocking gate but keeps it honest and tracked."
+              }
+            ],
+            "generalFeedback": "Quarantine moves a known-flaky test out of the path that blocks merges, so its noise stops disrupting everyone, but it stays visible on a tracked list and is scheduled for root-cause remediation. Quarantine is a containment step, not a fix \u2014 an untracked quarantine is just a hidden bug.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Common cause: race condition in concurrent code",
+            "text": "<p>Which of the following is a common cause of flaky tests?</p>",
+            "answers": [
+              {
+                "text": "A race condition, where the outcome depends on the unpredictable interleaving of concurrent threads or operations",
+                "fraction": 100,
+                "feedback": "Correct \u2014 races make the result depend on timing of interleavings, which varies run to run."
+              },
+              {
+                "text": "Asserting on a value that is fixed and computed synchronously",
+                "fraction": 0,
+                "feedback": "A synchronous, fixed computation is deterministic; it does not cause flakiness."
+              },
+              {
+                "text": "Giving each test its own independent copy of the data",
+                "fraction": 0,
+                "feedback": "Independent per-test data reduces flakiness; it is a remediation, not a cause."
+              },
+              {
+                "text": "Writing a clear, descriptive test name",
+                "fraction": 0,
+                "feedback": "Naming has no effect on determinism; a race condition does."
+              }
+            ],
+            "generalFeedback": "A race condition means two or more concurrent operations can interleave in more than one way, and the test's result depends on which interleaving happens. Because the scheduler chooses interleavings unpredictably, the outcome varies between runs \u2014 classic flakiness, and often a symptom of a genuine concurrency bug in the code.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Symptom: passes alone, fails in the suite",
+            "text": "<p>A test passes when run by itself, but fails when run as part of the full suite. What is the most likely cause?</p>",
+            "answers": [
+              {
+                "text": "Order dependence: another test leaves behind shared state that this test relies on or is disturbed by",
+                "fraction": 100,
+                "feedback": "Correct \u2014 passing alone but failing in the suite is the classic signature of shared-state order dependence."
+              },
+              {
+                "text": "The test's assertions are simply wrong",
+                "fraction": 0,
+                "feedback": "If the assertions were wrong it would also fail when run alone; the alone/suite difference points to shared state."
+              },
+              {
+                "text": "The machine is too fast",
+                "fraction": 0,
+                "feedback": "Machine speed does not explain why the result depends on whether other tests ran; shared state does."
+              },
+              {
+                "text": "The test has too few assertions",
+                "fraction": 0,
+                "feedback": "Assertion count is unrelated; the alone-versus-suite difference indicates order dependence via shared state."
+              }
+            ],
+            "generalFeedback": "When a test's verdict changes depending on whether other tests ran first, some state is being shared between tests \u2014 a global, a static field, a cache, a file, or database rows. The fix is to isolate and reset state per test so each runs from a clean, known starting point.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Symptom: intermittent failure near a timeout",
+            "text": "<p>A UI test fails intermittently right where it waits a fixed amount of time for a button to appear, but usually passes. What is the most likely cause?</p>",
+            "answers": [
+              {
+                "text": "A timing problem: the fixed wait is sometimes too short because the element occasionally takes longer to appear",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an intermittent failure at a fixed wait is a timing/async readiness issue."
+              },
+              {
+                "text": "The button's text is spelled incorrectly in the assertion",
+                "fraction": 0,
+                "feedback": "A wrong string would fail consistently, not intermittently; the intermittency points to timing."
+              },
+              {
+                "text": "The test has a syntax error",
+                "fraction": 0,
+                "feedback": "A syntax error fails every run; intermittent failure at a wait indicates a timing cause."
+              },
+              {
+                "text": "The database schema is out of date",
+                "fraction": 0,
+                "feedback": "A schema problem would not appear only sometimes at a wait step; timing does."
+              }
+            ],
+            "generalFeedback": "Intermittent failure exactly at a fixed wait is the fingerprint of a timing/async problem: the element's readiness time varies, and when it exceeds the hard-coded wait the assertion runs too early. The fix is to poll for the condition (an explicit/conditional wait) instead of sleeping a fixed amount.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Symptom: fails only around midnight",
+            "text": "<p>A test almost always passes, but the nightly build occasionally fails it around midnight. What cause should you suspect first?</p>",
+            "answers": [
+              {
+                "text": "A date/time dependence: the test's logic behaves differently across a day boundary",
+                "fraction": 100,
+                "feedback": "Correct \u2014 failures clustered at a time boundary point to wall-clock/date dependence."
+              },
+              {
+                "text": "The test uses too much memory only at night",
+                "fraction": 0,
+                "feedback": "Memory use is not tied to the midnight boundary; the timing of the failure points to a date dependence."
+              },
+              {
+                "text": "The assertions are too strict",
+                "fraction": 0,
+                "feedback": "Strict assertions would fail regardless of the hour; the midnight clustering indicates date/time dependence."
+              },
+              {
+                "text": "The CI server has too many cores",
+                "fraction": 0,
+                "feedback": "Core count does not explain failures specifically at midnight; a date boundary does."
+              }
+            ],
+            "generalFeedback": 'Failures that cluster at a particular time (midnight, month-end, a DST change) betray reliance on the live clock. Something like "the record was created today" or a date arithmetic breaks when the run crosses the boundary. Inject or freeze the clock so the test controls time rather than reading it live.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Symptom: fails only when tests are reordered",
+            "text": "<p>Your suite passes normally, but starts failing when the runner executes the tests in a randomized order. What does this reveal?</p>",
+            "answers": [
+              {
+                "text": "Order dependence: at least one test relies on the side effects of another, so a different order breaks it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 failing under reordering is direct evidence of hidden order dependence."
+              },
+              {
+                "text": "The random-order feature of the runner is broken",
+                "fraction": 0,
+                "feedback": "Randomized order is a standard, working feature; it exposed a real dependency rather than causing one."
+              },
+              {
+                "text": "The tests are too fast to run in a new order",
+                "fraction": 0,
+                "feedback": "Speed is irrelevant; failing only under reordering shows the tests depend on execution order."
+              },
+              {
+                "text": "Randomizing order always makes correct tests fail",
+                "fraction": 0,
+                "feedback": "It does not \u2014 independent, well-isolated tests pass in any order; failure signals a real dependency."
+              }
+            ],
+            "generalFeedback": "Running tests in a randomized order is a deliberate detection technique. Properly isolated tests pass in any order; if reordering causes failures, some tests are coupled through shared state or an assumed sequence. Fix by isolating and resetting state so each test is independent.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix for a fixed sleep",
+            "text": "<p>A test waits for an asynchronous result using a fixed <code>sleep(500 ms)</code> and is flaky. What is the correct deterministic fix?</p>",
+            "answers": [
+              {
+                "text": "Replace the fixed sleep with an explicit/conditional wait that polls for the result to be ready, up to a sensible timeout",
+                "fraction": 100,
+                "feedback": "Correct \u2014 waiting for the actual condition (with a timeout) removes the guesswork and the flakiness."
+              },
+              {
+                "text": "Increase the sleep to 5 seconds and leave it as a fixed sleep",
+                "fraction": 0,
+                "feedback": "A longer fixed sleep only lowers the failure rate while slowing every run; it does not remove the non-determinism."
+              },
+              {
+                "text": "Delete the assertion that checks the result",
+                "fraction": 0,
+                "feedback": "Removing the assertion hides the flakiness by no longer testing anything meaningful; that is not a fix."
+              },
+              {
+                "text": "Wrap the test in an automatic retry that runs it three times",
+                "fraction": 0,
+                "feedback": "Retrying masks the timing bug rather than fixing the root cause; the correct fix is to wait on the condition."
+              }
+            ],
+            "generalFeedback": "A fixed sleep encodes a guess about how long an async action takes. Replace it with a conditional wait that repeatedly polls the actual readiness condition and proceeds as soon as it holds, failing only after a generous timeout. This is both deterministic and usually faster than a conservative fixed sleep.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix for unseeded randomness",
+            "text": "<p>A test is flaky because it feeds unseeded random data into the code under test. What is the correct fix to make it deterministic?</p>",
+            "answers": [
+              {
+                "text": "Seed the random generator with a fixed value so the same inputs are produced on every run",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 a fixed seed makes the "random" sequence reproducible, restoring determinism.'
+              },
+              {
+                "text": "Run the test more often so the rare failing value shows up less",
+                "fraction": 0,
+                "feedback": "Running more does not remove the non-determinism; a fixed seed does."
+              },
+              {
+                "text": "Catch and ignore any assertion failure the test produces",
+                "fraction": 0,
+                "feedback": "Swallowing failures disables the test; seeding the generator is the real fix."
+              },
+              {
+                "text": "Switch to a different random algorithm but still leave it unseeded",
+                "fraction": 0,
+                "feedback": "Any unseeded generator still varies each run; the fix is to fix the seed."
+              }
+            ],
+            "generalFeedback": "Seeding the generator with a constant makes it produce the same sequence every run, so the inputs \u2014 and therefore the result \u2014 are reproducible. If a particular seed exposes a genuine failure, that is a real bug to investigate and add as a fixed regression case, not something to hide by re-randomizing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix for wall-clock dependence",
+            "text": "<p>A test is flaky because its logic reads the current time from the system clock. What is the correct deterministic fix?</p>",
+            "answers": [
+              {
+                "text": "Inject or freeze the clock so the test controls the current time with a fixed, known value",
+                "fraction": 100,
+                "feedback": "Correct \u2014 controlling time (a fake/frozen clock injected into the code) removes the dependence on the live clock."
+              },
+              {
+                "text": "Only run the test at times of day when it is known to pass",
+                "fraction": 0,
+                "feedback": "Restricting the run time is a workaround that leaves the time dependence \u2014 and the flakiness \u2014 in place."
+              },
+              {
+                "text": "Add a fixed sleep before reading the clock",
+                "fraction": 0,
+                "feedback": "Sleeping does not control what value the clock returns; you must inject or freeze time."
+              },
+              {
+                "text": "Retry the test until it happens to pass",
+                "fraction": 0,
+                "feedback": "Retrying hides the time dependence rather than removing it; inject a controllable clock instead."
+              }
+            ],
+            "generalFeedback": 'Make time an injected dependency (a clock the code calls) rather than reading the global wall clock. In the test, supply a fixed or scripted clock so "now" is a known constant. The behaviour becomes fully reproducible, including around day boundaries and across timezones.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix for an external dependency",
+            "text": "<p>A unit test is flaky because it calls a real third-party network API. What is the appropriate fix?</p>",
+            "answers": [
+              {
+                "text": "Replace the real call with a mock/stub (a test double) that returns controlled, deterministic responses",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a test double removes the uncontrolled external variability, making the unit test deterministic."
+              },
+              {
+                "text": "Add a longer timeout so the slow service usually responds in time",
+                "fraction": 0,
+                "feedback": "A longer timeout only reduces one failure mode; the service can still be down or return varying data."
+              },
+              {
+                "text": "Retry the network call several times and hope it eventually works",
+                "fraction": 0,
+                "feedback": "Retrying masks the external variability rather than isolating the unit under test with a controlled double."
+              },
+              {
+                "text": "Delete the test so the network is never touched",
+                "fraction": 0,
+                "feedback": "Deleting loses coverage; the fix is to stub the dependency and keep testing the code."
+              }
+            ],
+            "generalFeedback": "A unit test should exercise your code, not a live external system. Replace the real dependency with a mock or stub that returns fixed responses (including error cases you want to test). The result no longer depends on the service's availability or data, so it is deterministic. Real integration behaviour is verified separately in dedicated integration tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix for shared state between tests",
+            "text": "<p>Several tests are flaky because they share and mutate the same database rows. What is the correct fix?</p>",
+            "answers": [
+              {
+                "text": "Isolate and reset state per test \u2014 set up fresh fixtures and tear down/clean up so each test starts from a known clean state",
+                "fraction": 100,
+                "feedback": "Correct \u2014 per-test isolation and reset removes the cross-test coupling and the order dependence."
+              },
+              {
+                "text": "Fix the order the tests run in and always run them in that order",
+                "fraction": 0,
+                "feedback": "Pinning an order hides the coupling and is brittle; the real fix is to make tests independent through isolation."
+              },
+              {
+                "text": "Run the tests more slowly so they do not collide",
+                "fraction": 0,
+                "feedback": "Slowing them down does not remove the shared mutable state; isolation and reset do."
+              },
+              {
+                "text": "Retry the whole suite until it passes",
+                "fraction": 0,
+                "feedback": "Retrying masks the shared-state problem; isolate and reset state per test instead."
+              }
+            ],
+            "generalFeedback": "The root cause is shared mutable state. Give each test its own fixtures and reset the world between tests (setup/teardown, transactions rolled back, fresh temporary resources) so no test depends on another's leftovers. Removing the inter-test dependency makes the outcome independent of execution order.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Re-running many times to reproduce",
+            "text": "<p>Running a suspected-flaky test many times (and measuring how often it fails) is a legitimate way to confirm and quantify its flakiness.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 repeated runs reproduce the intermittent failure and yield a flakiness rate you can track and act on."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "This is wrong: because flakiness is intermittent, repeated runs are exactly how you reproduce it and measure how often it fails."
+              }
+            ],
+            "generalFeedback": "A single run can pass by luck, so one green result does not prove a test is stable. Running it many times (locally or in CI) reproduces the intermittent failure and gives a flakiness rate \u2014 e.g. fails 3 in 100 runs \u2014 which confirms the problem and lets you prioritize and later verify the fix. This detection step is different from blindly retrying in the pipeline to force a green."
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix for unordered iteration assertion",
+            "text": "<p>A test flakily fails when it asserts that a hash-based collection iterates in a particular order. What is the correct fix?</p>",
+            "answers": [
+              {
+                "text": "Make the comparison order-independent \u2014 sort the results first, or assert on set/multiset equality rather than sequence order",
+                "fraction": 100,
+                "feedback": "Correct \u2014 comparing without depending on iteration order removes the non-determinism."
+              },
+              {
+                "text": "Run the test repeatedly until the elements happen to come out in the expected order",
+                "fraction": 0,
+                "feedback": "Relying on a lucky order is exactly the flakiness; make the assertion order-independent instead."
+              },
+              {
+                "text": "Reduce the collection to a single element so order cannot vary",
+                "fraction": 0,
+                "feedback": "Changing the data to dodge the problem weakens the test; assert order-independently instead."
+              },
+              {
+                "text": "Add a fixed sleep before iterating the collection",
+                "fraction": 0,
+                "feedback": "Sleeping does not affect iteration order; sort or compare as an unordered collection."
+              }
+            ],
+            "generalFeedback": "If the specification does not guarantee an order, the test must not assume one. Either sort both actual and expected before comparing, or compare as sets/multisets so only membership and counts matter. If a specific order genuinely is required, use an ordered collection and make that ordering explicit in the code.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of quarantine",
+            "text": "<p>What is the purpose of quarantining a flaky test?</p>",
+            "answers": [
+              {
+                "text": "To stop its intermittent failures from blocking the pipeline for everyone, while it stays tracked and is scheduled for a proper fix",
+                "fraction": 100,
+                "feedback": "Correct \u2014 quarantine contains the disruption without abandoning the test or the obligation to fix it."
+              },
+              {
+                "text": "To permanently remove the test and its coverage from the project",
+                "fraction": 0,
+                "feedback": "That is deletion, which loses coverage; quarantine keeps the test tracked for repair."
+              },
+              {
+                "text": "To declare the test fixed without any further work",
+                "fraction": 0,
+                "feedback": "Quarantine is containment, not a fix; the root cause still has to be addressed."
+              },
+              {
+                "text": "To make the test run faster",
+                "fraction": 0,
+                "feedback": "Speed is not the point; quarantine is about isolating flaky noise from the blocking gate."
+              }
+            ],
+            "generalFeedback": "Quarantine unblocks the team: a known-flaky test no longer fails everyone's builds, so the suite regains signal value. But the test remains on a tracked list with an owner and a deadline for a real, root-cause fix. Quarantine that is not tracked and fixed simply becomes a permanently disabled test \u2014 a coverage gap and a hidden risk.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Symptom: fails under parallel execution",
+            "text": "<p>A test passes when the suite runs single-threaded but fails intermittently once the runner executes tests in parallel. What is the most likely cause?</p>",
+            "answers": [
+              {
+                "text": "A race condition or resource contention: parallel tests interfere through a shared resource without proper isolation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 new failures under parallelism point to concurrency/shared-resource contention."
+              },
+              {
+                "text": "Parallel execution always corrupts correct tests",
+                "fraction": 0,
+                "feedback": "It does not \u2014 properly isolated tests run correctly in parallel; failure signals shared-resource contention."
+              },
+              {
+                "text": "The assertions became stricter when run in parallel",
+                "fraction": 0,
+                "feedback": "Assertions do not change with parallelism; the cause is contention over a shared resource."
+              },
+              {
+                "text": "The tests have too many comments",
+                "fraction": 0,
+                "feedback": "Comments are irrelevant; the parallel-only failure indicates a race or resource contention."
+              }
+            ],
+            "generalFeedback": "Failures that appear only under parallel execution indicate tests are competing for a shared resource \u2014 the same file, port, database row, or global \u2014 without isolation, or the code under test has a race condition. Fix by isolating resources per test (unique temp files/ports/schemas) and by making the code's concurrency deterministic.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Detecting order dependence proactively",
+            "text": "<p>Which practice best helps you detect hidden order dependence between tests before it causes trouble?</p>",
+            "answers": [
+              {
+                "text": "Run the suite in a randomized test order (and on different orders) so any dependence on execution sequence is exposed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 randomizing order surfaces tests that secretly rely on running after another."
+              },
+              {
+                "text": "Always run the tests in the exact same alphabetical order",
+                "fraction": 0,
+                "feedback": "A fixed order can hide the dependence indefinitely; randomizing order is what exposes it."
+              },
+              {
+                "text": "Add a fixed sleep between every pair of tests",
+                "fraction": 0,
+                "feedback": "Sleeping does not reveal shared-state coupling; running in varied orders does."
+              },
+              {
+                "text": "Reduce the number of assertions in each test",
+                "fraction": 0,
+                "feedback": "Assertion count is unrelated to detecting order dependence."
+              }
+            ],
+            "generalFeedback": "Independent tests pass in any order, so deliberately shuffling the execution order (and varying the seed) is the standard way to expose tests that depend on another's side effects. Many runners offer a random-order mode with a reproducible seed precisely for this. Once exposed, isolate and reset state to remove the dependence.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix for a race-condition flaky test",
+            "text": "<p>A test is flaky because the code it exercises has a race condition between two concurrent operations. What is the correct remediation?</p>",
+            "answers": [
+              {
+                "text": "Fix the concurrency so the outcome is deterministic \u2014 add proper synchronization (or await both operations) \u2014 treating the race as the real bug it is",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a race is a genuine defect; make the interleaving safe and deterministic."
+              },
+              {
+                "text": "Add a fixed sleep and hope the operations no longer overlap",
+                "fraction": 0,
+                "feedback": "A sleep only reduces the chance of the bad interleaving; the race still exists and can still fail."
+              },
+              {
+                "text": "Automatically retry the test until the good interleaving occurs",
+                "fraction": 0,
+                "feedback": "Retrying hides a real concurrency bug rather than fixing it; synchronize the operations instead."
+              },
+              {
+                "text": "Run the test on a slower machine so the timing works out",
+                "fraction": 0,
+                "feedback": "Relying on machine speed is fragile and non-portable; fix the synchronization to make the result deterministic."
+              }
+            ],
+            "generalFeedback": "A race condition is a real bug, not mere test noise: the result depends on the unpredictable order of concurrent operations. The fix is to make the code's concurrency correct and deterministic \u2014 proper locking/synchronization, or awaiting/joining both operations before asserting. Sleeps and retries only lower the failure rate while leaving the defect in place.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Diagnose: sleep then click",
+            "text": '<p>Consider this flaky end-to-end test step:</p>\n<pre><code>submitForm();\nsleep(300);            // wait for the server\nassertVisible("#confirmation");</code></pre>\n<p>It passes most of the time but fails a few times a day in CI. What is the root cause and the correct fix?</p>',
+            "answers": [
+              {
+                "text": "Timing: 300 ms is sometimes too short. Replace the fixed sleep with an explicit wait that polls forto appear, up to a timeout",
+                "fraction": 100,
+                "feedback": "Correct \u2014 poll for the actual condition instead of guessing a duration."
+              },
+              {
+                "text": "The selector is wrong; changeto a different id",
+                "fraction": 0,
+                "feedback": "A wrong selector would fail every run, not intermittently; the intermittency is a timing issue."
+              },
+              {
+                "text": "Increase the sleep to 3000 ms and keep it fixed",
+                "fraction": 0,
+                "feedback": "A longer fixed sleep only reduces the failure rate while slowing every run; the non-determinism remains."
+              },
+              {
+                "text": "Wrap the whole test in a retry-three-times block",
+                "fraction": 0,
+                "feedback": "Retrying masks the timing bug; the correct fix is to wait on the confirmation element's appearance."
+              }
+            ],
+            "generalFeedback": "The confirmation element's arrival time varies with server and network load; a 300 ms guess is occasionally too short, so the assertion runs before the element exists. Replacewith a conditional wait that polls forand proceeds the instant it appears, failing only after a generous timeout \u2014 deterministic and usually faster.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why blind retry-until-green is bad",
+            "text": '<p>A team configures CI to automatically re-run any failing test up to five times and report it as passed if any attempt passes. Why is this "rerun until green" policy dangerous?</p>',
+            "answers": [
+              {
+                "text": "It can mask a genuine intermittent bug: a real defect that fails occasionally will be retried into a green result and never investigated",
+                "fraction": 100,
+                "feedback": "Correct \u2014 blind retry hides real, low-frequency failures that would surface in production."
+              },
+              {
+                "text": "It makes the build slower, which is the only real downside",
+                "fraction": 0,
+                "feedback": "Slower builds are a minor issue; the serious danger is that a real intermittent bug is hidden by the retries."
+              },
+              {
+                "text": "It permanently fixes the flakiness by removing the non-determinism",
+                "fraction": 0,
+                "feedback": "Retrying removes nothing; the non-determinism is still there \u2014 it is merely papered over."
+              },
+              {
+                "text": "It forces developers to write more tests",
+                "fraction": 0,
+                "feedback": "It does not; it simply hides intermittent failures, whether flaky or real."
+              }
+            ],
+            "generalFeedback": "An automatic retry cannot tell a harmless flaky failure from a real intermittent defect (a race condition, a rare data case). By reporting green whenever any attempt passes, it buries genuine low-frequency bugs that will eventually strike users. Retries can be a temporary stopgap, but they must be visible and tracked; they are not a fix, and the root cause still needs diagnosis.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose: leaked global counter",
+            "text": "<p>Test A increments a module-level global <code>counter</code> and never resets it. Test B asserts <code>counter == 1</code>. B passes when it runs first, but fails when A runs before it. What is the root cause and best fix?</p>",
+            "answers": [
+              {
+                "text": "Order dependence via leaked global state: reset the global in setup/teardown (or avoid the shared global) so each test starts from a known state",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the leaked global couples the tests; resetting per test removes the dependence."
+              },
+              {
+                "text": "Test B's expected value is simply wrong; change it to 2",
+                "fraction": 0,
+                "feedback": "Hard-coding 2 just pins B to one particular execution order; the real problem is the shared, unreset global."
+              },
+              {
+                "text": "Force the runner to always execute B before A",
+                "fraction": 0,
+                "feedback": "Pinning the order hides the coupling and is fragile; make each test independent by resetting state instead."
+              },
+              {
+                "text": "Add a sleep between A and B",
+                "fraction": 0,
+                "feedback": "Sleeping does nothing about a leaked global; reset the shared state per test."
+              }
+            ],
+            "generalFeedback": "The tests communicate through a mutable global that A modifies and B reads. The result depends on run order, which is not guaranteed. Reset the global in setup/teardown, or better, eliminate the shared global so tests do not share mutable state. Then each test is independent and passes in any order.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose: assert first of a hash set",
+            "text": '<p>A test builds a hash-based set of tags and asserts that the first element returned by iteration equals <code>"admin"</code>. It passes on your machine but fails on some CI runs and after a language runtime upgrade. What is the root cause and correct fix?</p>',
+            "answers": [
+              {
+                "text": `The set's iteration order is not guaranteed; assert on membership (the set contains "admin") or sort before comparing, rather than on "first"`,
+                "fraction": 100,
+                "feedback": "Correct \u2014 do not depend on an unspecified iteration order; test membership or a sorted result."
+              },
+              {
+                "text": "The runtime upgrade introduced a bug in the set implementation; downgrade the runtime",
+                "fraction": 0,
+                "feedback": "The set is behaving within its contract (no order guarantee); the test's assumption is the defect, not the runtime."
+              },
+              {
+                "text": 'Retry the test until iteration returns "admin" first',
+                "fraction": 0,
+                "feedback": "Relying on a lucky order is the flakiness itself; assert order-independently instead."
+              },
+              {
+                "text": 'Add more elements so "admin" is more likely to be first',
+                "fraction": 0,
+                "feedback": "That does not make the order deterministic; remove the dependence on ordering entirely."
+              }
+            ],
+            "generalFeedback": "A hash-based set gives no ordering guarantee; iteration order can vary by insertion history, capacity, or runtime version, which is why a runtime upgrade changed it. The test encoded an assumption the type never promised. Assert what the specification actually guarantees \u2014 membership, or equality after sorting \u2014 so the check is independent of iteration order.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose: timezone-dependent date test",
+            "text": "<p>A test formats a stored UTC timestamp and asserts it shows a specific calendar date. It passes for developers in one country but fails for a teammate in another timezone and on the CI server. What is the root cause and correct fix?</p>",
+            "answers": [
+              {
+                "text": "The code uses the machine's local timezone, so the displayed date depends on where it runs; pin/inject a fixed timezone (and clock) in the test so the result is deterministic",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the hidden dependence on the local timezone must be made explicit and fixed in the test."
+              },
+              {
+                "text": "The stored timestamp is corrupted; regenerate the database",
+                "fraction": 0,
+                "feedback": "The stored UTC value is fine; the flakiness comes from converting it using the ambient local timezone."
+              },
+              {
+                "text": "Only run the test in the one timezone where it passes",
+                "fraction": 0,
+                "feedback": "Restricting where it runs hides the dependence instead of removing it; pin the timezone explicitly."
+              },
+              {
+                "text": "Add a retry so it eventually passes in every timezone",
+                "fraction": 0,
+                "feedback": "The result is deterministic per timezone, so retrying will not help; fix the timezone dependence."
+              }
+            ],
+            "generalFeedback": "Formatting a UTC instant into a local calendar date uses whatever timezone the environment defaults to, so different machines produce different dates. Make the timezone explicit \u2014 pin a fixed timezone (and, where relevant, inject a fixed clock) in the test \u2014 so the conversion is controlled and the outcome is the same everywhere.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Quarantine-and-track versus delete",
+            "text": "<p>A test is flaky and slowing down every merge. A teammate proposes simply deleting it. Why is quarantine-and-track usually the better choice?</p>",
+            "answers": [
+              {
+                "text": "Deleting discards the behaviour the test was checking, creating a silent coverage gap; quarantine unblocks the pipeline while preserving the test and the obligation to fix it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 quarantine keeps the coverage and the accountability that deletion throws away."
+              },
+              {
+                "text": "Deleting a test is technically impossible in most projects",
+                "fraction": 0,
+                "feedback": "Deletion is trivially possible; the reason to prefer quarantine is that deletion loses coverage and accountability."
+              },
+              {
+                "text": "Quarantine automatically fixes the root cause of the flakiness",
+                "fraction": 0,
+                "feedback": "Quarantine does not fix anything; it contains the noise while the root cause is still owed a fix."
+              },
+              {
+                "text": "A quarantined test runs faster than a deleted one",
+                "fraction": 0,
+                "feedback": "A deleted test does not run at all; the real distinction is preserved coverage and tracking, not speed."
+              }
+            ],
+            "generalFeedback": "The flaky test was presumably checking something real. Deleting it removes the noise but also the coverage \u2014 and quietly, so no one remembers the gap. Quarantine stops the disruption to merges while keeping the test on a tracked list with an owner and a deadline, so the underlying behaviour is still verified once the root cause is fixed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Cost: alarm fatigue from a flaky suite",
+            "text": "<p>Over months, a suite becomes routinely flaky and developers get used to re-running red builds without looking. What is the most serious consequence?</p>",
+            "answers": [
+              {
+                "text": "Alarm fatigue: because failures are assumed to be flaky, a genuine regression is ignored and ships to production",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the suite loses its signal value, so a real failure is dismissed as noise."
+              },
+              {
+                "text": "The tests will eventually stop compiling on their own",
+                "fraction": 0,
+                "feedback": "Flakiness does not stop code from compiling; the serious cost is that real failures get ignored."
+              },
+              {
+                "text": "The suite will automatically become deterministic over time",
+                "fraction": 0,
+                "feedback": "Flakiness does not fix itself; left alone it trains people to ignore failures."
+              },
+              {
+                "text": "The only cost is a slightly longer CI run",
+                "fraction": 0,
+                "feedback": "The dominant cost is not runtime; it is that a genuine regression hides in the noise and reaches users."
+              }
+            ],
+            "generalFeedback": 'The deepest cost of chronic flakiness is human: once "red" usually means "just flaky", people stop investigating and simply re-run. A real regression then blends into the noise and is shipped. This "cry wolf" effect defeats the entire purpose of an automated suite, which is why flakiness must be treated as a first-class defect.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose: unseeded random exposing an edge case",
+            "text": "<p>A test builds inputs from an unseeded random generator. It passes most runs but fails roughly 1 in 50, and each failure is a real assertion mismatch. What is the best response?</p>",
+            "answers": [
+              {
+                "text": "Capture the failing input, investigate it as a possible real bug, fix it, then seed the generator (or add the case as a fixed regression test) for determinism",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an occasional real mismatch may be a genuine edge-case defect; diagnose it, then make the test deterministic."
+              },
+              {
+                "text": "Immediately seed the generator to a value that always passes and move on",
+                "fraction": 0,
+                "feedback": "Choosing a passing seed without investigating may hide a genuine edge-case bug; capture and diagnose the failure first."
+              },
+              {
+                "text": "Add a retry so the 1-in-50 failure disappears from CI",
+                "fraction": 0,
+                "feedback": "Retrying buries what could be a real bug; the failing input must be examined before making the test deterministic."
+              },
+              {
+                "text": "Delete the test because random data is unreliable",
+                "fraction": 0,
+                "feedback": "Deleting discards useful coverage and ignores a possible real defect; investigate, fix, then seed."
+              }
+            ],
+            "generalFeedback": "Unseeded randomness is both a flakiness source and, sometimes, an accidental fuzzer: a rare failing input can be a genuine edge-case bug. First reproduce with the captured input and decide whether the code or the test is wrong. Fix the real defect, then restore determinism by seeding the generator or pinning the discovered case as a fixed regression test \u2014 do not simply pick a seed that hides the failure.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose: race between threads",
+            "text": "<p>A test starts two threads that both append to a shared list and then asserts the list has two elements. It occasionally sees one element or throws. What is the root cause and correct fix?</p>",
+            "answers": [
+              {
+                "text": "A race condition on the unsynchronized shared list; fix the concurrency (proper synchronization or a thread-safe structure) and make the test wait deterministically for both appends to complete",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the flakiness reflects a real data race; fix the synchronization and wait on completion deterministically."
+              },
+              {
+                "text": "The list type is broken; switch to a different list and keep it unsynchronized",
+                "fraction": 0,
+                "feedback": "An ordinary list is not broken; concurrent unsynchronized mutation is the defect, so add proper synchronization."
+              },
+              {
+                "text": "Add a fixed sleep before the assertion and leave the threads unsynchronized",
+                "fraction": 0,
+                "feedback": "A sleep only lowers the failure rate; the underlying data race remains and can still corrupt the list."
+              },
+              {
+                "text": "Retry the test until both appends happen to land",
+                "fraction": 0,
+                "feedback": "Retrying hides a genuine concurrency bug that can also affect production; fix the race instead."
+              }
+            ],
+            "generalFeedback": "Two threads mutating one list without synchronization is a data race: interleavings occasionally lose an update or corrupt internal state. This is a real bug, not mere test noise. Use proper synchronization or a thread-safe collection, and have the test deterministically wait for both threads to finish (join/await) before asserting.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Determinism is the goal, retry is a stopgap",
+            "text": "<p>The goal of remediating a flaky test is to restore determinism by fixing the root cause; automatic retries may be a temporary stopgap but are not themselves a fix.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 determinism via root-cause repair is the aim; retries only paper over the symptom."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "This is wrong: retries do not remove the non-determinism, so they are a stopgap at best; the real fix restores determinism at the root cause."
+              }
+            ],
+            "generalFeedback": "Proper remediation makes the test deterministic again by addressing why it varies \u2014 replacing sleeps with conditional waits, seeding randomness, injecting the clock, isolating state, mocking external deps, or fixing a real concurrency bug. A retry may buy time, but it hides the symptom and can mask genuine intermittent defects, so it is never the end state."
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose: parallel tests sharing a temp file",
+            "text": "<p>Two tests each write to <code>/tmp/output.txt</code> and read it back. They pass when run one at a time but fail intermittently when the suite runs them in parallel. What is the root cause and correct fix?</p>",
+            "answers": [
+              {
+                "text": "Resource contention on the shared fixed path; give each test its own unique temporary file/directory so they cannot interfere",
+                "fraction": 100,
+                "feedback": "Correct \u2014 isolate the resource per test (a unique temp path) to remove the contention."
+              },
+              {
+                "text": "The file system is broken under load; move the tests to a different disk",
+                "fraction": 0,
+                "feedback": "The file system is fine; the tests are colliding on a single hard-coded path, so isolate per test."
+              },
+              {
+                "text": "Force the two tests to always run sequentially and never in parallel",
+                "fraction": 0,
+                "feedback": "Serializing hides the coupling and forfeits parallel speed; the clean fix is a unique path per test."
+              },
+              {
+                "text": "Add a sleep so the two writes do not happen at the same instant",
+                "fraction": 0,
+                "feedback": "A sleep is a fragile timing hack that still shares one path; use a unique temporary file per test."
+              }
+            ],
+            "generalFeedback": "Both tests use the same fixed filename, so under parallel execution one overwrites the other's data between write and read. Allocate a unique temporary file or directory per test (a fresh temp path, cleaned up in teardown) so the tests are isolated and can run in parallel deterministically.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose: created_at equals now",
+            "text": "<p>A test creates a record and asserts <code>record.created_at == now()</code>, calling the live clock again in the assertion. It fails rarely, when a tiny delay makes the two clock reads differ. What is the correct fix?</p>",
+            "answers": [
+              {
+                "text": 'Inject a fixed clock so both the code and the test see the same controlled "now", making the timestamps compare deterministically',
+                "fraction": 100,
+                "feedback": "Correct \u2014 controlling time removes the gap between two live clock reads."
+              },
+              {
+                "text": "Read the live clock twice more and average the values",
+                "fraction": 0,
+                "feedback": "More live reads still vary; the fix is to control time with an injected clock, not to average noise."
+              },
+              {
+                "text": "Retry the assertion until the two clock reads coincide",
+                "fraction": 0,
+                "feedback": "Retrying depends on luck and leaves the time dependence in place; inject a fixed clock instead."
+              },
+              {
+                "text": "Delete the timestamp assertion entirely",
+                "fraction": 0,
+                "feedback": "Removing the check loses coverage of the timestamp behaviour; make time controllable instead."
+              }
+            ],
+            "generalFeedback": 'The flakiness comes from comparing two independent reads of the live clock, which differ by the elapsed time between them. Inject a controllable clock so the code stamps the record with a fixed "now" and the test asserts against that same value. Alternatively assert the timestamp lies within a tolerance window \u2014 but injecting the clock is the cleanest deterministic fix.',
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Auto-retry can hide a real concurrency bug",
+            "text": "<p>A test fails about 1 in 20 runs due to a genuine race condition in the production code. The team adds an automatic 3\xD7 retry so CI reports it as passing. This is an acceptable resolution because CI is now green.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the retry hides a real race condition that can still strike users; the root cause must be fixed, not masked."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This is wrong: a green CI achieved by retrying conceals a genuine intermittent bug that will still manifest in production."
+              }
+            ],
+            "generalFeedback": "The 1-in-20 failure is not test noise \u2014 it is a real race condition in the code under test. Retrying until green makes the symptom disappear from CI while the defect remains and will eventually affect real users under load. The correct response is to diagnose and fix the race (proper synchronization) so the test passes deterministically for the right reason."
+          },
+          {
+            "type": "multichoice",
+            "name": "Response to a single unexplained CI failure",
+            "text": "<p>On an unchanged commit, one CI run fails a test; re-running the same commit passes. What is the most appropriate response?</p>",
+            "answers": [
+              {
+                "text": "Treat it as likely flaky: reproduce it by running the test repeatedly, track it, and diagnose the root cause \u2014 do not simply dismiss it as a one-off fluke",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a pass/fail flip on unchanged code is a flakiness signal that should be reproduced, tracked, and fixed."
+              },
+              {
+                "text": "Ignore it entirely, since the re-run passed and the code did not change",
+                "fraction": 0,
+                "feedback": "Dismissing it lets flakiness (or a real intermittent bug) persist; reproduce and investigate instead."
+              },
+              {
+                "text": "Immediately delete the test to stop it from failing again",
+                "fraction": 0,
+                "feedback": "Deleting discards coverage and hides a possible real bug before it is even understood; investigate first."
+              },
+              {
+                "text": "Permanently enable retry-until-green for the whole suite",
+                "fraction": 0,
+                "feedback": "Blanket retries mask real intermittent defects across the suite; reproduce and fix the specific test instead."
+              }
+            ],
+            "generalFeedback": "A differing verdict on the same commit is the definition of flakiness and should not be waved away. Reproduce it by running the test many times to get a flakiness rate, record it on a tracked list, and diagnose the root cause. It might be a harmless timing issue or a genuine intermittent bug \u2014 you only learn which by investigating, not by shrugging or blindly retrying.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose: locale-dependent number formatting",
+            "text": '<p>A test asserts that formatting <code>1234.5</code> yields the string <code>"1,234.5"</code>. It passes for most of the team but fails for a teammate whose machine uses a locale where numbers are written like <code>"1.234,5"</code>. What is the root cause and correct fix?</p>',
+            "answers": [
+              {
+                "text": "The formatter uses the ambient default locale; pin an explicit locale in the test (or format locale-independently) so the output is the same everywhere",
+                "fraction": 100,
+                "feedback": "Correct \u2014 make the locale explicit rather than depending on the machine's default."
+              },
+              {
+                "text": "The teammate's machine has a corrupted number library; reinstall it",
+                "fraction": 0,
+                "feedback": "Nothing is corrupted \u2014 the library correctly follows that machine's locale; the test must fix the locale explicitly."
+              },
+              {
+                "text": "Retry the test until it produces the expected separators",
+                "fraction": 0,
+                "feedback": "The output is deterministic per locale, so retrying cannot help; pin the locale instead."
+              },
+              {
+                "text": "Only run the test on machines set to the expected locale",
+                "fraction": 0,
+                "feedback": "Restricting where it runs hides the hidden dependence rather than removing it; specify the locale in the test."
+              }
+            ],
+            "generalFeedback": "Number, date, and currency formatting default to the environment's locale, so grouping and decimal separators differ by machine. The test unknowingly depended on one locale. Fix it by passing an explicit locale to the formatter (or by formatting in a locale-independent way) so the produced string is deterministic across every environment.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u8106\u5F31\u6E2C\u8A66",
+            "text": "<p><em>\u8106\u5F31\u6E2C\u8A66\uFF08flaky test\uFF09</em>\u6700\u9069\u5207\u7684\u63CF\u8FF0\u662F\u4E00\u500B\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u76F8\u540C\u7684\u7A0B\u5F0F\u78BC\u8207\u76F8\u540C\u7684\u8F38\u5165\u4E0B\uFF0C\u537B\u975E\u6C7A\u5B9A\u6027\u5730\u6642\u800C\u901A\u904E\u3001\u6642\u800C\u5931\u6557\u7684\u6E2C\u8A66\uFF0C\u4E14\u53D7\u6E2C\u5C0D\u8C61\u672C\u8EAB\u4E26\u672A\u6539\u8B8A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8106\u5F31\u6027\u6B63\u662F\u5728\u672A\u6539\u8B8A\u7684\u7A0B\u5F0F\u78BC\u8207\u8F38\u5165\u4E0B\u51FA\u73FE\u975E\u6C7A\u5B9A\u6027\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u91DD\u5C0D\u67D0\u500B\u7279\u5B9A\u7248\u672C\u7684\u7A0B\u5F0F\u78BC\uFF0C\u6BCF\u6B21\u57F7\u884C\u90FD\u5931\u6557\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u81F4\u3001\u6C7A\u5B9A\u6027\u7684\u5931\u6557\uFF0C\u4E26\u975E\u8106\u5F31\uFF1B\u8106\u5F31\u6E2C\u8A66\u7684\u7D50\u679C\u6703\u5728\u4E0D\u540C\u57F7\u884C\u9593\u8B8A\u52D5\u3002"
+              },
+              {
+                "text": "\u6BD4\u6E2C\u8A66\u5957\u4EF6\u4E2D\u5176\u4ED6\u6E2C\u8A66\u57F7\u884C\u5F97\u66F4\u6162\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u6162\u662F\u6548\u80FD\u554F\u984C\uFF1B\u8106\u5F31\u6027\u8AC7\u7684\u662F\u975E\u6C7A\u5B9A\u6027\u7684\u901A\u904E\uFF0F\u5931\u6557\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5728\u53D7\u6E2C\u7A0B\u5F0F\u78BC\u88AB\u523B\u610F\u6539\u58DE\u3001\u690D\u5165\u7F3A\u9677\u5F8C\u624D\u5931\u6557\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5075\u6E2C\u5230\u771F\u6B63\u7684\u6539\u52D5\u6B63\u662F\u597D\u6E2C\u8A66\u8A72\u505A\u7684\u4E8B\uFF1B\u8106\u5F31\u662F\u6307\u5728\u6C92\u6709\u9019\u985E\u6539\u52D5\u4E0B\u4ECD\u5931\u6557\u3002"
+              }
+            ],
+            "generalFeedback": "\u8106\u5F31\u6E2C\u8A66\u5728\u4E0D\u540C\u57F7\u884C\u9593\u6703\u7522\u751F\u4E0D\u540C\u7D50\u679C\u2014\u2014\u6642\u800C\u901A\u904E\u3001\u6642\u800C\u5931\u6557\u2014\u2014\u5373\u4F7F\u53D7\u6E2C\u7A0B\u5F0F\u78BC\u8207\u8F38\u5165\u90FD\u672A\u6539\u8B8A\u3002\u5176\u5B9A\u7FA9\u6027\u8CEA\u662F\u975E\u6C7A\u5B9A\u6027\uFF1A\u7D50\u679C\u4E26\u975E\u5B8C\u5168\u7531\u53D7\u6E2C\u5C0D\u8C61\u6240\u6C7A\u5B9A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u7684\u6C7A\u5B9A\u6027\u662F\u4EC0\u9EBC\u610F\u601D",
+            "text": "<p>\u7576\u4E00\u500B\u6E2C\u8A66\u5177\u6709<em>\u6C7A\u5B9A\u6027\uFF08deterministic\uFF09</em>\u6642\uFF0C\u610F\u601D\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u76F8\u540C\u7684\u7A0B\u5F0F\u78BC\u8207\u8F38\u5165\u4E0B\uFF0C\u5B83\u6BCF\u6B21\u90FD\u7522\u751F\u76F8\u540C\u7684\u7D50\u679C\uFF08\u6BCF\u6B21\u90FD\u901A\u904E\uFF0C\u6216\u6BCF\u6B21\u90FD\u5931\u6557\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C7A\u5B9A\u6027\u6E2C\u8A66\u5C0D\u76F8\u540C\u7684\u7A0B\u5F0F\u78BC\u8207\u8F38\u5165\u6BCF\u6B21\u90FD\u7D66\u51FA\u76F8\u540C\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u4E0D\u8AD6\u7A0B\u5F0F\u78BC\u505A\u4EC0\u9EBC\uFF0C\u5B83\u90FD\u4E00\u5B9A\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u6C38\u9060\u901A\u904E\u7684\u6E2C\u8A66\u6BEB\u7121\u7528\u8655\uFF0C\u4E26\u975E\u6C7A\u5B9A\u6027\uFF1B\u6C7A\u5B9A\u6027\u662F\u6307\u7D50\u679C\u53EF\u91CD\u73FE\uFF0C\u800C\u8A72\u7D50\u679C\u53EF\u80FD\u662F\u901A\u904E\u6216\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u5B83\u5728\u4E00\u79D2\u5167\u5C31\u8DD1\u5B8C",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u901F\u5EA6\u8207\u6C7A\u5B9A\u6027\u7121\u95DC\uFF0C\u6C7A\u5B9A\u6027\u8AC7\u7684\u662F\u7D50\u679C\u53EF\u91CD\u73FE\u3002"
+              },
+              {
+                "text": "\u5B83\u6BCF\u6B21\u57F7\u884C\u90FD\u4F7F\u7528\u96A8\u6A5F\u7522\u751F\u7684\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u672A\u8A2D\u7A2E\u5B50\u7684\u96A8\u6A5F\u8F38\u5165\u6703\u4F7F\u6E2C\u8A66\u8B8A\u5F97\u975E\u6C7A\u5B9A\u6027\uFF1B\u6C7A\u5B9A\u6027\u6B63\u597D\u76F8\u53CD\u3002"
+              }
+            ],
+            "generalFeedback": "\u6C7A\u5B9A\u6027\u662F\u6307\u6E2C\u8A66\u7684\u7D50\u679C\u5B8C\u5168\u7531\u7A0B\u5F0F\u78BC\u8207\u8F38\u5165\u6C7A\u5B9A\uFF1A\u5728\u672A\u6539\u8B8A\u7684\u7A0B\u5F0F\u78BC\u4E0A\u8DD1\u4E00\u5343\u6B21\uFF0C\u6BCF\u6B21\u90FD\u7D66\u51FA\u76F8\u540C\u7684\u88C1\u6C7A\u3002\u8106\u5F31\u6027\u6B63\u662F\u6C7A\u5B9A\u6027\u7684\u55AA\u5931\uFF0C\u800C\u4FEE\u5FA9\u7684\u76EE\u6A19\u5C31\u662F\u6062\u5FA9\u6C7A\u5B9A\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u4E00\u81F4\u5931\u6557\u4E0D\u662F\u8106\u5F31",
+            "text": "<p>\u5C0D\u76F8\u540C\u7A0B\u5F0F\u78BC\u6BCF\u6B21\u57F7\u884C\u90FD\u5931\u6557\u7684\u6E2C\u8A66\uFF0C\u662F\u8106\u5F31\u6E2C\u8A66\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u6B21\u90FD\u5931\u6557\u7684\u6E2C\u8A66\u662F\u6C7A\u5B9A\u6027\u7684\uFF08\u4E00\u81F4\u4E14\u53EF\u91CD\u73FE\u7684\u5931\u6557\uFF09\uFF0C\u4E26\u975E\u8106\u5F31\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1A\u6BCF\u6B21\u90FD\u5931\u6557\u662F\u6C7A\u5B9A\u6027\u7684\u7D50\u679C\u3002\u8106\u5F31\u662F\u6307\u76F8\u540C\u7A0B\u5F0F\u78BC\u5728\u4E0D\u540C\u57F7\u884C\u9593\u975E\u6C7A\u5B9A\u6027\u5730\u8B8A\u52D5\u7D50\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "\u8106\u5F31\u6027\u7531\u975E\u6C7A\u5B9A\u6027\u6240\u5B9A\u7FA9\uFF1A\u76F8\u540C\u7684\u7A0B\u5F0F\u78BC\u8207\u8F38\u5165\u6642\u800C\u901A\u904E\u3001\u6642\u800C\u5931\u6557\u3002\u6BCF\u6B21\u90FD\u5931\u6557\u7684\u6E2C\u8A66\u662F\u4E00\u81F4\u3001\u53EF\u91CD\u73FE\u7684\u5931\u6557\u2014\u2014\u901A\u5E38\u6307\u5411\u771F\u6B63\u7684\u7F3A\u9677\u2014\u2014\u61C9\u4EE5\u7F3A\u9677\u65B9\u5F0F\u9664\u932F\uFF0C\u800C\u975E\u8CBC\u4E0A\u8106\u5F31\u7684\u6A19\u7C64\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8106\u5F31\u6027\u4FB5\u8755\u4FE1\u4EFB\u4E26\u63A9\u84CB\u771F\u6B63\u7684\u7F3A\u9677",
+            "text": "<p>\u8106\u5F31\u6E2C\u8A66\u4E4B\u6240\u4EE5\u6709\u5BB3\uFF0C\u4E3B\u8981\u662F\u56E0\u70BA\u5B83\u4FB5\u8755\u5718\u968A\u5C0D\u6E2C\u8A66\u5957\u4EF6\u7684\u4FE1\u4EFB\uFF0C\u4E26\u53EF\u80FD\u63A9\u84CB\u771F\u6B63\u7684\u5931\u6557\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u518D\u7684\u5047\u8B66\u5831\u8B93\u4EBA\u4E0D\u518D\u4FE1\u4EFB\u3001\u4E5F\u4E0D\u518D\u7D30\u770B\u6E2C\u8A66\u7D50\u679C\uFF0C\u65BC\u662F\u593E\u5728\u96DC\u8A0A\u4E2D\u7684\u771F\u6B63\u5931\u6557\u5C31\u88AB\u5FFD\u7565\u4E86\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1A\u4FB5\u8755\u4FE1\u4EFB\u8207\u63A9\u84CB\u771F\u6B63\u5931\u6557\uFF0C\u6B63\u662F\u8106\u5F31\u6027\u7684\u6838\u5FC3\u5371\u5BB3\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u5957\u4EF6\u6BEB\u7121\u771F\u6B63\u539F\u56E0\u537B\u9593\u6B47\u6027\u5931\u6557\u6642\uFF0C\u958B\u767C\u8005\u6703\u5B78\u6703\u5C0D\u7D05\u8272\u5EFA\u7F6E\u8073\u8073\u80A9\u3001\u76F4\u63A5\u91CD\u8DD1\u3002\u9019\u6467\u6BC0\u4E86\u5957\u4EF6\u7684\u8A0A\u865F\u50F9\u503C\uFF1A\u85CF\u5728\u96DC\u8A0A\u88E1\u7684\u771F\u6B63\u56DE\u6B78\u88AB\u7576\u6210\u300C\u53EA\u662F\u8106\u5F31\u300D\u800C\u88AB\u6253\u767C\u6389\uFF0C\u65BC\u662F\u771F\u6B63\u7684\u7F3A\u9677\u6E9C\u4E86\u904E\u53BB\u3002\u8106\u5F31\u6027\u4E5F\u6703\u5728\u91CD\u8DD1\u4E0A\u6D6A\u8CBB\u6642\u9593\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5E38\u898B\u539F\u56E0\uFF1A\u56FA\u5B9A sleep \u8207\u6642\u5E8F",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F\u8106\u5F31\u6E2C\u8A66\u7684\u5E38\u898B\u539F\u56E0\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u67D0\u500B\u975E\u540C\u6B65\u52D5\u4F5C\u4F9D\u8CF4\u56FA\u5B9A\u7684 sleep\uFF08\u4F8B\u5982\u300C\u7B49 100 \u6BEB\u79D2\u300D\uFF09\uFF0C\u800C\u8A72\u52D5\u4F5C\u6709\u6642\u5C1A\u672A\u5C31\u7DD2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56FA\u5B9A\u7B49\u5F85\u662F\u7D93\u5178\u7684\u6642\u5E8F\u539F\u56E0\uFF1A\u82E5\u52D5\u4F5C\u5076\u723E\u82B1\u66F4\u4E45\uFF0C\u6E2C\u8A66\u4FBF\u6703\u9593\u6B47\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u70BA\u6BCF\u500B\u6E2C\u8A66\u5404\u81EA\u63D0\u4F9B\u5168\u65B0\u3001\u9694\u96E2\u7684\u6E2C\u8A66\u593E\u5177",
+                "fraction": 0,
+                "feedback": "\u5168\u65B0\u4E14\u9694\u96E2\u7684\u593E\u5177\u6703\u964D\u4F4E\u8106\u5F31\u6027\uFF1B\u5B83\u662F\u4FEE\u5FA9\u624B\u6BB5\uFF0C\u800C\u975E\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u5C0D\u4E00\u500B\u7CBE\u78BA\u3001\u786C\u5BEB\u6B7B\u7684\u9810\u671F\u503C\u505A\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "\u7CBE\u78BA\u7684\u9810\u671F\u503C\u901A\u5E38\u8B93\u6E2C\u8A66\u66F4\u5177\u6C7A\u5B9A\u6027\uFF0C\u800C\u975E\u66F4\u8106\u5F31\u3002"
+              },
+              {
+                "text": "\u8B93\u6BCF\u500B\u6E2C\u8A66\u5728\u5B8C\u5168\u7368\u7ACB\u7684\u884C\u7A0B\u4E2D\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u5F37\u9694\u96E2\u50BE\u5411\u65BC\u9632\u6B62\u8106\u5F31\uFF0C\u800C\u975E\u9020\u6210\u8106\u5F31\u3002"
+              }
+            ],
+            "generalFeedback": "\u56FA\u5B9A sleep \u662F\u6700\u5E38\u898B\u7684\u8106\u5F31\u4F86\u6E90\u4E4B\u4E00\uFF1A\u5B83\u628A\u300C\u67D0\u500B\u975E\u540C\u6B65\u64CD\u4F5C\u8981\u82B1\u591A\u4E45\u300D\u7684\u731C\u6E2C\u5BEB\u6B7B\u3002\u7576\u8A72\u64CD\u4F5C\u5076\u723E\u8DD1\u5F97\u8F03\u6162\uFF08\u6A5F\u5668\u8CA0\u8F09\u9AD8\u3001\u7DB2\u8DEF\u6162\uFF09\uFF0Csleep \u5728\u52D5\u4F5C\u5B8C\u6210\u524D\u5C31\u5230\u671F\uFF0C\u65BC\u662F\u6E2C\u8A66\u5931\u6557\u2014\u2014\u800C\u4E14\u662F\u975E\u6C7A\u5B9A\u6027\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5E38\u898B\u539F\u56E0\uFF1A\u672A\u8A2D\u7A2E\u5B50\u7684\u96A8\u6A5F",
+            "text": "<p>\u67D0\u6E2C\u8A66\u4EE5\u4E00\u500B\u5F9E\u672A\u8A2D\u5B9A\u56FA\u5B9A\u7A2E\u5B50\u7684\u4E82\u6578\u7522\u751F\u5668\u4F86\u7522\u751F\u8F38\u5165\u8CC7\u6599\u3002\u70BA\u4EC0\u9EBC\u9019\u662F\u8106\u5F31\u6027\u98A8\u96AA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u6B21\u57F7\u884C\u90FD\u4F7F\u7528\u4E0D\u540C\u7684\u96A8\u6A5F\u8CC7\u6599\uFF0C\u56E0\u6B64\u6E2C\u8A66\u53EF\u80FD\u5927\u591A\u6578\u57F7\u884C\u90FD\u901A\u904E\uFF0C\u5076\u723E\u537B\u5728\u67D0\u500B\u4E0D\u5DE7\u7684\u503C\u4E0A\u5931\u6557",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u672A\u8A2D\u7A2E\u5B50\u7684\u96A8\u6A5F\u4F7F\u8F38\u5165\u6BCF\u6B21\u90FD\u4E0D\u540C\uFF0C\u7522\u751F\u975E\u6C7A\u5B9A\u6027\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u8CC7\u6599\u7E3D\u662F\u8B93\u6E2C\u8A66\u8DD1\u5F97\u66F4\u5FEB\uFF0C\u56E0\u800C\u9020\u6210\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u901F\u5EA6\u4E0D\u662F\u554F\u984C\u6240\u5728\uFF1B\u554F\u984C\u662F\u8F38\u5165\u6BCF\u6B21\u90FD\u4E0D\u540C\uFF0C\u4F7F\u7D50\u679C\u975E\u6C7A\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u8CC7\u6599\u4E00\u5B9A\u662F\u7121\u6548\u7684\uFF0C\u6240\u4EE5\u6E2C\u8A66\u6C38\u9060\u7121\u6CD5\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u96A8\u6A5F\u8CC7\u6599\u672C\u8CEA\u4E0A\u4E26\u975E\u7121\u6548\uFF1B\u8106\u5F31\u6027\u4F86\u81EA\u8F38\u5165\u5728\u4E0D\u540C\u57F7\u884C\u9593\u8B8A\u52D5\u3002"
+              },
+              {
+                "text": "\u4E82\u6578\u7522\u751F\u5668\u7528\u6389\u592A\u591A\u8A18\u61B6\u9AD4",
+                "fraction": 0,
+                "feedback": "\u8A18\u61B6\u9AD4\u7528\u91CF\u7121\u95DC\uFF1B\u672A\u8A2D\u7A2E\u5B50\u7684\u96A8\u6A5F\u662F\u9760\u8B93\u6BCF\u6B21\u8F38\u5165\u90FD\u4E0D\u540C\u800C\u9020\u6210\u8106\u5F31\u3002"
+              }
+            ],
+            "generalFeedback": "\u672A\u8A2D\u7A2E\u5B50\u7684\u4E82\u6578\u7522\u751F\u5668\u6BCF\u6B21\u57F7\u884C\u90FD\u7522\u751F\u4E0D\u540C\u7684\u8F38\u5165\u3002\u5927\u591A\u6578\u8F38\u5165\u53EF\u80FD\u901A\u904E\uFF0C\u800C\u67D0\u500B\u7F55\u898B\u7684\u8F38\u5165\u537B\u89F8\u767C\u5931\u6557\uFF0C\u65BC\u662F\u6E2C\u8A66\u7D50\u679C\u975E\u6C7A\u5B9A\u6027\u5730\u8B8A\u52D5\u3002\uFF08\u6CE8\u610F\uFF1A\u9019\u985E\u5076\u767C\u5931\u6557\u6709\u53EF\u80FD\u6B63\u662F\u5728\u67D0\u500B\u7279\u5B9A\u8F38\u5165\u4E0B\u66B4\u9732\u51FA\u771F\u6B63\u7684\u7F3A\u9677\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5E38\u898B\u539F\u56E0\uFF1A\u6E2C\u8A66\u9593\u5171\u4EAB\u53EF\u8B8A\u72C0\u614B",
+            "text": "<p>\u4E0B\u5217\u54EA\u7A2E\u60C5\u5F62\u662F\u8207<em>\u6E2C\u8A66\u9806\u5E8F</em>\u6709\u95DC\u7684\u5E38\u898B\u8106\u5F31\u539F\u56E0\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u4E4B\u9593\u5171\u4EAB\u53EF\u8B8A\u72C0\u614B\uFF08\u4F8B\u5982\u5168\u57DF\u8B8A\u6578\u6216\u8CC7\u6599\u5EAB\u8CC7\u6599\u5217\uFF09\uFF0C\u4E14\u67D0\u500B\u6E2C\u8A66\u7559\u4E0B\u7684\u8CC7\u6599\u5F71\u97FF\u4E86\u53E6\u4E00\u500B\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u907A\u7559\u7684\u5171\u4EAB\u72C0\u614B\u6703\u9020\u6210\u8207\u9806\u5E8F\u76F8\u4F9D\u3001\u975E\u6C7A\u5B9A\u6027\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6E2C\u8A66\u5404\u81EA\u5EFA\u7ACB\u4E26\u62C6\u9664\u81EA\u5DF1\u7684\u79C1\u6709\u8CC7\u6599",
+                "fraction": 0,
+                "feedback": "\u5404\u6E2C\u8A66\u79C1\u6709\u7684\u8CC7\u6599\u53EF\u9632\u6B62\u9806\u5E8F\u76F8\u4F9D\uFF1B\u5B83\u662F\u4FEE\u5FA9\uFF0C\u800C\u975E\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6E2C\u8A66\u90FD\u53EA\u65B7\u8A00\u4E00\u4EF6\u4E8B",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u65B7\u8A00\u7684\u6E2C\u8A66\u8207\u9806\u5E8F\u76F8\u4F9D\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u88AB\u53D6\u4E86\u5177\u63CF\u8FF0\u6027\u7684\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u547D\u540D\u8207\u9806\u5E8F\u76F8\u4F9D\u6216\u8106\u5F31\u6027\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6E2C\u8A66\u5171\u4EAB\u53EF\u8B8A\u72C0\u614B\u6642\uFF0C\u67D0\u500B\u6E2C\u8A66\u7684\u7D50\u679C\u53EF\u80FD\u53D6\u6C7A\u65BC\u53E6\u4E00\u500B\u6E2C\u8A66\u662F\u5426\u2014\u2014\u4EE5\u53CA\u4EE5\u4F55\u7A2E\u9806\u5E8F\u2014\u2014\u5148\u57F7\u884C\u3002\u907A\u7559\u7684\u8CC7\u6599\u6216\u88AB\u6539\u52D5\u7684\u5168\u57DF\u8B8A\u6578\uFF0C\u4F7F\u7D50\u679C\u76F8\u4F9D\u65BC\u57F7\u884C\u9806\u5E8F\uFF0C\u800C\u8A31\u591A\u57F7\u884C\u5668\u4E26\u4E0D\u4FDD\u8B49\u9806\u5E8F\uFF0C\u65BC\u662F\u7522\u751F\u9593\u6B47\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5E38\u898B\u539F\u56E0\uFF1A\u5916\u90E8\u76F8\u4F9D",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u5728\u55AE\u5143\u6E2C\u8A66\u4E2D\u547C\u53EB\u771F\u5BE6\u7684\u5916\u90E8\u670D\u52D9\uFF08\u4F8B\u5982\u7B2C\u4E09\u65B9\u7DB2\u8DEF API\uFF09\u6703\u9020\u6210\u8106\u5F31\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5916\u90E8\u670D\u52D9\u53EF\u80FD\u5F88\u6162\u3001\u7121\u6CD5\u4F7F\u7528\uFF0C\u6216\u56DE\u50B3\u8B8A\u52D5\u7684\u8CC7\u6599\uFF0C\u4F7F\u6E2C\u8A66\u7D50\u679C\u53D6\u6C7A\u65BC\u53D7\u6E2C\u7A0B\u5F0F\u78BC\u4EE5\u5916\u7684\u56E0\u7D20",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5916\u90E8\u76F8\u4F9D\u5F15\u5165\u6E2C\u8A66\u7121\u6CD5\u63A7\u5236\u7684\u8B8A\u52D5\u6027\uFF0C\u9020\u6210\u9593\u6B47\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u5916\u90E8\u670D\u52D9\u7E3D\u662F\u56DE\u50B3\u5B8C\u5168\u76F8\u540C\u7684\u56DE\u61C9\uFF0C\u9019\u5F37\u8FEB\u6E2C\u8A66\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u76F8\u53CD\uFF1A\u5B83\u5011\u7684\u56DE\u61C9\u8207\u53EF\u7528\u6027\u6703\u8B8A\u52D5\uFF0C\u9019\u6B63\u662F\u9020\u6210\u8106\u5F31\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u7DB2\u8DEF\u547C\u53EB\u6703\u8B93\u65B7\u8A00\u8B8A\u5F97\u66F4\u56B4\u683C",
+                "fraction": 0,
+                "feedback": "\u65B7\u8A00\u56B4\u683C\u7A0B\u5EA6\u7121\u95DC\uFF1B\u8106\u5F31\u4F86\u81EA\u4E0D\u53D7\u63A7\u7684\u5916\u90E8\u8B8A\u52D5\u6027\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u6846\u67B6\u7981\u6B62\u7DB2\u8DEF\u5B58\u53D6\uFF0C\u6240\u4EE5\u6E2C\u8A66\u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u6846\u67B6\u4E00\u822C\u5141\u8A31\u7DB2\u8DEF\u547C\u53EB\uFF1B\u554F\u984C\u5728\u65BC\u5B83\u5011\u5F15\u5165\u7684\u975E\u6C7A\u5B9A\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u771F\u5BE6\u7684\u5916\u90E8\u76F8\u4F9D\u5728\u6E2C\u8A66\u63A7\u5236\u4E4B\u5916\uFF1A\u5B83\u53EF\u80FD\u6162\u3001\u66AB\u6642\u505C\u6A5F\u3001\u88AB\u9650\u6D41\uFF0C\u6216\u56DE\u50B3\u8B8A\u52D5\u7684\u8CC7\u6599\u3002\u6B64\u6642\u6E2C\u8A66\u7684\u901A\u904E\u8207\u5426\u53D6\u6C7A\u65BC\u7576\u4E0B\u670D\u52D9\u7684\u72C0\u614B\uFF0C\u800C\u975E\u53D7\u6E2C\u7684\u7A0B\u5F0F\u78BC\uFF0C\u9019\u6B63\u662F\u975E\u6C7A\u5B9A\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5E38\u898B\u539F\u56E0\uFF1A\u76EE\u524D\u7684\u65E5\u671F\u6216\u6642\u9593",
+            "text": "<p>\u67D0\u6E2C\u8A66\u5728\u5176\u908F\u8F2F\u4E2D\u4F7F\u7528\u4E86\u6A5F\u5668\u76EE\u524D\u7684\u65E5\u671F\uFF0F\u6642\u9593\uFF08\u639B\u9418\u6642\u9593\uFF09\u3002\u70BA\u4EC0\u9EBC\u9019\u662F\u8106\u5F31\u6027\u98A8\u96AA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7D50\u679C\u53EF\u80FD\u53D6\u6C7A\u65BC\u6E2C\u8A66\u525B\u597D\u5728\u4F55\u6642\u57F7\u884C\u2014\u2014\u67D0\u500B\u7279\u5B9A\u5C0F\u6642\u3001\u8DE8\u65E5\u754C\u7DDA\u6216\u6642\u5340\u2014\u2014\u56E0\u6B64\u5B83\u5728\u67D0\u4E9B\u6642\u9593\u901A\u904E\u3001\u5728\u53E6\u4E00\u4E9B\u6642\u9593\u5931\u6557",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D81\u5B9A\u771F\u5BE6\u6642\u9418\u7684\u6E2C\u8A66\u662F\u975E\u6C7A\u5B9A\u6027\u7684\uFF0C\u56E0\u70BA\u6642\u9418\u4E00\u76F4\u5728\u8B8A\u3002"
+              },
+              {
+                "text": "\u8B80\u53D6\u6642\u9418\u7E3D\u662F\u592A\u6162\uFF0C\u56E0\u800C\u9020\u6210\u903E\u6642",
+                "fraction": 0,
+                "feedback": "\u8B80\u6642\u9418\u5F88\u5FEB\uFF1B\u554F\u984C\u5728\u65BC\u5B83\u7684\u503C\u96A8\u6642\u9593\u6539\u8B8A\uFF0C\u4F7F\u7D50\u679C\u53D6\u6C7A\u65BC\u4F55\u6642\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u76EE\u524D\u7684\u6642\u9593\u6C38\u9060\u76F8\u540C\uFF0C\u6240\u4EE5\u6E2C\u8A66\u88AB\u904E\u5EA6\u7D04\u675F",
+                "fraction": 0,
+                "feedback": "\u76EE\u524D\u7684\u6642\u9593\u6B63\u662F\u4E0D\u65B7\u5728\u8B8A\u7684\u6771\u897F\uFF1B\u90A3\u500B\u8B8A\u52D5\u6027\u624D\u662F\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u5728\u591A\u6578\u8A9E\u8A00\u4E2D\u65E5\u671F\u7121\u6CD5\u6BD4\u8F03",
+                "fraction": 0,
+                "feedback": "\u65E5\u671F\u53EF\u4EE5\u6B63\u5E38\u6BD4\u8F03\uFF1B\u8106\u5F31\u4F86\u81EA\u4F9D\u8CF4\u90A3\u6301\u7E8C\u8B8A\u52D5\u7684\u771F\u5BE6\u6642\u9418\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F7F\u7528\u771F\u5BE6\u639B\u9418\u6642\u9593\u6703\u628A\u6E2C\u8A66\u7D50\u679C\u7D81\u5230\u5B83\u57F7\u884C\u7684\u90A3\u4E00\u523B\u3002\u5B83\u53EF\u80FD\u767D\u5929\u901A\u904E\uFF0C\u537B\u5728\u8DE8\u8D8A\u5348\u591C\u754C\u7DDA\u3001\u6708\u5E95\uFF0C\u6216\u5728\u4E0D\u540C\u6642\u5340\u5931\u6557\u3002\u56E0\u70BA\u6642\u9418\u4E00\u76F4\u5728\u8B8A\uFF0C\u7D50\u679C\u7121\u6CD5\u91CD\u73FE\u2014\u2014\u9019\u6B63\u662F\u8106\u5F31\u7684\u7279\u5FB5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u8106\u5F31\u75C7\u72C0",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u7A2E\u89C0\u5BDF\u5230\u7684\u884C\u70BA\uFF0C\u662F\u8106\u5F31\u6E2C\u8A66\u7684\u660E\u78BA\u75C7\u72C0\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u5B8C\u5168\u76F8\u540C\u7684\u63D0\u4EA4\uFF08commit\uFF09\u91CD\u8DD1\u5B8C\u5168\u76F8\u540C\u7684\u6E2C\u8A66\uFF0C\u4E00\u6B21\u901A\u904E\u3001\u4E0B\u4E00\u6B21\u537B\u5931\u6557",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u672A\u6539\u8B8A\u7684\u7A0B\u5F0F\u78BC\u4E0A\u91CD\u8DD1\u537B\u7D50\u679C\u4E0D\u540C\uFF0C\u6B63\u662F\u8106\u5F31\u7684\u6A19\u8A8C\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5931\u6557\uFF0C\u800C\u5728\u4F60\u4FEE\u597D\u7A0B\u5F0F\u78BC\u4E2D\u4E00\u500B\u771F\u6B63\u7684\u7F3A\u9677\u5F8C\u5B83\u5C31\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6B63\u5E38\u3001\u6B63\u78BA\u7684\u884C\u70BA\uFF1A\u6E2C\u8A66\u5075\u6E2C\u5230\u771F\u6B63\u7684\u7F3A\u9677\uFF0C\u4E26\u5728\u4FEE\u5FA9\u5F8C\u52A0\u4EE5\u78BA\u8A8D\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u8A9E\u6CD5\u932F\u8AA4\u800C\u7121\u6CD5\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u7DE8\u8B6F\u932F\u8AA4\u6BCF\u6B21\u90FD\u6C7A\u5B9A\u6027\u5730\u5931\u6557\uFF1B\u90A3\u662F\u5EFA\u7F6E\u554F\u984C\uFF0C\u4E0D\u662F\u8106\u5F31\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5728\u6BCF\u4E00\u53F0\u6A5F\u5668\u4E0A\u6BCF\u6B21\u90FD\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u4E00\u81F4\u901A\u904E\u7684\u6E2C\u8A66\u662F\u6C7A\u5B9A\u6027\u4E14\u7A69\u5B9A\u7684\uFF0C\u8207\u8106\u5F31\u76F8\u53CD\u3002"
+              }
+            ],
+            "generalFeedback": "\u8106\u5F31\u6027\u8868\u73FE\u70BA\u5C0D\u76F8\u540C\u7A0B\u5F0F\u78BC\u5728\u591A\u6B21\u57F7\u884C\u9593\u7D66\u51FA\u4E0D\u540C\u88C1\u6C7A\u3002\u82E5\u53D7\u6E2C\u5C0D\u8C61\u6C92\u6709\u4EFB\u4F55\u6539\u8B8A\uFF0C\u7D50\u679C\u537B\u5728\u901A\u904E\u8207\u5931\u6557\u9593\u7FFB\u52D5\uFF0C\u90A3\u5C31\u662F\u8106\u5F31\u3002\u6C7A\u5B9A\u6027\u7684\u5931\u6557\uFF08\u7F3A\u9677\u3001\u8A9E\u6CD5\u932F\u8AA4\uFF09\u8207\u4E00\u81F4\u7684\u901A\u904E\u90FD\u4E0D\u662F\u8106\u5F31\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5E38\u898B\u539F\u56E0\uFF1A\u7121\u5E8F\u96C6\u5408\u7684\u8D70\u8A2A",
+            "text": "<p>\u67D0\u6E2C\u8A66\u65B7\u8A00\u8D70\u8A2A\u4E00\u500B\u4EE5\u96DC\u6E4A\u70BA\u57FA\u790E\u7684 set\uFF0Fmap \u6642\uFF0C\u5143\u7D20\u6703\u4EE5\u67D0\u500B\u7279\u5B9A\u9806\u5E8F\u51FA\u73FE\u3002\u70BA\u4EC0\u9EBC\u9019\u662F\u8106\u5F31\u6027\u98A8\u96AA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EE5\u96DC\u6E4A\u70BA\u57FA\u790E\u7684\u96C6\u5408\u4E0D\u4FDD\u8B49\u7A69\u5B9A\u7684\u8D70\u8A2A\u9806\u5E8F\uFF0C\u56E0\u6B64\u9806\u5E8F\u53EF\u80FD\u5728\u4E0D\u540C\u57F7\u884C\u6216\u74B0\u5883\u9593\u8B8A\u52D5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F9D\u8CF4\u672A\u6307\u5B9A\u7684\u8D70\u8A2A\u9806\u5E8F\u6703\u4F7F\u7D50\u679C\u975E\u6C7A\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u96DC\u6E4A\u96C6\u5408\u6C38\u9060\u53EA\u80FD\u5BB9\u7D0D\u4E00\u500B\u5143\u7D20",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u53EF\u5BB9\u7D0D\u8A31\u591A\u5143\u7D20\uFF1B\u554F\u984C\u5728\u65BC\u5176\u8D70\u8A2A\u9806\u5E8F\u672A\u53D7\u4FDD\u8B49\u3002"
+              },
+              {
+                "text": "\u8D70\u8A2A\u96C6\u5408\u7E3D\u662F\u62CB\u51FA\u4F8B\u5916",
+                "fraction": 0,
+                "feedback": "\u8D70\u8A2A\u904B\u4F5C\u6B63\u5E38\uFF1B\u8106\u5F31\u4F86\u81EA\u672A\u6307\u5B9A\u7684\u9806\u5E8F\u3002"
+              },
+              {
+                "text": "set \u8207 map \u7E3D\u662F\u4EE5\u6392\u5E8F\u5F8C\u7684\u9806\u5E8F\u8D70\u8A2A",
+                "fraction": 0,
+                "feedback": "\u4EE5\u96DC\u6E4A\u70BA\u57FA\u790E\u7684 set\uFF0Fmap \u4E00\u822C\u4E0D\u4FDD\u8B49\u6392\u5E8F\u6216\u7A69\u5B9A\u7684\u9806\u5E8F\uFF0C\u9019\u6B63\u662F\u554F\u984C\u6240\u5728\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A31\u591A\u4EE5\u96DC\u6E4A\u70BA\u57FA\u790E\u7684\u96C6\u5408\u5C0D\u8D70\u8A2A\u9806\u5E8F\u4E0D\u505A\u4EFB\u4F55\u627F\u8AFE\uFF1B\u9806\u5E8F\u53EF\u80FD\u53D6\u6C7A\u65BC\u96DC\u6E4A\u3001\u63D2\u5165\u6B77\u7A0B\u3001\u5BB9\u91CF\u6216\u57F7\u884C\u74B0\u5883\u7248\u672C\u3002\u5C0D\u9019\u985E\u96C6\u5408\u65B7\u8A00\u67D0\u500B\u7279\u5B9A\u9806\u5E8F\uFF0C\u7B49\u65BC\u628A\u6E2C\u8A66\u7D81\u5728\u4E00\u500B\u53EF\u80FD\u5728\u4E0D\u540C\u57F7\u884C\u9593\u6539\u8B8A\u7684\u5BE6\u4F5C\u7D30\u7BC0\u4E0A\uFF0C\u9020\u6210\u9593\u6B47\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5E38\u898B\u539F\u56E0\uFF1A\u74B0\u5883\u5DEE\u7570",
+            "text": "<p>\u67D0\u6E2C\u8A66\u5728\u6BCF\u4E00\u53F0\u958B\u767C\u8005\u7B46\u96FB\u4E0A\u90FD\u901A\u904E\uFF0C\u4F46\u5728 CI \u4F3A\u670D\u5668\u4E0A\u6709\u6642\u5931\u6557\u3002\u9019\u6700\u80FD\u6307\u5411\u54EA\u4E00\u7A2E\u8106\u5F31\u539F\u56E0\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u74B0\u5883\u5DEE\u7570\u2014\u2014CI \u5728\u6642\u5E8F\u3001\u8CC7\u6E90\u3001\u5730\u5340\u8A2D\u5B9A\uFF08locale\uFF09\u6216\u7D44\u614B\u4E0A\u8207\u7B46\u96FB\u4E0D\u540C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D50\u679C\u53D6\u6C7A\u65BC\u5728\u54EA\u88E1\u57F7\u884C\uFF0C\u6307\u5411\u8207\u74B0\u5883\u76F8\u95DC\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u7684\u65B7\u8A00\u592A\u5177\u63CF\u8FF0\u6027",
+                "fraction": 0,
+                "feedback": "\u5177\u63CF\u8FF0\u6027\u7684\u65B7\u8A00\u4E0D\u6703\u9020\u6210\u8207\u74B0\u5883\u76F8\u4F9D\u7684\u8106\u5F31\u3002"
+              },
+              {
+                "text": "\u53D7\u6E2C\u7A0B\u5F0F\u78BC\u5B8C\u5168\u6C92\u6709\u4EFB\u4F55\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u7A0B\u5F0F\u78BC\u662F\u5426\u6709\u7F3A\u9677\u662F\u53E6\u4E00\u56DE\u4E8B\uFF1B\u6B64\u6A23\u614B\u6307\u5411\u74B0\u5883\u5DEE\u7570\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u6A94\u6848\u592A\u9577",
+                "fraction": 0,
+                "feedback": "\u6A94\u6848\u9577\u5EA6\u8207\u74B0\u5883\u76F8\u4F9D\u7684\u8106\u5F31\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F9D\u74B0\u5883\u800C\u6709\u4E0D\u540C\u884C\u70BA\u7684\u6E2C\u8A66\uFF0C\u662F\u76F8\u4F9D\u65BC\u74B0\u5883\u6240\u63D0\u4F9B\u7684\u67D0\u4E9B\u6771\u897F\u2014\u2014CPU \u901F\u5EA6\u8207\u8CA0\u8F09\uFF08\u5F71\u97FF\u6642\u5E8F\uFF09\u3001\u53EF\u7528\u8A18\u61B6\u9AD4\u3001CPU\uFF0F\u6838\u5FC3\u6578\uFF08\u5F71\u97FF\u4E26\u884C\uFF09\u3001\u9810\u8A2D\u5730\u5340\u8A2D\u5B9A\u6216\u6642\u5340\uFF0C\u6216\u7D44\u614B\u3002CI \u5E38\u5E38\u6B63\u662F\u5728\u9019\u4E9B\u65B9\u9762\u8207\u7B46\u96FB\u4E0D\u540C\uFF0C\u56E0\u800C\u66B4\u9732\u51FA\u96B1\u85CF\u7684\u5047\u8A2D\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8106\u5F31\u6027\u5728\u91CD\u8DD1\u4E0A\u6D6A\u8CBB\u6642\u9593",
+            "text": "<p>\u8106\u5F31\u6E2C\u8A66\u7684\u4E00\u9805\u771F\u5BE6\u6210\u672C\uFF0C\u662F\u958B\u767C\u8005\u82B1\u5728\u91CD\u8DD1\u5EFA\u7F6E\u3001\u4EE5\u53CA\u8ABF\u67E5\u90A3\u4E9B\u7D50\u679C\u4E26\u975E\u771F\u6B63\u5931\u6557\u7684\u6642\u9593\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91CD\u8DD1\u8207\u8FFD\u67E5\u5047\u8B66\u5831\u6703\u6D88\u8017\u771F\u5BE6\u7684\u5DE5\u7A0B\u6642\u9593\uFF0C\u4E26\u62D6\u6162\u7BA1\u7DDA\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1A\u5728\u91CD\u8DD1\u8207\u5047\u8B66\u5831\u8ABF\u67E5\u4E0A\u6D6A\u8CBB\u6642\u9593\uFF0C\u662F\u773E\u6240\u5468\u77E5\u7684\u8106\u5F31\u6210\u672C\u3002"
+              }
+            ],
+            "generalFeedback": "\u9664\u4E86\u4FB5\u8755\u4FE1\u4EFB\u8207\u63A9\u84CB\u771F\u6B63\u5931\u6557\u4E4B\u5916\uFF0C\u8106\u5F31\u6027\u9084\u6709\u76F4\u63A5\u7684\u751F\u7522\u529B\u6210\u672C\uFF1A\u7BA1\u7DDA\u88AB\u91CD\u65B0\u89F8\u767C\u3001\u5DE5\u7A0B\u5E2B\u505C\u4E0B\u4F86\u8ABF\u67E5\u90A3\u4E9B\u5F9E\u4F86\u4E0D\u662F\u771F\u7684\u7D05\u8272\u5EFA\u7F6E\u3001\u5408\u4F75\u88AB\u5EF6\u9072\u3002\u9019\u4E9B\u88AB\u6D6A\u8CBB\u7684\u5FC3\u529B\uFF0C\u6B63\u662F\u70BA\u4EC0\u9EBC\u8106\u5F31\u6027\u503C\u5F97\u4FEE\u5FA9\u3001\u800C\u975E\u5BB9\u5FCD\u7684\u91CD\u8981\u539F\u56E0\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u9694\u96E2\uFF08quarantine\uFF09",
+            "text": "<p>\u5C0D\u4E00\u500B\u8106\u5F31\u6E2C\u8A66\u9032\u884C<em>\u9694\u96E2\uFF08quarantine\uFF09</em>\u7684\u610F\u601D\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u66AB\u6642\u628A\u5B83\u5206\u9694\u51FA\u4F86\uFF0C\u4F7F\u5176\u9593\u6B47\u5931\u6557\u4E0D\u518D\u963B\u585E\u7BA1\u7DDA\uFF0C\u540C\u6642\u6301\u7E8C\u8FFD\u8E64\u5B83\u4E26\u6392\u5B9A\u771F\u6B63\u7684\u4FEE\u5FA9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9694\u96E2\u628A\u96DC\u8A0A\u5F9E\u7BA1\u7DDA\u9694\u958B\uFF0C\u4F46\u6E2C\u8A66\u4ECD\u5FC5\u9808\u88AB\u8FFD\u8E64\u4E26\u52A0\u4EE5\u4FEE\u5FA9\u3002"
+              },
+              {
+                "text": "\u5C07\u8A72\u6E2C\u8A66\u5F9E\u7A0B\u5F0F\u78BC\u5EAB\u6C38\u4E45\u522A\u9664",
+                "fraction": 0,
+                "feedback": "\u522A\u9664\u6E2C\u8A66\u6703\u4E1F\u6389\u5B83\u7684\u6DB5\u84CB\u7BC4\u570D\uFF1B\u9694\u96E2\u5247\u4FDD\u7559\u5B83\u3001\u52A0\u4EE5\u9694\u96E2\u4E26\u8FFD\u8E64\uFF0C\u76F4\u5230\u4FEE\u597D\u70BA\u6B62\u3002"
+              },
+              {
+                "text": "\u81EA\u52D5\u91CD\u8DD1\u5B83\u76F4\u5230\u7D42\u65BC\u901A\u904E\uFF0C\u7136\u5F8C\u5C31\u4E0D\u7BA1\u4E86",
+                "fraction": 0,
+                "feedback": "\u76F2\u76EE\u91CD\u8DD1\u5F8C\u5C31\u5FD8\u6389\uFF0C\u53EA\u662F\u628A\u554F\u984C\u63A9\u84CB\u8D77\u4F86\uFF1B\u9694\u96E2\u5247\u660E\u78BA\u5730\u6301\u7E8C\u8FFD\u8E64\u8A72\u6E2C\u8A66\u4EE5\u5F85\u771F\u6B63\u4FEE\u5FA9\u3002"
+              },
+              {
+                "text": "\u4E0D\u8AD6\u7D50\u679C\u5982\u4F55\u90FD\u628A\u5B83\u6A19\u8A18\u70BA\u6C38\u9060\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u5F37\u8FEB\u901A\u904E\u6703\u6467\u6BC0\u6E2C\u8A66\u7684\u50F9\u503C\uFF1B\u9694\u96E2\u662F\u628A\u5B83\u5F9E\u963B\u585E\u7684\u95DC\u5361\u632A\u958B\uFF0C\u4F46\u4ECD\u4FDD\u6301\u5B83\u8AA0\u5BE6\u4E14\u88AB\u8FFD\u8E64\u3002"
+              }
+            ],
+            "generalFeedback": "\u9694\u96E2\u628A\u4E00\u500B\u5DF2\u77E5\u8106\u5F31\u7684\u6E2C\u8A66\u79FB\u51FA\u963B\u585E\u5408\u4F75\u7684\u8DEF\u5F91\uFF0C\u4F7F\u5176\u96DC\u8A0A\u4E0D\u518D\u5E72\u64FE\u6240\u6709\u4EBA\uFF0C\u4F46\u5B83\u4ECD\u7559\u5728\u4E00\u4EFD\u88AB\u8FFD\u8E64\u7684\u6E05\u55AE\u4E0A\uFF0C\u4E26\u6392\u5B9A\u9032\u884C\u6839\u56E0\u4FEE\u5FA9\u3002\u9694\u96E2\u662F\u4E00\u7A2E\u570D\u5835\u624B\u6BB5\uFF0C\u800C\u975E\u4FEE\u5FA9\u2014\u2014\u672A\u88AB\u8FFD\u8E64\u7684\u9694\u96E2\u53EA\u662F\u4E00\u500B\u88AB\u85CF\u8D77\u4F86\u7684\u7F3A\u9677\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5E38\u898B\u539F\u56E0\uFF1A\u4E26\u884C\u7A0B\u5F0F\u78BC\u4E2D\u7684\u7AF6\u614B\u689D\u4EF6",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F\u8106\u5F31\u6E2C\u8A66\u7684\u5E38\u898B\u539F\u56E0\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7AF6\u614B\u689D\u4EF6\uFF08race condition\uFF09\uFF0C\u4EA6\u5373\u7D50\u679C\u53D6\u6C7A\u65BC\u4E26\u884C\u57F7\u884C\u7DD2\u6216\u64CD\u4F5C\u4E4B\u9593\u4E0D\u53EF\u9810\u6E2C\u7684\u4EA4\u932F\u9806\u5E8F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7AF6\u614B\u4F7F\u7D50\u679C\u53D6\u6C7A\u65BC\u4EA4\u932F\u7684\u6642\u5E8F\uFF0C\u800C\u6642\u5E8F\u5728\u4E0D\u540C\u57F7\u884C\u9593\u8B8A\u52D5\u3002"
+              },
+              {
+                "text": "\u5C0D\u4E00\u500B\u56FA\u5B9A\u4E14\u4EE5\u540C\u6B65\u65B9\u5F0F\u8A08\u7B97\u51FA\u7684\u503C\u505A\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "\u540C\u6B65\u3001\u56FA\u5B9A\u7684\u8A08\u7B97\u662F\u6C7A\u5B9A\u6027\u7684\uFF1B\u5B83\u4E0D\u6703\u9020\u6210\u8106\u5F31\u3002"
+              },
+              {
+                "text": "\u70BA\u6BCF\u500B\u6E2C\u8A66\u5404\u81EA\u63D0\u4F9B\u7368\u7ACB\u7684\u8CC7\u6599\u526F\u672C",
+                "fraction": 0,
+                "feedback": "\u5404\u6E2C\u8A66\u7368\u7ACB\u7684\u8CC7\u6599\u6703\u964D\u4F4E\u8106\u5F31\u6027\uFF1B\u5B83\u662F\u4FEE\u5FA9\u624B\u6BB5\uFF0C\u800C\u975E\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u70BA\u6E2C\u8A66\u5BEB\u4E00\u500B\u6E05\u695A\u3001\u5177\u63CF\u8FF0\u6027\u7684\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u547D\u540D\u5C0D\u6C7A\u5B9A\u6027\u6C92\u6709\u5F71\u97FF\uFF1B\u7AF6\u614B\u689D\u4EF6\u624D\u6709\u3002"
+              }
+            ],
+            "generalFeedback": "\u7AF6\u614B\u689D\u4EF6\u662F\u6307\u5169\u500B\u4EE5\u4E0A\u7684\u4E26\u884C\u64CD\u4F5C\u53EF\u80FD\u4EE5\u591A\u7A2E\u65B9\u5F0F\u4EA4\u932F\uFF0C\u800C\u6E2C\u8A66\u7684\u7D50\u679C\u53D6\u6C7A\u65BC\u5BE6\u969B\u767C\u751F\u7684\u662F\u54EA\u4E00\u7A2E\u4EA4\u932F\u3002\u56E0\u70BA\u6392\u7A0B\u5668\u4EE5\u4E0D\u53EF\u9810\u6E2C\u7684\u65B9\u5F0F\u9078\u64C7\u4EA4\u932F\u9806\u5E8F\uFF0C\u7D50\u679C\u4FBF\u5728\u4E0D\u540C\u57F7\u884C\u9593\u8B8A\u52D5\u2014\u2014\u9019\u662F\u7D93\u5178\u7684\u8106\u5F31\uFF0C\u4E5F\u5F80\u5F80\u662F\u7A0B\u5F0F\u78BC\u4E2D\u771F\u6B63\u4E26\u884C\u7F3A\u9677\u7684\u75C7\u72C0\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u75C7\u72C0\uFF1A\u55AE\u7368\u8DD1\u6703\u904E\uFF0C\u6574\u5957\u8DD1\u6703\u6557",
+            "text": "<p>\u67D0\u6E2C\u8A66\u55AE\u7368\u57F7\u884C\u6642\u901A\u904E\uFF0C\u4F46\u4F5C\u70BA\u5B8C\u6574\u5957\u4EF6\u7684\u4E00\u90E8\u5206\u57F7\u884C\u6642\u537B\u5931\u6557\u3002\u6700\u53EF\u80FD\u7684\u539F\u56E0\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9806\u5E8F\u76F8\u4F9D\uFF1A\u53E6\u4E00\u500B\u6E2C\u8A66\u7559\u4E0B\u4E86\u5171\u4EAB\u72C0\u614B\uFF0C\u800C\u9019\u500B\u6E2C\u8A66\u4F9D\u8CF4\u5B83\u3001\u6216\u88AB\u5B83\u64FE\u4E82",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u55AE\u7368\u8DD1\u6703\u904E\u3001\u6574\u5957\u8DD1\u6703\u6557\uFF0C\u6B63\u662F\u5171\u4EAB\u72C0\u614B\u9020\u6210\u9806\u5E8F\u76F8\u4F9D\u7684\u5178\u578B\u6A19\u8A8C\u3002"
+              },
+              {
+                "text": "\u9019\u500B\u6E2C\u8A66\u7684\u65B7\u8A00\u6839\u672C\u5C31\u5BEB\u932F\u4E86",
+                "fraction": 0,
+                "feedback": "\u82E5\u65B7\u8A00\u5BEB\u932F\uFF0C\u55AE\u7368\u8DD1\u6642\u4E5F\u6703\u5931\u6557\uFF1B\u300C\u55AE\u7368\u5C0D\u6BD4\u6574\u5957\u300D\u7684\u5DEE\u7570\u6307\u5411\u5171\u4EAB\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u6A5F\u5668\u592A\u5FEB\u4E86",
+                "fraction": 0,
+                "feedback": "\u6A5F\u5668\u901F\u5EA6\u7121\u6CD5\u89E3\u91CB\u70BA\u4F55\u7D50\u679C\u53D6\u6C7A\u65BC\u5176\u4ED6\u6E2C\u8A66\u662F\u5426\u5148\u8DD1\uFF1B\u5171\u4EAB\u72C0\u614B\u624D\u80FD\u3002"
+              },
+              {
+                "text": "\u9019\u500B\u6E2C\u8A66\u7684\u65B7\u8A00\u592A\u5C11",
+                "fraction": 0,
+                "feedback": "\u65B7\u8A00\u6578\u91CF\u7121\u95DC\uFF1B\u55AE\u7368\u8207\u6574\u5957\u4E4B\u9593\u7684\u5DEE\u7570\u6307\u5411\u900F\u904E\u5171\u4EAB\u72C0\u614B\u7684\u9806\u5E8F\u76F8\u4F9D\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u4E00\u500B\u6E2C\u8A66\u7684\u88C1\u6C7A\u53D6\u6C7A\u65BC\u662F\u5426\u6709\u5176\u4ED6\u6E2C\u8A66\u5148\u8DD1\u6642\uFF0C\u4EE3\u8868\u6709\u67D0\u4E9B\u72C0\u614B\u5728\u6E2C\u8A66\u9593\u88AB\u5171\u4EAB\u2014\u2014\u5168\u57DF\u8B8A\u6578\u3001\u975C\u614B\u6B04\u4F4D\u3001\u5FEB\u53D6\u3001\u6A94\u6848\u6216\u8CC7\u6599\u5EAB\u8CC7\u6599\u5217\u3002\u4FEE\u6CD5\u662F\u9010\u4E00\u6E2C\u8A66\u5730\u9694\u96E2\u4E26\u91CD\u8A2D\u72C0\u614B\uFF0C\u4F7F\u6BCF\u500B\u6E2C\u8A66\u90FD\u5F9E\u4E7E\u6DE8\u3001\u5DF2\u77E5\u7684\u8D77\u9EDE\u958B\u59CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u75C7\u72C0\uFF1A\u5728\u903E\u6642\u9644\u8FD1\u9593\u6B47\u5931\u6557",
+            "text": "<p>\u67D0 UI \u6E2C\u8A66\u5728\u5B83\u4EE5\u56FA\u5B9A\u6642\u9593\u7B49\u5F85\u67D0\u500B\u6309\u9215\u51FA\u73FE\u4E4B\u8655\u9593\u6B47\u5931\u6557\uFF0C\u4F46\u901A\u5E38\u6703\u901A\u904E\u3002\u6700\u53EF\u80FD\u7684\u539F\u56E0\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6642\u5E8F\u554F\u984C\uFF1A\u56E0\u70BA\u8A72\u5143\u7D20\u5076\u723E\u8981\u82B1\u66F4\u4E45\u624D\u51FA\u73FE\uFF0C\u56FA\u5B9A\u7B49\u5F85\u6709\u6642\u592A\u77ED",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u56FA\u5B9A\u7B49\u5F85\u8655\u7684\u9593\u6B47\u5931\u6557\uFF0C\u662F\u6642\u5E8F\uFF0F\u975E\u540C\u6B65\u5C31\u7DD2\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u4E2D\u628A\u6309\u9215\u7684\u6587\u5B57\u62FC\u932F\u4E86",
+                "fraction": 0,
+                "feedback": "\u5B57\u4E32\u5BEB\u932F\u6703\u4E00\u81F4\u5931\u6557\uFF0C\u800C\u975E\u9593\u6B47\u5931\u6557\uFF1B\u9593\u6B47\u6027\u6307\u5411\u6642\u5E8F\u3002"
+              },
+              {
+                "text": "\u9019\u500B\u6E2C\u8A66\u6709\u8A9E\u6CD5\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u8A9E\u6CD5\u932F\u8AA4\u6BCF\u6B21\u90FD\u5931\u6557\uFF1B\u5728\u7B49\u5F85\u8655\u9593\u6B47\u5931\u6557\u6307\u5411\u6642\u5E8F\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u8CC7\u6599\u5EAB\u7DB1\u8981\uFF08schema\uFF09\u904E\u6642\u4E86",
+                "fraction": 0,
+                "feedback": "\u7DB1\u8981\u554F\u984C\u4E0D\u6703\u53EA\u5728\u7B49\u5F85\u6B65\u9A5F\u5076\u723E\u51FA\u73FE\uFF1B\u6642\u5E8F\u624D\u6703\u3002"
+              }
+            ],
+            "generalFeedback": "\u6070\u597D\u5728\u56FA\u5B9A\u7B49\u5F85\u8655\u9593\u6B47\u5931\u6557\uFF0C\u662F\u6642\u5E8F\uFF0F\u975E\u540C\u6B65\u554F\u984C\u7684\u6307\u7D0B\uFF1A\u5143\u7D20\u7684\u5C31\u7DD2\u6642\u9593\u6703\u8B8A\u52D5\uFF0C\u4E00\u65E6\u8D85\u904E\u5BEB\u6B7B\u7684\u7B49\u5F85\uFF0C\u65B7\u8A00\u5C31\u6703\u592A\u65E9\u57F7\u884C\u3002\u4FEE\u6CD5\u662F\u8F2A\u8A62\u8A72\u689D\u4EF6\uFF08\u660E\u78BA\uFF0F\u689D\u4EF6\u5F0F\u7B49\u5F85\uFF09\uFF0C\u800C\u4E0D\u662F\u56FA\u5B9A\u7761\u4E00\u6BB5\u6642\u9593\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u75C7\u72C0\uFF1A\u53EA\u5728\u5348\u591C\u524D\u5F8C\u5931\u6557",
+            "text": "<p>\u67D0\u6E2C\u8A66\u5E7E\u4E4E\u7E3D\u662F\u901A\u904E\uFF0C\u4F46\u591C\u9593\u5EFA\u7F6E\u5076\u723E\u5728\u5348\u591C\u524D\u5F8C\u8B93\u5B83\u5931\u6557\u3002\u4F60\u61C9\u8A72\u6700\u5148\u61F7\u7591\u54EA\u4E00\u7A2E\u539F\u56E0\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u65E5\u671F\uFF0F\u6642\u9593\u76F8\u4F9D\uFF1A\u6E2C\u8A66\u7684\u908F\u8F2F\u5728\u8DE8\u65E5\u754C\u7DDA\u6642\u6709\u4E0D\u540C\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5931\u6557\u805A\u96C6\u5728\u67D0\u500B\u6642\u9593\u754C\u7DDA\uFF0C\u6307\u5411\u639B\u9418\uFF0F\u65E5\u671F\u76F8\u4F9D\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u53EA\u5728\u591C\u9593\u7528\u6389\u592A\u591A\u8A18\u61B6\u9AD4",
+                "fraction": 0,
+                "feedback": "\u8A18\u61B6\u9AD4\u7528\u91CF\u8207\u5348\u591C\u754C\u7DDA\u7121\u95DC\uFF1B\u5931\u6557\u767C\u751F\u7684\u6642\u9593\u9EDE\u6307\u5411\u65E5\u671F\u76F8\u4F9D\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u592A\u56B4\u683C",
+                "fraction": 0,
+                "feedback": "\u56B4\u683C\u7684\u65B7\u8A00\u4E0D\u8AD6\u5E7E\u9EDE\u90FD\u6703\u5931\u6557\uFF1B\u805A\u96C6\u5728\u5348\u591C\u6307\u5411\u65E5\u671F\uFF0F\u6642\u9593\u76F8\u4F9D\u3002"
+              },
+              {
+                "text": "CI \u4F3A\u670D\u5668\u7684\u6838\u5FC3\u592A\u591A\u4E86",
+                "fraction": 0,
+                "feedback": "\u6838\u5FC3\u6578\u7121\u6CD5\u89E3\u91CB\u70BA\u4F55\u7279\u5225\u5728\u5348\u591C\u5931\u6557\uFF1B\u8DE8\u65E5\u754C\u7DDA\u624D\u80FD\u3002"
+              }
+            ],
+            "generalFeedback": "\u805A\u96C6\u5728\u67D0\u500B\u6642\u9593\u9EDE\uFF08\u5348\u591C\u3001\u6708\u5E95\u3001\u65E5\u5149\u7BC0\u7D04\u6642\u9593\u5207\u63DB\uFF09\u7684\u5931\u6557\uFF0C\u900F\u9732\u51FA\u5C0D\u771F\u5BE6\u6642\u9418\u7684\u4F9D\u8CF4\u3002\u50CF\u662F\u300C\u8A72\u7D00\u9304\u662F\u4ECA\u5929\u5EFA\u7ACB\u7684\u300D\u6216\u67D0\u6BB5\u65E5\u671F\u904B\u7B97\uFF0C\u6703\u5728\u8DE8\u8D8A\u754C\u7DDA\u6642\u51FA\u932F\u3002\u6CE8\u5165\u6216\u51CD\u7D50\u6642\u9418\uFF0C\u8B93\u6E2C\u8A66\u63A7\u5236\u6642\u9593\uFF0C\u800C\u975E\u8B80\u53D6\u771F\u5BE6\u6642\u9593\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u75C7\u72C0\uFF1A\u53EA\u5728\u6E2C\u8A66\u88AB\u91CD\u65B0\u6392\u5E8F\u6642\u5931\u6557",
+            "text": "<p>\u4F60\u7684\u5957\u4EF6\u5E73\u5E38\u901A\u904E\uFF0C\u4F46\u7576\u57F7\u884C\u5668\u4EE5\u96A8\u6A5F\u9806\u5E8F\u57F7\u884C\u6E2C\u8A66\u6642\u5C31\u958B\u59CB\u5931\u6557\u3002\u9019\u63ED\u9732\u4E86\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9806\u5E8F\u76F8\u4F9D\uFF1A\u81F3\u5C11\u6709\u4E00\u500B\u6E2C\u8A66\u4F9D\u8CF4\u53E6\u4E00\u500B\u6E2C\u8A66\u7684\u526F\u4F5C\u7528\uFF0C\u56E0\u6B64\u4E0D\u540C\u9806\u5E8F\u5C31\u6703\u7834\u58DE\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u91CD\u65B0\u6392\u5E8F\u4E0B\u5931\u6557\uFF0C\u662F\u96B1\u85CF\u9806\u5E8F\u76F8\u4F9D\u7684\u76F4\u63A5\u8B49\u64DA\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u5668\u7684\u96A8\u6A5F\u9806\u5E8F\u529F\u80FD\u58DE\u4E86",
+                "fraction": 0,
+                "feedback": "\u96A8\u6A5F\u9806\u5E8F\u662F\u6A19\u6E96\u3001\u6B63\u5E38\u904B\u4F5C\u7684\u529F\u80FD\uFF1B\u5B83\u662F\u63ED\u9732\u4E86\u65E2\u6709\u7684\u76F8\u4F9D\uFF0C\u800C\u975E\u9020\u6210\u76F8\u4F9D\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u592A\u5FEB\uFF0C\u7121\u6CD5\u4EE5\u65B0\u9806\u5E8F\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u901F\u5EA6\u7121\u95DC\uFF1B\u53EA\u5728\u91CD\u65B0\u6392\u5E8F\u6642\u5931\u6557\uFF0C\u8868\u793A\u6E2C\u8A66\u76F8\u4F9D\u65BC\u57F7\u884C\u9806\u5E8F\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u5316\u9806\u5E8F\u7E3D\u662F\u8B93\u6B63\u78BA\u7684\u6E2C\u8A66\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u4E26\u975E\u5982\u6B64\u2014\u2014\u7368\u7ACB\u3001\u9694\u96E2\u826F\u597D\u7684\u6E2C\u8A66\u5728\u4EFB\u4F55\u9806\u5E8F\u4E0B\u90FD\u901A\u904E\uFF1B\u5931\u6557\u4EE3\u8868\u5B58\u5728\u771F\u6B63\u7684\u76F8\u4F9D\u3002"
+              }
+            ],
+            "generalFeedback": "\u4EE5\u96A8\u6A5F\u9806\u5E8F\u57F7\u884C\u6E2C\u8A66\u662F\u4E00\u7A2E\u523B\u610F\u7684\u5075\u6E2C\u6280\u8853\u3002\u59A5\u5584\u9694\u96E2\u7684\u6E2C\u8A66\u5728\u4EFB\u4F55\u9806\u5E8F\u4E0B\u90FD\u901A\u904E\uFF1B\u82E5\u91CD\u65B0\u6392\u5E8F\u9020\u6210\u5931\u6557\uFF0C\u5C31\u4EE3\u8868\u67D0\u4E9B\u6E2C\u8A66\u900F\u904E\u5171\u4EAB\u72C0\u614B\u6216\u5047\u5B9A\u7684\u5148\u5F8C\u9806\u5E8F\u800C\u5F7C\u6B64\u8026\u5408\u3002\u4FEE\u6CD5\u662F\u9694\u96E2\u4E26\u91CD\u8A2D\u72C0\u614B\uFF0C\u4F7F\u6BCF\u500B\u6E2C\u8A66\u5F7C\u6B64\u7368\u7ACB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56FA\u5B9A sleep \u7684\u4FEE\u6CD5",
+            "text": "<p>\u67D0\u6E2C\u8A66\u4EE5\u56FA\u5B9A\u7684 <code>sleep(500 \u6BEB\u79D2)</code> \u4F86\u7B49\u5F85\u4E00\u500B\u975E\u540C\u6B65\u7D50\u679C\uFF0C\u56E0\u800C\u8106\u5F31\u3002\u6B63\u78BA\u3001\u5177\u6C7A\u5B9A\u6027\u7684\u4FEE\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u56FA\u5B9A sleep \u63DB\u6210\u660E\u78BA\uFF0F\u689D\u4EF6\u5F0F\u7B49\u5F85\uFF0C\u8F2A\u8A62\u76F4\u5230\u7D50\u679C\u5C31\u7DD2\uFF0C\u4E26\u8A2D\u4E00\u500B\u5408\u7406\u7684\u903E\u6642\u4E0A\u9650",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B49\u5F85\u5BE6\u969B\u689D\u4EF6\uFF08\u4E26\u8A2D\u903E\u6642\uFF09\u53EF\u53BB\u9664\u731C\u6E2C\u8207\u8106\u5F31\u3002"
+              },
+              {
+                "text": "\u628A sleep \u52A0\u9577\u5230 5 \u79D2\uFF0C\u4E26\u7DAD\u6301\u662F\u56FA\u5B9A sleep",
+                "fraction": 0,
+                "feedback": "\u66F4\u9577\u7684\u56FA\u5B9A sleep \u53EA\u662F\u964D\u4F4E\u5931\u6557\u7387\u3001\u537B\u62D6\u6162\u6BCF\u6B21\u57F7\u884C\uFF1B\u5B83\u4E26\u672A\u79FB\u9664\u975E\u6C7A\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u522A\u6389\u6AA2\u67E5\u7D50\u679C\u7684\u90A3\u500B\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u65B7\u8A00\u7B49\u65BC\u4E0D\u518D\u6E2C\u4EFB\u4F55\u6709\u610F\u7FA9\u7684\u6771\u897F\u4F86\u63A9\u84CB\u8106\u5F31\uFF1B\u90A3\u4E0D\u662F\u4FEE\u5FA9\u3002"
+              },
+              {
+                "text": "\u628A\u6E2C\u8A66\u5305\u5728\u81EA\u52D5\u91CD\u8A66\u4E2D\uFF0C\u8DD1\u4E09\u6B21",
+                "fraction": 0,
+                "feedback": "\u91CD\u8A66\u662F\u63A9\u84CB\u6642\u5E8F\u7F3A\u9677\uFF0C\u800C\u975E\u4FEE\u5FA9\u6839\u56E0\uFF1B\u6B63\u78BA\u7684\u4FEE\u6CD5\u662F\u7B49\u5F85\u8A72\u689D\u4EF6\u6210\u7ACB\u3002"
+              }
+            ],
+            "generalFeedback": "\u56FA\u5B9A sleep \u628A\u300C\u67D0\u500B\u975E\u540C\u6B65\u52D5\u4F5C\u8981\u82B1\u591A\u4E45\u300D\u7684\u731C\u6E2C\u5BEB\u6B7B\u3002\u6539\u6210\u689D\u4EF6\u5F0F\u7B49\u5F85\uFF0C\u53CD\u8986\u8F2A\u8A62\u5BE6\u969B\u7684\u5C31\u7DD2\u689D\u4EF6\u3001\u4E00\u65E6\u6210\u7ACB\u5C31\u7ACB\u5373\u7E7C\u7E8C\uFF0C\u4E26\u5728\u5BEC\u88D5\u7684\u903E\u6642\u5F8C\u624D\u5931\u6557\u3002\u9019\u65E2\u5177\u6C7A\u5B9A\u6027\uFF0C\u901A\u5E38\u4E5F\u6BD4\u4FDD\u5B88\u7684\u56FA\u5B9A sleep \u66F4\u5FEB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u672A\u8A2D\u7A2E\u5B50\u7684\u96A8\u6A5F\u7684\u4FEE\u6CD5",
+            "text": "<p>\u67D0\u6E2C\u8A66\u4E4B\u6240\u4EE5\u8106\u5F31\uFF0C\u662F\u56E0\u70BA\u5B83\u628A\u672A\u8A2D\u7A2E\u5B50\u7684\u96A8\u6A5F\u8CC7\u6599\u9935\u7D66\u53D7\u6E2C\u7A0B\u5F0F\u78BC\u3002\u8981\u4F7F\u5B83\u5177\u6C7A\u5B9A\u6027\uFF0C\u6B63\u78BA\u7684\u4FEE\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EE5\u56FA\u5B9A\u503C\u70BA\u4E82\u6578\u7522\u751F\u5668\u8A2D\u5B9A\u7A2E\u5B50\uFF0C\u4F7F\u6BCF\u6B21\u57F7\u884C\u90FD\u7522\u751F\u76F8\u540C\u7684\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56FA\u5B9A\u7684\u7A2E\u5B50\u4F7F\u300C\u96A8\u6A5F\u300D\u5E8F\u5217\u53EF\u91CD\u73FE\uFF0C\u6062\u5FA9\u6C7A\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u66F4\u983B\u7E41\u5730\u57F7\u884C\u6E2C\u8A66\uFF0C\u8B93\u90A3\u500B\u7F55\u898B\u7684\u5931\u6557\u503C\u8F03\u5C11\u51FA\u73FE",
+                "fraction": 0,
+                "feedback": "\u591A\u8DD1\u4E26\u4E0D\u6703\u79FB\u9664\u975E\u6C7A\u5B9A\u6027\uFF1B\u56FA\u5B9A\u7A2E\u5B50\u624D\u6703\u3002"
+              },
+              {
+                "text": "\u6355\u6349\u4E26\u5FFD\u7565\u6E2C\u8A66\u7522\u751F\u7684\u4EFB\u4F55\u65B7\u8A00\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u541E\u6389\u5931\u6557\u7B49\u65BC\u505C\u7528\u6E2C\u8A66\uFF1B\u70BA\u7522\u751F\u5668\u8A2D\u5B9A\u7A2E\u5B50\u624D\u662F\u771F\u6B63\u7684\u4FEE\u6CD5\u3002"
+              },
+              {
+                "text": "\u63DB\u7528\u53E6\u4E00\u7A2E\u96A8\u6A5F\u6F14\u7B97\u6CD5\uFF0C\u4F46\u4ECD\u7136\u4E0D\u8A2D\u7A2E\u5B50",
+                "fraction": 0,
+                "feedback": "\u4EFB\u4F55\u672A\u8A2D\u7A2E\u5B50\u7684\u7522\u751F\u5668\u6BCF\u6B21\u4ECD\u6703\u8B8A\u52D5\uFF1B\u4FEE\u6CD5\u662F\u56FA\u5B9A\u7A2E\u5B50\u3002"
+              }
+            ],
+            "generalFeedback": "\u4EE5\u5E38\u6578\u70BA\u7522\u751F\u5668\u8A2D\u5B9A\u7A2E\u5B50\uFF0C\u6703\u4F7F\u5B83\u6BCF\u6B21\u7522\u751F\u76F8\u540C\u7684\u5E8F\u5217\uFF0C\u65BC\u662F\u8F38\u5165\u2014\u2014\u4EE5\u53CA\u7D50\u679C\u2014\u2014\u90FD\u53EF\u91CD\u73FE\u3002\u82E5\u67D0\u500B\u7279\u5B9A\u7A2E\u5B50\u66B4\u9732\u51FA\u771F\u6B63\u7684\u5931\u6557\uFF0C\u90A3\u662F\u8981\u8ABF\u67E5\u4E26\u52A0\u5165\u70BA\u56FA\u5B9A\u56DE\u6B78\u6848\u4F8B\u7684\u771F\u6B63\u7F3A\u9677\uFF0C\u800C\u4E0D\u662F\u9760\u91CD\u65B0\u96A8\u6A5F\u5316\u4F86\u63A9\u84CB\u7684\u6771\u897F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u639B\u9418\u76F8\u4F9D\u7684\u4FEE\u6CD5",
+            "text": "<p>\u67D0\u6E2C\u8A66\u4E4B\u6240\u4EE5\u8106\u5F31\uFF0C\u662F\u56E0\u70BA\u5B83\u7684\u908F\u8F2F\u5F9E\u7CFB\u7D71\u6642\u9418\u8B80\u53D6\u76EE\u524D\u6642\u9593\u3002\u6B63\u78BA\u3001\u5177\u6C7A\u5B9A\u6027\u7684\u4FEE\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6CE8\u5165\u6216\u51CD\u7D50\u6642\u9418\uFF0C\u8B93\u6E2C\u8A66\u4EE5\u56FA\u5B9A\u3001\u5DF2\u77E5\u7684\u503C\u4F86\u63A7\u5236\u76EE\u524D\u6642\u9593",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A7\u5236\u6642\u9593\uFF08\u628A\u5047\u7684\uFF0F\u51CD\u7D50\u7684\u6642\u9418\u6CE8\u5165\u7A0B\u5F0F\u78BC\uFF09\u53EF\u53BB\u9664\u5C0D\u771F\u5BE6\u6642\u9418\u7684\u4F9D\u8CF4\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u4E00\u5929\u4E2D\u5DF2\u77E5\u6703\u901A\u904E\u7684\u6642\u6BB5\u57F7\u884C\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9650\u5236\u57F7\u884C\u6642\u6BB5\u662F\u4E00\u7A2E\u66AB\u6642\u624B\u6BB5\uFF0C\u6642\u9593\u76F8\u4F9D\u2014\u2014\u4EE5\u53CA\u8106\u5F31\u2014\u2014\u4ECD\u7559\u5728\u539F\u8655\u3002"
+              },
+              {
+                "text": "\u5728\u8B80\u53D6\u6642\u9418\u524D\u52A0\u4E00\u500B\u56FA\u5B9A sleep",
+                "fraction": 0,
+                "feedback": "sleep \u7121\u6CD5\u63A7\u5236\u6642\u9418\u56DE\u50B3\u7684\u503C\uFF1B\u4F60\u5FC5\u9808\u6CE8\u5165\u6216\u51CD\u7D50\u6642\u9593\u3002"
+              },
+              {
+                "text": "\u91CD\u8A66\u6E2C\u8A66\u76F4\u5230\u5B83\u525B\u597D\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u91CD\u8A66\u662F\u63A9\u84CB\u6642\u9593\u76F8\u4F9D\uFF0C\u800C\u975E\u79FB\u9664\u5B83\uFF1B\u6539\u70BA\u6CE8\u5165\u4E00\u500B\u53EF\u63A7\u7684\u6642\u9418\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u6642\u9593\u8B8A\u6210\u4E00\u500B\u6CE8\u5165\u7684\u76F8\u4F9D\uFF08\u4E00\u500B\u7531\u7A0B\u5F0F\u78BC\u547C\u53EB\u7684\u6642\u9418\uFF09\uFF0C\u800C\u4E0D\u662F\u8B80\u53D6\u5168\u57DF\u639B\u9418\u3002\u5728\u6E2C\u8A66\u4E2D\u63D0\u4F9B\u56FA\u5B9A\u6216\u8173\u672C\u5316\u7684\u6642\u9418\uFF0C\u4F7F\u300C\u73FE\u5728\u300D\u6210\u70BA\u5DF2\u77E5\u7684\u5E38\u6578\u3002\u884C\u70BA\u4FBF\u5B8C\u5168\u53EF\u91CD\u73FE\uFF0C\u5305\u542B\u8DE8\u65E5\u754C\u7DDA\u8207\u8DE8\u6642\u5340\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5916\u90E8\u76F8\u4F9D\u7684\u4FEE\u6CD5",
+            "text": "<p>\u67D0\u55AE\u5143\u6E2C\u8A66\u4E4B\u6240\u4EE5\u8106\u5F31\uFF0C\u662F\u56E0\u70BA\u5B83\u547C\u53EB\u771F\u5BE6\u7684\u7B2C\u4E09\u65B9\u7DB2\u8DEF API\u3002\u9069\u7576\u7684\u4FEE\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7528 mock\uFF0Fstub\uFF08\u6E2C\u8A66\u66FF\u8EAB\uFF09\u53D6\u4EE3\u771F\u5BE6\u547C\u53EB\uFF0C\u8B93\u5B83\u56DE\u50B3\u53D7\u63A7\u3001\u5177\u6C7A\u5B9A\u6027\u7684\u56DE\u61C9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u66FF\u8EAB\u53EF\u53BB\u9664\u4E0D\u53D7\u63A7\u7684\u5916\u90E8\u8B8A\u52D5\u6027\uFF0C\u4F7F\u55AE\u5143\u6E2C\u8A66\u5177\u6C7A\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u52A0\u9577\u903E\u6642\uFF0C\u8B93\u90A3\u500B\u6162\u7684\u670D\u52D9\u901A\u5E38\u4F86\u5F97\u53CA\u56DE\u61C9",
+                "fraction": 0,
+                "feedback": "\u66F4\u9577\u7684\u903E\u6642\u53EA\u6E1B\u5C11\u4E00\u7A2E\u5931\u6557\u6A21\u5F0F\uFF1B\u670D\u52D9\u4ECD\u53EF\u80FD\u505C\u6A5F\u6216\u56DE\u50B3\u8B8A\u52D5\u7684\u8CC7\u6599\u3002"
+              },
+              {
+                "text": "\u91CD\u8A66\u7DB2\u8DEF\u547C\u53EB\u6578\u6B21\uFF0C\u6307\u671B\u5B83\u7D42\u7A76\u6703\u6210\u529F",
+                "fraction": 0,
+                "feedback": "\u91CD\u8A66\u662F\u63A9\u84CB\u5916\u90E8\u8B8A\u52D5\u6027\uFF0C\u800C\u975E\u7528\u53D7\u63A7\u7684\u66FF\u8EAB\u628A\u53D7\u6E2C\u55AE\u5143\u9694\u96E2\u958B\u4F86\u3002"
+              },
+              {
+                "text": "\u522A\u6389\u9019\u500B\u6E2C\u8A66\uFF0C\u4F7F\u7DB2\u8DEF\u6C38\u9060\u4E0D\u6703\u88AB\u78B0\u5230",
+                "fraction": 0,
+                "feedback": "\u522A\u9664\u6703\u4E1F\u6389\u6DB5\u84CB\u7BC4\u570D\uFF1B\u4FEE\u6CD5\u662F\u628A\u76F8\u4F9D stub \u6389\u4E26\u7E7C\u7E8C\u6E2C\u8A66\u7A0B\u5F0F\u78BC\u3002"
+              }
+            ],
+            "generalFeedback": "\u55AE\u5143\u6E2C\u8A66\u61C9\u8A72\u6F14\u7DF4\u4F60\u7684\u7A0B\u5F0F\u78BC\uFF0C\u800C\u975E\u771F\u5BE6\u7684\u5916\u90E8\u7CFB\u7D71\u3002\u7528\u6703\u56DE\u50B3\u56FA\u5B9A\u56DE\u61C9\uFF08\u542B\u4F60\u60F3\u6E2C\u8A66\u7684\u932F\u8AA4\u60C5\u6CC1\uFF09\u7684 mock \u6216 stub \u53D6\u4EE3\u771F\u5BE6\u76F8\u4F9D\u3002\u7D50\u679C\u4FBF\u4E0D\u518D\u53D6\u6C7A\u65BC\u670D\u52D9\u7684\u53EF\u7528\u6027\u6216\u8CC7\u6599\uFF0C\u56E0\u800C\u5177\u6C7A\u5B9A\u6027\u3002\u771F\u6B63\u7684\u6574\u5408\u884C\u70BA\u5247\u5728\u5C08\u9580\u7684\u6574\u5408\u6E2C\u8A66\u4E2D\u53E6\u884C\u9A57\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u9593\u5171\u4EAB\u72C0\u614B\u7684\u4FEE\u6CD5",
+            "text": "<p>\u6709\u5E7E\u500B\u6E2C\u8A66\u4E4B\u6240\u4EE5\u8106\u5F31\uFF0C\u662F\u56E0\u70BA\u5B83\u5011\u5171\u4EAB\u4E26\u6539\u52D5\u540C\u4E00\u6279\u8CC7\u6599\u5EAB\u8CC7\u6599\u5217\u3002\u6B63\u78BA\u7684\u4FEE\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9010\u4E00\u6E2C\u8A66\u5730\u9694\u96E2\u4E26\u91CD\u8A2D\u72C0\u614B\u2014\u2014\u5EFA\u7ACB\u5168\u65B0\u7684\u593E\u5177\u3001\u4E26\u62C6\u9664\uFF0F\u6E05\u7406\uFF0C\u4F7F\u6BCF\u500B\u6E2C\u8A66\u90FD\u5F9E\u5DF2\u77E5\u7684\u4E7E\u6DE8\u72C0\u614B\u958B\u59CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9010\u4E00\u6E2C\u8A66\u7684\u9694\u96E2\u8207\u91CD\u8A2D\u53EF\u53BB\u9664\u8DE8\u6E2C\u8A66\u7684\u8026\u5408\u8207\u9806\u5E8F\u76F8\u4F9D\u3002"
+              },
+              {
+                "text": "\u56FA\u5B9A\u6E2C\u8A66\u7684\u57F7\u884C\u9806\u5E8F\uFF0C\u4E26\u6C38\u9060\u4EE5\u8A72\u9806\u5E8F\u57F7\u884C\u5B83\u5011",
+                "fraction": 0,
+                "feedback": "\u56FA\u5B9A\u9806\u5E8F\u662F\u63A9\u84CB\u8026\u5408\u4E14\u5F88\u8106\u5F31\uFF1B\u771F\u6B63\u7684\u4FEE\u6CD5\u662F\u900F\u904E\u9694\u96E2\u8B93\u6E2C\u8A66\u5F7C\u6B64\u7368\u7ACB\u3002"
+              },
+              {
+                "text": "\u8B93\u6E2C\u8A66\u8DD1\u5F97\u66F4\u6162\uFF0C\u4F7F\u5B83\u5011\u4E0D\u6703\u76F8\u649E",
+                "fraction": 0,
+                "feedback": "\u653E\u6162\u4E26\u4E0D\u6703\u79FB\u9664\u5171\u4EAB\u7684\u53EF\u8B8A\u72C0\u614B\uFF1B\u9694\u96E2\u8207\u91CD\u8A2D\u624D\u6703\u3002"
+              },
+              {
+                "text": "\u91CD\u8A66\u6574\u500B\u5957\u4EF6\u76F4\u5230\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u91CD\u8A66\u662F\u63A9\u84CB\u5171\u4EAB\u72C0\u614B\u554F\u984C\uFF1B\u6539\u70BA\u9010\u4E00\u6E2C\u8A66\u5730\u9694\u96E2\u4E26\u91CD\u8A2D\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6839\u56E0\u662F\u5171\u4EAB\u7684\u53EF\u8B8A\u72C0\u614B\u3002\u7D66\u6BCF\u500B\u6E2C\u8A66\u5404\u81EA\u7684\u593E\u5177\uFF0C\u4E26\u5728\u6E2C\u8A66\u4E4B\u9593\u91CD\u8A2D\u4E16\u754C\uFF08setup\uFF0Fteardown\u3001\u4EA4\u6613\u56DE\u6EFE\u3001\u5168\u65B0\u7684\u66AB\u6642\u8CC7\u6E90\uFF09\uFF0C\u4F7F\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u4F9D\u8CF4\u4ED6\u8005\u7684\u907A\u7559\u7269\u3002\u79FB\u9664\u6E2C\u8A66\u9593\u76F8\u4F9D\u5F8C\uFF0C\u7D50\u679C\u4FBF\u4E0D\u518D\u53D6\u6C7A\u65BC\u57F7\u884C\u9806\u5E8F\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u591A\u6B21\u91CD\u8DD1\u4EE5\u91CD\u73FE",
+            "text": "<p>\u591A\u6B21\u57F7\u884C\u4E00\u500B\u7591\u4F3C\u8106\u5F31\u7684\u6E2C\u8A66\uFF08\u4E26\u91CF\u6E2C\u5B83\u591A\u5E38\u5931\u6557\uFF09\uFF0C\u662F\u4E00\u7A2E\u78BA\u8A8D\u4E26\u91CF\u5316\u5176\u8106\u5F31\u6027\u7684\u6B63\u7576\u505A\u6CD5\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53CD\u8986\u57F7\u884C\u53EF\u91CD\u73FE\u8A72\u9593\u6B47\u5931\u6557\uFF0C\u4E26\u7D66\u51FA\u53EF\u8FFD\u8E64\u3001\u53EF\u64DA\u4EE5\u884C\u52D5\u7684\u8106\u5F31\u7387\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1A\u56E0\u70BA\u8106\u5F31\u662F\u9593\u6B47\u6027\u7684\uFF0C\u53CD\u8986\u57F7\u884C\u6B63\u662F\u91CD\u73FE\u5B83\u3001\u4E26\u91CF\u6E2C\u5B83\u591A\u5E38\u5931\u6557\u7684\u65B9\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u55AE\u6B21\u57F7\u884C\u53EF\u80FD\u9760\u904B\u6C23\u901A\u904E\uFF0C\u6240\u4EE5\u4E00\u6B21\u7DA0\u71C8\u4E26\u4E0D\u80FD\u8B49\u660E\u6E2C\u8A66\u7A69\u5B9A\u3002\u591A\u6B21\u57F7\u884C\u5B83\uFF08\u5728\u672C\u6A5F\u6216 CI\uFF09\u53EF\u91CD\u73FE\u9593\u6B47\u5931\u6557\uFF0C\u4E26\u7D66\u51FA\u8106\u5F31\u7387\u2014\u2014\u4F8B\u5982\u6BCF 100 \u6B21\u8DD1\u5931\u6557 3 \u6B21\u2014\u2014\u9019\u80FD\u78BA\u8A8D\u554F\u984C\u3001\u4F9B\u4F60\u6392\u5E8F\u512A\u5148\u7D1A\uFF0C\u4E26\u5728\u65E5\u5F8C\u9A57\u8B49\u4FEE\u5FA9\u3002\u9019\u500B\u5075\u6E2C\u6B65\u9A5F\u4E0D\u540C\u65BC\u5728\u7BA1\u7DDA\u4E2D\u76F2\u76EE\u91CD\u8A66\u4EE5\u786C\u6E4A\u51FA\u7DA0\u71C8\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7121\u5E8F\u8D70\u8A2A\u65B7\u8A00\u7684\u4FEE\u6CD5",
+            "text": "<p>\u67D0\u6E2C\u8A66\u5728\u65B7\u8A00\u4E00\u500B\u4EE5\u96DC\u6E4A\u70BA\u57FA\u790E\u7684\u96C6\u5408\u4EE5\u67D0\u7279\u5B9A\u9806\u5E8F\u8D70\u8A2A\u6642\u8106\u5F31\u5730\u5931\u6557\u3002\u6B63\u78BA\u7684\u4FEE\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B93\u6BD4\u8F03\u8207\u9806\u5E8F\u7121\u95DC\u2014\u2014\u5148\u628A\u7D50\u679C\u6392\u5E8F\uFF0C\u6216\u4EE5 set\uFF0Fmultiset \u76F8\u7B49\u4F86\u65B7\u8A00\uFF0C\u800C\u4E0D\u662F\u65B7\u8A00\u5E8F\u5217\u9806\u5E8F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7528\u4E0D\u4F9D\u8CF4\u8D70\u8A2A\u9806\u5E8F\u7684\u65B9\u5F0F\u6BD4\u8F03\uFF0C\u53EF\u53BB\u9664\u975E\u6C7A\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u53CD\u8986\u57F7\u884C\u6E2C\u8A66\uFF0C\u76F4\u5230\u5143\u7D20\u525B\u597D\u4EE5\u9810\u671F\u7684\u9806\u5E8F\u51FA\u73FE",
+                "fraction": 0,
+                "feedback": "\u4F9D\u8CF4\u4E0D\u5DE7\u7684\u9806\u5E8F\u6B63\u662F\u8106\u5F31\u672C\u8EAB\uFF1B\u6539\u70BA\u8B93\u65B7\u8A00\u8207\u9806\u5E8F\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u628A\u96C6\u5408\u7E2E\u6E1B\u6210\u55AE\u4E00\u5143\u7D20\uFF0C\u4F7F\u9806\u5E8F\u4E0D\u6703\u8B8A\u52D5",
+                "fraction": 0,
+                "feedback": "\u66F4\u6539\u8CC7\u6599\u4F86\u9583\u907F\u554F\u984C\u6703\u524A\u5F31\u6E2C\u8A66\uFF1B\u6539\u70BA\u4EE5\u8207\u9806\u5E8F\u7121\u95DC\u7684\u65B9\u5F0F\u65B7\u8A00\u3002"
+              },
+              {
+                "text": "\u5728\u8D70\u8A2A\u96C6\u5408\u524D\u52A0\u4E00\u500B\u56FA\u5B9A sleep",
+                "fraction": 0,
+                "feedback": "sleep \u4E0D\u5F71\u97FF\u8D70\u8A2A\u9806\u5E8F\uFF1B\u8ACB\u6392\u5E8F\u6216\u4EE5\u7121\u5E8F\u96C6\u5408\u65B9\u5F0F\u6BD4\u8F03\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5\u898F\u683C\u4E26\u672A\u4FDD\u8B49\u9806\u5E8F\uFF0C\u6E2C\u8A66\u5C31\u4E0D\u8A72\u5047\u5B9A\u9806\u5E8F\u3002\u8981\u561B\u5728\u6BD4\u8F03\u524D\u628A\u5BE6\u969B\u503C\u8207\u9810\u671F\u503C\u90FD\u6392\u5E8F\uFF0C\u8981\u561B\u4EE5 set\uFF0Fmultiset \u6BD4\u8F03\uFF0C\u4F7F\u53EA\u6709\u6210\u54E1\u8207\u6578\u91CF\u91CD\u8981\u3002\u82E5\u78BA\u5BE6\u9700\u8981\u67D0\u7279\u5B9A\u9806\u5E8F\uFF0C\u5C31\u4F7F\u7528\u6709\u5E8F\u96C6\u5408\uFF0C\u4E26\u5728\u7A0B\u5F0F\u78BC\u4E2D\u628A\u8A72\u9806\u5E8F\u5BEB\u660E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9694\u96E2\u7684\u76EE\u7684",
+            "text": "<p>\u9694\u96E2\u4E00\u500B\u8106\u5F31\u6E2C\u8A66\u7684\u76EE\u7684\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B93\u5B83\u7684\u9593\u6B47\u5931\u6557\u4E0D\u518D\u70BA\u6240\u6709\u4EBA\u963B\u585E\u7BA1\u7DDA\uFF0C\u540C\u6642\u5B83\u4ECD\u88AB\u8FFD\u8E64\u3001\u4E26\u6392\u5B9A\u9032\u884C\u59A5\u5584\u7684\u4FEE\u5FA9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9694\u96E2\u570D\u5835\u4E86\u5E72\u64FE\uFF0C\u537B\u4E0D\u653E\u68C4\u8A72\u6E2C\u8A66\uFF0C\u4E5F\u4E0D\u653E\u68C4\u4FEE\u5FA9\u5B83\u7684\u7FA9\u52D9\u3002"
+              },
+              {
+                "text": "\u628A\u8A72\u6E2C\u8A66\u53CA\u5176\u6DB5\u84CB\u7BC4\u570D\u5F9E\u5C08\u6848\u6C38\u4E45\u79FB\u9664",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u522A\u9664\uFF0C\u6703\u4E1F\u6389\u6DB5\u84CB\u7BC4\u570D\uFF1B\u9694\u96E2\u5247\u4FDD\u7559\u8A72\u6E2C\u8A66\u4EE5\u5F85\u4FEE\u5FA9\u8FFD\u8E64\u3002"
+              },
+              {
+                "text": "\u5BA3\u544A\u8A72\u6E2C\u8A66\u5DF2\u4FEE\u597D\uFF0C\u4E14\u7121\u9808\u4EFB\u4F55\u5F8C\u7E8C\u5DE5\u4F5C",
+                "fraction": 0,
+                "feedback": "\u9694\u96E2\u662F\u570D\u5835\uFF0C\u800C\u975E\u4FEE\u5FA9\uFF1B\u6839\u56E0\u4ECD\u5FC5\u9808\u88AB\u8655\u7406\u3002"
+              },
+              {
+                "text": "\u8B93\u8A72\u6E2C\u8A66\u8DD1\u5F97\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u901F\u5EA6\u4E0D\u662F\u91CD\u9EDE\uFF1B\u9694\u96E2\u662F\u8981\u628A\u8106\u5F31\u7684\u96DC\u8A0A\u5F9E\u963B\u585E\u7684\u95DC\u5361\u9694\u958B\u3002"
+              }
+            ],
+            "generalFeedback": "\u9694\u96E2\u70BA\u5718\u968A\u89E3\u9664\u963B\u585E\uFF1A\u4E00\u500B\u5DF2\u77E5\u8106\u5F31\u7684\u6E2C\u8A66\u4E0D\u518D\u8B93\u5927\u5BB6\u7684\u5EFA\u7F6E\u5931\u6557\uFF0C\u65BC\u662F\u5957\u4EF6\u91CD\u7372\u8A0A\u865F\u50F9\u503C\u3002\u4F46\u8A72\u6E2C\u8A66\u4ECD\u7559\u5728\u4E00\u4EFD\u88AB\u8FFD\u8E64\u7684\u6E05\u55AE\u4E0A\uFF0C\u6709\u8CA0\u8CAC\u4EBA\u8207\u9032\u884C\u771F\u6B63\u6839\u56E0\u4FEE\u5FA9\u7684\u671F\u9650\u3002\u672A\u88AB\u8FFD\u8E64\u4E14\u672A\u88AB\u4FEE\u5FA9\u7684\u9694\u96E2\uFF0C\u53EA\u6703\u6DEA\u70BA\u4E00\u500B\u88AB\u6C38\u4E45\u505C\u7528\u7684\u6E2C\u8A66\u2014\u2014\u4E00\u500B\u6DB5\u84CB\u7F3A\u53E3\u8207\u96B1\u85CF\u98A8\u96AA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u75C7\u72C0\uFF1A\u5728\u4E26\u884C\u57F7\u884C\u4E0B\u5931\u6557",
+            "text": "<p>\u67D0\u6E2C\u8A66\u5728\u5957\u4EF6\u4EE5\u55AE\u57F7\u884C\u7DD2\u57F7\u884C\u6642\u901A\u904E\uFF0C\u4F46\u4E00\u65E6\u57F7\u884C\u5668\u4EE5\u4E26\u884C\u65B9\u5F0F\u57F7\u884C\u6E2C\u8A66\u5C31\u9593\u6B47\u5931\u6557\u3002\u6700\u53EF\u80FD\u7684\u539F\u56E0\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7AF6\u614B\u689D\u4EF6\u6216\u8CC7\u6E90\u722D\u7528\uFF1A\u4E26\u884C\u7684\u6E2C\u8A66\u900F\u904E\u67D0\u500B\u5171\u4EAB\u8CC7\u6E90\u76F8\u4E92\u5E72\u64FE\uFF0C\u800C\u672A\u59A5\u5584\u9694\u96E2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u4E26\u884C\u4E0B\u51FA\u73FE\u65B0\u7684\u5931\u6557\uFF0C\u6307\u5411\u4E26\u884C\uFF0F\u5171\u4EAB\u8CC7\u6E90\u7684\u722D\u7528\u3002"
+              },
+              {
+                "text": "\u4E26\u884C\u57F7\u884C\u7E3D\u662F\u6703\u7834\u58DE\u6B63\u78BA\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4E26\u975E\u5982\u6B64\u2014\u2014\u59A5\u5584\u9694\u96E2\u7684\u6E2C\u8A66\u5728\u4E26\u884C\u4E0B\u4E5F\u80FD\u6B63\u78BA\u57F7\u884C\uFF1B\u5931\u6557\u4EE3\u8868\u5171\u4EAB\u8CC7\u6E90\u7684\u722D\u7528\u3002"
+              },
+              {
+                "text": "\u5728\u4E26\u884C\u57F7\u884C\u6642\u65B7\u8A00\u8B8A\u5F97\u66F4\u56B4\u683C\u4E86",
+                "fraction": 0,
+                "feedback": "\u65B7\u8A00\u4E0D\u6703\u56E0\u4E26\u884C\u800C\u6539\u8B8A\uFF1B\u539F\u56E0\u662F\u5C0D\u5171\u4EAB\u8CC7\u6E90\u7684\u722D\u7528\u3002"
+              },
+              {
+                "text": "\u9019\u4E9B\u6E2C\u8A66\u7684\u8A3B\u89E3\u592A\u591A",
+                "fraction": 0,
+                "feedback": "\u8A3B\u89E3\u7121\u95DC\uFF1B\u53EA\u5728\u4E26\u884C\u6642\u5931\u6557\u6307\u5411\u7AF6\u614B\u6216\u8CC7\u6E90\u722D\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u5728\u4E26\u884C\u57F7\u884C\u6642\u51FA\u73FE\u7684\u5931\u6557\uFF0C\u4EE3\u8868\u6E2C\u8A66\u5728\u722D\u7528\u67D0\u500B\u5171\u4EAB\u8CC7\u6E90\u2014\u2014\u540C\u4E00\u500B\u6A94\u6848\u3001\u57E0\u3001\u8CC7\u6599\u5EAB\u8CC7\u6599\u5217\u6216\u5168\u57DF\u8B8A\u6578\u2014\u2014\u800C\u672A\u52A0\u9694\u96E2\uFF0C\u6216\u53D7\u6E2C\u7A0B\u5F0F\u78BC\u672C\u8EAB\u6709\u7AF6\u614B\u689D\u4EF6\u3002\u4FEE\u6CD5\u662F\u9010\u4E00\u6E2C\u8A66\u5730\u9694\u96E2\u8CC7\u6E90\uFF08\u5404\u81EA\u552F\u4E00\u7684\u66AB\u5B58\u6A94\uFF0F\u57E0\uFF0F\u7DB1\u8981\uFF09\uFF0C\u4E26\u8B93\u7A0B\u5F0F\u78BC\u7684\u4E26\u884C\u5177\u6C7A\u5B9A\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E3B\u52D5\u5075\u6E2C\u9806\u5E8F\u76F8\u4F9D",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u7A2E\u505A\u6CD5\uFF0C\u6700\u6709\u52A9\u65BC\u5728\u6E2C\u8A66\u9593\u96B1\u85CF\u7684\u9806\u5E8F\u76F8\u4F9D\u9020\u6210\u9EBB\u7169\u4E4B\u524D\u5C31\u5075\u6E2C\u5230\u5B83\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EE5\u96A8\u6A5F\u7684\u6E2C\u8A66\u9806\u5E8F\uFF08\u4E26\u4EE5\u4E0D\u540C\u9806\u5E8F\uFF09\u57F7\u884C\u5957\u4EF6\uFF0C\u4F7F\u4EFB\u4F55\u5C0D\u57F7\u884C\u5148\u5F8C\u7684\u76F8\u4F9D\u90FD\u88AB\u66B4\u9732",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u96A8\u6A5F\u5316\u9806\u5E8F\u6703\u8B93\u90A3\u4E9B\u6697\u4E2D\u4F9D\u8CF4\u300C\u5728\u53E6\u4E00\u500B\u4E4B\u5F8C\u57F7\u884C\u300D\u7684\u6E2C\u8A66\u73FE\u5F62\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u4EE5\u5B8C\u5168\u76F8\u540C\u7684\u5B57\u6BCD\u9806\u5E8F\u57F7\u884C\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u56FA\u5B9A\u9806\u5E8F\u53EF\u80FD\u7121\u9650\u671F\u5730\u63A9\u84CB\u76F8\u4F9D\uFF1B\u96A8\u6A5F\u5316\u9806\u5E8F\u624D\u662F\u4F7F\u5176\u73FE\u5F62\u7684\u65B9\u6CD5\u3002"
+              },
+              {
+                "text": "\u5728\u6BCF\u4E00\u5C0D\u6E2C\u8A66\u4E4B\u9593\u52A0\u4E00\u500B\u56FA\u5B9A sleep",
+                "fraction": 0,
+                "feedback": "sleep \u7121\u6CD5\u63ED\u9732\u5171\u4EAB\u72C0\u614B\u7684\u8026\u5408\uFF1B\u4EE5\u4E0D\u540C\u9806\u5E8F\u57F7\u884C\u624D\u884C\u3002"
+              },
+              {
+                "text": "\u6E1B\u5C11\u6BCF\u500B\u6E2C\u8A66\u4E2D\u7684\u65B7\u8A00\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u65B7\u8A00\u6578\u91CF\u8207\u5075\u6E2C\u9806\u5E8F\u76F8\u4F9D\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u7368\u7ACB\u7684\u6E2C\u8A66\u5728\u4EFB\u4F55\u9806\u5E8F\u4E0B\u90FD\u901A\u904E\uFF0C\u6240\u4EE5\u523B\u610F\u6253\u4E82\u57F7\u884C\u9806\u5E8F\uFF08\u4E26\u66F4\u63DB\u7A2E\u5B50\uFF09\u662F\u66B4\u9732\u90A3\u4E9B\u4F9D\u8CF4\u4ED6\u8005\u526F\u4F5C\u7528\u4E4B\u6E2C\u8A66\u7684\u6A19\u6E96\u65B9\u6CD5\u3002\u8A31\u591A\u57F7\u884C\u5668\u6B63\u70BA\u6B64\u63D0\u4F9B\u53EF\u91CD\u73FE\u7A2E\u5B50\u7684\u96A8\u6A5F\u9806\u5E8F\u6A21\u5F0F\u3002\u4E00\u65E6\u66B4\u9732\uFF0C\u5C31\u9694\u96E2\u4E26\u91CD\u8A2D\u72C0\u614B\u4EE5\u79FB\u9664\u8A72\u76F8\u4F9D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7AF6\u614B\u689D\u4EF6\u8106\u5F31\u6E2C\u8A66\u7684\u4FEE\u6CD5",
+            "text": "<p>\u67D0\u6E2C\u8A66\u4E4B\u6240\u4EE5\u8106\u5F31\uFF0C\u662F\u56E0\u70BA\u5B83\u6240\u6F14\u7DF4\u7684\u7A0B\u5F0F\u78BC\u5728\u5169\u500B\u4E26\u884C\u64CD\u4F5C\u4E4B\u9593\u6709\u7AF6\u614B\u689D\u4EF6\u3002\u6B63\u78BA\u7684\u4FEE\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4FEE\u6B63\u4E26\u884C\uFF0C\u4F7F\u7D50\u679C\u5177\u6C7A\u5B9A\u6027\u2014\u2014\u52A0\u5165\u59A5\u5584\u7684\u540C\u6B65\uFF08\u6216\u7B49\u5F85\u5169\u500B\u64CD\u4F5C\u7686\u5B8C\u6210\uFF09\u2014\u2014\u628A\u7AF6\u614B\u7576\u6210\u5B83\u672C\u4F86\u5C31\u662F\u7684\u771F\u6B63\u7F3A\u9677\u4F86\u8655\u7406",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7AF6\u614B\u662F\u771F\u6B63\u7684\u7F3A\u9677\uFF1B\u8B93\u4EA4\u932F\u5B89\u5168\u4E14\u5177\u6C7A\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u52A0\u4E00\u500B\u56FA\u5B9A sleep\uFF0C\u6307\u671B\u5169\u500B\u64CD\u4F5C\u4E0D\u518D\u91CD\u758A",
+                "fraction": 0,
+                "feedback": "sleep \u53EA\u964D\u4F4E\u51FA\u73FE\u58DE\u4EA4\u932F\u7684\u6A5F\u7387\uFF1B\u7AF6\u614B\u4ECD\u7136\u5B58\u5728\uFF0C\u4ECD\u53EF\u80FD\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u81EA\u52D5\u91CD\u8A66\u6E2C\u8A66\uFF0C\u76F4\u5230\u51FA\u73FE\u597D\u7684\u4EA4\u932F\u9806\u5E8F",
+                "fraction": 0,
+                "feedback": "\u91CD\u8A66\u662F\u63A9\u84CB\u771F\u6B63\u7684\u4E26\u884C\u7F3A\u9677\uFF0C\u800C\u975E\u4FEE\u5FA9\u5B83\uFF1B\u6539\u70BA\u540C\u6B65\u9019\u4E9B\u64CD\u4F5C\u3002"
+              },
+              {
+                "text": "\u5728\u8F03\u6162\u7684\u6A5F\u5668\u4E0A\u57F7\u884C\u6E2C\u8A66\uFF0C\u8B93\u6642\u5E8F\u525B\u597D\u5C0D\u4E0A",
+                "fraction": 0,
+                "feedback": "\u4F9D\u8CF4\u6A5F\u5668\u901F\u5EA6\u65E2\u8106\u5F31\u53C8\u4E0D\u53EF\u79FB\u690D\uFF1B\u4FEE\u6B63\u540C\u6B65\u624D\u80FD\u4F7F\u7D50\u679C\u5177\u6C7A\u5B9A\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u7AF6\u614B\u689D\u4EF6\u662F\u771F\u6B63\u7684\u7F3A\u9677\uFF0C\u800C\u975E\u55AE\u7D14\u7684\u6E2C\u8A66\u96DC\u8A0A\uFF1A\u7D50\u679C\u53D6\u6C7A\u65BC\u4E26\u884C\u64CD\u4F5C\u4E0D\u53EF\u9810\u6E2C\u7684\u5148\u5F8C\u9806\u5E8F\u3002\u4FEE\u6CD5\u662F\u8B93\u7A0B\u5F0F\u78BC\u7684\u4E26\u884C\u6B63\u78BA\u4E14\u5177\u6C7A\u5B9A\u6027\u2014\u2014\u59A5\u5584\u7684\u9396\u5B9A\uFF0F\u540C\u6B65\uFF0C\u6216\u5728\u65B7\u8A00\u524D\u7B49\u5F85\uFF0Fjoin \u5169\u500B\u64CD\u4F5C\u5B8C\u6210\u3002sleep \u8207\u91CD\u8A66\u53EA\u662F\u964D\u4F4E\u5931\u6557\u7387\uFF0C\u537B\u8B93\u7F3A\u9677\u7559\u5728\u539F\u8655\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\uFF1A\u5148 sleep \u518D\u9EDE\u64CA",
+            "text": '<p>\u8ACB\u770B\u4EE5\u4E0B\u9019\u6BB5\u8106\u5F31\u7684\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u6B65\u9A5F\uFF1A</p>\n<pre><code>submitForm();\nsleep(300);            // \u7B49\u4F3A\u670D\u5668\nassertVisible("#confirmation");</code></pre>\n<p>\u5B83\u591A\u6578\u6642\u5019\u901A\u904E\uFF0C\u4F46\u5728 CI \u4E0A\u6BCF\u5929\u6703\u5931\u6557\u5E7E\u6B21\u3002\u6839\u56E0\u662F\u4EC0\u9EBC\uFF1F\u6B63\u78BA\u7684\u4FEE\u6CD5\u70BA\u4F55\uFF1F</p>',
+            "answers": [
+              {
+                "text": "\u6642\u5E8F\u554F\u984C\uFF1A300 \u6BEB\u79D2\u6709\u6642\u592A\u77ED\u3002\u628A\u56FA\u5B9A sleep \u63DB\u6210\u660E\u78BA\u7B49\u5F85\uFF0C\u8F2A\u8A62\u76F4\u5230\u51FA\u73FE\uFF0C\u4E26\u8A2D\u4E00\u500B\u903E\u6642\u4E0A\u9650",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8F2A\u8A62\u5BE6\u969B\u689D\u4EF6\uFF0C\u800C\u4E0D\u662F\u731C\u4E00\u500B\u6642\u9593\u9577\u5EA6\u3002"
+              },
+              {
+                "text": "\u9078\u64C7\u5668\u932F\u4E86\uFF1B\u628A\u6539\u6210\u5225\u7684 id",
+                "fraction": 0,
+                "feedback": "\u9078\u64C7\u5668\u932F\u6703\u6BCF\u6B21\u90FD\u5931\u6557\uFF0C\u800C\u975E\u9593\u6B47\u5931\u6557\uFF1B\u9593\u6B47\u6027\u662F\u6642\u5E8F\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u628A sleep \u52A0\u9577\u5230 3000 \u6BEB\u79D2\uFF0C\u4E26\u7DAD\u6301\u662F\u56FA\u5B9A sleep",
+                "fraction": 0,
+                "feedback": "\u66F4\u9577\u7684\u56FA\u5B9A sleep \u53EA\u964D\u4F4E\u5931\u6557\u7387\u3001\u537B\u62D6\u6162\u6BCF\u6B21\u57F7\u884C\uFF1B\u975E\u6C7A\u5B9A\u6027\u4ECD\u5728\u3002"
+              },
+              {
+                "text": "\u628A\u6574\u500B\u6E2C\u8A66\u5305\u5728\u91CD\u8A66\u4E09\u6B21\u7684\u5340\u584A\u88E1",
+                "fraction": 0,
+                "feedback": "\u91CD\u8A66\u662F\u63A9\u84CB\u6642\u5E8F\u7F3A\u9677\uFF1B\u6B63\u78BA\u7684\u4FEE\u6CD5\u662F\u7B49\u5F85\u78BA\u8A8D\u5143\u7D20\u51FA\u73FE\u3002"
+              }
+            ],
+            "generalFeedback": "\u78BA\u8A8D\u5143\u7D20\u7684\u5230\u9054\u6642\u9593\u6703\u96A8\u4F3A\u670D\u5668\u8207\u7DB2\u8DEF\u8CA0\u8F09\u8B8A\u52D5\uFF1B300 \u6BEB\u79D2\u7684\u731C\u6E2C\u5076\u723E\u592A\u77ED\uFF0C\u65BC\u662F\u65B7\u8A00\u5728\u5143\u7D20\u5B58\u5728\u4E4B\u524D\u5C31\u57F7\u884C\u3002\u628A\u63DB\u6210\u689D\u4EF6\u5F0F\u7B49\u5F85\uFF0C\u8F2A\u8A62\u3001\u4E00\u51FA\u73FE\u5C31\u7ACB\u5373\u7E7C\u7E8C\uFF0C\u4E26\u5728\u5BEC\u88D5\u7684\u903E\u6642\u5F8C\u624D\u5931\u6557\u2014\u2014\u65E2\u5177\u6C7A\u5B9A\u6027\uFF0C\u901A\u5E38\u4E5F\u66F4\u5FEB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4EC0\u9EBC\u76F2\u76EE\u91CD\u8A66\u5230\u7DA0\u71C8\u662F\u58DE\u4E8B",
+            "text": "<p>\u67D0\u5718\u968A\u628A CI \u8A2D\u5B9A\u6210\u81EA\u52D5\u91CD\u8DD1\u4EFB\u4F55\u5931\u6557\u7684\u6E2C\u8A66\u6700\u591A\u4E94\u6B21\uFF0C\u53EA\u8981\u6709\u4EFB\u4F55\u4E00\u6B21\u901A\u904E\u5C31\u56DE\u5831\u70BA\u901A\u904E\u3002\u70BA\u4EC0\u9EBC\u9019\u7A2E\u300C\u91CD\u8A66\u5230\u7DA0\u71C8\u300D\u7684\u653F\u7B56\u5F88\u5371\u96AA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u53EF\u80FD\u63A9\u84CB\u4E00\u500B\u771F\u6B63\u7684\u9593\u6B47\u7F3A\u9677\uFF1A\u5076\u723E\u5931\u6557\u7684\u771F\u6B63\u7F3A\u9677\u6703\u88AB\u91CD\u8A66\u6210\u7DA0\u71C8\uFF0C\u800C\u6C38\u9060\u4E0D\u88AB\u8ABF\u67E5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u76F2\u76EE\u91CD\u8A66\u6703\u85CF\u8D77\u90A3\u4E9B\u6703\u5728\u6B63\u5F0F\u74B0\u5883\u6D6E\u73FE\u7684\u771F\u5BE6\u4F4E\u983B\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u5EFA\u7F6E\u8B8A\u6162\uFF0C\u800C\u9019\u662F\u552F\u4E00\u771F\u6B63\u7684\u58DE\u8655",
+                "fraction": 0,
+                "feedback": "\u5EFA\u7F6E\u8B8A\u6162\u662F\u5C0F\u554F\u984C\uFF1B\u56B4\u91CD\u7684\u5371\u96AA\u662F\u771F\u6B63\u7684\u9593\u6B47\u7F3A\u9677\u88AB\u91CD\u8A66\u63A9\u84CB\u3002"
+              },
+              {
+                "text": "\u5B83\u900F\u904E\u79FB\u9664\u975E\u6C7A\u5B9A\u6027\u800C\u6C38\u4E45\u4FEE\u597D\u8106\u5F31",
+                "fraction": 0,
+                "feedback": "\u91CD\u8A66\u6C92\u6709\u79FB\u9664\u4EFB\u4F55\u6771\u897F\uFF1B\u975E\u6C7A\u5B9A\u6027\u4ECD\u5728\uFF0C\u53EA\u662F\u88AB\u84CB\u4F4F\u800C\u5DF2\u3002"
+              },
+              {
+                "text": "\u5B83\u8FEB\u4F7F\u958B\u767C\u8005\u5BEB\u66F4\u591A\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4E26\u4E0D\u6703\uFF1B\u5B83\u53EA\u662F\u628A\u9593\u6B47\u5931\u6557\u85CF\u8D77\u4F86\uFF0C\u4E0D\u8AD6\u90A3\u662F\u8106\u5F31\u6216\u771F\u5BE6\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u81EA\u52D5\u91CD\u8A66\u7121\u6CD5\u5206\u8FA8\u7121\u5BB3\u7684\u8106\u5F31\u5931\u6557\u8207\u771F\u6B63\u7684\u9593\u6B47\u7F3A\u9677\uFF08\u7AF6\u614B\u689D\u4EF6\u3001\u7F55\u898B\u8CC7\u6599\u60C5\u6CC1\uFF09\u3002\u53EA\u8981\u6709\u4EFB\u4E00\u6B21\u901A\u904E\u5C31\u56DE\u5831\u7DA0\u71C8\uFF0C\u7B49\u65BC\u628A\u6703\u6700\u7D42\u885D\u64CA\u4F7F\u7528\u8005\u7684\u771F\u5BE6\u4F4E\u983B\u7F3A\u9677\u57CB\u8D77\u4F86\u3002\u91CD\u8A66\u53EF\u4EE5\u662F\u66AB\u6642\u7684\u6B0A\u5B9C\u4E4B\u8A08\uFF0C\u4F46\u5FC5\u9808\u662F\u53EF\u898B\u4E14\u88AB\u8FFD\u8E64\u7684\uFF1B\u5B83\u4E0D\u662F\u4FEE\u5FA9\uFF0C\u6839\u56E0\u4ECD\u9700\u8A3A\u65B7\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\uFF1A\u5916\u6D29\u7684\u5168\u57DF\u8A08\u6578\u5668",
+            "text": "<p>\u6E2C\u8A66 A \u905E\u589E\u4E00\u500B\u6A21\u7D44\u5C64\u7D1A\u7684\u5168\u57DF\u8B8A\u6578 <code>counter</code>\uFF0C\u4E14\u5F9E\u4E0D\u91CD\u8A2D\u5B83\u3002\u6E2C\u8A66 B \u65B7\u8A00 <code>counter == 1</code>\u3002\u7576 B \u5148\u8DD1\u6642\u901A\u904E\uFF0C\u4F46\u7576 A \u5728 B \u4E4B\u524D\u5148\u8DD1\u6642\u5931\u6557\u3002\u6839\u56E0\u662F\u4EC0\u9EBC\uFF1F\u6700\u4F73\u4FEE\u6CD5\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u900F\u904E\u5916\u6D29\u5168\u57DF\u72C0\u614B\u9020\u6210\u7684\u9806\u5E8F\u76F8\u4F9D\uFF1A\u5728 setup\uFF0Fteardown \u4E2D\u91CD\u8A2D\u8A72\u5168\u57DF\u8B8A\u6578\uFF08\u6216\u907F\u514D\u4F7F\u7528\u5171\u4EAB\u5168\u57DF\uFF09\uFF0C\u4F7F\u6BCF\u500B\u6E2C\u8A66\u90FD\u5F9E\u5DF2\u77E5\u72C0\u614B\u958B\u59CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5916\u6D29\u7684\u5168\u57DF\u8B8A\u6578\u8026\u5408\u4E86\u6E2C\u8A66\uFF1B\u9010\u4E00\u6E2C\u8A66\u5730\u91CD\u8A2D\u53EF\u79FB\u9664\u76F8\u4F9D\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66 B \u7684\u9810\u671F\u503C\u6839\u672C\u932F\u4E86\uFF1B\u628A\u5B83\u6539\u6210 2",
+                "fraction": 0,
+                "feedback": "\u5BEB\u6B7B\u6210 2 \u53EA\u662F\u628A B \u7D81\u5728\u67D0\u4E00\u500B\u7279\u5B9A\u57F7\u884C\u9806\u5E8F\u4E0A\uFF1B\u771F\u6B63\u7684\u554F\u984C\u662F\u90A3\u500B\u5171\u4EAB\u3001\u672A\u91CD\u8A2D\u7684\u5168\u57DF\u8B8A\u6578\u3002"
+              },
+              {
+                "text": "\u5F37\u5236\u57F7\u884C\u5668\u6C38\u9060\u5728 A \u4E4B\u524D\u57F7\u884C B",
+                "fraction": 0,
+                "feedback": "\u56FA\u5B9A\u9806\u5E8F\u662F\u63A9\u84CB\u8026\u5408\u4E14\u5F88\u8106\u5F31\uFF1B\u6539\u4EE5\u91CD\u8A2D\u72C0\u614B\u8B93\u6BCF\u500B\u6E2C\u8A66\u5F7C\u6B64\u7368\u7ACB\u3002"
+              },
+              {
+                "text": "\u5728 A \u8207 B \u4E4B\u9593\u52A0\u4E00\u500B sleep",
+                "fraction": 0,
+                "feedback": "sleep \u5C0D\u5916\u6D29\u7684\u5168\u57DF\u8B8A\u6578\u6BEB\u7121\u4F5C\u7528\uFF1B\u9010\u4E00\u6E2C\u8A66\u5730\u91CD\u8A2D\u5171\u4EAB\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u9019\u4E9B\u6E2C\u8A66\u900F\u904E\u4E00\u500B\u53EF\u8B8A\u7684\u5168\u57DF\u8B8A\u6578\u6E9D\u901A\uFF1AA \u6539\u52D5\u5B83\u3001B \u8B80\u53D6\u5B83\u3002\u7D50\u679C\u53D6\u6C7A\u65BC\u57F7\u884C\u9806\u5E8F\uFF0C\u800C\u9806\u5E8F\u4E26\u672A\u53D7\u4FDD\u8B49\u3002\u5728 setup\uFF0Fteardown \u4E2D\u91CD\u8A2D\u8A72\u5168\u57DF\u8B8A\u6578\uFF0C\u6216\u66F4\u597D\u2014\u2014\u6D88\u9664\u9019\u500B\u5171\u4EAB\u5168\u57DF\uFF0C\u4F7F\u6E2C\u8A66\u4E0D\u5171\u4EAB\u53EF\u8B8A\u72C0\u614B\u3002\u5982\u6B64\u6BCF\u500B\u6E2C\u8A66\u4FBF\u5F7C\u6B64\u7368\u7ACB\uFF0C\u5728\u4EFB\u4F55\u9806\u5E8F\u4E0B\u90FD\u901A\u904E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\uFF1A\u65B7\u8A00\u96DC\u6E4A set \u7684\u7B2C\u4E00\u500B\u5143\u7D20",
+            "text": '<p>\u67D0\u6E2C\u8A66\u5EFA\u7ACB\u4E00\u500B\u4EE5\u96DC\u6E4A\u70BA\u57FA\u790E\u7684\u6A19\u7C64 set\uFF0C\u4E26\u65B7\u8A00\u8D70\u8A2A\u56DE\u50B3\u7684\u7B2C\u4E00\u500B\u5143\u7D20\u7B49\u65BC <code>"admin"</code>\u3002\u5B83\u5728\u4F60\u7684\u6A5F\u5668\u4E0A\u901A\u904E\uFF0C\u4F46\u5728\u67D0\u4E9B CI \u57F7\u884C\u3001\u4EE5\u53CA\u4E00\u6B21\u8A9E\u8A00\u57F7\u884C\u74B0\u5883\u5347\u7D1A\u5F8C\u5931\u6557\u3002\u6839\u56E0\u662F\u4EC0\u9EBC\uFF1F\u6B63\u78BA\u7684\u4FEE\u6CD5\u70BA\u4F55\uFF1F</p>',
+            "answers": [
+              {
+                "text": '\u8A72 set \u7684\u8D70\u8A2A\u9806\u5E8F\u4E26\u672A\u53D7\u4FDD\u8B49\uFF1B\u6539\u70BA\u65B7\u8A00\u6210\u54E1\u95DC\u4FC2\uFF08set \u542B\u6709 "admin"\uFF09\uFF0C\u6216\u5728\u6BD4\u8F03\u524D\u6392\u5E8F\uFF0C\u800C\u4E0D\u662F\u65B7\u8A00\u300C\u7B2C\u4E00\u500B\u300D',
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0D\u8981\u4F9D\u8CF4\u672A\u6307\u5B9A\u7684\u8D70\u8A2A\u9806\u5E8F\uFF1B\u6E2C\u8A66\u6210\u54E1\u95DC\u4FC2\u6216\u6392\u5E8F\u5F8C\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u74B0\u5883\u5347\u7D1A\u5728 set \u5BE6\u4F5C\u4E2D\u5F15\u5165\u4E86\u7F3A\u9677\uFF1B\u628A\u57F7\u884C\u74B0\u5883\u964D\u7D1A",
+                "fraction": 0,
+                "feedback": "\u8A72 set \u7684\u884C\u70BA\u7B26\u5408\u5176\u5408\u7D04\uFF08\u4E0D\u4FDD\u8B49\u9806\u5E8F\uFF09\uFF1B\u6E2C\u8A66\u7684\u5047\u8A2D\u624D\u662F\u7F3A\u9677\uFF0C\u800C\u975E\u57F7\u884C\u74B0\u5883\u3002"
+              },
+              {
+                "text": '\u91CD\u8A66\u6E2C\u8A66\uFF0C\u76F4\u5230\u8D70\u8A2A\u5148\u56DE\u50B3 "admin"',
+                "fraction": 0,
+                "feedback": "\u4F9D\u8CF4\u4E0D\u5DE7\u7684\u9806\u5E8F\u6B63\u662F\u8106\u5F31\u672C\u8EAB\uFF1B\u6539\u70BA\u4EE5\u8207\u9806\u5E8F\u7121\u95DC\u7684\u65B9\u5F0F\u65B7\u8A00\u3002"
+              },
+              {
+                "text": '\u52A0\u5165\u66F4\u591A\u5143\u7D20\uFF0C\u4F7F "admin" \u66F4\u53EF\u80FD\u6392\u5728\u7B2C\u4E00\u500B',
+                "fraction": 0,
+                "feedback": "\u90A3\u4E26\u4E0D\u6703\u8B93\u9806\u5E8F\u5177\u6C7A\u5B9A\u6027\uFF1B\u8ACB\u5FB9\u5E95\u79FB\u9664\u5C0D\u9806\u5E8F\u7684\u4F9D\u8CF4\u3002"
+              }
+            ],
+            "generalFeedback": "\u4EE5\u96DC\u6E4A\u70BA\u57FA\u790E\u7684 set \u4E0D\u63D0\u4F9B\u9806\u5E8F\u4FDD\u8B49\uFF1B\u8D70\u8A2A\u9806\u5E8F\u53EF\u80FD\u56E0\u63D2\u5165\u6B77\u7A0B\u3001\u5BB9\u91CF\u6216\u57F7\u884C\u74B0\u5883\u7248\u672C\u800C\u8B8A\uFF0C\u9019\u6B63\u662F\u57F7\u884C\u74B0\u5883\u5347\u7D1A\u6539\u8B8A\u4E86\u5B83\u7684\u539F\u56E0\u3002\u6E2C\u8A66\u7DE8\u5165\u4E86\u4E00\u500B\u8A72\u578B\u5225\u5F9E\u672A\u627F\u8AFE\u7684\u5047\u8A2D\u3002\u6539\u70BA\u65B7\u8A00\u898F\u683C\u5BE6\u969B\u4FDD\u8B49\u7684\u6771\u897F\u2014\u2014\u6210\u54E1\u95DC\u4FC2\uFF0C\u6216\u6392\u5E8F\u5F8C\u7684\u76F8\u7B49\u2014\u2014\u4F7F\u6AA2\u67E5\u8207\u8D70\u8A2A\u9806\u5E8F\u7121\u95DC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\uFF1A\u8207\u6642\u5340\u76F8\u4F9D\u7684\u65E5\u671F\u6E2C\u8A66",
+            "text": "<p>\u67D0\u6E2C\u8A66\u628A\u4E00\u500B\u5132\u5B58\u7684 UTC \u6642\u9593\u6233\u8A18\u683C\u5F0F\u5316\uFF0C\u4E26\u65B7\u8A00\u5B83\u986F\u793A\u70BA\u67D0\u500B\u7279\u5B9A\u7684\u65E5\u66C6\u65E5\u671F\u3002\u5B83\u5C0D\u67D0\u500B\u570B\u5BB6\u7684\u958B\u767C\u8005\u901A\u904E\uFF0C\u4F46\u5C0D\u53E6\u4E00\u500B\u6642\u5340\u7684\u968A\u53CB\u3001\u4EE5\u53CA\u5728 CI \u4F3A\u670D\u5668\u4E0A\u5931\u6557\u3002\u6839\u56E0\u662F\u4EC0\u9EBC\uFF1F\u6B63\u78BA\u7684\u4FEE\u6CD5\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7A0B\u5F0F\u78BC\u4F7F\u7528\u4E86\u6A5F\u5668\u7684\u672C\u5730\u6642\u5340\uFF0C\u56E0\u6B64\u986F\u793A\u7684\u65E5\u671F\u53D6\u6C7A\u65BC\u5B83\u5728\u54EA\u88E1\u57F7\u884C\uFF1B\u5728\u6E2C\u8A66\u4E2D\u91D8\u4F4F\uFF0F\u6CE8\u5165\u4E00\u500B\u56FA\u5B9A\u7684\u6642\u5340\uFF08\u8207\u6642\u9418\uFF09\uFF0C\u4F7F\u7D50\u679C\u5177\u6C7A\u5B9A\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5FC5\u9808\u628A\u5C0D\u672C\u5730\u6642\u5340\u7684\u96B1\u85CF\u4F9D\u8CF4\u660E\u78BA\u5316\u4E26\u52A0\u4EE5\u56FA\u5B9A\u3002"
+              },
+              {
+                "text": "\u5132\u5B58\u7684\u6642\u9593\u6233\u8A18\u6BC0\u640D\u4E86\uFF1B\u91CD\u65B0\u7522\u751F\u8CC7\u6599\u5EAB",
+                "fraction": 0,
+                "feedback": "\u5132\u5B58\u7684 UTC \u503C\u6C92\u554F\u984C\uFF1B\u8106\u5F31\u4F86\u81EA\u4EE5\u5468\u906D\u7684\u672C\u5730\u6642\u5340\u53BB\u8F49\u63DB\u5B83\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u5B83\u6703\u901A\u904E\u7684\u90A3\u4E00\u500B\u6642\u5340\u57F7\u884C\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9650\u5236\u57F7\u884C\u5730\u9EDE\u662F\u63A9\u84CB\u4F9D\u8CF4\uFF0C\u800C\u975E\u79FB\u9664\u5B83\uFF1B\u8ACB\u660E\u78BA\u91D8\u4F4F\u6642\u5340\u3002"
+              },
+              {
+                "text": "\u52A0\u4E00\u500B\u91CD\u8A66\uFF0C\u4F7F\u5B83\u7D42\u7A76\u5728\u6BCF\u500B\u6642\u5340\u90FD\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u7D50\u679C\u5C0D\u6BCF\u500B\u6642\u5340\u90FD\u662F\u6C7A\u5B9A\u6027\u7684\uFF0C\u6240\u4EE5\u91CD\u8A66\u7121\u6FDF\u65BC\u4E8B\uFF1B\u8ACB\u4FEE\u6B63\u6642\u5340\u76F8\u4F9D\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u4E00\u500B UTC \u77AC\u9593\u683C\u5F0F\u5316\u70BA\u672C\u5730\u65E5\u66C6\u65E5\u671F\uFF0C\u6703\u4F7F\u7528\u74B0\u5883\u9810\u8A2D\u7684\u6642\u5340\uFF0C\u65BC\u662F\u4E0D\u540C\u6A5F\u5668\u7522\u751F\u4E0D\u540C\u65E5\u671F\u3002\u628A\u6642\u5340\u660E\u78BA\u5316\u2014\u2014\u5728\u6E2C\u8A66\u4E2D\u91D8\u4F4F\u4E00\u500B\u56FA\u5B9A\u6642\u5340\uFF08\u4E26\u5728\u76F8\u95DC\u8655\u6CE8\u5165\u56FA\u5B9A\u6642\u9418\uFF09\u2014\u2014\u4F7F\u8F49\u63DB\u53D7\u63A7\uFF0C\u7D50\u679C\u5728\u6BCF\u500B\u5730\u65B9\u90FD\u76F8\u540C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9694\u96E2\u4E26\u8FFD\u8E64\uFF0C\u5C0D\u6BD4\u522A\u9664",
+            "text": "<p>\u67D0\u6E2C\u8A66\u8106\u5F31\uFF0C\u4E14\u62D6\u6162\u4E86\u6BCF\u4E00\u6B21\u5408\u4F75\u3002\u4E00\u4F4D\u968A\u53CB\u63D0\u8B70\u4E7E\u8106\u628A\u5B83\u522A\u6389\u3002\u70BA\u4EC0\u9EBC\u300C\u9694\u96E2\u4E26\u8FFD\u8E64\u300D\u901A\u5E38\u662F\u66F4\u597D\u7684\u9078\u64C7\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u522A\u9664\u6703\u4E1F\u6389\u8A72\u6E2C\u8A66\u6240\u6AA2\u67E5\u7684\u884C\u70BA\uFF0C\u9020\u6210\u7121\u8072\u7684\u6DB5\u84CB\u7F3A\u53E3\uFF1B\u9694\u96E2\u5247\u5728\u4FDD\u7559\u8A72\u6E2C\u8A66\u8207\u4FEE\u5FA9\u7FA9\u52D9\u7684\u540C\u6642\uFF0C\u70BA\u7BA1\u7DDA\u89E3\u9664\u963B\u585E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9694\u96E2\u4FDD\u4F4F\u4E86\u522A\u9664\u6703\u4E1F\u6389\u7684\u6DB5\u84CB\u7BC4\u570D\u8207\u554F\u8CAC\u3002"
+              },
+              {
+                "text": "\u5728\u591A\u6578\u5C08\u6848\u4E2D\u522A\u9664\u6E2C\u8A66\u5728\u6280\u8853\u4E0A\u4E0D\u53EF\u80FD",
+                "fraction": 0,
+                "feedback": "\u522A\u9664\u8F15\u800C\u6613\u8209\uFF1B\u504F\u597D\u9694\u96E2\u7684\u7406\u7531\u662F\u522A\u9664\u6703\u4E1F\u6389\u6DB5\u84CB\u7BC4\u570D\u8207\u554F\u8CAC\u3002"
+              },
+              {
+                "text": "\u9694\u96E2\u6703\u81EA\u52D5\u4FEE\u597D\u8106\u5F31\u7684\u6839\u56E0",
+                "fraction": 0,
+                "feedback": "\u9694\u96E2\u4E0D\u4FEE\u4EFB\u4F55\u6771\u897F\uFF1B\u5B83\u570D\u5835\u96DC\u8A0A\uFF0C\u800C\u6839\u56E0\u4ECD\u6B20\u4E00\u500B\u4FEE\u5FA9\u3002"
+              },
+              {
+                "text": "\u88AB\u9694\u96E2\u7684\u6E2C\u8A66\u6BD4\u88AB\u522A\u9664\u7684\u6E2C\u8A66\u8DD1\u5F97\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u88AB\u522A\u9664\u7684\u6E2C\u8A66\u6839\u672C\u4E0D\u6703\u8DD1\uFF1B\u771F\u6B63\u7684\u5DEE\u5225\u662F\u4FDD\u4F4F\u6DB5\u84CB\u7BC4\u570D\u8207\u8FFD\u8E64\uFF0C\u800C\u975E\u901F\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u9019\u500B\u8106\u5F31\u6E2C\u8A66\u60F3\u5FC5\u5728\u6AA2\u67E5\u67D0\u500B\u771F\u5BE6\u7684\u6771\u897F\u3002\u522A\u6389\u5B83\u79FB\u9664\u4E86\u96DC\u8A0A\uFF0C\u537B\u4E5F\u79FB\u9664\u4E86\u6DB5\u84CB\u7BC4\u570D\u2014\u2014\u800C\u4E14\u6084\u7121\u8072\u606F\uFF0C\u56E0\u6B64\u6C92\u4EBA\u8A18\u5F97\u90A3\u500B\u7F3A\u53E3\u3002\u9694\u96E2\u5247\u5728\u505C\u6B62\u5C0D\u5408\u4F75\u7684\u5E72\u64FE\u7684\u540C\u6642\uFF0C\u628A\u6E2C\u8A66\u7559\u5728\u4E00\u4EFD\u88AB\u8FFD\u8E64\u7684\u6E05\u55AE\u4E0A\uFF0C\u6709\u8CA0\u8CAC\u4EBA\u8207\u671F\u9650\uFF0C\u4F7F\u6839\u56E0\u4FEE\u597D\u5F8C\u8A72\u884C\u70BA\u4ECD\u53D7\u9A57\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6210\u672C\uFF1A\u8106\u5F31\u5957\u4EF6\u9020\u6210\u7684\u8B66\u5831\u75B2\u52DE",
+            "text": "<p>\u7D93\u904E\u6578\u6708\uFF0C\u67D0\u5957\u4EF6\u8B8A\u5F97\u6163\u6027\u8106\u5F31\uFF0C\u958B\u767C\u8005\u7FD2\u6163\u4E86\u91CD\u8DD1\u7D05\u8272\u5EFA\u7F6E\u800C\u4E0D\u7D30\u770B\u3002\u6700\u56B4\u91CD\u7684\u5F8C\u679C\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B66\u5831\u75B2\u52DE\uFF1A\u56E0\u70BA\u5931\u6557\u88AB\u5047\u5B9A\u70BA\u8106\u5F31\uFF0C\u4E00\u500B\u771F\u6B63\u7684\u56DE\u6B78\u88AB\u5FFD\u7565\u800C\u767C\u5E03\u5230\u6B63\u5F0F\u74B0\u5883",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5957\u4EF6\u5931\u53BB\u8A0A\u865F\u50F9\u503C\uFF0C\u65BC\u662F\u771F\u6B63\u7684\u5931\u6557\u88AB\u7576\u6210\u96DC\u8A0A\u6253\u767C\u6389\u3002"
+              },
+              {
+                "text": "\u9019\u4E9B\u6E2C\u8A66\u6700\u7D42\u6703\u81EA\u5DF1\u505C\u6B62\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u8106\u5F31\u6027\u4E0D\u6703\u8B93\u7A0B\u5F0F\u78BC\u505C\u6B62\u7DE8\u8B6F\uFF1B\u56B4\u91CD\u7684\u6210\u672C\u662F\u771F\u6B63\u7684\u5931\u6557\u88AB\u5FFD\u7565\u3002"
+              },
+              {
+                "text": "\u5957\u4EF6\u6703\u96A8\u6642\u9593\u81EA\u52D5\u8B8A\u5F97\u5177\u6C7A\u5B9A\u6027",
+                "fraction": 0,
+                "feedback": "\u8106\u5F31\u4E0D\u6703\u81EA\u6211\u4FEE\u5FA9\uFF1B\u653E\u8457\u4E0D\u7BA1\u6703\u8A13\u7DF4\u4EBA\u5011\u5FFD\u7565\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u552F\u4E00\u7684\u6210\u672C\u662F CI \u57F7\u884C\u7A0D\u5FAE\u8B8A\u9577",
+                "fraction": 0,
+                "feedback": "\u4E3B\u8981\u6210\u672C\u4E0D\u662F\u57F7\u884C\u6642\u9593\uFF1B\u800C\u662F\u771F\u6B63\u7684\u56DE\u6B78\u85CF\u5728\u96DC\u8A0A\u88E1\u4E26\u62B5\u9054\u4F7F\u7528\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u6163\u6027\u8106\u5F31\u6700\u6DF1\u7684\u6210\u672C\u662F\u4EBA\u6027\u9762\uFF1A\u4E00\u65E6\u300C\u7D05\u8272\u300D\u901A\u5E38\u610F\u5473\u300C\u53EA\u662F\u8106\u5F31\u300D\uFF0C\u4EBA\u5011\u4FBF\u4E0D\u518D\u8ABF\u67E5\u3001\u76F4\u63A5\u91CD\u8DD1\u3002\u6B64\u6642\u771F\u6B63\u7684\u56DE\u6B78\u5C31\u878D\u5165\u96DC\u8A0A\u88AB\u767C\u5E03\u51FA\u53BB\u3002\u9019\u7A2E\u300C\u72FC\u4F86\u4E86\u300D\u6548\u61C9\uFF0C\u64CA\u6F70\u4E86\u81EA\u52D5\u5316\u5957\u4EF6\u7684\u6574\u500B\u76EE\u7684\uFF0C\u9019\u6B63\u662F\u70BA\u4EC0\u9EBC\u8106\u5F31\u5FC5\u9808\u88AB\u7576\u6210\u4E00\u7D1A\u7F3A\u9677\u4F86\u5C0D\u5F85\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\uFF1A\u672A\u8A2D\u7A2E\u5B50\u7684\u96A8\u6A5F\u66B4\u9732\u51FA\u908A\u754C\u6848\u4F8B",
+            "text": "<p>\u67D0\u6E2C\u8A66\u4EE5\u672A\u8A2D\u7A2E\u5B50\u7684\u4E82\u6578\u7522\u751F\u5668\u5EFA\u7ACB\u8F38\u5165\u3002\u5B83\u591A\u6578\u57F7\u884C\u901A\u904E\uFF0C\u4F46\u5927\u7D04\u6BCF 50 \u6B21\u5931\u6557 1 \u6B21\uFF0C\u4E14\u6BCF\u6B21\u5931\u6557\u90FD\u662F\u4E00\u500B\u771F\u6B63\u7684\u65B7\u8A00\u4E0D\u7B26\u3002\u6700\u4F73\u7684\u56DE\u61C9\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6355\u6349\u90A3\u500B\u5931\u6557\u7684\u8F38\u5165\uFF0C\u7576\u6210\u53EF\u80FD\u7684\u771F\u6B63\u7F3A\u9677\u4F86\u8ABF\u67E5\u3001\u52A0\u4EE5\u4FEE\u5FA9\uFF0C\u7136\u5F8C\u70BA\u7522\u751F\u5668\u8A2D\u5B9A\u7A2E\u5B50\uFF08\u6216\u628A\u8A72\u6848\u4F8B\u52A0\u70BA\u56FA\u5B9A\u7684\u56DE\u6B78\u6E2C\u8A66\uFF09\u4EE5\u53D6\u5F97\u6C7A\u5B9A\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5076\u767C\u7684\u771F\u6B63\u4E0D\u7B26\u53EF\u80FD\u662F\u771F\u5BE6\u7684\u908A\u754C\u6848\u4F8B\u7F3A\u9677\uFF1B\u5148\u8A3A\u65B7\uFF0C\u518D\u8B93\u6E2C\u8A66\u5177\u6C7A\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u7ACB\u523B\u628A\u7522\u751F\u5668\u7684\u7A2E\u5B50\u8A2D\u6210\u4E00\u500B\u6C38\u9060\u901A\u904E\u7684\u503C\uFF0C\u7136\u5F8C\u5225\u7BA1\u4E86",
+                "fraction": 0,
+                "feedback": "\u672A\u7D93\u8ABF\u67E5\u5C31\u9078\u4E00\u500B\u6703\u901A\u904E\u7684\u7A2E\u5B50\uFF0C\u53EF\u80FD\u63A9\u84CB\u4E00\u500B\u771F\u6B63\u7684\u908A\u754C\u6848\u4F8B\u7F3A\u9677\uFF1B\u5148\u6355\u6349\u4E26\u8A3A\u65B7\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u52A0\u4E00\u500B\u91CD\u8A66\uFF0C\u8B93\u90A3\u500B\u6BCF 50 \u6B21 1 \u6B21\u7684\u5931\u6557\u5F9E CI \u6D88\u5931",
+                "fraction": 0,
+                "feedback": "\u91CD\u8A66\u6703\u57CB\u6389\u53EF\u80FD\u662F\u771F\u6B63\u7684\u7F3A\u9677\uFF1B\u5728\u8B93\u6E2C\u8A66\u5177\u6C7A\u5B9A\u6027\u4E4B\u524D\uFF0C\u5FC5\u9808\u5148\u6AA2\u8996\u90A3\u500B\u5931\u6557\u7684\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u522A\u6389\u9019\u500B\u6E2C\u8A66\uFF0C\u56E0\u70BA\u96A8\u6A5F\u8CC7\u6599\u4E0D\u53EF\u9760",
+                "fraction": 0,
+                "feedback": "\u522A\u9664\u6703\u4E1F\u6389\u6709\u7528\u7684\u6DB5\u84CB\u7BC4\u570D\u4E26\u5FFD\u7565\u53EF\u80FD\u7684\u771F\u6B63\u7F3A\u9677\uFF1B\u8ACB\u8ABF\u67E5\u3001\u4FEE\u5FA9\uFF0C\u518D\u8A2D\u7A2E\u5B50\u3002"
+              }
+            ],
+            "generalFeedback": "\u672A\u8A2D\u7A2E\u5B50\u7684\u96A8\u6A5F\u65E2\u662F\u8106\u5F31\u4F86\u6E90\uFF0C\u6709\u6642\u4E5F\u662F\u610F\u5916\u7684\u6A21\u7CCA\u6E2C\u8A66\u5668\uFF1A\u4E00\u500B\u7F55\u898B\u7684\u5931\u6557\u8F38\u5165\u53EF\u80FD\u662F\u771F\u6B63\u7684\u908A\u754C\u6848\u4F8B\u7F3A\u9677\u3002\u5148\u7528\u6355\u6349\u5230\u7684\u8F38\u5165\u91CD\u73FE\uFF0C\u5224\u65B7\u662F\u7A0B\u5F0F\u78BC\u9084\u662F\u6E2C\u8A66\u932F\u4E86\u3002\u4FEE\u597D\u771F\u6B63\u7684\u7F3A\u9677\uFF0C\u518D\u4EE5\u8A2D\u5B9A\u7A2E\u5B50\u6216\u628A\u767C\u73FE\u7684\u6848\u4F8B\u91D8\u70BA\u56FA\u5B9A\u56DE\u6B78\u6E2C\u8A66\u4F86\u6062\u5FA9\u6C7A\u5B9A\u6027\u2014\u2014\u4E0D\u8981\u53EA\u662F\u6311\u4E00\u500B\u80FD\u63A9\u84CB\u5931\u6557\u7684\u7A2E\u5B50\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\uFF1A\u57F7\u884C\u7DD2\u4E4B\u9593\u7684\u7AF6\u614B",
+            "text": "<p>\u67D0\u6E2C\u8A66\u555F\u52D5\u5169\u500B\u57F7\u884C\u7DD2\uFF0C\u5169\u8005\u90FD\u5F80\u4E00\u500B\u5171\u4EAB\u7684 list \u9644\u52A0\u5143\u7D20\uFF0C\u7136\u5F8C\u65B7\u8A00\u8A72 list \u6709\u5169\u500B\u5143\u7D20\u3002\u5B83\u5076\u723E\u770B\u5230\u4E00\u500B\u5143\u7D20\u6216\u62CB\u51FA\u4F8B\u5916\u3002\u6839\u56E0\u662F\u4EC0\u9EBC\uFF1F\u6B63\u78BA\u7684\u4FEE\u6CD5\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u672A\u540C\u6B65\u7684\u5171\u4EAB list \u4E0A\u7684\u7AF6\u614B\u689D\u4EF6\uFF1B\u4FEE\u6B63\u4E26\u884C\uFF08\u59A5\u5584\u7684\u540C\u6B65\u6216\u4F7F\u7528\u57F7\u884C\u7DD2\u5B89\u5168\u7684\u7D50\u69CB\uFF09\uFF0C\u4E26\u8B93\u6E2C\u8A66\u4EE5\u6C7A\u5B9A\u6027\u7684\u65B9\u5F0F\u7B49\u5F85\u5169\u6B21\u9644\u52A0\u7686\u5B8C\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8106\u5F31\u53CD\u6620\u4E86\u771F\u6B63\u7684\u8CC7\u6599\u7AF6\u722D\uFF1B\u4FEE\u6B63\u540C\u6B65\u4E26\u4EE5\u6C7A\u5B9A\u6027\u65B9\u5F0F\u7B49\u5F85\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "list \u578B\u5225\u58DE\u4E86\uFF1B\u63DB\u7528\u5225\u7684 list\uFF0C\u4E26\u7DAD\u6301\u672A\u540C\u6B65",
+                "fraction": 0,
+                "feedback": "\u4E00\u822C\u7684 list \u4E26\u6C92\u6709\u58DE\uFF1B\u4E26\u884C\u4E14\u672A\u540C\u6B65\u7684\u6539\u52D5\u624D\u662F\u7F3A\u9677\uFF0C\u6240\u4EE5\u8981\u52A0\u5165\u59A5\u5584\u7684\u540C\u6B65\u3002"
+              },
+              {
+                "text": "\u5728\u65B7\u8A00\u524D\u52A0\u4E00\u500B\u56FA\u5B9A sleep\uFF0C\u4E26\u8B93\u57F7\u884C\u7DD2\u7DAD\u6301\u672A\u540C\u6B65",
+                "fraction": 0,
+                "feedback": "sleep \u53EA\u964D\u4F4E\u5931\u6557\u7387\uFF1B\u5E95\u5C64\u7684\u8CC7\u6599\u7AF6\u722D\u4ECD\u5728\uFF0C\u4ECD\u53EF\u80FD\u7834\u58DE list\u3002"
+              },
+              {
+                "text": "\u91CD\u8A66\u6E2C\u8A66\uFF0C\u76F4\u5230\u5169\u6B21\u9644\u52A0\u525B\u597D\u90FD\u6210\u529F",
+                "fraction": 0,
+                "feedback": "\u91CD\u8A66\u6703\u63A9\u84CB\u4E00\u500B\u4E5F\u53EF\u80FD\u5F71\u97FF\u6B63\u5F0F\u74B0\u5883\u7684\u771F\u6B63\u4E26\u884C\u7F3A\u9677\uFF1B\u8ACB\u6539\u70BA\u4FEE\u6B63\u7AF6\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u500B\u57F7\u884C\u7DD2\u672A\u540C\u6B65\u5730\u6539\u52D5\u540C\u4E00\u500B list \u662F\u8CC7\u6599\u7AF6\u722D\uFF1A\u4EA4\u932F\u9806\u5E8F\u5076\u723E\u6703\u907A\u5931\u4E00\u6B21\u66F4\u65B0\u6216\u7834\u58DE\u5167\u90E8\u72C0\u614B\u3002\u9019\u662F\u771F\u6B63\u7684\u7F3A\u9677\uFF0C\u800C\u975E\u55AE\u7D14\u7684\u6E2C\u8A66\u96DC\u8A0A\u3002\u4F7F\u7528\u59A5\u5584\u7684\u540C\u6B65\u6216\u57F7\u884C\u7DD2\u5B89\u5168\u7684\u96C6\u5408\uFF0C\u4E26\u8B93\u6E2C\u8A66\u5728\u65B7\u8A00\u524D\u4EE5\u6C7A\u5B9A\u6027\u65B9\u5F0F\u7B49\u5F85\u5169\u500B\u57F7\u884C\u7DD2\u7D50\u675F\uFF08join\uFF0Fawait\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6C7A\u5B9A\u6027\u662F\u76EE\u6A19\uFF0C\u91CD\u8A66\u662F\u6B0A\u5B9C\u4E4B\u8A08",
+            "text": "<p>\u4FEE\u5FA9\u8106\u5F31\u6E2C\u8A66\u7684\u76EE\u6A19\uFF0C\u662F\u900F\u904E\u4FEE\u6B63\u6839\u56E0\u4F86\u6062\u5FA9\u6C7A\u5B9A\u6027\uFF1B\u81EA\u52D5\u91CD\u8A66\u53EF\u4EE5\u662F\u66AB\u6642\u7684\u6B0A\u5B9C\u4E4B\u8A08\uFF0C\u4F46\u5B83\u672C\u8EAB\u4E0D\u662F\u4FEE\u5FA9\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u900F\u904E\u6839\u56E0\u4FEE\u5FA9\u53D6\u5F97\u6C7A\u5B9A\u6027\u624D\u662F\u76EE\u7684\uFF1B\u91CD\u8A66\u53EA\u662F\u63A9\u84CB\u75C7\u72C0\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1A\u91CD\u8A66\u4E26\u672A\u79FB\u9664\u975E\u6C7A\u5B9A\u6027\uFF0C\u6240\u4EE5\u5145\u5176\u91CF\u662F\u6B0A\u5B9C\u4E4B\u8A08\uFF1B\u771F\u6B63\u7684\u4FEE\u5FA9\u662F\u5728\u6839\u56E0\u8655\u6062\u5FA9\u6C7A\u5B9A\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u59A5\u5584\u7684\u4FEE\u5FA9\u662F\u900F\u904E\u8655\u7406\u300C\u5B83\u70BA\u4F55\u6703\u8B8A\u52D5\u300D\u4F86\u8B93\u6E2C\u8A66\u91CD\u65B0\u5177\u6C7A\u5B9A\u6027\u2014\u2014\u628A sleep \u63DB\u6210\u689D\u4EF6\u5F0F\u7B49\u5F85\u3001\u70BA\u96A8\u6A5F\u8A2D\u5B9A\u7A2E\u5B50\u3001\u6CE8\u5165\u6642\u9418\u3001\u9694\u96E2\u72C0\u614B\u3001mock \u5916\u90E8\u76F8\u4F9D\uFF0C\u6216\u4FEE\u6B63\u771F\u6B63\u7684\u4E26\u884C\u7F3A\u9677\u3002\u91CD\u8A66\u6216\u8A31\u80FD\u722D\u53D6\u6642\u9593\uFF0C\u4F46\u5B83\u63A9\u84CB\u75C7\u72C0\uFF0C\u4E14\u53EF\u80FD\u85CF\u8D77\u771F\u6B63\u7684\u9593\u6B47\u7F3A\u9677\uFF0C\u6240\u4EE5\u5B83\u7D55\u975E\u7D42\u5C40\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\uFF1A\u4E26\u884C\u6E2C\u8A66\u5171\u4EAB\u4E00\u500B\u66AB\u5B58\u6A94",
+            "text": "<p>\u5169\u500B\u6E2C\u8A66\u5404\u81EA\u5BEB\u5165 <code>/tmp/output.txt</code> \u518D\u8B80\u56DE\u3002\u9010\u4E00\u57F7\u884C\u6642\u5B83\u5011\u901A\u904E\uFF0C\u4F46\u7576\u5957\u4EF6\u4EE5\u4E26\u884C\u65B9\u5F0F\u57F7\u884C\u5B83\u5011\u6642\u5C31\u9593\u6B47\u5931\u6557\u3002\u6839\u56E0\u662F\u4EC0\u9EBC\uFF1F\u6B63\u78BA\u7684\u4FEE\u6CD5\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u5171\u4EAB\u56FA\u5B9A\u8DEF\u5F91\u4E0A\u7684\u8CC7\u6E90\u722D\u7528\uFF1B\u7D66\u6BCF\u500B\u6E2C\u8A66\u5404\u81EA\u552F\u4E00\u7684\u66AB\u5B58\u6A94\uFF0F\u76EE\u9304\uFF0C\u4F7F\u5B83\u5011\u7121\u6CD5\u76F8\u4E92\u5E72\u64FE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9010\u4E00\u6E2C\u8A66\u5730\u9694\u96E2\u8CC7\u6E90\uFF08\u552F\u4E00\u7684\u66AB\u5B58\u8DEF\u5F91\uFF09\u4EE5\u79FB\u9664\u722D\u7528\u3002"
+              },
+              {
+                "text": "\u6A94\u6848\u7CFB\u7D71\u5728\u8CA0\u8F09\u4E0B\u58DE\u4E86\uFF1B\u628A\u6E2C\u8A66\u79FB\u5230\u5225\u7684\u78C1\u789F",
+                "fraction": 0,
+                "feedback": "\u6A94\u6848\u7CFB\u7D71\u6C92\u554F\u984C\uFF1B\u6E2C\u8A66\u5728\u4E00\u500B\u5BEB\u6B7B\u7684\u8DEF\u5F91\u4E0A\u76F8\u649E\uFF0C\u6240\u4EE5\u8981\u9010\u4E00\u6E2C\u8A66\u5730\u9694\u96E2\u3002"
+              },
+              {
+                "text": "\u5F37\u5236\u9019\u5169\u500B\u6E2C\u8A66\u6C38\u9060\u5FAA\u5E8F\u57F7\u884C\u3001\u7D55\u4E0D\u4E26\u884C",
+                "fraction": 0,
+                "feedback": "\u5E8F\u5217\u5316\u662F\u63A9\u84CB\u8026\u5408\u4E26\u72A7\u7272\u4E26\u884C\u901F\u5EA6\uFF1B\u4E7E\u6DE8\u7684\u4FEE\u6CD5\u662F\u6BCF\u500B\u6E2C\u8A66\u5404\u81EA\u552F\u4E00\u7684\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u52A0\u4E00\u500B sleep\uFF0C\u4F7F\u5169\u6B21\u5BEB\u5165\u4E0D\u6703\u5728\u540C\u4E00\u77AC\u9593\u767C\u751F",
+                "fraction": 0,
+                "feedback": "sleep \u662F\u8106\u5F31\u7684\u6642\u5E8F\u628A\u6232\uFF0C\u4E14\u4ECD\u5171\u7528\u540C\u4E00\u8DEF\u5F91\uFF1B\u8ACB\u70BA\u6BCF\u500B\u6E2C\u8A66\u4F7F\u7528\u552F\u4E00\u7684\u66AB\u5B58\u6A94\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u500B\u6E2C\u8A66\u4F7F\u7528\u540C\u4E00\u500B\u56FA\u5B9A\u6A94\u540D\uFF0C\u65BC\u662F\u5728\u4E26\u884C\u57F7\u884C\u4E0B\uFF0C\u4E00\u500B\u5728\u53E6\u4E00\u500B\u5BEB\u5165\u8207\u8B80\u56DE\u4E4B\u9593\u8986\u84CB\u4E86\u5B83\u7684\u8CC7\u6599\u3002\u70BA\u6BCF\u500B\u6E2C\u8A66\u914D\u7F6E\u4E00\u500B\u552F\u4E00\u7684\u66AB\u5B58\u6A94\u6216\u76EE\u9304\uFF08\u5168\u65B0\u7684\u66AB\u5B58\u8DEF\u5F91\uFF0C\u5728 teardown \u6E05\u7406\uFF09\uFF0C\u4F7F\u6E2C\u8A66\u5F7C\u6B64\u9694\u96E2\u3001\u80FD\u4EE5\u6C7A\u5B9A\u6027\u65B9\u5F0F\u4E26\u884C\u57F7\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\uFF1Acreated_at \u7B49\u65BC now",
+            "text": "<p>\u67D0\u6E2C\u8A66\u5EFA\u7ACB\u4E00\u7B46\u7D00\u9304\uFF0C\u4E26\u65B7\u8A00 <code>record.created_at == now()</code>\uFF0C\u5728\u65B7\u8A00\u4E2D\u518D\u6B21\u547C\u53EB\u771F\u5BE6\u6642\u9418\u3002\u5B83\u5076\u723E\u5931\u6557\uFF0C\u7576\u4E00\u500B\u5FAE\u5C0F\u7684\u5EF6\u9072\u4F7F\u5169\u6B21\u8B80\u53D6\u6642\u9418\u7684\u503C\u4E0D\u540C\u6642\u3002\u6B63\u78BA\u7684\u4FEE\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6CE8\u5165\u4E00\u500B\u56FA\u5B9A\u7684\u6642\u9418\uFF0C\u4F7F\u7A0B\u5F0F\u78BC\u8207\u6E2C\u8A66\u90FD\u770B\u5230\u76F8\u540C\u7684\u3001\u53D7\u63A7\u7684\u300C\u73FE\u5728\u300D\uFF0C\u8B93\u6642\u9593\u6233\u8A18\u4EE5\u6C7A\u5B9A\u6027\u65B9\u5F0F\u6BD4\u8F03",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A7\u5236\u6642\u9593\u53EF\u53BB\u9664\u5169\u6B21\u771F\u5BE6\u6642\u9418\u8B80\u53D6\u4E4B\u9593\u7684\u843D\u5DEE\u3002"
+              },
+              {
+                "text": "\u518D\u591A\u8B80\u771F\u5BE6\u6642\u9418\u5169\u6B21\u4E26\u53D6\u5E73\u5747",
+                "fraction": 0,
+                "feedback": "\u66F4\u591A\u771F\u5BE6\u8B80\u53D6\u4ECD\u6703\u8B8A\u52D5\uFF1B\u4FEE\u6CD5\u662F\u4EE5\u6CE8\u5165\u7684\u6642\u9418\u63A7\u5236\u6642\u9593\uFF0C\u800C\u975E\u5C0D\u96DC\u8A0A\u53D6\u5E73\u5747\u3002"
+              },
+              {
+                "text": "\u91CD\u8A66\u65B7\u8A00\uFF0C\u76F4\u5230\u5169\u6B21\u8B80\u53D6\u6642\u9418\u525B\u597D\u4E00\u81F4",
+                "fraction": 0,
+                "feedback": "\u91CD\u8A66\u9760\u904B\u6C23\uFF0C\u4E14\u8B93\u6642\u9593\u76F8\u4F9D\u7559\u5728\u539F\u8655\uFF1B\u6539\u70BA\u6CE8\u5165\u56FA\u5B9A\u6642\u9418\u3002"
+              },
+              {
+                "text": "\u5FB9\u5E95\u522A\u6389\u6642\u9593\u6233\u8A18\u7684\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u6AA2\u67E5\u6703\u4E1F\u6389\u5C0D\u6642\u9593\u6233\u8A18\u884C\u70BA\u7684\u6DB5\u84CB\uFF1B\u6539\u70BA\u8B93\u6642\u9593\u53EF\u63A7\u3002"
+              }
+            ],
+            "generalFeedback": "\u8106\u5F31\u4F86\u81EA\u6BD4\u8F03\u5169\u6B21\u7368\u7ACB\u7684\u771F\u5BE6\u6642\u9418\u8B80\u53D6\uFF0C\u5169\u8005\u76F8\u5DEE\u5B83\u5011\u4E4B\u9593\u6D41\u901D\u7684\u6642\u9593\u3002\u6CE8\u5165\u4E00\u500B\u53EF\u63A7\u7684\u6642\u9418\uFF0C\u4F7F\u7A0B\u5F0F\u78BC\u4EE5\u56FA\u5B9A\u7684\u300C\u73FE\u5728\u300D\u70BA\u7D00\u9304\u84CB\u7AE0\uFF0C\u800C\u6E2C\u8A66\u5C0D\u540C\u4E00\u500B\u503C\u65B7\u8A00\u3002\u6216\u8005\u65B7\u8A00\u6642\u9593\u6233\u8A18\u843D\u5728\u4E00\u500B\u5BB9\u5DEE\u7A97\u5167\u2014\u2014\u4F46\u6CE8\u5165\u6642\u9418\u662F\u6700\u4E7E\u6DE8\u3001\u5177\u6C7A\u5B9A\u6027\u7684\u4FEE\u6CD5\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u81EA\u52D5\u91CD\u8A66\u53EF\u80FD\u63A9\u84CB\u771F\u6B63\u7684\u4E26\u884C\u7F3A\u9677",
+            "text": "<p>\u67D0\u6E2C\u8A66\u56E0\u6B63\u5F0F\u7A0B\u5F0F\u78BC\u4E2D\u4E00\u500B\u771F\u6B63\u7684\u7AF6\u614B\u689D\u4EF6\u800C\u5927\u7D04\u6BCF 20 \u6B21\u5931\u6557 1 \u6B21\u3002\u5718\u968A\u52A0\u4E86\u4E00\u500B\u81EA\u52D5 3 \u6B21\u91CD\u8A66\uFF0C\u4F7F CI \u56DE\u5831\u70BA\u901A\u904E\u3002\u56E0\u70BA CI \u73FE\u5728\u662F\u7DA0\u71C8\uFF0C\u9019\u662F\u4E00\u500B\u53EF\u63A5\u53D7\u7684\u89E3\u6C7A\u65B9\u5F0F\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91CD\u8A66\u63A9\u84CB\u4E86\u4E00\u500B\u4ECD\u6703\u885D\u64CA\u4F7F\u7528\u8005\u7684\u771F\u6B63\u7AF6\u614B\u689D\u4EF6\uFF1B\u6839\u56E0\u5FC5\u9808\u88AB\u4FEE\u5FA9\uFF0C\u800C\u975E\u88AB\u63A9\u84CB\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u932F\u8AA4\uFF1A\u9760\u91CD\u8A66\u5F97\u5230\u7684\u7DA0\u71C8 CI \u96B1\u85CF\u4E86\u4E00\u500B\u4ECD\u6703\u5728\u6B63\u5F0F\u74B0\u5883\u6D6E\u73FE\u7684\u771F\u6B63\u9593\u6B47\u7F3A\u9677\u3002"
+              }
+            ],
+            "generalFeedback": "\u90A3\u6BCF 20 \u6B21 1 \u6B21\u7684\u5931\u6557\u4E0D\u662F\u6E2C\u8A66\u96DC\u8A0A\u2014\u2014\u5B83\u662F\u53D7\u6E2C\u7A0B\u5F0F\u78BC\u4E2D\u4E00\u500B\u771F\u6B63\u7684\u7AF6\u614B\u689D\u4EF6\u3002\u91CD\u8A66\u5230\u7DA0\u71C8\u4F7F\u75C7\u72C0\u5F9E CI \u6D88\u5931\uFF0C\u800C\u7F3A\u9677\u4ECD\u5728\uFF0C\u4E26\u7D42\u5C07\u5728\u8CA0\u8F09\u4E0B\u5F71\u97FF\u771F\u5BE6\u4F7F\u7528\u8005\u3002\u6B63\u78BA\u7684\u56DE\u61C9\u662F\u8A3A\u65B7\u4E26\u4FEE\u6B63\u8A72\u7AF6\u614B\uFF08\u59A5\u5584\u7684\u540C\u6B65\uFF09\uFF0C\u4F7F\u6E2C\u8A66\u56E0\u6B63\u78BA\u7684\u7406\u7531\u800C\u4EE5\u6C7A\u5B9A\u6027\u65B9\u5F0F\u901A\u904E\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C0D\u55AE\u4E00\u7121\u6CD5\u89E3\u91CB\u7684 CI \u5931\u6557\u7684\u56DE\u61C9",
+            "text": "<p>\u5728\u4E00\u500B\u672A\u6539\u8B8A\u7684\u63D0\u4EA4\u4E0A\uFF0C\u67D0\u6B21 CI \u57F7\u884C\u8B93\u4E00\u500B\u6E2C\u8A66\u5931\u6557\uFF1B\u91CD\u8DD1\u540C\u4E00\u500B\u63D0\u4EA4\u537B\u901A\u904E\u3002\u6700\u6070\u7576\u7684\u56DE\u61C9\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7576\u6210\u5F88\u53EF\u80FD\u662F\u8106\u5F31\uFF1A\u85C9\u7531\u53CD\u8986\u57F7\u884C\u8A72\u6E2C\u8A66\u4F86\u91CD\u73FE\u5B83\u3001\u8FFD\u8E64\u5B83\u3001\u4E26\u8A3A\u65B7\u6839\u56E0\u2014\u2014\u5225\u53EA\u662F\u628A\u5B83\u7576\u6210\u5076\u767C\u7684\u610F\u5916\u800C\u6253\u767C\u6389",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u672A\u6539\u8B8A\u7684\u7A0B\u5F0F\u78BC\u4E0A\u901A\u904E\uFF0F\u5931\u6557\u7684\u7FFB\u52D5\u662F\u8106\u5F31\u8A0A\u865F\uFF0C\u61C9\u52A0\u4EE5\u91CD\u73FE\u3001\u8FFD\u8E64\u4E26\u4FEE\u5FA9\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u5FFD\u7565\u5B83\uFF0C\u65E2\u7136\u91CD\u8DD1\u901A\u904E\u4E86\u3001\u7A0B\u5F0F\u78BC\u53C8\u6C92\u6539",
+                "fraction": 0,
+                "feedback": "\u6253\u767C\u6389\u5B83\u6703\u8B93\u8106\u5F31\uFF08\u6216\u771F\u6B63\u7684\u9593\u6B47\u7F3A\u9677\uFF09\u6301\u7E8C\u5B58\u5728\uFF1B\u8ACB\u6539\u70BA\u91CD\u73FE\u4E26\u8ABF\u67E5\u3002"
+              },
+              {
+                "text": "\u7ACB\u523B\u522A\u6389\u9019\u500B\u6E2C\u8A66\uFF0C\u8B93\u5B83\u4E0D\u518D\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u522A\u9664\u6703\u4E1F\u6389\u6DB5\u84CB\u7BC4\u570D\uFF0C\u4E26\u5728\u9084\u6C92\u5F04\u61C2\u524D\u5C31\u85CF\u8D77\u4E00\u500B\u53EF\u80FD\u7684\u771F\u6B63\u7F3A\u9677\uFF1B\u5148\u8ABF\u67E5\u3002"
+              },
+              {
+                "text": "\u70BA\u6574\u500B\u5957\u4EF6\u6C38\u4E45\u555F\u7528\u91CD\u8A66\u5230\u7DA0\u71C8",
+                "fraction": 0,
+                "feedback": "\u5168\u9762\u91CD\u8A66\u6703\u63A9\u84CB\u6574\u500B\u5957\u4EF6\u7684\u771F\u6B63\u9593\u6B47\u7F3A\u9677\uFF1B\u8ACB\u6539\u70BA\u91CD\u73FE\u4E26\u4FEE\u5FA9\u9019\u500B\u7279\u5B9A\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u540C\u4E00\u500B\u63D0\u4EA4\u4E0A\u51FA\u73FE\u4E0D\u540C\u88C1\u6C7A\uFF0C\u6B63\u662F\u8106\u5F31\u7684\u5B9A\u7FA9\uFF0C\u4E0D\u8A72\u88AB\u63EE\u624B\u5E36\u904E\u3002\u85C9\u7531\u591A\u6B21\u57F7\u884C\u8A72\u6E2C\u8A66\u53D6\u5F97\u8106\u5F31\u7387\u4F86\u91CD\u73FE\u5B83\uFF0C\u628A\u5B83\u8A18\u5728\u4E00\u4EFD\u88AB\u8FFD\u8E64\u7684\u6E05\u55AE\u4E0A\uFF0C\u4E26\u8A3A\u65B7\u6839\u56E0\u3002\u5B83\u53EF\u80FD\u662F\u7121\u5BB3\u7684\u6642\u5E8F\u554F\u984C\uFF0C\u4E5F\u53EF\u80FD\u662F\u771F\u6B63\u7684\u9593\u6B47\u7F3A\u9677\u2014\u2014\u53EA\u6709\u8ABF\u67E5\u624D\u77E5\u9053\u662F\u54EA\u4E00\u7A2E\uFF0C\u800C\u975E\u8073\u80A9\u6216\u76F2\u76EE\u91CD\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\uFF1A\u8207\u5730\u5340\u8A2D\u5B9A\u76F8\u4F9D\u7684\u6578\u5B57\u683C\u5F0F",
+            "text": '<p>\u67D0\u6E2C\u8A66\u65B7\u8A00\u628A <code>1234.5</code> \u683C\u5F0F\u5316\u6703\u5F97\u5230\u5B57\u4E32 <code>"1,234.5"</code>\u3002\u5B83\u5C0D\u5718\u968A\u591A\u6578\u4EBA\u901A\u904E\uFF0C\u4F46\u5C0D\u4E00\u4F4D\u6A5F\u5668\u4F7F\u7528\u300C\u5C07\u6578\u5B57\u5BEB\u6210 <code>"1.234,5"</code>\u300D\u4E4B\u5730\u5340\u8A2D\u5B9A\u7684\u968A\u53CB\u5931\u6557\u3002\u6839\u56E0\u662F\u4EC0\u9EBC\uFF1F\u6B63\u78BA\u7684\u4FEE\u6CD5\u70BA\u4F55\uFF1F</p>',
+            "answers": [
+              {
+                "text": "\u683C\u5F0F\u5316\u5668\u4F7F\u7528\u4E86\u5468\u906D\u7684\u9810\u8A2D\u5730\u5340\u8A2D\u5B9A\uFF1B\u5728\u6E2C\u8A66\u4E2D\u660E\u78BA\u91D8\u4F4F\u4E00\u500B\u5730\u5340\u8A2D\u5B9A\uFF08\u6216\u4EE5\u8207\u5730\u5340\u7121\u95DC\u7684\u65B9\u5F0F\u683C\u5F0F\u5316\uFF09\uFF0C\u4F7F\u8F38\u51FA\u5728\u6BCF\u500B\u5730\u65B9\u90FD\u76F8\u540C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u5730\u5340\u8A2D\u5B9A\u660E\u78BA\u5316\uFF0C\u800C\u4E0D\u662F\u4F9D\u8CF4\u6A5F\u5668\u7684\u9810\u8A2D\u3002"
+              },
+              {
+                "text": "\u968A\u53CB\u7684\u6A5F\u5668\u4E0A\u6578\u5B57\u51FD\u5F0F\u5EAB\u6BC0\u640D\u4E86\uFF1B\u91CD\u65B0\u5B89\u88DD\u5B83",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u6771\u897F\u6BC0\u640D\u2014\u2014\u51FD\u5F0F\u5EAB\u6B63\u78BA\u5730\u9075\u5FAA\u90A3\u53F0\u6A5F\u5668\u7684\u5730\u5340\u8A2D\u5B9A\uFF1B\u6E2C\u8A66\u5FC5\u9808\u660E\u78BA\u56FA\u5B9A\u5730\u5340\u8A2D\u5B9A\u3002"
+              },
+              {
+                "text": "\u91CD\u8A66\u6E2C\u8A66\uFF0C\u76F4\u5230\u5B83\u7522\u751F\u9810\u671F\u7684\u5206\u9694\u7B26\u865F",
+                "fraction": 0,
+                "feedback": "\u8F38\u51FA\u5C0D\u6BCF\u500B\u5730\u5340\u8A2D\u5B9A\u90FD\u662F\u6C7A\u5B9A\u6027\u7684\uFF0C\u6240\u4EE5\u91CD\u8A66\u7121\u6FDF\u65BC\u4E8B\uFF1B\u6539\u70BA\u91D8\u4F4F\u5730\u5340\u8A2D\u5B9A\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u8A2D\u70BA\u9810\u671F\u5730\u5340\u8A2D\u5B9A\u7684\u6A5F\u5668\u4E0A\u57F7\u884C\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9650\u5236\u57F7\u884C\u5730\u9EDE\u662F\u63A9\u84CB\u96B1\u85CF\u7684\u4F9D\u8CF4\uFF0C\u800C\u975E\u79FB\u9664\u5B83\uFF1B\u8ACB\u5728\u6E2C\u8A66\u4E2D\u6307\u5B9A\u5730\u5340\u8A2D\u5B9A\u3002"
+              }
+            ],
+            "generalFeedback": "\u6578\u5B57\u3001\u65E5\u671F\u8207\u8CA8\u5E63\u7684\u683C\u5F0F\u5316\u6703\u9810\u8A2D\u63A1\u7528\u74B0\u5883\u7684\u5730\u5340\u8A2D\u5B9A\uFF0C\u65BC\u662F\u5206\u7D44\u8207\u5C0F\u6578\u5206\u9694\u7B26\u865F\u56E0\u6A5F\u5668\u800C\u7570\u3002\u9019\u500B\u6E2C\u8A66\u5728\u4E0D\u77E5\u60C5\u4E0B\u4F9D\u8CF4\u4E86\u67D0\u4E00\u500B\u5730\u5340\u8A2D\u5B9A\u3002\u4FEE\u6CD5\u662F\u628A\u660E\u78BA\u7684\u5730\u5340\u8A2D\u5B9A\u50B3\u7D66\u683C\u5F0F\u5316\u5668\uFF08\u6216\u4EE5\u8207\u5730\u5340\u7121\u95DC\u7684\u65B9\u5F0F\u683C\u5F0F\u5316\uFF09\uFF0C\u4F7F\u7522\u751F\u7684\u5B57\u4E32\u5728\u6BCF\u500B\u74B0\u5883\u90FD\u5177\u6C7A\u5B9A\u6027\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "fuzz-testing": {
       "en": {
         "easy": [
