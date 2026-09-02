@@ -12791,6 +12791,2568 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "defect-cost": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Cost of change principle",
+          "text": "<p>The <em>cost of change</em> (defect-cost escalation) principle states that:</p>",
+          "answers": [
+            {
+              "text": "The cost to fix a defect tends to increase the later in the lifecycle it is discovered",
+              "fraction": 100,
+              "feedback": "Correct — Boehm's cost-of-change curve rises as discovery moves to later phases."
+            },
+            {
+              "text": "The cost to fix a defect is the same regardless of when it is found",
+              "fraction": 0,
+              "feedback": "The whole point of the curve is that the cost is not constant; it escalates."
+            },
+            {
+              "text": "Defects found later are always cheaper because tooling improves over time",
+              "fraction": 0,
+              "feedback": "Later discovery is generally more expensive, not cheaper."
+            },
+            {
+              "text": "Only defects found in production carry any cost at all",
+              "fraction": 0,
+              "feedback": "Defects found early also cost something to fix; the point is that later fixes cost more."
+            }
+          ],
+          "generalFeedback": "Boehm's cost-of-change curve captures a widely observed trend: the same defect costs progressively more to fix the later it is discovered, because more work has been built on top of it. Typical illustrative multipliers rise from about 1x in requirements to tens or hundreds of times in production.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is shift-left",
+          "text": "<p>&quot;Shift-left&quot; testing means:</p>",
+          "answers": [
+            {
+              "text": "Moving testing and quality activities earlier in the lifecycle so defects are caught sooner",
+              "fraction": 100,
+              "feedback": "Correct — shifting quality work to the left (earlier) on the timeline."
+            },
+            {
+              "text": "Delaying testing until after release to save time up front",
+              "fraction": 0,
+              "feedback": "That is shifting right, the opposite of shift-left."
+            },
+            {
+              "text": "Moving all testing to a separate team drawn on the left of the org chart",
+              "fraction": 0,
+              "feedback": "Shift-left is about timing in the lifecycle, not org-chart position."
+            },
+            {
+              "text": "Writing tests only after the code is deployed to production",
+              "fraction": 0,
+              "feedback": "That defers testing to the latest possible point, the opposite of shift-left."
+            }
+          ],
+          "generalFeedback": "Shift-left moves reviews and testing earlier so defects are found closer to where they are introduced, when they are cheapest to fix. It is the practical response to the cost-of-change curve.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Internal failure cost",
+          "text": "<p>In the cost of quality, an <em>internal failure cost</em> arises when:</p>",
+          "answers": [
+            {
+              "text": "A defect is found before the product is released (e.g. rework and re-testing)",
+              "fraction": 100,
+              "feedback": "Correct — internal failures are caught in-house, before the customer sees them."
+            },
+            {
+              "text": "A defect is found by the customer after release",
+              "fraction": 0,
+              "feedback": "That is an external failure cost."
+            },
+            {
+              "text": "The team trains staff to prevent defects",
+              "fraction": 0,
+              "feedback": "That is a prevention cost."
+            },
+            {
+              "text": "The team inspects or tests in order to detect defects",
+              "fraction": 0,
+              "feedback": "That is an appraisal cost."
+            }
+          ],
+          "generalFeedback": "Internal failure costs are the costs of defects discovered before delivery: rework, re-testing, and re-inspection. They contrast with external failure costs, which arise after the customer has the product.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "External failure cost",
+          "text": "<p>An <em>external failure cost</em> arises when:</p>",
+          "answers": [
+            {
+              "text": "A defect is found by the customer after release (e.g. support, patches, recalls)",
+              "fraction": 100,
+              "feedback": "Correct — external failures reach the customer."
+            },
+            {
+              "text": "A defect is found and fixed in-house before release",
+              "fraction": 0,
+              "feedback": "That is an internal failure cost."
+            },
+            {
+              "text": "The team plans and schedules its quality activities in advance",
+              "fraction": 0,
+              "feedback": "That is a prevention cost."
+            },
+            {
+              "text": "Reviewers inspect a design document before any code is written",
+              "fraction": 0,
+              "feedback": "That is an appraisal cost."
+            }
+          ],
+          "generalFeedback": "External failure costs arise once a defect escapes to the customer: support calls, patches, warranty, recalls, and reputation damage. They are usually the most expensive category of quality cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prevention cost",
+          "text": "<p>A <em>prevention cost</em> is money spent to:</p>",
+          "answers": [
+            {
+              "text": "Stop defects from being introduced in the first place (e.g. training, better processes)",
+              "fraction": 100,
+              "feedback": "Correct — prevention keeps defects from being created."
+            },
+            {
+              "text": "Find defects that already exist (e.g. reviews and testing)",
+              "fraction": 0,
+              "feedback": "That is an appraisal cost."
+            },
+            {
+              "text": "Repair a defect that was found before release",
+              "fraction": 0,
+              "feedback": "That is an internal failure cost."
+            },
+            {
+              "text": "Handle customer complaints after release",
+              "fraction": 0,
+              "feedback": "That is an external failure cost."
+            }
+          ],
+          "generalFeedback": "Prevention costs (part of the conformance cost) are spent to avoid defects being introduced: training, quality planning, tool investment, and process improvement.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Appraisal cost",
+          "text": "<p>An <em>appraisal cost</em> is money spent to:</p>",
+          "answers": [
+            {
+              "text": "Evaluate or measure work products to find defects (e.g. reviews, inspections, testing)",
+              "fraction": 100,
+              "feedback": "Correct — appraisal is about detecting defects that may already be present."
+            },
+            {
+              "text": "Prevent defects from ever being introduced",
+              "fraction": 0,
+              "feedback": "That is a prevention cost."
+            },
+            {
+              "text": "Compensate a customer for a failure in the field",
+              "fraction": 0,
+              "feedback": "That is an external failure cost."
+            },
+            {
+              "text": "Rework a defect that a customer discovered",
+              "fraction": 0,
+              "feedback": "That is an external failure cost."
+            }
+          ],
+          "generalFeedback": "Appraisal costs (part of the conformance cost) are spent measuring and evaluating products to find defects: reviews, inspections, testing, and audits.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Most expensive discovery phase",
+          "text": "<p>Fixing the same defect is generally <em>most</em> expensive when it is discovered:</p>",
+          "answers": [
+            {
+              "text": "In production, after release to customers",
+              "fraction": 100,
+              "feedback": "Correct — production fixes carry the highest illustrative multipliers."
+            },
+            {
+              "text": "During requirements",
+              "fraction": 0,
+              "feedback": "Requirements is typically the cheapest phase to fix a defect."
+            },
+            {
+              "text": "During design",
+              "fraction": 0,
+              "feedback": "Design fixes are cheaper than fixes made after release."
+            },
+            {
+              "text": "During coding",
+              "fraction": 0,
+              "feedback": "Coding fixes are cheaper than fixes made after release."
+            }
+          ],
+          "generalFeedback": "The cost-of-change curve peaks in production: a defect that reaches customers can require patches, support, and reputation repair on top of the code fix, making it the most expensive place to discover a defect.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Cheapest discovery phase",
+          "text": "<p>Fixing a defect is generally <em>cheapest</em> when it is discovered:</p>",
+          "answers": [
+            {
+              "text": "In the same early phase it was introduced (e.g. a requirements defect caught during requirements)",
+              "fraction": 100,
+              "feedback": "Correct — catching a defect where it is introduced avoids downstream rework."
+            },
+            {
+              "text": "In production",
+              "fraction": 0,
+              "feedback": "Production is the most expensive, not the cheapest, place to fix a defect."
+            },
+            {
+              "text": "During system testing",
+              "fraction": 0,
+              "feedback": "System test is cheaper than production but more expensive than early phases."
+            },
+            {
+              "text": "After a customer-triggered recall",
+              "fraction": 0,
+              "feedback": "A recall is among the most expensive outcomes, not the cheapest."
+            }
+          ],
+          "generalFeedback": "A defect caught in the phase where it is introduced is cheapest to fix, because nothing has yet been built on top of it. This is why shifting reviews and testing left saves money.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Later means more expensive",
+          "text": "<p>Generally, the later in the software lifecycle a defect is found, the more expensive it is to fix.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — this is the central idea of the cost-of-change curve."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The widely observed trend is the opposite: later discovery costs more."
+            }
+          ],
+          "generalFeedback": "The cost-of-change curve captures a general trend: fixing a defect gets more expensive the later it is found. Exact multipliers vary by study and context, but the escalating trend is well supported."
+        },
+        {
+          "type": "multichoice",
+          "name": "Static techniques find defects how",
+          "text": "<p>Static techniques such as reviews and inspections find defects by:</p>",
+          "answers": [
+            {
+              "text": "Examining the artifact (requirements, design, code) without executing the code",
+              "fraction": 100,
+              "feedback": "Correct — static techniques inspect work products rather than running them."
+            },
+            {
+              "text": "Running the program and observing failures",
+              "fraction": 0,
+              "feedback": "That is dynamic testing, not a static technique."
+            },
+            {
+              "text": "Deploying to production and waiting for customer reports",
+              "fraction": 0,
+              "feedback": "That is field feedback, the most expensive form of detection, and not a static technique."
+            },
+            {
+              "text": "Measuring CPU usage during a load test",
+              "fraction": 0,
+              "feedback": "That is a dynamic performance measurement, not a static review."
+            }
+          ],
+          "generalFeedback": "Static techniques (reviews, walkthroughs, inspections, static analysis) find defects without executing the code, so they can catch defects in early artifacts before they propagate — often in phases where fixes are cheap.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prevention vs detection",
+          "text": "<p>Defect <em>prevention</em> differs from defect <em>detection</em> in that prevention:</p>",
+          "answers": [
+            {
+              "text": "Aims to stop defects from being introduced, rather than finding them after they already exist",
+              "fraction": 100,
+              "feedback": "Correct — prevention acts before defects are created; detection finds existing ones."
+            },
+            {
+              "text": "Finds defects only after the code has been executed",
+              "fraction": 0,
+              "feedback": "That describes dynamic detection, not prevention."
+            },
+            {
+              "text": "Is simply another name for external failure cost",
+              "fraction": 0,
+              "feedback": "Prevention is a conformance cost; external failure is a failure cost. They are different categories."
+            },
+            {
+              "text": "Applies only to defects already in production",
+              "fraction": 0,
+              "feedback": "Prevention applies before defects exist, not only to production defects."
+            }
+          ],
+          "generalFeedback": "Prevention keeps defects from being introduced (training, better processes, clearer requirements); detection finds defects that already exist (reviews, testing). Prevention tends to be the most economical because avoided defects incur no escalation cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Simple ratio coding vs production",
+          "text": "<p>Suppose (illustratively) fixing a defect during coding costs 10x a baseline unit and fixing it in production costs 100x that unit. Fixing in production costs how many times as much as fixing during coding?</p>",
+          "answers": [
+            {
+              "text": "10x",
+              "fraction": 100,
+              "feedback": "Correct — 100 / 10 = 10."
+            },
+            {
+              "text": "90x",
+              "fraction": 0,
+              "feedback": "That is 100 minus 10; the question asks for a ratio, 100 / 10 = 10."
+            },
+            {
+              "text": "110x",
+              "fraction": 0,
+              "feedback": "That is 100 plus 10; the ratio is 100 / 10 = 10."
+            },
+            {
+              "text": "1000x",
+              "fraction": 0,
+              "feedback": "That is 100 times 10; the ratio is 100 / 10 = 10."
+            }
+          ],
+          "generalFeedback": "The relative cost is the ratio of the two multipliers: 100 / 10 = 10. Production is 10 times as expensive as coding for these illustrative figures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Two conformance categories",
+          "text": "<p>The two categories of <em>conformance</em> (good-quality) cost in the cost of quality are:</p>",
+          "answers": [
+            {
+              "text": "Prevention and appraisal",
+              "fraction": 100,
+              "feedback": "Correct — conformance costs are spent to achieve quality: prevention and appraisal."
+            },
+            {
+              "text": "Internal failure and external failure",
+              "fraction": 0,
+              "feedback": "Those are the non-conformance (failure) costs."
+            },
+            {
+              "text": "Requirements and design",
+              "fraction": 0,
+              "feedback": "Those are lifecycle phases, not cost-of-quality categories."
+            },
+            {
+              "text": "Likelihood and impact",
+              "fraction": 0,
+              "feedback": "Those are the two dimensions of risk, not cost-of-quality categories."
+            }
+          ],
+          "generalFeedback": "Cost of quality splits into conformance costs (prevention + appraisal — spent to achieve quality) and non-conformance costs (internal + external failure — the cost of getting it wrong).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Simple ratio requirements vs system test",
+          "text": "<p>Suppose (illustratively) fixing a defect during requirements costs 1x a baseline unit and fixing it during system testing costs 15x that unit. Fixing in system testing costs how many times as much as fixing during requirements?</p>",
+          "answers": [
+            {
+              "text": "15x",
+              "fraction": 100,
+              "feedback": "Correct — 15 / 1 = 15."
+            },
+            {
+              "text": "14x",
+              "fraction": 0,
+              "feedback": "That is 15 minus 1; the ratio is 15 / 1 = 15."
+            },
+            {
+              "text": "16x",
+              "fraction": 0,
+              "feedback": "That is 15 plus 1; the ratio is 15 / 1 = 15."
+            },
+            {
+              "text": "1/15x",
+              "fraction": 0,
+              "feedback": "That inverts the ratio; system test is more expensive, so it is 15x, not 1/15x."
+            }
+          ],
+          "generalFeedback": "The relative cost is 15 / 1 = 15. System-test fixes cost 15 times a requirements fix for these illustrative figures.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "External failures most expensive",
+          "text": "<p>Among failure costs, external failures (those found by the customer) are typically the most expensive.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — external failures add support, patches, recalls, and reputation damage on top of the fix."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "External failures are generally the most expensive because the defect has reached the customer."
+            }
+          ],
+          "generalFeedback": "External failure costs are usually the highest failure category: beyond fixing the defect, the organisation may face support load, emergency patches, recalls, penalties, and loss of goodwill."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Compute production vs design ratio",
+          "text": "<p>Given illustrative multipliers where fixing a defect in design costs 5x a baseline unit and fixing it in production costs 100x that unit, fixing in production costs how many times as much as fixing in design?</p>",
+          "answers": [
+            {
+              "text": "20x",
+              "fraction": 100,
+              "feedback": "Correct — 100 / 5 = 20."
+            },
+            {
+              "text": "95x",
+              "fraction": 0,
+              "feedback": "That is 100 minus 5; the question asks for the ratio, 100 / 5 = 20."
+            },
+            {
+              "text": "105x",
+              "fraction": 0,
+              "feedback": "That is 100 plus 5; the ratio is 100 / 5 = 20."
+            },
+            {
+              "text": "500x",
+              "fraction": 0,
+              "feedback": "That is 100 times 5; the ratio is 100 / 5 = 20."
+            }
+          ],
+          "generalFeedback": "Divide the two given multipliers: 100 / 5 = 20. Production is 20 times as expensive as design for these illustrative figures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why external failure costs most",
+          "text": "<p>Why are external failure costs typically the highest category of quality cost?</p>",
+          "answers": [
+            {
+              "text": "Beyond fixing the defect they add support, patches or recalls, and reputation or goodwill damage",
+              "fraction": 100,
+              "feedback": "Correct — the customer-facing consequences pile on top of the technical fix."
+            },
+            {
+              "text": "Because customer-found defects are always trivially easy to reproduce",
+              "fraction": 0,
+              "feedback": "Reproducing field defects is often hard; that does not explain the high cost."
+            },
+            {
+              "text": "Because prevention activities are billed to the customer",
+              "fraction": 0,
+              "feedback": "Prevention is an internal conformance cost and is unrelated to external failure cost."
+            },
+            {
+              "text": "Because internal rework is entirely free",
+              "fraction": 0,
+              "feedback": "Internal rework is not free; and that would not make external failures the most expensive."
+            }
+          ],
+          "generalFeedback": "By the time a defect reaches the field it can trigger support load, emergency patches, recalls, contractual penalties, and lasting reputation damage — all on top of the code fix — which is why external failure is usually the costliest category.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Shift-left rationale",
+          "text": "<p>The main economic rationale for shift-left (reviewing and testing earlier) is that:</p>",
+          "answers": [
+            {
+              "text": "Catching defects earlier costs far less than fixing them after they have propagated to later phases",
+              "fraction": 100,
+              "feedback": "Correct — early detection avoids the escalating downstream cost."
+            },
+            {
+              "text": "Earlier testing needs no tools and is therefore completely free",
+              "fraction": 0,
+              "feedback": "Early quality work still has a cost; the point is that it avoids larger later costs."
+            },
+            {
+              "text": "Later phases never contain defects",
+              "fraction": 0,
+              "feedback": "Later phases certainly can contain defects; shift-left is about catching them before then."
+            },
+            {
+              "text": "It lets the team skip requirements analysis entirely",
+              "fraction": 0,
+              "feedback": "Shift-left strengthens early activities such as requirements review, it does not skip them."
+            }
+          ],
+          "generalFeedback": "Shift-left is justified by the cost-of-change curve: a defect caught in requirements or design is far cheaper to fix than the same defect caught in testing or production, so moving quality work earlier lowers total cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: training as cost type",
+          "text": "<p>Running a training course to teach developers secure-coding practices so that fewer defects are written is an example of a:</p>",
+          "answers": [
+            {
+              "text": "Prevention cost",
+              "fraction": 100,
+              "feedback": "Correct — training reduces the chance defects are introduced."
+            },
+            {
+              "text": "Appraisal cost",
+              "fraction": 0,
+              "feedback": "Appraisal is spent to detect existing defects, not to prevent them."
+            },
+            {
+              "text": "Internal failure cost",
+              "fraction": 0,
+              "feedback": "Internal failure is the cost of fixing defects found before release, not of training."
+            },
+            {
+              "text": "External failure cost",
+              "fraction": 0,
+              "feedback": "External failure arises after release; training happens before defects exist."
+            }
+          ],
+          "generalFeedback": "Training aimed at reducing the introduction of defects is a classic prevention cost, part of the conformance cost of quality.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: code inspection as cost type",
+          "text": "<p>Time spent performing a code inspection in order to detect defects is classified as a:</p>",
+          "answers": [
+            {
+              "text": "Appraisal cost",
+              "fraction": 100,
+              "feedback": "Correct — appraisal covers evaluating work products to find defects, including inspections."
+            },
+            {
+              "text": "Prevention cost",
+              "fraction": 0,
+              "feedback": "Prevention stops defects being introduced; an inspection detects ones that already exist."
+            },
+            {
+              "text": "Internal failure cost",
+              "fraction": 0,
+              "feedback": "Internal failure is the rework once a defect is found, not the act of inspecting to find it."
+            },
+            {
+              "text": "External failure cost",
+              "fraction": 0,
+              "feedback": "External failure arises after release; an inspection is an in-house detection activity."
+            }
+          ],
+          "generalFeedback": "Inspections, reviews, and testing are appraisal activities: they evaluate a product to detect defects. The subsequent rework to fix what they find is a separate failure cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: rework before release",
+          "text": "<p>The effort to rework and re-test a defect that testers found before the release is a:</p>",
+          "answers": [
+            {
+              "text": "Internal failure cost",
+              "fraction": 100,
+              "feedback": "Correct — the defect was fixed in-house before it reached the customer."
+            },
+            {
+              "text": "External failure cost",
+              "fraction": 0,
+              "feedback": "External failure requires the defect to have reached the customer; here it was caught before release."
+            },
+            {
+              "text": "Prevention cost",
+              "fraction": 0,
+              "feedback": "Prevention avoids introducing defects; this is rework for a defect that already exists."
+            },
+            {
+              "text": "Appraisal cost",
+              "fraction": 0,
+              "feedback": "Appraisal is the detection activity (the testing); the rework that follows is a failure cost."
+            }
+          ],
+          "generalFeedback": "Rework and re-testing for a defect caught before delivery is an internal failure cost. Had the same defect been fixed after the customer hit it, it would be an external failure cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: patch and support hotline",
+          "text": "<p>Issuing a patch and staffing a support hotline for a bug that customers hit in production is an:</p>",
+          "answers": [
+            {
+              "text": "External failure cost",
+              "fraction": 100,
+              "feedback": "Correct — the defect reached customers, so the resulting costs are external failures."
+            },
+            {
+              "text": "Internal failure cost",
+              "fraction": 0,
+              "feedback": "Internal failure would mean the defect was caught before release; here customers hit it."
+            },
+            {
+              "text": "Appraisal cost",
+              "fraction": 0,
+              "feedback": "Appraisal is a detection activity, not the cost of handling a released defect."
+            },
+            {
+              "text": "Prevention cost",
+              "fraction": 0,
+              "feedback": "Prevention happens before defects exist, not after a customer-facing failure."
+            }
+          ],
+          "generalFeedback": "Patches, support, warranty, and recalls for defects that reach the customer are external failure costs — usually the most expensive category.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Review vs dynamic testing cost",
+          "text": "<p>Why can a review of a design document be more cost-effective than waiting for dynamic testing to reveal the same defect?</p>",
+          "answers": [
+            {
+              "text": "The review catches the defect earlier, before it is coded and built upon, so less downstream rework is needed",
+              "fraction": 100,
+              "feedback": "Correct — earlier detection means the defect has propagated less."
+            },
+            {
+              "text": "The review executes the code faster than a test harness can",
+              "fraction": 0,
+              "feedback": "A review does not execute code at all; it is a static technique."
+            },
+            {
+              "text": "Dynamic testing can never find design defects under any circumstances",
+              "fraction": 0,
+              "feedback": "Dynamic testing can reveal design defects, just later and often more expensively."
+            },
+            {
+              "text": "Reviews always find every defect, guaranteeing zero residual risk",
+              "fraction": 0,
+              "feedback": "No technique finds every defect; reviews reduce risk but do not eliminate it."
+            }
+          ],
+          "generalFeedback": "A design review can catch a defect in the design phase, before code and tests are built on it. Dynamic testing finds the same defect only later, after more artifacts depend on it, so the fix is more expensive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute coding vs requirements ratio",
+          "text": "<p>Given illustrative multipliers of 1x to fix a defect in requirements and 10x to fix it in coding, the coding fix costs how many times the requirements fix?</p>",
+          "answers": [
+            {
+              "text": "10x",
+              "fraction": 100,
+              "feedback": "Correct — 10 / 1 = 10."
+            },
+            {
+              "text": "9x",
+              "fraction": 0,
+              "feedback": "That is 10 minus 1; the ratio is 10 / 1 = 10."
+            },
+            {
+              "text": "11x",
+              "fraction": 0,
+              "feedback": "That is 10 plus 1; the ratio is 10 / 1 = 10."
+            },
+            {
+              "text": "0.1x",
+              "fraction": 0,
+              "feedback": "That inverts the ratio; coding is more expensive, so it is 10x."
+            }
+          ],
+          "generalFeedback": "Divide the given multipliers: 10 / 1 = 10. Coding fixes cost 10 times a requirements fix for these illustrative figures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute system test vs coding ratio",
+          "text": "<p>Given illustrative multipliers of 10x to fix a defect during coding and 15x during system testing, the system-test fix costs how many times the coding fix?</p>",
+          "answers": [
+            {
+              "text": "1.5x",
+              "fraction": 100,
+              "feedback": "Correct — 15 / 10 = 1.5."
+            },
+            {
+              "text": "5x",
+              "fraction": 0,
+              "feedback": "That is 15 minus 10; the question asks for the ratio, 15 / 10 = 1.5."
+            },
+            {
+              "text": "25x",
+              "fraction": 0,
+              "feedback": "That is 15 plus 10; the ratio is 15 / 10 = 1.5."
+            },
+            {
+              "text": "0.67x",
+              "fraction": 0,
+              "feedback": "That inverts the ratio; system test is more expensive, so it is 1.5x."
+            }
+          ],
+          "generalFeedback": "Divide the given multipliers: 15 / 10 = 1.5. System-test fixes cost 1.5 times a coding fix for these illustrative figures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Static technique economic effect",
+          "text": "<p>A static technique (such as an inspection) can reduce cost because it:</p>",
+          "answers": [
+            {
+              "text": "Detects defects before the code is executed, often in phases where fixes are cheaper",
+              "fraction": 100,
+              "feedback": "Correct — finding defects statically and early keeps fixes inexpensive."
+            },
+            {
+              "text": "Requires the software to be deployed to production first",
+              "fraction": 0,
+              "feedback": "Static techniques need no execution or deployment at all."
+            },
+            {
+              "text": "Replaces the need to have any requirements",
+              "fraction": 0,
+              "feedback": "Static techniques evaluate artifacts such as requirements; they do not remove the need for them."
+            },
+            {
+              "text": "Works only on compiled binary executables",
+              "fraction": 0,
+              "feedback": "Static techniques apply to requirements, designs, and source, not just binaries."
+            }
+          ],
+          "generalFeedback": "Static techniques examine artifacts without executing them, so they can find defects in early phases (requirements, design, code) where the cost of change is lowest.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute dollar ratio design vs production",
+          "text": "<p>A given defect costs $50 to fix if caught in design and $1000 to fix if it escapes to production. Escaping to production is how many times as expensive?</p>",
+          "answers": [
+            {
+              "text": "20x",
+              "fraction": 100,
+              "feedback": "Correct — 1000 / 50 = 20."
+            },
+            {
+              "text": "950x",
+              "fraction": 0,
+              "feedback": "That is 1000 minus 50; the question asks for the ratio, 1000 / 50 = 20."
+            },
+            {
+              "text": "50x",
+              "fraction": 0,
+              "feedback": "That is one of the given values, not the ratio; 1000 / 50 = 20."
+            },
+            {
+              "text": "1050x",
+              "fraction": 0,
+              "feedback": "That is 1000 plus 50; the ratio is 1000 / 50 = 20."
+            }
+          ],
+          "generalFeedback": "Divide the two given costs: 1000 / 50 = 20. Escaping to production is 20 times as expensive as fixing in design here.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why escalation happens",
+          "text": "<p>The primary reason a defect gets more expensive to fix in later phases is that:</p>",
+          "answers": [
+            {
+              "text": "Later work is built on top of it, so fixing it requires reworking more artifacts (design, code, tests, docs)",
+              "fraction": 100,
+              "feedback": "Correct — the defect propagates, and more must be undone and redone."
+            },
+            {
+              "text": "Programmers charge a higher hourly rate in later phases",
+              "fraction": 0,
+              "feedback": "Rates do not systematically rise by phase; the driver is accumulated rework."
+            },
+            {
+              "text": "Later defects are always more severe by definition",
+              "fraction": 0,
+              "feedback": "Severity is independent of when a defect is found; cost rises because of propagation."
+            },
+            {
+              "text": "Compilers become slower as the project ages",
+              "fraction": 0,
+              "feedback": "Tool speed is not the reason; the cost-of-change escalation comes from downstream rework."
+            }
+          ],
+          "generalFeedback": "Escalation happens because later artifacts depend on the flawed one. Fixing a requirements defect found in production may mean changing requirements, design, code, tests, and documentation, plus dealing with the field impact.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: process improvement",
+          "text": "<p>Improving the requirements-writing process so that ambiguous requirements are less likely to occur is a:</p>",
+          "answers": [
+            {
+              "text": "Prevention cost",
+              "fraction": 100,
+              "feedback": "Correct — improving the process to avoid introducing defects is prevention."
+            },
+            {
+              "text": "Appraisal cost",
+              "fraction": 0,
+              "feedback": "Appraisal detects existing defects; this change stops them being introduced."
+            },
+            {
+              "text": "Internal failure cost",
+              "fraction": 0,
+              "feedback": "Internal failure is rework for defects already found, not process improvement."
+            },
+            {
+              "text": "External failure cost",
+              "fraction": 0,
+              "feedback": "External failure arises after release; process improvement is a prevention activity."
+            }
+          ],
+          "generalFeedback": "Process improvement that reduces how often defects are introduced is a prevention cost, part of the conformance cost of quality.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute production vs system test ratio",
+          "text": "<p>Given illustrative multipliers of 15x to fix a defect in system testing and 45x in production, fixing in production costs how many times as much as fixing in system testing?</p>",
+          "answers": [
+            {
+              "text": "3x",
+              "fraction": 100,
+              "feedback": "Correct — 45 / 15 = 3."
+            },
+            {
+              "text": "30x",
+              "fraction": 0,
+              "feedback": "That is 45 minus 15; the question asks for the ratio, 45 / 15 = 3."
+            },
+            {
+              "text": "60x",
+              "fraction": 0,
+              "feedback": "That is 45 plus 15; the ratio is 45 / 15 = 3."
+            },
+            {
+              "text": "0.33x",
+              "fraction": 0,
+              "feedback": "That inverts the ratio; production is more expensive, so it is 3x."
+            }
+          ],
+          "generalFeedback": "Divide the given multipliers: 45 / 15 = 3. Production is 3 times as expensive as system testing for these illustrative figures.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Total savings from earlier catch",
+          "text": "<p>Illustratively, fixing a defect costs 5 units in design and 100 units in production. A design review catches 4 defects that would otherwise have escaped to production. Ignoring the cost of the review itself, how much is saved compared with fixing those 4 defects in production?</p>",
+          "answers": [
+            {
+              "text": "380 units",
+              "fraction": 100,
+              "feedback": "Correct — 4 x (100 - 5) = 4 x 95 = 380."
+            },
+            {
+              "text": "400 units",
+              "fraction": 0,
+              "feedback": "That is 4 x 100; you must subtract the 5-unit design fix still incurred for each: 4 x (100 - 5) = 380."
+            },
+            {
+              "text": "420 units",
+              "fraction": 0,
+              "feedback": "That is 4 x (100 + 5); the saving per defect is 100 - 5 = 95, so 4 x 95 = 380."
+            },
+            {
+              "text": "20 units",
+              "fraction": 0,
+              "feedback": "That is 4 x 5, the design cost alone; the saving is 4 x (100 - 5) = 380."
+            }
+          ],
+          "generalFeedback": "Each defect caught in design costs 5 instead of 100, saving 95. For 4 defects the saving is 4 x 95 = 380 units.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Break-even of a review",
+          "text": "<p>A design review costs 60 units to run. Each defect it catches costs 5 units to fix now but would cost 30 units if it escaped to production. The review catches 3 such defects. What is the net economic result of doing the review?</p>",
+          "answers": [
+            {
+              "text": "A net saving of 15 units (the review pays for itself)",
+              "fraction": 100,
+              "feedback": "Correct — saving per defect is 30 - 5 = 25; 3 x 25 = 75 avoided; 75 - 60 = 15."
+            },
+            {
+              "text": "A net loss of 60 units",
+              "fraction": 0,
+              "feedback": "That ignores the downstream savings; the review avoids 3 x 25 = 75 units, exceeding its 60-unit cost."
+            },
+            {
+              "text": "A net saving of 90 units",
+              "fraction": 0,
+              "feedback": "That is 3 x 30 (the full production cost); you must subtract both the 5-unit fixes and the 60-unit review."
+            },
+            {
+              "text": "Exactly break-even (0 units)",
+              "fraction": 0,
+              "feedback": "The numbers do not cancel: 75 avoided minus 60 spent leaves a 15-unit net saving."
+            }
+          ],
+          "generalFeedback": "Each caught defect saves 30 - 5 = 25 units versus escaping to production. For 3 defects that is 75 units avoided. Subtract the 60-unit review cost: 75 - 60 = 15 units net saving, so the review is worthwhile.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the curve is steep",
+          "text": "<p>Why is the cost-of-change curve often described as growing steeply (roughly exponentially) across phases?</p>",
+          "answers": [
+            {
+              "text": "Each later phase builds more on the defect, so rework multiplies as it propagates through design, code, tests, and released artifacts",
+              "fraction": 100,
+              "feedback": "Correct — compounding downstream dependencies drive the steep rise."
+            },
+            {
+              "text": "Because currency inflation doubles all costs every phase",
+              "fraction": 0,
+              "feedback": "Inflation is unrelated; the rise comes from accumulated rework."
+            },
+            {
+              "text": "Because the number of testers is required to double each phase",
+              "fraction": 0,
+              "feedback": "Staffing does not double by rule; the driver is propagation of the defect."
+            },
+            {
+              "text": "Because defects reproduce themselves biologically over time",
+              "fraction": 0,
+              "feedback": "Defects do not multiply on their own; the cost multiplies because more artifacts depend on the flaw."
+            }
+          ],
+          "generalFeedback": "The steepness comes from compounding: a defect left in place has more and more work built on top of it, so the amount of rework needed to remove it grows quickly across phases.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Multipliers illustrative, trend robust",
+          "text": "<p>The exact per-phase cost multipliers are illustrative and vary between studies and contexts, but the general trend that later fixes cost more is widely observed.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — treat specific numbers as typical figures, not as an exact universal law; the trend, however, is robust."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The specific multipliers do vary and are debated, yet the escalating trend is well supported, so the statement is true."
+            }
+          ],
+          "generalFeedback": "Reported multipliers (such as 1:5:10:15:100) differ across sources and depend heavily on context and measurement. They are useful illustrations. What is well supported is the direction: fixing defects later tends to cost more."
+        },
+        {
+          "type": "multichoice",
+          "name": "Cost-of-quality trade-off",
+          "text": "<p>In the cost-of-quality model, increasing spend on prevention and appraisal typically:</p>",
+          "answers": [
+            {
+              "text": "Reduces failure costs, and can lower the total cost of quality up to a point",
+              "fraction": 100,
+              "feedback": "Correct — conformance spending buys down the larger failure costs."
+            },
+            {
+              "text": "Has no effect on failure costs",
+              "fraction": 0,
+              "feedback": "The central trade-off is precisely that conformance spending reduces failure costs."
+            },
+            {
+              "text": "Always increases the total cost of quality with no benefit",
+              "fraction": 0,
+              "feedback": "Up to a point the reduction in failure cost outweighs the added conformance cost."
+            },
+            {
+              "text": "Eliminates all residual risk permanently",
+              "fraction": 0,
+              "feedback": "No amount of spending removes all risk; some residual risk always remains."
+            }
+          ],
+          "generalFeedback": "Cost of quality balances conformance costs (prevention + appraisal) against failure costs (internal + external). Investing more in the first two usually reduces the last two, lowering total cost of quality up to a practical optimum.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Early introduced, late found",
+          "text": "<p>A defect is <em>introduced</em> during requirements but is not <em>discovered</em> until production. Which phase's fix cost does it incur?</p>",
+          "answers": [
+            {
+              "text": "The production (late-phase) cost, because cost is driven by when the defect is found, not when it was introduced",
+              "fraction": 100,
+              "feedback": "Correct — the escalation is tied to the discovery phase."
+            },
+            {
+              "text": "The requirements cost, because that is where it originated",
+              "fraction": 0,
+              "feedback": "The low requirements cost would apply only if it had been caught there; found late, it incurs the late cost."
+            },
+            {
+              "text": "The average of the requirements and production costs",
+              "fraction": 0,
+              "feedback": "There is no averaging; the cost is that of the phase in which it is found."
+            },
+            {
+              "text": "No cost, because it is an old defect from an early phase",
+              "fraction": 0,
+              "feedback": "Age does not remove cost; an old defect found late is expensive."
+            }
+          ],
+          "generalFeedback": "What escalates the cost is how long a defect survives undetected. A requirements defect that slips all the way to production incurs the production-level fix cost, not the cheap requirements cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix cost by discovery phase",
+          "text": "<p>Given illustrative fix costs of requirements 1, design 5, coding 10, system test 15, production 100 (units), a requirements defect that slips through until it is caught in system test costs how much to fix?</p>",
+          "answers": [
+            {
+              "text": "15 units",
+              "fraction": 100,
+              "feedback": "Correct — it is found in system test, so it incurs the system-test cost of 15."
+            },
+            {
+              "text": "1 unit",
+              "fraction": 0,
+              "feedback": "That is the requirements cost, which applies only if caught in requirements; it was found in system test."
+            },
+            {
+              "text": "16 units",
+              "fraction": 0,
+              "feedback": "That adds 1 and 15; the cost is simply the discovery-phase cost, 15."
+            },
+            {
+              "text": "100 units",
+              "fraction": 0,
+              "feedback": "That is the production cost; the defect was caught in system test, not production."
+            }
+          ],
+          "generalFeedback": "The fix cost is set by the phase in which the defect is discovered. Caught in system test, the requirements defect costs 15 units, not the 1-unit requirements figure.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum defects to justify a review",
+          "text": "<p>A review costs 200 units. Each defect it catches costs 10 units to fix now but 100 units if it reaches production. What is the minimum number of caught defects for the review to at least pay for itself?</p>",
+          "answers": [
+            {
+              "text": "3 defects",
+              "fraction": 100,
+              "feedback": "Correct — saving per defect is 100 - 10 = 90; 200 / 90 is about 2.22, so you need 3."
+            },
+            {
+              "text": "2 defects",
+              "fraction": 0,
+              "feedback": "2 x 90 = 180, which is less than 200; the review does not yet pay for itself."
+            },
+            {
+              "text": "20 defects",
+              "fraction": 0,
+              "feedback": "That divides 200 by 10 rather than by the 90-unit per-defect saving."
+            },
+            {
+              "text": "200 defects",
+              "fraction": 0,
+              "feedback": "That is the review cost in units, not the number of defects needed."
+            }
+          ],
+          "generalFeedback": "Each caught defect saves 100 - 10 = 90 units. To cover the 200-unit review you need 200 / 90, about 2.22 defects, rounded up to 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Total cost of two strategies",
+          "text": "<p>Ten defects exist. Strategy A catches all 10 in design (5 units each). Strategy B lets all 10 reach production (100 units each). How much more does Strategy B cost in total than Strategy A?</p>",
+          "answers": [
+            {
+              "text": "950 units",
+              "fraction": 100,
+              "feedback": "Correct — 10 x 100 - 10 x 5 = 1000 - 50 = 950."
+            },
+            {
+              "text": "1000 units",
+              "fraction": 0,
+              "feedback": "That is Strategy B's total; the question asks for the difference, 1000 - 50 = 950."
+            },
+            {
+              "text": "50 units",
+              "fraction": 0,
+              "feedback": "That is Strategy A's total; the difference is 1000 - 50 = 950."
+            },
+            {
+              "text": "105 units",
+              "fraction": 0,
+              "feedback": "That is 100 + 5 for a single defect; across 10 defects the difference is 950."
+            }
+          ],
+          "generalFeedback": "Strategy A costs 10 x 5 = 50; Strategy B costs 10 x 100 = 1000. Strategy B costs 1000 - 50 = 950 units more.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why prevention pays off",
+          "text": "<p>What is the core economic argument that prevention &quot;pays off&quot;?</p>",
+          "answers": [
+            {
+              "text": "A unit spent preventing a defect avoids the larger, escalating cost of finding and fixing it later, especially in the field",
+              "fraction": 100,
+              "feedback": "Correct — a prevented defect never incurs downstream escalation."
+            },
+            {
+              "text": "Prevention is legally mandated in all jurisdictions",
+              "fraction": 0,
+              "feedback": "The argument is economic, not a universal legal requirement."
+            },
+            {
+              "text": "Prevention makes appraisal unnecessary, so all testing can be skipped",
+              "fraction": 0,
+              "feedback": "Prevention complements appraisal; testing is still needed."
+            },
+            {
+              "text": "Prevention converts external failures into revenue",
+              "fraction": 0,
+              "feedback": "Prevention avoids failure costs; it does not turn failures into income."
+            }
+          ],
+          "generalFeedback": "Prevention is economical because an avoided defect incurs none of the escalating downstream costs of detection, rework, and field failure. Money spent early to stop defects generally returns more than the same money spent fixing them later.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mixed caught and escaped",
+          "text": "<p>Illustrative fix costs: design 5, production 100 (units). Of 6 defects, a review catches 4 in design and 2 escape to production. What is the total fix cost for these 6 defects, excluding the review's own cost?</p>",
+          "answers": [
+            {
+              "text": "220 units",
+              "fraction": 100,
+              "feedback": "Correct — 4 x 5 + 2 x 100 = 20 + 200 = 220."
+            },
+            {
+              "text": "600 units",
+              "fraction": 0,
+              "feedback": "That is 6 x 100, as if all escaped; only 2 escaped, so it is 20 + 200 = 220."
+            },
+            {
+              "text": "30 units",
+              "fraction": 0,
+              "feedback": "That is 6 x 5, as if all were caught in design; 2 escaped, so it is 220."
+            },
+            {
+              "text": "105 units",
+              "fraction": 0,
+              "feedback": "That is 100 + 5 for a single pair; across 6 defects the total is 220."
+            }
+          ],
+          "generalFeedback": "Add the two groups: 4 defects at 5 units (20) plus 2 defects at 100 units (200) gives 220 units total.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Total cost of quality",
+          "text": "<p>The <em>total cost of quality</em> is best expressed as:</p>",
+          "answers": [
+            {
+              "text": "Prevention + appraisal + internal failure + external failure costs",
+              "fraction": 100,
+              "feedback": "Correct — conformance plus non-conformance costs together."
+            },
+            {
+              "text": "Only the cost of external failures",
+              "fraction": 0,
+              "feedback": "External failure is one term of four; total cost of quality sums all four."
+            },
+            {
+              "text": "Prevention minus appraisal",
+              "fraction": 0,
+              "feedback": "The categories are summed, not subtracted, and failure costs must be included."
+            },
+            {
+              "text": "The salary of the QA team only",
+              "fraction": 0,
+              "feedback": "Cost of quality spans prevention, appraisal, and both failure categories, not just QA salaries."
+            }
+          ],
+          "generalFeedback": "Total cost of quality = conformance (prevention + appraisal) + non-conformance (internal failure + external failure). Managing quality economically means minimising this total, usually by shifting spend toward prevention and early appraisal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Reading the 1:10:100 ratios",
+          "text": "<p>Which statement about &quot;1:10:100&quot; style cost ratios is most accurate?</p>",
+          "answers": [
+            {
+              "text": "They are memorable illustrative heuristics; the precise numbers are not a universal law, though the escalating trend is well supported",
+              "fraction": 100,
+              "feedback": "Correct — use them as typical figures, not as exact constants."
+            },
+            {
+              "text": "They are an exact physical law that holds identically in every project",
+              "fraction": 0,
+              "feedback": "The precise numbers vary by context and study; they are not an exact law."
+            },
+            {
+              "text": "They prove that defects can never be fixed cheaply",
+              "fraction": 0,
+              "feedback": "Defects caught early are cheap; the ratios describe how cost grows if they are not."
+            },
+            {
+              "text": "They apply only to hardware and never to software",
+              "fraction": 0,
+              "feedback": "The escalation trend is observed in software too; the ratios are widely cited for it."
+            }
+          ],
+          "generalFeedback": "Ratios like 1:10:100 are teaching heuristics for the cost-of-change trend. Real multipliers vary widely, so treat the numbers as illustrative while relying on the robust qualitative message: later is more expensive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Review not worthwhile on these numbers",
+          "text": "<p>A review costs 100 units and catches 2 defects. Each defect costs 5 units to fix now but 40 units if it escaped to production (illustrative). On these numbers alone, was the review economically worthwhile?</p>",
+          "answers": [
+            {
+              "text": "No, the avoided downstream cost (70 units) is less than the 100-unit review, a net loss of 30 units",
+              "fraction": 100,
+              "feedback": "Correct — saving per defect is 40 - 5 = 35; 2 x 35 = 70; 70 - 100 = -30."
+            },
+            {
+              "text": "Yes, it saves 80 units",
+              "fraction": 0,
+              "feedback": "That would be 2 x 40; you must subtract the 5-unit fixes and the 100-unit review, giving a 30-unit loss."
+            },
+            {
+              "text": "Yes, it saves exactly 100 units",
+              "fraction": 0,
+              "feedback": "The avoided cost is only 70 units, less than the 100-unit review, so it is a loss."
+            },
+            {
+              "text": "It breaks even at 0 units",
+              "fraction": 0,
+              "feedback": "70 avoided minus 100 spent is a 30-unit net loss, not break-even."
+            }
+          ],
+          "generalFeedback": "Each caught defect saves 40 - 5 = 35 units; two defects avoid 70 units downstream. The review costs 100, so the net result is 70 - 100 = -30 units, a loss on these figures. Break-even here would need 3 defects (3 x 35 = 105 > 100).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Where to shift spend",
+          "text": "<p>A team currently spends heavily on external-failure handling (recalls and support). By cost-of-quality reasoning, the most economical improvement is usually to:</p>",
+          "answers": [
+            {
+              "text": "Invest more in prevention and earlier appraisal to reduce the far larger downstream failure costs",
+              "fraction": 100,
+              "feedback": "Correct — buying down failure cost with conformance spending lowers the total."
+            },
+            {
+              "text": "Cut all prevention and appraisal spending to save money now",
+              "fraction": 0,
+              "feedback": "That would raise failure costs further; it is the opposite of the recommended move."
+            },
+            {
+              "text": "Wait for customers to report every defect before acting",
+              "fraction": 0,
+              "feedback": "That maximises the most expensive category, external failure."
+            },
+            {
+              "text": "Increase external-failure spending even further",
+              "fraction": 0,
+              "feedback": "Spending more on the costliest category does not reduce the total cost of quality."
+            }
+          ],
+          "generalFeedback": "When failure costs dominate, cost-of-quality reasoning says to shift spend toward prevention and early appraisal. A modest increase there typically produces a larger reduction in internal and external failure costs, lowering the total.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "變更成本原則",
+          "text": "<p><em>變更成本（cost of change）</em>（缺陷成本遞增）原則指出：</p>",
+          "answers": [
+            {
+              "text": "缺陷被發現得愈晚，修復它的成本傾向於愈高",
+              "fraction": 100,
+              "feedback": "正確——Boehm 的變更成本曲線會隨著發現時機延後而上升。"
+            },
+            {
+              "text": "不論何時發現，修復缺陷的成本都相同",
+              "fraction": 0,
+              "feedback": "這條曲線的重點正是成本並非固定，而是會遞增。"
+            },
+            {
+              "text": "愈晚發現的缺陷一定愈便宜，因為工具會隨時間進步",
+              "fraction": 0,
+              "feedback": "愈晚發現通常愈貴，而非愈便宜。"
+            },
+            {
+              "text": "只有在生產環境發現的缺陷才有任何成本",
+              "fraction": 0,
+              "feedback": "早期發現的缺陷也要花成本修復；重點是愈晚修愈貴。"
+            }
+          ],
+          "generalFeedback": "Boehm 的變更成本曲線捕捉到一個普遍觀察到的趨勢：同一個缺陷被發現得愈晚，修復成本就愈高，因為已有更多工作建立在它之上。常見的示意倍數會從需求階段約 1x 上升到生產階段的數十到數百倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是左移",
+          "text": "<p>「左移（shift-left）」測試是指：</p>",
+          "answers": [
+            {
+              "text": "把測試與品質活動移到生命週期較早的階段，讓缺陷更早被抓到",
+              "fraction": 100,
+              "feedback": "正確——把品質工作移到時間軸的左側（較早）。"
+            },
+            {
+              "text": "把測試延到發布之後，以先省下前期時間",
+              "fraction": 0,
+              "feedback": "那是右移，與左移相反。"
+            },
+            {
+              "text": "把所有測試移交給一個畫在組織圖左邊的獨立團隊",
+              "fraction": 0,
+              "feedback": "左移談的是生命週期中的時機，而非組織圖上的位置。"
+            },
+            {
+              "text": "只有在程式碼部署到生產環境後才撰寫測試",
+              "fraction": 0,
+              "feedback": "那把測試推遲到最晚，與左移相反。"
+            }
+          ],
+          "generalFeedback": "左移把審查與測試移到更早，使缺陷在接近被引入之處就被找到，此時修復最便宜。它是對變更成本曲線的實務回應。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "內部失效成本",
+          "text": "<p>在品質成本中，<em>內部失效成本（internal failure cost）</em>發生於：</p>",
+          "answers": [
+            {
+              "text": "缺陷在產品發布前被發現時（例如重工與重新測試）",
+              "fraction": 100,
+              "feedback": "正確——內部失效是在客戶看到之前，於內部被抓到的。"
+            },
+            {
+              "text": "缺陷在發布後被客戶發現時",
+              "fraction": 0,
+              "feedback": "那是外部失效成本。"
+            },
+            {
+              "text": "團隊訓練人員以預防缺陷時",
+              "fraction": 0,
+              "feedback": "那是預防成本。"
+            },
+            {
+              "text": "團隊進行檢查或測試以偵測缺陷時",
+              "fraction": 0,
+              "feedback": "那是鑑定成本。"
+            }
+          ],
+          "generalFeedback": "內部失效成本是在交付前發現缺陷所產生的成本：重工、重新測試與重新檢查。它與外部失效成本相對，後者發生在客戶已取得產品之後。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "外部失效成本",
+          "text": "<p><em>外部失效成本（external failure cost）</em>發生於：</p>",
+          "answers": [
+            {
+              "text": "缺陷在發布後被客戶發現時（例如客服、修補程式、召回）",
+              "fraction": 100,
+              "feedback": "正確——外部失效已觸及客戶。"
+            },
+            {
+              "text": "缺陷在發布前於內部被發現並修復時",
+              "fraction": 0,
+              "feedback": "那是內部失效成本。"
+            },
+            {
+              "text": "團隊事先規劃與安排其品質活動時",
+              "fraction": 0,
+              "feedback": "那是預防成本。"
+            },
+            {
+              "text": "審查者在撰寫任何程式碼前檢視設計文件時",
+              "fraction": 0,
+              "feedback": "那是鑑定成本。"
+            }
+          ],
+          "generalFeedback": "外部失效成本在缺陷逸出到客戶後產生：客服電話、修補程式、保固、召回與商譽損失。它通常是最昂貴的一類品質成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "預防成本",
+          "text": "<p><em>預防成本（prevention cost）</em>是為了以下何者而花的錢：</p>",
+          "answers": [
+            {
+              "text": "從一開始就阻止缺陷被引入（例如訓練、更好的流程）",
+              "fraction": 100,
+              "feedback": "正確——預防讓缺陷不被製造出來。"
+            },
+            {
+              "text": "找出已經存在的缺陷（例如審查與測試）",
+              "fraction": 0,
+              "feedback": "那是鑑定成本。"
+            },
+            {
+              "text": "修復在發布前被發現的缺陷",
+              "fraction": 0,
+              "feedback": "那是內部失效成本。"
+            },
+            {
+              "text": "處理發布後的客戶抱怨",
+              "fraction": 0,
+              "feedback": "那是外部失效成本。"
+            }
+          ],
+          "generalFeedback": "預防成本（符合性成本的一部分）用於避免缺陷被引入：訓練、品質規劃、工具投資與流程改善。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "鑑定成本",
+          "text": "<p><em>鑑定成本（appraisal cost）</em>是為了以下何者而花的錢：</p>",
+          "answers": [
+            {
+              "text": "評估或量測工作產物以找出缺陷（例如審查、檢查、測試）",
+              "fraction": 100,
+              "feedback": "正確——鑑定就是偵測可能已存在的缺陷。"
+            },
+            {
+              "text": "從源頭預防缺陷被引入",
+              "fraction": 0,
+              "feedback": "那是預防成本。"
+            },
+            {
+              "text": "賠償客戶在現場發生的失效",
+              "fraction": 0,
+              "feedback": "那是外部失效成本。"
+            },
+            {
+              "text": "重工修復一個由客戶發現的缺陷",
+              "fraction": 0,
+              "feedback": "那是外部失效成本。"
+            }
+          ],
+          "generalFeedback": "鑑定成本（符合性成本的一部分）用於量測與評估產品以找出缺陷：審查、檢查、測試與稽核。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最昂貴的發現階段",
+          "text": "<p>修復同一個缺陷，通常在何時被發現時<em>最</em>昂貴：</p>",
+          "answers": [
+            {
+              "text": "在生產環境、發布給客戶之後",
+              "fraction": 100,
+              "feedback": "正確——生產環境的修復帶有最高的示意倍數。"
+            },
+            {
+              "text": "在需求階段",
+              "fraction": 0,
+              "feedback": "需求通常是修復缺陷最便宜的階段。"
+            },
+            {
+              "text": "在設計階段",
+              "fraction": 0,
+              "feedback": "設計階段的修復比發布後的修復便宜。"
+            },
+            {
+              "text": "在編碼階段",
+              "fraction": 0,
+              "feedback": "編碼階段的修復比發布後的修復便宜。"
+            }
+          ],
+          "generalFeedback": "變更成本曲線在生產環境達到頂峰：觸及客戶的缺陷可能除了程式修正外，還需要修補程式、客服與商譽修復，使它成為最昂貴的發現之處。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最便宜的發現階段",
+          "text": "<p>修復缺陷，通常在何時被發現時<em>最</em>便宜：</p>",
+          "answers": [
+            {
+              "text": "在它被引入的同一個早期階段（例如需求缺陷在需求階段就被抓到）",
+              "fraction": 100,
+              "feedback": "正確——在引入處就抓到缺陷可避免下游重工。"
+            },
+            {
+              "text": "在生產環境",
+              "fraction": 0,
+              "feedback": "生產環境是最貴而非最便宜的修復之處。"
+            },
+            {
+              "text": "在系統測試階段",
+              "fraction": 0,
+              "feedback": "系統測試比生產環境便宜，但比早期階段貴。"
+            },
+            {
+              "text": "在客戶觸發召回之後",
+              "fraction": 0,
+              "feedback": "召回屬於最昂貴的結果之一，而非最便宜。"
+            }
+          ],
+          "generalFeedback": "在缺陷被引入的階段就抓到，修復最便宜，因為尚未有任何東西建立在它之上。這正是把審查與測試左移能省錢的原因。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "愈晚代表愈貴",
+          "text": "<p>一般而言，缺陷在軟體生命週期中被發現得愈晚，修復它就愈昂貴。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——這是變更成本曲線的核心概念。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "普遍觀察到的趨勢恰好相反：愈晚發現愈貴。"
+            }
+          ],
+          "generalFeedback": "變更成本曲線捕捉到一個普遍趨勢：缺陷被發現得愈晚，修復愈貴。確切倍數會因研究與情境而異，但遞增的趨勢有充分支持。"
+        },
+        {
+          "type": "multichoice",
+          "name": "靜態技術如何找缺陷",
+          "text": "<p>審查與檢查等靜態技術是透過以下何種方式找出缺陷：</p>",
+          "answers": [
+            {
+              "text": "檢視工作產物（需求、設計、程式碼）而不執行程式碼",
+              "fraction": 100,
+              "feedback": "正確——靜態技術是檢視工作產物而非執行它們。"
+            },
+            {
+              "text": "執行程式並觀察失效",
+              "fraction": 0,
+              "feedback": "那是動態測試，不是靜態技術。"
+            },
+            {
+              "text": "部署到生產環境並等待客戶回報",
+              "fraction": 0,
+              "feedback": "那是現場回饋，是最昂貴的偵測形式，也不是靜態技術。"
+            },
+            {
+              "text": "在負載測試期間量測 CPU 使用率",
+              "fraction": 0,
+              "feedback": "那是動態的效能量測，不是靜態審查。"
+            }
+          ],
+          "generalFeedback": "靜態技術（審查、走查、檢查、靜態分析）在不執行程式碼的情況下找缺陷，因此能在缺陷擴散前於早期產物中抓到它們——通常是在修復便宜的階段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "預防與偵測之別",
+          "text": "<p>缺陷<em>預防（prevention）</em>與缺陷<em>偵測（detection）</em>的差別在於，預防：</p>",
+          "answers": [
+            {
+              "text": "致力於阻止缺陷被引入，而不是在缺陷已存在後才找出它們",
+              "fraction": 100,
+              "feedback": "正確——預防在缺陷產生前就行動；偵測則找出已存在者。"
+            },
+            {
+              "text": "只在程式碼被執行後才找出缺陷",
+              "fraction": 0,
+              "feedback": "那是動態偵測，不是預防。"
+            },
+            {
+              "text": "只是外部失效成本的另一個名稱",
+              "fraction": 0,
+              "feedback": "預防是符合性成本；外部失效是失效成本，兩者是不同的類別。"
+            },
+            {
+              "text": "只適用於已在生產環境中的缺陷",
+              "fraction": 0,
+              "feedback": "預防在缺陷存在前就適用，不限於生產環境的缺陷。"
+            }
+          ],
+          "generalFeedback": "預防讓缺陷不被引入（訓練、更好的流程、更清楚的需求）；偵測則找出已存在的缺陷（審查、測試）。預防往往最經濟，因為被避免掉的缺陷不會產生任何遞增成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "簡單比值：編碼對生產",
+          "text": "<p>假設（示意上）在編碼階段修復缺陷的成本為基準單位的 10x，在生產環境修復為該單位的 100x。在生產環境修復的成本是在編碼階段修復的幾倍？</p>",
+          "answers": [
+            {
+              "text": "10x",
+              "fraction": 100,
+              "feedback": "正確——100 / 10 = 10。"
+            },
+            {
+              "text": "90x",
+              "fraction": 0,
+              "feedback": "那是 100 減 10；題目問的是比值，100 / 10 = 10。"
+            },
+            {
+              "text": "110x",
+              "fraction": 0,
+              "feedback": "那是 100 加 10；比值是 100 / 10 = 10。"
+            },
+            {
+              "text": "1000x",
+              "fraction": 0,
+              "feedback": "那是 100 乘 10；比值是 100 / 10 = 10。"
+            }
+          ],
+          "generalFeedback": "相對成本是兩個倍數的比值：100 / 10 = 10。以這些示意數字而言，生產環境的成本是編碼階段的 10 倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩類符合性成本",
+          "text": "<p>品質成本中的兩類<em>符合性（conformance，達成良好品質）</em>成本是：</p>",
+          "answers": [
+            {
+              "text": "預防與鑑定",
+              "fraction": 100,
+              "feedback": "正確——符合性成本用於達成品質：預防與鑑定。"
+            },
+            {
+              "text": "內部失效與外部失效",
+              "fraction": 0,
+              "feedback": "那是非符合性（失效）成本。"
+            },
+            {
+              "text": "需求與設計",
+              "fraction": 0,
+              "feedback": "那是生命週期階段，不是品質成本類別。"
+            },
+            {
+              "text": "可能性與衝擊",
+              "fraction": 0,
+              "feedback": "那是風險的兩個面向，不是品質成本類別。"
+            }
+          ],
+          "generalFeedback": "品質成本分為符合性成本（預防 + 鑑定——為達成品質而花）與非符合性成本（內部 + 外部失效——做錯的代價）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "簡單比值：需求對系統測試",
+          "text": "<p>假設（示意上）在需求階段修復缺陷的成本為基準單位的 1x，在系統測試修復為該單位的 15x。在系統測試修復的成本是在需求階段修復的幾倍？</p>",
+          "answers": [
+            {
+              "text": "15x",
+              "fraction": 100,
+              "feedback": "正確——15 / 1 = 15。"
+            },
+            {
+              "text": "14x",
+              "fraction": 0,
+              "feedback": "那是 15 減 1；比值是 15 / 1 = 15。"
+            },
+            {
+              "text": "16x",
+              "fraction": 0,
+              "feedback": "那是 15 加 1；比值是 15 / 1 = 15。"
+            },
+            {
+              "text": "1/15x",
+              "fraction": 0,
+              "feedback": "那把比值顛倒了；系統測試較貴，所以是 15x 而非 1/15x。"
+            }
+          ],
+          "generalFeedback": "相對成本是 15 / 1 = 15。以這些示意數字而言，系統測試的修復成本是需求階段的 15 倍。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "外部失效最昂貴",
+          "text": "<p>在各類失效成本中，外部失效（由客戶發現者）通常是最昂貴的。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——外部失效在修復之外還加上客服、修補程式、召回與商譽損失。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "外部失效通常最昂貴，因為缺陷已觸及客戶。"
+            }
+          ],
+          "generalFeedback": "外部失效成本通常是失效類別中最高者：除了修復缺陷外，組織可能還要面對客服負荷、緊急修補程式、召回、罰則與商譽損失。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "計算：生產對設計的比值",
+          "text": "<p>給定示意倍數：在設計階段修復缺陷的成本為基準單位的 5x，在生產環境修復為該單位的 100x。在生產環境修復的成本是在設計階段修復的幾倍？</p>",
+          "answers": [
+            {
+              "text": "20x",
+              "fraction": 100,
+              "feedback": "正確——100 / 5 = 20。"
+            },
+            {
+              "text": "95x",
+              "fraction": 0,
+              "feedback": "那是 100 減 5；題目問的是比值，100 / 5 = 20。"
+            },
+            {
+              "text": "105x",
+              "fraction": 0,
+              "feedback": "那是 100 加 5；比值是 100 / 5 = 20。"
+            },
+            {
+              "text": "500x",
+              "fraction": 0,
+              "feedback": "那是 100 乘 5；比值是 100 / 5 = 20。"
+            }
+          ],
+          "generalFeedback": "把兩個給定倍數相除：100 / 5 = 20。以這些示意數字而言，生產環境的成本是設計階段的 20 倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "外部失效為何最貴",
+          "text": "<p>為什麼外部失效成本通常是最高的一類品質成本？</p>",
+          "answers": [
+            {
+              "text": "除了修復缺陷本身，還加上客服、修補程式或召回，以及商譽或信譽損失",
+              "fraction": 100,
+              "feedback": "正確——面向客戶的後果疊加在技術修復之上。"
+            },
+            {
+              "text": "因為客戶發現的缺陷總是極容易重現",
+              "fraction": 0,
+              "feedback": "現場缺陷往往難以重現；這並不能解釋其高成本。"
+            },
+            {
+              "text": "因為預防活動會向客戶收費",
+              "fraction": 0,
+              "feedback": "預防是內部的符合性成本，與外部失效成本無關。"
+            },
+            {
+              "text": "因為內部重工完全免費",
+              "fraction": 0,
+              "feedback": "內部重工並非免費；而且那也不會使外部失效成為最貴者。"
+            }
+          ],
+          "generalFeedback": "當缺陷觸及現場時，除了程式修正外還可能引發客服負荷、緊急修補程式、召回、合約罰則與長久的商譽損失，因此外部失效通常是最昂貴的類別。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "左移的理由",
+          "text": "<p>左移（更早審查與測試）主要的經濟理由是：</p>",
+          "answers": [
+            {
+              "text": "更早抓到缺陷的成本，遠低於等它擴散到後期階段後再修復",
+              "fraction": 100,
+              "feedback": "正確——早期偵測可避免遞增的下游成本。"
+            },
+            {
+              "text": "更早測試不需任何工具，因此完全免費",
+              "fraction": 0,
+              "feedback": "早期品質工作仍有成本；重點是它能避免更大的後期成本。"
+            },
+            {
+              "text": "後期階段永遠不會有缺陷",
+              "fraction": 0,
+              "feedback": "後期階段當然可能有缺陷；左移是要在那之前抓到它們。"
+            },
+            {
+              "text": "它讓團隊可以完全略過需求分析",
+              "fraction": 0,
+              "feedback": "左移是強化需求審查等早期活動，而非略過它們。"
+            }
+          ],
+          "generalFeedback": "左移的正當性來自變更成本曲線：在需求或設計階段抓到的缺陷，遠比同一缺陷在測試或生產環境被抓到便宜，所以把品質工作移到更早能降低總成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：訓練屬於哪類成本",
+          "text": "<p>舉辦訓練課程教開發者安全編碼實務，以減少被寫出的缺陷，這是哪一類成本的例子：</p>",
+          "answers": [
+            {
+              "text": "預防成本",
+              "fraction": 100,
+              "feedback": "正確——訓練降低了缺陷被引入的機會。"
+            },
+            {
+              "text": "鑑定成本",
+              "fraction": 0,
+              "feedback": "鑑定是用於偵測已存在的缺陷，而非預防它們。"
+            },
+            {
+              "text": "內部失效成本",
+              "fraction": 0,
+              "feedback": "內部失效是修復發布前發現之缺陷的成本，而非訓練。"
+            },
+            {
+              "text": "外部失效成本",
+              "fraction": 0,
+              "feedback": "外部失效發生在發布後；訓練則發生在缺陷存在之前。"
+            }
+          ],
+          "generalFeedback": "以減少缺陷被引入為目的的訓練，是典型的預防成本，屬於品質符合性成本的一部分。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：程式碼檢查屬於哪類成本",
+          "text": "<p>為偵測缺陷而進行程式碼檢查所花的時間，被歸類為哪一類成本：</p>",
+          "answers": [
+            {
+              "text": "鑑定成本",
+              "fraction": 100,
+              "feedback": "正確——鑑定涵蓋評估工作產物以找出缺陷，包含檢查。"
+            },
+            {
+              "text": "預防成本",
+              "fraction": 0,
+              "feedback": "預防是阻止缺陷被引入；檢查則是偵測已存在者。"
+            },
+            {
+              "text": "內部失效成本",
+              "fraction": 0,
+              "feedback": "內部失效是找到缺陷後的重工，而非為找出缺陷而進行的檢查。"
+            },
+            {
+              "text": "外部失效成本",
+              "fraction": 0,
+              "feedback": "外部失效發生在發布後；檢查是內部的偵測活動。"
+            }
+          ],
+          "generalFeedback": "檢查、審查與測試都是鑑定活動：它們評估產品以偵測缺陷。之後為修復所發現者而做的重工，則是另一類失效成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：發布前的重工",
+          "text": "<p>測試人員在發布前發現一個缺陷，為此進行重工與重新測試的工作，屬於：</p>",
+          "answers": [
+            {
+              "text": "內部失效成本",
+              "fraction": 100,
+              "feedback": "正確——該缺陷在觸及客戶前於內部被修復。"
+            },
+            {
+              "text": "外部失效成本",
+              "fraction": 0,
+              "feedback": "外部失效須是缺陷已觸及客戶；此處是在發布前被抓到。"
+            },
+            {
+              "text": "預防成本",
+              "fraction": 0,
+              "feedback": "預防是避免引入缺陷；這是為一個已存在缺陷所做的重工。"
+            },
+            {
+              "text": "鑑定成本",
+              "fraction": 0,
+              "feedback": "鑑定是偵測活動（測試本身）；隨後的重工是失效成本。"
+            }
+          ],
+          "generalFeedback": "為交付前抓到的缺陷所做的重工與重新測試，是內部失效成本。若同一缺陷是在客戶遇到後才修復，則屬外部失效成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：修補程式與客服專線",
+          "text": "<p>為客戶在生產環境中遇到的臭蟲發布修補程式並配置客服專線，這是：</p>",
+          "answers": [
+            {
+              "text": "外部失效成本",
+              "fraction": 100,
+              "feedback": "正確——缺陷已觸及客戶，因此衍生的成本是外部失效。"
+            },
+            {
+              "text": "內部失效成本",
+              "fraction": 0,
+              "feedback": "內部失效代表缺陷在發布前被抓到；此處是客戶遇到了它。"
+            },
+            {
+              "text": "鑑定成本",
+              "fraction": 0,
+              "feedback": "鑑定是偵測活動，而非處理已發布缺陷的成本。"
+            },
+            {
+              "text": "預防成本",
+              "fraction": 0,
+              "feedback": "預防發生在缺陷存在之前，而非面向客戶的失效之後。"
+            }
+          ],
+          "generalFeedback": "為觸及客戶的缺陷所做的修補程式、客服、保固與召回，都是外部失效成本——通常是最昂貴的類別。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "審查對動態測試的成本",
+          "text": "<p>為何審查一份設計文件，可能比等動態測試揭露同一缺陷更具成本效益？</p>",
+          "answers": [
+            {
+              "text": "審查更早抓到缺陷，在它被編碼並被層層建構於其上之前，因此所需的下游重工較少",
+              "fraction": 100,
+              "feedback": "正確——更早偵測代表缺陷擴散得較少。"
+            },
+            {
+              "text": "審查執行程式碼的速度比測試框架更快",
+              "fraction": 0,
+              "feedback": "審查根本不執行程式碼；它是靜態技術。"
+            },
+            {
+              "text": "動態測試在任何情況下都絕不可能找到設計缺陷",
+              "fraction": 0,
+              "feedback": "動態測試能揭露設計缺陷，只是較晚且往往較貴。"
+            },
+            {
+              "text": "審查總能找到每一個缺陷，保證零殘餘風險",
+              "fraction": 0,
+              "feedback": "沒有任何技術能找到每一個缺陷；審查降低風險但不消除它。"
+            }
+          ],
+          "generalFeedback": "設計審查能在設計階段就抓到缺陷，早於程式碼與測試被建構於其上。動態測試只會在更晚、當更多產物依賴它之後才找到同一缺陷，因此修復更貴。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算：編碼對需求的比值",
+          "text": "<p>給定示意倍數：在需求階段修復缺陷為 1x，在編碼階段修復為 10x。編碼階段的修復成本是需求階段的幾倍？</p>",
+          "answers": [
+            {
+              "text": "10x",
+              "fraction": 100,
+              "feedback": "正確——10 / 1 = 10。"
+            },
+            {
+              "text": "9x",
+              "fraction": 0,
+              "feedback": "那是 10 減 1；比值是 10 / 1 = 10。"
+            },
+            {
+              "text": "11x",
+              "fraction": 0,
+              "feedback": "那是 10 加 1；比值是 10 / 1 = 10。"
+            },
+            {
+              "text": "0.1x",
+              "fraction": 0,
+              "feedback": "那把比值顛倒了；編碼較貴，所以是 10x。"
+            }
+          ],
+          "generalFeedback": "把給定倍數相除：10 / 1 = 10。以這些示意數字而言，編碼的修復成本是需求階段的 10 倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算：系統測試對編碼的比值",
+          "text": "<p>給定示意倍數：在編碼階段修復缺陷為 10x，在系統測試修復為 15x。系統測試的修復成本是編碼階段的幾倍？</p>",
+          "answers": [
+            {
+              "text": "1.5x",
+              "fraction": 100,
+              "feedback": "正確——15 / 10 = 1.5。"
+            },
+            {
+              "text": "5x",
+              "fraction": 0,
+              "feedback": "那是 15 減 10；題目問的是比值，15 / 10 = 1.5。"
+            },
+            {
+              "text": "25x",
+              "fraction": 0,
+              "feedback": "那是 15 加 10；比值是 15 / 10 = 1.5。"
+            },
+            {
+              "text": "0.67x",
+              "fraction": 0,
+              "feedback": "那把比值顛倒了；系統測試較貴，所以是 1.5x。"
+            }
+          ],
+          "generalFeedback": "把給定倍數相除：15 / 10 = 1.5。以這些示意數字而言，系統測試的修復成本是編碼階段的 1.5 倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "靜態技術的經濟效果",
+          "text": "<p>靜態技術（例如檢查）能降低成本，是因為它：</p>",
+          "answers": [
+            {
+              "text": "在程式碼被執行之前就偵測缺陷，往往落在修復較便宜的階段",
+              "fraction": 100,
+              "feedback": "正確——靜態且早期地找到缺陷可讓修復維持低廉。"
+            },
+            {
+              "text": "需要先把軟體部署到生產環境",
+              "fraction": 0,
+              "feedback": "靜態技術完全不需執行或部署。"
+            },
+            {
+              "text": "可取代擁有任何需求的必要性",
+              "fraction": 0,
+              "feedback": "靜態技術評估需求等產物；它並不移除對需求的需要。"
+            },
+            {
+              "text": "只能作用於編譯後的二進位可執行檔",
+              "fraction": 0,
+              "feedback": "靜態技術適用於需求、設計與原始碼，不只是二進位檔。"
+            }
+          ],
+          "generalFeedback": "靜態技術在不執行的情況下檢視產物，因此能在早期階段（需求、設計、程式碼）找到缺陷，而該時的變更成本最低。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算：設計對生產的金額比值",
+          "text": "<p>某缺陷若在設計階段抓到，修復成本為 $50；若逸出到生產環境，則為 $1000。逸出到生產環境貴了幾倍？</p>",
+          "answers": [
+            {
+              "text": "20x",
+              "fraction": 100,
+              "feedback": "正確——1000 / 50 = 20。"
+            },
+            {
+              "text": "950x",
+              "fraction": 0,
+              "feedback": "那是 1000 減 50；題目問的是比值，1000 / 50 = 20。"
+            },
+            {
+              "text": "50x",
+              "fraction": 0,
+              "feedback": "那是給定值之一，而非比值；1000 / 50 = 20。"
+            },
+            {
+              "text": "1050x",
+              "fraction": 0,
+              "feedback": "那是 1000 加 50；比值是 1000 / 50 = 20。"
+            }
+          ],
+          "generalFeedback": "把兩個給定成本相除：1000 / 50 = 20。此處逸出到生產環境的成本是在設計階段修復的 20 倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "成本遞增的原因",
+          "text": "<p>缺陷在後期階段修復愈貴，主要原因是：</p>",
+          "answers": [
+            {
+              "text": "後續工作建立在它之上，因此修復它需要重做更多產物（設計、程式碼、測試、文件）",
+              "fraction": 100,
+              "feedback": "正確——缺陷擴散，需要拆掉並重做的東西更多。"
+            },
+            {
+              "text": "程式設計師在後期階段的時薪較高",
+              "fraction": 0,
+              "feedback": "時薪不會隨階段系統性地上升；驅動因素是累積的重工。"
+            },
+            {
+              "text": "後期的缺陷依定義一定更嚴重",
+              "fraction": 0,
+              "feedback": "嚴重度與何時被發現無關；成本上升是因為擴散。"
+            },
+            {
+              "text": "編譯器隨著專案變老而變慢",
+              "fraction": 0,
+              "feedback": "工具速度不是原因；變更成本的遞增來自下游重工。"
+            }
+          ],
+          "generalFeedback": "遞增之所以發生，是因為後期產物依賴有瑕疵的那一個。修復在生產環境才發現的需求缺陷，可能需要變更需求、設計、程式碼、測試與文件，還要處理現場影響。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：流程改善",
+          "text": "<p>改善需求撰寫流程，使含糊的需求較不易出現，這是：</p>",
+          "answers": [
+            {
+              "text": "預防成本",
+              "fraction": 100,
+              "feedback": "正確——改善流程以避免引入缺陷屬於預防。"
+            },
+            {
+              "text": "鑑定成本",
+              "fraction": 0,
+              "feedback": "鑑定是偵測已存在的缺陷；此變更是阻止它們被引入。"
+            },
+            {
+              "text": "內部失效成本",
+              "fraction": 0,
+              "feedback": "內部失效是為已發現缺陷所做的重工，而非流程改善。"
+            },
+            {
+              "text": "外部失效成本",
+              "fraction": 0,
+              "feedback": "外部失效發生在發布後；流程改善是預防活動。"
+            }
+          ],
+          "generalFeedback": "降低缺陷引入頻率的流程改善是預防成本，屬於品質符合性成本的一部分。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算：生產對系統測試的比值",
+          "text": "<p>給定示意倍數：在系統測試修復缺陷為 15x，在生產環境修復為 45x。在生產環境修復的成本是在系統測試修復的幾倍？</p>",
+          "answers": [
+            {
+              "text": "3x",
+              "fraction": 100,
+              "feedback": "正確——45 / 15 = 3。"
+            },
+            {
+              "text": "30x",
+              "fraction": 0,
+              "feedback": "那是 45 減 15；題目問的是比值，45 / 15 = 3。"
+            },
+            {
+              "text": "60x",
+              "fraction": 0,
+              "feedback": "那是 45 加 15；比值是 45 / 15 = 3。"
+            },
+            {
+              "text": "0.33x",
+              "fraction": 0,
+              "feedback": "那把比值顛倒了；生產環境較貴，所以是 3x。"
+            }
+          ],
+          "generalFeedback": "把給定倍數相除：45 / 15 = 3。以這些示意數字而言，生產環境的成本是系統測試的 3 倍。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "更早抓到的總節省",
+          "text": "<p>示意上，修復一個缺陷在設計階段花 5 單位，在生產環境花 100 單位。一次設計審查抓到 4 個原本會逸出到生產環境的缺陷。不計審查本身的成本，相較於在生產環境修復這 4 個缺陷，共節省多少？</p>",
+          "answers": [
+            {
+              "text": "380 單位",
+              "fraction": 100,
+              "feedback": "正確——4 x (100 - 5) = 4 x 95 = 380。"
+            },
+            {
+              "text": "400 單位",
+              "fraction": 0,
+              "feedback": "那是 4 x 100；每個仍要付 5 單位的設計修復，須扣除：4 x (100 - 5) = 380。"
+            },
+            {
+              "text": "420 單位",
+              "fraction": 0,
+              "feedback": "那是 4 x (100 + 5)；每個缺陷的節省是 100 - 5 = 95，所以是 4 x 95 = 380。"
+            },
+            {
+              "text": "20 單位",
+              "fraction": 0,
+              "feedback": "那是 4 x 5，只是設計成本；節省是 4 x (100 - 5) = 380。"
+            }
+          ],
+          "generalFeedback": "每個在設計階段抓到的缺陷花 5 而非 100，節省 95。4 個缺陷共節省 4 x 95 = 380 單位。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "審查的損益平衡",
+          "text": "<p>一次設計審查要花 60 單位執行。它抓到的每個缺陷現在修復花 5 單位，但若逸出到生產環境會花 30 單位。此審查抓到 3 個這樣的缺陷。做這次審查的淨經濟結果是什麼？</p>",
+          "answers": [
+            {
+              "text": "淨節省 15 單位（審查划得來）",
+              "fraction": 100,
+              "feedback": "正確——每個缺陷節省 30 - 5 = 25；3 x 25 = 75 被避免；75 - 60 = 15。"
+            },
+            {
+              "text": "淨損失 60 單位",
+              "fraction": 0,
+              "feedback": "那忽略了下游節省；審查避免了 3 x 25 = 75 單位，超過其 60 單位成本。"
+            },
+            {
+              "text": "淨節省 90 單位",
+              "fraction": 0,
+              "feedback": "那是 3 x 30（完整的生產成本）；還須扣除 3 個 5 單位的修復與 60 單位的審查。"
+            },
+            {
+              "text": "剛好損益平衡（0 單位）",
+              "fraction": 0,
+              "feedback": "數字並未相抵：避免的 75 減去花費的 60，剩下 15 單位淨節省。"
+            }
+          ],
+          "generalFeedback": "相較於逸出到生產環境，每個抓到的缺陷節省 30 - 5 = 25 單位。3 個缺陷共避免 75 單位。扣除 60 單位的審查成本：75 - 60 = 15 單位淨節省，因此這次審查划得來。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "曲線為何陡峭",
+          "text": "<p>為什麼變更成本曲線常被描述為跨階段陡峭（大致呈指數）成長？</p>",
+          "answers": [
+            {
+              "text": "每個後期階段都在缺陷之上建構更多東西，因此重工隨它擴散經過設計、程式碼、測試與已發布產物而倍增",
+              "fraction": 100,
+              "feedback": "正確——複合的下游依賴推動了陡升。"
+            },
+            {
+              "text": "因為通貨膨脹使所有成本每階段翻倍",
+              "fraction": 0,
+              "feedback": "通膨無關；上升來自累積的重工。"
+            },
+            {
+              "text": "因為測試人員的人數每階段被要求翻倍",
+              "fraction": 0,
+              "feedback": "人力不會依規則翻倍；驅動因素是缺陷的擴散。"
+            },
+            {
+              "text": "因為缺陷隨時間在生物學上自我繁殖",
+              "fraction": 0,
+              "feedback": "缺陷不會自行增殖；成本倍增是因為更多產物依賴這個瑕疵。"
+            }
+          ],
+          "generalFeedback": "陡峭來自複合效應：一個被留在原處的缺陷會有愈來愈多工作建立在它之上，因此跨階段要移除它所需的重工量會快速成長。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "倍數是示意的，趨勢穩健",
+          "text": "<p>各階段確切的成本倍數是示意性的，會因研究與情境而異，但「愈晚修復愈貴」這個一般趨勢有廣泛的觀察支持。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——把具體數字當成典型示意值，而非確切的普世法則；但趨勢本身是穩健的。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "具體倍數確實會變動且有爭議，但遞增趨勢有充分支持，因此本敘述為真。"
+            }
+          ],
+          "generalFeedback": "被報告的倍數（例如 1:5:10:15:100）會因來源而異，並高度取決於情境與量測方式。它們是有用的示意。有充分支持的是方向：愈晚修復缺陷傾向於愈貴。"
+        },
+        {
+          "type": "multichoice",
+          "name": "品質成本的取捨",
+          "text": "<p>在品質成本模型中，增加預防與鑑定的支出通常會：</p>",
+          "answers": [
+            {
+              "text": "降低失效成本，並在一定範圍內降低總品質成本",
+              "fraction": 100,
+              "feedback": "正確——符合性支出可換取更大的失效成本下降。"
+            },
+            {
+              "text": "對失效成本沒有影響",
+              "fraction": 0,
+              "feedback": "核心取捨正是符合性支出會降低失效成本。"
+            },
+            {
+              "text": "總是增加總品質成本而毫無好處",
+              "fraction": 0,
+              "feedback": "在一定範圍內，失效成本的下降會超過所增加的符合性成本。"
+            },
+            {
+              "text": "永久消除所有殘餘風險",
+              "fraction": 0,
+              "feedback": "沒有任何支出能消除所有風險；總會有殘餘風險。"
+            }
+          ],
+          "generalFeedback": "品質成本在符合性成本（預防 + 鑑定）與失效成本（內部 + 外部失效）之間權衡。在前兩者投資更多，通常能降低後兩者，在一個實務最適點之前使總品質成本下降。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "早期引入、晚期發現",
+          "text": "<p>一個缺陷在需求階段被<em>引入</em>，卻直到生產環境才被<em>發現</em>。它承擔的是哪個階段的修復成本？</p>",
+          "answers": [
+            {
+              "text": "生產環境（後期）的成本，因為成本取決於缺陷何時被發現，而非何時被引入",
+              "fraction": 100,
+              "feedback": "正確——遞增與發現階段綁定。"
+            },
+            {
+              "text": "需求階段的成本，因為那是它的源頭",
+              "fraction": 0,
+              "feedback": "低廉的需求成本只在它於需求階段被抓到時才適用；晚發現則承擔晚期成本。"
+            },
+            {
+              "text": "需求與生產成本的平均",
+              "fraction": 0,
+              "feedback": "沒有取平均這回事；成本就是它被發現那個階段的成本。"
+            },
+            {
+              "text": "不用成本，因為它是早期階段的舊缺陷",
+              "fraction": 0,
+              "feedback": "年紀不會消除成本；晚發現的舊缺陷很昂貴。"
+            }
+          ],
+          "generalFeedback": "使成本遞增的是缺陷未被偵測而存活了多久。一個一路溜到生產環境的需求缺陷，承擔的是生產層級的修復成本，而非低廉的需求成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "依發現階段計修復成本",
+          "text": "<p>給定示意修復成本：需求 1、設計 5、編碼 10、系統測試 15、生產 100（單位）。一個需求缺陷一路溜到系統測試才被抓到，修復它要花多少？</p>",
+          "answers": [
+            {
+              "text": "15 單位",
+              "fraction": 100,
+              "feedback": "正確——它在系統測試被發現，因此承擔系統測試的成本 15。"
+            },
+            {
+              "text": "1 單位",
+              "fraction": 0,
+              "feedback": "那是需求成本，只有在需求階段被抓到時才適用；它是在系統測試被發現的。"
+            },
+            {
+              "text": "16 單位",
+              "fraction": 0,
+              "feedback": "那是 1 加 15；成本就是發現階段的成本，即 15。"
+            },
+            {
+              "text": "100 單位",
+              "fraction": 0,
+              "feedback": "那是生產成本；缺陷是在系統測試被抓到，而非生產環境。"
+            }
+          ],
+          "generalFeedback": "修復成本由缺陷被發現的階段決定。在系統測試被抓到時，這個需求缺陷花 15 單位，而非需求階段的 1 單位。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "使審查值得的最少缺陷數",
+          "text": "<p>一次審查花 200 單位。它抓到的每個缺陷現在修復花 10 單位，但若溜到生產環境則花 100 單位。要讓審查至少回本，最少須抓到幾個缺陷？</p>",
+          "answers": [
+            {
+              "text": "3 個缺陷",
+              "fraction": 100,
+              "feedback": "正確——每個缺陷節省 100 - 10 = 90；200 / 90 約為 2.22，所以需要 3。"
+            },
+            {
+              "text": "2 個缺陷",
+              "fraction": 0,
+              "feedback": "2 x 90 = 180，小於 200；審查尚未回本。"
+            },
+            {
+              "text": "20 個缺陷",
+              "fraction": 0,
+              "feedback": "那是把 200 除以 10，而非除以每缺陷 90 單位的節省。"
+            },
+            {
+              "text": "200 個缺陷",
+              "fraction": 0,
+              "feedback": "那是審查的成本單位數，而非所需的缺陷數。"
+            }
+          ],
+          "generalFeedback": "每個抓到的缺陷節省 100 - 10 = 90 單位。要涵蓋 200 單位的審查，需要 200 / 90 約 2.22 個缺陷，無條件進位到 3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩種策略的總成本",
+          "text": "<p>存在十個缺陷。策略 A 在設計階段全部抓到 10 個（每個 5 單位）。策略 B 讓 10 個全部溜到生產環境（每個 100 單位）。策略 B 的總成本比策略 A 多多少？</p>",
+          "answers": [
+            {
+              "text": "950 單位",
+              "fraction": 100,
+              "feedback": "正確——10 x 100 - 10 x 5 = 1000 - 50 = 950。"
+            },
+            {
+              "text": "1000 單位",
+              "fraction": 0,
+              "feedback": "那是策略 B 的總額；題目問的是差額，1000 - 50 = 950。"
+            },
+            {
+              "text": "50 單位",
+              "fraction": 0,
+              "feedback": "那是策略 A 的總額；差額是 1000 - 50 = 950。"
+            },
+            {
+              "text": "105 單位",
+              "fraction": 0,
+              "feedback": "那是單一缺陷的 100 + 5；10 個缺陷的差額是 950。"
+            }
+          ],
+          "generalFeedback": "策略 A 花 10 x 5 = 50；策略 B 花 10 x 100 = 1000。策略 B 比策略 A 多花 1000 - 50 = 950 單位。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "預防為何划得來",
+          "text": "<p>預防「划得來」的核心經濟論證是什麼？</p>",
+          "answers": [
+            {
+              "text": "花一單位預防一個缺陷，可避免日後找出並修復它的更大、遞增成本，尤其是在現場",
+              "fraction": 100,
+              "feedback": "正確——被預防的缺陷永遠不會產生下游遞增。"
+            },
+            {
+              "text": "預防在所有司法管轄區都是法律強制的",
+              "fraction": 0,
+              "feedback": "此論證是經濟性的，並非普世的法律要求。"
+            },
+            {
+              "text": "預防使鑑定變得沒有必要，因此可略過所有測試",
+              "fraction": 0,
+              "feedback": "預防與鑑定互補；測試仍然必要。"
+            },
+            {
+              "text": "預防能把外部失效轉換成營收",
+              "fraction": 0,
+              "feedback": "預防是避免失效成本，而非把失效變成收入。"
+            }
+          ],
+          "generalFeedback": "預防之所以經濟，是因為被避免掉的缺陷不會產生偵測、重工與現場失效等任何遞增的下游成本。花在早期阻止缺陷的錢，通常回報高於同樣的錢用於日後修復它們。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "部分抓到、部分逸出",
+          "text": "<p>示意修復成本：設計 5、生產 100（單位）。在 6 個缺陷中，一次審查在設計階段抓到 4 個，2 個逸出到生產環境。不計審查本身的成本，這 6 個缺陷的總修復成本是多少？</p>",
+          "answers": [
+            {
+              "text": "220 單位",
+              "fraction": 100,
+              "feedback": "正確——4 x 5 + 2 x 100 = 20 + 200 = 220。"
+            },
+            {
+              "text": "600 單位",
+              "fraction": 0,
+              "feedback": "那是 6 x 100，當作全部逸出；只有 2 個逸出，所以是 20 + 200 = 220。"
+            },
+            {
+              "text": "30 單位",
+              "fraction": 0,
+              "feedback": "那是 6 x 5，當作全部在設計階段抓到；有 2 個逸出，所以是 220。"
+            },
+            {
+              "text": "105 單位",
+              "fraction": 0,
+              "feedback": "那是單一對的 100 + 5；6 個缺陷的總額是 220。"
+            }
+          ],
+          "generalFeedback": "把兩組相加：4 個缺陷各 5 單位（20）加上 2 個缺陷各 100 單位（200），共 220 單位。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "總品質成本",
+          "text": "<p><em>總品質成本（total cost of quality）</em>最適切地表達為：</p>",
+          "answers": [
+            {
+              "text": "預防 + 鑑定 + 內部失效 + 外部失效成本",
+              "fraction": 100,
+              "feedback": "正確——符合性成本加上非符合性成本。"
+            },
+            {
+              "text": "只有外部失效的成本",
+              "fraction": 0,
+              "feedback": "外部失效是四項之一；總品質成本是四項之和。"
+            },
+            {
+              "text": "預防減去鑑定",
+              "fraction": 0,
+              "feedback": "各類別是相加而非相減，且必須納入失效成本。"
+            },
+            {
+              "text": "只有品保團隊的薪資",
+              "fraction": 0,
+              "feedback": "品質成本涵蓋預防、鑑定與兩類失效，不只是品保薪資。"
+            }
+          ],
+          "generalFeedback": "總品質成本 = 符合性（預防 + 鑑定）+ 非符合性（內部失效 + 外部失效）。經濟地管理品質，意謂使此總額最小化，通常是把支出移向預防與早期鑑定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "如何解讀 1:10:100 比例",
+          "text": "<p>關於「1:10:100」這類成本比例，下列哪個敘述最正確？</p>",
+          "answers": [
+            {
+              "text": "它們是好記的示意性經驗法則；確切數字並非普世法則，但遞增趨勢有充分支持",
+              "fraction": 100,
+              "feedback": "正確——把它們當成典型示意值，而非確切常數。"
+            },
+            {
+              "text": "它們是一條在每個專案都完全相同成立的確切物理法則",
+              "fraction": 0,
+              "feedback": "確切數字會因情境與研究而異；它們不是確切法則。"
+            },
+            {
+              "text": "它們證明缺陷永遠無法便宜地修復",
+              "fraction": 0,
+              "feedback": "早期抓到的缺陷很便宜；這些比例描述的是若不抓到成本如何成長。"
+            },
+            {
+              "text": "它們只適用於硬體，絕不適用於軟體",
+              "fraction": 0,
+              "feedback": "遞增趨勢在軟體也觀察得到；這些比例正廣泛用於描述它。"
+            }
+          ],
+          "generalFeedback": "1:10:100 這類比例是變更成本趨勢的教學經驗法則。真實倍數變動很大，因此把數字當成示意，而依賴其穩健的定性訊息：愈晚愈貴。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "依這些數字審查不划算",
+          "text": "<p>一次審查花 100 單位，抓到 2 個缺陷。每個缺陷現在修復花 5 單位，但若逸出到生產環境則花 40 單位（示意）。僅就這些數字而言，此審查在經濟上划得來嗎？</p>",
+          "answers": [
+            {
+              "text": "不划得來——被避免的下游成本（70 單位）小於 100 單位的審查，淨損失 30 單位",
+              "fraction": 100,
+              "feedback": "正確——每個缺陷節省 40 - 5 = 35；2 x 35 = 70；70 - 100 = -30。"
+            },
+            {
+              "text": "划得來——它節省 80 單位",
+              "fraction": 0,
+              "feedback": "那會是 2 x 40；還須扣除 5 單位的修復與 100 單位的審查，結果是 30 單位損失。"
+            },
+            {
+              "text": "划得來——它剛好節省 100 單位",
+              "fraction": 0,
+              "feedback": "被避免的成本只有 70 單位，小於 100 單位的審查，因此是損失。"
+            },
+            {
+              "text": "它在 0 單位處損益平衡",
+              "fraction": 0,
+              "feedback": "避免的 70 減去花費的 100 是 30 單位淨損失，而非損益平衡。"
+            }
+          ],
+          "generalFeedback": "每個抓到的缺陷節省 40 - 5 = 35 單位；兩個缺陷共避免 70 單位下游成本。審查花 100，故淨結果為 70 - 100 = -30 單位，就這些數字而言是損失。此處要損益平衡需 3 個缺陷（3 x 35 = 105 > 100）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "該把支出移到哪裡",
+          "text": "<p>某團隊目前在外部失效處理（召回與客服）上花費甚鉅。依品質成本推理，最經濟的改善通常是：</p>",
+          "answers": [
+            {
+              "text": "在預防與更早的鑑定上投資更多，以降低大得多的下游失效成本",
+              "fraction": 100,
+              "feedback": "正確——用符合性支出換取失效成本下降可降低總額。"
+            },
+            {
+              "text": "削減所有預防與鑑定支出，以現在省錢",
+              "fraction": 0,
+              "feedback": "那會進一步推高失效成本；與建議的做法相反。"
+            },
+            {
+              "text": "等客戶回報每一個缺陷後再行動",
+              "fraction": 0,
+              "feedback": "那會使最昂貴的類別——外部失效——最大化。"
+            },
+            {
+              "text": "把外部失效支出再增加更多",
+              "fraction": 0,
+              "feedback": "在最貴的類別上花更多，並不會降低總品質成本。"
+            }
+          ],
+          "generalFeedback": "當失效成本主導時，品質成本推理主張把支出移向預防與早期鑑定。在那裡適度增加，通常會使內部與外部失效成本產生更大的下降，從而降低總額。",
+          "single": true
+        }
+      ]
+    }
+  },
   "fuzz-testing": {
     "en": {
       "easy": [

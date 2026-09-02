@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Defect Cost Escalation/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Cost of change principle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>cost of change</em> (defect-cost escalation) principle states that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The cost to fix a defect tends to increase the later in the lifecycle it is discovered</text><feedback><text>Correct — Boehm's cost-of-change curve rises as discovery moves to later phases.</text></feedback></answer>
+    <answer fraction="0"><text>The cost to fix a defect is the same regardless of when it is found</text><feedback><text>The whole point of the curve is that the cost is not constant; it escalates.</text></feedback></answer>
+    <answer fraction="0"><text>Defects found later are always cheaper because tooling improves over time</text><feedback><text>Later discovery is generally more expensive, not cheaper.</text></feedback></answer>
+    <answer fraction="0"><text>Only defects found in production carry any cost at all</text><feedback><text>Defects found early also cost something to fix; the point is that later fixes cost more.</text></feedback></answer>
+    <generalfeedback><text>Boehm's cost-of-change curve captures a widely observed trend: the same defect costs progressively more to fix the later it is discovered, because more work has been built on top of it. Typical illustrative multipliers rise from about 1x in requirements to tens or hundreds of times in production.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is shift-left</text></name>
+    <questiontext format="html"><text><![CDATA[<p>&quot;Shift-left&quot; testing means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Moving testing and quality activities earlier in the lifecycle so defects are caught sooner</text><feedback><text>Correct — shifting quality work to the left (earlier) on the timeline.</text></feedback></answer>
+    <answer fraction="0"><text>Delaying testing until after release to save time up front</text><feedback><text>That is shifting right, the opposite of shift-left.</text></feedback></answer>
+    <answer fraction="0"><text>Moving all testing to a separate team drawn on the left of the org chart</text><feedback><text>Shift-left is about timing in the lifecycle, not org-chart position.</text></feedback></answer>
+    <answer fraction="0"><text>Writing tests only after the code is deployed to production</text><feedback><text>That defers testing to the latest possible point, the opposite of shift-left.</text></feedback></answer>
+    <generalfeedback><text>Shift-left moves reviews and testing earlier so defects are found closer to where they are introduced, when they are cheapest to fix. It is the practical response to the cost-of-change curve.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Internal failure cost</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the cost of quality, an <em>internal failure cost</em> arises when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A defect is found before the product is released (e.g. rework and re-testing)</text><feedback><text>Correct — internal failures are caught in-house, before the customer sees them.</text></feedback></answer>
+    <answer fraction="0"><text>A defect is found by the customer after release</text><feedback><text>That is an external failure cost.</text></feedback></answer>
+    <answer fraction="0"><text>The team trains staff to prevent defects</text><feedback><text>That is a prevention cost.</text></feedback></answer>
+    <answer fraction="0"><text>The team inspects or tests in order to detect defects</text><feedback><text>That is an appraisal cost.</text></feedback></answer>
+    <generalfeedback><text>Internal failure costs are the costs of defects discovered before delivery: rework, re-testing, and re-inspection. They contrast with external failure costs, which arise after the customer has the product.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>External failure cost</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An <em>external failure cost</em> arises when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A defect is found by the customer after release (e.g. support, patches, recalls)</text><feedback><text>Correct — external failures reach the customer.</text></feedback></answer>
+    <answer fraction="0"><text>A defect is found and fixed in-house before release</text><feedback><text>That is an internal failure cost.</text></feedback></answer>
+    <answer fraction="0"><text>The team plans and schedules its quality activities in advance</text><feedback><text>That is a prevention cost.</text></feedback></answer>
+    <answer fraction="0"><text>Reviewers inspect a design document before any code is written</text><feedback><text>That is an appraisal cost.</text></feedback></answer>
+    <generalfeedback><text>External failure costs arise once a defect escapes to the customer: support calls, patches, warranty, recalls, and reputation damage. They are usually the most expensive category of quality cost.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Prevention cost</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>prevention cost</em> is money spent to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stop defects from being introduced in the first place (e.g. training, better processes)</text><feedback><text>Correct — prevention keeps defects from being created.</text></feedback></answer>
+    <answer fraction="0"><text>Find defects that already exist (e.g. reviews and testing)</text><feedback><text>That is an appraisal cost.</text></feedback></answer>
+    <answer fraction="0"><text>Repair a defect that was found before release</text><feedback><text>That is an internal failure cost.</text></feedback></answer>
+    <answer fraction="0"><text>Handle customer complaints after release</text><feedback><text>That is an external failure cost.</text></feedback></answer>
+    <generalfeedback><text>Prevention costs (part of the conformance cost) are spent to avoid defects being introduced: training, quality planning, tool investment, and process improvement.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Appraisal cost</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An <em>appraisal cost</em> is money spent to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Evaluate or measure work products to find defects (e.g. reviews, inspections, testing)</text><feedback><text>Correct — appraisal is about detecting defects that may already be present.</text></feedback></answer>
+    <answer fraction="0"><text>Prevent defects from ever being introduced</text><feedback><text>That is a prevention cost.</text></feedback></answer>
+    <answer fraction="0"><text>Compensate a customer for a failure in the field</text><feedback><text>That is an external failure cost.</text></feedback></answer>
+    <answer fraction="0"><text>Rework a defect that a customer discovered</text><feedback><text>That is an external failure cost.</text></feedback></answer>
+    <generalfeedback><text>Appraisal costs (part of the conformance cost) are spent measuring and evaluating products to find defects: reviews, inspections, testing, and audits.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Most expensive discovery phase</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Fixing the same defect is generally <em>most</em> expensive when it is discovered:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>In production, after release to customers</text><feedback><text>Correct — production fixes carry the highest illustrative multipliers.</text></feedback></answer>
+    <answer fraction="0"><text>During requirements</text><feedback><text>Requirements is typically the cheapest phase to fix a defect.</text></feedback></answer>
+    <answer fraction="0"><text>During design</text><feedback><text>Design fixes are cheaper than fixes made after release.</text></feedback></answer>
+    <answer fraction="0"><text>During coding</text><feedback><text>Coding fixes are cheaper than fixes made after release.</text></feedback></answer>
+    <generalfeedback><text>The cost-of-change curve peaks in production: a defect that reaches customers can require patches, support, and reputation repair on top of the code fix, making it the most expensive place to discover a defect.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cheapest discovery phase</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Fixing a defect is generally <em>cheapest</em> when it is discovered:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>In the same early phase it was introduced (e.g. a requirements defect caught during requirements)</text><feedback><text>Correct — catching a defect where it is introduced avoids downstream rework.</text></feedback></answer>
+    <answer fraction="0"><text>In production</text><feedback><text>Production is the most expensive, not the cheapest, place to fix a defect.</text></feedback></answer>
+    <answer fraction="0"><text>During system testing</text><feedback><text>System test is cheaper than production but more expensive than early phases.</text></feedback></answer>
+    <answer fraction="0"><text>After a customer-triggered recall</text><feedback><text>A recall is among the most expensive outcomes, not the cheapest.</text></feedback></answer>
+    <generalfeedback><text>A defect caught in the phase where it is introduced is cheapest to fix, because nothing has yet been built on top of it. This is why shifting reviews and testing left saves money.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Later means more expensive</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Generally, the later in the software lifecycle a defect is found, the more expensive it is to fix.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — this is the central idea of the cost-of-change curve.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The widely observed trend is the opposite: later discovery costs more.</text></feedback></answer>
+    <generalfeedback><text>The cost-of-change curve captures a general trend: fixing a defect gets more expensive the later it is found. Exact multipliers vary by study and context, but the escalating trend is well supported.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Static techniques find defects how</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Static techniques such as reviews and inspections find defects by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Examining the artifact (requirements, design, code) without executing the code</text><feedback><text>Correct — static techniques inspect work products rather than running them.</text></feedback></answer>
+    <answer fraction="0"><text>Running the program and observing failures</text><feedback><text>That is dynamic testing, not a static technique.</text></feedback></answer>
+    <answer fraction="0"><text>Deploying to production and waiting for customer reports</text><feedback><text>That is field feedback, the most expensive form of detection, and not a static technique.</text></feedback></answer>
+    <answer fraction="0"><text>Measuring CPU usage during a load test</text><feedback><text>That is a dynamic performance measurement, not a static review.</text></feedback></answer>
+    <generalfeedback><text>Static techniques (reviews, walkthroughs, inspections, static analysis) find defects without executing the code, so they can catch defects in early artifacts before they propagate — often in phases where fixes are cheap.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Prevention vs detection</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Defect <em>prevention</em> differs from defect <em>detection</em> in that prevention:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Aims to stop defects from being introduced, rather than finding them after they already exist</text><feedback><text>Correct — prevention acts before defects are created; detection finds existing ones.</text></feedback></answer>
+    <answer fraction="0"><text>Finds defects only after the code has been executed</text><feedback><text>That describes dynamic detection, not prevention.</text></feedback></answer>
+    <answer fraction="0"><text>Is simply another name for external failure cost</text><feedback><text>Prevention is a conformance cost; external failure is a failure cost. They are different categories.</text></feedback></answer>
+    <answer fraction="0"><text>Applies only to defects already in production</text><feedback><text>Prevention applies before defects exist, not only to production defects.</text></feedback></answer>
+    <generalfeedback><text>Prevention keeps defects from being introduced (training, better processes, clearer requirements); detection finds defects that already exist (reviews, testing). Prevention tends to be the most economical because avoided defects incur no escalation cost.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Simple ratio coding vs production</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose (illustratively) fixing a defect during coding costs 10x a baseline unit and fixing it in production costs 100x that unit. Fixing in production costs how many times as much as fixing during coding?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10x</text><feedback><text>Correct — 100 / 10 = 10.</text></feedback></answer>
+    <answer fraction="0"><text>90x</text><feedback><text>That is 100 minus 10; the question asks for a ratio, 100 / 10 = 10.</text></feedback></answer>
+    <answer fraction="0"><text>110x</text><feedback><text>That is 100 plus 10; the ratio is 100 / 10 = 10.</text></feedback></answer>
+    <answer fraction="0"><text>1000x</text><feedback><text>That is 100 times 10; the ratio is 100 / 10 = 10.</text></feedback></answer>
+    <generalfeedback><text>The relative cost is the ratio of the two multipliers: 100 / 10 = 10. Production is 10 times as expensive as coding for these illustrative figures.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Two conformance categories</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The two categories of <em>conformance</em> (good-quality) cost in the cost of quality are:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Prevention and appraisal</text><feedback><text>Correct — conformance costs are spent to achieve quality: prevention and appraisal.</text></feedback></answer>
+    <answer fraction="0"><text>Internal failure and external failure</text><feedback><text>Those are the non-conformance (failure) costs.</text></feedback></answer>
+    <answer fraction="0"><text>Requirements and design</text><feedback><text>Those are lifecycle phases, not cost-of-quality categories.</text></feedback></answer>
+    <answer fraction="0"><text>Likelihood and impact</text><feedback><text>Those are the two dimensions of risk, not cost-of-quality categories.</text></feedback></answer>
+    <generalfeedback><text>Cost of quality splits into conformance costs (prevention + appraisal — spent to achieve quality) and non-conformance costs (internal + external failure — the cost of getting it wrong).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Simple ratio requirements vs system test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose (illustratively) fixing a defect during requirements costs 1x a baseline unit and fixing it during system testing costs 15x that unit. Fixing in system testing costs how many times as much as fixing during requirements?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>15x</text><feedback><text>Correct — 15 / 1 = 15.</text></feedback></answer>
+    <answer fraction="0"><text>14x</text><feedback><text>That is 15 minus 1; the ratio is 15 / 1 = 15.</text></feedback></answer>
+    <answer fraction="0"><text>16x</text><feedback><text>That is 15 plus 1; the ratio is 15 / 1 = 15.</text></feedback></answer>
+    <answer fraction="0"><text>1/15x</text><feedback><text>That inverts the ratio; system test is more expensive, so it is 15x, not 1/15x.</text></feedback></answer>
+    <generalfeedback><text>The relative cost is 15 / 1 = 15. System-test fixes cost 15 times a requirements fix for these illustrative figures.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>External failures most expensive</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Among failure costs, external failures (those found by the customer) are typically the most expensive.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — external failures add support, patches, recalls, and reputation damage on top of the fix.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>External failures are generally the most expensive because the defect has reached the customer.</text></feedback></answer>
+    <generalfeedback><text>External failure costs are usually the highest failure category: beyond fixing the defect, the organisation may face support load, emergency patches, recalls, penalties, and loss of goodwill.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Defect Cost Escalation/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute production vs design ratio</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given illustrative multipliers where fixing a defect in design costs 5x a baseline unit and fixing it in production costs 100x that unit, fixing in production costs how many times as much as fixing in design?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>20x</text><feedback><text>Correct — 100 / 5 = 20.</text></feedback></answer>
+    <answer fraction="0"><text>95x</text><feedback><text>That is 100 minus 5; the question asks for the ratio, 100 / 5 = 20.</text></feedback></answer>
+    <answer fraction="0"><text>105x</text><feedback><text>That is 100 plus 5; the ratio is 100 / 5 = 20.</text></feedback></answer>
+    <answer fraction="0"><text>500x</text><feedback><text>That is 100 times 5; the ratio is 100 / 5 = 20.</text></feedback></answer>
+    <generalfeedback><text>Divide the two given multipliers: 100 / 5 = 20. Production is 20 times as expensive as design for these illustrative figures.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why external failure costs most</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why are external failure costs typically the highest category of quality cost?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Beyond fixing the defect they add support, patches or recalls, and reputation or goodwill damage</text><feedback><text>Correct — the customer-facing consequences pile on top of the technical fix.</text></feedback></answer>
+    <answer fraction="0"><text>Because customer-found defects are always trivially easy to reproduce</text><feedback><text>Reproducing field defects is often hard; that does not explain the high cost.</text></feedback></answer>
+    <answer fraction="0"><text>Because prevention activities are billed to the customer</text><feedback><text>Prevention is an internal conformance cost and is unrelated to external failure cost.</text></feedback></answer>
+    <answer fraction="0"><text>Because internal rework is entirely free</text><feedback><text>Internal rework is not free; and that would not make external failures the most expensive.</text></feedback></answer>
+    <generalfeedback><text>By the time a defect reaches the field it can trigger support load, emergency patches, recalls, contractual penalties, and lasting reputation damage — all on top of the code fix — which is why external failure is usually the costliest category.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Shift-left rationale</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The main economic rationale for shift-left (reviewing and testing earlier) is that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Catching defects earlier costs far less than fixing them after they have propagated to later phases</text><feedback><text>Correct — early detection avoids the escalating downstream cost.</text></feedback></answer>
+    <answer fraction="0"><text>Earlier testing needs no tools and is therefore completely free</text><feedback><text>Early quality work still has a cost; the point is that it avoids larger later costs.</text></feedback></answer>
+    <answer fraction="0"><text>Later phases never contain defects</text><feedback><text>Later phases certainly can contain defects; shift-left is about catching them before then.</text></feedback></answer>
+    <answer fraction="0"><text>It lets the team skip requirements analysis entirely</text><feedback><text>Shift-left strengthens early activities such as requirements review, it does not skip them.</text></feedback></answer>
+    <generalfeedback><text>Shift-left is justified by the cost-of-change curve: a defect caught in requirements or design is far cheaper to fix than the same defect caught in testing or production, so moving quality work earlier lowers total cost.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: training as cost type</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Running a training course to teach developers secure-coding practices so that fewer defects are written is an example of a:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Prevention cost</text><feedback><text>Correct — training reduces the chance defects are introduced.</text></feedback></answer>
+    <answer fraction="0"><text>Appraisal cost</text><feedback><text>Appraisal is spent to detect existing defects, not to prevent them.</text></feedback></answer>
+    <answer fraction="0"><text>Internal failure cost</text><feedback><text>Internal failure is the cost of fixing defects found before release, not of training.</text></feedback></answer>
+    <answer fraction="0"><text>External failure cost</text><feedback><text>External failure arises after release; training happens before defects exist.</text></feedback></answer>
+    <generalfeedback><text>Training aimed at reducing the introduction of defects is a classic prevention cost, part of the conformance cost of quality.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: code inspection as cost type</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Time spent performing a code inspection in order to detect defects is classified as a:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Appraisal cost</text><feedback><text>Correct — appraisal covers evaluating work products to find defects, including inspections.</text></feedback></answer>
+    <answer fraction="0"><text>Prevention cost</text><feedback><text>Prevention stops defects being introduced; an inspection detects ones that already exist.</text></feedback></answer>
+    <answer fraction="0"><text>Internal failure cost</text><feedback><text>Internal failure is the rework once a defect is found, not the act of inspecting to find it.</text></feedback></answer>
+    <answer fraction="0"><text>External failure cost</text><feedback><text>External failure arises after release; an inspection is an in-house detection activity.</text></feedback></answer>
+    <generalfeedback><text>Inspections, reviews, and testing are appraisal activities: they evaluate a product to detect defects. The subsequent rework to fix what they find is a separate failure cost.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: rework before release</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The effort to rework and re-test a defect that testers found before the release is a:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Internal failure cost</text><feedback><text>Correct — the defect was fixed in-house before it reached the customer.</text></feedback></answer>
+    <answer fraction="0"><text>External failure cost</text><feedback><text>External failure requires the defect to have reached the customer; here it was caught before release.</text></feedback></answer>
+    <answer fraction="0"><text>Prevention cost</text><feedback><text>Prevention avoids introducing defects; this is rework for a defect that already exists.</text></feedback></answer>
+    <answer fraction="0"><text>Appraisal cost</text><feedback><text>Appraisal is the detection activity (the testing); the rework that follows is a failure cost.</text></feedback></answer>
+    <generalfeedback><text>Rework and re-testing for a defect caught before delivery is an internal failure cost. Had the same defect been fixed after the customer hit it, it would be an external failure cost.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: patch and support hotline</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Issuing a patch and staffing a support hotline for a bug that customers hit in production is an:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>External failure cost</text><feedback><text>Correct — the defect reached customers, so the resulting costs are external failures.</text></feedback></answer>
+    <answer fraction="0"><text>Internal failure cost</text><feedback><text>Internal failure would mean the defect was caught before release; here customers hit it.</text></feedback></answer>
+    <answer fraction="0"><text>Appraisal cost</text><feedback><text>Appraisal is a detection activity, not the cost of handling a released defect.</text></feedback></answer>
+    <answer fraction="0"><text>Prevention cost</text><feedback><text>Prevention happens before defects exist, not after a customer-facing failure.</text></feedback></answer>
+    <generalfeedback><text>Patches, support, warranty, and recalls for defects that reach the customer are external failure costs — usually the most expensive category.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Review vs dynamic testing cost</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can a review of a design document be more cost-effective than waiting for dynamic testing to reveal the same defect?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The review catches the defect earlier, before it is coded and built upon, so less downstream rework is needed</text><feedback><text>Correct — earlier detection means the defect has propagated less.</text></feedback></answer>
+    <answer fraction="0"><text>The review executes the code faster than a test harness can</text><feedback><text>A review does not execute code at all; it is a static technique.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic testing can never find design defects under any circumstances</text><feedback><text>Dynamic testing can reveal design defects, just later and often more expensively.</text></feedback></answer>
+    <answer fraction="0"><text>Reviews always find every defect, guaranteeing zero residual risk</text><feedback><text>No technique finds every defect; reviews reduce risk but do not eliminate it.</text></feedback></answer>
+    <generalfeedback><text>A design review can catch a defect in the design phase, before code and tests are built on it. Dynamic testing finds the same defect only later, after more artifacts depend on it, so the fix is more expensive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute coding vs requirements ratio</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given illustrative multipliers of 1x to fix a defect in requirements and 10x to fix it in coding, the coding fix costs how many times the requirements fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10x</text><feedback><text>Correct — 10 / 1 = 10.</text></feedback></answer>
+    <answer fraction="0"><text>9x</text><feedback><text>That is 10 minus 1; the ratio is 10 / 1 = 10.</text></feedback></answer>
+    <answer fraction="0"><text>11x</text><feedback><text>That is 10 plus 1; the ratio is 10 / 1 = 10.</text></feedback></answer>
+    <answer fraction="0"><text>0.1x</text><feedback><text>That inverts the ratio; coding is more expensive, so it is 10x.</text></feedback></answer>
+    <generalfeedback><text>Divide the given multipliers: 10 / 1 = 10. Coding fixes cost 10 times a requirements fix for these illustrative figures.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute system test vs coding ratio</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given illustrative multipliers of 10x to fix a defect during coding and 15x during system testing, the system-test fix costs how many times the coding fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1.5x</text><feedback><text>Correct — 15 / 10 = 1.5.</text></feedback></answer>
+    <answer fraction="0"><text>5x</text><feedback><text>That is 15 minus 10; the question asks for the ratio, 15 / 10 = 1.5.</text></feedback></answer>
+    <answer fraction="0"><text>25x</text><feedback><text>That is 15 plus 10; the ratio is 15 / 10 = 1.5.</text></feedback></answer>
+    <answer fraction="0"><text>0.67x</text><feedback><text>That inverts the ratio; system test is more expensive, so it is 1.5x.</text></feedback></answer>
+    <generalfeedback><text>Divide the given multipliers: 15 / 10 = 1.5. System-test fixes cost 1.5 times a coding fix for these illustrative figures.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Static technique economic effect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A static technique (such as an inspection) can reduce cost because it:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Detects defects before the code is executed, often in phases where fixes are cheaper</text><feedback><text>Correct — finding defects statically and early keeps fixes inexpensive.</text></feedback></answer>
+    <answer fraction="0"><text>Requires the software to be deployed to production first</text><feedback><text>Static techniques need no execution or deployment at all.</text></feedback></answer>
+    <answer fraction="0"><text>Replaces the need to have any requirements</text><feedback><text>Static techniques evaluate artifacts such as requirements; they do not remove the need for them.</text></feedback></answer>
+    <answer fraction="0"><text>Works only on compiled binary executables</text><feedback><text>Static techniques apply to requirements, designs, and source, not just binaries.</text></feedback></answer>
+    <generalfeedback><text>Static techniques examine artifacts without executing them, so they can find defects in early phases (requirements, design, code) where the cost of change is lowest.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute dollar ratio design vs production</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A given defect costs $50 to fix if caught in design and $1000 to fix if it escapes to production. Escaping to production is how many times as expensive?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>20x</text><feedback><text>Correct — 1000 / 50 = 20.</text></feedback></answer>
+    <answer fraction="0"><text>950x</text><feedback><text>That is 1000 minus 50; the question asks for the ratio, 1000 / 50 = 20.</text></feedback></answer>
+    <answer fraction="0"><text>50x</text><feedback><text>That is one of the given values, not the ratio; 1000 / 50 = 20.</text></feedback></answer>
+    <answer fraction="0"><text>1050x</text><feedback><text>That is 1000 plus 50; the ratio is 1000 / 50 = 20.</text></feedback></answer>
+    <generalfeedback><text>Divide the two given costs: 1000 / 50 = 20. Escaping to production is 20 times as expensive as fixing in design here.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why escalation happens</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The primary reason a defect gets more expensive to fix in later phases is that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Later work is built on top of it, so fixing it requires reworking more artifacts (design, code, tests, docs)</text><feedback><text>Correct — the defect propagates, and more must be undone and redone.</text></feedback></answer>
+    <answer fraction="0"><text>Programmers charge a higher hourly rate in later phases</text><feedback><text>Rates do not systematically rise by phase; the driver is accumulated rework.</text></feedback></answer>
+    <answer fraction="0"><text>Later defects are always more severe by definition</text><feedback><text>Severity is independent of when a defect is found; cost rises because of propagation.</text></feedback></answer>
+    <answer fraction="0"><text>Compilers become slower as the project ages</text><feedback><text>Tool speed is not the reason; the cost-of-change escalation comes from downstream rework.</text></feedback></answer>
+    <generalfeedback><text>Escalation happens because later artifacts depend on the flawed one. Fixing a requirements defect found in production may mean changing requirements, design, code, tests, and documentation, plus dealing with the field impact.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: process improvement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Improving the requirements-writing process so that ambiguous requirements are less likely to occur is a:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Prevention cost</text><feedback><text>Correct — improving the process to avoid introducing defects is prevention.</text></feedback></answer>
+    <answer fraction="0"><text>Appraisal cost</text><feedback><text>Appraisal detects existing defects; this change stops them being introduced.</text></feedback></answer>
+    <answer fraction="0"><text>Internal failure cost</text><feedback><text>Internal failure is rework for defects already found, not process improvement.</text></feedback></answer>
+    <answer fraction="0"><text>External failure cost</text><feedback><text>External failure arises after release; process improvement is a prevention activity.</text></feedback></answer>
+    <generalfeedback><text>Process improvement that reduces how often defects are introduced is a prevention cost, part of the conformance cost of quality.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute production vs system test ratio</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given illustrative multipliers of 15x to fix a defect in system testing and 45x in production, fixing in production costs how many times as much as fixing in system testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3x</text><feedback><text>Correct — 45 / 15 = 3.</text></feedback></answer>
+    <answer fraction="0"><text>30x</text><feedback><text>That is 45 minus 15; the question asks for the ratio, 45 / 15 = 3.</text></feedback></answer>
+    <answer fraction="0"><text>60x</text><feedback><text>That is 45 plus 15; the ratio is 45 / 15 = 3.</text></feedback></answer>
+    <answer fraction="0"><text>0.33x</text><feedback><text>That inverts the ratio; production is more expensive, so it is 3x.</text></feedback></answer>
+    <generalfeedback><text>Divide the given multipliers: 45 / 15 = 3. Production is 3 times as expensive as system testing for these illustrative figures.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Defect Cost Escalation/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Total savings from earlier catch</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Illustratively, fixing a defect costs 5 units in design and 100 units in production. A design review catches 4 defects that would otherwise have escaped to production. Ignoring the cost of the review itself, how much is saved compared with fixing those 4 defects in production?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>380 units</text><feedback><text>Correct — 4 x (100 - 5) = 4 x 95 = 380.</text></feedback></answer>
+    <answer fraction="0"><text>400 units</text><feedback><text>That is 4 x 100; you must subtract the 5-unit design fix still incurred for each: 4 x (100 - 5) = 380.</text></feedback></answer>
+    <answer fraction="0"><text>420 units</text><feedback><text>That is 4 x (100 + 5); the saving per defect is 100 - 5 = 95, so 4 x 95 = 380.</text></feedback></answer>
+    <answer fraction="0"><text>20 units</text><feedback><text>That is 4 x 5, the design cost alone; the saving is 4 x (100 - 5) = 380.</text></feedback></answer>
+    <generalfeedback><text>Each defect caught in design costs 5 instead of 100, saving 95. For 4 defects the saving is 4 x 95 = 380 units.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Break-even of a review</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A design review costs 60 units to run. Each defect it catches costs 5 units to fix now but would cost 30 units if it escaped to production. The review catches 3 such defects. What is the net economic result of doing the review?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A net saving of 15 units (the review pays for itself)</text><feedback><text>Correct — saving per defect is 30 - 5 = 25; 3 x 25 = 75 avoided; 75 - 60 = 15.</text></feedback></answer>
+    <answer fraction="0"><text>A net loss of 60 units</text><feedback><text>That ignores the downstream savings; the review avoids 3 x 25 = 75 units, exceeding its 60-unit cost.</text></feedback></answer>
+    <answer fraction="0"><text>A net saving of 90 units</text><feedback><text>That is 3 x 30 (the full production cost); you must subtract both the 5-unit fixes and the 60-unit review.</text></feedback></answer>
+    <answer fraction="0"><text>Exactly break-even (0 units)</text><feedback><text>The numbers do not cancel: 75 avoided minus 60 spent leaves a 15-unit net saving.</text></feedback></answer>
+    <generalfeedback><text>Each caught defect saves 30 - 5 = 25 units versus escaping to production. For 3 defects that is 75 units avoided. Subtract the 60-unit review cost: 75 - 60 = 15 units net saving, so the review is worthwhile.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the curve is steep</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is the cost-of-change curve often described as growing steeply (roughly exponentially) across phases?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each later phase builds more on the defect, so rework multiplies as it propagates through design, code, tests, and released artifacts</text><feedback><text>Correct — compounding downstream dependencies drive the steep rise.</text></feedback></answer>
+    <answer fraction="0"><text>Because currency inflation doubles all costs every phase</text><feedback><text>Inflation is unrelated; the rise comes from accumulated rework.</text></feedback></answer>
+    <answer fraction="0"><text>Because the number of testers is required to double each phase</text><feedback><text>Staffing does not double by rule; the driver is propagation of the defect.</text></feedback></answer>
+    <answer fraction="0"><text>Because defects reproduce themselves biologically over time</text><feedback><text>Defects do not multiply on their own; the cost multiplies because more artifacts depend on the flaw.</text></feedback></answer>
+    <generalfeedback><text>The steepness comes from compounding: a defect left in place has more and more work built on top of it, so the amount of rework needed to remove it grows quickly across phases.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Multipliers illustrative, trend robust</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The exact per-phase cost multipliers are illustrative and vary between studies and contexts, but the general trend that later fixes cost more is widely observed.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — treat specific numbers as typical figures, not as an exact universal law; the trend, however, is robust.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The specific multipliers do vary and are debated, yet the escalating trend is well supported, so the statement is true.</text></feedback></answer>
+    <generalfeedback><text>Reported multipliers (such as 1:5:10:15:100) differ across sources and depend heavily on context and measurement. They are useful illustrations. What is well supported is the direction: fixing defects later tends to cost more.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cost-of-quality trade-off</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the cost-of-quality model, increasing spend on prevention and appraisal typically:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Reduces failure costs, and can lower the total cost of quality up to a point</text><feedback><text>Correct — conformance spending buys down the larger failure costs.</text></feedback></answer>
+    <answer fraction="0"><text>Has no effect on failure costs</text><feedback><text>The central trade-off is precisely that conformance spending reduces failure costs.</text></feedback></answer>
+    <answer fraction="0"><text>Always increases the total cost of quality with no benefit</text><feedback><text>Up to a point the reduction in failure cost outweighs the added conformance cost.</text></feedback></answer>
+    <answer fraction="0"><text>Eliminates all residual risk permanently</text><feedback><text>No amount of spending removes all risk; some residual risk always remains.</text></feedback></answer>
+    <generalfeedback><text>Cost of quality balances conformance costs (prevention + appraisal) against failure costs (internal + external). Investing more in the first two usually reduces the last two, lowering total cost of quality up to a practical optimum.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Early introduced, late found</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A defect is <em>introduced</em> during requirements but is not <em>discovered</em> until production. Which phase's fix cost does it incur?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The production (late-phase) cost, because cost is driven by when the defect is found, not when it was introduced</text><feedback><text>Correct — the escalation is tied to the discovery phase.</text></feedback></answer>
+    <answer fraction="0"><text>The requirements cost, because that is where it originated</text><feedback><text>The low requirements cost would apply only if it had been caught there; found late, it incurs the late cost.</text></feedback></answer>
+    <answer fraction="0"><text>The average of the requirements and production costs</text><feedback><text>There is no averaging; the cost is that of the phase in which it is found.</text></feedback></answer>
+    <answer fraction="0"><text>No cost, because it is an old defect from an early phase</text><feedback><text>Age does not remove cost; an old defect found late is expensive.</text></feedback></answer>
+    <generalfeedback><text>What escalates the cost is how long a defect survives undetected. A requirements defect that slips all the way to production incurs the production-level fix cost, not the cheap requirements cost.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix cost by discovery phase</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given illustrative fix costs of requirements 1, design 5, coding 10, system test 15, production 100 (units), a requirements defect that slips through until it is caught in system test costs how much to fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>15 units</text><feedback><text>Correct — it is found in system test, so it incurs the system-test cost of 15.</text></feedback></answer>
+    <answer fraction="0"><text>1 unit</text><feedback><text>That is the requirements cost, which applies only if caught in requirements; it was found in system test.</text></feedback></answer>
+    <answer fraction="0"><text>16 units</text><feedback><text>That adds 1 and 15; the cost is simply the discovery-phase cost, 15.</text></feedback></answer>
+    <answer fraction="0"><text>100 units</text><feedback><text>That is the production cost; the defect was caught in system test, not production.</text></feedback></answer>
+    <generalfeedback><text>The fix cost is set by the phase in which the defect is discovered. Caught in system test, the requirements defect costs 15 units, not the 1-unit requirements figure.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimum defects to justify a review</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A review costs 200 units. Each defect it catches costs 10 units to fix now but 100 units if it reaches production. What is the minimum number of caught defects for the review to at least pay for itself?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 defects</text><feedback><text>Correct — saving per defect is 100 - 10 = 90; 200 / 90 is about 2.22, so you need 3.</text></feedback></answer>
+    <answer fraction="0"><text>2 defects</text><feedback><text>2 x 90 = 180, which is less than 200; the review does not yet pay for itself.</text></feedback></answer>
+    <answer fraction="0"><text>20 defects</text><feedback><text>That divides 200 by 10 rather than by the 90-unit per-defect saving.</text></feedback></answer>
+    <answer fraction="0"><text>200 defects</text><feedback><text>That is the review cost in units, not the number of defects needed.</text></feedback></answer>
+    <generalfeedback><text>Each caught defect saves 100 - 10 = 90 units. To cover the 200-unit review you need 200 / 90, about 2.22 defects, rounded up to 3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Total cost of two strategies</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Ten defects exist. Strategy A catches all 10 in design (5 units each). Strategy B lets all 10 reach production (100 units each). How much more does Strategy B cost in total than Strategy A?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>950 units</text><feedback><text>Correct — 10 x 100 - 10 x 5 = 1000 - 50 = 950.</text></feedback></answer>
+    <answer fraction="0"><text>1000 units</text><feedback><text>That is Strategy B's total; the question asks for the difference, 1000 - 50 = 950.</text></feedback></answer>
+    <answer fraction="0"><text>50 units</text><feedback><text>That is Strategy A's total; the difference is 1000 - 50 = 950.</text></feedback></answer>
+    <answer fraction="0"><text>105 units</text><feedback><text>That is 100 + 5 for a single defect; across 10 defects the difference is 950.</text></feedback></answer>
+    <generalfeedback><text>Strategy A costs 10 x 5 = 50; Strategy B costs 10 x 100 = 1000. Strategy B costs 1000 - 50 = 950 units more.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why prevention pays off</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the core economic argument that prevention &quot;pays off&quot;?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A unit spent preventing a defect avoids the larger, escalating cost of finding and fixing it later, especially in the field</text><feedback><text>Correct — a prevented defect never incurs downstream escalation.</text></feedback></answer>
+    <answer fraction="0"><text>Prevention is legally mandated in all jurisdictions</text><feedback><text>The argument is economic, not a universal legal requirement.</text></feedback></answer>
+    <answer fraction="0"><text>Prevention makes appraisal unnecessary, so all testing can be skipped</text><feedback><text>Prevention complements appraisal; testing is still needed.</text></feedback></answer>
+    <answer fraction="0"><text>Prevention converts external failures into revenue</text><feedback><text>Prevention avoids failure costs; it does not turn failures into income.</text></feedback></answer>
+    <generalfeedback><text>Prevention is economical because an avoided defect incurs none of the escalating downstream costs of detection, rework, and field failure. Money spent early to stop defects generally returns more than the same money spent fixing them later.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mixed caught and escaped</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Illustrative fix costs: design 5, production 100 (units). Of 6 defects, a review catches 4 in design and 2 escape to production. What is the total fix cost for these 6 defects, excluding the review's own cost?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>220 units</text><feedback><text>Correct — 4 x 5 + 2 x 100 = 20 + 200 = 220.</text></feedback></answer>
+    <answer fraction="0"><text>600 units</text><feedback><text>That is 6 x 100, as if all escaped; only 2 escaped, so it is 20 + 200 = 220.</text></feedback></answer>
+    <answer fraction="0"><text>30 units</text><feedback><text>That is 6 x 5, as if all were caught in design; 2 escaped, so it is 220.</text></feedback></answer>
+    <answer fraction="0"><text>105 units</text><feedback><text>That is 100 + 5 for a single pair; across 6 defects the total is 220.</text></feedback></answer>
+    <generalfeedback><text>Add the two groups: 4 defects at 5 units (20) plus 2 defects at 100 units (200) gives 220 units total.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Total cost of quality</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>total cost of quality</em> is best expressed as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Prevention + appraisal + internal failure + external failure costs</text><feedback><text>Correct — conformance plus non-conformance costs together.</text></feedback></answer>
+    <answer fraction="0"><text>Only the cost of external failures</text><feedback><text>External failure is one term of four; total cost of quality sums all four.</text></feedback></answer>
+    <answer fraction="0"><text>Prevention minus appraisal</text><feedback><text>The categories are summed, not subtracted, and failure costs must be included.</text></feedback></answer>
+    <answer fraction="0"><text>The salary of the QA team only</text><feedback><text>Cost of quality spans prevention, appraisal, and both failure categories, not just QA salaries.</text></feedback></answer>
+    <generalfeedback><text>Total cost of quality = conformance (prevention + appraisal) + non-conformance (internal failure + external failure). Managing quality economically means minimising this total, usually by shifting spend toward prevention and early appraisal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reading the 1:10:100 ratios</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about &quot;1:10:100&quot; style cost ratios is most accurate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They are memorable illustrative heuristics; the precise numbers are not a universal law, though the escalating trend is well supported</text><feedback><text>Correct — use them as typical figures, not as exact constants.</text></feedback></answer>
+    <answer fraction="0"><text>They are an exact physical law that holds identically in every project</text><feedback><text>The precise numbers vary by context and study; they are not an exact law.</text></feedback></answer>
+    <answer fraction="0"><text>They prove that defects can never be fixed cheaply</text><feedback><text>Defects caught early are cheap; the ratios describe how cost grows if they are not.</text></feedback></answer>
+    <answer fraction="0"><text>They apply only to hardware and never to software</text><feedback><text>The escalation trend is observed in software too; the ratios are widely cited for it.</text></feedback></answer>
+    <generalfeedback><text>Ratios like 1:10:100 are teaching heuristics for the cost-of-change trend. Real multipliers vary widely, so treat the numbers as illustrative while relying on the robust qualitative message: later is more expensive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Review not worthwhile on these numbers</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A review costs 100 units and catches 2 defects. Each defect costs 5 units to fix now but 40 units if it escaped to production (illustrative). On these numbers alone, was the review economically worthwhile?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No, the avoided downstream cost (70 units) is less than the 100-unit review, a net loss of 30 units</text><feedback><text>Correct — saving per defect is 40 - 5 = 35; 2 x 35 = 70; 70 - 100 = -30.</text></feedback></answer>
+    <answer fraction="0"><text>Yes, it saves 80 units</text><feedback><text>That would be 2 x 40; you must subtract the 5-unit fixes and the 100-unit review, giving a 30-unit loss.</text></feedback></answer>
+    <answer fraction="0"><text>Yes, it saves exactly 100 units</text><feedback><text>The avoided cost is only 70 units, less than the 100-unit review, so it is a loss.</text></feedback></answer>
+    <answer fraction="0"><text>It breaks even at 0 units</text><feedback><text>70 avoided minus 100 spent is a 30-unit net loss, not break-even.</text></feedback></answer>
+    <generalfeedback><text>Each caught defect saves 40 - 5 = 35 units; two defects avoid 70 units downstream. The review costs 100, so the net result is 70 - 100 = -30 units, a loss on these figures. Break-even here would need 3 defects (3 x 35 = 105 &gt; 100).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Where to shift spend</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team currently spends heavily on external-failure handling (recalls and support). By cost-of-quality reasoning, the most economical improvement is usually to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Invest more in prevention and earlier appraisal to reduce the far larger downstream failure costs</text><feedback><text>Correct — buying down failure cost with conformance spending lowers the total.</text></feedback></answer>
+    <answer fraction="0"><text>Cut all prevention and appraisal spending to save money now</text><feedback><text>That would raise failure costs further; it is the opposite of the recommended move.</text></feedback></answer>
+    <answer fraction="0"><text>Wait for customers to report every defect before acting</text><feedback><text>That maximises the most expensive category, external failure.</text></feedback></answer>
+    <answer fraction="0"><text>Increase external-failure spending even further</text><feedback><text>Spending more on the costliest category does not reduce the total cost of quality.</text></feedback></answer>
+    <generalfeedback><text>When failure costs dominate, cost-of-quality reasoning says to shift spend toward prevention and early appraisal. A modest increase there typically produces a larger reduction in internal and external failure costs, lowering the total.</text></generalfeedback>
+  </question>
+</quiz>

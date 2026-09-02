@@ -58798,6 +58798,2568 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "defect-cost": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "Cost of change principle",
+            "text": "<p>The <em>cost of change</em> (defect-cost escalation) principle states that:</p>",
+            "answers": [
+              {
+                "text": "The cost to fix a defect tends to increase the later in the lifecycle it is discovered",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Boehm's cost-of-change curve rises as discovery moves to later phases."
+              },
+              {
+                "text": "The cost to fix a defect is the same regardless of when it is found",
+                "fraction": 0,
+                "feedback": "The whole point of the curve is that the cost is not constant; it escalates."
+              },
+              {
+                "text": "Defects found later are always cheaper because tooling improves over time",
+                "fraction": 0,
+                "feedback": "Later discovery is generally more expensive, not cheaper."
+              },
+              {
+                "text": "Only defects found in production carry any cost at all",
+                "fraction": 0,
+                "feedback": "Defects found early also cost something to fix; the point is that later fixes cost more."
+              }
+            ],
+            "generalFeedback": "Boehm's cost-of-change curve captures a widely observed trend: the same defect costs progressively more to fix the later it is discovered, because more work has been built on top of it. Typical illustrative multipliers rise from about 1x in requirements to tens or hundreds of times in production.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is shift-left",
+            "text": "<p>&quot;Shift-left&quot; testing means:</p>",
+            "answers": [
+              {
+                "text": "Moving testing and quality activities earlier in the lifecycle so defects are caught sooner",
+                "fraction": 100,
+                "feedback": "Correct \u2014 shifting quality work to the left (earlier) on the timeline."
+              },
+              {
+                "text": "Delaying testing until after release to save time up front",
+                "fraction": 0,
+                "feedback": "That is shifting right, the opposite of shift-left."
+              },
+              {
+                "text": "Moving all testing to a separate team drawn on the left of the org chart",
+                "fraction": 0,
+                "feedback": "Shift-left is about timing in the lifecycle, not org-chart position."
+              },
+              {
+                "text": "Writing tests only after the code is deployed to production",
+                "fraction": 0,
+                "feedback": "That defers testing to the latest possible point, the opposite of shift-left."
+              }
+            ],
+            "generalFeedback": "Shift-left moves reviews and testing earlier so defects are found closer to where they are introduced, when they are cheapest to fix. It is the practical response to the cost-of-change curve.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Internal failure cost",
+            "text": "<p>In the cost of quality, an <em>internal failure cost</em> arises when:</p>",
+            "answers": [
+              {
+                "text": "A defect is found before the product is released (e.g. rework and re-testing)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 internal failures are caught in-house, before the customer sees them."
+              },
+              {
+                "text": "A defect is found by the customer after release",
+                "fraction": 0,
+                "feedback": "That is an external failure cost."
+              },
+              {
+                "text": "The team trains staff to prevent defects",
+                "fraction": 0,
+                "feedback": "That is a prevention cost."
+              },
+              {
+                "text": "The team inspects or tests in order to detect defects",
+                "fraction": 0,
+                "feedback": "That is an appraisal cost."
+              }
+            ],
+            "generalFeedback": "Internal failure costs are the costs of defects discovered before delivery: rework, re-testing, and re-inspection. They contrast with external failure costs, which arise after the customer has the product.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "External failure cost",
+            "text": "<p>An <em>external failure cost</em> arises when:</p>",
+            "answers": [
+              {
+                "text": "A defect is found by the customer after release (e.g. support, patches, recalls)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 external failures reach the customer."
+              },
+              {
+                "text": "A defect is found and fixed in-house before release",
+                "fraction": 0,
+                "feedback": "That is an internal failure cost."
+              },
+              {
+                "text": "The team plans and schedules its quality activities in advance",
+                "fraction": 0,
+                "feedback": "That is a prevention cost."
+              },
+              {
+                "text": "Reviewers inspect a design document before any code is written",
+                "fraction": 0,
+                "feedback": "That is an appraisal cost."
+              }
+            ],
+            "generalFeedback": "External failure costs arise once a defect escapes to the customer: support calls, patches, warranty, recalls, and reputation damage. They are usually the most expensive category of quality cost.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Prevention cost",
+            "text": "<p>A <em>prevention cost</em> is money spent to:</p>",
+            "answers": [
+              {
+                "text": "Stop defects from being introduced in the first place (e.g. training, better processes)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 prevention keeps defects from being created."
+              },
+              {
+                "text": "Find defects that already exist (e.g. reviews and testing)",
+                "fraction": 0,
+                "feedback": "That is an appraisal cost."
+              },
+              {
+                "text": "Repair a defect that was found before release",
+                "fraction": 0,
+                "feedback": "That is an internal failure cost."
+              },
+              {
+                "text": "Handle customer complaints after release",
+                "fraction": 0,
+                "feedback": "That is an external failure cost."
+              }
+            ],
+            "generalFeedback": "Prevention costs (part of the conformance cost) are spent to avoid defects being introduced: training, quality planning, tool investment, and process improvement.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Appraisal cost",
+            "text": "<p>An <em>appraisal cost</em> is money spent to:</p>",
+            "answers": [
+              {
+                "text": "Evaluate or measure work products to find defects (e.g. reviews, inspections, testing)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 appraisal is about detecting defects that may already be present."
+              },
+              {
+                "text": "Prevent defects from ever being introduced",
+                "fraction": 0,
+                "feedback": "That is a prevention cost."
+              },
+              {
+                "text": "Compensate a customer for a failure in the field",
+                "fraction": 0,
+                "feedback": "That is an external failure cost."
+              },
+              {
+                "text": "Rework a defect that a customer discovered",
+                "fraction": 0,
+                "feedback": "That is an external failure cost."
+              }
+            ],
+            "generalFeedback": "Appraisal costs (part of the conformance cost) are spent measuring and evaluating products to find defects: reviews, inspections, testing, and audits.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Most expensive discovery phase",
+            "text": "<p>Fixing the same defect is generally <em>most</em> expensive when it is discovered:</p>",
+            "answers": [
+              {
+                "text": "In production, after release to customers",
+                "fraction": 100,
+                "feedback": "Correct \u2014 production fixes carry the highest illustrative multipliers."
+              },
+              {
+                "text": "During requirements",
+                "fraction": 0,
+                "feedback": "Requirements is typically the cheapest phase to fix a defect."
+              },
+              {
+                "text": "During design",
+                "fraction": 0,
+                "feedback": "Design fixes are cheaper than fixes made after release."
+              },
+              {
+                "text": "During coding",
+                "fraction": 0,
+                "feedback": "Coding fixes are cheaper than fixes made after release."
+              }
+            ],
+            "generalFeedback": "The cost-of-change curve peaks in production: a defect that reaches customers can require patches, support, and reputation repair on top of the code fix, making it the most expensive place to discover a defect.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Cheapest discovery phase",
+            "text": "<p>Fixing a defect is generally <em>cheapest</em> when it is discovered:</p>",
+            "answers": [
+              {
+                "text": "In the same early phase it was introduced (e.g. a requirements defect caught during requirements)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 catching a defect where it is introduced avoids downstream rework."
+              },
+              {
+                "text": "In production",
+                "fraction": 0,
+                "feedback": "Production is the most expensive, not the cheapest, place to fix a defect."
+              },
+              {
+                "text": "During system testing",
+                "fraction": 0,
+                "feedback": "System test is cheaper than production but more expensive than early phases."
+              },
+              {
+                "text": "After a customer-triggered recall",
+                "fraction": 0,
+                "feedback": "A recall is among the most expensive outcomes, not the cheapest."
+              }
+            ],
+            "generalFeedback": "A defect caught in the phase where it is introduced is cheapest to fix, because nothing has yet been built on top of it. This is why shifting reviews and testing left saves money.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Later means more expensive",
+            "text": "<p>Generally, the later in the software lifecycle a defect is found, the more expensive it is to fix.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this is the central idea of the cost-of-change curve."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The widely observed trend is the opposite: later discovery costs more."
+              }
+            ],
+            "generalFeedback": "The cost-of-change curve captures a general trend: fixing a defect gets more expensive the later it is found. Exact multipliers vary by study and context, but the escalating trend is well supported."
+          },
+          {
+            "type": "multichoice",
+            "name": "Static techniques find defects how",
+            "text": "<p>Static techniques such as reviews and inspections find defects by:</p>",
+            "answers": [
+              {
+                "text": "Examining the artifact (requirements, design, code) without executing the code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 static techniques inspect work products rather than running them."
+              },
+              {
+                "text": "Running the program and observing failures",
+                "fraction": 0,
+                "feedback": "That is dynamic testing, not a static technique."
+              },
+              {
+                "text": "Deploying to production and waiting for customer reports",
+                "fraction": 0,
+                "feedback": "That is field feedback, the most expensive form of detection, and not a static technique."
+              },
+              {
+                "text": "Measuring CPU usage during a load test",
+                "fraction": 0,
+                "feedback": "That is a dynamic performance measurement, not a static review."
+              }
+            ],
+            "generalFeedback": "Static techniques (reviews, walkthroughs, inspections, static analysis) find defects without executing the code, so they can catch defects in early artifacts before they propagate \u2014 often in phases where fixes are cheap.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Prevention vs detection",
+            "text": "<p>Defect <em>prevention</em> differs from defect <em>detection</em> in that prevention:</p>",
+            "answers": [
+              {
+                "text": "Aims to stop defects from being introduced, rather than finding them after they already exist",
+                "fraction": 100,
+                "feedback": "Correct \u2014 prevention acts before defects are created; detection finds existing ones."
+              },
+              {
+                "text": "Finds defects only after the code has been executed",
+                "fraction": 0,
+                "feedback": "That describes dynamic detection, not prevention."
+              },
+              {
+                "text": "Is simply another name for external failure cost",
+                "fraction": 0,
+                "feedback": "Prevention is a conformance cost; external failure is a failure cost. They are different categories."
+              },
+              {
+                "text": "Applies only to defects already in production",
+                "fraction": 0,
+                "feedback": "Prevention applies before defects exist, not only to production defects."
+              }
+            ],
+            "generalFeedback": "Prevention keeps defects from being introduced (training, better processes, clearer requirements); detection finds defects that already exist (reviews, testing). Prevention tends to be the most economical because avoided defects incur no escalation cost.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Simple ratio coding vs production",
+            "text": "<p>Suppose (illustratively) fixing a defect during coding costs 10x a baseline unit and fixing it in production costs 100x that unit. Fixing in production costs how many times as much as fixing during coding?</p>",
+            "answers": [
+              {
+                "text": "10x",
+                "fraction": 100,
+                "feedback": "Correct \u2014 100 / 10 = 10."
+              },
+              {
+                "text": "90x",
+                "fraction": 0,
+                "feedback": "That is 100 minus 10; the question asks for a ratio, 100 / 10 = 10."
+              },
+              {
+                "text": "110x",
+                "fraction": 0,
+                "feedback": "That is 100 plus 10; the ratio is 100 / 10 = 10."
+              },
+              {
+                "text": "1000x",
+                "fraction": 0,
+                "feedback": "That is 100 times 10; the ratio is 100 / 10 = 10."
+              }
+            ],
+            "generalFeedback": "The relative cost is the ratio of the two multipliers: 100 / 10 = 10. Production is 10 times as expensive as coding for these illustrative figures.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Two conformance categories",
+            "text": "<p>The two categories of <em>conformance</em> (good-quality) cost in the cost of quality are:</p>",
+            "answers": [
+              {
+                "text": "Prevention and appraisal",
+                "fraction": 100,
+                "feedback": "Correct \u2014 conformance costs are spent to achieve quality: prevention and appraisal."
+              },
+              {
+                "text": "Internal failure and external failure",
+                "fraction": 0,
+                "feedback": "Those are the non-conformance (failure) costs."
+              },
+              {
+                "text": "Requirements and design",
+                "fraction": 0,
+                "feedback": "Those are lifecycle phases, not cost-of-quality categories."
+              },
+              {
+                "text": "Likelihood and impact",
+                "fraction": 0,
+                "feedback": "Those are the two dimensions of risk, not cost-of-quality categories."
+              }
+            ],
+            "generalFeedback": "Cost of quality splits into conformance costs (prevention + appraisal \u2014 spent to achieve quality) and non-conformance costs (internal + external failure \u2014 the cost of getting it wrong).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Simple ratio requirements vs system test",
+            "text": "<p>Suppose (illustratively) fixing a defect during requirements costs 1x a baseline unit and fixing it during system testing costs 15x that unit. Fixing in system testing costs how many times as much as fixing during requirements?</p>",
+            "answers": [
+              {
+                "text": "15x",
+                "fraction": 100,
+                "feedback": "Correct \u2014 15 / 1 = 15."
+              },
+              {
+                "text": "14x",
+                "fraction": 0,
+                "feedback": "That is 15 minus 1; the ratio is 15 / 1 = 15."
+              },
+              {
+                "text": "16x",
+                "fraction": 0,
+                "feedback": "That is 15 plus 1; the ratio is 15 / 1 = 15."
+              },
+              {
+                "text": "1/15x",
+                "fraction": 0,
+                "feedback": "That inverts the ratio; system test is more expensive, so it is 15x, not 1/15x."
+              }
+            ],
+            "generalFeedback": "The relative cost is 15 / 1 = 15. System-test fixes cost 15 times a requirements fix for these illustrative figures.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "External failures most expensive",
+            "text": "<p>Among failure costs, external failures (those found by the customer) are typically the most expensive.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 external failures add support, patches, recalls, and reputation damage on top of the fix."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "External failures are generally the most expensive because the defect has reached the customer."
+              }
+            ],
+            "generalFeedback": "External failure costs are usually the highest failure category: beyond fixing the defect, the organisation may face support load, emergency patches, recalls, penalties, and loss of goodwill."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Compute production vs design ratio",
+            "text": "<p>Given illustrative multipliers where fixing a defect in design costs 5x a baseline unit and fixing it in production costs 100x that unit, fixing in production costs how many times as much as fixing in design?</p>",
+            "answers": [
+              {
+                "text": "20x",
+                "fraction": 100,
+                "feedback": "Correct \u2014 100 / 5 = 20."
+              },
+              {
+                "text": "95x",
+                "fraction": 0,
+                "feedback": "That is 100 minus 5; the question asks for the ratio, 100 / 5 = 20."
+              },
+              {
+                "text": "105x",
+                "fraction": 0,
+                "feedback": "That is 100 plus 5; the ratio is 100 / 5 = 20."
+              },
+              {
+                "text": "500x",
+                "fraction": 0,
+                "feedback": "That is 100 times 5; the ratio is 100 / 5 = 20."
+              }
+            ],
+            "generalFeedback": "Divide the two given multipliers: 100 / 5 = 20. Production is 20 times as expensive as design for these illustrative figures.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why external failure costs most",
+            "text": "<p>Why are external failure costs typically the highest category of quality cost?</p>",
+            "answers": [
+              {
+                "text": "Beyond fixing the defect they add support, patches or recalls, and reputation or goodwill damage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the customer-facing consequences pile on top of the technical fix."
+              },
+              {
+                "text": "Because customer-found defects are always trivially easy to reproduce",
+                "fraction": 0,
+                "feedback": "Reproducing field defects is often hard; that does not explain the high cost."
+              },
+              {
+                "text": "Because prevention activities are billed to the customer",
+                "fraction": 0,
+                "feedback": "Prevention is an internal conformance cost and is unrelated to external failure cost."
+              },
+              {
+                "text": "Because internal rework is entirely free",
+                "fraction": 0,
+                "feedback": "Internal rework is not free; and that would not make external failures the most expensive."
+              }
+            ],
+            "generalFeedback": "By the time a defect reaches the field it can trigger support load, emergency patches, recalls, contractual penalties, and lasting reputation damage \u2014 all on top of the code fix \u2014 which is why external failure is usually the costliest category.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Shift-left rationale",
+            "text": "<p>The main economic rationale for shift-left (reviewing and testing earlier) is that:</p>",
+            "answers": [
+              {
+                "text": "Catching defects earlier costs far less than fixing them after they have propagated to later phases",
+                "fraction": 100,
+                "feedback": "Correct \u2014 early detection avoids the escalating downstream cost."
+              },
+              {
+                "text": "Earlier testing needs no tools and is therefore completely free",
+                "fraction": 0,
+                "feedback": "Early quality work still has a cost; the point is that it avoids larger later costs."
+              },
+              {
+                "text": "Later phases never contain defects",
+                "fraction": 0,
+                "feedback": "Later phases certainly can contain defects; shift-left is about catching them before then."
+              },
+              {
+                "text": "It lets the team skip requirements analysis entirely",
+                "fraction": 0,
+                "feedback": "Shift-left strengthens early activities such as requirements review, it does not skip them."
+              }
+            ],
+            "generalFeedback": "Shift-left is justified by the cost-of-change curve: a defect caught in requirements or design is far cheaper to fix than the same defect caught in testing or production, so moving quality work earlier lowers total cost.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: training as cost type",
+            "text": "<p>Running a training course to teach developers secure-coding practices so that fewer defects are written is an example of a:</p>",
+            "answers": [
+              {
+                "text": "Prevention cost",
+                "fraction": 100,
+                "feedback": "Correct \u2014 training reduces the chance defects are introduced."
+              },
+              {
+                "text": "Appraisal cost",
+                "fraction": 0,
+                "feedback": "Appraisal is spent to detect existing defects, not to prevent them."
+              },
+              {
+                "text": "Internal failure cost",
+                "fraction": 0,
+                "feedback": "Internal failure is the cost of fixing defects found before release, not of training."
+              },
+              {
+                "text": "External failure cost",
+                "fraction": 0,
+                "feedback": "External failure arises after release; training happens before defects exist."
+              }
+            ],
+            "generalFeedback": "Training aimed at reducing the introduction of defects is a classic prevention cost, part of the conformance cost of quality.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: code inspection as cost type",
+            "text": "<p>Time spent performing a code inspection in order to detect defects is classified as a:</p>",
+            "answers": [
+              {
+                "text": "Appraisal cost",
+                "fraction": 100,
+                "feedback": "Correct \u2014 appraisal covers evaluating work products to find defects, including inspections."
+              },
+              {
+                "text": "Prevention cost",
+                "fraction": 0,
+                "feedback": "Prevention stops defects being introduced; an inspection detects ones that already exist."
+              },
+              {
+                "text": "Internal failure cost",
+                "fraction": 0,
+                "feedback": "Internal failure is the rework once a defect is found, not the act of inspecting to find it."
+              },
+              {
+                "text": "External failure cost",
+                "fraction": 0,
+                "feedback": "External failure arises after release; an inspection is an in-house detection activity."
+              }
+            ],
+            "generalFeedback": "Inspections, reviews, and testing are appraisal activities: they evaluate a product to detect defects. The subsequent rework to fix what they find is a separate failure cost.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: rework before release",
+            "text": "<p>The effort to rework and re-test a defect that testers found before the release is a:</p>",
+            "answers": [
+              {
+                "text": "Internal failure cost",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the defect was fixed in-house before it reached the customer."
+              },
+              {
+                "text": "External failure cost",
+                "fraction": 0,
+                "feedback": "External failure requires the defect to have reached the customer; here it was caught before release."
+              },
+              {
+                "text": "Prevention cost",
+                "fraction": 0,
+                "feedback": "Prevention avoids introducing defects; this is rework for a defect that already exists."
+              },
+              {
+                "text": "Appraisal cost",
+                "fraction": 0,
+                "feedback": "Appraisal is the detection activity (the testing); the rework that follows is a failure cost."
+              }
+            ],
+            "generalFeedback": "Rework and re-testing for a defect caught before delivery is an internal failure cost. Had the same defect been fixed after the customer hit it, it would be an external failure cost.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: patch and support hotline",
+            "text": "<p>Issuing a patch and staffing a support hotline for a bug that customers hit in production is an:</p>",
+            "answers": [
+              {
+                "text": "External failure cost",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the defect reached customers, so the resulting costs are external failures."
+              },
+              {
+                "text": "Internal failure cost",
+                "fraction": 0,
+                "feedback": "Internal failure would mean the defect was caught before release; here customers hit it."
+              },
+              {
+                "text": "Appraisal cost",
+                "fraction": 0,
+                "feedback": "Appraisal is a detection activity, not the cost of handling a released defect."
+              },
+              {
+                "text": "Prevention cost",
+                "fraction": 0,
+                "feedback": "Prevention happens before defects exist, not after a customer-facing failure."
+              }
+            ],
+            "generalFeedback": "Patches, support, warranty, and recalls for defects that reach the customer are external failure costs \u2014 usually the most expensive category.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Review vs dynamic testing cost",
+            "text": "<p>Why can a review of a design document be more cost-effective than waiting for dynamic testing to reveal the same defect?</p>",
+            "answers": [
+              {
+                "text": "The review catches the defect earlier, before it is coded and built upon, so less downstream rework is needed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 earlier detection means the defect has propagated less."
+              },
+              {
+                "text": "The review executes the code faster than a test harness can",
+                "fraction": 0,
+                "feedback": "A review does not execute code at all; it is a static technique."
+              },
+              {
+                "text": "Dynamic testing can never find design defects under any circumstances",
+                "fraction": 0,
+                "feedback": "Dynamic testing can reveal design defects, just later and often more expensively."
+              },
+              {
+                "text": "Reviews always find every defect, guaranteeing zero residual risk",
+                "fraction": 0,
+                "feedback": "No technique finds every defect; reviews reduce risk but do not eliminate it."
+              }
+            ],
+            "generalFeedback": "A design review can catch a defect in the design phase, before code and tests are built on it. Dynamic testing finds the same defect only later, after more artifacts depend on it, so the fix is more expensive.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute coding vs requirements ratio",
+            "text": "<p>Given illustrative multipliers of 1x to fix a defect in requirements and 10x to fix it in coding, the coding fix costs how many times the requirements fix?</p>",
+            "answers": [
+              {
+                "text": "10x",
+                "fraction": 100,
+                "feedback": "Correct \u2014 10 / 1 = 10."
+              },
+              {
+                "text": "9x",
+                "fraction": 0,
+                "feedback": "That is 10 minus 1; the ratio is 10 / 1 = 10."
+              },
+              {
+                "text": "11x",
+                "fraction": 0,
+                "feedback": "That is 10 plus 1; the ratio is 10 / 1 = 10."
+              },
+              {
+                "text": "0.1x",
+                "fraction": 0,
+                "feedback": "That inverts the ratio; coding is more expensive, so it is 10x."
+              }
+            ],
+            "generalFeedback": "Divide the given multipliers: 10 / 1 = 10. Coding fixes cost 10 times a requirements fix for these illustrative figures.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute system test vs coding ratio",
+            "text": "<p>Given illustrative multipliers of 10x to fix a defect during coding and 15x during system testing, the system-test fix costs how many times the coding fix?</p>",
+            "answers": [
+              {
+                "text": "1.5x",
+                "fraction": 100,
+                "feedback": "Correct \u2014 15 / 10 = 1.5."
+              },
+              {
+                "text": "5x",
+                "fraction": 0,
+                "feedback": "That is 15 minus 10; the question asks for the ratio, 15 / 10 = 1.5."
+              },
+              {
+                "text": "25x",
+                "fraction": 0,
+                "feedback": "That is 15 plus 10; the ratio is 15 / 10 = 1.5."
+              },
+              {
+                "text": "0.67x",
+                "fraction": 0,
+                "feedback": "That inverts the ratio; system test is more expensive, so it is 1.5x."
+              }
+            ],
+            "generalFeedback": "Divide the given multipliers: 15 / 10 = 1.5. System-test fixes cost 1.5 times a coding fix for these illustrative figures.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Static technique economic effect",
+            "text": "<p>A static technique (such as an inspection) can reduce cost because it:</p>",
+            "answers": [
+              {
+                "text": "Detects defects before the code is executed, often in phases where fixes are cheaper",
+                "fraction": 100,
+                "feedback": "Correct \u2014 finding defects statically and early keeps fixes inexpensive."
+              },
+              {
+                "text": "Requires the software to be deployed to production first",
+                "fraction": 0,
+                "feedback": "Static techniques need no execution or deployment at all."
+              },
+              {
+                "text": "Replaces the need to have any requirements",
+                "fraction": 0,
+                "feedback": "Static techniques evaluate artifacts such as requirements; they do not remove the need for them."
+              },
+              {
+                "text": "Works only on compiled binary executables",
+                "fraction": 0,
+                "feedback": "Static techniques apply to requirements, designs, and source, not just binaries."
+              }
+            ],
+            "generalFeedback": "Static techniques examine artifacts without executing them, so they can find defects in early phases (requirements, design, code) where the cost of change is lowest.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute dollar ratio design vs production",
+            "text": "<p>A given defect costs $50 to fix if caught in design and $1000 to fix if it escapes to production. Escaping to production is how many times as expensive?</p>",
+            "answers": [
+              {
+                "text": "20x",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1000 / 50 = 20."
+              },
+              {
+                "text": "950x",
+                "fraction": 0,
+                "feedback": "That is 1000 minus 50; the question asks for the ratio, 1000 / 50 = 20."
+              },
+              {
+                "text": "50x",
+                "fraction": 0,
+                "feedback": "That is one of the given values, not the ratio; 1000 / 50 = 20."
+              },
+              {
+                "text": "1050x",
+                "fraction": 0,
+                "feedback": "That is 1000 plus 50; the ratio is 1000 / 50 = 20."
+              }
+            ],
+            "generalFeedback": "Divide the two given costs: 1000 / 50 = 20. Escaping to production is 20 times as expensive as fixing in design here.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why escalation happens",
+            "text": "<p>The primary reason a defect gets more expensive to fix in later phases is that:</p>",
+            "answers": [
+              {
+                "text": "Later work is built on top of it, so fixing it requires reworking more artifacts (design, code, tests, docs)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the defect propagates, and more must be undone and redone."
+              },
+              {
+                "text": "Programmers charge a higher hourly rate in later phases",
+                "fraction": 0,
+                "feedback": "Rates do not systematically rise by phase; the driver is accumulated rework."
+              },
+              {
+                "text": "Later defects are always more severe by definition",
+                "fraction": 0,
+                "feedback": "Severity is independent of when a defect is found; cost rises because of propagation."
+              },
+              {
+                "text": "Compilers become slower as the project ages",
+                "fraction": 0,
+                "feedback": "Tool speed is not the reason; the cost-of-change escalation comes from downstream rework."
+              }
+            ],
+            "generalFeedback": "Escalation happens because later artifacts depend on the flawed one. Fixing a requirements defect found in production may mean changing requirements, design, code, tests, and documentation, plus dealing with the field impact.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: process improvement",
+            "text": "<p>Improving the requirements-writing process so that ambiguous requirements are less likely to occur is a:</p>",
+            "answers": [
+              {
+                "text": "Prevention cost",
+                "fraction": 100,
+                "feedback": "Correct \u2014 improving the process to avoid introducing defects is prevention."
+              },
+              {
+                "text": "Appraisal cost",
+                "fraction": 0,
+                "feedback": "Appraisal detects existing defects; this change stops them being introduced."
+              },
+              {
+                "text": "Internal failure cost",
+                "fraction": 0,
+                "feedback": "Internal failure is rework for defects already found, not process improvement."
+              },
+              {
+                "text": "External failure cost",
+                "fraction": 0,
+                "feedback": "External failure arises after release; process improvement is a prevention activity."
+              }
+            ],
+            "generalFeedback": "Process improvement that reduces how often defects are introduced is a prevention cost, part of the conformance cost of quality.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute production vs system test ratio",
+            "text": "<p>Given illustrative multipliers of 15x to fix a defect in system testing and 45x in production, fixing in production costs how many times as much as fixing in system testing?</p>",
+            "answers": [
+              {
+                "text": "3x",
+                "fraction": 100,
+                "feedback": "Correct \u2014 45 / 15 = 3."
+              },
+              {
+                "text": "30x",
+                "fraction": 0,
+                "feedback": "That is 45 minus 15; the question asks for the ratio, 45 / 15 = 3."
+              },
+              {
+                "text": "60x",
+                "fraction": 0,
+                "feedback": "That is 45 plus 15; the ratio is 45 / 15 = 3."
+              },
+              {
+                "text": "0.33x",
+                "fraction": 0,
+                "feedback": "That inverts the ratio; production is more expensive, so it is 3x."
+              }
+            ],
+            "generalFeedback": "Divide the given multipliers: 45 / 15 = 3. Production is 3 times as expensive as system testing for these illustrative figures.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Total savings from earlier catch",
+            "text": "<p>Illustratively, fixing a defect costs 5 units in design and 100 units in production. A design review catches 4 defects that would otherwise have escaped to production. Ignoring the cost of the review itself, how much is saved compared with fixing those 4 defects in production?</p>",
+            "answers": [
+              {
+                "text": "380 units",
+                "fraction": 100,
+                "feedback": "Correct \u2014 4 x (100 - 5) = 4 x 95 = 380."
+              },
+              {
+                "text": "400 units",
+                "fraction": 0,
+                "feedback": "That is 4 x 100; you must subtract the 5-unit design fix still incurred for each: 4 x (100 - 5) = 380."
+              },
+              {
+                "text": "420 units",
+                "fraction": 0,
+                "feedback": "That is 4 x (100 + 5); the saving per defect is 100 - 5 = 95, so 4 x 95 = 380."
+              },
+              {
+                "text": "20 units",
+                "fraction": 0,
+                "feedback": "That is 4 x 5, the design cost alone; the saving is 4 x (100 - 5) = 380."
+              }
+            ],
+            "generalFeedback": "Each defect caught in design costs 5 instead of 100, saving 95. For 4 defects the saving is 4 x 95 = 380 units.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Break-even of a review",
+            "text": "<p>A design review costs 60 units to run. Each defect it catches costs 5 units to fix now but would cost 30 units if it escaped to production. The review catches 3 such defects. What is the net economic result of doing the review?</p>",
+            "answers": [
+              {
+                "text": "A net saving of 15 units (the review pays for itself)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 saving per defect is 30 - 5 = 25; 3 x 25 = 75 avoided; 75 - 60 = 15."
+              },
+              {
+                "text": "A net loss of 60 units",
+                "fraction": 0,
+                "feedback": "That ignores the downstream savings; the review avoids 3 x 25 = 75 units, exceeding its 60-unit cost."
+              },
+              {
+                "text": "A net saving of 90 units",
+                "fraction": 0,
+                "feedback": "That is 3 x 30 (the full production cost); you must subtract both the 5-unit fixes and the 60-unit review."
+              },
+              {
+                "text": "Exactly break-even (0 units)",
+                "fraction": 0,
+                "feedback": "The numbers do not cancel: 75 avoided minus 60 spent leaves a 15-unit net saving."
+              }
+            ],
+            "generalFeedback": "Each caught defect saves 30 - 5 = 25 units versus escaping to production. For 3 defects that is 75 units avoided. Subtract the 60-unit review cost: 75 - 60 = 15 units net saving, so the review is worthwhile.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the curve is steep",
+            "text": "<p>Why is the cost-of-change curve often described as growing steeply (roughly exponentially) across phases?</p>",
+            "answers": [
+              {
+                "text": "Each later phase builds more on the defect, so rework multiplies as it propagates through design, code, tests, and released artifacts",
+                "fraction": 100,
+                "feedback": "Correct \u2014 compounding downstream dependencies drive the steep rise."
+              },
+              {
+                "text": "Because currency inflation doubles all costs every phase",
+                "fraction": 0,
+                "feedback": "Inflation is unrelated; the rise comes from accumulated rework."
+              },
+              {
+                "text": "Because the number of testers is required to double each phase",
+                "fraction": 0,
+                "feedback": "Staffing does not double by rule; the driver is propagation of the defect."
+              },
+              {
+                "text": "Because defects reproduce themselves biologically over time",
+                "fraction": 0,
+                "feedback": "Defects do not multiply on their own; the cost multiplies because more artifacts depend on the flaw."
+              }
+            ],
+            "generalFeedback": "The steepness comes from compounding: a defect left in place has more and more work built on top of it, so the amount of rework needed to remove it grows quickly across phases.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Multipliers illustrative, trend robust",
+            "text": "<p>The exact per-phase cost multipliers are illustrative and vary between studies and contexts, but the general trend that later fixes cost more is widely observed.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 treat specific numbers as typical figures, not as an exact universal law; the trend, however, is robust."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The specific multipliers do vary and are debated, yet the escalating trend is well supported, so the statement is true."
+              }
+            ],
+            "generalFeedback": "Reported multipliers (such as 1:5:10:15:100) differ across sources and depend heavily on context and measurement. They are useful illustrations. What is well supported is the direction: fixing defects later tends to cost more."
+          },
+          {
+            "type": "multichoice",
+            "name": "Cost-of-quality trade-off",
+            "text": "<p>In the cost-of-quality model, increasing spend on prevention and appraisal typically:</p>",
+            "answers": [
+              {
+                "text": "Reduces failure costs, and can lower the total cost of quality up to a point",
+                "fraction": 100,
+                "feedback": "Correct \u2014 conformance spending buys down the larger failure costs."
+              },
+              {
+                "text": "Has no effect on failure costs",
+                "fraction": 0,
+                "feedback": "The central trade-off is precisely that conformance spending reduces failure costs."
+              },
+              {
+                "text": "Always increases the total cost of quality with no benefit",
+                "fraction": 0,
+                "feedback": "Up to a point the reduction in failure cost outweighs the added conformance cost."
+              },
+              {
+                "text": "Eliminates all residual risk permanently",
+                "fraction": 0,
+                "feedback": "No amount of spending removes all risk; some residual risk always remains."
+              }
+            ],
+            "generalFeedback": "Cost of quality balances conformance costs (prevention + appraisal) against failure costs (internal + external). Investing more in the first two usually reduces the last two, lowering total cost of quality up to a practical optimum.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Early introduced, late found",
+            "text": "<p>A defect is <em>introduced</em> during requirements but is not <em>discovered</em> until production. Which phase's fix cost does it incur?</p>",
+            "answers": [
+              {
+                "text": "The production (late-phase) cost, because cost is driven by when the defect is found, not when it was introduced",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the escalation is tied to the discovery phase."
+              },
+              {
+                "text": "The requirements cost, because that is where it originated",
+                "fraction": 0,
+                "feedback": "The low requirements cost would apply only if it had been caught there; found late, it incurs the late cost."
+              },
+              {
+                "text": "The average of the requirements and production costs",
+                "fraction": 0,
+                "feedback": "There is no averaging; the cost is that of the phase in which it is found."
+              },
+              {
+                "text": "No cost, because it is an old defect from an early phase",
+                "fraction": 0,
+                "feedback": "Age does not remove cost; an old defect found late is expensive."
+              }
+            ],
+            "generalFeedback": "What escalates the cost is how long a defect survives undetected. A requirements defect that slips all the way to production incurs the production-level fix cost, not the cheap requirements cost.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix cost by discovery phase",
+            "text": "<p>Given illustrative fix costs of requirements 1, design 5, coding 10, system test 15, production 100 (units), a requirements defect that slips through until it is caught in system test costs how much to fix?</p>",
+            "answers": [
+              {
+                "text": "15 units",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it is found in system test, so it incurs the system-test cost of 15."
+              },
+              {
+                "text": "1 unit",
+                "fraction": 0,
+                "feedback": "That is the requirements cost, which applies only if caught in requirements; it was found in system test."
+              },
+              {
+                "text": "16 units",
+                "fraction": 0,
+                "feedback": "That adds 1 and 15; the cost is simply the discovery-phase cost, 15."
+              },
+              {
+                "text": "100 units",
+                "fraction": 0,
+                "feedback": "That is the production cost; the defect was caught in system test, not production."
+              }
+            ],
+            "generalFeedback": "The fix cost is set by the phase in which the defect is discovered. Caught in system test, the requirements defect costs 15 units, not the 1-unit requirements figure.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimum defects to justify a review",
+            "text": "<p>A review costs 200 units. Each defect it catches costs 10 units to fix now but 100 units if it reaches production. What is the minimum number of caught defects for the review to at least pay for itself?</p>",
+            "answers": [
+              {
+                "text": "3 defects",
+                "fraction": 100,
+                "feedback": "Correct \u2014 saving per defect is 100 - 10 = 90; 200 / 90 is about 2.22, so you need 3."
+              },
+              {
+                "text": "2 defects",
+                "fraction": 0,
+                "feedback": "2 x 90 = 180, which is less than 200; the review does not yet pay for itself."
+              },
+              {
+                "text": "20 defects",
+                "fraction": 0,
+                "feedback": "That divides 200 by 10 rather than by the 90-unit per-defect saving."
+              },
+              {
+                "text": "200 defects",
+                "fraction": 0,
+                "feedback": "That is the review cost in units, not the number of defects needed."
+              }
+            ],
+            "generalFeedback": "Each caught defect saves 100 - 10 = 90 units. To cover the 200-unit review you need 200 / 90, about 2.22 defects, rounded up to 3.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Total cost of two strategies",
+            "text": "<p>Ten defects exist. Strategy A catches all 10 in design (5 units each). Strategy B lets all 10 reach production (100 units each). How much more does Strategy B cost in total than Strategy A?</p>",
+            "answers": [
+              {
+                "text": "950 units",
+                "fraction": 100,
+                "feedback": "Correct \u2014 10 x 100 - 10 x 5 = 1000 - 50 = 950."
+              },
+              {
+                "text": "1000 units",
+                "fraction": 0,
+                "feedback": "That is Strategy B's total; the question asks for the difference, 1000 - 50 = 950."
+              },
+              {
+                "text": "50 units",
+                "fraction": 0,
+                "feedback": "That is Strategy A's total; the difference is 1000 - 50 = 950."
+              },
+              {
+                "text": "105 units",
+                "fraction": 0,
+                "feedback": "That is 100 + 5 for a single defect; across 10 defects the difference is 950."
+              }
+            ],
+            "generalFeedback": "Strategy A costs 10 x 5 = 50; Strategy B costs 10 x 100 = 1000. Strategy B costs 1000 - 50 = 950 units more.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why prevention pays off",
+            "text": "<p>What is the core economic argument that prevention &quot;pays off&quot;?</p>",
+            "answers": [
+              {
+                "text": "A unit spent preventing a defect avoids the larger, escalating cost of finding and fixing it later, especially in the field",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a prevented defect never incurs downstream escalation."
+              },
+              {
+                "text": "Prevention is legally mandated in all jurisdictions",
+                "fraction": 0,
+                "feedback": "The argument is economic, not a universal legal requirement."
+              },
+              {
+                "text": "Prevention makes appraisal unnecessary, so all testing can be skipped",
+                "fraction": 0,
+                "feedback": "Prevention complements appraisal; testing is still needed."
+              },
+              {
+                "text": "Prevention converts external failures into revenue",
+                "fraction": 0,
+                "feedback": "Prevention avoids failure costs; it does not turn failures into income."
+              }
+            ],
+            "generalFeedback": "Prevention is economical because an avoided defect incurs none of the escalating downstream costs of detection, rework, and field failure. Money spent early to stop defects generally returns more than the same money spent fixing them later.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mixed caught and escaped",
+            "text": "<p>Illustrative fix costs: design 5, production 100 (units). Of 6 defects, a review catches 4 in design and 2 escape to production. What is the total fix cost for these 6 defects, excluding the review's own cost?</p>",
+            "answers": [
+              {
+                "text": "220 units",
+                "fraction": 100,
+                "feedback": "Correct \u2014 4 x 5 + 2 x 100 = 20 + 200 = 220."
+              },
+              {
+                "text": "600 units",
+                "fraction": 0,
+                "feedback": "That is 6 x 100, as if all escaped; only 2 escaped, so it is 20 + 200 = 220."
+              },
+              {
+                "text": "30 units",
+                "fraction": 0,
+                "feedback": "That is 6 x 5, as if all were caught in design; 2 escaped, so it is 220."
+              },
+              {
+                "text": "105 units",
+                "fraction": 0,
+                "feedback": "That is 100 + 5 for a single pair; across 6 defects the total is 220."
+              }
+            ],
+            "generalFeedback": "Add the two groups: 4 defects at 5 units (20) plus 2 defects at 100 units (200) gives 220 units total.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Total cost of quality",
+            "text": "<p>The <em>total cost of quality</em> is best expressed as:</p>",
+            "answers": [
+              {
+                "text": "Prevention + appraisal + internal failure + external failure costs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 conformance plus non-conformance costs together."
+              },
+              {
+                "text": "Only the cost of external failures",
+                "fraction": 0,
+                "feedback": "External failure is one term of four; total cost of quality sums all four."
+              },
+              {
+                "text": "Prevention minus appraisal",
+                "fraction": 0,
+                "feedback": "The categories are summed, not subtracted, and failure costs must be included."
+              },
+              {
+                "text": "The salary of the QA team only",
+                "fraction": 0,
+                "feedback": "Cost of quality spans prevention, appraisal, and both failure categories, not just QA salaries."
+              }
+            ],
+            "generalFeedback": "Total cost of quality = conformance (prevention + appraisal) + non-conformance (internal failure + external failure). Managing quality economically means minimising this total, usually by shifting spend toward prevention and early appraisal.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Reading the 1:10:100 ratios",
+            "text": "<p>Which statement about &quot;1:10:100&quot; style cost ratios is most accurate?</p>",
+            "answers": [
+              {
+                "text": "They are memorable illustrative heuristics; the precise numbers are not a universal law, though the escalating trend is well supported",
+                "fraction": 100,
+                "feedback": "Correct \u2014 use them as typical figures, not as exact constants."
+              },
+              {
+                "text": "They are an exact physical law that holds identically in every project",
+                "fraction": 0,
+                "feedback": "The precise numbers vary by context and study; they are not an exact law."
+              },
+              {
+                "text": "They prove that defects can never be fixed cheaply",
+                "fraction": 0,
+                "feedback": "Defects caught early are cheap; the ratios describe how cost grows if they are not."
+              },
+              {
+                "text": "They apply only to hardware and never to software",
+                "fraction": 0,
+                "feedback": "The escalation trend is observed in software too; the ratios are widely cited for it."
+              }
+            ],
+            "generalFeedback": "Ratios like 1:10:100 are teaching heuristics for the cost-of-change trend. Real multipliers vary widely, so treat the numbers as illustrative while relying on the robust qualitative message: later is more expensive.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Review not worthwhile on these numbers",
+            "text": "<p>A review costs 100 units and catches 2 defects. Each defect costs 5 units to fix now but 40 units if it escaped to production (illustrative). On these numbers alone, was the review economically worthwhile?</p>",
+            "answers": [
+              {
+                "text": "No, the avoided downstream cost (70 units) is less than the 100-unit review, a net loss of 30 units",
+                "fraction": 100,
+                "feedback": "Correct \u2014 saving per defect is 40 - 5 = 35; 2 x 35 = 70; 70 - 100 = -30."
+              },
+              {
+                "text": "Yes, it saves 80 units",
+                "fraction": 0,
+                "feedback": "That would be 2 x 40; you must subtract the 5-unit fixes and the 100-unit review, giving a 30-unit loss."
+              },
+              {
+                "text": "Yes, it saves exactly 100 units",
+                "fraction": 0,
+                "feedback": "The avoided cost is only 70 units, less than the 100-unit review, so it is a loss."
+              },
+              {
+                "text": "It breaks even at 0 units",
+                "fraction": 0,
+                "feedback": "70 avoided minus 100 spent is a 30-unit net loss, not break-even."
+              }
+            ],
+            "generalFeedback": "Each caught defect saves 40 - 5 = 35 units; two defects avoid 70 units downstream. The review costs 100, so the net result is 70 - 100 = -30 units, a loss on these figures. Break-even here would need 3 defects (3 x 35 = 105 > 100).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Where to shift spend",
+            "text": "<p>A team currently spends heavily on external-failure handling (recalls and support). By cost-of-quality reasoning, the most economical improvement is usually to:</p>",
+            "answers": [
+              {
+                "text": "Invest more in prevention and earlier appraisal to reduce the far larger downstream failure costs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 buying down failure cost with conformance spending lowers the total."
+              },
+              {
+                "text": "Cut all prevention and appraisal spending to save money now",
+                "fraction": 0,
+                "feedback": "That would raise failure costs further; it is the opposite of the recommended move."
+              },
+              {
+                "text": "Wait for customers to report every defect before acting",
+                "fraction": 0,
+                "feedback": "That maximises the most expensive category, external failure."
+              },
+              {
+                "text": "Increase external-failure spending even further",
+                "fraction": 0,
+                "feedback": "Spending more on the costliest category does not reduce the total cost of quality."
+              }
+            ],
+            "generalFeedback": "When failure costs dominate, cost-of-quality reasoning says to shift spend toward prevention and early appraisal. A modest increase there typically produces a larger reduction in internal and external failure costs, lowering the total.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u8B8A\u66F4\u6210\u672C\u539F\u5247",
+            "text": "<p><em>\u8B8A\u66F4\u6210\u672C\uFF08cost of change\uFF09</em>\uFF08\u7F3A\u9677\u6210\u672C\u905E\u589E\uFF09\u539F\u5247\u6307\u51FA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7F3A\u9677\u88AB\u767C\u73FE\u5F97\u6108\u665A\uFF0C\u4FEE\u5FA9\u5B83\u7684\u6210\u672C\u50BE\u5411\u65BC\u6108\u9AD8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Boehm \u7684\u8B8A\u66F4\u6210\u672C\u66F2\u7DDA\u6703\u96A8\u8457\u767C\u73FE\u6642\u6A5F\u5EF6\u5F8C\u800C\u4E0A\u5347\u3002"
+              },
+              {
+                "text": "\u4E0D\u8AD6\u4F55\u6642\u767C\u73FE\uFF0C\u4FEE\u5FA9\u7F3A\u9677\u7684\u6210\u672C\u90FD\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u9019\u689D\u66F2\u7DDA\u7684\u91CD\u9EDE\u6B63\u662F\u6210\u672C\u4E26\u975E\u56FA\u5B9A\uFF0C\u800C\u662F\u6703\u905E\u589E\u3002"
+              },
+              {
+                "text": "\u6108\u665A\u767C\u73FE\u7684\u7F3A\u9677\u4E00\u5B9A\u6108\u4FBF\u5B9C\uFF0C\u56E0\u70BA\u5DE5\u5177\u6703\u96A8\u6642\u9593\u9032\u6B65",
+                "fraction": 0,
+                "feedback": "\u6108\u665A\u767C\u73FE\u901A\u5E38\u6108\u8CB4\uFF0C\u800C\u975E\u6108\u4FBF\u5B9C\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5728\u751F\u7522\u74B0\u5883\u767C\u73FE\u7684\u7F3A\u9677\u624D\u6709\u4EFB\u4F55\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u65E9\u671F\u767C\u73FE\u7684\u7F3A\u9677\u4E5F\u8981\u82B1\u6210\u672C\u4FEE\u5FA9\uFF1B\u91CD\u9EDE\u662F\u6108\u665A\u4FEE\u6108\u8CB4\u3002"
+              }
+            ],
+            "generalFeedback": "Boehm \u7684\u8B8A\u66F4\u6210\u672C\u66F2\u7DDA\u6355\u6349\u5230\u4E00\u500B\u666E\u904D\u89C0\u5BDF\u5230\u7684\u8DA8\u52E2\uFF1A\u540C\u4E00\u500B\u7F3A\u9677\u88AB\u767C\u73FE\u5F97\u6108\u665A\uFF0C\u4FEE\u5FA9\u6210\u672C\u5C31\u6108\u9AD8\uFF0C\u56E0\u70BA\u5DF2\u6709\u66F4\u591A\u5DE5\u4F5C\u5EFA\u7ACB\u5728\u5B83\u4E4B\u4E0A\u3002\u5E38\u898B\u7684\u793A\u610F\u500D\u6578\u6703\u5F9E\u9700\u6C42\u968E\u6BB5\u7D04 1x \u4E0A\u5347\u5230\u751F\u7522\u968E\u6BB5\u7684\u6578\u5341\u5230\u6578\u767E\u500D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u5DE6\u79FB",
+            "text": "<p>\u300C\u5DE6\u79FB\uFF08shift-left\uFF09\u300D\u6E2C\u8A66\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u628A\u6E2C\u8A66\u8207\u54C1\u8CEA\u6D3B\u52D5\u79FB\u5230\u751F\u547D\u9031\u671F\u8F03\u65E9\u7684\u968E\u6BB5\uFF0C\u8B93\u7F3A\u9677\u66F4\u65E9\u88AB\u6293\u5230",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u54C1\u8CEA\u5DE5\u4F5C\u79FB\u5230\u6642\u9593\u8EF8\u7684\u5DE6\u5074\uFF08\u8F03\u65E9\uFF09\u3002"
+              },
+              {
+                "text": "\u628A\u6E2C\u8A66\u5EF6\u5230\u767C\u5E03\u4E4B\u5F8C\uFF0C\u4EE5\u5148\u7701\u4E0B\u524D\u671F\u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53F3\u79FB\uFF0C\u8207\u5DE6\u79FB\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u628A\u6240\u6709\u6E2C\u8A66\u79FB\u4EA4\u7D66\u4E00\u500B\u756B\u5728\u7D44\u7E54\u5716\u5DE6\u908A\u7684\u7368\u7ACB\u5718\u968A",
+                "fraction": 0,
+                "feedback": "\u5DE6\u79FB\u8AC7\u7684\u662F\u751F\u547D\u9031\u671F\u4E2D\u7684\u6642\u6A5F\uFF0C\u800C\u975E\u7D44\u7E54\u5716\u4E0A\u7684\u4F4D\u7F6E\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5728\u7A0B\u5F0F\u78BC\u90E8\u7F72\u5230\u751F\u7522\u74B0\u5883\u5F8C\u624D\u64B0\u5BEB\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u628A\u6E2C\u8A66\u63A8\u9072\u5230\u6700\u665A\uFF0C\u8207\u5DE6\u79FB\u76F8\u53CD\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DE6\u79FB\u628A\u5BE9\u67E5\u8207\u6E2C\u8A66\u79FB\u5230\u66F4\u65E9\uFF0C\u4F7F\u7F3A\u9677\u5728\u63A5\u8FD1\u88AB\u5F15\u5165\u4E4B\u8655\u5C31\u88AB\u627E\u5230\uFF0C\u6B64\u6642\u4FEE\u5FA9\u6700\u4FBF\u5B9C\u3002\u5B83\u662F\u5C0D\u8B8A\u66F4\u6210\u672C\u66F2\u7DDA\u7684\u5BE6\u52D9\u56DE\u61C9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5167\u90E8\u5931\u6548\u6210\u672C",
+            "text": "<p>\u5728\u54C1\u8CEA\u6210\u672C\u4E2D\uFF0C<em>\u5167\u90E8\u5931\u6548\u6210\u672C\uFF08internal failure cost\uFF09</em>\u767C\u751F\u65BC\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7F3A\u9677\u5728\u7522\u54C1\u767C\u5E03\u524D\u88AB\u767C\u73FE\u6642\uFF08\u4F8B\u5982\u91CD\u5DE5\u8207\u91CD\u65B0\u6E2C\u8A66\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5167\u90E8\u5931\u6548\u662F\u5728\u5BA2\u6236\u770B\u5230\u4E4B\u524D\uFF0C\u65BC\u5167\u90E8\u88AB\u6293\u5230\u7684\u3002"
+              },
+              {
+                "text": "\u7F3A\u9677\u5728\u767C\u5E03\u5F8C\u88AB\u5BA2\u6236\u767C\u73FE\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5916\u90E8\u5931\u6548\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u8A13\u7DF4\u4EBA\u54E1\u4EE5\u9810\u9632\u7F3A\u9677\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9810\u9632\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u9032\u884C\u6AA2\u67E5\u6216\u6E2C\u8A66\u4EE5\u5075\u6E2C\u7F3A\u9677\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9451\u5B9A\u6210\u672C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5167\u90E8\u5931\u6548\u6210\u672C\u662F\u5728\u4EA4\u4ED8\u524D\u767C\u73FE\u7F3A\u9677\u6240\u7522\u751F\u7684\u6210\u672C\uFF1A\u91CD\u5DE5\u3001\u91CD\u65B0\u6E2C\u8A66\u8207\u91CD\u65B0\u6AA2\u67E5\u3002\u5B83\u8207\u5916\u90E8\u5931\u6548\u6210\u672C\u76F8\u5C0D\uFF0C\u5F8C\u8005\u767C\u751F\u5728\u5BA2\u6236\u5DF2\u53D6\u5F97\u7522\u54C1\u4E4B\u5F8C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5916\u90E8\u5931\u6548\u6210\u672C",
+            "text": "<p><em>\u5916\u90E8\u5931\u6548\u6210\u672C\uFF08external failure cost\uFF09</em>\u767C\u751F\u65BC\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7F3A\u9677\u5728\u767C\u5E03\u5F8C\u88AB\u5BA2\u6236\u767C\u73FE\u6642\uFF08\u4F8B\u5982\u5BA2\u670D\u3001\u4FEE\u88DC\u7A0B\u5F0F\u3001\u53EC\u56DE\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5916\u90E8\u5931\u6548\u5DF2\u89F8\u53CA\u5BA2\u6236\u3002"
+              },
+              {
+                "text": "\u7F3A\u9677\u5728\u767C\u5E03\u524D\u65BC\u5167\u90E8\u88AB\u767C\u73FE\u4E26\u4FEE\u5FA9\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5167\u90E8\u5931\u6548\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u4E8B\u5148\u898F\u5283\u8207\u5B89\u6392\u5176\u54C1\u8CEA\u6D3B\u52D5\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9810\u9632\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u5BE9\u67E5\u8005\u5728\u64B0\u5BEB\u4EFB\u4F55\u7A0B\u5F0F\u78BC\u524D\u6AA2\u8996\u8A2D\u8A08\u6587\u4EF6\u6642",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9451\u5B9A\u6210\u672C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5916\u90E8\u5931\u6548\u6210\u672C\u5728\u7F3A\u9677\u9038\u51FA\u5230\u5BA2\u6236\u5F8C\u7522\u751F\uFF1A\u5BA2\u670D\u96FB\u8A71\u3001\u4FEE\u88DC\u7A0B\u5F0F\u3001\u4FDD\u56FA\u3001\u53EC\u56DE\u8207\u5546\u8B7D\u640D\u5931\u3002\u5B83\u901A\u5E38\u662F\u6700\u6602\u8CB4\u7684\u4E00\u985E\u54C1\u8CEA\u6210\u672C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9810\u9632\u6210\u672C",
+            "text": "<p><em>\u9810\u9632\u6210\u672C\uFF08prevention cost\uFF09</em>\u662F\u70BA\u4E86\u4EE5\u4E0B\u4F55\u8005\u800C\u82B1\u7684\u9322\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u4E00\u958B\u59CB\u5C31\u963B\u6B62\u7F3A\u9677\u88AB\u5F15\u5165\uFF08\u4F8B\u5982\u8A13\u7DF4\u3001\u66F4\u597D\u7684\u6D41\u7A0B\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9810\u9632\u8B93\u7F3A\u9677\u4E0D\u88AB\u88FD\u9020\u51FA\u4F86\u3002"
+              },
+              {
+                "text": "\u627E\u51FA\u5DF2\u7D93\u5B58\u5728\u7684\u7F3A\u9677\uFF08\u4F8B\u5982\u5BE9\u67E5\u8207\u6E2C\u8A66\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9451\u5B9A\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u4FEE\u5FA9\u5728\u767C\u5E03\u524D\u88AB\u767C\u73FE\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5167\u90E8\u5931\u6548\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u8655\u7406\u767C\u5E03\u5F8C\u7684\u5BA2\u6236\u62B1\u6028",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5916\u90E8\u5931\u6548\u6210\u672C\u3002"
+              }
+            ],
+            "generalFeedback": "\u9810\u9632\u6210\u672C\uFF08\u7B26\u5408\u6027\u6210\u672C\u7684\u4E00\u90E8\u5206\uFF09\u7528\u65BC\u907F\u514D\u7F3A\u9677\u88AB\u5F15\u5165\uFF1A\u8A13\u7DF4\u3001\u54C1\u8CEA\u898F\u5283\u3001\u5DE5\u5177\u6295\u8CC7\u8207\u6D41\u7A0B\u6539\u5584\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9451\u5B9A\u6210\u672C",
+            "text": "<p><em>\u9451\u5B9A\u6210\u672C\uFF08appraisal cost\uFF09</em>\u662F\u70BA\u4E86\u4EE5\u4E0B\u4F55\u8005\u800C\u82B1\u7684\u9322\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8A55\u4F30\u6216\u91CF\u6E2C\u5DE5\u4F5C\u7522\u7269\u4EE5\u627E\u51FA\u7F3A\u9677\uFF08\u4F8B\u5982\u5BE9\u67E5\u3001\u6AA2\u67E5\u3001\u6E2C\u8A66\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9451\u5B9A\u5C31\u662F\u5075\u6E2C\u53EF\u80FD\u5DF2\u5B58\u5728\u7684\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u5F9E\u6E90\u982D\u9810\u9632\u7F3A\u9677\u88AB\u5F15\u5165",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9810\u9632\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u8CE0\u511F\u5BA2\u6236\u5728\u73FE\u5834\u767C\u751F\u7684\u5931\u6548",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5916\u90E8\u5931\u6548\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u91CD\u5DE5\u4FEE\u5FA9\u4E00\u500B\u7531\u5BA2\u6236\u767C\u73FE\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5916\u90E8\u5931\u6548\u6210\u672C\u3002"
+              }
+            ],
+            "generalFeedback": "\u9451\u5B9A\u6210\u672C\uFF08\u7B26\u5408\u6027\u6210\u672C\u7684\u4E00\u90E8\u5206\uFF09\u7528\u65BC\u91CF\u6E2C\u8207\u8A55\u4F30\u7522\u54C1\u4EE5\u627E\u51FA\u7F3A\u9677\uFF1A\u5BE9\u67E5\u3001\u6AA2\u67E5\u3001\u6E2C\u8A66\u8207\u7A3D\u6838\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6700\u6602\u8CB4\u7684\u767C\u73FE\u968E\u6BB5",
+            "text": "<p>\u4FEE\u5FA9\u540C\u4E00\u500B\u7F3A\u9677\uFF0C\u901A\u5E38\u5728\u4F55\u6642\u88AB\u767C\u73FE\u6642<em>\u6700</em>\u6602\u8CB4\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u751F\u7522\u74B0\u5883\u3001\u767C\u5E03\u7D66\u5BA2\u6236\u4E4B\u5F8C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u751F\u7522\u74B0\u5883\u7684\u4FEE\u5FA9\u5E36\u6709\u6700\u9AD8\u7684\u793A\u610F\u500D\u6578\u3002"
+              },
+              {
+                "text": "\u5728\u9700\u6C42\u968E\u6BB5",
+                "fraction": 0,
+                "feedback": "\u9700\u6C42\u901A\u5E38\u662F\u4FEE\u5FA9\u7F3A\u9677\u6700\u4FBF\u5B9C\u7684\u968E\u6BB5\u3002"
+              },
+              {
+                "text": "\u5728\u8A2D\u8A08\u968E\u6BB5",
+                "fraction": 0,
+                "feedback": "\u8A2D\u8A08\u968E\u6BB5\u7684\u4FEE\u5FA9\u6BD4\u767C\u5E03\u5F8C\u7684\u4FEE\u5FA9\u4FBF\u5B9C\u3002"
+              },
+              {
+                "text": "\u5728\u7DE8\u78BC\u968E\u6BB5",
+                "fraction": 0,
+                "feedback": "\u7DE8\u78BC\u968E\u6BB5\u7684\u4FEE\u5FA9\u6BD4\u767C\u5E03\u5F8C\u7684\u4FEE\u5FA9\u4FBF\u5B9C\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B8A\u66F4\u6210\u672C\u66F2\u7DDA\u5728\u751F\u7522\u74B0\u5883\u9054\u5230\u9802\u5CF0\uFF1A\u89F8\u53CA\u5BA2\u6236\u7684\u7F3A\u9677\u53EF\u80FD\u9664\u4E86\u7A0B\u5F0F\u4FEE\u6B63\u5916\uFF0C\u9084\u9700\u8981\u4FEE\u88DC\u7A0B\u5F0F\u3001\u5BA2\u670D\u8207\u5546\u8B7D\u4FEE\u5FA9\uFF0C\u4F7F\u5B83\u6210\u70BA\u6700\u6602\u8CB4\u7684\u767C\u73FE\u4E4B\u8655\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6700\u4FBF\u5B9C\u7684\u767C\u73FE\u968E\u6BB5",
+            "text": "<p>\u4FEE\u5FA9\u7F3A\u9677\uFF0C\u901A\u5E38\u5728\u4F55\u6642\u88AB\u767C\u73FE\u6642<em>\u6700</em>\u4FBF\u5B9C\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u5B83\u88AB\u5F15\u5165\u7684\u540C\u4E00\u500B\u65E9\u671F\u968E\u6BB5\uFF08\u4F8B\u5982\u9700\u6C42\u7F3A\u9677\u5728\u9700\u6C42\u968E\u6BB5\u5C31\u88AB\u6293\u5230\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u5F15\u5165\u8655\u5C31\u6293\u5230\u7F3A\u9677\u53EF\u907F\u514D\u4E0B\u6E38\u91CD\u5DE5\u3002"
+              },
+              {
+                "text": "\u5728\u751F\u7522\u74B0\u5883",
+                "fraction": 0,
+                "feedback": "\u751F\u7522\u74B0\u5883\u662F\u6700\u8CB4\u800C\u975E\u6700\u4FBF\u5B9C\u7684\u4FEE\u5FA9\u4E4B\u8655\u3002"
+              },
+              {
+                "text": "\u5728\u7CFB\u7D71\u6E2C\u8A66\u968E\u6BB5",
+                "fraction": 0,
+                "feedback": "\u7CFB\u7D71\u6E2C\u8A66\u6BD4\u751F\u7522\u74B0\u5883\u4FBF\u5B9C\uFF0C\u4F46\u6BD4\u65E9\u671F\u968E\u6BB5\u8CB4\u3002"
+              },
+              {
+                "text": "\u5728\u5BA2\u6236\u89F8\u767C\u53EC\u56DE\u4E4B\u5F8C",
+                "fraction": 0,
+                "feedback": "\u53EC\u56DE\u5C6C\u65BC\u6700\u6602\u8CB4\u7684\u7D50\u679C\u4E4B\u4E00\uFF0C\u800C\u975E\u6700\u4FBF\u5B9C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u7F3A\u9677\u88AB\u5F15\u5165\u7684\u968E\u6BB5\u5C31\u6293\u5230\uFF0C\u4FEE\u5FA9\u6700\u4FBF\u5B9C\uFF0C\u56E0\u70BA\u5C1A\u672A\u6709\u4EFB\u4F55\u6771\u897F\u5EFA\u7ACB\u5728\u5B83\u4E4B\u4E0A\u3002\u9019\u6B63\u662F\u628A\u5BE9\u67E5\u8207\u6E2C\u8A66\u5DE6\u79FB\u80FD\u7701\u9322\u7684\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6108\u665A\u4EE3\u8868\u6108\u8CB4",
+            "text": "<p>\u4E00\u822C\u800C\u8A00\uFF0C\u7F3A\u9677\u5728\u8EDF\u9AD4\u751F\u547D\u9031\u671F\u4E2D\u88AB\u767C\u73FE\u5F97\u6108\u665A\uFF0C\u4FEE\u5FA9\u5B83\u5C31\u6108\u6602\u8CB4\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u8B8A\u66F4\u6210\u672C\u66F2\u7DDA\u7684\u6838\u5FC3\u6982\u5FF5\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u666E\u904D\u89C0\u5BDF\u5230\u7684\u8DA8\u52E2\u6070\u597D\u76F8\u53CD\uFF1A\u6108\u665A\u767C\u73FE\u6108\u8CB4\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B8A\u66F4\u6210\u672C\u66F2\u7DDA\u6355\u6349\u5230\u4E00\u500B\u666E\u904D\u8DA8\u52E2\uFF1A\u7F3A\u9677\u88AB\u767C\u73FE\u5F97\u6108\u665A\uFF0C\u4FEE\u5FA9\u6108\u8CB4\u3002\u78BA\u5207\u500D\u6578\u6703\u56E0\u7814\u7A76\u8207\u60C5\u5883\u800C\u7570\uFF0C\u4F46\u905E\u589E\u7684\u8DA8\u52E2\u6709\u5145\u5206\u652F\u6301\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975C\u614B\u6280\u8853\u5982\u4F55\u627E\u7F3A\u9677",
+            "text": "<p>\u5BE9\u67E5\u8207\u6AA2\u67E5\u7B49\u975C\u614B\u6280\u8853\u662F\u900F\u904E\u4EE5\u4E0B\u4F55\u7A2E\u65B9\u5F0F\u627E\u51FA\u7F3A\u9677\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6AA2\u8996\u5DE5\u4F5C\u7522\u7269\uFF08\u9700\u6C42\u3001\u8A2D\u8A08\u3001\u7A0B\u5F0F\u78BC\uFF09\u800C\u4E0D\u57F7\u884C\u7A0B\u5F0F\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u975C\u614B\u6280\u8853\u662F\u6AA2\u8996\u5DE5\u4F5C\u7522\u7269\u800C\u975E\u57F7\u884C\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u7A0B\u5F0F\u4E26\u89C0\u5BDF\u5931\u6548",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u52D5\u614B\u6E2C\u8A66\uFF0C\u4E0D\u662F\u975C\u614B\u6280\u8853\u3002"
+              },
+              {
+                "text": "\u90E8\u7F72\u5230\u751F\u7522\u74B0\u5883\u4E26\u7B49\u5F85\u5BA2\u6236\u56DE\u5831",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u73FE\u5834\u56DE\u994B\uFF0C\u662F\u6700\u6602\u8CB4\u7684\u5075\u6E2C\u5F62\u5F0F\uFF0C\u4E5F\u4E0D\u662F\u975C\u614B\u6280\u8853\u3002"
+              },
+              {
+                "text": "\u5728\u8CA0\u8F09\u6E2C\u8A66\u671F\u9593\u91CF\u6E2C CPU \u4F7F\u7528\u7387",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u52D5\u614B\u7684\u6548\u80FD\u91CF\u6E2C\uFF0C\u4E0D\u662F\u975C\u614B\u5BE9\u67E5\u3002"
+              }
+            ],
+            "generalFeedback": "\u975C\u614B\u6280\u8853\uFF08\u5BE9\u67E5\u3001\u8D70\u67E5\u3001\u6AA2\u67E5\u3001\u975C\u614B\u5206\u6790\uFF09\u5728\u4E0D\u57F7\u884C\u7A0B\u5F0F\u78BC\u7684\u60C5\u6CC1\u4E0B\u627E\u7F3A\u9677\uFF0C\u56E0\u6B64\u80FD\u5728\u7F3A\u9677\u64F4\u6563\u524D\u65BC\u65E9\u671F\u7522\u7269\u4E2D\u6293\u5230\u5B83\u5011\u2014\u2014\u901A\u5E38\u662F\u5728\u4FEE\u5FA9\u4FBF\u5B9C\u7684\u968E\u6BB5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9810\u9632\u8207\u5075\u6E2C\u4E4B\u5225",
+            "text": "<p>\u7F3A\u9677<em>\u9810\u9632\uFF08prevention\uFF09</em>\u8207\u7F3A\u9677<em>\u5075\u6E2C\uFF08detection\uFF09</em>\u7684\u5DEE\u5225\u5728\u65BC\uFF0C\u9810\u9632\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u81F4\u529B\u65BC\u963B\u6B62\u7F3A\u9677\u88AB\u5F15\u5165\uFF0C\u800C\u4E0D\u662F\u5728\u7F3A\u9677\u5DF2\u5B58\u5728\u5F8C\u624D\u627E\u51FA\u5B83\u5011",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9810\u9632\u5728\u7F3A\u9677\u7522\u751F\u524D\u5C31\u884C\u52D5\uFF1B\u5075\u6E2C\u5247\u627E\u51FA\u5DF2\u5B58\u5728\u8005\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\u5F8C\u624D\u627E\u51FA\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u52D5\u614B\u5075\u6E2C\uFF0C\u4E0D\u662F\u9810\u9632\u3002"
+              },
+              {
+                "text": "\u53EA\u662F\u5916\u90E8\u5931\u6548\u6210\u672C\u7684\u53E6\u4E00\u500B\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u9810\u9632\u662F\u7B26\u5408\u6027\u6210\u672C\uFF1B\u5916\u90E8\u5931\u6548\u662F\u5931\u6548\u6210\u672C\uFF0C\u5169\u8005\u662F\u4E0D\u540C\u7684\u985E\u5225\u3002"
+              },
+              {
+                "text": "\u53EA\u9069\u7528\u65BC\u5DF2\u5728\u751F\u7522\u74B0\u5883\u4E2D\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u9810\u9632\u5728\u7F3A\u9677\u5B58\u5728\u524D\u5C31\u9069\u7528\uFF0C\u4E0D\u9650\u65BC\u751F\u7522\u74B0\u5883\u7684\u7F3A\u9677\u3002"
+              }
+            ],
+            "generalFeedback": "\u9810\u9632\u8B93\u7F3A\u9677\u4E0D\u88AB\u5F15\u5165\uFF08\u8A13\u7DF4\u3001\u66F4\u597D\u7684\u6D41\u7A0B\u3001\u66F4\u6E05\u695A\u7684\u9700\u6C42\uFF09\uFF1B\u5075\u6E2C\u5247\u627E\u51FA\u5DF2\u5B58\u5728\u7684\u7F3A\u9677\uFF08\u5BE9\u67E5\u3001\u6E2C\u8A66\uFF09\u3002\u9810\u9632\u5F80\u5F80\u6700\u7D93\u6FDF\uFF0C\u56E0\u70BA\u88AB\u907F\u514D\u6389\u7684\u7F3A\u9677\u4E0D\u6703\u7522\u751F\u4EFB\u4F55\u905E\u589E\u6210\u672C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7C21\u55AE\u6BD4\u503C\uFF1A\u7DE8\u78BC\u5C0D\u751F\u7522",
+            "text": "<p>\u5047\u8A2D\uFF08\u793A\u610F\u4E0A\uFF09\u5728\u7DE8\u78BC\u968E\u6BB5\u4FEE\u5FA9\u7F3A\u9677\u7684\u6210\u672C\u70BA\u57FA\u6E96\u55AE\u4F4D\u7684 10x\uFF0C\u5728\u751F\u7522\u74B0\u5883\u4FEE\u5FA9\u70BA\u8A72\u55AE\u4F4D\u7684 100x\u3002\u5728\u751F\u7522\u74B0\u5883\u4FEE\u5FA9\u7684\u6210\u672C\u662F\u5728\u7DE8\u78BC\u968E\u6BB5\u4FEE\u5FA9\u7684\u5E7E\u500D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "10x",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014100 / 10 = 10\u3002"
+              },
+              {
+                "text": "90x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 100 \u6E1B 10\uFF1B\u984C\u76EE\u554F\u7684\u662F\u6BD4\u503C\uFF0C100 / 10 = 10\u3002"
+              },
+              {
+                "text": "110x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 100 \u52A0 10\uFF1B\u6BD4\u503C\u662F 100 / 10 = 10\u3002"
+              },
+              {
+                "text": "1000x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 100 \u4E58 10\uFF1B\u6BD4\u503C\u662F 100 / 10 = 10\u3002"
+              }
+            ],
+            "generalFeedback": "\u76F8\u5C0D\u6210\u672C\u662F\u5169\u500B\u500D\u6578\u7684\u6BD4\u503C\uFF1A100 / 10 = 10\u3002\u4EE5\u9019\u4E9B\u793A\u610F\u6578\u5B57\u800C\u8A00\uFF0C\u751F\u7522\u74B0\u5883\u7684\u6210\u672C\u662F\u7DE8\u78BC\u968E\u6BB5\u7684 10 \u500D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5169\u985E\u7B26\u5408\u6027\u6210\u672C",
+            "text": "<p>\u54C1\u8CEA\u6210\u672C\u4E2D\u7684\u5169\u985E<em>\u7B26\u5408\u6027\uFF08conformance\uFF0C\u9054\u6210\u826F\u597D\u54C1\u8CEA\uFF09</em>\u6210\u672C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9810\u9632\u8207\u9451\u5B9A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B26\u5408\u6027\u6210\u672C\u7528\u65BC\u9054\u6210\u54C1\u8CEA\uFF1A\u9810\u9632\u8207\u9451\u5B9A\u3002"
+              },
+              {
+                "text": "\u5167\u90E8\u5931\u6548\u8207\u5916\u90E8\u5931\u6548",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u975E\u7B26\u5408\u6027\uFF08\u5931\u6548\uFF09\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u9700\u6C42\u8207\u8A2D\u8A08",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u751F\u547D\u9031\u671F\u968E\u6BB5\uFF0C\u4E0D\u662F\u54C1\u8CEA\u6210\u672C\u985E\u5225\u3002"
+              },
+              {
+                "text": "\u53EF\u80FD\u6027\u8207\u885D\u64CA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u98A8\u96AA\u7684\u5169\u500B\u9762\u5411\uFF0C\u4E0D\u662F\u54C1\u8CEA\u6210\u672C\u985E\u5225\u3002"
+              }
+            ],
+            "generalFeedback": "\u54C1\u8CEA\u6210\u672C\u5206\u70BA\u7B26\u5408\u6027\u6210\u672C\uFF08\u9810\u9632 + \u9451\u5B9A\u2014\u2014\u70BA\u9054\u6210\u54C1\u8CEA\u800C\u82B1\uFF09\u8207\u975E\u7B26\u5408\u6027\u6210\u672C\uFF08\u5167\u90E8 + \u5916\u90E8\u5931\u6548\u2014\u2014\u505A\u932F\u7684\u4EE3\u50F9\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7C21\u55AE\u6BD4\u503C\uFF1A\u9700\u6C42\u5C0D\u7CFB\u7D71\u6E2C\u8A66",
+            "text": "<p>\u5047\u8A2D\uFF08\u793A\u610F\u4E0A\uFF09\u5728\u9700\u6C42\u968E\u6BB5\u4FEE\u5FA9\u7F3A\u9677\u7684\u6210\u672C\u70BA\u57FA\u6E96\u55AE\u4F4D\u7684 1x\uFF0C\u5728\u7CFB\u7D71\u6E2C\u8A66\u4FEE\u5FA9\u70BA\u8A72\u55AE\u4F4D\u7684 15x\u3002\u5728\u7CFB\u7D71\u6E2C\u8A66\u4FEE\u5FA9\u7684\u6210\u672C\u662F\u5728\u9700\u6C42\u968E\u6BB5\u4FEE\u5FA9\u7684\u5E7E\u500D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "15x",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201415 / 1 = 15\u3002"
+              },
+              {
+                "text": "14x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 15 \u6E1B 1\uFF1B\u6BD4\u503C\u662F 15 / 1 = 15\u3002"
+              },
+              {
+                "text": "16x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 15 \u52A0 1\uFF1B\u6BD4\u503C\u662F 15 / 1 = 15\u3002"
+              },
+              {
+                "text": "1/15x",
+                "fraction": 0,
+                "feedback": "\u90A3\u628A\u6BD4\u503C\u985B\u5012\u4E86\uFF1B\u7CFB\u7D71\u6E2C\u8A66\u8F03\u8CB4\uFF0C\u6240\u4EE5\u662F 15x \u800C\u975E 1/15x\u3002"
+              }
+            ],
+            "generalFeedback": "\u76F8\u5C0D\u6210\u672C\u662F 15 / 1 = 15\u3002\u4EE5\u9019\u4E9B\u793A\u610F\u6578\u5B57\u800C\u8A00\uFF0C\u7CFB\u7D71\u6E2C\u8A66\u7684\u4FEE\u5FA9\u6210\u672C\u662F\u9700\u6C42\u968E\u6BB5\u7684 15 \u500D\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5916\u90E8\u5931\u6548\u6700\u6602\u8CB4",
+            "text": "<p>\u5728\u5404\u985E\u5931\u6548\u6210\u672C\u4E2D\uFF0C\u5916\u90E8\u5931\u6548\uFF08\u7531\u5BA2\u6236\u767C\u73FE\u8005\uFF09\u901A\u5E38\u662F\u6700\u6602\u8CB4\u7684\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5916\u90E8\u5931\u6548\u5728\u4FEE\u5FA9\u4E4B\u5916\u9084\u52A0\u4E0A\u5BA2\u670D\u3001\u4FEE\u88DC\u7A0B\u5F0F\u3001\u53EC\u56DE\u8207\u5546\u8B7D\u640D\u5931\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5916\u90E8\u5931\u6548\u901A\u5E38\u6700\u6602\u8CB4\uFF0C\u56E0\u70BA\u7F3A\u9677\u5DF2\u89F8\u53CA\u5BA2\u6236\u3002"
+              }
+            ],
+            "generalFeedback": "\u5916\u90E8\u5931\u6548\u6210\u672C\u901A\u5E38\u662F\u5931\u6548\u985E\u5225\u4E2D\u6700\u9AD8\u8005\uFF1A\u9664\u4E86\u4FEE\u5FA9\u7F3A\u9677\u5916\uFF0C\u7D44\u7E54\u53EF\u80FD\u9084\u8981\u9762\u5C0D\u5BA2\u670D\u8CA0\u8377\u3001\u7DCA\u6025\u4FEE\u88DC\u7A0B\u5F0F\u3001\u53EC\u56DE\u3001\u7F70\u5247\u8207\u5546\u8B7D\u640D\u5931\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\uFF1A\u751F\u7522\u5C0D\u8A2D\u8A08\u7684\u6BD4\u503C",
+            "text": "<p>\u7D66\u5B9A\u793A\u610F\u500D\u6578\uFF1A\u5728\u8A2D\u8A08\u968E\u6BB5\u4FEE\u5FA9\u7F3A\u9677\u7684\u6210\u672C\u70BA\u57FA\u6E96\u55AE\u4F4D\u7684 5x\uFF0C\u5728\u751F\u7522\u74B0\u5883\u4FEE\u5FA9\u70BA\u8A72\u55AE\u4F4D\u7684 100x\u3002\u5728\u751F\u7522\u74B0\u5883\u4FEE\u5FA9\u7684\u6210\u672C\u662F\u5728\u8A2D\u8A08\u968E\u6BB5\u4FEE\u5FA9\u7684\u5E7E\u500D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "20x",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014100 / 5 = 20\u3002"
+              },
+              {
+                "text": "95x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 100 \u6E1B 5\uFF1B\u984C\u76EE\u554F\u7684\u662F\u6BD4\u503C\uFF0C100 / 5 = 20\u3002"
+              },
+              {
+                "text": "105x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 100 \u52A0 5\uFF1B\u6BD4\u503C\u662F 100 / 5 = 20\u3002"
+              },
+              {
+                "text": "500x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 100 \u4E58 5\uFF1B\u6BD4\u503C\u662F 100 / 5 = 20\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u5169\u500B\u7D66\u5B9A\u500D\u6578\u76F8\u9664\uFF1A100 / 5 = 20\u3002\u4EE5\u9019\u4E9B\u793A\u610F\u6578\u5B57\u800C\u8A00\uFF0C\u751F\u7522\u74B0\u5883\u7684\u6210\u672C\u662F\u8A2D\u8A08\u968E\u6BB5\u7684 20 \u500D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5916\u90E8\u5931\u6548\u70BA\u4F55\u6700\u8CB4",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u5916\u90E8\u5931\u6548\u6210\u672C\u901A\u5E38\u662F\u6700\u9AD8\u7684\u4E00\u985E\u54C1\u8CEA\u6210\u672C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9664\u4E86\u4FEE\u5FA9\u7F3A\u9677\u672C\u8EAB\uFF0C\u9084\u52A0\u4E0A\u5BA2\u670D\u3001\u4FEE\u88DC\u7A0B\u5F0F\u6216\u53EC\u56DE\uFF0C\u4EE5\u53CA\u5546\u8B7D\u6216\u4FE1\u8B7D\u640D\u5931",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9762\u5411\u5BA2\u6236\u7684\u5F8C\u679C\u758A\u52A0\u5728\u6280\u8853\u4FEE\u5FA9\u4E4B\u4E0A\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5BA2\u6236\u767C\u73FE\u7684\u7F3A\u9677\u7E3D\u662F\u6975\u5BB9\u6613\u91CD\u73FE",
+                "fraction": 0,
+                "feedback": "\u73FE\u5834\u7F3A\u9677\u5F80\u5F80\u96E3\u4EE5\u91CD\u73FE\uFF1B\u9019\u4E26\u4E0D\u80FD\u89E3\u91CB\u5176\u9AD8\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9810\u9632\u6D3B\u52D5\u6703\u5411\u5BA2\u6236\u6536\u8CBB",
+                "fraction": 0,
+                "feedback": "\u9810\u9632\u662F\u5167\u90E8\u7684\u7B26\u5408\u6027\u6210\u672C\uFF0C\u8207\u5916\u90E8\u5931\u6548\u6210\u672C\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5167\u90E8\u91CD\u5DE5\u5B8C\u5168\u514D\u8CBB",
+                "fraction": 0,
+                "feedback": "\u5167\u90E8\u91CD\u5DE5\u4E26\u975E\u514D\u8CBB\uFF1B\u800C\u4E14\u90A3\u4E5F\u4E0D\u6703\u4F7F\u5916\u90E8\u5931\u6548\u6210\u70BA\u6700\u8CB4\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u7F3A\u9677\u89F8\u53CA\u73FE\u5834\u6642\uFF0C\u9664\u4E86\u7A0B\u5F0F\u4FEE\u6B63\u5916\u9084\u53EF\u80FD\u5F15\u767C\u5BA2\u670D\u8CA0\u8377\u3001\u7DCA\u6025\u4FEE\u88DC\u7A0B\u5F0F\u3001\u53EC\u56DE\u3001\u5408\u7D04\u7F70\u5247\u8207\u9577\u4E45\u7684\u5546\u8B7D\u640D\u5931\uFF0C\u56E0\u6B64\u5916\u90E8\u5931\u6548\u901A\u5E38\u662F\u6700\u6602\u8CB4\u7684\u985E\u5225\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE6\u79FB\u7684\u7406\u7531",
+            "text": "<p>\u5DE6\u79FB\uFF08\u66F4\u65E9\u5BE9\u67E5\u8207\u6E2C\u8A66\uFF09\u4E3B\u8981\u7684\u7D93\u6FDF\u7406\u7531\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u66F4\u65E9\u6293\u5230\u7F3A\u9677\u7684\u6210\u672C\uFF0C\u9060\u4F4E\u65BC\u7B49\u5B83\u64F4\u6563\u5230\u5F8C\u671F\u968E\u6BB5\u5F8C\u518D\u4FEE\u5FA9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u65E9\u671F\u5075\u6E2C\u53EF\u907F\u514D\u905E\u589E\u7684\u4E0B\u6E38\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u66F4\u65E9\u6E2C\u8A66\u4E0D\u9700\u4EFB\u4F55\u5DE5\u5177\uFF0C\u56E0\u6B64\u5B8C\u5168\u514D\u8CBB",
+                "fraction": 0,
+                "feedback": "\u65E9\u671F\u54C1\u8CEA\u5DE5\u4F5C\u4ECD\u6709\u6210\u672C\uFF1B\u91CD\u9EDE\u662F\u5B83\u80FD\u907F\u514D\u66F4\u5927\u7684\u5F8C\u671F\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u5F8C\u671F\u968E\u6BB5\u6C38\u9060\u4E0D\u6703\u6709\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u5F8C\u671F\u968E\u6BB5\u7576\u7136\u53EF\u80FD\u6709\u7F3A\u9677\uFF1B\u5DE6\u79FB\u662F\u8981\u5728\u90A3\u4E4B\u524D\u6293\u5230\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u5718\u968A\u53EF\u4EE5\u5B8C\u5168\u7565\u904E\u9700\u6C42\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u5DE6\u79FB\u662F\u5F37\u5316\u9700\u6C42\u5BE9\u67E5\u7B49\u65E9\u671F\u6D3B\u52D5\uFF0C\u800C\u975E\u7565\u904E\u5B83\u5011\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DE6\u79FB\u7684\u6B63\u7576\u6027\u4F86\u81EA\u8B8A\u66F4\u6210\u672C\u66F2\u7DDA\uFF1A\u5728\u9700\u6C42\u6216\u8A2D\u8A08\u968E\u6BB5\u6293\u5230\u7684\u7F3A\u9677\uFF0C\u9060\u6BD4\u540C\u4E00\u7F3A\u9677\u5728\u6E2C\u8A66\u6216\u751F\u7522\u74B0\u5883\u88AB\u6293\u5230\u4FBF\u5B9C\uFF0C\u6240\u4EE5\u628A\u54C1\u8CEA\u5DE5\u4F5C\u79FB\u5230\u66F4\u65E9\u80FD\u964D\u4F4E\u7E3D\u6210\u672C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u8A13\u7DF4\u5C6C\u65BC\u54EA\u985E\u6210\u672C",
+            "text": "<p>\u8209\u8FA6\u8A13\u7DF4\u8AB2\u7A0B\u6559\u958B\u767C\u8005\u5B89\u5168\u7DE8\u78BC\u5BE6\u52D9\uFF0C\u4EE5\u6E1B\u5C11\u88AB\u5BEB\u51FA\u7684\u7F3A\u9677\uFF0C\u9019\u662F\u54EA\u4E00\u985E\u6210\u672C\u7684\u4F8B\u5B50\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9810\u9632\u6210\u672C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A13\u7DF4\u964D\u4F4E\u4E86\u7F3A\u9677\u88AB\u5F15\u5165\u7684\u6A5F\u6703\u3002"
+              },
+              {
+                "text": "\u9451\u5B9A\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u9451\u5B9A\u662F\u7528\u65BC\u5075\u6E2C\u5DF2\u5B58\u5728\u7684\u7F3A\u9677\uFF0C\u800C\u975E\u9810\u9632\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u5167\u90E8\u5931\u6548\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u5167\u90E8\u5931\u6548\u662F\u4FEE\u5FA9\u767C\u5E03\u524D\u767C\u73FE\u4E4B\u7F3A\u9677\u7684\u6210\u672C\uFF0C\u800C\u975E\u8A13\u7DF4\u3002"
+              },
+              {
+                "text": "\u5916\u90E8\u5931\u6548\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u5916\u90E8\u5931\u6548\u767C\u751F\u5728\u767C\u5E03\u5F8C\uFF1B\u8A13\u7DF4\u5247\u767C\u751F\u5728\u7F3A\u9677\u5B58\u5728\u4E4B\u524D\u3002"
+              }
+            ],
+            "generalFeedback": "\u4EE5\u6E1B\u5C11\u7F3A\u9677\u88AB\u5F15\u5165\u70BA\u76EE\u7684\u7684\u8A13\u7DF4\uFF0C\u662F\u5178\u578B\u7684\u9810\u9632\u6210\u672C\uFF0C\u5C6C\u65BC\u54C1\u8CEA\u7B26\u5408\u6027\u6210\u672C\u7684\u4E00\u90E8\u5206\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u7A0B\u5F0F\u78BC\u6AA2\u67E5\u5C6C\u65BC\u54EA\u985E\u6210\u672C",
+            "text": "<p>\u70BA\u5075\u6E2C\u7F3A\u9677\u800C\u9032\u884C\u7A0B\u5F0F\u78BC\u6AA2\u67E5\u6240\u82B1\u7684\u6642\u9593\uFF0C\u88AB\u6B78\u985E\u70BA\u54EA\u4E00\u985E\u6210\u672C\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9451\u5B9A\u6210\u672C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9451\u5B9A\u6DB5\u84CB\u8A55\u4F30\u5DE5\u4F5C\u7522\u7269\u4EE5\u627E\u51FA\u7F3A\u9677\uFF0C\u5305\u542B\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u9810\u9632\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u9810\u9632\u662F\u963B\u6B62\u7F3A\u9677\u88AB\u5F15\u5165\uFF1B\u6AA2\u67E5\u5247\u662F\u5075\u6E2C\u5DF2\u5B58\u5728\u8005\u3002"
+              },
+              {
+                "text": "\u5167\u90E8\u5931\u6548\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u5167\u90E8\u5931\u6548\u662F\u627E\u5230\u7F3A\u9677\u5F8C\u7684\u91CD\u5DE5\uFF0C\u800C\u975E\u70BA\u627E\u51FA\u7F3A\u9677\u800C\u9032\u884C\u7684\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u5916\u90E8\u5931\u6548\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u5916\u90E8\u5931\u6548\u767C\u751F\u5728\u767C\u5E03\u5F8C\uFF1B\u6AA2\u67E5\u662F\u5167\u90E8\u7684\u5075\u6E2C\u6D3B\u52D5\u3002"
+              }
+            ],
+            "generalFeedback": "\u6AA2\u67E5\u3001\u5BE9\u67E5\u8207\u6E2C\u8A66\u90FD\u662F\u9451\u5B9A\u6D3B\u52D5\uFF1A\u5B83\u5011\u8A55\u4F30\u7522\u54C1\u4EE5\u5075\u6E2C\u7F3A\u9677\u3002\u4E4B\u5F8C\u70BA\u4FEE\u5FA9\u6240\u767C\u73FE\u8005\u800C\u505A\u7684\u91CD\u5DE5\uFF0C\u5247\u662F\u53E6\u4E00\u985E\u5931\u6548\u6210\u672C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u767C\u5E03\u524D\u7684\u91CD\u5DE5",
+            "text": "<p>\u6E2C\u8A66\u4EBA\u54E1\u5728\u767C\u5E03\u524D\u767C\u73FE\u4E00\u500B\u7F3A\u9677\uFF0C\u70BA\u6B64\u9032\u884C\u91CD\u5DE5\u8207\u91CD\u65B0\u6E2C\u8A66\u7684\u5DE5\u4F5C\uFF0C\u5C6C\u65BC\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5167\u90E8\u5931\u6548\u6210\u672C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A72\u7F3A\u9677\u5728\u89F8\u53CA\u5BA2\u6236\u524D\u65BC\u5167\u90E8\u88AB\u4FEE\u5FA9\u3002"
+              },
+              {
+                "text": "\u5916\u90E8\u5931\u6548\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u5916\u90E8\u5931\u6548\u9808\u662F\u7F3A\u9677\u5DF2\u89F8\u53CA\u5BA2\u6236\uFF1B\u6B64\u8655\u662F\u5728\u767C\u5E03\u524D\u88AB\u6293\u5230\u3002"
+              },
+              {
+                "text": "\u9810\u9632\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u9810\u9632\u662F\u907F\u514D\u5F15\u5165\u7F3A\u9677\uFF1B\u9019\u662F\u70BA\u4E00\u500B\u5DF2\u5B58\u5728\u7F3A\u9677\u6240\u505A\u7684\u91CD\u5DE5\u3002"
+              },
+              {
+                "text": "\u9451\u5B9A\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u9451\u5B9A\u662F\u5075\u6E2C\u6D3B\u52D5\uFF08\u6E2C\u8A66\u672C\u8EAB\uFF09\uFF1B\u96A8\u5F8C\u7684\u91CD\u5DE5\u662F\u5931\u6548\u6210\u672C\u3002"
+              }
+            ],
+            "generalFeedback": "\u70BA\u4EA4\u4ED8\u524D\u6293\u5230\u7684\u7F3A\u9677\u6240\u505A\u7684\u91CD\u5DE5\u8207\u91CD\u65B0\u6E2C\u8A66\uFF0C\u662F\u5167\u90E8\u5931\u6548\u6210\u672C\u3002\u82E5\u540C\u4E00\u7F3A\u9677\u662F\u5728\u5BA2\u6236\u9047\u5230\u5F8C\u624D\u4FEE\u5FA9\uFF0C\u5247\u5C6C\u5916\u90E8\u5931\u6548\u6210\u672C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u4FEE\u88DC\u7A0B\u5F0F\u8207\u5BA2\u670D\u5C08\u7DDA",
+            "text": "<p>\u70BA\u5BA2\u6236\u5728\u751F\u7522\u74B0\u5883\u4E2D\u9047\u5230\u7684\u81ED\u87F2\u767C\u5E03\u4FEE\u88DC\u7A0B\u5F0F\u4E26\u914D\u7F6E\u5BA2\u670D\u5C08\u7DDA\uFF0C\u9019\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5916\u90E8\u5931\u6548\u6210\u672C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7F3A\u9677\u5DF2\u89F8\u53CA\u5BA2\u6236\uFF0C\u56E0\u6B64\u884D\u751F\u7684\u6210\u672C\u662F\u5916\u90E8\u5931\u6548\u3002"
+              },
+              {
+                "text": "\u5167\u90E8\u5931\u6548\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u5167\u90E8\u5931\u6548\u4EE3\u8868\u7F3A\u9677\u5728\u767C\u5E03\u524D\u88AB\u6293\u5230\uFF1B\u6B64\u8655\u662F\u5BA2\u6236\u9047\u5230\u4E86\u5B83\u3002"
+              },
+              {
+                "text": "\u9451\u5B9A\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u9451\u5B9A\u662F\u5075\u6E2C\u6D3B\u52D5\uFF0C\u800C\u975E\u8655\u7406\u5DF2\u767C\u5E03\u7F3A\u9677\u7684\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u9810\u9632\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u9810\u9632\u767C\u751F\u5728\u7F3A\u9677\u5B58\u5728\u4E4B\u524D\uFF0C\u800C\u975E\u9762\u5411\u5BA2\u6236\u7684\u5931\u6548\u4E4B\u5F8C\u3002"
+              }
+            ],
+            "generalFeedback": "\u70BA\u89F8\u53CA\u5BA2\u6236\u7684\u7F3A\u9677\u6240\u505A\u7684\u4FEE\u88DC\u7A0B\u5F0F\u3001\u5BA2\u670D\u3001\u4FDD\u56FA\u8207\u53EC\u56DE\uFF0C\u90FD\u662F\u5916\u90E8\u5931\u6548\u6210\u672C\u2014\u2014\u901A\u5E38\u662F\u6700\u6602\u8CB4\u7684\u985E\u5225\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5BE9\u67E5\u5C0D\u52D5\u614B\u6E2C\u8A66\u7684\u6210\u672C",
+            "text": "<p>\u70BA\u4F55\u5BE9\u67E5\u4E00\u4EFD\u8A2D\u8A08\u6587\u4EF6\uFF0C\u53EF\u80FD\u6BD4\u7B49\u52D5\u614B\u6E2C\u8A66\u63ED\u9732\u540C\u4E00\u7F3A\u9677\u66F4\u5177\u6210\u672C\u6548\u76CA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5BE9\u67E5\u66F4\u65E9\u6293\u5230\u7F3A\u9677\uFF0C\u5728\u5B83\u88AB\u7DE8\u78BC\u4E26\u88AB\u5C64\u5C64\u5EFA\u69CB\u65BC\u5176\u4E0A\u4E4B\u524D\uFF0C\u56E0\u6B64\u6240\u9700\u7684\u4E0B\u6E38\u91CD\u5DE5\u8F03\u5C11",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u66F4\u65E9\u5075\u6E2C\u4EE3\u8868\u7F3A\u9677\u64F4\u6563\u5F97\u8F03\u5C11\u3002"
+              },
+              {
+                "text": "\u5BE9\u67E5\u57F7\u884C\u7A0B\u5F0F\u78BC\u7684\u901F\u5EA6\u6BD4\u6E2C\u8A66\u6846\u67B6\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u5BE9\u67E5\u6839\u672C\u4E0D\u57F7\u884C\u7A0B\u5F0F\u78BC\uFF1B\u5B83\u662F\u975C\u614B\u6280\u8853\u3002"
+              },
+              {
+                "text": "\u52D5\u614B\u6E2C\u8A66\u5728\u4EFB\u4F55\u60C5\u6CC1\u4E0B\u90FD\u7D55\u4E0D\u53EF\u80FD\u627E\u5230\u8A2D\u8A08\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u52D5\u614B\u6E2C\u8A66\u80FD\u63ED\u9732\u8A2D\u8A08\u7F3A\u9677\uFF0C\u53EA\u662F\u8F03\u665A\u4E14\u5F80\u5F80\u8F03\u8CB4\u3002"
+              },
+              {
+                "text": "\u5BE9\u67E5\u7E3D\u80FD\u627E\u5230\u6BCF\u4E00\u500B\u7F3A\u9677\uFF0C\u4FDD\u8B49\u96F6\u6B98\u9918\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u6280\u8853\u80FD\u627E\u5230\u6BCF\u4E00\u500B\u7F3A\u9677\uFF1B\u5BE9\u67E5\u964D\u4F4E\u98A8\u96AA\u4F46\u4E0D\u6D88\u9664\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A2D\u8A08\u5BE9\u67E5\u80FD\u5728\u8A2D\u8A08\u968E\u6BB5\u5C31\u6293\u5230\u7F3A\u9677\uFF0C\u65E9\u65BC\u7A0B\u5F0F\u78BC\u8207\u6E2C\u8A66\u88AB\u5EFA\u69CB\u65BC\u5176\u4E0A\u3002\u52D5\u614B\u6E2C\u8A66\u53EA\u6703\u5728\u66F4\u665A\u3001\u7576\u66F4\u591A\u7522\u7269\u4F9D\u8CF4\u5B83\u4E4B\u5F8C\u624D\u627E\u5230\u540C\u4E00\u7F3A\u9677\uFF0C\u56E0\u6B64\u4FEE\u5FA9\u66F4\u8CB4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\uFF1A\u7DE8\u78BC\u5C0D\u9700\u6C42\u7684\u6BD4\u503C",
+            "text": "<p>\u7D66\u5B9A\u793A\u610F\u500D\u6578\uFF1A\u5728\u9700\u6C42\u968E\u6BB5\u4FEE\u5FA9\u7F3A\u9677\u70BA 1x\uFF0C\u5728\u7DE8\u78BC\u968E\u6BB5\u4FEE\u5FA9\u70BA 10x\u3002\u7DE8\u78BC\u968E\u6BB5\u7684\u4FEE\u5FA9\u6210\u672C\u662F\u9700\u6C42\u968E\u6BB5\u7684\u5E7E\u500D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "10x",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201410 / 1 = 10\u3002"
+              },
+              {
+                "text": "9x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 10 \u6E1B 1\uFF1B\u6BD4\u503C\u662F 10 / 1 = 10\u3002"
+              },
+              {
+                "text": "11x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 10 \u52A0 1\uFF1B\u6BD4\u503C\u662F 10 / 1 = 10\u3002"
+              },
+              {
+                "text": "0.1x",
+                "fraction": 0,
+                "feedback": "\u90A3\u628A\u6BD4\u503C\u985B\u5012\u4E86\uFF1B\u7DE8\u78BC\u8F03\u8CB4\uFF0C\u6240\u4EE5\u662F 10x\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u7D66\u5B9A\u500D\u6578\u76F8\u9664\uFF1A10 / 1 = 10\u3002\u4EE5\u9019\u4E9B\u793A\u610F\u6578\u5B57\u800C\u8A00\uFF0C\u7DE8\u78BC\u7684\u4FEE\u5FA9\u6210\u672C\u662F\u9700\u6C42\u968E\u6BB5\u7684 10 \u500D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\uFF1A\u7CFB\u7D71\u6E2C\u8A66\u5C0D\u7DE8\u78BC\u7684\u6BD4\u503C",
+            "text": "<p>\u7D66\u5B9A\u793A\u610F\u500D\u6578\uFF1A\u5728\u7DE8\u78BC\u968E\u6BB5\u4FEE\u5FA9\u7F3A\u9677\u70BA 10x\uFF0C\u5728\u7CFB\u7D71\u6E2C\u8A66\u4FEE\u5FA9\u70BA 15x\u3002\u7CFB\u7D71\u6E2C\u8A66\u7684\u4FEE\u5FA9\u6210\u672C\u662F\u7DE8\u78BC\u968E\u6BB5\u7684\u5E7E\u500D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1.5x",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201415 / 10 = 1.5\u3002"
+              },
+              {
+                "text": "5x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 15 \u6E1B 10\uFF1B\u984C\u76EE\u554F\u7684\u662F\u6BD4\u503C\uFF0C15 / 10 = 1.5\u3002"
+              },
+              {
+                "text": "25x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 15 \u52A0 10\uFF1B\u6BD4\u503C\u662F 15 / 10 = 1.5\u3002"
+              },
+              {
+                "text": "0.67x",
+                "fraction": 0,
+                "feedback": "\u90A3\u628A\u6BD4\u503C\u985B\u5012\u4E86\uFF1B\u7CFB\u7D71\u6E2C\u8A66\u8F03\u8CB4\uFF0C\u6240\u4EE5\u662F 1.5x\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u7D66\u5B9A\u500D\u6578\u76F8\u9664\uFF1A15 / 10 = 1.5\u3002\u4EE5\u9019\u4E9B\u793A\u610F\u6578\u5B57\u800C\u8A00\uFF0C\u7CFB\u7D71\u6E2C\u8A66\u7684\u4FEE\u5FA9\u6210\u672C\u662F\u7DE8\u78BC\u968E\u6BB5\u7684 1.5 \u500D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975C\u614B\u6280\u8853\u7684\u7D93\u6FDF\u6548\u679C",
+            "text": "<p>\u975C\u614B\u6280\u8853\uFF08\u4F8B\u5982\u6AA2\u67E5\uFF09\u80FD\u964D\u4F4E\u6210\u672C\uFF0C\u662F\u56E0\u70BA\u5B83\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\u4E4B\u524D\u5C31\u5075\u6E2C\u7F3A\u9677\uFF0C\u5F80\u5F80\u843D\u5728\u4FEE\u5FA9\u8F03\u4FBF\u5B9C\u7684\u968E\u6BB5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u975C\u614B\u4E14\u65E9\u671F\u5730\u627E\u5230\u7F3A\u9677\u53EF\u8B93\u4FEE\u5FA9\u7DAD\u6301\u4F4E\u5EC9\u3002"
+              },
+              {
+                "text": "\u9700\u8981\u5148\u628A\u8EDF\u9AD4\u90E8\u7F72\u5230\u751F\u7522\u74B0\u5883",
+                "fraction": 0,
+                "feedback": "\u975C\u614B\u6280\u8853\u5B8C\u5168\u4E0D\u9700\u57F7\u884C\u6216\u90E8\u7F72\u3002"
+              },
+              {
+                "text": "\u53EF\u53D6\u4EE3\u64C1\u6709\u4EFB\u4F55\u9700\u6C42\u7684\u5FC5\u8981\u6027",
+                "fraction": 0,
+                "feedback": "\u975C\u614B\u6280\u8853\u8A55\u4F30\u9700\u6C42\u7B49\u7522\u7269\uFF1B\u5B83\u4E26\u4E0D\u79FB\u9664\u5C0D\u9700\u6C42\u7684\u9700\u8981\u3002"
+              },
+              {
+                "text": "\u53EA\u80FD\u4F5C\u7528\u65BC\u7DE8\u8B6F\u5F8C\u7684\u4E8C\u9032\u4F4D\u53EF\u57F7\u884C\u6A94",
+                "fraction": 0,
+                "feedback": "\u975C\u614B\u6280\u8853\u9069\u7528\u65BC\u9700\u6C42\u3001\u8A2D\u8A08\u8207\u539F\u59CB\u78BC\uFF0C\u4E0D\u53EA\u662F\u4E8C\u9032\u4F4D\u6A94\u3002"
+              }
+            ],
+            "generalFeedback": "\u975C\u614B\u6280\u8853\u5728\u4E0D\u57F7\u884C\u7684\u60C5\u6CC1\u4E0B\u6AA2\u8996\u7522\u7269\uFF0C\u56E0\u6B64\u80FD\u5728\u65E9\u671F\u968E\u6BB5\uFF08\u9700\u6C42\u3001\u8A2D\u8A08\u3001\u7A0B\u5F0F\u78BC\uFF09\u627E\u5230\u7F3A\u9677\uFF0C\u800C\u8A72\u6642\u7684\u8B8A\u66F4\u6210\u672C\u6700\u4F4E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\uFF1A\u8A2D\u8A08\u5C0D\u751F\u7522\u7684\u91D1\u984D\u6BD4\u503C",
+            "text": "<p>\u67D0\u7F3A\u9677\u82E5\u5728\u8A2D\u8A08\u968E\u6BB5\u6293\u5230\uFF0C\u4FEE\u5FA9\u6210\u672C\u70BA $50\uFF1B\u82E5\u9038\u51FA\u5230\u751F\u7522\u74B0\u5883\uFF0C\u5247\u70BA $1000\u3002\u9038\u51FA\u5230\u751F\u7522\u74B0\u5883\u8CB4\u4E86\u5E7E\u500D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "20x",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141000 / 50 = 20\u3002"
+              },
+              {
+                "text": "950x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 1000 \u6E1B 50\uFF1B\u984C\u76EE\u554F\u7684\u662F\u6BD4\u503C\uFF0C1000 / 50 = 20\u3002"
+              },
+              {
+                "text": "50x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7D66\u5B9A\u503C\u4E4B\u4E00\uFF0C\u800C\u975E\u6BD4\u503C\uFF1B1000 / 50 = 20\u3002"
+              },
+              {
+                "text": "1050x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 1000 \u52A0 50\uFF1B\u6BD4\u503C\u662F 1000 / 50 = 20\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u5169\u500B\u7D66\u5B9A\u6210\u672C\u76F8\u9664\uFF1A1000 / 50 = 20\u3002\u6B64\u8655\u9038\u51FA\u5230\u751F\u7522\u74B0\u5883\u7684\u6210\u672C\u662F\u5728\u8A2D\u8A08\u968E\u6BB5\u4FEE\u5FA9\u7684 20 \u500D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6210\u672C\u905E\u589E\u7684\u539F\u56E0",
+            "text": "<p>\u7F3A\u9677\u5728\u5F8C\u671F\u968E\u6BB5\u4FEE\u5FA9\u6108\u8CB4\uFF0C\u4E3B\u8981\u539F\u56E0\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5F8C\u7E8C\u5DE5\u4F5C\u5EFA\u7ACB\u5728\u5B83\u4E4B\u4E0A\uFF0C\u56E0\u6B64\u4FEE\u5FA9\u5B83\u9700\u8981\u91CD\u505A\u66F4\u591A\u7522\u7269\uFF08\u8A2D\u8A08\u3001\u7A0B\u5F0F\u78BC\u3001\u6E2C\u8A66\u3001\u6587\u4EF6\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7F3A\u9677\u64F4\u6563\uFF0C\u9700\u8981\u62C6\u6389\u4E26\u91CD\u505A\u7684\u6771\u897F\u66F4\u591A\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u8A2D\u8A08\u5E2B\u5728\u5F8C\u671F\u968E\u6BB5\u7684\u6642\u85AA\u8F03\u9AD8",
+                "fraction": 0,
+                "feedback": "\u6642\u85AA\u4E0D\u6703\u96A8\u968E\u6BB5\u7CFB\u7D71\u6027\u5730\u4E0A\u5347\uFF1B\u9A45\u52D5\u56E0\u7D20\u662F\u7D2F\u7A4D\u7684\u91CD\u5DE5\u3002"
+              },
+              {
+                "text": "\u5F8C\u671F\u7684\u7F3A\u9677\u4F9D\u5B9A\u7FA9\u4E00\u5B9A\u66F4\u56B4\u91CD",
+                "fraction": 0,
+                "feedback": "\u56B4\u91CD\u5EA6\u8207\u4F55\u6642\u88AB\u767C\u73FE\u7121\u95DC\uFF1B\u6210\u672C\u4E0A\u5347\u662F\u56E0\u70BA\u64F4\u6563\u3002"
+              },
+              {
+                "text": "\u7DE8\u8B6F\u5668\u96A8\u8457\u5C08\u6848\u8B8A\u8001\u800C\u8B8A\u6162",
+                "fraction": 0,
+                "feedback": "\u5DE5\u5177\u901F\u5EA6\u4E0D\u662F\u539F\u56E0\uFF1B\u8B8A\u66F4\u6210\u672C\u7684\u905E\u589E\u4F86\u81EA\u4E0B\u6E38\u91CD\u5DE5\u3002"
+              }
+            ],
+            "generalFeedback": "\u905E\u589E\u4E4B\u6240\u4EE5\u767C\u751F\uFF0C\u662F\u56E0\u70BA\u5F8C\u671F\u7522\u7269\u4F9D\u8CF4\u6709\u7455\u75B5\u7684\u90A3\u4E00\u500B\u3002\u4FEE\u5FA9\u5728\u751F\u7522\u74B0\u5883\u624D\u767C\u73FE\u7684\u9700\u6C42\u7F3A\u9677\uFF0C\u53EF\u80FD\u9700\u8981\u8B8A\u66F4\u9700\u6C42\u3001\u8A2D\u8A08\u3001\u7A0B\u5F0F\u78BC\u3001\u6E2C\u8A66\u8207\u6587\u4EF6\uFF0C\u9084\u8981\u8655\u7406\u73FE\u5834\u5F71\u97FF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u6D41\u7A0B\u6539\u5584",
+            "text": "<p>\u6539\u5584\u9700\u6C42\u64B0\u5BEB\u6D41\u7A0B\uFF0C\u4F7F\u542B\u7CCA\u7684\u9700\u6C42\u8F03\u4E0D\u6613\u51FA\u73FE\uFF0C\u9019\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9810\u9632\u6210\u672C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6539\u5584\u6D41\u7A0B\u4EE5\u907F\u514D\u5F15\u5165\u7F3A\u9677\u5C6C\u65BC\u9810\u9632\u3002"
+              },
+              {
+                "text": "\u9451\u5B9A\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u9451\u5B9A\u662F\u5075\u6E2C\u5DF2\u5B58\u5728\u7684\u7F3A\u9677\uFF1B\u6B64\u8B8A\u66F4\u662F\u963B\u6B62\u5B83\u5011\u88AB\u5F15\u5165\u3002"
+              },
+              {
+                "text": "\u5167\u90E8\u5931\u6548\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u5167\u90E8\u5931\u6548\u662F\u70BA\u5DF2\u767C\u73FE\u7F3A\u9677\u6240\u505A\u7684\u91CD\u5DE5\uFF0C\u800C\u975E\u6D41\u7A0B\u6539\u5584\u3002"
+              },
+              {
+                "text": "\u5916\u90E8\u5931\u6548\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u5916\u90E8\u5931\u6548\u767C\u751F\u5728\u767C\u5E03\u5F8C\uFF1B\u6D41\u7A0B\u6539\u5584\u662F\u9810\u9632\u6D3B\u52D5\u3002"
+              }
+            ],
+            "generalFeedback": "\u964D\u4F4E\u7F3A\u9677\u5F15\u5165\u983B\u7387\u7684\u6D41\u7A0B\u6539\u5584\u662F\u9810\u9632\u6210\u672C\uFF0C\u5C6C\u65BC\u54C1\u8CEA\u7B26\u5408\u6027\u6210\u672C\u7684\u4E00\u90E8\u5206\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\uFF1A\u751F\u7522\u5C0D\u7CFB\u7D71\u6E2C\u8A66\u7684\u6BD4\u503C",
+            "text": "<p>\u7D66\u5B9A\u793A\u610F\u500D\u6578\uFF1A\u5728\u7CFB\u7D71\u6E2C\u8A66\u4FEE\u5FA9\u7F3A\u9677\u70BA 15x\uFF0C\u5728\u751F\u7522\u74B0\u5883\u4FEE\u5FA9\u70BA 45x\u3002\u5728\u751F\u7522\u74B0\u5883\u4FEE\u5FA9\u7684\u6210\u672C\u662F\u5728\u7CFB\u7D71\u6E2C\u8A66\u4FEE\u5FA9\u7684\u5E7E\u500D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3x",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201445 / 15 = 3\u3002"
+              },
+              {
+                "text": "30x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 45 \u6E1B 15\uFF1B\u984C\u76EE\u554F\u7684\u662F\u6BD4\u503C\uFF0C45 / 15 = 3\u3002"
+              },
+              {
+                "text": "60x",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 45 \u52A0 15\uFF1B\u6BD4\u503C\u662F 45 / 15 = 3\u3002"
+              },
+              {
+                "text": "0.33x",
+                "fraction": 0,
+                "feedback": "\u90A3\u628A\u6BD4\u503C\u985B\u5012\u4E86\uFF1B\u751F\u7522\u74B0\u5883\u8F03\u8CB4\uFF0C\u6240\u4EE5\u662F 3x\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u7D66\u5B9A\u500D\u6578\u76F8\u9664\uFF1A45 / 15 = 3\u3002\u4EE5\u9019\u4E9B\u793A\u610F\u6578\u5B57\u800C\u8A00\uFF0C\u751F\u7522\u74B0\u5883\u7684\u6210\u672C\u662F\u7CFB\u7D71\u6E2C\u8A66\u7684 3 \u500D\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u66F4\u65E9\u6293\u5230\u7684\u7E3D\u7BC0\u7701",
+            "text": "<p>\u793A\u610F\u4E0A\uFF0C\u4FEE\u5FA9\u4E00\u500B\u7F3A\u9677\u5728\u8A2D\u8A08\u968E\u6BB5\u82B1 5 \u55AE\u4F4D\uFF0C\u5728\u751F\u7522\u74B0\u5883\u82B1 100 \u55AE\u4F4D\u3002\u4E00\u6B21\u8A2D\u8A08\u5BE9\u67E5\u6293\u5230 4 \u500B\u539F\u672C\u6703\u9038\u51FA\u5230\u751F\u7522\u74B0\u5883\u7684\u7F3A\u9677\u3002\u4E0D\u8A08\u5BE9\u67E5\u672C\u8EAB\u7684\u6210\u672C\uFF0C\u76F8\u8F03\u65BC\u5728\u751F\u7522\u74B0\u5883\u4FEE\u5FA9\u9019 4 \u500B\u7F3A\u9677\uFF0C\u5171\u7BC0\u7701\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "380 \u55AE\u4F4D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144 x (100 - 5) = 4 x 95 = 380\u3002"
+              },
+              {
+                "text": "400 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 4 x 100\uFF1B\u6BCF\u500B\u4ECD\u8981\u4ED8 5 \u55AE\u4F4D\u7684\u8A2D\u8A08\u4FEE\u5FA9\uFF0C\u9808\u6263\u9664\uFF1A4 x (100 - 5) = 380\u3002"
+              },
+              {
+                "text": "420 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 4 x (100 + 5)\uFF1B\u6BCF\u500B\u7F3A\u9677\u7684\u7BC0\u7701\u662F 100 - 5 = 95\uFF0C\u6240\u4EE5\u662F 4 x 95 = 380\u3002"
+              },
+              {
+                "text": "20 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 4 x 5\uFF0C\u53EA\u662F\u8A2D\u8A08\u6210\u672C\uFF1B\u7BC0\u7701\u662F 4 x (100 - 5) = 380\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u5728\u8A2D\u8A08\u968E\u6BB5\u6293\u5230\u7684\u7F3A\u9677\u82B1 5 \u800C\u975E 100\uFF0C\u7BC0\u7701 95\u30024 \u500B\u7F3A\u9677\u5171\u7BC0\u7701 4 x 95 = 380 \u55AE\u4F4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5BE9\u67E5\u7684\u640D\u76CA\u5E73\u8861",
+            "text": "<p>\u4E00\u6B21\u8A2D\u8A08\u5BE9\u67E5\u8981\u82B1 60 \u55AE\u4F4D\u57F7\u884C\u3002\u5B83\u6293\u5230\u7684\u6BCF\u500B\u7F3A\u9677\u73FE\u5728\u4FEE\u5FA9\u82B1 5 \u55AE\u4F4D\uFF0C\u4F46\u82E5\u9038\u51FA\u5230\u751F\u7522\u74B0\u5883\u6703\u82B1 30 \u55AE\u4F4D\u3002\u6B64\u5BE9\u67E5\u6293\u5230 3 \u500B\u9019\u6A23\u7684\u7F3A\u9677\u3002\u505A\u9019\u6B21\u5BE9\u67E5\u7684\u6DE8\u7D93\u6FDF\u7D50\u679C\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6DE8\u7BC0\u7701 15 \u55AE\u4F4D\uFF08\u5BE9\u67E5\u5212\u5F97\u4F86\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u7F3A\u9677\u7BC0\u7701 30 - 5 = 25\uFF1B3 x 25 = 75 \u88AB\u907F\u514D\uFF1B75 - 60 = 15\u3002"
+              },
+              {
+                "text": "\u6DE8\u640D\u5931 60 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u5FFD\u7565\u4E86\u4E0B\u6E38\u7BC0\u7701\uFF1B\u5BE9\u67E5\u907F\u514D\u4E86 3 x 25 = 75 \u55AE\u4F4D\uFF0C\u8D85\u904E\u5176 60 \u55AE\u4F4D\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u6DE8\u7BC0\u7701 90 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 3 x 30\uFF08\u5B8C\u6574\u7684\u751F\u7522\u6210\u672C\uFF09\uFF1B\u9084\u9808\u6263\u9664 3 \u500B 5 \u55AE\u4F4D\u7684\u4FEE\u5FA9\u8207 60 \u55AE\u4F4D\u7684\u5BE9\u67E5\u3002"
+              },
+              {
+                "text": "\u525B\u597D\u640D\u76CA\u5E73\u8861\uFF080 \u55AE\u4F4D\uFF09",
+                "fraction": 0,
+                "feedback": "\u6578\u5B57\u4E26\u672A\u76F8\u62B5\uFF1A\u907F\u514D\u7684 75 \u6E1B\u53BB\u82B1\u8CBB\u7684 60\uFF0C\u5269\u4E0B 15 \u55AE\u4F4D\u6DE8\u7BC0\u7701\u3002"
+              }
+            ],
+            "generalFeedback": "\u76F8\u8F03\u65BC\u9038\u51FA\u5230\u751F\u7522\u74B0\u5883\uFF0C\u6BCF\u500B\u6293\u5230\u7684\u7F3A\u9677\u7BC0\u7701 30 - 5 = 25 \u55AE\u4F4D\u30023 \u500B\u7F3A\u9677\u5171\u907F\u514D 75 \u55AE\u4F4D\u3002\u6263\u9664 60 \u55AE\u4F4D\u7684\u5BE9\u67E5\u6210\u672C\uFF1A75 - 60 = 15 \u55AE\u4F4D\u6DE8\u7BC0\u7701\uFF0C\u56E0\u6B64\u9019\u6B21\u5BE9\u67E5\u5212\u5F97\u4F86\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u66F2\u7DDA\u70BA\u4F55\u9661\u5CED",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u8B8A\u66F4\u6210\u672C\u66F2\u7DDA\u5E38\u88AB\u63CF\u8FF0\u70BA\u8DE8\u968E\u6BB5\u9661\u5CED\uFF08\u5927\u81F4\u5448\u6307\u6578\uFF09\u6210\u9577\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u5F8C\u671F\u968E\u6BB5\u90FD\u5728\u7F3A\u9677\u4E4B\u4E0A\u5EFA\u69CB\u66F4\u591A\u6771\u897F\uFF0C\u56E0\u6B64\u91CD\u5DE5\u96A8\u5B83\u64F4\u6563\u7D93\u904E\u8A2D\u8A08\u3001\u7A0B\u5F0F\u78BC\u3001\u6E2C\u8A66\u8207\u5DF2\u767C\u5E03\u7522\u7269\u800C\u500D\u589E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8907\u5408\u7684\u4E0B\u6E38\u4F9D\u8CF4\u63A8\u52D5\u4E86\u9661\u5347\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u901A\u8CA8\u81A8\u8139\u4F7F\u6240\u6709\u6210\u672C\u6BCF\u968E\u6BB5\u7FFB\u500D",
+                "fraction": 0,
+                "feedback": "\u901A\u81A8\u7121\u95DC\uFF1B\u4E0A\u5347\u4F86\u81EA\u7D2F\u7A4D\u7684\u91CD\u5DE5\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6E2C\u8A66\u4EBA\u54E1\u7684\u4EBA\u6578\u6BCF\u968E\u6BB5\u88AB\u8981\u6C42\u7FFB\u500D",
+                "fraction": 0,
+                "feedback": "\u4EBA\u529B\u4E0D\u6703\u4F9D\u898F\u5247\u7FFB\u500D\uFF1B\u9A45\u52D5\u56E0\u7D20\u662F\u7F3A\u9677\u7684\u64F4\u6563\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u7F3A\u9677\u96A8\u6642\u9593\u5728\u751F\u7269\u5B78\u4E0A\u81EA\u6211\u7E41\u6B96",
+                "fraction": 0,
+                "feedback": "\u7F3A\u9677\u4E0D\u6703\u81EA\u884C\u589E\u6B96\uFF1B\u6210\u672C\u500D\u589E\u662F\u56E0\u70BA\u66F4\u591A\u7522\u7269\u4F9D\u8CF4\u9019\u500B\u7455\u75B5\u3002"
+              }
+            ],
+            "generalFeedback": "\u9661\u5CED\u4F86\u81EA\u8907\u5408\u6548\u61C9\uFF1A\u4E00\u500B\u88AB\u7559\u5728\u539F\u8655\u7684\u7F3A\u9677\u6703\u6709\u6108\u4F86\u6108\u591A\u5DE5\u4F5C\u5EFA\u7ACB\u5728\u5B83\u4E4B\u4E0A\uFF0C\u56E0\u6B64\u8DE8\u968E\u6BB5\u8981\u79FB\u9664\u5B83\u6240\u9700\u7684\u91CD\u5DE5\u91CF\u6703\u5FEB\u901F\u6210\u9577\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u500D\u6578\u662F\u793A\u610F\u7684\uFF0C\u8DA8\u52E2\u7A69\u5065",
+            "text": "<p>\u5404\u968E\u6BB5\u78BA\u5207\u7684\u6210\u672C\u500D\u6578\u662F\u793A\u610F\u6027\u7684\uFF0C\u6703\u56E0\u7814\u7A76\u8207\u60C5\u5883\u800C\u7570\uFF0C\u4F46\u300C\u6108\u665A\u4FEE\u5FA9\u6108\u8CB4\u300D\u9019\u500B\u4E00\u822C\u8DA8\u52E2\u6709\u5EE3\u6CDB\u7684\u89C0\u5BDF\u652F\u6301\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u5177\u9AD4\u6578\u5B57\u7576\u6210\u5178\u578B\u793A\u610F\u503C\uFF0C\u800C\u975E\u78BA\u5207\u7684\u666E\u4E16\u6CD5\u5247\uFF1B\u4F46\u8DA8\u52E2\u672C\u8EAB\u662F\u7A69\u5065\u7684\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5177\u9AD4\u500D\u6578\u78BA\u5BE6\u6703\u8B8A\u52D5\u4E14\u6709\u722D\u8B70\uFF0C\u4F46\u905E\u589E\u8DA8\u52E2\u6709\u5145\u5206\u652F\u6301\uFF0C\u56E0\u6B64\u672C\u6558\u8FF0\u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "\u88AB\u5831\u544A\u7684\u500D\u6578\uFF08\u4F8B\u5982 1:5:10:15:100\uFF09\u6703\u56E0\u4F86\u6E90\u800C\u7570\uFF0C\u4E26\u9AD8\u5EA6\u53D6\u6C7A\u65BC\u60C5\u5883\u8207\u91CF\u6E2C\u65B9\u5F0F\u3002\u5B83\u5011\u662F\u6709\u7528\u7684\u793A\u610F\u3002\u6709\u5145\u5206\u652F\u6301\u7684\u662F\u65B9\u5411\uFF1A\u6108\u665A\u4FEE\u5FA9\u7F3A\u9677\u50BE\u5411\u65BC\u6108\u8CB4\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54C1\u8CEA\u6210\u672C\u7684\u53D6\u6368",
+            "text": "<p>\u5728\u54C1\u8CEA\u6210\u672C\u6A21\u578B\u4E2D\uFF0C\u589E\u52A0\u9810\u9632\u8207\u9451\u5B9A\u7684\u652F\u51FA\u901A\u5E38\u6703\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u964D\u4F4E\u5931\u6548\u6210\u672C\uFF0C\u4E26\u5728\u4E00\u5B9A\u7BC4\u570D\u5167\u964D\u4F4E\u7E3D\u54C1\u8CEA\u6210\u672C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B26\u5408\u6027\u652F\u51FA\u53EF\u63DB\u53D6\u66F4\u5927\u7684\u5931\u6548\u6210\u672C\u4E0B\u964D\u3002"
+              },
+              {
+                "text": "\u5C0D\u5931\u6548\u6210\u672C\u6C92\u6709\u5F71\u97FF",
+                "fraction": 0,
+                "feedback": "\u6838\u5FC3\u53D6\u6368\u6B63\u662F\u7B26\u5408\u6027\u652F\u51FA\u6703\u964D\u4F4E\u5931\u6548\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u7E3D\u662F\u589E\u52A0\u7E3D\u54C1\u8CEA\u6210\u672C\u800C\u6BEB\u7121\u597D\u8655",
+                "fraction": 0,
+                "feedback": "\u5728\u4E00\u5B9A\u7BC4\u570D\u5167\uFF0C\u5931\u6548\u6210\u672C\u7684\u4E0B\u964D\u6703\u8D85\u904E\u6240\u589E\u52A0\u7684\u7B26\u5408\u6027\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u6C38\u4E45\u6D88\u9664\u6240\u6709\u6B98\u9918\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u652F\u51FA\u80FD\u6D88\u9664\u6240\u6709\u98A8\u96AA\uFF1B\u7E3D\u6703\u6709\u6B98\u9918\u98A8\u96AA\u3002"
+              }
+            ],
+            "generalFeedback": "\u54C1\u8CEA\u6210\u672C\u5728\u7B26\u5408\u6027\u6210\u672C\uFF08\u9810\u9632 + \u9451\u5B9A\uFF09\u8207\u5931\u6548\u6210\u672C\uFF08\u5167\u90E8 + \u5916\u90E8\u5931\u6548\uFF09\u4E4B\u9593\u6B0A\u8861\u3002\u5728\u524D\u5169\u8005\u6295\u8CC7\u66F4\u591A\uFF0C\u901A\u5E38\u80FD\u964D\u4F4E\u5F8C\u5169\u8005\uFF0C\u5728\u4E00\u500B\u5BE6\u52D9\u6700\u9069\u9EDE\u4E4B\u524D\u4F7F\u7E3D\u54C1\u8CEA\u6210\u672C\u4E0B\u964D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u65E9\u671F\u5F15\u5165\u3001\u665A\u671F\u767C\u73FE",
+            "text": "<p>\u4E00\u500B\u7F3A\u9677\u5728\u9700\u6C42\u968E\u6BB5\u88AB<em>\u5F15\u5165</em>\uFF0C\u537B\u76F4\u5230\u751F\u7522\u74B0\u5883\u624D\u88AB<em>\u767C\u73FE</em>\u3002\u5B83\u627F\u64D4\u7684\u662F\u54EA\u500B\u968E\u6BB5\u7684\u4FEE\u5FA9\u6210\u672C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u751F\u7522\u74B0\u5883\uFF08\u5F8C\u671F\uFF09\u7684\u6210\u672C\uFF0C\u56E0\u70BA\u6210\u672C\u53D6\u6C7A\u65BC\u7F3A\u9677\u4F55\u6642\u88AB\u767C\u73FE\uFF0C\u800C\u975E\u4F55\u6642\u88AB\u5F15\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u905E\u589E\u8207\u767C\u73FE\u968E\u6BB5\u7D81\u5B9A\u3002"
+              },
+              {
+                "text": "\u9700\u6C42\u968E\u6BB5\u7684\u6210\u672C\uFF0C\u56E0\u70BA\u90A3\u662F\u5B83\u7684\u6E90\u982D",
+                "fraction": 0,
+                "feedback": "\u4F4E\u5EC9\u7684\u9700\u6C42\u6210\u672C\u53EA\u5728\u5B83\u65BC\u9700\u6C42\u968E\u6BB5\u88AB\u6293\u5230\u6642\u624D\u9069\u7528\uFF1B\u665A\u767C\u73FE\u5247\u627F\u64D4\u665A\u671F\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u9700\u6C42\u8207\u751F\u7522\u6210\u672C\u7684\u5E73\u5747",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u53D6\u5E73\u5747\u9019\u56DE\u4E8B\uFF1B\u6210\u672C\u5C31\u662F\u5B83\u88AB\u767C\u73FE\u90A3\u500B\u968E\u6BB5\u7684\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u4E0D\u7528\u6210\u672C\uFF0C\u56E0\u70BA\u5B83\u662F\u65E9\u671F\u968E\u6BB5\u7684\u820A\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u5E74\u7D00\u4E0D\u6703\u6D88\u9664\u6210\u672C\uFF1B\u665A\u767C\u73FE\u7684\u820A\u7F3A\u9677\u5F88\u6602\u8CB4\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F7F\u6210\u672C\u905E\u589E\u7684\u662F\u7F3A\u9677\u672A\u88AB\u5075\u6E2C\u800C\u5B58\u6D3B\u4E86\u591A\u4E45\u3002\u4E00\u500B\u4E00\u8DEF\u6E9C\u5230\u751F\u7522\u74B0\u5883\u7684\u9700\u6C42\u7F3A\u9677\uFF0C\u627F\u64D4\u7684\u662F\u751F\u7522\u5C64\u7D1A\u7684\u4FEE\u5FA9\u6210\u672C\uFF0C\u800C\u975E\u4F4E\u5EC9\u7684\u9700\u6C42\u6210\u672C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F9D\u767C\u73FE\u968E\u6BB5\u8A08\u4FEE\u5FA9\u6210\u672C",
+            "text": "<p>\u7D66\u5B9A\u793A\u610F\u4FEE\u5FA9\u6210\u672C\uFF1A\u9700\u6C42 1\u3001\u8A2D\u8A08 5\u3001\u7DE8\u78BC 10\u3001\u7CFB\u7D71\u6E2C\u8A66 15\u3001\u751F\u7522 100\uFF08\u55AE\u4F4D\uFF09\u3002\u4E00\u500B\u9700\u6C42\u7F3A\u9677\u4E00\u8DEF\u6E9C\u5230\u7CFB\u7D71\u6E2C\u8A66\u624D\u88AB\u6293\u5230\uFF0C\u4FEE\u5FA9\u5B83\u8981\u82B1\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "15 \u55AE\u4F4D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u5728\u7CFB\u7D71\u6E2C\u8A66\u88AB\u767C\u73FE\uFF0C\u56E0\u6B64\u627F\u64D4\u7CFB\u7D71\u6E2C\u8A66\u7684\u6210\u672C 15\u3002"
+              },
+              {
+                "text": "1 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9700\u6C42\u6210\u672C\uFF0C\u53EA\u6709\u5728\u9700\u6C42\u968E\u6BB5\u88AB\u6293\u5230\u6642\u624D\u9069\u7528\uFF1B\u5B83\u662F\u5728\u7CFB\u7D71\u6E2C\u8A66\u88AB\u767C\u73FE\u7684\u3002"
+              },
+              {
+                "text": "16 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 1 \u52A0 15\uFF1B\u6210\u672C\u5C31\u662F\u767C\u73FE\u968E\u6BB5\u7684\u6210\u672C\uFF0C\u5373 15\u3002"
+              },
+              {
+                "text": "100 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u751F\u7522\u6210\u672C\uFF1B\u7F3A\u9677\u662F\u5728\u7CFB\u7D71\u6E2C\u8A66\u88AB\u6293\u5230\uFF0C\u800C\u975E\u751F\u7522\u74B0\u5883\u3002"
+              }
+            ],
+            "generalFeedback": "\u4FEE\u5FA9\u6210\u672C\u7531\u7F3A\u9677\u88AB\u767C\u73FE\u7684\u968E\u6BB5\u6C7A\u5B9A\u3002\u5728\u7CFB\u7D71\u6E2C\u8A66\u88AB\u6293\u5230\u6642\uFF0C\u9019\u500B\u9700\u6C42\u7F3A\u9677\u82B1 15 \u55AE\u4F4D\uFF0C\u800C\u975E\u9700\u6C42\u968E\u6BB5\u7684 1 \u55AE\u4F4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F7F\u5BE9\u67E5\u503C\u5F97\u7684\u6700\u5C11\u7F3A\u9677\u6578",
+            "text": "<p>\u4E00\u6B21\u5BE9\u67E5\u82B1 200 \u55AE\u4F4D\u3002\u5B83\u6293\u5230\u7684\u6BCF\u500B\u7F3A\u9677\u73FE\u5728\u4FEE\u5FA9\u82B1 10 \u55AE\u4F4D\uFF0C\u4F46\u82E5\u6E9C\u5230\u751F\u7522\u74B0\u5883\u5247\u82B1 100 \u55AE\u4F4D\u3002\u8981\u8B93\u5BE9\u67E5\u81F3\u5C11\u56DE\u672C\uFF0C\u6700\u5C11\u9808\u6293\u5230\u5E7E\u500B\u7F3A\u9677\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3 \u500B\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u7F3A\u9677\u7BC0\u7701 100 - 10 = 90\uFF1B200 / 90 \u7D04\u70BA 2.22\uFF0C\u6240\u4EE5\u9700\u8981 3\u3002"
+              },
+              {
+                "text": "2 \u500B\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "2 x 90 = 180\uFF0C\u5C0F\u65BC 200\uFF1B\u5BE9\u67E5\u5C1A\u672A\u56DE\u672C\u3002"
+              },
+              {
+                "text": "20 \u500B\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u628A 200 \u9664\u4EE5 10\uFF0C\u800C\u975E\u9664\u4EE5\u6BCF\u7F3A\u9677 90 \u55AE\u4F4D\u7684\u7BC0\u7701\u3002"
+              },
+              {
+                "text": "200 \u500B\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5BE9\u67E5\u7684\u6210\u672C\u55AE\u4F4D\u6578\uFF0C\u800C\u975E\u6240\u9700\u7684\u7F3A\u9677\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u6293\u5230\u7684\u7F3A\u9677\u7BC0\u7701 100 - 10 = 90 \u55AE\u4F4D\u3002\u8981\u6DB5\u84CB 200 \u55AE\u4F4D\u7684\u5BE9\u67E5\uFF0C\u9700\u8981 200 / 90 \u7D04 2.22 \u500B\u7F3A\u9677\uFF0C\u7121\u689D\u4EF6\u9032\u4F4D\u5230 3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5169\u7A2E\u7B56\u7565\u7684\u7E3D\u6210\u672C",
+            "text": "<p>\u5B58\u5728\u5341\u500B\u7F3A\u9677\u3002\u7B56\u7565 A \u5728\u8A2D\u8A08\u968E\u6BB5\u5168\u90E8\u6293\u5230 10 \u500B\uFF08\u6BCF\u500B 5 \u55AE\u4F4D\uFF09\u3002\u7B56\u7565 B \u8B93 10 \u500B\u5168\u90E8\u6E9C\u5230\u751F\u7522\u74B0\u5883\uFF08\u6BCF\u500B 100 \u55AE\u4F4D\uFF09\u3002\u7B56\u7565 B \u7684\u7E3D\u6210\u672C\u6BD4\u7B56\u7565 A \u591A\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "950 \u55AE\u4F4D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201410 x 100 - 10 x 5 = 1000 - 50 = 950\u3002"
+              },
+              {
+                "text": "1000 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7B56\u7565 B \u7684\u7E3D\u984D\uFF1B\u984C\u76EE\u554F\u7684\u662F\u5DEE\u984D\uFF0C1000 - 50 = 950\u3002"
+              },
+              {
+                "text": "50 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7B56\u7565 A \u7684\u7E3D\u984D\uFF1B\u5DEE\u984D\u662F 1000 - 50 = 950\u3002"
+              },
+              {
+                "text": "105 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u4E00\u7F3A\u9677\u7684 100 + 5\uFF1B10 \u500B\u7F3A\u9677\u7684\u5DEE\u984D\u662F 950\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B56\u7565 A \u82B1 10 x 5 = 50\uFF1B\u7B56\u7565 B \u82B1 10 x 100 = 1000\u3002\u7B56\u7565 B \u6BD4\u7B56\u7565 A \u591A\u82B1 1000 - 50 = 950 \u55AE\u4F4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9810\u9632\u70BA\u4F55\u5212\u5F97\u4F86",
+            "text": "<p>\u9810\u9632\u300C\u5212\u5F97\u4F86\u300D\u7684\u6838\u5FC3\u7D93\u6FDF\u8AD6\u8B49\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u82B1\u4E00\u55AE\u4F4D\u9810\u9632\u4E00\u500B\u7F3A\u9677\uFF0C\u53EF\u907F\u514D\u65E5\u5F8C\u627E\u51FA\u4E26\u4FEE\u5FA9\u5B83\u7684\u66F4\u5927\u3001\u905E\u589E\u6210\u672C\uFF0C\u5C24\u5176\u662F\u5728\u73FE\u5834",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u88AB\u9810\u9632\u7684\u7F3A\u9677\u6C38\u9060\u4E0D\u6703\u7522\u751F\u4E0B\u6E38\u905E\u589E\u3002"
+              },
+              {
+                "text": "\u9810\u9632\u5728\u6240\u6709\u53F8\u6CD5\u7BA1\u8F44\u5340\u90FD\u662F\u6CD5\u5F8B\u5F37\u5236\u7684",
+                "fraction": 0,
+                "feedback": "\u6B64\u8AD6\u8B49\u662F\u7D93\u6FDF\u6027\u7684\uFF0C\u4E26\u975E\u666E\u4E16\u7684\u6CD5\u5F8B\u8981\u6C42\u3002"
+              },
+              {
+                "text": "\u9810\u9632\u4F7F\u9451\u5B9A\u8B8A\u5F97\u6C92\u6709\u5FC5\u8981\uFF0C\u56E0\u6B64\u53EF\u7565\u904E\u6240\u6709\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9810\u9632\u8207\u9451\u5B9A\u4E92\u88DC\uFF1B\u6E2C\u8A66\u4ECD\u7136\u5FC5\u8981\u3002"
+              },
+              {
+                "text": "\u9810\u9632\u80FD\u628A\u5916\u90E8\u5931\u6548\u8F49\u63DB\u6210\u71DF\u6536",
+                "fraction": 0,
+                "feedback": "\u9810\u9632\u662F\u907F\u514D\u5931\u6548\u6210\u672C\uFF0C\u800C\u975E\u628A\u5931\u6548\u8B8A\u6210\u6536\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "\u9810\u9632\u4E4B\u6240\u4EE5\u7D93\u6FDF\uFF0C\u662F\u56E0\u70BA\u88AB\u907F\u514D\u6389\u7684\u7F3A\u9677\u4E0D\u6703\u7522\u751F\u5075\u6E2C\u3001\u91CD\u5DE5\u8207\u73FE\u5834\u5931\u6548\u7B49\u4EFB\u4F55\u905E\u589E\u7684\u4E0B\u6E38\u6210\u672C\u3002\u82B1\u5728\u65E9\u671F\u963B\u6B62\u7F3A\u9677\u7684\u9322\uFF0C\u901A\u5E38\u56DE\u5831\u9AD8\u65BC\u540C\u6A23\u7684\u9322\u7528\u65BC\u65E5\u5F8C\u4FEE\u5FA9\u5B83\u5011\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u90E8\u5206\u6293\u5230\u3001\u90E8\u5206\u9038\u51FA",
+            "text": "<p>\u793A\u610F\u4FEE\u5FA9\u6210\u672C\uFF1A\u8A2D\u8A08 5\u3001\u751F\u7522 100\uFF08\u55AE\u4F4D\uFF09\u3002\u5728 6 \u500B\u7F3A\u9677\u4E2D\uFF0C\u4E00\u6B21\u5BE9\u67E5\u5728\u8A2D\u8A08\u968E\u6BB5\u6293\u5230 4 \u500B\uFF0C2 \u500B\u9038\u51FA\u5230\u751F\u7522\u74B0\u5883\u3002\u4E0D\u8A08\u5BE9\u67E5\u672C\u8EAB\u7684\u6210\u672C\uFF0C\u9019 6 \u500B\u7F3A\u9677\u7684\u7E3D\u4FEE\u5FA9\u6210\u672C\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "220 \u55AE\u4F4D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144 x 5 + 2 x 100 = 20 + 200 = 220\u3002"
+              },
+              {
+                "text": "600 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 6 x 100\uFF0C\u7576\u4F5C\u5168\u90E8\u9038\u51FA\uFF1B\u53EA\u6709 2 \u500B\u9038\u51FA\uFF0C\u6240\u4EE5\u662F 20 + 200 = 220\u3002"
+              },
+              {
+                "text": "30 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 6 x 5\uFF0C\u7576\u4F5C\u5168\u90E8\u5728\u8A2D\u8A08\u968E\u6BB5\u6293\u5230\uFF1B\u6709 2 \u500B\u9038\u51FA\uFF0C\u6240\u4EE5\u662F 220\u3002"
+              },
+              {
+                "text": "105 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u4E00\u5C0D\u7684 100 + 5\uFF1B6 \u500B\u7F3A\u9677\u7684\u7E3D\u984D\u662F 220\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u5169\u7D44\u76F8\u52A0\uFF1A4 \u500B\u7F3A\u9677\u5404 5 \u55AE\u4F4D\uFF0820\uFF09\u52A0\u4E0A 2 \u500B\u7F3A\u9677\u5404 100 \u55AE\u4F4D\uFF08200\uFF09\uFF0C\u5171 220 \u55AE\u4F4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7E3D\u54C1\u8CEA\u6210\u672C",
+            "text": "<p><em>\u7E3D\u54C1\u8CEA\u6210\u672C\uFF08total cost of quality\uFF09</em>\u6700\u9069\u5207\u5730\u8868\u9054\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9810\u9632 + \u9451\u5B9A + \u5167\u90E8\u5931\u6548 + \u5916\u90E8\u5931\u6548\u6210\u672C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B26\u5408\u6027\u6210\u672C\u52A0\u4E0A\u975E\u7B26\u5408\u6027\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5916\u90E8\u5931\u6548\u7684\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u5916\u90E8\u5931\u6548\u662F\u56DB\u9805\u4E4B\u4E00\uFF1B\u7E3D\u54C1\u8CEA\u6210\u672C\u662F\u56DB\u9805\u4E4B\u548C\u3002"
+              },
+              {
+                "text": "\u9810\u9632\u6E1B\u53BB\u9451\u5B9A",
+                "fraction": 0,
+                "feedback": "\u5404\u985E\u5225\u662F\u76F8\u52A0\u800C\u975E\u76F8\u6E1B\uFF0C\u4E14\u5FC5\u9808\u7D0D\u5165\u5931\u6548\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u54C1\u4FDD\u5718\u968A\u7684\u85AA\u8CC7",
+                "fraction": 0,
+                "feedback": "\u54C1\u8CEA\u6210\u672C\u6DB5\u84CB\u9810\u9632\u3001\u9451\u5B9A\u8207\u5169\u985E\u5931\u6548\uFF0C\u4E0D\u53EA\u662F\u54C1\u4FDD\u85AA\u8CC7\u3002"
+              }
+            ],
+            "generalFeedback": "\u7E3D\u54C1\u8CEA\u6210\u672C = \u7B26\u5408\u6027\uFF08\u9810\u9632 + \u9451\u5B9A\uFF09+ \u975E\u7B26\u5408\u6027\uFF08\u5167\u90E8\u5931\u6548 + \u5916\u90E8\u5931\u6548\uFF09\u3002\u7D93\u6FDF\u5730\u7BA1\u7406\u54C1\u8CEA\uFF0C\u610F\u8B02\u4F7F\u6B64\u7E3D\u984D\u6700\u5C0F\u5316\uFF0C\u901A\u5E38\u662F\u628A\u652F\u51FA\u79FB\u5411\u9810\u9632\u8207\u65E9\u671F\u9451\u5B9A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5982\u4F55\u89E3\u8B80 1:10:100 \u6BD4\u4F8B",
+            "text": "<p>\u95DC\u65BC\u300C1:10:100\u300D\u9019\u985E\u6210\u672C\u6BD4\u4F8B\uFF0C\u4E0B\u5217\u54EA\u500B\u6558\u8FF0\u6700\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5011\u662F\u597D\u8A18\u7684\u793A\u610F\u6027\u7D93\u9A57\u6CD5\u5247\uFF1B\u78BA\u5207\u6578\u5B57\u4E26\u975E\u666E\u4E16\u6CD5\u5247\uFF0C\u4F46\u905E\u589E\u8DA8\u52E2\u6709\u5145\u5206\u652F\u6301",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u5B83\u5011\u7576\u6210\u5178\u578B\u793A\u610F\u503C\uFF0C\u800C\u975E\u78BA\u5207\u5E38\u6578\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u4E00\u689D\u5728\u6BCF\u500B\u5C08\u6848\u90FD\u5B8C\u5168\u76F8\u540C\u6210\u7ACB\u7684\u78BA\u5207\u7269\u7406\u6CD5\u5247",
+                "fraction": 0,
+                "feedback": "\u78BA\u5207\u6578\u5B57\u6703\u56E0\u60C5\u5883\u8207\u7814\u7A76\u800C\u7570\uFF1B\u5B83\u5011\u4E0D\u662F\u78BA\u5207\u6CD5\u5247\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u8B49\u660E\u7F3A\u9677\u6C38\u9060\u7121\u6CD5\u4FBF\u5B9C\u5730\u4FEE\u5FA9",
+                "fraction": 0,
+                "feedback": "\u65E9\u671F\u6293\u5230\u7684\u7F3A\u9677\u5F88\u4FBF\u5B9C\uFF1B\u9019\u4E9B\u6BD4\u4F8B\u63CF\u8FF0\u7684\u662F\u82E5\u4E0D\u6293\u5230\u6210\u672C\u5982\u4F55\u6210\u9577\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u53EA\u9069\u7528\u65BC\u786C\u9AD4\uFF0C\u7D55\u4E0D\u9069\u7528\u65BC\u8EDF\u9AD4",
+                "fraction": 0,
+                "feedback": "\u905E\u589E\u8DA8\u52E2\u5728\u8EDF\u9AD4\u4E5F\u89C0\u5BDF\u5F97\u5230\uFF1B\u9019\u4E9B\u6BD4\u4F8B\u6B63\u5EE3\u6CDB\u7528\u65BC\u63CF\u8FF0\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "1:10:100 \u9019\u985E\u6BD4\u4F8B\u662F\u8B8A\u66F4\u6210\u672C\u8DA8\u52E2\u7684\u6559\u5B78\u7D93\u9A57\u6CD5\u5247\u3002\u771F\u5BE6\u500D\u6578\u8B8A\u52D5\u5F88\u5927\uFF0C\u56E0\u6B64\u628A\u6578\u5B57\u7576\u6210\u793A\u610F\uFF0C\u800C\u4F9D\u8CF4\u5176\u7A69\u5065\u7684\u5B9A\u6027\u8A0A\u606F\uFF1A\u6108\u665A\u6108\u8CB4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F9D\u9019\u4E9B\u6578\u5B57\u5BE9\u67E5\u4E0D\u5212\u7B97",
+            "text": "<p>\u4E00\u6B21\u5BE9\u67E5\u82B1 100 \u55AE\u4F4D\uFF0C\u6293\u5230 2 \u500B\u7F3A\u9677\u3002\u6BCF\u500B\u7F3A\u9677\u73FE\u5728\u4FEE\u5FA9\u82B1 5 \u55AE\u4F4D\uFF0C\u4F46\u82E5\u9038\u51FA\u5230\u751F\u7522\u74B0\u5883\u5247\u82B1 40 \u55AE\u4F4D\uFF08\u793A\u610F\uFF09\u3002\u50C5\u5C31\u9019\u4E9B\u6578\u5B57\u800C\u8A00\uFF0C\u6B64\u5BE9\u67E5\u5728\u7D93\u6FDF\u4E0A\u5212\u5F97\u4F86\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u5212\u5F97\u4F86\u2014\u2014\u88AB\u907F\u514D\u7684\u4E0B\u6E38\u6210\u672C\uFF0870 \u55AE\u4F4D\uFF09\u5C0F\u65BC 100 \u55AE\u4F4D\u7684\u5BE9\u67E5\uFF0C\u6DE8\u640D\u5931 30 \u55AE\u4F4D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u7F3A\u9677\u7BC0\u7701 40 - 5 = 35\uFF1B2 x 35 = 70\uFF1B70 - 100 = -30\u3002"
+              },
+              {
+                "text": "\u5212\u5F97\u4F86\u2014\u2014\u5B83\u7BC0\u7701 80 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F 2 x 40\uFF1B\u9084\u9808\u6263\u9664 5 \u55AE\u4F4D\u7684\u4FEE\u5FA9\u8207 100 \u55AE\u4F4D\u7684\u5BE9\u67E5\uFF0C\u7D50\u679C\u662F 30 \u55AE\u4F4D\u640D\u5931\u3002"
+              },
+              {
+                "text": "\u5212\u5F97\u4F86\u2014\u2014\u5B83\u525B\u597D\u7BC0\u7701 100 \u55AE\u4F4D",
+                "fraction": 0,
+                "feedback": "\u88AB\u907F\u514D\u7684\u6210\u672C\u53EA\u6709 70 \u55AE\u4F4D\uFF0C\u5C0F\u65BC 100 \u55AE\u4F4D\u7684\u5BE9\u67E5\uFF0C\u56E0\u6B64\u662F\u640D\u5931\u3002"
+              },
+              {
+                "text": "\u5B83\u5728 0 \u55AE\u4F4D\u8655\u640D\u76CA\u5E73\u8861",
+                "fraction": 0,
+                "feedback": "\u907F\u514D\u7684 70 \u6E1B\u53BB\u82B1\u8CBB\u7684 100 \u662F 30 \u55AE\u4F4D\u6DE8\u640D\u5931\uFF0C\u800C\u975E\u640D\u76CA\u5E73\u8861\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u6293\u5230\u7684\u7F3A\u9677\u7BC0\u7701 40 - 5 = 35 \u55AE\u4F4D\uFF1B\u5169\u500B\u7F3A\u9677\u5171\u907F\u514D 70 \u55AE\u4F4D\u4E0B\u6E38\u6210\u672C\u3002\u5BE9\u67E5\u82B1 100\uFF0C\u6545\u6DE8\u7D50\u679C\u70BA 70 - 100 = -30 \u55AE\u4F4D\uFF0C\u5C31\u9019\u4E9B\u6578\u5B57\u800C\u8A00\u662F\u640D\u5931\u3002\u6B64\u8655\u8981\u640D\u76CA\u5E73\u8861\u9700 3 \u500B\u7F3A\u9677\uFF083 x 35 = 105 > 100\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A72\u628A\u652F\u51FA\u79FB\u5230\u54EA\u88E1",
+            "text": "<p>\u67D0\u5718\u968A\u76EE\u524D\u5728\u5916\u90E8\u5931\u6548\u8655\u7406\uFF08\u53EC\u56DE\u8207\u5BA2\u670D\uFF09\u4E0A\u82B1\u8CBB\u751A\u9245\u3002\u4F9D\u54C1\u8CEA\u6210\u672C\u63A8\u7406\uFF0C\u6700\u7D93\u6FDF\u7684\u6539\u5584\u901A\u5E38\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u9810\u9632\u8207\u66F4\u65E9\u7684\u9451\u5B9A\u4E0A\u6295\u8CC7\u66F4\u591A\uFF0C\u4EE5\u964D\u4F4E\u5927\u5F97\u591A\u7684\u4E0B\u6E38\u5931\u6548\u6210\u672C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7528\u7B26\u5408\u6027\u652F\u51FA\u63DB\u53D6\u5931\u6548\u6210\u672C\u4E0B\u964D\u53EF\u964D\u4F4E\u7E3D\u984D\u3002"
+              },
+              {
+                "text": "\u524A\u6E1B\u6240\u6709\u9810\u9632\u8207\u9451\u5B9A\u652F\u51FA\uFF0C\u4EE5\u73FE\u5728\u7701\u9322",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u9032\u4E00\u6B65\u63A8\u9AD8\u5931\u6548\u6210\u672C\uFF1B\u8207\u5EFA\u8B70\u7684\u505A\u6CD5\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u7B49\u5BA2\u6236\u56DE\u5831\u6BCF\u4E00\u500B\u7F3A\u9677\u5F8C\u518D\u884C\u52D5",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u4F7F\u6700\u6602\u8CB4\u7684\u985E\u5225\u2014\u2014\u5916\u90E8\u5931\u6548\u2014\u2014\u6700\u5927\u5316\u3002"
+              },
+              {
+                "text": "\u628A\u5916\u90E8\u5931\u6548\u652F\u51FA\u518D\u589E\u52A0\u66F4\u591A",
+                "fraction": 0,
+                "feedback": "\u5728\u6700\u8CB4\u7684\u985E\u5225\u4E0A\u82B1\u66F4\u591A\uFF0C\u4E26\u4E0D\u6703\u964D\u4F4E\u7E3D\u54C1\u8CEA\u6210\u672C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u5931\u6548\u6210\u672C\u4E3B\u5C0E\u6642\uFF0C\u54C1\u8CEA\u6210\u672C\u63A8\u7406\u4E3B\u5F35\u628A\u652F\u51FA\u79FB\u5411\u9810\u9632\u8207\u65E9\u671F\u9451\u5B9A\u3002\u5728\u90A3\u88E1\u9069\u5EA6\u589E\u52A0\uFF0C\u901A\u5E38\u6703\u4F7F\u5167\u90E8\u8207\u5916\u90E8\u5931\u6548\u6210\u672C\u7522\u751F\u66F4\u5927\u7684\u4E0B\u964D\uFF0C\u5F9E\u800C\u964D\u4F4E\u7E3D\u984D\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "fuzz-testing": {
       "en": {
         "easy": [
