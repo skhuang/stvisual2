@@ -1,1 +1,8 @@
-[]
+[
+  "agile-quadrants",
+  "sprint-cadence",
+  "definition-gates",
+  "example-mapping",
+  "continuous-testing-pipeline",
+  "regression-debt"
+]
