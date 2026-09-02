@@ -50359,6 +50359,2590 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "risk-based-testing": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What is a risk",
+          "text": "<p>In risk-based testing, a <em>risk</em> is best described as:</p>",
+          "answers": [
+            {
+              "text": "A potential problem, characterised by the combination of its likelihood of occurring and its impact if it does",
+              "fraction": 100,
+              "feedback": "Correct — a risk pairs a likelihood (probability) with an impact (consequence)."
+            },
+            {
+              "text": "A defect that has already been found and logged",
+              "fraction": 0,
+              "feedback": "That is a known defect; a risk is a potential future problem, not a confirmed one."
+            },
+            {
+              "text": "A test case that always fails",
+              "fraction": 0,
+              "feedback": "A failing test is evidence of a defect, not the definition of a risk."
+            },
+            {
+              "text": "The total number of test cases in the plan",
+              "fraction": 0,
+              "feedback": "That is a size metric of the suite, unrelated to what a risk is."
+            }
+          ],
+          "generalFeedback": "A risk is a possible future problem. It is characterised by two dimensions: the likelihood that it occurs and the impact (severity of the consequence) if it does. Risk-based testing uses both dimensions to decide where to focus test effort.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of likelihood",
+          "text": "<p>The <em>likelihood</em> component of a risk refers to:</p>",
+          "answers": [
+            {
+              "text": "The probability that the failure or defect actually occurs",
+              "fraction": 100,
+              "feedback": "Correct — likelihood is how probable the problem is."
+            },
+            {
+              "text": "How severe the consequence would be if the problem occurred",
+              "fraction": 0,
+              "feedback": "That is the impact dimension, not likelihood."
+            },
+            {
+              "text": "The cost of writing the test cases",
+              "fraction": 0,
+              "feedback": "Test-authoring cost is a project concern, not the likelihood of a risk."
+            },
+            {
+              "text": "The number of testers assigned to the feature",
+              "fraction": 0,
+              "feedback": "Staffing is unrelated to the probability that a defect occurs."
+            }
+          ],
+          "generalFeedback": "Likelihood (probability) is one of the two dimensions of risk: how probable it is that a failure or defect will actually happen. The other dimension is impact.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of impact",
+          "text": "<p>The <em>impact</em> component of a risk refers to:</p>",
+          "answers": [
+            {
+              "text": "The severity of the consequence if the failure or defect occurs",
+              "fraction": 100,
+              "feedback": "Correct — impact is how bad it would be if the problem happened."
+            },
+            {
+              "text": "How probable it is that the defect will occur",
+              "fraction": 0,
+              "feedback": "That is likelihood, the other dimension of risk."
+            },
+            {
+              "text": "How many test cases exercise the feature",
+              "fraction": 0,
+              "feedback": "That is a coverage figure, not the impact of a risk."
+            },
+            {
+              "text": "How quickly a fix can be deployed",
+              "fraction": 0,
+              "feedback": "Deployment speed is a mitigation concern, not the definition of impact."
+            }
+          ],
+          "generalFeedback": "Impact (severity/consequence) is one of the two dimensions of risk: how damaging the outcome would be if the problem occurred. Combined with likelihood, it gives the risk exposure.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Risk exposure formula",
+          "text": "<p>Risk exposure (the risk level) is normally computed as:</p>",
+          "answers": [
+            {
+              "text": "likelihood × impact",
+              "fraction": 100,
+              "feedback": "Correct — combining probability and consequence gives the risk exposure."
+            },
+            {
+              "text": "likelihood + impact",
+              "fraction": 0,
+              "feedback": "Risk exposure multiplies the two dimensions; it is not their sum."
+            },
+            {
+              "text": "impact &#8722; likelihood",
+              "fraction": 0,
+              "feedback": "Subtracting the dimensions has no standard meaning for risk exposure."
+            },
+            {
+              "text": "likelihood ÷ impact",
+              "fraction": 0,
+              "feedback": "Dividing the two does not give a risk level; the standard formula multiplies them."
+            }
+          ],
+          "generalFeedback": "Risk exposure (also called risk level or risk rating) = likelihood × impact. It combines how probable a problem is with how serious it would be, giving a single number used to prioritise testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is risk-based testing",
+          "text": "<p><em>Risk-based testing</em> is an approach in which:</p>",
+          "answers": [
+            {
+              "text": "Test effort is allocated in proportion to the assessed risk of each item, testing the highest-risk items first",
+              "fraction": 100,
+              "feedback": "Correct — risk drives the depth and order of testing."
+            },
+            {
+              "text": "Every feature is tested with exactly the same number of test cases",
+              "fraction": 0,
+              "feedback": "That is uniform effort; risk-based testing deliberately varies effort by risk."
+            },
+            {
+              "text": "Only features chosen at random are tested",
+              "fraction": 0,
+              "feedback": "Risk-based testing selects by assessed risk, not at random."
+            },
+            {
+              "text": "Testing stops as soon as the first defect is found",
+              "fraction": 0,
+              "feedback": "Stopping at the first defect is not risk-based testing; effort is guided by risk levels."
+            }
+          ],
+          "generalFeedback": "Risk-based testing identifies risks, assesses their likelihood and impact, prioritises them, and allocates more and deeper testing to the highest-risk items — using limited test effort where it matters most.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a risk matrix",
+          "text": "<p>A <em>risk matrix</em> (heat map) is:</p>",
+          "answers": [
+            {
+              "text": "A grid of likelihood against impact used to visualise and rank each item's risk level",
+              "fraction": 100,
+              "feedback": "Correct — the two axes are likelihood and impact, and cells show the resulting risk level."
+            },
+            {
+              "text": "A table listing every test case and its execution time",
+              "fraction": 0,
+              "feedback": "That is a test schedule, not a risk matrix."
+            },
+            {
+              "text": "A matrix of code modules against the developers who wrote them",
+              "fraction": 0,
+              "feedback": "That is an ownership map; a risk matrix plots likelihood against impact."
+            },
+            {
+              "text": "A record of which mutants each test kills",
+              "fraction": 0,
+              "feedback": "That belongs to mutation testing, not to a risk matrix."
+            }
+          ],
+          "generalFeedback": "A risk matrix (or heat map) plots likelihood on one axis and impact on the other. Each item lands in a cell; high-likelihood/high-impact items sit in the \"red\" corner and are tested first.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is residual risk",
+          "text": "<p><em>Residual risk</em> is:</p>",
+          "answers": [
+            {
+              "text": "The risk that remains after testing and other mitigation have been carried out",
+              "fraction": 100,
+              "feedback": "Correct — some risk always remains once mitigation is done."
+            },
+            {
+              "text": "The risk that exists before any testing begins",
+              "fraction": 0,
+              "feedback": "That is the initial (inherent) risk, not the residual risk."
+            },
+            {
+              "text": "A risk that has been completely eliminated",
+              "fraction": 0,
+              "feedback": "Residual risk is precisely what is not eliminated; it remains."
+            },
+            {
+              "text": "The risk of running the test suite itself",
+              "fraction": 0,
+              "feedback": "That is not the standard meaning; residual risk is what is left in the product after mitigation."
+            }
+          ],
+          "generalFeedback": "Residual risk is the risk that still remains after testing and mitigation. Because testing reduces but never eliminates risk, some residual risk is always present, and stakeholders decide whether it is acceptable to release.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Product risk vs project risk",
+          "text": "<p>A <em>product risk</em> (as opposed to a project risk) concerns:</p>",
+          "answers": [
+            {
+              "text": "The quality of the product itself — that the delivered software may fail to meet needs or contain defects",
+              "fraction": 100,
+              "feedback": "Correct — product risk is about the software's quality."
+            },
+            {
+              "text": "Schedule slippage caused by a delayed supplier",
+              "fraction": 0,
+              "feedback": "That is a project risk (schedule/resource), not a product risk."
+            },
+            {
+              "text": "A key team member leaving mid-project",
+              "fraction": 0,
+              "feedback": "That is a project/staffing risk, not a product-quality risk."
+            },
+            {
+              "text": "The test-management tool licence expiring",
+              "fraction": 0,
+              "feedback": "That is a project/resource risk, not a product risk."
+            }
+          ],
+          "generalFeedback": "Product risks relate to the quality of the product — defects, missing functionality, poor performance. Project risks relate to managing the project — schedule, budget, staffing, suppliers. Risk-based testing chiefly targets product risks.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute risk exposure 4 × 5",
+          "text": "<p>On a 1&#8211;5 scale, an item has likelihood 4 and impact 5. Its risk exposure is:</p>",
+          "answers": [
+            {
+              "text": "20",
+              "fraction": 100,
+              "feedback": "Correct — 4 × 5 = 20."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "That is 4 + 5; risk exposure multiplies the two values."
+            },
+            {
+              "text": "45",
+              "fraction": 0,
+              "feedback": "That concatenates the digits; the exposure is 4 × 5 = 20."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "That is 5 &#8722; 4; risk exposure is the product, 20."
+            }
+          ],
+          "generalFeedback": "Risk exposure = likelihood × impact = 4 × 5 = 20.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute risk exposure 3 × 2",
+          "text": "<p>An item has likelihood 3 and impact 2. Its risk exposure is:</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 3 × 2 = 6."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "That is 3 + 2; risk exposure multiplies the two values."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "That is 3 &#8722; 2; risk exposure is the product, 6."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "That is not 3 × 2; the correct product is 6."
+            }
+          ],
+          "generalFeedback": "Risk exposure = likelihood × impact = 3 × 2 = 6.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Testing reduces but does not eliminate risk",
+          "text": "<p>Testing can reduce risk, but it cannot completely eliminate it.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — testing lowers risk (mainly by finding defects and by giving information), but some residual risk always remains."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Testing cannot prove the absence of all defects, so it reduces risk rather than eliminating it; residual risk always remains."
+            }
+          ],
+          "generalFeedback": "Testing reduces risk by finding defects and by providing information about quality, but no amount of testing eliminates all risk — residual risk always remains. Claiming testing eliminates risk is an overstatement."
+        },
+        {
+          "type": "multichoice",
+          "name": "Which items are tested first",
+          "text": "<p>In risk-based testing, when effort must be prioritised, which items are tested first?</p>",
+          "answers": [
+            {
+              "text": "The items with the highest risk exposure",
+              "fraction": 100,
+              "feedback": "Correct — highest-risk items get attention first."
+            },
+            {
+              "text": "The items that are quickest to test",
+              "fraction": 0,
+              "feedback": "Ease of testing may be a tie-breaker, but the primary driver is risk level."
+            },
+            {
+              "text": "The items added most recently to the backlog",
+              "fraction": 0,
+              "feedback": "Recency is not the ordering criterion; risk exposure is."
+            },
+            {
+              "text": "The items with the lowest impact",
+              "fraction": 0,
+              "feedback": "Low-impact items are typically deferred, not tested first."
+            }
+          ],
+          "generalFeedback": "Risk-based testing ranks items by risk exposure (likelihood × impact) and tests the highest-risk items first, so that if time runs out the most important risks have already been addressed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Two dimensions of risk",
+          "text": "<p>Risk is the combination of which two factors?</p>",
+          "answers": [
+            {
+              "text": "Likelihood and impact",
+              "fraction": 100,
+              "feedback": "Correct — probability of occurrence and severity of consequence."
+            },
+            {
+              "text": "Cost and schedule",
+              "fraction": 0,
+              "feedback": "Those are project constraints, not the two dimensions of a risk."
+            },
+            {
+              "text": "Coverage and mutation score",
+              "fraction": 0,
+              "feedback": "Those are test-adequacy metrics, not the components of risk."
+            },
+            {
+              "text": "Severity and reproducibility",
+              "fraction": 0,
+              "feedback": "Those describe defects; risk itself combines likelihood and impact."
+            }
+          ],
+          "generalFeedback": "A risk combines its likelihood (how probable it is) with its impact (how severe the consequence would be). Risk exposure = likelihood × impact captures both.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute risk exposure 5 × 5",
+          "text": "<p>On a 1&#8211;5 scale, an item has likelihood 5 and impact 5. Its risk exposure is:</p>",
+          "answers": [
+            {
+              "text": "25",
+              "fraction": 100,
+              "feedback": "Correct — 5 × 5 = 25, the maximum on a 5×5 scale."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "That is 5 + 5; risk exposure multiplies the two values."
+            },
+            {
+              "text": "55",
+              "fraction": 0,
+              "feedback": "That concatenates the digits; the exposure is 5 × 5 = 25."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "That is 5 &#8722; 5; risk exposure is the product, 25."
+            }
+          ],
+          "generalFeedback": "Risk exposure = likelihood × impact = 5 × 5 = 25 — the highest value on a 5×5 rating scale, marking a top-priority item.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test depth and risk level",
+          "text": "<p>How should the depth of test design relate to an item's risk level?</p>",
+          "answers": [
+            {
+              "text": "Higher-risk items get more and deeper tests; lower-risk items get lighter testing",
+              "fraction": 100,
+              "feedback": "Correct — depth of testing scales with risk."
+            },
+            {
+              "text": "All items get exactly the same depth of testing regardless of risk",
+              "fraction": 0,
+              "feedback": "That is uniform testing, which ignores risk; risk-based testing varies depth."
+            },
+            {
+              "text": "Lower-risk items get the deepest testing",
+              "fraction": 0,
+              "feedback": "That inverts the principle; effort should follow the higher risks."
+            },
+            {
+              "text": "Depth of testing depends only on the size of the code, not on risk",
+              "fraction": 0,
+              "feedback": "Code size may influence effort, but risk-based testing scales depth with risk."
+            }
+          ],
+          "generalFeedback": "In risk-based testing the depth and rigour of test design scale with risk: high-risk items receive more, and more thorough, tests, while low-risk items receive lighter coverage.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Rank three items by exposure",
+          "text": "<p>Three items are rated on a 1&#8211;9 scale: A (likelihood 2, impact 9), B (likelihood 5, impact 5), C (likelihood 8, impact 2). Which should be tested <strong>first</strong>?</p>",
+          "answers": [
+            {
+              "text": "B — its exposure 25 is the highest",
+              "fraction": 100,
+              "feedback": "Correct — A = 2×9 = 18, B = 5×5 = 25, C = 8×2 = 16, so B is highest."
+            },
+            {
+              "text": "A — because it has the highest impact",
+              "fraction": 0,
+              "feedback": "A's exposure is 2×9 = 18, less than B's 25; impact alone does not decide it."
+            },
+            {
+              "text": "C — because it has the highest likelihood",
+              "fraction": 0,
+              "feedback": "C's exposure is 8×2 = 16, the lowest here; likelihood alone does not decide it."
+            },
+            {
+              "text": "All three are equal, so order does not matter",
+              "fraction": 0,
+              "feedback": "The exposures 18, 25 and 16 are all different, so B is clearly first."
+            }
+          ],
+          "generalFeedback": "Compute exposure = likelihood × impact for each: A = 18, B = 25, C = 16. Highest first gives the order B, A, C, so B is tested first. Neither impact nor likelihood alone determines priority — the product does.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Place an item on the risk matrix",
+          "text": "<p>An item has high likelihood and high impact. Where does it sit on the risk matrix, and how is it treated?</p>",
+          "answers": [
+            {
+              "text": "In the high-high (\"red\") corner — it is the highest priority and is tested first",
+              "fraction": 100,
+              "feedback": "Correct — high likelihood combined with high impact is the top-priority cell."
+            },
+            {
+              "text": "In the low-low (\"green\") corner — it can safely be deferred",
+              "fraction": 0,
+              "feedback": "Low-low is the corner for the least risky items; a high-high item is the opposite."
+            },
+            {
+              "text": "Off the matrix, because both values are extreme",
+              "fraction": 0,
+              "feedback": "Extreme values still land on the matrix — in fact in its most critical cell."
+            },
+            {
+              "text": "In the middle, because the two high values cancel out",
+              "fraction": 0,
+              "feedback": "High values do not cancel; they compound into the highest exposure."
+            }
+          ],
+          "generalFeedback": "On a risk matrix, likelihood and impact are the two axes. An item high on both lands in the high-high (red) corner with the greatest risk exposure, making it the first thing to test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why more effort on high-risk items",
+          "text": "<p>Why does risk-based testing allocate more test effort to high-risk items?</p>",
+          "answers": [
+            {
+              "text": "Because a defect there is both more likely and more damaging, so testing there reduces the most risk per unit of effort",
+              "fraction": 100,
+              "feedback": "Correct — effort is spent where it buys the greatest reduction in risk."
+            },
+            {
+              "text": "Because high-risk items always contain more lines of code",
+              "fraction": 0,
+              "feedback": "Risk is about likelihood and impact, not code size; a small module can be high-risk."
+            },
+            {
+              "text": "Because low-risk items cannot contain any defects",
+              "fraction": 0,
+              "feedback": "Low-risk items can still have defects; they are simply less critical, not defect-free."
+            },
+            {
+              "text": "Because high-risk items are always the easiest to test",
+              "fraction": 0,
+              "feedback": "Ease of testing is unrelated to risk level; the reason is the greater risk reduction."
+            }
+          ],
+          "generalFeedback": "With limited resources, testing the highest-risk items first yields the greatest reduction in overall risk exposure. A defect there is more probable and more costly, so effort spent there is more valuable than the same effort on a low-risk item.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: key tester leaves",
+          "text": "<p>\"The only tester who knows the payment module resigns two weeks before release.\" This is primarily a:</p>",
+          "answers": [
+            {
+              "text": "Project risk — it concerns staffing/resources, not the product's quality directly",
+              "fraction": 100,
+              "feedback": "Correct — losing a key person is a project/resource risk."
+            },
+            {
+              "text": "Product risk — it is about a defect in the software",
+              "fraction": 0,
+              "feedback": "No product defect is described; the issue is a staffing/resource problem."
+            },
+            {
+              "text": "Residual risk — it is what remains after testing",
+              "fraction": 0,
+              "feedback": "Residual risk is leftover product risk after mitigation, not a staffing event."
+            },
+            {
+              "text": "Neither — staffing is never a risk",
+              "fraction": 0,
+              "feedback": "Staffing changes are a classic project risk."
+            }
+          ],
+          "generalFeedback": "Project risks concern the management of the project — schedule, budget, staffing, suppliers. Losing a key tester is a staffing/resource issue, hence a project risk. (It may increase product risk indirectly, but the event itself is a project risk.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: incorrect tax calculation",
+          "text": "<p>\"The application might compute sales tax incorrectly on some orders.\" This is primarily a:</p>",
+          "answers": [
+            {
+              "text": "Product risk — it concerns a possible defect in the delivered software",
+              "fraction": 100,
+              "feedback": "Correct — a wrong calculation is a quality problem in the product."
+            },
+            {
+              "text": "Project risk — it concerns schedule or staffing",
+              "fraction": 0,
+              "feedback": "Nothing here is about schedule, budget or staffing; it is about the software's behaviour."
+            },
+            {
+              "text": "Residual risk only, never a product risk",
+              "fraction": 0,
+              "feedback": "It is a product risk; it may become residual risk if it survives testing, but it is a product risk."
+            },
+            {
+              "text": "Not a risk, because it has not happened yet",
+              "fraction": 0,
+              "feedback": "A risk is by definition a potential problem that has not yet occurred."
+            }
+          ],
+          "generalFeedback": "Product risks are about the quality of the software itself. An incorrect tax calculation is a defect in the delivered product, so it is a product risk — exactly the kind of thing risk-based testing targets.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rank X, Y, Z",
+          "text": "<p>Items are rated: X (likelihood 3, impact 4), Y (likelihood 6, impact 3), Z (likelihood 2, impact 5). What is the correct test-first ordering (highest risk first)?</p>",
+          "answers": [
+            {
+              "text": "Y, X, Z",
+              "fraction": 100,
+              "feedback": "Correct — Y = 6×3 = 18, X = 3×4 = 12, Z = 2×5 = 10."
+            },
+            {
+              "text": "Z, X, Y",
+              "fraction": 0,
+              "feedback": "That is the reverse; Z's exposure (10) is the lowest, not the highest."
+            },
+            {
+              "text": "X, Y, Z",
+              "fraction": 0,
+              "feedback": "X's exposure is 12, below Y's 18, so X is not first."
+            },
+            {
+              "text": "Y, Z, X",
+              "fraction": 0,
+              "feedback": "Z (10) is below X (12), so Z cannot come before X."
+            }
+          ],
+          "generalFeedback": "Exposure = likelihood × impact: X = 12, Y = 18, Z = 10. Highest first gives Y, X, Z.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compare two items' exposure",
+          "text": "<p>Item P has likelihood 4 and impact 6; item Q has likelihood 7 and impact 3. Which has the higher risk exposure?</p>",
+          "answers": [
+            {
+              "text": "P, with exposure 24 versus Q's 21",
+              "fraction": 100,
+              "feedback": "Correct — P = 4×6 = 24, Q = 7×3 = 21."
+            },
+            {
+              "text": "Q, because it has the higher likelihood",
+              "fraction": 0,
+              "feedback": "Q's exposure is 7×3 = 21, below P's 24; higher likelihood alone does not win."
+            },
+            {
+              "text": "They are equal",
+              "fraction": 0,
+              "feedback": "24 and 21 are not equal; P is higher."
+            },
+            {
+              "text": "Q, with exposure 24 versus P's 21",
+              "fraction": 0,
+              "feedback": "The values are swapped: P = 24 and Q = 21, so P is higher."
+            }
+          ],
+          "generalFeedback": "P = 4 × 6 = 24 and Q = 7 × 3 = 21, so P has the higher risk exposure despite Q's larger likelihood. The product, not either factor alone, decides priority.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Equal exposure, different factors",
+          "text": "<p>Item J has likelihood 6 and impact 2; item K has likelihood 4 and impact 3. Compare their risk exposures.</p>",
+          "answers": [
+            {
+              "text": "They are equal — both have exposure 12",
+              "fraction": 100,
+              "feedback": "Correct — J = 6×2 = 12 and K = 4×3 = 12."
+            },
+            {
+              "text": "J is higher, because it has the greater likelihood",
+              "fraction": 0,
+              "feedback": "J = 6×2 = 12, the same as K; a greater likelihood does not by itself raise exposure."
+            },
+            {
+              "text": "K is higher, because it has the greater impact",
+              "fraction": 0,
+              "feedback": "K = 4×3 = 12, equal to J; a greater impact alone does not raise exposure."
+            },
+            {
+              "text": "They cannot be compared, because their factors differ",
+              "fraction": 0,
+              "feedback": "They can be compared directly through the product, which is 12 for both."
+            }
+          ],
+          "generalFeedback": "Risk exposure = likelihood × impact: J = 6×2 = 12 and K = 4×3 = 12, so they tie. Different likelihood/impact combinations can yield the same exposure — which is why prioritisation may then need secondary criteria such as detectability or the severity of the impact.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which item to defer",
+          "text": "<p>Time is short. Three items are rated: Payment (likelihood 5, impact 8), Help page (likelihood 2, impact 3), Login (likelihood 4, impact 7). If one item must be deferred, which is the safest to defer?</p>",
+          "answers": [
+            {
+              "text": "Help page — its exposure 6 is by far the lowest",
+              "fraction": 100,
+              "feedback": "Correct — Payment = 40, Login = 28, Help page = 6, so Help page is safest to defer."
+            },
+            {
+              "text": "Payment — because it has the highest impact",
+              "fraction": 0,
+              "feedback": "Payment's exposure (40) is the highest; deferring it would leave the biggest risk untested."
+            },
+            {
+              "text": "Login — because it is a common feature",
+              "fraction": 0,
+              "feedback": "Login's exposure (28) is far above the Help page's 6; the Help page is the safer defer."
+            },
+            {
+              "text": "None can be deferred; all are equally risky",
+              "fraction": 0,
+              "feedback": "The exposures 40, 6 and 28 differ greatly, so the Help page is clearly the least risky."
+            }
+          ],
+          "generalFeedback": "Exposure = likelihood × impact: Payment = 40, Help page = 6, Login = 28. When time is limited you defer the lowest-risk item, so the Help page is the safest to skip.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Low likelihood, high impact on the matrix",
+          "text": "<p>A rare but catastrophic event (e.g. permanent loss of all customer data) has low likelihood but very high impact. On the risk matrix it should be:</p>",
+          "answers": [
+            {
+              "text": "Placed in the high-impact band and still given serious attention, because the consequence is severe",
+              "fraction": 100,
+              "feedback": "Correct — high impact keeps it important even when likelihood is low."
+            },
+            {
+              "text": "Ignored entirely, because low likelihood means low risk",
+              "fraction": 0,
+              "feedback": "Low likelihood does not make it negligible; the severe impact keeps its exposure meaningful."
+            },
+            {
+              "text": "Treated as the very lowest priority automatically",
+              "fraction": 0,
+              "feedback": "A catastrophic impact prevents it from being the lowest priority despite low likelihood."
+            },
+            {
+              "text": "Removed from the matrix because it is unlikely",
+              "fraction": 0,
+              "feedback": "Unlikely items still belong on the matrix; impact must also be weighed."
+            }
+          ],
+          "generalFeedback": "Because exposure = likelihood × impact, a very high impact can keep the exposure significant even when likelihood is low. Such rare-but-catastrophic items are placed high on the impact axis and are not dismissed just because they are improbable.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Residual risk after thorough testing",
+          "text": "<p>Even after very thorough risk-based testing, some residual risk normally remains in the product.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — testing reduces risk but cannot eliminate it, so residual risk remains."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "No amount of testing removes all risk; residual risk always remains after mitigation."
+            }
+          ],
+          "generalFeedback": "Testing reduces risk but never drives it to zero — untested combinations, unknown risks and unfixed low-priority defects all leave residual risk. Stakeholders judge whether that residual risk is acceptable for release."
+        },
+        {
+          "type": "multichoice",
+          "name": "Severity versus priority",
+          "text": "<p>For a reported defect, how do <em>severity</em> and <em>priority</em> differ?</p>",
+          "answers": [
+            {
+              "text": "Severity is how serious the defect's effect is; priority is how soon it should be fixed",
+              "fraction": 100,
+              "feedback": "Correct — severity is about technical impact, priority is about fix urgency."
+            },
+            {
+              "text": "They are two names for exactly the same thing",
+              "fraction": 0,
+              "feedback": "They are related but distinct: a defect can be high-severity yet low-priority, or vice versa."
+            },
+            {
+              "text": "Severity is set by the customer; priority is set by the compiler",
+              "fraction": 0,
+              "feedback": "Neither is set by a compiler; both are judgements made by the team/stakeholders."
+            },
+            {
+              "text": "Priority is how severe the defect is; severity is how quickly it recurs",
+              "fraction": 0,
+              "feedback": "That swaps and distorts the definitions; severity = seriousness, priority = fix urgency."
+            }
+          ],
+          "generalFeedback": "Severity measures how damaging the defect's effect is (technical impact); priority measures how urgently it should be fixed (business urgency). They often correlate, but a high-severity defect in a rarely used feature may be low-priority, and a low-severity defect on a prominent screen may be high-priority.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Re-assessing risk during a project",
+          "text": "<p>Why should risks be re-assessed periodically during a project rather than rated only once at the start?</p>",
+          "answers": [
+            {
+              "text": "Because likelihoods and impacts change as the product, information and circumstances evolve",
+              "fraction": 100,
+              "feedback": "Correct — risk ratings are not static, so priorities must be updated."
+            },
+            {
+              "text": "Because the risk-exposure formula changes over time",
+              "fraction": 0,
+              "feedback": "The formula (likelihood × impact) stays the same; it is the inputs that change."
+            },
+            {
+              "text": "Because re-assessment guarantees zero residual risk",
+              "fraction": 0,
+              "feedback": "Re-assessment refines priorities; it does not eliminate residual risk."
+            },
+            {
+              "text": "Because a single early assessment is always perfectly accurate",
+              "fraction": 0,
+              "feedback": "Early estimates are uncertain; that is exactly why re-assessment is needed."
+            }
+          ],
+          "generalFeedback": "Risk is dynamic: as code is written, defects are found or fixed, and requirements shift, both likelihood and impact change. Periodic re-assessment keeps the prioritisation aligned with the current state of the project.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How testing reduces risk exposure",
+          "text": "<p>By finding and enabling the fixing of defects, testing most directly reduces which part of a product risk's exposure?</p>",
+          "answers": [
+            {
+              "text": "The likelihood — fixing found defects lowers the probability that a failure occurs in the field",
+              "fraction": 100,
+              "feedback": "Correct — testing chiefly attacks the likelihood dimension."
+            },
+            {
+              "text": "The impact — testing changes how damaging a failure would be",
+              "fraction": 0,
+              "feedback": "The business consequence of a failure is largely fixed by context; testing mainly reduces likelihood."
+            },
+            {
+              "text": "Neither — testing cannot affect risk exposure at all",
+              "fraction": 0,
+              "feedback": "Testing does reduce exposure, primarily by lowering likelihood."
+            },
+            {
+              "text": "Both are reduced to zero once testing is complete",
+              "fraction": 0,
+              "feedback": "Exposure is reduced but never to zero; residual risk remains."
+            }
+          ],
+          "generalFeedback": "Testing finds defects that can then be fixed, lowering the probability (likelihood) that they cause a field failure. The impact of a given failure is usually set by its business context, not by testing. Testing also informs stakeholders, but its direct effect on exposure is mainly through likelihood — and it never reaches zero.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Monitoring risks over time",
+          "text": "<p>After test effort has been allocated by risk, what is the correct ongoing activity?</p>",
+          "answers": [
+            {
+              "text": "Monitor and re-assess the risks, re-prioritising test effort as ratings change",
+              "fraction": 100,
+              "feedback": "Correct — risk-based testing is an iterative identify–assess–prioritise–monitor loop."
+            },
+            {
+              "text": "Freeze the priorities, since re-assessing wastes effort",
+              "fraction": 0,
+              "feedback": "Frozen priorities ignore new information; monitoring and re-assessment are essential."
+            },
+            {
+              "text": "Stop all testing once the first high-risk item passes",
+              "fraction": 0,
+              "feedback": "Passing one item does not address the remaining risks; testing continues by priority."
+            },
+            {
+              "text": "Switch to testing the lowest-risk items exclusively",
+              "fraction": 0,
+              "feedback": "Effort still follows the highest current risks, not the lowest."
+            }
+          ],
+          "generalFeedback": "Risk-based testing is a continuous loop: identify risks, assess likelihood and impact, prioritise, allocate effort, then monitor and re-assess. As new defects, information and changes arrive, ratings shift and priorities are updated.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Prioritise a table of four items",
+          "text": "<p>Four features are rated on a 1&#8211;9 scale:</p>\n<table border=\"1\" cellpadding=\"4\"><tr><th>Feature</th><th>Likelihood</th><th>Impact</th></tr>\n<tr><td>A</td><td>2</td><td>8</td></tr>\n<tr><td>B</td><td>5</td><td>6</td></tr>\n<tr><td>C</td><td>9</td><td>2</td></tr>\n<tr><td>D</td><td>3</td><td>3</td></tr></table>\n<p>What is the correct test-first ordering (highest risk exposure first)?</p>",
+          "answers": [
+            {
+              "text": "B, C, A, D",
+              "fraction": 100,
+              "feedback": "Correct — B = 30, C = 18, A = 16, D = 9."
+            },
+            {
+              "text": "C, B, A, D",
+              "fraction": 0,
+              "feedback": "C = 9×2 = 18, below B = 30, so C is not first."
+            },
+            {
+              "text": "A, B, C, D",
+              "fraction": 0,
+              "feedback": "A = 2×8 = 16, below both B (30) and C (18), so A is not first."
+            },
+            {
+              "text": "B, A, C, D",
+              "fraction": 0,
+              "feedback": "A = 16 is below C = 18, so A must come after C, not before."
+            }
+          ],
+          "generalFeedback": "Exposure = likelihood × impact: A = 2×8 = 16, B = 5×6 = 30, C = 9×2 = 18, D = 3×3 = 9. Ordering by descending exposure gives B (30), C (18), A (16), D (9).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Choose two under a time budget",
+          "text": "<p>There is time to fully test only two of these four items:</p>\n<table border=\"1\" cellpadding=\"4\"><tr><th>Item</th><th>Likelihood</th><th>Impact</th></tr>\n<tr><td>Checkout</td><td>6</td><td>8</td></tr>\n<tr><td>Login</td><td>4</td><td>7</td></tr>\n<tr><td>Search</td><td>5</td><td>2</td></tr>\n<tr><td>Reporting</td><td>2</td><td>3</td></tr></table>\n<p>Which two should be tested?</p>",
+          "answers": [
+            {
+              "text": "Checkout and Login",
+              "fraction": 100,
+              "feedback": "Correct — Checkout = 48 and Login = 28 are the two highest exposures."
+            },
+            {
+              "text": "Checkout and Search",
+              "fraction": 0,
+              "feedback": "Search = 5×2 = 10 is below Login's 28, so Login should be chosen over Search."
+            },
+            {
+              "text": "Search and Reporting",
+              "fraction": 0,
+              "feedback": "Those are the two lowest exposures (10 and 6); they are the ones to defer, not test."
+            },
+            {
+              "text": "Login and Search",
+              "fraction": 0,
+              "feedback": "Checkout (48) is the single highest and must be included; Search (10) should not displace it."
+            }
+          ],
+          "generalFeedback": "Exposure = likelihood × impact: Checkout = 48, Login = 28, Search = 10, Reporting = 6. With capacity for two, you test the two highest — Checkout and Login — and defer Search and Reporting.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rank four close exposures",
+          "text": "<p>Four modules are rated:</p>\n<table border=\"1\" cellpadding=\"4\"><tr><th>Module</th><th>Likelihood</th><th>Impact</th></tr>\n<tr><td>M1</td><td>3</td><td>5</td></tr>\n<tr><td>M2</td><td>4</td><td>4</td></tr>\n<tr><td>M3</td><td>2</td><td>9</td></tr>\n<tr><td>M4</td><td>6</td><td>2</td></tr></table>\n<p>Order them from highest to lowest risk exposure.</p>",
+          "answers": [
+            {
+              "text": "M3, M2, M1, M4",
+              "fraction": 100,
+              "feedback": "Correct — M3 = 18, M2 = 16, M1 = 15, M4 = 12."
+            },
+            {
+              "text": "M1, M2, M3, M4",
+              "fraction": 0,
+              "feedback": "M1 = 3×5 = 15 is not the highest; M3 = 18 is."
+            },
+            {
+              "text": "M4, M3, M2, M1",
+              "fraction": 0,
+              "feedback": "M4 = 6×2 = 12 is the lowest, not the highest."
+            },
+            {
+              "text": "M3, M1, M2, M4",
+              "fraction": 0,
+              "feedback": "M2 = 16 exceeds M1 = 15, so M2 must come before M1."
+            }
+          ],
+          "generalFeedback": "Exposure = likelihood × impact: M1 = 15, M2 = 16, M3 = 18, M4 = 12. Descending order is M3 (18), M2 (16), M1 (15), M4 (12) — the close values reward computing each product exactly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Recompute exposure after mitigation",
+          "text": "<p>An item is rated likelihood 8, impact 5 (exposure 40). A mitigation (adding automated input validation plus a targeted test suite) is expected to cut the likelihood to 3, while the impact of a failure is unchanged. What is the new risk exposure?</p>",
+          "answers": [
+            {
+              "text": "15",
+              "fraction": 100,
+              "feedback": "Correct — new exposure = 3 × 5 = 15."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "Mitigation lowers likelihood but does not remove it; residual exposure is 3 × 5 = 15, not 0."
+            },
+            {
+              "text": "40",
+              "fraction": 0,
+              "feedback": "That is the original exposure; the reduced likelihood gives 3 × 5 = 15."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "That is likelihood + impact after the change; exposure is the product 3 × 5 = 15."
+            }
+          ],
+          "generalFeedback": "Mitigation reduces the likelihood from 8 to 3 while impact stays at 5, so the residual exposure is 3 × 5 = 15. Note it drops from 40 to 15 but not to zero — residual risk remains.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Low likelihood, catastrophic impact warrants testing",
+          "text": "<p>A failure mode has likelihood 1 but impact 10 (exposure 10), while a routine feature has likelihood 3 and impact 3 (exposure 9). Why might the rare-but-catastrophic failure still warrant careful testing?</p>",
+          "answers": [
+            {
+              "text": "Its exposure (10) is actually higher, and a catastrophic consequence justifies attention even at low likelihood",
+              "fraction": 100,
+              "feedback": "Correct — 1×10 = 10 exceeds 3×3 = 9, and severe impact matters."
+            },
+            {
+              "text": "Because low likelihood always means low risk, so it can be ignored",
+              "fraction": 0,
+              "feedback": "Low likelihood does not by itself make risk low; the high impact keeps exposure significant."
+            },
+            {
+              "text": "Because the routine feature has the higher exposure",
+              "fraction": 0,
+              "feedback": "The routine feature's exposure is 9, below the catastrophic mode's 10."
+            },
+            {
+              "text": "Because likelihood is the only factor that ever matters",
+              "fraction": 0,
+              "feedback": "Both factors matter; impact can dominate when it is extreme."
+            }
+          ],
+          "generalFeedback": "Exposure = likelihood × impact: the catastrophic mode is 1×10 = 10, above the routine feature's 3×3 = 9. Beyond the raw number, a catastrophic consequence (e.g. safety or total data loss) often justifies extra testing even when the probability is small, because the cost of being wrong is so high.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Misconception: 100% coverage eliminates risk",
+          "text": "<p>A team claims: \"We achieved 100% code coverage, so there is now zero risk of any defect in production.\" The best critique is:</p>",
+          "answers": [
+            {
+              "text": "Coverage does not eliminate risk — it does not guarantee correct oracles, cover all data/paths/environments, or address missing requirements, so residual risk remains",
+              "fraction": 100,
+              "feedback": "Correct — full coverage reduces risk but cannot drive it to zero."
+            },
+            {
+              "text": "Correct — 100% coverage does mean zero remaining risk",
+              "fraction": 0,
+              "feedback": "This is the misconception; coverage of code executed says nothing about unchecked outputs, missing features, or untried data."
+            },
+            {
+              "text": "Coverage is irrelevant and has no effect on risk at all",
+              "fraction": 0,
+              "feedback": "Coverage does reduce risk; the error is claiming it removes all of it."
+            },
+            {
+              "text": "The only flaw is that 100% coverage is too expensive",
+              "fraction": 0,
+              "feedback": "Cost is a separate issue; the key flaw is that even full coverage leaves residual risk."
+            }
+          ],
+          "generalFeedback": "Executing every line does not verify that outputs were checked correctly, does not exercise every input value, path combination, timing or environment, and cannot reveal a missing requirement. Testing reduces risk but never eliminates it, so claiming zero risk after 100% coverage is an overstatement — residual risk always remains.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "High-severity but low-priority defect",
+          "text": "<p>A crash occurs only in an obscure administrative report that one internal user runs once a year. The crash is high <em>severity</em> (it fully stops that function). Why might its fix be assigned low <em>priority</em>?</p>",
+          "answers": [
+            {
+              "text": "Because it is triggered rarely and affects almost no users, so the business urgency to fix it is low despite the severe local effect",
+              "fraction": 100,
+              "feedback": "Correct — severity (how bad the effect) can be high while priority (how urgent to fix) is low."
+            },
+            {
+              "text": "Because a crash can never be high severity",
+              "fraction": 0,
+              "feedback": "A crash that stops a function is genuinely high severity; the point is that priority can still be low."
+            },
+            {
+              "text": "Because severity and priority must always be equal",
+              "fraction": 0,
+              "feedback": "They frequently diverge; this example is exactly such a case."
+            },
+            {
+              "text": "Because low priority means the defect is not really a defect",
+              "fraction": 0,
+              "feedback": "It is still a real defect; priority only reflects fix urgency."
+            }
+          ],
+          "generalFeedback": "Severity measures the technical seriousness of the effect (here, a full crash), while priority reflects how urgently the business needs it fixed. A rarely used, low-exposure feature can carry a high-severity but low-priority defect — the two dimensions are related but distinct.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Low-severity but high-priority defect",
+          "text": "<p>The company's name is misspelled in large text on the public home page. Functionally nothing breaks (low <em>severity</em>). Why might this be given high <em>priority</em>?</p>",
+          "answers": [
+            {
+              "text": "Because it is highly visible and damages the brand, so the urgency to fix it is high even though the functional effect is minor",
+              "fraction": 100,
+              "feedback": "Correct — high visibility/business impact drives priority up despite low technical severity."
+            },
+            {
+              "text": "Because a cosmetic issue is automatically high severity",
+              "fraction": 0,
+              "feedback": "It is low severity functionally; the point is that priority is nonetheless high."
+            },
+            {
+              "text": "Because priority is always identical to severity",
+              "fraction": 0,
+              "feedback": "They diverge here: low severity, high priority."
+            },
+            {
+              "text": "Because low-severity defects are never worth fixing",
+              "fraction": 0,
+              "feedback": "This one is clearly worth fixing quickly, which is why priority is high."
+            }
+          ],
+          "generalFeedback": "Severity is low because nothing functionally breaks, but the defect is on the most visible page and harms the brand, so business urgency — priority — is high. This is the mirror image of a high-severity/low-priority defect and shows the two dimensions are independent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Residual risk of a deferred item",
+          "text": "<p>Under a deadline, a team fully tests its highest-risk items and deliberately defers a medium-risk item with no testing. On release, what is the correct characterisation?</p>",
+          "answers": [
+            {
+              "text": "The deferred item contributes to the product's residual risk, which stakeholders should knowingly accept or reject before release",
+              "fraction": 100,
+              "feedback": "Correct — untested deferred items are exactly residual risk to be acknowledged."
+            },
+            {
+              "text": "There is no residual risk because the highest-risk items were tested",
+              "fraction": 0,
+              "feedback": "The deferred, untested item still carries risk into production; residual risk is not zero."
+            },
+            {
+              "text": "Deferring an item removes its risk entirely",
+              "fraction": 0,
+              "feedback": "Deferring testing does not remove the underlying risk; it leaves it unaddressed."
+            },
+            {
+              "text": "The deferred item is now guaranteed defect-free",
+              "fraction": 0,
+              "feedback": "Not testing something cannot make it defect-free; its risk simply remains unexamined."
+            }
+          ],
+          "generalFeedback": "Consciously deferring a medium-risk item is a legitimate risk-based decision, but the untested item still carries risk into production. That is residual risk, and good practice is to make it explicit so stakeholders can decide whether it is acceptable to ship.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Breaking a tie in exposure",
+          "text": "<p>Two items tie at exposure 12: item G (likelihood 2, impact 6) and item H (likelihood 6, impact 2). A defect in G would be catastrophic and hard to detect in the field, whereas H's failures are minor and quickly noticed. Which is the more defensible action?</p>",
+          "answers": [
+            {
+              "text": "Test G more deeply, because with equal exposure the higher-impact, harder-to-detect item deserves the extra rigour",
+              "fraction": 100,
+              "feedback": "Correct — when exposures tie, secondary factors such as impact severity and detectability break the tie."
+            },
+            {
+              "text": "Test H more deeply, because it has the higher likelihood",
+              "fraction": 0,
+              "feedback": "Higher likelihood alone does not justify more rigour when the exposures are equal and H's failures are minor and obvious."
+            },
+            {
+              "text": "Skip both, because equal exposure means neither matters",
+              "fraction": 0,
+              "feedback": "Equal exposure does not mean the risk is negligible; both still matter, and G especially."
+            },
+            {
+              "text": "Test them identically, because the numbers must never be overridden",
+              "fraction": 0,
+              "feedback": "The exposure number is a starting point; qualitative factors legitimately refine equal-exposure decisions."
+            }
+          ],
+          "generalFeedback": "Both items have exposure 2×6 = 6×2 = 12, so the product cannot separate them. Risk-based testing then uses secondary criteria: G's catastrophic, hard-to-detect impact makes it the more dangerous of the two, so it warrants deeper testing. This shows the exposure score guides but does not fully determine priority.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of re-assessment mid-project",
+          "text": "<p>An item initially rated likelihood 2, impact 4 (exposure 8) is later found to sit on a newly discovered critical integration path, raising its likelihood to 7 (impact unchanged). What should happen?</p>",
+          "answers": [
+            {
+              "text": "Its exposure rises to 28, so it should be re-prioritised upward and given more test effort",
+              "fraction": 100,
+              "feedback": "Correct — 7 × 4 = 28, a large jump that moves it up the priority list."
+            },
+            {
+              "text": "Nothing changes, because risk ratings are fixed once set",
+              "fraction": 0,
+              "feedback": "Ratings are not fixed; new information must trigger re-assessment."
+            },
+            {
+              "text": "Its exposure stays 8, because only impact affects exposure",
+              "fraction": 0,
+              "feedback": "Exposure depends on both factors; a higher likelihood raises it to 7 × 4 = 28."
+            },
+            {
+              "text": "It should be deprioritised, because it was low-risk at the start",
+              "fraction": 0,
+              "feedback": "The initial rating is superseded; the item is now higher risk, not lower."
+            }
+          ],
+          "generalFeedback": "Re-assessment recomputes exposure with the updated likelihood: 7 × 4 = 28, up from 8. Because risk is dynamic, the item is moved up the priority order and receives more test effort — illustrating the monitor/re-assess step of risk-based testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Ranking beats single-factor sorting",
+          "text": "<p>Items: R (likelihood 9, impact 2), S (likelihood 3, impact 5), T (likelihood 4, impact 6). A colleague proposes testing in order of likelihood: R, T, S. What is wrong with that plan?</p>",
+          "answers": [
+            {
+              "text": "Sorting by likelihood alone is wrong; by exposure the correct order is T (24), R (18), S (15)",
+              "fraction": 100,
+              "feedback": "Correct — exposures are R = 18, S = 15, T = 24, so the correct order is T, R, S, not R, T, S."
+            },
+            {
+              "text": "Nothing is wrong; sorting by likelihood always matches sorting by exposure",
+              "fraction": 0,
+              "feedback": "It does not: T has a lower likelihood than R but a higher exposure (24 vs 18)."
+            },
+            {
+              "text": "The plan is right because R has the highest likelihood",
+              "fraction": 0,
+              "feedback": "Highest likelihood does not mean highest exposure; R's exposure (18) is below T's (24)."
+            },
+            {
+              "text": "Exposure should be sorted ascending, so the order is R, S, T",
+              "fraction": 0,
+              "feedback": "Higher risk is tested first (descending), and R is not the lowest anyway."
+            }
+          ],
+          "generalFeedback": "Exposure = likelihood × impact: R = 9×2 = 18, S = 3×5 = 15, T = 4×6 = 24. Sorting by exposure (descending) gives T, R, S — different from the likelihood-only order R, T, S. Prioritisation must use the product of both factors, not one factor alone.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Testing informs the risk decision",
+          "text": "<p>Beyond finding defects, how does executing risk-based tests reduce risk for stakeholders?</p>",
+          "answers": [
+            {
+              "text": "It provides information that shrinks uncertainty about the true risk level, enabling better-informed release decisions",
+              "fraction": 100,
+              "feedback": "Correct — test results reduce uncertainty even where no defect is found."
+            },
+            {
+              "text": "It proves the software is completely defect-free",
+              "fraction": 0,
+              "feedback": "Testing cannot prove the absence of all defects; it reduces uncertainty, not to zero."
+            },
+            {
+              "text": "It permanently sets the risk to zero for every tested item",
+              "fraction": 0,
+              "feedback": "Residual risk remains even after testing; risk is not driven to zero."
+            },
+            {
+              "text": "It has no value unless a defect is actually found",
+              "fraction": 0,
+              "feedback": "Even passing tests add value by reducing uncertainty about the risk."
+            }
+          ],
+          "generalFeedback": "Risk-based testing reduces risk in two ways: by finding defects that can be fixed (lowering likelihood), and by supplying evidence that lowers uncertainty about the actual quality — helping stakeholders judge the residual risk and make informed release decisions. It never eliminates risk entirely.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Untestable high-risk item",
+          "text": "<p>A high-exposure item depends on a third-party service that cannot be exercised before release. What is the sound risk-based response?</p>",
+          "answers": [
+            {
+              "text": "Mitigate by other means (e.g. stubs, contracts, monitoring) and record the remaining untested part as explicit residual risk",
+              "fraction": 100,
+              "feedback": "Correct — where direct testing is impossible, use alternative mitigation and make the residual risk visible."
+            },
+            {
+              "text": "Declare the item zero-risk because it cannot be tested",
+              "fraction": 0,
+              "feedback": "Inability to test does not remove risk; if anything the risk is less understood."
+            },
+            {
+              "text": "Ignore it entirely, since untestable items are out of scope",
+              "fraction": 0,
+              "feedback": "A high-exposure item cannot simply be ignored; it must be mitigated and its residual risk tracked."
+            },
+            {
+              "text": "Assume the third party guarantees it is defect-free",
+              "fraction": 0,
+              "feedback": "Assuming defect-freeness is unjustified; the residual risk must be acknowledged."
+            }
+          ],
+          "generalFeedback": "When a high-risk item cannot be tested directly, risk-based testing applies alternative mitigation — service stubs, contract tests, extra monitoring, contingency plans — and explicitly documents whatever risk remains as residual risk so stakeholders can weigh it in the release decision.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Full loop of risk-based testing",
+          "text": "<p>Which sequence best describes the risk-based testing process?</p>",
+          "answers": [
+            {
+              "text": "Identify risks → assess likelihood and impact → prioritise by exposure → allocate/execute tests → monitor and re-assess",
+              "fraction": 100,
+              "feedback": "Correct — this is the iterative risk-based testing loop."
+            },
+            {
+              "text": "Write all tests → run them in random order → stop at the first failure",
+              "fraction": 0,
+              "feedback": "That ignores risk assessment and prioritisation entirely."
+            },
+            {
+              "text": "Assign equal effort to every item → never re-assess",
+              "fraction": 0,
+              "feedback": "Equal effort with no re-assessment is the opposite of risk-based testing."
+            },
+            {
+              "text": "Fix all defects first → then decide which risks exist",
+              "fraction": 0,
+              "feedback": "Risks are identified and assessed before, and throughout, testing — not after fixing everything."
+            }
+          ],
+          "generalFeedback": "Risk-based testing is an iterative loop: identify the risks, assess each one's likelihood and impact, prioritise by risk exposure, allocate and execute test effort accordingly, then monitor and re-assess as the project and its risks evolve.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是風險",
+          "text": "<p>在風險式測試（risk-based testing）中，<em>風險（risk）</em>最適切的描述是：</p>",
+          "answers": [
+            {
+              "text": "一個潛在的問題，由其「發生的可能性」與「一旦發生的衝擊」兩者組合而成",
+              "fraction": 100,
+              "feedback": "正確——風險把可能性（機率）與衝擊（後果）配對在一起。"
+            },
+            {
+              "text": "已經被找到並記錄下來的缺陷",
+              "fraction": 0,
+              "feedback": "那是已知缺陷；風險是尚未發生的潛在問題，而非已確認的問題。"
+            },
+            {
+              "text": "一個永遠失敗的測試案例",
+              "fraction": 0,
+              "feedback": "失敗的測試是缺陷的證據，並非風險的定義。"
+            },
+            {
+              "text": "測試計畫中測試案例的總數",
+              "fraction": 0,
+              "feedback": "那是測試套件的規模度量，與風險的定義無關。"
+            }
+          ],
+          "generalFeedback": "風險是一個可能發生的未來問題，由兩個面向刻畫：發生的可能性（likelihood）與一旦發生的衝擊（impact）。風險式測試同時用這兩個面向來決定測試資源要投在哪裡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可能性的意義",
+          "text": "<p>風險中的<em>可能性（likelihood）</em>面向是指：</p>",
+          "answers": [
+            {
+              "text": "失敗或缺陷實際發生的機率",
+              "fraction": 100,
+              "feedback": "正確——可能性就是問題有多可能發生。"
+            },
+            {
+              "text": "一旦問題發生，後果有多嚴重",
+              "fraction": 0,
+              "feedback": "那是衝擊面向，不是可能性。"
+            },
+            {
+              "text": "撰寫測試案例的成本",
+              "fraction": 0,
+              "feedback": "撰寫測試的成本是專案考量，不是風險的可能性。"
+            },
+            {
+              "text": "指派到該功能的測試人員數目",
+              "fraction": 0,
+              "feedback": "人力配置與缺陷發生的機率無關。"
+            }
+          ],
+          "generalFeedback": "可能性（機率）是風險的兩個面向之一：失敗或缺陷實際發生的機率有多高。另一個面向是衝擊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "衝擊的意義",
+          "text": "<p>風險中的<em>衝擊（impact）</em>面向是指：</p>",
+          "answers": [
+            {
+              "text": "一旦失敗或缺陷發生時，後果的嚴重程度",
+              "fraction": 100,
+              "feedback": "正確——衝擊就是問題若發生會有多糟。"
+            },
+            {
+              "text": "缺陷發生的機率有多高",
+              "fraction": 0,
+              "feedback": "那是可能性，風險的另一個面向。"
+            },
+            {
+              "text": "有多少測試案例涵蓋該功能",
+              "fraction": 0,
+              "feedback": "那是覆蓋數字，不是風險的衝擊。"
+            },
+            {
+              "text": "修正能多快部署上線",
+              "fraction": 0,
+              "feedback": "部署速度是緩解措施的考量，不是衝擊的定義。"
+            }
+          ],
+          "generalFeedback": "衝擊（嚴重度／後果）是風險的兩個面向之一：一旦問題發生，結果會有多具破壞性。結合可能性後，即得到風險暴露度。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "風險暴露度公式",
+          "text": "<p>風險暴露度（risk exposure，即風險等級）通常如何計算？</p>",
+          "answers": [
+            {
+              "text": "可能性 × 衝擊",
+              "fraction": 100,
+              "feedback": "正確——把機率與後果相乘即得到風險暴露度。"
+            },
+            {
+              "text": "可能性 + 衝擊",
+              "fraction": 0,
+              "feedback": "風險暴露度是兩個面向相乘，不是相加。"
+            },
+            {
+              "text": "衝擊 &#8722; 可能性",
+              "fraction": 0,
+              "feedback": "把兩個面向相減對風險暴露度沒有標準意義。"
+            },
+            {
+              "text": "可能性 ÷ 衝擊",
+              "fraction": 0,
+              "feedback": "相除得不到風險等級；標準公式是相乘。"
+            }
+          ],
+          "generalFeedback": "風險暴露度（又稱風險等級或風險評分）＝ 可能性 × 衝擊。它結合了問題有多可能發生與後果有多嚴重，得到一個用來排定測試優先序的數值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是風險式測試",
+          "text": "<p><em>風險式測試（risk-based testing）</em>是一種做法，其特徵是：</p>",
+          "answers": [
+            {
+              "text": "依各項目所評估的風險比例分配測試資源，最高風險者最先測試",
+              "fraction": 100,
+              "feedback": "正確——風險驅動測試的深度與順序。"
+            },
+            {
+              "text": "每個功能都用完全相同數量的測試案例來測",
+              "fraction": 0,
+              "feedback": "那是平均投入；風險式測試刻意依風險調整投入。"
+            },
+            {
+              "text": "只測試隨機挑選出來的功能",
+              "fraction": 0,
+              "feedback": "風險式測試依評估的風險挑選，不是隨機。"
+            },
+            {
+              "text": "一找到第一個缺陷就停止測試",
+              "fraction": 0,
+              "feedback": "找到第一個缺陷就停止並非風險式測試；投入是由風險等級引導的。"
+            }
+          ],
+          "generalFeedback": "風險式測試會辨識風險、評估其可能性與衝擊、排定優先序，並把較多、較深入的測試投注在最高風險的項目上——在有限的測試資源下用在最重要的地方。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是風險矩陣",
+          "text": "<p><em>風險矩陣（risk matrix，熱力圖）</em>是：</p>",
+          "answers": [
+            {
+              "text": "一個以可能性對衝擊構成的方格圖，用來視覺化並排序各項目的風險等級",
+              "fraction": 100,
+              "feedback": "正確——兩軸是可能性與衝擊，格子顯示所得的風險等級。"
+            },
+            {
+              "text": "列出每個測試案例及其執行時間的表格",
+              "fraction": 0,
+              "feedback": "那是測試排程，不是風險矩陣。"
+            },
+            {
+              "text": "把程式模組對應到撰寫它們的開發者的矩陣",
+              "fraction": 0,
+              "feedback": "那是負責人對應表；風險矩陣是以可能性對衝擊作圖。"
+            },
+            {
+              "text": "記錄每個測試殺死哪些突變體的表",
+              "fraction": 0,
+              "feedback": "那屬於突變測試，不是風險矩陣。"
+            }
+          ],
+          "generalFeedback": "風險矩陣（或熱力圖）以可能性為一軸、衝擊為另一軸。每個項目落在某一格；高可能性／高衝擊的項目位於「紅色」角落，最先被測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是殘餘風險",
+          "text": "<p><em>殘餘風險（residual risk）</em>是：</p>",
+          "answers": [
+            {
+              "text": "在測試與其他緩解措施完成之後仍然殘留的風險",
+              "fraction": 100,
+              "feedback": "正確——緩解做完後總會殘留一些風險。"
+            },
+            {
+              "text": "在任何測試開始之前就存在的風險",
+              "fraction": 0,
+              "feedback": "那是初始（固有）風險，不是殘餘風險。"
+            },
+            {
+              "text": "已被完全消除的風險",
+              "fraction": 0,
+              "feedback": "殘餘風險正是那些沒有被消除、仍然殘留的部分。"
+            },
+            {
+              "text": "執行測試套件本身的風險",
+              "fraction": 0,
+              "feedback": "那不是標準意義；殘餘風險是緩解後產品中仍殘留的部分。"
+            }
+          ],
+          "generalFeedback": "殘餘風險是測試與緩解之後仍殘留的風險。因為測試只能降低而無法消除風險，總會有一些殘餘風險存在，由利害關係人判斷是否可接受而發行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "產品風險與專案風險",
+          "text": "<p><em>產品風險（product risk）</em>（相對於專案風險）關注的是：</p>",
+          "answers": [
+            {
+              "text": "產品本身的品質——交付的軟體可能無法滿足需求或含有缺陷",
+              "fraction": 100,
+              "feedback": "正確——產品風險關乎軟體的品質。"
+            },
+            {
+              "text": "因供應商延遲而造成的時程延誤",
+              "fraction": 0,
+              "feedback": "那是專案風險（時程／資源），不是產品風險。"
+            },
+            {
+              "text": "關鍵團隊成員在專案途中離職",
+              "fraction": 0,
+              "feedback": "那是專案／人力風險，不是產品品質風險。"
+            },
+            {
+              "text": "測試管理工具的授權到期",
+              "fraction": 0,
+              "feedback": "那是專案／資源風險，不是產品風險。"
+            }
+          ],
+          "generalFeedback": "產品風險關乎產品的品質——缺陷、功能缺漏、效能不佳。專案風險關乎專案的管理——時程、預算、人力、供應商。風險式測試主要針對產品風險。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算風險暴露度 4 × 5",
+          "text": "<p>在 1&#8211;5 的量表上，某項目可能性為 4、衝擊為 5。其風險暴露度為：</p>",
+          "answers": [
+            {
+              "text": "20",
+              "fraction": 100,
+              "feedback": "正確——4 × 5 = 20。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "那是 4 + 5；風險暴露度是兩值相乘。"
+            },
+            {
+              "text": "45",
+              "fraction": 0,
+              "feedback": "那是把數字並排；暴露度是 4 × 5 = 20。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "那是 5 &#8722; 4；風險暴露度是乘積 20。"
+            }
+          ],
+          "generalFeedback": "風險暴露度 ＝ 可能性 × 衝擊 ＝ 4 × 5 = 20。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算風險暴露度 3 × 2",
+          "text": "<p>某項目可能性為 3、衝擊為 2。其風險暴露度為：</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——3 × 2 = 6。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "那是 3 + 2；風險暴露度是兩值相乘。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "那是 3 &#8722; 2；風險暴露度是乘積 6。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "那不是 3 × 2；正確的乘積是 6。"
+            }
+          ],
+          "generalFeedback": "風險暴露度 ＝ 可能性 × 衝擊 ＝ 3 × 2 = 6。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "測試降低但不消除風險",
+          "text": "<p>測試可以降低風險，但無法完全消除風險。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——測試會降低風險（主要靠找出缺陷並提供資訊），但總會殘留一些殘餘風險。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "測試無法證明所有缺陷都不存在，因此它是降低而非消除風險；殘餘風險總是存在。"
+            }
+          ],
+          "generalFeedback": "測試藉由找出缺陷並提供品質資訊來降低風險，但再多的測試也無法消除所有風險——殘餘風險總是存在。宣稱測試能消除風險是誇大其詞。"
+        },
+        {
+          "type": "multichoice",
+          "name": "哪些項目最先測試",
+          "text": "<p>在風險式測試中，當必須排定投入的優先序時，哪些項目最先測試？</p>",
+          "answers": [
+            {
+              "text": "風險暴露度最高的項目",
+              "fraction": 100,
+              "feedback": "正確——最高風險的項目最先受到關注。"
+            },
+            {
+              "text": "最快能測完的項目",
+              "fraction": 0,
+              "feedback": "測試難易可作為次要的打破平手依據，但主要驅動因素是風險等級。"
+            },
+            {
+              "text": "最近才加入待辦清單的項目",
+              "fraction": 0,
+              "feedback": "加入的時間先後不是排序準則；風險暴露度才是。"
+            },
+            {
+              "text": "衝擊最低的項目",
+              "fraction": 0,
+              "feedback": "低衝擊的項目通常被延後，而非最先測試。"
+            }
+          ],
+          "generalFeedback": "風險式測試依風險暴露度（可能性 × 衝擊）為項目排序，最高風險者最先測試，如此一來即使時間用盡，最重要的風險也已先被處理。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "風險的兩個面向",
+          "text": "<p>風險是由哪兩個因素組合而成？</p>",
+          "answers": [
+            {
+              "text": "可能性與衝擊",
+              "fraction": 100,
+              "feedback": "正確——發生的機率與後果的嚴重度。"
+            },
+            {
+              "text": "成本與時程",
+              "fraction": 0,
+              "feedback": "那些是專案限制，不是風險的兩個面向。"
+            },
+            {
+              "text": "覆蓋率與突變分數",
+              "fraction": 0,
+              "feedback": "那些是測試適切性度量，不是風險的組成。"
+            },
+            {
+              "text": "嚴重度與可重現性",
+              "fraction": 0,
+              "feedback": "那些描述缺陷；風險本身是可能性與衝擊的組合。"
+            }
+          ],
+          "generalFeedback": "風險結合其可能性（有多可能發生）與其衝擊（後果有多嚴重）。風險暴露度 ＝ 可能性 × 衝擊 同時涵蓋兩者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算風險暴露度 5 × 5",
+          "text": "<p>在 1&#8211;5 的量表上，某項目可能性為 5、衝擊為 5。其風險暴露度為：</p>",
+          "answers": [
+            {
+              "text": "25",
+              "fraction": 100,
+              "feedback": "正確——5 × 5 = 25，是 5×5 量表上的最大值。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "那是 5 + 5；風險暴露度是兩值相乘。"
+            },
+            {
+              "text": "55",
+              "fraction": 0,
+              "feedback": "那是把數字並排；暴露度是 5 × 5 = 25。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "那是 5 &#8722; 5；風險暴露度是乘積 25。"
+            }
+          ],
+          "generalFeedback": "風險暴露度 ＝ 可能性 × 衝擊 ＝ 5 × 5 = 25——在 5×5 評分量表上的最高值，代表最優先的項目。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試深度與風險等級",
+          "text": "<p>測試設計的深度應如何與項目的風險等級相關聯？</p>",
+          "answers": [
+            {
+              "text": "高風險項目給予更多、更深入的測試；低風險項目給予較輕量的測試",
+              "fraction": 100,
+              "feedback": "正確——測試深度隨風險而調整。"
+            },
+            {
+              "text": "不論風險如何，所有項目都給予完全相同的測試深度",
+              "fraction": 0,
+              "feedback": "那是均一測試，忽略了風險；風險式測試會調整深度。"
+            },
+            {
+              "text": "低風險項目給予最深入的測試",
+              "fraction": 0,
+              "feedback": "那顛倒了原則；投入應跟隨較高的風險。"
+            },
+            {
+              "text": "測試深度只取決於程式碼的大小，與風險無關",
+              "fraction": 0,
+              "feedback": "程式碼大小可能影響投入，但風險式測試是依風險調整深度。"
+            }
+          ],
+          "generalFeedback": "在風險式測試中，測試設計的深度與嚴謹度隨風險而變：高風險項目獲得更多、更徹底的測試，低風險項目則獲得較輕量的覆蓋。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "依暴露度排序三個項目",
+          "text": "<p>三個項目以 1&#8211;9 量表評分：A（可能性 2、衝擊 9）、B（可能性 5、衝擊 5）、C（可能性 8、衝擊 2）。哪一個應<strong>最先</strong>測試？</p>",
+          "answers": [
+            {
+              "text": "B——其暴露度 25 為最高",
+              "fraction": 100,
+              "feedback": "正確——A ＝ 2×9 = 18、B ＝ 5×5 = 25、C ＝ 8×2 = 16，故 B 最高。"
+            },
+            {
+              "text": "A——因為它的衝擊最高",
+              "fraction": 0,
+              "feedback": "A 的暴露度是 2×9 = 18，低於 B 的 25；單看衝擊無法決定。"
+            },
+            {
+              "text": "C——因為它的可能性最高",
+              "fraction": 0,
+              "feedback": "C 的暴露度是 8×2 = 16，在此最低；單看可能性無法決定。"
+            },
+            {
+              "text": "三者相等，所以順序無關緊要",
+              "fraction": 0,
+              "feedback": "暴露度 18、25、16 各不相同，B 明顯最先。"
+            }
+          ],
+          "generalFeedback": "逐一計算暴露度 ＝ 可能性 × 衝擊：A ＝ 18、B ＝ 25、C ＝ 16。由高到低即為 B、A、C，故 B 最先測試。單看衝擊或單看可能性都無法決定優先序——決定的是乘積。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "把項目放到風險矩陣上",
+          "text": "<p>某項目的可能性高、衝擊也高。它落在風險矩陣的哪個位置，又如何處理？</p>",
+          "answers": [
+            {
+              "text": "落在高-高（「紅色」）角落——優先序最高，最先測試",
+              "fraction": 100,
+              "feedback": "正確——高可能性搭配高衝擊是最高優先的格子。"
+            },
+            {
+              "text": "落在低-低（「綠色」）角落——可安心延後",
+              "fraction": 0,
+              "feedback": "低-低是風險最小項目的角落；高-高項目正好相反。"
+            },
+            {
+              "text": "落在矩陣之外，因為兩個值都太極端",
+              "fraction": 0,
+              "feedback": "極端值仍會落在矩陣上——而且正落在最關鍵的格子。"
+            },
+            {
+              "text": "落在中間，因為兩個高值相互抵消",
+              "fraction": 0,
+              "feedback": "高值不會抵消；它們相乘成為最高的暴露度。"
+            }
+          ],
+          "generalFeedback": "在風險矩陣上，可能性與衝擊是兩軸。兩者皆高的項目落在高-高（紅色）角落，風險暴露度最大，是最先要測試的對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何在高風險項目投入更多",
+          "text": "<p>為什麼風險式測試會把較多的測試資源分配給高風險項目？</p>",
+          "answers": [
+            {
+              "text": "因為那裡的缺陷既較可能發生又較具破壞性，所以在那裡測試每單位投入能降低最多風險",
+              "fraction": 100,
+              "feedback": "正確——資源花在能換取最大風險降低之處。"
+            },
+            {
+              "text": "因為高風險項目一定含有較多行程式碼",
+              "fraction": 0,
+              "feedback": "風險關乎可能性與衝擊，不是程式碼大小；小模組也可能是高風險。"
+            },
+            {
+              "text": "因為低風險項目不可能含有任何缺陷",
+              "fraction": 0,
+              "feedback": "低風險項目仍可能有缺陷；只是較不關鍵，而非零缺陷。"
+            },
+            {
+              "text": "因為高風險項目一定最容易測試",
+              "fraction": 0,
+              "feedback": "測試難易與風險等級無關；理由是能降低較多風險。"
+            }
+          ],
+          "generalFeedback": "在資源有限下，先測試最高風險的項目能換取整體風險暴露度最大的降低。那裡的缺陷較可能發生也較昂貴，因此同樣的投入用在那裡比用在低風險項目更有價值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：關鍵測試人員離職",
+          "text": "<p>「唯一熟悉付款模組的測試人員在發行前兩週辭職。」這主要是一種：</p>",
+          "answers": [
+            {
+              "text": "專案風險——它關乎人力／資源，並非直接關乎產品的品質",
+              "fraction": 100,
+              "feedback": "正確——失去關鍵人員是專案／資源風險。"
+            },
+            {
+              "text": "產品風險——它關乎軟體中的缺陷",
+              "fraction": 0,
+              "feedback": "此處並未描述任何產品缺陷；問題是人力／資源問題。"
+            },
+            {
+              "text": "殘餘風險——它是測試後仍殘留的部分",
+              "fraction": 0,
+              "feedback": "殘餘風險是緩解後殘留的產品風險，不是人力事件。"
+            },
+            {
+              "text": "都不是——人力從來不算風險",
+              "fraction": 0,
+              "feedback": "人力異動是典型的專案風險。"
+            }
+          ],
+          "generalFeedback": "專案風險關乎專案的管理——時程、預算、人力、供應商。失去關鍵測試人員是人力／資源問題，因此是專案風險。（它可能間接提高產品風險，但事件本身是專案風險。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：稅額計算錯誤",
+          "text": "<p>「應用程式在某些訂單上可能把營業稅算錯。」這主要是一種：</p>",
+          "answers": [
+            {
+              "text": "產品風險——它關乎交付軟體中可能存在的缺陷",
+              "fraction": 100,
+              "feedback": "正確——算錯是產品中的品質問題。"
+            },
+            {
+              "text": "專案風險——它關乎時程或人力",
+              "fraction": 0,
+              "feedback": "此處與時程、預算、人力無關；關乎的是軟體的行為。"
+            },
+            {
+              "text": "只是殘餘風險，從不算產品風險",
+              "fraction": 0,
+              "feedback": "它是產品風險；若測試後仍殘留才可能成為殘餘風險，但它本身是產品風險。"
+            },
+            {
+              "text": "不算風險，因為它尚未發生",
+              "fraction": 0,
+              "feedback": "風險依定義就是尚未發生的潛在問題。"
+            }
+          ],
+          "generalFeedback": "產品風險關乎軟體本身的品質。稅額計算錯誤是交付產品中的缺陷，因此是產品風險——正是風險式測試針對的對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序 X、Y、Z",
+          "text": "<p>項目評分為：X（可能性 3、衝擊 4）、Y（可能性 6、衝擊 3）、Z（可能性 2、衝擊 5）。正確的測試先後順序（最高風險先）為何？</p>",
+          "answers": [
+            {
+              "text": "Y、X、Z",
+              "fraction": 100,
+              "feedback": "正確——Y ＝ 6×3 = 18、X ＝ 3×4 = 12、Z ＝ 2×5 = 10。"
+            },
+            {
+              "text": "Z、X、Y",
+              "fraction": 0,
+              "feedback": "那是相反的順序；Z 的暴露度（10）是最低而非最高。"
+            },
+            {
+              "text": "X、Y、Z",
+              "fraction": 0,
+              "feedback": "X 的暴露度是 12，低於 Y 的 18，故 X 不是第一。"
+            },
+            {
+              "text": "Y、Z、X",
+              "fraction": 0,
+              "feedback": "Z（10）低於 X（12），故 Z 不能排在 X 之前。"
+            }
+          ],
+          "generalFeedback": "暴露度 ＝ 可能性 × 衝擊：X ＝ 12、Y ＝ 18、Z ＝ 10。由高到低即為 Y、X、Z。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "比較兩個項目的暴露度",
+          "text": "<p>項目 P 的可能性為 4、衝擊為 6；項目 Q 的可能性為 7、衝擊為 3。哪一個的風險暴露度較高？</p>",
+          "answers": [
+            {
+              "text": "P，暴露度 24 對 Q 的 21",
+              "fraction": 100,
+              "feedback": "正確——P ＝ 4×6 = 24、Q ＝ 7×3 = 21。"
+            },
+            {
+              "text": "Q，因為它的可能性較高",
+              "fraction": 0,
+              "feedback": "Q 的暴露度是 7×3 = 21，低於 P 的 24；單看較高的可能性不會勝出。"
+            },
+            {
+              "text": "兩者相等",
+              "fraction": 0,
+              "feedback": "24 與 21 並不相等；P 較高。"
+            },
+            {
+              "text": "Q，暴露度 24 對 P 的 21",
+              "fraction": 0,
+              "feedback": "數值弄反了：P ＝ 24、Q ＝ 21，故 P 較高。"
+            }
+          ],
+          "generalFeedback": "P ＝ 4 × 6 = 24、Q ＝ 7 × 3 = 21，故儘管 Q 的可能性較大，P 的風險暴露度仍較高。決定優先序的是乘積，而非任一單一因素。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "暴露度相等、因素不同",
+          "text": "<p>項目 J 的可能性為 6、衝擊為 2；項目 K 的可能性為 4、衝擊為 3。比較它們的風險暴露度。</p>",
+          "answers": [
+            {
+              "text": "兩者相等——暴露度都是 12",
+              "fraction": 100,
+              "feedback": "正確——J ＝ 6×2 = 12、K ＝ 4×3 = 12。"
+            },
+            {
+              "text": "J 較高，因為它的可能性較大",
+              "fraction": 0,
+              "feedback": "J ＝ 6×2 = 12，與 K 相同；較大的可能性本身不會提高暴露度。"
+            },
+            {
+              "text": "K 較高，因為它的衝擊較大",
+              "fraction": 0,
+              "feedback": "K ＝ 4×3 = 12，與 J 相等；單看較大的衝擊不會提高暴露度。"
+            },
+            {
+              "text": "無法比較，因為它們的因素不同",
+              "fraction": 0,
+              "feedback": "可以透過乘積直接比較，兩者都是 12。"
+            }
+          ],
+          "generalFeedback": "風險暴露度 ＝ 可能性 × 衝擊：J ＝ 6×2 = 12、K ＝ 4×3 = 12，故打成平手。不同的可能性／衝擊組合可能得到相同的暴露度——因此排優先序時可能需要次要準則，例如可偵測性或衝擊的嚴重度。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "該延後哪個項目",
+          "text": "<p>時間緊迫。三個項目評分為：付款（可能性 5、衝擊 8）、說明頁（可能性 2、衝擊 3）、登入（可能性 4、衝擊 7）。若必須延後一個，延後哪個最安全？</p>",
+          "answers": [
+            {
+              "text": "說明頁——其暴露度 6 遠為最低",
+              "fraction": 100,
+              "feedback": "正確——付款 ＝ 40、登入 ＝ 28、說明頁 ＝ 6，故延後說明頁最安全。"
+            },
+            {
+              "text": "付款——因為它的衝擊最高",
+              "fraction": 0,
+              "feedback": "付款的暴露度（40）最高；延後它會留下最大的風險未測。"
+            },
+            {
+              "text": "登入——因為它是常見功能",
+              "fraction": 0,
+              "feedback": "登入的暴露度（28）遠高於說明頁的 6；說明頁才是較安全的延後對象。"
+            },
+            {
+              "text": "都不能延後；三者風險相同",
+              "fraction": 0,
+              "feedback": "暴露度 40、6、28 差異很大，說明頁明顯風險最低。"
+            }
+          ],
+          "generalFeedback": "暴露度 ＝ 可能性 × 衝擊：付款 ＝ 40、說明頁 ＝ 6、登入 ＝ 28。時間有限時應延後風險最低的項目，故延後說明頁最安全。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "低可能性、高衝擊在矩陣上",
+          "text": "<p>一個罕見但災難性的事件（例如所有客戶資料永久遺失）可能性低，但衝擊極高。在風險矩陣上，它應該：</p>",
+          "answers": [
+            {
+              "text": "放在高衝擊帶，仍給予認真的關注，因為後果嚴重",
+              "fraction": 100,
+              "feedback": "正確——高衝擊使它即使可能性低仍然重要。"
+            },
+            {
+              "text": "完全忽略，因為低可能性代表低風險",
+              "fraction": 0,
+              "feedback": "低可能性不代表可忽略；嚴重的衝擊使其暴露度仍具意義。"
+            },
+            {
+              "text": "自動當成最低優先序",
+              "fraction": 0,
+              "feedback": "災難性的衝擊使它即使可能性低也無法成為最低優先。"
+            },
+            {
+              "text": "因為不太可能發生就把它從矩陣移除",
+              "fraction": 0,
+              "feedback": "不太可能發生的項目仍屬於矩陣；還必須一併衡量衝擊。"
+            }
+          ],
+          "generalFeedback": "因為暴露度 ＝ 可能性 × 衝擊，極高的衝擊即使在可能性低時也能讓暴露度保持顯著。這類罕見但災難性的項目會放在衝擊軸的高處，不會只因為不太可能發生就被忽視。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "徹底測試後的殘餘風險",
+          "text": "<p>即使經過非常徹底的風險式測試，產品中通常仍會殘留一些殘餘風險。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——測試降低風險但無法消除，故殘餘風險仍會殘留。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "再多的測試也無法移除所有風險；緩解後殘餘風險總是存在。"
+            }
+          ],
+          "generalFeedback": "測試降低風險但永遠無法歸零——未測到的組合、未知的風險、未修正的低優先缺陷都會留下殘餘風險。利害關係人須判斷該殘餘風險對發行而言是否可接受。"
+        },
+        {
+          "type": "multichoice",
+          "name": "嚴重度與優先度",
+          "text": "<p>對於一個回報的缺陷，<em>嚴重度（severity）</em>與<em>優先度（priority）</em>有何不同？</p>",
+          "answers": [
+            {
+              "text": "嚴重度是缺陷的影響有多嚴重；優先度是它應多快被修正",
+              "fraction": 100,
+              "feedback": "正確——嚴重度關乎技術上的衝擊，優先度關乎修正的急迫性。"
+            },
+            {
+              "text": "它們是同一件事的兩個名稱",
+              "fraction": 0,
+              "feedback": "兩者相關但不同：缺陷可以高嚴重度卻低優先度，反之亦然。"
+            },
+            {
+              "text": "嚴重度由客戶設定；優先度由編譯器設定",
+              "fraction": 0,
+              "feedback": "兩者都不是由編譯器設定；都是團隊／利害關係人的判斷。"
+            },
+            {
+              "text": "優先度是缺陷有多嚴重；嚴重度是它多快重現",
+              "fraction": 0,
+              "feedback": "那把定義弄反又扭曲了；嚴重度＝嚴重程度、優先度＝修正急迫性。"
+            }
+          ],
+          "generalFeedback": "嚴重度衡量缺陷影響的破壞程度（技術衝擊）；優先度衡量應多急迫修正（業務急迫性）。兩者常相關，但在很少使用的功能中的高嚴重度缺陷可能低優先，而顯眼畫面上的低嚴重度缺陷可能高優先。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "專案進行中重新評估風險",
+          "text": "<p>為什麼應在專案進行中定期重新評估風險，而不是只在一開始評一次？</p>",
+          "answers": [
+            {
+              "text": "因為隨著產品、資訊與情況演變，可能性與衝擊都會改變",
+              "fraction": 100,
+              "feedback": "正確——風險評分並非靜態，優先序必須更新。"
+            },
+            {
+              "text": "因為風險暴露度公式會隨時間改變",
+              "fraction": 0,
+              "feedback": "公式（可能性 × 衝擊）不變；改變的是它的輸入。"
+            },
+            {
+              "text": "因為重新評估可保證殘餘風險為零",
+              "fraction": 0,
+              "feedback": "重新評估是精修優先序，並不能消除殘餘風險。"
+            },
+            {
+              "text": "因為一開始的單次評估永遠完全準確",
+              "fraction": 0,
+              "feedback": "初期估計本就不確定；這正是需要重新評估的原因。"
+            }
+          ],
+          "generalFeedback": "風險是動態的：隨著程式被寫出、缺陷被找到或修正、需求變動，可能性與衝擊都會改變。定期重新評估能讓優先排序與專案的當前狀態保持一致。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試如何降低風險暴露度",
+          "text": "<p>透過找出並促成修正缺陷，測試最直接降低的是產品風險暴露度的哪一部分？</p>",
+          "answers": [
+            {
+              "text": "可能性——修正找到的缺陷可降低失敗在現場發生的機率",
+              "fraction": 100,
+              "feedback": "正確——測試主要針對可能性面向。"
+            },
+            {
+              "text": "衝擊——測試會改變失敗會有多具破壞性",
+              "fraction": 0,
+              "feedback": "失敗的業務後果大多由情境固定；測試主要降低的是可能性。"
+            },
+            {
+              "text": "都不是——測試根本無法影響風險暴露度",
+              "fraction": 0,
+              "feedback": "測試確實會降低暴露度，主要靠降低可能性。"
+            },
+            {
+              "text": "測試完成後兩者都降為零",
+              "fraction": 0,
+              "feedback": "暴露度會降低但永遠不會歸零；殘餘風險仍存在。"
+            }
+          ],
+          "generalFeedback": "測試找出可被修正的缺陷，降低它們在現場造成失敗的機率（可能性）。特定失敗的衝擊通常由其業務情境決定，而非由測試決定。測試也會提供資訊給利害關係人，但它對暴露度的直接影響主要透過可能性——而且永遠達不到零。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "隨時間監控風險",
+          "text": "<p>在依風險分配好測試資源之後，正確的持續活動是什麼？</p>",
+          "answers": [
+            {
+              "text": "監控並重新評估風險，隨評分改變而重新排定測試投入",
+              "fraction": 100,
+              "feedback": "正確——風險式測試是「辨識–評估–排序–監控」的反覆循環。"
+            },
+            {
+              "text": "凍結優先序，因為重新評估浪費心力",
+              "fraction": 0,
+              "feedback": "凍結優先序會忽略新資訊；監控與重新評估是必要的。"
+            },
+            {
+              "text": "第一個高風險項目通過後就停止所有測試",
+              "fraction": 0,
+              "feedback": "通過一個項目並未處理其餘風險；測試會依優先序繼續。"
+            },
+            {
+              "text": "改成只測試風險最低的項目",
+              "fraction": 0,
+              "feedback": "投入仍應跟隨當前最高的風險，而非最低。"
+            }
+          ],
+          "generalFeedback": "風險式測試是一個持續循環：辨識風險、評估可能性與衝擊、排定優先序、分配投入，然後監控並重新評估。隨著新缺陷、新資訊與變動到來，評分會改變，優先序也隨之更新。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "為四個項目的表格排定優先序",
+          "text": "<p>四個功能以 1&#8211;9 量表評分：</p>\n<table border=\"1\" cellpadding=\"4\"><tr><th>功能</th><th>可能性</th><th>衝擊</th></tr>\n<tr><td>A</td><td>2</td><td>8</td></tr>\n<tr><td>B</td><td>5</td><td>6</td></tr>\n<tr><td>C</td><td>9</td><td>2</td></tr>\n<tr><td>D</td><td>3</td><td>3</td></tr></table>\n<p>正確的測試先後順序（風險暴露度最高先）為何？</p>",
+          "answers": [
+            {
+              "text": "B、C、A、D",
+              "fraction": 100,
+              "feedback": "正確——B ＝ 30、C ＝ 18、A ＝ 16、D ＝ 9。"
+            },
+            {
+              "text": "C、B、A、D",
+              "fraction": 0,
+              "feedback": "C ＝ 9×2 = 18，低於 B ＝ 30，故 C 不是第一。"
+            },
+            {
+              "text": "A、B、C、D",
+              "fraction": 0,
+              "feedback": "A ＝ 2×8 = 16，同時低於 B（30）與 C（18），故 A 不是第一。"
+            },
+            {
+              "text": "B、A、C、D",
+              "fraction": 0,
+              "feedback": "A ＝ 16 低於 C ＝ 18，故 A 必須排在 C 之後，而非之前。"
+            }
+          ],
+          "generalFeedback": "暴露度 ＝ 可能性 × 衝擊：A ＝ 2×8 = 16、B ＝ 5×6 = 30、C ＝ 9×2 = 18、D ＝ 3×3 = 9。依暴露度由高到低排序即為 B（30）、C（18）、A（16）、D（9）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在時間預算下選兩個",
+          "text": "<p>時間只夠完整測試以下四個項目中的兩個：</p>\n<table border=\"1\" cellpadding=\"4\"><tr><th>項目</th><th>可能性</th><th>衝擊</th></tr>\n<tr><td>結帳</td><td>6</td><td>8</td></tr>\n<tr><td>登入</td><td>4</td><td>7</td></tr>\n<tr><td>搜尋</td><td>5</td><td>2</td></tr>\n<tr><td>報表</td><td>2</td><td>3</td></tr></table>\n<p>應測試哪兩個？</p>",
+          "answers": [
+            {
+              "text": "結帳與登入",
+              "fraction": 100,
+              "feedback": "正確——結帳 ＝ 48、登入 ＝ 28，是暴露度最高的兩個。"
+            },
+            {
+              "text": "結帳與搜尋",
+              "fraction": 0,
+              "feedback": "搜尋 ＝ 5×2 = 10，低於登入的 28，故應選登入而非搜尋。"
+            },
+            {
+              "text": "搜尋與報表",
+              "fraction": 0,
+              "feedback": "那是暴露度最低的兩個（10 與 6）；它們是該延後的，不是該測試的。"
+            },
+            {
+              "text": "登入與搜尋",
+              "fraction": 0,
+              "feedback": "結帳（48）是單項最高，必須納入；搜尋（10）不應取代它。"
+            }
+          ],
+          "generalFeedback": "暴露度 ＝ 可能性 × 衝擊：結帳 ＝ 48、登入 ＝ 28、搜尋 ＝ 10、報表 ＝ 6。在只能測兩個的容量下，測最高的兩個——結帳與登入——並延後搜尋與報表。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序四個相近的暴露度",
+          "text": "<p>四個模組評分為：</p>\n<table border=\"1\" cellpadding=\"4\"><tr><th>模組</th><th>可能性</th><th>衝擊</th></tr>\n<tr><td>M1</td><td>3</td><td>5</td></tr>\n<tr><td>M2</td><td>4</td><td>4</td></tr>\n<tr><td>M3</td><td>2</td><td>9</td></tr>\n<tr><td>M4</td><td>6</td><td>2</td></tr></table>\n<p>把它們由風險暴露度最高排到最低。</p>",
+          "answers": [
+            {
+              "text": "M3、M2、M1、M4",
+              "fraction": 100,
+              "feedback": "正確——M3 ＝ 18、M2 ＝ 16、M1 ＝ 15、M4 ＝ 12。"
+            },
+            {
+              "text": "M1、M2、M3、M4",
+              "fraction": 0,
+              "feedback": "M1 ＝ 3×5 = 15 不是最高；M3 ＝ 18 才是。"
+            },
+            {
+              "text": "M4、M3、M2、M1",
+              "fraction": 0,
+              "feedback": "M4 ＝ 6×2 = 12 是最低，而非最高。"
+            },
+            {
+              "text": "M3、M1、M2、M4",
+              "fraction": 0,
+              "feedback": "M2 ＝ 16 大於 M1 ＝ 15，故 M2 必須排在 M1 之前。"
+            }
+          ],
+          "generalFeedback": "暴露度 ＝ 可能性 × 衝擊：M1 ＝ 15、M2 ＝ 16、M3 ＝ 18、M4 ＝ 12。由高到低為 M3（18）、M2（16）、M1（15）、M4（12）——相近的數值正好要求逐一精確計算每個乘積。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "緩解後重新計算暴露度",
+          "text": "<p>某項目評為可能性 8、衝擊 5（暴露度 40）。一項緩解措施（加入自動輸入驗證加上針對性的測試套件）預期可把可能性降到 3，而失敗的衝擊維持不變。新的風險暴露度是多少？</p>",
+          "answers": [
+            {
+              "text": "15",
+              "fraction": 100,
+              "feedback": "正確——新暴露度 ＝ 3 × 5 = 15。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "緩解降低了可能性但並未消除它；殘餘暴露度是 3 × 5 = 15，而非 0。"
+            },
+            {
+              "text": "40",
+              "fraction": 0,
+              "feedback": "那是原本的暴露度；降低後的可能性得到 3 × 5 = 15。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "那是改變後的可能性 + 衝擊；暴露度是乘積 3 × 5 = 15。"
+            }
+          ],
+          "generalFeedback": "緩解把可能性由 8 降到 3，而衝擊維持 5，故殘餘暴露度是 3 × 5 = 15。注意它從 40 降到 15，但並未降到零——殘餘風險仍然存在。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "低可能性、災難性衝擊值得測試",
+          "text": "<p>某失效模式可能性為 1、衝擊為 10（暴露度 10），而一個例行功能可能性為 3、衝擊為 3（暴露度 9）。為什麼這個罕見但災難性的失效仍值得仔細測試？</p>",
+          "answers": [
+            {
+              "text": "它的暴露度（10）其實較高，而災難性的後果即使在低可能性下也值得關注",
+              "fraction": 100,
+              "feedback": "正確——1×10 = 10 大於 3×3 = 9，而且嚴重的衝擊本就重要。"
+            },
+            {
+              "text": "因為低可能性一定代表低風險，所以可以忽略",
+              "fraction": 0,
+              "feedback": "低可能性本身不會使風險變低；高衝擊使暴露度仍然顯著。"
+            },
+            {
+              "text": "因為例行功能的暴露度較高",
+              "fraction": 0,
+              "feedback": "例行功能的暴露度是 9，低於災難性模式的 10。"
+            },
+            {
+              "text": "因為可能性是唯一重要的因素",
+              "fraction": 0,
+              "feedback": "兩個因素都重要；當衝擊極端時，它可能占主導。"
+            }
+          ],
+          "generalFeedback": "暴露度 ＝ 可能性 × 衝擊：災難性模式是 1×10 = 10，高於例行功能的 3×3 = 9。除了數字本身，災難性後果（例如安全或全部資料遺失）即使機率很小，往往也值得額外測試，因為出錯的代價太高。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "迷思：100% 覆蓋率可消除風險",
+          "text": "<p>某團隊宣稱：「我們達到了 100% 程式碼覆蓋率，所以現在正式環境出現任何缺陷的風險為零。」最佳的批評是：</p>",
+          "answers": [
+            {
+              "text": "覆蓋率並不能消除風險——它不保證諭示正確、不涵蓋所有資料／路徑／環境，也無法處理缺漏的需求，因此殘餘風險仍存在",
+              "fraction": 100,
+              "feedback": "正確——完整覆蓋降低風險，但無法將其歸零。"
+            },
+            {
+              "text": "正確——100% 覆蓋率確實代表零殘餘風險",
+              "fraction": 0,
+              "feedback": "這正是迷思；程式碼被執行到，並不代表輸出被檢查、缺漏的功能被涵蓋、或未試過的資料被測到。"
+            },
+            {
+              "text": "覆蓋率無關緊要，對風險完全沒有影響",
+              "fraction": 0,
+              "feedback": "覆蓋率確實會降低風險；錯在宣稱它移除了全部風險。"
+            },
+            {
+              "text": "唯一的缺陷是 100% 覆蓋率太昂貴",
+              "fraction": 0,
+              "feedback": "成本是另一個議題；關鍵缺陷在於即使完整覆蓋仍留有殘餘風險。"
+            }
+          ],
+          "generalFeedback": "執行過每一行並不能驗證輸出是否被正確檢查，也不會演練每個輸入值、路徑組合、時序或環境，更無法揭露缺漏的需求。測試降低風險但永遠無法消除，因此宣稱 100% 覆蓋率後風險為零是誇大其詞——殘餘風險總是存在。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "高嚴重度但低優先度的缺陷",
+          "text": "<p>某個當機只在一個冷僻的管理報表中發生，一位內部使用者一年才跑一次。此當機屬高<em>嚴重度</em>（它會完全中止該功能）。為什麼它的修正可能被排為低<em>優先度</em>？</p>",
+          "answers": [
+            {
+              "text": "因為它極少被觸發且幾乎不影響任何使用者，所以儘管局部影響嚴重，修正的業務急迫性很低",
+              "fraction": 100,
+              "feedback": "正確——嚴重度（影響有多糟）可以很高，而優先度（修正有多急）可以很低。"
+            },
+            {
+              "text": "因為當機永遠不可能是高嚴重度",
+              "fraction": 0,
+              "feedback": "會中止功能的當機確實屬高嚴重度；重點是優先度仍可以很低。"
+            },
+            {
+              "text": "因為嚴重度與優先度必須永遠相等",
+              "fraction": 0,
+              "feedback": "兩者經常分歧；此例正是如此。"
+            },
+            {
+              "text": "因為低優先度代表它其實不算缺陷",
+              "fraction": 0,
+              "feedback": "它仍是真正的缺陷；優先度只反映修正的急迫性。"
+            }
+          ],
+          "generalFeedback": "嚴重度衡量影響的技術嚴重程度（此處為完全當機），而優先度反映業務上多急需修正。很少使用、低暴露的功能可以帶有高嚴重度但低優先度的缺陷——這兩個面向相關但不同。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "低嚴重度但高優先度的缺陷",
+          "text": "<p>公司名稱在公開首頁上以大字拼錯。功能上沒有任何東西壞掉（低<em>嚴重度</em>）。為什麼這可能被排為高<em>優先度</em>？</p>",
+          "answers": [
+            {
+              "text": "因為它非常顯眼且損害品牌，所以即使功能影響很小，修正的急迫性仍然很高",
+              "fraction": 100,
+              "feedback": "正確——高能見度／業務衝擊使優先度上升，儘管技術嚴重度低。"
+            },
+            {
+              "text": "因為外觀問題自動屬於高嚴重度",
+              "fraction": 0,
+              "feedback": "它在功能上是低嚴重度；重點是優先度依然很高。"
+            },
+            {
+              "text": "因為優先度永遠等同於嚴重度",
+              "fraction": 0,
+              "feedback": "此處兩者分歧：低嚴重度、高優先度。"
+            },
+            {
+              "text": "因為低嚴重度的缺陷從不值得修正",
+              "fraction": 0,
+              "feedback": "這個顯然值得盡快修正，這正是優先度高的原因。"
+            }
+          ],
+          "generalFeedback": "嚴重度低，因為功能上沒壞掉，但這個缺陷位於最顯眼的頁面且損害品牌，因此業務急迫性——優先度——很高。這是「高嚴重度／低優先度」的鏡像，說明兩個面向彼此獨立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "被延後項目的殘餘風險",
+          "text": "<p>在期限壓力下，團隊完整測試了最高風險的項目，並刻意延後一個未加測試的中等風險項目。發行時，正確的描述是什麼？</p>",
+          "answers": [
+            {
+              "text": "被延後的項目構成產品的殘餘風險，利害關係人應在發行前明知地接受或拒絕它",
+              "fraction": 100,
+              "feedback": "正確——未測試而延後的項目正是應被明確承認的殘餘風險。"
+            },
+            {
+              "text": "沒有殘餘風險，因為最高風險的項目都測過了",
+              "fraction": 0,
+              "feedback": "被延後、未測試的項目仍把風險帶進正式環境；殘餘風險不是零。"
+            },
+            {
+              "text": "延後一個項目就消除了它的風險",
+              "fraction": 0,
+              "feedback": "延後測試並不會消除底層風險；它只是讓風險未被處理。"
+            },
+            {
+              "text": "被延後的項目現在保證無缺陷",
+              "fraction": 0,
+              "feedback": "不測試某物不可能使它無缺陷；它的風險只是未被檢視。"
+            }
+          ],
+          "generalFeedback": "刻意延後一個中等風險項目是正當的風險式決策，但這個未測試的項目仍把風險帶進正式環境。那就是殘餘風險，良好做法是把它明確化，讓利害關係人判斷是否可接受而出貨。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "打破暴露度的平手",
+          "text": "<p>兩個項目暴露度同為 12：項目 G（可能性 2、衝擊 6）與項目 H（可能性 6、衝擊 2）。G 的缺陷會是災難性且在現場難以偵測，而 H 的失敗輕微且很快就會被注意到。哪個做法比較站得住腳？</p>",
+          "answers": [
+            {
+              "text": "更深入地測試 G，因為在暴露度相等時，衝擊較高、較難偵測的項目值得額外的嚴謹",
+              "fraction": 100,
+              "feedback": "正確——暴露度打平時，衝擊嚴重度與可偵測性等次要因素用來打破平手。"
+            },
+            {
+              "text": "更深入地測試 H，因為它的可能性較高",
+              "fraction": 0,
+              "feedback": "在暴露度相等、且 H 的失敗輕微又明顯時，單看較高的可能性不足以證成更多嚴謹。"
+            },
+            {
+              "text": "兩者都跳過，因為暴露度相等代表都不重要",
+              "fraction": 0,
+              "feedback": "暴露度相等不代表風險可忽略；兩者都仍重要，尤其是 G。"
+            },
+            {
+              "text": "對兩者測試完全相同，因為數字絕不可被推翻",
+              "fraction": 0,
+              "feedback": "暴露度數字是起點；在暴露度相等時，質性因素可正當地精修決策。"
+            }
+          ],
+          "generalFeedback": "兩個項目暴露度都是 2×6 = 6×2 = 12，故乘積無法區分它們。風險式測試接著使用次要準則：G 那災難性、難偵測的衝擊使它是兩者中較危險者，因此值得更深入測試。這說明暴露度分數引導但不完全決定優先序。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "專案中重新評估的效果",
+          "text": "<p>某項目起初評為可能性 2、衝擊 4（暴露度 8），後來發現它位於一條新發現的關鍵整合路徑上，使其可能性升到 7（衝擊不變）。應該怎麼做？</p>",
+          "answers": [
+            {
+              "text": "其暴露度升為 28，因此應向上重新排定優先序並投入更多測試",
+              "fraction": 100,
+              "feedback": "正確——7 × 4 = 28，是一次大跳升，把它往優先清單上方移。"
+            },
+            {
+              "text": "什麼都不變，因為風險評分一經設定就固定",
+              "fraction": 0,
+              "feedback": "評分並非固定；新資訊必須觸發重新評估。"
+            },
+            {
+              "text": "暴露度仍是 8，因為只有衝擊會影響暴露度",
+              "fraction": 0,
+              "feedback": "暴露度取決於兩個因素；較高的可能性使它升為 7 × 4 = 28。"
+            },
+            {
+              "text": "應調降優先序，因為它一開始是低風險",
+              "fraction": 0,
+              "feedback": "初始評分已被取代；此項目現在是較高風險，而非較低。"
+            }
+          ],
+          "generalFeedback": "重新評估以更新後的可能性重算暴露度：7 × 4 = 28，由 8 升上來。因為風險是動態的，該項目被往優先序上方移並獲得更多測試投入——正說明了風險式測試的監控／重新評估步驟。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序勝過單因素排序",
+          "text": "<p>項目：R（可能性 9、衝擊 2）、S（可能性 3、衝擊 5）、T（可能性 4、衝擊 6）。一位同事提議依可能性排序來測試：R、T、S。這個計畫錯在哪裡？</p>",
+          "answers": [
+            {
+              "text": "只依可能性排序是錯的；依暴露度，正確順序是 T（24）、R（18）、S（15）",
+              "fraction": 100,
+              "feedback": "正確——暴露度為 R ＝ 18、S ＝ 15、T ＝ 24，故正確順序是 T、R、S，而非 R、T、S。"
+            },
+            {
+              "text": "沒有錯；依可能性排序永遠等同於依暴露度排序",
+              "fraction": 0,
+              "feedback": "並非如此：T 的可能性低於 R，暴露度卻較高（24 對 18）。"
+            },
+            {
+              "text": "計畫是對的，因為 R 的可能性最高",
+              "fraction": 0,
+              "feedback": "最高的可能性不代表最高的暴露度；R 的暴露度（18）低於 T 的（24）。"
+            },
+            {
+              "text": "暴露度應由小到大排序，故順序為 R、S、T",
+              "fraction": 0,
+              "feedback": "較高風險先測（由大到小），而且 R 也並非最低。"
+            }
+          ],
+          "generalFeedback": "暴露度 ＝ 可能性 × 衝擊：R ＝ 9×2 = 18、S ＝ 3×5 = 15、T ＝ 4×6 = 24。依暴露度（由大到小）排序為 T、R、S——與只依可能性的順序 R、T、S 不同。排優先序必須用兩因素的乘積，而非單一因素。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試為風險決策提供資訊",
+          "text": "<p>除了找出缺陷之外，執行風險式測試還如何為利害關係人降低風險？</p>",
+          "answers": [
+            {
+              "text": "它提供資訊，縮小對真實風險等級的不確定性，使發行決策更有依據",
+              "fraction": 100,
+              "feedback": "正確——即使沒找到缺陷，測試結果也降低不確定性。"
+            },
+            {
+              "text": "它證明軟體完全沒有缺陷",
+              "fraction": 0,
+              "feedback": "測試無法證明所有缺陷都不存在；它降低不確定性，但不會降到零。"
+            },
+            {
+              "text": "它把每個測過的項目的風險永久設為零",
+              "fraction": 0,
+              "feedback": "測試後殘餘風險仍存在；風險不會被歸零。"
+            },
+            {
+              "text": "除非真的找到缺陷，否則它沒有價值",
+              "fraction": 0,
+              "feedback": "即使測試通過，也因降低了對風險的不確定性而有價值。"
+            }
+          ],
+          "generalFeedback": "風險式測試以兩種方式降低風險：找出可修正的缺陷（降低可能性），以及提供證據以降低對實際品質的不確定性——幫助利害關係人判斷殘餘風險並做出有依據的發行決策。它永遠不會完全消除風險。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "無法測試的高風險項目",
+          "text": "<p>一個高暴露度的項目依賴一個在發行前無法演練的第三方服務。合理的風險式回應是什麼？</p>",
+          "answers": [
+            {
+              "text": "以其他方式緩解（例如樁程式、契約、監控），並把仍未測試的部分記錄為明確的殘餘風險",
+              "fraction": 100,
+              "feedback": "正確——在無法直接測試時，採用替代緩解並讓殘餘風險可見。"
+            },
+            {
+              "text": "因為它無法測試就宣告它零風險",
+              "fraction": 0,
+              "feedback": "無法測試並不會移除風險；反而使風險更不被理解。"
+            },
+            {
+              "text": "完全忽略它，因為無法測試的項目不在範圍內",
+              "fraction": 0,
+              "feedback": "高暴露度的項目不能就此忽略；必須緩解並追蹤其殘餘風險。"
+            },
+            {
+              "text": "假設第三方保證它無缺陷",
+              "fraction": 0,
+              "feedback": "假設無缺陷並無根據；必須承認殘餘風險。"
+            }
+          ],
+          "generalFeedback": "當高風險項目無法直接測試時，風險式測試會採用替代緩解——服務樁程式、契約測試、額外監控、應變計畫——並明確記錄仍殘留的風險為殘餘風險，讓利害關係人在發行決策中一併衡量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "風險式測試的完整循環",
+          "text": "<p>哪個順序最能描述風險式測試的流程？</p>",
+          "answers": [
+            {
+              "text": "辨識風險 → 評估可能性與衝擊 → 依暴露度排優先序 → 分配／執行測試 → 監控並重新評估",
+              "fraction": 100,
+              "feedback": "正確——這就是反覆的風險式測試循環。"
+            },
+            {
+              "text": "寫好所有測試 → 以隨機順序執行 → 一失敗就停止",
+              "fraction": 0,
+              "feedback": "那完全忽略了風險評估與排定優先序。"
+            },
+            {
+              "text": "對每個項目投入相同心力 → 從不重新評估",
+              "fraction": 0,
+              "feedback": "均一投入且不重新評估，正好與風險式測試相反。"
+            },
+            {
+              "text": "先修好所有缺陷 → 再決定存在哪些風險",
+              "fraction": 0,
+              "feedback": "風險是在測試之前並貫穿測試過程中辨識與評估的，而非在修完一切之後。"
+            }
+          ],
+          "generalFeedback": "風險式測試是一個反覆的循環：辨識風險、評估每個風險的可能性與衝擊、依風險暴露度排優先序、據此分配並執行測試投入，然後隨著專案與其風險演變而監控並重新評估。",
+          "single": true
+        }
+      ]
+    }
+  },
   "state-transition": {
     "en": {
       "easy": [

@@ -96366,6 +96366,2590 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "risk-based-testing": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What is a risk",
+            "text": "<p>In risk-based testing, a <em>risk</em> is best described as:</p>",
+            "answers": [
+              {
+                "text": "A potential problem, characterised by the combination of its likelihood of occurring and its impact if it does",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a risk pairs a likelihood (probability) with an impact (consequence)."
+              },
+              {
+                "text": "A defect that has already been found and logged",
+                "fraction": 0,
+                "feedback": "That is a known defect; a risk is a potential future problem, not a confirmed one."
+              },
+              {
+                "text": "A test case that always fails",
+                "fraction": 0,
+                "feedback": "A failing test is evidence of a defect, not the definition of a risk."
+              },
+              {
+                "text": "The total number of test cases in the plan",
+                "fraction": 0,
+                "feedback": "That is a size metric of the suite, unrelated to what a risk is."
+              }
+            ],
+            "generalFeedback": "A risk is a possible future problem. It is characterised by two dimensions: the likelihood that it occurs and the impact (severity of the consequence) if it does. Risk-based testing uses both dimensions to decide where to focus test effort.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of likelihood",
+            "text": "<p>The <em>likelihood</em> component of a risk refers to:</p>",
+            "answers": [
+              {
+                "text": "The probability that the failure or defect actually occurs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 likelihood is how probable the problem is."
+              },
+              {
+                "text": "How severe the consequence would be if the problem occurred",
+                "fraction": 0,
+                "feedback": "That is the impact dimension, not likelihood."
+              },
+              {
+                "text": "The cost of writing the test cases",
+                "fraction": 0,
+                "feedback": "Test-authoring cost is a project concern, not the likelihood of a risk."
+              },
+              {
+                "text": "The number of testers assigned to the feature",
+                "fraction": 0,
+                "feedback": "Staffing is unrelated to the probability that a defect occurs."
+              }
+            ],
+            "generalFeedback": "Likelihood (probability) is one of the two dimensions of risk: how probable it is that a failure or defect will actually happen. The other dimension is impact.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of impact",
+            "text": "<p>The <em>impact</em> component of a risk refers to:</p>",
+            "answers": [
+              {
+                "text": "The severity of the consequence if the failure or defect occurs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 impact is how bad it would be if the problem happened."
+              },
+              {
+                "text": "How probable it is that the defect will occur",
+                "fraction": 0,
+                "feedback": "That is likelihood, the other dimension of risk."
+              },
+              {
+                "text": "How many test cases exercise the feature",
+                "fraction": 0,
+                "feedback": "That is a coverage figure, not the impact of a risk."
+              },
+              {
+                "text": "How quickly a fix can be deployed",
+                "fraction": 0,
+                "feedback": "Deployment speed is a mitigation concern, not the definition of impact."
+              }
+            ],
+            "generalFeedback": "Impact (severity/consequence) is one of the two dimensions of risk: how damaging the outcome would be if the problem occurred. Combined with likelihood, it gives the risk exposure.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Risk exposure formula",
+            "text": "<p>Risk exposure (the risk level) is normally computed as:</p>",
+            "answers": [
+              {
+                "text": "likelihood \xD7 impact",
+                "fraction": 100,
+                "feedback": "Correct \u2014 combining probability and consequence gives the risk exposure."
+              },
+              {
+                "text": "likelihood + impact",
+                "fraction": 0,
+                "feedback": "Risk exposure multiplies the two dimensions; it is not their sum."
+              },
+              {
+                "text": "impact &#8722; likelihood",
+                "fraction": 0,
+                "feedback": "Subtracting the dimensions has no standard meaning for risk exposure."
+              },
+              {
+                "text": "likelihood \xF7 impact",
+                "fraction": 0,
+                "feedback": "Dividing the two does not give a risk level; the standard formula multiplies them."
+              }
+            ],
+            "generalFeedback": "Risk exposure (also called risk level or risk rating) = likelihood \xD7 impact. It combines how probable a problem is with how serious it would be, giving a single number used to prioritise testing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is risk-based testing",
+            "text": "<p><em>Risk-based testing</em> is an approach in which:</p>",
+            "answers": [
+              {
+                "text": "Test effort is allocated in proportion to the assessed risk of each item, testing the highest-risk items first",
+                "fraction": 100,
+                "feedback": "Correct \u2014 risk drives the depth and order of testing."
+              },
+              {
+                "text": "Every feature is tested with exactly the same number of test cases",
+                "fraction": 0,
+                "feedback": "That is uniform effort; risk-based testing deliberately varies effort by risk."
+              },
+              {
+                "text": "Only features chosen at random are tested",
+                "fraction": 0,
+                "feedback": "Risk-based testing selects by assessed risk, not at random."
+              },
+              {
+                "text": "Testing stops as soon as the first defect is found",
+                "fraction": 0,
+                "feedback": "Stopping at the first defect is not risk-based testing; effort is guided by risk levels."
+              }
+            ],
+            "generalFeedback": "Risk-based testing identifies risks, assesses their likelihood and impact, prioritises them, and allocates more and deeper testing to the highest-risk items \u2014 using limited test effort where it matters most.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is a risk matrix",
+            "text": "<p>A <em>risk matrix</em> (heat map) is:</p>",
+            "answers": [
+              {
+                "text": "A grid of likelihood against impact used to visualise and rank each item's risk level",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the two axes are likelihood and impact, and cells show the resulting risk level."
+              },
+              {
+                "text": "A table listing every test case and its execution time",
+                "fraction": 0,
+                "feedback": "That is a test schedule, not a risk matrix."
+              },
+              {
+                "text": "A matrix of code modules against the developers who wrote them",
+                "fraction": 0,
+                "feedback": "That is an ownership map; a risk matrix plots likelihood against impact."
+              },
+              {
+                "text": "A record of which mutants each test kills",
+                "fraction": 0,
+                "feedback": "That belongs to mutation testing, not to a risk matrix."
+              }
+            ],
+            "generalFeedback": 'A risk matrix (or heat map) plots likelihood on one axis and impact on the other. Each item lands in a cell; high-likelihood/high-impact items sit in the "red" corner and are tested first.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is residual risk",
+            "text": "<p><em>Residual risk</em> is:</p>",
+            "answers": [
+              {
+                "text": "The risk that remains after testing and other mitigation have been carried out",
+                "fraction": 100,
+                "feedback": "Correct \u2014 some risk always remains once mitigation is done."
+              },
+              {
+                "text": "The risk that exists before any testing begins",
+                "fraction": 0,
+                "feedback": "That is the initial (inherent) risk, not the residual risk."
+              },
+              {
+                "text": "A risk that has been completely eliminated",
+                "fraction": 0,
+                "feedback": "Residual risk is precisely what is not eliminated; it remains."
+              },
+              {
+                "text": "The risk of running the test suite itself",
+                "fraction": 0,
+                "feedback": "That is not the standard meaning; residual risk is what is left in the product after mitigation."
+              }
+            ],
+            "generalFeedback": "Residual risk is the risk that still remains after testing and mitigation. Because testing reduces but never eliminates risk, some residual risk is always present, and stakeholders decide whether it is acceptable to release.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Product risk vs project risk",
+            "text": "<p>A <em>product risk</em> (as opposed to a project risk) concerns:</p>",
+            "answers": [
+              {
+                "text": "The quality of the product itself \u2014 that the delivered software may fail to meet needs or contain defects",
+                "fraction": 100,
+                "feedback": "Correct \u2014 product risk is about the software's quality."
+              },
+              {
+                "text": "Schedule slippage caused by a delayed supplier",
+                "fraction": 0,
+                "feedback": "That is a project risk (schedule/resource), not a product risk."
+              },
+              {
+                "text": "A key team member leaving mid-project",
+                "fraction": 0,
+                "feedback": "That is a project/staffing risk, not a product-quality risk."
+              },
+              {
+                "text": "The test-management tool licence expiring",
+                "fraction": 0,
+                "feedback": "That is a project/resource risk, not a product risk."
+              }
+            ],
+            "generalFeedback": "Product risks relate to the quality of the product \u2014 defects, missing functionality, poor performance. Project risks relate to managing the project \u2014 schedule, budget, staffing, suppliers. Risk-based testing chiefly targets product risks.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute risk exposure 4 \xD7 5",
+            "text": "<p>On a 1&#8211;5 scale, an item has likelihood 4 and impact 5. Its risk exposure is:</p>",
+            "answers": [
+              {
+                "text": "20",
+                "fraction": 100,
+                "feedback": "Correct \u2014 4 \xD7 5 = 20."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "That is 4 + 5; risk exposure multiplies the two values."
+              },
+              {
+                "text": "45",
+                "fraction": 0,
+                "feedback": "That concatenates the digits; the exposure is 4 \xD7 5 = 20."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "That is 5 &#8722; 4; risk exposure is the product, 20."
+              }
+            ],
+            "generalFeedback": "Risk exposure = likelihood \xD7 impact = 4 \xD7 5 = 20.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute risk exposure 3 \xD7 2",
+            "text": "<p>An item has likelihood 3 and impact 2. Its risk exposure is:</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3 \xD7 2 = 6."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "That is 3 + 2; risk exposure multiplies the two values."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "That is 3 &#8722; 2; risk exposure is the product, 6."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "That is not 3 \xD7 2; the correct product is 6."
+              }
+            ],
+            "generalFeedback": "Risk exposure = likelihood \xD7 impact = 3 \xD7 2 = 6.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Testing reduces but does not eliminate risk",
+            "text": "<p>Testing can reduce risk, but it cannot completely eliminate it.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testing lowers risk (mainly by finding defects and by giving information), but some residual risk always remains."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Testing cannot prove the absence of all defects, so it reduces risk rather than eliminating it; residual risk always remains."
+              }
+            ],
+            "generalFeedback": "Testing reduces risk by finding defects and by providing information about quality, but no amount of testing eliminates all risk \u2014 residual risk always remains. Claiming testing eliminates risk is an overstatement."
+          },
+          {
+            "type": "multichoice",
+            "name": "Which items are tested first",
+            "text": "<p>In risk-based testing, when effort must be prioritised, which items are tested first?</p>",
+            "answers": [
+              {
+                "text": "The items with the highest risk exposure",
+                "fraction": 100,
+                "feedback": "Correct \u2014 highest-risk items get attention first."
+              },
+              {
+                "text": "The items that are quickest to test",
+                "fraction": 0,
+                "feedback": "Ease of testing may be a tie-breaker, but the primary driver is risk level."
+              },
+              {
+                "text": "The items added most recently to the backlog",
+                "fraction": 0,
+                "feedback": "Recency is not the ordering criterion; risk exposure is."
+              },
+              {
+                "text": "The items with the lowest impact",
+                "fraction": 0,
+                "feedback": "Low-impact items are typically deferred, not tested first."
+              }
+            ],
+            "generalFeedback": "Risk-based testing ranks items by risk exposure (likelihood \xD7 impact) and tests the highest-risk items first, so that if time runs out the most important risks have already been addressed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Two dimensions of risk",
+            "text": "<p>Risk is the combination of which two factors?</p>",
+            "answers": [
+              {
+                "text": "Likelihood and impact",
+                "fraction": 100,
+                "feedback": "Correct \u2014 probability of occurrence and severity of consequence."
+              },
+              {
+                "text": "Cost and schedule",
+                "fraction": 0,
+                "feedback": "Those are project constraints, not the two dimensions of a risk."
+              },
+              {
+                "text": "Coverage and mutation score",
+                "fraction": 0,
+                "feedback": "Those are test-adequacy metrics, not the components of risk."
+              },
+              {
+                "text": "Severity and reproducibility",
+                "fraction": 0,
+                "feedback": "Those describe defects; risk itself combines likelihood and impact."
+              }
+            ],
+            "generalFeedback": "A risk combines its likelihood (how probable it is) with its impact (how severe the consequence would be). Risk exposure = likelihood \xD7 impact captures both.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compute risk exposure 5 \xD7 5",
+            "text": "<p>On a 1&#8211;5 scale, an item has likelihood 5 and impact 5. Its risk exposure is:</p>",
+            "answers": [
+              {
+                "text": "25",
+                "fraction": 100,
+                "feedback": "Correct \u2014 5 \xD7 5 = 25, the maximum on a 5\xD75 scale."
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "That is 5 + 5; risk exposure multiplies the two values."
+              },
+              {
+                "text": "55",
+                "fraction": 0,
+                "feedback": "That concatenates the digits; the exposure is 5 \xD7 5 = 25."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "That is 5 &#8722; 5; risk exposure is the product, 25."
+              }
+            ],
+            "generalFeedback": "Risk exposure = likelihood \xD7 impact = 5 \xD7 5 = 25 \u2014 the highest value on a 5\xD75 rating scale, marking a top-priority item.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test depth and risk level",
+            "text": "<p>How should the depth of test design relate to an item's risk level?</p>",
+            "answers": [
+              {
+                "text": "Higher-risk items get more and deeper tests; lower-risk items get lighter testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 depth of testing scales with risk."
+              },
+              {
+                "text": "All items get exactly the same depth of testing regardless of risk",
+                "fraction": 0,
+                "feedback": "That is uniform testing, which ignores risk; risk-based testing varies depth."
+              },
+              {
+                "text": "Lower-risk items get the deepest testing",
+                "fraction": 0,
+                "feedback": "That inverts the principle; effort should follow the higher risks."
+              },
+              {
+                "text": "Depth of testing depends only on the size of the code, not on risk",
+                "fraction": 0,
+                "feedback": "Code size may influence effort, but risk-based testing scales depth with risk."
+              }
+            ],
+            "generalFeedback": "In risk-based testing the depth and rigour of test design scale with risk: high-risk items receive more, and more thorough, tests, while low-risk items receive lighter coverage.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Rank three items by exposure",
+            "text": "<p>Three items are rated on a 1&#8211;9 scale: A (likelihood 2, impact 9), B (likelihood 5, impact 5), C (likelihood 8, impact 2). Which should be tested <strong>first</strong>?</p>",
+            "answers": [
+              {
+                "text": "B \u2014 its exposure 25 is the highest",
+                "fraction": 100,
+                "feedback": "Correct \u2014 A = 2\xD79 = 18, B = 5\xD75 = 25, C = 8\xD72 = 16, so B is highest."
+              },
+              {
+                "text": "A \u2014 because it has the highest impact",
+                "fraction": 0,
+                "feedback": "A's exposure is 2\xD79 = 18, less than B's 25; impact alone does not decide it."
+              },
+              {
+                "text": "C \u2014 because it has the highest likelihood",
+                "fraction": 0,
+                "feedback": "C's exposure is 8\xD72 = 16, the lowest here; likelihood alone does not decide it."
+              },
+              {
+                "text": "All three are equal, so order does not matter",
+                "fraction": 0,
+                "feedback": "The exposures 18, 25 and 16 are all different, so B is clearly first."
+              }
+            ],
+            "generalFeedback": "Compute exposure = likelihood \xD7 impact for each: A = 18, B = 25, C = 16. Highest first gives the order B, A, C, so B is tested first. Neither impact nor likelihood alone determines priority \u2014 the product does.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Place an item on the risk matrix",
+            "text": "<p>An item has high likelihood and high impact. Where does it sit on the risk matrix, and how is it treated?</p>",
+            "answers": [
+              {
+                "text": 'In the high-high ("red") corner \u2014 it is the highest priority and is tested first',
+                "fraction": 100,
+                "feedback": "Correct \u2014 high likelihood combined with high impact is the top-priority cell."
+              },
+              {
+                "text": 'In the low-low ("green") corner \u2014 it can safely be deferred',
+                "fraction": 0,
+                "feedback": "Low-low is the corner for the least risky items; a high-high item is the opposite."
+              },
+              {
+                "text": "Off the matrix, because both values are extreme",
+                "fraction": 0,
+                "feedback": "Extreme values still land on the matrix \u2014 in fact in its most critical cell."
+              },
+              {
+                "text": "In the middle, because the two high values cancel out",
+                "fraction": 0,
+                "feedback": "High values do not cancel; they compound into the highest exposure."
+              }
+            ],
+            "generalFeedback": "On a risk matrix, likelihood and impact are the two axes. An item high on both lands in the high-high (red) corner with the greatest risk exposure, making it the first thing to test.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why more effort on high-risk items",
+            "text": "<p>Why does risk-based testing allocate more test effort to high-risk items?</p>",
+            "answers": [
+              {
+                "text": "Because a defect there is both more likely and more damaging, so testing there reduces the most risk per unit of effort",
+                "fraction": 100,
+                "feedback": "Correct \u2014 effort is spent where it buys the greatest reduction in risk."
+              },
+              {
+                "text": "Because high-risk items always contain more lines of code",
+                "fraction": 0,
+                "feedback": "Risk is about likelihood and impact, not code size; a small module can be high-risk."
+              },
+              {
+                "text": "Because low-risk items cannot contain any defects",
+                "fraction": 0,
+                "feedback": "Low-risk items can still have defects; they are simply less critical, not defect-free."
+              },
+              {
+                "text": "Because high-risk items are always the easiest to test",
+                "fraction": 0,
+                "feedback": "Ease of testing is unrelated to risk level; the reason is the greater risk reduction."
+              }
+            ],
+            "generalFeedback": "With limited resources, testing the highest-risk items first yields the greatest reduction in overall risk exposure. A defect there is more probable and more costly, so effort spent there is more valuable than the same effort on a low-risk item.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: key tester leaves",
+            "text": '<p>"The only tester who knows the payment module resigns two weeks before release." This is primarily a:</p>',
+            "answers": [
+              {
+                "text": "Project risk \u2014 it concerns staffing/resources, not the product's quality directly",
+                "fraction": 100,
+                "feedback": "Correct \u2014 losing a key person is a project/resource risk."
+              },
+              {
+                "text": "Product risk \u2014 it is about a defect in the software",
+                "fraction": 0,
+                "feedback": "No product defect is described; the issue is a staffing/resource problem."
+              },
+              {
+                "text": "Residual risk \u2014 it is what remains after testing",
+                "fraction": 0,
+                "feedback": "Residual risk is leftover product risk after mitigation, not a staffing event."
+              },
+              {
+                "text": "Neither \u2014 staffing is never a risk",
+                "fraction": 0,
+                "feedback": "Staffing changes are a classic project risk."
+              }
+            ],
+            "generalFeedback": "Project risks concern the management of the project \u2014 schedule, budget, staffing, suppliers. Losing a key tester is a staffing/resource issue, hence a project risk. (It may increase product risk indirectly, but the event itself is a project risk.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: incorrect tax calculation",
+            "text": '<p>"The application might compute sales tax incorrectly on some orders." This is primarily a:</p>',
+            "answers": [
+              {
+                "text": "Product risk \u2014 it concerns a possible defect in the delivered software",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a wrong calculation is a quality problem in the product."
+              },
+              {
+                "text": "Project risk \u2014 it concerns schedule or staffing",
+                "fraction": 0,
+                "feedback": "Nothing here is about schedule, budget or staffing; it is about the software's behaviour."
+              },
+              {
+                "text": "Residual risk only, never a product risk",
+                "fraction": 0,
+                "feedback": "It is a product risk; it may become residual risk if it survives testing, but it is a product risk."
+              },
+              {
+                "text": "Not a risk, because it has not happened yet",
+                "fraction": 0,
+                "feedback": "A risk is by definition a potential problem that has not yet occurred."
+              }
+            ],
+            "generalFeedback": "Product risks are about the quality of the software itself. An incorrect tax calculation is a defect in the delivered product, so it is a product risk \u2014 exactly the kind of thing risk-based testing targets.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Rank X, Y, Z",
+            "text": "<p>Items are rated: X (likelihood 3, impact 4), Y (likelihood 6, impact 3), Z (likelihood 2, impact 5). What is the correct test-first ordering (highest risk first)?</p>",
+            "answers": [
+              {
+                "text": "Y, X, Z",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Y = 6\xD73 = 18, X = 3\xD74 = 12, Z = 2\xD75 = 10."
+              },
+              {
+                "text": "Z, X, Y",
+                "fraction": 0,
+                "feedback": "That is the reverse; Z's exposure (10) is the lowest, not the highest."
+              },
+              {
+                "text": "X, Y, Z",
+                "fraction": 0,
+                "feedback": "X's exposure is 12, below Y's 18, so X is not first."
+              },
+              {
+                "text": "Y, Z, X",
+                "fraction": 0,
+                "feedback": "Z (10) is below X (12), so Z cannot come before X."
+              }
+            ],
+            "generalFeedback": "Exposure = likelihood \xD7 impact: X = 12, Y = 18, Z = 10. Highest first gives Y, X, Z.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Compare two items' exposure",
+            "text": "<p>Item P has likelihood 4 and impact 6; item Q has likelihood 7 and impact 3. Which has the higher risk exposure?</p>",
+            "answers": [
+              {
+                "text": "P, with exposure 24 versus Q's 21",
+                "fraction": 100,
+                "feedback": "Correct \u2014 P = 4\xD76 = 24, Q = 7\xD73 = 21."
+              },
+              {
+                "text": "Q, because it has the higher likelihood",
+                "fraction": 0,
+                "feedback": "Q's exposure is 7\xD73 = 21, below P's 24; higher likelihood alone does not win."
+              },
+              {
+                "text": "They are equal",
+                "fraction": 0,
+                "feedback": "24 and 21 are not equal; P is higher."
+              },
+              {
+                "text": "Q, with exposure 24 versus P's 21",
+                "fraction": 0,
+                "feedback": "The values are swapped: P = 24 and Q = 21, so P is higher."
+              }
+            ],
+            "generalFeedback": "P = 4 \xD7 6 = 24 and Q = 7 \xD7 3 = 21, so P has the higher risk exposure despite Q's larger likelihood. The product, not either factor alone, decides priority.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Equal exposure, different factors",
+            "text": "<p>Item J has likelihood 6 and impact 2; item K has likelihood 4 and impact 3. Compare their risk exposures.</p>",
+            "answers": [
+              {
+                "text": "They are equal \u2014 both have exposure 12",
+                "fraction": 100,
+                "feedback": "Correct \u2014 J = 6\xD72 = 12 and K = 4\xD73 = 12."
+              },
+              {
+                "text": "J is higher, because it has the greater likelihood",
+                "fraction": 0,
+                "feedback": "J = 6\xD72 = 12, the same as K; a greater likelihood does not by itself raise exposure."
+              },
+              {
+                "text": "K is higher, because it has the greater impact",
+                "fraction": 0,
+                "feedback": "K = 4\xD73 = 12, equal to J; a greater impact alone does not raise exposure."
+              },
+              {
+                "text": "They cannot be compared, because their factors differ",
+                "fraction": 0,
+                "feedback": "They can be compared directly through the product, which is 12 for both."
+              }
+            ],
+            "generalFeedback": "Risk exposure = likelihood \xD7 impact: J = 6\xD72 = 12 and K = 4\xD73 = 12, so they tie. Different likelihood/impact combinations can yield the same exposure \u2014 which is why prioritisation may then need secondary criteria such as detectability or the severity of the impact.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which item to defer",
+            "text": "<p>Time is short. Three items are rated: Payment (likelihood 5, impact 8), Help page (likelihood 2, impact 3), Login (likelihood 4, impact 7). If one item must be deferred, which is the safest to defer?</p>",
+            "answers": [
+              {
+                "text": "Help page \u2014 its exposure 6 is by far the lowest",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Payment = 40, Login = 28, Help page = 6, so Help page is safest to defer."
+              },
+              {
+                "text": "Payment \u2014 because it has the highest impact",
+                "fraction": 0,
+                "feedback": "Payment's exposure (40) is the highest; deferring it would leave the biggest risk untested."
+              },
+              {
+                "text": "Login \u2014 because it is a common feature",
+                "fraction": 0,
+                "feedback": "Login's exposure (28) is far above the Help page's 6; the Help page is the safer defer."
+              },
+              {
+                "text": "None can be deferred; all are equally risky",
+                "fraction": 0,
+                "feedback": "The exposures 40, 6 and 28 differ greatly, so the Help page is clearly the least risky."
+              }
+            ],
+            "generalFeedback": "Exposure = likelihood \xD7 impact: Payment = 40, Help page = 6, Login = 28. When time is limited you defer the lowest-risk item, so the Help page is the safest to skip.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Low likelihood, high impact on the matrix",
+            "text": "<p>A rare but catastrophic event (e.g. permanent loss of all customer data) has low likelihood but very high impact. On the risk matrix it should be:</p>",
+            "answers": [
+              {
+                "text": "Placed in the high-impact band and still given serious attention, because the consequence is severe",
+                "fraction": 100,
+                "feedback": "Correct \u2014 high impact keeps it important even when likelihood is low."
+              },
+              {
+                "text": "Ignored entirely, because low likelihood means low risk",
+                "fraction": 0,
+                "feedback": "Low likelihood does not make it negligible; the severe impact keeps its exposure meaningful."
+              },
+              {
+                "text": "Treated as the very lowest priority automatically",
+                "fraction": 0,
+                "feedback": "A catastrophic impact prevents it from being the lowest priority despite low likelihood."
+              },
+              {
+                "text": "Removed from the matrix because it is unlikely",
+                "fraction": 0,
+                "feedback": "Unlikely items still belong on the matrix; impact must also be weighed."
+              }
+            ],
+            "generalFeedback": "Because exposure = likelihood \xD7 impact, a very high impact can keep the exposure significant even when likelihood is low. Such rare-but-catastrophic items are placed high on the impact axis and are not dismissed just because they are improbable.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Residual risk after thorough testing",
+            "text": "<p>Even after very thorough risk-based testing, some residual risk normally remains in the product.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testing reduces risk but cannot eliminate it, so residual risk remains."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "No amount of testing removes all risk; residual risk always remains after mitigation."
+              }
+            ],
+            "generalFeedback": "Testing reduces risk but never drives it to zero \u2014 untested combinations, unknown risks and unfixed low-priority defects all leave residual risk. Stakeholders judge whether that residual risk is acceptable for release."
+          },
+          {
+            "type": "multichoice",
+            "name": "Severity versus priority",
+            "text": "<p>For a reported defect, how do <em>severity</em> and <em>priority</em> differ?</p>",
+            "answers": [
+              {
+                "text": "Severity is how serious the defect's effect is; priority is how soon it should be fixed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 severity is about technical impact, priority is about fix urgency."
+              },
+              {
+                "text": "They are two names for exactly the same thing",
+                "fraction": 0,
+                "feedback": "They are related but distinct: a defect can be high-severity yet low-priority, or vice versa."
+              },
+              {
+                "text": "Severity is set by the customer; priority is set by the compiler",
+                "fraction": 0,
+                "feedback": "Neither is set by a compiler; both are judgements made by the team/stakeholders."
+              },
+              {
+                "text": "Priority is how severe the defect is; severity is how quickly it recurs",
+                "fraction": 0,
+                "feedback": "That swaps and distorts the definitions; severity = seriousness, priority = fix urgency."
+              }
+            ],
+            "generalFeedback": "Severity measures how damaging the defect's effect is (technical impact); priority measures how urgently it should be fixed (business urgency). They often correlate, but a high-severity defect in a rarely used feature may be low-priority, and a low-severity defect on a prominent screen may be high-priority.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Re-assessing risk during a project",
+            "text": "<p>Why should risks be re-assessed periodically during a project rather than rated only once at the start?</p>",
+            "answers": [
+              {
+                "text": "Because likelihoods and impacts change as the product, information and circumstances evolve",
+                "fraction": 100,
+                "feedback": "Correct \u2014 risk ratings are not static, so priorities must be updated."
+              },
+              {
+                "text": "Because the risk-exposure formula changes over time",
+                "fraction": 0,
+                "feedback": "The formula (likelihood \xD7 impact) stays the same; it is the inputs that change."
+              },
+              {
+                "text": "Because re-assessment guarantees zero residual risk",
+                "fraction": 0,
+                "feedback": "Re-assessment refines priorities; it does not eliminate residual risk."
+              },
+              {
+                "text": "Because a single early assessment is always perfectly accurate",
+                "fraction": 0,
+                "feedback": "Early estimates are uncertain; that is exactly why re-assessment is needed."
+              }
+            ],
+            "generalFeedback": "Risk is dynamic: as code is written, defects are found or fixed, and requirements shift, both likelihood and impact change. Periodic re-assessment keeps the prioritisation aligned with the current state of the project.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "How testing reduces risk exposure",
+            "text": "<p>By finding and enabling the fixing of defects, testing most directly reduces which part of a product risk's exposure?</p>",
+            "answers": [
+              {
+                "text": "The likelihood \u2014 fixing found defects lowers the probability that a failure occurs in the field",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testing chiefly attacks the likelihood dimension."
+              },
+              {
+                "text": "The impact \u2014 testing changes how damaging a failure would be",
+                "fraction": 0,
+                "feedback": "The business consequence of a failure is largely fixed by context; testing mainly reduces likelihood."
+              },
+              {
+                "text": "Neither \u2014 testing cannot affect risk exposure at all",
+                "fraction": 0,
+                "feedback": "Testing does reduce exposure, primarily by lowering likelihood."
+              },
+              {
+                "text": "Both are reduced to zero once testing is complete",
+                "fraction": 0,
+                "feedback": "Exposure is reduced but never to zero; residual risk remains."
+              }
+            ],
+            "generalFeedback": "Testing finds defects that can then be fixed, lowering the probability (likelihood) that they cause a field failure. The impact of a given failure is usually set by its business context, not by testing. Testing also informs stakeholders, but its direct effect on exposure is mainly through likelihood \u2014 and it never reaches zero.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Monitoring risks over time",
+            "text": "<p>After test effort has been allocated by risk, what is the correct ongoing activity?</p>",
+            "answers": [
+              {
+                "text": "Monitor and re-assess the risks, re-prioritising test effort as ratings change",
+                "fraction": 100,
+                "feedback": "Correct \u2014 risk-based testing is an iterative identify\u2013assess\u2013prioritise\u2013monitor loop."
+              },
+              {
+                "text": "Freeze the priorities, since re-assessing wastes effort",
+                "fraction": 0,
+                "feedback": "Frozen priorities ignore new information; monitoring and re-assessment are essential."
+              },
+              {
+                "text": "Stop all testing once the first high-risk item passes",
+                "fraction": 0,
+                "feedback": "Passing one item does not address the remaining risks; testing continues by priority."
+              },
+              {
+                "text": "Switch to testing the lowest-risk items exclusively",
+                "fraction": 0,
+                "feedback": "Effort still follows the highest current risks, not the lowest."
+              }
+            ],
+            "generalFeedback": "Risk-based testing is a continuous loop: identify risks, assess likelihood and impact, prioritise, allocate effort, then monitor and re-assess. As new defects, information and changes arrive, ratings shift and priorities are updated.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Prioritise a table of four items",
+            "text": '<p>Four features are rated on a 1&#8211;9 scale:</p>\n<table border="1" cellpadding="4"><tr><th>Feature</th><th>Likelihood</th><th>Impact</th></tr>\n<tr><td>A</td><td>2</td><td>8</td></tr>\n<tr><td>B</td><td>5</td><td>6</td></tr>\n<tr><td>C</td><td>9</td><td>2</td></tr>\n<tr><td>D</td><td>3</td><td>3</td></tr></table>\n<p>What is the correct test-first ordering (highest risk exposure first)?</p>',
+            "answers": [
+              {
+                "text": "B, C, A, D",
+                "fraction": 100,
+                "feedback": "Correct \u2014 B = 30, C = 18, A = 16, D = 9."
+              },
+              {
+                "text": "C, B, A, D",
+                "fraction": 0,
+                "feedback": "C = 9\xD72 = 18, below B = 30, so C is not first."
+              },
+              {
+                "text": "A, B, C, D",
+                "fraction": 0,
+                "feedback": "A = 2\xD78 = 16, below both B (30) and C (18), so A is not first."
+              },
+              {
+                "text": "B, A, C, D",
+                "fraction": 0,
+                "feedback": "A = 16 is below C = 18, so A must come after C, not before."
+              }
+            ],
+            "generalFeedback": "Exposure = likelihood \xD7 impact: A = 2\xD78 = 16, B = 5\xD76 = 30, C = 9\xD72 = 18, D = 3\xD73 = 9. Ordering by descending exposure gives B (30), C (18), A (16), D (9).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Choose two under a time budget",
+            "text": '<p>There is time to fully test only two of these four items:</p>\n<table border="1" cellpadding="4"><tr><th>Item</th><th>Likelihood</th><th>Impact</th></tr>\n<tr><td>Checkout</td><td>6</td><td>8</td></tr>\n<tr><td>Login</td><td>4</td><td>7</td></tr>\n<tr><td>Search</td><td>5</td><td>2</td></tr>\n<tr><td>Reporting</td><td>2</td><td>3</td></tr></table>\n<p>Which two should be tested?</p>',
+            "answers": [
+              {
+                "text": "Checkout and Login",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Checkout = 48 and Login = 28 are the two highest exposures."
+              },
+              {
+                "text": "Checkout and Search",
+                "fraction": 0,
+                "feedback": "Search = 5\xD72 = 10 is below Login's 28, so Login should be chosen over Search."
+              },
+              {
+                "text": "Search and Reporting",
+                "fraction": 0,
+                "feedback": "Those are the two lowest exposures (10 and 6); they are the ones to defer, not test."
+              },
+              {
+                "text": "Login and Search",
+                "fraction": 0,
+                "feedback": "Checkout (48) is the single highest and must be included; Search (10) should not displace it."
+              }
+            ],
+            "generalFeedback": "Exposure = likelihood \xD7 impact: Checkout = 48, Login = 28, Search = 10, Reporting = 6. With capacity for two, you test the two highest \u2014 Checkout and Login \u2014 and defer Search and Reporting.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Rank four close exposures",
+            "text": '<p>Four modules are rated:</p>\n<table border="1" cellpadding="4"><tr><th>Module</th><th>Likelihood</th><th>Impact</th></tr>\n<tr><td>M1</td><td>3</td><td>5</td></tr>\n<tr><td>M2</td><td>4</td><td>4</td></tr>\n<tr><td>M3</td><td>2</td><td>9</td></tr>\n<tr><td>M4</td><td>6</td><td>2</td></tr></table>\n<p>Order them from highest to lowest risk exposure.</p>',
+            "answers": [
+              {
+                "text": "M3, M2, M1, M4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 M3 = 18, M2 = 16, M1 = 15, M4 = 12."
+              },
+              {
+                "text": "M1, M2, M3, M4",
+                "fraction": 0,
+                "feedback": "M1 = 3\xD75 = 15 is not the highest; M3 = 18 is."
+              },
+              {
+                "text": "M4, M3, M2, M1",
+                "fraction": 0,
+                "feedback": "M4 = 6\xD72 = 12 is the lowest, not the highest."
+              },
+              {
+                "text": "M3, M1, M2, M4",
+                "fraction": 0,
+                "feedback": "M2 = 16 exceeds M1 = 15, so M2 must come before M1."
+              }
+            ],
+            "generalFeedback": "Exposure = likelihood \xD7 impact: M1 = 15, M2 = 16, M3 = 18, M4 = 12. Descending order is M3 (18), M2 (16), M1 (15), M4 (12) \u2014 the close values reward computing each product exactly.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Recompute exposure after mitigation",
+            "text": "<p>An item is rated likelihood 8, impact 5 (exposure 40). A mitigation (adding automated input validation plus a targeted test suite) is expected to cut the likelihood to 3, while the impact of a failure is unchanged. What is the new risk exposure?</p>",
+            "answers": [
+              {
+                "text": "15",
+                "fraction": 100,
+                "feedback": "Correct \u2014 new exposure = 3 \xD7 5 = 15."
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "Mitigation lowers likelihood but does not remove it; residual exposure is 3 \xD7 5 = 15, not 0."
+              },
+              {
+                "text": "40",
+                "fraction": 0,
+                "feedback": "That is the original exposure; the reduced likelihood gives 3 \xD7 5 = 15."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "That is likelihood + impact after the change; exposure is the product 3 \xD7 5 = 15."
+              }
+            ],
+            "generalFeedback": "Mitigation reduces the likelihood from 8 to 3 while impact stays at 5, so the residual exposure is 3 \xD7 5 = 15. Note it drops from 40 to 15 but not to zero \u2014 residual risk remains.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Low likelihood, catastrophic impact warrants testing",
+            "text": "<p>A failure mode has likelihood 1 but impact 10 (exposure 10), while a routine feature has likelihood 3 and impact 3 (exposure 9). Why might the rare-but-catastrophic failure still warrant careful testing?</p>",
+            "answers": [
+              {
+                "text": "Its exposure (10) is actually higher, and a catastrophic consequence justifies attention even at low likelihood",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1\xD710 = 10 exceeds 3\xD73 = 9, and severe impact matters."
+              },
+              {
+                "text": "Because low likelihood always means low risk, so it can be ignored",
+                "fraction": 0,
+                "feedback": "Low likelihood does not by itself make risk low; the high impact keeps exposure significant."
+              },
+              {
+                "text": "Because the routine feature has the higher exposure",
+                "fraction": 0,
+                "feedback": "The routine feature's exposure is 9, below the catastrophic mode's 10."
+              },
+              {
+                "text": "Because likelihood is the only factor that ever matters",
+                "fraction": 0,
+                "feedback": "Both factors matter; impact can dominate when it is extreme."
+              }
+            ],
+            "generalFeedback": "Exposure = likelihood \xD7 impact: the catastrophic mode is 1\xD710 = 10, above the routine feature's 3\xD73 = 9. Beyond the raw number, a catastrophic consequence (e.g. safety or total data loss) often justifies extra testing even when the probability is small, because the cost of being wrong is so high.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Misconception: 100% coverage eliminates risk",
+            "text": '<p>A team claims: "We achieved 100% code coverage, so there is now zero risk of any defect in production." The best critique is:</p>',
+            "answers": [
+              {
+                "text": "Coverage does not eliminate risk \u2014 it does not guarantee correct oracles, cover all data/paths/environments, or address missing requirements, so residual risk remains",
+                "fraction": 100,
+                "feedback": "Correct \u2014 full coverage reduces risk but cannot drive it to zero."
+              },
+              {
+                "text": "Correct \u2014 100% coverage does mean zero remaining risk",
+                "fraction": 0,
+                "feedback": "This is the misconception; coverage of code executed says nothing about unchecked outputs, missing features, or untried data."
+              },
+              {
+                "text": "Coverage is irrelevant and has no effect on risk at all",
+                "fraction": 0,
+                "feedback": "Coverage does reduce risk; the error is claiming it removes all of it."
+              },
+              {
+                "text": "The only flaw is that 100% coverage is too expensive",
+                "fraction": 0,
+                "feedback": "Cost is a separate issue; the key flaw is that even full coverage leaves residual risk."
+              }
+            ],
+            "generalFeedback": "Executing every line does not verify that outputs were checked correctly, does not exercise every input value, path combination, timing or environment, and cannot reveal a missing requirement. Testing reduces risk but never eliminates it, so claiming zero risk after 100% coverage is an overstatement \u2014 residual risk always remains.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "High-severity but low-priority defect",
+            "text": "<p>A crash occurs only in an obscure administrative report that one internal user runs once a year. The crash is high <em>severity</em> (it fully stops that function). Why might its fix be assigned low <em>priority</em>?</p>",
+            "answers": [
+              {
+                "text": "Because it is triggered rarely and affects almost no users, so the business urgency to fix it is low despite the severe local effect",
+                "fraction": 100,
+                "feedback": "Correct \u2014 severity (how bad the effect) can be high while priority (how urgent to fix) is low."
+              },
+              {
+                "text": "Because a crash can never be high severity",
+                "fraction": 0,
+                "feedback": "A crash that stops a function is genuinely high severity; the point is that priority can still be low."
+              },
+              {
+                "text": "Because severity and priority must always be equal",
+                "fraction": 0,
+                "feedback": "They frequently diverge; this example is exactly such a case."
+              },
+              {
+                "text": "Because low priority means the defect is not really a defect",
+                "fraction": 0,
+                "feedback": "It is still a real defect; priority only reflects fix urgency."
+              }
+            ],
+            "generalFeedback": "Severity measures the technical seriousness of the effect (here, a full crash), while priority reflects how urgently the business needs it fixed. A rarely used, low-exposure feature can carry a high-severity but low-priority defect \u2014 the two dimensions are related but distinct.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Low-severity but high-priority defect",
+            "text": "<p>The company's name is misspelled in large text on the public home page. Functionally nothing breaks (low <em>severity</em>). Why might this be given high <em>priority</em>?</p>",
+            "answers": [
+              {
+                "text": "Because it is highly visible and damages the brand, so the urgency to fix it is high even though the functional effect is minor",
+                "fraction": 100,
+                "feedback": "Correct \u2014 high visibility/business impact drives priority up despite low technical severity."
+              },
+              {
+                "text": "Because a cosmetic issue is automatically high severity",
+                "fraction": 0,
+                "feedback": "It is low severity functionally; the point is that priority is nonetheless high."
+              },
+              {
+                "text": "Because priority is always identical to severity",
+                "fraction": 0,
+                "feedback": "They diverge here: low severity, high priority."
+              },
+              {
+                "text": "Because low-severity defects are never worth fixing",
+                "fraction": 0,
+                "feedback": "This one is clearly worth fixing quickly, which is why priority is high."
+              }
+            ],
+            "generalFeedback": "Severity is low because nothing functionally breaks, but the defect is on the most visible page and harms the brand, so business urgency \u2014 priority \u2014 is high. This is the mirror image of a high-severity/low-priority defect and shows the two dimensions are independent.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Residual risk of a deferred item",
+            "text": "<p>Under a deadline, a team fully tests its highest-risk items and deliberately defers a medium-risk item with no testing. On release, what is the correct characterisation?</p>",
+            "answers": [
+              {
+                "text": "The deferred item contributes to the product's residual risk, which stakeholders should knowingly accept or reject before release",
+                "fraction": 100,
+                "feedback": "Correct \u2014 untested deferred items are exactly residual risk to be acknowledged."
+              },
+              {
+                "text": "There is no residual risk because the highest-risk items were tested",
+                "fraction": 0,
+                "feedback": "The deferred, untested item still carries risk into production; residual risk is not zero."
+              },
+              {
+                "text": "Deferring an item removes its risk entirely",
+                "fraction": 0,
+                "feedback": "Deferring testing does not remove the underlying risk; it leaves it unaddressed."
+              },
+              {
+                "text": "The deferred item is now guaranteed defect-free",
+                "fraction": 0,
+                "feedback": "Not testing something cannot make it defect-free; its risk simply remains unexamined."
+              }
+            ],
+            "generalFeedback": "Consciously deferring a medium-risk item is a legitimate risk-based decision, but the untested item still carries risk into production. That is residual risk, and good practice is to make it explicit so stakeholders can decide whether it is acceptable to ship.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Breaking a tie in exposure",
+            "text": "<p>Two items tie at exposure 12: item G (likelihood 2, impact 6) and item H (likelihood 6, impact 2). A defect in G would be catastrophic and hard to detect in the field, whereas H's failures are minor and quickly noticed. Which is the more defensible action?</p>",
+            "answers": [
+              {
+                "text": "Test G more deeply, because with equal exposure the higher-impact, harder-to-detect item deserves the extra rigour",
+                "fraction": 100,
+                "feedback": "Correct \u2014 when exposures tie, secondary factors such as impact severity and detectability break the tie."
+              },
+              {
+                "text": "Test H more deeply, because it has the higher likelihood",
+                "fraction": 0,
+                "feedback": "Higher likelihood alone does not justify more rigour when the exposures are equal and H's failures are minor and obvious."
+              },
+              {
+                "text": "Skip both, because equal exposure means neither matters",
+                "fraction": 0,
+                "feedback": "Equal exposure does not mean the risk is negligible; both still matter, and G especially."
+              },
+              {
+                "text": "Test them identically, because the numbers must never be overridden",
+                "fraction": 0,
+                "feedback": "The exposure number is a starting point; qualitative factors legitimately refine equal-exposure decisions."
+              }
+            ],
+            "generalFeedback": "Both items have exposure 2\xD76 = 6\xD72 = 12, so the product cannot separate them. Risk-based testing then uses secondary criteria: G's catastrophic, hard-to-detect impact makes it the more dangerous of the two, so it warrants deeper testing. This shows the exposure score guides but does not fully determine priority.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Effect of re-assessment mid-project",
+            "text": "<p>An item initially rated likelihood 2, impact 4 (exposure 8) is later found to sit on a newly discovered critical integration path, raising its likelihood to 7 (impact unchanged). What should happen?</p>",
+            "answers": [
+              {
+                "text": "Its exposure rises to 28, so it should be re-prioritised upward and given more test effort",
+                "fraction": 100,
+                "feedback": "Correct \u2014 7 \xD7 4 = 28, a large jump that moves it up the priority list."
+              },
+              {
+                "text": "Nothing changes, because risk ratings are fixed once set",
+                "fraction": 0,
+                "feedback": "Ratings are not fixed; new information must trigger re-assessment."
+              },
+              {
+                "text": "Its exposure stays 8, because only impact affects exposure",
+                "fraction": 0,
+                "feedback": "Exposure depends on both factors; a higher likelihood raises it to 7 \xD7 4 = 28."
+              },
+              {
+                "text": "It should be deprioritised, because it was low-risk at the start",
+                "fraction": 0,
+                "feedback": "The initial rating is superseded; the item is now higher risk, not lower."
+              }
+            ],
+            "generalFeedback": "Re-assessment recomputes exposure with the updated likelihood: 7 \xD7 4 = 28, up from 8. Because risk is dynamic, the item is moved up the priority order and receives more test effort \u2014 illustrating the monitor/re-assess step of risk-based testing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Ranking beats single-factor sorting",
+            "text": "<p>Items: R (likelihood 9, impact 2), S (likelihood 3, impact 5), T (likelihood 4, impact 6). A colleague proposes testing in order of likelihood: R, T, S. What is wrong with that plan?</p>",
+            "answers": [
+              {
+                "text": "Sorting by likelihood alone is wrong; by exposure the correct order is T (24), R (18), S (15)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 exposures are R = 18, S = 15, T = 24, so the correct order is T, R, S, not R, T, S."
+              },
+              {
+                "text": "Nothing is wrong; sorting by likelihood always matches sorting by exposure",
+                "fraction": 0,
+                "feedback": "It does not: T has a lower likelihood than R but a higher exposure (24 vs 18)."
+              },
+              {
+                "text": "The plan is right because R has the highest likelihood",
+                "fraction": 0,
+                "feedback": "Highest likelihood does not mean highest exposure; R's exposure (18) is below T's (24)."
+              },
+              {
+                "text": "Exposure should be sorted ascending, so the order is R, S, T",
+                "fraction": 0,
+                "feedback": "Higher risk is tested first (descending), and R is not the lowest anyway."
+              }
+            ],
+            "generalFeedback": "Exposure = likelihood \xD7 impact: R = 9\xD72 = 18, S = 3\xD75 = 15, T = 4\xD76 = 24. Sorting by exposure (descending) gives T, R, S \u2014 different from the likelihood-only order R, T, S. Prioritisation must use the product of both factors, not one factor alone.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Testing informs the risk decision",
+            "text": "<p>Beyond finding defects, how does executing risk-based tests reduce risk for stakeholders?</p>",
+            "answers": [
+              {
+                "text": "It provides information that shrinks uncertainty about the true risk level, enabling better-informed release decisions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 test results reduce uncertainty even where no defect is found."
+              },
+              {
+                "text": "It proves the software is completely defect-free",
+                "fraction": 0,
+                "feedback": "Testing cannot prove the absence of all defects; it reduces uncertainty, not to zero."
+              },
+              {
+                "text": "It permanently sets the risk to zero for every tested item",
+                "fraction": 0,
+                "feedback": "Residual risk remains even after testing; risk is not driven to zero."
+              },
+              {
+                "text": "It has no value unless a defect is actually found",
+                "fraction": 0,
+                "feedback": "Even passing tests add value by reducing uncertainty about the risk."
+              }
+            ],
+            "generalFeedback": "Risk-based testing reduces risk in two ways: by finding defects that can be fixed (lowering likelihood), and by supplying evidence that lowers uncertainty about the actual quality \u2014 helping stakeholders judge the residual risk and make informed release decisions. It never eliminates risk entirely.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Untestable high-risk item",
+            "text": "<p>A high-exposure item depends on a third-party service that cannot be exercised before release. What is the sound risk-based response?</p>",
+            "answers": [
+              {
+                "text": "Mitigate by other means (e.g. stubs, contracts, monitoring) and record the remaining untested part as explicit residual risk",
+                "fraction": 100,
+                "feedback": "Correct \u2014 where direct testing is impossible, use alternative mitigation and make the residual risk visible."
+              },
+              {
+                "text": "Declare the item zero-risk because it cannot be tested",
+                "fraction": 0,
+                "feedback": "Inability to test does not remove risk; if anything the risk is less understood."
+              },
+              {
+                "text": "Ignore it entirely, since untestable items are out of scope",
+                "fraction": 0,
+                "feedback": "A high-exposure item cannot simply be ignored; it must be mitigated and its residual risk tracked."
+              },
+              {
+                "text": "Assume the third party guarantees it is defect-free",
+                "fraction": 0,
+                "feedback": "Assuming defect-freeness is unjustified; the residual risk must be acknowledged."
+              }
+            ],
+            "generalFeedback": "When a high-risk item cannot be tested directly, risk-based testing applies alternative mitigation \u2014 service stubs, contract tests, extra monitoring, contingency plans \u2014 and explicitly documents whatever risk remains as residual risk so stakeholders can weigh it in the release decision.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Full loop of risk-based testing",
+            "text": "<p>Which sequence best describes the risk-based testing process?</p>",
+            "answers": [
+              {
+                "text": "Identify risks \u2192 assess likelihood and impact \u2192 prioritise by exposure \u2192 allocate/execute tests \u2192 monitor and re-assess",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this is the iterative risk-based testing loop."
+              },
+              {
+                "text": "Write all tests \u2192 run them in random order \u2192 stop at the first failure",
+                "fraction": 0,
+                "feedback": "That ignores risk assessment and prioritisation entirely."
+              },
+              {
+                "text": "Assign equal effort to every item \u2192 never re-assess",
+                "fraction": 0,
+                "feedback": "Equal effort with no re-assessment is the opposite of risk-based testing."
+              },
+              {
+                "text": "Fix all defects first \u2192 then decide which risks exist",
+                "fraction": 0,
+                "feedback": "Risks are identified and assessed before, and throughout, testing \u2014 not after fixing everything."
+              }
+            ],
+            "generalFeedback": "Risk-based testing is an iterative loop: identify the risks, assess each one's likelihood and impact, prioritise by risk exposure, allocate and execute test effort accordingly, then monitor and re-assess as the project and its risks evolve.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u98A8\u96AA",
+            "text": "<p>\u5728\u98A8\u96AA\u5F0F\u6E2C\u8A66\uFF08risk-based testing\uFF09\u4E2D\uFF0C<em>\u98A8\u96AA\uFF08risk\uFF09</em>\u6700\u9069\u5207\u7684\u63CF\u8FF0\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u6F5B\u5728\u7684\u554F\u984C\uFF0C\u7531\u5176\u300C\u767C\u751F\u7684\u53EF\u80FD\u6027\u300D\u8207\u300C\u4E00\u65E6\u767C\u751F\u7684\u885D\u64CA\u300D\u5169\u8005\u7D44\u5408\u800C\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u98A8\u96AA\u628A\u53EF\u80FD\u6027\uFF08\u6A5F\u7387\uFF09\u8207\u885D\u64CA\uFF08\u5F8C\u679C\uFF09\u914D\u5C0D\u5728\u4E00\u8D77\u3002"
+              },
+              {
+                "text": "\u5DF2\u7D93\u88AB\u627E\u5230\u4E26\u8A18\u9304\u4E0B\u4F86\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5DF2\u77E5\u7F3A\u9677\uFF1B\u98A8\u96AA\u662F\u5C1A\u672A\u767C\u751F\u7684\u6F5B\u5728\u554F\u984C\uFF0C\u800C\u975E\u5DF2\u78BA\u8A8D\u7684\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u6C38\u9060\u5931\u6557\u7684\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u5931\u6557\u7684\u6E2C\u8A66\u662F\u7F3A\u9677\u7684\u8B49\u64DA\uFF0C\u4E26\u975E\u98A8\u96AA\u7684\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u8A08\u756B\u4E2D\u6E2C\u8A66\u6848\u4F8B\u7684\u7E3D\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u5957\u4EF6\u7684\u898F\u6A21\u5EA6\u91CF\uFF0C\u8207\u98A8\u96AA\u7684\u5B9A\u7FA9\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u662F\u4E00\u500B\u53EF\u80FD\u767C\u751F\u7684\u672A\u4F86\u554F\u984C\uFF0C\u7531\u5169\u500B\u9762\u5411\u523B\u756B\uFF1A\u767C\u751F\u7684\u53EF\u80FD\u6027\uFF08likelihood\uFF09\u8207\u4E00\u65E6\u767C\u751F\u7684\u885D\u64CA\uFF08impact\uFF09\u3002\u98A8\u96AA\u5F0F\u6E2C\u8A66\u540C\u6642\u7528\u9019\u5169\u500B\u9762\u5411\u4F86\u6C7A\u5B9A\u6E2C\u8A66\u8CC7\u6E90\u8981\u6295\u5728\u54EA\u88E1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53EF\u80FD\u6027\u7684\u610F\u7FA9",
+            "text": "<p>\u98A8\u96AA\u4E2D\u7684<em>\u53EF\u80FD\u6027\uFF08likelihood\uFF09</em>\u9762\u5411\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5931\u6557\u6216\u7F3A\u9677\u5BE6\u969B\u767C\u751F\u7684\u6A5F\u7387",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u80FD\u6027\u5C31\u662F\u554F\u984C\u6709\u591A\u53EF\u80FD\u767C\u751F\u3002"
+              },
+              {
+                "text": "\u4E00\u65E6\u554F\u984C\u767C\u751F\uFF0C\u5F8C\u679C\u6709\u591A\u56B4\u91CD",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u885D\u64CA\u9762\u5411\uFF0C\u4E0D\u662F\u53EF\u80FD\u6027\u3002"
+              },
+              {
+                "text": "\u64B0\u5BEB\u6E2C\u8A66\u6848\u4F8B\u7684\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u64B0\u5BEB\u6E2C\u8A66\u7684\u6210\u672C\u662F\u5C08\u6848\u8003\u91CF\uFF0C\u4E0D\u662F\u98A8\u96AA\u7684\u53EF\u80FD\u6027\u3002"
+              },
+              {
+                "text": "\u6307\u6D3E\u5230\u8A72\u529F\u80FD\u7684\u6E2C\u8A66\u4EBA\u54E1\u6578\u76EE",
+                "fraction": 0,
+                "feedback": "\u4EBA\u529B\u914D\u7F6E\u8207\u7F3A\u9677\u767C\u751F\u7684\u6A5F\u7387\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u80FD\u6027\uFF08\u6A5F\u7387\uFF09\u662F\u98A8\u96AA\u7684\u5169\u500B\u9762\u5411\u4E4B\u4E00\uFF1A\u5931\u6557\u6216\u7F3A\u9677\u5BE6\u969B\u767C\u751F\u7684\u6A5F\u7387\u6709\u591A\u9AD8\u3002\u53E6\u4E00\u500B\u9762\u5411\u662F\u885D\u64CA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u885D\u64CA\u7684\u610F\u7FA9",
+            "text": "<p>\u98A8\u96AA\u4E2D\u7684<em>\u885D\u64CA\uFF08impact\uFF09</em>\u9762\u5411\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u65E6\u5931\u6557\u6216\u7F3A\u9677\u767C\u751F\u6642\uFF0C\u5F8C\u679C\u7684\u56B4\u91CD\u7A0B\u5EA6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u885D\u64CA\u5C31\u662F\u554F\u984C\u82E5\u767C\u751F\u6703\u6709\u591A\u7CDF\u3002"
+              },
+              {
+                "text": "\u7F3A\u9677\u767C\u751F\u7684\u6A5F\u7387\u6709\u591A\u9AD8",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53EF\u80FD\u6027\uFF0C\u98A8\u96AA\u7684\u53E6\u4E00\u500B\u9762\u5411\u3002"
+              },
+              {
+                "text": "\u6709\u591A\u5C11\u6E2C\u8A66\u6848\u4F8B\u6DB5\u84CB\u8A72\u529F\u80FD",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8986\u84CB\u6578\u5B57\uFF0C\u4E0D\u662F\u98A8\u96AA\u7684\u885D\u64CA\u3002"
+              },
+              {
+                "text": "\u4FEE\u6B63\u80FD\u591A\u5FEB\u90E8\u7F72\u4E0A\u7DDA",
+                "fraction": 0,
+                "feedback": "\u90E8\u7F72\u901F\u5EA6\u662F\u7DE9\u89E3\u63AA\u65BD\u7684\u8003\u91CF\uFF0C\u4E0D\u662F\u885D\u64CA\u7684\u5B9A\u7FA9\u3002"
+              }
+            ],
+            "generalFeedback": "\u885D\u64CA\uFF08\u56B4\u91CD\u5EA6\uFF0F\u5F8C\u679C\uFF09\u662F\u98A8\u96AA\u7684\u5169\u500B\u9762\u5411\u4E4B\u4E00\uFF1A\u4E00\u65E6\u554F\u984C\u767C\u751F\uFF0C\u7D50\u679C\u6703\u6709\u591A\u5177\u7834\u58DE\u6027\u3002\u7D50\u5408\u53EF\u80FD\u6027\u5F8C\uFF0C\u5373\u5F97\u5230\u98A8\u96AA\u66B4\u9732\u5EA6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u98A8\u96AA\u66B4\u9732\u5EA6\u516C\u5F0F",
+            "text": "<p>\u98A8\u96AA\u66B4\u9732\u5EA6\uFF08risk exposure\uFF0C\u5373\u98A8\u96AA\u7B49\u7D1A\uFF09\u901A\u5E38\u5982\u4F55\u8A08\u7B97\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u80FD\u6027 \xD7 \u885D\u64CA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u6A5F\u7387\u8207\u5F8C\u679C\u76F8\u4E58\u5373\u5F97\u5230\u98A8\u96AA\u66B4\u9732\u5EA6\u3002"
+              },
+              {
+                "text": "\u53EF\u80FD\u6027 + \u885D\u64CA",
+                "fraction": 0,
+                "feedback": "\u98A8\u96AA\u66B4\u9732\u5EA6\u662F\u5169\u500B\u9762\u5411\u76F8\u4E58\uFF0C\u4E0D\u662F\u76F8\u52A0\u3002"
+              },
+              {
+                "text": "\u885D\u64CA &#8722; \u53EF\u80FD\u6027",
+                "fraction": 0,
+                "feedback": "\u628A\u5169\u500B\u9762\u5411\u76F8\u6E1B\u5C0D\u98A8\u96AA\u66B4\u9732\u5EA6\u6C92\u6709\u6A19\u6E96\u610F\u7FA9\u3002"
+              },
+              {
+                "text": "\u53EF\u80FD\u6027 \xF7 \u885D\u64CA",
+                "fraction": 0,
+                "feedback": "\u76F8\u9664\u5F97\u4E0D\u5230\u98A8\u96AA\u7B49\u7D1A\uFF1B\u6A19\u6E96\u516C\u5F0F\u662F\u76F8\u4E58\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u66B4\u9732\u5EA6\uFF08\u53C8\u7A31\u98A8\u96AA\u7B49\u7D1A\u6216\u98A8\u96AA\u8A55\u5206\uFF09\uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA\u3002\u5B83\u7D50\u5408\u4E86\u554F\u984C\u6709\u591A\u53EF\u80FD\u767C\u751F\u8207\u5F8C\u679C\u6709\u591A\u56B4\u91CD\uFF0C\u5F97\u5230\u4E00\u500B\u7528\u4F86\u6392\u5B9A\u6E2C\u8A66\u512A\u5148\u5E8F\u7684\u6578\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u98A8\u96AA\u5F0F\u6E2C\u8A66",
+            "text": "<p><em>\u98A8\u96AA\u5F0F\u6E2C\u8A66\uFF08risk-based testing\uFF09</em>\u662F\u4E00\u7A2E\u505A\u6CD5\uFF0C\u5176\u7279\u5FB5\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4F9D\u5404\u9805\u76EE\u6240\u8A55\u4F30\u7684\u98A8\u96AA\u6BD4\u4F8B\u5206\u914D\u6E2C\u8A66\u8CC7\u6E90\uFF0C\u6700\u9AD8\u98A8\u96AA\u8005\u6700\u5148\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u98A8\u96AA\u9A45\u52D5\u6E2C\u8A66\u7684\u6DF1\u5EA6\u8207\u9806\u5E8F\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u529F\u80FD\u90FD\u7528\u5B8C\u5168\u76F8\u540C\u6578\u91CF\u7684\u6E2C\u8A66\u6848\u4F8B\u4F86\u6E2C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5E73\u5747\u6295\u5165\uFF1B\u98A8\u96AA\u5F0F\u6E2C\u8A66\u523B\u610F\u4F9D\u98A8\u96AA\u8ABF\u6574\u6295\u5165\u3002"
+              },
+              {
+                "text": "\u53EA\u6E2C\u8A66\u96A8\u6A5F\u6311\u9078\u51FA\u4F86\u7684\u529F\u80FD",
+                "fraction": 0,
+                "feedback": "\u98A8\u96AA\u5F0F\u6E2C\u8A66\u4F9D\u8A55\u4F30\u7684\u98A8\u96AA\u6311\u9078\uFF0C\u4E0D\u662F\u96A8\u6A5F\u3002"
+              },
+              {
+                "text": "\u4E00\u627E\u5230\u7B2C\u4E00\u500B\u7F3A\u9677\u5C31\u505C\u6B62\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u627E\u5230\u7B2C\u4E00\u500B\u7F3A\u9677\u5C31\u505C\u6B62\u4E26\u975E\u98A8\u96AA\u5F0F\u6E2C\u8A66\uFF1B\u6295\u5165\u662F\u7531\u98A8\u96AA\u7B49\u7D1A\u5F15\u5C0E\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u5F0F\u6E2C\u8A66\u6703\u8FA8\u8B58\u98A8\u96AA\u3001\u8A55\u4F30\u5176\u53EF\u80FD\u6027\u8207\u885D\u64CA\u3001\u6392\u5B9A\u512A\u5148\u5E8F\uFF0C\u4E26\u628A\u8F03\u591A\u3001\u8F03\u6DF1\u5165\u7684\u6E2C\u8A66\u6295\u6CE8\u5728\u6700\u9AD8\u98A8\u96AA\u7684\u9805\u76EE\u4E0A\u2014\u2014\u5728\u6709\u9650\u7684\u6E2C\u8A66\u8CC7\u6E90\u4E0B\u7528\u5728\u6700\u91CD\u8981\u7684\u5730\u65B9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u98A8\u96AA\u77E9\u9663",
+            "text": "<p><em>\u98A8\u96AA\u77E9\u9663\uFF08risk matrix\uFF0C\u71B1\u529B\u5716\uFF09</em>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u4EE5\u53EF\u80FD\u6027\u5C0D\u885D\u64CA\u69CB\u6210\u7684\u65B9\u683C\u5716\uFF0C\u7528\u4F86\u8996\u89BA\u5316\u4E26\u6392\u5E8F\u5404\u9805\u76EE\u7684\u98A8\u96AA\u7B49\u7D1A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u8EF8\u662F\u53EF\u80FD\u6027\u8207\u885D\u64CA\uFF0C\u683C\u5B50\u986F\u793A\u6240\u5F97\u7684\u98A8\u96AA\u7B49\u7D1A\u3002"
+              },
+              {
+                "text": "\u5217\u51FA\u6BCF\u500B\u6E2C\u8A66\u6848\u4F8B\u53CA\u5176\u57F7\u884C\u6642\u9593\u7684\u8868\u683C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u6392\u7A0B\uFF0C\u4E0D\u662F\u98A8\u96AA\u77E9\u9663\u3002"
+              },
+              {
+                "text": "\u628A\u7A0B\u5F0F\u6A21\u7D44\u5C0D\u61C9\u5230\u64B0\u5BEB\u5B83\u5011\u7684\u958B\u767C\u8005\u7684\u77E9\u9663",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8CA0\u8CAC\u4EBA\u5C0D\u61C9\u8868\uFF1B\u98A8\u96AA\u77E9\u9663\u662F\u4EE5\u53EF\u80FD\u6027\u5C0D\u885D\u64CA\u4F5C\u5716\u3002"
+              },
+              {
+                "text": "\u8A18\u9304\u6BCF\u500B\u6E2C\u8A66\u6BBA\u6B7B\u54EA\u4E9B\u7A81\u8B8A\u9AD4\u7684\u8868",
+                "fraction": 0,
+                "feedback": "\u90A3\u5C6C\u65BC\u7A81\u8B8A\u6E2C\u8A66\uFF0C\u4E0D\u662F\u98A8\u96AA\u77E9\u9663\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u77E9\u9663\uFF08\u6216\u71B1\u529B\u5716\uFF09\u4EE5\u53EF\u80FD\u6027\u70BA\u4E00\u8EF8\u3001\u885D\u64CA\u70BA\u53E6\u4E00\u8EF8\u3002\u6BCF\u500B\u9805\u76EE\u843D\u5728\u67D0\u4E00\u683C\uFF1B\u9AD8\u53EF\u80FD\u6027\uFF0F\u9AD8\u885D\u64CA\u7684\u9805\u76EE\u4F4D\u65BC\u300C\u7D05\u8272\u300D\u89D2\u843D\uFF0C\u6700\u5148\u88AB\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6B98\u9918\u98A8\u96AA",
+            "text": "<p><em>\u6B98\u9918\u98A8\u96AA\uFF08residual risk\uFF09</em>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u6E2C\u8A66\u8207\u5176\u4ED6\u7DE9\u89E3\u63AA\u65BD\u5B8C\u6210\u4E4B\u5F8C\u4ECD\u7136\u6B98\u7559\u7684\u98A8\u96AA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7DE9\u89E3\u505A\u5B8C\u5F8C\u7E3D\u6703\u6B98\u7559\u4E00\u4E9B\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u5728\u4EFB\u4F55\u6E2C\u8A66\u958B\u59CB\u4E4B\u524D\u5C31\u5B58\u5728\u7684\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u521D\u59CB\uFF08\u56FA\u6709\uFF09\u98A8\u96AA\uFF0C\u4E0D\u662F\u6B98\u9918\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u5DF2\u88AB\u5B8C\u5168\u6D88\u9664\u7684\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u6B98\u9918\u98A8\u96AA\u6B63\u662F\u90A3\u4E9B\u6C92\u6709\u88AB\u6D88\u9664\u3001\u4ECD\u7136\u6B98\u7559\u7684\u90E8\u5206\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u6E2C\u8A66\u5957\u4EF6\u672C\u8EAB\u7684\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E0D\u662F\u6A19\u6E96\u610F\u7FA9\uFF1B\u6B98\u9918\u98A8\u96AA\u662F\u7DE9\u89E3\u5F8C\u7522\u54C1\u4E2D\u4ECD\u6B98\u7559\u7684\u90E8\u5206\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B98\u9918\u98A8\u96AA\u662F\u6E2C\u8A66\u8207\u7DE9\u89E3\u4E4B\u5F8C\u4ECD\u6B98\u7559\u7684\u98A8\u96AA\u3002\u56E0\u70BA\u6E2C\u8A66\u53EA\u80FD\u964D\u4F4E\u800C\u7121\u6CD5\u6D88\u9664\u98A8\u96AA\uFF0C\u7E3D\u6703\u6709\u4E00\u4E9B\u6B98\u9918\u98A8\u96AA\u5B58\u5728\uFF0C\u7531\u5229\u5BB3\u95DC\u4FC2\u4EBA\u5224\u65B7\u662F\u5426\u53EF\u63A5\u53D7\u800C\u767C\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7522\u54C1\u98A8\u96AA\u8207\u5C08\u6848\u98A8\u96AA",
+            "text": "<p><em>\u7522\u54C1\u98A8\u96AA\uFF08product risk\uFF09</em>\uFF08\u76F8\u5C0D\u65BC\u5C08\u6848\u98A8\u96AA\uFF09\u95DC\u6CE8\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7522\u54C1\u672C\u8EAB\u7684\u54C1\u8CEA\u2014\u2014\u4EA4\u4ED8\u7684\u8EDF\u9AD4\u53EF\u80FD\u7121\u6CD5\u6EFF\u8DB3\u9700\u6C42\u6216\u542B\u6709\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7522\u54C1\u98A8\u96AA\u95DC\u4E4E\u8EDF\u9AD4\u7684\u54C1\u8CEA\u3002"
+              },
+              {
+                "text": "\u56E0\u4F9B\u61C9\u5546\u5EF6\u9072\u800C\u9020\u6210\u7684\u6642\u7A0B\u5EF6\u8AA4",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C08\u6848\u98A8\u96AA\uFF08\u6642\u7A0B\uFF0F\u8CC7\u6E90\uFF09\uFF0C\u4E0D\u662F\u7522\u54C1\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u95DC\u9375\u5718\u968A\u6210\u54E1\u5728\u5C08\u6848\u9014\u4E2D\u96E2\u8077",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C08\u6848\uFF0F\u4EBA\u529B\u98A8\u96AA\uFF0C\u4E0D\u662F\u7522\u54C1\u54C1\u8CEA\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u7BA1\u7406\u5DE5\u5177\u7684\u6388\u6B0A\u5230\u671F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C08\u6848\uFF0F\u8CC7\u6E90\u98A8\u96AA\uFF0C\u4E0D\u662F\u7522\u54C1\u98A8\u96AA\u3002"
+              }
+            ],
+            "generalFeedback": "\u7522\u54C1\u98A8\u96AA\u95DC\u4E4E\u7522\u54C1\u7684\u54C1\u8CEA\u2014\u2014\u7F3A\u9677\u3001\u529F\u80FD\u7F3A\u6F0F\u3001\u6548\u80FD\u4E0D\u4F73\u3002\u5C08\u6848\u98A8\u96AA\u95DC\u4E4E\u5C08\u6848\u7684\u7BA1\u7406\u2014\u2014\u6642\u7A0B\u3001\u9810\u7B97\u3001\u4EBA\u529B\u3001\u4F9B\u61C9\u5546\u3002\u98A8\u96AA\u5F0F\u6E2C\u8A66\u4E3B\u8981\u91DD\u5C0D\u7522\u54C1\u98A8\u96AA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u98A8\u96AA\u66B4\u9732\u5EA6 4 \xD7 5",
+            "text": "<p>\u5728 1&#8211;5 \u7684\u91CF\u8868\u4E0A\uFF0C\u67D0\u9805\u76EE\u53EF\u80FD\u6027\u70BA 4\u3001\u885D\u64CA\u70BA 5\u3002\u5176\u98A8\u96AA\u66B4\u9732\u5EA6\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "20",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144 \xD7 5 = 20\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 4 + 5\uFF1B\u98A8\u96AA\u66B4\u9732\u5EA6\u662F\u5169\u503C\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "45",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u628A\u6578\u5B57\u4E26\u6392\uFF1B\u66B4\u9732\u5EA6\u662F 4 \xD7 5 = 20\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 5 &#8722; 4\uFF1B\u98A8\u96AA\u66B4\u9732\u5EA6\u662F\u4E58\u7A4D 20\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u66B4\u9732\u5EA6 \uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA \uFF1D 4 \xD7 5 = 20\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u98A8\u96AA\u66B4\u9732\u5EA6 3 \xD7 2",
+            "text": "<p>\u67D0\u9805\u76EE\u53EF\u80FD\u6027\u70BA 3\u3001\u885D\u64CA\u70BA 2\u3002\u5176\u98A8\u96AA\u66B4\u9732\u5EA6\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20143 \xD7 2 = 6\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 3 + 2\uFF1B\u98A8\u96AA\u66B4\u9732\u5EA6\u662F\u5169\u503C\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 3 &#8722; 2\uFF1B\u98A8\u96AA\u66B4\u9732\u5EA6\u662F\u4E58\u7A4D 6\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E0D\u662F 3 \xD7 2\uFF1B\u6B63\u78BA\u7684\u4E58\u7A4D\u662F 6\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u66B4\u9732\u5EA6 \uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA \uFF1D 3 \xD7 2 = 6\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6E2C\u8A66\u964D\u4F4E\u4F46\u4E0D\u6D88\u9664\u98A8\u96AA",
+            "text": "<p>\u6E2C\u8A66\u53EF\u4EE5\u964D\u4F4E\u98A8\u96AA\uFF0C\u4F46\u7121\u6CD5\u5B8C\u5168\u6D88\u9664\u98A8\u96AA\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u6703\u964D\u4F4E\u98A8\u96AA\uFF08\u4E3B\u8981\u9760\u627E\u51FA\u7F3A\u9677\u4E26\u63D0\u4F9B\u8CC7\u8A0A\uFF09\uFF0C\u4F46\u7E3D\u6703\u6B98\u7559\u4E00\u4E9B\u6B98\u9918\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u7121\u6CD5\u8B49\u660E\u6240\u6709\u7F3A\u9677\u90FD\u4E0D\u5B58\u5728\uFF0C\u56E0\u6B64\u5B83\u662F\u964D\u4F4E\u800C\u975E\u6D88\u9664\u98A8\u96AA\uFF1B\u6B98\u9918\u98A8\u96AA\u7E3D\u662F\u5B58\u5728\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u85C9\u7531\u627E\u51FA\u7F3A\u9677\u4E26\u63D0\u4F9B\u54C1\u8CEA\u8CC7\u8A0A\u4F86\u964D\u4F4E\u98A8\u96AA\uFF0C\u4F46\u518D\u591A\u7684\u6E2C\u8A66\u4E5F\u7121\u6CD5\u6D88\u9664\u6240\u6709\u98A8\u96AA\u2014\u2014\u6B98\u9918\u98A8\u96AA\u7E3D\u662F\u5B58\u5728\u3002\u5BA3\u7A31\u6E2C\u8A66\u80FD\u6D88\u9664\u98A8\u96AA\u662F\u8A87\u5927\u5176\u8A5E\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E9B\u9805\u76EE\u6700\u5148\u6E2C\u8A66",
+            "text": "<p>\u5728\u98A8\u96AA\u5F0F\u6E2C\u8A66\u4E2D\uFF0C\u7576\u5FC5\u9808\u6392\u5B9A\u6295\u5165\u7684\u512A\u5148\u5E8F\u6642\uFF0C\u54EA\u4E9B\u9805\u76EE\u6700\u5148\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u98A8\u96AA\u66B4\u9732\u5EA6\u6700\u9AD8\u7684\u9805\u76EE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u9AD8\u98A8\u96AA\u7684\u9805\u76EE\u6700\u5148\u53D7\u5230\u95DC\u6CE8\u3002"
+              },
+              {
+                "text": "\u6700\u5FEB\u80FD\u6E2C\u5B8C\u7684\u9805\u76EE",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u96E3\u6613\u53EF\u4F5C\u70BA\u6B21\u8981\u7684\u6253\u7834\u5E73\u624B\u4F9D\u64DA\uFF0C\u4F46\u4E3B\u8981\u9A45\u52D5\u56E0\u7D20\u662F\u98A8\u96AA\u7B49\u7D1A\u3002"
+              },
+              {
+                "text": "\u6700\u8FD1\u624D\u52A0\u5165\u5F85\u8FA6\u6E05\u55AE\u7684\u9805\u76EE",
+                "fraction": 0,
+                "feedback": "\u52A0\u5165\u7684\u6642\u9593\u5148\u5F8C\u4E0D\u662F\u6392\u5E8F\u6E96\u5247\uFF1B\u98A8\u96AA\u66B4\u9732\u5EA6\u624D\u662F\u3002"
+              },
+              {
+                "text": "\u885D\u64CA\u6700\u4F4E\u7684\u9805\u76EE",
+                "fraction": 0,
+                "feedback": "\u4F4E\u885D\u64CA\u7684\u9805\u76EE\u901A\u5E38\u88AB\u5EF6\u5F8C\uFF0C\u800C\u975E\u6700\u5148\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u5F0F\u6E2C\u8A66\u4F9D\u98A8\u96AA\u66B4\u9732\u5EA6\uFF08\u53EF\u80FD\u6027 \xD7 \u885D\u64CA\uFF09\u70BA\u9805\u76EE\u6392\u5E8F\uFF0C\u6700\u9AD8\u98A8\u96AA\u8005\u6700\u5148\u6E2C\u8A66\uFF0C\u5982\u6B64\u4E00\u4F86\u5373\u4F7F\u6642\u9593\u7528\u76E1\uFF0C\u6700\u91CD\u8981\u7684\u98A8\u96AA\u4E5F\u5DF2\u5148\u88AB\u8655\u7406\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u98A8\u96AA\u7684\u5169\u500B\u9762\u5411",
+            "text": "<p>\u98A8\u96AA\u662F\u7531\u54EA\u5169\u500B\u56E0\u7D20\u7D44\u5408\u800C\u6210\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u80FD\u6027\u8207\u885D\u64CA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u767C\u751F\u7684\u6A5F\u7387\u8207\u5F8C\u679C\u7684\u56B4\u91CD\u5EA6\u3002"
+              },
+              {
+                "text": "\u6210\u672C\u8207\u6642\u7A0B",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u5C08\u6848\u9650\u5236\uFF0C\u4E0D\u662F\u98A8\u96AA\u7684\u5169\u500B\u9762\u5411\u3002"
+              },
+              {
+                "text": "\u8986\u84CB\u7387\u8207\u7A81\u8B8A\u5206\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u6E2C\u8A66\u9069\u5207\u6027\u5EA6\u91CF\uFF0C\u4E0D\u662F\u98A8\u96AA\u7684\u7D44\u6210\u3002"
+              },
+              {
+                "text": "\u56B4\u91CD\u5EA6\u8207\u53EF\u91CD\u73FE\u6027",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u63CF\u8FF0\u7F3A\u9677\uFF1B\u98A8\u96AA\u672C\u8EAB\u662F\u53EF\u80FD\u6027\u8207\u885D\u64CA\u7684\u7D44\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u7D50\u5408\u5176\u53EF\u80FD\u6027\uFF08\u6709\u591A\u53EF\u80FD\u767C\u751F\uFF09\u8207\u5176\u885D\u64CA\uFF08\u5F8C\u679C\u6709\u591A\u56B4\u91CD\uFF09\u3002\u98A8\u96AA\u66B4\u9732\u5EA6 \uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA \u540C\u6642\u6DB5\u84CB\u5169\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u98A8\u96AA\u66B4\u9732\u5EA6 5 \xD7 5",
+            "text": "<p>\u5728 1&#8211;5 \u7684\u91CF\u8868\u4E0A\uFF0C\u67D0\u9805\u76EE\u53EF\u80FD\u6027\u70BA 5\u3001\u885D\u64CA\u70BA 5\u3002\u5176\u98A8\u96AA\u66B4\u9732\u5EA6\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "25",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20145 \xD7 5 = 25\uFF0C\u662F 5\xD75 \u91CF\u8868\u4E0A\u7684\u6700\u5927\u503C\u3002"
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 5 + 5\uFF1B\u98A8\u96AA\u66B4\u9732\u5EA6\u662F\u5169\u503C\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "55",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u628A\u6578\u5B57\u4E26\u6392\uFF1B\u66B4\u9732\u5EA6\u662F 5 \xD7 5 = 25\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 5 &#8722; 5\uFF1B\u98A8\u96AA\u66B4\u9732\u5EA6\u662F\u4E58\u7A4D 25\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u66B4\u9732\u5EA6 \uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA \uFF1D 5 \xD7 5 = 25\u2014\u2014\u5728 5\xD75 \u8A55\u5206\u91CF\u8868\u4E0A\u7684\u6700\u9AD8\u503C\uFF0C\u4EE3\u8868\u6700\u512A\u5148\u7684\u9805\u76EE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u6DF1\u5EA6\u8207\u98A8\u96AA\u7B49\u7D1A",
+            "text": "<p>\u6E2C\u8A66\u8A2D\u8A08\u7684\u6DF1\u5EA6\u61C9\u5982\u4F55\u8207\u9805\u76EE\u7684\u98A8\u96AA\u7B49\u7D1A\u76F8\u95DC\u806F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9AD8\u98A8\u96AA\u9805\u76EE\u7D66\u4E88\u66F4\u591A\u3001\u66F4\u6DF1\u5165\u7684\u6E2C\u8A66\uFF1B\u4F4E\u98A8\u96AA\u9805\u76EE\u7D66\u4E88\u8F03\u8F15\u91CF\u7684\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u6DF1\u5EA6\u96A8\u98A8\u96AA\u800C\u8ABF\u6574\u3002"
+              },
+              {
+                "text": "\u4E0D\u8AD6\u98A8\u96AA\u5982\u4F55\uFF0C\u6240\u6709\u9805\u76EE\u90FD\u7D66\u4E88\u5B8C\u5168\u76F8\u540C\u7684\u6E2C\u8A66\u6DF1\u5EA6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5747\u4E00\u6E2C\u8A66\uFF0C\u5FFD\u7565\u4E86\u98A8\u96AA\uFF1B\u98A8\u96AA\u5F0F\u6E2C\u8A66\u6703\u8ABF\u6574\u6DF1\u5EA6\u3002"
+              },
+              {
+                "text": "\u4F4E\u98A8\u96AA\u9805\u76EE\u7D66\u4E88\u6700\u6DF1\u5165\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u985B\u5012\u4E86\u539F\u5247\uFF1B\u6295\u5165\u61C9\u8DDF\u96A8\u8F03\u9AD8\u7684\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u6DF1\u5EA6\u53EA\u53D6\u6C7A\u65BC\u7A0B\u5F0F\u78BC\u7684\u5927\u5C0F\uFF0C\u8207\u98A8\u96AA\u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u7A0B\u5F0F\u78BC\u5927\u5C0F\u53EF\u80FD\u5F71\u97FF\u6295\u5165\uFF0C\u4F46\u98A8\u96AA\u5F0F\u6E2C\u8A66\u662F\u4F9D\u98A8\u96AA\u8ABF\u6574\u6DF1\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u98A8\u96AA\u5F0F\u6E2C\u8A66\u4E2D\uFF0C\u6E2C\u8A66\u8A2D\u8A08\u7684\u6DF1\u5EA6\u8207\u56B4\u8B39\u5EA6\u96A8\u98A8\u96AA\u800C\u8B8A\uFF1A\u9AD8\u98A8\u96AA\u9805\u76EE\u7372\u5F97\u66F4\u591A\u3001\u66F4\u5FB9\u5E95\u7684\u6E2C\u8A66\uFF0C\u4F4E\u98A8\u96AA\u9805\u76EE\u5247\u7372\u5F97\u8F03\u8F15\u91CF\u7684\u8986\u84CB\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u4F9D\u66B4\u9732\u5EA6\u6392\u5E8F\u4E09\u500B\u9805\u76EE",
+            "text": "<p>\u4E09\u500B\u9805\u76EE\u4EE5 1&#8211;9 \u91CF\u8868\u8A55\u5206\uFF1AA\uFF08\u53EF\u80FD\u6027 2\u3001\u885D\u64CA 9\uFF09\u3001B\uFF08\u53EF\u80FD\u6027 5\u3001\u885D\u64CA 5\uFF09\u3001C\uFF08\u53EF\u80FD\u6027 8\u3001\u885D\u64CA 2\uFF09\u3002\u54EA\u4E00\u500B\u61C9<strong>\u6700\u5148</strong>\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "B\u2014\u2014\u5176\u66B4\u9732\u5EA6 25 \u70BA\u6700\u9AD8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014A \uFF1D 2\xD79 = 18\u3001B \uFF1D 5\xD75 = 25\u3001C \uFF1D 8\xD72 = 16\uFF0C\u6545 B \u6700\u9AD8\u3002"
+              },
+              {
+                "text": "A\u2014\u2014\u56E0\u70BA\u5B83\u7684\u885D\u64CA\u6700\u9AD8",
+                "fraction": 0,
+                "feedback": "A \u7684\u66B4\u9732\u5EA6\u662F 2\xD79 = 18\uFF0C\u4F4E\u65BC B \u7684 25\uFF1B\u55AE\u770B\u885D\u64CA\u7121\u6CD5\u6C7A\u5B9A\u3002"
+              },
+              {
+                "text": "C\u2014\u2014\u56E0\u70BA\u5B83\u7684\u53EF\u80FD\u6027\u6700\u9AD8",
+                "fraction": 0,
+                "feedback": "C \u7684\u66B4\u9732\u5EA6\u662F 8\xD72 = 16\uFF0C\u5728\u6B64\u6700\u4F4E\uFF1B\u55AE\u770B\u53EF\u80FD\u6027\u7121\u6CD5\u6C7A\u5B9A\u3002"
+              },
+              {
+                "text": "\u4E09\u8005\u76F8\u7B49\uFF0C\u6240\u4EE5\u9806\u5E8F\u7121\u95DC\u7DCA\u8981",
+                "fraction": 0,
+                "feedback": "\u66B4\u9732\u5EA6 18\u300125\u300116 \u5404\u4E0D\u76F8\u540C\uFF0CB \u660E\u986F\u6700\u5148\u3002"
+              }
+            ],
+            "generalFeedback": "\u9010\u4E00\u8A08\u7B97\u66B4\u9732\u5EA6 \uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA\uFF1AA \uFF1D 18\u3001B \uFF1D 25\u3001C \uFF1D 16\u3002\u7531\u9AD8\u5230\u4F4E\u5373\u70BA B\u3001A\u3001C\uFF0C\u6545 B \u6700\u5148\u6E2C\u8A66\u3002\u55AE\u770B\u885D\u64CA\u6216\u55AE\u770B\u53EF\u80FD\u6027\u90FD\u7121\u6CD5\u6C7A\u5B9A\u512A\u5148\u5E8F\u2014\u2014\u6C7A\u5B9A\u7684\u662F\u4E58\u7A4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u628A\u9805\u76EE\u653E\u5230\u98A8\u96AA\u77E9\u9663\u4E0A",
+            "text": "<p>\u67D0\u9805\u76EE\u7684\u53EF\u80FD\u6027\u9AD8\u3001\u885D\u64CA\u4E5F\u9AD8\u3002\u5B83\u843D\u5728\u98A8\u96AA\u77E9\u9663\u7684\u54EA\u500B\u4F4D\u7F6E\uFF0C\u53C8\u5982\u4F55\u8655\u7406\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u843D\u5728\u9AD8-\u9AD8\uFF08\u300C\u7D05\u8272\u300D\uFF09\u89D2\u843D\u2014\u2014\u512A\u5148\u5E8F\u6700\u9AD8\uFF0C\u6700\u5148\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9AD8\u53EF\u80FD\u6027\u642D\u914D\u9AD8\u885D\u64CA\u662F\u6700\u9AD8\u512A\u5148\u7684\u683C\u5B50\u3002"
+              },
+              {
+                "text": "\u843D\u5728\u4F4E-\u4F4E\uFF08\u300C\u7DA0\u8272\u300D\uFF09\u89D2\u843D\u2014\u2014\u53EF\u5B89\u5FC3\u5EF6\u5F8C",
+                "fraction": 0,
+                "feedback": "\u4F4E-\u4F4E\u662F\u98A8\u96AA\u6700\u5C0F\u9805\u76EE\u7684\u89D2\u843D\uFF1B\u9AD8-\u9AD8\u9805\u76EE\u6B63\u597D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u843D\u5728\u77E9\u9663\u4E4B\u5916\uFF0C\u56E0\u70BA\u5169\u500B\u503C\u90FD\u592A\u6975\u7AEF",
+                "fraction": 0,
+                "feedback": "\u6975\u7AEF\u503C\u4ECD\u6703\u843D\u5728\u77E9\u9663\u4E0A\u2014\u2014\u800C\u4E14\u6B63\u843D\u5728\u6700\u95DC\u9375\u7684\u683C\u5B50\u3002"
+              },
+              {
+                "text": "\u843D\u5728\u4E2D\u9593\uFF0C\u56E0\u70BA\u5169\u500B\u9AD8\u503C\u76F8\u4E92\u62B5\u6D88",
+                "fraction": 0,
+                "feedback": "\u9AD8\u503C\u4E0D\u6703\u62B5\u6D88\uFF1B\u5B83\u5011\u76F8\u4E58\u6210\u70BA\u6700\u9AD8\u7684\u66B4\u9732\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u98A8\u96AA\u77E9\u9663\u4E0A\uFF0C\u53EF\u80FD\u6027\u8207\u885D\u64CA\u662F\u5169\u8EF8\u3002\u5169\u8005\u7686\u9AD8\u7684\u9805\u76EE\u843D\u5728\u9AD8-\u9AD8\uFF08\u7D05\u8272\uFF09\u89D2\u843D\uFF0C\u98A8\u96AA\u66B4\u9732\u5EA6\u6700\u5927\uFF0C\u662F\u6700\u5148\u8981\u6E2C\u8A66\u7684\u5C0D\u8C61\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5728\u9AD8\u98A8\u96AA\u9805\u76EE\u6295\u5165\u66F4\u591A",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u98A8\u96AA\u5F0F\u6E2C\u8A66\u6703\u628A\u8F03\u591A\u7684\u6E2C\u8A66\u8CC7\u6E90\u5206\u914D\u7D66\u9AD8\u98A8\u96AA\u9805\u76EE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u90A3\u88E1\u7684\u7F3A\u9677\u65E2\u8F03\u53EF\u80FD\u767C\u751F\u53C8\u8F03\u5177\u7834\u58DE\u6027\uFF0C\u6240\u4EE5\u5728\u90A3\u88E1\u6E2C\u8A66\u6BCF\u55AE\u4F4D\u6295\u5165\u80FD\u964D\u4F4E\u6700\u591A\u98A8\u96AA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8CC7\u6E90\u82B1\u5728\u80FD\u63DB\u53D6\u6700\u5927\u98A8\u96AA\u964D\u4F4E\u4E4B\u8655\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9AD8\u98A8\u96AA\u9805\u76EE\u4E00\u5B9A\u542B\u6709\u8F03\u591A\u884C\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u98A8\u96AA\u95DC\u4E4E\u53EF\u80FD\u6027\u8207\u885D\u64CA\uFF0C\u4E0D\u662F\u7A0B\u5F0F\u78BC\u5927\u5C0F\uFF1B\u5C0F\u6A21\u7D44\u4E5F\u53EF\u80FD\u662F\u9AD8\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u4F4E\u98A8\u96AA\u9805\u76EE\u4E0D\u53EF\u80FD\u542B\u6709\u4EFB\u4F55\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u4F4E\u98A8\u96AA\u9805\u76EE\u4ECD\u53EF\u80FD\u6709\u7F3A\u9677\uFF1B\u53EA\u662F\u8F03\u4E0D\u95DC\u9375\uFF0C\u800C\u975E\u96F6\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9AD8\u98A8\u96AA\u9805\u76EE\u4E00\u5B9A\u6700\u5BB9\u6613\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u96E3\u6613\u8207\u98A8\u96AA\u7B49\u7D1A\u7121\u95DC\uFF1B\u7406\u7531\u662F\u80FD\u964D\u4F4E\u8F03\u591A\u98A8\u96AA\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u8CC7\u6E90\u6709\u9650\u4E0B\uFF0C\u5148\u6E2C\u8A66\u6700\u9AD8\u98A8\u96AA\u7684\u9805\u76EE\u80FD\u63DB\u53D6\u6574\u9AD4\u98A8\u96AA\u66B4\u9732\u5EA6\u6700\u5927\u7684\u964D\u4F4E\u3002\u90A3\u88E1\u7684\u7F3A\u9677\u8F03\u53EF\u80FD\u767C\u751F\u4E5F\u8F03\u6602\u8CB4\uFF0C\u56E0\u6B64\u540C\u6A23\u7684\u6295\u5165\u7528\u5728\u90A3\u88E1\u6BD4\u7528\u5728\u4F4E\u98A8\u96AA\u9805\u76EE\u66F4\u6709\u50F9\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u95DC\u9375\u6E2C\u8A66\u4EBA\u54E1\u96E2\u8077",
+            "text": "<p>\u300C\u552F\u4E00\u719F\u6089\u4ED8\u6B3E\u6A21\u7D44\u7684\u6E2C\u8A66\u4EBA\u54E1\u5728\u767C\u884C\u524D\u5169\u9031\u8FAD\u8077\u3002\u300D\u9019\u4E3B\u8981\u662F\u4E00\u7A2E\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C08\u6848\u98A8\u96AA\u2014\u2014\u5B83\u95DC\u4E4E\u4EBA\u529B\uFF0F\u8CC7\u6E90\uFF0C\u4E26\u975E\u76F4\u63A5\u95DC\u4E4E\u7522\u54C1\u7684\u54C1\u8CEA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5931\u53BB\u95DC\u9375\u4EBA\u54E1\u662F\u5C08\u6848\uFF0F\u8CC7\u6E90\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u7522\u54C1\u98A8\u96AA\u2014\u2014\u5B83\u95DC\u4E4E\u8EDF\u9AD4\u4E2D\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u4E26\u672A\u63CF\u8FF0\u4EFB\u4F55\u7522\u54C1\u7F3A\u9677\uFF1B\u554F\u984C\u662F\u4EBA\u529B\uFF0F\u8CC7\u6E90\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u6B98\u9918\u98A8\u96AA\u2014\u2014\u5B83\u662F\u6E2C\u8A66\u5F8C\u4ECD\u6B98\u7559\u7684\u90E8\u5206",
+                "fraction": 0,
+                "feedback": "\u6B98\u9918\u98A8\u96AA\u662F\u7DE9\u89E3\u5F8C\u6B98\u7559\u7684\u7522\u54C1\u98A8\u96AA\uFF0C\u4E0D\u662F\u4EBA\u529B\u4E8B\u4EF6\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F\u2014\u2014\u4EBA\u529B\u5F9E\u4F86\u4E0D\u7B97\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u4EBA\u529B\u7570\u52D5\u662F\u5178\u578B\u7684\u5C08\u6848\u98A8\u96AA\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C08\u6848\u98A8\u96AA\u95DC\u4E4E\u5C08\u6848\u7684\u7BA1\u7406\u2014\u2014\u6642\u7A0B\u3001\u9810\u7B97\u3001\u4EBA\u529B\u3001\u4F9B\u61C9\u5546\u3002\u5931\u53BB\u95DC\u9375\u6E2C\u8A66\u4EBA\u54E1\u662F\u4EBA\u529B\uFF0F\u8CC7\u6E90\u554F\u984C\uFF0C\u56E0\u6B64\u662F\u5C08\u6848\u98A8\u96AA\u3002\uFF08\u5B83\u53EF\u80FD\u9593\u63A5\u63D0\u9AD8\u7522\u54C1\u98A8\u96AA\uFF0C\u4F46\u4E8B\u4EF6\u672C\u8EAB\u662F\u5C08\u6848\u98A8\u96AA\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u7A05\u984D\u8A08\u7B97\u932F\u8AA4",
+            "text": "<p>\u300C\u61C9\u7528\u7A0B\u5F0F\u5728\u67D0\u4E9B\u8A02\u55AE\u4E0A\u53EF\u80FD\u628A\u71DF\u696D\u7A05\u7B97\u932F\u3002\u300D\u9019\u4E3B\u8981\u662F\u4E00\u7A2E\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7522\u54C1\u98A8\u96AA\u2014\u2014\u5B83\u95DC\u4E4E\u4EA4\u4ED8\u8EDF\u9AD4\u4E2D\u53EF\u80FD\u5B58\u5728\u7684\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B97\u932F\u662F\u7522\u54C1\u4E2D\u7684\u54C1\u8CEA\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u5C08\u6848\u98A8\u96AA\u2014\u2014\u5B83\u95DC\u4E4E\u6642\u7A0B\u6216\u4EBA\u529B",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u8207\u6642\u7A0B\u3001\u9810\u7B97\u3001\u4EBA\u529B\u7121\u95DC\uFF1B\u95DC\u4E4E\u7684\u662F\u8EDF\u9AD4\u7684\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u53EA\u662F\u6B98\u9918\u98A8\u96AA\uFF0C\u5F9E\u4E0D\u7B97\u7522\u54C1\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u7522\u54C1\u98A8\u96AA\uFF1B\u82E5\u6E2C\u8A66\u5F8C\u4ECD\u6B98\u7559\u624D\u53EF\u80FD\u6210\u70BA\u6B98\u9918\u98A8\u96AA\uFF0C\u4F46\u5B83\u672C\u8EAB\u662F\u7522\u54C1\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u4E0D\u7B97\u98A8\u96AA\uFF0C\u56E0\u70BA\u5B83\u5C1A\u672A\u767C\u751F",
+                "fraction": 0,
+                "feedback": "\u98A8\u96AA\u4F9D\u5B9A\u7FA9\u5C31\u662F\u5C1A\u672A\u767C\u751F\u7684\u6F5B\u5728\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7522\u54C1\u98A8\u96AA\u95DC\u4E4E\u8EDF\u9AD4\u672C\u8EAB\u7684\u54C1\u8CEA\u3002\u7A05\u984D\u8A08\u7B97\u932F\u8AA4\u662F\u4EA4\u4ED8\u7522\u54C1\u4E2D\u7684\u7F3A\u9677\uFF0C\u56E0\u6B64\u662F\u7522\u54C1\u98A8\u96AA\u2014\u2014\u6B63\u662F\u98A8\u96AA\u5F0F\u6E2C\u8A66\u91DD\u5C0D\u7684\u5C0D\u8C61\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6392\u5E8F X\u3001Y\u3001Z",
+            "text": "<p>\u9805\u76EE\u8A55\u5206\u70BA\uFF1AX\uFF08\u53EF\u80FD\u6027 3\u3001\u885D\u64CA 4\uFF09\u3001Y\uFF08\u53EF\u80FD\u6027 6\u3001\u885D\u64CA 3\uFF09\u3001Z\uFF08\u53EF\u80FD\u6027 2\u3001\u885D\u64CA 5\uFF09\u3002\u6B63\u78BA\u7684\u6E2C\u8A66\u5148\u5F8C\u9806\u5E8F\uFF08\u6700\u9AD8\u98A8\u96AA\u5148\uFF09\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Y\u3001X\u3001Z",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Y \uFF1D 6\xD73 = 18\u3001X \uFF1D 3\xD74 = 12\u3001Z \uFF1D 2\xD75 = 10\u3002"
+              },
+              {
+                "text": "Z\u3001X\u3001Y",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u76F8\u53CD\u7684\u9806\u5E8F\uFF1BZ \u7684\u66B4\u9732\u5EA6\uFF0810\uFF09\u662F\u6700\u4F4E\u800C\u975E\u6700\u9AD8\u3002"
+              },
+              {
+                "text": "X\u3001Y\u3001Z",
+                "fraction": 0,
+                "feedback": "X \u7684\u66B4\u9732\u5EA6\u662F 12\uFF0C\u4F4E\u65BC Y \u7684 18\uFF0C\u6545 X \u4E0D\u662F\u7B2C\u4E00\u3002"
+              },
+              {
+                "text": "Y\u3001Z\u3001X",
+                "fraction": 0,
+                "feedback": "Z\uFF0810\uFF09\u4F4E\u65BC X\uFF0812\uFF09\uFF0C\u6545 Z \u4E0D\u80FD\u6392\u5728 X \u4E4B\u524D\u3002"
+              }
+            ],
+            "generalFeedback": "\u66B4\u9732\u5EA6 \uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA\uFF1AX \uFF1D 12\u3001Y \uFF1D 18\u3001Z \uFF1D 10\u3002\u7531\u9AD8\u5230\u4F4E\u5373\u70BA Y\u3001X\u3001Z\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BD4\u8F03\u5169\u500B\u9805\u76EE\u7684\u66B4\u9732\u5EA6",
+            "text": "<p>\u9805\u76EE P \u7684\u53EF\u80FD\u6027\u70BA 4\u3001\u885D\u64CA\u70BA 6\uFF1B\u9805\u76EE Q \u7684\u53EF\u80FD\u6027\u70BA 7\u3001\u885D\u64CA\u70BA 3\u3002\u54EA\u4E00\u500B\u7684\u98A8\u96AA\u66B4\u9732\u5EA6\u8F03\u9AD8\uFF1F</p>",
+            "answers": [
+              {
+                "text": "P\uFF0C\u66B4\u9732\u5EA6 24 \u5C0D Q \u7684 21",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014P \uFF1D 4\xD76 = 24\u3001Q \uFF1D 7\xD73 = 21\u3002"
+              },
+              {
+                "text": "Q\uFF0C\u56E0\u70BA\u5B83\u7684\u53EF\u80FD\u6027\u8F03\u9AD8",
+                "fraction": 0,
+                "feedback": "Q \u7684\u66B4\u9732\u5EA6\u662F 7\xD73 = 21\uFF0C\u4F4E\u65BC P \u7684 24\uFF1B\u55AE\u770B\u8F03\u9AD8\u7684\u53EF\u80FD\u6027\u4E0D\u6703\u52DD\u51FA\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u76F8\u7B49",
+                "fraction": 0,
+                "feedback": "24 \u8207 21 \u4E26\u4E0D\u76F8\u7B49\uFF1BP \u8F03\u9AD8\u3002"
+              },
+              {
+                "text": "Q\uFF0C\u66B4\u9732\u5EA6 24 \u5C0D P \u7684 21",
+                "fraction": 0,
+                "feedback": "\u6578\u503C\u5F04\u53CD\u4E86\uFF1AP \uFF1D 24\u3001Q \uFF1D 21\uFF0C\u6545 P \u8F03\u9AD8\u3002"
+              }
+            ],
+            "generalFeedback": "P \uFF1D 4 \xD7 6 = 24\u3001Q \uFF1D 7 \xD7 3 = 21\uFF0C\u6545\u5118\u7BA1 Q \u7684\u53EF\u80FD\u6027\u8F03\u5927\uFF0CP \u7684\u98A8\u96AA\u66B4\u9732\u5EA6\u4ECD\u8F03\u9AD8\u3002\u6C7A\u5B9A\u512A\u5148\u5E8F\u7684\u662F\u4E58\u7A4D\uFF0C\u800C\u975E\u4EFB\u4E00\u55AE\u4E00\u56E0\u7D20\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u66B4\u9732\u5EA6\u76F8\u7B49\u3001\u56E0\u7D20\u4E0D\u540C",
+            "text": "<p>\u9805\u76EE J \u7684\u53EF\u80FD\u6027\u70BA 6\u3001\u885D\u64CA\u70BA 2\uFF1B\u9805\u76EE K \u7684\u53EF\u80FD\u6027\u70BA 4\u3001\u885D\u64CA\u70BA 3\u3002\u6BD4\u8F03\u5B83\u5011\u7684\u98A8\u96AA\u66B4\u9732\u5EA6\u3002</p>",
+            "answers": [
+              {
+                "text": "\u5169\u8005\u76F8\u7B49\u2014\u2014\u66B4\u9732\u5EA6\u90FD\u662F 12",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014J \uFF1D 6\xD72 = 12\u3001K \uFF1D 4\xD73 = 12\u3002"
+              },
+              {
+                "text": "J \u8F03\u9AD8\uFF0C\u56E0\u70BA\u5B83\u7684\u53EF\u80FD\u6027\u8F03\u5927",
+                "fraction": 0,
+                "feedback": "J \uFF1D 6\xD72 = 12\uFF0C\u8207 K \u76F8\u540C\uFF1B\u8F03\u5927\u7684\u53EF\u80FD\u6027\u672C\u8EAB\u4E0D\u6703\u63D0\u9AD8\u66B4\u9732\u5EA6\u3002"
+              },
+              {
+                "text": "K \u8F03\u9AD8\uFF0C\u56E0\u70BA\u5B83\u7684\u885D\u64CA\u8F03\u5927",
+                "fraction": 0,
+                "feedback": "K \uFF1D 4\xD73 = 12\uFF0C\u8207 J \u76F8\u7B49\uFF1B\u55AE\u770B\u8F03\u5927\u7684\u885D\u64CA\u4E0D\u6703\u63D0\u9AD8\u66B4\u9732\u5EA6\u3002"
+              },
+              {
+                "text": "\u7121\u6CD5\u6BD4\u8F03\uFF0C\u56E0\u70BA\u5B83\u5011\u7684\u56E0\u7D20\u4E0D\u540C",
+                "fraction": 0,
+                "feedback": "\u53EF\u4EE5\u900F\u904E\u4E58\u7A4D\u76F4\u63A5\u6BD4\u8F03\uFF0C\u5169\u8005\u90FD\u662F 12\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u66B4\u9732\u5EA6 \uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA\uFF1AJ \uFF1D 6\xD72 = 12\u3001K \uFF1D 4\xD73 = 12\uFF0C\u6545\u6253\u6210\u5E73\u624B\u3002\u4E0D\u540C\u7684\u53EF\u80FD\u6027\uFF0F\u885D\u64CA\u7D44\u5408\u53EF\u80FD\u5F97\u5230\u76F8\u540C\u7684\u66B4\u9732\u5EA6\u2014\u2014\u56E0\u6B64\u6392\u512A\u5148\u5E8F\u6642\u53EF\u80FD\u9700\u8981\u6B21\u8981\u6E96\u5247\uFF0C\u4F8B\u5982\u53EF\u5075\u6E2C\u6027\u6216\u885D\u64CA\u7684\u56B4\u91CD\u5EA6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A72\u5EF6\u5F8C\u54EA\u500B\u9805\u76EE",
+            "text": "<p>\u6642\u9593\u7DCA\u8FEB\u3002\u4E09\u500B\u9805\u76EE\u8A55\u5206\u70BA\uFF1A\u4ED8\u6B3E\uFF08\u53EF\u80FD\u6027 5\u3001\u885D\u64CA 8\uFF09\u3001\u8AAA\u660E\u9801\uFF08\u53EF\u80FD\u6027 2\u3001\u885D\u64CA 3\uFF09\u3001\u767B\u5165\uFF08\u53EF\u80FD\u6027 4\u3001\u885D\u64CA 7\uFF09\u3002\u82E5\u5FC5\u9808\u5EF6\u5F8C\u4E00\u500B\uFF0C\u5EF6\u5F8C\u54EA\u500B\u6700\u5B89\u5168\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8AAA\u660E\u9801\u2014\u2014\u5176\u66B4\u9732\u5EA6 6 \u9060\u70BA\u6700\u4F4E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4ED8\u6B3E \uFF1D 40\u3001\u767B\u5165 \uFF1D 28\u3001\u8AAA\u660E\u9801 \uFF1D 6\uFF0C\u6545\u5EF6\u5F8C\u8AAA\u660E\u9801\u6700\u5B89\u5168\u3002"
+              },
+              {
+                "text": "\u4ED8\u6B3E\u2014\u2014\u56E0\u70BA\u5B83\u7684\u885D\u64CA\u6700\u9AD8",
+                "fraction": 0,
+                "feedback": "\u4ED8\u6B3E\u7684\u66B4\u9732\u5EA6\uFF0840\uFF09\u6700\u9AD8\uFF1B\u5EF6\u5F8C\u5B83\u6703\u7559\u4E0B\u6700\u5927\u7684\u98A8\u96AA\u672A\u6E2C\u3002"
+              },
+              {
+                "text": "\u767B\u5165\u2014\u2014\u56E0\u70BA\u5B83\u662F\u5E38\u898B\u529F\u80FD",
+                "fraction": 0,
+                "feedback": "\u767B\u5165\u7684\u66B4\u9732\u5EA6\uFF0828\uFF09\u9060\u9AD8\u65BC\u8AAA\u660E\u9801\u7684 6\uFF1B\u8AAA\u660E\u9801\u624D\u662F\u8F03\u5B89\u5168\u7684\u5EF6\u5F8C\u5C0D\u8C61\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u80FD\u5EF6\u5F8C\uFF1B\u4E09\u8005\u98A8\u96AA\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u66B4\u9732\u5EA6 40\u30016\u300128 \u5DEE\u7570\u5F88\u5927\uFF0C\u8AAA\u660E\u9801\u660E\u986F\u98A8\u96AA\u6700\u4F4E\u3002"
+              }
+            ],
+            "generalFeedback": "\u66B4\u9732\u5EA6 \uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA\uFF1A\u4ED8\u6B3E \uFF1D 40\u3001\u8AAA\u660E\u9801 \uFF1D 6\u3001\u767B\u5165 \uFF1D 28\u3002\u6642\u9593\u6709\u9650\u6642\u61C9\u5EF6\u5F8C\u98A8\u96AA\u6700\u4F4E\u7684\u9805\u76EE\uFF0C\u6545\u5EF6\u5F8C\u8AAA\u660E\u9801\u6700\u5B89\u5168\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F4E\u53EF\u80FD\u6027\u3001\u9AD8\u885D\u64CA\u5728\u77E9\u9663\u4E0A",
+            "text": "<p>\u4E00\u500B\u7F55\u898B\u4F46\u707D\u96E3\u6027\u7684\u4E8B\u4EF6\uFF08\u4F8B\u5982\u6240\u6709\u5BA2\u6236\u8CC7\u6599\u6C38\u4E45\u907A\u5931\uFF09\u53EF\u80FD\u6027\u4F4E\uFF0C\u4F46\u885D\u64CA\u6975\u9AD8\u3002\u5728\u98A8\u96AA\u77E9\u9663\u4E0A\uFF0C\u5B83\u61C9\u8A72\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u653E\u5728\u9AD8\u885D\u64CA\u5E36\uFF0C\u4ECD\u7D66\u4E88\u8A8D\u771F\u7684\u95DC\u6CE8\uFF0C\u56E0\u70BA\u5F8C\u679C\u56B4\u91CD",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9AD8\u885D\u64CA\u4F7F\u5B83\u5373\u4F7F\u53EF\u80FD\u6027\u4F4E\u4ECD\u7136\u91CD\u8981\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u5FFD\u7565\uFF0C\u56E0\u70BA\u4F4E\u53EF\u80FD\u6027\u4EE3\u8868\u4F4E\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u4F4E\u53EF\u80FD\u6027\u4E0D\u4EE3\u8868\u53EF\u5FFD\u7565\uFF1B\u56B4\u91CD\u7684\u885D\u64CA\u4F7F\u5176\u66B4\u9732\u5EA6\u4ECD\u5177\u610F\u7FA9\u3002"
+              },
+              {
+                "text": "\u81EA\u52D5\u7576\u6210\u6700\u4F4E\u512A\u5148\u5E8F",
+                "fraction": 0,
+                "feedback": "\u707D\u96E3\u6027\u7684\u885D\u64CA\u4F7F\u5B83\u5373\u4F7F\u53EF\u80FD\u6027\u4F4E\u4E5F\u7121\u6CD5\u6210\u70BA\u6700\u4F4E\u512A\u5148\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u4E0D\u592A\u53EF\u80FD\u767C\u751F\u5C31\u628A\u5B83\u5F9E\u77E9\u9663\u79FB\u9664",
+                "fraction": 0,
+                "feedback": "\u4E0D\u592A\u53EF\u80FD\u767C\u751F\u7684\u9805\u76EE\u4ECD\u5C6C\u65BC\u77E9\u9663\uFF1B\u9084\u5FC5\u9808\u4E00\u4F75\u8861\u91CF\u885D\u64CA\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u66B4\u9732\u5EA6 \uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA\uFF0C\u6975\u9AD8\u7684\u885D\u64CA\u5373\u4F7F\u5728\u53EF\u80FD\u6027\u4F4E\u6642\u4E5F\u80FD\u8B93\u66B4\u9732\u5EA6\u4FDD\u6301\u986F\u8457\u3002\u9019\u985E\u7F55\u898B\u4F46\u707D\u96E3\u6027\u7684\u9805\u76EE\u6703\u653E\u5728\u885D\u64CA\u8EF8\u7684\u9AD8\u8655\uFF0C\u4E0D\u6703\u53EA\u56E0\u70BA\u4E0D\u592A\u53EF\u80FD\u767C\u751F\u5C31\u88AB\u5FFD\u8996\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5FB9\u5E95\u6E2C\u8A66\u5F8C\u7684\u6B98\u9918\u98A8\u96AA",
+            "text": "<p>\u5373\u4F7F\u7D93\u904E\u975E\u5E38\u5FB9\u5E95\u7684\u98A8\u96AA\u5F0F\u6E2C\u8A66\uFF0C\u7522\u54C1\u4E2D\u901A\u5E38\u4ECD\u6703\u6B98\u7559\u4E00\u4E9B\u6B98\u9918\u98A8\u96AA\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u964D\u4F4E\u98A8\u96AA\u4F46\u7121\u6CD5\u6D88\u9664\uFF0C\u6545\u6B98\u9918\u98A8\u96AA\u4ECD\u6703\u6B98\u7559\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u518D\u591A\u7684\u6E2C\u8A66\u4E5F\u7121\u6CD5\u79FB\u9664\u6240\u6709\u98A8\u96AA\uFF1B\u7DE9\u89E3\u5F8C\u6B98\u9918\u98A8\u96AA\u7E3D\u662F\u5B58\u5728\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u964D\u4F4E\u98A8\u96AA\u4F46\u6C38\u9060\u7121\u6CD5\u6B78\u96F6\u2014\u2014\u672A\u6E2C\u5230\u7684\u7D44\u5408\u3001\u672A\u77E5\u7684\u98A8\u96AA\u3001\u672A\u4FEE\u6B63\u7684\u4F4E\u512A\u5148\u7F3A\u9677\u90FD\u6703\u7559\u4E0B\u6B98\u9918\u98A8\u96AA\u3002\u5229\u5BB3\u95DC\u4FC2\u4EBA\u9808\u5224\u65B7\u8A72\u6B98\u9918\u98A8\u96AA\u5C0D\u767C\u884C\u800C\u8A00\u662F\u5426\u53EF\u63A5\u53D7\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56B4\u91CD\u5EA6\u8207\u512A\u5148\u5EA6",
+            "text": "<p>\u5C0D\u65BC\u4E00\u500B\u56DE\u5831\u7684\u7F3A\u9677\uFF0C<em>\u56B4\u91CD\u5EA6\uFF08severity\uFF09</em>\u8207<em>\u512A\u5148\u5EA6\uFF08priority\uFF09</em>\u6709\u4F55\u4E0D\u540C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56B4\u91CD\u5EA6\u662F\u7F3A\u9677\u7684\u5F71\u97FF\u6709\u591A\u56B4\u91CD\uFF1B\u512A\u5148\u5EA6\u662F\u5B83\u61C9\u591A\u5FEB\u88AB\u4FEE\u6B63",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56B4\u91CD\u5EA6\u95DC\u4E4E\u6280\u8853\u4E0A\u7684\u885D\u64CA\uFF0C\u512A\u5148\u5EA6\u95DC\u4E4E\u4FEE\u6B63\u7684\u6025\u8FEB\u6027\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u540C\u4E00\u4EF6\u4E8B\u7684\u5169\u500B\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u76F8\u95DC\u4F46\u4E0D\u540C\uFF1A\u7F3A\u9677\u53EF\u4EE5\u9AD8\u56B4\u91CD\u5EA6\u537B\u4F4E\u512A\u5148\u5EA6\uFF0C\u53CD\u4E4B\u4EA6\u7136\u3002"
+              },
+              {
+                "text": "\u56B4\u91CD\u5EA6\u7531\u5BA2\u6236\u8A2D\u5B9A\uFF1B\u512A\u5148\u5EA6\u7531\u7DE8\u8B6F\u5668\u8A2D\u5B9A",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u4E0D\u662F\u7531\u7DE8\u8B6F\u5668\u8A2D\u5B9A\uFF1B\u90FD\u662F\u5718\u968A\uFF0F\u5229\u5BB3\u95DC\u4FC2\u4EBA\u7684\u5224\u65B7\u3002"
+              },
+              {
+                "text": "\u512A\u5148\u5EA6\u662F\u7F3A\u9677\u6709\u591A\u56B4\u91CD\uFF1B\u56B4\u91CD\u5EA6\u662F\u5B83\u591A\u5FEB\u91CD\u73FE",
+                "fraction": 0,
+                "feedback": "\u90A3\u628A\u5B9A\u7FA9\u5F04\u53CD\u53C8\u626D\u66F2\u4E86\uFF1B\u56B4\u91CD\u5EA6\uFF1D\u56B4\u91CD\u7A0B\u5EA6\u3001\u512A\u5148\u5EA6\uFF1D\u4FEE\u6B63\u6025\u8FEB\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u56B4\u91CD\u5EA6\u8861\u91CF\u7F3A\u9677\u5F71\u97FF\u7684\u7834\u58DE\u7A0B\u5EA6\uFF08\u6280\u8853\u885D\u64CA\uFF09\uFF1B\u512A\u5148\u5EA6\u8861\u91CF\u61C9\u591A\u6025\u8FEB\u4FEE\u6B63\uFF08\u696D\u52D9\u6025\u8FEB\u6027\uFF09\u3002\u5169\u8005\u5E38\u76F8\u95DC\uFF0C\u4F46\u5728\u5F88\u5C11\u4F7F\u7528\u7684\u529F\u80FD\u4E2D\u7684\u9AD8\u56B4\u91CD\u5EA6\u7F3A\u9677\u53EF\u80FD\u4F4E\u512A\u5148\uFF0C\u800C\u986F\u773C\u756B\u9762\u4E0A\u7684\u4F4E\u56B4\u91CD\u5EA6\u7F3A\u9677\u53EF\u80FD\u9AD8\u512A\u5148\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C08\u6848\u9032\u884C\u4E2D\u91CD\u65B0\u8A55\u4F30\u98A8\u96AA",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u61C9\u5728\u5C08\u6848\u9032\u884C\u4E2D\u5B9A\u671F\u91CD\u65B0\u8A55\u4F30\u98A8\u96AA\uFF0C\u800C\u4E0D\u662F\u53EA\u5728\u4E00\u958B\u59CB\u8A55\u4E00\u6B21\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u96A8\u8457\u7522\u54C1\u3001\u8CC7\u8A0A\u8207\u60C5\u6CC1\u6F14\u8B8A\uFF0C\u53EF\u80FD\u6027\u8207\u885D\u64CA\u90FD\u6703\u6539\u8B8A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u98A8\u96AA\u8A55\u5206\u4E26\u975E\u975C\u614B\uFF0C\u512A\u5148\u5E8F\u5FC5\u9808\u66F4\u65B0\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u98A8\u96AA\u66B4\u9732\u5EA6\u516C\u5F0F\u6703\u96A8\u6642\u9593\u6539\u8B8A",
+                "fraction": 0,
+                "feedback": "\u516C\u5F0F\uFF08\u53EF\u80FD\u6027 \xD7 \u885D\u64CA\uFF09\u4E0D\u8B8A\uFF1B\u6539\u8B8A\u7684\u662F\u5B83\u7684\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u91CD\u65B0\u8A55\u4F30\u53EF\u4FDD\u8B49\u6B98\u9918\u98A8\u96AA\u70BA\u96F6",
+                "fraction": 0,
+                "feedback": "\u91CD\u65B0\u8A55\u4F30\u662F\u7CBE\u4FEE\u512A\u5148\u5E8F\uFF0C\u4E26\u4E0D\u80FD\u6D88\u9664\u6B98\u9918\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u4E00\u958B\u59CB\u7684\u55AE\u6B21\u8A55\u4F30\u6C38\u9060\u5B8C\u5168\u6E96\u78BA",
+                "fraction": 0,
+                "feedback": "\u521D\u671F\u4F30\u8A08\u672C\u5C31\u4E0D\u78BA\u5B9A\uFF1B\u9019\u6B63\u662F\u9700\u8981\u91CD\u65B0\u8A55\u4F30\u7684\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u662F\u52D5\u614B\u7684\uFF1A\u96A8\u8457\u7A0B\u5F0F\u88AB\u5BEB\u51FA\u3001\u7F3A\u9677\u88AB\u627E\u5230\u6216\u4FEE\u6B63\u3001\u9700\u6C42\u8B8A\u52D5\uFF0C\u53EF\u80FD\u6027\u8207\u885D\u64CA\u90FD\u6703\u6539\u8B8A\u3002\u5B9A\u671F\u91CD\u65B0\u8A55\u4F30\u80FD\u8B93\u512A\u5148\u6392\u5E8F\u8207\u5C08\u6848\u7684\u7576\u524D\u72C0\u614B\u4FDD\u6301\u4E00\u81F4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u5982\u4F55\u964D\u4F4E\u98A8\u96AA\u66B4\u9732\u5EA6",
+            "text": "<p>\u900F\u904E\u627E\u51FA\u4E26\u4FC3\u6210\u4FEE\u6B63\u7F3A\u9677\uFF0C\u6E2C\u8A66\u6700\u76F4\u63A5\u964D\u4F4E\u7684\u662F\u7522\u54C1\u98A8\u96AA\u66B4\u9732\u5EA6\u7684\u54EA\u4E00\u90E8\u5206\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u80FD\u6027\u2014\u2014\u4FEE\u6B63\u627E\u5230\u7684\u7F3A\u9677\u53EF\u964D\u4F4E\u5931\u6557\u5728\u73FE\u5834\u767C\u751F\u7684\u6A5F\u7387",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u4E3B\u8981\u91DD\u5C0D\u53EF\u80FD\u6027\u9762\u5411\u3002"
+              },
+              {
+                "text": "\u885D\u64CA\u2014\u2014\u6E2C\u8A66\u6703\u6539\u8B8A\u5931\u6557\u6703\u6709\u591A\u5177\u7834\u58DE\u6027",
+                "fraction": 0,
+                "feedback": "\u5931\u6557\u7684\u696D\u52D9\u5F8C\u679C\u5927\u591A\u7531\u60C5\u5883\u56FA\u5B9A\uFF1B\u6E2C\u8A66\u4E3B\u8981\u964D\u4F4E\u7684\u662F\u53EF\u80FD\u6027\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F\u2014\u2014\u6E2C\u8A66\u6839\u672C\u7121\u6CD5\u5F71\u97FF\u98A8\u96AA\u66B4\u9732\u5EA6",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u78BA\u5BE6\u6703\u964D\u4F4E\u66B4\u9732\u5EA6\uFF0C\u4E3B\u8981\u9760\u964D\u4F4E\u53EF\u80FD\u6027\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5B8C\u6210\u5F8C\u5169\u8005\u90FD\u964D\u70BA\u96F6",
+                "fraction": 0,
+                "feedback": "\u66B4\u9732\u5EA6\u6703\u964D\u4F4E\u4F46\u6C38\u9060\u4E0D\u6703\u6B78\u96F6\uFF1B\u6B98\u9918\u98A8\u96AA\u4ECD\u5B58\u5728\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u627E\u51FA\u53EF\u88AB\u4FEE\u6B63\u7684\u7F3A\u9677\uFF0C\u964D\u4F4E\u5B83\u5011\u5728\u73FE\u5834\u9020\u6210\u5931\u6557\u7684\u6A5F\u7387\uFF08\u53EF\u80FD\u6027\uFF09\u3002\u7279\u5B9A\u5931\u6557\u7684\u885D\u64CA\u901A\u5E38\u7531\u5176\u696D\u52D9\u60C5\u5883\u6C7A\u5B9A\uFF0C\u800C\u975E\u7531\u6E2C\u8A66\u6C7A\u5B9A\u3002\u6E2C\u8A66\u4E5F\u6703\u63D0\u4F9B\u8CC7\u8A0A\u7D66\u5229\u5BB3\u95DC\u4FC2\u4EBA\uFF0C\u4F46\u5B83\u5C0D\u66B4\u9732\u5EA6\u7684\u76F4\u63A5\u5F71\u97FF\u4E3B\u8981\u900F\u904E\u53EF\u80FD\u6027\u2014\u2014\u800C\u4E14\u6C38\u9060\u9054\u4E0D\u5230\u96F6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u96A8\u6642\u9593\u76E3\u63A7\u98A8\u96AA",
+            "text": "<p>\u5728\u4F9D\u98A8\u96AA\u5206\u914D\u597D\u6E2C\u8A66\u8CC7\u6E90\u4E4B\u5F8C\uFF0C\u6B63\u78BA\u7684\u6301\u7E8C\u6D3B\u52D5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u76E3\u63A7\u4E26\u91CD\u65B0\u8A55\u4F30\u98A8\u96AA\uFF0C\u96A8\u8A55\u5206\u6539\u8B8A\u800C\u91CD\u65B0\u6392\u5B9A\u6E2C\u8A66\u6295\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u98A8\u96AA\u5F0F\u6E2C\u8A66\u662F\u300C\u8FA8\u8B58\u2013\u8A55\u4F30\u2013\u6392\u5E8F\u2013\u76E3\u63A7\u300D\u7684\u53CD\u8986\u5FAA\u74B0\u3002"
+              },
+              {
+                "text": "\u51CD\u7D50\u512A\u5148\u5E8F\uFF0C\u56E0\u70BA\u91CD\u65B0\u8A55\u4F30\u6D6A\u8CBB\u5FC3\u529B",
+                "fraction": 0,
+                "feedback": "\u51CD\u7D50\u512A\u5148\u5E8F\u6703\u5FFD\u7565\u65B0\u8CC7\u8A0A\uFF1B\u76E3\u63A7\u8207\u91CD\u65B0\u8A55\u4F30\u662F\u5FC5\u8981\u7684\u3002"
+              },
+              {
+                "text": "\u7B2C\u4E00\u500B\u9AD8\u98A8\u96AA\u9805\u76EE\u901A\u904E\u5F8C\u5C31\u505C\u6B62\u6240\u6709\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u901A\u904E\u4E00\u500B\u9805\u76EE\u4E26\u672A\u8655\u7406\u5176\u9918\u98A8\u96AA\uFF1B\u6E2C\u8A66\u6703\u4F9D\u512A\u5148\u5E8F\u7E7C\u7E8C\u3002"
+              },
+              {
+                "text": "\u6539\u6210\u53EA\u6E2C\u8A66\u98A8\u96AA\u6700\u4F4E\u7684\u9805\u76EE",
+                "fraction": 0,
+                "feedback": "\u6295\u5165\u4ECD\u61C9\u8DDF\u96A8\u7576\u524D\u6700\u9AD8\u7684\u98A8\u96AA\uFF0C\u800C\u975E\u6700\u4F4E\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u5F0F\u6E2C\u8A66\u662F\u4E00\u500B\u6301\u7E8C\u5FAA\u74B0\uFF1A\u8FA8\u8B58\u98A8\u96AA\u3001\u8A55\u4F30\u53EF\u80FD\u6027\u8207\u885D\u64CA\u3001\u6392\u5B9A\u512A\u5148\u5E8F\u3001\u5206\u914D\u6295\u5165\uFF0C\u7136\u5F8C\u76E3\u63A7\u4E26\u91CD\u65B0\u8A55\u4F30\u3002\u96A8\u8457\u65B0\u7F3A\u9677\u3001\u65B0\u8CC7\u8A0A\u8207\u8B8A\u52D5\u5230\u4F86\uFF0C\u8A55\u5206\u6703\u6539\u8B8A\uFF0C\u512A\u5148\u5E8F\u4E5F\u96A8\u4E4B\u66F4\u65B0\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u56DB\u500B\u9805\u76EE\u7684\u8868\u683C\u6392\u5B9A\u512A\u5148\u5E8F",
+            "text": '<p>\u56DB\u500B\u529F\u80FD\u4EE5 1&#8211;9 \u91CF\u8868\u8A55\u5206\uFF1A</p>\n<table border="1" cellpadding="4"><tr><th>\u529F\u80FD</th><th>\u53EF\u80FD\u6027</th><th>\u885D\u64CA</th></tr>\n<tr><td>A</td><td>2</td><td>8</td></tr>\n<tr><td>B</td><td>5</td><td>6</td></tr>\n<tr><td>C</td><td>9</td><td>2</td></tr>\n<tr><td>D</td><td>3</td><td>3</td></tr></table>\n<p>\u6B63\u78BA\u7684\u6E2C\u8A66\u5148\u5F8C\u9806\u5E8F\uFF08\u98A8\u96AA\u66B4\u9732\u5EA6\u6700\u9AD8\u5148\uFF09\u70BA\u4F55\uFF1F</p>',
+            "answers": [
+              {
+                "text": "B\u3001C\u3001A\u3001D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014B \uFF1D 30\u3001C \uFF1D 18\u3001A \uFF1D 16\u3001D \uFF1D 9\u3002"
+              },
+              {
+                "text": "C\u3001B\u3001A\u3001D",
+                "fraction": 0,
+                "feedback": "C \uFF1D 9\xD72 = 18\uFF0C\u4F4E\u65BC B \uFF1D 30\uFF0C\u6545 C \u4E0D\u662F\u7B2C\u4E00\u3002"
+              },
+              {
+                "text": "A\u3001B\u3001C\u3001D",
+                "fraction": 0,
+                "feedback": "A \uFF1D 2\xD78 = 16\uFF0C\u540C\u6642\u4F4E\u65BC B\uFF0830\uFF09\u8207 C\uFF0818\uFF09\uFF0C\u6545 A \u4E0D\u662F\u7B2C\u4E00\u3002"
+              },
+              {
+                "text": "B\u3001A\u3001C\u3001D",
+                "fraction": 0,
+                "feedback": "A \uFF1D 16 \u4F4E\u65BC C \uFF1D 18\uFF0C\u6545 A \u5FC5\u9808\u6392\u5728 C \u4E4B\u5F8C\uFF0C\u800C\u975E\u4E4B\u524D\u3002"
+              }
+            ],
+            "generalFeedback": "\u66B4\u9732\u5EA6 \uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA\uFF1AA \uFF1D 2\xD78 = 16\u3001B \uFF1D 5\xD76 = 30\u3001C \uFF1D 9\xD72 = 18\u3001D \uFF1D 3\xD73 = 9\u3002\u4F9D\u66B4\u9732\u5EA6\u7531\u9AD8\u5230\u4F4E\u6392\u5E8F\u5373\u70BA B\uFF0830\uFF09\u3001C\uFF0818\uFF09\u3001A\uFF0816\uFF09\u3001D\uFF089\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5728\u6642\u9593\u9810\u7B97\u4E0B\u9078\u5169\u500B",
+            "text": '<p>\u6642\u9593\u53EA\u5920\u5B8C\u6574\u6E2C\u8A66\u4EE5\u4E0B\u56DB\u500B\u9805\u76EE\u4E2D\u7684\u5169\u500B\uFF1A</p>\n<table border="1" cellpadding="4"><tr><th>\u9805\u76EE</th><th>\u53EF\u80FD\u6027</th><th>\u885D\u64CA</th></tr>\n<tr><td>\u7D50\u5E33</td><td>6</td><td>8</td></tr>\n<tr><td>\u767B\u5165</td><td>4</td><td>7</td></tr>\n<tr><td>\u641C\u5C0B</td><td>5</td><td>2</td></tr>\n<tr><td>\u5831\u8868</td><td>2</td><td>3</td></tr></table>\n<p>\u61C9\u6E2C\u8A66\u54EA\u5169\u500B\uFF1F</p>',
+            "answers": [
+              {
+                "text": "\u7D50\u5E33\u8207\u767B\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D50\u5E33 \uFF1D 48\u3001\u767B\u5165 \uFF1D 28\uFF0C\u662F\u66B4\u9732\u5EA6\u6700\u9AD8\u7684\u5169\u500B\u3002"
+              },
+              {
+                "text": "\u7D50\u5E33\u8207\u641C\u5C0B",
+                "fraction": 0,
+                "feedback": "\u641C\u5C0B \uFF1D 5\xD72 = 10\uFF0C\u4F4E\u65BC\u767B\u5165\u7684 28\uFF0C\u6545\u61C9\u9078\u767B\u5165\u800C\u975E\u641C\u5C0B\u3002"
+              },
+              {
+                "text": "\u641C\u5C0B\u8207\u5831\u8868",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u66B4\u9732\u5EA6\u6700\u4F4E\u7684\u5169\u500B\uFF0810 \u8207 6\uFF09\uFF1B\u5B83\u5011\u662F\u8A72\u5EF6\u5F8C\u7684\uFF0C\u4E0D\u662F\u8A72\u6E2C\u8A66\u7684\u3002"
+              },
+              {
+                "text": "\u767B\u5165\u8207\u641C\u5C0B",
+                "fraction": 0,
+                "feedback": "\u7D50\u5E33\uFF0848\uFF09\u662F\u55AE\u9805\u6700\u9AD8\uFF0C\u5FC5\u9808\u7D0D\u5165\uFF1B\u641C\u5C0B\uFF0810\uFF09\u4E0D\u61C9\u53D6\u4EE3\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u66B4\u9732\u5EA6 \uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA\uFF1A\u7D50\u5E33 \uFF1D 48\u3001\u767B\u5165 \uFF1D 28\u3001\u641C\u5C0B \uFF1D 10\u3001\u5831\u8868 \uFF1D 6\u3002\u5728\u53EA\u80FD\u6E2C\u5169\u500B\u7684\u5BB9\u91CF\u4E0B\uFF0C\u6E2C\u6700\u9AD8\u7684\u5169\u500B\u2014\u2014\u7D50\u5E33\u8207\u767B\u5165\u2014\u2014\u4E26\u5EF6\u5F8C\u641C\u5C0B\u8207\u5831\u8868\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6392\u5E8F\u56DB\u500B\u76F8\u8FD1\u7684\u66B4\u9732\u5EA6",
+            "text": '<p>\u56DB\u500B\u6A21\u7D44\u8A55\u5206\u70BA\uFF1A</p>\n<table border="1" cellpadding="4"><tr><th>\u6A21\u7D44</th><th>\u53EF\u80FD\u6027</th><th>\u885D\u64CA</th></tr>\n<tr><td>M1</td><td>3</td><td>5</td></tr>\n<tr><td>M2</td><td>4</td><td>4</td></tr>\n<tr><td>M3</td><td>2</td><td>9</td></tr>\n<tr><td>M4</td><td>6</td><td>2</td></tr></table>\n<p>\u628A\u5B83\u5011\u7531\u98A8\u96AA\u66B4\u9732\u5EA6\u6700\u9AD8\u6392\u5230\u6700\u4F4E\u3002</p>',
+            "answers": [
+              {
+                "text": "M3\u3001M2\u3001M1\u3001M4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014M3 \uFF1D 18\u3001M2 \uFF1D 16\u3001M1 \uFF1D 15\u3001M4 \uFF1D 12\u3002"
+              },
+              {
+                "text": "M1\u3001M2\u3001M3\u3001M4",
+                "fraction": 0,
+                "feedback": "M1 \uFF1D 3\xD75 = 15 \u4E0D\u662F\u6700\u9AD8\uFF1BM3 \uFF1D 18 \u624D\u662F\u3002"
+              },
+              {
+                "text": "M4\u3001M3\u3001M2\u3001M1",
+                "fraction": 0,
+                "feedback": "M4 \uFF1D 6\xD72 = 12 \u662F\u6700\u4F4E\uFF0C\u800C\u975E\u6700\u9AD8\u3002"
+              },
+              {
+                "text": "M3\u3001M1\u3001M2\u3001M4",
+                "fraction": 0,
+                "feedback": "M2 \uFF1D 16 \u5927\u65BC M1 \uFF1D 15\uFF0C\u6545 M2 \u5FC5\u9808\u6392\u5728 M1 \u4E4B\u524D\u3002"
+              }
+            ],
+            "generalFeedback": "\u66B4\u9732\u5EA6 \uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA\uFF1AM1 \uFF1D 15\u3001M2 \uFF1D 16\u3001M3 \uFF1D 18\u3001M4 \uFF1D 12\u3002\u7531\u9AD8\u5230\u4F4E\u70BA M3\uFF0818\uFF09\u3001M2\uFF0816\uFF09\u3001M1\uFF0815\uFF09\u3001M4\uFF0812\uFF09\u2014\u2014\u76F8\u8FD1\u7684\u6578\u503C\u6B63\u597D\u8981\u6C42\u9010\u4E00\u7CBE\u78BA\u8A08\u7B97\u6BCF\u500B\u4E58\u7A4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7DE9\u89E3\u5F8C\u91CD\u65B0\u8A08\u7B97\u66B4\u9732\u5EA6",
+            "text": "<p>\u67D0\u9805\u76EE\u8A55\u70BA\u53EF\u80FD\u6027 8\u3001\u885D\u64CA 5\uFF08\u66B4\u9732\u5EA6 40\uFF09\u3002\u4E00\u9805\u7DE9\u89E3\u63AA\u65BD\uFF08\u52A0\u5165\u81EA\u52D5\u8F38\u5165\u9A57\u8B49\u52A0\u4E0A\u91DD\u5C0D\u6027\u7684\u6E2C\u8A66\u5957\u4EF6\uFF09\u9810\u671F\u53EF\u628A\u53EF\u80FD\u6027\u964D\u5230 3\uFF0C\u800C\u5931\u6557\u7684\u885D\u64CA\u7DAD\u6301\u4E0D\u8B8A\u3002\u65B0\u7684\u98A8\u96AA\u66B4\u9732\u5EA6\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "15",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u65B0\u66B4\u9732\u5EA6 \uFF1D 3 \xD7 5 = 15\u3002"
+              },
+              {
+                "text": "0",
+                "fraction": 0,
+                "feedback": "\u7DE9\u89E3\u964D\u4F4E\u4E86\u53EF\u80FD\u6027\u4F46\u4E26\u672A\u6D88\u9664\u5B83\uFF1B\u6B98\u9918\u66B4\u9732\u5EA6\u662F 3 \xD7 5 = 15\uFF0C\u800C\u975E 0\u3002"
+              },
+              {
+                "text": "40",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u539F\u672C\u7684\u66B4\u9732\u5EA6\uFF1B\u964D\u4F4E\u5F8C\u7684\u53EF\u80FD\u6027\u5F97\u5230 3 \xD7 5 = 15\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6539\u8B8A\u5F8C\u7684\u53EF\u80FD\u6027 + \u885D\u64CA\uFF1B\u66B4\u9732\u5EA6\u662F\u4E58\u7A4D 3 \xD7 5 = 15\u3002"
+              }
+            ],
+            "generalFeedback": "\u7DE9\u89E3\u628A\u53EF\u80FD\u6027\u7531 8 \u964D\u5230 3\uFF0C\u800C\u885D\u64CA\u7DAD\u6301 5\uFF0C\u6545\u6B98\u9918\u66B4\u9732\u5EA6\u662F 3 \xD7 5 = 15\u3002\u6CE8\u610F\u5B83\u5F9E 40 \u964D\u5230 15\uFF0C\u4F46\u4E26\u672A\u964D\u5230\u96F6\u2014\u2014\u6B98\u9918\u98A8\u96AA\u4ECD\u7136\u5B58\u5728\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F4E\u53EF\u80FD\u6027\u3001\u707D\u96E3\u6027\u885D\u64CA\u503C\u5F97\u6E2C\u8A66",
+            "text": "<p>\u67D0\u5931\u6548\u6A21\u5F0F\u53EF\u80FD\u6027\u70BA 1\u3001\u885D\u64CA\u70BA 10\uFF08\u66B4\u9732\u5EA6 10\uFF09\uFF0C\u800C\u4E00\u500B\u4F8B\u884C\u529F\u80FD\u53EF\u80FD\u6027\u70BA 3\u3001\u885D\u64CA\u70BA 3\uFF08\u66B4\u9732\u5EA6 9\uFF09\u3002\u70BA\u4EC0\u9EBC\u9019\u500B\u7F55\u898B\u4F46\u707D\u96E3\u6027\u7684\u5931\u6548\u4ECD\u503C\u5F97\u4ED4\u7D30\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u7684\u66B4\u9732\u5EA6\uFF0810\uFF09\u5176\u5BE6\u8F03\u9AD8\uFF0C\u800C\u707D\u96E3\u6027\u7684\u5F8C\u679C\u5373\u4F7F\u5728\u4F4E\u53EF\u80FD\u6027\u4E0B\u4E5F\u503C\u5F97\u95DC\u6CE8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141\xD710 = 10 \u5927\u65BC 3\xD73 = 9\uFF0C\u800C\u4E14\u56B4\u91CD\u7684\u885D\u64CA\u672C\u5C31\u91CD\u8981\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u4F4E\u53EF\u80FD\u6027\u4E00\u5B9A\u4EE3\u8868\u4F4E\u98A8\u96AA\uFF0C\u6240\u4EE5\u53EF\u4EE5\u5FFD\u7565",
+                "fraction": 0,
+                "feedback": "\u4F4E\u53EF\u80FD\u6027\u672C\u8EAB\u4E0D\u6703\u4F7F\u98A8\u96AA\u8B8A\u4F4E\uFF1B\u9AD8\u885D\u64CA\u4F7F\u66B4\u9732\u5EA6\u4ECD\u7136\u986F\u8457\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u4F8B\u884C\u529F\u80FD\u7684\u66B4\u9732\u5EA6\u8F03\u9AD8",
+                "fraction": 0,
+                "feedback": "\u4F8B\u884C\u529F\u80FD\u7684\u66B4\u9732\u5EA6\u662F 9\uFF0C\u4F4E\u65BC\u707D\u96E3\u6027\u6A21\u5F0F\u7684 10\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u53EF\u80FD\u6027\u662F\u552F\u4E00\u91CD\u8981\u7684\u56E0\u7D20",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u56E0\u7D20\u90FD\u91CD\u8981\uFF1B\u7576\u885D\u64CA\u6975\u7AEF\u6642\uFF0C\u5B83\u53EF\u80FD\u5360\u4E3B\u5C0E\u3002"
+              }
+            ],
+            "generalFeedback": "\u66B4\u9732\u5EA6 \uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA\uFF1A\u707D\u96E3\u6027\u6A21\u5F0F\u662F 1\xD710 = 10\uFF0C\u9AD8\u65BC\u4F8B\u884C\u529F\u80FD\u7684 3\xD73 = 9\u3002\u9664\u4E86\u6578\u5B57\u672C\u8EAB\uFF0C\u707D\u96E3\u6027\u5F8C\u679C\uFF08\u4F8B\u5982\u5B89\u5168\u6216\u5168\u90E8\u8CC7\u6599\u907A\u5931\uFF09\u5373\u4F7F\u6A5F\u7387\u5F88\u5C0F\uFF0C\u5F80\u5F80\u4E5F\u503C\u5F97\u984D\u5916\u6E2C\u8A66\uFF0C\u56E0\u70BA\u51FA\u932F\u7684\u4EE3\u50F9\u592A\u9AD8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FF7\u601D\uFF1A100% \u8986\u84CB\u7387\u53EF\u6D88\u9664\u98A8\u96AA",
+            "text": "<p>\u67D0\u5718\u968A\u5BA3\u7A31\uFF1A\u300C\u6211\u5011\u9054\u5230\u4E86 100% \u7A0B\u5F0F\u78BC\u8986\u84CB\u7387\uFF0C\u6240\u4EE5\u73FE\u5728\u6B63\u5F0F\u74B0\u5883\u51FA\u73FE\u4EFB\u4F55\u7F3A\u9677\u7684\u98A8\u96AA\u70BA\u96F6\u3002\u300D\u6700\u4F73\u7684\u6279\u8A55\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8986\u84CB\u7387\u4E26\u4E0D\u80FD\u6D88\u9664\u98A8\u96AA\u2014\u2014\u5B83\u4E0D\u4FDD\u8B49\u8AED\u793A\u6B63\u78BA\u3001\u4E0D\u6DB5\u84CB\u6240\u6709\u8CC7\u6599\uFF0F\u8DEF\u5F91\uFF0F\u74B0\u5883\uFF0C\u4E5F\u7121\u6CD5\u8655\u7406\u7F3A\u6F0F\u7684\u9700\u6C42\uFF0C\u56E0\u6B64\u6B98\u9918\u98A8\u96AA\u4ECD\u5B58\u5728",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B8C\u6574\u8986\u84CB\u964D\u4F4E\u98A8\u96AA\uFF0C\u4F46\u7121\u6CD5\u5C07\u5176\u6B78\u96F6\u3002"
+              },
+              {
+                "text": "\u6B63\u78BA\u2014\u2014100% \u8986\u84CB\u7387\u78BA\u5BE6\u4EE3\u8868\u96F6\u6B98\u9918\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u9019\u6B63\u662F\u8FF7\u601D\uFF1B\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\u5230\uFF0C\u4E26\u4E0D\u4EE3\u8868\u8F38\u51FA\u88AB\u6AA2\u67E5\u3001\u7F3A\u6F0F\u7684\u529F\u80FD\u88AB\u6DB5\u84CB\u3001\u6216\u672A\u8A66\u904E\u7684\u8CC7\u6599\u88AB\u6E2C\u5230\u3002"
+              },
+              {
+                "text": "\u8986\u84CB\u7387\u7121\u95DC\u7DCA\u8981\uFF0C\u5C0D\u98A8\u96AA\u5B8C\u5168\u6C92\u6709\u5F71\u97FF",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u78BA\u5BE6\u6703\u964D\u4F4E\u98A8\u96AA\uFF1B\u932F\u5728\u5BA3\u7A31\u5B83\u79FB\u9664\u4E86\u5168\u90E8\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u552F\u4E00\u7684\u7F3A\u9677\u662F 100% \u8986\u84CB\u7387\u592A\u6602\u8CB4",
+                "fraction": 0,
+                "feedback": "\u6210\u672C\u662F\u53E6\u4E00\u500B\u8B70\u984C\uFF1B\u95DC\u9375\u7F3A\u9677\u5728\u65BC\u5373\u4F7F\u5B8C\u6574\u8986\u84CB\u4ECD\u7559\u6709\u6B98\u9918\u98A8\u96AA\u3002"
+              }
+            ],
+            "generalFeedback": "\u57F7\u884C\u904E\u6BCF\u4E00\u884C\u4E26\u4E0D\u80FD\u9A57\u8B49\u8F38\u51FA\u662F\u5426\u88AB\u6B63\u78BA\u6AA2\u67E5\uFF0C\u4E5F\u4E0D\u6703\u6F14\u7DF4\u6BCF\u500B\u8F38\u5165\u503C\u3001\u8DEF\u5F91\u7D44\u5408\u3001\u6642\u5E8F\u6216\u74B0\u5883\uFF0C\u66F4\u7121\u6CD5\u63ED\u9732\u7F3A\u6F0F\u7684\u9700\u6C42\u3002\u6E2C\u8A66\u964D\u4F4E\u98A8\u96AA\u4F46\u6C38\u9060\u7121\u6CD5\u6D88\u9664\uFF0C\u56E0\u6B64\u5BA3\u7A31 100% \u8986\u84CB\u7387\u5F8C\u98A8\u96AA\u70BA\u96F6\u662F\u8A87\u5927\u5176\u8A5E\u2014\u2014\u6B98\u9918\u98A8\u96AA\u7E3D\u662F\u5B58\u5728\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9AD8\u56B4\u91CD\u5EA6\u4F46\u4F4E\u512A\u5148\u5EA6\u7684\u7F3A\u9677",
+            "text": "<p>\u67D0\u500B\u7576\u6A5F\u53EA\u5728\u4E00\u500B\u51B7\u50FB\u7684\u7BA1\u7406\u5831\u8868\u4E2D\u767C\u751F\uFF0C\u4E00\u4F4D\u5167\u90E8\u4F7F\u7528\u8005\u4E00\u5E74\u624D\u8DD1\u4E00\u6B21\u3002\u6B64\u7576\u6A5F\u5C6C\u9AD8<em>\u56B4\u91CD\u5EA6</em>\uFF08\u5B83\u6703\u5B8C\u5168\u4E2D\u6B62\u8A72\u529F\u80FD\uFF09\u3002\u70BA\u4EC0\u9EBC\u5B83\u7684\u4FEE\u6B63\u53EF\u80FD\u88AB\u6392\u70BA\u4F4E<em>\u512A\u5148\u5EA6</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u5B83\u6975\u5C11\u88AB\u89F8\u767C\u4E14\u5E7E\u4E4E\u4E0D\u5F71\u97FF\u4EFB\u4F55\u4F7F\u7528\u8005\uFF0C\u6240\u4EE5\u5118\u7BA1\u5C40\u90E8\u5F71\u97FF\u56B4\u91CD\uFF0C\u4FEE\u6B63\u7684\u696D\u52D9\u6025\u8FEB\u6027\u5F88\u4F4E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56B4\u91CD\u5EA6\uFF08\u5F71\u97FF\u6709\u591A\u7CDF\uFF09\u53EF\u4EE5\u5F88\u9AD8\uFF0C\u800C\u512A\u5148\u5EA6\uFF08\u4FEE\u6B63\u6709\u591A\u6025\uFF09\u53EF\u4EE5\u5F88\u4F4E\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u7576\u6A5F\u6C38\u9060\u4E0D\u53EF\u80FD\u662F\u9AD8\u56B4\u91CD\u5EA6",
+                "fraction": 0,
+                "feedback": "\u6703\u4E2D\u6B62\u529F\u80FD\u7684\u7576\u6A5F\u78BA\u5BE6\u5C6C\u9AD8\u56B4\u91CD\u5EA6\uFF1B\u91CD\u9EDE\u662F\u512A\u5148\u5EA6\u4ECD\u53EF\u4EE5\u5F88\u4F4E\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u56B4\u91CD\u5EA6\u8207\u512A\u5148\u5EA6\u5FC5\u9808\u6C38\u9060\u76F8\u7B49",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u7D93\u5E38\u5206\u6B67\uFF1B\u6B64\u4F8B\u6B63\u662F\u5982\u6B64\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u4F4E\u512A\u5148\u5EA6\u4EE3\u8868\u5B83\u5176\u5BE6\u4E0D\u7B97\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u5B83\u4ECD\u662F\u771F\u6B63\u7684\u7F3A\u9677\uFF1B\u512A\u5148\u5EA6\u53EA\u53CD\u6620\u4FEE\u6B63\u7684\u6025\u8FEB\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u56B4\u91CD\u5EA6\u8861\u91CF\u5F71\u97FF\u7684\u6280\u8853\u56B4\u91CD\u7A0B\u5EA6\uFF08\u6B64\u8655\u70BA\u5B8C\u5168\u7576\u6A5F\uFF09\uFF0C\u800C\u512A\u5148\u5EA6\u53CD\u6620\u696D\u52D9\u4E0A\u591A\u6025\u9700\u4FEE\u6B63\u3002\u5F88\u5C11\u4F7F\u7528\u3001\u4F4E\u66B4\u9732\u7684\u529F\u80FD\u53EF\u4EE5\u5E36\u6709\u9AD8\u56B4\u91CD\u5EA6\u4F46\u4F4E\u512A\u5148\u5EA6\u7684\u7F3A\u9677\u2014\u2014\u9019\u5169\u500B\u9762\u5411\u76F8\u95DC\u4F46\u4E0D\u540C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F4E\u56B4\u91CD\u5EA6\u4F46\u9AD8\u512A\u5148\u5EA6\u7684\u7F3A\u9677",
+            "text": "<p>\u516C\u53F8\u540D\u7A31\u5728\u516C\u958B\u9996\u9801\u4E0A\u4EE5\u5927\u5B57\u62FC\u932F\u3002\u529F\u80FD\u4E0A\u6C92\u6709\u4EFB\u4F55\u6771\u897F\u58DE\u6389\uFF08\u4F4E<em>\u56B4\u91CD\u5EA6</em>\uFF09\u3002\u70BA\u4EC0\u9EBC\u9019\u53EF\u80FD\u88AB\u6392\u70BA\u9AD8<em>\u512A\u5148\u5EA6</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u5B83\u975E\u5E38\u986F\u773C\u4E14\u640D\u5BB3\u54C1\u724C\uFF0C\u6240\u4EE5\u5373\u4F7F\u529F\u80FD\u5F71\u97FF\u5F88\u5C0F\uFF0C\u4FEE\u6B63\u7684\u6025\u8FEB\u6027\u4ECD\u7136\u5F88\u9AD8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9AD8\u80FD\u898B\u5EA6\uFF0F\u696D\u52D9\u885D\u64CA\u4F7F\u512A\u5148\u5EA6\u4E0A\u5347\uFF0C\u5118\u7BA1\u6280\u8853\u56B4\u91CD\u5EA6\u4F4E\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5916\u89C0\u554F\u984C\u81EA\u52D5\u5C6C\u65BC\u9AD8\u56B4\u91CD\u5EA6",
+                "fraction": 0,
+                "feedback": "\u5B83\u5728\u529F\u80FD\u4E0A\u662F\u4F4E\u56B4\u91CD\u5EA6\uFF1B\u91CD\u9EDE\u662F\u512A\u5148\u5EA6\u4F9D\u7136\u5F88\u9AD8\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u512A\u5148\u5EA6\u6C38\u9060\u7B49\u540C\u65BC\u56B4\u91CD\u5EA6",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u5169\u8005\u5206\u6B67\uFF1A\u4F4E\u56B4\u91CD\u5EA6\u3001\u9AD8\u512A\u5148\u5EA6\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u4F4E\u56B4\u91CD\u5EA6\u7684\u7F3A\u9677\u5F9E\u4E0D\u503C\u5F97\u4FEE\u6B63",
+                "fraction": 0,
+                "feedback": "\u9019\u500B\u986F\u7136\u503C\u5F97\u76E1\u5FEB\u4FEE\u6B63\uFF0C\u9019\u6B63\u662F\u512A\u5148\u5EA6\u9AD8\u7684\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u56B4\u91CD\u5EA6\u4F4E\uFF0C\u56E0\u70BA\u529F\u80FD\u4E0A\u6C92\u58DE\u6389\uFF0C\u4F46\u9019\u500B\u7F3A\u9677\u4F4D\u65BC\u6700\u986F\u773C\u7684\u9801\u9762\u4E14\u640D\u5BB3\u54C1\u724C\uFF0C\u56E0\u6B64\u696D\u52D9\u6025\u8FEB\u6027\u2014\u2014\u512A\u5148\u5EA6\u2014\u2014\u5F88\u9AD8\u3002\u9019\u662F\u300C\u9AD8\u56B4\u91CD\u5EA6\uFF0F\u4F4E\u512A\u5148\u5EA6\u300D\u7684\u93E1\u50CF\uFF0C\u8AAA\u660E\u5169\u500B\u9762\u5411\u5F7C\u6B64\u7368\u7ACB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u88AB\u5EF6\u5F8C\u9805\u76EE\u7684\u6B98\u9918\u98A8\u96AA",
+            "text": "<p>\u5728\u671F\u9650\u58D3\u529B\u4E0B\uFF0C\u5718\u968A\u5B8C\u6574\u6E2C\u8A66\u4E86\u6700\u9AD8\u98A8\u96AA\u7684\u9805\u76EE\uFF0C\u4E26\u523B\u610F\u5EF6\u5F8C\u4E00\u500B\u672A\u52A0\u6E2C\u8A66\u7684\u4E2D\u7B49\u98A8\u96AA\u9805\u76EE\u3002\u767C\u884C\u6642\uFF0C\u6B63\u78BA\u7684\u63CF\u8FF0\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u88AB\u5EF6\u5F8C\u7684\u9805\u76EE\u69CB\u6210\u7522\u54C1\u7684\u6B98\u9918\u98A8\u96AA\uFF0C\u5229\u5BB3\u95DC\u4FC2\u4EBA\u61C9\u5728\u767C\u884C\u524D\u660E\u77E5\u5730\u63A5\u53D7\u6216\u62D2\u7D55\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u672A\u6E2C\u8A66\u800C\u5EF6\u5F8C\u7684\u9805\u76EE\u6B63\u662F\u61C9\u88AB\u660E\u78BA\u627F\u8A8D\u7684\u6B98\u9918\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u6B98\u9918\u98A8\u96AA\uFF0C\u56E0\u70BA\u6700\u9AD8\u98A8\u96AA\u7684\u9805\u76EE\u90FD\u6E2C\u904E\u4E86",
+                "fraction": 0,
+                "feedback": "\u88AB\u5EF6\u5F8C\u3001\u672A\u6E2C\u8A66\u7684\u9805\u76EE\u4ECD\u628A\u98A8\u96AA\u5E36\u9032\u6B63\u5F0F\u74B0\u5883\uFF1B\u6B98\u9918\u98A8\u96AA\u4E0D\u662F\u96F6\u3002"
+              },
+              {
+                "text": "\u5EF6\u5F8C\u4E00\u500B\u9805\u76EE\u5C31\u6D88\u9664\u4E86\u5B83\u7684\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u5EF6\u5F8C\u6E2C\u8A66\u4E26\u4E0D\u6703\u6D88\u9664\u5E95\u5C64\u98A8\u96AA\uFF1B\u5B83\u53EA\u662F\u8B93\u98A8\u96AA\u672A\u88AB\u8655\u7406\u3002"
+              },
+              {
+                "text": "\u88AB\u5EF6\u5F8C\u7684\u9805\u76EE\u73FE\u5728\u4FDD\u8B49\u7121\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u4E0D\u6E2C\u8A66\u67D0\u7269\u4E0D\u53EF\u80FD\u4F7F\u5B83\u7121\u7F3A\u9677\uFF1B\u5B83\u7684\u98A8\u96AA\u53EA\u662F\u672A\u88AB\u6AA2\u8996\u3002"
+              }
+            ],
+            "generalFeedback": "\u523B\u610F\u5EF6\u5F8C\u4E00\u500B\u4E2D\u7B49\u98A8\u96AA\u9805\u76EE\u662F\u6B63\u7576\u7684\u98A8\u96AA\u5F0F\u6C7A\u7B56\uFF0C\u4F46\u9019\u500B\u672A\u6E2C\u8A66\u7684\u9805\u76EE\u4ECD\u628A\u98A8\u96AA\u5E36\u9032\u6B63\u5F0F\u74B0\u5883\u3002\u90A3\u5C31\u662F\u6B98\u9918\u98A8\u96AA\uFF0C\u826F\u597D\u505A\u6CD5\u662F\u628A\u5B83\u660E\u78BA\u5316\uFF0C\u8B93\u5229\u5BB3\u95DC\u4FC2\u4EBA\u5224\u65B7\u662F\u5426\u53EF\u63A5\u53D7\u800C\u51FA\u8CA8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6253\u7834\u66B4\u9732\u5EA6\u7684\u5E73\u624B",
+            "text": "<p>\u5169\u500B\u9805\u76EE\u66B4\u9732\u5EA6\u540C\u70BA 12\uFF1A\u9805\u76EE G\uFF08\u53EF\u80FD\u6027 2\u3001\u885D\u64CA 6\uFF09\u8207\u9805\u76EE H\uFF08\u53EF\u80FD\u6027 6\u3001\u885D\u64CA 2\uFF09\u3002G \u7684\u7F3A\u9677\u6703\u662F\u707D\u96E3\u6027\u4E14\u5728\u73FE\u5834\u96E3\u4EE5\u5075\u6E2C\uFF0C\u800C H \u7684\u5931\u6557\u8F15\u5FAE\u4E14\u5F88\u5FEB\u5C31\u6703\u88AB\u6CE8\u610F\u5230\u3002\u54EA\u500B\u505A\u6CD5\u6BD4\u8F03\u7AD9\u5F97\u4F4F\u8173\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u66F4\u6DF1\u5165\u5730\u6E2C\u8A66 G\uFF0C\u56E0\u70BA\u5728\u66B4\u9732\u5EA6\u76F8\u7B49\u6642\uFF0C\u885D\u64CA\u8F03\u9AD8\u3001\u8F03\u96E3\u5075\u6E2C\u7684\u9805\u76EE\u503C\u5F97\u984D\u5916\u7684\u56B4\u8B39",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u66B4\u9732\u5EA6\u6253\u5E73\u6642\uFF0C\u885D\u64CA\u56B4\u91CD\u5EA6\u8207\u53EF\u5075\u6E2C\u6027\u7B49\u6B21\u8981\u56E0\u7D20\u7528\u4F86\u6253\u7834\u5E73\u624B\u3002"
+              },
+              {
+                "text": "\u66F4\u6DF1\u5165\u5730\u6E2C\u8A66 H\uFF0C\u56E0\u70BA\u5B83\u7684\u53EF\u80FD\u6027\u8F03\u9AD8",
+                "fraction": 0,
+                "feedback": "\u5728\u66B4\u9732\u5EA6\u76F8\u7B49\u3001\u4E14 H \u7684\u5931\u6557\u8F15\u5FAE\u53C8\u660E\u986F\u6642\uFF0C\u55AE\u770B\u8F03\u9AD8\u7684\u53EF\u80FD\u6027\u4E0D\u8DB3\u4EE5\u8B49\u6210\u66F4\u591A\u56B4\u8B39\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u8DF3\u904E\uFF0C\u56E0\u70BA\u66B4\u9732\u5EA6\u76F8\u7B49\u4EE3\u8868\u90FD\u4E0D\u91CD\u8981",
+                "fraction": 0,
+                "feedback": "\u66B4\u9732\u5EA6\u76F8\u7B49\u4E0D\u4EE3\u8868\u98A8\u96AA\u53EF\u5FFD\u7565\uFF1B\u5169\u8005\u90FD\u4ECD\u91CD\u8981\uFF0C\u5C24\u5176\u662F G\u3002"
+              },
+              {
+                "text": "\u5C0D\u5169\u8005\u6E2C\u8A66\u5B8C\u5168\u76F8\u540C\uFF0C\u56E0\u70BA\u6578\u5B57\u7D55\u4E0D\u53EF\u88AB\u63A8\u7FFB",
+                "fraction": 0,
+                "feedback": "\u66B4\u9732\u5EA6\u6578\u5B57\u662F\u8D77\u9EDE\uFF1B\u5728\u66B4\u9732\u5EA6\u76F8\u7B49\u6642\uFF0C\u8CEA\u6027\u56E0\u7D20\u53EF\u6B63\u7576\u5730\u7CBE\u4FEE\u6C7A\u7B56\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u500B\u9805\u76EE\u66B4\u9732\u5EA6\u90FD\u662F 2\xD76 = 6\xD72 = 12\uFF0C\u6545\u4E58\u7A4D\u7121\u6CD5\u5340\u5206\u5B83\u5011\u3002\u98A8\u96AA\u5F0F\u6E2C\u8A66\u63A5\u8457\u4F7F\u7528\u6B21\u8981\u6E96\u5247\uFF1AG \u90A3\u707D\u96E3\u6027\u3001\u96E3\u5075\u6E2C\u7684\u885D\u64CA\u4F7F\u5B83\u662F\u5169\u8005\u4E2D\u8F03\u5371\u96AA\u8005\uFF0C\u56E0\u6B64\u503C\u5F97\u66F4\u6DF1\u5165\u6E2C\u8A66\u3002\u9019\u8AAA\u660E\u66B4\u9732\u5EA6\u5206\u6578\u5F15\u5C0E\u4F46\u4E0D\u5B8C\u5168\u6C7A\u5B9A\u512A\u5148\u5E8F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C08\u6848\u4E2D\u91CD\u65B0\u8A55\u4F30\u7684\u6548\u679C",
+            "text": "<p>\u67D0\u9805\u76EE\u8D77\u521D\u8A55\u70BA\u53EF\u80FD\u6027 2\u3001\u885D\u64CA 4\uFF08\u66B4\u9732\u5EA6 8\uFF09\uFF0C\u5F8C\u4F86\u767C\u73FE\u5B83\u4F4D\u65BC\u4E00\u689D\u65B0\u767C\u73FE\u7684\u95DC\u9375\u6574\u5408\u8DEF\u5F91\u4E0A\uFF0C\u4F7F\u5176\u53EF\u80FD\u6027\u5347\u5230 7\uFF08\u885D\u64CA\u4E0D\u8B8A\uFF09\u3002\u61C9\u8A72\u600E\u9EBC\u505A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5176\u66B4\u9732\u5EA6\u5347\u70BA 28\uFF0C\u56E0\u6B64\u61C9\u5411\u4E0A\u91CD\u65B0\u6392\u5B9A\u512A\u5148\u5E8F\u4E26\u6295\u5165\u66F4\u591A\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20147 \xD7 4 = 28\uFF0C\u662F\u4E00\u6B21\u5927\u8DF3\u5347\uFF0C\u628A\u5B83\u5F80\u512A\u5148\u6E05\u55AE\u4E0A\u65B9\u79FB\u3002"
+              },
+              {
+                "text": "\u4EC0\u9EBC\u90FD\u4E0D\u8B8A\uFF0C\u56E0\u70BA\u98A8\u96AA\u8A55\u5206\u4E00\u7D93\u8A2D\u5B9A\u5C31\u56FA\u5B9A",
+                "fraction": 0,
+                "feedback": "\u8A55\u5206\u4E26\u975E\u56FA\u5B9A\uFF1B\u65B0\u8CC7\u8A0A\u5FC5\u9808\u89F8\u767C\u91CD\u65B0\u8A55\u4F30\u3002"
+              },
+              {
+                "text": "\u66B4\u9732\u5EA6\u4ECD\u662F 8\uFF0C\u56E0\u70BA\u53EA\u6709\u885D\u64CA\u6703\u5F71\u97FF\u66B4\u9732\u5EA6",
+                "fraction": 0,
+                "feedback": "\u66B4\u9732\u5EA6\u53D6\u6C7A\u65BC\u5169\u500B\u56E0\u7D20\uFF1B\u8F03\u9AD8\u7684\u53EF\u80FD\u6027\u4F7F\u5B83\u5347\u70BA 7 \xD7 4 = 28\u3002"
+              },
+              {
+                "text": "\u61C9\u8ABF\u964D\u512A\u5148\u5E8F\uFF0C\u56E0\u70BA\u5B83\u4E00\u958B\u59CB\u662F\u4F4E\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u521D\u59CB\u8A55\u5206\u5DF2\u88AB\u53D6\u4EE3\uFF1B\u6B64\u9805\u76EE\u73FE\u5728\u662F\u8F03\u9AD8\u98A8\u96AA\uFF0C\u800C\u975E\u8F03\u4F4E\u3002"
+              }
+            ],
+            "generalFeedback": "\u91CD\u65B0\u8A55\u4F30\u4EE5\u66F4\u65B0\u5F8C\u7684\u53EF\u80FD\u6027\u91CD\u7B97\u66B4\u9732\u5EA6\uFF1A7 \xD7 4 = 28\uFF0C\u7531 8 \u5347\u4E0A\u4F86\u3002\u56E0\u70BA\u98A8\u96AA\u662F\u52D5\u614B\u7684\uFF0C\u8A72\u9805\u76EE\u88AB\u5F80\u512A\u5148\u5E8F\u4E0A\u65B9\u79FB\u4E26\u7372\u5F97\u66F4\u591A\u6E2C\u8A66\u6295\u5165\u2014\u2014\u6B63\u8AAA\u660E\u4E86\u98A8\u96AA\u5F0F\u6E2C\u8A66\u7684\u76E3\u63A7\uFF0F\u91CD\u65B0\u8A55\u4F30\u6B65\u9A5F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6392\u5E8F\u52DD\u904E\u55AE\u56E0\u7D20\u6392\u5E8F",
+            "text": "<p>\u9805\u76EE\uFF1AR\uFF08\u53EF\u80FD\u6027 9\u3001\u885D\u64CA 2\uFF09\u3001S\uFF08\u53EF\u80FD\u6027 3\u3001\u885D\u64CA 5\uFF09\u3001T\uFF08\u53EF\u80FD\u6027 4\u3001\u885D\u64CA 6\uFF09\u3002\u4E00\u4F4D\u540C\u4E8B\u63D0\u8B70\u4F9D\u53EF\u80FD\u6027\u6392\u5E8F\u4F86\u6E2C\u8A66\uFF1AR\u3001T\u3001S\u3002\u9019\u500B\u8A08\u756B\u932F\u5728\u54EA\u88E1\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EA\u4F9D\u53EF\u80FD\u6027\u6392\u5E8F\u662F\u932F\u7684\uFF1B\u4F9D\u66B4\u9732\u5EA6\uFF0C\u6B63\u78BA\u9806\u5E8F\u662F T\uFF0824\uFF09\u3001R\uFF0818\uFF09\u3001S\uFF0815\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u66B4\u9732\u5EA6\u70BA R \uFF1D 18\u3001S \uFF1D 15\u3001T \uFF1D 24\uFF0C\u6545\u6B63\u78BA\u9806\u5E8F\u662F T\u3001R\u3001S\uFF0C\u800C\u975E R\u3001T\u3001S\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u932F\uFF1B\u4F9D\u53EF\u80FD\u6027\u6392\u5E8F\u6C38\u9060\u7B49\u540C\u65BC\u4F9D\u66B4\u9732\u5EA6\u6392\u5E8F",
+                "fraction": 0,
+                "feedback": "\u4E26\u975E\u5982\u6B64\uFF1AT \u7684\u53EF\u80FD\u6027\u4F4E\u65BC R\uFF0C\u66B4\u9732\u5EA6\u537B\u8F03\u9AD8\uFF0824 \u5C0D 18\uFF09\u3002"
+              },
+              {
+                "text": "\u8A08\u756B\u662F\u5C0D\u7684\uFF0C\u56E0\u70BA R \u7684\u53EF\u80FD\u6027\u6700\u9AD8",
+                "fraction": 0,
+                "feedback": "\u6700\u9AD8\u7684\u53EF\u80FD\u6027\u4E0D\u4EE3\u8868\u6700\u9AD8\u7684\u66B4\u9732\u5EA6\uFF1BR \u7684\u66B4\u9732\u5EA6\uFF0818\uFF09\u4F4E\u65BC T \u7684\uFF0824\uFF09\u3002"
+              },
+              {
+                "text": "\u66B4\u9732\u5EA6\u61C9\u7531\u5C0F\u5230\u5927\u6392\u5E8F\uFF0C\u6545\u9806\u5E8F\u70BA R\u3001S\u3001T",
+                "fraction": 0,
+                "feedback": "\u8F03\u9AD8\u98A8\u96AA\u5148\u6E2C\uFF08\u7531\u5927\u5230\u5C0F\uFF09\uFF0C\u800C\u4E14 R \u4E5F\u4E26\u975E\u6700\u4F4E\u3002"
+              }
+            ],
+            "generalFeedback": "\u66B4\u9732\u5EA6 \uFF1D \u53EF\u80FD\u6027 \xD7 \u885D\u64CA\uFF1AR \uFF1D 9\xD72 = 18\u3001S \uFF1D 3\xD75 = 15\u3001T \uFF1D 4\xD76 = 24\u3002\u4F9D\u66B4\u9732\u5EA6\uFF08\u7531\u5927\u5230\u5C0F\uFF09\u6392\u5E8F\u70BA T\u3001R\u3001S\u2014\u2014\u8207\u53EA\u4F9D\u53EF\u80FD\u6027\u7684\u9806\u5E8F R\u3001T\u3001S \u4E0D\u540C\u3002\u6392\u512A\u5148\u5E8F\u5FC5\u9808\u7528\u5169\u56E0\u7D20\u7684\u4E58\u7A4D\uFF0C\u800C\u975E\u55AE\u4E00\u56E0\u7D20\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u70BA\u98A8\u96AA\u6C7A\u7B56\u63D0\u4F9B\u8CC7\u8A0A",
+            "text": "<p>\u9664\u4E86\u627E\u51FA\u7F3A\u9677\u4E4B\u5916\uFF0C\u57F7\u884C\u98A8\u96AA\u5F0F\u6E2C\u8A66\u9084\u5982\u4F55\u70BA\u5229\u5BB3\u95DC\u4FC2\u4EBA\u964D\u4F4E\u98A8\u96AA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u63D0\u4F9B\u8CC7\u8A0A\uFF0C\u7E2E\u5C0F\u5C0D\u771F\u5BE6\u98A8\u96AA\u7B49\u7D1A\u7684\u4E0D\u78BA\u5B9A\u6027\uFF0C\u4F7F\u767C\u884C\u6C7A\u7B56\u66F4\u6709\u4F9D\u64DA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5373\u4F7F\u6C92\u627E\u5230\u7F3A\u9677\uFF0C\u6E2C\u8A66\u7D50\u679C\u4E5F\u964D\u4F4E\u4E0D\u78BA\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u5B83\u8B49\u660E\u8EDF\u9AD4\u5B8C\u5168\u6C92\u6709\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u7121\u6CD5\u8B49\u660E\u6240\u6709\u7F3A\u9677\u90FD\u4E0D\u5B58\u5728\uFF1B\u5B83\u964D\u4F4E\u4E0D\u78BA\u5B9A\u6027\uFF0C\u4F46\u4E0D\u6703\u964D\u5230\u96F6\u3002"
+              },
+              {
+                "text": "\u5B83\u628A\u6BCF\u500B\u6E2C\u904E\u7684\u9805\u76EE\u7684\u98A8\u96AA\u6C38\u4E45\u8A2D\u70BA\u96F6",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u5F8C\u6B98\u9918\u98A8\u96AA\u4ECD\u5B58\u5728\uFF1B\u98A8\u96AA\u4E0D\u6703\u88AB\u6B78\u96F6\u3002"
+              },
+              {
+                "text": "\u9664\u975E\u771F\u7684\u627E\u5230\u7F3A\u9677\uFF0C\u5426\u5247\u5B83\u6C92\u6709\u50F9\u503C",
+                "fraction": 0,
+                "feedback": "\u5373\u4F7F\u6E2C\u8A66\u901A\u904E\uFF0C\u4E5F\u56E0\u964D\u4F4E\u4E86\u5C0D\u98A8\u96AA\u7684\u4E0D\u78BA\u5B9A\u6027\u800C\u6709\u50F9\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u5F0F\u6E2C\u8A66\u4EE5\u5169\u7A2E\u65B9\u5F0F\u964D\u4F4E\u98A8\u96AA\uFF1A\u627E\u51FA\u53EF\u4FEE\u6B63\u7684\u7F3A\u9677\uFF08\u964D\u4F4E\u53EF\u80FD\u6027\uFF09\uFF0C\u4EE5\u53CA\u63D0\u4F9B\u8B49\u64DA\u4EE5\u964D\u4F4E\u5C0D\u5BE6\u969B\u54C1\u8CEA\u7684\u4E0D\u78BA\u5B9A\u6027\u2014\u2014\u5E6B\u52A9\u5229\u5BB3\u95DC\u4FC2\u4EBA\u5224\u65B7\u6B98\u9918\u98A8\u96AA\u4E26\u505A\u51FA\u6709\u4F9D\u64DA\u7684\u767C\u884C\u6C7A\u7B56\u3002\u5B83\u6C38\u9060\u4E0D\u6703\u5B8C\u5168\u6D88\u9664\u98A8\u96AA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7121\u6CD5\u6E2C\u8A66\u7684\u9AD8\u98A8\u96AA\u9805\u76EE",
+            "text": "<p>\u4E00\u500B\u9AD8\u66B4\u9732\u5EA6\u7684\u9805\u76EE\u4F9D\u8CF4\u4E00\u500B\u5728\u767C\u884C\u524D\u7121\u6CD5\u6F14\u7DF4\u7684\u7B2C\u4E09\u65B9\u670D\u52D9\u3002\u5408\u7406\u7684\u98A8\u96AA\u5F0F\u56DE\u61C9\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EE5\u5176\u4ED6\u65B9\u5F0F\u7DE9\u89E3\uFF08\u4F8B\u5982\u6A01\u7A0B\u5F0F\u3001\u5951\u7D04\u3001\u76E3\u63A7\uFF09\uFF0C\u4E26\u628A\u4ECD\u672A\u6E2C\u8A66\u7684\u90E8\u5206\u8A18\u9304\u70BA\u660E\u78BA\u7684\u6B98\u9918\u98A8\u96AA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u7121\u6CD5\u76F4\u63A5\u6E2C\u8A66\u6642\uFF0C\u63A1\u7528\u66FF\u4EE3\u7DE9\u89E3\u4E26\u8B93\u6B98\u9918\u98A8\u96AA\u53EF\u898B\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u7121\u6CD5\u6E2C\u8A66\u5C31\u5BA3\u544A\u5B83\u96F6\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u7121\u6CD5\u6E2C\u8A66\u4E26\u4E0D\u6703\u79FB\u9664\u98A8\u96AA\uFF1B\u53CD\u800C\u4F7F\u98A8\u96AA\u66F4\u4E0D\u88AB\u7406\u89E3\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u5FFD\u7565\u5B83\uFF0C\u56E0\u70BA\u7121\u6CD5\u6E2C\u8A66\u7684\u9805\u76EE\u4E0D\u5728\u7BC4\u570D\u5167",
+                "fraction": 0,
+                "feedback": "\u9AD8\u66B4\u9732\u5EA6\u7684\u9805\u76EE\u4E0D\u80FD\u5C31\u6B64\u5FFD\u7565\uFF1B\u5FC5\u9808\u7DE9\u89E3\u4E26\u8FFD\u8E64\u5176\u6B98\u9918\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u5047\u8A2D\u7B2C\u4E09\u65B9\u4FDD\u8B49\u5B83\u7121\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u5047\u8A2D\u7121\u7F3A\u9677\u4E26\u7121\u6839\u64DA\uFF1B\u5FC5\u9808\u627F\u8A8D\u6B98\u9918\u98A8\u96AA\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u9AD8\u98A8\u96AA\u9805\u76EE\u7121\u6CD5\u76F4\u63A5\u6E2C\u8A66\u6642\uFF0C\u98A8\u96AA\u5F0F\u6E2C\u8A66\u6703\u63A1\u7528\u66FF\u4EE3\u7DE9\u89E3\u2014\u2014\u670D\u52D9\u6A01\u7A0B\u5F0F\u3001\u5951\u7D04\u6E2C\u8A66\u3001\u984D\u5916\u76E3\u63A7\u3001\u61C9\u8B8A\u8A08\u756B\u2014\u2014\u4E26\u660E\u78BA\u8A18\u9304\u4ECD\u6B98\u7559\u7684\u98A8\u96AA\u70BA\u6B98\u9918\u98A8\u96AA\uFF0C\u8B93\u5229\u5BB3\u95DC\u4FC2\u4EBA\u5728\u767C\u884C\u6C7A\u7B56\u4E2D\u4E00\u4F75\u8861\u91CF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u98A8\u96AA\u5F0F\u6E2C\u8A66\u7684\u5B8C\u6574\u5FAA\u74B0",
+            "text": "<p>\u54EA\u500B\u9806\u5E8F\u6700\u80FD\u63CF\u8FF0\u98A8\u96AA\u5F0F\u6E2C\u8A66\u7684\u6D41\u7A0B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8FA8\u8B58\u98A8\u96AA \u2192 \u8A55\u4F30\u53EF\u80FD\u6027\u8207\u885D\u64CA \u2192 \u4F9D\u66B4\u9732\u5EA6\u6392\u512A\u5148\u5E8F \u2192 \u5206\u914D\uFF0F\u57F7\u884C\u6E2C\u8A66 \u2192 \u76E3\u63A7\u4E26\u91CD\u65B0\u8A55\u4F30",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u5C31\u662F\u53CD\u8986\u7684\u98A8\u96AA\u5F0F\u6E2C\u8A66\u5FAA\u74B0\u3002"
+              },
+              {
+                "text": "\u5BEB\u597D\u6240\u6709\u6E2C\u8A66 \u2192 \u4EE5\u96A8\u6A5F\u9806\u5E8F\u57F7\u884C \u2192 \u4E00\u5931\u6557\u5C31\u505C\u6B62",
+                "fraction": 0,
+                "feedback": "\u90A3\u5B8C\u5168\u5FFD\u7565\u4E86\u98A8\u96AA\u8A55\u4F30\u8207\u6392\u5B9A\u512A\u5148\u5E8F\u3002"
+              },
+              {
+                "text": "\u5C0D\u6BCF\u500B\u9805\u76EE\u6295\u5165\u76F8\u540C\u5FC3\u529B \u2192 \u5F9E\u4E0D\u91CD\u65B0\u8A55\u4F30",
+                "fraction": 0,
+                "feedback": "\u5747\u4E00\u6295\u5165\u4E14\u4E0D\u91CD\u65B0\u8A55\u4F30\uFF0C\u6B63\u597D\u8207\u98A8\u96AA\u5F0F\u6E2C\u8A66\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u5148\u4FEE\u597D\u6240\u6709\u7F3A\u9677 \u2192 \u518D\u6C7A\u5B9A\u5B58\u5728\u54EA\u4E9B\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u98A8\u96AA\u662F\u5728\u6E2C\u8A66\u4E4B\u524D\u4E26\u8CAB\u7A7F\u6E2C\u8A66\u904E\u7A0B\u4E2D\u8FA8\u8B58\u8207\u8A55\u4F30\u7684\uFF0C\u800C\u975E\u5728\u4FEE\u5B8C\u4E00\u5207\u4E4B\u5F8C\u3002"
+              }
+            ],
+            "generalFeedback": "\u98A8\u96AA\u5F0F\u6E2C\u8A66\u662F\u4E00\u500B\u53CD\u8986\u7684\u5FAA\u74B0\uFF1A\u8FA8\u8B58\u98A8\u96AA\u3001\u8A55\u4F30\u6BCF\u500B\u98A8\u96AA\u7684\u53EF\u80FD\u6027\u8207\u885D\u64CA\u3001\u4F9D\u98A8\u96AA\u66B4\u9732\u5EA6\u6392\u512A\u5148\u5E8F\u3001\u64DA\u6B64\u5206\u914D\u4E26\u57F7\u884C\u6E2C\u8A66\u6295\u5165\uFF0C\u7136\u5F8C\u96A8\u8457\u5C08\u6848\u8207\u5176\u98A8\u96AA\u6F14\u8B8A\u800C\u76E3\u63A7\u4E26\u91CD\u65B0\u8A55\u4F30\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "state-transition": {
       "en": {
         "easy": [
