@@ -1,1 +1,10 @@
-[]
+[
+  "bdd-gherkin",
+  "use-case-derivation",
+  "e2e-user-journey",
+  "contract-testing",
+  "performance-load-profile",
+  "chaos-engineering",
+  "atdd-cycle",
+  "flaky-diagnosis"
+]
