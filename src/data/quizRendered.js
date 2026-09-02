@@ -86139,6 +86139,2524 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "sprint-cadence": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "When testing happens in a sprint",
+          "text": "<p>In an agile sprint, <strong>when</strong> does testing take place?</p>",
+          "answers": [
+            {
+              "text": "Continuously throughout the sprint, as each story is built",
+              "fraction": 100,
+              "feedback": "Correct — testing is woven through the whole sprint, not saved for the end."
+            },
+            {
+              "text": "Only in a dedicated test phase during the last two days of the sprint",
+              "fraction": 0,
+              "feedback": "That end-loaded pattern is the mini-waterfall smell, not the agile cadence."
+            },
+            {
+              "text": "Only after the sprint, in a separate testing sprint",
+              "fraction": 0,
+              "feedback": "A separate testing sprint is an anti-pattern; testing belongs inside each sprint."
+            },
+            {
+              "text": "Only once the release is deployed to production",
+              "fraction": 0,
+              "feedback": "Waiting until production defeats the fast-feedback purpose of the sprint."
+            }
+          ],
+          "generalFeedback": "Agile testing is continuous: each user story is developed and tested within the same sprint. Testing is an ongoing activity throughout the iteration, not a phase bolted on at the end.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Whole-team responsibility for quality",
+          "text": "<p>In agile, quality is a <strong>whole-team responsibility</strong> — testing is not solely the job of a separate QA department.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — the whole team owns quality; testing is a shared activity."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Agile treats quality as everyone's responsibility, not something delegated to a QA silo."
+            }
+          ],
+          "generalFeedback": "A core agile principle is whole-team responsibility for quality: developers, testers, and the product owner all contribute to building and verifying the product. \"Testing is the QA team's phase\" is exactly the mindset agile moves away from."
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of Done includes testing",
+          "text": "<p>Which item most clearly belongs in a healthy <strong>Definition of Done</strong> for a user story?</p>",
+          "answers": [
+            {
+              "text": "The story has been tested, automated where sensible, with no known critical defects",
+              "fraction": 100,
+              "feedback": "Correct — a proper DoD requires the story to be tested, not just coded."
+            },
+            {
+              "text": "The code compiles and has been merged to the main branch",
+              "fraction": 0,
+              "feedback": "Compiling and merging is not enough; Done requires the story to be tested."
+            },
+            {
+              "text": "The developer believes the code probably works",
+              "fraction": 0,
+              "feedback": "A belief is not verification; Done means the behaviour has actually been tested."
+            },
+            {
+              "text": "Testing has been scheduled for a later hardening sprint",
+              "fraction": 0,
+              "feedback": "Deferring testing to a later sprint means the story is not Done now."
+            }
+          ],
+          "generalFeedback": "The Definition of Done includes testing: a story counts as Done only when it has been tested (with automation where sensible) and carries no known critical defects. This keeps every increment trustworthy.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Potentially shippable increment",
+          "text": "<p>Each sprint aims to produce a <strong>potentially shippable increment</strong>. What does that mean?</p>",
+          "answers": [
+            {
+              "text": "A tested, working increment that could be released at the end of the sprint",
+              "fraction": 100,
+              "feedback": "Correct — potentially shippable means it is releasable in principle because quality is built in."
+            },
+            {
+              "text": "A set of features that has been coded but not yet tested",
+              "fraction": 0,
+              "feedback": "Untested code is not potentially shippable; testing is part of what makes it releasable."
+            },
+            {
+              "text": "A design document describing what will be built next sprint",
+              "fraction": 0,
+              "feedback": "An increment is working software, not a plan for future work."
+            },
+            {
+              "text": "A prototype that must go through a separate QA sprint before release",
+              "fraction": 0,
+              "feedback": "Needing a later QA sprint means it was not shippable at sprint end."
+            }
+          ],
+          "generalFeedback": "A potentially shippable increment is working, tested software that the organisation could choose to release. \"Potentially\" refers to a business decision, not to unfinished quality work — the testing must already be done within the sprint.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When testers first engage",
+          "text": "<p>In a healthy sprint cadence, when do testers <strong>first</strong> get involved with a user story?</p>",
+          "answers": [
+            {
+              "text": "Early — during backlog refinement and sprint planning, helping shape acceptance criteria",
+              "fraction": 100,
+              "feedback": "Correct — testers engage early (shift-left) so quality is designed in from the start."
+            },
+            {
+              "text": "Only after all coding for the story is finished",
+              "fraction": 0,
+              "feedback": "Waiting until coding is done delays feedback and is the pattern agile avoids."
+            },
+            {
+              "text": "Only during the sprint review demo",
+              "fraction": 0,
+              "feedback": "The review is far too late for a tester to first engage with a story."
+            },
+            {
+              "text": "Only in the next sprint, after development finishes this one",
+              "fraction": 0,
+              "feedback": "Testing a sprint behind development is an anti-pattern, not early engagement."
+            }
+          ],
+          "generalFeedback": "Testers engage early — \"shift-left\" within the sprint. They join refinement and planning, help define acceptance criteria and concrete examples, and test each story as it is built rather than waiting for a batch at the end.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Develop and test within the same sprint",
+          "text": "<p>For a user story to be considered <strong>Done</strong>, it should be both developed and tested within the <strong>same</strong> sprint.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — development and testing of a story happen in the same sprint so it can be Done."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Splitting development and testing across sprints breaks the cadence; both belong in the same sprint."
+            }
+          ],
+          "generalFeedback": "Each story is developed and tested within one sprint. Only then does it meet a Definition of Done that includes testing and contribute to a potentially shippable increment."
+        },
+        {
+          "type": "multichoice",
+          "name": "Practice that fits the cadence",
+          "text": "<p>Which practice <strong>fits</strong> a healthy agile testing cadence?</p>",
+          "answers": [
+            {
+              "text": "Testing each story as soon as it is built, rather than batching all testing at sprint end",
+              "fraction": 100,
+              "feedback": "Correct — testing stories as they complete keeps feedback fast and steady."
+            },
+            {
+              "text": "Holding all testing until every story is code-complete",
+              "fraction": 0,
+              "feedback": "Batching testing to the end creates a crunch and delays feedback."
+            },
+            {
+              "text": "Scheduling a hardening sprint to catch up on skipped testing",
+              "fraction": 0,
+              "feedback": "A hardening sprint signals that in-sprint testing was insufficient."
+            },
+            {
+              "text": "Having developers hand finished code to QA for the next sprint",
+              "fraction": 0,
+              "feedback": "Testing a sprint behind development delays feedback and causes carryover."
+            }
+          ],
+          "generalFeedback": "Testing each story as it is built keeps quality feedback flowing throughout the sprint. Batching, hardening sprints, and testing a sprint behind all break the cadence.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of shift-left in a sprint",
+          "text": "<p>Within a sprint, <em>shift-left</em> testing means:</p>",
+          "answers": [
+            {
+              "text": "Moving testing activities earlier — into planning and alongside development — rather than to the end",
+              "fraction": 100,
+              "feedback": "Correct — shift-left pulls testing thinking forward in the sprint."
+            },
+            {
+              "text": "Moving testing to a specialised team after the sprint ends",
+              "fraction": 0,
+              "feedback": "That pushes testing later and outside the sprint, the opposite of shift-left."
+            },
+            {
+              "text": "Testing only the left half of the user interface first",
+              "fraction": 0,
+              "feedback": "Shift-left is about timing in the workflow, not screen layout."
+            },
+            {
+              "text": "Letting users test in production before the team does",
+              "fraction": 0,
+              "feedback": "That shifts testing right, to after release, not left."
+            }
+          ],
+          "generalFeedback": "Shift-left means engaging testing earlier in the flow: helping define acceptance criteria in planning and refinement, pairing with developers, and testing each story as it is built. The goal is faster feedback and defects caught while cheap to fix.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Agile does not eliminate testing effort",
+          "text": "<p>Because agile spreads testing throughout the sprint, the team no longer needs to spend any effort on testing.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Agile redistributes testing across the sprint; it does not remove the effort. Exploratory testing and acceptance testing still happen."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — testing effort is still real; it is woven through the sprint rather than eliminated."
+            }
+          ],
+          "generalFeedback": "Agile changes when and how testing happens — continuous, whole-team, in-sprint — but the work does not vanish. Automation, exploratory testing, and acceptance testing all still require effort; they simply happen within the cadence instead of as a final phase."
+        },
+        {
+          "type": "multichoice",
+          "name": "End-of-sprint test phase",
+          "text": "<p>A team codes all stories first, then reserves a separate <strong>testing phase</strong> for the final days of the sprint. How should this be judged?</p>",
+          "answers": [
+            {
+              "text": "An anti-pattern — a mini-waterfall inside the sprint that delays feedback",
+              "fraction": 100,
+              "feedback": "Correct — an end-loaded test phase is the mini-waterfall smell."
+            },
+            {
+              "text": "A best practice, because testing is easier once everything is built",
+              "fraction": 0,
+              "feedback": "Batching testing to the end concentrates risk and delays feedback; it is not best practice."
+            },
+            {
+              "text": "Required by Scrum, which mandates a test phase each sprint",
+              "fraction": 0,
+              "feedback": "Scrum mandates no such phase; it expects testing woven throughout."
+            },
+            {
+              "text": "Fine, as long as the testers are a separate team",
+              "fraction": 0,
+              "feedback": "Handing off to a separate team late makes the delay and silo worse, not fine."
+            }
+          ],
+          "generalFeedback": "Reserving testing for the end recreates a small waterfall inside the sprint. Defects surface late, when there is little time to fix them, and feedback to developers is delayed. Test each story as it is built instead.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of in-sprint automation",
+          "text": "<p>What is the main purpose of <strong>in-sprint test automation</strong>?</p>",
+          "answers": [
+            {
+              "text": "To keep the growing regression suite runnable each sprint so feedback stays fast",
+              "fraction": 100,
+              "feedback": "Correct — automation lets the ever-larger regression run repeatedly and cheaply."
+            },
+            {
+              "text": "To replace the need for any human judgement in testing",
+              "fraction": 0,
+              "feedback": "Automation complements exploratory and human testing; it does not replace it."
+            },
+            {
+              "text": "To let the team skip writing a Definition of Done",
+              "fraction": 0,
+              "feedback": "Automation supports the DoD; it does not remove the need for one."
+            },
+            {
+              "text": "To move all testing into a later hardening sprint",
+              "fraction": 0,
+              "feedback": "Automation exists precisely so testing stays in-sprint, not deferred."
+            }
+          ],
+          "generalFeedback": "As sprints accumulate, the regression suite grows. Automating it in-sprint keeps that suite runnable every sprint, giving fast feedback and preventing manual regression from becoming an unsustainable end-of-sprint burden.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Testers contribute in refinement",
+          "text": "<p>Testers can contribute during backlog <strong>refinement</strong> by helping define clear acceptance criteria and concrete examples.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — testers help make stories testable and unambiguous during refinement."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Testers add value early: refinement is where they help sharpen acceptance criteria and examples."
+            }
+          ],
+          "generalFeedback": "Testers engaging in refinement and planning helps surface edge cases and ambiguities before coding begins, producing testable stories with agreed acceptance criteria. This is a key part of shifting testing left within the cadence."
+        },
+        {
+          "type": "multichoice",
+          "name": "Who owns quality",
+          "text": "<p>In a Scrum team, who is responsible for the <strong>quality</strong> of the increment?</p>",
+          "answers": [
+            {
+              "text": "The whole team — developers, testers, and product owner together",
+              "fraction": 100,
+              "feedback": "Correct — quality is a shared, whole-team responsibility."
+            },
+            {
+              "text": "Only the testers, who form a gate before release",
+              "fraction": 0,
+              "feedback": "Making testers a gate recreates the QA silo agile avoids."
+            },
+            {
+              "text": "Only the Scrum Master, who signs off each story",
+              "fraction": 0,
+              "feedback": "The Scrum Master facilitates; they do not own quality alone."
+            },
+            {
+              "text": "Only the product owner, who accepts the increment",
+              "fraction": 0,
+              "feedback": "The product owner accepts value, but quality is built by the whole team."
+            }
+          ],
+          "generalFeedback": "Quality is a whole-team responsibility. Everyone contributes to building it in and verifying it, rather than delegating it to a single role or a downstream gate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the sprint review shows",
+          "text": "<p>At the <strong>sprint review</strong>, what does the team demonstrate?</p>",
+          "answers": [
+            {
+              "text": "A working, tested increment of the product",
+              "fraction": 100,
+              "feedback": "Correct — the review shows a real, tested increment, not unverified work."
+            },
+            {
+              "text": "Untested code that still needs a later QA pass",
+              "fraction": 0,
+              "feedback": "Demonstrating untested work means the increment was not actually Done."
+            },
+            {
+              "text": "Only slides describing what was planned",
+              "fraction": 0,
+              "feedback": "The review centres on working software, not planning slides."
+            },
+            {
+              "text": "A list of defects to be tested next sprint",
+              "fraction": 0,
+              "feedback": "Deferring testing to next sprint is the cadence anti-pattern, not what a review presents."
+            }
+          ],
+          "generalFeedback": "The sprint review demonstrates a working, tested increment — the outcome of development and testing done within the sprint. Because Done includes testing, what is shown is genuinely potentially shippable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Testers pairing with developers",
+          "text": "<p>A tester pairs with a developer to test a story <strong>as it is being built</strong>. Does this fit the agile testing cadence?</p>",
+          "answers": [
+            {
+              "text": "Yes — testing as the story is built gives immediate feedback and keeps quality in-sprint",
+              "fraction": 100,
+              "feedback": "Correct — pairing while building is exactly the continuous, whole-team cadence."
+            },
+            {
+              "text": "No — testers should never look at a story until it is fully code-complete",
+              "fraction": 0,
+              "feedback": "Waiting for code-complete delays feedback; early collaboration is preferred."
+            },
+            {
+              "text": "No — testing must wait for a dedicated hardening sprint",
+              "fraction": 0,
+              "feedback": "Deferring to a hardening sprint is an anti-pattern, not the cadence."
+            },
+            {
+              "text": "Only if the tester belongs to a separate QA department",
+              "fraction": 0,
+              "feedback": "Agile favours whole-team collaboration, not a separate QA gate."
+            }
+          ],
+          "generalFeedback": "Pairing a tester with a developer while the story is built embodies whole-team quality and shift-left testing: defects are caught immediately and the story reaches Done within the sprint.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Why test each story as it is built",
+          "text": "<p>Why is it better to test each story <strong>as it is built</strong> instead of batching all testing at the end of the sprint?</p>",
+          "answers": [
+            {
+              "text": "Defects surface while the context is fresh and cheap to fix, and feedback reaches developers quickly",
+              "fraction": 100,
+              "feedback": "Correct — early, incremental testing shortens the feedback loop and lowers fix cost."
+            },
+            {
+              "text": "It lets the team skip writing automated regression tests",
+              "fraction": 0,
+              "feedback": "Testing early does not remove the need for automation; the two work together."
+            },
+            {
+              "text": "It guarantees that no defects will ever be found",
+              "fraction": 0,
+              "feedback": "No practice guarantees zero defects; the benefit is faster, cheaper feedback."
+            },
+            {
+              "text": "It moves all responsibility for quality onto the testers",
+              "fraction": 0,
+              "feedback": "Agile spreads quality across the whole team; it does not concentrate it on testers."
+            }
+          ],
+          "generalFeedback": "Testing a story as soon as it is built gives developers feedback while the code is fresh in mind, when defects are cheapest to fix. Batching to the end delays that feedback and concentrates risk in the final days.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Describing the mini-waterfall smell",
+          "text": "<p>Which description best matches the <strong>mini-waterfall inside a sprint</strong> smell?</p>",
+          "answers": [
+            {
+              "text": "The team codes all stories first, then crams every test activity into the last days of the sprint",
+              "fraction": 100,
+              "feedback": "Correct — an end-loaded test phase within the sprint is the mini-waterfall."
+            },
+            {
+              "text": "The team writes acceptance criteria before any coding begins",
+              "fraction": 0,
+              "feedback": "Defining criteria up front is good shift-left practice, not the smell."
+            },
+            {
+              "text": "The team automates its regression suite every sprint",
+              "fraction": 0,
+              "feedback": "In-sprint automation supports the cadence; it is not the smell."
+            },
+            {
+              "text": "Developers and testers pair on each story as it is built",
+              "fraction": 0,
+              "feedback": "Pairing while building is exactly the healthy cadence, not the smell."
+            }
+          ],
+          "generalFeedback": "The mini-waterfall recreates the phases of a waterfall project inside a single sprint: analyse, code, then test at the end. It delays feedback and produces an end-of-sprint crunch.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fixing the mini-waterfall",
+          "text": "<p>A team suffers the mini-waterfall smell. What is the most appropriate <strong>fix</strong>?</p>",
+          "answers": [
+            {
+              "text": "Test each story as soon as it is ready, with devs and testers collaborating throughout the sprint",
+              "fraction": 100,
+              "feedback": "Correct — spreading testing across the sprint removes the end-loaded crunch."
+            },
+            {
+              "text": "Add a hardening sprint after every few sprints to catch up",
+              "fraction": 0,
+              "feedback": "A hardening sprint masks the problem instead of restoring the cadence."
+            },
+            {
+              "text": "Push testing into the following sprint so coding can continue uninterrupted",
+              "fraction": 0,
+              "feedback": "Testing a sprint behind delays feedback and creates carryover."
+            },
+            {
+              "text": "Hire a separate QA team to test after the sprint closes",
+              "fraction": 0,
+              "feedback": "A downstream QA gate reintroduces the silo and the delay."
+            }
+          ],
+          "generalFeedback": "The fix is to flatten the waterfall: slice work so each story is tested as it becomes ready, with the whole team collaborating. This keeps feedback fast and the increment continuously close to Done.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Problem with throw-over-the-wall",
+          "text": "<p>What is the core problem with a \"throw it over the wall to QA\" hand-off?</p>",
+          "answers": [
+            {
+              "text": "It creates a hand-off delay and a quality silo, so defects are found late by people detached from the context",
+              "fraction": 100,
+              "feedback": "Correct — the hand-off delays feedback and separates quality from the team that built it."
+            },
+            {
+              "text": "It makes testing too fast, so defects are missed",
+              "fraction": 0,
+              "feedback": "The problem is delay and detachment, not excessive speed."
+            },
+            {
+              "text": "It forces developers to write acceptance criteria too early",
+              "fraction": 0,
+              "feedback": "Early criteria are helpful; that is not the hand-off problem."
+            },
+            {
+              "text": "It removes the need for a Definition of Done",
+              "fraction": 0,
+              "feedback": "A hand-off model still needs a DoD; the issue is the silo and delay."
+            }
+          ],
+          "generalFeedback": "Throwing work over the wall to a separate QA group breaks whole-team quality. Feedback arrives late, the testers lack the context of how the code was built, and defects pile up at the boundary rather than being caught continuously.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Untested story is not Done",
+          "text": "<p>Because the Definition of Done includes testing, how should a story that is <strong>coded but not yet tested</strong> at sprint end be treated?</p>",
+          "answers": [
+            {
+              "text": "As not Done — it cannot be counted as complete or part of the shippable increment",
+              "fraction": 100,
+              "feedback": "Correct — untested work fails the DoD and is not Done."
+            },
+            {
+              "text": "As Done, since the code exists and can be tested later",
+              "fraction": 0,
+              "feedback": "Existing code is not Done if the DoD requires testing that has not happened."
+            },
+            {
+              "text": "As half Done, earning half its story points",
+              "fraction": 0,
+              "feedback": "Stories are binary against the DoD; there is no partial credit."
+            },
+            {
+              "text": "As Done, provided a hardening sprint is planned",
+              "fraction": 0,
+              "feedback": "Planning later testing does not make an untested story Done now."
+            }
+          ],
+          "generalFeedback": "If the DoD includes testing, an untested story is simply not Done. It is not counted toward velocity and does not belong in the shippable increment; the remaining testing carries over.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Benefit of testers in refinement",
+          "text": "<p>What is the main benefit of involving testers during backlog <strong>refinement and planning</strong>?</p>",
+          "answers": [
+            {
+              "text": "Ambiguities and edge cases are surfaced early, producing testable stories with agreed acceptance criteria",
+              "fraction": 100,
+              "feedback": "Correct — early tester input makes stories clearer and testable before coding."
+            },
+            {
+              "text": "Developers can then skip writing any unit tests",
+              "fraction": 0,
+              "feedback": "Tester involvement in planning does not remove developer testing duties."
+            },
+            {
+              "text": "The product owner no longer needs to prioritise the backlog",
+              "fraction": 0,
+              "feedback": "Prioritisation remains the product owner's job; refinement does not replace it."
+            },
+            {
+              "text": "Testing can then be safely deferred to the next sprint",
+              "fraction": 0,
+              "feedback": "Early planning input is meant to keep testing in-sprint, not defer it."
+            }
+          ],
+          "generalFeedback": "Testers thinking about a story during refinement and planning expose edge cases and ambiguities before code is written. The result is testable stories with clear, agreed acceptance criteria — fewer surprises and less rework later in the sprint.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rationale for in-sprint automation",
+          "text": "<p>Why does sustainable agile testing rely on automating tests <strong>within each sprint</strong>?</p>",
+          "answers": [
+            {
+              "text": "The regression suite grows every sprint; without automation, re-running it manually each sprint becomes unsustainable",
+              "fraction": 100,
+              "feedback": "Correct — automation keeps the growing regression affordable to run repeatedly."
+            },
+            {
+              "text": "Automated tests never need to be maintained once written",
+              "fraction": 0,
+              "feedback": "Automated tests do need maintenance; that is not the rationale."
+            },
+            {
+              "text": "Automation lets the team drop its Definition of Done",
+              "fraction": 0,
+              "feedback": "Automation supports the DoD rather than replacing it."
+            },
+            {
+              "text": "Manual testing is always inferior and should be eliminated",
+              "fraction": 0,
+              "feedback": "Exploratory and manual testing remain valuable; automation targets repeatable regression."
+            }
+          ],
+          "generalFeedback": "Every sprint adds behaviour that must keep working. Manually retesting an ever-larger regression each sprint quickly overwhelms the team, so repeatable checks are automated in-sprint to keep feedback fast and the cadence sustainable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Velocity credit for untested work",
+          "text": "<p>A story is \"code complete\" but its testing is unfinished when the sprint ends. How does it affect <strong>velocity</strong>?</p>",
+          "answers": [
+            {
+              "text": "It earns no velocity credit this sprint and carries over, because it is not Done",
+              "fraction": 100,
+              "feedback": "Correct — undone stories give no credit and carry into the next sprint."
+            },
+            {
+              "text": "It earns full velocity credit because the code exists",
+              "fraction": 0,
+              "feedback": "Code existing is not Done; counting it inflates velocity."
+            },
+            {
+              "text": "It earns partial credit proportional to how much testing remains",
+              "fraction": 0,
+              "feedback": "Velocity uses Done/not-Done, not partial credit."
+            },
+            {
+              "text": "It boosts velocity because it will be finished quickly next sprint",
+              "fraction": 0,
+              "feedback": "Future finishing does not create current-sprint credit."
+            }
+          ],
+          "generalFeedback": "Velocity counts only Done stories. Because testing is part of Done, a code-complete-but-untested story earns nothing this sprint and carries over. Counting it anyway inflates velocity and hides work still to do.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Acceptance criteria as shared understanding",
+          "text": "<p>Agreeing <strong>acceptance criteria and concrete examples</strong> before coding a story mainly helps because:</p>",
+          "answers": [
+            {
+              "text": "It builds shared understanding of expected behaviour, so the story is built and tested against the same target",
+              "fraction": 100,
+              "feedback": "Correct — shared examples align development and testing before coding starts."
+            },
+            {
+              "text": "It lets the team avoid running any tests later",
+              "fraction": 0,
+              "feedback": "Criteria guide testing; they do not replace running tests."
+            },
+            {
+              "text": "It guarantees the story will need no changes once coding starts",
+              "fraction": 0,
+              "feedback": "Understanding can still evolve; the benefit is alignment, not immutability."
+            },
+            {
+              "text": "It shifts all testing to the end of the sprint",
+              "fraction": 0,
+              "feedback": "Agreeing criteria early shifts testing thinking left, not to the end."
+            }
+          ],
+          "generalFeedback": "Concrete acceptance criteria and examples give developers and testers a shared, unambiguous target. The story is built to meet those examples and tested against them, reducing rework and misunderstanding — a shift-left, whole-team practice.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why shippable requires in-sprint testing",
+          "text": "<p>Why does aiming for a <strong>potentially shippable increment</strong> force testing to happen within the sprint?</p>",
+          "answers": [
+            {
+              "text": "An increment can only be releasable if its quality is verified during the sprint, not deferred",
+              "fraction": 100,
+              "feedback": "Correct — releasability requires the testing to already be done in-sprint."
+            },
+            {
+              "text": "Because Scrum forbids writing any automated tests",
+              "fraction": 0,
+              "feedback": "Scrum does not forbid automation; automation actually supports shippability."
+            },
+            {
+              "text": "Because the product owner personally tests every story",
+              "fraction": 0,
+              "feedback": "The product owner accepts value; the whole team does the testing."
+            },
+            {
+              "text": "Because testing is cheaper if left until after several sprints",
+              "fraction": 0,
+              "feedback": "Deferring testing raises cost and risk; it does not make increments shippable."
+            }
+          ],
+          "generalFeedback": "\"Potentially shippable\" means the increment could be released at any time. That is only true if quality has been verified within the sprint. Deferring testing leaves unknown quality, so the increment is not actually shippable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of pairing on feedback",
+          "text": "<p>How does pairing a tester with a developer <strong>during</strong> development affect the feedback loop?</p>",
+          "answers": [
+            {
+              "text": "It shortens the loop — issues are raised and fixed immediately, reducing later rework",
+              "fraction": 100,
+              "feedback": "Correct — immediate collaboration catches issues before they compound."
+            },
+            {
+              "text": "It lengthens the loop, because two people slow everything down",
+              "fraction": 0,
+              "feedback": "Pairing shortens feedback for testing; it does not lengthen the quality loop."
+            },
+            {
+              "text": "It has no effect, since feedback only matters after release",
+              "fraction": 0,
+              "feedback": "In-sprint feedback is central to agile; it does not only matter after release."
+            },
+            {
+              "text": "It defers all feedback to the sprint review",
+              "fraction": 0,
+              "feedback": "Pairing gives feedback continuously, not only at the review."
+            }
+          ],
+          "generalFeedback": "Pairing collapses the distance between writing code and testing it: problems are spotted and corrected on the spot, while context is fresh, instead of being logged as defects to fix days later. This is the whole-team, shift-left cadence in action.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symptom of a mini-waterfall",
+          "text": "<p>Which observation is a telltale <strong>symptom</strong> that a team has a mini-waterfall inside its sprint?</p>",
+          "answers": [
+            {
+              "text": "Testers are idle early in the sprint and overloaded in its final days",
+              "fraction": 100,
+              "feedback": "Correct — an idle-then-crunch pattern signals end-loaded testing."
+            },
+            {
+              "text": "Testers and developers pair on stories from day one",
+              "fraction": 0,
+              "feedback": "Day-one collaboration is the healthy cadence, not a symptom of the smell."
+            },
+            {
+              "text": "The regression suite is automated and runs every sprint",
+              "fraction": 0,
+              "feedback": "Automated regression is good practice, not a symptom of the smell."
+            },
+            {
+              "text": "Acceptance criteria are agreed during refinement",
+              "fraction": 0,
+              "feedback": "Agreeing criteria early is shift-left practice, not a mini-waterfall symptom."
+            }
+          ],
+          "generalFeedback": "A classic mini-waterfall symptom is uneven load: nothing to test early because coding is still in progress, then a crush of testing at the end. Smooth, continuous testing throughout the sprint is the healthy alternative.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Risk of batch-testing at sprint end",
+          "text": "<p>What is the main <strong>risk</strong> of batching all testing into the final days of the sprint?</p>",
+          "answers": [
+            {
+              "text": "Defects are found too late to fix within the sprint, forcing rushed fixes or carryover",
+              "fraction": 100,
+              "feedback": "Correct — late discovery leaves no room to fix, so work slips or is rushed."
+            },
+            {
+              "text": "The team will finish every story earlier than planned",
+              "fraction": 0,
+              "feedback": "Batching testing tends to cause slippage, not early finishes."
+            },
+            {
+              "text": "Automated tests become impossible to write",
+              "fraction": 0,
+              "feedback": "Batching does not make automation impossible; it just delays feedback."
+            },
+            {
+              "text": "The product owner must attend the daily scrum",
+              "fraction": 0,
+              "feedback": "That is unrelated to when testing happens."
+            }
+          ],
+          "generalFeedback": "When testing is squeezed into the last days, any defect it finds arrives with too little time to fix. The result is a crunch, rushed low-quality fixes, or stories carrying over unfinished into the next sprint.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "We will add tests next sprint",
+          "text": "<p>A developer says, \"Let's mark it Done now and add the tests next sprint.\" What does this most directly undermine?</p>",
+          "answers": [
+            {
+              "text": "The Definition of Done — it hides untested work as complete and accrues test debt",
+              "fraction": 100,
+              "feedback": "Correct — calling untested work Done breaks the DoD and builds up debt."
+            },
+            {
+              "text": "The daily scrum, which becomes unnecessary",
+              "fraction": 0,
+              "feedback": "The daily scrum is unaffected by this decision."
+            },
+            {
+              "text": "The product backlog ordering",
+              "fraction": 0,
+              "feedback": "Backlog ordering is a separate concern from marking untested work Done."
+            },
+            {
+              "text": "Nothing — deferring tests one sprint is standard agile practice",
+              "fraction": 0,
+              "feedback": "Deferring tests a sprint is an anti-pattern, not standard practice."
+            }
+          ],
+          "generalFeedback": "Marking untested work as Done violates a DoD that includes testing. It disguises incomplete work as finished, inflates velocity, and accumulates test debt that must be repaid later — usually at higher cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Whole-team response to a defect",
+          "text": "<p>Under <strong>whole-team quality</strong>, what should happen when a defect is found mid-sprint?</p>",
+          "answers": [
+            {
+              "text": "The team collaborates to address it promptly, rather than treating it as only the testers' problem",
+              "fraction": 100,
+              "feedback": "Correct — whole-team quality means the team swarms the issue together."
+            },
+            {
+              "text": "It is logged and left for the QA team to handle after the sprint",
+              "fraction": 0,
+              "feedback": "Leaving it for a downstream QA team recreates the silo and delay."
+            },
+            {
+              "text": "It is ignored until the hardening sprint",
+              "fraction": 0,
+              "feedback": "Deferring to a hardening sprint lets the defect and debt linger."
+            },
+            {
+              "text": "The tester who found it must fix it alone",
+              "fraction": 0,
+              "feedback": "Whole-team quality means shared ownership, not solo blame."
+            }
+          ],
+          "generalFeedback": "With whole-team quality, a defect belongs to the team, not to whoever found it. The team swarms to fix it promptly so the story can reach Done within the sprint, keeping the increment shippable.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Diagnose the last-two-days pattern",
+          "text": "<p>A team's developers code throughout the sprint while testers only start testing in the final two days, when defects pile up. What is the <strong>diagnosis and remediation</strong>?</p>",
+          "answers": [
+            {
+              "text": "Mini-waterfall inside the sprint; remediation is to test each story as it completes, with the whole team collaborating throughout",
+              "fraction": 100,
+              "feedback": "Correct — the end-loaded testing is a mini-waterfall, fixed by continuous in-sprint testing."
+            },
+            {
+              "text": "Healthy cadence; no change needed because all testing still happens in-sprint",
+              "fraction": 0,
+              "feedback": "Being in-sprint is not enough; the end-loading is the problem."
+            },
+            {
+              "text": "Testing-a-sprint-behind; remediation is to add a hardening sprint",
+              "fraction": 0,
+              "feedback": "This is not a sprint-behind pattern, and a hardening sprint would not fix it."
+            },
+            {
+              "text": "A tooling problem; remediation is to buy a faster test runner",
+              "fraction": 0,
+              "feedback": "The issue is workflow timing, not test-runner speed."
+            }
+          ],
+          "generalFeedback": "Coding first and testing last recreates a waterfall inside the sprint. The remedy is to flatten it: slice work so each story is testable soon, test it as it completes, and have developers and testers collaborate continuously so feedback is fast.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose the recurring hardening sprint",
+          "text": "<p>Every third sprint, a team runs a dedicated <strong>hardening sprint</strong> to stabilise and test accumulated work. What does this indicate, and what is the fix?</p>",
+          "answers": [
+            {
+              "text": "A smell of insufficient in-sprint testing and accumulating quality debt; the fix is to build quality in each sprint via a stronger DoD and in-sprint automation",
+              "fraction": 100,
+              "feedback": "Correct — a recurring hardening sprint signals debt that should be prevented in-sprint."
+            },
+            {
+              "text": "A best practice that every mature agile team should adopt permanently",
+              "fraction": 0,
+              "feedback": "A permanent hardening sprint institutionalises the debt rather than removing it."
+            },
+            {
+              "text": "Proof the team tests too much and should slow down",
+              "fraction": 0,
+              "feedback": "The problem is deferred testing, not excessive testing."
+            },
+            {
+              "text": "A normal consequence of automating regression tests",
+              "fraction": 0,
+              "feedback": "Automation reduces the need for hardening; it does not cause it."
+            }
+          ],
+          "generalFeedback": "A recurring hardening sprint is a symptom: quality work is being deferred and must be repaid in a catch-up sprint. The cure is to prevent the debt — a Definition of Done that includes testing, in-sprint automation, and continuous testing so each sprint's increment is already stable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose test-a-sprint-behind",
+          "text": "<p>Developers build features in sprint N, and testers test that same work in sprint N+1. What is the <strong>diagnosis and its main consequence</strong>?</p>",
+          "answers": [
+            {
+              "text": "Testing lags a sprint behind development; feedback is delayed and untested work carries over, so \"Done\" is ambiguous",
+              "fraction": 100,
+              "feedback": "Correct — a one-sprint lag delays feedback and produces carryover and unclear Done."
+            },
+            {
+              "text": "It is ideal pipelining that maximises throughput with no downside",
+              "fraction": 0,
+              "feedback": "The lag has real downsides: delayed feedback and carryover, not a free speed-up."
+            },
+            {
+              "text": "A mini-waterfall confined to a single sprint",
+              "fraction": 0,
+              "feedback": "The lag spans two sprints; it is the sprint-behind anti-pattern, not a single-sprint mini-waterfall."
+            },
+            {
+              "text": "Whole-team quality working as intended",
+              "fraction": 0,
+              "feedback": "Splitting build and test across sprints is the opposite of whole-team, in-sprint quality."
+            }
+          ],
+          "generalFeedback": "When testing trails development by a sprint, defects in sprint N are not found until N+1 — after more work has been built on top. Feedback is delayed, stories carry over, and no sprint produces a genuinely Done increment. The remedy is to test within the same sprint.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why Done requires testing",
+          "text": "<p>From a risk perspective, why must the Definition of <strong>Done</strong> require testing?</p>",
+          "answers": [
+            {
+              "text": "Untested code has unknown quality, so calling it Done hides risk and lets debt accumulate silently",
+              "fraction": 100,
+              "feedback": "Correct — without testing, \"Done\" makes an unverified, risky claim."
+            },
+            {
+              "text": "Testing is required only to satisfy an external auditor, not for risk",
+              "fraction": 0,
+              "feedback": "The reason is genuine quality risk, not merely audit compliance."
+            },
+            {
+              "text": "Because testing makes the code run faster",
+              "fraction": 0,
+              "feedback": "Testing verifies behaviour; it is not primarily a performance optimisation."
+            },
+            {
+              "text": "Because Scrum assigns testing to the product owner",
+              "fraction": 0,
+              "feedback": "Testing is a whole-team activity, and this is not why Done needs it."
+            }
+          ],
+          "generalFeedback": "Done is a claim that the work is complete and trustworthy. Untested code carries unknown quality, so marking it Done conceals risk and quietly accrues debt. Requiring testing keeps Done honest and every increment potentially shippable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trade-off of deferring testing",
+          "text": "<p>A team argues that deferring testing to sprint end lets them \"code faster.\" What is the real <strong>trade-off</strong>?</p>",
+          "answers": [
+            {
+              "text": "It feels faster short-term but raises defect cost, delays feedback, and risks an end-of-sprint crunch and carryover",
+              "fraction": 100,
+              "feedback": "Correct — the apparent speed is borrowed against later cost and risk."
+            },
+            {
+              "text": "There is no trade-off; deferring testing is strictly faster overall",
+              "fraction": 0,
+              "feedback": "The later cost of late defects and carryover offsets the apparent speed."
+            },
+            {
+              "text": "It slows coding immediately with no later benefit or cost",
+              "fraction": 0,
+              "feedback": "Deferral does not slow coding immediately; the cost lands later."
+            },
+            {
+              "text": "It guarantees higher quality because tests run all at once",
+              "fraction": 0,
+              "feedback": "Running tests late tends to lower quality outcomes, not raise them."
+            }
+          ],
+          "generalFeedback": "Deferring testing borrows apparent speed from the future: defects found late cost more to fix, feedback is delayed, and the sprint ends in a crunch with likely carryover. The short-term gain is repaid with interest.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sustaining regression across sprints",
+          "text": "<p>As sprints accumulate, how does a team keep the <strong>regression</strong> sustainable without lengthening the sprint?</p>",
+          "answers": [
+            {
+              "text": "Automate regression checks in-sprint so the growing suite runs repeatedly and cheaply each sprint",
+              "fraction": 100,
+              "feedback": "Correct — in-sprint automation keeps the expanding regression affordable."
+            },
+            {
+              "text": "Manually re-run the entire regression by hand every sprint",
+              "fraction": 0,
+              "feedback": "Manual re-runs grow without bound and become unsustainable."
+            },
+            {
+              "text": "Stop testing older features once they have shipped once",
+              "fraction": 0,
+              "feedback": "Abandoning regression lets old features silently break."
+            },
+            {
+              "text": "Batch all regression into an occasional hardening sprint",
+              "fraction": 0,
+              "feedback": "Batching regression into a hardening sprint delays feedback and hides debt."
+            }
+          ],
+          "generalFeedback": "The regression suite grows with every sprint. Automating those repeatable checks in-sprint keeps the whole suite runnable each iteration, so feedback stays fast and the cadence holds without stretching the sprint or hiring endless manual testers.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Carryover impact of undone testing",
+          "text": "<p>A team routinely marks code-complete stories as Done despite unfinished testing. What is the likely effect on <strong>velocity and carryover</strong> over time?</p>",
+          "answers": [
+            {
+              "text": "Velocity looks inflated while hidden testing debt grows, eventually forcing carryover and a slowdown",
+              "fraction": 100,
+              "feedback": "Correct — counting undone work inflates velocity now and forces a reckoning later."
+            },
+            {
+              "text": "Velocity becomes perfectly accurate and carryover disappears",
+              "fraction": 0,
+              "feedback": "Counting untested work makes velocity less accurate, not more."
+            },
+            {
+              "text": "Velocity drops immediately with no hidden effects",
+              "fraction": 0,
+              "feedback": "The immediate effect is inflated velocity; the drop comes later."
+            },
+            {
+              "text": "Carryover is eliminated because nothing is ever left undone",
+              "fraction": 0,
+              "feedback": "Testing is in fact left undone, so debt and carryover accumulate."
+            }
+          ],
+          "generalFeedback": "Counting untested stories as Done inflates reported velocity while real testing debt piles up invisibly. When it must be repaid, the team slows down and stories carry over, making the earlier velocity figures misleading.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Testing sprint after several dev sprints",
+          "text": "<p>A team plans several development-only sprints followed by one <strong>testing sprint</strong>. Why is this problematic and what is the better approach?</p>",
+          "answers": [
+            {
+              "text": "It defers feedback and quality far downstream; better to test within every sprint so each yields a shippable increment",
+              "fraction": 100,
+              "feedback": "Correct — a separate testing sprint delays feedback; testing belongs in every sprint."
+            },
+            {
+              "text": "It is fine, because concentrating testing improves focus",
+              "fraction": 0,
+              "feedback": "Concentrating testing downstream sacrifices fast feedback and shippability."
+            },
+            {
+              "text": "It is required whenever the product is large",
+              "fraction": 0,
+              "feedback": "Product size does not justify separating testing into its own sprint."
+            },
+            {
+              "text": "It is the same as pairing testers with developers",
+              "fraction": 0,
+              "feedback": "A separate testing sprint is the opposite of continuous, paired, in-sprint testing."
+            }
+          ],
+          "generalFeedback": "A dedicated testing sprint pushes verification far from the code that created the risk, so defects are found late and no earlier sprint is truly Done. The better approach is to test within every sprint, keeping each increment potentially shippable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Done story shipped a critical defect",
+          "text": "<p>A story marked Done shipped a critical defect because \"there was no time to test it.\" What was violated, and what is the remediation?</p>",
+          "answers": [
+            {
+              "text": "The Definition of Done was violated; the fix is to enforce testing as part of Done and reduce work-in-progress so stories can be finished properly",
+              "fraction": 100,
+              "feedback": "Correct — the DoD was not met; enforce it and limit WIP so testing fits."
+            },
+            {
+              "text": "Nothing was violated; shipping fast is more important than testing",
+              "fraction": 0,
+              "feedback": "Skipping testing violated the DoD and caused the escaped defect."
+            },
+            {
+              "text": "The daily scrum was violated; the fix is longer stand-ups",
+              "fraction": 0,
+              "feedback": "The daily scrum is unrelated to skipping a story's testing."
+            },
+            {
+              "text": "The backlog was violated; the fix is to add more stories",
+              "fraction": 0,
+              "feedback": "Adding stories worsens overload; it does not address the missing testing."
+            }
+          ],
+          "generalFeedback": "Marking an untested story Done breaks a DoD that includes testing, and the escaped defect is the direct result. The remedy is to honour the DoD and to limit work-in-progress so the team can finish and test each story rather than overcommitting.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Remedy for a recurring end-of-sprint crunch",
+          "text": "<p>A team keeps hitting an end-of-sprint testing crunch. Which change most directly restores a steady cadence?</p>",
+          "answers": [
+            {
+              "text": "Limit work-in-progress and finish-and-test one story before pulling the next",
+              "fraction": 100,
+              "feedback": "Correct — limiting WIP and completing stories one at a time smooths testing across the sprint."
+            },
+            {
+              "text": "Start every story at once so testing can all happen together at the end",
+              "fraction": 0,
+              "feedback": "Starting everything at once creates the end-loaded crunch, not a cure."
+            },
+            {
+              "text": "Move all testing into the next sprint",
+              "fraction": 0,
+              "feedback": "Deferring to the next sprint is the sprint-behind anti-pattern."
+            },
+            {
+              "text": "Extend the sprint length indefinitely",
+              "fraction": 0,
+              "feedback": "Longer sprints just enlarge the same crunch; they do not smooth the flow."
+            }
+          ],
+          "generalFeedback": "An end-of-sprint crunch usually comes from too much work-in-progress finishing at once. Limiting WIP and completing (and testing) one story before starting the next spreads testing evenly across the sprint and keeps the increment close to Done throughout.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Automation does not remove exploratory testing",
+          "text": "<p>Even with strong in-sprint automation, a team should still perform some exploratory and acceptance testing within the sprint.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — automation sustains regression, but human exploratory and acceptance testing remain valuable in-sprint."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Automation covers repeatable checks; it does not replace exploratory and acceptance testing."
+            }
+          ],
+          "generalFeedback": "Automation is ideal for repeatable regression, keeping the growing suite runnable each sprint. But it does not replace human judgement: exploratory testing and user/acceptance testing still happen within the cadence. Agile weaves testing throughout; it does not eliminate its manual forms."
+        },
+        {
+          "type": "multichoice",
+          "name": "High velocity but rising escaped defects",
+          "text": "<p>A team reports high velocity, yet escaped defects in production keep rising. What is the most likely <strong>cadence cause</strong>?</p>",
+          "answers": [
+            {
+              "text": "Their Definition of Done omits real testing, so untested work is counted Done and defects slip through",
+              "fraction": 100,
+              "feedback": "Correct — a weak DoD lets untested work inflate velocity and leak defects."
+            },
+            {
+              "text": "They are pairing testers with developers too early",
+              "fraction": 0,
+              "feedback": "Early pairing reduces escaped defects; it is not the cause."
+            },
+            {
+              "text": "Their regression suite is too automated",
+              "fraction": 0,
+              "feedback": "More automation lowers escaped defects; over-automation is not the cause here."
+            },
+            {
+              "text": "They hold a sprint retrospective every sprint",
+              "fraction": 0,
+              "feedback": "Retrospectives help improvement; they do not cause escaped defects."
+            }
+          ],
+          "generalFeedback": "High velocity with rising escaped defects is a classic sign that \"Done\" does not really include testing. Work is marked complete before it is verified, so velocity looks good while defects leak to production. Strengthening the DoD to include testing realigns the numbers with reality.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why hardening sprint is symptom not solution",
+          "text": "<p>Why is a recurring hardening sprint best seen as a <strong>symptom rather than a solution</strong>?</p>",
+          "answers": [
+            {
+              "text": "It reacts to accumulated debt after the fact instead of preventing it, and its recurring need signals a broken in-sprint cadence",
+              "fraction": 100,
+              "feedback": "Correct — it treats the symptom late rather than fixing the cadence that causes the debt."
+            },
+            {
+              "text": "It is a solution, because it always eliminates the underlying debt permanently",
+              "fraction": 0,
+              "feedback": "It clears a backlog once but does nothing to stop the debt recurring."
+            },
+            {
+              "text": "Because hardening sprints are forbidden by the Scrum Guide with penalties",
+              "fraction": 0,
+              "feedback": "The point is about cause and effect, not a formal prohibition or penalty."
+            },
+            {
+              "text": "Because it makes the automated tests run more slowly",
+              "fraction": 0,
+              "feedback": "Test-runner speed is not why a hardening sprint is a symptom."
+            }
+          ],
+          "generalFeedback": "A hardening sprint only cleans up debt that the regular sprints should not have created. If it is needed repeatedly, the real problem is upstream: testing is not happening within each sprint. Fixing the cadence removes the need for hardening.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose the Done-versus-tested gap",
+          "text": "<p>Each sprint, the count of stories developers call \"done\" far exceeds the count actually tested, and testers are perpetually overwhelmed. What is the <strong>diagnosis and fix</strong>?</p>",
+          "answers": [
+            {
+              "text": "A work-in-progress imbalance creating a testing bottleneck; fix it with whole-team testing, limiting WIP, and swarming stories to Done",
+              "fraction": 100,
+              "feedback": "Correct — the gap is a WIP/bottleneck problem cured by shared testing and lower WIP."
+            },
+            {
+              "text": "Testers are simply too slow and should be replaced",
+              "fraction": 0,
+              "feedback": "The issue is systemic WIP imbalance, not individual tester speed."
+            },
+            {
+              "text": "Developers are too productive; they should write less code",
+              "fraction": 0,
+              "feedback": "The problem is unbalanced flow, not excess productivity; the answer is whole-team testing, not slowing coders."
+            },
+            {
+              "text": "The Definition of Done should drop testing to close the gap",
+              "fraction": 0,
+              "feedback": "Dropping testing from Done hides the bottleneck and ships untested work."
+            }
+          ],
+          "generalFeedback": "When developer \"done\" outruns tested work, quality is bottlenecked at testing. The cure is whole-team quality: developers help test, work-in-progress is limited, and the team swarms stories through to a Done that includes testing — not lowering the bar or blaming testers.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Feedback delay under a sprint lag",
+          "text": "<p>When testing lags development by a full sprint, what happens to a defect introduced early in sprint N, and how should it be fixed?</p>",
+          "answers": [
+            {
+              "text": "It is not found until sprint N+1, after more work is built on the faulty base; fix it by testing within the same sprint the code is written",
+              "fraction": 100,
+              "feedback": "Correct — the lag delays discovery until N+1, so remediation is to close the lag."
+            },
+            {
+              "text": "It is found instantly, so the lag has no effect on feedback",
+              "fraction": 0,
+              "feedback": "A one-sprint lag delays discovery to N+1; it is not instant."
+            },
+            {
+              "text": "It disappears on its own once the next sprint starts",
+              "fraction": 0,
+              "feedback": "Defects do not vanish; the lag merely postpones finding them."
+            },
+            {
+              "text": "It is fixed by adding a hardening sprint after N+1",
+              "fraction": 0,
+              "feedback": "A hardening sprint compounds the delay rather than closing the lag."
+            }
+          ],
+          "generalFeedback": "With testing a sprint behind, a defect from early in sprint N is not detected until sprint N+1, by which time further work has been built on the faulty base — making the fix larger and riskier. The remedy is to test the code within the same sprint it is written, closing the feedback gap.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "測試在衝刺中發生的時機",
+          "text": "<p>在敏捷的衝刺（Sprint）中，測試<strong>何時</strong>進行？</p>",
+          "answers": [
+            {
+              "text": "在整個衝刺中持續進行，隨著每個故事被開發出來就測試",
+              "fraction": 100,
+              "feedback": "正確——測試貫穿整個衝刺，而不是留到最後。"
+            },
+            {
+              "text": "只在衝刺最後兩天的專門測試階段進行",
+              "fraction": 0,
+              "feedback": "這種把測試堆到最後的模式是「迷你瀑布」臭味，不是敏捷節奏。"
+            },
+            {
+              "text": "只在衝刺之後、於另一個獨立的測試衝刺中進行",
+              "fraction": 0,
+              "feedback": "獨立的測試衝刺是一種反模式；測試應在每個衝刺內進行。"
+            },
+            {
+              "text": "只在發布上線到正式環境之後才進行",
+              "fraction": 0,
+              "feedback": "等到正式環境才測試，違背了衝刺快速回饋的目的。"
+            }
+          ],
+          "generalFeedback": "敏捷測試是持續進行的：每個使用者故事都在同一個衝刺內被開發並測試。測試是貫穿整個迭代的持續活動，而不是最後才加上去的一個階段。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "品質是全團隊的責任",
+          "text": "<p>在敏捷中，品質是<strong>全團隊的責任</strong>——測試並非只由獨立的 QA 部門負責。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——全團隊共同擁有品質，測試是共享的活動。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "敏捷把品質視為每個人的責任，而不是交由一個 QA 孤島負責。"
+            }
+          ],
+          "generalFeedback": "敏捷的一項核心原則是品質為全團隊的責任：開發者、測試者與產品負責人都對建構並驗證產品有所貢獻。「測試是 QA 團隊的階段」正是敏捷要擺脫的心態。"
+        },
+        {
+          "type": "multichoice",
+          "name": "完成的定義包含測試",
+          "text": "<p>對一個使用者故事而言，下列哪一項最明確地屬於健康的<strong>完成的定義（Definition of Done）</strong>？</p>",
+          "answers": [
+            {
+              "text": "故事已被測試、在合理處已自動化，且沒有已知的重大缺陷",
+              "fraction": 100,
+              "feedback": "正確——恰當的 DoD 要求故事已被測試，而不只是寫完程式碼。"
+            },
+            {
+              "text": "程式碼能夠編譯，並且已合併到主分支",
+              "fraction": 0,
+              "feedback": "能編譯並合併還不夠；完成要求故事已被測試。"
+            },
+            {
+              "text": "開發者相信程式碼大概能運作",
+              "fraction": 0,
+              "feedback": "相信並非驗證；完成表示行為確實已被測試過。"
+            },
+            {
+              "text": "測試已被排到之後的強化衝刺去做",
+              "fraction": 0,
+              "feedback": "把測試延後到之後的衝刺，代表這個故事現在並未完成。"
+            }
+          ],
+          "generalFeedback": "完成的定義包含測試：唯有故事已被測試（在合理處加上自動化）且沒有已知的重大缺陷，才算完成。這讓每個增量都值得信任。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "潛在可交付的增量",
+          "text": "<p>每個衝刺都以產出<strong>潛在可交付的增量（potentially shippable increment）</strong>為目標。這是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "一個已測試、能運作的增量，在衝刺結束時即可被發布",
+              "fraction": 100,
+              "feedback": "正確——潛在可交付表示因為品質已內建，原則上就是可發布的。"
+            },
+            {
+              "text": "一組已寫好程式碼、但尚未測試的功能",
+              "fraction": 0,
+              "feedback": "未測試的程式碼並非潛在可交付；測試正是使其可發布的一部分。"
+            },
+            {
+              "text": "一份描述下個衝刺要建構什麼的設計文件",
+              "fraction": 0,
+              "feedback": "增量是能運作的軟體，不是未來工作的計畫。"
+            },
+            {
+              "text": "一個必須先經過另一個獨立 QA 衝刺才能發布的原型",
+              "fraction": 0,
+              "feedback": "需要之後的 QA 衝刺，代表它在衝刺結束時並非可交付。"
+            }
+          ],
+          "generalFeedback": "潛在可交付的增量是能運作、已測試的軟體，組織可以選擇是否發布。「潛在」指的是商業決策，而非尚未完成的品質工作——測試必須已在衝刺內完成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試者最早介入的時機",
+          "text": "<p>在健康的節奏中，測試者<strong>最早</strong>何時介入一個使用者故事？</p>",
+          "answers": [
+            {
+              "text": "很早——在待辦清單精煉與衝刺規劃時，協助形塑驗收準則",
+              "fraction": 100,
+              "feedback": "正確——測試者及早介入（左移），使品質從一開始就被設計進去。"
+            },
+            {
+              "text": "只在故事的所有程式碼都完成之後",
+              "fraction": 0,
+              "feedback": "等程式碼寫完才介入會延遲回饋，正是敏捷要避免的模式。"
+            },
+            {
+              "text": "只在衝刺審查的展示會上",
+              "fraction": 0,
+              "feedback": "審查會對測試者首次介入一個故事而言太晚了。"
+            },
+            {
+              "text": "只在下個衝刺，等這個衝刺的開發完成之後",
+              "fraction": 0,
+              "feedback": "測試落後開發一個衝刺是反模式，不是及早介入。"
+            }
+          ],
+          "generalFeedback": "測試者及早介入——在衝刺內「左移」。他們參與精煉與規劃、協助定義驗收準則與具體範例，並在每個故事被建構時就測試它，而不是等到最後才成批處理。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "在同一衝刺內開發並測試",
+          "text": "<p>一個使用者故事要被視為<strong>完成</strong>，應在<strong>同一個</strong>衝刺內同時被開發並被測試。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——故事的開發與測試在同一衝刺內進行，才能算完成。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "把開發與測試拆到不同衝刺會破壞節奏；兩者都應在同一衝刺內。"
+            }
+          ],
+          "generalFeedback": "每個故事都在一個衝刺內被開發並測試。唯有如此，它才能滿足包含測試的完成的定義，並貢獻於潛在可交付的增量。"
+        },
+        {
+          "type": "multichoice",
+          "name": "符合節奏的做法",
+          "text": "<p>下列哪一項做法<strong>符合</strong>健康的敏捷測試節奏？</p>",
+          "answers": [
+            {
+              "text": "每個故事一被建構出來就測試，而不是把所有測試堆到衝刺末尾",
+              "fraction": 100,
+              "feedback": "正確——故事完成即測試，能讓回饋快速而穩定。"
+            },
+            {
+              "text": "等所有故事的程式碼都完成後才開始測試",
+              "fraction": 0,
+              "feedback": "把測試堆到最後會造成擠壓並延遲回饋。"
+            },
+            {
+              "text": "安排一個強化衝刺來補做被略過的測試",
+              "fraction": 0,
+              "feedback": "強化衝刺代表衝刺內的測試不足。"
+            },
+            {
+              "text": "讓開發者把完成的程式碼交給 QA 於下個衝刺處理",
+              "fraction": 0,
+              "feedback": "測試落後開發一個衝刺會延遲回饋並造成遞延。"
+            }
+          ],
+          "generalFeedback": "故事一被建構就測試，能讓品質回饋在整個衝刺中持續流動。成批處理、強化衝刺，以及測試落後一個衝刺，全都會破壞節奏。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "衝刺中「左移」的意義",
+          "text": "<p>在衝刺中，<em>左移（shift-left）</em>測試指的是：</p>",
+          "answers": [
+            {
+              "text": "把測試活動往前移——移到規劃階段並與開發同步進行，而不是移到最後",
+              "fraction": 100,
+              "feedback": "正確——左移把測試思維在衝刺中提前。"
+            },
+            {
+              "text": "把測試移交給衝刺結束後的專門團隊",
+              "fraction": 0,
+              "feedback": "那是把測試往後推、移到衝刺之外，與左移相反。"
+            },
+            {
+              "text": "先只測試使用者介面的左半邊",
+              "fraction": 0,
+              "feedback": "左移講的是工作流程中的時機，不是畫面版面。"
+            },
+            {
+              "text": "讓使用者在團隊之前先於正式環境測試",
+              "fraction": 0,
+              "feedback": "那是把測試右移到發布之後，而非左移。"
+            }
+          ],
+          "generalFeedback": "左移表示在流程中更早地投入測試：在規劃與精煉時協助定義驗收準則、與開發者結對，並在每個故事被建構時就測試。目標是更快的回饋，以及在缺陷仍便宜易修時就抓到它。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "敏捷並未消除測試工作量",
+          "text": "<p>因為敏捷把測試分散到整個衝刺，團隊就不再需要在測試上投入任何工作量。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "敏捷把測試重新分配到整個衝刺，並沒有移除工作量。探索式測試與驗收測試依然會進行。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——測試工作量依然真實存在；它被編織進衝刺，而不是被消除。"
+            }
+          ],
+          "generalFeedback": "敏捷改變的是測試發生的時機與方式——持續、全團隊、衝刺內——但工作並未消失。自動化、探索式測試與驗收測試都仍需投入心力；它們只是在節奏中進行，而非作為最後一個階段。"
+        },
+        {
+          "type": "multichoice",
+          "name": "衝刺末尾的測試階段",
+          "text": "<p>一個團隊先寫完所有故事的程式碼，再把一個獨立的<strong>測試階段</strong>保留到衝刺最後幾天。該如何評判？</p>",
+          "answers": [
+            {
+              "text": "一種反模式——衝刺內的迷你瀑布，會延遲回饋",
+              "fraction": 100,
+              "feedback": "正確——把測試階段堆到末尾就是迷你瀑布臭味。"
+            },
+            {
+              "text": "一種最佳實務，因為東西都建好後測試比較容易",
+              "fraction": 0,
+              "feedback": "把測試堆到最後會集中風險並延遲回饋；這不是最佳實務。"
+            },
+            {
+              "text": "Scrum 所要求的，它規定每個衝刺都要有測試階段",
+              "fraction": 0,
+              "feedback": "Scrum 並未規定這種階段；它期望測試貫穿整個衝刺。"
+            },
+            {
+              "text": "沒問題，只要測試者是一個獨立團隊即可",
+              "fraction": 0,
+              "feedback": "晚期交接給獨立團隊會讓延遲與孤島更嚴重，並非沒問題。"
+            }
+          ],
+          "generalFeedback": "把測試保留到最後，等於在衝刺內重現了一個小瀑布。缺陷很晚才浮現，此時幾乎沒有時間修正，且回饋給開發者的時間也被延遲。應改為每個故事一被建構就測試它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "衝刺內自動化的目的",
+          "text": "<p><strong>衝刺內測試自動化</strong>的主要目的是什麼？</p>",
+          "answers": [
+            {
+              "text": "讓不斷成長的迴歸測試套件每個衝刺都能被執行，使回饋保持快速",
+              "fraction": 100,
+              "feedback": "正確——自動化讓越來越大的迴歸能反覆且便宜地執行。"
+            },
+            {
+              "text": "取代測試中所有的人為判斷",
+              "fraction": 0,
+              "feedback": "自動化與探索式及人為測試互補，並不取代它們。"
+            },
+            {
+              "text": "讓團隊可以省去撰寫完成的定義",
+              "fraction": 0,
+              "feedback": "自動化是支撐 DoD，而非移除對它的需要。"
+            },
+            {
+              "text": "把所有測試移到之後的強化衝刺",
+              "fraction": 0,
+              "feedback": "自動化的存在正是為了讓測試留在衝刺內，而非延後。"
+            }
+          ],
+          "generalFeedback": "隨著衝刺累積，迴歸測試套件會成長。在衝刺內將其自動化，能讓該套件每個衝刺都可執行，提供快速回饋，並避免手動迴歸淪為衝刺末尾難以承受的負擔。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "測試者在精煉時的貢獻",
+          "text": "<p>測試者可以在待辦清單<strong>精煉（refinement）</strong>時，協助定義清楚的驗收準則與具體範例，藉此做出貢獻。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——測試者在精煉時協助讓故事可測試且不含糊。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "測試者及早就能增添價值：精煉正是他們協助釐清驗收準則與範例的場合。"
+            }
+          ],
+          "generalFeedback": "測試者參與精煉與規劃，有助於在寫程式碼之前就浮現邊界情況與含糊之處，產出帶有明確驗收準則、可測試的故事。這是在節奏中把測試左移的關鍵一環。"
+        },
+        {
+          "type": "multichoice",
+          "name": "誰擁有品質",
+          "text": "<p>在 Scrum 團隊中，誰對增量的<strong>品質</strong>負責？</p>",
+          "answers": [
+            {
+              "text": "全團隊——開發者、測試者與產品負責人一起",
+              "fraction": 100,
+              "feedback": "正確——品質是共享的、全團隊的責任。"
+            },
+            {
+              "text": "只有測試者，他們構成發布前的一道關卡",
+              "fraction": 0,
+              "feedback": "把測試者當成關卡，等於重建了敏捷要避免的 QA 孤島。"
+            },
+            {
+              "text": "只有 Scrum Master，他為每個故事簽核",
+              "fraction": 0,
+              "feedback": "Scrum Master 負責促進；他並非獨自擁有品質。"
+            },
+            {
+              "text": "只有產品負責人，他驗收增量",
+              "fraction": 0,
+              "feedback": "產品負責人驗收價值，但品質是由全團隊建構的。"
+            }
+          ],
+          "generalFeedback": "品質是全團隊的責任。每個人都對建構並驗證品質有所貢獻，而不是把它交給單一角色或下游的一道關卡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "衝刺審查展示的內容",
+          "text": "<p>在<strong>衝刺審查（sprint review）</strong>中，團隊展示什麼？</p>",
+          "answers": [
+            {
+              "text": "一個能運作、已測試的產品增量",
+              "fraction": 100,
+              "feedback": "正確——審查展示的是真實、已測試的增量，而非未驗證的工作。"
+            },
+            {
+              "text": "仍需之後 QA 再測一輪的未測試程式碼",
+              "fraction": 0,
+              "feedback": "展示未測試的工作，代表該增量其實並未完成。"
+            },
+            {
+              "text": "只有描述當初計畫的投影片",
+              "fraction": 0,
+              "feedback": "審查以能運作的軟體為核心，而非規劃投影片。"
+            },
+            {
+              "text": "一份要留到下個衝刺才測試的缺陷清單",
+              "fraction": 0,
+              "feedback": "把測試延後到下個衝刺是節奏反模式，不是審查所呈現的內容。"
+            }
+          ],
+          "generalFeedback": "衝刺審查展示的是一個能運作、已測試的增量——衝刺內開發並測試的成果。因為完成包含測試，所展示的就是真正潛在可交付的東西。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試者與開發者結對",
+          "text": "<p>一位測試者與一位開發者結對，在故事<strong>正被建構</strong>時就測試它。這符合敏捷測試節奏嗎？</p>",
+          "answers": [
+            {
+              "text": "符合——在建構時就測試能提供即時回饋，並讓品質留在衝刺內",
+              "fraction": 100,
+              "feedback": "正確——邊建構邊結對正是持續、全團隊的節奏。"
+            },
+            {
+              "text": "不符合——測試者在故事程式碼完全完成前絕不該看它",
+              "fraction": 0,
+              "feedback": "等程式碼完成才看會延遲回饋；及早協作更好。"
+            },
+            {
+              "text": "不符合——測試必須等到專門的強化衝刺",
+              "fraction": 0,
+              "feedback": "延後到強化衝刺是反模式，不是節奏。"
+            },
+            {
+              "text": "只有當測試者隸屬於獨立的 QA 部門時才符合",
+              "fraction": 0,
+              "feedback": "敏捷偏好全團隊協作，而非獨立的 QA 關卡。"
+            }
+          ],
+          "generalFeedback": "在故事被建構時就讓測試者與開發者結對，體現了全團隊品質與左移測試：缺陷即時被抓到，故事也在衝刺內達到完成。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "為何在故事被建構時就測試",
+          "text": "<p>為什麼<strong>在故事被建構時就測試</strong>，比把所有測試堆到衝刺末尾更好？</p>",
+          "answers": [
+            {
+              "text": "缺陷在脈絡仍新鮮、修正仍便宜時就浮現，回饋也能迅速回到開發者手上",
+              "fraction": 100,
+              "feedback": "正確——及早、逐步的測試縮短回饋迴圈並降低修正成本。"
+            },
+            {
+              "text": "它讓團隊可以略過撰寫自動化迴歸測試",
+              "fraction": 0,
+              "feedback": "及早測試並不會移除對自動化的需要；兩者相輔相成。"
+            },
+            {
+              "text": "它保證永遠不會再找到任何缺陷",
+              "fraction": 0,
+              "feedback": "沒有任何做法能保證零缺陷；好處在於更快、更便宜的回饋。"
+            },
+            {
+              "text": "它把品質的全部責任移到測試者身上",
+              "fraction": 0,
+              "feedback": "敏捷把品質分散到全團隊，而非集中到測試者身上。"
+            }
+          ],
+          "generalFeedback": "故事一被建構就測試，能在程式碼仍記憶猶新時給開發者回饋，此時缺陷最便宜易修。堆到最後會延遲回饋，並把風險集中在最後幾天。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "描述迷你瀑布臭味",
+          "text": "<p>下列哪一項描述最符合<strong>衝刺內的迷你瀑布</strong>臭味？</p>",
+          "answers": [
+            {
+              "text": "團隊先寫完所有故事的程式碼，再把所有測試活動擠進衝刺最後幾天",
+              "fraction": 100,
+              "feedback": "正確——把測試階段堆到衝刺末尾就是迷你瀑布。"
+            },
+            {
+              "text": "團隊在開始寫程式碼之前就撰寫驗收準則",
+              "fraction": 0,
+              "feedback": "事先定義準則是良好的左移實務，不是臭味。"
+            },
+            {
+              "text": "團隊每個衝刺都自動化其迴歸測試套件",
+              "fraction": 0,
+              "feedback": "衝刺內自動化支撐節奏；它不是臭味。"
+            },
+            {
+              "text": "開發者與測試者在每個故事被建構時就結對",
+              "fraction": 0,
+              "feedback": "邊建構邊結對正是健康的節奏，不是臭味。"
+            }
+          ],
+          "generalFeedback": "迷你瀑布在單一衝刺內重現了瀑布專案的各階段：分析、寫程式、最後才測試。它延遲回饋並在衝刺末尾造成擠壓。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "修正迷你瀑布",
+          "text": "<p>一個團隊有迷你瀑布臭味。最恰當的<strong>修正方式</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "每個故事一準備好就測試，開發者與測試者在整個衝刺中協作",
+              "fraction": 100,
+              "feedback": "正確——把測試分散到整個衝刺，能消除堆在末尾的擠壓。"
+            },
+            {
+              "text": "每隔幾個衝刺加一個強化衝刺來補做",
+              "fraction": 0,
+              "feedback": "強化衝刺是掩蓋問題，而非恢復節奏。"
+            },
+            {
+              "text": "把測試推到下個衝刺，好讓寫程式不被打斷地繼續",
+              "fraction": 0,
+              "feedback": "測試落後一個衝刺會延遲回饋並造成遞延。"
+            },
+            {
+              "text": "雇一個獨立的 QA 團隊在衝刺結束後測試",
+              "fraction": 0,
+              "feedback": "下游的 QA 關卡會重新引入孤島與延遲。"
+            }
+          ],
+          "generalFeedback": "修正之道是把瀑布攤平：把工作切分，讓每個故事一準備好就測試，並由全團隊協作。這能讓回饋保持快速，增量也持續接近完成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "越牆丟交接的問題",
+          "text": "<p>「把東西越牆丟給 QA」這種交接的核心問題是什麼？</p>",
+          "answers": [
+            {
+              "text": "它造成交接延遲與品質孤島，缺陷很晚才被脫離脈絡的人發現",
+              "fraction": 100,
+              "feedback": "正確——交接延遲回饋，並把品質與建構它的團隊隔開。"
+            },
+            {
+              "text": "它讓測試太快，因而漏掉缺陷",
+              "fraction": 0,
+              "feedback": "問題在於延遲與脫節，而非速度太快。"
+            },
+            {
+              "text": "它迫使開發者太早撰寫驗收準則",
+              "fraction": 0,
+              "feedback": "及早定義準則是有幫助的；那不是交接的問題。"
+            },
+            {
+              "text": "它移除了對完成的定義的需要",
+              "fraction": 0,
+              "feedback": "交接模式仍需要 DoD；問題在於孤島與延遲。"
+            }
+          ],
+          "generalFeedback": "把工作越牆丟給獨立的 QA 群體會破壞全團隊品質。回饋姍姍來遲，測試者缺乏程式碼如何被建構的脈絡，缺陷也在邊界堆積，而非被持續抓到。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "未測試的故事不算完成",
+          "text": "<p>由於完成的定義包含測試，一個在衝刺結束時<strong>已寫完程式碼但尚未測試</strong>的故事該如何看待？</p>",
+          "answers": [
+            {
+              "text": "視為未完成——它不能被算作完成，也不屬於可交付的增量",
+              "fraction": 100,
+              "feedback": "正確——未測試的工作未通過 DoD，不算完成。"
+            },
+            {
+              "text": "視為完成，因為程式碼已存在、之後可以再測",
+              "fraction": 0,
+              "feedback": "若 DoD 要求尚未進行的測試，光有程式碼不算完成。"
+            },
+            {
+              "text": "視為完成一半，取得一半的故事點數",
+              "fraction": 0,
+              "feedback": "故事對照 DoD 是二元的；沒有部分計分。"
+            },
+            {
+              "text": "視為完成，只要有規劃強化衝刺即可",
+              "fraction": 0,
+              "feedback": "規劃之後再測，並不會讓現在未測試的故事變成完成。"
+            }
+          ],
+          "generalFeedback": "若 DoD 包含測試，未測試的故事就只是未完成。它不計入速度，也不屬於可交付的增量；剩下的測試會遞延。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試者參與精煉的好處",
+          "text": "<p>讓測試者參與待辦清單<strong>精煉與規劃</strong>的主要好處是什麼？</p>",
+          "answers": [
+            {
+              "text": "及早浮現含糊之處與邊界情況，產出帶有共識驗收準則、可測試的故事",
+              "fraction": 100,
+              "feedback": "正確——測試者及早介入讓故事在寫程式前更清楚、可測試。"
+            },
+            {
+              "text": "開發者因此可以略過撰寫任何單元測試",
+              "fraction": 0,
+              "feedback": "測試者參與規劃並不會免除開發者的測試職責。"
+            },
+            {
+              "text": "產品負責人因此不再需要為待辦清單排序",
+              "fraction": 0,
+              "feedback": "排序仍是產品負責人的工作；精煉並不取代它。"
+            },
+            {
+              "text": "測試因此可以安全地延後到下個衝刺",
+              "fraction": 0,
+              "feedback": "及早在規劃介入是為了讓測試留在衝刺內，而非延後。"
+            }
+          ],
+          "generalFeedback": "測試者在精煉與規劃時思考一個故事，能在程式碼寫出來之前就揭露邊界情況與含糊之處。結果是帶有清楚、共識驗收準則、可測試的故事——衝刺後段更少意外、更少返工。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "衝刺內自動化的理由",
+          "text": "<p>為什麼可持續的敏捷測試仰賴在<strong>每個衝刺內</strong>將測試自動化？</p>",
+          "answers": [
+            {
+              "text": "迴歸測試套件每個衝刺都在成長；沒有自動化，每個衝刺手動重跑會變得難以為繼",
+              "fraction": 100,
+              "feedback": "正確——自動化讓不斷成長的迴歸得以持續、可負擔地反覆執行。"
+            },
+            {
+              "text": "自動化測試一旦寫好就永遠不需維護",
+              "fraction": 0,
+              "feedback": "自動化測試確實需要維護；那不是理由。"
+            },
+            {
+              "text": "自動化讓團隊可以捨棄完成的定義",
+              "fraction": 0,
+              "feedback": "自動化支撐 DoD，而非取代它。"
+            },
+            {
+              "text": "手動測試永遠較差，應予以消除",
+              "fraction": 0,
+              "feedback": "探索式與手動測試仍有價值；自動化針對的是可重複的迴歸。"
+            }
+          ],
+          "generalFeedback": "每個衝刺都會加入必須持續運作的行為。每個衝刺以手動重測越來越大的迴歸很快就會壓垮團隊，因此把可重複的檢查在衝刺內自動化，以保持回饋快速、節奏可持續。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "未測試工作的速度計分",
+          "text": "<p>一個故事在衝刺結束時「程式碼完成」，但測試尚未做完。它對<strong>速度（velocity）</strong>有何影響？</p>",
+          "answers": [
+            {
+              "text": "本衝刺不計入任何速度並遞延，因為它並未完成",
+              "fraction": 100,
+              "feedback": "正確——未完成的故事不計分，並延續到下個衝刺。"
+            },
+            {
+              "text": "取得全額速度計分，因為程式碼已存在",
+              "fraction": 0,
+              "feedback": "程式碼存在不等於完成；計入它會灌水速度。"
+            },
+            {
+              "text": "依剩餘測試多寡取得部分計分",
+              "fraction": 0,
+              "feedback": "速度以完成／未完成計，沒有部分計分。"
+            },
+            {
+              "text": "提升速度，因為它下個衝刺很快就會做完",
+              "fraction": 0,
+              "feedback": "未來做完並不會產生本衝刺的計分。"
+            }
+          ],
+          "generalFeedback": "速度只計已完成的故事。因為測試是完成的一部分，一個程式碼完成但未測試的故事本衝刺什麼都不計，並會遞延。硬要計入會灌水速度並掩蓋尚待完成的工作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗收準則作為共同理解",
+          "text": "<p>在撰寫一個故事的程式碼之前先議定<strong>驗收準則與具體範例</strong>，主要有幫助是因為：</p>",
+          "answers": [
+            {
+              "text": "它建立對預期行為的共同理解，使故事的建構與測試對準同一個目標",
+              "fraction": 100,
+              "feedback": "正確——共同的範例在寫程式前就讓開發與測試對齊。"
+            },
+            {
+              "text": "它讓團隊之後可以不用跑任何測試",
+              "fraction": 0,
+              "feedback": "準則引導測試；它不取代跑測試。"
+            },
+            {
+              "text": "它保證故事一開始寫程式就不再需要任何變更",
+              "fraction": 0,
+              "feedback": "理解仍可能演變；好處在於對齊，而非不可變更。"
+            },
+            {
+              "text": "它把所有測試移到衝刺末尾",
+              "fraction": 0,
+              "feedback": "及早議定準則是把測試思維左移，而非移到末尾。"
+            }
+          ],
+          "generalFeedback": "具體的驗收準則與範例給開發者與測試者一個共同、明確的目標。故事被建構以滿足那些範例，並依它們測試，減少返工與誤解——這是左移、全團隊的實務。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何可交付需要衝刺內測試",
+          "text": "<p>為什麼以<strong>潛在可交付的增量</strong>為目標，會迫使測試在衝刺內進行？</p>",
+          "answers": [
+            {
+              "text": "唯有品質在衝刺內被驗證、而非延後，增量才可能是可發布的",
+              "fraction": 100,
+              "feedback": "正確——可發布性要求測試已在衝刺內完成。"
+            },
+            {
+              "text": "因為 Scrum 禁止撰寫任何自動化測試",
+              "fraction": 0,
+              "feedback": "Scrum 並不禁止自動化；自動化其實支撐可發布性。"
+            },
+            {
+              "text": "因為產品負責人親自測試每個故事",
+              "fraction": 0,
+              "feedback": "產品負責人驗收價值；測試由全團隊進行。"
+            },
+            {
+              "text": "因為把測試留到數個衝刺之後比較便宜",
+              "fraction": 0,
+              "feedback": "延後測試會提高成本與風險；它不會讓增量變得可交付。"
+            }
+          ],
+          "generalFeedback": "「潛在可交付」表示增量隨時都可能被發布。唯有品質已在衝刺內被驗證，這才成立。延後測試會留下未知的品質，因此增量其實並非可交付。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "結對對回饋的影響",
+          "text": "<p>在開發<strong>期間</strong>讓測試者與開發者結對，對回饋迴圈有何影響？</p>",
+          "answers": [
+            {
+              "text": "縮短迴圈——問題被即時提出並修正，減少之後的返工",
+              "fraction": 100,
+              "feedback": "正確——即時協作在問題滾雪球之前就抓到它。"
+            },
+            {
+              "text": "拉長迴圈，因為兩個人會拖慢一切",
+              "fraction": 0,
+              "feedback": "結對縮短測試的回饋；它不會拉長品質迴圈。"
+            },
+            {
+              "text": "沒有影響，因為回饋只在發布後才重要",
+              "fraction": 0,
+              "feedback": "衝刺內的回饋是敏捷的核心；它不是只在發布後才重要。"
+            },
+            {
+              "text": "把所有回饋延到衝刺審查",
+              "fraction": 0,
+              "feedback": "結對持續給回饋，而非只在審查時。"
+            }
+          ],
+          "generalFeedback": "結對把「寫程式」與「測試它」之間的距離壓縮：問題在脈絡仍新鮮時當場被發現並更正，而非被記成缺陷、幾天後才修。這正是全團隊、左移節奏的實踐。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "迷你瀑布的徵兆",
+          "text": "<p>下列哪一項觀察是團隊在衝刺內有迷你瀑布的明顯<strong>徵兆</strong>？</p>",
+          "answers": [
+            {
+              "text": "測試者在衝刺前期閒置，卻在最後幾天超載",
+              "fraction": 100,
+              "feedback": "正確——前期閒置、後期擠壓的模式代表測試被堆到末尾。"
+            },
+            {
+              "text": "測試者與開發者從第一天起就在故事上結對",
+              "fraction": 0,
+              "feedback": "第一天就協作是健康節奏，不是臭味的徵兆。"
+            },
+            {
+              "text": "迴歸測試套件已自動化並每個衝刺執行",
+              "fraction": 0,
+              "feedback": "自動化迴歸是良好實務，不是臭味的徵兆。"
+            },
+            {
+              "text": "驗收準則在精煉時就議定",
+              "fraction": 0,
+              "feedback": "及早議定準則是左移實務，不是迷你瀑布的徵兆。"
+            }
+          ],
+          "generalFeedback": "迷你瀑布的典型徵兆是負載不均：前期因程式碼還在寫而無可測試之物，末尾卻湧入大量測試。整個衝刺平順、持續地測試才是健康的替代做法。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "衝刺末尾成批測試的風險",
+          "text": "<p>把所有測試堆進衝刺最後幾天的主要<strong>風險</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "缺陷太晚被發現，來不及在衝刺內修正，被迫倉促修補或遞延",
+              "fraction": 100,
+              "feedback": "正確——太晚發現使人沒有時間修，工作因此延誤或倉促。"
+            },
+            {
+              "text": "團隊會比預定更早完成每個故事",
+              "fraction": 0,
+              "feedback": "成批測試往往造成延誤，而非提早完成。"
+            },
+            {
+              "text": "自動化測試變得不可能撰寫",
+              "fraction": 0,
+              "feedback": "成批並不會使自動化不可能；它只是延遲回饋。"
+            },
+            {
+              "text": "產品負責人必須出席每日站會",
+              "fraction": 0,
+              "feedback": "那與測試何時進行無關。"
+            }
+          ],
+          "generalFeedback": "當測試被擠進最後幾天，它找到的任何缺陷都在時間所剩無幾時才出現。結果就是擠壓、倉促的低品質修補，或故事未完成地遞延到下個衝刺。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "「下個衝刺再補測試」",
+          "text": "<p>一位開發者說：「先把它標成完成，測試下個衝刺再補。」這最直接地破壞了什麼？</p>",
+          "answers": [
+            {
+              "text": "完成的定義——它把未測試的工作偽裝成完成並累積測試債",
+              "fraction": 100,
+              "feedback": "正確——把未測試的工作稱為完成會破壞 DoD 並累積債務。"
+            },
+            {
+              "text": "每日站會，它因此變得不必要",
+              "fraction": 0,
+              "feedback": "每日站會不受這個決定影響。"
+            },
+            {
+              "text": "產品待辦清單的排序",
+              "fraction": 0,
+              "feedback": "待辦清單排序與把未測試工作標成完成是不同的議題。"
+            },
+            {
+              "text": "沒破壞什麼——把測試延後一個衝刺是標準敏捷實務",
+              "fraction": 0,
+              "feedback": "把測試延後一個衝刺是反模式，不是標準實務。"
+            }
+          ],
+          "generalFeedback": "把未測試的工作標成完成，違反了包含測試的 DoD。它把未完成的工作偽裝成完成、灌水速度，並累積之後必須償還的測試債——而且通常代價更高。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "全團隊對缺陷的回應",
+          "text": "<p>在<strong>全團隊品質</strong>之下，衝刺中發現缺陷時應如何？</p>",
+          "answers": [
+            {
+              "text": "團隊協作儘速處理它，而不是把它當成只是測試者的問題",
+              "fraction": 100,
+              "feedback": "正確——全團隊品質意味著團隊一起蜂擁處理此問題。"
+            },
+            {
+              "text": "把它記錄下來，留給 QA 團隊在衝刺結束後處理",
+              "fraction": 0,
+              "feedback": "留給下游 QA 團隊會重新製造孤島與延遲。"
+            },
+            {
+              "text": "忽略它，直到強化衝刺",
+              "fraction": 0,
+              "feedback": "延後到強化衝刺會讓缺陷與債務持續累積。"
+            },
+            {
+              "text": "由發現它的測試者獨自修正",
+              "fraction": 0,
+              "feedback": "全團隊品質意味著共同承擔，而非獨自究責。"
+            }
+          ],
+          "generalFeedback": "在全團隊品質之下，缺陷屬於團隊，而非只屬於發現它的人。團隊蜂擁儘速修正，讓故事在衝刺內達到完成，使增量保持可交付。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "診斷最後兩天的模式",
+          "text": "<p>某團隊的開發者整個衝刺都在寫程式，測試者卻只在最後兩天才開始測試，此時缺陷大量堆積。<strong>診斷與矯正</strong>為何？</p>",
+          "answers": [
+            {
+              "text": "衝刺內的迷你瀑布；矯正之道是每個故事一完成就測試，並由全團隊全程協作",
+              "fraction": 100,
+              "feedback": "正確——把測試堆到末尾就是迷你瀑布，靠持續的衝刺內測試修正。"
+            },
+            {
+              "text": "健康的節奏；無須改變，因為所有測試仍在衝刺內進行",
+              "fraction": 0,
+              "feedback": "在衝刺內還不夠；把測試堆到末尾才是問題所在。"
+            },
+            {
+              "text": "測試落後一個衝刺；矯正之道是加一個強化衝刺",
+              "fraction": 0,
+              "feedback": "這並非落後一個衝刺的模式，強化衝刺也無法修正它。"
+            },
+            {
+              "text": "一個工具問題；矯正之道是買一個更快的測試執行器",
+              "fraction": 0,
+              "feedback": "問題在於工作流程的時機，不是測試執行器的速度。"
+            }
+          ],
+          "generalFeedback": "先寫程式、最後才測試，等於在衝刺內重現了一個瀑布。矯正之道是把它攤平：把工作切分讓每個故事很快可測、一完成就測，並讓開發者與測試者持續協作，使回饋保持快速。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷反覆出現的強化衝刺",
+          "text": "<p>某團隊每三個衝刺就跑一個專門的<strong>強化衝刺</strong>來穩定並測試累積的工作。這代表什麼、又該如何修正？</p>",
+          "answers": [
+            {
+              "text": "衝刺內測試不足、品質債累積的臭味；修正之道是靠更強的 DoD 與衝刺內自動化，在每個衝刺就把品質內建進去",
+              "fraction": 100,
+              "feedback": "正確——反覆的強化衝刺代表應在衝刺內預防的債務。"
+            },
+            {
+              "text": "一項最佳實務，每個成熟的敏捷團隊都應永久採用",
+              "fraction": 0,
+              "feedback": "永久的強化衝刺是把債務制度化，而非消除它。"
+            },
+            {
+              "text": "證明團隊測試過多，應該放慢",
+              "fraction": 0,
+              "feedback": "問題在於測試被延後，而非測試過多。"
+            },
+            {
+              "text": "自動化迴歸測試後的正常結果",
+              "fraction": 0,
+              "feedback": "自動化會降低對強化的需要；它不會造成強化。"
+            }
+          ],
+          "generalFeedback": "反覆出現的強化衝刺是個徵兆：品質工作被延後，必須在補課衝刺中償還。治本之道是預防債務——一個包含測試的完成的定義、衝刺內自動化，以及持續測試，讓每個衝刺的增量已經穩定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷測試落後一個衝刺",
+          "text": "<p>開發者在衝刺 N 建構功能，測試者卻在衝刺 N+1 才測試那批工作。<strong>診斷與其主要後果</strong>為何？</p>",
+          "answers": [
+            {
+              "text": "測試落後開發一個衝刺；回饋被延遲、未測試的工作遞延，因此「完成」變得含糊",
+              "fraction": 100,
+              "feedback": "正確——落後一個衝刺會延遲回饋並造成遞延與不明確的完成。"
+            },
+            {
+              "text": "這是理想的管線化，能最大化產出且毫無缺點",
+              "fraction": 0,
+              "feedback": "落後有實際缺點：延遲回饋與遞延，而非免費的加速。"
+            },
+            {
+              "text": "侷限在單一衝刺內的迷你瀑布",
+              "fraction": 0,
+              "feedback": "此落後橫跨兩個衝刺；它是落後一個衝刺的反模式，不是單一衝刺內的迷你瀑布。"
+            },
+            {
+              "text": "全團隊品質正如預期地運作",
+              "fraction": 0,
+              "feedback": "把建構與測試拆到不同衝刺，正與全團隊、衝刺內的品質相反。"
+            }
+          ],
+          "generalFeedback": "當測試落後開發一個衝刺，衝刺 N 的缺陷要到 N+1 才被發現——此時已有更多工作疊在其上。回饋被延遲、故事遞延，也沒有任何衝刺產出真正完成的增量。治本之道是在同一個衝刺內測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何完成需要測試",
+          "text": "<p>從風險的角度看，為什麼<strong>完成</strong>的定義必須要求測試？</p>",
+          "answers": [
+            {
+              "text": "未測試的程式碼品質未知，所以稱它為完成會隱藏風險並讓債務悄悄累積",
+              "fraction": 100,
+              "feedback": "正確——沒有測試，「完成」就是一個未驗證、有風險的宣稱。"
+            },
+            {
+              "text": "測試只是為了滿足外部稽核，而非為了風險",
+              "fraction": 0,
+              "feedback": "理由是真實的品質風險，而非僅為稽核合規。"
+            },
+            {
+              "text": "因為測試會讓程式碼跑得更快",
+              "fraction": 0,
+              "feedback": "測試驗證行為；它主要不是效能最佳化。"
+            },
+            {
+              "text": "因為 Scrum 把測試指派給產品負責人",
+              "fraction": 0,
+              "feedback": "測試是全團隊的活動，而且這也不是完成需要它的原因。"
+            }
+          ],
+          "generalFeedback": "完成是一個宣稱工作已完整且值得信任的主張。未測試的程式碼帶有未知的品質，所以把它標成完成會掩蓋風險並悄悄累積債務。要求測試能讓完成保持誠實，並讓每個增量都潛在可交付。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延後測試的取捨",
+          "text": "<p>某團隊主張把測試延到衝刺末尾能讓他們「寫得更快」。真正的<strong>取捨</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "短期看似更快，卻提高缺陷成本、延遲回饋，並冒著衝刺末尾擠壓與遞延的風險",
+              "fraction": 100,
+              "feedback": "正確——這種表面速度是向之後的成本與風險借來的。"
+            },
+            {
+              "text": "沒有取捨；延後測試整體上就是更快",
+              "fraction": 0,
+              "feedback": "晚期缺陷與遞延的後續成本抵銷了表面的速度。"
+            },
+            {
+              "text": "它立即拖慢寫程式，之後既無好處也無成本",
+              "fraction": 0,
+              "feedback": "延後並不會立即拖慢寫程式；成本落在之後。"
+            },
+            {
+              "text": "它保證更高的品質，因為測試一次全部跑完",
+              "fraction": 0,
+              "feedback": "太晚跑測試往往降低品質結果，而非提高。"
+            }
+          ],
+          "generalFeedback": "延後測試是向未來借來表面速度：晚期發現的缺陷修起來更貴、回饋被延遲，衝刺也在擠壓中結束並可能遞延。短期的好處會連本帶利地償還。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "跨衝刺維持迴歸",
+          "text": "<p>隨著衝刺累積，團隊如何在不拉長衝刺的情況下讓<strong>迴歸</strong>可持續？</p>",
+          "answers": [
+            {
+              "text": "在衝刺內把迴歸檢查自動化，使不斷成長的套件每個衝刺都能反覆且便宜地執行",
+              "fraction": 100,
+              "feedback": "正確——衝刺內自動化讓擴張的迴歸維持可負擔。"
+            },
+            {
+              "text": "每個衝刺都用手動重跑整個迴歸",
+              "fraction": 0,
+              "feedback": "手動重跑會無止境地成長並變得難以為繼。"
+            },
+            {
+              "text": "舊功能一旦發布過一次就停止測試",
+              "fraction": 0,
+              "feedback": "放棄迴歸會讓舊功能悄悄壞掉。"
+            },
+            {
+              "text": "把所有迴歸堆進偶爾一次的強化衝刺",
+              "fraction": 0,
+              "feedback": "把迴歸堆進強化衝刺會延遲回饋並隱藏債務。"
+            }
+          ],
+          "generalFeedback": "迴歸測試套件會隨每個衝刺成長。在衝刺內把那些可重複的檢查自動化，能讓整個套件每個迭代都可執行，使回饋保持快速、節奏得以維持，而不用拉長衝刺或雇用無盡的手動測試者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "未做測試對遞延的影響",
+          "text": "<p>某團隊慣於把程式碼完成的故事標成完成，儘管測試尚未做完。長期下來對<strong>速度與遞延</strong>可能有何影響？</p>",
+          "answers": [
+            {
+              "text": "速度看似被灌水，隱藏的測試債持續增長，最終迫使遞延並拖慢步調",
+              "fraction": 100,
+              "feedback": "正確——把未做的工作計入會當下灌水速度，之後再逼你算總帳。"
+            },
+            {
+              "text": "速度變得完全準確，遞延消失",
+              "fraction": 0,
+              "feedback": "把未測試的工作計入會讓速度更不準，而非更準。"
+            },
+            {
+              "text": "速度立即下降，且無任何隱藏影響",
+              "fraction": 0,
+              "feedback": "立即的影響是灌水速度；下降是之後才來。"
+            },
+            {
+              "text": "遞延被消除，因為永遠沒有東西被留下未做",
+              "fraction": 0,
+              "feedback": "測試事實上被留下未做，因此債務與遞延會累積。"
+            }
+          ],
+          "generalFeedback": "把未測試的故事計為完成，會灌水回報的速度，同時真實的測試債無形地堆積。當它必須償還時，團隊步調變慢、故事遞延，使先前的速度數字產生誤導。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "數個開發衝刺後的測試衝刺",
+          "text": "<p>某團隊規劃數個純開發衝刺，之後接一個<strong>測試衝刺</strong>。為什麼這有問題、更好的做法是什麼？</p>",
+          "answers": [
+            {
+              "text": "它把回饋與品質推到很下游；更好的做法是在每個衝刺內測試，使每個衝刺都產出可交付的增量",
+              "fraction": 100,
+              "feedback": "正確——獨立的測試衝刺會延遲回饋；測試應屬於每個衝刺。"
+            },
+            {
+              "text": "沒問題，因為集中測試能提升專注",
+              "fraction": 0,
+              "feedback": "把測試集中在下游會犧牲快速回饋與可交付性。"
+            },
+            {
+              "text": "當產品很大時這是必需的",
+              "fraction": 0,
+              "feedback": "產品規模不足以正當化把測試獨立成一個衝刺。"
+            },
+            {
+              "text": "它與讓測試者和開發者結對是一樣的",
+              "fraction": 0,
+              "feedback": "獨立的測試衝刺與持續、結對、衝刺內的測試恰恰相反。"
+            }
+          ],
+          "generalFeedback": "專門的測試衝刺把驗證推得離產生風險的程式碼很遠，因此缺陷很晚才被發現，也沒有任何較早的衝刺真正完成。更好的做法是在每個衝刺內測試，讓每個增量都潛在可交付。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "標成完成的故事出貨了重大缺陷",
+          "text": "<p>一個被標成完成的故事因「沒時間測試」而出貨了一個重大缺陷。什麼被違反了、矯正之道為何？</p>",
+          "answers": [
+            {
+              "text": "完成的定義被違反；修正之道是把測試強制納入完成，並降低在製品，讓故事能被妥善做完",
+              "fraction": 100,
+              "feedback": "正確——DoD 未被滿足；強制執行它並限制 WIP，讓測試放得進去。"
+            },
+            {
+              "text": "沒有任何東西被違反；快速出貨比測試更重要",
+              "fraction": 0,
+              "feedback": "略過測試違反了 DoD，也造成了漏出的缺陷。"
+            },
+            {
+              "text": "每日站會被違反；修正之道是拉長站會",
+              "fraction": 0,
+              "feedback": "每日站會與略過某故事的測試無關。"
+            },
+            {
+              "text": "待辦清單被違反；修正之道是加更多故事",
+              "fraction": 0,
+              "feedback": "加故事會加重超載，並未處理缺少的測試。"
+            }
+          ],
+          "generalFeedback": "把未測試的故事標成完成，破壞了包含測試的 DoD，而漏出的缺陷正是直接結果。矯正之道是恪守 DoD，並限制在製品，讓團隊能把每個故事做完並測試，而不是過度承諾。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "反覆衝刺末尾擠壓的矯正",
+          "text": "<p>某團隊不斷在衝刺末尾遇到測試擠壓。哪一項改變最直接地恢復穩定的節奏？</p>",
+          "answers": [
+            {
+              "text": "限制在製品，並在拉下一個故事之前先把當前故事做完並測試",
+              "fraction": 100,
+              "feedback": "正確——限制 WIP、一次做完一個故事，能把測試分散到整個衝刺。"
+            },
+            {
+              "text": "一次開始所有故事，好讓測試能在末尾一起進行",
+              "fraction": 0,
+              "feedback": "一次全部開始會造成末尾擠壓，而非解方。"
+            },
+            {
+              "text": "把所有測試移到下個衝刺",
+              "fraction": 0,
+              "feedback": "延到下個衝刺是落後一個衝刺的反模式。"
+            },
+            {
+              "text": "無限期地拉長衝刺長度",
+              "fraction": 0,
+              "feedback": "拉長衝刺只會放大同樣的擠壓；它並不能讓流動平順。"
+            }
+          ],
+          "generalFeedback": "衝刺末尾的擠壓通常來自太多在製品同時完成。限制 WIP、在開始下一個之前先做完（並測試）一個故事，能把測試平均分散到整個衝刺，並讓增量全程接近完成。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "自動化並不取代探索式測試",
+          "text": "<p>即使有強大的衝刺內自動化，團隊仍應在衝刺內進行一些探索式測試與驗收測試。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——自動化維持迴歸，但人為的探索式與驗收測試在衝刺內仍有價值。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "自動化涵蓋可重複的檢查；它不取代探索式與驗收測試。"
+            }
+          ],
+          "generalFeedback": "自動化最適合可重複的迴歸，讓不斷成長的套件每個衝刺都可執行。但它不取代人為判斷：探索式測試與使用者／驗收測試仍在節奏中進行。敏捷把測試編織到整個過程，並不消除其手動形式。"
+        },
+        {
+          "type": "multichoice",
+          "name": "速度高但漏出缺陷上升",
+          "text": "<p>某團隊回報高速度，正式環境中漏出的缺陷卻持續上升。最可能的<strong>節奏成因</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "他們的完成的定義省略了真正的測試，因此未測試的工作被計為完成、缺陷漏出",
+              "fraction": 100,
+              "feedback": "正確——薄弱的 DoD 讓未測試的工作灌水速度並漏出缺陷。"
+            },
+            {
+              "text": "他們讓測試者與開發者結對得太早",
+              "fraction": 0,
+              "feedback": "及早結對會減少漏出的缺陷；它不是成因。"
+            },
+            {
+              "text": "他們的迴歸測試套件自動化過頭了",
+              "fraction": 0,
+              "feedback": "更多自動化會降低漏出的缺陷；過度自動化不是此處的成因。"
+            },
+            {
+              "text": "他們每個衝刺都開回顧會議",
+              "fraction": 0,
+              "feedback": "回顧會議有助於改善；它不會造成漏出的缺陷。"
+            }
+          ],
+          "generalFeedback": "高速度伴隨漏出缺陷上升，是「完成」其實不含測試的典型跡象。工作在被驗證之前就被標成完成，於是速度看似漂亮，缺陷卻漏到正式環境。把 DoD 強化到包含測試，能讓數字與現實重新對齊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何強化衝刺是徵兆而非解方",
+          "text": "<p>為什麼反覆出現的強化衝刺最好被視為<strong>徵兆而非解方</strong>？</p>",
+          "answers": [
+            {
+              "text": "它是在債務累積後才事後補救、而非預防它，且反覆需要它代表衝刺內節奏已壞",
+              "fraction": 100,
+              "feedback": "正確——它太晚處理徵兆，而非修正造成債務的節奏。"
+            },
+            {
+              "text": "它是解方，因為它總能永久消除底層的債務",
+              "fraction": 0,
+              "feedback": "它清一次積壓，卻無法阻止債務再度發生。"
+            },
+            {
+              "text": "因為 Scrum 指南禁止強化衝刺並附帶罰則",
+              "fraction": 0,
+              "feedback": "重點在於因果，而非正式禁止或罰則。"
+            },
+            {
+              "text": "因為它讓自動化測試跑得更慢",
+              "fraction": 0,
+              "feedback": "測試執行器速度不是強化衝刺為何是徵兆的原因。"
+            }
+          ],
+          "generalFeedback": "強化衝刺只是清理常規衝刺本不該製造的債務。若反覆需要它，真正的問題在上游：測試沒有在每個衝刺內進行。修正節奏就能消除對強化的需要。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷「完成」與「已測試」的落差",
+          "text": "<p>每個衝刺，開發者稱為「完成」的故事數量遠超過實際被測試的數量，測試者也長期超載。<strong>診斷與修正</strong>為何？</p>",
+          "answers": [
+            {
+              "text": "在製品失衡造成的測試瓶頸；以全團隊測試、限制在製品、蜂擁把故事推到完成來修正",
+              "fraction": 100,
+              "feedback": "正確——這個落差是 WIP／瓶頸問題，靠共享測試與降低 WIP 治本。"
+            },
+            {
+              "text": "測試者就是太慢，應予更換",
+              "fraction": 0,
+              "feedback": "問題是系統性的 WIP 失衡，而非個別測試者的速度。"
+            },
+            {
+              "text": "開發者生產力太高；他們應少寫程式",
+              "fraction": 0,
+              "feedback": "問題在於流動失衡，而非產能過剩；答案是全團隊測試，而非拖慢寫程式的人。"
+            },
+            {
+              "text": "應把測試從完成的定義中拿掉以消除落差",
+              "fraction": 0,
+              "feedback": "把測試從完成中拿掉會掩蓋瓶頸並出貨未測試的工作。"
+            }
+          ],
+          "generalFeedback": "當開發者的「完成」超過已測試的工作，品質就卡在測試這個瓶頸。治本之道是全團隊品質：開發者協助測試、限制在製品，並由團隊蜂擁把故事推向一個包含測試的完成——而非降低標準或歸咎測試者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "落後一個衝刺時的回饋延遲",
+          "text": "<p>當測試落後開發整整一個衝刺時，一個在衝刺 N 前期引入的缺陷會怎樣、又該如何修正？</p>",
+          "answers": [
+            {
+              "text": "它要到衝刺 N+1 才被發現，此時更多工作已疊在有缺陷的基礎上；修正之道是在程式碼被寫的同一衝刺內測試",
+              "fraction": 100,
+              "feedback": "正確——落後把發現延到 N+1，所以矯正之道是消除落差。"
+            },
+            {
+              "text": "它被立即發現，所以落後對回饋沒有影響",
+              "fraction": 0,
+              "feedback": "落後一個衝刺會把發現延到 N+1；並非立即。"
+            },
+            {
+              "text": "它會在下個衝刺一開始自行消失",
+              "fraction": 0,
+              "feedback": "缺陷不會消失；落後只是把發現它往後推。"
+            },
+            {
+              "text": "它靠在 N+1 之後加一個強化衝刺來修正",
+              "fraction": 0,
+              "feedback": "強化衝刺會加劇延遲，而非消除落差。"
+            }
+          ],
+          "generalFeedback": "當測試落後一個衝刺，衝刺 N 前期的缺陷要到衝刺 N+1 才被偵測，屆時已有更多工作疊在有缺陷的基礎上——使修正更大、風險更高。矯正之道是在程式碼被寫的同一衝刺內測試它，以消除回饋落差。",
+          "single": true
+        }
+      ]
+    }
+  },
   "state-transition": {
     "en": {
       "easy": [

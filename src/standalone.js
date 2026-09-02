@@ -132146,6 +132146,2524 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "sprint-cadence": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "When testing happens in a sprint",
+            "text": "<p>In an agile sprint, <strong>when</strong> does testing take place?</p>",
+            "answers": [
+              {
+                "text": "Continuously throughout the sprint, as each story is built",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testing is woven through the whole sprint, not saved for the end."
+              },
+              {
+                "text": "Only in a dedicated test phase during the last two days of the sprint",
+                "fraction": 0,
+                "feedback": "That end-loaded pattern is the mini-waterfall smell, not the agile cadence."
+              },
+              {
+                "text": "Only after the sprint, in a separate testing sprint",
+                "fraction": 0,
+                "feedback": "A separate testing sprint is an anti-pattern; testing belongs inside each sprint."
+              },
+              {
+                "text": "Only once the release is deployed to production",
+                "fraction": 0,
+                "feedback": "Waiting until production defeats the fast-feedback purpose of the sprint."
+              }
+            ],
+            "generalFeedback": "Agile testing is continuous: each user story is developed and tested within the same sprint. Testing is an ongoing activity throughout the iteration, not a phase bolted on at the end.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Whole-team responsibility for quality",
+            "text": "<p>In agile, quality is a <strong>whole-team responsibility</strong> \u2014 testing is not solely the job of a separate QA department.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the whole team owns quality; testing is a shared activity."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Agile treats quality as everyone's responsibility, not something delegated to a QA silo."
+              }
+            ],
+            "generalFeedback": `A core agile principle is whole-team responsibility for quality: developers, testers, and the product owner all contribute to building and verifying the product. "Testing is the QA team's phase" is exactly the mindset agile moves away from.`
+          },
+          {
+            "type": "multichoice",
+            "name": "Definition of Done includes testing",
+            "text": "<p>Which item most clearly belongs in a healthy <strong>Definition of Done</strong> for a user story?</p>",
+            "answers": [
+              {
+                "text": "The story has been tested, automated where sensible, with no known critical defects",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a proper DoD requires the story to be tested, not just coded."
+              },
+              {
+                "text": "The code compiles and has been merged to the main branch",
+                "fraction": 0,
+                "feedback": "Compiling and merging is not enough; Done requires the story to be tested."
+              },
+              {
+                "text": "The developer believes the code probably works",
+                "fraction": 0,
+                "feedback": "A belief is not verification; Done means the behaviour has actually been tested."
+              },
+              {
+                "text": "Testing has been scheduled for a later hardening sprint",
+                "fraction": 0,
+                "feedback": "Deferring testing to a later sprint means the story is not Done now."
+              }
+            ],
+            "generalFeedback": "The Definition of Done includes testing: a story counts as Done only when it has been tested (with automation where sensible) and carries no known critical defects. This keeps every increment trustworthy.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Potentially shippable increment",
+            "text": "<p>Each sprint aims to produce a <strong>potentially shippable increment</strong>. What does that mean?</p>",
+            "answers": [
+              {
+                "text": "A tested, working increment that could be released at the end of the sprint",
+                "fraction": 100,
+                "feedback": "Correct \u2014 potentially shippable means it is releasable in principle because quality is built in."
+              },
+              {
+                "text": "A set of features that has been coded but not yet tested",
+                "fraction": 0,
+                "feedback": "Untested code is not potentially shippable; testing is part of what makes it releasable."
+              },
+              {
+                "text": "A design document describing what will be built next sprint",
+                "fraction": 0,
+                "feedback": "An increment is working software, not a plan for future work."
+              },
+              {
+                "text": "A prototype that must go through a separate QA sprint before release",
+                "fraction": 0,
+                "feedback": "Needing a later QA sprint means it was not shippable at sprint end."
+              }
+            ],
+            "generalFeedback": 'A potentially shippable increment is working, tested software that the organisation could choose to release. "Potentially" refers to a business decision, not to unfinished quality work \u2014 the testing must already be done within the sprint.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When testers first engage",
+            "text": "<p>In a healthy sprint cadence, when do testers <strong>first</strong> get involved with a user story?</p>",
+            "answers": [
+              {
+                "text": "Early \u2014 during backlog refinement and sprint planning, helping shape acceptance criteria",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testers engage early (shift-left) so quality is designed in from the start."
+              },
+              {
+                "text": "Only after all coding for the story is finished",
+                "fraction": 0,
+                "feedback": "Waiting until coding is done delays feedback and is the pattern agile avoids."
+              },
+              {
+                "text": "Only during the sprint review demo",
+                "fraction": 0,
+                "feedback": "The review is far too late for a tester to first engage with a story."
+              },
+              {
+                "text": "Only in the next sprint, after development finishes this one",
+                "fraction": 0,
+                "feedback": "Testing a sprint behind development is an anti-pattern, not early engagement."
+              }
+            ],
+            "generalFeedback": 'Testers engage early \u2014 "shift-left" within the sprint. They join refinement and planning, help define acceptance criteria and concrete examples, and test each story as it is built rather than waiting for a batch at the end.',
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Develop and test within the same sprint",
+            "text": "<p>For a user story to be considered <strong>Done</strong>, it should be both developed and tested within the <strong>same</strong> sprint.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 development and testing of a story happen in the same sprint so it can be Done."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Splitting development and testing across sprints breaks the cadence; both belong in the same sprint."
+              }
+            ],
+            "generalFeedback": "Each story is developed and tested within one sprint. Only then does it meet a Definition of Done that includes testing and contribute to a potentially shippable increment."
+          },
+          {
+            "type": "multichoice",
+            "name": "Practice that fits the cadence",
+            "text": "<p>Which practice <strong>fits</strong> a healthy agile testing cadence?</p>",
+            "answers": [
+              {
+                "text": "Testing each story as soon as it is built, rather than batching all testing at sprint end",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testing stories as they complete keeps feedback fast and steady."
+              },
+              {
+                "text": "Holding all testing until every story is code-complete",
+                "fraction": 0,
+                "feedback": "Batching testing to the end creates a crunch and delays feedback."
+              },
+              {
+                "text": "Scheduling a hardening sprint to catch up on skipped testing",
+                "fraction": 0,
+                "feedback": "A hardening sprint signals that in-sprint testing was insufficient."
+              },
+              {
+                "text": "Having developers hand finished code to QA for the next sprint",
+                "fraction": 0,
+                "feedback": "Testing a sprint behind development delays feedback and causes carryover."
+              }
+            ],
+            "generalFeedback": "Testing each story as it is built keeps quality feedback flowing throughout the sprint. Batching, hardening sprints, and testing a sprint behind all break the cadence.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of shift-left in a sprint",
+            "text": "<p>Within a sprint, <em>shift-left</em> testing means:</p>",
+            "answers": [
+              {
+                "text": "Moving testing activities earlier \u2014 into planning and alongside development \u2014 rather than to the end",
+                "fraction": 100,
+                "feedback": "Correct \u2014 shift-left pulls testing thinking forward in the sprint."
+              },
+              {
+                "text": "Moving testing to a specialised team after the sprint ends",
+                "fraction": 0,
+                "feedback": "That pushes testing later and outside the sprint, the opposite of shift-left."
+              },
+              {
+                "text": "Testing only the left half of the user interface first",
+                "fraction": 0,
+                "feedback": "Shift-left is about timing in the workflow, not screen layout."
+              },
+              {
+                "text": "Letting users test in production before the team does",
+                "fraction": 0,
+                "feedback": "That shifts testing right, to after release, not left."
+              }
+            ],
+            "generalFeedback": "Shift-left means engaging testing earlier in the flow: helping define acceptance criteria in planning and refinement, pairing with developers, and testing each story as it is built. The goal is faster feedback and defects caught while cheap to fix.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Agile does not eliminate testing effort",
+            "text": "<p>Because agile spreads testing throughout the sprint, the team no longer needs to spend any effort on testing.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Agile redistributes testing across the sprint; it does not remove the effort. Exploratory testing and acceptance testing still happen."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testing effort is still real; it is woven through the sprint rather than eliminated."
+              }
+            ],
+            "generalFeedback": "Agile changes when and how testing happens \u2014 continuous, whole-team, in-sprint \u2014 but the work does not vanish. Automation, exploratory testing, and acceptance testing all still require effort; they simply happen within the cadence instead of as a final phase."
+          },
+          {
+            "type": "multichoice",
+            "name": "End-of-sprint test phase",
+            "text": "<p>A team codes all stories first, then reserves a separate <strong>testing phase</strong> for the final days of the sprint. How should this be judged?</p>",
+            "answers": [
+              {
+                "text": "An anti-pattern \u2014 a mini-waterfall inside the sprint that delays feedback",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an end-loaded test phase is the mini-waterfall smell."
+              },
+              {
+                "text": "A best practice, because testing is easier once everything is built",
+                "fraction": 0,
+                "feedback": "Batching testing to the end concentrates risk and delays feedback; it is not best practice."
+              },
+              {
+                "text": "Required by Scrum, which mandates a test phase each sprint",
+                "fraction": 0,
+                "feedback": "Scrum mandates no such phase; it expects testing woven throughout."
+              },
+              {
+                "text": "Fine, as long as the testers are a separate team",
+                "fraction": 0,
+                "feedback": "Handing off to a separate team late makes the delay and silo worse, not fine."
+              }
+            ],
+            "generalFeedback": "Reserving testing for the end recreates a small waterfall inside the sprint. Defects surface late, when there is little time to fix them, and feedback to developers is delayed. Test each story as it is built instead.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of in-sprint automation",
+            "text": "<p>What is the main purpose of <strong>in-sprint test automation</strong>?</p>",
+            "answers": [
+              {
+                "text": "To keep the growing regression suite runnable each sprint so feedback stays fast",
+                "fraction": 100,
+                "feedback": "Correct \u2014 automation lets the ever-larger regression run repeatedly and cheaply."
+              },
+              {
+                "text": "To replace the need for any human judgement in testing",
+                "fraction": 0,
+                "feedback": "Automation complements exploratory and human testing; it does not replace it."
+              },
+              {
+                "text": "To let the team skip writing a Definition of Done",
+                "fraction": 0,
+                "feedback": "Automation supports the DoD; it does not remove the need for one."
+              },
+              {
+                "text": "To move all testing into a later hardening sprint",
+                "fraction": 0,
+                "feedback": "Automation exists precisely so testing stays in-sprint, not deferred."
+              }
+            ],
+            "generalFeedback": "As sprints accumulate, the regression suite grows. Automating it in-sprint keeps that suite runnable every sprint, giving fast feedback and preventing manual regression from becoming an unsustainable end-of-sprint burden.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Testers contribute in refinement",
+            "text": "<p>Testers can contribute during backlog <strong>refinement</strong> by helping define clear acceptance criteria and concrete examples.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testers help make stories testable and unambiguous during refinement."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Testers add value early: refinement is where they help sharpen acceptance criteria and examples."
+              }
+            ],
+            "generalFeedback": "Testers engaging in refinement and planning helps surface edge cases and ambiguities before coding begins, producing testable stories with agreed acceptance criteria. This is a key part of shifting testing left within the cadence."
+          },
+          {
+            "type": "multichoice",
+            "name": "Who owns quality",
+            "text": "<p>In a Scrum team, who is responsible for the <strong>quality</strong> of the increment?</p>",
+            "answers": [
+              {
+                "text": "The whole team \u2014 developers, testers, and product owner together",
+                "fraction": 100,
+                "feedback": "Correct \u2014 quality is a shared, whole-team responsibility."
+              },
+              {
+                "text": "Only the testers, who form a gate before release",
+                "fraction": 0,
+                "feedback": "Making testers a gate recreates the QA silo agile avoids."
+              },
+              {
+                "text": "Only the Scrum Master, who signs off each story",
+                "fraction": 0,
+                "feedback": "The Scrum Master facilitates; they do not own quality alone."
+              },
+              {
+                "text": "Only the product owner, who accepts the increment",
+                "fraction": 0,
+                "feedback": "The product owner accepts value, but quality is built by the whole team."
+              }
+            ],
+            "generalFeedback": "Quality is a whole-team responsibility. Everyone contributes to building it in and verifying it, rather than delegating it to a single role or a downstream gate.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the sprint review shows",
+            "text": "<p>At the <strong>sprint review</strong>, what does the team demonstrate?</p>",
+            "answers": [
+              {
+                "text": "A working, tested increment of the product",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the review shows a real, tested increment, not unverified work."
+              },
+              {
+                "text": "Untested code that still needs a later QA pass",
+                "fraction": 0,
+                "feedback": "Demonstrating untested work means the increment was not actually Done."
+              },
+              {
+                "text": "Only slides describing what was planned",
+                "fraction": 0,
+                "feedback": "The review centres on working software, not planning slides."
+              },
+              {
+                "text": "A list of defects to be tested next sprint",
+                "fraction": 0,
+                "feedback": "Deferring testing to next sprint is the cadence anti-pattern, not what a review presents."
+              }
+            ],
+            "generalFeedback": "The sprint review demonstrates a working, tested increment \u2014 the outcome of development and testing done within the sprint. Because Done includes testing, what is shown is genuinely potentially shippable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Testers pairing with developers",
+            "text": "<p>A tester pairs with a developer to test a story <strong>as it is being built</strong>. Does this fit the agile testing cadence?</p>",
+            "answers": [
+              {
+                "text": "Yes \u2014 testing as the story is built gives immediate feedback and keeps quality in-sprint",
+                "fraction": 100,
+                "feedback": "Correct \u2014 pairing while building is exactly the continuous, whole-team cadence."
+              },
+              {
+                "text": "No \u2014 testers should never look at a story until it is fully code-complete",
+                "fraction": 0,
+                "feedback": "Waiting for code-complete delays feedback; early collaboration is preferred."
+              },
+              {
+                "text": "No \u2014 testing must wait for a dedicated hardening sprint",
+                "fraction": 0,
+                "feedback": "Deferring to a hardening sprint is an anti-pattern, not the cadence."
+              },
+              {
+                "text": "Only if the tester belongs to a separate QA department",
+                "fraction": 0,
+                "feedback": "Agile favours whole-team collaboration, not a separate QA gate."
+              }
+            ],
+            "generalFeedback": "Pairing a tester with a developer while the story is built embodies whole-team quality and shift-left testing: defects are caught immediately and the story reaches Done within the sprint.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Why test each story as it is built",
+            "text": "<p>Why is it better to test each story <strong>as it is built</strong> instead of batching all testing at the end of the sprint?</p>",
+            "answers": [
+              {
+                "text": "Defects surface while the context is fresh and cheap to fix, and feedback reaches developers quickly",
+                "fraction": 100,
+                "feedback": "Correct \u2014 early, incremental testing shortens the feedback loop and lowers fix cost."
+              },
+              {
+                "text": "It lets the team skip writing automated regression tests",
+                "fraction": 0,
+                "feedback": "Testing early does not remove the need for automation; the two work together."
+              },
+              {
+                "text": "It guarantees that no defects will ever be found",
+                "fraction": 0,
+                "feedback": "No practice guarantees zero defects; the benefit is faster, cheaper feedback."
+              },
+              {
+                "text": "It moves all responsibility for quality onto the testers",
+                "fraction": 0,
+                "feedback": "Agile spreads quality across the whole team; it does not concentrate it on testers."
+              }
+            ],
+            "generalFeedback": "Testing a story as soon as it is built gives developers feedback while the code is fresh in mind, when defects are cheapest to fix. Batching to the end delays that feedback and concentrates risk in the final days.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Describing the mini-waterfall smell",
+            "text": "<p>Which description best matches the <strong>mini-waterfall inside a sprint</strong> smell?</p>",
+            "answers": [
+              {
+                "text": "The team codes all stories first, then crams every test activity into the last days of the sprint",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an end-loaded test phase within the sprint is the mini-waterfall."
+              },
+              {
+                "text": "The team writes acceptance criteria before any coding begins",
+                "fraction": 0,
+                "feedback": "Defining criteria up front is good shift-left practice, not the smell."
+              },
+              {
+                "text": "The team automates its regression suite every sprint",
+                "fraction": 0,
+                "feedback": "In-sprint automation supports the cadence; it is not the smell."
+              },
+              {
+                "text": "Developers and testers pair on each story as it is built",
+                "fraction": 0,
+                "feedback": "Pairing while building is exactly the healthy cadence, not the smell."
+              }
+            ],
+            "generalFeedback": "The mini-waterfall recreates the phases of a waterfall project inside a single sprint: analyse, code, then test at the end. It delays feedback and produces an end-of-sprint crunch.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fixing the mini-waterfall",
+            "text": "<p>A team suffers the mini-waterfall smell. What is the most appropriate <strong>fix</strong>?</p>",
+            "answers": [
+              {
+                "text": "Test each story as soon as it is ready, with devs and testers collaborating throughout the sprint",
+                "fraction": 100,
+                "feedback": "Correct \u2014 spreading testing across the sprint removes the end-loaded crunch."
+              },
+              {
+                "text": "Add a hardening sprint after every few sprints to catch up",
+                "fraction": 0,
+                "feedback": "A hardening sprint masks the problem instead of restoring the cadence."
+              },
+              {
+                "text": "Push testing into the following sprint so coding can continue uninterrupted",
+                "fraction": 0,
+                "feedback": "Testing a sprint behind delays feedback and creates carryover."
+              },
+              {
+                "text": "Hire a separate QA team to test after the sprint closes",
+                "fraction": 0,
+                "feedback": "A downstream QA gate reintroduces the silo and the delay."
+              }
+            ],
+            "generalFeedback": "The fix is to flatten the waterfall: slice work so each story is tested as it becomes ready, with the whole team collaborating. This keeps feedback fast and the increment continuously close to Done.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Problem with throw-over-the-wall",
+            "text": '<p>What is the core problem with a "throw it over the wall to QA" hand-off?</p>',
+            "answers": [
+              {
+                "text": "It creates a hand-off delay and a quality silo, so defects are found late by people detached from the context",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the hand-off delays feedback and separates quality from the team that built it."
+              },
+              {
+                "text": "It makes testing too fast, so defects are missed",
+                "fraction": 0,
+                "feedback": "The problem is delay and detachment, not excessive speed."
+              },
+              {
+                "text": "It forces developers to write acceptance criteria too early",
+                "fraction": 0,
+                "feedback": "Early criteria are helpful; that is not the hand-off problem."
+              },
+              {
+                "text": "It removes the need for a Definition of Done",
+                "fraction": 0,
+                "feedback": "A hand-off model still needs a DoD; the issue is the silo and delay."
+              }
+            ],
+            "generalFeedback": "Throwing work over the wall to a separate QA group breaks whole-team quality. Feedback arrives late, the testers lack the context of how the code was built, and defects pile up at the boundary rather than being caught continuously.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Untested story is not Done",
+            "text": "<p>Because the Definition of Done includes testing, how should a story that is <strong>coded but not yet tested</strong> at sprint end be treated?</p>",
+            "answers": [
+              {
+                "text": "As not Done \u2014 it cannot be counted as complete or part of the shippable increment",
+                "fraction": 100,
+                "feedback": "Correct \u2014 untested work fails the DoD and is not Done."
+              },
+              {
+                "text": "As Done, since the code exists and can be tested later",
+                "fraction": 0,
+                "feedback": "Existing code is not Done if the DoD requires testing that has not happened."
+              },
+              {
+                "text": "As half Done, earning half its story points",
+                "fraction": 0,
+                "feedback": "Stories are binary against the DoD; there is no partial credit."
+              },
+              {
+                "text": "As Done, provided a hardening sprint is planned",
+                "fraction": 0,
+                "feedback": "Planning later testing does not make an untested story Done now."
+              }
+            ],
+            "generalFeedback": "If the DoD includes testing, an untested story is simply not Done. It is not counted toward velocity and does not belong in the shippable increment; the remaining testing carries over.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Benefit of testers in refinement",
+            "text": "<p>What is the main benefit of involving testers during backlog <strong>refinement and planning</strong>?</p>",
+            "answers": [
+              {
+                "text": "Ambiguities and edge cases are surfaced early, producing testable stories with agreed acceptance criteria",
+                "fraction": 100,
+                "feedback": "Correct \u2014 early tester input makes stories clearer and testable before coding."
+              },
+              {
+                "text": "Developers can then skip writing any unit tests",
+                "fraction": 0,
+                "feedback": "Tester involvement in planning does not remove developer testing duties."
+              },
+              {
+                "text": "The product owner no longer needs to prioritise the backlog",
+                "fraction": 0,
+                "feedback": "Prioritisation remains the product owner's job; refinement does not replace it."
+              },
+              {
+                "text": "Testing can then be safely deferred to the next sprint",
+                "fraction": 0,
+                "feedback": "Early planning input is meant to keep testing in-sprint, not defer it."
+              }
+            ],
+            "generalFeedback": "Testers thinking about a story during refinement and planning expose edge cases and ambiguities before code is written. The result is testable stories with clear, agreed acceptance criteria \u2014 fewer surprises and less rework later in the sprint.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Rationale for in-sprint automation",
+            "text": "<p>Why does sustainable agile testing rely on automating tests <strong>within each sprint</strong>?</p>",
+            "answers": [
+              {
+                "text": "The regression suite grows every sprint; without automation, re-running it manually each sprint becomes unsustainable",
+                "fraction": 100,
+                "feedback": "Correct \u2014 automation keeps the growing regression affordable to run repeatedly."
+              },
+              {
+                "text": "Automated tests never need to be maintained once written",
+                "fraction": 0,
+                "feedback": "Automated tests do need maintenance; that is not the rationale."
+              },
+              {
+                "text": "Automation lets the team drop its Definition of Done",
+                "fraction": 0,
+                "feedback": "Automation supports the DoD rather than replacing it."
+              },
+              {
+                "text": "Manual testing is always inferior and should be eliminated",
+                "fraction": 0,
+                "feedback": "Exploratory and manual testing remain valuable; automation targets repeatable regression."
+              }
+            ],
+            "generalFeedback": "Every sprint adds behaviour that must keep working. Manually retesting an ever-larger regression each sprint quickly overwhelms the team, so repeatable checks are automated in-sprint to keep feedback fast and the cadence sustainable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Velocity credit for untested work",
+            "text": '<p>A story is "code complete" but its testing is unfinished when the sprint ends. How does it affect <strong>velocity</strong>?</p>',
+            "answers": [
+              {
+                "text": "It earns no velocity credit this sprint and carries over, because it is not Done",
+                "fraction": 100,
+                "feedback": "Correct \u2014 undone stories give no credit and carry into the next sprint."
+              },
+              {
+                "text": "It earns full velocity credit because the code exists",
+                "fraction": 0,
+                "feedback": "Code existing is not Done; counting it inflates velocity."
+              },
+              {
+                "text": "It earns partial credit proportional to how much testing remains",
+                "fraction": 0,
+                "feedback": "Velocity uses Done/not-Done, not partial credit."
+              },
+              {
+                "text": "It boosts velocity because it will be finished quickly next sprint",
+                "fraction": 0,
+                "feedback": "Future finishing does not create current-sprint credit."
+              }
+            ],
+            "generalFeedback": "Velocity counts only Done stories. Because testing is part of Done, a code-complete-but-untested story earns nothing this sprint and carries over. Counting it anyway inflates velocity and hides work still to do.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Acceptance criteria as shared understanding",
+            "text": "<p>Agreeing <strong>acceptance criteria and concrete examples</strong> before coding a story mainly helps because:</p>",
+            "answers": [
+              {
+                "text": "It builds shared understanding of expected behaviour, so the story is built and tested against the same target",
+                "fraction": 100,
+                "feedback": "Correct \u2014 shared examples align development and testing before coding starts."
+              },
+              {
+                "text": "It lets the team avoid running any tests later",
+                "fraction": 0,
+                "feedback": "Criteria guide testing; they do not replace running tests."
+              },
+              {
+                "text": "It guarantees the story will need no changes once coding starts",
+                "fraction": 0,
+                "feedback": "Understanding can still evolve; the benefit is alignment, not immutability."
+              },
+              {
+                "text": "It shifts all testing to the end of the sprint",
+                "fraction": 0,
+                "feedback": "Agreeing criteria early shifts testing thinking left, not to the end."
+              }
+            ],
+            "generalFeedback": "Concrete acceptance criteria and examples give developers and testers a shared, unambiguous target. The story is built to meet those examples and tested against them, reducing rework and misunderstanding \u2014 a shift-left, whole-team practice.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why shippable requires in-sprint testing",
+            "text": "<p>Why does aiming for a <strong>potentially shippable increment</strong> force testing to happen within the sprint?</p>",
+            "answers": [
+              {
+                "text": "An increment can only be releasable if its quality is verified during the sprint, not deferred",
+                "fraction": 100,
+                "feedback": "Correct \u2014 releasability requires the testing to already be done in-sprint."
+              },
+              {
+                "text": "Because Scrum forbids writing any automated tests",
+                "fraction": 0,
+                "feedback": "Scrum does not forbid automation; automation actually supports shippability."
+              },
+              {
+                "text": "Because the product owner personally tests every story",
+                "fraction": 0,
+                "feedback": "The product owner accepts value; the whole team does the testing."
+              },
+              {
+                "text": "Because testing is cheaper if left until after several sprints",
+                "fraction": 0,
+                "feedback": "Deferring testing raises cost and risk; it does not make increments shippable."
+              }
+            ],
+            "generalFeedback": '"Potentially shippable" means the increment could be released at any time. That is only true if quality has been verified within the sprint. Deferring testing leaves unknown quality, so the increment is not actually shippable.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Effect of pairing on feedback",
+            "text": "<p>How does pairing a tester with a developer <strong>during</strong> development affect the feedback loop?</p>",
+            "answers": [
+              {
+                "text": "It shortens the loop \u2014 issues are raised and fixed immediately, reducing later rework",
+                "fraction": 100,
+                "feedback": "Correct \u2014 immediate collaboration catches issues before they compound."
+              },
+              {
+                "text": "It lengthens the loop, because two people slow everything down",
+                "fraction": 0,
+                "feedback": "Pairing shortens feedback for testing; it does not lengthen the quality loop."
+              },
+              {
+                "text": "It has no effect, since feedback only matters after release",
+                "fraction": 0,
+                "feedback": "In-sprint feedback is central to agile; it does not only matter after release."
+              },
+              {
+                "text": "It defers all feedback to the sprint review",
+                "fraction": 0,
+                "feedback": "Pairing gives feedback continuously, not only at the review."
+              }
+            ],
+            "generalFeedback": "Pairing collapses the distance between writing code and testing it: problems are spotted and corrected on the spot, while context is fresh, instead of being logged as defects to fix days later. This is the whole-team, shift-left cadence in action.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Symptom of a mini-waterfall",
+            "text": "<p>Which observation is a telltale <strong>symptom</strong> that a team has a mini-waterfall inside its sprint?</p>",
+            "answers": [
+              {
+                "text": "Testers are idle early in the sprint and overloaded in its final days",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an idle-then-crunch pattern signals end-loaded testing."
+              },
+              {
+                "text": "Testers and developers pair on stories from day one",
+                "fraction": 0,
+                "feedback": "Day-one collaboration is the healthy cadence, not a symptom of the smell."
+              },
+              {
+                "text": "The regression suite is automated and runs every sprint",
+                "fraction": 0,
+                "feedback": "Automated regression is good practice, not a symptom of the smell."
+              },
+              {
+                "text": "Acceptance criteria are agreed during refinement",
+                "fraction": 0,
+                "feedback": "Agreeing criteria early is shift-left practice, not a mini-waterfall symptom."
+              }
+            ],
+            "generalFeedback": "A classic mini-waterfall symptom is uneven load: nothing to test early because coding is still in progress, then a crush of testing at the end. Smooth, continuous testing throughout the sprint is the healthy alternative.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Risk of batch-testing at sprint end",
+            "text": "<p>What is the main <strong>risk</strong> of batching all testing into the final days of the sprint?</p>",
+            "answers": [
+              {
+                "text": "Defects are found too late to fix within the sprint, forcing rushed fixes or carryover",
+                "fraction": 100,
+                "feedback": "Correct \u2014 late discovery leaves no room to fix, so work slips or is rushed."
+              },
+              {
+                "text": "The team will finish every story earlier than planned",
+                "fraction": 0,
+                "feedback": "Batching testing tends to cause slippage, not early finishes."
+              },
+              {
+                "text": "Automated tests become impossible to write",
+                "fraction": 0,
+                "feedback": "Batching does not make automation impossible; it just delays feedback."
+              },
+              {
+                "text": "The product owner must attend the daily scrum",
+                "fraction": 0,
+                "feedback": "That is unrelated to when testing happens."
+              }
+            ],
+            "generalFeedback": "When testing is squeezed into the last days, any defect it finds arrives with too little time to fix. The result is a crunch, rushed low-quality fixes, or stories carrying over unfinished into the next sprint.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "We will add tests next sprint",
+            "text": `<p>A developer says, "Let's mark it Done now and add the tests next sprint." What does this most directly undermine?</p>`,
+            "answers": [
+              {
+                "text": "The Definition of Done \u2014 it hides untested work as complete and accrues test debt",
+                "fraction": 100,
+                "feedback": "Correct \u2014 calling untested work Done breaks the DoD and builds up debt."
+              },
+              {
+                "text": "The daily scrum, which becomes unnecessary",
+                "fraction": 0,
+                "feedback": "The daily scrum is unaffected by this decision."
+              },
+              {
+                "text": "The product backlog ordering",
+                "fraction": 0,
+                "feedback": "Backlog ordering is a separate concern from marking untested work Done."
+              },
+              {
+                "text": "Nothing \u2014 deferring tests one sprint is standard agile practice",
+                "fraction": 0,
+                "feedback": "Deferring tests a sprint is an anti-pattern, not standard practice."
+              }
+            ],
+            "generalFeedback": "Marking untested work as Done violates a DoD that includes testing. It disguises incomplete work as finished, inflates velocity, and accumulates test debt that must be repaid later \u2014 usually at higher cost.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Whole-team response to a defect",
+            "text": "<p>Under <strong>whole-team quality</strong>, what should happen when a defect is found mid-sprint?</p>",
+            "answers": [
+              {
+                "text": "The team collaborates to address it promptly, rather than treating it as only the testers' problem",
+                "fraction": 100,
+                "feedback": "Correct \u2014 whole-team quality means the team swarms the issue together."
+              },
+              {
+                "text": "It is logged and left for the QA team to handle after the sprint",
+                "fraction": 0,
+                "feedback": "Leaving it for a downstream QA team recreates the silo and delay."
+              },
+              {
+                "text": "It is ignored until the hardening sprint",
+                "fraction": 0,
+                "feedback": "Deferring to a hardening sprint lets the defect and debt linger."
+              },
+              {
+                "text": "The tester who found it must fix it alone",
+                "fraction": 0,
+                "feedback": "Whole-team quality means shared ownership, not solo blame."
+              }
+            ],
+            "generalFeedback": "With whole-team quality, a defect belongs to the team, not to whoever found it. The team swarms to fix it promptly so the story can reach Done within the sprint, keeping the increment shippable.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Diagnose the last-two-days pattern",
+            "text": "<p>A team's developers code throughout the sprint while testers only start testing in the final two days, when defects pile up. What is the <strong>diagnosis and remediation</strong>?</p>",
+            "answers": [
+              {
+                "text": "Mini-waterfall inside the sprint; remediation is to test each story as it completes, with the whole team collaborating throughout",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the end-loaded testing is a mini-waterfall, fixed by continuous in-sprint testing."
+              },
+              {
+                "text": "Healthy cadence; no change needed because all testing still happens in-sprint",
+                "fraction": 0,
+                "feedback": "Being in-sprint is not enough; the end-loading is the problem."
+              },
+              {
+                "text": "Testing-a-sprint-behind; remediation is to add a hardening sprint",
+                "fraction": 0,
+                "feedback": "This is not a sprint-behind pattern, and a hardening sprint would not fix it."
+              },
+              {
+                "text": "A tooling problem; remediation is to buy a faster test runner",
+                "fraction": 0,
+                "feedback": "The issue is workflow timing, not test-runner speed."
+              }
+            ],
+            "generalFeedback": "Coding first and testing last recreates a waterfall inside the sprint. The remedy is to flatten it: slice work so each story is testable soon, test it as it completes, and have developers and testers collaborate continuously so feedback is fast.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose the recurring hardening sprint",
+            "text": "<p>Every third sprint, a team runs a dedicated <strong>hardening sprint</strong> to stabilise and test accumulated work. What does this indicate, and what is the fix?</p>",
+            "answers": [
+              {
+                "text": "A smell of insufficient in-sprint testing and accumulating quality debt; the fix is to build quality in each sprint via a stronger DoD and in-sprint automation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a recurring hardening sprint signals debt that should be prevented in-sprint."
+              },
+              {
+                "text": "A best practice that every mature agile team should adopt permanently",
+                "fraction": 0,
+                "feedback": "A permanent hardening sprint institutionalises the debt rather than removing it."
+              },
+              {
+                "text": "Proof the team tests too much and should slow down",
+                "fraction": 0,
+                "feedback": "The problem is deferred testing, not excessive testing."
+              },
+              {
+                "text": "A normal consequence of automating regression tests",
+                "fraction": 0,
+                "feedback": "Automation reduces the need for hardening; it does not cause it."
+              }
+            ],
+            "generalFeedback": "A recurring hardening sprint is a symptom: quality work is being deferred and must be repaid in a catch-up sprint. The cure is to prevent the debt \u2014 a Definition of Done that includes testing, in-sprint automation, and continuous testing so each sprint's increment is already stable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose test-a-sprint-behind",
+            "text": "<p>Developers build features in sprint N, and testers test that same work in sprint N+1. What is the <strong>diagnosis and its main consequence</strong>?</p>",
+            "answers": [
+              {
+                "text": 'Testing lags a sprint behind development; feedback is delayed and untested work carries over, so "Done" is ambiguous',
+                "fraction": 100,
+                "feedback": "Correct \u2014 a one-sprint lag delays feedback and produces carryover and unclear Done."
+              },
+              {
+                "text": "It is ideal pipelining that maximises throughput with no downside",
+                "fraction": 0,
+                "feedback": "The lag has real downsides: delayed feedback and carryover, not a free speed-up."
+              },
+              {
+                "text": "A mini-waterfall confined to a single sprint",
+                "fraction": 0,
+                "feedback": "The lag spans two sprints; it is the sprint-behind anti-pattern, not a single-sprint mini-waterfall."
+              },
+              {
+                "text": "Whole-team quality working as intended",
+                "fraction": 0,
+                "feedback": "Splitting build and test across sprints is the opposite of whole-team, in-sprint quality."
+              }
+            ],
+            "generalFeedback": "When testing trails development by a sprint, defects in sprint N are not found until N+1 \u2014 after more work has been built on top. Feedback is delayed, stories carry over, and no sprint produces a genuinely Done increment. The remedy is to test within the same sprint.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why Done requires testing",
+            "text": "<p>From a risk perspective, why must the Definition of <strong>Done</strong> require testing?</p>",
+            "answers": [
+              {
+                "text": "Untested code has unknown quality, so calling it Done hides risk and lets debt accumulate silently",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 without testing, "Done" makes an unverified, risky claim.'
+              },
+              {
+                "text": "Testing is required only to satisfy an external auditor, not for risk",
+                "fraction": 0,
+                "feedback": "The reason is genuine quality risk, not merely audit compliance."
+              },
+              {
+                "text": "Because testing makes the code run faster",
+                "fraction": 0,
+                "feedback": "Testing verifies behaviour; it is not primarily a performance optimisation."
+              },
+              {
+                "text": "Because Scrum assigns testing to the product owner",
+                "fraction": 0,
+                "feedback": "Testing is a whole-team activity, and this is not why Done needs it."
+              }
+            ],
+            "generalFeedback": "Done is a claim that the work is complete and trustworthy. Untested code carries unknown quality, so marking it Done conceals risk and quietly accrues debt. Requiring testing keeps Done honest and every increment potentially shippable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Trade-off of deferring testing",
+            "text": '<p>A team argues that deferring testing to sprint end lets them "code faster." What is the real <strong>trade-off</strong>?</p>',
+            "answers": [
+              {
+                "text": "It feels faster short-term but raises defect cost, delays feedback, and risks an end-of-sprint crunch and carryover",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the apparent speed is borrowed against later cost and risk."
+              },
+              {
+                "text": "There is no trade-off; deferring testing is strictly faster overall",
+                "fraction": 0,
+                "feedback": "The later cost of late defects and carryover offsets the apparent speed."
+              },
+              {
+                "text": "It slows coding immediately with no later benefit or cost",
+                "fraction": 0,
+                "feedback": "Deferral does not slow coding immediately; the cost lands later."
+              },
+              {
+                "text": "It guarantees higher quality because tests run all at once",
+                "fraction": 0,
+                "feedback": "Running tests late tends to lower quality outcomes, not raise them."
+              }
+            ],
+            "generalFeedback": "Deferring testing borrows apparent speed from the future: defects found late cost more to fix, feedback is delayed, and the sprint ends in a crunch with likely carryover. The short-term gain is repaid with interest.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Sustaining regression across sprints",
+            "text": "<p>As sprints accumulate, how does a team keep the <strong>regression</strong> sustainable without lengthening the sprint?</p>",
+            "answers": [
+              {
+                "text": "Automate regression checks in-sprint so the growing suite runs repeatedly and cheaply each sprint",
+                "fraction": 100,
+                "feedback": "Correct \u2014 in-sprint automation keeps the expanding regression affordable."
+              },
+              {
+                "text": "Manually re-run the entire regression by hand every sprint",
+                "fraction": 0,
+                "feedback": "Manual re-runs grow without bound and become unsustainable."
+              },
+              {
+                "text": "Stop testing older features once they have shipped once",
+                "fraction": 0,
+                "feedback": "Abandoning regression lets old features silently break."
+              },
+              {
+                "text": "Batch all regression into an occasional hardening sprint",
+                "fraction": 0,
+                "feedback": "Batching regression into a hardening sprint delays feedback and hides debt."
+              }
+            ],
+            "generalFeedback": "The regression suite grows with every sprint. Automating those repeatable checks in-sprint keeps the whole suite runnable each iteration, so feedback stays fast and the cadence holds without stretching the sprint or hiring endless manual testers.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Carryover impact of undone testing",
+            "text": "<p>A team routinely marks code-complete stories as Done despite unfinished testing. What is the likely effect on <strong>velocity and carryover</strong> over time?</p>",
+            "answers": [
+              {
+                "text": "Velocity looks inflated while hidden testing debt grows, eventually forcing carryover and a slowdown",
+                "fraction": 100,
+                "feedback": "Correct \u2014 counting undone work inflates velocity now and forces a reckoning later."
+              },
+              {
+                "text": "Velocity becomes perfectly accurate and carryover disappears",
+                "fraction": 0,
+                "feedback": "Counting untested work makes velocity less accurate, not more."
+              },
+              {
+                "text": "Velocity drops immediately with no hidden effects",
+                "fraction": 0,
+                "feedback": "The immediate effect is inflated velocity; the drop comes later."
+              },
+              {
+                "text": "Carryover is eliminated because nothing is ever left undone",
+                "fraction": 0,
+                "feedback": "Testing is in fact left undone, so debt and carryover accumulate."
+              }
+            ],
+            "generalFeedback": "Counting untested stories as Done inflates reported velocity while real testing debt piles up invisibly. When it must be repaid, the team slows down and stories carry over, making the earlier velocity figures misleading.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Testing sprint after several dev sprints",
+            "text": "<p>A team plans several development-only sprints followed by one <strong>testing sprint</strong>. Why is this problematic and what is the better approach?</p>",
+            "answers": [
+              {
+                "text": "It defers feedback and quality far downstream; better to test within every sprint so each yields a shippable increment",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a separate testing sprint delays feedback; testing belongs in every sprint."
+              },
+              {
+                "text": "It is fine, because concentrating testing improves focus",
+                "fraction": 0,
+                "feedback": "Concentrating testing downstream sacrifices fast feedback and shippability."
+              },
+              {
+                "text": "It is required whenever the product is large",
+                "fraction": 0,
+                "feedback": "Product size does not justify separating testing into its own sprint."
+              },
+              {
+                "text": "It is the same as pairing testers with developers",
+                "fraction": 0,
+                "feedback": "A separate testing sprint is the opposite of continuous, paired, in-sprint testing."
+              }
+            ],
+            "generalFeedback": "A dedicated testing sprint pushes verification far from the code that created the risk, so defects are found late and no earlier sprint is truly Done. The better approach is to test within every sprint, keeping each increment potentially shippable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Done story shipped a critical defect",
+            "text": '<p>A story marked Done shipped a critical defect because "there was no time to test it." What was violated, and what is the remediation?</p>',
+            "answers": [
+              {
+                "text": "The Definition of Done was violated; the fix is to enforce testing as part of Done and reduce work-in-progress so stories can be finished properly",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the DoD was not met; enforce it and limit WIP so testing fits."
+              },
+              {
+                "text": "Nothing was violated; shipping fast is more important than testing",
+                "fraction": 0,
+                "feedback": "Skipping testing violated the DoD and caused the escaped defect."
+              },
+              {
+                "text": "The daily scrum was violated; the fix is longer stand-ups",
+                "fraction": 0,
+                "feedback": "The daily scrum is unrelated to skipping a story's testing."
+              },
+              {
+                "text": "The backlog was violated; the fix is to add more stories",
+                "fraction": 0,
+                "feedback": "Adding stories worsens overload; it does not address the missing testing."
+              }
+            ],
+            "generalFeedback": "Marking an untested story Done breaks a DoD that includes testing, and the escaped defect is the direct result. The remedy is to honour the DoD and to limit work-in-progress so the team can finish and test each story rather than overcommitting.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Remedy for a recurring end-of-sprint crunch",
+            "text": "<p>A team keeps hitting an end-of-sprint testing crunch. Which change most directly restores a steady cadence?</p>",
+            "answers": [
+              {
+                "text": "Limit work-in-progress and finish-and-test one story before pulling the next",
+                "fraction": 100,
+                "feedback": "Correct \u2014 limiting WIP and completing stories one at a time smooths testing across the sprint."
+              },
+              {
+                "text": "Start every story at once so testing can all happen together at the end",
+                "fraction": 0,
+                "feedback": "Starting everything at once creates the end-loaded crunch, not a cure."
+              },
+              {
+                "text": "Move all testing into the next sprint",
+                "fraction": 0,
+                "feedback": "Deferring to the next sprint is the sprint-behind anti-pattern."
+              },
+              {
+                "text": "Extend the sprint length indefinitely",
+                "fraction": 0,
+                "feedback": "Longer sprints just enlarge the same crunch; they do not smooth the flow."
+              }
+            ],
+            "generalFeedback": "An end-of-sprint crunch usually comes from too much work-in-progress finishing at once. Limiting WIP and completing (and testing) one story before starting the next spreads testing evenly across the sprint and keeps the increment close to Done throughout.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Automation does not remove exploratory testing",
+            "text": "<p>Even with strong in-sprint automation, a team should still perform some exploratory and acceptance testing within the sprint.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 automation sustains regression, but human exploratory and acceptance testing remain valuable in-sprint."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Automation covers repeatable checks; it does not replace exploratory and acceptance testing."
+              }
+            ],
+            "generalFeedback": "Automation is ideal for repeatable regression, keeping the growing suite runnable each sprint. But it does not replace human judgement: exploratory testing and user/acceptance testing still happen within the cadence. Agile weaves testing throughout; it does not eliminate its manual forms."
+          },
+          {
+            "type": "multichoice",
+            "name": "High velocity but rising escaped defects",
+            "text": "<p>A team reports high velocity, yet escaped defects in production keep rising. What is the most likely <strong>cadence cause</strong>?</p>",
+            "answers": [
+              {
+                "text": "Their Definition of Done omits real testing, so untested work is counted Done and defects slip through",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a weak DoD lets untested work inflate velocity and leak defects."
+              },
+              {
+                "text": "They are pairing testers with developers too early",
+                "fraction": 0,
+                "feedback": "Early pairing reduces escaped defects; it is not the cause."
+              },
+              {
+                "text": "Their regression suite is too automated",
+                "fraction": 0,
+                "feedback": "More automation lowers escaped defects; over-automation is not the cause here."
+              },
+              {
+                "text": "They hold a sprint retrospective every sprint",
+                "fraction": 0,
+                "feedback": "Retrospectives help improvement; they do not cause escaped defects."
+              }
+            ],
+            "generalFeedback": 'High velocity with rising escaped defects is a classic sign that "Done" does not really include testing. Work is marked complete before it is verified, so velocity looks good while defects leak to production. Strengthening the DoD to include testing realigns the numbers with reality.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why hardening sprint is symptom not solution",
+            "text": "<p>Why is a recurring hardening sprint best seen as a <strong>symptom rather than a solution</strong>?</p>",
+            "answers": [
+              {
+                "text": "It reacts to accumulated debt after the fact instead of preventing it, and its recurring need signals a broken in-sprint cadence",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it treats the symptom late rather than fixing the cadence that causes the debt."
+              },
+              {
+                "text": "It is a solution, because it always eliminates the underlying debt permanently",
+                "fraction": 0,
+                "feedback": "It clears a backlog once but does nothing to stop the debt recurring."
+              },
+              {
+                "text": "Because hardening sprints are forbidden by the Scrum Guide with penalties",
+                "fraction": 0,
+                "feedback": "The point is about cause and effect, not a formal prohibition or penalty."
+              },
+              {
+                "text": "Because it makes the automated tests run more slowly",
+                "fraction": 0,
+                "feedback": "Test-runner speed is not why a hardening sprint is a symptom."
+              }
+            ],
+            "generalFeedback": "A hardening sprint only cleans up debt that the regular sprints should not have created. If it is needed repeatedly, the real problem is upstream: testing is not happening within each sprint. Fixing the cadence removes the need for hardening.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose the Done-versus-tested gap",
+            "text": '<p>Each sprint, the count of stories developers call "done" far exceeds the count actually tested, and testers are perpetually overwhelmed. What is the <strong>diagnosis and fix</strong>?</p>',
+            "answers": [
+              {
+                "text": "A work-in-progress imbalance creating a testing bottleneck; fix it with whole-team testing, limiting WIP, and swarming stories to Done",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the gap is a WIP/bottleneck problem cured by shared testing and lower WIP."
+              },
+              {
+                "text": "Testers are simply too slow and should be replaced",
+                "fraction": 0,
+                "feedback": "The issue is systemic WIP imbalance, not individual tester speed."
+              },
+              {
+                "text": "Developers are too productive; they should write less code",
+                "fraction": 0,
+                "feedback": "The problem is unbalanced flow, not excess productivity; the answer is whole-team testing, not slowing coders."
+              },
+              {
+                "text": "The Definition of Done should drop testing to close the gap",
+                "fraction": 0,
+                "feedback": "Dropping testing from Done hides the bottleneck and ships untested work."
+              }
+            ],
+            "generalFeedback": 'When developer "done" outruns tested work, quality is bottlenecked at testing. The cure is whole-team quality: developers help test, work-in-progress is limited, and the team swarms stories through to a Done that includes testing \u2014 not lowering the bar or blaming testers.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Feedback delay under a sprint lag",
+            "text": "<p>When testing lags development by a full sprint, what happens to a defect introduced early in sprint N, and how should it be fixed?</p>",
+            "answers": [
+              {
+                "text": "It is not found until sprint N+1, after more work is built on the faulty base; fix it by testing within the same sprint the code is written",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the lag delays discovery until N+1, so remediation is to close the lag."
+              },
+              {
+                "text": "It is found instantly, so the lag has no effect on feedback",
+                "fraction": 0,
+                "feedback": "A one-sprint lag delays discovery to N+1; it is not instant."
+              },
+              {
+                "text": "It disappears on its own once the next sprint starts",
+                "fraction": 0,
+                "feedback": "Defects do not vanish; the lag merely postpones finding them."
+              },
+              {
+                "text": "It is fixed by adding a hardening sprint after N+1",
+                "fraction": 0,
+                "feedback": "A hardening sprint compounds the delay rather than closing the lag."
+              }
+            ],
+            "generalFeedback": "With testing a sprint behind, a defect from early in sprint N is not detected until sprint N+1, by which time further work has been built on the faulty base \u2014 making the fix larger and riskier. The remedy is to test the code within the same sprint it is written, closing the feedback gap.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u5728\u885D\u523A\u4E2D\u767C\u751F\u7684\u6642\u6A5F",
+            "text": "<p>\u5728\u654F\u6377\u7684\u885D\u523A\uFF08Sprint\uFF09\u4E2D\uFF0C\u6E2C\u8A66<strong>\u4F55\u6642</strong>\u9032\u884C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u6574\u500B\u885D\u523A\u4E2D\u6301\u7E8C\u9032\u884C\uFF0C\u96A8\u8457\u6BCF\u500B\u6545\u4E8B\u88AB\u958B\u767C\u51FA\u4F86\u5C31\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u8CAB\u7A7F\u6574\u500B\u885D\u523A\uFF0C\u800C\u4E0D\u662F\u7559\u5230\u6700\u5F8C\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u885D\u523A\u6700\u5F8C\u5169\u5929\u7684\u5C08\u9580\u6E2C\u8A66\u968E\u6BB5\u9032\u884C",
+                "fraction": 0,
+                "feedback": "\u9019\u7A2E\u628A\u6E2C\u8A66\u5806\u5230\u6700\u5F8C\u7684\u6A21\u5F0F\u662F\u300C\u8FF7\u4F60\u7011\u5E03\u300D\u81ED\u5473\uFF0C\u4E0D\u662F\u654F\u6377\u7BC0\u594F\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u885D\u523A\u4E4B\u5F8C\u3001\u65BC\u53E6\u4E00\u500B\u7368\u7ACB\u7684\u6E2C\u8A66\u885D\u523A\u4E2D\u9032\u884C",
+                "fraction": 0,
+                "feedback": "\u7368\u7ACB\u7684\u6E2C\u8A66\u885D\u523A\u662F\u4E00\u7A2E\u53CD\u6A21\u5F0F\uFF1B\u6E2C\u8A66\u61C9\u5728\u6BCF\u500B\u885D\u523A\u5167\u9032\u884C\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u767C\u5E03\u4E0A\u7DDA\u5230\u6B63\u5F0F\u74B0\u5883\u4E4B\u5F8C\u624D\u9032\u884C",
+                "fraction": 0,
+                "feedback": "\u7B49\u5230\u6B63\u5F0F\u74B0\u5883\u624D\u6E2C\u8A66\uFF0C\u9055\u80CC\u4E86\u885D\u523A\u5FEB\u901F\u56DE\u994B\u7684\u76EE\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u654F\u6377\u6E2C\u8A66\u662F\u6301\u7E8C\u9032\u884C\u7684\uFF1A\u6BCF\u500B\u4F7F\u7528\u8005\u6545\u4E8B\u90FD\u5728\u540C\u4E00\u500B\u885D\u523A\u5167\u88AB\u958B\u767C\u4E26\u6E2C\u8A66\u3002\u6E2C\u8A66\u662F\u8CAB\u7A7F\u6574\u500B\u8FED\u4EE3\u7684\u6301\u7E8C\u6D3B\u52D5\uFF0C\u800C\u4E0D\u662F\u6700\u5F8C\u624D\u52A0\u4E0A\u53BB\u7684\u4E00\u500B\u968E\u6BB5\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u54C1\u8CEA\u662F\u5168\u5718\u968A\u7684\u8CAC\u4EFB",
+            "text": "<p>\u5728\u654F\u6377\u4E2D\uFF0C\u54C1\u8CEA\u662F<strong>\u5168\u5718\u968A\u7684\u8CAC\u4EFB</strong>\u2014\u2014\u6E2C\u8A66\u4E26\u975E\u53EA\u7531\u7368\u7ACB\u7684 QA \u90E8\u9580\u8CA0\u8CAC\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5168\u5718\u968A\u5171\u540C\u64C1\u6709\u54C1\u8CEA\uFF0C\u6E2C\u8A66\u662F\u5171\u4EAB\u7684\u6D3B\u52D5\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u654F\u6377\u628A\u54C1\u8CEA\u8996\u70BA\u6BCF\u500B\u4EBA\u7684\u8CAC\u4EFB\uFF0C\u800C\u4E0D\u662F\u4EA4\u7531\u4E00\u500B QA \u5B64\u5CF6\u8CA0\u8CAC\u3002"
+              }
+            ],
+            "generalFeedback": "\u654F\u6377\u7684\u4E00\u9805\u6838\u5FC3\u539F\u5247\u662F\u54C1\u8CEA\u70BA\u5168\u5718\u968A\u7684\u8CAC\u4EFB\uFF1A\u958B\u767C\u8005\u3001\u6E2C\u8A66\u8005\u8207\u7522\u54C1\u8CA0\u8CAC\u4EBA\u90FD\u5C0D\u5EFA\u69CB\u4E26\u9A57\u8B49\u7522\u54C1\u6709\u6240\u8CA2\u737B\u3002\u300C\u6E2C\u8A66\u662F QA \u5718\u968A\u7684\u968E\u6BB5\u300D\u6B63\u662F\u654F\u6377\u8981\u64FA\u812B\u7684\u5FC3\u614B\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u5305\u542B\u6E2C\u8A66",
+            "text": "<p>\u5C0D\u4E00\u500B\u4F7F\u7528\u8005\u6545\u4E8B\u800C\u8A00\uFF0C\u4E0B\u5217\u54EA\u4E00\u9805\u6700\u660E\u78BA\u5730\u5C6C\u65BC\u5065\u5EB7\u7684<strong>\u5B8C\u6210\u7684\u5B9A\u7FA9\uFF08Definition of Done\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6545\u4E8B\u5DF2\u88AB\u6E2C\u8A66\u3001\u5728\u5408\u7406\u8655\u5DF2\u81EA\u52D5\u5316\uFF0C\u4E14\u6C92\u6709\u5DF2\u77E5\u7684\u91CD\u5927\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6070\u7576\u7684 DoD \u8981\u6C42\u6545\u4E8B\u5DF2\u88AB\u6E2C\u8A66\uFF0C\u800C\u4E0D\u53EA\u662F\u5BEB\u5B8C\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u78BC\u80FD\u5920\u7DE8\u8B6F\uFF0C\u4E26\u4E14\u5DF2\u5408\u4F75\u5230\u4E3B\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u80FD\u7DE8\u8B6F\u4E26\u5408\u4F75\u9084\u4E0D\u5920\uFF1B\u5B8C\u6210\u8981\u6C42\u6545\u4E8B\u5DF2\u88AB\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u958B\u767C\u8005\u76F8\u4FE1\u7A0B\u5F0F\u78BC\u5927\u6982\u80FD\u904B\u4F5C",
+                "fraction": 0,
+                "feedback": "\u76F8\u4FE1\u4E26\u975E\u9A57\u8B49\uFF1B\u5B8C\u6210\u8868\u793A\u884C\u70BA\u78BA\u5BE6\u5DF2\u88AB\u6E2C\u8A66\u904E\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5DF2\u88AB\u6392\u5230\u4E4B\u5F8C\u7684\u5F37\u5316\u885D\u523A\u53BB\u505A",
+                "fraction": 0,
+                "feedback": "\u628A\u6E2C\u8A66\u5EF6\u5F8C\u5230\u4E4B\u5F8C\u7684\u885D\u523A\uFF0C\u4EE3\u8868\u9019\u500B\u6545\u4E8B\u73FE\u5728\u4E26\u672A\u5B8C\u6210\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u5305\u542B\u6E2C\u8A66\uFF1A\u552F\u6709\u6545\u4E8B\u5DF2\u88AB\u6E2C\u8A66\uFF08\u5728\u5408\u7406\u8655\u52A0\u4E0A\u81EA\u52D5\u5316\uFF09\u4E14\u6C92\u6709\u5DF2\u77E5\u7684\u91CD\u5927\u7F3A\u9677\uFF0C\u624D\u7B97\u5B8C\u6210\u3002\u9019\u8B93\u6BCF\u500B\u589E\u91CF\u90FD\u503C\u5F97\u4FE1\u4EFB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6F5B\u5728\u53EF\u4EA4\u4ED8\u7684\u589E\u91CF",
+            "text": "<p>\u6BCF\u500B\u885D\u523A\u90FD\u4EE5\u7522\u51FA<strong>\u6F5B\u5728\u53EF\u4EA4\u4ED8\u7684\u589E\u91CF\uFF08potentially shippable increment\uFF09</strong>\u70BA\u76EE\u6A19\u3002\u9019\u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u5DF2\u6E2C\u8A66\u3001\u80FD\u904B\u4F5C\u7684\u589E\u91CF\uFF0C\u5728\u885D\u523A\u7D50\u675F\u6642\u5373\u53EF\u88AB\u767C\u5E03",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6F5B\u5728\u53EF\u4EA4\u4ED8\u8868\u793A\u56E0\u70BA\u54C1\u8CEA\u5DF2\u5167\u5EFA\uFF0C\u539F\u5247\u4E0A\u5C31\u662F\u53EF\u767C\u5E03\u7684\u3002"
+              },
+              {
+                "text": "\u4E00\u7D44\u5DF2\u5BEB\u597D\u7A0B\u5F0F\u78BC\u3001\u4F46\u5C1A\u672A\u6E2C\u8A66\u7684\u529F\u80FD",
+                "fraction": 0,
+                "feedback": "\u672A\u6E2C\u8A66\u7684\u7A0B\u5F0F\u78BC\u4E26\u975E\u6F5B\u5728\u53EF\u4EA4\u4ED8\uFF1B\u6E2C\u8A66\u6B63\u662F\u4F7F\u5176\u53EF\u767C\u5E03\u7684\u4E00\u90E8\u5206\u3002"
+              },
+              {
+                "text": "\u4E00\u4EFD\u63CF\u8FF0\u4E0B\u500B\u885D\u523A\u8981\u5EFA\u69CB\u4EC0\u9EBC\u7684\u8A2D\u8A08\u6587\u4EF6",
+                "fraction": 0,
+                "feedback": "\u589E\u91CF\u662F\u80FD\u904B\u4F5C\u7684\u8EDF\u9AD4\uFF0C\u4E0D\u662F\u672A\u4F86\u5DE5\u4F5C\u7684\u8A08\u756B\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u5FC5\u9808\u5148\u7D93\u904E\u53E6\u4E00\u500B\u7368\u7ACB QA \u885D\u523A\u624D\u80FD\u767C\u5E03\u7684\u539F\u578B",
+                "fraction": 0,
+                "feedback": "\u9700\u8981\u4E4B\u5F8C\u7684 QA \u885D\u523A\uFF0C\u4EE3\u8868\u5B83\u5728\u885D\u523A\u7D50\u675F\u6642\u4E26\u975E\u53EF\u4EA4\u4ED8\u3002"
+              }
+            ],
+            "generalFeedback": "\u6F5B\u5728\u53EF\u4EA4\u4ED8\u7684\u589E\u91CF\u662F\u80FD\u904B\u4F5C\u3001\u5DF2\u6E2C\u8A66\u7684\u8EDF\u9AD4\uFF0C\u7D44\u7E54\u53EF\u4EE5\u9078\u64C7\u662F\u5426\u767C\u5E03\u3002\u300C\u6F5B\u5728\u300D\u6307\u7684\u662F\u5546\u696D\u6C7A\u7B56\uFF0C\u800C\u975E\u5C1A\u672A\u5B8C\u6210\u7684\u54C1\u8CEA\u5DE5\u4F5C\u2014\u2014\u6E2C\u8A66\u5FC5\u9808\u5DF2\u5728\u885D\u523A\u5167\u5B8C\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u8005\u6700\u65E9\u4ECB\u5165\u7684\u6642\u6A5F",
+            "text": "<p>\u5728\u5065\u5EB7\u7684\u7BC0\u594F\u4E2D\uFF0C\u6E2C\u8A66\u8005<strong>\u6700\u65E9</strong>\u4F55\u6642\u4ECB\u5165\u4E00\u500B\u4F7F\u7528\u8005\u6545\u4E8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F88\u65E9\u2014\u2014\u5728\u5F85\u8FA6\u6E05\u55AE\u7CBE\u7149\u8207\u885D\u523A\u898F\u5283\u6642\uFF0C\u5354\u52A9\u5F62\u5851\u9A57\u6536\u6E96\u5247",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u8005\u53CA\u65E9\u4ECB\u5165\uFF08\u5DE6\u79FB\uFF09\uFF0C\u4F7F\u54C1\u8CEA\u5F9E\u4E00\u958B\u59CB\u5C31\u88AB\u8A2D\u8A08\u9032\u53BB\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u6545\u4E8B\u7684\u6240\u6709\u7A0B\u5F0F\u78BC\u90FD\u5B8C\u6210\u4E4B\u5F8C",
+                "fraction": 0,
+                "feedback": "\u7B49\u7A0B\u5F0F\u78BC\u5BEB\u5B8C\u624D\u4ECB\u5165\u6703\u5EF6\u9072\u56DE\u994B\uFF0C\u6B63\u662F\u654F\u6377\u8981\u907F\u514D\u7684\u6A21\u5F0F\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u885D\u523A\u5BE9\u67E5\u7684\u5C55\u793A\u6703\u4E0A",
+                "fraction": 0,
+                "feedback": "\u5BE9\u67E5\u6703\u5C0D\u6E2C\u8A66\u8005\u9996\u6B21\u4ECB\u5165\u4E00\u500B\u6545\u4E8B\u800C\u8A00\u592A\u665A\u4E86\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u4E0B\u500B\u885D\u523A\uFF0C\u7B49\u9019\u500B\u885D\u523A\u7684\u958B\u767C\u5B8C\u6210\u4E4B\u5F8C",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u843D\u5F8C\u958B\u767C\u4E00\u500B\u885D\u523A\u662F\u53CD\u6A21\u5F0F\uFF0C\u4E0D\u662F\u53CA\u65E9\u4ECB\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u8005\u53CA\u65E9\u4ECB\u5165\u2014\u2014\u5728\u885D\u523A\u5167\u300C\u5DE6\u79FB\u300D\u3002\u4ED6\u5011\u53C3\u8207\u7CBE\u7149\u8207\u898F\u5283\u3001\u5354\u52A9\u5B9A\u7FA9\u9A57\u6536\u6E96\u5247\u8207\u5177\u9AD4\u7BC4\u4F8B\uFF0C\u4E26\u5728\u6BCF\u500B\u6545\u4E8B\u88AB\u5EFA\u69CB\u6642\u5C31\u6E2C\u8A66\u5B83\uFF0C\u800C\u4E0D\u662F\u7B49\u5230\u6700\u5F8C\u624D\u6210\u6279\u8655\u7406\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5728\u540C\u4E00\u885D\u523A\u5167\u958B\u767C\u4E26\u6E2C\u8A66",
+            "text": "<p>\u4E00\u500B\u4F7F\u7528\u8005\u6545\u4E8B\u8981\u88AB\u8996\u70BA<strong>\u5B8C\u6210</strong>\uFF0C\u61C9\u5728<strong>\u540C\u4E00\u500B</strong>\u885D\u523A\u5167\u540C\u6642\u88AB\u958B\u767C\u4E26\u88AB\u6E2C\u8A66\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6545\u4E8B\u7684\u958B\u767C\u8207\u6E2C\u8A66\u5728\u540C\u4E00\u885D\u523A\u5167\u9032\u884C\uFF0C\u624D\u80FD\u7B97\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u628A\u958B\u767C\u8207\u6E2C\u8A66\u62C6\u5230\u4E0D\u540C\u885D\u523A\u6703\u7834\u58DE\u7BC0\u594F\uFF1B\u5169\u8005\u90FD\u61C9\u5728\u540C\u4E00\u885D\u523A\u5167\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u6545\u4E8B\u90FD\u5728\u4E00\u500B\u885D\u523A\u5167\u88AB\u958B\u767C\u4E26\u6E2C\u8A66\u3002\u552F\u6709\u5982\u6B64\uFF0C\u5B83\u624D\u80FD\u6EFF\u8DB3\u5305\u542B\u6E2C\u8A66\u7684\u5B8C\u6210\u7684\u5B9A\u7FA9\uFF0C\u4E26\u8CA2\u737B\u65BC\u6F5B\u5728\u53EF\u4EA4\u4ED8\u7684\u589E\u91CF\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B26\u5408\u7BC0\u594F\u7684\u505A\u6CD5",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u9805\u505A\u6CD5<strong>\u7B26\u5408</strong>\u5065\u5EB7\u7684\u654F\u6377\u6E2C\u8A66\u7BC0\u594F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u6545\u4E8B\u4E00\u88AB\u5EFA\u69CB\u51FA\u4F86\u5C31\u6E2C\u8A66\uFF0C\u800C\u4E0D\u662F\u628A\u6240\u6709\u6E2C\u8A66\u5806\u5230\u885D\u523A\u672B\u5C3E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6545\u4E8B\u5B8C\u6210\u5373\u6E2C\u8A66\uFF0C\u80FD\u8B93\u56DE\u994B\u5FEB\u901F\u800C\u7A69\u5B9A\u3002"
+              },
+              {
+                "text": "\u7B49\u6240\u6709\u6545\u4E8B\u7684\u7A0B\u5F0F\u78BC\u90FD\u5B8C\u6210\u5F8C\u624D\u958B\u59CB\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u628A\u6E2C\u8A66\u5806\u5230\u6700\u5F8C\u6703\u9020\u6210\u64E0\u58D3\u4E26\u5EF6\u9072\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u5B89\u6392\u4E00\u500B\u5F37\u5316\u885D\u523A\u4F86\u88DC\u505A\u88AB\u7565\u904E\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5F37\u5316\u885D\u523A\u4EE3\u8868\u885D\u523A\u5167\u7684\u6E2C\u8A66\u4E0D\u8DB3\u3002"
+              },
+              {
+                "text": "\u8B93\u958B\u767C\u8005\u628A\u5B8C\u6210\u7684\u7A0B\u5F0F\u78BC\u4EA4\u7D66 QA \u65BC\u4E0B\u500B\u885D\u523A\u8655\u7406",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u843D\u5F8C\u958B\u767C\u4E00\u500B\u885D\u523A\u6703\u5EF6\u9072\u56DE\u994B\u4E26\u9020\u6210\u905E\u5EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u6545\u4E8B\u4E00\u88AB\u5EFA\u69CB\u5C31\u6E2C\u8A66\uFF0C\u80FD\u8B93\u54C1\u8CEA\u56DE\u994B\u5728\u6574\u500B\u885D\u523A\u4E2D\u6301\u7E8C\u6D41\u52D5\u3002\u6210\u6279\u8655\u7406\u3001\u5F37\u5316\u885D\u523A\uFF0C\u4EE5\u53CA\u6E2C\u8A66\u843D\u5F8C\u4E00\u500B\u885D\u523A\uFF0C\u5168\u90FD\u6703\u7834\u58DE\u7BC0\u594F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u885D\u523A\u4E2D\u300C\u5DE6\u79FB\u300D\u7684\u610F\u7FA9",
+            "text": "<p>\u5728\u885D\u523A\u4E2D\uFF0C<em>\u5DE6\u79FB\uFF08shift-left\uFF09</em>\u6E2C\u8A66\u6307\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u628A\u6E2C\u8A66\u6D3B\u52D5\u5F80\u524D\u79FB\u2014\u2014\u79FB\u5230\u898F\u5283\u968E\u6BB5\u4E26\u8207\u958B\u767C\u540C\u6B65\u9032\u884C\uFF0C\u800C\u4E0D\u662F\u79FB\u5230\u6700\u5F8C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5DE6\u79FB\u628A\u6E2C\u8A66\u601D\u7DAD\u5728\u885D\u523A\u4E2D\u63D0\u524D\u3002"
+              },
+              {
+                "text": "\u628A\u6E2C\u8A66\u79FB\u4EA4\u7D66\u885D\u523A\u7D50\u675F\u5F8C\u7684\u5C08\u9580\u5718\u968A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u628A\u6E2C\u8A66\u5F80\u5F8C\u63A8\u3001\u79FB\u5230\u885D\u523A\u4E4B\u5916\uFF0C\u8207\u5DE6\u79FB\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u5148\u53EA\u6E2C\u8A66\u4F7F\u7528\u8005\u4ECB\u9762\u7684\u5DE6\u534A\u908A",
+                "fraction": 0,
+                "feedback": "\u5DE6\u79FB\u8B1B\u7684\u662F\u5DE5\u4F5C\u6D41\u7A0B\u4E2D\u7684\u6642\u6A5F\uFF0C\u4E0D\u662F\u756B\u9762\u7248\u9762\u3002"
+              },
+              {
+                "text": "\u8B93\u4F7F\u7528\u8005\u5728\u5718\u968A\u4E4B\u524D\u5148\u65BC\u6B63\u5F0F\u74B0\u5883\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u628A\u6E2C\u8A66\u53F3\u79FB\u5230\u767C\u5E03\u4E4B\u5F8C\uFF0C\u800C\u975E\u5DE6\u79FB\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DE6\u79FB\u8868\u793A\u5728\u6D41\u7A0B\u4E2D\u66F4\u65E9\u5730\u6295\u5165\u6E2C\u8A66\uFF1A\u5728\u898F\u5283\u8207\u7CBE\u7149\u6642\u5354\u52A9\u5B9A\u7FA9\u9A57\u6536\u6E96\u5247\u3001\u8207\u958B\u767C\u8005\u7D50\u5C0D\uFF0C\u4E26\u5728\u6BCF\u500B\u6545\u4E8B\u88AB\u5EFA\u69CB\u6642\u5C31\u6E2C\u8A66\u3002\u76EE\u6A19\u662F\u66F4\u5FEB\u7684\u56DE\u994B\uFF0C\u4EE5\u53CA\u5728\u7F3A\u9677\u4ECD\u4FBF\u5B9C\u6613\u4FEE\u6642\u5C31\u6293\u5230\u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u654F\u6377\u4E26\u672A\u6D88\u9664\u6E2C\u8A66\u5DE5\u4F5C\u91CF",
+            "text": "<p>\u56E0\u70BA\u654F\u6377\u628A\u6E2C\u8A66\u5206\u6563\u5230\u6574\u500B\u885D\u523A\uFF0C\u5718\u968A\u5C31\u4E0D\u518D\u9700\u8981\u5728\u6E2C\u8A66\u4E0A\u6295\u5165\u4EFB\u4F55\u5DE5\u4F5C\u91CF\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u654F\u6377\u628A\u6E2C\u8A66\u91CD\u65B0\u5206\u914D\u5230\u6574\u500B\u885D\u523A\uFF0C\u4E26\u6C92\u6709\u79FB\u9664\u5DE5\u4F5C\u91CF\u3002\u63A2\u7D22\u5F0F\u6E2C\u8A66\u8207\u9A57\u6536\u6E2C\u8A66\u4F9D\u7136\u6703\u9032\u884C\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u5DE5\u4F5C\u91CF\u4F9D\u7136\u771F\u5BE6\u5B58\u5728\uFF1B\u5B83\u88AB\u7DE8\u7E54\u9032\u885D\u523A\uFF0C\u800C\u4E0D\u662F\u88AB\u6D88\u9664\u3002"
+              }
+            ],
+            "generalFeedback": "\u654F\u6377\u6539\u8B8A\u7684\u662F\u6E2C\u8A66\u767C\u751F\u7684\u6642\u6A5F\u8207\u65B9\u5F0F\u2014\u2014\u6301\u7E8C\u3001\u5168\u5718\u968A\u3001\u885D\u523A\u5167\u2014\u2014\u4F46\u5DE5\u4F5C\u4E26\u672A\u6D88\u5931\u3002\u81EA\u52D5\u5316\u3001\u63A2\u7D22\u5F0F\u6E2C\u8A66\u8207\u9A57\u6536\u6E2C\u8A66\u90FD\u4ECD\u9700\u6295\u5165\u5FC3\u529B\uFF1B\u5B83\u5011\u53EA\u662F\u5728\u7BC0\u594F\u4E2D\u9032\u884C\uFF0C\u800C\u975E\u4F5C\u70BA\u6700\u5F8C\u4E00\u500B\u968E\u6BB5\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u885D\u523A\u672B\u5C3E\u7684\u6E2C\u8A66\u968E\u6BB5",
+            "text": "<p>\u4E00\u500B\u5718\u968A\u5148\u5BEB\u5B8C\u6240\u6709\u6545\u4E8B\u7684\u7A0B\u5F0F\u78BC\uFF0C\u518D\u628A\u4E00\u500B\u7368\u7ACB\u7684<strong>\u6E2C\u8A66\u968E\u6BB5</strong>\u4FDD\u7559\u5230\u885D\u523A\u6700\u5F8C\u5E7E\u5929\u3002\u8A72\u5982\u4F55\u8A55\u5224\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7A2E\u53CD\u6A21\u5F0F\u2014\u2014\u885D\u523A\u5167\u7684\u8FF7\u4F60\u7011\u5E03\uFF0C\u6703\u5EF6\u9072\u56DE\u994B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u6E2C\u8A66\u968E\u6BB5\u5806\u5230\u672B\u5C3E\u5C31\u662F\u8FF7\u4F60\u7011\u5E03\u81ED\u5473\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u6700\u4F73\u5BE6\u52D9\uFF0C\u56E0\u70BA\u6771\u897F\u90FD\u5EFA\u597D\u5F8C\u6E2C\u8A66\u6BD4\u8F03\u5BB9\u6613",
+                "fraction": 0,
+                "feedback": "\u628A\u6E2C\u8A66\u5806\u5230\u6700\u5F8C\u6703\u96C6\u4E2D\u98A8\u96AA\u4E26\u5EF6\u9072\u56DE\u994B\uFF1B\u9019\u4E0D\u662F\u6700\u4F73\u5BE6\u52D9\u3002"
+              },
+              {
+                "text": "Scrum \u6240\u8981\u6C42\u7684\uFF0C\u5B83\u898F\u5B9A\u6BCF\u500B\u885D\u523A\u90FD\u8981\u6709\u6E2C\u8A66\u968E\u6BB5",
+                "fraction": 0,
+                "feedback": "Scrum \u4E26\u672A\u898F\u5B9A\u9019\u7A2E\u968E\u6BB5\uFF1B\u5B83\u671F\u671B\u6E2C\u8A66\u8CAB\u7A7F\u6574\u500B\u885D\u523A\u3002"
+              },
+              {
+                "text": "\u6C92\u554F\u984C\uFF0C\u53EA\u8981\u6E2C\u8A66\u8005\u662F\u4E00\u500B\u7368\u7ACB\u5718\u968A\u5373\u53EF",
+                "fraction": 0,
+                "feedback": "\u665A\u671F\u4EA4\u63A5\u7D66\u7368\u7ACB\u5718\u968A\u6703\u8B93\u5EF6\u9072\u8207\u5B64\u5CF6\u66F4\u56B4\u91CD\uFF0C\u4E26\u975E\u6C92\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u6E2C\u8A66\u4FDD\u7559\u5230\u6700\u5F8C\uFF0C\u7B49\u65BC\u5728\u885D\u523A\u5167\u91CD\u73FE\u4E86\u4E00\u500B\u5C0F\u7011\u5E03\u3002\u7F3A\u9677\u5F88\u665A\u624D\u6D6E\u73FE\uFF0C\u6B64\u6642\u5E7E\u4E4E\u6C92\u6709\u6642\u9593\u4FEE\u6B63\uFF0C\u4E14\u56DE\u994B\u7D66\u958B\u767C\u8005\u7684\u6642\u9593\u4E5F\u88AB\u5EF6\u9072\u3002\u61C9\u6539\u70BA\u6BCF\u500B\u6545\u4E8B\u4E00\u88AB\u5EFA\u69CB\u5C31\u6E2C\u8A66\u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u885D\u523A\u5167\u81EA\u52D5\u5316\u7684\u76EE\u7684",
+            "text": "<p><strong>\u885D\u523A\u5167\u6E2C\u8A66\u81EA\u52D5\u5316</strong>\u7684\u4E3B\u8981\u76EE\u7684\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B93\u4E0D\u65B7\u6210\u9577\u7684\u8FF4\u6B78\u6E2C\u8A66\u5957\u4EF6\u6BCF\u500B\u885D\u523A\u90FD\u80FD\u88AB\u57F7\u884C\uFF0C\u4F7F\u56DE\u994B\u4FDD\u6301\u5FEB\u901F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u81EA\u52D5\u5316\u8B93\u8D8A\u4F86\u8D8A\u5927\u7684\u8FF4\u6B78\u80FD\u53CD\u8986\u4E14\u4FBF\u5B9C\u5730\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u53D6\u4EE3\u6E2C\u8A66\u4E2D\u6240\u6709\u7684\u4EBA\u70BA\u5224\u65B7",
+                "fraction": 0,
+                "feedback": "\u81EA\u52D5\u5316\u8207\u63A2\u7D22\u5F0F\u53CA\u4EBA\u70BA\u6E2C\u8A66\u4E92\u88DC\uFF0C\u4E26\u4E0D\u53D6\u4EE3\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u8B93\u5718\u968A\u53EF\u4EE5\u7701\u53BB\u64B0\u5BEB\u5B8C\u6210\u7684\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u81EA\u52D5\u5316\u662F\u652F\u6490 DoD\uFF0C\u800C\u975E\u79FB\u9664\u5C0D\u5B83\u7684\u9700\u8981\u3002"
+              },
+              {
+                "text": "\u628A\u6240\u6709\u6E2C\u8A66\u79FB\u5230\u4E4B\u5F8C\u7684\u5F37\u5316\u885D\u523A",
+                "fraction": 0,
+                "feedback": "\u81EA\u52D5\u5316\u7684\u5B58\u5728\u6B63\u662F\u70BA\u4E86\u8B93\u6E2C\u8A66\u7559\u5728\u885D\u523A\u5167\uFF0C\u800C\u975E\u5EF6\u5F8C\u3002"
+              }
+            ],
+            "generalFeedback": "\u96A8\u8457\u885D\u523A\u7D2F\u7A4D\uFF0C\u8FF4\u6B78\u6E2C\u8A66\u5957\u4EF6\u6703\u6210\u9577\u3002\u5728\u885D\u523A\u5167\u5C07\u5176\u81EA\u52D5\u5316\uFF0C\u80FD\u8B93\u8A72\u5957\u4EF6\u6BCF\u500B\u885D\u523A\u90FD\u53EF\u57F7\u884C\uFF0C\u63D0\u4F9B\u5FEB\u901F\u56DE\u994B\uFF0C\u4E26\u907F\u514D\u624B\u52D5\u8FF4\u6B78\u6DEA\u70BA\u885D\u523A\u672B\u5C3E\u96E3\u4EE5\u627F\u53D7\u7684\u8CA0\u64D4\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6E2C\u8A66\u8005\u5728\u7CBE\u7149\u6642\u7684\u8CA2\u737B",
+            "text": "<p>\u6E2C\u8A66\u8005\u53EF\u4EE5\u5728\u5F85\u8FA6\u6E05\u55AE<strong>\u7CBE\u7149\uFF08refinement\uFF09</strong>\u6642\uFF0C\u5354\u52A9\u5B9A\u7FA9\u6E05\u695A\u7684\u9A57\u6536\u6E96\u5247\u8207\u5177\u9AD4\u7BC4\u4F8B\uFF0C\u85C9\u6B64\u505A\u51FA\u8CA2\u737B\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u8005\u5728\u7CBE\u7149\u6642\u5354\u52A9\u8B93\u6545\u4E8B\u53EF\u6E2C\u8A66\u4E14\u4E0D\u542B\u7CCA\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u8005\u53CA\u65E9\u5C31\u80FD\u589E\u6DFB\u50F9\u503C\uFF1A\u7CBE\u7149\u6B63\u662F\u4ED6\u5011\u5354\u52A9\u91D0\u6E05\u9A57\u6536\u6E96\u5247\u8207\u7BC4\u4F8B\u7684\u5834\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u8005\u53C3\u8207\u7CBE\u7149\u8207\u898F\u5283\uFF0C\u6709\u52A9\u65BC\u5728\u5BEB\u7A0B\u5F0F\u78BC\u4E4B\u524D\u5C31\u6D6E\u73FE\u908A\u754C\u60C5\u6CC1\u8207\u542B\u7CCA\u4E4B\u8655\uFF0C\u7522\u51FA\u5E36\u6709\u660E\u78BA\u9A57\u6536\u6E96\u5247\u3001\u53EF\u6E2C\u8A66\u7684\u6545\u4E8B\u3002\u9019\u662F\u5728\u7BC0\u594F\u4E2D\u628A\u6E2C\u8A66\u5DE6\u79FB\u7684\u95DC\u9375\u4E00\u74B0\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8AB0\u64C1\u6709\u54C1\u8CEA",
+            "text": "<p>\u5728 Scrum \u5718\u968A\u4E2D\uFF0C\u8AB0\u5C0D\u589E\u91CF\u7684<strong>\u54C1\u8CEA</strong>\u8CA0\u8CAC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5168\u5718\u968A\u2014\u2014\u958B\u767C\u8005\u3001\u6E2C\u8A66\u8005\u8207\u7522\u54C1\u8CA0\u8CAC\u4EBA\u4E00\u8D77",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u54C1\u8CEA\u662F\u5171\u4EAB\u7684\u3001\u5168\u5718\u968A\u7684\u8CAC\u4EFB\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u6E2C\u8A66\u8005\uFF0C\u4ED6\u5011\u69CB\u6210\u767C\u5E03\u524D\u7684\u4E00\u9053\u95DC\u5361",
+                "fraction": 0,
+                "feedback": "\u628A\u6E2C\u8A66\u8005\u7576\u6210\u95DC\u5361\uFF0C\u7B49\u65BC\u91CD\u5EFA\u4E86\u654F\u6377\u8981\u907F\u514D\u7684 QA \u5B64\u5CF6\u3002"
+              },
+              {
+                "text": "\u53EA\u6709 Scrum Master\uFF0C\u4ED6\u70BA\u6BCF\u500B\u6545\u4E8B\u7C3D\u6838",
+                "fraction": 0,
+                "feedback": "Scrum Master \u8CA0\u8CAC\u4FC3\u9032\uFF1B\u4ED6\u4E26\u975E\u7368\u81EA\u64C1\u6709\u54C1\u8CEA\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7522\u54C1\u8CA0\u8CAC\u4EBA\uFF0C\u4ED6\u9A57\u6536\u589E\u91CF",
+                "fraction": 0,
+                "feedback": "\u7522\u54C1\u8CA0\u8CAC\u4EBA\u9A57\u6536\u50F9\u503C\uFF0C\u4F46\u54C1\u8CEA\u662F\u7531\u5168\u5718\u968A\u5EFA\u69CB\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u54C1\u8CEA\u662F\u5168\u5718\u968A\u7684\u8CAC\u4EFB\u3002\u6BCF\u500B\u4EBA\u90FD\u5C0D\u5EFA\u69CB\u4E26\u9A57\u8B49\u54C1\u8CEA\u6709\u6240\u8CA2\u737B\uFF0C\u800C\u4E0D\u662F\u628A\u5B83\u4EA4\u7D66\u55AE\u4E00\u89D2\u8272\u6216\u4E0B\u6E38\u7684\u4E00\u9053\u95DC\u5361\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u885D\u523A\u5BE9\u67E5\u5C55\u793A\u7684\u5167\u5BB9",
+            "text": "<p>\u5728<strong>\u885D\u523A\u5BE9\u67E5\uFF08sprint review\uFF09</strong>\u4E2D\uFF0C\u5718\u968A\u5C55\u793A\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u80FD\u904B\u4F5C\u3001\u5DF2\u6E2C\u8A66\u7684\u7522\u54C1\u589E\u91CF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BE9\u67E5\u5C55\u793A\u7684\u662F\u771F\u5BE6\u3001\u5DF2\u6E2C\u8A66\u7684\u589E\u91CF\uFF0C\u800C\u975E\u672A\u9A57\u8B49\u7684\u5DE5\u4F5C\u3002"
+              },
+              {
+                "text": "\u4ECD\u9700\u4E4B\u5F8C QA \u518D\u6E2C\u4E00\u8F2A\u7684\u672A\u6E2C\u8A66\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u5C55\u793A\u672A\u6E2C\u8A66\u7684\u5DE5\u4F5C\uFF0C\u4EE3\u8868\u8A72\u589E\u91CF\u5176\u5BE6\u4E26\u672A\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u63CF\u8FF0\u7576\u521D\u8A08\u756B\u7684\u6295\u5F71\u7247",
+                "fraction": 0,
+                "feedback": "\u5BE9\u67E5\u4EE5\u80FD\u904B\u4F5C\u7684\u8EDF\u9AD4\u70BA\u6838\u5FC3\uFF0C\u800C\u975E\u898F\u5283\u6295\u5F71\u7247\u3002"
+              },
+              {
+                "text": "\u4E00\u4EFD\u8981\u7559\u5230\u4E0B\u500B\u885D\u523A\u624D\u6E2C\u8A66\u7684\u7F3A\u9677\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u628A\u6E2C\u8A66\u5EF6\u5F8C\u5230\u4E0B\u500B\u885D\u523A\u662F\u7BC0\u594F\u53CD\u6A21\u5F0F\uFF0C\u4E0D\u662F\u5BE9\u67E5\u6240\u5448\u73FE\u7684\u5167\u5BB9\u3002"
+              }
+            ],
+            "generalFeedback": "\u885D\u523A\u5BE9\u67E5\u5C55\u793A\u7684\u662F\u4E00\u500B\u80FD\u904B\u4F5C\u3001\u5DF2\u6E2C\u8A66\u7684\u589E\u91CF\u2014\u2014\u885D\u523A\u5167\u958B\u767C\u4E26\u6E2C\u8A66\u7684\u6210\u679C\u3002\u56E0\u70BA\u5B8C\u6210\u5305\u542B\u6E2C\u8A66\uFF0C\u6240\u5C55\u793A\u7684\u5C31\u662F\u771F\u6B63\u6F5B\u5728\u53EF\u4EA4\u4ED8\u7684\u6771\u897F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u8005\u8207\u958B\u767C\u8005\u7D50\u5C0D",
+            "text": "<p>\u4E00\u4F4D\u6E2C\u8A66\u8005\u8207\u4E00\u4F4D\u958B\u767C\u8005\u7D50\u5C0D\uFF0C\u5728\u6545\u4E8B<strong>\u6B63\u88AB\u5EFA\u69CB</strong>\u6642\u5C31\u6E2C\u8A66\u5B83\u3002\u9019\u7B26\u5408\u654F\u6377\u6E2C\u8A66\u7BC0\u594F\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7B26\u5408\u2014\u2014\u5728\u5EFA\u69CB\u6642\u5C31\u6E2C\u8A66\u80FD\u63D0\u4F9B\u5373\u6642\u56DE\u994B\uFF0C\u4E26\u8B93\u54C1\u8CEA\u7559\u5728\u885D\u523A\u5167",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u908A\u5EFA\u69CB\u908A\u7D50\u5C0D\u6B63\u662F\u6301\u7E8C\u3001\u5168\u5718\u968A\u7684\u7BC0\u594F\u3002"
+              },
+              {
+                "text": "\u4E0D\u7B26\u5408\u2014\u2014\u6E2C\u8A66\u8005\u5728\u6545\u4E8B\u7A0B\u5F0F\u78BC\u5B8C\u5168\u5B8C\u6210\u524D\u7D55\u4E0D\u8A72\u770B\u5B83",
+                "fraction": 0,
+                "feedback": "\u7B49\u7A0B\u5F0F\u78BC\u5B8C\u6210\u624D\u770B\u6703\u5EF6\u9072\u56DE\u994B\uFF1B\u53CA\u65E9\u5354\u4F5C\u66F4\u597D\u3002"
+              },
+              {
+                "text": "\u4E0D\u7B26\u5408\u2014\u2014\u6E2C\u8A66\u5FC5\u9808\u7B49\u5230\u5C08\u9580\u7684\u5F37\u5316\u885D\u523A",
+                "fraction": 0,
+                "feedback": "\u5EF6\u5F8C\u5230\u5F37\u5316\u885D\u523A\u662F\u53CD\u6A21\u5F0F\uFF0C\u4E0D\u662F\u7BC0\u594F\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7576\u6E2C\u8A66\u8005\u96B8\u5C6C\u65BC\u7368\u7ACB\u7684 QA \u90E8\u9580\u6642\u624D\u7B26\u5408",
+                "fraction": 0,
+                "feedback": "\u654F\u6377\u504F\u597D\u5168\u5718\u968A\u5354\u4F5C\uFF0C\u800C\u975E\u7368\u7ACB\u7684 QA \u95DC\u5361\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u6545\u4E8B\u88AB\u5EFA\u69CB\u6642\u5C31\u8B93\u6E2C\u8A66\u8005\u8207\u958B\u767C\u8005\u7D50\u5C0D\uFF0C\u9AD4\u73FE\u4E86\u5168\u5718\u968A\u54C1\u8CEA\u8207\u5DE6\u79FB\u6E2C\u8A66\uFF1A\u7F3A\u9677\u5373\u6642\u88AB\u6293\u5230\uFF0C\u6545\u4E8B\u4E5F\u5728\u885D\u523A\u5167\u9054\u5230\u5B8C\u6210\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5728\u6545\u4E8B\u88AB\u5EFA\u69CB\u6642\u5C31\u6E2C\u8A66",
+            "text": "<p>\u70BA\u4EC0\u9EBC<strong>\u5728\u6545\u4E8B\u88AB\u5EFA\u69CB\u6642\u5C31\u6E2C\u8A66</strong>\uFF0C\u6BD4\u628A\u6240\u6709\u6E2C\u8A66\u5806\u5230\u885D\u523A\u672B\u5C3E\u66F4\u597D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7F3A\u9677\u5728\u8108\u7D61\u4ECD\u65B0\u9BAE\u3001\u4FEE\u6B63\u4ECD\u4FBF\u5B9C\u6642\u5C31\u6D6E\u73FE\uFF0C\u56DE\u994B\u4E5F\u80FD\u8FC5\u901F\u56DE\u5230\u958B\u767C\u8005\u624B\u4E0A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53CA\u65E9\u3001\u9010\u6B65\u7684\u6E2C\u8A66\u7E2E\u77ED\u56DE\u994B\u8FF4\u5708\u4E26\u964D\u4F4E\u4FEE\u6B63\u6210\u672C\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u5718\u968A\u53EF\u4EE5\u7565\u904E\u64B0\u5BEB\u81EA\u52D5\u5316\u8FF4\u6B78\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u53CA\u65E9\u6E2C\u8A66\u4E26\u4E0D\u6703\u79FB\u9664\u5C0D\u81EA\u52D5\u5316\u7684\u9700\u8981\uFF1B\u5169\u8005\u76F8\u8F14\u76F8\u6210\u3002"
+              },
+              {
+                "text": "\u5B83\u4FDD\u8B49\u6C38\u9060\u4E0D\u6703\u518D\u627E\u5230\u4EFB\u4F55\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u505A\u6CD5\u80FD\u4FDD\u8B49\u96F6\u7F3A\u9677\uFF1B\u597D\u8655\u5728\u65BC\u66F4\u5FEB\u3001\u66F4\u4FBF\u5B9C\u7684\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u5B83\u628A\u54C1\u8CEA\u7684\u5168\u90E8\u8CAC\u4EFB\u79FB\u5230\u6E2C\u8A66\u8005\u8EAB\u4E0A",
+                "fraction": 0,
+                "feedback": "\u654F\u6377\u628A\u54C1\u8CEA\u5206\u6563\u5230\u5168\u5718\u968A\uFF0C\u800C\u975E\u96C6\u4E2D\u5230\u6E2C\u8A66\u8005\u8EAB\u4E0A\u3002"
+              }
+            ],
+            "generalFeedback": "\u6545\u4E8B\u4E00\u88AB\u5EFA\u69CB\u5C31\u6E2C\u8A66\uFF0C\u80FD\u5728\u7A0B\u5F0F\u78BC\u4ECD\u8A18\u61B6\u7336\u65B0\u6642\u7D66\u958B\u767C\u8005\u56DE\u994B\uFF0C\u6B64\u6642\u7F3A\u9677\u6700\u4FBF\u5B9C\u6613\u4FEE\u3002\u5806\u5230\u6700\u5F8C\u6703\u5EF6\u9072\u56DE\u994B\uFF0C\u4E26\u628A\u98A8\u96AA\u96C6\u4E2D\u5728\u6700\u5F8C\u5E7E\u5929\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63CF\u8FF0\u8FF7\u4F60\u7011\u5E03\u81ED\u5473",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u9805\u63CF\u8FF0\u6700\u7B26\u5408<strong>\u885D\u523A\u5167\u7684\u8FF7\u4F60\u7011\u5E03</strong>\u81ED\u5473\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5718\u968A\u5148\u5BEB\u5B8C\u6240\u6709\u6545\u4E8B\u7684\u7A0B\u5F0F\u78BC\uFF0C\u518D\u628A\u6240\u6709\u6E2C\u8A66\u6D3B\u52D5\u64E0\u9032\u885D\u523A\u6700\u5F8C\u5E7E\u5929",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u6E2C\u8A66\u968E\u6BB5\u5806\u5230\u885D\u523A\u672B\u5C3E\u5C31\u662F\u8FF7\u4F60\u7011\u5E03\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u5728\u958B\u59CB\u5BEB\u7A0B\u5F0F\u78BC\u4E4B\u524D\u5C31\u64B0\u5BEB\u9A57\u6536\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u4E8B\u5148\u5B9A\u7FA9\u6E96\u5247\u662F\u826F\u597D\u7684\u5DE6\u79FB\u5BE6\u52D9\uFF0C\u4E0D\u662F\u81ED\u5473\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u6BCF\u500B\u885D\u523A\u90FD\u81EA\u52D5\u5316\u5176\u8FF4\u6B78\u6E2C\u8A66\u5957\u4EF6",
+                "fraction": 0,
+                "feedback": "\u885D\u523A\u5167\u81EA\u52D5\u5316\u652F\u6490\u7BC0\u594F\uFF1B\u5B83\u4E0D\u662F\u81ED\u5473\u3002"
+              },
+              {
+                "text": "\u958B\u767C\u8005\u8207\u6E2C\u8A66\u8005\u5728\u6BCF\u500B\u6545\u4E8B\u88AB\u5EFA\u69CB\u6642\u5C31\u7D50\u5C0D",
+                "fraction": 0,
+                "feedback": "\u908A\u5EFA\u69CB\u908A\u7D50\u5C0D\u6B63\u662F\u5065\u5EB7\u7684\u7BC0\u594F\uFF0C\u4E0D\u662F\u81ED\u5473\u3002"
+              }
+            ],
+            "generalFeedback": "\u8FF7\u4F60\u7011\u5E03\u5728\u55AE\u4E00\u885D\u523A\u5167\u91CD\u73FE\u4E86\u7011\u5E03\u5C08\u6848\u7684\u5404\u968E\u6BB5\uFF1A\u5206\u6790\u3001\u5BEB\u7A0B\u5F0F\u3001\u6700\u5F8C\u624D\u6E2C\u8A66\u3002\u5B83\u5EF6\u9072\u56DE\u994B\u4E26\u5728\u885D\u523A\u672B\u5C3E\u9020\u6210\u64E0\u58D3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4FEE\u6B63\u8FF7\u4F60\u7011\u5E03",
+            "text": "<p>\u4E00\u500B\u5718\u968A\u6709\u8FF7\u4F60\u7011\u5E03\u81ED\u5473\u3002\u6700\u6070\u7576\u7684<strong>\u4FEE\u6B63\u65B9\u5F0F</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u6545\u4E8B\u4E00\u6E96\u5099\u597D\u5C31\u6E2C\u8A66\uFF0C\u958B\u767C\u8005\u8207\u6E2C\u8A66\u8005\u5728\u6574\u500B\u885D\u523A\u4E2D\u5354\u4F5C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u6E2C\u8A66\u5206\u6563\u5230\u6574\u500B\u885D\u523A\uFF0C\u80FD\u6D88\u9664\u5806\u5728\u672B\u5C3E\u7684\u64E0\u58D3\u3002"
+              },
+              {
+                "text": "\u6BCF\u9694\u5E7E\u500B\u885D\u523A\u52A0\u4E00\u500B\u5F37\u5316\u885D\u523A\u4F86\u88DC\u505A",
+                "fraction": 0,
+                "feedback": "\u5F37\u5316\u885D\u523A\u662F\u63A9\u84CB\u554F\u984C\uFF0C\u800C\u975E\u6062\u5FA9\u7BC0\u594F\u3002"
+              },
+              {
+                "text": "\u628A\u6E2C\u8A66\u63A8\u5230\u4E0B\u500B\u885D\u523A\uFF0C\u597D\u8B93\u5BEB\u7A0B\u5F0F\u4E0D\u88AB\u6253\u65B7\u5730\u7E7C\u7E8C",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u843D\u5F8C\u4E00\u500B\u885D\u523A\u6703\u5EF6\u9072\u56DE\u994B\u4E26\u9020\u6210\u905E\u5EF6\u3002"
+              },
+              {
+                "text": "\u96C7\u4E00\u500B\u7368\u7ACB\u7684 QA \u5718\u968A\u5728\u885D\u523A\u7D50\u675F\u5F8C\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4E0B\u6E38\u7684 QA \u95DC\u5361\u6703\u91CD\u65B0\u5F15\u5165\u5B64\u5CF6\u8207\u5EF6\u9072\u3002"
+              }
+            ],
+            "generalFeedback": "\u4FEE\u6B63\u4E4B\u9053\u662F\u628A\u7011\u5E03\u6524\u5E73\uFF1A\u628A\u5DE5\u4F5C\u5207\u5206\uFF0C\u8B93\u6BCF\u500B\u6545\u4E8B\u4E00\u6E96\u5099\u597D\u5C31\u6E2C\u8A66\uFF0C\u4E26\u7531\u5168\u5718\u968A\u5354\u4F5C\u3002\u9019\u80FD\u8B93\u56DE\u994B\u4FDD\u6301\u5FEB\u901F\uFF0C\u589E\u91CF\u4E5F\u6301\u7E8C\u63A5\u8FD1\u5B8C\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8D8A\u7246\u4E1F\u4EA4\u63A5\u7684\u554F\u984C",
+            "text": "<p>\u300C\u628A\u6771\u897F\u8D8A\u7246\u4E1F\u7D66 QA\u300D\u9019\u7A2E\u4EA4\u63A5\u7684\u6838\u5FC3\u554F\u984C\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u9020\u6210\u4EA4\u63A5\u5EF6\u9072\u8207\u54C1\u8CEA\u5B64\u5CF6\uFF0C\u7F3A\u9677\u5F88\u665A\u624D\u88AB\u812B\u96E2\u8108\u7D61\u7684\u4EBA\u767C\u73FE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4EA4\u63A5\u5EF6\u9072\u56DE\u994B\uFF0C\u4E26\u628A\u54C1\u8CEA\u8207\u5EFA\u69CB\u5B83\u7684\u5718\u968A\u9694\u958B\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u6E2C\u8A66\u592A\u5FEB\uFF0C\u56E0\u800C\u6F0F\u6389\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u5728\u65BC\u5EF6\u9072\u8207\u812B\u7BC0\uFF0C\u800C\u975E\u901F\u5EA6\u592A\u5FEB\u3002"
+              },
+              {
+                "text": "\u5B83\u8FEB\u4F7F\u958B\u767C\u8005\u592A\u65E9\u64B0\u5BEB\u9A57\u6536\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u53CA\u65E9\u5B9A\u7FA9\u6E96\u5247\u662F\u6709\u5E6B\u52A9\u7684\uFF1B\u90A3\u4E0D\u662F\u4EA4\u63A5\u7684\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u5B83\u79FB\u9664\u4E86\u5C0D\u5B8C\u6210\u7684\u5B9A\u7FA9\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u4EA4\u63A5\u6A21\u5F0F\u4ECD\u9700\u8981 DoD\uFF1B\u554F\u984C\u5728\u65BC\u5B64\u5CF6\u8207\u5EF6\u9072\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u5DE5\u4F5C\u8D8A\u7246\u4E1F\u7D66\u7368\u7ACB\u7684 QA \u7FA4\u9AD4\u6703\u7834\u58DE\u5168\u5718\u968A\u54C1\u8CEA\u3002\u56DE\u994B\u59CD\u59CD\u4F86\u9072\uFF0C\u6E2C\u8A66\u8005\u7F3A\u4E4F\u7A0B\u5F0F\u78BC\u5982\u4F55\u88AB\u5EFA\u69CB\u7684\u8108\u7D61\uFF0C\u7F3A\u9677\u4E5F\u5728\u908A\u754C\u5806\u7A4D\uFF0C\u800C\u975E\u88AB\u6301\u7E8C\u6293\u5230\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u672A\u6E2C\u8A66\u7684\u6545\u4E8B\u4E0D\u7B97\u5B8C\u6210",
+            "text": "<p>\u7531\u65BC\u5B8C\u6210\u7684\u5B9A\u7FA9\u5305\u542B\u6E2C\u8A66\uFF0C\u4E00\u500B\u5728\u885D\u523A\u7D50\u675F\u6642<strong>\u5DF2\u5BEB\u5B8C\u7A0B\u5F0F\u78BC\u4F46\u5C1A\u672A\u6E2C\u8A66</strong>\u7684\u6545\u4E8B\u8A72\u5982\u4F55\u770B\u5F85\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8996\u70BA\u672A\u5B8C\u6210\u2014\u2014\u5B83\u4E0D\u80FD\u88AB\u7B97\u4F5C\u5B8C\u6210\uFF0C\u4E5F\u4E0D\u5C6C\u65BC\u53EF\u4EA4\u4ED8\u7684\u589E\u91CF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u672A\u6E2C\u8A66\u7684\u5DE5\u4F5C\u672A\u901A\u904E DoD\uFF0C\u4E0D\u7B97\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "\u8996\u70BA\u5B8C\u6210\uFF0C\u56E0\u70BA\u7A0B\u5F0F\u78BC\u5DF2\u5B58\u5728\u3001\u4E4B\u5F8C\u53EF\u4EE5\u518D\u6E2C",
+                "fraction": 0,
+                "feedback": "\u82E5 DoD \u8981\u6C42\u5C1A\u672A\u9032\u884C\u7684\u6E2C\u8A66\uFF0C\u5149\u6709\u7A0B\u5F0F\u78BC\u4E0D\u7B97\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "\u8996\u70BA\u5B8C\u6210\u4E00\u534A\uFF0C\u53D6\u5F97\u4E00\u534A\u7684\u6545\u4E8B\u9EDE\u6578",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u5C0D\u7167 DoD \u662F\u4E8C\u5143\u7684\uFF1B\u6C92\u6709\u90E8\u5206\u8A08\u5206\u3002"
+              },
+              {
+                "text": "\u8996\u70BA\u5B8C\u6210\uFF0C\u53EA\u8981\u6709\u898F\u5283\u5F37\u5316\u885D\u523A\u5373\u53EF",
+                "fraction": 0,
+                "feedback": "\u898F\u5283\u4E4B\u5F8C\u518D\u6E2C\uFF0C\u4E26\u4E0D\u6703\u8B93\u73FE\u5728\u672A\u6E2C\u8A66\u7684\u6545\u4E8B\u8B8A\u6210\u5B8C\u6210\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5 DoD \u5305\u542B\u6E2C\u8A66\uFF0C\u672A\u6E2C\u8A66\u7684\u6545\u4E8B\u5C31\u53EA\u662F\u672A\u5B8C\u6210\u3002\u5B83\u4E0D\u8A08\u5165\u901F\u5EA6\uFF0C\u4E5F\u4E0D\u5C6C\u65BC\u53EF\u4EA4\u4ED8\u7684\u589E\u91CF\uFF1B\u5269\u4E0B\u7684\u6E2C\u8A66\u6703\u905E\u5EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u8005\u53C3\u8207\u7CBE\u7149\u7684\u597D\u8655",
+            "text": "<p>\u8B93\u6E2C\u8A66\u8005\u53C3\u8207\u5F85\u8FA6\u6E05\u55AE<strong>\u7CBE\u7149\u8207\u898F\u5283</strong>\u7684\u4E3B\u8981\u597D\u8655\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53CA\u65E9\u6D6E\u73FE\u542B\u7CCA\u4E4B\u8655\u8207\u908A\u754C\u60C5\u6CC1\uFF0C\u7522\u51FA\u5E36\u6709\u5171\u8B58\u9A57\u6536\u6E96\u5247\u3001\u53EF\u6E2C\u8A66\u7684\u6545\u4E8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u8005\u53CA\u65E9\u4ECB\u5165\u8B93\u6545\u4E8B\u5728\u5BEB\u7A0B\u5F0F\u524D\u66F4\u6E05\u695A\u3001\u53EF\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u958B\u767C\u8005\u56E0\u6B64\u53EF\u4EE5\u7565\u904E\u64B0\u5BEB\u4EFB\u4F55\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u8005\u53C3\u8207\u898F\u5283\u4E26\u4E0D\u6703\u514D\u9664\u958B\u767C\u8005\u7684\u6E2C\u8A66\u8077\u8CAC\u3002"
+              },
+              {
+                "text": "\u7522\u54C1\u8CA0\u8CAC\u4EBA\u56E0\u6B64\u4E0D\u518D\u9700\u8981\u70BA\u5F85\u8FA6\u6E05\u55AE\u6392\u5E8F",
+                "fraction": 0,
+                "feedback": "\u6392\u5E8F\u4ECD\u662F\u7522\u54C1\u8CA0\u8CAC\u4EBA\u7684\u5DE5\u4F5C\uFF1B\u7CBE\u7149\u4E26\u4E0D\u53D6\u4EE3\u5B83\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u56E0\u6B64\u53EF\u4EE5\u5B89\u5168\u5730\u5EF6\u5F8C\u5230\u4E0B\u500B\u885D\u523A",
+                "fraction": 0,
+                "feedback": "\u53CA\u65E9\u5728\u898F\u5283\u4ECB\u5165\u662F\u70BA\u4E86\u8B93\u6E2C\u8A66\u7559\u5728\u885D\u523A\u5167\uFF0C\u800C\u975E\u5EF6\u5F8C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u8005\u5728\u7CBE\u7149\u8207\u898F\u5283\u6642\u601D\u8003\u4E00\u500B\u6545\u4E8B\uFF0C\u80FD\u5728\u7A0B\u5F0F\u78BC\u5BEB\u51FA\u4F86\u4E4B\u524D\u5C31\u63ED\u9732\u908A\u754C\u60C5\u6CC1\u8207\u542B\u7CCA\u4E4B\u8655\u3002\u7D50\u679C\u662F\u5E36\u6709\u6E05\u695A\u3001\u5171\u8B58\u9A57\u6536\u6E96\u5247\u3001\u53EF\u6E2C\u8A66\u7684\u6545\u4E8B\u2014\u2014\u885D\u523A\u5F8C\u6BB5\u66F4\u5C11\u610F\u5916\u3001\u66F4\u5C11\u8FD4\u5DE5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u885D\u523A\u5167\u81EA\u52D5\u5316\u7684\u7406\u7531",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u53EF\u6301\u7E8C\u7684\u654F\u6377\u6E2C\u8A66\u4EF0\u8CF4\u5728<strong>\u6BCF\u500B\u885D\u523A\u5167</strong>\u5C07\u6E2C\u8A66\u81EA\u52D5\u5316\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8FF4\u6B78\u6E2C\u8A66\u5957\u4EF6\u6BCF\u500B\u885D\u523A\u90FD\u5728\u6210\u9577\uFF1B\u6C92\u6709\u81EA\u52D5\u5316\uFF0C\u6BCF\u500B\u885D\u523A\u624B\u52D5\u91CD\u8DD1\u6703\u8B8A\u5F97\u96E3\u4EE5\u70BA\u7E7C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u81EA\u52D5\u5316\u8B93\u4E0D\u65B7\u6210\u9577\u7684\u8FF4\u6B78\u5F97\u4EE5\u6301\u7E8C\u3001\u53EF\u8CA0\u64D4\u5730\u53CD\u8986\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u81EA\u52D5\u5316\u6E2C\u8A66\u4E00\u65E6\u5BEB\u597D\u5C31\u6C38\u9060\u4E0D\u9700\u7DAD\u8B77",
+                "fraction": 0,
+                "feedback": "\u81EA\u52D5\u5316\u6E2C\u8A66\u78BA\u5BE6\u9700\u8981\u7DAD\u8B77\uFF1B\u90A3\u4E0D\u662F\u7406\u7531\u3002"
+              },
+              {
+                "text": "\u81EA\u52D5\u5316\u8B93\u5718\u968A\u53EF\u4EE5\u6368\u68C4\u5B8C\u6210\u7684\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u81EA\u52D5\u5316\u652F\u6490 DoD\uFF0C\u800C\u975E\u53D6\u4EE3\u5B83\u3002"
+              },
+              {
+                "text": "\u624B\u52D5\u6E2C\u8A66\u6C38\u9060\u8F03\u5DEE\uFF0C\u61C9\u4E88\u4EE5\u6D88\u9664",
+                "fraction": 0,
+                "feedback": "\u63A2\u7D22\u5F0F\u8207\u624B\u52D5\u6E2C\u8A66\u4ECD\u6709\u50F9\u503C\uFF1B\u81EA\u52D5\u5316\u91DD\u5C0D\u7684\u662F\u53EF\u91CD\u8907\u7684\u8FF4\u6B78\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u885D\u523A\u90FD\u6703\u52A0\u5165\u5FC5\u9808\u6301\u7E8C\u904B\u4F5C\u7684\u884C\u70BA\u3002\u6BCF\u500B\u885D\u523A\u4EE5\u624B\u52D5\u91CD\u6E2C\u8D8A\u4F86\u8D8A\u5927\u7684\u8FF4\u6B78\u5F88\u5FEB\u5C31\u6703\u58D3\u57AE\u5718\u968A\uFF0C\u56E0\u6B64\u628A\u53EF\u91CD\u8907\u7684\u6AA2\u67E5\u5728\u885D\u523A\u5167\u81EA\u52D5\u5316\uFF0C\u4EE5\u4FDD\u6301\u56DE\u994B\u5FEB\u901F\u3001\u7BC0\u594F\u53EF\u6301\u7E8C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u672A\u6E2C\u8A66\u5DE5\u4F5C\u7684\u901F\u5EA6\u8A08\u5206",
+            "text": "<p>\u4E00\u500B\u6545\u4E8B\u5728\u885D\u523A\u7D50\u675F\u6642\u300C\u7A0B\u5F0F\u78BC\u5B8C\u6210\u300D\uFF0C\u4F46\u6E2C\u8A66\u5C1A\u672A\u505A\u5B8C\u3002\u5B83\u5C0D<strong>\u901F\u5EA6\uFF08velocity\uFF09</strong>\u6709\u4F55\u5F71\u97FF\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u672C\u885D\u523A\u4E0D\u8A08\u5165\u4EFB\u4F55\u901F\u5EA6\u4E26\u905E\u5EF6\uFF0C\u56E0\u70BA\u5B83\u4E26\u672A\u5B8C\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u672A\u5B8C\u6210\u7684\u6545\u4E8B\u4E0D\u8A08\u5206\uFF0C\u4E26\u5EF6\u7E8C\u5230\u4E0B\u500B\u885D\u523A\u3002"
+              },
+              {
+                "text": "\u53D6\u5F97\u5168\u984D\u901F\u5EA6\u8A08\u5206\uFF0C\u56E0\u70BA\u7A0B\u5F0F\u78BC\u5DF2\u5B58\u5728",
+                "fraction": 0,
+                "feedback": "\u7A0B\u5F0F\u78BC\u5B58\u5728\u4E0D\u7B49\u65BC\u5B8C\u6210\uFF1B\u8A08\u5165\u5B83\u6703\u704C\u6C34\u901F\u5EA6\u3002"
+              },
+              {
+                "text": "\u4F9D\u5269\u9918\u6E2C\u8A66\u591A\u5BE1\u53D6\u5F97\u90E8\u5206\u8A08\u5206",
+                "fraction": 0,
+                "feedback": "\u901F\u5EA6\u4EE5\u5B8C\u6210\uFF0F\u672A\u5B8C\u6210\u8A08\uFF0C\u6C92\u6709\u90E8\u5206\u8A08\u5206\u3002"
+              },
+              {
+                "text": "\u63D0\u5347\u901F\u5EA6\uFF0C\u56E0\u70BA\u5B83\u4E0B\u500B\u885D\u523A\u5F88\u5FEB\u5C31\u6703\u505A\u5B8C",
+                "fraction": 0,
+                "feedback": "\u672A\u4F86\u505A\u5B8C\u4E26\u4E0D\u6703\u7522\u751F\u672C\u885D\u523A\u7684\u8A08\u5206\u3002"
+              }
+            ],
+            "generalFeedback": "\u901F\u5EA6\u53EA\u8A08\u5DF2\u5B8C\u6210\u7684\u6545\u4E8B\u3002\u56E0\u70BA\u6E2C\u8A66\u662F\u5B8C\u6210\u7684\u4E00\u90E8\u5206\uFF0C\u4E00\u500B\u7A0B\u5F0F\u78BC\u5B8C\u6210\u4F46\u672A\u6E2C\u8A66\u7684\u6545\u4E8B\u672C\u885D\u523A\u4EC0\u9EBC\u90FD\u4E0D\u8A08\uFF0C\u4E26\u6703\u905E\u5EF6\u3002\u786C\u8981\u8A08\u5165\u6703\u704C\u6C34\u901F\u5EA6\u4E26\u63A9\u84CB\u5C1A\u5F85\u5B8C\u6210\u7684\u5DE5\u4F5C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9A57\u6536\u6E96\u5247\u4F5C\u70BA\u5171\u540C\u7406\u89E3",
+            "text": "<p>\u5728\u64B0\u5BEB\u4E00\u500B\u6545\u4E8B\u7684\u7A0B\u5F0F\u78BC\u4E4B\u524D\u5148\u8B70\u5B9A<strong>\u9A57\u6536\u6E96\u5247\u8207\u5177\u9AD4\u7BC4\u4F8B</strong>\uFF0C\u4E3B\u8981\u6709\u5E6B\u52A9\u662F\u56E0\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5EFA\u7ACB\u5C0D\u9810\u671F\u884C\u70BA\u7684\u5171\u540C\u7406\u89E3\uFF0C\u4F7F\u6545\u4E8B\u7684\u5EFA\u69CB\u8207\u6E2C\u8A66\u5C0D\u6E96\u540C\u4E00\u500B\u76EE\u6A19",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5171\u540C\u7684\u7BC4\u4F8B\u5728\u5BEB\u7A0B\u5F0F\u524D\u5C31\u8B93\u958B\u767C\u8207\u6E2C\u8A66\u5C0D\u9F4A\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u5718\u968A\u4E4B\u5F8C\u53EF\u4EE5\u4E0D\u7528\u8DD1\u4EFB\u4F55\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6E96\u5247\u5F15\u5C0E\u6E2C\u8A66\uFF1B\u5B83\u4E0D\u53D6\u4EE3\u8DD1\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5B83\u4FDD\u8B49\u6545\u4E8B\u4E00\u958B\u59CB\u5BEB\u7A0B\u5F0F\u5C31\u4E0D\u518D\u9700\u8981\u4EFB\u4F55\u8B8A\u66F4",
+                "fraction": 0,
+                "feedback": "\u7406\u89E3\u4ECD\u53EF\u80FD\u6F14\u8B8A\uFF1B\u597D\u8655\u5728\u65BC\u5C0D\u9F4A\uFF0C\u800C\u975E\u4E0D\u53EF\u8B8A\u66F4\u3002"
+              },
+              {
+                "text": "\u5B83\u628A\u6240\u6709\u6E2C\u8A66\u79FB\u5230\u885D\u523A\u672B\u5C3E",
+                "fraction": 0,
+                "feedback": "\u53CA\u65E9\u8B70\u5B9A\u6E96\u5247\u662F\u628A\u6E2C\u8A66\u601D\u7DAD\u5DE6\u79FB\uFF0C\u800C\u975E\u79FB\u5230\u672B\u5C3E\u3002"
+              }
+            ],
+            "generalFeedback": "\u5177\u9AD4\u7684\u9A57\u6536\u6E96\u5247\u8207\u7BC4\u4F8B\u7D66\u958B\u767C\u8005\u8207\u6E2C\u8A66\u8005\u4E00\u500B\u5171\u540C\u3001\u660E\u78BA\u7684\u76EE\u6A19\u3002\u6545\u4E8B\u88AB\u5EFA\u69CB\u4EE5\u6EFF\u8DB3\u90A3\u4E9B\u7BC4\u4F8B\uFF0C\u4E26\u4F9D\u5B83\u5011\u6E2C\u8A66\uFF0C\u6E1B\u5C11\u8FD4\u5DE5\u8207\u8AA4\u89E3\u2014\u2014\u9019\u662F\u5DE6\u79FB\u3001\u5168\u5718\u968A\u7684\u5BE6\u52D9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u53EF\u4EA4\u4ED8\u9700\u8981\u885D\u523A\u5167\u6E2C\u8A66",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u4EE5<strong>\u6F5B\u5728\u53EF\u4EA4\u4ED8\u7684\u589E\u91CF</strong>\u70BA\u76EE\u6A19\uFF0C\u6703\u8FEB\u4F7F\u6E2C\u8A66\u5728\u885D\u523A\u5167\u9032\u884C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u552F\u6709\u54C1\u8CEA\u5728\u885D\u523A\u5167\u88AB\u9A57\u8B49\u3001\u800C\u975E\u5EF6\u5F8C\uFF0C\u589E\u91CF\u624D\u53EF\u80FD\u662F\u53EF\u767C\u5E03\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u767C\u5E03\u6027\u8981\u6C42\u6E2C\u8A66\u5DF2\u5728\u885D\u523A\u5167\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA Scrum \u7981\u6B62\u64B0\u5BEB\u4EFB\u4F55\u81EA\u52D5\u5316\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "Scrum \u4E26\u4E0D\u7981\u6B62\u81EA\u52D5\u5316\uFF1B\u81EA\u52D5\u5316\u5176\u5BE6\u652F\u6490\u53EF\u767C\u5E03\u6027\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u7522\u54C1\u8CA0\u8CAC\u4EBA\u89AA\u81EA\u6E2C\u8A66\u6BCF\u500B\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u7522\u54C1\u8CA0\u8CAC\u4EBA\u9A57\u6536\u50F9\u503C\uFF1B\u6E2C\u8A66\u7531\u5168\u5718\u968A\u9032\u884C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u628A\u6E2C\u8A66\u7559\u5230\u6578\u500B\u885D\u523A\u4E4B\u5F8C\u6BD4\u8F03\u4FBF\u5B9C",
+                "fraction": 0,
+                "feedback": "\u5EF6\u5F8C\u6E2C\u8A66\u6703\u63D0\u9AD8\u6210\u672C\u8207\u98A8\u96AA\uFF1B\u5B83\u4E0D\u6703\u8B93\u589E\u91CF\u8B8A\u5F97\u53EF\u4EA4\u4ED8\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u6F5B\u5728\u53EF\u4EA4\u4ED8\u300D\u8868\u793A\u589E\u91CF\u96A8\u6642\u90FD\u53EF\u80FD\u88AB\u767C\u5E03\u3002\u552F\u6709\u54C1\u8CEA\u5DF2\u5728\u885D\u523A\u5167\u88AB\u9A57\u8B49\uFF0C\u9019\u624D\u6210\u7ACB\u3002\u5EF6\u5F8C\u6E2C\u8A66\u6703\u7559\u4E0B\u672A\u77E5\u7684\u54C1\u8CEA\uFF0C\u56E0\u6B64\u589E\u91CF\u5176\u5BE6\u4E26\u975E\u53EF\u4EA4\u4ED8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D50\u5C0D\u5C0D\u56DE\u994B\u7684\u5F71\u97FF",
+            "text": "<p>\u5728\u958B\u767C<strong>\u671F\u9593</strong>\u8B93\u6E2C\u8A66\u8005\u8207\u958B\u767C\u8005\u7D50\u5C0D\uFF0C\u5C0D\u56DE\u994B\u8FF4\u5708\u6709\u4F55\u5F71\u97FF\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7E2E\u77ED\u8FF4\u5708\u2014\u2014\u554F\u984C\u88AB\u5373\u6642\u63D0\u51FA\u4E26\u4FEE\u6B63\uFF0C\u6E1B\u5C11\u4E4B\u5F8C\u7684\u8FD4\u5DE5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5373\u6642\u5354\u4F5C\u5728\u554F\u984C\u6EFE\u96EA\u7403\u4E4B\u524D\u5C31\u6293\u5230\u5B83\u3002"
+              },
+              {
+                "text": "\u62C9\u9577\u8FF4\u5708\uFF0C\u56E0\u70BA\u5169\u500B\u4EBA\u6703\u62D6\u6162\u4E00\u5207",
+                "fraction": 0,
+                "feedback": "\u7D50\u5C0D\u7E2E\u77ED\u6E2C\u8A66\u7684\u56DE\u994B\uFF1B\u5B83\u4E0D\u6703\u62C9\u9577\u54C1\u8CEA\u8FF4\u5708\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u5F71\u97FF\uFF0C\u56E0\u70BA\u56DE\u994B\u53EA\u5728\u767C\u5E03\u5F8C\u624D\u91CD\u8981",
+                "fraction": 0,
+                "feedback": "\u885D\u523A\u5167\u7684\u56DE\u994B\u662F\u654F\u6377\u7684\u6838\u5FC3\uFF1B\u5B83\u4E0D\u662F\u53EA\u5728\u767C\u5E03\u5F8C\u624D\u91CD\u8981\u3002"
+              },
+              {
+                "text": "\u628A\u6240\u6709\u56DE\u994B\u5EF6\u5230\u885D\u523A\u5BE9\u67E5",
+                "fraction": 0,
+                "feedback": "\u7D50\u5C0D\u6301\u7E8C\u7D66\u56DE\u994B\uFF0C\u800C\u975E\u53EA\u5728\u5BE9\u67E5\u6642\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D50\u5C0D\u628A\u300C\u5BEB\u7A0B\u5F0F\u300D\u8207\u300C\u6E2C\u8A66\u5B83\u300D\u4E4B\u9593\u7684\u8DDD\u96E2\u58D3\u7E2E\uFF1A\u554F\u984C\u5728\u8108\u7D61\u4ECD\u65B0\u9BAE\u6642\u7576\u5834\u88AB\u767C\u73FE\u4E26\u66F4\u6B63\uFF0C\u800C\u975E\u88AB\u8A18\u6210\u7F3A\u9677\u3001\u5E7E\u5929\u5F8C\u624D\u4FEE\u3002\u9019\u6B63\u662F\u5168\u5718\u968A\u3001\u5DE6\u79FB\u7BC0\u594F\u7684\u5BE6\u8E10\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FF7\u4F60\u7011\u5E03\u7684\u5FB5\u5146",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u9805\u89C0\u5BDF\u662F\u5718\u968A\u5728\u885D\u523A\u5167\u6709\u8FF7\u4F60\u7011\u5E03\u7684\u660E\u986F<strong>\u5FB5\u5146</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u8005\u5728\u885D\u523A\u524D\u671F\u9592\u7F6E\uFF0C\u537B\u5728\u6700\u5F8C\u5E7E\u5929\u8D85\u8F09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u524D\u671F\u9592\u7F6E\u3001\u5F8C\u671F\u64E0\u58D3\u7684\u6A21\u5F0F\u4EE3\u8868\u6E2C\u8A66\u88AB\u5806\u5230\u672B\u5C3E\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u8005\u8207\u958B\u767C\u8005\u5F9E\u7B2C\u4E00\u5929\u8D77\u5C31\u5728\u6545\u4E8B\u4E0A\u7D50\u5C0D",
+                "fraction": 0,
+                "feedback": "\u7B2C\u4E00\u5929\u5C31\u5354\u4F5C\u662F\u5065\u5EB7\u7BC0\u594F\uFF0C\u4E0D\u662F\u81ED\u5473\u7684\u5FB5\u5146\u3002"
+              },
+              {
+                "text": "\u8FF4\u6B78\u6E2C\u8A66\u5957\u4EF6\u5DF2\u81EA\u52D5\u5316\u4E26\u6BCF\u500B\u885D\u523A\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u81EA\u52D5\u5316\u8FF4\u6B78\u662F\u826F\u597D\u5BE6\u52D9\uFF0C\u4E0D\u662F\u81ED\u5473\u7684\u5FB5\u5146\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E96\u5247\u5728\u7CBE\u7149\u6642\u5C31\u8B70\u5B9A",
+                "fraction": 0,
+                "feedback": "\u53CA\u65E9\u8B70\u5B9A\u6E96\u5247\u662F\u5DE6\u79FB\u5BE6\u52D9\uFF0C\u4E0D\u662F\u8FF7\u4F60\u7011\u5E03\u7684\u5FB5\u5146\u3002"
+              }
+            ],
+            "generalFeedback": "\u8FF7\u4F60\u7011\u5E03\u7684\u5178\u578B\u5FB5\u5146\u662F\u8CA0\u8F09\u4E0D\u5747\uFF1A\u524D\u671F\u56E0\u7A0B\u5F0F\u78BC\u9084\u5728\u5BEB\u800C\u7121\u53EF\u6E2C\u8A66\u4E4B\u7269\uFF0C\u672B\u5C3E\u537B\u6E67\u5165\u5927\u91CF\u6E2C\u8A66\u3002\u6574\u500B\u885D\u523A\u5E73\u9806\u3001\u6301\u7E8C\u5730\u6E2C\u8A66\u624D\u662F\u5065\u5EB7\u7684\u66FF\u4EE3\u505A\u6CD5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u885D\u523A\u672B\u5C3E\u6210\u6279\u6E2C\u8A66\u7684\u98A8\u96AA",
+            "text": "<p>\u628A\u6240\u6709\u6E2C\u8A66\u5806\u9032\u885D\u523A\u6700\u5F8C\u5E7E\u5929\u7684\u4E3B\u8981<strong>\u98A8\u96AA</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7F3A\u9677\u592A\u665A\u88AB\u767C\u73FE\uFF0C\u4F86\u4E0D\u53CA\u5728\u885D\u523A\u5167\u4FEE\u6B63\uFF0C\u88AB\u8FEB\u5009\u4FC3\u4FEE\u88DC\u6216\u905E\u5EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u592A\u665A\u767C\u73FE\u4F7F\u4EBA\u6C92\u6709\u6642\u9593\u4FEE\uFF0C\u5DE5\u4F5C\u56E0\u6B64\u5EF6\u8AA4\u6216\u5009\u4FC3\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u6703\u6BD4\u9810\u5B9A\u66F4\u65E9\u5B8C\u6210\u6BCF\u500B\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u6210\u6279\u6E2C\u8A66\u5F80\u5F80\u9020\u6210\u5EF6\u8AA4\uFF0C\u800C\u975E\u63D0\u65E9\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "\u81EA\u52D5\u5316\u6E2C\u8A66\u8B8A\u5F97\u4E0D\u53EF\u80FD\u64B0\u5BEB",
+                "fraction": 0,
+                "feedback": "\u6210\u6279\u4E26\u4E0D\u6703\u4F7F\u81EA\u52D5\u5316\u4E0D\u53EF\u80FD\uFF1B\u5B83\u53EA\u662F\u5EF6\u9072\u56DE\u994B\u3002"
+              },
+              {
+                "text": "\u7522\u54C1\u8CA0\u8CAC\u4EBA\u5FC5\u9808\u51FA\u5E2D\u6BCF\u65E5\u7AD9\u6703",
+                "fraction": 0,
+                "feedback": "\u90A3\u8207\u6E2C\u8A66\u4F55\u6642\u9032\u884C\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6E2C\u8A66\u88AB\u64E0\u9032\u6700\u5F8C\u5E7E\u5929\uFF0C\u5B83\u627E\u5230\u7684\u4EFB\u4F55\u7F3A\u9677\u90FD\u5728\u6642\u9593\u6240\u5269\u7121\u5E7E\u6642\u624D\u51FA\u73FE\u3002\u7D50\u679C\u5C31\u662F\u64E0\u58D3\u3001\u5009\u4FC3\u7684\u4F4E\u54C1\u8CEA\u4FEE\u88DC\uFF0C\u6216\u6545\u4E8B\u672A\u5B8C\u6210\u5730\u905E\u5EF6\u5230\u4E0B\u500B\u885D\u523A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u300C\u4E0B\u500B\u885D\u523A\u518D\u88DC\u6E2C\u8A66\u300D",
+            "text": "<p>\u4E00\u4F4D\u958B\u767C\u8005\u8AAA\uFF1A\u300C\u5148\u628A\u5B83\u6A19\u6210\u5B8C\u6210\uFF0C\u6E2C\u8A66\u4E0B\u500B\u885D\u523A\u518D\u88DC\u3002\u300D\u9019\u6700\u76F4\u63A5\u5730\u7834\u58DE\u4E86\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u2014\u2014\u5B83\u628A\u672A\u6E2C\u8A66\u7684\u5DE5\u4F5C\u507D\u88DD\u6210\u5B8C\u6210\u4E26\u7D2F\u7A4D\u6E2C\u8A66\u50B5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u672A\u6E2C\u8A66\u7684\u5DE5\u4F5C\u7A31\u70BA\u5B8C\u6210\u6703\u7834\u58DE DoD \u4E26\u7D2F\u7A4D\u50B5\u52D9\u3002"
+              },
+              {
+                "text": "\u6BCF\u65E5\u7AD9\u6703\uFF0C\u5B83\u56E0\u6B64\u8B8A\u5F97\u4E0D\u5FC5\u8981",
+                "fraction": 0,
+                "feedback": "\u6BCF\u65E5\u7AD9\u6703\u4E0D\u53D7\u9019\u500B\u6C7A\u5B9A\u5F71\u97FF\u3002"
+              },
+              {
+                "text": "\u7522\u54C1\u5F85\u8FA6\u6E05\u55AE\u7684\u6392\u5E8F",
+                "fraction": 0,
+                "feedback": "\u5F85\u8FA6\u6E05\u55AE\u6392\u5E8F\u8207\u628A\u672A\u6E2C\u8A66\u5DE5\u4F5C\u6A19\u6210\u5B8C\u6210\u662F\u4E0D\u540C\u7684\u8B70\u984C\u3002"
+              },
+              {
+                "text": "\u6C92\u7834\u58DE\u4EC0\u9EBC\u2014\u2014\u628A\u6E2C\u8A66\u5EF6\u5F8C\u4E00\u500B\u885D\u523A\u662F\u6A19\u6E96\u654F\u6377\u5BE6\u52D9",
+                "fraction": 0,
+                "feedback": "\u628A\u6E2C\u8A66\u5EF6\u5F8C\u4E00\u500B\u885D\u523A\u662F\u53CD\u6A21\u5F0F\uFF0C\u4E0D\u662F\u6A19\u6E96\u5BE6\u52D9\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u672A\u6E2C\u8A66\u7684\u5DE5\u4F5C\u6A19\u6210\u5B8C\u6210\uFF0C\u9055\u53CD\u4E86\u5305\u542B\u6E2C\u8A66\u7684 DoD\u3002\u5B83\u628A\u672A\u5B8C\u6210\u7684\u5DE5\u4F5C\u507D\u88DD\u6210\u5B8C\u6210\u3001\u704C\u6C34\u901F\u5EA6\uFF0C\u4E26\u7D2F\u7A4D\u4E4B\u5F8C\u5FC5\u9808\u511F\u9084\u7684\u6E2C\u8A66\u50B5\u2014\u2014\u800C\u4E14\u901A\u5E38\u4EE3\u50F9\u66F4\u9AD8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5168\u5718\u968A\u5C0D\u7F3A\u9677\u7684\u56DE\u61C9",
+            "text": "<p>\u5728<strong>\u5168\u5718\u968A\u54C1\u8CEA</strong>\u4E4B\u4E0B\uFF0C\u885D\u523A\u4E2D\u767C\u73FE\u7F3A\u9677\u6642\u61C9\u5982\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5718\u968A\u5354\u4F5C\u5118\u901F\u8655\u7406\u5B83\uFF0C\u800C\u4E0D\u662F\u628A\u5B83\u7576\u6210\u53EA\u662F\u6E2C\u8A66\u8005\u7684\u554F\u984C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5168\u5718\u968A\u54C1\u8CEA\u610F\u5473\u8457\u5718\u968A\u4E00\u8D77\u8702\u64C1\u8655\u7406\u6B64\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u628A\u5B83\u8A18\u9304\u4E0B\u4F86\uFF0C\u7559\u7D66 QA \u5718\u968A\u5728\u885D\u523A\u7D50\u675F\u5F8C\u8655\u7406",
+                "fraction": 0,
+                "feedback": "\u7559\u7D66\u4E0B\u6E38 QA \u5718\u968A\u6703\u91CD\u65B0\u88FD\u9020\u5B64\u5CF6\u8207\u5EF6\u9072\u3002"
+              },
+              {
+                "text": "\u5FFD\u7565\u5B83\uFF0C\u76F4\u5230\u5F37\u5316\u885D\u523A",
+                "fraction": 0,
+                "feedback": "\u5EF6\u5F8C\u5230\u5F37\u5316\u885D\u523A\u6703\u8B93\u7F3A\u9677\u8207\u50B5\u52D9\u6301\u7E8C\u7D2F\u7A4D\u3002"
+              },
+              {
+                "text": "\u7531\u767C\u73FE\u5B83\u7684\u6E2C\u8A66\u8005\u7368\u81EA\u4FEE\u6B63",
+                "fraction": 0,
+                "feedback": "\u5168\u5718\u968A\u54C1\u8CEA\u610F\u5473\u8457\u5171\u540C\u627F\u64D4\uFF0C\u800C\u975E\u7368\u81EA\u7A76\u8CAC\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u5168\u5718\u968A\u54C1\u8CEA\u4E4B\u4E0B\uFF0C\u7F3A\u9677\u5C6C\u65BC\u5718\u968A\uFF0C\u800C\u975E\u53EA\u5C6C\u65BC\u767C\u73FE\u5B83\u7684\u4EBA\u3002\u5718\u968A\u8702\u64C1\u5118\u901F\u4FEE\u6B63\uFF0C\u8B93\u6545\u4E8B\u5728\u885D\u523A\u5167\u9054\u5230\u5B8C\u6210\uFF0C\u4F7F\u589E\u91CF\u4FDD\u6301\u53EF\u4EA4\u4ED8\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\u6700\u5F8C\u5169\u5929\u7684\u6A21\u5F0F",
+            "text": "<p>\u67D0\u5718\u968A\u7684\u958B\u767C\u8005\u6574\u500B\u885D\u523A\u90FD\u5728\u5BEB\u7A0B\u5F0F\uFF0C\u6E2C\u8A66\u8005\u537B\u53EA\u5728\u6700\u5F8C\u5169\u5929\u624D\u958B\u59CB\u6E2C\u8A66\uFF0C\u6B64\u6642\u7F3A\u9677\u5927\u91CF\u5806\u7A4D\u3002<strong>\u8A3A\u65B7\u8207\u77EF\u6B63</strong>\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u885D\u523A\u5167\u7684\u8FF7\u4F60\u7011\u5E03\uFF1B\u77EF\u6B63\u4E4B\u9053\u662F\u6BCF\u500B\u6545\u4E8B\u4E00\u5B8C\u6210\u5C31\u6E2C\u8A66\uFF0C\u4E26\u7531\u5168\u5718\u968A\u5168\u7A0B\u5354\u4F5C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u6E2C\u8A66\u5806\u5230\u672B\u5C3E\u5C31\u662F\u8FF7\u4F60\u7011\u5E03\uFF0C\u9760\u6301\u7E8C\u7684\u885D\u523A\u5167\u6E2C\u8A66\u4FEE\u6B63\u3002"
+              },
+              {
+                "text": "\u5065\u5EB7\u7684\u7BC0\u594F\uFF1B\u7121\u9808\u6539\u8B8A\uFF0C\u56E0\u70BA\u6240\u6709\u6E2C\u8A66\u4ECD\u5728\u885D\u523A\u5167\u9032\u884C",
+                "fraction": 0,
+                "feedback": "\u5728\u885D\u523A\u5167\u9084\u4E0D\u5920\uFF1B\u628A\u6E2C\u8A66\u5806\u5230\u672B\u5C3E\u624D\u662F\u554F\u984C\u6240\u5728\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u843D\u5F8C\u4E00\u500B\u885D\u523A\uFF1B\u77EF\u6B63\u4E4B\u9053\u662F\u52A0\u4E00\u500B\u5F37\u5316\u885D\u523A",
+                "fraction": 0,
+                "feedback": "\u9019\u4E26\u975E\u843D\u5F8C\u4E00\u500B\u885D\u523A\u7684\u6A21\u5F0F\uFF0C\u5F37\u5316\u885D\u523A\u4E5F\u7121\u6CD5\u4FEE\u6B63\u5B83\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u5DE5\u5177\u554F\u984C\uFF1B\u77EF\u6B63\u4E4B\u9053\u662F\u8CB7\u4E00\u500B\u66F4\u5FEB\u7684\u6E2C\u8A66\u57F7\u884C\u5668",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u5728\u65BC\u5DE5\u4F5C\u6D41\u7A0B\u7684\u6642\u6A5F\uFF0C\u4E0D\u662F\u6E2C\u8A66\u57F7\u884C\u5668\u7684\u901F\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u5148\u5BEB\u7A0B\u5F0F\u3001\u6700\u5F8C\u624D\u6E2C\u8A66\uFF0C\u7B49\u65BC\u5728\u885D\u523A\u5167\u91CD\u73FE\u4E86\u4E00\u500B\u7011\u5E03\u3002\u77EF\u6B63\u4E4B\u9053\u662F\u628A\u5B83\u6524\u5E73\uFF1A\u628A\u5DE5\u4F5C\u5207\u5206\u8B93\u6BCF\u500B\u6545\u4E8B\u5F88\u5FEB\u53EF\u6E2C\u3001\u4E00\u5B8C\u6210\u5C31\u6E2C\uFF0C\u4E26\u8B93\u958B\u767C\u8005\u8207\u6E2C\u8A66\u8005\u6301\u7E8C\u5354\u4F5C\uFF0C\u4F7F\u56DE\u994B\u4FDD\u6301\u5FEB\u901F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\u53CD\u8986\u51FA\u73FE\u7684\u5F37\u5316\u885D\u523A",
+            "text": "<p>\u67D0\u5718\u968A\u6BCF\u4E09\u500B\u885D\u523A\u5C31\u8DD1\u4E00\u500B\u5C08\u9580\u7684<strong>\u5F37\u5316\u885D\u523A</strong>\u4F86\u7A69\u5B9A\u4E26\u6E2C\u8A66\u7D2F\u7A4D\u7684\u5DE5\u4F5C\u3002\u9019\u4EE3\u8868\u4EC0\u9EBC\u3001\u53C8\u8A72\u5982\u4F55\u4FEE\u6B63\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u885D\u523A\u5167\u6E2C\u8A66\u4E0D\u8DB3\u3001\u54C1\u8CEA\u50B5\u7D2F\u7A4D\u7684\u81ED\u5473\uFF1B\u4FEE\u6B63\u4E4B\u9053\u662F\u9760\u66F4\u5F37\u7684 DoD \u8207\u885D\u523A\u5167\u81EA\u52D5\u5316\uFF0C\u5728\u6BCF\u500B\u885D\u523A\u5C31\u628A\u54C1\u8CEA\u5167\u5EFA\u9032\u53BB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53CD\u8986\u7684\u5F37\u5316\u885D\u523A\u4EE3\u8868\u61C9\u5728\u885D\u523A\u5167\u9810\u9632\u7684\u50B5\u52D9\u3002"
+              },
+              {
+                "text": "\u4E00\u9805\u6700\u4F73\u5BE6\u52D9\uFF0C\u6BCF\u500B\u6210\u719F\u7684\u654F\u6377\u5718\u968A\u90FD\u61C9\u6C38\u4E45\u63A1\u7528",
+                "fraction": 0,
+                "feedback": "\u6C38\u4E45\u7684\u5F37\u5316\u885D\u523A\u662F\u628A\u50B5\u52D9\u5236\u5EA6\u5316\uFF0C\u800C\u975E\u6D88\u9664\u5B83\u3002"
+              },
+              {
+                "text": "\u8B49\u660E\u5718\u968A\u6E2C\u8A66\u904E\u591A\uFF0C\u61C9\u8A72\u653E\u6162",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u5728\u65BC\u6E2C\u8A66\u88AB\u5EF6\u5F8C\uFF0C\u800C\u975E\u6E2C\u8A66\u904E\u591A\u3002"
+              },
+              {
+                "text": "\u81EA\u52D5\u5316\u8FF4\u6B78\u6E2C\u8A66\u5F8C\u7684\u6B63\u5E38\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u81EA\u52D5\u5316\u6703\u964D\u4F4E\u5C0D\u5F37\u5316\u7684\u9700\u8981\uFF1B\u5B83\u4E0D\u6703\u9020\u6210\u5F37\u5316\u3002"
+              }
+            ],
+            "generalFeedback": "\u53CD\u8986\u51FA\u73FE\u7684\u5F37\u5316\u885D\u523A\u662F\u500B\u5FB5\u5146\uFF1A\u54C1\u8CEA\u5DE5\u4F5C\u88AB\u5EF6\u5F8C\uFF0C\u5FC5\u9808\u5728\u88DC\u8AB2\u885D\u523A\u4E2D\u511F\u9084\u3002\u6CBB\u672C\u4E4B\u9053\u662F\u9810\u9632\u50B5\u52D9\u2014\u2014\u4E00\u500B\u5305\u542B\u6E2C\u8A66\u7684\u5B8C\u6210\u7684\u5B9A\u7FA9\u3001\u885D\u523A\u5167\u81EA\u52D5\u5316\uFF0C\u4EE5\u53CA\u6301\u7E8C\u6E2C\u8A66\uFF0C\u8B93\u6BCF\u500B\u885D\u523A\u7684\u589E\u91CF\u5DF2\u7D93\u7A69\u5B9A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\u6E2C\u8A66\u843D\u5F8C\u4E00\u500B\u885D\u523A",
+            "text": "<p>\u958B\u767C\u8005\u5728\u885D\u523A N \u5EFA\u69CB\u529F\u80FD\uFF0C\u6E2C\u8A66\u8005\u537B\u5728\u885D\u523A N+1 \u624D\u6E2C\u8A66\u90A3\u6279\u5DE5\u4F5C\u3002<strong>\u8A3A\u65B7\u8207\u5176\u4E3B\u8981\u5F8C\u679C</strong>\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u843D\u5F8C\u958B\u767C\u4E00\u500B\u885D\u523A\uFF1B\u56DE\u994B\u88AB\u5EF6\u9072\u3001\u672A\u6E2C\u8A66\u7684\u5DE5\u4F5C\u905E\u5EF6\uFF0C\u56E0\u6B64\u300C\u5B8C\u6210\u300D\u8B8A\u5F97\u542B\u7CCA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u843D\u5F8C\u4E00\u500B\u885D\u523A\u6703\u5EF6\u9072\u56DE\u994B\u4E26\u9020\u6210\u905E\u5EF6\u8207\u4E0D\u660E\u78BA\u7684\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "\u9019\u662F\u7406\u60F3\u7684\u7BA1\u7DDA\u5316\uFF0C\u80FD\u6700\u5927\u5316\u7522\u51FA\u4E14\u6BEB\u7121\u7F3A\u9EDE",
+                "fraction": 0,
+                "feedback": "\u843D\u5F8C\u6709\u5BE6\u969B\u7F3A\u9EDE\uFF1A\u5EF6\u9072\u56DE\u994B\u8207\u905E\u5EF6\uFF0C\u800C\u975E\u514D\u8CBB\u7684\u52A0\u901F\u3002"
+              },
+              {
+                "text": "\u4FB7\u9650\u5728\u55AE\u4E00\u885D\u523A\u5167\u7684\u8FF7\u4F60\u7011\u5E03",
+                "fraction": 0,
+                "feedback": "\u6B64\u843D\u5F8C\u6A6B\u8DE8\u5169\u500B\u885D\u523A\uFF1B\u5B83\u662F\u843D\u5F8C\u4E00\u500B\u885D\u523A\u7684\u53CD\u6A21\u5F0F\uFF0C\u4E0D\u662F\u55AE\u4E00\u885D\u523A\u5167\u7684\u8FF7\u4F60\u7011\u5E03\u3002"
+              },
+              {
+                "text": "\u5168\u5718\u968A\u54C1\u8CEA\u6B63\u5982\u9810\u671F\u5730\u904B\u4F5C",
+                "fraction": 0,
+                "feedback": "\u628A\u5EFA\u69CB\u8207\u6E2C\u8A66\u62C6\u5230\u4E0D\u540C\u885D\u523A\uFF0C\u6B63\u8207\u5168\u5718\u968A\u3001\u885D\u523A\u5167\u7684\u54C1\u8CEA\u76F8\u53CD\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6E2C\u8A66\u843D\u5F8C\u958B\u767C\u4E00\u500B\u885D\u523A\uFF0C\u885D\u523A N \u7684\u7F3A\u9677\u8981\u5230 N+1 \u624D\u88AB\u767C\u73FE\u2014\u2014\u6B64\u6642\u5DF2\u6709\u66F4\u591A\u5DE5\u4F5C\u758A\u5728\u5176\u4E0A\u3002\u56DE\u994B\u88AB\u5EF6\u9072\u3001\u6545\u4E8B\u905E\u5EF6\uFF0C\u4E5F\u6C92\u6709\u4EFB\u4F55\u885D\u523A\u7522\u51FA\u771F\u6B63\u5B8C\u6210\u7684\u589E\u91CF\u3002\u6CBB\u672C\u4E4B\u9053\u662F\u5728\u540C\u4E00\u500B\u885D\u523A\u5167\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5B8C\u6210\u9700\u8981\u6E2C\u8A66",
+            "text": "<p>\u5F9E\u98A8\u96AA\u7684\u89D2\u5EA6\u770B\uFF0C\u70BA\u4EC0\u9EBC<strong>\u5B8C\u6210</strong>\u7684\u5B9A\u7FA9\u5FC5\u9808\u8981\u6C42\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u672A\u6E2C\u8A66\u7684\u7A0B\u5F0F\u78BC\u54C1\u8CEA\u672A\u77E5\uFF0C\u6240\u4EE5\u7A31\u5B83\u70BA\u5B8C\u6210\u6703\u96B1\u85CF\u98A8\u96AA\u4E26\u8B93\u50B5\u52D9\u6084\u6084\u7D2F\u7A4D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u6E2C\u8A66\uFF0C\u300C\u5B8C\u6210\u300D\u5C31\u662F\u4E00\u500B\u672A\u9A57\u8B49\u3001\u6709\u98A8\u96AA\u7684\u5BA3\u7A31\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u53EA\u662F\u70BA\u4E86\u6EFF\u8DB3\u5916\u90E8\u7A3D\u6838\uFF0C\u800C\u975E\u70BA\u4E86\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u7406\u7531\u662F\u771F\u5BE6\u7684\u54C1\u8CEA\u98A8\u96AA\uFF0C\u800C\u975E\u50C5\u70BA\u7A3D\u6838\u5408\u898F\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6E2C\u8A66\u6703\u8B93\u7A0B\u5F0F\u78BC\u8DD1\u5F97\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u9A57\u8B49\u884C\u70BA\uFF1B\u5B83\u4E3B\u8981\u4E0D\u662F\u6548\u80FD\u6700\u4F73\u5316\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA Scrum \u628A\u6E2C\u8A66\u6307\u6D3E\u7D66\u7522\u54C1\u8CA0\u8CAC\u4EBA",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u662F\u5168\u5718\u968A\u7684\u6D3B\u52D5\uFF0C\u800C\u4E14\u9019\u4E5F\u4E0D\u662F\u5B8C\u6210\u9700\u8981\u5B83\u7684\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B8C\u6210\u662F\u4E00\u500B\u5BA3\u7A31\u5DE5\u4F5C\u5DF2\u5B8C\u6574\u4E14\u503C\u5F97\u4FE1\u4EFB\u7684\u4E3B\u5F35\u3002\u672A\u6E2C\u8A66\u7684\u7A0B\u5F0F\u78BC\u5E36\u6709\u672A\u77E5\u7684\u54C1\u8CEA\uFF0C\u6240\u4EE5\u628A\u5B83\u6A19\u6210\u5B8C\u6210\u6703\u63A9\u84CB\u98A8\u96AA\u4E26\u6084\u6084\u7D2F\u7A4D\u50B5\u52D9\u3002\u8981\u6C42\u6E2C\u8A66\u80FD\u8B93\u5B8C\u6210\u4FDD\u6301\u8AA0\u5BE6\uFF0C\u4E26\u8B93\u6BCF\u500B\u589E\u91CF\u90FD\u6F5B\u5728\u53EF\u4EA4\u4ED8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EF6\u5F8C\u6E2C\u8A66\u7684\u53D6\u6368",
+            "text": "<p>\u67D0\u5718\u968A\u4E3B\u5F35\u628A\u6E2C\u8A66\u5EF6\u5230\u885D\u523A\u672B\u5C3E\u80FD\u8B93\u4ED6\u5011\u300C\u5BEB\u5F97\u66F4\u5FEB\u300D\u3002\u771F\u6B63\u7684<strong>\u53D6\u6368</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u77ED\u671F\u770B\u4F3C\u66F4\u5FEB\uFF0C\u537B\u63D0\u9AD8\u7F3A\u9677\u6210\u672C\u3001\u5EF6\u9072\u56DE\u994B\uFF0C\u4E26\u5192\u8457\u885D\u523A\u672B\u5C3E\u64E0\u58D3\u8207\u905E\u5EF6\u7684\u98A8\u96AA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u7A2E\u8868\u9762\u901F\u5EA6\u662F\u5411\u4E4B\u5F8C\u7684\u6210\u672C\u8207\u98A8\u96AA\u501F\u4F86\u7684\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u53D6\u6368\uFF1B\u5EF6\u5F8C\u6E2C\u8A66\u6574\u9AD4\u4E0A\u5C31\u662F\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u665A\u671F\u7F3A\u9677\u8207\u905E\u5EF6\u7684\u5F8C\u7E8C\u6210\u672C\u62B5\u92B7\u4E86\u8868\u9762\u7684\u901F\u5EA6\u3002"
+              },
+              {
+                "text": "\u5B83\u7ACB\u5373\u62D6\u6162\u5BEB\u7A0B\u5F0F\uFF0C\u4E4B\u5F8C\u65E2\u7121\u597D\u8655\u4E5F\u7121\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u5EF6\u5F8C\u4E26\u4E0D\u6703\u7ACB\u5373\u62D6\u6162\u5BEB\u7A0B\u5F0F\uFF1B\u6210\u672C\u843D\u5728\u4E4B\u5F8C\u3002"
+              },
+              {
+                "text": "\u5B83\u4FDD\u8B49\u66F4\u9AD8\u7684\u54C1\u8CEA\uFF0C\u56E0\u70BA\u6E2C\u8A66\u4E00\u6B21\u5168\u90E8\u8DD1\u5B8C",
+                "fraction": 0,
+                "feedback": "\u592A\u665A\u8DD1\u6E2C\u8A66\u5F80\u5F80\u964D\u4F4E\u54C1\u8CEA\u7D50\u679C\uFF0C\u800C\u975E\u63D0\u9AD8\u3002"
+              }
+            ],
+            "generalFeedback": "\u5EF6\u5F8C\u6E2C\u8A66\u662F\u5411\u672A\u4F86\u501F\u4F86\u8868\u9762\u901F\u5EA6\uFF1A\u665A\u671F\u767C\u73FE\u7684\u7F3A\u9677\u4FEE\u8D77\u4F86\u66F4\u8CB4\u3001\u56DE\u994B\u88AB\u5EF6\u9072\uFF0C\u885D\u523A\u4E5F\u5728\u64E0\u58D3\u4E2D\u7D50\u675F\u4E26\u53EF\u80FD\u905E\u5EF6\u3002\u77ED\u671F\u7684\u597D\u8655\u6703\u9023\u672C\u5E36\u5229\u5730\u511F\u9084\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8DE8\u885D\u523A\u7DAD\u6301\u8FF4\u6B78",
+            "text": "<p>\u96A8\u8457\u885D\u523A\u7D2F\u7A4D\uFF0C\u5718\u968A\u5982\u4F55\u5728\u4E0D\u62C9\u9577\u885D\u523A\u7684\u60C5\u6CC1\u4E0B\u8B93<strong>\u8FF4\u6B78</strong>\u53EF\u6301\u7E8C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u885D\u523A\u5167\u628A\u8FF4\u6B78\u6AA2\u67E5\u81EA\u52D5\u5316\uFF0C\u4F7F\u4E0D\u65B7\u6210\u9577\u7684\u5957\u4EF6\u6BCF\u500B\u885D\u523A\u90FD\u80FD\u53CD\u8986\u4E14\u4FBF\u5B9C\u5730\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u885D\u523A\u5167\u81EA\u52D5\u5316\u8B93\u64F4\u5F35\u7684\u8FF4\u6B78\u7DAD\u6301\u53EF\u8CA0\u64D4\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u885D\u523A\u90FD\u7528\u624B\u52D5\u91CD\u8DD1\u6574\u500B\u8FF4\u6B78",
+                "fraction": 0,
+                "feedback": "\u624B\u52D5\u91CD\u8DD1\u6703\u7121\u6B62\u5883\u5730\u6210\u9577\u4E26\u8B8A\u5F97\u96E3\u4EE5\u70BA\u7E7C\u3002"
+              },
+              {
+                "text": "\u820A\u529F\u80FD\u4E00\u65E6\u767C\u5E03\u904E\u4E00\u6B21\u5C31\u505C\u6B62\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u653E\u68C4\u8FF4\u6B78\u6703\u8B93\u820A\u529F\u80FD\u6084\u6084\u58DE\u6389\u3002"
+              },
+              {
+                "text": "\u628A\u6240\u6709\u8FF4\u6B78\u5806\u9032\u5076\u723E\u4E00\u6B21\u7684\u5F37\u5316\u885D\u523A",
+                "fraction": 0,
+                "feedback": "\u628A\u8FF4\u6B78\u5806\u9032\u5F37\u5316\u885D\u523A\u6703\u5EF6\u9072\u56DE\u994B\u4E26\u96B1\u85CF\u50B5\u52D9\u3002"
+              }
+            ],
+            "generalFeedback": "\u8FF4\u6B78\u6E2C\u8A66\u5957\u4EF6\u6703\u96A8\u6BCF\u500B\u885D\u523A\u6210\u9577\u3002\u5728\u885D\u523A\u5167\u628A\u90A3\u4E9B\u53EF\u91CD\u8907\u7684\u6AA2\u67E5\u81EA\u52D5\u5316\uFF0C\u80FD\u8B93\u6574\u500B\u5957\u4EF6\u6BCF\u500B\u8FED\u4EE3\u90FD\u53EF\u57F7\u884C\uFF0C\u4F7F\u56DE\u994B\u4FDD\u6301\u5FEB\u901F\u3001\u7BC0\u594F\u5F97\u4EE5\u7DAD\u6301\uFF0C\u800C\u4E0D\u7528\u62C9\u9577\u885D\u523A\u6216\u96C7\u7528\u7121\u76E1\u7684\u624B\u52D5\u6E2C\u8A66\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u672A\u505A\u6E2C\u8A66\u5C0D\u905E\u5EF6\u7684\u5F71\u97FF",
+            "text": "<p>\u67D0\u5718\u968A\u6163\u65BC\u628A\u7A0B\u5F0F\u78BC\u5B8C\u6210\u7684\u6545\u4E8B\u6A19\u6210\u5B8C\u6210\uFF0C\u5118\u7BA1\u6E2C\u8A66\u5C1A\u672A\u505A\u5B8C\u3002\u9577\u671F\u4E0B\u4F86\u5C0D<strong>\u901F\u5EA6\u8207\u905E\u5EF6</strong>\u53EF\u80FD\u6709\u4F55\u5F71\u97FF\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u901F\u5EA6\u770B\u4F3C\u88AB\u704C\u6C34\uFF0C\u96B1\u85CF\u7684\u6E2C\u8A66\u50B5\u6301\u7E8C\u589E\u9577\uFF0C\u6700\u7D42\u8FEB\u4F7F\u905E\u5EF6\u4E26\u62D6\u6162\u6B65\u8ABF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u672A\u505A\u7684\u5DE5\u4F5C\u8A08\u5165\u6703\u7576\u4E0B\u704C\u6C34\u901F\u5EA6\uFF0C\u4E4B\u5F8C\u518D\u903C\u4F60\u7B97\u7E3D\u5E33\u3002"
+              },
+              {
+                "text": "\u901F\u5EA6\u8B8A\u5F97\u5B8C\u5168\u6E96\u78BA\uFF0C\u905E\u5EF6\u6D88\u5931",
+                "fraction": 0,
+                "feedback": "\u628A\u672A\u6E2C\u8A66\u7684\u5DE5\u4F5C\u8A08\u5165\u6703\u8B93\u901F\u5EA6\u66F4\u4E0D\u6E96\uFF0C\u800C\u975E\u66F4\u6E96\u3002"
+              },
+              {
+                "text": "\u901F\u5EA6\u7ACB\u5373\u4E0B\u964D\uFF0C\u4E14\u7121\u4EFB\u4F55\u96B1\u85CF\u5F71\u97FF",
+                "fraction": 0,
+                "feedback": "\u7ACB\u5373\u7684\u5F71\u97FF\u662F\u704C\u6C34\u901F\u5EA6\uFF1B\u4E0B\u964D\u662F\u4E4B\u5F8C\u624D\u4F86\u3002"
+              },
+              {
+                "text": "\u905E\u5EF6\u88AB\u6D88\u9664\uFF0C\u56E0\u70BA\u6C38\u9060\u6C92\u6709\u6771\u897F\u88AB\u7559\u4E0B\u672A\u505A",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u4E8B\u5BE6\u4E0A\u88AB\u7559\u4E0B\u672A\u505A\uFF0C\u56E0\u6B64\u50B5\u52D9\u8207\u905E\u5EF6\u6703\u7D2F\u7A4D\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u672A\u6E2C\u8A66\u7684\u6545\u4E8B\u8A08\u70BA\u5B8C\u6210\uFF0C\u6703\u704C\u6C34\u56DE\u5831\u7684\u901F\u5EA6\uFF0C\u540C\u6642\u771F\u5BE6\u7684\u6E2C\u8A66\u50B5\u7121\u5F62\u5730\u5806\u7A4D\u3002\u7576\u5B83\u5FC5\u9808\u511F\u9084\u6642\uFF0C\u5718\u968A\u6B65\u8ABF\u8B8A\u6162\u3001\u6545\u4E8B\u905E\u5EF6\uFF0C\u4F7F\u5148\u524D\u7684\u901F\u5EA6\u6578\u5B57\u7522\u751F\u8AA4\u5C0E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6578\u500B\u958B\u767C\u885D\u523A\u5F8C\u7684\u6E2C\u8A66\u885D\u523A",
+            "text": "<p>\u67D0\u5718\u968A\u898F\u5283\u6578\u500B\u7D14\u958B\u767C\u885D\u523A\uFF0C\u4E4B\u5F8C\u63A5\u4E00\u500B<strong>\u6E2C\u8A66\u885D\u523A</strong>\u3002\u70BA\u4EC0\u9EBC\u9019\u6709\u554F\u984C\u3001\u66F4\u597D\u7684\u505A\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u628A\u56DE\u994B\u8207\u54C1\u8CEA\u63A8\u5230\u5F88\u4E0B\u6E38\uFF1B\u66F4\u597D\u7684\u505A\u6CD5\u662F\u5728\u6BCF\u500B\u885D\u523A\u5167\u6E2C\u8A66\uFF0C\u4F7F\u6BCF\u500B\u885D\u523A\u90FD\u7522\u51FA\u53EF\u4EA4\u4ED8\u7684\u589E\u91CF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7368\u7ACB\u7684\u6E2C\u8A66\u885D\u523A\u6703\u5EF6\u9072\u56DE\u994B\uFF1B\u6E2C\u8A66\u61C9\u5C6C\u65BC\u6BCF\u500B\u885D\u523A\u3002"
+              },
+              {
+                "text": "\u6C92\u554F\u984C\uFF0C\u56E0\u70BA\u96C6\u4E2D\u6E2C\u8A66\u80FD\u63D0\u5347\u5C08\u6CE8",
+                "fraction": 0,
+                "feedback": "\u628A\u6E2C\u8A66\u96C6\u4E2D\u5728\u4E0B\u6E38\u6703\u72A7\u7272\u5FEB\u901F\u56DE\u994B\u8207\u53EF\u4EA4\u4ED8\u6027\u3002"
+              },
+              {
+                "text": "\u7576\u7522\u54C1\u5F88\u5927\u6642\u9019\u662F\u5FC5\u9700\u7684",
+                "fraction": 0,
+                "feedback": "\u7522\u54C1\u898F\u6A21\u4E0D\u8DB3\u4EE5\u6B63\u7576\u5316\u628A\u6E2C\u8A66\u7368\u7ACB\u6210\u4E00\u500B\u885D\u523A\u3002"
+              },
+              {
+                "text": "\u5B83\u8207\u8B93\u6E2C\u8A66\u8005\u548C\u958B\u767C\u8005\u7D50\u5C0D\u662F\u4E00\u6A23\u7684",
+                "fraction": 0,
+                "feedback": "\u7368\u7ACB\u7684\u6E2C\u8A66\u885D\u523A\u8207\u6301\u7E8C\u3001\u7D50\u5C0D\u3001\u885D\u523A\u5167\u7684\u6E2C\u8A66\u6070\u6070\u76F8\u53CD\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C08\u9580\u7684\u6E2C\u8A66\u885D\u523A\u628A\u9A57\u8B49\u63A8\u5F97\u96E2\u7522\u751F\u98A8\u96AA\u7684\u7A0B\u5F0F\u78BC\u5F88\u9060\uFF0C\u56E0\u6B64\u7F3A\u9677\u5F88\u665A\u624D\u88AB\u767C\u73FE\uFF0C\u4E5F\u6C92\u6709\u4EFB\u4F55\u8F03\u65E9\u7684\u885D\u523A\u771F\u6B63\u5B8C\u6210\u3002\u66F4\u597D\u7684\u505A\u6CD5\u662F\u5728\u6BCF\u500B\u885D\u523A\u5167\u6E2C\u8A66\uFF0C\u8B93\u6BCF\u500B\u589E\u91CF\u90FD\u6F5B\u5728\u53EF\u4EA4\u4ED8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6A19\u6210\u5B8C\u6210\u7684\u6545\u4E8B\u51FA\u8CA8\u4E86\u91CD\u5927\u7F3A\u9677",
+            "text": "<p>\u4E00\u500B\u88AB\u6A19\u6210\u5B8C\u6210\u7684\u6545\u4E8B\u56E0\u300C\u6C92\u6642\u9593\u6E2C\u8A66\u300D\u800C\u51FA\u8CA8\u4E86\u4E00\u500B\u91CD\u5927\u7F3A\u9677\u3002\u4EC0\u9EBC\u88AB\u9055\u53CD\u4E86\u3001\u77EF\u6B63\u4E4B\u9053\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u88AB\u9055\u53CD\uFF1B\u4FEE\u6B63\u4E4B\u9053\u662F\u628A\u6E2C\u8A66\u5F37\u5236\u7D0D\u5165\u5B8C\u6210\uFF0C\u4E26\u964D\u4F4E\u5728\u88FD\u54C1\uFF0C\u8B93\u6545\u4E8B\u80FD\u88AB\u59A5\u5584\u505A\u5B8C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014DoD \u672A\u88AB\u6EFF\u8DB3\uFF1B\u5F37\u5236\u57F7\u884C\u5B83\u4E26\u9650\u5236 WIP\uFF0C\u8B93\u6E2C\u8A66\u653E\u5F97\u9032\u53BB\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u4EFB\u4F55\u6771\u897F\u88AB\u9055\u53CD\uFF1B\u5FEB\u901F\u51FA\u8CA8\u6BD4\u6E2C\u8A66\u66F4\u91CD\u8981",
+                "fraction": 0,
+                "feedback": "\u7565\u904E\u6E2C\u8A66\u9055\u53CD\u4E86 DoD\uFF0C\u4E5F\u9020\u6210\u4E86\u6F0F\u51FA\u7684\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u6BCF\u65E5\u7AD9\u6703\u88AB\u9055\u53CD\uFF1B\u4FEE\u6B63\u4E4B\u9053\u662F\u62C9\u9577\u7AD9\u6703",
+                "fraction": 0,
+                "feedback": "\u6BCF\u65E5\u7AD9\u6703\u8207\u7565\u904E\u67D0\u6545\u4E8B\u7684\u6E2C\u8A66\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u5F85\u8FA6\u6E05\u55AE\u88AB\u9055\u53CD\uFF1B\u4FEE\u6B63\u4E4B\u9053\u662F\u52A0\u66F4\u591A\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u52A0\u6545\u4E8B\u6703\u52A0\u91CD\u8D85\u8F09\uFF0C\u4E26\u672A\u8655\u7406\u7F3A\u5C11\u7684\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u672A\u6E2C\u8A66\u7684\u6545\u4E8B\u6A19\u6210\u5B8C\u6210\uFF0C\u7834\u58DE\u4E86\u5305\u542B\u6E2C\u8A66\u7684 DoD\uFF0C\u800C\u6F0F\u51FA\u7684\u7F3A\u9677\u6B63\u662F\u76F4\u63A5\u7D50\u679C\u3002\u77EF\u6B63\u4E4B\u9053\u662F\u606A\u5B88 DoD\uFF0C\u4E26\u9650\u5236\u5728\u88FD\u54C1\uFF0C\u8B93\u5718\u968A\u80FD\u628A\u6BCF\u500B\u6545\u4E8B\u505A\u5B8C\u4E26\u6E2C\u8A66\uFF0C\u800C\u4E0D\u662F\u904E\u5EA6\u627F\u8AFE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53CD\u8986\u885D\u523A\u672B\u5C3E\u64E0\u58D3\u7684\u77EF\u6B63",
+            "text": "<p>\u67D0\u5718\u968A\u4E0D\u65B7\u5728\u885D\u523A\u672B\u5C3E\u9047\u5230\u6E2C\u8A66\u64E0\u58D3\u3002\u54EA\u4E00\u9805\u6539\u8B8A\u6700\u76F4\u63A5\u5730\u6062\u5FA9\u7A69\u5B9A\u7684\u7BC0\u594F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9650\u5236\u5728\u88FD\u54C1\uFF0C\u4E26\u5728\u62C9\u4E0B\u4E00\u500B\u6545\u4E8B\u4E4B\u524D\u5148\u628A\u7576\u524D\u6545\u4E8B\u505A\u5B8C\u4E26\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9650\u5236 WIP\u3001\u4E00\u6B21\u505A\u5B8C\u4E00\u500B\u6545\u4E8B\uFF0C\u80FD\u628A\u6E2C\u8A66\u5206\u6563\u5230\u6574\u500B\u885D\u523A\u3002"
+              },
+              {
+                "text": "\u4E00\u6B21\u958B\u59CB\u6240\u6709\u6545\u4E8B\uFF0C\u597D\u8B93\u6E2C\u8A66\u80FD\u5728\u672B\u5C3E\u4E00\u8D77\u9032\u884C",
+                "fraction": 0,
+                "feedback": "\u4E00\u6B21\u5168\u90E8\u958B\u59CB\u6703\u9020\u6210\u672B\u5C3E\u64E0\u58D3\uFF0C\u800C\u975E\u89E3\u65B9\u3002"
+              },
+              {
+                "text": "\u628A\u6240\u6709\u6E2C\u8A66\u79FB\u5230\u4E0B\u500B\u885D\u523A",
+                "fraction": 0,
+                "feedback": "\u5EF6\u5230\u4E0B\u500B\u885D\u523A\u662F\u843D\u5F8C\u4E00\u500B\u885D\u523A\u7684\u53CD\u6A21\u5F0F\u3002"
+              },
+              {
+                "text": "\u7121\u9650\u671F\u5730\u62C9\u9577\u885D\u523A\u9577\u5EA6",
+                "fraction": 0,
+                "feedback": "\u62C9\u9577\u885D\u523A\u53EA\u6703\u653E\u5927\u540C\u6A23\u7684\u64E0\u58D3\uFF1B\u5B83\u4E26\u4E0D\u80FD\u8B93\u6D41\u52D5\u5E73\u9806\u3002"
+              }
+            ],
+            "generalFeedback": "\u885D\u523A\u672B\u5C3E\u7684\u64E0\u58D3\u901A\u5E38\u4F86\u81EA\u592A\u591A\u5728\u88FD\u54C1\u540C\u6642\u5B8C\u6210\u3002\u9650\u5236 WIP\u3001\u5728\u958B\u59CB\u4E0B\u4E00\u500B\u4E4B\u524D\u5148\u505A\u5B8C\uFF08\u4E26\u6E2C\u8A66\uFF09\u4E00\u500B\u6545\u4E8B\uFF0C\u80FD\u628A\u6E2C\u8A66\u5E73\u5747\u5206\u6563\u5230\u6574\u500B\u885D\u523A\uFF0C\u4E26\u8B93\u589E\u91CF\u5168\u7A0B\u63A5\u8FD1\u5B8C\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u81EA\u52D5\u5316\u4E26\u4E0D\u53D6\u4EE3\u63A2\u7D22\u5F0F\u6E2C\u8A66",
+            "text": "<p>\u5373\u4F7F\u6709\u5F37\u5927\u7684\u885D\u523A\u5167\u81EA\u52D5\u5316\uFF0C\u5718\u968A\u4ECD\u61C9\u5728\u885D\u523A\u5167\u9032\u884C\u4E00\u4E9B\u63A2\u7D22\u5F0F\u6E2C\u8A66\u8207\u9A57\u6536\u6E2C\u8A66\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u81EA\u52D5\u5316\u7DAD\u6301\u8FF4\u6B78\uFF0C\u4F46\u4EBA\u70BA\u7684\u63A2\u7D22\u5F0F\u8207\u9A57\u6536\u6E2C\u8A66\u5728\u885D\u523A\u5167\u4ECD\u6709\u50F9\u503C\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u81EA\u52D5\u5316\u6DB5\u84CB\u53EF\u91CD\u8907\u7684\u6AA2\u67E5\uFF1B\u5B83\u4E0D\u53D6\u4EE3\u63A2\u7D22\u5F0F\u8207\u9A57\u6536\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u81EA\u52D5\u5316\u6700\u9069\u5408\u53EF\u91CD\u8907\u7684\u8FF4\u6B78\uFF0C\u8B93\u4E0D\u65B7\u6210\u9577\u7684\u5957\u4EF6\u6BCF\u500B\u885D\u523A\u90FD\u53EF\u57F7\u884C\u3002\u4F46\u5B83\u4E0D\u53D6\u4EE3\u4EBA\u70BA\u5224\u65B7\uFF1A\u63A2\u7D22\u5F0F\u6E2C\u8A66\u8207\u4F7F\u7528\u8005\uFF0F\u9A57\u6536\u6E2C\u8A66\u4ECD\u5728\u7BC0\u594F\u4E2D\u9032\u884C\u3002\u654F\u6377\u628A\u6E2C\u8A66\u7DE8\u7E54\u5230\u6574\u500B\u904E\u7A0B\uFF0C\u4E26\u4E0D\u6D88\u9664\u5176\u624B\u52D5\u5F62\u5F0F\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u901F\u5EA6\u9AD8\u4F46\u6F0F\u51FA\u7F3A\u9677\u4E0A\u5347",
+            "text": "<p>\u67D0\u5718\u968A\u56DE\u5831\u9AD8\u901F\u5EA6\uFF0C\u6B63\u5F0F\u74B0\u5883\u4E2D\u6F0F\u51FA\u7684\u7F3A\u9677\u537B\u6301\u7E8C\u4E0A\u5347\u3002\u6700\u53EF\u80FD\u7684<strong>\u7BC0\u594F\u6210\u56E0</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4ED6\u5011\u7684\u5B8C\u6210\u7684\u5B9A\u7FA9\u7701\u7565\u4E86\u771F\u6B63\u7684\u6E2C\u8A66\uFF0C\u56E0\u6B64\u672A\u6E2C\u8A66\u7684\u5DE5\u4F5C\u88AB\u8A08\u70BA\u5B8C\u6210\u3001\u7F3A\u9677\u6F0F\u51FA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8584\u5F31\u7684 DoD \u8B93\u672A\u6E2C\u8A66\u7684\u5DE5\u4F5C\u704C\u6C34\u901F\u5EA6\u4E26\u6F0F\u51FA\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u4ED6\u5011\u8B93\u6E2C\u8A66\u8005\u8207\u958B\u767C\u8005\u7D50\u5C0D\u5F97\u592A\u65E9",
+                "fraction": 0,
+                "feedback": "\u53CA\u65E9\u7D50\u5C0D\u6703\u6E1B\u5C11\u6F0F\u51FA\u7684\u7F3A\u9677\uFF1B\u5B83\u4E0D\u662F\u6210\u56E0\u3002"
+              },
+              {
+                "text": "\u4ED6\u5011\u7684\u8FF4\u6B78\u6E2C\u8A66\u5957\u4EF6\u81EA\u52D5\u5316\u904E\u982D\u4E86",
+                "fraction": 0,
+                "feedback": "\u66F4\u591A\u81EA\u52D5\u5316\u6703\u964D\u4F4E\u6F0F\u51FA\u7684\u7F3A\u9677\uFF1B\u904E\u5EA6\u81EA\u52D5\u5316\u4E0D\u662F\u6B64\u8655\u7684\u6210\u56E0\u3002"
+              },
+              {
+                "text": "\u4ED6\u5011\u6BCF\u500B\u885D\u523A\u90FD\u958B\u56DE\u9867\u6703\u8B70",
+                "fraction": 0,
+                "feedback": "\u56DE\u9867\u6703\u8B70\u6709\u52A9\u65BC\u6539\u5584\uFF1B\u5B83\u4E0D\u6703\u9020\u6210\u6F0F\u51FA\u7684\u7F3A\u9677\u3002"
+              }
+            ],
+            "generalFeedback": "\u9AD8\u901F\u5EA6\u4F34\u96A8\u6F0F\u51FA\u7F3A\u9677\u4E0A\u5347\uFF0C\u662F\u300C\u5B8C\u6210\u300D\u5176\u5BE6\u4E0D\u542B\u6E2C\u8A66\u7684\u5178\u578B\u8DE1\u8C61\u3002\u5DE5\u4F5C\u5728\u88AB\u9A57\u8B49\u4E4B\u524D\u5C31\u88AB\u6A19\u6210\u5B8C\u6210\uFF0C\u65BC\u662F\u901F\u5EA6\u770B\u4F3C\u6F02\u4EAE\uFF0C\u7F3A\u9677\u537B\u6F0F\u5230\u6B63\u5F0F\u74B0\u5883\u3002\u628A DoD \u5F37\u5316\u5230\u5305\u542B\u6E2C\u8A66\uFF0C\u80FD\u8B93\u6578\u5B57\u8207\u73FE\u5BE6\u91CD\u65B0\u5C0D\u9F4A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5F37\u5316\u885D\u523A\u662F\u5FB5\u5146\u800C\u975E\u89E3\u65B9",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u53CD\u8986\u51FA\u73FE\u7684\u5F37\u5316\u885D\u523A\u6700\u597D\u88AB\u8996\u70BA<strong>\u5FB5\u5146\u800C\u975E\u89E3\u65B9</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u662F\u5728\u50B5\u52D9\u7D2F\u7A4D\u5F8C\u624D\u4E8B\u5F8C\u88DC\u6551\u3001\u800C\u975E\u9810\u9632\u5B83\uFF0C\u4E14\u53CD\u8986\u9700\u8981\u5B83\u4EE3\u8868\u885D\u523A\u5167\u7BC0\u594F\u5DF2\u58DE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u592A\u665A\u8655\u7406\u5FB5\u5146\uFF0C\u800C\u975E\u4FEE\u6B63\u9020\u6210\u50B5\u52D9\u7684\u7BC0\u594F\u3002"
+              },
+              {
+                "text": "\u5B83\u662F\u89E3\u65B9\uFF0C\u56E0\u70BA\u5B83\u7E3D\u80FD\u6C38\u4E45\u6D88\u9664\u5E95\u5C64\u7684\u50B5\u52D9",
+                "fraction": 0,
+                "feedback": "\u5B83\u6E05\u4E00\u6B21\u7A4D\u58D3\uFF0C\u537B\u7121\u6CD5\u963B\u6B62\u50B5\u52D9\u518D\u5EA6\u767C\u751F\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA Scrum \u6307\u5357\u7981\u6B62\u5F37\u5316\u885D\u523A\u4E26\u9644\u5E36\u7F70\u5247",
+                "fraction": 0,
+                "feedback": "\u91CD\u9EDE\u5728\u65BC\u56E0\u679C\uFF0C\u800C\u975E\u6B63\u5F0F\u7981\u6B62\u6216\u7F70\u5247\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u8B93\u81EA\u52D5\u5316\u6E2C\u8A66\u8DD1\u5F97\u66F4\u6162",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u57F7\u884C\u5668\u901F\u5EA6\u4E0D\u662F\u5F37\u5316\u885D\u523A\u70BA\u4F55\u662F\u5FB5\u5146\u7684\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F37\u5316\u885D\u523A\u53EA\u662F\u6E05\u7406\u5E38\u898F\u885D\u523A\u672C\u4E0D\u8A72\u88FD\u9020\u7684\u50B5\u52D9\u3002\u82E5\u53CD\u8986\u9700\u8981\u5B83\uFF0C\u771F\u6B63\u7684\u554F\u984C\u5728\u4E0A\u6E38\uFF1A\u6E2C\u8A66\u6C92\u6709\u5728\u6BCF\u500B\u885D\u523A\u5167\u9032\u884C\u3002\u4FEE\u6B63\u7BC0\u594F\u5C31\u80FD\u6D88\u9664\u5C0D\u5F37\u5316\u7684\u9700\u8981\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\u300C\u5B8C\u6210\u300D\u8207\u300C\u5DF2\u6E2C\u8A66\u300D\u7684\u843D\u5DEE",
+            "text": "<p>\u6BCF\u500B\u885D\u523A\uFF0C\u958B\u767C\u8005\u7A31\u70BA\u300C\u5B8C\u6210\u300D\u7684\u6545\u4E8B\u6578\u91CF\u9060\u8D85\u904E\u5BE6\u969B\u88AB\u6E2C\u8A66\u7684\u6578\u91CF\uFF0C\u6E2C\u8A66\u8005\u4E5F\u9577\u671F\u8D85\u8F09\u3002<strong>\u8A3A\u65B7\u8207\u4FEE\u6B63</strong>\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u88FD\u54C1\u5931\u8861\u9020\u6210\u7684\u6E2C\u8A66\u74F6\u9838\uFF1B\u4EE5\u5168\u5718\u968A\u6E2C\u8A66\u3001\u9650\u5236\u5728\u88FD\u54C1\u3001\u8702\u64C1\u628A\u6545\u4E8B\u63A8\u5230\u5B8C\u6210\u4F86\u4FEE\u6B63",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u500B\u843D\u5DEE\u662F WIP\uFF0F\u74F6\u9838\u554F\u984C\uFF0C\u9760\u5171\u4EAB\u6E2C\u8A66\u8207\u964D\u4F4E WIP \u6CBB\u672C\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u8005\u5C31\u662F\u592A\u6162\uFF0C\u61C9\u4E88\u66F4\u63DB",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u662F\u7CFB\u7D71\u6027\u7684 WIP \u5931\u8861\uFF0C\u800C\u975E\u500B\u5225\u6E2C\u8A66\u8005\u7684\u901F\u5EA6\u3002"
+              },
+              {
+                "text": "\u958B\u767C\u8005\u751F\u7522\u529B\u592A\u9AD8\uFF1B\u4ED6\u5011\u61C9\u5C11\u5BEB\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u5728\u65BC\u6D41\u52D5\u5931\u8861\uFF0C\u800C\u975E\u7522\u80FD\u904E\u5269\uFF1B\u7B54\u6848\u662F\u5168\u5718\u968A\u6E2C\u8A66\uFF0C\u800C\u975E\u62D6\u6162\u5BEB\u7A0B\u5F0F\u7684\u4EBA\u3002"
+              },
+              {
+                "text": "\u61C9\u628A\u6E2C\u8A66\u5F9E\u5B8C\u6210\u7684\u5B9A\u7FA9\u4E2D\u62FF\u6389\u4EE5\u6D88\u9664\u843D\u5DEE",
+                "fraction": 0,
+                "feedback": "\u628A\u6E2C\u8A66\u5F9E\u5B8C\u6210\u4E2D\u62FF\u6389\u6703\u63A9\u84CB\u74F6\u9838\u4E26\u51FA\u8CA8\u672A\u6E2C\u8A66\u7684\u5DE5\u4F5C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u958B\u767C\u8005\u7684\u300C\u5B8C\u6210\u300D\u8D85\u904E\u5DF2\u6E2C\u8A66\u7684\u5DE5\u4F5C\uFF0C\u54C1\u8CEA\u5C31\u5361\u5728\u6E2C\u8A66\u9019\u500B\u74F6\u9838\u3002\u6CBB\u672C\u4E4B\u9053\u662F\u5168\u5718\u968A\u54C1\u8CEA\uFF1A\u958B\u767C\u8005\u5354\u52A9\u6E2C\u8A66\u3001\u9650\u5236\u5728\u88FD\u54C1\uFF0C\u4E26\u7531\u5718\u968A\u8702\u64C1\u628A\u6545\u4E8B\u63A8\u5411\u4E00\u500B\u5305\u542B\u6E2C\u8A66\u7684\u5B8C\u6210\u2014\u2014\u800C\u975E\u964D\u4F4E\u6A19\u6E96\u6216\u6B78\u548E\u6E2C\u8A66\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u843D\u5F8C\u4E00\u500B\u885D\u523A\u6642\u7684\u56DE\u994B\u5EF6\u9072",
+            "text": "<p>\u7576\u6E2C\u8A66\u843D\u5F8C\u958B\u767C\u6574\u6574\u4E00\u500B\u885D\u523A\u6642\uFF0C\u4E00\u500B\u5728\u885D\u523A N \u524D\u671F\u5F15\u5165\u7684\u7F3A\u9677\u6703\u600E\u6A23\u3001\u53C8\u8A72\u5982\u4F55\u4FEE\u6B63\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u8981\u5230\u885D\u523A N+1 \u624D\u88AB\u767C\u73FE\uFF0C\u6B64\u6642\u66F4\u591A\u5DE5\u4F5C\u5DF2\u758A\u5728\u6709\u7F3A\u9677\u7684\u57FA\u790E\u4E0A\uFF1B\u4FEE\u6B63\u4E4B\u9053\u662F\u5728\u7A0B\u5F0F\u78BC\u88AB\u5BEB\u7684\u540C\u4E00\u885D\u523A\u5167\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u843D\u5F8C\u628A\u767C\u73FE\u5EF6\u5230 N+1\uFF0C\u6240\u4EE5\u77EF\u6B63\u4E4B\u9053\u662F\u6D88\u9664\u843D\u5DEE\u3002"
+              },
+              {
+                "text": "\u5B83\u88AB\u7ACB\u5373\u767C\u73FE\uFF0C\u6240\u4EE5\u843D\u5F8C\u5C0D\u56DE\u994B\u6C92\u6709\u5F71\u97FF",
+                "fraction": 0,
+                "feedback": "\u843D\u5F8C\u4E00\u500B\u885D\u523A\u6703\u628A\u767C\u73FE\u5EF6\u5230 N+1\uFF1B\u4E26\u975E\u7ACB\u5373\u3002"
+              },
+              {
+                "text": "\u5B83\u6703\u5728\u4E0B\u500B\u885D\u523A\u4E00\u958B\u59CB\u81EA\u884C\u6D88\u5931",
+                "fraction": 0,
+                "feedback": "\u7F3A\u9677\u4E0D\u6703\u6D88\u5931\uFF1B\u843D\u5F8C\u53EA\u662F\u628A\u767C\u73FE\u5B83\u5F80\u5F8C\u63A8\u3002"
+              },
+              {
+                "text": "\u5B83\u9760\u5728 N+1 \u4E4B\u5F8C\u52A0\u4E00\u500B\u5F37\u5316\u885D\u523A\u4F86\u4FEE\u6B63",
+                "fraction": 0,
+                "feedback": "\u5F37\u5316\u885D\u523A\u6703\u52A0\u5287\u5EF6\u9072\uFF0C\u800C\u975E\u6D88\u9664\u843D\u5DEE\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6E2C\u8A66\u843D\u5F8C\u4E00\u500B\u885D\u523A\uFF0C\u885D\u523A N \u524D\u671F\u7684\u7F3A\u9677\u8981\u5230\u885D\u523A N+1 \u624D\u88AB\u5075\u6E2C\uFF0C\u5C46\u6642\u5DF2\u6709\u66F4\u591A\u5DE5\u4F5C\u758A\u5728\u6709\u7F3A\u9677\u7684\u57FA\u790E\u4E0A\u2014\u2014\u4F7F\u4FEE\u6B63\u66F4\u5927\u3001\u98A8\u96AA\u66F4\u9AD8\u3002\u77EF\u6B63\u4E4B\u9053\u662F\u5728\u7A0B\u5F0F\u78BC\u88AB\u5BEB\u7684\u540C\u4E00\u885D\u523A\u5167\u6E2C\u8A66\u5B83\uFF0C\u4EE5\u6D88\u9664\u56DE\u994B\u843D\u5DEE\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "state-transition": {
       "en": {
         "easy": [
