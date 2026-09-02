@@ -63944,6 +63944,2524 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "e2e-user-journey": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "Definition of end-to-end testing",
+            "text": "<p>What does an <em>end-to-end (E2E)</em> test primarily verify?</p>",
+            "answers": [
+              {
+                "text": "A complete user workflow through the whole integrated system, from the real user's perspective",
+                "fraction": 100,
+                "feedback": "Correct \u2014 E2E exercises the full stack (UI through application, database, and external services) as a real user would."
+              },
+              {
+                "text": "A single function or method in isolation, with no dependencies",
+                "fraction": 0,
+                "feedback": "That describes a unit test, not an E2E test."
+              },
+              {
+                "text": "Only that two adjacent modules exchange data correctly through an API",
+                "fraction": 0,
+                "feedback": "That is an integration test; E2E covers the whole workflow, not just one interface."
+              },
+              {
+                "text": "The internal code structure and branch coverage of one component",
+                "fraction": 0,
+                "feedback": "That is white-box/unit-level concern; E2E validates the end-to-end behaviour of the whole system."
+              }
+            ],
+            "generalFeedback": "End-to-end testing drives a complete user workflow through the fully integrated system (UI \u2192 application \u2192 database \u2192 external services), validating the journey from the real user's point of view rather than a single component.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Definition of a user journey",
+            "text": "<p>In E2E testing, a <em>user journey</em> is best described as:</p>",
+            "answers": [
+              {
+                "text": "The ordered sequence of steps a user takes to achieve a goal",
+                "fraction": 100,
+                "feedback": "Correct \u2014 e.g. browse \u2192 add to cart \u2192 checkout \u2192 pay \u2192 confirmation."
+              },
+              {
+                "text": "A single button click on one screen",
+                "fraction": 0,
+                "feedback": "A journey is a sequence of steps toward a goal, not one isolated interaction."
+              },
+              {
+                "text": "The list of database tables the application uses",
+                "fraction": 0,
+                "feedback": "That is a data model, not a user journey."
+              },
+              {
+                "text": "The set of unit tests covering one module",
+                "fraction": 0,
+                "feedback": "A user journey is a user-facing workflow, not a test suite for a module."
+              }
+            ],
+            "generalFeedback": "A user journey is the ordered sequence of steps a user takes to reach a goal. E2E tests are typically organised around such journeys, e.g. browse \u2192 add to cart \u2192 checkout \u2192 pay \u2192 confirmation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Definition of the happy path",
+            "text": "<p>Within a user journey, the <em>happy path</em> is:</p>",
+            "answers": [
+              {
+                "text": "The default, error-free route where everything goes as expected and the user reaches the goal",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the happy path is the normal, successful flow with valid input and no errors."
+              },
+              {
+                "text": "The route the user takes only when an error occurs",
+                "fraction": 0,
+                "feedback": "That is an error path, the opposite of the happy path."
+              },
+              {
+                "text": "The fastest-running test in the suite",
+                "fraction": 0,
+                "feedback": "The happy path is about the successful flow, not test runtime."
+              },
+              {
+                "text": "Any path that skips authentication",
+                "fraction": 0,
+                "feedback": 'Skipping authentication is not what "happy path" means; it is the normal successful flow.'
+              }
+            ],
+            "generalFeedback": "The happy path is the default, error-free scenario in which valid input is supplied and every step succeeds, so the user reaches the intended goal. Alternative and error paths cover the deviations.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Layers an E2E test spans",
+            "text": "<p>Which layers does a typical E2E test exercise together?</p>",
+            "answers": [
+              {
+                "text": "The UI, the application logic, the database, and any external services \u2014 the whole stack",
+                "fraction": 100,
+                "feedback": "Correct \u2014 E2E drives the fully integrated system across all its layers."
+              },
+              {
+                "text": "Only the UI layer, with everything else mocked out",
+                "fraction": 0,
+                "feedback": "Mocking everything but the UI is not end-to-end; E2E uses the real integrated stack."
+              },
+              {
+                "text": "Only the database layer",
+                "fraction": 0,
+                "feedback": "E2E spans the whole stack, not one layer."
+              },
+              {
+                "text": "Only a single service's API in isolation",
+                "fraction": 0,
+                "feedback": "Testing one API in isolation is integration/service level, not end-to-end."
+              }
+            ],
+            "generalFeedback": "An E2E test runs against the fully integrated system: the UI, the application logic behind it, the database, and any external services, all working together as in production.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Top-of-pyramid characteristics",
+            "text": "<p>Sitting at the top of the test pyramid, E2E tests are typically:</p>",
+            "answers": [
+              {
+                "text": "Few in number, slow, expensive, and relatively brittle",
+                "fraction": 100,
+                "feedback": "Correct \u2014 you keep only a few E2E tests because they are slow, costly, and flaky."
+              },
+              {
+                "text": "Numerous, fast, cheap, and very stable",
+                "fraction": 0,
+                "feedback": "Those are unit-test properties at the base, not E2E at the top."
+              },
+              {
+                "text": "Numerous but slow",
+                "fraction": 0,
+                "feedback": "E2E tests are kept few, not numerous, precisely because they are slow and expensive."
+              },
+              {
+                "text": "Fast but expensive",
+                "fraction": 0,
+                "feedback": "E2E tests are slow, not fast; their cost and slowness are why they stay few."
+              }
+            ],
+            "generalFeedback": "E2E tests are at the top of the pyramid: few, slow, expensive to write and maintain, and more brittle than lower-level tests \u2014 so you keep only a small number of them.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why E2E is closest to real usage",
+            "text": "<p>Why is E2E testing considered the <strong>closest to real usage</strong> of any test level?</p>",
+            "answers": [
+              {
+                "text": "It drives the fully integrated system through its real interfaces, exactly as an actual user would",
+                "fraction": 100,
+                "feedback": "Correct \u2014 behaving like a real user through the whole stack is what makes it the most realistic."
+              },
+              {
+                "text": "It runs faster than any other test level",
+                "fraction": 0,
+                "feedback": "E2E is the slowest level; speed is not why it is realistic."
+              },
+              {
+                "text": "It inspects private internal variables of each component",
+                "fraction": 0,
+                "feedback": "That is white-box inspection, the opposite of testing as a real user."
+              },
+              {
+                "text": "It replaces the database and services with mocks",
+                "fraction": 0,
+                "feedback": "Mocking reduces realism; E2E uses the real integrated system."
+              }
+            ],
+            "generalFeedback": "E2E exercises the whole integrated system through its real interfaces from the user's perspective, so it most closely reflects how the product actually behaves in use \u2014 giving the highest confidence in integrated behaviour.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify the happy path (checkout)",
+            "text": "<p>For an online store, which scenario is the <strong>happy path</strong> of the checkout journey?</p>",
+            "answers": [
+              {
+                "text": "User browses, adds an in-stock item to the cart, pays with a valid card, and sees an order confirmation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 valid input at every step and the goal reached is the happy path."
+              },
+              {
+                "text": "User's card is declined at payment and an error is shown",
+                "fraction": 0,
+                "feedback": "A declined card is an error path, not the happy path."
+              },
+              {
+                "text": "User tries to check out with an empty cart and is blocked",
+                "fraction": 0,
+                "feedback": "Being blocked on an empty cart is an error/edge path, not the successful flow."
+              },
+              {
+                "text": "The item goes out of stock during checkout and the order fails",
+                "fraction": 0,
+                "feedback": "That is an error/edge path caused by a deviation, not the happy path."
+              }
+            ],
+            "generalFeedback": "The happy path is the normal successful flow: browse \u2192 add an in-stock item \u2192 pay with a valid card \u2192 confirmation. The other options all involve an error or edge condition.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify an error path (login)",
+            "text": "<p>For a login journey, which scenario is an <strong>error path</strong> rather than the happy path?</p>",
+            "answers": [
+              {
+                "text": 'The user enters a wrong password and is shown an "invalid credentials" message',
+                "fraction": 100,
+                "feedback": "Correct \u2014 a failed login due to bad input is an error path."
+              },
+              {
+                "text": "The user enters valid credentials and reaches the dashboard",
+                "fraction": 0,
+                "feedback": "That is the happy path \u2014 a successful login."
+              },
+              {
+                "text": "The user logs in successfully and their name appears in the header",
+                "fraction": 0,
+                "feedback": "That is the successful (happy) path."
+              },
+              {
+                "text": "The user logs in and is taken to the page they requested",
+                "fraction": 0,
+                "feedback": "That is a successful outcome, i.e. the happy path."
+              }
+            ],
+            "generalFeedback": 'An error path is a route triggered by invalid input or a failure \u2014 here, a wrong password producing an "invalid credentials" message. The successful login is the happy path.',
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "E2E validates the whole system, not one component",
+            "text": "<p>An E2E test validates a complete workflow through the whole integrated system, not just a single component in isolation.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 E2E covers the end-to-end journey across the whole stack."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "E2E does span the whole integrated system; testing one component in isolation is unit testing."
+              }
+            ],
+            "generalFeedback": "By definition E2E exercises a complete user workflow across the fully integrated system, distinguishing it from unit tests (one component) and integration tests (a few components at an interface)."
+          },
+          {
+            "type": "multichoice",
+            "name": "Whose perspective E2E takes",
+            "text": "<p>From whose perspective does an E2E test validate the system?</p>",
+            "answers": [
+              {
+                "text": "The real end user's perspective",
+                "fraction": 100,
+                "feedback": "Correct \u2014 E2E validates the journey as an actual user experiences it."
+              },
+              {
+                "text": "The perspective of a single internal function's caller",
+                "fraction": 0,
+                "feedback": "That is unit-level; E2E takes the whole-system, user's viewpoint."
+              },
+              {
+                "text": "The database administrator's perspective only",
+                "fraction": 0,
+                "feedback": "E2E is about the end user's workflow, not one role's view of storage."
+              },
+              {
+                "text": "The compiler's perspective",
+                "fraction": 0,
+                "feedback": "That is not a testing perspective at all; E2E is from the user's point of view."
+              }
+            ],
+            "generalFeedback": "E2E tests validate the system from the real end user's perspective, interacting with it the way a user would rather than inspecting internal components.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "E2E tests should be as numerous as unit tests",
+            "text": "<p>Because they are the most realistic, E2E tests should be as numerous as unit tests in a healthy suite.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "E2E tests sit at the top of the pyramid and are kept few; unit tests form the wide base."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 E2E tests are few (top of the pyramid) because they are slow and expensive; unit tests are the many."
+              }
+            ],
+            "generalFeedback": "Realism does not justify large numbers: E2E tests are slow, expensive, and brittle, so you keep only a few at the top of the pyramid while unit tests form the wide base."
+          },
+          {
+            "type": "multichoice",
+            "name": 'Meaning of "end to end"',
+            "text": '<p>In "end-to-end", what do the two "ends" refer to?</p>',
+            "answers": [
+              {
+                "text": "From the user's first action to the final outcome, across the whole system",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the test runs the journey from its start to its completed goal through the full stack."
+              },
+              {
+                "text": "From the first line of a function to its last line",
+                "fraction": 0,
+                "feedback": "That is code-level, not the user-workflow meaning of end-to-end."
+              },
+              {
+                "text": "From one developer's machine to another's",
+                "fraction": 0,
+                "feedback": `The "ends" are the start and finish of the user's workflow, not machines.`
+              },
+              {
+                "text": "From the start of a sprint to its end",
+                "fraction": 0,
+                "feedback": "That is a project timeframe, unrelated to end-to-end testing."
+              }
+            ],
+            "generalFeedback": `"End to end" means the test covers the complete journey from the user's initial action to the final result, traversing every layer of the integrated system in between.`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Order the steps of a checkout journey",
+            "text": "<p>Which ordering correctly represents a typical e-commerce checkout <em>user journey</em>?</p>",
+            "answers": [
+              {
+                "text": "Browse products \u2192 add to cart \u2192 checkout \u2192 pay \u2192 confirmation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this is the natural order of the checkout journey."
+              },
+              {
+                "text": "Pay \u2192 add to cart \u2192 browse products \u2192 confirmation \u2192 checkout",
+                "fraction": 0,
+                "feedback": "You cannot pay before choosing items; the order is scrambled."
+              },
+              {
+                "text": "Confirmation \u2192 pay \u2192 checkout \u2192 add to cart \u2192 browse products",
+                "fraction": 0,
+                "feedback": "This reverses the journey; confirmation is the final step, not the first."
+              },
+              {
+                "text": "Checkout \u2192 browse products \u2192 pay \u2192 add to cart \u2192 confirmation",
+                "fraction": 0,
+                "feedback": "You browse and add to the cart before checking out, not after."
+              }
+            ],
+            "generalFeedback": "A user journey is an ordered sequence of steps toward a goal. For checkout that order is browse \u2192 add to cart \u2192 checkout \u2192 pay \u2192 confirmation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Happy path vs alternative path",
+            "text": "<p>A user completes a purchase using a saved address and a valid card. A second user completes the same purchase but first enters a valid promo code. How are these two flows best classified?</p>",
+            "answers": [
+              {
+                "text": "The first is the happy path; the second is a valid alternative path",
+                "fraction": 100,
+                "feedback": "Correct \u2014 both succeed, but the promo-code variation is an alternative route to the same goal."
+              },
+              {
+                "text": "Both are error paths because they differ",
+                "fraction": 0,
+                "feedback": "Neither fails; a successful variation is an alternative path, not an error path."
+              },
+              {
+                "text": "The first is an error path; the second is the happy path",
+                "fraction": 0,
+                "feedback": "The plain successful purchase is the happy path; the promo-code flow is the alternative."
+              },
+              {
+                "text": "Neither is part of any user journey",
+                "fraction": 0,
+                "feedback": "Both are user journeys that reach the goal; one is the happy path and one an alternative."
+              }
+            ],
+            "generalFeedback": "The default successful flow is the happy path. A different but still successful way to reach the same goal (e.g. applying a valid promo code) is an alternative path, distinct from an error path where the goal is not reached.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "E2E tests are slow and expensive",
+            "text": "<p>Compared with unit tests, E2E tests are generally slower to run and more expensive to write and maintain.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 running the whole stack makes E2E tests slow and costly, which is why they are kept few."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "E2E tests are indeed slower and more expensive than unit tests; that is a defining trade-off."
+              }
+            ],
+            "generalFeedback": "Because they drive the fully integrated system, E2E tests are slow, expensive to build and maintain, and more brittle than unit tests \u2014 the reasons they sit few at the top of the pyramid."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "E2E scope vs unit scope",
+            "text": "<p>How does the <strong>scope</strong> of an E2E test differ from that of a unit test?</p>",
+            "answers": [
+              {
+                "text": "E2E covers a full workflow across the whole integrated system; a unit test isolates one component",
+                "fraction": 100,
+                "feedback": "Correct \u2014 E2E is the broadest scope, a unit test the narrowest."
+              },
+              {
+                "text": "E2E covers one function; a unit test covers the whole system",
+                "fraction": 0,
+                "feedback": "That is reversed \u2014 a unit test isolates one function and E2E covers the whole system."
+              },
+              {
+                "text": "They have identical scope; only the tools differ",
+                "fraction": 0,
+                "feedback": "Their scope differs fundamentally: whole system versus single component."
+              },
+              {
+                "text": "E2E only checks the database; a unit test only checks the UI",
+                "fraction": 0,
+                "feedback": "Neither statement is right; E2E spans the whole stack and unit tests isolate any single component."
+              }
+            ],
+            "generalFeedback": "Scope is the key difference: a unit test isolates one component, while an E2E test exercises a complete user workflow across the entire integrated system.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "E2E scope vs integration scope",
+            "text": "<p>What distinguishes an E2E test from an integration test?</p>",
+            "answers": [
+              {
+                "text": "Integration checks that a few components work together at an interface; E2E validates a complete user journey through the entire system",
+                "fraction": 100,
+                "feedback": "Correct \u2014 E2E is broader, covering the whole journey rather than one interface between components."
+              },
+              {
+                "text": "Integration tests are always slower than E2E tests",
+                "fraction": 0,
+                "feedback": "Generally E2E is the slowest level; integration sits below it."
+              },
+              {
+                "text": "They are the same thing under different names",
+                "fraction": 0,
+                "feedback": "Integration focuses on component interactions; E2E validates the full user workflow."
+              },
+              {
+                "text": "E2E never uses a real database, but integration always does",
+                "fraction": 0,
+                "feedback": "E2E uses the real integrated stack including the database; this claim is wrong."
+              }
+            ],
+            "generalFeedback": "Integration testing verifies that a subset of components collaborate correctly at their interfaces. E2E goes wider, validating a whole user journey through the fully integrated system from the user's perspective.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why E2E is used sparingly",
+            "text": "<p>Why are E2E tests deliberately kept <strong>few</strong> in a healthy suite?</p>",
+            "answers": [
+              {
+                "text": "They are slow, expensive, and brittle/flaky, so a large number would give slow, unreliable feedback",
+                "fraction": 100,
+                "feedback": "Correct \u2014 their cost and fragility are why you keep only a few, high-value E2E tests."
+              },
+              {
+                "text": "They cannot detect any real defects",
+                "fraction": 0,
+                "feedback": "They detect integrated defects well; they are kept few because of cost and brittleness, not uselessness."
+              },
+              {
+                "text": "They are the cheapest tests to maintain",
+                "fraction": 0,
+                "feedback": "They are the most expensive to maintain, which is exactly why they are kept few."
+              },
+              {
+                "text": "Tooling does not exist to automate them",
+                "fraction": 0,
+                "feedback": "E2E automation tools are common; the reason to limit them is cost and flakiness."
+              }
+            ],
+            "generalFeedback": "E2E tests are slow, costly to build and maintain, and prone to flakiness. Keeping only a few \u2014 covering the most critical journeys \u2014 preserves fast, reliable feedback overall.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What to cover with E2E vs push down",
+            "text": "<p>Which behaviours are the best candidates for E2E coverage, with everything else pushed to lower levels?</p>",
+            "answers": [
+              {
+                "text": "A small set of critical business journeys and smoke checks of key flows",
+                "fraction": 100,
+                "feedback": "Correct \u2014 reserve E2E for the critical end-to-end flows and push detailed cases down to unit/integration."
+              },
+              {
+                "text": "Every input-validation rule and boundary case",
+                "fraction": 0,
+                "feedback": "Those belong in fast unit tests, not slow E2E tests."
+              },
+              {
+                "text": "All combinations of every optional field",
+                "fraction": 0,
+                "feedback": "Exhaustive combinations belong at lower levels; E2E should stay few and focused on critical journeys."
+              },
+              {
+                "text": "Every private helper function's edge cases",
+                "fraction": 0,
+                "feedback": "Helper edge cases are unit-test territory, not E2E."
+              }
+            ],
+            "generalFeedback": "Use E2E for a few critical business journeys and smoke tests of key flows; push exhaustive validation, boundary, and combination cases down to faster unit and integration tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test-data needs for E2E",
+            "text": "<p>What kind of <strong>test data</strong> does a reliable E2E test typically require?</p>",
+            "answers": [
+              {
+                "text": "Realistic, known data that the test seeds and controls, so the expected outcome is predictable",
+                "fraction": 100,
+                "feedback": "Correct \u2014 seeded, realistic data lets the test assert deterministic results."
+              },
+              {
+                "text": "Whatever happens to be in the shared production database at the time",
+                "fraction": 0,
+                "feedback": "Depending on uncontrolled shared data is a classic source of flakiness."
+              },
+              {
+                "text": "No data at all; E2E tests should never touch data",
+                "fraction": 0,
+                "feedback": "E2E journeys usually need realistic data; the point is to control and seed it."
+              },
+              {
+                "text": "Random data regenerated every run with no known expected result",
+                "fraction": 0,
+                "feedback": "Unknown random data makes assertions impossible or flaky; seed known data instead."
+              }
+            ],
+            "generalFeedback": "E2E tests need realistic but controlled data. Seeding known data (and cleaning it up) makes outcomes predictable and avoids the flakiness that comes from relying on uncontrolled shared state.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Environment needs for E2E",
+            "text": "<p>What kind of <strong>environment</strong> should E2E tests run against?</p>",
+            "answers": [
+              {
+                "text": "A production-like environment with the real integrated components wired together",
+                "fraction": 100,
+                "feedback": "Correct \u2014 E2E needs a production-like setup to exercise the real integrated system."
+              },
+              {
+                "text": "An environment where every dependency is replaced by a mock",
+                "fraction": 0,
+                "feedback": "Mocking everything defeats the purpose of end-to-end; E2E uses real integrated components."
+              },
+              {
+                "text": "The developer's local machine with no services running",
+                "fraction": 0,
+                "feedback": "Without the integrated services running there is nothing end-to-end to test."
+              },
+              {
+                "text": "Any environment, since the configuration never affects E2E results",
+                "fraction": 0,
+                "feedback": "Environment closeness to production strongly affects E2E validity and stability."
+              }
+            ],
+            "generalFeedback": "E2E tests should run in a production-like environment with the real, integrated components, so the journey being validated matches how the system behaves in production.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test independence and idempotency",
+            "text": "<p>What does it mean for an E2E test to be <em>independent and idempotent</em>?</p>",
+            "answers": [
+              {
+                "text": "It sets up its own state and cleans up afterwards, so it can run alone or in any order with the same result",
+                "fraction": 100,
+                "feedback": "Correct \u2014 self-contained setup and teardown make the test order-independent and repeatable."
+              },
+              {
+                "text": "It must always run immediately after a specific other test",
+                "fraction": 0,
+                "feedback": "Depending on another test's order is exactly what independence avoids."
+              },
+              {
+                "text": "It shares data with other tests to save setup time",
+                "fraction": 0,
+                "feedback": "Shared state creates coupling and flakiness, the opposite of independence."
+              },
+              {
+                "text": "It can only ever be run once",
+                "fraction": 0,
+                "feedback": "Idempotency means it can be run repeatedly with the same outcome, not only once."
+              }
+            ],
+            "generalFeedback": "An independent, idempotent E2E test creates and tears down its own state, so it produces the same result whether run alone, repeatedly, or in any order alongside other tests \u2014 avoiding order dependence and leftover-data flakiness.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify an alternative path (payment)",
+            "text": "<p>In a checkout journey whose happy path pays by credit card, which of these is a valid <strong>alternative path</strong>?</p>",
+            "answers": [
+              {
+                "text": "The user successfully pays with a digital wallet instead of a card and reaches confirmation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a different but successful route to the same goal is an alternative path."
+              },
+              {
+                "text": "The payment gateway times out and the order fails",
+                "fraction": 0,
+                "feedback": "A failure is an error path, not an alternative path."
+              },
+              {
+                "text": "The card is declined and the user cannot complete the order",
+                "fraction": 0,
+                "feedback": "A decline that blocks completion is an error path."
+              },
+              {
+                "text": "The user's session expires mid-checkout and they are logged out",
+                "fraction": 0,
+                "feedback": "A session expiry that derails the goal is an error/edge path, not a successful alternative."
+              }
+            ],
+            "generalFeedback": "An alternative path still reaches the goal but by a different route (e.g. paying with a digital wallet rather than a card). Failures such as declines, timeouts, or session expiry are error paths.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify an error path (registration)",
+            "text": "<p>In a sign-up journey, which scenario is an <strong>error/edge path</strong> that an E2E suite should also cover?</p>",
+            "answers": [
+              {
+                "text": "The user tries to register with an email that is already taken and sees a clear error",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a rejected registration with a helpful error is an important error path."
+              },
+              {
+                "text": "The user registers with a new email and lands on the welcome page",
+                "fraction": 0,
+                "feedback": "That is the happy path \u2014 a successful registration."
+              },
+              {
+                "text": "The user registers and immediately receives a valid session",
+                "fraction": 0,
+                "feedback": "That is the successful outcome, i.e. the happy path."
+              },
+              {
+                "text": "The user registers and their profile is created correctly",
+                "fraction": 0,
+                "feedback": "That describes the happy path succeeding, not an error path."
+              }
+            ],
+            "generalFeedback": "Covering the happy path is not enough; key error/edge paths matter too. Attempting to register with an already-used email and getting a clear error is a representative error path.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Order the steps of a booking journey",
+            "text": "<p>Which ordering correctly represents a flight-booking <em>user journey</em>?</p>",
+            "answers": [
+              {
+                "text": "Search flights \u2192 select a flight \u2192 enter passenger details \u2192 pay \u2192 receive e-ticket",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this is the natural order of the booking journey."
+              },
+              {
+                "text": "Pay \u2192 search flights \u2192 receive e-ticket \u2192 select a flight \u2192 enter passenger details",
+                "fraction": 0,
+                "feedback": "You cannot pay before selecting a flight; the sequence is scrambled."
+              },
+              {
+                "text": "Receive e-ticket \u2192 pay \u2192 enter passenger details \u2192 select a flight \u2192 search flights",
+                "fraction": 0,
+                "feedback": "This reverses the journey; the e-ticket is the final step."
+              },
+              {
+                "text": "Select a flight \u2192 search flights \u2192 pay \u2192 receive e-ticket \u2192 enter passenger details",
+                "fraction": 0,
+                "feedback": "You must search before you can select, and enter details before paying."
+              }
+            ],
+            "generalFeedback": "The booking journey is an ordered sequence: search \u2192 select \u2192 enter details \u2192 pay \u2192 receive the e-ticket. Ordering the steps correctly is part of modelling the journey for E2E.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why E2E gives high integrated confidence",
+            "text": "<p>Why does a passing E2E test give <strong>high confidence in integrated behaviour</strong> specifically?</p>",
+            "answers": [
+              {
+                "text": "It confirms that all the layers actually work together for a real user journey, not just in isolation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it validates the wired-together system end to end, catching integration faults lower levels miss."
+              },
+              {
+                "text": "It proves every code path in every component is exercised",
+                "fraction": 0,
+                "feedback": "E2E does not guarantee full code coverage; that is a unit-level concern."
+              },
+              {
+                "text": "It runs the fastest, so it can be repeated many times",
+                "fraction": 0,
+                "feedback": "E2E is the slowest level; confidence comes from realism, not speed."
+              },
+              {
+                "text": "It replaces the need for any other test level",
+                "fraction": 0,
+                "feedback": "E2E complements, but does not replace, unit and integration tests."
+              }
+            ],
+            "generalFeedback": "A passing E2E test shows the layers genuinely cooperate to deliver a real user journey, giving strong confidence in integrated behaviour \u2014 something isolated unit or integration tests cannot fully provide.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Relation to acceptance/system testing",
+            "text": "<p>How does E2E testing relate to <strong>system and acceptance</strong> testing?</p>",
+            "answers": [
+              {
+                "text": "They overlap: all validate the whole integrated system, often via user journeys, though acceptance emphasises meeting business/user requirements",
+                "fraction": 100,
+                "feedback": "Correct \u2014 E2E is closely related to system/acceptance testing, sharing the whole-system, user-journey focus."
+              },
+              {
+                "text": "E2E tests one function while acceptance tests the whole system",
+                "fraction": 0,
+                "feedback": "E2E also targets the whole system; testing one function is unit-level."
+              },
+              {
+                "text": "They are completely unrelated levels with no shared goals",
+                "fraction": 0,
+                "feedback": "They are related \u2014 all exercise the integrated system, frequently through user journeys."
+              },
+              {
+                "text": "Acceptance testing is always faster than unit testing",
+                "fraction": 0,
+                "feedback": "That is unrelated to the question and generally false."
+              }
+            ],
+            "generalFeedback": "E2E, system, and acceptance testing all exercise the whole integrated system and are often expressed as user journeys. Acceptance testing additionally emphasises confirming that business/user requirements are met.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Shared leftover data can cause flakiness",
+            "text": "<p>Leftover data from a previous run that is not cleaned up can make an E2E test pass or fail inconsistently.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 uncleaned shared state is a well-known source of E2E flakiness and order dependence."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Leftover/shared data is a classic flakiness cause; independent tests seed and clean their own state."
+              }
+            ],
+            "generalFeedback": "If a test relies on or leaves behind shared data, later runs can start from an unexpected state and flake. Making each test seed and clean up its own data keeps runs independent and stable."
+          },
+          {
+            "type": "multichoice",
+            "name": "Why realistic data and environment matter",
+            "text": "<p>Why do E2E tests specifically need realistic data <em>and</em> a production-like environment?</p>",
+            "answers": [
+              {
+                "text": "Because the whole point is to validate the real user journey; unrealistic data or environment can hide or invent defects",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fidelity to production is what makes the E2E result meaningful."
+              },
+              {
+                "text": "Because it makes the tests run faster",
+                "fraction": 0,
+                "feedback": "Realism does not speed tests up; it improves the validity of what they check."
+              },
+              {
+                "text": "Because it lets you skip writing unit tests",
+                "fraction": 0,
+                "feedback": "E2E does not replace unit tests regardless of how realistic it is."
+              },
+              {
+                "text": "Because production-like environments never fail",
+                "fraction": 0,
+                "feedback": "They can and do fail; the point is fidelity to real usage, not infallibility."
+              }
+            ],
+            "generalFeedback": "E2E aims to reflect real usage, so data and environment must resemble production. Otherwise the test may pass on unrealistic conditions (missing real defects) or fail on artificial ones (inventing false failures).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Coverage across a journey",
+            "text": "<p>For a critical journey, an E2E suite that tests <strong>only</strong> the happy path is usually inadequate because:</p>",
+            "answers": [
+              {
+                "text": "Key alternative and error/edge paths (e.g. declined payment, invalid input) also need coverage to trust the journey",
+                "fraction": 100,
+                "feedback": "Correct \u2014 real confidence in a journey requires the happy path plus its important alternative and error paths."
+              },
+              {
+                "text": "The happy path is the only path that ever matters",
+                "fraction": 0,
+                "feedback": "Alternative and error paths are common in real usage and must be covered for critical journeys."
+              },
+              {
+                "text": "Happy-path tests always run too slowly to be useful",
+                "fraction": 0,
+                "feedback": "Speed is not the issue; the gap is missing alternative/error-path coverage."
+              },
+              {
+                "text": "Error paths can only be tested manually, never with E2E",
+                "fraction": 0,
+                "feedback": "Error paths are routinely automated at the E2E level; that is not the reason."
+              }
+            ],
+            "generalFeedback": "A journey is trustworthy only when its main deviations are covered too: the happy path plus key alternative paths and error/edge paths (declines, invalid input, timeouts). Testing the happy path alone leaves common real-world outcomes unverified.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Fix timing/async flakiness",
+            "text": "<p>An E2E test intermittently fails because it asserts on an element before an asynchronous request has finished. What is the best fix?</p>",
+            "answers": [
+              {
+                "text": "Wait explicitly for the element or condition to be ready, rather than pausing for a fixed sleep",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an explicit wait on the actual condition is robust across varying timings; fixed sleeps are fragile and slow."
+              },
+              {
+                "text": "Add a long fixed sleep before every assertion",
+                "fraction": 0,
+                "feedback": "Fixed sleeps still flake when the operation is slower than the sleep, and waste time when it is faster."
+              },
+              {
+                "text": "Delete the assertion so the test cannot fail",
+                "fraction": 0,
+                "feedback": "Removing the check hides the problem instead of testing the behaviour."
+              },
+              {
+                "text": "Re-run the whole suite until it passes and ship that result",
+                "fraction": 0,
+                "feedback": "Masking non-determinism with blind re-runs leaves the flakiness in place."
+              }
+            ],
+            "generalFeedback": "Timing/async flakiness is best addressed with explicit waits that poll for the actual readiness condition, not fixed sleeps. Sleeps are simultaneously too short (still flaky) and too long (slow), so prefer condition-based waits.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix shared-state flakiness",
+            "text": "<p>Several E2E tests flake because they read and write the same shared account records. What is the most robust remedy?</p>",
+            "answers": [
+              {
+                "text": "Give each test its own seeded, isolated data and clean it up, so tests do not share state",
+                "fraction": 100,
+                "feedback": "Correct \u2014 isolating and seeding per-test data removes the shared-state coupling that causes the flakiness."
+              },
+              {
+                "text": "Force the tests to always run in a fixed order",
+                "fraction": 0,
+                "feedback": "Ordering hides the coupling but leaves it fragile; independent, isolated data is the real fix."
+              },
+              {
+                "text": "Increase the timeout on each assertion",
+                "fraction": 0,
+                "feedback": "Longer timeouts do not fix contention over shared records."
+              },
+              {
+                "text": "Run the tests less often so collisions are rarer",
+                "fraction": 0,
+                "feedback": "Running less often does not remove the underlying shared-state defect."
+              }
+            ],
+            "generalFeedback": "Shared mutable data creates order dependence and collisions. The robust fix is per-test isolation: each test seeds its own data and cleans up, so no test depends on another's state.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Brittle selectors",
+            "text": "<p>E2E tests keep breaking whenever the CSS layout is refactored, because they locate elements by deep, style-based selectors. What reduces this brittleness?</p>",
+            "answers": [
+              {
+                "text": "Use stable selectors (e.g. dedicated test IDs) and centralise them behind page objects",
+                "fraction": 100,
+                "feedback": "Correct \u2014 stable, intention-revealing locators and page objects insulate tests from cosmetic UI changes."
+              },
+              {
+                "text": "Pin every selector to the exact pixel position of the element",
+                "fraction": 0,
+                "feedback": "Pixel positions are even more fragile than style-based selectors."
+              },
+              {
+                "text": "Copy the same brittle selector into more tests for redundancy",
+                "fraction": 0,
+                "feedback": "Duplicating a fragile selector multiplies maintenance instead of reducing it."
+              },
+              {
+                "text": "Disable the tests whenever the UI changes",
+                "fraction": 0,
+                "feedback": "Disabling tests removes coverage rather than fixing selector brittleness."
+              }
+            ],
+            "generalFeedback": "Locating elements by presentation makes tests break on cosmetic changes. Stable selectors such as dedicated test IDs, encapsulated in page objects, keep tests resilient and maintainable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why root cause is hard at E2E",
+            "text": "<p>Why is it typically <strong>harder to pinpoint the root cause</strong> of a failure from an E2E test than from a unit test?</p>",
+            "answers": [
+              {
+                "text": "An E2E failure could originate in any of the many layers the test spans, so it localises the fault poorly",
+                "fraction": 100,
+                "feedback": "Correct \u2014 broad scope means a failure implicates the whole stack, unlike a narrowly scoped unit test."
+              },
+              {
+                "text": "E2E tests never produce any logs or error messages",
+                "fraction": 0,
+                "feedback": "They do produce output; the difficulty is the breadth of possible causes, not a lack of logs."
+              },
+              {
+                "text": "Unit tests are actually broader in scope than E2E tests",
+                "fraction": 0,
+                "feedback": "Unit tests are narrower; that narrowness is why they localise faults well."
+              },
+              {
+                "text": "E2E tests do not have assertions",
+                "fraction": 0,
+                "feedback": "E2E tests do assert outcomes; root-cause difficulty comes from their wide scope."
+              }
+            ],
+            "generalFeedback": "Because an E2E test exercises many layers at once, a failure could stem from any of them. A unit test isolates one component, so its failure points almost directly at the fault; the E2E test's breadth is exactly what makes diagnosis harder.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Confidence vs cost/maintenance trade-off",
+            "text": "<p>Which statement best captures the central trade-off of relying on E2E tests?</p>",
+            "answers": [
+              {
+                "text": "They give the highest confidence in real integrated behaviour but at the highest cost in speed, maintenance, and flakiness",
+                "fraction": 100,
+                "feedback": "Correct \u2014 you trade realism and confidence against speed, cost, and stability."
+              },
+              {
+                "text": "They give the highest confidence and are also the cheapest and most stable",
+                "fraction": 0,
+                "feedback": "E2E tests are the most expensive and least stable, not the cheapest and most stable."
+              },
+              {
+                "text": "They give the least confidence but are the fastest",
+                "fraction": 0,
+                "feedback": "E2E gives high integrated confidence and is the slowest, not the fastest with least confidence."
+              },
+              {
+                "text": "There is no trade-off; more E2E is always better",
+                "fraction": 0,
+                "feedback": "There is a real trade-off; piling on E2E harms speed and stability."
+              }
+            ],
+            "generalFeedback": "E2E offers the most realistic, integrated confidence but is slow, expensive to maintain, and flaky. The art is balancing that confidence against the cost, which is why E2E is used sparingly for the most critical journeys.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When adding more E2E is NOT worth it",
+            "text": "<p>A boundary-validation rule is currently checked only by a slow E2E test. When is it <strong>not</strong> worth adding more E2E coverage for such rules?</p>",
+            "answers": [
+              {
+                "text": "When the behaviour can be verified just as well by a fast unit or integration test \u2014 push it down instead",
+                "fraction": 100,
+                "feedback": "Correct \u2014 if a lower level gives adequate confidence, adding E2E only adds cost and flakiness."
+              },
+              {
+                "text": "Whenever the behaviour is part of a critical business journey",
+                "fraction": 0,
+                "feedback": "Critical journeys are exactly where a little E2E is justified."
+              },
+              {
+                "text": "Only when the team has no unit tests at all",
+                "fraction": 0,
+                "feedback": "Having no unit tests is a reason to add them, not a reason about E2E worth; the decision is whether a lower level suffices."
+              },
+              {
+                "text": "Never; more E2E coverage is always worthwhile",
+                "fraction": 0,
+                "feedback": "More E2E is not always worthwhile \u2014 duplicating what a unit test can do adds slow, flaky cost."
+              }
+            ],
+            "generalFeedback": "If a fast lower-level test can verify the behaviour with adequate confidence, adding E2E coverage for it only inflates a slow, brittle top layer. Push such checks down and reserve E2E for journeys that truly need whole-system validation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Design a minimal set of journeys",
+            "text": "<p>You can afford only a handful of E2E tests. How should you choose <strong>which journeys</strong> to cover?</p>",
+            "answers": [
+              {
+                "text": "Cover the few most critical business flows end to end, plus their key error paths, and push the rest down",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a minimal set targets the highest-value journeys and their important deviations."
+              },
+              {
+                "text": "Cover every possible combination of every feature at E2E level",
+                "fraction": 0,
+                "feedback": "That inflates the slow top layer; exhaustive combinations belong lower down."
+              },
+              {
+                "text": "Pick journeys at random to sample the system evenly",
+                "fraction": 0,
+                "feedback": "Random sampling ignores business criticality; prioritise the most important flows."
+              },
+              {
+                "text": "Only test rarely used administrative screens",
+                "fraction": 0,
+                "feedback": "Scarce E2E budget should go to the critical, high-traffic journeys, not rare admin screens."
+              }
+            ],
+            "generalFeedback": "With a limited E2E budget, spend it on the most critical business journeys (and their key alternative/error paths) as smoke coverage, and push detailed and lower-value cases down to faster tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Third-party sandbox flakiness",
+            "text": "<p>An E2E test that exercises a real third-party payment sandbox flakes when the sandbox is slow or briefly unavailable. What is a sound way to reduce this flakiness while keeping meaningful coverage?</p>",
+            "answers": [
+              {
+                "text": "Keep one true end-to-end check against the sandbox and cover other payment cases at a lower level using a controlled test double",
+                "fraction": 100,
+                "feedback": "Correct \u2014 limit dependence on the flaky external service to a minimal smoke check and push the rest down where it is controllable."
+              },
+              {
+                "text": "Add many more tests that all call the live sandbox for redundancy",
+                "fraction": 0,
+                "feedback": "More tests against the same flaky dependency multiply the flakiness."
+              },
+              {
+                "text": "Ignore all failures from any test that touches payment",
+                "fraction": 0,
+                "feedback": "Ignoring failures hides real defects along with flaky ones."
+              },
+              {
+                "text": "Assume the sandbox is always up and never handle its downtime",
+                "fraction": 0,
+                "feedback": "External sandboxes are a known flakiness source; you must account for their unreliability."
+              }
+            ],
+            "generalFeedback": "Third-party sandboxes are a classic external-dependency flakiness source. Keep a single genuine end-to-end smoke check and move the remaining payment scenarios to a lower level with a controlled double, limiting exposure to the unreliable service.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose order-dependence flakiness",
+            "text": "<p>An E2E test passes when run alone but fails when run after another test in the suite. What is the most likely cause and the correct fix?</p>",
+            "answers": [
+              {
+                "text": "Order dependence from shared state; make each test set up and tear down its own data so it is independent",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a pass-alone/fail-in-sequence pattern points to leftover shared state, fixed by test isolation."
+              },
+              {
+                "text": "The assertion library is broken; rewrite all assertions",
+                "fraction": 0,
+                "feedback": "A pass-alone/fail-in-order pattern points to shared state, not a broken assertion library."
+              },
+              {
+                "text": "The test is too fast; add a fixed sleep at the start",
+                "fraction": 0,
+                "feedback": "Speed is not the issue here; leftover state from the prior test is."
+              },
+              {
+                "text": "Nothing is wrong; just always run that test first",
+                "fraction": 0,
+                "feedback": "Pinning the order masks the coupling instead of removing it; make the test independent."
+              }
+            ],
+            "generalFeedback": "Passing alone but failing after another test is the signature of order dependence caused by shared/leftover state. The fix is independence and idempotency: each test seeds and cleans its own data.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Use retries and quarantine sparingly",
+            "text": '<p>How should automatic retries and a "quarantine" for flaky E2E tests be used?</p>',
+            "answers": [
+              {
+                "text": "Sparingly and temporarily, as a stopgap while you find and fix the real cause of the flakiness",
+                "fraction": 100,
+                "feedback": "Correct \u2014 retries/quarantine buy time but must not become a substitute for fixing the root cause."
+              },
+              {
+                "text": "As the permanent primary strategy, retrying every test many times",
+                "fraction": 0,
+                "feedback": "Relying on retries permanently hides genuine defects and normalises flakiness."
+              },
+              {
+                "text": "By quarantining every failing test indefinitely and never revisiting it",
+                "fraction": 0,
+                "feedback": "Indefinite quarantine silently erodes coverage; quarantined tests must be fixed and returned."
+              },
+              {
+                "text": "Never under any circumstances",
+                "fraction": 0,
+                "feedback": "Used sparingly as a temporary measure they are legitimate; the caution is against over-reliance."
+              }
+            ],
+            "generalFeedback": "Retries and quarantine are stopgaps: use them sparingly and temporarily to keep the pipeline moving while you diagnose and fix the underlying flakiness. Relying on them permanently masks real defects.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why explicit waits beat fixed sleeps",
+            "text": "<p>Why is an explicit wait on a condition generally better than a fixed <code>sleep</code> in an E2E test?</p>",
+            "answers": [
+              {
+                "text": "It proceeds as soon as the condition holds and only fails after a real timeout, so it is both faster and more reliable across varying timings",
+                "fraction": 100,
+                "feedback": "Correct \u2014 condition-based waits adapt to actual timing, avoiding both premature failure and wasted time."
+              },
+              {
+                "text": "It guarantees the test can never fail",
+                "fraction": 0,
+                "feedback": "It can still fail (on a genuine timeout); it just fails for real reasons, not timing noise."
+              },
+              {
+                "text": "It makes the environment production-like",
+                "fraction": 0,
+                "feedback": "Waits address timing, not environment fidelity."
+              },
+              {
+                "text": "It removes the need for any assertions",
+                "fraction": 0,
+                "feedback": "Waits and assertions are separate; you still assert the expected outcome."
+              }
+            ],
+            "generalFeedback": "A fixed sleep is simultaneously too long (wastes time when the system is fast) and too short (flakes when it is slow). An explicit wait polls for the real condition, continuing immediately when ready and failing only on a genuine timeout.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "More E2E does not replace unit/integration",
+            "text": "<p>Adding more E2E tests can substitute for having unit and integration tests, since E2E covers the whole system anyway.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "E2E gives integrated confidence but is slow, flaky, and poor at localising faults; it cannot replace fast, precise lower-level tests."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 E2E complements rather than replaces unit and integration tests; more E2E is not simply better."
+              }
+            ],
+            "generalFeedback": "E2E validates integrated behaviour but is slow, expensive, brittle, and poor at pinpointing faults. It does not replace the fast, precise coverage of unit and integration tests; a healthy suite keeps E2E few and pushes detail down."
+          },
+          {
+            "type": "multichoice",
+            "name": "Realistic-environment pitfall",
+            "text": "<p>A team runs E2E tests against a shared staging environment that other teams also deploy to and change during the day. Why is this a pitfall, and what helps?</p>",
+            "answers": [
+              {
+                "text": "Concurrent changes make the environment unstable, causing flaky results; use an isolated, controlled, production-like environment with seeded data",
+                "fraction": 100,
+                "feedback": "Correct \u2014 uncontrolled shared environments inject non-determinism; isolation and seeded data restore stability."
+              },
+              {
+                "text": "There is no pitfall; a busy shared environment is ideal for E2E",
+                "fraction": 0,
+                "feedback": "Uncontrolled concurrent changes are a real flakiness source, not ideal."
+              },
+              {
+                "text": "The only fix is to stop running E2E tests entirely",
+                "fraction": 0,
+                "feedback": "The fix is a controlled, isolated environment, not abandoning E2E."
+              },
+              {
+                "text": "Shared environments make tests faster, which outweighs any instability",
+                "fraction": 0,
+                "feedback": "Speed does not outweigh non-deterministic results that undermine trust in the suite."
+              }
+            ],
+            "generalFeedback": "A production-like environment must also be controlled. When others mutate a shared staging environment mid-run, results flake. Isolating the environment (or the test's data within it) and seeding known data keeps E2E stable while staying realistic.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Push down when confidence is equal",
+            "text": "<p>A behaviour can be validated with equal confidence by either a fast integration test or a slow E2E test. Which should you generally choose, and why?</p>",
+            "answers": [
+              {
+                "text": "The integration test, because it is the lowest level that gives adequate confidence \u2014 faster, cheaper, and less flaky",
+                "fraction": 100,
+                "feedback": "Correct \u2014 push down to the lowest adequate level and reserve E2E for what only it can cover."
+              },
+              {
+                "text": "The E2E test, because higher-level tests are always superior",
+                "fraction": 0,
+                "feedback": "Higher-level tests are slower and flakier; they are not always superior when a lower level suffices."
+              },
+              {
+                "text": "Both, always, for maximum coverage",
+                "fraction": 0,
+                "feedback": "Duplicating the behaviour at E2E adds slow, brittle cost for no extra confidence."
+              },
+              {
+                "text": "Neither; the behaviour need not be tested",
+                "fraction": 0,
+                "feedback": "The behaviour should be tested \u2014 at the lowest adequate level."
+              }
+            ],
+            "generalFeedback": "When two levels give equal confidence, choose the lower one: it is faster, cheaper, and more stable. Save the slow, brittle E2E budget for journeys that only whole-system validation can cover.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Localising a failure across layers",
+            "text": "<p>An E2E checkout test fails at the payment step. What is the most effective way to localise whether the fault is in the UI, the application, or the payment service?</p>",
+            "answers": [
+              {
+                "text": "Reproduce the payment step with lower-level integration/service tests and logs to isolate which layer misbehaves",
+                "fraction": 100,
+                "feedback": "Correct \u2014 narrower tests and diagnostics at each layer pinpoint the fault that the broad E2E test only signals."
+              },
+              {
+                "text": "Assume it must be the UI, since E2E goes through the UI",
+                "fraction": 0,
+                "feedback": "Going through the UI does not mean the fault is in the UI; the failure could be in any spanned layer."
+              },
+              {
+                "text": "Rerun the E2E test many times until it passes and move on",
+                "fraction": 0,
+                "feedback": "Blind re-runs neither localise nor fix the fault."
+              },
+              {
+                "text": "Delete the payment step from the test",
+                "fraction": 0,
+                "feedback": "Removing the step abandons coverage instead of finding the cause."
+              }
+            ],
+            "generalFeedback": "Because an E2E failure implicates every layer it spans, the effective way to find the root cause is to drop to narrower integration/service tests and layer-specific logs that isolate exactly where the payment step breaks \u2014 one reason a strong lower-level suite complements E2E.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u7684\u5B9A\u7FA9",
+            "text": "<p><em>\u7AEF\u5C0D\u7AEF\uFF08E2E\uFF09</em>\u6E2C\u8A66\u4E3B\u8981\u9A57\u8B49\u7684\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u771F\u5BE6\u4F7F\u7528\u8005\u7684\u89D2\u5EA6\uFF0C\u8CAB\u7A7F\u6574\u500B\u6574\u5408\u7CFB\u7D71\u7684\u5B8C\u6574\u4F7F\u7528\u8005\u5DE5\u4F5C\u6D41\u7A0B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014E2E \u6703\u50CF\u771F\u5BE6\u4F7F\u7528\u8005\u4E00\u6A23\uFF0C\u64CD\u4F5C\u6574\u500B\u6280\u8853\u5806\u758A\uFF08UI \u7D93\u904E\u61C9\u7528\u7A0B\u5F0F\u3001\u8CC7\u6599\u5EAB\u5230\u5916\u90E8\u670D\u52D9\uFF09\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u51FD\u5F0F\u6216\u65B9\u6CD5\u5728\u9694\u96E2\u72C0\u614B\u4E0B\u7684\u884C\u70BA\uFF0C\u4E0D\u542B\u4EFB\u4F55\u76F8\u4F9D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u5143\u6E2C\u8A66\uFF0C\u4E0D\u662F E2E \u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u53EA\u9A57\u8B49\u5169\u500B\u76F8\u9130\u6A21\u7D44\u662F\u5426\u900F\u904E API \u6B63\u78BA\u4EA4\u63DB\u8CC7\u6599",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6574\u5408\u6E2C\u8A66\uFF1BE2E \u6DB5\u84CB\u6574\u500B\u5DE5\u4F5C\u6D41\u7A0B\uFF0C\u800C\u975E\u55AE\u4E00\u4ECB\u9762\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u5143\u4EF6\u7684\u5167\u90E8\u7A0B\u5F0F\u78BC\u7D50\u69CB\u8207\u5206\u652F\u6DB5\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u767D\u7BB1\uFF0F\u55AE\u5143\u5C64\u7D1A\u7684\u95DC\u6CE8\u9EDE\uFF1BE2E \u9A57\u8B49\u6574\u500B\u7CFB\u7D71\u7684\u7AEF\u5C0D\u7AEF\u884C\u70BA\u3002"
+              }
+            ],
+            "generalFeedback": "\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u6703\u5728\u5B8C\u6574\u6574\u5408\u7684\u7CFB\u7D71\u4E0A\uFF08UI \u2192 \u61C9\u7528\u7A0B\u5F0F \u2192 \u8CC7\u6599\u5EAB \u2192 \u5916\u90E8\u670D\u52D9\uFF09\u9A45\u52D5\u4E00\u500B\u5B8C\u6574\u7684\u4F7F\u7528\u8005\u5DE5\u4F5C\u6D41\u7A0B\uFF0C\u5F9E\u771F\u5BE6\u4F7F\u7528\u8005\u7684\u89C0\u9EDE\u9A57\u8B49\u6574\u6BB5\u65C5\u7A0B\uFF0C\u800C\u975E\u55AE\u4E00\u5143\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F7F\u7528\u8005\u65C5\u7A0B\u7684\u5B9A\u7FA9",
+            "text": "<p>\u5728 E2E \u6E2C\u8A66\u4E2D\uFF0C<em>\u4F7F\u7528\u8005\u65C5\u7A0B</em>\u6700\u9069\u5408\u88AB\u63CF\u8FF0\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4F7F\u7528\u8005\u70BA\u9054\u6210\u67D0\u500B\u76EE\u6A19\u6240\u63A1\u53D6\u7684\u6709\u5E8F\u6B65\u9A5F\u5E8F\u5217",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F8B\u5982\u700F\u89BD \u2192 \u52A0\u5165\u8CFC\u7269\u8ECA \u2192 \u7D50\u5E33 \u2192 \u4ED8\u6B3E \u2192 \u78BA\u8A8D\u3002"
+              },
+              {
+                "text": "\u67D0\u500B\u756B\u9762\u4E0A\u55AE\u4E00\u6309\u9215\u7684\u9EDE\u64CA",
+                "fraction": 0,
+                "feedback": "\u65C5\u7A0B\u662F\u671D\u5411\u76EE\u6A19\u7684\u4E00\u9023\u4E32\u6B65\u9A5F\uFF0C\u800C\u975E\u55AE\u4E00\u7684\u9694\u96E2\u4E92\u52D5\u3002"
+              },
+              {
+                "text": "\u61C9\u7528\u7A0B\u5F0F\u6240\u4F7F\u7528\u7684\u8CC7\u6599\u5EAB\u8CC7\u6599\u8868\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8CC7\u6599\u6A21\u578B\uFF0C\u4E0D\u662F\u4F7F\u7528\u8005\u65C5\u7A0B\u3002"
+              },
+              {
+                "text": "\u6DB5\u84CB\u67D0\u500B\u6A21\u7D44\u7684\u90A3\u7D44\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4F7F\u7528\u8005\u65C5\u7A0B\u662F\u9762\u5411\u4F7F\u7528\u8005\u7684\u5DE5\u4F5C\u6D41\u7A0B\uFF0C\u800C\u975E\u67D0\u6A21\u7D44\u7684\u6E2C\u8A66\u5957\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F7F\u7528\u8005\u65C5\u7A0B\u662F\u4F7F\u7528\u8005\u70BA\u9054\u6210\u76EE\u6A19\u6240\u8D70\u7684\u6709\u5E8F\u6B65\u9A5F\u5E8F\u5217\u3002E2E \u6E2C\u8A66\u901A\u5E38\u5C31\u662F\u570D\u7E5E\u9019\u985E\u65C5\u7A0B\u4F86\u7D44\u7E54\uFF0C\u4F8B\u5982\u700F\u89BD \u2192 \u52A0\u5165\u8CFC\u7269\u8ECA \u2192 \u7D50\u5E33 \u2192 \u4ED8\u6B3E \u2192 \u78BA\u8A8D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5FEB\u6A02\u8DEF\u5F91\u7684\u5B9A\u7FA9",
+            "text": "<p>\u5728\u4E00\u6BB5\u4F7F\u7528\u8005\u65C5\u7A0B\u4E2D\uFF0C<em>\u5FEB\u6A02\u8DEF\u5F91\uFF08happy path\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u5207\u5982\u9810\u671F\u9032\u884C\u3001\u6C92\u6709\u932F\u8AA4\uFF0C\u4F7F\u7528\u8005\u9806\u5229\u9054\u6210\u76EE\u6A19\u7684\u9810\u8A2D\u8DEF\u7DDA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5FEB\u6A02\u8DEF\u5F91\u662F\u8F38\u5165\u6709\u6548\u3001\u6BCF\u4E00\u6B65\u90FD\u6210\u529F\u7684\u6B63\u5E38\u6D41\u7A0B\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5728\u767C\u751F\u932F\u8AA4\u6642\u4F7F\u7528\u8005\u624D\u6703\u8D70\u7684\u8DEF\u7DDA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u932F\u8AA4\u8DEF\u5F91\uFF0C\u8207\u5FEB\u6A02\u8DEF\u5F91\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u5957\u4EF6\u4E2D\u57F7\u884C\u6700\u5FEB\u7684\u90A3\u500B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5FEB\u6A02\u8DEF\u5F91\u6307\u7684\u662F\u6210\u529F\u7684\u6D41\u7A0B\uFF0C\u8207\u6E2C\u8A66\u57F7\u884C\u6642\u9593\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u4EFB\u4F55\u7565\u904E\u8EAB\u5206\u9A57\u8B49\u7684\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u7565\u904E\u8EAB\u5206\u9A57\u8B49\u4E26\u4E0D\u662F\u300C\u5FEB\u6A02\u8DEF\u5F91\u300D\u7684\u610F\u601D\uFF1B\u5B83\u6307\u7684\u662F\u6B63\u5E38\u6210\u529F\u7684\u6D41\u7A0B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5FEB\u6A02\u8DEF\u5F91\u662F\u8F38\u5165\u6709\u6548\u3001\u6BCF\u4E00\u6B65\u90FD\u6210\u529F\u3001\u4F7F\u7528\u8005\u9806\u5229\u9054\u6210\u76EE\u6A19\u7684\u9810\u8A2D\u7121\u932F\u8AA4\u60C5\u5883\u3002\u66FF\u4EE3\u8DEF\u5F91\u8207\u932F\u8AA4\u8DEF\u5F91\u5247\u6DB5\u84CB\u5404\u7A2E\u504F\u96E2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "E2E \u6E2C\u8A66\u6A6B\u8DE8\u7684\u5C64\u7D1A",
+            "text": "<p>\u4E00\u500B\u5178\u578B\u7684 E2E \u6E2C\u8A66\u6703\u4E00\u8D77\u904B\u4F5C\u5230\u54EA\u4E9B\u5C64\u7D1A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "UI\u3001\u61C9\u7528\u7A0B\u5F0F\u908F\u8F2F\u3001\u8CC7\u6599\u5EAB\uFF0C\u4EE5\u53CA\u4EFB\u4F55\u5916\u90E8\u670D\u52D9\u2014\u2014\u6574\u500B\u6280\u8853\u5806\u758A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014E2E \u6703\u6A6B\u8DE8\u6240\u6709\u5C64\u7D1A\u9A45\u52D5\u5B8C\u6574\u6574\u5408\u7684\u7CFB\u7D71\u3002"
+              },
+              {
+                "text": "\u53EA\u6709 UI \u5C64\uFF0C\u5176\u9918\u5168\u90E8\u4EE5 mock \u53D6\u4EE3",
+                "fraction": 0,
+                "feedback": "\u628A UI \u4EE5\u5916\u5168\u90E8 mock \u6389\u5C31\u4E0D\u662F\u7AEF\u5C0D\u7AEF\uFF1BE2E \u4F7F\u7528\u771F\u5BE6\u6574\u5408\u7684\u5806\u758A\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u8CC7\u6599\u5EAB\u5C64",
+                "fraction": 0,
+                "feedback": "E2E \u6A6B\u8DE8\u6574\u500B\u5806\u758A\uFF0C\u800C\u975E\u55AE\u4E00\u5C64\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u55AE\u4E00\u670D\u52D9\u9694\u96E2\u72C0\u614B\u4E0B\u7684 API",
+                "fraction": 0,
+                "feedback": "\u9694\u96E2\u6E2C\u8A66\u55AE\u4E00 API \u5C6C\u65BC\u6574\u5408\uFF0F\u670D\u52D9\u5C64\u7D1A\uFF0C\u800C\u975E\u7AEF\u5C0D\u7AEF\u3002"
+              }
+            ],
+            "generalFeedback": "E2E \u6E2C\u8A66\u5728\u5B8C\u6574\u6574\u5408\u7684\u7CFB\u7D71\u4E0A\u57F7\u884C\uFF1AUI\u3001\u5176\u80CC\u5F8C\u7684\u61C9\u7528\u7A0B\u5F0F\u908F\u8F2F\u3001\u8CC7\u6599\u5EAB\uFF0C\u4EE5\u53CA\u4EFB\u4F55\u5916\u90E8\u670D\u52D9\uFF0C\u5168\u90E8\u50CF\u5728\u751F\u7522\u74B0\u5883\u4E2D\u4E00\u6A23\u5354\u540C\u904B\u4F5C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u91D1\u5B57\u5854\u9802\u7AEF\u7684\u7279\u6027",
+            "text": "<p>\u4F4D\u65BC\u6E2C\u8A66\u91D1\u5B57\u5854\u9802\u7AEF\uFF0CE2E \u6E2C\u8A66\u901A\u5E38\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6578\u91CF\u5C11\u3001\u57F7\u884C\u6162\u3001\u6210\u672C\u9AD8\uFF0C\u4E14\u76F8\u5C0D\u8106\u5F31",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56E0\u70BA\u6162\u3001\u8CB4\u53C8\u5BB9\u6613\u4E0D\u7A69\u5B9A\uFF0C\u6240\u4EE5\u53EA\u4FDD\u7559\u5C11\u91CF E2E \u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6578\u91CF\u591A\u3001\u57F7\u884C\u5FEB\u3001\u6210\u672C\u4F4E\u4E14\u975E\u5E38\u7A69\u5B9A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4F4D\u65BC\u5E95\u90E8\u7684\u55AE\u5143\u6E2C\u8A66\u7279\u6027\uFF0C\u800C\u975E\u9802\u7AEF\u7684 E2E\u3002"
+              },
+              {
+                "text": "\u6578\u91CF\u591A\u4F46\u57F7\u884C\u6162",
+                "fraction": 0,
+                "feedback": "\u6B63\u56E0\u70BA\u6162\u53C8\u8CB4\uFF0CE2E \u6E2C\u8A66\u624D\u88AB\u4FDD\u6301\u5728\u5C11\u91CF\uFF0C\u800C\u975E\u5927\u91CF\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u5FEB\u4F46\u6210\u672C\u9AD8",
+                "fraction": 0,
+                "feedback": "E2E \u6E2C\u8A66\u662F\u6162\u7684\uFF0C\u4E0D\u662F\u5FEB\u7684\uFF1B\u6B63\u56E0\u5176\u6210\u672C\u8207\u7DE9\u6162\u624D\u53EA\u4FDD\u7559\u5C11\u91CF\u3002"
+              }
+            ],
+            "generalFeedback": "E2E \u6E2C\u8A66\u4F4D\u65BC\u91D1\u5B57\u5854\u9802\u7AEF\uFF1A\u6578\u91CF\u5C11\u3001\u57F7\u884C\u6162\u3001\u64B0\u5BEB\u8207\u7DAD\u8B77\u6210\u672C\u9AD8\uFF0C\u4E14\u6BD4\u4F4E\u5C64\u6E2C\u8A66\u66F4\u8106\u5F31\u2014\u2014\u6240\u4EE5\u53EA\u4FDD\u7559\u5C11\u91CF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 E2E \u6700\u63A5\u8FD1\u771F\u5BE6\u4F7F\u7528",
+            "text": "<p>\u70BA\u4EC0\u9EBC E2E \u6E2C\u8A66\u88AB\u8A8D\u70BA\u5728\u6240\u6709\u6E2C\u8A66\u5C64\u7D1A\u4E2D<strong>\u6700\u63A5\u8FD1\u771F\u5BE6\u4F7F\u7528</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u900F\u904E\u771F\u5BE6\u4ECB\u9762\u9A45\u52D5\u5B8C\u6574\u6574\u5408\u7684\u7CFB\u7D71\uFF0C\u5C31\u8DDF\u771F\u5BE6\u4F7F\u7528\u8005\u7684\u64CD\u4F5C\u4E00\u6A21\u4E00\u6A23",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u50CF\u771F\u5BE6\u4F7F\u7528\u8005\u822C\u8CAB\u7A7F\u6574\u500B\u5806\u758A\u64CD\u4F5C\uFF0C\u6B63\u662F\u5B83\u6700\u8CBC\u8FD1\u771F\u5BE6\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u5B83\u6BD4\u4EFB\u4F55\u5176\u4ED6\u6E2C\u8A66\u5C64\u7D1A\u90FD\u57F7\u884C\u5F97\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "E2E \u662F\u6700\u6162\u7684\u5C64\u7D1A\uFF1B\u901F\u5EA6\u4E26\u975E\u5B83\u8CBC\u8FD1\u771F\u5BE6\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u5B83\u6703\u6AA2\u8996\u6BCF\u500B\u5143\u4EF6\u7684\u79C1\u6709\u5167\u90E8\u8B8A\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u767D\u7BB1\u6AA2\u8996\uFF0C\u8207\u50CF\u771F\u5BE6\u4F7F\u7528\u8005\u822C\u6E2C\u8A66\u6070\u597D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u5B83\u4EE5 mock \u53D6\u4EE3\u8CC7\u6599\u5EAB\u8207\u670D\u52D9",
+                "fraction": 0,
+                "feedback": "mock \u6703\u964D\u4F4E\u771F\u5BE6\u5EA6\uFF1BE2E \u4F7F\u7528\u771F\u5BE6\u6574\u5408\u7684\u7CFB\u7D71\u3002"
+              }
+            ],
+            "generalFeedback": "E2E \u5F9E\u4F7F\u7528\u8005\u7684\u89D2\u5EA6\u3001\u900F\u904E\u771F\u5BE6\u4ECB\u9762\u64CD\u4F5C\u6574\u500B\u6574\u5408\u7CFB\u7D71\uFF0C\u56E0\u6B64\u6700\u80FD\u53CD\u6620\u7522\u54C1\u5BE6\u969B\u4F7F\u7528\u6642\u7684\u884C\u70BA\u2014\u2014\u4E5F\u5E36\u4F86\u5C0D\u6574\u5408\u884C\u70BA\u7684\u6700\u9AD8\u4FE1\u5FC3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u5FEB\u6A02\u8DEF\u5F91\uFF08\u7D50\u5E33\uFF09",
+            "text": "<p>\u5C0D\u4E00\u5BB6\u7DDA\u4E0A\u5546\u5E97\u800C\u8A00\uFF0C\u4E0B\u5217\u54EA\u500B\u60C5\u5883\u662F\u7D50\u5E33\u65C5\u7A0B\u7684<strong>\u5FEB\u6A02\u8DEF\u5F91</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4F7F\u7528\u8005\u700F\u89BD\u3001\u628A\u6709\u5EAB\u5B58\u7684\u5546\u54C1\u52A0\u5165\u8CFC\u7269\u8ECA\u3001\u4EE5\u6709\u6548\u4FE1\u7528\u5361\u4ED8\u6B3E\uFF0C\u4E26\u770B\u5230\u8A02\u55AE\u78BA\u8A8D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u4E00\u6B65\u8F38\u5165\u90FD\u6709\u6548\u4E14\u9054\u6210\u76EE\u6A19\uFF0C\u5C31\u662F\u5FEB\u6A02\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u7684\u4FE1\u7528\u5361\u5728\u4ED8\u6B3E\u6642\u88AB\u62D2\u7D55\u4E26\u986F\u793A\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u4FE1\u7528\u5361\u88AB\u62D2\u662F\u932F\u8AA4\u8DEF\u5F91\uFF0C\u4E0D\u662F\u5FEB\u6A02\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u4EE5\u7A7A\u8CFC\u7269\u8ECA\u5617\u8A66\u7D50\u5E33\u800C\u88AB\u64CB\u4E0B",
+                "fraction": 0,
+                "feedback": "\u7A7A\u8CFC\u7269\u8ECA\u88AB\u64CB\u662F\u932F\u8AA4\uFF0F\u908A\u754C\u8DEF\u5F91\uFF0C\u4E0D\u662F\u6210\u529F\u7684\u6D41\u7A0B\u3002"
+              },
+              {
+                "text": "\u7D50\u5E33\u904E\u7A0B\u4E2D\u5546\u54C1\u7F3A\u8CA8\uFF0C\u8A02\u55AE\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u56E0\u504F\u96E2\u800C\u9020\u6210\u7684\u932F\u8AA4\uFF0F\u908A\u754C\u8DEF\u5F91\uFF0C\u4E0D\u662F\u5FEB\u6A02\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u5FEB\u6A02\u8DEF\u5F91\u662F\u6B63\u5E38\u6210\u529F\u7684\u6D41\u7A0B\uFF1A\u700F\u89BD \u2192 \u52A0\u5165\u6709\u5EAB\u5B58\u7684\u5546\u54C1 \u2192 \u4EE5\u6709\u6548\u5361\u7247\u4ED8\u6B3E \u2192 \u78BA\u8A8D\u3002\u5176\u4ED6\u9078\u9805\u90FD\u6D89\u53CA\u932F\u8AA4\u6216\u908A\u754C\u72C0\u6CC1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u932F\u8AA4\u8DEF\u5F91\uFF08\u767B\u5165\uFF09",
+            "text": "<p>\u5C0D\u4E00\u6BB5\u767B\u5165\u65C5\u7A0B\u800C\u8A00\uFF0C\u4E0B\u5217\u54EA\u500B\u60C5\u5883\u662F<strong>\u932F\u8AA4\u8DEF\u5F91</strong>\u800C\u975E\u5FEB\u6A02\u8DEF\u5F91\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4F7F\u7528\u8005\u8F38\u5165\u932F\u8AA4\u5BC6\u78BC\uFF0C\u4E26\u770B\u5230\u300C\u5E33\u865F\u6216\u5BC6\u78BC\u932F\u8AA4\u300D\u7684\u8A0A\u606F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56E0\u8F38\u5165\u932F\u8AA4\u800C\u767B\u5165\u5931\u6557\u662F\u4E00\u689D\u932F\u8AA4\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u8F38\u5165\u6709\u6548\u6191\u8B49\u4E26\u62B5\u9054\u5100\u8868\u677F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5FEB\u6A02\u8DEF\u5F91\u2014\u2014\u4E00\u6B21\u6210\u529F\u7684\u767B\u5165\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u6210\u529F\u767B\u5165\uFF0C\u59D3\u540D\u51FA\u73FE\u5728\u9801\u9996",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6210\u529F\uFF08\u5FEB\u6A02\uFF09\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u767B\u5165\u5F8C\u88AB\u5E36\u5F80\u5176\u6240\u8981\u6C42\u7684\u9801\u9762",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6210\u529F\u7684\u7D50\u679C\uFF0C\u5373\u5FEB\u6A02\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u932F\u8AA4\u8DEF\u5F91\u662F\u7531\u7121\u6548\u8F38\u5165\u6216\u5931\u6557\u6240\u89F8\u767C\u7684\u8DEF\u7DDA\u2014\u2014\u6B64\u8655\u662F\u932F\u8AA4\u5BC6\u78BC\u7522\u751F\u300C\u5E33\u865F\u6216\u5BC6\u78BC\u932F\u8AA4\u300D\u7684\u8A0A\u606F\u3002\u6210\u529F\u767B\u5165\u5247\u662F\u5FEB\u6A02\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "E2E \u9A57\u8B49\u6574\u500B\u7CFB\u7D71\u800C\u975E\u55AE\u4E00\u5143\u4EF6",
+            "text": "<p>E2E \u6E2C\u8A66\u9A57\u8B49\u7684\u662F\u8CAB\u7A7F\u6574\u500B\u6574\u5408\u7CFB\u7D71\u7684\u5B8C\u6574\u5DE5\u4F5C\u6D41\u7A0B\uFF0C\u800C\u4E0D\u53EA\u662F\u9694\u96E2\u72C0\u614B\u4E0B\u7684\u55AE\u4E00\u5143\u4EF6\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014E2E \u6DB5\u84CB\u6A6B\u8DE8\u6574\u500B\u5806\u758A\u7684\u7AEF\u5C0D\u7AEF\u65C5\u7A0B\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "E2E \u78BA\u5BE6\u6A6B\u8DE8\u6574\u500B\u6574\u5408\u7CFB\u7D71\uFF1B\u9694\u96E2\u6E2C\u8A66\u55AE\u4E00\u5143\u4EF6\u662F\u55AE\u5143\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F9D\u5B9A\u7FA9\uFF0CE2E \u6703\u5728\u5B8C\u6574\u6574\u5408\u7684\u7CFB\u7D71\u4E0A\u64CD\u4F5C\u4E00\u6BB5\u5B8C\u6574\u7684\u4F7F\u7528\u8005\u5DE5\u4F5C\u6D41\u7A0B\uFF0C\u9019\u4F7F\u5B83\u6709\u5225\u65BC\u55AE\u5143\u6E2C\u8A66\uFF08\u55AE\u4E00\u5143\u4EF6\uFF09\u8207\u6574\u5408\u6E2C\u8A66\uFF08\u4ECB\u9762\u8655\u7684\u5C11\u6578\u5143\u4EF6\uFF09\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "E2E \u63A1\u53D6\u8AB0\u7684\u89C0\u9EDE",
+            "text": "<p>E2E \u6E2C\u8A66\u662F\u5F9E\u8AB0\u7684\u89D2\u5EA6\u4F86\u9A57\u8B49\u7CFB\u7D71\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u771F\u5BE6\u7D42\u7AEF\u4F7F\u7528\u8005\u7684\u89D2\u5EA6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014E2E \u4EE5\u771F\u5BE6\u4F7F\u7528\u8005\u5BE6\u969B\u9AD4\u9A57\u65C5\u7A0B\u7684\u65B9\u5F0F\u4F86\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u5167\u90E8\u51FD\u5F0F\u547C\u53EB\u7AEF\u7684\u89D2\u5EA6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u5143\u5C64\u7D1A\uFF1BE2E \u63A1\u53D6\u6574\u500B\u7CFB\u7D71\u3001\u4F7F\u7528\u8005\u7684\u89C0\u9EDE\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u8CC7\u6599\u5EAB\u7BA1\u7406\u54E1\u7684\u89D2\u5EA6",
+                "fraction": 0,
+                "feedback": "E2E \u95DC\u6CE8\u7684\u662F\u7D42\u7AEF\u4F7F\u7528\u8005\u7684\u5DE5\u4F5C\u6D41\u7A0B\uFF0C\u800C\u975E\u55AE\u4E00\u89D2\u8272\u5C0D\u5132\u5B58\u7684\u770B\u6CD5\u3002"
+              },
+              {
+                "text": "\u7DE8\u8B6F\u5668\u7684\u89D2\u5EA6",
+                "fraction": 0,
+                "feedback": "\u90A3\u6839\u672C\u4E0D\u662F\u4E00\u7A2E\u6E2C\u8A66\u89C0\u9EDE\uFF1BE2E \u5F9E\u4F7F\u7528\u8005\u7684\u89D2\u5EA6\u51FA\u767C\u3002"
+              }
+            ],
+            "generalFeedback": "E2E \u6E2C\u8A66\u5F9E\u771F\u5BE6\u7D42\u7AEF\u4F7F\u7528\u8005\u7684\u89D2\u5EA6\u9A57\u8B49\u7CFB\u7D71\uFF0C\u4EE5\u4F7F\u7528\u8005\u7684\u65B9\u5F0F\u8207\u7CFB\u7D71\u4E92\u52D5\uFF0C\u800C\u975E\u6AA2\u8996\u5167\u90E8\u5143\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "E2E \u6E2C\u8A66\u61C9\u8207\u55AE\u5143\u6E2C\u8A66\u4E00\u6A23\u591A",
+            "text": "<p>\u56E0\u70BA E2E \u6E2C\u8A66\u6700\u8CBC\u8FD1\u771F\u5BE6\uFF0C\u6240\u4EE5\u5728\u5065\u5EB7\u7684\u6E2C\u8A66\u5957\u4EF6\u4E2D\u5B83\u5011\u7684\u6578\u91CF\u61C9\u8A72\u548C\u55AE\u5143\u6E2C\u8A66\u4E00\u6A23\u591A\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "E2E \u6E2C\u8A66\u4F4D\u65BC\u91D1\u5B57\u5854\u9802\u7AEF\u4E14\u4FDD\u6301\u5C11\u91CF\uFF1B\u55AE\u5143\u6E2C\u8A66\u624D\u662F\u69CB\u6210\u5BEC\u5EE3\u5E95\u5EA7\u7684\u591A\u6578\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56E0\u70BA\u6162\u53C8\u8CB4\uFF0CE2E \u6E2C\u8A66\u6578\u91CF\u5C11\uFF08\u91D1\u5B57\u5854\u9802\u7AEF\uFF09\uFF1B\u55AE\u5143\u6E2C\u8A66\u624D\u662F\u591A\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CBC\u8FD1\u771F\u5BE6\u4E26\u4E0D\u80FD\u70BA\u5927\u91CF\u6E2C\u8A66\u80CC\u66F8\uFF1AE2E \u6E2C\u8A66\u6162\u3001\u8CB4\u53C8\u8106\u5F31\uFF0C\u56E0\u6B64\u53EA\u4FDD\u7559\u5C11\u91CF\u7F6E\u65BC\u91D1\u5B57\u5854\u9802\u7AEF\uFF0C\u800C\u55AE\u5143\u6E2C\u8A66\u69CB\u6210\u5BEC\u5EE3\u7684\u5E95\u5EA7\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u300C\u7AEF\u5C0D\u7AEF\u300D\u7684\u542B\u7FA9",
+            "text": "<p>\u5728\u300C\u7AEF\u5C0D\u7AEF\u300D\u4E00\u8A5E\u4E2D\uFF0C\u5169\u500B\u300C\u7AEF\u300D\u6307\u7684\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u4F7F\u7528\u8005\u7684\u7B2C\u4E00\u500B\u52D5\u4F5C\u5230\u6700\u7D42\u7D50\u679C\uFF0C\u6A6B\u8DE8\u6574\u500B\u7CFB\u7D71",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u6703\u8CAB\u7A7F\u6574\u500B\u5806\u758A\uFF0C\u5F9E\u65C5\u7A0B\u8D77\u9EDE\u8DD1\u5230\u9054\u6210\u76EE\u6A19\u70BA\u6B62\u3002"
+              },
+              {
+                "text": "\u5F9E\u4E00\u500B\u51FD\u5F0F\u7684\u7B2C\u4E00\u884C\u5230\u6700\u5F8C\u4E00\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7A0B\u5F0F\u78BC\u5C64\u7D1A\uFF0C\u4E26\u975E\u7AEF\u5C0D\u7AEF\u5728\u4F7F\u7528\u8005\u5DE5\u4F5C\u6D41\u7A0B\u4E0A\u7684\u542B\u7FA9\u3002"
+              },
+              {
+                "text": "\u5F9E\u4E00\u4F4D\u958B\u767C\u8005\u7684\u6A5F\u5668\u5230\u53E6\u4E00\u4F4D\u7684\u6A5F\u5668",
+                "fraction": 0,
+                "feedback": "\u9019\u5169\u300C\u7AEF\u300D\u6307\u7684\u662F\u4F7F\u7528\u8005\u5DE5\u4F5C\u6D41\u7A0B\u7684\u8D77\u9EDE\u8207\u7D42\u9EDE\uFF0C\u800C\u975E\u6A5F\u5668\u3002"
+              },
+              {
+                "text": "\u5F9E\u4E00\u500B\u885D\u523A\uFF08sprint\uFF09\u7684\u958B\u59CB\u5230\u7D50\u675F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C08\u6848\u6642\u7A0B\uFF0C\u8207\u7AEF\u5C0D\u7AEF\u6E2C\u8A66\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u7AEF\u5C0D\u7AEF\u300D\u662F\u6307\u6E2C\u8A66\u6DB5\u84CB\u6574\u6BB5\u65C5\u7A0B\uFF0C\u5F9E\u4F7F\u7528\u8005\u6700\u521D\u7684\u52D5\u4F5C\u5230\u6700\u7D42\u7D50\u679C\uFF0C\u4E26\u5728\u4E2D\u9593\u8CAB\u7A7F\u6574\u5408\u7CFB\u7D71\u7684\u6BCF\u4E00\u5C64\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u7D50\u5E33\u65C5\u7A0B\u7684\u6B65\u9A5F\u6392\u5E8F",
+            "text": "<p>\u4E0B\u5217\u54EA\u500B\u6392\u5E8F\u6B63\u78BA\u4EE3\u8868\u5178\u578B\u96FB\u5546\u7D50\u5E33<em>\u4F7F\u7528\u8005\u65C5\u7A0B</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u700F\u89BD\u5546\u54C1 \u2192 \u52A0\u5165\u8CFC\u7269\u8ECA \u2192 \u7D50\u5E33 \u2192 \u4ED8\u6B3E \u2192 \u78BA\u8A8D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u7D50\u5E33\u65C5\u7A0B\u7684\u81EA\u7136\u9806\u5E8F\u3002"
+              },
+              {
+                "text": "\u4ED8\u6B3E \u2192 \u52A0\u5165\u8CFC\u7269\u8ECA \u2192 \u700F\u89BD\u5546\u54C1 \u2192 \u78BA\u8A8D \u2192 \u7D50\u5E33",
+                "fraction": 0,
+                "feedback": "\u9084\u6C92\u9078\u5546\u54C1\u5C31\u7121\u6CD5\u4ED8\u6B3E\uFF1B\u6B64\u9806\u5E8F\u88AB\u6253\u4E82\u4E86\u3002"
+              },
+              {
+                "text": "\u78BA\u8A8D \u2192 \u4ED8\u6B3E \u2192 \u7D50\u5E33 \u2192 \u52A0\u5165\u8CFC\u7269\u8ECA \u2192 \u700F\u89BD\u5546\u54C1",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u65C5\u7A0B\u53CD\u904E\u4F86\u4E86\uFF1B\u78BA\u8A8D\u662F\u6700\u5F8C\u4E00\u6B65\uFF0C\u4E0D\u662F\u7B2C\u4E00\u6B65\u3002"
+              },
+              {
+                "text": "\u7D50\u5E33 \u2192 \u700F\u89BD\u5546\u54C1 \u2192 \u4ED8\u6B3E \u2192 \u52A0\u5165\u8CFC\u7269\u8ECA \u2192 \u78BA\u8A8D",
+                "fraction": 0,
+                "feedback": "\u61C9\u5148\u700F\u89BD\u4E26\u52A0\u5165\u8CFC\u7269\u8ECA\u518D\u7D50\u5E33\uFF0C\u800C\u975E\u53CD\u904E\u4F86\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F7F\u7528\u8005\u65C5\u7A0B\u662F\u671D\u5411\u76EE\u6A19\u7684\u6709\u5E8F\u6B65\u9A5F\u5E8F\u5217\u3002\u5C0D\u7D50\u5E33\u800C\u8A00\uFF0C\u9806\u5E8F\u662F\u700F\u89BD \u2192 \u52A0\u5165\u8CFC\u7269\u8ECA \u2192 \u7D50\u5E33 \u2192 \u4ED8\u6B3E \u2192 \u78BA\u8A8D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5FEB\u6A02\u8DEF\u5F91\u8207\u66FF\u4EE3\u8DEF\u5F91",
+            "text": "<p>\u4E00\u4F4D\u4F7F\u7528\u8005\u4EE5\u5DF2\u5132\u5B58\u7684\u5730\u5740\u8207\u6709\u6548\u4FE1\u7528\u5361\u5B8C\u6210\u8CFC\u8CB7\u3002\u7B2C\u4E8C\u4F4D\u4F7F\u7528\u8005\u5B8C\u6210\u76F8\u540C\u8CFC\u8CB7\uFF0C\u4F46\u5148\u8F38\u5165\u4E86\u4E00\u500B\u6709\u6548\u7684\u512A\u60E0\u78BC\u3002\u9019\u5169\u500B\u6D41\u7A0B\u6700\u9069\u5408\u5982\u4F55\u6B78\u985E\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7B2C\u4E00\u500B\u662F\u5FEB\u6A02\u8DEF\u5F91\uFF1B\u7B2C\u4E8C\u500B\u662F\u6709\u6548\u7684\u66FF\u4EE3\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u8005\u90FD\u6210\u529F\uFF0C\u4F46\u4F7F\u7528\u512A\u60E0\u78BC\u7684\u8B8A\u5316\u662F\u9054\u6210\u540C\u4E00\u76EE\u6A19\u7684\u66FF\u4EE3\u8DEF\u7DDA\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u932F\u8AA4\u8DEF\u5F91\uFF0C\u56E0\u70BA\u5B83\u5011\u4E0D\u4E00\u6A23",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u6C92\u6709\u5931\u6557\uFF1B\u4E00\u500B\u6210\u529F\u7684\u8B8A\u5316\u662F\u66FF\u4EE3\u8DEF\u5F91\uFF0C\u800C\u975E\u932F\u8AA4\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u7B2C\u4E00\u500B\u662F\u932F\u8AA4\u8DEF\u5F91\uFF1B\u7B2C\u4E8C\u500B\u662F\u5FEB\u6A02\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u55AE\u7D14\u6210\u529F\u7684\u8CFC\u8CB7\u662F\u5FEB\u6A02\u8DEF\u5F91\uFF1B\u4F7F\u7528\u512A\u60E0\u78BC\u7684\u6D41\u7A0B\u624D\u662F\u66FF\u4EE3\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u4E0D\u5C6C\u65BC\u4EFB\u4F55\u4F7F\u7528\u8005\u65C5\u7A0B",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u662F\u9054\u6210\u76EE\u6A19\u7684\u4F7F\u7528\u8005\u65C5\u7A0B\uFF1B\u4E00\u500B\u662F\u5FEB\u6A02\u8DEF\u5F91\uFF0C\u4E00\u500B\u662F\u66FF\u4EE3\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u9810\u8A2D\u7684\u6210\u529F\u6D41\u7A0B\u662F\u5FEB\u6A02\u8DEF\u5F91\u3002\u4EE5\u4E0D\u540C\u4F46\u4ECD\u6210\u529F\u7684\u65B9\u5F0F\u9054\u6210\u540C\u4E00\u76EE\u6A19\uFF08\u4F8B\u5982\u5957\u7528\u6709\u6548\u512A\u60E0\u78BC\uFF09\u662F\u66FF\u4EE3\u8DEF\u5F91\uFF0C\u6709\u5225\u65BC\u672A\u9054\u6210\u76EE\u6A19\u7684\u932F\u8AA4\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "E2E \u6E2C\u8A66\u53C8\u6162\u53C8\u8CB4",
+            "text": "<p>\u8207\u55AE\u5143\u6E2C\u8A66\u76F8\u6BD4\uFF0CE2E \u6E2C\u8A66\u901A\u5E38\u57F7\u884C\u8F03\u6162\uFF0C\u64B0\u5BEB\u8207\u7DAD\u8B77\u6210\u672C\u4E5F\u8F03\u9AD8\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u57F7\u884C\u6574\u500B\u5806\u758A\u4F7F E2E \u6E2C\u8A66\u53C8\u6162\u53C8\u8CB4\uFF0C\u9019\u6B63\u662F\u5B83\u5011\u4FDD\u6301\u5C11\u91CF\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "E2E \u6E2C\u8A66\u78BA\u5BE6\u6BD4\u55AE\u5143\u6E2C\u8A66\u66F4\u6162\u3001\u66F4\u8CB4\uFF1B\u9019\u662F\u4E00\u500B\u95DC\u9375\u53D6\u6368\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u8981\u9A45\u52D5\u5B8C\u6574\u6574\u5408\u7684\u7CFB\u7D71\uFF0CE2E \u6E2C\u8A66\u6162\u3001\u5EFA\u7F6E\u8207\u7DAD\u8B77\u6210\u672C\u9AD8\uFF0C\u4E14\u6BD4\u55AE\u5143\u6E2C\u8A66\u66F4\u8106\u5F31\u2014\u2014\u9019\u4E9B\u90FD\u662F\u5B83\u5011\u5C11\u91CF\u5730\u4F4D\u65BC\u91D1\u5B57\u5854\u9802\u7AEF\u7684\u539F\u56E0\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "E2E \u7BC4\u570D\u76F8\u5C0D\u65BC\u55AE\u5143\u6E2C\u8A66\u7BC4\u570D",
+            "text": "<p>E2E \u6E2C\u8A66\u7684<strong>\u7BC4\u570D</strong>\u8207\u55AE\u5143\u6E2C\u8A66\u6709\u4F55\u4E0D\u540C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "E2E \u6DB5\u84CB\u6A6B\u8DE8\u6574\u500B\u6574\u5408\u7CFB\u7D71\u7684\u5B8C\u6574\u5DE5\u4F5C\u6D41\u7A0B\uFF1B\u55AE\u5143\u6E2C\u8A66\u5247\u9694\u96E2\u55AE\u4E00\u5143\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014E2E \u7BC4\u570D\u6700\u5EE3\uFF0C\u55AE\u5143\u6E2C\u8A66\u7BC4\u570D\u6700\u7A84\u3002"
+              },
+              {
+                "text": "E2E \u6DB5\u84CB\u55AE\u4E00\u51FD\u5F0F\uFF1B\u55AE\u5143\u6E2C\u8A66\u6DB5\u84CB\u6574\u500B\u7CFB\u7D71",
+                "fraction": 0,
+                "feedback": "\u6B63\u597D\u76F8\u53CD\u2014\u2014\u55AE\u5143\u6E2C\u8A66\u9694\u96E2\u55AE\u4E00\u51FD\u5F0F\uFF0CE2E \u624D\u6DB5\u84CB\u6574\u500B\u7CFB\u7D71\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7BC4\u570D\u76F8\u540C\uFF0C\u53EA\u662F\u5DE5\u5177\u4E0D\u540C",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u7BC4\u570D\u6709\u672C\u8CEA\u5DEE\u7570\uFF1A\u6574\u500B\u7CFB\u7D71\u76F8\u5C0D\u65BC\u55AE\u4E00\u5143\u4EF6\u3002"
+              },
+              {
+                "text": "E2E \u53EA\u6AA2\u67E5\u8CC7\u6599\u5EAB\uFF1B\u55AE\u5143\u6E2C\u8A66\u53EA\u6AA2\u67E5 UI",
+                "fraction": 0,
+                "feedback": "\u5169\u7A2E\u8AAA\u6CD5\u90FD\u4E0D\u5C0D\uFF1BE2E \u6A6B\u8DE8\u6574\u500B\u5806\u758A\uFF0C\u55AE\u5143\u6E2C\u8A66\u53EF\u9694\u96E2\u4EFB\u4E00\u55AE\u4E00\u5143\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC4\u570D\u662F\u95DC\u9375\u5DEE\u7570\uFF1A\u55AE\u5143\u6E2C\u8A66\u9694\u96E2\u55AE\u4E00\u5143\u4EF6\uFF0C\u800C E2E \u6E2C\u8A66\u5728\u6574\u500B\u6574\u5408\u7CFB\u7D71\u4E0A\u64CD\u4F5C\u4E00\u6BB5\u5B8C\u6574\u7684\u4F7F\u7528\u8005\u5DE5\u4F5C\u6D41\u7A0B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "E2E \u7BC4\u570D\u76F8\u5C0D\u65BC\u6574\u5408\u6E2C\u8A66\u7BC4\u570D",
+            "text": "<p>E2E \u6E2C\u8A66\u8207\u6574\u5408\u6E2C\u8A66\u7684\u5340\u5225\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6574\u5408\u6E2C\u8A66\u6AA2\u67E5\u5C11\u6578\u5143\u4EF6\u662F\u5426\u5728\u4ECB\u9762\u8655\u5354\u540C\u904B\u4F5C\uFF1BE2E \u5247\u9A57\u8B49\u8CAB\u7A7F\u6574\u500B\u7CFB\u7D71\u7684\u5B8C\u6574\u4F7F\u7528\u8005\u65C5\u7A0B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014E2E \u7BC4\u570D\u66F4\u5EE3\uFF0C\u6DB5\u84CB\u6574\u6BB5\u65C5\u7A0B\uFF0C\u800C\u975E\u5143\u4EF6\u4E4B\u9593\u7684\u55AE\u4E00\u4ECB\u9762\u3002"
+              },
+              {
+                "text": "\u6574\u5408\u6E2C\u8A66\u6C38\u9060\u6BD4 E2E \u6E2C\u8A66\u6162",
+                "fraction": 0,
+                "feedback": "\u4E00\u822C\u800C\u8A00 E2E \u662F\u6700\u6162\u7684\u5C64\u7D1A\uFF1B\u6574\u5408\u4F4D\u65BC\u5176\u4E0B\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u662F\u540C\u4E00\u4EF6\u4E8B\u7684\u4E0D\u540C\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u6574\u5408\u8457\u91CD\u5143\u4EF6\u4E4B\u9593\u7684\u4E92\u52D5\uFF1BE2E \u9A57\u8B49\u5B8C\u6574\u7684\u4F7F\u7528\u8005\u5DE5\u4F5C\u6D41\u7A0B\u3002"
+              },
+              {
+                "text": "E2E \u5F9E\u4E0D\u4F7F\u7528\u771F\u5BE6\u8CC7\u6599\u5EAB\uFF0C\u4F46\u6574\u5408\u4E00\u5B9A\u6703",
+                "fraction": 0,
+                "feedback": "E2E \u4F7F\u7528\u5305\u542B\u8CC7\u6599\u5EAB\u5728\u5167\u7684\u771F\u5BE6\u6574\u5408\u5806\u758A\uFF1B\u6B64\u8AAA\u6CD5\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "\u6574\u5408\u6E2C\u8A66\u9A57\u8B49\u4E00\u90E8\u5206\u5143\u4EF6\u5728\u5176\u4ECB\u9762\u8655\u662F\u5426\u6B63\u78BA\u5354\u4F5C\u3002E2E \u7BC4\u570D\u66F4\u5EE3\uFF0C\u5F9E\u4F7F\u7528\u8005\u7684\u89D2\u5EA6\u9A57\u8B49\u8CAB\u7A7F\u5B8C\u6574\u6574\u5408\u7CFB\u7D71\u7684\u4E00\u6574\u6BB5\u4F7F\u7528\u8005\u65C5\u7A0B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 E2E \u61C9\u7BC0\u5236\u4F7F\u7528",
+            "text": "<p>\u5728\u5065\u5EB7\u7684\u6E2C\u8A66\u5957\u4EF6\u4E2D\uFF0C\u70BA\u4F55\u8981\u523B\u610F\u5C07 E2E \u6E2C\u8A66\u4FDD\u6301\u5728<strong>\u5C11\u91CF</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5011\u6162\u3001\u8CB4\u53C8\u8106\u5F31\uFF0F\u4E0D\u7A69\u5B9A\uFF0C\u5927\u91CF\u5B58\u5728\u6703\u5C0E\u81F4\u7DE9\u6162\u4E14\u4E0D\u53EF\u9760\u7684\u56DE\u994B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5176\u6210\u672C\u8207\u8106\u5F31\u6027\u6B63\u662F\u53EA\u4FDD\u7559\u5C11\u91CF\u9AD8\u50F9\u503C E2E \u6E2C\u8A66\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u7121\u6CD5\u5075\u6E2C\u4EFB\u4F55\u771F\u6B63\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u80FD\u6709\u6548\u5075\u6E2C\u6574\u5408\u7F3A\u9677\uFF1B\u4FDD\u6301\u5C11\u91CF\u662F\u56E0\u70BA\u6210\u672C\u8207\u8106\u5F31\uFF0C\u800C\u975E\u7121\u7528\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u7DAD\u8B77\u6210\u672C\u6700\u4F4E\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u7DAD\u8B77\u6210\u672C\u6700\u9AD8\u7684\uFF0C\u9019\u6B63\u662F\u8981\u4FDD\u6301\u5C11\u91CF\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u5DE5\u5177\u80FD\u5C07\u5B83\u5011\u81EA\u52D5\u5316",
+                "fraction": 0,
+                "feedback": "E2E \u81EA\u52D5\u5316\u5DE5\u5177\u5F88\u5E38\u898B\uFF1B\u9650\u5236\u5B83\u5011\u7684\u539F\u56E0\u662F\u6210\u672C\u8207\u4E0D\u7A69\u5B9A\u3002"
+              }
+            ],
+            "generalFeedback": "E2E \u6E2C\u8A66\u6162\u3001\u5EFA\u7F6E\u8207\u7DAD\u8B77\u6210\u672C\u9AD8\uFF0C\u4E14\u5BB9\u6613\u4E0D\u7A69\u5B9A\u3002\u53EA\u4FDD\u7559\u5C11\u91CF\u2014\u2014\u6DB5\u84CB\u6700\u95DC\u9375\u7684\u65C5\u7A0B\u2014\u2014\u624D\u80FD\u6574\u9AD4\u7DAD\u6301\u5FEB\u901F\u53EF\u9760\u7684\u56DE\u994B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E9B\u8A72\u7528 E2E\u3001\u54EA\u4E9B\u8A72\u4E0B\u63A8",
+            "text": "<p>\u54EA\u4E9B\u884C\u70BA\u6700\u9069\u5408\u7528 E2E \u6DB5\u84CB\uFF0C\u800C\u5176\u9918\u5247\u4E0B\u63A8\u5230\u8F03\u4F4E\u5C64\u7D1A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C11\u6578\u95DC\u9375\u696D\u52D9\u65C5\u7A0B\uFF0C\u4EE5\u53CA\u5C0D\u91CD\u8981\u6D41\u7A0B\u7684\u5192\u7159\uFF08smoke\uFF09\u6AA2\u67E5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A E2E \u7559\u7D66\u95DC\u9375\u7684\u7AEF\u5C0D\u7AEF\u6D41\u7A0B\uFF0C\u5C07\u7D30\u7BC0\u6848\u4F8B\u4E0B\u63A8\u5230\u55AE\u5143\uFF0F\u6574\u5408\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6BCF\u4E00\u689D\u8F38\u5165\u9A57\u8B49\u898F\u5247\u8207\u908A\u754C\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u5C6C\u65BC\u5FEB\u901F\u7684\u55AE\u5143\u6E2C\u8A66\uFF0C\u800C\u975E\u6162\u901F\u7684 E2E \u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u9078\u586B\u6B04\u4F4D\u7684\u6240\u6709\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u7AAE\u8209\u7D44\u5408\u5C6C\u65BC\u8F03\u4F4E\u5C64\u7D1A\uFF1BE2E \u61C9\u4FDD\u6301\u5C11\u91CF\u4E26\u805A\u7126\u65BC\u95DC\u9375\u65C5\u7A0B\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u79C1\u6709\u8F14\u52A9\u51FD\u5F0F\u7684\u908A\u754C\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u8F14\u52A9\u51FD\u5F0F\u7684\u908A\u754C\u6848\u4F8B\u662F\u55AE\u5143\u6E2C\u8A66\u7684\u7BC4\u7587\uFF0C\u800C\u975E E2E\u3002"
+              }
+            ],
+            "generalFeedback": "\u7528 E2E \u6DB5\u84CB\u5C11\u6578\u95DC\u9375\u696D\u52D9\u65C5\u7A0B\u8207\u91CD\u8981\u6D41\u7A0B\u7684\u5192\u7159\u6E2C\u8A66\uFF1B\u628A\u7AAE\u8209\u7684\u9A57\u8B49\u3001\u908A\u754C\u8207\u7D44\u5408\u6848\u4F8B\u4E0B\u63A8\u5230\u8F03\u5FEB\u7684\u55AE\u5143\u8207\u6574\u5408\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "E2E \u7684\u6E2C\u8A66\u8CC7\u6599\u9700\u6C42",
+            "text": "<p>\u4E00\u500B\u53EF\u9760\u7684 E2E \u6E2C\u8A66\u901A\u5E38\u9700\u8981\u54EA\u7A2E<strong>\u6E2C\u8A66\u8CC7\u6599</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7531\u6E2C\u8A66\u81EA\u884C\u690D\u5165\u4E26\u638C\u63A7\u7684\u3001\u771F\u5BE6\u4E14\u5DF2\u77E5\u7684\u8CC7\u6599\uFF0C\u4F7F\u9810\u671F\u7D50\u679C\u53EF\u9810\u6E2C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u690D\u5165\u5DF2\u77E5\u4E14\u771F\u5BE6\u7684\u8CC7\u6599\uFF0C\u8B93\u6E2C\u8A66\u80FD\u65B7\u8A00\u78BA\u5B9A\u6027\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u7576\u4E0B\u5171\u7528\u751F\u7522\u8CC7\u6599\u5EAB\u88E1\u525B\u597D\u5B58\u5728\u7684\u4EFB\u4F55\u8CC7\u6599",
+                "fraction": 0,
+                "feedback": "\u4F9D\u8CF4\u4E0D\u53D7\u63A7\u7684\u5171\u7528\u8CC7\u6599\u662F\u9020\u6210\u4E0D\u7A69\u5B9A\u7684\u5178\u578B\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u4E0D\u9700\u8981\u8CC7\u6599\uFF1BE2E \u6E2C\u8A66\u7D55\u4E0D\u61C9\u78B0\u8CC7\u6599",
+                "fraction": 0,
+                "feedback": "E2E \u65C5\u7A0B\u901A\u5E38\u9700\u8981\u771F\u5BE6\u8CC7\u6599\uFF1B\u91CD\u9EDE\u5728\u65BC\u638C\u63A7\u4E26\u690D\u5165\u5B83\u3002"
+              },
+              {
+                "text": "\u6BCF\u6B21\u57F7\u884C\u90FD\u91CD\u65B0\u7522\u751F\u3001\u4E14\u6C92\u6709\u5DF2\u77E5\u9810\u671F\u7D50\u679C\u7684\u96A8\u6A5F\u8CC7\u6599",
+                "fraction": 0,
+                "feedback": "\u672A\u77E5\u7684\u96A8\u6A5F\u8CC7\u6599\u6703\u4F7F\u65B7\u8A00\u7121\u6CD5\u9032\u884C\u6216\u8B8A\u5F97\u4E0D\u7A69\u5B9A\uFF1B\u61C9\u6539\u7528\u690D\u5165\u7684\u5DF2\u77E5\u8CC7\u6599\u3002"
+              }
+            ],
+            "generalFeedback": "E2E \u6E2C\u8A66\u9700\u8981\u771F\u5BE6\u4F46\u53D7\u638C\u63A7\u7684\u8CC7\u6599\u3002\u690D\u5165\u5DF2\u77E5\u8CC7\u6599\uFF08\u4E26\u4E8B\u5F8C\u6E05\u7406\uFF09\u80FD\u4F7F\u7D50\u679C\u53EF\u9810\u6E2C\uFF0C\u907F\u514D\u4F9D\u8CF4\u4E0D\u53D7\u63A7\u5171\u7528\u72C0\u614B\u6240\u5E36\u4F86\u7684\u4E0D\u7A69\u5B9A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "E2E \u7684\u74B0\u5883\u9700\u6C42",
+            "text": "<p>E2E \u6E2C\u8A66\u61C9\u5728\u54EA\u7A2E<strong>\u74B0\u5883</strong>\u4E0B\u57F7\u884C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u771F\u5BE6\u6574\u5408\u5143\u4EF6\u4E32\u63A5\u5728\u4E00\u8D77\u7684\u985E\u751F\u7522\uFF08production-like\uFF09\u74B0\u5883",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014E2E \u9700\u8981\u985E\u751F\u7522\u7684\u8A2D\u5B9A\u624D\u80FD\u64CD\u4F5C\u771F\u5BE6\u6574\u5408\u7684\u7CFB\u7D71\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u76F8\u4F9D\u90FD\u4EE5 mock \u53D6\u4EE3\u7684\u74B0\u5883",
+                "fraction": 0,
+                "feedback": "\u628A\u6240\u6709\u6771\u897F\u90FD mock \u6389\u5C31\u9055\u80CC\u4E86\u7AEF\u5C0D\u7AEF\u7684\u76EE\u7684\uFF1BE2E \u4F7F\u7528\u771F\u5BE6\u6574\u5408\u5143\u4EF6\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u4EFB\u4F55\u670D\u52D9\u5728\u57F7\u884C\u7684\u958B\u767C\u8005\u672C\u6A5F",
+                "fraction": 0,
+                "feedback": "\u82E5\u6574\u5408\u670D\u52D9\u6C92\u6709\u5728\u57F7\u884C\uFF0C\u5C31\u6C92\u6709\u53EF\u6E2C\u7684\u7AEF\u5C0D\u7AEF\u6D41\u7A0B\u3002"
+              },
+              {
+                "text": "\u4EFB\u4F55\u74B0\u5883\u7686\u53EF\uFF0C\u56E0\u70BA\u8A2D\u5B9A\u5F9E\u4E0D\u5F71\u97FF E2E \u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u74B0\u5883\u8207\u751F\u7522\u7684\u63A5\u8FD1\u7A0B\u5EA6\u6703\u5F37\u70C8\u5F71\u97FF E2E \u7684\u6709\u6548\u6027\u8207\u7A69\u5B9A\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "E2E \u6E2C\u8A66\u61C9\u5728\u5177\u5099\u771F\u5BE6\u6574\u5408\u5143\u4EF6\u7684\u985E\u751F\u7522\u74B0\u5883\u4E2D\u57F7\u884C\uFF0C\u5982\u6B64\u88AB\u9A57\u8B49\u7684\u65C5\u7A0B\u624D\u80FD\u5C0D\u61C9\u5230\u7CFB\u7D71\u5728\u751F\u7522\u74B0\u5883\u4E2D\u7684\u884C\u70BA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u7684\u7368\u7ACB\u6027\u8207\u51AA\u7B49\u6027",
+            "text": "<p>\u4E00\u500B E2E \u6E2C\u8A66\u5177\u5099<em>\u7368\u7ACB\u4E14\u51AA\u7B49\uFF08idempotent\uFF09</em>\u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u81EA\u884C\u5EFA\u7ACB\u6240\u9700\u72C0\u614B\u4E26\u65BC\u4E8B\u5F8C\u6E05\u7406\uFF0C\u56E0\u6B64\u53EF\u55AE\u7368\u57F7\u884C\u6216\u4EE5\u4EFB\u610F\u9806\u5E8F\u57F7\u884C\u90FD\u5F97\u5230\u76F8\u540C\u7D50\u679C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u81EA\u8DB3\u7684\u5EFA\u7ACB\u8207\u6E05\u7406\u4F7F\u6E2C\u8A66\u4E0D\u4F9D\u8CF4\u9806\u5E8F\u4E14\u53EF\u91CD\u8907\u3002"
+              },
+              {
+                "text": "\u5B83\u5FC5\u9808\u6C38\u9060\u7DCA\u63A5\u5728\u67D0\u500B\u7279\u5B9A\u6E2C\u8A66\u4E4B\u5F8C\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u4F9D\u8CF4\u53E6\u4E00\u6E2C\u8A66\u7684\u9806\u5E8F\u6B63\u662F\u7368\u7ACB\u6027\u8981\u907F\u514D\u7684\u3002"
+              },
+              {
+                "text": "\u5B83\u8207\u5176\u4ED6\u6E2C\u8A66\u5171\u7528\u8CC7\u6599\u4EE5\u7BC0\u7701\u8A2D\u5B9A\u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u5171\u7528\u72C0\u614B\u6703\u9020\u6210\u8026\u5408\u8207\u4E0D\u7A69\u5B9A\uFF0C\u8207\u7368\u7ACB\u6027\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u80FD\u88AB\u57F7\u884C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u51AA\u7B49\u610F\u6307\u53EF\u91CD\u8907\u57F7\u884C\u4E14\u5F97\u5230\u76F8\u540C\u7D50\u679C\uFF0C\u800C\u975E\u53EA\u80FD\u57F7\u884C\u4E00\u6B21\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B\u7368\u7ACB\u4E14\u51AA\u7B49\u7684 E2E \u6E2C\u8A66\u6703\u81EA\u884C\u5EFA\u7ACB\u4E26\u6E05\u9664\u5176\u72C0\u614B\uFF0C\u56E0\u6B64\u7121\u8AD6\u55AE\u7368\u3001\u91CD\u8907\uFF0C\u6216\u8207\u5176\u4ED6\u6E2C\u8A66\u4EE5\u4EFB\u610F\u9806\u5E8F\u4E00\u8D77\u57F7\u884C\uFF0C\u90FD\u7522\u751F\u76F8\u540C\u7D50\u679C\u2014\u2014\u907F\u514D\u9806\u5E8F\u76F8\u4F9D\u8207\u6B98\u7559\u8CC7\u6599\u9020\u6210\u7684\u4E0D\u7A69\u5B9A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u66FF\u4EE3\u8DEF\u5F91\uFF08\u4ED8\u6B3E\uFF09",
+            "text": "<p>\u5728\u4E00\u6BB5\u5FEB\u6A02\u8DEF\u5F91\u4EE5\u4FE1\u7528\u5361\u4ED8\u6B3E\u7684\u7D50\u5E33\u65C5\u7A0B\u4E2D\uFF0C\u4E0B\u5217\u54EA\u4E00\u500B\u662F\u6709\u6548\u7684<strong>\u66FF\u4EE3\u8DEF\u5F91</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4F7F\u7528\u8005\u6539\u7528\u96FB\u5B50\u9322\u5305\u6210\u529F\u4ED8\u6B3E\u4E26\u62B5\u9054\u78BA\u8A8D\u9801",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4EE5\u4E0D\u540C\u4F46\u4ECD\u6210\u529F\u7684\u65B9\u5F0F\u9054\u6210\u540C\u4E00\u76EE\u6A19\u662F\u66FF\u4EE3\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4ED8\u6B3E\u9598\u9053\u903E\u6642\uFF0C\u8A02\u55AE\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u5931\u6557\u662F\u932F\u8AA4\u8DEF\u5F91\uFF0C\u800C\u975E\u66FF\u4EE3\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4FE1\u7528\u5361\u88AB\u62D2\uFF0C\u4F7F\u7528\u8005\u7121\u6CD5\u5B8C\u6210\u8A02\u55AE",
+                "fraction": 0,
+                "feedback": "\u88AB\u62D2\u800C\u5C0E\u81F4\u7121\u6CD5\u5B8C\u6210\u662F\u932F\u8AA4\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u7684\u5DE5\u4F5C\u968E\u6BB5\u5728\u7D50\u5E33\u4E2D\u9014\u904E\u671F\u800C\u88AB\u767B\u51FA",
+                "fraction": 0,
+                "feedback": "\u5DE5\u4F5C\u968E\u6BB5\u904E\u671F\u800C\u4E2D\u65B7\u76EE\u6A19\u662F\u932F\u8AA4\uFF0F\u908A\u754C\u8DEF\u5F91\uFF0C\u4E26\u975E\u6210\u529F\u7684\u66FF\u4EE3\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u66FF\u4EE3\u8DEF\u5F91\u4ECD\u6703\u9054\u6210\u76EE\u6A19\uFF0C\u53EA\u662F\u8D70\u4E0D\u540C\u8DEF\u7DDA\uFF08\u4F8B\u5982\u4EE5\u96FB\u5B50\u9322\u5305\u800C\u975E\u4FE1\u7528\u5361\u4ED8\u6B3E\uFF09\u3002\u88AB\u62D2\u3001\u903E\u6642\u6216\u5DE5\u4F5C\u968E\u6BB5\u904E\u671F\u9019\u985E\u5931\u6557\u5247\u662F\u932F\u8AA4\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u932F\u8AA4\u8DEF\u5F91\uFF08\u8A3B\u518A\uFF09",
+            "text": "<p>\u5728\u4E00\u6BB5\u8A3B\u518A\u65C5\u7A0B\u4E2D\uFF0C\u4E0B\u5217\u54EA\u500B\u60C5\u5883\u662F E2E \u5957\u4EF6\u4E5F\u61C9\u6DB5\u84CB\u7684<strong>\u932F\u8AA4\uFF0F\u908A\u754C\u8DEF\u5F91</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4F7F\u7528\u8005\u5617\u8A66\u4EE5\u5DF2\u88AB\u4F7F\u7528\u7684\u96FB\u5B50\u90F5\u4EF6\u8A3B\u518A\uFF0C\u4E26\u770B\u5230\u6E05\u695A\u7684\u932F\u8AA4\u8A0A\u606F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u88AB\u62D2\u7684\u8A3B\u518A\u642D\u914D\u6709\u7528\u7684\u932F\u8AA4\u8A0A\u606F\u662F\u91CD\u8981\u7684\u932F\u8AA4\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u4EE5\u65B0\u7684\u96FB\u5B50\u90F5\u4EF6\u8A3B\u518A\u4E26\u62B5\u9054\u6B61\u8FCE\u9801",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5FEB\u6A02\u8DEF\u5F91\u2014\u2014\u4E00\u6B21\u6210\u529F\u7684\u8A3B\u518A\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u8A3B\u518A\u5F8C\u7ACB\u5373\u53D6\u5F97\u6709\u6548\u7684\u5DE5\u4F5C\u968E\u6BB5",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6210\u529F\u7684\u7D50\u679C\uFF0C\u5373\u5FEB\u6A02\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u8A3B\u518A\u5F8C\u5176\u500B\u4EBA\u6A94\u6848\u88AB\u6B63\u78BA\u5EFA\u7ACB",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u5FEB\u6A02\u8DEF\u5F91\u6210\u529F\u7684\u60C5\u5F62\uFF0C\u800C\u975E\u932F\u8AA4\u8DEF\u5F91\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6DB5\u84CB\u5FEB\u6A02\u8DEF\u5F91\u4E26\u4E0D\u8DB3\u5920\uFF1B\u91CD\u8981\u7684\u932F\u8AA4\uFF0F\u908A\u754C\u8DEF\u5F91\u540C\u6A23\u91CD\u8981\u3002\u5617\u8A66\u4EE5\u5DF2\u88AB\u4F7F\u7528\u7684\u96FB\u5B50\u90F5\u4EF6\u8A3B\u518A\u4E26\u5F97\u5230\u6E05\u695A\u932F\u8AA4\uFF0C\u662F\u4E00\u689D\u5177\u4EE3\u8868\u6027\u7684\u932F\u8AA4\u8DEF\u5F91\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u8A02\u7968\u65C5\u7A0B\u7684\u6B65\u9A5F\u6392\u5E8F",
+            "text": "<p>\u4E0B\u5217\u54EA\u500B\u6392\u5E8F\u6B63\u78BA\u4EE3\u8868\u4E00\u6BB5\u8A02\u6A5F\u7968<em>\u4F7F\u7528\u8005\u65C5\u7A0B</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u641C\u5C0B\u822A\u73ED \u2192 \u9078\u64C7\u822A\u73ED \u2192 \u8F38\u5165\u4E58\u5BA2\u8CC7\u6599 \u2192 \u4ED8\u6B3E \u2192 \u53D6\u5F97\u96FB\u5B50\u6A5F\u7968",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u8A02\u7968\u65C5\u7A0B\u7684\u81EA\u7136\u9806\u5E8F\u3002"
+              },
+              {
+                "text": "\u4ED8\u6B3E \u2192 \u641C\u5C0B\u822A\u73ED \u2192 \u53D6\u5F97\u96FB\u5B50\u6A5F\u7968 \u2192 \u9078\u64C7\u822A\u73ED \u2192 \u8F38\u5165\u4E58\u5BA2\u8CC7\u6599",
+                "fraction": 0,
+                "feedback": "\u9084\u6C92\u9078\u822A\u73ED\u5C31\u7121\u6CD5\u4ED8\u6B3E\uFF1B\u6B64\u9806\u5E8F\u88AB\u6253\u4E82\u4E86\u3002"
+              },
+              {
+                "text": "\u53D6\u5F97\u96FB\u5B50\u6A5F\u7968 \u2192 \u4ED8\u6B3E \u2192 \u8F38\u5165\u4E58\u5BA2\u8CC7\u6599 \u2192 \u9078\u64C7\u822A\u73ED \u2192 \u641C\u5C0B\u822A\u73ED",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u65C5\u7A0B\u53CD\u904E\u4F86\u4E86\uFF1B\u96FB\u5B50\u6A5F\u7968\u662F\u6700\u5F8C\u4E00\u6B65\u3002"
+              },
+              {
+                "text": "\u9078\u64C7\u822A\u73ED \u2192 \u641C\u5C0B\u822A\u73ED \u2192 \u4ED8\u6B3E \u2192 \u53D6\u5F97\u96FB\u5B50\u6A5F\u7968 \u2192 \u8F38\u5165\u4E58\u5BA2\u8CC7\u6599",
+                "fraction": 0,
+                "feedback": "\u9808\u5148\u641C\u5C0B\u624D\u80FD\u9078\u64C7\uFF0C\u4E14\u9808\u5148\u8F38\u5165\u8CC7\u6599\u518D\u4ED8\u6B3E\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A02\u7968\u65C5\u7A0B\u662F\u6709\u5E8F\u5E8F\u5217\uFF1A\u641C\u5C0B \u2192 \u9078\u64C7 \u2192 \u8F38\u5165\u8CC7\u6599 \u2192 \u4ED8\u6B3E \u2192 \u53D6\u5F97\u96FB\u5B50\u6A5F\u7968\u3002\u6B63\u78BA\u6392\u5E8F\u6B65\u9A5F\u662F\u70BA E2E \u5EFA\u6A21\u65C5\u7A0B\u7684\u4E00\u90E8\u5206\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 E2E \u5E36\u4F86\u9AD8\u6574\u5408\u4FE1\u5FC3",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u4E00\u500B\u901A\u904E\u7684 E2E \u6E2C\u8A66\u80FD\u7279\u5225\u5E36\u4F86\u5C0D<strong>\u6574\u5408\u884C\u70BA\u7684\u9AD8\u5EA6\u4FE1\u5FC3</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u78BA\u8A8D\u6240\u6709\u5C64\u7D1A\u78BA\u5BE6\u70BA\u4E00\u6BB5\u771F\u5BE6\u4F7F\u7528\u8005\u65C5\u7A0B\u5354\u540C\u904B\u4F5C\uFF0C\u800C\u975E\u5404\u81EA\u9694\u96E2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u9A57\u8B49\u4E32\u63A5\u5728\u4E00\u8D77\u7684\u7CFB\u7D71\u7AEF\u5C0D\u7AEF\u904B\u4F5C\uFF0C\u80FD\u6355\u6349\u4F4E\u5C64\u7D1A\u907A\u6F0F\u7684\u6574\u5408\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u5B83\u8B49\u660E\u6BCF\u500B\u5143\u4EF6\u7684\u6BCF\u689D\u7A0B\u5F0F\u78BC\u8DEF\u5F91\u90FD\u88AB\u57F7\u884C\u5230",
+                "fraction": 0,
+                "feedback": "E2E \u4E0D\u4FDD\u8B49\u5B8C\u6574\u7684\u7A0B\u5F0F\u78BC\u6DB5\u84CB\u7387\uFF1B\u90A3\u662F\u55AE\u5143\u5C64\u7D1A\u7684\u95DC\u6CE8\u9EDE\u3002"
+              },
+              {
+                "text": "\u5B83\u57F7\u884C\u6700\u5FEB\uFF0C\u6240\u4EE5\u80FD\u91CD\u8907\u57F7\u884C\u5F88\u591A\u6B21",
+                "fraction": 0,
+                "feedback": "E2E \u662F\u6700\u6162\u7684\u5C64\u7D1A\uFF1B\u4FE1\u5FC3\u4F86\u81EA\u771F\u5BE6\u5EA6\uFF0C\u800C\u975E\u901F\u5EA6\u3002"
+              },
+              {
+                "text": "\u5B83\u53D6\u4EE3\u4E86\u5C0D\u4EFB\u4F55\u5176\u4ED6\u6E2C\u8A66\u5C64\u7D1A\u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "E2E \u88DC\u8DB3\u800C\u975E\u53D6\u4EE3\u55AE\u5143\u8207\u6574\u5408\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B\u901A\u904E\u7684 E2E \u6E2C\u8A66\u986F\u793A\u5404\u5C64\u7D1A\u78BA\u5BE6\u5354\u4F5C\u4EE5\u5B8C\u6210\u4E00\u6BB5\u771F\u5BE6\u4F7F\u7528\u8005\u65C5\u7A0B\uFF0C\u5C0D\u6574\u5408\u884C\u70BA\u5E36\u4F86\u5F37\u70C8\u4FE1\u5FC3\u2014\u2014\u9019\u662F\u9694\u96E2\u7684\u55AE\u5143\u6216\u6574\u5408\u6E2C\u8A66\u7121\u6CD5\u5B8C\u5168\u63D0\u4F9B\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8207\u9A57\u6536\uFF0F\u7CFB\u7D71\u6E2C\u8A66\u7684\u95DC\u4FC2",
+            "text": "<p>E2E \u6E2C\u8A66\u8207<strong>\u7CFB\u7D71\u6E2C\u8A66\u53CA\u9A57\u6536\u6E2C\u8A66</strong>\u6709\u4F55\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5011\u6709\u6240\u91CD\u758A\uFF1A\u90FD\u5728\u9A57\u8B49\u6574\u500B\u6574\u5408\u7CFB\u7D71\uFF0C\u4E14\u5E38\u4EE5\u4F7F\u7528\u8005\u65C5\u7A0B\u9032\u884C\uFF0C\u60DF\u9A57\u6536\u6E2C\u8A66\u66F4\u5F37\u8ABF\u6EFF\u8DB3\u696D\u52D9\uFF0F\u4F7F\u7528\u8005\u9700\u6C42",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014E2E \u8207\u7CFB\u7D71\uFF0F\u9A57\u6536\u6E2C\u8A66\u5BC6\u5207\u76F8\u95DC\uFF0C\u5171\u4EAB\u8457\u773C\u6574\u500B\u7CFB\u7D71\u8207\u4F7F\u7528\u8005\u65C5\u7A0B\u7684\u7126\u9EDE\u3002"
+              },
+              {
+                "text": "E2E \u6E2C\u8A66\u55AE\u4E00\u51FD\u5F0F\uFF0C\u800C\u9A57\u6536\u6E2C\u8A66\u6574\u500B\u7CFB\u7D71",
+                "fraction": 0,
+                "feedback": "E2E \u540C\u6A23\u91DD\u5C0D\u6574\u500B\u7CFB\u7D71\uFF1B\u6E2C\u8A66\u55AE\u4E00\u51FD\u5F0F\u662F\u55AE\u5143\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u5B8C\u5168\u7121\u95DC\u3001\u6C92\u6709\u5171\u540C\u76EE\u6A19\u7684\u5C64\u7D1A",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u76F8\u95DC\u7684\u2014\u2014\u90FD\u64CD\u4F5C\u6574\u5408\u7CFB\u7D71\uFF0C\u4E14\u5E38\u900F\u904E\u4F7F\u7528\u8005\u65C5\u7A0B\u9032\u884C\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E2C\u8A66\u6C38\u9060\u6BD4\u55AE\u5143\u6E2C\u8A66\u5FEB",
+                "fraction": 0,
+                "feedback": "\u6B64\u8AAA\u6CD5\u8207\u984C\u76EE\u7121\u95DC\uFF0C\u4E14\u4E00\u822C\u4E26\u4E0D\u6210\u7ACB\u3002"
+              }
+            ],
+            "generalFeedback": "E2E\u3001\u7CFB\u7D71\u8207\u9A57\u6536\u6E2C\u8A66\u90FD\u64CD\u4F5C\u6574\u500B\u6574\u5408\u7CFB\u7D71\uFF0C\u4E14\u5E38\u4EE5\u4F7F\u7528\u8005\u65C5\u7A0B\u8868\u9054\u3002\u9A57\u6536\u6E2C\u8A66\u53E6\u5916\u5F37\u8ABF\u78BA\u8A8D\u696D\u52D9\uFF0F\u4F7F\u7528\u8005\u9700\u6C42\u5DF2\u88AB\u6EFF\u8DB3\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5171\u7528\u7684\u6B98\u7559\u8CC7\u6599\u6703\u9020\u6210\u4E0D\u7A69\u5B9A",
+            "text": "<p>\u524D\u4E00\u6B21\u57F7\u884C\u907A\u7559\u3001\u672A\u88AB\u6E05\u7406\u7684\u8CC7\u6599\uFF0C\u53EF\u80FD\u4F7F E2E \u6E2C\u8A66\u6642\u800C\u901A\u904E\u3001\u6642\u800C\u5931\u6557\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u672A\u6E05\u7406\u7684\u5171\u7528\u72C0\u614B\u662F E2E \u4E0D\u7A69\u5B9A\u8207\u9806\u5E8F\u76F8\u4F9D\u7684\u5E38\u898B\u4F86\u6E90\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u907A\u7559\uFF0F\u5171\u7528\u8CC7\u6599\u662F\u5178\u578B\u7684\u4E0D\u7A69\u5B9A\u539F\u56E0\uFF1B\u7368\u7ACB\u7684\u6E2C\u8A66\u6703\u81EA\u884C\u690D\u5165\u4E26\u6E05\u7406\u5176\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5\u6E2C\u8A66\u4F9D\u8CF4\u6216\u907A\u7559\u5171\u7528\u8CC7\u6599\uFF0C\u5F8C\u7E8C\u57F7\u884C\u53EF\u80FD\u5F9E\u975E\u9810\u671F\u7684\u72C0\u614B\u958B\u59CB\u800C\u8B8A\u5F97\u4E0D\u7A69\u5B9A\u3002\u8B93\u6BCF\u500B\u6E2C\u8A66\u81EA\u884C\u690D\u5165\u4E26\u6E05\u7406\u5176\u8CC7\u6599\uFF0C\u80FD\u4FDD\u6301\u5404\u6B21\u57F7\u884C\u7368\u7ACB\u4E14\u7A69\u5B9A\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u771F\u5BE6\u8CC7\u6599\u8207\u74B0\u5883\u91CD\u8981",
+            "text": "<p>\u70BA\u4EC0\u9EBC E2E \u6E2C\u8A66\u7279\u5225\u9700\u8981\u771F\u5BE6\u8CC7\u6599<em>\u8207</em>\u985E\u751F\u7522\u74B0\u5883\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u5176\u76EE\u7684\u6B63\u662F\u9A57\u8B49\u771F\u5BE6\u7684\u4F7F\u7528\u8005\u65C5\u7A0B\uFF1B\u4E0D\u771F\u5BE6\u7684\u8CC7\u6599\u6216\u74B0\u5883\u53EF\u80FD\u63A9\u84CB\u6216\u6191\u7A7A\u7522\u751F\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8207\u751F\u7522\u74B0\u5883\u7684\u4E00\u81F4\u6027\u6B63\u662F\u8B93 E2E \u7D50\u679C\u6709\u610F\u7FA9\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9019\u6A23\u80FD\u4F7F\u6E2C\u8A66\u57F7\u884C\u5F97\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u771F\u5BE6\u5EA6\u4E0D\u6703\u52A0\u5FEB\u6E2C\u8A66\uFF1B\u5B83\u63D0\u5347\u7684\u662F\u6240\u6AA2\u67E5\u5167\u5BB9\u7684\u6709\u6548\u6027\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9019\u6A23\u5C31\u53EF\u4EE5\u7701\u53BB\u64B0\u5BEB\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u7121\u8AD6\u591A\u771F\u5BE6\uFF0CE2E \u90FD\u4E0D\u80FD\u53D6\u4EE3\u55AE\u5143\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u985E\u751F\u7522\u74B0\u5883\u5F9E\u4E0D\u6703\u51FA\u932F",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u53EF\u80FD\u800C\u4E14\u78BA\u5BE6\u6703\u51FA\u932F\uFF1B\u91CD\u9EDE\u5728\u65BC\u8CBC\u8FD1\u771F\u5BE6\u4F7F\u7528\uFF0C\u800C\u975E\u842C\u7121\u4E00\u5931\u3002"
+              }
+            ],
+            "generalFeedback": "E2E \u65E8\u5728\u53CD\u6620\u771F\u5BE6\u4F7F\u7528\uFF0C\u56E0\u6B64\u8CC7\u6599\u8207\u74B0\u5883\u5FC5\u9808\u8CBC\u8FD1\u751F\u7522\u3002\u5426\u5247\u6E2C\u8A66\u53EF\u80FD\u5728\u4E0D\u771F\u5BE6\u7684\u689D\u4EF6\u4E0B\u901A\u904E\uFF08\u6F0F\u6389\u771F\u6B63\u7684\u7F3A\u9677\uFF09\uFF0C\u6216\u5728\u4EBA\u70BA\u7684\u689D\u4EF6\u4E0B\u5931\u6557\uFF08\u6191\u7A7A\u7522\u751F\u5047\u5931\u6557\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E00\u6BB5\u65C5\u7A0B\u7684\u6DB5\u84CB\u7BC4\u570D",
+            "text": "<p>\u5C0D\u4E00\u6BB5\u95DC\u9375\u65C5\u7A0B\u800C\u8A00\uFF0C\u4E00\u500B<strong>\u53EA</strong>\u6E2C\u8A66\u5FEB\u6A02\u8DEF\u5F91\u7684 E2E \u5957\u4EF6\u901A\u5E38\u4E26\u4E0D\u8DB3\u5920\uFF0C\u56E0\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u91CD\u8981\u7684\u66FF\u4EE3\u8DEF\u5F91\u8207\u932F\u8AA4\uFF0F\u908A\u754C\u8DEF\u5F91\uFF08\u4F8B\u5982\u4ED8\u6B3E\u88AB\u62D2\u3001\u7121\u6548\u8F38\u5165\uFF09\u4E5F\u9700\u8981\u6DB5\u84CB\uFF0C\u624D\u80FD\u4FE1\u4EFB\u8A72\u65C5\u7A0B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u771F\u6B63\u4FE1\u4EFB\u4E00\u6BB5\u65C5\u7A0B\uFF0C\u9700\u8981\u5FEB\u6A02\u8DEF\u5F91\u52A0\u4E0A\u5176\u91CD\u8981\u7684\u66FF\u4EE3\u8207\u932F\u8AA4\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u5FEB\u6A02\u8DEF\u5F91\u662F\u552F\u4E00\u91CD\u8981\u7684\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u66FF\u4EE3\u8207\u932F\u8AA4\u8DEF\u5F91\u5728\u771F\u5BE6\u4F7F\u7528\u4E2D\u5F88\u5E38\u898B\uFF0C\u5C0D\u95DC\u9375\u65C5\u7A0B\u5FC5\u9808\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u5FEB\u6A02\u8DEF\u5F91\u7684\u6E2C\u8A66\u7E3D\u662F\u6162\u5230\u6C92\u6709\u7528\u8655",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u4E0D\u5728\u901F\u5EA6\uFF1B\u7F3A\u53E3\u5728\u65BC\u7F3A\u5C11\u66FF\u4EE3\uFF0F\u932F\u8AA4\u8DEF\u5F91\u7684\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u932F\u8AA4\u8DEF\u5F91\u53EA\u80FD\u4EE5\u4EBA\u5DE5\u6E2C\u8A66\uFF0C\u6C38\u9060\u7121\u6CD5\u7528 E2E",
+                "fraction": 0,
+                "feedback": "\u932F\u8AA4\u8DEF\u5F91\u5728 E2E \u5C64\u7D1A\u88AB\u4F8B\u884C\u5730\u81EA\u52D5\u5316\uFF1B\u9019\u4E26\u975E\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u552F\u6709\u9023\u540C\u4E3B\u8981\u504F\u96E2\u4E5F\u4E00\u4F75\u6DB5\u84CB\uFF0C\u4E00\u6BB5\u65C5\u7A0B\u624D\u503C\u5F97\u4FE1\u4EFB\uFF1A\u5FEB\u6A02\u8DEF\u5F91\u52A0\u4E0A\u91CD\u8981\u7684\u66FF\u4EE3\u8DEF\u5F91\u8207\u932F\u8AA4\uFF0F\u908A\u754C\u8DEF\u5F91\uFF08\u88AB\u62D2\u3001\u7121\u6548\u8F38\u5165\u3001\u903E\u6642\uFF09\u3002\u53EA\u6E2C\u5FEB\u6A02\u8DEF\u5F91\u6703\u4F7F\u8A31\u591A\u5E38\u898B\u7684\u771F\u5BE6\u7D50\u679C\u672A\u88AB\u9A57\u8B49\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u4FEE\u6B63\u6642\u5E8F\uFF0F\u975E\u540C\u6B65\u9020\u6210\u7684\u4E0D\u7A69\u5B9A",
+            "text": "<p>\u67D0 E2E \u6E2C\u8A66\u6703\u9593\u6B47\u6027\u5931\u6557\uFF0C\u56E0\u70BA\u5B83\u5728\u4E00\u500B\u975E\u540C\u6B65\u8ACB\u6C42\u5B8C\u6210\u4E4B\u524D\u5C31\u5C0D\u67D0\u5143\u7D20\u9032\u884C\u65B7\u8A00\u3002\u6700\u4F73\u4FEE\u6B63\u65B9\u5F0F\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u660E\u78BA\u7B49\u5F85\u8A72\u5143\u7D20\u6216\u689D\u4EF6\u5C31\u7DD2\uFF0C\u800C\u975E\u4EE5\u56FA\u5B9A\u7684 sleep \u66AB\u505C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91DD\u5C0D\u5BE6\u969B\u689D\u4EF6\u7684\u660E\u78BA\u7B49\u5F85\u5728\u6642\u5E8F\u8B8A\u52D5\u4E0B\u7A69\u5065\uFF1B\u56FA\u5B9A sleep \u65E2\u8106\u5F31\u53C8\u6162\u3002"
+              },
+              {
+                "text": "\u5728\u6BCF\u6B21\u65B7\u8A00\u524D\u52A0\u4E0A\u4E00\u6BB5\u5F88\u9577\u7684\u56FA\u5B9A sleep",
+                "fraction": 0,
+                "feedback": "\u7576\u64CD\u4F5C\u6BD4 sleep \u9084\u6162\u6642\u4ECD\u6703\u4E0D\u7A69\u5B9A\uFF0C\u6BD4\u5B83\u5FEB\u6642\u53C8\u6D6A\u8CBB\u6642\u9593\u3002"
+              },
+              {
+                "text": "\u522A\u6389\u8A72\u65B7\u8A00\uFF0C\u8B93\u6E2C\u8A66\u4E0D\u6703\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u6AA2\u67E5\u662F\u63A9\u84CB\u554F\u984C\uFF0C\u800C\u975E\u9A57\u8B49\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u91CD\u8DD1\u6574\u500B\u5957\u4EF6\u76F4\u5230\u901A\u904E\uFF0C\u4E26\u63A1\u7528\u90A3\u6B21\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u4EE5\u76F2\u76EE\u91CD\u8DD1\u63A9\u84CB\u975E\u78BA\u5B9A\u6027\uFF0C\u6703\u4F7F\u4E0D\u7A69\u5B9A\u539F\u5C01\u4E0D\u52D5\u5730\u7559\u8457\u3002"
+              }
+            ],
+            "generalFeedback": "\u6642\u5E8F\uFF0F\u975E\u540C\u6B65\u9020\u6210\u7684\u4E0D\u7A69\u5B9A\u6700\u597D\u4EE5\u660E\u78BA\u7B49\u5F85\u4F86\u8655\u7406\u2014\u2014\u8F2A\u8A62\u5BE6\u969B\u7684\u5C31\u7DD2\u689D\u4EF6\uFF0C\u800C\u975E\u56FA\u5B9A sleep\u3002sleep \u540C\u6642\u904E\u77ED\uFF08\u4ECD\u4E0D\u7A69\u5B9A\uFF09\u53C8\u904E\u9577\uFF08\u62D6\u6162\uFF09\uFF0C\u56E0\u6B64\u61C9\u512A\u5148\u4F7F\u7528\u4EE5\u689D\u4EF6\u70BA\u57FA\u790E\u7684\u7B49\u5F85\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4FEE\u6B63\u5171\u7528\u72C0\u614B\u9020\u6210\u7684\u4E0D\u7A69\u5B9A",
+            "text": "<p>\u6578\u500B E2E \u6E2C\u8A66\u56E0\u70BA\u8B80\u5BEB\u540C\u4E00\u6279\u5171\u7528\u5E33\u6236\u8CC7\u6599\u800C\u8B8A\u5F97\u4E0D\u7A69\u5B9A\u3002\u6700\u7A69\u5065\u7684\u88DC\u6551\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B93\u6BCF\u500B\u6E2C\u8A66\u64C1\u6709\u81EA\u5DF1\u690D\u5165\u4E14\u9694\u96E2\u7684\u8CC7\u6599\u4E26\u4E8B\u5F8C\u6E05\u7406\uFF0C\u4F7F\u6E2C\u8A66\u4E4B\u9593\u4E0D\u5171\u7528\u72C0\u614B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u70BA\u6BCF\u500B\u6E2C\u8A66\u690D\u5165\u4E26\u9694\u96E2\u8CC7\u6599\uFF0C\u6D88\u9664\u9020\u6210\u4E0D\u7A69\u5B9A\u7684\u5171\u7528\u72C0\u614B\u8026\u5408\u3002"
+              },
+              {
+                "text": "\u5F37\u5236\u9019\u4E9B\u6E2C\u8A66\u6C38\u9060\u4EE5\u56FA\u5B9A\u9806\u5E8F\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u56FA\u5B9A\u9806\u5E8F\u53EA\u662F\u63A9\u84CB\u8026\u5408\u3001\u4ECD\u820A\u8106\u5F31\uFF1B\u771F\u6B63\u7684\u89E3\u6CD5\u662F\u7368\u7ACB\u4E14\u9694\u96E2\u7684\u8CC7\u6599\u3002"
+              },
+              {
+                "text": "\u62C9\u9577\u6BCF\u6B21\u65B7\u8A00\u7684\u903E\u6642\u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u66F4\u9577\u7684\u903E\u6642\u7121\u6CD5\u89E3\u6C7A\u5C0D\u5171\u7528\u8CC7\u6599\u7684\u722D\u7528\u3002"
+              },
+              {
+                "text": "\u964D\u4F4E\u6E2C\u8A66\u57F7\u884C\u7684\u983B\u7387\uFF0C\u4F7F\u885D\u7A81\u66F4\u5C11\u767C\u751F",
+                "fraction": 0,
+                "feedback": "\u964D\u4F4E\u983B\u7387\u4E26\u4E0D\u6703\u79FB\u9664\u5E95\u5C64\u7684\u5171\u7528\u72C0\u614B\u7F3A\u9677\u3002"
+              }
+            ],
+            "generalFeedback": "\u5171\u7528\u7684\u53EF\u8B8A\u8CC7\u6599\u6703\u9020\u6210\u9806\u5E8F\u76F8\u4F9D\u8207\u885D\u7A81\u3002\u7A69\u5065\u7684\u89E3\u6CD5\u662F\u9010\u6E2C\u8A66\u9694\u96E2\uFF1A\u6BCF\u500B\u6E2C\u8A66\u690D\u5165\u81EA\u5DF1\u7684\u8CC7\u6599\u4E26\u6E05\u7406\uFF0C\u4F7F\u4EFB\u4F55\u6E2C\u8A66\u90FD\u4E0D\u4F9D\u8CF4\u53E6\u4E00\u6E2C\u8A66\u7684\u72C0\u614B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8106\u5F31\u7684\u9078\u64C7\u5668",
+            "text": "<p>\u6BCF\u7576 CSS \u7248\u9762\u91CD\u69CB\uFF0CE2E \u6E2C\u8A66\u5C31\u4E00\u76F4\u58DE\u6389\uFF0C\u56E0\u70BA\u5B83\u5011\u4EE5\u6DF1\u5C64\u3001\u57FA\u65BC\u6A23\u5F0F\u7684\u9078\u64C7\u5668\u4F86\u5B9A\u4F4D\u5143\u7D20\u3002\u4EC0\u9EBC\u80FD\u964D\u4F4E\u9019\u7A2E\u8106\u5F31\u6027\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4F7F\u7528\u7A69\u5B9A\u7684\u9078\u64C7\u5668\uFF08\u4F8B\u5982\u5C08\u7528\u7684 test ID\uFF09\uFF0C\u4E26\u5C07\u5B83\u5011\u96C6\u4E2D\u5C01\u88DD\u5728\u9801\u9762\u7269\u4EF6\uFF08page object\uFF09\u4E4B\u5F8C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A69\u5B9A\u3001\u80FD\u8868\u9054\u610F\u5716\u7684\u5B9A\u4F4D\u65B9\u5F0F\u52A0\u4E0A\u9801\u9762\u7269\u4EF6\uFF0C\u8B93\u6E2C\u8A66\u4E0D\u53D7\u5916\u89C0\u8B8A\u52D5\u5F71\u97FF\u3002"
+              },
+              {
+                "text": "\u628A\u6BCF\u500B\u9078\u64C7\u5668\u7D81\u5B9A\u5230\u5143\u7D20\u7684\u78BA\u5207\u50CF\u7D20\u4F4D\u7F6E",
+                "fraction": 0,
+                "feedback": "\u50CF\u7D20\u4F4D\u7F6E\u6BD4\u57FA\u65BC\u6A23\u5F0F\u7684\u9078\u64C7\u5668\u66F4\u8106\u5F31\u3002"
+              },
+              {
+                "text": "\u628A\u540C\u4E00\u500B\u8106\u5F31\u7684\u9078\u64C7\u5668\u8907\u88FD\u5230\u66F4\u591A\u6E2C\u8A66\u4EE5\u6C42\u5099\u63F4",
+                "fraction": 0,
+                "feedback": "\u8907\u88FD\u8106\u5F31\u9078\u64C7\u5668\u53EA\u6703\u52A0\u500D\u7DAD\u8B77\u8CA0\u64D4\uFF0C\u800C\u975E\u964D\u4F4E\u5B83\u3002"
+              },
+              {
+                "text": "\u6BCF\u7576 UI \u8B8A\u52D5\u5C31\u505C\u7528\u9019\u4E9B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u505C\u7528\u6E2C\u8A66\u662F\u79FB\u9664\u6DB5\u84CB\uFF0C\u800C\u975E\u4FEE\u6B63\u9078\u64C7\u5668\u7684\u8106\u5F31\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u4EE5\u5916\u89C0\u4F86\u5B9A\u4F4D\u5143\u7D20\u6703\u8B93\u6E2C\u8A66\u56E0\u5916\u89C0\u8B8A\u52D5\u800C\u58DE\u6389\u3002\u4F7F\u7528\u5C08\u7528 test ID \u9019\u985E\u7A69\u5B9A\u9078\u64C7\u5668\uFF0C\u4E26\u5C01\u88DD\u5728\u9801\u9762\u7269\u4EF6\u4E2D\uFF0C\u80FD\u4FDD\u6301\u6E2C\u8A66\u7A69\u5065\u4E14\u6613\u7DAD\u8B77\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 E2E \u96E3\u4EE5\u5B9A\u4F4D\u6839\u56E0",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u5F9E E2E \u6E2C\u8A66\u901A\u5E38\u6BD4\u5F9E\u55AE\u5143\u6E2C\u8A66<strong>\u66F4\u96E3\u5B9A\u4F4D\u5931\u6557\u7684\u6839\u672C\u539F\u56E0</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "E2E \u5931\u6557\u53EF\u80FD\u6E90\u81EA\u5B83\u6A6B\u8DE8\u7684\u773E\u591A\u5C64\u7D1A\u4E2D\u7684\u4EFB\u4F55\u4E00\u5C64\uFF0C\u56E0\u6B64\u5C0D\u6545\u969C\u7684\u5B9A\u4F4D\u5F88\u5DEE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7BC4\u570D\u5BEC\u5EE3\u610F\u5473\u5931\u6557\u727D\u9023\u6574\u500B\u5806\u758A\uFF0C\u4E0D\u50CF\u7BC4\u570D\u72F9\u7A84\u7684\u55AE\u5143\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "E2E \u6E2C\u8A66\u5F9E\u4E0D\u7522\u751F\u4EFB\u4F55\u65E5\u8A8C\u6216\u932F\u8AA4\u8A0A\u606F",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u6703\u7522\u751F\u8F38\u51FA\uFF1B\u56F0\u96E3\u5728\u65BC\u53EF\u80FD\u539F\u56E0\u7BC4\u570D\u592A\u5EE3\uFF0C\u800C\u975E\u7F3A\u5C11\u65E5\u8A8C\u3002"
+              },
+              {
+                "text": "\u55AE\u5143\u6E2C\u8A66\u5176\u5BE6\u7BC4\u570D\u6BD4 E2E \u6E2C\u8A66\u66F4\u5EE3",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u6E2C\u8A66\u7BC4\u570D\u8F03\u7A84\uFF1B\u6B63\u662F\u9019\u7A2E\u72F9\u7A84\u4F7F\u5B83\u5011\u80FD\u7CBE\u6E96\u5B9A\u4F4D\u6545\u969C\u3002"
+              },
+              {
+                "text": "E2E \u6E2C\u8A66\u6C92\u6709\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "E2E \u6E2C\u8A66\u6703\u65B7\u8A00\u7D50\u679C\uFF1B\u6839\u56E0\u96E3\u5C0B\u6E90\u65BC\u5176\u7BC4\u570D\u5BEC\u5EE3\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA E2E \u6E2C\u8A66\u540C\u6642\u64CD\u4F5C\u8A31\u591A\u5C64\u7D1A\uFF0C\u5931\u6557\u53EF\u80FD\u6E90\u81EA\u5176\u4E2D\u4EFB\u4E00\u5C64\u3002\u55AE\u5143\u6E2C\u8A66\u9694\u96E2\u55AE\u4E00\u5143\u4EF6\uFF0C\u5176\u5931\u6557\u5E7E\u4E4E\u76F4\u63A5\u6307\u5411\u6545\u969C\uFF1BE2E \u7684\u5EE3\u5EA6\u6B63\u662F\u4F7F\u8A3A\u65B7\u66F4\u96E3\u7684\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4FE1\u5FC3\u76F8\u5C0D\u65BC\u6210\u672C\uFF0F\u7DAD\u8B77\u7684\u53D6\u6368",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u9805\u6700\u80FD\u523B\u756B\u501A\u8CF4 E2E \u6E2C\u8A66\u7684\u6838\u5FC3\u53D6\u6368\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5011\u5C0D\u771F\u5BE6\u6574\u5408\u884C\u70BA\u5E36\u4F86\u6700\u9AD8\u7684\u4FE1\u5FC3\uFF0C\u4F46\u5728\u901F\u5EA6\u3001\u7DAD\u8B77\u8207\u4E0D\u7A69\u5B9A\u4E0A\u4ED8\u51FA\u6700\u9AD8\u4EE3\u50F9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F60\u4EE5\u771F\u5BE6\u5EA6\u8207\u4FE1\u5FC3\uFF0C\u63DB\u53D6\u901F\u5EA6\u3001\u6210\u672C\u8207\u7A69\u5B9A\u6027\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u5E36\u4F86\u6700\u9AD8\u4FE1\u5FC3\uFF0C\u540C\u6642\u4E5F\u6700\u4FBF\u5B9C\u3001\u6700\u7A69\u5B9A",
+                "fraction": 0,
+                "feedback": "E2E \u6E2C\u8A66\u6700\u8CB4\u3001\u6700\u4E0D\u7A69\u5B9A\uFF0C\u800C\u975E\u6700\u4FBF\u5B9C\u3001\u6700\u7A69\u5B9A\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u5E36\u4F86\u6700\u5C11\u4FE1\u5FC3\u4F46\u57F7\u884C\u6700\u5FEB",
+                "fraction": 0,
+                "feedback": "E2E \u5E36\u4F86\u9AD8\u6574\u5408\u4FE1\u5FC3\u4E14\u57F7\u884C\u6700\u6162\uFF0C\u800C\u975E\u6700\u5C11\u4FE1\u5FC3\u52A0\u6700\u5FEB\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u53D6\u6368\uFF1BE2E \u8D8A\u591A\u6C38\u9060\u8D8A\u597D",
+                "fraction": 0,
+                "feedback": "\u53D6\u6368\u662F\u771F\u5BE6\u5B58\u5728\u7684\uFF1B\u4E00\u5473\u589E\u52A0 E2E \u6703\u640D\u5BB3\u901F\u5EA6\u8207\u7A69\u5B9A\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "E2E \u63D0\u4F9B\u6700\u771F\u5BE6\u7684\u6574\u5408\u4FE1\u5FC3\uFF0C\u4F46\u6162\u3001\u7DAD\u8B77\u6210\u672C\u9AD8\u53C8\u4E0D\u7A69\u5B9A\u3002\u8A23\u7AC5\u5728\u65BC\u5728\u4FE1\u5FC3\u8207\u6210\u672C\u4E4B\u9593\u53D6\u5F97\u5E73\u8861\uFF0C\u9019\u4E5F\u662F\u70BA\u4F55 E2E \u53EA\u7BC0\u5236\u5730\u7528\u65BC\u6700\u95DC\u9375\u7684\u65C5\u7A0B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u6642\u589E\u52A0 E2E \u4E26\u4E0D\u503C\u5F97",
+            "text": "<p>\u67D0\u689D\u908A\u754C\u9A57\u8B49\u898F\u5247\u76EE\u524D\u53EA\u7531\u4E00\u500B\u6162\u901F E2E \u6E2C\u8A66\u6AA2\u67E5\u3002\u5C0D\u65BC\u9019\u985E\u898F\u5247\uFF0C\u4F55\u6642<strong>\u4E0D</strong>\u503C\u5F97\u589E\u52A0\u66F4\u591A E2E \u6DB5\u84CB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7576\u8A72\u884C\u70BA\u4EE5\u5FEB\u901F\u7684\u55AE\u5143\u6216\u6574\u5408\u6E2C\u8A66\u4E5F\u80FD\u540C\u6A23\u59A5\u5584\u9A57\u8B49\u6642\u2014\u2014\u61C9\u6539\u70BA\u4E0B\u63A8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u82E5\u8F03\u4F4E\u5C64\u7D1A\u5DF2\u80FD\u63D0\u4F9B\u8DB3\u5920\u4FE1\u5FC3\uFF0C\u589E\u52A0 E2E \u53EA\u6703\u5F92\u589E\u6210\u672C\u8207\u4E0D\u7A69\u5B9A\u3002"
+              },
+              {
+                "text": "\u53EA\u8981\u8A72\u884C\u70BA\u5C6C\u65BC\u67D0\u500B\u95DC\u9375\u696D\u52D9\u65C5\u7A0B",
+                "fraction": 0,
+                "feedback": "\u95DC\u9375\u65C5\u7A0B\u6B63\u662F\u503C\u5F97\u6295\u5165\u5C11\u91CF E2E \u7684\u5730\u65B9\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5728\u5718\u968A\u5B8C\u5168\u6C92\u6709\u4EFB\u4F55\u55AE\u5143\u6E2C\u8A66\u6642",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u55AE\u5143\u6E2C\u8A66\u662F\u8A72\u88DC\u4E0A\u55AE\u5143\u6E2C\u8A66\u7684\u7406\u7531\uFF0C\u800C\u975E\u95DC\u65BC E2E \u662F\u5426\u503C\u5F97\uFF1B\u5224\u6E96\u5728\u65BC\u8F03\u4F4E\u5C64\u7D1A\u662F\u5426\u8DB3\u5920\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u4E0D\u6703\uFF1B\u589E\u52A0 E2E \u6DB5\u84CB\u6C38\u9060\u503C\u5F97",
+                "fraction": 0,
+                "feedback": "\u589E\u52A0 E2E \u4E26\u975E\u6C38\u9060\u503C\u5F97\u2014\u2014\u91CD\u8907\u55AE\u5143\u6E2C\u8A66\u80FD\u505A\u7684\u4E8B\u53EA\u6703\u52A0\u91CD\u6162\u53C8\u8106\u5F31\u7684\u8CA0\u64D4\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5\u4E00\u500B\u5FEB\u901F\u7684\u8F03\u4F4E\u5C64\u7D1A\u6E2C\u8A66\u80FD\u4EE5\u8DB3\u5920\u4FE1\u5FC3\u9A57\u8B49\u8A72\u884C\u70BA\uFF0C\u70BA\u5B83\u589E\u52A0 E2E \u6DB5\u84CB\u53EA\u6703\u81A8\u8139\u6162\u53C8\u8106\u5F31\u7684\u9802\u5C64\u3002\u628A\u9019\u985E\u6AA2\u67E5\u4E0B\u63A8\uFF0C\u628A E2E \u7559\u7D66\u771F\u6B63\u9700\u8981\u6574\u500B\u7CFB\u7D71\u9A57\u8B49\u7684\u65C5\u7A0B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A2D\u8A08\u6700\u5C0F\u7684\u65C5\u7A0B\u96C6\u5408",
+            "text": "<p>\u4F60\u53EA\u8CA0\u64D4\u5F97\u8D77\u5C11\u6578\u5E7E\u500B E2E \u6E2C\u8A66\u3002\u61C9\u5982\u4F55\u9078\u64C7\u8981\u6DB5\u84CB<strong>\u54EA\u4E9B\u65C5\u7A0B</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EE5\u7AEF\u5C0D\u7AEF\u65B9\u5F0F\u6DB5\u84CB\u5C11\u6578\u6700\u95DC\u9375\u7684\u696D\u52D9\u6D41\u7A0B\uFF0C\u5916\u52A0\u5176\u91CD\u8981\u7684\u932F\u8AA4\u8DEF\u5F91\uFF0C\u5176\u9918\u5247\u4E0B\u63A8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u5C0F\u96C6\u5408\u9396\u5B9A\u6700\u9AD8\u50F9\u503C\u7684\u65C5\u7A0B\u8207\u5176\u91CD\u8981\u504F\u96E2\u3002"
+              },
+              {
+                "text": "\u5728 E2E \u5C64\u7D1A\u6DB5\u84CB\u6BCF\u500B\u529F\u80FD\u7684\u6BCF\u4E00\u7A2E\u53EF\u80FD\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u81A8\u8139\u6162\u901F\u7684\u9802\u5C64\uFF1B\u7AAE\u8209\u7D44\u5408\u5C6C\u65BC\u8F03\u4F4E\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u6311\u9078\u65C5\u7A0B\u4EE5\u5E73\u5747\u53D6\u6A23\u6574\u500B\u7CFB\u7D71",
+                "fraction": 0,
+                "feedback": "\u96A8\u6A5F\u53D6\u6A23\u5FFD\u7565\u696D\u52D9\u95DC\u9375\u6027\uFF1B\u61C9\u512A\u5148\u8655\u7406\u6700\u91CD\u8981\u7684\u6D41\u7A0B\u3002"
+              },
+              {
+                "text": "\u53EA\u6E2C\u8A66\u5F88\u5C11\u4F7F\u7528\u7684\u7BA1\u7406\u54E1\u756B\u9762",
+                "fraction": 0,
+                "feedback": "\u7A00\u5C11\u7684 E2E \u9810\u7B97\u61C9\u6295\u5165\u95DC\u9375\u3001\u9AD8\u6D41\u91CF\u7684\u65C5\u7A0B\uFF0C\u800C\u975E\u7F55\u7528\u7684\u7BA1\u7406\u54E1\u756B\u9762\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u6709\u9650\u7684 E2E \u9810\u7B97\u4E0B\uFF0C\u628A\u5B83\u82B1\u5728\u6700\u95DC\u9375\u7684\u696D\u52D9\u65C5\u7A0B\uFF08\u4EE5\u53CA\u5176\u91CD\u8981\u7684\u66FF\u4EE3\uFF0F\u932F\u8AA4\u8DEF\u5F91\uFF09\u4F5C\u70BA\u5192\u7159\u6DB5\u84CB\uFF0C\u4E26\u628A\u7D30\u7BC0\u8207\u8F03\u4F4E\u50F9\u503C\u7684\u6848\u4F8B\u4E0B\u63A8\u5230\u8F03\u5FEB\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B2C\u4E09\u65B9\u6C99\u76D2\u7684\u4E0D\u7A69\u5B9A",
+            "text": "<p>\u67D0\u500B\u64CD\u4F5C\u771F\u5BE6\u7B2C\u4E09\u65B9\u4ED8\u6B3E\u6C99\u76D2\u7684 E2E \u6E2C\u8A66\uFF0C\u6703\u5728\u6C99\u76D2\u7DE9\u6162\u6216\u77ED\u66AB\u7121\u6CD5\u4F7F\u7528\u6642\u8B8A\u5F97\u4E0D\u7A69\u5B9A\u3002\u5728\u4FDD\u6709\u6709\u610F\u7FA9\u6DB5\u84CB\u7684\u540C\u6642\uFF0C\u6E1B\u5C11\u9019\u7A2E\u4E0D\u7A69\u5B9A\u7684\u5408\u7406\u505A\u6CD5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4FDD\u7559\u4E00\u500B\u91DD\u5C0D\u6C99\u76D2\u7684\u771F\u6B63\u7AEF\u5C0D\u7AEF\u6AA2\u67E5\uFF0C\u5176\u4ED6\u4ED8\u6B3E\u6848\u4F8B\u5247\u5728\u8F03\u4F4E\u5C64\u7D1A\u4EE5\u53D7\u63A7\u7684\u6E2C\u8A66\u66FF\u8EAB\u6DB5\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u5C0D\u9019\u500B\u4E0D\u7A69\u5B9A\u5916\u90E8\u670D\u52D9\u7684\u4F9D\u8CF4\u9650\u7E2E\u5230\u6700\u5C0F\u7684\u5192\u7159\u6AA2\u67E5\uFF0C\u5176\u9918\u4E0B\u63A8\u5230\u53EF\u638C\u63A7\u4E4B\u8655\u3002"
+              },
+              {
+                "text": "\u589E\u52A0\u66F4\u591A\u90FD\u547C\u53EB\u7DDA\u4E0A\u6C99\u76D2\u7684\u6E2C\u8A66\u4EE5\u6C42\u5099\u63F4",
+                "fraction": 0,
+                "feedback": "\u66F4\u591A\u6E2C\u8A66\u90FD\u4F9D\u8CF4\u540C\u4E00\u500B\u4E0D\u7A69\u5B9A\u76F8\u4F9D\uFF0C\u53EA\u6703\u52A0\u500D\u4E0D\u7A69\u5B9A\u3002"
+              },
+              {
+                "text": "\u5FFD\u7565\u4EFB\u4F55\u78B0\u5230\u4ED8\u6B3E\u7684\u6E2C\u8A66\u6240\u6709\u7684\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u5FFD\u7565\u5931\u6557\u6703\u628A\u771F\u6B63\u7684\u7F3A\u9677\u9023\u540C\u4E0D\u7A69\u5B9A\u4E00\u8D77\u63A9\u84CB\u3002"
+              },
+              {
+                "text": "\u5047\u8A2D\u6C99\u76D2\u6C38\u9060\u53EF\u7528\uFF0C\u5B8C\u5168\u4E0D\u8655\u7406\u5B83\u7684\u505C\u6A5F",
+                "fraction": 0,
+                "feedback": "\u5916\u90E8\u6C99\u76D2\u662F\u5DF2\u77E5\u7684\u4E0D\u7A69\u5B9A\u4F86\u6E90\uFF1B\u4F60\u5FC5\u9808\u628A\u5B83\u7684\u4E0D\u53EF\u9760\u6027\u7D0D\u5165\u8003\u91CF\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B2C\u4E09\u65B9\u6C99\u76D2\u662F\u5178\u578B\u7684\u5916\u90E8\u76F8\u4F9D\u4E0D\u7A69\u5B9A\u4F86\u6E90\u3002\u4FDD\u7559\u55AE\u4E00\u500B\u771F\u6B63\u7684\u7AEF\u5C0D\u7AEF\u5192\u7159\u6AA2\u67E5\uFF0C\u628A\u5176\u9918\u4ED8\u6B3E\u60C5\u5883\u79FB\u5230\u8F03\u4F4E\u5C64\u7D1A\u4E26\u4EE5\u53D7\u63A7\u66FF\u8EAB\u8655\u7406\uFF0C\u9650\u7E2E\u5C0D\u4E0D\u53EF\u9760\u670D\u52D9\u7684\u66B4\u9732\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\u9806\u5E8F\u76F8\u4F9D\u9020\u6210\u7684\u4E0D\u7A69\u5B9A",
+            "text": "<p>\u67D0 E2E \u6E2C\u8A66\u55AE\u7368\u57F7\u884C\u6642\u901A\u904E\uFF0C\u4F46\u5728\u5957\u4EF6\u4E2D\u63A5\u5728\u53E6\u4E00\u500B\u6E2C\u8A66\u4E4B\u5F8C\u57F7\u884C\u6642\u5931\u6557\u3002\u6700\u53EF\u80FD\u7684\u539F\u56E0\u8207\u6B63\u78BA\u4FEE\u6B63\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5171\u7528\u72C0\u614B\u9020\u6210\u7684\u9806\u5E8F\u76F8\u4F9D\uFF1B\u8B93\u6BCF\u500B\u6E2C\u8A66\u81EA\u884C\u5EFA\u7ACB\u4E26\u6E05\u9664\u5176\u8CC7\u6599\uFF0C\u4F7F\u5176\u7368\u7ACB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u55AE\u7368\u901A\u904E\uFF0F\u63A5\u5728\u5F8C\u9762\u5C31\u5931\u6557\u7684\u578B\u614B\u6307\u5411\u6B98\u7559\u7684\u5171\u7528\u72C0\u614B\uFF0C\u4EE5\u6E2C\u8A66\u9694\u96E2\u4FEE\u6B63\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u51FD\u5F0F\u5EAB\u58DE\u4E86\uFF1B\u91CD\u5BEB\u6240\u6709\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "\u55AE\u7368\u901A\u904E\uFF0F\u4F9D\u5E8F\u5931\u6557\u7684\u578B\u614B\u6307\u5411\u5171\u7528\u72C0\u614B\uFF0C\u800C\u975E\u65B7\u8A00\u51FD\u5F0F\u5EAB\u58DE\u6389\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u592A\u5FEB\uFF1B\u5728\u958B\u982D\u52A0\u4E00\u6BB5\u56FA\u5B9A sleep",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u4E0D\u5728\u901F\u5EA6\uFF0C\u800C\u5728\u524D\u4E00\u6E2C\u8A66\u907A\u7559\u7684\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u4EFB\u4F55\u554F\u984C\uFF1B\u53EA\u8981\u6C38\u9060\u8B93\u90A3\u500B\u6E2C\u8A66\u5148\u8DD1\u5C31\u597D",
+                "fraction": 0,
+                "feedback": "\u56FA\u5B9A\u9806\u5E8F\u53EA\u662F\u63A9\u84CB\u8026\u5408\u800C\u975E\u79FB\u9664\u5B83\uFF1B\u61C9\u8B93\u6E2C\u8A66\u7368\u7ACB\u3002"
+              }
+            ],
+            "generalFeedback": "\u55AE\u7368\u901A\u904E\u4F46\u63A5\u5728\u53E6\u4E00\u6E2C\u8A66\u4E4B\u5F8C\u5931\u6557\uFF0C\u662F\u5171\u7528\uFF0F\u6B98\u7559\u72C0\u614B\u9020\u6210\u9806\u5E8F\u76F8\u4F9D\u7684\u7279\u5FB5\u3002\u4FEE\u6B63\u4E4B\u9053\u662F\u7368\u7ACB\u8207\u51AA\u7B49\uFF1A\u6BCF\u500B\u6E2C\u8A66\u690D\u5165\u4E26\u6E05\u7406\u81EA\u5DF1\u7684\u8CC7\u6599\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7BC0\u5236\u5730\u4F7F\u7528\u91CD\u8A66\u8207\u9694\u96E2\u5340",
+            "text": "<p>\u5C0D\u65BC\u4E0D\u7A69\u5B9A\u7684 E2E \u6E2C\u8A66\uFF0C\u81EA\u52D5\u91CD\u8A66\u8207\u300C\u9694\u96E2\u5340\uFF08quarantine\uFF09\u300D\u61C9\u5982\u4F55\u4F7F\u7528\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7BC0\u5236\u4E14\u66AB\u6642\u5730\u4F7F\u7528\uFF0C\u4F5C\u70BA\u627E\u51FA\u4E26\u4FEE\u6B63\u4E0D\u7A69\u5B9A\u771F\u6B63\u539F\u56E0\u671F\u9593\u7684\u6B0A\u5B9C\u4E4B\u8A08",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91CD\u8A66\uFF0F\u9694\u96E2\u5340\u80FD\u722D\u53D6\u6642\u9593\uFF0C\u4F46\u4E0D\u5F97\u53D6\u4EE3\u5C0D\u6839\u56E0\u7684\u4FEE\u6B63\u3002"
+              },
+              {
+                "text": "\u4F5C\u70BA\u6C38\u4E45\u7684\u4E3B\u8981\u7B56\u7565\uFF0C\u628A\u6BCF\u500B\u6E2C\u8A66\u90FD\u91CD\u8A66\u5F88\u591A\u6B21",
+                "fraction": 0,
+                "feedback": "\u6C38\u4E45\u501A\u8CF4\u91CD\u8A66\u6703\u63A9\u84CB\u771F\u6B63\u7684\u7F3A\u9677\u4E26\u4F7F\u4E0D\u7A69\u5B9A\u88AB\u5E38\u614B\u5316\u3002"
+              },
+              {
+                "text": "\u628A\u6BCF\u500B\u5931\u6557\u7684\u6E2C\u8A66\u7121\u9650\u671F\u9694\u96E2\u4E14\u6C38\u4E0D\u56DE\u982D\u8655\u7406",
+                "fraction": 0,
+                "feedback": "\u7121\u9650\u671F\u9694\u96E2\u6703\u6084\u6084\u4FB5\u8755\u6DB5\u84CB\uFF1B\u88AB\u9694\u96E2\u7684\u6E2C\u8A66\u5FC5\u9808\u88AB\u4FEE\u6B63\u4E26\u6B78\u968A\u3002"
+              },
+              {
+                "text": "\u5728\u4EFB\u4F55\u60C5\u6CC1\u4E0B\u90FD\u7D55\u4E0D\u4F7F\u7528",
+                "fraction": 0,
+                "feedback": "\u4F5C\u70BA\u66AB\u6642\u63AA\u65BD\u7BC0\u5236\u4F7F\u7528\u662F\u6B63\u7576\u7684\uFF1B\u8981\u8B66\u60D5\u7684\u662F\u904E\u5EA6\u501A\u8CF4\u3002"
+              }
+            ],
+            "generalFeedback": "\u91CD\u8A66\u8207\u9694\u96E2\u5340\u662F\u6B0A\u5B9C\u4E4B\u8A08\uFF1A\u7BC0\u5236\u4E14\u66AB\u6642\u5730\u4F7F\u7528\uFF0C\u597D\u5728\u4F60\u8A3A\u65B7\u4E26\u4FEE\u6B63\u5E95\u5C64\u4E0D\u7A69\u5B9A\u671F\u9593\u8B93\u7BA1\u7DDA\u6301\u7E8C\u904B\u4F5C\u3002\u6C38\u4E45\u501A\u8CF4\u5B83\u5011\u6703\u63A9\u84CB\u771F\u6B63\u7684\u7F3A\u9677\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u660E\u78BA\u7B49\u5F85\u52DD\u904E\u56FA\u5B9A sleep",
+            "text": "<p>\u5728 E2E \u6E2C\u8A66\u4E2D\uFF0C\u70BA\u4EC0\u9EBC\u5C0D\u689D\u4EF6\u9032\u884C\u660E\u78BA\u7B49\u5F85\u901A\u5E38\u512A\u65BC\u56FA\u5B9A\u7684 <code>sleep</code>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u689D\u4EF6\u4E00\u6210\u7ACB\u5C31\u7E7C\u7E8C\uFF0C\u4E14\u53EA\u5728\u771F\u6B63\u903E\u6642\u5F8C\u624D\u5931\u6557\uFF0C\u56E0\u6B64\u5728\u4E0D\u540C\u6642\u5E8F\u4E0B\u90FD\u66F4\u5FEB\u4E14\u66F4\u53EF\u9760",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4EE5\u689D\u4EF6\u70BA\u57FA\u790E\u7684\u7B49\u5F85\u6703\u56E0\u61C9\u5BE6\u969B\u6642\u5E8F\uFF0C\u65E2\u907F\u514D\u904E\u65E9\u5931\u6557\u4E5F\u907F\u514D\u6D6A\u8CBB\u6642\u9593\u3002"
+              },
+              {
+                "text": "\u5B83\u4FDD\u8B49\u6E2C\u8A66\u6C38\u9060\u4E0D\u6703\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u5B83\u4ECD\u53EF\u80FD\u5931\u6557\uFF08\u5728\u771F\u6B63\u903E\u6642\u6642\uFF09\uFF1B\u53EA\u662F\u56E0\u771F\u5BE6\u539F\u56E0\u5931\u6557\uFF0C\u800C\u975E\u6642\u5E8F\u96DC\u8A0A\u3002"
+              },
+              {
+                "text": "\u5B83\u6703\u4F7F\u74B0\u5883\u8B8A\u5F97\u985E\u751F\u7522",
+                "fraction": 0,
+                "feedback": "\u7B49\u5F85\u8655\u7406\u7684\u662F\u6642\u5E8F\uFF0C\u800C\u975E\u74B0\u5883\u7684\u771F\u5BE6\u5EA6\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u65B7\u8A00\u8B8A\u5F97\u4E0D\u518D\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u7B49\u5F85\u8207\u65B7\u8A00\u662F\u5206\u958B\u7684\uFF1B\u4F60\u4ECD\u8981\u65B7\u8A00\u9810\u671F\u7D50\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "\u56FA\u5B9A sleep \u540C\u6642\u904E\u9577\uFF08\u7CFB\u7D71\u5FEB\u6642\u6D6A\u8CBB\u6642\u9593\uFF09\u53C8\u904E\u77ED\uFF08\u7CFB\u7D71\u6162\u6642\u4E0D\u7A69\u5B9A\uFF09\u3002\u660E\u78BA\u7B49\u5F85\u6703\u8F2A\u8A62\u771F\u5BE6\u689D\u4EF6\uFF0C\u5C31\u7DD2\u6642\u7ACB\u5373\u7E7C\u7E8C\uFF0C\u53EA\u5728\u771F\u6B63\u903E\u6642\u6642\u624D\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u589E\u52A0 E2E \u4E0D\u80FD\u53D6\u4EE3\u55AE\u5143\uFF0F\u6574\u5408\u6E2C\u8A66",
+            "text": "<p>\u65E2\u7136 E2E \u672C\u4F86\u5C31\u6DB5\u84CB\u6574\u500B\u7CFB\u7D71\uFF0C\u589E\u52A0\u66F4\u591A E2E \u6E2C\u8A66\u4FBF\u53EF\u53D6\u4EE3\u64C1\u6709\u55AE\u5143\u8207\u6574\u5408\u6E2C\u8A66\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "E2E \u5E36\u4F86\u6574\u5408\u4FE1\u5FC3\uFF0C\u4F46\u6162\u3001\u4E0D\u7A69\u5B9A\u53C8\u96E3\u4EE5\u5B9A\u4F4D\u6545\u969C\uFF1B\u5B83\u7121\u6CD5\u53D6\u4EE3\u5FEB\u901F\u4E14\u7CBE\u6E96\u7684\u4F4E\u5C64\u7D1A\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014E2E \u88DC\u8DB3\u800C\u975E\u53D6\u4EE3\u55AE\u5143\u8207\u6574\u5408\u6E2C\u8A66\uFF1BE2E \u4E26\u975E\u8D8A\u591A\u8D8A\u597D\u3002"
+              }
+            ],
+            "generalFeedback": "E2E \u9A57\u8B49\u6574\u5408\u884C\u70BA\uFF0C\u4F46\u6162\u3001\u8CB4\u3001\u8106\u5F31\u53C8\u96E3\u4EE5\u7CBE\u6E96\u5B9A\u4F4D\u6545\u969C\u3002\u5B83\u7121\u6CD5\u53D6\u4EE3\u55AE\u5143\u8207\u6574\u5408\u6E2C\u8A66\u90A3\u7A2E\u5FEB\u901F\u7CBE\u6E96\u7684\u6DB5\u84CB\uFF1B\u5065\u5EB7\u7684\u5957\u4EF6\u6703\u8B93 E2E \u4FDD\u6301\u5C11\u91CF\u4E26\u628A\u7D30\u7BC0\u4E0B\u63A8\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u985E\u751F\u7522\u74B0\u5883\u7684\u9677\u9631",
+            "text": "<p>\u67D0\u5718\u968A\u5728\u4E00\u500B\u5176\u4ED6\u5718\u968A\u4E5F\u6703\u90E8\u7F72\u3001\u4E14\u767D\u5929\u6703\u8B8A\u52D5\u7684\u5171\u7528\u6E2C\u8A66\uFF08staging\uFF09\u74B0\u5883\u4E0A\u57F7\u884C E2E \u6E2C\u8A66\u3002\u70BA\u4EC0\u9EBC\u9019\u662F\u500B\u9677\u9631\uFF0C\u4EC0\u9EBC\u80FD\u6539\u5584\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E26\u884C\u7684\u8B8A\u52D5\u4F7F\u74B0\u5883\u4E0D\u7A69\u5B9A\u800C\u9020\u6210\u7D50\u679C\u4E0D\u7A69\u5B9A\uFF1B\u61C9\u4F7F\u7528\u9694\u96E2\u3001\u53D7\u63A7\u4E14\u985E\u751F\u7522\u7684\u74B0\u5883\u4E26\u690D\u5165\u8CC7\u6599",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0D\u53D7\u63A7\u7684\u5171\u7528\u74B0\u5883\u6703\u6CE8\u5165\u975E\u78BA\u5B9A\u6027\uFF1B\u9694\u96E2\u8207\u690D\u5165\u8CC7\u6599\u80FD\u6062\u5FA9\u7A69\u5B9A\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u9677\u9631\uFF1B\u7E41\u5FD9\u7684\u5171\u7528\u74B0\u5883\u6700\u9069\u5408 E2E",
+                "fraction": 0,
+                "feedback": "\u4E0D\u53D7\u63A7\u7684\u4E26\u884C\u8B8A\u52D5\u662F\u771F\u5BE6\u7684\u4E0D\u7A69\u5B9A\u4F86\u6E90\uFF0C\u4E26\u975E\u6700\u9069\u5408\u3002"
+              },
+              {
+                "text": "\u552F\u4E00\u7684\u89E3\u6CD5\u662F\u5B8C\u5168\u505C\u6B62\u57F7\u884C E2E \u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u89E3\u6CD5\u662F\u53D7\u63A7\u3001\u9694\u96E2\u7684\u74B0\u5883\uFF0C\u800C\u975E\u653E\u68C4 E2E\u3002"
+              },
+              {
+                "text": "\u5171\u7528\u74B0\u5883\u8B93\u6E2C\u8A66\u66F4\u5FEB\uFF0C\u5176\u597D\u8655\u52DD\u904E\u4EFB\u4F55\u4E0D\u7A69\u5B9A",
+                "fraction": 0,
+                "feedback": "\u901F\u5EA6\u52DD\u4E0D\u904E\u6703\u7834\u58DE\u5C0D\u5957\u4EF6\u4FE1\u4EFB\u7684\u975E\u78BA\u5B9A\u6027\u7D50\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "\u985E\u751F\u7522\u74B0\u5883\u4E5F\u5FC5\u9808\u53D7\u63A7\u3002\u7576\u4ED6\u4EBA\u5728\u57F7\u884C\u9014\u4E2D\u6539\u52D5\u5171\u7528 staging \u74B0\u5883\uFF0C\u7D50\u679C\u5C31\u6703\u4E0D\u7A69\u5B9A\u3002\u9694\u96E2\u74B0\u5883\uFF08\u6216\u5176\u4E2D\u6E2C\u8A66\u7684\u8CC7\u6599\uFF09\u4E26\u690D\u5165\u5DF2\u77E5\u8CC7\u6599\uFF0C\u80FD\u5728\u4FDD\u6301\u771F\u5BE6\u7684\u540C\u6642\u8B93 E2E \u7A69\u5B9A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4FE1\u5FC3\u76F8\u540C\u6642\u4E0B\u63A8",
+            "text": "<p>\u67D0\u884C\u70BA\u4EE5\u5FEB\u901F\u6574\u5408\u6E2C\u8A66\u6216\u6162\u901F E2E \u6E2C\u8A66\u90FD\u80FD\u63D0\u4F9B\u76F8\u540C\u4FE1\u5FC3\u4F86\u9A57\u8B49\u3002\u4E00\u822C\u61C9\u9078\u54EA\u4E00\u500B\uFF0C\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6574\u5408\u6E2C\u8A66\uFF0C\u56E0\u70BA\u5B83\u662F\u80FD\u63D0\u4F9B\u8DB3\u5920\u4FE1\u5FC3\u7684\u6700\u4F4E\u5C64\u7D1A\u2014\u2014\u66F4\u5FEB\u3001\u66F4\u4FBF\u5B9C\u3001\u66F4\u4E0D\u6613\u4E0D\u7A69\u5B9A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E0B\u63A8\u5230\u80FD\u63D0\u4F9B\u8DB3\u5920\u4FE1\u5FC3\u7684\u6700\u4F4E\u5C64\u7D1A\uFF0C\u628A E2E \u7559\u7D66\u53EA\u6709\u5B83\u80FD\u6DB5\u84CB\u7684\u90E8\u5206\u3002"
+              },
+              {
+                "text": "E2E \u6E2C\u8A66\uFF0C\u56E0\u70BA\u8F03\u9AD8\u5C64\u7D1A\u7684\u6E2C\u8A66\u6C38\u9060\u6BD4\u8F03\u512A\u8D8A",
+                "fraction": 0,
+                "feedback": "\u8F03\u9AD8\u5C64\u7D1A\u7684\u6E2C\u8A66\u8F03\u6162\u53C8\u8F03\u4E0D\u7A69\u5B9A\uFF1B\u5728\u8F03\u4F4E\u5C64\u7D1A\u5DF2\u8DB3\u5920\u6642\u5B83\u5011\u4E26\u975E\u6C38\u9060\u8F03\u512A\u8D8A\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u8981\uFF0C\u6C38\u9060\u90FD\u505A\uFF0C\u4EE5\u6C42\u6700\u5927\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u5728 E2E \u91CD\u8907\u8A72\u884C\u70BA\u53EA\u6703\u5F92\u589E\u6162\u53C8\u8106\u5F31\u7684\u6210\u672C\uFF0C\u537B\u6C92\u6709\u984D\u5916\u4FE1\u5FC3\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u8981\uFF1B\u8A72\u884C\u70BA\u4E0D\u5FC5\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u8A72\u884C\u70BA\u61C9\u8A72\u88AB\u6E2C\u8A66\u2014\u2014\u5728\u80FD\u63D0\u4F9B\u8DB3\u5920\u4FE1\u5FC3\u7684\u6700\u4F4E\u5C64\u7D1A\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u5169\u500B\u5C64\u7D1A\u63D0\u4F9B\u76F8\u540C\u4FE1\u5FC3\u6642\uFF0C\u9078\u8F03\u4F4E\u7684\u90A3\u500B\uFF1A\u66F4\u5FEB\u3001\u66F4\u4FBF\u5B9C\u3001\u66F4\u7A69\u5B9A\u3002\u628A\u6162\u53C8\u8106\u5F31\u7684 E2E \u9810\u7B97\u7559\u7D66\u53EA\u6709\u6574\u500B\u7CFB\u7D71\u9A57\u8B49\u624D\u80FD\u6DB5\u84CB\u7684\u65C5\u7A0B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8DE8\u5C64\u7D1A\u5B9A\u4F4D\u5931\u6557",
+            "text": "<p>\u67D0 E2E \u7D50\u5E33\u6E2C\u8A66\u5728\u4ED8\u6B3E\u6B65\u9A5F\u5931\u6557\u3002\u8981\u5224\u5B9A\u6545\u969C\u662F\u5728 UI\u3001\u61C9\u7528\u7A0B\u5F0F\uFF0C\u9084\u662F\u4ED8\u6B3E\u670D\u52D9\uFF0C\u6700\u6709\u6548\u7684\u5B9A\u4F4D\u65B9\u5F0F\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EE5\u8F03\u4F4E\u5C64\u7D1A\u7684\u6574\u5408\uFF0F\u670D\u52D9\u6E2C\u8A66\u8207\u65E5\u8A8C\u91CD\u73FE\u4ED8\u6B3E\u6B65\u9A5F\uFF0C\u4EE5\u9694\u96E2\u51FA\u662F\u54EA\u4E00\u5C64\u51FA\u554F\u984C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91DD\u5C0D\u5404\u5C64\u7D1A\u8F03\u7A84\u7684\u6E2C\u8A66\u8207\u8A3A\u65B7\u8CC7\u8A0A\uFF0C\u80FD\u7CBE\u6E96\u6307\u51FA\u90A3\u500B\u5EE3\u6CDB E2E \u6E2C\u8A66\u53EA\u662F\u767C\u51FA\u8A0A\u865F\u7684\u6545\u969C\u3002"
+              },
+              {
+                "text": "\u5047\u8A2D\u4E00\u5B9A\u662F UI\uFF0C\u56E0\u70BA E2E \u662F\u8D70 UI \u7684",
+                "fraction": 0,
+                "feedback": "\u8D70 UI \u4E0D\u4EE3\u8868\u6545\u969C\u5C31\u5728 UI\uFF1B\u5931\u6557\u53EF\u80FD\u5728\u6240\u6A6B\u8DE8\u7684\u4EFB\u4E00\u5C64\u3002"
+              },
+              {
+                "text": "\u628A E2E \u6E2C\u8A66\u91CD\u8DD1\u5F88\u591A\u6B21\u76F4\u5230\u901A\u904E\uFF0C\u7136\u5F8C\u5C31\u7E7C\u7E8C",
+                "fraction": 0,
+                "feedback": "\u76F2\u76EE\u91CD\u8DD1\u65E2\u7121\u6CD5\u5B9A\u4F4D\u4E5F\u7121\u6CD5\u4FEE\u6B63\u6545\u969C\u3002"
+              },
+              {
+                "text": "\u5F9E\u6E2C\u8A66\u4E2D\u522A\u6389\u4ED8\u6B3E\u6B65\u9A5F",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u8A72\u6B65\u9A5F\u662F\u653E\u68C4\u6DB5\u84CB\uFF0C\u800C\u975E\u627E\u51FA\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC E2E \u5931\u6557\u727D\u9023\u5B83\u6240\u6A6B\u8DE8\u7684\u6BCF\u4E00\u5C64\uFF0C\u6709\u6548\u627E\u51FA\u6839\u56E0\u7684\u65B9\u5F0F\u662F\u964D\u5230\u8F03\u7A84\u7684\u6574\u5408\uFF0F\u670D\u52D9\u6E2C\u8A66\u8207\u5404\u5C64\u7D1A\u65E5\u8A8C\uFF0C\u7CBE\u6E96\u9694\u96E2\u4ED8\u6B3E\u6B65\u9A5F\u7A76\u7ADF\u5728\u54EA\u88E1\u51FA\u932F\u2014\u2014\u9019\u4E5F\u662F\u70BA\u4F55\u5F37\u5065\u7684\u4F4E\u5C64\u7D1A\u5957\u4EF6\u80FD\u88DC\u8DB3 E2E\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "fuzz-testing": {
       "en": {
         "easy": [

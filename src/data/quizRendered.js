@@ -17937,6 +17937,2524 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "e2e-user-journey": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Definition of end-to-end testing",
+          "text": "<p>What does an <em>end-to-end (E2E)</em> test primarily verify?</p>",
+          "answers": [
+            {
+              "text": "A complete user workflow through the whole integrated system, from the real user's perspective",
+              "fraction": 100,
+              "feedback": "Correct — E2E exercises the full stack (UI through application, database, and external services) as a real user would."
+            },
+            {
+              "text": "A single function or method in isolation, with no dependencies",
+              "fraction": 0,
+              "feedback": "That describes a unit test, not an E2E test."
+            },
+            {
+              "text": "Only that two adjacent modules exchange data correctly through an API",
+              "fraction": 0,
+              "feedback": "That is an integration test; E2E covers the whole workflow, not just one interface."
+            },
+            {
+              "text": "The internal code structure and branch coverage of one component",
+              "fraction": 0,
+              "feedback": "That is white-box/unit-level concern; E2E validates the end-to-end behaviour of the whole system."
+            }
+          ],
+          "generalFeedback": "End-to-end testing drives a complete user workflow through the fully integrated system (UI → application → database → external services), validating the journey from the real user's point of view rather than a single component.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a user journey",
+          "text": "<p>In E2E testing, a <em>user journey</em> is best described as:</p>",
+          "answers": [
+            {
+              "text": "The ordered sequence of steps a user takes to achieve a goal",
+              "fraction": 100,
+              "feedback": "Correct — e.g. browse → add to cart → checkout → pay → confirmation."
+            },
+            {
+              "text": "A single button click on one screen",
+              "fraction": 0,
+              "feedback": "A journey is a sequence of steps toward a goal, not one isolated interaction."
+            },
+            {
+              "text": "The list of database tables the application uses",
+              "fraction": 0,
+              "feedback": "That is a data model, not a user journey."
+            },
+            {
+              "text": "The set of unit tests covering one module",
+              "fraction": 0,
+              "feedback": "A user journey is a user-facing workflow, not a test suite for a module."
+            }
+          ],
+          "generalFeedback": "A user journey is the ordered sequence of steps a user takes to reach a goal. E2E tests are typically organised around such journeys, e.g. browse → add to cart → checkout → pay → confirmation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of the happy path",
+          "text": "<p>Within a user journey, the <em>happy path</em> is:</p>",
+          "answers": [
+            {
+              "text": "The default, error-free route where everything goes as expected and the user reaches the goal",
+              "fraction": 100,
+              "feedback": "Correct — the happy path is the normal, successful flow with valid input and no errors."
+            },
+            {
+              "text": "The route the user takes only when an error occurs",
+              "fraction": 0,
+              "feedback": "That is an error path, the opposite of the happy path."
+            },
+            {
+              "text": "The fastest-running test in the suite",
+              "fraction": 0,
+              "feedback": "The happy path is about the successful flow, not test runtime."
+            },
+            {
+              "text": "Any path that skips authentication",
+              "fraction": 0,
+              "feedback": "Skipping authentication is not what \"happy path\" means; it is the normal successful flow."
+            }
+          ],
+          "generalFeedback": "The happy path is the default, error-free scenario in which valid input is supplied and every step succeeds, so the user reaches the intended goal. Alternative and error paths cover the deviations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Layers an E2E test spans",
+          "text": "<p>Which layers does a typical E2E test exercise together?</p>",
+          "answers": [
+            {
+              "text": "The UI, the application logic, the database, and any external services — the whole stack",
+              "fraction": 100,
+              "feedback": "Correct — E2E drives the fully integrated system across all its layers."
+            },
+            {
+              "text": "Only the UI layer, with everything else mocked out",
+              "fraction": 0,
+              "feedback": "Mocking everything but the UI is not end-to-end; E2E uses the real integrated stack."
+            },
+            {
+              "text": "Only the database layer",
+              "fraction": 0,
+              "feedback": "E2E spans the whole stack, not one layer."
+            },
+            {
+              "text": "Only a single service's API in isolation",
+              "fraction": 0,
+              "feedback": "Testing one API in isolation is integration/service level, not end-to-end."
+            }
+          ],
+          "generalFeedback": "An E2E test runs against the fully integrated system: the UI, the application logic behind it, the database, and any external services, all working together as in production.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Top-of-pyramid characteristics",
+          "text": "<p>Sitting at the top of the test pyramid, E2E tests are typically:</p>",
+          "answers": [
+            {
+              "text": "Few in number, slow, expensive, and relatively brittle",
+              "fraction": 100,
+              "feedback": "Correct — you keep only a few E2E tests because they are slow, costly, and flaky."
+            },
+            {
+              "text": "Numerous, fast, cheap, and very stable",
+              "fraction": 0,
+              "feedback": "Those are unit-test properties at the base, not E2E at the top."
+            },
+            {
+              "text": "Numerous but slow",
+              "fraction": 0,
+              "feedback": "E2E tests are kept few, not numerous, precisely because they are slow and expensive."
+            },
+            {
+              "text": "Fast but expensive",
+              "fraction": 0,
+              "feedback": "E2E tests are slow, not fast; their cost and slowness are why they stay few."
+            }
+          ],
+          "generalFeedback": "E2E tests are at the top of the pyramid: few, slow, expensive to write and maintain, and more brittle than lower-level tests — so you keep only a small number of them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why E2E is closest to real usage",
+          "text": "<p>Why is E2E testing considered the <strong>closest to real usage</strong> of any test level?</p>",
+          "answers": [
+            {
+              "text": "It drives the fully integrated system through its real interfaces, exactly as an actual user would",
+              "fraction": 100,
+              "feedback": "Correct — behaving like a real user through the whole stack is what makes it the most realistic."
+            },
+            {
+              "text": "It runs faster than any other test level",
+              "fraction": 0,
+              "feedback": "E2E is the slowest level; speed is not why it is realistic."
+            },
+            {
+              "text": "It inspects private internal variables of each component",
+              "fraction": 0,
+              "feedback": "That is white-box inspection, the opposite of testing as a real user."
+            },
+            {
+              "text": "It replaces the database and services with mocks",
+              "fraction": 0,
+              "feedback": "Mocking reduces realism; E2E uses the real integrated system."
+            }
+          ],
+          "generalFeedback": "E2E exercises the whole integrated system through its real interfaces from the user's perspective, so it most closely reflects how the product actually behaves in use — giving the highest confidence in integrated behaviour.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the happy path (checkout)",
+          "text": "<p>For an online store, which scenario is the <strong>happy path</strong> of the checkout journey?</p>",
+          "answers": [
+            {
+              "text": "User browses, adds an in-stock item to the cart, pays with a valid card, and sees an order confirmation",
+              "fraction": 100,
+              "feedback": "Correct — valid input at every step and the goal reached is the happy path."
+            },
+            {
+              "text": "User's card is declined at payment and an error is shown",
+              "fraction": 0,
+              "feedback": "A declined card is an error path, not the happy path."
+            },
+            {
+              "text": "User tries to check out with an empty cart and is blocked",
+              "fraction": 0,
+              "feedback": "Being blocked on an empty cart is an error/edge path, not the successful flow."
+            },
+            {
+              "text": "The item goes out of stock during checkout and the order fails",
+              "fraction": 0,
+              "feedback": "That is an error/edge path caused by a deviation, not the happy path."
+            }
+          ],
+          "generalFeedback": "The happy path is the normal successful flow: browse → add an in-stock item → pay with a valid card → confirmation. The other options all involve an error or edge condition.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify an error path (login)",
+          "text": "<p>For a login journey, which scenario is an <strong>error path</strong> rather than the happy path?</p>",
+          "answers": [
+            {
+              "text": "The user enters a wrong password and is shown an \"invalid credentials\" message",
+              "fraction": 100,
+              "feedback": "Correct — a failed login due to bad input is an error path."
+            },
+            {
+              "text": "The user enters valid credentials and reaches the dashboard",
+              "fraction": 0,
+              "feedback": "That is the happy path — a successful login."
+            },
+            {
+              "text": "The user logs in successfully and their name appears in the header",
+              "fraction": 0,
+              "feedback": "That is the successful (happy) path."
+            },
+            {
+              "text": "The user logs in and is taken to the page they requested",
+              "fraction": 0,
+              "feedback": "That is a successful outcome, i.e. the happy path."
+            }
+          ],
+          "generalFeedback": "An error path is a route triggered by invalid input or a failure — here, a wrong password producing an \"invalid credentials\" message. The successful login is the happy path.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "E2E validates the whole system, not one component",
+          "text": "<p>An E2E test validates a complete workflow through the whole integrated system, not just a single component in isolation.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — E2E covers the end-to-end journey across the whole stack."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "E2E does span the whole integrated system; testing one component in isolation is unit testing."
+            }
+          ],
+          "generalFeedback": "By definition E2E exercises a complete user workflow across the fully integrated system, distinguishing it from unit tests (one component) and integration tests (a few components at an interface)."
+        },
+        {
+          "type": "multichoice",
+          "name": "Whose perspective E2E takes",
+          "text": "<p>From whose perspective does an E2E test validate the system?</p>",
+          "answers": [
+            {
+              "text": "The real end user's perspective",
+              "fraction": 100,
+              "feedback": "Correct — E2E validates the journey as an actual user experiences it."
+            },
+            {
+              "text": "The perspective of a single internal function's caller",
+              "fraction": 0,
+              "feedback": "That is unit-level; E2E takes the whole-system, user's viewpoint."
+            },
+            {
+              "text": "The database administrator's perspective only",
+              "fraction": 0,
+              "feedback": "E2E is about the end user's workflow, not one role's view of storage."
+            },
+            {
+              "text": "The compiler's perspective",
+              "fraction": 0,
+              "feedback": "That is not a testing perspective at all; E2E is from the user's point of view."
+            }
+          ],
+          "generalFeedback": "E2E tests validate the system from the real end user's perspective, interacting with it the way a user would rather than inspecting internal components.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "E2E tests should be as numerous as unit tests",
+          "text": "<p>Because they are the most realistic, E2E tests should be as numerous as unit tests in a healthy suite.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "E2E tests sit at the top of the pyramid and are kept few; unit tests form the wide base."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — E2E tests are few (top of the pyramid) because they are slow and expensive; unit tests are the many."
+            }
+          ],
+          "generalFeedback": "Realism does not justify large numbers: E2E tests are slow, expensive, and brittle, so you keep only a few at the top of the pyramid while unit tests form the wide base."
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of \"end to end\"",
+          "text": "<p>In \"end-to-end\", what do the two \"ends\" refer to?</p>",
+          "answers": [
+            {
+              "text": "From the user's first action to the final outcome, across the whole system",
+              "fraction": 100,
+              "feedback": "Correct — the test runs the journey from its start to its completed goal through the full stack."
+            },
+            {
+              "text": "From the first line of a function to its last line",
+              "fraction": 0,
+              "feedback": "That is code-level, not the user-workflow meaning of end-to-end."
+            },
+            {
+              "text": "From one developer's machine to another's",
+              "fraction": 0,
+              "feedback": "The \"ends\" are the start and finish of the user's workflow, not machines."
+            },
+            {
+              "text": "From the start of a sprint to its end",
+              "fraction": 0,
+              "feedback": "That is a project timeframe, unrelated to end-to-end testing."
+            }
+          ],
+          "generalFeedback": "\"End to end\" means the test covers the complete journey from the user's initial action to the final result, traversing every layer of the integrated system in between.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Order the steps of a checkout journey",
+          "text": "<p>Which ordering correctly represents a typical e-commerce checkout <em>user journey</em>?</p>",
+          "answers": [
+            {
+              "text": "Browse products → add to cart → checkout → pay → confirmation",
+              "fraction": 100,
+              "feedback": "Correct — this is the natural order of the checkout journey."
+            },
+            {
+              "text": "Pay → add to cart → browse products → confirmation → checkout",
+              "fraction": 0,
+              "feedback": "You cannot pay before choosing items; the order is scrambled."
+            },
+            {
+              "text": "Confirmation → pay → checkout → add to cart → browse products",
+              "fraction": 0,
+              "feedback": "This reverses the journey; confirmation is the final step, not the first."
+            },
+            {
+              "text": "Checkout → browse products → pay → add to cart → confirmation",
+              "fraction": 0,
+              "feedback": "You browse and add to the cart before checking out, not after."
+            }
+          ],
+          "generalFeedback": "A user journey is an ordered sequence of steps toward a goal. For checkout that order is browse → add to cart → checkout → pay → confirmation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Happy path vs alternative path",
+          "text": "<p>A user completes a purchase using a saved address and a valid card. A second user completes the same purchase but first enters a valid promo code. How are these two flows best classified?</p>",
+          "answers": [
+            {
+              "text": "The first is the happy path; the second is a valid alternative path",
+              "fraction": 100,
+              "feedback": "Correct — both succeed, but the promo-code variation is an alternative route to the same goal."
+            },
+            {
+              "text": "Both are error paths because they differ",
+              "fraction": 0,
+              "feedback": "Neither fails; a successful variation is an alternative path, not an error path."
+            },
+            {
+              "text": "The first is an error path; the second is the happy path",
+              "fraction": 0,
+              "feedback": "The plain successful purchase is the happy path; the promo-code flow is the alternative."
+            },
+            {
+              "text": "Neither is part of any user journey",
+              "fraction": 0,
+              "feedback": "Both are user journeys that reach the goal; one is the happy path and one an alternative."
+            }
+          ],
+          "generalFeedback": "The default successful flow is the happy path. A different but still successful way to reach the same goal (e.g. applying a valid promo code) is an alternative path, distinct from an error path where the goal is not reached.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "E2E tests are slow and expensive",
+          "text": "<p>Compared with unit tests, E2E tests are generally slower to run and more expensive to write and maintain.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — running the whole stack makes E2E tests slow and costly, which is why they are kept few."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "E2E tests are indeed slower and more expensive than unit tests; that is a defining trade-off."
+            }
+          ],
+          "generalFeedback": "Because they drive the fully integrated system, E2E tests are slow, expensive to build and maintain, and more brittle than unit tests — the reasons they sit few at the top of the pyramid."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "E2E scope vs unit scope",
+          "text": "<p>How does the <strong>scope</strong> of an E2E test differ from that of a unit test?</p>",
+          "answers": [
+            {
+              "text": "E2E covers a full workflow across the whole integrated system; a unit test isolates one component",
+              "fraction": 100,
+              "feedback": "Correct — E2E is the broadest scope, a unit test the narrowest."
+            },
+            {
+              "text": "E2E covers one function; a unit test covers the whole system",
+              "fraction": 0,
+              "feedback": "That is reversed — a unit test isolates one function and E2E covers the whole system."
+            },
+            {
+              "text": "They have identical scope; only the tools differ",
+              "fraction": 0,
+              "feedback": "Their scope differs fundamentally: whole system versus single component."
+            },
+            {
+              "text": "E2E only checks the database; a unit test only checks the UI",
+              "fraction": 0,
+              "feedback": "Neither statement is right; E2E spans the whole stack and unit tests isolate any single component."
+            }
+          ],
+          "generalFeedback": "Scope is the key difference: a unit test isolates one component, while an E2E test exercises a complete user workflow across the entire integrated system.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "E2E scope vs integration scope",
+          "text": "<p>What distinguishes an E2E test from an integration test?</p>",
+          "answers": [
+            {
+              "text": "Integration checks that a few components work together at an interface; E2E validates a complete user journey through the entire system",
+              "fraction": 100,
+              "feedback": "Correct — E2E is broader, covering the whole journey rather than one interface between components."
+            },
+            {
+              "text": "Integration tests are always slower than E2E tests",
+              "fraction": 0,
+              "feedback": "Generally E2E is the slowest level; integration sits below it."
+            },
+            {
+              "text": "They are the same thing under different names",
+              "fraction": 0,
+              "feedback": "Integration focuses on component interactions; E2E validates the full user workflow."
+            },
+            {
+              "text": "E2E never uses a real database, but integration always does",
+              "fraction": 0,
+              "feedback": "E2E uses the real integrated stack including the database; this claim is wrong."
+            }
+          ],
+          "generalFeedback": "Integration testing verifies that a subset of components collaborate correctly at their interfaces. E2E goes wider, validating a whole user journey through the fully integrated system from the user's perspective.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why E2E is used sparingly",
+          "text": "<p>Why are E2E tests deliberately kept <strong>few</strong> in a healthy suite?</p>",
+          "answers": [
+            {
+              "text": "They are slow, expensive, and brittle/flaky, so a large number would give slow, unreliable feedback",
+              "fraction": 100,
+              "feedback": "Correct — their cost and fragility are why you keep only a few, high-value E2E tests."
+            },
+            {
+              "text": "They cannot detect any real defects",
+              "fraction": 0,
+              "feedback": "They detect integrated defects well; they are kept few because of cost and brittleness, not uselessness."
+            },
+            {
+              "text": "They are the cheapest tests to maintain",
+              "fraction": 0,
+              "feedback": "They are the most expensive to maintain, which is exactly why they are kept few."
+            },
+            {
+              "text": "Tooling does not exist to automate them",
+              "fraction": 0,
+              "feedback": "E2E automation tools are common; the reason to limit them is cost and flakiness."
+            }
+          ],
+          "generalFeedback": "E2E tests are slow, costly to build and maintain, and prone to flakiness. Keeping only a few — covering the most critical journeys — preserves fast, reliable feedback overall.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What to cover with E2E vs push down",
+          "text": "<p>Which behaviours are the best candidates for E2E coverage, with everything else pushed to lower levels?</p>",
+          "answers": [
+            {
+              "text": "A small set of critical business journeys and smoke checks of key flows",
+              "fraction": 100,
+              "feedback": "Correct — reserve E2E for the critical end-to-end flows and push detailed cases down to unit/integration."
+            },
+            {
+              "text": "Every input-validation rule and boundary case",
+              "fraction": 0,
+              "feedback": "Those belong in fast unit tests, not slow E2E tests."
+            },
+            {
+              "text": "All combinations of every optional field",
+              "fraction": 0,
+              "feedback": "Exhaustive combinations belong at lower levels; E2E should stay few and focused on critical journeys."
+            },
+            {
+              "text": "Every private helper function's edge cases",
+              "fraction": 0,
+              "feedback": "Helper edge cases are unit-test territory, not E2E."
+            }
+          ],
+          "generalFeedback": "Use E2E for a few critical business journeys and smoke tests of key flows; push exhaustive validation, boundary, and combination cases down to faster unit and integration tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test-data needs for E2E",
+          "text": "<p>What kind of <strong>test data</strong> does a reliable E2E test typically require?</p>",
+          "answers": [
+            {
+              "text": "Realistic, known data that the test seeds and controls, so the expected outcome is predictable",
+              "fraction": 100,
+              "feedback": "Correct — seeded, realistic data lets the test assert deterministic results."
+            },
+            {
+              "text": "Whatever happens to be in the shared production database at the time",
+              "fraction": 0,
+              "feedback": "Depending on uncontrolled shared data is a classic source of flakiness."
+            },
+            {
+              "text": "No data at all; E2E tests should never touch data",
+              "fraction": 0,
+              "feedback": "E2E journeys usually need realistic data; the point is to control and seed it."
+            },
+            {
+              "text": "Random data regenerated every run with no known expected result",
+              "fraction": 0,
+              "feedback": "Unknown random data makes assertions impossible or flaky; seed known data instead."
+            }
+          ],
+          "generalFeedback": "E2E tests need realistic but controlled data. Seeding known data (and cleaning it up) makes outcomes predictable and avoids the flakiness that comes from relying on uncontrolled shared state.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Environment needs for E2E",
+          "text": "<p>What kind of <strong>environment</strong> should E2E tests run against?</p>",
+          "answers": [
+            {
+              "text": "A production-like environment with the real integrated components wired together",
+              "fraction": 100,
+              "feedback": "Correct — E2E needs a production-like setup to exercise the real integrated system."
+            },
+            {
+              "text": "An environment where every dependency is replaced by a mock",
+              "fraction": 0,
+              "feedback": "Mocking everything defeats the purpose of end-to-end; E2E uses real integrated components."
+            },
+            {
+              "text": "The developer's local machine with no services running",
+              "fraction": 0,
+              "feedback": "Without the integrated services running there is nothing end-to-end to test."
+            },
+            {
+              "text": "Any environment, since the configuration never affects E2E results",
+              "fraction": 0,
+              "feedback": "Environment closeness to production strongly affects E2E validity and stability."
+            }
+          ],
+          "generalFeedback": "E2E tests should run in a production-like environment with the real, integrated components, so the journey being validated matches how the system behaves in production.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test independence and idempotency",
+          "text": "<p>What does it mean for an E2E test to be <em>independent and idempotent</em>?</p>",
+          "answers": [
+            {
+              "text": "It sets up its own state and cleans up afterwards, so it can run alone or in any order with the same result",
+              "fraction": 100,
+              "feedback": "Correct — self-contained setup and teardown make the test order-independent and repeatable."
+            },
+            {
+              "text": "It must always run immediately after a specific other test",
+              "fraction": 0,
+              "feedback": "Depending on another test's order is exactly what independence avoids."
+            },
+            {
+              "text": "It shares data with other tests to save setup time",
+              "fraction": 0,
+              "feedback": "Shared state creates coupling and flakiness, the opposite of independence."
+            },
+            {
+              "text": "It can only ever be run once",
+              "fraction": 0,
+              "feedback": "Idempotency means it can be run repeatedly with the same outcome, not only once."
+            }
+          ],
+          "generalFeedback": "An independent, idempotent E2E test creates and tears down its own state, so it produces the same result whether run alone, repeatedly, or in any order alongside other tests — avoiding order dependence and leftover-data flakiness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify an alternative path (payment)",
+          "text": "<p>In a checkout journey whose happy path pays by credit card, which of these is a valid <strong>alternative path</strong>?</p>",
+          "answers": [
+            {
+              "text": "The user successfully pays with a digital wallet instead of a card and reaches confirmation",
+              "fraction": 100,
+              "feedback": "Correct — a different but successful route to the same goal is an alternative path."
+            },
+            {
+              "text": "The payment gateway times out and the order fails",
+              "fraction": 0,
+              "feedback": "A failure is an error path, not an alternative path."
+            },
+            {
+              "text": "The card is declined and the user cannot complete the order",
+              "fraction": 0,
+              "feedback": "A decline that blocks completion is an error path."
+            },
+            {
+              "text": "The user's session expires mid-checkout and they are logged out",
+              "fraction": 0,
+              "feedback": "A session expiry that derails the goal is an error/edge path, not a successful alternative."
+            }
+          ],
+          "generalFeedback": "An alternative path still reaches the goal but by a different route (e.g. paying with a digital wallet rather than a card). Failures such as declines, timeouts, or session expiry are error paths.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify an error path (registration)",
+          "text": "<p>In a sign-up journey, which scenario is an <strong>error/edge path</strong> that an E2E suite should also cover?</p>",
+          "answers": [
+            {
+              "text": "The user tries to register with an email that is already taken and sees a clear error",
+              "fraction": 100,
+              "feedback": "Correct — a rejected registration with a helpful error is an important error path."
+            },
+            {
+              "text": "The user registers with a new email and lands on the welcome page",
+              "fraction": 0,
+              "feedback": "That is the happy path — a successful registration."
+            },
+            {
+              "text": "The user registers and immediately receives a valid session",
+              "fraction": 0,
+              "feedback": "That is the successful outcome, i.e. the happy path."
+            },
+            {
+              "text": "The user registers and their profile is created correctly",
+              "fraction": 0,
+              "feedback": "That describes the happy path succeeding, not an error path."
+            }
+          ],
+          "generalFeedback": "Covering the happy path is not enough; key error/edge paths matter too. Attempting to register with an already-used email and getting a clear error is a representative error path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Order the steps of a booking journey",
+          "text": "<p>Which ordering correctly represents a flight-booking <em>user journey</em>?</p>",
+          "answers": [
+            {
+              "text": "Search flights → select a flight → enter passenger details → pay → receive e-ticket",
+              "fraction": 100,
+              "feedback": "Correct — this is the natural order of the booking journey."
+            },
+            {
+              "text": "Pay → search flights → receive e-ticket → select a flight → enter passenger details",
+              "fraction": 0,
+              "feedback": "You cannot pay before selecting a flight; the sequence is scrambled."
+            },
+            {
+              "text": "Receive e-ticket → pay → enter passenger details → select a flight → search flights",
+              "fraction": 0,
+              "feedback": "This reverses the journey; the e-ticket is the final step."
+            },
+            {
+              "text": "Select a flight → search flights → pay → receive e-ticket → enter passenger details",
+              "fraction": 0,
+              "feedback": "You must search before you can select, and enter details before paying."
+            }
+          ],
+          "generalFeedback": "The booking journey is an ordered sequence: search → select → enter details → pay → receive the e-ticket. Ordering the steps correctly is part of modelling the journey for E2E.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why E2E gives high integrated confidence",
+          "text": "<p>Why does a passing E2E test give <strong>high confidence in integrated behaviour</strong> specifically?</p>",
+          "answers": [
+            {
+              "text": "It confirms that all the layers actually work together for a real user journey, not just in isolation",
+              "fraction": 100,
+              "feedback": "Correct — it validates the wired-together system end to end, catching integration faults lower levels miss."
+            },
+            {
+              "text": "It proves every code path in every component is exercised",
+              "fraction": 0,
+              "feedback": "E2E does not guarantee full code coverage; that is a unit-level concern."
+            },
+            {
+              "text": "It runs the fastest, so it can be repeated many times",
+              "fraction": 0,
+              "feedback": "E2E is the slowest level; confidence comes from realism, not speed."
+            },
+            {
+              "text": "It replaces the need for any other test level",
+              "fraction": 0,
+              "feedback": "E2E complements, but does not replace, unit and integration tests."
+            }
+          ],
+          "generalFeedback": "A passing E2E test shows the layers genuinely cooperate to deliver a real user journey, giving strong confidence in integrated behaviour — something isolated unit or integration tests cannot fully provide.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Relation to acceptance/system testing",
+          "text": "<p>How does E2E testing relate to <strong>system and acceptance</strong> testing?</p>",
+          "answers": [
+            {
+              "text": "They overlap: all validate the whole integrated system, often via user journeys, though acceptance emphasises meeting business/user requirements",
+              "fraction": 100,
+              "feedback": "Correct — E2E is closely related to system/acceptance testing, sharing the whole-system, user-journey focus."
+            },
+            {
+              "text": "E2E tests one function while acceptance tests the whole system",
+              "fraction": 0,
+              "feedback": "E2E also targets the whole system; testing one function is unit-level."
+            },
+            {
+              "text": "They are completely unrelated levels with no shared goals",
+              "fraction": 0,
+              "feedback": "They are related — all exercise the integrated system, frequently through user journeys."
+            },
+            {
+              "text": "Acceptance testing is always faster than unit testing",
+              "fraction": 0,
+              "feedback": "That is unrelated to the question and generally false."
+            }
+          ],
+          "generalFeedback": "E2E, system, and acceptance testing all exercise the whole integrated system and are often expressed as user journeys. Acceptance testing additionally emphasises confirming that business/user requirements are met.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Shared leftover data can cause flakiness",
+          "text": "<p>Leftover data from a previous run that is not cleaned up can make an E2E test pass or fail inconsistently.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — uncleaned shared state is a well-known source of E2E flakiness and order dependence."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Leftover/shared data is a classic flakiness cause; independent tests seed and clean their own state."
+            }
+          ],
+          "generalFeedback": "If a test relies on or leaves behind shared data, later runs can start from an unexpected state and flake. Making each test seed and clean up its own data keeps runs independent and stable."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why realistic data and environment matter",
+          "text": "<p>Why do E2E tests specifically need realistic data <em>and</em> a production-like environment?</p>",
+          "answers": [
+            {
+              "text": "Because the whole point is to validate the real user journey; unrealistic data or environment can hide or invent defects",
+              "fraction": 100,
+              "feedback": "Correct — fidelity to production is what makes the E2E result meaningful."
+            },
+            {
+              "text": "Because it makes the tests run faster",
+              "fraction": 0,
+              "feedback": "Realism does not speed tests up; it improves the validity of what they check."
+            },
+            {
+              "text": "Because it lets you skip writing unit tests",
+              "fraction": 0,
+              "feedback": "E2E does not replace unit tests regardless of how realistic it is."
+            },
+            {
+              "text": "Because production-like environments never fail",
+              "fraction": 0,
+              "feedback": "They can and do fail; the point is fidelity to real usage, not infallibility."
+            }
+          ],
+          "generalFeedback": "E2E aims to reflect real usage, so data and environment must resemble production. Otherwise the test may pass on unrealistic conditions (missing real defects) or fail on artificial ones (inventing false failures).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Coverage across a journey",
+          "text": "<p>For a critical journey, an E2E suite that tests <strong>only</strong> the happy path is usually inadequate because:</p>",
+          "answers": [
+            {
+              "text": "Key alternative and error/edge paths (e.g. declined payment, invalid input) also need coverage to trust the journey",
+              "fraction": 100,
+              "feedback": "Correct — real confidence in a journey requires the happy path plus its important alternative and error paths."
+            },
+            {
+              "text": "The happy path is the only path that ever matters",
+              "fraction": 0,
+              "feedback": "Alternative and error paths are common in real usage and must be covered for critical journeys."
+            },
+            {
+              "text": "Happy-path tests always run too slowly to be useful",
+              "fraction": 0,
+              "feedback": "Speed is not the issue; the gap is missing alternative/error-path coverage."
+            },
+            {
+              "text": "Error paths can only be tested manually, never with E2E",
+              "fraction": 0,
+              "feedback": "Error paths are routinely automated at the E2E level; that is not the reason."
+            }
+          ],
+          "generalFeedback": "A journey is trustworthy only when its main deviations are covered too: the happy path plus key alternative paths and error/edge paths (declines, invalid input, timeouts). Testing the happy path alone leaves common real-world outcomes unverified.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Fix timing/async flakiness",
+          "text": "<p>An E2E test intermittently fails because it asserts on an element before an asynchronous request has finished. What is the best fix?</p>",
+          "answers": [
+            {
+              "text": "Wait explicitly for the element or condition to be ready, rather than pausing for a fixed sleep",
+              "fraction": 100,
+              "feedback": "Correct — an explicit wait on the actual condition is robust across varying timings; fixed sleeps are fragile and slow."
+            },
+            {
+              "text": "Add a long fixed sleep before every assertion",
+              "fraction": 0,
+              "feedback": "Fixed sleeps still flake when the operation is slower than the sleep, and waste time when it is faster."
+            },
+            {
+              "text": "Delete the assertion so the test cannot fail",
+              "fraction": 0,
+              "feedback": "Removing the check hides the problem instead of testing the behaviour."
+            },
+            {
+              "text": "Re-run the whole suite until it passes and ship that result",
+              "fraction": 0,
+              "feedback": "Masking non-determinism with blind re-runs leaves the flakiness in place."
+            }
+          ],
+          "generalFeedback": "Timing/async flakiness is best addressed with explicit waits that poll for the actual readiness condition, not fixed sleeps. Sleeps are simultaneously too short (still flaky) and too long (slow), so prefer condition-based waits.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix shared-state flakiness",
+          "text": "<p>Several E2E tests flake because they read and write the same shared account records. What is the most robust remedy?</p>",
+          "answers": [
+            {
+              "text": "Give each test its own seeded, isolated data and clean it up, so tests do not share state",
+              "fraction": 100,
+              "feedback": "Correct — isolating and seeding per-test data removes the shared-state coupling that causes the flakiness."
+            },
+            {
+              "text": "Force the tests to always run in a fixed order",
+              "fraction": 0,
+              "feedback": "Ordering hides the coupling but leaves it fragile; independent, isolated data is the real fix."
+            },
+            {
+              "text": "Increase the timeout on each assertion",
+              "fraction": 0,
+              "feedback": "Longer timeouts do not fix contention over shared records."
+            },
+            {
+              "text": "Run the tests less often so collisions are rarer",
+              "fraction": 0,
+              "feedback": "Running less often does not remove the underlying shared-state defect."
+            }
+          ],
+          "generalFeedback": "Shared mutable data creates order dependence and collisions. The robust fix is per-test isolation: each test seeds its own data and cleans up, so no test depends on another's state.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Brittle selectors",
+          "text": "<p>E2E tests keep breaking whenever the CSS layout is refactored, because they locate elements by deep, style-based selectors. What reduces this brittleness?</p>",
+          "answers": [
+            {
+              "text": "Use stable selectors (e.g. dedicated test IDs) and centralise them behind page objects",
+              "fraction": 100,
+              "feedback": "Correct — stable, intention-revealing locators and page objects insulate tests from cosmetic UI changes."
+            },
+            {
+              "text": "Pin every selector to the exact pixel position of the element",
+              "fraction": 0,
+              "feedback": "Pixel positions are even more fragile than style-based selectors."
+            },
+            {
+              "text": "Copy the same brittle selector into more tests for redundancy",
+              "fraction": 0,
+              "feedback": "Duplicating a fragile selector multiplies maintenance instead of reducing it."
+            },
+            {
+              "text": "Disable the tests whenever the UI changes",
+              "fraction": 0,
+              "feedback": "Disabling tests removes coverage rather than fixing selector brittleness."
+            }
+          ],
+          "generalFeedback": "Locating elements by presentation makes tests break on cosmetic changes. Stable selectors such as dedicated test IDs, encapsulated in page objects, keep tests resilient and maintainable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why root cause is hard at E2E",
+          "text": "<p>Why is it typically <strong>harder to pinpoint the root cause</strong> of a failure from an E2E test than from a unit test?</p>",
+          "answers": [
+            {
+              "text": "An E2E failure could originate in any of the many layers the test spans, so it localises the fault poorly",
+              "fraction": 100,
+              "feedback": "Correct — broad scope means a failure implicates the whole stack, unlike a narrowly scoped unit test."
+            },
+            {
+              "text": "E2E tests never produce any logs or error messages",
+              "fraction": 0,
+              "feedback": "They do produce output; the difficulty is the breadth of possible causes, not a lack of logs."
+            },
+            {
+              "text": "Unit tests are actually broader in scope than E2E tests",
+              "fraction": 0,
+              "feedback": "Unit tests are narrower; that narrowness is why they localise faults well."
+            },
+            {
+              "text": "E2E tests do not have assertions",
+              "fraction": 0,
+              "feedback": "E2E tests do assert outcomes; root-cause difficulty comes from their wide scope."
+            }
+          ],
+          "generalFeedback": "Because an E2E test exercises many layers at once, a failure could stem from any of them. A unit test isolates one component, so its failure points almost directly at the fault; the E2E test's breadth is exactly what makes diagnosis harder.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Confidence vs cost/maintenance trade-off",
+          "text": "<p>Which statement best captures the central trade-off of relying on E2E tests?</p>",
+          "answers": [
+            {
+              "text": "They give the highest confidence in real integrated behaviour but at the highest cost in speed, maintenance, and flakiness",
+              "fraction": 100,
+              "feedback": "Correct — you trade realism and confidence against speed, cost, and stability."
+            },
+            {
+              "text": "They give the highest confidence and are also the cheapest and most stable",
+              "fraction": 0,
+              "feedback": "E2E tests are the most expensive and least stable, not the cheapest and most stable."
+            },
+            {
+              "text": "They give the least confidence but are the fastest",
+              "fraction": 0,
+              "feedback": "E2E gives high integrated confidence and is the slowest, not the fastest with least confidence."
+            },
+            {
+              "text": "There is no trade-off; more E2E is always better",
+              "fraction": 0,
+              "feedback": "There is a real trade-off; piling on E2E harms speed and stability."
+            }
+          ],
+          "generalFeedback": "E2E offers the most realistic, integrated confidence but is slow, expensive to maintain, and flaky. The art is balancing that confidence against the cost, which is why E2E is used sparingly for the most critical journeys.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When adding more E2E is NOT worth it",
+          "text": "<p>A boundary-validation rule is currently checked only by a slow E2E test. When is it <strong>not</strong> worth adding more E2E coverage for such rules?</p>",
+          "answers": [
+            {
+              "text": "When the behaviour can be verified just as well by a fast unit or integration test — push it down instead",
+              "fraction": 100,
+              "feedback": "Correct — if a lower level gives adequate confidence, adding E2E only adds cost and flakiness."
+            },
+            {
+              "text": "Whenever the behaviour is part of a critical business journey",
+              "fraction": 0,
+              "feedback": "Critical journeys are exactly where a little E2E is justified."
+            },
+            {
+              "text": "Only when the team has no unit tests at all",
+              "fraction": 0,
+              "feedback": "Having no unit tests is a reason to add them, not a reason about E2E worth; the decision is whether a lower level suffices."
+            },
+            {
+              "text": "Never; more E2E coverage is always worthwhile",
+              "fraction": 0,
+              "feedback": "More E2E is not always worthwhile — duplicating what a unit test can do adds slow, flaky cost."
+            }
+          ],
+          "generalFeedback": "If a fast lower-level test can verify the behaviour with adequate confidence, adding E2E coverage for it only inflates a slow, brittle top layer. Push such checks down and reserve E2E for journeys that truly need whole-system validation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Design a minimal set of journeys",
+          "text": "<p>You can afford only a handful of E2E tests. How should you choose <strong>which journeys</strong> to cover?</p>",
+          "answers": [
+            {
+              "text": "Cover the few most critical business flows end to end, plus their key error paths, and push the rest down",
+              "fraction": 100,
+              "feedback": "Correct — a minimal set targets the highest-value journeys and their important deviations."
+            },
+            {
+              "text": "Cover every possible combination of every feature at E2E level",
+              "fraction": 0,
+              "feedback": "That inflates the slow top layer; exhaustive combinations belong lower down."
+            },
+            {
+              "text": "Pick journeys at random to sample the system evenly",
+              "fraction": 0,
+              "feedback": "Random sampling ignores business criticality; prioritise the most important flows."
+            },
+            {
+              "text": "Only test rarely used administrative screens",
+              "fraction": 0,
+              "feedback": "Scarce E2E budget should go to the critical, high-traffic journeys, not rare admin screens."
+            }
+          ],
+          "generalFeedback": "With a limited E2E budget, spend it on the most critical business journeys (and their key alternative/error paths) as smoke coverage, and push detailed and lower-value cases down to faster tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Third-party sandbox flakiness",
+          "text": "<p>An E2E test that exercises a real third-party payment sandbox flakes when the sandbox is slow or briefly unavailable. What is a sound way to reduce this flakiness while keeping meaningful coverage?</p>",
+          "answers": [
+            {
+              "text": "Keep one true end-to-end check against the sandbox and cover other payment cases at a lower level using a controlled test double",
+              "fraction": 100,
+              "feedback": "Correct — limit dependence on the flaky external service to a minimal smoke check and push the rest down where it is controllable."
+            },
+            {
+              "text": "Add many more tests that all call the live sandbox for redundancy",
+              "fraction": 0,
+              "feedback": "More tests against the same flaky dependency multiply the flakiness."
+            },
+            {
+              "text": "Ignore all failures from any test that touches payment",
+              "fraction": 0,
+              "feedback": "Ignoring failures hides real defects along with flaky ones."
+            },
+            {
+              "text": "Assume the sandbox is always up and never handle its downtime",
+              "fraction": 0,
+              "feedback": "External sandboxes are a known flakiness source; you must account for their unreliability."
+            }
+          ],
+          "generalFeedback": "Third-party sandboxes are a classic external-dependency flakiness source. Keep a single genuine end-to-end smoke check and move the remaining payment scenarios to a lower level with a controlled double, limiting exposure to the unreliable service.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose order-dependence flakiness",
+          "text": "<p>An E2E test passes when run alone but fails when run after another test in the suite. What is the most likely cause and the correct fix?</p>",
+          "answers": [
+            {
+              "text": "Order dependence from shared state; make each test set up and tear down its own data so it is independent",
+              "fraction": 100,
+              "feedback": "Correct — a pass-alone/fail-in-sequence pattern points to leftover shared state, fixed by test isolation."
+            },
+            {
+              "text": "The assertion library is broken; rewrite all assertions",
+              "fraction": 0,
+              "feedback": "A pass-alone/fail-in-order pattern points to shared state, not a broken assertion library."
+            },
+            {
+              "text": "The test is too fast; add a fixed sleep at the start",
+              "fraction": 0,
+              "feedback": "Speed is not the issue here; leftover state from the prior test is."
+            },
+            {
+              "text": "Nothing is wrong; just always run that test first",
+              "fraction": 0,
+              "feedback": "Pinning the order masks the coupling instead of removing it; make the test independent."
+            }
+          ],
+          "generalFeedback": "Passing alone but failing after another test is the signature of order dependence caused by shared/leftover state. The fix is independence and idempotency: each test seeds and cleans its own data.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Use retries and quarantine sparingly",
+          "text": "<p>How should automatic retries and a \"quarantine\" for flaky E2E tests be used?</p>",
+          "answers": [
+            {
+              "text": "Sparingly and temporarily, as a stopgap while you find and fix the real cause of the flakiness",
+              "fraction": 100,
+              "feedback": "Correct — retries/quarantine buy time but must not become a substitute for fixing the root cause."
+            },
+            {
+              "text": "As the permanent primary strategy, retrying every test many times",
+              "fraction": 0,
+              "feedback": "Relying on retries permanently hides genuine defects and normalises flakiness."
+            },
+            {
+              "text": "By quarantining every failing test indefinitely and never revisiting it",
+              "fraction": 0,
+              "feedback": "Indefinite quarantine silently erodes coverage; quarantined tests must be fixed and returned."
+            },
+            {
+              "text": "Never under any circumstances",
+              "fraction": 0,
+              "feedback": "Used sparingly as a temporary measure they are legitimate; the caution is against over-reliance."
+            }
+          ],
+          "generalFeedback": "Retries and quarantine are stopgaps: use them sparingly and temporarily to keep the pipeline moving while you diagnose and fix the underlying flakiness. Relying on them permanently masks real defects.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why explicit waits beat fixed sleeps",
+          "text": "<p>Why is an explicit wait on a condition generally better than a fixed <code>sleep</code> in an E2E test?</p>",
+          "answers": [
+            {
+              "text": "It proceeds as soon as the condition holds and only fails after a real timeout, so it is both faster and more reliable across varying timings",
+              "fraction": 100,
+              "feedback": "Correct — condition-based waits adapt to actual timing, avoiding both premature failure and wasted time."
+            },
+            {
+              "text": "It guarantees the test can never fail",
+              "fraction": 0,
+              "feedback": "It can still fail (on a genuine timeout); it just fails for real reasons, not timing noise."
+            },
+            {
+              "text": "It makes the environment production-like",
+              "fraction": 0,
+              "feedback": "Waits address timing, not environment fidelity."
+            },
+            {
+              "text": "It removes the need for any assertions",
+              "fraction": 0,
+              "feedback": "Waits and assertions are separate; you still assert the expected outcome."
+            }
+          ],
+          "generalFeedback": "A fixed sleep is simultaneously too long (wastes time when the system is fast) and too short (flakes when it is slow). An explicit wait polls for the real condition, continuing immediately when ready and failing only on a genuine timeout.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "More E2E does not replace unit/integration",
+          "text": "<p>Adding more E2E tests can substitute for having unit and integration tests, since E2E covers the whole system anyway.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "E2E gives integrated confidence but is slow, flaky, and poor at localising faults; it cannot replace fast, precise lower-level tests."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — E2E complements rather than replaces unit and integration tests; more E2E is not simply better."
+            }
+          ],
+          "generalFeedback": "E2E validates integrated behaviour but is slow, expensive, brittle, and poor at pinpointing faults. It does not replace the fast, precise coverage of unit and integration tests; a healthy suite keeps E2E few and pushes detail down."
+        },
+        {
+          "type": "multichoice",
+          "name": "Realistic-environment pitfall",
+          "text": "<p>A team runs E2E tests against a shared staging environment that other teams also deploy to and change during the day. Why is this a pitfall, and what helps?</p>",
+          "answers": [
+            {
+              "text": "Concurrent changes make the environment unstable, causing flaky results; use an isolated, controlled, production-like environment with seeded data",
+              "fraction": 100,
+              "feedback": "Correct — uncontrolled shared environments inject non-determinism; isolation and seeded data restore stability."
+            },
+            {
+              "text": "There is no pitfall; a busy shared environment is ideal for E2E",
+              "fraction": 0,
+              "feedback": "Uncontrolled concurrent changes are a real flakiness source, not ideal."
+            },
+            {
+              "text": "The only fix is to stop running E2E tests entirely",
+              "fraction": 0,
+              "feedback": "The fix is a controlled, isolated environment, not abandoning E2E."
+            },
+            {
+              "text": "Shared environments make tests faster, which outweighs any instability",
+              "fraction": 0,
+              "feedback": "Speed does not outweigh non-deterministic results that undermine trust in the suite."
+            }
+          ],
+          "generalFeedback": "A production-like environment must also be controlled. When others mutate a shared staging environment mid-run, results flake. Isolating the environment (or the test's data within it) and seeding known data keeps E2E stable while staying realistic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Push down when confidence is equal",
+          "text": "<p>A behaviour can be validated with equal confidence by either a fast integration test or a slow E2E test. Which should you generally choose, and why?</p>",
+          "answers": [
+            {
+              "text": "The integration test, because it is the lowest level that gives adequate confidence — faster, cheaper, and less flaky",
+              "fraction": 100,
+              "feedback": "Correct — push down to the lowest adequate level and reserve E2E for what only it can cover."
+            },
+            {
+              "text": "The E2E test, because higher-level tests are always superior",
+              "fraction": 0,
+              "feedback": "Higher-level tests are slower and flakier; they are not always superior when a lower level suffices."
+            },
+            {
+              "text": "Both, always, for maximum coverage",
+              "fraction": 0,
+              "feedback": "Duplicating the behaviour at E2E adds slow, brittle cost for no extra confidence."
+            },
+            {
+              "text": "Neither; the behaviour need not be tested",
+              "fraction": 0,
+              "feedback": "The behaviour should be tested — at the lowest adequate level."
+            }
+          ],
+          "generalFeedback": "When two levels give equal confidence, choose the lower one: it is faster, cheaper, and more stable. Save the slow, brittle E2E budget for journeys that only whole-system validation can cover.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Localising a failure across layers",
+          "text": "<p>An E2E checkout test fails at the payment step. What is the most effective way to localise whether the fault is in the UI, the application, or the payment service?</p>",
+          "answers": [
+            {
+              "text": "Reproduce the payment step with lower-level integration/service tests and logs to isolate which layer misbehaves",
+              "fraction": 100,
+              "feedback": "Correct — narrower tests and diagnostics at each layer pinpoint the fault that the broad E2E test only signals."
+            },
+            {
+              "text": "Assume it must be the UI, since E2E goes through the UI",
+              "fraction": 0,
+              "feedback": "Going through the UI does not mean the fault is in the UI; the failure could be in any spanned layer."
+            },
+            {
+              "text": "Rerun the E2E test many times until it passes and move on",
+              "fraction": 0,
+              "feedback": "Blind re-runs neither localise nor fix the fault."
+            },
+            {
+              "text": "Delete the payment step from the test",
+              "fraction": 0,
+              "feedback": "Removing the step abandons coverage instead of finding the cause."
+            }
+          ],
+          "generalFeedback": "Because an E2E failure implicates every layer it spans, the effective way to find the root cause is to drop to narrower integration/service tests and layer-specific logs that isolate exactly where the payment step breaks — one reason a strong lower-level suite complements E2E.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "端對端測試的定義",
+          "text": "<p><em>端對端（E2E）</em>測試主要驗證的是什麼？</p>",
+          "answers": [
+            {
+              "text": "從真實使用者的角度，貫穿整個整合系統的完整使用者工作流程",
+              "fraction": 100,
+              "feedback": "正確——E2E 會像真實使用者一樣，操作整個技術堆疊（UI 經過應用程式、資料庫到外部服務）。"
+            },
+            {
+              "text": "單一函式或方法在隔離狀態下的行為，不含任何相依",
+              "fraction": 0,
+              "feedback": "那是單元測試，不是 E2E 測試。"
+            },
+            {
+              "text": "只驗證兩個相鄰模組是否透過 API 正確交換資料",
+              "fraction": 0,
+              "feedback": "那是整合測試；E2E 涵蓋整個工作流程，而非單一介面。"
+            },
+            {
+              "text": "單一元件的內部程式碼結構與分支涵蓋率",
+              "fraction": 0,
+              "feedback": "那是白箱／單元層級的關注點；E2E 驗證整個系統的端對端行為。"
+            }
+          ],
+          "generalFeedback": "端對端測試會在完整整合的系統上（UI → 應用程式 → 資料庫 → 外部服務）驅動一個完整的使用者工作流程，從真實使用者的觀點驗證整段旅程，而非單一元件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "使用者旅程的定義",
+          "text": "<p>在 E2E 測試中，<em>使用者旅程</em>最適合被描述為：</p>",
+          "answers": [
+            {
+              "text": "使用者為達成某個目標所採取的有序步驟序列",
+              "fraction": 100,
+              "feedback": "正確——例如瀏覽 → 加入購物車 → 結帳 → 付款 → 確認。"
+            },
+            {
+              "text": "某個畫面上單一按鈕的點擊",
+              "fraction": 0,
+              "feedback": "旅程是朝向目標的一連串步驟，而非單一的隔離互動。"
+            },
+            {
+              "text": "應用程式所使用的資料庫資料表清單",
+              "fraction": 0,
+              "feedback": "那是資料模型，不是使用者旅程。"
+            },
+            {
+              "text": "涵蓋某個模組的那組單元測試",
+              "fraction": 0,
+              "feedback": "使用者旅程是面向使用者的工作流程，而非某模組的測試套件。"
+            }
+          ],
+          "generalFeedback": "使用者旅程是使用者為達成目標所走的有序步驟序列。E2E 測試通常就是圍繞這類旅程來組織，例如瀏覽 → 加入購物車 → 結帳 → 付款 → 確認。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "快樂路徑的定義",
+          "text": "<p>在一段使用者旅程中，<em>快樂路徑（happy path）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "一切如預期進行、沒有錯誤，使用者順利達成目標的預設路線",
+              "fraction": 100,
+              "feedback": "正確——快樂路徑是輸入有效、每一步都成功的正常流程。"
+            },
+            {
+              "text": "只有在發生錯誤時使用者才會走的路線",
+              "fraction": 0,
+              "feedback": "那是錯誤路徑，與快樂路徑相反。"
+            },
+            {
+              "text": "套件中執行最快的那個測試",
+              "fraction": 0,
+              "feedback": "快樂路徑指的是成功的流程，與測試執行時間無關。"
+            },
+            {
+              "text": "任何略過身分驗證的路徑",
+              "fraction": 0,
+              "feedback": "略過身分驗證並不是「快樂路徑」的意思；它指的是正常成功的流程。"
+            }
+          ],
+          "generalFeedback": "快樂路徑是輸入有效、每一步都成功、使用者順利達成目標的預設無錯誤情境。替代路徑與錯誤路徑則涵蓋各種偏離。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "E2E 測試橫跨的層級",
+          "text": "<p>一個典型的 E2E 測試會一起運作到哪些層級？</p>",
+          "answers": [
+            {
+              "text": "UI、應用程式邏輯、資料庫，以及任何外部服務——整個技術堆疊",
+              "fraction": 100,
+              "feedback": "正確——E2E 會橫跨所有層級驅動完整整合的系統。"
+            },
+            {
+              "text": "只有 UI 層，其餘全部以 mock 取代",
+              "fraction": 0,
+              "feedback": "把 UI 以外全部 mock 掉就不是端對端；E2E 使用真實整合的堆疊。"
+            },
+            {
+              "text": "只有資料庫層",
+              "fraction": 0,
+              "feedback": "E2E 橫跨整個堆疊，而非單一層。"
+            },
+            {
+              "text": "只有單一服務隔離狀態下的 API",
+              "fraction": 0,
+              "feedback": "隔離測試單一 API 屬於整合／服務層級，而非端對端。"
+            }
+          ],
+          "generalFeedback": "E2E 測試在完整整合的系統上執行：UI、其背後的應用程式邏輯、資料庫，以及任何外部服務，全部像在生產環境中一樣協同運作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "金字塔頂端的特性",
+          "text": "<p>位於測試金字塔頂端，E2E 測試通常是：</p>",
+          "answers": [
+            {
+              "text": "數量少、執行慢、成本高，且相對脆弱",
+              "fraction": 100,
+              "feedback": "正確——因為慢、貴又容易不穩定，所以只保留少量 E2E 測試。"
+            },
+            {
+              "text": "數量多、執行快、成本低且非常穩定",
+              "fraction": 0,
+              "feedback": "那是位於底部的單元測試特性，而非頂端的 E2E。"
+            },
+            {
+              "text": "數量多但執行慢",
+              "fraction": 0,
+              "feedback": "正因為慢又貴，E2E 測試才被保持在少量，而非大量。"
+            },
+            {
+              "text": "執行快但成本高",
+              "fraction": 0,
+              "feedback": "E2E 測試是慢的，不是快的；正因其成本與緩慢才只保留少量。"
+            }
+          ],
+          "generalFeedback": "E2E 測試位於金字塔頂端：數量少、執行慢、撰寫與維護成本高，且比低層測試更脆弱——所以只保留少量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 E2E 最接近真實使用",
+          "text": "<p>為什麼 E2E 測試被認為在所有測試層級中<strong>最接近真實使用</strong>？</p>",
+          "answers": [
+            {
+              "text": "它透過真實介面驅動完整整合的系統，就跟真實使用者的操作一模一樣",
+              "fraction": 100,
+              "feedback": "正確——像真實使用者般貫穿整個堆疊操作，正是它最貼近真實的原因。"
+            },
+            {
+              "text": "它比任何其他測試層級都執行得更快",
+              "fraction": 0,
+              "feedback": "E2E 是最慢的層級；速度並非它貼近真實的原因。"
+            },
+            {
+              "text": "它會檢視每個元件的私有內部變數",
+              "fraction": 0,
+              "feedback": "那是白箱檢視，與像真實使用者般測試恰好相反。"
+            },
+            {
+              "text": "它以 mock 取代資料庫與服務",
+              "fraction": 0,
+              "feedback": "mock 會降低真實度；E2E 使用真實整合的系統。"
+            }
+          ],
+          "generalFeedback": "E2E 從使用者的角度、透過真實介面操作整個整合系統，因此最能反映產品實際使用時的行為——也帶來對整合行為的最高信心。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識快樂路徑（結帳）",
+          "text": "<p>對一家線上商店而言，下列哪個情境是結帳旅程的<strong>快樂路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "使用者瀏覽、把有庫存的商品加入購物車、以有效信用卡付款，並看到訂單確認",
+              "fraction": 100,
+              "feedback": "正確——每一步輸入都有效且達成目標，就是快樂路徑。"
+            },
+            {
+              "text": "使用者的信用卡在付款時被拒絕並顯示錯誤",
+              "fraction": 0,
+              "feedback": "信用卡被拒是錯誤路徑，不是快樂路徑。"
+            },
+            {
+              "text": "使用者以空購物車嘗試結帳而被擋下",
+              "fraction": 0,
+              "feedback": "空購物車被擋是錯誤／邊界路徑，不是成功的流程。"
+            },
+            {
+              "text": "結帳過程中商品缺貨，訂單失敗",
+              "fraction": 0,
+              "feedback": "那是因偏離而造成的錯誤／邊界路徑，不是快樂路徑。"
+            }
+          ],
+          "generalFeedback": "快樂路徑是正常成功的流程：瀏覽 → 加入有庫存的商品 → 以有效卡片付款 → 確認。其他選項都涉及錯誤或邊界狀況。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識錯誤路徑（登入）",
+          "text": "<p>對一段登入旅程而言，下列哪個情境是<strong>錯誤路徑</strong>而非快樂路徑？</p>",
+          "answers": [
+            {
+              "text": "使用者輸入錯誤密碼，並看到「帳號或密碼錯誤」的訊息",
+              "fraction": 100,
+              "feedback": "正確——因輸入錯誤而登入失敗是一條錯誤路徑。"
+            },
+            {
+              "text": "使用者輸入有效憑證並抵達儀表板",
+              "fraction": 0,
+              "feedback": "那是快樂路徑——一次成功的登入。"
+            },
+            {
+              "text": "使用者成功登入，姓名出現在頁首",
+              "fraction": 0,
+              "feedback": "那是成功（快樂）路徑。"
+            },
+            {
+              "text": "使用者登入後被帶往其所要求的頁面",
+              "fraction": 0,
+              "feedback": "那是成功的結果，即快樂路徑。"
+            }
+          ],
+          "generalFeedback": "錯誤路徑是由無效輸入或失敗所觸發的路線——此處是錯誤密碼產生「帳號或密碼錯誤」的訊息。成功登入則是快樂路徑。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "E2E 驗證整個系統而非單一元件",
+          "text": "<p>E2E 測試驗證的是貫穿整個整合系統的完整工作流程，而不只是隔離狀態下的單一元件。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——E2E 涵蓋橫跨整個堆疊的端對端旅程。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "E2E 確實橫跨整個整合系統；隔離測試單一元件是單元測試。"
+            }
+          ],
+          "generalFeedback": "依定義，E2E 會在完整整合的系統上操作一段完整的使用者工作流程，這使它有別於單元測試（單一元件）與整合測試（介面處的少數元件）。"
+        },
+        {
+          "type": "multichoice",
+          "name": "E2E 採取誰的觀點",
+          "text": "<p>E2E 測試是從誰的角度來驗證系統？</p>",
+          "answers": [
+            {
+              "text": "真實終端使用者的角度",
+              "fraction": 100,
+              "feedback": "正確——E2E 以真實使用者實際體驗旅程的方式來驗證。"
+            },
+            {
+              "text": "單一內部函式呼叫端的角度",
+              "fraction": 0,
+              "feedback": "那是單元層級；E2E 採取整個系統、使用者的觀點。"
+            },
+            {
+              "text": "只有資料庫管理員的角度",
+              "fraction": 0,
+              "feedback": "E2E 關注的是終端使用者的工作流程，而非單一角色對儲存的看法。"
+            },
+            {
+              "text": "編譯器的角度",
+              "fraction": 0,
+              "feedback": "那根本不是一種測試觀點；E2E 從使用者的角度出發。"
+            }
+          ],
+          "generalFeedback": "E2E 測試從真實終端使用者的角度驗證系統，以使用者的方式與系統互動，而非檢視內部元件。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "E2E 測試應與單元測試一樣多",
+          "text": "<p>因為 E2E 測試最貼近真實，所以在健康的測試套件中它們的數量應該和單元測試一樣多。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "E2E 測試位於金字塔頂端且保持少量；單元測試才是構成寬廣底座的多數。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——因為慢又貴，E2E 測試數量少（金字塔頂端）；單元測試才是多數。"
+            }
+          ],
+          "generalFeedback": "貼近真實並不能為大量測試背書：E2E 測試慢、貴又脆弱，因此只保留少量置於金字塔頂端，而單元測試構成寬廣的底座。"
+        },
+        {
+          "type": "multichoice",
+          "name": "「端對端」的含義",
+          "text": "<p>在「端對端」一詞中，兩個「端」指的是什麼？</p>",
+          "answers": [
+            {
+              "text": "從使用者的第一個動作到最終結果，橫跨整個系統",
+              "fraction": 100,
+              "feedback": "正確——測試會貫穿整個堆疊，從旅程起點跑到達成目標為止。"
+            },
+            {
+              "text": "從一個函式的第一行到最後一行",
+              "fraction": 0,
+              "feedback": "那是程式碼層級，並非端對端在使用者工作流程上的含義。"
+            },
+            {
+              "text": "從一位開發者的機器到另一位的機器",
+              "fraction": 0,
+              "feedback": "這兩「端」指的是使用者工作流程的起點與終點，而非機器。"
+            },
+            {
+              "text": "從一個衝刺（sprint）的開始到結束",
+              "fraction": 0,
+              "feedback": "那是專案時程，與端對端測試無關。"
+            }
+          ],
+          "generalFeedback": "「端對端」是指測試涵蓋整段旅程，從使用者最初的動作到最終結果，並在中間貫穿整合系統的每一層。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為結帳旅程的步驟排序",
+          "text": "<p>下列哪個排序正確代表典型電商結帳<em>使用者旅程</em>？</p>",
+          "answers": [
+            {
+              "text": "瀏覽商品 → 加入購物車 → 結帳 → 付款 → 確認",
+              "fraction": 100,
+              "feedback": "正確——這是結帳旅程的自然順序。"
+            },
+            {
+              "text": "付款 → 加入購物車 → 瀏覽商品 → 確認 → 結帳",
+              "fraction": 0,
+              "feedback": "還沒選商品就無法付款；此順序被打亂了。"
+            },
+            {
+              "text": "確認 → 付款 → 結帳 → 加入購物車 → 瀏覽商品",
+              "fraction": 0,
+              "feedback": "這把旅程反過來了；確認是最後一步，不是第一步。"
+            },
+            {
+              "text": "結帳 → 瀏覽商品 → 付款 → 加入購物車 → 確認",
+              "fraction": 0,
+              "feedback": "應先瀏覽並加入購物車再結帳，而非反過來。"
+            }
+          ],
+          "generalFeedback": "使用者旅程是朝向目標的有序步驟序列。對結帳而言，順序是瀏覽 → 加入購物車 → 結帳 → 付款 → 確認。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "快樂路徑與替代路徑",
+          "text": "<p>一位使用者以已儲存的地址與有效信用卡完成購買。第二位使用者完成相同購買，但先輸入了一個有效的優惠碼。這兩個流程最適合如何歸類？</p>",
+          "answers": [
+            {
+              "text": "第一個是快樂路徑；第二個是有效的替代路徑",
+              "fraction": 100,
+              "feedback": "正確——兩者都成功，但使用優惠碼的變化是達成同一目標的替代路線。"
+            },
+            {
+              "text": "兩者都是錯誤路徑，因為它們不一樣",
+              "fraction": 0,
+              "feedback": "兩者都沒有失敗；一個成功的變化是替代路徑，而非錯誤路徑。"
+            },
+            {
+              "text": "第一個是錯誤路徑；第二個是快樂路徑",
+              "fraction": 0,
+              "feedback": "單純成功的購買是快樂路徑；使用優惠碼的流程才是替代路徑。"
+            },
+            {
+              "text": "兩者都不屬於任何使用者旅程",
+              "fraction": 0,
+              "feedback": "兩者都是達成目標的使用者旅程；一個是快樂路徑，一個是替代路徑。"
+            }
+          ],
+          "generalFeedback": "預設的成功流程是快樂路徑。以不同但仍成功的方式達成同一目標（例如套用有效優惠碼）是替代路徑，有別於未達成目標的錯誤路徑。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "E2E 測試又慢又貴",
+          "text": "<p>與單元測試相比，E2E 測試通常執行較慢，撰寫與維護成本也較高。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——執行整個堆疊使 E2E 測試又慢又貴，這正是它們保持少量的原因。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "E2E 測試確實比單元測試更慢、更貴；這是一個關鍵取捨。"
+            }
+          ],
+          "generalFeedback": "因為要驅動完整整合的系統，E2E 測試慢、建置與維護成本高，且比單元測試更脆弱——這些都是它們少量地位於金字塔頂端的原因。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "E2E 範圍相對於單元測試範圍",
+          "text": "<p>E2E 測試的<strong>範圍</strong>與單元測試有何不同？</p>",
+          "answers": [
+            {
+              "text": "E2E 涵蓋橫跨整個整合系統的完整工作流程；單元測試則隔離單一元件",
+              "fraction": 100,
+              "feedback": "正確——E2E 範圍最廣，單元測試範圍最窄。"
+            },
+            {
+              "text": "E2E 涵蓋單一函式；單元測試涵蓋整個系統",
+              "fraction": 0,
+              "feedback": "正好相反——單元測試隔離單一函式，E2E 才涵蓋整個系統。"
+            },
+            {
+              "text": "兩者範圍相同，只是工具不同",
+              "fraction": 0,
+              "feedback": "兩者範圍有本質差異：整個系統相對於單一元件。"
+            },
+            {
+              "text": "E2E 只檢查資料庫；單元測試只檢查 UI",
+              "fraction": 0,
+              "feedback": "兩種說法都不對；E2E 橫跨整個堆疊，單元測試可隔離任一單一元件。"
+            }
+          ],
+          "generalFeedback": "範圍是關鍵差異：單元測試隔離單一元件，而 E2E 測試在整個整合系統上操作一段完整的使用者工作流程。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "E2E 範圍相對於整合測試範圍",
+          "text": "<p>E2E 測試與整合測試的區別是什麼？</p>",
+          "answers": [
+            {
+              "text": "整合測試檢查少數元件是否在介面處協同運作；E2E 則驗證貫穿整個系統的完整使用者旅程",
+              "fraction": 100,
+              "feedback": "正確——E2E 範圍更廣，涵蓋整段旅程，而非元件之間的單一介面。"
+            },
+            {
+              "text": "整合測試永遠比 E2E 測試慢",
+              "fraction": 0,
+              "feedback": "一般而言 E2E 是最慢的層級；整合位於其下。"
+            },
+            {
+              "text": "兩者是同一件事的不同名稱",
+              "fraction": 0,
+              "feedback": "整合著重元件之間的互動；E2E 驗證完整的使用者工作流程。"
+            },
+            {
+              "text": "E2E 從不使用真實資料庫，但整合一定會",
+              "fraction": 0,
+              "feedback": "E2E 使用包含資料庫在內的真實整合堆疊；此說法錯誤。"
+            }
+          ],
+          "generalFeedback": "整合測試驗證一部分元件在其介面處是否正確協作。E2E 範圍更廣，從使用者的角度驗證貫穿完整整合系統的一整段使用者旅程。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 E2E 應節制使用",
+          "text": "<p>在健康的測試套件中，為何要刻意將 E2E 測試保持在<strong>少量</strong>？</p>",
+          "answers": [
+            {
+              "text": "它們慢、貴又脆弱／不穩定，大量存在會導致緩慢且不可靠的回饋",
+              "fraction": 100,
+              "feedback": "正確——其成本與脆弱性正是只保留少量高價值 E2E 測試的原因。"
+            },
+            {
+              "text": "它們無法偵測任何真正的缺陷",
+              "fraction": 0,
+              "feedback": "它們能有效偵測整合缺陷；保持少量是因為成本與脆弱，而非無用。"
+            },
+            {
+              "text": "它們是維護成本最低的測試",
+              "fraction": 0,
+              "feedback": "它們是維護成本最高的，這正是要保持少量的原因。"
+            },
+            {
+              "text": "沒有工具能將它們自動化",
+              "fraction": 0,
+              "feedback": "E2E 自動化工具很常見；限制它們的原因是成本與不穩定。"
+            }
+          ],
+          "generalFeedback": "E2E 測試慢、建置與維護成本高，且容易不穩定。只保留少量——涵蓋最關鍵的旅程——才能整體維持快速可靠的回饋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪些該用 E2E、哪些該下推",
+          "text": "<p>哪些行為最適合用 E2E 涵蓋，而其餘則下推到較低層級？</p>",
+          "answers": [
+            {
+              "text": "少數關鍵業務旅程，以及對重要流程的冒煙（smoke）檢查",
+              "fraction": 100,
+              "feedback": "正確——把 E2E 留給關鍵的端對端流程，將細節案例下推到單元／整合測試。"
+            },
+            {
+              "text": "每一條輸入驗證規則與邊界案例",
+              "fraction": 0,
+              "feedback": "那些屬於快速的單元測試，而非慢速的 E2E 測試。"
+            },
+            {
+              "text": "每個選填欄位的所有組合",
+              "fraction": 0,
+              "feedback": "窮舉組合屬於較低層級；E2E 應保持少量並聚焦於關鍵旅程。"
+            },
+            {
+              "text": "每個私有輔助函式的邊界案例",
+              "fraction": 0,
+              "feedback": "輔助函式的邊界案例是單元測試的範疇，而非 E2E。"
+            }
+          ],
+          "generalFeedback": "用 E2E 涵蓋少數關鍵業務旅程與重要流程的冒煙測試；把窮舉的驗證、邊界與組合案例下推到較快的單元與整合測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "E2E 的測試資料需求",
+          "text": "<p>一個可靠的 E2E 測試通常需要哪種<strong>測試資料</strong>？</p>",
+          "answers": [
+            {
+              "text": "由測試自行植入並掌控的、真實且已知的資料，使預期結果可預測",
+              "fraction": 100,
+              "feedback": "正確——植入已知且真實的資料，讓測試能斷言確定性的結果。"
+            },
+            {
+              "text": "當下共用生產資料庫裡剛好存在的任何資料",
+              "fraction": 0,
+              "feedback": "依賴不受控的共用資料是造成不穩定的典型原因。"
+            },
+            {
+              "text": "完全不需要資料；E2E 測試絕不應碰資料",
+              "fraction": 0,
+              "feedback": "E2E 旅程通常需要真實資料；重點在於掌控並植入它。"
+            },
+            {
+              "text": "每次執行都重新產生、且沒有已知預期結果的隨機資料",
+              "fraction": 0,
+              "feedback": "未知的隨機資料會使斷言無法進行或變得不穩定；應改用植入的已知資料。"
+            }
+          ],
+          "generalFeedback": "E2E 測試需要真實但受掌控的資料。植入已知資料（並事後清理）能使結果可預測，避免依賴不受控共用狀態所帶來的不穩定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "E2E 的環境需求",
+          "text": "<p>E2E 測試應在哪種<strong>環境</strong>下執行？</p>",
+          "answers": [
+            {
+              "text": "把真實整合元件串接在一起的類生產（production-like）環境",
+              "fraction": 100,
+              "feedback": "正確——E2E 需要類生產的設定才能操作真實整合的系統。"
+            },
+            {
+              "text": "每個相依都以 mock 取代的環境",
+              "fraction": 0,
+              "feedback": "把所有東西都 mock 掉就違背了端對端的目的；E2E 使用真實整合元件。"
+            },
+            {
+              "text": "沒有任何服務在執行的開發者本機",
+              "fraction": 0,
+              "feedback": "若整合服務沒有在執行，就沒有可測的端對端流程。"
+            },
+            {
+              "text": "任何環境皆可，因為設定從不影響 E2E 結果",
+              "fraction": 0,
+              "feedback": "環境與生產的接近程度會強烈影響 E2E 的有效性與穩定性。"
+            }
+          ],
+          "generalFeedback": "E2E 測試應在具備真實整合元件的類生產環境中執行，如此被驗證的旅程才能對應到系統在生產環境中的行為。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試的獨立性與冪等性",
+          "text": "<p>一個 E2E 測試具備<em>獨立且冪等（idempotent）</em>是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "它自行建立所需狀態並於事後清理，因此可單獨執行或以任意順序執行都得到相同結果",
+              "fraction": 100,
+              "feedback": "正確——自足的建立與清理使測試不依賴順序且可重複。"
+            },
+            {
+              "text": "它必須永遠緊接在某個特定測試之後執行",
+              "fraction": 0,
+              "feedback": "依賴另一測試的順序正是獨立性要避免的。"
+            },
+            {
+              "text": "它與其他測試共用資料以節省設定時間",
+              "fraction": 0,
+              "feedback": "共用狀態會造成耦合與不穩定，與獨立性相反。"
+            },
+            {
+              "text": "它只能被執行一次",
+              "fraction": 0,
+              "feedback": "冪等意指可重複執行且得到相同結果，而非只能執行一次。"
+            }
+          ],
+          "generalFeedback": "一個獨立且冪等的 E2E 測試會自行建立並清除其狀態，因此無論單獨、重複，或與其他測試以任意順序一起執行，都產生相同結果——避免順序相依與殘留資料造成的不穩定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識替代路徑（付款）",
+          "text": "<p>在一段快樂路徑以信用卡付款的結帳旅程中，下列哪一個是有效的<strong>替代路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "使用者改用電子錢包成功付款並抵達確認頁",
+              "fraction": 100,
+              "feedback": "正確——以不同但仍成功的方式達成同一目標是替代路徑。"
+            },
+            {
+              "text": "付款閘道逾時，訂單失敗",
+              "fraction": 0,
+              "feedback": "失敗是錯誤路徑，而非替代路徑。"
+            },
+            {
+              "text": "信用卡被拒，使用者無法完成訂單",
+              "fraction": 0,
+              "feedback": "被拒而導致無法完成是錯誤路徑。"
+            },
+            {
+              "text": "使用者的工作階段在結帳中途過期而被登出",
+              "fraction": 0,
+              "feedback": "工作階段過期而中斷目標是錯誤／邊界路徑，並非成功的替代路徑。"
+            }
+          ],
+          "generalFeedback": "替代路徑仍會達成目標，只是走不同路線（例如以電子錢包而非信用卡付款）。被拒、逾時或工作階段過期這類失敗則是錯誤路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識錯誤路徑（註冊）",
+          "text": "<p>在一段註冊旅程中，下列哪個情境是 E2E 套件也應涵蓋的<strong>錯誤／邊界路徑</strong>？</p>",
+          "answers": [
+            {
+              "text": "使用者嘗試以已被使用的電子郵件註冊，並看到清楚的錯誤訊息",
+              "fraction": 100,
+              "feedback": "正確——被拒的註冊搭配有用的錯誤訊息是重要的錯誤路徑。"
+            },
+            {
+              "text": "使用者以新的電子郵件註冊並抵達歡迎頁",
+              "fraction": 0,
+              "feedback": "那是快樂路徑——一次成功的註冊。"
+            },
+            {
+              "text": "使用者註冊後立即取得有效的工作階段",
+              "fraction": 0,
+              "feedback": "那是成功的結果，即快樂路徑。"
+            },
+            {
+              "text": "使用者註冊後其個人檔案被正確建立",
+              "fraction": 0,
+              "feedback": "那描述的是快樂路徑成功的情形，而非錯誤路徑。"
+            }
+          ],
+          "generalFeedback": "只涵蓋快樂路徑並不足夠；重要的錯誤／邊界路徑同樣重要。嘗試以已被使用的電子郵件註冊並得到清楚錯誤，是一條具代表性的錯誤路徑。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為訂票旅程的步驟排序",
+          "text": "<p>下列哪個排序正確代表一段訂機票<em>使用者旅程</em>？</p>",
+          "answers": [
+            {
+              "text": "搜尋航班 → 選擇航班 → 輸入乘客資料 → 付款 → 取得電子機票",
+              "fraction": 100,
+              "feedback": "正確——這是訂票旅程的自然順序。"
+            },
+            {
+              "text": "付款 → 搜尋航班 → 取得電子機票 → 選擇航班 → 輸入乘客資料",
+              "fraction": 0,
+              "feedback": "還沒選航班就無法付款；此順序被打亂了。"
+            },
+            {
+              "text": "取得電子機票 → 付款 → 輸入乘客資料 → 選擇航班 → 搜尋航班",
+              "fraction": 0,
+              "feedback": "這把旅程反過來了；電子機票是最後一步。"
+            },
+            {
+              "text": "選擇航班 → 搜尋航班 → 付款 → 取得電子機票 → 輸入乘客資料",
+              "fraction": 0,
+              "feedback": "須先搜尋才能選擇，且須先輸入資料再付款。"
+            }
+          ],
+          "generalFeedback": "訂票旅程是有序序列：搜尋 → 選擇 → 輸入資料 → 付款 → 取得電子機票。正確排序步驟是為 E2E 建模旅程的一部分。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 E2E 帶來高整合信心",
+          "text": "<p>為什麼一個通過的 E2E 測試能特別帶來對<strong>整合行為的高度信心</strong>？</p>",
+          "answers": [
+            {
+              "text": "它確認所有層級確實為一段真實使用者旅程協同運作，而非各自隔離",
+              "fraction": 100,
+              "feedback": "正確——它驗證串接在一起的系統端對端運作，能捕捉低層級遺漏的整合缺陷。"
+            },
+            {
+              "text": "它證明每個元件的每條程式碼路徑都被執行到",
+              "fraction": 0,
+              "feedback": "E2E 不保證完整的程式碼涵蓋率；那是單元層級的關注點。"
+            },
+            {
+              "text": "它執行最快，所以能重複執行很多次",
+              "fraction": 0,
+              "feedback": "E2E 是最慢的層級；信心來自真實度，而非速度。"
+            },
+            {
+              "text": "它取代了對任何其他測試層級的需求",
+              "fraction": 0,
+              "feedback": "E2E 補足而非取代單元與整合測試。"
+            }
+          ],
+          "generalFeedback": "一個通過的 E2E 測試顯示各層級確實協作以完成一段真實使用者旅程，對整合行為帶來強烈信心——這是隔離的單元或整合測試無法完全提供的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "與驗收／系統測試的關係",
+          "text": "<p>E2E 測試與<strong>系統測試及驗收測試</strong>有何關係？</p>",
+          "answers": [
+            {
+              "text": "它們有所重疊：都在驗證整個整合系統，且常以使用者旅程進行，惟驗收測試更強調滿足業務／使用者需求",
+              "fraction": 100,
+              "feedback": "正確——E2E 與系統／驗收測試密切相關，共享著眼整個系統與使用者旅程的焦點。"
+            },
+            {
+              "text": "E2E 測試單一函式，而驗收測試整個系統",
+              "fraction": 0,
+              "feedback": "E2E 同樣針對整個系統；測試單一函式是單元層級。"
+            },
+            {
+              "text": "它們是完全無關、沒有共同目標的層級",
+              "fraction": 0,
+              "feedback": "它們是相關的——都操作整合系統，且常透過使用者旅程進行。"
+            },
+            {
+              "text": "驗收測試永遠比單元測試快",
+              "fraction": 0,
+              "feedback": "此說法與題目無關，且一般並不成立。"
+            }
+          ],
+          "generalFeedback": "E2E、系統與驗收測試都操作整個整合系統，且常以使用者旅程表達。驗收測試另外強調確認業務／使用者需求已被滿足。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "共用的殘留資料會造成不穩定",
+          "text": "<p>前一次執行遺留、未被清理的資料，可能使 E2E 測試時而通過、時而失敗。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——未清理的共用狀態是 E2E 不穩定與順序相依的常見來源。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "遺留／共用資料是典型的不穩定原因；獨立的測試會自行植入並清理其狀態。"
+            }
+          ],
+          "generalFeedback": "若測試依賴或遺留共用資料，後續執行可能從非預期的狀態開始而變得不穩定。讓每個測試自行植入並清理其資料，能保持各次執行獨立且穩定。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何真實資料與環境重要",
+          "text": "<p>為什麼 E2E 測試特別需要真實資料<em>與</em>類生產環境？</p>",
+          "answers": [
+            {
+              "text": "因為其目的正是驗證真實的使用者旅程；不真實的資料或環境可能掩蓋或憑空產生缺陷",
+              "fraction": 100,
+              "feedback": "正確——與生產環境的一致性正是讓 E2E 結果有意義的原因。"
+            },
+            {
+              "text": "因為這樣能使測試執行得更快",
+              "fraction": 0,
+              "feedback": "真實度不會加快測試；它提升的是所檢查內容的有效性。"
+            },
+            {
+              "text": "因為這樣就可以省去撰寫單元測試",
+              "fraction": 0,
+              "feedback": "無論多真實，E2E 都不能取代單元測試。"
+            },
+            {
+              "text": "因為類生產環境從不會出錯",
+              "fraction": 0,
+              "feedback": "它們可能而且確實會出錯；重點在於貼近真實使用，而非萬無一失。"
+            }
+          ],
+          "generalFeedback": "E2E 旨在反映真實使用，因此資料與環境必須貼近生產。否則測試可能在不真實的條件下通過（漏掉真正的缺陷），或在人為的條件下失敗（憑空產生假失敗）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一段旅程的涵蓋範圍",
+          "text": "<p>對一段關鍵旅程而言，一個<strong>只</strong>測試快樂路徑的 E2E 套件通常並不足夠，因為：</p>",
+          "answers": [
+            {
+              "text": "重要的替代路徑與錯誤／邊界路徑（例如付款被拒、無效輸入）也需要涵蓋，才能信任該旅程",
+              "fraction": 100,
+              "feedback": "正確——真正信任一段旅程，需要快樂路徑加上其重要的替代與錯誤路徑。"
+            },
+            {
+              "text": "快樂路徑是唯一重要的路徑",
+              "fraction": 0,
+              "feedback": "替代與錯誤路徑在真實使用中很常見，對關鍵旅程必須涵蓋。"
+            },
+            {
+              "text": "快樂路徑的測試總是慢到沒有用處",
+              "fraction": 0,
+              "feedback": "問題不在速度；缺口在於缺少替代／錯誤路徑的涵蓋。"
+            },
+            {
+              "text": "錯誤路徑只能以人工測試，永遠無法用 E2E",
+              "fraction": 0,
+              "feedback": "錯誤路徑在 E2E 層級被例行地自動化；這並非原因。"
+            }
+          ],
+          "generalFeedback": "唯有連同主要偏離也一併涵蓋，一段旅程才值得信任：快樂路徑加上重要的替代路徑與錯誤／邊界路徑（被拒、無效輸入、逾時）。只測快樂路徑會使許多常見的真實結果未被驗證。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "修正時序／非同步造成的不穩定",
+          "text": "<p>某 E2E 測試會間歇性失敗，因為它在一個非同步請求完成之前就對某元素進行斷言。最佳修正方式是什麼？</p>",
+          "answers": [
+            {
+              "text": "明確等待該元素或條件就緒，而非以固定的 sleep 暫停",
+              "fraction": 100,
+              "feedback": "正確——針對實際條件的明確等待在時序變動下穩健；固定 sleep 既脆弱又慢。"
+            },
+            {
+              "text": "在每次斷言前加上一段很長的固定 sleep",
+              "fraction": 0,
+              "feedback": "當操作比 sleep 還慢時仍會不穩定，比它快時又浪費時間。"
+            },
+            {
+              "text": "刪掉該斷言，讓測試不會失敗",
+              "fraction": 0,
+              "feedback": "移除檢查是掩蓋問題，而非驗證行為。"
+            },
+            {
+              "text": "重跑整個套件直到通過，並採用那次結果",
+              "fraction": 0,
+              "feedback": "以盲目重跑掩蓋非確定性，會使不穩定原封不動地留著。"
+            }
+          ],
+          "generalFeedback": "時序／非同步造成的不穩定最好以明確等待來處理——輪詢實際的就緒條件，而非固定 sleep。sleep 同時過短（仍不穩定）又過長（拖慢），因此應優先使用以條件為基礎的等待。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "修正共用狀態造成的不穩定",
+          "text": "<p>數個 E2E 測試因為讀寫同一批共用帳戶資料而變得不穩定。最穩健的補救是什麼？</p>",
+          "answers": [
+            {
+              "text": "讓每個測試擁有自己植入且隔離的資料並事後清理，使測試之間不共用狀態",
+              "fraction": 100,
+              "feedback": "正確——為每個測試植入並隔離資料，消除造成不穩定的共用狀態耦合。"
+            },
+            {
+              "text": "強制這些測試永遠以固定順序執行",
+              "fraction": 0,
+              "feedback": "固定順序只是掩蓋耦合、仍舊脆弱；真正的解法是獨立且隔離的資料。"
+            },
+            {
+              "text": "拉長每次斷言的逾時時間",
+              "fraction": 0,
+              "feedback": "更長的逾時無法解決對共用資料的爭用。"
+            },
+            {
+              "text": "降低測試執行的頻率，使衝突更少發生",
+              "fraction": 0,
+              "feedback": "降低頻率並不會移除底層的共用狀態缺陷。"
+            }
+          ],
+          "generalFeedback": "共用的可變資料會造成順序相依與衝突。穩健的解法是逐測試隔離：每個測試植入自己的資料並清理，使任何測試都不依賴另一測試的狀態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "脆弱的選擇器",
+          "text": "<p>每當 CSS 版面重構，E2E 測試就一直壞掉，因為它們以深層、基於樣式的選擇器來定位元素。什麼能降低這種脆弱性？</p>",
+          "answers": [
+            {
+              "text": "使用穩定的選擇器（例如專用的 test ID），並將它們集中封裝在頁面物件（page object）之後",
+              "fraction": 100,
+              "feedback": "正確——穩定、能表達意圖的定位方式加上頁面物件，讓測試不受外觀變動影響。"
+            },
+            {
+              "text": "把每個選擇器綁定到元素的確切像素位置",
+              "fraction": 0,
+              "feedback": "像素位置比基於樣式的選擇器更脆弱。"
+            },
+            {
+              "text": "把同一個脆弱的選擇器複製到更多測試以求備援",
+              "fraction": 0,
+              "feedback": "複製脆弱選擇器只會加倍維護負擔，而非降低它。"
+            },
+            {
+              "text": "每當 UI 變動就停用這些測試",
+              "fraction": 0,
+              "feedback": "停用測試是移除涵蓋，而非修正選擇器的脆弱性。"
+            }
+          ],
+          "generalFeedback": "以外觀來定位元素會讓測試因外觀變動而壞掉。使用專用 test ID 這類穩定選擇器，並封裝在頁面物件中，能保持測試穩健且易維護。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 E2E 難以定位根因",
+          "text": "<p>為什麼從 E2E 測試通常比從單元測試<strong>更難定位失敗的根本原因</strong>？</p>",
+          "answers": [
+            {
+              "text": "E2E 失敗可能源自它橫跨的眾多層級中的任何一層，因此對故障的定位很差",
+              "fraction": 100,
+              "feedback": "正確——範圍寬廣意味失敗牽連整個堆疊，不像範圍狹窄的單元測試。"
+            },
+            {
+              "text": "E2E 測試從不產生任何日誌或錯誤訊息",
+              "fraction": 0,
+              "feedback": "它們會產生輸出；困難在於可能原因範圍太廣，而非缺少日誌。"
+            },
+            {
+              "text": "單元測試其實範圍比 E2E 測試更廣",
+              "fraction": 0,
+              "feedback": "單元測試範圍較窄；正是這種狹窄使它們能精準定位故障。"
+            },
+            {
+              "text": "E2E 測試沒有斷言",
+              "fraction": 0,
+              "feedback": "E2E 測試會斷言結果；根因難尋源於其範圍寬廣。"
+            }
+          ],
+          "generalFeedback": "因為 E2E 測試同時操作許多層級，失敗可能源自其中任一層。單元測試隔離單一元件，其失敗幾乎直接指向故障；E2E 的廣度正是使診斷更難的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "信心相對於成本／維護的取捨",
+          "text": "<p>下列哪一項最能刻畫倚賴 E2E 測試的核心取捨？</p>",
+          "answers": [
+            {
+              "text": "它們對真實整合行為帶來最高的信心，但在速度、維護與不穩定上付出最高代價",
+              "fraction": 100,
+              "feedback": "正確——你以真實度與信心，換取速度、成本與穩定性。"
+            },
+            {
+              "text": "它們帶來最高信心，同時也最便宜、最穩定",
+              "fraction": 0,
+              "feedback": "E2E 測試最貴、最不穩定，而非最便宜、最穩定。"
+            },
+            {
+              "text": "它們帶來最少信心但執行最快",
+              "fraction": 0,
+              "feedback": "E2E 帶來高整合信心且執行最慢，而非最少信心加最快。"
+            },
+            {
+              "text": "沒有取捨；E2E 越多永遠越好",
+              "fraction": 0,
+              "feedback": "取捨是真實存在的；一味增加 E2E 會損害速度與穩定性。"
+            }
+          ],
+          "generalFeedback": "E2E 提供最真實的整合信心，但慢、維護成本高又不穩定。訣竅在於在信心與成本之間取得平衡，這也是為何 E2E 只節制地用於最關鍵的旅程。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何時增加 E2E 並不值得",
+          "text": "<p>某條邊界驗證規則目前只由一個慢速 E2E 測試檢查。對於這類規則，何時<strong>不</strong>值得增加更多 E2E 涵蓋？</p>",
+          "answers": [
+            {
+              "text": "當該行為以快速的單元或整合測試也能同樣妥善驗證時——應改為下推",
+              "fraction": 100,
+              "feedback": "正確——若較低層級已能提供足夠信心，增加 E2E 只會徒增成本與不穩定。"
+            },
+            {
+              "text": "只要該行為屬於某個關鍵業務旅程",
+              "fraction": 0,
+              "feedback": "關鍵旅程正是值得投入少量 E2E 的地方。"
+            },
+            {
+              "text": "只有在團隊完全沒有任何單元測試時",
+              "fraction": 0,
+              "feedback": "沒有單元測試是該補上單元測試的理由，而非關於 E2E 是否值得；判準在於較低層級是否足夠。"
+            },
+            {
+              "text": "永遠不會；增加 E2E 涵蓋永遠值得",
+              "fraction": 0,
+              "feedback": "增加 E2E 並非永遠值得——重複單元測試能做的事只會加重慢又脆弱的負擔。"
+            }
+          ],
+          "generalFeedback": "若一個快速的較低層級測試能以足夠信心驗證該行為，為它增加 E2E 涵蓋只會膨脹慢又脆弱的頂層。把這類檢查下推，把 E2E 留給真正需要整個系統驗證的旅程。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "設計最小的旅程集合",
+          "text": "<p>你只負擔得起少數幾個 E2E 測試。應如何選擇要涵蓋<strong>哪些旅程</strong>？</p>",
+          "answers": [
+            {
+              "text": "以端對端方式涵蓋少數最關鍵的業務流程，外加其重要的錯誤路徑，其餘則下推",
+              "fraction": 100,
+              "feedback": "正確——最小集合鎖定最高價值的旅程與其重要偏離。"
+            },
+            {
+              "text": "在 E2E 層級涵蓋每個功能的每一種可能組合",
+              "fraction": 0,
+              "feedback": "那會膨脹慢速的頂層；窮舉組合屬於較低層級。"
+            },
+            {
+              "text": "隨機挑選旅程以平均取樣整個系統",
+              "fraction": 0,
+              "feedback": "隨機取樣忽略業務關鍵性；應優先處理最重要的流程。"
+            },
+            {
+              "text": "只測試很少使用的管理員畫面",
+              "fraction": 0,
+              "feedback": "稀少的 E2E 預算應投入關鍵、高流量的旅程，而非罕用的管理員畫面。"
+            }
+          ],
+          "generalFeedback": "在有限的 E2E 預算下，把它花在最關鍵的業務旅程（以及其重要的替代／錯誤路徑）作為冒煙涵蓋，並把細節與較低價值的案例下推到較快的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "第三方沙盒的不穩定",
+          "text": "<p>某個操作真實第三方付款沙盒的 E2E 測試，會在沙盒緩慢或短暫無法使用時變得不穩定。在保有有意義涵蓋的同時，減少這種不穩定的合理做法是什麼？</p>",
+          "answers": [
+            {
+              "text": "保留一個針對沙盒的真正端對端檢查，其他付款案例則在較低層級以受控的測試替身涵蓋",
+              "fraction": 100,
+              "feedback": "正確——把對這個不穩定外部服務的依賴限縮到最小的冒煙檢查，其餘下推到可掌控之處。"
+            },
+            {
+              "text": "增加更多都呼叫線上沙盒的測試以求備援",
+              "fraction": 0,
+              "feedback": "更多測試都依賴同一個不穩定相依，只會加倍不穩定。"
+            },
+            {
+              "text": "忽略任何碰到付款的測試所有的失敗",
+              "fraction": 0,
+              "feedback": "忽略失敗會把真正的缺陷連同不穩定一起掩蓋。"
+            },
+            {
+              "text": "假設沙盒永遠可用，完全不處理它的停機",
+              "fraction": 0,
+              "feedback": "外部沙盒是已知的不穩定來源；你必須把它的不可靠性納入考量。"
+            }
+          ],
+          "generalFeedback": "第三方沙盒是典型的外部相依不穩定來源。保留單一個真正的端對端冒煙檢查，把其餘付款情境移到較低層級並以受控替身處理，限縮對不可靠服務的暴露。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷順序相依造成的不穩定",
+          "text": "<p>某 E2E 測試單獨執行時通過，但在套件中接在另一個測試之後執行時失敗。最可能的原因與正確修正是什麼？</p>",
+          "answers": [
+            {
+              "text": "共用狀態造成的順序相依；讓每個測試自行建立並清除其資料，使其獨立",
+              "fraction": 100,
+              "feedback": "正確——單獨通過／接在後面就失敗的型態指向殘留的共用狀態，以測試隔離修正。"
+            },
+            {
+              "text": "斷言函式庫壞了；重寫所有斷言",
+              "fraction": 0,
+              "feedback": "單獨通過／依序失敗的型態指向共用狀態，而非斷言函式庫壞掉。"
+            },
+            {
+              "text": "測試太快；在開頭加一段固定 sleep",
+              "fraction": 0,
+              "feedback": "問題不在速度，而在前一測試遺留的狀態。"
+            },
+            {
+              "text": "沒有任何問題；只要永遠讓那個測試先跑就好",
+              "fraction": 0,
+              "feedback": "固定順序只是掩蓋耦合而非移除它；應讓測試獨立。"
+            }
+          ],
+          "generalFeedback": "單獨通過但接在另一測試之後失敗，是共用／殘留狀態造成順序相依的特徵。修正之道是獨立與冪等：每個測試植入並清理自己的資料。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "節制地使用重試與隔離區",
+          "text": "<p>對於不穩定的 E2E 測試，自動重試與「隔離區（quarantine）」應如何使用？</p>",
+          "answers": [
+            {
+              "text": "節制且暫時地使用，作為找出並修正不穩定真正原因期間的權宜之計",
+              "fraction": 100,
+              "feedback": "正確——重試／隔離區能爭取時間，但不得取代對根因的修正。"
+            },
+            {
+              "text": "作為永久的主要策略，把每個測試都重試很多次",
+              "fraction": 0,
+              "feedback": "永久倚賴重試會掩蓋真正的缺陷並使不穩定被常態化。"
+            },
+            {
+              "text": "把每個失敗的測試無限期隔離且永不回頭處理",
+              "fraction": 0,
+              "feedback": "無限期隔離會悄悄侵蝕涵蓋；被隔離的測試必須被修正並歸隊。"
+            },
+            {
+              "text": "在任何情況下都絕不使用",
+              "fraction": 0,
+              "feedback": "作為暫時措施節制使用是正當的；要警惕的是過度倚賴。"
+            }
+          ],
+          "generalFeedback": "重試與隔離區是權宜之計：節制且暫時地使用，好在你診斷並修正底層不穩定期間讓管線持續運作。永久倚賴它們會掩蓋真正的缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何明確等待勝過固定 sleep",
+          "text": "<p>在 E2E 測試中，為什麼對條件進行明確等待通常優於固定的 <code>sleep</code>？</p>",
+          "answers": [
+            {
+              "text": "條件一成立就繼續，且只在真正逾時後才失敗，因此在不同時序下都更快且更可靠",
+              "fraction": 100,
+              "feedback": "正確——以條件為基礎的等待會因應實際時序，既避免過早失敗也避免浪費時間。"
+            },
+            {
+              "text": "它保證測試永遠不會失敗",
+              "fraction": 0,
+              "feedback": "它仍可能失敗（在真正逾時時）；只是因真實原因失敗，而非時序雜訊。"
+            },
+            {
+              "text": "它會使環境變得類生產",
+              "fraction": 0,
+              "feedback": "等待處理的是時序，而非環境的真實度。"
+            },
+            {
+              "text": "它讓斷言變得不再需要",
+              "fraction": 0,
+              "feedback": "等待與斷言是分開的；你仍要斷言預期結果。"
+            }
+          ],
+          "generalFeedback": "固定 sleep 同時過長（系統快時浪費時間）又過短（系統慢時不穩定）。明確等待會輪詢真實條件，就緒時立即繼續，只在真正逾時時才失敗。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "增加 E2E 不能取代單元／整合測試",
+          "text": "<p>既然 E2E 本來就涵蓋整個系統，增加更多 E2E 測試便可取代擁有單元與整合測試。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "E2E 帶來整合信心，但慢、不穩定又難以定位故障；它無法取代快速且精準的低層級測試。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——E2E 補足而非取代單元與整合測試；E2E 並非越多越好。"
+            }
+          ],
+          "generalFeedback": "E2E 驗證整合行為，但慢、貴、脆弱又難以精準定位故障。它無法取代單元與整合測試那種快速精準的涵蓋；健康的套件會讓 E2E 保持少量並把細節下推。"
+        },
+        {
+          "type": "multichoice",
+          "name": "類生產環境的陷阱",
+          "text": "<p>某團隊在一個其他團隊也會部署、且白天會變動的共用測試（staging）環境上執行 E2E 測試。為什麼這是個陷阱，什麼能改善？</p>",
+          "answers": [
+            {
+              "text": "並行的變動使環境不穩定而造成結果不穩定；應使用隔離、受控且類生產的環境並植入資料",
+              "fraction": 100,
+              "feedback": "正確——不受控的共用環境會注入非確定性；隔離與植入資料能恢復穩定。"
+            },
+            {
+              "text": "沒有陷阱；繁忙的共用環境最適合 E2E",
+              "fraction": 0,
+              "feedback": "不受控的並行變動是真實的不穩定來源，並非最適合。"
+            },
+            {
+              "text": "唯一的解法是完全停止執行 E2E 測試",
+              "fraction": 0,
+              "feedback": "解法是受控、隔離的環境，而非放棄 E2E。"
+            },
+            {
+              "text": "共用環境讓測試更快，其好處勝過任何不穩定",
+              "fraction": 0,
+              "feedback": "速度勝不過會破壞對套件信任的非確定性結果。"
+            }
+          ],
+          "generalFeedback": "類生產環境也必須受控。當他人在執行途中改動共用 staging 環境，結果就會不穩定。隔離環境（或其中測試的資料）並植入已知資料，能在保持真實的同時讓 E2E 穩定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "信心相同時下推",
+          "text": "<p>某行為以快速整合測試或慢速 E2E 測試都能提供相同信心來驗證。一般應選哪一個，為什麼？</p>",
+          "answers": [
+            {
+              "text": "整合測試，因為它是能提供足夠信心的最低層級——更快、更便宜、更不易不穩定",
+              "fraction": 100,
+              "feedback": "正確——下推到能提供足夠信心的最低層級，把 E2E 留給只有它能涵蓋的部分。"
+            },
+            {
+              "text": "E2E 測試，因為較高層級的測試永遠比較優越",
+              "fraction": 0,
+              "feedback": "較高層級的測試較慢又較不穩定；在較低層級已足夠時它們並非永遠較優越。"
+            },
+            {
+              "text": "兩者都要，永遠都做，以求最大涵蓋",
+              "fraction": 0,
+              "feedback": "在 E2E 重複該行為只會徒增慢又脆弱的成本，卻沒有額外信心。"
+            },
+            {
+              "text": "都不要；該行為不必測試",
+              "fraction": 0,
+              "feedback": "該行為應該被測試——在能提供足夠信心的最低層級。"
+            }
+          ],
+          "generalFeedback": "當兩個層級提供相同信心時，選較低的那個：更快、更便宜、更穩定。把慢又脆弱的 E2E 預算留給只有整個系統驗證才能涵蓋的旅程。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "跨層級定位失敗",
+          "text": "<p>某 E2E 結帳測試在付款步驟失敗。要判定故障是在 UI、應用程式，還是付款服務，最有效的定位方式是什麼？</p>",
+          "answers": [
+            {
+              "text": "以較低層級的整合／服務測試與日誌重現付款步驟，以隔離出是哪一層出問題",
+              "fraction": 100,
+              "feedback": "正確——針對各層級較窄的測試與診斷資訊，能精準指出那個廣泛 E2E 測試只是發出訊號的故障。"
+            },
+            {
+              "text": "假設一定是 UI，因為 E2E 是走 UI 的",
+              "fraction": 0,
+              "feedback": "走 UI 不代表故障就在 UI；失敗可能在所橫跨的任一層。"
+            },
+            {
+              "text": "把 E2E 測試重跑很多次直到通過，然後就繼續",
+              "fraction": 0,
+              "feedback": "盲目重跑既無法定位也無法修正故障。"
+            },
+            {
+              "text": "從測試中刪掉付款步驟",
+              "fraction": 0,
+              "feedback": "移除該步驟是放棄涵蓋，而非找出原因。"
+            }
+          ],
+          "generalFeedback": "由於 E2E 失敗牽連它所橫跨的每一層，有效找出根因的方式是降到較窄的整合／服務測試與各層級日誌，精準隔離付款步驟究竟在哪裡出錯——這也是為何強健的低層級套件能補足 E2E。",
+          "single": true
+        }
+      ]
+    }
+  },
   "fuzz-testing": {
     "en": {
       "easy": [

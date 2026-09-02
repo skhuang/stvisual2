@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/End-to-End User Journey/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of end-to-end testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does an <em>end-to-end (E2E)</em> test primarily verify?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A complete user workflow through the whole integrated system, from the real user's perspective</text><feedback><text>Correct — E2E exercises the full stack (UI through application, database, and external services) as a real user would.</text></feedback></answer>
+    <answer fraction="0"><text>A single function or method in isolation, with no dependencies</text><feedback><text>That describes a unit test, not an E2E test.</text></feedback></answer>
+    <answer fraction="0"><text>Only that two adjacent modules exchange data correctly through an API</text><feedback><text>That is an integration test; E2E covers the whole workflow, not just one interface.</text></feedback></answer>
+    <answer fraction="0"><text>The internal code structure and branch coverage of one component</text><feedback><text>That is white-box/unit-level concern; E2E validates the end-to-end behaviour of the whole system.</text></feedback></answer>
+    <generalfeedback><text>End-to-end testing drives a complete user workflow through the fully integrated system (UI → application → database → external services), validating the journey from the real user's point of view rather than a single component.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a user journey</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In E2E testing, a <em>user journey</em> is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The ordered sequence of steps a user takes to achieve a goal</text><feedback><text>Correct — e.g. browse → add to cart → checkout → pay → confirmation.</text></feedback></answer>
+    <answer fraction="0"><text>A single button click on one screen</text><feedback><text>A journey is a sequence of steps toward a goal, not one isolated interaction.</text></feedback></answer>
+    <answer fraction="0"><text>The list of database tables the application uses</text><feedback><text>That is a data model, not a user journey.</text></feedback></answer>
+    <answer fraction="0"><text>The set of unit tests covering one module</text><feedback><text>A user journey is a user-facing workflow, not a test suite for a module.</text></feedback></answer>
+    <generalfeedback><text>A user journey is the ordered sequence of steps a user takes to reach a goal. E2E tests are typically organised around such journeys, e.g. browse → add to cart → checkout → pay → confirmation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of the happy path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Within a user journey, the <em>happy path</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The default, error-free route where everything goes as expected and the user reaches the goal</text><feedback><text>Correct — the happy path is the normal, successful flow with valid input and no errors.</text></feedback></answer>
+    <answer fraction="0"><text>The route the user takes only when an error occurs</text><feedback><text>That is an error path, the opposite of the happy path.</text></feedback></answer>
+    <answer fraction="0"><text>The fastest-running test in the suite</text><feedback><text>The happy path is about the successful flow, not test runtime.</text></feedback></answer>
+    <answer fraction="0"><text>Any path that skips authentication</text><feedback><text>Skipping authentication is not what "happy path" means; it is the normal successful flow.</text></feedback></answer>
+    <generalfeedback><text>The happy path is the default, error-free scenario in which valid input is supplied and every step succeeds, so the user reaches the intended goal. Alternative and error paths cover the deviations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Layers an E2E test spans</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which layers does a typical E2E test exercise together?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The UI, the application logic, the database, and any external services — the whole stack</text><feedback><text>Correct — E2E drives the fully integrated system across all its layers.</text></feedback></answer>
+    <answer fraction="0"><text>Only the UI layer, with everything else mocked out</text><feedback><text>Mocking everything but the UI is not end-to-end; E2E uses the real integrated stack.</text></feedback></answer>
+    <answer fraction="0"><text>Only the database layer</text><feedback><text>E2E spans the whole stack, not one layer.</text></feedback></answer>
+    <answer fraction="0"><text>Only a single service's API in isolation</text><feedback><text>Testing one API in isolation is integration/service level, not end-to-end.</text></feedback></answer>
+    <generalfeedback><text>An E2E test runs against the fully integrated system: the UI, the application logic behind it, the database, and any external services, all working together as in production.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Top-of-pyramid characteristics</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Sitting at the top of the test pyramid, E2E tests are typically:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Few in number, slow, expensive, and relatively brittle</text><feedback><text>Correct — you keep only a few E2E tests because they are slow, costly, and flaky.</text></feedback></answer>
+    <answer fraction="0"><text>Numerous, fast, cheap, and very stable</text><feedback><text>Those are unit-test properties at the base, not E2E at the top.</text></feedback></answer>
+    <answer fraction="0"><text>Numerous but slow</text><feedback><text>E2E tests are kept few, not numerous, precisely because they are slow and expensive.</text></feedback></answer>
+    <answer fraction="0"><text>Fast but expensive</text><feedback><text>E2E tests are slow, not fast; their cost and slowness are why they stay few.</text></feedback></answer>
+    <generalfeedback><text>E2E tests are at the top of the pyramid: few, slow, expensive to write and maintain, and more brittle than lower-level tests — so you keep only a small number of them.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why E2E is closest to real usage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is E2E testing considered the <strong>closest to real usage</strong> of any test level?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It drives the fully integrated system through its real interfaces, exactly as an actual user would</text><feedback><text>Correct — behaving like a real user through the whole stack is what makes it the most realistic.</text></feedback></answer>
+    <answer fraction="0"><text>It runs faster than any other test level</text><feedback><text>E2E is the slowest level; speed is not why it is realistic.</text></feedback></answer>
+    <answer fraction="0"><text>It inspects private internal variables of each component</text><feedback><text>That is white-box inspection, the opposite of testing as a real user.</text></feedback></answer>
+    <answer fraction="0"><text>It replaces the database and services with mocks</text><feedback><text>Mocking reduces realism; E2E uses the real integrated system.</text></feedback></answer>
+    <generalfeedback><text>E2E exercises the whole integrated system through its real interfaces from the user's perspective, so it most closely reflects how the product actually behaves in use — giving the highest confidence in integrated behaviour.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the happy path (checkout)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For an online store, which scenario is the <strong>happy path</strong> of the checkout journey?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>User browses, adds an in-stock item to the cart, pays with a valid card, and sees an order confirmation</text><feedback><text>Correct — valid input at every step and the goal reached is the happy path.</text></feedback></answer>
+    <answer fraction="0"><text>User's card is declined at payment and an error is shown</text><feedback><text>A declined card is an error path, not the happy path.</text></feedback></answer>
+    <answer fraction="0"><text>User tries to check out with an empty cart and is blocked</text><feedback><text>Being blocked on an empty cart is an error/edge path, not the successful flow.</text></feedback></answer>
+    <answer fraction="0"><text>The item goes out of stock during checkout and the order fails</text><feedback><text>That is an error/edge path caused by a deviation, not the happy path.</text></feedback></answer>
+    <generalfeedback><text>The happy path is the normal successful flow: browse → add an in-stock item → pay with a valid card → confirmation. The other options all involve an error or edge condition.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify an error path (login)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a login journey, which scenario is an <strong>error path</strong> rather than the happy path?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The user enters a wrong password and is shown an "invalid credentials" message</text><feedback><text>Correct — a failed login due to bad input is an error path.</text></feedback></answer>
+    <answer fraction="0"><text>The user enters valid credentials and reaches the dashboard</text><feedback><text>That is the happy path — a successful login.</text></feedback></answer>
+    <answer fraction="0"><text>The user logs in successfully and their name appears in the header</text><feedback><text>That is the successful (happy) path.</text></feedback></answer>
+    <answer fraction="0"><text>The user logs in and is taken to the page they requested</text><feedback><text>That is a successful outcome, i.e. the happy path.</text></feedback></answer>
+    <generalfeedback><text>An error path is a route triggered by invalid input or a failure — here, a wrong password producing an "invalid credentials" message. The successful login is the happy path.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>E2E validates the whole system, not one component</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An E2E test validates a complete workflow through the whole integrated system, not just a single component in isolation.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — E2E covers the end-to-end journey across the whole stack.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>E2E does span the whole integrated system; testing one component in isolation is unit testing.</text></feedback></answer>
+    <generalfeedback><text>By definition E2E exercises a complete user workflow across the fully integrated system, distinguishing it from unit tests (one component) and integration tests (a few components at an interface).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Whose perspective E2E takes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>From whose perspective does an E2E test validate the system?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The real end user's perspective</text><feedback><text>Correct — E2E validates the journey as an actual user experiences it.</text></feedback></answer>
+    <answer fraction="0"><text>The perspective of a single internal function's caller</text><feedback><text>That is unit-level; E2E takes the whole-system, user's viewpoint.</text></feedback></answer>
+    <answer fraction="0"><text>The database administrator's perspective only</text><feedback><text>E2E is about the end user's workflow, not one role's view of storage.</text></feedback></answer>
+    <answer fraction="0"><text>The compiler's perspective</text><feedback><text>That is not a testing perspective at all; E2E is from the user's point of view.</text></feedback></answer>
+    <generalfeedback><text>E2E tests validate the system from the real end user's perspective, interacting with it the way a user would rather than inspecting internal components.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>E2E tests should be as numerous as unit tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because they are the most realistic, E2E tests should be as numerous as unit tests in a healthy suite.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>E2E tests sit at the top of the pyramid and are kept few; unit tests form the wide base.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — E2E tests are few (top of the pyramid) because they are slow and expensive; unit tests are the many.</text></feedback></answer>
+    <generalfeedback><text>Realism does not justify large numbers: E2E tests are slow, expensive, and brittle, so you keep only a few at the top of the pyramid while unit tests form the wide base.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of "end to end"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In "end-to-end", what do the two "ends" refer to?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>From the user's first action to the final outcome, across the whole system</text><feedback><text>Correct — the test runs the journey from its start to its completed goal through the full stack.</text></feedback></answer>
+    <answer fraction="0"><text>From the first line of a function to its last line</text><feedback><text>That is code-level, not the user-workflow meaning of end-to-end.</text></feedback></answer>
+    <answer fraction="0"><text>From one developer's machine to another's</text><feedback><text>The "ends" are the start and finish of the user's workflow, not machines.</text></feedback></answer>
+    <answer fraction="0"><text>From the start of a sprint to its end</text><feedback><text>That is a project timeframe, unrelated to end-to-end testing.</text></feedback></answer>
+    <generalfeedback><text>"End to end" means the test covers the complete journey from the user's initial action to the final result, traversing every layer of the integrated system in between.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Order the steps of a checkout journey</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which ordering correctly represents a typical e-commerce checkout <em>user journey</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Browse products → add to cart → checkout → pay → confirmation</text><feedback><text>Correct — this is the natural order of the checkout journey.</text></feedback></answer>
+    <answer fraction="0"><text>Pay → add to cart → browse products → confirmation → checkout</text><feedback><text>You cannot pay before choosing items; the order is scrambled.</text></feedback></answer>
+    <answer fraction="0"><text>Confirmation → pay → checkout → add to cart → browse products</text><feedback><text>This reverses the journey; confirmation is the final step, not the first.</text></feedback></answer>
+    <answer fraction="0"><text>Checkout → browse products → pay → add to cart → confirmation</text><feedback><text>You browse and add to the cart before checking out, not after.</text></feedback></answer>
+    <generalfeedback><text>A user journey is an ordered sequence of steps toward a goal. For checkout that order is browse → add to cart → checkout → pay → confirmation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Happy path vs alternative path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A user completes a purchase using a saved address and a valid card. A second user completes the same purchase but first enters a valid promo code. How are these two flows best classified?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The first is the happy path; the second is a valid alternative path</text><feedback><text>Correct — both succeed, but the promo-code variation is an alternative route to the same goal.</text></feedback></answer>
+    <answer fraction="0"><text>Both are error paths because they differ</text><feedback><text>Neither fails; a successful variation is an alternative path, not an error path.</text></feedback></answer>
+    <answer fraction="0"><text>The first is an error path; the second is the happy path</text><feedback><text>The plain successful purchase is the happy path; the promo-code flow is the alternative.</text></feedback></answer>
+    <answer fraction="0"><text>Neither is part of any user journey</text><feedback><text>Both are user journeys that reach the goal; one is the happy path and one an alternative.</text></feedback></answer>
+    <generalfeedback><text>The default successful flow is the happy path. A different but still successful way to reach the same goal (e.g. applying a valid promo code) is an alternative path, distinct from an error path where the goal is not reached.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>E2E tests are slow and expensive</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Compared with unit tests, E2E tests are generally slower to run and more expensive to write and maintain.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — running the whole stack makes E2E tests slow and costly, which is why they are kept few.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>E2E tests are indeed slower and more expensive than unit tests; that is a defining trade-off.</text></feedback></answer>
+    <generalfeedback><text>Because they drive the fully integrated system, E2E tests are slow, expensive to build and maintain, and more brittle than unit tests — the reasons they sit few at the top of the pyramid.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/End-to-End User Journey/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>E2E scope vs unit scope</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does the <strong>scope</strong> of an E2E test differ from that of a unit test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>E2E covers a full workflow across the whole integrated system; a unit test isolates one component</text><feedback><text>Correct — E2E is the broadest scope, a unit test the narrowest.</text></feedback></answer>
+    <answer fraction="0"><text>E2E covers one function; a unit test covers the whole system</text><feedback><text>That is reversed — a unit test isolates one function and E2E covers the whole system.</text></feedback></answer>
+    <answer fraction="0"><text>They have identical scope; only the tools differ</text><feedback><text>Their scope differs fundamentally: whole system versus single component.</text></feedback></answer>
+    <answer fraction="0"><text>E2E only checks the database; a unit test only checks the UI</text><feedback><text>Neither statement is right; E2E spans the whole stack and unit tests isolate any single component.</text></feedback></answer>
+    <generalfeedback><text>Scope is the key difference: a unit test isolates one component, while an E2E test exercises a complete user workflow across the entire integrated system.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>E2E scope vs integration scope</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What distinguishes an E2E test from an integration test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Integration checks that a few components work together at an interface; E2E validates a complete user journey through the entire system</text><feedback><text>Correct — E2E is broader, covering the whole journey rather than one interface between components.</text></feedback></answer>
+    <answer fraction="0"><text>Integration tests are always slower than E2E tests</text><feedback><text>Generally E2E is the slowest level; integration sits below it.</text></feedback></answer>
+    <answer fraction="0"><text>They are the same thing under different names</text><feedback><text>Integration focuses on component interactions; E2E validates the full user workflow.</text></feedback></answer>
+    <answer fraction="0"><text>E2E never uses a real database, but integration always does</text><feedback><text>E2E uses the real integrated stack including the database; this claim is wrong.</text></feedback></answer>
+    <generalfeedback><text>Integration testing verifies that a subset of components collaborate correctly at their interfaces. E2E goes wider, validating a whole user journey through the fully integrated system from the user's perspective.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why E2E is used sparingly</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why are E2E tests deliberately kept <strong>few</strong> in a healthy suite?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They are slow, expensive, and brittle/flaky, so a large number would give slow, unreliable feedback</text><feedback><text>Correct — their cost and fragility are why you keep only a few, high-value E2E tests.</text></feedback></answer>
+    <answer fraction="0"><text>They cannot detect any real defects</text><feedback><text>They detect integrated defects well; they are kept few because of cost and brittleness, not uselessness.</text></feedback></answer>
+    <answer fraction="0"><text>They are the cheapest tests to maintain</text><feedback><text>They are the most expensive to maintain, which is exactly why they are kept few.</text></feedback></answer>
+    <answer fraction="0"><text>Tooling does not exist to automate them</text><feedback><text>E2E automation tools are common; the reason to limit them is cost and flakiness.</text></feedback></answer>
+    <generalfeedback><text>E2E tests are slow, costly to build and maintain, and prone to flakiness. Keeping only a few — covering the most critical journeys — preserves fast, reliable feedback overall.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What to cover with E2E vs push down</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which behaviours are the best candidates for E2E coverage, with everything else pushed to lower levels?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A small set of critical business journeys and smoke checks of key flows</text><feedback><text>Correct — reserve E2E for the critical end-to-end flows and push detailed cases down to unit/integration.</text></feedback></answer>
+    <answer fraction="0"><text>Every input-validation rule and boundary case</text><feedback><text>Those belong in fast unit tests, not slow E2E tests.</text></feedback></answer>
+    <answer fraction="0"><text>All combinations of every optional field</text><feedback><text>Exhaustive combinations belong at lower levels; E2E should stay few and focused on critical journeys.</text></feedback></answer>
+    <answer fraction="0"><text>Every private helper function's edge cases</text><feedback><text>Helper edge cases are unit-test territory, not E2E.</text></feedback></answer>
+    <generalfeedback><text>Use E2E for a few critical business journeys and smoke tests of key flows; push exhaustive validation, boundary, and combination cases down to faster unit and integration tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test-data needs for E2E</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What kind of <strong>test data</strong> does a reliable E2E test typically require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Realistic, known data that the test seeds and controls, so the expected outcome is predictable</text><feedback><text>Correct — seeded, realistic data lets the test assert deterministic results.</text></feedback></answer>
+    <answer fraction="0"><text>Whatever happens to be in the shared production database at the time</text><feedback><text>Depending on uncontrolled shared data is a classic source of flakiness.</text></feedback></answer>
+    <answer fraction="0"><text>No data at all; E2E tests should never touch data</text><feedback><text>E2E journeys usually need realistic data; the point is to control and seed it.</text></feedback></answer>
+    <answer fraction="0"><text>Random data regenerated every run with no known expected result</text><feedback><text>Unknown random data makes assertions impossible or flaky; seed known data instead.</text></feedback></answer>
+    <generalfeedback><text>E2E tests need realistic but controlled data. Seeding known data (and cleaning it up) makes outcomes predictable and avoids the flakiness that comes from relying on uncontrolled shared state.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Environment needs for E2E</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What kind of <strong>environment</strong> should E2E tests run against?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A production-like environment with the real integrated components wired together</text><feedback><text>Correct — E2E needs a production-like setup to exercise the real integrated system.</text></feedback></answer>
+    <answer fraction="0"><text>An environment where every dependency is replaced by a mock</text><feedback><text>Mocking everything defeats the purpose of end-to-end; E2E uses real integrated components.</text></feedback></answer>
+    <answer fraction="0"><text>The developer's local machine with no services running</text><feedback><text>Without the integrated services running there is nothing end-to-end to test.</text></feedback></answer>
+    <answer fraction="0"><text>Any environment, since the configuration never affects E2E results</text><feedback><text>Environment closeness to production strongly affects E2E validity and stability.</text></feedback></answer>
+    <generalfeedback><text>E2E tests should run in a production-like environment with the real, integrated components, so the journey being validated matches how the system behaves in production.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test independence and idempotency</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does it mean for an E2E test to be <em>independent and idempotent</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It sets up its own state and cleans up afterwards, so it can run alone or in any order with the same result</text><feedback><text>Correct — self-contained setup and teardown make the test order-independent and repeatable.</text></feedback></answer>
+    <answer fraction="0"><text>It must always run immediately after a specific other test</text><feedback><text>Depending on another test's order is exactly what independence avoids.</text></feedback></answer>
+    <answer fraction="0"><text>It shares data with other tests to save setup time</text><feedback><text>Shared state creates coupling and flakiness, the opposite of independence.</text></feedback></answer>
+    <answer fraction="0"><text>It can only ever be run once</text><feedback><text>Idempotency means it can be run repeatedly with the same outcome, not only once.</text></feedback></answer>
+    <generalfeedback><text>An independent, idempotent E2E test creates and tears down its own state, so it produces the same result whether run alone, repeatedly, or in any order alongside other tests — avoiding order dependence and leftover-data flakiness.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify an alternative path (payment)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a checkout journey whose happy path pays by credit card, which of these is a valid <strong>alternative path</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The user successfully pays with a digital wallet instead of a card and reaches confirmation</text><feedback><text>Correct — a different but successful route to the same goal is an alternative path.</text></feedback></answer>
+    <answer fraction="0"><text>The payment gateway times out and the order fails</text><feedback><text>A failure is an error path, not an alternative path.</text></feedback></answer>
+    <answer fraction="0"><text>The card is declined and the user cannot complete the order</text><feedback><text>A decline that blocks completion is an error path.</text></feedback></answer>
+    <answer fraction="0"><text>The user's session expires mid-checkout and they are logged out</text><feedback><text>A session expiry that derails the goal is an error/edge path, not a successful alternative.</text></feedback></answer>
+    <generalfeedback><text>An alternative path still reaches the goal but by a different route (e.g. paying with a digital wallet rather than a card). Failures such as declines, timeouts, or session expiry are error paths.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify an error path (registration)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a sign-up journey, which scenario is an <strong>error/edge path</strong> that an E2E suite should also cover?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The user tries to register with an email that is already taken and sees a clear error</text><feedback><text>Correct — a rejected registration with a helpful error is an important error path.</text></feedback></answer>
+    <answer fraction="0"><text>The user registers with a new email and lands on the welcome page</text><feedback><text>That is the happy path — a successful registration.</text></feedback></answer>
+    <answer fraction="0"><text>The user registers and immediately receives a valid session</text><feedback><text>That is the successful outcome, i.e. the happy path.</text></feedback></answer>
+    <answer fraction="0"><text>The user registers and their profile is created correctly</text><feedback><text>That describes the happy path succeeding, not an error path.</text></feedback></answer>
+    <generalfeedback><text>Covering the happy path is not enough; key error/edge paths matter too. Attempting to register with an already-used email and getting a clear error is a representative error path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Order the steps of a booking journey</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which ordering correctly represents a flight-booking <em>user journey</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Search flights → select a flight → enter passenger details → pay → receive e-ticket</text><feedback><text>Correct — this is the natural order of the booking journey.</text></feedback></answer>
+    <answer fraction="0"><text>Pay → search flights → receive e-ticket → select a flight → enter passenger details</text><feedback><text>You cannot pay before selecting a flight; the sequence is scrambled.</text></feedback></answer>
+    <answer fraction="0"><text>Receive e-ticket → pay → enter passenger details → select a flight → search flights</text><feedback><text>This reverses the journey; the e-ticket is the final step.</text></feedback></answer>
+    <answer fraction="0"><text>Select a flight → search flights → pay → receive e-ticket → enter passenger details</text><feedback><text>You must search before you can select, and enter details before paying.</text></feedback></answer>
+    <generalfeedback><text>The booking journey is an ordered sequence: search → select → enter details → pay → receive the e-ticket. Ordering the steps correctly is part of modelling the journey for E2E.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why E2E gives high integrated confidence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does a passing E2E test give <strong>high confidence in integrated behaviour</strong> specifically?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It confirms that all the layers actually work together for a real user journey, not just in isolation</text><feedback><text>Correct — it validates the wired-together system end to end, catching integration faults lower levels miss.</text></feedback></answer>
+    <answer fraction="0"><text>It proves every code path in every component is exercised</text><feedback><text>E2E does not guarantee full code coverage; that is a unit-level concern.</text></feedback></answer>
+    <answer fraction="0"><text>It runs the fastest, so it can be repeated many times</text><feedback><text>E2E is the slowest level; confidence comes from realism, not speed.</text></feedback></answer>
+    <answer fraction="0"><text>It replaces the need for any other test level</text><feedback><text>E2E complements, but does not replace, unit and integration tests.</text></feedback></answer>
+    <generalfeedback><text>A passing E2E test shows the layers genuinely cooperate to deliver a real user journey, giving strong confidence in integrated behaviour — something isolated unit or integration tests cannot fully provide.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Relation to acceptance/system testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does E2E testing relate to <strong>system and acceptance</strong> testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They overlap: all validate the whole integrated system, often via user journeys, though acceptance emphasises meeting business/user requirements</text><feedback><text>Correct — E2E is closely related to system/acceptance testing, sharing the whole-system, user-journey focus.</text></feedback></answer>
+    <answer fraction="0"><text>E2E tests one function while acceptance tests the whole system</text><feedback><text>E2E also targets the whole system; testing one function is unit-level.</text></feedback></answer>
+    <answer fraction="0"><text>They are completely unrelated levels with no shared goals</text><feedback><text>They are related — all exercise the integrated system, frequently through user journeys.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing is always faster than unit testing</text><feedback><text>That is unrelated to the question and generally false.</text></feedback></answer>
+    <generalfeedback><text>E2E, system, and acceptance testing all exercise the whole integrated system and are often expressed as user journeys. Acceptance testing additionally emphasises confirming that business/user requirements are met.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Shared leftover data can cause flakiness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Leftover data from a previous run that is not cleaned up can make an E2E test pass or fail inconsistently.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — uncleaned shared state is a well-known source of E2E flakiness and order dependence.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Leftover/shared data is a classic flakiness cause; independent tests seed and clean their own state.</text></feedback></answer>
+    <generalfeedback><text>If a test relies on or leaves behind shared data, later runs can start from an unexpected state and flake. Making each test seed and clean up its own data keeps runs independent and stable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why realistic data and environment matter</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why do E2E tests specifically need realistic data <em>and</em> a production-like environment?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because the whole point is to validate the real user journey; unrealistic data or environment can hide or invent defects</text><feedback><text>Correct — fidelity to production is what makes the E2E result meaningful.</text></feedback></answer>
+    <answer fraction="0"><text>Because it makes the tests run faster</text><feedback><text>Realism does not speed tests up; it improves the validity of what they check.</text></feedback></answer>
+    <answer fraction="0"><text>Because it lets you skip writing unit tests</text><feedback><text>E2E does not replace unit tests regardless of how realistic it is.</text></feedback></answer>
+    <answer fraction="0"><text>Because production-like environments never fail</text><feedback><text>They can and do fail; the point is fidelity to real usage, not infallibility.</text></feedback></answer>
+    <generalfeedback><text>E2E aims to reflect real usage, so data and environment must resemble production. Otherwise the test may pass on unrealistic conditions (missing real defects) or fail on artificial ones (inventing false failures).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Coverage across a journey</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a critical journey, an E2E suite that tests <strong>only</strong> the happy path is usually inadequate because:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Key alternative and error/edge paths (e.g. declined payment, invalid input) also need coverage to trust the journey</text><feedback><text>Correct — real confidence in a journey requires the happy path plus its important alternative and error paths.</text></feedback></answer>
+    <answer fraction="0"><text>The happy path is the only path that ever matters</text><feedback><text>Alternative and error paths are common in real usage and must be covered for critical journeys.</text></feedback></answer>
+    <answer fraction="0"><text>Happy-path tests always run too slowly to be useful</text><feedback><text>Speed is not the issue; the gap is missing alternative/error-path coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Error paths can only be tested manually, never with E2E</text><feedback><text>Error paths are routinely automated at the E2E level; that is not the reason.</text></feedback></answer>
+    <generalfeedback><text>A journey is trustworthy only when its main deviations are covered too: the happy path plus key alternative paths and error/edge paths (declines, invalid input, timeouts). Testing the happy path alone leaves common real-world outcomes unverified.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/End-to-End User Journey/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix timing/async flakiness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An E2E test intermittently fails because it asserts on an element before an asynchronous request has finished. What is the best fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Wait explicitly for the element or condition to be ready, rather than pausing for a fixed sleep</text><feedback><text>Correct — an explicit wait on the actual condition is robust across varying timings; fixed sleeps are fragile and slow.</text></feedback></answer>
+    <answer fraction="0"><text>Add a long fixed sleep before every assertion</text><feedback><text>Fixed sleeps still flake when the operation is slower than the sleep, and waste time when it is faster.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the assertion so the test cannot fail</text><feedback><text>Removing the check hides the problem instead of testing the behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>Re-run the whole suite until it passes and ship that result</text><feedback><text>Masking non-determinism with blind re-runs leaves the flakiness in place.</text></feedback></answer>
+    <generalfeedback><text>Timing/async flakiness is best addressed with explicit waits that poll for the actual readiness condition, not fixed sleeps. Sleeps are simultaneously too short (still flaky) and too long (slow), so prefer condition-based waits.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix shared-state flakiness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Several E2E tests flake because they read and write the same shared account records. What is the most robust remedy?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Give each test its own seeded, isolated data and clean it up, so tests do not share state</text><feedback><text>Correct — isolating and seeding per-test data removes the shared-state coupling that causes the flakiness.</text></feedback></answer>
+    <answer fraction="0"><text>Force the tests to always run in a fixed order</text><feedback><text>Ordering hides the coupling but leaves it fragile; independent, isolated data is the real fix.</text></feedback></answer>
+    <answer fraction="0"><text>Increase the timeout on each assertion</text><feedback><text>Longer timeouts do not fix contention over shared records.</text></feedback></answer>
+    <answer fraction="0"><text>Run the tests less often so collisions are rarer</text><feedback><text>Running less often does not remove the underlying shared-state defect.</text></feedback></answer>
+    <generalfeedback><text>Shared mutable data creates order dependence and collisions. The robust fix is per-test isolation: each test seeds its own data and cleans up, so no test depends on another's state.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Brittle selectors</text></name>
+    <questiontext format="html"><text><![CDATA[<p>E2E tests keep breaking whenever the CSS layout is refactored, because they locate elements by deep, style-based selectors. What reduces this brittleness?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Use stable selectors (e.g. dedicated test IDs) and centralise them behind page objects</text><feedback><text>Correct — stable, intention-revealing locators and page objects insulate tests from cosmetic UI changes.</text></feedback></answer>
+    <answer fraction="0"><text>Pin every selector to the exact pixel position of the element</text><feedback><text>Pixel positions are even more fragile than style-based selectors.</text></feedback></answer>
+    <answer fraction="0"><text>Copy the same brittle selector into more tests for redundancy</text><feedback><text>Duplicating a fragile selector multiplies maintenance instead of reducing it.</text></feedback></answer>
+    <answer fraction="0"><text>Disable the tests whenever the UI changes</text><feedback><text>Disabling tests removes coverage rather than fixing selector brittleness.</text></feedback></answer>
+    <generalfeedback><text>Locating elements by presentation makes tests break on cosmetic changes. Stable selectors such as dedicated test IDs, encapsulated in page objects, keep tests resilient and maintainable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why root cause is hard at E2E</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is it typically <strong>harder to pinpoint the root cause</strong> of a failure from an E2E test than from a unit test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An E2E failure could originate in any of the many layers the test spans, so it localises the fault poorly</text><feedback><text>Correct — broad scope means a failure implicates the whole stack, unlike a narrowly scoped unit test.</text></feedback></answer>
+    <answer fraction="0"><text>E2E tests never produce any logs or error messages</text><feedback><text>They do produce output; the difficulty is the breadth of possible causes, not a lack of logs.</text></feedback></answer>
+    <answer fraction="0"><text>Unit tests are actually broader in scope than E2E tests</text><feedback><text>Unit tests are narrower; that narrowness is why they localise faults well.</text></feedback></answer>
+    <answer fraction="0"><text>E2E tests do not have assertions</text><feedback><text>E2E tests do assert outcomes; root-cause difficulty comes from their wide scope.</text></feedback></answer>
+    <generalfeedback><text>Because an E2E test exercises many layers at once, a failure could stem from any of them. A unit test isolates one component, so its failure points almost directly at the fault; the E2E test's breadth is exactly what makes diagnosis harder.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Confidence vs cost/maintenance trade-off</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement best captures the central trade-off of relying on E2E tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They give the highest confidence in real integrated behaviour but at the highest cost in speed, maintenance, and flakiness</text><feedback><text>Correct — you trade realism and confidence against speed, cost, and stability.</text></feedback></answer>
+    <answer fraction="0"><text>They give the highest confidence and are also the cheapest and most stable</text><feedback><text>E2E tests are the most expensive and least stable, not the cheapest and most stable.</text></feedback></answer>
+    <answer fraction="0"><text>They give the least confidence but are the fastest</text><feedback><text>E2E gives high integrated confidence and is the slowest, not the fastest with least confidence.</text></feedback></answer>
+    <answer fraction="0"><text>There is no trade-off; more E2E is always better</text><feedback><text>There is a real trade-off; piling on E2E harms speed and stability.</text></feedback></answer>
+    <generalfeedback><text>E2E offers the most realistic, integrated confidence but is slow, expensive to maintain, and flaky. The art is balancing that confidence against the cost, which is why E2E is used sparingly for the most critical journeys.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When adding more E2E is NOT worth it</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A boundary-validation rule is currently checked only by a slow E2E test. When is it <strong>not</strong> worth adding more E2E coverage for such rules?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When the behaviour can be verified just as well by a fast unit or integration test — push it down instead</text><feedback><text>Correct — if a lower level gives adequate confidence, adding E2E only adds cost and flakiness.</text></feedback></answer>
+    <answer fraction="0"><text>Whenever the behaviour is part of a critical business journey</text><feedback><text>Critical journeys are exactly where a little E2E is justified.</text></feedback></answer>
+    <answer fraction="0"><text>Only when the team has no unit tests at all</text><feedback><text>Having no unit tests is a reason to add them, not a reason about E2E worth; the decision is whether a lower level suffices.</text></feedback></answer>
+    <answer fraction="0"><text>Never; more E2E coverage is always worthwhile</text><feedback><text>More E2E is not always worthwhile — duplicating what a unit test can do adds slow, flaky cost.</text></feedback></answer>
+    <generalfeedback><text>If a fast lower-level test can verify the behaviour with adequate confidence, adding E2E coverage for it only inflates a slow, brittle top layer. Push such checks down and reserve E2E for journeys that truly need whole-system validation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Design a minimal set of journeys</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You can afford only a handful of E2E tests. How should you choose <strong>which journeys</strong> to cover?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Cover the few most critical business flows end to end, plus their key error paths, and push the rest down</text><feedback><text>Correct — a minimal set targets the highest-value journeys and their important deviations.</text></feedback></answer>
+    <answer fraction="0"><text>Cover every possible combination of every feature at E2E level</text><feedback><text>That inflates the slow top layer; exhaustive combinations belong lower down.</text></feedback></answer>
+    <answer fraction="0"><text>Pick journeys at random to sample the system evenly</text><feedback><text>Random sampling ignores business criticality; prioritise the most important flows.</text></feedback></answer>
+    <answer fraction="0"><text>Only test rarely used administrative screens</text><feedback><text>Scarce E2E budget should go to the critical, high-traffic journeys, not rare admin screens.</text></feedback></answer>
+    <generalfeedback><text>With a limited E2E budget, spend it on the most critical business journeys (and their key alternative/error paths) as smoke coverage, and push detailed and lower-value cases down to faster tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Third-party sandbox flakiness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An E2E test that exercises a real third-party payment sandbox flakes when the sandbox is slow or briefly unavailable. What is a sound way to reduce this flakiness while keeping meaningful coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Keep one true end-to-end check against the sandbox and cover other payment cases at a lower level using a controlled test double</text><feedback><text>Correct — limit dependence on the flaky external service to a minimal smoke check and push the rest down where it is controllable.</text></feedback></answer>
+    <answer fraction="0"><text>Add many more tests that all call the live sandbox for redundancy</text><feedback><text>More tests against the same flaky dependency multiply the flakiness.</text></feedback></answer>
+    <answer fraction="0"><text>Ignore all failures from any test that touches payment</text><feedback><text>Ignoring failures hides real defects along with flaky ones.</text></feedback></answer>
+    <answer fraction="0"><text>Assume the sandbox is always up and never handle its downtime</text><feedback><text>External sandboxes are a known flakiness source; you must account for their unreliability.</text></feedback></answer>
+    <generalfeedback><text>Third-party sandboxes are a classic external-dependency flakiness source. Keep a single genuine end-to-end smoke check and move the remaining payment scenarios to a lower level with a controlled double, limiting exposure to the unreliable service.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose order-dependence flakiness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An E2E test passes when run alone but fails when run after another test in the suite. What is the most likely cause and the correct fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Order dependence from shared state; make each test set up and tear down its own data so it is independent</text><feedback><text>Correct — a pass-alone/fail-in-sequence pattern points to leftover shared state, fixed by test isolation.</text></feedback></answer>
+    <answer fraction="0"><text>The assertion library is broken; rewrite all assertions</text><feedback><text>A pass-alone/fail-in-order pattern points to shared state, not a broken assertion library.</text></feedback></answer>
+    <answer fraction="0"><text>The test is too fast; add a fixed sleep at the start</text><feedback><text>Speed is not the issue here; leftover state from the prior test is.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing is wrong; just always run that test first</text><feedback><text>Pinning the order masks the coupling instead of removing it; make the test independent.</text></feedback></answer>
+    <generalfeedback><text>Passing alone but failing after another test is the signature of order dependence caused by shared/leftover state. The fix is independence and idempotency: each test seeds and cleans its own data.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Use retries and quarantine sparingly</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How should automatic retries and a "quarantine" for flaky E2E tests be used?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Sparingly and temporarily, as a stopgap while you find and fix the real cause of the flakiness</text><feedback><text>Correct — retries/quarantine buy time but must not become a substitute for fixing the root cause.</text></feedback></answer>
+    <answer fraction="0"><text>As the permanent primary strategy, retrying every test many times</text><feedback><text>Relying on retries permanently hides genuine defects and normalises flakiness.</text></feedback></answer>
+    <answer fraction="0"><text>By quarantining every failing test indefinitely and never revisiting it</text><feedback><text>Indefinite quarantine silently erodes coverage; quarantined tests must be fixed and returned.</text></feedback></answer>
+    <answer fraction="0"><text>Never under any circumstances</text><feedback><text>Used sparingly as a temporary measure they are legitimate; the caution is against over-reliance.</text></feedback></answer>
+    <generalfeedback><text>Retries and quarantine are stopgaps: use them sparingly and temporarily to keep the pipeline moving while you diagnose and fix the underlying flakiness. Relying on them permanently masks real defects.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why explicit waits beat fixed sleeps</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is an explicit wait on a condition generally better than a fixed <code>sleep</code> in an E2E test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It proceeds as soon as the condition holds and only fails after a real timeout, so it is both faster and more reliable across varying timings</text><feedback><text>Correct — condition-based waits adapt to actual timing, avoiding both premature failure and wasted time.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees the test can never fail</text><feedback><text>It can still fail (on a genuine timeout); it just fails for real reasons, not timing noise.</text></feedback></answer>
+    <answer fraction="0"><text>It makes the environment production-like</text><feedback><text>Waits address timing, not environment fidelity.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need for any assertions</text><feedback><text>Waits and assertions are separate; you still assert the expected outcome.</text></feedback></answer>
+    <generalfeedback><text>A fixed sleep is simultaneously too long (wastes time when the system is fast) and too short (flakes when it is slow). An explicit wait polls for the real condition, continuing immediately when ready and failing only on a genuine timeout.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>More E2E does not replace unit/integration</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Adding more E2E tests can substitute for having unit and integration tests, since E2E covers the whole system anyway.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>E2E gives integrated confidence but is slow, flaky, and poor at localising faults; it cannot replace fast, precise lower-level tests.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — E2E complements rather than replaces unit and integration tests; more E2E is not simply better.</text></feedback></answer>
+    <generalfeedback><text>E2E validates integrated behaviour but is slow, expensive, brittle, and poor at pinpointing faults. It does not replace the fast, precise coverage of unit and integration tests; a healthy suite keeps E2E few and pushes detail down.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Realistic-environment pitfall</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team runs E2E tests against a shared staging environment that other teams also deploy to and change during the day. Why is this a pitfall, and what helps?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Concurrent changes make the environment unstable, causing flaky results; use an isolated, controlled, production-like environment with seeded data</text><feedback><text>Correct — uncontrolled shared environments inject non-determinism; isolation and seeded data restore stability.</text></feedback></answer>
+    <answer fraction="0"><text>There is no pitfall; a busy shared environment is ideal for E2E</text><feedback><text>Uncontrolled concurrent changes are a real flakiness source, not ideal.</text></feedback></answer>
+    <answer fraction="0"><text>The only fix is to stop running E2E tests entirely</text><feedback><text>The fix is a controlled, isolated environment, not abandoning E2E.</text></feedback></answer>
+    <answer fraction="0"><text>Shared environments make tests faster, which outweighs any instability</text><feedback><text>Speed does not outweigh non-deterministic results that undermine trust in the suite.</text></feedback></answer>
+    <generalfeedback><text>A production-like environment must also be controlled. When others mutate a shared staging environment mid-run, results flake. Isolating the environment (or the test's data within it) and seeding known data keeps E2E stable while staying realistic.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Push down when confidence is equal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A behaviour can be validated with equal confidence by either a fast integration test or a slow E2E test. Which should you generally choose, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The integration test, because it is the lowest level that gives adequate confidence — faster, cheaper, and less flaky</text><feedback><text>Correct — push down to the lowest adequate level and reserve E2E for what only it can cover.</text></feedback></answer>
+    <answer fraction="0"><text>The E2E test, because higher-level tests are always superior</text><feedback><text>Higher-level tests are slower and flakier; they are not always superior when a lower level suffices.</text></feedback></answer>
+    <answer fraction="0"><text>Both, always, for maximum coverage</text><feedback><text>Duplicating the behaviour at E2E adds slow, brittle cost for no extra confidence.</text></feedback></answer>
+    <answer fraction="0"><text>Neither; the behaviour need not be tested</text><feedback><text>The behaviour should be tested — at the lowest adequate level.</text></feedback></answer>
+    <generalfeedback><text>When two levels give equal confidence, choose the lower one: it is faster, cheaper, and more stable. Save the slow, brittle E2E budget for journeys that only whole-system validation can cover.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Localising a failure across layers</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An E2E checkout test fails at the payment step. What is the most effective way to localise whether the fault is in the UI, the application, or the payment service?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Reproduce the payment step with lower-level integration/service tests and logs to isolate which layer misbehaves</text><feedback><text>Correct — narrower tests and diagnostics at each layer pinpoint the fault that the broad E2E test only signals.</text></feedback></answer>
+    <answer fraction="0"><text>Assume it must be the UI, since E2E goes through the UI</text><feedback><text>Going through the UI does not mean the fault is in the UI; the failure could be in any spanned layer.</text></feedback></answer>
+    <answer fraction="0"><text>Rerun the E2E test many times until it passes and move on</text><feedback><text>Blind re-runs neither localise nor fix the fault.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the payment step from the test</text><feedback><text>Removing the step abandons coverage instead of finding the cause.</text></feedback></answer>
+    <generalfeedback><text>Because an E2E failure implicates every layer it spans, the effective way to find the root cause is to drop to narrower integration/service tests and layer-specific logs that isolate exactly where the payment step breaks — one reason a strong lower-level suite complements E2E.</text></generalfeedback>
+  </question>
+</quiz>
