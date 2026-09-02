@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Performance and Load/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What load testing evaluates</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Load testing</em> primarily evaluates a system's behaviour when it is subjected to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The expected / normal level of concurrent load it is designed to handle</text><feedback><text>Correct — load testing checks behaviour and performance under anticipated, realistic load.</text></feedback></answer>
+    <answer fraction="0"><text>A load pushed far beyond its capacity until it breaks</text><feedback><text>That is stress testing, which deliberately exceeds capacity to find the breaking point.</text></feedback></answer>
+    <answer fraction="0"><text>A sudden extreme surge that appears and disappears within seconds</text><feedback><text>That describes spike testing, not load testing.</text></feedback></answer>
+    <answer fraction="0"><text>A moderate load sustained continuously for many hours or days</text><feedback><text>That is soak (endurance) testing, aimed at long-run problems.</text></feedback></answer>
+    <generalfeedback><text>Load testing measures how a system performs under its expected, normal (up to anticipated peak) load — checking response time, throughput and error rate against targets for realistic usage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What stress testing does</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Stress testing</em> deliberately drives a system:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Beyond its expected capacity to find its breaking point and observe how it fails</text><feedback><text>Correct — stress testing pushes past the limits to reveal the breaking point and failure mode.</text></feedback></answer>
+    <answer fraction="0"><text>At exactly its normal expected load to confirm day-to-day behaviour</text><feedback><text>That is load testing; stress testing goes beyond the expected load.</text></feedback></answer>
+    <answer fraction="0"><text>With an unusually large volume of stored data records</text><feedback><text>That is volume testing, which focuses on data size, not on exceeding request capacity.</text></feedback></answer>
+    <answer fraction="0"><text>With a brief surge followed by an immediate return to normal</text><feedback><text>That is spike testing, a short sharp burst rather than sustained overload.</text></feedback></answer>
+    <generalfeedback><text>Stress testing loads a system past its capacity to locate the breaking point and see how it fails — graceful degradation versus a crash — and whether it recovers afterwards.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What spike testing applies</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Spike testing</em> subjects a system to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A sudden, sharp surge in load followed by a rapid drop back down</text><feedback><text>Correct — a spike test applies an abrupt jump then removes it.</text></feedback></answer>
+    <answer fraction="0"><text>A steady load held constant over a long period</text><feedback><text>That is soak (endurance) testing, not a spike.</text></feedback></answer>
+    <answer fraction="0"><text>The normal expected level of load</text><feedback><text>That is load testing; a spike is a sudden abnormal surge.</text></feedback></answer>
+    <answer fraction="0"><text>A load pushed steadily higher until the system breaks</text><feedback><text>That gradual push to failure is stress testing, not a sudden spike.</text></feedback></answer>
+    <generalfeedback><text>A spike test applies a large, abrupt increase in load over a very short time and then removes it, checking whether the system copes with and recovers from sudden surges.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What soak testing applies</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Soak (endurance) testing</em> applies:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A sustained load over a long duration to reveal problems such as memory leaks and resource exhaustion</text><feedback><text>Correct — soak testing runs for hours or days to expose slow-building problems.</text></feedback></answer>
+    <answer fraction="0"><text>A load beyond capacity to find the breaking point</text><feedback><text>That is stress testing; soak testing stays at a sustainable load but for a long time.</text></feedback></answer>
+    <answer fraction="0"><text>An instantaneous surge and immediate drop</text><feedback><text>That is spike testing, the opposite of a long sustained run.</text></feedback></answer>
+    <answer fraction="0"><text>A very large data set processed in a single run</text><feedback><text>That is volume testing, which is about data size rather than duration.</text></feedback></answer>
+    <generalfeedback><text>Soak / endurance testing holds a normal-to-high load for a long time (hours or days) to expose gradual problems — memory leaks, connection-pool exhaustion, slow response-time degradation — that short tests miss.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What volume testing focuses on</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Volume testing</em> focuses on system behaviour when it must handle:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Large amounts of data — huge database tables, big files or long queues</text><feedback><text>Correct — volume testing is about coping with large quantities of data.</text></feedback></answer>
+    <answer fraction="0"><text>A sudden short-lived surge of requests</text><feedback><text>That is spike testing, which is about request rate, not data size.</text></feedback></answer>
+    <answer fraction="0"><text>A load held steady for many days</text><feedback><text>That is soak testing; volume testing concerns data quantity, not duration.</text></feedback></answer>
+    <answer fraction="0"><text>A request rate pushed beyond the breaking point</text><feedback><text>That is stress testing; volume testing is about data size, not overload.</text></feedback></answer>
+    <generalfeedback><text>Volume testing checks how the system copes with large quantities of data — for example very large tables, files, imports or message queues — where behaviour or performance may change at scale.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What scalability testing measures</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Scalability testing</em> measures:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>How performance changes as the load, or the resources allocated to the system, are scaled up or down</text><feedback><text>Correct — scalability testing observes how metrics evolve as load or resources scale.</text></feedback></answer>
+    <answer fraction="0"><text>Only the behaviour at a single fixed normal load</text><feedback><text>That is a single load test point; scalability is about the trend as things scale.</text></feedback></answer>
+    <answer fraction="0"><text>The failure mode when load exceeds capacity</text><feedback><text>That is stress testing; scalability is about how performance changes with scale, not the breaking point alone.</text></feedback></answer>
+    <answer fraction="0"><text>The effect of a single sudden spike</text><feedback><text>That is spike testing, not scalability.</text></feedback></answer>
+    <generalfeedback><text>Scalability testing observes how metrics such as throughput and response time evolve as you add load, or add/remove resources (CPU, instances) — telling you whether the system scales well and where it stops scaling.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of response time</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In performance testing, <em>response time</em> (latency) is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The time taken to complete a single request, from sending it to receiving the response</text><feedback><text>Correct — latency is per-request elapsed time.</text></feedback></answer>
+    <answer fraction="0"><text>The number of requests completed per second</text><feedback><text>That is throughput, a rate, not the time of one request.</text></feedback></answer>
+    <answer fraction="0"><text>The percentage of requests that fail</text><feedback><text>That is the error rate, not response time.</text></feedback></answer>
+    <answer fraction="0"><text>The number of users active at the same time</text><feedback><text>That is concurrency, not response time.</text></feedback></answer>
+    <generalfeedback><text>Response time (latency) measures how long one request takes end to end. It is usually summarised with percentiles (p50, p95, p99) rather than a single number.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of throughput</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Throughput</em> in performance testing is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The number of requests (or transactions) the system completes per unit of time, e.g. requests per second</text><feedback><text>Correct — throughput is a rate of completed work.</text></feedback></answer>
+    <answer fraction="0"><text>The time a single request takes to complete</text><feedback><text>That is response time (latency), not throughput.</text></feedback></answer>
+    <answer fraction="0"><text>The number of virtual users configured in the test</text><feedback><text>That is a concurrency setting, not the achieved rate of completed work.</text></feedback></answer>
+    <answer fraction="0"><text>The fraction of requests that return an error</text><feedback><text>That is the error rate, not throughput.</text></feedback></answer>
+    <generalfeedback><text>Throughput is a rate — requests/second or transactions/second (TPS). It measures how much work the system actually completes per unit time, distinct from how long any single request takes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of a latency percentile</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A latency percentile such as <em>p95</em> reports:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The latency value at or below which 95% of requests fall (95% are at least that fast)</text><feedback><text>Correct — 95% of requests are &#8804; p95, and the slowest 5% exceed it.</text></feedback></answer>
+    <answer fraction="0"><text>The average latency across all requests</text><feedback><text>That is the mean; a percentile is not an average.</text></feedback></answer>
+    <answer fraction="0"><text>The single slowest request observed in the run</text><feedback><text>That is the maximum (p100), not p95.</text></feedback></answer>
+    <answer fraction="0"><text>The number of requests slower than 95 ms</text><feedback><text>p95 is a percentile of the distribution, not a count against a fixed 95 ms.</text></feedback></answer>
+    <generalfeedback><text>The p95 latency is the value such that 95% of requests are at or below it and the slowest 5% exceed it. Percentiles describe the shape of the distribution, unlike the mean.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of concurrency</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Concurrency</em> (concurrent users / virtual users) refers to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The number of users or requests being handled by the system at the same time</text><feedback><text>Correct — concurrency is how many are in the system simultaneously.</text></feedback></answer>
+    <answer fraction="0"><text>The total number of distinct users over an entire day</text><feedback><text>That is a daily total, not simultaneous concurrency.</text></feedback></answer>
+    <answer fraction="0"><text>The time each request takes to complete</text><feedback><text>That is response time, not concurrency.</text></feedback></answer>
+    <answer fraction="0"><text>The number of requests completed per second</text><feedback><text>That is throughput, not concurrency.</text></feedback></answer>
+    <generalfeedback><text>Concurrency is how many requests or users are in the system at once. Load tools simulate them as "virtual users". Little's Law relates concurrency, throughput and response time.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of error rate</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>error rate</em> in a performance test is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The proportion of requests that fail (return errors or time out), usually expressed as a percentage</text><feedback><text>Correct — error rate is the fraction of requests that do not succeed.</text></feedback></answer>
+    <answer fraction="0"><text>The average time per request</text><feedback><text>That is response time, not error rate.</text></feedback></answer>
+    <answer fraction="0"><text>The number of concurrent users</text><feedback><text>That is concurrency, not error rate.</text></feedback></answer>
+    <answer fraction="0"><text>The number of requests completed per second</text><feedback><text>That is throughput, not error rate.</text></feedback></answer>
+    <generalfeedback><text>Error rate is the fraction of requests that do not succeed. It often rises sharply as a system approaches saturation, and is a key signal when identifying the breaking point.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of an SLO</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>Service Level Objective (SLO)</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A target value for a service metric, such as "p95 latency under 200 ms", that the service aims to meet</text><feedback><text>Correct — an SLO is a measurable target for a chosen metric.</text></feedback></answer>
+    <answer fraction="0"><text>The number of servers the service is allowed to use</text><feedback><text>That is a capacity limit, not a service-level objective.</text></feedback></answer>
+    <answer fraction="0"><text>The total number of requests sent during a test</text><feedback><text>That is a test-workload figure, not an SLO.</text></feedback></answer>
+    <answer fraction="0"><text>A guarantee that the system can never fail</text><feedback><text>No realistic SLO promises zero failures; an SLO sets a measurable target.</text></feedback></answer>
+    <generalfeedback><text>An SLO is a target (objective) for a service-level indicator (SLI), e.g. "p95 latency under 200 ms" or "error rate under 0.1%". An SLA is the broader agreement, often with consequences, built around one or more SLOs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Goal: find the breaking point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You want to discover the maximum load your system can handle before it fails, and how it fails. Which test type fits best?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stress test</text><feedback><text>Correct — finding the breaking point and failure mode is the defining goal of stress testing.</text></feedback></answer>
+    <answer fraction="0"><text>Load test</text><feedback><text>A load test stays at expected load; it does not push to the breaking point.</text></feedback></answer>
+    <answer fraction="0"><text>Soak test</text><feedback><text>A soak test targets long-run degradation, not the breaking point.</text></feedback></answer>
+    <answer fraction="0"><text>Volume test</text><feedback><text>A volume test is about large data, not the maximum request load.</text></feedback></answer>
+    <generalfeedback><text>Finding the maximum sustainable load and the failure mode beyond it is exactly what stress testing is for.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Goal: catch a slow memory leak</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You suspect a slow memory leak that only shows up after the service runs for many hours. Which test type fits best?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Soak (endurance) test</text><feedback><text>Correct — a leak that manifests over long runtime is exactly what soak testing targets.</text></feedback></answer>
+    <answer fraction="0"><text>Spike test</text><feedback><text>A spike test is a brief surge; it will not run long enough to reveal a slow leak.</text></feedback></answer>
+    <answer fraction="0"><text>Stress test</text><feedback><text>A stress test finds the breaking point quickly; it is not a long-duration run.</text></feedback></answer>
+    <answer fraction="0"><text>Volume test</text><feedback><text>A volume test is about data size, not sustained runtime.</text></feedback></answer>
+    <generalfeedback><text>Problems that only appear after long continuous operation — memory leaks, resource exhaustion, gradual degradation — are the domain of soak / endurance testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Goal: sudden ticket-sale surge</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Your site expects a sudden, brief traffic surge the instant tickets go on sale, then traffic falls back. Which test type best reproduces this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spike test</text><feedback><text>Correct — a sudden sharp surge then drop is the spike-test pattern.</text></feedback></answer>
+    <answer fraction="0"><text>Soak test</text><feedback><text>A soak test sustains load for a long time, the opposite of a brief surge.</text></feedback></answer>
+    <answer fraction="0"><text>Load test</text><feedback><text>A load test uses steady expected load, not an abrupt surge.</text></feedback></answer>
+    <answer fraction="0"><text>Volume test</text><feedback><text>A volume test concerns data size, not a sudden traffic jump.</text></feedback></answer>
+    <generalfeedback><text>An abrupt, short-lived jump in load followed by a rapid return to normal is precisely the scenario a spike test reproduces.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Performance and Load/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: where does it break</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team wants to know at how many concurrent users response times become unacceptable and the service starts returning errors — i.e. where it breaks. The right test type is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stress test</text><feedback><text>Correct — locating the point of unacceptable response and rising errors is the breaking point, found by stress testing.</text></feedback></answer>
+    <answer fraction="0"><text>Load test</text><feedback><text>A load test confirms behaviour at expected load; it does not deliberately drive the system to failure.</text></feedback></answer>
+    <answer fraction="0"><text>Soak test</text><feedback><text>A soak test looks for long-run degradation at a sustainable load, not the breaking point.</text></feedback></answer>
+    <answer fraction="0"><text>Spike test</text><feedback><text>A spike test checks recovery from a sudden surge, not the gradual approach to the breaking point.</text></feedback></answer>
+    <generalfeedback><text>Progressively increasing load until response times degrade and errors climb is how stress testing exposes the breaking point and failure mode.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: 8-hour creep</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Over an 8-hour continuous run at normal load, engineers want to catch gradually rising memory use and slow response-time creep. The right test type is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Soak (endurance) test</text><feedback><text>Correct — sustained runtime revealing gradual degradation is soak testing.</text></feedback></answer>
+    <answer fraction="0"><text>Spike test</text><feedback><text>A spike test lasts moments, not 8 hours; it cannot reveal gradual creep.</text></feedback></answer>
+    <answer fraction="0"><text>Stress test</text><feedback><text>A stress test seeks the breaking point, not slow degradation over hours.</text></feedback></answer>
+    <answer fraction="0"><text>Volume test</text><feedback><text>A volume test is about large data size, not long runtime.</text></feedback></answer>
+    <generalfeedback><text>Gradual memory growth and response-time creep over a long steady run are the hallmark findings of soak / endurance testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: Black-Friday open</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An e-commerce site expects a huge, near-instant jump in traffic when a Black-Friday sale opens at midnight, then a quick fall-off. The right test type is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Spike test</text><feedback><text>Correct — a near-instant jump then fall-off is the spike pattern.</text></feedback></answer>
+    <answer fraction="0"><text>Soak test</text><feedback><text>A soak test sustains load for a long time; it does not model an instant surge.</text></feedback></answer>
+    <answer fraction="0"><text>Load test</text><feedback><text>A load test uses steady expected traffic, not an abrupt jump.</text></feedback></answer>
+    <answer fraction="0"><text>Volume test</text><feedback><text>A volume test is about data quantity, not a sudden traffic surge.</text></feedback></answer>
+    <generalfeedback><text>A sudden, large, short-lived surge followed by a drop is exactly what a spike test reproduces, verifying the system copes and recovers.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: expected daily peak</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team wants to confirm the system behaves well under the ordinary, expected daily peak traffic it was designed for. The right test type is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Load test</text><feedback><text>Correct — verifying behaviour at expected/normal load is load testing.</text></feedback></answer>
+    <answer fraction="0"><text>Stress test</text><feedback><text>A stress test exceeds capacity; here the goal is the expected load only.</text></feedback></answer>
+    <answer fraction="0"><text>Spike test</text><feedback><text>A spike test is a sudden surge, not the ordinary expected peak.</text></feedback></answer>
+    <answer fraction="0"><text>Volume test</text><feedback><text>A volume test targets data size, not the expected request load.</text></feedback></answer>
+    <generalfeedback><text>Confirming performance under the anticipated, designed-for load is the core purpose of load testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: 500-million-row table</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A reporting service must process a table that has grown to 500 million rows. The team wants to confirm queries and exports still work at that data size. The right test type is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Volume test</text><feedback><text>Correct — behaviour with a very large data set is volume testing.</text></feedback></answer>
+    <answer fraction="0"><text>Spike test</text><feedback><text>A spike test is about a sudden request surge, not data size.</text></feedback></answer>
+    <answer fraction="0"><text>Soak test</text><feedback><text>A soak test is about long runtime, not the size of the data set.</text></feedback></answer>
+    <answer fraction="0"><text>Stress test</text><feedback><text>A stress test overloads request rate; here the concern is data volume.</text></feedback></answer>
+    <generalfeedback><text>Checking that the system still functions and performs acceptably with very large quantities of data is exactly volume testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: does doubling servers help</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team doubles the number of application servers and wants to see whether throughput roughly doubles. This is an example of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Scalability testing</text><feedback><text>Correct — measuring how performance changes as resources scale is scalability testing.</text></feedback></answer>
+    <answer fraction="0"><text>Stress testing</text><feedback><text>A stress test seeks the breaking point, not the effect of adding resources.</text></feedback></answer>
+    <answer fraction="0"><text>Soak testing</text><feedback><text>A soak test is about long-run stability, not scaling resources.</text></feedback></answer>
+    <answer fraction="0"><text>Spike testing</text><feedback><text>A spike test is a sudden surge, unrelated to scaling servers.</text></feedback></answer>
+    <generalfeedback><text>Observing how throughput (or latency) responds when you add or remove resources is scalability testing — ideally throughput should rise close to proportionally, though real systems deviate.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why percentiles beat the mean</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why are tail percentiles (p95 / p99) usually more informative than the mean response time?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The mean can hide a slow tail; a small fraction of very slow requests barely moves the average but badly hurts real users</text><feedback><text>Correct — averages are dominated by the many fast requests and mask the tail.</text></feedback></answer>
+    <answer fraction="0"><text>The mean is always larger than any percentile, so it overstates performance</text><feedback><text>False — the mean is not always larger than every percentile; the real issue is that it hides the tail.</text></feedback></answer>
+    <answer fraction="0"><text>Percentiles are cheaper to compute than the mean</text><feedback><text>Computational cost is not the reason; percentiles reveal the tail the mean conceals.</text></feedback></answer>
+    <answer fraction="0"><text>The mean cannot be computed for latency data</text><feedback><text>The mean is perfectly computable; it simply hides outliers.</text></feedback></answer>
+    <generalfeedback><text>Latency distributions are skewed: most requests are fast, so the mean stays low even when a small fraction are very slow. Those slow requests are exactly what p95/p99 (tail latency) expose — and what users notice.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret p99 = 500 ms</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A report states "p99 latency = 500 ms". This means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>99% of requests completed in 500 ms or less, and the slowest 1% took longer</text><feedback><text>Correct — that is exactly what a p99 of 500 ms means.</text></feedback></answer>
+    <answer fraction="0"><text>Every request took exactly 500 ms</text><feedback><text>A percentile is not a single fixed value for all requests.</text></feedback></answer>
+    <answer fraction="0"><text>The average request took 500 ms</text><feedback><text>p99 is not the mean; it is a tail percentile.</text></feedback></answer>
+    <answer fraction="0"><text>Only 1% of requests completed in 500 ms or less</text><feedback><text>That inverts it — 99% are at or below 500 ms, not 1%.</text></feedback></answer>
+    <generalfeedback><text>p99 = 500 ms means 99% of requests were at or below 500 ms and the slowest 1% exceeded it. It says nothing directly about the mean.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of p50</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>p50</em> latency of a service is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The median latency — half the requests are faster and half are slower</text><feedback><text>Correct — p50 is the median.</text></feedback></answer>
+    <answer fraction="0"><text>The mean (arithmetic average) latency</text><feedback><text>The mean and median coincide only for symmetric data; p50 is the median.</text></feedback></answer>
+    <answer fraction="0"><text>The latency of the fastest 50 requests</text><feedback><text>p50 is a percentile of the whole distribution, not a count of 50 requests.</text></feedback></answer>
+    <answer fraction="0"><text>The maximum latency divided by two</text><feedback><text>The median has nothing to do with halving the maximum.</text></feedback></answer>
+    <generalfeedback><text>p50 is the median: 50% of requests are at or below it. For skewed latency data the mean is usually higher than p50, which is why both, plus tail percentiles, are reported.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Order of a load profile</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A typical load-test profile runs its phases in which order?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ramp-up &#8594; steady-state &#8594; ramp-down</text><feedback><text>Correct — build load up, hold it while measuring, then reduce it.</text></feedback></answer>
+    <answer fraction="0"><text>steady-state &#8594; ramp-up &#8594; ramp-down</text><feedback><text>You cannot hold steady-state before ramping up to it.</text></feedback></answer>
+    <answer fraction="0"><text>ramp-down &#8594; steady-state &#8594; ramp-up</text><feedback><text>That reverses the profile; load starts low and is ramped up first.</text></feedback></answer>
+    <answer fraction="0"><text>spike &#8594; soak &#8594; volume</text><feedback><text>Those are test types, not the phases of a single load profile.</text></feedback></answer>
+    <generalfeedback><text>A load profile ramps load up gradually, holds it at steady-state (where the key measurements are taken), then ramps it down. Measuring during steady-state avoids the transient effects of ramping.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>SLA check: 180 vs 200</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The SLO says "p95 &lt; 200 ms". A test measures p95 = 180 ms. The result is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Pass — 180 ms is below the 200 ms threshold</text><feedback><text>Correct — 180 &lt; 200, so the p95 target is met.</text></feedback></answer>
+    <answer fraction="0"><text>Fail — 180 ms violates the threshold</text><feedback><text>180 ms is below 200 ms, so it satisfies the target.</text></feedback></answer>
+    <answer fraction="0"><text>Cannot tell without the mean latency</text><feedback><text>The SLO is stated on p95, and p95 = 180 ms is measured, so it can be decided.</text></feedback></answer>
+    <answer fraction="0"><text>Pass only if p99 is also 180 ms</text><feedback><text>The SLO here constrains only p95; p99 is not part of this target.</text></feedback></answer>
+    <generalfeedback><text>The SLO constrains p95 to under 200 ms. The measured p95 of 180 ms is below the threshold, so the target is met — a pass.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>SLA check: 240 vs 200</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The SLO says "p95 &lt; 200 ms". A test measures p95 = 240 ms. The result is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fail — 240 ms exceeds the 200 ms threshold</text><feedback><text>Correct — 240 &gt; 200, so the p95 target is missed.</text></feedback></answer>
+    <answer fraction="0"><text>Pass — 240 ms is acceptable</text><feedback><text>240 ms is above the 200 ms limit, so it fails.</text></feedback></answer>
+    <answer fraction="0"><text>Pass, because the mean is probably under 200 ms</text><feedback><text>The SLO is on p95, not the mean; a low mean does not rescue a failing p95.</text></feedback></answer>
+    <answer fraction="0"><text>Cannot tell without the error rate</text><feedback><text>The SLO is stated on p95 alone, and the measured p95 already decides it.</text></feedback></answer>
+    <generalfeedback><text>The SLO requires p95 under 200 ms; the measured p95 of 240 ms exceeds it, so the target is missed regardless of the mean or other metrics.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Valid unit of throughput</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of these is a valid unit of throughput?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Requests per second (equivalently transactions per second, TPS)</text><feedback><text>Correct — throughput is work completed per unit time.</text></feedback></answer>
+    <answer fraction="0"><text>Milliseconds per request</text><feedback><text>That is a response-time unit, not throughput.</text></feedback></answer>
+    <answer fraction="0"><text>Percent of failed requests</text><feedback><text>That is the error rate, not throughput.</text></feedback></answer>
+    <answer fraction="0"><text>Number of concurrent virtual users</text><feedback><text>That is a concurrency count, not a rate of completed work.</text></feedback></answer>
+    <generalfeedback><text>Throughput is a rate: work completed per unit time (req/s, TPS). Milliseconds/request is response time, percent-failed is error rate, and virtual users measure concurrency.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of think time</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a realistic load profile, <em>think time</em> models:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The pauses a real user takes between actions, so the generated load resembles genuine usage</text><feedback><text>Correct — think time is the idle interval between a user's successive requests.</text></feedback></answer>
+    <answer fraction="0"><text>The CPU time the server spends processing a request</text><feedback><text>That is server processing time, not think time.</text></feedback></answer>
+    <answer fraction="0"><text>The delay before the whole test begins</text><feedback><text>That is a start delay, not think time between user actions.</text></feedback></answer>
+    <answer fraction="0"><text>The time taken to ramp the load down</text><feedback><text>That is the ramp-down phase, not think time.</text></feedback></answer>
+    <generalfeedback><text>Think time is the pause between a user's successive actions. Including it (with a realistic transaction mix) keeps the arrival pattern lifelike rather than hammering the server with back-to-back requests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Concurrency versus throughput</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Concurrency</em> and <em>throughput</em> are related but distinct because:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Concurrency is how many requests are in the system at once, while throughput is how many complete per unit time</text><feedback><text>Correct — one is a count in flight, the other a completion rate.</text></feedback></answer>
+    <answer fraction="0"><text>They are two names for exactly the same quantity</text><feedback><text>They are different: a count in the system versus a rate of completion.</text></feedback></answer>
+    <answer fraction="0"><text>Concurrency is measured in req/s and throughput in number of users</text><feedback><text>That swaps them: throughput is req/s and concurrency is a count of in-flight requests/users.</text></feedback></answer>
+    <answer fraction="0"><text>Throughput is always equal to the number of virtual users</text><feedback><text>Throughput is a completion rate, not the virtual-user count; they differ unless response time is exactly one second.</text></feedback></answer>
+    <generalfeedback><text>Concurrency (L) is the number of requests in flight; throughput (&#955;) is the completion rate. Little's Law ties them together with response time: L = &#955; &#215; W.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Performance and Load/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Little's Law: compute concurrency (50, 0.2)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A service sustains a throughput of 50 requests/second with an average response time of 0.2 s. By Little's Law (L = &#955; &#215; W), the average concurrency (number of requests in the system) is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10</text><feedback><text>Correct — L = 50 /s &#215; 0.2 s = 10.</text></feedback></answer>
+    <answer fraction="0"><text>250</text><feedback><text>That is 50 &#247; 0.2; Little's Law multiplies throughput by response time.</text></feedback></answer>
+    <answer fraction="0"><text>50.2</text><feedback><text>That adds the two values; the law multiplies them.</text></feedback></answer>
+    <answer fraction="0"><text>0.004</text><feedback><text>That is 0.2 &#247; 50; the correct product is 50 &#215; 0.2 = 10.</text></feedback></answer>
+    <generalfeedback><text>Little's Law: L = &#955; &#215; W = 50 requests/second &#215; 0.2 second = 10 requests in the system on average.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Little's Law: compute throughput (200, 0.5)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>By Little's Law, if the average concurrency is 200 requests and the average response time is 0.5 s, the throughput is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>400 requests/second</text><feedback><text>Correct — &#955; = L &#247; W = 200 &#247; 0.5 s = 400 /s.</text></feedback></answer>
+    <answer fraction="0"><text>100 requests/second</text><feedback><text>That is 200 &#215; 0.5; to get throughput you divide L by W, not multiply.</text></feedback></answer>
+    <answer fraction="0"><text>0.0025 requests/second</text><feedback><text>That is 0.5 &#247; 200; the correct value is 200 &#247; 0.5 = 400.</text></feedback></answer>
+    <answer fraction="0"><text>200.5 requests/second</text><feedback><text>That adds the two values; the law gives &#955; = L &#247; W = 400.</text></feedback></answer>
+    <generalfeedback><text>Rearranging L = &#955; &#215; W gives &#955; = L &#247; W = 200 &#247; 0.5 s = 400 requests/second.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Little's Law: compute response time (60, 120)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>By Little's Law, if the average concurrency is 60 and the throughput is 120 requests/second, the average response time is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.5 s</text><feedback><text>Correct — W = L &#247; &#955; = 60 &#247; 120 /s = 0.5 s.</text></feedback></answer>
+    <answer fraction="0"><text>2 s</text><feedback><text>That is 120 &#247; 60; response time is L &#247; &#955;, not &#955; &#247; L.</text></feedback></answer>
+    <answer fraction="0"><text>7200 s</text><feedback><text>That is 60 &#215; 120; the law divides L by &#955; here.</text></feedback></answer>
+    <answer fraction="0"><text>180 s</text><feedback><text>That adds the two values; W = L &#247; &#955; = 0.5 s.</text></feedback></answer>
+    <generalfeedback><text>Rearranging L = &#955; &#215; W gives W = L &#247; &#955; = 60 &#247; 120 requests/second = 0.5 s.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Little's Law: compute concurrency (25, 0.4)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A checkout service handles 25 transactions/second with an average response time of 0.4 s. Its average concurrency is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10</text><feedback><text>Correct — L = 25 /s &#215; 0.4 s = 10.</text></feedback></answer>
+    <answer fraction="0"><text>62.5</text><feedback><text>That is 25 &#247; 0.4; Little's Law multiplies throughput by response time.</text></feedback></answer>
+    <answer fraction="0"><text>25.4</text><feedback><text>That adds the two values; the law multiplies them.</text></feedback></answer>
+    <answer fraction="0"><text>0.016</text><feedback><text>That is 0.4 &#247; 25; the correct product is 25 &#215; 0.4 = 10.</text></feedback></answer>
+    <generalfeedback><text>Little's Law: L = &#955; &#215; W = 25 transactions/second &#215; 0.4 second = 10 in the system on average.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Little's Law: compute response time (100, 250)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A service shows average concurrency 100 and throughput 250 requests/second. Its average response time is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.4 s</text><feedback><text>Correct — W = L &#247; &#955; = 100 &#247; 250 /s = 0.4 s.</text></feedback></answer>
+    <answer fraction="0"><text>2.5 s</text><feedback><text>That is 250 &#247; 100; response time is L &#247; &#955;, not &#955; &#247; L.</text></feedback></answer>
+    <answer fraction="0"><text>25000 s</text><feedback><text>That is 100 &#215; 250; here the law divides L by &#955;.</text></feedback></answer>
+    <answer fraction="0"><text>350 s</text><feedback><text>That adds the two values; W = L &#247; &#955; = 0.4 s.</text></feedback></answer>
+    <generalfeedback><text>W = L &#247; &#955; = 100 &#247; 250 requests/second = 0.4 s.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mean passes while p99 fails</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A service meets its mean-latency target easily, yet users complain of frequent freezes, and the p99 latency is far above target. The best explanation is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A small fraction of requests are very slow; they barely move the mean but dominate p99, and those are the freezes users notice</text><feedback><text>Correct — the tail is what users feel, and only the high percentile reveals it.</text></feedback></answer>
+    <answer fraction="0"><text>The mean must be computed incorrectly whenever p99 is high</text><feedback><text>Both can be correct at once; a low mean with a high p99 is exactly a skewed distribution.</text></feedback></answer>
+    <answer fraction="0"><text>A high p99 proves the mean must also be above target</text><feedback><text>No — a few slow requests raise p99 without lifting the mean much.</text></feedback></answer>
+    <answer fraction="0"><text>The users are mistaken, because the mean target is met</text><feedback><text>The users experience the tail; a passing mean does not mean everyone is served quickly.</text></feedback></answer>
+    <generalfeedback><text>The mean is dominated by the many fast requests, so a slow tail hardly moves it. p99 captures exactly that tail — the slow 1% that users experience as freezes. This is why SLOs are set on tail percentiles, not the average.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which statistic reveals the tail</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a run of 1000 requests, 985 take about 50 ms and 15 take about 5000 ms. Which single statistic best reveals the problem those slow requests cause?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The p99 latency (about 5000 ms), which exposes the slow tail</text><feedback><text>Correct — with 1.5% of requests slow, p99 lands in the slow group.</text></feedback></answer>
+    <answer fraction="0"><text>The mean latency, which stays low (about 124 ms)</text><feedback><text>The mean = (985&#215;50 + 15&#215;5000)/1000 &#8776; 124 ms — it hides the tail rather than revealing it.</text></feedback></answer>
+    <answer fraction="0"><text>The throughput, which is unaffected</text><feedback><text>Throughput does not describe per-request latency, so it cannot reveal the slow tail.</text></feedback></answer>
+    <answer fraction="0"><text>The p50 latency, which is about 50 ms</text><feedback><text>p50 (the median) sits among the fast requests at about 50 ms and hides the tail.</text></feedback></answer>
+    <generalfeedback><text>mean &#8776; (985&#215;50 + 15&#215;5000)/1000 &#8776; 124 ms and p50 &#8776; 50 ms both look acceptable. Because 1.5% of requests are slow, the p99 falls into the slow group at about 5000 ms — only the high percentile exposes the tail.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the bottleneck: CPU</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At a load of 300 req/s, monitoring shows CPU pinned at about 100% while memory, disk and network all sit below 50%. The bottleneck is most likely:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The CPU — it is the saturated resource limiting further throughput</text><feedback><text>Correct — the first resource to saturate is the bottleneck.</text></feedback></answer>
+    <answer fraction="0"><text>Memory, because it has spare capacity</text><feedback><text>Spare capacity means memory is not the limit; the saturated resource is.</text></feedback></answer>
+    <answer fraction="0"><text>The network, because it is under 50%</text><feedback><text>A resource under 50% is not saturated, so it is not the bottleneck.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — an idle resource is always the bottleneck</text><feedback><text>The bottleneck is the saturated resource, not an idle one.</text></feedback></answer>
+    <generalfeedback><text>The bottleneck is the first resource to saturate. CPU at ~100% while others are idle means CPU caps throughput; the fix is to add CPU or reduce CPU cost per request.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret the scalability knee</text></name>
+    <questiontext format="html"><text><![CDATA[<p>As virtual users increase, throughput rises, then flattens to a plateau while response time keeps climbing. The plateau (the "knee") indicates:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The system has reached its capacity / saturation; extra users now only add latency, not throughput</text><feedback><text>Correct — beyond the knee the bottleneck is saturated and work cannot increase.</text></feedback></answer>
+    <answer fraction="0"><text>The system scales linearly without limit</text><feedback><text>A plateau is the opposite of unlimited linear scaling.</text></feedback></answer>
+    <answer fraction="0"><text>A measurement error, since throughput can never plateau</text><feedback><text>Throughput plateauing at saturation is expected, not an error.</text></feedback></answer>
+    <answer fraction="0"><text>The error rate has necessarily dropped to zero</text><feedback><text>A throughput plateau says nothing of the sort; errors often rise at saturation.</text></feedback></answer>
+    <generalfeedback><text>Beyond the knee the bottleneck is saturated: adding load cannot raise completed work, so requests queue and response time grows while throughput stays flat. That point marks the system's effective capacity.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose soak-test degradation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During a 12-hour soak test at constant load, response time slowly climbs and memory usage trends steadily upward without recovering. The most likely diagnosis is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A memory leak / resource exhaustion that only manifests over long runtime</text><feedback><text>Correct — steady load with rising memory and degrading latency is the classic leak signature.</text></feedback></answer>
+    <answer fraction="0"><text>Normal behaviour that needs no investigation</text><feedback><text>Monotonic memory growth under constant load is not normal; it signals a leak.</text></feedback></answer>
+    <answer fraction="0"><text>A network spike, since the load is constant</text><feedback><text>The load is constant, so a spike does not explain a steady upward trend.</text></feedback></answer>
+    <answer fraction="0"><text>Insufficient concurrency in the test</text><feedback><text>Concurrency is held constant here; the growing memory points to a leak, not to too few users.</text></feedback></answer>
+    <generalfeedback><text>Constant load with monotonically rising memory and worsening response time is the textbook signature of a memory leak or unreleased resource — exactly what soak / endurance testing is designed to reveal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Choose a well-formed SLO</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which is the best-formed latency SLO for a user-facing API?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>95% of requests complete in under 200 ms (p95 &lt; 200 ms)</text><feedback><text>Correct — specific, measurable, and targeting the tail users experience.</text></feedback></answer>
+    <answer fraction="0"><text>The server should be fast</text><feedback><text>Too vague to measure or verify; a good SLO is quantitative.</text></feedback></answer>
+    <answer fraction="0"><text>The mean latency should be low most of the time</text><feedback><text>"Low" and "most of the time" are unquantified, and the mean hides the tail.</text></feedback></answer>
+    <answer fraction="0"><text>No request may ever exceed 1 ms</text><feedback><text>An absolute on the maximum is unrealistic and fails on a single outlier — a poor SLO.</text></feedback></answer>
+    <generalfeedback><text>A good SLO is specific and measurable and targets the tail experienced by users — a percentile with a numeric threshold, such as p95 under 200 ms. Vague wording and impossible absolutes make poor SLOs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Little's Law: saturated, users double</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A saturated service runs at its maximum throughput &#955;. The number of concurrent requests L doubles (more users arrive) but &#955; cannot increase. By L = &#955; &#215; W, the average response time W will:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Double, because W = L &#247; &#955; and L doubled while &#955; is fixed</text><feedback><text>Correct — with throughput pinned, doubling in-flight work doubles response time.</text></feedback></answer>
+    <answer fraction="0"><text>Stay the same, because response time is independent of load</text><feedback><text>Response time is not independent of load; once saturated, queueing grows W.</text></feedback></answer>
+    <answer fraction="0"><text>Halve, because more users share the work</text><feedback><text>Adding users to a saturated system worsens, not improves, response time.</text></feedback></answer>
+    <answer fraction="0"><text>Drop to zero once the system is saturated</text><feedback><text>Saturation makes response time grow, not vanish.</text></feedback></answer>
+    <generalfeedback><text>Rearranging gives W = L &#247; &#955;. With &#955; pinned at the maximum and L doubled, W doubles — queueing makes each request wait longer once the system is saturated.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Same mean, different p99</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two services have the same mean latency, but service A has p99 = 220 ms and service B has p99 = 900 ms. For user experience, which is better and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A — despite equal means, its lower p99 means far fewer users hit very slow responses</text><feedback><text>Correct — the tighter tail gives a more consistent experience.</text></feedback></answer>
+    <answer fraction="0"><text>B — a higher p99 means it is faster</text><feedback><text>A higher p99 is slower at the tail, not faster.</text></feedback></answer>
+    <answer fraction="0"><text>They are identical, because the means are equal</text><feedback><text>Equal means can hide very different tails, as here.</text></feedback></answer>
+    <answer fraction="0"><text>Cannot say, because only the mean matters</text><feedback><text>The tail matters greatly for user experience; the mean alone is insufficient.</text></feedback></answer>
+    <generalfeedback><text>Equal means hide different tails. A's lower p99 (220 ms vs 900 ms) means far fewer requests are very slow, giving a more consistent experience — the mean alone cannot distinguish the two.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Bottleneck shifts to memory</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After the CPU bottleneck is fixed, throughput improves but soon plateaus again; now memory sits at about 100% while the CPU has headroom. The correct interpretation is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The bottleneck has moved to memory — the new limiting resource</text><feedback><text>Correct — relieving one bottleneck exposes the next.</text></feedback></answer>
+    <answer fraction="0"><text>The CPU fix did not work, since throughput plateaued again</text><feedback><text>Throughput improved first, and CPU now has headroom, so the fix did work; the limit shifted.</text></feedback></answer>
+    <answer fraction="0"><text>There is never more than one possible bottleneck in a system</text><feedback><text>Systems have successive bottlenecks; fixing one reveals another.</text></feedback></answer>
+    <answer fraction="0"><text>Memory usage is irrelevant once the CPU is fixed</text><feedback><text>Memory is now the saturated resource, so it is highly relevant.</text></feedback></answer>
+    <generalfeedback><text>Relieving one bottleneck exposes the next. With memory now saturated and CPU idle, memory is the new limiting resource. Performance tuning is iterative: fix, re-measure, find the next bottleneck.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Little's Law: capacity planning (400, 0.25)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A service must sustain a throughput of 400 req/s, and each request takes on average 0.25 s. By Little's Law, the average concurrency it must support is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100</text><feedback><text>Correct — L = 400 /s &#215; 0.25 s = 100.</text></feedback></answer>
+    <answer fraction="0"><text>1600</text><feedback><text>That is 400 &#247; 0.25; Little's Law multiplies throughput by response time.</text></feedback></answer>
+    <answer fraction="0"><text>400.25</text><feedback><text>That adds the two values; the law multiplies them.</text></feedback></answer>
+    <answer fraction="0"><text>0.000625</text><feedback><text>That is 0.25 &#247; 400; the correct product is 400 &#215; 0.25 = 100.</text></feedback></answer>
+    <generalfeedback><text>Little's Law: L = &#955; &#215; W = 400 requests/second &#215; 0.25 second = 100 concurrent requests on average — useful for sizing thread and connection pools.</text></generalfeedback>
+  </question>
+</quiz>

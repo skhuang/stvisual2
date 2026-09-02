@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Flaky Test Diagnosis/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是脆弱測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>脆弱測試（flaky test）</em>最適切的描述是一個：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在相同的程式碼與相同的輸入下，卻非決定性地時而通過、時而失敗的測試，且受測對象本身並未改變</text><feedback><text>正確——脆弱性正是在未改變的程式碼與輸入下出現非決定性的結果。</text></feedback></answer>
+    <answer fraction="0"><text>針對某個特定版本的程式碼，每次執行都失敗的測試</text><feedback><text>那是一致、決定性的失敗，並非脆弱；脆弱測試的結果會在不同執行間變動。</text></feedback></answer>
+    <answer fraction="0"><text>比測試套件中其他測試執行得更慢的測試</text><feedback><text>執行慢是效能問題；脆弱性談的是非決定性的通過／失敗結果。</text></feedback></answer>
+    <answer fraction="0"><text>只有在受測程式碼被刻意改壞、植入缺陷後才失敗的測試</text><feedback><text>偵測到真正的改動正是好測試該做的事；脆弱是指在沒有這類改動下仍失敗。</text></feedback></answer>
+    <generalfeedback><text>脆弱測試在不同執行間會產生不同結果——時而通過、時而失敗——即使受測程式碼與輸入都未改變。其定義性質是非決定性：結果並非完全由受測對象所決定。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試的決定性是什麼意思</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當一個測試具有<em>決定性（deterministic）</em>時，意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在相同的程式碼與輸入下，它每次都產生相同的結果（每次都通過，或每次都失敗）</text><feedback><text>正確——決定性測試對相同的程式碼與輸入每次都給出相同結果。</text></feedback></answer>
+    <answer fraction="0"><text>不論程式碼做什麼，它都一定通過</text><feedback><text>永遠通過的測試毫無用處，並非決定性；決定性是指結果可重現，而該結果可能是通過或失敗。</text></feedback></answer>
+    <answer fraction="0"><text>它在一秒內就跑完</text><feedback><text>執行速度與決定性無關，決定性談的是結果可重現。</text></feedback></answer>
+    <answer fraction="0"><text>它每次執行都使用隨機產生的輸入</text><feedback><text>未設種子的隨機輸入會使測試變得非決定性；決定性正好相反。</text></feedback></answer>
+    <generalfeedback><text>決定性是指測試的結果完全由程式碼與輸入決定：在未改變的程式碼上跑一千次，每次都給出相同的裁決。脆弱性正是決定性的喪失，而修復的目標就是恢復決定性。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>一致失敗不是脆弱</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對相同程式碼每次執行都失敗的測試，是脆弱測試。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——每次都失敗的測試是決定性的（一致且可重現的失敗），並非脆弱。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>此為錯誤：每次都失敗是決定性的結果。脆弱是指相同程式碼在不同執行間非決定性地變動結果。</text></feedback></answer>
+    <generalfeedback><text>脆弱性由非決定性所定義：相同的程式碼與輸入時而通過、時而失敗。每次都失敗的測試是一致、可重現的失敗——通常指向真正的缺陷——應以缺陷方式除錯，而非貼上脆弱的標籤。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>脆弱性侵蝕信任並掩蓋真正的缺陷</text></name>
+    <questiontext format="html"><text><![CDATA[<p>脆弱測試之所以有害，主要是因為它侵蝕團隊對測試套件的信任，並可能掩蓋真正的失敗。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——一再的假警報讓人不再信任、也不再細看測試結果，於是夾在雜訊中的真正失敗就被忽略了。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>此為錯誤：侵蝕信任與掩蓋真正失敗，正是脆弱性的核心危害。</text></feedback></answer>
+    <generalfeedback><text>當套件毫無真正原因卻間歇性失敗時，開發者會學會對紅色建置聳聳肩、直接重跑。這摧毀了套件的訊號價值：藏在雜訊裡的真正回歸被當成「只是脆弱」而被打發掉，於是真正的缺陷溜了過去。脆弱性也會在重跑上浪費時間。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>常見原因：固定 sleep 與時序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是脆弱測試的常見原因？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對某個非同步動作依賴固定的 sleep（例如「等 100 毫秒」），而該動作有時尚未就緒</text><feedback><text>正確——固定等待是經典的時序原因：若動作偶爾花更久，測試便會間歇失敗。</text></feedback></answer>
+    <answer fraction="0"><text>為每個測試各自提供全新、隔離的測試夾具</text><feedback><text>全新且隔離的夾具會降低脆弱性；它是修復手段，而非原因。</text></feedback></answer>
+    <answer fraction="0"><text>對一個精確、硬寫死的預期值做斷言</text><feedback><text>精確的預期值通常讓測試更具決定性，而非更脆弱。</text></feedback></answer>
+    <answer fraction="0"><text>讓每個測試在完全獨立的行程中執行</text><feedback><text>強隔離傾向於防止脆弱，而非造成脆弱。</text></feedback></answer>
+    <generalfeedback><text>固定 sleep 是最常見的脆弱來源之一：它把「某個非同步操作要花多久」的猜測寫死。當該操作偶爾跑得較慢（機器負載高、網路慢），sleep 在動作完成前就到期，於是測試失敗——而且是非決定性的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>常見原因：未設種子的隨機</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試以一個從未設定固定種子的亂數產生器來產生輸入資料。為什麼這是脆弱性風險？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每次執行都使用不同的隨機資料，因此測試可能大多數執行都通過，偶爾卻在某個不巧的值上失敗</text><feedback><text>正確——未設種子的隨機使輸入每次都不同，產生非決定性的結果。</text></feedback></answer>
+    <answer fraction="0"><text>隨機資料總是讓測試跑得更快，因而造成失敗</text><feedback><text>速度不是問題所在；問題是輸入每次都不同，使結果非決定性。</text></feedback></answer>
+    <answer fraction="0"><text>隨機資料一定是無效的，所以測試永遠無法通過</text><feedback><text>隨機資料本質上並非無效；脆弱性來自輸入在不同執行間變動。</text></feedback></answer>
+    <answer fraction="0"><text>亂數產生器用掉太多記憶體</text><feedback><text>記憶體用量無關；未設種子的隨機是靠讓每次輸入都不同而造成脆弱。</text></feedback></answer>
+    <generalfeedback><text>未設種子的亂數產生器每次執行都產生不同的輸入。大多數輸入可能通過，而某個罕見的輸入卻觸發失敗，於是測試結果非決定性地變動。（注意：這類偶發失敗有可能正是在某個特定輸入下暴露出真正的缺陷。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>常見原因：測試間共享可變狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪種情形是與<em>測試順序</em>有關的常見脆弱原因？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試之間共享可變狀態（例如全域變數或資料庫資料列），且某個測試留下的資料影響了另一個測試</text><feedback><text>正確——遺留的共享狀態會造成與順序相依、非決定性的結果。</text></feedback></answer>
+    <answer fraction="0"><text>每個測試各自建立並拆除自己的私有資料</text><feedback><text>各測試私有的資料可防止順序相依；它是修復，而非原因。</text></feedback></answer>
+    <answer fraction="0"><text>每個測試都只斷言一件事</text><feedback><text>單一斷言的測試與順序相依無關。</text></feedback></answer>
+    <answer fraction="0"><text>測試被取了具描述性的名稱</text><feedback><text>命名與順序相依或脆弱性無關。</text></feedback></answer>
+    <generalfeedback><text>當測試共享可變狀態時，某個測試的結果可能取決於另一個測試是否——以及以何種順序——先執行。遺留的資料或被改動的全域變數，使結果相依於執行順序，而許多執行器並不保證順序，於是產生間歇失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>常見原因：外部相依</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼在單元測試中呼叫真實的外部服務（例如第三方網路 API）會造成脆弱？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>外部服務可能很慢、無法使用，或回傳變動的資料，使測試結果取決於受測程式碼以外的因素</text><feedback><text>正確——外部相依引入測試無法控制的變動性，造成間歇失敗。</text></feedback></answer>
+    <answer fraction="0"><text>外部服務總是回傳完全相同的回應，這強迫測試失敗</text><feedback><text>恰好相反：它們的回應與可用性會變動，這正是造成脆弱的原因。</text></feedback></answer>
+    <answer fraction="0"><text>網路呼叫會讓斷言變得更嚴格</text><feedback><text>斷言嚴格程度無關；脆弱來自不受控的外部變動性。</text></feedback></answer>
+    <answer fraction="0"><text>測試框架禁止網路存取，所以測試無法編譯</text><feedback><text>框架一般允許網路呼叫；問題在於它們引入的非決定性。</text></feedback></answer>
+    <generalfeedback><text>真實的外部相依在測試控制之外：它可能慢、暫時停機、被限流，或回傳變動的資料。此時測試的通過與否取決於當下服務的狀態，而非受測的程式碼，這正是非決定性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>常見原因：目前的日期或時間</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試在其邏輯中使用了機器目前的日期／時間（掛鐘時間）。為什麼這是脆弱性風險？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>結果可能取決於測試剛好在何時執行——某個特定小時、跨日界線或時區——因此它在某些時間通過、在另一些時間失敗</text><feedback><text>正確——綁定真實時鐘的測試是非決定性的，因為時鐘一直在變。</text></feedback></answer>
+    <answer fraction="0"><text>讀取時鐘總是太慢，因而造成逾時</text><feedback><text>讀時鐘很快；問題在於它的值隨時間改變，使結果取決於何時執行。</text></feedback></answer>
+    <answer fraction="0"><text>目前的時間永遠相同，所以測試被過度約束</text><feedback><text>目前的時間正是不斷在變的東西；那個變動性才是原因。</text></feedback></answer>
+    <answer fraction="0"><text>在多數語言中日期無法比較</text><feedback><text>日期可以正常比較；脆弱來自依賴那持續變動的真實時鐘。</text></feedback></answer>
+    <generalfeedback><text>使用真實掛鐘時間會把測試結果綁到它執行的那一刻。它可能白天通過，卻在跨越午夜界線、月底，或在不同時區失敗。因為時鐘一直在變，結果無法重現——這正是脆弱的特徵。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識脆弱症狀</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一種觀察到的行為，是脆弱測試的明確症狀？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對完全相同的提交（commit）重跑完全相同的測試，一次通過、下一次卻失敗</text><feedback><text>正確——在未改變的程式碼上重跑卻結果不同，正是脆弱的標誌。</text></feedback></answer>
+    <answer fraction="0"><text>測試失敗，而在你修好程式碼中一個真正的缺陷後它就通過</text><feedback><text>那是正常、正確的行為：測試偵測到真正的缺陷，並在修復後加以確認。</text></feedback></answer>
+    <answer fraction="0"><text>因為語法錯誤而無法編譯</text><feedback><text>編譯錯誤每次都決定性地失敗；那是建置問題，不是脆弱。</text></feedback></answer>
+    <answer fraction="0"><text>測試在每一台機器上每次都通過</text><feedback><text>一致通過的測試是決定性且穩定的，與脆弱相反。</text></feedback></answer>
+    <generalfeedback><text>脆弱性表現為對相同程式碼在多次執行間給出不同裁決。若受測對象沒有任何改變，結果卻在通過與失敗間翻動，那就是脆弱。決定性的失敗（缺陷、語法錯誤）與一致的通過都不是脆弱。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>常見原因：無序集合的走訪</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試斷言走訪一個以雜湊為基礎的 set／map 時，元素會以某個特定順序出現。為什麼這是脆弱性風險？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>以雜湊為基礎的集合不保證穩定的走訪順序，因此順序可能在不同執行或環境間變動</text><feedback><text>正確——依賴未指定的走訪順序會使結果非決定性。</text></feedback></answer>
+    <answer fraction="0"><text>雜湊集合永遠只能容納一個元素</text><feedback><text>它們可容納許多元素；問題在於其走訪順序未受保證。</text></feedback></answer>
+    <answer fraction="0"><text>走訪集合總是拋出例外</text><feedback><text>走訪運作正常；脆弱來自未指定的順序。</text></feedback></answer>
+    <answer fraction="0"><text>set 與 map 總是以排序後的順序走訪</text><feedback><text>以雜湊為基礎的 set／map 一般不保證排序或穩定的順序，這正是問題所在。</text></feedback></answer>
+    <generalfeedback><text>許多以雜湊為基礎的集合對走訪順序不做任何承諾；順序可能取決於雜湊、插入歷程、容量或執行環境版本。對這類集合斷言某個特定順序，等於把測試綁在一個可能在不同執行間改變的實作細節上，造成間歇失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>常見原因：環境差異</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試在每一台開發者筆電上都通過，但在 CI 伺服器上有時失敗。這最能指向哪一種脆弱原因？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>環境差異——CI 在時序、資源、地區設定（locale）或組態上與筆電不同</text><feedback><text>正確——結果取決於在哪裡執行，指向與環境相關的原因。</text></feedback></answer>
+    <answer fraction="0"><text>測試的斷言太具描述性</text><feedback><text>具描述性的斷言不會造成與環境相依的脆弱。</text></feedback></answer>
+    <answer fraction="0"><text>受測程式碼完全沒有任何缺陷</text><feedback><text>程式碼是否有缺陷是另一回事；此樣態指向環境差異。</text></feedback></answer>
+    <answer fraction="0"><text>測試檔案太長</text><feedback><text>檔案長度與環境相依的脆弱無關。</text></feedback></answer>
+    <generalfeedback><text>依環境而有不同行為的測試，是相依於環境所提供的某些東西——CPU 速度與負載（影響時序）、可用記憶體、CPU／核心數（影響並行）、預設地區設定或時區，或組態。CI 常常正是在這些方面與筆電不同，因而暴露出隱藏的假設。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>脆弱性在重跑上浪費時間</text></name>
+    <questiontext format="html"><text><![CDATA[<p>脆弱測試的一項真實成本，是開發者花在重跑建置、以及調查那些結果並非真正失敗的時間。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——重跑與追查假警報會消耗真實的工程時間，並拖慢管線。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>此為錯誤：在重跑與假警報調查上浪費時間，是眾所周知的脆弱成本。</text></feedback></answer>
+    <generalfeedback><text>除了侵蝕信任與掩蓋真正失敗之外，脆弱性還有直接的生產力成本：管線被重新觸發、工程師停下來調查那些從來不是真的紅色建置、合併被延遲。這些被浪費的心力，正是為什麼脆弱性值得修復、而非容忍的重要原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是隔離（quarantine）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對一個脆弱測試進行<em>隔離（quarantine）</em>的意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>暫時把它分隔出來，使其間歇失敗不再阻塞管線，同時持續追蹤它並排定真正的修復</text><feedback><text>正確——隔離把雜訊從管線隔開，但測試仍必須被追蹤並加以修復。</text></feedback></answer>
+    <answer fraction="0"><text>將該測試從程式碼庫永久刪除</text><feedback><text>刪除測試會丟掉它的涵蓋範圍；隔離則保留它、加以隔離並追蹤，直到修好為止。</text></feedback></answer>
+    <answer fraction="0"><text>自動重跑它直到終於通過，然後就不管了</text><feedback><text>盲目重跑後就忘掉，只是把問題掩蓋起來；隔離則明確地持續追蹤該測試以待真正修復。</text></feedback></answer>
+    <answer fraction="0"><text>不論結果如何都把它標記為永遠通過</text><feedback><text>強迫通過會摧毀測試的價值；隔離是把它從阻塞的關卡挪開，但仍保持它誠實且被追蹤。</text></feedback></answer>
+    <generalfeedback><text>隔離把一個已知脆弱的測試移出阻塞合併的路徑，使其雜訊不再干擾所有人，但它仍留在一份被追蹤的清單上，並排定進行根因修復。隔離是一種圍堵手段，而非修復——未被追蹤的隔離只是一個被藏起來的缺陷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>常見原因：並行程式碼中的競態條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是脆弱測試的常見原因？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>競態條件（race condition），亦即結果取決於並行執行緒或操作之間不可預測的交錯順序</text><feedback><text>正確——競態使結果取決於交錯的時序，而時序在不同執行間變動。</text></feedback></answer>
+    <answer fraction="0"><text>對一個固定且以同步方式計算出的值做斷言</text><feedback><text>同步、固定的計算是決定性的；它不會造成脆弱。</text></feedback></answer>
+    <answer fraction="0"><text>為每個測試各自提供獨立的資料副本</text><feedback><text>各測試獨立的資料會降低脆弱性；它是修復手段，而非原因。</text></feedback></answer>
+    <answer fraction="0"><text>為測試寫一個清楚、具描述性的名稱</text><feedback><text>命名對決定性沒有影響；競態條件才有。</text></feedback></answer>
+    <generalfeedback><text>競態條件是指兩個以上的並行操作可能以多種方式交錯，而測試的結果取決於實際發生的是哪一種交錯。因為排程器以不可預測的方式選擇交錯順序，結果便在不同執行間變動——這是經典的脆弱，也往往是程式碼中真正並行缺陷的症狀。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Flaky Test Diagnosis/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>症狀：單獨跑會過，整套跑會敗</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試單獨執行時通過，但作為完整套件的一部分執行時卻失敗。最可能的原因是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>順序相依：另一個測試留下了共享狀態，而這個測試依賴它、或被它擾亂</text><feedback><text>正確——單獨跑會過、整套跑會敗，正是共享狀態造成順序相依的典型標誌。</text></feedback></answer>
+    <answer fraction="0"><text>這個測試的斷言根本就寫錯了</text><feedback><text>若斷言寫錯，單獨跑時也會失敗；「單獨對比整套」的差異指向共享狀態。</text></feedback></answer>
+    <answer fraction="0"><text>機器太快了</text><feedback><text>機器速度無法解釋為何結果取決於其他測試是否先跑；共享狀態才能。</text></feedback></answer>
+    <answer fraction="0"><text>這個測試的斷言太少</text><feedback><text>斷言數量無關；單獨與整套之間的差異指向透過共享狀態的順序相依。</text></feedback></answer>
+    <generalfeedback><text>當一個測試的裁決取決於是否有其他測試先跑時，代表有某些狀態在測試間被共享——全域變數、靜態欄位、快取、檔案或資料庫資料列。修法是逐一測試地隔離並重設狀態，使每個測試都從乾淨、已知的起點開始。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>症狀：在逾時附近間歇失敗</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 UI 測試在它以固定時間等待某個按鈕出現之處間歇失敗，但通常會通過。最可能的原因是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>時序問題：因為該元素偶爾要花更久才出現，固定等待有時太短</text><feedback><text>正確——在固定等待處的間歇失敗，是時序／非同步就緒問題。</text></feedback></answer>
+    <answer fraction="0"><text>斷言中把按鈕的文字拼錯了</text><feedback><text>字串寫錯會一致失敗，而非間歇失敗；間歇性指向時序。</text></feedback></answer>
+    <answer fraction="0"><text>這個測試有語法錯誤</text><feedback><text>語法錯誤每次都失敗；在等待處間歇失敗指向時序原因。</text></feedback></answer>
+    <answer fraction="0"><text>資料庫綱要（schema）過時了</text><feedback><text>綱要問題不會只在等待步驟偶爾出現；時序才會。</text></feedback></answer>
+    <generalfeedback><text>恰好在固定等待處間歇失敗，是時序／非同步問題的指紋：元素的就緒時間會變動，一旦超過寫死的等待，斷言就會太早執行。修法是輪詢該條件（明確／條件式等待），而不是固定睡一段時間。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>症狀：只在午夜前後失敗</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試幾乎總是通過，但夜間建置偶爾在午夜前後讓它失敗。你應該最先懷疑哪一種原因？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>日期／時間相依：測試的邏輯在跨日界線時有不同行為</text><feedback><text>正確——失敗聚集在某個時間界線，指向掛鐘／日期相依。</text></feedback></answer>
+    <answer fraction="0"><text>測試只在夜間用掉太多記憶體</text><feedback><text>記憶體用量與午夜界線無關；失敗發生的時間點指向日期相依。</text></feedback></answer>
+    <answer fraction="0"><text>斷言太嚴格</text><feedback><text>嚴格的斷言不論幾點都會失敗；聚集在午夜指向日期／時間相依。</text></feedback></answer>
+    <answer fraction="0"><text>CI 伺服器的核心太多了</text><feedback><text>核心數無法解釋為何特別在午夜失敗；跨日界線才能。</text></feedback></answer>
+    <generalfeedback><text>聚集在某個時間點（午夜、月底、日光節約時間切換）的失敗，透露出對真實時鐘的依賴。像是「該紀錄是今天建立的」或某段日期運算，會在跨越界線時出錯。注入或凍結時鐘，讓測試控制時間，而非讀取真實時間。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>症狀：只在測試被重新排序時失敗</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你的套件平常通過，但當執行器以隨機順序執行測試時就開始失敗。這揭露了什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>順序相依：至少有一個測試依賴另一個測試的副作用，因此不同順序就會破壞它</text><feedback><text>正確——在重新排序下失敗，是隱藏順序相依的直接證據。</text></feedback></answer>
+    <answer fraction="0"><text>執行器的隨機順序功能壞了</text><feedback><text>隨機順序是標準、正常運作的功能；它是揭露了既有的相依，而非造成相依。</text></feedback></answer>
+    <answer fraction="0"><text>測試太快，無法以新順序執行</text><feedback><text>速度無關；只在重新排序時失敗，表示測試相依於執行順序。</text></feedback></answer>
+    <answer fraction="0"><text>隨機化順序總是讓正確的測試失敗</text><feedback><text>並非如此——獨立、隔離良好的測試在任何順序下都通過；失敗代表存在真正的相依。</text></feedback></answer>
+    <generalfeedback><text>以隨機順序執行測試是一種刻意的偵測技術。妥善隔離的測試在任何順序下都通過；若重新排序造成失敗，就代表某些測試透過共享狀態或假定的先後順序而彼此耦合。修法是隔離並重設狀態，使每個測試彼此獨立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>固定 sleep 的修法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試以固定的 <code>sleep(500 毫秒)</code> 來等待一個非同步結果，因而脆弱。正確、具決定性的修法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把固定 sleep 換成明確／條件式等待，輪詢直到結果就緒，並設一個合理的逾時上限</text><feedback><text>正確——等待實際條件（並設逾時）可去除猜測與脆弱。</text></feedback></answer>
+    <answer fraction="0"><text>把 sleep 加長到 5 秒，並維持是固定 sleep</text><feedback><text>更長的固定 sleep 只是降低失敗率、卻拖慢每次執行；它並未移除非決定性。</text></feedback></answer>
+    <answer fraction="0"><text>刪掉檢查結果的那個斷言</text><feedback><text>移除斷言等於不再測任何有意義的東西來掩蓋脆弱；那不是修復。</text></feedback></answer>
+    <answer fraction="0"><text>把測試包在自動重試中，跑三次</text><feedback><text>重試是掩蓋時序缺陷，而非修復根因；正確的修法是等待該條件成立。</text></feedback></answer>
+    <generalfeedback><text>固定 sleep 把「某個非同步動作要花多久」的猜測寫死。改成條件式等待，反覆輪詢實際的就緒條件、一旦成立就立即繼續，並在寬裕的逾時後才失敗。這既具決定性，通常也比保守的固定 sleep 更快。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>未設種子的隨機的修法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試之所以脆弱，是因為它把未設種子的隨機資料餵給受測程式碼。要使它具決定性，正確的修法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>以固定值為亂數產生器設定種子，使每次執行都產生相同的輸入</text><feedback><text>正確——固定的種子使「隨機」序列可重現，恢復決定性。</text></feedback></answer>
+    <answer fraction="0"><text>更頻繁地執行測試，讓那個罕見的失敗值較少出現</text><feedback><text>多跑並不會移除非決定性；固定種子才會。</text></feedback></answer>
+    <answer fraction="0"><text>捕捉並忽略測試產生的任何斷言失敗</text><feedback><text>吞掉失敗等於停用測試；為產生器設定種子才是真正的修法。</text></feedback></answer>
+    <answer fraction="0"><text>換用另一種隨機演算法，但仍然不設種子</text><feedback><text>任何未設種子的產生器每次仍會變動；修法是固定種子。</text></feedback></answer>
+    <generalfeedback><text>以常數為產生器設定種子，會使它每次產生相同的序列，於是輸入——以及結果——都可重現。若某個特定種子暴露出真正的失敗，那是要調查並加入為固定回歸案例的真正缺陷，而不是靠重新隨機化來掩蓋的東西。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>掛鐘相依的修法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試之所以脆弱，是因為它的邏輯從系統時鐘讀取目前時間。正確、具決定性的修法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>注入或凍結時鐘，讓測試以固定、已知的值來控制目前時間</text><feedback><text>正確——控制時間（把假的／凍結的時鐘注入程式碼）可去除對真實時鐘的依賴。</text></feedback></answer>
+    <answer fraction="0"><text>只在一天中已知會通過的時段執行測試</text><feedback><text>限制執行時段是一種暫時手段，時間相依——以及脆弱——仍留在原處。</text></feedback></answer>
+    <answer fraction="0"><text>在讀取時鐘前加一個固定 sleep</text><feedback><text>sleep 無法控制時鐘回傳的值；你必須注入或凍結時間。</text></feedback></answer>
+    <answer fraction="0"><text>重試測試直到它剛好通過</text><feedback><text>重試是掩蓋時間相依，而非移除它；改為注入一個可控的時鐘。</text></feedback></answer>
+    <generalfeedback><text>把時間變成一個注入的相依（一個由程式碼呼叫的時鐘），而不是讀取全域掛鐘。在測試中提供固定或腳本化的時鐘，使「現在」成為已知的常數。行為便完全可重現，包含跨日界線與跨時區。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>外部相依的修法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某單元測試之所以脆弱，是因為它呼叫真實的第三方網路 API。適當的修法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>用 mock／stub（測試替身）取代真實呼叫，讓它回傳受控、具決定性的回應</text><feedback><text>正確——測試替身可去除不受控的外部變動性，使單元測試具決定性。</text></feedback></answer>
+    <answer fraction="0"><text>加長逾時，讓那個慢的服務通常來得及回應</text><feedback><text>更長的逾時只減少一種失敗模式；服務仍可能停機或回傳變動的資料。</text></feedback></answer>
+    <answer fraction="0"><text>重試網路呼叫數次，指望它終究會成功</text><feedback><text>重試是掩蓋外部變動性，而非用受控的替身把受測單元隔離開來。</text></feedback></answer>
+    <answer fraction="0"><text>刪掉這個測試，使網路永遠不會被碰到</text><feedback><text>刪除會丟掉涵蓋範圍；修法是把相依 stub 掉並繼續測試程式碼。</text></feedback></answer>
+    <generalfeedback><text>單元測試應該演練你的程式碼，而非真實的外部系統。用會回傳固定回應（含你想測試的錯誤情況）的 mock 或 stub 取代真實相依。結果便不再取決於服務的可用性或資料，因而具決定性。真正的整合行為則在專門的整合測試中另行驗證。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試間共享狀態的修法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>有幾個測試之所以脆弱，是因為它們共享並改動同一批資料庫資料列。正確的修法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>逐一測試地隔離並重設狀態——建立全新的夾具、並拆除／清理，使每個測試都從已知的乾淨狀態開始</text><feedback><text>正確——逐一測試的隔離與重設可去除跨測試的耦合與順序相依。</text></feedback></answer>
+    <answer fraction="0"><text>固定測試的執行順序，並永遠以該順序執行它們</text><feedback><text>固定順序是掩蓋耦合且很脆弱；真正的修法是透過隔離讓測試彼此獨立。</text></feedback></answer>
+    <answer fraction="0"><text>讓測試跑得更慢，使它們不會相撞</text><feedback><text>放慢並不會移除共享的可變狀態；隔離與重設才會。</text></feedback></answer>
+    <answer fraction="0"><text>重試整個套件直到通過</text><feedback><text>重試是掩蓋共享狀態問題；改為逐一測試地隔離並重設狀態。</text></feedback></answer>
+    <generalfeedback><text>根因是共享的可變狀態。給每個測試各自的夾具，並在測試之間重設世界（setup／teardown、交易回滾、全新的暫時資源），使沒有任何測試依賴他者的遺留物。移除測試間相依後，結果便不再取決於執行順序。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>多次重跑以重現</text></name>
+    <questiontext format="html"><text><![CDATA[<p>多次執行一個疑似脆弱的測試（並量測它多常失敗），是一種確認並量化其脆弱性的正當做法。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——反覆執行可重現該間歇失敗，並給出可追蹤、可據以行動的脆弱率。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>此為錯誤：因為脆弱是間歇性的，反覆執行正是重現它、並量測它多常失敗的方式。</text></feedback></answer>
+    <generalfeedback><text>單次執行可能靠運氣通過，所以一次綠燈並不能證明測試穩定。多次執行它（在本機或 CI）可重現間歇失敗，並給出脆弱率——例如每 100 次跑失敗 3 次——這能確認問題、供你排序優先級，並在日後驗證修復。這個偵測步驟不同於在管線中盲目重試以硬湊出綠燈。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>無序走訪斷言的修法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試在斷言一個以雜湊為基礎的集合以某特定順序走訪時脆弱地失敗。正確的修法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>讓比較與順序無關——先把結果排序，或以 set／multiset 相等來斷言，而不是斷言序列順序</text><feedback><text>正確——用不依賴走訪順序的方式比較，可去除非決定性。</text></feedback></answer>
+    <answer fraction="0"><text>反覆執行測試，直到元素剛好以預期的順序出現</text><feedback><text>依賴不巧的順序正是脆弱本身；改為讓斷言與順序無關。</text></feedback></answer>
+    <answer fraction="0"><text>把集合縮減成單一元素，使順序不會變動</text><feedback><text>更改資料來閃避問題會削弱測試；改為以與順序無關的方式斷言。</text></feedback></answer>
+    <answer fraction="0"><text>在走訪集合前加一個固定 sleep</text><feedback><text>sleep 不影響走訪順序；請排序或以無序集合方式比較。</text></feedback></answer>
+    <generalfeedback><text>若規格並未保證順序，測試就不該假定順序。要嘛在比較前把實際值與預期值都排序，要嘛以 set／multiset 比較，使只有成員與數量重要。若確實需要某特定順序，就使用有序集合，並在程式碼中把該順序寫明。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>隔離的目的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>隔離一個脆弱測試的目的是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>讓它的間歇失敗不再為所有人阻塞管線，同時它仍被追蹤、並排定進行妥善的修復</text><feedback><text>正確——隔離圍堵了干擾，卻不放棄該測試，也不放棄修復它的義務。</text></feedback></answer>
+    <answer fraction="0"><text>把該測試及其涵蓋範圍從專案永久移除</text><feedback><text>那是刪除，會丟掉涵蓋範圍；隔離則保留該測試以待修復追蹤。</text></feedback></answer>
+    <answer fraction="0"><text>宣告該測試已修好，且無須任何後續工作</text><feedback><text>隔離是圍堵，而非修復；根因仍必須被處理。</text></feedback></answer>
+    <answer fraction="0"><text>讓該測試跑得更快</text><feedback><text>速度不是重點；隔離是要把脆弱的雜訊從阻塞的關卡隔開。</text></feedback></answer>
+    <generalfeedback><text>隔離為團隊解除阻塞：一個已知脆弱的測試不再讓大家的建置失敗，於是套件重獲訊號價值。但該測試仍留在一份被追蹤的清單上，有負責人與進行真正根因修復的期限。未被追蹤且未被修復的隔離，只會淪為一個被永久停用的測試——一個涵蓋缺口與隱藏風險。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>症狀：在並行執行下失敗</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試在套件以單執行緒執行時通過，但一旦執行器以並行方式執行測試就間歇失敗。最可能的原因是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>競態條件或資源爭用：並行的測試透過某個共享資源相互干擾，而未妥善隔離</text><feedback><text>正確——在並行下出現新的失敗，指向並行／共享資源的爭用。</text></feedback></answer>
+    <answer fraction="0"><text>並行執行總是會破壞正確的測試</text><feedback><text>並非如此——妥善隔離的測試在並行下也能正確執行；失敗代表共享資源的爭用。</text></feedback></answer>
+    <answer fraction="0"><text>在並行執行時斷言變得更嚴格了</text><feedback><text>斷言不會因並行而改變；原因是對共享資源的爭用。</text></feedback></answer>
+    <answer fraction="0"><text>這些測試的註解太多</text><feedback><text>註解無關；只在並行時失敗指向競態或資源爭用。</text></feedback></answer>
+    <generalfeedback><text>只在並行執行時出現的失敗，代表測試在爭用某個共享資源——同一個檔案、埠、資料庫資料列或全域變數——而未加隔離，或受測程式碼本身有競態條件。修法是逐一測試地隔離資源（各自唯一的暫存檔／埠／綱要），並讓程式碼的並行具決定性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>主動偵測順序相依</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一種做法，最有助於在測試間隱藏的順序相依造成麻煩之前就偵測到它？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>以隨機的測試順序（並以不同順序）執行套件，使任何對執行先後的相依都被暴露</text><feedback><text>正確——隨機化順序會讓那些暗中依賴「在另一個之後執行」的測試現形。</text></feedback></answer>
+    <answer fraction="0"><text>永遠以完全相同的字母順序執行測試</text><feedback><text>固定順序可能無限期地掩蓋相依；隨機化順序才是使其現形的方法。</text></feedback></answer>
+    <answer fraction="0"><text>在每一對測試之間加一個固定 sleep</text><feedback><text>sleep 無法揭露共享狀態的耦合；以不同順序執行才行。</text></feedback></answer>
+    <answer fraction="0"><text>減少每個測試中的斷言數量</text><feedback><text>斷言數量與偵測順序相依無關。</text></feedback></answer>
+    <generalfeedback><text>獨立的測試在任何順序下都通過，所以刻意打亂執行順序（並更換種子）是暴露那些依賴他者副作用之測試的標準方法。許多執行器正為此提供可重現種子的隨機順序模式。一旦暴露，就隔離並重設狀態以移除該相依。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>競態條件脆弱測試的修法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試之所以脆弱，是因為它所演練的程式碼在兩個並行操作之間有競態條件。正確的修法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>修正並行，使結果具決定性——加入妥善的同步（或等待兩個操作皆完成）——把競態當成它本來就是的真正缺陷來處理</text><feedback><text>正確——競態是真正的缺陷；讓交錯安全且具決定性。</text></feedback></answer>
+    <answer fraction="0"><text>加一個固定 sleep，指望兩個操作不再重疊</text><feedback><text>sleep 只降低出現壞交錯的機率；競態仍然存在，仍可能失敗。</text></feedback></answer>
+    <answer fraction="0"><text>自動重試測試，直到出現好的交錯順序</text><feedback><text>重試是掩蓋真正的並行缺陷，而非修復它；改為同步這些操作。</text></feedback></answer>
+    <answer fraction="0"><text>在較慢的機器上執行測試，讓時序剛好對上</text><feedback><text>依賴機器速度既脆弱又不可移植；修正同步才能使結果具決定性。</text></feedback></answer>
+    <generalfeedback><text>競態條件是真正的缺陷，而非單純的測試雜訊：結果取決於並行操作不可預測的先後順序。修法是讓程式碼的並行正確且具決定性——妥善的鎖定／同步，或在斷言前等待／join 兩個操作完成。sleep 與重試只是降低失敗率，卻讓缺陷留在原處。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Flaky Test Diagnosis/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷：先 sleep 再點擊</text></name>
+    <questiontext format="html"><text><![CDATA[<p>請看以下這段脆弱的端對端測試步驟：</p>
+<pre><code>submitForm();
+sleep(300);            // 等伺服器
+assertVisible("#confirmation");</code></pre>
+<p>它多數時候通過，但在 CI 上每天會失敗幾次。根因是什麼？正確的修法為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>時序問題：300 毫秒有時太短。把固定 sleep 換成明確等待，輪詢直到 <code>#confirmation</code> 出現，並設一個逾時上限</text><feedback><text>正確——輪詢實際條件，而不是猜一個時間長度。</text></feedback></answer>
+    <answer fraction="0"><text>選擇器錯了；把 <code>#confirmation</code> 改成別的 id</text><feedback><text>選擇器錯會每次都失敗，而非間歇失敗；間歇性是時序問題。</text></feedback></answer>
+    <answer fraction="0"><text>把 sleep 加長到 3000 毫秒，並維持是固定 sleep</text><feedback><text>更長的固定 sleep 只降低失敗率、卻拖慢每次執行；非決定性仍在。</text></feedback></answer>
+    <answer fraction="0"><text>把整個測試包在重試三次的區塊裡</text><feedback><text>重試是掩蓋時序缺陷；正確的修法是等待確認元素出現。</text></feedback></answer>
+    <generalfeedback><text>確認元素的到達時間會隨伺服器與網路負載變動；300 毫秒的猜測偶爾太短，於是斷言在元素存在之前就執行。把 <code>sleep(300)</code> 換成條件式等待，輪詢 <code>#confirmation</code>、一出現就立即繼續，並在寬裕的逾時後才失敗——既具決定性，通常也更快。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為什麼盲目重試到綠燈是壞事</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊把 CI 設定成自動重跑任何失敗的測試最多五次，只要有任何一次通過就回報為通過。為什麼這種「重試到綠燈」的政策很危險？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它可能掩蓋一個真正的間歇缺陷：偶爾失敗的真正缺陷會被重試成綠燈，而永遠不被調查</text><feedback><text>正確——盲目重試會藏起那些會在正式環境浮現的真實低頻失敗。</text></feedback></answer>
+    <answer fraction="0"><text>它讓建置變慢，而這是唯一真正的壞處</text><feedback><text>建置變慢是小問題；嚴重的危險是真正的間歇缺陷被重試掩蓋。</text></feedback></answer>
+    <answer fraction="0"><text>它透過移除非決定性而永久修好脆弱</text><feedback><text>重試沒有移除任何東西；非決定性仍在，只是被蓋住而已。</text></feedback></answer>
+    <answer fraction="0"><text>它迫使開發者寫更多測試</text><feedback><text>並不會；它只是把間歇失敗藏起來，不論那是脆弱或真實的。</text></feedback></answer>
+    <generalfeedback><text>自動重試無法分辨無害的脆弱失敗與真正的間歇缺陷（競態條件、罕見資料情況）。只要有任一次通過就回報綠燈，等於把會最終衝擊使用者的真實低頻缺陷埋起來。重試可以是暫時的權宜之計，但必須是可見且被追蹤的；它不是修復，根因仍需診斷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷：外洩的全域計數器</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試 A 遞增一個模組層級的全域變數 <code>counter</code>，且從不重設它。測試 B 斷言 <code>counter == 1</code>。當 B 先跑時通過，但當 A 在 B 之前先跑時失敗。根因是什麼？最佳修法為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>透過外洩全域狀態造成的順序相依：在 setup／teardown 中重設該全域變數（或避免使用共享全域），使每個測試都從已知狀態開始</text><feedback><text>正確——外洩的全域變數耦合了測試；逐一測試地重設可移除相依。</text></feedback></answer>
+    <answer fraction="0"><text>測試 B 的預期值根本錯了；把它改成 2</text><feedback><text>寫死成 2 只是把 B 綁在某一個特定執行順序上；真正的問題是那個共享、未重設的全域變數。</text></feedback></answer>
+    <answer fraction="0"><text>強制執行器永遠在 A 之前執行 B</text><feedback><text>固定順序是掩蓋耦合且很脆弱；改以重設狀態讓每個測試彼此獨立。</text></feedback></answer>
+    <answer fraction="0"><text>在 A 與 B 之間加一個 sleep</text><feedback><text>sleep 對外洩的全域變數毫無作用；逐一測試地重設共享狀態。</text></feedback></answer>
+    <generalfeedback><text>這些測試透過一個可變的全域變數溝通：A 改動它、B 讀取它。結果取決於執行順序，而順序並未受保證。在 setup／teardown 中重設該全域變數，或更好——消除這個共享全域，使測試不共享可變狀態。如此每個測試便彼此獨立，在任何順序下都通過。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷：斷言雜湊 set 的第一個元素</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試建立一個以雜湊為基礎的標籤 set，並斷言走訪回傳的第一個元素等於 <code>"admin"</code>。它在你的機器上通過，但在某些 CI 執行、以及一次語言執行環境升級後失敗。根因是什麼？正確的修法為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該 set 的走訪順序並未受保證；改為斷言成員關係（set 含有 "admin"），或在比較前排序，而不是斷言「第一個」</text><feedback><text>正確——不要依賴未指定的走訪順序；測試成員關係或排序後的結果。</text></feedback></answer>
+    <answer fraction="0"><text>執行環境升級在 set 實作中引入了缺陷；把執行環境降級</text><feedback><text>該 set 的行為符合其合約（不保證順序）；測試的假設才是缺陷，而非執行環境。</text></feedback></answer>
+    <answer fraction="0"><text>重試測試，直到走訪先回傳 "admin"</text><feedback><text>依賴不巧的順序正是脆弱本身；改為以與順序無關的方式斷言。</text></feedback></answer>
+    <answer fraction="0"><text>加入更多元素，使 "admin" 更可能排在第一個</text><feedback><text>那並不會讓順序具決定性；請徹底移除對順序的依賴。</text></feedback></answer>
+    <generalfeedback><text>以雜湊為基礎的 set 不提供順序保證；走訪順序可能因插入歷程、容量或執行環境版本而變，這正是執行環境升級改變了它的原因。測試編入了一個該型別從未承諾的假設。改為斷言規格實際保證的東西——成員關係，或排序後的相等——使檢查與走訪順序無關。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷：與時區相依的日期測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試把一個儲存的 UTC 時間戳記格式化，並斷言它顯示為某個特定的日曆日期。它對某個國家的開發者通過，但對另一個時區的隊友、以及在 CI 伺服器上失敗。根因是什麼？正確的修法為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>程式碼使用了機器的本地時區，因此顯示的日期取決於它在哪裡執行；在測試中釘住／注入一個固定的時區（與時鐘），使結果具決定性</text><feedback><text>正確——必須把對本地時區的隱藏依賴明確化並加以固定。</text></feedback></answer>
+    <answer fraction="0"><text>儲存的時間戳記毀損了；重新產生資料庫</text><feedback><text>儲存的 UTC 值沒問題；脆弱來自以周遭的本地時區去轉換它。</text></feedback></answer>
+    <answer fraction="0"><text>只在它會通過的那一個時區執行測試</text><feedback><text>限制執行地點是掩蓋依賴，而非移除它；請明確釘住時區。</text></feedback></answer>
+    <answer fraction="0"><text>加一個重試，使它終究在每個時區都通過</text><feedback><text>結果對每個時區都是決定性的，所以重試無濟於事；請修正時區相依。</text></feedback></answer>
+    <generalfeedback><text>把一個 UTC 瞬間格式化為本地日曆日期，會使用環境預設的時區，於是不同機器產生不同日期。把時區明確化——在測試中釘住一個固定時區（並在相關處注入固定時鐘）——使轉換受控，結果在每個地方都相同。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>隔離並追蹤，對比刪除</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試脆弱，且拖慢了每一次合併。一位隊友提議乾脆把它刪掉。為什麼「隔離並追蹤」通常是更好的選擇？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>刪除會丟掉該測試所檢查的行為，造成無聲的涵蓋缺口；隔離則在保留該測試與修復義務的同時，為管線解除阻塞</text><feedback><text>正確——隔離保住了刪除會丟掉的涵蓋範圍與問責。</text></feedback></answer>
+    <answer fraction="0"><text>在多數專案中刪除測試在技術上不可能</text><feedback><text>刪除輕而易舉；偏好隔離的理由是刪除會丟掉涵蓋範圍與問責。</text></feedback></answer>
+    <answer fraction="0"><text>隔離會自動修好脆弱的根因</text><feedback><text>隔離不修任何東西；它圍堵雜訊，而根因仍欠一個修復。</text></feedback></answer>
+    <answer fraction="0"><text>被隔離的測試比被刪除的測試跑得更快</text><feedback><text>被刪除的測試根本不會跑；真正的差別是保住涵蓋範圍與追蹤，而非速度。</text></feedback></answer>
+    <generalfeedback><text>這個脆弱測試想必在檢查某個真實的東西。刪掉它移除了雜訊，卻也移除了涵蓋範圍——而且悄無聲息，因此沒人記得那個缺口。隔離則在停止對合併的干擾的同時，把測試留在一份被追蹤的清單上，有負責人與期限，使根因修好後該行為仍受驗證。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>成本：脆弱套件造成的警報疲勞</text></name>
+    <questiontext format="html"><text><![CDATA[<p>經過數月，某套件變得慣性脆弱，開發者習慣了重跑紅色建置而不細看。最嚴重的後果是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>警報疲勞：因為失敗被假定為脆弱，一個真正的回歸被忽略而發布到正式環境</text><feedback><text>正確——套件失去訊號價值，於是真正的失敗被當成雜訊打發掉。</text></feedback></answer>
+    <answer fraction="0"><text>這些測試最終會自己停止編譯</text><feedback><text>脆弱性不會讓程式碼停止編譯；嚴重的成本是真正的失敗被忽略。</text></feedback></answer>
+    <answer fraction="0"><text>套件會隨時間自動變得具決定性</text><feedback><text>脆弱不會自我修復；放著不管會訓練人們忽略失敗。</text></feedback></answer>
+    <answer fraction="0"><text>唯一的成本是 CI 執行稍微變長</text><feedback><text>主要成本不是執行時間；而是真正的回歸藏在雜訊裡並抵達使用者。</text></feedback></answer>
+    <generalfeedback><text>慣性脆弱最深的成本是人性面：一旦「紅色」通常意味「只是脆弱」，人們便不再調查、直接重跑。此時真正的回歸就融入雜訊被發布出去。這種「狼來了」效應，擊潰了自動化套件的整個目的，這正是為什麼脆弱必須被當成一級缺陷來對待。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷：未設種子的隨機暴露出邊界案例</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試以未設種子的亂數產生器建立輸入。它多數執行通過，但大約每 50 次失敗 1 次，且每次失敗都是一個真正的斷言不符。最佳的回應是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>捕捉那個失敗的輸入，當成可能的真正缺陷來調查、加以修復，然後為產生器設定種子（或把該案例加為固定的回歸測試）以取得決定性</text><feedback><text>正確——偶發的真正不符可能是真實的邊界案例缺陷；先診斷，再讓測試具決定性。</text></feedback></answer>
+    <answer fraction="0"><text>立刻把產生器的種子設成一個永遠通過的值，然後別管了</text><feedback><text>未經調查就選一個會通過的種子，可能掩蓋一個真正的邊界案例缺陷；先捕捉並診斷失敗。</text></feedback></answer>
+    <answer fraction="0"><text>加一個重試，讓那個每 50 次 1 次的失敗從 CI 消失</text><feedback><text>重試會埋掉可能是真正的缺陷；在讓測試具決定性之前，必須先檢視那個失敗的輸入。</text></feedback></answer>
+    <answer fraction="0"><text>刪掉這個測試，因為隨機資料不可靠</text><feedback><text>刪除會丟掉有用的涵蓋範圍並忽略可能的真正缺陷；請調查、修復，再設種子。</text></feedback></answer>
+    <generalfeedback><text>未設種子的隨機既是脆弱來源，有時也是意外的模糊測試器：一個罕見的失敗輸入可能是真正的邊界案例缺陷。先用捕捉到的輸入重現，判斷是程式碼還是測試錯了。修好真正的缺陷，再以設定種子或把發現的案例釘為固定回歸測試來恢復決定性——不要只是挑一個能掩蓋失敗的種子。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷：執行緒之間的競態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試啟動兩個執行緒，兩者都往一個共享的 list 附加元素，然後斷言該 list 有兩個元素。它偶爾看到一個元素或拋出例外。根因是什麼？正確的修法為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>未同步的共享 list 上的競態條件；修正並行（妥善的同步或使用執行緒安全的結構），並讓測試以決定性的方式等待兩次附加皆完成</text><feedback><text>正確——脆弱反映了真正的資料競爭；修正同步並以決定性方式等待完成。</text></feedback></answer>
+    <answer fraction="0"><text>list 型別壞了；換用別的 list，並維持未同步</text><feedback><text>一般的 list 並沒有壞；並行且未同步的改動才是缺陷，所以要加入妥善的同步。</text></feedback></answer>
+    <answer fraction="0"><text>在斷言前加一個固定 sleep，並讓執行緒維持未同步</text><feedback><text>sleep 只降低失敗率；底層的資料競爭仍在，仍可能破壞 list。</text></feedback></answer>
+    <answer fraction="0"><text>重試測試，直到兩次附加剛好都成功</text><feedback><text>重試會掩蓋一個也可能影響正式環境的真正並行缺陷；請改為修正競態。</text></feedback></answer>
+    <generalfeedback><text>兩個執行緒未同步地改動同一個 list 是資料競爭：交錯順序偶爾會遺失一次更新或破壞內部狀態。這是真正的缺陷，而非單純的測試雜訊。使用妥善的同步或執行緒安全的集合，並讓測試在斷言前以決定性方式等待兩個執行緒結束（join／await）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>決定性是目標，重試是權宜之計</text></name>
+    <questiontext format="html"><text><![CDATA[<p>修復脆弱測試的目標，是透過修正根因來恢復決定性；自動重試可以是暫時的權宜之計，但它本身不是修復。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——透過根因修復取得決定性才是目的；重試只是掩蓋症狀。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>此為錯誤：重試並未移除非決定性，所以充其量是權宜之計；真正的修復是在根因處恢復決定性。</text></feedback></answer>
+    <generalfeedback><text>妥善的修復是透過處理「它為何會變動」來讓測試重新具決定性——把 sleep 換成條件式等待、為隨機設定種子、注入時鐘、隔離狀態、mock 外部相依，或修正真正的並行缺陷。重試或許能爭取時間，但它掩蓋症狀，且可能藏起真正的間歇缺陷，所以它絕非終局。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷：並行測試共享一個暫存檔</text></name>
+    <questiontext format="html"><text><![CDATA[<p>兩個測試各自寫入 <code>/tmp/output.txt</code> 再讀回。逐一執行時它們通過，但當套件以並行方式執行它們時就間歇失敗。根因是什麼？正確的修法為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在共享固定路徑上的資源爭用；給每個測試各自唯一的暫存檔／目錄，使它們無法相互干擾</text><feedback><text>正確——逐一測試地隔離資源（唯一的暫存路徑）以移除爭用。</text></feedback></answer>
+    <answer fraction="0"><text>檔案系統在負載下壞了；把測試移到別的磁碟</text><feedback><text>檔案系統沒問題；測試在一個寫死的路徑上相撞，所以要逐一測試地隔離。</text></feedback></answer>
+    <answer fraction="0"><text>強制這兩個測試永遠循序執行、絕不並行</text><feedback><text>序列化是掩蓋耦合並犧牲並行速度；乾淨的修法是每個測試各自唯一的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>加一個 sleep，使兩次寫入不會在同一瞬間發生</text><feedback><text>sleep 是脆弱的時序把戲，且仍共用同一路徑；請為每個測試使用唯一的暫存檔。</text></feedback></answer>
+    <generalfeedback><text>兩個測試使用同一個固定檔名，於是在並行執行下，一個在另一個寫入與讀回之間覆蓋了它的資料。為每個測試配置一個唯一的暫存檔或目錄（全新的暫存路徑，在 teardown 清理），使測試彼此隔離、能以決定性方式並行執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷：created_at 等於 now</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試建立一筆紀錄，並斷言 <code>record.created_at == now()</code>，在斷言中再次呼叫真實時鐘。它偶爾失敗，當一個微小的延遲使兩次讀取時鐘的值不同時。正確的修法是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>注入一個固定的時鐘，使程式碼與測試都看到相同的、受控的「現在」，讓時間戳記以決定性方式比較</text><feedback><text>正確——控制時間可去除兩次真實時鐘讀取之間的落差。</text></feedback></answer>
+    <answer fraction="0"><text>再多讀真實時鐘兩次並取平均</text><feedback><text>更多真實讀取仍會變動；修法是以注入的時鐘控制時間，而非對雜訊取平均。</text></feedback></answer>
+    <answer fraction="0"><text>重試斷言，直到兩次讀取時鐘剛好一致</text><feedback><text>重試靠運氣，且讓時間相依留在原處；改為注入固定時鐘。</text></feedback></answer>
+    <answer fraction="0"><text>徹底刪掉時間戳記的斷言</text><feedback><text>移除檢查會丟掉對時間戳記行為的涵蓋；改為讓時間可控。</text></feedback></answer>
+    <generalfeedback><text>脆弱來自比較兩次獨立的真實時鐘讀取，兩者相差它們之間流逝的時間。注入一個可控的時鐘，使程式碼以固定的「現在」為紀錄蓋章，而測試對同一個值斷言。或者斷言時間戳記落在一個容差窗內——但注入時鐘是最乾淨、具決定性的修法。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>自動重試可能掩蓋真正的並行缺陷</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試因正式程式碼中一個真正的競態條件而大約每 20 次失敗 1 次。團隊加了一個自動 3 次重試，使 CI 回報為通過。因為 CI 現在是綠燈，這是一個可接受的解決方式。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——重試掩蓋了一個仍會衝擊使用者的真正競態條件；根因必須被修復，而非被掩蓋。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>此為錯誤：靠重試得到的綠燈 CI 隱藏了一個仍會在正式環境浮現的真正間歇缺陷。</text></feedback></answer>
+    <generalfeedback><text>那每 20 次 1 次的失敗不是測試雜訊——它是受測程式碼中一個真正的競態條件。重試到綠燈使症狀從 CI 消失，而缺陷仍在，並終將在負載下影響真實使用者。正確的回應是診斷並修正該競態（妥善的同步），使測試因正確的理由而以決定性方式通過。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對單一無法解釋的 CI 失敗的回應</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一個未改變的提交上，某次 CI 執行讓一個測試失敗；重跑同一個提交卻通過。最恰當的回應是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>當成很可能是脆弱：藉由反覆執行該測試來重現它、追蹤它、並診斷根因——別只是把它當成偶發的意外而打發掉</text><feedback><text>正確——在未改變的程式碼上通過／失敗的翻動是脆弱訊號，應加以重現、追蹤並修復。</text></feedback></answer>
+    <answer fraction="0"><text>完全忽略它，既然重跑通過了、程式碼又沒改</text><feedback><text>打發掉它會讓脆弱（或真正的間歇缺陷）持續存在；請改為重現並調查。</text></feedback></answer>
+    <answer fraction="0"><text>立刻刪掉這個測試，讓它不再失敗</text><feedback><text>刪除會丟掉涵蓋範圍，並在還沒弄懂前就藏起一個可能的真正缺陷；先調查。</text></feedback></answer>
+    <answer fraction="0"><text>為整個套件永久啟用重試到綠燈</text><feedback><text>全面重試會掩蓋整個套件的真正間歇缺陷；請改為重現並修復這個特定測試。</text></feedback></answer>
+    <generalfeedback><text>在同一個提交上出現不同裁決，正是脆弱的定義，不該被揮手帶過。藉由多次執行該測試取得脆弱率來重現它，把它記在一份被追蹤的清單上，並診斷根因。它可能是無害的時序問題，也可能是真正的間歇缺陷——只有調查才知道是哪一種，而非聳肩或盲目重試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷：與地區設定相依的數字格式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試斷言把 <code>1234.5</code> 格式化會得到字串 <code>"1,234.5"</code>。它對團隊多數人通過，但對一位機器使用「將數字寫成 <code>"1.234,5"</code>」之地區設定的隊友失敗。根因是什麼？正確的修法為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>格式化器使用了周遭的預設地區設定；在測試中明確釘住一個地區設定（或以與地區無關的方式格式化），使輸出在每個地方都相同</text><feedback><text>正確——把地區設定明確化，而不是依賴機器的預設。</text></feedback></answer>
+    <answer fraction="0"><text>隊友的機器上數字函式庫毀損了；重新安裝它</text><feedback><text>沒有東西毀損——函式庫正確地遵循那台機器的地區設定；測試必須明確固定地區設定。</text></feedback></answer>
+    <answer fraction="0"><text>重試測試，直到它產生預期的分隔符號</text><feedback><text>輸出對每個地區設定都是決定性的，所以重試無濟於事；改為釘住地區設定。</text></feedback></answer>
+    <answer fraction="0"><text>只在設為預期地區設定的機器上執行測試</text><feedback><text>限制執行地點是掩蓋隱藏的依賴，而非移除它；請在測試中指定地區設定。</text></feedback></answer>
+    <generalfeedback><text>數字、日期與貨幣的格式化會預設採用環境的地區設定，於是分組與小數分隔符號因機器而異。這個測試在不知情下依賴了某一個地區設定。修法是把明確的地區設定傳給格式化器（或以與地區無關的方式格式化），使產生的字串在每個環境都具決定性。</text></generalfeedback>
+  </question>
+</quiz>

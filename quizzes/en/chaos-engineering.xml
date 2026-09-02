@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Chaos Engineering/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What is chaos engineering</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Chaos engineering</em> is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The discipline of experimenting on a system by deliberately injecting faults, in order to build confidence in its resilience to turbulent real-world conditions</text><feedback><text>Correct — it is disciplined, deliberate fault-injection experimentation aimed at building confidence in resilience.</text></feedback></answer>
+    <answer fraction="0"><text>Randomly breaking things in production with no plan, to see what happens</text><feedback><text>Chaos engineering is controlled and hypothesis-driven; random unplanned breakage is exactly what it is not.</text></feedback></answer>
+    <answer fraction="0"><text>A profiling technique that measures how fast each function runs</text><feedback><text>That is performance profiling; chaos engineering injects faults to test resilience.</text></feedback></answer>
+    <answer fraction="0"><text>A code-review process for finding defects by reading source code</text><feedback><text>That is static review; chaos engineering experiments on a running system by injecting faults.</text></feedback></answer>
+    <generalfeedback><text>Chaos engineering is the discipline of experimenting on a system by deliberately injecting real-world faults so as to build confidence in the system's ability to withstand turbulent conditions in production. It is controlled and evidence-based, not random breakage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Goal of chaos engineering</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the primary goal of chaos engineering?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>To expose weaknesses in a system's resilience before they cause real outages</text><feedback><text>Correct — the aim is to uncover weaknesses proactively so they can be fixed before a real incident.</text></feedback></answer>
+    <answer fraction="0"><text>To cause as much production downtime as possible</text><feedback><text>The aim is to build confidence and find weaknesses, not to maximise downtime; impact is deliberately contained.</text></feedback></answer>
+    <answer fraction="0"><text>To prove the system contains no bugs at all</text><feedback><text>No experiment can prove the absence of all bugs; chaos engineering builds confidence and finds weaknesses, it does not prove bug-freeness.</text></feedback></answer>
+    <answer fraction="0"><text>To replace all other forms of testing</text><feedback><text>Chaos engineering complements other testing; it does not replace unit, integration or other tests.</text></feedback></answer>
+    <generalfeedback><text>The goal of chaos engineering is to reveal weaknesses in a system's resilience proactively — under controlled conditions — so that they can be remediated before they surface as a real, uncontrolled outage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is the steady state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In chaos engineering, the <em>steady state</em> of a system is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A measurable indicator of normal, healthy behaviour, such as throughput, error rate, or latency</text><feedback><text>Correct — the steady state is a measurable signal that the system is behaving normally.</text></feedback></answer>
+    <answer fraction="0"><text>The moment the system has crashed and stopped responding</text><feedback><text>That is an outage; the steady state is what normal, healthy operation looks like.</text></feedback></answer>
+    <answer fraction="0"><text>The total number of servers currently running</text><feedback><text>A raw server count is not a behavioural indicator; the steady state is a measurable signal of healthy behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>The list of faults you plan to inject</text><feedback><text>That is the experiment design; the steady state is the normal-behaviour baseline you measure against.</text></feedback></answer>
+    <generalfeedback><text>The steady state is a measurable output that reflects normal, healthy operation — for example throughput, error rate, or a latency SLO. You must be able to measure it, because the whole experiment is judged by whether the steady state is maintained under fault.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is the steady-state hypothesis</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>steady-state hypothesis</em> of a chaos experiment states that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The steady state will continue to hold in both the control group and the experiment group, even while the fault is present</text><feedback><text>Correct — the hypothesis is that normal behaviour persists despite the injected fault.</text></feedback></answer>
+    <answer fraction="0"><text>The system will definitely crash when the fault is injected</text><feedback><text>The hypothesis predicts that the steady state is maintained; the experiment then tries to disprove it.</text></feedback></answer>
+    <answer fraction="0"><text>The fault will never actually be injected</text><feedback><text>The fault is injected on purpose; the hypothesis is about whether the steady state survives it.</text></feedback></answer>
+    <answer fraction="0"><text>The team will fix every bug before running the experiment</text><feedback><text>That is unrelated to the hypothesis, which concerns whether the steady state continues under the fault.</text></feedback></answer>
+    <generalfeedback><text>The steady-state hypothesis predicts that the measurable normal behaviour continues in both the control group (no fault) and the experiment group (fault injected). The experiment then tries to disprove it: if the steady state does not hold, a weakness has been found.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is the blast radius</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>blast radius</em> of a chaos experiment refers to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The scope and extent of the impact that the experiment can have on users and the system</text><feedback><text>Correct — the blast radius is how far the experiment's impact can reach.</text></feedback></answer>
+    <answer fraction="0"><text>The physical distance between the data centres</text><feedback><text>It is not a physical distance; it is the scope of the experiment's potential impact.</text></feedback></answer>
+    <answer fraction="0"><text>The number of engineers observing the experiment</text><feedback><text>Team size is unrelated; the blast radius is the extent of the impact on users and the system.</text></feedback></answer>
+    <answer fraction="0"><text>The total run time of the experiment in minutes</text><feedback><text>Duration is a separate dimension; the blast radius is how much of the system and how many users can be affected.</text></feedback></answer>
+    <generalfeedback><text>The blast radius is the scope of an experiment's potential impact — how much of the system and how many users could be affected. Chaos engineering deliberately keeps the blast radius small (and abortable) so that any harm is contained.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is fault injection</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Fault injection</em> in a chaos experiment means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Deliberately introducing a failure condition — such as killing an instance or adding latency — into the system</text><feedback><text>Correct — fault injection is the deliberate introduction of a failure condition.</text></feedback></answer>
+    <answer fraction="0"><text>Writing new features and merging them into the main branch</text><feedback><text>That is normal development; fault injection introduces failure conditions to test resilience.</text></feedback></answer>
+    <answer fraction="0"><text>Fixing defects reported by users</text><feedback><text>That is defect repair; fault injection deliberately introduces a fault to observe the response.</text></feedback></answer>
+    <answer fraction="0"><text>Adding more log statements to the code</text><feedback><text>That improves observability but is not fault injection, which introduces an actual failure condition.</text></feedback></answer>
+    <generalfeedback><text>Fault injection is the deliberate introduction of a real-world failure condition into the system — for example terminating an instance, adding network latency, dropping packets, or exhausting a resource — so the team can observe how the system responds.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Chaos Monkey does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Netflix's <em>Chaos Monkey</em> is a tool that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Randomly terminates running instances in production to check that the system tolerates instance loss</text><feedback><text>Correct — Chaos Monkey kills instances so teams verify the system survives losing them.</text></feedback></answer>
+    <answer fraction="0"><text>Automatically writes unit tests for every function</text><feedback><text>Chaos Monkey injects instance failures; it does not generate unit tests.</text></feedback></answer>
+    <answer fraction="0"><text>Encrypts network traffic between services</text><feedback><text>That is unrelated; Chaos Monkey terminates instances to test resilience.</text></feedback></answer>
+    <answer fraction="0"><text>Scales the number of servers up when traffic rises</text><feedback><text>That is auto-scaling; Chaos Monkey deliberately removes instances rather than adding them.</text></feedback></answer>
+    <generalfeedback><text>Chaos Monkey, from Netflix's Simian Army, randomly terminates production instances during business hours so that engineers are forced to build services that tolerate the loss of any single instance without affecting users.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the Simian Army is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Netflix's <em>Simian Army</em> (which includes Chaos Monkey) is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A suite of tools that inject various failures to test the resilience of a distributed system</text><feedback><text>Correct — the Simian Army is a family of failure-injection tools for resilience testing.</text></feedback></answer>
+    <answer fraction="0"><text>A load-balancing algorithm for distributing requests</text><feedback><text>That is load balancing; the Simian Army injects failures rather than routing traffic.</text></feedback></answer>
+    <answer fraction="0"><text>A monitoring dashboard for viewing CPU graphs</text><feedback><text>Dashboards display metrics; the Simian Army actively injects faults.</text></feedback></answer>
+    <answer fraction="0"><text>A source-control system for managing releases</text><feedback><text>That is version control; the Simian Army is a set of resilience-testing tools.</text></feedback></answer>
+    <generalfeedback><text>The Simian Army is Netflix's collection of chaos tools (Chaos Monkey and its relatives) that deliberately inject different kinds of failure into a distributed system to verify and strengthen its resilience.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a game day is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In resilience practice, a <em>game day</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A planned exercise in which failures are deliberately injected so the team can rehearse and observe the system's and people's response</text><feedback><text>Correct — a game day is a planned, deliberate failure-injection exercise.</text></feedback></answer>
+    <answer fraction="0"><text>A day on which all deployments are frozen and nothing changes</text><feedback><text>That is a change freeze; a game day deliberately introduces failures to practise the response.</text></feedback></answer>
+    <answer fraction="0"><text>A team social event with no technical content</text><feedback><text>A game day is a technical exercise built around injecting and responding to failures.</text></feedback></answer>
+    <answer fraction="0"><text>The day the product is first released to customers</text><feedback><text>That is a launch; a game day is a rehearsal of failure scenarios.</text></feedback></answer>
+    <generalfeedback><text>A game day is a planned failure-injection exercise: the team schedules the injection of realistic faults and uses the event to rehearse detection, response, and recovery, and to observe how both the system and the people cope.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What resilience means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this context, a system's <em>resilience</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Its ability to keep functioning acceptably, or recover quickly, despite faults and turbulent conditions</text><feedback><text>Correct — resilience is the ability to withstand and recover from adverse conditions.</text></feedback></answer>
+    <answer fraction="0"><text>Its ability to run using the least possible amount of memory</text><feedback><text>That is memory efficiency; resilience is about withstanding and recovering from faults.</text></feedback></answer>
+    <answer fraction="0"><text>The number of features the system offers</text><feedback><text>Feature count is unrelated; resilience concerns coping with faults and disruption.</text></feedback></answer>
+    <answer fraction="0"><text>How quickly new code can be deployed</text><feedback><text>That is deployment speed; resilience is the ability to keep working despite faults.</text></feedback></answer>
+    <generalfeedback><text>Resilience is a system's ability to continue operating acceptably — or to recover quickly — in the face of faults, failures, and turbulent real-world conditions. Building confidence in this ability is the point of chaos engineering.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Category of Gremlin and LitmusChaos</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Gremlin and LitmusChaos are examples of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Chaos engineering tools used to inject faults into systems</text><feedback><text>Correct — both are platforms for running chaos experiments by injecting faults.</text></feedback></answer>
+    <answer fraction="0"><text>Relational database engines</text><feedback><text>They are not databases; they are tools for injecting faults during chaos experiments.</text></feedback></answer>
+    <answer fraction="0"><text>Front-end JavaScript frameworks</text><feedback><text>They are not UI frameworks; they are chaos engineering tools.</text></feedback></answer>
+    <answer fraction="0"><text>Continuous-integration build servers</text><feedback><text>That is a different category; Gremlin and LitmusChaos inject faults to test resilience.</text></feedback></answer>
+    <generalfeedback><text>Gremlin and LitmusChaos (like Netflix's Chaos Monkey) are chaos engineering tools: platforms that inject controlled faults — instance kills, latency, resource exhaustion, and so on — so teams can run resilience experiments.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify an example fault to inject</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is an example of a real-world fault you might inject in a chaos experiment?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Terminating a running server instance to simulate a sudden host failure</text><feedback><text>Correct — killing an instance is a classic injected fault.</text></feedback></answer>
+    <answer fraction="0"><text>Adding a new column to a report</text><feedback><text>That is a feature change, not an injected fault.</text></feedback></answer>
+    <answer fraction="0"><text>Renaming a variable in the source code</text><feedback><text>That is a code edit, not a fault injected into a running system.</text></feedback></answer>
+    <answer fraction="0"><text>Updating the project's documentation</text><feedback><text>Editing docs is unrelated; an injected fault is a real failure condition such as terminating an instance.</text></feedback></answer>
+    <generalfeedback><text>Typical injected faults include terminating an instance or server, adding network latency, dropping or partitioning traffic, exhausting CPU/memory/disk, failing a dependency, simulating a region/AZ outage, or introducing clock skew. Terminating a running instance is one of the most common.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of the ability to abort</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why should a chaos experiment always include the ability to <em>abort</em> (halt) it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>So that if the experiment starts causing real harm, it can be stopped immediately to limit the damage</text><feedback><text>Correct — an abort/halt switch contains the damage if things go wrong.</text></feedback></answer>
+    <answer fraction="0"><text>So that the experiment can run forever without supervision</text><feedback><text>The opposite — the abort exists precisely so the experiment can be stopped when needed.</text></feedback></answer>
+    <answer fraction="0"><text>So that no monitoring is needed during the experiment</text><feedback><text>Monitoring is still required; the abort is a safety control to stop harm quickly.</text></feedback></answer>
+    <answer fraction="0"><text>So that the results can be ignored if they are inconvenient</text><feedback><text>The abort is about safety, not about discarding results.</text></feedback></answer>
+    <generalfeedback><text>An abort (or halt) capability is a core safety control. Together with a small blast radius, it means that if the experiment begins to breach the steady state and harm users, it can be stopped at once, keeping the impact contained.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Observability as a prerequisite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Before you can run a meaningful chaos experiment, you must be able to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Measure the steady state, so you can tell whether it is maintained during the experiment</text><feedback><text>Correct — observability of the steady state is a prerequisite; without it you cannot judge the result.</text></feedback></answer>
+    <answer fraction="0"><text>Guarantee that no fault will ever occur</text><feedback><text>Chaos engineering deliberately injects faults; the prerequisite is being able to measure the steady state, not preventing faults.</text></feedback></answer>
+    <answer fraction="0"><text>Remove all monitoring to avoid interference</text><feedback><text>The opposite — monitoring is essential to measure the steady state and detect problems.</text></feedback></answer>
+    <answer fraction="0"><text>Turn the system off during the experiment</text><feedback><text>The system must be running so its behaviour under fault can be observed.</text></feedback></answer>
+    <generalfeedback><text>Observability is a prerequisite: you must be able to measure the steady state (throughput, error rate, latency, and so on). If you cannot measure normal behaviour, you cannot tell whether the injected fault breaks it, and the experiment yields no useful evidence.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Deliberate fault injection to build confidence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Chaos engineering deliberately injects faults into a system in order to build confidence in its resilience to real-world conditions.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — deliberate, controlled fault injection to build confidence in resilience is exactly what chaos engineering is.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>It is true: chaos engineering deliberately injects faults, under controlled conditions, to build confidence in the system's resilience.</text></feedback></answer>
+    <generalfeedback><text>By definition, chaos engineering experiments on a system by deliberately injecting real-world faults so as to build confidence in its ability to withstand turbulent production conditions. The injection is deliberate and controlled, not accidental.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Chaos Engineering/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Order of the experiment steps</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which ordering best describes the steps of a chaos experiment?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Define the steady state → hypothesize it continues under fault → inject the fault → observe and compare against the steady state</text><feedback><text>Correct — measure normal behaviour, form the hypothesis, inject the fault, then compare.</text></feedback></answer>
+    <answer fraction="0"><text>Inject the fault → then decide afterwards what normal behaviour was → then form a hypothesis</text><feedback><text>The steady state and hypothesis must be defined before injecting the fault, or there is nothing to compare against.</text></feedback></answer>
+    <answer fraction="0"><text>Form a hypothesis → fix all bugs → declare the system resilient without injecting anything</text><feedback><text>You must actually inject the fault and observe; skipping the injection tests nothing.</text></feedback></answer>
+    <answer fraction="0"><text>Observe and compare → inject the fault → define the steady state last</text><feedback><text>The order is reversed; you define and measure the steady state first, before injecting.</text></feedback></answer>
+    <generalfeedback><text>The Principles of Chaos give the order: (1) define the steady state as a measurable indicator of normal behaviour; (2) hypothesize that the steady state continues in both control and experiment groups; (3) inject a real-world fault; (4) try to disprove the hypothesis by observing whether the steady state is maintained.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>First step of a chaos experiment</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What should be done <strong>first</strong> when designing a chaos experiment?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Define the steady state — a measurable indicator of normal, healthy behaviour</text><feedback><text>Correct — you must establish the measurable baseline before you can judge the effect of a fault.</text></feedback></answer>
+    <answer fraction="0"><text>Terminate as many instances as possible</text><feedback><text>Injecting the fault comes after the steady state and hypothesis are defined, and the blast radius is kept small, not maximised.</text></feedback></answer>
+    <answer fraction="0"><text>Announce that the system has passed the experiment</text><feedback><text>You cannot declare a result before defining the steady state and running the experiment.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the monitoring so it does not interfere</text><feedback><text>Monitoring is required to measure the steady state; removing it defeats the experiment.</text></feedback></answer>
+    <generalfeedback><text>The first step is to define the steady state: a measurable output (throughput, error rate, latency SLO) that shows the system is behaving normally. Everything else — the hypothesis, the fault, the comparison — is judged relative to this baseline.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why minimize the blast radius</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does chaos engineering emphasise keeping the <em>blast radius</em> small?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>To contain the potential impact, so that if the experiment reveals a weakness it harms as few users as possible</text><feedback><text>Correct — a small blast radius limits collateral damage while still yielding evidence.</text></feedback></answer>
+    <answer fraction="0"><text>Because a large blast radius makes the results more accurate</text><feedback><text>A larger blast radius mainly increases risk, not accuracy; you start small and expand only as confidence grows.</text></feedback></answer>
+    <answer fraction="0"><text>Because it lets you skip having an abort condition</text><feedback><text>A small blast radius and an abort condition are complementary safety controls, not substitutes.</text></feedback></answer>
+    <answer fraction="0"><text>Because it guarantees the steady state can never break</text><feedback><text>The steady state may still break; the small blast radius simply limits how many users are affected when it does.</text></feedback></answer>
+    <generalfeedback><text>Chaos experiments start with a small blast radius — a canary or a small percentage of traffic — so that any weakness they expose harms the fewest possible users. You expand the blast radius only gradually as confidence grows, always keeping the ability to abort.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why have an abort condition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An experiment is configured to halt automatically if the customer-facing error rate exceeds a set threshold. This abort condition is there to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Stop the experiment before the damage grows large, keeping the impact within acceptable limits</text><feedback><text>Correct — the abort caps the harm by stopping once real damage appears.</text></feedback></answer>
+    <answer fraction="0"><text>Ensure the experiment runs to completion no matter what</text><feedback><text>The abort exists to stop early when harm appears, which is the opposite of always running to completion.</text></feedback></answer>
+    <answer fraction="0"><text>Prove that the error rate can never rise</text><feedback><text>The abort does not prevent the error rate from rising; it reacts once the rise crosses the threshold.</text></feedback></answer>
+    <answer fraction="0"><text>Replace the need to define a steady state</text><feedback><text>The threshold is itself based on the steady state; the abort does not replace it.</text></feedback></answer>
+    <generalfeedback><text>An abort (halt) condition tied to a steady-state metric — such as error rate or latency crossing a threshold — lets the experiment stop the moment it begins causing unacceptable harm, keeping the impact contained even if the hypothesis turns out to be wrong.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why prefer running in production</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does chaos engineering prefer to run experiments in production (or a production-like environment), with safeguards?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because only production has the real traffic, scale, data, and dependencies, so the results reflect how the system actually behaves</text><feedback><text>Correct — production is where real conditions live, so it gives the most realistic evidence.</text></feedback></answer>
+    <answer fraction="0"><text>Because production has no monitoring, so experiments are cheaper there</text><feedback><text>Production needs strong monitoring, not the absence of it; realism, not cheapness, is the reason.</text></feedback></answer>
+    <answer fraction="0"><text>Because it removes any need for a small blast radius or an abort</text><feedback><text>Running in production makes safeguards more important, not less; the blast radius is kept small and the abort ready.</text></feedback></answer>
+    <answer fraction="0"><text>Because staging environments can never run any tests</text><feedback><text>Staging can run tests, but it does not reproduce real traffic and scale; that realism is why production is preferred.</text></feedback></answer>
+    <generalfeedback><text>Weaknesses often appear only under real traffic, scale, data, and dependency behaviour, which staging rarely reproduces faithfully. Running in production (with observability, a small blast radius, and an abort) therefore gives the most realistic and trustworthy evidence about resilience.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Controlled, not random breakage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A colleague says "chaos engineering just means randomly breaking things in production." The most accurate correction is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is controlled, hypothesis-driven experimentation with a defined steady state, a limited blast radius, and the ability to abort — not random, unplanned breakage</text><feedback><text>Correct — chaos engineering is disciplined experimentation, the opposite of random breakage.</text></feedback></answer>
+    <answer fraction="0"><text>Yes, that is exactly right — the more random and unplanned, the better</text><feedback><text>This repeats the misconception; chaos engineering is deliberately controlled and hypothesis-driven.</text></feedback></answer>
+    <answer fraction="0"><text>It only ever runs in staging, never touching production at all</text><feedback><text>Chaos engineering prefers production with safeguards; the key correction is that it is controlled, not that it avoids production.</text></feedback></answer>
+    <answer fraction="0"><text>It means never injecting any faults, only reading logs</text><feedback><text>Injecting faults is central to chaos engineering; the point is that the injection is controlled and hypothesis-driven.</text></feedback></answer>
+    <generalfeedback><text>Chaos engineering is controlled, hypothesis-driven experimentation: a measurable steady state, an explicit hypothesis, a real-world fault, a small and expandable blast radius, and an abort. Random, unplanned breakage lacks all of these and is not chaos engineering.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why observability is required</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is strong observability (monitoring of the steady-state metrics) a prerequisite for chaos engineering?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Without it you cannot tell whether the steady state was maintained or broken, so the experiment produces no usable evidence and harm may go unnoticed</text><feedback><text>Correct — you need to measure the steady state both to read the result and to trigger the abort.</text></feedback></answer>
+    <answer fraction="0"><text>Because monitoring itself repairs any weaknesses that are found</text><feedback><text>Monitoring reveals weaknesses; it does not repair them. Remediation is a separate step.</text></feedback></answer>
+    <answer fraction="0"><text>Because observability removes the need to inject any fault</text><feedback><text>The fault must still be injected; observability tells you what effect it had.</text></feedback></answer>
+    <answer fraction="0"><text>Because it lets you run the experiment without a hypothesis</text><feedback><text>A hypothesis is still required; observability is what lets you test it.</text></feedback></answer>
+    <generalfeedback><text>Observability lets you measure the steady state before, during, and after the fault. Without it you cannot judge whether the hypothesis held, you cannot trigger an abort when harm appears, and the experiment yields no evidence — which is why it is a prerequisite.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify the fault: instance kill</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An experiment terminates one of the running application instances. This fault is best classified as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An instance/host failure (compute loss)</text><feedback><text>Correct — killing an instance simulates the loss of a compute node.</text></feedback></answer>
+    <answer fraction="0"><text>A network partition</text><feedback><text>A partition splits the network; here a whole instance is removed, which is a compute-loss fault.</text></feedback></answer>
+    <answer fraction="0"><text>Injected latency</text><feedback><text>Latency slows responses; terminating an instance removes it entirely, a different fault.</text></feedback></answer>
+    <answer fraction="0"><text>Disk exhaustion</text><feedback><text>Disk exhaustion fills storage; killing an instance is a compute/host failure, not a storage fault.</text></feedback></answer>
+    <generalfeedback><text>Terminating a running instance simulates the sudden loss of a compute node or host — the fault that Chaos Monkey is built around. It is distinct from network faults (latency, partition) and resource-exhaustion faults (CPU, memory, disk).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify the fault: injected latency</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An experiment adds a 300 ms delay to responses from the payment service. This fault is best classified as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Injected network/dependency latency</text><feedback><text>Correct — adding a delay to responses is a latency fault.</text></feedback></answer>
+    <answer fraction="0"><text>An instance termination</text><feedback><text>Nothing is terminated; the service still responds, only more slowly.</text></feedback></answer>
+    <answer fraction="0"><text>CPU exhaustion</text><feedback><text>The delay is imposed on responses, not caused by starving the CPU; it is a latency fault.</text></feedback></answer>
+    <answer fraction="0"><text>A clock-skew fault</text><feedback><text>Clock skew shifts time between nodes; adding a response delay is a latency fault, not a time fault.</text></feedback></answer>
+    <generalfeedback><text>Adding a delay to a service's responses is a latency-injection fault. It tests whether callers handle slow dependencies gracefully — for example via timeouts, retries with backoff, or circuit breakers — rather than hanging or cascading the delay.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify the fault: network partition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An experiment blocks all traffic between two service clusters so they can no longer reach each other. This fault is best classified as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A network partition (split between parts of the system)</text><feedback><text>Correct — cutting communication between clusters is a network partition.</text></feedback></answer>
+    <answer fraction="0"><text>Memory exhaustion</text><feedback><text>No memory is being consumed; the network path between clusters is being cut.</text></feedback></answer>
+    <answer fraction="0"><text>An instance kill</text><feedback><text>The instances still run; they simply cannot communicate, which is a partition.</text></feedback></answer>
+    <answer fraction="0"><text>Clock skew</text><feedback><text>Clock skew shifts time; blocking traffic between clusters is a network partition.</text></feedback></answer>
+    <generalfeedback><text>Cutting the network so two parts of the system cannot reach each other is a network partition (a "split brain" scenario). It tests how the system behaves when components are isolated — for example whether it preserves consistency, degrades gracefully, or recovers when the partition heals.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the hypothesis compares</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A well-formed steady-state hypothesis is expressed in terms of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A measurable steady-state metric continuing to hold under the fault, ideally comparing an experiment group against a control group</text><feedback><text>Correct — the hypothesis is about a measurable metric, compared between control and experiment groups.</text></feedback></answer>
+    <answer fraction="0"><text>The personal opinion of the on-call engineer about whether things feel fine</text><feedback><text>The hypothesis must be measurable, not a subjective impression.</text></feedback></answer>
+    <answer fraction="0"><text>The number of lines of code in the affected service</text><feedback><text>Code size is not a steady-state metric; the hypothesis concerns measurable behaviour like error rate or latency.</text></feedback></answer>
+    <answer fraction="0"><text>Whether the source repository compiles without warnings</text><feedback><text>Build cleanliness is unrelated to the runtime steady state the hypothesis is about.</text></feedback></answer>
+    <generalfeedback><text>The steady-state hypothesis is stated in measurable terms — for example "error rate stays below 1% and p99 latency below 400 ms" — and predicts that this holds in the experiment group (with the fault) just as in the control group (without it). Comparing the two groups isolates the effect of the fault.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of trying to disprove</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does a chaos experiment actively try to <em>disprove</em> the steady-state hypothesis rather than confirm it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because a failure to maintain the steady state pinpoints a real weakness to fix, which is the valuable outcome</text><feedback><text>Correct — trying to disprove the hypothesis is how weaknesses are found.</text></feedback></answer>
+    <answer fraction="0"><text>Because confirming a hypothesis is impossible in any experiment</text><feedback><text>The point is not that confirmation is impossible, but that seeking to disprove is what surfaces weaknesses.</text></feedback></answer>
+    <answer fraction="0"><text>Because the team wants the system to fail permanently</text><feedback><text>The team wants to find and fix weaknesses safely, not to cause permanent failure.</text></feedback></answer>
+    <answer fraction="0"><text>Because disproving avoids any need for monitoring</text><feedback><text>Monitoring is needed either way; disproving is about learning where the system is weak.</text></feedback></answer>
+    <generalfeedback><text>Like a scientific experiment, chaos engineering seeks evidence against its hypothesis. If the steady state does not hold under the injected fault, that is exactly what you wanted to learn: a concrete weakness has been located and can be remediated before it causes a real outage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Canary as blast-radius control</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Running an experiment against only 1% of live traffic (a canary) before expanding is an example of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Controlling the blast radius — starting small so any harm is contained</text><feedback><text>Correct — limiting the experiment to a small slice of traffic is blast-radius control.</text></feedback></answer>
+    <answer fraction="0"><text>Defining the steady state</text><feedback><text>The steady state is the metric of normal behaviour; using 1% of traffic is about limiting impact, not defining the baseline.</text></feedback></answer>
+    <answer fraction="0"><text>Forming the hypothesis</text><feedback><text>The hypothesis is the prediction being tested; a 1% canary is a way to contain the blast radius.</text></feedback></answer>
+    <answer fraction="0"><text>Removing the ability to abort</text><feedback><text>A canary is a safety measure and works alongside an abort, not against it.</text></feedback></answer>
+    <generalfeedback><text>Exposing only a small percentage of traffic (a canary) is a classic way to keep the blast radius small. If the experiment reveals a weakness, only that small slice is affected; you expand gradually as confidence grows, keeping an abort ready throughout.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Complements other testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does chaos engineering relate to other forms of testing (unit, integration, and so on)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It complements them by targeting resilience under real-world faults; it does not replace them</text><feedback><text>Correct — chaos engineering adds resilience evidence on top of, not instead of, other testing.</text></feedback></answer>
+    <answer fraction="0"><text>It replaces all unit and integration testing, which become unnecessary</text><feedback><text>Chaos engineering complements other tests; unit and integration tests remain essential.</text></feedback></answer>
+    <answer fraction="0"><text>It is in direct competition with testing and should not be used alongside it</text><feedback><text>They are complementary, not competing; chaos engineering covers what other tests do not.</text></feedback></answer>
+    <answer fraction="0"><text>It only matters for teams that have no other tests</text><feedback><text>It adds value regardless of other tests, because it exercises resilience under real conditions.</text></feedback></answer>
+    <generalfeedback><text>Chaos engineering addresses a question other tests rarely cover: how the whole system behaves under real-world faults at production scale. It complements unit, integration, and other testing rather than replacing any of them.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Production with no safeguards</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To get the most realism, chaos experiments should be run in production with no safeguards — no small blast radius and no abort.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — production is preferred for realism, but only with safeguards: a small blast radius, an abort, and strong observability.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: running in production without safeguards risks an uncontrolled outage. Realism must be paired with a limited blast radius and an abort.</text></feedback></answer>
+    <generalfeedback><text>Chaos engineering does prefer production for realism, but responsibly: you keep the blast radius small, hold an abort ready, and rely on strong observability. Removing the safeguards turns a controlled experiment into a reckless one.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Chaos Engineering/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Design an experiment for checkout</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You want a chaos experiment for an e-commerce checkout that depends on a payment service. Which design is soundest?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Steady state: checkout success rate ≥ 99%. Hypothesis: it stays ≥ 99% if payment latency rises. Fault: add latency to the payment service. Blast radius: 1% of traffic. Abort: halt if success rate drops below 95%.</text><feedback><text>Correct — it names a measurable steady state, a hypothesis, a real fault, a small blast radius, and an abort condition.</text></feedback></answer>
+    <answer fraction="0"><text>Steady state: none. Hypothesis: none. Fault: shut down the whole payment service for all users. Blast radius: 100%. Abort: none.</text><feedback><text>This has no measurable baseline, no hypothesis, an unbounded blast radius, and no abort — the opposite of a sound design.</text></feedback></answer>
+    <answer fraction="0"><text>Steady state: "the team feels good about checkout." Fault: rename a database column. Blast radius: all users. Abort: whenever someone remembers to check.</text><feedback><text>The steady state is not measurable, renaming a column is not a fault injection, the blast radius is unbounded, and the abort is not defined.</text></feedback></answer>
+    <answer fraction="0"><text>Steady state: checkout success rate ≥ 99%. Fault: none injected. Just watch the dashboards and declare the system resilient.</text><feedback><text>Without injecting a fault nothing is being tested; observing a healthy system proves nothing about resilience.</text></feedback></answer>
+    <generalfeedback><text>A sound experiment specifies all of: a measurable steady state (checkout success rate ≥ 99%), an explicit hypothesis (it holds under the fault), a real injected fault (payment latency), a contained blast radius (1% of traffic), and an abort condition (halt if success rate &lt; 95%). The other options each drop one or more of these essentials.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret a broken steady state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During an experiment, injecting latency into a dependency causes the checkout error rate to spike far above its steady-state threshold. What is the correct interpretation and response?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The hypothesis is disproved: a resilience weakness has been found. Abort if needed, then remediate (e.g. add timeouts, retries, or a circuit breaker) and re-test.</text><feedback><text>Correct — a broken steady state is a discovered weakness to fix, then verify.</text></feedback></answer>
+    <answer fraction="0"><text>The experiment failed and should be discarded; nothing was learned</text><feedback><text>On the contrary, disproving the hypothesis is a valuable result — it located a real weakness.</text></feedback></answer>
+    <answer fraction="0"><text>The system is fine; a spiking error rate under fault can be ignored</text><feedback><text>A steady state broken by the fault is exactly the weakness the experiment exists to find; it must not be ignored.</text></feedback></answer>
+    <answer fraction="0"><text>It proves the dependency should never be called again under any circumstances</text><feedback><text>The finding is that the caller handles the slow dependency poorly; the fix is resilience (timeouts/retries/circuit breakers), not banning the dependency.</text></feedback></answer>
+    <generalfeedback><text>When the injected fault breaks the steady state, the hypothesis is disproved and a genuine weakness has been located. The right response is to contain the impact (abort if necessary), remediate the weakness — for example with timeouts, retries with backoff, or a circuit breaker — and then re-run the experiment to confirm the fix.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpret a maintained steady state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An experiment injects a fault and the steady state is maintained throughout. What is the most accurate conclusion?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Confidence in resilience to that specific fault has increased; it does not prove the system is resilient to all faults or resilient forever</text><feedback><text>Correct — a passed experiment builds confidence for that scenario, not a permanent guarantee.</text></feedback></answer>
+    <answer fraction="0"><text>The system is now proven to be resilient to every possible failure, permanently</text><feedback><text>One experiment covers one fault under the tested conditions; it cannot prove resilience to all faults for all time.</text></feedback></answer>
+    <answer fraction="0"><text>Chaos engineering is now complete and never needs to be run again</text><feedback><text>Systems change continuously, so experiments must be repeated; a single pass is not "done forever".</text></feedback></answer>
+    <answer fraction="0"><text>The experiment was pointless because no weakness was found</text><feedback><text>Increasing confidence and reducing uncertainty is a legitimate, useful outcome even when no weakness surfaces.</text></feedback></answer>
+    <generalfeedback><text>A maintained steady state means the system tolerated that particular fault under the tested conditions, which increases confidence in its resilience. It is not proof of resilience to every fault, nor a permanent guarantee — as the system evolves, the experiment should be repeated (ideally automated and continuous).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Production small-blast-radius vs staging-only</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can running experiments in production with a small blast radius be more valuable than running only in staging?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Staging rarely reproduces real traffic, scale, data, and dependency behaviour, so some weaknesses appear only in production; a small blast radius lets you find them with contained risk</text><feedback><text>Correct — production realism reveals weaknesses staging misses, and the small blast radius keeps the risk contained.</text></feedback></answer>
+    <answer fraction="0"><text>Because staging environments are incapable of running any experiment</text><feedback><text>Staging can run experiments; the point is that it does not faithfully reproduce production conditions.</text></feedback></answer>
+    <answer fraction="0"><text>Because a small blast radius in production removes all risk entirely</text><feedback><text>It reduces and contains risk; it does not remove it. That is why an abort and observability are still needed.</text></feedback></answer>
+    <answer fraction="0"><text>Because production experiments never need monitoring or an abort</text><feedback><text>Production experiments need monitoring and an abort more than ever; the small blast radius works alongside them.</text></feedback></answer>
+    <generalfeedback><text>Many resilience weaknesses emerge only under real production traffic, scale, data distributions, and dependency behaviour — conditions staging seldom reproduces. Running in production with a small, expandable blast radius (plus observability and an abort) surfaces those real weaknesses while keeping the risk contained.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Misconception: just breaking things</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement best corrects the misconception that chaos engineering is "just breaking things"?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is a disciplined method: a measurable steady state, an explicit hypothesis, a controlled fault, a limited blast radius, an abort, and observability throughout</text><feedback><text>Correct — the discipline and safeguards are exactly what distinguish it from mere breakage.</text></feedback></answer>
+    <answer fraction="0"><text>There is no difference; breaking things and chaos engineering are the same activity</text><feedback><text>They differ sharply: chaos engineering is controlled and hypothesis-driven, breakage is neither.</text></feedback></answer>
+    <answer fraction="0"><text>Chaos engineering avoids faults entirely and only reviews architecture diagrams</text><feedback><text>Injecting real faults is central; the discipline lies in how it is controlled, not in avoiding faults.</text></feedback></answer>
+    <answer fraction="0"><text>The difference is only that chaos engineering uses more expensive tools</text><feedback><text>The difference is method and safeguards, not tool cost.</text></feedback></answer>
+    <generalfeedback><text>The distinguishing feature is discipline: chaos engineering defines a measurable steady state, states a hypothesis, injects a controlled fault, contains the blast radius, keeps an abort ready, and observes throughout. "Just breaking things" has none of these controls.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A disproved hypothesis is a success</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An experiment's hypothesis is disproved — the steady state broke under the fault. How should this be regarded?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>As a success: the experiment did its job by surfacing a real weakness that can now be fixed before it causes an outage</text><feedback><text>Correct — learning about a weakness in a controlled setting is the valuable outcome.</text></feedback></answer>
+    <answer fraction="0"><text>As an embarrassing failure that should be hidden from the team</text><feedback><text>Finding a weakness safely is a win, not something to hide; it prevents a worse, uncontrolled failure later.</text></feedback></answer>
+    <answer fraction="0"><text>As proof that chaos engineering does not work and should be abandoned</text><feedback><text>The method worked exactly as intended: it exposed a weakness under controlled conditions.</text></feedback></answer>
+    <answer fraction="0"><text>As a reason to stop measuring the steady state in future experiments</text><feedback><text>The steady state is what let you detect the weakness; you keep measuring it.</text></feedback></answer>
+    <generalfeedback><text>A disproved hypothesis means the experiment found a genuine resilience weakness under safe, controlled conditions — precisely the point of chaos engineering. It is a success, because fixing the weakness now is far cheaper than discovering it during a real, uncontrolled outage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Does not prove bug-free</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After a series of chaos experiments all pass, a manager says "this proves our system has no bugs." The best response is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Passing experiments build confidence in resilience to the faults tested, but they cannot prove the absence of all bugs; untested faults and conditions remain</text><feedback><text>Correct — chaos engineering reduces uncertainty and builds confidence; it does not prove bug-freeness.</text></feedback></answer>
+    <answer fraction="0"><text>Agreed — passing chaos experiments prove the system is completely bug-free</text><feedback><text>No experiment can prove the absence of all bugs; only the tested scenarios were exercised.</text></feedback></answer>
+    <answer fraction="0"><text>Chaos experiments say nothing at all about the system, so the manager is entirely wrong to draw any conclusion</text><feedback><text>They do provide real evidence about resilience; the overreach is only the claim of bug-freeness.</text></feedback></answer>
+    <answer fraction="0"><text>The system is bug-free only if the experiments ran in staging</text><feedback><text>Neither staging nor production runs can prove bug-freeness; this misstates the conclusion.</text></feedback></answer>
+    <generalfeedback><text>Chaos experiments cover specific faults under specific conditions. Passing them raises confidence in resilience to those faults, but — like all testing — they cannot demonstrate the absence of every bug. Untested faults, inputs, and conditions still carry residual risk.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Prerequisites before production chaos</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team wants to start running chaos experiments in production. Which prerequisites should be in place first?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Observability to measure the steady state, a way to limit the blast radius, an abort/rollback path, and a defined steady-state metric</text><feedback><text>Correct — measurement, containment, and a safe stop are prerequisites before injecting faults in production.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing in particular; just start terminating production instances immediately</text><feedback><text>Injecting faults in production without observability, containment, or an abort risks an uncontrolled outage.</text></feedback></answer>
+    <answer fraction="0"><text>Only a list of every bug in the system, and nothing else</text><feedback><text>You cannot have such a list, and it is not the prerequisite; observability, blast-radius control, and an abort are.</text></feedback></answer>
+    <answer fraction="0"><text>A guarantee from management that no fault will ever affect a user</text><feedback><text>Such a guarantee is impossible; instead you contain and monitor the impact and keep an abort ready.</text></feedback></answer>
+    <generalfeedback><text>Before injecting faults in production, you need the safeguards that make it responsible: a defined, measurable steady state; observability to watch it in real time; a way to keep the blast radius small; and an abort or rollback path to stop quickly if harm appears. These make the experiment controlled rather than reckless.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Choose a good steady-state metric</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a video-streaming service, which is the best choice of steady-state metric for a chaos experiment?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The rate at which users successfully start playing a video (a measurable, user-facing indicator of healthy behaviour)</text><feedback><text>Correct — a measurable, user-facing signal of normal behaviour makes a good steady state.</text></feedback></answer>
+    <answer fraction="0"><text>The number of engineers currently on call</text><feedback><text>Staffing is not a behavioural signal of the system; the steady state must measure the system's healthy behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>The number of source files in the repository</text><feedback><text>Repository size does not reflect runtime health; it cannot serve as a steady-state metric.</text></feedback></answer>
+    <answer fraction="0"><text>Whether the latest build compiled without warnings</text><feedback><text>Build status is not a runtime steady state; the metric must reflect live, healthy behaviour under load.</text></feedback></answer>
+    <generalfeedback><text>A good steady-state metric is a measurable output that reflects normal, healthy, user-facing behaviour — here, the successful video-start rate (you might add playback error rate or rebuffering). Non-behavioural facts like staff count, repository size, or build status cannot tell you whether the system is healthy under a fault.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Contain the blast radius by design</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You must test how a service tolerates a failing dependency, but you want to limit exposure. Which approach best contains the blast radius?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inject the dependency failure for a small percentage of traffic first, watch the steady-state metrics, and expand only if they hold — with an abort ready</text><feedback><text>Correct — start small, observe, expand gradually, and keep an abort — the essence of blast-radius control.</text></feedback></answer>
+    <answer fraction="0"><text>Fail the dependency for 100% of traffic at once so the test finishes fastest</text><feedback><text>That maximises exposure; a weakness would then hit every user. Blast-radius control means starting small.</text></feedback></answer>
+    <answer fraction="0"><text>Turn off monitoring so the experiment cannot trigger alerts</text><feedback><text>You need monitoring to observe the steady state and trigger the abort; turning it off increases risk.</text></feedback></answer>
+    <answer fraction="0"><text>Run it with no abort so the experiment cannot be interrupted</text><feedback><text>Removing the abort means you cannot stop the harm; that is the opposite of containment.</text></feedback></answer>
+    <generalfeedback><text>Blast-radius control means limiting the fraction of the system and users exposed: inject the failure for a small slice of traffic, watch the steady-state metrics with full observability, keep an abort ready, and expand the scope only as confidence grows.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Hypothesis for a dependency-failure experiment</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A service calls a non-critical recommendations dependency. You want to verify graceful degradation if that dependency fails. Which steady-state hypothesis is best?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>If the recommendations dependency fails, the page still loads with success rate and latency within their steady-state thresholds (recommendations simply omitted)</text><feedback><text>Correct — it predicts the measurable steady state holds while the non-critical feature degrades gracefully.</text></feedback></answer>
+    <answer fraction="0"><text>If the recommendations dependency fails, the entire service must crash immediately</text><feedback><text>A crash is the failure you want to prevent; the hypothesis should predict graceful degradation, not collapse.</text></feedback></answer>
+    <answer fraction="0"><text>The recommendations dependency will never fail during the experiment</text><feedback><text>The experiment deliberately fails it; the hypothesis is about what happens when it does.</text></feedback></answer>
+    <answer fraction="0"><text>The team will feel confident regardless of the metrics</text><feedback><text>The hypothesis must be measurable, not a subjective feeling.</text></feedback></answer>
+    <generalfeedback><text>For a non-critical dependency, resilience means graceful degradation: the core page keeps working within its steady-state thresholds while the optional feature is simply omitted. The hypothesis states this measurable outcome, and the experiment fails the dependency to see whether it holds.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Simulate a region outage safely</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A service runs across multiple cloud regions and claims to survive the loss of any one region. How should a chaos experiment validate this safely?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Define a steady state, hypothesize it holds, simulate the loss of one region for a limited slice of traffic while watching metrics, and abort if the steady state breaks</text><feedback><text>Correct — a measured, contained, abortable regional-failover experiment validates the claim safely.</text></feedback></answer>
+    <answer fraction="0"><text>Permanently delete one region's infrastructure to be sure it is really gone</text><feedback><text>That is destructive and unrecoverable; chaos experiments simulate the outage reversibly, with an abort.</text></feedback></answer>
+    <answer fraction="0"><text>Assume the failover works because the architecture diagram shows two regions</text><feedback><text>A diagram is not evidence; the point of the experiment is to test the failover in reality.</text></feedback></answer>
+    <answer fraction="0"><text>Take down all regions at once to test the worst case immediately</text><feedback><text>Removing all regions guarantees an outage and tests nothing about single-region survival; the blast radius must be contained.</text></feedback></answer>
+    <generalfeedback><text>To validate region-level resilience, define a measurable steady state, hypothesize it survives losing one region, simulate that regional outage in a reversible way for a contained slice of traffic, observe the failover against the steady state, and abort if it breaks. This tests the real failover behaviour without risking a full, irreversible outage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Steady state breaks unexpectedly mid-run</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Midway through a production experiment, the steady-state error rate crosses the abort threshold. What is the correct immediate action?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Trigger the abort to halt the experiment and restore normal conditions, then investigate the weakness that was revealed</text><feedback><text>Correct — abort first to contain harm, then analyse and remediate the finding.</text></feedback></answer>
+    <answer fraction="0"><text>Keep the fault running longer to be certain the problem is real</text><feedback><text>Prolonging the fault increases harm to users; the abort exists to stop at the threshold.</text></feedback></answer>
+    <answer fraction="0"><text>Widen the blast radius to more users to gather more data</text><feedback><text>Expanding while the steady state is broken multiplies the damage; you abort and contain instead.</text></feedback></answer>
+    <answer fraction="0"><text>Disable the alert so the threshold stops firing</text><feedback><text>Silencing the alert hides real harm; the correct move is to abort and protect users.</text></feedback></answer>
+    <generalfeedback><text>Crossing the abort threshold is exactly the signal the abort was built for: stop the experiment immediately, let the system return to normal, and contain the impact. Only then do you investigate the weakness the experiment exposed and plan the remediation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Value of continuous, automated chaos</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is it valuable to run chaos experiments continuously and automatically, rather than only once as a one-off game day?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because systems and their dependencies change constantly, so resilience must be re-verified over time; a single pass can be invalidated by later changes</text><feedback><text>Correct — continuous experiments catch regressions in resilience as the system evolves.</text></feedback></answer>
+    <answer fraction="0"><text>Because a single experiment proves the system is resilient forever</text><feedback><text>It does not; changes to code, config, or dependencies can reintroduce weaknesses, so re-verification is needed.</text></feedback></answer>
+    <answer fraction="0"><text>Because automation removes the need for any steady state or abort</text><feedback><text>Automated experiments still require a steady state and an abort; automation manages them, it does not remove them.</text></feedback></answer>
+    <answer fraction="0"><text>Because continuous chaos means the team can stop monitoring production</text><feedback><text>Continuous experiments rely on continuous monitoring; they do not eliminate it.</text></feedback></answer>
+    <generalfeedback><text>Resilience is not a permanent property: new deployments, configuration changes, scaling, and evolving dependencies can all reintroduce weaknesses. Running experiments continuously and automatically re-verifies resilience over time and catches regressions that a single game day would miss. Game days remain valuable for rehearsing human response.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Disproved hypothesis is not a wasted experiment</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A chaos experiment whose hypothesis is disproved (the steady state broke under the fault) is a failed, wasted experiment.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — disproving the hypothesis is a success: it revealed a real weakness that can be fixed before it causes an outage.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: a disproved hypothesis is the valuable outcome, because it locates a weakness safely and in advance.</text></feedback></answer>
+    <generalfeedback><text>When the steady state breaks under the injected fault, the experiment has done exactly its job — it exposed a genuine resilience weakness under controlled conditions. That learning is a success, since remediating the weakness now is far cheaper than facing it during a real, uncontrolled outage.</text></generalfeedback>
+  </question>
+</quiz>

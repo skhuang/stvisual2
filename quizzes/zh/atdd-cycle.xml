@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/ATDD Cycle/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>ATDD 是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>什麼是<strong>驗收測試驅動開發（Acceptance Test-Driven Development, ATDD）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一種協作實踐：團隊在功能開發之前，就針對某項需求、從客戶角度共同議定驗收測試</text><feedback><text>正確——ATDD 事先協作議定驗收測試，並以其驅動開發。</text></feedback></answer>
+    <answer fraction="0"><text>一種讓測試人員在開發者把功能寫完後才撰寫缺陷報告的方式</text><feedback><text>ATDD 是測試先行且協作的；並非只由測試人員事後回報缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>一種量測每個驗收測試執行需時多久的效能剖析技術</text><feedback><text>那是效能量測；ATDD 是在開發前議定驗收測試。</text></feedback></answer>
+    <answer fraction="0"><text>一種從資料庫綱要自動產生正式程式碼的工具</text><feedback><text>ATDD 是協作與規格實踐，不是程式碼產生器。</text></feedback></answer>
+    <generalfeedback><text>ATDD（驗收測試驅動開發）讓整個團隊——業務、開發者與測試人員——在需求開發之前，先共同議定具體的驗收測試。這些測試從客戶／業務角度撰寫，表達「完成」的意義，並由外而內（outside-in）驅動實作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗收測試是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 ATDD 中，<strong>驗收測試（acceptance test）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一種從客戶／業務角度表達的測試，用來檢查功能是否滿足議定的需求</text><feedback><text>正確——驗收測試依客戶對需求的期望來驗證功能。</text></feedback></answer>
+    <answer fraction="0"><text>由單一開發者撰寫、用來孤立檢查某個內部小函式的測試</text><feedback><text>那是單元測試；驗收測試是在客戶／需求層級運作。</text></feedback></answer>
+    <answer fraction="0"><text>量測測試套件執行到多少比例原始碼的指標</text><feedback><text>那是程式碼覆蓋率；驗收測試是從客戶角度驗證需求。</text></feedback></answer>
+    <answer fraction="0"><text>一份程式碼必須遵守的編碼風格規則清單</text><feedback><text>風格規則屬於靜態檢查；驗收測試檢查的是面向客戶的行為。</text></feedback></answer>
+    <generalfeedback><text>驗收測試以客戶／業務用語陳述功能必須做到什麼才會被接受。它不像開發者的單元測試（檢查內部單元），而是捕捉客戶眼中的需求，是判斷功能是否「完成」的準繩。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATDD 循環的四個階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>常見教學中的 ATDD 循環有四個階段，它們的名稱是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>討論（Discuss）、萃取（Distill）、開發（Develop）、展示（Demo）</text><feedback><text>正確——ATDD 循環的四個階段是 Discuss、Distill、Develop、Demo。</text></feedback></answer>
+    <answer fraction="0"><text>紅（Red）、綠（Green）、重構（Refactor）、發布（Release）</text><feedback><text>紅-綠-重構是 TDD 的微循環，不是四階段的 ATDD 循環。</text></feedback></answer>
+    <answer fraction="0"><text>計畫（Plan）、執行（Do）、檢查（Check）、行動（Act）</text><feedback><text>那是 PDCA 改善循環；ATDD 循環是 Discuss、Distill、Develop、Demo。</text></feedback></answer>
+    <answer fraction="0"><text>設計（Design）、部署（Deploy）、除錯（Debug）、文件（Document）</text><feedback><text>那些不是 ATDD 的階段；四階段是 Discuss、Distill、Develop、Demo。</text></feedback></answer>
+    <generalfeedback><text>Markus Gärtner 廣為教學的 ATDD 循環有四個階段：討論（Discuss，以範例談清楚需求）、萃取（Distill，把範例轉成驗收測試）、開發（Develop，實作並讓測試通過）、展示（Demo，向利害關係人展示與驗證功能）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Discuss 的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 ATDD 循環中，<strong>討論（Discuss）</strong>階段會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>團隊與利害關係人一起談清楚需求或使用者故事，藉具體範例建立共同理解</text><feedback><text>正確——Discuss 透過具體範例與利害關係人一起探討需求。</text></feedback></answer>
+    <answer fraction="0"><text>團隊撰寫實作該功能的正式程式碼</text><feedback><text>實作發生在 Develop；Discuss 是針對需求的對話。</text></feedback></answer>
+    <answer fraction="0"><text>團隊把完成的功能展示給產品負責人簽核</text><feedback><text>那是 Demo；Discuss 在最前面，重點在理解需求。</text></feedback></answer>
+    <answer fraction="0"><text>團隊量測驗收套件的分支覆蓋率</text><feedback><text>覆蓋率量測與此無關；Discuss 是以範例建立共同理解的對話。</text></feedback></answer>
+    <generalfeedback><text>Discuss 是第一個階段：團隊與利害關係人一起談清楚一個使用者故事或需求，提出具體範例與邊界情況，讓大家在撰寫任何測試或寫程式之前，對想要的東西有相同的理解。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Distill 的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 ATDD 循環中，<strong>萃取（Distill）</strong>階段會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把討論中議定的具體範例，轉成驗收測試／驗收準則，常以 Given-When-Then 形式表達</text><feedback><text>正確——Distill 把議定的範例轉換為驗收測試。</text></feedback></answer>
+    <answer fraction="0"><text>團隊把版本部署到正式環境的伺服器</text><feedback><text>部署不是 ATDD 的階段；Distill 是把範例轉成驗收測試。</text></feedback></answer>
+    <answer fraction="0"><text>團隊第一次和客戶一起腦力激盪需求</text><feedback><text>那第一次對話是 Discuss；Distill 是把其範例正式化為測試。</text></feedback></answer>
+    <answer fraction="0"><text>團隊剖析功能以找出效能瓶頸</text><feedback><text>效能剖析與此無關；Distill 從範例產出驗收測試。</text></feedback></answer>
+    <generalfeedback><text>Distill 是第二個階段：把討論時提出的範例加以精煉並寫成驗收測試（驗收準則），常採用 Given-When-Then 結構。這些成為對功能必須做到什麼的共同、議定的定義。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Develop 的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 ATDD 循環中，<strong>開發（Develop）</strong>階段會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>開發者實作功能並讓驗收測試通過，通常在內部使用單元層級的 TDD（紅-綠-重構）</text><feedback><text>正確——Develop 打造功能以滿足驗收測試，內部使用 TDD。</text></feedback></answer>
+    <answer fraction="0"><text>團隊只談論需求而不寫任何東西</text><feedback><text>談論是 Discuss；Develop 才是真正實作功能。</text></feedback></answer>
+    <answer fraction="0"><text>團隊刪掉驗收測試以免拖慢建置</text><feedback><text>驗收測試會被保留並設法通過，不會在 Develop 被刪除。</text></feedback></answer>
+    <answer fraction="0"><text>客戶對完成的功能簽核</text><feedback><text>簽核發生在 Demo；Develop 是實作階段。</text></feedback></answer>
+    <generalfeedback><text>Develop 是第三個階段：開發者撰寫程式碼讓議定的驗收測試通過。在此階段內部，他們通常使用一般的單元層級 TDD（紅-綠-重構），因此 ATDD 的驗收層級循環包覆著開發者的單元層級循環。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Demo 的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 ATDD 循環中，<strong>展示（Demo）</strong>階段會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把完成的功能展示給利害關係人並一起驗證，確認符合議定的驗收準則</text><feedback><text>正確——Demo 與利害關係人一起驗證功能滿足驗收準則。</text></feedback></answer>
+    <answer fraction="0"><text>團隊第一次發現需求是什麼</text><feedback><text>發現需求是 Discuss；Demo 是確認完成的結果。</text></feedback></answer>
+    <answer fraction="0"><text>團隊從範例撰寫驗收測試</text><feedback><text>撰寫測試是 Distill；Demo 是拿完成的功能對照它們。</text></feedback></answer>
+    <answer fraction="0"><text>團隊在沒有利害關係人在場下重構內部程式碼</text><feedback><text>重構屬於 Develop；Demo 是與利害關係人一起驗證。</text></feedback></answer>
+    <generalfeedback><text>Demo 是第四個階段：把完成的功能展示給利害關係人，並對照先前議定的驗收準則檢查。它與提出需求的人一起確認打造了正確的東西，藉此收合整個循環。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Three Amigos 是誰</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 ATDD 中，<strong>三劍客（Three Amigos）</strong>是誰？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>業務／產品代表、開發者、測試人員，三者一起議定驗收準則</text><feedback><text>正確——三種觀點是業務／PO、開發者與測試人員。</text></feedback></answer>
+    <answer fraction="0"><text>三位彼此審查程式碼的資深開發者</text><feedback><text>三劍客是三種不同角色（業務、開發、測試），不是三位開發者。</text></feedback></answer>
+    <answer fraction="0"><text>專案經理、Scrum Master 與發布經理</text><feedback><text>三劍客是業務／PO、開發者與測試人員，不是管理角色。</text></feedback></answer>
+    <answer fraction="0"><text>三個各自獨立的自動化測試工具</text><feedback><text>三劍客是帶來三種觀點的人，不是工具。</text></feedback></answer>
+    <generalfeedback><text>「三劍客」是聚在一起議定驗收準則的三種觀點：業務／產品負責人（要什麼、為什麼）、開發者（如何打造）、測試人員（可能如何失敗或被誤解）。他們的協作是 ATDD 的核心。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>範例規格化是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>範例規格化（Specification by Example）</strong>是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把需求捕捉為具體、議定的範例，這些範例成為可執行的規格與活文件</text><feedback><text>正確——具體範例作為規格，並可執行以驗證系統。</text></feedback></answer>
+    <answer fraction="0"><text>只用抽象的文字撰寫需求而不用任何範例</text><feedback><text>恰好相反——重點是用具體範例而非模糊文字。</text></feedback></answer>
+    <answer fraction="0"><text>範例只用來說明文件、但永遠無法被執行</text><feedback><text>在範例規格化中，範例會變成可執行的，而不只是說明用途。</text></feedback></answer>
+    <answer fraction="0"><text>先寫正式程式碼、之後才補上範例</text><feedback><text>範例是在開發之前／之中議定並驅動開發，不是事後補上的。</text></feedback></answer>
+    <generalfeedback><text>範例規格化（與 ATDD 密切相關）把需求捕捉為具體、議定的範例。在自動化支援下，這些範例以驗收測試的形式執行，因此既規範行為又同時驗證行為——而且以活文件的形式保持準確。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>驗收測試在開發之前撰寫</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 ATDD 中，某功能的驗收測試是在該功能<strong>開發之前</strong>就議定並撰寫。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——ATDD 在驗收層級測試先行：測試先於開發。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>ATDD 是測試先行：驗收測試在功能開發之前議定，而非之後。</text></feedback></answer>
+    <generalfeedback><text>「驗收測試驅動開發」中的「驅動」意味著驗收測試先寫。在開發之前議定它們，給團隊一個共同的目標，以及一個能驅動實作的「完成」定義。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATDD 是協作的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者最能描述 ATDD 中<em>由誰</em>參與？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它是一項協作活動，由業務、開發者與測試人員一起議定驗收測試</text><feedback><text>正確——ATDD 是全團隊協作，不是單一角色的工作。</text></feedback></answer>
+    <answer fraction="0"><text>它完全由測試人員在程式碼寫完後獨自進行</text><feedback><text>ATDD 是協作且測試先行的；不是測試人員在事後獨自進行。</text></feedback></answer>
+    <answer fraction="0"><text>它完全由開發者進行，沒有業務或測試人員的投入</text><feedback><text>業務與測試人員不可或缺；ATDD 需要三種觀點。</text></feedback></answer>
+    <answer fraction="0"><text>它完全由產品負責人進行，再把完成的測試交給團隊</text><feedback><text>測試是一起產出的；PO 不會獨自撰寫它們。</text></feedback></answer>
+    <generalfeedback><text>ATDD 的一項定義性特徵是協作：業務／產品負責人、開發者與測試人員共同議定驗收測試。這種共同作者身份，正是建立單一、共同「完成」理解的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗收準則定義「完成」</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 ATDD 中，議定的<strong>驗收準則（acceptance criteria）</strong>主要確立什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對「完成」的共同定義——功能必須滿足哪些條件才會被接受</text><feedback><text>正確——驗收準則是議定的「何時算完成」的定義。</text></feedback></answer>
+    <answer fraction="0"><text>每個類別必須有的單元測試確切數量</text><feedback><text>那是程式碼指標目標；驗收準則定義功能被接受須做到什麼。</text></feedback></answer>
+    <answer fraction="0"><text>版本的部署時程表</text><feedback><text>排程屬於規劃事項；驗收準則定義功能的「完成」。</text></feedback></answer>
+    <answer fraction="0"><text>團隊必須遵循的編碼風格</text><feedback><text>風格是另一回事；驗收準則捕捉的是所需的行為。</text></feedback></answer>
+    <generalfeedback><text>由團隊議定的驗收準則陳述功能必須做到什麼才會被客戶接受。它們構成對「完成」的共同定義，把模糊的需求變成具體、可檢查的目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>用 Given-When-Then 表達驗收準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>ATDD 中的驗收準則常以 <strong>Given-When-Then</strong> 形式撰寫。這三個部分分別表達什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>前置條件（Given）、動作或事件（When）、預期結果（Then）</text><feedback><text>正確——Given-When-Then 捕捉情境、動作與預期結果。</text></feedback></answer>
+    <answer fraction="0"><text>必須核准測試的三位開發者</text><feedback><text>Given-When-Then 是描述一個範例的結構，不是核准者清單。</text></feedback></answer>
+    <answer fraction="0"><text>dev、staging、production 三個環境</text><feedback><text>Given-When-Then 描述情境／動作／結果，不是環境。</text></feedback></answer>
+    <answer fraction="0"><text>功能的過去、現在與未來版本</text><feedback><text>它們是單一驗收範例的組成：前置條件、動作、結果。</text></feedback></answer>
+    <generalfeedback><text>Given-When-Then 是表達驗收測試或準則的常見方式：Given 起始情境、When 發生動作、Then 應成立的可觀察結果。它讓一個具體範例精確到足以被自動化。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATDD 由外而內的方向</text></name>
+    <questiontext format="html"><text><![CDATA[<p>ATDD 常被描述為一種<strong>由外而內（outside-in）</strong>的方法。這是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>開發由外側——面向客戶的驗收準則——向內驅動至實作</text><feedback><text>正確——ATDD 從客戶層級的驗收測試出發，向內驅動至程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>開發從資料庫綱要開始，向外做到使用者介面</text><feedback><text>那是由內而外、資料先行的做法；ATDD 由客戶準則向內驅動。</text></feedback></answer>
+    <answer fraction="0"><text>測試只由公司外部的人執行</text><feedback><text>「由外而內」指從客戶需求出發，不是把測試外包。</text></feedback></answer>
+    <answer fraction="0"><text>先寫程式碼，之後才推斷需求</text><feedback><text>ATDD 先議定客戶層級的需求，再向內打造以滿足它。</text></feedback></answer>
+    <generalfeedback><text>由外而內意味著從客戶在意的邊界——驗收準則——開始，讓它們驅動內部的設計。ATDD 的驗收測試設定目標，實作則由內生長以滿足它們。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>ATDD 縮寫的展開</text></name>
+    <questiontext format="html"><text><![CDATA[<p>縮寫 <strong>ATDD</strong> 代表「Acceptance Test-Driven Development（驗收測試驅動開發）」。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——ATDD 展開為 Acceptance Test-Driven Development。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>ATDD 確實代表 Acceptance Test-Driven Development。</text></feedback></answer>
+    <generalfeedback><text>ATDD = Acceptance Test-Driven Development（驗收測試驅動開發）：由驗收測試驅動的開發，這些測試在功能開發之前、從客戶角度議定。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/ATDD Cycle/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>四個階段的順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>ATDD 循環四個階段的正確順序是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>先 Discuss，再 Distill，再 Develop，最後 Demo</text><feedback><text>正確——先理解需求、化為測試、實作，最後與利害關係人驗證。</text></feedback></answer>
+    <answer fraction="0"><text>先 Distill，再 Discuss，再 Demo，最後 Develop</text><feedback><text>必須先 Discuss 才能 Distill 範例，也必須先 Develop 才能 Demo。</text></feedback></answer>
+    <answer fraction="0"><text>先 Develop，再 Discuss，再 Distill，最後 Demo</text><feedback><text>在討論與萃取之前就開發，違背了本意；Discuss 應在最前面。</text></feedback></answer>
+    <answer fraction="0"><text>先 Demo，再 Develop，再 Distill，最後 Discuss</text><feedback><text>這完全顛倒了；循環是 Discuss、Distill、Develop、Demo。</text></feedback></answer>
+    <generalfeedback><text>ATDD 循環的流程是 Discuss（以範例理解需求）、Distill（把範例轉成驗收測試）、Develop（實作並讓它們通過）、Demo（與利害關係人驗證）。每個階段都餵給下一個階段。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Distill 把範例轉成測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Distill</strong> 期間，團隊產出的主要成果是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從議定範例衍生出的驗收測試／驗收準則（常為 Given-When-Then）</text><feedback><text>正確——Distill 把討論的範例轉成具體的驗收測試。</text></feedback></answer>
+    <answer fraction="0"><text>功能的正式實作</text><feedback><text>實作是 Develop 的成果；Distill 產出驗收測試。</text></feedback></answer>
+    <answer fraction="0"><text>利害關係人對功能已完成的簽核</text><feedback><text>簽核在 Demo；Distill 產出的是 Demo 之後用來對照的測試。</text></feedback></answer>
+    <answer fraction="0"><text>一份效能基準報告</text><feedback><text>基準測試與此無關；Distill 產出的是驗收準則。</text></feedback></answer>
+    <generalfeedback><text>Distill 把 Discuss 中提出的具體範例精煉成精確的驗收測試／準則——常寫成 Given-When-Then。這些議定的測試就是 Develop 階段要實作以達成的目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Demo 與利害關係人驗證</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Demo</strong> 階段與其他階段有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把利害關係人再次找來，驗證完成的功能符合先前議定的驗收準則</text><feedback><text>正確——Demo 是與利害關係人一起驗證打造了正確的東西。</text></feedback></answer>
+    <answer fraction="0"><text>它是開發者第一次得知需求是什麼的時候</text><feedback><text>需求在 Discuss 就已理解；Demo 是確認完成的功能。</text></feedback></answer>
+    <answer fraction="0"><text>它是首次從範例撰寫驗收測試的時候</text><feedback><text>撰寫測試是 Distill；Demo 是拿打造好的功能對照它們檢查。</text></feedback></answer>
+    <answer fraction="0"><text>它是開發者在沒有利害關係人下重構內部程式碼的時候</text><feedback><text>重構發生在 Develop；Demo 明確是與利害關係人一起的驗證。</text></feedback></answer>
+    <generalfeedback><text>Demo 與提出需求的人收合整個循環。團隊展示完成的成果，並對照先前萃取的驗收準則檢查，在利害關係人在場下確認確實滿足了需求。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為什麼需要三種觀點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼 ATDD 要把三種角色（三劍客）聚在一起議定驗收準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為業務、開發者、測試人員各自會注意到不同的事——價值與意圖、可行性、可能如何失敗——一起才能訂出更完整、更正確的準則</text><feedback><text>正確——三種觀點互補，能補上單一角色會漏掉的缺口。</text></feedback></answer>
+    <answer fraction="0"><text>因為開工寫程式前法律上需要三個簽名</text><feedback><text>重點在互補的觀點，不是法律簽核要求。</text></feedback></answer>
+    <answer fraction="0"><text>因為這樣可以把工作切開，讓大家不必彼此交談</text><feedback><text>重點是協作與對話，而非避免對話。</text></feedback></answer>
+    <answer fraction="0"><text>因為三個人寫程式總是比一個人快</text><feedback><text>三劍客是為議定準則而聚，不是為了加快打字寫程式。</text></feedback></answer>
+    <generalfeedback><text>每位劍客帶來不同視角：業務／PO 釐清要什麼、為什麼；開發者指出可行性與隱藏的複雜度；測試人員探究邊界情況與模糊之處。三者結合，訂出的驗收準則更清楚、也更不容易漏掉東西。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATDD 與 TDD 的層級差異</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>ATDD</strong> 與一般的 <strong>TDD</strong> 的關鍵差異是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ATDD 以與業務議定、面向客戶的驗收測試驅動開發；TDD 則以開發者在程式碼層級撰寫的單元測試驅動</text><feedback><text>正確——ATDD 在驗收／客戶層級，TDD 在單元／開發者層級。</text></feedback></answer>
+    <answer fraction="0"><text>ATDD 在程式碼之後寫測試，TDD 在之前寫</text><feedback><text>兩者都是測試先行；差別在層級（驗收／客戶 vs 單元／開發者）。</text></feedback></answer>
+    <answer fraction="0"><text>ATDD 只做手動測試，TDD 只做自動測試</text><feedback><text>兩者都能自動化；真正的區別是驗收層級對單元層級。</text></feedback></answer>
+    <answer fraction="0"><text>ATDD 禁止單元測試，TDD 禁止驗收測試</text><feedback><text>兩者並存：ATDD 的 Develop 階段內部通常使用單元層級 TDD。</text></feedback></answer>
+    <generalfeedback><text>ATDD 與 TDD 都測試先行。TDD 在單元層級運作——開發者寫一個失敗的單元測試、讓它通過、再重構（紅-綠-重構）。ATDD 在驗收層級運作——團隊議定面向客戶的驗收測試，由外而內驅動功能。實務上，ATDD 的 Develop 階段內部就使用 TDD。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATDD 與 BDD 的關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>BDD</strong> 與 <strong>ATDD</strong> 有何關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩者是密切相關、以範例驅動且協作的實踐；BDD 特別強調用團隊共通的通用語言（如 Gherkin 的 Given-When-Then）描述行為</text><feedback><text>正確——BDD 是 ATDD 的近親，特別強調行為與共通語言。</text></feedback></answer>
+    <answer fraction="0"><text>BDD 是與 ATDD 無關的效能測試技術</text><feedback><text>BDD 是以範例規範行為，與 ATDD 密切相關，而非效能測試。</text></feedback></answer>
+    <answer fraction="0"><text>BDD 只在發布後才寫測試，與 ATDD 相反</text><feedback><text>BDD 與 ATDD 一樣，偏好在開發之前／之中規範行為。</text></feedback></answer>
+    <answer fraction="0"><text>BDD 用全自動程式碼產生取代所有協作</text><feedback><text>BDD 是協作與規格實踐，不是程式碼產生。</text></feedback></answer>
+    <generalfeedback><text>BDD 與 ATDD 高度重疊：兩者都協作且以範例驅動，也都在開發前規範行為。BDD 特別強調用整個團隊共通的通用語言描述行為，常使用 Gherkin（Given-When-Then）。許多團隊把 ATDD 的驗收測試就當成 BDD 情境來寫。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Develop 內部使用 TDD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 <strong>Develop</strong> 階段設法讓驗收測試通過時，開發者在程式碼層級通常會怎麼做？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>使用單元層級的 TDD（紅-綠-重構）逐步長出實作，直到驗收測試通過</text><feedback><text>正確——驗收循環包覆著內層的單元層級 TDD 循環。</text></feedback></answer>
+    <answer fraction="0"><text>因為已經有驗收測試，就略過所有單元測試</text><feedback><text>單元測試不會被略過；Develop 內部通常仍使用 TDD。</text></feedback></answer>
+    <answer fraction="0"><text>改寫驗收準則以符合他們寫出的任何程式碼</text><feedback><text>議定的準則是目標；你要打造去達成它，而非改準則去遷就程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>等到 Demo 階段才寫任何測試</text><feedback><text>測試在開發之前與之中就寫，不會拖到 Demo。</text></feedback></answer>
+    <generalfeedback><text>ATDD 是巢狀的循環：外層是與業務議定的驗收測試，而在 Develop 內部，開發者通常使用一般的單元層級 TDD（紅-綠-重構）打造程式碼，最終讓驗收測試通過。驗收測試與單元測試互補。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Discuss 使用具體範例</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 ATDD 中，什麼讓 <strong>Discuss</strong> 對話有效？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>以具體範例來落實需求，讓模糊之處浮現，並讓大家有相同的理解</text><feedback><text>正確——具體範例能及早暴露誤解並讓團隊對齊。</text></feedback></answer>
+    <answer fraction="0"><text>把需求盡量保持抽象，以維持彈性</text><feedback><text>抽象會隱藏模糊；具體範例才是讓 Discuss 有效的關鍵。</text></feedback></answer>
+    <answer fraction="0"><text>只讓開發者在場，好讓決策快速</text><feedback><text>Discuss 需要利害關係人的投入，不能只有開發者。</text></feedback></answer>
+    <answer fraction="0"><text>在會議中就把正式程式碼寫出來</text><feedback><text>寫程式是 Develop；Discuss 重在以範例理解。</text></feedback></answer>
+    <generalfeedback><text>當團隊透過具體範例（「若……應該發生什麼？」）探討需求時，Discuss 最為有效。真實案例與邊界情況能迅速揭露隱藏的假設與分歧，在撰寫任何測試或程式碼之前，就形成真正共同的理解。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個階段最先</text></name>
+    <questiontext format="html"><text><![CDATA[<p>ATDD 循環中哪個階段<strong>最先</strong>發生？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Discuss</text><feedback><text>正確——循環從與利害關係人討論需求開始。</text></feedback></answer>
+    <answer fraction="0"><text>Develop</text><feedback><text>Develop 是第三個；循環從 Discuss 開始。</text></feedback></answer>
+    <answer fraction="0"><text>Demo</text><feedback><text>Demo 是最後一個；循環從 Discuss 開始。</text></feedback></answer>
+    <answer fraction="0"><text>Distill</text><feedback><text>Distill 是第二個；它接在 Discuss 對話之後。</text></feedback></answer>
+    <generalfeedback><text>循環以 Discuss 開場：透過範例與利害關係人理解需求。之後團隊才能把這些範例 Distill 成驗收測試、Develop 功能，並 Demo 它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個階段最後</text></name>
+    <questiontext format="html"><text><![CDATA[<p>ATDD 循環中哪個階段<strong>最後</strong>發生？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Demo</text><feedback><text>正確——循環以向利害關係人展示並驗證功能作結。</text></feedback></answer>
+    <answer fraction="0"><text>Distill</text><feedback><text>Distill 是第二個；循環以 Demo 作結。</text></feedback></answer>
+    <answer fraction="0"><text>Discuss</text><feedback><text>Discuss 是第一個；循環以 Demo 作結。</text></feedback></answer>
+    <answer fraction="0"><text>Develop</text><feedback><text>Develop 是第三個；Demo 接在其後作為最後階段。</text></feedback></answer>
+    <generalfeedback><text>Demo 是最後階段：在 Discuss、Distill、Develop 之後，團隊把完成的功能展示給利害關係人，並對照議定的驗收準則加以驗證。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗收測試驅動開發</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 ATDD 中，驗收測試是在什麼意義上「驅動」開發？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們先被議定，作為實作必須滿足的目標，指引要打造什麼、並定義何時算完成</text><feedback><text>正確——議定的驗收測試設定了開發要達成的目標。</text></feedback></answer>
+    <answer fraction="0"><text>它們從完成的程式碼自動產生</text><feedback><text>驗收測試在開發之前議定，不是從完成的程式碼產生。</text></feedback></answer>
+    <answer fraction="0"><text>它們只在最後用來否決成果</text><feedback><text>它們自始至終指引工作，不只是最後的關卡。</text></feedback></answer>
+    <answer fraction="0"><text>它們讓團隊不再需要與客戶交談</text><feedback><text>它們源自與客戶的協作，並不取代溝通。</text></feedback></answer>
+    <generalfeedback><text>因為驗收測試在寫程式之前議定、並表達「完成」的意義，它們為整個工作設定目標。開發持續進行直到這些測試通過，因此測試形塑並驅動要打造什麼，而不只是事後評判。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>業務劍客的貢獻</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在三劍客對話中，<strong>業務／產品</strong>代表主要貢獻什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>釐清要什麼與為什麼——需求背後的業務價值與意圖</text><feedback><text>正確——業務的聲音定義所需的成果及其價值。</text></feedback></answer>
+    <answer fraction="0"><text>開發者內部應使用的單元測試結構</text><feedback><text>內部測試結構是開發者的範疇，不是業務代表的。</text></feedback></answer>
+    <answer fraction="0"><text>要探究的確切邊界情況與失敗模式</text><feedback><text>探究邊界情況主要是測試人員的貢獻；業務提供意圖與價值。</text></feedback></answer>
+    <answer fraction="0"><text>持續整合流水線的設定</text><feedback><text>CI 設定不是業務代表在對話中的角色。</text></feedback></answer>
+    <generalfeedback><text>業務／產品負責人帶來「要什麼與為什麼」：客戶需要的成果，以及背後的價值。開發者衡量可行性，測試人員探究可能出錯之處。三者一起訂出面面俱到的驗收準則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試劍客的貢獻</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在三劍客對話中，<strong>測試人員</strong>主要貢獻什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>提出關於邊界情況、模糊之處，以及功能可能如何失敗或被誤解的問題</text><feedback><text>正確——測試人員探究缺口、邊界情況與需求可能崩壞之處。</text></feedback></answer>
+    <answer fraction="0"><text>對功能是否值得打造做最終的業務決定</text><feedback><text>那由業務／PO 決定；測試人員探究正確性與完整性。</text></feedback></answer>
+    <answer fraction="0"><text>選擇程式語言與框架</text><feedback><text>技術實作選擇是開發者的範疇，不是測試人員此處的核心角色。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都不做——測試人員只在寫完程式後才寫測試</text><feedback><text>在 ATDD 中測試人員一開始就參與議定準則，不只是事後。</text></feedback></answer>
+    <generalfeedback><text>測試人員的視角是「這可能哪裡出錯或被誤解？」——在準則還在撰寫時，就把邊界情況、模糊之處與失敗模式浮現出來。這種事先提問，遠比功能打造完才發現缺口便宜得多。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>範例形成活文件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼 ATDD／範例規格化的驗收測試能作為<strong>活文件（living documentation）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為它們會對系統執行，通過的套件代表已記錄的範例仍與真實行為相符，文件因此不會悄悄過時</text><feedback><text>正確——執行這些範例能讓文件與系統保持同步。</text></feedback></answer>
+    <answer fraction="0"><text>因為它們被印出並存放在資料夾中備查</text><feedback><text>活文件是可執行且自我檢查的，不是靜態的存檔。</text></feedback></answer>
+    <answer fraction="0"><text>因為有人在每次發布後手動改寫它們</text><feedback><text>重點是執行讓它們自動保持最新，而非手動改寫。</text></feedback></answer>
+    <answer fraction="0"><text>因為它們只能被閱讀、永遠無法執行</text><feedback><text>它們會對系統執行；這正是讓它們保持鮮活的原因。</text></feedback></answer>
+    <generalfeedback><text>一般文件會隨時間與程式碼脫節。因為 ATDD 驗收測試（具體範例）會被執行，任何未反映到它們的行為變更都會使其失敗。綠色套件即是這些範例仍描述真實系統的證據——保持鮮活的文件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATDD 與 TDD：做錯東西 vs 東西做錯</text></name>
+    <questiontext format="html"><text><![CDATA[<p>就各自運作的層級而言，相較於 <strong>TDD</strong>，<strong>ATDD</strong> 最直接防範哪一種錯誤？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ATDD 主要防範做錯東西（需求錯誤），TDD 主要防範把東西做錯（程式碼有缺陷）</text><feedback><text>正確——驗收層級的 ATDD 針對需求正確性；單元層級的 TDD 針對程式碼正確性。</text></feedback></answer>
+    <answer fraction="0"><text>ATDD 防範程式碼太慢，TDD 防範測試太慢</text><feedback><text>兩者都不是關於速度；ATDD 針對正確的需求，TDD 針對正確的程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>兩者在同一層級防範完全相同的錯誤</text><feedback><text>它們在不同層級運作：驗收／客戶 vs 單元／開發者。</text></feedback></answer>
+    <answer fraction="0"><text>ATDD 防範編譯錯誤，TDD 防範打字錯誤</text><feedback><text>這把兩者都瑣碎化了；ATDD 關於正確的需求，TDD 關於正確的單元。</text></feedback></answer>
+    <generalfeedback><text>因為 ATDD 先議定面向客戶的驗收測試，它主要防範打造錯的功能——需求不符。TDD 在單元層級運作，主要防範所打造程式碼中的缺陷。兩個層級互補：正確的東西（ATDD）與把東西做對（TDD）。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/ATDD Cycle/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>歸位活動：把範例轉成 Given-When-Then</text></name>
+    <questiontext format="html"><text><![CDATA[<p>團隊把在故事對話中議定的具體範例，寫成 Given-When-Then 的驗收測試。這是哪個 ATDD 階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Distill</text><feedback><text>正確——把議定的範例轉成驗收測試就是 Distill 階段。</text></feedback></answer>
+    <answer fraction="0"><text>Discuss</text><feedback><text>Discuss 是浮現範例的對話；把它們寫成測試是 Distill。</text></feedback></answer>
+    <answer fraction="0"><text>Develop</text><feedback><text>Develop 是實作功能；把範例正式化為測試是 Distill。</text></feedback></answer>
+    <answer fraction="0"><text>Demo</text><feedback><text>Demo 是驗證完成的功能；產出驗收測試是 Distill。</text></feedback></answer>
+    <generalfeedback><text>Distill 正是如此：把討論時提出的具體範例精煉成精確的驗收測試，常寫成 Given-When-Then。其產出就是 Develop 階段要打造以達成的議定準則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>歸位活動：把功能展示給 PO</text></name>
+    <questiontext format="html"><text><![CDATA[<p>開發者把完成的功能展示給產品負責人，並一起走過驗收準則以確認正確。這是哪個 ATDD 階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Demo</text><feedback><text>正確——與利害關係人一起驗證完成的功能就是 Demo 階段。</text></feedback></answer>
+    <answer fraction="0"><text>Discuss</text><feedback><text>Discuss 在打造之前；確認完成的功能是 Demo。</text></feedback></answer>
+    <answer fraction="0"><text>Distill</text><feedback><text>Distill 產出驗收測試；拿打造好的功能對照它們檢查是 Demo。</text></feedback></answer>
+    <answer fraction="0"><text>Develop</text><feedback><text>Develop 是實作；之後與利害關係人的驗證是 Demo。</text></feedback></answer>
+    <generalfeedback><text>把完成的成果展示給利害關係人，並與他們一起確認滿足先前議定的驗收準則，就是 Demo 階段——團隊驗證打造了正確東西的時刻。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>歸位活動：寫程式時的紅-綠-重構</text></name>
+    <questiontext format="html"><text><![CDATA[<p>開發者寫一個失敗的單元測試、讓它通過、再重構，並在打造能滿足驗收測試的程式碼時反覆進行。這發生在哪個 ATDD 階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Develop——單元層級 TDD 是在 Develop 階段內部使用的</text><feedback><text>正確——紅-綠-重構是 Develop 內的內層 TDD 循環。</text></feedback></answer>
+    <answer fraction="0"><text>Distill——因為所有測試都在那裡撰寫</text><feedback><text>Distill 撰寫驗收測試；單元層級的紅-綠-重構發生在 Develop。</text></feedback></answer>
+    <answer fraction="0"><text>Discuss——因為對話一開始就會寫程式</text><feedback><text>Discuss 是對話；用單元 TDD 寫程式是 Develop 階段。</text></feedback></answer>
+    <answer fraction="0"><text>Demo——因為測試是在利害關係人面前執行</text><feedback><text>Demo 驗證完成的功能；紅-綠-重構的寫程式在 Develop。</text></feedback></answer>
+    <generalfeedback><text>在 Develop 內部，團隊以一般的單元層級 TDD（紅-綠-重構）長出實作，讓驗收測試通過。ATDD 的驗收循環包覆著這個內層的單元測試循環；兩者在不同層級運作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為什麼驗收測試要先寫</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在開始開發<strong>之前</strong>就議定驗收測試，最有力的理由是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它事先建立對「完成」的共同理解，降低打造錯東西的風險，並給出明確目標</text><feedback><text>正確——先議定測試能讓大家對齊，避免把力氣浪費在錯的功能上。</text></feedback></answer>
+    <answer fraction="0"><text>它保證程式碼將完全沒有任何錯誤</text><feedback><text>沒有任何實踐能保證零錯誤；ATDD 的價值在共同理解與明確目標。</text></feedback></answer>
+    <answer fraction="0"><text>它讓團隊之後可以不必再與客戶交談</text><feedback><text>ATDD 建立在持續協作上；它不會消除溝通的需要。</text></feedback></answer>
+    <answer fraction="0"><text>它讓單元測試變得不必要</text><feedback><text>單元測試仍然重要；ATDD 的 Develop 階段內部通常使用 TDD。</text></feedback></answer>
+    <generalfeedback><text>事先議定驗收測試，迫使業務、開發者與測試人員在投入心力之前，就對「完成」達成一個具體的定義。那份共同理解，是對抗最昂貴失敗——把錯的東西做得很好——的主要防線。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>迷思：ATDD 只是測試人員的活動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>有同事說：「ATDD 只是測試人員的工作——他們寫好驗收測試再交出去。」為什麼這是錯的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ATDD 是協作的：業務、開發者與測試人員一起議定驗收測試，因此是全團隊活動，而非測試人員獨有</text><feedback><text>正確——三劍客協作是核心；ATDD 不由測試人員獨自擁有。</text></feedback></answer>
+    <answer fraction="0"><text>錯是因為只有開發者才被允許撰寫驗收測試</text><feedback><text>沒有單一角色擁有它；重點是三者協作，包含測試人員。</text></feedback></answer>
+    <answer fraction="0"><text>是對的——測試人員確實完全擁有 ATDD</text><feedback><text>那正是迷思；ATDD 是協作的全團隊實踐。</text></feedback></answer>
+    <answer fraction="0"><text>錯是因為 ATDD 根本不涉及測試</text><feedback><text>ATDD 非常關乎驗收測試；錯在以為只有測試人員來做。</text></feedback></answer>
+    <generalfeedback><text>ATDD 的一項核心觀念是驗收準則的共同作者身份。三劍客——業務／PO、開發者、測試人員——一起議定它們，讓全團隊擁有單一的「完成」定義。把它當成測試人員的單向交付，會失去賦予 ATDD 價值的共同理解。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>迷思：驗收測試在寫程式之後</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊先寫程式碼，之後才寫驗收測試來檢查它。為什麼這不是 ATDD？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ATDD 在驗收層級是測試先行的：測試必須在開發之前議定，才能驅動開發並定義「完成」</text><feedback><text>正確——在程式碼之後才寫驗收測試，顛倒了 ATDD「測試驅動」的本意。</text></feedback></answer>
+    <answer fraction="0"><text>不是 ATDD 是因為驗收測試可能永遠不會被自動化</text><feedback><text>問題不在自動化；問題是測試在程式碼之後、而非之前。</text></feedback></answer>
+    <answer fraction="0"><text>這其實是正確的 ATDD，因為順序無關緊要</text><feedback><text>順序至關重要：ATDD 要求驗收測試在開發之前。</text></feedback></answer>
+    <answer fraction="0"><text>不是 ATDD 是因為 ATDD 禁止寫任何程式碼</text><feedback><text>ATDD 包含 Develop 階段；重點是測試先於該開發。</text></feedback></answer>
+    <generalfeedback><text>ATDD 中的「測試驅動」意味著驗收測試先寫、並形塑要打造什麼。事後才寫，會把它們變成驗證用的檢查表，並失去驅動工作的那份事先、共同的「完成」定義。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>迷思：Develop 略過單元測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「因為 ATDD 已經有驗收測試，Develop 階段就不需要任何單元測試了。」為什麼這是迷思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Develop 階段內部通常仍使用單元層級 TDD；驗收測試與單元測試在不同層級運作、彼此互補</text><feedback><text>正確——驗收循環包覆著內層的單元層級 TDD 循環；兩者並用。</text></feedback></answer>
+    <answer fraction="0"><text>是對的——一個驗收測試就完全取代了所有單元測試</text><feedback><text>驗收測試檢查客戶層級行為；它不會取代細粒度的單元測試。</text></feedback></answer>
+    <answer fraction="0"><text>是迷思是因為驗收測試無法被自動化</text><feedback><text>驗收測試可以自動化；錯在以為它們消除了單元測試的需要。</text></feedback></answer>
+    <answer fraction="0"><text>是迷思是因為 Develop 才是首次撰寫驗收測試的地方</text><feedback><text>驗收測試在 Distill 撰寫；此處的錯在 Develop 中放掉單元測試。</text></feedback></answer>
+    <generalfeedback><text>ATDD 是巢狀的循環。外層、驗收層級的測試定義面向客戶的「完成」；在 Develop 內部，開發者仍使用單元層級 TDD（紅-綠-重構）打造並驗證內部。兩個層級抓的問題不同，是並用而非彼此取代。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：區分 ATDD 與 TDD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮結帳功能的兩個測試。測試 X 與產品負責人議定，內容是「Given 一個 $100、含 10% 折價券的購物車，When 顧客結帳，Then 總額為 $90」。測試 Y 由開發者撰寫，檢查內部的 <code>applyDiscount()</code> 函式在輸入 (100, 0.10) 時回傳 90。哪一個是 ATDD 風格的驗收測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試 X——它面向客戶、與業務議定，並以可觀察的行為表達</text><feedback><text>正確——X 是驗收測試；Y 是開發者的單元測試。</text></feedback></answer>
+    <answer fraction="0"><text>測試 Y——因為它使用具體的數字</text><feedback><text>兩者都用數字；Y 檢查內部函式，是單元測試，不是驗收測試。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是單元測試，因為都涉及折扣</text><feedback><text>X 與業務議定且描述客戶行為——那是驗收測試。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都不是測試，因為沒有出示程式碼</text><feedback><text>兩者都是測試；X 是驗收層級、Y 是單元層級。</text></feedback></answer>
+    <generalfeedback><text>測試 X 描述與業務議定、端到端、客戶可見的行為——是 ATDD 驗收測試。測試 Y 孤立驗證一個內部函式——是開發者的單元測試（TDD）。兩者都有價值且通常並存：Y 正是在 Develop 內部撰寫、用來幫助讓 X 通過的那種測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：ATDD 與 BDD 的側重</text></name>
+    <questiontext format="html"><text><![CDATA[<p>兩個團隊都在寫程式之前議定驗收測試。A 團隊把它們寫成臨時的檢查表；B 團隊把它們寫成與業務共通的通用語言中的 Given-When-Then 情境，並用 Cucumber 風格的工具執行。哪一項最能描述 B 團隊的側重？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它反映 BDD 的側重：用人與工具都能讀的共通通用語言（Gherkin 的 Given-When-Then）描述行為</text><feedback><text>正確——B 團隊偏向 BDD 對行為與共通語言的著重，是 ATDD 的近親。</text></feedback></answer>
+    <answer fraction="0"><text>它顯示 B 團隊在做單元層級 TDD 而非驗收測試</text><feedback><text>Given-When-Then 情境是驗收層級的行為，不是單元層級的 TDD。</text></feedback></answer>
+    <answer fraction="0"><text>它顯示 B 團隊已放棄與業務的協作</text><feedback><text>恰好相反——與業務共通的通用語言強化了協作。</text></feedback></answer>
+    <answer fraction="0"><text>它顯示 B 團隊在做效能測試</text><feedback><text>Given-When-Then 情境描述功能行為，不是效能。</text></feedback></answer>
+    <generalfeedback><text>兩個團隊都在實踐 ATDD（協作、驗收測試先行）。B 團隊額外擁抱 BDD 的側重：以通用語言透過 Gherkin（Given-When-Then）表達行為，並以 Cucumber 之類的工具執行。BDD 是 ATDD 的近親，凸顯共通語言與行為。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>具體範例的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在整個 ATDD 循環中，為什麼<strong>具體範例</strong>（範例規格化）如此重要？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們精確地釘住模糊的需求、成為可執行的驗收測試，並兼作真實行為的活文件</text><feedback><text>正確——具體範例對齊理解、驅動測試，並作為文件保持準確。</text></feedback></answer>
+    <answer fraction="0"><text>它們只是為了讓會議變長，並在寫程式前被丟棄</text><feedback><text>範例會被保留並轉成驗收測試，不會被丟棄。</text></feedback></answer>
+    <answer fraction="0"><text>它們取代了角色之間任何對話的需要</text><feedback><text>範例是對話的產物，不是對話的替代品。</text></feedback></answer>
+    <answer fraction="0"><text>它們只對量測程式碼覆蓋率有用</text><feedback><text>它們的角色是共同理解與可執行規格，而非量測覆蓋率。</text></feedback></answer>
+    <generalfeedback><text>具體範例把模糊的需求變精確（「當……究竟該發生什麼？」）。萃取成驗收測試後，它們規範行為、在執行時驗證行為，並成為對系統實際作為可信賴的文件——這正是範例規格化的精髓。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>少了一種劍客觀點的代價</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊議定驗收準則時，只有產品負責人與一位開發者在場，沒有測試人員參與。最可能的後果是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>邊界情況、模糊之處與失敗模式更可能被漏掉，因此準則較不完整，缺口稍後才浮現</text><feedback><text>正確——少了測試人員的視角，正是那些「可能哪裡出錯」的情況容易被漏掉。</text></feedback></answer>
+    <answer fraction="0"><text>準則會完美無缺，因為兩種角色足以應付任何需求</text><feedback><text>缺少測試人員的觀點，通常會讓邊界情況與模糊之處未被處理。</text></feedback></answer>
+    <answer fraction="0"><text>沒有測試人員的簽名就無法開始開發</text><feedback><text>重點不在簽名；而在缺少的視角降低了準則的品質。</text></feedback></answer>
+    <answer fraction="0"><text>功能將自動擁有完整的單元測試覆蓋率</text><feedback><text>三劍客關乎議定準則，而非產生單元測試覆蓋率。</text></feedback></answer>
+    <generalfeedback><text>每位劍客彌補彼此的盲點。測試人員特別探究邊界情況、模糊之處與失敗模式。把那個視角排除在對話之外，這類缺口就較不可能被及早抓到，往往在功能打造完後以缺陷或返工的形式重新出現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>把一整組活動排序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把下列四項活動排成正確的 ATDD 順序：(1) 以單元 TDD 實作功能直到驗收測試通過；(2) 把完成的功能展示給利害關係人驗證；(3) 以具體範例談清楚故事；(4) 把範例寫成驗收測試。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3，然後 4，然後 1，然後 2</text><feedback><text>正確——Discuss (3)、Distill (4)、Develop (1)、Demo (2)。</text></feedback></answer>
+    <answer fraction="0"><text>4，然後 3，然後 2，然後 1</text><feedback><text>要先討論才能萃取、先開發才能展示；這個順序是錯的。</text></feedback></answer>
+    <answer fraction="0"><text>1，然後 2，然後 3，然後 4</text><feedback><text>在討論與萃取之前就開發與展示，顛倒了循環。</text></feedback></answer>
+    <answer fraction="0"><text>3，然後 1，然後 4，然後 2</text><feedback><text>驗收測試（4，Distill）必須在開發（1，Develop）之前撰寫。</text></feedback></answer>
+    <generalfeedback><text>把活動對應到階段：(3) 是 Discuss、(4) 是 Distill、(1) 是 Develop、(2) 是 Demo。因此正確順序是 3、4、1、2——Discuss、Distill、Develop、Demo。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>在驗收層級「完成」的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 ATDD 中，功能在驗收層級何時算「完成」？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>當它滿足議定的驗收準則——驗收測試通過，且利害關係人在 Demo 中確認</text><feedback><text>正確——「完成」由議定的驗收準則達成並被驗證來定義。</text></feedback></answer>
+    <answer fraction="0"><text>當開發者覺得程式碼寫完了，不管準則如何</text><feedback><text>「完成」由議定的驗收準則定義，而非個人感覺。</text></feedback></answer>
+    <answer fraction="0"><text>當達到 100% 分支覆蓋率，不論行為如何</text><feedback><text>覆蓋率是另一種指標；驗收的「完成」是達成議定準則。</text></feedback></answer>
+    <answer fraction="0"><text>當程式碼編譯沒有警告</text><feedback><text>乾淨地編譯不等於滿足客戶的驗收準則。</text></feedback></answer>
+    <generalfeedback><text>ATDD 讓「完成」客觀且共同：當功能滿足事先議定的驗收準則——驗收測試通過、且利害關係人在 Demo 中確認——就算完成。這消除了對是否真正交付了正確東西的模糊。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>循環順序 Discuss-Distill-Develop-Demo</text></name>
+    <questiontext format="html"><text><![CDATA[<p>ATDD 循環的四個階段依序為 Discuss、Distill、Develop、Demo。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——順序就是：理解、化為測試、打造，然後與利害關係人驗證。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>順序正是 Discuss、Distill、Develop、Demo。</text></feedback></answer>
+    <generalfeedback><text>ATDD 循環的流程是 Discuss（以範例理解需求）、Distill（把範例轉成驗收測試）、Develop（實作並讓測試在內部以單元 TDD 通過）、Demo（與利害關係人驗證結果）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>歸位活動：以範例探討故事</text></name>
+    <questiontext format="html"><text><![CDATA[<p>業務負責人、一位開發者與一位測試人員坐在一起，談過一個新的使用者故事，提出「若……應該發生什麼？」的範例以達成共同理解，此時尚未把任何東西寫成測試。這是哪個 ATDD 階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Discuss</text><feedback><text>正確——透過範例與利害關係人一起探討需求就是 Discuss 階段。</text></feedback></answer>
+    <answer fraction="0"><text>Distill</text><feedback><text>Distill 是把那些範例寫成驗收測試；對話本身是 Discuss。</text></feedback></answer>
+    <answer fraction="0"><text>Develop</text><feedback><text>Develop 是實作；以範例進行的事先對話是 Discuss。</text></feedback></answer>
+    <answer fraction="0"><text>Demo</text><feedback><text>Demo 驗證完成的功能；對故事的初步探討是 Discuss。</text></feedback></answer>
+    <generalfeedback><text>這是 Discuss：三劍客一起探討故事，用具體的「若……」範例建立對需求的共同理解。把這些範例寫成驗收測試會是下一個階段——Distill。</text></generalfeedback>
+  </question>
+</quiz>

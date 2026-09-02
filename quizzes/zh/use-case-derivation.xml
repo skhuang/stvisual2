@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Use Case Test Derivation/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是使用案例</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在以使用案例為基礎的測試中，<strong>使用案例（use case）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>描述參與者如何與系統互動以達成某個目標的說明，以一連串步驟呈現</text><feedback><text>正確——使用案例描述參與者與系統之間以目標為導向的互動。</text></feedback></answer>
+    <answer fraction="0"><text>某個測試所執行到的一行原始碼</text><feedback><text>那是一行程式碼；使用案例是對互動的黑箱描述，而非程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>將布林條件對應到動作的表格</text><feedback><text>那描述的是決策表；使用案例是以目標為導向的步驟敘事。</text></feedback></answer>
+    <answer fraction="0"><text>衡量測試套件涵蓋多少程式碼的指標</text><feedback><text>那是程式碼涵蓋率；使用案例描述的是使用者可見的行為，而非涵蓋率。</text></feedback></answer>
+    <generalfeedback><text>使用案例從外部描述參與者如何使用系統達成目標。它是黑箱、需求層級的產物，是推導驗收／系統測試的依據。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是參與者</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在使用案例中，<strong>參與者（actor）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>與受測系統互動的外部實體（人、角色，或其他系統）</text><feedback><text>正確——參與者是參與使用案例的外部角色。</text></feedback></answer>
+    <answer fraction="0"><text>系統內部的某個函式或方法</text><feedback><text>參與者對系統而言是外部的；內部函式屬於實作，而非參與者。</text></feedback></answer>
+    <answer fraction="0"><text>驅動該使用案例的測試案例</text><feedback><text>測試案例是由使用案例推導而來；參與者是它所代表的外部參與者。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試期間發現的一個缺陷</text><feedback><text>缺陷是故障；參與者是與系統互動的外部角色。</text></feedback></answer>
+    <generalfeedback><text>參與者是任何與系統互動、以協助達成（或支援）使用案例目標的外部實體——可能是人類角色、外部裝置或另一個系統。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>主要參與者與次要參與者</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在使用案例中，<strong>主要參與者（primary actor）</strong>與<strong>次要參與者（secondary actor）</strong>有何區別？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>主要參與者發起使用案例以達成其目標；次要參與者則是系統為完成使用案例而求助的對象</text><feedback><text>正確——主要參與者推動目標，次要參與者提供支援服務。</text></feedback></answer>
+    <answer fraction="0"><text>主要參與者一定是人，次要參與者一定是機器</text><feedback><text>兩者都可能是人或系統；區別在於誰發起、誰支援。</text></feedback></answer>
+    <answer fraction="0"><text>主要參與者是選用的，次要參與者是必要的</text><feedback><text>主要參與者是使用案例所服務目標的擁有者，並非選用。</text></feedback></answer>
+    <answer fraction="0"><text>主要參與者撰寫測試，次要參與者執行測試</text><feedback><text>參與者是互動中的角色，而非測試職責。</text></feedback></answer>
+    <generalfeedback><text>主要參與者擁有使用案例所滿足的目標並觸發它；次要（支援）參與者——例如金流閘道或電子郵件服務——是系統為達成目標而聯繫的對象。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是前置條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用案例的<strong>前置條件（precondition）</strong>陳述什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在使用案例開始之前必須已經成立的事項</text><feedback><text>正確——前置條件是開始時所假定、已保證成立的起始狀態。</text></feedback></answer>
+    <answer fraction="0"><text>使用案例成功結束後將會成立的事項</text><feedback><text>那是後置條件（成功保證），而非前置條件。</text></feedback></answer>
+    <answer fraction="0"><text>啟動使用案例的事件</text><feedback><text>那是觸發事件；前置條件是事前必須成立的狀態。</text></feedback></answer>
+    <answer fraction="0"><text>主要流程中的步驟清單</text><feedback><text>那是基本流程的步驟；前置條件是流程開始前所假定的狀態。</text></feedback></answer>
+    <generalfeedback><text>前置條件是使用案例開始前保證成立的狀態（例如「使用者已登入」）。它在流程中被假定而非檢查——並直接對應到測試的前置設定。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是後置條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用案例的<strong>後置條件（postcondition，成功保證）</strong>描述什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>使用案例成功完成後必須成立的狀態</text><feedback><text>正確——成功保證就是達成目標後所成立的事項。</text></feedback></answer>
+    <answer fraction="0"><text>使用案例得以開始前必須成立的狀態</text><feedback><text>那是前置條件，而非後置條件。</text></feedback></answer>
+    <answer fraction="0"><text>觸發使用案例的外部事件</text><feedback><text>那是觸發事件；後置條件是保證的結果。</text></feedback></answer>
+    <answer fraction="0"><text>參與其中的參與者清單</text><feedback><text>參與者是參與者；後置條件是成功後產生的狀態。</text></feedback></answer>
+    <generalfeedback><text>後置條件（成功保證）陳述使用案例成功結束後系統所保證的事項（例如「訂單已記錄且付款已收取」）。它是測試預期結果的自然來源。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是主要／基本流程</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用案例的<strong>主要（基本）成功流程</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>最常見、最直接、一切順利並達成目標的步驟序列——也就是「快樂路徑（happy path）」</text><feedback><text>正確——基本流程是正常、無錯誤而達成成功的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>發生錯誤時所走的步驟序列</text><feedback><text>那是例外流程；基本流程是無錯誤的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>只在特殊條件下用來達成目標的選用方式</text><feedback><text>那是替代流程；基本流程是主要路徑。</text></feedback></answer>
+    <answer fraction="0"><text>必須先成立的前置條件清單</text><feedback><text>前置條件是假定的狀態；基本流程是步驟序列本身。</text></feedback></answer>
+    <generalfeedback><text>主要（基本）流程是典型的成功情境——快樂路徑——參與者與系統逐步進行、沒有錯誤，並達成目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是替代流程</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用案例中的<strong>替代流程（alternative flow）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>仍能達成目標、但在某處與基本流程不同的另一種有效方式</text><feedback><text>正確——替代流程是達成目標的另一條仍然成功的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>總是以失敗告終、無法達成目標的路徑</text><feedback><text>無法達成目標的路徑是例外流程，而非替代流程。</text></feedback></answer>
+    <answer fraction="0"><text>使用案例開始前所假定的狀態</text><feedback><text>那是前置條件，而非流程。</text></feedback></answer>
+    <answer fraction="0"><text>最常見的單一步驟序列</text><feedback><text>那是基本流程；替代流程是從它分岔而來。</text></feedback></answer>
+    <generalfeedback><text>替代流程是仍能成功達成目標的變化——例如以不同方式付款。它從基本流程分岔，之後可能重新併回，或以另一條路徑達到相同的成功保證。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是例外流程</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用案例中的<strong>例外（錯誤）流程</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>當某處出錯時所走的路徑，描述如何處理該失敗</text><feedback><text>正確——例外流程描述當無法正常進行目標時的錯誤處理。</text></feedback></answer>
+    <answer fraction="0"><text>通往相同目標的另一條成功路徑</text><feedback><text>成功的變化是替代流程；例外流程處理的是失敗。</text></feedback></answer>
+    <answer fraction="0"><text>成功完成後所保證的狀態</text><feedback><text>那是後置條件，而非例外流程。</text></feedback></answer>
+    <answer fraction="0"><text>正常快樂路徑的步驟序列</text><feedback><text>那是基本流程；例外流程是錯誤路徑。</text></feedback></answer>
+    <generalfeedback><text>例外（錯誤）流程描述當某步驟無法正常完成時（例如付款被拒、商品缺貨）會發生什麼，以及系統如何回應（常在未達成成功保證下結束）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>「include（包含）」的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用案例之間的<strong>include（包含）</strong>關係代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>被包含的子使用案例是基礎使用案例中「必定」執行的強制性部分</text><feedback><text>正確——include 把「總是執行」的共用行為抽出。</text></feedback></answer>
+    <answer fraction="0"><text>被包含的使用案例只在特殊條件下才執行</text><feedback><text>有條件的插入是 extend 而非 include；被包含的使用案例總是執行。</text></feedback></answer>
+    <answer fraction="0"><text>被包含的使用案例是錯誤處理路徑</text><feedback><text>include 談的是強制性的共用行為，而非錯誤處理。</text></feedback></answer>
+    <answer fraction="0"><text>被包含的使用案例會取代基礎使用案例</text><feedback><text>include 是以強制性的共用步驟補充基礎使用案例，並不取代它。</text></feedback></answer>
+    <generalfeedback><text>include 表示基礎使用案例總是會呼叫被包含的子使用案例——用來抽出共用、強制的行為（例如「結帳」包含「驗證付款」，後者總是執行）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>「extend（延伸）」的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用案例之間的<strong>extend（延伸）</strong>關係代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>延伸的使用案例在延伸點（extension point）插入選用行為，只有在條件成立時才執行</text><feedback><text>正確——extend 是在延伸點插入、有條件、選用的行為。</text></feedback></answer>
+    <answer fraction="0"><text>延伸的使用案例總是作為基礎的強制性部分執行</text><feedback><text>總是執行的強制行為是 include，而非 extend。</text></feedback></answer>
+    <answer fraction="0"><text>延伸的使用案例列出基礎的前置條件</text><feedback><text>extend 是有條件地插入行為，而非前置條件清單。</text></feedback></answer>
+    <answer fraction="0"><text>延伸的使用案例是基礎的主要參與者</text><feedback><text>參與者是角色，而非使用案例之間的關係。</text></feedback></answer>
+    <generalfeedback><text>extend 在基礎使用案例的具名延伸點插入選用／有條件的行為，且僅在其條件成立時才執行（例如當購物者輸入折扣碼時，「套用折扣」延伸「結帳」）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是情境（scenario）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在使用案例測試中，<strong>情境（scenario）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>穿過使用案例的一條特定路徑——基本流程，或基本流程加上某一個替代或例外</text><feedback><text>正確——情境是穿過使用案例的一條具體路徑。</text></feedback></answer>
+    <answer fraction="0"><text>使用案例所有流程同時構成的完整集合</text><feedback><text>那是整個使用案例；情境是穿過它的一條路徑。</text></feedback></answer>
+    <answer fraction="0"><text>測試所使用的單一輸入值</text><feedback><text>輸入值是測試資料；情境是端到端的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>使用案例的前置條件</text><feedback><text>前置條件是假定的狀態；情境是對流程的一次走訪。</text></feedback></answer>
+    <generalfeedback><text>情境是穿過使用案例的一個實例／路徑：快樂路徑是一個情境，而每採用一個替代或例外（連同流程其餘部分）就得到另一個。情境是推導使用案例測試的單位。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識觸發事件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「提款」使用案例寫道：<em>「顧客必須擁有有效帳戶（前置條件）。當顧客插入卡片並要求提款時，系統會核對餘額並吐鈔；之後餘額會減少。」</em>其中哪一部分是<strong>觸發事件（trigger）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>顧客插入卡片並要求提款</text><feedback><text>正確——該事件發起了使用案例，因此是觸發事件。</text></feedback></answer>
+    <answer fraction="0"><text>顧客必須擁有有效帳戶</text><feedback><text>那是前置條件——事前假定的狀態，而非發起事件。</text></feedback></answer>
+    <answer fraction="0"><text>系統核對餘額並吐鈔</text><feedback><text>那是基本流程的步驟，而非啟動使用案例的觸發事件。</text></feedback></answer>
+    <answer fraction="0"><text>之後餘額會減少</text><feedback><text>那是後置條件——成功後的狀態。</text></feedback></answer>
+    <generalfeedback><text>觸發事件是啟動使用案例的事件。此處是顧客插入卡片並要求提款；有效帳戶是前置條件，而減少的餘額是後置條件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識前置條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在「下訂單」使用案例中，下列何者最適合描述為<strong>前置條件</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>顧客已登入，且購物車中至少有一件商品</text><feedback><text>正確——在使用案例開始前，該狀態必須已成立。</text></feedback></answer>
+    <answer fraction="0"><text>系統顯示訂單確認編號</text><feedback><text>那是成功後的結果——後置條件，而非前置條件。</text></feedback></answer>
+    <answer fraction="0"><text>顧客點擊「下訂單」按鈕</text><feedback><text>那是啟動使用案例的觸發事件，而非前置條件。</text></feedback></answer>
+    <answer fraction="0"><text>系統向已儲存的付款方式收款</text><feedback><text>那是基本流程中的步驟，而非前置條件。</text></feedback></answer>
+    <generalfeedback><text>前置條件是流程執行前假定為真的狀態。「已登入且購物車非空」必須在下訂單開始前成立；確認編號是後置條件，點擊按鈕是觸發事件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識基本流程</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是「登入」使用案例的<strong>基本（主要成功）流程</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>使用者輸入有效憑證，系統驗證通過，使用者取得存取權</text><feedback><text>正確——那是直接的成功路徑。</text></feedback></answer>
+    <answer fraction="0"><text>使用者連續輸入三次錯誤密碼，帳戶被鎖定</text><feedback><text>那是描述失敗處理的例外流程。</text></feedback></answer>
+    <answer fraction="0"><text>使用者透過電子郵件重設遺忘的密碼</text><feedback><text>那是替代／例外路徑，而非主要成功流程。</text></feedback></answer>
+    <answer fraction="0"><text>使用者在使用案例開始前就已經登入</text><feedback><text>那是前置條件／狀態，而非步驟序列。</text></feedback></answer>
+    <generalfeedback><text>基本流程是無錯誤的成功路徑：輸入有效憑證、驗證通過、取得存取權。錯誤密碼鎖定是例外流程，密碼重設是另一條替代／例外路徑。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>使用案例測試是黑箱</text></name>
+    <questiontext format="html"><text><![CDATA[<p>以使用案例為基礎的測試推導是一種黑箱技術：測試是依據所描述的互動與目標設計，而非依據原始碼。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——使用案例測試依據行為規格設計測試，因此屬於黑箱。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>使用案例測試依據所描述的流程與目標（規格）推導測試，因此是黑箱，而非以程式碼為基礎。</text></feedback></answer>
+    <generalfeedback><text>使用案例測試是在系統／驗收層級運作的黑箱、以規格為基礎的技術：測試來自參與者—目標的互動及其流程，與內部程式碼無關。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Use Case Test Derivation/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：結帳與驗證付款</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「結帳」在完成每一次結帳時<em>總是</em>執行「驗證付款」。這是什麼關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>include（包含）——驗證付款是總是執行的強制性共用行為</text><feedback><text>正確——總是作為基礎一部分執行的行為屬於 include。</text></feedback></answer>
+    <answer fraction="0"><text>extend（延伸）——驗證付款只在某條件下才執行</text><feedback><text>「總是執行」代表它並非有條件，因此是 include，而非 extend。</text></feedback></answer>
+    <answer fraction="0"><text>generalization（一般化）——驗證付款是結帳的一種</text><feedback><text>這是「部分／總是執行」的關係，而非 is-a 的特化。</text></feedback></answer>
+    <answer fraction="0"><text>結帳的替代流程</text><feedback><text>它是一個獨立、總是被呼叫的子使用案例（include），而非結帳內部以另一種方式達成目標的分支。</text></feedback></answer>
+    <generalfeedback><text>由於驗證付款在每次結帳中都會執行，故以 include 關係抽出（強制、共用的行為）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：套用折扣與結帳</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「套用折扣」只有<em>當</em>購物者輸入折扣碼時才在「結帳」過程中執行，且插入於結帳流程的一個定點。這是什麼關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>extend（延伸）——套用折扣是在延伸點插入、於條件成立時才執行的選用行為</text><feedback><text>正確——在延伸點有條件、選用地插入即為 extend。</text></feedback></answer>
+    <answer fraction="0"><text>include（包含）——套用折扣在結帳時總是執行</text><feedback><text>它只在輸入折扣碼時才執行，故為有條件（extend），而非總是執行（include）。</text></feedback></answer>
+    <answer fraction="0"><text>generalization（一般化）——套用折扣是結帳的一種</text><feedback><text>這是有條件的插入，而非 is-a 的特化。</text></feedback></answer>
+    <answer fraction="0"><text>結帳的前置條件</text><feedback><text>它是有條件插入的行為，而非結帳開始前所假定的狀態。</text></feedback></answer>
+    <generalfeedback><text>套用折扣只有在購物者提供折扣碼時才會發生，插入於結帳的延伸點——正是 extend 關係（選用／有條件）的特徵。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境計數：1 基本 + 3 替代 + 2 例外</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某使用案例有 1 個基本流程、3 個替代流程與 2 個例外流程，每一個都是各自獨立執行的路徑。以使用案例情境涵蓋（每個情境一個測試）而言，需要幾個測試案例？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>正確——1 + 3 + 2 = 6 個獨立情境，各一個測試。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 漏掉了一個流程；別忘了基本流程也要算：1 + 3 + 2 = 6。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 只算了替代流程；基本流程與例外流程也是情境。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>這些流程是各自獨立的單一路徑，因此相加（＝6），而非相乘。</text></feedback></answer>
+    <generalfeedback><text>每個獨立流程都是一個情境：基本流程加上每個替代與每個例外。即 1 + 3 + 2 = 6 個情境，故情境涵蓋需 6 個測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境計數：1 基本 + 2 替代 + 1 例外</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某使用案例有 1 個基本流程、2 個替代流程與 1 個例外流程，每一個都是各自獨立的路徑。必須涵蓋幾個情境？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——1 + 2 + 1 = 4 個獨立情境。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 漏掉了一個流程；把基本流程算進來：1 + 2 + 1 = 4。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 只算了替代流程；還要加上基本流程與例外流程。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>獨立的單一路徑相加為 4，而非相乘。</text></feedback></answer>
+    <generalfeedback><text>情境涵蓋需每個情境一個測試：基本（1）＋替代（2）＋例外（1）＝ 4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境計數：1 基本 + 4 例外</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某「登入」使用案例有 1 個基本成功流程與 4 個相異的例外流程（密碼錯誤、帳戶鎖定、密碼過期、網路錯誤），每一個都是各自獨立的路徑。共有幾個情境？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——1 個基本 + 4 個例外 = 5 個情境。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 只算了例外；基本成功流程也是一個情境。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>每個例外都是各自的情境，所以是 5，而非 1。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>這些是各自獨立的單一路徑，相加為 5，而非相乘。</text></feedback></answer>
+    <generalfeedback><text>基本流程是一個情境，4 個例外流程各是一個，合計 1 + 4 = 5 個情境需涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>前置條件對應到測試前置設定</text></name>
+    <questiontext format="html"><text><![CDATA[<p>將使用案例情境轉為具體測試案例時，<strong>前置條件</strong>最直接對應到測試的哪一部分？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試前置設定／在測試步驟執行前建立的初始狀態</text><feedback><text>正確——前置條件定義測試所安排的起始狀態。</text></feedback></answer>
+    <answer fraction="0"><text>最後檢查的預期結果</text><feedback><text>預期結果來自後置條件，而非前置條件。</text></feedback></answer>
+    <answer fraction="0"><text>使用者動作序列（測試步驟）</text><feedback><text>步驟來自流程；前置條件是步驟前所安排的狀態。</text></feedback></answer>
+    <answer fraction="0"><text>測試案例的名稱</text><feedback><text>名稱只是標籤；前置條件定義的是前置設定狀態。</text></feedback></answer>
+    <generalfeedback><text>前置條件指定情境執行前必須成立的事項，因此對應到測試的前置設定／安排（arrange）步驟——在執行流程前建立初始狀態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>後置條件對應到預期結果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由使用案例情境推導測試時，情境的<strong>後置條件</strong>最直接對應到測試的哪一部分？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>步驟執行後所驗證的預期結果／斷言</text><feedback><text>正確——後置條件陳述所保證的結果，正是測試要檢查的。</text></feedback></answer>
+    <answer fraction="0"><text>步驟前所做的前置設定</text><feedback><text>前置設定來自前置條件；後置條件是預期結果。</text></feedback></answer>
+    <answer fraction="0"><text>觸發事件</text><feedback><text>觸發事件啟動流程；後置條件是要驗證的結果。</text></feedback></answer>
+    <answer fraction="0"><text>參與者清單</text><feedback><text>參與者是參與者；後置條件是要檢查的結果。</text></feedback></answer>
+    <generalfeedback><text>後置條件（成功保證）正是情境成功後系統所承諾的事項，因此對應到測試的預期結果／斷言。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境中的主要參與者</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在「以卡片付款」情境中，購物者發起購買，而銀行金流閘道授權該筆扣款。誰是<strong>主要參與者</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>購物者——他發起使用案例並擁有目標</text><feedback><text>正確——主要參與者推動使用案例朝其目標前進。</text></feedback></answer>
+    <answer fraction="0"><text>金流閘道——它做了重要的工作</text><feedback><text>閘道是系統求助的次要／支援參與者；它並非發起者。</text></feedback></answer>
+    <answer fraction="0"><text>受測系統本身</text><feedback><text>系統不是參與者；參與者是外部的參與者。</text></feedback></answer>
+    <answer fraction="0"><text>兩者同為主要參與者</text><feedback><text>只有一個主要參與者（目標擁有者）；閘道是次要參與者。</text></feedback></answer>
+    <generalfeedback><text>購物者發起互動並擁有目標，故為主要參與者；金流閘道是系統為達成目標而聯繫的次要（支援）參與者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境中的次要參與者</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在「註冊帳戶」使用案例中，訪客完成註冊，系統請一個外部電子郵件服務寄送確認訊息。何者是<strong>次要參與者</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>外部電子郵件服務——系統求助於它以協助完成目標</text><feedback><text>正確——被系統呼叫的支援參與者為次要參與者。</text></feedback></answer>
+    <answer fraction="0"><text>訪客——是他完成了註冊</text><feedback><text>訪客發起並擁有目標，故為主要參與者。</text></feedback></answer>
+    <answer fraction="0"><text>確認訊息</text><feedback><text>訊息是資料，而非參與者。</text></feedback></answer>
+    <answer fraction="0"><text>資料庫資料表</text><feedback><text>內部儲存是系統的一部分，而非外部參與者。</text></feedback></answer>
+    <generalfeedback><text>訪客是主要參與者（發起者、目標擁有者）；外部電子郵件服務是系統為協助達成目標而聯繫的次要／支援參與者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由描述的情境推導測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>情境：<em>購物者已儲存的卡片被<strong>拒絕</strong>，因此訂單未成立並顯示錯誤訊息。</em>下列哪個測試最符合此例外情境？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>建立一個卡片會被拒絕的帳戶，嘗試結帳，並驗證未建立任何訂單且顯示拒絕錯誤</text><feedback><text>正確——前置設定、動作與預期結果都依循「付款被拒」的例外情境。</text></feedback></answer>
+    <answer fraction="0"><text>設定一張有效卡片、結帳，並驗證訂單已確認</text><feedback><text>那測試的是基本成功流程，而非付款被拒的例外。</text></feedback></answer>
+    <answer fraction="0"><text>單獨對卡號的 Luhn 檢查函式做單元測試</text><feedback><text>那是低階的單元測試，而非所描述的端到端例外情境。</text></feedback></answer>
+    <answer fraction="0"><text>驗證折扣欄位可接受一組折扣碼</text><feedback><text>那涉及另一項（折扣）行為，而非付款被拒的情境。</text></feedback></answer>
+    <generalfeedback><text>情境決定測試：安排一張會被拒絕的卡片（前置設定），執行結帳（步驟），並斷言未建立訂單且顯示拒絕錯誤（來自失敗保證的預期結果）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>被包含的使用案例總是執行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>被包含（include）的使用案例在基礎使用案例每次執行時都會執行，而延伸（extend）的使用案例只在其條件成立時才執行。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——include 是強制／總是執行；extend 是有條件／選用。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>include 總是執行；extend 是有條件的。此敘述描述正確。</text></feedback></answer>
+    <generalfeedback><text>include 把總是作為基礎一部分執行的行為抽出；extend 只在條件成立時於延伸點插入選用行為。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>觸發事件與前置條件的應用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某使用案例寫道：「帳戶必須信用良好。當顧客送出轉帳請求時，此使用案例開始。」下列何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>「帳戶信用良好」是前置條件；「顧客送出轉帳請求」是觸發事件</text><feedback><text>正確——假定的狀態是前置條件；發起的事件是觸發事件。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是觸發事件</text><feedback><text>只有發起事件才是觸發事件；信用良好狀態是假定的狀態。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是前置條件</text><feedback><text>送出請求是發起事件（觸發事件），而非前置條件。</text></feedback></answer>
+    <answer fraction="0"><text>「帳戶信用良好」是觸發事件；送出請求是後置條件</text><feedback><text>這弄反了角色；信用良好是事前假定，而送出請求啟動使用案例。</text></feedback></answer>
+    <generalfeedback><text>前置條件是使用案例開始前假定的狀態（「帳戶信用良好」）；觸發事件是啟動它的事件（「顧客送出轉帳請求」）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境涵蓋所需的測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在使用案例<strong>情境涵蓋</strong>之下，一個使用案例所需的最少測試案例數等於下列何者？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>情境的數量（基本流程加上每個替代與每個例外）</text><feedback><text>正確——情境涵蓋要求每個情境至少一個測試。</text></feedback></answer>
+    <answer fraction="0"><text>使用案例中的參與者數量</text><feedback><text>參與者數量不決定情境涵蓋；決定它的是情境數量。</text></feedback></answer>
+    <answer fraction="0"><text>恰好一個，對應基本流程</text><feedback><text>只涵蓋基本流程會漏掉替代與例外未測試。</text></feedback></answer>
+    <answer fraction="0"><text>前置條件的數量</text><feedback><text>前置條件變成前置設定，而非所需測試的數量。</text></feedback></answer>
+    <generalfeedback><text>情境涵蓋要求每個情境至少一個測試，因此最少測試數等於情境數量 = 基本 + 每個替代 + 每個例外（當每個都是獨立路徑時）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>include 不另增快樂路徑情境</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「結帳」<em>包含（include）</em>「驗證付款」（總是執行）。在計算結帳基本流程的情境時，被包含的驗證付款如何處理？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它是每個結帳情境的一部分，因此在快樂路徑上不會另外新增「有／無」的情境</text><feedback><text>正確——由於它總是執行，因此內建於每個情境中，而非成為選用分支。</text></feedback></answer>
+    <answer fraction="0"><text>它使情境數翻倍——一個有驗證、一個無驗證</text><feedback><text>總是執行的 include 不存在「無」的情形；那種有／無的分裂屬於 extend。</text></feedback></answer>
+    <answer fraction="0"><text>它被完全忽略，永遠不測試</text><feedback><text>它在每條路徑上都會執行，因此會被那些測試所執行——只是它不是選用分支。</text></feedback></answer>
+    <answer fraction="0"><text>它變成結帳的前置條件</text><feedback><text>它是被呼叫的行為，而非事前假定的狀態。</text></feedback></answer>
+    <generalfeedback><text>由於被包含的使用案例總是執行，它出現在基礎的每個情境中，而非製造有／無的選用分裂。（驗證付款當然可能有自己內部的替代／例外，那是另一回事。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：一般化（generalization）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「以卡片付款」與「以現金付款」都是更一般的「進行付款」使用案例的特殊種類，各自細化付款方式。這是什麼關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>generalization（一般化）——特化的使用案例是一般者的變體（is-a）</text><feedback><text>正確——一般使用案例與其變體之間的 is-a 關係即為一般化。</text></feedback></answer>
+    <answer fraction="0"><text>include（包含）——進行付款總是同時執行兩者</text><feedback><text>include 是總是執行的強制共用行為，而非 is-a 的變體關係。</text></feedback></answer>
+    <answer fraction="0"><text>extend（延伸）——這些變體是有條件的插入</text><feedback><text>extend 在延伸點插入選用行為；此處變體是特化一般使用案例（is-a）。</text></feedback></answer>
+    <answer fraction="0"><text>trigger（觸發事件）——這些變體啟動進行付款</text><feedback><text>觸發事件是發起事件，而非使用案例之間的關係。</text></feedback></answer>
+    <generalfeedback><text>一般化是 is-a 關係：「以卡片付款」與「以現金付款」是一般「進行付款」的特化形式，繼承其結構並細化特定步驟。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Use Case Test Derivation/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>兩個獨立選用延伸的路徑計數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某「結帳」使用案例有兩個<em>獨立、選用</em>的延伸，各自可能發生或不發生：「套用折扣」與「加購禮品包裝」。若要涵蓋「採用／不採用」的每一種組合（且兩者確實獨立），共有幾條相異的端到端路徑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4——每個延伸各自獨立地存在或不存在，故 2 x 2 = 4</text><feedback><text>正確——兩個獨立的選用插入得到 2^2 = 4 種組合。</text></feedback></answer>
+    <answer fraction="0"><text>2——一條有延伸、一條無延伸</text><feedback><text>兩個獨立選項得到四種組合，而非兩種。</text></feedback></answer>
+    <answer fraction="0"><text>3——基本再加上每個延伸各一條</text><feedback><text>那樣每個延伸各算一次，卻漏掉「兩者皆採用」與「兩者皆不採用」的組合；獨立選項相乘為 4。</text></feedback></answer>
+    <answer fraction="0"><text>1——延伸不會產生新路徑</text><feedback><text>選用延伸確實會產生分支；兩個獨立延伸得到 4 條路徑。</text></feedback></answer>
+    <generalfeedback><text>每個獨立的選用延伸貢獻一個 2 的因子（採用或不採用）。兩個延伸的組合數為 2 x 2 = 4。（基本情境涵蓋或許用較少——每個延伸一條加上不含延伸的一條——但對兩個獨立選項的完整組合涵蓋是 4。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>含分岔替代的情境計數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某使用案例有 1 個基本流程。在某一步驟，付款方式分岔為恰好 3 個互斥選項之一（現金、卡片、折扣券），此外另有 2 個獨立的例外流程。以每個相異付款分支一個情境、再加上每個例外計算，共有幾個情境？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5——3 個互斥付款分支 + 2 個例外</text><feedback><text>正確——3 個分支互為替代（3 個情境）加上 2 個例外 = 5。</text></feedback></answer>
+    <answer fraction="0"><text>6——1 個基本 + 3 個分支 + 2 個例外</text><feedback><text>這 3 個分支<em>就是</em>基本流程的付款步驟（其中一個是「主要」分支），故不會另外再加一個獨立的基本情境；計數為 3 + 2 = 5。</text></feedback></answer>
+    <answer fraction="0"><text>3——只有付款分支重要</text><feedback><text>那 2 個例外流程也是情境；3 + 2 = 5。</text></feedback></answer>
+    <answer fraction="0"><text>12——3 個分支乘以 2 個例外再乘以 2</text><feedback><text>互斥分支與獨立例外是相加，而非相乘。</text></feedback></answer>
+    <generalfeedback><text>三種付款方式是同一步驟的互斥變體，得到 3 個成功情境（其中一個實際上就是基本流程，其餘為替代）。加上 2 個獨立例外，共 3 + 2 = 5 個情境。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>include 與 extend：微妙的強制情形</text></name>
+    <questiontext format="html"><text><![CDATA[<p>每次「轉帳」執行時，系統都會寫入一筆稽核紀錄——毫無例外。此稽核行為被抽成自己的使用案例。何者關係最適合，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>include（包含）——稽核紀錄每次執行都會寫入，故為強制抽出的行為</text><feedback><text>正確——「每次執行、毫無例外」正是 include 的特徵。</text></feedback></answer>
+    <answer fraction="0"><text>extend（延伸）——稽核是附加到基礎的額外行為</text><feedback><text>extend 是有條件的；此處稽核總是執行，故為 include。</text></feedback></answer>
+    <answer fraction="0"><text>extend（延伸）——因為稽核不是主要目標</text><feedback><text>是否為主要目標並不相干；關鍵是它總是執行，故為 include。</text></feedback></answer>
+    <answer fraction="0"><text>generalization（一般化）——稽核是轉帳的一種</text><feedback><text>它是共用、總是執行的行為，而非 is-a 的特化。</text></feedback></answer>
+    <generalfeedback><text>決定因素是無條件執行。由於稽核紀錄每次執行都會寫入、毫無例外，它是強制的共用行為——屬於 include，而非有條件的 extend。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>include 與 extend：微妙的有條件情形</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在「提款」過程中，<em>若</em>餘額將低於某門檻，系統會在一個定點另外執行「寄送低餘額警示」。何者關係最適合，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>extend（延伸）——警示只在低餘額條件成立時才執行，插入於延伸點</text><feedback><text>正確——在延伸點的有條件插入即為 extend。</text></feedback></answer>
+    <answer fraction="0"><text>include（包含）——警示是提款的一部分</text><feedback><text>它只在條件成立時才執行，故為有條件（extend），而非總是執行（include）。</text></feedback></answer>
+    <answer fraction="0"><text>include（包含）——因為它被抽成獨立的使用案例</text><feedback><text>被抽出並不使其成為 include；include 還要求它總是執行，而此處並非如此。</text></feedback></answer>
+    <answer fraction="0"><text>提款的前置條件</text><feedback><text>它是流程中途由條件觸發的行為，而非事前假定的狀態。</text></feedback></answer>
+    <generalfeedback><text>「若餘額將低於門檻」這個守衛條件代表警示是有條件的，插入於延伸點——正是 extend 的特徵，即使它被抽成自己的使用案例也一樣。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何後置條件是預期結果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼情境的<strong>後置條件</strong>是使用案例測試預期結果的自然來源？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它陳述系統在該情境下必須交付的保證，故驗證它即可確認目標已達成</text><feedback><text>正確——後置條件正是所承諾的結束狀態，也就是測試必須斷言的。</text></feedback></answer>
+    <answer fraction="0"><text>它列出測試必須提供的輸入</text><feedback><text>輸入與前置設定／步驟有關；後置條件是所保證的結果。</text></feedback></answer>
+    <answer fraction="0"><text>它指出程式碼應呼叫的內部函式</text><feedback><text>使用案例測試是黑箱；後置條件描述可觀察的結果，而非內部呼叫。</text></feedback></answer>
+    <answer fraction="0"><text>它計算共有幾個情境</text><feedback><text>那不相干；後置條件描述的是要驗證的結束狀態。</text></feedback></answer>
+    <generalfeedback><text>後置條件是情境完成時系統所承諾的可觀察保證。斷言它正是測試確認情境目標已達成的方式，因此它對應到預期結果。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>只測基本流程的涵蓋充分性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊每個使用案例只寫一個測試，且總是執行基本（快樂路徑）流程。主要的充分性問題是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>替代與例外流程從未被執行，因此錯誤處理與較不常見的路徑都未被測試</text><feedback><text>正確——只測快樂路徑會漏掉替代與例外情境。</text></feedback></answer>
+    <answer fraction="0"><text>基本流程被測試太多次，浪費心力</text><feedback><text>問題在於漏掉其他情境的涵蓋，而非過度測試快樂路徑。</text></feedback></answer>
+    <answer fraction="0"><text>前置條件再也無法設定</text><feedback><text>快樂路徑仍會設定前置條件；缺口在於未測試的替代／例外情境。</text></feedback></answer>
+    <answer fraction="0"><text>它會自動達成完整的敘述涵蓋</text><feedback><text>快樂路徑測試很少觸及錯誤處理程式碼，故無法保證敘述涵蓋。</text></feedback></answer>
+    <generalfeedback><text>情境涵蓋要求基本流程加上每個替代與每個例外。只測快樂路徑會使每個替代與錯誤處理情境未被執行——而許多真實缺陷正藏在其中。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>將使用案例路徑對應到具體測試案例</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你要把一個使用案例情境轉為具體測試案例。下列哪個「使用案例部分對應到測試部分」的對照是正確的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>前置條件 → 前置設定；所選流程的步驟 → 測試步驟；後置條件 → 預期結果</text><feedback><text>正確——這正是從情境到測試案例的標準對應。</text></feedback></answer>
+    <answer fraction="0"><text>後置條件 → 前置設定；前置條件 → 預期結果；觸發事件 → 收尾</text><feedback><text>這弄反了角色；前置條件是前置設定，後置條件是預期結果。</text></feedback></answer>
+    <answer fraction="0"><text>參與者 → 前置設定；前置條件 → 步驟；後置條件 → 測試名稱</text><feedback><text>前置條件是前置設定，流程的步驟才是測試步驟；此對應錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>觸發事件 → 預期結果；步驟 → 前置設定；後置條件 → 輸入</text><feedback><text>後置條件是預期結果，而非輸入；此對應錯誤。</text></feedback></answer>
+    <generalfeedback><text>情境可乾淨地對應到測試案例：前置條件建立初始狀態（前置設定），情境的流程成為有序的測試步驟，後置條件成為要斷言的預期結果。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>使用案例測試相對單元測試的優勢與限制</text></name>
+    <questiontext format="html"><text><![CDATA[<p>與單元測試相比，何者最能描述使用案例測試的優勢與限制？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它驗證真實的端到端使用者目標並發現整合／工作流程缺陷，但不會有系統地執行低階內部程式碼路徑</text><feedback><text>正確——它在系統／驗收層級很強，但在深層程式碼路徑涵蓋上較弱。</text></feedback></answer>
+    <answer fraction="0"><text>不同於單元測試，它保證每個函式的完整分支涵蓋</text><feedback><text>由於它是黑箱且端到端，並不會有系統地涵蓋內部分支。</text></feedback></answer>
+    <answer fraction="0"><text>因為層級較高，它可完全取代單元測試</text><feedback><text>兩者互補；使用案例測試會漏掉單元測試所針對的低階路徑。</text></feedback></answer>
+    <answer fraction="0"><text>它是檢視控制流程圖的白箱技術</text><feedback><text>使用案例測試是黑箱；它不分析控制流程圖。</text></feedback></answer>
+    <generalfeedback><text>使用案例測試擅長驗證端到端、真實的使用者目標，並在系統／驗收層級揭露整合／工作流程問題。由於它是黑箱，並不會有系統地執行低階程式碼路徑，因此與單元測試互補，而非取代之。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>替代與例外的組合</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某使用案例有一個基本流程、1 個替代流程（以折扣券取代卡片付款），以及 1 個例外（付款被拒），而該例外可能發生在<em>卡片路徑或折扣券路徑</em>任一者上。若你分別涵蓋基本（卡片）成功、折扣券成功，以及各路徑上的被拒，共有幾個情境？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4——卡片成功、折扣券成功、卡片被拒、折扣券被拒</text><feedback><text>正確——例外與兩條成功路徑各自組合，得到 2 + 2 = 4。</text></feedback></answer>
+    <answer fraction="0"><text>3——基本、替代、例外</text><feedback><text>由於被拒可能發生在任一路徑，它產生兩個相異的例外情境，而非一個；總數為 4。</text></feedback></answer>
+    <answer fraction="0"><text>2——一個成功、一個失敗</text><feedback><text>有兩條成功路徑，而失敗適用於每一條，得到 4 個情境。</text></feedback></answer>
+    <answer fraction="0"><text>6——每個流程乘以每個其他流程</text><feedback><text>被拒只附著於這 2 條付款路徑，得到 4，而非 6。</text></feedback></answer>
+    <generalfeedback><text>兩條成功路徑（卡片、折扣券）加上被拒例外在各路徑上發生，得到 2 個成功 + 2 個被拒 = 4 個情境。當例外可發生在多條路徑上時，它與那些路徑相乘，而非只算一次。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何使用案例測試漏掉低階路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼使用案例測試通常無法執行許多低階程式碼路徑（例如某輔助函式內部的罕見分支）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它依外部使用者目標與流程推導測試，而非依程式碼結構，因此內部分支只是偶然被觸及</text><feedback><text>正確——由於它是黑箱且以目標為導向，並不針對內部結構。</text></feedback></answer>
+    <answer fraction="0"><text>因為使用案例禁止在測試時執行任何程式碼</text><feedback><text>使用案例測試確實會執行系統；只是其設計不以內部程式碼結構為依據。</text></feedback></answer>
+    <answer fraction="0"><text>因為使用案例測試只能手動執行</text><feedback><text>它可以自動化；問題在於其設計忽略程式碼結構，而非執行方式。</text></feedback></answer>
+    <answer fraction="0"><text>因為低階分支永遠都是死碼</text><feedback><text>內部分支通常是活的；只是使用案例測試並非為針對它們而設計。</text></feedback></answer>
+    <generalfeedback><text>使用案例測試是黑箱：測試來自參與者目標與可觀察的流程，而非控制流程圖。深層或罕見的內部分支只是碰巧被執行，這也是為何需要搭配結構（白箱）技術。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境涵蓋的最小測試集</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某使用案例有 1 個基本流程、2 個替代流程與 3 個例外流程，每一個都是各自獨立的單一路徑。要達成使用案例情境涵蓋，最少需要幾個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6——每個情境一個測試（1 + 2 + 3）</text><feedback><text>正確——情境涵蓋需每個情境至少一個測試，故 1 + 2 + 3 = 6。</text></feedback></answer>
+    <answer fraction="0"><text>5——省略基本流程，因為替代已涵蓋它</text><feedback><text>基本流程是自己的情境，必須涵蓋；總數為 6。</text></feedback></answer>
+    <answer fraction="0"><text>3——只有例外需要專屬測試</text><feedback><text>基本與替代流程也是情境；總數為 6。</text></feedback></answer>
+    <answer fraction="0"><text>36——每個流程與每個其他流程組合</text><feedback><text>獨立的單一路徑相加為 6；不會兩兩組合。</text></feedback></answer>
+    <generalfeedback><text>情境涵蓋需每個情境至少一個測試。以獨立路徑而言即 1 個基本 + 2 個替代 + 3 個例外 = 6 個測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>成功保證與最小（失敗）保證</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某例外情境（「付款被拒」）在未達成目標的情況下結束。所推導的測試應斷言哪個後置條件？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>失敗／最小保證——例如未建立訂單、帳戶維持不變且顯示錯誤</text><feedback><text>正確——失敗情境的預期結果是其最小（失敗）保證，而非成功保證。</text></feedback></answer>
+    <answer fraction="0"><text>成功保證——訂單已成立且付款已收取</text><feedback><text>情境失敗了，因此成功保證不應成立；改為斷言失敗保證。</text></feedback></answer>
+    <answer fraction="0"><text>完全沒有後置條件，因為它失敗了</text><feedback><text>即使失敗的情境也有一個保證的安全結束狀態（最小保證），測試應加以驗證。</text></feedback></answer>
+    <answer fraction="0"><text>前置條件，在結束時重新檢查</text><feedback><text>預期結果是失敗保證，而非前置條件。</text></feedback></answer>
+    <generalfeedback><text>使用案例會指定成功保證（成功路徑用）與最小／失敗保證（失敗後所留下的安全狀態）。例外情境的測試應斷言失敗保證——例如未建立訂單、未扣款、顯示錯誤。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由前置條件、步驟、後置條件產生具體測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用案例「退貨」：<em>前置條件：顧客有一筆在退貨期限內、已送達的訂單。基本流程：顧客選取商品、選擇原因並送出退貨；系統開立退貨標籤並將商品標記為待退。後置條件：退貨已記錄且標籤已開立。</em>下列哪個具體測試正確實現此情境？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>前置設定：一個擁有已送達、期限內訂單的帳戶。步驟：選取商品、選擇原因、送出。預期：存在一筆退貨紀錄且已開立退貨標籤</text><feedback><text>正確——前置條件成為前置設定，流程成為步驟，後置條件成為預期結果。</text></feedback></answer>
+    <answer fraction="0"><text>前置設定：一個沒有任何訂單的帳戶。步驟：送出退貨。預期：開立標籤</text><feedback><text>前置條件（一筆已送達、期限內的訂單）未被滿足，故無法實現此情境。</text></feedback></answer>
+    <answer fraction="0"><text>前置設定：一筆已送達、期限內的訂單。步驟：送出退貨。預期：不發生任何變化</text><feedback><text>後置條件承諾已記錄退貨並開立標籤，故「不發生任何變化」是錯誤的預期結果。</text></feedback></answer>
+    <answer fraction="0"><text>前置設定：無。步驟：直接呼叫標籤列印函式。預期：產生一份 PDF</text><feedback><text>那是對單一函式的單元測試，而非帶有前置條件與後置條件的端到端使用案例情境。</text></feedback></answer>
+    <generalfeedback><text>情境可直接對應：前置條件（已送達、期限內的訂單）是前置設定；基本流程的步驟是測試步驟；後置條件（退貨已記錄、標籤已開立）是要斷言的預期結果。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>extend 新增「有／無」的情境分裂</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「訂機票」被「加購額外行李」<em>延伸（extend）</em>（選用，位於延伸點）。要對此單一選用延伸做情境涵蓋，必須涵蓋幾個情境，為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2——一個採用延伸、一個不採用，因為它是有條件的</text><feedback><text>正確——有條件的延伸需同時涵蓋「有延伸」與「無延伸」的路徑。</text></feedback></answer>
+    <answer fraction="0"><text>1——該延伸總是訂機票的一部分</text><feedback><text>延伸是有條件的，故並非總是流程的一部分；「有」與「無」都必須涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>0——選用行為無需測試</text><feedback><text>選用行為仍需測試；兩個分支（採用與不採用）都是情境。</text></feedback></answer>
+    <answer fraction="0"><text>4——兩個條件的每一種組合</text><feedback><text>只有一個選用延伸，得到 2 個情境（採用／不採用），而非 4。</text></feedback></answer>
+    <generalfeedback><text>由於 extend 是有條件的，涵蓋它意謂同時測試「延伸發生」與「延伸不發生」兩條路徑——單一選用延伸即兩個情境。（對比 include，它總是執行，並不新增這種分裂。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境涵蓋與窮舉路徑測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某複雜使用案例有許多選用延伸與例外，因此「把每個流程都組合起來」的方式數目龐大。為什麼使用案例<strong>情境涵蓋</strong>通常是每個情境測一條路徑（基本 + 每個替代 + 每個例外），而非測試每一種可能的流程組合？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>組合每個流程會造成組合爆炸，因此情境涵蓋以「每個流程至少一次」作為務實、有界的準則</text><feedback><text>正確——每個情境一條路徑是對抗組合爆炸的可行折衷。</text></feedback></answer>
+    <answer fraction="0"><text>因為替代與例外流程從不含有缺陷</text><feedback><text>它們往往含有缺陷——情境涵蓋正因它們重要而各測一次；它只是避免完整的組合爆炸。</text></feedback></answer>
+    <answer fraction="0"><text>因為只有基本流程值得測試</text><feedback><text>情境涵蓋會把每個流程都測至少一次，而非只測基本流程。</text></feedback></answer>
+    <answer fraction="0"><text>因為測試每一種組合是必需的，且總是可行</text><feedback><text>因組合爆炸，測試每一種組合通常不可行，這正是採用情境涵蓋的原因。</text></feedback></answer>
+    <generalfeedback><text>完整流程組合的數目呈乘法成長，很快變得難以處理。情境涵蓋將每個流程（基本、每個替代、每個例外）至少執行一次——一個有界、成本效益佳的準則——並接受未嘗試每一種流程組合。</text></generalfeedback>
+  </question>
+</quiz>

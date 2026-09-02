@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Flaky Test Diagnosis/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a flaky test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>flaky test</em> is best described as a test that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Passes and fails non-deterministically on the same code and the same inputs, without any change to what is under test</text><feedback><text>Correct — flakiness is a non-deterministic result on unchanged code and inputs.</text></feedback></answer>
+    <answer fraction="0"><text>Fails every single time it is run against a particular version of the code</text><feedback><text>That is a consistent, deterministic failure, not flakiness; a flaky test's outcome varies between runs.</text></feedback></answer>
+    <answer fraction="0"><text>Runs more slowly than the other tests in the suite</text><feedback><text>Slowness is a performance issue; flakiness is about a non-deterministic pass/fail outcome.</text></feedback></answer>
+    <answer fraction="0"><text>Fails only after the code under test is deliberately changed to introduce a bug</text><feedback><text>Detecting a real change is exactly what a good test should do; flakiness is failing without any such change.</text></feedback></answer>
+    <generalfeedback><text>A flaky test produces different results — sometimes pass, sometimes fail — across runs even though the code under test and the inputs are unchanged. The defining property is non-determinism: the outcome is not fully determined by what is being tested.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What determinism means for a test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is said to be <em>deterministic</em> when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Given the same code and inputs, it always produces the same result (always pass, or always fail)</text><feedback><text>Correct — a deterministic test yields the same outcome every run for the same code and inputs.</text></feedback></answer>
+    <answer fraction="0"><text>It always passes no matter what the code does</text><feedback><text>A test that always passes is useless, not deterministic; determinism means a repeatable outcome, which may be pass or fail.</text></feedback></answer>
+    <answer fraction="0"><text>It finishes running in under one second</text><feedback><text>Execution speed is unrelated to determinism, which is about a repeatable outcome.</text></feedback></answer>
+    <answer fraction="0"><text>It uses randomly generated inputs on every run</text><feedback><text>Unseeded random inputs make a test non-deterministic; determinism is the opposite property.</text></feedback></answer>
+    <generalfeedback><text>Determinism means the test's result is fully determined by the code and inputs: run it a thousand times on unchanged code and it gives the same verdict every time. Flakiness is precisely a loss of determinism, and restoring determinism is the goal of remediation.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Consistent failure is not flakiness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test that fails on every single run against the same code is a flaky test.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — a test that always fails is deterministic (a consistent, reproducible failure), not flaky.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: always failing is a deterministic result. Flakiness means the outcome varies non-deterministically between runs of the same code.</text></feedback></answer>
+    <generalfeedback><text>Flakiness is defined by non-determinism: the same code and inputs sometimes pass and sometimes fail. A test that fails every time is a consistent, reproducible failure — usually pointing at a real defect — and should be debugged as such, not labelled flaky.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Flakiness erodes trust and masks real bugs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Flaky tests are harmful mainly because they erode the team's trust in the test suite and can mask genuine failures.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — repeated false alarms make people stop trusting and stop reading test results, so a real failure hidden among them gets ignored.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: the erosion of trust and the masking of real failures are exactly the central harms of flakiness.</text></feedback></answer>
+    <generalfeedback><text>When a suite fails intermittently for no real reason, developers learn to shrug off red builds and simply re-run them. That destroys the signal value of the suite: a genuine regression sitting in the noise is dismissed as "just flaky", so real bugs slip through. Flakiness also wastes time on reruns and investigation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Common cause: fixed sleeps and timing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is a common cause of flaky tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Relying on a fixed sleep (for example, "wait 100 ms") for an asynchronous action that is sometimes not yet ready</text><feedback><text>Correct — a fixed wait is a classic timing cause: if the action occasionally takes longer, the test fails intermittently.</text></feedback></answer>
+    <answer fraction="0"><text>Giving each test its own fresh, isolated fixture</text><feedback><text>Fresh isolated fixtures reduce flakiness; they are a remediation, not a cause.</text></feedback></answer>
+    <answer fraction="0"><text>Asserting on an exact, hard-coded expected value</text><feedback><text>A precise expected value normally makes a test more deterministic, not flaky.</text></feedback></answer>
+    <answer fraction="0"><text>Running each test in a completely separate process</text><feedback><text>Strong isolation tends to prevent flakiness rather than cause it.</text></feedback></answer>
+    <generalfeedback><text>Fixed sleeps are one of the most common sources of flakiness: they encode a guess about how long an asynchronous operation takes. When the operation occasionally runs slower (a loaded machine, a slow network), the sleep expires before the action completes and the test fails — non-deterministically.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Common cause: unseeded randomness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test generates its input data with a random number generator that is never given a fixed seed. Why is this a flakiness risk?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Each run uses different random data, so the test can pass on most runs and occasionally fail on an unlucky value</text><feedback><text>Correct — unseeded randomness makes the inputs vary run to run, producing non-deterministic outcomes.</text></feedback></answer>
+    <answer fraction="0"><text>Random data always makes tests run faster, which causes failures</text><feedback><text>Speed is not the issue; the problem is that the inputs differ every run, so the result is non-deterministic.</text></feedback></answer>
+    <answer fraction="0"><text>Random data is always invalid, so the test can never pass</text><feedback><text>Random data is not inherently invalid; the flakiness comes from the inputs varying between runs.</text></feedback></answer>
+    <answer fraction="0"><text>The random generator uses too much memory</text><feedback><text>Memory use is irrelevant; unseeded randomness causes flakiness by varying the inputs each run.</text></feedback></answer>
+    <generalfeedback><text>An unseeded random generator produces different inputs on every run. Most inputs may pass while a rare one triggers a failure, so the test's outcome varies non-deterministically. (Note that such an occasional failure may be exposing a genuine bug for a specific input.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Common cause: shared mutable state between tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which situation is a common cause of flakiness related to <em>test order</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Tests share mutable state (for example a global variable or database rows) and one test leaves data behind that affects another</text><feedback><text>Correct — leftover shared state creates order-dependent, non-deterministic results.</text></feedback></answer>
+    <answer fraction="0"><text>Each test creates and tears down its own private data</text><feedback><text>Per-test private data prevents order dependence; it is a fix, not a cause.</text></feedback></answer>
+    <answer fraction="0"><text>Every test asserts exactly one thing</text><feedback><text>Single-assertion tests are unrelated to order dependence.</text></feedback></answer>
+    <answer fraction="0"><text>Tests are given descriptive names</text><feedback><text>Naming has no bearing on order dependence or flakiness.</text></feedback></answer>
+    <generalfeedback><text>When tests share mutable state, the outcome of one test can depend on whether — and in what order — another test ran first. Leftover data or a mutated global makes results depend on execution order, which many runners do not guarantee, producing intermittent failures.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Common cause: external dependency</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can calling a real external service (such as a third-party network API) from a unit test cause flakiness?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The external service may be slow, unavailable, or return varying data, so the test outcome depends on factors outside the code under test</text><feedback><text>Correct — an external dependency introduces variability the test cannot control, causing intermittent failures.</text></feedback></answer>
+    <answer fraction="0"><text>External services always return exactly the same response, which forces failures</text><feedback><text>The opposite is true: their responses and availability vary, which is what makes the test flaky.</text></feedback></answer>
+    <answer fraction="0"><text>Network calls make the assertions stricter</text><feedback><text>Assertion strictness is unrelated; the flakiness comes from the uncontrolled external variability.</text></feedback></answer>
+    <answer fraction="0"><text>The test framework forbids network access, so the test cannot compile</text><feedback><text>Frameworks generally permit network calls; the issue is the non-determinism they introduce.</text></feedback></answer>
+    <generalfeedback><text>A real external dependency is outside the test's control: it can be slow, temporarily down, rate-limited, or return changing data. The test then passes or fails depending on the service's state at that moment rather than on the code under test, which is exactly non-determinism.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Common cause: current date or time</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test uses the machine's current date/time (the wall clock) in its logic. Why is this a flakiness risk?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The result can depend on when the test happens to run — a particular hour, day boundary, or timezone — so it may pass at some times and fail at others</text><feedback><text>Correct — a test tied to the real clock is non-deterministic because the clock keeps changing.</text></feedback></answer>
+    <answer fraction="0"><text>Reading the clock is always too slow, which causes timeouts</text><feedback><text>Clock reads are fast; the problem is that the value changes over time, making the result depend on when it runs.</text></feedback></answer>
+    <answer fraction="0"><text>The current time is always the same, so the test is over-constrained</text><feedback><text>The current time is precisely what keeps changing; that variability is the cause.</text></feedback></answer>
+    <answer fraction="0"><text>Dates cannot be compared in most languages</text><feedback><text>Dates can be compared fine; the flakiness comes from depending on the live, changing clock.</text></feedback></answer>
+    <generalfeedback><text>Using the live wall clock ties the test's outcome to the moment it runs. It might pass during the day but fail across a midnight boundary, at month-end, or in a different timezone. Because the clock keeps changing, the result is not reproducible — the hallmark of flakiness.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the flaky symptom</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which observed behaviour is a clear symptom of a flaky test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Re-running the exact same test on the exact same commit gives a pass one time and a fail the next</text><feedback><text>Correct — a differing result on unchanged code across re-runs is the signature of flakiness.</text></feedback></answer>
+    <answer fraction="0"><text>The test fails, and after you fix a real bug in the code it passes</text><feedback><text>That is normal, correct behaviour: the test detected and then confirmed the fix of a real defect.</text></feedback></answer>
+    <answer fraction="0"><text>The test fails to compile because of a syntax error</text><feedback><text>A compile error fails deterministically every run; it is a build problem, not flakiness.</text></feedback></answer>
+    <answer fraction="0"><text>The test passes every time on every machine</text><feedback><text>A consistently passing test is deterministic and stable, the opposite of flaky.</text></feedback></answer>
+    <generalfeedback><text>Flakiness shows up as different verdicts for the same code across repeated runs. If nothing under test changed but the result flips between pass and fail, the test is flaky. Deterministic failures (a bug, a syntax error) and consistent passes are not flakiness.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Common cause: unordered collection iteration</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test asserts that iterating a hash-based set/map yields elements in a specific order. Why is this a flakiness risk?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Hash-based collections do not guarantee a stable iteration order, so the order can vary between runs or environments</text><feedback><text>Correct — relying on an unspecified iteration order makes the outcome non-deterministic.</text></feedback></answer>
+    <answer fraction="0"><text>Hash collections can only ever hold one element</text><feedback><text>They hold many elements; the issue is that their iteration order is not guaranteed.</text></feedback></answer>
+    <answer fraction="0"><text>Iterating a collection always throws an exception</text><feedback><text>Iteration works normally; the flakiness comes from the unspecified order.</text></feedback></answer>
+    <answer fraction="0"><text>Sets and maps always iterate in sorted order</text><feedback><text>Hash-based sets/maps generally do not guarantee sorted or stable order, which is exactly the problem.</text></feedback></answer>
+    <generalfeedback><text>Many hash-based collections make no promise about iteration order; it can depend on hashing, insertion history, capacity, or the runtime version. Asserting a particular order against such a collection ties the test to an implementation detail that can change between runs, causing intermittent failures.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Common cause: environment differences</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test passes on every developer laptop but fails sometimes on the CI server. Which cause of flakiness does this most suggest?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An environment difference — CI differs from the laptops in timing, resources, locale, or configuration</text><feedback><text>Correct — a result that depends on where it runs points to an environment-related cause.</text></feedback></answer>
+    <answer fraction="0"><text>The test assertions are too descriptive</text><feedback><text>Descriptive assertions do not cause environment-specific flakiness.</text></feedback></answer>
+    <answer fraction="0"><text>The code under test has no bugs at all</text><feedback><text>Whether the code has bugs is a separate matter; the pattern points to an environment difference.</text></feedback></answer>
+    <answer fraction="0"><text>The test file is too long</text><feedback><text>File length is irrelevant to environment-dependent flakiness.</text></feedback></answer>
+    <generalfeedback><text>A test that behaves differently by environment is depending on something the environment supplies — CPU speed and load (affecting timing), available memory, CPU/core count (affecting concurrency), default locale or timezone, or configuration. CI often differs from a laptop in exactly these ways, exposing hidden assumptions.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Flakiness wastes time on reruns</text></name>
+    <questiontext format="html"><text><![CDATA[<p>One real cost of flaky tests is the time developers spend re-running builds and investigating failures that turn out not to be real.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — reruns and chasing phantom failures consume real engineering time and slow the pipeline.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: wasted time on reruns and false-alarm investigation is a well-known cost of flakiness.</text></feedback></answer>
+    <generalfeedback><text>Beyond eroding trust and masking real failures, flakiness has a direct productivity cost: pipelines are re-triggered, engineers stop to investigate red builds that were never real, and merges are delayed. That wasted effort is a major reason flakiness is worth fixing rather than tolerating.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What quarantine means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To <em>quarantine</em> a flaky test means to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Temporarily separate it so its intermittent failures no longer block the pipeline, while it is tracked and scheduled for a real fix</text><feedback><text>Correct — quarantine isolates the noise from the pipeline but the test must still be tracked and fixed.</text></feedback></answer>
+    <answer fraction="0"><text>Permanently delete the test from the codebase</text><feedback><text>Deleting the test throws away its coverage; quarantine keeps it, isolated and tracked, until it is fixed.</text></feedback></answer>
+    <answer fraction="0"><text>Automatically retry it until it eventually passes, then forget about it</text><feedback><text>Blind retry-and-forget hides the problem; quarantine explicitly keeps the test tracked for a real fix.</text></feedback></answer>
+    <answer fraction="0"><text>Mark it as always passing regardless of the result</text><feedback><text>Forcing a pass destroys the test's value; quarantine sets it aside from the blocking gate but keeps it honest and tracked.</text></feedback></answer>
+    <generalfeedback><text>Quarantine moves a known-flaky test out of the path that blocks merges, so its noise stops disrupting everyone, but it stays visible on a tracked list and is scheduled for root-cause remediation. Quarantine is a containment step, not a fix — an untracked quarantine is just a hidden bug.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Common cause: race condition in concurrent code</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is a common cause of flaky tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A race condition, where the outcome depends on the unpredictable interleaving of concurrent threads or operations</text><feedback><text>Correct — races make the result depend on timing of interleavings, which varies run to run.</text></feedback></answer>
+    <answer fraction="0"><text>Asserting on a value that is fixed and computed synchronously</text><feedback><text>A synchronous, fixed computation is deterministic; it does not cause flakiness.</text></feedback></answer>
+    <answer fraction="0"><text>Giving each test its own independent copy of the data</text><feedback><text>Independent per-test data reduces flakiness; it is a remediation, not a cause.</text></feedback></answer>
+    <answer fraction="0"><text>Writing a clear, descriptive test name</text><feedback><text>Naming has no effect on determinism; a race condition does.</text></feedback></answer>
+    <generalfeedback><text>A race condition means two or more concurrent operations can interleave in more than one way, and the test's result depends on which interleaving happens. Because the scheduler chooses interleavings unpredictably, the outcome varies between runs — classic flakiness, and often a symptom of a genuine concurrency bug in the code.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Flaky Test Diagnosis/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Symptom: passes alone, fails in the suite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test passes when run by itself, but fails when run as part of the full suite. What is the most likely cause?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Order dependence: another test leaves behind shared state that this test relies on or is disturbed by</text><feedback><text>Correct — passing alone but failing in the suite is the classic signature of shared-state order dependence.</text></feedback></answer>
+    <answer fraction="0"><text>The test's assertions are simply wrong</text><feedback><text>If the assertions were wrong it would also fail when run alone; the alone/suite difference points to shared state.</text></feedback></answer>
+    <answer fraction="0"><text>The machine is too fast</text><feedback><text>Machine speed does not explain why the result depends on whether other tests ran; shared state does.</text></feedback></answer>
+    <answer fraction="0"><text>The test has too few assertions</text><feedback><text>Assertion count is unrelated; the alone-versus-suite difference indicates order dependence via shared state.</text></feedback></answer>
+    <generalfeedback><text>When a test's verdict changes depending on whether other tests ran first, some state is being shared between tests — a global, a static field, a cache, a file, or database rows. The fix is to isolate and reset state per test so each runs from a clean, known starting point.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Symptom: intermittent failure near a timeout</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A UI test fails intermittently right where it waits a fixed amount of time for a button to appear, but usually passes. What is the most likely cause?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A timing problem: the fixed wait is sometimes too short because the element occasionally takes longer to appear</text><feedback><text>Correct — an intermittent failure at a fixed wait is a timing/async readiness issue.</text></feedback></answer>
+    <answer fraction="0"><text>The button's text is spelled incorrectly in the assertion</text><feedback><text>A wrong string would fail consistently, not intermittently; the intermittency points to timing.</text></feedback></answer>
+    <answer fraction="0"><text>The test has a syntax error</text><feedback><text>A syntax error fails every run; intermittent failure at a wait indicates a timing cause.</text></feedback></answer>
+    <answer fraction="0"><text>The database schema is out of date</text><feedback><text>A schema problem would not appear only sometimes at a wait step; timing does.</text></feedback></answer>
+    <generalfeedback><text>Intermittent failure exactly at a fixed wait is the fingerprint of a timing/async problem: the element's readiness time varies, and when it exceeds the hard-coded wait the assertion runs too early. The fix is to poll for the condition (an explicit/conditional wait) instead of sleeping a fixed amount.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Symptom: fails only around midnight</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test almost always passes, but the nightly build occasionally fails it around midnight. What cause should you suspect first?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A date/time dependence: the test's logic behaves differently across a day boundary</text><feedback><text>Correct — failures clustered at a time boundary point to wall-clock/date dependence.</text></feedback></answer>
+    <answer fraction="0"><text>The test uses too much memory only at night</text><feedback><text>Memory use is not tied to the midnight boundary; the timing of the failure points to a date dependence.</text></feedback></answer>
+    <answer fraction="0"><text>The assertions are too strict</text><feedback><text>Strict assertions would fail regardless of the hour; the midnight clustering indicates date/time dependence.</text></feedback></answer>
+    <answer fraction="0"><text>The CI server has too many cores</text><feedback><text>Core count does not explain failures specifically at midnight; a date boundary does.</text></feedback></answer>
+    <generalfeedback><text>Failures that cluster at a particular time (midnight, month-end, a DST change) betray reliance on the live clock. Something like "the record was created today" or a date arithmetic breaks when the run crosses the boundary. Inject or freeze the clock so the test controls time rather than reading it live.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Symptom: fails only when tests are reordered</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Your suite passes normally, but starts failing when the runner executes the tests in a randomized order. What does this reveal?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Order dependence: at least one test relies on the side effects of another, so a different order breaks it</text><feedback><text>Correct — failing under reordering is direct evidence of hidden order dependence.</text></feedback></answer>
+    <answer fraction="0"><text>The random-order feature of the runner is broken</text><feedback><text>Randomized order is a standard, working feature; it exposed a real dependency rather than causing one.</text></feedback></answer>
+    <answer fraction="0"><text>The tests are too fast to run in a new order</text><feedback><text>Speed is irrelevant; failing only under reordering shows the tests depend on execution order.</text></feedback></answer>
+    <answer fraction="0"><text>Randomizing order always makes correct tests fail</text><feedback><text>It does not — independent, well-isolated tests pass in any order; failure signals a real dependency.</text></feedback></answer>
+    <generalfeedback><text>Running tests in a randomized order is a deliberate detection technique. Properly isolated tests pass in any order; if reordering causes failures, some tests are coupled through shared state or an assumed sequence. Fix by isolating and resetting state so each test is independent.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix for a fixed sleep</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test waits for an asynchronous result using a fixed <code>sleep(500 ms)</code> and is flaky. What is the correct deterministic fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Replace the fixed sleep with an explicit/conditional wait that polls for the result to be ready, up to a sensible timeout</text><feedback><text>Correct — waiting for the actual condition (with a timeout) removes the guesswork and the flakiness.</text></feedback></answer>
+    <answer fraction="0"><text>Increase the sleep to 5 seconds and leave it as a fixed sleep</text><feedback><text>A longer fixed sleep only lowers the failure rate while slowing every run; it does not remove the non-determinism.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the assertion that checks the result</text><feedback><text>Removing the assertion hides the flakiness by no longer testing anything meaningful; that is not a fix.</text></feedback></answer>
+    <answer fraction="0"><text>Wrap the test in an automatic retry that runs it three times</text><feedback><text>Retrying masks the timing bug rather than fixing the root cause; the correct fix is to wait on the condition.</text></feedback></answer>
+    <generalfeedback><text>A fixed sleep encodes a guess about how long an async action takes. Replace it with a conditional wait that repeatedly polls the actual readiness condition and proceeds as soon as it holds, failing only after a generous timeout. This is both deterministic and usually faster than a conservative fixed sleep.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix for unseeded randomness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is flaky because it feeds unseeded random data into the code under test. What is the correct fix to make it deterministic?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Seed the random generator with a fixed value so the same inputs are produced on every run</text><feedback><text>Correct — a fixed seed makes the "random" sequence reproducible, restoring determinism.</text></feedback></answer>
+    <answer fraction="0"><text>Run the test more often so the rare failing value shows up less</text><feedback><text>Running more does not remove the non-determinism; a fixed seed does.</text></feedback></answer>
+    <answer fraction="0"><text>Catch and ignore any assertion failure the test produces</text><feedback><text>Swallowing failures disables the test; seeding the generator is the real fix.</text></feedback></answer>
+    <answer fraction="0"><text>Switch to a different random algorithm but still leave it unseeded</text><feedback><text>Any unseeded generator still varies each run; the fix is to fix the seed.</text></feedback></answer>
+    <generalfeedback><text>Seeding the generator with a constant makes it produce the same sequence every run, so the inputs — and therefore the result — are reproducible. If a particular seed exposes a genuine failure, that is a real bug to investigate and add as a fixed regression case, not something to hide by re-randomizing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix for wall-clock dependence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is flaky because its logic reads the current time from the system clock. What is the correct deterministic fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inject or freeze the clock so the test controls the current time with a fixed, known value</text><feedback><text>Correct — controlling time (a fake/frozen clock injected into the code) removes the dependence on the live clock.</text></feedback></answer>
+    <answer fraction="0"><text>Only run the test at times of day when it is known to pass</text><feedback><text>Restricting the run time is a workaround that leaves the time dependence — and the flakiness — in place.</text></feedback></answer>
+    <answer fraction="0"><text>Add a fixed sleep before reading the clock</text><feedback><text>Sleeping does not control what value the clock returns; you must inject or freeze time.</text></feedback></answer>
+    <answer fraction="0"><text>Retry the test until it happens to pass</text><feedback><text>Retrying hides the time dependence rather than removing it; inject a controllable clock instead.</text></feedback></answer>
+    <generalfeedback><text>Make time an injected dependency (a clock the code calls) rather than reading the global wall clock. In the test, supply a fixed or scripted clock so "now" is a known constant. The behaviour becomes fully reproducible, including around day boundaries and across timezones.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix for an external dependency</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A unit test is flaky because it calls a real third-party network API. What is the appropriate fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Replace the real call with a mock/stub (a test double) that returns controlled, deterministic responses</text><feedback><text>Correct — a test double removes the uncontrolled external variability, making the unit test deterministic.</text></feedback></answer>
+    <answer fraction="0"><text>Add a longer timeout so the slow service usually responds in time</text><feedback><text>A longer timeout only reduces one failure mode; the service can still be down or return varying data.</text></feedback></answer>
+    <answer fraction="0"><text>Retry the network call several times and hope it eventually works</text><feedback><text>Retrying masks the external variability rather than isolating the unit under test with a controlled double.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the test so the network is never touched</text><feedback><text>Deleting loses coverage; the fix is to stub the dependency and keep testing the code.</text></feedback></answer>
+    <generalfeedback><text>A unit test should exercise your code, not a live external system. Replace the real dependency with a mock or stub that returns fixed responses (including error cases you want to test). The result no longer depends on the service's availability or data, so it is deterministic. Real integration behaviour is verified separately in dedicated integration tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix for shared state between tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Several tests are flaky because they share and mutate the same database rows. What is the correct fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Isolate and reset state per test — set up fresh fixtures and tear down/clean up so each test starts from a known clean state</text><feedback><text>Correct — per-test isolation and reset removes the cross-test coupling and the order dependence.</text></feedback></answer>
+    <answer fraction="0"><text>Fix the order the tests run in and always run them in that order</text><feedback><text>Pinning an order hides the coupling and is brittle; the real fix is to make tests independent through isolation.</text></feedback></answer>
+    <answer fraction="0"><text>Run the tests more slowly so they do not collide</text><feedback><text>Slowing them down does not remove the shared mutable state; isolation and reset do.</text></feedback></answer>
+    <answer fraction="0"><text>Retry the whole suite until it passes</text><feedback><text>Retrying masks the shared-state problem; isolate and reset state per test instead.</text></feedback></answer>
+    <generalfeedback><text>The root cause is shared mutable state. Give each test its own fixtures and reset the world between tests (setup/teardown, transactions rolled back, fresh temporary resources) so no test depends on another's leftovers. Removing the inter-test dependency makes the outcome independent of execution order.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Re-running many times to reproduce</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Running a suspected-flaky test many times (and measuring how often it fails) is a legitimate way to confirm and quantify its flakiness.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — repeated runs reproduce the intermittent failure and yield a flakiness rate you can track and act on.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: because flakiness is intermittent, repeated runs are exactly how you reproduce it and measure how often it fails.</text></feedback></answer>
+    <generalfeedback><text>A single run can pass by luck, so one green result does not prove a test is stable. Running it many times (locally or in CI) reproduces the intermittent failure and gives a flakiness rate — e.g. fails 3 in 100 runs — which confirms the problem and lets you prioritize and later verify the fix. This detection step is different from blindly retrying in the pipeline to force a green.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix for unordered iteration assertion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test flakily fails when it asserts that a hash-based collection iterates in a particular order. What is the correct fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Make the comparison order-independent — sort the results first, or assert on set/multiset equality rather than sequence order</text><feedback><text>Correct — comparing without depending on iteration order removes the non-determinism.</text></feedback></answer>
+    <answer fraction="0"><text>Run the test repeatedly until the elements happen to come out in the expected order</text><feedback><text>Relying on a lucky order is exactly the flakiness; make the assertion order-independent instead.</text></feedback></answer>
+    <answer fraction="0"><text>Reduce the collection to a single element so order cannot vary</text><feedback><text>Changing the data to dodge the problem weakens the test; assert order-independently instead.</text></feedback></answer>
+    <answer fraction="0"><text>Add a fixed sleep before iterating the collection</text><feedback><text>Sleeping does not affect iteration order; sort or compare as an unordered collection.</text></feedback></answer>
+    <generalfeedback><text>If the specification does not guarantee an order, the test must not assume one. Either sort both actual and expected before comparing, or compare as sets/multisets so only membership and counts matter. If a specific order genuinely is required, use an ordered collection and make that ordering explicit in the code.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of quarantine</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the purpose of quarantining a flaky test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>To stop its intermittent failures from blocking the pipeline for everyone, while it stays tracked and is scheduled for a proper fix</text><feedback><text>Correct — quarantine contains the disruption without abandoning the test or the obligation to fix it.</text></feedback></answer>
+    <answer fraction="0"><text>To permanently remove the test and its coverage from the project</text><feedback><text>That is deletion, which loses coverage; quarantine keeps the test tracked for repair.</text></feedback></answer>
+    <answer fraction="0"><text>To declare the test fixed without any further work</text><feedback><text>Quarantine is containment, not a fix; the root cause still has to be addressed.</text></feedback></answer>
+    <answer fraction="0"><text>To make the test run faster</text><feedback><text>Speed is not the point; quarantine is about isolating flaky noise from the blocking gate.</text></feedback></answer>
+    <generalfeedback><text>Quarantine unblocks the team: a known-flaky test no longer fails everyone's builds, so the suite regains signal value. But the test remains on a tracked list with an owner and a deadline for a real, root-cause fix. Quarantine that is not tracked and fixed simply becomes a permanently disabled test — a coverage gap and a hidden risk.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Symptom: fails under parallel execution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test passes when the suite runs single-threaded but fails intermittently once the runner executes tests in parallel. What is the most likely cause?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A race condition or resource contention: parallel tests interfere through a shared resource without proper isolation</text><feedback><text>Correct — new failures under parallelism point to concurrency/shared-resource contention.</text></feedback></answer>
+    <answer fraction="0"><text>Parallel execution always corrupts correct tests</text><feedback><text>It does not — properly isolated tests run correctly in parallel; failure signals shared-resource contention.</text></feedback></answer>
+    <answer fraction="0"><text>The assertions became stricter when run in parallel</text><feedback><text>Assertions do not change with parallelism; the cause is contention over a shared resource.</text></feedback></answer>
+    <answer fraction="0"><text>The tests have too many comments</text><feedback><text>Comments are irrelevant; the parallel-only failure indicates a race or resource contention.</text></feedback></answer>
+    <generalfeedback><text>Failures that appear only under parallel execution indicate tests are competing for a shared resource — the same file, port, database row, or global — without isolation, or the code under test has a race condition. Fix by isolating resources per test (unique temp files/ports/schemas) and by making the code's concurrency deterministic.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Detecting order dependence proactively</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which practice best helps you detect hidden order dependence between tests before it causes trouble?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Run the suite in a randomized test order (and on different orders) so any dependence on execution sequence is exposed</text><feedback><text>Correct — randomizing order surfaces tests that secretly rely on running after another.</text></feedback></answer>
+    <answer fraction="0"><text>Always run the tests in the exact same alphabetical order</text><feedback><text>A fixed order can hide the dependence indefinitely; randomizing order is what exposes it.</text></feedback></answer>
+    <answer fraction="0"><text>Add a fixed sleep between every pair of tests</text><feedback><text>Sleeping does not reveal shared-state coupling; running in varied orders does.</text></feedback></answer>
+    <answer fraction="0"><text>Reduce the number of assertions in each test</text><feedback><text>Assertion count is unrelated to detecting order dependence.</text></feedback></answer>
+    <generalfeedback><text>Independent tests pass in any order, so deliberately shuffling the execution order (and varying the seed) is the standard way to expose tests that depend on another's side effects. Many runners offer a random-order mode with a reproducible seed precisely for this. Once exposed, isolate and reset state to remove the dependence.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix for a race-condition flaky test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is flaky because the code it exercises has a race condition between two concurrent operations. What is the correct remediation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fix the concurrency so the outcome is deterministic — add proper synchronization (or await both operations) — treating the race as the real bug it is</text><feedback><text>Correct — a race is a genuine defect; make the interleaving safe and deterministic.</text></feedback></answer>
+    <answer fraction="0"><text>Add a fixed sleep and hope the operations no longer overlap</text><feedback><text>A sleep only reduces the chance of the bad interleaving; the race still exists and can still fail.</text></feedback></answer>
+    <answer fraction="0"><text>Automatically retry the test until the good interleaving occurs</text><feedback><text>Retrying hides a real concurrency bug rather than fixing it; synchronize the operations instead.</text></feedback></answer>
+    <answer fraction="0"><text>Run the test on a slower machine so the timing works out</text><feedback><text>Relying on machine speed is fragile and non-portable; fix the synchronization to make the result deterministic.</text></feedback></answer>
+    <generalfeedback><text>A race condition is a real bug, not mere test noise: the result depends on the unpredictable order of concurrent operations. The fix is to make the code's concurrency correct and deterministic — proper locking/synchronization, or awaiting/joining both operations before asserting. Sleeps and retries only lower the failure rate while leaving the defect in place.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Flaky Test Diagnosis/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose: sleep then click</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider this flaky end-to-end test step:</p>
+<pre><code>submitForm();
+sleep(300);            // wait for the server
+assertVisible("#confirmation");</code></pre>
+<p>It passes most of the time but fails a few times a day in CI. What is the root cause and the correct fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Timing: 300 ms is sometimes too short. Replace the fixed sleep with an explicit wait that polls for <code>#confirmation</code> to appear, up to a timeout</text><feedback><text>Correct — poll for the actual condition instead of guessing a duration.</text></feedback></answer>
+    <answer fraction="0"><text>The selector is wrong; change <code>#confirmation</code> to a different id</text><feedback><text>A wrong selector would fail every run, not intermittently; the intermittency is a timing issue.</text></feedback></answer>
+    <answer fraction="0"><text>Increase the sleep to 3000 ms and keep it fixed</text><feedback><text>A longer fixed sleep only reduces the failure rate while slowing every run; the non-determinism remains.</text></feedback></answer>
+    <answer fraction="0"><text>Wrap the whole test in a retry-three-times block</text><feedback><text>Retrying masks the timing bug; the correct fix is to wait on the confirmation element's appearance.</text></feedback></answer>
+    <generalfeedback><text>The confirmation element's arrival time varies with server and network load; a 300 ms guess is occasionally too short, so the assertion runs before the element exists. Replace <code>sleep(300)</code> with a conditional wait that polls for <code>#confirmation</code> and proceeds the instant it appears, failing only after a generous timeout — deterministic and usually faster.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why blind retry-until-green is bad</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team configures CI to automatically re-run any failing test up to five times and report it as passed if any attempt passes. Why is this "rerun until green" policy dangerous?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It can mask a genuine intermittent bug: a real defect that fails occasionally will be retried into a green result and never investigated</text><feedback><text>Correct — blind retry hides real, low-frequency failures that would surface in production.</text></feedback></answer>
+    <answer fraction="0"><text>It makes the build slower, which is the only real downside</text><feedback><text>Slower builds are a minor issue; the serious danger is that a real intermittent bug is hidden by the retries.</text></feedback></answer>
+    <answer fraction="0"><text>It permanently fixes the flakiness by removing the non-determinism</text><feedback><text>Retrying removes nothing; the non-determinism is still there — it is merely papered over.</text></feedback></answer>
+    <answer fraction="0"><text>It forces developers to write more tests</text><feedback><text>It does not; it simply hides intermittent failures, whether flaky or real.</text></feedback></answer>
+    <generalfeedback><text>An automatic retry cannot tell a harmless flaky failure from a real intermittent defect (a race condition, a rare data case). By reporting green whenever any attempt passes, it buries genuine low-frequency bugs that will eventually strike users. Retries can be a temporary stopgap, but they must be visible and tracked; they are not a fix, and the root cause still needs diagnosis.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose: leaked global counter</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Test A increments a module-level global <code>counter</code> and never resets it. Test B asserts <code>counter == 1</code>. B passes when it runs first, but fails when A runs before it. What is the root cause and best fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Order dependence via leaked global state: reset the global in setup/teardown (or avoid the shared global) so each test starts from a known state</text><feedback><text>Correct — the leaked global couples the tests; resetting per test removes the dependence.</text></feedback></answer>
+    <answer fraction="0"><text>Test B's expected value is simply wrong; change it to 2</text><feedback><text>Hard-coding 2 just pins B to one particular execution order; the real problem is the shared, unreset global.</text></feedback></answer>
+    <answer fraction="0"><text>Force the runner to always execute B before A</text><feedback><text>Pinning the order hides the coupling and is fragile; make each test independent by resetting state instead.</text></feedback></answer>
+    <answer fraction="0"><text>Add a sleep between A and B</text><feedback><text>Sleeping does nothing about a leaked global; reset the shared state per test.</text></feedback></answer>
+    <generalfeedback><text>The tests communicate through a mutable global that A modifies and B reads. The result depends on run order, which is not guaranteed. Reset the global in setup/teardown, or better, eliminate the shared global so tests do not share mutable state. Then each test is independent and passes in any order.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose: assert first of a hash set</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test builds a hash-based set of tags and asserts that the first element returned by iteration equals <code>"admin"</code>. It passes on your machine but fails on some CI runs and after a language runtime upgrade. What is the root cause and correct fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The set's iteration order is not guaranteed; assert on membership (the set contains "admin") or sort before comparing, rather than on "first"</text><feedback><text>Correct — do not depend on an unspecified iteration order; test membership or a sorted result.</text></feedback></answer>
+    <answer fraction="0"><text>The runtime upgrade introduced a bug in the set implementation; downgrade the runtime</text><feedback><text>The set is behaving within its contract (no order guarantee); the test's assumption is the defect, not the runtime.</text></feedback></answer>
+    <answer fraction="0"><text>Retry the test until iteration returns "admin" first</text><feedback><text>Relying on a lucky order is the flakiness itself; assert order-independently instead.</text></feedback></answer>
+    <answer fraction="0"><text>Add more elements so "admin" is more likely to be first</text><feedback><text>That does not make the order deterministic; remove the dependence on ordering entirely.</text></feedback></answer>
+    <generalfeedback><text>A hash-based set gives no ordering guarantee; iteration order can vary by insertion history, capacity, or runtime version, which is why a runtime upgrade changed it. The test encoded an assumption the type never promised. Assert what the specification actually guarantees — membership, or equality after sorting — so the check is independent of iteration order.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose: timezone-dependent date test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test formats a stored UTC timestamp and asserts it shows a specific calendar date. It passes for developers in one country but fails for a teammate in another timezone and on the CI server. What is the root cause and correct fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The code uses the machine's local timezone, so the displayed date depends on where it runs; pin/inject a fixed timezone (and clock) in the test so the result is deterministic</text><feedback><text>Correct — the hidden dependence on the local timezone must be made explicit and fixed in the test.</text></feedback></answer>
+    <answer fraction="0"><text>The stored timestamp is corrupted; regenerate the database</text><feedback><text>The stored UTC value is fine; the flakiness comes from converting it using the ambient local timezone.</text></feedback></answer>
+    <answer fraction="0"><text>Only run the test in the one timezone where it passes</text><feedback><text>Restricting where it runs hides the dependence instead of removing it; pin the timezone explicitly.</text></feedback></answer>
+    <answer fraction="0"><text>Add a retry so it eventually passes in every timezone</text><feedback><text>The result is deterministic per timezone, so retrying will not help; fix the timezone dependence.</text></feedback></answer>
+    <generalfeedback><text>Formatting a UTC instant into a local calendar date uses whatever timezone the environment defaults to, so different machines produce different dates. Make the timezone explicit — pin a fixed timezone (and, where relevant, inject a fixed clock) in the test — so the conversion is controlled and the outcome is the same everywhere.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Quarantine-and-track versus delete</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test is flaky and slowing down every merge. A teammate proposes simply deleting it. Why is quarantine-and-track usually the better choice?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Deleting discards the behaviour the test was checking, creating a silent coverage gap; quarantine unblocks the pipeline while preserving the test and the obligation to fix it</text><feedback><text>Correct — quarantine keeps the coverage and the accountability that deletion throws away.</text></feedback></answer>
+    <answer fraction="0"><text>Deleting a test is technically impossible in most projects</text><feedback><text>Deletion is trivially possible; the reason to prefer quarantine is that deletion loses coverage and accountability.</text></feedback></answer>
+    <answer fraction="0"><text>Quarantine automatically fixes the root cause of the flakiness</text><feedback><text>Quarantine does not fix anything; it contains the noise while the root cause is still owed a fix.</text></feedback></answer>
+    <answer fraction="0"><text>A quarantined test runs faster than a deleted one</text><feedback><text>A deleted test does not run at all; the real distinction is preserved coverage and tracking, not speed.</text></feedback></answer>
+    <generalfeedback><text>The flaky test was presumably checking something real. Deleting it removes the noise but also the coverage — and quietly, so no one remembers the gap. Quarantine stops the disruption to merges while keeping the test on a tracked list with an owner and a deadline, so the underlying behaviour is still verified once the root cause is fixed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cost: alarm fatigue from a flaky suite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Over months, a suite becomes routinely flaky and developers get used to re-running red builds without looking. What is the most serious consequence?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Alarm fatigue: because failures are assumed to be flaky, a genuine regression is ignored and ships to production</text><feedback><text>Correct — the suite loses its signal value, so a real failure is dismissed as noise.</text></feedback></answer>
+    <answer fraction="0"><text>The tests will eventually stop compiling on their own</text><feedback><text>Flakiness does not stop code from compiling; the serious cost is that real failures get ignored.</text></feedback></answer>
+    <answer fraction="0"><text>The suite will automatically become deterministic over time</text><feedback><text>Flakiness does not fix itself; left alone it trains people to ignore failures.</text></feedback></answer>
+    <answer fraction="0"><text>The only cost is a slightly longer CI run</text><feedback><text>The dominant cost is not runtime; it is that a genuine regression hides in the noise and reaches users.</text></feedback></answer>
+    <generalfeedback><text>The deepest cost of chronic flakiness is human: once "red" usually means "just flaky", people stop investigating and simply re-run. A real regression then blends into the noise and is shipped. This "cry wolf" effect defeats the entire purpose of an automated suite, which is why flakiness must be treated as a first-class defect.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose: unseeded random exposing an edge case</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test builds inputs from an unseeded random generator. It passes most runs but fails roughly 1 in 50, and each failure is a real assertion mismatch. What is the best response?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Capture the failing input, investigate it as a possible real bug, fix it, then seed the generator (or add the case as a fixed regression test) for determinism</text><feedback><text>Correct — an occasional real mismatch may be a genuine edge-case defect; diagnose it, then make the test deterministic.</text></feedback></answer>
+    <answer fraction="0"><text>Immediately seed the generator to a value that always passes and move on</text><feedback><text>Choosing a passing seed without investigating may hide a genuine edge-case bug; capture and diagnose the failure first.</text></feedback></answer>
+    <answer fraction="0"><text>Add a retry so the 1-in-50 failure disappears from CI</text><feedback><text>Retrying buries what could be a real bug; the failing input must be examined before making the test deterministic.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the test because random data is unreliable</text><feedback><text>Deleting discards useful coverage and ignores a possible real defect; investigate, fix, then seed.</text></feedback></answer>
+    <generalfeedback><text>Unseeded randomness is both a flakiness source and, sometimes, an accidental fuzzer: a rare failing input can be a genuine edge-case bug. First reproduce with the captured input and decide whether the code or the test is wrong. Fix the real defect, then restore determinism by seeding the generator or pinning the discovered case as a fixed regression test — do not simply pick a seed that hides the failure.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose: race between threads</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test starts two threads that both append to a shared list and then asserts the list has two elements. It occasionally sees one element or throws. What is the root cause and correct fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A race condition on the unsynchronized shared list; fix the concurrency (proper synchronization or a thread-safe structure) and make the test wait deterministically for both appends to complete</text><feedback><text>Correct — the flakiness reflects a real data race; fix the synchronization and wait on completion deterministically.</text></feedback></answer>
+    <answer fraction="0"><text>The list type is broken; switch to a different list and keep it unsynchronized</text><feedback><text>An ordinary list is not broken; concurrent unsynchronized mutation is the defect, so add proper synchronization.</text></feedback></answer>
+    <answer fraction="0"><text>Add a fixed sleep before the assertion and leave the threads unsynchronized</text><feedback><text>A sleep only lowers the failure rate; the underlying data race remains and can still corrupt the list.</text></feedback></answer>
+    <answer fraction="0"><text>Retry the test until both appends happen to land</text><feedback><text>Retrying hides a genuine concurrency bug that can also affect production; fix the race instead.</text></feedback></answer>
+    <generalfeedback><text>Two threads mutating one list without synchronization is a data race: interleavings occasionally lose an update or corrupt internal state. This is a real bug, not mere test noise. Use proper synchronization or a thread-safe collection, and have the test deterministically wait for both threads to finish (join/await) before asserting.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Determinism is the goal, retry is a stopgap</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The goal of remediating a flaky test is to restore determinism by fixing the root cause; automatic retries may be a temporary stopgap but are not themselves a fix.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — determinism via root-cause repair is the aim; retries only paper over the symptom.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is wrong: retries do not remove the non-determinism, so they are a stopgap at best; the real fix restores determinism at the root cause.</text></feedback></answer>
+    <generalfeedback><text>Proper remediation makes the test deterministic again by addressing why it varies — replacing sleeps with conditional waits, seeding randomness, injecting the clock, isolating state, mocking external deps, or fixing a real concurrency bug. A retry may buy time, but it hides the symptom and can mask genuine intermittent defects, so it is never the end state.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose: parallel tests sharing a temp file</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two tests each write to <code>/tmp/output.txt</code> and read it back. They pass when run one at a time but fail intermittently when the suite runs them in parallel. What is the root cause and correct fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Resource contention on the shared fixed path; give each test its own unique temporary file/directory so they cannot interfere</text><feedback><text>Correct — isolate the resource per test (a unique temp path) to remove the contention.</text></feedback></answer>
+    <answer fraction="0"><text>The file system is broken under load; move the tests to a different disk</text><feedback><text>The file system is fine; the tests are colliding on a single hard-coded path, so isolate per test.</text></feedback></answer>
+    <answer fraction="0"><text>Force the two tests to always run sequentially and never in parallel</text><feedback><text>Serializing hides the coupling and forfeits parallel speed; the clean fix is a unique path per test.</text></feedback></answer>
+    <answer fraction="0"><text>Add a sleep so the two writes do not happen at the same instant</text><feedback><text>A sleep is a fragile timing hack that still shares one path; use a unique temporary file per test.</text></feedback></answer>
+    <generalfeedback><text>Both tests use the same fixed filename, so under parallel execution one overwrites the other's data between write and read. Allocate a unique temporary file or directory per test (a fresh temp path, cleaned up in teardown) so the tests are isolated and can run in parallel deterministically.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose: created_at equals now</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test creates a record and asserts <code>record.created_at == now()</code>, calling the live clock again in the assertion. It fails rarely, when a tiny delay makes the two clock reads differ. What is the correct fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inject a fixed clock so both the code and the test see the same controlled "now", making the timestamps compare deterministically</text><feedback><text>Correct — controlling time removes the gap between two live clock reads.</text></feedback></answer>
+    <answer fraction="0"><text>Read the live clock twice more and average the values</text><feedback><text>More live reads still vary; the fix is to control time with an injected clock, not to average noise.</text></feedback></answer>
+    <answer fraction="0"><text>Retry the assertion until the two clock reads coincide</text><feedback><text>Retrying depends on luck and leaves the time dependence in place; inject a fixed clock instead.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the timestamp assertion entirely</text><feedback><text>Removing the check loses coverage of the timestamp behaviour; make time controllable instead.</text></feedback></answer>
+    <generalfeedback><text>The flakiness comes from comparing two independent reads of the live clock, which differ by the elapsed time between them. Inject a controllable clock so the code stamps the record with a fixed "now" and the test asserts against that same value. Alternatively assert the timestamp lies within a tolerance window — but injecting the clock is the cleanest deterministic fix.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Auto-retry can hide a real concurrency bug</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test fails about 1 in 20 runs due to a genuine race condition in the production code. The team adds an automatic 3× retry so CI reports it as passing. This is an acceptable resolution because CI is now green.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — the retry hides a real race condition that can still strike users; the root cause must be fixed, not masked.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>This is wrong: a green CI achieved by retrying conceals a genuine intermittent bug that will still manifest in production.</text></feedback></answer>
+    <generalfeedback><text>The 1-in-20 failure is not test noise — it is a real race condition in the code under test. Retrying until green makes the symptom disappear from CI while the defect remains and will eventually affect real users under load. The correct response is to diagnose and fix the race (proper synchronization) so the test passes deterministically for the right reason.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Response to a single unexplained CI failure</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On an unchanged commit, one CI run fails a test; re-running the same commit passes. What is the most appropriate response?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Treat it as likely flaky: reproduce it by running the test repeatedly, track it, and diagnose the root cause — do not simply dismiss it as a one-off fluke</text><feedback><text>Correct — a pass/fail flip on unchanged code is a flakiness signal that should be reproduced, tracked, and fixed.</text></feedback></answer>
+    <answer fraction="0"><text>Ignore it entirely, since the re-run passed and the code did not change</text><feedback><text>Dismissing it lets flakiness (or a real intermittent bug) persist; reproduce and investigate instead.</text></feedback></answer>
+    <answer fraction="0"><text>Immediately delete the test to stop it from failing again</text><feedback><text>Deleting discards coverage and hides a possible real bug before it is even understood; investigate first.</text></feedback></answer>
+    <answer fraction="0"><text>Permanently enable retry-until-green for the whole suite</text><feedback><text>Blanket retries mask real intermittent defects across the suite; reproduce and fix the specific test instead.</text></feedback></answer>
+    <generalfeedback><text>A differing verdict on the same commit is the definition of flakiness and should not be waved away. Reproduce it by running the test many times to get a flakiness rate, record it on a tracked list, and diagnose the root cause. It might be a harmless timing issue or a genuine intermittent bug — you only learn which by investigating, not by shrugging or blindly retrying.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose: locale-dependent number formatting</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test asserts that formatting <code>1234.5</code> yields the string <code>"1,234.5"</code>. It passes for most of the team but fails for a teammate whose machine uses a locale where numbers are written like <code>"1.234,5"</code>. What is the root cause and correct fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The formatter uses the ambient default locale; pin an explicit locale in the test (or format locale-independently) so the output is the same everywhere</text><feedback><text>Correct — make the locale explicit rather than depending on the machine's default.</text></feedback></answer>
+    <answer fraction="0"><text>The teammate's machine has a corrupted number library; reinstall it</text><feedback><text>Nothing is corrupted — the library correctly follows that machine's locale; the test must fix the locale explicitly.</text></feedback></answer>
+    <answer fraction="0"><text>Retry the test until it produces the expected separators</text><feedback><text>The output is deterministic per locale, so retrying cannot help; pin the locale instead.</text></feedback></answer>
+    <answer fraction="0"><text>Only run the test on machines set to the expected locale</text><feedback><text>Restricting where it runs hides the hidden dependence rather than removing it; specify the locale in the test.</text></feedback></answer>
+    <generalfeedback><text>Number, date, and currency formatting default to the environment's locale, so grouping and decimal separators differ by machine. The test unknowingly depended on one locale. Fix it by passing an explicit locale to the formatter (or by formatting in a locale-independent way) so the produced string is deterministic across every environment.</text></generalfeedback>
+  </question>
+</quiz>

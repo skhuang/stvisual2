@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/BDD and Gherkin/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是 BDD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>什麼是<strong>行為驅動開發（Behaviour-Driven Development, BDD）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一種協作實踐：由業務、開發與測試三方以具體範例描述期望的行為，這些範例會成為可執行的規格與活文件（living documentation）</text><feedback><text>正確——BDD 的核心是以共享的、以範例為本的行為描述，且可被執行。</text></feedback></answer>
+    <answer fraction="0"><text>一種能從 UML 類別圖自動產生產品程式碼的工具</text><feedback><text>BDD 是協作與規格實踐，不是從圖產生程式碼的工具。</text></feedback></answer>
+    <answer fraction="0"><text>一種量測每個函式執行速度的效能剖析技術</text><feedback><text>那是效能剖析；BDD 著重以範例描述行為。</text></feedback></answer>
+    <answer fraction="0"><text>一種用來決定測試何時結束的分支覆蓋率指標</text><feedback><text>覆蓋率是另一回事；BDD 以協作方式用範例描述行為。</text></feedback></answer>
+    <generalfeedback><text>BDD 由 TDD 演進而來，強調業務、開發與測試之間的對話（「三方會談 / three amigos」）。團隊就具體的行為範例達成共識，以共享語言撰寫，並轉成自動化、可執行的規格，同時作為活文件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是 Gherkin</text></name>
+    <questiontext format="html"><text><![CDATA[<p>什麼是 <strong>Gherkin</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一種結構化、大致以自然語言書寫的語法（Feature、Scenario、Given/When/Then），用來撰寫人與工具都能讀的 BDD 規格</text><feedback><text>正確——Gherkin 是撰寫 BDD scenario 用、以關鍵字為本且業務可讀的語言。</text></feedback></answer>
+    <answer fraction="0"><text>一種會編譯成機器碼的通用程式語言</text><feedback><text>Gherkin 是規格語法，不是會被編譯的程式語言。</text></feedback></answer>
+    <answer fraction="0"><text>一種用來取回測試結果的資料庫查詢語言</text><feedback><text>Gherkin 描述行為 scenario，不是查詢語言。</text></feedback></answer>
+    <answer fraction="0"><text>一種執行建置的持續整合伺服器</text><feedback><text>那是 CI 工具；Gherkin 是撰寫 scenario 的語言。</text></feedback></answer>
+    <generalfeedback><text>Gherkin 是 Cucumber 類工具使用、以行為單位的語言。它使用一小組關鍵字——Feature、Scenario、Given、When、Then、And、But、Background、Scenario Outline、Examples——讓規格讀起來幾乎像一般文句，卻能透過 step definition 自動化執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是 Feature</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Gherkin 中，<strong>Feature</strong> 關鍵字引入的是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一項具名的功能，附有自由文字描述，並把說明它的各個 scenario 聚集在一起</text><feedback><text>正確——Feature 為一項能力命名，並容納描述它的各個 scenario。</text></feedback></answer>
+    <answer fraction="0"><text>一個檢查單一期望值的測試步驟</text><feedback><text>單一步驟是 Given/When/Then 行；Feature 聚集的是整個 scenario。</text></feedback></answer>
+    <answer fraction="0"><text>把步驟對應到函式的膠合程式碼區塊</text><feedback><text>那是 step definition；Feature 是 .feature 檔中最上層的分組。</text></feedback></answer>
+    <answer fraction="0"><text>供資料驅動執行用的範例資料表</text><feedback><text>那是 Examples 表；Feature 是它所屬的具名功能。</text></feedback></answer>
+    <generalfeedback><text>一個 .feature 檔通常以一行 Feature: 開頭，為該能力命名，後面可接一段描述其業務價值的自由文字。其下便是給出該功能具體行為範例的各個 Scenario（以及可選的 Background 與 Scenario Outline）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是 Scenario</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Gherkin 中，什麼是 <strong>Scenario</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該功能行為的單一具體範例，以一連串 Given/When/Then 步驟表達</text><feedback><text>正確——Scenario 是由步驟組成、對某行為的一個具體示例。</text></feedback></answer>
+    <answer fraction="0"><text>包含該 feature 的檔案名稱</text><feedback><text>檔案是 .feature 檔；Scenario 是其內的一個範例。</text></feedback></answer>
+    <answer fraction="0"><text>把一個測試重複多次的程式迴圈</text><feedback><text>Scenario 是被描述的範例，不是迴圈結構。</text></feedback></answer>
+    <answer fraction="0"><text>用來重現失敗執行的隨機種子</text><feedback><text>Gherkin 的 scenario 是具體範例，不涉及隨機種子。</text></feedback></answer>
+    <generalfeedback><text>Scenario 捕捉該功能應如何運作的一個具體情況：一段脈絡（Given）、一個事件（When）、以及一個期望結果（Then）。一個 feature 通常包含數個 scenario，各自呈現不同情況。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Given 的含意</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Gherkin scenario 中，<strong>Given</strong> 關鍵字表達什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>脈絡或前置條件——在行為被觸發之前必須已然成立的世界狀態</text><feedback><text>正確——Given 建立起始脈絡／前置條件。</text></feedback></answer>
+    <answer fraction="0"><text>觸發行為的那個單一動作或事件</text><feedback><text>那是 When 的角色；Given 事先設定脈絡。</text></feedback></answer>
+    <answer fraction="0"><text>要被驗證的期望、可觀察結果</text><feedback><text>那是 Then 的角色；Given 描述前置條件。</text></feedback></answer>
+    <answer fraction="0"><text>受測 feature 的名稱</text><feedback><text>feature 名稱接在 Feature: 之後；Given 描述 scenario 的起始狀態。</text></feedback></answer>
+    <generalfeedback><text>Given 把系統置於一個已知狀態——前置條件或脈絡，例如「Given the user is logged in」。它是設定（setup），不是受測的動作，且不應包含你打算檢查的結果。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When 的含意</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Gherkin scenario 中，<strong>When</strong> 關鍵字表達什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>受測的動作或事件——理想上是行為主體所做、用來觸發行為的單一一件事</text><feedback><text>正確——When 指出被行使的事件／動作，理想上只有一個。</text></feedback></answer>
+    <answer fraction="0"><text>事先必須已成立的前置條件</text><feedback><text>那是 Given 的角色；When 是觸發的動作。</text></feedback></answer>
+    <answer fraction="0"><text>之後應觀察到的期望結果</text><feedback><text>那是 Then 的角色；When 是導致該結果的動作。</text></feedback></answer>
+    <answer fraction="0"><text>說明 scenario 存在原因的註解</text><feedback><text>When 是行為步驟，不是註解；它指出動作。</text></feedback></answer>
+    <generalfeedback><text>When 描述行使行為的事件或動作，例如「When the user submits the form」。一個寫得好的 scenario 基本上只有一個 When：那個單一動作，其後果由 Then 步驟加以驗證。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Then 的含意</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Gherkin scenario 中，<strong>Then</strong> 關鍵字表達什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>動作之後應成立的期望、可觀察結果——即 scenario 所驗證的那件事</text><feedback><text>正確——Then 陳述要被檢查的可觀察結果。</text></feedback></answer>
+    <answer fraction="0"><text>在任何事情發生前必須設定好的脈絡</text><feedback><text>那是 Given 的角色；Then 是最後檢查的結果。</text></feedback></answer>
+    <answer fraction="0"><text>使用者用來觸發行為所執行的動作</text><feedback><text>那是 When 的角色；Then 驗證該動作的結果。</text></feedback></answer>
+    <answer fraction="0"><text>資料驅動 scenario 的一組範例列</text><feedback><text>那是 Examples 表；Then 陳述期望結果。</text></feedback></answer>
+    <generalfeedback><text>Then 斷言一個可觀察的結果，例如「Then the account balance is 100」。它應描述可被觀察的事物（一個結果、一則訊息、一個狀態），而不是行為主體再做的另一個動作——動作屬於 When。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>And 與 But 的延續</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Gherkin 中，<strong>And</strong> 與 <strong>But</strong> 關鍵字的作用是什麼？</p><pre>Given the user is logged in
+And the cart contains 2 items</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們延續前一個步驟並承接其類型，因此在 Given 之後（以 And/But 接續）的步驟仍是一個 Given（此處為前置條件）</text><feedback><text>正確——And/But 承接其所接續步驟的類別。</text></feedback></answer>
+    <answer fraction="0"><text>不論前面是什麼，它們一律引入一個新的動作</text><feedback><text>不對——And/But 沒有固定類型；它們承接前一步驟的類型。</text></feedback></answer>
+    <answer fraction="0"><text>它們是工具會忽略的註解</text><feedback><text>And/But 是真正的步驟；它們只是共享上一個關鍵字的類別。</text></feedback></answer>
+    <answer fraction="0"><text>But 表示該步驟預期會失敗</text><feedback><text>But 只是為了可讀性的延續；它不標記預期失敗。</text></feedback></answer>
+    <generalfeedback><text>And 與 But 純粹是為了可讀性。以 And 或 But 書寫的步驟，屬於其上方最近的關鍵字（Given、When 或 Then）所在的同一階段。在範例中，「And the cart contains 2 items」是另一個 Given（前置條件）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是 step definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 BDD 工具中，什麼是 <strong>step definition（步驟定義）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>比對某個 Gherkin 步驟文字，並對系統執行相應自動化的程式碼（膠合程式碼 / glue）</text><feedback><text>正確——step definition 把自然語言步驟綁定到可執行程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>scenario 內那一行自然語言文字本身</text><feedback><text>那是步驟；step definition 是該步驟所對應的程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>供 Scenario Outline 使用的 Examples 資料表</text><feedback><text>那是 Examples 表；step definition 是步驟背後的膠合程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>描述 feature 業務價值的註解</text><feedback><text>step definition 是可執行的膠合程式碼，不是註解。</text></feedback></answer>
+    <generalfeedback><text>Gherkin 步驟是純文字；step definition 是膠合程式碼（以 Java、Python、C#、JavaScript 等撰寫），其樣式比對某個步驟並驅動應用程式。執行一個 scenario 就是把每個步驟比對到它的 step definition 並加以執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是 Scenario Outline 與 Examples</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Scenario Outline</strong> 及其 <strong>Examples</strong> 表提供了什麼？</p><pre>Scenario Outline: adding items
+  When I add &lt;qty&gt; items
+  Then the cart shows &lt;qty&gt; items
+
+  Examples:
+    | qty |
+    | 1   |
+    | 5   |</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個帶有 &lt;placeholder&gt; 的資料驅動樣板，會依 Examples 表的每一資料列各執行一次</text><feedback><text>正確——Scenario Outline 是被每一 Examples 列填入的參數化樣板。</text></feedback></answer>
+    <answer fraction="0"><text>一種在執行期間把某 scenario 標記為略過的方式</text><feedback><text>略過是用 tag／過濾完成；Scenario Outline 是資料驅動樣板。</text></feedback></answer>
+    <answer fraction="0"><text>把步驟對應到函式的膠合程式碼</text><feedback><text>那是 step definition；Scenario Outline 是參數化的 scenario。</text></feedback></answer>
+    <answer fraction="0"><text>在每個 scenario 之前執行的共享 Given</text><feedback><text>那是 Background；Scenario Outline 是由 Examples 資料驅動的樣板。</text></feedback></answer>
+    <generalfeedback><text>Scenario Outline 在其步驟中使用 &lt;placeholder&gt;，並搭配一個 Examples 表。每一資料列把其值代入 placeholder 並執行該 scenario 一次，以簡潔的方式對許多類似案例做資料驅動涵蓋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是 Background</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 feature 檔中，<strong>Background</strong> 關鍵字的用途是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>容納那些會在該 feature 中每個 scenario 之前執行的步驟（通常是共享的 Given 前置條件），以避免重複</text><feedback><text>正確——Background 把該 feature 中所有 scenario 共通的設定抽出來。</text></feedback></answer>
+    <answer fraction="0"><text>定義所有 scenario 共享的期望結果</text><feedback><text>結果是各 scenario 的 Then 步驟；Background 容納共享設定，通常是 Given。</text></feedback></answer>
+    <answer fraction="0"><text>供 Scenario Outline 使用的資料列</text><feedback><text>那是 Examples 表；Background 是在每個 scenario 之前執行的共享設定。</text></feedback></answer>
+    <answer fraction="0"><text>儲存該 feature 各步驟的膠合程式碼</text><feedback><text>膠合程式碼在 step definition 中；Background 是共通的 Gherkin 設定。</text></feedback></answer>
+    <generalfeedback><text>Background 讓你把設定步驟只寫一次，並在該 feature 中每個 scenario 之前執行。它通常包含建立共通脈絡的 Given 步驟（例如「Given the user is logged in」），使各個 scenario 保持聚焦且無重複設定。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是 Cucumber</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Cucumber</strong>、<strong>SpecFlow</strong>、<strong>Behave</strong> 與 <strong>JBehave</strong> 是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>BDD 工具，會剖析 Gherkin 風格的 scenario，並藉由把步驟比對到 step definition 來執行它們</text><feedback><text>正確——這些是透過 step definition 執行 Gherkin scenario 的 BDD 框架。</text></feedback></answer>
+    <answer fraction="0"><text>程式碼覆蓋率量測工具</text><feedback><text>它們是 BDD 執行工具，不是覆蓋率量測工具。</text></feedback></answer>
+    <answer fraction="0"><text>版本控制系統</text><feedback><text>它們執行 BDD scenario；不是版本控制系統。</text></feedback></answer>
+    <answer fraction="0"><text>靜態型別檢查器</text><feedback><text>它們執行行為規格；不是型別檢查器。</text></feedback></answer>
+    <generalfeedback><text>Cucumber（Ruby/Java/JS）、SpecFlow（.NET）、Behave（Python）與 JBehave（Java）是 BDD 框架。它們讀取 Gherkin（或類 Gherkin）scenario，把每個步驟比對到其 step definition 並執行自動化，再回報每個 scenario 通過或失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>判別前置條件行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>這一行陳述的是起始條件，而非動作或結果，最適合用哪個 Gherkin 關鍵字？</p><pre>___ the user has an account with a balance of 100</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Given——它是前置條件／脈絡</text><feedback><text>正確——在動作之前已成立的既有狀態是一個 Given。</text></feedback></answer>
+    <answer fraction="0"><text>When——它是觸發的動作</text><feedback><text>此處沒有執行任何動作；這是設定，屬於 Given。</text></feedback></answer>
+    <answer fraction="0"><text>Then——它是期望結果</text><feedback><text>此處尚未驗證任何東西；起始餘額是前置條件（Given）。</text></feedback></answer>
+    <answer fraction="0"><text>Feature——它為功能命名</text><feedback><text>Feature 為能力命名；這一行描述前置條件，所以是 Given。</text></feedback></answer>
+    <generalfeedback><text>「the user has an account with a balance of 100」描述的是在任何事情發生前世界的狀態——一個前置條件。前置條件以 Given 表達。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>判別動作行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>這一行描述行為主體執行受測事件，最適合用哪個 Gherkin 關鍵字？</p><pre>___ the user withdraws 30 from the account</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When——它是受測的動作／事件</text><feedback><text>正確——行為主體執行觸發事件是一個 When 步驟。</text></feedback></answer>
+    <answer fraction="0"><text>Given——它是前置條件</text><feedback><text>這是被行使的動作，而非設定；那是一個 When。</text></feedback></answer>
+    <answer fraction="0"><text>Then——它是期望結果</text><feedback><text>提款是動作，不是要驗證的結果；那是一個 When。</text></feedback></answer>
+    <answer fraction="0"><text>Background——它是共享設定</text><feedback><text>Background 容納共享的 Given；行為主體執行的動作是 When。</text></feedback></answer>
+    <generalfeedback><text>「the user withdraws 30」是觸發受測行為的事件，因此是 When 步驟。之後所得的餘額則會在 Then 步驟中檢查。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Then 表達期望結果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Gherkin 中，<strong>Then</strong> 關鍵字用來陳述 scenario 所驗證的期望、可觀察結果。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——Then 陳述被檢查的可觀察結果。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Then 確實表達期望結果；前置條件是 Given，動作是 When。</text></feedback></answer>
+    <generalfeedback><text>Given/When/Then 結構對應到前置條件／動作／期望結果。Then 是斷言步驟：它描述在 When 動作之後應可觀察到的事物，正是 scenario 所驗證的結果。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/BDD and Gherkin/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>補全 scenario：結果行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>最後一行陳述要被驗證的結果，用哪個關鍵字才正確？</p><pre>Given the cart contains 2 items
+When the user removes 1 item
+___ the cart contains 1 item</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Then</text><feedback><text>正確——最後一行斷言可觀察的結果，所以是 Then 步驟。</text></feedback></answer>
+    <answer fraction="0"><text>Given</text><feedback><text>Given 是最上方的前置條件；動作之後的結果行是 Then。</text></feedback></answer>
+    <answer fraction="0"><text>When</text><feedback><text>動作（移除品項）已經是 When；結果是 Then。</text></feedback></answer>
+    <answer fraction="0"><text>Background</text><feedback><text>Background 是 feature 層級的共享設定，不是 scenario 的結果行。</text></feedback></answer>
+    <generalfeedback><text>此 scenario 先設定脈絡（Given），執行一個動作（When），再檢查可觀察的結果。「the cart contains 1 item」就是那個被驗證的結果，因此用 Then。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario Outline 展開（3 列）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>這個 Scenario Outline 會執行幾次？</p><pre>Scenario Outline: login attempts
+  When I sign in as &lt;user&gt;
+  Then I see &lt;result&gt;
+
+  Examples:
+    | user  | result   |
+    | alice | welcome  |
+    | bob   | welcome  |
+    | mallory | blocked |</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3——Examples 表每一資料列各執行一次</text><feedback><text>正確——標頭列不計入；3 個資料列產生 3 次執行。</text></feedback></answer>
+    <answer fraction="0"><text>4——標頭列也算一次執行</text><feedback><text>標頭列只是替各欄命名，不是一次執行。只有 3 個資料列計入。</text></feedback></answer>
+    <answer fraction="0"><text>1——Scenario Outline 一律只執行一次</text><feedback><text>Scenario Outline 依每一資料列各執行一次，3 列即執行 3 次。</text></feedback></answer>
+    <answer fraction="0"><text>6——列數乘以欄數</text><feedback><text>執行次數等於資料列數（3），而非列乘欄。</text></feedback></answer>
+    <generalfeedback><text>Scenario Outline 依其 Examples 表的每一資料列展開為一個具體 scenario。此處有 3 個資料列（第一行是欄標頭），所以執行 3 次。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Background 的用途</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你注意到某 feature 中每個 scenario 最上方都有相同的兩個 Given 步驟。慣用的修正方式是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把那些共享的 Given 步驟移入 Background 區塊，使其在每個 scenario 之前執行而不重複</text><feedback><text>正確——Background 正是用於該 feature 中所有 scenario 共通的設定。</text></feedback></answer>
+    <answer fraction="0"><text>把它們移入 Examples 表</text><feedback><text>Examples 是供 Scenario Outline 提供資料，而非一般 scenario 的共享設定。</text></feedback></answer>
+    <answer fraction="0"><text>從每個 scenario 刪除它們，倚賴工具去推斷脈絡</text><feedback><text>工具不會推斷任何東西；共享設定必須在 Background 中陳述一次。</text></feedback></answer>
+    <answer fraction="0"><text>把每個 scenario 轉成一個 step definition</text><feedback><text>step definition 是膠合程式碼；重複的 Gherkin 設定要用 Background 解決。</text></feedback></answer>
+    <generalfeedback><text>Background 收集應在該 feature 中每個 scenario 之前執行的步驟——通常是共通的 Given 前置條件。它去除重複的設定，讓每個 scenario 專注在使其獨特之處。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>宣告式 vs 命令式 scenario</text></name>
+    <questiontext format="html"><text><![CDATA[<p>兩個 scenario 測試同一項登入行為。哪一個寫得比較好（宣告式、業務可讀）？</p><p><strong>A</strong></p><pre>Given I am a registered user
+When I log in with valid credentials
+Then I see my dashboard</pre><p><strong>B</strong></p><pre>Given I open "/login"
+When I type "alice" into field #user
+And I type "secret" into field #pass
+And I click the button with id "submit"
+Then the element #dash is visible</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A——它以業務層級陳述行為，與 UI 細節無關</text><feedback><text>正確——宣告式 scenario 描述意圖，能在 UI 改變時仍然存活。</text></feedback></answer>
+    <answer fraction="0"><text>B——它比較好，因為列出了每一次 UI 點擊與欄位 id</text><feedback><text>B 是命令式：脆弱、難讀，且 UI 一改就壞。</text></feedback></answer>
+    <answer fraction="0"><text>兩者一樣好；風格無關緊要</text><feedback><text>風格很重要：宣告式版本更可讀、更易維護。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都不是有效的 Gherkin</text><feedback><text>兩者都是有效的 Gherkin；A 只是寫得較好的宣告式形式。</text></feedback></answer>
+    <generalfeedback><text>宣告式 scenario（A）以業務用語描述使用者想達成什麼，把 UI 機制藏進 step definition。命令式 scenario（B）寫死點擊、欄位 id 與選擇器，使其脆弱且難讀。宜採宣告式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Given 是設定，不是動作</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一行是恰當的 <strong>Given</strong> 步驟（設定／前置條件）而非動作？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Given the user already has 3 unread messages</text><feedback><text>正確——這建立了一個起始狀態，正是 Given 的用途。</text></feedback></answer>
+    <answer fraction="0"><text>Given the user clicks the "Mark all read" button</text><feedback><text>點擊是動作；它屬於 When，而非 Given。</text></feedback></answer>
+    <answer fraction="0"><text>Given the inbox shows 0 unread messages afterwards</text><feedback><text>那是期望結果；它屬於 Then，而非 Given。</text></feedback></answer>
+    <answer fraction="0"><text>Given the user submits the registration form</text><feedback><text>送出是動作；它屬於 When，而非 Given。</text></feedback></answer>
+    <generalfeedback><text>Given 建立脈絡：在行為被行使之前已成立的狀態。「the user already has 3 unread messages」就是這樣的狀態。點擊與送出是動作（When）；之後檢查的結果是結果（Then）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When 應為單一動作</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於一個關於下單的 scenario，哪一行是最好的單一 <strong>When</strong> 步驟？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When the customer places the order</text><feedback><text>正確——一個清楚、觸發受測行為的單一動作。</text></feedback></answer>
+    <answer fraction="0"><text>When the customer adds an item, applies a coupon, and places the order</text><feedback><text>那綑綁了數個動作；When 理想上應為一個事件，其餘設定移入 Given。</text></feedback></answer>
+    <answer fraction="0"><text>When the customer is logged in</text><feedback><text>已登入是前置條件（Given），不是受測的動作。</text></feedback></answer>
+    <answer fraction="0"><text>When the order confirmation is displayed</text><feedback><text>那是可觀察的結果（Then），不是動作。</text></feedback></answer>
+    <generalfeedback><text>寫得好的 scenario 只有一個 When：那個你要驗證其結果的單一動作。前置設定（加入品項、套用折價券）屬於 Given 步驟；之後顯示的確認屬於 Then。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Then 是結果，不是動作</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一行是恰當的 <strong>Then</strong> 步驟（一個可觀察的結果）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Then the account balance is 70</text><feedback><text>正確——一個 scenario 可以驗證的可觀察結果。</text></feedback></answer>
+    <answer fraction="0"><text>Then the user clicks "Confirm"</text><feedback><text>點擊是動作（When）；Then 應觀察結果，而非執行動作。</text></feedback></answer>
+    <answer fraction="0"><text>Then the user is logged in with a valid session</text><feedback><text>那讀起來像前置條件（Given）或設定，不是此處要驗證的結果。</text></feedback></answer>
+    <answer fraction="0"><text>Then enter the withdrawal amount</text><feedback><text>輸入金額是動作（When），不是可觀察的結果。</text></feedback></answer>
+    <generalfeedback><text>Then 陳述動作之後應成立、可被觀察的事物，例如所得餘額、一則訊息或一個可見狀態。把動作（點擊、輸入）放進 Then 會把結果和事件混為一談，是常見的反樣式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>step definition 在執行期做什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當 BDD 工具執行步驟 <code>When the user withdraws 30</code> 時，會發生什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>工具找出樣式比對到該文字的 step definition，並對系統執行其程式碼</text><feedback><text>正確——步驟文字被比對到膠合程式碼，然後被執行。</text></feedback></answer>
+    <answer fraction="0"><text>工具印出該行後就跳過，不執行任何東西</text><feedback><text>步驟是透過其 step definition 執行，而非只是印出。</text></feedback></answer>
+    <answer fraction="0"><text>工具把該 Gherkin 改寫成產品原始碼</text><feedback><text>BDD 工具透過 step definition 執行 scenario；不會產生產品程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>工具請使用者手動確認結果</text><feedback><text>執行是透過 step definition 自動化，而非人工確認。</text></feedback></answer>
+    <generalfeedback><text>每個 Gherkin 步驟在執行期會被比對到一個 step definition——其樣式捕捉步驟文字（與任何參數）的膠合程式碼。工具執行該程式碼以驅動應用程式，再回報該步驟（與 scenario）通過或失敗。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>And 承接前一關鍵字的類型</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此 scenario 中，<code>And</code> 這一行是什麼類型的步驟？</p><pre>Given the user is logged in
+And the user is an administrator
+When the user opens the settings page
+Then the audit log is shown</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個 Given（前置條件）——And 承接其上方步驟的類型</text><feedback><text>正確——Given 之後的 And 本身也是一個 Given。</text></feedback></answer>
+    <answer fraction="0"><text>一個 When（動作）——And 一律表示動作</text><feedback><text>And 沒有固定類型；此處它接在 Given 之後，所以是前置條件。</text></feedback></answer>
+    <answer fraction="0"><text>一個 Then（結果）——And 一律檢查結果</text><feedback><text>And 承接前一關鍵字；接在 Given 之後是前置條件，不是結果。</text></feedback></answer>
+    <answer fraction="0"><text>它會被忽略，因為 And 不是真的關鍵字</text><feedback><text>And 是真正的延續關鍵字；此步驟會執行，且此處算作 Given。</text></feedback></answer>
+    <generalfeedback><text>And（與 But）延續其前的階段。因為上一行是 Given，「And the user is an administrator」是第二個前置條件——另一個 Given。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario Outline 展開（4 列）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 Scenario Outline 的 Examples 表有一個標頭列，後接 4 個資料列。會執行幾個具體 scenario？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4——每一資料列各一個</text><feedback><text>正確——標頭不算執行；4 個資料列產生 4 個 scenario。</text></feedback></answer>
+    <answer fraction="0"><text>5——標頭列也算</text><feedback><text>標頭只是替各欄命名；只有 4 個資料列會執行。</text></feedback></answer>
+    <answer fraction="0"><text>1——outline 只執行一次</text><feedback><text>outline 依每一資料列各執行一次，4 列即 4 次。</text></feedback></answer>
+    <answer fraction="0"><text>8——資料列被加倍</text><feedback><text>每一資料列剛好執行一次，得 4，而非 8。</text></feedback></answer>
+    <generalfeedback><text>執行次數等於 Examples 表的資料列數。一個標頭列加上 4 個資料列，代表執行 4 次。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個步驟屬於 Background</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 feature 中的每個 scenario 在做任何事之前都需要一個已登入的使用者。哪一個步驟適合放進 <strong>Background</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Given the user is logged in</text><feedback><text>正確——所有 scenario 共通的前置條件屬於 Background。</text></feedback></answer>
+    <answer fraction="0"><text>When the user deletes their account</text><feedback><text>特定於某 scenario 的動作不屬於共享的 Background 設定。</text></feedback></answer>
+    <answer fraction="0"><text>Then the dashboard is displayed</text><feedback><text>結果是各 scenario 的 Then 步驟，不是共享的 Background 設定。</text></feedback></answer>
+    <answer fraction="0"><text>Examples: | plan | price |</text><feedback><text>Examples 表驅動 Scenario Outline；它不是 Background 設定。</text></feedback></answer>
+    <generalfeedback><text>Background 容納該 feature 中每個 scenario 共通的設定，幾乎總是 Given 前置條件，例如「Given the user is logged in」。動作與結果留在各別 scenario 內。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>placeholder 對應到 Examples 欄</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 Scenario Outline 中，像 <code>&lt;price&gt;</code> 這樣的步驟 placeholder 指的是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>目前 Examples 列中標題為「price」那一欄的值，每次執行時被代入</text><feedback><text>正確——placeholder 依每一列由對應的 Examples 欄填入。</text></feedback></answer>
+    <answer fraction="0"><text>工具為每次執行產生的隨機值</text><feedback><text>placeholder 取自 Examples 表的固定值，而非隨機值。</text></feedback></answer>
+    <answer fraction="0"><text>要呼叫的 step definition 名稱</text><feedback><text>placeholder 是資料槽；step definition 是依步驟文字比對的。</text></feedback></answer>
+    <answer fraction="0"><text>工具會忽略的註解</text><feedback><text>placeholder 會被實際資料代入；它不是註解。</text></feedback></answer>
+    <generalfeedback><text>Scenario Outline 中的每個 &lt;placeholder&gt;，在每次執行時會被目前 Examples 列中對應欄標頭下的值取代。這就是一個 outline 能簡潔涵蓋許多資料案例的方式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>tag 的用途</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Gherkin scenario 上的 <strong>tag</strong>（例如 <code>@smoke</code>）主要用途是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>標示 scenario，以便執行時可過濾、分組或掛上 hook（例如只跑 @smoke 的 scenario）</text><feedback><text>正確——tag 為 scenario 分類，以供選擇性執行與 hook。</text></feedback></answer>
+    <answer fraction="0"><text>斷言某 scenario 的期望結果</text><feedback><text>結果是 Then 步驟；tag 是用來組織與過濾執行的標籤。</text></feedback></answer>
+    <answer fraction="0"><text>供 Scenario Outline 提供資料列</text><feedback><text>資料列來自 Examples；tag 是中繼資料標籤。</text></feedback></answer>
+    <answer fraction="0"><text>定義某步驟的膠合程式碼</text><feedback><text>膠合程式碼在 step definition 中；tag 只是替 scenario 分類。</text></feedback></answer>
+    <generalfeedback><text>tag 是加在 feature 或 scenario 上的中繼資料標註。它讓你挑選子集來執行（例如只跑 @smoke 或 @wip）、組織報告，並把 setup/teardown hook 掛到有標籤的 scenario 上。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Given/When/Then 的正確順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一個 scenario 中，三個主要步驟階段的慣用順序是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Given（脈絡），再 When（動作），再 Then（結果）</text><feedback><text>正確——先脈絡，再動作，再要驗證的結果。</text></feedback></answer>
+    <answer fraction="0"><text>Then，再 When，再 Given</text><feedback><text>那顛倒了流程；脈絡必須在動作與結果之前先建立。</text></feedback></answer>
+    <answer fraction="0"><text>When，再 Given，再 Then</text><feedback><text>前置條件（Given）在動作（When）之前，而非之後。</text></feedback></answer>
+    <answer fraction="0"><text>順序完全無所謂</text><feedback><text>Given/When/Then 的順序反映「脈絡到動作到結果」，應予遵循。</text></feedback></answer>
+    <generalfeedback><text>一個 scenario 讀起來像一則小故事：Given 設定脈絡，When 執行動作，Then 驗證可觀察的結果。這個「脈絡到動作到結果」的順序，正是 scenario 可讀的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>補全 scenario：動作行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>中間那一行是觸發行為的事件，用哪個關鍵字補全？</p><pre>Given the article is in the "draft" state
+___ the author publishes the article
+Then the article is visible to readers</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When</text><feedback><text>正確——發佈文章是觸發的動作，所以是 When。</text></feedback></answer>
+    <answer fraction="0"><text>Given</text><feedback><text>前置條件（草稿狀態）已經是 Given；動作是 When。</text></feedback></answer>
+    <answer fraction="0"><text>Then</text><feedback><text>Then 是「讀者可見」的結果；發佈動作是 When。</text></feedback></answer>
+    <answer fraction="0"><text>Examples</text><feedback><text>Examples 供 outline 提供資料列；動作行是 When。</text></feedback></answer>
+    <generalfeedback><text>此 scenario 從草稿狀態開始（Given），作者執行發佈動作（When），文章變得可見則是被驗證的結果（Then）。中間那一行是動作，所以用 When。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/BDD and Gherkin/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>評析：一個 scenario 混入多個行為</text></name>
+    <questiontext format="html"><text><![CDATA[<p>這個 scenario 主要的問題是什麼？</p><pre>Scenario: account operations
+  Given the balance is 100
+  When the user deposits 50
+  Then the balance is 150
+  When the user withdraws 30
+  Then the balance is 120</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它在一個 scenario 中測試了兩個不同的行為（存款與提款）；每個行為應各自成為一個 scenario，聚焦於單一 When/Then</text><feedback><text>正確——一個 scenario 一個行為，能讓失敗易於診斷、scenario 易於閱讀。</text></feedback></answer>
+    <answer fraction="0"><text>沒有問題；多組 When/Then 是建議的風格</text><feedback><text>串接多組 When/Then 會混入多個行為；應拆成各別 scenario。</text></feedback></answer>
+    <answer fraction="0"><text>Given 必須放在第一個 Then 之後</text><feedback><text>Given 正確地放在最前面；真正的問題是一個 scenario 含兩個行為。</text></feedback></answer>
+    <answer fraction="0"><text>Gherkin 步驟中不允許出現餘額</text><feedback><text>具體數值沒問題；問題在於一個 scenario 結合了兩個行為。</text></feedback></answer>
+    <generalfeedback><text>一個 scenario 應以基本上一個 When 及其 Then 呈現一個行為。串接 When/Then/When/Then 把存款與提款綑在一起，使失敗難以定位、scenario 難以閱讀。應拆成兩個聚焦的 scenario。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>修正含多個 When 的 scenario</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 scenario 為：</p><pre>Given I am on the checkout page
+When I enter my address
+When I enter my card details
+When I click "Pay"
+Then the order is confirmed</pre><p>最佳的改進是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把輸入地址與卡片資料視為設定（Given/And），只保留觸發行為的單一 When（「Pay」動作）</text><feedback><text>正確——把 When 保留給那個單一觸發動作，其餘移為設定。</text></feedback></answer>
+    <answer fraction="0"><text>把三個動作用「and」併成一個很長的 When 句子</text><feedback><text>那只是把數個動作藏進一個步驟；較好的做法是把前面的動作變成設定，保留一個觸發的 When。</text></feedback></answer>
+    <answer fraction="0"><text>把每個 When 都改成 Then</text><feedback><text>Then 是用於結果；那些動作不是結果，所以這是錯的。</text></feedback></answer>
+    <answer fraction="0"><text>刪掉 Then，只留下動作</text><feedback><text>移除結果就沒有東西可驗證了；修正之道是有一個清楚的 When。</text></feedback></answer>
+    <generalfeedback><text>受測的行為是「付款」使訂單被確認。輸入地址與卡片資料是前置條件，因此以 Given/And 設定讀起來較好，留下單一 When（「I click Pay」），其 Then 檢查確認。一個 When 一個動作可使 scenario 保持聚焦。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>宣告式優於命令式的理由</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼宣告式、業務層級的 scenario 通常優於命令式的 UI 步驟 scenario？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們表達與 UI 機制無關的意圖，因此對業務關係人清楚易讀，且在按鈕、id 或版面改變時不會壞掉</text><feedback><text>正確——宣告式 scenario 更可讀且遠較不脆弱。</text></feedback></answer>
+    <answer fraction="0"><text>它們跳過 step definition，所以跑得比較快</text><feedback><text>兩種風格都經 step definition 執行；好處是可讀性與穩健性，而非速度。</text></feedback></answer>
+    <answer fraction="0"><text>它們讓每個情況都不再需要 Examples 表</text><feedback><text>Examples 與資料驅動的 outline 有關；那和宣告式風格無關。</text></feedback></answer>
+    <answer fraction="0"><text>它們允許使用多個 When 步驟而毫無缺點</text><feedback><text>宣告式風格關乎意圖 vs UI 細節，而非允許多個 When。</text></feedback></answer>
+    <generalfeedback><text>宣告式 scenario 描述使用者想達成什麼，把 UI 機制（點擊、選擇器、欄位 id）下放到 step definition。這讓 scenario 可作為共享文件閱讀，且在 UI 重新設計時仍然穩定；命令式 scenario 則會在介面一改時就壞掉。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>誤用：在 Given 中放入斷言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>這個步驟有什麼問題？</p><pre>Given the account balance should be 100</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它把 Given 寫成斷言（「should be」）；Given 必須設定狀態（「the balance is 100」），而斷言屬於 Then</text><feedback><text>正確——Given 建立脈絡，它不驗證任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>沒有問題；Given 步驟通常含有斷言</text><feedback><text>Given 是設定，不是驗證；斷言屬於 Then。</text></feedback></answer>
+    <answer fraction="0"><text>Given 不可提及數字</text><feedback><text>數字沒問題；問題在於前置條件不應是斷言。</text></feedback></answer>
+    <answer fraction="0"><text>該步驟應改以 When 開頭</text><feedback><text>它是前置條件，所以 Given 是正確的階段；它只是應該陳述、而非斷言。</text></feedback></answer>
+    <generalfeedback><text>Given 建立一個已知的世界狀態；它應讀作一個被設定的事實（「the balance is 100」），而不是要被檢查的東西（「should be」）。把設定寫成斷言會混淆前置條件與結果——斷言屬於 Then。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>誤用：在 Then 中放入 UI 點擊</text></name>
+    <questiontext format="html"><text><![CDATA[<p>這個最後步驟的問題是什麼？</p><pre>Given I am viewing my cart
+When I proceed to checkout
+Then I click "Place order"</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Then 含有一個動作（點擊），但 Then 必須陳述可觀察的結果；該點擊是動作，屬於 When</text><feedback><text>正確——Then 驗證結果；它不應執行動作。</text></feedback></answer>
+    <answer fraction="0"><text>沒有問題；Then 步驟常常執行點擊</text><feedback><text>Then 應觀察而非行動；點擊屬於 When。</text></feedback></answer>
+    <answer fraction="0"><text>該 scenario 步驟太少而無效</text><feedback><text>步驟數不是問題；問題在於 Then 步驟錯誤地執行了動作。</text></feedback></answer>
+    <answer fraction="0"><text>Then 必須永遠放在 When 之前</text><feedback><text>Then 在 When 之後；真正的問題是該 Then 執行了動作。</text></feedback></answer>
+    <generalfeedback><text>Then 在動作之後斷言可觀察的結果。把點擊（「Place order」）放進 Then 會把結果和新動作混為一談；該點擊本身是事件，屬於 When，其後的確認則在 Then 檢查。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When 之後的 And 是動作步驟</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在此 scenario 中，<code>And</code> 這一行屬於哪個階段？</p><pre>Given I am logged in
+When I enter a search term
+And I press "Search"
+Then results are displayed</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個 When（動作）——And 承接其上方 When 的類型</text><feedback><text>正確——接在 When 之後，And 是另一個動作步驟。</text></feedback></answer>
+    <answer fraction="0"><text>一個 Given（前置條件）——And 一律是設定</text><feedback><text>And 沒有固定類型；此處它接在 When 之後，所以是動作。</text></feedback></answer>
+    <answer fraction="0"><text>一個 Then（結果）——And 一律是斷言</text><feedback><text>And 承接前一關鍵字；接在 When 之後是動作，不是結果。</text></feedback></answer>
+    <answer fraction="0"><text>它沒有類型且被略過</text><feedback><text>And 會作為真正的步驟執行，此處算作 When 階段的一部分。</text></feedback></answer>
+    <generalfeedback><text>And 延續其上方最近 Given/When/Then 的階段。因為它接在 When 之後，「And I press Search」是動作步驟。（注意像這樣的兩個 When 常暗示其中一些動作其實應為設定。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ubiquitous language 的理由</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼 BDD 強調在 scenario 中使用<strong>共通語言（ubiquitous language）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>讓業務、開發與測試以相同的領域用語描述行為，減少誤解，並使規格對每個人都保有意義</text><feedback><text>正確——共享詞彙讓整個團隊對行為的意義達成一致。</text></feedback></answer>
+    <answer fraction="0"><text>讓 scenario 只能由程式設計師撰寫</text><feedback><text>正好相反——共通語言讓非程式設計師也能閱讀與貢獻。</text></feedback></answer>
+    <answer fraction="0"><text>讓工具能自動產生產品程式碼</text><feedback><text>共通語言關乎溝通，而非程式碼產生。</text></feedback></answer>
+    <answer fraction="0"><text>讓 scenario 在測試時跑得更快</text><feedback><text>共通語言改善的是理解，而非執行速度。</text></feedback></answer>
+    <generalfeedback><text>共通語言在對話、scenario 與程式碼中使用一致的領域用語。它拉近業務所指與開發所建之間的落差，使可執行規格保持為值得信賴、對行為的共享描述。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>living documentation 的理由</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在什麼意義上，BDD scenario 是<strong>活文件（living documentation）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為它們對系統執行，通過的套件即代表文件仍與實際行為相符，因此不會悄悄過時</text><feedback><text>正確——可執行的 scenario 隨系統變化保持同步。</text></feedback></answer>
+    <answer fraction="0"><text>因為它們被印在紙上並歸檔</text><feedback><text>活文件是可執行且保持最新的，不是靜態的歸檔。</text></feedback></answer>
+    <answer fraction="0"><text>因為每次發佈後由技術文件撰寫者重寫它們</text><feedback><text>重點是執行自動使其保持最新，而非人工重寫。</text></feedback></answer>
+    <answer fraction="0"><text>因為它們只能被閱讀、永遠不能被執行</text><feedback><text>它們對系統執行；那正是使其保持鮮活的原因。</text></feedback></answer>
+    <generalfeedback><text>傳統文件會隨時間與程式碼脫節。BDD scenario 會被執行，因此若行為改變而未更新 scenario，它們就會失敗。綠燈的套件即是文件仍描述真實系統的證據——保持鮮活的文件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>指出違反「一個 scenario 一個行為」</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一組標題／步驟最明顯違反「一個 scenario 一個行為」的準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個標題為「user management」的 scenario，在單一內文中先註冊使用者、再登入、再刪除帳號，各自有其 Then</text><feedback><text>正確——那把三個各別行為綑進一個 scenario。</text></feedback></answer>
+    <answer fraction="0"><text>一個「successful login」scenario，有一個 When（登入）與一個 Then（顯示 dashboard）</text><feedback><text>那是單一、聚焦良好的行為——不算違反。</text></feedback></answer>
+    <answer fraction="0"><text>一個「withdraw within balance」scenario，有一個 Given、單一 When 與單一 Then</text><feedback><text>那是一個行為，動作與結果清楚——不算違反。</text></feedback></answer>
+    <answer fraction="0"><text>一個「empty cart shows message」scenario，有一個 Given 與單一 Then</text><feedback><text>那檢查一個行為；不算違反。</text></feedback></answer>
+    <generalfeedback><text>一個先註冊、再登入、再刪除帳號的 scenario 一次測試了三個行為。每個都應各自成為一個 scenario，使失敗得以定位，且各自讀作一個清楚的範例。聚焦於單一行為的 scenario 才是正確樣式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>誤用：在 Background 中放入動作</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼這個 Background 區塊是不良設計？</p><pre>Background:
+  Given the user is logged in
+  When the user deletes their most recent order</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Background 應含共享設定（Given），而非動作；該 When 會在每個 scenario 之前強制執行一個改變行為的動作，扭曲了測試</text><feedback><text>正確——Background 是用於共通脈絡，而非執行動作。</text></feedback></answer>
+    <answer fraction="0"><text>Background 完全不可含任何步驟</text><feedback><text>Background 確實含步驟——只是它應用於共享設定，而非動作。</text></feedback></answer>
+    <answer fraction="0"><text>沒有問題；在每個 scenario 前執行一個動作是建議做法</text><feedback><text>在每個 scenario 前執行一個改變行為的動作，正是此處的反樣式。</text></feedback></answer>
+    <answer fraction="0"><text>Background 必須出現在 scenario 之後，而非之前</text><feedback><text>Background 放在 scenario 之前；真正的問題是其中的動作步驟。</text></feedback></answer>
+    <generalfeedback><text>Background 抽出共通脈絡，應只含 Given 設定。把 When（改變狀態的動作）放進去，會在每個 scenario 之前執行該動作，混合設定與行為，並使 scenario 依賴某個副作用。動作應留在測試它的 scenario 內。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>誤用：執行動作的 Given</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個關於提款的 scenario 開頭為：</p><pre>Given the user withdraws 30 from the account
+When the balance is checked
+Then it shows 70</pre><p>缺陷是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>提款——真正受測的行為——被藏進 Given 當成設定；提款應是 When，並由 Given 建立起始餘額</text><feedback><text>正確——受測的動作必須是 When，而非藏在 Given 裡。</text></feedback></answer>
+    <answer fraction="0"><text>沒有問題；該動作作為 Given 沒問題</text><feedback><text>受測的動作應是 When；放進 Given 會誤置 scenario 的框架。</text></feedback></answer>
+    <answer fraction="0"><text>Then 必須陳述動作，而非數字</text><feedback><text>Then 正確地陳述結果；缺陷在於放進 Given 的動作。</text></feedback></answer>
+    <answer fraction="0"><text>scenario 不可檢查餘額</text><feedback><text>檢查餘額沒問題；問題在於 Given 中誤置的動作。</text></feedback></answer>
+    <generalfeedback><text>受測的行為是提款，所以它應是 When。較佳形式為：「Given the balance is 100 / When the user withdraws 30 / Then the balance is 70」。把動作藏進 Given，等於把受測的核心當成純設定。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>兩個 Examples 表的 Scenario Outline 展開</text></name>
+    <questiontext format="html"><text><![CDATA[<p>這個 Scenario Outline 產生幾個具體 scenario？</p><pre>Scenario Outline: discount by tier
+  When a &lt;tier&gt; customer checks out
+  Then the discount is &lt;pct&gt;%
+
+  Examples: standard tiers
+    | tier   | pct |
+    | bronze | 0   |
+    | silver | 5   |
+
+  Examples: premium tiers
+    | tier     | pct |
+    | gold     | 10  |
+    | platinum | 15  |
+    | diamond  | 20  |</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5——第一個表 2 個資料列，加上第二個表 3 個</text><feedback><text>正確——執行次數等於所有 Examples 表的資料列總數：2 + 3 = 5。</text></feedback></answer>
+    <answer fraction="0"><text>2——只有第一個 Examples 表計入</text><feedback><text>兩個 Examples 表都計入；總數是 2 + 3 = 5。</text></feedback></answer>
+    <answer fraction="0"><text>6——2 乘以 3</text><feedback><text>表是把各自的列數相加，而非相乘：2 + 3 = 5。</text></feedback></answer>
+    <answer fraction="0"><text>7——兩個標頭列也算執行</text><feedback><text>標頭列永遠不計入；只有 5 個資料列會執行。</text></feedback></answer>
+    <generalfeedback><text>一個 Scenario Outline 可有多個 Examples 表；它依所有表的每一資料列各執行一次。此處 2 個資料列加 3 個資料列得 5 個具體 scenario（標頭列不計入）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>spec by example 與可執行規格</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 BDD 中，「以範例定規格（specification by example）」／<strong>可執行規格</strong>是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把期望行為的具體範例寫得夠精確，使其能直接作為自動化驗收測試執行，同時兼任規格與驗證</text><feedback><text>正確——範例即規格，且可被執行以驗證系統。</text></feedback></answer>
+    <answer fraction="0"><text>先寫一份獨立的規格文件，範例在寫程式前被丟棄</text><feedback><text>範例不會被丟棄；它們本身成為可執行的規格。</text></feedback></answer>
+    <answer fraction="0"><text>範例只用來說明規格，但永遠不能被執行</text><feedback><text>重點正是它們可被執行——那才是「可執行」的意義。</text></feedback></answer>
+    <answer fraction="0"><text>它指先寫產品程式碼、之後再補範例</text><feedback><text>BDD 由範例向外驅動；範例在實作之前／同時界定行為。</text></feedback></answer>
+    <generalfeedback><text>以範例定規格把需求捕捉為具體、已達成共識的範例。以 Gherkin 撰寫並由 step definition 支撐，這些範例即作為驗收測試執行：它們界定系統應做什麼，同時驗證它確實有做，把規格與測試合為一件產物。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>與 TDD 及 ATDD 的關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p>BDD 與 TDD、ATDD 的關係為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>BDD 由 TDD 演進而來，把重心移到以共享語言描述的行為；如同 ATDD，它以與業務達成共識的驗收層級範例來驅動開發（outside-in）</text><feedback><text>正確——BDD 是聚焦行為與協作、由 TDD 演進而來，且與 ATDD 密切一致。</text></feedback></answer>
+    <answer fraction="0"><text>BDD 取代所有測試，使單元測試變得多餘</text><feedback><text>BDD 補足而非取代單元層級的 TDD；兩者各有其位。</text></feedback></answer>
+    <answer fraction="0"><text>BDD 與 TDD 無關，且禁止在寫程式前先寫測試</text><feedback><text>BDD 由 TDD 演進而來，仍偏好在實作之前／同時界定行為。</text></feedback></answer>
+    <answer fraction="0"><text>BDD 只關乎效能測試</text><feedback><text>BDD 關乎以範例界定功能行為，而非效能測試。</text></feedback></answer>
+    <generalfeedback><text>TDD 由失敗的單元測試驅動程式碼。BDD 把這重新框在以共通語言表達的行為與可讀範例上，從驗收準則 outside-in 進行——與 ATDD（驗收測試驅動開發）相似。三者在不同粒度上共享「測試／範例先行」的精神。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>單一 Examples 資料列執行一次</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個 Scenario Outline，其 Examples 表有一個標頭列和恰好一個資料列，將剛好執行一個具體 scenario。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——一個資料列代表一次執行；標頭列不計入。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>它確實執行一次：執行次數等於資料列數，此處為一。</text></feedback></answer>
+    <generalfeedback><text>Scenario Outline 產生的具體 scenario 數等於其 Examples 表的資料列數。只有一個資料列（加上永不計入的標頭），它剛好執行一次——如同一個代入了那些值的普通 scenario。</text></generalfeedback>
+  </question>
+</quiz>

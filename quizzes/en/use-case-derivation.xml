@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Use Case Test Derivation/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What a use case is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In use-case-based testing, what is a <strong>use case</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A description of how an actor interacts with the system to achieve a particular goal, told as a sequence of steps</text><feedback><text>Correct — a use case captures a goal-directed interaction between an actor and the system.</text></feedback></answer>
+    <answer fraction="0"><text>A single line of source code exercised by a test</text><feedback><text>That is a code statement; a use case is a black-box description of an interaction, not code.</text></feedback></answer>
+    <answer fraction="0"><text>A table of boolean conditions mapped to actions</text><feedback><text>That describes a decision table; a use case is a narrative of goal-directed steps.</text></feedback></answer>
+    <answer fraction="0"><text>A measure of how much of the code a test suite covers</text><feedback><text>That is code coverage; a use case describes user-visible behaviour, not coverage.</text></feedback></answer>
+    <generalfeedback><text>A use case describes, from the outside, how an actor uses the system to reach a goal. It is a black-box, requirements-level artifact and the basis for deriving acceptance/system tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an actor is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a use case, what is an <strong>actor</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An external entity (a person, role, or other system) that interacts with the system under test</text><feedback><text>Correct — an actor is an external role that participates in the use case.</text></feedback></answer>
+    <answer fraction="0"><text>An internal function or method inside the system</text><feedback><text>An actor is external to the system; internal functions are implementation, not actors.</text></feedback></answer>
+    <answer fraction="0"><text>A test case that drives the use case</text><feedback><text>A test case is derived from the use case; the actor is the external participant it represents.</text></feedback></answer>
+    <answer fraction="0"><text>A defect discovered during system testing</text><feedback><text>A defect is a fault; an actor is an external role interacting with the system.</text></feedback></answer>
+    <generalfeedback><text>An actor is any external entity — a human role, an external device, or another system — that interacts with the system to help achieve (or support) the use case's goal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Primary vs secondary actor</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What distinguishes the <strong>primary actor</strong> from a <strong>secondary actor</strong> in a use case?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The primary actor initiates the use case to achieve its goal; a secondary actor is one the system calls on to help complete the use case</text><feedback><text>Correct — the primary actor drives the goal; secondary actors provide supporting services.</text></feedback></answer>
+    <answer fraction="0"><text>The primary actor is a human and the secondary actor is always a machine</text><feedback><text>Either can be a person or a system; the distinction is who initiates versus who supports.</text></feedback></answer>
+    <answer fraction="0"><text>The primary actor is optional and the secondary actor is mandatory</text><feedback><text>The primary actor is the one whose goal the use case serves; it is not optional.</text></feedback></answer>
+    <answer fraction="0"><text>The primary actor writes the tests; the secondary actor runs them</text><feedback><text>Actors are roles in the interaction, not testing responsibilities.</text></feedback></answer>
+    <generalfeedback><text>The primary actor has the goal that the use case satisfies and triggers it; secondary (supporting) actors — such as a payment gateway or an email service — are contacted by the system to help fulfil that goal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a precondition is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does a <strong>precondition</strong> of a use case state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>What must already be true before the use case can begin</text><feedback><text>Correct — a precondition is a guaranteed starting state assumed at the outset.</text></feedback></answer>
+    <answer fraction="0"><text>What will be true after the use case finishes successfully</text><feedback><text>That is a postcondition (success guarantee), not a precondition.</text></feedback></answer>
+    <answer fraction="0"><text>The event that starts the use case</text><feedback><text>That is the trigger; a precondition is a state that must hold beforehand.</text></feedback></answer>
+    <answer fraction="0"><text>The list of steps in the main flow</text><feedback><text>Those are the basic-flow steps; a precondition is a state assumed before the flow starts.</text></feedback></answer>
+    <generalfeedback><text>A precondition is a condition guaranteed to hold before the use case starts (e.g. "the user is logged in"). It is assumed, not checked, within the flow — and it maps directly to test setup.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a postcondition is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>postcondition</strong> (success guarantee) of a use case describe?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The state that must hold after the use case completes successfully</text><feedback><text>Correct — the success guarantee is what is true once the goal is achieved.</text></feedback></answer>
+    <answer fraction="0"><text>The state that must hold before the use case can start</text><feedback><text>That is a precondition, not a postcondition.</text></feedback></answer>
+    <answer fraction="0"><text>The external event that triggers the use case</text><feedback><text>That is the trigger; the postcondition is the guaranteed outcome.</text></feedback></answer>
+    <answer fraction="0"><text>The list of actors involved</text><feedback><text>Actors are participants; the postcondition is the resulting state after success.</text></feedback></answer>
+    <generalfeedback><text>The postcondition (success guarantee) states what the system guarantees once the use case ends successfully (e.g. "the order is recorded and payment captured"). It is the natural source of a test's expected result.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the main/basic flow is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the <strong>main (basic) success flow</strong> of a use case?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The most common, straightforward sequence of steps in which everything goes right and the goal is achieved — the "happy path"</text><feedback><text>Correct — the basic flow is the normal, no-error path to success.</text></feedback></answer>
+    <answer fraction="0"><text>The sequence of steps taken when an error occurs</text><feedback><text>That is an exception flow; the basic flow is the error-free path.</text></feedback></answer>
+    <answer fraction="0"><text>An optional way to reach the goal used only under special conditions</text><feedback><text>That is an alternative flow; the basic flow is the primary path.</text></feedback></answer>
+    <answer fraction="0"><text>The list of preconditions that must hold first</text><feedback><text>Preconditions are assumed state; the basic flow is the step sequence itself.</text></feedback></answer>
+    <generalfeedback><text>The main (basic) flow is the typical success scenario — the happy path — where the actor and system proceed step by step with no errors and the goal is reached.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an alternative flow is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is an <strong>alternative flow</strong> in a use case?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Another valid way the goal can still be achieved, differing from the basic flow at some point</text><feedback><text>Correct — an alternative flow is a different but still successful path to the goal.</text></feedback></answer>
+    <answer fraction="0"><text>A path that always ends in failure without reaching the goal</text><feedback><text>A path that fails to reach the goal is an exception flow, not an alternative flow.</text></feedback></answer>
+    <answer fraction="0"><text>The state assumed before the use case starts</text><feedback><text>That is a precondition, not a flow.</text></feedback></answer>
+    <answer fraction="0"><text>The single most common sequence of steps</text><feedback><text>That is the basic flow; alternatives branch away from it.</text></feedback></answer>
+    <generalfeedback><text>An alternative flow is a variation that still reaches the goal successfully — for example paying by a different method. It branches from the basic flow and may rejoin it or reach the same success guarantee by another route.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an exception flow is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is an <strong>exception (error) flow</strong> in a use case?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The path taken when something goes wrong, describing how the failure is handled</text><feedback><text>Correct — an exception flow captures error handling when the goal cannot proceed normally.</text></feedback></answer>
+    <answer fraction="0"><text>Another successful route to the same goal</text><feedback><text>A successful variation is an alternative flow; an exception flow handles a failure.</text></feedback></answer>
+    <answer fraction="0"><text>The guaranteed state after a successful completion</text><feedback><text>That is the postcondition, not an exception flow.</text></feedback></answer>
+    <answer fraction="0"><text>The normal happy-path sequence of steps</text><feedback><text>That is the basic flow; the exception flow is the error path.</text></feedback></answer>
+    <generalfeedback><text>An exception (error) flow describes what happens when a step cannot complete normally — e.g. payment declined, item out of stock — and how the system responds (often ending without the success guarantee).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What "include" means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does an <strong>include</strong> relationship between use cases mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The included sub-use-case is always executed as a mandatory part of the base use case</text><feedback><text>Correct — include factors out common behaviour that always runs.</text></feedback></answer>
+    <answer fraction="0"><text>The included use case runs only under a special condition</text><feedback><text>Conditional insertion is extend, not include; an included use case always runs.</text></feedback></answer>
+    <answer fraction="0"><text>The included use case is an error-handling path</text><feedback><text>Include is about mandatory shared behaviour, not error handling.</text></feedback></answer>
+    <answer fraction="0"><text>The included use case replaces the base use case</text><feedback><text>Include supplements the base use case with mandatory shared steps; it does not replace it.</text></feedback></answer>
+    <generalfeedback><text>Include means a base use case always invokes the included sub-use-case — a way to factor out common, mandatory behaviour (e.g. "Checkout" includes "Validate Payment", which always runs).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What "extend" means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does an <strong>extend</strong> relationship between use cases mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The extending use case adds optional behaviour inserted at an extension point only when a condition holds</text><feedback><text>Correct — extend is conditional, optional behaviour at a defined extension point.</text></feedback></answer>
+    <answer fraction="0"><text>The extending use case always runs as a mandatory part of the base</text><feedback><text>Always-runs mandatory behaviour is include, not extend.</text></feedback></answer>
+    <answer fraction="0"><text>The extending use case lists the preconditions of the base</text><feedback><text>Extend inserts conditional behaviour; it is not a list of preconditions.</text></feedback></answer>
+    <answer fraction="0"><text>The extending use case is the primary actor of the base</text><feedback><text>An actor is a role, not a relationship between use cases.</text></feedback></answer>
+    <generalfeedback><text>Extend inserts optional/conditional behaviour into a base use case at a named extension point, and only when its condition is met (e.g. "Apply Coupon" extends "Checkout" when the shopper enters a code).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a scenario is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In use-case testing, what is a <strong>scenario</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>One specific path through the use case — the basic flow, or the basic flow combined with a particular alternative or exception</text><feedback><text>Correct — a scenario is a single concrete route through the use case.</text></feedback></answer>
+    <answer fraction="0"><text>The complete set of all flows of the use case at once</text><feedback><text>That is the whole use case; a scenario is one path through it.</text></feedback></answer>
+    <answer fraction="0"><text>A single input value used by a test</text><feedback><text>An input value is test data; a scenario is an end-to-end path.</text></feedback></answer>
+    <answer fraction="0"><text>The precondition of the use case</text><feedback><text>A precondition is assumed state; a scenario is a traversal of the flows.</text></feedback></answer>
+    <generalfeedback><text>A scenario is one instance/path through the use case: the happy path is one scenario, and each alternative or exception taken (with the rest of the flow) gives another. Scenarios are the unit from which use-case tests are derived.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the trigger</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A "Withdraw Cash" use case says: <em>"The customer must have an active account (precondition). When the customer inserts their card and requests a withdrawal, the system verifies the balance and dispenses cash; afterwards the balance is reduced."</em> Which part is the <strong>trigger</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The customer inserts their card and requests a withdrawal</text><feedback><text>Correct — that event initiates the use case, so it is the trigger.</text></feedback></answer>
+    <answer fraction="0"><text>The customer must have an active account</text><feedback><text>That is the precondition — a state assumed beforehand, not the initiating event.</text></feedback></answer>
+    <answer fraction="0"><text>The system verifies the balance and dispenses cash</text><feedback><text>Those are basic-flow steps, not the trigger that starts the use case.</text></feedback></answer>
+    <answer fraction="0"><text>Afterwards the balance is reduced</text><feedback><text>That is the postcondition — the state after success.</text></feedback></answer>
+    <generalfeedback><text>The trigger is the event that starts the use case. Here it is the customer inserting the card and requesting a withdrawal; the active account is a precondition and the reduced balance is a postcondition.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the precondition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a "Place Order" use case, which of the following is best described as a <strong>precondition</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The customer is logged in and has at least one item in the cart</text><feedback><text>Correct — that state must already hold before the use case can begin.</text></feedback></answer>
+    <answer fraction="0"><text>The system displays an order confirmation number</text><feedback><text>That is an outcome after success — a postcondition, not a precondition.</text></feedback></answer>
+    <answer fraction="0"><text>The customer clicks the "Place Order" button</text><feedback><text>That is the trigger that starts the use case, not a precondition.</text></feedback></answer>
+    <answer fraction="0"><text>The system charges the saved payment method</text><feedback><text>That is a step in the basic flow, not a precondition.</text></feedback></answer>
+    <generalfeedback><text>A precondition is state assumed to be true before the flow runs. "Logged in with a non-empty cart" must hold before ordering can start; the confirmation number is a postcondition and clicking the button is the trigger.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the basic flow</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of these is the <strong>basic (main success) flow</strong> of a "Log In" use case?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The user enters valid credentials, the system verifies them, and the user is granted access</text><feedback><text>Correct — that is the straightforward success path.</text></feedback></answer>
+    <answer fraction="0"><text>The user enters a wrong password three times and the account is locked</text><feedback><text>That is an exception flow describing failure handling.</text></feedback></answer>
+    <answer fraction="0"><text>The user resets a forgotten password via email</text><feedback><text>That is an alternative/exception path, not the main success flow.</text></feedback></answer>
+    <answer fraction="0"><text>The user is already logged in before the use case starts</text><feedback><text>That is a precondition/state, not a step sequence.</text></feedback></answer>
+    <generalfeedback><text>The basic flow is the error-free success path: valid credentials entered, verified, access granted. Wrong-password lockout is an exception flow, and password reset is a separate alternative/exception path.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Use-case testing is black-box</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Use-case-based test derivation is a black-box technique: tests are designed from the described interactions and goals, not from the source code.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — use-case testing works from the specification of behaviour, so it is black-box.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Use-case testing derives tests from the described flows and goals (the specification), which makes it black-box, not code-based.</text></feedback></answer>
+    <generalfeedback><text>Use-case testing is a black-box, specification-based technique operating at the system/acceptance level: tests come from the actor-goal interactions and their flows, independent of the internal code.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Use Case Test Derivation/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: Checkout and Validate Payment</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"Checkout" <em>always</em> performs "Validate Payment" as part of completing every checkout. What relationship is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Include — Validate Payment is mandatory shared behaviour that always runs</text><feedback><text>Correct — behaviour that always runs as part of the base is an include.</text></feedback></answer>
+    <answer fraction="0"><text>Extend — Validate Payment runs only under a condition</text><feedback><text>The phrase "always performs" means it is not conditional, so it is include, not extend.</text></feedback></answer>
+    <answer fraction="0"><text>Generalization — Validate Payment is a kind of Checkout</text><feedback><text>This is a part-of/always-runs relationship, not an is-a specialization.</text></feedback></answer>
+    <answer fraction="0"><text>An alternative flow of Checkout</text><feedback><text>It is a separate, always-invoked sub-use-case (include), not a branch within Checkout that reaches the goal another way.</text></feedback></answer>
+    <generalfeedback><text>Because Validate Payment always runs as part of every Checkout, it is factored out with an include relationship (mandatory, common behaviour).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: Apply Coupon and Checkout</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"Apply Coupon" runs during "Checkout" <em>only when</em> the shopper enters a coupon code, inserted at a defined point in the checkout flow. What relationship is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Extend — Apply Coupon is optional behaviour inserted at an extension point when the condition holds</text><feedback><text>Correct — conditional, optional insertion at an extension point is extend.</text></feedback></answer>
+    <answer fraction="0"><text>Include — Apply Coupon always runs during Checkout</text><feedback><text>It runs only when a code is entered, so it is conditional (extend), not always-run (include).</text></feedback></answer>
+    <answer fraction="0"><text>Generalization — Apply Coupon is a kind of Checkout</text><feedback><text>This is a conditional insertion, not an is-a specialization.</text></feedback></answer>
+    <answer fraction="0"><text>A precondition of Checkout</text><feedback><text>It is behaviour inserted conditionally, not a state assumed before Checkout starts.</text></feedback></answer>
+    <generalfeedback><text>Apply Coupon happens only if the shopper supplies a code, inserted at an extension point in Checkout — the defining shape of an extend relationship (optional/conditional).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario count: 1 basic + 3 alt + 2 exception</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A use case has 1 basic flow, 3 alternative flows, and 2 exception flows, each an independent path taken on its own. Using use-case scenario coverage (one test per scenario), how many test cases are needed?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — 1 + 3 + 2 = 6 independent scenarios, one test each.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 omits one flow; count the basic flow too: 1 + 3 + 2 = 6.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 counts only the alternatives; the basic and exception flows are also scenarios.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>The flows are independent single paths, so they add (=6); they do not multiply.</text></feedback></answer>
+    <generalfeedback><text>Each independent flow is one scenario: the basic flow plus each alternative plus each exception. That is 1 + 3 + 2 = 6 scenarios, hence 6 tests for scenario coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario count: 1 basic + 2 alt + 1 exception</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A use case has 1 basic flow, 2 alternative flows, and 1 exception flow, each an independent path. How many scenarios must be covered?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — 1 + 2 + 1 = 4 independent scenarios.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 omits one flow; include the basic flow: 1 + 2 + 1 = 4.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 counts only the alternatives; add the basic and exception flows.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Independent single paths add to 4, not multiply.</text></feedback></answer>
+    <generalfeedback><text>Scenario coverage needs one test per scenario: basic (1) + alternatives (2) + exception (1) = 4.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario count: 1 basic + 4 exception</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A "Log In" use case has 1 basic success flow and 4 distinct exception flows (wrong password, locked account, expired password, network error), each an independent path. How many scenarios are there?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — 1 basic + 4 exceptions = 5 scenarios.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 counts only the exceptions; the basic success flow is also a scenario.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>Each exception is its own scenario, so there are 5, not 1.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>These are independent single paths that add to 5, not multiply.</text></feedback></answer>
+    <generalfeedback><text>The basic flow is one scenario and each of the 4 exception flows is another, giving 1 + 4 = 5 scenarios for coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Precondition maps to test setup</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When turning a use-case scenario into a concrete test case, a <strong>precondition</strong> most directly becomes which part of the test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The test setup / initial state established before the test steps run</text><feedback><text>Correct — preconditions define the arranged starting state of the test.</text></feedback></answer>
+    <answer fraction="0"><text>The expected result checked at the end</text><feedback><text>The expected result comes from the postcondition, not the precondition.</text></feedback></answer>
+    <answer fraction="0"><text>The sequence of user actions (test steps)</text><feedback><text>The steps come from the flow; the precondition is the state arranged before them.</text></feedback></answer>
+    <answer fraction="0"><text>The name of the test case</text><feedback><text>The name is a label; the precondition defines the setup state.</text></feedback></answer>
+    <generalfeedback><text>A precondition specifies what must be true before the scenario runs, so it maps to the test's setup/arrange step — establishing the initial state before executing the flow.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Postcondition maps to expected result</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When deriving a test from a use-case scenario, the scenario's <strong>postcondition</strong> most directly becomes which part of the test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The expected result / assertion verified after the steps run</text><feedback><text>Correct — the postcondition states the guaranteed outcome, which is what the test checks.</text></feedback></answer>
+    <answer fraction="0"><text>The setup performed before the steps</text><feedback><text>Setup comes from the precondition; the postcondition is the expected outcome.</text></feedback></answer>
+    <answer fraction="0"><text>The trigger event</text><feedback><text>The trigger starts the flow; the postcondition is the result to verify.</text></feedback></answer>
+    <answer fraction="0"><text>The list of actors</text><feedback><text>Actors are participants; the postcondition is the checked outcome.</text></feedback></answer>
+    <generalfeedback><text>The postcondition (success guarantee) is exactly what the system promises after the scenario succeeds, so it becomes the test's expected result / assertion.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Primary actor in a scenario</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a "Pay by Card" scenario, the shopper initiates the purchase and a bank payment gateway authorises the charge. Who is the <strong>primary actor</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The shopper — they initiate the use case and hold the goal</text><feedback><text>Correct — the primary actor drives the use case toward their goal.</text></feedback></answer>
+    <answer fraction="0"><text>The payment gateway — it does the important work</text><feedback><text>The gateway is a secondary/supporting actor the system calls on; it is not the initiator.</text></feedback></answer>
+    <answer fraction="0"><text>The system under test itself</text><feedback><text>The system is not an actor; actors are external participants.</text></feedback></answer>
+    <answer fraction="0"><text>Both are equally the primary actor</text><feedback><text>There is one primary actor (the goal-holder); the gateway is secondary.</text></feedback></answer>
+    <generalfeedback><text>The shopper initiates the interaction and owns the goal, so the shopper is the primary actor; the payment gateway is a secondary (supporting) actor that the system contacts to fulfil the goal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Secondary actor in a scenario</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a "Register Account" use case, the visitor signs up and the system asks an external email service to send a confirmation message. Which is the <strong>secondary actor</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The external email service — the system calls on it to help complete the goal</text><feedback><text>Correct — a supporting actor invoked by the system is secondary.</text></feedback></answer>
+    <answer fraction="0"><text>The visitor — they signed up</text><feedback><text>The visitor initiates and owns the goal, so they are the primary actor.</text></feedback></answer>
+    <answer fraction="0"><text>The confirmation message</text><feedback><text>A message is data, not an actor.</text></feedback></answer>
+    <answer fraction="0"><text>The database table</text><feedback><text>Internal storage is part of the system, not an external actor.</text></feedback></answer>
+    <generalfeedback><text>The visitor is the primary actor (initiator, goal-holder); the external email service is a secondary/supporting actor the system contacts to help fulfil the goal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Derive a test from a described scenario</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Scenario: <em>the shopper's saved card is <strong>declined</strong>, so the order is not placed and an error is shown.</em> Which test best matches this exception scenario?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Set up an account whose card will be declined, attempt checkout, and verify no order is created and a decline error is displayed</text><feedback><text>Correct — the setup, action, and expected result all follow the declined-payment exception scenario.</text></feedback></answer>
+    <answer fraction="0"><text>Set up a valid card, checkout, and verify the order is confirmed</text><feedback><text>That tests the basic success flow, not the declined-payment exception.</text></feedback></answer>
+    <answer fraction="0"><text>Unit-test the card-number Luhn-check function in isolation</text><feedback><text>That is a low-level unit test, not the end-to-end exception scenario described.</text></feedback></answer>
+    <answer fraction="0"><text>Verify the coupon field accepts a code</text><feedback><text>That concerns a different (coupon) behaviour, not the declined-payment scenario.</text></feedback></answer>
+    <generalfeedback><text>The scenario dictates the test: arrange a card that will be declined (setup), run checkout (steps), and assert the order is not created and a decline error appears (expected result from the failure guarantee).</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Included use case always runs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An included use case is executed every time the base use case runs, whereas an extending use case runs only when its condition is met.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — include is mandatory/always-run; extend is conditional/optional.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Include is always executed; extend is conditional. The statement states this correctly.</text></feedback></answer>
+    <generalfeedback><text>Include factors out behaviour that always runs as part of the base use case; extend inserts optional behaviour at an extension point only when a condition holds.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trigger vs precondition applied</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A use case states: "The account must be in good standing. The use case begins when the customer submits a transfer request." Which statement is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>"Account in good standing" is a precondition; "customer submits a transfer request" is the trigger</text><feedback><text>Correct — assumed state is the precondition; the initiating event is the trigger.</text></feedback></answer>
+    <answer fraction="0"><text>Both are triggers</text><feedback><text>Only the initiating event is the trigger; the good-standing status is assumed state.</text></feedback></answer>
+    <answer fraction="0"><text>Both are preconditions</text><feedback><text>Submitting the request is the initiating event (trigger), not a precondition.</text></feedback></answer>
+    <answer fraction="0"><text>"Account in good standing" is the trigger; the submission is a postcondition</text><feedback><text>This reverses the roles; good standing is assumed beforehand and the submission starts the use case.</text></feedback></answer>
+    <generalfeedback><text>A precondition is assumed state before the use case begins ("account in good standing"); the trigger is the event that starts it ("customer submits a transfer request").</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Tests needed for scenario coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under use-case <strong>scenario coverage</strong>, the minimum number of test cases needed for a use case equals which of the following?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The number of scenarios (basic flow plus each alternative and each exception)</text><feedback><text>Correct — scenario coverage requires at least one test per scenario.</text></feedback></answer>
+    <answer fraction="0"><text>The number of actors in the use case</text><feedback><text>Actor count does not determine scenario coverage; the number of scenarios does.</text></feedback></answer>
+    <answer fraction="0"><text>Exactly one, for the basic flow</text><feedback><text>Covering only the basic flow leaves alternatives and exceptions untested.</text></feedback></answer>
+    <answer fraction="0"><text>The number of preconditions</text><feedback><text>Preconditions become setup, not the count of required tests.</text></feedback></answer>
+    <generalfeedback><text>Scenario coverage asks for at least one test per scenario, so the minimum test count equals the number of scenarios = basic + each alternative + each exception (when each is an independent path).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Include contributes no separate happy-path scenario</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"Checkout" <em>includes</em> "Validate Payment" (always runs). When counting the scenarios of Checkout's basic flow, how is the included Validate Payment treated?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is part of every Checkout scenario, so on the happy path it does not add a separate "with/without" scenario</text><feedback><text>Correct — because it always runs, it is baked into each scenario rather than being an optional branch.</text></feedback></answer>
+    <answer fraction="0"><text>It doubles the scenario count, one with and one without validation</text><feedback><text>A "without" case does not exist for an always-run include; that with/without split belongs to extend.</text></feedback></answer>
+    <answer fraction="0"><text>It is ignored entirely and never tested</text><feedback><text>It runs on every path, so it is exercised by those tests — it just is not an optional branch.</text></feedback></answer>
+    <answer fraction="0"><text>It becomes a precondition of Checkout</text><feedback><text>It is invoked behaviour, not assumed prior state.</text></feedback></answer>
+    <generalfeedback><text>Because an included use case always runs, it appears in every scenario of the base rather than creating an optional with/without split. (Validate Payment may of course have its own internal alternatives/exceptions, which are separate.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: generalization</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"Pay by Card" and "Pay by Cash" are both special kinds of a more general "Make Payment" use case, each refining how payment is made. What relationship is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Generalization — the specialised use cases are variants (is-a) of the general one</text><feedback><text>Correct — an is-a relationship between a general use case and its variants is generalization.</text></feedback></answer>
+    <answer fraction="0"><text>Include — Make Payment always runs both</text><feedback><text>Include is mandatory shared behaviour that always runs, not an is-a variant relationship.</text></feedback></answer>
+    <answer fraction="0"><text>Extend — the variants are conditional insertions</text><feedback><text>Extend inserts optional behaviour at an extension point; here the variants specialise a general use case (is-a).</text></feedback></answer>
+    <answer fraction="0"><text>Trigger — the variants start Make Payment</text><feedback><text>A trigger is an initiating event, not a relationship between use cases.</text></feedback></answer>
+    <generalfeedback><text>Generalization is an is-a relationship: "Pay by Card" and "Pay by Cash" are specialised forms of the general "Make Payment", inheriting its structure and refining specific steps.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Use Case Test Derivation/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Count paths with two independent optional extends</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A "Checkout" use case has two <em>independent, optional</em> extensions, each of which may or may not occur: "Apply Coupon" and "Add Gift Wrap". If we want to cover every combination of taken/not-taken (and both are truly independent), how many distinct end-to-end paths exist?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 — each extension is present or absent independently, so 2 x 2 = 4</text><feedback><text>Correct — two independent optional insertions give 2^2 = 4 combinations.</text></feedback></answer>
+    <answer fraction="0"><text>2 — one path with extensions, one without</text><feedback><text>Two independent options give four combinations, not two.</text></feedback></answer>
+    <answer fraction="0"><text>3 — basic plus one path per extension</text><feedback><text>That counts each extension once but misses the both-taken and both-absent combinations; independent options multiply to 4.</text></feedback></answer>
+    <answer fraction="0"><text>1 — extensions do not create new paths</text><feedback><text>Optional extensions do create branches; two independent ones yield 4 paths.</text></feedback></answer>
+    <generalfeedback><text>Each independent optional extension contributes a factor of 2 (taken or not). With two, the number of combinations is 2 x 2 = 4. (Basic scenario coverage might use fewer — one per extension plus the plain path — but full combination coverage of two independent options is 4.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count scenarios with a branching alternative</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A use case has 1 basic flow. At one step the payment method branches into exactly one of 3 mutually exclusive choices (cash, card, coupon), and there are additionally 2 independent exception flows. Counting one scenario per distinct payment branch plus each exception, how many scenarios are there?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5 — 3 mutually exclusive payment branches + 2 exceptions</text><feedback><text>Correct — the 3 branches are alternatives to one another (3 scenarios) plus 2 exceptions = 5.</text></feedback></answer>
+    <answer fraction="0"><text>6 — 1 basic + 3 branches + 2 exceptions</text><feedback><text>The 3 branches <em>are</em> the payment step of the basic flow (one is the "main" one), so they are not counted on top of a separate basic scenario; the count is 3 + 2 = 5.</text></feedback></answer>
+    <answer fraction="0"><text>3 — only the payment branches matter</text><feedback><text>The 2 exception flows are also scenarios; 3 + 2 = 5.</text></feedback></answer>
+    <answer fraction="0"><text>12 — multiply 3 branches by 2 exceptions by 2</text><feedback><text>Mutually exclusive branches and independent exceptions add, not multiply.</text></feedback></answer>
+    <generalfeedback><text>The three payment methods are mutually exclusive variants of the same step, giving 3 successful scenarios (one is effectively the basic flow, the others alternatives). Adding the 2 independent exceptions gives 3 + 2 = 5 scenarios.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Include vs extend: subtle mandatory case</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Every time "Transfer Funds" runs, the system records an audit-log entry — no exceptions. The audit behaviour is factored into its own use case. Which relationship fits, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Include — the audit entry is written on every run, so it is mandatory factored-out behaviour</text><feedback><text>Correct — "on every run, no exceptions" is the signature of include.</text></feedback></answer>
+    <answer fraction="0"><text>Extend — auditing is extra behaviour added to the base</text><feedback><text>Extend is conditional; here the audit always runs, which is include.</text></feedback></answer>
+    <answer fraction="0"><text>Extend — because auditing is not the primary goal</text><feedback><text>Whether it is the primary goal is irrelevant; what matters is that it always runs, making it include.</text></feedback></answer>
+    <answer fraction="0"><text>Generalization — auditing is a kind of transfer</text><feedback><text>It is shared always-run behaviour, not an is-a specialization.</text></feedback></answer>
+    <generalfeedback><text>The deciding factor is unconditional execution. Because the audit entry is written on every run without exception, it is mandatory common behaviour — an include — not a conditional extend.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Include vs extend: subtle conditional case</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During "Withdraw Cash", <em>if</em> the balance would drop below a threshold, the system also runs "Send Low-Balance Alert" at a defined point. Which relationship fits, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Extend — the alert runs only when the low-balance condition holds, inserted at an extension point</text><feedback><text>Correct — conditional insertion at an extension point is extend.</text></feedback></answer>
+    <answer fraction="0"><text>Include — the alert is part of the withdrawal</text><feedback><text>It runs only under a condition, so it is conditional (extend), not always-run (include).</text></feedback></answer>
+    <answer fraction="0"><text>Include — because it is a separate factored-out use case</text><feedback><text>Being factored out does not make it include; include additionally requires that it always runs, which it does not.</text></feedback></answer>
+    <answer fraction="0"><text>A precondition of Withdraw Cash</text><feedback><text>It is behaviour triggered mid-flow by a condition, not assumed prior state.</text></feedback></answer>
+    <generalfeedback><text>The "if the balance would drop below a threshold" guard means the alert is conditional, inserted at an extension point — the defining shape of extend, regardless of it being factored into its own use case.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the postcondition is the expected outcome</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is a scenario's <strong>postcondition</strong> the natural source of a use-case test's expected outcome?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It states the guarantee the system must deliver on that scenario, so verifying it confirms the goal was achieved</text><feedback><text>Correct — the postcondition is exactly the promised end-state, which is what the test must assert.</text></feedback></answer>
+    <answer fraction="0"><text>It lists the inputs the test must supply</text><feedback><text>Inputs relate to setup/steps; the postcondition is the guaranteed result.</text></feedback></answer>
+    <answer fraction="0"><text>It names the internal functions the code should call</text><feedback><text>Use-case testing is black-box; the postcondition describes observable outcome, not internal calls.</text></feedback></answer>
+    <answer fraction="0"><text>It counts how many scenarios exist</text><feedback><text>That is unrelated; the postcondition describes the end-state to verify.</text></feedback></answer>
+    <generalfeedback><text>A postcondition is the observable guarantee the system promises when the scenario completes. Asserting it is precisely how a test confirms the scenario's goal was met, which is why it maps to the expected outcome.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Coverage adequacy of basic-flow-only tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team writes only one test per use case, always exercising the basic (happy-path) flow. What is the main adequacy problem?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Alternative and exception flows are never exercised, so error handling and less-common paths go untested</text><feedback><text>Correct — happy-path-only testing misses the alternative and exception scenarios.</text></feedback></answer>
+    <answer fraction="0"><text>The basic flow is tested too many times, wasting effort</text><feedback><text>The problem is missing coverage of other scenarios, not over-testing the happy path.</text></feedback></answer>
+    <answer fraction="0"><text>Preconditions can no longer be set up</text><feedback><text>Preconditions are still set up for the happy path; the gap is the untested alternative/exception scenarios.</text></feedback></answer>
+    <answer fraction="0"><text>It achieves full statement coverage automatically</text><feedback><text>Happy-path tests rarely reach error-handling code, so statement coverage is not guaranteed.</text></feedback></answer>
+    <generalfeedback><text>Scenario coverage requires the basic flow plus each alternative and each exception. Testing only the happy path leaves every alternative and error-handling scenario unexercised — where many real defects hide.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Map a use-case path to a concrete test case</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You are turning one use-case scenario into a concrete test case. Which mapping of use-case parts to test parts is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Preconditions → setup; the chosen flow's steps → test steps; postcondition → expected result</text><feedback><text>Correct — that is the standard mapping from a scenario to a test case.</text></feedback></answer>
+    <answer fraction="0"><text>Postcondition → setup; preconditions → expected result; trigger → teardown</text><feedback><text>This swaps the roles; preconditions are setup and the postcondition is the expected result.</text></feedback></answer>
+    <answer fraction="0"><text>Actors → setup; preconditions → steps; postcondition → test name</text><feedback><text>Preconditions are setup and the flow's steps are the test steps; this mapping is wrong.</text></feedback></answer>
+    <answer fraction="0"><text>Trigger → expected result; steps → setup; postcondition → inputs</text><feedback><text>The postcondition is the expected result, not the inputs; this is incorrect.</text></feedback></answer>
+    <generalfeedback><text>A scenario maps cleanly onto a test case: preconditions establish the initial state (setup), the scenario's flow becomes the ordered test steps, and the postcondition becomes the expected result to assert.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Use-case testing strengths and limits vs unit testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Compared with unit testing, what best describes the strengths and limits of use-case-based testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It validates realistic end-to-end user goals and finds integration/workflow defects, but does not systematically exercise low-level internal code paths</text><feedback><text>Correct — it is strong at system/acceptance level but weak at deep code-path coverage.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees full branch coverage of every function, unlike unit testing</text><feedback><text>Being black-box and end-to-end, it does not systematically cover internal branches.</text></feedback></answer>
+    <answer fraction="0"><text>It replaces unit testing entirely because it is higher-level</text><feedback><text>The two are complementary; use-case tests miss low-level paths that unit tests target.</text></feedback></answer>
+    <answer fraction="0"><text>It is a white-box technique that inspects the control-flow graph</text><feedback><text>Use-case testing is black-box; it does not analyse the control-flow graph.</text></feedback></answer>
+    <generalfeedback><text>Use-case testing excels at validating end-to-end, realistic user goals and surfacing integration/workflow problems at the system/acceptance level. Because it is black-box, it does not systematically exercise low-level code paths, so it complements rather than replaces unit testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Combining an alternative with an exception</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A use case has a basic flow, 1 alternative flow (pay by coupon instead of card), and 1 exception (payment declined) that can occur on <em>either</em> the card path or the coupon path. If you cover the basic (card) success, the coupon success, and the decline on each path separately, how many scenarios is that?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 — card-success, coupon-success, card-decline, coupon-decline</text><feedback><text>Correct — the exception combines with each of the two success paths, giving 2 + 2 = 4.</text></feedback></answer>
+    <answer fraction="0"><text>3 — basic, alternative, exception</text><feedback><text>Because the decline can happen on either path, it yields two distinct exception scenarios, not one; total is 4.</text></feedback></answer>
+    <answer fraction="0"><text>2 — one success and one failure</text><feedback><text>There are two success paths and the failure applies to each, giving 4 scenarios.</text></feedback></answer>
+    <answer fraction="0"><text>6 — every flow times every other</text><feedback><text>The decline attaches to each of the 2 payment paths only, giving 4, not 6.</text></feedback></answer>
+    <generalfeedback><text>Two success paths (card, coupon) plus the decline exception occurring on each give 2 successes + 2 declines = 4 scenarios. When an exception can arise on multiple paths, it multiplies with those paths rather than counting once.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why use-case tests miss low-level paths</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does use-case-based testing typically fail to exercise many low-level code paths (such as a rare internal branch inside a helper function)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It derives tests from external user goals and flows, not from the code structure, so internal branches are only hit incidentally</text><feedback><text>Correct — being black-box and goal-driven, it does not target internal structure.</text></feedback></answer>
+    <answer fraction="0"><text>Because use cases forbid running any code during testing</text><feedback><text>Use-case tests do run the system; they simply are not designed around internal code structure.</text></feedback></answer>
+    <answer fraction="0"><text>Because use-case tests can only be run manually</text><feedback><text>They can be automated; the issue is that their design ignores code structure, not the run mode.</text></feedback></answer>
+    <answer fraction="0"><text>Because low-level branches are always dead code</text><feedback><text>Internal branches are usually live; use-case tests just are not designed to target them.</text></feedback></answer>
+    <generalfeedback><text>Use-case testing is black-box: tests come from actor goals and observable flows, not from the control-flow graph. Deep or rare internal branches are exercised only by coincidence, which is why structural (white-box) techniques are needed alongside it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimal scenario-coverage test set</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A use case has 1 basic flow, 2 alternative flows, and 3 exception flows, each an independent single path. What is the minimum number of tests to achieve use-case scenario coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6 — one test per scenario (1 + 2 + 3)</text><feedback><text>Correct — scenario coverage needs at least one test per scenario, so 1 + 2 + 3 = 6.</text></feedback></answer>
+    <answer fraction="0"><text>5 — omit the basic flow since alternatives cover it</text><feedback><text>The basic flow is its own scenario and must be covered; the total is 6.</text></feedback></answer>
+    <answer fraction="0"><text>3 — only the exceptions need dedicated tests</text><feedback><text>The basic and alternative flows are scenarios too; the total is 6.</text></feedback></answer>
+    <answer fraction="0"><text>36 — every flow combined with every other</text><feedback><text>Independent single paths add to 6; they are not combined pairwise.</text></feedback></answer>
+    <generalfeedback><text>Scenario coverage requires at least one test per scenario. With independent paths that is 1 basic + 2 alternatives + 3 exceptions = 6 tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Success guarantee vs minimal (failure) guarantee</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An exception scenario ("payment declined") ends without achieving the goal. Which postcondition should the derived test assert?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The failure/minimal guarantee — e.g. no order is created and the account is left unchanged with an error shown</text><feedback><text>Correct — a failure scenario's expected result is its minimal (failure) guarantee, not the success guarantee.</text></feedback></answer>
+    <answer fraction="0"><text>The success guarantee — the order is placed and payment captured</text><feedback><text>The scenario failed, so the success guarantee must not hold; assert the failure guarantee instead.</text></feedback></answer>
+    <answer fraction="0"><text>No postcondition at all, since it failed</text><feedback><text>Even failed scenarios have a guaranteed safe end-state (the minimal guarantee) that the test should verify.</text></feedback></answer>
+    <answer fraction="0"><text>The precondition, re-checked at the end</text><feedback><text>The expected result is the failure guarantee, not the precondition.</text></feedback></answer>
+    <generalfeedback><text>Use cases specify a success guarantee (for successful paths) and a minimal/failure guarantee (the safe state left after failure). An exception scenario's test asserts the failure guarantee — e.g. no order created, no charge, an error shown.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Concrete test from preconditions, steps, postcondition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Use case "Return Item": <em>Precondition: the customer has a delivered order within the return window. Basic flow: customer selects the item, chooses a reason, and submits the return; the system issues a return label and marks the item as pending return. Postcondition: a return is recorded and a label is issued.</em> Which concrete test correctly realises this scenario?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Setup: an account with a delivered, in-window order. Steps: select the item, choose a reason, submit. Expected: a return record exists and a return label is issued</text><feedback><text>Correct — preconditions become setup, the flow becomes steps, and the postcondition becomes the expected result.</text></feedback></answer>
+    <answer fraction="0"><text>Setup: an account with no orders. Steps: submit a return. Expected: a label is issued</text><feedback><text>The precondition (a delivered in-window order) is not satisfied, so this does not realise the scenario.</text></feedback></answer>
+    <answer fraction="0"><text>Setup: a delivered in-window order. Steps: submit a return. Expected: nothing changes</text><feedback><text>The postcondition promises a recorded return and issued label, so "nothing changes" is the wrong expected result.</text></feedback></answer>
+    <answer fraction="0"><text>Setup: none. Steps: call the label-printing function directly. Expected: a PDF is produced</text><feedback><text>That is a unit test of one function, not the end-to-end use-case scenario with its preconditions and postcondition.</text></feedback></answer>
+    <generalfeedback><text>The scenario maps directly: the precondition (delivered, in-window order) is the setup; the basic-flow steps are the test steps; and the postcondition (return recorded, label issued) is the expected result to assert.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Extend adds a with/without scenario split</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"Book Flight" is <em>extended</em> by "Add Extra Baggage" (optional, at an extension point). For scenario coverage of this single optional extension, how many scenarios must you cover, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2 — one scenario where the extension is taken and one where it is not, because it is conditional</text><feedback><text>Correct — a conditional extension needs both the with-extension and without-extension paths covered.</text></feedback></answer>
+    <answer fraction="0"><text>1 — the extension is always part of Book Flight</text><feedback><text>An extension is conditional, so it is not always part of the flow; both with and without must be covered.</text></feedback></answer>
+    <answer fraction="0"><text>0 — optional behaviour need not be tested</text><feedback><text>Optional behaviour still needs testing; both branches (taken and not) are scenarios.</text></feedback></answer>
+    <answer fraction="0"><text>4 — every combination of two conditions</text><feedback><text>There is a single optional extension, giving 2 scenarios (taken / not taken), not 4.</text></feedback></answer>
+    <generalfeedback><text>Because an extend is conditional, covering it means testing both the path where the extension occurs and the path where it does not — two scenarios for a single optional extension. (Contrast include, which always runs and adds no such split.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario coverage vs exhaustive path testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A complex use case has many optional extensions and exceptions, so the number of ways to combine every flow is enormous. Why does use-case <strong>scenario coverage</strong> normally test one path per scenario (basic + each alternative + each exception) rather than every possible combination of flows?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Combining every flow explodes combinatorially, so scenario coverage takes each flow at least once as a practical, bounded criterion</text><feedback><text>Correct — one-path-per-scenario is a tractable compromise against combinatorial explosion.</text></feedback></answer>
+    <answer fraction="0"><text>Because alternative and exception flows never contain defects</text><feedback><text>They often do contain defects — scenario coverage tests each precisely because they matter; it just avoids the full combination explosion.</text></feedback></answer>
+    <answer fraction="0"><text>Because only the basic flow is worth testing</text><feedback><text>Scenario coverage tests every flow at least once, not just the basic flow.</text></feedback></answer>
+    <answer fraction="0"><text>Because testing every combination is required and always feasible</text><feedback><text>Testing every combination is usually infeasible due to combinatorial explosion, which is why scenario coverage is used.</text></feedback></answer>
+    <generalfeedback><text>The number of full flow combinations grows multiplicatively and quickly becomes intractable. Scenario coverage exercises each flow (basic, each alternative, each exception) at least once — a bounded, cost-effective criterion — accepting that not every combination of flows is tried.</text></generalfeedback>
+  </question>
+</quiz>
