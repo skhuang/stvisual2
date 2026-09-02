@@ -47797,6 +47797,2568 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "property-based-testing": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What property-based testing is",
+          "text": "<p>What is the core idea of <strong>property-based testing (PBT)</strong>?</p>",
+          "answers": [
+            {
+              "text": "Instead of hand-writing example inputs, you state a property (a predicate expected to hold for all valid inputs) and a framework generates many random inputs trying to falsify it",
+              "fraction": 100,
+              "feedback": "Correct — PBT checks a general property against many auto-generated inputs."
+            },
+            {
+              "text": "It formally proves that the program meets its complete specification",
+              "fraction": 0,
+              "feedback": "PBT can find counterexamples but does not prove correctness."
+            },
+            {
+              "text": "It measures how many branches a fixed test suite covers",
+              "fraction": 0,
+              "feedback": "That is coverage measurement; PBT is about generating inputs to check a property."
+            },
+            {
+              "text": "It runs a single fixed input many times to check for flakiness",
+              "fraction": 0,
+              "feedback": "PBT varies the input across a whole space, not one fixed input repeated."
+            }
+          ],
+          "generalFeedback": "In property-based testing you describe a property that should hold for every input, and the framework (QuickCheck, Hypothesis, fast-check, ScalaCheck) generates many random inputs to try to break it. A properties-over-a-space approach complements example tests, which check individual points.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a property is",
+          "text": "<p>In PBT, what is a <strong>property</strong>?</p>",
+          "answers": [
+            {
+              "text": "A predicate about the code's behavior that should hold for every valid input (e.g. \"the output list is always sorted\")",
+              "fraction": 100,
+              "feedback": "Correct — a property is a rule expected to hold across all inputs."
+            },
+            {
+              "text": "A single input paired with its exact expected output",
+              "fraction": 0,
+              "feedback": "That describes an example (unit) test case, not a property."
+            },
+            {
+              "text": "A measurement of the program's running time",
+              "fraction": 0,
+              "feedback": "That is a performance metric, not a correctness property."
+            },
+            {
+              "text": "The random seed used to reproduce a run",
+              "fraction": 0,
+              "feedback": "A seed concerns reproducibility, not the predicate being checked."
+            }
+          ],
+          "generalFeedback": "A property is a universally-quantified statement about the code: it should hold for all inputs the generator can produce. Examples include round-trip, invariant, idempotence, and commutativity properties. The framework searches for an input that violates it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a generator is",
+          "text": "<p>What is a <strong>generator</strong> (also called an <em>arbitrary</em>) in PBT?</p>",
+          "answers": [
+            {
+              "text": "A recipe that produces random values of a given type to feed as test inputs",
+              "fraction": 100,
+              "feedback": "Correct — generators supply the random inputs the property is checked against."
+            },
+            {
+              "text": "The exact expected output computed for each input",
+              "fraction": 0,
+              "feedback": "A generator makes inputs, not expected outputs."
+            },
+            {
+              "text": "The property predicate that must hold",
+              "fraction": 0,
+              "feedback": "The predicate is the property; the generator produces the inputs it is tested on."
+            },
+            {
+              "text": "The function under test itself",
+              "fraction": 0,
+              "feedback": "The generator feeds inputs to the function under test; it is not that function."
+            }
+          ],
+          "generalFeedback": "A generator (arbitrary) knows how to construct random values of a type — integers, strings, lists, records, trees. The framework draws many values from it and checks the property on each. Generators can be composed and constrained to shape the distribution of inputs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What shrinking is",
+          "text": "<p>What is <strong>shrinking</strong> in property-based testing?</p>",
+          "answers": [
+            {
+              "text": "When a random input falsifies the property, the framework automatically reduces it to a smaller, minimal input that still fails, making the counterexample easier to understand",
+              "fraction": 100,
+              "feedback": "Correct — shrinking searches for a minimal still-failing input."
+            },
+            {
+              "text": "It deletes tests that pass to make the report shorter",
+              "fraction": 0,
+              "feedback": "Shrinking reduces a failing input, not the set of passing tests."
+            },
+            {
+              "text": "It compresses the test-output log file on disk",
+              "fraction": 0,
+              "feedback": "Shrinking is about simplifying a counterexample, not compressing files."
+            },
+            {
+              "text": "It lowers the number of generated inputs to make the run faster",
+              "fraction": 0,
+              "feedback": "That would be reducing the case count; shrinking instead minimizes a discovered failing input."
+            }
+          ],
+          "generalFeedback": "A randomly found counterexample is often large and noisy. Shrinking repeatedly tries simpler variants (shorter lists, smaller numbers) and keeps only those that still fail, converging on a minimal failing input. This makes the root cause far easier to see, which is why shrinking speeds debugging.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a counterexample is",
+          "text": "<p>What is a <strong>counterexample</strong> in PBT?</p>",
+          "answers": [
+            {
+              "text": "A concrete input for which the property fails, demonstrating a defect",
+              "fraction": 100,
+              "feedback": "Correct — a counterexample is a witnessing input that violates the property."
+            },
+            {
+              "text": "An input for which the property holds",
+              "fraction": 0,
+              "feedback": "An input that holds is a passing case, not a counterexample."
+            },
+            {
+              "text": "The expected output value for a chosen input",
+              "fraction": 0,
+              "feedback": "A counterexample is an input that breaks the property, not an expected output."
+            },
+            {
+              "text": "A hand-written example test that passes",
+              "fraction": 0,
+              "feedback": "A passing example is not a counterexample; a counterexample falsifies the property."
+            }
+          ],
+          "generalFeedback": "When the framework finds an input that makes the property false, that input is a counterexample: proof that the code (or the property) is wrong. The framework then shrinks it to a minimal form and reports it, along with the seed for reproduction.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Property test versus example test",
+          "text": "<p>How does a <strong>property-based test</strong> differ from a traditional <strong>example-based (unit) test</strong>?</p>",
+          "answers": [
+            {
+              "text": "An example test checks one specific input-output point; a property test checks a rule across a whole space of generated inputs",
+              "fraction": 100,
+              "feedback": "Correct — examples cover points, properties cover a space."
+            },
+            {
+              "text": "They are identical; both check one fixed input against one expected value",
+              "fraction": 0,
+              "feedback": "A property test generates many inputs and checks a general rule, unlike a single example."
+            },
+            {
+              "text": "A property test needs the exact expected output for every generated input",
+              "fraction": 0,
+              "feedback": "A property states a rule that avoids needing a per-input expected value."
+            },
+            {
+              "text": "An example test generates random inputs while a property test uses fixed ones",
+              "fraction": 0,
+              "feedback": "It is the reverse: property tests generate inputs; example tests use fixed ones."
+            }
+          ],
+          "generalFeedback": "Example tests pin down specific, important points (\"f(2) == 4\"). Property tests state a rule (\"for all x, f(x) >= 0\") and let a generator explore many inputs. The two are complementary: examples are precise regressions, properties give broad coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "QuickCheck and Hypothesis",
+          "text": "<p>What are <strong>QuickCheck</strong>, <strong>Hypothesis</strong>, <strong>fast-check</strong>, and <strong>ScalaCheck</strong>?</p>",
+          "answers": [
+            {
+              "text": "Property-based testing frameworks (for Haskell, Python, JavaScript/TypeScript, and Scala respectively)",
+              "fraction": 100,
+              "feedback": "Correct — these are PBT libraries for different languages."
+            },
+            {
+              "text": "Code coverage measurement tools",
+              "fraction": 0,
+              "feedback": "They are PBT frameworks, not coverage tools."
+            },
+            {
+              "text": "Static type checkers",
+              "fraction": 0,
+              "feedback": "They run tests with generated inputs; they are not type checkers."
+            },
+            {
+              "text": "Continuous-integration build systems",
+              "fraction": 0,
+              "feedback": "They are testing libraries, not CI/build systems."
+            }
+          ],
+          "generalFeedback": "QuickCheck (Haskell) pioneered the approach; Hypothesis (Python), fast-check (JS/TS), and ScalaCheck (Scala) bring the same idea to other languages: declare properties and generators, and the tool generates inputs and shrinks failures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid property for list reverse",
+          "text": "<p>Which is a valid property of a correct list <strong>reverse</strong> function?</p>",
+          "answers": [
+            {
+              "text": "reverse(reverse(xs)) == xs for all lists xs",
+              "fraction": 100,
+              "feedback": "Correct — reversing twice returns the original list (reverse is its own inverse)."
+            },
+            {
+              "text": "reverse(xs) == xs for all lists xs",
+              "fraction": 0,
+              "feedback": "That holds only for palindromic lists, not all lists."
+            },
+            {
+              "text": "reverse(xs) has a different length from xs",
+              "fraction": 0,
+              "feedback": "Reversing preserves the length; it only changes the order."
+            },
+            {
+              "text": "reverse(xs) doubles the list",
+              "fraction": 0,
+              "feedback": "Reverse rearranges the same elements; it does not add any."
+            }
+          ],
+          "generalFeedback": "Reverse is an involution: applying it twice yields the original list, so reverse(reverse(xs)) == xs is a valid round-trip property. Note reverse(xs) == xs is false in general (only palindromes satisfy it), which makes it a good distractor.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of idempotence",
+          "text": "<p>A function <code>f</code> is <strong>idempotent</strong> when which property holds for all x?</p>",
+          "answers": [
+            {
+              "text": "f(f(x)) == f(x)",
+              "fraction": 100,
+              "feedback": "Correct — applying an idempotent function again changes nothing after the first application."
+            },
+            {
+              "text": "f(x) == x",
+              "fraction": 0,
+              "feedback": "That is the identity function, a stricter and different condition."
+            },
+            {
+              "text": "f(a, b) == f(b, a)",
+              "fraction": 0,
+              "feedback": "That is commutativity, not idempotence."
+            },
+            {
+              "text": "f(f(x)) == x",
+              "fraction": 0,
+              "feedback": "That is involution (self-inverse), such as reverse or negate, not idempotence."
+            }
+          ],
+          "generalFeedback": "Idempotence means f(f(x)) == f(x): once applied, applying again has no further effect. Examples include sort, abs, and normalize. It differs from the identity (f(x) == x) and from involution (f(f(x)) == x, e.g. reverse).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a round-trip property",
+          "text": "<p>A <strong>round-trip (inverse)</strong> property for an <code>encode</code>/<code>decode</code> pair states which of the following?</p>",
+          "answers": [
+            {
+              "text": "decode(encode(x)) == x for all x",
+              "fraction": 100,
+              "feedback": "Correct — encoding then decoding must return the original value."
+            },
+            {
+              "text": "encode(x) == decode(x) for all x",
+              "fraction": 0,
+              "feedback": "Encode and decode are inverses, not equal functions."
+            },
+            {
+              "text": "encode(x) == x for all x",
+              "fraction": 0,
+              "feedback": "Encoding transforms the value; it does not leave it unchanged."
+            },
+            {
+              "text": "decode(x) == x for all x",
+              "fraction": 0,
+              "feedback": "Decoding is the inverse of encoding, not the identity."
+            }
+          ],
+          "generalFeedback": "A round-trip property says that decoding undoes encoding: decode(encode(x)) == x for every value x. This is a very common and powerful property for serializers, codecs, and parser/printer pairs, because it needs no per-input expected value.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Seed and reproducibility",
+          "text": "<p>Why do PBT frameworks report a random <strong>seed</strong> with a failure?</p>",
+          "answers": [
+            {
+              "text": "Recording the seed lets you re-run the exact same generated inputs to reproduce the failure deterministically",
+              "fraction": 100,
+              "feedback": "Correct — the seed makes a random run reproducible."
+            },
+            {
+              "text": "The seed is the expected output of the failing test",
+              "fraction": 0,
+              "feedback": "The seed drives the random generator; it is not an expected output."
+            },
+            {
+              "text": "The seed measures how much code the test covered",
+              "fraction": 0,
+              "feedback": "Coverage is separate; the seed only controls input generation."
+            },
+            {
+              "text": "The seed proves the property holds for all inputs",
+              "fraction": 0,
+              "feedback": "A seed reproduces one run; it proves nothing about all inputs."
+            }
+          ],
+          "generalFeedback": "Random generation would be hard to debug if every run differed. Frameworks seed their random source and report the seed on failure, so you can replay the identical sequence of inputs and reproduce (and then fix) the bug reliably.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "A passing run does not prove correctness",
+          "text": "<p>If a property-based test runs thousands of random inputs and finds no counterexample, the property is thereby proven to hold for all possible inputs.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "No — a passing run only means no counterexample was found among the generated inputs, not that none exists."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — PBT samples finitely many inputs; a clean run raises confidence but does not prove the property."
+            }
+          ],
+          "generalFeedback": "Like testing in general, PBT can show the presence of faults (a counterexample) but not their absence. The input space is usually unbounded, and only finitely many inputs are tried, so a passing run is strong evidence, not a proof."
+        },
+        {
+          "type": "truefalse",
+          "name": "Shrinking only reports still-failing inputs",
+          "text": "<p>When shrinking a failing input, the framework only reports a reduced input that still causes the property to fail.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a shrink candidate is kept only if it still triggers the failure."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Shrinking preserves the failure: it never reports a reduced input that passes."
+            }
+          ],
+          "generalFeedback": "Shrinking explores simpler variants of the failing input but discards any candidate that no longer fails. The final reported counterexample is a minimal input that still violates the property, so it does not change the pass/fail verdict."
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid property for absolute value",
+          "text": "<p>Which is a valid property of a correct <code>abs</code> (absolute value) function over the reals?</p>",
+          "answers": [
+            {
+              "text": "abs(x) >= 0 for all x",
+              "fraction": 100,
+              "feedback": "Correct — an absolute value is never negative."
+            },
+            {
+              "text": "abs(x) > 0 for all x",
+              "fraction": 0,
+              "feedback": "Fails at x = 0, where abs(0) = 0, which is not greater than 0."
+            },
+            {
+              "text": "abs(x) == x for all x",
+              "fraction": 0,
+              "feedback": "Holds only for non-negative x; fails for negative x."
+            },
+            {
+              "text": "abs(x) == -x for all x",
+              "fraction": 0,
+              "feedback": "Holds only for non-positive x; fails for positive x."
+            }
+          ],
+          "generalFeedback": "abs(x) >= 0 holds for every real x, so it is a valid property. Note abs(x) > 0 is subtly wrong because of x = 0, and both abs(x) == x and abs(x) == -x are true only on half the domain. A stronger property is abs(-x) == abs(x).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid property for map",
+          "text": "<p>For <code>map(f, xs)</code> (apply <code>f</code> to each element of a list), which is a valid property?</p>",
+          "answers": [
+            {
+              "text": "len(map(f, xs)) == len(xs) for all lists xs",
+              "fraction": 100,
+              "feedback": "Correct — mapping preserves length; it transforms elements one-for-one."
+            },
+            {
+              "text": "len(map(f, xs)) == 0 for all lists xs",
+              "fraction": 0,
+              "feedback": "Mapping keeps every element, so the length is unchanged, not zero."
+            },
+            {
+              "text": "len(map(f, xs)) == 2 * len(xs) for all lists xs",
+              "fraction": 0,
+              "feedback": "Mapping is one-to-one; it does not double the length."
+            },
+            {
+              "text": "map reverses the order of the elements",
+              "fraction": 0,
+              "feedback": "Map preserves order; each element is transformed in place."
+            }
+          ],
+          "generalFeedback": "map applies f to each element without adding, dropping, or reordering elements, so len(map(f, xs)) == len(xs) is a valid length-preservation invariant — a simple structural property that holds regardless of f.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Best property for a serializer/parser",
+          "text": "<p>You are testing a <code>serialize</code> function and its matching <code>parse</code> function. Which is the best single property to check?</p>",
+          "answers": [
+            {
+              "text": "parse(serialize(x)) == x for all values x (round-trip)",
+              "fraction": 100,
+              "feedback": "Correct — serializing then parsing must recover the original value."
+            },
+            {
+              "text": "serialize(x) is a non-empty string for all x",
+              "fraction": 0,
+              "feedback": "True but far too weak — it says nothing about recovering x."
+            },
+            {
+              "text": "parse(serialize(x)) does not throw an exception",
+              "fraction": 0,
+              "feedback": "Not crashing is weak; it allows a wrong parsed value to pass."
+            },
+            {
+              "text": "serialize(x) == serialize(x)",
+              "fraction": 0,
+              "feedback": "That is trivially true and tests nothing."
+            }
+          ],
+          "generalFeedback": "The round-trip property parse(serialize(x)) == x pins down the essential contract: the pair is a faithful inverse. The distractors are either tautologies or so weak that a broken implementation could still satisfy them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Complete property for sort",
+          "text": "<p>Which property <em>fully</em> captures correctness of a <strong>sort</strong> function?</p>",
+          "answers": [
+            {
+              "text": "The output is in non-decreasing order AND is a permutation (same multiset of elements) of the input",
+              "fraction": 100,
+              "feedback": "Correct — ordering plus the permutation condition together specify a correct sort."
+            },
+            {
+              "text": "The output is in non-decreasing order",
+              "fraction": 0,
+              "feedback": "Insufficient alone — returning [] is ordered but wrong; you also need the permutation condition."
+            },
+            {
+              "text": "The output has the same length as the input",
+              "fraction": 0,
+              "feedback": "Necessary but far from sufficient; wrong elements of the right length would pass."
+            },
+            {
+              "text": "The output's sum equals the input's sum",
+              "fraction": 0,
+              "feedback": "Necessary but insufficient — e.g. input [1,3] and output [2,2] share a sum yet [2,2] is not a permutation."
+            }
+          ],
+          "generalFeedback": "A correct sort must be ordered and must contain exactly the same elements (as a multiset) as the input. Checking only ordering, only length, or only the sum each admits wrong implementations. The permutation (multiset-equality) condition is the indispensable second half.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why \"sorted\" alone is insufficient",
+          "text": "<p>Why is \"the output is sorted\" <strong>insufficient</strong> as the only property for a sort function?</p>",
+          "answers": [
+            {
+              "text": "A broken implementation that returns [] (or drops/duplicates elements) still produces sorted output and passes; you must also require the output to be a permutation of the input",
+              "fraction": 100,
+              "feedback": "Correct — \"return []\" trivially satisfies \"is sorted\", so the permutation condition is essential."
+            },
+            {
+              "text": "Because a correct sort is not always ordered",
+              "fraction": 0,
+              "feedback": "A correct sort is always ordered; ordering is necessary, just not sufficient."
+            },
+            {
+              "text": "Because checking order is computationally impossible",
+              "fraction": 0,
+              "feedback": "Checking order is trivial; the issue is that order alone permits wrong outputs."
+            },
+            {
+              "text": "Because sorting has no checkable properties",
+              "fraction": 0,
+              "feedback": "Sorting has strong properties; ordered plus permutation together specify it."
+            }
+          ],
+          "generalFeedback": "The empty list is sorted, so a function that always returns [] passes an \"is sorted\" check while being completely wrong. So do functions that drop or duplicate elements. Adding the permutation (multiset) requirement rules these out — a classic lesson in choosing a sufficient property.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Property for a normalize function",
+          "text": "<p>A function <code>normalize</code> converts a string to a canonical form (e.g. Unicode NFC, trim, lowercase). Which property should hold?</p>",
+          "answers": [
+            {
+              "text": "normalize(normalize(s)) == normalize(s) for all s (idempotence)",
+              "fraction": 100,
+              "feedback": "Correct — normalizing an already-normalized string changes nothing."
+            },
+            {
+              "text": "normalize(s) == s for all s",
+              "fraction": 0,
+              "feedback": "False — normalizing a non-canonical string changes it."
+            },
+            {
+              "text": "normalize(normalize(s)) == s for all s",
+              "fraction": 0,
+              "feedback": "That is involution, which does not hold: the first normalize may already have altered s."
+            },
+            {
+              "text": "len(normalize(s)) == len(s) for all s",
+              "fraction": 0,
+              "feedback": "Trimming or Unicode composition can change the length, so this is false."
+            }
+          ],
+          "generalFeedback": "Canonicalization is idempotent: once a string is in canonical form, normalizing again leaves it unchanged, so normalize(normalize(s)) == normalize(s). It is not the identity (it can change s) and not an involution (it cannot recover the original from the canonical form).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What shrinking reports for a failing list",
+          "text": "<p>A property fails on the randomly generated list <code>[7, -3, 0, 12, 5, -8, 4]</code>. What will a shrinking-capable framework typically report?</p>",
+          "answers": [
+            {
+              "text": "A minimized input that still fails — for instance the shortest/simplest list (perhaps a single element or [ ]) that reproduces the failure",
+              "fraction": 100,
+              "feedback": "Correct — shrinking converges on a minimal still-failing input."
+            },
+            {
+              "text": "The original seven-element list, unchanged",
+              "fraction": 0,
+              "feedback": "Shrinking works to reduce the input rather than report it as-is."
+            },
+            {
+              "text": "An input that now passes the property",
+              "fraction": 0,
+              "feedback": "Shrinking never reports a passing input; the reduced input must still fail."
+            },
+            {
+              "text": "A completely different random list unrelated to the failure",
+              "fraction": 0,
+              "feedback": "Shrinking simplifies the failing input; it does not switch to an unrelated one."
+            }
+          ],
+          "generalFeedback": "Shrinking repeatedly tries simpler versions (drop elements, reduce magnitudes) and keeps only those that still fail, ending at a minimal counterexample. This isolates the essential trigger and makes debugging far quicker than staring at the original noisy input.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Reproducing a CI failure via seed",
+          "text": "<p>A CI run reports a property failure together with a <strong>seed</strong>. To debug it locally, what should a developer do?</p>",
+          "answers": [
+            {
+              "text": "Re-run the test with the same seed to regenerate the identical inputs and reproduce the failure",
+              "fraction": 100,
+              "feedback": "Correct — replaying the seed reproduces the exact failing run."
+            },
+            {
+              "text": "Increase the number of generated cases and hope it recurs",
+              "fraction": 0,
+              "feedback": "Unreliable — the seed already lets you reproduce it exactly, without guessing."
+            },
+            {
+              "text": "Disable shrinking so the test stops failing",
+              "fraction": 0,
+              "feedback": "Disabling shrinking hides the minimal counterexample; it does not fix or reproduce anything."
+            },
+            {
+              "text": "Change the property until the test passes",
+              "fraction": 0,
+              "feedback": "That masks the bug rather than diagnosing it."
+            }
+          ],
+          "generalFeedback": "The seed captures the exact random choices of a run. Re-running with it deterministically regenerates the same (already shrunk) inputs, so the developer sees the identical failure locally and can step through it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which function is idempotent",
+          "text": "<p>For which function <code>f</code> is the property <code>f(f(x)) == f(x)</code> valid for all x?</p>",
+          "answers": [
+            {
+              "text": "Taking the absolute value: abs",
+              "fraction": 100,
+              "feedback": "Correct — abs(abs(x)) == abs(x), so abs is idempotent."
+            },
+            {
+              "text": "Incrementing by one: inc(x) = x + 1",
+              "fraction": 0,
+              "feedback": "Not idempotent — inc(inc(x)) = x + 2, which differs from inc(x) = x + 1."
+            },
+            {
+              "text": "Reversing a list: reverse",
+              "fraction": 0,
+              "feedback": "Reverse is an involution (reverse(reverse(x)) == x), not idempotent."
+            },
+            {
+              "text": "Negating a number: neg(x) = -x",
+              "fraction": 0,
+              "feedback": "Negation is an involution (neg(neg(x)) == x), not idempotent."
+            }
+          ],
+          "generalFeedback": "abs is idempotent because once a value is non-negative, taking abs again does nothing. Increment fails (adds 2 vs 1), and reverse/negate are involutions (applying twice returns the original), which is a different property.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A commutativity property",
+          "text": "<p>Which operation satisfies a valid <strong>commutativity</strong> property <code>f(a, b) == f(b, a)</code> for all inputs?</p>",
+          "answers": [
+            {
+              "text": "Multiplication: a * b == b * a",
+              "fraction": 100,
+              "feedback": "Correct — multiplication is commutative."
+            },
+            {
+              "text": "Subtraction: a - b == b - a",
+              "fraction": 0,
+              "feedback": "False in general — e.g. 5 - 3 = 2 but 3 - 5 = -2."
+            },
+            {
+              "text": "Division: a / b == b / a",
+              "fraction": 0,
+              "feedback": "False in general — e.g. 6 / 2 = 3 but 2 / 6 ≈ 0.33."
+            },
+            {
+              "text": "Exponentiation: a ** b == b ** a",
+              "fraction": 0,
+              "feedback": "False in general — e.g. 2 ** 3 = 8 but 3 ** 2 = 9."
+            }
+          ],
+          "generalFeedback": "Commutativity, f(a, b) == f(b, a), holds for addition and multiplication but not for subtraction, division, or exponentiation. Choosing a commutativity property for a non-commutative operation would flag correct code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Round-trip property for a base64 codec",
+          "text": "<p>For a base64 codec, which round-trip property is the correct one to check?</p>",
+          "answers": [
+            {
+              "text": "decode(encode(bytes)) == bytes, generating random byte sequences",
+              "fraction": 100,
+              "feedback": "Correct — encoding arbitrary bytes then decoding must recover them exactly."
+            },
+            {
+              "text": "encode(decode(s)) == s, generating random strings s",
+              "fraction": 0,
+              "feedback": "Unsound — a random string need not be valid/canonical base64, so this can fail on correct code."
+            },
+            {
+              "text": "encode(bytes) == bytes for all byte sequences",
+              "fraction": 0,
+              "feedback": "Encoding transforms bytes into text; it does not return the input unchanged."
+            },
+            {
+              "text": "decode(encode(bytes)) is shorter than bytes",
+              "fraction": 0,
+              "feedback": "The round trip returns the original bytes, so it is the same length, not shorter."
+            }
+          ],
+          "generalFeedback": "Generate the raw values (bytes), encode, then decode: decode(encode(bytes)) == bytes is sound because every byte sequence is encodable. The reverse direction over random strings is a classic trap: not every string is a valid base64 encoding, so encode(decode(s)) == s can legitimately fail.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Using a reference implementation as an oracle",
+          "text": "<p>You have a fast but complex implementation <code>fast_fn</code> and a slow but obviously-correct reference <code>ref_fn</code> of the same specification. How can PBT use the reference?</p>",
+          "answers": [
+            {
+              "text": "Generate random inputs and assert fast_fn(x) == ref_fn(x) — the reference acts as the test oracle",
+              "fraction": 100,
+              "feedback": "Correct — comparing against a trusted reference gives an oracle for free."
+            },
+            {
+              "text": "Assert fast_fn(x) == fast_fn(x) for random x",
+              "fraction": 0,
+              "feedback": "That is trivially true and tests nothing."
+            },
+            {
+              "text": "Replace fast_fn with ref_fn in production",
+              "fraction": 0,
+              "feedback": "The reference is a testing oracle, not a production replacement (it is slow)."
+            },
+            {
+              "text": "Only test inputs where the two already agree",
+              "fraction": 0,
+              "feedback": "That defeats the purpose — you want to find inputs where they disagree."
+            }
+          ],
+          "generalFeedback": "A simpler reference implementation is an excellent oracle: for each generated input, the optimized version must match it. This is \"test oracle from a simpler model\" and is the basis of differential/model-based testing. Any disagreement is a counterexample that shrinking then minimizes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Checking the permutation condition",
+          "text": "<p>To check that a sort output is a <strong>permutation</strong> of the input, which check is correct?</p>",
+          "answers": [
+            {
+              "text": "The output and input have equal element multisets (each value occurs the same number of times in both)",
+              "fraction": 100,
+              "feedback": "Correct — multiset equality captures the permutation condition."
+            },
+            {
+              "text": "The output and input have the same length",
+              "fraction": 0,
+              "feedback": "Same length is necessary but not sufficient; the elements could differ."
+            },
+            {
+              "text": "The output and input have the same first element",
+              "fraction": 0,
+              "feedback": "The first elements can differ (the smallest need not be first in the input), and this ignores the rest."
+            },
+            {
+              "text": "The output and input have the same sum",
+              "fraction": 0,
+              "feedback": "Equal sums do not imply equal multisets — [1,3] and [2,2] share a sum but differ."
+            }
+          ],
+          "generalFeedback": "A permutation preserves the multiset of elements: comparing element counts (or comparing sorted-by-a-trusted-method versions) verifies it. Length or sum equality are weaker consequences that many wrong outputs also satisfy.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why inspect the generator's distribution",
+          "text": "<p>Why do PBT frameworks let you inspect the <strong>distribution</strong> of generated inputs (e.g. Hypothesis statistics, QuickCheck's <code>collect</code>/<code>classify</code>)?</p>",
+          "answers": [
+            {
+              "text": "To confirm the generator actually produces the interesting and edge cases; a skewed generator may never exercise the inputs that trigger a bug",
+              "fraction": 100,
+              "feedback": "Correct — distribution insight guards against a generator that misses important cases."
+            },
+            {
+              "text": "To measure statement and branch coverage of the code",
+              "fraction": 0,
+              "feedback": "That is code coverage, a separate concern from input distribution."
+            },
+            {
+              "text": "To make shrinking run faster",
+              "fraction": 0,
+              "feedback": "Distribution reporting informs generation quality, not shrinking speed."
+            },
+            {
+              "text": "To prove the property holds on all inputs",
+              "fraction": 0,
+              "feedback": "No sampling proves a universal property; distribution stats only describe what was generated."
+            }
+          ],
+          "generalFeedback": "If a generator rarely (or never) produces empty lists, boundary numbers, or duplicates, a property can pass while the bug-triggering inputs are never tried. Distribution reporting lets you verify — and tune — that the important regions of the input space are actually being sampled.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "\"Ordered\" alone fully verifies sorting",
+          "text": "<p>Checking only that a sort function's output is in non-decreasing order is a complete property that fully verifies sorting.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "No — a function returning [] is ordered but wrong; you also need the permutation (multiset) condition."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — ordering alone is satisfied by wrong implementations; the output must also be a permutation of the input."
+            }
+          ],
+          "generalFeedback": "\"Is sorted\" is necessary but not sufficient. Returning an empty list, or dropping/duplicating elements, yields ordered output yet is incorrect. A complete sort property pairs ordering with multiset equality between input and output."
+        },
+        {
+          "type": "multichoice",
+          "name": "Invariant property for removing duplicates",
+          "text": "<p>For a function <code>dedup(xs)</code> that removes duplicate values from a list, which is a valid invariant property?</p>",
+          "answers": [
+            {
+              "text": "dedup(xs) contains no repeated value, and its set of elements equals the set of elements of xs",
+              "fraction": 100,
+              "feedback": "Correct — deduplication removes repeats while preserving exactly which values are present."
+            },
+            {
+              "text": "len(dedup(xs)) == len(xs) for all xs",
+              "fraction": 0,
+              "feedback": "False when xs has duplicates; the length must drop in that case."
+            },
+            {
+              "text": "dedup(xs) == xs for all xs",
+              "fraction": 0,
+              "feedback": "Holds only when xs already has no duplicates, not for all lists."
+            },
+            {
+              "text": "dedup preserves the count of each value",
+              "fraction": 0,
+              "feedback": "Deduplication collapses repeats to one occurrence, so per-value counts are not preserved."
+            }
+          ],
+          "generalFeedback": "A correct dedup output has no repeats and covers exactly the same distinct values as the input — i.e. equal element sets, plus a \"no duplicates\" invariant. Length is preserved only when there were no duplicates, and per-value counts are deliberately not preserved.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sorting is idempotent",
+          "text": "<p>Which property expresses that <strong>sorting is idempotent</strong>?</p>",
+          "answers": [
+            {
+              "text": "sort(sort(xs)) == sort(xs) for all lists xs",
+              "fraction": 100,
+              "feedback": "Correct — sorting an already-sorted list leaves it unchanged."
+            },
+            {
+              "text": "sort(sort(xs)) == xs for all lists xs",
+              "fraction": 0,
+              "feedback": "False in general — the inner sort reorders xs, so you do not recover the original."
+            },
+            {
+              "text": "sort(xs) == xs for all lists xs",
+              "fraction": 0,
+              "feedback": "True only when xs is already sorted, not for all lists."
+            },
+            {
+              "text": "sort(xs) reverses an already-sorted list",
+              "fraction": 0,
+              "feedback": "Sorting never reverses a sorted list; it leaves it in order."
+            }
+          ],
+          "generalFeedback": "Idempotence for sort means applying it again has no effect: sort(sort(xs)) == sort(xs). Note this alone is a weak property (many wrong functions are idempotent); it complements, but does not replace, ordering plus permutation.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Critique a reversed round-trip property",
+          "text": "<p>A tester proposes <code>encode(decode(s)) == s</code> as the round-trip property for a codec, generating random <em>strings</em> <code>s</code>. Why can this raise false failures on correct code?</p>",
+          "answers": [
+            {
+              "text": "Not every random string is a valid/canonical encoding, so decode may reject or canonicalize it and encode(decode(s)) need not equal s; the sound property is decode(encode(x)) == x over generated decoded values x",
+              "fraction": 100,
+              "feedback": "Correct — the generated strings need not lie in the range of encode, so the direction is unsound."
+            },
+            {
+              "text": "Nothing is wrong; it always holds for a correct codec",
+              "fraction": 0,
+              "feedback": "It fails whenever s is not a canonical encoding, even for correct codecs."
+            },
+            {
+              "text": "Codecs cannot be tested with PBT at all",
+              "fraction": 0,
+              "feedback": "They can — the sound direction decode(encode(x)) == x is a strong property."
+            },
+            {
+              "text": "The random seed is chosen incorrectly",
+              "fraction": 0,
+              "feedback": "The issue is the property's direction, not the seed."
+            }
+          ],
+          "generalFeedback": "encode(decode(s)) == s only holds when s is already a canonical output of encode. Random strings often are not (non-canonical padding, extra whitespace), so a correct codec can violate it. Generate the source values and check decode(encode(x)) == x instead — encode's range is exactly what decode must invert.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A proposed property that is actually false",
+          "text": "<p>A tester writes the property <code>inc(inc(n)) == inc(n)</code> for an increment function <code>inc(n) = n + 1</code>. What happens?</p>",
+          "answers": [
+            {
+              "text": "The property is false for a correct inc (inc(inc(n)) = n + 2 ≠ n + 1), so PBT quickly finds a counterexample — but it signals a wrong property, not a bug in inc",
+              "fraction": 100,
+              "feedback": "Correct — the property mistakenly assumes idempotence; the failure is the property's fault."
+            },
+            {
+              "text": "It correctly verifies that inc works",
+              "fraction": 0,
+              "feedback": "It does not — a correct inc violates this false property."
+            },
+            {
+              "text": "It proves inc is idempotent",
+              "fraction": 0,
+              "feedback": "inc is not idempotent; the property is simply wrong."
+            },
+            {
+              "text": "It passes for all n",
+              "fraction": 0,
+              "feedback": "It fails for every n, since n + 2 is never n + 1."
+            }
+          ],
+          "generalFeedback": "Increment is not idempotent: applying it twice adds 2. Writing an idempotence property for it asserts something false, so the framework reports a counterexample. The lesson: a failing PBT run can mean the property is wrong, so validate that each asserted property genuinely holds for a correct implementation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Stateful (model-based) PBT",
+          "text": "<p>What characterizes <strong>stateful (model-based)</strong> property-based testing?</p>",
+          "answers": [
+            {
+              "text": "The framework generates random sequences of commands, runs them against both the real system and a simplified model, and asserts the observable results agree after each step; failing sequences are then shrunk",
+              "fraction": 100,
+              "feedback": "Correct — model-based PBT compares a system against a reference model over command sequences."
+            },
+            {
+              "text": "It tests a single pure function on random inputs with no state",
+              "fraction": 0,
+              "feedback": "That is ordinary (stateless) PBT; model-based PBT drives stateful systems."
+            },
+            {
+              "text": "It measures how many states the program reaches",
+              "fraction": 0,
+              "feedback": "That is a coverage notion, not model-based checking of behavior."
+            },
+            {
+              "text": "It replaces the real database with random data and does nothing else",
+              "fraction": 0,
+              "feedback": "Randomizing data is not the point; comparing the system to a model over command sequences is."
+            }
+          ],
+          "generalFeedback": "Model-based PBT generates a random program (a sequence of operations), executes it against the real system and against a simple correct-by-inspection model, and checks that observations match at every step. When a sequence disagrees, shrinking reduces it to a minimal failing command sequence — the essence of the bug.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Value of shrinking a large structured input",
+          "text": "<p>A property fails on a randomly generated 500-node tree with particular values. Why is <strong>shrinking</strong> especially valuable here?</p>",
+          "answers": [
+            {
+              "text": "It reduces the huge failing input to a minimal still-failing structure (e.g. a two- or three-node tree), isolating the essential trigger and greatly speeding debugging — without changing the fail verdict",
+              "fraction": 100,
+              "feedback": "Correct — shrinking distills a large counterexample down to its core."
+            },
+            {
+              "text": "It proves the property holds on all smaller trees",
+              "fraction": 0,
+              "feedback": "Shrinking finds a minimal failing case; it proves nothing about passing cases."
+            },
+            {
+              "text": "It makes the original 500-node tree pass",
+              "fraction": 0,
+              "feedback": "Shrinking does not alter verdicts; the input still fails."
+            },
+            {
+              "text": "It converts the tree into a list to simplify the type",
+              "fraction": 0,
+              "feedback": "Shrinking preserves the input's type/structure; it reduces size, not the type."
+            }
+          ],
+          "generalFeedback": "A 500-node counterexample is nearly impossible to reason about. Shrinking prunes nodes and reduces values while keeping the failure, often arriving at a tiny structure that exposes the exact condition. This is where shrinking pays off most, and it never changes whether the input fails.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Generator distribution pitfall",
+          "text": "<p>A generator for testing a \"parse a non-negative integer\" function only ever produces 3-to-5-digit numeric strings. What is the risk?</p>",
+          "answers": [
+            {
+              "text": "It may never generate boundary and edge inputs (empty string, leading zeros, non-numeric characters, very large values), so bugs on those go undetected and a passing run gives false confidence",
+              "fraction": 100,
+              "feedback": "Correct — a narrow generator leaves whole regions of the input space untested."
+            },
+            {
+              "text": "Shrinking will stop working entirely",
+              "fraction": 0,
+              "feedback": "Shrinking still works within the generated range; the problem is the range is too narrow."
+            },
+            {
+              "text": "The recorded seed becomes invalid",
+              "fraction": 0,
+              "feedback": "The seed remains valid; the concern is coverage of the input space."
+            },
+            {
+              "text": "The property automatically becomes false",
+              "fraction": 0,
+              "feedback": "The property is unchanged; it is just under-exercised."
+            }
+          ],
+          "generalFeedback": "The bugs in a parser usually hide at the edges — empty input, leading zeros, non-digits, overflow-sized numbers. A generator that only emits typical mid-range values never reaches them, so the property passes vacuously on the hard cases. Inspecting and broadening the generator's distribution is essential.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combining complementary properties",
+          "text": "<p>You check two individually-valid properties for one function. What is true about testing both together?</p>",
+          "answers": [
+            {
+              "text": "Checking complementary properties strengthens the test — each rules out a different class of wrong implementations (e.g. \"ordered\" + \"permutation\" together pin down sort) — but even together they may not fully specify correctness",
+              "fraction": 100,
+              "feedback": "Correct — combining properties is stronger, yet not necessarily a complete specification."
+            },
+            {
+              "text": "Combining two valid properties proves the function correct",
+              "fraction": 0,
+              "feedback": "No finite set of checks on sampled inputs proves correctness."
+            },
+            {
+              "text": "You may only ever check one property per function",
+              "fraction": 0,
+              "feedback": "Multiple properties are encouraged and commonly used together."
+            },
+            {
+              "text": "Combining two valid properties can make one of them false",
+              "fraction": 0,
+              "feedback": "Valid properties remain valid; checking them together does not invalidate either."
+            }
+          ],
+          "generalFeedback": "Different properties catch different bug classes: \"output is ordered\" plus \"output is a permutation of the input\" together characterize a correct sort far better than either alone. Still, properties capture only the relations you thought of, and sampling is finite, so combining them raises confidence without proving correctness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PBT complements example tests",
+          "text": "<p>How do property-based tests relate to hand-written example (unit) tests?</p>",
+          "answers": [
+            {
+              "text": "They are complementary: properties cover a broad input space, while example tests pin down specific important cases, regressions, and known edge points — good suites use both",
+              "fraction": 100,
+              "feedback": "Correct — properties and examples reinforce each other."
+            },
+            {
+              "text": "Property tests make example tests obsolete",
+              "fraction": 0,
+              "feedback": "Examples still document and lock down specific known cases and regressions."
+            },
+            {
+              "text": "Example tests make property tests obsolete",
+              "fraction": 0,
+              "feedback": "Examples cover points; only properties explore a whole space of inputs."
+            },
+            {
+              "text": "They test disjoint kinds of code and never overlap",
+              "fraction": 0,
+              "feedback": "They often test the same code from different angles; they are complementary, not disjoint."
+            }
+          ],
+          "generalFeedback": "Example tests are precise, readable anchors for specific behaviors, boundary values, and past regressions. Property tests explore the space and surface surprises you did not think to write examples for. The strongest suites combine both rather than choosing one.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Shrinking must preserve the failure",
+          "text": "<p>During shrinking, a candidate reduced input <em>no longer</em> fails the property. What does the framework do?</p>",
+          "answers": [
+            {
+              "text": "It discards that candidate and keeps shrinking from inputs that still fail; only an input that still triggers the failure is reported",
+              "fraction": 100,
+              "feedback": "Correct — shrinking keeps only still-failing candidates."
+            },
+            {
+              "text": "It reports the passing reduced input as the counterexample",
+              "fraction": 0,
+              "feedback": "A passing input is not a counterexample and is never reported as one."
+            },
+            {
+              "text": "It stops and declares the whole test passed",
+              "fraction": 0,
+              "feedback": "One passing shrink candidate does not clear the original failure."
+            },
+            {
+              "text": "It modifies the property so the candidate fails",
+              "fraction": 0,
+              "feedback": "Shrinking never changes the property; it only reduces the input."
+            }
+          ],
+          "generalFeedback": "Shrinking is a search constrained to still-failing inputs: any candidate that passes is rejected, and the search continues from ones that fail. The final reported counterexample therefore still violates the property, so the pass/fail verdict is unchanged — shrinking only makes the witness smaller.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Soundness condition for a round-trip property",
+          "text": "<p>Under what condition is <code>decode(encode(x)) == x</code> a <strong>sound</strong> property (holding for every generated x)?</p>",
+          "answers": [
+            {
+              "text": "When encode is injective and decode is a left inverse of encode on encode's range — i.e. decode undoes encode for every value x that can be generated",
+              "fraction": 100,
+              "feedback": "Correct — this is exactly what makes the round trip recover x."
+            },
+            {
+              "text": "Always, for any encode and decode functions",
+              "fraction": 0,
+              "feedback": "If encode loses information (not injective), decoding cannot recover x."
+            },
+            {
+              "text": "Only when encode and decode are the same function",
+              "fraction": 0,
+              "feedback": "They are inverses, generally different functions, not equal."
+            },
+            {
+              "text": "Only when x is a string",
+              "fraction": 0,
+              "feedback": "The type of x is irrelevant; the inverse relationship is what matters."
+            }
+          ],
+          "generalFeedback": "decode(encode(x)) == x requires encode to be injective (lossless) and decode to invert it on encode's outputs. If encode maps two distinct values to the same encoding, no decoder can recover both, so the property is unsound. Stating this condition is what keeps the round-trip property valid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Choosing a model for a key-value store",
+          "text": "<p>In model-based testing of a key-value store, what makes a good <strong>model</strong> to compare against?</p>",
+          "answers": [
+            {
+              "text": "A simple in-memory dictionary whose behavior is obviously correct; after each generated command (put/get/delete) the store's observable result must match the dictionary's",
+              "fraction": 100,
+              "feedback": "Correct — a trivially-correct reference model is the ideal oracle."
+            },
+            {
+              "text": "A second copy of the same store implementation",
+              "fraction": 0,
+              "feedback": "A copy shares the same bugs, so agreement proves nothing."
+            },
+            {
+              "text": "A random oracle that returns arbitrary values",
+              "fraction": 0,
+              "feedback": "A random oracle has no defined correct behavior to compare against."
+            },
+            {
+              "text": "The store's own performance counters",
+              "fraction": 0,
+              "feedback": "Performance counters are not a functional model of correctness."
+            }
+          ],
+          "generalFeedback": "The model should be a minimal, obviously-correct abstraction (here, a plain dictionary). The point of model-based testing is to compare the complex real system against something simple enough to trust. Using a second copy of the real implementation would just duplicate its faults.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why idempotence alone is a weak sort property",
+          "text": "<p>Someone tests a sort function using only <code>sort(sort(xs)) == sort(xs)</code> (idempotence). Why is this weak?</p>",
+          "answers": [
+            {
+              "text": "Many wrong functions are idempotent — e.g. one that always returns [], or the identity that returns xs unchanged — so idempotence does not require ordering or preservation of the input's elements",
+              "fraction": 100,
+              "feedback": "Correct — idempotence is satisfied by clearly incorrect sorts."
+            },
+            {
+              "text": "Idempotence is false for a correct sort",
+              "fraction": 0,
+              "feedback": "It is true for a correct sort; it is just insufficient on its own."
+            },
+            {
+              "text": "It fully verifies the sort by itself",
+              "fraction": 0,
+              "feedback": "It does not — wrong functions also pass it."
+            },
+            {
+              "text": "It only fails on empty lists",
+              "fraction": 0,
+              "feedback": "It passes on empty lists too; the weakness is that wrong functions satisfy it."
+            }
+          ],
+          "generalFeedback": "Both \"always return []\" and \"return the input unchanged\" satisfy sort(sort(xs)) == sort(xs), yet neither sorts. Idempotence is a genuine property of sort but a weak one; it must be combined with ordering and the permutation (multiset) condition to characterize correctness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A weak generator range hides overflow",
+          "text": "<p>A property about a 32-bit integer adder passes, but the generator only produces operands in <code>[0, 100]</code>. What is the best conclusion?</p>",
+          "answers": [
+            {
+              "text": "The pass is weak evidence — overflow and boundary behavior near 2^31 were never generated, so the property was not exercised on the inputs most likely to fail",
+              "fraction": 100,
+              "feedback": "Correct — the risky inputs were never sampled, so confidence is limited."
+            },
+            {
+              "text": "The adder is proven correct for all 32-bit inputs",
+              "fraction": 0,
+              "feedback": "Only tiny operands were tried; nothing is proven for large ones."
+            },
+            {
+              "text": "Property-based testing is unsound",
+              "fraction": 0,
+              "feedback": "PBT is fine; the generator's range was simply too narrow."
+            },
+            {
+              "text": "The property must be false",
+              "fraction": 0,
+              "feedback": "The property may be correct; it was just under-tested."
+            }
+          ],
+          "generalFeedback": "Overflow bugs live near the type's extremes. A generator confined to [0, 100] cannot reach values near 2^31, so a clean run says nothing about the dangerous region. Widen the generator to include boundary and large values (and inspect its distribution) before trusting the result.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Critique a false universal property",
+          "text": "<p>A tester proposes <code>reverse(xs) != xs</code> for all lists (claiming reverse always changes the list). Why is this a bad property?</p>",
+          "answers": [
+            {
+              "text": "It is false: palindromic lists, and the empty or single-element list, satisfy reverse(xs) == xs, so a correct reverse violates the proposed property — the property, not the code, is wrong",
+              "fraction": 100,
+              "feedback": "Correct — many lists are unchanged by reversal, so the \"always changes\" claim is false."
+            },
+            {
+              "text": "It is correct and useful as written",
+              "fraction": 0,
+              "feedback": "It fails for palindromes and short lists, so it is not correct."
+            },
+            {
+              "text": "It only fails for very long lists",
+              "fraction": 0,
+              "feedback": "It fails for the shortest lists (empty, single element) and any palindrome."
+            },
+            {
+              "text": "reverse is not a pure function, so no property applies",
+              "fraction": 0,
+              "feedback": "reverse is pure; the issue is that the asserted property is simply false."
+            }
+          ],
+          "generalFeedback": "The empty list, any single-element list, and every palindrome are unchanged by reversal, so reverse(xs) != xs does not hold universally. PBT would report one of these as a counterexample, exposing a flawed property rather than a defect. Always confirm a proposed property is genuinely necessary before trusting its failures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What clean shrinking and a passing run establish",
+          "text": "<p>After thousands of cases and clean shrinking on any failures encountered during development, all properties now pass. What can you conclude?</p>",
+          "answers": [
+            {
+              "text": "No counterexample was found among the generated inputs; this raises confidence but does not prove the properties hold for all inputs, since the input space is usually unbounded",
+              "fraction": 100,
+              "feedback": "Correct — a clean run is strong evidence, not a proof."
+            },
+            {
+              "text": "The program is now proven correct",
+              "fraction": 0,
+              "feedback": "Sampling finitely many inputs cannot prove a universal property."
+            },
+            {
+              "text": "Every possible input has been tested",
+              "fraction": 0,
+              "feedback": "Only a finite random sample was tested, not the whole space."
+            },
+            {
+              "text": "The properties are now mathematical theorems",
+              "fraction": 0,
+              "feedback": "Passing tests do not turn properties into proved theorems."
+            }
+          ],
+          "generalFeedback": "PBT explores a sample of an often-infinite input space. A clean run — even with good generators and shrinking — means \"no counterexample found here,\" which increases confidence but never amounts to a proof. For proof you would need formal verification, not testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Differential property-based testing",
+          "text": "<p>What is <strong>differential</strong> property-based testing?</p>",
+          "answers": [
+            {
+              "text": "Generate random inputs and assert that two independent implementations of the same specification produce equal results; a disagreement is a counterexample locating a bug in (at least) one of them",
+              "fraction": 100,
+              "feedback": "Correct — differential testing cross-checks two implementations against each other."
+            },
+            {
+              "text": "Comparing the running time of two implementations on random inputs",
+              "fraction": 0,
+              "feedback": "That is performance comparison, not differential correctness testing."
+            },
+            {
+              "text": "Testing the arithmetic difference of two numbers",
+              "fraction": 0,
+              "feedback": "\"Differential\" here refers to comparing implementations, not subtracting numbers."
+            },
+            {
+              "text": "Running one implementation twice with two different seeds",
+              "fraction": 0,
+              "feedback": "That checks determinism at best; differential testing compares two distinct implementations."
+            }
+          ],
+          "generalFeedback": "Differential testing feeds the same generated inputs to two implementations of one spec (e.g. an optimized parser and a reference parser) and requires their outputs to match. Any disagreement, once shrunk to a minimal input, reveals a bug in one of them — provided at least one is trustworthy for that input.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是性質導向測試",
+          "text": "<p><strong>性質導向測試（property-based testing, PBT）</strong>的核心概念為何？</p>",
+          "answers": [
+            {
+              "text": "不是手寫範例輸入，而是陳述一個性質（一個對所有有效輸入都應成立的謂詞），再由框架產生大量隨機輸入試圖使其falsify（推翻）",
+              "fraction": 100,
+              "feedback": "正確——PBT 用大量自動產生的輸入來檢查一個一般性性質。"
+            },
+            {
+              "text": "它形式化地證明程式滿足其完整規格",
+              "fraction": 0,
+              "feedback": "PBT 能找出反例，但無法證明正確性。"
+            },
+            {
+              "text": "它量測固定測試套件覆蓋了多少分支",
+              "fraction": 0,
+              "feedback": "那是覆蓋率量測；PBT 著重在產生輸入來檢查一個性質。"
+            },
+            {
+              "text": "它把單一固定輸入重複執行多次以檢查不穩定（flakiness）",
+              "fraction": 0,
+              "feedback": "PBT 在整個輸入空間中變化輸入，而非重複同一固定輸入。"
+            }
+          ],
+          "generalFeedback": "在性質導向測試中，你描述一個對每個輸入都應成立的性質，框架（QuickCheck、Hypothesis、fast-check、ScalaCheck）便產生大量隨機輸入試圖推翻它。以「涵蓋一整個空間」的方式互補於範例測試（範例只檢查個別點）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是性質",
+          "text": "<p>在 PBT 中，什麼是<strong>性質（property）</strong>？</p>",
+          "answers": [
+            {
+              "text": "關於程式行為、對每個有效輸入都應成立的謂詞（例如「輸出清單永遠是已排序的」）",
+              "fraction": 100,
+              "feedback": "正確——性質是對所有輸入都預期成立的規則。"
+            },
+            {
+              "text": "單一輸入搭配其確切期望輸出",
+              "fraction": 0,
+              "feedback": "那描述的是範例（單元）測試案例，不是性質。"
+            },
+            {
+              "text": "對程式執行時間的量測",
+              "fraction": 0,
+              "feedback": "那是效能指標，不是正確性性質。"
+            },
+            {
+              "text": "用來重現某次執行的隨機種子",
+              "fraction": 0,
+              "feedback": "種子關乎可重現性，而非被檢查的謂詞。"
+            }
+          ],
+          "generalFeedback": "性質是關於程式的全稱陳述：它對產生器能產生的所有輸入都應成立。例子包括往返、不變量、冪等性與交換律等性質。框架會搜尋能違反它的輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是產生器",
+          "text": "<p>在 PBT 中，什麼是<strong>產生器（generator，亦稱 <em>arbitrary</em>）</strong>？</p>",
+          "answers": [
+            {
+              "text": "一個能產生某型別隨機值、作為測試輸入的配方",
+              "fraction": 100,
+              "feedback": "正確——產生器供應性質所要檢查的隨機輸入。"
+            },
+            {
+              "text": "為每個輸入算出的確切期望輸出",
+              "fraction": 0,
+              "feedback": "產生器製造輸入，而非期望輸出。"
+            },
+            {
+              "text": "必須成立的性質謂詞",
+              "fraction": 0,
+              "feedback": "謂詞是性質本身；產生器製造用來檢驗它的輸入。"
+            },
+            {
+              "text": "受測函式本身",
+              "fraction": 0,
+              "feedback": "產生器把輸入餵給受測函式，它不是那個函式。"
+            }
+          ],
+          "generalFeedback": "產生器（arbitrary）知道如何建構某型別的隨機值——整數、字串、清單、記錄、樹。框架從它抽取大量值，並對每個值檢查性質。產生器可以組合與加上約束，以塑造輸入的分布。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是收縮",
+          "text": "<p>在性質導向測試中，什麼是<strong>收縮（shrinking）</strong>？</p>",
+          "answers": [
+            {
+              "text": "當某個隨機輸入推翻了性質，框架會自動將它縮減為一個仍然失敗的更小、最小輸入，使反例更易理解",
+              "fraction": 100,
+              "feedback": "正確——收縮尋找一個仍然失敗的最小輸入。"
+            },
+            {
+              "text": "它刪除通過的測試以縮短報告",
+              "fraction": 0,
+              "feedback": "收縮縮減的是失敗的輸入，而非通過的測試集合。"
+            },
+            {
+              "text": "它壓縮磁碟上的測試輸出記錄檔",
+              "fraction": 0,
+              "feedback": "收縮是要簡化反例，而非壓縮檔案。"
+            },
+            {
+              "text": "它降低所產生輸入的數量以加快執行",
+              "fraction": 0,
+              "feedback": "那是減少案例數；收縮則是把已發現的失敗輸入最小化。"
+            }
+          ],
+          "generalFeedback": "隨機找到的反例往往龐大而雜亂。收縮反覆嘗試更簡單的變體（更短的清單、更小的數字），只保留仍然失敗者，逐步收斂到一個最小的失敗輸入。這讓根本原因更易看清，也是收縮能加速除錯的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是反例",
+          "text": "<p>在 PBT 中，什麼是<strong>反例（counterexample）</strong>？</p>",
+          "answers": [
+            {
+              "text": "一個使性質失敗的具體輸入，證實了缺陷的存在",
+              "fraction": 100,
+              "feedback": "正確——反例是違反性質的見證輸入。"
+            },
+            {
+              "text": "一個使性質成立的輸入",
+              "fraction": 0,
+              "feedback": "使性質成立的是通過案例，不是反例。"
+            },
+            {
+              "text": "某個選定輸入的期望輸出值",
+              "fraction": 0,
+              "feedback": "反例是使性質失敗的輸入，而非期望輸出。"
+            },
+            {
+              "text": "一個通過的手寫範例測試",
+              "fraction": 0,
+              "feedback": "通過的範例不是反例；反例會推翻性質。"
+            }
+          ],
+          "generalFeedback": "當框架找到一個使性質為假的輸入，該輸入即為反例：程式（或性質）有誤的證明。框架接著會把它收縮為最小形式並回報，同時附上可重現用的種子。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "性質測試相對於範例測試",
+          "text": "<p><strong>性質導向測試</strong>與傳統的<strong>範例式（單元）測試</strong>有何不同？</p>",
+          "answers": [
+            {
+              "text": "範例測試檢查一個特定的輸入—輸出點；性質測試則在整個由產生器產生的輸入空間上檢查一條規則",
+              "fraction": 100,
+              "feedback": "正確——範例涵蓋點，性質涵蓋空間。"
+            },
+            {
+              "text": "兩者完全相同；都是把一個固定輸入比對一個期望值",
+              "fraction": 0,
+              "feedback": "性質測試會產生許多輸入並檢查一般規則，與單一範例不同。"
+            },
+            {
+              "text": "性質測試需要每個產生輸入的確切期望輸出",
+              "fraction": 0,
+              "feedback": "性質陳述一條規則，正好避免需要逐一輸入的期望值。"
+            },
+            {
+              "text": "範例測試產生隨機輸入，而性質測試用固定輸入",
+              "fraction": 0,
+              "feedback": "恰好相反：性質測試產生輸入；範例測試用固定輸入。"
+            }
+          ],
+          "generalFeedback": "範例測試釘住特定且重要的點（「f(2) == 4」）。性質測試陳述一條規則（「對所有 x，f(x) >= 0」）並讓產生器探索許多輸入。兩者互補：範例是精確的回歸案例，性質提供廣泛的涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "QuickCheck 與 Hypothesis",
+          "text": "<p><strong>QuickCheck</strong>、<strong>Hypothesis</strong>、<strong>fast-check</strong> 與 <strong>ScalaCheck</strong> 是什麼？</p>",
+          "answers": [
+            {
+              "text": "性質導向測試框架（分別用於 Haskell、Python、JavaScript/TypeScript 與 Scala）",
+              "fraction": 100,
+              "feedback": "正確——它們是不同語言的 PBT 函式庫。"
+            },
+            {
+              "text": "程式碼覆蓋率量測工具",
+              "fraction": 0,
+              "feedback": "它們是 PBT 框架，不是覆蓋率工具。"
+            },
+            {
+              "text": "靜態型別檢查器",
+              "fraction": 0,
+              "feedback": "它們用產生的輸入來執行測試，不是型別檢查器。"
+            },
+            {
+              "text": "持續整合的建置系統",
+              "fraction": 0,
+              "feedback": "它們是測試函式庫，不是 CI／建置系統。"
+            }
+          ],
+          "generalFeedback": "QuickCheck（Haskell）開創了這套方法；Hypothesis（Python）、fast-check（JS/TS）與 ScalaCheck（Scala）把相同概念帶到其他語言：宣告性質與產生器，工具便產生輸入並收縮失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "清單反轉的有效性質",
+          "text": "<p>對於正確的清單<strong>反轉（reverse）</strong>函式，下列何者是有效性質？</p>",
+          "answers": [
+            {
+              "text": "對所有清單 xs，reverse(reverse(xs)) == xs",
+              "fraction": 100,
+              "feedback": "正確——反轉兩次會回到原清單（reverse 是自身的反函式）。"
+            },
+            {
+              "text": "對所有清單 xs，reverse(xs) == xs",
+              "fraction": 0,
+              "feedback": "那只對回文清單成立，並非所有清單。"
+            },
+            {
+              "text": "reverse(xs) 的長度與 xs 不同",
+              "fraction": 0,
+              "feedback": "反轉保持長度不變；它只改變順序。"
+            },
+            {
+              "text": "reverse(xs) 會使清單加倍",
+              "fraction": 0,
+              "feedback": "反轉重新排列相同元素，不會新增元素。"
+            }
+          ],
+          "generalFeedback": "反轉是對合（involution）：套用兩次會得到原清單，所以 reverse(reverse(xs)) == xs 是有效的往返性質。注意 reverse(xs) == xs 一般為假（只有回文成立），因此是很好的誘答項。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "冪等性的定義",
+          "text": "<p>當對所有 x 下列何種性質成立時，函式 <code>f</code> 為<strong>冪等（idempotent）</strong>？</p>",
+          "answers": [
+            {
+              "text": "f(f(x)) == f(x)",
+              "fraction": 100,
+              "feedback": "正確——冪等函式在第一次套用後，再套用不會有任何改變。"
+            },
+            {
+              "text": "f(x) == x",
+              "fraction": 0,
+              "feedback": "那是恆等函式，是更嚴格且不同的條件。"
+            },
+            {
+              "text": "f(a, b) == f(b, a)",
+              "fraction": 0,
+              "feedback": "那是交換律，不是冪等性。"
+            },
+            {
+              "text": "f(f(x)) == x",
+              "fraction": 0,
+              "feedback": "那是對合（自反），例如 reverse 或取負，不是冪等性。"
+            }
+          ],
+          "generalFeedback": "冪等性意指 f(f(x)) == f(x)：一旦套用，再套用便無進一步效果。例子包括 sort、abs 與 normalize。它不同於恆等（f(x) == x），也不同於對合（f(f(x)) == x，如 reverse）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "往返性質的定義",
+          "text": "<p>對於一組 <code>encode</code>／<code>decode</code>，<strong>往返（round-trip，反函式）</strong>性質陳述下列何者？</p>",
+          "answers": [
+            {
+              "text": "對所有 x，decode(encode(x)) == x",
+              "fraction": 100,
+              "feedback": "正確——先編碼再解碼必須回到原值。"
+            },
+            {
+              "text": "對所有 x，encode(x) == decode(x)",
+              "fraction": 0,
+              "feedback": "encode 與 decode 互為反函式，而非相等的函式。"
+            },
+            {
+              "text": "對所有 x，encode(x) == x",
+              "fraction": 0,
+              "feedback": "編碼會轉換該值，不會使其保持不變。"
+            },
+            {
+              "text": "對所有 x，decode(x) == x",
+              "fraction": 0,
+              "feedback": "解碼是編碼的反函式，不是恆等函式。"
+            }
+          ],
+          "generalFeedback": "往返性質表示解碼會還原編碼：對每個值 x，decode(encode(x)) == x。這是序列化器、編解碼器與剖析器／列印器配對非常常見且強而有力的性質，因為它不需要逐一輸入的期望值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "種子與可重現性",
+          "text": "<p>為什麼 PBT 框架會在失敗時回報一個隨機<strong>種子（seed）</strong>？</p>",
+          "answers": [
+            {
+              "text": "記下種子可讓你重跑完全相同的產生輸入，以確定性地重現該失敗",
+              "fraction": 100,
+              "feedback": "正確——種子使一次隨機執行變得可重現。"
+            },
+            {
+              "text": "種子是失敗測試的期望輸出",
+              "fraction": 0,
+              "feedback": "種子驅動隨機產生器，並非期望輸出。"
+            },
+            {
+              "text": "種子量測測試涵蓋了多少程式碼",
+              "fraction": 0,
+              "feedback": "覆蓋率是另一回事；種子只控制輸入產生。"
+            },
+            {
+              "text": "種子證明性質對所有輸入都成立",
+              "fraction": 0,
+              "feedback": "種子只重現一次執行，無法證明關於所有輸入的任何事。"
+            }
+          ],
+          "generalFeedback": "若每次執行都不同，隨機產生會很難除錯。框架會為其隨機來源設定種子，並在失敗時回報種子，讓你重播完全相同的輸入序列，可靠地重現（進而修正）該缺陷。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "通過的執行並不能證明正確性",
+          "text": "<p>若一個性質導向測試跑了數千個隨機輸入且未找到反例，就等於證明該性質對所有可能輸入都成立。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "否——通過的執行只表示在所產生的輸入中未找到反例，並不表示不存在反例。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——PBT 抽樣有限多個輸入；乾淨的執行提升信心，但不證明性質。"
+            }
+          ],
+          "generalFeedback": "如同一般的測試，PBT 能顯示缺陷的存在（一個反例），但無法顯示其不存在。輸入空間通常無界，而只嘗試了有限多個輸入，因此通過的執行是強力的證據，而非證明。"
+        },
+        {
+          "type": "truefalse",
+          "name": "收縮只回報仍然失敗的輸入",
+          "text": "<p>在收縮一個失敗輸入時，框架只會回報一個仍會使性質失敗的縮減輸入。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——收縮候選只有在仍觸發失敗時才會被保留。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "收縮會保持失敗：它絕不會回報一個通過的縮減輸入。"
+            }
+          ],
+          "generalFeedback": "收縮會探索失敗輸入的更簡單變體，但會丟棄任何不再失敗的候選。最終回報的反例是一個仍違反性質的最小輸入，因此它不會改變通過／失敗的判定。"
+        },
+        {
+          "type": "multichoice",
+          "name": "絕對值的有效性質",
+          "text": "<p>對於實數上正確的 <code>abs</code>（絕對值）函式，下列何者是有效性質？</p>",
+          "answers": [
+            {
+              "text": "對所有 x，abs(x) >= 0",
+              "fraction": 100,
+              "feedback": "正確——絕對值永不為負。"
+            },
+            {
+              "text": "對所有 x，abs(x) > 0",
+              "fraction": 0,
+              "feedback": "在 x = 0 時失敗，因為 abs(0) = 0，並不大於 0。"
+            },
+            {
+              "text": "對所有 x，abs(x) == x",
+              "fraction": 0,
+              "feedback": "只對非負 x 成立；對負 x 失敗。"
+            },
+            {
+              "text": "對所有 x，abs(x) == -x",
+              "fraction": 0,
+              "feedback": "只對非正 x 成立；對正 x 失敗。"
+            }
+          ],
+          "generalFeedback": "abs(x) >= 0 對每個實數 x 都成立，因此是有效性質。注意 abs(x) > 0 因為 x = 0 而微妙地錯誤，而 abs(x) == x 與 abs(x) == -x 都只在半個定義域上為真。更強的性質是 abs(-x) == abs(x)。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "map 的有效性質",
+          "text": "<p>對於 <code>map(f, xs)</code>（對清單每個元素套用 <code>f</code>），下列何者是有效性質？</p>",
+          "answers": [
+            {
+              "text": "對所有清單 xs，len(map(f, xs)) == len(xs)",
+              "fraction": 100,
+              "feedback": "正確——映射保持長度；它逐一轉換元素。"
+            },
+            {
+              "text": "對所有清單 xs，len(map(f, xs)) == 0",
+              "fraction": 0,
+              "feedback": "映射保留每個元素，長度不變，而非為零。"
+            },
+            {
+              "text": "對所有清單 xs，len(map(f, xs)) == 2 * len(xs)",
+              "fraction": 0,
+              "feedback": "映射是一對一的；不會使長度加倍。"
+            },
+            {
+              "text": "map 會反轉元素的順序",
+              "fraction": 0,
+              "feedback": "map 保持順序；每個元素在原位被轉換。"
+            }
+          ],
+          "generalFeedback": "map 對每個元素套用 f，不新增、不丟棄、也不重排元素，所以 len(map(f, xs)) == len(xs) 是有效的長度保持不變量——一個不論 f 為何都成立的簡單結構性性質。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "序列化器／剖析器的最佳性質",
+          "text": "<p>你正在測試一個 <code>serialize</code> 函式與其相對應的 <code>parse</code> 函式。下列何者是最佳的單一檢查性質？</p>",
+          "answers": [
+            {
+              "text": "對所有值 x，parse(serialize(x)) == x（往返）",
+              "fraction": 100,
+              "feedback": "正確——先序列化再剖析必須還原出原值。"
+            },
+            {
+              "text": "對所有 x，serialize(x) 是非空字串",
+              "fraction": 0,
+              "feedback": "雖為真但太弱——它對「還原出 x」毫無保證。"
+            },
+            {
+              "text": "parse(serialize(x)) 不會拋出例外",
+              "fraction": 0,
+              "feedback": "不當機是弱條件；它容許錯誤的剖析結果通過。"
+            },
+            {
+              "text": "serialize(x) == serialize(x)",
+              "fraction": 0,
+              "feedback": "那是恆真的，什麼都沒測到。"
+            }
+          ],
+          "generalFeedback": "往返性質 parse(serialize(x)) == x 釘住了關鍵契約：這一對是忠實的反函式。誘答項不是恆真，就是弱到即使實作有誤仍能滿足。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序的完整性質",
+          "text": "<p>下列何者<em>完整地</em>刻畫了<strong>排序（sort）</strong>函式的正確性？</p>",
+          "answers": [
+            {
+              "text": "輸出為非遞減排列「且」是輸入的一個排列（相同的多重集合元素）",
+              "fraction": 100,
+              "feedback": "正確——排序性加上排列條件共同界定了正確的排序。"
+            },
+            {
+              "text": "輸出為非遞減排列",
+              "fraction": 0,
+              "feedback": "單獨不足——回傳 [] 也是已排序卻錯誤；還需要排列條件。"
+            },
+            {
+              "text": "輸出與輸入長度相同",
+              "fraction": 0,
+              "feedback": "必要但遠遠不足；長度正確而元素錯誤者也會通過。"
+            },
+            {
+              "text": "輸出的總和等於輸入的總和",
+              "fraction": 0,
+              "feedback": "必要但不足——例如輸入 [1,3] 與輸出 [2,2] 總和相同，但 [2,2] 不是其排列。"
+            }
+          ],
+          "generalFeedback": "正確的排序必須是已排序的，且必須（以多重集合而言）包含與輸入完全相同的元素。只檢查排序、只檢查長度、或只檢查總和都各自容許錯誤實作。排列（多重集合相等）條件是不可或缺的另一半。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何只有「已排序」並不足夠",
+          "text": "<p>為什麼只用「輸出為已排序」作為排序函式的唯一性質是<strong>不足</strong>的？</p>",
+          "answers": [
+            {
+              "text": "一個回傳 []（或丟棄／重複元素）的錯誤實作仍會產生已排序輸出而通過；你還必須要求輸出是輸入的一個排列",
+              "fraction": 100,
+              "feedback": "正確——「回傳 []」恆能滿足「已排序」，所以排列條件不可或缺。"
+            },
+            {
+              "text": "因為正確的排序未必總是已排序",
+              "fraction": 0,
+              "feedback": "正確的排序總是已排序；排序性是必要的，只是不足。"
+            },
+            {
+              "text": "因為檢查順序在計算上不可能",
+              "fraction": 0,
+              "feedback": "檢查順序輕而易舉；問題在於只靠順序會容許錯誤輸出。"
+            },
+            {
+              "text": "因為排序沒有可檢查的性質",
+              "fraction": 0,
+              "feedback": "排序有強力性質；已排序加上排列共同界定了它。"
+            }
+          ],
+          "generalFeedback": "空清單是已排序的，因此一個永遠回傳 [] 的函式能通過「已排序」檢查卻完全錯誤；丟棄或重複元素的函式亦然。加入排列（多重集合）要求即可排除這些——這是選擇「足夠性質」的經典一課。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "normalize 函式的性質",
+          "text": "<p>函式 <code>normalize</code> 將字串轉為正規形式（例如 Unicode NFC、去除頭尾空白、轉小寫）。下列何種性質應成立？</p>",
+          "answers": [
+            {
+              "text": "對所有 s，normalize(normalize(s)) == normalize(s)（冪等性）",
+              "fraction": 100,
+              "feedback": "正確——對已正規化的字串再正規化不會有任何改變。"
+            },
+            {
+              "text": "對所有 s，normalize(s) == s",
+              "fraction": 0,
+              "feedback": "為假——對非正規的字串進行正規化會改變它。"
+            },
+            {
+              "text": "對所有 s，normalize(normalize(s)) == s",
+              "fraction": 0,
+              "feedback": "那是對合，並不成立：第一次 normalize 可能已改變 s。"
+            },
+            {
+              "text": "對所有 s，len(normalize(s)) == len(s)",
+              "fraction": 0,
+              "feedback": "去除空白或 Unicode 合成會改變長度，因此為假。"
+            }
+          ],
+          "generalFeedback": "正規化是冪等的：一旦字串為正規形式，再正規化便不改變它，所以 normalize(normalize(s)) == normalize(s)。它不是恆等（可能改變 s），也不是對合（無法由正規形式還原出原字串）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "收縮對失敗清單的回報",
+          "text": "<p>某性質在隨機產生的清單 <code>[7, -3, 0, 12, 5, -8, 4]</code> 上失敗。具備收縮能力的框架通常會回報什麼？</p>",
+          "answers": [
+            {
+              "text": "一個仍然失敗的最小化輸入——例如能重現該失敗的最短／最簡清單（也許是單一元素或 [ ]）",
+              "fraction": 100,
+              "feedback": "正確——收縮收斂到一個仍然失敗的最小輸入。"
+            },
+            {
+              "text": "原本未改動的七元素清單",
+              "fraction": 0,
+              "feedback": "收縮會設法縮減輸入，而非原樣回報。"
+            },
+            {
+              "text": "一個現在會通過性質的輸入",
+              "fraction": 0,
+              "feedback": "收縮絕不回報通過的輸入；縮減後的輸入必須仍然失敗。"
+            },
+            {
+              "text": "一個與該失敗無關的全新隨機清單",
+              "fraction": 0,
+              "feedback": "收縮是簡化失敗輸入，不會換成無關的清單。"
+            }
+          ],
+          "generalFeedback": "收縮反覆嘗試更簡單的版本（丟棄元素、縮小數值），只保留仍然失敗者，最終得到一個最小反例。這能孤立出關鍵觸發因素，比盯著原本雜亂的輸入更快除錯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "用種子重現 CI 失敗",
+          "text": "<p>一次 CI 執行回報了性質失敗並附上一個<strong>種子</strong>。為了在本地端除錯，開發者該怎麼做？</p>",
+          "answers": [
+            {
+              "text": "用相同的種子重跑測試，以重新產生完全相同的輸入並重現該失敗",
+              "fraction": 100,
+              "feedback": "正確——重播種子可重現該次失敗執行。"
+            },
+            {
+              "text": "增加產生的案例數，寄望它再次出現",
+              "fraction": 0,
+              "feedback": "不可靠——種子已能精確重現，無須靠猜。"
+            },
+            {
+              "text": "停用收縮，讓測試不再失敗",
+              "fraction": 0,
+              "feedback": "停用收縮會隱藏最小反例，並不能修正或重現任何東西。"
+            },
+            {
+              "text": "修改性質直到測試通過",
+              "fraction": 0,
+              "feedback": "那是遮掩缺陷，而非診斷它。"
+            }
+          ],
+          "generalFeedback": "種子捕捉了一次執行的確切隨機選擇。用它重跑會確定性地重新產生相同的（已收縮的）輸入，開發者便能在本地端看到完全相同的失敗並逐步追蹤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個函式是冪等的",
+          "text": "<p>對於哪個函式 <code>f</code>，性質 <code>f(f(x)) == f(x)</code> 對所有 x 都有效？</p>",
+          "answers": [
+            {
+              "text": "取絕對值：abs",
+              "fraction": 100,
+              "feedback": "正確——abs(abs(x)) == abs(x)，所以 abs 是冪等的。"
+            },
+            {
+              "text": "加一：inc(x) = x + 1",
+              "fraction": 0,
+              "feedback": "非冪等——inc(inc(x)) = x + 2，與 inc(x) = x + 1 不同。"
+            },
+            {
+              "text": "反轉清單：reverse",
+              "fraction": 0,
+              "feedback": "reverse 是對合（reverse(reverse(x)) == x），不是冪等。"
+            },
+            {
+              "text": "取負：neg(x) = -x",
+              "fraction": 0,
+              "feedback": "取負是對合（neg(neg(x)) == x），不是冪等。"
+            }
+          ],
+          "generalFeedback": "abs 是冪等的，因為一旦值為非負，再取 abs 便無作用。加一失敗（加 2 而非 1），而 reverse／取負是對合（套用兩次回到原值），那是不同的性質。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "交換律性質",
+          "text": "<p>對所有輸入，哪個運算滿足有效的<strong>交換律</strong>性質 <code>f(a, b) == f(b, a)</code>？</p>",
+          "answers": [
+            {
+              "text": "乘法：a * b == b * a",
+              "fraction": 100,
+              "feedback": "正確——乘法滿足交換律。"
+            },
+            {
+              "text": "減法：a - b == b - a",
+              "fraction": 0,
+              "feedback": "一般為假——例如 5 - 3 = 2 但 3 - 5 = -2。"
+            },
+            {
+              "text": "除法：a / b == b / a",
+              "fraction": 0,
+              "feedback": "一般為假——例如 6 / 2 = 3 但 2 / 6 ≈ 0.33。"
+            },
+            {
+              "text": "次方：a ** b == b ** a",
+              "fraction": 0,
+              "feedback": "一般為假——例如 2 ** 3 = 8 但 3 ** 2 = 9。"
+            }
+          ],
+          "generalFeedback": "交換律 f(a, b) == f(b, a) 對加法與乘法成立，但對減法、除法或次方不成立。若為不可交換的運算選擇交換律性質，會誤報正確的程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "base64 編解碼器的往返性質",
+          "text": "<p>對於 base64 編解碼器，下列哪個往返性質才是正確的檢查對象？</p>",
+          "answers": [
+            {
+              "text": "decode(encode(bytes)) == bytes，產生隨機的位元組序列",
+              "fraction": 100,
+              "feedback": "正確——對任意位元組編碼再解碼必須完全還原它們。"
+            },
+            {
+              "text": "encode(decode(s)) == s，產生隨機字串 s",
+              "fraction": 0,
+              "feedback": "不健全——隨機字串未必是有效／正規的 base64，因此可能在正確程式上失敗。"
+            },
+            {
+              "text": "對所有位元組序列，encode(bytes) == bytes",
+              "fraction": 0,
+              "feedback": "編碼把位元組轉為文字，不會原樣回傳輸入。"
+            },
+            {
+              "text": "decode(encode(bytes)) 比 bytes 短",
+              "fraction": 0,
+              "feedback": "往返會還原原位元組，因此長度相同，並非更短。"
+            }
+          ],
+          "generalFeedback": "先產生原始值（位元組），再編碼、再解碼：decode(encode(bytes)) == bytes 是健全的，因為每個位元組序列都可編碼。反方向對隨機字串則是經典陷阱：並非每個字串都是有效的 base64 編碼，所以 encode(decode(s)) == s 可能合理地失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以參考實作作為預言",
+          "text": "<p>你有一個快速但複雜的實作 <code>fast_fn</code>，以及一個緩慢但顯然正確、符合同一規格的參考實作 <code>ref_fn</code>。PBT 如何運用這個參考？</p>",
+          "answers": [
+            {
+              "text": "產生隨機輸入並斷言 fast_fn(x) == ref_fn(x)——參考實作作為測試預言",
+              "fraction": 100,
+              "feedback": "正確——比對可信的參考實作即可免費獲得預言。"
+            },
+            {
+              "text": "對隨機 x 斷言 fast_fn(x) == fast_fn(x)",
+              "fraction": 0,
+              "feedback": "那是恆真的，什麼都沒測到。"
+            },
+            {
+              "text": "在正式環境中以 ref_fn 取代 fast_fn",
+              "fraction": 0,
+              "feedback": "參考實作是測試預言，不是正式環境的替代（它很慢）。"
+            },
+            {
+              "text": "只測試兩者已經一致的輸入",
+              "fraction": 0,
+              "feedback": "那違背目的——你要找的正是兩者不一致的輸入。"
+            }
+          ],
+          "generalFeedback": "較簡單的參考實作是絕佳預言：對每個產生的輸入，優化版本都必須與其相符。這就是「以較簡單模型作為測試預言」，也是差分／模型導向測試的基礎。任何不一致都是反例，收縮接著會將其最小化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "檢查排列條件",
+          "text": "<p>要檢查排序輸出是輸入的一個<strong>排列</strong>，下列哪個檢查是正確的？</p>",
+          "answers": [
+            {
+              "text": "輸出與輸入具有相同的多重集合（每個值在兩者出現次數相同）",
+              "fraction": 100,
+              "feedback": "正確——多重集合相等即刻畫了排列條件。"
+            },
+            {
+              "text": "輸出與輸入長度相同",
+              "fraction": 0,
+              "feedback": "長度相同為必要但不足；元素仍可能不同。"
+            },
+            {
+              "text": "輸出與輸入的第一個元素相同",
+              "fraction": 0,
+              "feedback": "第一個元素可能不同（最小者未必位於輸入之首），且此檢查忽略其餘部分。"
+            },
+            {
+              "text": "輸出與輸入的總和相同",
+              "fraction": 0,
+              "feedback": "總和相同不蘊含多重集合相等——[1,3] 與 [2,2] 總和相同卻不同。"
+            }
+          ],
+          "generalFeedback": "排列會保持元素的多重集合：比較元素出現次數（或比較以可信方法排序後的版本）即可驗證。長度或總和相等是較弱的推論，許多錯誤輸出也會滿足。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何要檢視產生器的分布",
+          "text": "<p>為什麼 PBT 框架讓你檢視所產生輸入的<strong>分布</strong>（例如 Hypothesis 的統計、QuickCheck 的 <code>collect</code>／<code>classify</code>）？</p>",
+          "answers": [
+            {
+              "text": "用以確認產生器確實產出了有趣與邊界案例；偏斜的產生器可能從未觸及會觸發缺陷的輸入",
+              "fraction": 100,
+              "feedback": "正確——分布資訊可防止產生器漏掉重要案例。"
+            },
+            {
+              "text": "用以量測程式碼的敘述與分支覆蓋率",
+              "fraction": 0,
+              "feedback": "那是程式碼覆蓋率，與輸入分布是不同的關注點。"
+            },
+            {
+              "text": "用以讓收縮跑得更快",
+              "fraction": 0,
+              "feedback": "分布回報影響的是產生品質，而非收縮速度。"
+            },
+            {
+              "text": "用以證明性質對所有輸入成立",
+              "fraction": 0,
+              "feedback": "沒有任何抽樣能證明全稱性質；分布統計只描述所產生的內容。"
+            }
+          ],
+          "generalFeedback": "若產生器很少（或從不）產出空清單、邊界數值或重複值，性質可能通過，而觸發缺陷的輸入卻從未被嘗試。分布回報讓你能驗證——並調整——輸入空間的重要區域確實被抽樣到。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "只有「已排序」就能完整驗證排序",
+          "text": "<p>只檢查排序函式的輸出為非遞減排列，就是一個能完整驗證排序的完整性質。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "否——回傳 [] 的函式是已排序卻錯誤；你還需要排列（多重集合）條件。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——單靠排序性會被錯誤實作滿足；輸出還必須是輸入的一個排列。"
+            }
+          ],
+          "generalFeedback": "「已排序」為必要但不足。回傳空清單，或丟棄／重複元素，都能產生已排序輸出卻不正確。完整的排序性質要把排序性與輸入輸出間的多重集合相等配對在一起。"
+        },
+        {
+          "type": "multichoice",
+          "name": "移除重複的不變量性質",
+          "text": "<p>對於從清單移除重複值的函式 <code>dedup(xs)</code>，下列何者是有效的不變量性質？</p>",
+          "answers": [
+            {
+              "text": "dedup(xs) 不含重複值，且其元素集合等於 xs 的元素集合",
+              "fraction": 100,
+              "feedback": "正確——去重會移除重複，同時保留恰好出現過哪些值。"
+            },
+            {
+              "text": "對所有 xs，len(dedup(xs)) == len(xs)",
+              "fraction": 0,
+              "feedback": "當 xs 有重複時為假；那種情況長度必然下降。"
+            },
+            {
+              "text": "對所有 xs，dedup(xs) == xs",
+              "fraction": 0,
+              "feedback": "只有在 xs 本來就無重複時成立，並非所有清單。"
+            },
+            {
+              "text": "dedup 保持每個值的出現次數",
+              "fraction": 0,
+              "feedback": "去重會把重複收合為單一次出現，因此每個值的次數不被保持。"
+            }
+          ],
+          "generalFeedback": "正確的 dedup 輸出不含重複，且涵蓋與輸入完全相同的相異值——即元素集合相等，再加上「無重複」的不變量。只有本來就沒有重複時長度才會被保持，而每個值的次數則是刻意不保持的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序是冪等的",
+          "text": "<p>下列哪個性質表達了<strong>排序是冪等的</strong>？</p>",
+          "answers": [
+            {
+              "text": "對所有清單 xs，sort(sort(xs)) == sort(xs)",
+              "fraction": 100,
+              "feedback": "正確——對已排序清單再排序不會有任何改變。"
+            },
+            {
+              "text": "對所有清單 xs，sort(sort(xs)) == xs",
+              "fraction": 0,
+              "feedback": "一般為假——內層 sort 已重排 xs，因此無法還原出原清單。"
+            },
+            {
+              "text": "對所有清單 xs，sort(xs) == xs",
+              "fraction": 0,
+              "feedback": "只有 xs 本來就已排序時為真，並非所有清單。"
+            },
+            {
+              "text": "sort(xs) 會反轉一份已排序的清單",
+              "fraction": 0,
+              "feedback": "排序絕不會反轉已排序清單；它會讓它維持有序。"
+            }
+          ],
+          "generalFeedback": "排序的冪等性表示再套用一次不會有作用：sort(sort(xs)) == sort(xs)。注意單靠這個是弱性質（許多錯誤函式也是冪等的）；它互補於、但無法取代排序性加上排列。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "評析一個方向相反的往返性質",
+          "text": "<p>某測試者提出以 <code>encode(decode(s)) == s</code> 作為編解碼器的往返性質，並產生隨機<em>字串</em> <code>s</code>。為什麼這在正確程式上也可能引發假失敗？</p>",
+          "answers": [
+            {
+              "text": "並非每個隨機字串都是有效／正規的編碼，因此 decode 可能拒絕或正規化它，使得 encode(decode(s)) 未必等於 s；健全的性質是對產生的已解碼值 x 檢查 decode(encode(x)) == x",
+              "fraction": 100,
+              "feedback": "正確——所產生的字串未必落在 encode 的值域內，因此此方向不健全。"
+            },
+            {
+              "text": "沒有任何問題；對正確的編解碼器它永遠成立",
+              "fraction": 0,
+              "feedback": "每當 s 不是正規編碼時它就會失敗，即使對正確的編解碼器亦然。"
+            },
+            {
+              "text": "編解碼器根本無法用 PBT 測試",
+              "fraction": 0,
+              "feedback": "可以——健全方向 decode(encode(x)) == x 是強力性質。"
+            },
+            {
+              "text": "隨機種子選錯了",
+              "fraction": 0,
+              "feedback": "問題在於性質的方向，而非種子。"
+            }
+          ],
+          "generalFeedback": "encode(decode(s)) == s 只有在 s 本來就是 encode 的正規輸出時才成立。隨機字串常常不是（非正規的填補、多餘空白），所以正確的編解碼器也可能違反它。應改為產生源值並檢查 decode(encode(x)) == x——encode 的值域正是 decode 必須反轉的範圍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一個實際為假的提議性質",
+          "text": "<p>某測試者為加一函式 <code>inc(n) = n + 1</code> 寫下性質 <code>inc(inc(n)) == inc(n)</code>。會發生什麼事？</p>",
+          "answers": [
+            {
+              "text": "對正確的 inc 而言此性質為假（inc(inc(n)) = n + 2 ≠ n + 1），所以 PBT 會很快找到反例——但這代表性質有誤，而非 inc 有缺陷",
+              "fraction": 100,
+              "feedback": "正確——該性質誤以為 inc 冪等；失敗是性質的錯。"
+            },
+            {
+              "text": "它正確驗證了 inc 能運作",
+              "fraction": 0,
+              "feedback": "並非如此——正確的 inc 會違反這個為假的性質。"
+            },
+            {
+              "text": "它證明了 inc 是冪等的",
+              "fraction": 0,
+              "feedback": "inc 並非冪等；該性質根本就錯了。"
+            },
+            {
+              "text": "它對所有 n 都通過",
+              "fraction": 0,
+              "feedback": "它對每個 n 都失敗，因為 n + 2 永遠不等於 n + 1。"
+            }
+          ],
+          "generalFeedback": "加一並非冪等：套用兩次會加 2。為它寫冪等性質等於斷言一件假的事，因此框架會回報反例。啟示：失敗的 PBT 執行可能代表性質有誤，所以要驗證每個所斷言的性質對正確實作確實成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有狀態（模型導向）的 PBT",
+          "text": "<p><strong>有狀態（模型導向）</strong>的性質導向測試有何特徵？</p>",
+          "answers": [
+            {
+              "text": "框架產生隨機的指令序列，對真實系統與一個簡化模型同時執行，並斷言每一步之後的可觀察結果一致；失敗的序列接著被收縮",
+              "fraction": 100,
+              "feedback": "正確——模型導向 PBT 以指令序列比對系統與參考模型。"
+            },
+            {
+              "text": "它以隨機輸入測試單一純函式，沒有狀態",
+              "fraction": 0,
+              "feedback": "那是一般（無狀態）PBT；模型導向 PBT 驅動的是有狀態系統。"
+            },
+            {
+              "text": "它量測程式達到多少個狀態",
+              "fraction": 0,
+              "feedback": "那是覆蓋率概念，不是以模型檢查行為。"
+            },
+            {
+              "text": "它把真實資料庫換成隨機資料，僅此而已",
+              "fraction": 0,
+              "feedback": "重點不在隨機化資料，而在以指令序列比對系統與模型。"
+            }
+          ],
+          "generalFeedback": "模型導向 PBT 產生一段隨機程式（一連串操作），對真實系統與一個一望即知正確的簡單模型同時執行，並檢查每一步的觀察是否相符。當某序列不一致時，收縮會把它縮減為最小的失敗指令序列——缺陷的本質。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "收縮大型結構化輸入的價值",
+          "text": "<p>某性質在一棵隨機產生、含特定數值的 500 節點樹上失敗。為什麼<strong>收縮</strong>在此格外有價值？</p>",
+          "answers": [
+            {
+              "text": "它把龐大的失敗輸入縮減為一個仍然失敗的最小結構（例如兩、三個節點的樹），孤立出關鍵觸發因素並大幅加速除錯——同時不改變失敗判定",
+              "fraction": 100,
+              "feedback": "正確——收縮把大型反例提煉出其核心。"
+            },
+            {
+              "text": "它證明該性質對所有較小的樹都成立",
+              "fraction": 0,
+              "feedback": "收縮找的是最小失敗案例；它不證明任何通過案例。"
+            },
+            {
+              "text": "它讓原本的 500 節點樹通過",
+              "fraction": 0,
+              "feedback": "收縮不改變判定；該輸入仍然失敗。"
+            },
+            {
+              "text": "它把樹轉換為清單以簡化型別",
+              "fraction": 0,
+              "feedback": "收縮保持輸入的型別／結構；它縮減的是大小，而非型別。"
+            }
+          ],
+          "generalFeedback": "500 節點的反例幾乎無法推敲。收縮會修剪節點並縮小數值，同時保持失敗，往往抵達一個能揭露確切條件的微小結構。這正是收縮最見效之處，且它絕不改變輸入是否失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "產生器分布的陷阱",
+          "text": "<p>用來測試「剖析非負整數」函式的產生器只會產出 3 到 5 位數的數字字串。風險為何？</p>",
+          "answers": [
+            {
+              "text": "它可能從未產生邊界與極端輸入（空字串、前導零、非數字字元、極大數值），使那些輸入上的缺陷未被偵測，通過的執行給人虛假的信心",
+              "fraction": 100,
+              "feedback": "正確——狹隘的產生器讓大片輸入空間未被測試。"
+            },
+            {
+              "text": "收縮會完全停止運作",
+              "fraction": 0,
+              "feedback": "收縮在所產生的範圍內仍可運作；問題在於範圍太窄。"
+            },
+            {
+              "text": "記下的種子會失效",
+              "fraction": 0,
+              "feedback": "種子仍然有效；顧慮在於輸入空間的涵蓋。"
+            },
+            {
+              "text": "該性質會自動變為假",
+              "fraction": 0,
+              "feedback": "性質不變；只是被測試得不夠充分。"
+            }
+          ],
+          "generalFeedback": "剖析器的缺陷通常藏在邊緣——空輸入、前導零、非數字、超大數值。只發出典型中段值的產生器永遠觸及不到它們，所以性質在困難案例上空洞地通過。檢視並拓寬產生器的分布不可或缺。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合互補的性質",
+          "text": "<p>你為一個函式檢查兩個各自有效的性質。同時測試兩者，下列何者為真？</p>",
+          "answers": [
+            {
+              "text": "檢查互補的性質會強化測試——各自排除不同類別的錯誤實作（例如「已排序」加「排列」共同界定排序）——但即使合在一起，也未必能完整刻畫正確性",
+              "fraction": 100,
+              "feedback": "正確——組合性質更強，卻不必然是完整的規格。"
+            },
+            {
+              "text": "組合兩個有效性質即可證明函式正確",
+              "fraction": 0,
+              "feedback": "沒有任何在抽樣輸入上的有限檢查能證明正確性。"
+            },
+            {
+              "text": "每個函式只能檢查一個性質",
+              "fraction": 0,
+              "feedback": "鼓勵並常見同時使用多個性質。"
+            },
+            {
+              "text": "組合兩個有效性質可能使其中之一變為假",
+              "fraction": 0,
+              "feedback": "有效的性質仍然有效；一起檢查不會使任一失效。"
+            }
+          ],
+          "generalFeedback": "不同性質捕捉不同的缺陷類別：「輸出已排序」加「輸出是輸入的一個排列」共同刻畫正確排序，遠勝於任一單獨使用。然而性質只能捕捉你想到的關係，且抽樣有限，所以組合它們提升信心卻不證明正確性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PBT 互補於範例測試",
+          "text": "<p>性質導向測試與手寫的範例（單元）測試有何關係？</p>",
+          "answers": [
+            {
+              "text": "兩者互補：性質涵蓋廣泛的輸入空間，範例測試則釘住特定的重要案例、回歸與已知邊界點——優良的測試套件兩者並用",
+              "fraction": 100,
+              "feedback": "正確——性質與範例互相強化。"
+            },
+            {
+              "text": "性質測試使範例測試變得多餘",
+              "fraction": 0,
+              "feedback": "範例仍能記錄並鎖定特定已知案例與回歸。"
+            },
+            {
+              "text": "範例測試使性質測試變得多餘",
+              "fraction": 0,
+              "feedback": "範例只涵蓋點；唯有性質能探索一整個輸入空間。"
+            },
+            {
+              "text": "它們測試不相交的程式種類，永不重疊",
+              "fraction": 0,
+              "feedback": "它們常從不同角度測試同一段程式；是互補而非不相交。"
+            }
+          ],
+          "generalFeedback": "範例測試是特定行為、邊界值與過往回歸的精確、可讀錨點。性質測試探索空間並揭露你未曾想到要寫範例的意外。最強的套件同時採用兩者，而非二選一。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "收縮必須保持失敗",
+          "text": "<p>在收縮過程中，某個縮減後的候選輸入<em>不再</em>使性質失敗。框架會怎麼做？</p>",
+          "answers": [
+            {
+              "text": "它丟棄該候選，並從仍然失敗的輸入繼續收縮；只有仍然觸發失敗的輸入才會被回報",
+              "fraction": 100,
+              "feedback": "正確——收縮只保留仍然失敗的候選。"
+            },
+            {
+              "text": "它把通過的縮減輸入當作反例回報",
+              "fraction": 0,
+              "feedback": "通過的輸入不是反例，絕不會被當作反例回報。"
+            },
+            {
+              "text": "它停下並宣告整個測試通過",
+              "fraction": 0,
+              "feedback": "一個通過的收縮候選並不能清除原本的失敗。"
+            },
+            {
+              "text": "它修改性質使該候選失敗",
+              "fraction": 0,
+              "feedback": "收縮絕不改變性質；它只縮減輸入。"
+            }
+          ],
+          "generalFeedback": "收縮是一種受限於「仍然失敗的輸入」的搜尋：任何通過的候選都被拒絕，搜尋從失敗者繼續。最終回報的反例因此仍違反性質，所以通過／失敗判定不變——收縮只讓見證更小。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "往返性質的健全條件",
+          "text": "<p>在什麼條件下，<code>decode(encode(x)) == x</code> 是<strong>健全</strong>的性質（對每個產生的 x 都成立）？</p>",
+          "answers": [
+            {
+              "text": "當 encode 是單射，且 decode 在 encode 的值域上是 encode 的左反函式——亦即對每個可被產生的值 x，decode 都能還原 encode",
+              "fraction": 100,
+              "feedback": "正確——這正是讓往返能還原 x 的條件。"
+            },
+            {
+              "text": "永遠成立，對任何 encode 與 decode 函式皆然",
+              "fraction": 0,
+              "feedback": "若 encode 遺失資訊（非單射），解碼便無法還原 x。"
+            },
+            {
+              "text": "只有當 encode 與 decode 是同一個函式時",
+              "fraction": 0,
+              "feedback": "它們互為反函式，一般是不同的函式，而非相等。"
+            },
+            {
+              "text": "只有當 x 是字串時",
+              "fraction": 0,
+              "feedback": "x 的型別無關緊要；重要的是反函式關係。"
+            }
+          ],
+          "generalFeedback": "decode(encode(x)) == x 要求 encode 為單射（無損），且 decode 在 encode 的輸出上將其反轉。若 encode 把兩個相異值對應到同一編碼，任何解碼器都無法同時還原兩者，該性質便不健全。陳述此條件正是維持往返性質有效的關鍵。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為鍵值儲存選擇模型",
+          "text": "<p>在對鍵值儲存進行模型導向測試時，什麼樣的<strong>模型</strong>適合作為比對對象？</p>",
+          "answers": [
+            {
+              "text": "一個顯然正確的簡單記憶體字典；在每個產生的指令（put／get／delete）之後，儲存的可觀察結果都必須與字典相符",
+              "fraction": 100,
+              "feedback": "正確——一個一望即知正確的參考模型是理想的預言。"
+            },
+            {
+              "text": "同一個儲存實作的第二份副本",
+              "fraction": 0,
+              "feedback": "副本共享相同的缺陷，因此一致並不能證明什麼。"
+            },
+            {
+              "text": "一個回傳任意值的隨機預言",
+              "fraction": 0,
+              "feedback": "隨機預言沒有可供比對的既定正確行為。"
+            },
+            {
+              "text": "儲存自身的效能計數器",
+              "fraction": 0,
+              "feedback": "效能計數器不是正確性的功能模型。"
+            }
+          ],
+          "generalFeedback": "模型應是最小、一望即知正確的抽象（此處為一個普通字典）。模型導向測試的重點正是拿複雜的真實系統去比對某個簡單到足以信任的東西。用真實實作的第二份副本只會複製它的缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何單靠冪等性是弱的排序性質",
+          "text": "<p>某人只用 <code>sort(sort(xs)) == sort(xs)</code>（冪等性）來測試排序函式。為什麼這很弱？</p>",
+          "answers": [
+            {
+              "text": "許多錯誤函式都是冪等的——例如永遠回傳 [] 者，或原樣回傳 xs 的恆等——所以冪等性並不要求輸出有序或保留輸入的元素",
+              "fraction": 100,
+              "feedback": "正確——冪等性會被明顯不正確的排序滿足。"
+            },
+            {
+              "text": "冪等性對正確的排序為假",
+              "fraction": 0,
+              "feedback": "它對正確的排序為真；只是單獨不足。"
+            },
+            {
+              "text": "它單獨就能完整驗證排序",
+              "fraction": 0,
+              "feedback": "並不能——錯誤函式也會通過它。"
+            },
+            {
+              "text": "它只在空清單上失敗",
+              "fraction": 0,
+              "feedback": "它在空清單上也通過；弱點在於錯誤函式會滿足它。"
+            }
+          ],
+          "generalFeedback": "「永遠回傳 []」與「原樣回傳輸入」都滿足 sort(sort(xs)) == sort(xs)，卻都沒有排序。冪等性是排序真正的性質，但很弱；必須與排序性及排列（多重集合）條件結合才能刻畫正確性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "過窄的產生器範圍掩蓋溢位",
+          "text": "<p>一個關於 32 位元整數加法器的性質通過了，但產生器只產出範圍在 <code>[0, 100]</code> 的運算元。最佳結論為何？</p>",
+          "answers": [
+            {
+              "text": "此通過是薄弱的證據——接近 2^31 的溢位與邊界行為從未被產生，所以性質未在最可能失敗的輸入上被測試到",
+              "fraction": 100,
+              "feedback": "正確——有風險的輸入從未被抽樣，信心因此有限。"
+            },
+            {
+              "text": "該加法器對所有 32 位元輸入都已被證明正確",
+              "fraction": 0,
+              "feedback": "只嘗試了極小的運算元；對大數毫無證明。"
+            },
+            {
+              "text": "性質導向測試是不健全的",
+              "fraction": 0,
+              "feedback": "PBT 沒問題；只是產生器範圍太窄。"
+            },
+            {
+              "text": "該性質必為假",
+              "fraction": 0,
+              "feedback": "性質可能正確；只是被測試得不足。"
+            }
+          ],
+          "generalFeedback": "溢位缺陷藏在型別的極端。侷限於 [0, 100] 的產生器無法觸及接近 2^31 的值，所以乾淨的執行對危險區域毫無說明。在信任結果之前，應拓寬產生器以納入邊界與大值（並檢視其分布）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "評析一個為假的全稱性質",
+          "text": "<p>某測試者提出對所有清單 <code>reverse(xs) != xs</code>（宣稱反轉總會改變清單）。為什麼這是個糟糕的性質？</p>",
+          "answers": [
+            {
+              "text": "它為假：回文清單，以及空清單或單一元素清單，都滿足 reverse(xs) == xs，因此正確的 reverse 會違反這個提議性質——出錯的是性質，而非程式",
+              "fraction": 100,
+              "feedback": "正確——許多清單在反轉後不變，所以「總會改變」的宣稱為假。"
+            },
+            {
+              "text": "它照字面寫就是正確且有用的",
+              "fraction": 0,
+              "feedback": "它對回文與短清單失敗，所以並不正確。"
+            },
+            {
+              "text": "它只對很長的清單失敗",
+              "fraction": 0,
+              "feedback": "它對最短的清單（空、單一元素）與任何回文都失敗。"
+            },
+            {
+              "text": "reverse 不是純函式，所以沒有性質適用",
+              "fraction": 0,
+              "feedback": "reverse 是純函式；問題在於所斷言的性質根本為假。"
+            }
+          ],
+          "generalFeedback": "空清單、任何單一元素清單，以及每個回文，在反轉後都不變，所以 reverse(xs) != xs 並非全稱成立。PBT 會回報其中之一作為反例，揭露的是一個有瑕疵的性質而非缺陷。在信任其失敗之前，務必確認所提議的性質確實是必要的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "乾淨的收縮與通過的執行能確立什麼",
+          "text": "<p>經過數千個案例，並對開發期間遇到的任何失敗做了乾淨的收縮之後，所有性質現在都通過。你能得出什麼結論？</p>",
+          "answers": [
+            {
+              "text": "在所產生的輸入中未找到反例；這提升信心，但不證明性質對所有輸入成立，因為輸入空間通常無界",
+              "fraction": 100,
+              "feedback": "正確——乾淨的執行是強力證據，而非證明。"
+            },
+            {
+              "text": "程式現在已被證明正確",
+              "fraction": 0,
+              "feedback": "抽樣有限多個輸入無法證明全稱性質。"
+            },
+            {
+              "text": "每個可能的輸入都已被測試",
+              "fraction": 0,
+              "feedback": "只測試了有限的隨機樣本，而非整個空間。"
+            },
+            {
+              "text": "這些性質現在成了數學定理",
+              "fraction": 0,
+              "feedback": "通過的測試不會把性質變成已證明的定理。"
+            }
+          ],
+          "generalFeedback": "PBT 探索的是一個往往無限的輸入空間的樣本。乾淨的執行——即使有優良的產生器與收縮——只表示「在此未找到反例」，這提升信心卻絕不等於證明。要證明得靠形式化驗證，而非測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "差分式性質導向測試",
+          "text": "<p>什麼是<strong>差分式（differential）</strong>性質導向測試？</p>",
+          "answers": [
+            {
+              "text": "產生隨機輸入，並斷言同一規格的兩個獨立實作產生相等的結果；不一致即是一個反例，指出（至少）其中之一有缺陷",
+              "fraction": 100,
+              "feedback": "正確——差分式測試讓兩個實作互相對照。"
+            },
+            {
+              "text": "在隨機輸入上比較兩個實作的執行時間",
+              "fraction": 0,
+              "feedback": "那是效能比較，不是差分式正確性測試。"
+            },
+            {
+              "text": "測試兩個數字的算術差",
+              "fraction": 0,
+              "feedback": "此處的「差分」指比較實作，而非相減。"
+            },
+            {
+              "text": "以兩個不同種子把同一個實作跑兩次",
+              "fraction": 0,
+              "feedback": "那頂多檢查確定性；差分式測試比較的是兩個相異實作。"
+            }
+          ],
+          "generalFeedback": "差分式測試把相同的產生輸入餵給同一規格的兩個實作（例如優化版剖析器與參考剖析器），要求輸出相符。任何不一致，一旦收縮為最小輸入，即揭露其中之一的缺陷——前提是至少一方對該輸入可信。",
+          "single": true
+        }
+      ]
+    }
+  },
   "state-transition": {
     "en": {
       "easy": [
