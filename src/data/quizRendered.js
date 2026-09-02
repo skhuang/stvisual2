@@ -75934,5 +75934,2545 @@ export const QUIZ_RENDERED = {
         }
       ]
     }
+  },
+  "v-model": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What the V-model is",
+          "text": "<p>The <em>V-model</em> of software development is best described as a model that:</p>",
+          "answers": [
+            {
+              "text": "Pairs each development (left) phase with a corresponding test (right) level, drawn in a V shape",
+              "fraction": 100,
+              "feedback": "Correct — the V-model lines up each development phase with the test level that later validates it."
+            },
+            {
+              "text": "Repeats short build-test-release cycles with continuous customer feedback",
+              "fraction": 0,
+              "feedback": "That describes an Agile/iterative model, not the V-model."
+            },
+            {
+              "text": "Delivers all testing in a single big-bang phase after every module is coded",
+              "fraction": 0,
+              "feedback": "The V-model deliberately spreads test design across the earlier phases; testing is not a single terminal phase."
+            },
+            {
+              "text": "Builds a throwaway prototype first and derives requirements from it",
+              "fraction": 0,
+              "feedback": "That is prototyping; the V-model instead pairs planned phases with test levels."
+            }
+          ],
+          "generalFeedback": "The V-model arranges the software life cycle as a V: development phases descend the left arm, test levels ascend the right arm, and each left phase is paired with the right-side level that validates it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The left arm of the V",
+          "text": "<p>In the V-model, the <em>left (descending) arm</em> represents:</p>",
+          "answers": [
+            {
+              "text": "The development phases — requirements, then design, progressing down toward coding",
+              "fraction": 100,
+              "feedback": "Correct — the left arm descends through the development/definition phases."
+            },
+            {
+              "text": "The test-execution levels, from unit up to acceptance",
+              "fraction": 0,
+              "feedback": "Those ascend the right arm, not the left."
+            },
+            {
+              "text": "The maintenance and retirement activities after release",
+              "fraction": 0,
+              "feedback": "The V-model's arms cover development and testing, not the post-release phases."
+            },
+            {
+              "text": "The project's budgeting and staffing plan",
+              "fraction": 0,
+              "feedback": "The arms model technical phases, not management planning."
+            }
+          ],
+          "generalFeedback": "The left arm of the V descends through the successive development phases (requirements → system design → architectural design → detailed design), ending at coding at the vertex.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The right arm of the V",
+          "text": "<p>In the V-model, the <em>right (ascending) arm</em> represents:</p>",
+          "answers": [
+            {
+              "text": "The test levels — unit, then integration, system, and acceptance, progressing upward",
+              "fraction": 100,
+              "feedback": "Correct — the right arm ascends through the successive test-execution levels."
+            },
+            {
+              "text": "The development phases from requirements down to coding",
+              "fraction": 0,
+              "feedback": "Those descend the left arm, not the right."
+            },
+            {
+              "text": "The sequence of code reviews performed before any design begins",
+              "fraction": 0,
+              "feedback": "Reviews are static checks within phases; the right arm is the ladder of dynamic test levels."
+            },
+            {
+              "text": "The rollback plan used if a release fails in production",
+              "fraction": 0,
+              "feedback": "That is an operations concern, not the right arm of the V."
+            }
+          ],
+          "generalFeedback": "The right arm ascends through the test levels (unit → integration → system → acceptance). Each level validates the output of the development phase it is paired with on the left.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What sits at the vertex",
+          "text": "<p>At the <em>bottom vertex</em> of the V — the point joining the two arms — is:</p>",
+          "answers": [
+            {
+              "text": "Coding (implementation)",
+              "fraction": 100,
+              "feedback": "Correct — coding sits at the vertex, joining the descending development arm to the ascending test arm."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing sits at the top of the right arm, paired with requirements, not at the vertex."
+            },
+            {
+              "text": "Requirements analysis",
+              "fraction": 0,
+              "feedback": "Requirements sits at the top of the left arm, not at the vertex."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing is a mid-upper level on the right arm, not the vertex."
+            }
+          ],
+          "generalFeedback": "Coding is the lowest point of the V: it is where the left (development) arm turns into the right (testing) arm. From there testing climbs back up level by level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Requirements pairs with which level",
+          "text": "<p>In the standard V-model, the <em>requirements / user-requirements</em> phase is paired with which test level?</p>",
+          "answers": [
+            {
+              "text": "Acceptance testing",
+              "fraction": 100,
+              "feedback": "Correct — acceptance testing validates the finished product against the user requirements."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing is paired with detailed/module design, not requirements."
+            },
+            {
+              "text": "Integration testing",
+              "fraction": 0,
+              "feedback": "Integration testing is paired with architectural design, not requirements."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing is paired with the system/high-level design, not the requirements phase."
+            }
+          ],
+          "generalFeedback": "Standard V-model pairing: requirements ↔ acceptance testing. The requirements are the basis against which acceptance tests are designed and later executed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "System design pairs with which level",
+          "text": "<p>In the standard V-model, the <em>system (high-level / functional) design</em> phase is paired with which test level?</p>",
+          "answers": [
+            {
+              "text": "System testing",
+              "fraction": 100,
+              "feedback": "Correct — system testing validates the integrated system against the system/functional design."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing is paired with the requirements phase, not the system design."
+            },
+            {
+              "text": "Integration testing",
+              "fraction": 0,
+              "feedback": "Integration testing is paired with architectural design, not system design."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing is paired with detailed/module design, not system design."
+            }
+          ],
+          "generalFeedback": "Standard V-model pairing: system/high-level design ↔ system testing. The system design document is the basis for the system-level tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Architectural design pairs with which level",
+          "text": "<p>In the standard V-model, the <em>architectural / integration design</em> phase is paired with which test level?</p>",
+          "answers": [
+            {
+              "text": "Integration testing",
+              "fraction": 100,
+              "feedback": "Correct — integration testing validates that the modules cooperate as the architecture prescribes."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing is paired with detailed/module design, not architectural design."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing is paired with the system/high-level design, not architectural design."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing is paired with the requirements phase, not architectural design."
+            }
+          ],
+          "generalFeedback": "Standard V-model pairing: architectural/integration design ↔ integration testing. The architecture — which defines module interfaces and interactions — is the basis for the integration tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Detailed design pairs with which level",
+          "text": "<p>In the standard V-model, the <em>module / detailed design</em> phase is paired with which test level?</p>",
+          "answers": [
+            {
+              "text": "Unit / component testing",
+              "fraction": 100,
+              "feedback": "Correct — unit testing validates each individual module against its detailed design."
+            },
+            {
+              "text": "Integration testing",
+              "fraction": 0,
+              "feedback": "Integration testing is paired with architectural design, not detailed design."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing is paired with the system/high-level design, not detailed design."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing is paired with the requirements phase, not detailed design."
+            }
+          ],
+          "generalFeedback": "Standard V-model pairing: module/detailed design ↔ unit/component testing. The detailed design of each module is the basis for its unit tests. Detailed design leads directly into coding at the vertex.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Acceptance testing validates which phase",
+          "text": "<p>Reading the V-model the other way: <em>acceptance testing</em> is the test level paired with which development phase?</p>",
+          "answers": [
+            {
+              "text": "The requirements / user-requirements phase",
+              "fraction": 100,
+              "feedback": "Correct — acceptance testing sits opposite requirements on the V."
+            },
+            {
+              "text": "The detailed / module design phase",
+              "fraction": 0,
+              "feedback": "That phase pairs with unit testing, not acceptance testing."
+            },
+            {
+              "text": "The architectural design phase",
+              "fraction": 0,
+              "feedback": "That phase pairs with integration testing, not acceptance testing."
+            },
+            {
+              "text": "The coding phase",
+              "fraction": 0,
+              "feedback": "Coding sits at the vertex; acceptance testing pairs with the requirements phase at the top of the left arm."
+            }
+          ],
+          "generalFeedback": "Acceptance testing is the mirror image of the requirements phase: the user requirements written on the left are exactly what acceptance testing checks on the right.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Unit testing validates which phase",
+          "text": "<p>Reading the V-model the other way: <em>unit / component testing</em> is the test level paired with which development phase?</p>",
+          "answers": [
+            {
+              "text": "The module / detailed design phase",
+              "fraction": 100,
+              "feedback": "Correct — unit testing sits opposite detailed design on the V."
+            },
+            {
+              "text": "The requirements phase",
+              "fraction": 0,
+              "feedback": "That phase pairs with acceptance testing, not unit testing."
+            },
+            {
+              "text": "The system / high-level design phase",
+              "fraction": 0,
+              "feedback": "That phase pairs with system testing, not unit testing."
+            },
+            {
+              "text": "The architectural design phase",
+              "fraction": 0,
+              "feedback": "That phase pairs with integration testing, not unit testing."
+            }
+          ],
+          "generalFeedback": "Unit testing is the mirror image of detailed design: the internal behaviour designed for each module is exactly what its unit tests check.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What verification means (left side)",
+          "text": "<p>On the <em>left arm</em> of the V, activities are chiefly <strong>verification</strong>. Verification asks:</p>",
+          "answers": [
+            {
+              "text": "\"Are we building the product right?\" — checking each phase's output conforms to its specification, via reviews and other static checks",
+              "fraction": 100,
+              "feedback": "Correct — verification is conformance-to-spec, largely through static techniques such as reviews and inspections."
+            },
+            {
+              "text": "\"Are we building the right product?\" — checking the delivered software meets the users' actual needs",
+              "fraction": 0,
+              "feedback": "That is validation, which lives on the right arm."
+            },
+            {
+              "text": "Only running the compiled program against live user data",
+              "fraction": 0,
+              "feedback": "Running the program is dynamic execution (validation-side activity); verification is largely static."
+            },
+            {
+              "text": "Measuring the server's throughput under peak load",
+              "fraction": 0,
+              "feedback": "That is performance testing, not the meaning of verification."
+            }
+          ],
+          "generalFeedback": "Verification (left arm) asks \"did we build the product right?\" — it confirms each artifact conforms to its specification, mainly through static checks (reviews, inspections, walkthroughs) and early test design.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What validation means (right side)",
+          "text": "<p>On the <em>right arm</em> of the V, activities are chiefly <strong>validation</strong>. Validation asks:</p>",
+          "answers": [
+            {
+              "text": "\"Are we building the right product?\" — running the software to confirm it meets the users' actual needs",
+              "fraction": 100,
+              "feedback": "Correct — validation is dynamic execution that checks fitness for the users' real needs."
+            },
+            {
+              "text": "\"Are we building the product right?\" — reviewing documents for conformance to their specification",
+              "fraction": 0,
+              "feedback": "That is verification, which lives on the left arm."
+            },
+            {
+              "text": "Confirming the requirements document is internally consistent, without executing anything",
+              "fraction": 0,
+              "feedback": "That static review is a verification activity, not validation."
+            },
+            {
+              "text": "Estimating the project schedule and cost",
+              "fraction": 0,
+              "feedback": "That is project management, not validation."
+            }
+          ],
+          "generalFeedback": "Validation (right arm) asks \"did we build the right product?\" — it executes the software (dynamic testing) to confirm it satisfies the users' real needs. Acceptance/UAT is the clearest validation activity.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Early test design",
+          "text": "<p>A defining idea of the V-model is <em>early test design</em>. This means:</p>",
+          "answers": [
+            {
+              "text": "The tests for each level are planned and designed during the paired left-side phase, even though they are executed later",
+              "fraction": 100,
+              "feedback": "Correct — e.g. acceptance tests are designed while requirements are written, long before execution."
+            },
+            {
+              "text": "All tests are both designed and executed only after coding is finished",
+              "fraction": 0,
+              "feedback": "That is the very practice the V-model's early test design is meant to replace."
+            },
+            {
+              "text": "Testers are hired only at the end of the project",
+              "fraction": 0,
+              "feedback": "Early test design means testers engage from the start, not the end."
+            },
+            {
+              "text": "Coding is skipped and replaced by test scripts",
+              "fraction": 0,
+              "feedback": "Coding still happens at the vertex; test design merely starts early."
+            }
+          ],
+          "generalFeedback": "Early test design: as each left-side phase produces its artifact, the tests for the matching right-side level are designed there and then (acceptance tests with requirements, system tests with system design, and so on). Execution still happens later, up the right arm.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Coding sits at the vertex",
+          "text": "<p>In the V-model, coding (implementation) sits at the bottom vertex, joining the descending development arm to the ascending test arm.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — coding is the lowest point of the V, where development turns into testing."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Coding does sit at the vertex; the two arms meet at implementation."
+            }
+          ],
+          "generalFeedback": "The V descends through the development phases to coding at the vertex, then ascends through the test levels. Coding is the turning point that joins the two arms."
+        },
+        {
+          "type": "truefalse",
+          "name": "Testing is not only at the very end",
+          "text": "<p>In the V-model, all testing work begins only after coding is complete, with nothing test-related happening during the earlier development phases.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is the misconception the V-model corrects: test design starts early, during the paired left-side phases."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — although test execution happens later, test design/planning for each level begins during its paired development phase."
+            }
+          ],
+          "generalFeedback": "The whole point of the V-model over a naive waterfall is that testing is not deferred to the end: the tests for each level are designed alongside the matching development phase, even though they are executed up the right arm afterwards."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Test basis for acceptance testing",
+          "text": "<p>In the V-model, which document is the <em>test basis</em> (the source the test cases are derived from) for <strong>acceptance testing</strong>?</p>",
+          "answers": [
+            {
+              "text": "The requirements / user-requirements specification",
+              "fraction": 100,
+              "feedback": "Correct — acceptance tests are derived from the requirements, its paired left-side artifact."
+            },
+            {
+              "text": "The module / detailed design",
+              "fraction": 0,
+              "feedback": "That is the basis for unit testing, not acceptance testing."
+            },
+            {
+              "text": "The architectural design",
+              "fraction": 0,
+              "feedback": "That is the basis for integration testing, not acceptance testing."
+            },
+            {
+              "text": "The source code of individual functions",
+              "fraction": 0,
+              "feedback": "Acceptance testing is derived from user requirements, not from reading the code."
+            }
+          ],
+          "generalFeedback": "Each right-side level draws its test basis from its paired left-side artifact. Acceptance testing ↔ requirements, so the requirements specification is the basis for the acceptance tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test basis for system testing",
+          "text": "<p>In the V-model, which document is the <em>test basis</em> for <strong>system testing</strong>?</p>",
+          "answers": [
+            {
+              "text": "The system / high-level (functional) design specification",
+              "fraction": 100,
+              "feedback": "Correct — system tests are derived from the system/functional design, its paired left-side artifact."
+            },
+            {
+              "text": "The user-requirements specification",
+              "fraction": 0,
+              "feedback": "That is the basis for acceptance testing, not system testing."
+            },
+            {
+              "text": "The detailed design of a single module",
+              "fraction": 0,
+              "feedback": "That is the basis for unit testing, not system testing."
+            },
+            {
+              "text": "The architectural / interface design",
+              "fraction": 0,
+              "feedback": "That is the basis for integration testing, not system testing."
+            }
+          ],
+          "generalFeedback": "System testing ↔ system/high-level design. The system design specification defines the whole system's functional behaviour, and system testing checks the integrated system against it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test basis for integration testing",
+          "text": "<p>In the V-model, which document is the <em>test basis</em> for <strong>integration testing</strong>?</p>",
+          "answers": [
+            {
+              "text": "The architectural / interface design",
+              "fraction": 100,
+              "feedback": "Correct — the architecture defines how modules interface, and integration tests are derived from it."
+            },
+            {
+              "text": "The user-requirements specification",
+              "fraction": 0,
+              "feedback": "That is the basis for acceptance testing, not integration testing."
+            },
+            {
+              "text": "The system / high-level design",
+              "fraction": 0,
+              "feedback": "That is the basis for system testing, not integration testing."
+            },
+            {
+              "text": "The detailed design of a single module",
+              "fraction": 0,
+              "feedback": "That is the basis for unit testing, not integration testing."
+            }
+          ],
+          "generalFeedback": "Integration testing ↔ architectural design. Because the architecture specifies module interfaces and interactions, it is exactly the basis against which integration tests are designed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test basis for unit testing",
+          "text": "<p>In the V-model, which document is the <em>test basis</em> for <strong>unit / component testing</strong>?</p>",
+          "answers": [
+            {
+              "text": "The module / detailed design",
+              "fraction": 100,
+              "feedback": "Correct — the detailed design defines each module's internal behaviour, and unit tests are derived from it."
+            },
+            {
+              "text": "The architectural / interface design",
+              "fraction": 0,
+              "feedback": "That is the basis for integration testing, not unit testing."
+            },
+            {
+              "text": "The system / high-level design",
+              "fraction": 0,
+              "feedback": "That is the basis for system testing, not unit testing."
+            },
+            {
+              "text": "The user-requirements specification",
+              "fraction": 0,
+              "feedback": "That is the basis for acceptance testing, not unit testing."
+            }
+          ],
+          "generalFeedback": "Unit testing ↔ detailed/module design. The detailed design describes what each individual module should do internally, so it is the basis for that module's unit tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which level validates architecture",
+          "text": "<p>Your team has just finished the <em>architectural design</em>, which specifies how the modules interface and interact. Which test level (per the V-model) is designed to validate this phase's output?</p>",
+          "answers": [
+            {
+              "text": "Integration testing",
+              "fraction": 100,
+              "feedback": "Correct — architectural design ↔ integration testing; integration tests check that the modules cooperate as the architecture prescribes."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing validates detailed design (single-module behaviour), not the architecture's inter-module interfaces."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing validates the requirements, not the architectural design."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing validates the system/high-level design, not the architectural/interface design."
+            }
+          ],
+          "generalFeedback": "Match the phase to its paired level: architectural design ↔ integration testing. Because the architecture defines module interfaces, integration testing is what checks those interfaces work once modules are combined.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which level validates detailed design",
+          "text": "<p>Your team has just finished the <em>detailed (module) design</em>, which specifies each module's internal behaviour. Which test level (per the V-model) is designed to validate this phase's output?</p>",
+          "answers": [
+            {
+              "text": "Unit / component testing",
+              "fraction": 100,
+              "feedback": "Correct — detailed design ↔ unit testing; unit tests check each module against its detailed design."
+            },
+            {
+              "text": "Integration testing",
+              "fraction": 0,
+              "feedback": "Integration testing validates the architectural design (inter-module interfaces), not a single module's internal behaviour."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing validates the system/high-level design, not the detailed design of one module."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing validates the requirements, not the detailed design."
+            }
+          ],
+          "generalFeedback": "Match the phase to its paired level: detailed/module design ↔ unit testing. The detailed design of each module is what its unit tests check.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a requirements review",
+          "text": "<p>A team holds an inspection meeting to review the <em>requirements specification</em> for completeness and consistency, without running any code. In V-model terms this activity is:</p>",
+          "answers": [
+            {
+              "text": "Verification (a static, left-arm activity)",
+              "fraction": 100,
+              "feedback": "Correct — reviewing an artifact for conformance, with no execution, is verification."
+            },
+            {
+              "text": "Validation (a dynamic, right-arm activity)",
+              "fraction": 0,
+              "feedback": "Validation involves executing the software; a document review does not."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing executes the finished product with users; a requirements inspection is a static review."
+            },
+            {
+              "text": "Integration testing",
+              "fraction": 0,
+              "feedback": "Integration testing dynamically exercises combined modules; a requirements review runs nothing."
+            }
+          ],
+          "generalFeedback": "Left arm = verification (static: reviews, inspections, \"building the product right\"). A requirements inspection runs no code, so it is a verification activity, not a validation (dynamic) one.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify executing acceptance tests",
+          "text": "<p>Users run the finished software against their real business scenarios to confirm it meets their needs. In V-model terms this activity is:</p>",
+          "answers": [
+            {
+              "text": "Validation (a dynamic, right-arm activity)",
+              "fraction": 100,
+              "feedback": "Correct — executing the software to confirm fitness for user needs is validation."
+            },
+            {
+              "text": "Verification (a static, left-arm activity)",
+              "fraction": 0,
+              "feedback": "Verification is static conformance checking; executing the product against user needs is validation."
+            },
+            {
+              "text": "A design review of the architecture",
+              "fraction": 0,
+              "feedback": "That is a static left-arm activity; running the software with users is dynamic validation."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing exercises single modules; this scenario is whole-product acceptance, a validation activity."
+            }
+          ],
+          "generalFeedback": "Right arm = validation (dynamic: executing the software, \"building the right product\"). Running the finished software against real user needs is the archetypal validation activity — acceptance/UAT.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why test design starts early",
+          "text": "<p>Why does the V-model have the tests for each level <em>designed during the paired left-side phase</em> rather than after coding?</p>",
+          "answers": [
+            {
+              "text": "Designing tests against each artifact exposes ambiguities/defects in that artifact early, and leaves the tests ready to execute when the code arrives",
+              "fraction": 100,
+              "feedback": "Correct — early test design finds specification/design faults sooner and prepares tests in advance."
+            },
+            {
+              "text": "It lets the team skip writing the requirements and design documents",
+              "fraction": 0,
+              "feedback": "Early test design depends on those documents as its basis; it does not eliminate them."
+            },
+            {
+              "text": "It removes the need to ever execute the tests",
+              "fraction": 0,
+              "feedback": "Tests are still executed later up the right arm; only their design is moved earlier."
+            },
+            {
+              "text": "It converts the sequential model into an iterative, Agile one",
+              "fraction": 0,
+              "feedback": "The V-model remains sequential; early test design does not make it iterative."
+            }
+          ],
+          "generalFeedback": "Designing tests while each artifact is fresh forces careful reading of that artifact, so ambiguities and defects surface early (cheap to fix), and the tests are ready to run the moment the corresponding code exists.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Testing activity during requirements",
+          "text": "<p>According to the V-model, what testing activity should occur <em>during the requirements phase</em> (before any code exists)?</p>",
+          "answers": [
+            {
+              "text": "Designing and planning the acceptance tests (the level paired with requirements)",
+              "fraction": 100,
+              "feedback": "Correct — acceptance tests are designed while requirements are written; they execute later."
+            },
+            {
+              "text": "Executing the acceptance tests against the delivered system",
+              "fraction": 0,
+              "feedback": "Execution comes later, up the right arm; during requirements the acceptance tests are only designed."
+            },
+            {
+              "text": "Designing the unit tests for each module",
+              "fraction": 0,
+              "feedback": "Unit tests are designed later, during detailed design — the phase paired with unit testing."
+            },
+            {
+              "text": "No testing activity of any kind can happen yet",
+              "fraction": 0,
+              "feedback": "The V-model's early test design means acceptance-test design begins right here, at the requirements phase."
+            }
+          ],
+          "generalFeedback": "Requirements ↔ acceptance testing, so the requirements phase is exactly when acceptance tests are designed. That design work (though executed much later) is part of the phase's early test design.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why unit pairs with detailed design",
+          "text": "<p>Why does the V-model pair <em>unit testing</em> specifically with the <em>detailed (module) design</em> phase?</p>",
+          "answers": [
+            {
+              "text": "The detailed design specifies each module's internal behaviour, which is exactly what unit tests check",
+              "fraction": 100,
+              "feedback": "Correct — the artifact that defines a module's internals is the natural basis for its unit tests."
+            },
+            {
+              "text": "The detailed design lists the users' business goals, which unit tests confirm",
+              "fraction": 0,
+              "feedback": "Business goals live in the requirements (paired with acceptance testing), not the detailed design."
+            },
+            {
+              "text": "The detailed design fixes the interfaces between modules, which unit tests exercise",
+              "fraction": 0,
+              "feedback": "Inter-module interfaces belong to the architecture (paired with integration testing); unit tests target one module."
+            },
+            {
+              "text": "Because unit tests can only be written after the whole system is designed",
+              "fraction": 0,
+              "feedback": "Unit tests are designed at the detailed-design phase, not after all higher-level design is finished."
+            }
+          ],
+          "generalFeedback": "Each pairing matches a test level to the artifact that is its natural basis. The detailed design describes a single module's internal behaviour, so it is precisely what unit/component testing verifies.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why integration pairs with architecture",
+          "text": "<p>Why does the V-model pair <em>integration testing</em> specifically with the <em>architectural design</em> phase?</p>",
+          "answers": [
+            {
+              "text": "The architecture defines the module interfaces and interactions, which is exactly what integration testing exercises",
+              "fraction": 100,
+              "feedback": "Correct — the artifact that specifies how modules connect is the natural basis for integration tests."
+            },
+            {
+              "text": "The architecture describes each module's internal algorithm, which integration tests check",
+              "fraction": 0,
+              "feedback": "Internal algorithms are detailed design (paired with unit testing); integration testing targets interactions."
+            },
+            {
+              "text": "The architecture states the user acceptance criteria, which integration tests confirm",
+              "fraction": 0,
+              "feedback": "Acceptance criteria come from the requirements (paired with acceptance testing), not the architecture."
+            },
+            {
+              "text": "Because integration tests can only run once the full system is deployed to users",
+              "fraction": 0,
+              "feedback": "Integration testing runs after unit testing and before system/acceptance testing, not only at deployment."
+            }
+          ],
+          "generalFeedback": "The architectural design specifies how modules are decomposed and how they talk to one another, so it is the natural basis for integration testing, which checks that combined modules interact correctly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which side is dynamic execution",
+          "text": "<p>In the V-model, dynamic <em>test execution</em> (actually running the software) is concentrated on which side, and under which term?</p>",
+          "answers": [
+            {
+              "text": "The right arm, under validation",
+              "fraction": 100,
+              "feedback": "Correct — the right arm's ascending test levels execute the software; this is validation."
+            },
+            {
+              "text": "The left arm, under verification",
+              "fraction": 0,
+              "feedback": "The left arm is mostly static (reviews, test design) — verification — not dynamic execution."
+            },
+            {
+              "text": "The left arm, under validation",
+              "fraction": 0,
+              "feedback": "The left arm is verification, and it is largely static rather than dynamic execution."
+            },
+            {
+              "text": "The right arm, under verification",
+              "fraction": 0,
+              "feedback": "The right arm is validation, not verification; verification is the left-arm term."
+            }
+          ],
+          "generalFeedback": "Left arm = verification (mostly static: reviews plus early test design). Right arm = validation (dynamic execution of the built software, level by level). Dynamic test execution therefore lives on the right arm, as validation.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Acceptance tests can be written from requirements",
+          "text": "<p>In the V-model, the acceptance test cases can be designed as soon as the requirements are agreed — that is, before any code is written.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — requirements ↔ acceptance testing, so acceptance tests are designed during the requirements phase (executed much later)."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Because acceptance testing is paired with requirements, its tests can indeed be designed once requirements are agreed, well before coding."
+            }
+          ],
+          "generalFeedback": "Early test design applies most visibly at the top of the V: the requirements are the basis for acceptance testing, so acceptance test cases can be authored as soon as requirements are settled — long before the code exists."
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpreting an early-design scenario",
+          "text": "<p>While writing the <em>architectural design</em> document, a team simultaneously drafts the integration test cases for the interfaces it defines. This practice illustrates:</p>",
+          "answers": [
+            {
+              "text": "Early test design — designing a level's tests during its paired left-side phase (architecture ↔ integration testing)",
+              "fraction": 100,
+              "feedback": "Correct — the integration tests are designed during the architectural phase they are paired with."
+            },
+            {
+              "text": "A mistake — integration tests must only be written after coding is complete",
+              "fraction": 0,
+              "feedback": "The V-model deliberately encourages designing these tests early, during architectural design."
+            },
+            {
+              "text": "Acceptance testing, because interfaces face the user",
+              "fraction": 0,
+              "feedback": "Interfaces between modules pair with integration testing; acceptance testing pairs with requirements."
+            },
+            {
+              "text": "An Agile sprint, because design and testing overlap",
+              "fraction": 0,
+              "feedback": "Overlapping test design with a phase is core V-model practice, not specifically Agile."
+            }
+          ],
+          "generalFeedback": "This is exactly the V-model's early test design: each left-side phase produces both its development artifact and the design of the tests for its paired right-side level. Architecture ↔ integration testing.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Where an interface mismatch is caught",
+          "text": "<p>Two subsystems exchange data in incompatible formats — a fault in how they interface. In the V-model, at which test <em>level</em> is this fault first targeted, and during which phase were those tests <em>designed</em>?</p>",
+          "answers": [
+            {
+              "text": "Caught at integration testing; those tests were designed during architectural design",
+              "fraction": 100,
+              "feedback": "Correct — inter-module interface faults are the target of integration testing, whose basis is the architecture."
+            },
+            {
+              "text": "Caught at unit testing; those tests were designed during detailed design",
+              "fraction": 0,
+              "feedback": "Unit testing exercises a single module in isolation; a cross-subsystem interface mismatch is an integration concern."
+            },
+            {
+              "text": "Caught at acceptance testing; those tests were designed during the requirements phase",
+              "fraction": 0,
+              "feedback": "Acceptance testing checks user needs on the whole product; an interface-format mismatch is targeted earlier, at integration."
+            },
+            {
+              "text": "Caught at system testing; those tests were designed during detailed design",
+              "fraction": 0,
+              "feedback": "The level is wrong (interfaces ↔ integration) and system tests are designed during system design, not detailed design."
+            }
+          ],
+          "generalFeedback": "Interface/interaction faults between modules are exactly what integration testing targets, and integration testing is paired with — and designed during — the architectural design phase.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A product that misses user needs",
+          "text": "<p>A delivered system conforms perfectly to its design documents, yet fails to meet what users actually needed. In the V-model, which level is meant to expose this, and is it verification or validation?</p>",
+          "answers": [
+            {
+              "text": "Acceptance testing — a validation activity, checking the product against real user needs",
+              "fraction": 100,
+              "feedback": "Correct — \"right product?\" is validation, and acceptance testing (paired with requirements) is where user-need gaps surface."
+            },
+            {
+              "text": "Unit testing — a verification activity, checking each module against its detailed design",
+              "fraction": 0,
+              "feedback": "Conformance to a module's design is verification; it cannot reveal that the whole product misses user needs."
+            },
+            {
+              "text": "Integration testing — a validation activity, checking module interfaces",
+              "fraction": 0,
+              "feedback": "Integration testing targets interfaces (and is dynamic validation of that scope), not overall fitness for user needs."
+            },
+            {
+              "text": "A design review — a validation activity, checking the requirements document",
+              "fraction": 0,
+              "feedback": "A document review is static verification, not validation, and it cannot confirm real-world fitness."
+            }
+          ],
+          "generalFeedback": "\"Built the product right\" (matches design) is verification; \"built the right product\" (meets user needs) is validation. A system can pass all verification yet fail validation — acceptance testing, paired with requirements, is where that gap shows.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How the V improves on waterfall",
+          "text": "<p>Compared with the classic waterfall model, the V-model's chief improvement for testing is that it:</p>",
+          "answers": [
+            {
+              "text": "Involves testing early — the tests for each level are designed in parallel with the matching development phase, instead of only after coding",
+              "fraction": 100,
+              "feedback": "Correct — the V-model makes test design a first-class activity of every development phase."
+            },
+            {
+              "text": "Removes the design and requirements phases entirely",
+              "fraction": 0,
+              "feedback": "The V-model keeps all those phases; it adds a paired test level to each."
+            },
+            {
+              "text": "Lets requirements change freely at any point without cost",
+              "fraction": 0,
+              "feedback": "The V-model is still sequential; late requirement changes remain costly."
+            },
+            {
+              "text": "Replaces documents with working prototypes",
+              "fraction": 0,
+              "feedback": "That is prototyping/Agile; the V-model is still document-driven."
+            }
+          ],
+          "generalFeedback": "Waterfall pushes testing to the end. The V-model pairs every development phase with a test level and designs those tests early, so defects in requirements and design are found sooner — its main testing advantage over waterfall.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A weakness shared with waterfall",
+          "text": "<p>Even with its early test design, the V-model still inherits which key weakness of the waterfall model?</p>",
+          "answers": [
+            {
+              "text": "It is sequential and rigid — phases run in order, so it adapts poorly to changing requirements",
+              "fraction": 100,
+              "feedback": "Correct — early test design does not remove the underlying sequential, plan-driven structure."
+            },
+            {
+              "text": "It never tests the software at all",
+              "fraction": 0,
+              "feedback": "The V-model tests thoroughly, level by level; that is not the shared weakness."
+            },
+            {
+              "text": "It has no defined requirements phase",
+              "fraction": 0,
+              "feedback": "Requirements is the top-left phase of the V; it is clearly defined."
+            },
+            {
+              "text": "It forbids any design documentation",
+              "fraction": 0,
+              "feedback": "The V-model is heavily document-driven, the opposite of forbidding design docs."
+            }
+          ],
+          "generalFeedback": "The V-model reorganises when tests are designed, but it keeps waterfall's linear, phase-by-phase flow. It therefore struggles when requirements change late — the same rigidity waterfall is criticised for.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "V-model versus Agile",
+          "text": "<p>Compared with Agile/iterative development, the V-model is a poor fit when:</p>",
+          "answers": [
+            {
+              "text": "Requirements are volatile and stakeholders need early, working increments to react to",
+              "fraction": 100,
+              "feedback": "Correct — the V-model assumes stable, well-understood requirements up front and produces no early prototypes."
+            },
+            {
+              "text": "Requirements are stable and well understood before design begins",
+              "fraction": 0,
+              "feedback": "That is precisely where the V-model works well, not poorly."
+            },
+            {
+              "text": "A clear phase structure with a matching test level for each phase is desired",
+              "fraction": 0,
+              "feedback": "That is a strength of the V-model, not a poor-fit situation."
+            },
+            {
+              "text": "Formal documentation and traceability are required by the domain",
+              "fraction": 0,
+              "feedback": "The V-model's document-driven rigor suits such domains; it is not a poor fit there."
+            }
+          ],
+          "generalFeedback": "Agile delivers working increments iteratively and welcomes change; the V-model plans all phases up front with no early prototypes. When requirements are volatile and early feedback is essential, the V-model fits poorly and Agile is preferred.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Misconception: testing only after coding",
+          "text": "<p>Claim: \"The V-model shows that every testing activity — including test design — happens strictly after coding, so testers need not be involved during requirements or design.\" Is this claim correct?</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is a common misconception. In the V-model, each level's tests are designed during its paired left-side phase, so testers engage from the start."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — although test execution ascends the right arm after coding, the design of each level's tests occurs during its paired development phase."
+            }
+          ],
+          "generalFeedback": "The trap: confusing test execution (which does come after coding) with test design (which the V-model deliberately moves early). Acceptance tests are designed with requirements, system tests with system design, and so on — so the claim is false."
+        },
+        {
+          "type": "multichoice",
+          "name": "Level furthest from the vertex",
+          "text": "<p>Reading the V from the coding vertex outward, which test level sits <em>furthest</em> from the vertex (paired with the topmost left-side phase)?</p>",
+          "answers": [
+            {
+              "text": "Acceptance testing (paired with requirements, at the top of the V)",
+              "fraction": 100,
+              "feedback": "Correct — requirements is the topmost left phase, so its partner, acceptance testing, is the outermost right level."
+            },
+            {
+              "text": "Unit testing (paired with detailed design)",
+              "fraction": 0,
+              "feedback": "Unit testing is nearest the vertex, not furthest — detailed design is the lowest left phase."
+            },
+            {
+              "text": "Integration testing (paired with architectural design)",
+              "fraction": 0,
+              "feedback": "Integration testing is a middle level, not the outermost."
+            },
+            {
+              "text": "System testing (paired with system design)",
+              "fraction": 0,
+              "feedback": "System testing is upper-middle, but acceptance testing (with requirements) sits above it."
+            }
+          ],
+          "generalFeedback": "The higher a phase sits on the left arm, the higher its paired level sits on the right. Requirements is the top-left phase, so acceptance testing is the outermost (furthest-from-vertex) right-side level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Level closest to the vertex",
+          "text": "<p>Which test level sits <em>closest</em> to the coding vertex (paired with the lowest left-side design phase)?</p>",
+          "answers": [
+            {
+              "text": "Unit / component testing (paired with detailed design)",
+              "fraction": 100,
+              "feedback": "Correct — detailed design is the lowest left phase, leading into coding, so its partner unit testing is nearest the vertex."
+            },
+            {
+              "text": "Acceptance testing (paired with requirements)",
+              "fraction": 0,
+              "feedback": "Acceptance testing is furthest from the vertex, not closest."
+            },
+            {
+              "text": "System testing (paired with system design)",
+              "fraction": 0,
+              "feedback": "System testing is upper-middle, not closest to the vertex."
+            },
+            {
+              "text": "Integration testing (paired with architectural design)",
+              "fraction": 0,
+              "feedback": "Integration testing is closer than system/acceptance, but unit testing is nearer the vertex."
+            }
+          ],
+          "generalFeedback": "Detailed design is the lowest left phase (it flows straight into coding at the vertex), so its paired level, unit testing, is the first level up the right arm and the closest to the vertex.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Order of test execution up the right arm",
+          "text": "<p>Ascending the right arm from the vertex, in what order are the test levels <em>executed</em>?</p>",
+          "answers": [
+            {
+              "text": "Unit → integration → system → acceptance",
+              "fraction": 100,
+              "feedback": "Correct — testing climbs from the smallest scope (unit) to the whole product against user needs (acceptance)."
+            },
+            {
+              "text": "Acceptance → system → integration → unit",
+              "fraction": 0,
+              "feedback": "That is the reverse; execution ascends from unit upward, not downward."
+            },
+            {
+              "text": "Integration → unit → acceptance → system",
+              "fraction": 0,
+              "feedback": "Unit precedes integration, and system precedes acceptance; this ordering is scrambled."
+            },
+            {
+              "text": "System → unit → integration → acceptance",
+              "fraction": 0,
+              "feedback": "Unit is first, not third; system testing comes after integration."
+            }
+          ],
+          "generalFeedback": "Up the right arm the scope widens: individual modules (unit), then their combinations (integration), then the whole system (system), then the product against user needs (acceptance). Execution order is unit → integration → system → acceptance.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which question validation answers",
+          "text": "<p>The pair of guiding questions \"Are we building the product right?\" and \"Are we building the right product?\" map to the two arms of the V. Which arm/term answers \"Are we building the <em>right product</em>?\"</p>",
+          "answers": [
+            {
+              "text": "The right arm — validation",
+              "fraction": 100,
+              "feedback": "Correct — \"right product?\" (fitness for user needs) is validation, done dynamically up the right arm."
+            },
+            {
+              "text": "The left arm — verification",
+              "fraction": 0,
+              "feedback": "Verification answers \"building the product right?\" (conformance to spec), not \"the right product?\"."
+            },
+            {
+              "text": "The left arm — validation",
+              "fraction": 0,
+              "feedback": "The left arm is verification, not validation."
+            },
+            {
+              "text": "The right arm — verification",
+              "fraction": 0,
+              "feedback": "The right arm is validation; verification is the left-arm term."
+            }
+          ],
+          "generalFeedback": "\"Building the product right?\" = verification (left, static conformance). \"Building the right product?\" = validation (right, dynamic fitness for user needs). The second question is answered by the right arm's validation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Matching two bases at once",
+          "text": "<p>Fill both blanks consistently with the standard V-model: the requirements specification is the test basis for ______, and the detailed design is the test basis for ______.</p>",
+          "answers": [
+            {
+              "text": "acceptance testing; unit testing",
+              "fraction": 100,
+              "feedback": "Correct — requirements ↔ acceptance testing, detailed design ↔ unit testing."
+            },
+            {
+              "text": "system testing; integration testing",
+              "fraction": 0,
+              "feedback": "Requirements pair with acceptance (not system) and detailed design pairs with unit (not integration)."
+            },
+            {
+              "text": "unit testing; acceptance testing",
+              "fraction": 0,
+              "feedback": "The pairings are reversed — requirements go with acceptance, detailed design with unit."
+            },
+            {
+              "text": "acceptance testing; integration testing",
+              "fraction": 0,
+              "feedback": "The first is right, but detailed design pairs with unit testing, not integration testing."
+            }
+          ],
+          "generalFeedback": "Standard pairings: requirements ↔ acceptance, system design ↔ system, architecture ↔ integration, detailed design ↔ unit. So requirements → acceptance testing and detailed design → unit testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of a matching validation per phase",
+          "text": "<p>An advantage often cited for the V-model is that \"each development phase has a matching test level.\" What does this actually buy the project?</p>",
+          "answers": [
+            {
+              "text": "Every left-side artifact has a designated right-side level that will validate it, so no phase's output is left unchecked and traceability from tests to artifacts is clear",
+              "fraction": 100,
+              "feedback": "Correct — the explicit pairing gives every artifact a home for its verification/validation and clear test-to-artifact traceability."
+            },
+            {
+              "text": "It guarantees the software will contain no defects after acceptance testing",
+              "fraction": 0,
+              "feedback": "No model guarantees zero defects; the pairing improves coverage and traceability, not perfection."
+            },
+            {
+              "text": "It lets the team run all test levels simultaneously with the design phases",
+              "fraction": 0,
+              "feedback": "Tests are designed early but executed sequentially up the right arm, not all at once."
+            },
+            {
+              "text": "It eliminates the need for requirements traceability",
+              "fraction": 0,
+              "feedback": "The pairing strengthens traceability; it does not remove the need for it."
+            }
+          ],
+          "generalFeedback": "Pairing each phase with a test level means every artifact produced on the left has an explicit level responsible for checking it, giving structured coverage and clear traceability between tests and the artifacts they exercise.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When system tests are ideally designed",
+          "text": "<p>Applying early test design consistently, at which point are the <em>system test</em> cases ideally designed (even though they run later)?</p>",
+          "answers": [
+            {
+              "text": "During the system / high-level design phase (its paired left-side phase)",
+              "fraction": 100,
+              "feedback": "Correct — system testing ↔ system design, so system tests are designed during system design."
+            },
+            {
+              "text": "During the requirements phase",
+              "fraction": 0,
+              "feedback": "The requirements phase is when acceptance tests are designed; system tests pair with system design."
+            },
+            {
+              "text": "Only after acceptance testing has finished",
+              "fraction": 0,
+              "feedback": "System testing precedes acceptance testing; its tests are designed far earlier, at system design."
+            },
+            {
+              "text": "During the detailed design phase",
+              "fraction": 0,
+              "feedback": "Detailed design is when unit tests are designed; system tests pair with system/high-level design."
+            }
+          ],
+          "generalFeedback": "Early test design places each level's test design in its paired phase. System testing ↔ system/high-level design, so the system tests are ideally designed during the system design phase, then executed up the right arm after integration.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Cost of a late requirements change",
+          "text": "<p>Late in a V-model project, a user requirement changes. Why is this typically expensive to accommodate?</p>",
+          "answers": [
+            {
+              "text": "Because the model is sequential, the change ripples through the already-completed design, code, and every paired test level's artifacts, all of which must be revised",
+              "fraction": 100,
+              "feedback": "Correct — a requirements change invalidates downstream artifacts and their paired (e.g. acceptance) tests, and there is no iterative mechanism to absorb it cheaply."
+            },
+            {
+              "text": "Because the V-model has no requirements phase, so the change has nowhere to be recorded",
+              "fraction": 0,
+              "feedback": "Requirements is the top-left phase of the V; the problem is rework downstream, not a missing phase."
+            },
+            {
+              "text": "Because test design cannot begin until the change is coded",
+              "fraction": 0,
+              "feedback": "The V-model designs tests early; the cost comes from reworking completed sequential artifacts, not from delayed test design."
+            },
+            {
+              "text": "Because acceptance testing is unrelated to the requirements and must be redone from scratch regardless",
+              "fraction": 0,
+              "feedback": "Acceptance testing is tightly paired with requirements; that pairing is precisely why the change forces acceptance-test rework."
+            }
+          ],
+          "generalFeedback": "The V-model's rigidity means a late requirements change forces revisiting the system/architecture/detailed designs, the code, and each paired test level (acceptance tests most directly). Unlike an iterative model, it cannot absorb such change in a later increment, so late changes are costly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Spot the incorrect pairing",
+          "text": "<p>Which of the following development-phase ↔ test-level pairings is <strong>NOT</strong> part of the standard V-model?</p>",
+          "answers": [
+            {
+              "text": "System / high-level design ↔ unit testing",
+              "fraction": 100,
+              "feedback": "Correct — this pairing is wrong. System design pairs with system testing; unit testing pairs with detailed design."
+            },
+            {
+              "text": "Requirements ↔ acceptance testing",
+              "fraction": 0,
+              "feedback": "This is a correct standard pairing, so it is not the answer."
+            },
+            {
+              "text": "Architectural design ↔ integration testing",
+              "fraction": 0,
+              "feedback": "This is a correct standard pairing, so it is not the answer."
+            },
+            {
+              "text": "Detailed / module design ↔ unit testing",
+              "fraction": 0,
+              "feedback": "This is a correct standard pairing, so it is not the answer."
+            }
+          ],
+          "generalFeedback": "The standard pairings are requirements ↔ acceptance, system design ↔ system, architecture ↔ integration, detailed design ↔ unit. \"System design ↔ unit testing\" mismatches two levels, so it is the incorrect pairing.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "V-model 是什麼",
+          "text": "<p>軟體開發的 <em>V-model（V 模型）</em>最貼切的描述是一種：</p>",
+          "answers": [
+            {
+              "text": "將每個開發（左側）階段與對應的測試（右側）層級配對、畫成 V 字形的模型",
+              "fraction": 100,
+              "feedback": "正確——V 模型讓每個開發階段對齊之後負責驗證它的測試層級。"
+            },
+            {
+              "text": "以持續的顧客回饋反覆進行短週期的建置—測試—發布",
+              "fraction": 0,
+              "feedback": "那描述的是敏捷／迭代模型，不是 V 模型。"
+            },
+            {
+              "text": "在每個模組都寫完之後，才在單一的大爆炸階段一次做完所有測試",
+              "fraction": 0,
+              "feedback": "V 模型刻意把測試設計分散到較早的各階段；測試並非單一的最終階段。"
+            },
+            {
+              "text": "先做一個用完即丟的原型，再從中推導需求",
+              "fraction": 0,
+              "feedback": "那是原型法；V 模型是把規劃好的階段與測試層級配對。"
+            }
+          ],
+          "generalFeedback": "V 模型把軟體生命週期排成一個 V：開發階段沿左臂下降，測試層級沿右臂上升，且每個左側階段都與負責驗證它的右側層級配對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "V 的左臂",
+          "text": "<p>在 V 模型中，<em>左臂（下降）</em>代表：</p>",
+          "answers": [
+            {
+              "text": "開發階段——需求，接著設計，逐步向下走到編碼",
+              "fraction": 100,
+              "feedback": "正確——左臂沿著開發／定義階段下降。"
+            },
+            {
+              "text": "測試執行層級，從單元往上到驗收",
+              "fraction": 0,
+              "feedback": "那些是沿右臂上升，不是左臂。"
+            },
+            {
+              "text": "發布之後的維護與退役活動",
+              "fraction": 0,
+              "feedback": "V 模型的兩臂涵蓋開發與測試，不包含發布後的階段。"
+            },
+            {
+              "text": "專案的預算與人力規劃",
+              "fraction": 0,
+              "feedback": "兩臂模型化的是技術階段，不是管理規劃。"
+            }
+          ],
+          "generalFeedback": "V 的左臂沿著接連的開發階段下降（需求 → 系統設計 → 架構設計 → 詳細設計），最後在頂點落到編碼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "V 的右臂",
+          "text": "<p>在 V 模型中，<em>右臂（上升）</em>代表：</p>",
+          "answers": [
+            {
+              "text": "測試層級——單元，接著整合、系統、驗收，逐步向上",
+              "fraction": 100,
+              "feedback": "正確——右臂沿著接連的測試執行層級上升。"
+            },
+            {
+              "text": "從需求向下到編碼的開發階段",
+              "fraction": 0,
+              "feedback": "那些是沿左臂下降，不是右臂。"
+            },
+            {
+              "text": "在任何設計開始前所進行的一連串程式碼審查",
+              "fraction": 0,
+              "feedback": "審查是各階段內的靜態檢查；右臂是動態測試層級的階梯。"
+            },
+            {
+              "text": "發布在正式環境失敗時所用的回復計畫",
+              "fraction": 0,
+              "feedback": "那是維運議題，不是 V 的右臂。"
+            }
+          ],
+          "generalFeedback": "右臂沿著測試層級上升（單元 → 整合 → 系統 → 驗收）。每個層級驗證它在左側所配對的開發階段之產出。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "頂點是什麼",
+          "text": "<p>在 V 的<em>底部頂點</em>——連接兩臂的那一點——是：</p>",
+          "answers": [
+            {
+              "text": "編碼（實作）",
+              "fraction": 100,
+              "feedback": "正確——編碼位於頂點，連接下降的開發臂與上升的測試臂。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試位於右臂頂端、與需求配對，而非頂點。"
+            },
+            {
+              "text": "需求分析",
+              "fraction": 0,
+              "feedback": "需求位於左臂頂端，而非頂點。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試是右臂中上段的層級，而非頂點。"
+            }
+          ],
+          "generalFeedback": "編碼是 V 的最低點：它是左側（開發）臂轉成右側（測試）臂之處。之後測試便逐級往上爬。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需求配對哪個層級",
+          "text": "<p>在標準 V 模型中，<em>需求／使用者需求</em>階段與哪個測試層級配對？</p>",
+          "answers": [
+            {
+              "text": "驗收測試",
+              "fraction": 100,
+              "feedback": "正確——驗收測試依使用者需求驗證完成的產品。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試與詳細／模組設計配對，而非需求。"
+            },
+            {
+              "text": "整合測試",
+              "fraction": 0,
+              "feedback": "整合測試與架構設計配對，而非需求。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試與系統／高階設計配對，而非需求階段。"
+            }
+          ],
+          "generalFeedback": "標準 V 模型配對：需求 ↔ 驗收測試。需求是驗收測試設計與日後執行時所對照的依據。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "系統設計配對哪個層級",
+          "text": "<p>在標準 V 模型中，<em>系統（高階／功能）設計</em>階段與哪個測試層級配對？</p>",
+          "answers": [
+            {
+              "text": "系統測試",
+              "fraction": 100,
+              "feedback": "正確——系統測試依系統／功能設計驗證整合後的系統。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試與需求階段配對，而非系統設計。"
+            },
+            {
+              "text": "整合測試",
+              "fraction": 0,
+              "feedback": "整合測試與架構設計配對，而非系統設計。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試與詳細／模組設計配對，而非系統設計。"
+            }
+          ],
+          "generalFeedback": "標準 V 模型配對：系統／高階設計 ↔ 系統測試。系統設計文件是系統層級測試的依據。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "架構設計配對哪個層級",
+          "text": "<p>在標準 V 模型中，<em>架構／整合設計</em>階段與哪個測試層級配對？</p>",
+          "answers": [
+            {
+              "text": "整合測試",
+              "fraction": 100,
+              "feedback": "正確——整合測試驗證各模組是否如架構所規定地協同運作。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試與詳細／模組設計配對，而非架構設計。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試與系統／高階設計配對，而非架構設計。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試與需求階段配對，而非架構設計。"
+            }
+          ],
+          "generalFeedback": "標準 V 模型配對：架構／整合設計 ↔ 整合測試。架構——它界定模組介面與互動——是整合測試的依據。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "詳細設計配對哪個層級",
+          "text": "<p>在標準 V 模型中，<em>模組／詳細設計</em>階段與哪個測試層級配對？</p>",
+          "answers": [
+            {
+              "text": "單元／元件測試",
+              "fraction": 100,
+              "feedback": "正確——單元測試依各模組的詳細設計驗證該模組。"
+            },
+            {
+              "text": "整合測試",
+              "fraction": 0,
+              "feedback": "整合測試與架構設計配對，而非詳細設計。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試與系統／高階設計配對，而非詳細設計。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試與需求階段配對，而非詳細設計。"
+            }
+          ],
+          "generalFeedback": "標準 V 模型配對：模組／詳細設計 ↔ 單元／元件測試。各模組的詳細設計是其單元測試的依據。詳細設計直接接續到頂點的編碼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗收測試驗證哪個階段",
+          "text": "<p>反過來讀 V 模型：<em>驗收測試</em>是與哪個開發階段配對的測試層級？</p>",
+          "answers": [
+            {
+              "text": "需求／使用者需求階段",
+              "fraction": 100,
+              "feedback": "正確——驗收測試在 V 上與需求相對。"
+            },
+            {
+              "text": "詳細／模組設計階段",
+              "fraction": 0,
+              "feedback": "該階段與單元測試配對，而非驗收測試。"
+            },
+            {
+              "text": "架構設計階段",
+              "fraction": 0,
+              "feedback": "該階段與整合測試配對，而非驗收測試。"
+            },
+            {
+              "text": "編碼階段",
+              "fraction": 0,
+              "feedback": "編碼位於頂點；驗收測試在左臂頂端與需求階段配對。"
+            }
+          ],
+          "generalFeedback": "驗收測試是需求階段的鏡像：寫在左側的使用者需求，正是驗收測試在右側所檢查的對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單元測試驗證哪個階段",
+          "text": "<p>反過來讀 V 模型：<em>單元／元件測試</em>是與哪個開發階段配對的測試層級？</p>",
+          "answers": [
+            {
+              "text": "模組／詳細設計階段",
+              "fraction": 100,
+              "feedback": "正確——單元測試在 V 上與詳細設計相對。"
+            },
+            {
+              "text": "需求階段",
+              "fraction": 0,
+              "feedback": "該階段與驗收測試配對，而非單元測試。"
+            },
+            {
+              "text": "系統／高階設計階段",
+              "fraction": 0,
+              "feedback": "該階段與系統測試配對，而非單元測試。"
+            },
+            {
+              "text": "架構設計階段",
+              "fraction": 0,
+              "feedback": "該階段與整合測試配對，而非單元測試。"
+            }
+          ],
+          "generalFeedback": "單元測試是詳細設計的鏡像：為各模組設計的內部行為，正是其單元測試所檢查的對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗證（verification）的意義（左側）",
+          "text": "<p>在 V 的<em>左臂</em>，活動主要是<strong>驗證（verification）</strong>。驗證所問的是：</p>",
+          "answers": [
+            {
+              "text": "「我們把產品做對了嗎？」——透過審查等靜態檢查，確認每個階段的產出符合其規格",
+              "fraction": 100,
+              "feedback": "正確——驗證是「是否符合規格」，主要靠審查、檢視等靜態技術。"
+            },
+            {
+              "text": "「我們做的是對的產品嗎？」——確認交付的軟體符合使用者真正的需要",
+              "fraction": 0,
+              "feedback": "那是確效（validation），落在右臂。"
+            },
+            {
+              "text": "只在真實使用者資料上執行編譯後的程式",
+              "fraction": 0,
+              "feedback": "執行程式屬於動態執行（確效端活動）；驗證主要是靜態的。"
+            },
+            {
+              "text": "量測伺服器在尖峰負載下的吞吐量",
+              "fraction": 0,
+              "feedback": "那是效能測試，不是驗證的意義。"
+            }
+          ],
+          "generalFeedback": "驗證（左臂）問「我們是否把產品做對了？」——它確認每項產物符合其規格，主要透過靜態檢查（審查、檢視、走查）與早期測試設計。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "確效（validation）的意義（右側）",
+          "text": "<p>在 V 的<em>右臂</em>，活動主要是<strong>確效（validation）</strong>。確效所問的是：</p>",
+          "answers": [
+            {
+              "text": "「我們做的是對的產品嗎？」——執行軟體以確認它符合使用者真正的需要",
+              "fraction": 100,
+              "feedback": "正確——確效是動態執行，檢查是否符合使用者的真正需要。"
+            },
+            {
+              "text": "「我們把產品做對了嗎？」——審查文件是否符合其規格",
+              "fraction": 0,
+              "feedback": "那是驗證，落在左臂。"
+            },
+            {
+              "text": "在不執行任何東西的情況下，確認需求文件內部一致",
+              "fraction": 0,
+              "feedback": "那種靜態審查是驗證活動，不是確效。"
+            },
+            {
+              "text": "估算專案的時程與成本",
+              "fraction": 0,
+              "feedback": "那是專案管理，不是確效。"
+            }
+          ],
+          "generalFeedback": "確效（右臂）問「我們做的是對的產品嗎？」——它執行軟體（動態測試）以確認它滿足使用者真正的需要。驗收／UAT 是最典型的確效活動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "早期測試設計",
+          "text": "<p>V 模型的一個核心概念是<em>早期測試設計</em>。它的意思是：</p>",
+          "answers": [
+            {
+              "text": "每個層級的測試是在其所配對的左側階段就規劃與設計的，儘管稍後才執行",
+              "fraction": 100,
+              "feedback": "正確——例如驗收測試在撰寫需求時就設計好，遠早於執行。"
+            },
+            {
+              "text": "所有測試都只在編碼完成之後才設計並執行",
+              "fraction": 0,
+              "feedback": "那正是 V 模型的早期測試設計要取代的做法。"
+            },
+            {
+              "text": "測試人員只在專案結束時才被找來",
+              "fraction": 0,
+              "feedback": "早期測試設計代表測試人員從一開始就投入，而非最後才加入。"
+            },
+            {
+              "text": "跳過編碼，用測試腳本取代",
+              "fraction": 0,
+              "feedback": "編碼仍在頂點進行；只是測試設計提早開始。"
+            }
+          ],
+          "generalFeedback": "早期測試設計：當每個左側階段產出其產物時，就在當下設計相對應右側層級的測試（驗收測試配需求、系統測試配系統設計，以此類推）。執行仍發生在稍後，沿右臂進行。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "編碼位於頂點",
+          "text": "<p>在 V 模型中，編碼（實作）位於底部頂點，連接下降的開發臂與上升的測試臂。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——編碼是 V 的最低點，開發在此轉為測試。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "編碼確實位於頂點；兩臂在實作處相會。"
+            }
+          ],
+          "generalFeedback": "V 沿開發階段下降到頂點的編碼，再沿測試層級上升。編碼是連接兩臂的轉折點。"
+        },
+        {
+          "type": "truefalse",
+          "name": "測試不是只在最後才做",
+          "text": "<p>在 V 模型中，所有測試工作都只在編碼完成之後才開始，較早的開發階段完全沒有任何與測試相關的活動。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這正是 V 模型要糾正的迷思：測試設計提早開始，就在所配對的左側階段。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——雖然測試執行發生在稍後，但每個層級的測試設計／規劃在其所配對的開發階段就開始了。"
+            }
+          ],
+          "generalFeedback": "V 模型相對於天真的瀑布模型，重點正是測試不被延到最後：每個層級的測試與相對應的開發階段同步設計，儘管是稍後沿右臂執行。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "驗收測試的測試依據",
+          "text": "<p>在 V 模型中，<strong>驗收測試</strong>的<em>測試依據</em>（推導測試案例的來源文件）是下列何者？</p>",
+          "answers": [
+            {
+              "text": "需求／使用者需求規格",
+              "fraction": 100,
+              "feedback": "正確——驗收測試由需求推導，需求是其配對的左側產物。"
+            },
+            {
+              "text": "模組／詳細設計",
+              "fraction": 0,
+              "feedback": "那是單元測試的依據，而非驗收測試。"
+            },
+            {
+              "text": "架構設計",
+              "fraction": 0,
+              "feedback": "那是整合測試的依據，而非驗收測試。"
+            },
+            {
+              "text": "各個函式的原始碼",
+              "fraction": 0,
+              "feedback": "驗收測試由使用者需求推導，而非閱讀程式碼。"
+            }
+          ],
+          "generalFeedback": "每個右側層級的測試依據取自其配對的左側產物。驗收測試 ↔ 需求，所以需求規格是驗收測試的依據。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "系統測試的測試依據",
+          "text": "<p>在 V 模型中，<strong>系統測試</strong>的<em>測試依據</em>是下列何者？</p>",
+          "answers": [
+            {
+              "text": "系統／高階（功能）設計規格",
+              "fraction": 100,
+              "feedback": "正確——系統測試由系統／功能設計推導，那是其配對的左側產物。"
+            },
+            {
+              "text": "使用者需求規格",
+              "fraction": 0,
+              "feedback": "那是驗收測試的依據，而非系統測試。"
+            },
+            {
+              "text": "單一模組的詳細設計",
+              "fraction": 0,
+              "feedback": "那是單元測試的依據，而非系統測試。"
+            },
+            {
+              "text": "架構／介面設計",
+              "fraction": 0,
+              "feedback": "那是整合測試的依據，而非系統測試。"
+            }
+          ],
+          "generalFeedback": "系統測試 ↔ 系統／高階設計。系統設計規格界定整個系統的功能行為，系統測試就依它來檢查整合後的系統。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "整合測試的測試依據",
+          "text": "<p>在 V 模型中，<strong>整合測試</strong>的<em>測試依據</em>是下列何者？</p>",
+          "answers": [
+            {
+              "text": "架構／介面設計",
+              "fraction": 100,
+              "feedback": "正確——架構界定模組如何介接，整合測試即由它推導。"
+            },
+            {
+              "text": "使用者需求規格",
+              "fraction": 0,
+              "feedback": "那是驗收測試的依據，而非整合測試。"
+            },
+            {
+              "text": "系統／高階設計",
+              "fraction": 0,
+              "feedback": "那是系統測試的依據，而非整合測試。"
+            },
+            {
+              "text": "單一模組的詳細設計",
+              "fraction": 0,
+              "feedback": "那是單元測試的依據，而非整合測試。"
+            }
+          ],
+          "generalFeedback": "整合測試 ↔ 架構設計。因為架構規範模組介面與互動，它正是整合測試設計時所對照的依據。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單元測試的測試依據",
+          "text": "<p>在 V 模型中，<strong>單元／元件測試</strong>的<em>測試依據</em>是下列何者？</p>",
+          "answers": [
+            {
+              "text": "模組／詳細設計",
+              "fraction": 100,
+              "feedback": "正確——詳細設計界定各模組的內部行為，單元測試即由它推導。"
+            },
+            {
+              "text": "架構／介面設計",
+              "fraction": 0,
+              "feedback": "那是整合測試的依據，而非單元測試。"
+            },
+            {
+              "text": "系統／高階設計",
+              "fraction": 0,
+              "feedback": "那是系統測試的依據，而非單元測試。"
+            },
+            {
+              "text": "使用者需求規格",
+              "fraction": 0,
+              "feedback": "那是驗收測試的依據，而非單元測試。"
+            }
+          ],
+          "generalFeedback": "單元測試 ↔ 詳細／模組設計。詳細設計描述各個模組內部應做什麼，所以它是該模組單元測試的依據。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個層級驗證架構",
+          "text": "<p>你的團隊剛完成<em>架構設計</em>，它規範了各模組如何介接與互動。依 V 模型，哪個測試層級是用來驗證此階段產出的？</p>",
+          "answers": [
+            {
+              "text": "整合測試",
+              "fraction": 100,
+              "feedback": "正確——架構設計 ↔ 整合測試；整合測試檢查各模組是否如架構所規定地協作。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試驗證詳細設計（單一模組行為），而非架構的跨模組介面。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試驗證需求，而非架構設計。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試驗證系統／高階設計，而非架構／介面設計。"
+            }
+          ],
+          "generalFeedback": "把階段對應到其配對層級：架構設計 ↔ 整合測試。因為架構界定模組介面，整合測試正是在模組組合後檢查那些介面能否運作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個層級驗證詳細設計",
+          "text": "<p>你的團隊剛完成<em>詳細（模組）設計</em>，它規範了各模組的內部行為。依 V 模型，哪個測試層級是用來驗證此階段產出的？</p>",
+          "answers": [
+            {
+              "text": "單元／元件測試",
+              "fraction": 100,
+              "feedback": "正確——詳細設計 ↔ 單元測試；單元測試依詳細設計檢查各模組。"
+            },
+            {
+              "text": "整合測試",
+              "fraction": 0,
+              "feedback": "整合測試驗證架構設計（跨模組介面），而非單一模組的內部行為。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試驗證系統／高階設計，而非單一模組的詳細設計。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試驗證需求，而非詳細設計。"
+            }
+          ],
+          "generalFeedback": "把階段對應到其配對層級：詳細／模組設計 ↔ 單元測試。各模組的詳細設計正是其單元測試所檢查的對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "將需求審查分類",
+          "text": "<p>某團隊開檢視會議，審查<em>需求規格</em>的完整性與一致性，過程中不執行任何程式碼。以 V 模型的術語，此活動是：</p>",
+          "answers": [
+            {
+              "text": "驗證（一種靜態的左臂活動）",
+              "fraction": 100,
+              "feedback": "正確——審查產物是否符合、且不執行，屬於驗證。"
+            },
+            {
+              "text": "確效（一種動態的右臂活動）",
+              "fraction": 0,
+              "feedback": "確效牽涉執行軟體；文件審查並不執行。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試由使用者執行完成的產品；需求檢視是靜態審查。"
+            },
+            {
+              "text": "整合測試",
+              "fraction": 0,
+              "feedback": "整合測試動態地操作組合後的模組；需求審查不執行任何東西。"
+            }
+          ],
+          "generalFeedback": "左臂 = 驗證（靜態：審查、檢視、「把產品做對」）。需求檢視不執行程式碼，因此是驗證活動，而非確效（動態）活動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "將執行驗收測試分類",
+          "text": "<p>使用者拿完成的軟體針對真實的業務情境執行，以確認它符合需要。以 V 模型的術語，此活動是：</p>",
+          "answers": [
+            {
+              "text": "確效（一種動態的右臂活動）",
+              "fraction": 100,
+              "feedback": "正確——執行軟體以確認是否符合使用者需要，屬於確效。"
+            },
+            {
+              "text": "驗證（一種靜態的左臂活動）",
+              "fraction": 0,
+              "feedback": "驗證是靜態的符合性檢查；針對使用者需要執行產品屬於確效。"
+            },
+            {
+              "text": "對架構做的設計審查",
+              "fraction": 0,
+              "feedback": "那是靜態的左臂活動；由使用者執行軟體屬於動態確效。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試操作單一模組；此情境是整個產品的驗收，屬確效活動。"
+            }
+          ],
+          "generalFeedback": "右臂 = 確效（動態：執行軟體、「做對的產品」）。拿完成的軟體針對真實使用者需要執行，是最典型的確效活動——驗收／UAT。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何測試設計要提早",
+          "text": "<p>為何 V 模型要讓各層級的測試<em>在其配對的左側階段就設計</em>，而不是等編碼之後？</p>",
+          "answers": [
+            {
+              "text": "針對每項產物設計測試能提早揭露該產物的含糊與缺陷，也讓測試在程式碼到位時就已備妥可執行",
+              "fraction": 100,
+              "feedback": "正確——早期測試設計能更早找到規格／設計缺陷，並事先備妥測試。"
+            },
+            {
+              "text": "它讓團隊得以省去撰寫需求與設計文件",
+              "fraction": 0,
+              "feedback": "早期測試設計以那些文件為依據，並不會消除它們。"
+            },
+            {
+              "text": "它讓測試永遠不必執行",
+              "fraction": 0,
+              "feedback": "測試仍在稍後沿右臂執行；只是把設計提早。"
+            },
+            {
+              "text": "它把循序模型轉成迭代、敏捷的模型",
+              "fraction": 0,
+              "feedback": "V 模型仍是循序的；早期測試設計不會使它變成迭代式。"
+            }
+          ],
+          "generalFeedback": "趁每項產物還新鮮時設計測試，會迫使仔細研讀該產物，讓含糊與缺陷提早浮現（修正成本低），而且測試在對應程式碼一存在就能立即執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需求階段的測試活動",
+          "text": "<p>依 V 模型，在<em>需求階段</em>（尚無任何程式碼時）應進行什麼測試活動？</p>",
+          "answers": [
+            {
+              "text": "設計並規劃驗收測試（與需求配對的層級）",
+              "fraction": 100,
+              "feedback": "正確——驗收測試在撰寫需求時就設計；稍後才執行。"
+            },
+            {
+              "text": "針對交付的系統執行驗收測試",
+              "fraction": 0,
+              "feedback": "執行發生在稍後、沿右臂進行；在需求階段驗收測試只被設計。"
+            },
+            {
+              "text": "為每個模組設計單元測試",
+              "fraction": 0,
+              "feedback": "單元測試在稍後的詳細設計階段設計——那是與單元測試配對的階段。"
+            },
+            {
+              "text": "此時不可能有任何測試活動",
+              "fraction": 0,
+              "feedback": "V 模型的早期測試設計代表驗收測試設計就從這裡、在需求階段開始。"
+            }
+          ],
+          "generalFeedback": "需求 ↔ 驗收測試，所以需求階段正是設計驗收測試的時機。那份設計工作（雖然遠在稍後才執行）是此階段早期測試設計的一部分。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何單元配對詳細設計",
+          "text": "<p>為何 V 模型把<em>單元測試</em>特別與<em>詳細（模組）設計</em>階段配對？</p>",
+          "answers": [
+            {
+              "text": "詳細設計規範各模組的內部行為，而那正是單元測試所檢查的對象",
+              "fraction": 100,
+              "feedback": "正確——界定模組內部的產物，就是其單元測試的自然依據。"
+            },
+            {
+              "text": "詳細設計列出使用者的業務目標，單元測試加以確認",
+              "fraction": 0,
+              "feedback": "業務目標存在於需求（與驗收測試配對），而非詳細設計。"
+            },
+            {
+              "text": "詳細設計固定模組間的介面，單元測試加以操作",
+              "fraction": 0,
+              "feedback": "跨模組介面屬於架構（與整合測試配對）；單元測試針對單一模組。"
+            },
+            {
+              "text": "因為單元測試只能在整個系統設計完之後才撰寫",
+              "fraction": 0,
+              "feedback": "單元測試在詳細設計階段就設計，而非等所有較高層設計完成後。"
+            }
+          ],
+          "generalFeedback": "每組配對都把一個測試層級對應到它的自然依據產物。詳細設計描述單一模組的內部行為，因此正是單元／元件測試所驗證的對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何整合配對架構",
+          "text": "<p>為何 V 模型把<em>整合測試</em>特別與<em>架構設計</em>階段配對？</p>",
+          "answers": [
+            {
+              "text": "架構界定模組介面與互動，而那正是整合測試所操作的對象",
+              "fraction": 100,
+              "feedback": "正確——規範模組如何連接的產物，就是整合測試的自然依據。"
+            },
+            {
+              "text": "架構描述各模組的內部演算法，整合測試加以檢查",
+              "fraction": 0,
+              "feedback": "內部演算法屬詳細設計（與單元測試配對）；整合測試針對互動。"
+            },
+            {
+              "text": "架構陳述使用者驗收準則，整合測試加以確認",
+              "fraction": 0,
+              "feedback": "驗收準則來自需求（與驗收測試配對），而非架構。"
+            },
+            {
+              "text": "因為整合測試只能在整個系統部署給使用者後才能執行",
+              "fraction": 0,
+              "feedback": "整合測試在單元測試之後、系統／驗收測試之前執行，而非只在部署時。"
+            }
+          ],
+          "generalFeedback": "架構設計規範模組如何被分解、彼此如何溝通，因此它是整合測試的自然依據——整合測試檢查組合後的模組是否正確互動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一側是動態執行",
+          "text": "<p>在 V 模型中，動態的<em>測試執行</em>（實際執行軟體）集中在哪一側、用哪個術語？</p>",
+          "answers": [
+            {
+              "text": "右臂，屬確效",
+              "fraction": 100,
+              "feedback": "正確——右臂上升的測試層級會執行軟體；這是確效。"
+            },
+            {
+              "text": "左臂，屬驗證",
+              "fraction": 0,
+              "feedback": "左臂主要是靜態的（審查、測試設計）——驗證——而非動態執行。"
+            },
+            {
+              "text": "左臂，屬確效",
+              "fraction": 0,
+              "feedback": "左臂是驗證，而且大多是靜態而非動態執行。"
+            },
+            {
+              "text": "右臂，屬驗證",
+              "fraction": 0,
+              "feedback": "右臂是確效，而非驗證；驗證是左臂的術語。"
+            }
+          ],
+          "generalFeedback": "左臂 = 驗證（大多靜態：審查加早期測試設計）。右臂 = 確效（逐級動態執行已建置的軟體）。因此動態測試執行落在右臂，屬確效。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "驗收測試可從需求撰寫",
+          "text": "<p>在 V 模型中，驗收測試案例一旦需求議定就能設計——也就是在寫任何程式碼之前。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——需求 ↔ 驗收測試，所以驗收測試在需求階段就設計（遠在稍後才執行）。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "因為驗收測試與需求配對，其測試確實能在需求議定後、遠早於編碼前就設計。"
+            }
+          ],
+          "generalFeedback": "早期測試設計在 V 的頂端最明顯：需求是驗收測試的依據，所以驗收測試案例一旦需求敲定就能撰寫——遠早於程式碼存在之前。"
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀一個早期設計情境",
+          "text": "<p>某團隊在撰寫<em>架構設計</em>文件的同時，一併草擬針對它所界定介面的整合測試案例。此做法說明了：</p>",
+          "answers": [
+            {
+              "text": "早期測試設計——在某層級所配對的左側階段就設計該層級的測試（架構 ↔ 整合測試）",
+              "fraction": 100,
+              "feedback": "正確——整合測試在其所配對的架構階段就設計。"
+            },
+            {
+              "text": "一個錯誤——整合測試只能在編碼完成後才撰寫",
+              "fraction": 0,
+              "feedback": "V 模型刻意鼓勵在架構設計期間就提早設計這些測試。"
+            },
+            {
+              "text": "驗收測試，因為介面面向使用者",
+              "fraction": 0,
+              "feedback": "模組間的介面與整合測試配對；驗收測試與需求配對。"
+            },
+            {
+              "text": "一個敏捷衝刺，因為設計與測試重疊了",
+              "fraction": 0,
+              "feedback": "讓測試設計與某階段重疊是 V 模型的核心做法，而非敏捷所獨有。"
+            }
+          ],
+          "generalFeedback": "這正是 V 模型的早期測試設計：每個左側階段同時產出其開發產物與相對應右側層級的測試設計。架構 ↔ 整合測試。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "介面不相容在何處被抓到",
+          "text": "<p>兩個子系統以不相容的格式交換資料——這是它們如何介接的缺陷。在 V 模型中，此缺陷首先由哪個測試<em>層級</em>鎖定，而那些測試是在哪個階段<em>設計</em>的？</p>",
+          "answers": [
+            {
+              "text": "由整合測試抓到；那些測試在架構設計期間設計",
+              "fraction": 100,
+              "feedback": "正確——跨模組的介面缺陷是整合測試的鎖定對象，其依據是架構。"
+            },
+            {
+              "text": "由單元測試抓到；那些測試在詳細設計期間設計",
+              "fraction": 0,
+              "feedback": "單元測試孤立地操作單一模組；跨子系統的介面不相容是整合層級的議題。"
+            },
+            {
+              "text": "由驗收測試抓到；那些測試在需求階段設計",
+              "fraction": 0,
+              "feedback": "驗收測試在整個產品上檢查使用者需要；介面格式不相容在較早的整合層級就被鎖定。"
+            },
+            {
+              "text": "由系統測試抓到；那些測試在詳細設計期間設計",
+              "fraction": 0,
+              "feedback": "層級錯了（介面 ↔ 整合），而且系統測試在系統設計期間設計，非詳細設計。"
+            }
+          ],
+          "generalFeedback": "模組間的介面／互動缺陷正是整合測試所鎖定的對象，而整合測試與架構設計階段配對——並在該階段設計。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符合設計卻不符使用者需要的產品",
+          "text": "<p>某交付的系統完全符合其設計文件，卻無法滿足使用者真正的需要。在 V 模型中，哪個層級旨在揭露這點，且它屬驗證還是確效？</p>",
+          "answers": [
+            {
+              "text": "驗收測試——一種確效活動，依真實使用者需要檢查產品",
+              "fraction": 100,
+              "feedback": "正確——「對的產品？」是確效，而驗收測試（與需求配對）正是使用者需要落差浮現之處。"
+            },
+            {
+              "text": "單元測試——一種驗證活動，依詳細設計檢查各模組",
+              "fraction": 0,
+              "feedback": "符合模組設計是驗證；它無法揭露整個產品不符使用者需要。"
+            },
+            {
+              "text": "整合測試——一種確效活動，檢查模組介面",
+              "fraction": 0,
+              "feedback": "整合測試鎖定介面（且在該範圍是動態確效），而非整體是否符合使用者需要。"
+            },
+            {
+              "text": "設計審查——一種確效活動，檢查需求文件",
+              "fraction": 0,
+              "feedback": "文件審查是靜態驗證，而非確效，也無法確認真實世界的適用性。"
+            }
+          ],
+          "generalFeedback": "「把產品做對了」（符合設計）是驗證；「做的是對的產品」（符合使用者需要）是確效。系統可能通過所有驗證卻無法通過確效——與需求配對的驗收測試正是此落差顯現之處。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "V 如何改進瀑布",
+          "text": "<p>相較於經典瀑布模型，V 模型在測試上的主要改進在於它：</p>",
+          "answers": [
+            {
+              "text": "讓測試提早介入——每個層級的測試與相對應的開發階段平行設計，而非只在編碼之後",
+              "fraction": 100,
+              "feedback": "正確——V 模型讓測試設計成為每個開發階段的一等公民活動。"
+            },
+            {
+              "text": "完全移除設計與需求階段",
+              "fraction": 0,
+              "feedback": "V 模型保留所有這些階段；它為每個階段加上一個配對的測試層級。"
+            },
+            {
+              "text": "讓需求可在任何時點自由變更而無成本",
+              "fraction": 0,
+              "feedback": "V 模型仍是循序的；後期需求變更依然昂貴。"
+            },
+            {
+              "text": "用可運作的原型取代文件",
+              "fraction": 0,
+              "feedback": "那是原型法／敏捷；V 模型仍以文件為驅動。"
+            }
+          ],
+          "generalFeedback": "瀑布把測試推到最後。V 模型讓每個開發階段配對一個測試層級並提早設計那些測試，因此需求與設計的缺陷能更早被發現——這是它相對瀑布在測試上的主要優勢。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "與瀑布共有的弱點",
+          "text": "<p>即便有早期測試設計，V 模型仍承襲瀑布模型的哪個關鍵弱點？</p>",
+          "answers": [
+            {
+              "text": "它循序且僵化——階段依序進行，因此對需求變更的適應性差",
+              "fraction": 100,
+              "feedback": "正確——早期測試設計並未移除其底層的循序、計畫驅動結構。"
+            },
+            {
+              "text": "它根本不測試軟體",
+              "fraction": 0,
+              "feedback": "V 模型逐級徹底測試；那不是共有的弱點。"
+            },
+            {
+              "text": "它沒有明確定義的需求階段",
+              "fraction": 0,
+              "feedback": "需求是 V 的左上階段；它有明確定義。"
+            },
+            {
+              "text": "它禁止任何設計文件",
+              "fraction": 0,
+              "feedback": "V 模型高度以文件為驅動，與禁止設計文件恰恰相反。"
+            }
+          ],
+          "generalFeedback": "V 模型重整了測試設計的時機，但保留瀑布的線性、逐階段流程。因此當需求後期變更時它會很吃力——正是瀑布被詬病的那種僵化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "V 模型對比敏捷",
+          "text": "<p>相較於敏捷／迭代開發，V 模型在下列何種情況並不適用？</p>",
+          "answers": [
+            {
+              "text": "需求多變，且利害關係人需要提早的、可運作的增量以便回應",
+              "fraction": 100,
+              "feedback": "正確——V 模型假設需求在前期就穩定且被充分理解，也不產出提早的原型。"
+            },
+            {
+              "text": "需求在設計開始前就穩定且被充分理解",
+              "fraction": 0,
+              "feedback": "那正是 V 模型運作良好之處，而非不適用之處。"
+            },
+            {
+              "text": "希望有清楚的階段結構、且每個階段都有配對的測試層級",
+              "fraction": 0,
+              "feedback": "那是 V 模型的優點，而非不適用的情況。"
+            },
+            {
+              "text": "領域要求正式的文件與可追溯性",
+              "fraction": 0,
+              "feedback": "V 模型以文件為驅動的嚴謹性適合此類領域；在那裡它並不失配。"
+            }
+          ],
+          "generalFeedback": "敏捷以迭代交付可運作的增量並歡迎變更；V 模型在前期就規劃好所有階段、沒有提早的原型。當需求多變且提早回饋至關重要時，V 模型並不適用，此時較宜採用敏捷。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "迷思：測試只在編碼之後",
+          "text": "<p>主張：「V 模型顯示每項測試活動——包括測試設計——都嚴格發生在編碼之後，因此測試人員不必在需求或設計期間參與。」此主張正確嗎？</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這是常見迷思。在 V 模型中，每個層級的測試在其配對的左側階段就設計，因此測試人員從一開始就參與。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——雖然測試執行沿右臂在編碼之後進行，但每個層級的測試設計發生在其配對的開發階段。"
+            }
+          ],
+          "generalFeedback": "陷阱在於：把測試執行（確實在編碼之後）與測試設計（V 模型刻意提早）混為一談。驗收測試與需求同步設計、系統測試與系統設計同步設計，以此類推——因此該主張為假。"
+        },
+        {
+          "type": "multichoice",
+          "name": "離頂點最遠的層級",
+          "text": "<p>從編碼頂點向外讀 V，哪個測試層級離頂點<em>最遠</em>（與最上方的左側階段配對）？</p>",
+          "answers": [
+            {
+              "text": "驗收測試（與需求配對，位於 V 的頂端）",
+              "fraction": 100,
+              "feedback": "正確——需求是最上方的左側階段，因此其夥伴驗收測試是最外側的右側層級。"
+            },
+            {
+              "text": "單元測試（與詳細設計配對）",
+              "fraction": 0,
+              "feedback": "單元測試離頂點最近，而非最遠——詳細設計是最下方的左側階段。"
+            },
+            {
+              "text": "整合測試（與架構設計配對）",
+              "fraction": 0,
+              "feedback": "整合測試是中間層級，並非最外側。"
+            },
+            {
+              "text": "系統測試（與系統設計配對）",
+              "fraction": 0,
+              "feedback": "系統測試偏中上，但驗收測試（與需求配對）位於它之上。"
+            }
+          ],
+          "generalFeedback": "某階段在左臂位置越高，其配對層級在右臂位置也越高。需求是最上方的左側階段，因此驗收測試是最外側（離頂點最遠）的右側層級。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "離頂點最近的層級",
+          "text": "<p>哪個測試層級離編碼頂點<em>最近</em>（與最下方的左側設計階段配對）？</p>",
+          "answers": [
+            {
+              "text": "單元／元件測試（與詳細設計配對）",
+              "fraction": 100,
+              "feedback": "正確——詳細設計是最下方的左側階段、接續到編碼，因此其夥伴單元測試離頂點最近。"
+            },
+            {
+              "text": "驗收測試（與需求配對）",
+              "fraction": 0,
+              "feedback": "驗收測試離頂點最遠，而非最近。"
+            },
+            {
+              "text": "系統測試（與系統設計配對）",
+              "fraction": 0,
+              "feedback": "系統測試偏中上，並非離頂點最近。"
+            },
+            {
+              "text": "整合測試（與架構設計配對）",
+              "fraction": 0,
+              "feedback": "整合測試比系統／驗收更近，但單元測試離頂點更近。"
+            }
+          ],
+          "generalFeedback": "詳細設計是最下方的左側階段（它直接接續到頂點的編碼），因此其配對層級單元測試是右臂上的第一級、也是離頂點最近的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "沿右臂的測試執行順序",
+          "text": "<p>從頂點沿右臂上升，測試層級是以什麼順序<em>執行</em>的？</p>",
+          "answers": [
+            {
+              "text": "單元 → 整合 → 系統 → 驗收",
+              "fraction": 100,
+              "feedback": "正確——測試從最小範圍（單元）攀升到整個產品對照使用者需要（驗收）。"
+            },
+            {
+              "text": "驗收 → 系統 → 整合 → 單元",
+              "fraction": 0,
+              "feedback": "那是相反的；執行從單元向上，而非向下。"
+            },
+            {
+              "text": "整合 → 單元 → 驗收 → 系統",
+              "fraction": 0,
+              "feedback": "單元先於整合，系統先於驗收；此順序被打亂了。"
+            },
+            {
+              "text": "系統 → 單元 → 整合 → 驗收",
+              "fraction": 0,
+              "feedback": "單元是第一個而非第三個；系統測試在整合之後。"
+            }
+          ],
+          "generalFeedback": "沿右臂上升時範圍逐漸擴大：個別模組（單元）、其組合（整合）、整個系統（系統）、產品對照使用者需要（驗收）。執行順序為單元 → 整合 → 系統 → 驗收。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "確效回答哪個問題",
+          "text": "<p>「我們把產品做對了嗎？」與「我們做的是對的產品嗎？」這對指引問題對應到 V 的兩臂。哪一臂／術語回答「我們做的是<em>對的產品</em>嗎？」</p>",
+          "answers": [
+            {
+              "text": "右臂——確效",
+              "fraction": 100,
+              "feedback": "正確——「對的產品？」（是否符合使用者需要）是確效，沿右臂動態進行。"
+            },
+            {
+              "text": "左臂——驗證",
+              "fraction": 0,
+              "feedback": "驗證回答「把產品做對了嗎？」（符合規格），而非「對的產品？」。"
+            },
+            {
+              "text": "左臂——確效",
+              "fraction": 0,
+              "feedback": "左臂是驗證，而非確效。"
+            },
+            {
+              "text": "右臂——驗證",
+              "fraction": 0,
+              "feedback": "右臂是確效；驗證是左臂的術語。"
+            }
+          ],
+          "generalFeedback": "「把產品做對了嗎？」= 驗證（左，靜態符合性）。「做的是對的產品嗎？」= 確效（右，動態符合使用者需要）。第二個問題由右臂的確效來回答。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "同時配對兩項依據",
+          "text": "<p>依標準 V 模型一致地填入兩個空格：需求規格是 ______ 的測試依據，而詳細設計是 ______ 的測試依據。</p>",
+          "answers": [
+            {
+              "text": "驗收測試；單元測試",
+              "fraction": 100,
+              "feedback": "正確——需求 ↔ 驗收測試，詳細設計 ↔ 單元測試。"
+            },
+            {
+              "text": "系統測試；整合測試",
+              "fraction": 0,
+              "feedback": "需求配驗收（非系統），詳細設計配單元（非整合）。"
+            },
+            {
+              "text": "單元測試；驗收測試",
+              "fraction": 0,
+              "feedback": "配對顛倒了——需求配驗收，詳細設計配單元。"
+            },
+            {
+              "text": "驗收測試；整合測試",
+              "fraction": 0,
+              "feedback": "第一個對，但詳細設計配單元測試，而非整合測試。"
+            }
+          ],
+          "generalFeedback": "標準配對：需求 ↔ 驗收、系統設計 ↔ 系統、架構 ↔ 整合、詳細設計 ↔ 單元。所以需求 → 驗收測試，詳細設計 → 單元測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "每階段皆有配對確效的意義",
+          "text": "<p>V 模型常被稱道的一項優點是「每個開發階段都有配對的測試層級」。這實際上為專案帶來什麼？</p>",
+          "answers": [
+            {
+              "text": "每個左側產物都有指定的右側層級來驗證它，因此沒有任何階段的產出未被檢查，且測試對應到產物的可追溯性清楚",
+              "fraction": 100,
+              "feedback": "正確——明確的配對讓每項產物都有其驗證／確效的歸屬，並有清楚的測試對產物可追溯性。"
+            },
+            {
+              "text": "它保證軟體在驗收測試後不含任何缺陷",
+              "fraction": 0,
+              "feedback": "沒有模型能保證零缺陷；配對提升的是涵蓋與可追溯性，而非完美無缺。"
+            },
+            {
+              "text": "它讓團隊得以在設計階段同時執行所有測試層級",
+              "fraction": 0,
+              "feedback": "測試提早設計，但沿右臂循序執行，而非一次全部執行。"
+            },
+            {
+              "text": "它消除對需求可追溯性的需要",
+              "fraction": 0,
+              "feedback": "配對強化可追溯性；它並不會消除對它的需要。"
+            }
+          ],
+          "generalFeedback": "把每個階段配對一個測試層級，代表左側所產出的每項產物都有明確負責檢查它的層級，帶來結構化的涵蓋與測試對其所操作產物之間的清楚可追溯性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "系統測試何時被設計",
+          "text": "<p>一致地套用早期測試設計，<em>系統測試</em>案例理想上是在哪一時點設計的（儘管稍後才執行）？</p>",
+          "answers": [
+            {
+              "text": "在系統／高階設計階段（其配對的左側階段）",
+              "fraction": 100,
+              "feedback": "正確——系統測試 ↔ 系統設計，所以系統測試在系統設計期間設計。"
+            },
+            {
+              "text": "在需求階段",
+              "fraction": 0,
+              "feedback": "需求階段是設計驗收測試的時機；系統測試與系統設計配對。"
+            },
+            {
+              "text": "只在驗收測試完成之後",
+              "fraction": 0,
+              "feedback": "系統測試先於驗收測試；其測試遠早於此、在系統設計時就設計。"
+            },
+            {
+              "text": "在詳細設計階段",
+              "fraction": 0,
+              "feedback": "詳細設計是設計單元測試的時機；系統測試與系統／高階設計配對。"
+            }
+          ],
+          "generalFeedback": "早期測試設計把每個層級的測試設計放在其配對階段。系統測試 ↔ 系統／高階設計，所以系統測試理想上在系統設計階段設計，再於整合之後沿右臂執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "找出錯誤的配對",
+          "text": "<p>下列哪一組開發階段 ↔ 測試層級的配對<strong>不</strong>屬於標準 V 模型？</p>",
+          "answers": [
+            {
+              "text": "系統／高階設計 ↔ 單元測試",
+              "fraction": 100,
+              "feedback": "正確——這組配對是錯的。系統設計配系統測試；單元測試配詳細設計。"
+            },
+            {
+              "text": "需求 ↔ 驗收測試",
+              "fraction": 0,
+              "feedback": "這是正確的標準配對，故非答案。"
+            },
+            {
+              "text": "架構設計 ↔ 整合測試",
+              "fraction": 0,
+              "feedback": "這是正確的標準配對，故非答案。"
+            },
+            {
+              "text": "詳細／模組設計 ↔ 單元測試",
+              "fraction": 0,
+              "feedback": "這是正確的標準配對，故非答案。"
+            }
+          ],
+          "generalFeedback": "標準配對為需求 ↔ 驗收、系統設計 ↔ 系統、架構 ↔ 整合、詳細設計 ↔ 單元。「系統設計 ↔ 單元測試」錯配了兩個層級，因此是錯誤的配對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "後期需求變更的成本",
+          "text": "<p>在 V 模型專案的後期，某項使用者需求變更了。為何這通常代價高昂？</p>",
+          "answers": [
+            {
+              "text": "因為模型是循序的，變更會波及已完成的設計、程式碼與每個配對測試層級的產物，全都必須修訂",
+              "fraction": 100,
+              "feedback": "正確——需求變更使下游產物與其配對（如驗收）測試失效，而且沒有迭代機制能廉價吸收它。"
+            },
+            {
+              "text": "因為 V 模型沒有需求階段，變更無處可記錄",
+              "fraction": 0,
+              "feedback": "需求是 V 的左上階段；問題在下游的返工，而非缺少階段。"
+            },
+            {
+              "text": "因為測試設計必須等變更被編碼後才能開始",
+              "fraction": 0,
+              "feedback": "V 模型提早設計測試；成本來自對已完成循序產物的返工，而非測試設計被延遲。"
+            },
+            {
+              "text": "因為驗收測試與需求無關，無論如何都得從頭重做",
+              "fraction": 0,
+              "feedback": "驗收測試與需求緊密配對；正是該配對使得變更迫使驗收測試返工。"
+            }
+          ],
+          "generalFeedback": "V 模型的僵化代表後期需求變更會迫使重新檢視系統／架構／詳細設計、程式碼，以及每個配對測試層級（最直接是驗收測試）。不像迭代模型，它無法在後續增量中吸收此變更，因此後期變更代價高昂。",
+          "single": true
+        }
+      ]
+    }
   }
 };

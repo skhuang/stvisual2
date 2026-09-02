@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/V-Model/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>V-model 是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>軟體開發的 <em>V-model（V 模型）</em>最貼切的描述是一種：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>將每個開發（左側）階段與對應的測試（右側）層級配對、畫成 V 字形的模型</text><feedback><text>正確——V 模型讓每個開發階段對齊之後負責驗證它的測試層級。</text></feedback></answer>
+    <answer fraction="0"><text>以持續的顧客回饋反覆進行短週期的建置—測試—發布</text><feedback><text>那描述的是敏捷／迭代模型，不是 V 模型。</text></feedback></answer>
+    <answer fraction="0"><text>在每個模組都寫完之後，才在單一的大爆炸階段一次做完所有測試</text><feedback><text>V 模型刻意把測試設計分散到較早的各階段；測試並非單一的最終階段。</text></feedback></answer>
+    <answer fraction="0"><text>先做一個用完即丟的原型，再從中推導需求</text><feedback><text>那是原型法；V 模型是把規劃好的階段與測試層級配對。</text></feedback></answer>
+    <generalfeedback><text>V 模型把軟體生命週期排成一個 V：開發階段沿左臂下降，測試層級沿右臂上升，且每個左側階段都與負責驗證它的右側層級配對。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>V 的左臂</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V 模型中，<em>左臂（下降）</em>代表：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>開發階段——需求，接著設計，逐步向下走到編碼</text><feedback><text>正確——左臂沿著開發／定義階段下降。</text></feedback></answer>
+    <answer fraction="0"><text>測試執行層級，從單元往上到驗收</text><feedback><text>那些是沿右臂上升，不是左臂。</text></feedback></answer>
+    <answer fraction="0"><text>發布之後的維護與退役活動</text><feedback><text>V 模型的兩臂涵蓋開發與測試，不包含發布後的階段。</text></feedback></answer>
+    <answer fraction="0"><text>專案的預算與人力規劃</text><feedback><text>兩臂模型化的是技術階段，不是管理規劃。</text></feedback></answer>
+    <generalfeedback><text>V 的左臂沿著接連的開發階段下降（需求 → 系統設計 → 架構設計 → 詳細設計），最後在頂點落到編碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>V 的右臂</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V 模型中，<em>右臂（上升）</em>代表：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試層級——單元，接著整合、系統、驗收，逐步向上</text><feedback><text>正確——右臂沿著接連的測試執行層級上升。</text></feedback></answer>
+    <answer fraction="0"><text>從需求向下到編碼的開發階段</text><feedback><text>那些是沿左臂下降，不是右臂。</text></feedback></answer>
+    <answer fraction="0"><text>在任何設計開始前所進行的一連串程式碼審查</text><feedback><text>審查是各階段內的靜態檢查；右臂是動態測試層級的階梯。</text></feedback></answer>
+    <answer fraction="0"><text>發布在正式環境失敗時所用的回復計畫</text><feedback><text>那是維運議題，不是 V 的右臂。</text></feedback></answer>
+    <generalfeedback><text>右臂沿著測試層級上升（單元 → 整合 → 系統 → 驗收）。每個層級驗證它在左側所配對的開發階段之產出。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>頂點是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V 的<em>底部頂點</em>——連接兩臂的那一點——是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>編碼（實作）</text><feedback><text>正確——編碼位於頂點，連接下降的開發臂與上升的測試臂。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試</text><feedback><text>驗收測試位於右臂頂端、與需求配對，而非頂點。</text></feedback></answer>
+    <answer fraction="0"><text>需求分析</text><feedback><text>需求位於左臂頂端，而非頂點。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試</text><feedback><text>系統測試是右臂中上段的層級，而非頂點。</text></feedback></answer>
+    <generalfeedback><text>編碼是 V 的最低點：它是左側（開發）臂轉成右側（測試）臂之處。之後測試便逐級往上爬。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>需求配對哪個層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在標準 V 模型中，<em>需求／使用者需求</em>階段與哪個測試層級配對？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驗收測試</text><feedback><text>正確——驗收測試依使用者需求驗證完成的產品。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試</text><feedback><text>單元測試與詳細／模組設計配對，而非需求。</text></feedback></answer>
+    <answer fraction="0"><text>整合測試</text><feedback><text>整合測試與架構設計配對，而非需求。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試</text><feedback><text>系統測試與系統／高階設計配對，而非需求階段。</text></feedback></answer>
+    <generalfeedback><text>標準 V 模型配對：需求 ↔ 驗收測試。需求是驗收測試設計與日後執行時所對照的依據。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>系統設計配對哪個層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在標準 V 模型中，<em>系統（高階／功能）設計</em>階段與哪個測試層級配對？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>系統測試</text><feedback><text>正確——系統測試依系統／功能設計驗證整合後的系統。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試</text><feedback><text>驗收測試與需求階段配對，而非系統設計。</text></feedback></answer>
+    <answer fraction="0"><text>整合測試</text><feedback><text>整合測試與架構設計配對，而非系統設計。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試</text><feedback><text>單元測試與詳細／模組設計配對，而非系統設計。</text></feedback></answer>
+    <generalfeedback><text>標準 V 模型配對：系統／高階設計 ↔ 系統測試。系統設計文件是系統層級測試的依據。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>架構設計配對哪個層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在標準 V 模型中，<em>架構／整合設計</em>階段與哪個測試層級配對？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>整合測試</text><feedback><text>正確——整合測試驗證各模組是否如架構所規定地協同運作。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試</text><feedback><text>單元測試與詳細／模組設計配對，而非架構設計。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試</text><feedback><text>系統測試與系統／高階設計配對，而非架構設計。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試</text><feedback><text>驗收測試與需求階段配對，而非架構設計。</text></feedback></answer>
+    <generalfeedback><text>標準 V 模型配對：架構／整合設計 ↔ 整合測試。架構——它界定模組介面與互動——是整合測試的依據。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>詳細設計配對哪個層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在標準 V 模型中，<em>模組／詳細設計</em>階段與哪個測試層級配對？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元／元件測試</text><feedback><text>正確——單元測試依各模組的詳細設計驗證該模組。</text></feedback></answer>
+    <answer fraction="0"><text>整合測試</text><feedback><text>整合測試與架構設計配對，而非詳細設計。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試</text><feedback><text>系統測試與系統／高階設計配對，而非詳細設計。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試</text><feedback><text>驗收測試與需求階段配對，而非詳細設計。</text></feedback></answer>
+    <generalfeedback><text>標準 V 模型配對：模組／詳細設計 ↔ 單元／元件測試。各模組的詳細設計是其單元測試的依據。詳細設計直接接續到頂點的編碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗收測試驗證哪個階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>反過來讀 V 模型：<em>驗收測試</em>是與哪個開發階段配對的測試層級？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>需求／使用者需求階段</text><feedback><text>正確——驗收測試在 V 上與需求相對。</text></feedback></answer>
+    <answer fraction="0"><text>詳細／模組設計階段</text><feedback><text>該階段與單元測試配對，而非驗收測試。</text></feedback></answer>
+    <answer fraction="0"><text>架構設計階段</text><feedback><text>該階段與整合測試配對，而非驗收測試。</text></feedback></answer>
+    <answer fraction="0"><text>編碼階段</text><feedback><text>編碼位於頂點；驗收測試在左臂頂端與需求階段配對。</text></feedback></answer>
+    <generalfeedback><text>驗收測試是需求階段的鏡像：寫在左側的使用者需求，正是驗收測試在右側所檢查的對象。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>單元測試驗證哪個階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>反過來讀 V 模型：<em>單元／元件測試</em>是與哪個開發階段配對的測試層級？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>模組／詳細設計階段</text><feedback><text>正確——單元測試在 V 上與詳細設計相對。</text></feedback></answer>
+    <answer fraction="0"><text>需求階段</text><feedback><text>該階段與驗收測試配對，而非單元測試。</text></feedback></answer>
+    <answer fraction="0"><text>系統／高階設計階段</text><feedback><text>該階段與系統測試配對，而非單元測試。</text></feedback></answer>
+    <answer fraction="0"><text>架構設計階段</text><feedback><text>該階段與整合測試配對，而非單元測試。</text></feedback></answer>
+    <generalfeedback><text>單元測試是詳細設計的鏡像：為各模組設計的內部行為，正是其單元測試所檢查的對象。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗證（verification）的意義（左側）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V 的<em>左臂</em>，活動主要是<strong>驗證（verification）</strong>。驗證所問的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>「我們把產品做對了嗎？」——透過審查等靜態檢查，確認每個階段的產出符合其規格</text><feedback><text>正確——驗證是「是否符合規格」，主要靠審查、檢視等靜態技術。</text></feedback></answer>
+    <answer fraction="0"><text>「我們做的是對的產品嗎？」——確認交付的軟體符合使用者真正的需要</text><feedback><text>那是確效（validation），落在右臂。</text></feedback></answer>
+    <answer fraction="0"><text>只在真實使用者資料上執行編譯後的程式</text><feedback><text>執行程式屬於動態執行（確效端活動）；驗證主要是靜態的。</text></feedback></answer>
+    <answer fraction="0"><text>量測伺服器在尖峰負載下的吞吐量</text><feedback><text>那是效能測試，不是驗證的意義。</text></feedback></answer>
+    <generalfeedback><text>驗證（左臂）問「我們是否把產品做對了？」——它確認每項產物符合其規格，主要透過靜態檢查（審查、檢視、走查）與早期測試設計。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>確效（validation）的意義（右側）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V 的<em>右臂</em>，活動主要是<strong>確效（validation）</strong>。確效所問的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>「我們做的是對的產品嗎？」——執行軟體以確認它符合使用者真正的需要</text><feedback><text>正確——確效是動態執行，檢查是否符合使用者的真正需要。</text></feedback></answer>
+    <answer fraction="0"><text>「我們把產品做對了嗎？」——審查文件是否符合其規格</text><feedback><text>那是驗證，落在左臂。</text></feedback></answer>
+    <answer fraction="0"><text>在不執行任何東西的情況下，確認需求文件內部一致</text><feedback><text>那種靜態審查是驗證活動，不是確效。</text></feedback></answer>
+    <answer fraction="0"><text>估算專案的時程與成本</text><feedback><text>那是專案管理，不是確效。</text></feedback></answer>
+    <generalfeedback><text>確效（右臂）問「我們做的是對的產品嗎？」——它執行軟體（動態測試）以確認它滿足使用者真正的需要。驗收／UAT 是最典型的確效活動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>早期測試設計</text></name>
+    <questiontext format="html"><text><![CDATA[<p>V 模型的一個核心概念是<em>早期測試設計</em>。它的意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個層級的測試是在其所配對的左側階段就規劃與設計的，儘管稍後才執行</text><feedback><text>正確——例如驗收測試在撰寫需求時就設計好，遠早於執行。</text></feedback></answer>
+    <answer fraction="0"><text>所有測試都只在編碼完成之後才設計並執行</text><feedback><text>那正是 V 模型的早期測試設計要取代的做法。</text></feedback></answer>
+    <answer fraction="0"><text>測試人員只在專案結束時才被找來</text><feedback><text>早期測試設計代表測試人員從一開始就投入，而非最後才加入。</text></feedback></answer>
+    <answer fraction="0"><text>跳過編碼，用測試腳本取代</text><feedback><text>編碼仍在頂點進行；只是測試設計提早開始。</text></feedback></answer>
+    <generalfeedback><text>早期測試設計：當每個左側階段產出其產物時，就在當下設計相對應右側層級的測試（驗收測試配需求、系統測試配系統設計，以此類推）。執行仍發生在稍後，沿右臂進行。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>編碼位於頂點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V 模型中，編碼（實作）位於底部頂點，連接下降的開發臂與上升的測試臂。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——編碼是 V 的最低點，開發在此轉為測試。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>編碼確實位於頂點；兩臂在實作處相會。</text></feedback></answer>
+    <generalfeedback><text>V 沿開發階段下降到頂點的編碼，再沿測試層級上升。編碼是連接兩臂的轉折點。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>測試不是只在最後才做</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V 模型中，所有測試工作都只在編碼完成之後才開始，較早的開發階段完全沒有任何與測試相關的活動。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>這正是 V 模型要糾正的迷思：測試設計提早開始，就在所配對的左側階段。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——雖然測試執行發生在稍後，但每個層級的測試設計／規劃在其所配對的開發階段就開始了。</text></feedback></answer>
+    <generalfeedback><text>V 模型相對於天真的瀑布模型，重點正是測試不被延到最後：每個層級的測試與相對應的開發階段同步設計，儘管是稍後沿右臂執行。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/V-Model/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>驗收測試的測試依據</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V 模型中，<strong>驗收測試</strong>的<em>測試依據</em>（推導測試案例的來源文件）是下列何者？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>需求／使用者需求規格</text><feedback><text>正確——驗收測試由需求推導，需求是其配對的左側產物。</text></feedback></answer>
+    <answer fraction="0"><text>模組／詳細設計</text><feedback><text>那是單元測試的依據，而非驗收測試。</text></feedback></answer>
+    <answer fraction="0"><text>架構設計</text><feedback><text>那是整合測試的依據，而非驗收測試。</text></feedback></answer>
+    <answer fraction="0"><text>各個函式的原始碼</text><feedback><text>驗收測試由使用者需求推導，而非閱讀程式碼。</text></feedback></answer>
+    <generalfeedback><text>每個右側層級的測試依據取自其配對的左側產物。驗收測試 ↔ 需求，所以需求規格是驗收測試的依據。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>系統測試的測試依據</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V 模型中，<strong>系統測試</strong>的<em>測試依據</em>是下列何者？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>系統／高階（功能）設計規格</text><feedback><text>正確——系統測試由系統／功能設計推導，那是其配對的左側產物。</text></feedback></answer>
+    <answer fraction="0"><text>使用者需求規格</text><feedback><text>那是驗收測試的依據，而非系統測試。</text></feedback></answer>
+    <answer fraction="0"><text>單一模組的詳細設計</text><feedback><text>那是單元測試的依據，而非系統測試。</text></feedback></answer>
+    <answer fraction="0"><text>架構／介面設計</text><feedback><text>那是整合測試的依據，而非系統測試。</text></feedback></answer>
+    <generalfeedback><text>系統測試 ↔ 系統／高階設計。系統設計規格界定整個系統的功能行為，系統測試就依它來檢查整合後的系統。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>整合測試的測試依據</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V 模型中，<strong>整合測試</strong>的<em>測試依據</em>是下列何者？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>架構／介面設計</text><feedback><text>正確——架構界定模組如何介接，整合測試即由它推導。</text></feedback></answer>
+    <answer fraction="0"><text>使用者需求規格</text><feedback><text>那是驗收測試的依據，而非整合測試。</text></feedback></answer>
+    <answer fraction="0"><text>系統／高階設計</text><feedback><text>那是系統測試的依據，而非整合測試。</text></feedback></answer>
+    <answer fraction="0"><text>單一模組的詳細設計</text><feedback><text>那是單元測試的依據，而非整合測試。</text></feedback></answer>
+    <generalfeedback><text>整合測試 ↔ 架構設計。因為架構規範模組介面與互動，它正是整合測試設計時所對照的依據。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>單元測試的測試依據</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V 模型中，<strong>單元／元件測試</strong>的<em>測試依據</em>是下列何者？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>模組／詳細設計</text><feedback><text>正確——詳細設計界定各模組的內部行為，單元測試即由它推導。</text></feedback></answer>
+    <answer fraction="0"><text>架構／介面設計</text><feedback><text>那是整合測試的依據，而非單元測試。</text></feedback></answer>
+    <answer fraction="0"><text>系統／高階設計</text><feedback><text>那是系統測試的依據，而非單元測試。</text></feedback></answer>
+    <answer fraction="0"><text>使用者需求規格</text><feedback><text>那是驗收測試的依據，而非單元測試。</text></feedback></answer>
+    <generalfeedback><text>單元測試 ↔ 詳細／模組設計。詳細設計描述各個模組內部應做什麼，所以它是該模組單元測試的依據。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個層級驗證架構</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你的團隊剛完成<em>架構設計</em>，它規範了各模組如何介接與互動。依 V 模型，哪個測試層級是用來驗證此階段產出的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>整合測試</text><feedback><text>正確——架構設計 ↔ 整合測試；整合測試檢查各模組是否如架構所規定地協作。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試</text><feedback><text>單元測試驗證詳細設計（單一模組行為），而非架構的跨模組介面。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試</text><feedback><text>驗收測試驗證需求，而非架構設計。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試</text><feedback><text>系統測試驗證系統／高階設計，而非架構／介面設計。</text></feedback></answer>
+    <generalfeedback><text>把階段對應到其配對層級：架構設計 ↔ 整合測試。因為架構界定模組介面，整合測試正是在模組組合後檢查那些介面能否運作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個層級驗證詳細設計</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你的團隊剛完成<em>詳細（模組）設計</em>，它規範了各模組的內部行為。依 V 模型，哪個測試層級是用來驗證此階段產出的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元／元件測試</text><feedback><text>正確——詳細設計 ↔ 單元測試；單元測試依詳細設計檢查各模組。</text></feedback></answer>
+    <answer fraction="0"><text>整合測試</text><feedback><text>整合測試驗證架構設計（跨模組介面），而非單一模組的內部行為。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試</text><feedback><text>系統測試驗證系統／高階設計，而非單一模組的詳細設計。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試</text><feedback><text>驗收測試驗證需求，而非詳細設計。</text></feedback></answer>
+    <generalfeedback><text>把階段對應到其配對層級：詳細／模組設計 ↔ 單元測試。各模組的詳細設計正是其單元測試所檢查的對象。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>將需求審查分類</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊開檢視會議，審查<em>需求規格</em>的完整性與一致性，過程中不執行任何程式碼。以 V 模型的術語，此活動是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驗證（一種靜態的左臂活動）</text><feedback><text>正確——審查產物是否符合、且不執行，屬於驗證。</text></feedback></answer>
+    <answer fraction="0"><text>確效（一種動態的右臂活動）</text><feedback><text>確效牽涉執行軟體；文件審查並不執行。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試</text><feedback><text>驗收測試由使用者執行完成的產品；需求檢視是靜態審查。</text></feedback></answer>
+    <answer fraction="0"><text>整合測試</text><feedback><text>整合測試動態地操作組合後的模組；需求審查不執行任何東西。</text></feedback></answer>
+    <generalfeedback><text>左臂 = 驗證（靜態：審查、檢視、「把產品做對」）。需求檢視不執行程式碼，因此是驗證活動，而非確效（動態）活動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>將執行驗收測試分類</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用者拿完成的軟體針對真實的業務情境執行，以確認它符合需要。以 V 模型的術語，此活動是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>確效（一種動態的右臂活動）</text><feedback><text>正確——執行軟體以確認是否符合使用者需要，屬於確效。</text></feedback></answer>
+    <answer fraction="0"><text>驗證（一種靜態的左臂活動）</text><feedback><text>驗證是靜態的符合性檢查；針對使用者需要執行產品屬於確效。</text></feedback></answer>
+    <answer fraction="0"><text>對架構做的設計審查</text><feedback><text>那是靜態的左臂活動；由使用者執行軟體屬於動態確效。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試</text><feedback><text>單元測試操作單一模組；此情境是整個產品的驗收，屬確效活動。</text></feedback></answer>
+    <generalfeedback><text>右臂 = 確效（動態：執行軟體、「做對的產品」）。拿完成的軟體針對真實使用者需要執行，是最典型的確效活動——驗收／UAT。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何測試設計要提早</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何 V 模型要讓各層級的測試<em>在其配對的左側階段就設計</em>，而不是等編碼之後？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>針對每項產物設計測試能提早揭露該產物的含糊與缺陷，也讓測試在程式碼到位時就已備妥可執行</text><feedback><text>正確——早期測試設計能更早找到規格／設計缺陷，並事先備妥測試。</text></feedback></answer>
+    <answer fraction="0"><text>它讓團隊得以省去撰寫需求與設計文件</text><feedback><text>早期測試設計以那些文件為依據，並不會消除它們。</text></feedback></answer>
+    <answer fraction="0"><text>它讓測試永遠不必執行</text><feedback><text>測試仍在稍後沿右臂執行；只是把設計提早。</text></feedback></answer>
+    <answer fraction="0"><text>它把循序模型轉成迭代、敏捷的模型</text><feedback><text>V 模型仍是循序的；早期測試設計不會使它變成迭代式。</text></feedback></answer>
+    <generalfeedback><text>趁每項產物還新鮮時設計測試，會迫使仔細研讀該產物，讓含糊與缺陷提早浮現（修正成本低），而且測試在對應程式碼一存在就能立即執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>需求階段的測試活動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依 V 模型，在<em>需求階段</em>（尚無任何程式碼時）應進行什麼測試活動？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>設計並規劃驗收測試（與需求配對的層級）</text><feedback><text>正確——驗收測試在撰寫需求時就設計；稍後才執行。</text></feedback></answer>
+    <answer fraction="0"><text>針對交付的系統執行驗收測試</text><feedback><text>執行發生在稍後、沿右臂進行；在需求階段驗收測試只被設計。</text></feedback></answer>
+    <answer fraction="0"><text>為每個模組設計單元測試</text><feedback><text>單元測試在稍後的詳細設計階段設計——那是與單元測試配對的階段。</text></feedback></answer>
+    <answer fraction="0"><text>此時不可能有任何測試活動</text><feedback><text>V 模型的早期測試設計代表驗收測試設計就從這裡、在需求階段開始。</text></feedback></answer>
+    <generalfeedback><text>需求 ↔ 驗收測試，所以需求階段正是設計驗收測試的時機。那份設計工作（雖然遠在稍後才執行）是此階段早期測試設計的一部分。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何單元配對詳細設計</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何 V 模型把<em>單元測試</em>特別與<em>詳細（模組）設計</em>階段配對？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>詳細設計規範各模組的內部行為，而那正是單元測試所檢查的對象</text><feedback><text>正確——界定模組內部的產物，就是其單元測試的自然依據。</text></feedback></answer>
+    <answer fraction="0"><text>詳細設計列出使用者的業務目標，單元測試加以確認</text><feedback><text>業務目標存在於需求（與驗收測試配對），而非詳細設計。</text></feedback></answer>
+    <answer fraction="0"><text>詳細設計固定模組間的介面，單元測試加以操作</text><feedback><text>跨模組介面屬於架構（與整合測試配對）；單元測試針對單一模組。</text></feedback></answer>
+    <answer fraction="0"><text>因為單元測試只能在整個系統設計完之後才撰寫</text><feedback><text>單元測試在詳細設計階段就設計，而非等所有較高層設計完成後。</text></feedback></answer>
+    <generalfeedback><text>每組配對都把一個測試層級對應到它的自然依據產物。詳細設計描述單一模組的內部行為，因此正是單元／元件測試所驗證的對象。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何整合配對架構</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何 V 模型把<em>整合測試</em>特別與<em>架構設計</em>階段配對？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>架構界定模組介面與互動，而那正是整合測試所操作的對象</text><feedback><text>正確——規範模組如何連接的產物，就是整合測試的自然依據。</text></feedback></answer>
+    <answer fraction="0"><text>架構描述各模組的內部演算法，整合測試加以檢查</text><feedback><text>內部演算法屬詳細設計（與單元測試配對）；整合測試針對互動。</text></feedback></answer>
+    <answer fraction="0"><text>架構陳述使用者驗收準則，整合測試加以確認</text><feedback><text>驗收準則來自需求（與驗收測試配對），而非架構。</text></feedback></answer>
+    <answer fraction="0"><text>因為整合測試只能在整個系統部署給使用者後才能執行</text><feedback><text>整合測試在單元測試之後、系統／驗收測試之前執行，而非只在部署時。</text></feedback></answer>
+    <generalfeedback><text>架構設計規範模組如何被分解、彼此如何溝通，因此它是整合測試的自然依據——整合測試檢查組合後的模組是否正確互動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪一側是動態執行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V 模型中，動態的<em>測試執行</em>（實際執行軟體）集中在哪一側、用哪個術語？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>右臂，屬確效</text><feedback><text>正確——右臂上升的測試層級會執行軟體；這是確效。</text></feedback></answer>
+    <answer fraction="0"><text>左臂，屬驗證</text><feedback><text>左臂主要是靜態的（審查、測試設計）——驗證——而非動態執行。</text></feedback></answer>
+    <answer fraction="0"><text>左臂，屬確效</text><feedback><text>左臂是驗證，而且大多是靜態而非動態執行。</text></feedback></answer>
+    <answer fraction="0"><text>右臂，屬驗證</text><feedback><text>右臂是確效，而非驗證；驗證是左臂的術語。</text></feedback></answer>
+    <generalfeedback><text>左臂 = 驗證（大多靜態：審查加早期測試設計）。右臂 = 確效（逐級動態執行已建置的軟體）。因此動態測試執行落在右臂，屬確效。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>驗收測試可從需求撰寫</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V 模型中，驗收測試案例一旦需求議定就能設計——也就是在寫任何程式碼之前。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——需求 ↔ 驗收測試，所以驗收測試在需求階段就設計（遠在稍後才執行）。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>因為驗收測試與需求配對，其測試確實能在需求議定後、遠早於編碼前就設計。</text></feedback></answer>
+    <generalfeedback><text>早期測試設計在 V 的頂端最明顯：需求是驗收測試的依據，所以驗收測試案例一旦需求敲定就能撰寫——遠早於程式碼存在之前。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀一個早期設計情境</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊在撰寫<em>架構設計</em>文件的同時，一併草擬針對它所界定介面的整合測試案例。此做法說明了：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>早期測試設計——在某層級所配對的左側階段就設計該層級的測試（架構 ↔ 整合測試）</text><feedback><text>正確——整合測試在其所配對的架構階段就設計。</text></feedback></answer>
+    <answer fraction="0"><text>一個錯誤——整合測試只能在編碼完成後才撰寫</text><feedback><text>V 模型刻意鼓勵在架構設計期間就提早設計這些測試。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試，因為介面面向使用者</text><feedback><text>模組間的介面與整合測試配對；驗收測試與需求配對。</text></feedback></answer>
+    <answer fraction="0"><text>一個敏捷衝刺，因為設計與測試重疊了</text><feedback><text>讓測試設計與某階段重疊是 V 模型的核心做法，而非敏捷所獨有。</text></feedback></answer>
+    <generalfeedback><text>這正是 V 模型的早期測試設計：每個左側階段同時產出其開發產物與相對應右側層級的測試設計。架構 ↔ 整合測試。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/V-Model/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>介面不相容在何處被抓到</text></name>
+    <questiontext format="html"><text><![CDATA[<p>兩個子系統以不相容的格式交換資料——這是它們如何介接的缺陷。在 V 模型中，此缺陷首先由哪個測試<em>層級</em>鎖定，而那些測試是在哪個階段<em>設計</em>的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>由整合測試抓到；那些測試在架構設計期間設計</text><feedback><text>正確——跨模組的介面缺陷是整合測試的鎖定對象，其依據是架構。</text></feedback></answer>
+    <answer fraction="0"><text>由單元測試抓到；那些測試在詳細設計期間設計</text><feedback><text>單元測試孤立地操作單一模組；跨子系統的介面不相容是整合層級的議題。</text></feedback></answer>
+    <answer fraction="0"><text>由驗收測試抓到；那些測試在需求階段設計</text><feedback><text>驗收測試在整個產品上檢查使用者需要；介面格式不相容在較早的整合層級就被鎖定。</text></feedback></answer>
+    <answer fraction="0"><text>由系統測試抓到；那些測試在詳細設計期間設計</text><feedback><text>層級錯了（介面 ↔ 整合），而且系統測試在系統設計期間設計，非詳細設計。</text></feedback></answer>
+    <generalfeedback><text>模組間的介面／互動缺陷正是整合測試所鎖定的對象，而整合測試與架構設計階段配對——並在該階段設計。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>符合設計卻不符使用者需要的產品</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某交付的系統完全符合其設計文件，卻無法滿足使用者真正的需要。在 V 模型中，哪個層級旨在揭露這點，且它屬驗證還是確效？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驗收測試——一種確效活動，依真實使用者需要檢查產品</text><feedback><text>正確——「對的產品？」是確效，而驗收測試（與需求配對）正是使用者需要落差浮現之處。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試——一種驗證活動，依詳細設計檢查各模組</text><feedback><text>符合模組設計是驗證；它無法揭露整個產品不符使用者需要。</text></feedback></answer>
+    <answer fraction="0"><text>整合測試——一種確效活動，檢查模組介面</text><feedback><text>整合測試鎖定介面（且在該範圍是動態確效），而非整體是否符合使用者需要。</text></feedback></answer>
+    <answer fraction="0"><text>設計審查——一種確效活動，檢查需求文件</text><feedback><text>文件審查是靜態驗證，而非確效，也無法確認真實世界的適用性。</text></feedback></answer>
+    <generalfeedback><text>「把產品做對了」（符合設計）是驗證；「做的是對的產品」（符合使用者需要）是確效。系統可能通過所有驗證卻無法通過確效——與需求配對的驗收測試正是此落差顯現之處。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>V 如何改進瀑布</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相較於經典瀑布模型，V 模型在測試上的主要改進在於它：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>讓測試提早介入——每個層級的測試與相對應的開發階段平行設計，而非只在編碼之後</text><feedback><text>正確——V 模型讓測試設計成為每個開發階段的一等公民活動。</text></feedback></answer>
+    <answer fraction="0"><text>完全移除設計與需求階段</text><feedback><text>V 模型保留所有這些階段；它為每個階段加上一個配對的測試層級。</text></feedback></answer>
+    <answer fraction="0"><text>讓需求可在任何時點自由變更而無成本</text><feedback><text>V 模型仍是循序的；後期需求變更依然昂貴。</text></feedback></answer>
+    <answer fraction="0"><text>用可運作的原型取代文件</text><feedback><text>那是原型法／敏捷；V 模型仍以文件為驅動。</text></feedback></answer>
+    <generalfeedback><text>瀑布把測試推到最後。V 模型讓每個開發階段配對一個測試層級並提早設計那些測試，因此需求與設計的缺陷能更早被發現——這是它相對瀑布在測試上的主要優勢。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>與瀑布共有的弱點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>即便有早期測試設計，V 模型仍承襲瀑布模型的哪個關鍵弱點？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它循序且僵化——階段依序進行，因此對需求變更的適應性差</text><feedback><text>正確——早期測試設計並未移除其底層的循序、計畫驅動結構。</text></feedback></answer>
+    <answer fraction="0"><text>它根本不測試軟體</text><feedback><text>V 模型逐級徹底測試；那不是共有的弱點。</text></feedback></answer>
+    <answer fraction="0"><text>它沒有明確定義的需求階段</text><feedback><text>需求是 V 的左上階段；它有明確定義。</text></feedback></answer>
+    <answer fraction="0"><text>它禁止任何設計文件</text><feedback><text>V 模型高度以文件為驅動，與禁止設計文件恰恰相反。</text></feedback></answer>
+    <generalfeedback><text>V 模型重整了測試設計的時機，但保留瀑布的線性、逐階段流程。因此當需求後期變更時它會很吃力——正是瀑布被詬病的那種僵化。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>V 模型對比敏捷</text></name>
+    <questiontext format="html"><text><![CDATA[<p>相較於敏捷／迭代開發，V 模型在下列何種情況並不適用？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>需求多變，且利害關係人需要提早的、可運作的增量以便回應</text><feedback><text>正確——V 模型假設需求在前期就穩定且被充分理解，也不產出提早的原型。</text></feedback></answer>
+    <answer fraction="0"><text>需求在設計開始前就穩定且被充分理解</text><feedback><text>那正是 V 模型運作良好之處，而非不適用之處。</text></feedback></answer>
+    <answer fraction="0"><text>希望有清楚的階段結構、且每個階段都有配對的測試層級</text><feedback><text>那是 V 模型的優點，而非不適用的情況。</text></feedback></answer>
+    <answer fraction="0"><text>領域要求正式的文件與可追溯性</text><feedback><text>V 模型以文件為驅動的嚴謹性適合此類領域；在那裡它並不失配。</text></feedback></answer>
+    <generalfeedback><text>敏捷以迭代交付可運作的增量並歡迎變更；V 模型在前期就規劃好所有階段、沒有提早的原型。當需求多變且提早回饋至關重要時，V 模型並不適用，此時較宜採用敏捷。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>迷思：測試只在編碼之後</text></name>
+    <questiontext format="html"><text><![CDATA[<p>主張：「V 模型顯示每項測試活動——包括測試設計——都嚴格發生在編碼之後，因此測試人員不必在需求或設計期間參與。」此主張正確嗎？</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>這是常見迷思。在 V 模型中，每個層級的測試在其配對的左側階段就設計，因此測試人員從一開始就參與。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——雖然測試執行沿右臂在編碼之後進行，但每個層級的測試設計發生在其配對的開發階段。</text></feedback></answer>
+    <generalfeedback><text>陷阱在於：把測試執行（確實在編碼之後）與測試設計（V 模型刻意提早）混為一談。驗收測試與需求同步設計、系統測試與系統設計同步設計，以此類推——因此該主張為假。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>離頂點最遠的層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從編碼頂點向外讀 V，哪個測試層級離頂點<em>最遠</em>（與最上方的左側階段配對）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驗收測試（與需求配對，位於 V 的頂端）</text><feedback><text>正確——需求是最上方的左側階段，因此其夥伴驗收測試是最外側的右側層級。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試（與詳細設計配對）</text><feedback><text>單元測試離頂點最近，而非最遠——詳細設計是最下方的左側階段。</text></feedback></answer>
+    <answer fraction="0"><text>整合測試（與架構設計配對）</text><feedback><text>整合測試是中間層級，並非最外側。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試（與系統設計配對）</text><feedback><text>系統測試偏中上，但驗收測試（與需求配對）位於它之上。</text></feedback></answer>
+    <generalfeedback><text>某階段在左臂位置越高，其配對層級在右臂位置也越高。需求是最上方的左側階段，因此驗收測試是最外側（離頂點最遠）的右側層級。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>離頂點最近的層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個測試層級離編碼頂點<em>最近</em>（與最下方的左側設計階段配對）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元／元件測試（與詳細設計配對）</text><feedback><text>正確——詳細設計是最下方的左側階段、接續到編碼，因此其夥伴單元測試離頂點最近。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試（與需求配對）</text><feedback><text>驗收測試離頂點最遠，而非最近。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試（與系統設計配對）</text><feedback><text>系統測試偏中上，並非離頂點最近。</text></feedback></answer>
+    <answer fraction="0"><text>整合測試（與架構設計配對）</text><feedback><text>整合測試比系統／驗收更近，但單元測試離頂點更近。</text></feedback></answer>
+    <generalfeedback><text>詳細設計是最下方的左側階段（它直接接續到頂點的編碼），因此其配對層級單元測試是右臂上的第一級、也是離頂點最近的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>沿右臂的測試執行順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>從頂點沿右臂上升，測試層級是以什麼順序<em>執行</em>的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元 → 整合 → 系統 → 驗收</text><feedback><text>正確——測試從最小範圍（單元）攀升到整個產品對照使用者需要（驗收）。</text></feedback></answer>
+    <answer fraction="0"><text>驗收 → 系統 → 整合 → 單元</text><feedback><text>那是相反的；執行從單元向上，而非向下。</text></feedback></answer>
+    <answer fraction="0"><text>整合 → 單元 → 驗收 → 系統</text><feedback><text>單元先於整合，系統先於驗收；此順序被打亂了。</text></feedback></answer>
+    <answer fraction="0"><text>系統 → 單元 → 整合 → 驗收</text><feedback><text>單元是第一個而非第三個；系統測試在整合之後。</text></feedback></answer>
+    <generalfeedback><text>沿右臂上升時範圍逐漸擴大：個別模組（單元）、其組合（整合）、整個系統（系統）、產品對照使用者需要（驗收）。執行順序為單元 → 整合 → 系統 → 驗收。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>確效回答哪個問題</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「我們把產品做對了嗎？」與「我們做的是對的產品嗎？」這對指引問題對應到 V 的兩臂。哪一臂／術語回答「我們做的是<em>對的產品</em>嗎？」</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>右臂——確效</text><feedback><text>正確——「對的產品？」（是否符合使用者需要）是確效，沿右臂動態進行。</text></feedback></answer>
+    <answer fraction="0"><text>左臂——驗證</text><feedback><text>驗證回答「把產品做對了嗎？」（符合規格），而非「對的產品？」。</text></feedback></answer>
+    <answer fraction="0"><text>左臂——確效</text><feedback><text>左臂是驗證，而非確效。</text></feedback></answer>
+    <answer fraction="0"><text>右臂——驗證</text><feedback><text>右臂是確效；驗證是左臂的術語。</text></feedback></answer>
+    <generalfeedback><text>「把產品做對了嗎？」= 驗證（左，靜態符合性）。「做的是對的產品嗎？」= 確效（右，動態符合使用者需要）。第二個問題由右臂的確效來回答。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>同時配對兩項依據</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依標準 V 模型一致地填入兩個空格：需求規格是 ______ 的測試依據，而詳細設計是 ______ 的測試依據。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驗收測試；單元測試</text><feedback><text>正確——需求 ↔ 驗收測試，詳細設計 ↔ 單元測試。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試；整合測試</text><feedback><text>需求配驗收（非系統），詳細設計配單元（非整合）。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試；驗收測試</text><feedback><text>配對顛倒了——需求配驗收，詳細設計配單元。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試；整合測試</text><feedback><text>第一個對，但詳細設計配單元測試，而非整合測試。</text></feedback></answer>
+    <generalfeedback><text>標準配對：需求 ↔ 驗收、系統設計 ↔ 系統、架構 ↔ 整合、詳細設計 ↔ 單元。所以需求 → 驗收測試，詳細設計 → 單元測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>每階段皆有配對確效的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>V 模型常被稱道的一項優點是「每個開發階段都有配對的測試層級」。這實際上為專案帶來什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個左側產物都有指定的右側層級來驗證它，因此沒有任何階段的產出未被檢查，且測試對應到產物的可追溯性清楚</text><feedback><text>正確——明確的配對讓每項產物都有其驗證／確效的歸屬，並有清楚的測試對產物可追溯性。</text></feedback></answer>
+    <answer fraction="0"><text>它保證軟體在驗收測試後不含任何缺陷</text><feedback><text>沒有模型能保證零缺陷；配對提升的是涵蓋與可追溯性，而非完美無缺。</text></feedback></answer>
+    <answer fraction="0"><text>它讓團隊得以在設計階段同時執行所有測試層級</text><feedback><text>測試提早設計，但沿右臂循序執行，而非一次全部執行。</text></feedback></answer>
+    <answer fraction="0"><text>它消除對需求可追溯性的需要</text><feedback><text>配對強化可追溯性；它並不會消除對它的需要。</text></feedback></answer>
+    <generalfeedback><text>把每個階段配對一個測試層級，代表左側所產出的每項產物都有明確負責檢查它的層級，帶來結構化的涵蓋與測試對其所操作產物之間的清楚可追溯性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>系統測試何時被設計</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一致地套用早期測試設計，<em>系統測試</em>案例理想上是在哪一時點設計的（儘管稍後才執行）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在系統／高階設計階段（其配對的左側階段）</text><feedback><text>正確——系統測試 ↔ 系統設計，所以系統測試在系統設計期間設計。</text></feedback></answer>
+    <answer fraction="0"><text>在需求階段</text><feedback><text>需求階段是設計驗收測試的時機；系統測試與系統設計配對。</text></feedback></answer>
+    <answer fraction="0"><text>只在驗收測試完成之後</text><feedback><text>系統測試先於驗收測試；其測試遠早於此、在系統設計時就設計。</text></feedback></answer>
+    <answer fraction="0"><text>在詳細設計階段</text><feedback><text>詳細設計是設計單元測試的時機；系統測試與系統／高階設計配對。</text></feedback></answer>
+    <generalfeedback><text>早期測試設計把每個層級的測試設計放在其配對階段。系統測試 ↔ 系統／高階設計，所以系統測試理想上在系統設計階段設計，再於整合之後沿右臂執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>找出錯誤的配對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一組開發階段 ↔ 測試層級的配對<strong>不</strong>屬於標準 V 模型？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>系統／高階設計 ↔ 單元測試</text><feedback><text>正確——這組配對是錯的。系統設計配系統測試；單元測試配詳細設計。</text></feedback></answer>
+    <answer fraction="0"><text>需求 ↔ 驗收測試</text><feedback><text>這是正確的標準配對，故非答案。</text></feedback></answer>
+    <answer fraction="0"><text>架構設計 ↔ 整合測試</text><feedback><text>這是正確的標準配對，故非答案。</text></feedback></answer>
+    <answer fraction="0"><text>詳細／模組設計 ↔ 單元測試</text><feedback><text>這是正確的標準配對，故非答案。</text></feedback></answer>
+    <generalfeedback><text>標準配對為需求 ↔ 驗收、系統設計 ↔ 系統、架構 ↔ 整合、詳細設計 ↔ 單元。「系統設計 ↔ 單元測試」錯配了兩個層級，因此是錯誤的配對。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>後期需求變更的成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V 模型專案的後期，某項使用者需求變更了。為何這通常代價高昂？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為模型是循序的，變更會波及已完成的設計、程式碼與每個配對測試層級的產物，全都必須修訂</text><feedback><text>正確——需求變更使下游產物與其配對（如驗收）測試失效，而且沒有迭代機制能廉價吸收它。</text></feedback></answer>
+    <answer fraction="0"><text>因為 V 模型沒有需求階段，變更無處可記錄</text><feedback><text>需求是 V 的左上階段；問題在下游的返工，而非缺少階段。</text></feedback></answer>
+    <answer fraction="0"><text>因為測試設計必須等變更被編碼後才能開始</text><feedback><text>V 模型提早設計測試；成本來自對已完成循序產物的返工，而非測試設計被延遲。</text></feedback></answer>
+    <answer fraction="0"><text>因為驗收測試與需求無關，無論如何都得從頭重做</text><feedback><text>驗收測試與需求緊密配對；正是該配對使得變更迫使驗收測試返工。</text></feedback></answer>
+    <generalfeedback><text>V 模型的僵化代表後期需求變更會迫使重新檢視系統／架構／詳細設計、程式碼，以及每個配對測試層級（最直接是驗收測試）。不像迭代模型，它無法在後續增量中吸收此變更，因此後期變更代價高昂。</text></generalfeedback>
+  </question>
+</quiz>
