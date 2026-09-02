@@ -7777,6 +7777,2568 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "chaos-engineering": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What is chaos engineering",
+          "text": "<p><em>Chaos engineering</em> is best described as:</p>",
+          "answers": [
+            {
+              "text": "The discipline of experimenting on a system by deliberately injecting faults, in order to build confidence in its resilience to turbulent real-world conditions",
+              "fraction": 100,
+              "feedback": "Correct — it is disciplined, deliberate fault-injection experimentation aimed at building confidence in resilience."
+            },
+            {
+              "text": "Randomly breaking things in production with no plan, to see what happens",
+              "fraction": 0,
+              "feedback": "Chaos engineering is controlled and hypothesis-driven; random unplanned breakage is exactly what it is not."
+            },
+            {
+              "text": "A profiling technique that measures how fast each function runs",
+              "fraction": 0,
+              "feedback": "That is performance profiling; chaos engineering injects faults to test resilience."
+            },
+            {
+              "text": "A code-review process for finding defects by reading source code",
+              "fraction": 0,
+              "feedback": "That is static review; chaos engineering experiments on a running system by injecting faults."
+            }
+          ],
+          "generalFeedback": "Chaos engineering is the discipline of experimenting on a system by deliberately injecting real-world faults so as to build confidence in the system's ability to withstand turbulent conditions in production. It is controlled and evidence-based, not random breakage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Goal of chaos engineering",
+          "text": "<p>What is the primary goal of chaos engineering?</p>",
+          "answers": [
+            {
+              "text": "To expose weaknesses in a system's resilience before they cause real outages",
+              "fraction": 100,
+              "feedback": "Correct — the aim is to uncover weaknesses proactively so they can be fixed before a real incident."
+            },
+            {
+              "text": "To cause as much production downtime as possible",
+              "fraction": 0,
+              "feedback": "The aim is to build confidence and find weaknesses, not to maximise downtime; impact is deliberately contained."
+            },
+            {
+              "text": "To prove the system contains no bugs at all",
+              "fraction": 0,
+              "feedback": "No experiment can prove the absence of all bugs; chaos engineering builds confidence and finds weaknesses, it does not prove bug-freeness."
+            },
+            {
+              "text": "To replace all other forms of testing",
+              "fraction": 0,
+              "feedback": "Chaos engineering complements other testing; it does not replace unit, integration or other tests."
+            }
+          ],
+          "generalFeedback": "The goal of chaos engineering is to reveal weaknesses in a system's resilience proactively — under controlled conditions — so that they can be remediated before they surface as a real, uncontrolled outage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is the steady state",
+          "text": "<p>In chaos engineering, the <em>steady state</em> of a system is:</p>",
+          "answers": [
+            {
+              "text": "A measurable indicator of normal, healthy behaviour, such as throughput, error rate, or latency",
+              "fraction": 100,
+              "feedback": "Correct — the steady state is a measurable signal that the system is behaving normally."
+            },
+            {
+              "text": "The moment the system has crashed and stopped responding",
+              "fraction": 0,
+              "feedback": "That is an outage; the steady state is what normal, healthy operation looks like."
+            },
+            {
+              "text": "The total number of servers currently running",
+              "fraction": 0,
+              "feedback": "A raw server count is not a behavioural indicator; the steady state is a measurable signal of healthy behaviour."
+            },
+            {
+              "text": "The list of faults you plan to inject",
+              "fraction": 0,
+              "feedback": "That is the experiment design; the steady state is the normal-behaviour baseline you measure against."
+            }
+          ],
+          "generalFeedback": "The steady state is a measurable output that reflects normal, healthy operation — for example throughput, error rate, or a latency SLO. You must be able to measure it, because the whole experiment is judged by whether the steady state is maintained under fault.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is the steady-state hypothesis",
+          "text": "<p>The <em>steady-state hypothesis</em> of a chaos experiment states that:</p>",
+          "answers": [
+            {
+              "text": "The steady state will continue to hold in both the control group and the experiment group, even while the fault is present",
+              "fraction": 100,
+              "feedback": "Correct — the hypothesis is that normal behaviour persists despite the injected fault."
+            },
+            {
+              "text": "The system will definitely crash when the fault is injected",
+              "fraction": 0,
+              "feedback": "The hypothesis predicts that the steady state is maintained; the experiment then tries to disprove it."
+            },
+            {
+              "text": "The fault will never actually be injected",
+              "fraction": 0,
+              "feedback": "The fault is injected on purpose; the hypothesis is about whether the steady state survives it."
+            },
+            {
+              "text": "The team will fix every bug before running the experiment",
+              "fraction": 0,
+              "feedback": "That is unrelated to the hypothesis, which concerns whether the steady state continues under the fault."
+            }
+          ],
+          "generalFeedback": "The steady-state hypothesis predicts that the measurable normal behaviour continues in both the control group (no fault) and the experiment group (fault injected). The experiment then tries to disprove it: if the steady state does not hold, a weakness has been found.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is the blast radius",
+          "text": "<p>The <em>blast radius</em> of a chaos experiment refers to:</p>",
+          "answers": [
+            {
+              "text": "The scope and extent of the impact that the experiment can have on users and the system",
+              "fraction": 100,
+              "feedback": "Correct — the blast radius is how far the experiment's impact can reach."
+            },
+            {
+              "text": "The physical distance between the data centres",
+              "fraction": 0,
+              "feedback": "It is not a physical distance; it is the scope of the experiment's potential impact."
+            },
+            {
+              "text": "The number of engineers observing the experiment",
+              "fraction": 0,
+              "feedback": "Team size is unrelated; the blast radius is the extent of the impact on users and the system."
+            },
+            {
+              "text": "The total run time of the experiment in minutes",
+              "fraction": 0,
+              "feedback": "Duration is a separate dimension; the blast radius is how much of the system and how many users can be affected."
+            }
+          ],
+          "generalFeedback": "The blast radius is the scope of an experiment's potential impact — how much of the system and how many users could be affected. Chaos engineering deliberately keeps the blast radius small (and abortable) so that any harm is contained.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is fault injection",
+          "text": "<p><em>Fault injection</em> in a chaos experiment means:</p>",
+          "answers": [
+            {
+              "text": "Deliberately introducing a failure condition — such as killing an instance or adding latency — into the system",
+              "fraction": 100,
+              "feedback": "Correct — fault injection is the deliberate introduction of a failure condition."
+            },
+            {
+              "text": "Writing new features and merging them into the main branch",
+              "fraction": 0,
+              "feedback": "That is normal development; fault injection introduces failure conditions to test resilience."
+            },
+            {
+              "text": "Fixing defects reported by users",
+              "fraction": 0,
+              "feedback": "That is defect repair; fault injection deliberately introduces a fault to observe the response."
+            },
+            {
+              "text": "Adding more log statements to the code",
+              "fraction": 0,
+              "feedback": "That improves observability but is not fault injection, which introduces an actual failure condition."
+            }
+          ],
+          "generalFeedback": "Fault injection is the deliberate introduction of a real-world failure condition into the system — for example terminating an instance, adding network latency, dropping packets, or exhausting a resource — so the team can observe how the system responds.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What Chaos Monkey does",
+          "text": "<p>Netflix's <em>Chaos Monkey</em> is a tool that:</p>",
+          "answers": [
+            {
+              "text": "Randomly terminates running instances in production to check that the system tolerates instance loss",
+              "fraction": 100,
+              "feedback": "Correct — Chaos Monkey kills instances so teams verify the system survives losing them."
+            },
+            {
+              "text": "Automatically writes unit tests for every function",
+              "fraction": 0,
+              "feedback": "Chaos Monkey injects instance failures; it does not generate unit tests."
+            },
+            {
+              "text": "Encrypts network traffic between services",
+              "fraction": 0,
+              "feedback": "That is unrelated; Chaos Monkey terminates instances to test resilience."
+            },
+            {
+              "text": "Scales the number of servers up when traffic rises",
+              "fraction": 0,
+              "feedback": "That is auto-scaling; Chaos Monkey deliberately removes instances rather than adding them."
+            }
+          ],
+          "generalFeedback": "Chaos Monkey, from Netflix's Simian Army, randomly terminates production instances during business hours so that engineers are forced to build services that tolerate the loss of any single instance without affecting users.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the Simian Army is",
+          "text": "<p>Netflix's <em>Simian Army</em> (which includes Chaos Monkey) is:</p>",
+          "answers": [
+            {
+              "text": "A suite of tools that inject various failures to test the resilience of a distributed system",
+              "fraction": 100,
+              "feedback": "Correct — the Simian Army is a family of failure-injection tools for resilience testing."
+            },
+            {
+              "text": "A load-balancing algorithm for distributing requests",
+              "fraction": 0,
+              "feedback": "That is load balancing; the Simian Army injects failures rather than routing traffic."
+            },
+            {
+              "text": "A monitoring dashboard for viewing CPU graphs",
+              "fraction": 0,
+              "feedback": "Dashboards display metrics; the Simian Army actively injects faults."
+            },
+            {
+              "text": "A source-control system for managing releases",
+              "fraction": 0,
+              "feedback": "That is version control; the Simian Army is a set of resilience-testing tools."
+            }
+          ],
+          "generalFeedback": "The Simian Army is Netflix's collection of chaos tools (Chaos Monkey and its relatives) that deliberately inject different kinds of failure into a distributed system to verify and strengthen its resilience.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a game day is",
+          "text": "<p>In resilience practice, a <em>game day</em> is:</p>",
+          "answers": [
+            {
+              "text": "A planned exercise in which failures are deliberately injected so the team can rehearse and observe the system's and people's response",
+              "fraction": 100,
+              "feedback": "Correct — a game day is a planned, deliberate failure-injection exercise."
+            },
+            {
+              "text": "A day on which all deployments are frozen and nothing changes",
+              "fraction": 0,
+              "feedback": "That is a change freeze; a game day deliberately introduces failures to practise the response."
+            },
+            {
+              "text": "A team social event with no technical content",
+              "fraction": 0,
+              "feedback": "A game day is a technical exercise built around injecting and responding to failures."
+            },
+            {
+              "text": "The day the product is first released to customers",
+              "fraction": 0,
+              "feedback": "That is a launch; a game day is a rehearsal of failure scenarios."
+            }
+          ],
+          "generalFeedback": "A game day is a planned failure-injection exercise: the team schedules the injection of realistic faults and uses the event to rehearse detection, response, and recovery, and to observe how both the system and the people cope.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What resilience means",
+          "text": "<p>In this context, a system's <em>resilience</em> is:</p>",
+          "answers": [
+            {
+              "text": "Its ability to keep functioning acceptably, or recover quickly, despite faults and turbulent conditions",
+              "fraction": 100,
+              "feedback": "Correct — resilience is the ability to withstand and recover from adverse conditions."
+            },
+            {
+              "text": "Its ability to run using the least possible amount of memory",
+              "fraction": 0,
+              "feedback": "That is memory efficiency; resilience is about withstanding and recovering from faults."
+            },
+            {
+              "text": "The number of features the system offers",
+              "fraction": 0,
+              "feedback": "Feature count is unrelated; resilience concerns coping with faults and disruption."
+            },
+            {
+              "text": "How quickly new code can be deployed",
+              "fraction": 0,
+              "feedback": "That is deployment speed; resilience is the ability to keep working despite faults."
+            }
+          ],
+          "generalFeedback": "Resilience is a system's ability to continue operating acceptably — or to recover quickly — in the face of faults, failures, and turbulent real-world conditions. Building confidence in this ability is the point of chaos engineering.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Category of Gremlin and LitmusChaos",
+          "text": "<p>Gremlin and LitmusChaos are examples of:</p>",
+          "answers": [
+            {
+              "text": "Chaos engineering tools used to inject faults into systems",
+              "fraction": 100,
+              "feedback": "Correct — both are platforms for running chaos experiments by injecting faults."
+            },
+            {
+              "text": "Relational database engines",
+              "fraction": 0,
+              "feedback": "They are not databases; they are tools for injecting faults during chaos experiments."
+            },
+            {
+              "text": "Front-end JavaScript frameworks",
+              "fraction": 0,
+              "feedback": "They are not UI frameworks; they are chaos engineering tools."
+            },
+            {
+              "text": "Continuous-integration build servers",
+              "fraction": 0,
+              "feedback": "That is a different category; Gremlin and LitmusChaos inject faults to test resilience."
+            }
+          ],
+          "generalFeedback": "Gremlin and LitmusChaos (like Netflix's Chaos Monkey) are chaos engineering tools: platforms that inject controlled faults — instance kills, latency, resource exhaustion, and so on — so teams can run resilience experiments.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify an example fault to inject",
+          "text": "<p>Which of the following is an example of a real-world fault you might inject in a chaos experiment?</p>",
+          "answers": [
+            {
+              "text": "Terminating a running server instance to simulate a sudden host failure",
+              "fraction": 100,
+              "feedback": "Correct — killing an instance is a classic injected fault."
+            },
+            {
+              "text": "Adding a new column to a report",
+              "fraction": 0,
+              "feedback": "That is a feature change, not an injected fault."
+            },
+            {
+              "text": "Renaming a variable in the source code",
+              "fraction": 0,
+              "feedback": "That is a code edit, not a fault injected into a running system."
+            },
+            {
+              "text": "Updating the project's documentation",
+              "fraction": 0,
+              "feedback": "Editing docs is unrelated; an injected fault is a real failure condition such as terminating an instance."
+            }
+          ],
+          "generalFeedback": "Typical injected faults include terminating an instance or server, adding network latency, dropping or partitioning traffic, exhausting CPU/memory/disk, failing a dependency, simulating a region/AZ outage, or introducing clock skew. Terminating a running instance is one of the most common.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of the ability to abort",
+          "text": "<p>Why should a chaos experiment always include the ability to <em>abort</em> (halt) it?</p>",
+          "answers": [
+            {
+              "text": "So that if the experiment starts causing real harm, it can be stopped immediately to limit the damage",
+              "fraction": 100,
+              "feedback": "Correct — an abort/halt switch contains the damage if things go wrong."
+            },
+            {
+              "text": "So that the experiment can run forever without supervision",
+              "fraction": 0,
+              "feedback": "The opposite — the abort exists precisely so the experiment can be stopped when needed."
+            },
+            {
+              "text": "So that no monitoring is needed during the experiment",
+              "fraction": 0,
+              "feedback": "Monitoring is still required; the abort is a safety control to stop harm quickly."
+            },
+            {
+              "text": "So that the results can be ignored if they are inconvenient",
+              "fraction": 0,
+              "feedback": "The abort is about safety, not about discarding results."
+            }
+          ],
+          "generalFeedback": "An abort (or halt) capability is a core safety control. Together with a small blast radius, it means that if the experiment begins to breach the steady state and harm users, it can be stopped at once, keeping the impact contained.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Observability as a prerequisite",
+          "text": "<p>Before you can run a meaningful chaos experiment, you must be able to:</p>",
+          "answers": [
+            {
+              "text": "Measure the steady state, so you can tell whether it is maintained during the experiment",
+              "fraction": 100,
+              "feedback": "Correct — observability of the steady state is a prerequisite; without it you cannot judge the result."
+            },
+            {
+              "text": "Guarantee that no fault will ever occur",
+              "fraction": 0,
+              "feedback": "Chaos engineering deliberately injects faults; the prerequisite is being able to measure the steady state, not preventing faults."
+            },
+            {
+              "text": "Remove all monitoring to avoid interference",
+              "fraction": 0,
+              "feedback": "The opposite — monitoring is essential to measure the steady state and detect problems."
+            },
+            {
+              "text": "Turn the system off during the experiment",
+              "fraction": 0,
+              "feedback": "The system must be running so its behaviour under fault can be observed."
+            }
+          ],
+          "generalFeedback": "Observability is a prerequisite: you must be able to measure the steady state (throughput, error rate, latency, and so on). If you cannot measure normal behaviour, you cannot tell whether the injected fault breaks it, and the experiment yields no useful evidence.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Deliberate fault injection to build confidence",
+          "text": "<p>Chaos engineering deliberately injects faults into a system in order to build confidence in its resilience to real-world conditions.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — deliberate, controlled fault injection to build confidence in resilience is exactly what chaos engineering is."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "It is true: chaos engineering deliberately injects faults, under controlled conditions, to build confidence in the system's resilience."
+            }
+          ],
+          "generalFeedback": "By definition, chaos engineering experiments on a system by deliberately injecting real-world faults so as to build confidence in its ability to withstand turbulent production conditions. The injection is deliberate and controlled, not accidental."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Order of the experiment steps",
+          "text": "<p>Which ordering best describes the steps of a chaos experiment?</p>",
+          "answers": [
+            {
+              "text": "Define the steady state → hypothesize it continues under fault → inject the fault → observe and compare against the steady state",
+              "fraction": 100,
+              "feedback": "Correct — measure normal behaviour, form the hypothesis, inject the fault, then compare."
+            },
+            {
+              "text": "Inject the fault → then decide afterwards what normal behaviour was → then form a hypothesis",
+              "fraction": 0,
+              "feedback": "The steady state and hypothesis must be defined before injecting the fault, or there is nothing to compare against."
+            },
+            {
+              "text": "Form a hypothesis → fix all bugs → declare the system resilient without injecting anything",
+              "fraction": 0,
+              "feedback": "You must actually inject the fault and observe; skipping the injection tests nothing."
+            },
+            {
+              "text": "Observe and compare → inject the fault → define the steady state last",
+              "fraction": 0,
+              "feedback": "The order is reversed; you define and measure the steady state first, before injecting."
+            }
+          ],
+          "generalFeedback": "The Principles of Chaos give the order: (1) define the steady state as a measurable indicator of normal behaviour; (2) hypothesize that the steady state continues in both control and experiment groups; (3) inject a real-world fault; (4) try to disprove the hypothesis by observing whether the steady state is maintained.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "First step of a chaos experiment",
+          "text": "<p>What should be done <strong>first</strong> when designing a chaos experiment?</p>",
+          "answers": [
+            {
+              "text": "Define the steady state — a measurable indicator of normal, healthy behaviour",
+              "fraction": 100,
+              "feedback": "Correct — you must establish the measurable baseline before you can judge the effect of a fault."
+            },
+            {
+              "text": "Terminate as many instances as possible",
+              "fraction": 0,
+              "feedback": "Injecting the fault comes after the steady state and hypothesis are defined, and the blast radius is kept small, not maximised."
+            },
+            {
+              "text": "Announce that the system has passed the experiment",
+              "fraction": 0,
+              "feedback": "You cannot declare a result before defining the steady state and running the experiment."
+            },
+            {
+              "text": "Delete the monitoring so it does not interfere",
+              "fraction": 0,
+              "feedback": "Monitoring is required to measure the steady state; removing it defeats the experiment."
+            }
+          ],
+          "generalFeedback": "The first step is to define the steady state: a measurable output (throughput, error rate, latency SLO) that shows the system is behaving normally. Everything else — the hypothesis, the fault, the comparison — is judged relative to this baseline.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why minimize the blast radius",
+          "text": "<p>Why does chaos engineering emphasise keeping the <em>blast radius</em> small?</p>",
+          "answers": [
+            {
+              "text": "To contain the potential impact, so that if the experiment reveals a weakness it harms as few users as possible",
+              "fraction": 100,
+              "feedback": "Correct — a small blast radius limits collateral damage while still yielding evidence."
+            },
+            {
+              "text": "Because a large blast radius makes the results more accurate",
+              "fraction": 0,
+              "feedback": "A larger blast radius mainly increases risk, not accuracy; you start small and expand only as confidence grows."
+            },
+            {
+              "text": "Because it lets you skip having an abort condition",
+              "fraction": 0,
+              "feedback": "A small blast radius and an abort condition are complementary safety controls, not substitutes."
+            },
+            {
+              "text": "Because it guarantees the steady state can never break",
+              "fraction": 0,
+              "feedback": "The steady state may still break; the small blast radius simply limits how many users are affected when it does."
+            }
+          ],
+          "generalFeedback": "Chaos experiments start with a small blast radius — a canary or a small percentage of traffic — so that any weakness they expose harms the fewest possible users. You expand the blast radius only gradually as confidence grows, always keeping the ability to abort.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why have an abort condition",
+          "text": "<p>An experiment is configured to halt automatically if the customer-facing error rate exceeds a set threshold. This abort condition is there to:</p>",
+          "answers": [
+            {
+              "text": "Stop the experiment before the damage grows large, keeping the impact within acceptable limits",
+              "fraction": 100,
+              "feedback": "Correct — the abort caps the harm by stopping once real damage appears."
+            },
+            {
+              "text": "Ensure the experiment runs to completion no matter what",
+              "fraction": 0,
+              "feedback": "The abort exists to stop early when harm appears, which is the opposite of always running to completion."
+            },
+            {
+              "text": "Prove that the error rate can never rise",
+              "fraction": 0,
+              "feedback": "The abort does not prevent the error rate from rising; it reacts once the rise crosses the threshold."
+            },
+            {
+              "text": "Replace the need to define a steady state",
+              "fraction": 0,
+              "feedback": "The threshold is itself based on the steady state; the abort does not replace it."
+            }
+          ],
+          "generalFeedback": "An abort (halt) condition tied to a steady-state metric — such as error rate or latency crossing a threshold — lets the experiment stop the moment it begins causing unacceptable harm, keeping the impact contained even if the hypothesis turns out to be wrong.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why prefer running in production",
+          "text": "<p>Why does chaos engineering prefer to run experiments in production (or a production-like environment), with safeguards?</p>",
+          "answers": [
+            {
+              "text": "Because only production has the real traffic, scale, data, and dependencies, so the results reflect how the system actually behaves",
+              "fraction": 100,
+              "feedback": "Correct — production is where real conditions live, so it gives the most realistic evidence."
+            },
+            {
+              "text": "Because production has no monitoring, so experiments are cheaper there",
+              "fraction": 0,
+              "feedback": "Production needs strong monitoring, not the absence of it; realism, not cheapness, is the reason."
+            },
+            {
+              "text": "Because it removes any need for a small blast radius or an abort",
+              "fraction": 0,
+              "feedback": "Running in production makes safeguards more important, not less; the blast radius is kept small and the abort ready."
+            },
+            {
+              "text": "Because staging environments can never run any tests",
+              "fraction": 0,
+              "feedback": "Staging can run tests, but it does not reproduce real traffic and scale; that realism is why production is preferred."
+            }
+          ],
+          "generalFeedback": "Weaknesses often appear only under real traffic, scale, data, and dependency behaviour, which staging rarely reproduces faithfully. Running in production (with observability, a small blast radius, and an abort) therefore gives the most realistic and trustworthy evidence about resilience.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Controlled, not random breakage",
+          "text": "<p>A colleague says \"chaos engineering just means randomly breaking things in production.\" The most accurate correction is:</p>",
+          "answers": [
+            {
+              "text": "It is controlled, hypothesis-driven experimentation with a defined steady state, a limited blast radius, and the ability to abort — not random, unplanned breakage",
+              "fraction": 100,
+              "feedback": "Correct — chaos engineering is disciplined experimentation, the opposite of random breakage."
+            },
+            {
+              "text": "Yes, that is exactly right — the more random and unplanned, the better",
+              "fraction": 0,
+              "feedback": "This repeats the misconception; chaos engineering is deliberately controlled and hypothesis-driven."
+            },
+            {
+              "text": "It only ever runs in staging, never touching production at all",
+              "fraction": 0,
+              "feedback": "Chaos engineering prefers production with safeguards; the key correction is that it is controlled, not that it avoids production."
+            },
+            {
+              "text": "It means never injecting any faults, only reading logs",
+              "fraction": 0,
+              "feedback": "Injecting faults is central to chaos engineering; the point is that the injection is controlled and hypothesis-driven."
+            }
+          ],
+          "generalFeedback": "Chaos engineering is controlled, hypothesis-driven experimentation: a measurable steady state, an explicit hypothesis, a real-world fault, a small and expandable blast radius, and an abort. Random, unplanned breakage lacks all of these and is not chaos engineering.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why observability is required",
+          "text": "<p>Why is strong observability (monitoring of the steady-state metrics) a prerequisite for chaos engineering?</p>",
+          "answers": [
+            {
+              "text": "Without it you cannot tell whether the steady state was maintained or broken, so the experiment produces no usable evidence and harm may go unnoticed",
+              "fraction": 100,
+              "feedback": "Correct — you need to measure the steady state both to read the result and to trigger the abort."
+            },
+            {
+              "text": "Because monitoring itself repairs any weaknesses that are found",
+              "fraction": 0,
+              "feedback": "Monitoring reveals weaknesses; it does not repair them. Remediation is a separate step."
+            },
+            {
+              "text": "Because observability removes the need to inject any fault",
+              "fraction": 0,
+              "feedback": "The fault must still be injected; observability tells you what effect it had."
+            },
+            {
+              "text": "Because it lets you run the experiment without a hypothesis",
+              "fraction": 0,
+              "feedback": "A hypothesis is still required; observability is what lets you test it."
+            }
+          ],
+          "generalFeedback": "Observability lets you measure the steady state before, during, and after the fault. Without it you cannot judge whether the hypothesis held, you cannot trigger an abort when harm appears, and the experiment yields no evidence — which is why it is a prerequisite.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the fault: instance kill",
+          "text": "<p>An experiment terminates one of the running application instances. This fault is best classified as:</p>",
+          "answers": [
+            {
+              "text": "An instance/host failure (compute loss)",
+              "fraction": 100,
+              "feedback": "Correct — killing an instance simulates the loss of a compute node."
+            },
+            {
+              "text": "A network partition",
+              "fraction": 0,
+              "feedback": "A partition splits the network; here a whole instance is removed, which is a compute-loss fault."
+            },
+            {
+              "text": "Injected latency",
+              "fraction": 0,
+              "feedback": "Latency slows responses; terminating an instance removes it entirely, a different fault."
+            },
+            {
+              "text": "Disk exhaustion",
+              "fraction": 0,
+              "feedback": "Disk exhaustion fills storage; killing an instance is a compute/host failure, not a storage fault."
+            }
+          ],
+          "generalFeedback": "Terminating a running instance simulates the sudden loss of a compute node or host — the fault that Chaos Monkey is built around. It is distinct from network faults (latency, partition) and resource-exhaustion faults (CPU, memory, disk).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the fault: injected latency",
+          "text": "<p>An experiment adds a 300 ms delay to responses from the payment service. This fault is best classified as:</p>",
+          "answers": [
+            {
+              "text": "Injected network/dependency latency",
+              "fraction": 100,
+              "feedback": "Correct — adding a delay to responses is a latency fault."
+            },
+            {
+              "text": "An instance termination",
+              "fraction": 0,
+              "feedback": "Nothing is terminated; the service still responds, only more slowly."
+            },
+            {
+              "text": "CPU exhaustion",
+              "fraction": 0,
+              "feedback": "The delay is imposed on responses, not caused by starving the CPU; it is a latency fault."
+            },
+            {
+              "text": "A clock-skew fault",
+              "fraction": 0,
+              "feedback": "Clock skew shifts time between nodes; adding a response delay is a latency fault, not a time fault."
+            }
+          ],
+          "generalFeedback": "Adding a delay to a service's responses is a latency-injection fault. It tests whether callers handle slow dependencies gracefully — for example via timeouts, retries with backoff, or circuit breakers — rather than hanging or cascading the delay.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the fault: network partition",
+          "text": "<p>An experiment blocks all traffic between two service clusters so they can no longer reach each other. This fault is best classified as:</p>",
+          "answers": [
+            {
+              "text": "A network partition (split between parts of the system)",
+              "fraction": 100,
+              "feedback": "Correct — cutting communication between clusters is a network partition."
+            },
+            {
+              "text": "Memory exhaustion",
+              "fraction": 0,
+              "feedback": "No memory is being consumed; the network path between clusters is being cut."
+            },
+            {
+              "text": "An instance kill",
+              "fraction": 0,
+              "feedback": "The instances still run; they simply cannot communicate, which is a partition."
+            },
+            {
+              "text": "Clock skew",
+              "fraction": 0,
+              "feedback": "Clock skew shifts time; blocking traffic between clusters is a network partition."
+            }
+          ],
+          "generalFeedback": "Cutting the network so two parts of the system cannot reach each other is a network partition (a \"split brain\" scenario). It tests how the system behaves when components are isolated — for example whether it preserves consistency, degrades gracefully, or recovers when the partition heals.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the hypothesis compares",
+          "text": "<p>A well-formed steady-state hypothesis is expressed in terms of:</p>",
+          "answers": [
+            {
+              "text": "A measurable steady-state metric continuing to hold under the fault, ideally comparing an experiment group against a control group",
+              "fraction": 100,
+              "feedback": "Correct — the hypothesis is about a measurable metric, compared between control and experiment groups."
+            },
+            {
+              "text": "The personal opinion of the on-call engineer about whether things feel fine",
+              "fraction": 0,
+              "feedback": "The hypothesis must be measurable, not a subjective impression."
+            },
+            {
+              "text": "The number of lines of code in the affected service",
+              "fraction": 0,
+              "feedback": "Code size is not a steady-state metric; the hypothesis concerns measurable behaviour like error rate or latency."
+            },
+            {
+              "text": "Whether the source repository compiles without warnings",
+              "fraction": 0,
+              "feedback": "Build cleanliness is unrelated to the runtime steady state the hypothesis is about."
+            }
+          ],
+          "generalFeedback": "The steady-state hypothesis is stated in measurable terms — for example \"error rate stays below 1% and p99 latency below 400 ms\" — and predicts that this holds in the experiment group (with the fault) just as in the control group (without it). Comparing the two groups isolates the effect of the fault.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of trying to disprove",
+          "text": "<p>Why does a chaos experiment actively try to <em>disprove</em> the steady-state hypothesis rather than confirm it?</p>",
+          "answers": [
+            {
+              "text": "Because a failure to maintain the steady state pinpoints a real weakness to fix, which is the valuable outcome",
+              "fraction": 100,
+              "feedback": "Correct — trying to disprove the hypothesis is how weaknesses are found."
+            },
+            {
+              "text": "Because confirming a hypothesis is impossible in any experiment",
+              "fraction": 0,
+              "feedback": "The point is not that confirmation is impossible, but that seeking to disprove is what surfaces weaknesses."
+            },
+            {
+              "text": "Because the team wants the system to fail permanently",
+              "fraction": 0,
+              "feedback": "The team wants to find and fix weaknesses safely, not to cause permanent failure."
+            },
+            {
+              "text": "Because disproving avoids any need for monitoring",
+              "fraction": 0,
+              "feedback": "Monitoring is needed either way; disproving is about learning where the system is weak."
+            }
+          ],
+          "generalFeedback": "Like a scientific experiment, chaos engineering seeks evidence against its hypothesis. If the steady state does not hold under the injected fault, that is exactly what you wanted to learn: a concrete weakness has been located and can be remediated before it causes a real outage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Canary as blast-radius control",
+          "text": "<p>Running an experiment against only 1% of live traffic (a canary) before expanding is an example of:</p>",
+          "answers": [
+            {
+              "text": "Controlling the blast radius — starting small so any harm is contained",
+              "fraction": 100,
+              "feedback": "Correct — limiting the experiment to a small slice of traffic is blast-radius control."
+            },
+            {
+              "text": "Defining the steady state",
+              "fraction": 0,
+              "feedback": "The steady state is the metric of normal behaviour; using 1% of traffic is about limiting impact, not defining the baseline."
+            },
+            {
+              "text": "Forming the hypothesis",
+              "fraction": 0,
+              "feedback": "The hypothesis is the prediction being tested; a 1% canary is a way to contain the blast radius."
+            },
+            {
+              "text": "Removing the ability to abort",
+              "fraction": 0,
+              "feedback": "A canary is a safety measure and works alongside an abort, not against it."
+            }
+          ],
+          "generalFeedback": "Exposing only a small percentage of traffic (a canary) is a classic way to keep the blast radius small. If the experiment reveals a weakness, only that small slice is affected; you expand gradually as confidence grows, keeping an abort ready throughout.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Complements other testing",
+          "text": "<p>How does chaos engineering relate to other forms of testing (unit, integration, and so on)?</p>",
+          "answers": [
+            {
+              "text": "It complements them by targeting resilience under real-world faults; it does not replace them",
+              "fraction": 100,
+              "feedback": "Correct — chaos engineering adds resilience evidence on top of, not instead of, other testing."
+            },
+            {
+              "text": "It replaces all unit and integration testing, which become unnecessary",
+              "fraction": 0,
+              "feedback": "Chaos engineering complements other tests; unit and integration tests remain essential."
+            },
+            {
+              "text": "It is in direct competition with testing and should not be used alongside it",
+              "fraction": 0,
+              "feedback": "They are complementary, not competing; chaos engineering covers what other tests do not."
+            },
+            {
+              "text": "It only matters for teams that have no other tests",
+              "fraction": 0,
+              "feedback": "It adds value regardless of other tests, because it exercises resilience under real conditions."
+            }
+          ],
+          "generalFeedback": "Chaos engineering addresses a question other tests rarely cover: how the whole system behaves under real-world faults at production scale. It complements unit, integration, and other testing rather than replacing any of them.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Production with no safeguards",
+          "text": "<p>To get the most realism, chaos experiments should be run in production with no safeguards — no small blast radius and no abort.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — production is preferred for realism, but only with safeguards: a small blast radius, an abort, and strong observability."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: running in production without safeguards risks an uncontrolled outage. Realism must be paired with a limited blast radius and an abort."
+            }
+          ],
+          "generalFeedback": "Chaos engineering does prefer production for realism, but responsibly: you keep the blast radius small, hold an abort ready, and rely on strong observability. Removing the safeguards turns a controlled experiment into a reckless one."
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Design an experiment for checkout",
+          "text": "<p>You want a chaos experiment for an e-commerce checkout that depends on a payment service. Which design is soundest?</p>",
+          "answers": [
+            {
+              "text": "Steady state: checkout success rate ≥ 99%. Hypothesis: it stays ≥ 99% if payment latency rises. Fault: add latency to the payment service. Blast radius: 1% of traffic. Abort: halt if success rate drops below 95%.",
+              "fraction": 100,
+              "feedback": "Correct — it names a measurable steady state, a hypothesis, a real fault, a small blast radius, and an abort condition."
+            },
+            {
+              "text": "Steady state: none. Hypothesis: none. Fault: shut down the whole payment service for all users. Blast radius: 100%. Abort: none.",
+              "fraction": 0,
+              "feedback": "This has no measurable baseline, no hypothesis, an unbounded blast radius, and no abort — the opposite of a sound design."
+            },
+            {
+              "text": "Steady state: \"the team feels good about checkout.\" Fault: rename a database column. Blast radius: all users. Abort: whenever someone remembers to check.",
+              "fraction": 0,
+              "feedback": "The steady state is not measurable, renaming a column is not a fault injection, the blast radius is unbounded, and the abort is not defined."
+            },
+            {
+              "text": "Steady state: checkout success rate ≥ 99%. Fault: none injected. Just watch the dashboards and declare the system resilient.",
+              "fraction": 0,
+              "feedback": "Without injecting a fault nothing is being tested; observing a healthy system proves nothing about resilience."
+            }
+          ],
+          "generalFeedback": "A sound experiment specifies all of: a measurable steady state (checkout success rate ≥ 99%), an explicit hypothesis (it holds under the fault), a real injected fault (payment latency), a contained blast radius (1% of traffic), and an abort condition (halt if success rate < 95%). The other options each drop one or more of these essentials.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpret a broken steady state",
+          "text": "<p>During an experiment, injecting latency into a dependency causes the checkout error rate to spike far above its steady-state threshold. What is the correct interpretation and response?</p>",
+          "answers": [
+            {
+              "text": "The hypothesis is disproved: a resilience weakness has been found. Abort if needed, then remediate (e.g. add timeouts, retries, or a circuit breaker) and re-test.",
+              "fraction": 100,
+              "feedback": "Correct — a broken steady state is a discovered weakness to fix, then verify."
+            },
+            {
+              "text": "The experiment failed and should be discarded; nothing was learned",
+              "fraction": 0,
+              "feedback": "On the contrary, disproving the hypothesis is a valuable result — it located a real weakness."
+            },
+            {
+              "text": "The system is fine; a spiking error rate under fault can be ignored",
+              "fraction": 0,
+              "feedback": "A steady state broken by the fault is exactly the weakness the experiment exists to find; it must not be ignored."
+            },
+            {
+              "text": "It proves the dependency should never be called again under any circumstances",
+              "fraction": 0,
+              "feedback": "The finding is that the caller handles the slow dependency poorly; the fix is resilience (timeouts/retries/circuit breakers), not banning the dependency."
+            }
+          ],
+          "generalFeedback": "When the injected fault breaks the steady state, the hypothesis is disproved and a genuine weakness has been located. The right response is to contain the impact (abort if necessary), remediate the weakness — for example with timeouts, retries with backoff, or a circuit breaker — and then re-run the experiment to confirm the fix.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpret a maintained steady state",
+          "text": "<p>An experiment injects a fault and the steady state is maintained throughout. What is the most accurate conclusion?</p>",
+          "answers": [
+            {
+              "text": "Confidence in resilience to that specific fault has increased; it does not prove the system is resilient to all faults or resilient forever",
+              "fraction": 100,
+              "feedback": "Correct — a passed experiment builds confidence for that scenario, not a permanent guarantee."
+            },
+            {
+              "text": "The system is now proven to be resilient to every possible failure, permanently",
+              "fraction": 0,
+              "feedback": "One experiment covers one fault under the tested conditions; it cannot prove resilience to all faults for all time."
+            },
+            {
+              "text": "Chaos engineering is now complete and never needs to be run again",
+              "fraction": 0,
+              "feedback": "Systems change continuously, so experiments must be repeated; a single pass is not \"done forever\"."
+            },
+            {
+              "text": "The experiment was pointless because no weakness was found",
+              "fraction": 0,
+              "feedback": "Increasing confidence and reducing uncertainty is a legitimate, useful outcome even when no weakness surfaces."
+            }
+          ],
+          "generalFeedback": "A maintained steady state means the system tolerated that particular fault under the tested conditions, which increases confidence in its resilience. It is not proof of resilience to every fault, nor a permanent guarantee — as the system evolves, the experiment should be repeated (ideally automated and continuous).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Production small-blast-radius vs staging-only",
+          "text": "<p>Why can running experiments in production with a small blast radius be more valuable than running only in staging?</p>",
+          "answers": [
+            {
+              "text": "Staging rarely reproduces real traffic, scale, data, and dependency behaviour, so some weaknesses appear only in production; a small blast radius lets you find them with contained risk",
+              "fraction": 100,
+              "feedback": "Correct — production realism reveals weaknesses staging misses, and the small blast radius keeps the risk contained."
+            },
+            {
+              "text": "Because staging environments are incapable of running any experiment",
+              "fraction": 0,
+              "feedback": "Staging can run experiments; the point is that it does not faithfully reproduce production conditions."
+            },
+            {
+              "text": "Because a small blast radius in production removes all risk entirely",
+              "fraction": 0,
+              "feedback": "It reduces and contains risk; it does not remove it. That is why an abort and observability are still needed."
+            },
+            {
+              "text": "Because production experiments never need monitoring or an abort",
+              "fraction": 0,
+              "feedback": "Production experiments need monitoring and an abort more than ever; the small blast radius works alongside them."
+            }
+          ],
+          "generalFeedback": "Many resilience weaknesses emerge only under real production traffic, scale, data distributions, and dependency behaviour — conditions staging seldom reproduces. Running in production with a small, expandable blast radius (plus observability and an abort) surfaces those real weaknesses while keeping the risk contained.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Misconception: just breaking things",
+          "text": "<p>Which statement best corrects the misconception that chaos engineering is \"just breaking things\"?</p>",
+          "answers": [
+            {
+              "text": "It is a disciplined method: a measurable steady state, an explicit hypothesis, a controlled fault, a limited blast radius, an abort, and observability throughout",
+              "fraction": 100,
+              "feedback": "Correct — the discipline and safeguards are exactly what distinguish it from mere breakage."
+            },
+            {
+              "text": "There is no difference; breaking things and chaos engineering are the same activity",
+              "fraction": 0,
+              "feedback": "They differ sharply: chaos engineering is controlled and hypothesis-driven, breakage is neither."
+            },
+            {
+              "text": "Chaos engineering avoids faults entirely and only reviews architecture diagrams",
+              "fraction": 0,
+              "feedback": "Injecting real faults is central; the discipline lies in how it is controlled, not in avoiding faults."
+            },
+            {
+              "text": "The difference is only that chaos engineering uses more expensive tools",
+              "fraction": 0,
+              "feedback": "The difference is method and safeguards, not tool cost."
+            }
+          ],
+          "generalFeedback": "The distinguishing feature is discipline: chaos engineering defines a measurable steady state, states a hypothesis, injects a controlled fault, contains the blast radius, keeps an abort ready, and observes throughout. \"Just breaking things\" has none of these controls.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A disproved hypothesis is a success",
+          "text": "<p>An experiment's hypothesis is disproved — the steady state broke under the fault. How should this be regarded?</p>",
+          "answers": [
+            {
+              "text": "As a success: the experiment did its job by surfacing a real weakness that can now be fixed before it causes an outage",
+              "fraction": 100,
+              "feedback": "Correct — learning about a weakness in a controlled setting is the valuable outcome."
+            },
+            {
+              "text": "As an embarrassing failure that should be hidden from the team",
+              "fraction": 0,
+              "feedback": "Finding a weakness safely is a win, not something to hide; it prevents a worse, uncontrolled failure later."
+            },
+            {
+              "text": "As proof that chaos engineering does not work and should be abandoned",
+              "fraction": 0,
+              "feedback": "The method worked exactly as intended: it exposed a weakness under controlled conditions."
+            },
+            {
+              "text": "As a reason to stop measuring the steady state in future experiments",
+              "fraction": 0,
+              "feedback": "The steady state is what let you detect the weakness; you keep measuring it."
+            }
+          ],
+          "generalFeedback": "A disproved hypothesis means the experiment found a genuine resilience weakness under safe, controlled conditions — precisely the point of chaos engineering. It is a success, because fixing the weakness now is far cheaper than discovering it during a real, uncontrolled outage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Does not prove bug-free",
+          "text": "<p>After a series of chaos experiments all pass, a manager says \"this proves our system has no bugs.\" The best response is:</p>",
+          "answers": [
+            {
+              "text": "Passing experiments build confidence in resilience to the faults tested, but they cannot prove the absence of all bugs; untested faults and conditions remain",
+              "fraction": 100,
+              "feedback": "Correct — chaos engineering reduces uncertainty and builds confidence; it does not prove bug-freeness."
+            },
+            {
+              "text": "Agreed — passing chaos experiments prove the system is completely bug-free",
+              "fraction": 0,
+              "feedback": "No experiment can prove the absence of all bugs; only the tested scenarios were exercised."
+            },
+            {
+              "text": "Chaos experiments say nothing at all about the system, so the manager is entirely wrong to draw any conclusion",
+              "fraction": 0,
+              "feedback": "They do provide real evidence about resilience; the overreach is only the claim of bug-freeness."
+            },
+            {
+              "text": "The system is bug-free only if the experiments ran in staging",
+              "fraction": 0,
+              "feedback": "Neither staging nor production runs can prove bug-freeness; this misstates the conclusion."
+            }
+          ],
+          "generalFeedback": "Chaos experiments cover specific faults under specific conditions. Passing them raises confidence in resilience to those faults, but — like all testing — they cannot demonstrate the absence of every bug. Untested faults, inputs, and conditions still carry residual risk.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prerequisites before production chaos",
+          "text": "<p>A team wants to start running chaos experiments in production. Which prerequisites should be in place first?</p>",
+          "answers": [
+            {
+              "text": "Observability to measure the steady state, a way to limit the blast radius, an abort/rollback path, and a defined steady-state metric",
+              "fraction": 100,
+              "feedback": "Correct — measurement, containment, and a safe stop are prerequisites before injecting faults in production."
+            },
+            {
+              "text": "Nothing in particular; just start terminating production instances immediately",
+              "fraction": 0,
+              "feedback": "Injecting faults in production without observability, containment, or an abort risks an uncontrolled outage."
+            },
+            {
+              "text": "Only a list of every bug in the system, and nothing else",
+              "fraction": 0,
+              "feedback": "You cannot have such a list, and it is not the prerequisite; observability, blast-radius control, and an abort are."
+            },
+            {
+              "text": "A guarantee from management that no fault will ever affect a user",
+              "fraction": 0,
+              "feedback": "Such a guarantee is impossible; instead you contain and monitor the impact and keep an abort ready."
+            }
+          ],
+          "generalFeedback": "Before injecting faults in production, you need the safeguards that make it responsible: a defined, measurable steady state; observability to watch it in real time; a way to keep the blast radius small; and an abort or rollback path to stop quickly if harm appears. These make the experiment controlled rather than reckless.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Choose a good steady-state metric",
+          "text": "<p>For a video-streaming service, which is the best choice of steady-state metric for a chaos experiment?</p>",
+          "answers": [
+            {
+              "text": "The rate at which users successfully start playing a video (a measurable, user-facing indicator of healthy behaviour)",
+              "fraction": 100,
+              "feedback": "Correct — a measurable, user-facing signal of normal behaviour makes a good steady state."
+            },
+            {
+              "text": "The number of engineers currently on call",
+              "fraction": 0,
+              "feedback": "Staffing is not a behavioural signal of the system; the steady state must measure the system's healthy behaviour."
+            },
+            {
+              "text": "The number of source files in the repository",
+              "fraction": 0,
+              "feedback": "Repository size does not reflect runtime health; it cannot serve as a steady-state metric."
+            },
+            {
+              "text": "Whether the latest build compiled without warnings",
+              "fraction": 0,
+              "feedback": "Build status is not a runtime steady state; the metric must reflect live, healthy behaviour under load."
+            }
+          ],
+          "generalFeedback": "A good steady-state metric is a measurable output that reflects normal, healthy, user-facing behaviour — here, the successful video-start rate (you might add playback error rate or rebuffering). Non-behavioural facts like staff count, repository size, or build status cannot tell you whether the system is healthy under a fault.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Contain the blast radius by design",
+          "text": "<p>You must test how a service tolerates a failing dependency, but you want to limit exposure. Which approach best contains the blast radius?</p>",
+          "answers": [
+            {
+              "text": "Inject the dependency failure for a small percentage of traffic first, watch the steady-state metrics, and expand only if they hold — with an abort ready",
+              "fraction": 100,
+              "feedback": "Correct — start small, observe, expand gradually, and keep an abort — the essence of blast-radius control."
+            },
+            {
+              "text": "Fail the dependency for 100% of traffic at once so the test finishes fastest",
+              "fraction": 0,
+              "feedback": "That maximises exposure; a weakness would then hit every user. Blast-radius control means starting small."
+            },
+            {
+              "text": "Turn off monitoring so the experiment cannot trigger alerts",
+              "fraction": 0,
+              "feedback": "You need monitoring to observe the steady state and trigger the abort; turning it off increases risk."
+            },
+            {
+              "text": "Run it with no abort so the experiment cannot be interrupted",
+              "fraction": 0,
+              "feedback": "Removing the abort means you cannot stop the harm; that is the opposite of containment."
+            }
+          ],
+          "generalFeedback": "Blast-radius control means limiting the fraction of the system and users exposed: inject the failure for a small slice of traffic, watch the steady-state metrics with full observability, keep an abort ready, and expand the scope only as confidence grows.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Hypothesis for a dependency-failure experiment",
+          "text": "<p>A service calls a non-critical recommendations dependency. You want to verify graceful degradation if that dependency fails. Which steady-state hypothesis is best?</p>",
+          "answers": [
+            {
+              "text": "If the recommendations dependency fails, the page still loads with success rate and latency within their steady-state thresholds (recommendations simply omitted)",
+              "fraction": 100,
+              "feedback": "Correct — it predicts the measurable steady state holds while the non-critical feature degrades gracefully."
+            },
+            {
+              "text": "If the recommendations dependency fails, the entire service must crash immediately",
+              "fraction": 0,
+              "feedback": "A crash is the failure you want to prevent; the hypothesis should predict graceful degradation, not collapse."
+            },
+            {
+              "text": "The recommendations dependency will never fail during the experiment",
+              "fraction": 0,
+              "feedback": "The experiment deliberately fails it; the hypothesis is about what happens when it does."
+            },
+            {
+              "text": "The team will feel confident regardless of the metrics",
+              "fraction": 0,
+              "feedback": "The hypothesis must be measurable, not a subjective feeling."
+            }
+          ],
+          "generalFeedback": "For a non-critical dependency, resilience means graceful degradation: the core page keeps working within its steady-state thresholds while the optional feature is simply omitted. The hypothesis states this measurable outcome, and the experiment fails the dependency to see whether it holds.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Simulate a region outage safely",
+          "text": "<p>A service runs across multiple cloud regions and claims to survive the loss of any one region. How should a chaos experiment validate this safely?</p>",
+          "answers": [
+            {
+              "text": "Define a steady state, hypothesize it holds, simulate the loss of one region for a limited slice of traffic while watching metrics, and abort if the steady state breaks",
+              "fraction": 100,
+              "feedback": "Correct — a measured, contained, abortable regional-failover experiment validates the claim safely."
+            },
+            {
+              "text": "Permanently delete one region's infrastructure to be sure it is really gone",
+              "fraction": 0,
+              "feedback": "That is destructive and unrecoverable; chaos experiments simulate the outage reversibly, with an abort."
+            },
+            {
+              "text": "Assume the failover works because the architecture diagram shows two regions",
+              "fraction": 0,
+              "feedback": "A diagram is not evidence; the point of the experiment is to test the failover in reality."
+            },
+            {
+              "text": "Take down all regions at once to test the worst case immediately",
+              "fraction": 0,
+              "feedback": "Removing all regions guarantees an outage and tests nothing about single-region survival; the blast radius must be contained."
+            }
+          ],
+          "generalFeedback": "To validate region-level resilience, define a measurable steady state, hypothesize it survives losing one region, simulate that regional outage in a reversible way for a contained slice of traffic, observe the failover against the steady state, and abort if it breaks. This tests the real failover behaviour without risking a full, irreversible outage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Steady state breaks unexpectedly mid-run",
+          "text": "<p>Midway through a production experiment, the steady-state error rate crosses the abort threshold. What is the correct immediate action?</p>",
+          "answers": [
+            {
+              "text": "Trigger the abort to halt the experiment and restore normal conditions, then investigate the weakness that was revealed",
+              "fraction": 100,
+              "feedback": "Correct — abort first to contain harm, then analyse and remediate the finding."
+            },
+            {
+              "text": "Keep the fault running longer to be certain the problem is real",
+              "fraction": 0,
+              "feedback": "Prolonging the fault increases harm to users; the abort exists to stop at the threshold."
+            },
+            {
+              "text": "Widen the blast radius to more users to gather more data",
+              "fraction": 0,
+              "feedback": "Expanding while the steady state is broken multiplies the damage; you abort and contain instead."
+            },
+            {
+              "text": "Disable the alert so the threshold stops firing",
+              "fraction": 0,
+              "feedback": "Silencing the alert hides real harm; the correct move is to abort and protect users."
+            }
+          ],
+          "generalFeedback": "Crossing the abort threshold is exactly the signal the abort was built for: stop the experiment immediately, let the system return to normal, and contain the impact. Only then do you investigate the weakness the experiment exposed and plan the remediation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Value of continuous, automated chaos",
+          "text": "<p>Why is it valuable to run chaos experiments continuously and automatically, rather than only once as a one-off game day?</p>",
+          "answers": [
+            {
+              "text": "Because systems and their dependencies change constantly, so resilience must be re-verified over time; a single pass can be invalidated by later changes",
+              "fraction": 100,
+              "feedback": "Correct — continuous experiments catch regressions in resilience as the system evolves."
+            },
+            {
+              "text": "Because a single experiment proves the system is resilient forever",
+              "fraction": 0,
+              "feedback": "It does not; changes to code, config, or dependencies can reintroduce weaknesses, so re-verification is needed."
+            },
+            {
+              "text": "Because automation removes the need for any steady state or abort",
+              "fraction": 0,
+              "feedback": "Automated experiments still require a steady state and an abort; automation manages them, it does not remove them."
+            },
+            {
+              "text": "Because continuous chaos means the team can stop monitoring production",
+              "fraction": 0,
+              "feedback": "Continuous experiments rely on continuous monitoring; they do not eliminate it."
+            }
+          ],
+          "generalFeedback": "Resilience is not a permanent property: new deployments, configuration changes, scaling, and evolving dependencies can all reintroduce weaknesses. Running experiments continuously and automatically re-verifies resilience over time and catches regressions that a single game day would miss. Game days remain valuable for rehearsing human response.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Disproved hypothesis is not a wasted experiment",
+          "text": "<p>A chaos experiment whose hypothesis is disproved (the steady state broke under the fault) is a failed, wasted experiment.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — disproving the hypothesis is a success: it revealed a real weakness that can be fixed before it causes an outage."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is wrong: a disproved hypothesis is the valuable outcome, because it locates a weakness safely and in advance."
+            }
+          ],
+          "generalFeedback": "When the steady state breaks under the injected fault, the experiment has done exactly its job — it exposed a genuine resilience weakness under controlled conditions. That learning is a success, since remediating the weakness now is far cheaper than facing it during a real, uncontrolled outage."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是混沌工程",
+          "text": "<p><em>混沌工程（chaos engineering）</em>最適切的描述是：</p>",
+          "answers": [
+            {
+              "text": "一門透過刻意注入故障來對系統進行實驗的學科，目的是建立對系統在動盪的真實世界條件下之韌性的信心",
+              "fraction": 100,
+              "feedback": "正確——它是有紀律、刻意的故障注入實驗，目的在於建立對韌性的信心。"
+            },
+            {
+              "text": "毫無計畫地在正式環境隨機弄壞東西，看看會發生什麼事",
+              "fraction": 0,
+              "feedback": "混沌工程是受控且以假設驅動的；隨機、無計畫的破壞正是它所不是的。"
+            },
+            {
+              "text": "一種量測每個函式執行速度的效能剖析技術",
+              "fraction": 0,
+              "feedback": "那是效能剖析；混沌工程是注入故障以測試韌性。"
+            },
+            {
+              "text": "一種靠閱讀原始碼來找缺陷的程式碼審查流程",
+              "fraction": 0,
+              "feedback": "那是靜態審查；混沌工程是對運行中的系統注入故障來做實驗。"
+            }
+          ],
+          "generalFeedback": "混沌工程是一門對系統進行實驗的學科，透過刻意注入真實世界的故障，以建立對系統在動盪的正式環境條件下之承受能力的信心。它是受控且以證據為本的，而非隨機的破壞。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "混沌工程的目標",
+          "text": "<p>混沌工程的主要目標是什麼？</p>",
+          "answers": [
+            {
+              "text": "在真正的停機事故發生之前，先暴露系統韌性上的弱點",
+              "fraction": 100,
+              "feedback": "正確——目的是主動找出弱點，好在真實事故發生前修補它們。"
+            },
+            {
+              "text": "盡可能造成最多的正式環境停機",
+              "fraction": 0,
+              "feedback": "目的是建立信心與找出弱點，而非最大化停機；影響是刻意加以控制的。"
+            },
+            {
+              "text": "證明系統完全沒有任何錯誤",
+              "fraction": 0,
+              "feedback": "沒有任何實驗能證明所有錯誤都不存在；混沌工程是建立信心與找出弱點，並不能證明無錯誤。"
+            },
+            {
+              "text": "取代所有其他形式的測試",
+              "fraction": 0,
+              "feedback": "混沌工程是補充其他測試，並不取代單元測試、整合測試等。"
+            }
+          ],
+          "generalFeedback": "混沌工程的目標，是在受控的條件下主動揭露系統韌性上的弱點，好在它們演變成真實、不受控的停機事故之前先加以修補。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是穩態",
+          "text": "<p>在混沌工程中，系統的<em>穩態（steady state）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "一個可量測、代表正常健康行為的指標，例如吞吐量、錯誤率或延遲",
+              "fraction": 100,
+              "feedback": "正確——穩態是一個可量測、顯示系統行為正常的訊號。"
+            },
+            {
+              "text": "系統已崩潰且停止回應的那一刻",
+              "fraction": 0,
+              "feedback": "那是停機；穩態指的是正常、健康運作時的樣子。"
+            },
+            {
+              "text": "目前正在運行的伺服器總數",
+              "fraction": 0,
+              "feedback": "單純的伺服器數量不是行為指標；穩態是一個可量測、顯示健康行為的訊號。"
+            },
+            {
+              "text": "你打算注入的故障清單",
+              "fraction": 0,
+              "feedback": "那是實驗設計；穩態是你用來比對的正常行為基準。"
+            }
+          ],
+          "generalFeedback": "穩態是一個反映正常、健康運作的可量測輸出——例如吞吐量、錯誤率或延遲 SLO。你必須能夠量測它，因為整個實驗就是以「穩態在故障下是否維持」來判定的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是穩態假設",
+          "text": "<p>混沌實驗的<em>穩態假設（steady-state hypothesis）</em>主張：</p>",
+          "answers": [
+            {
+              "text": "即使在故障存在時，穩態在對照組與實驗組中都會繼續維持",
+              "fraction": 100,
+              "feedback": "正確——假設是：儘管注入了故障，正常行為仍會持續。"
+            },
+            {
+              "text": "注入故障時系統一定會崩潰",
+              "fraction": 0,
+              "feedback": "假設預測的是穩態會維持；實驗接著才去嘗試推翻它。"
+            },
+            {
+              "text": "故障其實永遠不會真的被注入",
+              "fraction": 0,
+              "feedback": "故障是刻意注入的；假設談的是穩態能否在故障下存續。"
+            },
+            {
+              "text": "團隊會在實驗之前修好每一個錯誤",
+              "fraction": 0,
+              "feedback": "那與假設無關；假設關切的是穩態在故障下能否持續。"
+            }
+          ],
+          "generalFeedback": "穩態假設預測可量測的正常行為會在對照組（無故障）與實驗組（注入故障）中都持續。實驗接著嘗試推翻它：若穩態未維持，就代表找到了一個弱點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是波及範圍",
+          "text": "<p>混沌實驗的<em>波及範圍（blast radius）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "實驗對使用者與系統可能造成之影響的範圍與程度",
+              "fraction": 100,
+              "feedback": "正確——波及範圍是實驗的影響能延伸到多遠。"
+            },
+            {
+              "text": "各資料中心之間的實體距離",
+              "fraction": 0,
+              "feedback": "它不是實體距離；它是實驗潛在影響的範圍。"
+            },
+            {
+              "text": "觀察此實驗的工程師人數",
+              "fraction": 0,
+              "feedback": "團隊人數無關；波及範圍是對使用者與系統之影響的程度。"
+            },
+            {
+              "text": "實驗的總運行時間（以分鐘計）",
+              "fraction": 0,
+              "feedback": "持續時間是另一個面向；波及範圍是有多少系統與多少使用者會受影響。"
+            }
+          ],
+          "generalFeedback": "波及範圍是實驗潛在影響的範圍——有多少系統與多少使用者可能受影響。混沌工程刻意把波及範圍維持得很小（且可中止），使任何傷害都能被控制住。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是故障注入",
+          "text": "<p>混沌實驗中的<em>故障注入（fault injection）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "刻意將一個失效狀況——例如終止一個執行個體或加入延遲——引入系統中",
+              "fraction": 100,
+              "feedback": "正確——故障注入就是刻意引入一個失效狀況。"
+            },
+            {
+              "text": "撰寫新功能並合併進主分支",
+              "fraction": 0,
+              "feedback": "那是一般開發；故障注入是引入失效狀況以測試韌性。"
+            },
+            {
+              "text": "修復使用者回報的缺陷",
+              "fraction": 0,
+              "feedback": "那是缺陷修復；故障注入是刻意引入一個故障以觀察反應。"
+            },
+            {
+              "text": "在程式碼中加入更多記錄語句",
+              "fraction": 0,
+              "feedback": "那能改善可觀測性，但不是故障注入；故障注入引入的是一個真正的失效狀況。"
+            }
+          ],
+          "generalFeedback": "故障注入是刻意將真實世界的失效狀況引入系統——例如終止執行個體、加入網路延遲、丟棄封包或耗盡資源——好讓團隊觀察系統如何反應。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Chaos Monkey 的作用",
+          "text": "<p>Netflix 的 <em>Chaos Monkey</em> 是一個會：</p>",
+          "answers": [
+            {
+              "text": "在正式環境隨機終止運行中的執行個體，以確認系統能容忍執行個體遺失的工具",
+              "fraction": 100,
+              "feedback": "正確——Chaos Monkey 殺掉執行個體，讓團隊驗證系統能在失去它們時仍存活。"
+            },
+            {
+              "text": "自動為每個函式撰寫單元測試",
+              "fraction": 0,
+              "feedback": "Chaos Monkey 注入的是執行個體故障；它不產生單元測試。"
+            },
+            {
+              "text": "加密服務之間的網路流量",
+              "fraction": 0,
+              "feedback": "那與此無關；Chaos Monkey 是終止執行個體以測試韌性。"
+            },
+            {
+              "text": "在流量上升時擴增伺服器數量",
+              "fraction": 0,
+              "feedback": "那是自動擴展；Chaos Monkey 是刻意移除執行個體，而非增加。"
+            }
+          ],
+          "generalFeedback": "Chaos Monkey 出自 Netflix 的 Simian Army，會在營運時間隨機終止正式環境的執行個體，以迫使工程師打造出能容忍任一執行個體遺失、且不影響使用者的服務。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是 Simian Army",
+          "text": "<p>Netflix 的 <em>Simian Army</em>（其中包含 Chaos Monkey）是：</p>",
+          "answers": [
+            {
+              "text": "一套會注入各種失效以測試分散式系統韌性的工具集",
+              "fraction": 100,
+              "feedback": "正確——Simian Army 是一系列用於韌性測試的故障注入工具。"
+            },
+            {
+              "text": "一種用來分配請求的負載平衡演算法",
+              "fraction": 0,
+              "feedback": "那是負載平衡；Simian Army 是注入故障，而非路由流量。"
+            },
+            {
+              "text": "一個用來檢視 CPU 圖表的監控儀表板",
+              "fraction": 0,
+              "feedback": "儀表板顯示指標；Simian Army 是主動注入故障。"
+            },
+            {
+              "text": "一套管理發行版本的原始碼控制系統",
+              "fraction": 0,
+              "feedback": "那是版本控制；Simian Army 是一組韌性測試工具。"
+            }
+          ],
+          "generalFeedback": "Simian Army 是 Netflix 的一組混沌工具（Chaos Monkey 及其同類），會刻意將不同種類的失效注入分散式系統，以驗證並強化其韌性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是 Game Day",
+          "text": "<p>在韌性實務中，<em>Game Day（演練日）</em>是：</p>",
+          "answers": [
+            {
+              "text": "一場有計畫的演練，刻意注入故障，讓團隊得以排演並觀察系統與人員的反應",
+              "fraction": 100,
+              "feedback": "正確——Game Day 是一場有計畫、刻意的故障注入演練。"
+            },
+            {
+              "text": "凍結所有部署、什麼都不變動的一天",
+              "fraction": 0,
+              "feedback": "那是變更凍結；Game Day 是刻意引入故障以演練反應。"
+            },
+            {
+              "text": "一場毫無技術內容的團隊聯誼活動",
+              "fraction": 0,
+              "feedback": "Game Day 是一場圍繞著注入與回應故障的技術演練。"
+            },
+            {
+              "text": "產品首次對顧客發行的那一天",
+              "fraction": 0,
+              "feedback": "那是上線；Game Day 是對故障情境的排演。"
+            }
+          ],
+          "generalFeedback": "Game Day 是一場有計畫的故障注入演練：團隊排定注入擬真故障的時間，並藉此活動排演偵測、回應與復原，並觀察系統與人員如何應對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "韌性的意義",
+          "text": "<p>在此脈絡下，系統的<em>韌性（resilience）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "它在面對故障與動盪條件時，仍能維持可接受運作、或迅速復原的能力",
+              "fraction": 100,
+              "feedback": "正確——韌性是承受並從逆境中復原的能力。"
+            },
+            {
+              "text": "它能以最少的記憶體用量來運行的能力",
+              "fraction": 0,
+              "feedback": "那是記憶體效率；韌性談的是承受並從故障中復原。"
+            },
+            {
+              "text": "系統所提供的功能數目",
+              "fraction": 0,
+              "feedback": "功能數量無關；韌性關切的是應對故障與干擾。"
+            },
+            {
+              "text": "新程式碼能多快被部署",
+              "fraction": 0,
+              "feedback": "那是部署速度；韌性是儘管有故障仍能持續運作的能力。"
+            }
+          ],
+          "generalFeedback": "韌性是系統在面對故障、失效與動盪的真實世界條件時，仍能維持可接受運作、或迅速復原的能力。建立對這項能力的信心，正是混沌工程的重點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Gremlin 與 LitmusChaos 的類別",
+          "text": "<p>Gremlin 與 LitmusChaos 是以下何者的例子：</p>",
+          "answers": [
+            {
+              "text": "用來對系統注入故障的混沌工程工具",
+              "fraction": 100,
+              "feedback": "正確——兩者都是透過注入故障來執行混沌實驗的平台。"
+            },
+            {
+              "text": "關聯式資料庫引擎",
+              "fraction": 0,
+              "feedback": "它們不是資料庫；它們是在混沌實驗中注入故障的工具。"
+            },
+            {
+              "text": "前端 JavaScript 框架",
+              "fraction": 0,
+              "feedback": "它們不是 UI 框架；它們是混沌工程工具。"
+            },
+            {
+              "text": "持續整合的建置伺服器",
+              "fraction": 0,
+              "feedback": "那是另一個類別；Gremlin 與 LitmusChaos 是注入故障以測試韌性。"
+            }
+          ],
+          "generalFeedback": "Gremlin 與 LitmusChaos（如同 Netflix 的 Chaos Monkey）是混沌工程工具：能注入受控故障——執行個體終止、延遲、資源耗盡等——的平台，好讓團隊執行韌性實驗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "指認一個可注入的故障範例",
+          "text": "<p>下列何者是你在混沌實驗中可能注入的真實世界故障範例？</p>",
+          "answers": [
+            {
+              "text": "終止一個運行中的伺服器執行個體，以模擬主機突然失效",
+              "fraction": 100,
+              "feedback": "正確——殺掉執行個體是典型的注入故障。"
+            },
+            {
+              "text": "在報表中新增一個欄位",
+              "fraction": 0,
+              "feedback": "那是功能變更，不是注入的故障。"
+            },
+            {
+              "text": "在原始碼中重新命名一個變數",
+              "fraction": 0,
+              "feedback": "那是程式碼編修，不是注入到運行中系統的故障。"
+            },
+            {
+              "text": "更新專案的文件",
+              "fraction": 0,
+              "feedback": "編修文件無關；注入的故障是真正的失效狀況，例如終止執行個體。"
+            }
+          ],
+          "generalFeedback": "典型的注入故障包括：終止執行個體或伺服器、加入網路延遲、丟棄或分割流量、耗盡 CPU／記憶體／磁碟、使相依服務失效、模擬區域／可用區停機，或引入時鐘偏移。終止運行中的執行個體是最常見的之一。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可中止能力的目的",
+          "text": "<p>為什麼混沌實驗應始終具備<em>中止（abort／halt）</em>的能力？</p>",
+          "answers": [
+            {
+              "text": "這樣一旦實驗開始造成真正的傷害，就能立即停止以限縮損害",
+              "fraction": 100,
+              "feedback": "正確——中止／停止開關能在情況出錯時控制住損害。"
+            },
+            {
+              "text": "這樣實驗就能在無人監督下永遠運行下去",
+              "fraction": 0,
+              "feedback": "恰好相反——中止的存在正是為了能在需要時停止實驗。"
+            },
+            {
+              "text": "這樣實驗期間就不需要任何監控",
+              "fraction": 0,
+              "feedback": "監控仍然必要；中止是用來迅速停止傷害的安全控制。"
+            },
+            {
+              "text": "這樣若結果不方便就能忽略它",
+              "fraction": 0,
+              "feedback": "中止關乎安全，而非丟棄結果。"
+            }
+          ],
+          "generalFeedback": "中止（停止）能力是核心的安全控制。搭配小的波及範圍，它代表若實驗開始破壞穩態並傷害使用者，就能立刻停止，使影響維持在受控範圍內。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可觀測性是前提條件",
+          "text": "<p>在你能執行一個有意義的混沌實驗之前，你必須能夠：</p>",
+          "answers": [
+            {
+              "text": "量測穩態，這樣你才能判斷它在實驗期間是否維持",
+              "fraction": 100,
+              "feedback": "正確——對穩態的可觀測性是前提；沒有它就無法判斷結果。"
+            },
+            {
+              "text": "保證永遠不會有任何故障發生",
+              "fraction": 0,
+              "feedback": "混沌工程是刻意注入故障；前提是能量測穩態，而非防止故障。"
+            },
+            {
+              "text": "移除所有監控以避免干擾",
+              "fraction": 0,
+              "feedback": "恰好相反——監控對於量測穩態與偵測問題不可或缺。"
+            },
+            {
+              "text": "在實驗期間把系統關機",
+              "fraction": 0,
+              "feedback": "系統必須運行，才能觀察它在故障下的行為。"
+            }
+          ],
+          "generalFeedback": "可觀測性是前提：你必須能量測穩態（吞吐量、錯誤率、延遲等）。若無法量測正常行為，就無從得知注入的故障是否破壞了它，實驗也就無法產生有用的證據。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "刻意注入故障以建立信心",
+          "text": "<p>混沌工程刻意將故障注入系統，目的是建立對系統在真實世界條件下之韌性的信心。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——在受控條件下刻意注入故障以建立對韌性的信心，正是混沌工程的定義。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此為真：混沌工程在受控條件下刻意注入故障，以建立對系統韌性的信心。"
+            }
+          ],
+          "generalFeedback": "依定義，混沌工程透過刻意注入真實世界的故障來對系統做實驗，以建立對其承受動盪正式環境條件之能力的信心。這種注入是刻意且受控的，而非意外發生的。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "實驗步驟的順序",
+          "text": "<p>下列哪個順序最能描述一個混沌實驗的步驟？</p>",
+          "answers": [
+            {
+              "text": "定義穩態 → 假設它在故障下仍持續 → 注入故障 → 觀察並與穩態比對",
+              "fraction": 100,
+              "feedback": "正確——先量測正常行為、形成假設、注入故障，再進行比對。"
+            },
+            {
+              "text": "先注入故障 → 事後才決定正常行為是什麼 → 再形成假設",
+              "fraction": 0,
+              "feedback": "穩態與假設必須在注入故障之前定義，否則沒有可供比對的基準。"
+            },
+            {
+              "text": "形成假設 → 修好所有錯誤 → 不注入任何東西就宣告系統有韌性",
+              "fraction": 0,
+              "feedback": "你必須真的注入故障並觀察；略過注入等於什麼也沒測。"
+            },
+            {
+              "text": "觀察並比對 → 注入故障 → 最後才定義穩態",
+              "fraction": 0,
+              "feedback": "順序反了；你要先定義並量測穩態，才注入故障。"
+            }
+          ],
+          "generalFeedback": "《混沌原則》給出的順序是：(1) 把穩態定義為可量測的正常行為指標；(2) 假設穩態在對照組與實驗組中都會持續；(3) 注入真實世界的故障；(4) 藉由觀察穩態是否維持，來嘗試推翻該假設。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "混沌實驗的第一步",
+          "text": "<p>設計一個混沌實驗時，<strong>首先</strong>應該做什麼？</p>",
+          "answers": [
+            {
+              "text": "定義穩態——一個可量測、代表正常健康行為的指標",
+              "fraction": 100,
+              "feedback": "正確——你必須先建立可量測的基準，才能判斷故障的影響。"
+            },
+            {
+              "text": "盡可能終止最多的執行個體",
+              "fraction": 0,
+              "feedback": "注入故障是在定義穩態與假設之後，而且波及範圍要維持得小，而非最大化。"
+            },
+            {
+              "text": "宣告系統已通過該實驗",
+              "fraction": 0,
+              "feedback": "在定義穩態並執行實驗之前，你無法宣告結果。"
+            },
+            {
+              "text": "刪除監控以免它造成干擾",
+              "fraction": 0,
+              "feedback": "監控是量測穩態所必需的；移除它會使實驗失去意義。"
+            }
+          ],
+          "generalFeedback": "第一步是定義穩態：一個顯示系統行為正常的可量測輸出（吞吐量、錯誤率、延遲 SLO）。其餘一切——假設、故障、比對——都是相對於這個基準來判斷的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何要縮小波及範圍",
+          "text": "<p>為什麼混沌工程強調把<em>波及範圍</em>維持得小？</p>",
+          "answers": [
+            {
+              "text": "為了控制潛在影響，使得萬一實驗揭露出弱點，也能傷害到盡可能少的使用者",
+              "fraction": 100,
+              "feedback": "正確——小的波及範圍能在仍取得證據的同時，限縮附帶損害。"
+            },
+            {
+              "text": "因為大的波及範圍會讓結果更準確",
+              "fraction": 0,
+              "feedback": "較大的波及範圍主要是增加風險，而非準確度；你從小開始，只在信心增長後才擴大。"
+            },
+            {
+              "text": "因為這樣就能省去中止條件",
+              "fraction": 0,
+              "feedback": "小的波及範圍與中止條件是互補的安全控制，並非彼此的替代品。"
+            },
+            {
+              "text": "因為它保證穩態永遠不會被破壞",
+              "fraction": 0,
+              "feedback": "穩態仍可能被破壞；小的波及範圍只是限縮它被破壞時受影響的使用者數。"
+            }
+          ],
+          "generalFeedback": "混沌實驗從小的波及範圍開始——一個金絲雀（canary）或一小部分流量——好讓它揭露的任何弱點傷害到最少的使用者。你只在信心增長後才逐步擴大波及範圍，並始終保有中止的能力。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何要有中止條件",
+          "text": "<p>某實驗設定為：當面向顧客的錯誤率超過設定門檻時就自動停止。這個中止條件的用意是：</p>",
+          "answers": [
+            {
+              "text": "在損害擴大之前停止實驗，把影響維持在可接受的範圍內",
+              "fraction": 100,
+              "feedback": "正確——中止會在真正的損害出現時停止實驗，藉此限縮傷害。"
+            },
+            {
+              "text": "確保實驗無論如何都運行到底",
+              "fraction": 0,
+              "feedback": "中止的存在正是為了在傷害出現時提早停止，這與「總是運行到底」相反。"
+            },
+            {
+              "text": "證明錯誤率永遠不會上升",
+              "fraction": 0,
+              "feedback": "中止不會阻止錯誤率上升；它是在上升越過門檻後才做出反應。"
+            },
+            {
+              "text": "取代定義穩態的必要性",
+              "fraction": 0,
+              "feedback": "門檻本身就是以穩態為基礎；中止並不取代它。"
+            }
+          ],
+          "generalFeedback": "與穩態指標掛鉤的中止（停止）條件——例如錯誤率或延遲越過某門檻——能讓實驗在開始造成不可接受的傷害時立刻停止，即使假設最後被證明是錯的，影響也能維持在受控範圍內。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何偏好在正式環境執行",
+          "text": "<p>為什麼混沌工程偏好在正式環境（或類正式環境）並帶著防護措施來執行實驗？</p>",
+          "answers": [
+            {
+              "text": "因為只有正式環境才有真實的流量、規模、資料與相依服務，所以結果能反映系統實際的行為",
+              "fraction": 100,
+              "feedback": "正確——正式環境才是真實條件所在，因而能給出最擬真的證據。"
+            },
+            {
+              "text": "因為正式環境沒有監控，所以在那裡做實驗比較便宜",
+              "fraction": 0,
+              "feedback": "正式環境需要強力監控，而非沒有監控；理由是擬真，而非便宜。"
+            },
+            {
+              "text": "因為它免除了對小波及範圍或中止的需求",
+              "fraction": 0,
+              "feedback": "在正式環境執行會使防護措施更重要，而非更不重要；波及範圍仍要維持得小、中止仍要備妥。"
+            },
+            {
+              "text": "因為預備（staging）環境永遠無法執行任何測試",
+              "fraction": 0,
+              "feedback": "預備環境能執行測試，但它無法重現真實的流量與規模；那份擬真正是偏好正式環境的原因。"
+            }
+          ],
+          "generalFeedback": "弱點往往只在真實的流量、規模、資料與相依服務行為下才會顯現，而這些是預備環境很少能忠實重現的。因此，在正式環境（帶著可觀測性、小波及範圍與中止）執行，才能給出關於韌性最擬真、最可信的證據。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "受控而非隨機破壞",
+          "text": "<p>一位同事說「混沌工程就是在正式環境隨機弄壞東西」。最準確的糾正是：</p>",
+          "answers": [
+            {
+              "text": "它是受控、以假設驅動的實驗，具有定義好的穩態、有限的波及範圍與中止的能力——而非隨機、無計畫的破壞",
+              "fraction": 100,
+              "feedback": "正確——混沌工程是有紀律的實驗，與隨機破壞恰好相反。"
+            },
+            {
+              "text": "對，完全正確——越隨機、越無計畫越好",
+              "fraction": 0,
+              "feedback": "這是在重複那個迷思；混沌工程是刻意受控且以假設驅動的。"
+            },
+            {
+              "text": "它永遠只在預備環境執行，完全不碰正式環境",
+              "fraction": 0,
+              "feedback": "混沌工程偏好帶防護措施的正式環境；關鍵的糾正是它「受控」，而非它「避開正式環境」。"
+            },
+            {
+              "text": "它意味著永不注入任何故障，只讀取記錄",
+              "fraction": 0,
+              "feedback": "注入故障是混沌工程的核心；重點在於這種注入是受控且以假設驅動的。"
+            }
+          ],
+          "generalFeedback": "混沌工程是受控、以假設驅動的實驗：可量測的穩態、明確的假設、真實世界的故障、可逐步擴大的小波及範圍，以及一個中止。隨機、無計畫的破壞不具備上述任何一項，並不是混沌工程。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何需要可觀測性",
+          "text": "<p>為什麼強力的可觀測性（對穩態指標的監控）是混沌工程的前提？</p>",
+          "answers": [
+            {
+              "text": "沒有它，你就無法判斷穩態是維持還是被破壞，實驗也就產生不出可用的證據，而且傷害可能在未被察覺下發生",
+              "fraction": 100,
+              "feedback": "正確——你需要量測穩態，既為了判讀結果，也為了觸發中止。"
+            },
+            {
+              "text": "因為監控本身會修復所找到的任何弱點",
+              "fraction": 0,
+              "feedback": "監控揭露弱點；它不會修復弱點。修補是另一個獨立的步驟。"
+            },
+            {
+              "text": "因為可觀測性免除了注入任何故障的必要",
+              "fraction": 0,
+              "feedback": "故障仍必須注入；可觀測性是告訴你它造成了什麼影響。"
+            },
+            {
+              "text": "因為它讓你不需要假設就能執行實驗",
+              "fraction": 0,
+              "feedback": "假設仍然必要；可觀測性是讓你能檢驗假設的工具。"
+            }
+          ],
+          "generalFeedback": "可觀測性讓你能在故障前、中、後量測穩態。沒有它，你就無法判斷假設是否成立、無法在傷害出現時觸發中止，實驗也產生不出證據——這正是它是前提的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類此故障：終止執行個體",
+          "text": "<p>某實驗終止了其中一個運行中的應用程式執行個體。此故障最適合歸類為：</p>",
+          "answers": [
+            {
+              "text": "執行個體／主機失效（運算資源遺失）",
+              "fraction": 100,
+              "feedback": "正確——殺掉執行個體是在模擬一個運算節點的遺失。"
+            },
+            {
+              "text": "網路分割",
+              "fraction": 0,
+              "feedback": "分割是切斷網路；此處是移除整個執行個體，屬於運算資源遺失的故障。"
+            },
+            {
+              "text": "注入延遲",
+              "fraction": 0,
+              "feedback": "延遲是拖慢回應；終止執行個體是把它整個移除，是不同的故障。"
+            },
+            {
+              "text": "磁碟耗盡",
+              "fraction": 0,
+              "feedback": "磁碟耗盡是把儲存空間填滿；殺掉執行個體是運算／主機失效，而非儲存故障。"
+            }
+          ],
+          "generalFeedback": "終止運行中的執行個體是在模擬運算節點或主機突然遺失——這正是 Chaos Monkey 所圍繞的故障。它與網路故障（延遲、分割）以及資源耗盡故障（CPU、記憶體、磁碟）都不同。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類此故障：注入延遲",
+          "text": "<p>某實驗為付款服務的回應加上 300 毫秒的延遲。此故障最適合歸類為：</p>",
+          "answers": [
+            {
+              "text": "注入的網路／相依服務延遲",
+              "fraction": 100,
+              "feedback": "正確——為回應加上延遲是一種延遲故障。"
+            },
+            {
+              "text": "執行個體終止",
+              "fraction": 0,
+              "feedback": "沒有任何東西被終止；服務仍在回應，只是變慢了。"
+            },
+            {
+              "text": "CPU 耗盡",
+              "fraction": 0,
+              "feedback": "延遲是加諸於回應之上，而非因為餓死 CPU 造成的；這是延遲故障。"
+            },
+            {
+              "text": "時鐘偏移故障",
+              "fraction": 0,
+              "feedback": "時鐘偏移是使節點之間的時間錯開；加上回應延遲是延遲故障，而非時間故障。"
+            }
+          ],
+          "generalFeedback": "為某服務的回應加上延遲是一種延遲注入故障。它測試呼叫端是否能優雅地處理緩慢的相依服務——例如透過逾時、帶退避的重試或斷路器——而不是卡住或把延遲層層擴散。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類此故障：網路分割",
+          "text": "<p>某實驗阻斷兩個服務叢集之間的所有流量，使它們再也無法互相連接。此故障最適合歸類為：</p>",
+          "answers": [
+            {
+              "text": "網路分割（系統各部分之間的切斷）",
+              "fraction": 100,
+              "feedback": "正確——切斷叢集之間的通訊是網路分割。"
+            },
+            {
+              "text": "記憶體耗盡",
+              "fraction": 0,
+              "feedback": "沒有記憶體被消耗；被切斷的是叢集之間的網路路徑。"
+            },
+            {
+              "text": "執行個體終止",
+              "fraction": 0,
+              "feedback": "執行個體仍在運行；它們只是無法通訊，這是分割。"
+            },
+            {
+              "text": "時鐘偏移",
+              "fraction": 0,
+              "feedback": "時鐘偏移是使時間錯開；阻斷叢集之間的流量是網路分割。"
+            }
+          ],
+          "generalFeedback": "切斷網路使系統的兩個部分無法互相連接，是一種網路分割（「腦裂」情境）。它測試系統在元件被孤立時的行為——例如它是否能維持一致性、優雅降級，或在分割修復後復原。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "假設所比較的對象",
+          "text": "<p>一個良好定義的穩態假設，是以下列何者來表述的：</p>",
+          "answers": [
+            {
+              "text": "一個可量測的穩態指標在故障下仍持續維持，最好是拿實驗組與對照組來比較",
+              "fraction": 100,
+              "feedback": "正確——假設是關於一個可量測的指標，並在對照組與實驗組之間比較。"
+            },
+            {
+              "text": "值班工程師對「情況感覺還好嗎」的個人主觀看法",
+              "fraction": 0,
+              "feedback": "假設必須是可量測的，而非主觀印象。"
+            },
+            {
+              "text": "受影響服務的程式碼行數",
+              "fraction": 0,
+              "feedback": "程式碼規模不是穩態指標；假設關切的是可量測的行為，如錯誤率或延遲。"
+            },
+            {
+              "text": "原始碼庫是否能無警告地編譯",
+              "fraction": 0,
+              "feedback": "建置是否乾淨，與假設所關切的執行期穩態無關。"
+            }
+          ],
+          "generalFeedback": "穩態假設以可量測的方式表述——例如「錯誤率維持在 1% 以下，且 p99 延遲低於 400 毫秒」——並預測這在實驗組（有故障）中會如同在對照組（無故障）中一樣成立。比較兩組能把故障的影響孤立出來。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "嘗試推翻的目的",
+          "text": "<p>為什麼混沌實驗要主動去<em>推翻</em>穩態假設，而不是去確認它？</p>",
+          "answers": [
+            {
+              "text": "因為穩態未能維持會精準指出一個需要修補的真實弱點，而這正是有價值的結果",
+              "fraction": 100,
+              "feedback": "正確——嘗試推翻假設，正是找出弱點的方式。"
+            },
+            {
+              "text": "因為在任何實驗中確認一個假設都是不可能的",
+              "fraction": 0,
+              "feedback": "重點不在於確認不可能，而在於「設法推翻」才能讓弱點浮現。"
+            },
+            {
+              "text": "因為團隊希望系統永久失效",
+              "fraction": 0,
+              "feedback": "團隊是想安全地找出並修補弱點，而非造成永久失效。"
+            },
+            {
+              "text": "因為推翻能免除任何監控的需求",
+              "fraction": 0,
+              "feedback": "無論如何都需要監控；推翻的重點在於了解系統在哪裡脆弱。"
+            }
+          ],
+          "generalFeedback": "如同科學實驗，混沌工程尋找對其假設不利的證據。若穩態在注入的故障下未能維持，那正是你想學到的：一個具體的弱點已被定位，可在它造成真實停機之前加以修補。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "金絲雀作為波及範圍控制",
+          "text": "<p>先只針對 1% 的線上流量執行實驗（金絲雀），再逐步擴大，這是以下何者的例子：</p>",
+          "answers": [
+            {
+              "text": "控制波及範圍——從小開始，好讓任何傷害都被控制住",
+              "fraction": 100,
+              "feedback": "正確——把實驗限制在一小部分流量上，就是波及範圍控制。"
+            },
+            {
+              "text": "定義穩態",
+              "fraction": 0,
+              "feedback": "穩態是正常行為的指標；使用 1% 的流量是關於限縮影響，而非定義基準。"
+            },
+            {
+              "text": "形成假設",
+              "fraction": 0,
+              "feedback": "假設是被檢驗的預測；1% 金絲雀是一種控制波及範圍的方式。"
+            },
+            {
+              "text": "移除中止的能力",
+              "fraction": 0,
+              "feedback": "金絲雀是安全措施，與中止並行運作，而非彼此對立。"
+            }
+          ],
+          "generalFeedback": "只暴露一小部分流量（金絲雀）是把波及範圍維持得小的經典做法。若實驗揭露出弱點，只有那一小部分會受影響；你隨著信心增長逐步擴大，並全程備妥中止。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "補充其他測試",
+          "text": "<p>混沌工程與其他形式的測試（單元、整合等）之間是什麼關係？</p>",
+          "answers": [
+            {
+              "text": "它以在真實世界故障下的韌性為目標來補充它們；它不取代它們",
+              "fraction": 100,
+              "feedback": "正確——混沌工程是在其他測試之上增添韌性證據，而非取而代之。"
+            },
+            {
+              "text": "它取代所有單元與整合測試，使它們變得沒必要",
+              "fraction": 0,
+              "feedback": "混沌工程是補充其他測試；單元與整合測試仍然不可或缺。"
+            },
+            {
+              "text": "它與測試直接競爭，不應與其並用",
+              "fraction": 0,
+              "feedback": "它們是互補而非競爭；混沌工程涵蓋其他測試未涵蓋的部分。"
+            },
+            {
+              "text": "它只對沒有其他測試的團隊才有意義",
+              "fraction": 0,
+              "feedback": "無論有沒有其他測試，它都能帶來價值，因為它在真實條件下演練韌性。"
+            }
+          ],
+          "generalFeedback": "混沌工程處理一個其他測試很少涵蓋的問題：整個系統在正式環境規模的真實故障下如何表現。它是補充單元、整合及其他測試，而非取代其中任何一項。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "在正式環境不設防護措施",
+          "text": "<p>為了取得最高的擬真度，混沌實驗應在正式環境中不設任何防護措施地執行——沒有小的波及範圍，也沒有中止。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——正式環境因擬真而被偏好，但必須帶著防護措施：小的波及範圍、中止，以及強力的可觀測性。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這是錯的：在正式環境不設防護措施地執行會有導致不受控停機的風險。擬真必須搭配有限的波及範圍與中止。"
+            }
+          ],
+          "generalFeedback": "混沌工程確實因擬真而偏好正式環境，但要負責任地做：你把波及範圍維持得小、備妥中止，並仰賴強力的可觀測性。移除這些防護措施會把一個受控的實驗變成魯莽的實驗。"
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "為結帳設計一個實驗",
+          "text": "<p>你想為一個依賴付款服務的電商結帳流程設計一個混沌實驗。哪一個設計最健全？</p>",
+          "answers": [
+            {
+              "text": "穩態：結帳成功率 ≥ 99%。假設：付款延遲上升時它仍維持 ≥ 99%。故障：為付款服務加入延遲。波及範圍：1% 的流量。中止：若成功率跌破 95% 就停止。",
+              "fraction": 100,
+              "feedback": "正確——它指明了可量測的穩態、假設、真實的故障、小的波及範圍與中止條件。"
+            },
+            {
+              "text": "穩態：無。假設：無。故障：對所有使用者關閉整個付款服務。波及範圍：100%。中止：無。",
+              "fraction": 0,
+              "feedback": "這沒有可量測的基準、沒有假設、波及範圍無上限、也沒有中止——與健全的設計恰好相反。"
+            },
+            {
+              "text": "穩態：「團隊對結帳感覺良好」。故障：重新命名一個資料庫欄位。波及範圍：所有使用者。中止：等哪個人想起來去看的時候。",
+              "fraction": 0,
+              "feedback": "穩態不可量測、重新命名欄位不是故障注入、波及範圍無上限，中止也沒有定義。"
+            },
+            {
+              "text": "穩態：結帳成功率 ≥ 99%。故障：不注入任何東西。只看儀表板就宣告系統有韌性。",
+              "fraction": 0,
+              "feedback": "不注入故障就等於什麼都沒測；觀察一個健康的系統無法證明任何關於韌性的事。"
+            }
+          ],
+          "generalFeedback": "一個健全的實驗會指明以下全部：可量測的穩態（結帳成功率 ≥ 99%）、明確的假設（它在故障下仍成立）、真實注入的故障（付款延遲）、受控的波及範圍（1% 的流量），以及中止條件（成功率 < 95% 就停止）。其他選項各自都少了其中一項或多項要件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀被破壞的穩態",
+          "text": "<p>實驗期間，對某相依服務注入延遲，導致結帳錯誤率遠遠飆升超過其穩態門檻。正確的解讀與回應是什麼？</p>",
+          "answers": [
+            {
+              "text": "假設被推翻：找到了一個韌性弱點。必要時中止，然後修補（例如加入逾時、重試或斷路器）並重新測試。",
+              "fraction": 100,
+              "feedback": "正確——被破壞的穩態是一個找到的弱點，要先修補、再驗證。"
+            },
+            {
+              "text": "實驗失敗了，應該丟棄；什麼也沒學到",
+              "fraction": 0,
+              "feedback": "恰好相反，推翻假設是有價值的結果——它定位出了一個真實的弱點。"
+            },
+            {
+              "text": "系統沒問題；故障下飆升的錯誤率可以忽略",
+              "fraction": 0,
+              "feedback": "被故障破壞的穩態，正是實驗存在的目的所要找的弱點；絕不能忽略。"
+            },
+            {
+              "text": "它證明了該相依服務在任何情況下都不應再被呼叫",
+              "fraction": 0,
+              "feedback": "此發現是呼叫端對緩慢相依服務處理不當；修法是加強韌性（逾時／重試／斷路器），而非禁用該相依服務。"
+            }
+          ],
+          "generalFeedback": "當注入的故障破壞了穩態，假設便被推翻，也就定位出了一個真實的弱點。正確的回應是控制影響（必要時中止）、修補該弱點——例如以逾時、帶退避的重試或斷路器——然後重新執行實驗以確認修法有效。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀維持住的穩態",
+          "text": "<p>某實驗注入了一個故障，而穩態自始至終都維持住了。最準確的結論是什麼？</p>",
+          "answers": [
+            {
+              "text": "對「該特定故障」的韌性信心提升了；這並不證明系統對所有故障都有韌性，也不代表永遠都有韌性",
+              "fraction": 100,
+              "feedback": "正確——通過的實驗是為該情境建立信心，而非永久保證。"
+            },
+            {
+              "text": "系統現在已被證明對每一種可能的失效都永久有韌性",
+              "fraction": 0,
+              "feedback": "一次實驗只涵蓋一個故障、在受測條件下；它無法證明對所有故障永遠都有韌性。"
+            },
+            {
+              "text": "混沌工程現在完成了，永遠不需要再執行",
+              "fraction": 0,
+              "feedback": "系統持續變化，因此實驗必須重複；單次通過並不等於「永遠搞定」。"
+            },
+            {
+              "text": "這個實驗毫無意義，因為沒有找到弱點",
+              "fraction": 0,
+              "feedback": "即使沒有弱點浮現，提升信心、降低不確定性仍是一個正當且有用的結果。"
+            }
+          ],
+          "generalFeedback": "維持住的穩態代表系統在受測條件下容忍了「那個特定的故障」，這提升了對其韌性的信心。它不是對每一種故障都有韌性的證明，也不是永久保證——隨著系統演進，實驗應該重複（最好是自動化且持續的）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "正式環境小波及範圍 vs 只在預備環境",
+          "text": "<p>為什麼在正式環境以小波及範圍執行實驗，可能比只在預備環境執行更有價值？</p>",
+          "answers": [
+            {
+              "text": "預備環境很少能重現真實的流量、規模、資料與相依服務行為，因此有些弱點只在正式環境才出現；小的波及範圍讓你能在受控的風險下找到它們",
+              "fraction": 100,
+              "feedback": "正確——正式環境的擬真度會揭露預備環境漏掉的弱點，而小的波及範圍讓風險受控。"
+            },
+            {
+              "text": "因為預備環境無法執行任何實驗",
+              "fraction": 0,
+              "feedback": "預備環境能執行實驗；重點在於它無法忠實重現正式環境的條件。"
+            },
+            {
+              "text": "因為在正式環境使用小波及範圍能完全消除所有風險",
+              "fraction": 0,
+              "feedback": "它能降低並控制風險，但不能消除風險。這正是仍需要中止與可觀測性的原因。"
+            },
+            {
+              "text": "因為正式環境的實驗永遠不需要監控或中止",
+              "fraction": 0,
+              "feedback": "正式環境的實驗比以往更需要監控與中止；小的波及範圍是與它們並行運作。"
+            }
+          ],
+          "generalFeedback": "許多韌性弱點只在真實的正式環境流量、規模、資料分布與相依服務行為下才浮現——而這些是預備環境很少能重現的條件。在正式環境以小的、可擴大的波及範圍（外加可觀測性與中止）執行，能揭露那些真實的弱點，同時把風險維持在受控範圍內。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "迷思：只是弄壞東西",
+          "text": "<p>哪一個陳述最能糾正「混沌工程只是弄壞東西」這個迷思？</p>",
+          "answers": [
+            {
+              "text": "它是一套有紀律的方法：可量測的穩態、明確的假設、受控的故障、有限的波及範圍、中止，以及全程的可觀測性",
+              "fraction": 100,
+              "feedback": "正確——正是這份紀律與防護措施，把它和單純的破壞區分開來。"
+            },
+            {
+              "text": "沒有差別；弄壞東西和混沌工程是同一回事",
+              "fraction": 0,
+              "feedback": "它們差別很大：混沌工程是受控且以假設驅動的，破壞則兩者皆非。"
+            },
+            {
+              "text": "混沌工程完全避免故障，只審查架構圖",
+              "fraction": 0,
+              "feedback": "注入真實故障是核心；紀律在於「如何受控地做」，而非避開故障。"
+            },
+            {
+              "text": "差別只在於混沌工程使用比較貴的工具",
+              "fraction": 0,
+              "feedback": "差別在於方法與防護措施，而非工具的成本。"
+            }
+          ],
+          "generalFeedback": "區別的關鍵在於紀律：混沌工程會定義可量測的穩態、陳述假設、注入受控的故障、控制波及範圍、備妥中止，並全程觀察。「只是弄壞東西」不具備上述任何一項控制。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "被推翻的假設是一種成功",
+          "text": "<p>某實驗的假設被推翻了——穩態在故障下被破壞。這應該被如何看待？</p>",
+          "answers": [
+            {
+              "text": "是一種成功：實驗完成了它的任務，浮現出一個真實的弱點，現在可在它造成停機之前加以修補",
+              "fraction": 100,
+              "feedback": "正確——在受控環境中得知一個弱點，正是有價值的結果。"
+            },
+            {
+              "text": "是一次難堪的失敗，應該對團隊隱瞞",
+              "fraction": 0,
+              "feedback": "安全地找到弱點是勝利，不是要隱瞞的事；它防止了日後更嚴重、不受控的失效。"
+            },
+            {
+              "text": "是混沌工程無效、應該放棄的證明",
+              "fraction": 0,
+              "feedback": "方法正如預期地運作了：它在受控條件下暴露出一個弱點。"
+            },
+            {
+              "text": "是日後實驗應停止量測穩態的理由",
+              "fraction": 0,
+              "feedback": "正是穩態讓你能偵測到這個弱點；你應繼續量測它。"
+            }
+          ],
+          "generalFeedback": "被推翻的假設代表實驗在安全、受控的條件下找到了一個真實的韌性弱點——這正是混沌工程的重點。它是一種成功，因為現在修補這個弱點，遠比在真實、不受控的停機中才發現它便宜得多。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不能證明無錯誤",
+          "text": "<p>在一連串混沌實驗全部通過後，一位主管說「這證明我們的系統沒有錯誤」。最好的回應是：</p>",
+          "answers": [
+            {
+              "text": "通過的實驗能建立對「所測故障」之韌性的信心，但無法證明所有錯誤都不存在；未測試的故障與條件依然存在",
+              "fraction": 100,
+              "feedback": "正確——混沌工程降低不確定性、建立信心；它不證明無錯誤。"
+            },
+            {
+              "text": "同意——通過的混沌實驗證明系統完全沒有錯誤",
+              "fraction": 0,
+              "feedback": "沒有任何實驗能證明所有錯誤都不存在；只有被測試到的情境才被演練過。"
+            },
+            {
+              "text": "混沌實驗對系統完全沒有任何說明，所以主管完全無權下任何結論",
+              "fraction": 0,
+              "feedback": "它們確實提供了關於韌性的真實證據；過度延伸的只是「無錯誤」這個宣稱。"
+            },
+            {
+              "text": "只有實驗是在預備環境執行時，系統才是無錯誤的",
+              "fraction": 0,
+              "feedback": "無論預備或正式環境的執行都無法證明無錯誤；這誤述了結論。"
+            }
+          ],
+          "generalFeedback": "混沌實驗涵蓋的是特定條件下的特定故障。通過它們會提升對那些故障之韌性的信心，但——如同所有測試——無法證明每一個錯誤都不存在。未測試的故障、輸入與條件仍帶有殘餘風險。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在正式環境執行混沌前的前提條件",
+          "text": "<p>一個團隊想開始在正式環境執行混沌實驗。應先具備哪些前提條件？</p>",
+          "answers": [
+            {
+              "text": "能量測穩態的可觀測性、限縮波及範圍的方法、一條中止／回滾路徑，以及一個定義好的穩態指標",
+              "fraction": 100,
+              "feedback": "正確——量測、控制與安全的停止方式，是在正式環境注入故障前的前提。"
+            },
+            {
+              "text": "什麼都不用特別準備；立刻開始終止正式環境的執行個體就好",
+              "fraction": 0,
+              "feedback": "在沒有可觀測性、控制或中止的情況下於正式環境注入故障，會有導致不受控停機的風險。"
+            },
+            {
+              "text": "只需要一份系統中每一個錯誤的清單，別無其他",
+              "fraction": 0,
+              "feedback": "你不可能有這種清單，而且它也不是前提；前提是可觀測性、波及範圍控制與中止。"
+            },
+            {
+              "text": "管理層保證永遠不會有任何故障影響到使用者",
+              "fraction": 0,
+              "feedback": "這種保證是不可能的；你應該做的是控制並監控影響、並備妥中止。"
+            }
+          ],
+          "generalFeedback": "在正式環境注入故障之前，你需要讓它負責任地進行的防護措施：一個定義好、可量測的穩態；能即時觀察它的可觀測性；一種把波及範圍維持得小的方法；以及一條能在傷害出現時迅速停止的中止或回滾路徑。這些使實驗成為受控而非魯莽。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "選擇一個好的穩態指標",
+          "text": "<p>對一個影音串流服務而言，下列何者是混沌實驗最佳的穩態指標選擇？</p>",
+          "answers": [
+            {
+              "text": "使用者成功開始播放影片的比率（一個可量測、面向使用者的健康行為指標）",
+              "fraction": 100,
+              "feedback": "正確——一個可量測、面向使用者的正常行為訊號，是好的穩態。"
+            },
+            {
+              "text": "目前值班的工程師人數",
+              "fraction": 0,
+              "feedback": "人力配置不是系統的行為訊號；穩態必須量測系統的健康行為。"
+            },
+            {
+              "text": "原始碼庫中的檔案數目",
+              "fraction": 0,
+              "feedback": "原始碼庫的規模無法反映執行期的健康狀況；它不能作為穩態指標。"
+            },
+            {
+              "text": "最新的建置是否無警告地編譯成功",
+              "fraction": 0,
+              "feedback": "建置狀態不是執行期的穩態；指標必須反映負載下即時的健康行為。"
+            }
+          ],
+          "generalFeedback": "好的穩態指標是一個反映正常、健康、面向使用者行為的可量測輸出——此處是成功的影片起播率（你也可以加上播放錯誤率或重新緩衝率）。像人力數、原始碼庫規模或建置狀態這類非行為性的事實，無法告訴你系統在故障下是否健康。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "藉由設計來控制波及範圍",
+          "text": "<p>你必須測試某服務如何容忍一個失效的相依服務，但你想限縮暴露。哪種做法最能控制波及範圍？</p>",
+          "answers": [
+            {
+              "text": "先對一小部分流量注入該相依服務的失效、觀察穩態指標，只在指標維持時才擴大——並備妥中止",
+              "fraction": 100,
+              "feedback": "正確——從小開始、觀察、逐步擴大、並保有中止，正是波及範圍控制的精髓。"
+            },
+            {
+              "text": "一次對 100% 的流量使該相依服務失效，好讓測試最快完成",
+              "fraction": 0,
+              "feedback": "那會最大化暴露；若有弱點就會打中每一位使用者。波及範圍控制的意思是從小開始。"
+            },
+            {
+              "text": "關掉監控，好讓實驗無法觸發警報",
+              "fraction": 0,
+              "feedback": "你需要監控來觀察穩態並觸發中止；關掉它會增加風險。"
+            },
+            {
+              "text": "不設中止地執行，好讓實驗無法被打斷",
+              "fraction": 0,
+              "feedback": "移除中止代表你無法停止傷害；那與控制恰好相反。"
+            }
+          ],
+          "generalFeedback": "波及範圍控制的意思是限縮被暴露的系統與使用者比例：先對一小部分流量注入失效、以完整的可觀測性觀察穩態指標、備妥中止，並只在信心增長後才擴大範圍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "相依服務失效實驗的假設",
+          "text": "<p>某服務會呼叫一個非關鍵的推薦相依服務。你想驗證在該相依服務失效時能否優雅降級。哪一個穩態假設最好？</p>",
+          "answers": [
+            {
+              "text": "若推薦相依服務失效，頁面仍能載入，且成功率與延遲都在其穩態門檻內（只是省略推薦）",
+              "fraction": 100,
+              "feedback": "正確——它預測可量測的穩態維持住，同時非關鍵功能優雅降級。"
+            },
+            {
+              "text": "若推薦相依服務失效，整個服務必須立即崩潰",
+              "fraction": 0,
+              "feedback": "崩潰正是你想防止的失效；假設應預測優雅降級，而非整個垮掉。"
+            },
+            {
+              "text": "推薦相依服務在實驗期間永遠不會失效",
+              "fraction": 0,
+              "feedback": "實驗是刻意使它失效；假設談的是它失效時會發生什麼。"
+            },
+            {
+              "text": "不論指標如何，團隊都會覺得有信心",
+              "fraction": 0,
+              "feedback": "假設必須是可量測的，而非一種主觀感受。"
+            }
+          ],
+          "generalFeedback": "對一個非關鍵的相依服務而言，韌性意味著優雅降級：核心頁面在其穩態門檻內持續運作，而選用功能只是被省略。假設陳述這個可量測的結果，而實驗則使該相依服務失效，以觀察假設是否成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "安全地模擬區域停機",
+          "text": "<p>某服務跨多個雲端區域運行，並宣稱能在任一區域遺失時存活。混沌實驗應如何安全地驗證這一點？</p>",
+          "answers": [
+            {
+              "text": "定義穩態、假設它會維持、針對有限的一部分流量模擬失去一個區域並同時觀察指標，若穩態被破壞就中止",
+              "fraction": 100,
+              "feedback": "正確——一個經量測、受控、可中止的區域故障轉移實驗，能安全地驗證這項宣稱。"
+            },
+            {
+              "text": "永久刪除一個區域的基礎設施，以確定它真的沒了",
+              "fraction": 0,
+              "feedback": "那是破壞性且不可復原的；混沌實驗是以可逆的方式模擬停機，並備妥中止。"
+            },
+            {
+              "text": "因為架構圖上畫了兩個區域，就假設故障轉移會運作",
+              "fraction": 0,
+              "feedback": "圖不是證據；實驗的重點正是在現實中測試故障轉移。"
+            },
+            {
+              "text": "一次讓所有區域下線，好立刻測試最糟情況",
+              "fraction": 0,
+              "feedback": "移除所有區域必然造成停機，且完全沒測到「單一區域存活」；波及範圍必須受控。"
+            }
+          ],
+          "generalFeedback": "要驗證區域層級的韌性，應定義一個可量測的穩態、假設它在失去一個區域時仍存續、以可逆的方式針對受控的一部分流量模擬該區域停機、對照穩態觀察故障轉移，並在它被破壞時中止。這樣能測到真實的故障轉移行為，而不冒著造成完整、不可逆停機的風險。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "執行中穩態意外被破壞",
+          "text": "<p>一個正式環境實驗執行到一半時，穩態錯誤率越過了中止門檻。正確的立即行動是什麼？</p>",
+          "answers": [
+            {
+              "text": "觸發中止以停止實驗並恢復正常狀態，然後再調查所揭露的弱點",
+              "fraction": 100,
+              "feedback": "正確——先中止以控制傷害，再分析並修補該發現。"
+            },
+            {
+              "text": "讓故障持續更久，以確定問題是真的",
+              "fraction": 0,
+              "feedback": "延長故障會增加對使用者的傷害；中止的存在正是為了在門檻處停止。"
+            },
+            {
+              "text": "把波及範圍擴大到更多使用者，以蒐集更多資料",
+              "fraction": 0,
+              "feedback": "在穩態已被破壞時擴大，會使損害倍增；你應該中止並控制影響。"
+            },
+            {
+              "text": "停用警報，讓門檻不再觸發",
+              "fraction": 0,
+              "feedback": "把警報靜音會掩蓋真實的傷害；正確的做法是中止並保護使用者。"
+            }
+          ],
+          "generalFeedback": "越過中止門檻，正是中止機制被設計出來所要因應的訊號：立即停止實驗、讓系統回到正常、並控制影響。之後才去調查實驗所暴露的弱點並規劃修補。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "持續、自動化混沌的價值",
+          "text": "<p>為什麼持續且自動地執行混沌實驗，會比只做一次性的 Game Day 更有價值？</p>",
+          "answers": [
+            {
+              "text": "因為系統與其相依服務不斷變化，所以韌性必須隨時間反覆驗證；一次通過可能被日後的變更推翻",
+              "fraction": 100,
+              "feedback": "正確——持續的實驗能在系統演進時抓到韌性的退化。"
+            },
+            {
+              "text": "因為單一實驗就能證明系統永遠有韌性",
+              "fraction": 0,
+              "feedback": "它不能；程式碼、設定或相依服務的變更都可能重新引入弱點，所以需要反覆驗證。"
+            },
+            {
+              "text": "因為自動化免除了對任何穩態或中止的需求",
+              "fraction": 0,
+              "feedback": "自動化的實驗仍需要穩態與中止；自動化是管理它們，而非移除它們。"
+            },
+            {
+              "text": "因為持續混沌代表團隊可以停止監控正式環境",
+              "fraction": 0,
+              "feedback": "持續的實驗仰賴持續的監控；它們並不免除監控。"
+            }
+          ],
+          "generalFeedback": "韌性不是一個永久的屬性：新的部署、設定變更、擴展以及演進中的相依服務，都可能重新引入弱點。持續且自動地執行實驗，能隨時間反覆驗證韌性，抓到單次 Game Day 會漏掉的退化。Game Day 對於排演人員的反應仍然有價值。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "被推翻的假設不是浪費的實驗",
+          "text": "<p>一個假設被推翻（穩態在故障下被破壞）的混沌實驗，是一次失敗、浪費的實驗。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——推翻假設是一種成功：它揭露了一個真實的弱點，可在它造成停機之前加以修補。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這是錯的：被推翻的假設才是有價值的結果，因為它安全且事先地定位出了一個弱點。"
+            }
+          ],
+          "generalFeedback": "當穩態在注入的故障下被破壞，實驗便正好完成了它的任務——它在受控條件下暴露出一個真實的韌性弱點。那份學習是一種成功，因為現在修補該弱點，遠比在真實、不受控的停機中才面對它便宜得多。"
+        }
+      ]
+    }
+  },
   "code-coverage": {
     "en": {
       "easy": [

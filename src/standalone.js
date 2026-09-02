@@ -53784,6 +53784,2568 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "chaos-engineering": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What is chaos engineering",
+            "text": "<p><em>Chaos engineering</em> is best described as:</p>",
+            "answers": [
+              {
+                "text": "The discipline of experimenting on a system by deliberately injecting faults, in order to build confidence in its resilience to turbulent real-world conditions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it is disciplined, deliberate fault-injection experimentation aimed at building confidence in resilience."
+              },
+              {
+                "text": "Randomly breaking things in production with no plan, to see what happens",
+                "fraction": 0,
+                "feedback": "Chaos engineering is controlled and hypothesis-driven; random unplanned breakage is exactly what it is not."
+              },
+              {
+                "text": "A profiling technique that measures how fast each function runs",
+                "fraction": 0,
+                "feedback": "That is performance profiling; chaos engineering injects faults to test resilience."
+              },
+              {
+                "text": "A code-review process for finding defects by reading source code",
+                "fraction": 0,
+                "feedback": "That is static review; chaos engineering experiments on a running system by injecting faults."
+              }
+            ],
+            "generalFeedback": "Chaos engineering is the discipline of experimenting on a system by deliberately injecting real-world faults so as to build confidence in the system's ability to withstand turbulent conditions in production. It is controlled and evidence-based, not random breakage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Goal of chaos engineering",
+            "text": "<p>What is the primary goal of chaos engineering?</p>",
+            "answers": [
+              {
+                "text": "To expose weaknesses in a system's resilience before they cause real outages",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the aim is to uncover weaknesses proactively so they can be fixed before a real incident."
+              },
+              {
+                "text": "To cause as much production downtime as possible",
+                "fraction": 0,
+                "feedback": "The aim is to build confidence and find weaknesses, not to maximise downtime; impact is deliberately contained."
+              },
+              {
+                "text": "To prove the system contains no bugs at all",
+                "fraction": 0,
+                "feedback": "No experiment can prove the absence of all bugs; chaos engineering builds confidence and finds weaknesses, it does not prove bug-freeness."
+              },
+              {
+                "text": "To replace all other forms of testing",
+                "fraction": 0,
+                "feedback": "Chaos engineering complements other testing; it does not replace unit, integration or other tests."
+              }
+            ],
+            "generalFeedback": "The goal of chaos engineering is to reveal weaknesses in a system's resilience proactively \u2014 under controlled conditions \u2014 so that they can be remediated before they surface as a real, uncontrolled outage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is the steady state",
+            "text": "<p>In chaos engineering, the <em>steady state</em> of a system is:</p>",
+            "answers": [
+              {
+                "text": "A measurable indicator of normal, healthy behaviour, such as throughput, error rate, or latency",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the steady state is a measurable signal that the system is behaving normally."
+              },
+              {
+                "text": "The moment the system has crashed and stopped responding",
+                "fraction": 0,
+                "feedback": "That is an outage; the steady state is what normal, healthy operation looks like."
+              },
+              {
+                "text": "The total number of servers currently running",
+                "fraction": 0,
+                "feedback": "A raw server count is not a behavioural indicator; the steady state is a measurable signal of healthy behaviour."
+              },
+              {
+                "text": "The list of faults you plan to inject",
+                "fraction": 0,
+                "feedback": "That is the experiment design; the steady state is the normal-behaviour baseline you measure against."
+              }
+            ],
+            "generalFeedback": "The steady state is a measurable output that reflects normal, healthy operation \u2014 for example throughput, error rate, or a latency SLO. You must be able to measure it, because the whole experiment is judged by whether the steady state is maintained under fault.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is the steady-state hypothesis",
+            "text": "<p>The <em>steady-state hypothesis</em> of a chaos experiment states that:</p>",
+            "answers": [
+              {
+                "text": "The steady state will continue to hold in both the control group and the experiment group, even while the fault is present",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the hypothesis is that normal behaviour persists despite the injected fault."
+              },
+              {
+                "text": "The system will definitely crash when the fault is injected",
+                "fraction": 0,
+                "feedback": "The hypothesis predicts that the steady state is maintained; the experiment then tries to disprove it."
+              },
+              {
+                "text": "The fault will never actually be injected",
+                "fraction": 0,
+                "feedback": "The fault is injected on purpose; the hypothesis is about whether the steady state survives it."
+              },
+              {
+                "text": "The team will fix every bug before running the experiment",
+                "fraction": 0,
+                "feedback": "That is unrelated to the hypothesis, which concerns whether the steady state continues under the fault."
+              }
+            ],
+            "generalFeedback": "The steady-state hypothesis predicts that the measurable normal behaviour continues in both the control group (no fault) and the experiment group (fault injected). The experiment then tries to disprove it: if the steady state does not hold, a weakness has been found.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is the blast radius",
+            "text": "<p>The <em>blast radius</em> of a chaos experiment refers to:</p>",
+            "answers": [
+              {
+                "text": "The scope and extent of the impact that the experiment can have on users and the system",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the blast radius is how far the experiment's impact can reach."
+              },
+              {
+                "text": "The physical distance between the data centres",
+                "fraction": 0,
+                "feedback": "It is not a physical distance; it is the scope of the experiment's potential impact."
+              },
+              {
+                "text": "The number of engineers observing the experiment",
+                "fraction": 0,
+                "feedback": "Team size is unrelated; the blast radius is the extent of the impact on users and the system."
+              },
+              {
+                "text": "The total run time of the experiment in minutes",
+                "fraction": 0,
+                "feedback": "Duration is a separate dimension; the blast radius is how much of the system and how many users can be affected."
+              }
+            ],
+            "generalFeedback": "The blast radius is the scope of an experiment's potential impact \u2014 how much of the system and how many users could be affected. Chaos engineering deliberately keeps the blast radius small (and abortable) so that any harm is contained.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is fault injection",
+            "text": "<p><em>Fault injection</em> in a chaos experiment means:</p>",
+            "answers": [
+              {
+                "text": "Deliberately introducing a failure condition \u2014 such as killing an instance or adding latency \u2014 into the system",
+                "fraction": 100,
+                "feedback": "Correct \u2014 fault injection is the deliberate introduction of a failure condition."
+              },
+              {
+                "text": "Writing new features and merging them into the main branch",
+                "fraction": 0,
+                "feedback": "That is normal development; fault injection introduces failure conditions to test resilience."
+              },
+              {
+                "text": "Fixing defects reported by users",
+                "fraction": 0,
+                "feedback": "That is defect repair; fault injection deliberately introduces a fault to observe the response."
+              },
+              {
+                "text": "Adding more log statements to the code",
+                "fraction": 0,
+                "feedback": "That improves observability but is not fault injection, which introduces an actual failure condition."
+              }
+            ],
+            "generalFeedback": "Fault injection is the deliberate introduction of a real-world failure condition into the system \u2014 for example terminating an instance, adding network latency, dropping packets, or exhausting a resource \u2014 so the team can observe how the system responds.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Chaos Monkey does",
+            "text": "<p>Netflix's <em>Chaos Monkey</em> is a tool that:</p>",
+            "answers": [
+              {
+                "text": "Randomly terminates running instances in production to check that the system tolerates instance loss",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Chaos Monkey kills instances so teams verify the system survives losing them."
+              },
+              {
+                "text": "Automatically writes unit tests for every function",
+                "fraction": 0,
+                "feedback": "Chaos Monkey injects instance failures; it does not generate unit tests."
+              },
+              {
+                "text": "Encrypts network traffic between services",
+                "fraction": 0,
+                "feedback": "That is unrelated; Chaos Monkey terminates instances to test resilience."
+              },
+              {
+                "text": "Scales the number of servers up when traffic rises",
+                "fraction": 0,
+                "feedback": "That is auto-scaling; Chaos Monkey deliberately removes instances rather than adding them."
+              }
+            ],
+            "generalFeedback": "Chaos Monkey, from Netflix's Simian Army, randomly terminates production instances during business hours so that engineers are forced to build services that tolerate the loss of any single instance without affecting users.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the Simian Army is",
+            "text": "<p>Netflix's <em>Simian Army</em> (which includes Chaos Monkey) is:</p>",
+            "answers": [
+              {
+                "text": "A suite of tools that inject various failures to test the resilience of a distributed system",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the Simian Army is a family of failure-injection tools for resilience testing."
+              },
+              {
+                "text": "A load-balancing algorithm for distributing requests",
+                "fraction": 0,
+                "feedback": "That is load balancing; the Simian Army injects failures rather than routing traffic."
+              },
+              {
+                "text": "A monitoring dashboard for viewing CPU graphs",
+                "fraction": 0,
+                "feedback": "Dashboards display metrics; the Simian Army actively injects faults."
+              },
+              {
+                "text": "A source-control system for managing releases",
+                "fraction": 0,
+                "feedback": "That is version control; the Simian Army is a set of resilience-testing tools."
+              }
+            ],
+            "generalFeedback": "The Simian Army is Netflix's collection of chaos tools (Chaos Monkey and its relatives) that deliberately inject different kinds of failure into a distributed system to verify and strengthen its resilience.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a game day is",
+            "text": "<p>In resilience practice, a <em>game day</em> is:</p>",
+            "answers": [
+              {
+                "text": "A planned exercise in which failures are deliberately injected so the team can rehearse and observe the system's and people's response",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a game day is a planned, deliberate failure-injection exercise."
+              },
+              {
+                "text": "A day on which all deployments are frozen and nothing changes",
+                "fraction": 0,
+                "feedback": "That is a change freeze; a game day deliberately introduces failures to practise the response."
+              },
+              {
+                "text": "A team social event with no technical content",
+                "fraction": 0,
+                "feedback": "A game day is a technical exercise built around injecting and responding to failures."
+              },
+              {
+                "text": "The day the product is first released to customers",
+                "fraction": 0,
+                "feedback": "That is a launch; a game day is a rehearsal of failure scenarios."
+              }
+            ],
+            "generalFeedback": "A game day is a planned failure-injection exercise: the team schedules the injection of realistic faults and uses the event to rehearse detection, response, and recovery, and to observe how both the system and the people cope.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What resilience means",
+            "text": "<p>In this context, a system's <em>resilience</em> is:</p>",
+            "answers": [
+              {
+                "text": "Its ability to keep functioning acceptably, or recover quickly, despite faults and turbulent conditions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 resilience is the ability to withstand and recover from adverse conditions."
+              },
+              {
+                "text": "Its ability to run using the least possible amount of memory",
+                "fraction": 0,
+                "feedback": "That is memory efficiency; resilience is about withstanding and recovering from faults."
+              },
+              {
+                "text": "The number of features the system offers",
+                "fraction": 0,
+                "feedback": "Feature count is unrelated; resilience concerns coping with faults and disruption."
+              },
+              {
+                "text": "How quickly new code can be deployed",
+                "fraction": 0,
+                "feedback": "That is deployment speed; resilience is the ability to keep working despite faults."
+              }
+            ],
+            "generalFeedback": "Resilience is a system's ability to continue operating acceptably \u2014 or to recover quickly \u2014 in the face of faults, failures, and turbulent real-world conditions. Building confidence in this ability is the point of chaos engineering.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Category of Gremlin and LitmusChaos",
+            "text": "<p>Gremlin and LitmusChaos are examples of:</p>",
+            "answers": [
+              {
+                "text": "Chaos engineering tools used to inject faults into systems",
+                "fraction": 100,
+                "feedback": "Correct \u2014 both are platforms for running chaos experiments by injecting faults."
+              },
+              {
+                "text": "Relational database engines",
+                "fraction": 0,
+                "feedback": "They are not databases; they are tools for injecting faults during chaos experiments."
+              },
+              {
+                "text": "Front-end JavaScript frameworks",
+                "fraction": 0,
+                "feedback": "They are not UI frameworks; they are chaos engineering tools."
+              },
+              {
+                "text": "Continuous-integration build servers",
+                "fraction": 0,
+                "feedback": "That is a different category; Gremlin and LitmusChaos inject faults to test resilience."
+              }
+            ],
+            "generalFeedback": "Gremlin and LitmusChaos (like Netflix's Chaos Monkey) are chaos engineering tools: platforms that inject controlled faults \u2014 instance kills, latency, resource exhaustion, and so on \u2014 so teams can run resilience experiments.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify an example fault to inject",
+            "text": "<p>Which of the following is an example of a real-world fault you might inject in a chaos experiment?</p>",
+            "answers": [
+              {
+                "text": "Terminating a running server instance to simulate a sudden host failure",
+                "fraction": 100,
+                "feedback": "Correct \u2014 killing an instance is a classic injected fault."
+              },
+              {
+                "text": "Adding a new column to a report",
+                "fraction": 0,
+                "feedback": "That is a feature change, not an injected fault."
+              },
+              {
+                "text": "Renaming a variable in the source code",
+                "fraction": 0,
+                "feedback": "That is a code edit, not a fault injected into a running system."
+              },
+              {
+                "text": "Updating the project's documentation",
+                "fraction": 0,
+                "feedback": "Editing docs is unrelated; an injected fault is a real failure condition such as terminating an instance."
+              }
+            ],
+            "generalFeedback": "Typical injected faults include terminating an instance or server, adding network latency, dropping or partitioning traffic, exhausting CPU/memory/disk, failing a dependency, simulating a region/AZ outage, or introducing clock skew. Terminating a running instance is one of the most common.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of the ability to abort",
+            "text": "<p>Why should a chaos experiment always include the ability to <em>abort</em> (halt) it?</p>",
+            "answers": [
+              {
+                "text": "So that if the experiment starts causing real harm, it can be stopped immediately to limit the damage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an abort/halt switch contains the damage if things go wrong."
+              },
+              {
+                "text": "So that the experiment can run forever without supervision",
+                "fraction": 0,
+                "feedback": "The opposite \u2014 the abort exists precisely so the experiment can be stopped when needed."
+              },
+              {
+                "text": "So that no monitoring is needed during the experiment",
+                "fraction": 0,
+                "feedback": "Monitoring is still required; the abort is a safety control to stop harm quickly."
+              },
+              {
+                "text": "So that the results can be ignored if they are inconvenient",
+                "fraction": 0,
+                "feedback": "The abort is about safety, not about discarding results."
+              }
+            ],
+            "generalFeedback": "An abort (or halt) capability is a core safety control. Together with a small blast radius, it means that if the experiment begins to breach the steady state and harm users, it can be stopped at once, keeping the impact contained.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Observability as a prerequisite",
+            "text": "<p>Before you can run a meaningful chaos experiment, you must be able to:</p>",
+            "answers": [
+              {
+                "text": "Measure the steady state, so you can tell whether it is maintained during the experiment",
+                "fraction": 100,
+                "feedback": "Correct \u2014 observability of the steady state is a prerequisite; without it you cannot judge the result."
+              },
+              {
+                "text": "Guarantee that no fault will ever occur",
+                "fraction": 0,
+                "feedback": "Chaos engineering deliberately injects faults; the prerequisite is being able to measure the steady state, not preventing faults."
+              },
+              {
+                "text": "Remove all monitoring to avoid interference",
+                "fraction": 0,
+                "feedback": "The opposite \u2014 monitoring is essential to measure the steady state and detect problems."
+              },
+              {
+                "text": "Turn the system off during the experiment",
+                "fraction": 0,
+                "feedback": "The system must be running so its behaviour under fault can be observed."
+              }
+            ],
+            "generalFeedback": "Observability is a prerequisite: you must be able to measure the steady state (throughput, error rate, latency, and so on). If you cannot measure normal behaviour, you cannot tell whether the injected fault breaks it, and the experiment yields no useful evidence.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Deliberate fault injection to build confidence",
+            "text": "<p>Chaos engineering deliberately injects faults into a system in order to build confidence in its resilience to real-world conditions.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 deliberate, controlled fault injection to build confidence in resilience is exactly what chaos engineering is."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "It is true: chaos engineering deliberately injects faults, under controlled conditions, to build confidence in the system's resilience."
+              }
+            ],
+            "generalFeedback": "By definition, chaos engineering experiments on a system by deliberately injecting real-world faults so as to build confidence in its ability to withstand turbulent production conditions. The injection is deliberate and controlled, not accidental."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Order of the experiment steps",
+            "text": "<p>Which ordering best describes the steps of a chaos experiment?</p>",
+            "answers": [
+              {
+                "text": "Define the steady state \u2192 hypothesize it continues under fault \u2192 inject the fault \u2192 observe and compare against the steady state",
+                "fraction": 100,
+                "feedback": "Correct \u2014 measure normal behaviour, form the hypothesis, inject the fault, then compare."
+              },
+              {
+                "text": "Inject the fault \u2192 then decide afterwards what normal behaviour was \u2192 then form a hypothesis",
+                "fraction": 0,
+                "feedback": "The steady state and hypothesis must be defined before injecting the fault, or there is nothing to compare against."
+              },
+              {
+                "text": "Form a hypothesis \u2192 fix all bugs \u2192 declare the system resilient without injecting anything",
+                "fraction": 0,
+                "feedback": "You must actually inject the fault and observe; skipping the injection tests nothing."
+              },
+              {
+                "text": "Observe and compare \u2192 inject the fault \u2192 define the steady state last",
+                "fraction": 0,
+                "feedback": "The order is reversed; you define and measure the steady state first, before injecting."
+              }
+            ],
+            "generalFeedback": "The Principles of Chaos give the order: (1) define the steady state as a measurable indicator of normal behaviour; (2) hypothesize that the steady state continues in both control and experiment groups; (3) inject a real-world fault; (4) try to disprove the hypothesis by observing whether the steady state is maintained.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "First step of a chaos experiment",
+            "text": "<p>What should be done <strong>first</strong> when designing a chaos experiment?</p>",
+            "answers": [
+              {
+                "text": "Define the steady state \u2014 a measurable indicator of normal, healthy behaviour",
+                "fraction": 100,
+                "feedback": "Correct \u2014 you must establish the measurable baseline before you can judge the effect of a fault."
+              },
+              {
+                "text": "Terminate as many instances as possible",
+                "fraction": 0,
+                "feedback": "Injecting the fault comes after the steady state and hypothesis are defined, and the blast radius is kept small, not maximised."
+              },
+              {
+                "text": "Announce that the system has passed the experiment",
+                "fraction": 0,
+                "feedback": "You cannot declare a result before defining the steady state and running the experiment."
+              },
+              {
+                "text": "Delete the monitoring so it does not interfere",
+                "fraction": 0,
+                "feedback": "Monitoring is required to measure the steady state; removing it defeats the experiment."
+              }
+            ],
+            "generalFeedback": "The first step is to define the steady state: a measurable output (throughput, error rate, latency SLO) that shows the system is behaving normally. Everything else \u2014 the hypothesis, the fault, the comparison \u2014 is judged relative to this baseline.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why minimize the blast radius",
+            "text": "<p>Why does chaos engineering emphasise keeping the <em>blast radius</em> small?</p>",
+            "answers": [
+              {
+                "text": "To contain the potential impact, so that if the experiment reveals a weakness it harms as few users as possible",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a small blast radius limits collateral damage while still yielding evidence."
+              },
+              {
+                "text": "Because a large blast radius makes the results more accurate",
+                "fraction": 0,
+                "feedback": "A larger blast radius mainly increases risk, not accuracy; you start small and expand only as confidence grows."
+              },
+              {
+                "text": "Because it lets you skip having an abort condition",
+                "fraction": 0,
+                "feedback": "A small blast radius and an abort condition are complementary safety controls, not substitutes."
+              },
+              {
+                "text": "Because it guarantees the steady state can never break",
+                "fraction": 0,
+                "feedback": "The steady state may still break; the small blast radius simply limits how many users are affected when it does."
+              }
+            ],
+            "generalFeedback": "Chaos experiments start with a small blast radius \u2014 a canary or a small percentage of traffic \u2014 so that any weakness they expose harms the fewest possible users. You expand the blast radius only gradually as confidence grows, always keeping the ability to abort.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why have an abort condition",
+            "text": "<p>An experiment is configured to halt automatically if the customer-facing error rate exceeds a set threshold. This abort condition is there to:</p>",
+            "answers": [
+              {
+                "text": "Stop the experiment before the damage grows large, keeping the impact within acceptable limits",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the abort caps the harm by stopping once real damage appears."
+              },
+              {
+                "text": "Ensure the experiment runs to completion no matter what",
+                "fraction": 0,
+                "feedback": "The abort exists to stop early when harm appears, which is the opposite of always running to completion."
+              },
+              {
+                "text": "Prove that the error rate can never rise",
+                "fraction": 0,
+                "feedback": "The abort does not prevent the error rate from rising; it reacts once the rise crosses the threshold."
+              },
+              {
+                "text": "Replace the need to define a steady state",
+                "fraction": 0,
+                "feedback": "The threshold is itself based on the steady state; the abort does not replace it."
+              }
+            ],
+            "generalFeedback": "An abort (halt) condition tied to a steady-state metric \u2014 such as error rate or latency crossing a threshold \u2014 lets the experiment stop the moment it begins causing unacceptable harm, keeping the impact contained even if the hypothesis turns out to be wrong.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why prefer running in production",
+            "text": "<p>Why does chaos engineering prefer to run experiments in production (or a production-like environment), with safeguards?</p>",
+            "answers": [
+              {
+                "text": "Because only production has the real traffic, scale, data, and dependencies, so the results reflect how the system actually behaves",
+                "fraction": 100,
+                "feedback": "Correct \u2014 production is where real conditions live, so it gives the most realistic evidence."
+              },
+              {
+                "text": "Because production has no monitoring, so experiments are cheaper there",
+                "fraction": 0,
+                "feedback": "Production needs strong monitoring, not the absence of it; realism, not cheapness, is the reason."
+              },
+              {
+                "text": "Because it removes any need for a small blast radius or an abort",
+                "fraction": 0,
+                "feedback": "Running in production makes safeguards more important, not less; the blast radius is kept small and the abort ready."
+              },
+              {
+                "text": "Because staging environments can never run any tests",
+                "fraction": 0,
+                "feedback": "Staging can run tests, but it does not reproduce real traffic and scale; that realism is why production is preferred."
+              }
+            ],
+            "generalFeedback": "Weaknesses often appear only under real traffic, scale, data, and dependency behaviour, which staging rarely reproduces faithfully. Running in production (with observability, a small blast radius, and an abort) therefore gives the most realistic and trustworthy evidence about resilience.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Controlled, not random breakage",
+            "text": '<p>A colleague says "chaos engineering just means randomly breaking things in production." The most accurate correction is:</p>',
+            "answers": [
+              {
+                "text": "It is controlled, hypothesis-driven experimentation with a defined steady state, a limited blast radius, and the ability to abort \u2014 not random, unplanned breakage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 chaos engineering is disciplined experimentation, the opposite of random breakage."
+              },
+              {
+                "text": "Yes, that is exactly right \u2014 the more random and unplanned, the better",
+                "fraction": 0,
+                "feedback": "This repeats the misconception; chaos engineering is deliberately controlled and hypothesis-driven."
+              },
+              {
+                "text": "It only ever runs in staging, never touching production at all",
+                "fraction": 0,
+                "feedback": "Chaos engineering prefers production with safeguards; the key correction is that it is controlled, not that it avoids production."
+              },
+              {
+                "text": "It means never injecting any faults, only reading logs",
+                "fraction": 0,
+                "feedback": "Injecting faults is central to chaos engineering; the point is that the injection is controlled and hypothesis-driven."
+              }
+            ],
+            "generalFeedback": "Chaos engineering is controlled, hypothesis-driven experimentation: a measurable steady state, an explicit hypothesis, a real-world fault, a small and expandable blast radius, and an abort. Random, unplanned breakage lacks all of these and is not chaos engineering.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why observability is required",
+            "text": "<p>Why is strong observability (monitoring of the steady-state metrics) a prerequisite for chaos engineering?</p>",
+            "answers": [
+              {
+                "text": "Without it you cannot tell whether the steady state was maintained or broken, so the experiment produces no usable evidence and harm may go unnoticed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 you need to measure the steady state both to read the result and to trigger the abort."
+              },
+              {
+                "text": "Because monitoring itself repairs any weaknesses that are found",
+                "fraction": 0,
+                "feedback": "Monitoring reveals weaknesses; it does not repair them. Remediation is a separate step."
+              },
+              {
+                "text": "Because observability removes the need to inject any fault",
+                "fraction": 0,
+                "feedback": "The fault must still be injected; observability tells you what effect it had."
+              },
+              {
+                "text": "Because it lets you run the experiment without a hypothesis",
+                "fraction": 0,
+                "feedback": "A hypothesis is still required; observability is what lets you test it."
+              }
+            ],
+            "generalFeedback": "Observability lets you measure the steady state before, during, and after the fault. Without it you cannot judge whether the hypothesis held, you cannot trigger an abort when harm appears, and the experiment yields no evidence \u2014 which is why it is a prerequisite.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify the fault: instance kill",
+            "text": "<p>An experiment terminates one of the running application instances. This fault is best classified as:</p>",
+            "answers": [
+              {
+                "text": "An instance/host failure (compute loss)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 killing an instance simulates the loss of a compute node."
+              },
+              {
+                "text": "A network partition",
+                "fraction": 0,
+                "feedback": "A partition splits the network; here a whole instance is removed, which is a compute-loss fault."
+              },
+              {
+                "text": "Injected latency",
+                "fraction": 0,
+                "feedback": "Latency slows responses; terminating an instance removes it entirely, a different fault."
+              },
+              {
+                "text": "Disk exhaustion",
+                "fraction": 0,
+                "feedback": "Disk exhaustion fills storage; killing an instance is a compute/host failure, not a storage fault."
+              }
+            ],
+            "generalFeedback": "Terminating a running instance simulates the sudden loss of a compute node or host \u2014 the fault that Chaos Monkey is built around. It is distinct from network faults (latency, partition) and resource-exhaustion faults (CPU, memory, disk).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify the fault: injected latency",
+            "text": "<p>An experiment adds a 300 ms delay to responses from the payment service. This fault is best classified as:</p>",
+            "answers": [
+              {
+                "text": "Injected network/dependency latency",
+                "fraction": 100,
+                "feedback": "Correct \u2014 adding a delay to responses is a latency fault."
+              },
+              {
+                "text": "An instance termination",
+                "fraction": 0,
+                "feedback": "Nothing is terminated; the service still responds, only more slowly."
+              },
+              {
+                "text": "CPU exhaustion",
+                "fraction": 0,
+                "feedback": "The delay is imposed on responses, not caused by starving the CPU; it is a latency fault."
+              },
+              {
+                "text": "A clock-skew fault",
+                "fraction": 0,
+                "feedback": "Clock skew shifts time between nodes; adding a response delay is a latency fault, not a time fault."
+              }
+            ],
+            "generalFeedback": "Adding a delay to a service's responses is a latency-injection fault. It tests whether callers handle slow dependencies gracefully \u2014 for example via timeouts, retries with backoff, or circuit breakers \u2014 rather than hanging or cascading the delay.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify the fault: network partition",
+            "text": "<p>An experiment blocks all traffic between two service clusters so they can no longer reach each other. This fault is best classified as:</p>",
+            "answers": [
+              {
+                "text": "A network partition (split between parts of the system)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 cutting communication between clusters is a network partition."
+              },
+              {
+                "text": "Memory exhaustion",
+                "fraction": 0,
+                "feedback": "No memory is being consumed; the network path between clusters is being cut."
+              },
+              {
+                "text": "An instance kill",
+                "fraction": 0,
+                "feedback": "The instances still run; they simply cannot communicate, which is a partition."
+              },
+              {
+                "text": "Clock skew",
+                "fraction": 0,
+                "feedback": "Clock skew shifts time; blocking traffic between clusters is a network partition."
+              }
+            ],
+            "generalFeedback": 'Cutting the network so two parts of the system cannot reach each other is a network partition (a "split brain" scenario). It tests how the system behaves when components are isolated \u2014 for example whether it preserves consistency, degrades gracefully, or recovers when the partition heals.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the hypothesis compares",
+            "text": "<p>A well-formed steady-state hypothesis is expressed in terms of:</p>",
+            "answers": [
+              {
+                "text": "A measurable steady-state metric continuing to hold under the fault, ideally comparing an experiment group against a control group",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the hypothesis is about a measurable metric, compared between control and experiment groups."
+              },
+              {
+                "text": "The personal opinion of the on-call engineer about whether things feel fine",
+                "fraction": 0,
+                "feedback": "The hypothesis must be measurable, not a subjective impression."
+              },
+              {
+                "text": "The number of lines of code in the affected service",
+                "fraction": 0,
+                "feedback": "Code size is not a steady-state metric; the hypothesis concerns measurable behaviour like error rate or latency."
+              },
+              {
+                "text": "Whether the source repository compiles without warnings",
+                "fraction": 0,
+                "feedback": "Build cleanliness is unrelated to the runtime steady state the hypothesis is about."
+              }
+            ],
+            "generalFeedback": 'The steady-state hypothesis is stated in measurable terms \u2014 for example "error rate stays below 1% and p99 latency below 400 ms" \u2014 and predicts that this holds in the experiment group (with the fault) just as in the control group (without it). Comparing the two groups isolates the effect of the fault.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of trying to disprove",
+            "text": "<p>Why does a chaos experiment actively try to <em>disprove</em> the steady-state hypothesis rather than confirm it?</p>",
+            "answers": [
+              {
+                "text": "Because a failure to maintain the steady state pinpoints a real weakness to fix, which is the valuable outcome",
+                "fraction": 100,
+                "feedback": "Correct \u2014 trying to disprove the hypothesis is how weaknesses are found."
+              },
+              {
+                "text": "Because confirming a hypothesis is impossible in any experiment",
+                "fraction": 0,
+                "feedback": "The point is not that confirmation is impossible, but that seeking to disprove is what surfaces weaknesses."
+              },
+              {
+                "text": "Because the team wants the system to fail permanently",
+                "fraction": 0,
+                "feedback": "The team wants to find and fix weaknesses safely, not to cause permanent failure."
+              },
+              {
+                "text": "Because disproving avoids any need for monitoring",
+                "fraction": 0,
+                "feedback": "Monitoring is needed either way; disproving is about learning where the system is weak."
+              }
+            ],
+            "generalFeedback": "Like a scientific experiment, chaos engineering seeks evidence against its hypothesis. If the steady state does not hold under the injected fault, that is exactly what you wanted to learn: a concrete weakness has been located and can be remediated before it causes a real outage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Canary as blast-radius control",
+            "text": "<p>Running an experiment against only 1% of live traffic (a canary) before expanding is an example of:</p>",
+            "answers": [
+              {
+                "text": "Controlling the blast radius \u2014 starting small so any harm is contained",
+                "fraction": 100,
+                "feedback": "Correct \u2014 limiting the experiment to a small slice of traffic is blast-radius control."
+              },
+              {
+                "text": "Defining the steady state",
+                "fraction": 0,
+                "feedback": "The steady state is the metric of normal behaviour; using 1% of traffic is about limiting impact, not defining the baseline."
+              },
+              {
+                "text": "Forming the hypothesis",
+                "fraction": 0,
+                "feedback": "The hypothesis is the prediction being tested; a 1% canary is a way to contain the blast radius."
+              },
+              {
+                "text": "Removing the ability to abort",
+                "fraction": 0,
+                "feedback": "A canary is a safety measure and works alongside an abort, not against it."
+              }
+            ],
+            "generalFeedback": "Exposing only a small percentage of traffic (a canary) is a classic way to keep the blast radius small. If the experiment reveals a weakness, only that small slice is affected; you expand gradually as confidence grows, keeping an abort ready throughout.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Complements other testing",
+            "text": "<p>How does chaos engineering relate to other forms of testing (unit, integration, and so on)?</p>",
+            "answers": [
+              {
+                "text": "It complements them by targeting resilience under real-world faults; it does not replace them",
+                "fraction": 100,
+                "feedback": "Correct \u2014 chaos engineering adds resilience evidence on top of, not instead of, other testing."
+              },
+              {
+                "text": "It replaces all unit and integration testing, which become unnecessary",
+                "fraction": 0,
+                "feedback": "Chaos engineering complements other tests; unit and integration tests remain essential."
+              },
+              {
+                "text": "It is in direct competition with testing and should not be used alongside it",
+                "fraction": 0,
+                "feedback": "They are complementary, not competing; chaos engineering covers what other tests do not."
+              },
+              {
+                "text": "It only matters for teams that have no other tests",
+                "fraction": 0,
+                "feedback": "It adds value regardless of other tests, because it exercises resilience under real conditions."
+              }
+            ],
+            "generalFeedback": "Chaos engineering addresses a question other tests rarely cover: how the whole system behaves under real-world faults at production scale. It complements unit, integration, and other testing rather than replacing any of them.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Production with no safeguards",
+            "text": "<p>To get the most realism, chaos experiments should be run in production with no safeguards \u2014 no small blast radius and no abort.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 production is preferred for realism, but only with safeguards: a small blast radius, an abort, and strong observability."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This is wrong: running in production without safeguards risks an uncontrolled outage. Realism must be paired with a limited blast radius and an abort."
+              }
+            ],
+            "generalFeedback": "Chaos engineering does prefer production for realism, but responsibly: you keep the blast radius small, hold an abort ready, and rely on strong observability. Removing the safeguards turns a controlled experiment into a reckless one."
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Design an experiment for checkout",
+            "text": "<p>You want a chaos experiment for an e-commerce checkout that depends on a payment service. Which design is soundest?</p>",
+            "answers": [
+              {
+                "text": "Steady state: checkout success rate \u2265 99%. Hypothesis: it stays \u2265 99% if payment latency rises. Fault: add latency to the payment service. Blast radius: 1% of traffic. Abort: halt if success rate drops below 95%.",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it names a measurable steady state, a hypothesis, a real fault, a small blast radius, and an abort condition."
+              },
+              {
+                "text": "Steady state: none. Hypothesis: none. Fault: shut down the whole payment service for all users. Blast radius: 100%. Abort: none.",
+                "fraction": 0,
+                "feedback": "This has no measurable baseline, no hypothesis, an unbounded blast radius, and no abort \u2014 the opposite of a sound design."
+              },
+              {
+                "text": 'Steady state: "the team feels good about checkout." Fault: rename a database column. Blast radius: all users. Abort: whenever someone remembers to check.',
+                "fraction": 0,
+                "feedback": "The steady state is not measurable, renaming a column is not a fault injection, the blast radius is unbounded, and the abort is not defined."
+              },
+              {
+                "text": "Steady state: checkout success rate \u2265 99%. Fault: none injected. Just watch the dashboards and declare the system resilient.",
+                "fraction": 0,
+                "feedback": "Without injecting a fault nothing is being tested; observing a healthy system proves nothing about resilience."
+              }
+            ],
+            "generalFeedback": "A sound experiment specifies all of: a measurable steady state (checkout success rate \u2265 99%), an explicit hypothesis (it holds under the fault), a real injected fault (payment latency), a contained blast radius (1% of traffic), and an abort condition (halt if success rate < 95%). The other options each drop one or more of these essentials.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpret a broken steady state",
+            "text": "<p>During an experiment, injecting latency into a dependency causes the checkout error rate to spike far above its steady-state threshold. What is the correct interpretation and response?</p>",
+            "answers": [
+              {
+                "text": "The hypothesis is disproved: a resilience weakness has been found. Abort if needed, then remediate (e.g. add timeouts, retries, or a circuit breaker) and re-test.",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a broken steady state is a discovered weakness to fix, then verify."
+              },
+              {
+                "text": "The experiment failed and should be discarded; nothing was learned",
+                "fraction": 0,
+                "feedback": "On the contrary, disproving the hypothesis is a valuable result \u2014 it located a real weakness."
+              },
+              {
+                "text": "The system is fine; a spiking error rate under fault can be ignored",
+                "fraction": 0,
+                "feedback": "A steady state broken by the fault is exactly the weakness the experiment exists to find; it must not be ignored."
+              },
+              {
+                "text": "It proves the dependency should never be called again under any circumstances",
+                "fraction": 0,
+                "feedback": "The finding is that the caller handles the slow dependency poorly; the fix is resilience (timeouts/retries/circuit breakers), not banning the dependency."
+              }
+            ],
+            "generalFeedback": "When the injected fault breaks the steady state, the hypothesis is disproved and a genuine weakness has been located. The right response is to contain the impact (abort if necessary), remediate the weakness \u2014 for example with timeouts, retries with backoff, or a circuit breaker \u2014 and then re-run the experiment to confirm the fix.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpret a maintained steady state",
+            "text": "<p>An experiment injects a fault and the steady state is maintained throughout. What is the most accurate conclusion?</p>",
+            "answers": [
+              {
+                "text": "Confidence in resilience to that specific fault has increased; it does not prove the system is resilient to all faults or resilient forever",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a passed experiment builds confidence for that scenario, not a permanent guarantee."
+              },
+              {
+                "text": "The system is now proven to be resilient to every possible failure, permanently",
+                "fraction": 0,
+                "feedback": "One experiment covers one fault under the tested conditions; it cannot prove resilience to all faults for all time."
+              },
+              {
+                "text": "Chaos engineering is now complete and never needs to be run again",
+                "fraction": 0,
+                "feedback": 'Systems change continuously, so experiments must be repeated; a single pass is not "done forever".'
+              },
+              {
+                "text": "The experiment was pointless because no weakness was found",
+                "fraction": 0,
+                "feedback": "Increasing confidence and reducing uncertainty is a legitimate, useful outcome even when no weakness surfaces."
+              }
+            ],
+            "generalFeedback": "A maintained steady state means the system tolerated that particular fault under the tested conditions, which increases confidence in its resilience. It is not proof of resilience to every fault, nor a permanent guarantee \u2014 as the system evolves, the experiment should be repeated (ideally automated and continuous).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Production small-blast-radius vs staging-only",
+            "text": "<p>Why can running experiments in production with a small blast radius be more valuable than running only in staging?</p>",
+            "answers": [
+              {
+                "text": "Staging rarely reproduces real traffic, scale, data, and dependency behaviour, so some weaknesses appear only in production; a small blast radius lets you find them with contained risk",
+                "fraction": 100,
+                "feedback": "Correct \u2014 production realism reveals weaknesses staging misses, and the small blast radius keeps the risk contained."
+              },
+              {
+                "text": "Because staging environments are incapable of running any experiment",
+                "fraction": 0,
+                "feedback": "Staging can run experiments; the point is that it does not faithfully reproduce production conditions."
+              },
+              {
+                "text": "Because a small blast radius in production removes all risk entirely",
+                "fraction": 0,
+                "feedback": "It reduces and contains risk; it does not remove it. That is why an abort and observability are still needed."
+              },
+              {
+                "text": "Because production experiments never need monitoring or an abort",
+                "fraction": 0,
+                "feedback": "Production experiments need monitoring and an abort more than ever; the small blast radius works alongside them."
+              }
+            ],
+            "generalFeedback": "Many resilience weaknesses emerge only under real production traffic, scale, data distributions, and dependency behaviour \u2014 conditions staging seldom reproduces. Running in production with a small, expandable blast radius (plus observability and an abort) surfaces those real weaknesses while keeping the risk contained.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Misconception: just breaking things",
+            "text": '<p>Which statement best corrects the misconception that chaos engineering is "just breaking things"?</p>',
+            "answers": [
+              {
+                "text": "It is a disciplined method: a measurable steady state, an explicit hypothesis, a controlled fault, a limited blast radius, an abort, and observability throughout",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the discipline and safeguards are exactly what distinguish it from mere breakage."
+              },
+              {
+                "text": "There is no difference; breaking things and chaos engineering are the same activity",
+                "fraction": 0,
+                "feedback": "They differ sharply: chaos engineering is controlled and hypothesis-driven, breakage is neither."
+              },
+              {
+                "text": "Chaos engineering avoids faults entirely and only reviews architecture diagrams",
+                "fraction": 0,
+                "feedback": "Injecting real faults is central; the discipline lies in how it is controlled, not in avoiding faults."
+              },
+              {
+                "text": "The difference is only that chaos engineering uses more expensive tools",
+                "fraction": 0,
+                "feedback": "The difference is method and safeguards, not tool cost."
+              }
+            ],
+            "generalFeedback": 'The distinguishing feature is discipline: chaos engineering defines a measurable steady state, states a hypothesis, injects a controlled fault, contains the blast radius, keeps an abort ready, and observes throughout. "Just breaking things" has none of these controls.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "A disproved hypothesis is a success",
+            "text": "<p>An experiment's hypothesis is disproved \u2014 the steady state broke under the fault. How should this be regarded?</p>",
+            "answers": [
+              {
+                "text": "As a success: the experiment did its job by surfacing a real weakness that can now be fixed before it causes an outage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 learning about a weakness in a controlled setting is the valuable outcome."
+              },
+              {
+                "text": "As an embarrassing failure that should be hidden from the team",
+                "fraction": 0,
+                "feedback": "Finding a weakness safely is a win, not something to hide; it prevents a worse, uncontrolled failure later."
+              },
+              {
+                "text": "As proof that chaos engineering does not work and should be abandoned",
+                "fraction": 0,
+                "feedback": "The method worked exactly as intended: it exposed a weakness under controlled conditions."
+              },
+              {
+                "text": "As a reason to stop measuring the steady state in future experiments",
+                "fraction": 0,
+                "feedback": "The steady state is what let you detect the weakness; you keep measuring it."
+              }
+            ],
+            "generalFeedback": "A disproved hypothesis means the experiment found a genuine resilience weakness under safe, controlled conditions \u2014 precisely the point of chaos engineering. It is a success, because fixing the weakness now is far cheaper than discovering it during a real, uncontrolled outage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Does not prove bug-free",
+            "text": '<p>After a series of chaos experiments all pass, a manager says "this proves our system has no bugs." The best response is:</p>',
+            "answers": [
+              {
+                "text": "Passing experiments build confidence in resilience to the faults tested, but they cannot prove the absence of all bugs; untested faults and conditions remain",
+                "fraction": 100,
+                "feedback": "Correct \u2014 chaos engineering reduces uncertainty and builds confidence; it does not prove bug-freeness."
+              },
+              {
+                "text": "Agreed \u2014 passing chaos experiments prove the system is completely bug-free",
+                "fraction": 0,
+                "feedback": "No experiment can prove the absence of all bugs; only the tested scenarios were exercised."
+              },
+              {
+                "text": "Chaos experiments say nothing at all about the system, so the manager is entirely wrong to draw any conclusion",
+                "fraction": 0,
+                "feedback": "They do provide real evidence about resilience; the overreach is only the claim of bug-freeness."
+              },
+              {
+                "text": "The system is bug-free only if the experiments ran in staging",
+                "fraction": 0,
+                "feedback": "Neither staging nor production runs can prove bug-freeness; this misstates the conclusion."
+              }
+            ],
+            "generalFeedback": "Chaos experiments cover specific faults under specific conditions. Passing them raises confidence in resilience to those faults, but \u2014 like all testing \u2014 they cannot demonstrate the absence of every bug. Untested faults, inputs, and conditions still carry residual risk.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Prerequisites before production chaos",
+            "text": "<p>A team wants to start running chaos experiments in production. Which prerequisites should be in place first?</p>",
+            "answers": [
+              {
+                "text": "Observability to measure the steady state, a way to limit the blast radius, an abort/rollback path, and a defined steady-state metric",
+                "fraction": 100,
+                "feedback": "Correct \u2014 measurement, containment, and a safe stop are prerequisites before injecting faults in production."
+              },
+              {
+                "text": "Nothing in particular; just start terminating production instances immediately",
+                "fraction": 0,
+                "feedback": "Injecting faults in production without observability, containment, or an abort risks an uncontrolled outage."
+              },
+              {
+                "text": "Only a list of every bug in the system, and nothing else",
+                "fraction": 0,
+                "feedback": "You cannot have such a list, and it is not the prerequisite; observability, blast-radius control, and an abort are."
+              },
+              {
+                "text": "A guarantee from management that no fault will ever affect a user",
+                "fraction": 0,
+                "feedback": "Such a guarantee is impossible; instead you contain and monitor the impact and keep an abort ready."
+              }
+            ],
+            "generalFeedback": "Before injecting faults in production, you need the safeguards that make it responsible: a defined, measurable steady state; observability to watch it in real time; a way to keep the blast radius small; and an abort or rollback path to stop quickly if harm appears. These make the experiment controlled rather than reckless.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Choose a good steady-state metric",
+            "text": "<p>For a video-streaming service, which is the best choice of steady-state metric for a chaos experiment?</p>",
+            "answers": [
+              {
+                "text": "The rate at which users successfully start playing a video (a measurable, user-facing indicator of healthy behaviour)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a measurable, user-facing signal of normal behaviour makes a good steady state."
+              },
+              {
+                "text": "The number of engineers currently on call",
+                "fraction": 0,
+                "feedback": "Staffing is not a behavioural signal of the system; the steady state must measure the system's healthy behaviour."
+              },
+              {
+                "text": "The number of source files in the repository",
+                "fraction": 0,
+                "feedback": "Repository size does not reflect runtime health; it cannot serve as a steady-state metric."
+              },
+              {
+                "text": "Whether the latest build compiled without warnings",
+                "fraction": 0,
+                "feedback": "Build status is not a runtime steady state; the metric must reflect live, healthy behaviour under load."
+              }
+            ],
+            "generalFeedback": "A good steady-state metric is a measurable output that reflects normal, healthy, user-facing behaviour \u2014 here, the successful video-start rate (you might add playback error rate or rebuffering). Non-behavioural facts like staff count, repository size, or build status cannot tell you whether the system is healthy under a fault.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Contain the blast radius by design",
+            "text": "<p>You must test how a service tolerates a failing dependency, but you want to limit exposure. Which approach best contains the blast radius?</p>",
+            "answers": [
+              {
+                "text": "Inject the dependency failure for a small percentage of traffic first, watch the steady-state metrics, and expand only if they hold \u2014 with an abort ready",
+                "fraction": 100,
+                "feedback": "Correct \u2014 start small, observe, expand gradually, and keep an abort \u2014 the essence of blast-radius control."
+              },
+              {
+                "text": "Fail the dependency for 100% of traffic at once so the test finishes fastest",
+                "fraction": 0,
+                "feedback": "That maximises exposure; a weakness would then hit every user. Blast-radius control means starting small."
+              },
+              {
+                "text": "Turn off monitoring so the experiment cannot trigger alerts",
+                "fraction": 0,
+                "feedback": "You need monitoring to observe the steady state and trigger the abort; turning it off increases risk."
+              },
+              {
+                "text": "Run it with no abort so the experiment cannot be interrupted",
+                "fraction": 0,
+                "feedback": "Removing the abort means you cannot stop the harm; that is the opposite of containment."
+              }
+            ],
+            "generalFeedback": "Blast-radius control means limiting the fraction of the system and users exposed: inject the failure for a small slice of traffic, watch the steady-state metrics with full observability, keep an abort ready, and expand the scope only as confidence grows.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Hypothesis for a dependency-failure experiment",
+            "text": "<p>A service calls a non-critical recommendations dependency. You want to verify graceful degradation if that dependency fails. Which steady-state hypothesis is best?</p>",
+            "answers": [
+              {
+                "text": "If the recommendations dependency fails, the page still loads with success rate and latency within their steady-state thresholds (recommendations simply omitted)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it predicts the measurable steady state holds while the non-critical feature degrades gracefully."
+              },
+              {
+                "text": "If the recommendations dependency fails, the entire service must crash immediately",
+                "fraction": 0,
+                "feedback": "A crash is the failure you want to prevent; the hypothesis should predict graceful degradation, not collapse."
+              },
+              {
+                "text": "The recommendations dependency will never fail during the experiment",
+                "fraction": 0,
+                "feedback": "The experiment deliberately fails it; the hypothesis is about what happens when it does."
+              },
+              {
+                "text": "The team will feel confident regardless of the metrics",
+                "fraction": 0,
+                "feedback": "The hypothesis must be measurable, not a subjective feeling."
+              }
+            ],
+            "generalFeedback": "For a non-critical dependency, resilience means graceful degradation: the core page keeps working within its steady-state thresholds while the optional feature is simply omitted. The hypothesis states this measurable outcome, and the experiment fails the dependency to see whether it holds.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Simulate a region outage safely",
+            "text": "<p>A service runs across multiple cloud regions and claims to survive the loss of any one region. How should a chaos experiment validate this safely?</p>",
+            "answers": [
+              {
+                "text": "Define a steady state, hypothesize it holds, simulate the loss of one region for a limited slice of traffic while watching metrics, and abort if the steady state breaks",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a measured, contained, abortable regional-failover experiment validates the claim safely."
+              },
+              {
+                "text": "Permanently delete one region's infrastructure to be sure it is really gone",
+                "fraction": 0,
+                "feedback": "That is destructive and unrecoverable; chaos experiments simulate the outage reversibly, with an abort."
+              },
+              {
+                "text": "Assume the failover works because the architecture diagram shows two regions",
+                "fraction": 0,
+                "feedback": "A diagram is not evidence; the point of the experiment is to test the failover in reality."
+              },
+              {
+                "text": "Take down all regions at once to test the worst case immediately",
+                "fraction": 0,
+                "feedback": "Removing all regions guarantees an outage and tests nothing about single-region survival; the blast radius must be contained."
+              }
+            ],
+            "generalFeedback": "To validate region-level resilience, define a measurable steady state, hypothesize it survives losing one region, simulate that regional outage in a reversible way for a contained slice of traffic, observe the failover against the steady state, and abort if it breaks. This tests the real failover behaviour without risking a full, irreversible outage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Steady state breaks unexpectedly mid-run",
+            "text": "<p>Midway through a production experiment, the steady-state error rate crosses the abort threshold. What is the correct immediate action?</p>",
+            "answers": [
+              {
+                "text": "Trigger the abort to halt the experiment and restore normal conditions, then investigate the weakness that was revealed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 abort first to contain harm, then analyse and remediate the finding."
+              },
+              {
+                "text": "Keep the fault running longer to be certain the problem is real",
+                "fraction": 0,
+                "feedback": "Prolonging the fault increases harm to users; the abort exists to stop at the threshold."
+              },
+              {
+                "text": "Widen the blast radius to more users to gather more data",
+                "fraction": 0,
+                "feedback": "Expanding while the steady state is broken multiplies the damage; you abort and contain instead."
+              },
+              {
+                "text": "Disable the alert so the threshold stops firing",
+                "fraction": 0,
+                "feedback": "Silencing the alert hides real harm; the correct move is to abort and protect users."
+              }
+            ],
+            "generalFeedback": "Crossing the abort threshold is exactly the signal the abort was built for: stop the experiment immediately, let the system return to normal, and contain the impact. Only then do you investigate the weakness the experiment exposed and plan the remediation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Value of continuous, automated chaos",
+            "text": "<p>Why is it valuable to run chaos experiments continuously and automatically, rather than only once as a one-off game day?</p>",
+            "answers": [
+              {
+                "text": "Because systems and their dependencies change constantly, so resilience must be re-verified over time; a single pass can be invalidated by later changes",
+                "fraction": 100,
+                "feedback": "Correct \u2014 continuous experiments catch regressions in resilience as the system evolves."
+              },
+              {
+                "text": "Because a single experiment proves the system is resilient forever",
+                "fraction": 0,
+                "feedback": "It does not; changes to code, config, or dependencies can reintroduce weaknesses, so re-verification is needed."
+              },
+              {
+                "text": "Because automation removes the need for any steady state or abort",
+                "fraction": 0,
+                "feedback": "Automated experiments still require a steady state and an abort; automation manages them, it does not remove them."
+              },
+              {
+                "text": "Because continuous chaos means the team can stop monitoring production",
+                "fraction": 0,
+                "feedback": "Continuous experiments rely on continuous monitoring; they do not eliminate it."
+              }
+            ],
+            "generalFeedback": "Resilience is not a permanent property: new deployments, configuration changes, scaling, and evolving dependencies can all reintroduce weaknesses. Running experiments continuously and automatically re-verifies resilience over time and catches regressions that a single game day would miss. Game days remain valuable for rehearsing human response.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Disproved hypothesis is not a wasted experiment",
+            "text": "<p>A chaos experiment whose hypothesis is disproved (the steady state broke under the fault) is a failed, wasted experiment.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 disproving the hypothesis is a success: it revealed a real weakness that can be fixed before it causes an outage."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "This is wrong: a disproved hypothesis is the valuable outcome, because it locates a weakness safely and in advance."
+              }
+            ],
+            "generalFeedback": "When the steady state breaks under the injected fault, the experiment has done exactly its job \u2014 it exposed a genuine resilience weakness under controlled conditions. That learning is a success, since remediating the weakness now is far cheaper than facing it during a real, uncontrolled outage."
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6DF7\u6C8C\u5DE5\u7A0B",
+            "text": "<p><em>\u6DF7\u6C8C\u5DE5\u7A0B\uFF08chaos engineering\uFF09</em>\u6700\u9069\u5207\u7684\u63CF\u8FF0\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u9580\u900F\u904E\u523B\u610F\u6CE8\u5165\u6545\u969C\u4F86\u5C0D\u7CFB\u7D71\u9032\u884C\u5BE6\u9A57\u7684\u5B78\u79D1\uFF0C\u76EE\u7684\u662F\u5EFA\u7ACB\u5C0D\u7CFB\u7D71\u5728\u52D5\u76EA\u7684\u771F\u5BE6\u4E16\u754C\u689D\u4EF6\u4E0B\u4E4B\u97CC\u6027\u7684\u4FE1\u5FC3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u662F\u6709\u7D00\u5F8B\u3001\u523B\u610F\u7684\u6545\u969C\u6CE8\u5165\u5BE6\u9A57\uFF0C\u76EE\u7684\u5728\u65BC\u5EFA\u7ACB\u5C0D\u97CC\u6027\u7684\u4FE1\u5FC3\u3002"
+              },
+              {
+                "text": "\u6BEB\u7121\u8A08\u756B\u5730\u5728\u6B63\u5F0F\u74B0\u5883\u96A8\u6A5F\u5F04\u58DE\u6771\u897F\uFF0C\u770B\u770B\u6703\u767C\u751F\u4EC0\u9EBC\u4E8B",
+                "fraction": 0,
+                "feedback": "\u6DF7\u6C8C\u5DE5\u7A0B\u662F\u53D7\u63A7\u4E14\u4EE5\u5047\u8A2D\u9A45\u52D5\u7684\uFF1B\u96A8\u6A5F\u3001\u7121\u8A08\u756B\u7684\u7834\u58DE\u6B63\u662F\u5B83\u6240\u4E0D\u662F\u7684\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u91CF\u6E2C\u6BCF\u500B\u51FD\u5F0F\u57F7\u884C\u901F\u5EA6\u7684\u6548\u80FD\u5256\u6790\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6548\u80FD\u5256\u6790\uFF1B\u6DF7\u6C8C\u5DE5\u7A0B\u662F\u6CE8\u5165\u6545\u969C\u4EE5\u6E2C\u8A66\u97CC\u6027\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u9760\u95B1\u8B80\u539F\u59CB\u78BC\u4F86\u627E\u7F3A\u9677\u7684\u7A0B\u5F0F\u78BC\u5BE9\u67E5\u6D41\u7A0B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u975C\u614B\u5BE9\u67E5\uFF1B\u6DF7\u6C8C\u5DE5\u7A0B\u662F\u5C0D\u904B\u884C\u4E2D\u7684\u7CFB\u7D71\u6CE8\u5165\u6545\u969C\u4F86\u505A\u5BE6\u9A57\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DF7\u6C8C\u5DE5\u7A0B\u662F\u4E00\u9580\u5C0D\u7CFB\u7D71\u9032\u884C\u5BE6\u9A57\u7684\u5B78\u79D1\uFF0C\u900F\u904E\u523B\u610F\u6CE8\u5165\u771F\u5BE6\u4E16\u754C\u7684\u6545\u969C\uFF0C\u4EE5\u5EFA\u7ACB\u5C0D\u7CFB\u7D71\u5728\u52D5\u76EA\u7684\u6B63\u5F0F\u74B0\u5883\u689D\u4EF6\u4E0B\u4E4B\u627F\u53D7\u80FD\u529B\u7684\u4FE1\u5FC3\u3002\u5B83\u662F\u53D7\u63A7\u4E14\u4EE5\u8B49\u64DA\u70BA\u672C\u7684\uFF0C\u800C\u975E\u96A8\u6A5F\u7684\u7834\u58DE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6DF7\u6C8C\u5DE5\u7A0B\u7684\u76EE\u6A19",
+            "text": "<p>\u6DF7\u6C8C\u5DE5\u7A0B\u7684\u4E3B\u8981\u76EE\u6A19\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u771F\u6B63\u7684\u505C\u6A5F\u4E8B\u6545\u767C\u751F\u4E4B\u524D\uFF0C\u5148\u66B4\u9732\u7CFB\u7D71\u97CC\u6027\u4E0A\u7684\u5F31\u9EDE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u76EE\u7684\u662F\u4E3B\u52D5\u627E\u51FA\u5F31\u9EDE\uFF0C\u597D\u5728\u771F\u5BE6\u4E8B\u6545\u767C\u751F\u524D\u4FEE\u88DC\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u76E1\u53EF\u80FD\u9020\u6210\u6700\u591A\u7684\u6B63\u5F0F\u74B0\u5883\u505C\u6A5F",
+                "fraction": 0,
+                "feedback": "\u76EE\u7684\u662F\u5EFA\u7ACB\u4FE1\u5FC3\u8207\u627E\u51FA\u5F31\u9EDE\uFF0C\u800C\u975E\u6700\u5927\u5316\u505C\u6A5F\uFF1B\u5F71\u97FF\u662F\u523B\u610F\u52A0\u4EE5\u63A7\u5236\u7684\u3002"
+              },
+              {
+                "text": "\u8B49\u660E\u7CFB\u7D71\u5B8C\u5168\u6C92\u6709\u4EFB\u4F55\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u5BE6\u9A57\u80FD\u8B49\u660E\u6240\u6709\u932F\u8AA4\u90FD\u4E0D\u5B58\u5728\uFF1B\u6DF7\u6C8C\u5DE5\u7A0B\u662F\u5EFA\u7ACB\u4FE1\u5FC3\u8207\u627E\u51FA\u5F31\u9EDE\uFF0C\u4E26\u4E0D\u80FD\u8B49\u660E\u7121\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u53D6\u4EE3\u6240\u6709\u5176\u4ED6\u5F62\u5F0F\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6DF7\u6C8C\u5DE5\u7A0B\u662F\u88DC\u5145\u5176\u4ED6\u6E2C\u8A66\uFF0C\u4E26\u4E0D\u53D6\u4EE3\u55AE\u5143\u6E2C\u8A66\u3001\u6574\u5408\u6E2C\u8A66\u7B49\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DF7\u6C8C\u5DE5\u7A0B\u7684\u76EE\u6A19\uFF0C\u662F\u5728\u53D7\u63A7\u7684\u689D\u4EF6\u4E0B\u4E3B\u52D5\u63ED\u9732\u7CFB\u7D71\u97CC\u6027\u4E0A\u7684\u5F31\u9EDE\uFF0C\u597D\u5728\u5B83\u5011\u6F14\u8B8A\u6210\u771F\u5BE6\u3001\u4E0D\u53D7\u63A7\u7684\u505C\u6A5F\u4E8B\u6545\u4E4B\u524D\u5148\u52A0\u4EE5\u4FEE\u88DC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u7A69\u614B",
+            "text": "<p>\u5728\u6DF7\u6C8C\u5DE5\u7A0B\u4E2D\uFF0C\u7CFB\u7D71\u7684<em>\u7A69\u614B\uFF08steady state\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u53EF\u91CF\u6E2C\u3001\u4EE3\u8868\u6B63\u5E38\u5065\u5EB7\u884C\u70BA\u7684\u6307\u6A19\uFF0C\u4F8B\u5982\u541E\u5410\u91CF\u3001\u932F\u8AA4\u7387\u6216\u5EF6\u9072",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A69\u614B\u662F\u4E00\u500B\u53EF\u91CF\u6E2C\u3001\u986F\u793A\u7CFB\u7D71\u884C\u70BA\u6B63\u5E38\u7684\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u5DF2\u5D29\u6F70\u4E14\u505C\u6B62\u56DE\u61C9\u7684\u90A3\u4E00\u523B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u505C\u6A5F\uFF1B\u7A69\u614B\u6307\u7684\u662F\u6B63\u5E38\u3001\u5065\u5EB7\u904B\u4F5C\u6642\u7684\u6A23\u5B50\u3002"
+              },
+              {
+                "text": "\u76EE\u524D\u6B63\u5728\u904B\u884C\u7684\u4F3A\u670D\u5668\u7E3D\u6578",
+                "fraction": 0,
+                "feedback": "\u55AE\u7D14\u7684\u4F3A\u670D\u5668\u6578\u91CF\u4E0D\u662F\u884C\u70BA\u6307\u6A19\uFF1B\u7A69\u614B\u662F\u4E00\u500B\u53EF\u91CF\u6E2C\u3001\u986F\u793A\u5065\u5EB7\u884C\u70BA\u7684\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u4F60\u6253\u7B97\u6CE8\u5165\u7684\u6545\u969C\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5BE6\u9A57\u8A2D\u8A08\uFF1B\u7A69\u614B\u662F\u4F60\u7528\u4F86\u6BD4\u5C0D\u7684\u6B63\u5E38\u884C\u70BA\u57FA\u6E96\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A69\u614B\u662F\u4E00\u500B\u53CD\u6620\u6B63\u5E38\u3001\u5065\u5EB7\u904B\u4F5C\u7684\u53EF\u91CF\u6E2C\u8F38\u51FA\u2014\u2014\u4F8B\u5982\u541E\u5410\u91CF\u3001\u932F\u8AA4\u7387\u6216\u5EF6\u9072 SLO\u3002\u4F60\u5FC5\u9808\u80FD\u5920\u91CF\u6E2C\u5B83\uFF0C\u56E0\u70BA\u6574\u500B\u5BE6\u9A57\u5C31\u662F\u4EE5\u300C\u7A69\u614B\u5728\u6545\u969C\u4E0B\u662F\u5426\u7DAD\u6301\u300D\u4F86\u5224\u5B9A\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u7A69\u614B\u5047\u8A2D",
+            "text": "<p>\u6DF7\u6C8C\u5BE6\u9A57\u7684<em>\u7A69\u614B\u5047\u8A2D\uFF08steady-state hypothesis\uFF09</em>\u4E3B\u5F35\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5373\u4F7F\u5728\u6545\u969C\u5B58\u5728\u6642\uFF0C\u7A69\u614B\u5728\u5C0D\u7167\u7D44\u8207\u5BE6\u9A57\u7D44\u4E2D\u90FD\u6703\u7E7C\u7E8C\u7DAD\u6301",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5047\u8A2D\u662F\uFF1A\u5118\u7BA1\u6CE8\u5165\u4E86\u6545\u969C\uFF0C\u6B63\u5E38\u884C\u70BA\u4ECD\u6703\u6301\u7E8C\u3002"
+              },
+              {
+                "text": "\u6CE8\u5165\u6545\u969C\u6642\u7CFB\u7D71\u4E00\u5B9A\u6703\u5D29\u6F70",
+                "fraction": 0,
+                "feedback": "\u5047\u8A2D\u9810\u6E2C\u7684\u662F\u7A69\u614B\u6703\u7DAD\u6301\uFF1B\u5BE6\u9A57\u63A5\u8457\u624D\u53BB\u5617\u8A66\u63A8\u7FFB\u5B83\u3002"
+              },
+              {
+                "text": "\u6545\u969C\u5176\u5BE6\u6C38\u9060\u4E0D\u6703\u771F\u7684\u88AB\u6CE8\u5165",
+                "fraction": 0,
+                "feedback": "\u6545\u969C\u662F\u523B\u610F\u6CE8\u5165\u7684\uFF1B\u5047\u8A2D\u8AC7\u7684\u662F\u7A69\u614B\u80FD\u5426\u5728\u6545\u969C\u4E0B\u5B58\u7E8C\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u6703\u5728\u5BE6\u9A57\u4E4B\u524D\u4FEE\u597D\u6BCF\u4E00\u500B\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u90A3\u8207\u5047\u8A2D\u7121\u95DC\uFF1B\u5047\u8A2D\u95DC\u5207\u7684\u662F\u7A69\u614B\u5728\u6545\u969C\u4E0B\u80FD\u5426\u6301\u7E8C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A69\u614B\u5047\u8A2D\u9810\u6E2C\u53EF\u91CF\u6E2C\u7684\u6B63\u5E38\u884C\u70BA\u6703\u5728\u5C0D\u7167\u7D44\uFF08\u7121\u6545\u969C\uFF09\u8207\u5BE6\u9A57\u7D44\uFF08\u6CE8\u5165\u6545\u969C\uFF09\u4E2D\u90FD\u6301\u7E8C\u3002\u5BE6\u9A57\u63A5\u8457\u5617\u8A66\u63A8\u7FFB\u5B83\uFF1A\u82E5\u7A69\u614B\u672A\u7DAD\u6301\uFF0C\u5C31\u4EE3\u8868\u627E\u5230\u4E86\u4E00\u500B\u5F31\u9EDE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6CE2\u53CA\u7BC4\u570D",
+            "text": "<p>\u6DF7\u6C8C\u5BE6\u9A57\u7684<em>\u6CE2\u53CA\u7BC4\u570D\uFF08blast radius\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5BE6\u9A57\u5C0D\u4F7F\u7528\u8005\u8207\u7CFB\u7D71\u53EF\u80FD\u9020\u6210\u4E4B\u5F71\u97FF\u7684\u7BC4\u570D\u8207\u7A0B\u5EA6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6CE2\u53CA\u7BC4\u570D\u662F\u5BE6\u9A57\u7684\u5F71\u97FF\u80FD\u5EF6\u4F38\u5230\u591A\u9060\u3002"
+              },
+              {
+                "text": "\u5404\u8CC7\u6599\u4E2D\u5FC3\u4E4B\u9593\u7684\u5BE6\u9AD4\u8DDD\u96E2",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E0D\u662F\u5BE6\u9AD4\u8DDD\u96E2\uFF1B\u5B83\u662F\u5BE6\u9A57\u6F5B\u5728\u5F71\u97FF\u7684\u7BC4\u570D\u3002"
+              },
+              {
+                "text": "\u89C0\u5BDF\u6B64\u5BE6\u9A57\u7684\u5DE5\u7A0B\u5E2B\u4EBA\u6578",
+                "fraction": 0,
+                "feedback": "\u5718\u968A\u4EBA\u6578\u7121\u95DC\uFF1B\u6CE2\u53CA\u7BC4\u570D\u662F\u5C0D\u4F7F\u7528\u8005\u8207\u7CFB\u7D71\u4E4B\u5F71\u97FF\u7684\u7A0B\u5EA6\u3002"
+              },
+              {
+                "text": "\u5BE6\u9A57\u7684\u7E3D\u904B\u884C\u6642\u9593\uFF08\u4EE5\u5206\u9418\u8A08\uFF09",
+                "fraction": 0,
+                "feedback": "\u6301\u7E8C\u6642\u9593\u662F\u53E6\u4E00\u500B\u9762\u5411\uFF1B\u6CE2\u53CA\u7BC4\u570D\u662F\u6709\u591A\u5C11\u7CFB\u7D71\u8207\u591A\u5C11\u4F7F\u7528\u8005\u6703\u53D7\u5F71\u97FF\u3002"
+              }
+            ],
+            "generalFeedback": "\u6CE2\u53CA\u7BC4\u570D\u662F\u5BE6\u9A57\u6F5B\u5728\u5F71\u97FF\u7684\u7BC4\u570D\u2014\u2014\u6709\u591A\u5C11\u7CFB\u7D71\u8207\u591A\u5C11\u4F7F\u7528\u8005\u53EF\u80FD\u53D7\u5F71\u97FF\u3002\u6DF7\u6C8C\u5DE5\u7A0B\u523B\u610F\u628A\u6CE2\u53CA\u7BC4\u570D\u7DAD\u6301\u5F97\u5F88\u5C0F\uFF08\u4E14\u53EF\u4E2D\u6B62\uFF09\uFF0C\u4F7F\u4EFB\u4F55\u50B7\u5BB3\u90FD\u80FD\u88AB\u63A7\u5236\u4F4F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6545\u969C\u6CE8\u5165",
+            "text": "<p>\u6DF7\u6C8C\u5BE6\u9A57\u4E2D\u7684<em>\u6545\u969C\u6CE8\u5165\uFF08fault injection\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u523B\u610F\u5C07\u4E00\u500B\u5931\u6548\u72C0\u6CC1\u2014\u2014\u4F8B\u5982\u7D42\u6B62\u4E00\u500B\u57F7\u884C\u500B\u9AD4\u6216\u52A0\u5165\u5EF6\u9072\u2014\u2014\u5F15\u5165\u7CFB\u7D71\u4E2D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6545\u969C\u6CE8\u5165\u5C31\u662F\u523B\u610F\u5F15\u5165\u4E00\u500B\u5931\u6548\u72C0\u6CC1\u3002"
+              },
+              {
+                "text": "\u64B0\u5BEB\u65B0\u529F\u80FD\u4E26\u5408\u4F75\u9032\u4E3B\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u822C\u958B\u767C\uFF1B\u6545\u969C\u6CE8\u5165\u662F\u5F15\u5165\u5931\u6548\u72C0\u6CC1\u4EE5\u6E2C\u8A66\u97CC\u6027\u3002"
+              },
+              {
+                "text": "\u4FEE\u5FA9\u4F7F\u7528\u8005\u56DE\u5831\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7F3A\u9677\u4FEE\u5FA9\uFF1B\u6545\u969C\u6CE8\u5165\u662F\u523B\u610F\u5F15\u5165\u4E00\u500B\u6545\u969C\u4EE5\u89C0\u5BDF\u53CD\u61C9\u3002"
+              },
+              {
+                "text": "\u5728\u7A0B\u5F0F\u78BC\u4E2D\u52A0\u5165\u66F4\u591A\u8A18\u9304\u8A9E\u53E5",
+                "fraction": 0,
+                "feedback": "\u90A3\u80FD\u6539\u5584\u53EF\u89C0\u6E2C\u6027\uFF0C\u4F46\u4E0D\u662F\u6545\u969C\u6CE8\u5165\uFF1B\u6545\u969C\u6CE8\u5165\u5F15\u5165\u7684\u662F\u4E00\u500B\u771F\u6B63\u7684\u5931\u6548\u72C0\u6CC1\u3002"
+              }
+            ],
+            "generalFeedback": "\u6545\u969C\u6CE8\u5165\u662F\u523B\u610F\u5C07\u771F\u5BE6\u4E16\u754C\u7684\u5931\u6548\u72C0\u6CC1\u5F15\u5165\u7CFB\u7D71\u2014\u2014\u4F8B\u5982\u7D42\u6B62\u57F7\u884C\u500B\u9AD4\u3001\u52A0\u5165\u7DB2\u8DEF\u5EF6\u9072\u3001\u4E1F\u68C4\u5C01\u5305\u6216\u8017\u76E1\u8CC7\u6E90\u2014\u2014\u597D\u8B93\u5718\u968A\u89C0\u5BDF\u7CFB\u7D71\u5982\u4F55\u53CD\u61C9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Chaos Monkey \u7684\u4F5C\u7528",
+            "text": "<p>Netflix \u7684 <em>Chaos Monkey</em> \u662F\u4E00\u500B\u6703\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u6B63\u5F0F\u74B0\u5883\u96A8\u6A5F\u7D42\u6B62\u904B\u884C\u4E2D\u7684\u57F7\u884C\u500B\u9AD4\uFF0C\u4EE5\u78BA\u8A8D\u7CFB\u7D71\u80FD\u5BB9\u5FCD\u57F7\u884C\u500B\u9AD4\u907A\u5931\u7684\u5DE5\u5177",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Chaos Monkey \u6BBA\u6389\u57F7\u884C\u500B\u9AD4\uFF0C\u8B93\u5718\u968A\u9A57\u8B49\u7CFB\u7D71\u80FD\u5728\u5931\u53BB\u5B83\u5011\u6642\u4ECD\u5B58\u6D3B\u3002"
+              },
+              {
+                "text": "\u81EA\u52D5\u70BA\u6BCF\u500B\u51FD\u5F0F\u64B0\u5BEB\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "Chaos Monkey \u6CE8\u5165\u7684\u662F\u57F7\u884C\u500B\u9AD4\u6545\u969C\uFF1B\u5B83\u4E0D\u7522\u751F\u55AE\u5143\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u52A0\u5BC6\u670D\u52D9\u4E4B\u9593\u7684\u7DB2\u8DEF\u6D41\u91CF",
+                "fraction": 0,
+                "feedback": "\u90A3\u8207\u6B64\u7121\u95DC\uFF1BChaos Monkey \u662F\u7D42\u6B62\u57F7\u884C\u500B\u9AD4\u4EE5\u6E2C\u8A66\u97CC\u6027\u3002"
+              },
+              {
+                "text": "\u5728\u6D41\u91CF\u4E0A\u5347\u6642\u64F4\u589E\u4F3A\u670D\u5668\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u81EA\u52D5\u64F4\u5C55\uFF1BChaos Monkey \u662F\u523B\u610F\u79FB\u9664\u57F7\u884C\u500B\u9AD4\uFF0C\u800C\u975E\u589E\u52A0\u3002"
+              }
+            ],
+            "generalFeedback": "Chaos Monkey \u51FA\u81EA Netflix \u7684 Simian Army\uFF0C\u6703\u5728\u71DF\u904B\u6642\u9593\u96A8\u6A5F\u7D42\u6B62\u6B63\u5F0F\u74B0\u5883\u7684\u57F7\u884C\u500B\u9AD4\uFF0C\u4EE5\u8FEB\u4F7F\u5DE5\u7A0B\u5E2B\u6253\u9020\u51FA\u80FD\u5BB9\u5FCD\u4EFB\u4E00\u57F7\u884C\u500B\u9AD4\u907A\u5931\u3001\u4E14\u4E0D\u5F71\u97FF\u4F7F\u7528\u8005\u7684\u670D\u52D9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F Simian Army",
+            "text": "<p>Netflix \u7684 <em>Simian Army</em>\uFF08\u5176\u4E2D\u5305\u542B Chaos Monkey\uFF09\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u5957\u6703\u6CE8\u5165\u5404\u7A2E\u5931\u6548\u4EE5\u6E2C\u8A66\u5206\u6563\u5F0F\u7CFB\u7D71\u97CC\u6027\u7684\u5DE5\u5177\u96C6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Simian Army \u662F\u4E00\u7CFB\u5217\u7528\u65BC\u97CC\u6027\u6E2C\u8A66\u7684\u6545\u969C\u6CE8\u5165\u5DE5\u5177\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u7528\u4F86\u5206\u914D\u8ACB\u6C42\u7684\u8CA0\u8F09\u5E73\u8861\u6F14\u7B97\u6CD5",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8CA0\u8F09\u5E73\u8861\uFF1BSimian Army \u662F\u6CE8\u5165\u6545\u969C\uFF0C\u800C\u975E\u8DEF\u7531\u6D41\u91CF\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u7528\u4F86\u6AA2\u8996 CPU \u5716\u8868\u7684\u76E3\u63A7\u5100\u8868\u677F",
+                "fraction": 0,
+                "feedback": "\u5100\u8868\u677F\u986F\u793A\u6307\u6A19\uFF1BSimian Army \u662F\u4E3B\u52D5\u6CE8\u5165\u6545\u969C\u3002"
+              },
+              {
+                "text": "\u4E00\u5957\u7BA1\u7406\u767C\u884C\u7248\u672C\u7684\u539F\u59CB\u78BC\u63A7\u5236\u7CFB\u7D71",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7248\u672C\u63A7\u5236\uFF1BSimian Army \u662F\u4E00\u7D44\u97CC\u6027\u6E2C\u8A66\u5DE5\u5177\u3002"
+              }
+            ],
+            "generalFeedback": "Simian Army \u662F Netflix \u7684\u4E00\u7D44\u6DF7\u6C8C\u5DE5\u5177\uFF08Chaos Monkey \u53CA\u5176\u540C\u985E\uFF09\uFF0C\u6703\u523B\u610F\u5C07\u4E0D\u540C\u7A2E\u985E\u7684\u5931\u6548\u6CE8\u5165\u5206\u6563\u5F0F\u7CFB\u7D71\uFF0C\u4EE5\u9A57\u8B49\u4E26\u5F37\u5316\u5176\u97CC\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F Game Day",
+            "text": "<p>\u5728\u97CC\u6027\u5BE6\u52D9\u4E2D\uFF0C<em>Game Day\uFF08\u6F14\u7DF4\u65E5\uFF09</em>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u5834\u6709\u8A08\u756B\u7684\u6F14\u7DF4\uFF0C\u523B\u610F\u6CE8\u5165\u6545\u969C\uFF0C\u8B93\u5718\u968A\u5F97\u4EE5\u6392\u6F14\u4E26\u89C0\u5BDF\u7CFB\u7D71\u8207\u4EBA\u54E1\u7684\u53CD\u61C9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Game Day \u662F\u4E00\u5834\u6709\u8A08\u756B\u3001\u523B\u610F\u7684\u6545\u969C\u6CE8\u5165\u6F14\u7DF4\u3002"
+              },
+              {
+                "text": "\u51CD\u7D50\u6240\u6709\u90E8\u7F72\u3001\u4EC0\u9EBC\u90FD\u4E0D\u8B8A\u52D5\u7684\u4E00\u5929",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8B8A\u66F4\u51CD\u7D50\uFF1BGame Day \u662F\u523B\u610F\u5F15\u5165\u6545\u969C\u4EE5\u6F14\u7DF4\u53CD\u61C9\u3002"
+              },
+              {
+                "text": "\u4E00\u5834\u6BEB\u7121\u6280\u8853\u5167\u5BB9\u7684\u5718\u968A\u806F\u8ABC\u6D3B\u52D5",
+                "fraction": 0,
+                "feedback": "Game Day \u662F\u4E00\u5834\u570D\u7E5E\u8457\u6CE8\u5165\u8207\u56DE\u61C9\u6545\u969C\u7684\u6280\u8853\u6F14\u7DF4\u3002"
+              },
+              {
+                "text": "\u7522\u54C1\u9996\u6B21\u5C0D\u9867\u5BA2\u767C\u884C\u7684\u90A3\u4E00\u5929",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E0A\u7DDA\uFF1BGame Day \u662F\u5C0D\u6545\u969C\u60C5\u5883\u7684\u6392\u6F14\u3002"
+              }
+            ],
+            "generalFeedback": "Game Day \u662F\u4E00\u5834\u6709\u8A08\u756B\u7684\u6545\u969C\u6CE8\u5165\u6F14\u7DF4\uFF1A\u5718\u968A\u6392\u5B9A\u6CE8\u5165\u64EC\u771F\u6545\u969C\u7684\u6642\u9593\uFF0C\u4E26\u85C9\u6B64\u6D3B\u52D5\u6392\u6F14\u5075\u6E2C\u3001\u56DE\u61C9\u8207\u5FA9\u539F\uFF0C\u4E26\u89C0\u5BDF\u7CFB\u7D71\u8207\u4EBA\u54E1\u5982\u4F55\u61C9\u5C0D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u97CC\u6027\u7684\u610F\u7FA9",
+            "text": "<p>\u5728\u6B64\u8108\u7D61\u4E0B\uFF0C\u7CFB\u7D71\u7684<em>\u97CC\u6027\uFF08resilience\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5728\u9762\u5C0D\u6545\u969C\u8207\u52D5\u76EA\u689D\u4EF6\u6642\uFF0C\u4ECD\u80FD\u7DAD\u6301\u53EF\u63A5\u53D7\u904B\u4F5C\u3001\u6216\u8FC5\u901F\u5FA9\u539F\u7684\u80FD\u529B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u97CC\u6027\u662F\u627F\u53D7\u4E26\u5F9E\u9006\u5883\u4E2D\u5FA9\u539F\u7684\u80FD\u529B\u3002"
+              },
+              {
+                "text": "\u5B83\u80FD\u4EE5\u6700\u5C11\u7684\u8A18\u61B6\u9AD4\u7528\u91CF\u4F86\u904B\u884C\u7684\u80FD\u529B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8A18\u61B6\u9AD4\u6548\u7387\uFF1B\u97CC\u6027\u8AC7\u7684\u662F\u627F\u53D7\u4E26\u5F9E\u6545\u969C\u4E2D\u5FA9\u539F\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u6240\u63D0\u4F9B\u7684\u529F\u80FD\u6578\u76EE",
+                "fraction": 0,
+                "feedback": "\u529F\u80FD\u6578\u91CF\u7121\u95DC\uFF1B\u97CC\u6027\u95DC\u5207\u7684\u662F\u61C9\u5C0D\u6545\u969C\u8207\u5E72\u64FE\u3002"
+              },
+              {
+                "text": "\u65B0\u7A0B\u5F0F\u78BC\u80FD\u591A\u5FEB\u88AB\u90E8\u7F72",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u90E8\u7F72\u901F\u5EA6\uFF1B\u97CC\u6027\u662F\u5118\u7BA1\u6709\u6545\u969C\u4ECD\u80FD\u6301\u7E8C\u904B\u4F5C\u7684\u80FD\u529B\u3002"
+              }
+            ],
+            "generalFeedback": "\u97CC\u6027\u662F\u7CFB\u7D71\u5728\u9762\u5C0D\u6545\u969C\u3001\u5931\u6548\u8207\u52D5\u76EA\u7684\u771F\u5BE6\u4E16\u754C\u689D\u4EF6\u6642\uFF0C\u4ECD\u80FD\u7DAD\u6301\u53EF\u63A5\u53D7\u904B\u4F5C\u3001\u6216\u8FC5\u901F\u5FA9\u539F\u7684\u80FD\u529B\u3002\u5EFA\u7ACB\u5C0D\u9019\u9805\u80FD\u529B\u7684\u4FE1\u5FC3\uFF0C\u6B63\u662F\u6DF7\u6C8C\u5DE5\u7A0B\u7684\u91CD\u9EDE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Gremlin \u8207 LitmusChaos \u7684\u985E\u5225",
+            "text": "<p>Gremlin \u8207 LitmusChaos \u662F\u4EE5\u4E0B\u4F55\u8005\u7684\u4F8B\u5B50\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7528\u4F86\u5C0D\u7CFB\u7D71\u6CE8\u5165\u6545\u969C\u7684\u6DF7\u6C8C\u5DE5\u7A0B\u5DE5\u5177",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u8005\u90FD\u662F\u900F\u904E\u6CE8\u5165\u6545\u969C\u4F86\u57F7\u884C\u6DF7\u6C8C\u5BE6\u9A57\u7684\u5E73\u53F0\u3002"
+              },
+              {
+                "text": "\u95DC\u806F\u5F0F\u8CC7\u6599\u5EAB\u5F15\u64CE",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E0D\u662F\u8CC7\u6599\u5EAB\uFF1B\u5B83\u5011\u662F\u5728\u6DF7\u6C8C\u5BE6\u9A57\u4E2D\u6CE8\u5165\u6545\u969C\u7684\u5DE5\u5177\u3002"
+              },
+              {
+                "text": "\u524D\u7AEF JavaScript \u6846\u67B6",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E0D\u662F UI \u6846\u67B6\uFF1B\u5B83\u5011\u662F\u6DF7\u6C8C\u5DE5\u7A0B\u5DE5\u5177\u3002"
+              },
+              {
+                "text": "\u6301\u7E8C\u6574\u5408\u7684\u5EFA\u7F6E\u4F3A\u670D\u5668",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53E6\u4E00\u500B\u985E\u5225\uFF1BGremlin \u8207 LitmusChaos \u662F\u6CE8\u5165\u6545\u969C\u4EE5\u6E2C\u8A66\u97CC\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "Gremlin \u8207 LitmusChaos\uFF08\u5982\u540C Netflix \u7684 Chaos Monkey\uFF09\u662F\u6DF7\u6C8C\u5DE5\u7A0B\u5DE5\u5177\uFF1A\u80FD\u6CE8\u5165\u53D7\u63A7\u6545\u969C\u2014\u2014\u57F7\u884C\u500B\u9AD4\u7D42\u6B62\u3001\u5EF6\u9072\u3001\u8CC7\u6E90\u8017\u76E1\u7B49\u2014\u2014\u7684\u5E73\u53F0\uFF0C\u597D\u8B93\u5718\u968A\u57F7\u884C\u97CC\u6027\u5BE6\u9A57\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6307\u8A8D\u4E00\u500B\u53EF\u6CE8\u5165\u7684\u6545\u969C\u7BC4\u4F8B",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F\u4F60\u5728\u6DF7\u6C8C\u5BE6\u9A57\u4E2D\u53EF\u80FD\u6CE8\u5165\u7684\u771F\u5BE6\u4E16\u754C\u6545\u969C\u7BC4\u4F8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7D42\u6B62\u4E00\u500B\u904B\u884C\u4E2D\u7684\u4F3A\u670D\u5668\u57F7\u884C\u500B\u9AD4\uFF0C\u4EE5\u6A21\u64EC\u4E3B\u6A5F\u7A81\u7136\u5931\u6548",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BBA\u6389\u57F7\u884C\u500B\u9AD4\u662F\u5178\u578B\u7684\u6CE8\u5165\u6545\u969C\u3002"
+              },
+              {
+                "text": "\u5728\u5831\u8868\u4E2D\u65B0\u589E\u4E00\u500B\u6B04\u4F4D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u529F\u80FD\u8B8A\u66F4\uFF0C\u4E0D\u662F\u6CE8\u5165\u7684\u6545\u969C\u3002"
+              },
+              {
+                "text": "\u5728\u539F\u59CB\u78BC\u4E2D\u91CD\u65B0\u547D\u540D\u4E00\u500B\u8B8A\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7A0B\u5F0F\u78BC\u7DE8\u4FEE\uFF0C\u4E0D\u662F\u6CE8\u5165\u5230\u904B\u884C\u4E2D\u7CFB\u7D71\u7684\u6545\u969C\u3002"
+              },
+              {
+                "text": "\u66F4\u65B0\u5C08\u6848\u7684\u6587\u4EF6",
+                "fraction": 0,
+                "feedback": "\u7DE8\u4FEE\u6587\u4EF6\u7121\u95DC\uFF1B\u6CE8\u5165\u7684\u6545\u969C\u662F\u771F\u6B63\u7684\u5931\u6548\u72C0\u6CC1\uFF0C\u4F8B\u5982\u7D42\u6B62\u57F7\u884C\u500B\u9AD4\u3002"
+              }
+            ],
+            "generalFeedback": "\u5178\u578B\u7684\u6CE8\u5165\u6545\u969C\u5305\u62EC\uFF1A\u7D42\u6B62\u57F7\u884C\u500B\u9AD4\u6216\u4F3A\u670D\u5668\u3001\u52A0\u5165\u7DB2\u8DEF\u5EF6\u9072\u3001\u4E1F\u68C4\u6216\u5206\u5272\u6D41\u91CF\u3001\u8017\u76E1 CPU\uFF0F\u8A18\u61B6\u9AD4\uFF0F\u78C1\u789F\u3001\u4F7F\u76F8\u4F9D\u670D\u52D9\u5931\u6548\u3001\u6A21\u64EC\u5340\u57DF\uFF0F\u53EF\u7528\u5340\u505C\u6A5F\uFF0C\u6216\u5F15\u5165\u6642\u9418\u504F\u79FB\u3002\u7D42\u6B62\u904B\u884C\u4E2D\u7684\u57F7\u884C\u500B\u9AD4\u662F\u6700\u5E38\u898B\u7684\u4E4B\u4E00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53EF\u4E2D\u6B62\u80FD\u529B\u7684\u76EE\u7684",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6DF7\u6C8C\u5BE6\u9A57\u61C9\u59CB\u7D42\u5177\u5099<em>\u4E2D\u6B62\uFF08abort\uFF0Fhalt\uFF09</em>\u7684\u80FD\u529B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9019\u6A23\u4E00\u65E6\u5BE6\u9A57\u958B\u59CB\u9020\u6210\u771F\u6B63\u7684\u50B7\u5BB3\uFF0C\u5C31\u80FD\u7ACB\u5373\u505C\u6B62\u4EE5\u9650\u7E2E\u640D\u5BB3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E2D\u6B62\uFF0F\u505C\u6B62\u958B\u95DC\u80FD\u5728\u60C5\u6CC1\u51FA\u932F\u6642\u63A7\u5236\u4F4F\u640D\u5BB3\u3002"
+              },
+              {
+                "text": "\u9019\u6A23\u5BE6\u9A57\u5C31\u80FD\u5728\u7121\u4EBA\u76E3\u7763\u4E0B\u6C38\u9060\u904B\u884C\u4E0B\u53BB",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u76F8\u53CD\u2014\u2014\u4E2D\u6B62\u7684\u5B58\u5728\u6B63\u662F\u70BA\u4E86\u80FD\u5728\u9700\u8981\u6642\u505C\u6B62\u5BE6\u9A57\u3002"
+              },
+              {
+                "text": "\u9019\u6A23\u5BE6\u9A57\u671F\u9593\u5C31\u4E0D\u9700\u8981\u4EFB\u4F55\u76E3\u63A7",
+                "fraction": 0,
+                "feedback": "\u76E3\u63A7\u4ECD\u7136\u5FC5\u8981\uFF1B\u4E2D\u6B62\u662F\u7528\u4F86\u8FC5\u901F\u505C\u6B62\u50B7\u5BB3\u7684\u5B89\u5168\u63A7\u5236\u3002"
+              },
+              {
+                "text": "\u9019\u6A23\u82E5\u7D50\u679C\u4E0D\u65B9\u4FBF\u5C31\u80FD\u5FFD\u7565\u5B83",
+                "fraction": 0,
+                "feedback": "\u4E2D\u6B62\u95DC\u4E4E\u5B89\u5168\uFF0C\u800C\u975E\u4E1F\u68C4\u7D50\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E2D\u6B62\uFF08\u505C\u6B62\uFF09\u80FD\u529B\u662F\u6838\u5FC3\u7684\u5B89\u5168\u63A7\u5236\u3002\u642D\u914D\u5C0F\u7684\u6CE2\u53CA\u7BC4\u570D\uFF0C\u5B83\u4EE3\u8868\u82E5\u5BE6\u9A57\u958B\u59CB\u7834\u58DE\u7A69\u614B\u4E26\u50B7\u5BB3\u4F7F\u7528\u8005\uFF0C\u5C31\u80FD\u7ACB\u523B\u505C\u6B62\uFF0C\u4F7F\u5F71\u97FF\u7DAD\u6301\u5728\u53D7\u63A7\u7BC4\u570D\u5167\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53EF\u89C0\u6E2C\u6027\u662F\u524D\u63D0\u689D\u4EF6",
+            "text": "<p>\u5728\u4F60\u80FD\u57F7\u884C\u4E00\u500B\u6709\u610F\u7FA9\u7684\u6DF7\u6C8C\u5BE6\u9A57\u4E4B\u524D\uFF0C\u4F60\u5FC5\u9808\u80FD\u5920\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u91CF\u6E2C\u7A69\u614B\uFF0C\u9019\u6A23\u4F60\u624D\u80FD\u5224\u65B7\u5B83\u5728\u5BE6\u9A57\u671F\u9593\u662F\u5426\u7DAD\u6301",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u7A69\u614B\u7684\u53EF\u89C0\u6E2C\u6027\u662F\u524D\u63D0\uFF1B\u6C92\u6709\u5B83\u5C31\u7121\u6CD5\u5224\u65B7\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u4FDD\u8B49\u6C38\u9060\u4E0D\u6703\u6709\u4EFB\u4F55\u6545\u969C\u767C\u751F",
+                "fraction": 0,
+                "feedback": "\u6DF7\u6C8C\u5DE5\u7A0B\u662F\u523B\u610F\u6CE8\u5165\u6545\u969C\uFF1B\u524D\u63D0\u662F\u80FD\u91CF\u6E2C\u7A69\u614B\uFF0C\u800C\u975E\u9632\u6B62\u6545\u969C\u3002"
+              },
+              {
+                "text": "\u79FB\u9664\u6240\u6709\u76E3\u63A7\u4EE5\u907F\u514D\u5E72\u64FE",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u76F8\u53CD\u2014\u2014\u76E3\u63A7\u5C0D\u65BC\u91CF\u6E2C\u7A69\u614B\u8207\u5075\u6E2C\u554F\u984C\u4E0D\u53EF\u6216\u7F3A\u3002"
+              },
+              {
+                "text": "\u5728\u5BE6\u9A57\u671F\u9593\u628A\u7CFB\u7D71\u95DC\u6A5F",
+                "fraction": 0,
+                "feedback": "\u7CFB\u7D71\u5FC5\u9808\u904B\u884C\uFF0C\u624D\u80FD\u89C0\u5BDF\u5B83\u5728\u6545\u969C\u4E0B\u7684\u884C\u70BA\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u89C0\u6E2C\u6027\u662F\u524D\u63D0\uFF1A\u4F60\u5FC5\u9808\u80FD\u91CF\u6E2C\u7A69\u614B\uFF08\u541E\u5410\u91CF\u3001\u932F\u8AA4\u7387\u3001\u5EF6\u9072\u7B49\uFF09\u3002\u82E5\u7121\u6CD5\u91CF\u6E2C\u6B63\u5E38\u884C\u70BA\uFF0C\u5C31\u7121\u5F9E\u5F97\u77E5\u6CE8\u5165\u7684\u6545\u969C\u662F\u5426\u7834\u58DE\u4E86\u5B83\uFF0C\u5BE6\u9A57\u4E5F\u5C31\u7121\u6CD5\u7522\u751F\u6709\u7528\u7684\u8B49\u64DA\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u523B\u610F\u6CE8\u5165\u6545\u969C\u4EE5\u5EFA\u7ACB\u4FE1\u5FC3",
+            "text": "<p>\u6DF7\u6C8C\u5DE5\u7A0B\u523B\u610F\u5C07\u6545\u969C\u6CE8\u5165\u7CFB\u7D71\uFF0C\u76EE\u7684\u662F\u5EFA\u7ACB\u5C0D\u7CFB\u7D71\u5728\u771F\u5BE6\u4E16\u754C\u689D\u4EF6\u4E0B\u4E4B\u97CC\u6027\u7684\u4FE1\u5FC3\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u53D7\u63A7\u689D\u4EF6\u4E0B\u523B\u610F\u6CE8\u5165\u6545\u969C\u4EE5\u5EFA\u7ACB\u5C0D\u97CC\u6027\u7684\u4FE1\u5FC3\uFF0C\u6B63\u662F\u6DF7\u6C8C\u5DE5\u7A0B\u7684\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u771F\uFF1A\u6DF7\u6C8C\u5DE5\u7A0B\u5728\u53D7\u63A7\u689D\u4EF6\u4E0B\u523B\u610F\u6CE8\u5165\u6545\u969C\uFF0C\u4EE5\u5EFA\u7ACB\u5C0D\u7CFB\u7D71\u97CC\u6027\u7684\u4FE1\u5FC3\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F9D\u5B9A\u7FA9\uFF0C\u6DF7\u6C8C\u5DE5\u7A0B\u900F\u904E\u523B\u610F\u6CE8\u5165\u771F\u5BE6\u4E16\u754C\u7684\u6545\u969C\u4F86\u5C0D\u7CFB\u7D71\u505A\u5BE6\u9A57\uFF0C\u4EE5\u5EFA\u7ACB\u5C0D\u5176\u627F\u53D7\u52D5\u76EA\u6B63\u5F0F\u74B0\u5883\u689D\u4EF6\u4E4B\u80FD\u529B\u7684\u4FE1\u5FC3\u3002\u9019\u7A2E\u6CE8\u5165\u662F\u523B\u610F\u4E14\u53D7\u63A7\u7684\uFF0C\u800C\u975E\u610F\u5916\u767C\u751F\u7684\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u5BE6\u9A57\u6B65\u9A5F\u7684\u9806\u5E8F",
+            "text": "<p>\u4E0B\u5217\u54EA\u500B\u9806\u5E8F\u6700\u80FD\u63CF\u8FF0\u4E00\u500B\u6DF7\u6C8C\u5BE6\u9A57\u7684\u6B65\u9A5F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B9A\u7FA9\u7A69\u614B \u2192 \u5047\u8A2D\u5B83\u5728\u6545\u969C\u4E0B\u4ECD\u6301\u7E8C \u2192 \u6CE8\u5165\u6545\u969C \u2192 \u89C0\u5BDF\u4E26\u8207\u7A69\u614B\u6BD4\u5C0D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5148\u91CF\u6E2C\u6B63\u5E38\u884C\u70BA\u3001\u5F62\u6210\u5047\u8A2D\u3001\u6CE8\u5165\u6545\u969C\uFF0C\u518D\u9032\u884C\u6BD4\u5C0D\u3002"
+              },
+              {
+                "text": "\u5148\u6CE8\u5165\u6545\u969C \u2192 \u4E8B\u5F8C\u624D\u6C7A\u5B9A\u6B63\u5E38\u884C\u70BA\u662F\u4EC0\u9EBC \u2192 \u518D\u5F62\u6210\u5047\u8A2D",
+                "fraction": 0,
+                "feedback": "\u7A69\u614B\u8207\u5047\u8A2D\u5FC5\u9808\u5728\u6CE8\u5165\u6545\u969C\u4E4B\u524D\u5B9A\u7FA9\uFF0C\u5426\u5247\u6C92\u6709\u53EF\u4F9B\u6BD4\u5C0D\u7684\u57FA\u6E96\u3002"
+              },
+              {
+                "text": "\u5F62\u6210\u5047\u8A2D \u2192 \u4FEE\u597D\u6240\u6709\u932F\u8AA4 \u2192 \u4E0D\u6CE8\u5165\u4EFB\u4F55\u6771\u897F\u5C31\u5BA3\u544A\u7CFB\u7D71\u6709\u97CC\u6027",
+                "fraction": 0,
+                "feedback": "\u4F60\u5FC5\u9808\u771F\u7684\u6CE8\u5165\u6545\u969C\u4E26\u89C0\u5BDF\uFF1B\u7565\u904E\u6CE8\u5165\u7B49\u65BC\u4EC0\u9EBC\u4E5F\u6C92\u6E2C\u3002"
+              },
+              {
+                "text": "\u89C0\u5BDF\u4E26\u6BD4\u5C0D \u2192 \u6CE8\u5165\u6545\u969C \u2192 \u6700\u5F8C\u624D\u5B9A\u7FA9\u7A69\u614B",
+                "fraction": 0,
+                "feedback": "\u9806\u5E8F\u53CD\u4E86\uFF1B\u4F60\u8981\u5148\u5B9A\u7FA9\u4E26\u91CF\u6E2C\u7A69\u614B\uFF0C\u624D\u6CE8\u5165\u6545\u969C\u3002"
+              }
+            ],
+            "generalFeedback": "\u300A\u6DF7\u6C8C\u539F\u5247\u300B\u7D66\u51FA\u7684\u9806\u5E8F\u662F\uFF1A(1) \u628A\u7A69\u614B\u5B9A\u7FA9\u70BA\u53EF\u91CF\u6E2C\u7684\u6B63\u5E38\u884C\u70BA\u6307\u6A19\uFF1B(2) \u5047\u8A2D\u7A69\u614B\u5728\u5C0D\u7167\u7D44\u8207\u5BE6\u9A57\u7D44\u4E2D\u90FD\u6703\u6301\u7E8C\uFF1B(3) \u6CE8\u5165\u771F\u5BE6\u4E16\u754C\u7684\u6545\u969C\uFF1B(4) \u85C9\u7531\u89C0\u5BDF\u7A69\u614B\u662F\u5426\u7DAD\u6301\uFF0C\u4F86\u5617\u8A66\u63A8\u7FFB\u8A72\u5047\u8A2D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6DF7\u6C8C\u5BE6\u9A57\u7684\u7B2C\u4E00\u6B65",
+            "text": "<p>\u8A2D\u8A08\u4E00\u500B\u6DF7\u6C8C\u5BE6\u9A57\u6642\uFF0C<strong>\u9996\u5148</strong>\u61C9\u8A72\u505A\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B9A\u7FA9\u7A69\u614B\u2014\u2014\u4E00\u500B\u53EF\u91CF\u6E2C\u3001\u4EE3\u8868\u6B63\u5E38\u5065\u5EB7\u884C\u70BA\u7684\u6307\u6A19",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F60\u5FC5\u9808\u5148\u5EFA\u7ACB\u53EF\u91CF\u6E2C\u7684\u57FA\u6E96\uFF0C\u624D\u80FD\u5224\u65B7\u6545\u969C\u7684\u5F71\u97FF\u3002"
+              },
+              {
+                "text": "\u76E1\u53EF\u80FD\u7D42\u6B62\u6700\u591A\u7684\u57F7\u884C\u500B\u9AD4",
+                "fraction": 0,
+                "feedback": "\u6CE8\u5165\u6545\u969C\u662F\u5728\u5B9A\u7FA9\u7A69\u614B\u8207\u5047\u8A2D\u4E4B\u5F8C\uFF0C\u800C\u4E14\u6CE2\u53CA\u7BC4\u570D\u8981\u7DAD\u6301\u5F97\u5C0F\uFF0C\u800C\u975E\u6700\u5927\u5316\u3002"
+              },
+              {
+                "text": "\u5BA3\u544A\u7CFB\u7D71\u5DF2\u901A\u904E\u8A72\u5BE6\u9A57",
+                "fraction": 0,
+                "feedback": "\u5728\u5B9A\u7FA9\u7A69\u614B\u4E26\u57F7\u884C\u5BE6\u9A57\u4E4B\u524D\uFF0C\u4F60\u7121\u6CD5\u5BA3\u544A\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u76E3\u63A7\u4EE5\u514D\u5B83\u9020\u6210\u5E72\u64FE",
+                "fraction": 0,
+                "feedback": "\u76E3\u63A7\u662F\u91CF\u6E2C\u7A69\u614B\u6240\u5FC5\u9700\u7684\uFF1B\u79FB\u9664\u5B83\u6703\u4F7F\u5BE6\u9A57\u5931\u53BB\u610F\u7FA9\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B2C\u4E00\u6B65\u662F\u5B9A\u7FA9\u7A69\u614B\uFF1A\u4E00\u500B\u986F\u793A\u7CFB\u7D71\u884C\u70BA\u6B63\u5E38\u7684\u53EF\u91CF\u6E2C\u8F38\u51FA\uFF08\u541E\u5410\u91CF\u3001\u932F\u8AA4\u7387\u3001\u5EF6\u9072 SLO\uFF09\u3002\u5176\u9918\u4E00\u5207\u2014\u2014\u5047\u8A2D\u3001\u6545\u969C\u3001\u6BD4\u5C0D\u2014\u2014\u90FD\u662F\u76F8\u5C0D\u65BC\u9019\u500B\u57FA\u6E96\u4F86\u5224\u65B7\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u8981\u7E2E\u5C0F\u6CE2\u53CA\u7BC4\u570D",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6DF7\u6C8C\u5DE5\u7A0B\u5F37\u8ABF\u628A<em>\u6CE2\u53CA\u7BC4\u570D</em>\u7DAD\u6301\u5F97\u5C0F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u70BA\u4E86\u63A7\u5236\u6F5B\u5728\u5F71\u97FF\uFF0C\u4F7F\u5F97\u842C\u4E00\u5BE6\u9A57\u63ED\u9732\u51FA\u5F31\u9EDE\uFF0C\u4E5F\u80FD\u50B7\u5BB3\u5230\u76E1\u53EF\u80FD\u5C11\u7684\u4F7F\u7528\u8005",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0F\u7684\u6CE2\u53CA\u7BC4\u570D\u80FD\u5728\u4ECD\u53D6\u5F97\u8B49\u64DA\u7684\u540C\u6642\uFF0C\u9650\u7E2E\u9644\u5E36\u640D\u5BB3\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5927\u7684\u6CE2\u53CA\u7BC4\u570D\u6703\u8B93\u7D50\u679C\u66F4\u6E96\u78BA",
+                "fraction": 0,
+                "feedback": "\u8F03\u5927\u7684\u6CE2\u53CA\u7BC4\u570D\u4E3B\u8981\u662F\u589E\u52A0\u98A8\u96AA\uFF0C\u800C\u975E\u6E96\u78BA\u5EA6\uFF1B\u4F60\u5F9E\u5C0F\u958B\u59CB\uFF0C\u53EA\u5728\u4FE1\u5FC3\u589E\u9577\u5F8C\u624D\u64F4\u5927\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9019\u6A23\u5C31\u80FD\u7701\u53BB\u4E2D\u6B62\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u5C0F\u7684\u6CE2\u53CA\u7BC4\u570D\u8207\u4E2D\u6B62\u689D\u4EF6\u662F\u4E92\u88DC\u7684\u5B89\u5168\u63A7\u5236\uFF0C\u4E26\u975E\u5F7C\u6B64\u7684\u66FF\u4EE3\u54C1\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u4FDD\u8B49\u7A69\u614B\u6C38\u9060\u4E0D\u6703\u88AB\u7834\u58DE",
+                "fraction": 0,
+                "feedback": "\u7A69\u614B\u4ECD\u53EF\u80FD\u88AB\u7834\u58DE\uFF1B\u5C0F\u7684\u6CE2\u53CA\u7BC4\u570D\u53EA\u662F\u9650\u7E2E\u5B83\u88AB\u7834\u58DE\u6642\u53D7\u5F71\u97FF\u7684\u4F7F\u7528\u8005\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DF7\u6C8C\u5BE6\u9A57\u5F9E\u5C0F\u7684\u6CE2\u53CA\u7BC4\u570D\u958B\u59CB\u2014\u2014\u4E00\u500B\u91D1\u7D72\u96C0\uFF08canary\uFF09\u6216\u4E00\u5C0F\u90E8\u5206\u6D41\u91CF\u2014\u2014\u597D\u8B93\u5B83\u63ED\u9732\u7684\u4EFB\u4F55\u5F31\u9EDE\u50B7\u5BB3\u5230\u6700\u5C11\u7684\u4F7F\u7528\u8005\u3002\u4F60\u53EA\u5728\u4FE1\u5FC3\u589E\u9577\u5F8C\u624D\u9010\u6B65\u64F4\u5927\u6CE2\u53CA\u7BC4\u570D\uFF0C\u4E26\u59CB\u7D42\u4FDD\u6709\u4E2D\u6B62\u7684\u80FD\u529B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u8981\u6709\u4E2D\u6B62\u689D\u4EF6",
+            "text": "<p>\u67D0\u5BE6\u9A57\u8A2D\u5B9A\u70BA\uFF1A\u7576\u9762\u5411\u9867\u5BA2\u7684\u932F\u8AA4\u7387\u8D85\u904E\u8A2D\u5B9A\u9580\u6ABB\u6642\u5C31\u81EA\u52D5\u505C\u6B62\u3002\u9019\u500B\u4E2D\u6B62\u689D\u4EF6\u7684\u7528\u610F\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u640D\u5BB3\u64F4\u5927\u4E4B\u524D\u505C\u6B62\u5BE6\u9A57\uFF0C\u628A\u5F71\u97FF\u7DAD\u6301\u5728\u53EF\u63A5\u53D7\u7684\u7BC4\u570D\u5167",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E2D\u6B62\u6703\u5728\u771F\u6B63\u7684\u640D\u5BB3\u51FA\u73FE\u6642\u505C\u6B62\u5BE6\u9A57\uFF0C\u85C9\u6B64\u9650\u7E2E\u50B7\u5BB3\u3002"
+              },
+              {
+                "text": "\u78BA\u4FDD\u5BE6\u9A57\u7121\u8AD6\u5982\u4F55\u90FD\u904B\u884C\u5230\u5E95",
+                "fraction": 0,
+                "feedback": "\u4E2D\u6B62\u7684\u5B58\u5728\u6B63\u662F\u70BA\u4E86\u5728\u50B7\u5BB3\u51FA\u73FE\u6642\u63D0\u65E9\u505C\u6B62\uFF0C\u9019\u8207\u300C\u7E3D\u662F\u904B\u884C\u5230\u5E95\u300D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u8B49\u660E\u932F\u8AA4\u7387\u6C38\u9060\u4E0D\u6703\u4E0A\u5347",
+                "fraction": 0,
+                "feedback": "\u4E2D\u6B62\u4E0D\u6703\u963B\u6B62\u932F\u8AA4\u7387\u4E0A\u5347\uFF1B\u5B83\u662F\u5728\u4E0A\u5347\u8D8A\u904E\u9580\u6ABB\u5F8C\u624D\u505A\u51FA\u53CD\u61C9\u3002"
+              },
+              {
+                "text": "\u53D6\u4EE3\u5B9A\u7FA9\u7A69\u614B\u7684\u5FC5\u8981\u6027",
+                "fraction": 0,
+                "feedback": "\u9580\u6ABB\u672C\u8EAB\u5C31\u662F\u4EE5\u7A69\u614B\u70BA\u57FA\u790E\uFF1B\u4E2D\u6B62\u4E26\u4E0D\u53D6\u4EE3\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u8207\u7A69\u614B\u6307\u6A19\u639B\u9264\u7684\u4E2D\u6B62\uFF08\u505C\u6B62\uFF09\u689D\u4EF6\u2014\u2014\u4F8B\u5982\u932F\u8AA4\u7387\u6216\u5EF6\u9072\u8D8A\u904E\u67D0\u9580\u6ABB\u2014\u2014\u80FD\u8B93\u5BE6\u9A57\u5728\u958B\u59CB\u9020\u6210\u4E0D\u53EF\u63A5\u53D7\u7684\u50B7\u5BB3\u6642\u7ACB\u523B\u505C\u6B62\uFF0C\u5373\u4F7F\u5047\u8A2D\u6700\u5F8C\u88AB\u8B49\u660E\u662F\u932F\u7684\uFF0C\u5F71\u97FF\u4E5F\u80FD\u7DAD\u6301\u5728\u53D7\u63A7\u7BC4\u570D\u5167\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u504F\u597D\u5728\u6B63\u5F0F\u74B0\u5883\u57F7\u884C",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6DF7\u6C8C\u5DE5\u7A0B\u504F\u597D\u5728\u6B63\u5F0F\u74B0\u5883\uFF08\u6216\u985E\u6B63\u5F0F\u74B0\u5883\uFF09\u4E26\u5E36\u8457\u9632\u8B77\u63AA\u65BD\u4F86\u57F7\u884C\u5BE6\u9A57\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u53EA\u6709\u6B63\u5F0F\u74B0\u5883\u624D\u6709\u771F\u5BE6\u7684\u6D41\u91CF\u3001\u898F\u6A21\u3001\u8CC7\u6599\u8207\u76F8\u4F9D\u670D\u52D9\uFF0C\u6240\u4EE5\u7D50\u679C\u80FD\u53CD\u6620\u7CFB\u7D71\u5BE6\u969B\u7684\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B63\u5F0F\u74B0\u5883\u624D\u662F\u771F\u5BE6\u689D\u4EF6\u6240\u5728\uFF0C\u56E0\u800C\u80FD\u7D66\u51FA\u6700\u64EC\u771F\u7684\u8B49\u64DA\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6B63\u5F0F\u74B0\u5883\u6C92\u6709\u76E3\u63A7\uFF0C\u6240\u4EE5\u5728\u90A3\u88E1\u505A\u5BE6\u9A57\u6BD4\u8F03\u4FBF\u5B9C",
+                "fraction": 0,
+                "feedback": "\u6B63\u5F0F\u74B0\u5883\u9700\u8981\u5F37\u529B\u76E3\u63A7\uFF0C\u800C\u975E\u6C92\u6709\u76E3\u63A7\uFF1B\u7406\u7531\u662F\u64EC\u771F\uFF0C\u800C\u975E\u4FBF\u5B9C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u514D\u9664\u4E86\u5C0D\u5C0F\u6CE2\u53CA\u7BC4\u570D\u6216\u4E2D\u6B62\u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u5728\u6B63\u5F0F\u74B0\u5883\u57F7\u884C\u6703\u4F7F\u9632\u8B77\u63AA\u65BD\u66F4\u91CD\u8981\uFF0C\u800C\u975E\u66F4\u4E0D\u91CD\u8981\uFF1B\u6CE2\u53CA\u7BC4\u570D\u4ECD\u8981\u7DAD\u6301\u5F97\u5C0F\u3001\u4E2D\u6B62\u4ECD\u8981\u5099\u59A5\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9810\u5099\uFF08staging\uFF09\u74B0\u5883\u6C38\u9060\u7121\u6CD5\u57F7\u884C\u4EFB\u4F55\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9810\u5099\u74B0\u5883\u80FD\u57F7\u884C\u6E2C\u8A66\uFF0C\u4F46\u5B83\u7121\u6CD5\u91CD\u73FE\u771F\u5BE6\u7684\u6D41\u91CF\u8207\u898F\u6A21\uFF1B\u90A3\u4EFD\u64EC\u771F\u6B63\u662F\u504F\u597D\u6B63\u5F0F\u74B0\u5883\u7684\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F31\u9EDE\u5F80\u5F80\u53EA\u5728\u771F\u5BE6\u7684\u6D41\u91CF\u3001\u898F\u6A21\u3001\u8CC7\u6599\u8207\u76F8\u4F9D\u670D\u52D9\u884C\u70BA\u4E0B\u624D\u6703\u986F\u73FE\uFF0C\u800C\u9019\u4E9B\u662F\u9810\u5099\u74B0\u5883\u5F88\u5C11\u80FD\u5FE0\u5BE6\u91CD\u73FE\u7684\u3002\u56E0\u6B64\uFF0C\u5728\u6B63\u5F0F\u74B0\u5883\uFF08\u5E36\u8457\u53EF\u89C0\u6E2C\u6027\u3001\u5C0F\u6CE2\u53CA\u7BC4\u570D\u8207\u4E2D\u6B62\uFF09\u57F7\u884C\uFF0C\u624D\u80FD\u7D66\u51FA\u95DC\u65BC\u97CC\u6027\u6700\u64EC\u771F\u3001\u6700\u53EF\u4FE1\u7684\u8B49\u64DA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53D7\u63A7\u800C\u975E\u96A8\u6A5F\u7834\u58DE",
+            "text": "<p>\u4E00\u4F4D\u540C\u4E8B\u8AAA\u300C\u6DF7\u6C8C\u5DE5\u7A0B\u5C31\u662F\u5728\u6B63\u5F0F\u74B0\u5883\u96A8\u6A5F\u5F04\u58DE\u6771\u897F\u300D\u3002\u6700\u6E96\u78BA\u7684\u7CFE\u6B63\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u662F\u53D7\u63A7\u3001\u4EE5\u5047\u8A2D\u9A45\u52D5\u7684\u5BE6\u9A57\uFF0C\u5177\u6709\u5B9A\u7FA9\u597D\u7684\u7A69\u614B\u3001\u6709\u9650\u7684\u6CE2\u53CA\u7BC4\u570D\u8207\u4E2D\u6B62\u7684\u80FD\u529B\u2014\u2014\u800C\u975E\u96A8\u6A5F\u3001\u7121\u8A08\u756B\u7684\u7834\u58DE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DF7\u6C8C\u5DE5\u7A0B\u662F\u6709\u7D00\u5F8B\u7684\u5BE6\u9A57\uFF0C\u8207\u96A8\u6A5F\u7834\u58DE\u6070\u597D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u5C0D\uFF0C\u5B8C\u5168\u6B63\u78BA\u2014\u2014\u8D8A\u96A8\u6A5F\u3001\u8D8A\u7121\u8A08\u756B\u8D8A\u597D",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u5728\u91CD\u8907\u90A3\u500B\u8FF7\u601D\uFF1B\u6DF7\u6C8C\u5DE5\u7A0B\u662F\u523B\u610F\u53D7\u63A7\u4E14\u4EE5\u5047\u8A2D\u9A45\u52D5\u7684\u3002"
+              },
+              {
+                "text": "\u5B83\u6C38\u9060\u53EA\u5728\u9810\u5099\u74B0\u5883\u57F7\u884C\uFF0C\u5B8C\u5168\u4E0D\u78B0\u6B63\u5F0F\u74B0\u5883",
+                "fraction": 0,
+                "feedback": "\u6DF7\u6C8C\u5DE5\u7A0B\u504F\u597D\u5E36\u9632\u8B77\u63AA\u65BD\u7684\u6B63\u5F0F\u74B0\u5883\uFF1B\u95DC\u9375\u7684\u7CFE\u6B63\u662F\u5B83\u300C\u53D7\u63A7\u300D\uFF0C\u800C\u975E\u5B83\u300C\u907F\u958B\u6B63\u5F0F\u74B0\u5883\u300D\u3002"
+              },
+              {
+                "text": "\u5B83\u610F\u5473\u8457\u6C38\u4E0D\u6CE8\u5165\u4EFB\u4F55\u6545\u969C\uFF0C\u53EA\u8B80\u53D6\u8A18\u9304",
+                "fraction": 0,
+                "feedback": "\u6CE8\u5165\u6545\u969C\u662F\u6DF7\u6C8C\u5DE5\u7A0B\u7684\u6838\u5FC3\uFF1B\u91CD\u9EDE\u5728\u65BC\u9019\u7A2E\u6CE8\u5165\u662F\u53D7\u63A7\u4E14\u4EE5\u5047\u8A2D\u9A45\u52D5\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DF7\u6C8C\u5DE5\u7A0B\u662F\u53D7\u63A7\u3001\u4EE5\u5047\u8A2D\u9A45\u52D5\u7684\u5BE6\u9A57\uFF1A\u53EF\u91CF\u6E2C\u7684\u7A69\u614B\u3001\u660E\u78BA\u7684\u5047\u8A2D\u3001\u771F\u5BE6\u4E16\u754C\u7684\u6545\u969C\u3001\u53EF\u9010\u6B65\u64F4\u5927\u7684\u5C0F\u6CE2\u53CA\u7BC4\u570D\uFF0C\u4EE5\u53CA\u4E00\u500B\u4E2D\u6B62\u3002\u96A8\u6A5F\u3001\u7121\u8A08\u756B\u7684\u7834\u58DE\u4E0D\u5177\u5099\u4E0A\u8FF0\u4EFB\u4F55\u4E00\u9805\uFF0C\u4E26\u4E0D\u662F\u6DF7\u6C8C\u5DE5\u7A0B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u9700\u8981\u53EF\u89C0\u6E2C\u6027",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u5F37\u529B\u7684\u53EF\u89C0\u6E2C\u6027\uFF08\u5C0D\u7A69\u614B\u6307\u6A19\u7684\u76E3\u63A7\uFF09\u662F\u6DF7\u6C8C\u5DE5\u7A0B\u7684\u524D\u63D0\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6C92\u6709\u5B83\uFF0C\u4F60\u5C31\u7121\u6CD5\u5224\u65B7\u7A69\u614B\u662F\u7DAD\u6301\u9084\u662F\u88AB\u7834\u58DE\uFF0C\u5BE6\u9A57\u4E5F\u5C31\u7522\u751F\u4E0D\u51FA\u53EF\u7528\u7684\u8B49\u64DA\uFF0C\u800C\u4E14\u50B7\u5BB3\u53EF\u80FD\u5728\u672A\u88AB\u5BDF\u89BA\u4E0B\u767C\u751F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F60\u9700\u8981\u91CF\u6E2C\u7A69\u614B\uFF0C\u65E2\u70BA\u4E86\u5224\u8B80\u7D50\u679C\uFF0C\u4E5F\u70BA\u4E86\u89F8\u767C\u4E2D\u6B62\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u76E3\u63A7\u672C\u8EAB\u6703\u4FEE\u5FA9\u6240\u627E\u5230\u7684\u4EFB\u4F55\u5F31\u9EDE",
+                "fraction": 0,
+                "feedback": "\u76E3\u63A7\u63ED\u9732\u5F31\u9EDE\uFF1B\u5B83\u4E0D\u6703\u4FEE\u5FA9\u5F31\u9EDE\u3002\u4FEE\u88DC\u662F\u53E6\u4E00\u500B\u7368\u7ACB\u7684\u6B65\u9A5F\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u53EF\u89C0\u6E2C\u6027\u514D\u9664\u4E86\u6CE8\u5165\u4EFB\u4F55\u6545\u969C\u7684\u5FC5\u8981",
+                "fraction": 0,
+                "feedback": "\u6545\u969C\u4ECD\u5FC5\u9808\u6CE8\u5165\uFF1B\u53EF\u89C0\u6E2C\u6027\u662F\u544A\u8A34\u4F60\u5B83\u9020\u6210\u4E86\u4EC0\u9EBC\u5F71\u97FF\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u8B93\u4F60\u4E0D\u9700\u8981\u5047\u8A2D\u5C31\u80FD\u57F7\u884C\u5BE6\u9A57",
+                "fraction": 0,
+                "feedback": "\u5047\u8A2D\u4ECD\u7136\u5FC5\u8981\uFF1B\u53EF\u89C0\u6E2C\u6027\u662F\u8B93\u4F60\u80FD\u6AA2\u9A57\u5047\u8A2D\u7684\u5DE5\u5177\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u89C0\u6E2C\u6027\u8B93\u4F60\u80FD\u5728\u6545\u969C\u524D\u3001\u4E2D\u3001\u5F8C\u91CF\u6E2C\u7A69\u614B\u3002\u6C92\u6709\u5B83\uFF0C\u4F60\u5C31\u7121\u6CD5\u5224\u65B7\u5047\u8A2D\u662F\u5426\u6210\u7ACB\u3001\u7121\u6CD5\u5728\u50B7\u5BB3\u51FA\u73FE\u6642\u89F8\u767C\u4E2D\u6B62\uFF0C\u5BE6\u9A57\u4E5F\u7522\u751F\u4E0D\u51FA\u8B49\u64DA\u2014\u2014\u9019\u6B63\u662F\u5B83\u662F\u524D\u63D0\u7684\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u6B64\u6545\u969C\uFF1A\u7D42\u6B62\u57F7\u884C\u500B\u9AD4",
+            "text": "<p>\u67D0\u5BE6\u9A57\u7D42\u6B62\u4E86\u5176\u4E2D\u4E00\u500B\u904B\u884C\u4E2D\u7684\u61C9\u7528\u7A0B\u5F0F\u57F7\u884C\u500B\u9AD4\u3002\u6B64\u6545\u969C\u6700\u9069\u5408\u6B78\u985E\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u57F7\u884C\u500B\u9AD4\uFF0F\u4E3B\u6A5F\u5931\u6548\uFF08\u904B\u7B97\u8CC7\u6E90\u907A\u5931\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BBA\u6389\u57F7\u884C\u500B\u9AD4\u662F\u5728\u6A21\u64EC\u4E00\u500B\u904B\u7B97\u7BC0\u9EDE\u7684\u907A\u5931\u3002"
+              },
+              {
+                "text": "\u7DB2\u8DEF\u5206\u5272",
+                "fraction": 0,
+                "feedback": "\u5206\u5272\u662F\u5207\u65B7\u7DB2\u8DEF\uFF1B\u6B64\u8655\u662F\u79FB\u9664\u6574\u500B\u57F7\u884C\u500B\u9AD4\uFF0C\u5C6C\u65BC\u904B\u7B97\u8CC7\u6E90\u907A\u5931\u7684\u6545\u969C\u3002"
+              },
+              {
+                "text": "\u6CE8\u5165\u5EF6\u9072",
+                "fraction": 0,
+                "feedback": "\u5EF6\u9072\u662F\u62D6\u6162\u56DE\u61C9\uFF1B\u7D42\u6B62\u57F7\u884C\u500B\u9AD4\u662F\u628A\u5B83\u6574\u500B\u79FB\u9664\uFF0C\u662F\u4E0D\u540C\u7684\u6545\u969C\u3002"
+              },
+              {
+                "text": "\u78C1\u789F\u8017\u76E1",
+                "fraction": 0,
+                "feedback": "\u78C1\u789F\u8017\u76E1\u662F\u628A\u5132\u5B58\u7A7A\u9593\u586B\u6EFF\uFF1B\u6BBA\u6389\u57F7\u884C\u500B\u9AD4\u662F\u904B\u7B97\uFF0F\u4E3B\u6A5F\u5931\u6548\uFF0C\u800C\u975E\u5132\u5B58\u6545\u969C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D42\u6B62\u904B\u884C\u4E2D\u7684\u57F7\u884C\u500B\u9AD4\u662F\u5728\u6A21\u64EC\u904B\u7B97\u7BC0\u9EDE\u6216\u4E3B\u6A5F\u7A81\u7136\u907A\u5931\u2014\u2014\u9019\u6B63\u662F Chaos Monkey \u6240\u570D\u7E5E\u7684\u6545\u969C\u3002\u5B83\u8207\u7DB2\u8DEF\u6545\u969C\uFF08\u5EF6\u9072\u3001\u5206\u5272\uFF09\u4EE5\u53CA\u8CC7\u6E90\u8017\u76E1\u6545\u969C\uFF08CPU\u3001\u8A18\u61B6\u9AD4\u3001\u78C1\u789F\uFF09\u90FD\u4E0D\u540C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u6B64\u6545\u969C\uFF1A\u6CE8\u5165\u5EF6\u9072",
+            "text": "<p>\u67D0\u5BE6\u9A57\u70BA\u4ED8\u6B3E\u670D\u52D9\u7684\u56DE\u61C9\u52A0\u4E0A 300 \u6BEB\u79D2\u7684\u5EF6\u9072\u3002\u6B64\u6545\u969C\u6700\u9069\u5408\u6B78\u985E\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6CE8\u5165\u7684\u7DB2\u8DEF\uFF0F\u76F8\u4F9D\u670D\u52D9\u5EF6\u9072",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u70BA\u56DE\u61C9\u52A0\u4E0A\u5EF6\u9072\u662F\u4E00\u7A2E\u5EF6\u9072\u6545\u969C\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u500B\u9AD4\u7D42\u6B62",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u6771\u897F\u88AB\u7D42\u6B62\uFF1B\u670D\u52D9\u4ECD\u5728\u56DE\u61C9\uFF0C\u53EA\u662F\u8B8A\u6162\u4E86\u3002"
+              },
+              {
+                "text": "CPU \u8017\u76E1",
+                "fraction": 0,
+                "feedback": "\u5EF6\u9072\u662F\u52A0\u8AF8\u65BC\u56DE\u61C9\u4E4B\u4E0A\uFF0C\u800C\u975E\u56E0\u70BA\u9913\u6B7B CPU \u9020\u6210\u7684\uFF1B\u9019\u662F\u5EF6\u9072\u6545\u969C\u3002"
+              },
+              {
+                "text": "\u6642\u9418\u504F\u79FB\u6545\u969C",
+                "fraction": 0,
+                "feedback": "\u6642\u9418\u504F\u79FB\u662F\u4F7F\u7BC0\u9EDE\u4E4B\u9593\u7684\u6642\u9593\u932F\u958B\uFF1B\u52A0\u4E0A\u56DE\u61C9\u5EF6\u9072\u662F\u5EF6\u9072\u6545\u969C\uFF0C\u800C\u975E\u6642\u9593\u6545\u969C\u3002"
+              }
+            ],
+            "generalFeedback": "\u70BA\u67D0\u670D\u52D9\u7684\u56DE\u61C9\u52A0\u4E0A\u5EF6\u9072\u662F\u4E00\u7A2E\u5EF6\u9072\u6CE8\u5165\u6545\u969C\u3002\u5B83\u6E2C\u8A66\u547C\u53EB\u7AEF\u662F\u5426\u80FD\u512A\u96C5\u5730\u8655\u7406\u7DE9\u6162\u7684\u76F8\u4F9D\u670D\u52D9\u2014\u2014\u4F8B\u5982\u900F\u904E\u903E\u6642\u3001\u5E36\u9000\u907F\u7684\u91CD\u8A66\u6216\u65B7\u8DEF\u5668\u2014\u2014\u800C\u4E0D\u662F\u5361\u4F4F\u6216\u628A\u5EF6\u9072\u5C64\u5C64\u64F4\u6563\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u6B64\u6545\u969C\uFF1A\u7DB2\u8DEF\u5206\u5272",
+            "text": "<p>\u67D0\u5BE6\u9A57\u963B\u65B7\u5169\u500B\u670D\u52D9\u53E2\u96C6\u4E4B\u9593\u7684\u6240\u6709\u6D41\u91CF\uFF0C\u4F7F\u5B83\u5011\u518D\u4E5F\u7121\u6CD5\u4E92\u76F8\u9023\u63A5\u3002\u6B64\u6545\u969C\u6700\u9069\u5408\u6B78\u985E\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7DB2\u8DEF\u5206\u5272\uFF08\u7CFB\u7D71\u5404\u90E8\u5206\u4E4B\u9593\u7684\u5207\u65B7\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5207\u65B7\u53E2\u96C6\u4E4B\u9593\u7684\u901A\u8A0A\u662F\u7DB2\u8DEF\u5206\u5272\u3002"
+              },
+              {
+                "text": "\u8A18\u61B6\u9AD4\u8017\u76E1",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u8A18\u61B6\u9AD4\u88AB\u6D88\u8017\uFF1B\u88AB\u5207\u65B7\u7684\u662F\u53E2\u96C6\u4E4B\u9593\u7684\u7DB2\u8DEF\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u500B\u9AD4\u7D42\u6B62",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u500B\u9AD4\u4ECD\u5728\u904B\u884C\uFF1B\u5B83\u5011\u53EA\u662F\u7121\u6CD5\u901A\u8A0A\uFF0C\u9019\u662F\u5206\u5272\u3002"
+              },
+              {
+                "text": "\u6642\u9418\u504F\u79FB",
+                "fraction": 0,
+                "feedback": "\u6642\u9418\u504F\u79FB\u662F\u4F7F\u6642\u9593\u932F\u958B\uFF1B\u963B\u65B7\u53E2\u96C6\u4E4B\u9593\u7684\u6D41\u91CF\u662F\u7DB2\u8DEF\u5206\u5272\u3002"
+              }
+            ],
+            "generalFeedback": "\u5207\u65B7\u7DB2\u8DEF\u4F7F\u7CFB\u7D71\u7684\u5169\u500B\u90E8\u5206\u7121\u6CD5\u4E92\u76F8\u9023\u63A5\uFF0C\u662F\u4E00\u7A2E\u7DB2\u8DEF\u5206\u5272\uFF08\u300C\u8166\u88C2\u300D\u60C5\u5883\uFF09\u3002\u5B83\u6E2C\u8A66\u7CFB\u7D71\u5728\u5143\u4EF6\u88AB\u5B64\u7ACB\u6642\u7684\u884C\u70BA\u2014\u2014\u4F8B\u5982\u5B83\u662F\u5426\u80FD\u7DAD\u6301\u4E00\u81F4\u6027\u3001\u512A\u96C5\u964D\u7D1A\uFF0C\u6216\u5728\u5206\u5272\u4FEE\u5FA9\u5F8C\u5FA9\u539F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5047\u8A2D\u6240\u6BD4\u8F03\u7684\u5C0D\u8C61",
+            "text": "<p>\u4E00\u500B\u826F\u597D\u5B9A\u7FA9\u7684\u7A69\u614B\u5047\u8A2D\uFF0C\u662F\u4EE5\u4E0B\u5217\u4F55\u8005\u4F86\u8868\u8FF0\u7684\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u53EF\u91CF\u6E2C\u7684\u7A69\u614B\u6307\u6A19\u5728\u6545\u969C\u4E0B\u4ECD\u6301\u7E8C\u7DAD\u6301\uFF0C\u6700\u597D\u662F\u62FF\u5BE6\u9A57\u7D44\u8207\u5C0D\u7167\u7D44\u4F86\u6BD4\u8F03",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5047\u8A2D\u662F\u95DC\u65BC\u4E00\u500B\u53EF\u91CF\u6E2C\u7684\u6307\u6A19\uFF0C\u4E26\u5728\u5C0D\u7167\u7D44\u8207\u5BE6\u9A57\u7D44\u4E4B\u9593\u6BD4\u8F03\u3002"
+              },
+              {
+                "text": "\u503C\u73ED\u5DE5\u7A0B\u5E2B\u5C0D\u300C\u60C5\u6CC1\u611F\u89BA\u9084\u597D\u55CE\u300D\u7684\u500B\u4EBA\u4E3B\u89C0\u770B\u6CD5",
+                "fraction": 0,
+                "feedback": "\u5047\u8A2D\u5FC5\u9808\u662F\u53EF\u91CF\u6E2C\u7684\uFF0C\u800C\u975E\u4E3B\u89C0\u5370\u8C61\u3002"
+              },
+              {
+                "text": "\u53D7\u5F71\u97FF\u670D\u52D9\u7684\u7A0B\u5F0F\u78BC\u884C\u6578",
+                "fraction": 0,
+                "feedback": "\u7A0B\u5F0F\u78BC\u898F\u6A21\u4E0D\u662F\u7A69\u614B\u6307\u6A19\uFF1B\u5047\u8A2D\u95DC\u5207\u7684\u662F\u53EF\u91CF\u6E2C\u7684\u884C\u70BA\uFF0C\u5982\u932F\u8AA4\u7387\u6216\u5EF6\u9072\u3002"
+              },
+              {
+                "text": "\u539F\u59CB\u78BC\u5EAB\u662F\u5426\u80FD\u7121\u8B66\u544A\u5730\u7DE8\u8B6F",
+                "fraction": 0,
+                "feedback": "\u5EFA\u7F6E\u662F\u5426\u4E7E\u6DE8\uFF0C\u8207\u5047\u8A2D\u6240\u95DC\u5207\u7684\u57F7\u884C\u671F\u7A69\u614B\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A69\u614B\u5047\u8A2D\u4EE5\u53EF\u91CF\u6E2C\u7684\u65B9\u5F0F\u8868\u8FF0\u2014\u2014\u4F8B\u5982\u300C\u932F\u8AA4\u7387\u7DAD\u6301\u5728 1% \u4EE5\u4E0B\uFF0C\u4E14 p99 \u5EF6\u9072\u4F4E\u65BC 400 \u6BEB\u79D2\u300D\u2014\u2014\u4E26\u9810\u6E2C\u9019\u5728\u5BE6\u9A57\u7D44\uFF08\u6709\u6545\u969C\uFF09\u4E2D\u6703\u5982\u540C\u5728\u5C0D\u7167\u7D44\uFF08\u7121\u6545\u969C\uFF09\u4E2D\u4E00\u6A23\u6210\u7ACB\u3002\u6BD4\u8F03\u5169\u7D44\u80FD\u628A\u6545\u969C\u7684\u5F71\u97FF\u5B64\u7ACB\u51FA\u4F86\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5617\u8A66\u63A8\u7FFB\u7684\u76EE\u7684",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6DF7\u6C8C\u5BE6\u9A57\u8981\u4E3B\u52D5\u53BB<em>\u63A8\u7FFB</em>\u7A69\u614B\u5047\u8A2D\uFF0C\u800C\u4E0D\u662F\u53BB\u78BA\u8A8D\u5B83\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u7A69\u614B\u672A\u80FD\u7DAD\u6301\u6703\u7CBE\u6E96\u6307\u51FA\u4E00\u500B\u9700\u8981\u4FEE\u88DC\u7684\u771F\u5BE6\u5F31\u9EDE\uFF0C\u800C\u9019\u6B63\u662F\u6709\u50F9\u503C\u7684\u7D50\u679C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5617\u8A66\u63A8\u7FFB\u5047\u8A2D\uFF0C\u6B63\u662F\u627E\u51FA\u5F31\u9EDE\u7684\u65B9\u5F0F\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5728\u4EFB\u4F55\u5BE6\u9A57\u4E2D\u78BA\u8A8D\u4E00\u500B\u5047\u8A2D\u90FD\u662F\u4E0D\u53EF\u80FD\u7684",
+                "fraction": 0,
+                "feedback": "\u91CD\u9EDE\u4E0D\u5728\u65BC\u78BA\u8A8D\u4E0D\u53EF\u80FD\uFF0C\u800C\u5728\u65BC\u300C\u8A2D\u6CD5\u63A8\u7FFB\u300D\u624D\u80FD\u8B93\u5F31\u9EDE\u6D6E\u73FE\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5718\u968A\u5E0C\u671B\u7CFB\u7D71\u6C38\u4E45\u5931\u6548",
+                "fraction": 0,
+                "feedback": "\u5718\u968A\u662F\u60F3\u5B89\u5168\u5730\u627E\u51FA\u4E26\u4FEE\u88DC\u5F31\u9EDE\uFF0C\u800C\u975E\u9020\u6210\u6C38\u4E45\u5931\u6548\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u63A8\u7FFB\u80FD\u514D\u9664\u4EFB\u4F55\u76E3\u63A7\u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u7121\u8AD6\u5982\u4F55\u90FD\u9700\u8981\u76E3\u63A7\uFF1B\u63A8\u7FFB\u7684\u91CD\u9EDE\u5728\u65BC\u4E86\u89E3\u7CFB\u7D71\u5728\u54EA\u88E1\u8106\u5F31\u3002"
+              }
+            ],
+            "generalFeedback": "\u5982\u540C\u79D1\u5B78\u5BE6\u9A57\uFF0C\u6DF7\u6C8C\u5DE5\u7A0B\u5C0B\u627E\u5C0D\u5176\u5047\u8A2D\u4E0D\u5229\u7684\u8B49\u64DA\u3002\u82E5\u7A69\u614B\u5728\u6CE8\u5165\u7684\u6545\u969C\u4E0B\u672A\u80FD\u7DAD\u6301\uFF0C\u90A3\u6B63\u662F\u4F60\u60F3\u5B78\u5230\u7684\uFF1A\u4E00\u500B\u5177\u9AD4\u7684\u5F31\u9EDE\u5DF2\u88AB\u5B9A\u4F4D\uFF0C\u53EF\u5728\u5B83\u9020\u6210\u771F\u5BE6\u505C\u6A5F\u4E4B\u524D\u52A0\u4EE5\u4FEE\u88DC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u91D1\u7D72\u96C0\u4F5C\u70BA\u6CE2\u53CA\u7BC4\u570D\u63A7\u5236",
+            "text": "<p>\u5148\u53EA\u91DD\u5C0D 1% \u7684\u7DDA\u4E0A\u6D41\u91CF\u57F7\u884C\u5BE6\u9A57\uFF08\u91D1\u7D72\u96C0\uFF09\uFF0C\u518D\u9010\u6B65\u64F4\u5927\uFF0C\u9019\u662F\u4EE5\u4E0B\u4F55\u8005\u7684\u4F8B\u5B50\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u63A7\u5236\u6CE2\u53CA\u7BC4\u570D\u2014\u2014\u5F9E\u5C0F\u958B\u59CB\uFF0C\u597D\u8B93\u4EFB\u4F55\u50B7\u5BB3\u90FD\u88AB\u63A7\u5236\u4F4F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u5BE6\u9A57\u9650\u5236\u5728\u4E00\u5C0F\u90E8\u5206\u6D41\u91CF\u4E0A\uFF0C\u5C31\u662F\u6CE2\u53CA\u7BC4\u570D\u63A7\u5236\u3002"
+              },
+              {
+                "text": "\u5B9A\u7FA9\u7A69\u614B",
+                "fraction": 0,
+                "feedback": "\u7A69\u614B\u662F\u6B63\u5E38\u884C\u70BA\u7684\u6307\u6A19\uFF1B\u4F7F\u7528 1% \u7684\u6D41\u91CF\u662F\u95DC\u65BC\u9650\u7E2E\u5F71\u97FF\uFF0C\u800C\u975E\u5B9A\u7FA9\u57FA\u6E96\u3002"
+              },
+              {
+                "text": "\u5F62\u6210\u5047\u8A2D",
+                "fraction": 0,
+                "feedback": "\u5047\u8A2D\u662F\u88AB\u6AA2\u9A57\u7684\u9810\u6E2C\uFF1B1% \u91D1\u7D72\u96C0\u662F\u4E00\u7A2E\u63A7\u5236\u6CE2\u53CA\u7BC4\u570D\u7684\u65B9\u5F0F\u3002"
+              },
+              {
+                "text": "\u79FB\u9664\u4E2D\u6B62\u7684\u80FD\u529B",
+                "fraction": 0,
+                "feedback": "\u91D1\u7D72\u96C0\u662F\u5B89\u5168\u63AA\u65BD\uFF0C\u8207\u4E2D\u6B62\u4E26\u884C\u904B\u4F5C\uFF0C\u800C\u975E\u5F7C\u6B64\u5C0D\u7ACB\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u66B4\u9732\u4E00\u5C0F\u90E8\u5206\u6D41\u91CF\uFF08\u91D1\u7D72\u96C0\uFF09\u662F\u628A\u6CE2\u53CA\u7BC4\u570D\u7DAD\u6301\u5F97\u5C0F\u7684\u7D93\u5178\u505A\u6CD5\u3002\u82E5\u5BE6\u9A57\u63ED\u9732\u51FA\u5F31\u9EDE\uFF0C\u53EA\u6709\u90A3\u4E00\u5C0F\u90E8\u5206\u6703\u53D7\u5F71\u97FF\uFF1B\u4F60\u96A8\u8457\u4FE1\u5FC3\u589E\u9577\u9010\u6B65\u64F4\u5927\uFF0C\u4E26\u5168\u7A0B\u5099\u59A5\u4E2D\u6B62\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u88DC\u5145\u5176\u4ED6\u6E2C\u8A66",
+            "text": "<p>\u6DF7\u6C8C\u5DE5\u7A0B\u8207\u5176\u4ED6\u5F62\u5F0F\u7684\u6E2C\u8A66\uFF08\u55AE\u5143\u3001\u6574\u5408\u7B49\uFF09\u4E4B\u9593\u662F\u4EC0\u9EBC\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u4EE5\u5728\u771F\u5BE6\u4E16\u754C\u6545\u969C\u4E0B\u7684\u97CC\u6027\u70BA\u76EE\u6A19\u4F86\u88DC\u5145\u5B83\u5011\uFF1B\u5B83\u4E0D\u53D6\u4EE3\u5B83\u5011",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DF7\u6C8C\u5DE5\u7A0B\u662F\u5728\u5176\u4ED6\u6E2C\u8A66\u4E4B\u4E0A\u589E\u6DFB\u97CC\u6027\u8B49\u64DA\uFF0C\u800C\u975E\u53D6\u800C\u4EE3\u4E4B\u3002"
+              },
+              {
+                "text": "\u5B83\u53D6\u4EE3\u6240\u6709\u55AE\u5143\u8207\u6574\u5408\u6E2C\u8A66\uFF0C\u4F7F\u5B83\u5011\u8B8A\u5F97\u6C92\u5FC5\u8981",
+                "fraction": 0,
+                "feedback": "\u6DF7\u6C8C\u5DE5\u7A0B\u662F\u88DC\u5145\u5176\u4ED6\u6E2C\u8A66\uFF1B\u55AE\u5143\u8207\u6574\u5408\u6E2C\u8A66\u4ECD\u7136\u4E0D\u53EF\u6216\u7F3A\u3002"
+              },
+              {
+                "text": "\u5B83\u8207\u6E2C\u8A66\u76F4\u63A5\u7AF6\u722D\uFF0C\u4E0D\u61C9\u8207\u5176\u4E26\u7528",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u4E92\u88DC\u800C\u975E\u7AF6\u722D\uFF1B\u6DF7\u6C8C\u5DE5\u7A0B\u6DB5\u84CB\u5176\u4ED6\u6E2C\u8A66\u672A\u6DB5\u84CB\u7684\u90E8\u5206\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u5C0D\u6C92\u6709\u5176\u4ED6\u6E2C\u8A66\u7684\u5718\u968A\u624D\u6709\u610F\u7FA9",
+                "fraction": 0,
+                "feedback": "\u7121\u8AD6\u6709\u6C92\u6709\u5176\u4ED6\u6E2C\u8A66\uFF0C\u5B83\u90FD\u80FD\u5E36\u4F86\u50F9\u503C\uFF0C\u56E0\u70BA\u5B83\u5728\u771F\u5BE6\u689D\u4EF6\u4E0B\u6F14\u7DF4\u97CC\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DF7\u6C8C\u5DE5\u7A0B\u8655\u7406\u4E00\u500B\u5176\u4ED6\u6E2C\u8A66\u5F88\u5C11\u6DB5\u84CB\u7684\u554F\u984C\uFF1A\u6574\u500B\u7CFB\u7D71\u5728\u6B63\u5F0F\u74B0\u5883\u898F\u6A21\u7684\u771F\u5BE6\u6545\u969C\u4E0B\u5982\u4F55\u8868\u73FE\u3002\u5B83\u662F\u88DC\u5145\u55AE\u5143\u3001\u6574\u5408\u53CA\u5176\u4ED6\u6E2C\u8A66\uFF0C\u800C\u975E\u53D6\u4EE3\u5176\u4E2D\u4EFB\u4F55\u4E00\u9805\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5728\u6B63\u5F0F\u74B0\u5883\u4E0D\u8A2D\u9632\u8B77\u63AA\u65BD",
+            "text": "<p>\u70BA\u4E86\u53D6\u5F97\u6700\u9AD8\u7684\u64EC\u771F\u5EA6\uFF0C\u6DF7\u6C8C\u5BE6\u9A57\u61C9\u5728\u6B63\u5F0F\u74B0\u5883\u4E2D\u4E0D\u8A2D\u4EFB\u4F55\u9632\u8B77\u63AA\u65BD\u5730\u57F7\u884C\u2014\u2014\u6C92\u6709\u5C0F\u7684\u6CE2\u53CA\u7BC4\u570D\uFF0C\u4E5F\u6C92\u6709\u4E2D\u6B62\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B63\u5F0F\u74B0\u5883\u56E0\u64EC\u771F\u800C\u88AB\u504F\u597D\uFF0C\u4F46\u5FC5\u9808\u5E36\u8457\u9632\u8B77\u63AA\u65BD\uFF1A\u5C0F\u7684\u6CE2\u53CA\u7BC4\u570D\u3001\u4E2D\u6B62\uFF0C\u4EE5\u53CA\u5F37\u529B\u7684\u53EF\u89C0\u6E2C\u6027\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u932F\u7684\uFF1A\u5728\u6B63\u5F0F\u74B0\u5883\u4E0D\u8A2D\u9632\u8B77\u63AA\u65BD\u5730\u57F7\u884C\u6703\u6709\u5C0E\u81F4\u4E0D\u53D7\u63A7\u505C\u6A5F\u7684\u98A8\u96AA\u3002\u64EC\u771F\u5FC5\u9808\u642D\u914D\u6709\u9650\u7684\u6CE2\u53CA\u7BC4\u570D\u8207\u4E2D\u6B62\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DF7\u6C8C\u5DE5\u7A0B\u78BA\u5BE6\u56E0\u64EC\u771F\u800C\u504F\u597D\u6B63\u5F0F\u74B0\u5883\uFF0C\u4F46\u8981\u8CA0\u8CAC\u4EFB\u5730\u505A\uFF1A\u4F60\u628A\u6CE2\u53CA\u7BC4\u570D\u7DAD\u6301\u5F97\u5C0F\u3001\u5099\u59A5\u4E2D\u6B62\uFF0C\u4E26\u4EF0\u8CF4\u5F37\u529B\u7684\u53EF\u89C0\u6E2C\u6027\u3002\u79FB\u9664\u9019\u4E9B\u9632\u8B77\u63AA\u65BD\u6703\u628A\u4E00\u500B\u53D7\u63A7\u7684\u5BE6\u9A57\u8B8A\u6210\u9B6F\u83BD\u7684\u5BE6\u9A57\u3002"
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u7D50\u5E33\u8A2D\u8A08\u4E00\u500B\u5BE6\u9A57",
+            "text": "<p>\u4F60\u60F3\u70BA\u4E00\u500B\u4F9D\u8CF4\u4ED8\u6B3E\u670D\u52D9\u7684\u96FB\u5546\u7D50\u5E33\u6D41\u7A0B\u8A2D\u8A08\u4E00\u500B\u6DF7\u6C8C\u5BE6\u9A57\u3002\u54EA\u4E00\u500B\u8A2D\u8A08\u6700\u5065\u5168\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7A69\u614B\uFF1A\u7D50\u5E33\u6210\u529F\u7387 \u2265 99%\u3002\u5047\u8A2D\uFF1A\u4ED8\u6B3E\u5EF6\u9072\u4E0A\u5347\u6642\u5B83\u4ECD\u7DAD\u6301 \u2265 99%\u3002\u6545\u969C\uFF1A\u70BA\u4ED8\u6B3E\u670D\u52D9\u52A0\u5165\u5EF6\u9072\u3002\u6CE2\u53CA\u7BC4\u570D\uFF1A1% \u7684\u6D41\u91CF\u3002\u4E2D\u6B62\uFF1A\u82E5\u6210\u529F\u7387\u8DCC\u7834 95% \u5C31\u505C\u6B62\u3002",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u6307\u660E\u4E86\u53EF\u91CF\u6E2C\u7684\u7A69\u614B\u3001\u5047\u8A2D\u3001\u771F\u5BE6\u7684\u6545\u969C\u3001\u5C0F\u7684\u6CE2\u53CA\u7BC4\u570D\u8207\u4E2D\u6B62\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u7A69\u614B\uFF1A\u7121\u3002\u5047\u8A2D\uFF1A\u7121\u3002\u6545\u969C\uFF1A\u5C0D\u6240\u6709\u4F7F\u7528\u8005\u95DC\u9589\u6574\u500B\u4ED8\u6B3E\u670D\u52D9\u3002\u6CE2\u53CA\u7BC4\u570D\uFF1A100%\u3002\u4E2D\u6B62\uFF1A\u7121\u3002",
+                "fraction": 0,
+                "feedback": "\u9019\u6C92\u6709\u53EF\u91CF\u6E2C\u7684\u57FA\u6E96\u3001\u6C92\u6709\u5047\u8A2D\u3001\u6CE2\u53CA\u7BC4\u570D\u7121\u4E0A\u9650\u3001\u4E5F\u6C92\u6709\u4E2D\u6B62\u2014\u2014\u8207\u5065\u5168\u7684\u8A2D\u8A08\u6070\u597D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u7A69\u614B\uFF1A\u300C\u5718\u968A\u5C0D\u7D50\u5E33\u611F\u89BA\u826F\u597D\u300D\u3002\u6545\u969C\uFF1A\u91CD\u65B0\u547D\u540D\u4E00\u500B\u8CC7\u6599\u5EAB\u6B04\u4F4D\u3002\u6CE2\u53CA\u7BC4\u570D\uFF1A\u6240\u6709\u4F7F\u7528\u8005\u3002\u4E2D\u6B62\uFF1A\u7B49\u54EA\u500B\u4EBA\u60F3\u8D77\u4F86\u53BB\u770B\u7684\u6642\u5019\u3002",
+                "fraction": 0,
+                "feedback": "\u7A69\u614B\u4E0D\u53EF\u91CF\u6E2C\u3001\u91CD\u65B0\u547D\u540D\u6B04\u4F4D\u4E0D\u662F\u6545\u969C\u6CE8\u5165\u3001\u6CE2\u53CA\u7BC4\u570D\u7121\u4E0A\u9650\uFF0C\u4E2D\u6B62\u4E5F\u6C92\u6709\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u7A69\u614B\uFF1A\u7D50\u5E33\u6210\u529F\u7387 \u2265 99%\u3002\u6545\u969C\uFF1A\u4E0D\u6CE8\u5165\u4EFB\u4F55\u6771\u897F\u3002\u53EA\u770B\u5100\u8868\u677F\u5C31\u5BA3\u544A\u7CFB\u7D71\u6709\u97CC\u6027\u3002",
+                "fraction": 0,
+                "feedback": "\u4E0D\u6CE8\u5165\u6545\u969C\u5C31\u7B49\u65BC\u4EC0\u9EBC\u90FD\u6C92\u6E2C\uFF1B\u89C0\u5BDF\u4E00\u500B\u5065\u5EB7\u7684\u7CFB\u7D71\u7121\u6CD5\u8B49\u660E\u4EFB\u4F55\u95DC\u65BC\u97CC\u6027\u7684\u4E8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B\u5065\u5168\u7684\u5BE6\u9A57\u6703\u6307\u660E\u4EE5\u4E0B\u5168\u90E8\uFF1A\u53EF\u91CF\u6E2C\u7684\u7A69\u614B\uFF08\u7D50\u5E33\u6210\u529F\u7387 \u2265 99%\uFF09\u3001\u660E\u78BA\u7684\u5047\u8A2D\uFF08\u5B83\u5728\u6545\u969C\u4E0B\u4ECD\u6210\u7ACB\uFF09\u3001\u771F\u5BE6\u6CE8\u5165\u7684\u6545\u969C\uFF08\u4ED8\u6B3E\u5EF6\u9072\uFF09\u3001\u53D7\u63A7\u7684\u6CE2\u53CA\u7BC4\u570D\uFF081% \u7684\u6D41\u91CF\uFF09\uFF0C\u4EE5\u53CA\u4E2D\u6B62\u689D\u4EF6\uFF08\u6210\u529F\u7387 < 95% \u5C31\u505C\u6B62\uFF09\u3002\u5176\u4ED6\u9078\u9805\u5404\u81EA\u90FD\u5C11\u4E86\u5176\u4E2D\u4E00\u9805\u6216\u591A\u9805\u8981\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u89E3\u8B80\u88AB\u7834\u58DE\u7684\u7A69\u614B",
+            "text": "<p>\u5BE6\u9A57\u671F\u9593\uFF0C\u5C0D\u67D0\u76F8\u4F9D\u670D\u52D9\u6CE8\u5165\u5EF6\u9072\uFF0C\u5C0E\u81F4\u7D50\u5E33\u932F\u8AA4\u7387\u9060\u9060\u98C6\u5347\u8D85\u904E\u5176\u7A69\u614B\u9580\u6ABB\u3002\u6B63\u78BA\u7684\u89E3\u8B80\u8207\u56DE\u61C9\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5047\u8A2D\u88AB\u63A8\u7FFB\uFF1A\u627E\u5230\u4E86\u4E00\u500B\u97CC\u6027\u5F31\u9EDE\u3002\u5FC5\u8981\u6642\u4E2D\u6B62\uFF0C\u7136\u5F8C\u4FEE\u88DC\uFF08\u4F8B\u5982\u52A0\u5165\u903E\u6642\u3001\u91CD\u8A66\u6216\u65B7\u8DEF\u5668\uFF09\u4E26\u91CD\u65B0\u6E2C\u8A66\u3002",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u88AB\u7834\u58DE\u7684\u7A69\u614B\u662F\u4E00\u500B\u627E\u5230\u7684\u5F31\u9EDE\uFF0C\u8981\u5148\u4FEE\u88DC\u3001\u518D\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u5BE6\u9A57\u5931\u6557\u4E86\uFF0C\u61C9\u8A72\u4E1F\u68C4\uFF1B\u4EC0\u9EBC\u4E5F\u6C92\u5B78\u5230",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u76F8\u53CD\uFF0C\u63A8\u7FFB\u5047\u8A2D\u662F\u6709\u50F9\u503C\u7684\u7D50\u679C\u2014\u2014\u5B83\u5B9A\u4F4D\u51FA\u4E86\u4E00\u500B\u771F\u5BE6\u7684\u5F31\u9EDE\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u6C92\u554F\u984C\uFF1B\u6545\u969C\u4E0B\u98C6\u5347\u7684\u932F\u8AA4\u7387\u53EF\u4EE5\u5FFD\u7565",
+                "fraction": 0,
+                "feedback": "\u88AB\u6545\u969C\u7834\u58DE\u7684\u7A69\u614B\uFF0C\u6B63\u662F\u5BE6\u9A57\u5B58\u5728\u7684\u76EE\u7684\u6240\u8981\u627E\u7684\u5F31\u9EDE\uFF1B\u7D55\u4E0D\u80FD\u5FFD\u7565\u3002"
+              },
+              {
+                "text": "\u5B83\u8B49\u660E\u4E86\u8A72\u76F8\u4F9D\u670D\u52D9\u5728\u4EFB\u4F55\u60C5\u6CC1\u4E0B\u90FD\u4E0D\u61C9\u518D\u88AB\u547C\u53EB",
+                "fraction": 0,
+                "feedback": "\u6B64\u767C\u73FE\u662F\u547C\u53EB\u7AEF\u5C0D\u7DE9\u6162\u76F8\u4F9D\u670D\u52D9\u8655\u7406\u4E0D\u7576\uFF1B\u4FEE\u6CD5\u662F\u52A0\u5F37\u97CC\u6027\uFF08\u903E\u6642\uFF0F\u91CD\u8A66\uFF0F\u65B7\u8DEF\u5668\uFF09\uFF0C\u800C\u975E\u7981\u7528\u8A72\u76F8\u4F9D\u670D\u52D9\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6CE8\u5165\u7684\u6545\u969C\u7834\u58DE\u4E86\u7A69\u614B\uFF0C\u5047\u8A2D\u4FBF\u88AB\u63A8\u7FFB\uFF0C\u4E5F\u5C31\u5B9A\u4F4D\u51FA\u4E86\u4E00\u500B\u771F\u5BE6\u7684\u5F31\u9EDE\u3002\u6B63\u78BA\u7684\u56DE\u61C9\u662F\u63A7\u5236\u5F71\u97FF\uFF08\u5FC5\u8981\u6642\u4E2D\u6B62\uFF09\u3001\u4FEE\u88DC\u8A72\u5F31\u9EDE\u2014\u2014\u4F8B\u5982\u4EE5\u903E\u6642\u3001\u5E36\u9000\u907F\u7684\u91CD\u8A66\u6216\u65B7\u8DEF\u5668\u2014\u2014\u7136\u5F8C\u91CD\u65B0\u57F7\u884C\u5BE6\u9A57\u4EE5\u78BA\u8A8D\u4FEE\u6CD5\u6709\u6548\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u89E3\u8B80\u7DAD\u6301\u4F4F\u7684\u7A69\u614B",
+            "text": "<p>\u67D0\u5BE6\u9A57\u6CE8\u5165\u4E86\u4E00\u500B\u6545\u969C\uFF0C\u800C\u7A69\u614B\u81EA\u59CB\u81F3\u7D42\u90FD\u7DAD\u6301\u4F4F\u4E86\u3002\u6700\u6E96\u78BA\u7684\u7D50\u8AD6\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u300C\u8A72\u7279\u5B9A\u6545\u969C\u300D\u7684\u97CC\u6027\u4FE1\u5FC3\u63D0\u5347\u4E86\uFF1B\u9019\u4E26\u4E0D\u8B49\u660E\u7CFB\u7D71\u5C0D\u6240\u6709\u6545\u969C\u90FD\u6709\u97CC\u6027\uFF0C\u4E5F\u4E0D\u4EE3\u8868\u6C38\u9060\u90FD\u6709\u97CC\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u901A\u904E\u7684\u5BE6\u9A57\u662F\u70BA\u8A72\u60C5\u5883\u5EFA\u7ACB\u4FE1\u5FC3\uFF0C\u800C\u975E\u6C38\u4E45\u4FDD\u8B49\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u73FE\u5728\u5DF2\u88AB\u8B49\u660E\u5C0D\u6BCF\u4E00\u7A2E\u53EF\u80FD\u7684\u5931\u6548\u90FD\u6C38\u4E45\u6709\u97CC\u6027",
+                "fraction": 0,
+                "feedback": "\u4E00\u6B21\u5BE6\u9A57\u53EA\u6DB5\u84CB\u4E00\u500B\u6545\u969C\u3001\u5728\u53D7\u6E2C\u689D\u4EF6\u4E0B\uFF1B\u5B83\u7121\u6CD5\u8B49\u660E\u5C0D\u6240\u6709\u6545\u969C\u6C38\u9060\u90FD\u6709\u97CC\u6027\u3002"
+              },
+              {
+                "text": "\u6DF7\u6C8C\u5DE5\u7A0B\u73FE\u5728\u5B8C\u6210\u4E86\uFF0C\u6C38\u9060\u4E0D\u9700\u8981\u518D\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u7CFB\u7D71\u6301\u7E8C\u8B8A\u5316\uFF0C\u56E0\u6B64\u5BE6\u9A57\u5FC5\u9808\u91CD\u8907\uFF1B\u55AE\u6B21\u901A\u904E\u4E26\u4E0D\u7B49\u65BC\u300C\u6C38\u9060\u641E\u5B9A\u300D\u3002"
+              },
+              {
+                "text": "\u9019\u500B\u5BE6\u9A57\u6BEB\u7121\u610F\u7FA9\uFF0C\u56E0\u70BA\u6C92\u6709\u627E\u5230\u5F31\u9EDE",
+                "fraction": 0,
+                "feedback": "\u5373\u4F7F\u6C92\u6709\u5F31\u9EDE\u6D6E\u73FE\uFF0C\u63D0\u5347\u4FE1\u5FC3\u3001\u964D\u4F4E\u4E0D\u78BA\u5B9A\u6027\u4ECD\u662F\u4E00\u500B\u6B63\u7576\u4E14\u6709\u7528\u7684\u7D50\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7DAD\u6301\u4F4F\u7684\u7A69\u614B\u4EE3\u8868\u7CFB\u7D71\u5728\u53D7\u6E2C\u689D\u4EF6\u4E0B\u5BB9\u5FCD\u4E86\u300C\u90A3\u500B\u7279\u5B9A\u7684\u6545\u969C\u300D\uFF0C\u9019\u63D0\u5347\u4E86\u5C0D\u5176\u97CC\u6027\u7684\u4FE1\u5FC3\u3002\u5B83\u4E0D\u662F\u5C0D\u6BCF\u4E00\u7A2E\u6545\u969C\u90FD\u6709\u97CC\u6027\u7684\u8B49\u660E\uFF0C\u4E5F\u4E0D\u662F\u6C38\u4E45\u4FDD\u8B49\u2014\u2014\u96A8\u8457\u7CFB\u7D71\u6F14\u9032\uFF0C\u5BE6\u9A57\u61C9\u8A72\u91CD\u8907\uFF08\u6700\u597D\u662F\u81EA\u52D5\u5316\u4E14\u6301\u7E8C\u7684\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6B63\u5F0F\u74B0\u5883\u5C0F\u6CE2\u53CA\u7BC4\u570D vs \u53EA\u5728\u9810\u5099\u74B0\u5883",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u5728\u6B63\u5F0F\u74B0\u5883\u4EE5\u5C0F\u6CE2\u53CA\u7BC4\u570D\u57F7\u884C\u5BE6\u9A57\uFF0C\u53EF\u80FD\u6BD4\u53EA\u5728\u9810\u5099\u74B0\u5883\u57F7\u884C\u66F4\u6709\u50F9\u503C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9810\u5099\u74B0\u5883\u5F88\u5C11\u80FD\u91CD\u73FE\u771F\u5BE6\u7684\u6D41\u91CF\u3001\u898F\u6A21\u3001\u8CC7\u6599\u8207\u76F8\u4F9D\u670D\u52D9\u884C\u70BA\uFF0C\u56E0\u6B64\u6709\u4E9B\u5F31\u9EDE\u53EA\u5728\u6B63\u5F0F\u74B0\u5883\u624D\u51FA\u73FE\uFF1B\u5C0F\u7684\u6CE2\u53CA\u7BC4\u570D\u8B93\u4F60\u80FD\u5728\u53D7\u63A7\u7684\u98A8\u96AA\u4E0B\u627E\u5230\u5B83\u5011",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B63\u5F0F\u74B0\u5883\u7684\u64EC\u771F\u5EA6\u6703\u63ED\u9732\u9810\u5099\u74B0\u5883\u6F0F\u6389\u7684\u5F31\u9EDE\uFF0C\u800C\u5C0F\u7684\u6CE2\u53CA\u7BC4\u570D\u8B93\u98A8\u96AA\u53D7\u63A7\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9810\u5099\u74B0\u5883\u7121\u6CD5\u57F7\u884C\u4EFB\u4F55\u5BE6\u9A57",
+                "fraction": 0,
+                "feedback": "\u9810\u5099\u74B0\u5883\u80FD\u57F7\u884C\u5BE6\u9A57\uFF1B\u91CD\u9EDE\u5728\u65BC\u5B83\u7121\u6CD5\u5FE0\u5BE6\u91CD\u73FE\u6B63\u5F0F\u74B0\u5883\u7684\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5728\u6B63\u5F0F\u74B0\u5883\u4F7F\u7528\u5C0F\u6CE2\u53CA\u7BC4\u570D\u80FD\u5B8C\u5168\u6D88\u9664\u6240\u6709\u98A8\u96AA",
+                "fraction": 0,
+                "feedback": "\u5B83\u80FD\u964D\u4F4E\u4E26\u63A7\u5236\u98A8\u96AA\uFF0C\u4F46\u4E0D\u80FD\u6D88\u9664\u98A8\u96AA\u3002\u9019\u6B63\u662F\u4ECD\u9700\u8981\u4E2D\u6B62\u8207\u53EF\u89C0\u6E2C\u6027\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6B63\u5F0F\u74B0\u5883\u7684\u5BE6\u9A57\u6C38\u9060\u4E0D\u9700\u8981\u76E3\u63A7\u6216\u4E2D\u6B62",
+                "fraction": 0,
+                "feedback": "\u6B63\u5F0F\u74B0\u5883\u7684\u5BE6\u9A57\u6BD4\u4EE5\u5F80\u66F4\u9700\u8981\u76E3\u63A7\u8207\u4E2D\u6B62\uFF1B\u5C0F\u7684\u6CE2\u53CA\u7BC4\u570D\u662F\u8207\u5B83\u5011\u4E26\u884C\u904B\u4F5C\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A31\u591A\u97CC\u6027\u5F31\u9EDE\u53EA\u5728\u771F\u5BE6\u7684\u6B63\u5F0F\u74B0\u5883\u6D41\u91CF\u3001\u898F\u6A21\u3001\u8CC7\u6599\u5206\u5E03\u8207\u76F8\u4F9D\u670D\u52D9\u884C\u70BA\u4E0B\u624D\u6D6E\u73FE\u2014\u2014\u800C\u9019\u4E9B\u662F\u9810\u5099\u74B0\u5883\u5F88\u5C11\u80FD\u91CD\u73FE\u7684\u689D\u4EF6\u3002\u5728\u6B63\u5F0F\u74B0\u5883\u4EE5\u5C0F\u7684\u3001\u53EF\u64F4\u5927\u7684\u6CE2\u53CA\u7BC4\u570D\uFF08\u5916\u52A0\u53EF\u89C0\u6E2C\u6027\u8207\u4E2D\u6B62\uFF09\u57F7\u884C\uFF0C\u80FD\u63ED\u9732\u90A3\u4E9B\u771F\u5BE6\u7684\u5F31\u9EDE\uFF0C\u540C\u6642\u628A\u98A8\u96AA\u7DAD\u6301\u5728\u53D7\u63A7\u7BC4\u570D\u5167\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FF7\u601D\uFF1A\u53EA\u662F\u5F04\u58DE\u6771\u897F",
+            "text": "<p>\u54EA\u4E00\u500B\u9673\u8FF0\u6700\u80FD\u7CFE\u6B63\u300C\u6DF7\u6C8C\u5DE5\u7A0B\u53EA\u662F\u5F04\u58DE\u6771\u897F\u300D\u9019\u500B\u8FF7\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u662F\u4E00\u5957\u6709\u7D00\u5F8B\u7684\u65B9\u6CD5\uFF1A\u53EF\u91CF\u6E2C\u7684\u7A69\u614B\u3001\u660E\u78BA\u7684\u5047\u8A2D\u3001\u53D7\u63A7\u7684\u6545\u969C\u3001\u6709\u9650\u7684\u6CE2\u53CA\u7BC4\u570D\u3001\u4E2D\u6B62\uFF0C\u4EE5\u53CA\u5168\u7A0B\u7684\u53EF\u89C0\u6E2C\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B63\u662F\u9019\u4EFD\u7D00\u5F8B\u8207\u9632\u8B77\u63AA\u65BD\uFF0C\u628A\u5B83\u548C\u55AE\u7D14\u7684\u7834\u58DE\u5340\u5206\u958B\u4F86\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u5DEE\u5225\uFF1B\u5F04\u58DE\u6771\u897F\u548C\u6DF7\u6C8C\u5DE5\u7A0B\u662F\u540C\u4E00\u56DE\u4E8B",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5DEE\u5225\u5F88\u5927\uFF1A\u6DF7\u6C8C\u5DE5\u7A0B\u662F\u53D7\u63A7\u4E14\u4EE5\u5047\u8A2D\u9A45\u52D5\u7684\uFF0C\u7834\u58DE\u5247\u5169\u8005\u7686\u975E\u3002"
+              },
+              {
+                "text": "\u6DF7\u6C8C\u5DE5\u7A0B\u5B8C\u5168\u907F\u514D\u6545\u969C\uFF0C\u53EA\u5BE9\u67E5\u67B6\u69CB\u5716",
+                "fraction": 0,
+                "feedback": "\u6CE8\u5165\u771F\u5BE6\u6545\u969C\u662F\u6838\u5FC3\uFF1B\u7D00\u5F8B\u5728\u65BC\u300C\u5982\u4F55\u53D7\u63A7\u5730\u505A\u300D\uFF0C\u800C\u975E\u907F\u958B\u6545\u969C\u3002"
+              },
+              {
+                "text": "\u5DEE\u5225\u53EA\u5728\u65BC\u6DF7\u6C8C\u5DE5\u7A0B\u4F7F\u7528\u6BD4\u8F03\u8CB4\u7684\u5DE5\u5177",
+                "fraction": 0,
+                "feedback": "\u5DEE\u5225\u5728\u65BC\u65B9\u6CD5\u8207\u9632\u8B77\u63AA\u65BD\uFF0C\u800C\u975E\u5DE5\u5177\u7684\u6210\u672C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5340\u5225\u7684\u95DC\u9375\u5728\u65BC\u7D00\u5F8B\uFF1A\u6DF7\u6C8C\u5DE5\u7A0B\u6703\u5B9A\u7FA9\u53EF\u91CF\u6E2C\u7684\u7A69\u614B\u3001\u9673\u8FF0\u5047\u8A2D\u3001\u6CE8\u5165\u53D7\u63A7\u7684\u6545\u969C\u3001\u63A7\u5236\u6CE2\u53CA\u7BC4\u570D\u3001\u5099\u59A5\u4E2D\u6B62\uFF0C\u4E26\u5168\u7A0B\u89C0\u5BDF\u3002\u300C\u53EA\u662F\u5F04\u58DE\u6771\u897F\u300D\u4E0D\u5177\u5099\u4E0A\u8FF0\u4EFB\u4F55\u4E00\u9805\u63A7\u5236\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u88AB\u63A8\u7FFB\u7684\u5047\u8A2D\u662F\u4E00\u7A2E\u6210\u529F",
+            "text": "<p>\u67D0\u5BE6\u9A57\u7684\u5047\u8A2D\u88AB\u63A8\u7FFB\u4E86\u2014\u2014\u7A69\u614B\u5728\u6545\u969C\u4E0B\u88AB\u7834\u58DE\u3002\u9019\u61C9\u8A72\u88AB\u5982\u4F55\u770B\u5F85\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u662F\u4E00\u7A2E\u6210\u529F\uFF1A\u5BE6\u9A57\u5B8C\u6210\u4E86\u5B83\u7684\u4EFB\u52D9\uFF0C\u6D6E\u73FE\u51FA\u4E00\u500B\u771F\u5BE6\u7684\u5F31\u9EDE\uFF0C\u73FE\u5728\u53EF\u5728\u5B83\u9020\u6210\u505C\u6A5F\u4E4B\u524D\u52A0\u4EE5\u4FEE\u88DC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u53D7\u63A7\u74B0\u5883\u4E2D\u5F97\u77E5\u4E00\u500B\u5F31\u9EDE\uFF0C\u6B63\u662F\u6709\u50F9\u503C\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u662F\u4E00\u6B21\u96E3\u582A\u7684\u5931\u6557\uFF0C\u61C9\u8A72\u5C0D\u5718\u968A\u96B1\u779E",
+                "fraction": 0,
+                "feedback": "\u5B89\u5168\u5730\u627E\u5230\u5F31\u9EDE\u662F\u52DD\u5229\uFF0C\u4E0D\u662F\u8981\u96B1\u779E\u7684\u4E8B\uFF1B\u5B83\u9632\u6B62\u4E86\u65E5\u5F8C\u66F4\u56B4\u91CD\u3001\u4E0D\u53D7\u63A7\u7684\u5931\u6548\u3002"
+              },
+              {
+                "text": "\u662F\u6DF7\u6C8C\u5DE5\u7A0B\u7121\u6548\u3001\u61C9\u8A72\u653E\u68C4\u7684\u8B49\u660E",
+                "fraction": 0,
+                "feedback": "\u65B9\u6CD5\u6B63\u5982\u9810\u671F\u5730\u904B\u4F5C\u4E86\uFF1A\u5B83\u5728\u53D7\u63A7\u689D\u4EF6\u4E0B\u66B4\u9732\u51FA\u4E00\u500B\u5F31\u9EDE\u3002"
+              },
+              {
+                "text": "\u662F\u65E5\u5F8C\u5BE6\u9A57\u61C9\u505C\u6B62\u91CF\u6E2C\u7A69\u614B\u7684\u7406\u7531",
+                "fraction": 0,
+                "feedback": "\u6B63\u662F\u7A69\u614B\u8B93\u4F60\u80FD\u5075\u6E2C\u5230\u9019\u500B\u5F31\u9EDE\uFF1B\u4F60\u61C9\u7E7C\u7E8C\u91CF\u6E2C\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u88AB\u63A8\u7FFB\u7684\u5047\u8A2D\u4EE3\u8868\u5BE6\u9A57\u5728\u5B89\u5168\u3001\u53D7\u63A7\u7684\u689D\u4EF6\u4E0B\u627E\u5230\u4E86\u4E00\u500B\u771F\u5BE6\u7684\u97CC\u6027\u5F31\u9EDE\u2014\u2014\u9019\u6B63\u662F\u6DF7\u6C8C\u5DE5\u7A0B\u7684\u91CD\u9EDE\u3002\u5B83\u662F\u4E00\u7A2E\u6210\u529F\uFF0C\u56E0\u70BA\u73FE\u5728\u4FEE\u88DC\u9019\u500B\u5F31\u9EDE\uFF0C\u9060\u6BD4\u5728\u771F\u5BE6\u3001\u4E0D\u53D7\u63A7\u7684\u505C\u6A5F\u4E2D\u624D\u767C\u73FE\u5B83\u4FBF\u5B9C\u5F97\u591A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0D\u80FD\u8B49\u660E\u7121\u932F\u8AA4",
+            "text": "<p>\u5728\u4E00\u9023\u4E32\u6DF7\u6C8C\u5BE6\u9A57\u5168\u90E8\u901A\u904E\u5F8C\uFF0C\u4E00\u4F4D\u4E3B\u7BA1\u8AAA\u300C\u9019\u8B49\u660E\u6211\u5011\u7684\u7CFB\u7D71\u6C92\u6709\u932F\u8AA4\u300D\u3002\u6700\u597D\u7684\u56DE\u61C9\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u901A\u904E\u7684\u5BE6\u9A57\u80FD\u5EFA\u7ACB\u5C0D\u300C\u6240\u6E2C\u6545\u969C\u300D\u4E4B\u97CC\u6027\u7684\u4FE1\u5FC3\uFF0C\u4F46\u7121\u6CD5\u8B49\u660E\u6240\u6709\u932F\u8AA4\u90FD\u4E0D\u5B58\u5728\uFF1B\u672A\u6E2C\u8A66\u7684\u6545\u969C\u8207\u689D\u4EF6\u4F9D\u7136\u5B58\u5728",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6DF7\u6C8C\u5DE5\u7A0B\u964D\u4F4E\u4E0D\u78BA\u5B9A\u6027\u3001\u5EFA\u7ACB\u4FE1\u5FC3\uFF1B\u5B83\u4E0D\u8B49\u660E\u7121\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u540C\u610F\u2014\u2014\u901A\u904E\u7684\u6DF7\u6C8C\u5BE6\u9A57\u8B49\u660E\u7CFB\u7D71\u5B8C\u5168\u6C92\u6709\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u5BE6\u9A57\u80FD\u8B49\u660E\u6240\u6709\u932F\u8AA4\u90FD\u4E0D\u5B58\u5728\uFF1B\u53EA\u6709\u88AB\u6E2C\u8A66\u5230\u7684\u60C5\u5883\u624D\u88AB\u6F14\u7DF4\u904E\u3002"
+              },
+              {
+                "text": "\u6DF7\u6C8C\u5BE6\u9A57\u5C0D\u7CFB\u7D71\u5B8C\u5168\u6C92\u6709\u4EFB\u4F55\u8AAA\u660E\uFF0C\u6240\u4EE5\u4E3B\u7BA1\u5B8C\u5168\u7121\u6B0A\u4E0B\u4EFB\u4F55\u7D50\u8AD6",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u78BA\u5BE6\u63D0\u4F9B\u4E86\u95DC\u65BC\u97CC\u6027\u7684\u771F\u5BE6\u8B49\u64DA\uFF1B\u904E\u5EA6\u5EF6\u4F38\u7684\u53EA\u662F\u300C\u7121\u932F\u8AA4\u300D\u9019\u500B\u5BA3\u7A31\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5BE6\u9A57\u662F\u5728\u9810\u5099\u74B0\u5883\u57F7\u884C\u6642\uFF0C\u7CFB\u7D71\u624D\u662F\u7121\u932F\u8AA4\u7684",
+                "fraction": 0,
+                "feedback": "\u7121\u8AD6\u9810\u5099\u6216\u6B63\u5F0F\u74B0\u5883\u7684\u57F7\u884C\u90FD\u7121\u6CD5\u8B49\u660E\u7121\u932F\u8AA4\uFF1B\u9019\u8AA4\u8FF0\u4E86\u7D50\u8AD6\u3002"
+              }
+            ],
+            "generalFeedback": "\u6DF7\u6C8C\u5BE6\u9A57\u6DB5\u84CB\u7684\u662F\u7279\u5B9A\u689D\u4EF6\u4E0B\u7684\u7279\u5B9A\u6545\u969C\u3002\u901A\u904E\u5B83\u5011\u6703\u63D0\u5347\u5C0D\u90A3\u4E9B\u6545\u969C\u4E4B\u97CC\u6027\u7684\u4FE1\u5FC3\uFF0C\u4F46\u2014\u2014\u5982\u540C\u6240\u6709\u6E2C\u8A66\u2014\u2014\u7121\u6CD5\u8B49\u660E\u6BCF\u4E00\u500B\u932F\u8AA4\u90FD\u4E0D\u5B58\u5728\u3002\u672A\u6E2C\u8A66\u7684\u6545\u969C\u3001\u8F38\u5165\u8207\u689D\u4EF6\u4ECD\u5E36\u6709\u6B98\u9918\u98A8\u96AA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5728\u6B63\u5F0F\u74B0\u5883\u57F7\u884C\u6DF7\u6C8C\u524D\u7684\u524D\u63D0\u689D\u4EF6",
+            "text": "<p>\u4E00\u500B\u5718\u968A\u60F3\u958B\u59CB\u5728\u6B63\u5F0F\u74B0\u5883\u57F7\u884C\u6DF7\u6C8C\u5BE6\u9A57\u3002\u61C9\u5148\u5177\u5099\u54EA\u4E9B\u524D\u63D0\u689D\u4EF6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u80FD\u91CF\u6E2C\u7A69\u614B\u7684\u53EF\u89C0\u6E2C\u6027\u3001\u9650\u7E2E\u6CE2\u53CA\u7BC4\u570D\u7684\u65B9\u6CD5\u3001\u4E00\u689D\u4E2D\u6B62\uFF0F\u56DE\u6EFE\u8DEF\u5F91\uFF0C\u4EE5\u53CA\u4E00\u500B\u5B9A\u7FA9\u597D\u7684\u7A69\u614B\u6307\u6A19",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91CF\u6E2C\u3001\u63A7\u5236\u8207\u5B89\u5168\u7684\u505C\u6B62\u65B9\u5F0F\uFF0C\u662F\u5728\u6B63\u5F0F\u74B0\u5883\u6CE8\u5165\u6545\u969C\u524D\u7684\u524D\u63D0\u3002"
+              },
+              {
+                "text": "\u4EC0\u9EBC\u90FD\u4E0D\u7528\u7279\u5225\u6E96\u5099\uFF1B\u7ACB\u523B\u958B\u59CB\u7D42\u6B62\u6B63\u5F0F\u74B0\u5883\u7684\u57F7\u884C\u500B\u9AD4\u5C31\u597D",
+                "fraction": 0,
+                "feedback": "\u5728\u6C92\u6709\u53EF\u89C0\u6E2C\u6027\u3001\u63A7\u5236\u6216\u4E2D\u6B62\u7684\u60C5\u6CC1\u4E0B\u65BC\u6B63\u5F0F\u74B0\u5883\u6CE8\u5165\u6545\u969C\uFF0C\u6703\u6709\u5C0E\u81F4\u4E0D\u53D7\u63A7\u505C\u6A5F\u7684\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u53EA\u9700\u8981\u4E00\u4EFD\u7CFB\u7D71\u4E2D\u6BCF\u4E00\u500B\u932F\u8AA4\u7684\u6E05\u55AE\uFF0C\u5225\u7121\u5176\u4ED6",
+                "fraction": 0,
+                "feedback": "\u4F60\u4E0D\u53EF\u80FD\u6709\u9019\u7A2E\u6E05\u55AE\uFF0C\u800C\u4E14\u5B83\u4E5F\u4E0D\u662F\u524D\u63D0\uFF1B\u524D\u63D0\u662F\u53EF\u89C0\u6E2C\u6027\u3001\u6CE2\u53CA\u7BC4\u570D\u63A7\u5236\u8207\u4E2D\u6B62\u3002"
+              },
+              {
+                "text": "\u7BA1\u7406\u5C64\u4FDD\u8B49\u6C38\u9060\u4E0D\u6703\u6709\u4EFB\u4F55\u6545\u969C\u5F71\u97FF\u5230\u4F7F\u7528\u8005",
+                "fraction": 0,
+                "feedback": "\u9019\u7A2E\u4FDD\u8B49\u662F\u4E0D\u53EF\u80FD\u7684\uFF1B\u4F60\u61C9\u8A72\u505A\u7684\u662F\u63A7\u5236\u4E26\u76E3\u63A7\u5F71\u97FF\u3001\u4E26\u5099\u59A5\u4E2D\u6B62\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u6B63\u5F0F\u74B0\u5883\u6CE8\u5165\u6545\u969C\u4E4B\u524D\uFF0C\u4F60\u9700\u8981\u8B93\u5B83\u8CA0\u8CAC\u4EFB\u5730\u9032\u884C\u7684\u9632\u8B77\u63AA\u65BD\uFF1A\u4E00\u500B\u5B9A\u7FA9\u597D\u3001\u53EF\u91CF\u6E2C\u7684\u7A69\u614B\uFF1B\u80FD\u5373\u6642\u89C0\u5BDF\u5B83\u7684\u53EF\u89C0\u6E2C\u6027\uFF1B\u4E00\u7A2E\u628A\u6CE2\u53CA\u7BC4\u570D\u7DAD\u6301\u5F97\u5C0F\u7684\u65B9\u6CD5\uFF1B\u4EE5\u53CA\u4E00\u689D\u80FD\u5728\u50B7\u5BB3\u51FA\u73FE\u6642\u8FC5\u901F\u505C\u6B62\u7684\u4E2D\u6B62\u6216\u56DE\u6EFE\u8DEF\u5F91\u3002\u9019\u4E9B\u4F7F\u5BE6\u9A57\u6210\u70BA\u53D7\u63A7\u800C\u975E\u9B6F\u83BD\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9078\u64C7\u4E00\u500B\u597D\u7684\u7A69\u614B\u6307\u6A19",
+            "text": "<p>\u5C0D\u4E00\u500B\u5F71\u97F3\u4E32\u6D41\u670D\u52D9\u800C\u8A00\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u6DF7\u6C8C\u5BE6\u9A57\u6700\u4F73\u7684\u7A69\u614B\u6307\u6A19\u9078\u64C7\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4F7F\u7528\u8005\u6210\u529F\u958B\u59CB\u64AD\u653E\u5F71\u7247\u7684\u6BD4\u7387\uFF08\u4E00\u500B\u53EF\u91CF\u6E2C\u3001\u9762\u5411\u4F7F\u7528\u8005\u7684\u5065\u5EB7\u884C\u70BA\u6307\u6A19\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u53EF\u91CF\u6E2C\u3001\u9762\u5411\u4F7F\u7528\u8005\u7684\u6B63\u5E38\u884C\u70BA\u8A0A\u865F\uFF0C\u662F\u597D\u7684\u7A69\u614B\u3002"
+              },
+              {
+                "text": "\u76EE\u524D\u503C\u73ED\u7684\u5DE5\u7A0B\u5E2B\u4EBA\u6578",
+                "fraction": 0,
+                "feedback": "\u4EBA\u529B\u914D\u7F6E\u4E0D\u662F\u7CFB\u7D71\u7684\u884C\u70BA\u8A0A\u865F\uFF1B\u7A69\u614B\u5FC5\u9808\u91CF\u6E2C\u7CFB\u7D71\u7684\u5065\u5EB7\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u539F\u59CB\u78BC\u5EAB\u4E2D\u7684\u6A94\u6848\u6578\u76EE",
+                "fraction": 0,
+                "feedback": "\u539F\u59CB\u78BC\u5EAB\u7684\u898F\u6A21\u7121\u6CD5\u53CD\u6620\u57F7\u884C\u671F\u7684\u5065\u5EB7\u72C0\u6CC1\uFF1B\u5B83\u4E0D\u80FD\u4F5C\u70BA\u7A69\u614B\u6307\u6A19\u3002"
+              },
+              {
+                "text": "\u6700\u65B0\u7684\u5EFA\u7F6E\u662F\u5426\u7121\u8B66\u544A\u5730\u7DE8\u8B6F\u6210\u529F",
+                "fraction": 0,
+                "feedback": "\u5EFA\u7F6E\u72C0\u614B\u4E0D\u662F\u57F7\u884C\u671F\u7684\u7A69\u614B\uFF1B\u6307\u6A19\u5FC5\u9808\u53CD\u6620\u8CA0\u8F09\u4E0B\u5373\u6642\u7684\u5065\u5EB7\u884C\u70BA\u3002"
+              }
+            ],
+            "generalFeedback": "\u597D\u7684\u7A69\u614B\u6307\u6A19\u662F\u4E00\u500B\u53CD\u6620\u6B63\u5E38\u3001\u5065\u5EB7\u3001\u9762\u5411\u4F7F\u7528\u8005\u884C\u70BA\u7684\u53EF\u91CF\u6E2C\u8F38\u51FA\u2014\u2014\u6B64\u8655\u662F\u6210\u529F\u7684\u5F71\u7247\u8D77\u64AD\u7387\uFF08\u4F60\u4E5F\u53EF\u4EE5\u52A0\u4E0A\u64AD\u653E\u932F\u8AA4\u7387\u6216\u91CD\u65B0\u7DE9\u885D\u7387\uFF09\u3002\u50CF\u4EBA\u529B\u6578\u3001\u539F\u59CB\u78BC\u5EAB\u898F\u6A21\u6216\u5EFA\u7F6E\u72C0\u614B\u9019\u985E\u975E\u884C\u70BA\u6027\u7684\u4E8B\u5BE6\uFF0C\u7121\u6CD5\u544A\u8A34\u4F60\u7CFB\u7D71\u5728\u6545\u969C\u4E0B\u662F\u5426\u5065\u5EB7\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u85C9\u7531\u8A2D\u8A08\u4F86\u63A7\u5236\u6CE2\u53CA\u7BC4\u570D",
+            "text": "<p>\u4F60\u5FC5\u9808\u6E2C\u8A66\u67D0\u670D\u52D9\u5982\u4F55\u5BB9\u5FCD\u4E00\u500B\u5931\u6548\u7684\u76F8\u4F9D\u670D\u52D9\uFF0C\u4F46\u4F60\u60F3\u9650\u7E2E\u66B4\u9732\u3002\u54EA\u7A2E\u505A\u6CD5\u6700\u80FD\u63A7\u5236\u6CE2\u53CA\u7BC4\u570D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5148\u5C0D\u4E00\u5C0F\u90E8\u5206\u6D41\u91CF\u6CE8\u5165\u8A72\u76F8\u4F9D\u670D\u52D9\u7684\u5931\u6548\u3001\u89C0\u5BDF\u7A69\u614B\u6307\u6A19\uFF0C\u53EA\u5728\u6307\u6A19\u7DAD\u6301\u6642\u624D\u64F4\u5927\u2014\u2014\u4E26\u5099\u59A5\u4E2D\u6B62",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F9E\u5C0F\u958B\u59CB\u3001\u89C0\u5BDF\u3001\u9010\u6B65\u64F4\u5927\u3001\u4E26\u4FDD\u6709\u4E2D\u6B62\uFF0C\u6B63\u662F\u6CE2\u53CA\u7BC4\u570D\u63A7\u5236\u7684\u7CBE\u9AD3\u3002"
+              },
+              {
+                "text": "\u4E00\u6B21\u5C0D 100% \u7684\u6D41\u91CF\u4F7F\u8A72\u76F8\u4F9D\u670D\u52D9\u5931\u6548\uFF0C\u597D\u8B93\u6E2C\u8A66\u6700\u5FEB\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u6700\u5927\u5316\u66B4\u9732\uFF1B\u82E5\u6709\u5F31\u9EDE\u5C31\u6703\u6253\u4E2D\u6BCF\u4E00\u4F4D\u4F7F\u7528\u8005\u3002\u6CE2\u53CA\u7BC4\u570D\u63A7\u5236\u7684\u610F\u601D\u662F\u5F9E\u5C0F\u958B\u59CB\u3002"
+              },
+              {
+                "text": "\u95DC\u6389\u76E3\u63A7\uFF0C\u597D\u8B93\u5BE6\u9A57\u7121\u6CD5\u89F8\u767C\u8B66\u5831",
+                "fraction": 0,
+                "feedback": "\u4F60\u9700\u8981\u76E3\u63A7\u4F86\u89C0\u5BDF\u7A69\u614B\u4E26\u89F8\u767C\u4E2D\u6B62\uFF1B\u95DC\u6389\u5B83\u6703\u589E\u52A0\u98A8\u96AA\u3002"
+              },
+              {
+                "text": "\u4E0D\u8A2D\u4E2D\u6B62\u5730\u57F7\u884C\uFF0C\u597D\u8B93\u5BE6\u9A57\u7121\u6CD5\u88AB\u6253\u65B7",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u4E2D\u6B62\u4EE3\u8868\u4F60\u7121\u6CD5\u505C\u6B62\u50B7\u5BB3\uFF1B\u90A3\u8207\u63A7\u5236\u6070\u597D\u76F8\u53CD\u3002"
+              }
+            ],
+            "generalFeedback": "\u6CE2\u53CA\u7BC4\u570D\u63A7\u5236\u7684\u610F\u601D\u662F\u9650\u7E2E\u88AB\u66B4\u9732\u7684\u7CFB\u7D71\u8207\u4F7F\u7528\u8005\u6BD4\u4F8B\uFF1A\u5148\u5C0D\u4E00\u5C0F\u90E8\u5206\u6D41\u91CF\u6CE8\u5165\u5931\u6548\u3001\u4EE5\u5B8C\u6574\u7684\u53EF\u89C0\u6E2C\u6027\u89C0\u5BDF\u7A69\u614B\u6307\u6A19\u3001\u5099\u59A5\u4E2D\u6B62\uFF0C\u4E26\u53EA\u5728\u4FE1\u5FC3\u589E\u9577\u5F8C\u624D\u64F4\u5927\u7BC4\u570D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u76F8\u4F9D\u670D\u52D9\u5931\u6548\u5BE6\u9A57\u7684\u5047\u8A2D",
+            "text": "<p>\u67D0\u670D\u52D9\u6703\u547C\u53EB\u4E00\u500B\u975E\u95DC\u9375\u7684\u63A8\u85A6\u76F8\u4F9D\u670D\u52D9\u3002\u4F60\u60F3\u9A57\u8B49\u5728\u8A72\u76F8\u4F9D\u670D\u52D9\u5931\u6548\u6642\u80FD\u5426\u512A\u96C5\u964D\u7D1A\u3002\u54EA\u4E00\u500B\u7A69\u614B\u5047\u8A2D\u6700\u597D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u82E5\u63A8\u85A6\u76F8\u4F9D\u670D\u52D9\u5931\u6548\uFF0C\u9801\u9762\u4ECD\u80FD\u8F09\u5165\uFF0C\u4E14\u6210\u529F\u7387\u8207\u5EF6\u9072\u90FD\u5728\u5176\u7A69\u614B\u9580\u6ABB\u5167\uFF08\u53EA\u662F\u7701\u7565\u63A8\u85A6\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u9810\u6E2C\u53EF\u91CF\u6E2C\u7684\u7A69\u614B\u7DAD\u6301\u4F4F\uFF0C\u540C\u6642\u975E\u95DC\u9375\u529F\u80FD\u512A\u96C5\u964D\u7D1A\u3002"
+              },
+              {
+                "text": "\u82E5\u63A8\u85A6\u76F8\u4F9D\u670D\u52D9\u5931\u6548\uFF0C\u6574\u500B\u670D\u52D9\u5FC5\u9808\u7ACB\u5373\u5D29\u6F70",
+                "fraction": 0,
+                "feedback": "\u5D29\u6F70\u6B63\u662F\u4F60\u60F3\u9632\u6B62\u7684\u5931\u6548\uFF1B\u5047\u8A2D\u61C9\u9810\u6E2C\u512A\u96C5\u964D\u7D1A\uFF0C\u800C\u975E\u6574\u500B\u57AE\u6389\u3002"
+              },
+              {
+                "text": "\u63A8\u85A6\u76F8\u4F9D\u670D\u52D9\u5728\u5BE6\u9A57\u671F\u9593\u6C38\u9060\u4E0D\u6703\u5931\u6548",
+                "fraction": 0,
+                "feedback": "\u5BE6\u9A57\u662F\u523B\u610F\u4F7F\u5B83\u5931\u6548\uFF1B\u5047\u8A2D\u8AC7\u7684\u662F\u5B83\u5931\u6548\u6642\u6703\u767C\u751F\u4EC0\u9EBC\u3002"
+              },
+              {
+                "text": "\u4E0D\u8AD6\u6307\u6A19\u5982\u4F55\uFF0C\u5718\u968A\u90FD\u6703\u89BA\u5F97\u6709\u4FE1\u5FC3",
+                "fraction": 0,
+                "feedback": "\u5047\u8A2D\u5FC5\u9808\u662F\u53EF\u91CF\u6E2C\u7684\uFF0C\u800C\u975E\u4E00\u7A2E\u4E3B\u89C0\u611F\u53D7\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u4E00\u500B\u975E\u95DC\u9375\u7684\u76F8\u4F9D\u670D\u52D9\u800C\u8A00\uFF0C\u97CC\u6027\u610F\u5473\u8457\u512A\u96C5\u964D\u7D1A\uFF1A\u6838\u5FC3\u9801\u9762\u5728\u5176\u7A69\u614B\u9580\u6ABB\u5167\u6301\u7E8C\u904B\u4F5C\uFF0C\u800C\u9078\u7528\u529F\u80FD\u53EA\u662F\u88AB\u7701\u7565\u3002\u5047\u8A2D\u9673\u8FF0\u9019\u500B\u53EF\u91CF\u6E2C\u7684\u7D50\u679C\uFF0C\u800C\u5BE6\u9A57\u5247\u4F7F\u8A72\u76F8\u4F9D\u670D\u52D9\u5931\u6548\uFF0C\u4EE5\u89C0\u5BDF\u5047\u8A2D\u662F\u5426\u6210\u7ACB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B89\u5168\u5730\u6A21\u64EC\u5340\u57DF\u505C\u6A5F",
+            "text": "<p>\u67D0\u670D\u52D9\u8DE8\u591A\u500B\u96F2\u7AEF\u5340\u57DF\u904B\u884C\uFF0C\u4E26\u5BA3\u7A31\u80FD\u5728\u4EFB\u4E00\u5340\u57DF\u907A\u5931\u6642\u5B58\u6D3B\u3002\u6DF7\u6C8C\u5BE6\u9A57\u61C9\u5982\u4F55\u5B89\u5168\u5730\u9A57\u8B49\u9019\u4E00\u9EDE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B9A\u7FA9\u7A69\u614B\u3001\u5047\u8A2D\u5B83\u6703\u7DAD\u6301\u3001\u91DD\u5C0D\u6709\u9650\u7684\u4E00\u90E8\u5206\u6D41\u91CF\u6A21\u64EC\u5931\u53BB\u4E00\u500B\u5340\u57DF\u4E26\u540C\u6642\u89C0\u5BDF\u6307\u6A19\uFF0C\u82E5\u7A69\u614B\u88AB\u7834\u58DE\u5C31\u4E2D\u6B62",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u7D93\u91CF\u6E2C\u3001\u53D7\u63A7\u3001\u53EF\u4E2D\u6B62\u7684\u5340\u57DF\u6545\u969C\u8F49\u79FB\u5BE6\u9A57\uFF0C\u80FD\u5B89\u5168\u5730\u9A57\u8B49\u9019\u9805\u5BA3\u7A31\u3002"
+              },
+              {
+                "text": "\u6C38\u4E45\u522A\u9664\u4E00\u500B\u5340\u57DF\u7684\u57FA\u790E\u8A2D\u65BD\uFF0C\u4EE5\u78BA\u5B9A\u5B83\u771F\u7684\u6C92\u4E86",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7834\u58DE\u6027\u4E14\u4E0D\u53EF\u5FA9\u539F\u7684\uFF1B\u6DF7\u6C8C\u5BE6\u9A57\u662F\u4EE5\u53EF\u9006\u7684\u65B9\u5F0F\u6A21\u64EC\u505C\u6A5F\uFF0C\u4E26\u5099\u59A5\u4E2D\u6B62\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u67B6\u69CB\u5716\u4E0A\u756B\u4E86\u5169\u500B\u5340\u57DF\uFF0C\u5C31\u5047\u8A2D\u6545\u969C\u8F49\u79FB\u6703\u904B\u4F5C",
+                "fraction": 0,
+                "feedback": "\u5716\u4E0D\u662F\u8B49\u64DA\uFF1B\u5BE6\u9A57\u7684\u91CD\u9EDE\u6B63\u662F\u5728\u73FE\u5BE6\u4E2D\u6E2C\u8A66\u6545\u969C\u8F49\u79FB\u3002"
+              },
+              {
+                "text": "\u4E00\u6B21\u8B93\u6240\u6709\u5340\u57DF\u4E0B\u7DDA\uFF0C\u597D\u7ACB\u523B\u6E2C\u8A66\u6700\u7CDF\u60C5\u6CC1",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u6240\u6709\u5340\u57DF\u5FC5\u7136\u9020\u6210\u505C\u6A5F\uFF0C\u4E14\u5B8C\u5168\u6C92\u6E2C\u5230\u300C\u55AE\u4E00\u5340\u57DF\u5B58\u6D3B\u300D\uFF1B\u6CE2\u53CA\u7BC4\u570D\u5FC5\u9808\u53D7\u63A7\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u9A57\u8B49\u5340\u57DF\u5C64\u7D1A\u7684\u97CC\u6027\uFF0C\u61C9\u5B9A\u7FA9\u4E00\u500B\u53EF\u91CF\u6E2C\u7684\u7A69\u614B\u3001\u5047\u8A2D\u5B83\u5728\u5931\u53BB\u4E00\u500B\u5340\u57DF\u6642\u4ECD\u5B58\u7E8C\u3001\u4EE5\u53EF\u9006\u7684\u65B9\u5F0F\u91DD\u5C0D\u53D7\u63A7\u7684\u4E00\u90E8\u5206\u6D41\u91CF\u6A21\u64EC\u8A72\u5340\u57DF\u505C\u6A5F\u3001\u5C0D\u7167\u7A69\u614B\u89C0\u5BDF\u6545\u969C\u8F49\u79FB\uFF0C\u4E26\u5728\u5B83\u88AB\u7834\u58DE\u6642\u4E2D\u6B62\u3002\u9019\u6A23\u80FD\u6E2C\u5230\u771F\u5BE6\u7684\u6545\u969C\u8F49\u79FB\u884C\u70BA\uFF0C\u800C\u4E0D\u5192\u8457\u9020\u6210\u5B8C\u6574\u3001\u4E0D\u53EF\u9006\u505C\u6A5F\u7684\u98A8\u96AA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u57F7\u884C\u4E2D\u7A69\u614B\u610F\u5916\u88AB\u7834\u58DE",
+            "text": "<p>\u4E00\u500B\u6B63\u5F0F\u74B0\u5883\u5BE6\u9A57\u57F7\u884C\u5230\u4E00\u534A\u6642\uFF0C\u7A69\u614B\u932F\u8AA4\u7387\u8D8A\u904E\u4E86\u4E2D\u6B62\u9580\u6ABB\u3002\u6B63\u78BA\u7684\u7ACB\u5373\u884C\u52D5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u89F8\u767C\u4E2D\u6B62\u4EE5\u505C\u6B62\u5BE6\u9A57\u4E26\u6062\u5FA9\u6B63\u5E38\u72C0\u614B\uFF0C\u7136\u5F8C\u518D\u8ABF\u67E5\u6240\u63ED\u9732\u7684\u5F31\u9EDE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5148\u4E2D\u6B62\u4EE5\u63A7\u5236\u50B7\u5BB3\uFF0C\u518D\u5206\u6790\u4E26\u4FEE\u88DC\u8A72\u767C\u73FE\u3002"
+              },
+              {
+                "text": "\u8B93\u6545\u969C\u6301\u7E8C\u66F4\u4E45\uFF0C\u4EE5\u78BA\u5B9A\u554F\u984C\u662F\u771F\u7684",
+                "fraction": 0,
+                "feedback": "\u5EF6\u9577\u6545\u969C\u6703\u589E\u52A0\u5C0D\u4F7F\u7528\u8005\u7684\u50B7\u5BB3\uFF1B\u4E2D\u6B62\u7684\u5B58\u5728\u6B63\u662F\u70BA\u4E86\u5728\u9580\u6ABB\u8655\u505C\u6B62\u3002"
+              },
+              {
+                "text": "\u628A\u6CE2\u53CA\u7BC4\u570D\u64F4\u5927\u5230\u66F4\u591A\u4F7F\u7528\u8005\uFF0C\u4EE5\u8490\u96C6\u66F4\u591A\u8CC7\u6599",
+                "fraction": 0,
+                "feedback": "\u5728\u7A69\u614B\u5DF2\u88AB\u7834\u58DE\u6642\u64F4\u5927\uFF0C\u6703\u4F7F\u640D\u5BB3\u500D\u589E\uFF1B\u4F60\u61C9\u8A72\u4E2D\u6B62\u4E26\u63A7\u5236\u5F71\u97FF\u3002"
+              },
+              {
+                "text": "\u505C\u7528\u8B66\u5831\uFF0C\u8B93\u9580\u6ABB\u4E0D\u518D\u89F8\u767C",
+                "fraction": 0,
+                "feedback": "\u628A\u8B66\u5831\u975C\u97F3\u6703\u63A9\u84CB\u771F\u5BE6\u7684\u50B7\u5BB3\uFF1B\u6B63\u78BA\u7684\u505A\u6CD5\u662F\u4E2D\u6B62\u4E26\u4FDD\u8B77\u4F7F\u7528\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u8D8A\u904E\u4E2D\u6B62\u9580\u6ABB\uFF0C\u6B63\u662F\u4E2D\u6B62\u6A5F\u5236\u88AB\u8A2D\u8A08\u51FA\u4F86\u6240\u8981\u56E0\u61C9\u7684\u8A0A\u865F\uFF1A\u7ACB\u5373\u505C\u6B62\u5BE6\u9A57\u3001\u8B93\u7CFB\u7D71\u56DE\u5230\u6B63\u5E38\u3001\u4E26\u63A7\u5236\u5F71\u97FF\u3002\u4E4B\u5F8C\u624D\u53BB\u8ABF\u67E5\u5BE6\u9A57\u6240\u66B4\u9732\u7684\u5F31\u9EDE\u4E26\u898F\u5283\u4FEE\u88DC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6301\u7E8C\u3001\u81EA\u52D5\u5316\u6DF7\u6C8C\u7684\u50F9\u503C",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u6301\u7E8C\u4E14\u81EA\u52D5\u5730\u57F7\u884C\u6DF7\u6C8C\u5BE6\u9A57\uFF0C\u6703\u6BD4\u53EA\u505A\u4E00\u6B21\u6027\u7684 Game Day \u66F4\u6709\u50F9\u503C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u7CFB\u7D71\u8207\u5176\u76F8\u4F9D\u670D\u52D9\u4E0D\u65B7\u8B8A\u5316\uFF0C\u6240\u4EE5\u97CC\u6027\u5FC5\u9808\u96A8\u6642\u9593\u53CD\u8986\u9A57\u8B49\uFF1B\u4E00\u6B21\u901A\u904E\u53EF\u80FD\u88AB\u65E5\u5F8C\u7684\u8B8A\u66F4\u63A8\u7FFB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6301\u7E8C\u7684\u5BE6\u9A57\u80FD\u5728\u7CFB\u7D71\u6F14\u9032\u6642\u6293\u5230\u97CC\u6027\u7684\u9000\u5316\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u55AE\u4E00\u5BE6\u9A57\u5C31\u80FD\u8B49\u660E\u7CFB\u7D71\u6C38\u9060\u6709\u97CC\u6027",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E0D\u80FD\uFF1B\u7A0B\u5F0F\u78BC\u3001\u8A2D\u5B9A\u6216\u76F8\u4F9D\u670D\u52D9\u7684\u8B8A\u66F4\u90FD\u53EF\u80FD\u91CD\u65B0\u5F15\u5165\u5F31\u9EDE\uFF0C\u6240\u4EE5\u9700\u8981\u53CD\u8986\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u81EA\u52D5\u5316\u514D\u9664\u4E86\u5C0D\u4EFB\u4F55\u7A69\u614B\u6216\u4E2D\u6B62\u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u81EA\u52D5\u5316\u7684\u5BE6\u9A57\u4ECD\u9700\u8981\u7A69\u614B\u8207\u4E2D\u6B62\uFF1B\u81EA\u52D5\u5316\u662F\u7BA1\u7406\u5B83\u5011\uFF0C\u800C\u975E\u79FB\u9664\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6301\u7E8C\u6DF7\u6C8C\u4EE3\u8868\u5718\u968A\u53EF\u4EE5\u505C\u6B62\u76E3\u63A7\u6B63\u5F0F\u74B0\u5883",
+                "fraction": 0,
+                "feedback": "\u6301\u7E8C\u7684\u5BE6\u9A57\u4EF0\u8CF4\u6301\u7E8C\u7684\u76E3\u63A7\uFF1B\u5B83\u5011\u4E26\u4E0D\u514D\u9664\u76E3\u63A7\u3002"
+              }
+            ],
+            "generalFeedback": "\u97CC\u6027\u4E0D\u662F\u4E00\u500B\u6C38\u4E45\u7684\u5C6C\u6027\uFF1A\u65B0\u7684\u90E8\u7F72\u3001\u8A2D\u5B9A\u8B8A\u66F4\u3001\u64F4\u5C55\u4EE5\u53CA\u6F14\u9032\u4E2D\u7684\u76F8\u4F9D\u670D\u52D9\uFF0C\u90FD\u53EF\u80FD\u91CD\u65B0\u5F15\u5165\u5F31\u9EDE\u3002\u6301\u7E8C\u4E14\u81EA\u52D5\u5730\u57F7\u884C\u5BE6\u9A57\uFF0C\u80FD\u96A8\u6642\u9593\u53CD\u8986\u9A57\u8B49\u97CC\u6027\uFF0C\u6293\u5230\u55AE\u6B21 Game Day \u6703\u6F0F\u6389\u7684\u9000\u5316\u3002Game Day \u5C0D\u65BC\u6392\u6F14\u4EBA\u54E1\u7684\u53CD\u61C9\u4ECD\u7136\u6709\u50F9\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u88AB\u63A8\u7FFB\u7684\u5047\u8A2D\u4E0D\u662F\u6D6A\u8CBB\u7684\u5BE6\u9A57",
+            "text": "<p>\u4E00\u500B\u5047\u8A2D\u88AB\u63A8\u7FFB\uFF08\u7A69\u614B\u5728\u6545\u969C\u4E0B\u88AB\u7834\u58DE\uFF09\u7684\u6DF7\u6C8C\u5BE6\u9A57\uFF0C\u662F\u4E00\u6B21\u5931\u6557\u3001\u6D6A\u8CBB\u7684\u5BE6\u9A57\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A8\u7FFB\u5047\u8A2D\u662F\u4E00\u7A2E\u6210\u529F\uFF1A\u5B83\u63ED\u9732\u4E86\u4E00\u500B\u771F\u5BE6\u7684\u5F31\u9EDE\uFF0C\u53EF\u5728\u5B83\u9020\u6210\u505C\u6A5F\u4E4B\u524D\u52A0\u4EE5\u4FEE\u88DC\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u932F\u7684\uFF1A\u88AB\u63A8\u7FFB\u7684\u5047\u8A2D\u624D\u662F\u6709\u50F9\u503C\u7684\u7D50\u679C\uFF0C\u56E0\u70BA\u5B83\u5B89\u5168\u4E14\u4E8B\u5148\u5730\u5B9A\u4F4D\u51FA\u4E86\u4E00\u500B\u5F31\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u7A69\u614B\u5728\u6CE8\u5165\u7684\u6545\u969C\u4E0B\u88AB\u7834\u58DE\uFF0C\u5BE6\u9A57\u4FBF\u6B63\u597D\u5B8C\u6210\u4E86\u5B83\u7684\u4EFB\u52D9\u2014\u2014\u5B83\u5728\u53D7\u63A7\u689D\u4EF6\u4E0B\u66B4\u9732\u51FA\u4E00\u500B\u771F\u5BE6\u7684\u97CC\u6027\u5F31\u9EDE\u3002\u90A3\u4EFD\u5B78\u7FD2\u662F\u4E00\u7A2E\u6210\u529F\uFF0C\u56E0\u70BA\u73FE\u5728\u4FEE\u88DC\u8A72\u5F31\u9EDE\uFF0C\u9060\u6BD4\u5728\u771F\u5BE6\u3001\u4E0D\u53D7\u63A7\u7684\u505C\u6A5F\u4E2D\u624D\u9762\u5C0D\u5B83\u4FBF\u5B9C\u5F97\u591A\u3002"
+          }
+        ]
+      }
+    },
     "code-coverage": {
       "en": {
         "easy": [
