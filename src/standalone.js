@@ -121942,6 +121942,2546 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "testing-types-table": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What a test level is",
+            "text": "<p>A <em>test level</em> is a group of test activities that are organised primarily by:</p>",
+            "answers": [
+              {
+                "text": "When they happen and what scope they cover in the development lifecycle (unit, integration, system, acceptance)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a level is defined by scope/when: unit, integration, system, acceptance."
+              },
+              {
+                "text": "The quality attribute or objective they target (functional, performance, security)",
+                "fraction": 0,
+                "feedback": "That describes a test, not a level."
+              },
+              {
+                "text": "The programming language used to write the tests",
+                "fraction": 0,
+                "feedback": "Levels are not defined by tooling or language."
+              },
+              {
+                "text": "Whether the tester is internal or external to the company",
+                "fraction": 0,
+                "feedback": "Who runs the test does not define a level; scope and lifecycle position do."
+              }
+            ],
+            "generalFeedback": 'Test levels are groups of activities organised by scope and position in the lifecycle: unit/component, integration, system, and acceptance. They answer "when/at what scope", distinct from test types, which answer "what quality attribute".',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a test type is",
+            "text": "<p>A <em>test type</em> is a group of test activities organised primarily by:</p>",
+            "answers": [
+              {
+                "text": "The specific quality characteristic or objective being evaluated (e.g. functional, performance, security)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a type is defined by the objective/attribute under test."
+              },
+              {
+                "text": "Its position in the lifecycle (unit, integration, system, acceptance)",
+                "fraction": 0,
+                "feedback": "That describes a test, not a type."
+              },
+              {
+                "text": "The number of testers assigned to it",
+                "fraction": 0,
+                "feedback": "Team size does not define a test type."
+              },
+              {
+                "text": "The order in which defects are reported",
+                "fraction": 0,
+                "feedback": "Defect reporting order is unrelated to how types are defined."
+              }
+            ],
+            "generalFeedback": 'Test types group activities by the objective or quality attribute they evaluate \u2014 functional, non-functional, structural (white-box), and change-related. They answer "what are we testing for", distinct from levels, which answer "at what scope/when".',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The four test levels in order",
+            "text": "<p>Which sequence lists the classic test <strong>levels</strong> in their usual order?</p>",
+            "answers": [
+              {
+                "text": "Unit/component &#8594; integration &#8594; system &#8594; acceptance",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this is the standard ordering of test levels."
+              },
+              {
+                "text": "Functional &#8594; non-functional &#8594; structural &#8594; change-related",
+                "fraction": 0,
+                "feedback": "Those are test, not levels."
+              },
+              {
+                "text": "Acceptance &#8594; system &#8594; integration &#8594; unit",
+                "fraction": 0,
+                "feedback": "This reverses the order; unit testing comes first."
+              },
+              {
+                "text": "Smoke &#8594; regression &#8594; performance &#8594; security",
+                "fraction": 0,
+                "feedback": "These are test types/activities, not the four levels."
+              }
+            ],
+            "generalFeedback": "The four classic test levels run from smallest to largest scope: unit/component, then integration, then system, then acceptance.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Functional vs non-functional",
+            "text": "<p><em>Functional</em> testing evaluates:</p>",
+            "answers": [
+              {
+                "text": "What the system does \u2014 the functions and behaviour it is supposed to provide",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 functional testing checks "what" the system does.'
+              },
+              {
+                "text": "How well the system performs a function \u2014 its speed, security, or usability",
+                "fraction": 0,
+                "feedback": 'That is non-functional testing (the "how well" qualities).'
+              },
+              {
+                "text": "The internal code structure and coverage achieved",
+                "fraction": 0,
+                "feedback": "That is structural (white-box) testing."
+              },
+              {
+                "text": "Whether a fix re-broke previously working features",
+                "fraction": 0,
+                "feedback": "That is change-related (regression) testing."
+              }
+            ],
+            "generalFeedback": 'Functional testing asks "does it do what it is supposed to do?" \u2014 it evaluates the functions/behaviour. Non-functional testing asks "how well?" \u2014 performance, security, usability, and other quality attributes.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "A non-functional type",
+            "text": "<p>Which of the following is a <strong>non-functional</strong> test type?</p>",
+            "answers": [
+              {
+                "text": "Performance (load/stress) testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 performance is a non-functional quality attribute."
+              },
+              {
+                "text": 'Checking that "add to cart" adds the chosen item',
+                "fraction": 0,
+                "feedback": "That is functional testing \u2014 it checks what the system does."
+              },
+              {
+                "text": "Measuring statement coverage of the code",
+                "fraction": 0,
+                "feedback": "That is structural (white-box) testing, not non-functional."
+              },
+              {
+                "text": "Re-running a failed test after the defect is fixed",
+                "fraction": 0,
+                "feedback": "That is confirmation testing, a change-related activity."
+              }
+            ],
+            "generalFeedback": 'Non-functional types evaluate "how well" \u2014 performance, security, usability, reliability, compatibility, portability, maintainability. Performance (including load and stress) is a classic example.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Confirmation testing defined",
+            "text": "<p><em>Confirmation (re-)testing</em> means:</p>",
+            "answers": [
+              {
+                "text": "Re-running the test that originally revealed a defect, after the fix, to confirm the defect is gone",
+                "fraction": 100,
+                "feedback": "Correct \u2014 confirmation testing verifies that the specific fix worked."
+              },
+              {
+                "text": "Running other tests to check the fix did not break anything else",
+                "fraction": 0,
+                "feedback": "That is regression testing, not confirmation testing."
+              },
+              {
+                "text": "A first quick check that the build is stable enough to test",
+                "fraction": 0,
+                "feedback": "That is smoke testing."
+              },
+              {
+                "text": "Testing the system against user business needs before go-live",
+                "fraction": 0,
+                "feedback": "That is acceptance testing, a level, not confirmation testing."
+              }
+            ],
+            "generalFeedback": "Confirmation testing (re-testing) re-executes the exact test case that failed, now that the defect is supposedly fixed, to confirm the fix. Checking for unintended side effects elsewhere is the separate activity of regression testing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Regression testing defined",
+            "text": "<p><em>Regression testing</em> means:</p>",
+            "answers": [
+              {
+                "text": "Re-testing previously working functionality to detect unintended side effects introduced by a change",
+                "fraction": 100,
+                "feedback": "Correct \u2014 regression guards against a change breaking things that used to work."
+              },
+              {
+                "text": "Re-running only the one test that failed, to confirm the specific fix",
+                "fraction": 0,
+                "feedback": "That is confirmation (re-)testing, not regression."
+              },
+              {
+                "text": "Testing a brand-new feature for the first time",
+                "fraction": 0,
+                "feedback": "Testing new functionality is not regression testing; regression re-checks existing behaviour."
+              },
+              {
+                "text": "Measuring how fast the system responds under load",
+                "fraction": 0,
+                "feedback": "That is performance testing, a non-functional type."
+              }
+            ],
+            "generalFeedback": "Regression testing re-executes tests over already-working functionality after a change (a fix, enhancement, or configuration change) to catch unintended side effects. It is a change-related test type performed across levels.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Smoke testing defined",
+            "text": "<p><em>Smoke testing</em> is best described as:</p>",
+            "answers": [
+              {
+                "text": "A quick, shallow set of checks confirming the build's main functions work well enough to justify further testing",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 smoke testing is a broad, shallow "is the build stable?" check.'
+              },
+              {
+                "text": "An exhaustive re-run of the entire test suite after every change",
+                "fraction": 0,
+                "feedback": "That would be full regression testing, not a quick smoke test."
+              },
+              {
+                "text": "A deep test of one specific area after a small change",
+                "fraction": 0,
+                "feedback": "That describes sanity testing, which is narrow and deep rather than broad and shallow."
+              },
+              {
+                "text": "Validation of the system against user requirements before release",
+                "fraction": 0,
+                "feedback": "That is acceptance testing, a level, not smoke testing."
+              }
+            ],
+            "generalFeedback": "A smoke test is a small, broad, shallow set of checks (often automated as build verification) run to decide whether a build is stable enough to spend more testing effort on it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Static vs dynamic testing",
+            "text": "<p>The distinguishing feature of <em>static</em> testing is that it:</p>",
+            "answers": [
+              {
+                "text": "Examines the work product without executing the code (reviews, static analysis)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 static testing evaluates artefacts without running them."
+              },
+              {
+                "text": "Runs the software and observes its behaviour on inputs",
+                "fraction": 0,
+                "feedback": "That is dynamic testing, the opposite of static."
+              },
+              {
+                "text": "Can only be applied at the acceptance level",
+                "fraction": 0,
+                "feedback": "Static testing (reviews, analysis) can apply throughout, and it is defined by not executing code."
+              },
+              {
+                "text": "Requires measuring code coverage",
+                "fraction": 0,
+                "feedback": "Coverage is a dynamic/structural concern; static testing does not run the code."
+              }
+            ],
+            "generalFeedback": "Static testing evaluates work products (code, requirements, designs) without executing them \u2014 via reviews and static analysis. Dynamic testing executes the software and observes actual behaviour.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: testing one function in isolation",
+            "text": "<p>A developer tests a single function in isolation, checking its logic directly. Which test <strong>level</strong> is this?</p>",
+            "answers": [
+              {
+                "text": "Unit (component) testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testing an individual component in isolation is the unit level."
+              },
+              {
+                "text": "Integration testing",
+                "fraction": 0,
+                "feedback": "Integration testing checks interactions between components, not one component alone."
+              },
+              {
+                "text": "System testing",
+                "fraction": 0,
+                "feedback": "System testing exercises the whole integrated system, not a single function."
+              },
+              {
+                "text": "Acceptance testing",
+                "fraction": 0,
+                "feedback": "Acceptance testing validates the finished system against user needs, not an isolated function."
+              }
+            ],
+            "generalFeedback": "Exercising an individual component/function in isolation is unit (component) testing \u2014 the smallest-scope level.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: response time under load",
+            "text": "<p>A team measures how quickly the application responds when many users hit it at once. Which test <strong>type</strong> is this?</p>",
+            "answers": [
+              {
+                "text": "Performance testing (a non-functional type)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 measuring response under load is non-functional performance testing."
+              },
+              {
+                "text": "Functional testing",
+                "fraction": 0,
+                "feedback": "Functional testing checks what the system does, not how fast it does it."
+              },
+              {
+                "text": "Acceptance (a level, wrongly named here)",
+                "fraction": 0,
+                "feedback": "Acceptance is a level, not the type being described; and this activity is performance testing."
+              },
+              {
+                "text": "Confirmation testing",
+                "fraction": 0,
+                "feedback": "Confirmation testing re-checks a fix; it does not measure response time."
+              }
+            ],
+            "generalFeedback": "Measuring speed/throughput under load evaluates a quality attribute (performance), so it is a non-functional test type \u2014 and it can be applied at any level (commonly system).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: users validate before go-live",
+            "text": "<p>Before release, the intended users try the system against their real business needs to decide whether to accept it. Which test <strong>level</strong> is this?</p>",
+            "answers": [
+              {
+                "text": "Acceptance testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 user validation against business needs prior to acceptance is the acceptance level."
+              },
+              {
+                "text": "Unit testing",
+                "fraction": 0,
+                "feedback": "Unit testing checks a single component, not the whole system against user needs."
+              },
+              {
+                "text": "Integration testing",
+                "fraction": 0,
+                "feedback": "Integration testing checks module interactions, not user acceptance."
+              },
+              {
+                "text": "Performance testing",
+                "fraction": 0,
+                "feedback": "Performance is a non-functional type, not a level; this activity is acceptance-level validation."
+              }
+            ],
+            "generalFeedback": "Validating the completed system against user requirements and business processes to establish confidence for release is acceptance testing \u2014 the last of the four levels.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Structural (white-box) testing",
+            "text": "<p><em>Structural (white-box)</em> testing is characterised by:</p>",
+            "answers": [
+              {
+                "text": "Deriving and measuring tests from the internal structure of the code (e.g. statement or branch coverage)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 structural testing works from the code's internal structure and coverage."
+              },
+              {
+                "text": "Deriving tests only from the specification, ignoring the code",
+                "fraction": 0,
+                "feedback": "That is black-box (specification-based) testing, not structural."
+              },
+              {
+                "text": "Measuring the system's response time under load",
+                "fraction": 0,
+                "feedback": "That is performance testing, a non-functional type."
+              },
+              {
+                "text": "Re-running earlier tests after a change",
+                "fraction": 0,
+                "feedback": "That is regression testing, a change-related type."
+              }
+            ],
+            "generalFeedback": "Structural (white-box) testing uses the internal structure of the item \u2014 control flow, data flow \u2014 to derive tests and to measure coverage (statement, branch, etc.). It is a distinct test type that can be applied at any level.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Functional testing checks what the system does",
+            "text": "<p>Functional testing evaluates <em>what</em> the system does (its functions), while non-functional testing evaluates <em>how well</em> it does it.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 functional = what it does; non-functional = how well it does it."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "This is the standard distinction: functional targets behaviour/functions, non-functional targets quality attributes."
+              }
+            ],
+            "generalFeedback": 'Functional testing checks the functions and behaviour the system provides; non-functional testing checks quality attributes such as performance, security, usability and reliability \u2014 "how well" those functions are delivered.'
+          },
+          {
+            "type": "multichoice",
+            "name": "Which item is a test level, not a type",
+            "text": "<p>Which of the following is a test <strong>level</strong> (not a test type)?</p>",
+            "answers": [
+              {
+                "text": "Acceptance",
+                "fraction": 100,
+                "feedback": "Correct \u2014 acceptance is a test level (scope/when)."
+              },
+              {
+                "text": "Performance",
+                "fraction": 0,
+                "feedback": "Performance is a non-functional test type, not a level."
+              },
+              {
+                "text": "Security",
+                "fraction": 0,
+                "feedback": "Security is a non-functional test type, not a level."
+              },
+              {
+                "text": "Regression",
+                "fraction": 0,
+                "feedback": "Regression is a change-related test type, not a level."
+              }
+            ],
+            "generalFeedback": "Acceptance is one of the four levels (unit, integration, system, acceptance). Performance, security, and regression are all test types (non-functional or change-related), not levels.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Test basis for the unit level",
+            "text": "<p>Which document is the usual <em>test basis</em> for <strong>unit (component)</strong> testing?</p>",
+            "answers": [
+              {
+                "text": "The detailed (low-level) design and the code of the component",
+                "fraction": 100,
+                "feedback": "Correct \u2014 unit testing is based on the component's detailed design and code."
+              },
+              {
+                "text": "The system requirements specification",
+                "fraction": 0,
+                "feedback": "That is the basis for system testing, not unit testing."
+              },
+              {
+                "text": "The user requirements and business processes",
+                "fraction": 0,
+                "feedback": "That is the basis for acceptance testing."
+              },
+              {
+                "text": "The software architecture and interface specifications",
+                "fraction": 0,
+                "feedback": "That is the basis for integration testing."
+              }
+            ],
+            "generalFeedback": "Each level draws on a different test basis. Unit testing is based on the detailed/component design and the code itself, since it targets the internals of a single component.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test basis for the system level",
+            "text": "<p>Which document is the usual <em>test basis</em> for <strong>system</strong> testing?</p>",
+            "answers": [
+              {
+                "text": "The system/software requirements specification (functional and non-functional)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 system testing is based on the system requirements."
+              },
+              {
+                "text": "The component's detailed design and code",
+                "fraction": 0,
+                "feedback": "That is the basis for unit testing."
+              },
+              {
+                "text": "The software architecture and module interfaces",
+                "fraction": 0,
+                "feedback": "That is the basis for integration testing."
+              },
+              {
+                "text": "The legal contract signed with the customer",
+                "fraction": 0,
+                "feedback": "That belongs to (contractual) acceptance testing, not system testing."
+              }
+            ],
+            "generalFeedback": "System testing verifies the complete, integrated system against its specified requirements, so the system/software requirements specification (both functional and non-functional) is its test basis.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Is acceptance a level or a type?",
+            "text": "<p>On the level-vs-type axes, <em>acceptance</em> testing is:</p>",
+            "answers": [
+              {
+                "text": "A test level (defined by scope/when in the lifecycle)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 acceptance is the fourth test level."
+              },
+              {
+                "text": "A non-functional test type",
+                "fraction": 0,
+                "feedback": "Acceptance is a level; functional and non-functional types can both be run within it."
+              },
+              {
+                "text": "A structural test type",
+                "fraction": 0,
+                "feedback": "Acceptance is not a type at all; it is a level."
+              },
+              {
+                "text": "A change-related test type",
+                "fraction": 0,
+                "feedback": "Change-related types are confirmation and regression; acceptance is a level."
+              }
+            ],
+            "generalFeedback": "Acceptance sits on the level axis (unit, integration, system, acceptance). Within it you may still run functional and non-functional test types \u2014 the two axes are orthogonal.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Is performance a level or a type?",
+            "text": "<p>On the level-vs-type axes, <em>performance</em> testing is:</p>",
+            "answers": [
+              {
+                "text": "A non-functional test type (it can be run at several levels)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 performance is a non-functional type, not a level."
+              },
+              {
+                "text": "A test level between system and acceptance",
+                "fraction": 0,
+                "feedback": 'There is no "performance level"; the levels are unit, integration, system, acceptance.'
+              },
+              {
+                "text": "A test level that replaces system testing",
+                "fraction": 0,
+                "feedback": "Performance is a type; it does not sit on the level axis at all."
+              },
+              {
+                "text": "A change-related test type",
+                "fraction": 0,
+                "feedback": "Change-related types are confirmation and regression; performance is non-functional."
+              }
+            ],
+            "generalFeedback": "Performance is a non-functional test type. A common misconception treats it as a level, but it is an objective (a quality attribute) that can be pursued at unit, integration, system, or acceptance level.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Is integration a level or a type?",
+            "text": "<p>On the level-vs-type axes, <em>integration</em> testing is:</p>",
+            "answers": [
+              {
+                "text": "A test level (its scope is the interactions between components or systems)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 integration is the second test level."
+              },
+              {
+                "text": "A non-functional test type",
+                "fraction": 0,
+                "feedback": "Integration is a level; non-functional types can be run within it."
+              },
+              {
+                "text": "A change-related test type",
+                "fraction": 0,
+                "feedback": "Change-related types are confirmation and regression; integration is a level."
+              },
+              {
+                "text": "A structural test type",
+                "fraction": 0,
+                "feedback": "Integration is defined by scope (interfaces), which makes it a level, not a type."
+              }
+            ],
+            "generalFeedback": "Integration is a test level: its scope is the interfaces and interactions between components (component integration) or between systems (system integration).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Is security a level or a type?",
+            "text": "<p>On the level-vs-type axes, <em>security</em> testing is:</p>",
+            "answers": [
+              {
+                "text": "A non-functional test type",
+                "fraction": 100,
+                "feedback": "Correct \u2014 security is a non-functional quality attribute, hence a type."
+              },
+              {
+                "text": "A test level after acceptance",
+                "fraction": 0,
+                "feedback": "There is no security level; the levels end at acceptance."
+              },
+              {
+                "text": "A structural test type",
+                "fraction": 0,
+                "feedback": "Security is non-functional, not structural (structural = coverage of code)."
+              },
+              {
+                "text": "A change-related test type",
+                "fraction": 0,
+                "feedback": "Change-related types are confirmation and regression; security is non-functional."
+              }
+            ],
+            "generalFeedback": "Security is a non-functional test type (protecting against threats, controlling access). Like other types, it can be applied at multiple levels \u2014 for instance security testing at the system level.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which re-tests the fixed defect?",
+            "text": "<p>A defect was fixed. Which activity re-runs the exact test that had failed to check the <strong>fix itself</strong>?</p>",
+            "answers": [
+              {
+                "text": "Confirmation (re-)testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 confirmation testing re-executes the failed test to verify the fix."
+              },
+              {
+                "text": "Regression testing",
+                "fraction": 0,
+                "feedback": "Regression checks that nothing else broke; it is not the re-run of the specific failed test."
+              },
+              {
+                "text": "Smoke testing",
+                "fraction": 0,
+                "feedback": "Smoke testing is a broad build-stability check, not verification of a specific fix."
+              },
+              {
+                "text": "System testing",
+                "fraction": 0,
+                "feedback": "System testing is a level; the activity described is confirmation testing."
+              }
+            ],
+            "generalFeedback": "Confirmation testing re-executes the previously failing test after the fix to confirm the defect is resolved. Regression testing is the complementary activity of checking for unintended side effects elsewhere.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which checks nothing else broke?",
+            "text": "<p>After a fix, which activity re-runs other, previously passing tests to check <strong>nothing else broke</strong>?</p>",
+            "answers": [
+              {
+                "text": "Regression testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 regression testing detects unintended side effects of the change."
+              },
+              {
+                "text": "Confirmation (re-)testing",
+                "fraction": 0,
+                "feedback": "Confirmation re-runs the one failed test to verify the fix, not the surrounding tests."
+              },
+              {
+                "text": "Sanity testing",
+                "fraction": 0,
+                "feedback": "Sanity testing is a narrow, quick check of one area, not broad side-effect detection."
+              },
+              {
+                "text": "Acceptance testing",
+                "fraction": 0,
+                "feedback": "Acceptance is a level about user validation, not side-effect detection after a fix."
+              }
+            ],
+            "generalFeedback": "Regression testing re-runs previously passing tests to catch unintended side effects introduced by a change. Confirmation testing is the narrower re-run of the specific test that had failed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "A type applied at a level",
+            "text": '<p>"Performance testing carried out at the system level" is best understood as:</p>',
+            "answers": [
+              {
+                "text": "A non-functional test(performance) applied at a particular test(system)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 level and type are orthogonal, so a type is applied at a level."
+              },
+              {
+                "text": "A contradiction, because performance and system are two names for the same thing",
+                "fraction": 0,
+                "feedback": "They are on different axes (type vs level), so there is no contradiction."
+              },
+              {
+                "text": "Two separate test levels performed together",
+                "fraction": 0,
+                "feedback": "Performance is a type, not a level, so this is not two levels."
+              },
+              {
+                "text": "A change-related activity",
+                "fraction": 0,
+                "feedback": "Performance is non-functional, not change-related."
+              }
+            ],
+            "generalFeedback": 'Because levels (when/scope) and types (which quality attribute) are orthogonal axes, any type can be run at any level. "Performance testing at system level" names the type (performance) and the level (system) together.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which level checks interfaces between components?",
+            "text": "<p>Which level's scope is specifically the <strong>interfaces and interactions between components</strong> that have already been unit-tested?</p>",
+            "answers": [
+              {
+                "text": "Integration testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 component integration testing targets interfaces between components."
+              },
+              {
+                "text": "Unit testing",
+                "fraction": 0,
+                "feedback": "Unit testing checks one component in isolation, not the interfaces between them."
+              },
+              {
+                "text": "System testing",
+                "fraction": 0,
+                "feedback": "System testing checks the whole integrated system's behaviour, not just component interfaces."
+              },
+              {
+                "text": "Acceptance testing",
+                "fraction": 0,
+                "feedback": "Acceptance validates the finished system against user needs, not component interfaces."
+              }
+            ],
+            "generalFeedback": "Integration testing (component integration) sits between unit and system testing; its scope is the interactions and interfaces between components that have already passed unit testing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test basis for the acceptance level",
+            "text": "<p>Which is the usual <em>test basis</em> for <strong>acceptance</strong> testing?</p>",
+            "answers": [
+              {
+                "text": "User requirements, business processes, and (where relevant) contracts or regulations",
+                "fraction": 100,
+                "feedback": "Correct \u2014 acceptance testing is based on user/business needs and any contractual/regulatory requirements."
+              },
+              {
+                "text": "The component's code and detailed design",
+                "fraction": 0,
+                "feedback": "That is the basis for unit testing."
+              },
+              {
+                "text": "The software architecture and module interfaces",
+                "fraction": 0,
+                "feedback": "That is the basis for integration testing."
+              },
+              {
+                "text": "Statement- and branch-coverage reports",
+                "fraction": 0,
+                "feedback": "Coverage reports are a structural-testing artefact, not the acceptance test basis."
+              }
+            ],
+            "generalFeedback": "Acceptance testing establishes confidence for release, so its test basis is user requirements, business processes and rules, use cases, and any contractual or regulatory requirements.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Test basis for the integration level",
+            "text": "<p>Which is the usual <em>test basis</em> for <strong>integration</strong> testing?</p>",
+            "answers": [
+              {
+                "text": "The software and system design, architecture, and interface specifications",
+                "fraction": 100,
+                "feedback": "Correct \u2014 integration testing is based on the design/architecture and interfaces."
+              },
+              {
+                "text": "The user requirements and business processes",
+                "fraction": 0,
+                "feedback": "That is the basis for acceptance testing."
+              },
+              {
+                "text": "The component's code alone",
+                "fraction": 0,
+                "feedback": "Code alone is closer to the unit-testing basis; integration draws on design and interfaces."
+              },
+              {
+                "text": "The signed customer contract",
+                "fraction": 0,
+                "feedback": "That belongs to contractual acceptance testing, not integration."
+              }
+            ],
+            "generalFeedback": "Integration testing targets how components/systems fit together, so its test basis is the software and system design, the architecture, workflows, and interface specifications.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "At which levels can regression be done?",
+            "text": "<p>At which test level(s) can <em>regression</em> testing be performed?</p>",
+            "answers": [
+              {
+                "text": "At any level \u2014 unit, integration, system, or acceptance",
+                "fraction": 100,
+                "feedback": "Correct \u2014 regression is a change-related type applied across all levels."
+              },
+              {
+                "text": "Only at the acceptance level",
+                "fraction": 0,
+                "feedback": "Regression is not tied to acceptance; it is run wherever a change could cause side effects."
+              },
+              {
+                "text": "Only at the system level",
+                "fraction": 0,
+                "feedback": "Regression applies at every level, not just system."
+              },
+              {
+                "text": "It is itself a level, so the question does not apply",
+                "fraction": 0,
+                "feedback": "Regression is a change-related test type, not a level."
+              }
+            ],
+            "generalFeedback": "Regression testing is a change-related test. Because types are orthogonal to levels, regression can and should be performed at any level where a change might have introduced side effects.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Performance testing is a level",
+            "text": "<p>Performance testing is one of the standard test <em>levels</em>.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Incorrect \u2014 performance is a non-functional test, not a level. The levels are unit, integration, system, and acceptance."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 performance is a non-functional test type, not a level."
+              }
+            ],
+            "generalFeedback": "The four levels are unit, integration, system, and acceptance. Performance is a non-functional test type that can be applied at any of those levels; it is not itself a level."
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of a smoke test",
+            "text": "<p>The main purpose of running a <em>smoke</em> test on a new build is to:</p>",
+            "answers": [
+              {
+                "text": "Quickly decide whether the build is stable enough to warrant further, deeper testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 smoke testing is a fast go/no-go check on build stability."
+              },
+              {
+                "text": "Exhaustively verify every requirement in detail",
+                "fraction": 0,
+                "feedback": "That is thorough functional/system testing, not a quick smoke test."
+              },
+              {
+                "text": "Confirm that a specific reported defect has been fixed",
+                "fraction": 0,
+                "feedback": "That is confirmation testing, not smoke testing."
+              },
+              {
+                "text": "Measure the system's throughput under peak load",
+                "fraction": 0,
+                "feedback": "That is performance testing, a non-functional type."
+              }
+            ],
+            "generalFeedback": "A smoke test is a broad, shallow set of checks (often automated) that quickly establishes whether the critical functions of a build work \u2014 a gate deciding whether deeper testing is worthwhile.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Operational acceptance vs system testing",
+            "text": "<p>Testing backup/restore, installation, and disaster-recovery procedures, performed by operations/administration staff before go-live, is best classified as:</p>",
+            "answers": [
+              {
+                "text": "Operational acceptance testing (an acceptance-level activity focused on operational readiness)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 operational acceptance (OAT) checks operational readiness at the acceptance level."
+              },
+              {
+                "text": "System testing, because it exercises the whole system",
+                "fraction": 0,
+                "feedback": "Although it uses the whole system, this is acceptance-level (operational acceptance) work done by operations staff against operational needs, not system-level verification against requirements."
+              },
+              {
+                "text": "Unit testing of the backup component",
+                "fraction": 0,
+                "feedback": "OAT exercises operational procedures on the whole system, not an isolated component."
+              },
+              {
+                "text": "Regression testing",
+                "fraction": 0,
+                "feedback": "OAT is about operational readiness, not re-checking for side effects of a change."
+              }
+            ],
+            "generalFeedback": "Operational acceptance testing (OAT) is a form of acceptance testing carried out by operations/system-administration staff to confirm the system is ready to operate \u2014 backup/restore, install/uninstall, maintenance, disaster recovery, and security procedures. It is distinct from system testing, which verifies the built system against its specified requirements.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Component vs system integration",
+            "text": "<p>Testing the interfaces between your application and a separate external payment system operated by another organisation is:</p>",
+            "answers": [
+              {
+                "text": "System integration testing (interactions between distinct systems)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testing interfaces between separate systems is system integration testing."
+              },
+              {
+                "text": "Component integration testing (interactions between components inside one system)",
+                "fraction": 0,
+                "feedback": "Component integration is within a single system; here two separate systems interact."
+              },
+              {
+                "text": "Unit testing of the payment module",
+                "fraction": 0,
+                "feedback": "This concerns cross-system interfaces, not a single component in isolation."
+              },
+              {
+                "text": "Acceptance testing",
+                "fraction": 0,
+                "feedback": "This targets the interface between systems, an integration concern, not user acceptance."
+              }
+            ],
+            "generalFeedback": "Integration testing has two sub-forms. Component integration testing checks interactions between components within one system (after unit testing). System integration testing checks interactions between different systems or with external services (often after system testing).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Usability testing vs UAT",
+            "text": "<p>Which statement correctly separates <em>usability</em> testing from <em>user acceptance</em> testing (UAT)?</p>",
+            "answers": [
+              {
+                "text": "Usability is a non-functional test type (how easy the system is to use); UAT is a test level (users deciding whether to accept the system)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one is a type (quality attribute), the other is a level (lifecycle stage)."
+              },
+              {
+                "text": "Both are test levels performed one after the other",
+                "fraction": 0,
+                "feedback": "Usability is a type, not a level; only UAT is a level."
+              },
+              {
+                "text": "Both are non-functional test types",
+                "fraction": 0,
+                "feedback": "Usability is a non-functional type, but UAT is a level, not a type."
+              },
+              {
+                "text": "Usability is a level and UAT is a type",
+                "fraction": 0,
+                "feedback": "This reverses them: usability is the type and UAT is the level."
+              }
+            ],
+            "generalFeedback": "Usability testing evaluates a quality attribute (ease of use), so it is a non-functional test type and can run at various levels. User acceptance testing is a test level \u2014 the stage where users validate the system against their needs \u2014 and it may itself include usability checks.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why type is orthogonal to level",
+            "text": "<p>What does it mean to say test <em>types</em> are <strong>orthogonal</strong> to test <em>levels</em>?</p>",
+            "answers": [
+              {
+                "text": "Any test type can, in principle, be performed at any test level \u2014 the two classifications are independent",
+                "fraction": 100,
+                "feedback": "Correct \u2014 orthogonal means the axes vary independently, so any type pairs with any level."
+              },
+              {
+                "text": "Each test level is permanently tied to exactly one test type",
+                "fraction": 0,
+                "feedback": "That is the opposite of orthogonal; orthogonality means they are independent."
+              },
+              {
+                "text": "Test types replace test levels once the system is integrated",
+                "fraction": 0,
+                "feedback": "Types do not replace levels; the two coexist as independent axes."
+              },
+              {
+                "text": "Only functional testing can be done at more than one level",
+                "fraction": 0,
+                "feedback": "All types \u2014 functional, non-functional, structural, change-related \u2014 can span levels."
+              }
+            ],
+            "generalFeedback": '"Orthogonal" means the level axis (when/scope) and the type axis (which quality attribute/objective) vary independently. So functional, non-functional, structural, and change-related types can each be applied at unit, integration, system, or acceptance level.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Smoke vs sanity vs regression",
+            "text": "<p>Which description correctly distinguishes smoke, sanity, and regression testing?</p>",
+            "answers": [
+              {
+                "text": "Smoke = broad shallow build-stability check; sanity = narrow deep check of one area after a small change; regression = re-testing existing functionality for side effects of a change",
+                "fraction": 100,
+                "feedback": "Correct \u2014 smoke is broad/shallow, sanity is narrow/deep, regression re-checks prior functionality."
+              },
+              {
+                "text": "All three mean the same thing: re-running the full test suite",
+                "fraction": 0,
+                "feedback": "They differ in breadth, depth, and purpose; they are not synonyms."
+              },
+              {
+                "text": "Smoke tests one area deeply; sanity checks the whole build shallowly; regression tests new features",
+                "fraction": 0,
+                "feedback": "This swaps smoke and sanity, and regression targets existing functionality, not new features."
+              },
+              {
+                "text": "Smoke and sanity are levels; regression is a type",
+                "fraction": 0,
+                "feedback": "All three are test activities/types, not levels."
+              }
+            ],
+            "generalFeedback": "Smoke testing is a broad, shallow check that a build's key functions work (build stability). Sanity testing is a narrow, deep check of a specific area after a small change. Regression testing re-tests previously working functionality across a change to detect unintended side effects.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Match level to its test basis",
+            "text": "<p>Which pairing of <strong>level</strong> to <strong>test basis</strong> is correct?</p>",
+            "answers": [
+              {
+                "text": "System testing &#8594; system/software requirements specification",
+                "fraction": 100,
+                "feedback": "Correct \u2014 system testing is based on the system requirements."
+              },
+              {
+                "text": "Unit testing &#8594; user requirements and business processes",
+                "fraction": 0,
+                "feedback": "User requirements/business processes are the acceptance basis; unit testing uses code and detailed design."
+              },
+              {
+                "text": "Acceptance testing &#8594; component code and detailed design",
+                "fraction": 0,
+                "feedback": "Component code/detailed design is the unit-testing basis; acceptance uses user/business requirements."
+              },
+              {
+                "text": "Integration testing &#8594; statement-coverage reports",
+                "fraction": 0,
+                "feedback": "Coverage reports are structural artefacts; integration's basis is design, architecture, and interfaces."
+              }
+            ],
+            "generalFeedback": "Test basis by level: unit &#8594; code/detailed design; integration &#8594; design/architecture/interfaces; system &#8594; system/software requirements; acceptance &#8594; user requirements/business processes (and contracts/regulations). Only the system pairing is correct here.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Regression is a test level",
+            "text": "<p>Regression testing is one of the four test <em>levels</em>.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Incorrect \u2014 regression is a change-related testperformed across levels, not a level itself."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 regression is a change-related test type, not one of the levels."
+              }
+            ],
+            "generalFeedback": "The four levels are unit, integration, system, and acceptance. Regression (like confirmation) is a change-related test type that can be run at any of those levels; it is not itself a level."
+          },
+          {
+            "type": "multichoice",
+            "name": "System testing covers which types?",
+            "text": "<p>Which statement about the <em>types</em> exercised during <strong>system</strong> testing is correct?</p>",
+            "answers": [
+              {
+                "text": "System testing can include both functional and non-functional types (e.g. behaviour against requirements plus performance and security)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a level can host multiple types; system testing typically covers functional and non-functional."
+              },
+              {
+                "text": "System testing is purely functional and never non-functional",
+                "fraction": 0,
+                "feedback": "System testing routinely includes non-functional types such as performance and security."
+              },
+              {
+                "text": "System testing is purely non-functional and never functional",
+                "fraction": 0,
+                "feedback": "System testing also verifies functional behaviour against requirements."
+              },
+              {
+                "text": "System testing is itself a test type, so the question of types does not apply",
+                "fraction": 0,
+                "feedback": "System testing is a level; multiple types are exercised within it."
+              }
+            ],
+            "generalFeedback": "Because levels and types are orthogonal, a single level hosts several types. System testing commonly combines functional testing (behaviour against requirements) with non-functional testing (performance, security, reliability, etc.).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify: patch verified, then suite re-run",
+            "text": "<p>After a bug fix, the tester first re-runs the exact failing test, then re-runs the surrounding suite of previously passing tests. These two activities are, respectively:</p>",
+            "answers": [
+              {
+                "text": "Confirmation testing, then regression testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 re-running the failed test is confirmation; re-running the rest is regression."
+              },
+              {
+                "text": "Regression testing, then confirmation testing",
+                "fraction": 0,
+                "feedback": "This reverses them: the specific failed test is confirmation, the surrounding suite is regression."
+              },
+              {
+                "text": "Smoke testing, then sanity testing",
+                "fraction": 0,
+                "feedback": "Neither activity is a build-stability or narrow-area check; they are the change-related pair."
+              },
+              {
+                "text": "Two runs of the same acceptance test",
+                "fraction": 0,
+                "feedback": "These are change-related type activities, not acceptance-level runs."
+              }
+            ],
+            "generalFeedback": "Confirmation (re-)testing re-runs the specific test that had failed to verify the fix; regression testing then re-runs previously passing tests to ensure the fix caused no unintended side effects. Both are change-related test types.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Alpha vs beta testing",
+            "text": "<p>Alpha and beta testing are both forms of <strong>acceptance</strong> testing. What distinguishes them?</p>",
+            "answers": [
+              {
+                "text": "Alpha is done at the developer's site (by potential users or an independent team); beta is done at the customers' own sites",
+                "fraction": 100,
+                "feedback": "Correct \u2014 alpha at the developer's site, beta in the field at customer sites."
+              },
+              {
+                "text": "Alpha is a test level and beta is a test type",
+                "fraction": 0,
+                "feedback": "Both are forms of acceptance-level testing, not a level/type split."
+              },
+              {
+                "text": "Alpha tests performance while beta tests functionality",
+                "fraction": 0,
+                "feedback": "The distinction is location/who, not functional vs non-functional."
+              },
+              {
+                "text": "Alpha is done after release and beta before development",
+                "fraction": 0,
+                "feedback": "Both occur before general release; the difference is where they are conducted."
+              }
+            ],
+            "generalFeedback": `Alpha and beta testing are operational/user forms of acceptance testing. Alpha is conducted at the developing organisation's site (by potential users or an independent test team); beta ("field") testing is conducted by real users at their own sites.`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Contractual/regulatory acceptance",
+            "text": "<p>Testing a system against the acceptance criteria written into a signed contract, or against rules imposed by a government regulator, is:</p>",
+            "answers": [
+              {
+                "text": "Contractual/regulatory acceptance testing (a form of acceptance testing)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 checking against contract or regulation is a form of acceptance testing."
+              },
+              {
+                "text": "Structural testing, because it measures coverage",
+                "fraction": 0,
+                "feedback": "It validates against contract/regulation, not code coverage."
+              },
+              {
+                "text": "Component integration testing",
+                "fraction": 0,
+                "feedback": "It concerns acceptance criteria for the whole system, not component interfaces."
+              },
+              {
+                "text": "Confirmation testing",
+                "fraction": 0,
+                "feedback": "Confirmation re-checks a fix; this is acceptance against contract/regulation."
+              }
+            ],
+            "generalFeedback": "Contractual acceptance testing verifies the system against acceptance criteria in a contract; regulatory acceptance testing verifies it against laws/regulations (e.g. safety, legal, government standards). Both are forms of the acceptance level.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": 'Which axis is which in "security testing at acceptance level"',
+            "text": '<p>In the phrase "security testing at the acceptance level", which word names the <em>level</em> and which names the <em>type</em>?</p>',
+            "answers": [
+              {
+                "text": '"Acceptance" is the level; "security" is the (non-functional) type',
+                "fraction": 100,
+                "feedback": "Correct \u2014 acceptance is the level, security is the non-functional type."
+              },
+              {
+                "text": '"Security" is the level; "acceptance" is the type',
+                "fraction": 0,
+                "feedback": "This reverses the axes: acceptance is the level, security is the type."
+              },
+              {
+                "text": "Both words name levels",
+                "fraction": 0,
+                "feedback": "Security is a type, not a level."
+              },
+              {
+                "text": "Both words name types",
+                "fraction": 0,
+                "feedback": "Acceptance is a level, not a type."
+              }
+            ],
+            "generalFeedback": "Level = when/scope (acceptance); type = which quality attribute (security, a non-functional type). The phrase pairs one from each orthogonal axis: the security type applied at the acceptance level.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Static testing example",
+            "text": "<p>Which activity is an example of <em>static</em> testing (as opposed to dynamic)?</p>",
+            "answers": [
+              {
+                "text": "A peer review of the requirements document to find defects before any code runs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a review inspects a work product without executing code, so it is static testing."
+              },
+              {
+                "text": "Running the program with test inputs and comparing the outputs to expected values",
+                "fraction": 0,
+                "feedback": "Executing the program is dynamic testing, not static."
+              },
+              {
+                "text": "Measuring branch coverage while the test suite executes",
+                "fraction": 0,
+                "feedback": "Coverage measured during execution is dynamic (structural) testing."
+              },
+              {
+                "text": "Load-testing the running application with many concurrent users",
+                "fraction": 0,
+                "feedback": "Load testing executes the system, so it is dynamic (non-functional) testing."
+              }
+            ],
+            "generalFeedback": "Static testing evaluates a work product without executing code \u2014 reviews (of requirements, design, or code) and static analysis. Dynamic testing runs the software; anything that observes running behaviour (including coverage measurement and load testing) is dynamic.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "One type can span multiple levels",
+            "text": "<p>A single test <em>type</em> (for example, functional testing) can be performed at more than one test <em>level</em>.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 because level and type are orthogonal, one type can be applied at several levels (functional testing at unit, integration, system, and acceptance)."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Types and levels are independent axes, so one type can span many levels."
+              }
+            ],
+            "generalFeedback": "Test types are orthogonal to test levels, so any type may be exercised at any level. Functional testing, for instance, is done at unit, integration, system, and acceptance levels; likewise performance and other non-functional types can span levels."
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify the non-functional type",
+            "text": "<p>Which of the following is a <strong>non-functional</strong> test type rather than a functional check?</p>",
+            "answers": [
+              {
+                "text": "Portability testing \u2014 verifying the software can be moved to and run in another environment",
+                "fraction": 100,
+                "feedback": "Correct \u2014 portability is a non-functional quality attribute."
+              },
+              {
+                "text": "Verifying that a valid login is accepted and an invalid one rejected",
+                "fraction": 0,
+                "feedback": "That checks what the system does (behaviour), so it is functional testing."
+              },
+              {
+                "text": "Verifying that a discount is calculated according to the business rules",
+                "fraction": 0,
+                "feedback": "Calculating the correct result per the rules is a functional check."
+              },
+              {
+                "text": "Verifying that the report contains the required fields",
+                "fraction": 0,
+                "feedback": "Checking required content/behaviour is functional testing."
+              }
+            ],
+            "generalFeedback": "Non-functional types evaluate quality attributes \u2014 performance, security, usability, reliability, compatibility, portability, maintainability. Portability (moving the software to another environment) is non-functional; the other options check behaviour, which is functional.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6E2C\u8A66\u5C64\u7D1A",
+            "text": "<p><em>\u6E2C\u8A66\u5C64\u7D1A\uFF08test level\uFF09</em>\u662F\u4E00\u7D44\u6E2C\u8A66\u6D3B\u52D5\uFF0C\u5176\u4E3B\u8981\u7684\u7D44\u7E54\u4F9D\u64DA\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5011\u5728\u958B\u767C\u751F\u547D\u9031\u671F\u4E2D\u767C\u751F\u7684\u6642\u6A5F\u8207\u6DB5\u84CB\u7684\u7BC4\u570D\uFF08\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u3001\u9A57\u6536\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C64\u7D1A\u7531\u7BC4\u570D\uFF0F\u6642\u6A5F\u5B9A\u7FA9\uFF1A\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u3001\u9A57\u6536\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u91DD\u5C0D\u7684\u54C1\u8CEA\u5C6C\u6027\u6216\u76EE\u6A19\uFF08\u529F\u80FD\u6027\u3001\u6548\u80FD\u3001\u5B89\u5168\u6027\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u6E2C\u8A66\uFF0C\u4E0D\u662F\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u64B0\u5BEB\u6E2C\u8A66\u6240\u4F7F\u7528\u7684\u7A0B\u5F0F\u8A9E\u8A00",
+                "fraction": 0,
+                "feedback": "\u5C64\u7D1A\u4E26\u975E\u7531\u5DE5\u5177\u6216\u8A9E\u8A00\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4EBA\u54E1\u662F\u516C\u53F8\u5167\u90E8\u9084\u662F\u5916\u90E8",
+                "fraction": 0,
+                "feedback": "\u7531\u8AB0\u57F7\u884C\u6E2C\u8A66\u4E0D\u5B9A\u7FA9\u5C64\u7D1A\uFF1B\u7BC4\u570D\u8207\u751F\u547D\u9031\u671F\u4F4D\u7F6E\u624D\u662F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u5C64\u7D1A\u662F\u4F9D\u7BC4\u570D\u8207\u751F\u547D\u9031\u671F\u4F4D\u7F6E\u7D44\u7E54\u7684\u6D3B\u52D5\u7FA4\u7D44\uFF1A\u55AE\u5143\uFF0F\u5143\u4EF6\u3001\u6574\u5408\u3001\u7CFB\u7D71\u3001\u9A57\u6536\u3002\u5B83\u5011\u56DE\u7B54\u300C\u4F55\u6642\uFF0F\u5728\u4EC0\u9EBC\u7BC4\u570D\u300D\uFF0C\u6709\u5225\u65BC\u56DE\u7B54\u300C\u91DD\u5C0D\u4EC0\u9EBC\u54C1\u8CEA\u5C6C\u6027\u300D\u7684\u6E2C\u8A66\u985E\u578B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u6E2C\u8A66\u985E\u578B",
+            "text": "<p><em>\u6E2C\u8A66\u985E\u578B\uFF08test type\uFF09</em>\u662F\u4E00\u7D44\u6E2C\u8A66\u6D3B\u52D5\uFF0C\u5176\u4E3B\u8981\u7684\u7D44\u7E54\u4F9D\u64DA\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6240\u8A55\u4F30\u7684\u7279\u5B9A\u54C1\u8CEA\u7279\u6027\u6216\u76EE\u6A19\uFF08\u4F8B\u5982\u529F\u80FD\u6027\u3001\u6548\u80FD\u3001\u5B89\u5168\u6027\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u985E\u578B\u7531\u53D7\u6E2C\u7684\u76EE\u6A19\uFF0F\u5C6C\u6027\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u5B83\u5728\u751F\u547D\u9031\u671F\u4E2D\u7684\u4F4D\u7F6E\uFF08\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u3001\u9A57\u6536\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u6E2C\u8A66\uFF0C\u4E0D\u662F\u985E\u578B\u3002"
+              },
+              {
+                "text": "\u6307\u6D3E\u7D66\u5B83\u7684\u6E2C\u8A66\u4EBA\u54E1\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u5718\u968A\u898F\u6A21\u4E0D\u5B9A\u7FA9\u6E2C\u8A66\u985E\u578B\u3002"
+              },
+              {
+                "text": "\u56DE\u5831\u7F3A\u9677\u7684\u5148\u5F8C\u9806\u5E8F",
+                "fraction": 0,
+                "feedback": "\u7F3A\u9677\u56DE\u5831\u9806\u5E8F\u8207\u985E\u578B\u7684\u5B9A\u7FA9\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u985E\u578B\u4F9D\u6240\u8A55\u4F30\u7684\u76EE\u6A19\u6216\u54C1\u8CEA\u5C6C\u6027\u4F86\u5206\u7D44\u6D3B\u52D5\u2014\u2014\u529F\u80FD\u6027\u3001\u975E\u529F\u80FD\u6027\u3001\u7D50\u69CB\u6027\uFF08\u767D\u7BB1\uFF09\u8207\u8B8A\u66F4\u76F8\u95DC\u3002\u5B83\u5011\u56DE\u7B54\u300C\u6211\u5011\u5728\u6E2C\u4EC0\u9EBC\u300D\uFF0C\u6709\u5225\u65BC\u56DE\u7B54\u300C\u5728\u4EC0\u9EBC\u7BC4\u570D\uFF0F\u6642\u6A5F\u300D\u7684\u5C64\u7D1A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DB\u500B\u6E2C\u8A66\u5C64\u7D1A\u7684\u9806\u5E8F",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u4F9D\u5E38\u898B\u9806\u5E8F\u5217\u51FA\u7D93\u5178\u7684\u6E2C\u8A66<strong>\u5C64\u7D1A</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u55AE\u5143\uFF0F\u5143\u4EF6 &#8594; \u6574\u5408 &#8594; \u7CFB\u7D71 &#8594; \u9A57\u6536",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u6E2C\u8A66\u5C64\u7D1A\u7684\u6A19\u6E96\u9806\u5E8F\u3002"
+              },
+              {
+                "text": "\u529F\u80FD\u6027 &#8594; \u975E\u529F\u80FD\u6027 &#8594; \u7D50\u69CB\u6027 &#8594; \u8B8A\u66F4\u76F8\u95DC",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u6E2C\u8A66\uFF0C\u4E0D\u662F\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u9A57\u6536 &#8594; \u7CFB\u7D71 &#8594; \u6574\u5408 &#8594; \u55AE\u5143",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u9806\u5E8F\u985B\u5012\u4E86\uFF1B\u55AE\u5143\u6E2C\u8A66\u6700\u5148\u3002"
+              },
+              {
+                "text": "\u5192\u7159 &#8594; \u8FF4\u6B78 &#8594; \u6548\u80FD &#8594; \u5B89\u5168\u6027",
+                "fraction": 0,
+                "feedback": "\u9019\u4E9B\u662F\u6E2C\u8A66\u985E\u578B\uFF0F\u6D3B\u52D5\uFF0C\u4E0D\u662F\u56DB\u500B\u5C64\u7D1A\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DB\u500B\u7D93\u5178\u6E2C\u8A66\u5C64\u7D1A\u7531\u6700\u5C0F\u5230\u6700\u5927\u7BC4\u570D\uFF1A\u55AE\u5143\uFF0F\u5143\u4EF6\uFF0C\u63A5\u8457\u6574\u5408\uFF0C\u518D\u4F86\u7CFB\u7D71\uFF0C\u6700\u5F8C\u9A57\u6536\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u529F\u80FD\u6027 vs \u975E\u529F\u80FD\u6027",
+            "text": "<p><em>\u529F\u80FD\u6027</em>\u6E2C\u8A66\u8A55\u4F30\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7CFB\u7D71\u505A\u4EC0\u9EBC\u2014\u2014\u5B83\u61C9\u63D0\u4F9B\u7684\u529F\u80FD\u8207\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u529F\u80FD\u6027\u6E2C\u8A66\u6AA2\u67E5\u7CFB\u7D71\u300C\u505A\u4EC0\u9EBC\u300D\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u628A\u67D0\u529F\u80FD\u505A\u5F97\u591A\u597D\u2014\u2014\u5B83\u7684\u901F\u5EA6\u3001\u5B89\u5168\u6027\u6216\u6613\u7528\u6027",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u975E\u529F\u80FD\u6027\u6E2C\u8A66\uFF08\u300C\u505A\u5F97\u591A\u597D\u300D\u7684\u54C1\u8CEA\uFF09\u3002"
+              },
+              {
+                "text": "\u5167\u90E8\u7A0B\u5F0F\u78BC\u7D50\u69CB\u8207\u9054\u6210\u7684\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7D50\u69CB\u6027\uFF08\u767D\u7BB1\uFF09\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u67D0\u9805\u4FEE\u6B63\u662F\u5426\u53C8\u5F04\u58DE\u4E86\u539F\u672C\u6B63\u5E38\u7684\u529F\u80FD",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8B8A\u66F4\u76F8\u95DC\uFF08\u8FF4\u6B78\uFF09\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u529F\u80FD\u6027\u6E2C\u8A66\u554F\u300C\u5B83\u6709\u6C92\u6709\u505A\u5230\u5B83\u8A72\u505A\u7684\uFF1F\u300D\u2014\u2014\u8A55\u4F30\u529F\u80FD\uFF0F\u884C\u70BA\u3002\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u554F\u300C\u505A\u5F97\u591A\u597D\uFF1F\u300D\u2014\u2014\u6548\u80FD\u3001\u5B89\u5168\u6027\u3001\u6613\u7528\u6027\u53CA\u5176\u4ED6\u54C1\u8CEA\u5C6C\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E00\u7A2E\u975E\u529F\u80FD\u6027\u985E\u578B",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F<strong>\u975E\u529F\u80FD\u6027</strong>\u6E2C\u8A66\u985E\u578B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6548\u80FD\uFF08\u8CA0\u8F09\uFF0F\u58D3\u529B\uFF09\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6548\u80FD\u662F\u975E\u529F\u80FD\u6027\u54C1\u8CEA\u5C6C\u6027\u3002"
+              },
+              {
+                "text": "\u6AA2\u67E5\u300C\u52A0\u5165\u8CFC\u7269\u8ECA\u300D\u6703\u52A0\u5165\u6240\u9078\u7684\u54C1\u9805",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u529F\u80FD\u6027\u6E2C\u8A66\u2014\u2014\u5B83\u6AA2\u67E5\u7CFB\u7D71\u505A\u4EC0\u9EBC\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u7A0B\u5F0F\u78BC\u7684\u6558\u8FF0\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7D50\u69CB\u6027\uFF08\u767D\u7BB1\uFF09\u6E2C\u8A66\uFF0C\u975E\u975E\u529F\u80FD\u6027\u3002"
+              },
+              {
+                "text": "\u7F3A\u9677\u4FEE\u6B63\u5F8C\u91CD\u8DD1\u5148\u524D\u5931\u6557\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u78BA\u8A8D\u6E2C\u8A66\uFF0C\u5C6C\u8B8A\u66F4\u76F8\u95DC\u6D3B\u52D5\u3002"
+              }
+            ],
+            "generalFeedback": "\u975E\u529F\u80FD\u6027\u985E\u578B\u8A55\u4F30\u300C\u505A\u5F97\u591A\u597D\u300D\u2014\u2014\u6548\u80FD\u3001\u5B89\u5168\u6027\u3001\u6613\u7528\u6027\u3001\u53EF\u9760\u6027\u3001\u76F8\u5BB9\u6027\u3001\u53EF\u651C\u6027\u3001\u53EF\u7DAD\u8B77\u6027\u3002\u6548\u80FD\uFF08\u542B\u8CA0\u8F09\u8207\u58D3\u529B\uFF09\u662F\u7D93\u5178\u4F8B\u5B50\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u78BA\u8A8D\u6E2C\u8A66\u7684\u5B9A\u7FA9",
+            "text": "<p><em>\u78BA\u8A8D\uFF08\u518D\uFF09\u6E2C\u8A66</em>\u7684\u610F\u601D\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4FEE\u6B63\u5F8C\u91CD\u8DD1\u7576\u521D\u63ED\u9732\u8A72\u7F3A\u9677\u7684\u90A3\u500B\u6E2C\u8A66\uFF0C\u4EE5\u78BA\u8A8D\u7F3A\u9677\u5DF2\u6D88\u9664",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u78BA\u8A8D\u6E2C\u8A66\u9A57\u8B49\u8A72\u7279\u5B9A\u4FEE\u6B63\u662F\u5426\u594F\u6548\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u5176\u4ED6\u6E2C\u8A66\u4EE5\u6AA2\u67E5\u6B64\u4FEE\u6B63\u6C92\u6709\u5F04\u58DE\u5225\u7684\u6771\u897F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8FF4\u6B78\u6E2C\u8A66\uFF0C\u4E0D\u662F\u78BA\u8A8D\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u9996\u6B21\u5FEB\u901F\u6AA2\u67E5\u5EFA\u7F6E\u662F\u5426\u7A69\u5B9A\u5230\u8DB3\u4EE5\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5192\u7159\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5728\u4E0A\u7DDA\u524D\u5C0D\u7167\u4F7F\u7528\u8005\u696D\u52D9\u9700\u6C42\u6E2C\u8A66\u7CFB\u7D71",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9A57\u6536\u6E2C\u8A66\uFF0C\u5C6C\u5C64\u7D1A\uFF0C\u975E\u78BA\u8A8D\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u78BA\u8A8D\u6E2C\u8A66\uFF08\u518D\u6E2C\u8A66\uFF09\u91CD\u65B0\u57F7\u884C\u5931\u6557\u7684\u90A3\u500B\u6E2C\u8A66\u6848\u4F8B\uFF08\u5728\u7F3A\u9677\u64DA\u7A31\u5DF2\u4FEE\u6B63\u4E4B\u5F8C\uFF09\u4EE5\u78BA\u8A8D\u4FEE\u6B63\u3002\u81F3\u65BC\u6AA2\u67E5\u5225\u8655\u662F\u5426\u6709\u975E\u9810\u671F\u526F\u4F5C\u7528\uFF0C\u662F\u53E6\u4E00\u9805\u6D3B\u52D5\u2014\u2014\u8FF4\u6B78\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FF4\u6B78\u6E2C\u8A66\u7684\u5B9A\u7FA9",
+            "text": "<p><em>\u8FF4\u6B78\u6E2C\u8A66</em>\u7684\u610F\u601D\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u91CD\u65B0\u6E2C\u8A66\u539F\u672C\u6B63\u5E38\u7684\u529F\u80FD\uFF0C\u4EE5\u5075\u6E2C\u8B8A\u66F4\u5F15\u5165\u7684\u975E\u9810\u671F\u526F\u4F5C\u7528",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8FF4\u6B78\u9632\u6B62\u67D0\u9805\u8B8A\u66F4\u5F04\u58DE\u539F\u672C\u6B63\u5E38\u904B\u4F5C\u7684\u6771\u897F\u3002"
+              },
+              {
+                "text": "\u53EA\u91CD\u8DD1\u5931\u6557\u7684\u90A3\u4E00\u500B\u6E2C\u8A66\uFF0C\u4EE5\u78BA\u8A8D\u8A72\u7279\u5B9A\u4FEE\u6B63",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u78BA\u8A8D\uFF08\u518D\uFF09\u6E2C\u8A66\uFF0C\u975E\u8FF4\u6B78\u3002"
+              },
+              {
+                "text": "\u9996\u6B21\u6E2C\u8A66\u4E00\u500B\u5168\u65B0\u7684\u529F\u80FD",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u65B0\u529F\u80FD\u4E0D\u662F\u8FF4\u6B78\u6E2C\u8A66\uFF1B\u8FF4\u6B78\u91CD\u65B0\u6AA2\u67E5\u65E2\u6709\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u7CFB\u7D71\u5728\u8CA0\u8F09\u4E0B\u7684\u56DE\u61C9\u901F\u5EA6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6548\u80FD\u6E2C\u8A66\uFF0C\u5C6C\u975E\u529F\u80FD\u6027\u985E\u578B\u3002"
+              }
+            ],
+            "generalFeedback": "\u8FF4\u6B78\u6E2C\u8A66\u5728\u8B8A\u66F4\uFF08\u4FEE\u6B63\u3001\u589E\u5F37\u6216\u7D44\u614B\u8B8A\u66F4\uFF09\u4E4B\u5F8C\uFF0C\u5C0D\u539F\u672C\u6B63\u5E38\u7684\u529F\u80FD\u91CD\u65B0\u57F7\u884C\u6E2C\u8A66\uFF0C\u4EE5\u6355\u6349\u975E\u9810\u671F\u7684\u526F\u4F5C\u7528\u3002\u5B83\u662F\u8DE8\u5C64\u7D1A\u57F7\u884C\u7684\u8B8A\u66F4\u76F8\u95DC\u6E2C\u8A66\u985E\u578B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5192\u7159\u6E2C\u8A66\u7684\u5B9A\u7FA9",
+            "text": "<p><em>\u5192\u7159\u6E2C\u8A66</em>\u6700\u9069\u7576\u7684\u63CF\u8FF0\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7D44\u5FEB\u901F\u3001\u6DFA\u5C64\u7684\u6AA2\u67E5\uFF0C\u78BA\u8A8D\u5EFA\u7F6E\u7684\u4E3B\u8981\u529F\u80FD\u5920\u6B63\u5E38\u3001\u503C\u5F97\u9032\u4E00\u6B65\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5192\u7159\u6E2C\u8A66\u662F\u5EE3\u800C\u6DFA\u7684\u300C\u5EFA\u7F6E\u662F\u5426\u7A69\u5B9A\uFF1F\u300D\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u6BCF\u6B21\u8B8A\u66F4\u5F8C\u5FB9\u5E95\u91CD\u8DD1\u6574\u500B\u6E2C\u8A66\u5957\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F\u5B8C\u6574\u8FF4\u6B78\u6E2C\u8A66\uFF0C\u4E0D\u662F\u5FEB\u901F\u7684\u5192\u7159\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5728\u5C0F\u5E45\u8B8A\u66F4\u5F8C\u5C0D\u67D0\u4E00\u7279\u5B9A\u5340\u57DF\u505A\u6DF1\u5165\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u7406\u667A\u6E2C\u8A66\uFF08sanity\uFF09\uFF0C\u5B83\u662F\u7A84\u800C\u6DF1\uFF0C\u800C\u975E\u5EE3\u800C\u6DFA\u3002"
+              },
+              {
+                "text": "\u5728\u767C\u884C\u524D\u5C0D\u7167\u4F7F\u7528\u8005\u9700\u6C42\u9A57\u8B49\u7CFB\u7D71",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9A57\u6536\u6E2C\u8A66\uFF0C\u5C6C\u5C64\u7D1A\uFF0C\u975E\u5192\u7159\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u5192\u7159\u6E2C\u8A66\u662F\u4E00\u7D44\u5C0F\u578B\u3001\u5EE3\u800C\u6DFA\u7684\u6AA2\u67E5\uFF08\u5E38\u81EA\u52D5\u5316\u70BA\u5EFA\u7F6E\u9A57\u8B49\uFF09\uFF0C\u7528\u4F86\u5224\u65B7\u67D0\u500B\u5EFA\u7F6E\u662F\u5426\u7A69\u5B9A\u5230\u503C\u5F97\u6295\u5165\u66F4\u591A\u6E2C\u8A66\u5FC3\u529B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975C\u614B vs \u52D5\u614B\u6E2C\u8A66",
+            "text": "<p><em>\u975C\u614B</em>\u6E2C\u8A66\u7684\u95DC\u9375\u7279\u5FB5\u662F\u5B83\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u57F7\u884C\u7A0B\u5F0F\u78BC\u5373\u6AA2\u8996\u5DE5\u4F5C\u7522\u51FA\uFF08\u5BE9\u67E5\u3001\u975C\u614B\u5206\u6790\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u975C\u614B\u6E2C\u8A66\u5728\u4E0D\u57F7\u884C\u7684\u60C5\u6CC1\u4E0B\u8A55\u4F30\u7522\u51FA\u7269\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u8EDF\u9AD4\u4E26\u89C0\u5BDF\u5B83\u5C0D\u8F38\u5165\u7684\u884C\u70BA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u52D5\u614B\u6E2C\u8A66\uFF0C\u8207\u975C\u614B\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u53EA\u80FD\u5728\u9A57\u6536\u5C64\u7D1A\u5957\u7528",
+                "fraction": 0,
+                "feedback": "\u975C\u614B\u6E2C\u8A66\uFF08\u5BE9\u67E5\u3001\u5206\u6790\uFF09\u53EF\u8CAB\u7A7F\u5168\u7A0B\uFF0C\u4E14\u5B83\u7684\u5B9A\u7FA9\u662F\u4E0D\u57F7\u884C\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u9700\u8981\u91CF\u6E2C\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u5C6C\u52D5\u614B\uFF0F\u7D50\u69CB\u6027\u8B70\u984C\uFF1B\u975C\u614B\u6E2C\u8A66\u4E0D\u57F7\u884C\u7A0B\u5F0F\u78BC\u3002"
+              }
+            ],
+            "generalFeedback": "\u975C\u614B\u6E2C\u8A66\u5728\u4E0D\u57F7\u884C\u5DE5\u4F5C\u7522\u51FA\uFF08\u7A0B\u5F0F\u78BC\u3001\u9700\u6C42\u3001\u8A2D\u8A08\uFF09\u7684\u60C5\u6CC1\u4E0B\u8A55\u4F30\u5B83\u5011\u2014\u2014\u900F\u904E\u5BE9\u67E5\u8207\u975C\u614B\u5206\u6790\u3002\u52D5\u614B\u6E2C\u8A66\u5247\u57F7\u884C\u8EDF\u9AD4\u4E26\u89C0\u5BDF\u5BE6\u969B\u884C\u70BA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u5B64\u7ACB\u6E2C\u8A66\u55AE\u4E00\u51FD\u5F0F",
+            "text": "<p>\u958B\u767C\u8005\u5B64\u7ACB\u5730\u6E2C\u8A66\u55AE\u4E00\u51FD\u5F0F\uFF0C\u76F4\u63A5\u6AA2\u67E5\u5176\u908F\u8F2F\u3002\u9019\u662F\u54EA\u500B\u6E2C\u8A66<strong>\u5C64\u7D1A</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u55AE\u5143\uFF08\u5143\u4EF6\uFF09\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B64\u7ACB\u5730\u6E2C\u8A66\u55AE\u4E00\u5143\u4EF6\u5C6C\u55AE\u5143\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u6574\u5408\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6574\u5408\u6E2C\u8A66\u6AA2\u67E5\u5143\u4EF6\u4E4B\u9593\u7684\u4E92\u52D5\uFF0C\u800C\u975E\u55AE\u4E00\u5143\u4EF6\u672C\u8EAB\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u7CFB\u7D71\u6E2C\u8A66\u6F14\u7DF4\u6574\u500B\u6574\u5408\u5F8C\u7684\u7CFB\u7D71\uFF0C\u800C\u975E\u55AE\u4E00\u51FD\u5F0F\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u6E2C\u8A66\u5C0D\u7167\u4F7F\u7528\u8005\u9700\u6C42\u9A57\u8B49\u5B8C\u6210\u7684\u7CFB\u7D71\uFF0C\u800C\u975E\u5B64\u7ACB\u7684\u51FD\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B64\u7ACB\u5730\u6F14\u7DF4\u55AE\u4E00\u5143\u4EF6\uFF0F\u51FD\u5F0F\u5373\u55AE\u5143\uFF08\u5143\u4EF6\uFF09\u6E2C\u8A66\u2014\u2014\u7BC4\u570D\u6700\u5C0F\u7684\u5C64\u7D1A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u8CA0\u8F09\u4E0B\u7684\u56DE\u61C9\u6642\u9593",
+            "text": "<p>\u5718\u968A\u91CF\u6E2C\u5728\u773E\u591A\u4F7F\u7528\u8005\u540C\u6642\u6E67\u5165\u6642\u61C9\u7528\u7A0B\u5F0F\u56DE\u61C9\u7684\u901F\u5EA6\u3002\u9019\u662F\u54EA\u7A2E\u6E2C\u8A66<strong>\u985E\u578B</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6548\u80FD\u6E2C\u8A66\uFF08\u4E00\u7A2E\u975E\u529F\u80FD\u6027\u985E\u578B\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91CF\u6E2C\u8CA0\u8F09\u4E0B\u7684\u56DE\u61C9\u662F\u975E\u529F\u80FD\u6027\u7684\u6548\u80FD\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u529F\u80FD\u6027\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u529F\u80FD\u6027\u6E2C\u8A66\u6AA2\u67E5\u7CFB\u7D71\u505A\u4EC0\u9EBC\uFF0C\u800C\u975E\u5B83\u505A\u5F97\u591A\u5FEB\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\uFF08\u6B64\u8655\u8AA4\u7A31\u70BA\u5C64\u7D1A\uFF09",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u662F\u5C64\u7D1A\uFF0C\u4E26\u975E\u6B64\u8655\u6240\u63CF\u8FF0\u7684\u985E\u578B\uFF1B\u800C\u6B64\u6D3B\u52D5\u662F\u6548\u80FD\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u78BA\u8A8D\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u78BA\u8A8D\u6E2C\u8A66\u91CD\u65B0\u6AA2\u67E5\u67D0\u9805\u4FEE\u6B63\uFF1B\u5B83\u4E0D\u91CF\u6E2C\u56DE\u61C9\u6642\u9593\u3002"
+              }
+            ],
+            "generalFeedback": "\u91CF\u6E2C\u8CA0\u8F09\u4E0B\u7684\u901F\u5EA6\uFF0F\u541E\u5410\u91CF\u662F\u8A55\u4F30\u54C1\u8CEA\u5C6C\u6027\uFF08\u6548\u80FD\uFF09\uFF0C\u56E0\u6B64\u662F\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B\u2014\u2014\u800C\u5B83\u53EF\u5957\u7528\u65BC\u4EFB\u4F55\u5C64\u7D1A\uFF08\u5E38\u898B\u65BC\u7CFB\u7D71\u5C64\u7D1A\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u4F7F\u7528\u8005\u65BC\u4E0A\u7DDA\u524D\u9A57\u8B49",
+            "text": "<p>\u767C\u884C\u524D\uFF0C\u76EE\u6A19\u4F7F\u7528\u8005\u5C0D\u7167\u771F\u5BE6\u696D\u52D9\u9700\u6C42\u8A66\u7528\u7CFB\u7D71\uFF0C\u4EE5\u6C7A\u5B9A\u662F\u5426\u63A5\u53D7\u5B83\u3002\u9019\u662F\u54EA\u500B\u6E2C\u8A66<strong>\u5C64\u7D1A</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u63A5\u53D7\u524D\u5C0D\u7167\u696D\u52D9\u9700\u6C42\u7531\u4F7F\u7528\u8005\u9A57\u8B49\u5C6C\u9A57\u6536\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u6E2C\u8A66\u6AA2\u67E5\u55AE\u4E00\u5143\u4EF6\uFF0C\u800C\u975E\u5C0D\u7167\u4F7F\u7528\u8005\u9700\u6C42\u6E2C\u6574\u500B\u7CFB\u7D71\u3002"
+              },
+              {
+                "text": "\u6574\u5408\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6574\u5408\u6E2C\u8A66\u6AA2\u67E5\u6A21\u7D44\u4E92\u52D5\uFF0C\u800C\u975E\u4F7F\u7528\u8005\u63A5\u53D7\u5EA6\u3002"
+              },
+              {
+                "text": "\u6548\u80FD\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u662F\u975E\u529F\u80FD\u6027\u985E\u578B\uFF0C\u975E\u5C64\u7D1A\uFF1B\u6B64\u6D3B\u52D5\u662F\u9A57\u6536\u5C64\u7D1A\u7684\u9A57\u8B49\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u7167\u4F7F\u7528\u8005\u9700\u6C42\u8207\u696D\u52D9\u6D41\u7A0B\u9A57\u8B49\u5DF2\u5B8C\u6210\u7684\u7CFB\u7D71\u3001\u4EE5\u5EFA\u7ACB\u767C\u884C\u4FE1\u5FC3\uFF0C\u5373\u9A57\u6536\u6E2C\u8A66\u2014\u2014\u56DB\u500B\u5C64\u7D1A\u4E2D\u7684\u6700\u5F8C\u4E00\u500B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D50\u69CB\u6027\uFF08\u767D\u7BB1\uFF09\u6E2C\u8A66",
+            "text": "<p><em>\u7D50\u69CB\u6027\uFF08\u767D\u7BB1\uFF09</em>\u6E2C\u8A66\u7684\u7279\u5FB5\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u7A0B\u5F0F\u78BC\u7684\u5167\u90E8\u7D50\u69CB\u63A8\u5C0E\u4E26\u91CF\u6E2C\u6E2C\u8A66\uFF08\u4F8B\u5982\u6558\u8FF0\u6216\u5206\u652F\u8986\u84CB\u7387\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D50\u69CB\u6027\u6E2C\u8A66\u5F9E\u7A0B\u5F0F\u78BC\u5167\u90E8\u7D50\u69CB\u8207\u8986\u84CB\u7387\u8457\u624B\u3002"
+              },
+              {
+                "text": "\u53EA\u5F9E\u898F\u683C\u63A8\u5C0E\u6E2C\u8A66\uFF0C\u5FFD\u7565\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9ED1\u7BB1\uFF08\u898F\u683C\u5C0E\u5411\uFF09\u6E2C\u8A66\uFF0C\u975E\u7D50\u69CB\u6027\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u7CFB\u7D71\u5728\u8CA0\u8F09\u4E0B\u7684\u56DE\u61C9\u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6548\u80FD\u6E2C\u8A66\uFF0C\u5C6C\u975E\u529F\u80FD\u6027\u985E\u578B\u3002"
+              },
+              {
+                "text": "\u5728\u8B8A\u66F4\u5F8C\u91CD\u8DD1\u5148\u524D\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8FF4\u6B78\u6E2C\u8A66\uFF0C\u5C6C\u8B8A\u66F4\u76F8\u95DC\u985E\u578B\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D50\u69CB\u6027\uFF08\u767D\u7BB1\uFF09\u6E2C\u8A66\u5229\u7528\u53D7\u6E2C\u9805\u76EE\u7684\u5167\u90E8\u7D50\u69CB\u2014\u2014\u63A7\u5236\u6D41\u3001\u8CC7\u6599\u6D41\u2014\u2014\u4F86\u63A8\u5C0E\u6E2C\u8A66\u4E26\u91CF\u6E2C\u8986\u84CB\u7387\uFF08\u6558\u8FF0\u3001\u5206\u652F\u7B49\uFF09\u3002\u5B83\u662F\u4E00\u7A2E\u53EF\u5957\u7528\u65BC\u4EFB\u4F55\u5C64\u7D1A\u7684\u7368\u7ACB\u6E2C\u8A66\u985E\u578B\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u529F\u80FD\u6027\u6E2C\u8A66\u6AA2\u67E5\u7CFB\u7D71\u505A\u4EC0\u9EBC",
+            "text": "<p>\u529F\u80FD\u6027\u6E2C\u8A66\u8A55\u4F30\u7CFB\u7D71<em>\u505A\u4EC0\u9EBC</em>\uFF08\u5B83\u7684\u529F\u80FD\uFF09\uFF0C\u800C\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u8A55\u4F30\u5B83<em>\u505A\u5F97\u591A\u597D</em>\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u529F\u80FD\u6027 = \u505A\u4EC0\u9EBC\uFF1B\u975E\u529F\u80FD\u6027 = \u505A\u5F97\u591A\u597D\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u9019\u6B63\u662F\u6A19\u6E96\u5340\u5206\uFF1A\u529F\u80FD\u6027\u91DD\u5C0D\u884C\u70BA\uFF0F\u529F\u80FD\uFF0C\u975E\u529F\u80FD\u6027\u91DD\u5C0D\u54C1\u8CEA\u5C6C\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u529F\u80FD\u6027\u6E2C\u8A66\u6AA2\u67E5\u7CFB\u7D71\u63D0\u4F9B\u7684\u529F\u80FD\u8207\u884C\u70BA\uFF1B\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u6AA2\u67E5\u54C1\u8CEA\u5C6C\u6027\uFF0C\u5982\u6548\u80FD\u3001\u5B89\u5168\u6027\u3001\u6613\u7528\u6027\u8207\u53EF\u9760\u6027\u2014\u2014\u5373\u9019\u4E9B\u529F\u80FD\u88AB\u4EA4\u4ED8\u5F97\u300C\u591A\u597D\u300D\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E00\u9805\u662F\u5C64\u7D1A\u800C\u975E\u985E\u578B",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F\u6E2C\u8A66<strong>\u5C64\u7D1A</strong>\uFF08\u800C\u975E\u6E2C\u8A66\u985E\u578B\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9A57\u6536",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u662F\u6E2C\u8A66\u5C64\u7D1A\uFF08\u7BC4\u570D\uFF0F\u6642\u6A5F\uFF09\u3002"
+              },
+              {
+                "text": "\u6548\u80FD",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u662F\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B\uFF0C\u975E\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u5B89\u5168\u6027",
+                "fraction": 0,
+                "feedback": "\u5B89\u5168\u6027\u662F\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B\uFF0C\u975E\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u8FF4\u6B78",
+                "fraction": 0,
+                "feedback": "\u8FF4\u6B78\u662F\u8B8A\u66F4\u76F8\u95DC\u6E2C\u8A66\u985E\u578B\uFF0C\u975E\u5C64\u7D1A\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u6536\u662F\u56DB\u500B\u5C64\u7D1A\u4E4B\u4E00\uFF08\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u3001\u9A57\u6536\uFF09\u3002\u6548\u80FD\u3001\u5B89\u5168\u6027\u8207\u8FF4\u6B78\u90FD\u662F\u6E2C\u8A66\u985E\u578B\uFF08\u975E\u529F\u80FD\u6027\u6216\u8B8A\u66F4\u76F8\u95DC\uFF09\uFF0C\u800C\u975E\u5C64\u7D1A\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u55AE\u5143\u5C64\u7D1A\u7684\u6E2C\u8A66\u57FA\u790E",
+            "text": "<p><strong>\u55AE\u5143\uFF08\u5143\u4EF6\uFF09</strong>\u6E2C\u8A66\u901A\u5E38\u4EE5\u54EA\u4EFD\u6587\u4EF6\u4F5C\u70BA<em>\u6E2C\u8A66\u57FA\u790E</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5143\u4EF6\u7684\u8A73\u7D30\uFF08\u4F4E\u968E\uFF09\u8A2D\u8A08\u8207\u7A0B\u5F0F\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u55AE\u5143\u6E2C\u8A66\u4EE5\u5143\u4EF6\u7684\u8A73\u7D30\u8A2D\u8A08\u8207\u7A0B\u5F0F\u78BC\u70BA\u57FA\u790E\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u9700\u6C42\u898F\u683C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7CFB\u7D71\u6E2C\u8A66\u7684\u57FA\u790E\uFF0C\u975E\u55AE\u5143\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u9700\u6C42\u8207\u696D\u52D9\u6D41\u7A0B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9A57\u6536\u6E2C\u8A66\u7684\u57FA\u790E\u3002"
+              },
+              {
+                "text": "\u8EDF\u9AD4\u67B6\u69CB\u8207\u4ECB\u9762\u898F\u683C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6574\u5408\u6E2C\u8A66\u7684\u57FA\u790E\u3002"
+              }
+            ],
+            "generalFeedback": "\u5404\u5C64\u7D1A\u53D6\u7528\u4E0D\u540C\u7684\u6E2C\u8A66\u57FA\u790E\u3002\u55AE\u5143\u6E2C\u8A66\u4EE5\u8A73\u7D30\uFF0F\u5143\u4EF6\u8A2D\u8A08\u8207\u7A0B\u5F0F\u78BC\u672C\u8EAB\u70BA\u57FA\u790E\uFF0C\u56E0\u70BA\u5B83\u91DD\u5C0D\u55AE\u4E00\u5143\u4EF6\u7684\u5167\u90E8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7CFB\u7D71\u5C64\u7D1A\u7684\u6E2C\u8A66\u57FA\u790E",
+            "text": "<p><strong>\u7CFB\u7D71</strong>\u6E2C\u8A66\u901A\u5E38\u4EE5\u54EA\u4EFD\u6587\u4EF6\u4F5C\u70BA<em>\u6E2C\u8A66\u57FA\u790E</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7CFB\u7D71\uFF0F\u8EDF\u9AD4\u9700\u6C42\u898F\u683C\uFF08\u529F\u80FD\u6027\u8207\u975E\u529F\u80FD\u6027\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7CFB\u7D71\u6E2C\u8A66\u4EE5\u7CFB\u7D71\u9700\u6C42\u70BA\u57FA\u790E\u3002"
+              },
+              {
+                "text": "\u5143\u4EF6\u7684\u8A73\u7D30\u8A2D\u8A08\u8207\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u5143\u6E2C\u8A66\u7684\u57FA\u790E\u3002"
+              },
+              {
+                "text": "\u8EDF\u9AD4\u67B6\u69CB\u8207\u6A21\u7D44\u4ECB\u9762",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6574\u5408\u6E2C\u8A66\u7684\u57FA\u790E\u3002"
+              },
+              {
+                "text": "\u8207\u5BA2\u6236\u7C3D\u8A02\u7684\u6CD5\u5F8B\u5408\u7D04",
+                "fraction": 0,
+                "feedback": "\u90A3\u5C6C\uFF08\u5408\u7D04\u6027\uFF09\u9A57\u6536\u6E2C\u8A66\uFF0C\u975E\u7CFB\u7D71\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u7CFB\u7D71\u6E2C\u8A66\u5C0D\u7167\u898F\u5B9A\u7684\u9700\u6C42\u9A57\u8B49\u5B8C\u6574\u3001\u6574\u5408\u5F8C\u7684\u7CFB\u7D71\uFF0C\u56E0\u6B64\u5176\u6E2C\u8A66\u57FA\u790E\u662F\u7CFB\u7D71\uFF0F\u8EDF\u9AD4\u9700\u6C42\u898F\u683C\uFF08\u529F\u80FD\u6027\u8207\u975E\u529F\u80FD\u6027\u7686\u542B\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9A57\u6536\u662F\u5C64\u7D1A\u9084\u662F\u985E\u578B\uFF1F",
+            "text": "<p>\u5728\u5C64\u7D1A\u8207\u985E\u578B\u5169\u8EF8\u4E0A\uFF0C<em>\u9A57\u6536</em>\u6E2C\u8A66\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u6E2C\u8A66\u5C64\u7D1A\uFF08\u7531\u751F\u547D\u9031\u671F\u4E2D\u7684\u7BC4\u570D\uFF0F\u6642\u6A5F\u5B9A\u7FA9\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u662F\u7B2C\u56DB\u500B\u6E2C\u8A66\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u662F\u5C64\u7D1A\uFF1B\u529F\u80FD\u6027\u8207\u975E\u529F\u80FD\u6027\u985E\u578B\u90FD\u53EF\u5728\u5176\u4E2D\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u7D50\u69CB\u6027\u6E2C\u8A66\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u6839\u672C\u4E0D\u662F\u985E\u578B\uFF1B\u5B83\u662F\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u8B8A\u66F4\u76F8\u95DC\u6E2C\u8A66\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u8B8A\u66F4\u76F8\u95DC\u985E\u578B\u662F\u78BA\u8A8D\u8207\u8FF4\u6B78\uFF1B\u9A57\u6536\u662F\u5C64\u7D1A\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u6536\u4F4D\u65BC\u5C64\u7D1A\u8EF8\uFF08\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u3001\u9A57\u6536\uFF09\u3002\u5728\u5176\u4E2D\u4F60\u4ECD\u53EF\u57F7\u884C\u529F\u80FD\u6027\u8207\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B\u2014\u2014\u5169\u8EF8\u5F7C\u6B64\u6B63\u4EA4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6548\u80FD\u662F\u5C64\u7D1A\u9084\u662F\u985E\u578B\uFF1F",
+            "text": "<p>\u5728\u5C64\u7D1A\u8207\u985E\u578B\u5169\u8EF8\u4E0A\uFF0C<em>\u6548\u80FD</em>\u6E2C\u8A66\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7A2E\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B\uFF08\u53EF\u5728\u591A\u500B\u5C64\u7D1A\u57F7\u884C\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6548\u80FD\u662F\u975E\u529F\u80FD\u6027\u985E\u578B\uFF0C\u975E\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u4ECB\u65BC\u7CFB\u7D71\u8207\u9A57\u6536\u4E4B\u9593\u7684\u4E00\u500B\u6E2C\u8A66\u5C64\u7D1A",
+                "fraction": 0,
+                "feedback": "\u4E26\u7121\u300C\u6548\u80FD\u5C64\u7D1A\u300D\uFF1B\u5C64\u7D1A\u662F\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u3001\u9A57\u6536\u3002"
+              },
+              {
+                "text": "\u53D6\u4EE3\u7CFB\u7D71\u6E2C\u8A66\u7684\u4E00\u500B\u6E2C\u8A66\u5C64\u7D1A",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u662F\u985E\u578B\uFF1B\u5B83\u6839\u672C\u4E0D\u5728\u5C64\u7D1A\u8EF8\u4E0A\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u8B8A\u66F4\u76F8\u95DC\u6E2C\u8A66\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u8B8A\u66F4\u76F8\u95DC\u985E\u578B\u662F\u78BA\u8A8D\u8207\u8FF4\u6B78\uFF1B\u6548\u80FD\u662F\u975E\u529F\u80FD\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u6548\u80FD\u662F\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B\u3002\u5E38\u898B\u8AA4\u89E3\u628A\u5B83\u7576\u6210\u5C64\u7D1A\uFF0C\u4F46\u5B83\u662F\u4E00\u500B\u76EE\u6A19\uFF08\u54C1\u8CEA\u5C6C\u6027\uFF09\uFF0C\u53EF\u5728\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u6216\u9A57\u6536\u5C64\u7D1A\u8FFD\u6C42\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6574\u5408\u662F\u5C64\u7D1A\u9084\u662F\u985E\u578B\uFF1F",
+            "text": "<p>\u5728\u5C64\u7D1A\u8207\u985E\u578B\u5169\u8EF8\u4E0A\uFF0C<em>\u6574\u5408</em>\u6E2C\u8A66\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u6E2C\u8A66\u5C64\u7D1A\uFF08\u5176\u7BC4\u570D\u662F\u5143\u4EF6\u4E4B\u9593\u6216\u7CFB\u7D71\u4E4B\u9593\u7684\u4E92\u52D5\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6574\u5408\u662F\u7B2C\u4E8C\u500B\u6E2C\u8A66\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u6574\u5408\u662F\u5C64\u7D1A\uFF1B\u975E\u529F\u80FD\u6027\u985E\u578B\u53EF\u5728\u5176\u4E2D\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u8B8A\u66F4\u76F8\u95DC\u6E2C\u8A66\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u8B8A\u66F4\u76F8\u95DC\u985E\u578B\u662F\u78BA\u8A8D\u8207\u8FF4\u6B78\uFF1B\u6574\u5408\u662F\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u7D50\u69CB\u6027\u6E2C\u8A66\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u6574\u5408\u7531\u7BC4\u570D\uFF08\u4ECB\u9762\uFF09\u5B9A\u7FA9\uFF0C\u9019\u4F7F\u5B83\u662F\u5C64\u7D1A\uFF0C\u975E\u985E\u578B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6574\u5408\u662F\u6E2C\u8A66\u5C64\u7D1A\uFF1A\u5176\u7BC4\u570D\u662F\u5143\u4EF6\u4E4B\u9593\uFF08\u5143\u4EF6\u6574\u5408\uFF09\u6216\u7CFB\u7D71\u4E4B\u9593\uFF08\u7CFB\u7D71\u6574\u5408\uFF09\u7684\u4ECB\u9762\u8207\u4E92\u52D5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B89\u5168\u6027\u662F\u5C64\u7D1A\u9084\u662F\u985E\u578B\uFF1F",
+            "text": "<p>\u5728\u5C64\u7D1A\u8207\u985E\u578B\u5169\u8EF8\u4E0A\uFF0C<em>\u5B89\u5168\u6027</em>\u6E2C\u8A66\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7A2E\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B89\u5168\u6027\u662F\u975E\u529F\u80FD\u6027\u54C1\u8CEA\u5C6C\u6027\uFF0C\u56E0\u6B64\u662F\u985E\u578B\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u4E4B\u5F8C\u7684\u4E00\u500B\u6E2C\u8A66\u5C64\u7D1A",
+                "fraction": 0,
+                "feedback": "\u4E26\u7121\u5B89\u5168\u6027\u5C64\u7D1A\uFF1B\u5C64\u7D1A\u7D42\u65BC\u9A57\u6536\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u7D50\u69CB\u6027\u6E2C\u8A66\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u5B89\u5168\u6027\u662F\u975E\u529F\u80FD\u6027\uFF0C\u975E\u7D50\u69CB\u6027\uFF08\u7D50\u69CB\u6027 = \u7A0B\u5F0F\u78BC\u8986\u84CB\uFF09\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u8B8A\u66F4\u76F8\u95DC\u6E2C\u8A66\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u8B8A\u66F4\u76F8\u95DC\u985E\u578B\u662F\u78BA\u8A8D\u8207\u8FF4\u6B78\uFF1B\u5B89\u5168\u6027\u662F\u975E\u529F\u80FD\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B89\u5168\u6027\u662F\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B\uFF08\u62B5\u79A6\u5A01\u8105\u3001\u63A7\u5236\u5B58\u53D6\uFF09\u3002\u8207\u5176\u4ED6\u985E\u578B\u4E00\u6A23\uFF0C\u5B83\u53EF\u5957\u7528\u65BC\u591A\u500B\u5C64\u7D1A\u2014\u2014\u4F8B\u5982\u7CFB\u7D71\u5C64\u7D1A\u7684\u5B89\u5168\u6027\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u91CD\u65B0\u6E2C\u8A66\u5DF2\u4FEE\u6B63\u7684\u7F3A\u9677\uFF1F",
+            "text": "<p>\u67D0\u7F3A\u9677\u5DF2\u4FEE\u6B63\u3002\u54EA\u9805\u6D3B\u52D5\u6703\u91CD\u8DD1\u5148\u524D\u5931\u6557\u7684\u90A3\u500B\u6E2C\u8A66\uFF0C\u4EE5\u6AA2\u67E5<strong>\u4FEE\u6B63\u672C\u8EAB</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u78BA\u8A8D\uFF08\u518D\uFF09\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u78BA\u8A8D\u6E2C\u8A66\u91CD\u65B0\u57F7\u884C\u5931\u6557\u7684\u6E2C\u8A66\u4EE5\u9A57\u8B49\u4FEE\u6B63\u3002"
+              },
+              {
+                "text": "\u8FF4\u6B78\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u8FF4\u6B78\u6AA2\u67E5\u5225\u8655\u662F\u5426\u88AB\u5F04\u58DE\uFF1B\u5B83\u4E0D\u662F\u91CD\u8DD1\u90A3\u500B\u7279\u5B9A\u5931\u6557\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5192\u7159\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5192\u7159\u6E2C\u8A66\u662F\u5EE3\u6CDB\u7684\u5EFA\u7F6E\u7A69\u5B9A\u6027\u6AA2\u67E5\uFF0C\u975E\u9A57\u8B49\u67D0\u9805\u7279\u5B9A\u4FEE\u6B63\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u7CFB\u7D71\u6E2C\u8A66\u662F\u5C64\u7D1A\uFF1B\u6240\u63CF\u8FF0\u7684\u6D3B\u52D5\u662F\u78BA\u8A8D\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u78BA\u8A8D\u6E2C\u8A66\u5728\u4FEE\u6B63\u5F8C\u91CD\u65B0\u57F7\u884C\u5148\u524D\u5931\u6557\u7684\u6E2C\u8A66\uFF0C\u4EE5\u78BA\u8A8D\u7F3A\u9677\u5DF2\u89E3\u6C7A\u3002\u8FF4\u6B78\u6E2C\u8A66\u5247\u662F\u4E92\u88DC\u7684\u6D3B\u52D5\u2014\u2014\u6AA2\u67E5\u5225\u8655\u662F\u5426\u6709\u975E\u9810\u671F\u526F\u4F5C\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u6AA2\u67E5\u6C92\u6709\u5F04\u58DE\u5176\u4ED6\u6771\u897F\uFF1F",
+            "text": "<p>\u4FEE\u6B63\u5F8C\uFF0C\u54EA\u9805\u6D3B\u52D5\u6703\u91CD\u8DD1\u5176\u4ED6\u5148\u524D\u901A\u904E\u7684\u6E2C\u8A66\uFF0C\u4EE5\u6AA2\u67E5<strong>\u6C92\u6709\u5F04\u58DE\u5225\u7684\u6771\u897F</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8FF4\u6B78\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8FF4\u6B78\u6E2C\u8A66\u5075\u6E2C\u8B8A\u66F4\u7684\u975E\u9810\u671F\u526F\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "\u78BA\u8A8D\uFF08\u518D\uFF09\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u78BA\u8A8D\u91CD\u8DD1\u5931\u6557\u7684\u90A3\u4E00\u500B\u6E2C\u8A66\u4EE5\u9A57\u8B49\u4FEE\u6B63\uFF0C\u800C\u975E\u5468\u908A\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u7406\u667A\u6E2C\u8A66\uFF08sanity\uFF09",
+                "fraction": 0,
+                "feedback": "\u7406\u667A\u6E2C\u8A66\u662F\u5C0D\u67D0\u4E00\u5340\u57DF\u7684\u7A84\u800C\u5FEB\u6AA2\u67E5\uFF0C\u975E\u5EE3\u6CDB\u7684\u526F\u4F5C\u7528\u5075\u6E2C\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u662F\u95DC\u65BC\u4F7F\u7528\u8005\u9A57\u8B49\u7684\u5C64\u7D1A\uFF0C\u975E\u4FEE\u6B63\u5F8C\u7684\u526F\u4F5C\u7528\u5075\u6E2C\u3002"
+              }
+            ],
+            "generalFeedback": "\u8FF4\u6B78\u6E2C\u8A66\u91CD\u8DD1\u5148\u524D\u901A\u904E\u7684\u6E2C\u8A66\uFF0C\u4EE5\u6355\u6349\u8B8A\u66F4\u5F15\u5165\u7684\u975E\u9810\u671F\u526F\u4F5C\u7528\u3002\u78BA\u8A8D\u6E2C\u8A66\u5247\u662F\u8F03\u7A84\u5730\u91CD\u8DD1\u5148\u524D\u5931\u6557\u7684\u90A3\u500B\u7279\u5B9A\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5957\u7528\u65BC\u67D0\u5C64\u7D1A\u7684\u985E\u578B",
+            "text": "<p>\u300C\u5728\u7CFB\u7D71\u5C64\u7D1A\u57F7\u884C\u7684\u6548\u80FD\u6E2C\u8A66\u300D\u6700\u597D\u7406\u89E3\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7A2E\u975E\u529F\u80FD\u6027\u6E2C\u8A66\uFF08\u6548\u80FD\uFF09\u5957\u7528\u65BC\u67D0\u500B\u7279\u5B9A\u6E2C\u8A66\uFF08\u7CFB\u7D71\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C64\u7D1A\u8207\u985E\u578B\u6B63\u4EA4\uFF0C\u56E0\u6B64\u985E\u578B\u5957\u7528\u65BC\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u77DB\u76FE\uFF0C\u56E0\u70BA\u6548\u80FD\u8207\u7CFB\u7D71\u662F\u540C\u4E00\u4EF6\u4E8B\u7684\u5169\u500B\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4F4D\u65BC\u4E0D\u540C\u8EF8\uFF08\u985E\u578B vs \u5C64\u7D1A\uFF09\uFF0C\u4E26\u7121\u77DB\u76FE\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u4E00\u8D77\u57F7\u884C\u7684\u7368\u7ACB\u6E2C\u8A66\u5C64\u7D1A",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u662F\u985E\u578B\uFF0C\u975E\u5C64\u7D1A\uFF0C\u6240\u4EE5\u9019\u4E0D\u662F\u5169\u500B\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u4E00\u9805\u8B8A\u66F4\u76F8\u95DC\u6D3B\u52D5",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u662F\u975E\u529F\u80FD\u6027\uFF0C\u975E\u8B8A\u66F4\u76F8\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u5C64\u7D1A\uFF08\u6642\u6A5F\uFF0F\u7BC4\u570D\uFF09\u8207\u985E\u578B\uFF08\u54EA\u500B\u54C1\u8CEA\u5C6C\u6027\uFF09\u662F\u6B63\u4EA4\u7684\u8EF8\uFF0C\u4EFB\u4F55\u985E\u578B\u90FD\u53EF\u5728\u4EFB\u4F55\u5C64\u7D1A\u57F7\u884C\u3002\u300C\u7CFB\u7D71\u5C64\u7D1A\u7684\u6548\u80FD\u6E2C\u8A66\u300D\u540C\u6642\u6307\u51FA\u985E\u578B\uFF08\u6548\u80FD\uFF09\u8207\u5C64\u7D1A\uFF08\u7CFB\u7D71\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u5C64\u7D1A\u6AA2\u67E5\u5143\u4EF6\u4E4B\u9593\u7684\u4ECB\u9762\uFF1F",
+            "text": "<p>\u54EA\u500B\u5C64\u7D1A\u7684\u7BC4\u570D\u5C08\u9580\u662F\u5DF2\u901A\u904E\u55AE\u5143\u6E2C\u8A66\u7684<strong>\u5143\u4EF6\u4E4B\u9593\u7684\u4ECB\u9762\u8207\u4E92\u52D5</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6574\u5408\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5143\u4EF6\u6574\u5408\u6E2C\u8A66\u91DD\u5C0D\u5143\u4EF6\u4E4B\u9593\u7684\u4ECB\u9762\u3002"
+              },
+              {
+                "text": "\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u6E2C\u8A66\u5B64\u7ACB\u5730\u6AA2\u67E5\u55AE\u4E00\u5143\u4EF6\uFF0C\u800C\u975E\u5B83\u5011\u4E4B\u9593\u7684\u4ECB\u9762\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u7CFB\u7D71\u6E2C\u8A66\u6AA2\u67E5\u6574\u500B\u6574\u5408\u5F8C\u7CFB\u7D71\u7684\u884C\u70BA\uFF0C\u800C\u975E\u53EA\u6709\u5143\u4EF6\u4ECB\u9762\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u5C0D\u7167\u4F7F\u7528\u8005\u9700\u6C42\u9A57\u8B49\u5B8C\u6210\u7684\u7CFB\u7D71\uFF0C\u800C\u975E\u5143\u4EF6\u4ECB\u9762\u3002"
+              }
+            ],
+            "generalFeedback": "\u6574\u5408\u6E2C\u8A66\uFF08\u5143\u4EF6\u6574\u5408\uFF09\u4F4D\u65BC\u55AE\u5143\u8207\u7CFB\u7D71\u6E2C\u8A66\u4E4B\u9593\uFF1B\u5176\u7BC4\u570D\u662F\u5DF2\u901A\u904E\u55AE\u5143\u6E2C\u8A66\u7684\u5143\u4EF6\u4E4B\u9593\u7684\u4E92\u52D5\u8207\u4ECB\u9762\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9A57\u6536\u5C64\u7D1A\u7684\u6E2C\u8A66\u57FA\u790E",
+            "text": "<p><strong>\u9A57\u6536</strong>\u6E2C\u8A66\u901A\u5E38\u4EE5\u4F55\u8005\u4F5C\u70BA<em>\u6E2C\u8A66\u57FA\u790E</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4F7F\u7528\u8005\u9700\u6C42\u3001\u696D\u52D9\u6D41\u7A0B\uFF0C\u4EE5\u53CA\uFF08\u76F8\u95DC\u6642\u7684\uFF09\u5408\u7D04\u6216\u6CD5\u898F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u6E2C\u8A66\u4EE5\u4F7F\u7528\u8005\uFF0F\u696D\u52D9\u9700\u6C42\u53CA\u4EFB\u4F55\u5408\u7D04\uFF0F\u6CD5\u898F\u9700\u6C42\u70BA\u57FA\u790E\u3002"
+              },
+              {
+                "text": "\u5143\u4EF6\u7684\u7A0B\u5F0F\u78BC\u8207\u8A73\u7D30\u8A2D\u8A08",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u5143\u6E2C\u8A66\u7684\u57FA\u790E\u3002"
+              },
+              {
+                "text": "\u8EDF\u9AD4\u67B6\u69CB\u8207\u6A21\u7D44\u4ECB\u9762",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6574\u5408\u6E2C\u8A66\u7684\u57FA\u790E\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0\u8207\u5206\u652F\u8986\u84CB\u7387\u5831\u544A",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u5831\u544A\u662F\u7D50\u69CB\u6027\u6E2C\u8A66\u7684\u7522\u51FA\uFF0C\u975E\u9A57\u6536\u6E2C\u8A66\u57FA\u790E\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u6536\u6E2C\u8A66\u5EFA\u7ACB\u767C\u884C\u4FE1\u5FC3\uFF0C\u56E0\u6B64\u5176\u6E2C\u8A66\u57FA\u790E\u662F\u4F7F\u7528\u8005\u9700\u6C42\u3001\u696D\u52D9\u6D41\u7A0B\u8207\u898F\u5247\u3001\u4F7F\u7528\u6848\u4F8B\uFF0C\u4EE5\u53CA\u4EFB\u4F55\u5408\u7D04\u6216\u6CD5\u898F\u9700\u6C42\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6574\u5408\u5C64\u7D1A\u7684\u6E2C\u8A66\u57FA\u790E",
+            "text": "<p><strong>\u6574\u5408</strong>\u6E2C\u8A66\u901A\u5E38\u4EE5\u4F55\u8005\u4F5C\u70BA<em>\u6E2C\u8A66\u57FA\u790E</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8EDF\u9AD4\u8207\u7CFB\u7D71\u8A2D\u8A08\u3001\u67B6\u69CB\u53CA\u4ECB\u9762\u898F\u683C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6574\u5408\u6E2C\u8A66\u4EE5\u8A2D\u8A08\uFF0F\u67B6\u69CB\u8207\u4ECB\u9762\u70BA\u57FA\u790E\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u9700\u6C42\u8207\u696D\u52D9\u6D41\u7A0B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9A57\u6536\u6E2C\u8A66\u7684\u57FA\u790E\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5143\u4EF6\u7684\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u7A0B\u5F0F\u78BC\u8F03\u63A5\u8FD1\u55AE\u5143\u6E2C\u8A66\u57FA\u790E\uFF1B\u6574\u5408\u53D6\u7528\u8A2D\u8A08\u8207\u4ECB\u9762\u3002"
+              },
+              {
+                "text": "\u7C3D\u7F72\u7684\u5BA2\u6236\u5408\u7D04",
+                "fraction": 0,
+                "feedback": "\u90A3\u5C6C\u5408\u7D04\u6027\u9A57\u6536\u6E2C\u8A66\uFF0C\u975E\u6574\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u6574\u5408\u6E2C\u8A66\u91DD\u5C0D\u5143\u4EF6\uFF0F\u7CFB\u7D71\u5982\u4F55\u7D44\u5408\uFF0C\u56E0\u6B64\u5176\u6E2C\u8A66\u57FA\u790E\u662F\u8EDF\u9AD4\u8207\u7CFB\u7D71\u8A2D\u8A08\u3001\u67B6\u69CB\u3001\u5DE5\u4F5C\u6D41\u7A0B\u8207\u4ECB\u9762\u898F\u683C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FF4\u6B78\u53EF\u5728\u54EA\u4E9B\u5C64\u7D1A\u57F7\u884C\uFF1F",
+            "text": "<p><em>\u8FF4\u6B78</em>\u6E2C\u8A66\u53EF\u5728\u54EA\u500B\uFF08\u4E9B\uFF09\u6E2C\u8A66\u5C64\u7D1A\u57F7\u884C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EFB\u4F55\u5C64\u7D1A\u2014\u2014\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u6216\u9A57\u6536",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8FF4\u6B78\u662F\u8DE8\u6240\u6709\u5C64\u7D1A\u5957\u7528\u7684\u8B8A\u66F4\u76F8\u95DC\u985E\u578B\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u9A57\u6536\u5C64\u7D1A",
+                "fraction": 0,
+                "feedback": "\u8FF4\u6B78\u4E0D\u7D81\u5B9A\u65BC\u9A57\u6536\uFF1B\u53EA\u8981\u8B8A\u66F4\u53EF\u80FD\u9020\u6210\u526F\u4F5C\u7528\uFF0C\u5C31\u6703\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u7CFB\u7D71\u5C64\u7D1A",
+                "fraction": 0,
+                "feedback": "\u8FF4\u6B78\u9069\u7528\u65BC\u6BCF\u500B\u5C64\u7D1A\uFF0C\u4E0D\u53EA\u7CFB\u7D71\u3002"
+              },
+              {
+                "text": "\u5B83\u672C\u8EAB\u5C31\u662F\u5C64\u7D1A\uFF0C\u56E0\u6B64\u6B64\u554F\u4E0D\u9069\u7528",
+                "fraction": 0,
+                "feedback": "\u8FF4\u6B78\u662F\u8B8A\u66F4\u76F8\u95DC\u6E2C\u8A66\u985E\u578B\uFF0C\u975E\u5C64\u7D1A\u3002"
+              }
+            ],
+            "generalFeedback": "\u8FF4\u6B78\u6E2C\u8A66\u662F\u8B8A\u66F4\u76F8\u95DC\u6E2C\u8A66\u3002\u7531\u65BC\u985E\u578B\u8207\u5C64\u7D1A\u6B63\u4EA4\uFF0C\u8FF4\u6B78\u53EF\u4EE5\u4E14\u61C9\u8A72\u5728\u4EFB\u4F55\u8B8A\u66F4\u53EF\u80FD\u5F15\u5165\u526F\u4F5C\u7528\u7684\u5C64\u7D1A\u57F7\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6548\u80FD\u6E2C\u8A66\u662F\u4E00\u500B\u5C64\u7D1A",
+            "text": "<p>\u6548\u80FD\u6E2C\u8A66\u662F\u6A19\u6E96\u6E2C\u8A66<em>\u5C64\u7D1A</em>\u4E4B\u4E00\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u932F\u8AA4\u2014\u2014\u6548\u80FD\u662F\u975E\u529F\u80FD\u6027\u6E2C\u8A66\uFF0C\u975E\u5C64\u7D1A\u3002\u5C64\u7D1A\u662F\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u8207\u9A57\u6536\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6548\u80FD\u662F\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B\uFF0C\u975E\u5C64\u7D1A\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DB\u500B\u5C64\u7D1A\u662F\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u8207\u9A57\u6536\u3002\u6548\u80FD\u662F\u53EF\u5728\u4EFB\u4E00\u5C64\u7D1A\u5957\u7528\u7684\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B\uFF1B\u5B83\u672C\u8EAB\u4E0D\u662F\u5C64\u7D1A\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5192\u7159\u6E2C\u8A66\u7684\u76EE\u7684",
+            "text": "<p>\u5C0D\u65B0\u5EFA\u7F6E\u57F7\u884C<em>\u5192\u7159</em>\u6E2C\u8A66\u7684\u4E3B\u8981\u76EE\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5FEB\u901F\u5224\u65B7\u8A72\u5EFA\u7F6E\u662F\u5426\u7A69\u5B9A\u5230\u503C\u5F97\u9032\u4E00\u6B65\u3001\u66F4\u6DF1\u5165\u7684\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5192\u7159\u6E2C\u8A66\u662F\u5C0D\u5EFA\u7F6E\u7A69\u5B9A\u6027\u7684\u5FEB\u901F\u901A\u904E\uFF0F\u4E0D\u901A\u904E\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u8A73\u76E1\u5730\u9010\u4E00\u9A57\u8B49\u6BCF\u4E00\u9805\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5FB9\u5E95\u7684\u529F\u80FD\u6027\uFF0F\u7CFB\u7D71\u6E2C\u8A66\uFF0C\u975E\u5FEB\u901F\u7684\u5192\u7159\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u78BA\u8A8D\u67D0\u500B\u56DE\u5831\u7684\u7279\u5B9A\u7F3A\u9677\u5DF2\u4FEE\u6B63",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u78BA\u8A8D\u6E2C\u8A66\uFF0C\u975E\u5192\u7159\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u7CFB\u7D71\u5728\u5C16\u5CF0\u8CA0\u8F09\u4E0B\u7684\u541E\u5410\u91CF",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6548\u80FD\u6E2C\u8A66\uFF0C\u5C6C\u975E\u529F\u80FD\u6027\u985E\u578B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5192\u7159\u6E2C\u8A66\u662F\u4E00\u7D44\u5EE3\u800C\u6DFA\u7684\u6AA2\u67E5\uFF08\u5E38\u81EA\u52D5\u5316\uFF09\uFF0C\u5FEB\u901F\u78BA\u7ACB\u67D0\u500B\u5EFA\u7F6E\u7684\u95DC\u9375\u529F\u80FD\u662F\u5426\u53EF\u904B\u4F5C\u2014\u2014\u662F\u6C7A\u5B9A\u662F\u5426\u503C\u5F97\u9032\u884C\u66F4\u6DF1\u5165\u6E2C\u8A66\u7684\u4E00\u9053\u95DC\u5361\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u4F5C\u696D\u9A57\u6536 vs \u7CFB\u7D71\u6E2C\u8A66",
+            "text": "<p>\u5728\u4E0A\u7DDA\u524D\u7531\u7DAD\u904B\uFF0F\u7BA1\u7406\u4EBA\u54E1\u6E2C\u8A66\u5099\u4EFD\uFF0F\u9084\u539F\u3001\u5B89\u88DD\u8207\u707D\u96E3\u5FA9\u539F\u7A0B\u5E8F\uFF0C\u6700\u9069\u7576\u7684\u5206\u985E\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4F5C\u696D\u9A57\u6536\u6E2C\u8A66\uFF08\u4E00\u9805\u805A\u7126\u65BC\u4F5C\u696D\u5C31\u7DD2\u5EA6\u7684\u9A57\u6536\u5C64\u7D1A\u6D3B\u52D5\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F5C\u696D\u9A57\u6536\uFF08OAT\uFF09\u5728\u9A57\u6536\u5C64\u7D1A\u6AA2\u67E5\u4F5C\u696D\u5C31\u7DD2\u5EA6\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u6E2C\u8A66\uFF0C\u56E0\u70BA\u5B83\u6F14\u7DF4\u6574\u500B\u7CFB\u7D71",
+                "fraction": 0,
+                "feedback": "\u96D6\u7136\u5B83\u7528\u5230\u6574\u500B\u7CFB\u7D71\uFF0C\u4F46\u9019\u662F\u7531\u7DAD\u904B\u4EBA\u54E1\u91DD\u5C0D\u4F5C\u696D\u9700\u6C42\u9032\u884C\u7684\u9A57\u6536\u5C64\u7D1A\uFF08\u4F5C\u696D\u9A57\u6536\uFF09\u5DE5\u4F5C\uFF0C\u800C\u975E\u5C0D\u7167\u9700\u6C42\u7684\u7CFB\u7D71\u5C64\u7D1A\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u5099\u4EFD\u5143\u4EF6\u7684\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4F5C\u696D\u9A57\u6536\u5728\u6574\u500B\u7CFB\u7D71\u4E0A\u6F14\u7DF4\u4F5C\u696D\u7A0B\u5E8F\uFF0C\u800C\u975E\u5B64\u7ACB\u7684\u5143\u4EF6\u3002"
+              },
+              {
+                "text": "\u8FF4\u6B78\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4F5C\u696D\u9A57\u6536\u95DC\u4E4E\u4F5C\u696D\u5C31\u7DD2\u5EA6\uFF0C\u800C\u975E\u91CD\u65B0\u6AA2\u67E5\u67D0\u8B8A\u66F4\u7684\u526F\u4F5C\u7528\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F5C\u696D\u9A57\u6536\u6E2C\u8A66\uFF08OAT\uFF09\u662F\u7531\u7DAD\u904B\uFF0F\u7CFB\u7D71\u7BA1\u7406\u4EBA\u54E1\u57F7\u884C\u7684\u4E00\u7A2E\u9A57\u6536\u6E2C\u8A66\uFF0C\u7528\u4EE5\u78BA\u8A8D\u7CFB\u7D71\u5DF2\u5C31\u7DD2\u53EF\u904B\u4F5C\u2014\u2014\u5099\u4EFD\uFF0F\u9084\u539F\u3001\u5B89\u88DD\uFF0F\u89E3\u9664\u5B89\u88DD\u3001\u7DAD\u8B77\u3001\u707D\u96E3\u5FA9\u539F\u8207\u5B89\u5168\u7A0B\u5E8F\u3002\u5B83\u6709\u5225\u65BC\u5C0D\u7167\u898F\u5B9A\u9700\u6C42\u9A57\u8B49\u6240\u5EFA\u7CFB\u7D71\u7684\u7CFB\u7D71\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5143\u4EF6\u6574\u5408 vs \u7CFB\u7D71\u6574\u5408",
+            "text": "<p>\u6E2C\u8A66\u4F60\u7684\u61C9\u7528\u7A0B\u5F0F\u8207\u53E6\u4E00\u7D44\u7E54\u71DF\u904B\u7684\u7368\u7ACB\u5916\u90E8\u652F\u4ED8\u7CFB\u7D71\u4E4B\u9593\u7684\u4ECB\u9762\uFF0C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7CFB\u7D71\u6574\u5408\u6E2C\u8A66\uFF08\u4E0D\u540C\u7CFB\u7D71\u4E4B\u9593\u7684\u4E92\u52D5\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u7368\u7ACB\u7CFB\u7D71\u4E4B\u9593\u7684\u4ECB\u9762\u662F\u7CFB\u7D71\u6574\u5408\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5143\u4EF6\u6574\u5408\u6E2C\u8A66\uFF08\u55AE\u4E00\u7CFB\u7D71\u5167\u90E8\u5143\u4EF6\u4E4B\u9593\u7684\u4E92\u52D5\uFF09",
+                "fraction": 0,
+                "feedback": "\u5143\u4EF6\u6574\u5408\u662F\u5728\u55AE\u4E00\u7CFB\u7D71\u5167\uFF1B\u6B64\u8655\u662F\u5169\u500B\u7368\u7ACB\u7CFB\u7D71\u4E92\u52D5\u3002"
+              },
+              {
+                "text": "\u652F\u4ED8\u6A21\u7D44\u7684\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9019\u95DC\u4E4E\u8DE8\u7CFB\u7D71\u7684\u4ECB\u9762\uFF0C\u800C\u975E\u5B64\u7ACB\u7684\u55AE\u4E00\u5143\u4EF6\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9019\u91DD\u5C0D\u7CFB\u7D71\u4E4B\u9593\u7684\u4ECB\u9762\uFF0C\u662F\u6574\u5408\u8B70\u984C\uFF0C\u800C\u975E\u4F7F\u7528\u8005\u9A57\u6536\u3002"
+              }
+            ],
+            "generalFeedback": "\u6574\u5408\u6E2C\u8A66\u6709\u5169\u7A2E\u5B50\u5F62\u5F0F\u3002\u5143\u4EF6\u6574\u5408\u6E2C\u8A66\u6AA2\u67E5\u55AE\u4E00\u7CFB\u7D71\u5167\u5143\u4EF6\u4E4B\u9593\u7684\u4E92\u52D5\uFF08\u5728\u55AE\u5143\u6E2C\u8A66\u4E4B\u5F8C\uFF09\u3002\u7CFB\u7D71\u6574\u5408\u6E2C\u8A66\u6AA2\u67E5\u4E0D\u540C\u7CFB\u7D71\u4E4B\u9593\u6216\u8207\u5916\u90E8\u670D\u52D9\u7684\u4E92\u52D5\uFF08\u5E38\u5728\u7CFB\u7D71\u6E2C\u8A66\u4E4B\u5F8C\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6613\u7528\u6027\u6E2C\u8A66 vs UAT",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u6B63\u78BA\u5340\u5206<em>\u6613\u7528\u6027</em>\u6E2C\u8A66\u8207<em>\u4F7F\u7528\u8005\u9A57\u6536</em>\u6E2C\u8A66\uFF08UAT\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6613\u7528\u6027\u662F\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B\uFF08\u7CFB\u7D71\u591A\u6613\u7528\uFF09\uFF1BUAT \u662F\u6E2C\u8A66\u5C64\u7D1A\uFF08\u4F7F\u7528\u8005\u6C7A\u5B9A\u662F\u5426\u63A5\u53D7\u7CFB\u7D71\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u662F\u985E\u578B\uFF08\u54C1\u8CEA\u5C6C\u6027\uFF09\uFF0C\u53E6\u4E00\u500B\u662F\u5C64\u7D1A\uFF08\u751F\u547D\u9031\u671F\u968E\u6BB5\uFF09\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u5148\u5F8C\u9032\u884C\u7684\u6E2C\u8A66\u5C64\u7D1A",
+                "fraction": 0,
+                "feedback": "\u6613\u7528\u6027\u662F\u985E\u578B\uFF0C\u975E\u5C64\u7D1A\uFF1B\u53EA\u6709 UAT \u662F\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u6613\u7528\u6027\u662F\u975E\u529F\u80FD\u6027\u985E\u578B\uFF0C\u4F46 UAT \u662F\u5C64\u7D1A\uFF0C\u975E\u985E\u578B\u3002"
+              },
+              {
+                "text": "\u6613\u7528\u6027\u662F\u5C64\u7D1A\uFF0CUAT \u662F\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5169\u8005\u985B\u5012\u4E86\uFF1A\u6613\u7528\u6027\u662F\u985E\u578B\uFF0CUAT \u662F\u5C64\u7D1A\u3002"
+              }
+            ],
+            "generalFeedback": "\u6613\u7528\u6027\u6E2C\u8A66\u8A55\u4F30\u4E00\u500B\u54C1\u8CEA\u5C6C\u6027\uFF08\u6613\u7528\u7A0B\u5EA6\uFF09\uFF0C\u56E0\u6B64\u662F\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u578B\uFF0C\u53EF\u5728\u591A\u500B\u5C64\u7D1A\u57F7\u884C\u3002\u4F7F\u7528\u8005\u9A57\u6536\u6E2C\u8A66\u662F\u4E00\u500B\u6E2C\u8A66\u5C64\u7D1A\u2014\u2014\u4F7F\u7528\u8005\u5C0D\u7167\u9700\u6C42\u9A57\u8B49\u7CFB\u7D71\u7684\u968E\u6BB5\u2014\u2014\u5B83\u672C\u8EAB\u53EF\u80FD\u5305\u542B\u6613\u7528\u6027\u6AA2\u67E5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u985E\u578B\u8207\u5C64\u7D1A\u6B63\u4EA4",
+            "text": "<p>\u8AAA\u6E2C\u8A66<em>\u985E\u578B</em>\u8207\u6E2C\u8A66<em>\u5C64\u7D1A</em><strong>\u6B63\u4EA4</strong>\u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EFB\u4F55\u6E2C\u8A66\u985E\u578B\u539F\u5247\u4E0A\u90FD\u53EF\u5728\u4EFB\u4F55\u6E2C\u8A66\u5C64\u7D1A\u57F7\u884C\u2014\u2014\u9019\u5169\u7A2E\u5206\u985E\u5F7C\u6B64\u7368\u7ACB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B63\u4EA4\u610F\u5473\u5169\u8EF8\u5404\u81EA\u7368\u7ACB\u8B8A\u5316\uFF0C\u56E0\u6B64\u4EFB\u4F55\u985E\u578B\u53EF\u642D\u914D\u4EFB\u4F55\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6E2C\u8A66\u5C64\u7D1A\u6C38\u4E45\u7D81\u5B9A\u65BC\u6070\u597D\u4E00\u7A2E\u6E2C\u8A66\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u90A3\u8207\u6B63\u4EA4\u76F8\u53CD\uFF1B\u6B63\u4EA4\u610F\u5473\u5B83\u5011\u5F7C\u6B64\u7368\u7ACB\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u6574\u5408\u5F8C\uFF0C\u6E2C\u8A66\u985E\u578B\u6703\u53D6\u4EE3\u6E2C\u8A66\u5C64\u7D1A",
+                "fraction": 0,
+                "feedback": "\u985E\u578B\u4E0D\u53D6\u4EE3\u5C64\u7D1A\uFF1B\u5169\u8005\u4F5C\u70BA\u7368\u7ACB\u7684\u8EF8\u4E26\u5B58\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u529F\u80FD\u6027\u6E2C\u8A66\u80FD\u5728\u591A\u65BC\u4E00\u500B\u5C64\u7D1A\u9032\u884C",
+                "fraction": 0,
+                "feedback": "\u6240\u6709\u985E\u578B\u2014\u2014\u529F\u80FD\u6027\u3001\u975E\u529F\u80FD\u6027\u3001\u7D50\u69CB\u6027\u3001\u8B8A\u66F4\u76F8\u95DC\u2014\u2014\u90FD\u80FD\u8DE8\u5C64\u7D1A\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u6B63\u4EA4\u300D\u610F\u5473\u5C64\u7D1A\u8EF8\uFF08\u6642\u6A5F\uFF0F\u7BC4\u570D\uFF09\u8207\u985E\u578B\u8EF8\uFF08\u54EA\u500B\u54C1\u8CEA\u5C6C\u6027\uFF0F\u76EE\u6A19\uFF09\u5404\u81EA\u7368\u7ACB\u8B8A\u5316\u3002\u56E0\u6B64\u529F\u80FD\u6027\u3001\u975E\u529F\u80FD\u6027\u3001\u7D50\u69CB\u6027\u8207\u8B8A\u66F4\u76F8\u95DC\u985E\u578B\u90FD\u53EF\u5728\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u6216\u9A57\u6536\u5C64\u7D1A\u5957\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5192\u7159 vs \u7406\u667A vs \u8FF4\u6B78",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u6B63\u78BA\u5340\u5206\u5192\u7159\u3001\u7406\u667A\uFF08sanity\uFF09\u8207\u8FF4\u6B78\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5192\u7159 = \u5EE3\u800C\u6DFA\u7684\u5EFA\u7F6E\u7A69\u5B9A\u6027\u6AA2\u67E5\uFF1B\u7406\u667A = \u5C0F\u5E45\u8B8A\u66F4\u5F8C\u5C0D\u67D0\u4E00\u5340\u57DF\u7684\u7A84\u800C\u6DF1\u6AA2\u67E5\uFF1B\u8FF4\u6B78 = \u70BA\u8B8A\u66F4\u7684\u526F\u4F5C\u7528\u91CD\u65B0\u6E2C\u8A66\u65E2\u6709\u529F\u80FD",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5192\u7159\u5EE3\u800C\u6DFA\u3001\u7406\u667A\u7A84\u800C\u6DF1\u3001\u8FF4\u6B78\u91CD\u65B0\u6AA2\u67E5\u65E2\u6709\u529F\u80FD\u3002"
+              },
+              {
+                "text": "\u4E09\u8005\u610F\u601D\u76F8\u540C\uFF1A\u91CD\u8DD1\u6574\u500B\u6E2C\u8A66\u5957\u4EF6",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5728\u5EE3\u5EA6\u3001\u6DF1\u5EA6\u8207\u76EE\u7684\u4E0A\u7686\u4E0D\u540C\uFF1B\u4E26\u975E\u540C\u7FA9\u3002"
+              },
+              {
+                "text": "\u5192\u7159\u6DF1\u6E2C\u67D0\u4E00\u5340\u57DF\uFF1B\u7406\u667A\u6DFA\u6E2C\u6574\u500B\u5EFA\u7F6E\uFF1B\u8FF4\u6B78\u6E2C\u8A66\u65B0\u529F\u80FD",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5192\u7159\u8207\u7406\u667A\u5C0D\u8ABF\u4E86\uFF0C\u4E14\u8FF4\u6B78\u91DD\u5C0D\u65E2\u6709\u529F\u80FD\uFF0C\u800C\u975E\u65B0\u529F\u80FD\u3002"
+              },
+              {
+                "text": "\u5192\u7159\u8207\u7406\u667A\u662F\u5C64\u7D1A\uFF1B\u8FF4\u6B78\u662F\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u4E09\u8005\u90FD\u662F\u6E2C\u8A66\u6D3B\u52D5\uFF0F\u985E\u578B\uFF0C\u800C\u975E\u5C64\u7D1A\u3002"
+              }
+            ],
+            "generalFeedback": "\u5192\u7159\u6E2C\u8A66\u662F\u5EE3\u800C\u6DFA\u5730\u6AA2\u67E5\u5EFA\u7F6E\u7684\u95DC\u9375\u529F\u80FD\u662F\u5426\u904B\u4F5C\uFF08\u5EFA\u7F6E\u7A69\u5B9A\u6027\uFF09\u3002\u7406\u667A\u6E2C\u8A66\u662F\u5C0F\u5E45\u8B8A\u66F4\u5F8C\u5C0D\u7279\u5B9A\u5340\u57DF\u7684\u7A84\u800C\u6DF1\u6AA2\u67E5\u3002\u8FF4\u6B78\u6E2C\u8A66\u5728\u8B8A\u66F4\u5F8C\u8DE8\u8D8A\u7BC4\u570D\u91CD\u65B0\u6E2C\u8A66\u539F\u672C\u6B63\u5E38\u7684\u529F\u80FD\uFF0C\u4EE5\u5075\u6E2C\u975E\u9810\u671F\u526F\u4F5C\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C64\u7D1A\u8207\u5176\u6E2C\u8A66\u57FA\u790E\u7684\u914D\u5C0D",
+            "text": "<p>\u4E0B\u5217<strong>\u5C64\u7D1A</strong>\u5C0D<strong>\u6E2C\u8A66\u57FA\u790E</strong>\u7684\u914D\u5C0D\u4F55\u8005\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7CFB\u7D71\u6E2C\u8A66 &#8594; \u7CFB\u7D71\uFF0F\u8EDF\u9AD4\u9700\u6C42\u898F\u683C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7CFB\u7D71\u6E2C\u8A66\u4EE5\u7CFB\u7D71\u9700\u6C42\u70BA\u57FA\u790E\u3002"
+              },
+              {
+                "text": "\u55AE\u5143\u6E2C\u8A66 &#8594; \u4F7F\u7528\u8005\u9700\u6C42\u8207\u696D\u52D9\u6D41\u7A0B",
+                "fraction": 0,
+                "feedback": "\u4F7F\u7528\u8005\u9700\u6C42\uFF0F\u696D\u52D9\u6D41\u7A0B\u662F\u9A57\u6536\u7684\u57FA\u790E\uFF1B\u55AE\u5143\u6E2C\u8A66\u7528\u7A0B\u5F0F\u78BC\u8207\u8A73\u7D30\u8A2D\u8A08\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E2C\u8A66 &#8594; \u5143\u4EF6\u7A0B\u5F0F\u78BC\u8207\u8A73\u7D30\u8A2D\u8A08",
+                "fraction": 0,
+                "feedback": "\u5143\u4EF6\u7A0B\u5F0F\u78BC\uFF0F\u8A73\u7D30\u8A2D\u8A08\u662F\u55AE\u5143\u6E2C\u8A66\u57FA\u790E\uFF1B\u9A57\u6536\u7528\u4F7F\u7528\u8005\uFF0F\u696D\u52D9\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u6574\u5408\u6E2C\u8A66 &#8594; \u6558\u8FF0\u8986\u84CB\u7387\u5831\u544A",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u5831\u544A\u662F\u7D50\u69CB\u6027\u7522\u51FA\uFF1B\u6574\u5408\u7684\u57FA\u790E\u662F\u8A2D\u8A08\u3001\u67B6\u69CB\u8207\u4ECB\u9762\u3002"
+              }
+            ],
+            "generalFeedback": "\u5404\u5C64\u7D1A\u7684\u6E2C\u8A66\u57FA\u790E\uFF1A\u55AE\u5143 &#8594; \u7A0B\u5F0F\u78BC\uFF0F\u8A73\u7D30\u8A2D\u8A08\uFF1B\u6574\u5408 &#8594; \u8A2D\u8A08\uFF0F\u67B6\u69CB\uFF0F\u4ECB\u9762\uFF1B\u7CFB\u7D71 &#8594; \u7CFB\u7D71\uFF0F\u8EDF\u9AD4\u9700\u6C42\uFF1B\u9A57\u6536 &#8594; \u4F7F\u7528\u8005\u9700\u6C42\uFF0F\u696D\u52D9\u6D41\u7A0B\uFF08\u53CA\u5408\u7D04\uFF0F\u6CD5\u898F\uFF09\u3002\u6B64\u8655\u53EA\u6709\u7CFB\u7D71\u7684\u914D\u5C0D\u6B63\u78BA\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8FF4\u6B78\u662F\u4E00\u500B\u6E2C\u8A66\u5C64\u7D1A",
+            "text": "<p>\u8FF4\u6B78\u6E2C\u8A66\u662F\u56DB\u500B\u6E2C\u8A66<em>\u5C64\u7D1A</em>\u4E4B\u4E00\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u932F\u8AA4\u2014\u2014\u8FF4\u6B78\u662F\u8DE8\u5C64\u7D1A\u57F7\u884C\u7684\u8B8A\u66F4\u76F8\u95DC\u6E2C\u8A66\uFF0C\u800C\u975E\u5C64\u7D1A\u672C\u8EAB\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8FF4\u6B78\u662F\u8B8A\u66F4\u76F8\u95DC\u6E2C\u8A66\u985E\u578B\uFF0C\u4E26\u975E\u5C64\u7D1A\u4E4B\u4E00\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DB\u500B\u5C64\u7D1A\u662F\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u8207\u9A57\u6536\u3002\u8FF4\u6B78\uFF08\u5982\u540C\u78BA\u8A8D\uFF09\u662F\u53EF\u5728\u4EFB\u4E00\u5C64\u7D1A\u57F7\u884C\u7684\u8B8A\u66F4\u76F8\u95DC\u6E2C\u8A66\u985E\u578B\uFF1B\u5B83\u672C\u8EAB\u4E0D\u662F\u5C64\u7D1A\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7CFB\u7D71\u6E2C\u8A66\u6DB5\u84CB\u54EA\u4E9B\u985E\u578B\uFF1F",
+            "text": "<p>\u95DC\u65BC<strong>\u7CFB\u7D71</strong>\u6E2C\u8A66\u671F\u9593\u6240\u6F14\u7DF4\u7684<em>\u985E\u578B</em>\uFF0C\u4E0B\u5217\u6558\u8FF0\u4F55\u8005\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7CFB\u7D71\u6E2C\u8A66\u53EF\u540C\u6642\u5305\u542B\u529F\u80FD\u6027\u8207\u975E\u529F\u80FD\u6027\u985E\u578B\uFF08\u4F8B\u5982\u5C0D\u7167\u9700\u6C42\u7684\u884C\u70BA\uFF0C\u52A0\u4E0A\u6548\u80FD\u8207\u5B89\u5168\u6027\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u5C64\u7D1A\u53EF\u5BB9\u7D0D\u591A\u7A2E\u985E\u578B\uFF1B\u7CFB\u7D71\u6E2C\u8A66\u901A\u5E38\u6DB5\u84CB\u529F\u80FD\u6027\u8207\u975E\u529F\u80FD\u6027\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u6E2C\u8A66\u7D14\u7CB9\u662F\u529F\u80FD\u6027\uFF0C\u5F9E\u4E0D\u6D89\u53CA\u975E\u529F\u80FD\u6027",
+                "fraction": 0,
+                "feedback": "\u7CFB\u7D71\u6E2C\u8A66\u5E38\u5305\u542B\u6548\u80FD\u8207\u5B89\u5168\u6027\u7B49\u975E\u529F\u80FD\u6027\u985E\u578B\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u6E2C\u8A66\u7D14\u7CB9\u662F\u975E\u529F\u80FD\u6027\uFF0C\u5F9E\u4E0D\u6D89\u53CA\u529F\u80FD\u6027",
+                "fraction": 0,
+                "feedback": "\u7CFB\u7D71\u6E2C\u8A66\u4E5F\u5C0D\u7167\u9700\u6C42\u9A57\u8B49\u529F\u80FD\u6027\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u6E2C\u8A66\u672C\u8EAB\u5C31\u662F\u4E00\u7A2E\u6E2C\u8A66\u985E\u578B\uFF0C\u56E0\u6B64\u985E\u578B\u7684\u554F\u984C\u4E0D\u9069\u7528",
+                "fraction": 0,
+                "feedback": "\u7CFB\u7D71\u6E2C\u8A66\u662F\u5C64\u7D1A\uFF1B\u5176\u4E2D\u6703\u6F14\u7DF4\u591A\u7A2E\u985E\u578B\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u5C64\u7D1A\u8207\u985E\u578B\u6B63\u4EA4\uFF0C\u55AE\u4E00\u5C64\u7D1A\u6703\u5BB9\u7D0D\u6578\u7A2E\u985E\u578B\u3002\u7CFB\u7D71\u6E2C\u8A66\u5E38\u7D50\u5408\u529F\u80FD\u6027\u6E2C\u8A66\uFF08\u5C0D\u7167\u9700\u6C42\u7684\u884C\u70BA\uFF09\u8207\u975E\u529F\u80FD\u6027\u6E2C\u8A66\uFF08\u6548\u80FD\u3001\u5B89\u5168\u6027\u3001\u53EF\u9760\u6027\u7B49\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u9A57\u8B49\u4FEE\u88DC\u5F8C\u518D\u91CD\u8DD1\u5957\u4EF6",
+            "text": "<p>\u7F3A\u9677\u4FEE\u6B63\u5F8C\uFF0C\u6E2C\u8A66\u4EBA\u54E1\u5148\u91CD\u8DD1\u90A3\u500B\u78BA\u5207\u5931\u6557\u7684\u6E2C\u8A66\uFF0C\u518D\u91CD\u8DD1\u5468\u908A\u90A3\u7D44\u5148\u524D\u901A\u904E\u7684\u6E2C\u8A66\u3002\u9019\u5169\u9805\u6D3B\u52D5\u5206\u5225\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u78BA\u8A8D\u6E2C\u8A66\uFF0C\u7136\u5F8C\u8FF4\u6B78\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91CD\u8DD1\u5931\u6557\u7684\u6E2C\u8A66\u662F\u78BA\u8A8D\uFF1B\u91CD\u8DD1\u5176\u9918\u662F\u8FF4\u6B78\u3002"
+              },
+              {
+                "text": "\u8FF4\u6B78\u6E2C\u8A66\uFF0C\u7136\u5F8C\u78BA\u8A8D\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5169\u8005\u985B\u5012\u4E86\uFF1A\u7279\u5B9A\u5931\u6557\u7684\u6E2C\u8A66\u662F\u78BA\u8A8D\uFF0C\u5468\u908A\u5957\u4EF6\u662F\u8FF4\u6B78\u3002"
+              },
+              {
+                "text": "\u5192\u7159\u6E2C\u8A66\uFF0C\u7136\u5F8C\u7406\u667A\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5169\u9805\u6D3B\u52D5\u90FD\u4E0D\u662F\u5EFA\u7F6E\u7A69\u5B9A\u6027\u6216\u7A84\u5340\u57DF\u6AA2\u67E5\uFF1B\u5B83\u5011\u662F\u8B8A\u66F4\u76F8\u95DC\u7684\u4E00\u5C0D\u3002"
+              },
+              {
+                "text": "\u540C\u4E00\u500B\u9A57\u6536\u6E2C\u8A66\u8DD1\u5169\u6B21",
+                "fraction": 0,
+                "feedback": "\u9019\u4E9B\u662F\u8B8A\u66F4\u76F8\u95DC\u985E\u578B\u7684\u6D3B\u52D5\uFF0C\u800C\u975E\u9A57\u6536\u5C64\u7D1A\u7684\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u78BA\u8A8D\uFF08\u518D\uFF09\u6E2C\u8A66\u91CD\u8DD1\u5148\u524D\u5931\u6557\u7684\u90A3\u500B\u7279\u5B9A\u6E2C\u8A66\u4EE5\u9A57\u8B49\u4FEE\u6B63\uFF1B\u8FF4\u6B78\u6E2C\u8A66\u63A5\u8457\u91CD\u8DD1\u5148\u524D\u901A\u904E\u7684\u6E2C\u8A66\uFF0C\u4EE5\u78BA\u4FDD\u4FEE\u6B63\u672A\u9020\u6210\u975E\u9810\u671F\u526F\u4F5C\u7528\u3002\u5169\u8005\u90FD\u662F\u8B8A\u66F4\u76F8\u95DC\u6E2C\u8A66\u985E\u578B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Alpha vs Beta \u6E2C\u8A66",
+            "text": "<p>Alpha \u8207 Beta \u6E2C\u8A66\u90FD\u662F<strong>\u9A57\u6536</strong>\u6E2C\u8A66\u7684\u5F62\u5F0F\u3002\u5B83\u5011\u7684\u5340\u5225\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Alpha \u5728\u958B\u767C\u8005\u7684\u5834\u5730\u9032\u884C\uFF08\u7531\u6F5B\u5728\u4F7F\u7528\u8005\u6216\u7368\u7ACB\u5718\u968A\uFF09\uFF1BBeta \u5728\u5BA2\u6236\u81EA\u5DF1\u7684\u5834\u5730\u9032\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Alpha \u5728\u958B\u767C\u8005\u5834\u5730\uFF0CBeta \u5728\u5BA2\u6236\u73FE\u5834\uFF08\u5BE6\u5730\uFF09\u3002"
+              },
+              {
+                "text": "Alpha \u662F\u6E2C\u8A66\u5C64\u7D1A\uFF0CBeta \u662F\u6E2C\u8A66\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u662F\u9A57\u6536\u5C64\u7D1A\u6E2C\u8A66\u7684\u5F62\u5F0F\uFF0C\u4E26\u975E\u5C64\u7D1A\uFF0F\u985E\u578B\u4E4B\u5206\u3002"
+              },
+              {
+                "text": "Alpha \u6E2C\u6548\u80FD\uFF0CBeta \u6E2C\u529F\u80FD",
+                "fraction": 0,
+                "feedback": "\u5340\u5225\u5728\u65BC\u5730\u9EDE\uFF0F\u7531\u8AB0\u9032\u884C\uFF0C\u800C\u975E\u529F\u80FD\u6027\u8207\u975E\u529F\u80FD\u6027\u4E4B\u5206\u3002"
+              },
+              {
+                "text": "Alpha \u5728\u767C\u884C\u5F8C\u9032\u884C\uFF0CBeta \u5728\u958B\u767C\u524D\u9032\u884C",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u5728\u6B63\u5F0F\u767C\u884C\u524D\u9032\u884C\uFF1B\u5DEE\u7570\u5728\u65BC\u5728\u4F55\u8655\u9032\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "Alpha \u8207 Beta \u6E2C\u8A66\u662F\u9A57\u6536\u6E2C\u8A66\u7684\u4F5C\u696D\uFF0F\u4F7F\u7528\u8005\u5F62\u5F0F\u3002Alpha \u5728\u958B\u767C\u7D44\u7E54\u7684\u5834\u5730\u9032\u884C\uFF08\u7531\u6F5B\u5728\u4F7F\u7528\u8005\u6216\u7368\u7ACB\u6E2C\u8A66\u5718\u968A\uFF09\uFF1BBeta\uFF08\u300C\u5BE6\u5730\u300D\uFF09\u6E2C\u8A66\u7531\u771F\u5BE6\u4F7F\u7528\u8005\u5728\u5176\u81EA\u5DF1\u7684\u5834\u5730\u9032\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5408\u7D04\u6027\uFF0F\u6CD5\u898F\u6027\u9A57\u6536",
+            "text": "<p>\u5C0D\u7167\u7C3D\u7F72\u5408\u7D04\u4E2D\u6240\u8F09\u7684\u9A57\u6536\u6E96\u5247\u3001\u6216\u5C0D\u7167\u653F\u5E9C\u76E3\u7BA1\u6A5F\u95DC\u6240\u65BD\u52A0\u7684\u898F\u5247\u4F86\u6E2C\u8A66\u7CFB\u7D71\uFF0C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5408\u7D04\u6027\uFF0F\u6CD5\u898F\u6027\u9A57\u6536\u6E2C\u8A66\uFF08\u9A57\u6536\u6E2C\u8A66\u7684\u4E00\u7A2E\u5F62\u5F0F\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u7167\u5408\u7D04\u6216\u6CD5\u898F\u6AA2\u67E5\u662F\u9A57\u6536\u6E2C\u8A66\u7684\u4E00\u7A2E\u5F62\u5F0F\u3002"
+              },
+              {
+                "text": "\u7D50\u69CB\u6027\u6E2C\u8A66\uFF0C\u56E0\u70BA\u5B83\u91CF\u6E2C\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u5C0D\u7167\u5408\u7D04\uFF0F\u6CD5\u898F\u9A57\u8B49\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u5143\u4EF6\u6574\u5408\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5B83\u95DC\u4E4E\u6574\u500B\u7CFB\u7D71\u7684\u9A57\u6536\u6E96\u5247\uFF0C\u800C\u975E\u5143\u4EF6\u4ECB\u9762\u3002"
+              },
+              {
+                "text": "\u78BA\u8A8D\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u78BA\u8A8D\u91CD\u65B0\u6AA2\u67E5\u67D0\u9805\u4FEE\u6B63\uFF1B\u9019\u662F\u5C0D\u7167\u5408\u7D04\uFF0F\u6CD5\u898F\u7684\u9A57\u6536\u3002"
+              }
+            ],
+            "generalFeedback": "\u5408\u7D04\u6027\u9A57\u6536\u6E2C\u8A66\u5C0D\u7167\u5408\u7D04\u4E2D\u7684\u9A57\u6536\u6E96\u5247\u9A57\u8B49\u7CFB\u7D71\uFF1B\u6CD5\u898F\u6027\u9A57\u6536\u6E2C\u8A66\u5C0D\u7167\u6CD5\u5F8B\uFF0F\u6CD5\u898F\uFF08\u4F8B\u5982\u5B89\u5168\u3001\u6CD5\u5F8B\u3001\u653F\u5E9C\u6A19\u6E96\uFF09\u9A57\u8B49\u7CFB\u7D71\u3002\u5169\u8005\u90FD\u662F\u9A57\u6536\u5C64\u7D1A\u7684\u5F62\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u300C\u9A57\u6536\u5C64\u7D1A\u7684\u5B89\u5168\u6027\u6E2C\u8A66\u300D\u4E2D\u5404\u8EF8\u70BA\u4F55",
+            "text": "<p>\u5728\u300C\u9A57\u6536\u5C64\u7D1A\u7684\u5B89\u5168\u6027\u6E2C\u8A66\u300D\u9019\u53E5\u8A71\u4E2D\uFF0C\u54EA\u500B\u8A5E\u6307<em>\u5C64\u7D1A</em>\u3001\u54EA\u500B\u6307<em>\u985E\u578B</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u300C\u9A57\u6536\u300D\u662F\u5C64\u7D1A\uFF1B\u300C\u5B89\u5168\u6027\u300D\u662F\uFF08\u975E\u529F\u80FD\u6027\uFF09\u985E\u578B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u662F\u5C64\u7D1A\uFF0C\u5B89\u5168\u6027\u662F\u975E\u529F\u80FD\u6027\u985E\u578B\u3002"
+              },
+              {
+                "text": "\u300C\u5B89\u5168\u6027\u300D\u662F\u5C64\u7D1A\uFF1B\u300C\u9A57\u6536\u300D\u662F\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5169\u8EF8\u985B\u5012\u4E86\uFF1A\u9A57\u6536\u662F\u5C64\u7D1A\uFF0C\u5B89\u5168\u6027\u662F\u985E\u578B\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u8A5E\u90FD\u6307\u5C64\u7D1A",
+                "fraction": 0,
+                "feedback": "\u5B89\u5168\u6027\u662F\u985E\u578B\uFF0C\u975E\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u5169\u500B\u8A5E\u90FD\u6307\u985E\u578B",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u662F\u5C64\u7D1A\uFF0C\u975E\u985E\u578B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C64\u7D1A = \u6642\u6A5F\uFF0F\u7BC4\u570D\uFF08\u9A57\u6536\uFF09\uFF1B\u985E\u578B = \u54EA\u500B\u54C1\u8CEA\u5C6C\u6027\uFF08\u5B89\u5168\u6027\uFF0C\u4E00\u7A2E\u975E\u529F\u80FD\u6027\u985E\u578B\uFF09\u3002\u9019\u53E5\u8A71\u5F9E\u5169\u500B\u6B63\u4EA4\u8EF8\u5404\u53D6\u5176\u4E00\uFF1A\u5957\u7528\u65BC\u9A57\u6536\u5C64\u7D1A\u7684\u5B89\u5168\u6027\u985E\u578B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975C\u614B\u6E2C\u8A66\u7684\u4F8B\u5B50",
+            "text": "<p>\u4E0B\u5217\u54EA\u9805\u6D3B\u52D5\u662F<em>\u975C\u614B</em>\u6E2C\u8A66\u7684\u4F8B\u5B50\uFF08\u76F8\u5C0D\u65BC\u52D5\u614B\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u9700\u6C42\u6587\u4EF6\u9032\u884C\u540C\u5115\u5BE9\u67E5\uFF0C\u5728\u4EFB\u4F55\u7A0B\u5F0F\u78BC\u57F7\u884C\u524D\u627E\u51FA\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BE9\u67E5\u5728\u4E0D\u57F7\u884C\u7A0B\u5F0F\u78BC\u7684\u60C5\u6CC1\u4E0B\u6AA2\u8996\u5DE5\u4F5C\u7522\u51FA\uFF0C\u56E0\u6B64\u662F\u975C\u614B\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u4EE5\u6E2C\u8A66\u8F38\u5165\u57F7\u884C\u7A0B\u5F0F\uFF0C\u4E26\u5C07\u8F38\u51FA\u8207\u9810\u671F\u503C\u6BD4\u8F03",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u7A0B\u5F0F\u662F\u52D5\u614B\u6E2C\u8A66\uFF0C\u975E\u975C\u614B\u3002"
+              },
+              {
+                "text": "\u5728\u6E2C\u8A66\u5957\u4EF6\u57F7\u884C\u6642\u91CF\u6E2C\u5206\u652F\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u5728\u57F7\u884C\u671F\u9593\u91CF\u6E2C\u7684\u8986\u84CB\u7387\u662F\u52D5\u614B\uFF08\u7D50\u69CB\u6027\uFF09\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u4EE5\u773E\u591A\u4E26\u884C\u4F7F\u7528\u8005\u5C0D\u57F7\u884C\u4E2D\u7684\u61C9\u7528\u7A0B\u5F0F\u505A\u8CA0\u8F09\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u8CA0\u8F09\u6E2C\u8A66\u6703\u57F7\u884C\u7CFB\u7D71\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\uFF08\u975E\u529F\u80FD\u6027\uFF09\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u975C\u614B\u6E2C\u8A66\u5728\u4E0D\u57F7\u884C\u7A0B\u5F0F\u78BC\u7684\u60C5\u6CC1\u4E0B\u8A55\u4F30\u5DE5\u4F5C\u7522\u51FA\u2014\u2014\u5C0D\u9700\u6C42\u3001\u8A2D\u8A08\u6216\u7A0B\u5F0F\u78BC\u7684\u5BE9\u67E5\u8207\u975C\u614B\u5206\u6790\u3002\u52D5\u614B\u6E2C\u8A66\u6703\u57F7\u884C\u8EDF\u9AD4\uFF1B\u4EFB\u4F55\u89C0\u5BDF\u57F7\u884C\u4E2D\u884C\u70BA\u7684\u6D3B\u52D5\uFF08\u542B\u8986\u84CB\u7387\u91CF\u6E2C\u8207\u8CA0\u8F09\u6E2C\u8A66\uFF09\u90FD\u662F\u52D5\u614B\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u4E00\u7A2E\u985E\u578B\u53EF\u8DE8\u591A\u500B\u5C64\u7D1A",
+            "text": "<p>\u55AE\u4E00\u6E2C\u8A66<em>\u985E\u578B</em>\uFF08\u4F8B\u5982\u529F\u80FD\u6027\u6E2C\u8A66\uFF09\u53EF\u5728\u591A\u65BC\u4E00\u500B\u6E2C\u8A66<em>\u5C64\u7D1A</em>\u57F7\u884C\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7531\u65BC\u5C64\u7D1A\u8207\u985E\u578B\u6B63\u4EA4\uFF0C\u4E00\u7A2E\u985E\u578B\u53EF\u5728\u6578\u500B\u5C64\u7D1A\u5957\u7528\uFF08\u529F\u80FD\u6027\u6E2C\u8A66\u5728\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u8207\u9A57\u6536\uFF09\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u985E\u578B\u8207\u5C64\u7D1A\u662F\u7368\u7ACB\u7684\u8EF8\uFF0C\u56E0\u6B64\u4E00\u7A2E\u985E\u578B\u53EF\u8DE8\u591A\u500B\u5C64\u7D1A\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u985E\u578B\u8207\u6E2C\u8A66\u5C64\u7D1A\u6B63\u4EA4\uFF0C\u56E0\u6B64\u4EFB\u4F55\u985E\u578B\u90FD\u53EF\u5728\u4EFB\u4F55\u5C64\u7D1A\u6F14\u7DF4\u3002\u4F8B\u5982\u529F\u80FD\u6027\u6E2C\u8A66\u5728\u55AE\u5143\u3001\u6574\u5408\u3001\u7CFB\u7D71\u8207\u9A57\u6536\u5C64\u7D1A\u90FD\u6703\u9032\u884C\uFF1B\u540C\u6A23\u5730\uFF0C\u6548\u80FD\u8207\u5176\u4ED6\u975E\u529F\u80FD\u6027\u985E\u578B\u4E5F\u53EF\u8DE8\u5C64\u7D1A\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u975E\u529F\u80FD\u6027\u985E\u578B",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F<strong>\u975E\u529F\u80FD\u6027</strong>\u6E2C\u8A66\u985E\u578B\uFF0C\u800C\u975E\u529F\u80FD\u6027\u6AA2\u67E5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u651C\u6027\u6E2C\u8A66\u2014\u2014\u9A57\u8B49\u8EDF\u9AD4\u80FD\u88AB\u79FB\u690D\u5230\u53E6\u4E00\u500B\u74B0\u5883\u4E26\u5728\u5176\u4E2D\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u651C\u6027\u662F\u975E\u529F\u80FD\u6027\u54C1\u8CEA\u5C6C\u6027\u3002"
+              },
+              {
+                "text": "\u9A57\u8B49\u6709\u6548\u767B\u5165\u88AB\u63A5\u53D7\u3001\u7121\u6548\u767B\u5165\u88AB\u62D2\u7D55",
+                "fraction": 0,
+                "feedback": "\u90A3\u6AA2\u67E5\u7CFB\u7D71\u505A\u4EC0\u9EBC\uFF08\u884C\u70BA\uFF09\uFF0C\u56E0\u6B64\u662F\u529F\u80FD\u6027\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u9A57\u8B49\u6298\u6263\u4F9D\u696D\u52D9\u898F\u5247\u8A08\u7B97",
+                "fraction": 0,
+                "feedback": "\u4F9D\u898F\u5247\u7B97\u51FA\u6B63\u78BA\u7D50\u679C\u662F\u529F\u80FD\u6027\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u9A57\u8B49\u5831\u8868\u542B\u6709\u6240\u9700\u7684\u6B04\u4F4D",
+                "fraction": 0,
+                "feedback": "\u6AA2\u67E5\u6240\u9700\u5167\u5BB9\uFF0F\u884C\u70BA\u662F\u529F\u80FD\u6027\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u975E\u529F\u80FD\u6027\u985E\u578B\u8A55\u4F30\u54C1\u8CEA\u5C6C\u6027\u2014\u2014\u6548\u80FD\u3001\u5B89\u5168\u6027\u3001\u6613\u7528\u6027\u3001\u53EF\u9760\u6027\u3001\u76F8\u5BB9\u6027\u3001\u53EF\u651C\u6027\u3001\u53EF\u7DAD\u8B77\u6027\u3002\u53EF\u651C\u6027\uFF08\u628A\u8EDF\u9AD4\u79FB\u5230\u53E6\u4E00\u74B0\u5883\uFF09\u662F\u975E\u529F\u80FD\u6027\uFF1B\u5176\u4ED6\u9078\u9805\u6AA2\u67E5\u884C\u70BA\uFF0C\u5C6C\u529F\u80FD\u6027\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "v-model": {
       "en": {
         "easy": [

@@ -75935,6 +75935,2546 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "testing-types-table": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What a test level is",
+          "text": "<p>A <em>test level</em> is a group of test activities that are organised primarily by:</p>",
+          "answers": [
+            {
+              "text": "When they happen and what scope they cover in the development lifecycle (unit, integration, system, acceptance)",
+              "fraction": 100,
+              "feedback": "Correct — a level is defined by scope/when: unit, integration, system, acceptance."
+            },
+            {
+              "text": "The quality attribute or objective they target (functional, performance, security)",
+              "fraction": 0,
+              "feedback": "That describes a test, not a level."
+            },
+            {
+              "text": "The programming language used to write the tests",
+              "fraction": 0,
+              "feedback": "Levels are not defined by tooling or language."
+            },
+            {
+              "text": "Whether the tester is internal or external to the company",
+              "fraction": 0,
+              "feedback": "Who runs the test does not define a level; scope and lifecycle position do."
+            }
+          ],
+          "generalFeedback": "Test levels are groups of activities organised by scope and position in the lifecycle: unit/component, integration, system, and acceptance. They answer \"when/at what scope\", distinct from test types, which answer \"what quality attribute\".",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test type is",
+          "text": "<p>A <em>test type</em> is a group of test activities organised primarily by:</p>",
+          "answers": [
+            {
+              "text": "The specific quality characteristic or objective being evaluated (e.g. functional, performance, security)",
+              "fraction": 100,
+              "feedback": "Correct — a type is defined by the objective/attribute under test."
+            },
+            {
+              "text": "Its position in the lifecycle (unit, integration, system, acceptance)",
+              "fraction": 0,
+              "feedback": "That describes a test, not a type."
+            },
+            {
+              "text": "The number of testers assigned to it",
+              "fraction": 0,
+              "feedback": "Team size does not define a test type."
+            },
+            {
+              "text": "The order in which defects are reported",
+              "fraction": 0,
+              "feedback": "Defect reporting order is unrelated to how types are defined."
+            }
+          ],
+          "generalFeedback": "Test types group activities by the objective or quality attribute they evaluate — functional, non-functional, structural (white-box), and change-related. They answer \"what are we testing for\", distinct from levels, which answer \"at what scope/when\".",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The four test levels in order",
+          "text": "<p>Which sequence lists the classic test <strong>levels</strong> in their usual order?</p>",
+          "answers": [
+            {
+              "text": "Unit/component &#8594; integration &#8594; system &#8594; acceptance",
+              "fraction": 100,
+              "feedback": "Correct — this is the standard ordering of test levels."
+            },
+            {
+              "text": "Functional &#8594; non-functional &#8594; structural &#8594; change-related",
+              "fraction": 0,
+              "feedback": "Those are test, not levels."
+            },
+            {
+              "text": "Acceptance &#8594; system &#8594; integration &#8594; unit",
+              "fraction": 0,
+              "feedback": "This reverses the order; unit testing comes first."
+            },
+            {
+              "text": "Smoke &#8594; regression &#8594; performance &#8594; security",
+              "fraction": 0,
+              "feedback": "These are test types/activities, not the four levels."
+            }
+          ],
+          "generalFeedback": "The four classic test levels run from smallest to largest scope: unit/component, then integration, then system, then acceptance.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Functional vs non-functional",
+          "text": "<p><em>Functional</em> testing evaluates:</p>",
+          "answers": [
+            {
+              "text": "What the system does — the functions and behaviour it is supposed to provide",
+              "fraction": 100,
+              "feedback": "Correct — functional testing checks \"what\" the system does."
+            },
+            {
+              "text": "How well the system performs a function — its speed, security, or usability",
+              "fraction": 0,
+              "feedback": "That is non-functional testing (the \"how well\" qualities)."
+            },
+            {
+              "text": "The internal code structure and coverage achieved",
+              "fraction": 0,
+              "feedback": "That is structural (white-box) testing."
+            },
+            {
+              "text": "Whether a fix re-broke previously working features",
+              "fraction": 0,
+              "feedback": "That is change-related (regression) testing."
+            }
+          ],
+          "generalFeedback": "Functional testing asks \"does it do what it is supposed to do?\" — it evaluates the functions/behaviour. Non-functional testing asks \"how well?\" — performance, security, usability, and other quality attributes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A non-functional type",
+          "text": "<p>Which of the following is a <strong>non-functional</strong> test type?</p>",
+          "answers": [
+            {
+              "text": "Performance (load/stress) testing",
+              "fraction": 100,
+              "feedback": "Correct — performance is a non-functional quality attribute."
+            },
+            {
+              "text": "Checking that \"add to cart\" adds the chosen item",
+              "fraction": 0,
+              "feedback": "That is functional testing — it checks what the system does."
+            },
+            {
+              "text": "Measuring statement coverage of the code",
+              "fraction": 0,
+              "feedback": "That is structural (white-box) testing, not non-functional."
+            },
+            {
+              "text": "Re-running a failed test after the defect is fixed",
+              "fraction": 0,
+              "feedback": "That is confirmation testing, a change-related activity."
+            }
+          ],
+          "generalFeedback": "Non-functional types evaluate \"how well\" — performance, security, usability, reliability, compatibility, portability, maintainability. Performance (including load and stress) is a classic example.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Confirmation testing defined",
+          "text": "<p><em>Confirmation (re-)testing</em> means:</p>",
+          "answers": [
+            {
+              "text": "Re-running the test that originally revealed a defect, after the fix, to confirm the defect is gone",
+              "fraction": 100,
+              "feedback": "Correct — confirmation testing verifies that the specific fix worked."
+            },
+            {
+              "text": "Running other tests to check the fix did not break anything else",
+              "fraction": 0,
+              "feedback": "That is regression testing, not confirmation testing."
+            },
+            {
+              "text": "A first quick check that the build is stable enough to test",
+              "fraction": 0,
+              "feedback": "That is smoke testing."
+            },
+            {
+              "text": "Testing the system against user business needs before go-live",
+              "fraction": 0,
+              "feedback": "That is acceptance testing, a level, not confirmation testing."
+            }
+          ],
+          "generalFeedback": "Confirmation testing (re-testing) re-executes the exact test case that failed, now that the defect is supposedly fixed, to confirm the fix. Checking for unintended side effects elsewhere is the separate activity of regression testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Regression testing defined",
+          "text": "<p><em>Regression testing</em> means:</p>",
+          "answers": [
+            {
+              "text": "Re-testing previously working functionality to detect unintended side effects introduced by a change",
+              "fraction": 100,
+              "feedback": "Correct — regression guards against a change breaking things that used to work."
+            },
+            {
+              "text": "Re-running only the one test that failed, to confirm the specific fix",
+              "fraction": 0,
+              "feedback": "That is confirmation (re-)testing, not regression."
+            },
+            {
+              "text": "Testing a brand-new feature for the first time",
+              "fraction": 0,
+              "feedback": "Testing new functionality is not regression testing; regression re-checks existing behaviour."
+            },
+            {
+              "text": "Measuring how fast the system responds under load",
+              "fraction": 0,
+              "feedback": "That is performance testing, a non-functional type."
+            }
+          ],
+          "generalFeedback": "Regression testing re-executes tests over already-working functionality after a change (a fix, enhancement, or configuration change) to catch unintended side effects. It is a change-related test type performed across levels.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Smoke testing defined",
+          "text": "<p><em>Smoke testing</em> is best described as:</p>",
+          "answers": [
+            {
+              "text": "A quick, shallow set of checks confirming the build's main functions work well enough to justify further testing",
+              "fraction": 100,
+              "feedback": "Correct — smoke testing is a broad, shallow \"is the build stable?\" check."
+            },
+            {
+              "text": "An exhaustive re-run of the entire test suite after every change",
+              "fraction": 0,
+              "feedback": "That would be full regression testing, not a quick smoke test."
+            },
+            {
+              "text": "A deep test of one specific area after a small change",
+              "fraction": 0,
+              "feedback": "That describes sanity testing, which is narrow and deep rather than broad and shallow."
+            },
+            {
+              "text": "Validation of the system against user requirements before release",
+              "fraction": 0,
+              "feedback": "That is acceptance testing, a level, not smoke testing."
+            }
+          ],
+          "generalFeedback": "A smoke test is a small, broad, shallow set of checks (often automated as build verification) run to decide whether a build is stable enough to spend more testing effort on it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Static vs dynamic testing",
+          "text": "<p>The distinguishing feature of <em>static</em> testing is that it:</p>",
+          "answers": [
+            {
+              "text": "Examines the work product without executing the code (reviews, static analysis)",
+              "fraction": 100,
+              "feedback": "Correct — static testing evaluates artefacts without running them."
+            },
+            {
+              "text": "Runs the software and observes its behaviour on inputs",
+              "fraction": 0,
+              "feedback": "That is dynamic testing, the opposite of static."
+            },
+            {
+              "text": "Can only be applied at the acceptance level",
+              "fraction": 0,
+              "feedback": "Static testing (reviews, analysis) can apply throughout, and it is defined by not executing code."
+            },
+            {
+              "text": "Requires measuring code coverage",
+              "fraction": 0,
+              "feedback": "Coverage is a dynamic/structural concern; static testing does not run the code."
+            }
+          ],
+          "generalFeedback": "Static testing evaluates work products (code, requirements, designs) without executing them — via reviews and static analysis. Dynamic testing executes the software and observes actual behaviour.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: testing one function in isolation",
+          "text": "<p>A developer tests a single function in isolation, checking its logic directly. Which test <strong>level</strong> is this?</p>",
+          "answers": [
+            {
+              "text": "Unit (component) testing",
+              "fraction": 100,
+              "feedback": "Correct — testing an individual component in isolation is the unit level."
+            },
+            {
+              "text": "Integration testing",
+              "fraction": 0,
+              "feedback": "Integration testing checks interactions between components, not one component alone."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing exercises the whole integrated system, not a single function."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing validates the finished system against user needs, not an isolated function."
+            }
+          ],
+          "generalFeedback": "Exercising an individual component/function in isolation is unit (component) testing — the smallest-scope level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: response time under load",
+          "text": "<p>A team measures how quickly the application responds when many users hit it at once. Which test <strong>type</strong> is this?</p>",
+          "answers": [
+            {
+              "text": "Performance testing (a non-functional type)",
+              "fraction": 100,
+              "feedback": "Correct — measuring response under load is non-functional performance testing."
+            },
+            {
+              "text": "Functional testing",
+              "fraction": 0,
+              "feedback": "Functional testing checks what the system does, not how fast it does it."
+            },
+            {
+              "text": "Acceptance (a level, wrongly named here)",
+              "fraction": 0,
+              "feedback": "Acceptance is a level, not the type being described; and this activity is performance testing."
+            },
+            {
+              "text": "Confirmation testing",
+              "fraction": 0,
+              "feedback": "Confirmation testing re-checks a fix; it does not measure response time."
+            }
+          ],
+          "generalFeedback": "Measuring speed/throughput under load evaluates a quality attribute (performance), so it is a non-functional test type — and it can be applied at any level (commonly system).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: users validate before go-live",
+          "text": "<p>Before release, the intended users try the system against their real business needs to decide whether to accept it. Which test <strong>level</strong> is this?</p>",
+          "answers": [
+            {
+              "text": "Acceptance testing",
+              "fraction": 100,
+              "feedback": "Correct — user validation against business needs prior to acceptance is the acceptance level."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing checks a single component, not the whole system against user needs."
+            },
+            {
+              "text": "Integration testing",
+              "fraction": 0,
+              "feedback": "Integration testing checks module interactions, not user acceptance."
+            },
+            {
+              "text": "Performance testing",
+              "fraction": 0,
+              "feedback": "Performance is a non-functional type, not a level; this activity is acceptance-level validation."
+            }
+          ],
+          "generalFeedback": "Validating the completed system against user requirements and business processes to establish confidence for release is acceptance testing — the last of the four levels.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Structural (white-box) testing",
+          "text": "<p><em>Structural (white-box)</em> testing is characterised by:</p>",
+          "answers": [
+            {
+              "text": "Deriving and measuring tests from the internal structure of the code (e.g. statement or branch coverage)",
+              "fraction": 100,
+              "feedback": "Correct — structural testing works from the code's internal structure and coverage."
+            },
+            {
+              "text": "Deriving tests only from the specification, ignoring the code",
+              "fraction": 0,
+              "feedback": "That is black-box (specification-based) testing, not structural."
+            },
+            {
+              "text": "Measuring the system's response time under load",
+              "fraction": 0,
+              "feedback": "That is performance testing, a non-functional type."
+            },
+            {
+              "text": "Re-running earlier tests after a change",
+              "fraction": 0,
+              "feedback": "That is regression testing, a change-related type."
+            }
+          ],
+          "generalFeedback": "Structural (white-box) testing uses the internal structure of the item — control flow, data flow — to derive tests and to measure coverage (statement, branch, etc.). It is a distinct test type that can be applied at any level.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Functional testing checks what the system does",
+          "text": "<p>Functional testing evaluates <em>what</em> the system does (its functions), while non-functional testing evaluates <em>how well</em> it does it.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — functional = what it does; non-functional = how well it does it."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is the standard distinction: functional targets behaviour/functions, non-functional targets quality attributes."
+            }
+          ],
+          "generalFeedback": "Functional testing checks the functions and behaviour the system provides; non-functional testing checks quality attributes such as performance, security, usability and reliability — \"how well\" those functions are delivered."
+        },
+        {
+          "type": "multichoice",
+          "name": "Which item is a test level, not a type",
+          "text": "<p>Which of the following is a test <strong>level</strong> (not a test type)?</p>",
+          "answers": [
+            {
+              "text": "Acceptance",
+              "fraction": 100,
+              "feedback": "Correct — acceptance is a test level (scope/when)."
+            },
+            {
+              "text": "Performance",
+              "fraction": 0,
+              "feedback": "Performance is a non-functional test type, not a level."
+            },
+            {
+              "text": "Security",
+              "fraction": 0,
+              "feedback": "Security is a non-functional test type, not a level."
+            },
+            {
+              "text": "Regression",
+              "fraction": 0,
+              "feedback": "Regression is a change-related test type, not a level."
+            }
+          ],
+          "generalFeedback": "Acceptance is one of the four levels (unit, integration, system, acceptance). Performance, security, and regression are all test types (non-functional or change-related), not levels.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Test basis for the unit level",
+          "text": "<p>Which document is the usual <em>test basis</em> for <strong>unit (component)</strong> testing?</p>",
+          "answers": [
+            {
+              "text": "The detailed (low-level) design and the code of the component",
+              "fraction": 100,
+              "feedback": "Correct — unit testing is based on the component's detailed design and code."
+            },
+            {
+              "text": "The system requirements specification",
+              "fraction": 0,
+              "feedback": "That is the basis for system testing, not unit testing."
+            },
+            {
+              "text": "The user requirements and business processes",
+              "fraction": 0,
+              "feedback": "That is the basis for acceptance testing."
+            },
+            {
+              "text": "The software architecture and interface specifications",
+              "fraction": 0,
+              "feedback": "That is the basis for integration testing."
+            }
+          ],
+          "generalFeedback": "Each level draws on a different test basis. Unit testing is based on the detailed/component design and the code itself, since it targets the internals of a single component.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test basis for the system level",
+          "text": "<p>Which document is the usual <em>test basis</em> for <strong>system</strong> testing?</p>",
+          "answers": [
+            {
+              "text": "The system/software requirements specification (functional and non-functional)",
+              "fraction": 100,
+              "feedback": "Correct — system testing is based on the system requirements."
+            },
+            {
+              "text": "The component's detailed design and code",
+              "fraction": 0,
+              "feedback": "That is the basis for unit testing."
+            },
+            {
+              "text": "The software architecture and module interfaces",
+              "fraction": 0,
+              "feedback": "That is the basis for integration testing."
+            },
+            {
+              "text": "The legal contract signed with the customer",
+              "fraction": 0,
+              "feedback": "That belongs to (contractual) acceptance testing, not system testing."
+            }
+          ],
+          "generalFeedback": "System testing verifies the complete, integrated system against its specified requirements, so the system/software requirements specification (both functional and non-functional) is its test basis.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is acceptance a level or a type?",
+          "text": "<p>On the level-vs-type axes, <em>acceptance</em> testing is:</p>",
+          "answers": [
+            {
+              "text": "A test level (defined by scope/when in the lifecycle)",
+              "fraction": 100,
+              "feedback": "Correct — acceptance is the fourth test level."
+            },
+            {
+              "text": "A non-functional test type",
+              "fraction": 0,
+              "feedback": "Acceptance is a level; functional and non-functional types can both be run within it."
+            },
+            {
+              "text": "A structural test type",
+              "fraction": 0,
+              "feedback": "Acceptance is not a type at all; it is a level."
+            },
+            {
+              "text": "A change-related test type",
+              "fraction": 0,
+              "feedback": "Change-related types are confirmation and regression; acceptance is a level."
+            }
+          ],
+          "generalFeedback": "Acceptance sits on the level axis (unit, integration, system, acceptance). Within it you may still run functional and non-functional test types — the two axes are orthogonal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is performance a level or a type?",
+          "text": "<p>On the level-vs-type axes, <em>performance</em> testing is:</p>",
+          "answers": [
+            {
+              "text": "A non-functional test type (it can be run at several levels)",
+              "fraction": 100,
+              "feedback": "Correct — performance is a non-functional type, not a level."
+            },
+            {
+              "text": "A test level between system and acceptance",
+              "fraction": 0,
+              "feedback": "There is no \"performance level\"; the levels are unit, integration, system, acceptance."
+            },
+            {
+              "text": "A test level that replaces system testing",
+              "fraction": 0,
+              "feedback": "Performance is a type; it does not sit on the level axis at all."
+            },
+            {
+              "text": "A change-related test type",
+              "fraction": 0,
+              "feedback": "Change-related types are confirmation and regression; performance is non-functional."
+            }
+          ],
+          "generalFeedback": "Performance is a non-functional test type. A common misconception treats it as a level, but it is an objective (a quality attribute) that can be pursued at unit, integration, system, or acceptance level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is integration a level or a type?",
+          "text": "<p>On the level-vs-type axes, <em>integration</em> testing is:</p>",
+          "answers": [
+            {
+              "text": "A test level (its scope is the interactions between components or systems)",
+              "fraction": 100,
+              "feedback": "Correct — integration is the second test level."
+            },
+            {
+              "text": "A non-functional test type",
+              "fraction": 0,
+              "feedback": "Integration is a level; non-functional types can be run within it."
+            },
+            {
+              "text": "A change-related test type",
+              "fraction": 0,
+              "feedback": "Change-related types are confirmation and regression; integration is a level."
+            },
+            {
+              "text": "A structural test type",
+              "fraction": 0,
+              "feedback": "Integration is defined by scope (interfaces), which makes it a level, not a type."
+            }
+          ],
+          "generalFeedback": "Integration is a test level: its scope is the interfaces and interactions between components (component integration) or between systems (system integration).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is security a level or a type?",
+          "text": "<p>On the level-vs-type axes, <em>security</em> testing is:</p>",
+          "answers": [
+            {
+              "text": "A non-functional test type",
+              "fraction": 100,
+              "feedback": "Correct — security is a non-functional quality attribute, hence a type."
+            },
+            {
+              "text": "A test level after acceptance",
+              "fraction": 0,
+              "feedback": "There is no security level; the levels end at acceptance."
+            },
+            {
+              "text": "A structural test type",
+              "fraction": 0,
+              "feedback": "Security is non-functional, not structural (structural = coverage of code)."
+            },
+            {
+              "text": "A change-related test type",
+              "fraction": 0,
+              "feedback": "Change-related types are confirmation and regression; security is non-functional."
+            }
+          ],
+          "generalFeedback": "Security is a non-functional test type (protecting against threats, controlling access). Like other types, it can be applied at multiple levels — for instance security testing at the system level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which re-tests the fixed defect?",
+          "text": "<p>A defect was fixed. Which activity re-runs the exact test that had failed to check the <strong>fix itself</strong>?</p>",
+          "answers": [
+            {
+              "text": "Confirmation (re-)testing",
+              "fraction": 100,
+              "feedback": "Correct — confirmation testing re-executes the failed test to verify the fix."
+            },
+            {
+              "text": "Regression testing",
+              "fraction": 0,
+              "feedback": "Regression checks that nothing else broke; it is not the re-run of the specific failed test."
+            },
+            {
+              "text": "Smoke testing",
+              "fraction": 0,
+              "feedback": "Smoke testing is a broad build-stability check, not verification of a specific fix."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing is a level; the activity described is confirmation testing."
+            }
+          ],
+          "generalFeedback": "Confirmation testing re-executes the previously failing test after the fix to confirm the defect is resolved. Regression testing is the complementary activity of checking for unintended side effects elsewhere.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which checks nothing else broke?",
+          "text": "<p>After a fix, which activity re-runs other, previously passing tests to check <strong>nothing else broke</strong>?</p>",
+          "answers": [
+            {
+              "text": "Regression testing",
+              "fraction": 100,
+              "feedback": "Correct — regression testing detects unintended side effects of the change."
+            },
+            {
+              "text": "Confirmation (re-)testing",
+              "fraction": 0,
+              "feedback": "Confirmation re-runs the one failed test to verify the fix, not the surrounding tests."
+            },
+            {
+              "text": "Sanity testing",
+              "fraction": 0,
+              "feedback": "Sanity testing is a narrow, quick check of one area, not broad side-effect detection."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance is a level about user validation, not side-effect detection after a fix."
+            }
+          ],
+          "generalFeedback": "Regression testing re-runs previously passing tests to catch unintended side effects introduced by a change. Confirmation testing is the narrower re-run of the specific test that had failed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A type applied at a level",
+          "text": "<p>\"Performance testing carried out at the system level\" is best understood as:</p>",
+          "answers": [
+            {
+              "text": "A non-functional test(performance) applied at a particular test(system)",
+              "fraction": 100,
+              "feedback": "Correct — level and type are orthogonal, so a type is applied at a level."
+            },
+            {
+              "text": "A contradiction, because performance and system are two names for the same thing",
+              "fraction": 0,
+              "feedback": "They are on different axes (type vs level), so there is no contradiction."
+            },
+            {
+              "text": "Two separate test levels performed together",
+              "fraction": 0,
+              "feedback": "Performance is a type, not a level, so this is not two levels."
+            },
+            {
+              "text": "A change-related activity",
+              "fraction": 0,
+              "feedback": "Performance is non-functional, not change-related."
+            }
+          ],
+          "generalFeedback": "Because levels (when/scope) and types (which quality attribute) are orthogonal axes, any type can be run at any level. \"Performance testing at system level\" names the type (performance) and the level (system) together.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which level checks interfaces between components?",
+          "text": "<p>Which level's scope is specifically the <strong>interfaces and interactions between components</strong> that have already been unit-tested?</p>",
+          "answers": [
+            {
+              "text": "Integration testing",
+              "fraction": 100,
+              "feedback": "Correct — component integration testing targets interfaces between components."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing checks one component in isolation, not the interfaces between them."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing checks the whole integrated system's behaviour, not just component interfaces."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance validates the finished system against user needs, not component interfaces."
+            }
+          ],
+          "generalFeedback": "Integration testing (component integration) sits between unit and system testing; its scope is the interactions and interfaces between components that have already passed unit testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test basis for the acceptance level",
+          "text": "<p>Which is the usual <em>test basis</em> for <strong>acceptance</strong> testing?</p>",
+          "answers": [
+            {
+              "text": "User requirements, business processes, and (where relevant) contracts or regulations",
+              "fraction": 100,
+              "feedback": "Correct — acceptance testing is based on user/business needs and any contractual/regulatory requirements."
+            },
+            {
+              "text": "The component's code and detailed design",
+              "fraction": 0,
+              "feedback": "That is the basis for unit testing."
+            },
+            {
+              "text": "The software architecture and module interfaces",
+              "fraction": 0,
+              "feedback": "That is the basis for integration testing."
+            },
+            {
+              "text": "Statement- and branch-coverage reports",
+              "fraction": 0,
+              "feedback": "Coverage reports are a structural-testing artefact, not the acceptance test basis."
+            }
+          ],
+          "generalFeedback": "Acceptance testing establishes confidence for release, so its test basis is user requirements, business processes and rules, use cases, and any contractual or regulatory requirements.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test basis for the integration level",
+          "text": "<p>Which is the usual <em>test basis</em> for <strong>integration</strong> testing?</p>",
+          "answers": [
+            {
+              "text": "The software and system design, architecture, and interface specifications",
+              "fraction": 100,
+              "feedback": "Correct — integration testing is based on the design/architecture and interfaces."
+            },
+            {
+              "text": "The user requirements and business processes",
+              "fraction": 0,
+              "feedback": "That is the basis for acceptance testing."
+            },
+            {
+              "text": "The component's code alone",
+              "fraction": 0,
+              "feedback": "Code alone is closer to the unit-testing basis; integration draws on design and interfaces."
+            },
+            {
+              "text": "The signed customer contract",
+              "fraction": 0,
+              "feedback": "That belongs to contractual acceptance testing, not integration."
+            }
+          ],
+          "generalFeedback": "Integration testing targets how components/systems fit together, so its test basis is the software and system design, the architecture, workflows, and interface specifications.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "At which levels can regression be done?",
+          "text": "<p>At which test level(s) can <em>regression</em> testing be performed?</p>",
+          "answers": [
+            {
+              "text": "At any level — unit, integration, system, or acceptance",
+              "fraction": 100,
+              "feedback": "Correct — regression is a change-related type applied across all levels."
+            },
+            {
+              "text": "Only at the acceptance level",
+              "fraction": 0,
+              "feedback": "Regression is not tied to acceptance; it is run wherever a change could cause side effects."
+            },
+            {
+              "text": "Only at the system level",
+              "fraction": 0,
+              "feedback": "Regression applies at every level, not just system."
+            },
+            {
+              "text": "It is itself a level, so the question does not apply",
+              "fraction": 0,
+              "feedback": "Regression is a change-related test type, not a level."
+            }
+          ],
+          "generalFeedback": "Regression testing is a change-related test. Because types are orthogonal to levels, regression can and should be performed at any level where a change might have introduced side effects.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Performance testing is a level",
+          "text": "<p>Performance testing is one of the standard test <em>levels</em>.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Incorrect — performance is a non-functional test, not a level. The levels are unit, integration, system, and acceptance."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — performance is a non-functional test type, not a level."
+            }
+          ],
+          "generalFeedback": "The four levels are unit, integration, system, and acceptance. Performance is a non-functional test type that can be applied at any of those levels; it is not itself a level."
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of a smoke test",
+          "text": "<p>The main purpose of running a <em>smoke</em> test on a new build is to:</p>",
+          "answers": [
+            {
+              "text": "Quickly decide whether the build is stable enough to warrant further, deeper testing",
+              "fraction": 100,
+              "feedback": "Correct — smoke testing is a fast go/no-go check on build stability."
+            },
+            {
+              "text": "Exhaustively verify every requirement in detail",
+              "fraction": 0,
+              "feedback": "That is thorough functional/system testing, not a quick smoke test."
+            },
+            {
+              "text": "Confirm that a specific reported defect has been fixed",
+              "fraction": 0,
+              "feedback": "That is confirmation testing, not smoke testing."
+            },
+            {
+              "text": "Measure the system's throughput under peak load",
+              "fraction": 0,
+              "feedback": "That is performance testing, a non-functional type."
+            }
+          ],
+          "generalFeedback": "A smoke test is a broad, shallow set of checks (often automated) that quickly establishes whether the critical functions of a build work — a gate deciding whether deeper testing is worthwhile.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Operational acceptance vs system testing",
+          "text": "<p>Testing backup/restore, installation, and disaster-recovery procedures, performed by operations/administration staff before go-live, is best classified as:</p>",
+          "answers": [
+            {
+              "text": "Operational acceptance testing (an acceptance-level activity focused on operational readiness)",
+              "fraction": 100,
+              "feedback": "Correct — operational acceptance (OAT) checks operational readiness at the acceptance level."
+            },
+            {
+              "text": "System testing, because it exercises the whole system",
+              "fraction": 0,
+              "feedback": "Although it uses the whole system, this is acceptance-level (operational acceptance) work done by operations staff against operational needs, not system-level verification against requirements."
+            },
+            {
+              "text": "Unit testing of the backup component",
+              "fraction": 0,
+              "feedback": "OAT exercises operational procedures on the whole system, not an isolated component."
+            },
+            {
+              "text": "Regression testing",
+              "fraction": 0,
+              "feedback": "OAT is about operational readiness, not re-checking for side effects of a change."
+            }
+          ],
+          "generalFeedback": "Operational acceptance testing (OAT) is a form of acceptance testing carried out by operations/system-administration staff to confirm the system is ready to operate — backup/restore, install/uninstall, maintenance, disaster recovery, and security procedures. It is distinct from system testing, which verifies the built system against its specified requirements.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Component vs system integration",
+          "text": "<p>Testing the interfaces between your application and a separate external payment system operated by another organisation is:</p>",
+          "answers": [
+            {
+              "text": "System integration testing (interactions between distinct systems)",
+              "fraction": 100,
+              "feedback": "Correct — testing interfaces between separate systems is system integration testing."
+            },
+            {
+              "text": "Component integration testing (interactions between components inside one system)",
+              "fraction": 0,
+              "feedback": "Component integration is within a single system; here two separate systems interact."
+            },
+            {
+              "text": "Unit testing of the payment module",
+              "fraction": 0,
+              "feedback": "This concerns cross-system interfaces, not a single component in isolation."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "This targets the interface between systems, an integration concern, not user acceptance."
+            }
+          ],
+          "generalFeedback": "Integration testing has two sub-forms. Component integration testing checks interactions between components within one system (after unit testing). System integration testing checks interactions between different systems or with external services (often after system testing).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Usability testing vs UAT",
+          "text": "<p>Which statement correctly separates <em>usability</em> testing from <em>user acceptance</em> testing (UAT)?</p>",
+          "answers": [
+            {
+              "text": "Usability is a non-functional test type (how easy the system is to use); UAT is a test level (users deciding whether to accept the system)",
+              "fraction": 100,
+              "feedback": "Correct — one is a type (quality attribute), the other is a level (lifecycle stage)."
+            },
+            {
+              "text": "Both are test levels performed one after the other",
+              "fraction": 0,
+              "feedback": "Usability is a type, not a level; only UAT is a level."
+            },
+            {
+              "text": "Both are non-functional test types",
+              "fraction": 0,
+              "feedback": "Usability is a non-functional type, but UAT is a level, not a type."
+            },
+            {
+              "text": "Usability is a level and UAT is a type",
+              "fraction": 0,
+              "feedback": "This reverses them: usability is the type and UAT is the level."
+            }
+          ],
+          "generalFeedback": "Usability testing evaluates a quality attribute (ease of use), so it is a non-functional test type and can run at various levels. User acceptance testing is a test level — the stage where users validate the system against their needs — and it may itself include usability checks.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why type is orthogonal to level",
+          "text": "<p>What does it mean to say test <em>types</em> are <strong>orthogonal</strong> to test <em>levels</em>?</p>",
+          "answers": [
+            {
+              "text": "Any test type can, in principle, be performed at any test level — the two classifications are independent",
+              "fraction": 100,
+              "feedback": "Correct — orthogonal means the axes vary independently, so any type pairs with any level."
+            },
+            {
+              "text": "Each test level is permanently tied to exactly one test type",
+              "fraction": 0,
+              "feedback": "That is the opposite of orthogonal; orthogonality means they are independent."
+            },
+            {
+              "text": "Test types replace test levels once the system is integrated",
+              "fraction": 0,
+              "feedback": "Types do not replace levels; the two coexist as independent axes."
+            },
+            {
+              "text": "Only functional testing can be done at more than one level",
+              "fraction": 0,
+              "feedback": "All types — functional, non-functional, structural, change-related — can span levels."
+            }
+          ],
+          "generalFeedback": "\"Orthogonal\" means the level axis (when/scope) and the type axis (which quality attribute/objective) vary independently. So functional, non-functional, structural, and change-related types can each be applied at unit, integration, system, or acceptance level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Smoke vs sanity vs regression",
+          "text": "<p>Which description correctly distinguishes smoke, sanity, and regression testing?</p>",
+          "answers": [
+            {
+              "text": "Smoke = broad shallow build-stability check; sanity = narrow deep check of one area after a small change; regression = re-testing existing functionality for side effects of a change",
+              "fraction": 100,
+              "feedback": "Correct — smoke is broad/shallow, sanity is narrow/deep, regression re-checks prior functionality."
+            },
+            {
+              "text": "All three mean the same thing: re-running the full test suite",
+              "fraction": 0,
+              "feedback": "They differ in breadth, depth, and purpose; they are not synonyms."
+            },
+            {
+              "text": "Smoke tests one area deeply; sanity checks the whole build shallowly; regression tests new features",
+              "fraction": 0,
+              "feedback": "This swaps smoke and sanity, and regression targets existing functionality, not new features."
+            },
+            {
+              "text": "Smoke and sanity are levels; regression is a type",
+              "fraction": 0,
+              "feedback": "All three are test activities/types, not levels."
+            }
+          ],
+          "generalFeedback": "Smoke testing is a broad, shallow check that a build's key functions work (build stability). Sanity testing is a narrow, deep check of a specific area after a small change. Regression testing re-tests previously working functionality across a change to detect unintended side effects.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Match level to its test basis",
+          "text": "<p>Which pairing of <strong>level</strong> to <strong>test basis</strong> is correct?</p>",
+          "answers": [
+            {
+              "text": "System testing &#8594; system/software requirements specification",
+              "fraction": 100,
+              "feedback": "Correct — system testing is based on the system requirements."
+            },
+            {
+              "text": "Unit testing &#8594; user requirements and business processes",
+              "fraction": 0,
+              "feedback": "User requirements/business processes are the acceptance basis; unit testing uses code and detailed design."
+            },
+            {
+              "text": "Acceptance testing &#8594; component code and detailed design",
+              "fraction": 0,
+              "feedback": "Component code/detailed design is the unit-testing basis; acceptance uses user/business requirements."
+            },
+            {
+              "text": "Integration testing &#8594; statement-coverage reports",
+              "fraction": 0,
+              "feedback": "Coverage reports are structural artefacts; integration's basis is design, architecture, and interfaces."
+            }
+          ],
+          "generalFeedback": "Test basis by level: unit &#8594; code/detailed design; integration &#8594; design/architecture/interfaces; system &#8594; system/software requirements; acceptance &#8594; user requirements/business processes (and contracts/regulations). Only the system pairing is correct here.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Regression is a test level",
+          "text": "<p>Regression testing is one of the four test <em>levels</em>.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Incorrect — regression is a change-related testperformed across levels, not a level itself."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — regression is a change-related test type, not one of the levels."
+            }
+          ],
+          "generalFeedback": "The four levels are unit, integration, system, and acceptance. Regression (like confirmation) is a change-related test type that can be run at any of those levels; it is not itself a level."
+        },
+        {
+          "type": "multichoice",
+          "name": "System testing covers which types?",
+          "text": "<p>Which statement about the <em>types</em> exercised during <strong>system</strong> testing is correct?</p>",
+          "answers": [
+            {
+              "text": "System testing can include both functional and non-functional types (e.g. behaviour against requirements plus performance and security)",
+              "fraction": 100,
+              "feedback": "Correct — a level can host multiple types; system testing typically covers functional and non-functional."
+            },
+            {
+              "text": "System testing is purely functional and never non-functional",
+              "fraction": 0,
+              "feedback": "System testing routinely includes non-functional types such as performance and security."
+            },
+            {
+              "text": "System testing is purely non-functional and never functional",
+              "fraction": 0,
+              "feedback": "System testing also verifies functional behaviour against requirements."
+            },
+            {
+              "text": "System testing is itself a test type, so the question of types does not apply",
+              "fraction": 0,
+              "feedback": "System testing is a level; multiple types are exercised within it."
+            }
+          ],
+          "generalFeedback": "Because levels and types are orthogonal, a single level hosts several types. System testing commonly combines functional testing (behaviour against requirements) with non-functional testing (performance, security, reliability, etc.).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: patch verified, then suite re-run",
+          "text": "<p>After a bug fix, the tester first re-runs the exact failing test, then re-runs the surrounding suite of previously passing tests. These two activities are, respectively:</p>",
+          "answers": [
+            {
+              "text": "Confirmation testing, then regression testing",
+              "fraction": 100,
+              "feedback": "Correct — re-running the failed test is confirmation; re-running the rest is regression."
+            },
+            {
+              "text": "Regression testing, then confirmation testing",
+              "fraction": 0,
+              "feedback": "This reverses them: the specific failed test is confirmation, the surrounding suite is regression."
+            },
+            {
+              "text": "Smoke testing, then sanity testing",
+              "fraction": 0,
+              "feedback": "Neither activity is a build-stability or narrow-area check; they are the change-related pair."
+            },
+            {
+              "text": "Two runs of the same acceptance test",
+              "fraction": 0,
+              "feedback": "These are change-related type activities, not acceptance-level runs."
+            }
+          ],
+          "generalFeedback": "Confirmation (re-)testing re-runs the specific test that had failed to verify the fix; regression testing then re-runs previously passing tests to ensure the fix caused no unintended side effects. Both are change-related test types.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Alpha vs beta testing",
+          "text": "<p>Alpha and beta testing are both forms of <strong>acceptance</strong> testing. What distinguishes them?</p>",
+          "answers": [
+            {
+              "text": "Alpha is done at the developer's site (by potential users or an independent team); beta is done at the customers' own sites",
+              "fraction": 100,
+              "feedback": "Correct — alpha at the developer's site, beta in the field at customer sites."
+            },
+            {
+              "text": "Alpha is a test level and beta is a test type",
+              "fraction": 0,
+              "feedback": "Both are forms of acceptance-level testing, not a level/type split."
+            },
+            {
+              "text": "Alpha tests performance while beta tests functionality",
+              "fraction": 0,
+              "feedback": "The distinction is location/who, not functional vs non-functional."
+            },
+            {
+              "text": "Alpha is done after release and beta before development",
+              "fraction": 0,
+              "feedback": "Both occur before general release; the difference is where they are conducted."
+            }
+          ],
+          "generalFeedback": "Alpha and beta testing are operational/user forms of acceptance testing. Alpha is conducted at the developing organisation's site (by potential users or an independent test team); beta (\"field\") testing is conducted by real users at their own sites.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Contractual/regulatory acceptance",
+          "text": "<p>Testing a system against the acceptance criteria written into a signed contract, or against rules imposed by a government regulator, is:</p>",
+          "answers": [
+            {
+              "text": "Contractual/regulatory acceptance testing (a form of acceptance testing)",
+              "fraction": 100,
+              "feedback": "Correct — checking against contract or regulation is a form of acceptance testing."
+            },
+            {
+              "text": "Structural testing, because it measures coverage",
+              "fraction": 0,
+              "feedback": "It validates against contract/regulation, not code coverage."
+            },
+            {
+              "text": "Component integration testing",
+              "fraction": 0,
+              "feedback": "It concerns acceptance criteria for the whole system, not component interfaces."
+            },
+            {
+              "text": "Confirmation testing",
+              "fraction": 0,
+              "feedback": "Confirmation re-checks a fix; this is acceptance against contract/regulation."
+            }
+          ],
+          "generalFeedback": "Contractual acceptance testing verifies the system against acceptance criteria in a contract; regulatory acceptance testing verifies it against laws/regulations (e.g. safety, legal, government standards). Both are forms of the acceptance level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which axis is which in \"security testing at acceptance level\"",
+          "text": "<p>In the phrase \"security testing at the acceptance level\", which word names the <em>level</em> and which names the <em>type</em>?</p>",
+          "answers": [
+            {
+              "text": "\"Acceptance\" is the level; \"security\" is the (non-functional) type",
+              "fraction": 100,
+              "feedback": "Correct — acceptance is the level, security is the non-functional type."
+            },
+            {
+              "text": "\"Security\" is the level; \"acceptance\" is the type",
+              "fraction": 0,
+              "feedback": "This reverses the axes: acceptance is the level, security is the type."
+            },
+            {
+              "text": "Both words name levels",
+              "fraction": 0,
+              "feedback": "Security is a type, not a level."
+            },
+            {
+              "text": "Both words name types",
+              "fraction": 0,
+              "feedback": "Acceptance is a level, not a type."
+            }
+          ],
+          "generalFeedback": "Level = when/scope (acceptance); type = which quality attribute (security, a non-functional type). The phrase pairs one from each orthogonal axis: the security type applied at the acceptance level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Static testing example",
+          "text": "<p>Which activity is an example of <em>static</em> testing (as opposed to dynamic)?</p>",
+          "answers": [
+            {
+              "text": "A peer review of the requirements document to find defects before any code runs",
+              "fraction": 100,
+              "feedback": "Correct — a review inspects a work product without executing code, so it is static testing."
+            },
+            {
+              "text": "Running the program with test inputs and comparing the outputs to expected values",
+              "fraction": 0,
+              "feedback": "Executing the program is dynamic testing, not static."
+            },
+            {
+              "text": "Measuring branch coverage while the test suite executes",
+              "fraction": 0,
+              "feedback": "Coverage measured during execution is dynamic (structural) testing."
+            },
+            {
+              "text": "Load-testing the running application with many concurrent users",
+              "fraction": 0,
+              "feedback": "Load testing executes the system, so it is dynamic (non-functional) testing."
+            }
+          ],
+          "generalFeedback": "Static testing evaluates a work product without executing code — reviews (of requirements, design, or code) and static analysis. Dynamic testing runs the software; anything that observes running behaviour (including coverage measurement and load testing) is dynamic.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "One type can span multiple levels",
+          "text": "<p>A single test <em>type</em> (for example, functional testing) can be performed at more than one test <em>level</em>.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — because level and type are orthogonal, one type can be applied at several levels (functional testing at unit, integration, system, and acceptance)."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Types and levels are independent axes, so one type can span many levels."
+            }
+          ],
+          "generalFeedback": "Test types are orthogonal to test levels, so any type may be exercised at any level. Functional testing, for instance, is done at unit, integration, system, and acceptance levels; likewise performance and other non-functional types can span levels."
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the non-functional type",
+          "text": "<p>Which of the following is a <strong>non-functional</strong> test type rather than a functional check?</p>",
+          "answers": [
+            {
+              "text": "Portability testing — verifying the software can be moved to and run in another environment",
+              "fraction": 100,
+              "feedback": "Correct — portability is a non-functional quality attribute."
+            },
+            {
+              "text": "Verifying that a valid login is accepted and an invalid one rejected",
+              "fraction": 0,
+              "feedback": "That checks what the system does (behaviour), so it is functional testing."
+            },
+            {
+              "text": "Verifying that a discount is calculated according to the business rules",
+              "fraction": 0,
+              "feedback": "Calculating the correct result per the rules is a functional check."
+            },
+            {
+              "text": "Verifying that the report contains the required fields",
+              "fraction": 0,
+              "feedback": "Checking required content/behaviour is functional testing."
+            }
+          ],
+          "generalFeedback": "Non-functional types evaluate quality attributes — performance, security, usability, reliability, compatibility, portability, maintainability. Portability (moving the software to another environment) is non-functional; the other options check behaviour, which is functional.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是測試層級",
+          "text": "<p><em>測試層級（test level）</em>是一組測試活動，其主要的組織依據是：</p>",
+          "answers": [
+            {
+              "text": "它們在開發生命週期中發生的時機與涵蓋的範圍（單元、整合、系統、驗收）",
+              "fraction": 100,
+              "feedback": "正確——層級由範圍／時機定義：單元、整合、系統、驗收。"
+            },
+            {
+              "text": "它們針對的品質屬性或目標（功能性、效能、安全性）",
+              "fraction": 0,
+              "feedback": "那描述的是測試，不是層級。"
+            },
+            {
+              "text": "撰寫測試所使用的程式語言",
+              "fraction": 0,
+              "feedback": "層級並非由工具或語言定義。"
+            },
+            {
+              "text": "測試人員是公司內部還是外部",
+              "fraction": 0,
+              "feedback": "由誰執行測試不定義層級；範圍與生命週期位置才是。"
+            }
+          ],
+          "generalFeedback": "測試層級是依範圍與生命週期位置組織的活動群組：單元／元件、整合、系統、驗收。它們回答「何時／在什麼範圍」，有別於回答「針對什麼品質屬性」的測試類型。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是測試類型",
+          "text": "<p><em>測試類型（test type）</em>是一組測試活動，其主要的組織依據是：</p>",
+          "answers": [
+            {
+              "text": "所評估的特定品質特性或目標（例如功能性、效能、安全性）",
+              "fraction": 100,
+              "feedback": "正確——類型由受測的目標／屬性定義。"
+            },
+            {
+              "text": "它在生命週期中的位置（單元、整合、系統、驗收）",
+              "fraction": 0,
+              "feedback": "那描述的是測試，不是類型。"
+            },
+            {
+              "text": "指派給它的測試人員數量",
+              "fraction": 0,
+              "feedback": "團隊規模不定義測試類型。"
+            },
+            {
+              "text": "回報缺陷的先後順序",
+              "fraction": 0,
+              "feedback": "缺陷回報順序與類型的定義無關。"
+            }
+          ],
+          "generalFeedback": "測試類型依所評估的目標或品質屬性來分組活動——功能性、非功能性、結構性（白箱）與變更相關。它們回答「我們在測什麼」，有別於回答「在什麼範圍／時機」的層級。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四個測試層級的順序",
+          "text": "<p>下列何者依常見順序列出經典的測試<strong>層級</strong>？</p>",
+          "answers": [
+            {
+              "text": "單元／元件 &#8594; 整合 &#8594; 系統 &#8594; 驗收",
+              "fraction": 100,
+              "feedback": "正確——這是測試層級的標準順序。"
+            },
+            {
+              "text": "功能性 &#8594; 非功能性 &#8594; 結構性 &#8594; 變更相關",
+              "fraction": 0,
+              "feedback": "那些是測試，不是層級。"
+            },
+            {
+              "text": "驗收 &#8594; 系統 &#8594; 整合 &#8594; 單元",
+              "fraction": 0,
+              "feedback": "這把順序顛倒了；單元測試最先。"
+            },
+            {
+              "text": "冒煙 &#8594; 迴歸 &#8594; 效能 &#8594; 安全性",
+              "fraction": 0,
+              "feedback": "這些是測試類型／活動，不是四個層級。"
+            }
+          ],
+          "generalFeedback": "四個經典測試層級由最小到最大範圍：單元／元件，接著整合，再來系統，最後驗收。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "功能性 vs 非功能性",
+          "text": "<p><em>功能性</em>測試評估的是：</p>",
+          "answers": [
+            {
+              "text": "系統做什麼——它應提供的功能與行為",
+              "fraction": 100,
+              "feedback": "正確——功能性測試檢查系統「做什麼」。"
+            },
+            {
+              "text": "系統把某功能做得多好——它的速度、安全性或易用性",
+              "fraction": 0,
+              "feedback": "那是非功能性測試（「做得多好」的品質）。"
+            },
+            {
+              "text": "內部程式碼結構與達成的覆蓋率",
+              "fraction": 0,
+              "feedback": "那是結構性（白箱）測試。"
+            },
+            {
+              "text": "某項修正是否又弄壞了原本正常的功能",
+              "fraction": 0,
+              "feedback": "那是變更相關（迴歸）測試。"
+            }
+          ],
+          "generalFeedback": "功能性測試問「它有沒有做到它該做的？」——評估功能／行為。非功能性測試問「做得多好？」——效能、安全性、易用性及其他品質屬性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一種非功能性類型",
+          "text": "<p>下列何者是<strong>非功能性</strong>測試類型？</p>",
+          "answers": [
+            {
+              "text": "效能（負載／壓力）測試",
+              "fraction": 100,
+              "feedback": "正確——效能是非功能性品質屬性。"
+            },
+            {
+              "text": "檢查「加入購物車」會加入所選的品項",
+              "fraction": 0,
+              "feedback": "那是功能性測試——它檢查系統做什麼。"
+            },
+            {
+              "text": "量測程式碼的敘述覆蓋率",
+              "fraction": 0,
+              "feedback": "那是結構性（白箱）測試，非非功能性。"
+            },
+            {
+              "text": "缺陷修正後重跑先前失敗的測試",
+              "fraction": 0,
+              "feedback": "那是確認測試，屬變更相關活動。"
+            }
+          ],
+          "generalFeedback": "非功能性類型評估「做得多好」——效能、安全性、易用性、可靠性、相容性、可攜性、可維護性。效能（含負載與壓力）是經典例子。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "確認測試的定義",
+          "text": "<p><em>確認（再）測試</em>的意思是：</p>",
+          "answers": [
+            {
+              "text": "修正後重跑當初揭露該缺陷的那個測試，以確認缺陷已消除",
+              "fraction": 100,
+              "feedback": "正確——確認測試驗證該特定修正是否奏效。"
+            },
+            {
+              "text": "執行其他測試以檢查此修正沒有弄壞別的東西",
+              "fraction": 0,
+              "feedback": "那是迴歸測試，不是確認測試。"
+            },
+            {
+              "text": "首次快速檢查建置是否穩定到足以測試",
+              "fraction": 0,
+              "feedback": "那是冒煙測試。"
+            },
+            {
+              "text": "在上線前對照使用者業務需求測試系統",
+              "fraction": 0,
+              "feedback": "那是驗收測試，屬層級，非確認測試。"
+            }
+          ],
+          "generalFeedback": "確認測試（再測試）重新執行失敗的那個測試案例（在缺陷據稱已修正之後）以確認修正。至於檢查別處是否有非預期副作用，是另一項活動——迴歸測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "迴歸測試的定義",
+          "text": "<p><em>迴歸測試</em>的意思是：</p>",
+          "answers": [
+            {
+              "text": "重新測試原本正常的功能，以偵測變更引入的非預期副作用",
+              "fraction": 100,
+              "feedback": "正確——迴歸防止某項變更弄壞原本正常運作的東西。"
+            },
+            {
+              "text": "只重跑失敗的那一個測試，以確認該特定修正",
+              "fraction": 0,
+              "feedback": "那是確認（再）測試，非迴歸。"
+            },
+            {
+              "text": "首次測試一個全新的功能",
+              "fraction": 0,
+              "feedback": "測試新功能不是迴歸測試；迴歸重新檢查既有行為。"
+            },
+            {
+              "text": "量測系統在負載下的回應速度",
+              "fraction": 0,
+              "feedback": "那是效能測試，屬非功能性類型。"
+            }
+          ],
+          "generalFeedback": "迴歸測試在變更（修正、增強或組態變更）之後，對原本正常的功能重新執行測試，以捕捉非預期的副作用。它是跨層級執行的變更相關測試類型。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "冒煙測試的定義",
+          "text": "<p><em>冒煙測試</em>最適當的描述是：</p>",
+          "answers": [
+            {
+              "text": "一組快速、淺層的檢查，確認建置的主要功能夠正常、值得進一步測試",
+              "fraction": 100,
+              "feedback": "正確——冒煙測試是廣而淺的「建置是否穩定？」檢查。"
+            },
+            {
+              "text": "每次變更後徹底重跑整個測試套件",
+              "fraction": 0,
+              "feedback": "那會是完整迴歸測試，不是快速的冒煙測試。"
+            },
+            {
+              "text": "在小幅變更後對某一特定區域做深入測試",
+              "fraction": 0,
+              "feedback": "那描述的是理智測試（sanity），它是窄而深，而非廣而淺。"
+            },
+            {
+              "text": "在發行前對照使用者需求驗證系統",
+              "fraction": 0,
+              "feedback": "那是驗收測試，屬層級，非冒煙測試。"
+            }
+          ],
+          "generalFeedback": "冒煙測試是一組小型、廣而淺的檢查（常自動化為建置驗證），用來判斷某個建置是否穩定到值得投入更多測試心力。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "靜態 vs 動態測試",
+          "text": "<p><em>靜態</em>測試的關鍵特徵是它：</p>",
+          "answers": [
+            {
+              "text": "不執行程式碼即檢視工作產出（審查、靜態分析）",
+              "fraction": 100,
+              "feedback": "正確——靜態測試在不執行的情況下評估產出物。"
+            },
+            {
+              "text": "執行軟體並觀察它對輸入的行為",
+              "fraction": 0,
+              "feedback": "那是動態測試，與靜態相反。"
+            },
+            {
+              "text": "只能在驗收層級套用",
+              "fraction": 0,
+              "feedback": "靜態測試（審查、分析）可貫穿全程，且它的定義是不執行程式碼。"
+            },
+            {
+              "text": "需要量測程式碼覆蓋率",
+              "fraction": 0,
+              "feedback": "覆蓋率屬動態／結構性議題；靜態測試不執行程式碼。"
+            }
+          ],
+          "generalFeedback": "靜態測試在不執行工作產出（程式碼、需求、設計）的情況下評估它們——透過審查與靜態分析。動態測試則執行軟體並觀察實際行為。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：孤立測試單一函式",
+          "text": "<p>開發者孤立地測試單一函式，直接檢查其邏輯。這是哪個測試<strong>層級</strong>？</p>",
+          "answers": [
+            {
+              "text": "單元（元件）測試",
+              "fraction": 100,
+              "feedback": "正確——孤立地測試單一元件屬單元層級。"
+            },
+            {
+              "text": "整合測試",
+              "fraction": 0,
+              "feedback": "整合測試檢查元件之間的互動，而非單一元件本身。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試演練整個整合後的系統，而非單一函式。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試對照使用者需求驗證完成的系統，而非孤立的函式。"
+            }
+          ],
+          "generalFeedback": "孤立地演練單一元件／函式即單元（元件）測試——範圍最小的層級。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：負載下的回應時間",
+          "text": "<p>團隊量測在眾多使用者同時湧入時應用程式回應的速度。這是哪種測試<strong>類型</strong>？</p>",
+          "answers": [
+            {
+              "text": "效能測試（一種非功能性類型）",
+              "fraction": 100,
+              "feedback": "正確——量測負載下的回應是非功能性的效能測試。"
+            },
+            {
+              "text": "功能性測試",
+              "fraction": 0,
+              "feedback": "功能性測試檢查系統做什麼，而非它做得多快。"
+            },
+            {
+              "text": "驗收（此處誤稱為層級）",
+              "fraction": 0,
+              "feedback": "驗收是層級，並非此處所描述的類型；而此活動是效能測試。"
+            },
+            {
+              "text": "確認測試",
+              "fraction": 0,
+              "feedback": "確認測試重新檢查某項修正；它不量測回應時間。"
+            }
+          ],
+          "generalFeedback": "量測負載下的速度／吞吐量是評估品質屬性（效能），因此是非功能性測試類型——而它可套用於任何層級（常見於系統層級）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：使用者於上線前驗證",
+          "text": "<p>發行前，目標使用者對照真實業務需求試用系統，以決定是否接受它。這是哪個測試<strong>層級</strong>？</p>",
+          "answers": [
+            {
+              "text": "驗收測試",
+              "fraction": 100,
+              "feedback": "正確——在接受前對照業務需求由使用者驗證屬驗收層級。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試檢查單一元件，而非對照使用者需求測整個系統。"
+            },
+            {
+              "text": "整合測試",
+              "fraction": 0,
+              "feedback": "整合測試檢查模組互動，而非使用者接受度。"
+            },
+            {
+              "text": "效能測試",
+              "fraction": 0,
+              "feedback": "效能是非功能性類型，非層級；此活動是驗收層級的驗證。"
+            }
+          ],
+          "generalFeedback": "對照使用者需求與業務流程驗證已完成的系統、以建立發行信心，即驗收測試——四個層級中的最後一個。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "結構性（白箱）測試",
+          "text": "<p><em>結構性（白箱）</em>測試的特徵是：</p>",
+          "answers": [
+            {
+              "text": "從程式碼的內部結構推導並量測測試（例如敘述或分支覆蓋率）",
+              "fraction": 100,
+              "feedback": "正確——結構性測試從程式碼內部結構與覆蓋率著手。"
+            },
+            {
+              "text": "只從規格推導測試，忽略程式碼",
+              "fraction": 0,
+              "feedback": "那是黑箱（規格導向）測試，非結構性。"
+            },
+            {
+              "text": "量測系統在負載下的回應時間",
+              "fraction": 0,
+              "feedback": "那是效能測試，屬非功能性類型。"
+            },
+            {
+              "text": "在變更後重跑先前的測試",
+              "fraction": 0,
+              "feedback": "那是迴歸測試，屬變更相關類型。"
+            }
+          ],
+          "generalFeedback": "結構性（白箱）測試利用受測項目的內部結構——控制流、資料流——來推導測試並量測覆蓋率（敘述、分支等）。它是一種可套用於任何層級的獨立測試類型。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "功能性測試檢查系統做什麼",
+          "text": "<p>功能性測試評估系統<em>做什麼</em>（它的功能），而非功能性測試評估它<em>做得多好</em>。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——功能性 = 做什麼；非功能性 = 做得多好。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "這正是標準區分：功能性針對行為／功能，非功能性針對品質屬性。"
+            }
+          ],
+          "generalFeedback": "功能性測試檢查系統提供的功能與行為；非功能性測試檢查品質屬性，如效能、安全性、易用性與可靠性——即這些功能被交付得「多好」。"
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一項是層級而非類型",
+          "text": "<p>下列何者是測試<strong>層級</strong>（而非測試類型）？</p>",
+          "answers": [
+            {
+              "text": "驗收",
+              "fraction": 100,
+              "feedback": "正確——驗收是測試層級（範圍／時機）。"
+            },
+            {
+              "text": "效能",
+              "fraction": 0,
+              "feedback": "效能是非功能性測試類型，非層級。"
+            },
+            {
+              "text": "安全性",
+              "fraction": 0,
+              "feedback": "安全性是非功能性測試類型，非層級。"
+            },
+            {
+              "text": "迴歸",
+              "fraction": 0,
+              "feedback": "迴歸是變更相關測試類型，非層級。"
+            }
+          ],
+          "generalFeedback": "驗收是四個層級之一（單元、整合、系統、驗收）。效能、安全性與迴歸都是測試類型（非功能性或變更相關），而非層級。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "單元層級的測試基礎",
+          "text": "<p><strong>單元（元件）</strong>測試通常以哪份文件作為<em>測試基礎</em>？</p>",
+          "answers": [
+            {
+              "text": "元件的詳細（低階）設計與程式碼",
+              "fraction": 100,
+              "feedback": "正確——單元測試以元件的詳細設計與程式碼為基礎。"
+            },
+            {
+              "text": "系統需求規格",
+              "fraction": 0,
+              "feedback": "那是系統測試的基礎，非單元測試。"
+            },
+            {
+              "text": "使用者需求與業務流程",
+              "fraction": 0,
+              "feedback": "那是驗收測試的基礎。"
+            },
+            {
+              "text": "軟體架構與介面規格",
+              "fraction": 0,
+              "feedback": "那是整合測試的基礎。"
+            }
+          ],
+          "generalFeedback": "各層級取用不同的測試基礎。單元測試以詳細／元件設計與程式碼本身為基礎，因為它針對單一元件的內部。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "系統層級的測試基礎",
+          "text": "<p><strong>系統</strong>測試通常以哪份文件作為<em>測試基礎</em>？</p>",
+          "answers": [
+            {
+              "text": "系統／軟體需求規格（功能性與非功能性）",
+              "fraction": 100,
+              "feedback": "正確——系統測試以系統需求為基礎。"
+            },
+            {
+              "text": "元件的詳細設計與程式碼",
+              "fraction": 0,
+              "feedback": "那是單元測試的基礎。"
+            },
+            {
+              "text": "軟體架構與模組介面",
+              "fraction": 0,
+              "feedback": "那是整合測試的基礎。"
+            },
+            {
+              "text": "與客戶簽訂的法律合約",
+              "fraction": 0,
+              "feedback": "那屬（合約性）驗收測試，非系統測試。"
+            }
+          ],
+          "generalFeedback": "系統測試對照規定的需求驗證完整、整合後的系統，因此其測試基礎是系統／軟體需求規格（功能性與非功能性皆含）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗收是層級還是類型？",
+          "text": "<p>在層級與類型兩軸上，<em>驗收</em>測試是：</p>",
+          "answers": [
+            {
+              "text": "一個測試層級（由生命週期中的範圍／時機定義）",
+              "fraction": 100,
+              "feedback": "正確——驗收是第四個測試層級。"
+            },
+            {
+              "text": "一種非功能性測試類型",
+              "fraction": 0,
+              "feedback": "驗收是層級；功能性與非功能性類型都可在其中執行。"
+            },
+            {
+              "text": "一種結構性測試類型",
+              "fraction": 0,
+              "feedback": "驗收根本不是類型；它是層級。"
+            },
+            {
+              "text": "一種變更相關測試類型",
+              "fraction": 0,
+              "feedback": "變更相關類型是確認與迴歸；驗收是層級。"
+            }
+          ],
+          "generalFeedback": "驗收位於層級軸（單元、整合、系統、驗收）。在其中你仍可執行功能性與非功能性測試類型——兩軸彼此正交。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "效能是層級還是類型？",
+          "text": "<p>在層級與類型兩軸上，<em>效能</em>測試是：</p>",
+          "answers": [
+            {
+              "text": "一種非功能性測試類型（可在多個層級執行）",
+              "fraction": 100,
+              "feedback": "正確——效能是非功能性類型，非層級。"
+            },
+            {
+              "text": "介於系統與驗收之間的一個測試層級",
+              "fraction": 0,
+              "feedback": "並無「效能層級」；層級是單元、整合、系統、驗收。"
+            },
+            {
+              "text": "取代系統測試的一個測試層級",
+              "fraction": 0,
+              "feedback": "效能是類型；它根本不在層級軸上。"
+            },
+            {
+              "text": "一種變更相關測試類型",
+              "fraction": 0,
+              "feedback": "變更相關類型是確認與迴歸；效能是非功能性。"
+            }
+          ],
+          "generalFeedback": "效能是非功能性測試類型。常見誤解把它當成層級，但它是一個目標（品質屬性），可在單元、整合、系統或驗收層級追求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "整合是層級還是類型？",
+          "text": "<p>在層級與類型兩軸上，<em>整合</em>測試是：</p>",
+          "answers": [
+            {
+              "text": "一個測試層級（其範圍是元件之間或系統之間的互動）",
+              "fraction": 100,
+              "feedback": "正確——整合是第二個測試層級。"
+            },
+            {
+              "text": "一種非功能性測試類型",
+              "fraction": 0,
+              "feedback": "整合是層級；非功能性類型可在其中執行。"
+            },
+            {
+              "text": "一種變更相關測試類型",
+              "fraction": 0,
+              "feedback": "變更相關類型是確認與迴歸；整合是層級。"
+            },
+            {
+              "text": "一種結構性測試類型",
+              "fraction": 0,
+              "feedback": "整合由範圍（介面）定義，這使它是層級，非類型。"
+            }
+          ],
+          "generalFeedback": "整合是測試層級：其範圍是元件之間（元件整合）或系統之間（系統整合）的介面與互動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "安全性是層級還是類型？",
+          "text": "<p>在層級與類型兩軸上，<em>安全性</em>測試是：</p>",
+          "answers": [
+            {
+              "text": "一種非功能性測試類型",
+              "fraction": 100,
+              "feedback": "正確——安全性是非功能性品質屬性，因此是類型。"
+            },
+            {
+              "text": "驗收之後的一個測試層級",
+              "fraction": 0,
+              "feedback": "並無安全性層級；層級終於驗收。"
+            },
+            {
+              "text": "一種結構性測試類型",
+              "fraction": 0,
+              "feedback": "安全性是非功能性，非結構性（結構性 = 程式碼覆蓋）。"
+            },
+            {
+              "text": "一種變更相關測試類型",
+              "fraction": 0,
+              "feedback": "變更相關類型是確認與迴歸；安全性是非功能性。"
+            }
+          ],
+          "generalFeedback": "安全性是非功能性測試類型（抵禦威脅、控制存取）。與其他類型一樣，它可套用於多個層級——例如系統層級的安全性測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個重新測試已修正的缺陷？",
+          "text": "<p>某缺陷已修正。哪項活動會重跑先前失敗的那個測試，以檢查<strong>修正本身</strong>？</p>",
+          "answers": [
+            {
+              "text": "確認（再）測試",
+              "fraction": 100,
+              "feedback": "正確——確認測試重新執行失敗的測試以驗證修正。"
+            },
+            {
+              "text": "迴歸測試",
+              "fraction": 0,
+              "feedback": "迴歸檢查別處是否被弄壞；它不是重跑那個特定失敗的測試。"
+            },
+            {
+              "text": "冒煙測試",
+              "fraction": 0,
+              "feedback": "冒煙測試是廣泛的建置穩定性檢查，非驗證某項特定修正。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試是層級；所描述的活動是確認測試。"
+            }
+          ],
+          "generalFeedback": "確認測試在修正後重新執行先前失敗的測試，以確認缺陷已解決。迴歸測試則是互補的活動——檢查別處是否有非預期副作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個檢查沒有弄壞其他東西？",
+          "text": "<p>修正後，哪項活動會重跑其他先前通過的測試，以檢查<strong>沒有弄壞別的東西</strong>？</p>",
+          "answers": [
+            {
+              "text": "迴歸測試",
+              "fraction": 100,
+              "feedback": "正確——迴歸測試偵測變更的非預期副作用。"
+            },
+            {
+              "text": "確認（再）測試",
+              "fraction": 0,
+              "feedback": "確認重跑失敗的那一個測試以驗證修正，而非周邊的測試。"
+            },
+            {
+              "text": "理智測試（sanity）",
+              "fraction": 0,
+              "feedback": "理智測試是對某一區域的窄而快檢查，非廣泛的副作用偵測。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收是關於使用者驗證的層級，非修正後的副作用偵測。"
+            }
+          ],
+          "generalFeedback": "迴歸測試重跑先前通過的測試，以捕捉變更引入的非預期副作用。確認測試則是較窄地重跑先前失敗的那個特定測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "套用於某層級的類型",
+          "text": "<p>「在系統層級執行的效能測試」最好理解為：</p>",
+          "answers": [
+            {
+              "text": "一種非功能性測試（效能）套用於某個特定測試（系統）",
+              "fraction": 100,
+              "feedback": "正確——層級與類型正交，因此類型套用於層級。"
+            },
+            {
+              "text": "一個矛盾，因為效能與系統是同一件事的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們位於不同軸（類型 vs 層級），並無矛盾。"
+            },
+            {
+              "text": "兩個一起執行的獨立測試層級",
+              "fraction": 0,
+              "feedback": "效能是類型，非層級，所以這不是兩個層級。"
+            },
+            {
+              "text": "一項變更相關活動",
+              "fraction": 0,
+              "feedback": "效能是非功能性，非變更相關。"
+            }
+          ],
+          "generalFeedback": "由於層級（時機／範圍）與類型（哪個品質屬性）是正交的軸，任何類型都可在任何層級執行。「系統層級的效能測試」同時指出類型（效能）與層級（系統）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個層級檢查元件之間的介面？",
+          "text": "<p>哪個層級的範圍專門是已通過單元測試的<strong>元件之間的介面與互動</strong>？</p>",
+          "answers": [
+            {
+              "text": "整合測試",
+              "fraction": 100,
+              "feedback": "正確——元件整合測試針對元件之間的介面。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試孤立地檢查單一元件，而非它們之間的介面。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試檢查整個整合後系統的行為，而非只有元件介面。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收對照使用者需求驗證完成的系統，而非元件介面。"
+            }
+          ],
+          "generalFeedback": "整合測試（元件整合）位於單元與系統測試之間；其範圍是已通過單元測試的元件之間的互動與介面。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗收層級的測試基礎",
+          "text": "<p><strong>驗收</strong>測試通常以何者作為<em>測試基礎</em>？</p>",
+          "answers": [
+            {
+              "text": "使用者需求、業務流程，以及（相關時的）合約或法規",
+              "fraction": 100,
+              "feedback": "正確——驗收測試以使用者／業務需求及任何合約／法規需求為基礎。"
+            },
+            {
+              "text": "元件的程式碼與詳細設計",
+              "fraction": 0,
+              "feedback": "那是單元測試的基礎。"
+            },
+            {
+              "text": "軟體架構與模組介面",
+              "fraction": 0,
+              "feedback": "那是整合測試的基礎。"
+            },
+            {
+              "text": "敘述與分支覆蓋率報告",
+              "fraction": 0,
+              "feedback": "覆蓋率報告是結構性測試的產出，非驗收測試基礎。"
+            }
+          ],
+          "generalFeedback": "驗收測試建立發行信心，因此其測試基礎是使用者需求、業務流程與規則、使用案例，以及任何合約或法規需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "整合層級的測試基礎",
+          "text": "<p><strong>整合</strong>測試通常以何者作為<em>測試基礎</em>？</p>",
+          "answers": [
+            {
+              "text": "軟體與系統設計、架構及介面規格",
+              "fraction": 100,
+              "feedback": "正確——整合測試以設計／架構與介面為基礎。"
+            },
+            {
+              "text": "使用者需求與業務流程",
+              "fraction": 0,
+              "feedback": "那是驗收測試的基礎。"
+            },
+            {
+              "text": "只有元件的程式碼",
+              "fraction": 0,
+              "feedback": "只有程式碼較接近單元測試基礎；整合取用設計與介面。"
+            },
+            {
+              "text": "簽署的客戶合約",
+              "fraction": 0,
+              "feedback": "那屬合約性驗收測試，非整合。"
+            }
+          ],
+          "generalFeedback": "整合測試針對元件／系統如何組合，因此其測試基礎是軟體與系統設計、架構、工作流程與介面規格。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "迴歸可在哪些層級執行？",
+          "text": "<p><em>迴歸</em>測試可在哪個（些）測試層級執行？</p>",
+          "answers": [
+            {
+              "text": "任何層級——單元、整合、系統或驗收",
+              "fraction": 100,
+              "feedback": "正確——迴歸是跨所有層級套用的變更相關類型。"
+            },
+            {
+              "text": "只在驗收層級",
+              "fraction": 0,
+              "feedback": "迴歸不綁定於驗收；只要變更可能造成副作用，就會執行。"
+            },
+            {
+              "text": "只在系統層級",
+              "fraction": 0,
+              "feedback": "迴歸適用於每個層級，不只系統。"
+            },
+            {
+              "text": "它本身就是層級，因此此問不適用",
+              "fraction": 0,
+              "feedback": "迴歸是變更相關測試類型，非層級。"
+            }
+          ],
+          "generalFeedback": "迴歸測試是變更相關測試。由於類型與層級正交，迴歸可以且應該在任何變更可能引入副作用的層級執行。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "效能測試是一個層級",
+          "text": "<p>效能測試是標準測試<em>層級</em>之一。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "錯誤——效能是非功能性測試，非層級。層級是單元、整合、系統與驗收。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——效能是非功能性測試類型，非層級。"
+            }
+          ],
+          "generalFeedback": "四個層級是單元、整合、系統與驗收。效能是可在任一層級套用的非功能性測試類型；它本身不是層級。"
+        },
+        {
+          "type": "multichoice",
+          "name": "冒煙測試的目的",
+          "text": "<p>對新建置執行<em>冒煙</em>測試的主要目的是：</p>",
+          "answers": [
+            {
+              "text": "快速判斷該建置是否穩定到值得進一步、更深入的測試",
+              "fraction": 100,
+              "feedback": "正確——冒煙測試是對建置穩定性的快速通過／不通過檢查。"
+            },
+            {
+              "text": "詳盡地逐一驗證每一項需求",
+              "fraction": 0,
+              "feedback": "那是徹底的功能性／系統測試，非快速的冒煙測試。"
+            },
+            {
+              "text": "確認某個回報的特定缺陷已修正",
+              "fraction": 0,
+              "feedback": "那是確認測試，非冒煙測試。"
+            },
+            {
+              "text": "量測系統在尖峰負載下的吞吐量",
+              "fraction": 0,
+              "feedback": "那是效能測試，屬非功能性類型。"
+            }
+          ],
+          "generalFeedback": "冒煙測試是一組廣而淺的檢查（常自動化），快速確立某個建置的關鍵功能是否可運作——是決定是否值得進行更深入測試的一道關卡。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "作業驗收 vs 系統測試",
+          "text": "<p>在上線前由維運／管理人員測試備份／還原、安裝與災難復原程序，最適當的分類是：</p>",
+          "answers": [
+            {
+              "text": "作業驗收測試（一項聚焦於作業就緒度的驗收層級活動）",
+              "fraction": 100,
+              "feedback": "正確——作業驗收（OAT）在驗收層級檢查作業就緒度。"
+            },
+            {
+              "text": "系統測試，因為它演練整個系統",
+              "fraction": 0,
+              "feedback": "雖然它用到整個系統，但這是由維運人員針對作業需求進行的驗收層級（作業驗收）工作，而非對照需求的系統層級驗證。"
+            },
+            {
+              "text": "備份元件的單元測試",
+              "fraction": 0,
+              "feedback": "作業驗收在整個系統上演練作業程序，而非孤立的元件。"
+            },
+            {
+              "text": "迴歸測試",
+              "fraction": 0,
+              "feedback": "作業驗收關乎作業就緒度，而非重新檢查某變更的副作用。"
+            }
+          ],
+          "generalFeedback": "作業驗收測試（OAT）是由維運／系統管理人員執行的一種驗收測試，用以確認系統已就緒可運作——備份／還原、安裝／解除安裝、維護、災難復原與安全程序。它有別於對照規定需求驗證所建系統的系統測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "元件整合 vs 系統整合",
+          "text": "<p>測試你的應用程式與另一組織營運的獨立外部支付系統之間的介面，是：</p>",
+          "answers": [
+            {
+              "text": "系統整合測試（不同系統之間的互動）",
+              "fraction": 100,
+              "feedback": "正確——測試獨立系統之間的介面是系統整合測試。"
+            },
+            {
+              "text": "元件整合測試（單一系統內部元件之間的互動）",
+              "fraction": 0,
+              "feedback": "元件整合是在單一系統內；此處是兩個獨立系統互動。"
+            },
+            {
+              "text": "支付模組的單元測試",
+              "fraction": 0,
+              "feedback": "這關乎跨系統的介面，而非孤立的單一元件。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "這針對系統之間的介面，是整合議題，而非使用者驗收。"
+            }
+          ],
+          "generalFeedback": "整合測試有兩種子形式。元件整合測試檢查單一系統內元件之間的互動（在單元測試之後）。系統整合測試檢查不同系統之間或與外部服務的互動（常在系統測試之後）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "易用性測試 vs UAT",
+          "text": "<p>下列何者正確區分<em>易用性</em>測試與<em>使用者驗收</em>測試（UAT）？</p>",
+          "answers": [
+            {
+              "text": "易用性是非功能性測試類型（系統多易用）；UAT 是測試層級（使用者決定是否接受系統）",
+              "fraction": 100,
+              "feedback": "正確——一個是類型（品質屬性），另一個是層級（生命週期階段）。"
+            },
+            {
+              "text": "兩者都是先後進行的測試層級",
+              "fraction": 0,
+              "feedback": "易用性是類型，非層級；只有 UAT 是層級。"
+            },
+            {
+              "text": "兩者都是非功能性測試類型",
+              "fraction": 0,
+              "feedback": "易用性是非功能性類型，但 UAT 是層級，非類型。"
+            },
+            {
+              "text": "易用性是層級，UAT 是類型",
+              "fraction": 0,
+              "feedback": "這把兩者顛倒了：易用性是類型，UAT 是層級。"
+            }
+          ],
+          "generalFeedback": "易用性測試評估一個品質屬性（易用程度），因此是非功能性測試類型，可在多個層級執行。使用者驗收測試是一個測試層級——使用者對照需求驗證系統的階段——它本身可能包含易用性檢查。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何類型與層級正交",
+          "text": "<p>說測試<em>類型</em>與測試<em>層級</em><strong>正交</strong>是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "任何測試類型原則上都可在任何測試層級執行——這兩種分類彼此獨立",
+              "fraction": 100,
+              "feedback": "正確——正交意味兩軸各自獨立變化，因此任何類型可搭配任何層級。"
+            },
+            {
+              "text": "每個測試層級永久綁定於恰好一種測試類型",
+              "fraction": 0,
+              "feedback": "那與正交相反；正交意味它們彼此獨立。"
+            },
+            {
+              "text": "系統整合後，測試類型會取代測試層級",
+              "fraction": 0,
+              "feedback": "類型不取代層級；兩者作為獨立的軸並存。"
+            },
+            {
+              "text": "只有功能性測試能在多於一個層級進行",
+              "fraction": 0,
+              "feedback": "所有類型——功能性、非功能性、結構性、變更相關——都能跨層級。"
+            }
+          ],
+          "generalFeedback": "「正交」意味層級軸（時機／範圍）與類型軸（哪個品質屬性／目標）各自獨立變化。因此功能性、非功能性、結構性與變更相關類型都可在單元、整合、系統或驗收層級套用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "冒煙 vs 理智 vs 迴歸",
+          "text": "<p>下列何者正確區分冒煙、理智（sanity）與迴歸測試？</p>",
+          "answers": [
+            {
+              "text": "冒煙 = 廣而淺的建置穩定性檢查；理智 = 小幅變更後對某一區域的窄而深檢查；迴歸 = 為變更的副作用重新測試既有功能",
+              "fraction": 100,
+              "feedback": "正確——冒煙廣而淺、理智窄而深、迴歸重新檢查既有功能。"
+            },
+            {
+              "text": "三者意思相同：重跑整個測試套件",
+              "fraction": 0,
+              "feedback": "它們在廣度、深度與目的上皆不同；並非同義。"
+            },
+            {
+              "text": "冒煙深測某一區域；理智淺測整個建置；迴歸測試新功能",
+              "fraction": 0,
+              "feedback": "這把冒煙與理智對調了，且迴歸針對既有功能，而非新功能。"
+            },
+            {
+              "text": "冒煙與理智是層級；迴歸是類型",
+              "fraction": 0,
+              "feedback": "三者都是測試活動／類型，而非層級。"
+            }
+          ],
+          "generalFeedback": "冒煙測試是廣而淺地檢查建置的關鍵功能是否運作（建置穩定性）。理智測試是小幅變更後對特定區域的窄而深檢查。迴歸測試在變更後跨越範圍重新測試原本正常的功能，以偵測非預期副作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "層級與其測試基礎的配對",
+          "text": "<p>下列<strong>層級</strong>對<strong>測試基礎</strong>的配對何者正確？</p>",
+          "answers": [
+            {
+              "text": "系統測試 &#8594; 系統／軟體需求規格",
+              "fraction": 100,
+              "feedback": "正確——系統測試以系統需求為基礎。"
+            },
+            {
+              "text": "單元測試 &#8594; 使用者需求與業務流程",
+              "fraction": 0,
+              "feedback": "使用者需求／業務流程是驗收的基礎；單元測試用程式碼與詳細設計。"
+            },
+            {
+              "text": "驗收測試 &#8594; 元件程式碼與詳細設計",
+              "fraction": 0,
+              "feedback": "元件程式碼／詳細設計是單元測試基礎；驗收用使用者／業務需求。"
+            },
+            {
+              "text": "整合測試 &#8594; 敘述覆蓋率報告",
+              "fraction": 0,
+              "feedback": "覆蓋率報告是結構性產出；整合的基礎是設計、架構與介面。"
+            }
+          ],
+          "generalFeedback": "各層級的測試基礎：單元 &#8594; 程式碼／詳細設計；整合 &#8594; 設計／架構／介面；系統 &#8594; 系統／軟體需求；驗收 &#8594; 使用者需求／業務流程（及合約／法規）。此處只有系統的配對正確。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "迴歸是一個測試層級",
+          "text": "<p>迴歸測試是四個測試<em>層級</em>之一。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "錯誤——迴歸是跨層級執行的變更相關測試，而非層級本身。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——迴歸是變更相關測試類型，並非層級之一。"
+            }
+          ],
+          "generalFeedback": "四個層級是單元、整合、系統與驗收。迴歸（如同確認）是可在任一層級執行的變更相關測試類型；它本身不是層級。"
+        },
+        {
+          "type": "multichoice",
+          "name": "系統測試涵蓋哪些類型？",
+          "text": "<p>關於<strong>系統</strong>測試期間所演練的<em>類型</em>，下列敘述何者正確？</p>",
+          "answers": [
+            {
+              "text": "系統測試可同時包含功能性與非功能性類型（例如對照需求的行為，加上效能與安全性）",
+              "fraction": 100,
+              "feedback": "正確——一個層級可容納多種類型；系統測試通常涵蓋功能性與非功能性。"
+            },
+            {
+              "text": "系統測試純粹是功能性，從不涉及非功能性",
+              "fraction": 0,
+              "feedback": "系統測試常包含效能與安全性等非功能性類型。"
+            },
+            {
+              "text": "系統測試純粹是非功能性，從不涉及功能性",
+              "fraction": 0,
+              "feedback": "系統測試也對照需求驗證功能性行為。"
+            },
+            {
+              "text": "系統測試本身就是一種測試類型，因此類型的問題不適用",
+              "fraction": 0,
+              "feedback": "系統測試是層級；其中會演練多種類型。"
+            }
+          ],
+          "generalFeedback": "由於層級與類型正交，單一層級會容納數種類型。系統測試常結合功能性測試（對照需求的行為）與非功能性測試（效能、安全性、可靠性等）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：驗證修補後再重跑套件",
+          "text": "<p>缺陷修正後，測試人員先重跑那個確切失敗的測試，再重跑周邊那組先前通過的測試。這兩項活動分別是：</p>",
+          "answers": [
+            {
+              "text": "確認測試，然後迴歸測試",
+              "fraction": 100,
+              "feedback": "正確——重跑失敗的測試是確認；重跑其餘是迴歸。"
+            },
+            {
+              "text": "迴歸測試，然後確認測試",
+              "fraction": 0,
+              "feedback": "這把兩者顛倒了：特定失敗的測試是確認，周邊套件是迴歸。"
+            },
+            {
+              "text": "冒煙測試，然後理智測試",
+              "fraction": 0,
+              "feedback": "兩項活動都不是建置穩定性或窄區域檢查；它們是變更相關的一對。"
+            },
+            {
+              "text": "同一個驗收測試跑兩次",
+              "fraction": 0,
+              "feedback": "這些是變更相關類型的活動，而非驗收層級的執行。"
+            }
+          ],
+          "generalFeedback": "確認（再）測試重跑先前失敗的那個特定測試以驗證修正；迴歸測試接著重跑先前通過的測試，以確保修正未造成非預期副作用。兩者都是變更相關測試類型。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Alpha vs Beta 測試",
+          "text": "<p>Alpha 與 Beta 測試都是<strong>驗收</strong>測試的形式。它們的區別是什麼？</p>",
+          "answers": [
+            {
+              "text": "Alpha 在開發者的場地進行（由潛在使用者或獨立團隊）；Beta 在客戶自己的場地進行",
+              "fraction": 100,
+              "feedback": "正確——Alpha 在開發者場地，Beta 在客戶現場（實地）。"
+            },
+            {
+              "text": "Alpha 是測試層級，Beta 是測試類型",
+              "fraction": 0,
+              "feedback": "兩者都是驗收層級測試的形式，並非層級／類型之分。"
+            },
+            {
+              "text": "Alpha 測效能，Beta 測功能",
+              "fraction": 0,
+              "feedback": "區別在於地點／由誰進行，而非功能性與非功能性之分。"
+            },
+            {
+              "text": "Alpha 在發行後進行，Beta 在開發前進行",
+              "fraction": 0,
+              "feedback": "兩者都在正式發行前進行；差異在於在何處進行。"
+            }
+          ],
+          "generalFeedback": "Alpha 與 Beta 測試是驗收測試的作業／使用者形式。Alpha 在開發組織的場地進行（由潛在使用者或獨立測試團隊）；Beta（「實地」）測試由真實使用者在其自己的場地進行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "合約性／法規性驗收",
+          "text": "<p>對照簽署合約中所載的驗收準則、或對照政府監管機關所施加的規則來測試系統，是：</p>",
+          "answers": [
+            {
+              "text": "合約性／法規性驗收測試（驗收測試的一種形式）",
+              "fraction": 100,
+              "feedback": "正確——對照合約或法規檢查是驗收測試的一種形式。"
+            },
+            {
+              "text": "結構性測試，因為它量測覆蓋率",
+              "fraction": 0,
+              "feedback": "它是對照合約／法規驗證，而非程式碼覆蓋率。"
+            },
+            {
+              "text": "元件整合測試",
+              "fraction": 0,
+              "feedback": "它關乎整個系統的驗收準則，而非元件介面。"
+            },
+            {
+              "text": "確認測試",
+              "fraction": 0,
+              "feedback": "確認重新檢查某項修正；這是對照合約／法規的驗收。"
+            }
+          ],
+          "generalFeedback": "合約性驗收測試對照合約中的驗收準則驗證系統；法規性驗收測試對照法律／法規（例如安全、法律、政府標準）驗證系統。兩者都是驗收層級的形式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "「驗收層級的安全性測試」中各軸為何",
+          "text": "<p>在「驗收層級的安全性測試」這句話中，哪個詞指<em>層級</em>、哪個指<em>類型</em>？</p>",
+          "answers": [
+            {
+              "text": "「驗收」是層級；「安全性」是（非功能性）類型",
+              "fraction": 100,
+              "feedback": "正確——驗收是層級，安全性是非功能性類型。"
+            },
+            {
+              "text": "「安全性」是層級；「驗收」是類型",
+              "fraction": 0,
+              "feedback": "這把兩軸顛倒了：驗收是層級，安全性是類型。"
+            },
+            {
+              "text": "兩個詞都指層級",
+              "fraction": 0,
+              "feedback": "安全性是類型，非層級。"
+            },
+            {
+              "text": "兩個詞都指類型",
+              "fraction": 0,
+              "feedback": "驗收是層級，非類型。"
+            }
+          ],
+          "generalFeedback": "層級 = 時機／範圍（驗收）；類型 = 哪個品質屬性（安全性，一種非功能性類型）。這句話從兩個正交軸各取其一：套用於驗收層級的安全性類型。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "靜態測試的例子",
+          "text": "<p>下列哪項活動是<em>靜態</em>測試的例子（相對於動態）？</p>",
+          "answers": [
+            {
+              "text": "對需求文件進行同儕審查，在任何程式碼執行前找出缺陷",
+              "fraction": 100,
+              "feedback": "正確——審查在不執行程式碼的情況下檢視工作產出，因此是靜態測試。"
+            },
+            {
+              "text": "以測試輸入執行程式，並將輸出與預期值比較",
+              "fraction": 0,
+              "feedback": "執行程式是動態測試，非靜態。"
+            },
+            {
+              "text": "在測試套件執行時量測分支覆蓋率",
+              "fraction": 0,
+              "feedback": "在執行期間量測的覆蓋率是動態（結構性）測試。"
+            },
+            {
+              "text": "以眾多並行使用者對執行中的應用程式做負載測試",
+              "fraction": 0,
+              "feedback": "負載測試會執行系統，因此是動態（非功能性）測試。"
+            }
+          ],
+          "generalFeedback": "靜態測試在不執行程式碼的情況下評估工作產出——對需求、設計或程式碼的審查與靜態分析。動態測試會執行軟體；任何觀察執行中行為的活動（含覆蓋率量測與負載測試）都是動態。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "一種類型可跨多個層級",
+          "text": "<p>單一測試<em>類型</em>（例如功能性測試）可在多於一個測試<em>層級</em>執行。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——由於層級與類型正交，一種類型可在數個層級套用（功能性測試在單元、整合、系統與驗收）。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "類型與層級是獨立的軸，因此一種類型可跨多個層級。"
+            }
+          ],
+          "generalFeedback": "測試類型與測試層級正交，因此任何類型都可在任何層級演練。例如功能性測試在單元、整合、系統與驗收層級都會進行；同樣地，效能與其他非功能性類型也可跨層級。"
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識非功能性類型",
+          "text": "<p>下列何者是<strong>非功能性</strong>測試類型，而非功能性檢查？</p>",
+          "answers": [
+            {
+              "text": "可攜性測試——驗證軟體能被移植到另一個環境並在其中執行",
+              "fraction": 100,
+              "feedback": "正確——可攜性是非功能性品質屬性。"
+            },
+            {
+              "text": "驗證有效登入被接受、無效登入被拒絕",
+              "fraction": 0,
+              "feedback": "那檢查系統做什麼（行為），因此是功能性測試。"
+            },
+            {
+              "text": "驗證折扣依業務規則計算",
+              "fraction": 0,
+              "feedback": "依規則算出正確結果是功能性檢查。"
+            },
+            {
+              "text": "驗證報表含有所需的欄位",
+              "fraction": 0,
+              "feedback": "檢查所需內容／行為是功能性測試。"
+            }
+          ],
+          "generalFeedback": "非功能性類型評估品質屬性——效能、安全性、易用性、可靠性、相容性、可攜性、可維護性。可攜性（把軟體移到另一環境）是非功能性；其他選項檢查行為，屬功能性。",
+          "single": true
+        }
+      ]
+    }
+  },
   "v-model": {
     "en": {
       "easy": [
