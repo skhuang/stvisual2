@@ -1,1 +1,8 @@
-[]
+[
+  "metamorphic-testing",
+  "property-based-testing",
+  "risk-based-testing",
+  "input-space-partitioning",
+  "grammar-coverage",
+  "spec-mutation"
+]
