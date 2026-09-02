@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Test Automation Pyramid/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>由下而上的三個層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在經典的<em>測試自動化金字塔（test automation pyramid，Mike Cohn）</em>中，由下而上的層級依序是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元測試（底層）、整合／服務測試（中層）、UI／端到端測試（頂層）</text><feedback><text>正確——寬廣的單元測試底座、較窄的整合／服務測試帶、以及薄薄的 UI／E2E 測試頂端。</text></feedback></answer>
+    <answer fraction="0"><text>UI／端到端測試（底層）、整合測試（中層）、單元測試（頂層）</text><feedback><text>這是上下顛倒的——它描述的是甜筒（ice-cream cone）反模式，而非金字塔。</text></feedback></answer>
+    <answer fraction="0"><text>整合測試（底層）、單元測試（中層）、UI 測試（頂層）</text><feedback><text>單元測試構成底座，而非中層。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試（底層）、UI／端到端測試（中層）、整合測試（頂層）</text><feedback><text>UI／E2E 位於頂端、整合位於中層，而非相反。</text></feedback></answer>
+    <generalfeedback><text>由下而上：大量單元測試、較少的整合／服務測試、少量的 UI／端到端測試。每層的寬度暗示該類測試應有的數量。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試最多的層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在健康的測試自動化金字塔中，哪一層應包含<strong>最多</strong>測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元測試（底座）</text><feedback><text>正確——底座是最寬的一層，因此單元測試數量最多。</text></feedback></answer>
+    <answer fraction="0"><text>UI／端到端測試（頂端）</text><feedback><text>頂端是最窄的一層，應該擁有最少的測試。</text></feedback></answer>
+    <answer fraction="0"><text>整合／服務測試（中層）</text><feedback><text>中層介於兩者之間；底座（單元）比它更多。</text></feedback></answer>
+    <answer fraction="0"><text>三層應該數量相等</text><feedback><text>金字塔刻意不均等——寬廣的底座逐漸收窄至薄薄的頂端。</text></feedback></answer>
+    <generalfeedback><text>底座是金字塔最寬的部分：單元測試最便宜也最快，因此你負擔得起最多的數量。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試最少的層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在健康的測試自動化金字塔中，哪一層應包含<strong>最少</strong>測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>UI／端到端測試（頂端）</text><feedback><text>正確——頂端是最窄的一層，因此 UI／E2E 測試數量最少。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試（底座）</text><feedback><text>單元測試數量最多，而非最少。</text></feedback></answer>
+    <answer fraction="0"><text>整合／服務測試（中層）</text><feedback><text>中層比頂端多；頂端（UI／E2E）才是最少的。</text></feedback></answer>
+    <answer fraction="0"><text>三層應該都是同樣的少量</text><feedback><text>各層數量不同；具體而言頂層最薄。</text></feedback></answer>
+    <generalfeedback><text>UI／端到端測試又慢、又貴、又脆弱，因此只在金字塔狹窄的頂端保留少量。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>單元測試的特性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一組特性最能描述位於金字塔底座的<em>單元</em>測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>快速、便宜、隔離、穩定、且數量眾多</text><feedback><text>正確——正是這些特性使單元測試構成寬廣的底座。</text></feedback></answer>
+    <answer fraction="0"><text>緩慢、昂貴、且數量稀少</text><feedback><text>那些是頂端 UI／端到端測試的特性，而非單元測試。</text></feedback></answer>
+    <answer fraction="0"><text>緩慢但非常便宜且數量眾多</text><feedback><text>單元測試是快速的，而非緩慢；速度正是它的定義特徵之一。</text></feedback></answer>
+    <answer fraction="0"><text>真實、端到端、且脆弱</text><feedback><text>那些描述的是 UI／E2E 測試；單元測試是隔離且穩定的。</text></feedback></answer>
+    <generalfeedback><text>單元測試在毫秒內執行、撰寫與維護皆便宜、與外部系統隔離、具決定性／穩定、並能精確定位失敗——因此可保留大量並持續執行它們。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>UI／E2E 測試的特性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一組特性最能描述位於金字塔頂端的 <em>UI／端到端</em> 測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>緩慢、昂貴、脆弱／不穩定（flaky）、數量少——但最為真實</text><feedback><text>正確——它們像真實使用者一樣操作整個系統，因此最真實但也最昂貴、最易碎。</text></feedback></answer>
+    <answer fraction="0"><text>快速、便宜、穩定、且數量眾多</text><feedback><text>那些是單元測試的特性，不是 UI／E2E。</text></feedback></answer>
+    <answer fraction="0"><text>快速且具決定性，但不真實</text><feedback><text>UI／E2E 測試緩慢且最真實，並非快速且不真實。</text></feedback></answer>
+    <answer fraction="0"><text>維護便宜且很少不穩定</text><feedback><text>它們是維護最昂貴且最容易不穩定的。</text></feedback></answer>
+    <generalfeedback><text>端到端測試透過 UI 驅動整個系統，因此最真實，但也最慢、最貴、最不穩定——只保留少量。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>中層是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試自動化金字塔的<strong>中</strong>層由下列何者構成？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>檢查元件如何在 UI 之下協同運作的整合／服務（API）測試</text><feedback><text>正確——中層在低於完整 UI 的層次上，測試元件互動與服務／API 邊界。</text></feedback></answer>
+    <answer fraction="0"><text>對單一孤立函式進行的單元測試</text><feedback><text>那是底層，而非中層。</text></feedback></answer>
+    <answer fraction="0"><text>透過瀏覽器 UI 驅動的端到端測試</text><feedback><text>那是頂層，而非中層。</text></feedback></answer>
+    <answer fraction="0"><text>人工探索式測試作業</text><feedback><text>金字塔描述的是自動化測試層級；中層是整合／服務測試。</text></feedback></answer>
+    <generalfeedback><text>中間帶為整合／服務／API 測試：速度與成本適中，在低於完整 UI 的層次驗證元件之間正確互動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>甜筒反模式</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>甜筒（ice-cream cone）</em>反模式所指的測試分布是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>顛倒的——頂端有大量 UI／人工測試，底部單元測試過少</text><feedback><text>正確——金字塔被上下顛倒，大部分測試集中在又慢又脆弱的頂端。</text></feedback></answer>
+    <answer fraction="0"><text>擁有寬廣單元底座的健康金字塔</text><feedback><text>那是理想形狀，而非反模式。</text></feedback></answer>
+    <answer fraction="0"><text>肥大的單元底座、肥大的 E2E 頂端、以及薄弱的中層</text><feedback><text>那是沙漏（hourglass）反模式，不是甜筒。</text></feedback></answer>
+    <answer fraction="0"><text>完全沒有任何自動化測試</text><feedback><text>甜筒仍有很多測試——只是集中在錯誤的（頂）層。</text></feedback></answer>
+    <generalfeedback><text>甜筒是顛倒的金字塔：大部分測試是又慢又貴的 UI 或人工測試，單元底座太小——導致回饋又慢、又不穩定、又昂貴。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀比例辨識層級（底座）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊回報其自動化測試在三層金字塔中約為 <strong>70% / 20% / 10%</strong>。其中 <strong>70%</strong> 這一片執行起來最快、最便宜。它是哪一層？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元測試（底座）</text><feedback><text>正確——最大、最快、最便宜的一片就是單元底座。</text></feedback></answer>
+    <answer fraction="0"><text>整合／服務測試（中層）</text><feedback><text>此處中層是 20% 那一片，不是 70%。</text></feedback></answer>
+    <answer fraction="0"><text>UI／端到端測試（頂端）</text><feedback><text>頂端是最小、最慢的一片——10%，而非 70%。</text></feedback></answer>
+    <answer fraction="0"><text>無法由數字判斷</text><feedback><text>最大、最快、最便宜的一片明確就是單元底座。</text></feedback></answer>
+    <generalfeedback><text>在示意性的 70/20/10 分布中，70%（最大、最快、最便宜）是單元、20% 是整合、10% 是 UI／E2E。把確切比例當作示意，而非法則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最真實的層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一層提供的測試<strong>最接近真實使用者</strong>對整個系統的體驗？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>UI／端到端測試（頂端）</text><feedback><text>正確——E2E 測試像使用者一樣驅動完整整合的系統，因此最真實。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試（底座）</text><feedback><text>單元測試孤立地檢查零件，最不像真實的終端使用者情境。</text></feedback></answer>
+    <answer fraction="0"><text>整合／服務測試（中層）</text><feedback><text>這些比單元測試更真實，但仍低於完整 UI、整個系統的層次。</text></feedback></answer>
+    <answer fraction="0"><text>各層同樣真實</text><feedback><text>真實度隨著往金字塔上方而提高；頂端最真實。</text></feedback></answer>
+    <generalfeedback><text>真實度隨著往上攀升而提高：E2E 測試透過真實介面操作整個系統，因此最貼近實際使用者行為——代價是速度與穩定性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪些測試持續執行以把關提交</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 CI 中，哪一層的測試通常會在<strong>每次提交（commit）</strong>時執行，以給開發者快速回饋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元測試（底座）</text><feedback><text>正確——因為快速又穩定，單元測試可持續執行並把關每次提交。</text></feedback></answer>
+    <answer fraction="0"><text>UI／端到端測試（頂端）</text><feedback><text>E2E 測試太慢、太不穩定，無法在每次提交時執行；它們執行頻率較低。</text></feedback></answer>
+    <answer fraction="0"><text>只有人工測試</text><feedback><text>人工測試無法把關每次提交；快速的自動化單元測試才行。</text></feedback></answer>
+    <answer fraction="0"><text>提交時不應執行任何測試</text><feedback><text>快速的單元測試正是應在每次提交時把關 CI 的測試。</text></feedback></answer>
+    <generalfeedback><text>由於單元測試快速且具決定性，它們在每次提交時執行作為 CI 把關；較慢的 UI／E2E 測試則較少執行（例如夜間或發佈前）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>單元測試構成底座</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在測試自動化金字塔中，單元測試構成寬廣的底座。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——單元測試數量最多，位於底座。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>單元測試確實構成底座；把 UI／E2E 放在底座才是顛倒的反模式。</text></feedback></answer>
+    <generalfeedback><text>金字塔寬廣的底座是單元測試——快速、便宜、數量眾多——其上是較少的整合測試，頂端是少量的 UI／E2E 測試。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>E2E 比單元多</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在健康的金字塔中，端到端（UI）測試的數量應多於單元測試。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>這是顛倒的（甜筒）形狀，而非健康的金字塔。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——單元測試應遠多於 E2E 測試；反過來就是甜筒反模式。</text></feedback></answer>
+    <generalfeedback><text>健康的金字塔有大量單元測試與少量 E2E 測試。當 E2E 測試多於單元測試時，你得到的是顛倒的金字塔（甜筒）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>在 UI 之下測試 API 的層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一層驗證元件與服務<strong>透過其 API、在 UI 之下</strong>正確互動？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>整合／服務測試（中層）</text><feedback><text>正確——中層在低於完整 UI 的服務／API 層次測試互動。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試（底座）</text><feedback><text>單元測試孤立地操作單一元件，而非跨 API 的互動。</text></feedback></answer>
+    <answer fraction="0"><text>UI／端到端測試（頂端）</text><feedback><text>E2E 測試會經過 UI；中層刻意在其之下測試。</text></feedback></answer>
+    <answer fraction="0"><text>驗收簽核會議</text><feedback><text>那不是自動化測試層級；API 層次的測試是整合／服務層。</text></feedback></answer>
+    <generalfeedback><text>整合／服務測試直接打 API 與元件邊界，避開又慢又脆弱的 UI，同時仍檢查各部分能否協同運作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最不穩定的層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一層的測試通常最<strong>脆弱且不穩定（flaky）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>UI／端到端測試（頂端）</text><feedback><text>正確——依賴整個技術堆疊、時序與 UI，使 E2E 測試最為易碎。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試（底座）</text><feedback><text>單元測試隔離且具決定性，因此最穩定，而非最不穩定。</text></feedback></answer>
+    <answer fraction="0"><text>整合／服務測試（中層）</text><feedback><text>這些比單元測試更易碎，但比完整 UI／E2E 測試更不易不穩定。</text></feedback></answer>
+    <answer fraction="0"><text>各層同樣不穩定</text><feedback><text>不穩定集中在頂端；單元測試最穩定。</text></feedback></answer>
+    <generalfeedback><text>E2E 測試依賴許多整合的部分、外部狀態與時序，因此最容易不穩定。不穩定集中在金字塔頂端。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>讀比例辨識中層</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某套件在 單元／整合／UI 之間分布為 <strong>70% / 20% / 10%</strong>。其中 <strong>20%</strong> 那一片對應哪一層？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>整合／服務測試（中層）</text><feedback><text>正確——20% 是介於 70% 單元底座與 10% UI 頂端之間的中間帶。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試（底座）</text><feedback><text>單元是 70% 那一片，不是 20%。</text></feedback></answer>
+    <answer fraction="0"><text>UI／端到端測試（頂端）</text><feedback><text>UI／E2E 是最小的一片——10%，而非 20%。</text></feedback></answer>
+    <answer fraction="0"><text>人工測試</text><feedback><text>金字塔的自動化中間帶是整合／服務測試。</text></feedback></answer>
+    <generalfeedback><text>在示意性的 70/20/10 分布中，20% 的中層是整合／服務測試，介於單元底座（70%）與 UI 頂端（10%）之間。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Automation Pyramid/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>症狀：套件又慢又不穩定</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊的自動化套件<strong>執行緩慢且經常不穩定（flaky）</strong>。最可能是哪一層比重過高？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>UI／端到端測試（頂端）</text><feedback><text>正確——過多又慢又脆弱的 E2E 測試正會造成這種症狀。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試（底座）</text><feedback><text>大量單元測試會讓套件保持快速與穩定，而不是又慢又不穩定。</text></feedback></answer>
+    <answer fraction="0"><text>無法由此症狀判斷</text><feedback><text>又慢又不穩定強烈指向過大的 UI／E2E 頂端。</text></feedback></answer>
+    <answer fraction="0"><text>套件整體測試數量一定太少</text><feedback><text>問題出在組合（太多 E2E），而非單純的總數。</text></feedback></answer>
+    <generalfeedback><text>緩慢與不穩定集中在金字塔頂端，因此又慢又不穩定的套件通常意味著相對於單元與整合測試，UI／E2E 測試過多。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>「把測試往下推」的意思</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把測試在金字塔中<em>往下推（push down）</em>的原則意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在仍能提供足夠信心的最低層級測試每個行為</text><feedback><text>正確——只要能提供足夠信心，就優先用快速的單元或整合測試，而非 E2E 測試。</text></feedback></answer>
+    <answer fraction="0"><text>刪除所有較高層級的測試，只依賴 UI</text><feedback><text>往下推是把覆蓋率往下移，而非移除所有較高層測試或只依賴 UI。</text></feedback></answer>
+    <answer fraction="0"><text>為了真實性，把所有測試往上移到端到端層</text><feedback><text>那會顛倒金字塔；往下推的意思正好相反。</text></feedback></answer>
+    <answer fraction="0"><text>把測試放到不同的實體地點執行</text><feedback><text>「往下」指的是金字塔較低的層級，而非實體擺放位置。</text></feedback></answer>
+    <generalfeedback><text>往下推是指為某個行為選擇仍能提供足夠信心的最低（最便宜、最快、最穩定）層級，把慢速的 E2E 測試保留給只有它才能涵蓋的部分。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪種形狀是健康的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪種分布描述的是<strong>健康</strong>的金字塔，而非甜筒？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>大量單元測試、較少整合測試、少量 UI／E2E 測試</text><feedback><text>正確——寬廣的單元底座收窄至薄薄的 UI 頂端就是健康的金字塔。</text></feedback></answer>
+    <answer fraction="0"><text>大量 UI／E2E 測試、較少整合測試、少量單元測試</text><feedback><text>那是顛倒的甜筒，而非健康的金字塔。</text></feedback></answer>
+    <answer fraction="0"><text>單元、整合、UI 測試數量相等</text><feedback><text>金字塔刻意不均等，在單元底座最寬。</text></feedback></answer>
+    <answer fraction="0"><text>只有 UI 測試，別無其他</text><feedback><text>那是完全沒有底座的極端甜筒。</text></feedback></answer>
+    <generalfeedback><text>健康的金字塔往上收窄：單元測試最多、整合測試較少、UI／E2E 測試最少。甜筒就是這個形狀被顛倒。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何單元測試構成底座</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何單元測試構成金字塔的<strong>底座</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們快速、便宜、穩定、且能精確定位失敗，因此可負擔大量並持續執行</text><feedback><text>正確——這些特性使龐大的單元底座成為最有效率的基礎。</text></feedback></answer>
+    <answer fraction="0"><text>它們最真實，因此值得最多覆蓋率</text><feedback><text>真實性是 E2E 測試的特性，而非單元測試；那不是單元測試構成底座的原因。</text></feedback></answer>
+    <answer fraction="0"><text>它們是唯一能找到任何缺陷的測試</text><feedback><text>較高層級能找到單元測試找不到的缺陷（例如介面與端到端錯誤）。</text></feedback></answer>
+    <answer fraction="0"><text>它們最慢，所以必須先執行</text><feedback><text>單元測試最快，這正是為何數量眾多。</text></feedback></answer>
+    <generalfeedback><text>單元測試快速、便宜、隔離、具決定性，並能精確定位失敗——因此龐大的底座能以低成本提供快速、可靠的回饋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>依 70/20/10 計算單元數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某套件有 <strong>200</strong> 個測試，依示意性的 <strong>70% / 20% / 10%</strong>（單元／整合／UI）分布。<strong>單元</strong>測試有幾個？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>140</text><feedback><text>正確——200 的 70% = 140。</text></feedback></answer>
+    <answer fraction="0"><text>40</text><feedback><text>40 是整合數量（200 的 20%），不是單元數量。</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 是 UI 數量（200 的 10%），不是單元數量。</text></feedback></answer>
+    <answer fraction="0"><text>70</text><feedback><text>70 是百分比，不是測試數量；200 的 70% 是 140。</text></feedback></answer>
+    <generalfeedback><text>0.70 &#215; 200 = 140 單元、0.20 &#215; 200 = 40 整合、0.10 &#215; 200 = 20 UI。此比例為示意，並非規則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>依 70/20/10 計算整合數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某套件有 <strong>300</strong> 個測試，依示意性的 <strong>70% / 20% / 10%</strong>（單元／整合／UI）分布。<strong>整合</strong>測試有幾個？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>60</text><feedback><text>正確——300 的 20% = 60。</text></feedback></answer>
+    <answer fraction="0"><text>210</text><feedback><text>210 是單元數量（300 的 70%），不是整合數量。</text></feedback></answer>
+    <answer fraction="0"><text>30</text><feedback><text>30 是 UI 數量（300 的 10%），不是整合數量。</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 是百分比，不是數量；300 的 20% 是 60。</text></feedback></answer>
+    <generalfeedback><text>0.20 &#215; 300 = 60 整合（單元 210、UI 30）。把 70/20/10 分布當作示意。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類測試：完整結帳流程</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試開啟瀏覽器、登入、把商品加入購物車，並像真實使用者一樣完成結帳。它屬於哪一層？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>UI／端到端（頂端）</text><feedback><text>正確——像使用者一樣透過 UI 驅動整個應用程式就是 E2E 測試。</text></feedback></answer>
+    <answer fraction="0"><text>單元（底座）</text><feedback><text>整個應用程式的瀏覽器流程遠比單一孤立單元更廣。</text></feedback></answer>
+    <answer fraction="0"><text>整合／服務（中層）</text><feedback><text>這會經過 UI 與完整堆疊，屬於 E2E，而非在 UI 之下的整合測試。</text></feedback></answer>
+    <answer fraction="0"><text>它不屬於任何金字塔層級的測試</text><feedback><text>它是金字塔頂端典型的端到端測試。</text></feedback></answer>
+    <generalfeedback><text>像使用者一樣透過真實 UI 操作整個整合系統，正是端到端（頂層）測試的定義。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類測試：單一純函式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試以固定輸入呼叫單一純函式並斷言其回傳值，不涉及資料庫、網路或 UI。它屬於哪一層？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元（底座）</text><feedback><text>正確——孤立地測試單一函式邏輯就是單元測試。</text></feedback></answer>
+    <answer fraction="0"><text>整合／服務（中層）</text><feedback><text>此處沒有任何東西被整合；它是單一孤立的函式。</text></feedback></answer>
+    <answer fraction="0"><text>UI／端到端（頂端）</text><feedback><text>不涉及 UI 或完整系統流程，因此不是 E2E。</text></feedback></answer>
+    <answer fraction="0"><text>它無法被自動化</text><feedback><text>純函式的斷言是最容易自動化的測試之一——一個單元測試。</text></feedback></answer>
+    <generalfeedback><text>在沒有外部相依的情況下孤立地測試單一函式，是金字塔底座教科書式的單元測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類測試：服務與資料庫溝通</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試啟動一個服務與一個真實測試資料庫，然後檢查透過該服務的 API 儲存並重新載入一筆記錄是否正確運作——不開啟任何 UI。它屬於哪一層？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>整合／服務（中層）</text><feedback><text>正確——它在 UI 之下檢查服務與資料庫協同運作。</text></feedback></answer>
+    <answer fraction="0"><text>單元（底座）</text><feedback><text>它涉及兩個協作元件（服務＋資料庫），因此不是孤立的單元測試。</text></feedback></answer>
+    <answer fraction="0"><text>UI／端到端（頂端）</text><feedback><text>不涉及 UI；測試止於服務／API 層次。</text></feedback></answer>
+    <answer fraction="0"><text>它只是效能測試</text><feedback><text>它檢查一次互動的功能正確性，屬於整合／服務測試。</text></feedback></answer>
+    <generalfeedback><text>在不經 UI 的情況下，透過 API 操作元件（服務與資料庫）之間的真實互動，是中層的整合／服務測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>症狀：過多人工／UI 測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊主要依賴人工與 UI 測試，幾乎沒有單元測試。這種分布稱為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>甜筒（顛倒的金字塔）</text><feedback><text>正確——大部分心力在慢速頂端、單元底座極小，就是甜筒。</text></feedback></answer>
+    <answer fraction="0"><text>健康的金字塔</text><feedback><text>健康的金字塔有龐大的單元底座，與此相反。</text></feedback></answer>
+    <answer fraction="0"><text>沙漏</text><feedback><text>沙漏是肥大的單元底座與肥大的 E2E 頂端加上薄弱的中層；此處單元底座幾乎缺失。</text></feedback></answer>
+    <answer fraction="0"><text>均衡良好的測試組合</text><feedback><text>過度依賴人工／UI 測試並不均衡，回饋又慢又貴。</text></feedback></answer>
+    <generalfeedback><text>大量人工／UI 測試加上極小的單元底座，是典型的甜筒反模式：金字塔被上下顛倒。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不穩定集中在何處</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在整個金字塔中，不穩定（非決定性的通過／失敗）通常集中在：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>頂端（UI／端到端測試）</text><feedback><text>正確——依賴整個堆疊、時序與 UI，使頂層最容易不穩定。</text></feedback></answer>
+    <answer fraction="0"><text>底座（單元測試）</text><feedback><text>單元測試隔離且具決定性，因此最不容易不穩定。</text></feedback></answer>
+    <answer fraction="0"><text>三層平均分布</text><feedback><text>不穩定隨著往上而升高；並非平均。</text></feedback></answer>
+    <answer fraction="0"><text>只在沒有斷言的測試中</text><feedback><text>不穩定關乎非決定性，而它集中在 E2E 測試，與是否有斷言無關。</text></feedback></answer>
+    <generalfeedback><text>測試位置越高，所依賴的組件、時序與環境越多，因此不穩定集中在 UI／E2E 頂端。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何快速單元測試把關每次提交</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何快速的單元測試是在 CI 中於<strong>每次提交</strong>執行的自然選擇？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們很快完成且具決定性，因此能在不拖慢管線的情況下提供可靠回饋</text><feedback><text>正確——快速加上穩定使它們成為理想的每次提交把關。</text></feedback></answer>
+    <answer fraction="0"><text>它們是唯一會失敗的測試</text><feedback><text>任何層級的測試都可能失敗；選擇單元測試是因為快速與穩定。</text></feedback></answer>
+    <answer fraction="0"><text>它們最真實地操作整個系統</text><feedback><text>那是 E2E；選擇單元測試正是因為快速，而非真實。</text></feedback></answer>
+    <answer fraction="0"><text>它們永遠不需要維護</text><feedback><text>所有測試都需要維護；把關的理由是快速與決定性。</text></feedback></answer>
+    <generalfeedback><text>每次提交的把關必須快速且可靠。單元測試在數秒內執行且具決定性，因此適合；慢速、不穩定的 E2E 測試則較少執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>依 70/20/10 計算 UI 數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某套件有 <strong>500</strong> 個測試，依示意性的 <strong>70% / 20% / 10%</strong>（單元／整合／UI）分布。<strong>UI</strong> 測試有幾個？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>50</text><feedback><text>正確——500 的 10% = 50。</text></feedback></answer>
+    <answer fraction="0"><text>350</text><feedback><text>350 是單元數量（500 的 70%），不是 UI 數量。</text></feedback></answer>
+    <answer fraction="0"><text>100</text><feedback><text>100 是整合數量（500 的 20%），不是 UI 數量。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 是百分比，不是數量；500 的 10% 是 50。</text></feedback></answer>
+    <generalfeedback><text>0.10 &#215; 500 = 50 UI（單元 350、整合 100）。此分布為示意。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>把覆蓋率往下移以修復又慢又不穩定的套件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>要修復又慢又不穩定的套件，通常較好的做法是把覆蓋率<em>往下移</em>——在能提供足夠信心之處，以等效的單元或整合測試取代部分 E2E 測試。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——把覆蓋率推到較低層級能加速套件並減少不穩定。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>把覆蓋率往下移正是修復又慢又不穩定套件的標準做法。</text></feedback></answer>
+    <generalfeedback><text>速度與穩定性隨著往金字塔下方而改善，因此在信心足夠之處，以較低層級測試取代多餘的 E2E 測試是常見的修復方式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為某行為選擇層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某行為以一個快速的單元測試或一個慢速的 E2E 測試都能同樣好地驗證。通常應偏好哪一個？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元測試，因為它是能提供足夠信心的最低層級</text><feedback><text>正確——往下推：使用足以勝任的最便宜、最快的測試。</text></feedback></answer>
+    <answer fraction="0"><text>E2E 測試，因為較高的測試總是比較好</text><feedback><text>較高的測試更慢也更不穩定；在較低者已足夠時不會使用它。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都要，對每個行為都做</text><feedback><text>對每個行為都在 E2E 重複，會無謂地膨脹又慢又不穩定的頂層。</text></feedback></answer>
+    <answer fraction="0"><text>都不做；讓該行為不被測試</text><feedback><text>該行為應被測試——在足夠的最低層級。</text></feedback></answer>
+    <generalfeedback><text>當兩個層級提供相同信心時，選擇較低者。把 E2E 測試保留給只有它才能足夠涵蓋的行為。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Automation Pyramid/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷顛倒的分布</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某套件分布為 <strong>10% 單元 / 20% 整合 / 70% UI</strong>。最佳診斷為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>甜筒——金字塔被顛倒，UI 測試遠遠過多</text><feedback><text>正確——大部分測試集中在又慢又脆弱的頂端，單元底座極小。</text></feedback></answer>
+    <answer fraction="0"><text>健康的金字塔</text><feedback><text>健康的金字塔以單元測試最多；此處單元僅 10%。</text></feedback></answer>
+    <answer fraction="0"><text>沙漏</text><feedback><text>沙漏是頂端與底座都肥大、中層薄弱；此處底座（單元）是薄的，而非肥大。</text></feedback></answer>
+    <answer fraction="0"><text>完美均衡的組合</text><feedback><text>把 70% 集中在 UI 頂端並不均衡——那是甜筒反模式。</text></feedback></answer>
+    <generalfeedback><text>大部分測試在頂端、底座很少，就是顛倒的金字塔，即甜筒：回饋又慢、又不穩定、又昂貴。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>修復甜筒</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於甜筒分布（UI 測試太多、單元測試太少），標準的修復做法是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>增加單元與整合測試並把覆蓋率往下推，只保留真正值得的 E2E 測試</text><feedback><text>正確——重建底座並刪減多餘的 E2E 測試，以恢復金字塔形狀。</text></feedback></answer>
+    <answer fraction="0"><text>為了真實性再加入更多 UI 測試</text><feedback><text>那會使顛倒更嚴重；頂端已經太重。</text></feedback></answer>
+    <answer fraction="0"><text>完全刪除所有 UI 測試</text><feedback><text>少量 E2E 測試仍有價值；修復是重新平衡，而非移除整個頂端。</text></feedback></answer>
+    <answer fraction="0"><text>停止自動化測試，改依賴人工測試</text><feedback><text>那會加深反模式，而非修復它。</text></feedback></answer>
+    <generalfeedback><text>修復甜筒的方法是把覆蓋率往下推：擴大單元與整合層，只保留高價值的 E2E 測試，重建寬廣的底座。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷薄弱的中層</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某套件為 <strong>50% 單元 / 5% 整合 / 45% UI</strong>——肥大的底座與肥大的頂端，中間幾乎空無一物。最佳診斷為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>沙漏——整合／服務中層太薄</text><feedback><text>正確——中層匱乏、底座與頂端都很重，就是沙漏反模式。</text></feedback></answer>
+    <answer fraction="0"><text>甜筒</text><feedback><text>甜筒是顛倒的、底座極小；此處底座很大。</text></feedback></answer>
+    <answer fraction="0"><text>健康的金字塔</text><feedback><text>健康的金字塔有相當份量的中層；此處中層幾乎缺失。</text></feedback></answer>
+    <answer fraction="0"><text>過度測試的中層</text><feedback><text>中層是測試不足（5%），而非過度測試。</text></feedback></answer>
+    <generalfeedback><text>肥大的單元底座加上肥大的 E2E 頂端、加上匱乏的整合中層，就是沙漏：因為服務層幾乎沒被測試，互動錯誤會溜過去。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>修復沙漏</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於沙漏分布，正確的修復做法是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>擴充整合／服務（中）層，並把部分 E2E 覆蓋率往下移到其中</text><feedback><text>正確——加厚中層比 E2E 更快抓到互動錯誤，並恢復收窄的形狀。</text></feedback></answer>
+    <answer fraction="0"><text>增加更多 UI 測試來彌補薄弱的中層</text><feedback><text>那是依賴慢速頂端來抓互動錯誤，而非修復缺失的中層。</text></feedback></answer>
+    <answer fraction="0"><text>移除單元測試，讓形狀看起來更像金字塔</text><feedback><text>絕不能靠丟棄快速又有價值的底座來修形狀。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都不做；沙漏是最佳的</text><feedback><text>沙漏使互動錯誤覆蓋不足；它是需要矯正的反模式。</text></feedback></answer>
+    <generalfeedback><text>修復沙漏的方法是擴大整合／服務中層——抓元件互動錯誤最快的地方——並把部分 E2E 覆蓋率往下移到其中。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>真實性與速度／成本的取捨</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪項最能抓住金字塔各層之間的核心取捨？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>較高層提供更多真實性與信心，但回饋更慢、更貴、更不穩定；較低層提供更快、更便宜、更穩定的回饋，但端到端真實性較低</text><feedback><text>正確——這正是金字塔的核心：速度／成本對真實性的取捨。</text></feedback></answer>
+    <answer fraction="0"><text>較高層在各方面都嚴格優於較低層</text><feedback><text>較高層更慢、更貴、更不穩定；並非嚴格較優。</text></feedback></answer>
+    <answer fraction="0"><text>較低層比較高層更真實</text><feedback><text>真實性隨往上而提高，而非往下。</text></feedback></answer>
+    <answer fraction="0"><text>各層在速度、成本、真實性上皆相同</text><feedback><text>各層在這些面向上差異極大。</text></feedback></answer>
+    <generalfeedback><text>往金字塔上爬，是以速度、成本與穩定性換取真實性與端到端信心。金字塔形狀藉由偏好大量便宜的低層測試與少量昂貴的高層測試來平衡這些取捨。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何不穩定集中在頂端</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何不穩定集中在金字塔的頂層？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>E2E 測試依賴整個整合堆疊、時序與外部狀態，帶來許多非決定性失敗的機會</text><feedback><text>正確——更多的活動零件與時序相依意味著更多的非決定性。</text></feedback></answer>
+    <answer fraction="0"><text>E2E 測試的斷言比單元測試弱</text><feedback><text>不穩定來自環境的非決定性，而非斷言強弱。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試其實最不穩定，頂端只是看起來不穩定</text><feedback><text>單元測試最穩定；頂端是真的最不穩定。</text></feedback></answer>
+    <answer fraction="0"><text>因為頂層執行得最頻繁</text><feedback><text>頂層通常執行得最少；不穩定源於相依與時序，而非頻率。</text></feedback></answer>
+    <generalfeedback><text>每多一個整合元件、一次網路往返、一項時序相依、一份共享狀態，就多一個非決定性來源，因此頂端的端到端測試最容易不穩定。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何時更多 E2E 是合理的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>儘管 E2E 測試成本高，何時<strong>增加</strong>它們才是真正合理的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對於少數關鍵使用者旅程，其端到端信心無法在較低層級充分取得</text><feedback><text>正確——當唯有整體系統的真實性才能提供所需信心時，E2E 才值得。</text></feedback></answer>
+    <answer fraction="0"><text>只要某行為也能用單元測試涵蓋就增加</text><feedback><text>若單元測試已足夠，就往下推；不要在 E2E 重複它。</text></feedback></answer>
+    <answer fraction="0"><text>為了簡化而完全取代單元測試</text><feedback><text>以慢速 E2E 取代快速底座會顛倒金字塔。</text></feedback></answer>
+    <answer fraction="0"><text>永不——E2E 測試從來不合理</text><feedback><text>針對關鍵流程的少數 E2E 測試有價值；重點在於保持少量。</text></feedback></answer>
+    <generalfeedback><text>對於較低層級無法提供足夠信心的關鍵端到端旅程，才謹慎增加 E2E 測試——而不是為了單元或整合測試已涵蓋的行為。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>迷思：金字塔寬度代表重要性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列關於金字塔的敘述，哪一項是<strong>迷思</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>狹窄的頂端代表 UI／E2E 測試不重要</text><feedback><text>正確——這是迷思；寬度反映的是數量／比例與速度，而非重要性。</text></feedback></answer>
+    <answer fraction="0"><text>某層的寬度反映你應擁有該類測試的數量</text><feedback><text>這是對金字塔的正確解讀，而非迷思。</text></feedback></answer>
+    <answer fraction="0"><text>E2E 測試仍有需要，只是保持少量</text><feedback><text>這是正確的——E2E 測試仍有價值，但數量少。</text></feedback></answer>
+    <answer fraction="0"><text>較低層提供的回饋比較高層快</text><feedback><text>這是金字塔的正確特性，而非迷思。</text></feedback></answer>
+    <generalfeedback><text>金字塔關乎測試數量／比例與回饋速度，而非重要性。薄薄的頂端不代表 E2E 測試不重要——只代表需要的數量少。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>迷思：刪除所有 E2E 測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由於 E2E 測試又慢又不穩定，健康的金字塔應該有<em>零</em>個端到端測試。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>健康的金字塔會為關鍵流程保留少數 E2E 測試，而非零。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——頂端是薄的，而非空的；少數 E2E 測試仍不可或缺。</text></feedback></answer>
+    <generalfeedback><text>金字塔收窄至少數 E2E 測試，而非沒有。需要一些端到端覆蓋，以確認關鍵使用者旅程能透過整個系統運作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>再平衡：需增加的單元測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一套 <strong>200</strong> 個測試目前顛倒為 <strong>20 單元 / 40 整合 / 140 UI</strong>。你想在維持總數 200 的前提下達到 <strong>70% / 20% / 10%</strong> 的目標。必須<strong>增加</strong>幾個<strong>單元</strong>測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>120</text><feedback><text>正確——目標單元 = 200 的 70% = 140；目前有 20，故增加 140 &#8722; 20 = 120。</text></feedback></answer>
+    <answer fraction="0"><text>140</text><feedback><text>140 是目標單元數量，但你已有 20，故只需增加 120。</text></feedback></answer>
+    <answer fraction="0"><text>100</text><feedback><text>重算：目標 140 減目前 20 是 120，不是 100。</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 是目前的單元數量，不是要增加的數量。</text></feedback></answer>
+    <generalfeedback><text>目標單元 = 0.70 &#215; 200 = 140。目前 20，故增加 140 &#8722; 20 = 120。（整合已是 40 = 20%；UI 須由 140 降到 20。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>再平衡：需移除的 UI 測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一套 <strong>100</strong> 個測試目前為 <strong>40 單元 / 10 整合 / 50 UI</strong>。你想在維持總數 100 的前提下達到 <strong>70% / 20% / 10%</strong> 的目標。必須<strong>移除</strong>幾個 <strong>UI</strong> 測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>40</text><feedback><text>正確——目標 UI = 100 的 10% = 10；目前有 50，故移除 50 &#8722; 10 = 40。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 是目標 UI 數量，不是要移除的數量；你須移除 50 &#8722; 10 = 40。</text></feedback></answer>
+    <answer fraction="0"><text>50</text><feedback><text>50 是目前的 UI 數量；你保留 10，故只移除 40。</text></feedback></answer>
+    <answer fraction="0"><text>30</text><feedback><text>重算：目前 50 減目標 10 是 40，不是 30。</text></feedback></answer>
+    <generalfeedback><text>目標 UI = 0.10 &#215; 100 = 10。目前 50，故移除 50 &#8722; 10 = 40。（單元由 40 升到 70；整合由 10 升到 20。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何不把所有測試都推到單元</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若單元測試最快也最便宜，為何不把<strong>每個</strong>測試都往下推到單元層並捨棄較高層？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元測試無法抓到元件如何互動或真實端到端使用者流程中的錯誤；某些信心只能來自較高層</text><feedback><text>正確——介面與整體系統錯誤需要整合與 E2E 測試。</text></feedback></answer>
+    <answer fraction="0"><text>因為單元測試其實是最慢的一層</text><feedback><text>單元測試最快；原因在於覆蓋，而非速度。</text></feedback></answer>
+    <answer fraction="0"><text>因為較高層比單元測試便宜</text><feedback><text>較高層更貴，而非更便宜。</text></feedback></answer>
+    <answer fraction="0"><text>你確實應該捨棄所有較高層</text><feedback><text>捨棄較高層會完全漏掉互動與端到端錯誤。</text></feedback></answer>
+    <generalfeedback><text>每一層都抓到其他層抓不到的錯誤：單元測試漏掉介面／互動錯誤與真實使用者流程問題，因此整合與少數 E2E 測試仍屬必要。「往下推」是指使用足夠的最低層級，而非消滅較高層。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>中層薄弱時互動錯誤溜過</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊有快速的單元測試與少數 E2E 測試，但幾乎沒有服務層測試，而兩個服務之間資料交換的錯誤一再流入正式環境。診斷與修復為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>中層匱乏的沙漏；增加整合／服務測試以及早抓到互動錯誤</text><feedback><text>正確——缺失的中層讓互動錯誤溜過單元測試，只有時才被少數 E2E 測試抓到。</text></feedback></answer>
+    <answer fraction="0"><text>甜筒；刪除單元測試</text><feedback><text>單元底座沒問題；問題是缺失的整合中層，而且絕不刪除底座。</text></feedback></answer>
+    <answer fraction="0"><text>健康的金字塔；無須改變</text><feedback><text>互動錯誤流入正式環境顯示整合層不足。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試太多；移除一些</text><feedback><text>移除單元測試並不能處理未被涵蓋的服務互動。</text></feedback></answer>
+    <generalfeedback><text>快速單元測試加上少數 E2E 測試、但中層匱乏，就是沙漏。服務之間的互動錯誤最好也最快由整合／服務測試抓到，因此要擴大該中層。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>互動錯誤的最低足夠層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某缺陷關乎兩個服務如何透過其 API 交換資料。套用「在能提供足夠信心的最低層級測試」，該測試應由哪一層負責？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>整合／服務——它是能操作兩個服務之間互動的最低層級</text><feedback><text>正確——單元測試看不到該互動，而 E2E 測試又超過所需。</text></feedback></answer>
+    <answer fraction="0"><text>單元——它是最快的一層</text><feedback><text>單元測試孤立單一元件，無法操作跨服務的互動，因此無法提供足夠信心。</text></feedback></answer>
+    <answer fraction="0"><text>UI／端到端——最真實的一層</text><feedback><text>E2E 可行，但比所需更慢也更不穩定；最低足夠層級是整合。</text></feedback></answer>
+    <answer fraction="0"><text>無——這類錯誤無法被測試</text><feedback><text>它們正是整合／服務測試的目標。</text></feedback></answer>
+    <generalfeedback><text>往下推到仍能提供信心的最低層級。兩個服務之間的互動對單元測試不可見，對 E2E 則過度，因此屬於整合／服務層。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>70/20/10 是嚴格法則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>確切的 70/20/10 分割是一條嚴格規則，每個專案都必須遵守才算擁有有效的金字塔。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>那些具體數字是示意，而非強制法則。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——像 70/20/10 這樣的比例是示意；原則在於形狀（寬底座、薄頂端），而非確切百分比。</text></feedback></answer>
+    <generalfeedback><text>具體比例只是傳達形狀的經驗法則。重點是單元測試占多數、整合測試較少、UI／E2E 測試最少——確切數字因專案而異。</text></generalfeedback>
+  </question>
+</quiz>

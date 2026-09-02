@@ -58067,6 +58067,2524 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "pyramid-adjuster": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "The three layers bottom to top",
+          "text": "<p>In the classic <em>test automation pyramid</em> (Mike Cohn), the layers from bottom to top are:</p>",
+          "answers": [
+            {
+              "text": "Unit tests (base), integration/service tests (middle), UI/end-to-end tests (top)",
+              "fraction": 100,
+              "feedback": "Correct — a wide base of unit tests, a narrower band of integration/service tests, and a thin top of UI/E2E tests."
+            },
+            {
+              "text": "UI/end-to-end tests (base), integration tests (middle), unit tests (top)",
+              "fraction": 0,
+              "feedback": "That is upside down — it describes the ice-cream-cone anti-pattern, not the pyramid."
+            },
+            {
+              "text": "Integration tests (base), unit tests (middle), UI tests (top)",
+              "fraction": 0,
+              "feedback": "Unit tests form the base, not the middle."
+            },
+            {
+              "text": "Unit tests (base), UI/end-to-end tests (middle), integration tests (top)",
+              "fraction": 0,
+              "feedback": "UI/E2E sits at the top and integration in the middle, not the other way round."
+            }
+          ],
+          "generalFeedback": "Bottom to top: many unit tests, fewer integration/service tests, few UI/end-to-end tests. The width of each layer suggests how many tests of that kind you should have.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Layer with the most tests",
+          "text": "<p>In a healthy test automation pyramid, which layer should contain the <strong>most</strong> tests?</p>",
+          "answers": [
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 100,
+              "feedback": "Correct — the base is the widest layer, so unit tests are the most numerous."
+            },
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 0,
+              "feedback": "The top is the narrowest layer and should have the fewest tests."
+            },
+            {
+              "text": "Integration/service tests (the middle)",
+              "fraction": 0,
+              "feedback": "The middle sits between the two; the base (unit) has more."
+            },
+            {
+              "text": "All three layers should have equal numbers",
+              "fraction": 0,
+              "feedback": "A pyramid is deliberately unequal — a wide base narrowing to a thin top."
+            }
+          ],
+          "generalFeedback": "The base is the widest part of the pyramid: unit tests are the cheapest and fastest, so you can afford the most of them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Layer with the fewest tests",
+          "text": "<p>In a healthy test automation pyramid, which layer should contain the <strong>fewest</strong> tests?</p>",
+          "answers": [
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 100,
+              "feedback": "Correct — the top is the narrowest layer, so UI/E2E tests are the fewest."
+            },
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 0,
+              "feedback": "Unit tests are the most numerous, not the fewest."
+            },
+            {
+              "text": "Integration/service tests (the middle)",
+              "fraction": 0,
+              "feedback": "The middle has more than the top; the top (UI/E2E) is the fewest."
+            },
+            {
+              "text": "They should all have the same small number",
+              "fraction": 0,
+              "feedback": "The layers differ; the top layer specifically is the thinnest."
+            }
+          ],
+          "generalFeedback": "UI/end-to-end tests are slow, expensive, and brittle, so you keep only a few of them at the narrow top of the pyramid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Properties of unit tests",
+          "text": "<p>Which set of properties best describes <em>unit</em> tests at the base of the pyramid?</p>",
+          "answers": [
+            {
+              "text": "Fast, cheap, isolated, stable, and numerous",
+              "fraction": 100,
+              "feedback": "Correct — these properties are exactly why unit tests form the wide base."
+            },
+            {
+              "text": "Slow, expensive, and few",
+              "fraction": 0,
+              "feedback": "Those are properties of UI/end-to-end tests at the top, not unit tests."
+            },
+            {
+              "text": "Slow but very cheap and numerous",
+              "fraction": 0,
+              "feedback": "Unit tests are fast, not slow; speed is one of their defining traits."
+            },
+            {
+              "text": "Realistic, end-to-end, and brittle",
+              "fraction": 0,
+              "feedback": "Those describe UI/E2E tests; unit tests are isolated and stable."
+            }
+          ],
+          "generalFeedback": "Unit tests run in milliseconds, are cheap to write and maintain, are isolated from external systems, are deterministic/stable, and pinpoint failures — so you keep many of them and run them constantly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Properties of UI/E2E tests",
+          "text": "<p>Which set of properties best describes <em>UI/end-to-end</em> tests at the top of the pyramid?</p>",
+          "answers": [
+            {
+              "text": "Slow, expensive, brittle/flaky, few — but the most realistic",
+              "fraction": 100,
+              "feedback": "Correct — they exercise the whole system like a real user, which is realistic but costly and fragile."
+            },
+            {
+              "text": "Fast, cheap, stable, and numerous",
+              "fraction": 0,
+              "feedback": "Those are unit-test properties, not UI/E2E."
+            },
+            {
+              "text": "Fast and deterministic but not realistic",
+              "fraction": 0,
+              "feedback": "UI/E2E tests are slow and the most realistic, not fast and unrealistic."
+            },
+            {
+              "text": "Cheap to maintain and rarely flaky",
+              "fraction": 0,
+              "feedback": "They are the most expensive to maintain and the most prone to flakiness."
+            }
+          ],
+          "generalFeedback": "End-to-end tests drive the whole system through the UI, so they are the most realistic but also the slowest, costliest, and flakiest — you keep only a few.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the middle layer is",
+          "text": "<p>The <strong>middle</strong> layer of the test automation pyramid consists of:</p>",
+          "answers": [
+            {
+              "text": "Integration/service (API) tests that check how components work together below the UI",
+              "fraction": 100,
+              "feedback": "Correct — the middle exercises component interactions and service/API boundaries without going through the UI."
+            },
+            {
+              "text": "Unit tests of single isolated functions",
+              "fraction": 0,
+              "feedback": "Those are the base layer, not the middle."
+            },
+            {
+              "text": "End-to-end tests driven through the browser UI",
+              "fraction": 0,
+              "feedback": "Those are the top layer, not the middle."
+            },
+            {
+              "text": "Manual exploratory testing sessions",
+              "fraction": 0,
+              "feedback": "The pyramid describes automated test layers; the middle is integration/service tests."
+            }
+          ],
+          "generalFeedback": "The middle band holds integration/service/API tests: moderate in speed and cost, they verify that components interact correctly at a level below the full UI.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The ice-cream cone anti-pattern",
+          "text": "<p>The <em>ice-cream cone</em> anti-pattern refers to a test distribution that is:</p>",
+          "answers": [
+            {
+              "text": "Inverted — many UI/manual tests on top and too few unit tests at the bottom",
+              "fraction": 100,
+              "feedback": "Correct — the pyramid is turned upside down, with the bulk of testing at the slow, brittle top."
+            },
+            {
+              "text": "A healthy pyramid with a wide unit base",
+              "fraction": 0,
+              "feedback": "That is the desired shape, not the anti-pattern."
+            },
+            {
+              "text": "A fat unit base with a fat E2E top and a thin middle",
+              "fraction": 0,
+              "feedback": "That is the hourglass anti-pattern, not the ice-cream cone."
+            },
+            {
+              "text": "Having no automated tests at all",
+              "fraction": 0,
+              "feedback": "The ice-cream cone still has many tests — they are just concentrated at the wrong (top) layer."
+            }
+          ],
+          "generalFeedback": "The ice-cream cone is the inverted pyramid: most tests are slow, expensive UI or manual tests, with too small a unit base — giving slow, flaky, costly feedback.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read a ratio to identify the layer (base)",
+          "text": "<p>A team reports its automated tests as roughly <strong>70% / 20% / 10%</strong> across the three pyramid layers. The <strong>70%</strong> slice is the fastest and cheapest to run. Which layer is it?</p>",
+          "answers": [
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 100,
+              "feedback": "Correct — the largest, fastest, cheapest slice is the unit base."
+            },
+            {
+              "text": "Integration/service tests (the middle)",
+              "fraction": 0,
+              "feedback": "The middle is the 20% slice here, not the 70%."
+            },
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 0,
+              "feedback": "The top is the smallest, slowest slice — 10%, not 70%."
+            },
+            {
+              "text": "Cannot be determined from the numbers",
+              "fraction": 0,
+              "feedback": "The largest, fastest, cheapest slice is unmistakably the unit base."
+            }
+          ],
+          "generalFeedback": "In an illustrative 70/20/10 split, the 70% (largest, fastest, cheapest) is unit, 20% is integration, and 10% is UI/E2E. Treat the exact ratio as illustrative, not a law.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Most realistic layer",
+          "text": "<p>Which layer gives the testing that is <strong>closest to a real user's experience</strong> of the whole system?</p>",
+          "answers": [
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 100,
+              "feedback": "Correct — E2E tests drive the fully integrated system as a user would, so they are the most realistic."
+            },
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 0,
+              "feedback": "Unit tests check pieces in isolation and are the least like a real end-user scenario."
+            },
+            {
+              "text": "Integration/service tests (the middle)",
+              "fraction": 0,
+              "feedback": "These are more realistic than unit tests but still below the full-UI, whole-system level."
+            },
+            {
+              "text": "All layers are equally realistic",
+              "fraction": 0,
+              "feedback": "Realism increases as you move up the pyramid; the top is the most realistic."
+            }
+          ],
+          "generalFeedback": "Realism rises as you climb the pyramid: E2E tests exercise the whole system through its real interfaces, so they most closely match actual user behaviour — at the cost of speed and stability.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which tests run constantly to gate commits",
+          "text": "<p>Which layer's tests are typically run <strong>on every commit</strong> to give developers fast feedback in CI?</p>",
+          "answers": [
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 100,
+              "feedback": "Correct — being fast and stable, unit tests can run constantly and gate each commit."
+            },
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 0,
+              "feedback": "E2E tests are too slow and flaky to run on every commit; they are run less often."
+            },
+            {
+              "text": "Only manual tests",
+              "fraction": 0,
+              "feedback": "Manual tests cannot gate every commit; fast automated unit tests do."
+            },
+            {
+              "text": "No tests should run on a commit",
+              "fraction": 0,
+              "feedback": "Fast unit tests are exactly what should gate each commit in CI."
+            }
+          ],
+          "generalFeedback": "Because unit tests are fast and deterministic, they run on every commit as the CI gate; slower UI/E2E tests run less frequently (e.g. nightly or before release).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Unit tests form the base",
+          "text": "<p>In the test automation pyramid, unit tests form the wide base.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — unit tests are the most numerous and sit at the base."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Unit tests do form the base; putting UI/E2E at the base is the inverted anti-pattern."
+            }
+          ],
+          "generalFeedback": "The pyramid's wide base is unit tests — fast, cheap, and numerous — with fewer integration tests above and few UI/E2E tests at the top."
+        },
+        {
+          "type": "truefalse",
+          "name": "E2E more numerous than unit",
+          "text": "<p>In a healthy pyramid, end-to-end (UI) tests should outnumber unit tests.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is the inverted (ice-cream-cone) shape, not a healthy pyramid."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — unit tests should far outnumber E2E tests; the reverse is the ice-cream-cone anti-pattern."
+            }
+          ],
+          "generalFeedback": "A healthy pyramid has many unit tests and few E2E tests. When E2E tests outnumber unit tests you have an inverted pyramid (ice-cream cone)."
+        },
+        {
+          "type": "multichoice",
+          "name": "Layer that tests APIs below the UI",
+          "text": "<p>Which layer verifies that components and services interact correctly <strong>through their APIs, below the UI</strong>?</p>",
+          "answers": [
+            {
+              "text": "Integration/service tests (the middle)",
+              "fraction": 100,
+              "feedback": "Correct — the middle layer tests interactions at the service/API level, below the full UI."
+            },
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 0,
+              "feedback": "Unit tests exercise a single component in isolation, not interactions across an API."
+            },
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 0,
+              "feedback": "E2E tests go through the UI; the middle layer deliberately tests below it."
+            },
+            {
+              "text": "Acceptance sign-off meetings",
+              "fraction": 0,
+              "feedback": "That is not an automated test layer; API-level testing is the integration/service layer."
+            }
+          ],
+          "generalFeedback": "Integration/service tests hit APIs and component boundaries directly, avoiding the slow, brittle UI while still checking that parts work together.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Most flaky layer",
+          "text": "<p>Which layer's tests are typically the most <strong>brittle and flaky</strong>?</p>",
+          "answers": [
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 100,
+              "feedback": "Correct — depending on the whole stack, timing, and the UI makes E2E tests the most fragile."
+            },
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 0,
+              "feedback": "Unit tests are isolated and deterministic, so they are the most stable, not the flakiest."
+            },
+            {
+              "text": "Integration/service tests (the middle)",
+              "fraction": 0,
+              "feedback": "These are more fragile than unit tests but less flaky than full UI/E2E tests."
+            },
+            {
+              "text": "All layers are equally flaky",
+              "fraction": 0,
+              "feedback": "Flakiness concentrates at the top; unit tests are the most stable."
+            }
+          ],
+          "generalFeedback": "E2E tests depend on many integrated parts, external state, timing, and the UI, so they flake most. Flakiness is concentrated at the top of the pyramid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read a ratio to identify the middle",
+          "text": "<p>A suite is split <strong>70% / 20% / 10%</strong> across unit / integration / UI. The <strong>20%</strong> slice corresponds to which layer?</p>",
+          "answers": [
+            {
+              "text": "Integration/service tests (the middle)",
+              "fraction": 100,
+              "feedback": "Correct — 20% is the middle band between the 70% unit base and the 10% UI top."
+            },
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 0,
+              "feedback": "Unit is the 70% slice, not the 20%."
+            },
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 0,
+              "feedback": "UI/E2E is the smallest slice — 10%, not 20%."
+            },
+            {
+              "text": "Manual tests",
+              "fraction": 0,
+              "feedback": "The pyramid's automated middle band is integration/service tests."
+            }
+          ],
+          "generalFeedback": "In an illustrative 70/20/10 split, the 20% middle is integration/service tests, between the unit base (70%) and the UI top (10%).",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Symptom: slow, flaky suite",
+          "text": "<p>A team's automated suite is <strong>slow to run and frequently flaky</strong>. Which layer is most likely over-weighted?</p>",
+          "answers": [
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 100,
+              "feedback": "Correct — too many slow, brittle E2E tests produce exactly this symptom."
+            },
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 0,
+              "feedback": "Many unit tests keep the suite fast and stable, not slow and flaky."
+            },
+            {
+              "text": "There is no way to tell from the symptom",
+              "fraction": 0,
+              "feedback": "Slow and flaky strongly points to an over-large UI/E2E top."
+            },
+            {
+              "text": "The suite must have too few tests overall",
+              "fraction": 0,
+              "feedback": "The problem is the mix (too many E2E), not simply the total count."
+            }
+          ],
+          "generalFeedback": "Slowness and flakiness concentrate at the top of the pyramid, so a slow, flaky suite usually means too many UI/E2E tests relative to unit and integration tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What \"push tests down\" means",
+          "text": "<p>The guideline to <em>push tests down</em> the pyramid means:</p>",
+          "answers": [
+            {
+              "text": "Test each behaviour at the lowest layer that still gives adequate confidence",
+              "fraction": 100,
+              "feedback": "Correct — prefer a fast unit or integration test over an E2E test whenever it gives enough confidence."
+            },
+            {
+              "text": "Delete all higher-level tests and rely only on the UI",
+              "fraction": 0,
+              "feedback": "Pushing down means moving coverage lower, not removing all higher tests or relying on the UI."
+            },
+            {
+              "text": "Move all tests up to the end-to-end layer for realism",
+              "fraction": 0,
+              "feedback": "That inverts the pyramid; pushing down means the opposite."
+            },
+            {
+              "text": "Run tests in a different physical location",
+              "fraction": 0,
+              "feedback": "\"Down\" refers to lower pyramid layers, not physical placement."
+            }
+          ],
+          "generalFeedback": "Push-down means choosing the lowest (cheapest, fastest, most stable) layer that still gives adequate confidence for a given behaviour, reserving slow E2E tests for what only they can cover.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which shape is healthy",
+          "text": "<p>Which distribution describes a <strong>healthy</strong> pyramid rather than an ice-cream cone?</p>",
+          "answers": [
+            {
+              "text": "Many unit tests, fewer integration tests, few UI/E2E tests",
+              "fraction": 100,
+              "feedback": "Correct — a wide unit base tapering to a thin UI top is the healthy pyramid."
+            },
+            {
+              "text": "Many UI/E2E tests, fewer integration tests, few unit tests",
+              "fraction": 0,
+              "feedback": "That is the inverted ice-cream cone, not a healthy pyramid."
+            },
+            {
+              "text": "Equal numbers of unit, integration, and UI tests",
+              "fraction": 0,
+              "feedback": "A pyramid is deliberately unequal, widest at the unit base."
+            },
+            {
+              "text": "Only UI tests and nothing else",
+              "fraction": 0,
+              "feedback": "That is an extreme ice-cream cone with no base at all."
+            }
+          ],
+          "generalFeedback": "A healthy pyramid narrows as it rises: the most unit tests, fewer integration tests, and the fewest UI/E2E tests. The ice-cream cone is this shape inverted.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why unit tests form the base",
+          "text": "<p>Why do unit tests form the <strong>base</strong> of the pyramid?</p>",
+          "answers": [
+            {
+              "text": "They are fast, cheap, stable, and pinpoint failures, so you can afford many of them and run them constantly",
+              "fraction": 100,
+              "feedback": "Correct — these properties make a large unit base the most efficient foundation."
+            },
+            {
+              "text": "They are the most realistic, so they deserve the most coverage",
+              "fraction": 0,
+              "feedback": "Realism is a property of E2E tests, not unit tests; that is not why unit tests form the base."
+            },
+            {
+              "text": "They are the only tests capable of finding any defects",
+              "fraction": 0,
+              "feedback": "Higher layers find defects unit tests cannot (e.g. interface and end-to-end faults)."
+            },
+            {
+              "text": "They are the slowest, so they must run first",
+              "fraction": 0,
+              "feedback": "Unit tests are the fastest, which is precisely why there are many of them."
+            }
+          ],
+          "generalFeedback": "Unit tests are fast, cheap, isolated, deterministic, and localise failures precisely — so a large base of them gives quick, reliable feedback at low cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute unit count at 70/20/10",
+          "text": "<p>A suite has <strong>200</strong> tests distributed as an illustrative <strong>70% / 20% / 10%</strong> (unit / integration / UI). How many are <strong>unit</strong> tests?</p>",
+          "answers": [
+            {
+              "text": "140",
+              "fraction": 100,
+              "feedback": "Correct — 70% of 200 = 140."
+            },
+            {
+              "text": "40",
+              "fraction": 0,
+              "feedback": "40 is the integration count (20% of 200), not the unit count."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 is the UI count (10% of 200), not the unit count."
+            },
+            {
+              "text": "70",
+              "fraction": 0,
+              "feedback": "70 is the percentage, not the number of tests; 70% of 200 is 140."
+            }
+          ],
+          "generalFeedback": "0.70 &#215; 200 = 140 unit, 0.20 &#215; 200 = 40 integration, 0.10 &#215; 200 = 20 UI. The ratio is illustrative, not a rule.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute integration count at 70/20/10",
+          "text": "<p>A suite has <strong>300</strong> tests distributed as an illustrative <strong>70% / 20% / 10%</strong> (unit / integration / UI). How many are <strong>integration</strong> tests?</p>",
+          "answers": [
+            {
+              "text": "60",
+              "fraction": 100,
+              "feedback": "Correct — 20% of 300 = 60."
+            },
+            {
+              "text": "210",
+              "fraction": 0,
+              "feedback": "210 is the unit count (70% of 300), not the integration count."
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 is the UI count (10% of 300), not the integration count."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 is the percentage, not the number; 20% of 300 is 60."
+            }
+          ],
+          "generalFeedback": "0.20 &#215; 300 = 60 integration (with 210 unit and 30 UI). Treat the 70/20/10 split as illustrative.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a test: full checkout flow",
+          "text": "<p>A test opens the browser, logs in, adds an item to the cart, and completes checkout as a real user would. Which layer does it belong to?</p>",
+          "answers": [
+            {
+              "text": "UI/end-to-end (the top)",
+              "fraction": 100,
+              "feedback": "Correct — driving the whole application through the UI as a user is an E2E test."
+            },
+            {
+              "text": "Unit (the base)",
+              "fraction": 0,
+              "feedback": "A whole-application browser flow is far broader than a single isolated unit."
+            },
+            {
+              "text": "Integration/service (the middle)",
+              "fraction": 0,
+              "feedback": "This goes through the UI and the full stack, which is E2E rather than a below-the-UI integration test."
+            },
+            {
+              "text": "It is not a test of any pyramid layer",
+              "fraction": 0,
+              "feedback": "It is a classic end-to-end test at the top of the pyramid."
+            }
+          ],
+          "generalFeedback": "Exercising the entire integrated system through the real UI, as a user would, is the definition of an end-to-end (top-layer) test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a test: one pure function",
+          "text": "<p>A test calls a single pure function with fixed inputs and asserts its return value, with no database, network, or UI involved. Which layer does it belong to?</p>",
+          "answers": [
+            {
+              "text": "Unit (the base)",
+              "fraction": 100,
+              "feedback": "Correct — an isolated test of one function's logic is a unit test."
+            },
+            {
+              "text": "Integration/service (the middle)",
+              "fraction": 0,
+              "feedback": "Nothing is being integrated here; it is a single isolated function."
+            },
+            {
+              "text": "UI/end-to-end (the top)",
+              "fraction": 0,
+              "feedback": "No UI or full-system flow is involved, so it is not E2E."
+            },
+            {
+              "text": "It cannot be automated",
+              "fraction": 0,
+              "feedback": "A pure-function assertion is one of the easiest tests to automate — a unit test."
+            }
+          ],
+          "generalFeedback": "Testing one function in isolation with no external dependencies is the textbook unit test at the base of the pyramid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a test: service talks to database",
+          "text": "<p>A test starts a service and a real test database, then checks that saving and reloading a record through the service's API works correctly — without opening any UI. Which layer does it belong to?</p>",
+          "answers": [
+            {
+              "text": "Integration/service (the middle)",
+              "fraction": 100,
+              "feedback": "Correct — it checks the service and database working together below the UI."
+            },
+            {
+              "text": "Unit (the base)",
+              "fraction": 0,
+              "feedback": "It involves two collaborating components (service + database), so it is not an isolated unit test."
+            },
+            {
+              "text": "UI/end-to-end (the top)",
+              "fraction": 0,
+              "feedback": "No UI is involved; the test stops at the service/API level."
+            },
+            {
+              "text": "It is a performance test only",
+              "fraction": 0,
+              "feedback": "It checks functional correctness of an interaction, which is an integration/service test."
+            }
+          ],
+          "generalFeedback": "Exercising a real interaction between components (service and database) through the API, without the UI, is a middle-layer integration/service test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symptom: too many manual/UI tests",
+          "text": "<p>A team relies mostly on manual and UI tests, with almost no unit tests. This distribution is called:</p>",
+          "answers": [
+            {
+              "text": "An ice-cream cone (inverted pyramid)",
+              "fraction": 100,
+              "feedback": "Correct — most effort at the slow top and a tiny unit base is the ice-cream cone."
+            },
+            {
+              "text": "A healthy pyramid",
+              "fraction": 0,
+              "feedback": "A healthy pyramid has a large unit base, the opposite of this."
+            },
+            {
+              "text": "An hourglass",
+              "fraction": 0,
+              "feedback": "An hourglass has a fat unit base and fat E2E top with a thin middle; here the unit base is nearly missing."
+            },
+            {
+              "text": "A well-balanced test portfolio",
+              "fraction": 0,
+              "feedback": "Over-relying on manual/UI tests is unbalanced and gives slow, costly feedback."
+            }
+          ],
+          "generalFeedback": "Heavy manual/UI testing with a tiny unit base is the classic ice-cream-cone anti-pattern: the pyramid turned upside down.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Where flakiness concentrates",
+          "text": "<p>Across the pyramid, flakiness (non-deterministic pass/fail) is generally concentrated at:</p>",
+          "answers": [
+            {
+              "text": "The top (UI/end-to-end tests)",
+              "fraction": 100,
+              "feedback": "Correct — dependence on the whole stack, timing, and the UI makes the top layer flakiest."
+            },
+            {
+              "text": "The base (unit tests)",
+              "fraction": 0,
+              "feedback": "Unit tests are isolated and deterministic, so they flake least."
+            },
+            {
+              "text": "Evenly across all three layers",
+              "fraction": 0,
+              "feedback": "Flakiness rises as you climb; it is not even."
+            },
+            {
+              "text": "Only in tests that have no assertions",
+              "fraction": 0,
+              "feedback": "Flakiness is about non-determinism, and it concentrates in E2E tests regardless of assertions."
+            }
+          ],
+          "generalFeedback": "The higher a test sits, the more moving parts, timing, and environment it depends on, so flakiness concentrates at the UI/E2E top.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why fast unit tests gate every commit",
+          "text": "<p>Why are fast unit tests the natural choice to run on <strong>every commit</strong> in CI?</p>",
+          "answers": [
+            {
+              "text": "They finish quickly and are deterministic, so they give reliable feedback without slowing the pipeline",
+              "fraction": 100,
+              "feedback": "Correct — speed plus stability makes them ideal as a per-commit gate."
+            },
+            {
+              "text": "They are the only tests that can fail",
+              "fraction": 0,
+              "feedback": "Any layer's tests can fail; unit tests are chosen for speed and stability."
+            },
+            {
+              "text": "They exercise the whole system most realistically",
+              "fraction": 0,
+              "feedback": "That is E2E; unit tests are chosen precisely because they are fast, not because they are realistic."
+            },
+            {
+              "text": "They never need to be maintained",
+              "fraction": 0,
+              "feedback": "All tests need maintenance; the reason for the gate is speed and determinism."
+            }
+          ],
+          "generalFeedback": "A per-commit gate must be fast and reliable. Unit tests run in seconds and are deterministic, so they fit; slow, flaky E2E tests are run less often.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute UI count at 70/20/10",
+          "text": "<p>A suite has <strong>500</strong> tests distributed as an illustrative <strong>70% / 20% / 10%</strong> (unit / integration / UI). How many are <strong>UI</strong> tests?</p>",
+          "answers": [
+            {
+              "text": "50",
+              "fraction": 100,
+              "feedback": "Correct — 10% of 500 = 50."
+            },
+            {
+              "text": "350",
+              "fraction": 0,
+              "feedback": "350 is the unit count (70% of 500), not the UI count."
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "100 is the integration count (20% of 500), not the UI count."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 is the percentage, not the number; 10% of 500 is 50."
+            }
+          ],
+          "generalFeedback": "0.10 &#215; 500 = 50 UI (with 350 unit and 100 integration). The split is illustrative.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Move coverage down to fix slow flaky suite",
+          "text": "<p>To fix a slow, flaky suite, it is generally better to move coverage <em>down</em> — replacing some E2E tests with equivalent unit or integration tests where they give adequate confidence.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — pushing coverage to lower layers speeds up the suite and reduces flakiness."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Moving coverage down is exactly the standard remedy for a slow, flaky suite."
+            }
+          ],
+          "generalFeedback": "Speed and stability improve as you move down the pyramid, so replacing redundant E2E tests with lower-level tests (where confidence is adequate) is the usual fix."
+        },
+        {
+          "type": "multichoice",
+          "name": "Choosing the layer for a behaviour",
+          "text": "<p>A behaviour can be verified equally well by a fast unit test or by a slow E2E test. Which should you generally prefer?</p>",
+          "answers": [
+            {
+              "text": "The unit test, because it is the lowest layer that gives adequate confidence",
+              "fraction": 100,
+              "feedback": "Correct — push down: use the cheapest, fastest test that suffices."
+            },
+            {
+              "text": "The E2E test, because higher tests are always better",
+              "fraction": 0,
+              "feedback": "Higher tests are slower and flakier; you do not use them when a lower one suffices."
+            },
+            {
+              "text": "Both, always, for every behaviour",
+              "fraction": 0,
+              "feedback": "Duplicating every behaviour at E2E inflates a slow, flaky top layer needlessly."
+            },
+            {
+              "text": "Neither; leave the behaviour untested",
+              "fraction": 0,
+              "feedback": "The behaviour should be tested — at the lowest adequate layer."
+            }
+          ],
+          "generalFeedback": "When two layers give the same confidence, choose the lower one. Reserve E2E tests for behaviours only they can adequately cover.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Diagnose an inverted distribution",
+          "text": "<p>A suite is distributed <strong>10% unit / 20% integration / 70% UI</strong>. This is best diagnosed as:</p>",
+          "answers": [
+            {
+              "text": "An ice-cream cone — the pyramid is inverted, with far too many UI tests",
+              "fraction": 100,
+              "feedback": "Correct — the bulk of testing sits at the slow, brittle top with a tiny unit base."
+            },
+            {
+              "text": "A healthy pyramid",
+              "fraction": 0,
+              "feedback": "A healthy pyramid has the most unit tests; here unit is only 10%."
+            },
+            {
+              "text": "An hourglass",
+              "fraction": 0,
+              "feedback": "An hourglass has fat top and base with a thin middle; here the base (unit) is thin, not fat."
+            },
+            {
+              "text": "A perfectly balanced portfolio",
+              "fraction": 0,
+              "feedback": "Concentrating 70% at the UI top is unbalanced — the ice-cream-cone anti-pattern."
+            }
+          ],
+          "generalFeedback": "Most tests at the top and few at the base is the inverted pyramid, i.e. the ice-cream cone: slow, flaky, expensive feedback.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Remediate an ice-cream cone",
+          "text": "<p>Given an ice-cream-cone distribution (too many UI tests, too few unit tests), the standard remediation is to:</p>",
+          "answers": [
+            {
+              "text": "Add unit and integration tests and push coverage down, keeping only the E2E tests that earn their place",
+              "fraction": 100,
+              "feedback": "Correct — rebuild the base and trim redundant E2E tests to restore the pyramid shape."
+            },
+            {
+              "text": "Add even more UI tests for realism",
+              "fraction": 0,
+              "feedback": "That worsens the inversion; the top is already too heavy."
+            },
+            {
+              "text": "Delete all UI tests entirely",
+              "fraction": 0,
+              "feedback": "A few E2E tests are still valuable; the fix is rebalancing, not removing the whole top."
+            },
+            {
+              "text": "Stop automated testing and rely on manual testing",
+              "fraction": 0,
+              "feedback": "That deepens the anti-pattern rather than fixing it."
+            }
+          ],
+          "generalFeedback": "Fix an ice-cream cone by pushing coverage down: grow the unit and integration layers and keep only the high-value E2E tests, restoring a wide base.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose a thin middle",
+          "text": "<p>A suite has <strong>50% unit / 5% integration / 45% UI</strong> — a fat base and a fat top with almost nothing in between. This is best diagnosed as:</p>",
+          "answers": [
+            {
+              "text": "An hourglass — the integration/service middle is too thin",
+              "fraction": 100,
+              "feedback": "Correct — a starved middle with heavy base and top is the hourglass anti-pattern."
+            },
+            {
+              "text": "An ice-cream cone",
+              "fraction": 0,
+              "feedback": "An ice-cream cone is inverted with a tiny base; here the base is large."
+            },
+            {
+              "text": "A healthy pyramid",
+              "fraction": 0,
+              "feedback": "A healthy pyramid has a substantial middle; here it is nearly missing."
+            },
+            {
+              "text": "An over-tested middle layer",
+              "fraction": 0,
+              "feedback": "The middle is under-tested (5%), not over-tested."
+            }
+          ],
+          "generalFeedback": "A fat unit base plus a fat E2E top with a starved integration middle is the hourglass: interaction faults slip through because the service layer is barely tested.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Remediate an hourglass",
+          "text": "<p>The correct remediation for an hourglass distribution is to:</p>",
+          "answers": [
+            {
+              "text": "Build up the integration/service (middle) layer and move some E2E coverage down into it",
+              "fraction": 100,
+              "feedback": "Correct — thickening the middle catches interaction faults faster than E2E and restores the taper."
+            },
+            {
+              "text": "Add more UI tests to compensate for the thin middle",
+              "fraction": 0,
+              "feedback": "That relies on the slow top to catch interaction faults instead of fixing the missing middle."
+            },
+            {
+              "text": "Remove unit tests so the shape looks more like a pyramid",
+              "fraction": 0,
+              "feedback": "You never fix a shape by discarding the fast, valuable base."
+            },
+            {
+              "text": "Do nothing; an hourglass is optimal",
+              "fraction": 0,
+              "feedback": "An hourglass leaves interaction faults poorly covered; it is an anti-pattern to correct."
+            }
+          ],
+          "generalFeedback": "Fix an hourglass by growing the integration/service middle — the fastest place to catch component-interaction faults — and pushing some E2E coverage down into it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Realism versus speed/cost trade-off",
+          "text": "<p>Which statement best captures the core trade-off between the pyramid's layers?</p>",
+          "answers": [
+            {
+              "text": "Higher layers give more realism and confidence but slower, costlier, flakier feedback; lower layers give faster, cheaper, more stable feedback with less end-to-end realism",
+              "fraction": 100,
+              "feedback": "Correct — this is the central speed/cost-versus-realism trade-off of the pyramid."
+            },
+            {
+              "text": "Higher layers are strictly better than lower layers in every respect",
+              "fraction": 0,
+              "feedback": "Higher layers are slower, costlier, and flakier; they are not strictly better."
+            },
+            {
+              "text": "Lower layers are more realistic than higher layers",
+              "fraction": 0,
+              "feedback": "Realism increases as you go up, not down."
+            },
+            {
+              "text": "All layers have identical speed, cost, and realism",
+              "fraction": 0,
+              "feedback": "The layers differ sharply on exactly these dimensions."
+            }
+          ],
+          "generalFeedback": "Climbing the pyramid trades speed, cost, and stability for realism and end-to-end confidence. The pyramid shape balances these by favouring many cheap low-level tests and few expensive high-level ones.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why flakiness concentrates at the top",
+          "text": "<p>Why does flakiness concentrate in the top layer of the pyramid?</p>",
+          "answers": [
+            {
+              "text": "E2E tests depend on the whole integrated stack, timing, and external state, giving many chances for non-deterministic failures",
+              "fraction": 100,
+              "feedback": "Correct — more moving parts and timing dependencies mean more non-determinism."
+            },
+            {
+              "text": "E2E tests have weaker assertions than unit tests",
+              "fraction": 0,
+              "feedback": "Flakiness comes from non-determinism in the environment, not from assertion strength."
+            },
+            {
+              "text": "Unit tests are actually the flakiest, so the top only looks flaky",
+              "fraction": 0,
+              "feedback": "Unit tests are the most stable; the top is genuinely the flakiest."
+            },
+            {
+              "text": "Because the top layer runs most often",
+              "fraction": 0,
+              "feedback": "The top usually runs least often; flakiness is due to dependencies and timing, not frequency."
+            }
+          ],
+          "generalFeedback": "Every additional integrated component, network hop, timing dependency, and piece of shared state adds a source of non-determinism, so end-to-end tests at the top flake most.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When more E2E is justified",
+          "text": "<p>When is adding <strong>more</strong> end-to-end tests genuinely justified despite their cost?</p>",
+          "answers": [
+            {
+              "text": "For a few critical user journeys whose end-to-end confidence cannot be obtained adequately at a lower layer",
+              "fraction": 100,
+              "feedback": "Correct — E2E earns its place where only whole-system realism gives the needed confidence."
+            },
+            {
+              "text": "Whenever a behaviour could also be covered by a unit test",
+              "fraction": 0,
+              "feedback": "If a unit test suffices, push down; do not duplicate it at E2E."
+            },
+            {
+              "text": "To replace unit tests entirely for simplicity",
+              "fraction": 0,
+              "feedback": "Replacing the fast base with slow E2E tests inverts the pyramid."
+            },
+            {
+              "text": "Never — E2E tests are never justified",
+              "fraction": 0,
+              "feedback": "A few E2E tests for critical flows are valuable; the point is to keep them few."
+            }
+          ],
+          "generalFeedback": "Add E2E tests sparingly for critical end-to-end journeys where lower layers cannot give adequate confidence — not for behaviours a unit or integration test already covers.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Misconception: pyramid width means importance",
+          "text": "<p>Which statement about the pyramid is a <strong>misconception</strong>?</p>",
+          "answers": [
+            {
+              "text": "The narrow top means UI/E2E tests are unimportant",
+              "fraction": 100,
+              "feedback": "Correct — this is the misconception; the width reflects count/proportion and speed, not importance."
+            },
+            {
+              "text": "The width of a layer reflects how many tests of that kind you should have",
+              "fraction": 0,
+              "feedback": "This is a correct reading of the pyramid, not a misconception."
+            },
+            {
+              "text": "E2E tests are still needed, just kept few",
+              "fraction": 0,
+              "feedback": "This is correct — E2E tests remain valuable but are few."
+            },
+            {
+              "text": "Lower layers give faster feedback than higher ones",
+              "fraction": 0,
+              "feedback": "This is a correct property of the pyramid, not a misconception."
+            }
+          ],
+          "generalFeedback": "The pyramid is about test count/proportion and feedback speed, not importance. A thin top does not mean E2E tests are unimportant — only that few of them are needed.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Misconception: delete all E2E tests",
+          "text": "<p>Because E2E tests are slow and flaky, a healthy pyramid should have <em>zero</em> end-to-end tests.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "A healthy pyramid keeps a few E2E tests for critical flows, not zero."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — the top is thin, not empty; a few E2E tests remain essential."
+            }
+          ],
+          "generalFeedback": "The pyramid narrows to a few E2E tests, not none. Some end-to-end coverage is needed to confirm critical user journeys work through the whole system."
+        },
+        {
+          "type": "multichoice",
+          "name": "Rebalance: unit tests to add",
+          "text": "<p>A suite of <strong>200</strong> tests is currently inverted at <strong>20 unit / 40 integration / 140 UI</strong>. You want to reach a <strong>70% / 20% / 10%</strong> target while keeping the total at 200. How many <strong>unit</strong> tests must you <strong>add</strong>?</p>",
+          "answers": [
+            {
+              "text": "120",
+              "fraction": 100,
+              "feedback": "Correct — target unit = 70% of 200 = 140; you have 20, so add 140 &#8722; 20 = 120."
+            },
+            {
+              "text": "140",
+              "fraction": 0,
+              "feedback": "140 is the target unit count, but you already have 20, so you add only 120."
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "Recompute: target 140 minus current 20 is 120, not 100."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 is the current unit count, not the number to add."
+            }
+          ],
+          "generalFeedback": "Target unit = 0.70 &#215; 200 = 140. Currently 20, so add 140 &#8722; 20 = 120. (Integration is already 40 = 20%; UI must drop from 140 to 20.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rebalance: UI tests to remove",
+          "text": "<p>A suite of <strong>100</strong> tests is currently <strong>40 unit / 10 integration / 50 UI</strong>. You want to reach a <strong>70% / 20% / 10%</strong> target while keeping the total at 100. How many <strong>UI</strong> tests must you <strong>remove</strong>?</p>",
+          "answers": [
+            {
+              "text": "40",
+              "fraction": 100,
+              "feedback": "Correct — target UI = 10% of 100 = 10; you have 50, so remove 50 &#8722; 10 = 40."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 is the target UI count, not the number to remove; you must remove 50 &#8722; 10 = 40."
+            },
+            {
+              "text": "50",
+              "fraction": 0,
+              "feedback": "50 is the current UI count; you keep 10, so remove only 40."
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "Recompute: 50 current minus 10 target is 40, not 30."
+            }
+          ],
+          "generalFeedback": "Target UI = 0.10 &#215; 100 = 10. Currently 50, so remove 50 &#8722; 10 = 40. (Unit rises from 40 to 70; integration rises from 10 to 20.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why not push everything to unit",
+          "text": "<p>If unit tests are the fastest and cheapest, why not push <strong>every</strong> test down to the unit layer and drop the higher layers?</p>",
+          "answers": [
+            {
+              "text": "Unit tests cannot catch faults in how components interact or in real end-to-end user flows; some confidence comes only from higher layers",
+              "fraction": 100,
+              "feedback": "Correct — interface and whole-system faults need integration and E2E tests."
+            },
+            {
+              "text": "Because unit tests are actually the slowest layer",
+              "fraction": 0,
+              "feedback": "Unit tests are the fastest; the reason is coverage, not speed."
+            },
+            {
+              "text": "Because higher layers are cheaper than unit tests",
+              "fraction": 0,
+              "feedback": "Higher layers are more expensive, not cheaper."
+            },
+            {
+              "text": "You should, in fact, drop all higher layers",
+              "fraction": 0,
+              "feedback": "Dropping the higher layers would miss interaction and end-to-end faults entirely."
+            }
+          ],
+          "generalFeedback": "Each layer catches faults the others cannot: unit tests miss interface/interaction faults and real user-flow problems, so integration and a few E2E tests remain necessary. \"Push down\" means using the lowestlayer, not eliminating higher ones.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interaction bug slips through with thin middle",
+          "text": "<p>A team has fast unit tests and a handful of E2E tests but almost no service-level tests, and bugs in how two services exchange data keep reaching production. What is the diagnosis and fix?</p>",
+          "answers": [
+            {
+              "text": "An hourglass with a starved middle; add integration/service tests to catch interaction faults early",
+              "fraction": 100,
+              "feedback": "Correct — the missing middle lets interaction faults slip past unit tests and only sometimes get caught by the few E2E tests."
+            },
+            {
+              "text": "An ice-cream cone; delete the unit tests",
+              "fraction": 0,
+              "feedback": "The unit base is fine; the problem is the missing integration middle, and you never delete the base."
+            },
+            {
+              "text": "A healthy pyramid; no change needed",
+              "fraction": 0,
+              "feedback": "Interaction bugs reaching production show the integration layer is inadequate."
+            },
+            {
+              "text": "Too many unit tests; remove some of them",
+              "fraction": 0,
+              "feedback": "Removing unit tests would not address the uncovered service interactions."
+            }
+          ],
+          "generalFeedback": "Fast unit tests plus a few E2E tests but a starved middle is an hourglass. Interaction faults between services are best and fastest caught by integration/service tests, so grow that middle layer.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Lowest adequate level for an interaction fault",
+          "text": "<p>A defect concerns how two services exchange data over their API. Applying \"test at the lowest level that gives adequate confidence,\" which layer should own that test?</p>",
+          "answers": [
+            {
+              "text": "Integration/service — it is the lowest layer that exercises the interaction between the two services",
+              "fraction": 100,
+              "feedback": "Correct — a unit test cannot see the interaction, and an E2E test is more than needed."
+            },
+            {
+              "text": "Unit — it is the fastest layer",
+              "fraction": 0,
+              "feedback": "A unit test isolates one component and cannot exercise the cross-service interaction, so it does not give adequate confidence."
+            },
+            {
+              "text": "UI/end-to-end — the most realistic layer",
+              "fraction": 0,
+              "feedback": "E2E would work but is slower and flakier than needed; the lowest adequate layer is integration."
+            },
+            {
+              "text": "None — such faults cannot be tested",
+              "fraction": 0,
+              "feedback": "They are exactly what integration/service tests target."
+            }
+          ],
+          "generalFeedback": "Push down to the lowest layer that still gives confidence. An interaction between two services is invisible to a unit test and overkill for E2E, so it belongs at the integration/service layer.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "70/20/10 is a strict law",
+          "text": "<p>The exact 70/20/10 split is a strict rule that every project must follow to have a valid pyramid.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "The specific numbers are illustrative, not a mandatory law."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — ratios like 70/20/10 are illustrative; the principle is the shape (wide base, thin top), not exact percentages."
+            }
+          ],
+          "generalFeedback": "Concrete ratios are only rules of thumb to convey the shape. What matters is that unit tests dominate, integration tests are fewer, and UI/E2E tests are fewest — the exact numbers vary by project."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "由下而上的三個層級",
+          "text": "<p>在經典的<em>測試自動化金字塔（test automation pyramid，Mike Cohn）</em>中，由下而上的層級依序是：</p>",
+          "answers": [
+            {
+              "text": "單元測試（底層）、整合／服務測試（中層）、UI／端到端測試（頂層）",
+              "fraction": 100,
+              "feedback": "正確——寬廣的單元測試底座、較窄的整合／服務測試帶、以及薄薄的 UI／E2E 測試頂端。"
+            },
+            {
+              "text": "UI／端到端測試（底層）、整合測試（中層）、單元測試（頂層）",
+              "fraction": 0,
+              "feedback": "這是上下顛倒的——它描述的是甜筒（ice-cream cone）反模式，而非金字塔。"
+            },
+            {
+              "text": "整合測試（底層）、單元測試（中層）、UI 測試（頂層）",
+              "fraction": 0,
+              "feedback": "單元測試構成底座，而非中層。"
+            },
+            {
+              "text": "單元測試（底層）、UI／端到端測試（中層）、整合測試（頂層）",
+              "fraction": 0,
+              "feedback": "UI／E2E 位於頂端、整合位於中層，而非相反。"
+            }
+          ],
+          "generalFeedback": "由下而上：大量單元測試、較少的整合／服務測試、少量的 UI／端到端測試。每層的寬度暗示該類測試應有的數量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試最多的層級",
+          "text": "<p>在健康的測試自動化金字塔中，哪一層應包含<strong>最多</strong>測試？</p>",
+          "answers": [
+            {
+              "text": "單元測試（底座）",
+              "fraction": 100,
+              "feedback": "正確——底座是最寬的一層，因此單元測試數量最多。"
+            },
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 0,
+              "feedback": "頂端是最窄的一層，應該擁有最少的測試。"
+            },
+            {
+              "text": "整合／服務測試（中層）",
+              "fraction": 0,
+              "feedback": "中層介於兩者之間；底座（單元）比它更多。"
+            },
+            {
+              "text": "三層應該數量相等",
+              "fraction": 0,
+              "feedback": "金字塔刻意不均等——寬廣的底座逐漸收窄至薄薄的頂端。"
+            }
+          ],
+          "generalFeedback": "底座是金字塔最寬的部分：單元測試最便宜也最快，因此你負擔得起最多的數量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試最少的層級",
+          "text": "<p>在健康的測試自動化金字塔中，哪一層應包含<strong>最少</strong>測試？</p>",
+          "answers": [
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 100,
+              "feedback": "正確——頂端是最窄的一層，因此 UI／E2E 測試數量最少。"
+            },
+            {
+              "text": "單元測試（底座）",
+              "fraction": 0,
+              "feedback": "單元測試數量最多，而非最少。"
+            },
+            {
+              "text": "整合／服務測試（中層）",
+              "fraction": 0,
+              "feedback": "中層比頂端多；頂端（UI／E2E）才是最少的。"
+            },
+            {
+              "text": "三層應該都是同樣的少量",
+              "fraction": 0,
+              "feedback": "各層數量不同；具體而言頂層最薄。"
+            }
+          ],
+          "generalFeedback": "UI／端到端測試又慢、又貴、又脆弱，因此只在金字塔狹窄的頂端保留少量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單元測試的特性",
+          "text": "<p>下列哪一組特性最能描述位於金字塔底座的<em>單元</em>測試？</p>",
+          "answers": [
+            {
+              "text": "快速、便宜、隔離、穩定、且數量眾多",
+              "fraction": 100,
+              "feedback": "正確——正是這些特性使單元測試構成寬廣的底座。"
+            },
+            {
+              "text": "緩慢、昂貴、且數量稀少",
+              "fraction": 0,
+              "feedback": "那些是頂端 UI／端到端測試的特性，而非單元測試。"
+            },
+            {
+              "text": "緩慢但非常便宜且數量眾多",
+              "fraction": 0,
+              "feedback": "單元測試是快速的，而非緩慢；速度正是它的定義特徵之一。"
+            },
+            {
+              "text": "真實、端到端、且脆弱",
+              "fraction": 0,
+              "feedback": "那些描述的是 UI／E2E 測試；單元測試是隔離且穩定的。"
+            }
+          ],
+          "generalFeedback": "單元測試在毫秒內執行、撰寫與維護皆便宜、與外部系統隔離、具決定性／穩定、並能精確定位失敗——因此可保留大量並持續執行它們。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UI／E2E 測試的特性",
+          "text": "<p>下列哪一組特性最能描述位於金字塔頂端的 <em>UI／端到端</em> 測試？</p>",
+          "answers": [
+            {
+              "text": "緩慢、昂貴、脆弱／不穩定（flaky）、數量少——但最為真實",
+              "fraction": 100,
+              "feedback": "正確——它們像真實使用者一樣操作整個系統，因此最真實但也最昂貴、最易碎。"
+            },
+            {
+              "text": "快速、便宜、穩定、且數量眾多",
+              "fraction": 0,
+              "feedback": "那些是單元測試的特性，不是 UI／E2E。"
+            },
+            {
+              "text": "快速且具決定性，但不真實",
+              "fraction": 0,
+              "feedback": "UI／E2E 測試緩慢且最真實，並非快速且不真實。"
+            },
+            {
+              "text": "維護便宜且很少不穩定",
+              "fraction": 0,
+              "feedback": "它們是維護最昂貴且最容易不穩定的。"
+            }
+          ],
+          "generalFeedback": "端到端測試透過 UI 驅動整個系統，因此最真實，但也最慢、最貴、最不穩定——只保留少量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "中層是什麼",
+          "text": "<p>測試自動化金字塔的<strong>中</strong>層由下列何者構成？</p>",
+          "answers": [
+            {
+              "text": "檢查元件如何在 UI 之下協同運作的整合／服務（API）測試",
+              "fraction": 100,
+              "feedback": "正確——中層在低於完整 UI 的層次上，測試元件互動與服務／API 邊界。"
+            },
+            {
+              "text": "對單一孤立函式進行的單元測試",
+              "fraction": 0,
+              "feedback": "那是底層，而非中層。"
+            },
+            {
+              "text": "透過瀏覽器 UI 驅動的端到端測試",
+              "fraction": 0,
+              "feedback": "那是頂層，而非中層。"
+            },
+            {
+              "text": "人工探索式測試作業",
+              "fraction": 0,
+              "feedback": "金字塔描述的是自動化測試層級；中層是整合／服務測試。"
+            }
+          ],
+          "generalFeedback": "中間帶為整合／服務／API 測試：速度與成本適中，在低於完整 UI 的層次驗證元件之間正確互動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "甜筒反模式",
+          "text": "<p><em>甜筒（ice-cream cone）</em>反模式所指的測試分布是：</p>",
+          "answers": [
+            {
+              "text": "顛倒的——頂端有大量 UI／人工測試，底部單元測試過少",
+              "fraction": 100,
+              "feedback": "正確——金字塔被上下顛倒，大部分測試集中在又慢又脆弱的頂端。"
+            },
+            {
+              "text": "擁有寬廣單元底座的健康金字塔",
+              "fraction": 0,
+              "feedback": "那是理想形狀，而非反模式。"
+            },
+            {
+              "text": "肥大的單元底座、肥大的 E2E 頂端、以及薄弱的中層",
+              "fraction": 0,
+              "feedback": "那是沙漏（hourglass）反模式，不是甜筒。"
+            },
+            {
+              "text": "完全沒有任何自動化測試",
+              "fraction": 0,
+              "feedback": "甜筒仍有很多測試——只是集中在錯誤的（頂）層。"
+            }
+          ],
+          "generalFeedback": "甜筒是顛倒的金字塔：大部分測試是又慢又貴的 UI 或人工測試，單元底座太小——導致回饋又慢、又不穩定、又昂貴。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀比例辨識層級（底座）",
+          "text": "<p>某團隊回報其自動化測試在三層金字塔中約為 <strong>70% / 20% / 10%</strong>。其中 <strong>70%</strong> 這一片執行起來最快、最便宜。它是哪一層？</p>",
+          "answers": [
+            {
+              "text": "單元測試（底座）",
+              "fraction": 100,
+              "feedback": "正確——最大、最快、最便宜的一片就是單元底座。"
+            },
+            {
+              "text": "整合／服務測試（中層）",
+              "fraction": 0,
+              "feedback": "此處中層是 20% 那一片，不是 70%。"
+            },
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 0,
+              "feedback": "頂端是最小、最慢的一片——10%，而非 70%。"
+            },
+            {
+              "text": "無法由數字判斷",
+              "fraction": 0,
+              "feedback": "最大、最快、最便宜的一片明確就是單元底座。"
+            }
+          ],
+          "generalFeedback": "在示意性的 70/20/10 分布中，70%（最大、最快、最便宜）是單元、20% 是整合、10% 是 UI／E2E。把確切比例當作示意，而非法則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最真實的層級",
+          "text": "<p>哪一層提供的測試<strong>最接近真實使用者</strong>對整個系統的體驗？</p>",
+          "answers": [
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 100,
+              "feedback": "正確——E2E 測試像使用者一樣驅動完整整合的系統，因此最真實。"
+            },
+            {
+              "text": "單元測試（底座）",
+              "fraction": 0,
+              "feedback": "單元測試孤立地檢查零件，最不像真實的終端使用者情境。"
+            },
+            {
+              "text": "整合／服務測試（中層）",
+              "fraction": 0,
+              "feedback": "這些比單元測試更真實，但仍低於完整 UI、整個系統的層次。"
+            },
+            {
+              "text": "各層同樣真實",
+              "fraction": 0,
+              "feedback": "真實度隨著往金字塔上方而提高；頂端最真實。"
+            }
+          ],
+          "generalFeedback": "真實度隨著往上攀升而提高：E2E 測試透過真實介面操作整個系統，因此最貼近實際使用者行為——代價是速度與穩定性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪些測試持續執行以把關提交",
+          "text": "<p>在 CI 中，哪一層的測試通常會在<strong>每次提交（commit）</strong>時執行，以給開發者快速回饋？</p>",
+          "answers": [
+            {
+              "text": "單元測試（底座）",
+              "fraction": 100,
+              "feedback": "正確——因為快速又穩定，單元測試可持續執行並把關每次提交。"
+            },
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 0,
+              "feedback": "E2E 測試太慢、太不穩定，無法在每次提交時執行；它們執行頻率較低。"
+            },
+            {
+              "text": "只有人工測試",
+              "fraction": 0,
+              "feedback": "人工測試無法把關每次提交；快速的自動化單元測試才行。"
+            },
+            {
+              "text": "提交時不應執行任何測試",
+              "fraction": 0,
+              "feedback": "快速的單元測試正是應在每次提交時把關 CI 的測試。"
+            }
+          ],
+          "generalFeedback": "由於單元測試快速且具決定性，它們在每次提交時執行作為 CI 把關；較慢的 UI／E2E 測試則較少執行（例如夜間或發佈前）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "單元測試構成底座",
+          "text": "<p>在測試自動化金字塔中，單元測試構成寬廣的底座。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——單元測試數量最多，位於底座。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "單元測試確實構成底座；把 UI／E2E 放在底座才是顛倒的反模式。"
+            }
+          ],
+          "generalFeedback": "金字塔寬廣的底座是單元測試——快速、便宜、數量眾多——其上是較少的整合測試，頂端是少量的 UI／E2E 測試。"
+        },
+        {
+          "type": "truefalse",
+          "name": "E2E 比單元多",
+          "text": "<p>在健康的金字塔中，端到端（UI）測試的數量應多於單元測試。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這是顛倒的（甜筒）形狀，而非健康的金字塔。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——單元測試應遠多於 E2E 測試；反過來就是甜筒反模式。"
+            }
+          ],
+          "generalFeedback": "健康的金字塔有大量單元測試與少量 E2E 測試。當 E2E 測試多於單元測試時，你得到的是顛倒的金字塔（甜筒）。"
+        },
+        {
+          "type": "multichoice",
+          "name": "在 UI 之下測試 API 的層級",
+          "text": "<p>哪一層驗證元件與服務<strong>透過其 API、在 UI 之下</strong>正確互動？</p>",
+          "answers": [
+            {
+              "text": "整合／服務測試（中層）",
+              "fraction": 100,
+              "feedback": "正確——中層在低於完整 UI 的服務／API 層次測試互動。"
+            },
+            {
+              "text": "單元測試（底座）",
+              "fraction": 0,
+              "feedback": "單元測試孤立地操作單一元件，而非跨 API 的互動。"
+            },
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 0,
+              "feedback": "E2E 測試會經過 UI；中層刻意在其之下測試。"
+            },
+            {
+              "text": "驗收簽核會議",
+              "fraction": 0,
+              "feedback": "那不是自動化測試層級；API 層次的測試是整合／服務層。"
+            }
+          ],
+          "generalFeedback": "整合／服務測試直接打 API 與元件邊界，避開又慢又脆弱的 UI，同時仍檢查各部分能否協同運作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最不穩定的層級",
+          "text": "<p>哪一層的測試通常最<strong>脆弱且不穩定（flaky）</strong>？</p>",
+          "answers": [
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 100,
+              "feedback": "正確——依賴整個技術堆疊、時序與 UI，使 E2E 測試最為易碎。"
+            },
+            {
+              "text": "單元測試（底座）",
+              "fraction": 0,
+              "feedback": "單元測試隔離且具決定性，因此最穩定，而非最不穩定。"
+            },
+            {
+              "text": "整合／服務測試（中層）",
+              "fraction": 0,
+              "feedback": "這些比單元測試更易碎，但比完整 UI／E2E 測試更不易不穩定。"
+            },
+            {
+              "text": "各層同樣不穩定",
+              "fraction": 0,
+              "feedback": "不穩定集中在頂端；單元測試最穩定。"
+            }
+          ],
+          "generalFeedback": "E2E 測試依賴許多整合的部分、外部狀態與時序，因此最容易不穩定。不穩定集中在金字塔頂端。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀比例辨識中層",
+          "text": "<p>某套件在 單元／整合／UI 之間分布為 <strong>70% / 20% / 10%</strong>。其中 <strong>20%</strong> 那一片對應哪一層？</p>",
+          "answers": [
+            {
+              "text": "整合／服務測試（中層）",
+              "fraction": 100,
+              "feedback": "正確——20% 是介於 70% 單元底座與 10% UI 頂端之間的中間帶。"
+            },
+            {
+              "text": "單元測試（底座）",
+              "fraction": 0,
+              "feedback": "單元是 70% 那一片，不是 20%。"
+            },
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 0,
+              "feedback": "UI／E2E 是最小的一片——10%，而非 20%。"
+            },
+            {
+              "text": "人工測試",
+              "fraction": 0,
+              "feedback": "金字塔的自動化中間帶是整合／服務測試。"
+            }
+          ],
+          "generalFeedback": "在示意性的 70/20/10 分布中，20% 的中層是整合／服務測試，介於單元底座（70%）與 UI 頂端（10%）之間。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "症狀：套件又慢又不穩定",
+          "text": "<p>某團隊的自動化套件<strong>執行緩慢且經常不穩定（flaky）</strong>。最可能是哪一層比重過高？</p>",
+          "answers": [
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 100,
+              "feedback": "正確——過多又慢又脆弱的 E2E 測試正會造成這種症狀。"
+            },
+            {
+              "text": "單元測試（底座）",
+              "fraction": 0,
+              "feedback": "大量單元測試會讓套件保持快速與穩定，而不是又慢又不穩定。"
+            },
+            {
+              "text": "無法由此症狀判斷",
+              "fraction": 0,
+              "feedback": "又慢又不穩定強烈指向過大的 UI／E2E 頂端。"
+            },
+            {
+              "text": "套件整體測試數量一定太少",
+              "fraction": 0,
+              "feedback": "問題出在組合（太多 E2E），而非單純的總數。"
+            }
+          ],
+          "generalFeedback": "緩慢與不穩定集中在金字塔頂端，因此又慢又不穩定的套件通常意味著相對於單元與整合測試，UI／E2E 測試過多。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "「把測試往下推」的意思",
+          "text": "<p>把測試在金字塔中<em>往下推（push down）</em>的原則意思是：</p>",
+          "answers": [
+            {
+              "text": "在仍能提供足夠信心的最低層級測試每個行為",
+              "fraction": 100,
+              "feedback": "正確——只要能提供足夠信心，就優先用快速的單元或整合測試，而非 E2E 測試。"
+            },
+            {
+              "text": "刪除所有較高層級的測試，只依賴 UI",
+              "fraction": 0,
+              "feedback": "往下推是把覆蓋率往下移，而非移除所有較高層測試或只依賴 UI。"
+            },
+            {
+              "text": "為了真實性，把所有測試往上移到端到端層",
+              "fraction": 0,
+              "feedback": "那會顛倒金字塔；往下推的意思正好相反。"
+            },
+            {
+              "text": "把測試放到不同的實體地點執行",
+              "fraction": 0,
+              "feedback": "「往下」指的是金字塔較低的層級，而非實體擺放位置。"
+            }
+          ],
+          "generalFeedback": "往下推是指為某個行為選擇仍能提供足夠信心的最低（最便宜、最快、最穩定）層級，把慢速的 E2E 測試保留給只有它才能涵蓋的部分。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪種形狀是健康的",
+          "text": "<p>哪種分布描述的是<strong>健康</strong>的金字塔，而非甜筒？</p>",
+          "answers": [
+            {
+              "text": "大量單元測試、較少整合測試、少量 UI／E2E 測試",
+              "fraction": 100,
+              "feedback": "正確——寬廣的單元底座收窄至薄薄的 UI 頂端就是健康的金字塔。"
+            },
+            {
+              "text": "大量 UI／E2E 測試、較少整合測試、少量單元測試",
+              "fraction": 0,
+              "feedback": "那是顛倒的甜筒，而非健康的金字塔。"
+            },
+            {
+              "text": "單元、整合、UI 測試數量相等",
+              "fraction": 0,
+              "feedback": "金字塔刻意不均等，在單元底座最寬。"
+            },
+            {
+              "text": "只有 UI 測試，別無其他",
+              "fraction": 0,
+              "feedback": "那是完全沒有底座的極端甜筒。"
+            }
+          ],
+          "generalFeedback": "健康的金字塔往上收窄：單元測試最多、整合測試較少、UI／E2E 測試最少。甜筒就是這個形狀被顛倒。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何單元測試構成底座",
+          "text": "<p>為何單元測試構成金字塔的<strong>底座</strong>？</p>",
+          "answers": [
+            {
+              "text": "它們快速、便宜、穩定、且能精確定位失敗，因此可負擔大量並持續執行",
+              "fraction": 100,
+              "feedback": "正確——這些特性使龐大的單元底座成為最有效率的基礎。"
+            },
+            {
+              "text": "它們最真實，因此值得最多覆蓋率",
+              "fraction": 0,
+              "feedback": "真實性是 E2E 測試的特性，而非單元測試；那不是單元測試構成底座的原因。"
+            },
+            {
+              "text": "它們是唯一能找到任何缺陷的測試",
+              "fraction": 0,
+              "feedback": "較高層級能找到單元測試找不到的缺陷（例如介面與端到端錯誤）。"
+            },
+            {
+              "text": "它們最慢，所以必須先執行",
+              "fraction": 0,
+              "feedback": "單元測試最快，這正是為何數量眾多。"
+            }
+          ],
+          "generalFeedback": "單元測試快速、便宜、隔離、具決定性，並能精確定位失敗——因此龐大的底座能以低成本提供快速、可靠的回饋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "依 70/20/10 計算單元數量",
+          "text": "<p>某套件有 <strong>200</strong> 個測試，依示意性的 <strong>70% / 20% / 10%</strong>（單元／整合／UI）分布。<strong>單元</strong>測試有幾個？</p>",
+          "answers": [
+            {
+              "text": "140",
+              "fraction": 100,
+              "feedback": "正確——200 的 70% = 140。"
+            },
+            {
+              "text": "40",
+              "fraction": 0,
+              "feedback": "40 是整合數量（200 的 20%），不是單元數量。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 是 UI 數量（200 的 10%），不是單元數量。"
+            },
+            {
+              "text": "70",
+              "fraction": 0,
+              "feedback": "70 是百分比，不是測試數量；200 的 70% 是 140。"
+            }
+          ],
+          "generalFeedback": "0.70 &#215; 200 = 140 單元、0.20 &#215; 200 = 40 整合、0.10 &#215; 200 = 20 UI。此比例為示意，並非規則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "依 70/20/10 計算整合數量",
+          "text": "<p>某套件有 <strong>300</strong> 個測試，依示意性的 <strong>70% / 20% / 10%</strong>（單元／整合／UI）分布。<strong>整合</strong>測試有幾個？</p>",
+          "answers": [
+            {
+              "text": "60",
+              "fraction": 100,
+              "feedback": "正確——300 的 20% = 60。"
+            },
+            {
+              "text": "210",
+              "fraction": 0,
+              "feedback": "210 是單元數量（300 的 70%），不是整合數量。"
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 是 UI 數量（300 的 10%），不是整合數量。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 是百分比，不是數量；300 的 20% 是 60。"
+            }
+          ],
+          "generalFeedback": "0.20 &#215; 300 = 60 整合（單元 210、UI 30）。把 70/20/10 分布當作示意。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類測試：完整結帳流程",
+          "text": "<p>某測試開啟瀏覽器、登入、把商品加入購物車，並像真實使用者一樣完成結帳。它屬於哪一層？</p>",
+          "answers": [
+            {
+              "text": "UI／端到端（頂端）",
+              "fraction": 100,
+              "feedback": "正確——像使用者一樣透過 UI 驅動整個應用程式就是 E2E 測試。"
+            },
+            {
+              "text": "單元（底座）",
+              "fraction": 0,
+              "feedback": "整個應用程式的瀏覽器流程遠比單一孤立單元更廣。"
+            },
+            {
+              "text": "整合／服務（中層）",
+              "fraction": 0,
+              "feedback": "這會經過 UI 與完整堆疊，屬於 E2E，而非在 UI 之下的整合測試。"
+            },
+            {
+              "text": "它不屬於任何金字塔層級的測試",
+              "fraction": 0,
+              "feedback": "它是金字塔頂端典型的端到端測試。"
+            }
+          ],
+          "generalFeedback": "像使用者一樣透過真實 UI 操作整個整合系統，正是端到端（頂層）測試的定義。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類測試：單一純函式",
+          "text": "<p>某測試以固定輸入呼叫單一純函式並斷言其回傳值，不涉及資料庫、網路或 UI。它屬於哪一層？</p>",
+          "answers": [
+            {
+              "text": "單元（底座）",
+              "fraction": 100,
+              "feedback": "正確——孤立地測試單一函式邏輯就是單元測試。"
+            },
+            {
+              "text": "整合／服務（中層）",
+              "fraction": 0,
+              "feedback": "此處沒有任何東西被整合；它是單一孤立的函式。"
+            },
+            {
+              "text": "UI／端到端（頂端）",
+              "fraction": 0,
+              "feedback": "不涉及 UI 或完整系統流程，因此不是 E2E。"
+            },
+            {
+              "text": "它無法被自動化",
+              "fraction": 0,
+              "feedback": "純函式的斷言是最容易自動化的測試之一——一個單元測試。"
+            }
+          ],
+          "generalFeedback": "在沒有外部相依的情況下孤立地測試單一函式，是金字塔底座教科書式的單元測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類測試：服務與資料庫溝通",
+          "text": "<p>某測試啟動一個服務與一個真實測試資料庫，然後檢查透過該服務的 API 儲存並重新載入一筆記錄是否正確運作——不開啟任何 UI。它屬於哪一層？</p>",
+          "answers": [
+            {
+              "text": "整合／服務（中層）",
+              "fraction": 100,
+              "feedback": "正確——它在 UI 之下檢查服務與資料庫協同運作。"
+            },
+            {
+              "text": "單元（底座）",
+              "fraction": 0,
+              "feedback": "它涉及兩個協作元件（服務＋資料庫），因此不是孤立的單元測試。"
+            },
+            {
+              "text": "UI／端到端（頂端）",
+              "fraction": 0,
+              "feedback": "不涉及 UI；測試止於服務／API 層次。"
+            },
+            {
+              "text": "它只是效能測試",
+              "fraction": 0,
+              "feedback": "它檢查一次互動的功能正確性，屬於整合／服務測試。"
+            }
+          ],
+          "generalFeedback": "在不經 UI 的情況下，透過 API 操作元件（服務與資料庫）之間的真實互動，是中層的整合／服務測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "症狀：過多人工／UI 測試",
+          "text": "<p>某團隊主要依賴人工與 UI 測試，幾乎沒有單元測試。這種分布稱為：</p>",
+          "answers": [
+            {
+              "text": "甜筒（顛倒的金字塔）",
+              "fraction": 100,
+              "feedback": "正確——大部分心力在慢速頂端、單元底座極小，就是甜筒。"
+            },
+            {
+              "text": "健康的金字塔",
+              "fraction": 0,
+              "feedback": "健康的金字塔有龐大的單元底座，與此相反。"
+            },
+            {
+              "text": "沙漏",
+              "fraction": 0,
+              "feedback": "沙漏是肥大的單元底座與肥大的 E2E 頂端加上薄弱的中層；此處單元底座幾乎缺失。"
+            },
+            {
+              "text": "均衡良好的測試組合",
+              "fraction": 0,
+              "feedback": "過度依賴人工／UI 測試並不均衡，回饋又慢又貴。"
+            }
+          ],
+          "generalFeedback": "大量人工／UI 測試加上極小的單元底座，是典型的甜筒反模式：金字塔被上下顛倒。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不穩定集中在何處",
+          "text": "<p>在整個金字塔中，不穩定（非決定性的通過／失敗）通常集中在：</p>",
+          "answers": [
+            {
+              "text": "頂端（UI／端到端測試）",
+              "fraction": 100,
+              "feedback": "正確——依賴整個堆疊、時序與 UI，使頂層最容易不穩定。"
+            },
+            {
+              "text": "底座（單元測試）",
+              "fraction": 0,
+              "feedback": "單元測試隔離且具決定性，因此最不容易不穩定。"
+            },
+            {
+              "text": "三層平均分布",
+              "fraction": 0,
+              "feedback": "不穩定隨著往上而升高；並非平均。"
+            },
+            {
+              "text": "只在沒有斷言的測試中",
+              "fraction": 0,
+              "feedback": "不穩定關乎非決定性，而它集中在 E2E 測試，與是否有斷言無關。"
+            }
+          ],
+          "generalFeedback": "測試位置越高，所依賴的組件、時序與環境越多，因此不穩定集中在 UI／E2E 頂端。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何快速單元測試把關每次提交",
+          "text": "<p>為何快速的單元測試是在 CI 中於<strong>每次提交</strong>執行的自然選擇？</p>",
+          "answers": [
+            {
+              "text": "它們很快完成且具決定性，因此能在不拖慢管線的情況下提供可靠回饋",
+              "fraction": 100,
+              "feedback": "正確——快速加上穩定使它們成為理想的每次提交把關。"
+            },
+            {
+              "text": "它們是唯一會失敗的測試",
+              "fraction": 0,
+              "feedback": "任何層級的測試都可能失敗；選擇單元測試是因為快速與穩定。"
+            },
+            {
+              "text": "它們最真實地操作整個系統",
+              "fraction": 0,
+              "feedback": "那是 E2E；選擇單元測試正是因為快速，而非真實。"
+            },
+            {
+              "text": "它們永遠不需要維護",
+              "fraction": 0,
+              "feedback": "所有測試都需要維護；把關的理由是快速與決定性。"
+            }
+          ],
+          "generalFeedback": "每次提交的把關必須快速且可靠。單元測試在數秒內執行且具決定性，因此適合；慢速、不穩定的 E2E 測試則較少執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "依 70/20/10 計算 UI 數量",
+          "text": "<p>某套件有 <strong>500</strong> 個測試，依示意性的 <strong>70% / 20% / 10%</strong>（單元／整合／UI）分布。<strong>UI</strong> 測試有幾個？</p>",
+          "answers": [
+            {
+              "text": "50",
+              "fraction": 100,
+              "feedback": "正確——500 的 10% = 50。"
+            },
+            {
+              "text": "350",
+              "fraction": 0,
+              "feedback": "350 是單元數量（500 的 70%），不是 UI 數量。"
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "100 是整合數量（500 的 20%），不是 UI 數量。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 是百分比，不是數量；500 的 10% 是 50。"
+            }
+          ],
+          "generalFeedback": "0.10 &#215; 500 = 50 UI（單元 350、整合 100）。此分布為示意。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "把覆蓋率往下移以修復又慢又不穩定的套件",
+          "text": "<p>要修復又慢又不穩定的套件，通常較好的做法是把覆蓋率<em>往下移</em>——在能提供足夠信心之處，以等效的單元或整合測試取代部分 E2E 測試。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——把覆蓋率推到較低層級能加速套件並減少不穩定。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "把覆蓋率往下移正是修復又慢又不穩定套件的標準做法。"
+            }
+          ],
+          "generalFeedback": "速度與穩定性隨著往金字塔下方而改善，因此在信心足夠之處，以較低層級測試取代多餘的 E2E 測試是常見的修復方式。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為某行為選擇層級",
+          "text": "<p>某行為以一個快速的單元測試或一個慢速的 E2E 測試都能同樣好地驗證。通常應偏好哪一個？</p>",
+          "answers": [
+            {
+              "text": "單元測試，因為它是能提供足夠信心的最低層級",
+              "fraction": 100,
+              "feedback": "正確——往下推：使用足以勝任的最便宜、最快的測試。"
+            },
+            {
+              "text": "E2E 測試，因為較高的測試總是比較好",
+              "fraction": 0,
+              "feedback": "較高的測試更慢也更不穩定；在較低者已足夠時不會使用它。"
+            },
+            {
+              "text": "兩者都要，對每個行為都做",
+              "fraction": 0,
+              "feedback": "對每個行為都在 E2E 重複，會無謂地膨脹又慢又不穩定的頂層。"
+            },
+            {
+              "text": "都不做；讓該行為不被測試",
+              "fraction": 0,
+              "feedback": "該行為應被測試——在足夠的最低層級。"
+            }
+          ],
+          "generalFeedback": "當兩個層級提供相同信心時，選擇較低者。把 E2E 測試保留給只有它才能足夠涵蓋的行為。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "診斷顛倒的分布",
+          "text": "<p>某套件分布為 <strong>10% 單元 / 20% 整合 / 70% UI</strong>。最佳診斷為：</p>",
+          "answers": [
+            {
+              "text": "甜筒——金字塔被顛倒，UI 測試遠遠過多",
+              "fraction": 100,
+              "feedback": "正確——大部分測試集中在又慢又脆弱的頂端，單元底座極小。"
+            },
+            {
+              "text": "健康的金字塔",
+              "fraction": 0,
+              "feedback": "健康的金字塔以單元測試最多；此處單元僅 10%。"
+            },
+            {
+              "text": "沙漏",
+              "fraction": 0,
+              "feedback": "沙漏是頂端與底座都肥大、中層薄弱；此處底座（單元）是薄的，而非肥大。"
+            },
+            {
+              "text": "完美均衡的組合",
+              "fraction": 0,
+              "feedback": "把 70% 集中在 UI 頂端並不均衡——那是甜筒反模式。"
+            }
+          ],
+          "generalFeedback": "大部分測試在頂端、底座很少，就是顛倒的金字塔，即甜筒：回饋又慢、又不穩定、又昂貴。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "修復甜筒",
+          "text": "<p>對於甜筒分布（UI 測試太多、單元測試太少），標準的修復做法是：</p>",
+          "answers": [
+            {
+              "text": "增加單元與整合測試並把覆蓋率往下推，只保留真正值得的 E2E 測試",
+              "fraction": 100,
+              "feedback": "正確——重建底座並刪減多餘的 E2E 測試，以恢復金字塔形狀。"
+            },
+            {
+              "text": "為了真實性再加入更多 UI 測試",
+              "fraction": 0,
+              "feedback": "那會使顛倒更嚴重；頂端已經太重。"
+            },
+            {
+              "text": "完全刪除所有 UI 測試",
+              "fraction": 0,
+              "feedback": "少量 E2E 測試仍有價值；修復是重新平衡，而非移除整個頂端。"
+            },
+            {
+              "text": "停止自動化測試，改依賴人工測試",
+              "fraction": 0,
+              "feedback": "那會加深反模式，而非修復它。"
+            }
+          ],
+          "generalFeedback": "修復甜筒的方法是把覆蓋率往下推：擴大單元與整合層，只保留高價值的 E2E 測試，重建寬廣的底座。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷薄弱的中層",
+          "text": "<p>某套件為 <strong>50% 單元 / 5% 整合 / 45% UI</strong>——肥大的底座與肥大的頂端，中間幾乎空無一物。最佳診斷為：</p>",
+          "answers": [
+            {
+              "text": "沙漏——整合／服務中層太薄",
+              "fraction": 100,
+              "feedback": "正確——中層匱乏、底座與頂端都很重，就是沙漏反模式。"
+            },
+            {
+              "text": "甜筒",
+              "fraction": 0,
+              "feedback": "甜筒是顛倒的、底座極小；此處底座很大。"
+            },
+            {
+              "text": "健康的金字塔",
+              "fraction": 0,
+              "feedback": "健康的金字塔有相當份量的中層；此處中層幾乎缺失。"
+            },
+            {
+              "text": "過度測試的中層",
+              "fraction": 0,
+              "feedback": "中層是測試不足（5%），而非過度測試。"
+            }
+          ],
+          "generalFeedback": "肥大的單元底座加上肥大的 E2E 頂端、加上匱乏的整合中層，就是沙漏：因為服務層幾乎沒被測試，互動錯誤會溜過去。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "修復沙漏",
+          "text": "<p>對於沙漏分布，正確的修復做法是：</p>",
+          "answers": [
+            {
+              "text": "擴充整合／服務（中）層，並把部分 E2E 覆蓋率往下移到其中",
+              "fraction": 100,
+              "feedback": "正確——加厚中層比 E2E 更快抓到互動錯誤，並恢復收窄的形狀。"
+            },
+            {
+              "text": "增加更多 UI 測試來彌補薄弱的中層",
+              "fraction": 0,
+              "feedback": "那是依賴慢速頂端來抓互動錯誤，而非修復缺失的中層。"
+            },
+            {
+              "text": "移除單元測試，讓形狀看起來更像金字塔",
+              "fraction": 0,
+              "feedback": "絕不能靠丟棄快速又有價值的底座來修形狀。"
+            },
+            {
+              "text": "什麼都不做；沙漏是最佳的",
+              "fraction": 0,
+              "feedback": "沙漏使互動錯誤覆蓋不足；它是需要矯正的反模式。"
+            }
+          ],
+          "generalFeedback": "修復沙漏的方法是擴大整合／服務中層——抓元件互動錯誤最快的地方——並把部分 E2E 覆蓋率往下移到其中。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "真實性與速度／成本的取捨",
+          "text": "<p>下列哪項最能抓住金字塔各層之間的核心取捨？</p>",
+          "answers": [
+            {
+              "text": "較高層提供更多真實性與信心，但回饋更慢、更貴、更不穩定；較低層提供更快、更便宜、更穩定的回饋，但端到端真實性較低",
+              "fraction": 100,
+              "feedback": "正確——這正是金字塔的核心：速度／成本對真實性的取捨。"
+            },
+            {
+              "text": "較高層在各方面都嚴格優於較低層",
+              "fraction": 0,
+              "feedback": "較高層更慢、更貴、更不穩定；並非嚴格較優。"
+            },
+            {
+              "text": "較低層比較高層更真實",
+              "fraction": 0,
+              "feedback": "真實性隨往上而提高，而非往下。"
+            },
+            {
+              "text": "各層在速度、成本、真實性上皆相同",
+              "fraction": 0,
+              "feedback": "各層在這些面向上差異極大。"
+            }
+          ],
+          "generalFeedback": "往金字塔上爬，是以速度、成本與穩定性換取真實性與端到端信心。金字塔形狀藉由偏好大量便宜的低層測試與少量昂貴的高層測試來平衡這些取捨。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何不穩定集中在頂端",
+          "text": "<p>為何不穩定集中在金字塔的頂層？</p>",
+          "answers": [
+            {
+              "text": "E2E 測試依賴整個整合堆疊、時序與外部狀態，帶來許多非決定性失敗的機會",
+              "fraction": 100,
+              "feedback": "正確——更多的活動零件與時序相依意味著更多的非決定性。"
+            },
+            {
+              "text": "E2E 測試的斷言比單元測試弱",
+              "fraction": 0,
+              "feedback": "不穩定來自環境的非決定性，而非斷言強弱。"
+            },
+            {
+              "text": "單元測試其實最不穩定，頂端只是看起來不穩定",
+              "fraction": 0,
+              "feedback": "單元測試最穩定；頂端是真的最不穩定。"
+            },
+            {
+              "text": "因為頂層執行得最頻繁",
+              "fraction": 0,
+              "feedback": "頂層通常執行得最少；不穩定源於相依與時序，而非頻率。"
+            }
+          ],
+          "generalFeedback": "每多一個整合元件、一次網路往返、一項時序相依、一份共享狀態，就多一個非決定性來源，因此頂端的端到端測試最容易不穩定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何時更多 E2E 是合理的",
+          "text": "<p>儘管 E2E 測試成本高，何時<strong>增加</strong>它們才是真正合理的？</p>",
+          "answers": [
+            {
+              "text": "對於少數關鍵使用者旅程，其端到端信心無法在較低層級充分取得",
+              "fraction": 100,
+              "feedback": "正確——當唯有整體系統的真實性才能提供所需信心時，E2E 才值得。"
+            },
+            {
+              "text": "只要某行為也能用單元測試涵蓋就增加",
+              "fraction": 0,
+              "feedback": "若單元測試已足夠，就往下推；不要在 E2E 重複它。"
+            },
+            {
+              "text": "為了簡化而完全取代單元測試",
+              "fraction": 0,
+              "feedback": "以慢速 E2E 取代快速底座會顛倒金字塔。"
+            },
+            {
+              "text": "永不——E2E 測試從來不合理",
+              "fraction": 0,
+              "feedback": "針對關鍵流程的少數 E2E 測試有價值；重點在於保持少量。"
+            }
+          ],
+          "generalFeedback": "對於較低層級無法提供足夠信心的關鍵端到端旅程，才謹慎增加 E2E 測試——而不是為了單元或整合測試已涵蓋的行為。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "迷思：金字塔寬度代表重要性",
+          "text": "<p>下列關於金字塔的敘述，哪一項是<strong>迷思</strong>？</p>",
+          "answers": [
+            {
+              "text": "狹窄的頂端代表 UI／E2E 測試不重要",
+              "fraction": 100,
+              "feedback": "正確——這是迷思；寬度反映的是數量／比例與速度，而非重要性。"
+            },
+            {
+              "text": "某層的寬度反映你應擁有該類測試的數量",
+              "fraction": 0,
+              "feedback": "這是對金字塔的正確解讀，而非迷思。"
+            },
+            {
+              "text": "E2E 測試仍有需要，只是保持少量",
+              "fraction": 0,
+              "feedback": "這是正確的——E2E 測試仍有價值，但數量少。"
+            },
+            {
+              "text": "較低層提供的回饋比較高層快",
+              "fraction": 0,
+              "feedback": "這是金字塔的正確特性，而非迷思。"
+            }
+          ],
+          "generalFeedback": "金字塔關乎測試數量／比例與回饋速度，而非重要性。薄薄的頂端不代表 E2E 測試不重要——只代表需要的數量少。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "迷思：刪除所有 E2E 測試",
+          "text": "<p>由於 E2E 測試又慢又不穩定，健康的金字塔應該有<em>零</em>個端到端測試。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "健康的金字塔會為關鍵流程保留少數 E2E 測試，而非零。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——頂端是薄的，而非空的；少數 E2E 測試仍不可或缺。"
+            }
+          ],
+          "generalFeedback": "金字塔收窄至少數 E2E 測試，而非沒有。需要一些端到端覆蓋，以確認關鍵使用者旅程能透過整個系統運作。"
+        },
+        {
+          "type": "multichoice",
+          "name": "再平衡：需增加的單元測試",
+          "text": "<p>一套 <strong>200</strong> 個測試目前顛倒為 <strong>20 單元 / 40 整合 / 140 UI</strong>。你想在維持總數 200 的前提下達到 <strong>70% / 20% / 10%</strong> 的目標。必須<strong>增加</strong>幾個<strong>單元</strong>測試？</p>",
+          "answers": [
+            {
+              "text": "120",
+              "fraction": 100,
+              "feedback": "正確——目標單元 = 200 的 70% = 140；目前有 20，故增加 140 &#8722; 20 = 120。"
+            },
+            {
+              "text": "140",
+              "fraction": 0,
+              "feedback": "140 是目標單元數量，但你已有 20，故只需增加 120。"
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "重算：目標 140 減目前 20 是 120，不是 100。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 是目前的單元數量，不是要增加的數量。"
+            }
+          ],
+          "generalFeedback": "目標單元 = 0.70 &#215; 200 = 140。目前 20，故增加 140 &#8722; 20 = 120。（整合已是 40 = 20%；UI 須由 140 降到 20。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "再平衡：需移除的 UI 測試",
+          "text": "<p>一套 <strong>100</strong> 個測試目前為 <strong>40 單元 / 10 整合 / 50 UI</strong>。你想在維持總數 100 的前提下達到 <strong>70% / 20% / 10%</strong> 的目標。必須<strong>移除</strong>幾個 <strong>UI</strong> 測試？</p>",
+          "answers": [
+            {
+              "text": "40",
+              "fraction": 100,
+              "feedback": "正確——目標 UI = 100 的 10% = 10；目前有 50，故移除 50 &#8722; 10 = 40。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 是目標 UI 數量，不是要移除的數量；你須移除 50 &#8722; 10 = 40。"
+            },
+            {
+              "text": "50",
+              "fraction": 0,
+              "feedback": "50 是目前的 UI 數量；你保留 10，故只移除 40。"
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "重算：目前 50 減目標 10 是 40，不是 30。"
+            }
+          ],
+          "generalFeedback": "目標 UI = 0.10 &#215; 100 = 10。目前 50，故移除 50 &#8722; 10 = 40。（單元由 40 升到 70；整合由 10 升到 20。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何不把所有測試都推到單元",
+          "text": "<p>若單元測試最快也最便宜，為何不把<strong>每個</strong>測試都往下推到單元層並捨棄較高層？</p>",
+          "answers": [
+            {
+              "text": "單元測試無法抓到元件如何互動或真實端到端使用者流程中的錯誤；某些信心只能來自較高層",
+              "fraction": 100,
+              "feedback": "正確——介面與整體系統錯誤需要整合與 E2E 測試。"
+            },
+            {
+              "text": "因為單元測試其實是最慢的一層",
+              "fraction": 0,
+              "feedback": "單元測試最快；原因在於覆蓋，而非速度。"
+            },
+            {
+              "text": "因為較高層比單元測試便宜",
+              "fraction": 0,
+              "feedback": "較高層更貴，而非更便宜。"
+            },
+            {
+              "text": "你確實應該捨棄所有較高層",
+              "fraction": 0,
+              "feedback": "捨棄較高層會完全漏掉互動與端到端錯誤。"
+            }
+          ],
+          "generalFeedback": "每一層都抓到其他層抓不到的錯誤：單元測試漏掉介面／互動錯誤與真實使用者流程問題，因此整合與少數 E2E 測試仍屬必要。「往下推」是指使用足夠的最低層級，而非消滅較高層。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "中層薄弱時互動錯誤溜過",
+          "text": "<p>某團隊有快速的單元測試與少數 E2E 測試，但幾乎沒有服務層測試，而兩個服務之間資料交換的錯誤一再流入正式環境。診斷與修復為何？</p>",
+          "answers": [
+            {
+              "text": "中層匱乏的沙漏；增加整合／服務測試以及早抓到互動錯誤",
+              "fraction": 100,
+              "feedback": "正確——缺失的中層讓互動錯誤溜過單元測試，只有時才被少數 E2E 測試抓到。"
+            },
+            {
+              "text": "甜筒；刪除單元測試",
+              "fraction": 0,
+              "feedback": "單元底座沒問題；問題是缺失的整合中層，而且絕不刪除底座。"
+            },
+            {
+              "text": "健康的金字塔；無須改變",
+              "fraction": 0,
+              "feedback": "互動錯誤流入正式環境顯示整合層不足。"
+            },
+            {
+              "text": "單元測試太多；移除一些",
+              "fraction": 0,
+              "feedback": "移除單元測試並不能處理未被涵蓋的服務互動。"
+            }
+          ],
+          "generalFeedback": "快速單元測試加上少數 E2E 測試、但中層匱乏，就是沙漏。服務之間的互動錯誤最好也最快由整合／服務測試抓到，因此要擴大該中層。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "互動錯誤的最低足夠層級",
+          "text": "<p>某缺陷關乎兩個服務如何透過其 API 交換資料。套用「在能提供足夠信心的最低層級測試」，該測試應由哪一層負責？</p>",
+          "answers": [
+            {
+              "text": "整合／服務——它是能操作兩個服務之間互動的最低層級",
+              "fraction": 100,
+              "feedback": "正確——單元測試看不到該互動，而 E2E 測試又超過所需。"
+            },
+            {
+              "text": "單元——它是最快的一層",
+              "fraction": 0,
+              "feedback": "單元測試孤立單一元件，無法操作跨服務的互動，因此無法提供足夠信心。"
+            },
+            {
+              "text": "UI／端到端——最真實的一層",
+              "fraction": 0,
+              "feedback": "E2E 可行，但比所需更慢也更不穩定；最低足夠層級是整合。"
+            },
+            {
+              "text": "無——這類錯誤無法被測試",
+              "fraction": 0,
+              "feedback": "它們正是整合／服務測試的目標。"
+            }
+          ],
+          "generalFeedback": "往下推到仍能提供信心的最低層級。兩個服務之間的互動對單元測試不可見，對 E2E 則過度，因此屬於整合／服務層。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "70/20/10 是嚴格法則",
+          "text": "<p>確切的 70/20/10 分割是一條嚴格規則，每個專案都必須遵守才算擁有有效的金字塔。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "那些具體數字是示意，而非強制法則。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——像 70/20/10 這樣的比例是示意；原則在於形狀（寬底座、薄頂端），而非確切百分比。"
+            }
+          ],
+          "generalFeedback": "具體比例只是傳達形狀的經驗法則。重點是單元測試占多數、整合測試較少、UI／E2E 測試最少——確切數字因專案而異。"
+        }
+      ]
+    }
+  },
   "risk-based-testing": {
     "en": {
       "easy": [
