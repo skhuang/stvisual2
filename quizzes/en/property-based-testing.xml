@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Property-Based Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What property-based testing is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the core idea of <strong>property-based testing (PBT)</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Instead of hand-writing example inputs, you state a property (a predicate expected to hold for all valid inputs) and a framework generates many random inputs trying to falsify it</text><feedback><text>Correct — PBT checks a general property against many auto-generated inputs.</text></feedback></answer>
+    <answer fraction="0"><text>It formally proves that the program meets its complete specification</text><feedback><text>PBT can find counterexamples but does not prove correctness.</text></feedback></answer>
+    <answer fraction="0"><text>It measures how many branches a fixed test suite covers</text><feedback><text>That is coverage measurement; PBT is about generating inputs to check a property.</text></feedback></answer>
+    <answer fraction="0"><text>It runs a single fixed input many times to check for flakiness</text><feedback><text>PBT varies the input across a whole space, not one fixed input repeated.</text></feedback></answer>
+    <generalfeedback><text>In property-based testing you describe a property that should hold for every input, and the framework (QuickCheck, Hypothesis, fast-check, ScalaCheck) generates many random inputs to try to break it. A properties-over-a-space approach complements example tests, which check individual points.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a property is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In PBT, what is a <strong>property</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A predicate about the code's behavior that should hold for every valid input (e.g. "the output list is always sorted")</text><feedback><text>Correct — a property is a rule expected to hold across all inputs.</text></feedback></answer>
+    <answer fraction="0"><text>A single input paired with its exact expected output</text><feedback><text>That describes an example (unit) test case, not a property.</text></feedback></answer>
+    <answer fraction="0"><text>A measurement of the program's running time</text><feedback><text>That is a performance metric, not a correctness property.</text></feedback></answer>
+    <answer fraction="0"><text>The random seed used to reproduce a run</text><feedback><text>A seed concerns reproducibility, not the predicate being checked.</text></feedback></answer>
+    <generalfeedback><text>A property is a universally-quantified statement about the code: it should hold for all inputs the generator can produce. Examples include round-trip, invariant, idempotence, and commutativity properties. The framework searches for an input that violates it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a generator is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a <strong>generator</strong> (also called an <em>arbitrary</em>) in PBT?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A recipe that produces random values of a given type to feed as test inputs</text><feedback><text>Correct — generators supply the random inputs the property is checked against.</text></feedback></answer>
+    <answer fraction="0"><text>The exact expected output computed for each input</text><feedback><text>A generator makes inputs, not expected outputs.</text></feedback></answer>
+    <answer fraction="0"><text>The property predicate that must hold</text><feedback><text>The predicate is the property; the generator produces the inputs it is tested on.</text></feedback></answer>
+    <answer fraction="0"><text>The function under test itself</text><feedback><text>The generator feeds inputs to the function under test; it is not that function.</text></feedback></answer>
+    <generalfeedback><text>A generator (arbitrary) knows how to construct random values of a type — integers, strings, lists, records, trees. The framework draws many values from it and checks the property on each. Generators can be composed and constrained to shape the distribution of inputs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What shrinking is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <strong>shrinking</strong> in property-based testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When a random input falsifies the property, the framework automatically reduces it to a smaller, minimal input that still fails, making the counterexample easier to understand</text><feedback><text>Correct — shrinking searches for a minimal still-failing input.</text></feedback></answer>
+    <answer fraction="0"><text>It deletes tests that pass to make the report shorter</text><feedback><text>Shrinking reduces a failing input, not the set of passing tests.</text></feedback></answer>
+    <answer fraction="0"><text>It compresses the test-output log file on disk</text><feedback><text>Shrinking is about simplifying a counterexample, not compressing files.</text></feedback></answer>
+    <answer fraction="0"><text>It lowers the number of generated inputs to make the run faster</text><feedback><text>That would be reducing the case count; shrinking instead minimizes a discovered failing input.</text></feedback></answer>
+    <generalfeedback><text>A randomly found counterexample is often large and noisy. Shrinking repeatedly tries simpler variants (shorter lists, smaller numbers) and keeps only those that still fail, converging on a minimal failing input. This makes the root cause far easier to see, which is why shrinking speeds debugging.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a counterexample is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a <strong>counterexample</strong> in PBT?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A concrete input for which the property fails, demonstrating a defect</text><feedback><text>Correct — a counterexample is a witnessing input that violates the property.</text></feedback></answer>
+    <answer fraction="0"><text>An input for which the property holds</text><feedback><text>An input that holds is a passing case, not a counterexample.</text></feedback></answer>
+    <answer fraction="0"><text>The expected output value for a chosen input</text><feedback><text>A counterexample is an input that breaks the property, not an expected output.</text></feedback></answer>
+    <answer fraction="0"><text>A hand-written example test that passes</text><feedback><text>A passing example is not a counterexample; a counterexample falsifies the property.</text></feedback></answer>
+    <generalfeedback><text>When the framework finds an input that makes the property false, that input is a counterexample: proof that the code (or the property) is wrong. The framework then shrinks it to a minimal form and reports it, along with the seed for reproduction.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Property test versus example test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does a <strong>property-based test</strong> differ from a traditional <strong>example-based (unit) test</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An example test checks one specific input-output point; a property test checks a rule across a whole space of generated inputs</text><feedback><text>Correct — examples cover points, properties cover a space.</text></feedback></answer>
+    <answer fraction="0"><text>They are identical; both check one fixed input against one expected value</text><feedback><text>A property test generates many inputs and checks a general rule, unlike a single example.</text></feedback></answer>
+    <answer fraction="0"><text>A property test needs the exact expected output for every generated input</text><feedback><text>A property states a rule that avoids needing a per-input expected value.</text></feedback></answer>
+    <answer fraction="0"><text>An example test generates random inputs while a property test uses fixed ones</text><feedback><text>It is the reverse: property tests generate inputs; example tests use fixed ones.</text></feedback></answer>
+    <generalfeedback><text>Example tests pin down specific, important points ("f(2) == 4"). Property tests state a rule ("for all x, f(x) &gt;= 0") and let a generator explore many inputs. The two are complementary: examples are precise regressions, properties give broad coverage.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>QuickCheck and Hypothesis</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What are <strong>QuickCheck</strong>, <strong>Hypothesis</strong>, <strong>fast-check</strong>, and <strong>ScalaCheck</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Property-based testing frameworks (for Haskell, Python, JavaScript/TypeScript, and Scala respectively)</text><feedback><text>Correct — these are PBT libraries for different languages.</text></feedback></answer>
+    <answer fraction="0"><text>Code coverage measurement tools</text><feedback><text>They are PBT frameworks, not coverage tools.</text></feedback></answer>
+    <answer fraction="0"><text>Static type checkers</text><feedback><text>They run tests with generated inputs; they are not type checkers.</text></feedback></answer>
+    <answer fraction="0"><text>Continuous-integration build systems</text><feedback><text>They are testing libraries, not CI/build systems.</text></feedback></answer>
+    <generalfeedback><text>QuickCheck (Haskell) pioneered the approach; Hypothesis (Python), fast-check (JS/TS), and ScalaCheck (Scala) bring the same idea to other languages: declare properties and generators, and the tool generates inputs and shrinks failures.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Valid property for list reverse</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which is a valid property of a correct list <strong>reverse</strong> function?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>reverse(reverse(xs)) == xs for all lists xs</text><feedback><text>Correct — reversing twice returns the original list (reverse is its own inverse).</text></feedback></answer>
+    <answer fraction="0"><text>reverse(xs) == xs for all lists xs</text><feedback><text>That holds only for palindromic lists, not all lists.</text></feedback></answer>
+    <answer fraction="0"><text>reverse(xs) has a different length from xs</text><feedback><text>Reversing preserves the length; it only changes the order.</text></feedback></answer>
+    <answer fraction="0"><text>reverse(xs) doubles the list</text><feedback><text>Reverse rearranges the same elements; it does not add any.</text></feedback></answer>
+    <generalfeedback><text>Reverse is an involution: applying it twice yields the original list, so reverse(reverse(xs)) == xs is a valid round-trip property. Note reverse(xs) == xs is false in general (only palindromes satisfy it), which makes it a good distractor.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of idempotence</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A function <code>f</code> is <strong>idempotent</strong> when which property holds for all x?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>f(f(x)) == f(x)</text><feedback><text>Correct — applying an idempotent function again changes nothing after the first application.</text></feedback></answer>
+    <answer fraction="0"><text>f(x) == x</text><feedback><text>That is the identity function, a stricter and different condition.</text></feedback></answer>
+    <answer fraction="0"><text>f(a, b) == f(b, a)</text><feedback><text>That is commutativity, not idempotence.</text></feedback></answer>
+    <answer fraction="0"><text>f(f(x)) == x</text><feedback><text>That is involution (self-inverse), such as reverse or negate, not idempotence.</text></feedback></answer>
+    <generalfeedback><text>Idempotence means f(f(x)) == f(x): once applied, applying again has no further effect. Examples include sort, abs, and normalize. It differs from the identity (f(x) == x) and from involution (f(f(x)) == x, e.g. reverse).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Definition of a round-trip property</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>round-trip (inverse)</strong> property for an <code>encode</code>/<code>decode</code> pair states which of the following?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>decode(encode(x)) == x for all x</text><feedback><text>Correct — encoding then decoding must return the original value.</text></feedback></answer>
+    <answer fraction="0"><text>encode(x) == decode(x) for all x</text><feedback><text>Encode and decode are inverses, not equal functions.</text></feedback></answer>
+    <answer fraction="0"><text>encode(x) == x for all x</text><feedback><text>Encoding transforms the value; it does not leave it unchanged.</text></feedback></answer>
+    <answer fraction="0"><text>decode(x) == x for all x</text><feedback><text>Decoding is the inverse of encoding, not the identity.</text></feedback></answer>
+    <generalfeedback><text>A round-trip property says that decoding undoes encoding: decode(encode(x)) == x for every value x. This is a very common and powerful property for serializers, codecs, and parser/printer pairs, because it needs no per-input expected value.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Seed and reproducibility</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why do PBT frameworks report a random <strong>seed</strong> with a failure?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Recording the seed lets you re-run the exact same generated inputs to reproduce the failure deterministically</text><feedback><text>Correct — the seed makes a random run reproducible.</text></feedback></answer>
+    <answer fraction="0"><text>The seed is the expected output of the failing test</text><feedback><text>The seed drives the random generator; it is not an expected output.</text></feedback></answer>
+    <answer fraction="0"><text>The seed measures how much code the test covered</text><feedback><text>Coverage is separate; the seed only controls input generation.</text></feedback></answer>
+    <answer fraction="0"><text>The seed proves the property holds for all inputs</text><feedback><text>A seed reproduces one run; it proves nothing about all inputs.</text></feedback></answer>
+    <generalfeedback><text>Random generation would be hard to debug if every run differed. Frameworks seed their random source and report the seed on failure, so you can replay the identical sequence of inputs and reproduce (and then fix) the bug reliably.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>A passing run does not prove correctness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If a property-based test runs thousands of random inputs and finds no counterexample, the property is thereby proven to hold for all possible inputs.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>No — a passing run only means no counterexample was found among the generated inputs, not that none exists.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — PBT samples finitely many inputs; a clean run raises confidence but does not prove the property.</text></feedback></answer>
+    <generalfeedback><text>Like testing in general, PBT can show the presence of faults (a counterexample) but not their absence. The input space is usually unbounded, and only finitely many inputs are tried, so a passing run is strong evidence, not a proof.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Shrinking only reports still-failing inputs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When shrinking a failing input, the framework only reports a reduced input that still causes the property to fail.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a shrink candidate is kept only if it still triggers the failure.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Shrinking preserves the failure: it never reports a reduced input that passes.</text></feedback></answer>
+    <generalfeedback><text>Shrinking explores simpler variants of the failing input but discards any candidate that no longer fails. The final reported counterexample is a minimal input that still violates the property, so it does not change the pass/fail verdict.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Valid property for absolute value</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which is a valid property of a correct <code>abs</code> (absolute value) function over the reals?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>abs(x) &gt;= 0 for all x</text><feedback><text>Correct — an absolute value is never negative.</text></feedback></answer>
+    <answer fraction="0"><text>abs(x) &gt; 0 for all x</text><feedback><text>Fails at x = 0, where abs(0) = 0, which is not greater than 0.</text></feedback></answer>
+    <answer fraction="0"><text>abs(x) == x for all x</text><feedback><text>Holds only for non-negative x; fails for negative x.</text></feedback></answer>
+    <answer fraction="0"><text>abs(x) == -x for all x</text><feedback><text>Holds only for non-positive x; fails for positive x.</text></feedback></answer>
+    <generalfeedback><text>abs(x) &gt;= 0 holds for every real x, so it is a valid property. Note abs(x) &gt; 0 is subtly wrong because of x = 0, and both abs(x) == x and abs(x) == -x are true only on half the domain. A stronger property is abs(-x) == abs(x).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Valid property for map</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>map(f, xs)</code> (apply <code>f</code> to each element of a list), which is a valid property?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>len(map(f, xs)) == len(xs) for all lists xs</text><feedback><text>Correct — mapping preserves length; it transforms elements one-for-one.</text></feedback></answer>
+    <answer fraction="0"><text>len(map(f, xs)) == 0 for all lists xs</text><feedback><text>Mapping keeps every element, so the length is unchanged, not zero.</text></feedback></answer>
+    <answer fraction="0"><text>len(map(f, xs)) == 2 * len(xs) for all lists xs</text><feedback><text>Mapping is one-to-one; it does not double the length.</text></feedback></answer>
+    <answer fraction="0"><text>map reverses the order of the elements</text><feedback><text>Map preserves order; each element is transformed in place.</text></feedback></answer>
+    <generalfeedback><text>map applies f to each element without adding, dropping, or reordering elements, so len(map(f, xs)) == len(xs) is a valid length-preservation invariant — a simple structural property that holds regardless of f.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Property-Based Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Best property for a serializer/parser</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You are testing a <code>serialize</code> function and its matching <code>parse</code> function. Which is the best single property to check?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>parse(serialize(x)) == x for all values x (round-trip)</text><feedback><text>Correct — serializing then parsing must recover the original value.</text></feedback></answer>
+    <answer fraction="0"><text>serialize(x) is a non-empty string for all x</text><feedback><text>True but far too weak — it says nothing about recovering x.</text></feedback></answer>
+    <answer fraction="0"><text>parse(serialize(x)) does not throw an exception</text><feedback><text>Not crashing is weak; it allows a wrong parsed value to pass.</text></feedback></answer>
+    <answer fraction="0"><text>serialize(x) == serialize(x)</text><feedback><text>That is trivially true and tests nothing.</text></feedback></answer>
+    <generalfeedback><text>The round-trip property parse(serialize(x)) == x pins down the essential contract: the pair is a faithful inverse. The distractors are either tautologies or so weak that a broken implementation could still satisfy them.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Complete property for sort</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which property <em>fully</em> captures correctness of a <strong>sort</strong> function?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The output is in non-decreasing order AND is a permutation (same multiset of elements) of the input</text><feedback><text>Correct — ordering plus the permutation condition together specify a correct sort.</text></feedback></answer>
+    <answer fraction="0"><text>The output is in non-decreasing order</text><feedback><text>Insufficient alone — returning [] is ordered but wrong; you also need the permutation condition.</text></feedback></answer>
+    <answer fraction="0"><text>The output has the same length as the input</text><feedback><text>Necessary but far from sufficient; wrong elements of the right length would pass.</text></feedback></answer>
+    <answer fraction="0"><text>The output's sum equals the input's sum</text><feedback><text>Necessary but insufficient — e.g. input [1,3] and output [2,2] share a sum yet [2,2] is not a permutation.</text></feedback></answer>
+    <generalfeedback><text>A correct sort must be ordered and must contain exactly the same elements (as a multiset) as the input. Checking only ordering, only length, or only the sum each admits wrong implementations. The permutation (multiset-equality) condition is the indispensable second half.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why "sorted" alone is insufficient</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is "the output is sorted" <strong>insufficient</strong> as the only property for a sort function?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A broken implementation that returns [] (or drops/duplicates elements) still produces sorted output and passes; you must also require the output to be a permutation of the input</text><feedback><text>Correct — "return []" trivially satisfies "is sorted", so the permutation condition is essential.</text></feedback></answer>
+    <answer fraction="0"><text>Because a correct sort is not always ordered</text><feedback><text>A correct sort is always ordered; ordering is necessary, just not sufficient.</text></feedback></answer>
+    <answer fraction="0"><text>Because checking order is computationally impossible</text><feedback><text>Checking order is trivial; the issue is that order alone permits wrong outputs.</text></feedback></answer>
+    <answer fraction="0"><text>Because sorting has no checkable properties</text><feedback><text>Sorting has strong properties; ordered plus permutation together specify it.</text></feedback></answer>
+    <generalfeedback><text>The empty list is sorted, so a function that always returns [] passes an "is sorted" check while being completely wrong. So do functions that drop or duplicate elements. Adding the permutation (multiset) requirement rules these out — a classic lesson in choosing a sufficient property.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Property for a normalize function</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A function <code>normalize</code> converts a string to a canonical form (e.g. Unicode NFC, trim, lowercase). Which property should hold?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>normalize(normalize(s)) == normalize(s) for all s (idempotence)</text><feedback><text>Correct — normalizing an already-normalized string changes nothing.</text></feedback></answer>
+    <answer fraction="0"><text>normalize(s) == s for all s</text><feedback><text>False — normalizing a non-canonical string changes it.</text></feedback></answer>
+    <answer fraction="0"><text>normalize(normalize(s)) == s for all s</text><feedback><text>That is involution, which does not hold: the first normalize may already have altered s.</text></feedback></answer>
+    <answer fraction="0"><text>len(normalize(s)) == len(s) for all s</text><feedback><text>Trimming or Unicode composition can change the length, so this is false.</text></feedback></answer>
+    <generalfeedback><text>Canonicalization is idempotent: once a string is in canonical form, normalizing again leaves it unchanged, so normalize(normalize(s)) == normalize(s). It is not the identity (it can change s) and not an involution (it cannot recover the original from the canonical form).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What shrinking reports for a failing list</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A property fails on the randomly generated list <code>[7, -3, 0, 12, 5, -8, 4]</code>. What will a shrinking-capable framework typically report?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A minimized input that still fails — for instance the shortest/simplest list (perhaps a single element or [ ]) that reproduces the failure</text><feedback><text>Correct — shrinking converges on a minimal still-failing input.</text></feedback></answer>
+    <answer fraction="0"><text>The original seven-element list, unchanged</text><feedback><text>Shrinking works to reduce the input rather than report it as-is.</text></feedback></answer>
+    <answer fraction="0"><text>An input that now passes the property</text><feedback><text>Shrinking never reports a passing input; the reduced input must still fail.</text></feedback></answer>
+    <answer fraction="0"><text>A completely different random list unrelated to the failure</text><feedback><text>Shrinking simplifies the failing input; it does not switch to an unrelated one.</text></feedback></answer>
+    <generalfeedback><text>Shrinking repeatedly tries simpler versions (drop elements, reduce magnitudes) and keeps only those that still fail, ending at a minimal counterexample. This isolates the essential trigger and makes debugging far quicker than staring at the original noisy input.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Reproducing a CI failure via seed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A CI run reports a property failure together with a <strong>seed</strong>. To debug it locally, what should a developer do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Re-run the test with the same seed to regenerate the identical inputs and reproduce the failure</text><feedback><text>Correct — replaying the seed reproduces the exact failing run.</text></feedback></answer>
+    <answer fraction="0"><text>Increase the number of generated cases and hope it recurs</text><feedback><text>Unreliable — the seed already lets you reproduce it exactly, without guessing.</text></feedback></answer>
+    <answer fraction="0"><text>Disable shrinking so the test stops failing</text><feedback><text>Disabling shrinking hides the minimal counterexample; it does not fix or reproduce anything.</text></feedback></answer>
+    <answer fraction="0"><text>Change the property until the test passes</text><feedback><text>That masks the bug rather than diagnosing it.</text></feedback></answer>
+    <generalfeedback><text>The seed captures the exact random choices of a run. Re-running with it deterministically regenerates the same (already shrunk) inputs, so the developer sees the identical failure locally and can step through it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which function is idempotent</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For which function <code>f</code> is the property <code>f(f(x)) == f(x)</code> valid for all x?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Taking the absolute value: abs</text><feedback><text>Correct — abs(abs(x)) == abs(x), so abs is idempotent.</text></feedback></answer>
+    <answer fraction="0"><text>Incrementing by one: inc(x) = x + 1</text><feedback><text>Not idempotent — inc(inc(x)) = x + 2, which differs from inc(x) = x + 1.</text></feedback></answer>
+    <answer fraction="0"><text>Reversing a list: reverse</text><feedback><text>Reverse is an involution (reverse(reverse(x)) == x), not idempotent.</text></feedback></answer>
+    <answer fraction="0"><text>Negating a number: neg(x) = -x</text><feedback><text>Negation is an involution (neg(neg(x)) == x), not idempotent.</text></feedback></answer>
+    <generalfeedback><text>abs is idempotent because once a value is non-negative, taking abs again does nothing. Increment fails (adds 2 vs 1), and reverse/negate are involutions (applying twice returns the original), which is a different property.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A commutativity property</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which operation satisfies a valid <strong>commutativity</strong> property <code>f(a, b) == f(b, a)</code> for all inputs?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Multiplication: a * b == b * a</text><feedback><text>Correct — multiplication is commutative.</text></feedback></answer>
+    <answer fraction="0"><text>Subtraction: a - b == b - a</text><feedback><text>False in general — e.g. 5 - 3 = 2 but 3 - 5 = -2.</text></feedback></answer>
+    <answer fraction="0"><text>Division: a / b == b / a</text><feedback><text>False in general — e.g. 6 / 2 = 3 but 2 / 6 ≈ 0.33.</text></feedback></answer>
+    <answer fraction="0"><text>Exponentiation: a ** b == b ** a</text><feedback><text>False in general — e.g. 2 ** 3 = 8 but 3 ** 2 = 9.</text></feedback></answer>
+    <generalfeedback><text>Commutativity, f(a, b) == f(b, a), holds for addition and multiplication but not for subtraction, division, or exponentiation. Choosing a commutativity property for a non-commutative operation would flag correct code.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Round-trip property for a base64 codec</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a base64 codec, which round-trip property is the correct one to check?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>decode(encode(bytes)) == bytes, generating random byte sequences</text><feedback><text>Correct — encoding arbitrary bytes then decoding must recover them exactly.</text></feedback></answer>
+    <answer fraction="0"><text>encode(decode(s)) == s, generating random strings s</text><feedback><text>Unsound — a random string need not be valid/canonical base64, so this can fail on correct code.</text></feedback></answer>
+    <answer fraction="0"><text>encode(bytes) == bytes for all byte sequences</text><feedback><text>Encoding transforms bytes into text; it does not return the input unchanged.</text></feedback></answer>
+    <answer fraction="0"><text>decode(encode(bytes)) is shorter than bytes</text><feedback><text>The round trip returns the original bytes, so it is the same length, not shorter.</text></feedback></answer>
+    <generalfeedback><text>Generate the raw values (bytes), encode, then decode: decode(encode(bytes)) == bytes is sound because every byte sequence is encodable. The reverse direction over random strings is a classic trap: not every string is a valid base64 encoding, so encode(decode(s)) == s can legitimately fail.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Using a reference implementation as an oracle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You have a fast but complex implementation <code>fast_fn</code> and a slow but obviously-correct reference <code>ref_fn</code> of the same specification. How can PBT use the reference?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Generate random inputs and assert fast_fn(x) == ref_fn(x) — the reference acts as the test oracle</text><feedback><text>Correct — comparing against a trusted reference gives an oracle for free.</text></feedback></answer>
+    <answer fraction="0"><text>Assert fast_fn(x) == fast_fn(x) for random x</text><feedback><text>That is trivially true and tests nothing.</text></feedback></answer>
+    <answer fraction="0"><text>Replace fast_fn with ref_fn in production</text><feedback><text>The reference is a testing oracle, not a production replacement (it is slow).</text></feedback></answer>
+    <answer fraction="0"><text>Only test inputs where the two already agree</text><feedback><text>That defeats the purpose — you want to find inputs where they disagree.</text></feedback></answer>
+    <generalfeedback><text>A simpler reference implementation is an excellent oracle: for each generated input, the optimized version must match it. This is "test oracle from a simpler model" and is the basis of differential/model-based testing. Any disagreement is a counterexample that shrinking then minimizes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Checking the permutation condition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To check that a sort output is a <strong>permutation</strong> of the input, which check is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The output and input have equal element multisets (each value occurs the same number of times in both)</text><feedback><text>Correct — multiset equality captures the permutation condition.</text></feedback></answer>
+    <answer fraction="0"><text>The output and input have the same length</text><feedback><text>Same length is necessary but not sufficient; the elements could differ.</text></feedback></answer>
+    <answer fraction="0"><text>The output and input have the same first element</text><feedback><text>The first elements can differ (the smallest need not be first in the input), and this ignores the rest.</text></feedback></answer>
+    <answer fraction="0"><text>The output and input have the same sum</text><feedback><text>Equal sums do not imply equal multisets — [1,3] and [2,2] share a sum but differ.</text></feedback></answer>
+    <generalfeedback><text>A permutation preserves the multiset of elements: comparing element counts (or comparing sorted-by-a-trusted-method versions) verifies it. Length or sum equality are weaker consequences that many wrong outputs also satisfy.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why inspect the generator's distribution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why do PBT frameworks let you inspect the <strong>distribution</strong> of generated inputs (e.g. Hypothesis statistics, QuickCheck's <code>collect</code>/<code>classify</code>)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>To confirm the generator actually produces the interesting and edge cases; a skewed generator may never exercise the inputs that trigger a bug</text><feedback><text>Correct — distribution insight guards against a generator that misses important cases.</text></feedback></answer>
+    <answer fraction="0"><text>To measure statement and branch coverage of the code</text><feedback><text>That is code coverage, a separate concern from input distribution.</text></feedback></answer>
+    <answer fraction="0"><text>To make shrinking run faster</text><feedback><text>Distribution reporting informs generation quality, not shrinking speed.</text></feedback></answer>
+    <answer fraction="0"><text>To prove the property holds on all inputs</text><feedback><text>No sampling proves a universal property; distribution stats only describe what was generated.</text></feedback></answer>
+    <generalfeedback><text>If a generator rarely (or never) produces empty lists, boundary numbers, or duplicates, a property can pass while the bug-triggering inputs are never tried. Distribution reporting lets you verify — and tune — that the important regions of the input space are actually being sampled.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>"Ordered" alone fully verifies sorting</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Checking only that a sort function's output is in non-decreasing order is a complete property that fully verifies sorting.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>No — a function returning [] is ordered but wrong; you also need the permutation (multiset) condition.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — ordering alone is satisfied by wrong implementations; the output must also be a permutation of the input.</text></feedback></answer>
+    <generalfeedback><text>"Is sorted" is necessary but not sufficient. Returning an empty list, or dropping/duplicating elements, yields ordered output yet is incorrect. A complete sort property pairs ordering with multiset equality between input and output.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Invariant property for removing duplicates</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a function <code>dedup(xs)</code> that removes duplicate values from a list, which is a valid invariant property?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>dedup(xs) contains no repeated value, and its set of elements equals the set of elements of xs</text><feedback><text>Correct — deduplication removes repeats while preserving exactly which values are present.</text></feedback></answer>
+    <answer fraction="0"><text>len(dedup(xs)) == len(xs) for all xs</text><feedback><text>False when xs has duplicates; the length must drop in that case.</text></feedback></answer>
+    <answer fraction="0"><text>dedup(xs) == xs for all xs</text><feedback><text>Holds only when xs already has no duplicates, not for all lists.</text></feedback></answer>
+    <answer fraction="0"><text>dedup preserves the count of each value</text><feedback><text>Deduplication collapses repeats to one occurrence, so per-value counts are not preserved.</text></feedback></answer>
+    <generalfeedback><text>A correct dedup output has no repeats and covers exactly the same distinct values as the input — i.e. equal element sets, plus a "no duplicates" invariant. Length is preserved only when there were no duplicates, and per-value counts are deliberately not preserved.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Sorting is idempotent</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which property expresses that <strong>sorting is idempotent</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>sort(sort(xs)) == sort(xs) for all lists xs</text><feedback><text>Correct — sorting an already-sorted list leaves it unchanged.</text></feedback></answer>
+    <answer fraction="0"><text>sort(sort(xs)) == xs for all lists xs</text><feedback><text>False in general — the inner sort reorders xs, so you do not recover the original.</text></feedback></answer>
+    <answer fraction="0"><text>sort(xs) == xs for all lists xs</text><feedback><text>True only when xs is already sorted, not for all lists.</text></feedback></answer>
+    <answer fraction="0"><text>sort(xs) reverses an already-sorted list</text><feedback><text>Sorting never reverses a sorted list; it leaves it in order.</text></feedback></answer>
+    <generalfeedback><text>Idempotence for sort means applying it again has no effect: sort(sort(xs)) == sort(xs). Note this alone is a weak property (many wrong functions are idempotent); it complements, but does not replace, ordering plus permutation.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Property-Based Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Critique a reversed round-trip property</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A tester proposes <code>encode(decode(s)) == s</code> as the round-trip property for a codec, generating random <em>strings</em> <code>s</code>. Why can this raise false failures on correct code?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Not every random string is a valid/canonical encoding, so decode may reject or canonicalize it and encode(decode(s)) need not equal s; the sound property is decode(encode(x)) == x over generated decoded values x</text><feedback><text>Correct — the generated strings need not lie in the range of encode, so the direction is unsound.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing is wrong; it always holds for a correct codec</text><feedback><text>It fails whenever s is not a canonical encoding, even for correct codecs.</text></feedback></answer>
+    <answer fraction="0"><text>Codecs cannot be tested with PBT at all</text><feedback><text>They can — the sound direction decode(encode(x)) == x is a strong property.</text></feedback></answer>
+    <answer fraction="0"><text>The random seed is chosen incorrectly</text><feedback><text>The issue is the property's direction, not the seed.</text></feedback></answer>
+    <generalfeedback><text>encode(decode(s)) == s only holds when s is already a canonical output of encode. Random strings often are not (non-canonical padding, extra whitespace), so a correct codec can violate it. Generate the source values and check decode(encode(x)) == x instead — encode's range is exactly what decode must invert.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A proposed property that is actually false</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A tester writes the property <code>inc(inc(n)) == inc(n)</code> for an increment function <code>inc(n) = n + 1</code>. What happens?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The property is false for a correct inc (inc(inc(n)) = n + 2 ≠ n + 1), so PBT quickly finds a counterexample — but it signals a wrong property, not a bug in inc</text><feedback><text>Correct — the property mistakenly assumes idempotence; the failure is the property's fault.</text></feedback></answer>
+    <answer fraction="0"><text>It correctly verifies that inc works</text><feedback><text>It does not — a correct inc violates this false property.</text></feedback></answer>
+    <answer fraction="0"><text>It proves inc is idempotent</text><feedback><text>inc is not idempotent; the property is simply wrong.</text></feedback></answer>
+    <answer fraction="0"><text>It passes for all n</text><feedback><text>It fails for every n, since n + 2 is never n + 1.</text></feedback></answer>
+    <generalfeedback><text>Increment is not idempotent: applying it twice adds 2. Writing an idempotence property for it asserts something false, so the framework reports a counterexample. The lesson: a failing PBT run can mean the property is wrong, so validate that each asserted property genuinely holds for a correct implementation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Stateful (model-based) PBT</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What characterizes <strong>stateful (model-based)</strong> property-based testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The framework generates random sequences of commands, runs them against both the real system and a simplified model, and asserts the observable results agree after each step; failing sequences are then shrunk</text><feedback><text>Correct — model-based PBT compares a system against a reference model over command sequences.</text></feedback></answer>
+    <answer fraction="0"><text>It tests a single pure function on random inputs with no state</text><feedback><text>That is ordinary (stateless) PBT; model-based PBT drives stateful systems.</text></feedback></answer>
+    <answer fraction="0"><text>It measures how many states the program reaches</text><feedback><text>That is a coverage notion, not model-based checking of behavior.</text></feedback></answer>
+    <answer fraction="0"><text>It replaces the real database with random data and does nothing else</text><feedback><text>Randomizing data is not the point; comparing the system to a model over command sequences is.</text></feedback></answer>
+    <generalfeedback><text>Model-based PBT generates a random program (a sequence of operations), executes it against the real system and against a simple correct-by-inspection model, and checks that observations match at every step. When a sequence disagrees, shrinking reduces it to a minimal failing command sequence — the essence of the bug.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Value of shrinking a large structured input</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A property fails on a randomly generated 500-node tree with particular values. Why is <strong>shrinking</strong> especially valuable here?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It reduces the huge failing input to a minimal still-failing structure (e.g. a two- or three-node tree), isolating the essential trigger and greatly speeding debugging — without changing the fail verdict</text><feedback><text>Correct — shrinking distills a large counterexample down to its core.</text></feedback></answer>
+    <answer fraction="0"><text>It proves the property holds on all smaller trees</text><feedback><text>Shrinking finds a minimal failing case; it proves nothing about passing cases.</text></feedback></answer>
+    <answer fraction="0"><text>It makes the original 500-node tree pass</text><feedback><text>Shrinking does not alter verdicts; the input still fails.</text></feedback></answer>
+    <answer fraction="0"><text>It converts the tree into a list to simplify the type</text><feedback><text>Shrinking preserves the input's type/structure; it reduces size, not the type.</text></feedback></answer>
+    <generalfeedback><text>A 500-node counterexample is nearly impossible to reason about. Shrinking prunes nodes and reduces values while keeping the failure, often arriving at a tiny structure that exposes the exact condition. This is where shrinking pays off most, and it never changes whether the input fails.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Generator distribution pitfall</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A generator for testing a "parse a non-negative integer" function only ever produces 3-to-5-digit numeric strings. What is the risk?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It may never generate boundary and edge inputs (empty string, leading zeros, non-numeric characters, very large values), so bugs on those go undetected and a passing run gives false confidence</text><feedback><text>Correct — a narrow generator leaves whole regions of the input space untested.</text></feedback></answer>
+    <answer fraction="0"><text>Shrinking will stop working entirely</text><feedback><text>Shrinking still works within the generated range; the problem is the range is too narrow.</text></feedback></answer>
+    <answer fraction="0"><text>The recorded seed becomes invalid</text><feedback><text>The seed remains valid; the concern is coverage of the input space.</text></feedback></answer>
+    <answer fraction="0"><text>The property automatically becomes false</text><feedback><text>The property is unchanged; it is just under-exercised.</text></feedback></answer>
+    <generalfeedback><text>The bugs in a parser usually hide at the edges — empty input, leading zeros, non-digits, overflow-sized numbers. A generator that only emits typical mid-range values never reaches them, so the property passes vacuously on the hard cases. Inspecting and broadening the generator's distribution is essential.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Combining complementary properties</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You check two individually-valid properties for one function. What is true about testing both together?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Checking complementary properties strengthens the test — each rules out a different class of wrong implementations (e.g. "ordered" + "permutation" together pin down sort) — but even together they may not fully specify correctness</text><feedback><text>Correct — combining properties is stronger, yet not necessarily a complete specification.</text></feedback></answer>
+    <answer fraction="0"><text>Combining two valid properties proves the function correct</text><feedback><text>No finite set of checks on sampled inputs proves correctness.</text></feedback></answer>
+    <answer fraction="0"><text>You may only ever check one property per function</text><feedback><text>Multiple properties are encouraged and commonly used together.</text></feedback></answer>
+    <answer fraction="0"><text>Combining two valid properties can make one of them false</text><feedback><text>Valid properties remain valid; checking them together does not invalidate either.</text></feedback></answer>
+    <generalfeedback><text>Different properties catch different bug classes: "output is ordered" plus "output is a permutation of the input" together characterize a correct sort far better than either alone. Still, properties capture only the relations you thought of, and sampling is finite, so combining them raises confidence without proving correctness.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PBT complements example tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How do property-based tests relate to hand-written example (unit) tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They are complementary: properties cover a broad input space, while example tests pin down specific important cases, regressions, and known edge points — good suites use both</text><feedback><text>Correct — properties and examples reinforce each other.</text></feedback></answer>
+    <answer fraction="0"><text>Property tests make example tests obsolete</text><feedback><text>Examples still document and lock down specific known cases and regressions.</text></feedback></answer>
+    <answer fraction="0"><text>Example tests make property tests obsolete</text><feedback><text>Examples cover points; only properties explore a whole space of inputs.</text></feedback></answer>
+    <answer fraction="0"><text>They test disjoint kinds of code and never overlap</text><feedback><text>They often test the same code from different angles; they are complementary, not disjoint.</text></feedback></answer>
+    <generalfeedback><text>Example tests are precise, readable anchors for specific behaviors, boundary values, and past regressions. Property tests explore the space and surface surprises you did not think to write examples for. The strongest suites combine both rather than choosing one.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Shrinking must preserve the failure</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During shrinking, a candidate reduced input <em>no longer</em> fails the property. What does the framework do?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It discards that candidate and keeps shrinking from inputs that still fail; only an input that still triggers the failure is reported</text><feedback><text>Correct — shrinking keeps only still-failing candidates.</text></feedback></answer>
+    <answer fraction="0"><text>It reports the passing reduced input as the counterexample</text><feedback><text>A passing input is not a counterexample and is never reported as one.</text></feedback></answer>
+    <answer fraction="0"><text>It stops and declares the whole test passed</text><feedback><text>One passing shrink candidate does not clear the original failure.</text></feedback></answer>
+    <answer fraction="0"><text>It modifies the property so the candidate fails</text><feedback><text>Shrinking never changes the property; it only reduces the input.</text></feedback></answer>
+    <generalfeedback><text>Shrinking is a search constrained to still-failing inputs: any candidate that passes is rejected, and the search continues from ones that fail. The final reported counterexample therefore still violates the property, so the pass/fail verdict is unchanged — shrinking only makes the witness smaller.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Soundness condition for a round-trip property</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under what condition is <code>decode(encode(x)) == x</code> a <strong>sound</strong> property (holding for every generated x)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When encode is injective and decode is a left inverse of encode on encode's range — i.e. decode undoes encode for every value x that can be generated</text><feedback><text>Correct — this is exactly what makes the round trip recover x.</text></feedback></answer>
+    <answer fraction="0"><text>Always, for any encode and decode functions</text><feedback><text>If encode loses information (not injective), decoding cannot recover x.</text></feedback></answer>
+    <answer fraction="0"><text>Only when encode and decode are the same function</text><feedback><text>They are inverses, generally different functions, not equal.</text></feedback></answer>
+    <answer fraction="0"><text>Only when x is a string</text><feedback><text>The type of x is irrelevant; the inverse relationship is what matters.</text></feedback></answer>
+    <generalfeedback><text>decode(encode(x)) == x requires encode to be injective (lossless) and decode to invert it on encode's outputs. If encode maps two distinct values to the same encoding, no decoder can recover both, so the property is unsound. Stating this condition is what keeps the round-trip property valid.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Choosing a model for a key-value store</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In model-based testing of a key-value store, what makes a good <strong>model</strong> to compare against?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A simple in-memory dictionary whose behavior is obviously correct; after each generated command (put/get/delete) the store's observable result must match the dictionary's</text><feedback><text>Correct — a trivially-correct reference model is the ideal oracle.</text></feedback></answer>
+    <answer fraction="0"><text>A second copy of the same store implementation</text><feedback><text>A copy shares the same bugs, so agreement proves nothing.</text></feedback></answer>
+    <answer fraction="0"><text>A random oracle that returns arbitrary values</text><feedback><text>A random oracle has no defined correct behavior to compare against.</text></feedback></answer>
+    <answer fraction="0"><text>The store's own performance counters</text><feedback><text>Performance counters are not a functional model of correctness.</text></feedback></answer>
+    <generalfeedback><text>The model should be a minimal, obviously-correct abstraction (here, a plain dictionary). The point of model-based testing is to compare the complex real system against something simple enough to trust. Using a second copy of the real implementation would just duplicate its faults.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why idempotence alone is a weak sort property</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Someone tests a sort function using only <code>sort(sort(xs)) == sort(xs)</code> (idempotence). Why is this weak?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Many wrong functions are idempotent — e.g. one that always returns [], or the identity that returns xs unchanged — so idempotence does not require ordering or preservation of the input's elements</text><feedback><text>Correct — idempotence is satisfied by clearly incorrect sorts.</text></feedback></answer>
+    <answer fraction="0"><text>Idempotence is false for a correct sort</text><feedback><text>It is true for a correct sort; it is just insufficient on its own.</text></feedback></answer>
+    <answer fraction="0"><text>It fully verifies the sort by itself</text><feedback><text>It does not — wrong functions also pass it.</text></feedback></answer>
+    <answer fraction="0"><text>It only fails on empty lists</text><feedback><text>It passes on empty lists too; the weakness is that wrong functions satisfy it.</text></feedback></answer>
+    <generalfeedback><text>Both "always return []" and "return the input unchanged" satisfy sort(sort(xs)) == sort(xs), yet neither sorts. Idempotence is a genuine property of sort but a weak one; it must be combined with ordering and the permutation (multiset) condition to characterize correctness.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A weak generator range hides overflow</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A property about a 32-bit integer adder passes, but the generator only produces operands in <code>[0, 100]</code>. What is the best conclusion?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The pass is weak evidence — overflow and boundary behavior near 2^31 were never generated, so the property was not exercised on the inputs most likely to fail</text><feedback><text>Correct — the risky inputs were never sampled, so confidence is limited.</text></feedback></answer>
+    <answer fraction="0"><text>The adder is proven correct for all 32-bit inputs</text><feedback><text>Only tiny operands were tried; nothing is proven for large ones.</text></feedback></answer>
+    <answer fraction="0"><text>Property-based testing is unsound</text><feedback><text>PBT is fine; the generator's range was simply too narrow.</text></feedback></answer>
+    <answer fraction="0"><text>The property must be false</text><feedback><text>The property may be correct; it was just under-tested.</text></feedback></answer>
+    <generalfeedback><text>Overflow bugs live near the type's extremes. A generator confined to [0, 100] cannot reach values near 2^31, so a clean run says nothing about the dangerous region. Widen the generator to include boundary and large values (and inspect its distribution) before trusting the result.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Critique a false universal property</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A tester proposes <code>reverse(xs) != xs</code> for all lists (claiming reverse always changes the list). Why is this a bad property?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is false: palindromic lists, and the empty or single-element list, satisfy reverse(xs) == xs, so a correct reverse violates the proposed property — the property, not the code, is wrong</text><feedback><text>Correct — many lists are unchanged by reversal, so the "always changes" claim is false.</text></feedback></answer>
+    <answer fraction="0"><text>It is correct and useful as written</text><feedback><text>It fails for palindromes and short lists, so it is not correct.</text></feedback></answer>
+    <answer fraction="0"><text>It only fails for very long lists</text><feedback><text>It fails for the shortest lists (empty, single element) and any palindrome.</text></feedback></answer>
+    <answer fraction="0"><text>reverse is not a pure function, so no property applies</text><feedback><text>reverse is pure; the issue is that the asserted property is simply false.</text></feedback></answer>
+    <generalfeedback><text>The empty list, any single-element list, and every palindrome are unchanged by reversal, so reverse(xs) != xs does not hold universally. PBT would report one of these as a counterexample, exposing a flawed property rather than a defect. Always confirm a proposed property is genuinely necessary before trusting its failures.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What clean shrinking and a passing run establish</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After thousands of cases and clean shrinking on any failures encountered during development, all properties now pass. What can you conclude?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No counterexample was found among the generated inputs; this raises confidence but does not prove the properties hold for all inputs, since the input space is usually unbounded</text><feedback><text>Correct — a clean run is strong evidence, not a proof.</text></feedback></answer>
+    <answer fraction="0"><text>The program is now proven correct</text><feedback><text>Sampling finitely many inputs cannot prove a universal property.</text></feedback></answer>
+    <answer fraction="0"><text>Every possible input has been tested</text><feedback><text>Only a finite random sample was tested, not the whole space.</text></feedback></answer>
+    <answer fraction="0"><text>The properties are now mathematical theorems</text><feedback><text>Passing tests do not turn properties into proved theorems.</text></feedback></answer>
+    <generalfeedback><text>PBT explores a sample of an often-infinite input space. A clean run — even with good generators and shrinking — means "no counterexample found here," which increases confidence but never amounts to a proof. For proof you would need formal verification, not testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Differential property-based testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <strong>differential</strong> property-based testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Generate random inputs and assert that two independent implementations of the same specification produce equal results; a disagreement is a counterexample locating a bug in (at least) one of them</text><feedback><text>Correct — differential testing cross-checks two implementations against each other.</text></feedback></answer>
+    <answer fraction="0"><text>Comparing the running time of two implementations on random inputs</text><feedback><text>That is performance comparison, not differential correctness testing.</text></feedback></answer>
+    <answer fraction="0"><text>Testing the arithmetic difference of two numbers</text><feedback><text>"Differential" here refers to comparing implementations, not subtracting numbers.</text></feedback></answer>
+    <answer fraction="0"><text>Running one implementation twice with two different seeds</text><feedback><text>That checks determinism at best; differential testing compares two distinct implementations.</text></feedback></answer>
+    <generalfeedback><text>Differential testing feeds the same generated inputs to two implementations of one spec (e.g. an optimized parser and a reference parser) and requires their outputs to match. Any disagreement, once shrunk to a minimal input, reveals a bug in one of them — provided at least one is trustworthy for that input.</text></generalfeedback>
+  </question>
+</quiz>

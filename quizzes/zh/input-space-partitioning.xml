@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Input Space Partitioning/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是區塊（block）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在輸入空間劃分（Input Space Partitioning, ISP）中，一個特徵（characteristic）會把輸入定義域分成若干<strong>區塊（block）</strong>。區塊是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>定義域中被該特徵歸為同一類、視為一體的一組值</text><feedback><text>正確——每個區塊是沿該特徵劃分後所得的一類值。</text></feedback></answer>
+    <answer fraction="0"><text>一個可直接執行的具體測試案例</text><feedback><text>區塊是一類值；具體測試是從某個區塊挑出的一個代表值。</text></feedback></answer>
+    <answer fraction="0"><text>該輸入所執行到的一行原始碼</text><feedback><text>ISP 屬黑箱技術，描述的是輸入定義域，而非程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>程式應產生的預期輸出</text><feedback><text>那是預期結果（oracle），不是輸入定義域的區塊。</text></feedback></answer>
+    <generalfeedback><text>特徵會把輸入定義域劃分成若干區塊；每個區塊是一組被假設會被同等處理的值，之後再從每個區塊挑一個代表值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是劃分（partition）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於某個特徵，它對輸入定義域的<strong>劃分（partition）</strong>最適合以下列何者描述？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一組彼此互斥（disjoint）、且聯集涵蓋整個定義域的區塊集合</text><feedback><text>正確——劃分正是一組互斥且完整的區塊。</text></feedback></answer>
+    <answer fraction="0"><text>為了方便而任意選取、彼此重疊的一些值域範圍</text><feedback><text>重疊會破壞互斥性，因此重疊的範圍無法構成有效劃分。</text></feedback></answer>
+    <answer fraction="0"><text>定義域中最重要的那個單一值</text><feedback><text>劃分是涵蓋定義域的區塊集合，而非單一值。</text></feedback></answer>
+    <answer fraction="0"><text>某個涵蓋準則所產生的測試案例清單</text><feedback><text>測試是後續才產生的；劃分指的是對定義域本身的切分。</text></feedback></answer>
+    <generalfeedback><text>某特徵的劃分是一組區塊，這些區塊合起來是完整的（涵蓋整個定義域）且互斥的（沒有任何值落在兩個區塊中）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>互斥（disjoint）的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某特徵的區塊必須是<strong>互斥（disjoint）</strong>的。這是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>定義域中沒有任何值同時屬於一個以上的區塊</text><feedback><text>正確——互斥表示區塊之間不重疊。</text></feedback></answer>
+    <answer fraction="0"><text>定義域中的每個值都屬於某個區塊</text><feedback><text>那描述的是完整性（complete），不是互斥性。</text></feedback></answer>
+    <answer fraction="0"><text>所有區塊包含相同數量的值</text><feedback><text>不要求大小相等；互斥只禁止重疊。</text></feedback></answer>
+    <answer fraction="0"><text>恰好只有兩個區塊</text><feedback><text>互斥性與區塊的數量無關。</text></feedback></answer>
+    <generalfeedback><text>互斥表示區塊彼此排斥：任一個輸入值最多只會落入該特徵的一個區塊。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>完整（complete）的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某特徵的區塊必須是<strong>完整（complete）</strong>的。這是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>區塊的聯集就是整個輸入定義域——每個值都落入某個區塊</text><feedback><text>正確——完整表示區塊不遺漏任何值。</text></feedback></answer>
+    <answer fraction="0"><text>沒有任何值同時屬於兩個區塊</text><feedback><text>那描述的是互斥性，不是完整性。</text></feedback></answer>
+    <answer fraction="0"><text>每個區塊至少用兩個值來測試</text><feedback><text>完整性談的是涵蓋定義域，而不是每個區塊用幾個值。</text></feedback></answer>
+    <answer fraction="0"><text>該特徵至少要有三個區塊</text><feedback><text>完整性對區塊數量沒有下限要求。</text></feedback></answer>
+    <generalfeedback><text>完整表示區塊涵蓋整個定義域：它們合起來包含所有可能的輸入值，因此不會有任何值無法歸類。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從區塊選值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當區塊定義完成後，ISP 如何把它們轉成具體測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從測試所用的每個區塊各挑一個代表值</text><feedback><text>正確——以每個區塊一個代表值來代表整個區塊。</text></feedback></answer>
+    <answer fraction="0"><text>窮舉每個區塊中的每一個值</text><feedback><text>窮舉正是劃分技術要避免的做法。</text></feedback></answer>
+    <answer fraction="0"><text>只從最大的區塊挑值</text><feedback><text>測試所用的每個區塊都需要代表值，而不是只挑最大的。</text></feedback></answer>
+    <answer fraction="0"><text>隨機產生值，忽略區塊</text><feedback><text>那樣區塊就毫無作用；ISP 是刻意從每個區塊挑代表值。</text></feedback></answer>
+    <generalfeedback><text>ISP 依賴「同一區塊的值會被同等處理」的假設，因此每個區塊挑一個代表值來組成各個測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>介面式（interface-based）特徵</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>介面式（interface-based）</strong>特徵是從何處推導出來的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從受測方法的參數推導，逐一檢視其簽章中的各參數</text><feedback><text>正確——介面式特徵直接來自輸入參數。</text></feedback></answer>
+    <answer fraction="0"><text>從程式的規格與預期行為推導</text><feedback><text>那描述的是功能式（functionality-based）特徵。</text></feedback></answer>
+    <answer fraction="0"><text>從程式碼內部的控制流程圖推導</text><feedback><text>ISP 屬黑箱；介面式特徵用的是參數，而非控制流程圖。</text></feedback></answer>
+    <answer fraction="0"><text>從每個測試量測到的執行時間推導</text><feedback><text>執行時間與特徵的推導無關。</text></feedback></answer>
+    <generalfeedback><text>介面式特徵是逐一從方法的參數讀出（例如「參數 x 是否為 null？」）。這種方式容易推導，但可能忽略參數之間的關係。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>功能式（functionality-based）特徵</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>功能式（functionality-based）</strong>特徵是從何處推導出來的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從函式所規定的行為或語意推導，可能同時牽涉多個參數</text><feedback><text>正確——功能式特徵來自函式應做的事。</text></feedback></answer>
+    <answer fraction="0"><text>從簽章中逐一獨立檢視的各個參數推導</text><feedback><text>那是介面式的做法。</text></feedback></answer>
+    <answer fraction="0"><text>從實作中的敘述句數量推導</text><feedback><text>敘述句數量是程式碼度量，不是功能式特徵。</text></feedback></answer>
+    <answer fraction="0"><text>從編譯器的最佳化等級推導</text><feedback><text>編譯設定與特徵的推導毫無關係。</text></feedback></answer>
+    <generalfeedback><text>功能式特徵來自規格（例如「串列是否已排序」），且可能同時關聯多個參數。它們通常能導出較好的測試，但需要更多領域理解。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ECC 的要求</text></name>
+    <questiontext format="html"><text><![CDATA[<p>各選擇涵蓋（Each Choice Coverage, ECC）對一組測試的要求是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個特徵的每個區塊都必須至少出現在一個測試中</text><feedback><text>正確——這正是「各選擇」的要求。</text></feedback></answer>
+    <answer fraction="0"><text>所有特徵之間的每一種區塊組合都必須出現</text><feedback><text>那是全組合涵蓋（ACoC），要求強得多。</text></feedback></answer>
+    <answer fraction="0"><text>每一對特徵的每一對區塊都必須一起出現</text><feedback><text>那是成對涵蓋（PWC），不是各選擇。</text></feedback></answer>
+    <answer fraction="0"><text>不論有多少區塊，只需要一個測試</text><feedback><text>一個測試不可能同時包含同一特徵的兩個不同區塊。</text></feedback></answer>
+    <generalfeedback><text>ECC 只要求每個特徵的每個區塊在整組測試中至少被用到一次——是標準 ISP 準則中最弱的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ACoC 的要求</text></name>
+    <questiontext format="html"><text><![CDATA[<p>全組合涵蓋（All Combinations Coverage, ACoC）對一組測試的要求是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個特徵各取一個區塊所形成的每一種組合，都必須出現在某個測試中</text><feedback><text>正確——ACoC 涵蓋區塊的完整笛卡兒積。</text></feedback></answer>
+    <answer fraction="0"><text>只要求每個區塊至少出現一次</text><feedback><text>那是各選擇涵蓋（ECC），較弱。</text></feedback></answer>
+    <answer fraction="0"><text>只要求每一對區塊一起出現</text><feedback><text>那是成對涵蓋（PWC），比 ACoC 弱。</text></feedback></answer>
+    <answer fraction="0"><text>把一個基底測試每次只變動一個特徵</text><feedback><text>那描述的是基底選擇涵蓋（BCC），不是 ACoC。</text></feedback></answer>
+    <generalfeedback><text>ACoC 要求每個特徵各取一個區塊的所有組合，因此測試數是各區塊數的乘積。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>兩個特徵的 ACoC 數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有兩個特徵，區塊數分別為 2 與 3。全組合涵蓋（ACoC）需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>正確——2 × 3 = 6，即各區塊數的乘積。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是總和 2 + 3；ACoC 是各區塊數相乘。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 是較大的區塊數（那是各選擇涵蓋），不是全組合。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 與 2 × 3 不符。</text></feedback></answer>
+    <generalfeedback><text>ACoC 是各區塊數的乘積：2 × 3 = 6。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>三個二元特徵的 ACoC 數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有三個特徵，每個都有 2 個區塊。ACoC 需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>正確——2 × 2 × 2 = 8。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是總和 2 + 2 + 2；ACoC 是相乘。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 是單一區塊數（各選擇），不是全組合。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 少算了一個特徵；三者相乘為 8。</text></feedback></answer>
+    <generalfeedback><text>ACoC 是各區塊數的乘積：2 × 2 × 2 = 8。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ECC 數量等於最大區塊數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有三個特徵，區塊數分別為 2、5、3。各選擇涵蓋（ECC）所需的最少測試數是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——ECC 至少需要最大的區塊數，max(2,5,3) = 5。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 是各區塊數的總和；同一個測試中不同特徵的區塊可以共用。</text></feedback></answer>
+    <answer fraction="0"><text>30</text><feedback><text>30 是乘積（全組合），遠多於 ECC 所需。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 不足以涵蓋那個有 5 個區塊的特徵。</text></feedback></answer>
+    <generalfeedback><text>每個測試對每個特徵各取一個區塊，因此要涵蓋所有區塊，至少需要與最大區塊數一樣多的測試：max(2,5,3) = 5。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>兩個特徵的 ECC 數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有兩個特徵，區塊數分別為 4 與 2。各選擇涵蓋（ECC）所需的最少測試數是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——ECC 至少需要 max(4,2) = 4 個測試。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 是乘積（全組合），不是各選擇的最少值。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是各區塊數的總和；ECC 在同一測試中可共用區塊。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 無法涵蓋那個有 4 個區塊的特徵。</text></feedback></answer>
+    <generalfeedback><text>ECC 等於最大的區塊數：max(4,2) = 4。那個 2 區塊的特徵，其區塊在這四個測試中重複使用即可。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>有效的特徵與其區塊</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於一個整數輸入 <code>x</code>，下列何者是區塊互斥且完整、格式良好的 ISP 特徵？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>「x 的正負號」，區塊為 {x &lt; 0}、{x = 0}、{x &gt; 0}</text><feedback><text>正確——這三個區塊互斥，且涵蓋所有整數。</text></feedback></answer>
+    <answer fraction="0"><text>「x 的大小」，區塊為 {x &lt; 10}、{x &gt; 5}</text><feedback><text>值 6..9 同時落入兩個區塊，因此重疊（非互斥）。</text></feedback></answer>
+    <answer fraction="0"><text>「x 的範圍」，區塊為 {x &lt; 0}、{x &gt; 0}</text><feedback><text>值 0 不屬於任何區塊，因此不完整。</text></feedback></answer>
+    <answer fraction="0"><text>「x 的值」，只有一個區塊 {x = 7}</text><feedback><text>其他所有整數都未被涵蓋，因此此劃分不完整。</text></feedback></answer>
+    <generalfeedback><text>格式良好的特徵會把定義域劃分成互斥且完整的區塊。「x 的正負號」分成負、零、正，正好對整數做到這一點。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>ISP 是黑箱技術</text></name>
+    <questiontext format="html"><text><![CDATA[<p>輸入空間劃分是一種黑箱技術：它為輸入定義域建模，且不需要存取原始碼。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——ISP 由參數與規格推導特徵，而非由程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>ISP 作用於輸入定義域（介面式或功能式），因此不需要原始碼。</text></feedback></answer>
+    <generalfeedback><text>ISP 是黑箱、以輸入定義域為對象的技術。特徵來自方法的參數（介面式）或其規定的行為（功能式），因此不需要實作程式碼。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Input Space Partitioning/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>找出重疊的劃分</text></name>
+    <questiontext format="html"><text><![CDATA[<p>特徵「字串長度 L」被分成區塊 {L &lt; 10}、{10 ≤ L ≤ 20}、{L &gt; 15}。這是有效的劃分嗎？為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>無效——區塊並非互斥（例如 L = 18 同時落入 {10 ≤ L ≤ 20} 與 {L &gt; 15}）</text><feedback><text>正確——16..20 同時落在兩個區塊，破壞了互斥性。</text></feedback></answer>
+    <answer fraction="0"><text>有效——區塊互斥且完整</text><feedback><text>它們並不互斥：值 16..20 屬於兩個區塊。</text></feedback></answer>
+    <answer fraction="0"><text>無效——有些長度未被涵蓋（不完整）</text><feedback><text>每個長度都有被涵蓋；這裡的缺陷是重疊，不是遺漏。</text></feedback></answer>
+    <answer fraction="0"><text>有效——ISP 允許區塊之間重疊</text><feedback><text>不允許重疊；劃分的區塊必須互斥。</text></feedback></answer>
+    <generalfeedback><text>長度 16..20 同時滿足 {10 ≤ L ≤ 20} 與 {L &gt; 15}，因此區塊重疊。有效劃分必須互斥，所以這是無效的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>找出劃分中的遺漏</text></name>
+    <questiontext format="html"><text><![CDATA[<p>特徵「年齡」（非負整數）被分成區塊 {0..17}、{19..65}、{&gt; 65}。這是有效的劃分嗎？為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>無效——不完整：年齡 18 不屬於任何區塊</text><feedback><text>正確——18 被遺漏，因此區塊未涵蓋整個定義域。</text></feedback></answer>
+    <answer fraction="0"><text>有效——區塊互斥且完整</text><feedback><text>年齡 18 未被涵蓋，因此不符合完整性。</text></feedback></answer>
+    <answer fraction="0"><text>無效——區塊在 65 處重疊</text><feedback><text>65 只在 {19..65} 中，沒有重疊。缺陷是遺漏了 18。</text></feedback></answer>
+    <answer fraction="0"><text>有效——ISP 可以接受小的遺漏</text><feedback><text>遺漏違反完整性；每個定義域的值都必須落入某個區塊。</text></feedback></answer>
+    <generalfeedback><text>年齡 18 不在 {0..17}、{19..65} 或 {&gt; 65} 中，因此劃分不完整，故為無效。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識有效的劃分</text></name>
+    <questiontext format="html"><text><![CDATA[<p>特徵「溫度 T（整數 °C）」被分成區塊 {T &lt; 0}、{0 ≤ T ≤ 100}、{T &gt; 100}。這是有效的劃分嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有效——這三個區塊互斥，且合起來涵蓋每一個整數溫度</text><feedback><text>正確——沒有重疊也沒有遺漏，是正確的劃分。</text></feedback></answer>
+    <answer fraction="0"><text>無效——區塊在 0 與 100 處重疊</text><feedback><text>0 只在中間區塊、100 也只在中間區塊；沒有重疊。</text></feedback></answer>
+    <answer fraction="0"><text>無效——低於 0 的溫度未被涵蓋</text><feedback><text>{T &lt; 0} 已涵蓋它們，沒有任何遺漏。</text></feedback></answer>
+    <answer fraction="0"><text>無效——劃分最多只能有兩個區塊</text><feedback><text>一個特徵可以有任意數量的區塊；三個沒問題。</text></feedback></answer>
+    <generalfeedback><text>區塊 {T &lt; 0}、{0..100}、{T &gt; 100} 對整數而言互斥且窮盡，因此劃分互斥又完整——有效。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>三個特徵的 ACoC 數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有三個特徵，區塊數分別為 4、3、2。全組合涵蓋（ACoC）需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>24</text><feedback><text>正確——4 × 3 × 2 = 24。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 是總和 4 + 3 + 2；ACoC 是各區塊數相乘。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 只乘了最大的兩個（那是 PWC 下界），而非全部三個。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是最大的單一區塊數（各選擇），不是全組合。</text></feedback></answer>
+    <generalfeedback><text>ACoC ＝ 各區塊數的乘積 ＝ 4 × 3 × 2 = 24。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>四個特徵的 ECC 數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有四個特徵，區塊數分別為 3、3、5、2。各選擇涵蓋（ECC）所需的最少測試數是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——ECC 至少需要 max(3,3,5,2) = 5 個測試。</text></feedback></answer>
+    <answer fraction="0"><text>13</text><feedback><text>13 是各區塊數的總和；ECC 在每個測試中可共用區塊。</text></feedback></answer>
+    <answer fraction="0"><text>90</text><feedback><text>90 是乘積（全組合），不是各選擇的最少值。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 不足以涵蓋那個有 5 個區塊的特徵。</text></feedback></answer>
+    <generalfeedback><text>ECC 等於最大的區塊數：max(3,3,5,2) = 5。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>2,4,3 的 BCC 數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有三個特徵，區塊數分別為 2、4、3。基底選擇涵蓋（BCC）需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>正確——1 + (2-1) + (4-1) + (3-1) = 1 + 1 + 3 + 2 = 7。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 是各區塊數的總和；BCC 是 1 + Σ(區塊數 - 1)。</text></feedback></answer>
+    <answer fraction="0"><text>24</text><feedback><text>24 是乘積（全組合），不是基底選擇的數量。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 漏掉了 +1 的基底測試：1 + (1 + 3 + 2) = 7。</text></feedback></answer>
+    <generalfeedback><text>BCC ＝ 1 + Σ(b_i - 1) = 1 + (1 + 3 + 2) = 7：一個基底測試，加上把每個特徵變動到其各個非基底區塊。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>2,2,4 的 BCC 數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有三個特徵，區塊數分別為 2、2、4。基底選擇涵蓋（BCC）需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>正確——1 + (2-1) + (2-1) + (4-1) = 1 + 1 + 1 + 3 = 6。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 是各區塊數的總和；BCC 是 1 + Σ(區塊數 - 1)。</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 是乘積（全組合），不是基底選擇的數量。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 漏掉了 +1 的基底測試：1 + (1 + 1 + 3) = 6。</text></feedback></answer>
+    <generalfeedback><text>BCC ＝ 1 + Σ(b_i - 1) = 1 + (1 + 1 + 3) = 6。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>4,3,2 的 PWC 下界</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有三個特徵，區塊數分別為 4、3、2。任何成對涵蓋（PWC）測試集至少必須包含多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>12</text><feedback><text>正確——至少為最大兩個區塊數的乘積，4 × 3 = 12。</text></feedback></answer>
+    <answer fraction="0"><text>24</text><feedback><text>24 是完整的全組合乘積；PWC 需要的較少。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 是各區塊數的總和，與成對下界無關。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4（最大的單一區塊數）是各選擇的最少值，不是成對下界。</text></feedback></answer>
+    <generalfeedback><text>要涵蓋最大兩個特徵（4 與 3 個區塊）之間的每一對，已需要它們全部 4 × 3 = 12 種組合，因此任何 PWC 測試集至少有 12 個測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>2,5,3,2 的 PWC 下界</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有四個特徵，區塊數分別為 2、5、3、2。任何成對涵蓋（PWC）測試集至少必須包含多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>15</text><feedback><text>正確——最大兩個區塊數的乘積，5 × 3 = 15。</text></feedback></answer>
+    <answer fraction="0"><text>60</text><feedback><text>60 是完整的全組合乘積；PWC 需要的較少。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 是各區塊數的總和，不是成對下界。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5（最大的單一區塊數）是各選擇的最少值，不是成對下界。</text></feedback></answer>
+    <generalfeedback><text>PWC 下界是最大兩個區塊數的乘積：5 × 3 = 15。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：null 檢查特徵</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於 <code>int indexOf(List list, Object target)</code>，測試者定義特徵「<code>list</code> 是否為 null？」，區塊為 {null}、{non-null}。此特徵最適合歸為哪一類？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>介面式——它直接來自簽章中的單一參數</text><feedback><text>正確——單一參數是否為 null，可直接從介面讀出。</text></feedback></answer>
+    <answer fraction="0"><text>功能式——它來自所規定的搜尋行為</text><feedback><text>它是從參數本身推導，而非從 indexOf 所規定要做的事。</text></feedback></answer>
+    <answer fraction="0"><text>都不是——null 不能成為特徵</text><feedback><text>參考型參數是否為 null，是常見且有效的介面式特徵。</text></feedback></answer>
+    <answer fraction="0"><text>視實作的控制流程而定</text><feedback><text>ISP 屬黑箱；此特徵是在不看程式碼的情況下定義的。</text></feedback></answer>
+    <generalfeedback><text>「list 是否為 null？」是從單一參數本身推導，這正是介面式特徵的定義性特點。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：已排序特徵</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於排序程式 <code>sort(int[] a)</code>，測試者定義特徵「<code>a</code> 是否已遞增排序？」，區塊為 {已排序}、{未排序}。此特徵最適合歸為哪一類？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>功能式——它來自排序的語意，而非僅由參數的型別決定</text><feedback><text>正確——「已排序」是與規定行為、與輸入內容有關的性質。</text></feedback></answer>
+    <answer fraction="0"><text>介面式——它直接來自陣列參數的型別</text><feedback><text>型別只是「int[]」；「已排序」是語意性質，無法從簽章讀出。</text></feedback></answer>
+    <answer fraction="0"><text>它不是有效的特徵，因為取決於值</text><feedback><text>取決於輸入內容正是功能式特徵的作法。</text></feedback></answer>
+    <answer fraction="0"><text>它是結構式（白箱）特徵</text><feedback><text>ISP 屬黑箱；這來自排序的規格，而非程式碼結構。</text></feedback></answer>
+    <generalfeedback><text>「是否已排序？」反映排序任務的語意與陣列的內容，因此屬功能式而非介面式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個值證明非互斥</text></name>
+    <questiontext format="html"><text><![CDATA[<p>特徵「分數 S」有區塊 {S ≤ 50}、{40 ≤ S ≤ 90}、{S &gt; 90}。哪個值可證明此劃分<strong>非互斥</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>S = 45</text><feedback><text>正確——45 同時落在 {S ≤ 50} 與 {40 ≤ S ≤ 90}，證明重疊。</text></feedback></answer>
+    <answer fraction="0"><text>S = 20</text><feedback><text>20 只在 {S ≤ 50}；無法顯示重疊。</text></feedback></answer>
+    <answer fraction="0"><text>S = 95</text><feedback><text>95 只在 {S &gt; 90}；無法顯示重疊。</text></feedback></answer>
+    <answer fraction="0"><text>S = 91</text><feedback><text>91 只在 {S &gt; 90}；無法顯示重疊。</text></feedback></answer>
+    <generalfeedback><text>區塊 {S ≤ 50} 與 {40 ≤ S ≤ 90} 都包含 40..50。該範圍內的任何值（例如 45）都落在兩個區塊，證明此劃分非互斥。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個值證明不完整</text></name>
+    <questiontext format="html"><text><![CDATA[<p>特徵「數量 Q（整數）」有區塊 {Q &lt; 0}、{1 ≤ Q ≤ 100}、{Q &gt; 100}。哪個值可證明此劃分<strong>不完整</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q = 0</text><feedback><text>正確——0 既非負、不在 1..100、也不 &gt; 100，因此未被涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>Q = 50</text><feedback><text>50 已被 {1 ≤ Q ≤ 100} 涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>Q = -5</text><feedback><text>-5 已被 {Q &lt; 0} 涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>Q = 200</text><feedback><text>200 已被 {Q &gt; 100} 涵蓋。</text></feedback></answer>
+    <generalfeedback><text>Q = 0 不落入 {Q &lt; 0}、{1..100}、{Q &gt; 100} 中的任一個，因此劃分有遺漏、不完整。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ACoC 比 ECC 多出的測試數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有兩個特徵，區塊數分別為 3 與 2。全組合涵蓋比各選擇最少值多需要幾個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3（ACoC = 6，ECC = 3）</text><feedback><text>正確——ACoC 為 3 × 2 = 6，ECC 為 max(3,2) = 3，差為 3。</text></feedback></answer>
+    <answer fraction="0"><text>0（兩者永遠相等）</text><feedback><text>此處 ACoC = 6 但 ECC = 3，並不相等。</text></feedback></answer>
+    <answer fraction="0"><text>6（ACoC = 6，ECC = 0）</text><feedback><text>ECC 不是 0；它是 max(3,2) = 3，因此差為 3。</text></feedback></answer>
+    <answer fraction="0"><text>2（ACoC = 5，ECC = 3）</text><feedback><text>ACoC 是乘積 3 × 2 = 6，而非 5，因此差為 3。</text></feedback></answer>
+    <generalfeedback><text>ACoC = 3 × 2 = 6，ECC = max(3,2) = 3，因此 ACoC 多需要 6 - 3 = 3 個測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>2,3,2 的 BCC 數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有三個特徵，區塊數分別為 2、3、2。基底選擇涵蓋（BCC）需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——1 + (2-1) + (3-1) + (2-1) = 1 + 1 + 2 + 1 = 5。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 是各區塊數的總和；BCC 是 1 + Σ(區塊數 - 1)。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 是乘積（全組合），不是基底選擇的數量。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 漏掉了 +1 的基底測試：1 + (1 + 2 + 1) = 5。</text></feedback></answer>
+    <generalfeedback><text>BCC ＝ 1 + Σ(b_i - 1) = 1 + (1 + 2 + 1) = 5。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Input Space Partitioning/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>4,3,3,2 的 BCC 數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有四個特徵，區塊數分別為 4、3、3、2。基底選擇涵蓋（BCC）需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>正確——1 + (4-1) + (3-1) + (3-1) + (2-1) = 1 + 3 + 2 + 2 + 1 = 9。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 是各區塊數的總和；BCC 是 1 + Σ(區塊數 - 1)。</text></feedback></answer>
+    <answer fraction="0"><text>72</text><feedback><text>72 是乘積（全組合），不是基底選擇的數量。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 漏掉了 +1 的基底測試：1 + (3 + 2 + 2 + 1) = 9。</text></feedback></answer>
+    <generalfeedback><text>BCC ＝ 1 + Σ(b_i - 1) = 1 + (3 + 2 + 2 + 1) = 9。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從基底挑出 BCC 測試集</text></name>
+    <questiontext format="html"><text><![CDATA[<p>特徵 A、B、C 的區塊為 A∈{a1,a2}、B∈{b1,b2,b3}、C∈{c1,c2}。基底選擇為 (a1, b1, c1)。下列哪一組測試恰好是基底選擇涵蓋（BCC）的測試集？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(a1,b1,c1)、(a2,b1,c1)、(a1,b2,c1)、(a1,b3,c1)、(a1,b1,c2)——五個測試</text><feedback><text>正確——基底測試，加上每個非基底區塊各一個測試，每次只變動一個特徵。</text></feedback></answer>
+    <answer fraction="0"><text>(a1,b1,c1)、(a2,b2,c2)——兩個測試</text><feedback><text>這一次變動了多個特徵，且漏掉大多數非基底區塊；不是 BCC 測試集。</text></feedback></answer>
+    <answer fraction="0"><text>A × B × C 的全部 12 種組合</text><feedback><text>那是全組合涵蓋（ACoC），不是基底選擇。</text></feedback></answer>
+    <answer fraction="0"><text>(a2,b2,c2)、(a2,b3,c2)——從非基底測試開始變動</text><feedback><text>BCC 是從指定的基底測試 (a1,b1,c1) 開始變動，其餘保持基底值。</text></feedback></answer>
+    <generalfeedback><text>BCC 保留基底 (a1,b1,c1)，每次只把一個特徵變動到其非基底區塊：a2；b2；b3；c2。共得 1 + (1 + 2 + 1) = 5 個測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ACoC-PWC-ECC 的包含鏈</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一條包含（subsumption）鏈正確地排列這些 ISP 準則（每個包含下一個）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ACoC ⊇ PWC ⊇ ECC</text><feedback><text>正確——全組合包含成對，成對包含各選擇。</text></feedback></answer>
+    <answer fraction="0"><text>ECC ⊇ PWC ⊇ ACoC</text><feedback><text>這把順序反了；ECC 最弱，無法包含其他。</text></feedback></answer>
+    <answer fraction="0"><text>PWC ⊇ ACoC ⊇ ECC</text><feedback><text>是 ACoC 包含 PWC，而非相反。</text></feedback></answer>
+    <answer fraction="0"><text>ACoC ⊇ ECC ⊇ PWC</text><feedback><text>ECC 無法包含 PWC；PWC 是兩者中較強的。</text></feedback></answer>
+    <generalfeedback><text>全組合涵蓋每一對，故 ACoC 包含 PWC；成對涵蓋每個單一區塊，故 PWC 包含 ECC。因此 ACoC ⊇ PWC ⊇ ECC。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何非互斥區塊無效</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設某特徵的區塊重疊，使某個值 <code>v</code> 同時屬於兩個區塊。為什麼這會使該劃分對 ISP 而言無效？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>同時對應兩個區塊的值會使區塊歸屬變得模稜兩可，因此「涵蓋每個區塊」定義不明，且所選的值可能無意間同時滿足兩個區塊</text><feedback><text>正確——互斥性正是讓「某個值所屬的區塊」有明確定義的原因。</text></feedback></answer>
+    <answer fraction="0"><text>重疊會使模型太小而無法測試</text><feedback><text>重疊不會縮小模型；它使歸屬變得模稜兩可。</text></feedback></answer>
+    <answer fraction="0"><text>重疊會強制使用全組合涵蓋</text><feedback><text>重疊不會決定採用哪個涵蓋準則；它違反了劃分的定義。</text></feedback></answer>
+    <answer fraction="0"><text>只要區塊完整，重疊就沒問題</text><feedback><text>完整性無法修補互斥性的違反；兩者都必須滿足。</text></feedback></answer>
+    <generalfeedback><text>若 v 同時在兩個區塊中，則「涵蓋每個區塊」與「某個值所屬區塊的代表值」都變得模稜兩可——一個測試值可能同時被算作兩個區塊，損及準則。互斥性可消除這種模糊。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何不完整區塊無效</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設某特徵的區塊漏掉了某個定義域的值 <code>w</code>（沒有任何區塊包含它）。為什麼這個劃分對 ISP 而言無效？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>等於 w 的輸入無法歸入任何區塊，因此定義域中一個正當的部分將永遠不會被排入測試</text><feedback><text>正確——完整性保證每個輸入都由某個區塊代表。</text></feedback></answer>
+    <answer fraction="0"><text>測試數會變成無限大</text><feedback><text>遺漏不會改變測試數量；它使定義域的一部分未被建模。</text></feedback></answer>
+    <answer fraction="0"><text>屆時各選擇涵蓋（ECC）將無法被滿足</text><feedback><text>在已定義的區塊上 ECC 仍可被滿足；問題在於未建模的值 w。</text></feedback></answer>
+    <answer fraction="0"><text>只要區塊互斥，不完整就可以接受</text><feedback><text>互斥無法修補涵蓋的遺漏；兩個性質都必須滿足。</text></feedback></answer>
+    <generalfeedback><text>劃分必須完整，使每個可能的輸入恰好屬於一個區塊。若 w 不屬於任何區塊，該輸入就未被建模，會在測試設計中被系統性地遺漏。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>在測試預算下選擇準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某模型有 5 個特徵，每個都有 4 個區塊。全組合需要 4^5 = 1024 個測試，超出預算；但你仍希望每個區塊都相對於一個共同的基底組態被測到。在大約 16 個測試的預算下，哪個準則最合適？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>基底選擇涵蓋（BCC）——1 + 5 × (4-1) = 16 個測試，從基底變動每個區塊</text><feedback><text>正確——這裡 BCC 恰好是 16，且相對於共同基底組態測到每個區塊。</text></feedback></answer>
+    <answer fraction="0"><text>全組合涵蓋（ACoC）——1024 個測試</text><feedback><text>1024 遠超預算；這正是要被排除的準則。</text></feedback></answer>
+    <answer fraction="0"><text>成對涵蓋（PWC）——至少 4 × 4 = 16，但通常更多</text><feedback><text>PWC 下界是 16，但五個 4 區塊特徵的實際成對測試集會超過 16，且不使用單一的基底組態。</text></feedback></answer>
+    <answer fraction="0"><text>各選擇涵蓋（ECC）——4 個測試</text><feedback><text>ECC 只需 4 個測試，但不像題目要求那樣相對於共同基底測到各區塊。</text></feedback></answer>
+    <generalfeedback><text>BCC ＝ 1 + Σ(b_i - 1) = 1 + 5 × 3 = 16，正好在預算內，且依其構造每次從基底測試變動一個區塊——正符合所述目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>兩個基底測試的 MBCC 數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有三個特徵，區塊數分別為 3、2、2。使用多重基底選擇涵蓋（MBCC），採 <strong>2 個基底測試</strong>（每個基底對每個特徵各取一個基底選擇），並從每個基底測試每次只變動一個特徵，總共會有多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10</text><feedback><text>正確——每個基底貢獻 1 + (2 + 1 + 1) = 5 個測試，2 × 5 = 10。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是單一基底（BCC）的數量；有 2 個基底時翻倍為 10。</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>ACoC 乘積為 3 × 2 × 2 = 12；此處 MBCC 是 2 × 5 = 10。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 與 m × (1 + Σ(b_i - 1)) 不符；正確值為 2 × 5 = 10。</text></feedback></answer>
+    <generalfeedback><text>當有 m 個基底測試、每個特徵各一個基底選擇時，MBCC = m × (1 + Σ(b_i - 1))。此處 BCC = 1 + (2 + 1 + 1) = 5，故 MBCC = 2 × 5 = 10。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MBCC 包含 BCC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>多重基底選擇涵蓋（MBCC）與基底選擇涵蓋（BCC）之間的包含關係為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>MBCC 包含 BCC——使用多個基底測試涵蓋了單一基底測試的涵蓋範圍</text><feedback><text>正確——MBCC ⊇ BCC ⊇ ECC。</text></feedback></answer>
+    <answer fraction="0"><text>BCC 包含 MBCC</text><feedback><text>這把方向反了；增加基底測試只會增加涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>兩者不可比較——彼此都不包含對方</text><feedback><text>MBCC 是 BCC 的推廣，永遠涵蓋 BCC 所做的。</text></feedback></answer>
+    <answer fraction="0"><text>兩者是相同的準則</text><feedback><text>MBCC 使用多個基底測試，因此可能需要比 BCC 嚴格更多的測試。</text></feedback></answer>
+    <generalfeedback><text>MBCC 透過使用一個以上的基底測試來推廣 BCC，因此 BCC 的每項要求都被 MBCC 滿足：MBCC ⊇ BCC ⊇ ECC。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>四個二元特徵的 ACoC 數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有四個特徵，每個都有 2 個區塊。全組合涵蓋需要多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16</text><feedback><text>正確——2 × 2 × 2 × 2 = 2^4 = 16。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 是 2^3；有四個特徵，因此乘積是 2^4 = 16。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是把成對區塊數相加；ACoC 是四個區塊數相乘。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 = 1 + 4 × 2 是基底選擇式的數量，不是 ACoC 乘積。</text></feedback></answer>
+    <generalfeedback><text>ACoC = 2^4 = 16，即四個區塊數的乘積。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最大兩個區塊數相同時的 PWC 下界</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有三個特徵，區塊數分別為 4、4、2。任何成對涵蓋測試集至少必須包含多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16</text><feedback><text>正確——最大兩個區塊數為 4 與 4，故下界為 4 × 4 = 16。</text></feedback></answer>
+    <answer fraction="0"><text>32</text><feedback><text>32 是完整的全組合乘積（4 × 4 × 2）；PWC 需要的較少。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 是各區塊數的總和，不是成對下界。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8（4 × 2）用錯了一對；最大兩個都是 4，得 16。</text></feedback></answer>
+    <generalfeedback><text>PWC 下界是最大兩個區塊數的乘積。兩個最大都是 4，故下界為 4 × 4 = 16。（實際成對測試集可能還需要多幾個，但絕不會更少。）</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>兩個特徵時 PWC 等於 ACoC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當模型恰有<strong>兩個</strong>特徵時，成對涵蓋與全組合涵蓋所需的測試數相同。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——只有一對特徵時，涵蓋每一對區塊就是完整的笛卡兒積。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>兩個特徵時，該唯一一對的區塊組合正好就是全組合集合，所以此處 PWC = ACoC。</text></feedback></answer>
+    <generalfeedback><text>PWC 要求每一對特徵的每一對區塊。只有兩個特徵時就只有一對，涵蓋其所有區塊對正好是 b1 × b2——與 ACoC 相同。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PWC 是否包含 BCC？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>關於成對涵蓋（PWC）與基底選擇涵蓋（BCC），下列哪個敘述正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩者互不包含——PWC 與 BCC 不可比較</text><feedback><text>正確——PWC 保證區塊對但不保證基底變動；BCC 保證基底變動但不保證所有區塊對。</text></feedback></answer>
+    <answer fraction="0"><text>PWC 包含 BCC</text><feedback><text>成對測試集不必包含「每次只變動一個特徵的單一基底測試」，因此不一定滿足 BCC。</text></feedback></answer>
+    <answer fraction="0"><text>BCC 包含 PWC</text><feedback><text>基底選擇集只涵蓋 1 + Σ(b_i - 1) 個測試，漏掉大多數區塊對，因此不滿足 PWC。</text></feedback></answer>
+    <answer fraction="0"><text>兩者是等價的準則</text><feedback><text>它們施加不同要求，通常產生不同的測試集。</text></feedback></answer>
+    <generalfeedback><text>PWC 與 BCC 不可比較：兩者都包含 ECC，但 PWC 涵蓋所有區塊對（非基底變動），而 BCC 涵蓋基底變動（非所有區塊對）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>修正無效的劃分</text></name>
+    <questiontext format="html"><text><![CDATA[<p>特徵「依金額 A 分的折扣級距」定義為 {A &lt; 100}、{100 ≤ A ≤ 500}、{A ≥ 500}。它是無效的。要使其成為有效劃分，最小的修正是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>調整一個邊界，使 500 恰好只屬於一個區塊，例如 {A &lt; 100}、{100 ≤ A &lt; 500}、{A ≥ 500}</text><feedback><text>正確——唯一的缺陷是 500 落在兩個區塊；把它從其中一個排除即可恢復互斥並保持完整。</text></feedback></answer>
+    <answer fraction="0"><text>完全刪除中間區塊</text><feedback><text>那會使 100..499 未被涵蓋，造成不完整的遺漏。</text></feedback></answer>
+    <answer fraction="0"><text>新增第四個區塊 {A = 500}</text><feedback><text>500 仍會留在原本的區塊中，因此重疊並未被移除。</text></feedback></answer>
+    <answer fraction="0"><text>不用改——此劃分已經有效</text><feedback><text>500 同時滿足 {100 ≤ A ≤ 500} 與 {A ≥ 500}，因此並非互斥。</text></feedback></answer>
+    <generalfeedback><text>值 500 同時落在中間區塊與 {A ≥ 500}，破壞互斥性。把中間區塊改為 {100 ≤ A &lt; 500} 可移除重疊，同時仍涵蓋每個金額，得到有效劃分。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>基底選擇會改變 BCC 數量嗎？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>兩位測試者為相同的特徵（區塊數 3、2、2）建模，但選了不同的基底選擇。他們的基底選擇涵蓋測試集相比之下如何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩者大小相同，皆為 1 + (2 + 1 + 1) = 5，儘管具體的測試值不同</text><feedback><text>正確——BCC 數量 1 + Σ(b_i - 1) 與選哪個區塊當基底無關。</text></feedback></answer>
+    <answer fraction="0"><text>從「較大」基底建出的那組一定較大</text><feedback><text>決定大小的是區塊數而非所選基底；兩者都是 1 + Σ(b_i - 1) = 5。</text></feedback></answer>
+    <answer fraction="0"><text>其中一組會滿足 ACoC，另一組不會</text><feedback><text>兩個 BCC 測試集都達不到 ACoC（需要 3 × 2 × 2 = 12 個測試）；基底選擇不會改變這點。</text></feedback></answer>
+    <answer fraction="0"><text>大小會相差特徵的數量</text><feedback><text>兩者大小都等於 1 + Σ(b_i - 1) = 5，與基底無關；基底只改變出現的值。</text></feedback></answer>
+    <generalfeedback><text>BCC 永遠產生 1 + Σ(b_i - 1) 個測試，此處為 1 + (2 + 1 + 1) = 5。改變基底選擇只改變產生哪些具體測試，而不改變數量或所滿足的準則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>三個基底測試的 MBCC 數量</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某 ISP 模型有三個特徵，每個都有 2 個區塊。使用多重基底選擇涵蓋（MBCC），採 <strong>3 個基底測試</strong>（每個基底對每個特徵各取一個基底選擇），並從每個基底每次只變動一個特徵，總共會有多少個測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>12</text><feedback><text>正確——每個基底貢獻 1 + (1 + 1 + 1) = 4 個測試，3 × 4 = 12。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是單一基底（BCC）的數量；有 3 個基底時變為 3 × 4 = 12。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 是 ACoC 乘積（2 × 2 × 2）；此處 MBCC 是 3 × 4 = 12。</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 與 m × (1 + Σ(b_i - 1)) 不符；正確值為 3 × 4 = 12。</text></feedback></answer>
+    <generalfeedback><text>MBCC = m × (1 + Σ(b_i - 1))。此處 BCC = 1 + (1 + 1 + 1) = 4，故採 3 個基底測試時 MBCC = 3 × 4 = 12。</text></generalfeedback>
+  </question>
+</quiz>

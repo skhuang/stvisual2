@@ -15287,6 +15287,2568 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "grammar-coverage": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What is a CFG",
+          "text": "<p>In syntax-based testing, a <strong>context-free grammar (CFG)</strong> is best described as:</p>",
+          "answers": [
+            {
+              "text": "A finite set of terminals, nonterminals, productions, and a start symbol that together define a language",
+              "fraction": 100,
+              "feedback": "Correct — those four components define a CFG and the strings it generates."
+            },
+            {
+              "text": "A control-flow graph of a program's basic blocks",
+              "fraction": 0,
+              "feedback": "That is a CFG in the graph-coverage sense; here CFG means context-free grammar."
+            },
+            {
+              "text": "A table mapping test inputs to expected outputs",
+              "fraction": 0,
+              "feedback": "That is a test oracle or decision table, not a grammar."
+            },
+            {
+              "text": "A list of mutation operators applied to source code",
+              "fraction": 0,
+              "feedback": "That is program mutation; a grammar defines a language of strings."
+            }
+          ],
+          "generalFeedback": "A context-free grammar is the tuple of terminals, nonterminals, productions (rules), and a start symbol; it generates a set of strings called its language.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Terminal symbol",
+          "text": "<p>A <strong>terminal</strong> symbol in a grammar is:</p>",
+          "answers": [
+            {
+              "text": "A symbol that appears literally in generated strings and is never expanded further",
+              "fraction": 100,
+              "feedback": "Correct — terminals are the atomic tokens that make up the final strings."
+            },
+            {
+              "text": "A symbol that must be replaced using a production",
+              "fraction": 0,
+              "feedback": "That describes a nonterminal, which is expanded, not a terminal."
+            },
+            {
+              "text": "The single symbol a derivation begins from",
+              "fraction": 0,
+              "feedback": "That is the start symbol."
+            },
+            {
+              "text": "A rule that rewrites one string into another",
+              "fraction": 0,
+              "feedback": "That is a production, not a terminal."
+            }
+          ],
+          "generalFeedback": "Terminals are the literal tokens of the language; they never appear on the left side of a production and are never rewritten.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Nonterminal symbol",
+          "text": "<p>A <strong>nonterminal</strong> symbol in a grammar is:</p>",
+          "answers": [
+            {
+              "text": "A symbol that stands for a set of strings and is rewritten by productions until only terminals remain",
+              "fraction": 100,
+              "feedback": "Correct — nonterminals are placeholders expanded via productions."
+            },
+            {
+              "text": "A literal token that appears unchanged in every generated string",
+              "fraction": 0,
+              "feedback": "That is a terminal."
+            },
+            {
+              "text": "A test requirement produced by a coverage criterion",
+              "fraction": 0,
+              "feedback": "That is a test requirement, not a grammar symbol."
+            },
+            {
+              "text": "An input that the recognizer must reject",
+              "fraction": 0,
+              "feedback": "That is a negative test case, not a nonterminal."
+            }
+          ],
+          "generalFeedback": "Nonterminals (also called variables) are rewritten using productions; a valid string contains only terminals once all nonterminals are expanded.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Production rule",
+          "text": "<p>A <strong>production</strong> (rule) of a grammar such as <code>A -> b C</code> specifies:</p>",
+          "answers": [
+            {
+              "text": "How a nonterminal on the left may be replaced by the string of symbols on the right",
+              "fraction": 100,
+              "feedback": "Correct — a production is a rewrite rule from a nonterminal to a sequence of symbols."
+            },
+            {
+              "text": "A complete string in the language of the grammar",
+              "fraction": 0,
+              "feedback": "A production is a rule; a string is the result of applying rules."
+            },
+            {
+              "text": "The starting point of every derivation",
+              "fraction": 0,
+              "feedback": "That is the start symbol."
+            },
+            {
+              "text": "A terminal that cannot be expanded",
+              "fraction": 0,
+              "feedback": "A production has a nonterminal on its left and can be applied; terminals cannot."
+            }
+          ],
+          "generalFeedback": "A production rewrites the nonterminal on its left-hand side into the sequence on its right-hand side; derivations chain productions together.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Start symbol",
+          "text": "<p>The <strong>start symbol</strong> of a grammar is:</p>",
+          "answers": [
+            {
+              "text": "The distinguished nonterminal from which every derivation begins",
+              "fraction": 100,
+              "feedback": "Correct — all derivations of the language start from this symbol."
+            },
+            {
+              "text": "The first terminal in every generated string",
+              "fraction": 0,
+              "feedback": "The start symbol is a nonterminal, not a terminal of the output."
+            },
+            {
+              "text": "The last production applied in a derivation",
+              "fraction": 0,
+              "feedback": "The start symbol is where a derivation begins, not a production."
+            },
+            {
+              "text": "Any nonterminal chosen at random for a test",
+              "fraction": 0,
+              "feedback": "The start symbol is a single distinguished nonterminal fixed by the grammar."
+            }
+          ],
+          "generalFeedback": "Every derivation of the language starts from the start symbol (often written S); the language is exactly the set of terminal strings derivable from it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a derivation",
+          "text": "<p>A <strong>derivation</strong> in a grammar is:</p>",
+          "answers": [
+            {
+              "text": "A sequence of production applications that rewrites the start symbol into a string of terminals",
+              "fraction": 100,
+              "feedback": "Correct — a derivation is the step-by-step rewriting that produces a string."
+            },
+            {
+              "text": "The set of all strings a grammar can produce",
+              "fraction": 0,
+              "feedback": "That is the language; a derivation produces one such string."
+            },
+            {
+              "text": "A single production of the grammar",
+              "fraction": 0,
+              "feedback": "A derivation applies many productions in sequence, not just one."
+            },
+            {
+              "text": "A proof that a grammar is ambiguous",
+              "fraction": 0,
+              "feedback": "Ambiguity is about multiple derivations of one string; a derivation itself is just a rewriting sequence."
+            }
+          ],
+          "generalFeedback": "A derivation starts at the start symbol and applies productions step by step until only terminals remain; the resulting terminal string is a member of the language.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Terminal Symbol Coverage definition",
+          "text": "<p><strong>Terminal Symbol Coverage (TSC)</strong> for a grammar requires that:</p>",
+          "answers": [
+            {
+              "text": "Every terminal symbol of the grammar appears in at least one test string",
+              "fraction": 100,
+              "feedback": "Correct — TSC has one test requirement per terminal."
+            },
+            {
+              "text": "Every production of the grammar is used at least once",
+              "fraction": 0,
+              "feedback": "That is Production Coverage, not Terminal Symbol Coverage."
+            },
+            {
+              "text": "Every possible derivation is exercised",
+              "fraction": 0,
+              "feedback": "That is derivation (all-derivations) coverage, generally infeasible."
+            },
+            {
+              "text": "Every nonterminal is used as a start symbol",
+              "fraction": 0,
+              "feedback": "There is one start symbol; TSC is about terminals appearing in tests."
+            }
+          ],
+          "generalFeedback": "TSC is the weakest grammar criterion: each terminal must appear in some generated/used test string.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Production Coverage definition",
+          "text": "<p><strong>Production Coverage (PDC)</strong> for a grammar requires that:</p>",
+          "answers": [
+            {
+              "text": "Every production (rule alternative) is used in the derivation of at least one test string",
+              "fraction": 100,
+              "feedback": "Correct — PDC has one test requirement per production."
+            },
+            {
+              "text": "Every terminal symbol appears in at least one test string",
+              "fraction": 0,
+              "feedback": "That is Terminal Symbol Coverage, which PDC subsumes."
+            },
+            {
+              "text": "Every string of length up to n is generated",
+              "fraction": 0,
+              "feedback": "PDC counts productions used, not strings of bounded length."
+            },
+            {
+              "text": "Every nonterminal is rewritten exactly once",
+              "fraction": 0,
+              "feedback": "PDC requires each production to be used, and some may be used many times."
+            }
+          ],
+          "generalFeedback": "PDC requires each production to be exercised by at least one derivation. Because A -> x | y counts as two productions, both alternatives must be used.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count terminals",
+          "text": "<p>Consider the grammar:</p><pre><code>S -> a A | b\nA -> c | d</code></pre><p>How many distinct <strong>terminal</strong> symbols does it have?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — the terminals are a, b, c, d."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "That counts the nonterminals S and A, not the terminals."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Recount — a, b, c, d are four distinct terminals."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "That counts terminals plus nonterminals; there are only 4 terminals."
+            }
+          ],
+          "generalFeedback": "Terminals are the literal tokens on the right-hand sides that are never expanded: a, b, c, d — four in all.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count nonterminals",
+          "text": "<p>Consider the grammar:</p><pre><code>S -> a A | b\nA -> c | d</code></pre><p>How many <strong>nonterminals</strong> does it have?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — the nonterminals are S and A."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "There are two: S and A."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "That counts the terminals a, b, c, d, not the nonterminals."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only S and A appear on a left-hand side; that is two."
+            }
+          ],
+          "generalFeedback": "Nonterminals are the symbols that appear on a left-hand side and get rewritten: S and A — two in all.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Count productions",
+          "text": "<p>Consider the grammar:</p><pre><code>S -> a A | b\nA -> c | d</code></pre><p>Counting each alternative as a separate rule, how many <strong>productions</strong> are there?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — S -> a A, S -> b, A -> c, A -> d are four productions."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "That counts the two lines; each | introduces a separate production, so there are four."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Recount — each alternative counts separately: 2 + 2 = 4."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "There are only four alternatives across the two rules."
+            }
+          ],
+          "generalFeedback": "For Production Coverage every alternative counts separately: S -> a A, S -> b, A -> c, A -> d — four productions.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Leftmost derivation definition",
+          "text": "<p>In a <strong>leftmost</strong> derivation, at each step you rewrite:</p>",
+          "answers": [
+            {
+              "text": "The leftmost nonterminal in the current string",
+              "fraction": 100,
+              "feedback": "Correct — leftmost derivations always expand the leftmost remaining nonterminal."
+            },
+            {
+              "text": "The rightmost nonterminal in the current string",
+              "fraction": 0,
+              "feedback": "That defines a rightmost derivation."
+            },
+            {
+              "text": "The leftmost terminal in the current string",
+              "fraction": 0,
+              "feedback": "Terminals are never rewritten; only nonterminals are expanded."
+            },
+            {
+              "text": "Any nonterminal chosen at random",
+              "fraction": 0,
+              "feedback": "That is an arbitrary derivation; leftmost fixes the choice to the leftmost nonterminal."
+            }
+          ],
+          "generalFeedback": "A leftmost derivation expands the leftmost nonterminal at every step; a rightmost derivation always expands the rightmost one.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "BNF alternative bar",
+          "text": "<p>In BNF-style notation such as <code>B -> c | d</code>, the vertical bar <code>|</code> denotes:</p>",
+          "answers": [
+            {
+              "text": "Alternative right-hand sides — B may be rewritten to c or to d",
+              "fraction": 100,
+              "feedback": "Correct — the bar separates alternative productions for the same nonterminal."
+            },
+            {
+              "text": "Concatenation — B must be rewritten to c followed by d",
+              "fraction": 0,
+              "feedback": "Concatenation is written by juxtaposition (c d); the bar means choice."
+            },
+            {
+              "text": "Repetition — B may be c repeated d times",
+              "fraction": 0,
+              "feedback": "The bar means alternation, not repetition."
+            },
+            {
+              "text": "A comment separating documentation from the rule",
+              "fraction": 0,
+              "feedback": "The bar is part of the grammar syntax, meaning alternation."
+            }
+          ],
+          "generalFeedback": "The bar is shorthand for separate productions: B -> c | d abbreviates B -> c and B -> d, two productions.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Language of a grammar",
+          "text": "<p>The <strong>language</strong> generated by a grammar is:</p>",
+          "answers": [
+            {
+              "text": "The set of all terminal strings derivable from the start symbol",
+              "fraction": 100,
+              "feedback": "Correct — the language is exactly the strings the grammar can derive."
+            },
+            {
+              "text": "The set of all productions in the grammar",
+              "fraction": 0,
+              "feedback": "Those are the rules; the language is the strings they generate."
+            },
+            {
+              "text": "The set of all nonterminals in the grammar",
+              "fraction": 0,
+              "feedback": "Nonterminals are symbols, not the strings of the language."
+            },
+            {
+              "text": "A single longest string the grammar can produce",
+              "fraction": 0,
+              "feedback": "The language is the whole set of derivable strings, not one string."
+            }
+          ],
+          "generalFeedback": "The language L(G) is the set of all terminal strings derivable from the start symbol; a string is \"in the language\" exactly when some derivation produces it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Grammar as generator",
+          "text": "<p>When a grammar is used as a <strong>generator</strong> in testing, it is used to:</p>",
+          "answers": [
+            {
+              "text": "Produce (derive) strings to use as test inputs",
+              "fraction": 100,
+              "feedback": "Correct — a generator applies productions to emit strings for testing."
+            },
+            {
+              "text": "Decide whether a given string is in the language",
+              "fraction": 0,
+              "feedback": "That is the recognizer role, not the generator role."
+            },
+            {
+              "text": "Compile the grammar into machine code",
+              "fraction": 0,
+              "feedback": "Generation produces strings, not object code."
+            },
+            {
+              "text": "Count how many productions a program contains",
+              "fraction": 0,
+              "feedback": "Generation derives strings; it does not analyze a program."
+            }
+          ],
+          "generalFeedback": "A generator walks the productions to derive valid strings (test inputs); a recognizer instead accepts or rejects a given string.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Derivable balanced string",
+          "text": "<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>Is the string <code>aacbb</code> in the language, and if so which productions derive it?</p>",
+          "answers": [
+            {
+              "text": "Yes: S -> a S b twice, then S -> c (S => aSb => aaSbb => aacbb)",
+              "fraction": 100,
+              "feedback": "Correct — two wraps of a...b around a central c gives aacbb."
+            },
+            {
+              "text": "Yes, using only S -> c",
+              "fraction": 0,
+              "feedback": "S -> c alone derives just \"c\"; you also need S -> a S b twice."
+            },
+            {
+              "text": "No — the grammar cannot produce two a's",
+              "fraction": 0,
+              "feedback": "Applying S -> a S b twice produces two a's and two b's."
+            },
+            {
+              "text": "No — c may not appear in the middle",
+              "fraction": 0,
+              "feedback": "S -> c supplies the central c after the wraps; aacbb is in the language."
+            }
+          ],
+          "generalFeedback": "The language is a^n c b^n. For aacbb, n = 2: S => aSb => aaSbb => aacbb, using S -> a S b twice and S -> c once.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Unbalanced string not derivable",
+          "text": "<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>Is the string <code>acbb</code> in the language?</p>",
+          "answers": [
+            {
+              "text": "No — every derivation produces equal numbers of a's and b's, but acbb has one a and two b's",
+              "fraction": 100,
+              "feedback": "Correct — a^n c b^n forces #a = #b, so acbb is not derivable."
+            },
+            {
+              "text": "Yes, using S -> a S b once then S -> c",
+              "fraction": 0,
+              "feedback": "That derives \"acb\" (one a, one b), not \"acbb\"."
+            },
+            {
+              "text": "Yes, using S -> a S b twice",
+              "fraction": 0,
+              "feedback": "Two wraps give \"aa...bb\" with two a's; acbb has only one a."
+            },
+            {
+              "text": "No — the grammar cannot produce the terminal b at all",
+              "fraction": 0,
+              "feedback": "S -> a S b does produce b; the real reason is the a/b counts must be equal."
+            }
+          ],
+          "generalFeedback": "Each application of S -> a S b adds exactly one a and one b, so any derived string has #a = #b. acbb has 1 a and 2 b, so it is outside the language.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum tests for PDC (independent choices)",
+          "text": "<p>Given the grammar:</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>What is the minimum number of test strings needed to achieve Production Coverage?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — e.g. xz and yw together use S -> A B, A -> x, A -> y, B -> z, B -> w."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "One string fixes one A-alternative and one B-alternative, so it can use only 3 of the 5 productions."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of strings in the language, not the minimum for PDC; two suffice."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the number of productions; a single string can cover several at once, so two strings suffice."
+            }
+          ],
+          "generalFeedback": "There are 5 productions. Each string chooses one A-alternative and one B-alternative, so at most 3 productions per string. xz and yw cover all 5, so the minimum is 2.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "TSC met but PDC not",
+          "text": "<p>Given the grammar:</p><pre><code>S -> a S | a</code></pre><p>Consider the test set { <code>a</code> }. Which is true?</p>",
+          "answers": [
+            {
+              "text": "It satisfies Terminal Symbol Coverage but not Production Coverage",
+              "fraction": 100,
+              "feedback": "Correct — the only terminal a appears, but production S -> a S is never used."
+            },
+            {
+              "text": "It satisfies both TSC and PDC",
+              "fraction": 0,
+              "feedback": "The derivation of \"a\" uses only S -> a; S -> a S is uncovered, so PDC fails."
+            },
+            {
+              "text": "It satisfies PDC but not TSC",
+              "fraction": 0,
+              "feedback": "PDC would require S -> a S too, which \"a\" does not use."
+            },
+            {
+              "text": "It satisfies neither",
+              "fraction": 0,
+              "feedback": "The terminal a does appear, so TSC is met."
+            }
+          ],
+          "generalFeedback": "\"a\" is derived by S -> a alone, covering the single terminal (TSC met) but leaving the recursive production S -> a S unused, so PDC fails. This shows TSC does not imply PDC.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "PDC subsumes TSC",
+          "text": "<p>Production Coverage subsumes Terminal Symbol Coverage: any test set that satisfies PDC also satisfies TSC.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — using every production forces every terminal (each appears on some right-hand side) to appear."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Every terminal occurs on the right-hand side of at least one production, so covering all productions covers all terminals."
+            }
+          ],
+          "generalFeedback": "Each terminal appears on some production's right-hand side. Exercising every production therefore uses every terminal, so PDC subsumes TSC (but not conversely)."
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the leftmost derivation",
+          "text": "<p>Given the grammar:</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>Which is a correct <strong>leftmost</strong> derivation of <code>xz</code>?</p>",
+          "answers": [
+            {
+              "text": "S => A B => x B => x z",
+              "fraction": 100,
+              "feedback": "Correct — the leftmost nonterminal (A) is expanded before B at each step."
+            },
+            {
+              "text": "S => A B => A z => x z",
+              "fraction": 0,
+              "feedback": "That expands B (the rightmost nonterminal) first; it is a rightmost derivation."
+            },
+            {
+              "text": "S => A B => x z",
+              "fraction": 0,
+              "feedback": "This skips a step; each production replaces exactly one nonterminal."
+            },
+            {
+              "text": "S => x z",
+              "fraction": 0,
+              "feedback": "No single production rewrites S directly to x z; S -> A B must be applied first."
+            }
+          ],
+          "generalFeedback": "Leftmost means always expand the leftmost nonterminal: S => A B (S -> A B), then A first: => x B (A -> x), then B: => x z (B -> z).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Derivable string yz",
+          "text": "<p>Given the grammar:</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>Is <code>yz</code> in the language, and which productions derive it?</p>",
+          "answers": [
+            {
+              "text": "Yes: S -> A B, then A -> y, then B -> z",
+              "fraction": 100,
+              "feedback": "Correct — S => A B => y B => y z."
+            },
+            {
+              "text": "Yes: S -> A B, then A -> x, then B -> z",
+              "fraction": 0,
+              "feedback": "A -> x yields \"xz\", not \"yz\"; you need A -> y."
+            },
+            {
+              "text": "No — y and z cannot appear in the same string",
+              "fraction": 0,
+              "feedback": "A can be y and B can be z independently, so yz is derivable."
+            },
+            {
+              "text": "No — the grammar has no production for y",
+              "fraction": 0,
+              "feedback": "A -> y is a production, so y is available."
+            }
+          ],
+          "generalFeedback": "The language is { xz, xw, yz, yw }. For yz: S => A B => y B => y z, using S -> A B, A -> y, B -> z.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "TSC requirement count",
+          "text": "<p>Given the grammar:</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>How many test requirements does Terminal Symbol Coverage impose?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — one requirement per terminal: x, y, z, w."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the production count (for PDC); TSC counts the 4 terminals."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the number of nonterminals (S, A, B); TSC counts terminals, of which there are 4."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Recount — the terminals are x, y, z, w, so four requirements."
+            }
+          ],
+          "generalFeedback": "TSC has one requirement per terminal symbol. The terminals are x, y, z, w — four requirements.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PDC requirement count",
+          "text": "<p>Given the grammar:</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>How many test requirements does Production Coverage impose?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — S -> A B, A -> x, A -> y, B -> z, B -> w are five productions."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "That counts the three rule lines; each alternative counts separately, giving five."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the terminal count (for TSC); there are five productions."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "Recount — 1 (S) + 2 (A) + 2 (B) = 5 productions."
+            }
+          ],
+          "generalFeedback": "Counting each alternative separately: S -> A B (1), A -> x, A -> y (2), B -> z, B -> w (2) = 5 productions, so 5 PDC requirements.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Production sequence for acb",
+          "text": "<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>Which sequence of productions derives <code>acb</code>?</p>",
+          "answers": [
+            {
+              "text": "S -> a S b, then S -> c",
+              "fraction": 100,
+              "feedback": "Correct — S => aSb => a c b."
+            },
+            {
+              "text": "S -> c only",
+              "fraction": 0,
+              "feedback": "S -> c alone derives just \"c\", not \"acb\"."
+            },
+            {
+              "text": "S -> a S b, then S -> a S b",
+              "fraction": 0,
+              "feedback": "Two wraps give \"aa...bb\"; you need S -> c to finish \"acb\"."
+            },
+            {
+              "text": "S -> a S b, then S -> a S b, then S -> c",
+              "fraction": 0,
+              "feedback": "That derives \"aacbb\", not \"acb\"."
+            }
+          ],
+          "generalFeedback": "acb needs one wrap and then the central c: S => aSb (S -> a S b) => a c b (S -> c). This single string already exercises both productions of the grammar.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "One recursive string covers PDC",
+          "text": "<p>Given the grammar:</p><pre><code>E -> E + T | T\nT -> a | b</code></pre><p>What is the minimum number of test strings needed to achieve Production Coverage?</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — a+b uses all four productions: E -> E + T, E -> T, T -> a, T -> b."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Two are not needed: the single recursive string a+b already exercises every production."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "One string suffices; a+b covers all four productions."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the production count; one well-chosen string can hit all of them."
+            }
+          ],
+          "generalFeedback": "Derive a+b leftmost: E => E + T (E -> E + T) => T + T (E -> T) => a + T (T -> a) => a + b (T -> b). All four productions are used, so one string achieves PDC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Uncovered production",
+          "text": "<p>Given the grammar:</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>Which production is left uncovered by the test set { <code>xz</code>, <code>xw</code> }?</p>",
+          "answers": [
+            {
+              "text": "A -> y",
+              "fraction": 100,
+              "feedback": "Correct — both strings begin with x, so A -> y is never used."
+            },
+            {
+              "text": "B -> z",
+              "fraction": 0,
+              "feedback": "xz uses B -> z, so it is covered."
+            },
+            {
+              "text": "B -> w",
+              "fraction": 0,
+              "feedback": "xw uses B -> w, so it is covered."
+            },
+            {
+              "text": "S -> A B",
+              "fraction": 0,
+              "feedback": "Both strings use S -> A B, so it is covered."
+            }
+          ],
+          "generalFeedback": "{ xz, xw } uses S -> A B, A -> x, B -> z, B -> w but never A -> y. So PDC is not met (and, incidentally, the terminal y is never generated).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "TSC without PDC",
+          "text": "<p>A test set can satisfy Terminal Symbol Coverage without satisfying Production Coverage.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — TSC does not subsume PDC; e.g. for S -> a S | a the set { a } meets TSC but not PDC."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Subsumption runs only one way: PDC implies TSC, but TSC does not imply PDC."
+            }
+          ],
+          "generalFeedback": "PDC subsumes TSC, not the reverse. A terminal may be reachable through a production that a TSC-satisfying set never exercises, leaving PDC unmet."
+        },
+        {
+          "type": "multichoice",
+          "name": "Recognizer role",
+          "text": "<p>A <strong>recognizer</strong> built from a grammar is used to:</p>",
+          "answers": [
+            {
+              "text": "Decide whether a given input string is in the language (accept or reject it)",
+              "fraction": 100,
+              "feedback": "Correct — a recognizer parses an input and reports membership."
+            },
+            {
+              "text": "Derive new strings to serve as test inputs",
+              "fraction": 0,
+              "feedback": "That is the generator role, not the recognizer role."
+            },
+            {
+              "text": "Count the number of productions in the grammar",
+              "fraction": 0,
+              "feedback": "A recognizer classifies strings; it does not count rules."
+            },
+            {
+              "text": "Mutate the grammar to create invalid strings",
+              "fraction": 0,
+              "feedback": "That is grammar mutation; a recognizer only accepts or rejects."
+            }
+          ],
+          "generalFeedback": "A recognizer answers \"is this string in L(G)?\" by accepting or rejecting; a generator instead emits strings. The same grammar can back both roles.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Derivable nested sum",
+          "text": "<p>Given the grammar:</p><pre><code>E -> E + T | T\nT -> a | b</code></pre><p>Is the string <code>a+b+a</code> in the language?</p>",
+          "answers": [
+            {
+              "text": "Yes — apply E -> E + T twice, then E -> T, then T -> a, T -> b, T -> a",
+              "fraction": 100,
+              "feedback": "Correct — E => E+T => E+T+T => T+T+T => a+b+a is derivable."
+            },
+            {
+              "text": "No — the grammar allows at most one + per string",
+              "fraction": 0,
+              "feedback": "E -> E + T is recursive, so any number of + operators is allowed."
+            },
+            {
+              "text": "No — the grammar cannot produce the terminal a twice",
+              "fraction": 0,
+              "feedback": "T -> a can be applied at more than one position, so a may occur repeatedly."
+            },
+            {
+              "text": "Yes, but only using T -> a (never T -> b)",
+              "fraction": 0,
+              "feedback": "The middle operand is b, so T -> b is needed; both a and b appear."
+            }
+          ],
+          "generalFeedback": "E -> E + T is left-recursive, so E => E+T => (E+T)+T => (T+T)+T => a+b+a. The recursion permits arbitrarily many + operators.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Why all-derivations is infeasible",
+          "text": "<p>Covering <strong>every possible derivation</strong> of a grammar (all-derivations coverage) is generally infeasible because:</p>",
+          "answers": [
+            {
+              "text": "Recursive productions allow infinitely many derivations, so the requirement set is unbounded",
+              "fraction": 100,
+              "feedback": "Correct — this mirrors why complete path coverage is infeasible with loops."
+            },
+            {
+              "text": "Grammars have no start symbol to begin derivations",
+              "fraction": 0,
+              "feedback": "Every CFG has a start symbol; that is not the problem."
+            },
+            {
+              "text": "Terminals cannot be distinguished from nonterminals",
+              "fraction": 0,
+              "feedback": "They are clearly distinguished; recursion, not confusion, causes the blow-up."
+            },
+            {
+              "text": "Production Coverage already forbids more than one derivation",
+              "fraction": 0,
+              "feedback": "PDC places no such limit; the issue is the unbounded number of derivations."
+            }
+          ],
+          "generalFeedback": "A recursive production (e.g. E -> E + T) can be applied any number of times, yielding infinitely many derivations — analogous to loops making complete path coverage infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutant-only negative test (c to d)",
+          "text": "<p>Original grammar:</p><pre><code>S -> a S b | c</code></pre><p>You mutate the production <code>S -> c</code> into <code>S -> d</code>, giving the mutant <code>S -> a S b | d</code>. Which string does the mutant derive that is <strong>not</strong> in the original language (a valid negative test)?</p>",
+          "answers": [
+            {
+              "text": "aadbb",
+              "fraction": 100,
+              "feedback": "Correct — the mutant derives a^n d b^n; aadbb is outside the original a^n c b^n."
+            },
+            {
+              "text": "aacbb",
+              "fraction": 0,
+              "feedback": "aacbb is in the original language, so it is a valid input, not a negative test."
+            },
+            {
+              "text": "acb",
+              "fraction": 0,
+              "feedback": "acb is in the original language; the mutant no longer derives it, and it is not a negative test."
+            },
+            {
+              "text": "aadb",
+              "fraction": 0,
+              "feedback": "aadb has two a's but one b, so neither grammar derives it; it is not a mutant string."
+            }
+          ],
+          "generalFeedback": "The mutant language is a^n d b^n. aadbb (n = 2) is derivable by the mutant but not by the original, so it is exactly the kind of invalid input used to test error handling.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal PDC set with a top-level choice",
+          "text": "<p>Given the grammar:</p><pre><code>S -> A | B\nA -> a A | a\nB -> b</code></pre><p>What is the minimum number of test strings needed for Production Coverage?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — e.g. aa (covers S -> A, A -> a A, A -> a) and b (covers S -> B, B -> b)."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "One string picks either S -> A or S -> B, so it cannot cover both top-level alternatives."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Two strings suffice: \"aa\" and \"b\" together use all five productions."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the production count; strings cover several productions each, so two suffice."
+            }
+          ],
+          "generalFeedback": "There are 5 productions. \"aa\" gives S -> A, A -> a A, A -> a; \"b\" gives S -> B, B -> b. Because S -> A and S -> B are mutually exclusive in one derivation, no single string can do both, so the minimum is 2.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which string is outside the language",
+          "text": "<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>Which string is <strong>not</strong> in the language (so a parser should reject it)?</p>",
+          "answers": [
+            {
+              "text": "aabb",
+              "fraction": 100,
+              "feedback": "Correct — every string in the language contains exactly one central c; aabb has none."
+            },
+            {
+              "text": "aacbb",
+              "fraction": 0,
+              "feedback": "aacbb = a^2 c b^2 is in the language."
+            },
+            {
+              "text": "acb",
+              "fraction": 0,
+              "feedback": "acb = a^1 c b^1 is in the language."
+            },
+            {
+              "text": "c",
+              "fraction": 0,
+              "feedback": "c is derived directly by S -> c, so it is in the language."
+            }
+          ],
+          "generalFeedback": "Every derivation ends by applying S -> c, so each string has exactly one c in the middle. aabb has no c and is therefore outside the language.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Generator and recognizer in test generation",
+          "text": "<p>In grammar-based testing you want to produce valid inputs and also decide whether the system under test classifies them correctly. Which pairing of roles is right?</p>",
+          "answers": [
+            {
+              "text": "Use the grammar as a generator to derive inputs; use a recognizer as an oracle to check acceptance/rejection",
+              "fraction": 100,
+              "feedback": "Correct — generator produces strings, recognizer decides membership."
+            },
+            {
+              "text": "Use the grammar as a recognizer to derive inputs; use a generator to reject them",
+              "fraction": 0,
+              "feedback": "The roles are swapped: recognizers decide membership, generators produce strings."
+            },
+            {
+              "text": "Use mutation operators to both derive and classify inputs",
+              "fraction": 0,
+              "feedback": "Mutation creates invalid variants; it is not how valid inputs are generated or classified."
+            },
+            {
+              "text": "Use Production Coverage to derive inputs and Terminal Symbol Coverage to reject them",
+              "fraction": 0,
+              "feedback": "Those are coverage criteria, not the generator/recognizer mechanisms."
+            }
+          ],
+          "generalFeedback": "A generator walks the productions to emit strings (test inputs); a recognizer parses a string and answers whether it is in the language, acting as the oracle for valid/invalid classification.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Parse trees in an ambiguous grammar",
+          "text": "<p>Given the ambiguous grammar:</p><pre><code>E -> E + E | a</code></pre><p>How many distinct <strong>parse trees</strong> does the string <code>a+a+a</code> have?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "Correct — (a+a)+a and a+(a+a) are the two distinct groupings."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "The grammar is ambiguous for this string; there are two distinct parse trees."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Only two ways to parenthesize three operands with one binary operator."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The count is the Catalan number C(2) = 2, not 4."
+            }
+          ],
+          "generalFeedback": "With three operands there are C(2) = 2 ways to associate the additions: (a+a)+a and a+(a+a). Each yields a distinct parse tree, showing the grammar is ambiguous.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutant-only negative test (extra b)",
+          "text": "<p>Original grammar (language a^n c b^n):</p><pre><code>S -> a S b | c</code></pre><p>You mutate <code>S -> a S b</code> into <code>S -> a S b b</code>. Which string is derivable by the <strong>mutant</strong> but rejected by the original (a good negative test)?</p>",
+          "answers": [
+            {
+              "text": "acbb",
+              "fraction": 100,
+              "feedback": "Correct — S => a S b b => a c b b; a^1 c b^2 is not in the original a^n c b^n."
+            },
+            {
+              "text": "c",
+              "fraction": 0,
+              "feedback": "c is derivable by both grammars (S -> c), so it is not a negative test."
+            },
+            {
+              "text": "acb",
+              "fraction": 0,
+              "feedback": "acb is in the original language, but the mutant (with S -> a S b b) cannot derive it, so it is not a mutant string."
+            },
+            {
+              "text": "aabb",
+              "fraction": 0,
+              "feedback": "aabb has no c, so neither grammar derives it."
+            }
+          ],
+          "generalFeedback": "The mutant derives a^n c b^(2n). acbb (n = 1) is derivable by the mutant but has unequal a/b counts, so the original rejects it — exactly a negative test for error handling.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal PDC set for if-then grammar",
+          "text": "<p>Given the grammar (treat <code>if</code>, <code>then</code>, <code>s</code>, <code>t</code>, <code>f</code> as terminals):</p><pre><code>S -> if C then S | s\nC -> t | f</code></pre><p>What is the minimum number of test strings needed for Production Coverage?</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Incorrect — this assumes C -> t and C -> f cannot both occur in one derivation, but the recursion lets both occur in a single nested string such as \"if t then if f then s\", so one test suffices."
+            },
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "Correct — S is recursive (S -> if C then S), so one nested string like \"if t then if f then s\" covers all four productions: two uses of S -> if C then S, plus C -> t, C -> f, and S -> s."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "Two suffice: the two strings above cover S -> if C then S, S -> s, C -> t, C -> f."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the production count; a single string covers several productions, so two suffice."
+            }
+          ],
+          "generalFeedback": "Four productions: S -> if C then S, S -> s, C -> t, C -> f. Because S is recursive (S -> if C then S), a single nested string such as \"if t then if f then s\" uses S -> if C then S twice plus C -> t, C -> f, and S -> s — all four productions in one string. So the minimum is 1.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutation to accept an invalid string",
+          "text": "<p>Given the grammar:</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>The string <code>xy</code> is not in the language. Which single production mutation makes <code>xy</code> derivable (turning it into a mutant-accepted invalid input)?</p>",
+          "answers": [
+            {
+              "text": "Change B -> w to B -> y",
+              "fraction": 100,
+              "feedback": "Correct — then S => A B => x B => x y using A -> x and the mutated B -> y."
+            },
+            {
+              "text": "Change A -> y to A -> x",
+              "fraction": 0,
+              "feedback": "That removes an A-alternative; it does not let B produce y, so xy stays underivable."
+            },
+            {
+              "text": "Change S -> A B to S -> B A",
+              "fraction": 0,
+              "feedback": "Then strings are (z|w)(x|y); xy (x then y) is still not derivable."
+            },
+            {
+              "text": "Change A -> x to A -> x y",
+              "fraction": 0,
+              "feedback": "Then A can be \"xy\" but S -> A B still appends a B, giving xyz or xyw, not \"xy\"."
+            }
+          ],
+          "generalFeedback": "xy needs A to give x and the second symbol to be y. Making B -> y (from B -> w) lets S => A B => x B => x y. The mutant now accepts an invalid input, useful for negative testing of the recognizer.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "All-derivations like complete path",
+          "text": "<p>Covering every derivation of a grammar with recursive productions is generally infeasible, for the same reason that Complete Path Coverage is infeasible on a graph with a loop.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — recursion in a grammar plays the role a loop plays in a graph: infinitely many possibilities."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A recursive production can be applied arbitrarily often, giving unboundedly many derivations, just as a loop gives unboundedly many paths."
+            }
+          ],
+          "generalFeedback": "Recursion is the grammar analogue of a loop: both create an unbounded set of possibilities, so covering all of them (all derivations / all paths) cannot be finitely satisfied."
+        },
+        {
+          "type": "multichoice",
+          "name": "Count strings up to a length",
+          "text": "<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>How many distinct strings of length <strong>at most 5</strong> are in the language?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — c (length 1), acb (length 3), aacbb (length 5)."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "There are three: lengths 1, 3, and 5 (n = 0, 1, 2)."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "The next string, aaacbbb, has length 7, which exceeds 5."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "Only n = 0, 1, 2 give lengths 1, 3, 5 within the bound; that is three strings."
+            }
+          ],
+          "generalFeedback": "A string a^n c b^n has length 2n + 1. Length at most 5 means 2n + 1 <= 5, i.e. n <= 2: c, acb, aacbb — three strings.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutation dropping a terminal",
+          "text": "<p>Original grammar (language a^n c b^n):</p><pre><code>S -> a S b | c</code></pre><p>You mutate <code>S -> a S b</code> into <code>S -> a S</code>. Which string becomes derivable by the mutant that was <strong>not</strong> in the original language?</p>",
+          "answers": [
+            {
+              "text": "aac",
+              "fraction": 100,
+              "feedback": "Correct — the mutant derives a^n c; S => a S => a a S => a a c, which the original never produces."
+            },
+            {
+              "text": "aacbb",
+              "fraction": 0,
+              "feedback": "aacbb is in the original language, and the mutant (no b) cannot produce it at all."
+            },
+            {
+              "text": "acb",
+              "fraction": 0,
+              "feedback": "acb is in the original language; the mutant has no b, so it cannot derive it either."
+            },
+            {
+              "text": "abc",
+              "fraction": 0,
+              "feedback": "The mutant produces a^n c (no b), so abc is not derivable by it."
+            }
+          ],
+          "generalFeedback": "Dropping the trailing b changes the language to a^n c. aac (n = 2) is now derivable but is not in the original a^n c b^n, so it is a negative test for the recognizer.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Leftmost derivation on a recursive grammar",
+          "text": "<p>Given the grammar:</p><pre><code>E -> E + T | T\nT -> a | b</code></pre><p>Which is a correct <strong>leftmost</strong> derivation of <code>a+b</code>?</p>",
+          "answers": [
+            {
+              "text": "E => E + T => T + T => a + T => a + b",
+              "fraction": 100,
+              "feedback": "Correct — the leftmost nonterminal is expanded at each step (E, then the inner E, then the T's left-to-right)."
+            },
+            {
+              "text": "E => E + T => E + b => T + b => a + b",
+              "fraction": 0,
+              "feedback": "That expands the rightmost T before the left E; it is a rightmost derivation."
+            },
+            {
+              "text": "E => E + T => a + T => a + b",
+              "fraction": 0,
+              "feedback": "The leftmost symbol after step 1 is the nonterminal E, not a T; you cannot rewrite it to \"a\" without first applying E -> T."
+            },
+            {
+              "text": "E => T => a",
+              "fraction": 0,
+              "feedback": "That derives just \"a\"; it never produces the + operator."
+            }
+          ],
+          "generalFeedback": "Leftmost always expands the leftmost nonterminal: E => E + T (E -> E + T); the leftmost E next: => T + T (E -> T); then the T's: => a + T (T -> a) => a + b (T -> b).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimal PDC with three top-level choices",
+          "text": "<p>Given the grammar:</p><pre><code>S -> A | B | C\nA -> a\nB -> b\nC -> c</code></pre><p>What is the minimum number of test strings needed for Production Coverage?</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "Correct — a, b, c each fix a different top-level alternative; all three are needed."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "One string uses exactly one of S -> A / S -> B / S -> C, so it cannot cover the other two."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "Two strings cover only two of the three mutually exclusive S-alternatives."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is the production count; each string covers two productions (one S-alt plus one leaf), so three strings suffice."
+            }
+          ],
+          "generalFeedback": "There are 6 productions but the three S-alternatives are mutually exclusive per derivation. \"a\", \"b\", \"c\" each cover one S-alternative and its leaf, so exactly 3 strings achieve PDC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why PDC subsumes TSC",
+          "text": "<p>Why does Production Coverage subsume Terminal Symbol Coverage?</p>",
+          "answers": [
+            {
+              "text": "Every terminal appears on the right-hand side of some production, so using every production forces every terminal to appear",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly why PDC implies TSC."
+            },
+            {
+              "text": "Because there are always fewer terminals than productions",
+              "fraction": 0,
+              "feedback": "Counts do not establish subsumption; the reason is that each terminal occurs on some right-hand side."
+            },
+            {
+              "text": "Because TSC and PDC impose exactly the same test requirements",
+              "fraction": 0,
+              "feedback": "They differ: PDC is strictly stronger, so they are not identical."
+            },
+            {
+              "text": "Because every production contains exactly one terminal",
+              "fraction": 0,
+              "feedback": "Productions may contain zero or many terminals; subsumption does not depend on that."
+            }
+          ],
+          "generalFeedback": "A symbol is a terminal of the grammar only if it appears on some production's right-hand side. Exercising all productions therefore generates every terminal, so PDC subsumes TSC; the converse fails.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是 CFG",
+          "text": "<p>在語法式測試中，<strong>上下文無關文法（CFG）</strong>最好的描述是：</p>",
+          "answers": [
+            {
+              "text": "由終端符號、非終端符號、產生式與起始符號組成的有限集合，共同定義一個語言",
+              "fraction": 100,
+              "feedback": "正確——這四個組成部分定義了 CFG 以及它所產生的字串。"
+            },
+            {
+              "text": "程式基本區塊的控制流程圖",
+              "fraction": 0,
+              "feedback": "那是圖覆蓋意義下的 CFG；此處的 CFG 指上下文無關文法。"
+            },
+            {
+              "text": "把測試輸入對應到預期輸出的表格",
+              "fraction": 0,
+              "feedback": "那是測試預言或決策表，不是文法。"
+            },
+            {
+              "text": "套用在原始碼上的突變運算子清單",
+              "fraction": 0,
+              "feedback": "那是程式突變；文法定義的是字串的語言。"
+            }
+          ],
+          "generalFeedback": "上下文無關文法是終端符號、非終端符號、產生式（規則）與起始符號組成的結構；它產生一組稱為其語言的字串。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "終端符號",
+          "text": "<p>文法中的<strong>終端（terminal）</strong>符號是：</p>",
+          "answers": [
+            {
+              "text": "字面出現在所產生字串中、且不再被展開的符號",
+              "fraction": 100,
+              "feedback": "正確——終端是構成最終字串的原子性標記。"
+            },
+            {
+              "text": "必須用產生式加以替換的符號",
+              "fraction": 0,
+              "feedback": "那描述的是非終端，會被展開，而非終端。"
+            },
+            {
+              "text": "推導所開始的那個唯一符號",
+              "fraction": 0,
+              "feedback": "那是起始符號。"
+            },
+            {
+              "text": "把一個字串改寫成另一個字串的規則",
+              "fraction": 0,
+              "feedback": "那是產生式，不是終端。"
+            }
+          ],
+          "generalFeedback": "終端是語言的字面標記；它們永不出現在產生式的左側，也永不被改寫。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非終端符號",
+          "text": "<p>文法中的<strong>非終端（nonterminal）</strong>符號是：</p>",
+          "answers": [
+            {
+              "text": "代表一組字串、並由產生式反覆改寫直到只剩終端的符號",
+              "fraction": 100,
+              "feedback": "正確——非終端是透過產生式加以展開的佔位符。"
+            },
+            {
+              "text": "原封不動出現在每個所產生字串中的字面標記",
+              "fraction": 0,
+              "feedback": "那是終端。"
+            },
+            {
+              "text": "由覆蓋準則產生的測試需求",
+              "fraction": 0,
+              "feedback": "那是測試需求，不是文法符號。"
+            },
+            {
+              "text": "辨識器必須拒絕的輸入",
+              "fraction": 0,
+              "feedback": "那是負向測試案例，不是非終端。"
+            }
+          ],
+          "generalFeedback": "非終端（又稱變數）由產生式加以改寫；當所有非終端都展開後，有效字串只會包含終端。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "產生式規則",
+          "text": "<p>文法的一條<strong>產生式（規則）</strong>，例如 <code>A -> b C</code>，所規定的是：</p>",
+          "answers": [
+            {
+              "text": "左側的非終端可以被右側的符號序列所替換的方式",
+              "fraction": 100,
+              "feedback": "正確——產生式是一條從非終端改寫為符號序列的規則。"
+            },
+            {
+              "text": "文法語言中的一個完整字串",
+              "fraction": 0,
+              "feedback": "產生式是規則；字串是套用規則後的結果。"
+            },
+            {
+              "text": "每次推導的起點",
+              "fraction": 0,
+              "feedback": "那是起始符號。"
+            },
+            {
+              "text": "一個無法被展開的終端",
+              "fraction": 0,
+              "feedback": "產生式左側是非終端而且可被套用；終端不能。"
+            }
+          ],
+          "generalFeedback": "產生式把左側的非終端改寫成右側的序列；推導把這些規則串接起來。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "起始符號",
+          "text": "<p>文法的<strong>起始符號</strong>是：</p>",
+          "answers": [
+            {
+              "text": "每次推導都由它開始的那個特定非終端",
+              "fraction": 100,
+              "feedback": "正確——語言的所有推導都從這個符號開始。"
+            },
+            {
+              "text": "每個所產生字串中的第一個終端",
+              "fraction": 0,
+              "feedback": "起始符號是非終端，不是輸出中的終端。"
+            },
+            {
+              "text": "推導中套用的最後一條產生式",
+              "fraction": 0,
+              "feedback": "起始符號是推導的起點，不是一條產生式。"
+            },
+            {
+              "text": "為某次測試隨機挑選的任意非終端",
+              "fraction": 0,
+              "feedback": "起始符號是文法固定的單一特定非終端。"
+            }
+          ],
+          "generalFeedback": "語言的每次推導都從起始符號（常寫作 S）開始；語言正是可由它推導出的所有終端字串所組成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是推導",
+          "text": "<p>文法中的<strong>推導（derivation）</strong>是：</p>",
+          "answers": [
+            {
+              "text": "把起始符號改寫成一個終端字串的一連串產生式套用",
+              "fraction": 100,
+              "feedback": "正確——推導是產生一個字串的逐步改寫過程。"
+            },
+            {
+              "text": "文法所能產生的所有字串的集合",
+              "fraction": 0,
+              "feedback": "那是語言；一次推導只產生其中一個字串。"
+            },
+            {
+              "text": "文法的單一一條產生式",
+              "fraction": 0,
+              "feedback": "推導按順序套用許多產生式，不只一條。"
+            },
+            {
+              "text": "證明某文法具有歧義的證據",
+              "fraction": 0,
+              "feedback": "歧義是關於一個字串有多個推導；推導本身只是一個改寫序列。"
+            }
+          ],
+          "generalFeedback": "推導從起始符號開始，逐步套用產生式直到只剩終端；所得的終端字串即為語言的成員。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "終端符號覆蓋定義",
+          "text": "<p>文法的<strong>終端符號覆蓋（TSC）</strong>要求：</p>",
+          "answers": [
+            {
+              "text": "文法的每個終端符號都至少出現在一個測試字串中",
+              "fraction": 100,
+              "feedback": "正確——TSC 為每個終端設一條測試需求。"
+            },
+            {
+              "text": "文法的每條產生式都至少被使用一次",
+              "fraction": 0,
+              "feedback": "那是產生式覆蓋，不是終端符號覆蓋。"
+            },
+            {
+              "text": "每一個可能的推導都被執行",
+              "fraction": 0,
+              "feedback": "那是推導（全推導）覆蓋，一般不可行。"
+            },
+            {
+              "text": "每個非終端都被當作起始符號使用",
+              "fraction": 0,
+              "feedback": "起始符號只有一個；TSC 談的是終端出現在測試中。"
+            }
+          ],
+          "generalFeedback": "TSC 是最弱的文法準則：每個終端都必須出現在某個所產生／所用的測試字串中。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "產生式覆蓋定義",
+          "text": "<p>文法的<strong>產生式覆蓋（PDC）</strong>要求：</p>",
+          "answers": [
+            {
+              "text": "每條產生式（規則的每個選項）都在至少一個測試字串的推導中被使用",
+              "fraction": 100,
+              "feedback": "正確——PDC 為每條產生式設一條測試需求。"
+            },
+            {
+              "text": "每個終端符號都至少出現在一個測試字串中",
+              "fraction": 0,
+              "feedback": "那是終端符號覆蓋，PDC 蘊涵它。"
+            },
+            {
+              "text": "產生出所有長度不超過 n 的字串",
+              "fraction": 0,
+              "feedback": "PDC 計算所用的產生式，而非有界長度的字串。"
+            },
+            {
+              "text": "每個非終端都被改寫恰好一次",
+              "fraction": 0,
+              "feedback": "PDC 要求每條產生式都被使用，有些可能被使用多次。"
+            }
+          ],
+          "generalFeedback": "PDC 要求每條產生式都至少被一次推導執行到。由於 A -> x | y 算作兩條產生式，兩個選項都必須被使用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算終端數",
+          "text": "<p>考慮以下文法：</p><pre><code>S -> a A | b\nA -> c | d</code></pre><p>它有幾個相異的<strong>終端</strong>符號？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——終端為 a、b、c、d。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "那算的是非終端 S 與 A，不是終端。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "重數一次——a、b、c、d 是四個相異終端。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "那把終端與非終端一起算了；終端只有 4 個。"
+            }
+          ],
+          "generalFeedback": "終端是出現在右側、永不被展開的字面標記：a、b、c、d，共四個。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算非終端數",
+          "text": "<p>考慮以下文法：</p><pre><code>S -> a A | b\nA -> c | d</code></pre><p>它有幾個<strong>非終端</strong>？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——非終端為 S 與 A。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "有兩個：S 與 A。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "那算的是終端 a、b、c、d，不是非終端。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "只有 S 與 A 出現在左側，也就是兩個。"
+            }
+          ],
+          "generalFeedback": "非終端是出現在左側、會被改寫的符號：S 與 A，共兩個。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算產生式數",
+          "text": "<p>考慮以下文法：</p><pre><code>S -> a A | b\nA -> c | d</code></pre><p>把每個選項算作一條獨立規則，共有幾條<strong>產生式</strong>？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——S -> a A、S -> b、A -> c、A -> d 共四條產生式。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "那算的是兩行；每個 | 引入一條獨立產生式，因此共四條。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "重數一次——每個選項分開算：2 + 2 = 4。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "兩條規則合起來只有四個選項。"
+            }
+          ],
+          "generalFeedback": "對產生式覆蓋而言，每個選項分開算：S -> a A、S -> b、A -> c、A -> d，共四條產生式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最左推導定義",
+          "text": "<p>在<strong>最左（leftmost）</strong>推導中，每一步改寫的是：</p>",
+          "answers": [
+            {
+              "text": "目前字串中最左邊的非終端",
+              "fraction": 100,
+              "feedback": "正確——最左推導總是展開最左邊尚存的非終端。"
+            },
+            {
+              "text": "目前字串中最右邊的非終端",
+              "fraction": 0,
+              "feedback": "那定義的是最右推導。"
+            },
+            {
+              "text": "目前字串中最左邊的終端",
+              "fraction": 0,
+              "feedback": "終端永不被改寫；只有非終端會被展開。"
+            },
+            {
+              "text": "隨機挑選的任意非終端",
+              "fraction": 0,
+              "feedback": "那是任意推導；最左推導把選擇固定為最左邊的非終端。"
+            }
+          ],
+          "generalFeedback": "最左推導每一步都展開最左邊的非終端；最右推導則總是展開最右邊的那個。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "BNF 選項豎線",
+          "text": "<p>在 BNF 式記法中，例如 <code>B -> c | d</code>，豎線 <code>|</code> 表示：</p>",
+          "answers": [
+            {
+              "text": "右側的替代選項——B 可被改寫成 c，或改寫成 d",
+              "fraction": 100,
+              "feedback": "正確——豎線分隔同一非終端的多條替代產生式。"
+            },
+            {
+              "text": "串接——B 必須被改寫成 c 後面接著 d",
+              "fraction": 0,
+              "feedback": "串接以並列書寫（c d）；豎線表示選擇。"
+            },
+            {
+              "text": "重複——B 可以是 c 重複 d 次",
+              "fraction": 0,
+              "feedback": "豎線表示的是選項，不是重複。"
+            },
+            {
+              "text": "把說明文字與規則分開的註解",
+              "fraction": 0,
+              "feedback": "豎線是文法語法的一部分，表示選項。"
+            }
+          ],
+          "generalFeedback": "豎線是多條產生式的簡寫：B -> c | d 縮寫了 B -> c 與 B -> d 兩條產生式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "文法的語言",
+          "text": "<p>文法所產生的<strong>語言</strong>是：</p>",
+          "answers": [
+            {
+              "text": "所有可由起始符號推導出的終端字串所組成的集合",
+              "fraction": 100,
+              "feedback": "正確——語言正是文法能推導出的那些字串。"
+            },
+            {
+              "text": "文法中所有產生式所組成的集合",
+              "fraction": 0,
+              "feedback": "那些是規則；語言是它們所產生的字串。"
+            },
+            {
+              "text": "文法中所有非終端所組成的集合",
+              "fraction": 0,
+              "feedback": "非終端是符號，不是語言的字串。"
+            },
+            {
+              "text": "文法所能產生的最長的單一字串",
+              "fraction": 0,
+              "feedback": "語言是所有可推導字串的整個集合，不是單一字串。"
+            }
+          ],
+          "generalFeedback": "語言 L(G) 是所有可由起始符號推導出的終端字串所組成的集合；一個字串「屬於該語言」正是當存在某個推導能產生它時。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "作為產生器的文法",
+          "text": "<p>當文法在測試中作為<strong>產生器（generator）</strong>使用時，用途是：</p>",
+          "answers": [
+            {
+              "text": "產生（推導）字串以作為測試輸入",
+              "fraction": 100,
+              "feedback": "正確——產生器套用產生式以輸出用於測試的字串。"
+            },
+            {
+              "text": "判定某個給定字串是否屬於該語言",
+              "fraction": 0,
+              "feedback": "那是辨識器的角色，不是產生器的角色。"
+            },
+            {
+              "text": "把文法編譯成機器碼",
+              "fraction": 0,
+              "feedback": "產生的是字串，不是目的碼。"
+            },
+            {
+              "text": "計算程式包含幾條產生式",
+              "fraction": 0,
+              "feedback": "產生是推導字串；它不分析程式。"
+            }
+          ],
+          "generalFeedback": "產生器沿著產生式推導出有效字串（測試輸入）；辨識器則是接受或拒絕一個給定字串。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "可推導的平衡字串",
+          "text": "<p>給定文法：</p><pre><code>S -> a S b | c</code></pre><p>字串 <code>aacbb</code> 是否屬於該語言？若是，用哪些產生式推導它？</p>",
+          "answers": [
+            {
+              "text": "是：S -> a S b 兩次，再 S -> c（S => aSb => aaSbb => aacbb）",
+              "fraction": 100,
+              "feedback": "正確——在中央的 c 外圍包了兩層 a...b，得到 aacbb。"
+            },
+            {
+              "text": "是，只用 S -> c",
+              "fraction": 0,
+              "feedback": "單用 S -> c 只能推出「c」；還需要 S -> a S b 兩次。"
+            },
+            {
+              "text": "否——此文法無法產生兩個 a",
+              "fraction": 0,
+              "feedback": "套用 S -> a S b 兩次會產生兩個 a 與兩個 b。"
+            },
+            {
+              "text": "否——c 不可以出現在中間",
+              "fraction": 0,
+              "feedback": "包完之後由 S -> c 提供中央的 c；aacbb 屬於該語言。"
+            }
+          ],
+          "generalFeedback": "此語言為 a^n c b^n。對 aacbb，n = 2：S => aSb => aaSbb => aacbb，使用 S -> a S b 兩次與 S -> c 一次。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不平衡字串不可推導",
+          "text": "<p>給定文法：</p><pre><code>S -> a S b | c</code></pre><p>字串 <code>acbb</code> 是否屬於該語言？</p>",
+          "answers": [
+            {
+              "text": "否——每次推導都產生同樣數量的 a 與 b，但 acbb 有一個 a、兩個 b",
+              "fraction": 100,
+              "feedback": "正確——a^n c b^n 強制 #a = #b，故 acbb 不可推導。"
+            },
+            {
+              "text": "是，用 S -> a S b 一次再 S -> c",
+              "fraction": 0,
+              "feedback": "那推出的是「acb」（一個 a、一個 b），不是「acbb」。"
+            },
+            {
+              "text": "是，用 S -> a S b 兩次",
+              "fraction": 0,
+              "feedback": "包兩層會得到有兩個 a 的「aa...bb」；acbb 只有一個 a。"
+            },
+            {
+              "text": "否——此文法根本無法產生終端 b",
+              "fraction": 0,
+              "feedback": "S -> a S b 確實會產生 b；真正的原因是 a 與 b 的數量必須相等。"
+            }
+          ],
+          "generalFeedback": "每次套用 S -> a S b 恰好增加一個 a 與一個 b，故任何推導出的字串都滿足 #a = #b。acbb 有 1 個 a、2 個 b，因此在語言之外。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "達成 PDC 的最少測試（獨立選擇）",
+          "text": "<p>給定文法：</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>要達成產生式覆蓋，最少需要幾個測試字串？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——例如 xz 與 yw 合起來使用 S -> A B、A -> x、A -> y、B -> z、B -> w。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "單一字串固定一個 A 選項與一個 B 選項，故最多只能用到 5 條產生式中的 3 條。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是語言中的字串數，不是 PDC 的最少值；兩個就足夠。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是產生式數；單一字串一次可涵蓋多條，故兩個字串就足夠。"
+            }
+          ],
+          "generalFeedback": "共 5 條產生式。每個字串選一個 A 選項與一個 B 選項，故每個字串最多涵蓋 3 條。xz 與 yw 涵蓋全部 5 條，因此最少為 2。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "滿足 TSC 但不滿足 PDC",
+          "text": "<p>給定文法：</p><pre><code>S -> a S | a</code></pre><p>考慮測試集合 { <code>a</code> }。下列何者為真？</p>",
+          "answers": [
+            {
+              "text": "它滿足終端符號覆蓋，但不滿足產生式覆蓋",
+              "fraction": 100,
+              "feedback": "正確——唯一的終端 a 有出現，但產生式 S -> a S 從未被使用。"
+            },
+            {
+              "text": "它同時滿足 TSC 與 PDC",
+              "fraction": 0,
+              "feedback": "「a」的推導只用了 S -> a；S -> a S 未被涵蓋，故 PDC 不成立。"
+            },
+            {
+              "text": "它滿足 PDC 但不滿足 TSC",
+              "fraction": 0,
+              "feedback": "PDC 還會要求 S -> a S，而「a」並未使用它。"
+            },
+            {
+              "text": "兩者都不滿足",
+              "fraction": 0,
+              "feedback": "終端 a 確實有出現，故 TSC 成立。"
+            }
+          ],
+          "generalFeedback": "「a」僅由 S -> a 推出，涵蓋了唯一的終端（TSC 成立），卻讓遞迴產生式 S -> a S 未被使用，故 PDC 不成立。這說明 TSC 並不蘊涵 PDC。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "PDC 蘊涵 TSC",
+          "text": "<p>產生式覆蓋蘊涵（subsumes）終端符號覆蓋：任何滿足 PDC 的測試集合也滿足 TSC。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——使用每條產生式會強制每個終端（各自都出現在某個右側）出現。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "每個終端都出現在至少一條產生式的右側，故涵蓋所有產生式即涵蓋所有終端。"
+            }
+          ],
+          "generalFeedback": "每個終端都出現在某條產生式的右側。因此執行每條產生式就會用到每個終端，故 PDC 蘊涵 TSC（反之不然）。"
+        },
+        {
+          "type": "multichoice",
+          "name": "辨認最左推導",
+          "text": "<p>給定文法：</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>下列何者是 <code>xz</code> 的正確<strong>最左</strong>推導？</p>",
+          "answers": [
+            {
+              "text": "S => A B => x B => x z",
+              "fraction": 100,
+              "feedback": "正確——每一步都先展開最左邊的非終端（A）再處理 B。"
+            },
+            {
+              "text": "S => A B => A z => x z",
+              "fraction": 0,
+              "feedback": "那先展開 B（最右邊的非終端）；那是最右推導。"
+            },
+            {
+              "text": "S => A B => x z",
+              "fraction": 0,
+              "feedback": "這略過了一步；每條產生式恰好替換一個非終端。"
+            },
+            {
+              "text": "S => x z",
+              "fraction": 0,
+              "feedback": "沒有單一產生式能把 S 直接改寫成 x z；必須先套用 S -> A B。"
+            }
+          ],
+          "generalFeedback": "最左表示總是展開最左邊的非終端：S => A B（S -> A B），接著先處理 A：=> x B（A -> x），再處理 B：=> x z（B -> z）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可推導字串 yz",
+          "text": "<p>給定文法：</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p><code>yz</code> 是否屬於該語言？用哪些產生式推導它？</p>",
+          "answers": [
+            {
+              "text": "是：S -> A B，再 A -> y，再 B -> z",
+              "fraction": 100,
+              "feedback": "正確——S => A B => y B => y z。"
+            },
+            {
+              "text": "是：S -> A B，再 A -> x，再 B -> z",
+              "fraction": 0,
+              "feedback": "A -> x 得到「xz」，不是「yz」；你需要 A -> y。"
+            },
+            {
+              "text": "否——y 與 z 不能出現在同一個字串中",
+              "fraction": 0,
+              "feedback": "A 可為 y、B 可為 z，兩者互不相干，故 yz 可推導。"
+            },
+            {
+              "text": "否——此文法沒有產生 y 的產生式",
+              "fraction": 0,
+              "feedback": "A -> y 是一條產生式，故 y 是可用的。"
+            }
+          ],
+          "generalFeedback": "此語言為 { xz, xw, yz, yw }。對 yz：S => A B => y B => y z，使用 S -> A B、A -> y、B -> z。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "TSC 需求數",
+          "text": "<p>給定文法：</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>終端符號覆蓋會產生幾條測試需求？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——每個終端一條需求：x、y、z、w。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是產生式數（用於 PDC）；TSC 計算的是 4 個終端。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是非終端數（S、A、B）；TSC 計算終端，共 4 個。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "重數一次——終端為 x、y、z、w，故四條需求。"
+            }
+          ],
+          "generalFeedback": "TSC 每個終端符號一條需求。終端為 x、y、z、w，共四條需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PDC 需求數",
+          "text": "<p>給定文法：</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>產生式覆蓋會產生幾條測試需求？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——S -> A B、A -> x、A -> y、B -> z、B -> w 共五條產生式。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "那算的是三行規則；每個選項分開算，共五條。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是終端數（用於 TSC）；產生式共五條。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "重數一次——1（S）+ 2（A）+ 2（B）= 5 條產生式。"
+            }
+          ],
+          "generalFeedback": "每個選項分開算：S -> A B（1）、A -> x、A -> y（2）、B -> z、B -> w（2）= 5 條產生式，故 5 條 PDC 需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "acb 的產生式序列",
+          "text": "<p>給定文法：</p><pre><code>S -> a S b | c</code></pre><p>哪一組產生式序列能推導 <code>acb</code>？</p>",
+          "answers": [
+            {
+              "text": "S -> a S b，再 S -> c",
+              "fraction": 100,
+              "feedback": "正確——S => aSb => a c b。"
+            },
+            {
+              "text": "只用 S -> c",
+              "fraction": 0,
+              "feedback": "單用 S -> c 只能推出「c」，而非「acb」。"
+            },
+            {
+              "text": "S -> a S b，再 S -> a S b",
+              "fraction": 0,
+              "feedback": "包兩層得到「aa...bb」；要完成「acb」還需 S -> c。"
+            },
+            {
+              "text": "S -> a S b，再 S -> a S b，再 S -> c",
+              "fraction": 0,
+              "feedback": "那推出的是「aacbb」，不是「acb」。"
+            }
+          ],
+          "generalFeedback": "acb 需要包一層再放中央的 c：S => aSb（S -> a S b）=> a c b（S -> c）。這單一字串就已經執行到此文法的兩條產生式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一個遞迴字串涵蓋 PDC",
+          "text": "<p>給定文法：</p><pre><code>E -> E + T | T\nT -> a | b</code></pre><p>要達成產生式覆蓋，最少需要幾個測試字串？</p>",
+          "answers": [
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——a+b 使用全部四條產生式：E -> E + T、E -> T、T -> a、T -> b。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "不需要兩個：單一遞迴字串 a+b 就已執行到每條產生式。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "一個字串就足夠；a+b 涵蓋全部四條產生式。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是產生式數；一個精心挑選的字串就能全部命中。"
+            }
+          ],
+          "generalFeedback": "以最左方式推導 a+b：E => E + T（E -> E + T）=> T + T（E -> T）=> a + T（T -> a）=> a + b（T -> b）。四條產生式全部用到，故一個字串即達成 PDC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "未涵蓋的產生式",
+          "text": "<p>給定文法：</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>測試集合 { <code>xz</code>, <code>xw</code> } 未涵蓋到哪一條產生式？</p>",
+          "answers": [
+            {
+              "text": "A -> y",
+              "fraction": 100,
+              "feedback": "正確——兩個字串都以 x 開頭，故 A -> y 從未被使用。"
+            },
+            {
+              "text": "B -> z",
+              "fraction": 0,
+              "feedback": "xz 使用了 B -> z，故已涵蓋。"
+            },
+            {
+              "text": "B -> w",
+              "fraction": 0,
+              "feedback": "xw 使用了 B -> w，故已涵蓋。"
+            },
+            {
+              "text": "S -> A B",
+              "fraction": 0,
+              "feedback": "兩個字串都使用 S -> A B，故已涵蓋。"
+            }
+          ],
+          "generalFeedback": "{ xz, xw } 使用了 S -> A B、A -> x、B -> z、B -> w，但從未用到 A -> y。故 PDC 不成立（附帶地，終端 y 也從未被產生）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "滿足 TSC 卻不滿足 PDC",
+          "text": "<p>一個測試集合可以在滿足終端符號覆蓋的同時，不滿足產生式覆蓋。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——TSC 不蘊涵 PDC；例如對 S -> a S | a，集合 { a } 滿足 TSC 卻不滿足 PDC。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "蘊涵只有單向：PDC 蘊涵 TSC，但 TSC 不蘊涵 PDC。"
+            }
+          ],
+          "generalFeedback": "是 PDC 蘊涵 TSC，而非反向。某個終端可能透過一條滿足 TSC 的集合從未執行到的產生式才可達，因而 PDC 不成立。"
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識器的角色",
+          "text": "<p>由文法建構的<strong>辨識器（recognizer）</strong>用途是：</p>",
+          "answers": [
+            {
+              "text": "判定某個給定輸入字串是否屬於該語言（接受或拒絕它）",
+              "fraction": 100,
+              "feedback": "正確——辨識器剖析輸入並回報是否為成員。"
+            },
+            {
+              "text": "推導出新字串以作為測試輸入",
+              "fraction": 0,
+              "feedback": "那是產生器的角色，不是辨識器的角色。"
+            },
+            {
+              "text": "計算文法中的產生式數目",
+              "fraction": 0,
+              "feedback": "辨識器對字串分類；它不計算規則數。"
+            },
+            {
+              "text": "突變文法以製造無效字串",
+              "fraction": 0,
+              "feedback": "那是文法突變；辨識器只接受或拒絕。"
+            }
+          ],
+          "generalFeedback": "辨識器回答「這個字串屬於 L(G) 嗎？」，以接受或拒絕作答；產生器則是輸出字串。同一份文法可支撐這兩種角色。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可推導的巢狀加法",
+          "text": "<p>給定文法：</p><pre><code>E -> E + T | T\nT -> a | b</code></pre><p>字串 <code>a+b+a</code> 是否屬於該語言？</p>",
+          "answers": [
+            {
+              "text": "是——套用 E -> E + T 兩次，再 E -> T，再 T -> a、T -> b、T -> a",
+              "fraction": 100,
+              "feedback": "正確——E => E+T => E+T+T => T+T+T => a+b+a 可推導。"
+            },
+            {
+              "text": "否——此文法每個字串最多只允許一個 +",
+              "fraction": 0,
+              "feedback": "E -> E + T 是遞迴的，故允許任意數量的 +。"
+            },
+            {
+              "text": "否——此文法無法產生兩次終端 a",
+              "fraction": 0,
+              "feedback": "T -> a 可在多個位置套用，故 a 可重複出現。"
+            },
+            {
+              "text": "是，但只用 T -> a（從不用 T -> b）",
+              "fraction": 0,
+              "feedback": "中間的運算元是 b，故需要 T -> b；a 與 b 都會出現。"
+            }
+          ],
+          "generalFeedback": "E -> E + T 為左遞迴，故 E => E+T => (E+T)+T => (T+T)+T => a+b+a。遞迴允許任意多個 + 運算子。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "為何全推導不可行",
+          "text": "<p>覆蓋文法的<strong>每一個可能推導</strong>（全推導覆蓋）一般不可行，原因是：</p>",
+          "answers": [
+            {
+              "text": "遞迴產生式容許無窮多個推導，故需求集合是無界的",
+              "fraction": 100,
+              "feedback": "正確——這與迴圈使完整路徑覆蓋不可行的原因相同。"
+            },
+            {
+              "text": "文法沒有起始符號可供開始推導",
+              "fraction": 0,
+              "feedback": "每個 CFG 都有起始符號；問題不在此。"
+            },
+            {
+              "text": "終端與非終端無法區分",
+              "fraction": 0,
+              "feedback": "兩者可清楚區分；造成爆炸的是遞迴，而非混淆。"
+            },
+            {
+              "text": "產生式覆蓋本來就禁止多於一個推導",
+              "fraction": 0,
+              "feedback": "PDC 並無此限制；問題在於推導數目無界。"
+            }
+          ],
+          "generalFeedback": "遞迴產生式（例如 E -> E + T）可被套用任意多次，產生無窮多個推導——這與迴圈使完整路徑覆蓋不可行相類比。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "僅突變體可推導的負向測試（c 改 d）",
+          "text": "<p>原始文法：</p><pre><code>S -> a S b | c</code></pre><p>你把產生式 <code>S -> c</code> 突變成 <code>S -> d</code>，得到突變體 <code>S -> a S b | d</code>。突變體能推導、但<strong>不</strong>屬於原始語言的字串（有效的負向測試）是哪一個？</p>",
+          "answers": [
+            {
+              "text": "aadbb",
+              "fraction": 100,
+              "feedback": "正確——突變體推導 a^n d b^n；aadbb 在原始的 a^n c b^n 之外。"
+            },
+            {
+              "text": "aacbb",
+              "fraction": 0,
+              "feedback": "aacbb 屬於原始語言，故它是有效輸入，而非負向測試。"
+            },
+            {
+              "text": "acb",
+              "fraction": 0,
+              "feedback": "acb 屬於原始語言；突變體不再推導它，且它不是負向測試。"
+            },
+            {
+              "text": "aadb",
+              "fraction": 0,
+              "feedback": "aadb 有兩個 a 但只有一個 b，故兩個文法都無法推導它；它不是突變體字串。"
+            }
+          ],
+          "generalFeedback": "突變體語言為 a^n d b^n。aadbb（n = 2）可由突變體推導，卻無法由原始推導，因此正是用來測試錯誤處理的那類無效輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "含頂層選擇的最小 PDC 集合",
+          "text": "<p>給定文法：</p><pre><code>S -> A | B\nA -> a A | a\nB -> b</code></pre><p>要達成產生式覆蓋，最少需要幾個測試字串？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——例如 aa（涵蓋 S -> A、A -> a A、A -> a）與 b（涵蓋 S -> B、B -> b）。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "單一字串只會選 S -> A 或 S -> B，故無法同時涵蓋兩個頂層選項。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "兩個字串就足夠：「aa」與「b」合起來使用全部五條產生式。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是產生式數；每個字串可涵蓋多條，故兩個就足夠。"
+            }
+          ],
+          "generalFeedback": "共 5 條產生式。「aa」給出 S -> A、A -> a A、A -> a；「b」給出 S -> B、B -> b。由於 S -> A 與 S -> B 在單一推導中互斥，沒有任何單一字串能同時做到，故最少為 2。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個字串在語言之外",
+          "text": "<p>給定文法：</p><pre><code>S -> a S b | c</code></pre><p>哪一個字串<strong>不</strong>屬於該語言（因此剖析器應拒絕它）？</p>",
+          "answers": [
+            {
+              "text": "aabb",
+              "fraction": 100,
+              "feedback": "正確——語言中的每個字串都恰含一個中央 c；aabb 沒有 c。"
+            },
+            {
+              "text": "aacbb",
+              "fraction": 0,
+              "feedback": "aacbb = a^2 c b^2 屬於該語言。"
+            },
+            {
+              "text": "acb",
+              "fraction": 0,
+              "feedback": "acb = a^1 c b^1 屬於該語言。"
+            },
+            {
+              "text": "c",
+              "fraction": 0,
+              "feedback": "c 由 S -> c 直接推出，故屬於該語言。"
+            }
+          ],
+          "generalFeedback": "每次推導最後都會套用 S -> c，故每個字串在中間恰有一個 c。aabb 沒有 c，因此在語言之外。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試產生中的產生器與辨識器",
+          "text": "<p>在文法式測試中，你想產生有效輸入，並判定受測系統是否正確地將它們分類。哪一種角色配對是正確的？</p>",
+          "answers": [
+            {
+              "text": "把文法當作產生器來推導輸入；把辨識器當作預言來檢查接受／拒絕",
+              "fraction": 100,
+              "feedback": "正確——產生器產生字串，辨識器判定成員資格。"
+            },
+            {
+              "text": "把文法當作辨識器來推導輸入；用產生器來拒絕它們",
+              "fraction": 0,
+              "feedback": "角色顛倒了：辨識器判定成員資格，產生器產生字串。"
+            },
+            {
+              "text": "用突變運算子來同時推導與分類輸入",
+              "fraction": 0,
+              "feedback": "突變製造的是無效變體；那不是產生或分類有效輸入的方式。"
+            },
+            {
+              "text": "用產生式覆蓋來推導輸入、用終端符號覆蓋來拒絕它們",
+              "fraction": 0,
+              "feedback": "那些是覆蓋準則，不是產生器／辨識器機制。"
+            }
+          ],
+          "generalFeedback": "產生器沿產生式推導以輸出字串（測試輸入）；辨識器剖析字串並回答它是否屬於該語言，充當有效／無效分類的預言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "歧義文法中的剖析樹",
+          "text": "<p>給定歧義文法：</p><pre><code>E -> E + E | a</code></pre><p>字串 <code>a+a+a</code> 有幾棵相異的<strong>剖析樹</strong>？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 100,
+              "feedback": "正確——(a+a)+a 與 a+(a+a) 是兩種相異的分組。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "此文法對這個字串具歧義；有兩棵相異的剖析樹。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "三個運算元、一個二元運算子只有兩種加括號方式。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "此數目為 Catalan 數 C(2) = 2，而非 4。"
+            }
+          ],
+          "generalFeedback": "三個運算元有 C(2) = 2 種結合加法的方式：(a+a)+a 與 a+(a+a)。各對應一棵相異剖析樹，顯示此文法具歧義。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "僅突變體可推導的負向測試（多一個 b）",
+          "text": "<p>原始文法（語言 a^n c b^n）：</p><pre><code>S -> a S b | c</code></pre><p>你把 <code>S -> a S b</code> 突變成 <code>S -> a S b b</code>。哪個字串可由<strong>突變體</strong>推導、卻被原始拒絕（好的負向測試）？</p>",
+          "answers": [
+            {
+              "text": "acbb",
+              "fraction": 100,
+              "feedback": "正確——S => a S b b => a c b b；a^1 c b^2 不屬於原始的 a^n c b^n。"
+            },
+            {
+              "text": "c",
+              "fraction": 0,
+              "feedback": "c 可由兩個文法推導（S -> c），故不是負向測試。"
+            },
+            {
+              "text": "acb",
+              "fraction": 0,
+              "feedback": "acb 屬於原始語言，但突變體（含 S -> a S b b）無法推導它，故不是突變體字串。"
+            },
+            {
+              "text": "aabb",
+              "fraction": 0,
+              "feedback": "aabb 沒有 c，故兩個文法都無法推導它。"
+            }
+          ],
+          "generalFeedback": "突變體推導 a^n c b^(2n)。acbb（n = 1）可由突變體推導，但 a／b 數量不等，故原始會拒絕它——正是測試錯誤處理的負向測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "if-then 文法的最小 PDC 集合",
+          "text": "<p>給定文法（把 <code>if</code>、<code>then</code>、<code>s</code>、<code>t</code>、<code>f</code> 視為終端）：</p><pre><code>S -> if C then S | s\nC -> t | f</code></pre><p>要達成產生式覆蓋，最少需要幾個測試字串？</p>",
+          "answers": [
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "錯誤——此選項誤以為 C -> t 與 C -> f 不能同時出現在一次推導中，但遞迴使得兩者能同時出現在單一巢狀字串裡，例如「if t then if f then s」，因此一個測試字串就足夠。"
+            },
+            {
+              "text": "1",
+              "fraction": 100,
+              "feedback": "正確——因為 S 具遞迴性（S -> if C then S），像「if t then if f then s」這樣的巢狀字串可一次涵蓋全部四條產生式：兩次使用 S -> if C then S，加上 C -> t、C -> f、S -> s。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "兩個就足夠：上述兩個字串涵蓋 S -> if C then S、S -> s、C -> t、C -> f。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是產生式數；單一字串可涵蓋多條，故兩個就足夠。"
+            }
+          ],
+          "generalFeedback": "共四條產生式：S -> if C then S、S -> s、C -> t、C -> f。由於 S 具遞迴性（S -> if C then S），單一巢狀字串如「if t then if f then s」可使用兩次 S -> if C then S，再加上 C -> t、C -> f、S -> s——一次字串即涵蓋全部四條產生式。故最少需要 1 個測試字串。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "使無效字串被接受的突變",
+          "text": "<p>給定文法：</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>字串 <code>xy</code> 不屬於該語言。哪一個單一產生式突變會使 <code>xy</code> 變為可推導（讓它成為突變體接受的無效輸入）？</p>",
+          "answers": [
+            {
+              "text": "把 B -> w 改成 B -> y",
+              "fraction": 100,
+              "feedback": "正確——那麼 S => A B => x B => x y，使用 A -> x 與突變後的 B -> y。"
+            },
+            {
+              "text": "把 A -> y 改成 A -> x",
+              "fraction": 0,
+              "feedback": "那移除一個 A 選項；它無法讓 B 產生 y，故 xy 仍不可推導。"
+            },
+            {
+              "text": "把 S -> A B 改成 S -> B A",
+              "fraction": 0,
+              "feedback": "那麼字串變成 (z|w)(x|y)；xy（x 接著 y）仍不可推導。"
+            },
+            {
+              "text": "把 A -> x 改成 A -> x y",
+              "fraction": 0,
+              "feedback": "那麼 A 可為「xy」，但 S -> A B 仍會接上一個 B，得到 xyz 或 xyw，而非「xy」。"
+            }
+          ],
+          "generalFeedback": "xy 需要 A 給出 x、第二個符號為 y。把 B -> w 改為 B -> y 後，S => A B => x B => x y。突變體現在接受一個無效輸入，適合用來對辨識器做負向測試。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "全推導如同完整路徑",
+          "text": "<p>覆蓋含遞迴產生式之文法的每一個推導一般不可行，其原因與含迴圈之圖上完整路徑覆蓋不可行的原因相同。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——文法中的遞迴扮演圖中迴圈的角色：無窮多種可能。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "遞迴產生式可被套用任意多次，產生無界多個推導，就像迴圈產生無界多條路徑一樣。"
+            }
+          ],
+          "generalFeedback": "遞迴是文法中對應迴圈的東西：兩者都製造出無界的可能性集合，故要覆蓋其全部（全推導／所有路徑）無法在有限步內達成。"
+        },
+        {
+          "type": "multichoice",
+          "name": "計算不超過某長度的字串數",
+          "text": "<p>給定文法：</p><pre><code>S -> a S b | c</code></pre><p>語言中長度<strong>至多為 5</strong> 的相異字串有幾個？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——c（長度 1）、acb（長度 3）、aacbb（長度 5）。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "有三個：長度 1、3、5（n = 0、1、2）。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "下一個字串 aaacbbb 長度為 7，超過 5。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "只有 n = 0、1、2 給出長度 1、3、5 在界內；那是三個字串。"
+            }
+          ],
+          "generalFeedback": "字串 a^n c b^n 長度為 2n + 1。長度至多 5 表示 2n + 1 <= 5，即 n <= 2：c、acb、aacbb——三個字串。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "移除終端的突變",
+          "text": "<p>原始文法（語言 a^n c b^n）：</p><pre><code>S -> a S b | c</code></pre><p>你把 <code>S -> a S b</code> 突變成 <code>S -> a S</code>。哪個字串因此變為突變體可推導、卻<strong>不</strong>屬於原始語言？</p>",
+          "answers": [
+            {
+              "text": "aac",
+              "fraction": 100,
+              "feedback": "正確——突變體推導 a^n c；S => a S => a a S => a a c，原始從不產生它。"
+            },
+            {
+              "text": "aacbb",
+              "fraction": 0,
+              "feedback": "aacbb 屬於原始語言，而突變體（無 b）根本無法產生它。"
+            },
+            {
+              "text": "acb",
+              "fraction": 0,
+              "feedback": "acb 屬於原始語言；突變體沒有 b，故也無法推導它。"
+            },
+            {
+              "text": "abc",
+              "fraction": 0,
+              "feedback": "突變體產生 a^n c（無 b），故 abc 無法由它推導。"
+            }
+          ],
+          "generalFeedback": "去掉尾端的 b 使語言變為 a^n c。aac（n = 2）現在可推導，但不屬於原始的 a^n c b^n，故是對辨識器的負向測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "遞迴文法上的最左推導",
+          "text": "<p>給定文法：</p><pre><code>E -> E + T | T\nT -> a | b</code></pre><p>下列何者是 <code>a+b</code> 的正確<strong>最左</strong>推導？</p>",
+          "answers": [
+            {
+              "text": "E => E + T => T + T => a + T => a + b",
+              "fraction": 100,
+              "feedback": "正確——每一步都展開最左邊的非終端（先 E，再內層 E，再由左至右處理各 T）。"
+            },
+            {
+              "text": "E => E + T => E + b => T + b => a + b",
+              "fraction": 0,
+              "feedback": "那在展開左側 E 之前先展開右側的 T；那是最右推導。"
+            },
+            {
+              "text": "E => E + T => a + T => a + b",
+              "fraction": 0,
+              "feedback": "第一步後最左的符號是非終端 E，而非 T；未先套用 E -> T 就無法把它改寫成「a」。"
+            },
+            {
+              "text": "E => T => a",
+              "fraction": 0,
+              "feedback": "那只推出「a」；從未產生 + 運算子。"
+            }
+          ],
+          "generalFeedback": "最左總是展開最左邊的非終端：E => E + T（E -> E + T）；接著最左的 E：=> T + T（E -> T）；再處理各 T：=> a + T（T -> a）=> a + b（T -> b）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "含三個頂層選擇的最小 PDC",
+          "text": "<p>給定文法：</p><pre><code>S -> A | B | C\nA -> a\nB -> b\nC -> c</code></pre><p>要達成產生式覆蓋，最少需要幾個測試字串？</p>",
+          "answers": [
+            {
+              "text": "3",
+              "fraction": 100,
+              "feedback": "正確——a、b、c 各固定一個不同的頂層選項；三者都需要。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "單一字串恰用 S -> A／S -> B／S -> C 之一，故無法涵蓋另外兩個。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "兩個字串只能涵蓋三個互斥 S 選項中的兩個。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是產生式數；每個字串涵蓋兩條（一個 S 選項加一個葉子），故三個字串就足夠。"
+            }
+          ],
+          "generalFeedback": "共 6 條產生式，但三個 S 選項在每次推導中互斥。「a」、「b」、「c」各涵蓋一個 S 選項與其葉子，故恰好 3 個字串達成 PDC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 PDC 蘊涵 TSC",
+          "text": "<p>為什麼產生式覆蓋蘊涵終端符號覆蓋？</p>",
+          "answers": [
+            {
+              "text": "每個終端都出現在某條產生式的右側，故使用每條產生式會強制每個終端出現",
+              "fraction": 100,
+              "feedback": "正確——這正是 PDC 蘊涵 TSC 的原因。"
+            },
+            {
+              "text": "因為終端數總是少於產生式數",
+              "fraction": 0,
+              "feedback": "數目多寡並不建立蘊涵關係；原因在於每個終端都出現在某個右側。"
+            },
+            {
+              "text": "因為 TSC 與 PDC 施加完全相同的測試需求",
+              "fraction": 0,
+              "feedback": "兩者不同：PDC 嚴格更強，故並不相同。"
+            },
+            {
+              "text": "因為每條產生式都恰好含一個終端",
+              "fraction": 0,
+              "feedback": "產生式可含零個或多個終端；蘊涵關係並不依賴於此。"
+            }
+          ],
+          "generalFeedback": "一個符號要成為文法的終端，必須出現在某條產生式的右側。因此執行所有產生式會產生每個終端，故 PDC 蘊涵 TSC；反向不成立。",
+          "single": true
+        }
+      ]
+    }
+  },
   "graph-coverage": {
     "en": {
       "easy": [
@@ -25334,6 +27896,2590 @@ export const QUIZ_RENDERED = {
             }
           ],
           "generalFeedback": "因為基本區塊沒有內部分支，控制從頂端進入並一路執行到底部的每條敘述，故覆蓋該節點就覆蓋其所有敘述——敘述覆蓋 ≡ 節點覆蓋。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "input-space-partitioning": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What a block is",
+          "text": "<p>In Input Space Partitioning (ISP), a characteristic divides the input domain into <strong>blocks</strong>. What is a block?</p>",
+          "answers": [
+            {
+              "text": "A subset of the domain's values that the characteristic groups together and treats as one class",
+              "fraction": 100,
+              "feedback": "Correct — each block is one class of values produced by partitioning along that characteristic."
+            },
+            {
+              "text": "A single concrete test case ready to run",
+              "fraction": 0,
+              "feedback": "A block is a class of values; a concrete test is one representative chosen from a block."
+            },
+            {
+              "text": "A line of source code exercised by the input",
+              "fraction": 0,
+              "feedback": "ISP is black-box and describes the input domain, not code lines."
+            },
+            {
+              "text": "The expected output the program should produce",
+              "fraction": 0,
+              "feedback": "That is an oracle result, not a block of the input domain."
+            }
+          ],
+          "generalFeedback": "A characteristic partitions the input domain into blocks; each block is a set of values assumed to be handled equivalently, and one representative value is later chosen from each block.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a partition is",
+          "text": "<p>For one characteristic, its <strong>partition</strong> of the input domain is best described as which of the following?</p>",
+          "answers": [
+            {
+              "text": "The collection of blocks that are pairwise disjoint and whose union is the whole domain",
+              "fraction": 100,
+              "feedback": "Correct — a partition is exactly a set of disjoint, complete blocks."
+            },
+            {
+              "text": "Any collection of overlapping value ranges chosen for convenience",
+              "fraction": 0,
+              "feedback": "Overlap breaks disjointness, so overlapping ranges do not form a valid partition."
+            },
+            {
+              "text": "The single most important value of the domain",
+              "fraction": 0,
+              "feedback": "A partition is a set of blocks covering the domain, not one value."
+            },
+            {
+              "text": "The list of test cases produced by a coverage criterion",
+              "fraction": 0,
+              "feedback": "Tests come later; the partition is the division of the domain itself."
+            }
+          ],
+          "generalFeedback": "A partition (for one characteristic) is a set of blocks that together are complete (cover the whole domain) and disjoint (no value in two blocks).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of disjoint blocks",
+          "text": "<p>The blocks of a characteristic are required to be <strong>disjoint</strong>. What does that mean?</p>",
+          "answers": [
+            {
+              "text": "No value of the domain belongs to more than one block",
+              "fraction": 100,
+              "feedback": "Correct — disjoint means the blocks do not overlap."
+            },
+            {
+              "text": "Every value of the domain belongs to some block",
+              "fraction": 0,
+              "feedback": "That describes completeness, not disjointness."
+            },
+            {
+              "text": "All blocks contain the same number of values",
+              "fraction": 0,
+              "feedback": "Equal size is not required; disjointness only forbids overlap."
+            },
+            {
+              "text": "There are exactly two blocks",
+              "fraction": 0,
+              "feedback": "Disjointness says nothing about how many blocks there are."
+            }
+          ],
+          "generalFeedback": "Disjoint means the blocks are mutually exclusive: any given input value falls into at most one block of that characteristic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of complete blocks",
+          "text": "<p>The blocks of a characteristic are required to be <strong>complete</strong>. What does that mean?</p>",
+          "answers": [
+            {
+              "text": "The union of the blocks is the entire input domain — every value falls into some block",
+              "fraction": 100,
+              "feedback": "Correct — completeness means the blocks leave no value uncovered."
+            },
+            {
+              "text": "No value belongs to two blocks",
+              "fraction": 0,
+              "feedback": "That describes disjointness, not completeness."
+            },
+            {
+              "text": "Each block is tested with at least two values",
+              "fraction": 0,
+              "feedback": "Completeness is about covering the domain, not about how many values per block."
+            },
+            {
+              "text": "The characteristic has at least three blocks",
+              "fraction": 0,
+              "feedback": "Completeness places no minimum on the number of blocks."
+            }
+          ],
+          "generalFeedback": "Complete means the blocks cover the whole domain: taken together they contain every possible input value, so nothing is left unclassifiable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Choosing values from blocks",
+          "text": "<p>Once the blocks are defined, how does ISP turn them into concrete tests?</p>",
+          "answers": [
+            {
+              "text": "Choose one representative value from each block used in a test",
+              "fraction": 100,
+              "feedback": "Correct — one representative per block stands in for the whole block."
+            },
+            {
+              "text": "Use every value in every block exhaustively",
+              "fraction": 0,
+              "feedback": "Exhaustive enumeration is exactly what partitioning avoids."
+            },
+            {
+              "text": "Pick values only from the largest block",
+              "fraction": 0,
+              "feedback": "Every block used in a test needs a representative, not just the largest one."
+            },
+            {
+              "text": "Generate values randomly, ignoring the blocks",
+              "fraction": 0,
+              "feedback": "Then the blocks would play no role; ISP deliberately picks a representative per block."
+            }
+          ],
+          "generalFeedback": "ISP relies on the assumption that a block's values are handled equivalently, so a single representative value per block is chosen to build each test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interface-based characteristics",
+          "text": "<p>What are <strong>interface-based</strong> characteristics derived from?</p>",
+          "answers": [
+            {
+              "text": "The parameters of the method under test, considered individually from its signature",
+              "fraction": 100,
+              "feedback": "Correct — interface-based characteristics come straight from the input parameters."
+            },
+            {
+              "text": "The program's specification and intended behavior",
+              "fraction": 0,
+              "feedback": "That describes functionality-based characteristics."
+            },
+            {
+              "text": "The internal control-flow graph of the code",
+              "fraction": 0,
+              "feedback": "ISP is black-box; interface-based characteristics use the parameters, not the CFG."
+            },
+            {
+              "text": "The measured runtime of each test",
+              "fraction": 0,
+              "feedback": "Timing is unrelated to how characteristics are derived."
+            }
+          ],
+          "generalFeedback": "Interface-based characteristics are read off the method's parameters one at a time (e.g. \"is parameter x null?\"). They are easy to derive but can miss relationships between parameters.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Functionality-based characteristics",
+          "text": "<p>What are <strong>functionality-based</strong> characteristics derived from?</p>",
+          "answers": [
+            {
+              "text": "The specified behavior or semantics of the function, possibly combining several parameters",
+              "fraction": 100,
+              "feedback": "Correct — functionality-based characteristics come from what the function is supposed to do."
+            },
+            {
+              "text": "Each parameter taken in isolation from the signature",
+              "fraction": 0,
+              "feedback": "That is the interface-based approach."
+            },
+            {
+              "text": "The number of statements in the implementation",
+              "fraction": 0,
+              "feedback": "Statement counts are code metrics, not functionality-based characteristics."
+            },
+            {
+              "text": "The compiler's optimization level",
+              "fraction": 0,
+              "feedback": "Compilation settings have nothing to do with deriving characteristics."
+            }
+          ],
+          "generalFeedback": "Functionality-based characteristics come from the specification (e.g. \"list is already sorted\"), and may relate several parameters at once. They often yield better tests but require more domain understanding.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What ECC requires",
+          "text": "<p>What does Each Choice Coverage (ECC) require of a test set?</p>",
+          "answers": [
+            {
+              "text": "Every block of every characteristic must appear in at least one test",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly the each-choice requirement."
+            },
+            {
+              "text": "Every combination of blocks across all characteristics must appear",
+              "fraction": 0,
+              "feedback": "That is All Combinations Coverage, which is far stronger."
+            },
+            {
+              "text": "Every pair of blocks from every pair of characteristics must appear together",
+              "fraction": 0,
+              "feedback": "That is Pair-Wise Coverage, not Each Choice."
+            },
+            {
+              "text": "Exactly one test is needed regardless of the blocks",
+              "fraction": 0,
+              "feedback": "One test cannot include two different blocks of the same characteristic."
+            }
+          ],
+          "generalFeedback": "ECC only asks that each block of each characteristic be used at least once somewhere in the test set — the weakest of the standard ISP criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What ACoC requires",
+          "text": "<p>What does All Combinations Coverage (ACoC) require of a test set?</p>",
+          "answers": [
+            {
+              "text": "Every combination of one block from each characteristic must appear in some test",
+              "fraction": 100,
+              "feedback": "Correct — ACoC covers the full cross-product of blocks."
+            },
+            {
+              "text": "Only that each block appears at least once",
+              "fraction": 0,
+              "feedback": "That is Each Choice Coverage, which is weaker."
+            },
+            {
+              "text": "Only that every pair of blocks appears together",
+              "fraction": 0,
+              "feedback": "That is Pair-Wise Coverage, weaker than ACoC."
+            },
+            {
+              "text": "That a single base test is varied one characteristic at a time",
+              "fraction": 0,
+              "feedback": "That describes Base Choice Coverage, not ACoC."
+            }
+          ],
+          "generalFeedback": "ACoC requires every combination of blocks — one from each characteristic — so the number of tests is the product of the block counts.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC count for two characteristics",
+          "text": "<p>An ISP model has two characteristics with 2 and 3 blocks. How many tests does All Combinations Coverage (ACoC) require?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 2 × 3 = 6, the product of the block counts."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the sum 2 + 3; ACoC multiplies the block counts."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the larger block count (that is Each Choice), not All Combinations."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 does not match 2 × 3."
+            }
+          ],
+          "generalFeedback": "ACoC is the product of the block counts: 2 × 3 = 6.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC count for three binary characteristics",
+          "text": "<p>An ISP model has three characteristics, each with 2 blocks. How many tests does ACoC require?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — 2 × 2 × 2 = 8."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is the sum 2 + 2 + 2; ACoC multiplies."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is one block count (Each Choice), not All Combinations."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 ignores one characteristic; the product over all three is 8."
+            }
+          ],
+          "generalFeedback": "ACoC is the product of the block counts: 2 × 2 × 2 = 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ECC count equals the largest block count",
+          "text": "<p>An ISP model has three characteristics with 2, 5, and 3 blocks. What is the minimum number of tests for Each Choice Coverage (ECC)?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — ECC needs at least the largest block count, max(2,5,3) = 5."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 is the sum of the block counts; blocks can be reused across characteristics within one test."
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 is the product (All Combinations), far more than ECC needs."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is not enough to cover the characteristic with 5 blocks."
+            }
+          ],
+          "generalFeedback": "Each test picks one block per characteristic, so covering every block needs at least as many tests as the largest block count: max(2,5,3) = 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ECC count with two characteristics",
+          "text": "<p>An ISP model has two characteristics with 4 and 2 blocks. What is the minimum number of tests for Each Choice Coverage (ECC)?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — ECC needs at least max(4,2) = 4 tests."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is the product (All Combinations), not the each-choice minimum."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is the sum of the block counts; ECC reuses blocks within a test."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 cannot cover the characteristic that has 4 blocks."
+            }
+          ],
+          "generalFeedback": "ECC equals the largest block count: max(4,2) = 4. The 2-block characteristic's blocks are simply reused within those four tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A valid characteristic and its blocks",
+          "text": "<p>For an integer input <code>x</code>, which of these is a well-formed ISP characteristic with disjoint, complete blocks?</p>",
+          "answers": [
+            {
+              "text": "\"Sign of x\" with blocks {x < 0}, {x = 0}, {x > 0}",
+              "fraction": 100,
+              "feedback": "Correct — these three blocks are disjoint and cover every integer."
+            },
+            {
+              "text": "\"Size of x\" with blocks {x < 10}, {x > 5}",
+              "fraction": 0,
+              "feedback": "Values 6..9 fall in both blocks, so they overlap (not disjoint)."
+            },
+            {
+              "text": "\"Range of x\" with blocks {x < 0}, {x > 0}",
+              "fraction": 0,
+              "feedback": "The value 0 belongs to no block, so this is incomplete."
+            },
+            {
+              "text": "\"Value of x\" with one block {x = 7}",
+              "fraction": 0,
+              "feedback": "Every other integer is uncovered, so this partition is incomplete."
+            }
+          ],
+          "generalFeedback": "A well-formed characteristic partitions the domain into disjoint, complete blocks. \"Sign of x\" as negative / zero / positive does exactly that for the integers.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "ISP is black-box",
+          "text": "<p>Input Space Partitioning is a black-box technique: it models the input domain and does not require access to the source code.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — ISP derives characteristics from parameters and the specification, not from code."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "ISP works on the input domain (interface- or functionality-based), so it needs no source code."
+            }
+          ],
+          "generalFeedback": "ISP is a black-box, input-domain technique. Characteristics come from the method's parameters (interface-based) or its specified behavior (functionality-based), so the implementation is not needed."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Spot the overlapping partition",
+          "text": "<p>A characteristic \"string length L\" is split into blocks {L &lt; 10}, {10 ≤ L ≤ 20}, {L &gt; 15}. Is this a valid partition, and why?</p>",
+          "answers": [
+            {
+              "text": "Invalid — the blocks are not disjoint (e.g. L = 18 falls in both {10 ≤ L ≤ 20} and {L > 15})",
+              "fraction": 100,
+              "feedback": "Correct — 16..20 lie in two blocks at once, breaking disjointness."
+            },
+            {
+              "text": "Valid — the blocks are disjoint and complete",
+              "fraction": 0,
+              "feedback": "They are not disjoint: values 16..20 belong to two blocks."
+            },
+            {
+              "text": "Invalid — some lengths are left uncovered (incomplete)",
+              "fraction": 0,
+              "feedback": "Every length is covered; the defect here is overlap, not a gap."
+            },
+            {
+              "text": "Valid — overlap between blocks is allowed in ISP",
+              "fraction": 0,
+              "feedback": "Overlap is not allowed; blocks of a partition must be disjoint."
+            }
+          ],
+          "generalFeedback": "Lengths 16..20 satisfy both {10 ≤ L ≤ 20} and {L > 15}, so the blocks overlap. A valid partition must be disjoint, so this is invalid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Spot the gap in a partition",
+          "text": "<p>A characteristic \"age\" (non-negative integer) is split into blocks {0..17}, {19..65}, {&gt; 65}. Is this a valid partition, and why?</p>",
+          "answers": [
+            {
+              "text": "Invalid — it is incomplete: age 18 belongs to no block",
+              "fraction": 100,
+              "feedback": "Correct — 18 is missing, so the blocks do not cover the whole domain."
+            },
+            {
+              "text": "Valid — the blocks are disjoint and complete",
+              "fraction": 0,
+              "feedback": "Age 18 is uncovered, so completeness fails."
+            },
+            {
+              "text": "Invalid — the blocks overlap at 65",
+              "fraction": 0,
+              "feedback": "65 is only in {19..65}; there is no overlap. The defect is the missing 18."
+            },
+            {
+              "text": "Valid — small gaps are acceptable in ISP",
+              "fraction": 0,
+              "feedback": "Gaps violate completeness; every domain value must fall into some block."
+            }
+          ],
+          "generalFeedback": "Age 18 is not in {0..17}, {19..65}, or {> 65}, so the partition is incomplete and therefore invalid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Recognize a valid partition",
+          "text": "<p>A characteristic \"temperature T (integer °C)\" is split into blocks {T &lt; 0}, {0 ≤ T ≤ 100}, {T &gt; 100}. Is this a valid partition?</p>",
+          "answers": [
+            {
+              "text": "Valid — the three blocks are disjoint and together cover every integer temperature",
+              "fraction": 100,
+              "feedback": "Correct — no overlap and no gap, so it is a proper partition."
+            },
+            {
+              "text": "Invalid — the blocks overlap at 0 and 100",
+              "fraction": 0,
+              "feedback": "0 is only in the middle block and 100 only in the middle block; there is no overlap."
+            },
+            {
+              "text": "Invalid — temperatures below 0 are uncovered",
+              "fraction": 0,
+              "feedback": "{T < 0} covers them, so nothing is uncovered."
+            },
+            {
+              "text": "Invalid — a partition may have at most two blocks",
+              "fraction": 0,
+              "feedback": "A characteristic may have any number of blocks; three is fine."
+            }
+          ],
+          "generalFeedback": "The blocks {T < 0}, {0..100}, {T > 100} are mutually exclusive and jointly exhaustive over the integers, so the partition is disjoint and complete — valid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC count for three characteristics",
+          "text": "<p>An ISP model has three characteristics with 4, 3, and 2 blocks. How many tests does All Combinations Coverage (ACoC) require?</p>",
+          "answers": [
+            {
+              "text": "24",
+              "fraction": 100,
+              "feedback": "Correct — 4 × 3 × 2 = 24."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the sum 4 + 3 + 2; ACoC multiplies the block counts."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is the product of only the two largest (a PWC lower bound), not all three."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the largest single block count (Each Choice), not All Combinations."
+            }
+          ],
+          "generalFeedback": "ACoC = product of the block counts = 4 × 3 × 2 = 24.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ECC count for four characteristics",
+          "text": "<p>An ISP model has four characteristics with 3, 3, 5, and 2 blocks. What is the minimum number of tests for Each Choice Coverage (ECC)?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — ECC needs at least max(3,3,5,2) = 5 tests."
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 is the sum of the block counts; ECC reuses blocks within each test."
+            },
+            {
+              "text": "90",
+              "fraction": 0,
+              "feedback": "90 is the product (All Combinations), not the each-choice minimum."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is not enough to cover the characteristic that has 5 blocks."
+            }
+          ],
+          "generalFeedback": "ECC equals the largest block count: max(3,3,5,2) = 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "BCC count for 2,4,3",
+          "text": "<p>An ISP model has three characteristics with 2, 4, and 3 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "Correct — 1 + (2-1) + (4-1) + (3-1) = 1 + 1 + 3 + 2 = 7."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the sum of the block counts; BCC is 1 + Σ(blocks - 1)."
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 is the product (All Combinations), not the base-choice count."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 forgets the +1 base test: 1 + (1 + 3 + 2) = 7."
+            }
+          ],
+          "generalFeedback": "BCC = 1 + Σ(b_i - 1) = 1 + (1 + 3 + 2) = 7: one base test plus varying each characteristic through its non-base blocks.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "BCC count for 2,2,4",
+          "text": "<p>An ISP model has three characteristics with 2, 2, and 4 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 1 + (2-1) + (2-1) + (4-1) = 1 + 1 + 1 + 3 = 6."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is the sum of the block counts; BCC is 1 + Σ(blocks - 1)."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 is the product (All Combinations), not the base-choice count."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 forgets the +1 base test: 1 + (1 + 1 + 3) = 6."
+            }
+          ],
+          "generalFeedback": "BCC = 1 + Σ(b_i - 1) = 1 + (1 + 1 + 3) = 6.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PWC lower bound for 4,3,2",
+          "text": "<p>An ISP model has three characteristics with 4, 3, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage (PWC) set must contain?</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "Correct — at least the product of the two largest block counts, 4 × 3 = 12."
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 is the full All Combinations product; PWC needs fewer."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the sum of the block counts, unrelated to the pairwise lower bound."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 (the largest single block count) is the Each Choice minimum, not the pairwise bound."
+            }
+          ],
+          "generalFeedback": "Covering every pair from the two largest characteristics (4 and 3 blocks) already needs all 4 × 3 = 12 of their combinations, so any PWC set has at least 12 tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PWC lower bound for 2,5,3,2",
+          "text": "<p>An ISP model has four characteristics with 2, 5, 3, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage (PWC) set must contain?</p>",
+          "answers": [
+            {
+              "text": "15",
+              "fraction": 100,
+              "feedback": "Correct — the product of the two largest block counts, 5 × 3 = 15."
+            },
+            {
+              "text": "60",
+              "fraction": 0,
+              "feedback": "60 is the full All Combinations product; PWC needs fewer."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is the sum of the block counts, not the pairwise lower bound."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 (the largest single block count) is the Each Choice minimum, not the pairwise bound."
+            }
+          ],
+          "generalFeedback": "The PWC lower bound is the product of the two largest block counts: 5 × 3 = 15.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a null-check characteristic",
+          "text": "<p>For <code>int indexOf(List list, Object target)</code>, a tester defines the characteristic \"is <code>list</code> null?\" with blocks {null}, {non-null}. How is this characteristic best classified?</p>",
+          "answers": [
+            {
+              "text": "Interface-based — it comes directly from a single parameter of the signature",
+              "fraction": 100,
+              "feedback": "Correct — nullness of one parameter is read straight off the interface."
+            },
+            {
+              "text": "Functionality-based — it comes from the specified search behavior",
+              "fraction": 0,
+              "feedback": "It is derived from the parameter itself, not from what indexOf is specified to do."
+            },
+            {
+              "text": "Neither — nullness cannot be a characteristic",
+              "fraction": 0,
+              "feedback": "Nullness of a reference parameter is a common, valid interface-based characteristic."
+            },
+            {
+              "text": "It depends on the implementation's control flow",
+              "fraction": 0,
+              "feedback": "ISP is black-box; this characteristic is defined without looking at code."
+            }
+          ],
+          "generalFeedback": "\"Is list null?\" is derived from one parameter considered on its own, which is the defining trait of an interface-based characteristic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify an already-sorted characteristic",
+          "text": "<p>For a sorting routine <code>sort(int[] a)</code>, a tester defines the characteristic \"is <code>a</code> already sorted ascending?\" with blocks {already sorted}, {not sorted}. How is this best classified?</p>",
+          "answers": [
+            {
+              "text": "Functionality-based — it comes from the meaning of sorting, not from the parameter's type alone",
+              "fraction": 100,
+              "feedback": "Correct — \"already sorted\" is a property of the specified behavior over the input's contents."
+            },
+            {
+              "text": "Interface-based — it comes directly from the array parameter's type",
+              "fraction": 0,
+              "feedback": "The type is just \"int[]\"; being already-sorted is a semantic property, not read off the signature."
+            },
+            {
+              "text": "It is not a valid characteristic because it depends on values",
+              "fraction": 0,
+              "feedback": "Depending on the input's contents is exactly what functionality-based characteristics do."
+            },
+            {
+              "text": "It is a structural (white-box) characteristic",
+              "fraction": 0,
+              "feedback": "ISP is black-box; this comes from the specification of sorting, not the code structure."
+            }
+          ],
+          "generalFeedback": "\"Already sorted?\" reflects the semantics of the sorting task and the array's contents, so it is functionality-based rather than interface-based.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which value proves non-disjointness",
+          "text": "<p>A characteristic \"score S\" has blocks {S ≤ 50}, {40 ≤ S ≤ 90}, {S &gt; 90}. Which value demonstrates that the partition is <strong>not disjoint</strong>?</p>",
+          "answers": [
+            {
+              "text": "S = 45",
+              "fraction": 100,
+              "feedback": "Correct — 45 is in both {S ≤ 50} and {40 ≤ S ≤ 90}, proving overlap."
+            },
+            {
+              "text": "S = 20",
+              "fraction": 0,
+              "feedback": "20 is only in {S ≤ 50}; it does not show overlap."
+            },
+            {
+              "text": "S = 95",
+              "fraction": 0,
+              "feedback": "95 is only in {S > 90}; it does not show overlap."
+            },
+            {
+              "text": "S = 91",
+              "fraction": 0,
+              "feedback": "91 is only in {S > 90}; it does not show overlap."
+            }
+          ],
+          "generalFeedback": "The blocks {S ≤ 50} and {40 ≤ S ≤ 90} both contain 40..50. Any value there, such as 45, lies in two blocks and proves the partition is not disjoint.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which value proves incompleteness",
+          "text": "<p>A characteristic \"quantity Q (integer)\" has blocks {Q &lt; 0}, {1 ≤ Q ≤ 100}, {Q &gt; 100}. Which value demonstrates that the partition is <strong>incomplete</strong>?</p>",
+          "answers": [
+            {
+              "text": "Q = 0",
+              "fraction": 100,
+              "feedback": "Correct — 0 is not negative, not in 1..100, and not > 100, so it is uncovered."
+            },
+            {
+              "text": "Q = 50",
+              "fraction": 0,
+              "feedback": "50 is covered by {1 ≤ Q ≤ 100}."
+            },
+            {
+              "text": "Q = -5",
+              "fraction": 0,
+              "feedback": "-5 is covered by {Q < 0}."
+            },
+            {
+              "text": "Q = 200",
+              "fraction": 0,
+              "feedback": "200 is covered by {Q > 100}."
+            }
+          ],
+          "generalFeedback": "Q = 0 falls into none of {Q < 0}, {1..100}, {Q > 100}, so the partition leaves a gap and is incomplete.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Extra tests ACoC needs over ECC",
+          "text": "<p>An ISP model has two characteristics with 3 and 2 blocks. How many <strong>more</strong> tests does All Combinations Coverage require than the Each Choice minimum?</p>",
+          "answers": [
+            {
+              "text": "3 (ACoC = 6, ECC = 3)",
+              "fraction": 100,
+              "feedback": "Correct — 3 × 2 = 6 for ACoC and max(3,2) = 3 for ECC, a difference of 3."
+            },
+            {
+              "text": "0 (they are always equal)",
+              "fraction": 0,
+              "feedback": "ACoC = 6 but ECC = 3, so they differ here."
+            },
+            {
+              "text": "6 (ACoC = 6, ECC = 0)",
+              "fraction": 0,
+              "feedback": "ECC is not 0; it is max(3,2) = 3, so the difference is 3."
+            },
+            {
+              "text": "2 (ACoC = 5, ECC = 3)",
+              "fraction": 0,
+              "feedback": "ACoC is the product 3 × 2 = 6, not 5, so the difference is 3."
+            }
+          ],
+          "generalFeedback": "ACoC = 3 × 2 = 6 and ECC = max(3,2) = 3, so ACoC needs 6 - 3 = 3 more tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "BCC count for 2,3,2",
+          "text": "<p>An ISP model has three characteristics with 2, 3, and 2 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — 1 + (2-1) + (3-1) + (2-1) = 1 + 1 + 2 + 1 = 5."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the sum of the block counts; BCC is 1 + Σ(blocks - 1)."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is the product (All Combinations), not the base-choice count."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 forgets the +1 base test: 1 + (1 + 2 + 1) = 5."
+            }
+          ],
+          "generalFeedback": "BCC = 1 + Σ(b_i - 1) = 1 + (1 + 2 + 1) = 5.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "BCC count for 4,3,3,2",
+          "text": "<p>An ISP model has four characteristics with 4, 3, 3, and 2 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "Correct — 1 + (4-1) + (3-1) + (3-1) + (2-1) = 1 + 3 + 2 + 2 + 1 = 9."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is the sum of the block counts; BCC is 1 + Σ(blocks - 1)."
+            },
+            {
+              "text": "72",
+              "fraction": 0,
+              "feedback": "72 is the product (All Combinations), not the base-choice count."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 forgets the +1 base test: 1 + (3 + 2 + 2 + 1) = 9."
+            }
+          ],
+          "generalFeedback": "BCC = 1 + Σ(b_i - 1) = 1 + (3 + 2 + 2 + 1) = 9.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pick the BCC test set from a base",
+          "text": "<p>Characteristics A, B, C have blocks A∈{a1,a2}, B∈{b1,b2,b3}, C∈{c1,c2}. The base choice is (a1, b1, c1). Which set of tests is exactly the Base Choice Coverage set?</p>",
+          "answers": [
+            {
+              "text": "(a1,b1,c1), (a2,b1,c1), (a1,b2,c1), (a1,b3,c1), (a1,b1,c2) — five tests",
+              "fraction": 100,
+              "feedback": "Correct — the base test plus one test per non-base block, changing exactly one characteristic each time."
+            },
+            {
+              "text": "(a1,b1,c1), (a2,b2,c2) — two tests",
+              "fraction": 0,
+              "feedback": "This changes several characteristics at once and misses most non-base blocks; it is not the BCC set."
+            },
+            {
+              "text": "All 12 combinations of A × B × C",
+              "fraction": 0,
+              "feedback": "That is All Combinations Coverage, not Base Choice."
+            },
+            {
+              "text": "(a2,b2,c2), (a2,b3,c2) — varying from a non-base test",
+              "fraction": 0,
+              "feedback": "BCC varies from the designated base test (a1,b1,c1), holding the others at their base values."
+            }
+          ],
+          "generalFeedback": "BCC keeps the base (a1,b1,c1) and changes one characteristic at a time to each non-base block: a2; b2; b3; c2. That yields 1 + (1 + 2 + 1) = 5 tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC-PWC-ECC subsumption chain",
+          "text": "<p>Which subsumption chain correctly orders these ISP criteria (each subsumes the next)?</p>",
+          "answers": [
+            {
+              "text": "ACoC ⊇ PWC ⊇ ECC",
+              "fraction": 100,
+              "feedback": "Correct — all combinations subsume pairwise, which subsumes each choice."
+            },
+            {
+              "text": "ECC ⊇ PWC ⊇ ACoC",
+              "fraction": 0,
+              "feedback": "This reverses the order; ECC is the weakest, so it cannot subsume the others."
+            },
+            {
+              "text": "PWC ⊇ ACoC ⊇ ECC",
+              "fraction": 0,
+              "feedback": "ACoC subsumes PWC, not the other way around."
+            },
+            {
+              "text": "ACoC ⊇ ECC ⊇ PWC",
+              "fraction": 0,
+              "feedback": "ECC does not subsume PWC; PWC is the stronger of the two."
+            }
+          ],
+          "generalFeedback": "All Combinations covers every pair, so ACoC subsumes PWC; Pair-Wise covers each single block, so PWC subsumes ECC. Hence ACoC ⊇ PWC ⊇ ECC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why non-disjoint blocks are invalid",
+          "text": "<p>Suppose a characteristic's blocks overlap, so some value <code>v</code> belongs to two blocks. Why does this make the partition invalid for ISP?</p>",
+          "answers": [
+            {
+              "text": "A value that maps to two blocks makes block membership ambiguous, so coverage of \"each block\" is ill-defined and a chosen value may unintentionally satisfy two blocks at once",
+              "fraction": 100,
+              "feedback": "Correct — disjointness is what makes \"the block of a value\" well-defined."
+            },
+            {
+              "text": "Overlap makes the model too small to test",
+              "fraction": 0,
+              "feedback": "Overlap does not shrink the model; it makes membership ambiguous."
+            },
+            {
+              "text": "Overlap forces the use of All Combinations Coverage",
+              "fraction": 0,
+              "feedback": "Overlap does not dictate a coverage criterion; it violates the partition definition."
+            },
+            {
+              "text": "Overlap is fine as long as the blocks are complete",
+              "fraction": 0,
+              "feedback": "Completeness does not repair a disjointness violation; both are required."
+            }
+          ],
+          "generalFeedback": "If v is in two blocks, then \"cover each block\" and \"the representative of a value's block\" become ambiguous — one test value may count for two blocks, undermining the criterion. Disjointness removes that ambiguity.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why incomplete blocks are invalid",
+          "text": "<p>Suppose a characteristic's blocks miss some domain value <code>w</code> (no block contains it). Why is this partition invalid for ISP?</p>",
+          "answers": [
+            {
+              "text": "An input equal to w cannot be classified into any block, so a legitimate part of the domain would never be scheduled for testing",
+              "fraction": 100,
+              "feedback": "Correct — completeness guarantees every input is represented by some block."
+            },
+            {
+              "text": "The number of tests would become infinite",
+              "fraction": 0,
+              "feedback": "A gap does not change the test count; it leaves part of the domain unmodeled."
+            },
+            {
+              "text": "Each Choice Coverage would then be impossible to satisfy",
+              "fraction": 0,
+              "feedback": "ECC could still be satisfied on the defined blocks; the problem is the unmodeled value w."
+            },
+            {
+              "text": "Incompleteness is acceptable if the blocks are disjoint",
+              "fraction": 0,
+              "feedback": "Disjointness does not repair a coverage gap; both properties are required."
+            }
+          ],
+          "generalFeedback": "A partition must be complete so that every possible input belongs to exactly one block. If w belongs to no block, that input is unmodeled and would be systematically left out of the test design.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Choosing a criterion under a test budget",
+          "text": "<p>A model has 5 characteristics, each with 4 blocks. All Combinations needs 4^5 = 1024 tests, which the budget cannot afford, but you still want each block exercised together with a common base configuration. Which criterion best fits a budget of roughly 16 tests?</p>",
+          "answers": [
+            {
+              "text": "Base Choice Coverage — 1 + 5 × (4-1) = 16 tests, varying each block from a base",
+              "fraction": 100,
+              "feedback": "Correct — BCC hits exactly 16 here and exercises every block relative to a base configuration."
+            },
+            {
+              "text": "All Combinations Coverage — 1024 tests",
+              "fraction": 0,
+              "feedback": "1024 is far over the budget; that is the criterion being ruled out."
+            },
+            {
+              "text": "Pair-Wise Coverage — at least 4 × 4 = 16 but typically more",
+              "fraction": 0,
+              "feedback": "PWC's lower bound is 16, but a real pairwise set for five 4-block characteristics needs more than 16 and does not use a single base configuration."
+            },
+            {
+              "text": "Each Choice Coverage — 4 tests",
+              "fraction": 0,
+              "feedback": "ECC needs only 4 tests but does not exercise blocks against a common base as asked."
+            }
+          ],
+          "generalFeedback": "BCC = 1 + Σ(b_i - 1) = 1 + 5 × 3 = 16, right at the budget, and by construction it varies each block one at a time from a base test — matching the stated goal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MBCC count with two base tests",
+          "text": "<p>An ISP model has three characteristics with 3, 2, and 2 blocks. Using Multiple Base Choice Coverage with <strong>2 base tests</strong> (one base choice per characteristic in each), how many tests result? Vary one characteristic at a time from each base test.</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "Correct — each base contributes 1 + (2 + 1 + 1) = 5 tests, and 2 × 5 = 10."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the single-base (BCC) count; MBCC with 2 bases doubles it to 10."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is the ACoC product (3 × 2 × 2) doubled would be 24; MBCC here is 2 × 5 = 10."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is not consistent with m × (1 + Σ(b_i - 1)); the correct value is 2 × 5 = 10."
+            }
+          ],
+          "generalFeedback": "With m base tests and one base choice per characteristic, MBCC = m × (1 + Σ(b_i - 1)). Here BCC = 1 + (2 + 1 + 1) = 5, so MBCC = 2 × 5 = 10.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MBCC subsumes BCC",
+          "text": "<p>What is the subsumption relationship between Multiple Base Choice Coverage (MBCC) and Base Choice Coverage (BCC)?</p>",
+          "answers": [
+            {
+              "text": "MBCC subsumes BCC — using several base tests includes the coverage of a single base test",
+              "fraction": 100,
+              "feedback": "Correct — MBCC ⊇ BCC ⊇ ECC."
+            },
+            {
+              "text": "BCC subsumes MBCC",
+              "fraction": 0,
+              "feedback": "This reverses the direction; more base tests can only add coverage."
+            },
+            {
+              "text": "They are incomparable — neither subsumes the other",
+              "fraction": 0,
+              "feedback": "MBCC is a generalization of BCC and always covers what BCC does."
+            },
+            {
+              "text": "They are identical criteria",
+              "fraction": 0,
+              "feedback": "MBCC uses multiple base tests, so it can require strictly more tests than BCC."
+            }
+          ],
+          "generalFeedback": "MBCC generalizes BCC by using more than one base test, so every BCC requirement is met by MBCC: MBCC ⊇ BCC ⊇ ECC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC count for four binary characteristics",
+          "text": "<p>An ISP model has four characteristics, each with 2 blocks. How many tests does All Combinations Coverage require?</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "Correct — 2 × 2 × 2 × 2 = 2^4 = 16."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is 2^3; there are four characteristics, so the product is 2^4 = 16."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of pairs of blocks summed; ACoC multiplies all four block counts."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 = 1 + 4 × 2 is a base-choice-style count, not the ACoC product."
+            }
+          ],
+          "generalFeedback": "ACoC = 2^4 = 16, the product of the four block counts.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PWC lower bound with tied largest counts",
+          "text": "<p>An ISP model has three characteristics with 4, 4, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage set must contain?</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "Correct — the two largest block counts are 4 and 4, so the lower bound is 4 × 4 = 16."
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 is the full All Combinations product (4 × 4 × 2); PWC needs fewer."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 is the sum of the block counts, not the pairwise lower bound."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 (4 × 2) uses the wrong pair; the two largest are both 4, giving 16."
+            }
+          ],
+          "generalFeedback": "The PWC lower bound is the product of the two largest block counts. Both largest are 4, so the bound is 4 × 4 = 16. (Actual pairwise sets may need a few more tests, but never fewer.)",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "PWC equals ACoC for two characteristics",
+          "text": "<p>When a model has exactly <strong>two</strong> characteristics, Pair-Wise Coverage and All Combinations Coverage require the same number of tests.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — with only one pair of characteristics, covering every pair of blocks is the full cross-product."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "With two characteristics the single pair's block combinations are exactly the All Combinations set, so PWC = ACoC here."
+            }
+          ],
+          "generalFeedback": "PWC requires every pair of blocks from every pair of characteristics. With just two characteristics there is only one pair, and covering all of its block pairs is precisely b1 × b2 — the same as ACoC."
+        },
+        {
+          "type": "multichoice",
+          "name": "Does PWC subsume BCC?",
+          "text": "<p>Which statement about Pair-Wise Coverage (PWC) and Base Choice Coverage (BCC) is correct?</p>",
+          "answers": [
+            {
+              "text": "Neither subsumes the other — PWC and BCC are incomparable",
+              "fraction": 100,
+              "feedback": "Correct — PWC guarantees pairs but not base-variation; BCC guarantees base-variation but not all pairs."
+            },
+            {
+              "text": "PWC subsumes BCC",
+              "fraction": 0,
+              "feedback": "A pairwise set need not include a single base test varied one characteristic at a time, so it does not always satisfy BCC."
+            },
+            {
+              "text": "BCC subsumes PWC",
+              "fraction": 0,
+              "feedback": "A base-choice set covers only Σ(b_i - 1) + 1 tests and misses most block pairs, so it does not satisfy PWC."
+            },
+            {
+              "text": "They are equivalent criteria",
+              "fraction": 0,
+              "feedback": "They impose different requirements and generally produce different test sets."
+            }
+          ],
+          "generalFeedback": "PWC and BCC are incomparable: both subsume ECC, but PWC covers all block pairs (not base variations) while BCC covers base variations (not all pairs).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fixing an invalid partition",
+          "text": "<p>A characteristic \"discount tier by amount A\" is defined as {A &lt; 100}, {100 ≤ A ≤ 500}, {A ≥ 500}. It is invalid. What is the minimal fix that makes it a valid partition?</p>",
+          "answers": [
+            {
+              "text": "Change one bound so 500 is in exactly one block, e.g. {A < 100}, {100 ≤ A < 500}, {A ≥ 500}",
+              "fraction": 100,
+              "feedback": "Correct — the only defect is that 500 sits in two blocks; excluding it from one restores disjointness while keeping completeness."
+            },
+            {
+              "text": "Delete the middle block entirely",
+              "fraction": 0,
+              "feedback": "That would leave 100..499 uncovered, creating an incompleteness gap."
+            },
+            {
+              "text": "Add a fourth block {A = 500}",
+              "fraction": 0,
+              "feedback": "500 would still remain in the existing blocks too, so the overlap is not removed."
+            },
+            {
+              "text": "Nothing — the partition is already valid",
+              "fraction": 0,
+              "feedback": "500 satisfies both {100 ≤ A ≤ 500} and {A ≥ 500}, so it is not disjoint."
+            }
+          ],
+          "generalFeedback": "The value 500 lies in both the middle block and {A ≥ 500}, breaking disjointness. Making the middle block {100 ≤ A < 500} removes the overlap while still covering every amount, yielding a valid partition.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Does the base choice change the BCC count?",
+          "text": "<p>Two testers model the same characteristics with 3, 2, and 2 blocks but pick different base choices. How do their Base Choice Coverage test sets compare?</p>",
+          "answers": [
+            {
+              "text": "Both sets have the same size, 1 + (2 + 1 + 1) = 5, though the concrete test values differ",
+              "fraction": 100,
+              "feedback": "Correct — the BCC count 1 + Σ(b_i - 1) is independent of which block is chosen as the base."
+            },
+            {
+              "text": "The set built from the \"larger\" base is always bigger",
+              "fraction": 0,
+              "feedback": "Block counts, not the chosen base, fix the size; both are 1 + Σ(b_i - 1) = 5."
+            },
+            {
+              "text": "One set will satisfy ACoC and the other will not",
+              "fraction": 0,
+              "feedback": "Neither BCC set reaches ACoC (which needs 3 × 2 × 2 = 12 tests); base choice does not change that."
+            },
+            {
+              "text": "The sizes differ by the number of characteristics",
+              "fraction": 0,
+              "feedback": "Both sizes equal 1 + Σ(b_i - 1) = 5 regardless of the base; the base only changes which values appear."
+            }
+          ],
+          "generalFeedback": "BCC always produces 1 + Σ(b_i - 1) tests = 1 + (2 + 1 + 1) = 5 here. Changing the base choice changes which concrete tests are generated but not the count or the criterion satisfied.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MBCC count with three base tests",
+          "text": "<p>An ISP model has three characteristics, each with 2 blocks. Using Multiple Base Choice Coverage with <strong>3 base tests</strong> (one base choice per characteristic in each), varying one characteristic at a time from each base, how many tests result?</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "Correct — each base contributes 1 + (1 + 1 + 1) = 4 tests, and 3 × 4 = 12."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the single-base (BCC) count; with 3 bases it becomes 3 × 4 = 12."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is the ACoC product (2 × 2 × 2); MBCC here is 3 × 4 = 12."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 does not match m × (1 + Σ(b_i - 1)); the correct value is 3 × 4 = 12."
+            }
+          ],
+          "generalFeedback": "MBCC = m × (1 + Σ(b_i - 1)). Here BCC = 1 + (1 + 1 + 1) = 4, so with 3 base tests MBCC = 3 × 4 = 12.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是區塊（block）",
+          "text": "<p>在輸入空間劃分（Input Space Partitioning, ISP）中，一個特徵（characteristic）會把輸入定義域分成若干<strong>區塊（block）</strong>。區塊是什麼？</p>",
+          "answers": [
+            {
+              "text": "定義域中被該特徵歸為同一類、視為一體的一組值",
+              "fraction": 100,
+              "feedback": "正確——每個區塊是沿該特徵劃分後所得的一類值。"
+            },
+            {
+              "text": "一個可直接執行的具體測試案例",
+              "fraction": 0,
+              "feedback": "區塊是一類值；具體測試是從某個區塊挑出的一個代表值。"
+            },
+            {
+              "text": "該輸入所執行到的一行原始碼",
+              "fraction": 0,
+              "feedback": "ISP 屬黑箱技術，描述的是輸入定義域，而非程式碼。"
+            },
+            {
+              "text": "程式應產生的預期輸出",
+              "fraction": 0,
+              "feedback": "那是預期結果（oracle），不是輸入定義域的區塊。"
+            }
+          ],
+          "generalFeedback": "特徵會把輸入定義域劃分成若干區塊；每個區塊是一組被假設會被同等處理的值，之後再從每個區塊挑一個代表值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是劃分（partition）",
+          "text": "<p>對於某個特徵，它對輸入定義域的<strong>劃分（partition）</strong>最適合以下列何者描述？</p>",
+          "answers": [
+            {
+              "text": "一組彼此互斥（disjoint）、且聯集涵蓋整個定義域的區塊集合",
+              "fraction": 100,
+              "feedback": "正確——劃分正是一組互斥且完整的區塊。"
+            },
+            {
+              "text": "為了方便而任意選取、彼此重疊的一些值域範圍",
+              "fraction": 0,
+              "feedback": "重疊會破壞互斥性，因此重疊的範圍無法構成有效劃分。"
+            },
+            {
+              "text": "定義域中最重要的那個單一值",
+              "fraction": 0,
+              "feedback": "劃分是涵蓋定義域的區塊集合，而非單一值。"
+            },
+            {
+              "text": "某個涵蓋準則所產生的測試案例清單",
+              "fraction": 0,
+              "feedback": "測試是後續才產生的；劃分指的是對定義域本身的切分。"
+            }
+          ],
+          "generalFeedback": "某特徵的劃分是一組區塊，這些區塊合起來是完整的（涵蓋整個定義域）且互斥的（沒有任何值落在兩個區塊中）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "互斥（disjoint）的意義",
+          "text": "<p>某特徵的區塊必須是<strong>互斥（disjoint）</strong>的。這是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "定義域中沒有任何值同時屬於一個以上的區塊",
+              "fraction": 100,
+              "feedback": "正確——互斥表示區塊之間不重疊。"
+            },
+            {
+              "text": "定義域中的每個值都屬於某個區塊",
+              "fraction": 0,
+              "feedback": "那描述的是完整性（complete），不是互斥性。"
+            },
+            {
+              "text": "所有區塊包含相同數量的值",
+              "fraction": 0,
+              "feedback": "不要求大小相等；互斥只禁止重疊。"
+            },
+            {
+              "text": "恰好只有兩個區塊",
+              "fraction": 0,
+              "feedback": "互斥性與區塊的數量無關。"
+            }
+          ],
+          "generalFeedback": "互斥表示區塊彼此排斥：任一個輸入值最多只會落入該特徵的一個區塊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "完整（complete）的意義",
+          "text": "<p>某特徵的區塊必須是<strong>完整（complete）</strong>的。這是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "區塊的聯集就是整個輸入定義域——每個值都落入某個區塊",
+              "fraction": 100,
+              "feedback": "正確——完整表示區塊不遺漏任何值。"
+            },
+            {
+              "text": "沒有任何值同時屬於兩個區塊",
+              "fraction": 0,
+              "feedback": "那描述的是互斥性，不是完整性。"
+            },
+            {
+              "text": "每個區塊至少用兩個值來測試",
+              "fraction": 0,
+              "feedback": "完整性談的是涵蓋定義域，而不是每個區塊用幾個值。"
+            },
+            {
+              "text": "該特徵至少要有三個區塊",
+              "fraction": 0,
+              "feedback": "完整性對區塊數量沒有下限要求。"
+            }
+          ],
+          "generalFeedback": "完整表示區塊涵蓋整個定義域：它們合起來包含所有可能的輸入值，因此不會有任何值無法歸類。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "從區塊選值",
+          "text": "<p>當區塊定義完成後，ISP 如何把它們轉成具體測試？</p>",
+          "answers": [
+            {
+              "text": "從測試所用的每個區塊各挑一個代表值",
+              "fraction": 100,
+              "feedback": "正確——以每個區塊一個代表值來代表整個區塊。"
+            },
+            {
+              "text": "窮舉每個區塊中的每一個值",
+              "fraction": 0,
+              "feedback": "窮舉正是劃分技術要避免的做法。"
+            },
+            {
+              "text": "只從最大的區塊挑值",
+              "fraction": 0,
+              "feedback": "測試所用的每個區塊都需要代表值，而不是只挑最大的。"
+            },
+            {
+              "text": "隨機產生值，忽略區塊",
+              "fraction": 0,
+              "feedback": "那樣區塊就毫無作用；ISP 是刻意從每個區塊挑代表值。"
+            }
+          ],
+          "generalFeedback": "ISP 依賴「同一區塊的值會被同等處理」的假設，因此每個區塊挑一個代表值來組成各個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "介面式（interface-based）特徵",
+          "text": "<p><strong>介面式（interface-based）</strong>特徵是從何處推導出來的？</p>",
+          "answers": [
+            {
+              "text": "從受測方法的參數推導，逐一檢視其簽章中的各參數",
+              "fraction": 100,
+              "feedback": "正確——介面式特徵直接來自輸入參數。"
+            },
+            {
+              "text": "從程式的規格與預期行為推導",
+              "fraction": 0,
+              "feedback": "那描述的是功能式（functionality-based）特徵。"
+            },
+            {
+              "text": "從程式碼內部的控制流程圖推導",
+              "fraction": 0,
+              "feedback": "ISP 屬黑箱；介面式特徵用的是參數，而非控制流程圖。"
+            },
+            {
+              "text": "從每個測試量測到的執行時間推導",
+              "fraction": 0,
+              "feedback": "執行時間與特徵的推導無關。"
+            }
+          ],
+          "generalFeedback": "介面式特徵是逐一從方法的參數讀出（例如「參數 x 是否為 null？」）。這種方式容易推導，但可能忽略參數之間的關係。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "功能式（functionality-based）特徵",
+          "text": "<p><strong>功能式（functionality-based）</strong>特徵是從何處推導出來的？</p>",
+          "answers": [
+            {
+              "text": "從函式所規定的行為或語意推導，可能同時牽涉多個參數",
+              "fraction": 100,
+              "feedback": "正確——功能式特徵來自函式應做的事。"
+            },
+            {
+              "text": "從簽章中逐一獨立檢視的各個參數推導",
+              "fraction": 0,
+              "feedback": "那是介面式的做法。"
+            },
+            {
+              "text": "從實作中的敘述句數量推導",
+              "fraction": 0,
+              "feedback": "敘述句數量是程式碼度量，不是功能式特徵。"
+            },
+            {
+              "text": "從編譯器的最佳化等級推導",
+              "fraction": 0,
+              "feedback": "編譯設定與特徵的推導毫無關係。"
+            }
+          ],
+          "generalFeedback": "功能式特徵來自規格（例如「串列是否已排序」），且可能同時關聯多個參數。它們通常能導出較好的測試，但需要更多領域理解。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ECC 的要求",
+          "text": "<p>各選擇涵蓋（Each Choice Coverage, ECC）對一組測試的要求是什麼？</p>",
+          "answers": [
+            {
+              "text": "每個特徵的每個區塊都必須至少出現在一個測試中",
+              "fraction": 100,
+              "feedback": "正確——這正是「各選擇」的要求。"
+            },
+            {
+              "text": "所有特徵之間的每一種區塊組合都必須出現",
+              "fraction": 0,
+              "feedback": "那是全組合涵蓋（ACoC），要求強得多。"
+            },
+            {
+              "text": "每一對特徵的每一對區塊都必須一起出現",
+              "fraction": 0,
+              "feedback": "那是成對涵蓋（PWC），不是各選擇。"
+            },
+            {
+              "text": "不論有多少區塊，只需要一個測試",
+              "fraction": 0,
+              "feedback": "一個測試不可能同時包含同一特徵的兩個不同區塊。"
+            }
+          ],
+          "generalFeedback": "ECC 只要求每個特徵的每個區塊在整組測試中至少被用到一次——是標準 ISP 準則中最弱的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC 的要求",
+          "text": "<p>全組合涵蓋（All Combinations Coverage, ACoC）對一組測試的要求是什麼？</p>",
+          "answers": [
+            {
+              "text": "每個特徵各取一個區塊所形成的每一種組合，都必須出現在某個測試中",
+              "fraction": 100,
+              "feedback": "正確——ACoC 涵蓋區塊的完整笛卡兒積。"
+            },
+            {
+              "text": "只要求每個區塊至少出現一次",
+              "fraction": 0,
+              "feedback": "那是各選擇涵蓋（ECC），較弱。"
+            },
+            {
+              "text": "只要求每一對區塊一起出現",
+              "fraction": 0,
+              "feedback": "那是成對涵蓋（PWC），比 ACoC 弱。"
+            },
+            {
+              "text": "把一個基底測試每次只變動一個特徵",
+              "fraction": 0,
+              "feedback": "那描述的是基底選擇涵蓋（BCC），不是 ACoC。"
+            }
+          ],
+          "generalFeedback": "ACoC 要求每個特徵各取一個區塊的所有組合，因此測試數是各區塊數的乘積。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩個特徵的 ACoC 數量",
+          "text": "<p>某 ISP 模型有兩個特徵，區塊數分別為 2 與 3。全組合涵蓋（ACoC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——2 × 3 = 6，即各區塊數的乘積。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是總和 2 + 3；ACoC 是各區塊數相乘。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是較大的區塊數（那是各選擇涵蓋），不是全組合。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 與 2 × 3 不符。"
+            }
+          ],
+          "generalFeedback": "ACoC 是各區塊數的乘積：2 × 3 = 6。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三個二元特徵的 ACoC 數量",
+          "text": "<p>某 ISP 模型有三個特徵，每個都有 2 個區塊。ACoC 需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——2 × 2 × 2 = 8。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是總和 2 + 2 + 2；ACoC 是相乘。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是單一區塊數（各選擇），不是全組合。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 少算了一個特徵；三者相乘為 8。"
+            }
+          ],
+          "generalFeedback": "ACoC 是各區塊數的乘積：2 × 2 × 2 = 8。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ECC 數量等於最大區塊數",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 2、5、3。各選擇涵蓋（ECC）所需的最少測試數是多少？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——ECC 至少需要最大的區塊數，max(2,5,3) = 5。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 是各區塊數的總和；同一個測試中不同特徵的區塊可以共用。"
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 是乘積（全組合），遠多於 ECC 所需。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 不足以涵蓋那個有 5 個區塊的特徵。"
+            }
+          ],
+          "generalFeedback": "每個測試對每個特徵各取一個區塊，因此要涵蓋所有區塊，至少需要與最大區塊數一樣多的測試：max(2,5,3) = 5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩個特徵的 ECC 數量",
+          "text": "<p>某 ISP 模型有兩個特徵，區塊數分別為 4 與 2。各選擇涵蓋（ECC）所需的最少測試數是多少？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——ECC 至少需要 max(4,2) = 4 個測試。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是乘積（全組合），不是各選擇的最少值。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是各區塊數的總和；ECC 在同一測試中可共用區塊。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 無法涵蓋那個有 4 個區塊的特徵。"
+            }
+          ],
+          "generalFeedback": "ECC 等於最大的區塊數：max(4,2) = 4。那個 2 區塊的特徵，其區塊在這四個測試中重複使用即可。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有效的特徵與其區塊",
+          "text": "<p>對於一個整數輸入 <code>x</code>，下列何者是區塊互斥且完整、格式良好的 ISP 特徵？</p>",
+          "answers": [
+            {
+              "text": "「x 的正負號」，區塊為 {x < 0}、{x = 0}、{x > 0}",
+              "fraction": 100,
+              "feedback": "正確——這三個區塊互斥，且涵蓋所有整數。"
+            },
+            {
+              "text": "「x 的大小」，區塊為 {x < 10}、{x > 5}",
+              "fraction": 0,
+              "feedback": "值 6..9 同時落入兩個區塊，因此重疊（非互斥）。"
+            },
+            {
+              "text": "「x 的範圍」，區塊為 {x < 0}、{x > 0}",
+              "fraction": 0,
+              "feedback": "值 0 不屬於任何區塊，因此不完整。"
+            },
+            {
+              "text": "「x 的值」，只有一個區塊 {x = 7}",
+              "fraction": 0,
+              "feedback": "其他所有整數都未被涵蓋，因此此劃分不完整。"
+            }
+          ],
+          "generalFeedback": "格式良好的特徵會把定義域劃分成互斥且完整的區塊。「x 的正負號」分成負、零、正，正好對整數做到這一點。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "ISP 是黑箱技術",
+          "text": "<p>輸入空間劃分是一種黑箱技術：它為輸入定義域建模，且不需要存取原始碼。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——ISP 由參數與規格推導特徵，而非由程式碼。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "ISP 作用於輸入定義域（介面式或功能式），因此不需要原始碼。"
+            }
+          ],
+          "generalFeedback": "ISP 是黑箱、以輸入定義域為對象的技術。特徵來自方法的參數（介面式）或其規定的行為（功能式），因此不需要實作程式碼。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "找出重疊的劃分",
+          "text": "<p>特徵「字串長度 L」被分成區塊 {L &lt; 10}、{10 ≤ L ≤ 20}、{L &gt; 15}。這是有效的劃分嗎？為什麼？</p>",
+          "answers": [
+            {
+              "text": "無效——區塊並非互斥（例如 L = 18 同時落入 {10 ≤ L ≤ 20} 與 {L > 15}）",
+              "fraction": 100,
+              "feedback": "正確——16..20 同時落在兩個區塊，破壞了互斥性。"
+            },
+            {
+              "text": "有效——區塊互斥且完整",
+              "fraction": 0,
+              "feedback": "它們並不互斥：值 16..20 屬於兩個區塊。"
+            },
+            {
+              "text": "無效——有些長度未被涵蓋（不完整）",
+              "fraction": 0,
+              "feedback": "每個長度都有被涵蓋；這裡的缺陷是重疊，不是遺漏。"
+            },
+            {
+              "text": "有效——ISP 允許區塊之間重疊",
+              "fraction": 0,
+              "feedback": "不允許重疊；劃分的區塊必須互斥。"
+            }
+          ],
+          "generalFeedback": "長度 16..20 同時滿足 {10 ≤ L ≤ 20} 與 {L > 15}，因此區塊重疊。有效劃分必須互斥，所以這是無效的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "找出劃分中的遺漏",
+          "text": "<p>特徵「年齡」（非負整數）被分成區塊 {0..17}、{19..65}、{&gt; 65}。這是有效的劃分嗎？為什麼？</p>",
+          "answers": [
+            {
+              "text": "無效——不完整：年齡 18 不屬於任何區塊",
+              "fraction": 100,
+              "feedback": "正確——18 被遺漏，因此區塊未涵蓋整個定義域。"
+            },
+            {
+              "text": "有效——區塊互斥且完整",
+              "fraction": 0,
+              "feedback": "年齡 18 未被涵蓋，因此不符合完整性。"
+            },
+            {
+              "text": "無效——區塊在 65 處重疊",
+              "fraction": 0,
+              "feedback": "65 只在 {19..65} 中，沒有重疊。缺陷是遺漏了 18。"
+            },
+            {
+              "text": "有效——ISP 可以接受小的遺漏",
+              "fraction": 0,
+              "feedback": "遺漏違反完整性；每個定義域的值都必須落入某個區塊。"
+            }
+          ],
+          "generalFeedback": "年齡 18 不在 {0..17}、{19..65} 或 {> 65} 中，因此劃分不完整，故為無效。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識有效的劃分",
+          "text": "<p>特徵「溫度 T（整數 °C）」被分成區塊 {T &lt; 0}、{0 ≤ T ≤ 100}、{T &gt; 100}。這是有效的劃分嗎？</p>",
+          "answers": [
+            {
+              "text": "有效——這三個區塊互斥，且合起來涵蓋每一個整數溫度",
+              "fraction": 100,
+              "feedback": "正確——沒有重疊也沒有遺漏，是正確的劃分。"
+            },
+            {
+              "text": "無效——區塊在 0 與 100 處重疊",
+              "fraction": 0,
+              "feedback": "0 只在中間區塊、100 也只在中間區塊；沒有重疊。"
+            },
+            {
+              "text": "無效——低於 0 的溫度未被涵蓋",
+              "fraction": 0,
+              "feedback": "{T < 0} 已涵蓋它們，沒有任何遺漏。"
+            },
+            {
+              "text": "無效——劃分最多只能有兩個區塊",
+              "fraction": 0,
+              "feedback": "一個特徵可以有任意數量的區塊；三個沒問題。"
+            }
+          ],
+          "generalFeedback": "區塊 {T < 0}、{0..100}、{T > 100} 對整數而言互斥且窮盡，因此劃分互斥又完整——有效。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三個特徵的 ACoC 數量",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 4、3、2。全組合涵蓋（ACoC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "24",
+              "fraction": 100,
+              "feedback": "正確——4 × 3 × 2 = 24。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是總和 4 + 3 + 2；ACoC 是各區塊數相乘。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 只乘了最大的兩個（那是 PWC 下界），而非全部三個。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是最大的單一區塊數（各選擇），不是全組合。"
+            }
+          ],
+          "generalFeedback": "ACoC ＝ 各區塊數的乘積 ＝ 4 × 3 × 2 = 24。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四個特徵的 ECC 數量",
+          "text": "<p>某 ISP 模型有四個特徵，區塊數分別為 3、3、5、2。各選擇涵蓋（ECC）所需的最少測試數是多少？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——ECC 至少需要 max(3,3,5,2) = 5 個測試。"
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 是各區塊數的總和；ECC 在每個測試中可共用區塊。"
+            },
+            {
+              "text": "90",
+              "fraction": 0,
+              "feedback": "90 是乘積（全組合），不是各選擇的最少值。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 不足以涵蓋那個有 5 個區塊的特徵。"
+            }
+          ],
+          "generalFeedback": "ECC 等於最大的區塊數：max(3,3,5,2) = 5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "2,4,3 的 BCC 數量",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 2、4、3。基底選擇涵蓋（BCC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "正確——1 + (2-1) + (4-1) + (3-1) = 1 + 1 + 3 + 2 = 7。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是各區塊數的總和；BCC 是 1 + Σ(區塊數 - 1)。"
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 是乘積（全組合），不是基底選擇的數量。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 漏掉了 +1 的基底測試：1 + (1 + 3 + 2) = 7。"
+            }
+          ],
+          "generalFeedback": "BCC ＝ 1 + Σ(b_i - 1) = 1 + (1 + 3 + 2) = 7：一個基底測試，加上把每個特徵變動到其各個非基底區塊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "2,2,4 的 BCC 數量",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 2、2、4。基底選擇涵蓋（BCC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——1 + (2-1) + (2-1) + (4-1) = 1 + 1 + 1 + 3 = 6。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是各區塊數的總和；BCC 是 1 + Σ(區塊數 - 1)。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 是乘積（全組合），不是基底選擇的數量。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 漏掉了 +1 的基底測試：1 + (1 + 1 + 3) = 6。"
+            }
+          ],
+          "generalFeedback": "BCC ＝ 1 + Σ(b_i - 1) = 1 + (1 + 1 + 3) = 6。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4,3,2 的 PWC 下界",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 4、3、2。任何成對涵蓋（PWC）測試集至少必須包含多少個測試？</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "正確——至少為最大兩個區塊數的乘積，4 × 3 = 12。"
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 是完整的全組合乘積；PWC 需要的較少。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是各區塊數的總和，與成對下界無關。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4（最大的單一區塊數）是各選擇的最少值，不是成對下界。"
+            }
+          ],
+          "generalFeedback": "要涵蓋最大兩個特徵（4 與 3 個區塊）之間的每一對，已需要它們全部 4 × 3 = 12 種組合，因此任何 PWC 測試集至少有 12 個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "2,5,3,2 的 PWC 下界",
+          "text": "<p>某 ISP 模型有四個特徵，區塊數分別為 2、5、3、2。任何成對涵蓋（PWC）測試集至少必須包含多少個測試？</p>",
+          "answers": [
+            {
+              "text": "15",
+              "fraction": 100,
+              "feedback": "正確——最大兩個區塊數的乘積，5 × 3 = 15。"
+            },
+            {
+              "text": "60",
+              "fraction": 0,
+              "feedback": "60 是完整的全組合乘積；PWC 需要的較少。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 是各區塊數的總和，不是成對下界。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5（最大的單一區塊數）是各選擇的最少值，不是成對下界。"
+            }
+          ],
+          "generalFeedback": "PWC 下界是最大兩個區塊數的乘積：5 × 3 = 15。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：null 檢查特徵",
+          "text": "<p>對於 <code>int indexOf(List list, Object target)</code>，測試者定義特徵「<code>list</code> 是否為 null？」，區塊為 {null}、{non-null}。此特徵最適合歸為哪一類？</p>",
+          "answers": [
+            {
+              "text": "介面式——它直接來自簽章中的單一參數",
+              "fraction": 100,
+              "feedback": "正確——單一參數是否為 null，可直接從介面讀出。"
+            },
+            {
+              "text": "功能式——它來自所規定的搜尋行為",
+              "fraction": 0,
+              "feedback": "它是從參數本身推導，而非從 indexOf 所規定要做的事。"
+            },
+            {
+              "text": "都不是——null 不能成為特徵",
+              "fraction": 0,
+              "feedback": "參考型參數是否為 null，是常見且有效的介面式特徵。"
+            },
+            {
+              "text": "視實作的控制流程而定",
+              "fraction": 0,
+              "feedback": "ISP 屬黑箱；此特徵是在不看程式碼的情況下定義的。"
+            }
+          ],
+          "generalFeedback": "「list 是否為 null？」是從單一參數本身推導，這正是介面式特徵的定義性特點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：已排序特徵",
+          "text": "<p>對於排序程式 <code>sort(int[] a)</code>，測試者定義特徵「<code>a</code> 是否已遞增排序？」，區塊為 {已排序}、{未排序}。此特徵最適合歸為哪一類？</p>",
+          "answers": [
+            {
+              "text": "功能式——它來自排序的語意，而非僅由參數的型別決定",
+              "fraction": 100,
+              "feedback": "正確——「已排序」是與規定行為、與輸入內容有關的性質。"
+            },
+            {
+              "text": "介面式——它直接來自陣列參數的型別",
+              "fraction": 0,
+              "feedback": "型別只是「int[]」；「已排序」是語意性質，無法從簽章讀出。"
+            },
+            {
+              "text": "它不是有效的特徵，因為取決於值",
+              "fraction": 0,
+              "feedback": "取決於輸入內容正是功能式特徵的作法。"
+            },
+            {
+              "text": "它是結構式（白箱）特徵",
+              "fraction": 0,
+              "feedback": "ISP 屬黑箱；這來自排序的規格，而非程式碼結構。"
+            }
+          ],
+          "generalFeedback": "「是否已排序？」反映排序任務的語意與陣列的內容，因此屬功能式而非介面式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個值證明非互斥",
+          "text": "<p>特徵「分數 S」有區塊 {S ≤ 50}、{40 ≤ S ≤ 90}、{S &gt; 90}。哪個值可證明此劃分<strong>非互斥</strong>？</p>",
+          "answers": [
+            {
+              "text": "S = 45",
+              "fraction": 100,
+              "feedback": "正確——45 同時落在 {S ≤ 50} 與 {40 ≤ S ≤ 90}，證明重疊。"
+            },
+            {
+              "text": "S = 20",
+              "fraction": 0,
+              "feedback": "20 只在 {S ≤ 50}；無法顯示重疊。"
+            },
+            {
+              "text": "S = 95",
+              "fraction": 0,
+              "feedback": "95 只在 {S > 90}；無法顯示重疊。"
+            },
+            {
+              "text": "S = 91",
+              "fraction": 0,
+              "feedback": "91 只在 {S > 90}；無法顯示重疊。"
+            }
+          ],
+          "generalFeedback": "區塊 {S ≤ 50} 與 {40 ≤ S ≤ 90} 都包含 40..50。該範圍內的任何值（例如 45）都落在兩個區塊，證明此劃分非互斥。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個值證明不完整",
+          "text": "<p>特徵「數量 Q（整數）」有區塊 {Q &lt; 0}、{1 ≤ Q ≤ 100}、{Q &gt; 100}。哪個值可證明此劃分<strong>不完整</strong>？</p>",
+          "answers": [
+            {
+              "text": "Q = 0",
+              "fraction": 100,
+              "feedback": "正確——0 既非負、不在 1..100、也不 > 100，因此未被涵蓋。"
+            },
+            {
+              "text": "Q = 50",
+              "fraction": 0,
+              "feedback": "50 已被 {1 ≤ Q ≤ 100} 涵蓋。"
+            },
+            {
+              "text": "Q = -5",
+              "fraction": 0,
+              "feedback": "-5 已被 {Q < 0} 涵蓋。"
+            },
+            {
+              "text": "Q = 200",
+              "fraction": 0,
+              "feedback": "200 已被 {Q > 100} 涵蓋。"
+            }
+          ],
+          "generalFeedback": "Q = 0 不落入 {Q < 0}、{1..100}、{Q > 100} 中的任一個，因此劃分有遺漏、不完整。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC 比 ECC 多出的測試數",
+          "text": "<p>某 ISP 模型有兩個特徵，區塊數分別為 3 與 2。全組合涵蓋比各選擇最少值多需要幾個測試？</p>",
+          "answers": [
+            {
+              "text": "3（ACoC = 6，ECC = 3）",
+              "fraction": 100,
+              "feedback": "正確——ACoC 為 3 × 2 = 6，ECC 為 max(3,2) = 3，差為 3。"
+            },
+            {
+              "text": "0（兩者永遠相等）",
+              "fraction": 0,
+              "feedback": "此處 ACoC = 6 但 ECC = 3，並不相等。"
+            },
+            {
+              "text": "6（ACoC = 6，ECC = 0）",
+              "fraction": 0,
+              "feedback": "ECC 不是 0；它是 max(3,2) = 3，因此差為 3。"
+            },
+            {
+              "text": "2（ACoC = 5，ECC = 3）",
+              "fraction": 0,
+              "feedback": "ACoC 是乘積 3 × 2 = 6，而非 5，因此差為 3。"
+            }
+          ],
+          "generalFeedback": "ACoC = 3 × 2 = 6，ECC = max(3,2) = 3，因此 ACoC 多需要 6 - 3 = 3 個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "2,3,2 的 BCC 數量",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 2、3、2。基底選擇涵蓋（BCC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——1 + (2-1) + (3-1) + (2-1) = 1 + 1 + 2 + 1 = 5。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是各區塊數的總和；BCC 是 1 + Σ(區塊數 - 1)。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 是乘積（全組合），不是基底選擇的數量。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 漏掉了 +1 的基底測試：1 + (1 + 2 + 1) = 5。"
+            }
+          ],
+          "generalFeedback": "BCC ＝ 1 + Σ(b_i - 1) = 1 + (1 + 2 + 1) = 5。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "4,3,3,2 的 BCC 數量",
+          "text": "<p>某 ISP 模型有四個特徵，區塊數分別為 4、3、3、2。基底選擇涵蓋（BCC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "正確——1 + (4-1) + (3-1) + (3-1) + (2-1) = 1 + 3 + 2 + 2 + 1 = 9。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 是各區塊數的總和；BCC 是 1 + Σ(區塊數 - 1)。"
+            },
+            {
+              "text": "72",
+              "fraction": 0,
+              "feedback": "72 是乘積（全組合），不是基底選擇的數量。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 漏掉了 +1 的基底測試：1 + (3 + 2 + 2 + 1) = 9。"
+            }
+          ],
+          "generalFeedback": "BCC ＝ 1 + Σ(b_i - 1) = 1 + (3 + 2 + 2 + 1) = 9。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "從基底挑出 BCC 測試集",
+          "text": "<p>特徵 A、B、C 的區塊為 A∈{a1,a2}、B∈{b1,b2,b3}、C∈{c1,c2}。基底選擇為 (a1, b1, c1)。下列哪一組測試恰好是基底選擇涵蓋（BCC）的測試集？</p>",
+          "answers": [
+            {
+              "text": "(a1,b1,c1)、(a2,b1,c1)、(a1,b2,c1)、(a1,b3,c1)、(a1,b1,c2)——五個測試",
+              "fraction": 100,
+              "feedback": "正確——基底測試，加上每個非基底區塊各一個測試，每次只變動一個特徵。"
+            },
+            {
+              "text": "(a1,b1,c1)、(a2,b2,c2)——兩個測試",
+              "fraction": 0,
+              "feedback": "這一次變動了多個特徵，且漏掉大多數非基底區塊；不是 BCC 測試集。"
+            },
+            {
+              "text": "A × B × C 的全部 12 種組合",
+              "fraction": 0,
+              "feedback": "那是全組合涵蓋（ACoC），不是基底選擇。"
+            },
+            {
+              "text": "(a2,b2,c2)、(a2,b3,c2)——從非基底測試開始變動",
+              "fraction": 0,
+              "feedback": "BCC 是從指定的基底測試 (a1,b1,c1) 開始變動，其餘保持基底值。"
+            }
+          ],
+          "generalFeedback": "BCC 保留基底 (a1,b1,c1)，每次只把一個特徵變動到其非基底區塊：a2；b2；b3；c2。共得 1 + (1 + 2 + 1) = 5 個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC-PWC-ECC 的包含鏈",
+          "text": "<p>下列哪一條包含（subsumption）鏈正確地排列這些 ISP 準則（每個包含下一個）？</p>",
+          "answers": [
+            {
+              "text": "ACoC ⊇ PWC ⊇ ECC",
+              "fraction": 100,
+              "feedback": "正確——全組合包含成對，成對包含各選擇。"
+            },
+            {
+              "text": "ECC ⊇ PWC ⊇ ACoC",
+              "fraction": 0,
+              "feedback": "這把順序反了；ECC 最弱，無法包含其他。"
+            },
+            {
+              "text": "PWC ⊇ ACoC ⊇ ECC",
+              "fraction": 0,
+              "feedback": "是 ACoC 包含 PWC，而非相反。"
+            },
+            {
+              "text": "ACoC ⊇ ECC ⊇ PWC",
+              "fraction": 0,
+              "feedback": "ECC 無法包含 PWC；PWC 是兩者中較強的。"
+            }
+          ],
+          "generalFeedback": "全組合涵蓋每一對，故 ACoC 包含 PWC；成對涵蓋每個單一區塊，故 PWC 包含 ECC。因此 ACoC ⊇ PWC ⊇ ECC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何非互斥區塊無效",
+          "text": "<p>假設某特徵的區塊重疊，使某個值 <code>v</code> 同時屬於兩個區塊。為什麼這會使該劃分對 ISP 而言無效？</p>",
+          "answers": [
+            {
+              "text": "同時對應兩個區塊的值會使區塊歸屬變得模稜兩可，因此「涵蓋每個區塊」定義不明，且所選的值可能無意間同時滿足兩個區塊",
+              "fraction": 100,
+              "feedback": "正確——互斥性正是讓「某個值所屬的區塊」有明確定義的原因。"
+            },
+            {
+              "text": "重疊會使模型太小而無法測試",
+              "fraction": 0,
+              "feedback": "重疊不會縮小模型；它使歸屬變得模稜兩可。"
+            },
+            {
+              "text": "重疊會強制使用全組合涵蓋",
+              "fraction": 0,
+              "feedback": "重疊不會決定採用哪個涵蓋準則；它違反了劃分的定義。"
+            },
+            {
+              "text": "只要區塊完整，重疊就沒問題",
+              "fraction": 0,
+              "feedback": "完整性無法修補互斥性的違反；兩者都必須滿足。"
+            }
+          ],
+          "generalFeedback": "若 v 同時在兩個區塊中，則「涵蓋每個區塊」與「某個值所屬區塊的代表值」都變得模稜兩可——一個測試值可能同時被算作兩個區塊，損及準則。互斥性可消除這種模糊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何不完整區塊無效",
+          "text": "<p>假設某特徵的區塊漏掉了某個定義域的值 <code>w</code>（沒有任何區塊包含它）。為什麼這個劃分對 ISP 而言無效？</p>",
+          "answers": [
+            {
+              "text": "等於 w 的輸入無法歸入任何區塊，因此定義域中一個正當的部分將永遠不會被排入測試",
+              "fraction": 100,
+              "feedback": "正確——完整性保證每個輸入都由某個區塊代表。"
+            },
+            {
+              "text": "測試數會變成無限大",
+              "fraction": 0,
+              "feedback": "遺漏不會改變測試數量；它使定義域的一部分未被建模。"
+            },
+            {
+              "text": "屆時各選擇涵蓋（ECC）將無法被滿足",
+              "fraction": 0,
+              "feedback": "在已定義的區塊上 ECC 仍可被滿足；問題在於未建模的值 w。"
+            },
+            {
+              "text": "只要區塊互斥，不完整就可以接受",
+              "fraction": 0,
+              "feedback": "互斥無法修補涵蓋的遺漏；兩個性質都必須滿足。"
+            }
+          ],
+          "generalFeedback": "劃分必須完整，使每個可能的輸入恰好屬於一個區塊。若 w 不屬於任何區塊，該輸入就未被建模，會在測試設計中被系統性地遺漏。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在測試預算下選擇準則",
+          "text": "<p>某模型有 5 個特徵，每個都有 4 個區塊。全組合需要 4^5 = 1024 個測試，超出預算；但你仍希望每個區塊都相對於一個共同的基底組態被測到。在大約 16 個測試的預算下，哪個準則最合適？</p>",
+          "answers": [
+            {
+              "text": "基底選擇涵蓋（BCC）——1 + 5 × (4-1) = 16 個測試，從基底變動每個區塊",
+              "fraction": 100,
+              "feedback": "正確——這裡 BCC 恰好是 16，且相對於共同基底組態測到每個區塊。"
+            },
+            {
+              "text": "全組合涵蓋（ACoC）——1024 個測試",
+              "fraction": 0,
+              "feedback": "1024 遠超預算；這正是要被排除的準則。"
+            },
+            {
+              "text": "成對涵蓋（PWC）——至少 4 × 4 = 16，但通常更多",
+              "fraction": 0,
+              "feedback": "PWC 下界是 16，但五個 4 區塊特徵的實際成對測試集會超過 16，且不使用單一的基底組態。"
+            },
+            {
+              "text": "各選擇涵蓋（ECC）——4 個測試",
+              "fraction": 0,
+              "feedback": "ECC 只需 4 個測試，但不像題目要求那樣相對於共同基底測到各區塊。"
+            }
+          ],
+          "generalFeedback": "BCC ＝ 1 + Σ(b_i - 1) = 1 + 5 × 3 = 16，正好在預算內，且依其構造每次從基底測試變動一個區塊——正符合所述目標。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩個基底測試的 MBCC 數量",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 3、2、2。使用多重基底選擇涵蓋（MBCC），採 <strong>2 個基底測試</strong>（每個基底對每個特徵各取一個基底選擇），並從每個基底測試每次只變動一個特徵，總共會有多少個測試？</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "正確——每個基底貢獻 1 + (2 + 1 + 1) = 5 個測試，2 × 5 = 10。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是單一基底（BCC）的數量；有 2 個基底時翻倍為 10。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "ACoC 乘積為 3 × 2 × 2 = 12；此處 MBCC 是 2 × 5 = 10。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 與 m × (1 + Σ(b_i - 1)) 不符；正確值為 2 × 5 = 10。"
+            }
+          ],
+          "generalFeedback": "當有 m 個基底測試、每個特徵各一個基底選擇時，MBCC = m × (1 + Σ(b_i - 1))。此處 BCC = 1 + (2 + 1 + 1) = 5，故 MBCC = 2 × 5 = 10。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MBCC 包含 BCC",
+          "text": "<p>多重基底選擇涵蓋（MBCC）與基底選擇涵蓋（BCC）之間的包含關係為何？</p>",
+          "answers": [
+            {
+              "text": "MBCC 包含 BCC——使用多個基底測試涵蓋了單一基底測試的涵蓋範圍",
+              "fraction": 100,
+              "feedback": "正確——MBCC ⊇ BCC ⊇ ECC。"
+            },
+            {
+              "text": "BCC 包含 MBCC",
+              "fraction": 0,
+              "feedback": "這把方向反了；增加基底測試只會增加涵蓋。"
+            },
+            {
+              "text": "兩者不可比較——彼此都不包含對方",
+              "fraction": 0,
+              "feedback": "MBCC 是 BCC 的推廣，永遠涵蓋 BCC 所做的。"
+            },
+            {
+              "text": "兩者是相同的準則",
+              "fraction": 0,
+              "feedback": "MBCC 使用多個基底測試，因此可能需要比 BCC 嚴格更多的測試。"
+            }
+          ],
+          "generalFeedback": "MBCC 透過使用一個以上的基底測試來推廣 BCC，因此 BCC 的每項要求都被 MBCC 滿足：MBCC ⊇ BCC ⊇ ECC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四個二元特徵的 ACoC 數量",
+          "text": "<p>某 ISP 模型有四個特徵，每個都有 2 個區塊。全組合涵蓋需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "正確——2 × 2 × 2 × 2 = 2^4 = 16。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是 2^3；有四個特徵，因此乘積是 2^4 = 16。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是把成對區塊數相加；ACoC 是四個區塊數相乘。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 = 1 + 4 × 2 是基底選擇式的數量，不是 ACoC 乘積。"
+            }
+          ],
+          "generalFeedback": "ACoC = 2^4 = 16，即四個區塊數的乘積。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最大兩個區塊數相同時的 PWC 下界",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 4、4、2。任何成對涵蓋測試集至少必須包含多少個測試？</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "正確——最大兩個區塊數為 4 與 4，故下界為 4 × 4 = 16。"
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 是完整的全組合乘積（4 × 4 × 2）；PWC 需要的較少。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 是各區塊數的總和，不是成對下界。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8（4 × 2）用錯了一對；最大兩個都是 4，得 16。"
+            }
+          ],
+          "generalFeedback": "PWC 下界是最大兩個區塊數的乘積。兩個最大都是 4，故下界為 4 × 4 = 16。（實際成對測試集可能還需要多幾個，但絕不會更少。）",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "兩個特徵時 PWC 等於 ACoC",
+          "text": "<p>當模型恰有<strong>兩個</strong>特徵時，成對涵蓋與全組合涵蓋所需的測試數相同。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——只有一對特徵時，涵蓋每一對區塊就是完整的笛卡兒積。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "兩個特徵時，該唯一一對的區塊組合正好就是全組合集合，所以此處 PWC = ACoC。"
+            }
+          ],
+          "generalFeedback": "PWC 要求每一對特徵的每一對區塊。只有兩個特徵時就只有一對，涵蓋其所有區塊對正好是 b1 × b2——與 ACoC 相同。"
+        },
+        {
+          "type": "multichoice",
+          "name": "PWC 是否包含 BCC？",
+          "text": "<p>關於成對涵蓋（PWC）與基底選擇涵蓋（BCC），下列哪個敘述正確？</p>",
+          "answers": [
+            {
+              "text": "兩者互不包含——PWC 與 BCC 不可比較",
+              "fraction": 100,
+              "feedback": "正確——PWC 保證區塊對但不保證基底變動；BCC 保證基底變動但不保證所有區塊對。"
+            },
+            {
+              "text": "PWC 包含 BCC",
+              "fraction": 0,
+              "feedback": "成對測試集不必包含「每次只變動一個特徵的單一基底測試」，因此不一定滿足 BCC。"
+            },
+            {
+              "text": "BCC 包含 PWC",
+              "fraction": 0,
+              "feedback": "基底選擇集只涵蓋 1 + Σ(b_i - 1) 個測試，漏掉大多數區塊對，因此不滿足 PWC。"
+            },
+            {
+              "text": "兩者是等價的準則",
+              "fraction": 0,
+              "feedback": "它們施加不同要求，通常產生不同的測試集。"
+            }
+          ],
+          "generalFeedback": "PWC 與 BCC 不可比較：兩者都包含 ECC，但 PWC 涵蓋所有區塊對（非基底變動），而 BCC 涵蓋基底變動（非所有區塊對）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "修正無效的劃分",
+          "text": "<p>特徵「依金額 A 分的折扣級距」定義為 {A &lt; 100}、{100 ≤ A ≤ 500}、{A ≥ 500}。它是無效的。要使其成為有效劃分，最小的修正是什麼？</p>",
+          "answers": [
+            {
+              "text": "調整一個邊界，使 500 恰好只屬於一個區塊，例如 {A < 100}、{100 ≤ A < 500}、{A ≥ 500}",
+              "fraction": 100,
+              "feedback": "正確——唯一的缺陷是 500 落在兩個區塊；把它從其中一個排除即可恢復互斥並保持完整。"
+            },
+            {
+              "text": "完全刪除中間區塊",
+              "fraction": 0,
+              "feedback": "那會使 100..499 未被涵蓋，造成不完整的遺漏。"
+            },
+            {
+              "text": "新增第四個區塊 {A = 500}",
+              "fraction": 0,
+              "feedback": "500 仍會留在原本的區塊中，因此重疊並未被移除。"
+            },
+            {
+              "text": "不用改——此劃分已經有效",
+              "fraction": 0,
+              "feedback": "500 同時滿足 {100 ≤ A ≤ 500} 與 {A ≥ 500}，因此並非互斥。"
+            }
+          ],
+          "generalFeedback": "值 500 同時落在中間區塊與 {A ≥ 500}，破壞互斥性。把中間區塊改為 {100 ≤ A < 500} 可移除重疊，同時仍涵蓋每個金額，得到有效劃分。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "基底選擇會改變 BCC 數量嗎？",
+          "text": "<p>兩位測試者為相同的特徵（區塊數 3、2、2）建模，但選了不同的基底選擇。他們的基底選擇涵蓋測試集相比之下如何？</p>",
+          "answers": [
+            {
+              "text": "兩者大小相同，皆為 1 + (2 + 1 + 1) = 5，儘管具體的測試值不同",
+              "fraction": 100,
+              "feedback": "正確——BCC 數量 1 + Σ(b_i - 1) 與選哪個區塊當基底無關。"
+            },
+            {
+              "text": "從「較大」基底建出的那組一定較大",
+              "fraction": 0,
+              "feedback": "決定大小的是區塊數而非所選基底；兩者都是 1 + Σ(b_i - 1) = 5。"
+            },
+            {
+              "text": "其中一組會滿足 ACoC，另一組不會",
+              "fraction": 0,
+              "feedback": "兩個 BCC 測試集都達不到 ACoC（需要 3 × 2 × 2 = 12 個測試）；基底選擇不會改變這點。"
+            },
+            {
+              "text": "大小會相差特徵的數量",
+              "fraction": 0,
+              "feedback": "兩者大小都等於 1 + Σ(b_i - 1) = 5，與基底無關；基底只改變出現的值。"
+            }
+          ],
+          "generalFeedback": "BCC 永遠產生 1 + Σ(b_i - 1) 個測試，此處為 1 + (2 + 1 + 1) = 5。改變基底選擇只改變產生哪些具體測試，而不改變數量或所滿足的準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三個基底測試的 MBCC 數量",
+          "text": "<p>某 ISP 模型有三個特徵，每個都有 2 個區塊。使用多重基底選擇涵蓋（MBCC），採 <strong>3 個基底測試</strong>（每個基底對每個特徵各取一個基底選擇），並從每個基底每次只變動一個特徵，總共會有多少個測試？</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "正確——每個基底貢獻 1 + (1 + 1 + 1) = 4 個測試，3 × 4 = 12。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是單一基底（BCC）的數量；有 3 個基底時變為 3 × 4 = 12。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是 ACoC 乘積（2 × 2 × 2）；此處 MBCC 是 3 × 4 = 12。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 與 m × (1 + Σ(b_i - 1)) 不符；正確值為 3 × 4 = 12。"
+            }
+          ],
+          "generalFeedback": "MBCC = m × (1 + Σ(b_i - 1))。此處 BCC = 1 + (1 + 1 + 1) = 4，故採 3 個基底測試時 MBCC = 3 × 4 = 12。",
           "single": true
         }
       ]
@@ -40339,6 +45485,2524 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "metamorphic-testing": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What metamorphic testing is",
+          "text": "<p>What is the core idea of <strong>metamorphic testing (MT)</strong>?</p>",
+          "answers": [
+            {
+              "text": "Instead of checking one output against a known expected value, it checks a relation (a metamorphic relation) between the outputs of multiple related runs of the program",
+              "fraction": 100,
+              "feedback": "Correct — MT verifies a relationship across related runs rather than one output against a fixed expected value."
+            },
+            {
+              "text": "It formally proves that the program satisfies its full specification",
+              "fraction": 0,
+              "feedback": "MT finds violations; it does not prove a program correct."
+            },
+            {
+              "text": "It measures how many branches a test suite covers",
+              "fraction": 0,
+              "feedback": "That is coverage measurement; MT is an oracle technique, not a coverage metric."
+            },
+            {
+              "text": "It generates random inputs and only reports crashes",
+              "fraction": 0,
+              "feedback": "That is a crash-oracle fuzzing approach; MT checks a metamorphic relation between outputs."
+            }
+          ],
+          "generalFeedback": "Metamorphic testing attacks the oracle problem. Rather than needing the exact expected output for an input, it runs the program on two or more related inputs and checks that a required relationship (a metamorphic relation) holds among the outputs. A broken relation exposes a fault even when no single expected value is known.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a metamorphic relation is",
+          "text": "<p>What is a <strong>metamorphic relation (MR)</strong>?</p>",
+          "answers": [
+            {
+              "text": "A property that must hold among the inputs and outputs of two or more related runs of a correct program",
+              "fraction": 100,
+              "feedback": "Correct — an MR links the inputs/outputs of related runs and must hold for any correct implementation."
+            },
+            {
+              "text": "The single exact expected output value for one specific input",
+              "fraction": 0,
+              "feedback": "That is a conventional expected-value oracle; an MR avoids needing that exact value."
+            },
+            {
+              "text": "A relation between the coverage of two branches of the program",
+              "fraction": 0,
+              "feedback": "MRs relate outputs of related inputs, not the coverage of branches."
+            },
+            {
+              "text": "A random seed that links two runs of a generator",
+              "fraction": 0,
+              "feedback": "A seed concerns reproducibility, not a required correctness relationship among outputs."
+            }
+          ],
+          "generalFeedback": "A metamorphic relation is a necessary property connecting multiple executions: given how the inputs are related (an input transformation), it states how the outputs must be related. For example, sorting a permutation of a list must give the same result. An MR must hold for every correct implementation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The oracle problem MT addresses",
+          "text": "<p>Metamorphic testing is chiefly aimed at which difficulty?</p>",
+          "answers": [
+            {
+              "text": "The test oracle problem — deciding whether a program's output for an input is correct when the exact expected output is unknown or expensive to obtain",
+              "fraction": 100,
+              "feedback": "Correct — MT provides a check when you cannot easily compute the expected output."
+            },
+            {
+              "text": "The reachability problem of covering deeply nested branches",
+              "fraction": 0,
+              "feedback": "Reaching code is a generation/coverage concern; MT addresses judging correctness."
+            },
+            {
+              "text": "Path explosion in symbolic execution",
+              "fraction": 0,
+              "feedback": "Path explosion is a scaling limit of symbolic analysis, not what MT targets."
+            },
+            {
+              "text": "The halting problem",
+              "fraction": 0,
+              "feedback": "MT does not decide termination; it checks relations among outputs."
+            }
+          ],
+          "generalFeedback": "The oracle problem is that, even with an input in hand, deciding whether the output is correct usually needs the intended answer — which may be unknown or costly. MT sidesteps this by checking a relation between related runs instead of any single expected value, giving a usable partial oracle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Source versus follow-up test case",
+          "text": "<p>In MT, how is a <strong>follow-up</strong> test case related to a <strong>source</strong> test case?</p>",
+          "answers": [
+            {
+              "text": "The follow-up input is derived from the source input by an input transformation prescribed by the metamorphic relation",
+              "fraction": 100,
+              "feedback": "Correct — the MR dictates how to transform the source input into the follow-up input."
+            },
+            {
+              "text": "The follow-up input is an unrelated input chosen at random",
+              "fraction": 0,
+              "feedback": "The follow-up must be derived from the source via the MR's transformation, not chosen at random."
+            },
+            {
+              "text": "The follow-up is the expected output of the source run",
+              "fraction": 0,
+              "feedback": "The follow-up is another input, not an output value."
+            },
+            {
+              "text": "The follow-up is the source input run again with a different random seed only",
+              "fraction": 0,
+              "feedback": "Merely changing a seed is not the input transformation an MR prescribes."
+            }
+          ],
+          "generalFeedback": "MT runs a source test case, then constructs a follow-up test case by transforming the source input according to the MR (e.g. permute the list, add π − x, scale all values). It then checks that the outputs of the two runs satisfy the MR's output relation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an MR violation means",
+          "text": "<p>A run's outputs <strong>violate</strong> a valid metamorphic relation. What does this indicate?</p>",
+          "answers": [
+            {
+              "text": "The implementation is faulty — a correct program would have satisfied the relation (assuming the MR is a genuine necessary property)",
+              "fraction": 100,
+              "feedback": "Correct — violating a valid MR reveals a bug."
+            },
+            {
+              "text": "Nothing; metamorphic relations are only performance hints",
+              "fraction": 0,
+              "feedback": "An MR is a correctness property, not a performance hint; violating a valid one signals a fault."
+            },
+            {
+              "text": "The program is proven correct",
+              "fraction": 0,
+              "feedback": "A violation indicates the opposite — a fault, not correctness."
+            },
+            {
+              "text": "Only that branch coverage was insufficient",
+              "fraction": 0,
+              "feedback": "An MR violation is about incorrect output behavior, not coverage."
+            }
+          ],
+          "generalFeedback": "If the MR is genuinely necessary for any correct implementation, then a violation means the program produced results that a correct program could not — i.e. a bug. This is the power of MT: it detects faults without ever computing an exact expected output.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Satisfying MRs does not prove correctness",
+          "text": "<p>If a program satisfies all chosen metamorphic relations on all tested inputs, it is thereby proven correct.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "No — MT can reveal violations but cannot prove correctness; untested inputs and unmodeled properties can still hide faults."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — satisfying MRs never proves correctness; it only means no violation of those relations was found on those inputs."
+            }
+          ],
+          "generalFeedback": "Like testing generally, MT can show the presence of faults (via a violation) but not their absence. The chosen relations capture only some required properties, and only finitely many inputs are tried, so a program can satisfy every MR and still be wrong on an untested case or a property no MR captures."
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid MR for sine",
+          "text": "<p>Which is a valid metamorphic relation for a correct implementation of <code>sin(x)</code>?</p>",
+          "answers": [
+            {
+              "text": "sin(x) = sin(π − x) for all x",
+              "fraction": 100,
+              "feedback": "Correct — this is a true identity, so a correct sine must satisfy it."
+            },
+            {
+              "text": "sin(2x) = 2·sin(x) for all x",
+              "fraction": 0,
+              "feedback": "False in general — e.g. at x = π/2, sin(π) = 0 but 2·sin(π/2) = 2."
+            },
+            {
+              "text": "sin(x) = sin(x + π) for all x",
+              "fraction": 0,
+              "feedback": "False — sin(x + π) = −sin(x), not sin(x)."
+            },
+            {
+              "text": "sin(x) = x for all x",
+              "fraction": 0,
+              "feedback": "False — this holds only near 0 as an approximation, not as an identity."
+            }
+          ],
+          "generalFeedback": "The identity sin(x) = sin(π − x) holds for every real x (supplementary angles have equal sine). It is a classic metamorphic relation: from a source input x, the follow-up input π − x must yield an equal output. The distractors are not identities, so they would not be valid MRs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid MR for sorting",
+          "text": "<p>Which relation is a valid metamorphic relation for a correct <strong>sort</strong> function?</p>",
+          "answers": [
+            {
+              "text": "Sorting any permutation of a list yields the same result: sort(perm(L)) == sort(L)",
+              "fraction": 100,
+              "feedback": "Correct — the sorted output depends only on the multiset of elements, not their order."
+            },
+            {
+              "text": "Sorting a list twice reverses it",
+              "fraction": 0,
+              "feedback": "Sorting is idempotent: sorting an already-sorted list leaves it unchanged, not reversed."
+            },
+            {
+              "text": "Sorting the reverse of a list gives the reverse of the sorted list",
+              "fraction": 0,
+              "feedback": "No — sort(reverse(L)) == sort(L); reversing first does not reverse the sorted output."
+            },
+            {
+              "text": "Sorting doubles the length of the list",
+              "fraction": 0,
+              "feedback": "Sorting is a permutation of the input; it never changes the length."
+            }
+          ],
+          "generalFeedback": "A correct sort produces an ordering that depends only on the multiset of elements. So sorting any permutation of the same elements must give an identical result — permutation invariance. This makes a strong MR, since you can shuffle a source list to build a follow-up input without knowing the expected order in advance.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid MR for commutative addition",
+          "text": "<p>For a function <code>add(a, b) = a + b</code>, which is a valid metamorphic relation?</p>",
+          "answers": [
+            {
+              "text": "add(a, b) == add(b, a)",
+              "fraction": 100,
+              "feedback": "Correct — addition is commutative, so swapping the operands must give the same result."
+            },
+            {
+              "text": "add(a, b) == add(a, b + 1)",
+              "fraction": 0,
+              "feedback": "False — changing an operand changes the sum."
+            },
+            {
+              "text": "add(a, b) == a",
+              "fraction": 0,
+              "feedback": "False unless b = 0; not a general property."
+            },
+            {
+              "text": "add(a, b) == 2·add(b, a)",
+              "fraction": 0,
+              "feedback": "False in general — the sum is not doubled by swapping operands."
+            }
+          ],
+          "generalFeedback": "Commutativity, f(a, b) = f(b, a), is a valid MR for any commutative operation such as addition or multiplication. The follow-up input simply swaps the two operands, and the outputs must be equal. Note it is not valid for non-commutative operations like subtraction or division.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MR versus a conventional oracle",
+          "text": "<p>How does a metamorphic relation differ from a conventional (expected-value) oracle?</p>",
+          "answers": [
+            {
+              "text": "A conventional oracle compares one run's output to a precomputed expected value; an MR checks a required relationship among the outputs of several related runs, needing no precomputed expected value",
+              "fraction": 100,
+              "feedback": "Correct — the MR replaces a per-input expected value with a cross-run relationship."
+            },
+            {
+              "text": "They are identical; both require the exact expected output of each input",
+              "fraction": 0,
+              "feedback": "An MR specifically avoids needing the exact expected output."
+            },
+            {
+              "text": "An MR compares source code while a conventional oracle compares outputs",
+              "fraction": 0,
+              "feedback": "Both concern outputs; an MR compares outputs across runs, not source code."
+            },
+            {
+              "text": "An MR measures runtime while a conventional oracle measures memory",
+              "fraction": 0,
+              "feedback": "Neither is about performance; both judge functional correctness."
+            }
+          ],
+          "generalFeedback": "A conventional oracle needs the exact answer for each input, which can be unknown or costly. An MR needs only a relationship that must hold between related runs (e.g. equal, ≤, scaled by k). That is precisely why MT helps when computing expected outputs is infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When metamorphic testing fits",
+          "text": "<p>In which situation is metamorphic testing especially useful?</p>",
+          "answers": [
+            {
+              "text": "When there is no easy or affordable oracle — e.g. machine-learning models, scientific computing, compilers, graphics, and search engines — so exact expected outputs are hard to obtain",
+              "fraction": 100,
+              "feedback": "Correct — MT shines precisely where computing the expected output is hard."
+            },
+            {
+              "text": "Only when a full formal specification and a trusted reference implementation already exist",
+              "fraction": 0,
+              "feedback": "If you already have a reference, you can use it directly; MT is most valuable when you do not."
+            },
+            {
+              "text": "Only for programs that take no inputs at all",
+              "fraction": 0,
+              "feedback": "MT needs inputs it can transform; a no-input program has nothing to transform."
+            },
+            {
+              "text": "Only after 100% branch coverage has already been achieved",
+              "fraction": 0,
+              "feedback": "MT is independent of coverage level; it addresses the oracle, not coverage."
+            }
+          ],
+          "generalFeedback": "MT was created for exactly the domains where the oracle problem bites: machine learning, numerical/scientific code, compilers, computer graphics, and search — programs whose correct output is hard or impossible to state in advance, but which nonetheless obey checkable relationships between related runs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the input transformation is",
+          "text": "<p>In MT, what is the <strong>input transformation</strong>?</p>",
+          "answers": [
+            {
+              "text": "The rule that constructs the follow-up input from the source input (e.g. take π − x, permute a list, scale all values by k)",
+              "fraction": 100,
+              "feedback": "Correct — the input transformation builds the follow-up input."
+            },
+            {
+              "text": "The rule that converts the program's source code into bytecode",
+              "fraction": 0,
+              "feedback": "That is compilation, unrelated to the MT input transformation."
+            },
+            {
+              "text": "The exact numeric output expected for the source input",
+              "fraction": 0,
+              "feedback": "MT avoids needing that; the transformation produces an input, not an expected output."
+            },
+            {
+              "text": "The metric that measures branch coverage of the suite",
+              "fraction": 0,
+              "feedback": "That is coverage, not the input transformation."
+            }
+          ],
+          "generalFeedback": "Each MR comes with an input transformation (how to derive the follow-up input from the source) and an output relation (how the two outputs must relate). Applying the transformation to a source input yields the follow-up input to run.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid MR for a set",
+          "text": "<p>For a <strong>set</strong> data structure, which is a valid metamorphic relation?</p>",
+          "answers": [
+            {
+              "text": "Inserting an element that is already present leaves membership and the set's size unchanged",
+              "fraction": 100,
+              "feedback": "Correct — a set holds each element at most once, so re-inserting a duplicate changes nothing."
+            },
+            {
+              "text": "Inserting a duplicate always increases the size by one",
+              "fraction": 0,
+              "feedback": "A set does not store duplicates, so size stays the same."
+            },
+            {
+              "text": "Inserting a duplicate removes the original element",
+              "fraction": 0,
+              "feedback": "The element remains a member; it is neither removed nor doubled."
+            },
+            {
+              "text": "Inserting a duplicate deterministically reverses iteration order",
+              "fraction": 0,
+              "feedback": "That is not a required property of a set; iteration order is not guaranteed to reverse."
+            }
+          ],
+          "generalFeedback": "A set stores each value at most once. Adding an element it already contains must leave both the membership predicate and the cardinality unchanged. This is a clean MR: the follow-up input adds a duplicate, and the output (size or membership) must match the source.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid MR for a mean function",
+          "text": "<p>For a function computing the <strong>arithmetic mean</strong> of a list, which is a valid metamorphic relation?</p>",
+          "answers": [
+            {
+              "text": "Multiplying every input value by a constant k multiplies the mean by k",
+              "fraction": 100,
+              "feedback": "Correct — the mean is linear, so scaling all inputs scales the mean identically."
+            },
+            {
+              "text": "Multiplying every value by k leaves the mean unchanged",
+              "fraction": 0,
+              "feedback": "The mean scales with the values; it is not invariant under scaling."
+            },
+            {
+              "text": "Adding a constant k to just one value leaves the mean unchanged",
+              "fraction": 0,
+              "feedback": "Changing one value changes the sum and hence the mean."
+            },
+            {
+              "text": "Multiplying every value by k multiplies the mean by k²",
+              "fraction": 0,
+              "feedback": "That is how variance scales; the mean scales by k, not k²."
+            }
+          ],
+          "generalFeedback": "mean(k·x₁, …, k·xₙ) = k·mean(x₁, …, xₙ) because the mean is a linear function of its inputs. So scaling every value by k is an input transformation whose output relation is \"the mean is multiplied by k\" — a valid MR requiring no expected value.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "MT uses multiple related runs",
+          "text": "<p>Metamorphic testing checks a property across the outputs of multiple related runs, rather than judging a single run against a fixed expected value.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — MT compares outputs of related runs, which is what lets it work without a per-input expected value."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "MT does rely on multiple related runs; that is the essence of a metamorphic relation."
+            }
+          ],
+          "generalFeedback": "The defining feature of MT is that it needs at least two related executions — a source and one or more follow-ups — and checks a relationship among their outputs. A single run compared to a fixed expected value is an ordinary oracle, not MT."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Construct the follow-up for sine",
+          "text": "<p>Using the MR <code>sin(x) = sin(π − x)</code>, a source test uses input <code>x = 0.3</code>. What is the follow-up input and the expected output relation?</p>",
+          "answers": [
+            {
+              "text": "Follow-up input = π − 0.3 (≈ 2.8416); the two outputs must be equal",
+              "fraction": 100,
+              "feedback": "Correct — apply the transformation π − x and require equal outputs."
+            },
+            {
+              "text": "Follow-up input = 2 × 0.3; the two outputs must be equal",
+              "fraction": 0,
+              "feedback": "Doubling the input is not this MR's transformation, and sin(0.6) ≠ sin(0.3)."
+            },
+            {
+              "text": "Follow-up input = 0.3 + π; the two outputs must be equal",
+              "fraction": 0,
+              "feedback": "That uses π + x, giving sin(0.3 + π) = −sin(0.3), which is not equal."
+            },
+            {
+              "text": "Follow-up input = π − 0.3; the follow-up output must be double the source",
+              "fraction": 0,
+              "feedback": "The transformation is right but the relation is equality, not doubling."
+            }
+          ],
+          "generalFeedback": "The MR's transformation is x ↦ π − x and its output relation is equality. So the follow-up input is π − 0.3 ≈ 2.8416, and a correct sine must return the same value for both — no expected value needs to be known.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Construct the follow-up for sort",
+          "text": "<p>To test a sort routine with permutation invariance, from source list <code>L = [3, 1, 2]</code> how do you build the follow-up input and what relation must hold?</p>",
+          "answers": [
+            {
+              "text": "Follow-up = any permutation of L, e.g. [2, 3, 1]; the sorted outputs of L and the follow-up must be identical",
+              "fraction": 100,
+              "feedback": "Correct — shuffle the elements; the sorted results must match."
+            },
+            {
+              "text": "Follow-up = the reverse of the sorted output; the two outputs must differ",
+              "fraction": 0,
+              "feedback": "The follow-up must be a permutation of the same input, and the outputs must be equal, not differ."
+            },
+            {
+              "text": "Follow-up = L with one element removed; the two outputs must be equal",
+              "fraction": 0,
+              "feedback": "Removing an element changes the multiset, so the sorted output legitimately changes."
+            },
+            {
+              "text": "Follow-up = L with every value doubled; the two outputs must be equal",
+              "fraction": 0,
+              "feedback": "Doubling the values changes the elements, so the sorted output changes."
+            }
+          ],
+          "generalFeedback": "Permutation invariance says the sorted output depends only on the multiset of elements. So the follow-up input is any reordering of L (e.g. [2, 3, 1]), and sort(follow-up) must equal sort(L). Only reorderings are valid transformations here; adding, removing, or altering values changes the multiset.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Search result-count monotonicity",
+          "text": "<p>For a search that returns <em>every</em> document matching <em>all</em> query terms (a conjunctive filter), which is a valid metamorphic relation?</p>",
+          "answers": [
+            {
+              "text": "Adding another required term can only keep or reduce the number of results (a more specific query returns ≤ the results of the less specific one)",
+              "fraction": 100,
+              "feedback": "Correct — the more specific query's result set is a subset, so its count is ≤."
+            },
+            {
+              "text": "Adding another required term can only increase the number of results",
+              "fraction": 0,
+              "feedback": "Wrong direction — narrowing the query cannot add matches."
+            },
+            {
+              "text": "Removing a required term can only reduce the number of results",
+              "fraction": 0,
+              "feedback": "Wrong direction — broadening the query cannot lose matches."
+            },
+            {
+              "text": "The result count is independent of the query terms",
+              "fraction": 0,
+              "feedback": "The count clearly depends on which terms are required."
+            }
+          ],
+          "generalFeedback": "Under conjunctive-filter semantics, a document is returned iff it matches every required term. Requiring one more term can only remove documents, never add them, so the result set of the more specific query is a subset of the broader one and its count is ≤. This monotonicity is a valid MR: no expected count is needed, only the ≤ relation between two related queries.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Construct the follow-up for mean scaling",
+          "text": "<p>A program computes the mean of a list. Source input <code>[2, 4, 6]</code> gives <code>4</code>. Using the scaling MR with <code>k = 3</code>, what is the follow-up input and expected output?</p>",
+          "answers": [
+            {
+              "text": "Follow-up = [6, 12, 18]; expected mean = 12 (= 3 × 4)",
+              "fraction": 100,
+              "feedback": "Correct — scale every value by 3, and the mean scales by 3."
+            },
+            {
+              "text": "Follow-up = [6, 12, 18]; expected mean = 4",
+              "fraction": 0,
+              "feedback": "The transformation is right but scaling the inputs by 3 scales the mean to 12, not 4."
+            },
+            {
+              "text": "Follow-up = [5, 7, 9]; expected mean = 7",
+              "fraction": 0,
+              "feedback": "Adding 3 to each value (not multiplying) is a different transformation than this MR."
+            },
+            {
+              "text": "Follow-up = [2, 4, 6, 3]; expected mean = 12",
+              "fraction": 0,
+              "feedback": "Appending a value is not the scaling transformation, and that mean would be 3.75."
+            }
+          ],
+          "generalFeedback": "The scaling MR multiplies every input by k and expects the mean to be multiplied by k. With k = 3, the follow-up input is [6, 12, 18] and the expected mean is 3 × 4 = 12. Verify: (6 + 12 + 18)/3 = 12.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Construct the follow-up for commutativity",
+          "text": "<p>For a function <code>f(a, b) = a × b</code>, using the commutativity MR, how do you build the follow-up from source <code>(a = 5, b = 7)</code>?</p>",
+          "answers": [
+            {
+              "text": "Follow-up = (a = 7, b = 5); the two outputs must be equal (both 35)",
+              "fraction": 100,
+              "feedback": "Correct — swap the operands; multiplication is commutative, so outputs match."
+            },
+            {
+              "text": "Follow-up = (a = 5, b = 5); the two outputs must be equal",
+              "fraction": 0,
+              "feedback": "That changes an operand rather than swapping; 5 × 5 ≠ 5 × 7."
+            },
+            {
+              "text": "Follow-up = (a = 7, b = 5); the follow-up output must be double the source",
+              "fraction": 0,
+              "feedback": "The swap is right, but the relation is equality, not doubling."
+            },
+            {
+              "text": "Follow-up = (a = 10, b = 14); the two outputs must be equal",
+              "fraction": 0,
+              "feedback": "Doubling both operands is not the commutativity transformation, and 10 × 14 ≠ 5 × 7."
+            }
+          ],
+          "generalFeedback": "The commutativity MR's transformation swaps the operands, and its output relation is equality. From (5, 7) the follow-up is (7, 5), and a correct multiplication returns 35 for both. No expected value is needed — only that the two outputs agree.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why MT helps with no oracle",
+          "text": "<p>Why is MT valuable for a program whose exact expected output is infeasible to compute?</p>",
+          "answers": [
+            {
+              "text": "It detects faults by checking a required relationship between related runs, without ever needing the exact expected output of any single run",
+              "fraction": 100,
+              "feedback": "Correct — the relation replaces the missing per-input expected value."
+            },
+            {
+              "text": "It computes the exact expected output automatically",
+              "fraction": 0,
+              "feedback": "MT does not compute expected outputs; it checks relations among runs."
+            },
+            {
+              "text": "It proves correctness without running the program",
+              "fraction": 0,
+              "feedback": "MT runs the program on related inputs; it does not prove correctness."
+            },
+            {
+              "text": "It removes the need to run the program more than once",
+              "fraction": 0,
+              "feedback": "MT requires multiple related runs, not fewer."
+            }
+          ],
+          "generalFeedback": "When no oracle can tell you the right answer for an input, you can still know how related runs must relate. MT exploits that: it transforms the input, runs again, and checks the output relation. A violation exposes a fault even though the exact expected output was never available.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Passing tests is not a proof",
+          "text": "<p>Passing many metamorphic tests demonstrates that the program is free of defects.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "No — MT reveals violations but cannot establish the absence of faults."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — passing tests leaves open faults not exposed by the chosen relations or inputs."
+            }
+          ],
+          "generalFeedback": "MT is a testing technique, so it can find bugs but not prove their absence. A program can satisfy every chosen MR on every tried input and still fail on an untested input or violate a property no MR captures."
+        },
+        {
+          "type": "multichoice",
+          "name": "Shortest-path relabeling MR",
+          "text": "<p>A program computes the shortest-path distance between two nodes in a weighted graph. Which is a valid metamorphic relation?</p>",
+          "answers": [
+            {
+              "text": "Relabeling (renaming) the nodes by a bijection and querying the correspondingly renamed endpoints must return the same distance",
+              "fraction": 100,
+              "feedback": "Correct — a bijective relabeling is a graph isomorphism, which preserves all distances."
+            },
+            {
+              "text": "Relabeling the nodes changes the distance by the number of nodes",
+              "fraction": 0,
+              "feedback": "Renaming nodes changes no structure or weight, so the distance is unaffected."
+            },
+            {
+              "text": "Doubling every node's label doubles the distance",
+              "fraction": 0,
+              "feedback": "Node labels are identifiers; their numeric value does not affect distances."
+            },
+            {
+              "text": "Reversing the node labels negates the distance",
+              "fraction": 0,
+              "feedback": "Distances are non-negative and depend on edges/weights, not on label order."
+            }
+          ],
+          "generalFeedback": "Renaming nodes via a bijection leaves the graph structurally identical (an isomorphism): the same edges with the same weights, just different names. So the shortest-path distance between the renamed endpoints must equal the original. This is a strong MR because it needs no knowledge of the actual distance.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Construct the follow-up for set size",
+          "text": "<p>A program maintains a set and reports its size. Source: inserting <code>[1, 2, 3]</code> gives size <code>3</code>. Using the duplicate-insertion MR, what follow-up and expected size?</p>",
+          "answers": [
+            {
+              "text": "Follow-up = insert [1, 2, 3, 2] (a duplicate added); expected size still 3",
+              "fraction": 100,
+              "feedback": "Correct — adding a duplicate leaves the set's size unchanged."
+            },
+            {
+              "text": "Follow-up = insert [1, 2, 3, 2]; expected size 4",
+              "fraction": 0,
+              "feedback": "A set ignores the duplicate, so the size stays 3, not 4."
+            },
+            {
+              "text": "Follow-up = insert [1, 2, 3, 4]; expected size 3",
+              "fraction": 0,
+              "feedback": "Adding a new distinct element 4 is not the duplicate transformation, and it would make size 4."
+            },
+            {
+              "text": "Follow-up = insert [1, 2, 3, 2]; expected size 2",
+              "fraction": 0,
+              "feedback": "Adding a duplicate cannot shrink the set; the size stays 3."
+            }
+          ],
+          "generalFeedback": "The duplicate-insertion transformation adds an element already present. The output relation is that the size is unchanged. From a source of [1, 2, 3] (size 3), the follow-up [1, 2, 3, 2] must still report size 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Construct the follow-up for maximum",
+          "text": "<p>A program returns the maximum of a list. From source <code>L = [4, 9, 1]</code> (max 9), which follow-up tests a valid MR and what relation holds?</p>",
+          "answers": [
+            {
+              "text": "Follow-up = L with an element ≤ 9 appended, e.g. [4, 9, 1, 7]; the maximum must be unchanged (still 9)",
+              "fraction": 100,
+              "feedback": "Correct — appending a value not exceeding the current max leaves the max unchanged."
+            },
+            {
+              "text": "Follow-up = [4, 9, 1, 15]; the max must be unchanged",
+              "fraction": 0,
+              "feedback": "Appending 15 (greater than 9) legitimately raises the max to 15, so \"unchanged\" is wrong."
+            },
+            {
+              "text": "Follow-up = [4, 9, 1, 7]; the max must increase",
+              "fraction": 0,
+              "feedback": "Appending 7 (≤ 9) cannot raise the max; it stays 9."
+            },
+            {
+              "text": "Follow-up = [8, 18, 2]; the max must be unchanged",
+              "fraction": 0,
+              "feedback": "Those are different values, not an append of an element ≤ 9 to L."
+            }
+          ],
+          "generalFeedback": "max(L ++ [y]) = max(max(L), y). If y ≤ max(L), the maximum is unchanged; if y > max(L), it becomes y. A valid MR is therefore \"appending a value ≤ the current max leaves the max unchanged,\" giving a follow-up like [4, 9, 1, 7] with expected max 9.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Broadening a query",
+          "text": "<p>For a conjunctive-filter search, which transformation gives a follow-up whose result count must be ≥ the source's?</p>",
+          "answers": [
+            {
+              "text": "Removing one of the required query terms (making the query less specific)",
+              "fraction": 100,
+              "feedback": "Correct — the broader query's result set is a superset, so the count is ≥."
+            },
+            {
+              "text": "Adding one more required term",
+              "fraction": 0,
+              "feedback": "That narrows the query, giving ≤ results, not ≥."
+            },
+            {
+              "text": "Replacing a term with a more specific synonym",
+              "fraction": 0,
+              "feedback": "Making a term more specific does not guarantee ≥ results."
+            },
+            {
+              "text": "Requiring all terms to appear only in the title",
+              "fraction": 0,
+              "feedback": "Adding a location constraint narrows matches; it does not guarantee ≥ results."
+            }
+          ],
+          "generalFeedback": "Dropping a required term makes the query less specific, so every document that matched before still matches (and possibly more). The broader result set is a superset, so its count is ≥ the source's. This is the \"≥\" companion to the narrowing MR.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pick the valid MR for a mean",
+          "text": "<p>Which of these is a genuine necessary property (a valid MR) of a correct mean function?</p>",
+          "answers": [
+            {
+              "text": "Appending one extra value equal to the current mean leaves the mean unchanged",
+              "fraction": 100,
+              "feedback": "Correct — adding a point equal to the mean does not move the mean."
+            },
+            {
+              "text": "Appending any one extra value leaves the mean unchanged",
+              "fraction": 0,
+              "feedback": "False — only a value equal to the current mean leaves it unchanged."
+            },
+            {
+              "text": "Removing the largest value leaves the mean unchanged",
+              "fraction": 0,
+              "feedback": "False — removing the largest value generally lowers the mean."
+            },
+            {
+              "text": "Doubling the list length by repeating it leaves the mean doubled",
+              "fraction": 0,
+              "feedback": "False — repeating the list leaves the mean unchanged, not doubled."
+            }
+          ],
+          "generalFeedback": "With n values of mean m, appending a value equal to m gives a new mean of (n·m + m)/(n + 1) = m(n + 1)/(n + 1) = m. So the mean is unchanged — a valid MR. The distractors are not necessary properties of a correct mean.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Variance under scaling",
+          "text": "<p>A program computes the (population) <strong>variance</strong> of a list. Multiplying every value by <code>k</code> has what effect, giving a valid MR?</p>",
+          "answers": [
+            {
+              "text": "The variance is multiplied by k²",
+              "fraction": 100,
+              "feedback": "Correct — Var(kX) = k²·Var(X)."
+            },
+            {
+              "text": "The variance is multiplied by k",
+              "fraction": 0,
+              "feedback": "That is how the mean (or a linear quantity) scales; variance scales by k²."
+            },
+            {
+              "text": "The variance is unchanged",
+              "fraction": 0,
+              "feedback": "Scaling the data spreads it out; the variance changes by k²."
+            },
+            {
+              "text": "The variance is multiplied by |k|",
+              "fraction": 0,
+              "feedback": "That is how the standard deviation scales; variance scales by k²."
+            }
+          ],
+          "generalFeedback": "Variance is a quadratic quantity: Var(kX) = k²·Var(X). So scaling every input by k is an input transformation whose output relation is \"the variance is multiplied by k².\" (The standard deviation, being the square root, scales by |k|.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge reordering for shortest path",
+          "text": "<p>A shortest-path program takes a list of weighted edges. Which follow-up transformation must leave every shortest-path distance unchanged (a valid MR)?</p>",
+          "answers": [
+            {
+              "text": "Reordering the edges in the input list (the same set of edges, listed in a different order)",
+              "fraction": 100,
+              "feedback": "Correct — the graph is defined by its set of edges, not the order they appear."
+            },
+            {
+              "text": "Doubling the weight of one edge on a shortest path",
+              "fraction": 0,
+              "feedback": "That changes the graph and can change the distance."
+            },
+            {
+              "text": "Adding a new edge with a smaller weight",
+              "fraction": 0,
+              "feedback": "A new cheaper edge can create a shorter path, changing distances."
+            },
+            {
+              "text": "Deleting an edge on a shortest path",
+              "fraction": 0,
+              "feedback": "Removing an edge can lengthen or disconnect a path, changing distances."
+            }
+          ],
+          "generalFeedback": "The graph is the set of edges; the order in which the edges are listed carries no meaning. So permuting the edge list is an input transformation whose output relation is \"all distances unchanged\" — a valid MR. The other options genuinely alter the graph.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "A passing source/follow-up pair",
+          "text": "<p>If a source/follow-up pair satisfies its metamorphic relation, that specific pair has not revealed a bug, but a bug may still exist elsewhere.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — one satisfied pair only means no violation was seen for that pair."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A satisfied pair does not clear the program; other inputs or relations may still expose faults."
+            }
+          ],
+          "generalFeedback": "Satisfying the relation on one pair simply means that pair produced no evidence of a fault. Faults can still hide in untested inputs or in behaviors that this MR does not constrain, so no conclusion of correctness follows."
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Critique a proposed sine MR",
+          "text": "<p>A tester proposes <code>sin(2x) = 2·sin(x)</code> as a metamorphic relation for a sine routine. What is wrong with it?</p>",
+          "answers": [
+            {
+              "text": "It is not a true identity (e.g. at x = π/2, sin(π) = 0 but 2·sin(π/2) = 2), so a correct sine need not satisfy it; any \"violation\" would be spurious",
+              "fraction": 100,
+              "feedback": "Correct — the relation is not a necessary property, so it is an invalid MR."
+            },
+            {
+              "text": "Nothing is wrong; it holds for all x",
+              "fraction": 0,
+              "feedback": "It fails at x = π/2, so it does not hold for all x."
+            },
+            {
+              "text": "It is valid but detects only performance bugs",
+              "fraction": 0,
+              "feedback": "It is not valid at all; MRs are correctness properties, not performance checks."
+            },
+            {
+              "text": "It is valid only for negative x",
+              "fraction": 0,
+              "feedback": "It is not an identity for negative x either (e.g. x = −π/2)."
+            }
+          ],
+          "generalFeedback": "The double-angle identity is sin(2x) = 2·sin(x)·cos(x), which equals 2·sin(x) only when cos(x) = 1. So sin(2x) = 2·sin(x) is false in general and is not a necessary property of a correct sine. Using it as an MR would flag correct implementations — a classic invalid MR.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Composing metamorphic relations",
+          "text": "<p>For a shortest-path program you have MR_A (relabeling nodes leaves distances unchanged) and MR_B (multiplying all edge weights by a constant <code>c &gt; 0</code> multiplies every distance by c). If you apply <em>both</em> transformations to a source graph, what must hold?</p>",
+          "answers": [
+            {
+              "text": "The distance in the transformed graph equals c times the source distance",
+              "fraction": 100,
+              "feedback": "Correct — a distance-preserving transform composed with a c-scaling transform yields c-scaling."
+            },
+            {
+              "text": "The distance is unchanged",
+              "fraction": 0,
+              "feedback": "Relabeling alone preserves distance, but scaling weights by c multiplies it by c."
+            },
+            {
+              "text": "The distance equals c² times the source distance",
+              "fraction": 0,
+              "feedback": "Only one c-scaling is applied (relabeling adds no factor), so the factor is c, not c²."
+            },
+            {
+              "text": "No relation holds, because two transformations cannot be composed",
+              "fraction": 0,
+              "feedback": "MRs compose: apply the transformations in sequence and combine their output relations."
+            }
+          ],
+          "generalFeedback": "MRs can be composed by applying their input transformations together and combining the output relations. Relabeling contributes a factor of 1 (distance unchanged) and weight-scaling contributes a factor of c, so the composed relation multiplies the distance by 1 × c = c. Composition lets you build richer checks from simple, individually-verified MRs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge-weight scaling: soundness caveat",
+          "text": "<p>Is \"multiplying all edge weights by a constant <code>c</code> scales every shortest-path distance by c\" a sound metamorphic relation?</p>",
+          "answers": [
+            {
+              "text": "Yes, but only for c > 0; for c ≤ 0 it can create zero/negative weights or negative cycles and change which path is optimal, so the relation need not hold",
+              "fraction": 100,
+              "feedback": "Correct — the scaling MR is sound only for a positive constant."
+            },
+            {
+              "text": "Yes, for every real c",
+              "fraction": 0,
+              "feedback": "Negative c can introduce negative cycles or flip the optimal path, breaking the relation."
+            },
+            {
+              "text": "No, it never holds for any c",
+              "fraction": 0,
+              "feedback": "It does hold for every positive c, so \"never\" is wrong."
+            },
+            {
+              "text": "Yes, but only for integer c",
+              "fraction": 0,
+              "feedback": "Any positive real c works; the restriction is positivity, not integrality."
+            }
+          ],
+          "generalFeedback": "For c > 0, multiplying all weights by c multiplies the cost of every path by c, so the minimum-cost path is unchanged and its distance is scaled by c — a sound MR. For c ≤ 0 the transformed graph can have negative weights or negative cycles, changing (or undefining) the shortest path, so the relation is not necessary. Stating the domain (c > 0) is essential to keeping the MR valid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Invalid MR versus genuine bug: floating point",
+          "text": "<p>A test checks <code>sin(x) == sin(π − x)</code> with exact floating-point equality and reports a \"violation\" where the two results differ in the last bit. Best interpretation?</p>",
+          "answers": [
+            {
+              "text": "The exact-equality MR is too strict for floating-point arithmetic; the tiny difference is rounding, so the violation is likely spurious and the relation should allow a small tolerance",
+              "fraction": 100,
+              "feedback": "Correct — an over-strict relation, not a fault, produced the false alarm."
+            },
+            {
+              "text": "It is definitely a bug in the sine implementation",
+              "fraction": 0,
+              "feedback": "A last-bit difference is consistent with normal rounding, not necessarily a fault."
+            },
+            {
+              "text": "The mathematics sin(x) = sin(π − x) is false, so the MR is wrong",
+              "fraction": 0,
+              "feedback": "The identity is true; the issue is applying exact equality to inexact arithmetic."
+            },
+            {
+              "text": "Floating-point numbers cannot represent π, so sine is undefined",
+              "fraction": 0,
+              "feedback": "π is approximated, but sine is well-defined on the approximation; that is not the issue."
+            }
+          ],
+          "generalFeedback": "The identity holds mathematically, but floating-point computes π − x and the two sines with rounding, so bit-for-bit equality is not guaranteed. The failure reflects an over-strict (effectively invalid) MR for this domain, not a defect. The fix is to state the output relation with an appropriate tolerance, e.g. |sin(x) − sin(π − x)| ≤ ε. This is the key skill of separating a genuine violation from a flawed relation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MR for an image classifier",
+          "text": "<p>For an image classifier, which is a suitable metamorphic relation whose violation suggests a defect (e.g. a robustness problem)?</p>",
+          "answers": [
+            {
+              "text": "A label-preserving transformation — one a human agrees does not change the true class, such as a slight brightness change or small rotation — should leave the predicted class unchanged",
+              "fraction": 100,
+              "feedback": "Correct — the transformation must preserve the ground-truth label for the \"unchanged prediction\" relation to be expected."
+            },
+            {
+              "text": "Randomly shuffling all the pixels should leave the predicted class unchanged",
+              "fraction": 0,
+              "feedback": "Shuffling pixels destroys the image content, so it is not label-preserving."
+            },
+            {
+              "text": "Replacing the image with a different image of another class should leave the prediction unchanged",
+              "fraction": 0,
+              "feedback": "That changes the true class, so the prediction should change, not stay the same."
+            },
+            {
+              "text": "Doubling every pixel value should double the predicted class index",
+              "fraction": 0,
+              "feedback": "Class indices are labels, not magnitudes; there is no reason a valid transformation would double them."
+            }
+          ],
+          "generalFeedback": "MT for ML uses transformations that preserve the ground-truth label — mild brightness/contrast changes, small rotations, or, for text, synonym substitution. An ideal classifier's prediction should not change; if it does, the test reveals a robustness or consistency defect. The transformation must genuinely preserve the label, which is why pixel-shuffling or swapping in a different-class image are not valid choices.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Wrong search direction is a bad MR",
+          "text": "<p>A tester claims that \"making a conjunctive-filter query <em>more</em> specific (adding a required term) should return <em>at least as many</em> results.\" Why is this a bad MR?</p>",
+          "answers": [
+            {
+              "text": "The direction is backwards — a more specific query's results are a subset, so the count can only stay the same or shrink; the program need not satisfy the proposed relation, so it would raise false alarms",
+              "fraction": 100,
+              "feedback": "Correct — the sound direction is ≤ for narrowing, so the proposed ≥ relation is invalid."
+            },
+            {
+              "text": "It is correct and always holds",
+              "fraction": 0,
+              "feedback": "It has the direction reversed, so it does not hold for a conjunctive filter."
+            },
+            {
+              "text": "It is correct only for empty queries",
+              "fraction": 0,
+              "feedback": "It is not correct in general; the flaw is the reversed direction, not the empty case."
+            },
+            {
+              "text": "It is a valid MR but detects only performance issues",
+              "fraction": 0,
+              "feedback": "It is not valid, and MRs check correctness rather than performance."
+            }
+          ],
+          "generalFeedback": "Under conjunctive-filter semantics, narrowing a query removes matches, so the correct relation is count(more specific) ≤ count(less specific). Proposing ≥ inverts this: a correct engine would routinely \"violate\" it, producing false alarms. Getting the direction right is essential to a sound MR.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Commutativity is unsound for subtraction",
+          "text": "<p>Why is <code>f(a, b) = f(b, a)</code> an invalid metamorphic relation for a subtraction function <code>sub(a, b) = a − b</code>?</p>",
+          "answers": [
+            {
+              "text": "Subtraction is not commutative (5 − 3 = 2 but 3 − 5 = −2), so a correct implementation need not satisfy it; treating it as an MR would flag correct behavior as a fault",
+              "fraction": 100,
+              "feedback": "Correct — the relation is not necessary for subtraction, so it is an invalid MR."
+            },
+            {
+              "text": "Because subtraction is undefined when the operands are equal",
+              "fraction": 0,
+              "feedback": "Subtraction is well-defined for equal operands (a − a = 0); that is not the issue."
+            },
+            {
+              "text": "Because subtraction always overflows",
+              "fraction": 0,
+              "feedback": "Subtraction does not always overflow; the flaw is non-commutativity."
+            },
+            {
+              "text": "It is actually a valid MR for subtraction",
+              "fraction": 0,
+              "feedback": "It is not — swapping operands negates the result in general."
+            }
+          ],
+          "generalFeedback": "Commutativity holds for addition and multiplication but not subtraction: a − b = −(b − a), which differs from b − a unless a = b. So f(a, b) = f(b, a) is not a necessary property of subtraction, and using it as an MR would report correct results as violations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Verify an appended-mean MR",
+          "text": "<p>Is \"appending one data point equal to the current arithmetic mean leaves the mean unchanged\" a sound necessary property of a correct mean function?</p>",
+          "answers": [
+            {
+              "text": "Yes — with n values of mean m, the new mean is (n·m + m)/(n + 1) = m, so it holds for every list",
+              "fraction": 100,
+              "feedback": "Correct — the algebra confirms the mean is unchanged, so it is a valid MR."
+            },
+            {
+              "text": "No, the mean always increases when a point is added",
+              "fraction": 0,
+              "feedback": "Adding a point equal to the mean does not increase it; the algebra gives m."
+            },
+            {
+              "text": "Only when all the values are equal",
+              "fraction": 0,
+              "feedback": "It holds for any list, not only lists of equal values."
+            },
+            {
+              "text": "Only for lists of even length",
+              "fraction": 0,
+              "feedback": "Length parity is irrelevant; the identity holds for every n."
+            }
+          ],
+          "generalFeedback": "Let the list have n values summing to n·m, so the mean is m. Appending m gives sum n·m + m = m(n + 1) over n + 1 values, so the new mean is m(n + 1)/(n + 1) = m. The property holds for every list, making it a sound MR — worked concretely to confirm.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Violation of an invalid MR",
+          "text": "<p>A test for a mean function uses the relation \"removing the largest value leaves the mean unchanged\" and reports a violation. What should you conclude?</p>",
+          "answers": [
+            {
+              "text": "Nothing about a bug — the relation is not a necessary property of a correct mean, so the \"violation\" reflects a flawed MR, not a defect in the program",
+              "fraction": 100,
+              "feedback": "Correct — a violation implicates the program only when the MR is genuinely necessary."
+            },
+            {
+              "text": "The mean function is definitely buggy",
+              "fraction": 0,
+              "feedback": "The MR itself is invalid, so the violation says nothing about the program."
+            },
+            {
+              "text": "The program has a rounding error",
+              "fraction": 0,
+              "feedback": "There is no evidence of rounding; the relation is simply not a required property."
+            },
+            {
+              "text": "The input list must have been empty",
+              "fraction": 0,
+              "feedback": "The list need not be empty; removing the largest value normally does change the mean."
+            }
+          ],
+          "generalFeedback": "Removing the largest value generally lowers the mean, so \"the mean is unchanged\" is not a necessary property. A correct implementation will routinely \"violate\" it. The lesson: before trusting a violation, confirm the MR is genuinely necessary for any correct implementation; otherwise the fault is in the relation, not the code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How statistics scale under multiplication",
+          "text": "<p>Multiplying every value in a list by <code>k</code>. Which set of output relations is correct for the mean, standard deviation, and variance?</p>",
+          "answers": [
+            {
+              "text": "mean → ×k, standard deviation → ×|k|, variance → ×k²",
+              "fraction": 100,
+              "feedback": "Correct — the mean is linear, variance is quadratic, and the standard deviation is its square root."
+            },
+            {
+              "text": "mean → ×k, standard deviation → ×k², variance → ×k",
+              "fraction": 0,
+              "feedback": "Swapped — variance scales by k² and the standard deviation by |k|."
+            },
+            {
+              "text": "all three → ×k",
+              "fraction": 0,
+              "feedback": "Only the mean scales by k; variance scales by k² and SD by |k|."
+            },
+            {
+              "text": "mean → ×k², standard deviation → ×k, variance → ×|k|",
+              "fraction": 0,
+              "feedback": "The mean scales by k, not k²; the others are wrong too."
+            }
+          ],
+          "generalFeedback": "Mean is linear: mean(kX) = k·mean(X). Variance is quadratic: Var(kX) = k²·Var(X). The standard deviation is the square root of the variance, so SD(kX) = |k|·SD(X) (absolute value because a standard deviation is non-negative). Each gives a distinct valid MR under the same scaling transformation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Strongest conclusion from passing MRs",
+          "text": "<p>A program passes a large, well-designed set of metamorphic relations on millions of inputs. What is the strongest <em>sound</em> conclusion?</p>",
+          "answers": [
+            {
+              "text": "No violation of those relations was found on those inputs; this raises confidence but does not prove correctness — faults not exposed by the chosen MRs or inputs may remain",
+              "fraction": 100,
+              "feedback": "Correct — MT can raise confidence but never proves correctness."
+            },
+            {
+              "text": "The program is proven correct",
+              "fraction": 0,
+              "feedback": "No amount of passing tests proves correctness."
+            },
+            {
+              "text": "The program is correct on the tested inputs and on all others",
+              "fraction": 0,
+              "feedback": "Nothing can be concluded about untested inputs."
+            },
+            {
+              "text": "The MRs must have been invalid, since nothing failed",
+              "fraction": 0,
+              "feedback": "Passing does not imply the MRs are invalid; valid MRs can simply be satisfied."
+            }
+          ],
+          "generalFeedback": "MT can reveal faults (via violations) but cannot demonstrate their absence. Extensive passing results increase confidence and are evidence of quality, but faults may still hide in inputs never tried or in properties the chosen MRs do not constrain.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Composing order-preserving map with permutation",
+          "text": "<p>For a sort function, consider two transformations: permuting the input, and mapping every element through a <em>strictly increasing</em> function <code>g</code>. Which composed relation is sound?</p>",
+          "answers": [
+            {
+              "text": "sort(map g over any permutation of L) equals map g over sort(L), for any strictly increasing g",
+              "fraction": 100,
+              "feedback": "Correct — a strictly increasing map preserves order, so it commutes with sorting; permutation is irrelevant to the sorted result."
+            },
+            {
+              "text": "sort(map g over L) equals the reverse of (map g over sort(L))",
+              "fraction": 0,
+              "feedback": "A strictly increasing g preserves order, so it does not reverse the result."
+            },
+            {
+              "text": "sort(map g over L) equals sort(L) unchanged",
+              "fraction": 0,
+              "feedback": "Applying g changes the element values, so the sorted output changes accordingly."
+            },
+            {
+              "text": "The relation is sound only when g is the identity function",
+              "fraction": 0,
+              "feedback": "It is sound for any strictly increasing g, not just the identity."
+            }
+          ],
+          "generalFeedback": "If g is strictly increasing, then a < b iff g(a) < g(b), so applying g preserves relative order and commutes with sorting: sort(map g over L) = map g over sort(L). Since sorting is permutation-invariant, permuting first changes nothing. Composing the two gives sort(map g over perm(L)) = map g over sort(L) — a sound composed MR.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "An unsound MR for a sentiment classifier",
+          "text": "<p>For a sentiment classifier, which proposed metamorphic relation is <em>unsound</em> (would produce false alarms)?</p>",
+          "answers": [
+            {
+              "text": "\"Negating the sentence (inserting 'not') must leave the predicted sentiment unchanged\"",
+              "fraction": 100,
+              "feedback": "Correct — negation changes the true sentiment, so it is not label-preserving; the prediction should change."
+            },
+            {
+              "text": "\"Replacing a word with a close synonym should leave the predicted sentiment unchanged\"",
+              "fraction": 0,
+              "feedback": "Synonym substitution preserves meaning, so this is a sound label-preserving MR."
+            },
+            {
+              "text": "\"Adding a neutral, meaning-preserving filler phrase should leave the predicted sentiment unchanged\"",
+              "fraction": 0,
+              "feedback": "A neutral filler preserves sentiment, so this is a sound MR."
+            },
+            {
+              "text": "\"Reordering two independent, order-irrelevant clauses should leave the predicted sentiment unchanged\"",
+              "fraction": 0,
+              "feedback": "Reordering independent clauses preserves meaning, so this is a sound MR."
+            }
+          ],
+          "generalFeedback": "MT for ML relies on label-preserving transformations. Synonym substitution, neutral filler, and reordering independent clauses all keep the true sentiment, so \"prediction unchanged\" is expected. Negation, by contrast, flips the sentiment, so demanding an unchanged prediction is unsound and would flag a correct classifier.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the subset MR may fail on a ranked engine",
+          "text": "<p>The subset MR (\"a more specific query returns ≤ results\") is sound for a pure conjunctive filter. Why might it fail to be a valid MR for a real <em>ranked</em> web search engine?</p>",
+          "answers": [
+            {
+              "text": "A ranked engine may not return all matching documents (it truncates to top-k, applies relevance thresholds, query expansion, or synonyms), so the more specific query's returned set is not guaranteed to be a subset",
+              "fraction": 100,
+              "feedback": "Correct — MR validity depends on the actual specification of the program under test."
+            },
+            {
+              "text": "Because ranked search engines are always correct, so no MR is needed",
+              "fraction": 0,
+              "feedback": "Correctness is not the point; the relation simply is not guaranteed under ranking semantics."
+            },
+            {
+              "text": "Because more specific queries are always computed faster",
+              "fraction": 0,
+              "feedback": "Performance is irrelevant to whether the subset relation holds."
+            },
+            {
+              "text": "Because the mathematics of subsets is different on the web",
+              "fraction": 0,
+              "feedback": "Set theory is unchanged; the issue is that ranked results are not the full match set."
+            }
+          ],
+          "generalFeedback": "The subset MR assumes the engine returns exactly the documents matching all terms. A ranked engine instead returns a curated, truncated, possibly query-expanded list, so a more specific query's results need not be a subset of the broader query's. An MR is only valid against the actual specification: change the semantics and a previously sound MR can become invalid.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "An MR must be a necessary property",
+          "text": "<p>For a metamorphic relation to be usable as an oracle, it must be a necessary property of every correct implementation; otherwise a \"violation\" may indicate a flawed relation rather than a fault.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — only a genuinely necessary property lets a violation implicate the program."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "If the relation is not necessary, a correct program can violate it, so a violation would not indicate a fault."
+            }
+          ],
+          "generalFeedback": "The soundness of MT rests on the MR being a necessary property: something every correct implementation must satisfy. Then a violation must mean the program is wrong. If the relation is merely plausible but not necessary, a correct program can violate it, and the \"fault\" is really in the relation — which is why verifying MRs is the crucial discipline of MT."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是蛻變測試",
+          "text": "<p><strong>蛻變測試（metamorphic testing, MT）</strong>的核心概念為何？</p>",
+          "answers": [
+            {
+              "text": "它不是把單一輸出與已知的期望值比對，而是檢查程式多次相關執行之間輸出所滿足的一個關係（蛻變關係）",
+              "fraction": 100,
+              "feedback": "正確——MT 檢查相關執行之間的關係，而非將單一輸出比對固定期望值。"
+            },
+            {
+              "text": "它形式化地證明程式滿足其完整規格",
+              "fraction": 0,
+              "feedback": "MT 找出違反情形，並不證明程式正確。"
+            },
+            {
+              "text": "它量測測試套件覆蓋了多少分支",
+              "fraction": 0,
+              "feedback": "那是覆蓋率量測；MT 是一種預言技術，不是覆蓋率指標。"
+            },
+            {
+              "text": "它產生隨機輸入並只回報當機",
+              "fraction": 0,
+              "feedback": "那是當機預言的模糊測試；MT 檢查輸出之間的蛻變關係。"
+            }
+          ],
+          "generalFeedback": "蛻變測試針對的是預言問題。它不需要某個輸入的確切期望輸出，而是對兩個以上相關的輸入執行程式，檢查其輸出之間是否滿足所需的關係（蛻變關係）。即使不知道任何單一期望值，被破壞的關係也能揭露缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是蛻變關係",
+          "text": "<p>什麼是<strong>蛻變關係（metamorphic relation, MR）</strong>？</p>",
+          "answers": [
+            {
+              "text": "一個在正確程式的兩次以上相關執行的輸入與輸出之間必須成立的性質",
+              "fraction": 100,
+              "feedback": "正確——MR 連結相關執行的輸入／輸出，且對任何正確實作都必須成立。"
+            },
+            {
+              "text": "某個特定輸入唯一的確切期望輸出值",
+              "fraction": 0,
+              "feedback": "那是傳統的期望值預言；MR 正是為了避免需要那個確切值。"
+            },
+            {
+              "text": "程式兩個分支覆蓋率之間的關係",
+              "fraction": 0,
+              "feedback": "MR 連結的是相關輸入的輸出，而非分支的覆蓋率。"
+            },
+            {
+              "text": "連結生成器兩次執行的隨機種子",
+              "fraction": 0,
+              "feedback": "種子關乎可重現性，而非輸出之間所需的正確性關係。"
+            }
+          ],
+          "generalFeedback": "蛻變關係是連結多次執行的必要性質：給定輸入之間的關係（輸入轉換），它規定輸出之間必須有的關係。例如，排序一份清單的任一排列必然得到相同結果。MR 對每個正確實作都必須成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MT 針對的預言問題",
+          "text": "<p>蛻變測試主要針對哪一項困難？</p>",
+          "answers": [
+            {
+              "text": "測試預言問題——當確切期望輸出未知或代價高昂時，如何判斷程式對某輸入的輸出是否正確",
+              "fraction": 100,
+              "feedback": "正確——當你難以輕易算出期望輸出時，MT 提供一種檢查方式。"
+            },
+            {
+              "text": "涵蓋深層巢狀分支的可達性問題",
+              "fraction": 0,
+              "feedback": "到達程式碼是生成／覆蓋率的議題；MT 針對的是判斷正確性。"
+            },
+            {
+              "text": "符號執行中的路徑爆炸",
+              "fraction": 0,
+              "feedback": "路徑爆炸是符號分析的規模限制，不是 MT 針對的對象。"
+            },
+            {
+              "text": "停機問題",
+              "fraction": 0,
+              "feedback": "MT 不判定是否終止；它檢查輸出之間的關係。"
+            }
+          ],
+          "generalFeedback": "預言問題是指：即便手上有輸入，判斷輸出是否正確通常仍需要那個「應有的答案」，而它可能未知或代價高昂。MT 改為檢查相關執行之間的關係，而非任何單一期望值，藉此提供可用的部分預言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "源測試案例與後續測試案例",
+          "text": "<p>在 MT 中，<strong>後續（follow-up）</strong>測試案例與<strong>源（source）</strong>測試案例有何關係？</p>",
+          "answers": [
+            {
+              "text": "後續輸入是由源輸入依蛻變關係所規定的輸入轉換推導而來",
+              "fraction": 100,
+              "feedback": "正確——MR 規定如何將源輸入轉換為後續輸入。"
+            },
+            {
+              "text": "後續輸入是隨機挑選、與源無關的輸入",
+              "fraction": 0,
+              "feedback": "後續輸入必須經由 MR 的轉換從源導出，而非隨機挑選。"
+            },
+            {
+              "text": "後續是源執行的期望輸出",
+              "fraction": 0,
+              "feedback": "後續是另一個輸入，而非輸出值。"
+            },
+            {
+              "text": "後續只是把源輸入換一個隨機種子再跑一次",
+              "fraction": 0,
+              "feedback": "只更換種子並非 MR 所規定的輸入轉換。"
+            }
+          ],
+          "generalFeedback": "MT 先執行源測試案例，再依 MR 對源輸入做轉換（例如排列清單、取 π − x、把所有值縮放）以建構後續測試案例，然後檢查兩次執行的輸出是否滿足 MR 的輸出關係。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "違反 MR 代表什麼",
+          "text": "<p>某次執行的輸出<strong>違反</strong>了一個有效的蛻變關係。這代表什麼？</p>",
+          "answers": [
+            {
+              "text": "實作有缺陷——正確程式本應滿足該關係（前提是該 MR 是真正的必要性質）",
+              "fraction": 100,
+              "feedback": "正確——違反一個有效的 MR 就揭露了缺陷。"
+            },
+            {
+              "text": "什麼都不代表；蛻變關係只是效能提示",
+              "fraction": 0,
+              "feedback": "MR 是正確性性質，不是效能提示；違反有效的 MR 代表有缺陷。"
+            },
+            {
+              "text": "證明程式正確",
+              "fraction": 0,
+              "feedback": "違反代表相反的情況——是缺陷，而非正確。"
+            },
+            {
+              "text": "只代表分支覆蓋率不足",
+              "fraction": 0,
+              "feedback": "違反 MR 關乎輸出行為錯誤，而非覆蓋率。"
+            }
+          ],
+          "generalFeedback": "若該 MR 對任何正確實作都是真正必要的，那麼違反就意味著程式產生了正確程式不可能產生的結果——也就是缺陷。這正是 MT 的威力：無需計算任何確切期望輸出即可偵測缺陷。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "滿足 MR 不能證明正確",
+          "text": "<p>若程式在所有受測輸入上都滿足所有選定的蛻變關係，即可據此證明它正確。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "否——MT 能揭露違反，卻無法證明正確；未受測的輸入與未被涵蓋的性質仍可能藏有缺陷。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——滿足 MR 永遠不能證明正確，只代表在那些輸入上未發現違反那些關係。"
+            }
+          ],
+          "generalFeedback": "與一般測試相同，MT 能顯示缺陷存在（透過違反），卻無法顯示其不存在。所選關係只捕捉部分必要性質，且僅嘗試有限多個輸入，因此程式可能滿足所有 MR，卻在未受測案例上出錯，或違反任何 MR 都未涵蓋的性質。"
+        },
+        {
+          "type": "multichoice",
+          "name": "正弦的有效 MR",
+          "text": "<p>對於正確實作的 <code>sin(x)</code>，下列何者是有效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "對所有 x，sin(x) = sin(π − x)",
+              "fraction": 100,
+              "feedback": "正確——這是恆等式，正確的正弦必然滿足它。"
+            },
+            {
+              "text": "對所有 x，sin(2x) = 2·sin(x)",
+              "fraction": 0,
+              "feedback": "一般而言為假——例如 x = π/2 時 sin(π) = 0，但 2·sin(π/2) = 2。"
+            },
+            {
+              "text": "對所有 x，sin(x) = sin(x + π)",
+              "fraction": 0,
+              "feedback": "為假——sin(x + π) = −sin(x)，並非 sin(x)。"
+            },
+            {
+              "text": "對所有 x，sin(x) = x",
+              "fraction": 0,
+              "feedback": "為假——這只在接近 0 時作為近似成立，並非恆等式。"
+            }
+          ],
+          "generalFeedback": "恆等式 sin(x) = sin(π − x) 對每個實數 x 都成立（補角的正弦相等）。它是經典的蛻變關係：由源輸入 x，後續輸入 π − x 必然產生相等的輸出。其餘選項都不是恆等式，因此不是有效的 MR。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序的有效 MR",
+          "text": "<p>對於正確的<strong>排序</strong>函式，下列何者是有效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "排序清單的任一排列會得到相同結果：sort(perm(L)) == sort(L)",
+              "fraction": 100,
+              "feedback": "正確——排序輸出只取決於元素的多重集合，與其順序無關。"
+            },
+            {
+              "text": "把清單排序兩次會使它反轉",
+              "fraction": 0,
+              "feedback": "排序具冪等性：對已排序清單再排序不變，而非反轉。"
+            },
+            {
+              "text": "先反轉清單再排序，會得到排序結果的反轉",
+              "fraction": 0,
+              "feedback": "否——sort(reverse(L)) == sort(L)；先反轉並不會反轉排序輸出。"
+            },
+            {
+              "text": "排序會使清單長度加倍",
+              "fraction": 0,
+              "feedback": "排序是輸入的一個排列，永遠不改變長度。"
+            }
+          ],
+          "generalFeedback": "正確的排序所產生的順序只取決於元素的多重集合。因此對同樣元素的任一排列排序，必然得到相同結果——即排列不變性。這是很強的 MR，因為你可以打亂源清單來建構後續輸入，而事先不必知道期望的順序。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可交換加法的有效 MR",
+          "text": "<p>對於函式 <code>add(a, b) = a + b</code>，下列何者是有效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "add(a, b) == add(b, a)",
+              "fraction": 100,
+              "feedback": "正確——加法可交換，交換運算元必然得到相同結果。"
+            },
+            {
+              "text": "add(a, b) == add(a, b + 1)",
+              "fraction": 0,
+              "feedback": "為假——改變運算元就改變了和。"
+            },
+            {
+              "text": "add(a, b) == a",
+              "fraction": 0,
+              "feedback": "除非 b = 0 否則為假；並非一般性質。"
+            },
+            {
+              "text": "add(a, b) == 2·add(b, a)",
+              "fraction": 0,
+              "feedback": "一般而言為假——交換運算元並不會使和加倍。"
+            }
+          ],
+          "generalFeedback": "可交換性 f(a, b) = f(b, a) 對任何可交換運算（如加法或乘法）都是有效的 MR。後續輸入只需交換兩個運算元，其輸出必須相等。注意，它對減法或除法等不可交換運算並不成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MR 與傳統預言的差異",
+          "text": "<p>蛻變關係與傳統（期望值）預言有何不同？</p>",
+          "answers": [
+            {
+              "text": "傳統預言把單次執行的輸出與預先算好的期望值比對；MR 則檢查數次相關執行的輸出之間所需的關係，不需要預先算好的期望值",
+              "fraction": 100,
+              "feedback": "正確——MR 以跨執行的關係取代逐一輸入的期望值。"
+            },
+            {
+              "text": "兩者相同；都需要每個輸入的確切期望輸出",
+              "fraction": 0,
+              "feedback": "MR 正是為了避免需要確切期望輸出。"
+            },
+            {
+              "text": "MR 比對原始碼，傳統預言比對輸出",
+              "fraction": 0,
+              "feedback": "兩者都關乎輸出；MR 比對跨執行的輸出，而非原始碼。"
+            },
+            {
+              "text": "MR 量測執行時間，傳統預言量測記憶體",
+              "fraction": 0,
+              "feedback": "兩者都不關乎效能；都在判斷功能正確性。"
+            }
+          ],
+          "generalFeedback": "傳統預言需要每個輸入的確切答案，而這可能未知或代價高昂。MR 只需要相關執行之間必須成立的關係（例如相等、≤、按 k 縮放）。這正是為什麼在難以算出期望輸出時 MT 特別有用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何時適合用蛻變測試",
+          "text": "<p>在哪種情況下蛻變測試特別有用？</p>",
+          "answers": [
+            {
+              "text": "當沒有簡便或負擔得起的預言時——例如機器學習模型、科學計算、編譯器、圖形、搜尋引擎——確切期望輸出難以取得",
+              "fraction": 100,
+              "feedback": "正確——MT 正是在難以算出期望輸出之處大放異彩。"
+            },
+            {
+              "text": "只有在已具備完整形式規格與可信賴參考實作時",
+              "fraction": 0,
+              "feedback": "若已有參考實作可直接使用；MT 最有價值之處正是在沒有它的時候。"
+            },
+            {
+              "text": "只有對完全不吃輸入的程式才適用",
+              "fraction": 0,
+              "feedback": "MT 需要能轉換的輸入；無輸入的程式沒有東西可轉換。"
+            },
+            {
+              "text": "只有在已達到 100% 分支覆蓋率之後",
+              "fraction": 0,
+              "feedback": "MT 與覆蓋率層級無關；它針對預言，而非覆蓋率。"
+            }
+          ],
+          "generalFeedback": "MT 正是為預言問題最嚴重的領域而生：機器學習、數值／科學程式、編譯器、電腦圖形與搜尋——這些程式的正確輸出難以或無法事先陳述，卻仍遵守相關執行之間可檢查的關係。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是輸入轉換",
+          "text": "<p>在 MT 中，什麼是<strong>輸入轉換</strong>？</p>",
+          "answers": [
+            {
+              "text": "由源輸入建構後續輸入的規則（例如取 π − x、排列清單、把所有值乘以 k）",
+              "fraction": 100,
+              "feedback": "正確——輸入轉換用來建構後續輸入。"
+            },
+            {
+              "text": "把程式原始碼轉成位元組碼的規則",
+              "fraction": 0,
+              "feedback": "那是編譯，與 MT 的輸入轉換無關。"
+            },
+            {
+              "text": "源輸入所期望的確切數值輸出",
+              "fraction": 0,
+              "feedback": "MT 正是要避免它；轉換產生的是輸入，而非期望輸出。"
+            },
+            {
+              "text": "量測套件分支覆蓋率的指標",
+              "fraction": 0,
+              "feedback": "那是覆蓋率，不是輸入轉換。"
+            }
+          ],
+          "generalFeedback": "每個 MR 都附帶一個輸入轉換（如何由源輸入導出後續輸入）與一個輸出關係（兩個輸出必須如何相關）。把轉換施加於源輸入，即得到要執行的後續輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "集合的有效 MR",
+          "text": "<p>對於<strong>集合（set）</strong>資料結構，下列何者是有效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "插入一個已存在的元素，會使成員關係與集合大小維持不變",
+              "fraction": 100,
+              "feedback": "正確——集合中每個元素至多一份，重複插入不改變任何東西。"
+            },
+            {
+              "text": "插入重複元素必然使大小加一",
+              "fraction": 0,
+              "feedback": "集合不儲存重複元素，大小維持不變。"
+            },
+            {
+              "text": "插入重複元素會移除原本的元素",
+              "fraction": 0,
+              "feedback": "該元素仍是成員；既不會被移除也不會變成兩份。"
+            },
+            {
+              "text": "插入重複元素會確定性地反轉迭代順序",
+              "fraction": 0,
+              "feedback": "那不是集合的必要性質；迭代順序不保證反轉。"
+            }
+          ],
+          "generalFeedback": "集合中每個值至多儲存一份。加入它已包含的元素，必然使成員判斷與基數都維持不變。這是乾淨的 MR：後續輸入加入一個重複元素，其輸出（大小或成員關係）必須與源相符。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "平均值函式的有效 MR",
+          "text": "<p>對於計算清單<strong>算術平均值</strong>的函式，下列何者是有效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "把每個輸入值都乘以常數 k，會使平均值乘以 k",
+              "fraction": 100,
+              "feedback": "正確——平均值是線性的，縮放所有輸入會同等縮放平均值。"
+            },
+            {
+              "text": "把每個值都乘以 k，平均值維持不變",
+              "fraction": 0,
+              "feedback": "平均值會隨值縮放；它在縮放下並非不變。"
+            },
+            {
+              "text": "只對其中一個值加上常數 k，平均值維持不變",
+              "fraction": 0,
+              "feedback": "改變一個值就改變了總和，因而改變平均值。"
+            },
+            {
+              "text": "把每個值都乘以 k，會使平均值乘以 k²",
+              "fraction": 0,
+              "feedback": "那是變異數的縮放方式；平均值乘以 k，而非 k²。"
+            }
+          ],
+          "generalFeedback": "mean(k·x₁, …, k·xₙ) = k·mean(x₁, …, xₙ)，因為平均值是其輸入的線性函式。因此「把每個值乘以 k」是輸入轉換，其輸出關係為「平均值乘以 k」——一個不需要期望值的有效 MR。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "MT 使用多次相關執行",
+          "text": "<p>蛻變測試檢查的是多次相關執行的輸出之間所滿足的性質，而非把單次執行比對固定的期望值。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——MT 比對相關執行的輸出，這正是它不需要逐一輸入期望值的原因。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "MT 確實依賴多次相關執行；這正是蛻變關係的本質。"
+            }
+          ],
+          "generalFeedback": "MT 的定義特徵是需要至少兩次相關執行——一個源與一個以上的後續——並檢查其輸出之間的關係。把單次執行比對固定期望值是一般預言，而非 MT。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "建構正弦的後續輸入",
+          "text": "<p>使用 MR <code>sin(x) = sin(π − x)</code>，某源測試使用輸入 <code>x = 0.3</code>。後續輸入與期望的輸出關係為何？</p>",
+          "answers": [
+            {
+              "text": "後續輸入 = π − 0.3（≈ 2.8416）；兩個輸出必須相等",
+              "fraction": 100,
+              "feedback": "正確——施加轉換 π − x，並要求輸出相等。"
+            },
+            {
+              "text": "後續輸入 = 2 × 0.3；兩個輸出必須相等",
+              "fraction": 0,
+              "feedback": "把輸入加倍不是此 MR 的轉換，且 sin(0.6) ≠ sin(0.3)。"
+            },
+            {
+              "text": "後續輸入 = 0.3 + π；兩個輸出必須相等",
+              "fraction": 0,
+              "feedback": "那用的是 π + x，得 sin(0.3 + π) = −sin(0.3)，並不相等。"
+            },
+            {
+              "text": "後續輸入 = π − 0.3；後續輸出必須是源的兩倍",
+              "fraction": 0,
+              "feedback": "轉換正確，但關係是相等，而非加倍。"
+            }
+          ],
+          "generalFeedback": "此 MR 的轉換為 x ↦ π − x，輸出關係為相等。因此後續輸入為 π − 0.3 ≈ 2.8416，正確的正弦對兩者必然回傳相同值——完全不需要知道任何期望值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "建構排序的後續輸入",
+          "text": "<p>要以排列不變性測試排序常式，由源清單 <code>L = [3, 1, 2]</code> 該如何建構後續輸入，且必須成立什麼關係？</p>",
+          "answers": [
+            {
+              "text": "後續 = L 的任一排列，例如 [2, 3, 1]；L 與後續的排序輸出必須完全相同",
+              "fraction": 100,
+              "feedback": "正確——打亂元素順序；排序結果必須相符。"
+            },
+            {
+              "text": "後續 = 排序輸出的反轉；兩個輸出必須不同",
+              "fraction": 0,
+              "feedback": "後續必須是同一輸入的排列，且輸出必須相等而非不同。"
+            },
+            {
+              "text": "後續 = L 移除一個元素；兩個輸出必須相等",
+              "fraction": 0,
+              "feedback": "移除元素改變了多重集合，因此排序輸出會合理地改變。"
+            },
+            {
+              "text": "後續 = L 每個值加倍；兩個輸出必須相等",
+              "fraction": 0,
+              "feedback": "把值加倍改變了元素，因此排序輸出會改變。"
+            }
+          ],
+          "generalFeedback": "排列不變性表示排序輸出只取決於元素的多重集合。因此後續輸入是 L 的任一重排（例如 [2, 3, 1]），且 sort(後續) 必須等於 sort(L)。此處只有重排是有效轉換；新增、移除或更改值都會改變多重集合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "搜尋結果數的單調性",
+          "text": "<p>對於會回傳<em>所有</em>符合<em>全部</em>查詢字詞的文件的搜尋（合取式過濾），下列何者是有效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "再加入一個必要字詞只會使結果數維持不變或減少（較具體的查詢回傳的結果 ≤ 較不具體者）",
+              "fraction": 100,
+              "feedback": "正確——較具體查詢的結果集是子集，故其數量 ≤。"
+            },
+            {
+              "text": "再加入一個必要字詞只會使結果數增加",
+              "fraction": 0,
+              "feedback": "方向相反——縮窄查詢不可能增加符合項。"
+            },
+            {
+              "text": "移除一個必要字詞只會使結果數減少",
+              "fraction": 0,
+              "feedback": "方向相反——放寬查詢不可能失去符合項。"
+            },
+            {
+              "text": "結果數與查詢字詞無關",
+              "fraction": 0,
+              "feedback": "結果數顯然取決於需要哪些字詞。"
+            }
+          ],
+          "generalFeedback": "在合取式過濾語意下，一份文件被回傳的充要條件是它符合每個必要字詞。多要求一個字詞只會移除文件、不會增加，因此較具體查詢的結果集是較廣者的子集，其數量 ≤。此單調性是有效的 MR：不需要期望數量，只需兩個相關查詢之間的 ≤ 關係。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "建構平均值縮放的後續輸入",
+          "text": "<p>某程式計算清單的平均值。源輸入 <code>[2, 4, 6]</code> 得 <code>4</code>。使用縮放 MR 且 <code>k = 3</code>，後續輸入與期望輸出為何？</p>",
+          "answers": [
+            {
+              "text": "後續 = [6, 12, 18]；期望平均值 = 12（= 3 × 4）",
+              "fraction": 100,
+              "feedback": "正確——把每個值乘以 3，平均值也乘以 3。"
+            },
+            {
+              "text": "後續 = [6, 12, 18]；期望平均值 = 4",
+              "fraction": 0,
+              "feedback": "轉換正確，但把輸入乘以 3 會使平均值變成 12，而非 4。"
+            },
+            {
+              "text": "後續 = [5, 7, 9]；期望平均值 = 7",
+              "fraction": 0,
+              "feedback": "對每個值加 3（而非乘）是與此 MR 不同的轉換。"
+            },
+            {
+              "text": "後續 = [2, 4, 6, 3]；期望平均值 = 12",
+              "fraction": 0,
+              "feedback": "附加一個值不是縮放轉換，且該平均值會是 3.75。"
+            }
+          ],
+          "generalFeedback": "縮放 MR 把每個輸入乘以 k，並期望平均值乘以 k。當 k = 3，後續輸入為 [6, 12, 18]，期望平均值為 3 × 4 = 12。驗證：(6 + 12 + 18)/3 = 12。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "建構可交換性的後續輸入",
+          "text": "<p>對於函式 <code>f(a, b) = a × b</code>，使用可交換性 MR，該如何由源 <code>(a = 5, b = 7)</code> 建構後續？</p>",
+          "answers": [
+            {
+              "text": "後續 = (a = 7, b = 5)；兩個輸出必須相等（皆為 35）",
+              "fraction": 100,
+              "feedback": "正確——交換運算元；乘法可交換，故輸出相符。"
+            },
+            {
+              "text": "後續 = (a = 5, b = 5)；兩個輸出必須相等",
+              "fraction": 0,
+              "feedback": "那是更改了運算元而非交換；5 × 5 ≠ 5 × 7。"
+            },
+            {
+              "text": "後續 = (a = 7, b = 5)；後續輸出必須是源的兩倍",
+              "fraction": 0,
+              "feedback": "交換正確，但關係是相等，而非加倍。"
+            },
+            {
+              "text": "後續 = (a = 10, b = 14)；兩個輸出必須相等",
+              "fraction": 0,
+              "feedback": "把兩個運算元都加倍不是可交換性的轉換，且 10 × 14 ≠ 5 × 7。"
+            }
+          ],
+          "generalFeedback": "可交換性 MR 的轉換是交換運算元，輸出關係為相等。由 (5, 7) 得後續 (7, 5)，正確的乘法對兩者都回傳 35。不需要任何期望值——只需兩個輸出一致。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何無預言時 MT 有用",
+          "text": "<p>對於確切期望輸出難以計算的程式，MT 為何有價值？</p>",
+          "answers": [
+            {
+              "text": "它藉由檢查相關執行之間所需的關係來偵測缺陷，完全不需要任何單次執行的確切期望輸出",
+              "fraction": 100,
+              "feedback": "正確——關係取代了缺失的逐一輸入期望值。"
+            },
+            {
+              "text": "它自動計算出確切的期望輸出",
+              "fraction": 0,
+              "feedback": "MT 不計算期望輸出；它檢查執行之間的關係。"
+            },
+            {
+              "text": "它不執行程式就能證明正確性",
+              "fraction": 0,
+              "feedback": "MT 會對相關輸入執行程式；它不證明正確性。"
+            },
+            {
+              "text": "它讓程式不必執行超過一次",
+              "fraction": 0,
+              "feedback": "MT 需要多次相關執行，而非更少。"
+            }
+          ],
+          "generalFeedback": "當沒有預言能告訴你某輸入的正確答案時，你仍能知道相關執行之間必須如何相關。MT 利用這一點：轉換輸入、再次執行，並檢查輸出關係。即便從未取得確切期望輸出，違反也能揭露缺陷。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "通過測試不是證明",
+          "text": "<p>通過許多蛻變測試即可證明程式沒有缺陷。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "否——MT 能揭露違反，卻無法確立缺陷不存在。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——通過測試仍留有未被所選關係或輸入揭露的缺陷。"
+            }
+          ],
+          "generalFeedback": "MT 是一種測試技術，因此能找出缺陷卻不能證明其不存在。程式可能在每個嘗試過的輸入上滿足每個所選 MR，卻仍在未受測輸入上失敗，或違反任何 MR 都未涵蓋的性質。"
+        },
+        {
+          "type": "multichoice",
+          "name": "最短路徑重新命名的 MR",
+          "text": "<p>某程式計算加權圖中兩節點間的最短路徑距離。下列何者是有效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "以雙射對節點重新命名，並查詢對應改名後的端點，必然回傳相同距離",
+              "fraction": 100,
+              "feedback": "正確——雙射重新命名是圖同構，保留所有距離。"
+            },
+            {
+              "text": "對節點重新命名會使距離改變節點數那麼多",
+              "fraction": 0,
+              "feedback": "改名不改變任何結構或權重，故距離不受影響。"
+            },
+            {
+              "text": "把每個節點的標籤加倍會使距離加倍",
+              "fraction": 0,
+              "feedback": "節點標籤只是識別碼，其數值不影響距離。"
+            },
+            {
+              "text": "反轉節點標籤會使距離變號",
+              "fraction": 0,
+              "feedback": "距離非負，且取決於邊／權重，而非標籤順序。"
+            }
+          ],
+          "generalFeedback": "以雙射對節點改名，會使圖在結構上完全相同（同構）：相同的邊、相同的權重，只是名稱不同。因此改名後端點間的最短路徑距離必須等於原本的。此 MR 很強，因為它完全不需要知道實際距離。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "建構集合大小的後續輸入",
+          "text": "<p>某程式維護一個集合並回報其大小。源：插入 <code>[1, 2, 3]</code> 得大小 <code>3</code>。使用重複插入 MR，後續與期望大小為何？</p>",
+          "answers": [
+            {
+              "text": "後續 = 插入 [1, 2, 3, 2]（加入一個重複）；期望大小仍為 3",
+              "fraction": 100,
+              "feedback": "正確——加入重複元素使集合大小維持不變。"
+            },
+            {
+              "text": "後續 = 插入 [1, 2, 3, 2]；期望大小 4",
+              "fraction": 0,
+              "feedback": "集合忽略重複，故大小維持 3，而非 4。"
+            },
+            {
+              "text": "後續 = 插入 [1, 2, 3, 4]；期望大小 3",
+              "fraction": 0,
+              "feedback": "加入新的相異元素 4 不是重複轉換，且會使大小變成 4。"
+            },
+            {
+              "text": "後續 = 插入 [1, 2, 3, 2]；期望大小 2",
+              "fraction": 0,
+              "feedback": "加入重複不可能縮小集合；大小維持 3。"
+            }
+          ],
+          "generalFeedback": "重複插入轉換加入一個已存在的元素，輸出關係為大小不變。由源 [1, 2, 3]（大小 3），後續 [1, 2, 3, 2] 必須仍回報大小 3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "建構最大值的後續輸入",
+          "text": "<p>某程式回傳清單的最大值。由源 <code>L = [4, 9, 1]</code>（最大值 9），哪個後續測試了有效的 MR，且成立什麼關係？</p>",
+          "answers": [
+            {
+              "text": "後續 = 在 L 附加一個 ≤ 9 的元素，例如 [4, 9, 1, 7]；最大值必須維持不變（仍為 9）",
+              "fraction": 100,
+              "feedback": "正確——附加一個不超過當前最大值的值，最大值維持不變。"
+            },
+            {
+              "text": "後續 = [4, 9, 1, 15]；最大值必須維持不變",
+              "fraction": 0,
+              "feedback": "附加 15（大於 9）會合理地把最大值提升為 15，故「不變」錯誤。"
+            },
+            {
+              "text": "後續 = [4, 9, 1, 7]；最大值必須增加",
+              "fraction": 0,
+              "feedback": "附加 7（≤ 9）不可能提升最大值；它維持 9。"
+            },
+            {
+              "text": "後續 = [8, 18, 2]；最大值必須維持不變",
+              "fraction": 0,
+              "feedback": "那是不同的值，並非在 L 附加一個 ≤ 9 的元素。"
+            }
+          ],
+          "generalFeedback": "max(L ++ [y]) = max(max(L), y)。若 y ≤ max(L)，最大值不變；若 y > max(L)，則變為 y。因此有效的 MR 是「附加一個 ≤ 當前最大值的值使最大值不變」，給出如 [4, 9, 1, 7] 的後續，期望最大值 9。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "放寬查詢",
+          "text": "<p>對於合取式過濾搜尋，哪個轉換會給出結果數必須 ≥ 源的後續？</p>",
+          "answers": [
+            {
+              "text": "移除其中一個必要查詢字詞（使查詢較不具體）",
+              "fraction": 100,
+              "feedback": "正確——較廣查詢的結果集是超集，故其數量 ≥。"
+            },
+            {
+              "text": "再加入一個必要字詞",
+              "fraction": 0,
+              "feedback": "那會縮窄查詢，給出 ≤ 的結果，而非 ≥。"
+            },
+            {
+              "text": "把一個字詞替換為較具體的同義詞",
+              "fraction": 0,
+              "feedback": "把字詞變得較具體不保證 ≥ 的結果。"
+            },
+            {
+              "text": "要求所有字詞只出現在標題中",
+              "fraction": 0,
+              "feedback": "加入位置限制會縮窄符合項；不保證 ≥ 的結果。"
+            }
+          ],
+          "generalFeedback": "移除一個必要字詞使查詢較不具體，因此原本符合的每份文件仍符合（且可能更多）。較廣的結果集是超集，故其數量 ≥ 源的。這是縮窄 MR 的「≥」對應版本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "挑出平均值的有效 MR",
+          "text": "<p>下列何者是正確平均值函式真正的必要性質（有效的 MR）？</p>",
+          "answers": [
+            {
+              "text": "附加一個等於當前平均值的額外值，使平均值維持不變",
+              "fraction": 100,
+              "feedback": "正確——加入一個等於平均值的資料點不會移動平均值。"
+            },
+            {
+              "text": "附加任一個額外值，都使平均值維持不變",
+              "fraction": 0,
+              "feedback": "為假——只有等於當前平均值的值才使它不變。"
+            },
+            {
+              "text": "移除最大值使平均值維持不變",
+              "fraction": 0,
+              "feedback": "為假——移除最大值一般會降低平均值。"
+            },
+            {
+              "text": "把清單重複一次使長度加倍，會使平均值加倍",
+              "fraction": 0,
+              "feedback": "為假——把清單重複會使平均值不變，而非加倍。"
+            }
+          ],
+          "generalFeedback": "設有 n 個值、平均值為 m，附加一個等於 m 的值後，新平均值為 (n·m + m)/(n + 1) = m(n + 1)/(n + 1) = m。故平均值不變——這是有效的 MR。其餘選項都不是正確平均值的必要性質。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "縮放下的變異數",
+          "text": "<p>某程式計算清單的（母體）<strong>變異數</strong>。把每個值乘以 <code>k</code> 有何效果，構成有效的 MR？</p>",
+          "answers": [
+            {
+              "text": "變異數乘以 k²",
+              "fraction": 100,
+              "feedback": "正確——Var(kX) = k²·Var(X)。"
+            },
+            {
+              "text": "變異數乘以 k",
+              "fraction": 0,
+              "feedback": "那是平均值（或線性量）的縮放方式；變異數乘以 k²。"
+            },
+            {
+              "text": "變異數維持不變",
+              "fraction": 0,
+              "feedback": "縮放資料會使其散布改變；變異數乘以 k²。"
+            },
+            {
+              "text": "變異數乘以 |k|",
+              "fraction": 0,
+              "feedback": "那是標準差的縮放方式；變異數乘以 k²。"
+            }
+          ],
+          "generalFeedback": "變異數是二次量：Var(kX) = k²·Var(X)。因此把每個輸入乘以 k 是輸入轉換，其輸出關係為「變異數乘以 k²」。（標準差是其平方根，故乘以 |k|。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最短路徑的邊重新排序",
+          "text": "<p>某最短路徑程式接收一份加權邊清單。哪個後續轉換必然使每個最短路徑距離維持不變（有效的 MR）？</p>",
+          "answers": [
+            {
+              "text": "重新排序輸入清單中的邊（同一組邊，以不同順序列出）",
+              "fraction": 100,
+              "feedback": "正確——圖由其邊的集合定義，與它們出現的順序無關。"
+            },
+            {
+              "text": "把某條最短路徑上的邊權重加倍",
+              "fraction": 0,
+              "feedback": "那改變了圖，可能改變距離。"
+            },
+            {
+              "text": "加入一條權重較小的新邊",
+              "fraction": 0,
+              "feedback": "較便宜的新邊可能造出更短路徑，改變距離。"
+            },
+            {
+              "text": "刪除某條最短路徑上的邊",
+              "fraction": 0,
+              "feedback": "移除邊可能拉長路徑或使其中斷，改變距離。"
+            }
+          ],
+          "generalFeedback": "圖就是那組邊；邊列出的順序不帶任何意義。因此排列邊清單是輸入轉換，其輸出關係為「所有距離不變」——一個有效的 MR。其餘選項都真正改變了圖。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "通過的源／後續配對",
+          "text": "<p>若某源／後續配對滿足其蛻變關係，該特定配對並未揭露缺陷，但別處仍可能存在缺陷。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——一個滿足的配對只代表該配對未見違反。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "一個滿足的配對不能為程式背書；其他輸入或關係仍可能揭露缺陷。"
+            }
+          ],
+          "generalFeedback": "在一個配對上滿足關係，只代表該配對未產生任何缺陷證據。缺陷仍可能藏在未受測輸入中，或藏在此 MR 未限制的行為中，因此不能推出正確的結論。"
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "評判一個提議的正弦 MR",
+          "text": "<p>某測試者提議把 <code>sin(2x) = 2·sin(x)</code> 當作正弦常式的蛻變關係。它有什麼問題？</p>",
+          "answers": [
+            {
+              "text": "它不是真正的恆等式（例如 x = π/2 時 sin(π) = 0，但 2·sin(π/2) = 2），故正確的正弦不必滿足它；任何「違反」都會是假警報",
+              "fraction": 100,
+              "feedback": "正確——該關係不是必要性質，故是無效的 MR。"
+            },
+            {
+              "text": "沒有問題；它對所有 x 都成立",
+              "fraction": 0,
+              "feedback": "它在 x = π/2 時失敗，故並非對所有 x 成立。"
+            },
+            {
+              "text": "它有效，但只偵測效能缺陷",
+              "fraction": 0,
+              "feedback": "它根本無效；MR 是正確性性質，不是效能檢查。"
+            },
+            {
+              "text": "它只對負的 x 有效",
+              "fraction": 0,
+              "feedback": "對負的 x 它也不是恆等式（例如 x = −π/2）。"
+            }
+          ],
+          "generalFeedback": "倍角恆等式是 sin(2x) = 2·sin(x)·cos(x)，只有在 cos(x) = 1 時才等於 2·sin(x)。因此 sin(2x) = 2·sin(x) 一般為假，並非正確正弦的必要性質。把它當作 MR 會標記正確的實作——一個典型的無效 MR。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合蛻變關係",
+          "text": "<p>對於最短路徑程式，你有 MR_A（對節點重新命名使距離不變）與 MR_B（把所有邊權重乘以常數 <code>c &gt; 0</code> 使每個距離乘以 c）。若對源圖<em>同時</em>施加兩個轉換，必然成立什麼？</p>",
+          "answers": [
+            {
+              "text": "轉換後圖中的距離等於源距離的 c 倍",
+              "fraction": 100,
+              "feedback": "正確——保距轉換與 c 倍縮放轉換組合後，得到 c 倍縮放。"
+            },
+            {
+              "text": "距離維持不變",
+              "fraction": 0,
+              "feedback": "僅重新命名會保距，但把權重乘以 c 會使它乘以 c。"
+            },
+            {
+              "text": "距離等於源距離的 c² 倍",
+              "fraction": 0,
+              "feedback": "只施加一次 c 倍縮放（重新命名不加係數），故係數是 c 而非 c²。"
+            },
+            {
+              "text": "沒有關係成立，因為兩個轉換無法組合",
+              "fraction": 0,
+              "feedback": "MR 可組合：依序施加轉換並結合其輸出關係。"
+            }
+          ],
+          "generalFeedback": "MR 可藉由一併施加其輸入轉換、並結合其輸出關係來組合。重新命名貢獻係數 1（距離不變），權重縮放貢獻係數 c，故組合後的關係使距離乘以 1 × c = c。組合讓你能由簡單、個別已驗證的 MR 建構更豐富的檢查。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊權重縮放：健全性的但書",
+          "text": "<p>「把所有邊權重乘以常數 <code>c</code> 使每個最短路徑距離乘以 c」是健全的蛻變關係嗎？</p>",
+          "answers": [
+            {
+              "text": "是，但只在 c > 0 時成立；當 c ≤ 0 可能造出零／負權重或負環，改變哪條路徑最佳，故關係不必成立",
+              "fraction": 100,
+              "feedback": "正確——縮放 MR 只在正常數時健全。"
+            },
+            {
+              "text": "是，對每個實數 c 都成立",
+              "fraction": 0,
+              "feedback": "負的 c 可能引入負環或翻轉最佳路徑，破壞此關係。"
+            },
+            {
+              "text": "否，它對任何 c 都不成立",
+              "fraction": 0,
+              "feedback": "它對每個正的 c 都成立，故「不成立」是錯的。"
+            },
+            {
+              "text": "是，但只對整數 c 成立",
+              "fraction": 0,
+              "feedback": "任何正實數 c 都行；限制在於正性，而非整數性。"
+            }
+          ],
+          "generalFeedback": "當 c > 0，把所有權重乘以 c 會使每條路徑的成本都乘以 c，故最小成本路徑不變、其距離按 c 縮放——一個健全的 MR。當 c ≤ 0，轉換後的圖可能有負權重或負環，改變（或使其未定義）最短路徑，故關係不再必要。明確陳述定義域（c > 0）對維持 MR 的有效性至關重要。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "無效 MR 對比真正的缺陷：浮點數",
+          "text": "<p>某測試以精確的浮點相等檢查 <code>sin(x) == sin(π − x)</code>，並在兩個結果最後一位不同處回報「違反」。最佳的詮釋為何？</p>",
+          "answers": [
+            {
+              "text": "精確相等的 MR 對浮點運算過於嚴格；微小差異是捨入所致，故此違反很可能是假的，該關係應允許一個小容差",
+              "fraction": 100,
+              "feedback": "正確——造成假警報的是過於嚴格的關係，而非缺陷。"
+            },
+            {
+              "text": "這一定是正弦實作的缺陷",
+              "fraction": 0,
+              "feedback": "最後一位的差異與正常捨入一致，未必是缺陷。"
+            },
+            {
+              "text": "數學上 sin(x) = sin(π − x) 為假，故此 MR 是錯的",
+              "fraction": 0,
+              "feedback": "該恆等式為真；問題在於把精確相等套用到非精確的運算上。"
+            },
+            {
+              "text": "浮點數無法表示 π，故正弦未定義",
+              "fraction": 0,
+              "feedback": "π 被近似，但正弦在該近似值上有良好定義；那不是問題所在。"
+            }
+          ],
+          "generalFeedback": "該恆等式在數學上成立，但浮點會以捨入計算 π − x 及兩個正弦值，故無法保證逐位元相等。此失敗反映的是對此定義域而言過於嚴格（實質上無效）的 MR，而非缺陷。修正之道是以適當容差陳述輸出關係，例如 |sin(x) − sin(π − x)| ≤ ε。分辨真正的違反與有瑕疵的關係，正是 MT 的關鍵技能。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "影像分類器的 MR",
+          "text": "<p>對於影像分類器，下列何者是合適的蛻變關係，其違反暗示存在缺陷（例如強健性問題）？</p>",
+          "answers": [
+            {
+              "text": "保留標籤的轉換——人類同意其不改變真實類別者，例如輕微改變亮度或小幅旋轉——應使預測類別維持不變",
+              "fraction": 100,
+              "feedback": "正確——轉換必須保留真實標籤，「預測不變」的關係才會是預期的。"
+            },
+            {
+              "text": "隨機打亂所有像素應使預測類別維持不變",
+              "fraction": 0,
+              "feedback": "打亂像素會摧毀影像內容，故並非保留標籤。"
+            },
+            {
+              "text": "把影像替換為另一類別的不同影像應使預測維持不變",
+              "fraction": 0,
+              "feedback": "那改變了真實類別，故預測應改變，而非維持不變。"
+            },
+            {
+              "text": "把每個像素值加倍應使預測的類別索引加倍",
+              "fraction": 0,
+              "feedback": "類別索引是標籤而非量值；沒有理由某個有效轉換會使它們加倍。"
+            }
+          ],
+          "generalFeedback": "MT 用於機器學習時，仰賴保留真實標籤的轉換——輕微的亮度／對比變化、小幅旋轉，或對文字而言的同義詞替換。理想分類器的預測不應改變；若改變了，該測試便揭露了強健性或一致性缺陷。轉換必須真正保留標籤，這正是為何打亂像素或換成另一類別的影像都不是有效選擇。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "搜尋方向錯誤是壞 MR",
+          "text": "<p>某測試者宣稱：對合取式過濾查詢而言，「把查詢變得<em>更</em>具體（加入一個必要字詞）應回傳<em>至少一樣多</em>的結果」。這為何是壞 MR？</p>",
+          "answers": [
+            {
+              "text": "方向反了——較具體查詢的結果是子集，故數量只會維持不變或減少；程式不必滿足所提關係，故它會產生假警報",
+              "fraction": 100,
+              "feedback": "正確——縮窄時健全的方向是 ≤，故所提的 ≥ 關係無效。"
+            },
+            {
+              "text": "它正確且永遠成立",
+              "fraction": 0,
+              "feedback": "它把方向弄反了，故對合取式過濾並不成立。"
+            },
+            {
+              "text": "它只對空查詢正確",
+              "fraction": 0,
+              "feedback": "它一般並不正確；瑕疵在於方向反了，而非空查詢的情況。"
+            },
+            {
+              "text": "它是有效的 MR，但只偵測效能問題",
+              "fraction": 0,
+              "feedback": "它無效，且 MR 檢查的是正確性而非效能。"
+            }
+          ],
+          "generalFeedback": "在合取式過濾語意下，縮窄查詢會移除符合項，故正確的關係是 count(較具體) ≤ count(較不具體)。提議 ≥ 把它倒轉了：正確的引擎會例行「違反」它，產生假警報。把方向弄對，對健全的 MR 至關重要。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可交換性對減法不健全",
+          "text": "<p>對於減法函式 <code>sub(a, b) = a − b</code>，為何 <code>f(a, b) = f(b, a)</code> 是無效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "減法不可交換（5 − 3 = 2 但 3 − 5 = −2），故正確實作不必滿足它；把它當作 MR 會把正確行為標記為缺陷",
+              "fraction": 100,
+              "feedback": "正確——該關係對減法而言並非必要，故是無效的 MR。"
+            },
+            {
+              "text": "因為運算元相等時減法未定義",
+              "fraction": 0,
+              "feedback": "減法對相等運算元有良好定義（a − a = 0）；那不是問題所在。"
+            },
+            {
+              "text": "因為減法一定溢位",
+              "fraction": 0,
+              "feedback": "減法並非一定溢位；瑕疵在於不可交換性。"
+            },
+            {
+              "text": "它其實是減法的有效 MR",
+              "fraction": 0,
+              "feedback": "並非如此——一般而言交換運算元會使結果變號。"
+            }
+          ],
+          "generalFeedback": "可交換性對加法與乘法成立，但對減法不成立：a − b = −(b − a)，除非 a = b 否則不同於 b − a。因此 f(a, b) = f(b, a) 不是減法的必要性質，把它當作 MR 會把正確結果回報為違反。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗證附加平均值的 MR",
+          "text": "<p>「附加一個等於當前算術平均值的資料點使平均值維持不變」，是正確平均值函式健全的必要性質嗎？</p>",
+          "answers": [
+            {
+              "text": "是——設有 n 個值、平均值為 m，新平均值為 (n·m + m)/(n + 1) = m，故對每個清單都成立",
+              "fraction": 100,
+              "feedback": "正確——代數確認平均值不變，故是有效的 MR。"
+            },
+            {
+              "text": "否，加入一點時平均值總會增加",
+              "fraction": 0,
+              "feedback": "加入一個等於平均值的點不會使它增加；代數給出 m。"
+            },
+            {
+              "text": "只有在所有值都相等時",
+              "fraction": 0,
+              "feedback": "它對任何清單都成立，而非只對值皆相等的清單。"
+            },
+            {
+              "text": "只對偶數長度的清單",
+              "fraction": 0,
+              "feedback": "長度的奇偶無關；該恆等式對每個 n 都成立。"
+            }
+          ],
+          "generalFeedback": "設清單有 n 個值、總和為 n·m，故平均值為 m。附加 m 後總和為 n·m + m = m(n + 1)，除以 n + 1 個值，新平均值為 m(n + 1)/(n + 1) = m。此性質對每個清單都成立，故是健全的 MR——已具體演算確認。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "違反一個無效的 MR",
+          "text": "<p>某平均值函式的測試使用「移除最大值使平均值維持不變」這個關係，並回報一個違反。你應下什麼結論？</p>",
+          "answers": [
+            {
+              "text": "關於缺陷什麼都不能下結論——該關係不是正確平均值的必要性質，故此「違反」反映的是有瑕疵的 MR，而非程式的缺陷",
+              "fraction": 100,
+              "feedback": "正確——唯有 MR 真正必要時，違反才牽連到程式。"
+            },
+            {
+              "text": "平均值函式一定有缺陷",
+              "fraction": 0,
+              "feedback": "MR 本身無效，故此違反對程式毫無說明。"
+            },
+            {
+              "text": "程式有捨入誤差",
+              "fraction": 0,
+              "feedback": "沒有捨入的證據；該關係就只是不是必要性質。"
+            },
+            {
+              "text": "輸入清單一定是空的",
+              "fraction": 0,
+              "feedback": "清單不必是空的；移除最大值通常確實會改變平均值。"
+            }
+          ],
+          "generalFeedback": "移除最大值一般會降低平均值，故「平均值不變」不是必要性質。正確的實作會例行「違反」它。教訓是：在信任一個違反之前，先確認該 MR 對任何正確實作都真正必要；否則缺陷是在關係，而非在程式碼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "統計量在乘法下如何縮放",
+          "text": "<p>把清單中每個值都乘以 <code>k</code>。對平均值、標準差、變異數而言，哪一組輸出關係正確？</p>",
+          "answers": [
+            {
+              "text": "平均值 → ×k，標準差 → ×|k|，變異數 → ×k²",
+              "fraction": 100,
+              "feedback": "正確——平均值是線性、變異數是二次、標準差是其平方根。"
+            },
+            {
+              "text": "平均值 → ×k，標準差 → ×k²，變異數 → ×k",
+              "fraction": 0,
+              "feedback": "對調了——變異數乘以 k²，標準差乘以 |k|。"
+            },
+            {
+              "text": "三者皆 → ×k",
+              "fraction": 0,
+              "feedback": "只有平均值乘以 k；變異數乘以 k²，標準差乘以 |k|。"
+            },
+            {
+              "text": "平均值 → ×k²，標準差 → ×k，變異數 → ×|k|",
+              "fraction": 0,
+              "feedback": "平均值乘以 k 而非 k²；其餘也都錯了。"
+            }
+          ],
+          "generalFeedback": "平均值是線性：mean(kX) = k·mean(X)。變異數是二次：Var(kX) = k²·Var(X)。標準差是變異數的平方根，故 SD(kX) = |k|·SD(X)（取絕對值，因為標準差非負）。在同一個縮放轉換下，三者各給出不同的有效 MR。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由通過的 MR 能下的最強結論",
+          "text": "<p>某程式在數百萬個輸入上通過了一大組精心設計的蛻變關係。最強的<em>健全</em>結論為何？</p>",
+          "answers": [
+            {
+              "text": "在那些輸入上未發現違反那些關係；這提升信心但不證明正確——所選 MR 或輸入未揭露的缺陷仍可能存在",
+              "fraction": 100,
+              "feedback": "正確——MT 能提升信心，卻永遠不證明正確。"
+            },
+            {
+              "text": "程式已被證明正確",
+              "fraction": 0,
+              "feedback": "再多的通過測試都不能證明正確。"
+            },
+            {
+              "text": "程式在受測輸入與所有其他輸入上都正確",
+              "fraction": 0,
+              "feedback": "對未受測輸入無法下任何結論。"
+            },
+            {
+              "text": "這些 MR 一定無效，因為什麼都沒失敗",
+              "fraction": 0,
+              "feedback": "通過並不表示 MR 無效；有效的 MR 也可能就是被滿足了。"
+            }
+          ],
+          "generalFeedback": "MT 能揭露缺陷（透過違反），卻不能顯示其不存在。大量通過的結果提升信心、也是品質的證據，但缺陷仍可能藏在從未嘗試的輸入中，或藏在所選 MR 未限制的性質中。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合保序映射與排列",
+          "text": "<p>對於排序函式，考慮兩個轉換：排列輸入，以及把每個元素透過一個<em>嚴格遞增</em>函式 <code>g</code> 映射。哪個組合關係是健全的？</p>",
+          "answers": [
+            {
+              "text": "對任一嚴格遞增 g，sort(把 g 映射到 L 的任一排列) 等於 把 g 映射到 sort(L)",
+              "fraction": 100,
+              "feedback": "正確——嚴格遞增映射保序，故與排序可交換；排列與排序結果無關。"
+            },
+            {
+              "text": "sort(把 g 映射到 L) 等於（把 g 映射到 sort(L)）的反轉",
+              "fraction": 0,
+              "feedback": "嚴格遞增的 g 保序，故不會使結果反轉。"
+            },
+            {
+              "text": "sort(把 g 映射到 L) 等於 sort(L) 維持不變",
+              "fraction": 0,
+              "feedback": "施加 g 改變了元素值，故排序輸出隨之改變。"
+            },
+            {
+              "text": "只有當 g 是恆等函式時該關係才健全",
+              "fraction": 0,
+              "feedback": "它對任一嚴格遞增 g 都健全，而不只是恆等函式。"
+            }
+          ],
+          "generalFeedback": "若 g 嚴格遞增，則 a < b 等價於 g(a) < g(b)，故施加 g 保留相對順序、與排序可交換：sort(把 g 映射到 L) = 把 g 映射到 sort(L)。由於排序具排列不變性，先排列什麼都不改變。組合兩者得 sort(把 g 映射到 perm(L)) = 把 g 映射到 sort(L)——一個健全的組合 MR。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情感分類器的不健全 MR",
+          "text": "<p>對於情感分類器，下列何者是<em>不健全</em>的蛻變關係（會產生假警報）？</p>",
+          "answers": [
+            {
+              "text": "「把句子否定（插入『不』）必須使預測的情感維持不變」",
+              "fraction": 100,
+              "feedback": "正確——否定改變了真實情感，故並非保留標籤；預測應改變。"
+            },
+            {
+              "text": "「把一個詞替換為相近的同義詞應使預測的情感維持不變」",
+              "fraction": 0,
+              "feedback": "同義詞替換保留語意，故這是健全的保留標籤 MR。"
+            },
+            {
+              "text": "「加入一個中性、保留語意的填充語句應使預測的情感維持不變」",
+              "fraction": 0,
+              "feedback": "中性填充保留情感，故這是健全的 MR。"
+            },
+            {
+              "text": "「重新排序兩個彼此獨立、順序無關的子句應使預測的情感維持不變」",
+              "fraction": 0,
+              "feedback": "重新排序獨立子句保留語意，故這是健全的 MR。"
+            }
+          ],
+          "generalFeedback": "MT 用於機器學習時仰賴保留標籤的轉換。同義詞替換、中性填充、以及重新排序獨立子句，都保留真實情感，故「預測不變」是預期的。相對地，否定會翻轉情感，故要求預測不變是不健全的，會把正確的分類器標記為錯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何子集 MR 在排名引擎上可能失敗",
+          "text": "<p>子集 MR（「較具體的查詢回傳 ≤ 的結果」）對純合取式過濾是健全的。為何它對真實的<em>排名</em>網路搜尋引擎可能不是有效的 MR？</p>",
+          "answers": [
+            {
+              "text": "排名引擎可能不回傳所有符合的文件（它截斷為前 k 筆、套用相關性門檻、查詢擴展或同義詞），故較具體查詢回傳的集合不保證是子集",
+              "fraction": 100,
+              "feedback": "正確——MR 的有效性取決於受測程式的實際規格。"
+            },
+            {
+              "text": "因為排名搜尋引擎永遠正確，故不需要 MR",
+              "fraction": 0,
+              "feedback": "重點不在正確性；只是在排名語意下該關係不再有保證。"
+            },
+            {
+              "text": "因為較具體的查詢一定計算得較快",
+              "fraction": 0,
+              "feedback": "效能與子集關係是否成立無關。"
+            },
+            {
+              "text": "因為子集的數學在網路上不一樣",
+              "fraction": 0,
+              "feedback": "集合論並無改變；問題在於排名結果並非完整的符合集合。"
+            }
+          ],
+          "generalFeedback": "子集 MR 假設引擎恰好回傳符合所有字詞的文件。排名引擎則回傳經整理、截斷、可能經查詢擴展的清單，故較具體查詢的結果未必是較廣查詢結果的子集。MR 只在對應實際規格時才有效：改變語意，原本健全的 MR 可能變成無效。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "MR 必須是必要性質",
+          "text": "<p>蛻變關係要能當作預言使用，它必須是每個正確實作的必要性質；否則「違反」可能代表關係有瑕疵，而非缺陷。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——唯有真正必要的性質才能讓違反牽連到程式。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "若關係並非必要，正確程式也可能違反它，故違反便不代表缺陷。"
+            }
+          ],
+          "generalFeedback": "MT 的健全性建立在 MR 是必要性質之上：每個正確實作都必須滿足的東西。如此一來，違反就必然代表程式有錯。若該關係僅是合理但非必要，正確程式也可能違反它，而「缺陷」其實在關係中——這正是為何驗證 MR 是 MT 的關鍵功課。"
+        }
+      ]
+    }
+  },
   "mutation-testing": {
     "en": {
       "easy": [
@@ -45274,6 +52938,7758 @@ export const QUIZ_RENDERED = {
             }
           ],
           "generalFeedback": "要把四個二元參數的所有對塞進 4 列，需要每一對欄都剛好各出現全部四種組合一次——即指標為 1 的正交陣列，而對強度 2 這最多容納 (N-1)/(v-1) = 3 個二元因子。第四個因子放不下，故至少需 5 列（且 5 列足夠）。因此此處下界 4 無法達成——它是最小值的界，但未必等於最小值。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "property-based-testing": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What property-based testing is",
+          "text": "<p>What is the core idea of <strong>property-based testing (PBT)</strong>?</p>",
+          "answers": [
+            {
+              "text": "Instead of hand-writing example inputs, you state a property (a predicate expected to hold for all valid inputs) and a framework generates many random inputs trying to falsify it",
+              "fraction": 100,
+              "feedback": "Correct — PBT checks a general property against many auto-generated inputs."
+            },
+            {
+              "text": "It formally proves that the program meets its complete specification",
+              "fraction": 0,
+              "feedback": "PBT can find counterexamples but does not prove correctness."
+            },
+            {
+              "text": "It measures how many branches a fixed test suite covers",
+              "fraction": 0,
+              "feedback": "That is coverage measurement; PBT is about generating inputs to check a property."
+            },
+            {
+              "text": "It runs a single fixed input many times to check for flakiness",
+              "fraction": 0,
+              "feedback": "PBT varies the input across a whole space, not one fixed input repeated."
+            }
+          ],
+          "generalFeedback": "In property-based testing you describe a property that should hold for every input, and the framework (QuickCheck, Hypothesis, fast-check, ScalaCheck) generates many random inputs to try to break it. A properties-over-a-space approach complements example tests, which check individual points.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a property is",
+          "text": "<p>In PBT, what is a <strong>property</strong>?</p>",
+          "answers": [
+            {
+              "text": "A predicate about the code's behavior that should hold for every valid input (e.g. \"the output list is always sorted\")",
+              "fraction": 100,
+              "feedback": "Correct — a property is a rule expected to hold across all inputs."
+            },
+            {
+              "text": "A single input paired with its exact expected output",
+              "fraction": 0,
+              "feedback": "That describes an example (unit) test case, not a property."
+            },
+            {
+              "text": "A measurement of the program's running time",
+              "fraction": 0,
+              "feedback": "That is a performance metric, not a correctness property."
+            },
+            {
+              "text": "The random seed used to reproduce a run",
+              "fraction": 0,
+              "feedback": "A seed concerns reproducibility, not the predicate being checked."
+            }
+          ],
+          "generalFeedback": "A property is a universally-quantified statement about the code: it should hold for all inputs the generator can produce. Examples include round-trip, invariant, idempotence, and commutativity properties. The framework searches for an input that violates it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a generator is",
+          "text": "<p>What is a <strong>generator</strong> (also called an <em>arbitrary</em>) in PBT?</p>",
+          "answers": [
+            {
+              "text": "A recipe that produces random values of a given type to feed as test inputs",
+              "fraction": 100,
+              "feedback": "Correct — generators supply the random inputs the property is checked against."
+            },
+            {
+              "text": "The exact expected output computed for each input",
+              "fraction": 0,
+              "feedback": "A generator makes inputs, not expected outputs."
+            },
+            {
+              "text": "The property predicate that must hold",
+              "fraction": 0,
+              "feedback": "The predicate is the property; the generator produces the inputs it is tested on."
+            },
+            {
+              "text": "The function under test itself",
+              "fraction": 0,
+              "feedback": "The generator feeds inputs to the function under test; it is not that function."
+            }
+          ],
+          "generalFeedback": "A generator (arbitrary) knows how to construct random values of a type — integers, strings, lists, records, trees. The framework draws many values from it and checks the property on each. Generators can be composed and constrained to shape the distribution of inputs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What shrinking is",
+          "text": "<p>What is <strong>shrinking</strong> in property-based testing?</p>",
+          "answers": [
+            {
+              "text": "When a random input falsifies the property, the framework automatically reduces it to a smaller, minimal input that still fails, making the counterexample easier to understand",
+              "fraction": 100,
+              "feedback": "Correct — shrinking searches for a minimal still-failing input."
+            },
+            {
+              "text": "It deletes tests that pass to make the report shorter",
+              "fraction": 0,
+              "feedback": "Shrinking reduces a failing input, not the set of passing tests."
+            },
+            {
+              "text": "It compresses the test-output log file on disk",
+              "fraction": 0,
+              "feedback": "Shrinking is about simplifying a counterexample, not compressing files."
+            },
+            {
+              "text": "It lowers the number of generated inputs to make the run faster",
+              "fraction": 0,
+              "feedback": "That would be reducing the case count; shrinking instead minimizes a discovered failing input."
+            }
+          ],
+          "generalFeedback": "A randomly found counterexample is often large and noisy. Shrinking repeatedly tries simpler variants (shorter lists, smaller numbers) and keeps only those that still fail, converging on a minimal failing input. This makes the root cause far easier to see, which is why shrinking speeds debugging.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a counterexample is",
+          "text": "<p>What is a <strong>counterexample</strong> in PBT?</p>",
+          "answers": [
+            {
+              "text": "A concrete input for which the property fails, demonstrating a defect",
+              "fraction": 100,
+              "feedback": "Correct — a counterexample is a witnessing input that violates the property."
+            },
+            {
+              "text": "An input for which the property holds",
+              "fraction": 0,
+              "feedback": "An input that holds is a passing case, not a counterexample."
+            },
+            {
+              "text": "The expected output value for a chosen input",
+              "fraction": 0,
+              "feedback": "A counterexample is an input that breaks the property, not an expected output."
+            },
+            {
+              "text": "A hand-written example test that passes",
+              "fraction": 0,
+              "feedback": "A passing example is not a counterexample; a counterexample falsifies the property."
+            }
+          ],
+          "generalFeedback": "When the framework finds an input that makes the property false, that input is a counterexample: proof that the code (or the property) is wrong. The framework then shrinks it to a minimal form and reports it, along with the seed for reproduction.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Property test versus example test",
+          "text": "<p>How does a <strong>property-based test</strong> differ from a traditional <strong>example-based (unit) test</strong>?</p>",
+          "answers": [
+            {
+              "text": "An example test checks one specific input-output point; a property test checks a rule across a whole space of generated inputs",
+              "fraction": 100,
+              "feedback": "Correct — examples cover points, properties cover a space."
+            },
+            {
+              "text": "They are identical; both check one fixed input against one expected value",
+              "fraction": 0,
+              "feedback": "A property test generates many inputs and checks a general rule, unlike a single example."
+            },
+            {
+              "text": "A property test needs the exact expected output for every generated input",
+              "fraction": 0,
+              "feedback": "A property states a rule that avoids needing a per-input expected value."
+            },
+            {
+              "text": "An example test generates random inputs while a property test uses fixed ones",
+              "fraction": 0,
+              "feedback": "It is the reverse: property tests generate inputs; example tests use fixed ones."
+            }
+          ],
+          "generalFeedback": "Example tests pin down specific, important points (\"f(2) == 4\"). Property tests state a rule (\"for all x, f(x) >= 0\") and let a generator explore many inputs. The two are complementary: examples are precise regressions, properties give broad coverage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "QuickCheck and Hypothesis",
+          "text": "<p>What are <strong>QuickCheck</strong>, <strong>Hypothesis</strong>, <strong>fast-check</strong>, and <strong>ScalaCheck</strong>?</p>",
+          "answers": [
+            {
+              "text": "Property-based testing frameworks (for Haskell, Python, JavaScript/TypeScript, and Scala respectively)",
+              "fraction": 100,
+              "feedback": "Correct — these are PBT libraries for different languages."
+            },
+            {
+              "text": "Code coverage measurement tools",
+              "fraction": 0,
+              "feedback": "They are PBT frameworks, not coverage tools."
+            },
+            {
+              "text": "Static type checkers",
+              "fraction": 0,
+              "feedback": "They run tests with generated inputs; they are not type checkers."
+            },
+            {
+              "text": "Continuous-integration build systems",
+              "fraction": 0,
+              "feedback": "They are testing libraries, not CI/build systems."
+            }
+          ],
+          "generalFeedback": "QuickCheck (Haskell) pioneered the approach; Hypothesis (Python), fast-check (JS/TS), and ScalaCheck (Scala) bring the same idea to other languages: declare properties and generators, and the tool generates inputs and shrinks failures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid property for list reverse",
+          "text": "<p>Which is a valid property of a correct list <strong>reverse</strong> function?</p>",
+          "answers": [
+            {
+              "text": "reverse(reverse(xs)) == xs for all lists xs",
+              "fraction": 100,
+              "feedback": "Correct — reversing twice returns the original list (reverse is its own inverse)."
+            },
+            {
+              "text": "reverse(xs) == xs for all lists xs",
+              "fraction": 0,
+              "feedback": "That holds only for palindromic lists, not all lists."
+            },
+            {
+              "text": "reverse(xs) has a different length from xs",
+              "fraction": 0,
+              "feedback": "Reversing preserves the length; it only changes the order."
+            },
+            {
+              "text": "reverse(xs) doubles the list",
+              "fraction": 0,
+              "feedback": "Reverse rearranges the same elements; it does not add any."
+            }
+          ],
+          "generalFeedback": "Reverse is an involution: applying it twice yields the original list, so reverse(reverse(xs)) == xs is a valid round-trip property. Note reverse(xs) == xs is false in general (only palindromes satisfy it), which makes it a good distractor.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of idempotence",
+          "text": "<p>A function <code>f</code> is <strong>idempotent</strong> when which property holds for all x?</p>",
+          "answers": [
+            {
+              "text": "f(f(x)) == f(x)",
+              "fraction": 100,
+              "feedback": "Correct — applying an idempotent function again changes nothing after the first application."
+            },
+            {
+              "text": "f(x) == x",
+              "fraction": 0,
+              "feedback": "That is the identity function, a stricter and different condition."
+            },
+            {
+              "text": "f(a, b) == f(b, a)",
+              "fraction": 0,
+              "feedback": "That is commutativity, not idempotence."
+            },
+            {
+              "text": "f(f(x)) == x",
+              "fraction": 0,
+              "feedback": "That is involution (self-inverse), such as reverse or negate, not idempotence."
+            }
+          ],
+          "generalFeedback": "Idempotence means f(f(x)) == f(x): once applied, applying again has no further effect. Examples include sort, abs, and normalize. It differs from the identity (f(x) == x) and from involution (f(f(x)) == x, e.g. reverse).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of a round-trip property",
+          "text": "<p>A <strong>round-trip (inverse)</strong> property for an <code>encode</code>/<code>decode</code> pair states which of the following?</p>",
+          "answers": [
+            {
+              "text": "decode(encode(x)) == x for all x",
+              "fraction": 100,
+              "feedback": "Correct — encoding then decoding must return the original value."
+            },
+            {
+              "text": "encode(x) == decode(x) for all x",
+              "fraction": 0,
+              "feedback": "Encode and decode are inverses, not equal functions."
+            },
+            {
+              "text": "encode(x) == x for all x",
+              "fraction": 0,
+              "feedback": "Encoding transforms the value; it does not leave it unchanged."
+            },
+            {
+              "text": "decode(x) == x for all x",
+              "fraction": 0,
+              "feedback": "Decoding is the inverse of encoding, not the identity."
+            }
+          ],
+          "generalFeedback": "A round-trip property says that decoding undoes encoding: decode(encode(x)) == x for every value x. This is a very common and powerful property for serializers, codecs, and parser/printer pairs, because it needs no per-input expected value.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Seed and reproducibility",
+          "text": "<p>Why do PBT frameworks report a random <strong>seed</strong> with a failure?</p>",
+          "answers": [
+            {
+              "text": "Recording the seed lets you re-run the exact same generated inputs to reproduce the failure deterministically",
+              "fraction": 100,
+              "feedback": "Correct — the seed makes a random run reproducible."
+            },
+            {
+              "text": "The seed is the expected output of the failing test",
+              "fraction": 0,
+              "feedback": "The seed drives the random generator; it is not an expected output."
+            },
+            {
+              "text": "The seed measures how much code the test covered",
+              "fraction": 0,
+              "feedback": "Coverage is separate; the seed only controls input generation."
+            },
+            {
+              "text": "The seed proves the property holds for all inputs",
+              "fraction": 0,
+              "feedback": "A seed reproduces one run; it proves nothing about all inputs."
+            }
+          ],
+          "generalFeedback": "Random generation would be hard to debug if every run differed. Frameworks seed their random source and report the seed on failure, so you can replay the identical sequence of inputs and reproduce (and then fix) the bug reliably.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "A passing run does not prove correctness",
+          "text": "<p>If a property-based test runs thousands of random inputs and finds no counterexample, the property is thereby proven to hold for all possible inputs.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "No — a passing run only means no counterexample was found among the generated inputs, not that none exists."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — PBT samples finitely many inputs; a clean run raises confidence but does not prove the property."
+            }
+          ],
+          "generalFeedback": "Like testing in general, PBT can show the presence of faults (a counterexample) but not their absence. The input space is usually unbounded, and only finitely many inputs are tried, so a passing run is strong evidence, not a proof."
+        },
+        {
+          "type": "truefalse",
+          "name": "Shrinking only reports still-failing inputs",
+          "text": "<p>When shrinking a failing input, the framework only reports a reduced input that still causes the property to fail.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a shrink candidate is kept only if it still triggers the failure."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Shrinking preserves the failure: it never reports a reduced input that passes."
+            }
+          ],
+          "generalFeedback": "Shrinking explores simpler variants of the failing input but discards any candidate that no longer fails. The final reported counterexample is a minimal input that still violates the property, so it does not change the pass/fail verdict."
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid property for absolute value",
+          "text": "<p>Which is a valid property of a correct <code>abs</code> (absolute value) function over the reals?</p>",
+          "answers": [
+            {
+              "text": "abs(x) >= 0 for all x",
+              "fraction": 100,
+              "feedback": "Correct — an absolute value is never negative."
+            },
+            {
+              "text": "abs(x) > 0 for all x",
+              "fraction": 0,
+              "feedback": "Fails at x = 0, where abs(0) = 0, which is not greater than 0."
+            },
+            {
+              "text": "abs(x) == x for all x",
+              "fraction": 0,
+              "feedback": "Holds only for non-negative x; fails for negative x."
+            },
+            {
+              "text": "abs(x) == -x for all x",
+              "fraction": 0,
+              "feedback": "Holds only for non-positive x; fails for positive x."
+            }
+          ],
+          "generalFeedback": "abs(x) >= 0 holds for every real x, so it is a valid property. Note abs(x) > 0 is subtly wrong because of x = 0, and both abs(x) == x and abs(x) == -x are true only on half the domain. A stronger property is abs(-x) == abs(x).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid property for map",
+          "text": "<p>For <code>map(f, xs)</code> (apply <code>f</code> to each element of a list), which is a valid property?</p>",
+          "answers": [
+            {
+              "text": "len(map(f, xs)) == len(xs) for all lists xs",
+              "fraction": 100,
+              "feedback": "Correct — mapping preserves length; it transforms elements one-for-one."
+            },
+            {
+              "text": "len(map(f, xs)) == 0 for all lists xs",
+              "fraction": 0,
+              "feedback": "Mapping keeps every element, so the length is unchanged, not zero."
+            },
+            {
+              "text": "len(map(f, xs)) == 2 * len(xs) for all lists xs",
+              "fraction": 0,
+              "feedback": "Mapping is one-to-one; it does not double the length."
+            },
+            {
+              "text": "map reverses the order of the elements",
+              "fraction": 0,
+              "feedback": "Map preserves order; each element is transformed in place."
+            }
+          ],
+          "generalFeedback": "map applies f to each element without adding, dropping, or reordering elements, so len(map(f, xs)) == len(xs) is a valid length-preservation invariant — a simple structural property that holds regardless of f.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Best property for a serializer/parser",
+          "text": "<p>You are testing a <code>serialize</code> function and its matching <code>parse</code> function. Which is the best single property to check?</p>",
+          "answers": [
+            {
+              "text": "parse(serialize(x)) == x for all values x (round-trip)",
+              "fraction": 100,
+              "feedback": "Correct — serializing then parsing must recover the original value."
+            },
+            {
+              "text": "serialize(x) is a non-empty string for all x",
+              "fraction": 0,
+              "feedback": "True but far too weak — it says nothing about recovering x."
+            },
+            {
+              "text": "parse(serialize(x)) does not throw an exception",
+              "fraction": 0,
+              "feedback": "Not crashing is weak; it allows a wrong parsed value to pass."
+            },
+            {
+              "text": "serialize(x) == serialize(x)",
+              "fraction": 0,
+              "feedback": "That is trivially true and tests nothing."
+            }
+          ],
+          "generalFeedback": "The round-trip property parse(serialize(x)) == x pins down the essential contract: the pair is a faithful inverse. The distractors are either tautologies or so weak that a broken implementation could still satisfy them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Complete property for sort",
+          "text": "<p>Which property <em>fully</em> captures correctness of a <strong>sort</strong> function?</p>",
+          "answers": [
+            {
+              "text": "The output is in non-decreasing order AND is a permutation (same multiset of elements) of the input",
+              "fraction": 100,
+              "feedback": "Correct — ordering plus the permutation condition together specify a correct sort."
+            },
+            {
+              "text": "The output is in non-decreasing order",
+              "fraction": 0,
+              "feedback": "Insufficient alone — returning [] is ordered but wrong; you also need the permutation condition."
+            },
+            {
+              "text": "The output has the same length as the input",
+              "fraction": 0,
+              "feedback": "Necessary but far from sufficient; wrong elements of the right length would pass."
+            },
+            {
+              "text": "The output's sum equals the input's sum",
+              "fraction": 0,
+              "feedback": "Necessary but insufficient — e.g. input [1,3] and output [2,2] share a sum yet [2,2] is not a permutation."
+            }
+          ],
+          "generalFeedback": "A correct sort must be ordered and must contain exactly the same elements (as a multiset) as the input. Checking only ordering, only length, or only the sum each admits wrong implementations. The permutation (multiset-equality) condition is the indispensable second half.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why \"sorted\" alone is insufficient",
+          "text": "<p>Why is \"the output is sorted\" <strong>insufficient</strong> as the only property for a sort function?</p>",
+          "answers": [
+            {
+              "text": "A broken implementation that returns [] (or drops/duplicates elements) still produces sorted output and passes; you must also require the output to be a permutation of the input",
+              "fraction": 100,
+              "feedback": "Correct — \"return []\" trivially satisfies \"is sorted\", so the permutation condition is essential."
+            },
+            {
+              "text": "Because a correct sort is not always ordered",
+              "fraction": 0,
+              "feedback": "A correct sort is always ordered; ordering is necessary, just not sufficient."
+            },
+            {
+              "text": "Because checking order is computationally impossible",
+              "fraction": 0,
+              "feedback": "Checking order is trivial; the issue is that order alone permits wrong outputs."
+            },
+            {
+              "text": "Because sorting has no checkable properties",
+              "fraction": 0,
+              "feedback": "Sorting has strong properties; ordered plus permutation together specify it."
+            }
+          ],
+          "generalFeedback": "The empty list is sorted, so a function that always returns [] passes an \"is sorted\" check while being completely wrong. So do functions that drop or duplicate elements. Adding the permutation (multiset) requirement rules these out — a classic lesson in choosing a sufficient property.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Property for a normalize function",
+          "text": "<p>A function <code>normalize</code> converts a string to a canonical form (e.g. Unicode NFC, trim, lowercase). Which property should hold?</p>",
+          "answers": [
+            {
+              "text": "normalize(normalize(s)) == normalize(s) for all s (idempotence)",
+              "fraction": 100,
+              "feedback": "Correct — normalizing an already-normalized string changes nothing."
+            },
+            {
+              "text": "normalize(s) == s for all s",
+              "fraction": 0,
+              "feedback": "False — normalizing a non-canonical string changes it."
+            },
+            {
+              "text": "normalize(normalize(s)) == s for all s",
+              "fraction": 0,
+              "feedback": "That is involution, which does not hold: the first normalize may already have altered s."
+            },
+            {
+              "text": "len(normalize(s)) == len(s) for all s",
+              "fraction": 0,
+              "feedback": "Trimming or Unicode composition can change the length, so this is false."
+            }
+          ],
+          "generalFeedback": "Canonicalization is idempotent: once a string is in canonical form, normalizing again leaves it unchanged, so normalize(normalize(s)) == normalize(s). It is not the identity (it can change s) and not an involution (it cannot recover the original from the canonical form).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What shrinking reports for a failing list",
+          "text": "<p>A property fails on the randomly generated list <code>[7, -3, 0, 12, 5, -8, 4]</code>. What will a shrinking-capable framework typically report?</p>",
+          "answers": [
+            {
+              "text": "A minimized input that still fails — for instance the shortest/simplest list (perhaps a single element or [ ]) that reproduces the failure",
+              "fraction": 100,
+              "feedback": "Correct — shrinking converges on a minimal still-failing input."
+            },
+            {
+              "text": "The original seven-element list, unchanged",
+              "fraction": 0,
+              "feedback": "Shrinking works to reduce the input rather than report it as-is."
+            },
+            {
+              "text": "An input that now passes the property",
+              "fraction": 0,
+              "feedback": "Shrinking never reports a passing input; the reduced input must still fail."
+            },
+            {
+              "text": "A completely different random list unrelated to the failure",
+              "fraction": 0,
+              "feedback": "Shrinking simplifies the failing input; it does not switch to an unrelated one."
+            }
+          ],
+          "generalFeedback": "Shrinking repeatedly tries simpler versions (drop elements, reduce magnitudes) and keeps only those that still fail, ending at a minimal counterexample. This isolates the essential trigger and makes debugging far quicker than staring at the original noisy input.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Reproducing a CI failure via seed",
+          "text": "<p>A CI run reports a property failure together with a <strong>seed</strong>. To debug it locally, what should a developer do?</p>",
+          "answers": [
+            {
+              "text": "Re-run the test with the same seed to regenerate the identical inputs and reproduce the failure",
+              "fraction": 100,
+              "feedback": "Correct — replaying the seed reproduces the exact failing run."
+            },
+            {
+              "text": "Increase the number of generated cases and hope it recurs",
+              "fraction": 0,
+              "feedback": "Unreliable — the seed already lets you reproduce it exactly, without guessing."
+            },
+            {
+              "text": "Disable shrinking so the test stops failing",
+              "fraction": 0,
+              "feedback": "Disabling shrinking hides the minimal counterexample; it does not fix or reproduce anything."
+            },
+            {
+              "text": "Change the property until the test passes",
+              "fraction": 0,
+              "feedback": "That masks the bug rather than diagnosing it."
+            }
+          ],
+          "generalFeedback": "The seed captures the exact random choices of a run. Re-running with it deterministically regenerates the same (already shrunk) inputs, so the developer sees the identical failure locally and can step through it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which function is idempotent",
+          "text": "<p>For which function <code>f</code> is the property <code>f(f(x)) == f(x)</code> valid for all x?</p>",
+          "answers": [
+            {
+              "text": "Taking the absolute value: abs",
+              "fraction": 100,
+              "feedback": "Correct — abs(abs(x)) == abs(x), so abs is idempotent."
+            },
+            {
+              "text": "Incrementing by one: inc(x) = x + 1",
+              "fraction": 0,
+              "feedback": "Not idempotent — inc(inc(x)) = x + 2, which differs from inc(x) = x + 1."
+            },
+            {
+              "text": "Reversing a list: reverse",
+              "fraction": 0,
+              "feedback": "Reverse is an involution (reverse(reverse(x)) == x), not idempotent."
+            },
+            {
+              "text": "Negating a number: neg(x) = -x",
+              "fraction": 0,
+              "feedback": "Negation is an involution (neg(neg(x)) == x), not idempotent."
+            }
+          ],
+          "generalFeedback": "abs is idempotent because once a value is non-negative, taking abs again does nothing. Increment fails (adds 2 vs 1), and reverse/negate are involutions (applying twice returns the original), which is a different property.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A commutativity property",
+          "text": "<p>Which operation satisfies a valid <strong>commutativity</strong> property <code>f(a, b) == f(b, a)</code> for all inputs?</p>",
+          "answers": [
+            {
+              "text": "Multiplication: a * b == b * a",
+              "fraction": 100,
+              "feedback": "Correct — multiplication is commutative."
+            },
+            {
+              "text": "Subtraction: a - b == b - a",
+              "fraction": 0,
+              "feedback": "False in general — e.g. 5 - 3 = 2 but 3 - 5 = -2."
+            },
+            {
+              "text": "Division: a / b == b / a",
+              "fraction": 0,
+              "feedback": "False in general — e.g. 6 / 2 = 3 but 2 / 6 ≈ 0.33."
+            },
+            {
+              "text": "Exponentiation: a ** b == b ** a",
+              "fraction": 0,
+              "feedback": "False in general — e.g. 2 ** 3 = 8 but 3 ** 2 = 9."
+            }
+          ],
+          "generalFeedback": "Commutativity, f(a, b) == f(b, a), holds for addition and multiplication but not for subtraction, division, or exponentiation. Choosing a commutativity property for a non-commutative operation would flag correct code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Round-trip property for a base64 codec",
+          "text": "<p>For a base64 codec, which round-trip property is the correct one to check?</p>",
+          "answers": [
+            {
+              "text": "decode(encode(bytes)) == bytes, generating random byte sequences",
+              "fraction": 100,
+              "feedback": "Correct — encoding arbitrary bytes then decoding must recover them exactly."
+            },
+            {
+              "text": "encode(decode(s)) == s, generating random strings s",
+              "fraction": 0,
+              "feedback": "Unsound — a random string need not be valid/canonical base64, so this can fail on correct code."
+            },
+            {
+              "text": "encode(bytes) == bytes for all byte sequences",
+              "fraction": 0,
+              "feedback": "Encoding transforms bytes into text; it does not return the input unchanged."
+            },
+            {
+              "text": "decode(encode(bytes)) is shorter than bytes",
+              "fraction": 0,
+              "feedback": "The round trip returns the original bytes, so it is the same length, not shorter."
+            }
+          ],
+          "generalFeedback": "Generate the raw values (bytes), encode, then decode: decode(encode(bytes)) == bytes is sound because every byte sequence is encodable. The reverse direction over random strings is a classic trap: not every string is a valid base64 encoding, so encode(decode(s)) == s can legitimately fail.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Using a reference implementation as an oracle",
+          "text": "<p>You have a fast but complex implementation <code>fast_fn</code> and a slow but obviously-correct reference <code>ref_fn</code> of the same specification. How can PBT use the reference?</p>",
+          "answers": [
+            {
+              "text": "Generate random inputs and assert fast_fn(x) == ref_fn(x) — the reference acts as the test oracle",
+              "fraction": 100,
+              "feedback": "Correct — comparing against a trusted reference gives an oracle for free."
+            },
+            {
+              "text": "Assert fast_fn(x) == fast_fn(x) for random x",
+              "fraction": 0,
+              "feedback": "That is trivially true and tests nothing."
+            },
+            {
+              "text": "Replace fast_fn with ref_fn in production",
+              "fraction": 0,
+              "feedback": "The reference is a testing oracle, not a production replacement (it is slow)."
+            },
+            {
+              "text": "Only test inputs where the two already agree",
+              "fraction": 0,
+              "feedback": "That defeats the purpose — you want to find inputs where they disagree."
+            }
+          ],
+          "generalFeedback": "A simpler reference implementation is an excellent oracle: for each generated input, the optimized version must match it. This is \"test oracle from a simpler model\" and is the basis of differential/model-based testing. Any disagreement is a counterexample that shrinking then minimizes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Checking the permutation condition",
+          "text": "<p>To check that a sort output is a <strong>permutation</strong> of the input, which check is correct?</p>",
+          "answers": [
+            {
+              "text": "The output and input have equal element multisets (each value occurs the same number of times in both)",
+              "fraction": 100,
+              "feedback": "Correct — multiset equality captures the permutation condition."
+            },
+            {
+              "text": "The output and input have the same length",
+              "fraction": 0,
+              "feedback": "Same length is necessary but not sufficient; the elements could differ."
+            },
+            {
+              "text": "The output and input have the same first element",
+              "fraction": 0,
+              "feedback": "The first elements can differ (the smallest need not be first in the input), and this ignores the rest."
+            },
+            {
+              "text": "The output and input have the same sum",
+              "fraction": 0,
+              "feedback": "Equal sums do not imply equal multisets — [1,3] and [2,2] share a sum but differ."
+            }
+          ],
+          "generalFeedback": "A permutation preserves the multiset of elements: comparing element counts (or comparing sorted-by-a-trusted-method versions) verifies it. Length or sum equality are weaker consequences that many wrong outputs also satisfy.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why inspect the generator's distribution",
+          "text": "<p>Why do PBT frameworks let you inspect the <strong>distribution</strong> of generated inputs (e.g. Hypothesis statistics, QuickCheck's <code>collect</code>/<code>classify</code>)?</p>",
+          "answers": [
+            {
+              "text": "To confirm the generator actually produces the interesting and edge cases; a skewed generator may never exercise the inputs that trigger a bug",
+              "fraction": 100,
+              "feedback": "Correct — distribution insight guards against a generator that misses important cases."
+            },
+            {
+              "text": "To measure statement and branch coverage of the code",
+              "fraction": 0,
+              "feedback": "That is code coverage, a separate concern from input distribution."
+            },
+            {
+              "text": "To make shrinking run faster",
+              "fraction": 0,
+              "feedback": "Distribution reporting informs generation quality, not shrinking speed."
+            },
+            {
+              "text": "To prove the property holds on all inputs",
+              "fraction": 0,
+              "feedback": "No sampling proves a universal property; distribution stats only describe what was generated."
+            }
+          ],
+          "generalFeedback": "If a generator rarely (or never) produces empty lists, boundary numbers, or duplicates, a property can pass while the bug-triggering inputs are never tried. Distribution reporting lets you verify — and tune — that the important regions of the input space are actually being sampled.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "\"Ordered\" alone fully verifies sorting",
+          "text": "<p>Checking only that a sort function's output is in non-decreasing order is a complete property that fully verifies sorting.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "No — a function returning [] is ordered but wrong; you also need the permutation (multiset) condition."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — ordering alone is satisfied by wrong implementations; the output must also be a permutation of the input."
+            }
+          ],
+          "generalFeedback": "\"Is sorted\" is necessary but not sufficient. Returning an empty list, or dropping/duplicating elements, yields ordered output yet is incorrect. A complete sort property pairs ordering with multiset equality between input and output."
+        },
+        {
+          "type": "multichoice",
+          "name": "Invariant property for removing duplicates",
+          "text": "<p>For a function <code>dedup(xs)</code> that removes duplicate values from a list, which is a valid invariant property?</p>",
+          "answers": [
+            {
+              "text": "dedup(xs) contains no repeated value, and its set of elements equals the set of elements of xs",
+              "fraction": 100,
+              "feedback": "Correct — deduplication removes repeats while preserving exactly which values are present."
+            },
+            {
+              "text": "len(dedup(xs)) == len(xs) for all xs",
+              "fraction": 0,
+              "feedback": "False when xs has duplicates; the length must drop in that case."
+            },
+            {
+              "text": "dedup(xs) == xs for all xs",
+              "fraction": 0,
+              "feedback": "Holds only when xs already has no duplicates, not for all lists."
+            },
+            {
+              "text": "dedup preserves the count of each value",
+              "fraction": 0,
+              "feedback": "Deduplication collapses repeats to one occurrence, so per-value counts are not preserved."
+            }
+          ],
+          "generalFeedback": "A correct dedup output has no repeats and covers exactly the same distinct values as the input — i.e. equal element sets, plus a \"no duplicates\" invariant. Length is preserved only when there were no duplicates, and per-value counts are deliberately not preserved.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sorting is idempotent",
+          "text": "<p>Which property expresses that <strong>sorting is idempotent</strong>?</p>",
+          "answers": [
+            {
+              "text": "sort(sort(xs)) == sort(xs) for all lists xs",
+              "fraction": 100,
+              "feedback": "Correct — sorting an already-sorted list leaves it unchanged."
+            },
+            {
+              "text": "sort(sort(xs)) == xs for all lists xs",
+              "fraction": 0,
+              "feedback": "False in general — the inner sort reorders xs, so you do not recover the original."
+            },
+            {
+              "text": "sort(xs) == xs for all lists xs",
+              "fraction": 0,
+              "feedback": "True only when xs is already sorted, not for all lists."
+            },
+            {
+              "text": "sort(xs) reverses an already-sorted list",
+              "fraction": 0,
+              "feedback": "Sorting never reverses a sorted list; it leaves it in order."
+            }
+          ],
+          "generalFeedback": "Idempotence for sort means applying it again has no effect: sort(sort(xs)) == sort(xs). Note this alone is a weak property (many wrong functions are idempotent); it complements, but does not replace, ordering plus permutation.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Critique a reversed round-trip property",
+          "text": "<p>A tester proposes <code>encode(decode(s)) == s</code> as the round-trip property for a codec, generating random <em>strings</em> <code>s</code>. Why can this raise false failures on correct code?</p>",
+          "answers": [
+            {
+              "text": "Not every random string is a valid/canonical encoding, so decode may reject or canonicalize it and encode(decode(s)) need not equal s; the sound property is decode(encode(x)) == x over generated decoded values x",
+              "fraction": 100,
+              "feedback": "Correct — the generated strings need not lie in the range of encode, so the direction is unsound."
+            },
+            {
+              "text": "Nothing is wrong; it always holds for a correct codec",
+              "fraction": 0,
+              "feedback": "It fails whenever s is not a canonical encoding, even for correct codecs."
+            },
+            {
+              "text": "Codecs cannot be tested with PBT at all",
+              "fraction": 0,
+              "feedback": "They can — the sound direction decode(encode(x)) == x is a strong property."
+            },
+            {
+              "text": "The random seed is chosen incorrectly",
+              "fraction": 0,
+              "feedback": "The issue is the property's direction, not the seed."
+            }
+          ],
+          "generalFeedback": "encode(decode(s)) == s only holds when s is already a canonical output of encode. Random strings often are not (non-canonical padding, extra whitespace), so a correct codec can violate it. Generate the source values and check decode(encode(x)) == x instead — encode's range is exactly what decode must invert.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A proposed property that is actually false",
+          "text": "<p>A tester writes the property <code>inc(inc(n)) == inc(n)</code> for an increment function <code>inc(n) = n + 1</code>. What happens?</p>",
+          "answers": [
+            {
+              "text": "The property is false for a correct inc (inc(inc(n)) = n + 2 ≠ n + 1), so PBT quickly finds a counterexample — but it signals a wrong property, not a bug in inc",
+              "fraction": 100,
+              "feedback": "Correct — the property mistakenly assumes idempotence; the failure is the property's fault."
+            },
+            {
+              "text": "It correctly verifies that inc works",
+              "fraction": 0,
+              "feedback": "It does not — a correct inc violates this false property."
+            },
+            {
+              "text": "It proves inc is idempotent",
+              "fraction": 0,
+              "feedback": "inc is not idempotent; the property is simply wrong."
+            },
+            {
+              "text": "It passes for all n",
+              "fraction": 0,
+              "feedback": "It fails for every n, since n + 2 is never n + 1."
+            }
+          ],
+          "generalFeedback": "Increment is not idempotent: applying it twice adds 2. Writing an idempotence property for it asserts something false, so the framework reports a counterexample. The lesson: a failing PBT run can mean the property is wrong, so validate that each asserted property genuinely holds for a correct implementation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Stateful (model-based) PBT",
+          "text": "<p>What characterizes <strong>stateful (model-based)</strong> property-based testing?</p>",
+          "answers": [
+            {
+              "text": "The framework generates random sequences of commands, runs them against both the real system and a simplified model, and asserts the observable results agree after each step; failing sequences are then shrunk",
+              "fraction": 100,
+              "feedback": "Correct — model-based PBT compares a system against a reference model over command sequences."
+            },
+            {
+              "text": "It tests a single pure function on random inputs with no state",
+              "fraction": 0,
+              "feedback": "That is ordinary (stateless) PBT; model-based PBT drives stateful systems."
+            },
+            {
+              "text": "It measures how many states the program reaches",
+              "fraction": 0,
+              "feedback": "That is a coverage notion, not model-based checking of behavior."
+            },
+            {
+              "text": "It replaces the real database with random data and does nothing else",
+              "fraction": 0,
+              "feedback": "Randomizing data is not the point; comparing the system to a model over command sequences is."
+            }
+          ],
+          "generalFeedback": "Model-based PBT generates a random program (a sequence of operations), executes it against the real system and against a simple correct-by-inspection model, and checks that observations match at every step. When a sequence disagrees, shrinking reduces it to a minimal failing command sequence — the essence of the bug.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Value of shrinking a large structured input",
+          "text": "<p>A property fails on a randomly generated 500-node tree with particular values. Why is <strong>shrinking</strong> especially valuable here?</p>",
+          "answers": [
+            {
+              "text": "It reduces the huge failing input to a minimal still-failing structure (e.g. a two- or three-node tree), isolating the essential trigger and greatly speeding debugging — without changing the fail verdict",
+              "fraction": 100,
+              "feedback": "Correct — shrinking distills a large counterexample down to its core."
+            },
+            {
+              "text": "It proves the property holds on all smaller trees",
+              "fraction": 0,
+              "feedback": "Shrinking finds a minimal failing case; it proves nothing about passing cases."
+            },
+            {
+              "text": "It makes the original 500-node tree pass",
+              "fraction": 0,
+              "feedback": "Shrinking does not alter verdicts; the input still fails."
+            },
+            {
+              "text": "It converts the tree into a list to simplify the type",
+              "fraction": 0,
+              "feedback": "Shrinking preserves the input's type/structure; it reduces size, not the type."
+            }
+          ],
+          "generalFeedback": "A 500-node counterexample is nearly impossible to reason about. Shrinking prunes nodes and reduces values while keeping the failure, often arriving at a tiny structure that exposes the exact condition. This is where shrinking pays off most, and it never changes whether the input fails.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Generator distribution pitfall",
+          "text": "<p>A generator for testing a \"parse a non-negative integer\" function only ever produces 3-to-5-digit numeric strings. What is the risk?</p>",
+          "answers": [
+            {
+              "text": "It may never generate boundary and edge inputs (empty string, leading zeros, non-numeric characters, very large values), so bugs on those go undetected and a passing run gives false confidence",
+              "fraction": 100,
+              "feedback": "Correct — a narrow generator leaves whole regions of the input space untested."
+            },
+            {
+              "text": "Shrinking will stop working entirely",
+              "fraction": 0,
+              "feedback": "Shrinking still works within the generated range; the problem is the range is too narrow."
+            },
+            {
+              "text": "The recorded seed becomes invalid",
+              "fraction": 0,
+              "feedback": "The seed remains valid; the concern is coverage of the input space."
+            },
+            {
+              "text": "The property automatically becomes false",
+              "fraction": 0,
+              "feedback": "The property is unchanged; it is just under-exercised."
+            }
+          ],
+          "generalFeedback": "The bugs in a parser usually hide at the edges — empty input, leading zeros, non-digits, overflow-sized numbers. A generator that only emits typical mid-range values never reaches them, so the property passes vacuously on the hard cases. Inspecting and broadening the generator's distribution is essential.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Combining complementary properties",
+          "text": "<p>You check two individually-valid properties for one function. What is true about testing both together?</p>",
+          "answers": [
+            {
+              "text": "Checking complementary properties strengthens the test — each rules out a different class of wrong implementations (e.g. \"ordered\" + \"permutation\" together pin down sort) — but even together they may not fully specify correctness",
+              "fraction": 100,
+              "feedback": "Correct — combining properties is stronger, yet not necessarily a complete specification."
+            },
+            {
+              "text": "Combining two valid properties proves the function correct",
+              "fraction": 0,
+              "feedback": "No finite set of checks on sampled inputs proves correctness."
+            },
+            {
+              "text": "You may only ever check one property per function",
+              "fraction": 0,
+              "feedback": "Multiple properties are encouraged and commonly used together."
+            },
+            {
+              "text": "Combining two valid properties can make one of them false",
+              "fraction": 0,
+              "feedback": "Valid properties remain valid; checking them together does not invalidate either."
+            }
+          ],
+          "generalFeedback": "Different properties catch different bug classes: \"output is ordered\" plus \"output is a permutation of the input\" together characterize a correct sort far better than either alone. Still, properties capture only the relations you thought of, and sampling is finite, so combining them raises confidence without proving correctness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PBT complements example tests",
+          "text": "<p>How do property-based tests relate to hand-written example (unit) tests?</p>",
+          "answers": [
+            {
+              "text": "They are complementary: properties cover a broad input space, while example tests pin down specific important cases, regressions, and known edge points — good suites use both",
+              "fraction": 100,
+              "feedback": "Correct — properties and examples reinforce each other."
+            },
+            {
+              "text": "Property tests make example tests obsolete",
+              "fraction": 0,
+              "feedback": "Examples still document and lock down specific known cases and regressions."
+            },
+            {
+              "text": "Example tests make property tests obsolete",
+              "fraction": 0,
+              "feedback": "Examples cover points; only properties explore a whole space of inputs."
+            },
+            {
+              "text": "They test disjoint kinds of code and never overlap",
+              "fraction": 0,
+              "feedback": "They often test the same code from different angles; they are complementary, not disjoint."
+            }
+          ],
+          "generalFeedback": "Example tests are precise, readable anchors for specific behaviors, boundary values, and past regressions. Property tests explore the space and surface surprises you did not think to write examples for. The strongest suites combine both rather than choosing one.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Shrinking must preserve the failure",
+          "text": "<p>During shrinking, a candidate reduced input <em>no longer</em> fails the property. What does the framework do?</p>",
+          "answers": [
+            {
+              "text": "It discards that candidate and keeps shrinking from inputs that still fail; only an input that still triggers the failure is reported",
+              "fraction": 100,
+              "feedback": "Correct — shrinking keeps only still-failing candidates."
+            },
+            {
+              "text": "It reports the passing reduced input as the counterexample",
+              "fraction": 0,
+              "feedback": "A passing input is not a counterexample and is never reported as one."
+            },
+            {
+              "text": "It stops and declares the whole test passed",
+              "fraction": 0,
+              "feedback": "One passing shrink candidate does not clear the original failure."
+            },
+            {
+              "text": "It modifies the property so the candidate fails",
+              "fraction": 0,
+              "feedback": "Shrinking never changes the property; it only reduces the input."
+            }
+          ],
+          "generalFeedback": "Shrinking is a search constrained to still-failing inputs: any candidate that passes is rejected, and the search continues from ones that fail. The final reported counterexample therefore still violates the property, so the pass/fail verdict is unchanged — shrinking only makes the witness smaller.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Soundness condition for a round-trip property",
+          "text": "<p>Under what condition is <code>decode(encode(x)) == x</code> a <strong>sound</strong> property (holding for every generated x)?</p>",
+          "answers": [
+            {
+              "text": "When encode is injective and decode is a left inverse of encode on encode's range — i.e. decode undoes encode for every value x that can be generated",
+              "fraction": 100,
+              "feedback": "Correct — this is exactly what makes the round trip recover x."
+            },
+            {
+              "text": "Always, for any encode and decode functions",
+              "fraction": 0,
+              "feedback": "If encode loses information (not injective), decoding cannot recover x."
+            },
+            {
+              "text": "Only when encode and decode are the same function",
+              "fraction": 0,
+              "feedback": "They are inverses, generally different functions, not equal."
+            },
+            {
+              "text": "Only when x is a string",
+              "fraction": 0,
+              "feedback": "The type of x is irrelevant; the inverse relationship is what matters."
+            }
+          ],
+          "generalFeedback": "decode(encode(x)) == x requires encode to be injective (lossless) and decode to invert it on encode's outputs. If encode maps two distinct values to the same encoding, no decoder can recover both, so the property is unsound. Stating this condition is what keeps the round-trip property valid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Choosing a model for a key-value store",
+          "text": "<p>In model-based testing of a key-value store, what makes a good <strong>model</strong> to compare against?</p>",
+          "answers": [
+            {
+              "text": "A simple in-memory dictionary whose behavior is obviously correct; after each generated command (put/get/delete) the store's observable result must match the dictionary's",
+              "fraction": 100,
+              "feedback": "Correct — a trivially-correct reference model is the ideal oracle."
+            },
+            {
+              "text": "A second copy of the same store implementation",
+              "fraction": 0,
+              "feedback": "A copy shares the same bugs, so agreement proves nothing."
+            },
+            {
+              "text": "A random oracle that returns arbitrary values",
+              "fraction": 0,
+              "feedback": "A random oracle has no defined correct behavior to compare against."
+            },
+            {
+              "text": "The store's own performance counters",
+              "fraction": 0,
+              "feedback": "Performance counters are not a functional model of correctness."
+            }
+          ],
+          "generalFeedback": "The model should be a minimal, obviously-correct abstraction (here, a plain dictionary). The point of model-based testing is to compare the complex real system against something simple enough to trust. Using a second copy of the real implementation would just duplicate its faults.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why idempotence alone is a weak sort property",
+          "text": "<p>Someone tests a sort function using only <code>sort(sort(xs)) == sort(xs)</code> (idempotence). Why is this weak?</p>",
+          "answers": [
+            {
+              "text": "Many wrong functions are idempotent — e.g. one that always returns [], or the identity that returns xs unchanged — so idempotence does not require ordering or preservation of the input's elements",
+              "fraction": 100,
+              "feedback": "Correct — idempotence is satisfied by clearly incorrect sorts."
+            },
+            {
+              "text": "Idempotence is false for a correct sort",
+              "fraction": 0,
+              "feedback": "It is true for a correct sort; it is just insufficient on its own."
+            },
+            {
+              "text": "It fully verifies the sort by itself",
+              "fraction": 0,
+              "feedback": "It does not — wrong functions also pass it."
+            },
+            {
+              "text": "It only fails on empty lists",
+              "fraction": 0,
+              "feedback": "It passes on empty lists too; the weakness is that wrong functions satisfy it."
+            }
+          ],
+          "generalFeedback": "Both \"always return []\" and \"return the input unchanged\" satisfy sort(sort(xs)) == sort(xs), yet neither sorts. Idempotence is a genuine property of sort but a weak one; it must be combined with ordering and the permutation (multiset) condition to characterize correctness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A weak generator range hides overflow",
+          "text": "<p>A property about a 32-bit integer adder passes, but the generator only produces operands in <code>[0, 100]</code>. What is the best conclusion?</p>",
+          "answers": [
+            {
+              "text": "The pass is weak evidence — overflow and boundary behavior near 2^31 were never generated, so the property was not exercised on the inputs most likely to fail",
+              "fraction": 100,
+              "feedback": "Correct — the risky inputs were never sampled, so confidence is limited."
+            },
+            {
+              "text": "The adder is proven correct for all 32-bit inputs",
+              "fraction": 0,
+              "feedback": "Only tiny operands were tried; nothing is proven for large ones."
+            },
+            {
+              "text": "Property-based testing is unsound",
+              "fraction": 0,
+              "feedback": "PBT is fine; the generator's range was simply too narrow."
+            },
+            {
+              "text": "The property must be false",
+              "fraction": 0,
+              "feedback": "The property may be correct; it was just under-tested."
+            }
+          ],
+          "generalFeedback": "Overflow bugs live near the type's extremes. A generator confined to [0, 100] cannot reach values near 2^31, so a clean run says nothing about the dangerous region. Widen the generator to include boundary and large values (and inspect its distribution) before trusting the result.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Critique a false universal property",
+          "text": "<p>A tester proposes <code>reverse(xs) != xs</code> for all lists (claiming reverse always changes the list). Why is this a bad property?</p>",
+          "answers": [
+            {
+              "text": "It is false: palindromic lists, and the empty or single-element list, satisfy reverse(xs) == xs, so a correct reverse violates the proposed property — the property, not the code, is wrong",
+              "fraction": 100,
+              "feedback": "Correct — many lists are unchanged by reversal, so the \"always changes\" claim is false."
+            },
+            {
+              "text": "It is correct and useful as written",
+              "fraction": 0,
+              "feedback": "It fails for palindromes and short lists, so it is not correct."
+            },
+            {
+              "text": "It only fails for very long lists",
+              "fraction": 0,
+              "feedback": "It fails for the shortest lists (empty, single element) and any palindrome."
+            },
+            {
+              "text": "reverse is not a pure function, so no property applies",
+              "fraction": 0,
+              "feedback": "reverse is pure; the issue is that the asserted property is simply false."
+            }
+          ],
+          "generalFeedback": "The empty list, any single-element list, and every palindrome are unchanged by reversal, so reverse(xs) != xs does not hold universally. PBT would report one of these as a counterexample, exposing a flawed property rather than a defect. Always confirm a proposed property is genuinely necessary before trusting its failures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What clean shrinking and a passing run establish",
+          "text": "<p>After thousands of cases and clean shrinking on any failures encountered during development, all properties now pass. What can you conclude?</p>",
+          "answers": [
+            {
+              "text": "No counterexample was found among the generated inputs; this raises confidence but does not prove the properties hold for all inputs, since the input space is usually unbounded",
+              "fraction": 100,
+              "feedback": "Correct — a clean run is strong evidence, not a proof."
+            },
+            {
+              "text": "The program is now proven correct",
+              "fraction": 0,
+              "feedback": "Sampling finitely many inputs cannot prove a universal property."
+            },
+            {
+              "text": "Every possible input has been tested",
+              "fraction": 0,
+              "feedback": "Only a finite random sample was tested, not the whole space."
+            },
+            {
+              "text": "The properties are now mathematical theorems",
+              "fraction": 0,
+              "feedback": "Passing tests do not turn properties into proved theorems."
+            }
+          ],
+          "generalFeedback": "PBT explores a sample of an often-infinite input space. A clean run — even with good generators and shrinking — means \"no counterexample found here,\" which increases confidence but never amounts to a proof. For proof you would need formal verification, not testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Differential property-based testing",
+          "text": "<p>What is <strong>differential</strong> property-based testing?</p>",
+          "answers": [
+            {
+              "text": "Generate random inputs and assert that two independent implementations of the same specification produce equal results; a disagreement is a counterexample locating a bug in (at least) one of them",
+              "fraction": 100,
+              "feedback": "Correct — differential testing cross-checks two implementations against each other."
+            },
+            {
+              "text": "Comparing the running time of two implementations on random inputs",
+              "fraction": 0,
+              "feedback": "That is performance comparison, not differential correctness testing."
+            },
+            {
+              "text": "Testing the arithmetic difference of two numbers",
+              "fraction": 0,
+              "feedback": "\"Differential\" here refers to comparing implementations, not subtracting numbers."
+            },
+            {
+              "text": "Running one implementation twice with two different seeds",
+              "fraction": 0,
+              "feedback": "That checks determinism at best; differential testing compares two distinct implementations."
+            }
+          ],
+          "generalFeedback": "Differential testing feeds the same generated inputs to two implementations of one spec (e.g. an optimized parser and a reference parser) and requires their outputs to match. Any disagreement, once shrunk to a minimal input, reveals a bug in one of them — provided at least one is trustworthy for that input.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是性質導向測試",
+          "text": "<p><strong>性質導向測試（property-based testing, PBT）</strong>的核心概念為何？</p>",
+          "answers": [
+            {
+              "text": "不是手寫範例輸入，而是陳述一個性質（一個對所有有效輸入都應成立的謂詞），再由框架產生大量隨機輸入試圖使其falsify（推翻）",
+              "fraction": 100,
+              "feedback": "正確——PBT 用大量自動產生的輸入來檢查一個一般性性質。"
+            },
+            {
+              "text": "它形式化地證明程式滿足其完整規格",
+              "fraction": 0,
+              "feedback": "PBT 能找出反例，但無法證明正確性。"
+            },
+            {
+              "text": "它量測固定測試套件覆蓋了多少分支",
+              "fraction": 0,
+              "feedback": "那是覆蓋率量測；PBT 著重在產生輸入來檢查一個性質。"
+            },
+            {
+              "text": "它把單一固定輸入重複執行多次以檢查不穩定（flakiness）",
+              "fraction": 0,
+              "feedback": "PBT 在整個輸入空間中變化輸入，而非重複同一固定輸入。"
+            }
+          ],
+          "generalFeedback": "在性質導向測試中，你描述一個對每個輸入都應成立的性質，框架（QuickCheck、Hypothesis、fast-check、ScalaCheck）便產生大量隨機輸入試圖推翻它。以「涵蓋一整個空間」的方式互補於範例測試（範例只檢查個別點）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是性質",
+          "text": "<p>在 PBT 中，什麼是<strong>性質（property）</strong>？</p>",
+          "answers": [
+            {
+              "text": "關於程式行為、對每個有效輸入都應成立的謂詞（例如「輸出清單永遠是已排序的」）",
+              "fraction": 100,
+              "feedback": "正確——性質是對所有輸入都預期成立的規則。"
+            },
+            {
+              "text": "單一輸入搭配其確切期望輸出",
+              "fraction": 0,
+              "feedback": "那描述的是範例（單元）測試案例，不是性質。"
+            },
+            {
+              "text": "對程式執行時間的量測",
+              "fraction": 0,
+              "feedback": "那是效能指標，不是正確性性質。"
+            },
+            {
+              "text": "用來重現某次執行的隨機種子",
+              "fraction": 0,
+              "feedback": "種子關乎可重現性，而非被檢查的謂詞。"
+            }
+          ],
+          "generalFeedback": "性質是關於程式的全稱陳述：它對產生器能產生的所有輸入都應成立。例子包括往返、不變量、冪等性與交換律等性質。框架會搜尋能違反它的輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是產生器",
+          "text": "<p>在 PBT 中，什麼是<strong>產生器（generator，亦稱 <em>arbitrary</em>）</strong>？</p>",
+          "answers": [
+            {
+              "text": "一個能產生某型別隨機值、作為測試輸入的配方",
+              "fraction": 100,
+              "feedback": "正確——產生器供應性質所要檢查的隨機輸入。"
+            },
+            {
+              "text": "為每個輸入算出的確切期望輸出",
+              "fraction": 0,
+              "feedback": "產生器製造輸入，而非期望輸出。"
+            },
+            {
+              "text": "必須成立的性質謂詞",
+              "fraction": 0,
+              "feedback": "謂詞是性質本身；產生器製造用來檢驗它的輸入。"
+            },
+            {
+              "text": "受測函式本身",
+              "fraction": 0,
+              "feedback": "產生器把輸入餵給受測函式，它不是那個函式。"
+            }
+          ],
+          "generalFeedback": "產生器（arbitrary）知道如何建構某型別的隨機值——整數、字串、清單、記錄、樹。框架從它抽取大量值，並對每個值檢查性質。產生器可以組合與加上約束，以塑造輸入的分布。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是收縮",
+          "text": "<p>在性質導向測試中，什麼是<strong>收縮（shrinking）</strong>？</p>",
+          "answers": [
+            {
+              "text": "當某個隨機輸入推翻了性質，框架會自動將它縮減為一個仍然失敗的更小、最小輸入，使反例更易理解",
+              "fraction": 100,
+              "feedback": "正確——收縮尋找一個仍然失敗的最小輸入。"
+            },
+            {
+              "text": "它刪除通過的測試以縮短報告",
+              "fraction": 0,
+              "feedback": "收縮縮減的是失敗的輸入，而非通過的測試集合。"
+            },
+            {
+              "text": "它壓縮磁碟上的測試輸出記錄檔",
+              "fraction": 0,
+              "feedback": "收縮是要簡化反例，而非壓縮檔案。"
+            },
+            {
+              "text": "它降低所產生輸入的數量以加快執行",
+              "fraction": 0,
+              "feedback": "那是減少案例數；收縮則是把已發現的失敗輸入最小化。"
+            }
+          ],
+          "generalFeedback": "隨機找到的反例往往龐大而雜亂。收縮反覆嘗試更簡單的變體（更短的清單、更小的數字），只保留仍然失敗者，逐步收斂到一個最小的失敗輸入。這讓根本原因更易看清，也是收縮能加速除錯的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是反例",
+          "text": "<p>在 PBT 中，什麼是<strong>反例（counterexample）</strong>？</p>",
+          "answers": [
+            {
+              "text": "一個使性質失敗的具體輸入，證實了缺陷的存在",
+              "fraction": 100,
+              "feedback": "正確——反例是違反性質的見證輸入。"
+            },
+            {
+              "text": "一個使性質成立的輸入",
+              "fraction": 0,
+              "feedback": "使性質成立的是通過案例，不是反例。"
+            },
+            {
+              "text": "某個選定輸入的期望輸出值",
+              "fraction": 0,
+              "feedback": "反例是使性質失敗的輸入，而非期望輸出。"
+            },
+            {
+              "text": "一個通過的手寫範例測試",
+              "fraction": 0,
+              "feedback": "通過的範例不是反例；反例會推翻性質。"
+            }
+          ],
+          "generalFeedback": "當框架找到一個使性質為假的輸入，該輸入即為反例：程式（或性質）有誤的證明。框架接著會把它收縮為最小形式並回報，同時附上可重現用的種子。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "性質測試相對於範例測試",
+          "text": "<p><strong>性質導向測試</strong>與傳統的<strong>範例式（單元）測試</strong>有何不同？</p>",
+          "answers": [
+            {
+              "text": "範例測試檢查一個特定的輸入—輸出點；性質測試則在整個由產生器產生的輸入空間上檢查一條規則",
+              "fraction": 100,
+              "feedback": "正確——範例涵蓋點，性質涵蓋空間。"
+            },
+            {
+              "text": "兩者完全相同；都是把一個固定輸入比對一個期望值",
+              "fraction": 0,
+              "feedback": "性質測試會產生許多輸入並檢查一般規則，與單一範例不同。"
+            },
+            {
+              "text": "性質測試需要每個產生輸入的確切期望輸出",
+              "fraction": 0,
+              "feedback": "性質陳述一條規則，正好避免需要逐一輸入的期望值。"
+            },
+            {
+              "text": "範例測試產生隨機輸入，而性質測試用固定輸入",
+              "fraction": 0,
+              "feedback": "恰好相反：性質測試產生輸入；範例測試用固定輸入。"
+            }
+          ],
+          "generalFeedback": "範例測試釘住特定且重要的點（「f(2) == 4」）。性質測試陳述一條規則（「對所有 x，f(x) >= 0」）並讓產生器探索許多輸入。兩者互補：範例是精確的回歸案例，性質提供廣泛的涵蓋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "QuickCheck 與 Hypothesis",
+          "text": "<p><strong>QuickCheck</strong>、<strong>Hypothesis</strong>、<strong>fast-check</strong> 與 <strong>ScalaCheck</strong> 是什麼？</p>",
+          "answers": [
+            {
+              "text": "性質導向測試框架（分別用於 Haskell、Python、JavaScript/TypeScript 與 Scala）",
+              "fraction": 100,
+              "feedback": "正確——它們是不同語言的 PBT 函式庫。"
+            },
+            {
+              "text": "程式碼覆蓋率量測工具",
+              "fraction": 0,
+              "feedback": "它們是 PBT 框架，不是覆蓋率工具。"
+            },
+            {
+              "text": "靜態型別檢查器",
+              "fraction": 0,
+              "feedback": "它們用產生的輸入來執行測試，不是型別檢查器。"
+            },
+            {
+              "text": "持續整合的建置系統",
+              "fraction": 0,
+              "feedback": "它們是測試函式庫，不是 CI／建置系統。"
+            }
+          ],
+          "generalFeedback": "QuickCheck（Haskell）開創了這套方法；Hypothesis（Python）、fast-check（JS/TS）與 ScalaCheck（Scala）把相同概念帶到其他語言：宣告性質與產生器，工具便產生輸入並收縮失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "清單反轉的有效性質",
+          "text": "<p>對於正確的清單<strong>反轉（reverse）</strong>函式，下列何者是有效性質？</p>",
+          "answers": [
+            {
+              "text": "對所有清單 xs，reverse(reverse(xs)) == xs",
+              "fraction": 100,
+              "feedback": "正確——反轉兩次會回到原清單（reverse 是自身的反函式）。"
+            },
+            {
+              "text": "對所有清單 xs，reverse(xs) == xs",
+              "fraction": 0,
+              "feedback": "那只對回文清單成立，並非所有清單。"
+            },
+            {
+              "text": "reverse(xs) 的長度與 xs 不同",
+              "fraction": 0,
+              "feedback": "反轉保持長度不變；它只改變順序。"
+            },
+            {
+              "text": "reverse(xs) 會使清單加倍",
+              "fraction": 0,
+              "feedback": "反轉重新排列相同元素，不會新增元素。"
+            }
+          ],
+          "generalFeedback": "反轉是對合（involution）：套用兩次會得到原清單，所以 reverse(reverse(xs)) == xs 是有效的往返性質。注意 reverse(xs) == xs 一般為假（只有回文成立），因此是很好的誘答項。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "冪等性的定義",
+          "text": "<p>當對所有 x 下列何種性質成立時，函式 <code>f</code> 為<strong>冪等（idempotent）</strong>？</p>",
+          "answers": [
+            {
+              "text": "f(f(x)) == f(x)",
+              "fraction": 100,
+              "feedback": "正確——冪等函式在第一次套用後，再套用不會有任何改變。"
+            },
+            {
+              "text": "f(x) == x",
+              "fraction": 0,
+              "feedback": "那是恆等函式，是更嚴格且不同的條件。"
+            },
+            {
+              "text": "f(a, b) == f(b, a)",
+              "fraction": 0,
+              "feedback": "那是交換律，不是冪等性。"
+            },
+            {
+              "text": "f(f(x)) == x",
+              "fraction": 0,
+              "feedback": "那是對合（自反），例如 reverse 或取負，不是冪等性。"
+            }
+          ],
+          "generalFeedback": "冪等性意指 f(f(x)) == f(x)：一旦套用，再套用便無進一步效果。例子包括 sort、abs 與 normalize。它不同於恆等（f(x) == x），也不同於對合（f(f(x)) == x，如 reverse）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "往返性質的定義",
+          "text": "<p>對於一組 <code>encode</code>／<code>decode</code>，<strong>往返（round-trip，反函式）</strong>性質陳述下列何者？</p>",
+          "answers": [
+            {
+              "text": "對所有 x，decode(encode(x)) == x",
+              "fraction": 100,
+              "feedback": "正確——先編碼再解碼必須回到原值。"
+            },
+            {
+              "text": "對所有 x，encode(x) == decode(x)",
+              "fraction": 0,
+              "feedback": "encode 與 decode 互為反函式，而非相等的函式。"
+            },
+            {
+              "text": "對所有 x，encode(x) == x",
+              "fraction": 0,
+              "feedback": "編碼會轉換該值，不會使其保持不變。"
+            },
+            {
+              "text": "對所有 x，decode(x) == x",
+              "fraction": 0,
+              "feedback": "解碼是編碼的反函式，不是恆等函式。"
+            }
+          ],
+          "generalFeedback": "往返性質表示解碼會還原編碼：對每個值 x，decode(encode(x)) == x。這是序列化器、編解碼器與剖析器／列印器配對非常常見且強而有力的性質，因為它不需要逐一輸入的期望值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "種子與可重現性",
+          "text": "<p>為什麼 PBT 框架會在失敗時回報一個隨機<strong>種子（seed）</strong>？</p>",
+          "answers": [
+            {
+              "text": "記下種子可讓你重跑完全相同的產生輸入，以確定性地重現該失敗",
+              "fraction": 100,
+              "feedback": "正確——種子使一次隨機執行變得可重現。"
+            },
+            {
+              "text": "種子是失敗測試的期望輸出",
+              "fraction": 0,
+              "feedback": "種子驅動隨機產生器，並非期望輸出。"
+            },
+            {
+              "text": "種子量測測試涵蓋了多少程式碼",
+              "fraction": 0,
+              "feedback": "覆蓋率是另一回事；種子只控制輸入產生。"
+            },
+            {
+              "text": "種子證明性質對所有輸入都成立",
+              "fraction": 0,
+              "feedback": "種子只重現一次執行，無法證明關於所有輸入的任何事。"
+            }
+          ],
+          "generalFeedback": "若每次執行都不同，隨機產生會很難除錯。框架會為其隨機來源設定種子，並在失敗時回報種子，讓你重播完全相同的輸入序列，可靠地重現（進而修正）該缺陷。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "通過的執行並不能證明正確性",
+          "text": "<p>若一個性質導向測試跑了數千個隨機輸入且未找到反例，就等於證明該性質對所有可能輸入都成立。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "否——通過的執行只表示在所產生的輸入中未找到反例，並不表示不存在反例。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——PBT 抽樣有限多個輸入；乾淨的執行提升信心，但不證明性質。"
+            }
+          ],
+          "generalFeedback": "如同一般的測試，PBT 能顯示缺陷的存在（一個反例），但無法顯示其不存在。輸入空間通常無界，而只嘗試了有限多個輸入，因此通過的執行是強力的證據，而非證明。"
+        },
+        {
+          "type": "truefalse",
+          "name": "收縮只回報仍然失敗的輸入",
+          "text": "<p>在收縮一個失敗輸入時，框架只會回報一個仍會使性質失敗的縮減輸入。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——收縮候選只有在仍觸發失敗時才會被保留。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "收縮會保持失敗：它絕不會回報一個通過的縮減輸入。"
+            }
+          ],
+          "generalFeedback": "收縮會探索失敗輸入的更簡單變體，但會丟棄任何不再失敗的候選。最終回報的反例是一個仍違反性質的最小輸入，因此它不會改變通過／失敗的判定。"
+        },
+        {
+          "type": "multichoice",
+          "name": "絕對值的有效性質",
+          "text": "<p>對於實數上正確的 <code>abs</code>（絕對值）函式，下列何者是有效性質？</p>",
+          "answers": [
+            {
+              "text": "對所有 x，abs(x) >= 0",
+              "fraction": 100,
+              "feedback": "正確——絕對值永不為負。"
+            },
+            {
+              "text": "對所有 x，abs(x) > 0",
+              "fraction": 0,
+              "feedback": "在 x = 0 時失敗，因為 abs(0) = 0，並不大於 0。"
+            },
+            {
+              "text": "對所有 x，abs(x) == x",
+              "fraction": 0,
+              "feedback": "只對非負 x 成立；對負 x 失敗。"
+            },
+            {
+              "text": "對所有 x，abs(x) == -x",
+              "fraction": 0,
+              "feedback": "只對非正 x 成立；對正 x 失敗。"
+            }
+          ],
+          "generalFeedback": "abs(x) >= 0 對每個實數 x 都成立，因此是有效性質。注意 abs(x) > 0 因為 x = 0 而微妙地錯誤，而 abs(x) == x 與 abs(x) == -x 都只在半個定義域上為真。更強的性質是 abs(-x) == abs(x)。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "map 的有效性質",
+          "text": "<p>對於 <code>map(f, xs)</code>（對清單每個元素套用 <code>f</code>），下列何者是有效性質？</p>",
+          "answers": [
+            {
+              "text": "對所有清單 xs，len(map(f, xs)) == len(xs)",
+              "fraction": 100,
+              "feedback": "正確——映射保持長度；它逐一轉換元素。"
+            },
+            {
+              "text": "對所有清單 xs，len(map(f, xs)) == 0",
+              "fraction": 0,
+              "feedback": "映射保留每個元素，長度不變，而非為零。"
+            },
+            {
+              "text": "對所有清單 xs，len(map(f, xs)) == 2 * len(xs)",
+              "fraction": 0,
+              "feedback": "映射是一對一的；不會使長度加倍。"
+            },
+            {
+              "text": "map 會反轉元素的順序",
+              "fraction": 0,
+              "feedback": "map 保持順序；每個元素在原位被轉換。"
+            }
+          ],
+          "generalFeedback": "map 對每個元素套用 f，不新增、不丟棄、也不重排元素，所以 len(map(f, xs)) == len(xs) 是有效的長度保持不變量——一個不論 f 為何都成立的簡單結構性性質。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "序列化器／剖析器的最佳性質",
+          "text": "<p>你正在測試一個 <code>serialize</code> 函式與其相對應的 <code>parse</code> 函式。下列何者是最佳的單一檢查性質？</p>",
+          "answers": [
+            {
+              "text": "對所有值 x，parse(serialize(x)) == x（往返）",
+              "fraction": 100,
+              "feedback": "正確——先序列化再剖析必須還原出原值。"
+            },
+            {
+              "text": "對所有 x，serialize(x) 是非空字串",
+              "fraction": 0,
+              "feedback": "雖為真但太弱——它對「還原出 x」毫無保證。"
+            },
+            {
+              "text": "parse(serialize(x)) 不會拋出例外",
+              "fraction": 0,
+              "feedback": "不當機是弱條件；它容許錯誤的剖析結果通過。"
+            },
+            {
+              "text": "serialize(x) == serialize(x)",
+              "fraction": 0,
+              "feedback": "那是恆真的，什麼都沒測到。"
+            }
+          ],
+          "generalFeedback": "往返性質 parse(serialize(x)) == x 釘住了關鍵契約：這一對是忠實的反函式。誘答項不是恆真，就是弱到即使實作有誤仍能滿足。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序的完整性質",
+          "text": "<p>下列何者<em>完整地</em>刻畫了<strong>排序（sort）</strong>函式的正確性？</p>",
+          "answers": [
+            {
+              "text": "輸出為非遞減排列「且」是輸入的一個排列（相同的多重集合元素）",
+              "fraction": 100,
+              "feedback": "正確——排序性加上排列條件共同界定了正確的排序。"
+            },
+            {
+              "text": "輸出為非遞減排列",
+              "fraction": 0,
+              "feedback": "單獨不足——回傳 [] 也是已排序卻錯誤；還需要排列條件。"
+            },
+            {
+              "text": "輸出與輸入長度相同",
+              "fraction": 0,
+              "feedback": "必要但遠遠不足；長度正確而元素錯誤者也會通過。"
+            },
+            {
+              "text": "輸出的總和等於輸入的總和",
+              "fraction": 0,
+              "feedback": "必要但不足——例如輸入 [1,3] 與輸出 [2,2] 總和相同，但 [2,2] 不是其排列。"
+            }
+          ],
+          "generalFeedback": "正確的排序必須是已排序的，且必須（以多重集合而言）包含與輸入完全相同的元素。只檢查排序、只檢查長度、或只檢查總和都各自容許錯誤實作。排列（多重集合相等）條件是不可或缺的另一半。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何只有「已排序」並不足夠",
+          "text": "<p>為什麼只用「輸出為已排序」作為排序函式的唯一性質是<strong>不足</strong>的？</p>",
+          "answers": [
+            {
+              "text": "一個回傳 []（或丟棄／重複元素）的錯誤實作仍會產生已排序輸出而通過；你還必須要求輸出是輸入的一個排列",
+              "fraction": 100,
+              "feedback": "正確——「回傳 []」恆能滿足「已排序」，所以排列條件不可或缺。"
+            },
+            {
+              "text": "因為正確的排序未必總是已排序",
+              "fraction": 0,
+              "feedback": "正確的排序總是已排序；排序性是必要的，只是不足。"
+            },
+            {
+              "text": "因為檢查順序在計算上不可能",
+              "fraction": 0,
+              "feedback": "檢查順序輕而易舉；問題在於只靠順序會容許錯誤輸出。"
+            },
+            {
+              "text": "因為排序沒有可檢查的性質",
+              "fraction": 0,
+              "feedback": "排序有強力性質；已排序加上排列共同界定了它。"
+            }
+          ],
+          "generalFeedback": "空清單是已排序的，因此一個永遠回傳 [] 的函式能通過「已排序」檢查卻完全錯誤；丟棄或重複元素的函式亦然。加入排列（多重集合）要求即可排除這些——這是選擇「足夠性質」的經典一課。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "normalize 函式的性質",
+          "text": "<p>函式 <code>normalize</code> 將字串轉為正規形式（例如 Unicode NFC、去除頭尾空白、轉小寫）。下列何種性質應成立？</p>",
+          "answers": [
+            {
+              "text": "對所有 s，normalize(normalize(s)) == normalize(s)（冪等性）",
+              "fraction": 100,
+              "feedback": "正確——對已正規化的字串再正規化不會有任何改變。"
+            },
+            {
+              "text": "對所有 s，normalize(s) == s",
+              "fraction": 0,
+              "feedback": "為假——對非正規的字串進行正規化會改變它。"
+            },
+            {
+              "text": "對所有 s，normalize(normalize(s)) == s",
+              "fraction": 0,
+              "feedback": "那是對合，並不成立：第一次 normalize 可能已改變 s。"
+            },
+            {
+              "text": "對所有 s，len(normalize(s)) == len(s)",
+              "fraction": 0,
+              "feedback": "去除空白或 Unicode 合成會改變長度，因此為假。"
+            }
+          ],
+          "generalFeedback": "正規化是冪等的：一旦字串為正規形式，再正規化便不改變它，所以 normalize(normalize(s)) == normalize(s)。它不是恆等（可能改變 s），也不是對合（無法由正規形式還原出原字串）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "收縮對失敗清單的回報",
+          "text": "<p>某性質在隨機產生的清單 <code>[7, -3, 0, 12, 5, -8, 4]</code> 上失敗。具備收縮能力的框架通常會回報什麼？</p>",
+          "answers": [
+            {
+              "text": "一個仍然失敗的最小化輸入——例如能重現該失敗的最短／最簡清單（也許是單一元素或 [ ]）",
+              "fraction": 100,
+              "feedback": "正確——收縮收斂到一個仍然失敗的最小輸入。"
+            },
+            {
+              "text": "原本未改動的七元素清單",
+              "fraction": 0,
+              "feedback": "收縮會設法縮減輸入，而非原樣回報。"
+            },
+            {
+              "text": "一個現在會通過性質的輸入",
+              "fraction": 0,
+              "feedback": "收縮絕不回報通過的輸入；縮減後的輸入必須仍然失敗。"
+            },
+            {
+              "text": "一個與該失敗無關的全新隨機清單",
+              "fraction": 0,
+              "feedback": "收縮是簡化失敗輸入，不會換成無關的清單。"
+            }
+          ],
+          "generalFeedback": "收縮反覆嘗試更簡單的版本（丟棄元素、縮小數值），只保留仍然失敗者，最終得到一個最小反例。這能孤立出關鍵觸發因素，比盯著原本雜亂的輸入更快除錯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "用種子重現 CI 失敗",
+          "text": "<p>一次 CI 執行回報了性質失敗並附上一個<strong>種子</strong>。為了在本地端除錯，開發者該怎麼做？</p>",
+          "answers": [
+            {
+              "text": "用相同的種子重跑測試，以重新產生完全相同的輸入並重現該失敗",
+              "fraction": 100,
+              "feedback": "正確——重播種子可重現該次失敗執行。"
+            },
+            {
+              "text": "增加產生的案例數，寄望它再次出現",
+              "fraction": 0,
+              "feedback": "不可靠——種子已能精確重現，無須靠猜。"
+            },
+            {
+              "text": "停用收縮，讓測試不再失敗",
+              "fraction": 0,
+              "feedback": "停用收縮會隱藏最小反例，並不能修正或重現任何東西。"
+            },
+            {
+              "text": "修改性質直到測試通過",
+              "fraction": 0,
+              "feedback": "那是遮掩缺陷，而非診斷它。"
+            }
+          ],
+          "generalFeedback": "種子捕捉了一次執行的確切隨機選擇。用它重跑會確定性地重新產生相同的（已收縮的）輸入，開發者便能在本地端看到完全相同的失敗並逐步追蹤。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個函式是冪等的",
+          "text": "<p>對於哪個函式 <code>f</code>，性質 <code>f(f(x)) == f(x)</code> 對所有 x 都有效？</p>",
+          "answers": [
+            {
+              "text": "取絕對值：abs",
+              "fraction": 100,
+              "feedback": "正確——abs(abs(x)) == abs(x)，所以 abs 是冪等的。"
+            },
+            {
+              "text": "加一：inc(x) = x + 1",
+              "fraction": 0,
+              "feedback": "非冪等——inc(inc(x)) = x + 2，與 inc(x) = x + 1 不同。"
+            },
+            {
+              "text": "反轉清單：reverse",
+              "fraction": 0,
+              "feedback": "reverse 是對合（reverse(reverse(x)) == x），不是冪等。"
+            },
+            {
+              "text": "取負：neg(x) = -x",
+              "fraction": 0,
+              "feedback": "取負是對合（neg(neg(x)) == x），不是冪等。"
+            }
+          ],
+          "generalFeedback": "abs 是冪等的，因為一旦值為非負，再取 abs 便無作用。加一失敗（加 2 而非 1），而 reverse／取負是對合（套用兩次回到原值），那是不同的性質。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "交換律性質",
+          "text": "<p>對所有輸入，哪個運算滿足有效的<strong>交換律</strong>性質 <code>f(a, b) == f(b, a)</code>？</p>",
+          "answers": [
+            {
+              "text": "乘法：a * b == b * a",
+              "fraction": 100,
+              "feedback": "正確——乘法滿足交換律。"
+            },
+            {
+              "text": "減法：a - b == b - a",
+              "fraction": 0,
+              "feedback": "一般為假——例如 5 - 3 = 2 但 3 - 5 = -2。"
+            },
+            {
+              "text": "除法：a / b == b / a",
+              "fraction": 0,
+              "feedback": "一般為假——例如 6 / 2 = 3 但 2 / 6 ≈ 0.33。"
+            },
+            {
+              "text": "次方：a ** b == b ** a",
+              "fraction": 0,
+              "feedback": "一般為假——例如 2 ** 3 = 8 但 3 ** 2 = 9。"
+            }
+          ],
+          "generalFeedback": "交換律 f(a, b) == f(b, a) 對加法與乘法成立，但對減法、除法或次方不成立。若為不可交換的運算選擇交換律性質，會誤報正確的程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "base64 編解碼器的往返性質",
+          "text": "<p>對於 base64 編解碼器，下列哪個往返性質才是正確的檢查對象？</p>",
+          "answers": [
+            {
+              "text": "decode(encode(bytes)) == bytes，產生隨機的位元組序列",
+              "fraction": 100,
+              "feedback": "正確——對任意位元組編碼再解碼必須完全還原它們。"
+            },
+            {
+              "text": "encode(decode(s)) == s，產生隨機字串 s",
+              "fraction": 0,
+              "feedback": "不健全——隨機字串未必是有效／正規的 base64，因此可能在正確程式上失敗。"
+            },
+            {
+              "text": "對所有位元組序列，encode(bytes) == bytes",
+              "fraction": 0,
+              "feedback": "編碼把位元組轉為文字，不會原樣回傳輸入。"
+            },
+            {
+              "text": "decode(encode(bytes)) 比 bytes 短",
+              "fraction": 0,
+              "feedback": "往返會還原原位元組，因此長度相同，並非更短。"
+            }
+          ],
+          "generalFeedback": "先產生原始值（位元組），再編碼、再解碼：decode(encode(bytes)) == bytes 是健全的，因為每個位元組序列都可編碼。反方向對隨機字串則是經典陷阱：並非每個字串都是有效的 base64 編碼，所以 encode(decode(s)) == s 可能合理地失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以參考實作作為預言",
+          "text": "<p>你有一個快速但複雜的實作 <code>fast_fn</code>，以及一個緩慢但顯然正確、符合同一規格的參考實作 <code>ref_fn</code>。PBT 如何運用這個參考？</p>",
+          "answers": [
+            {
+              "text": "產生隨機輸入並斷言 fast_fn(x) == ref_fn(x)——參考實作作為測試預言",
+              "fraction": 100,
+              "feedback": "正確——比對可信的參考實作即可免費獲得預言。"
+            },
+            {
+              "text": "對隨機 x 斷言 fast_fn(x) == fast_fn(x)",
+              "fraction": 0,
+              "feedback": "那是恆真的，什麼都沒測到。"
+            },
+            {
+              "text": "在正式環境中以 ref_fn 取代 fast_fn",
+              "fraction": 0,
+              "feedback": "參考實作是測試預言，不是正式環境的替代（它很慢）。"
+            },
+            {
+              "text": "只測試兩者已經一致的輸入",
+              "fraction": 0,
+              "feedback": "那違背目的——你要找的正是兩者不一致的輸入。"
+            }
+          ],
+          "generalFeedback": "較簡單的參考實作是絕佳預言：對每個產生的輸入，優化版本都必須與其相符。這就是「以較簡單模型作為測試預言」，也是差分／模型導向測試的基礎。任何不一致都是反例，收縮接著會將其最小化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "檢查排列條件",
+          "text": "<p>要檢查排序輸出是輸入的一個<strong>排列</strong>，下列哪個檢查是正確的？</p>",
+          "answers": [
+            {
+              "text": "輸出與輸入具有相同的多重集合（每個值在兩者出現次數相同）",
+              "fraction": 100,
+              "feedback": "正確——多重集合相等即刻畫了排列條件。"
+            },
+            {
+              "text": "輸出與輸入長度相同",
+              "fraction": 0,
+              "feedback": "長度相同為必要但不足；元素仍可能不同。"
+            },
+            {
+              "text": "輸出與輸入的第一個元素相同",
+              "fraction": 0,
+              "feedback": "第一個元素可能不同（最小者未必位於輸入之首），且此檢查忽略其餘部分。"
+            },
+            {
+              "text": "輸出與輸入的總和相同",
+              "fraction": 0,
+              "feedback": "總和相同不蘊含多重集合相等——[1,3] 與 [2,2] 總和相同卻不同。"
+            }
+          ],
+          "generalFeedback": "排列會保持元素的多重集合：比較元素出現次數（或比較以可信方法排序後的版本）即可驗證。長度或總和相等是較弱的推論，許多錯誤輸出也會滿足。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何要檢視產生器的分布",
+          "text": "<p>為什麼 PBT 框架讓你檢視所產生輸入的<strong>分布</strong>（例如 Hypothesis 的統計、QuickCheck 的 <code>collect</code>／<code>classify</code>）？</p>",
+          "answers": [
+            {
+              "text": "用以確認產生器確實產出了有趣與邊界案例；偏斜的產生器可能從未觸及會觸發缺陷的輸入",
+              "fraction": 100,
+              "feedback": "正確——分布資訊可防止產生器漏掉重要案例。"
+            },
+            {
+              "text": "用以量測程式碼的敘述與分支覆蓋率",
+              "fraction": 0,
+              "feedback": "那是程式碼覆蓋率，與輸入分布是不同的關注點。"
+            },
+            {
+              "text": "用以讓收縮跑得更快",
+              "fraction": 0,
+              "feedback": "分布回報影響的是產生品質，而非收縮速度。"
+            },
+            {
+              "text": "用以證明性質對所有輸入成立",
+              "fraction": 0,
+              "feedback": "沒有任何抽樣能證明全稱性質；分布統計只描述所產生的內容。"
+            }
+          ],
+          "generalFeedback": "若產生器很少（或從不）產出空清單、邊界數值或重複值，性質可能通過，而觸發缺陷的輸入卻從未被嘗試。分布回報讓你能驗證——並調整——輸入空間的重要區域確實被抽樣到。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "只有「已排序」就能完整驗證排序",
+          "text": "<p>只檢查排序函式的輸出為非遞減排列，就是一個能完整驗證排序的完整性質。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "否——回傳 [] 的函式是已排序卻錯誤；你還需要排列（多重集合）條件。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——單靠排序性會被錯誤實作滿足；輸出還必須是輸入的一個排列。"
+            }
+          ],
+          "generalFeedback": "「已排序」為必要但不足。回傳空清單，或丟棄／重複元素，都能產生已排序輸出卻不正確。完整的排序性質要把排序性與輸入輸出間的多重集合相等配對在一起。"
+        },
+        {
+          "type": "multichoice",
+          "name": "移除重複的不變量性質",
+          "text": "<p>對於從清單移除重複值的函式 <code>dedup(xs)</code>，下列何者是有效的不變量性質？</p>",
+          "answers": [
+            {
+              "text": "dedup(xs) 不含重複值，且其元素集合等於 xs 的元素集合",
+              "fraction": 100,
+              "feedback": "正確——去重會移除重複，同時保留恰好出現過哪些值。"
+            },
+            {
+              "text": "對所有 xs，len(dedup(xs)) == len(xs)",
+              "fraction": 0,
+              "feedback": "當 xs 有重複時為假；那種情況長度必然下降。"
+            },
+            {
+              "text": "對所有 xs，dedup(xs) == xs",
+              "fraction": 0,
+              "feedback": "只有在 xs 本來就無重複時成立，並非所有清單。"
+            },
+            {
+              "text": "dedup 保持每個值的出現次數",
+              "fraction": 0,
+              "feedback": "去重會把重複收合為單一次出現，因此每個值的次數不被保持。"
+            }
+          ],
+          "generalFeedback": "正確的 dedup 輸出不含重複，且涵蓋與輸入完全相同的相異值——即元素集合相等，再加上「無重複」的不變量。只有本來就沒有重複時長度才會被保持，而每個值的次數則是刻意不保持的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序是冪等的",
+          "text": "<p>下列哪個性質表達了<strong>排序是冪等的</strong>？</p>",
+          "answers": [
+            {
+              "text": "對所有清單 xs，sort(sort(xs)) == sort(xs)",
+              "fraction": 100,
+              "feedback": "正確——對已排序清單再排序不會有任何改變。"
+            },
+            {
+              "text": "對所有清單 xs，sort(sort(xs)) == xs",
+              "fraction": 0,
+              "feedback": "一般為假——內層 sort 已重排 xs，因此無法還原出原清單。"
+            },
+            {
+              "text": "對所有清單 xs，sort(xs) == xs",
+              "fraction": 0,
+              "feedback": "只有 xs 本來就已排序時為真，並非所有清單。"
+            },
+            {
+              "text": "sort(xs) 會反轉一份已排序的清單",
+              "fraction": 0,
+              "feedback": "排序絕不會反轉已排序清單；它會讓它維持有序。"
+            }
+          ],
+          "generalFeedback": "排序的冪等性表示再套用一次不會有作用：sort(sort(xs)) == sort(xs)。注意單靠這個是弱性質（許多錯誤函式也是冪等的）；它互補於、但無法取代排序性加上排列。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "評析一個方向相反的往返性質",
+          "text": "<p>某測試者提出以 <code>encode(decode(s)) == s</code> 作為編解碼器的往返性質，並產生隨機<em>字串</em> <code>s</code>。為什麼這在正確程式上也可能引發假失敗？</p>",
+          "answers": [
+            {
+              "text": "並非每個隨機字串都是有效／正規的編碼，因此 decode 可能拒絕或正規化它，使得 encode(decode(s)) 未必等於 s；健全的性質是對產生的已解碼值 x 檢查 decode(encode(x)) == x",
+              "fraction": 100,
+              "feedback": "正確——所產生的字串未必落在 encode 的值域內，因此此方向不健全。"
+            },
+            {
+              "text": "沒有任何問題；對正確的編解碼器它永遠成立",
+              "fraction": 0,
+              "feedback": "每當 s 不是正規編碼時它就會失敗，即使對正確的編解碼器亦然。"
+            },
+            {
+              "text": "編解碼器根本無法用 PBT 測試",
+              "fraction": 0,
+              "feedback": "可以——健全方向 decode(encode(x)) == x 是強力性質。"
+            },
+            {
+              "text": "隨機種子選錯了",
+              "fraction": 0,
+              "feedback": "問題在於性質的方向，而非種子。"
+            }
+          ],
+          "generalFeedback": "encode(decode(s)) == s 只有在 s 本來就是 encode 的正規輸出時才成立。隨機字串常常不是（非正規的填補、多餘空白），所以正確的編解碼器也可能違反它。應改為產生源值並檢查 decode(encode(x)) == x——encode 的值域正是 decode 必須反轉的範圍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一個實際為假的提議性質",
+          "text": "<p>某測試者為加一函式 <code>inc(n) = n + 1</code> 寫下性質 <code>inc(inc(n)) == inc(n)</code>。會發生什麼事？</p>",
+          "answers": [
+            {
+              "text": "對正確的 inc 而言此性質為假（inc(inc(n)) = n + 2 ≠ n + 1），所以 PBT 會很快找到反例——但這代表性質有誤，而非 inc 有缺陷",
+              "fraction": 100,
+              "feedback": "正確——該性質誤以為 inc 冪等；失敗是性質的錯。"
+            },
+            {
+              "text": "它正確驗證了 inc 能運作",
+              "fraction": 0,
+              "feedback": "並非如此——正確的 inc 會違反這個為假的性質。"
+            },
+            {
+              "text": "它證明了 inc 是冪等的",
+              "fraction": 0,
+              "feedback": "inc 並非冪等；該性質根本就錯了。"
+            },
+            {
+              "text": "它對所有 n 都通過",
+              "fraction": 0,
+              "feedback": "它對每個 n 都失敗，因為 n + 2 永遠不等於 n + 1。"
+            }
+          ],
+          "generalFeedback": "加一並非冪等：套用兩次會加 2。為它寫冪等性質等於斷言一件假的事，因此框架會回報反例。啟示：失敗的 PBT 執行可能代表性質有誤，所以要驗證每個所斷言的性質對正確實作確實成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有狀態（模型導向）的 PBT",
+          "text": "<p><strong>有狀態（模型導向）</strong>的性質導向測試有何特徵？</p>",
+          "answers": [
+            {
+              "text": "框架產生隨機的指令序列，對真實系統與一個簡化模型同時執行，並斷言每一步之後的可觀察結果一致；失敗的序列接著被收縮",
+              "fraction": 100,
+              "feedback": "正確——模型導向 PBT 以指令序列比對系統與參考模型。"
+            },
+            {
+              "text": "它以隨機輸入測試單一純函式，沒有狀態",
+              "fraction": 0,
+              "feedback": "那是一般（無狀態）PBT；模型導向 PBT 驅動的是有狀態系統。"
+            },
+            {
+              "text": "它量測程式達到多少個狀態",
+              "fraction": 0,
+              "feedback": "那是覆蓋率概念，不是以模型檢查行為。"
+            },
+            {
+              "text": "它把真實資料庫換成隨機資料，僅此而已",
+              "fraction": 0,
+              "feedback": "重點不在隨機化資料，而在以指令序列比對系統與模型。"
+            }
+          ],
+          "generalFeedback": "模型導向 PBT 產生一段隨機程式（一連串操作），對真實系統與一個一望即知正確的簡單模型同時執行，並檢查每一步的觀察是否相符。當某序列不一致時，收縮會把它縮減為最小的失敗指令序列——缺陷的本質。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "收縮大型結構化輸入的價值",
+          "text": "<p>某性質在一棵隨機產生、含特定數值的 500 節點樹上失敗。為什麼<strong>收縮</strong>在此格外有價值？</p>",
+          "answers": [
+            {
+              "text": "它把龐大的失敗輸入縮減為一個仍然失敗的最小結構（例如兩、三個節點的樹），孤立出關鍵觸發因素並大幅加速除錯——同時不改變失敗判定",
+              "fraction": 100,
+              "feedback": "正確——收縮把大型反例提煉出其核心。"
+            },
+            {
+              "text": "它證明該性質對所有較小的樹都成立",
+              "fraction": 0,
+              "feedback": "收縮找的是最小失敗案例；它不證明任何通過案例。"
+            },
+            {
+              "text": "它讓原本的 500 節點樹通過",
+              "fraction": 0,
+              "feedback": "收縮不改變判定；該輸入仍然失敗。"
+            },
+            {
+              "text": "它把樹轉換為清單以簡化型別",
+              "fraction": 0,
+              "feedback": "收縮保持輸入的型別／結構；它縮減的是大小，而非型別。"
+            }
+          ],
+          "generalFeedback": "500 節點的反例幾乎無法推敲。收縮會修剪節點並縮小數值，同時保持失敗，往往抵達一個能揭露確切條件的微小結構。這正是收縮最見效之處，且它絕不改變輸入是否失敗。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "產生器分布的陷阱",
+          "text": "<p>用來測試「剖析非負整數」函式的產生器只會產出 3 到 5 位數的數字字串。風險為何？</p>",
+          "answers": [
+            {
+              "text": "它可能從未產生邊界與極端輸入（空字串、前導零、非數字字元、極大數值），使那些輸入上的缺陷未被偵測，通過的執行給人虛假的信心",
+              "fraction": 100,
+              "feedback": "正確——狹隘的產生器讓大片輸入空間未被測試。"
+            },
+            {
+              "text": "收縮會完全停止運作",
+              "fraction": 0,
+              "feedback": "收縮在所產生的範圍內仍可運作；問題在於範圍太窄。"
+            },
+            {
+              "text": "記下的種子會失效",
+              "fraction": 0,
+              "feedback": "種子仍然有效；顧慮在於輸入空間的涵蓋。"
+            },
+            {
+              "text": "該性質會自動變為假",
+              "fraction": 0,
+              "feedback": "性質不變；只是被測試得不夠充分。"
+            }
+          ],
+          "generalFeedback": "剖析器的缺陷通常藏在邊緣——空輸入、前導零、非數字、超大數值。只發出典型中段值的產生器永遠觸及不到它們，所以性質在困難案例上空洞地通過。檢視並拓寬產生器的分布不可或缺。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合互補的性質",
+          "text": "<p>你為一個函式檢查兩個各自有效的性質。同時測試兩者，下列何者為真？</p>",
+          "answers": [
+            {
+              "text": "檢查互補的性質會強化測試——各自排除不同類別的錯誤實作（例如「已排序」加「排列」共同界定排序）——但即使合在一起，也未必能完整刻畫正確性",
+              "fraction": 100,
+              "feedback": "正確——組合性質更強，卻不必然是完整的規格。"
+            },
+            {
+              "text": "組合兩個有效性質即可證明函式正確",
+              "fraction": 0,
+              "feedback": "沒有任何在抽樣輸入上的有限檢查能證明正確性。"
+            },
+            {
+              "text": "每個函式只能檢查一個性質",
+              "fraction": 0,
+              "feedback": "鼓勵並常見同時使用多個性質。"
+            },
+            {
+              "text": "組合兩個有效性質可能使其中之一變為假",
+              "fraction": 0,
+              "feedback": "有效的性質仍然有效；一起檢查不會使任一失效。"
+            }
+          ],
+          "generalFeedback": "不同性質捕捉不同的缺陷類別：「輸出已排序」加「輸出是輸入的一個排列」共同刻畫正確排序，遠勝於任一單獨使用。然而性質只能捕捉你想到的關係，且抽樣有限，所以組合它們提升信心卻不證明正確性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PBT 互補於範例測試",
+          "text": "<p>性質導向測試與手寫的範例（單元）測試有何關係？</p>",
+          "answers": [
+            {
+              "text": "兩者互補：性質涵蓋廣泛的輸入空間，範例測試則釘住特定的重要案例、回歸與已知邊界點——優良的測試套件兩者並用",
+              "fraction": 100,
+              "feedback": "正確——性質與範例互相強化。"
+            },
+            {
+              "text": "性質測試使範例測試變得多餘",
+              "fraction": 0,
+              "feedback": "範例仍能記錄並鎖定特定已知案例與回歸。"
+            },
+            {
+              "text": "範例測試使性質測試變得多餘",
+              "fraction": 0,
+              "feedback": "範例只涵蓋點；唯有性質能探索一整個輸入空間。"
+            },
+            {
+              "text": "它們測試不相交的程式種類，永不重疊",
+              "fraction": 0,
+              "feedback": "它們常從不同角度測試同一段程式；是互補而非不相交。"
+            }
+          ],
+          "generalFeedback": "範例測試是特定行為、邊界值與過往回歸的精確、可讀錨點。性質測試探索空間並揭露你未曾想到要寫範例的意外。最強的套件同時採用兩者，而非二選一。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "收縮必須保持失敗",
+          "text": "<p>在收縮過程中，某個縮減後的候選輸入<em>不再</em>使性質失敗。框架會怎麼做？</p>",
+          "answers": [
+            {
+              "text": "它丟棄該候選，並從仍然失敗的輸入繼續收縮；只有仍然觸發失敗的輸入才會被回報",
+              "fraction": 100,
+              "feedback": "正確——收縮只保留仍然失敗的候選。"
+            },
+            {
+              "text": "它把通過的縮減輸入當作反例回報",
+              "fraction": 0,
+              "feedback": "通過的輸入不是反例，絕不會被當作反例回報。"
+            },
+            {
+              "text": "它停下並宣告整個測試通過",
+              "fraction": 0,
+              "feedback": "一個通過的收縮候選並不能清除原本的失敗。"
+            },
+            {
+              "text": "它修改性質使該候選失敗",
+              "fraction": 0,
+              "feedback": "收縮絕不改變性質；它只縮減輸入。"
+            }
+          ],
+          "generalFeedback": "收縮是一種受限於「仍然失敗的輸入」的搜尋：任何通過的候選都被拒絕，搜尋從失敗者繼續。最終回報的反例因此仍違反性質，所以通過／失敗判定不變——收縮只讓見證更小。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "往返性質的健全條件",
+          "text": "<p>在什麼條件下，<code>decode(encode(x)) == x</code> 是<strong>健全</strong>的性質（對每個產生的 x 都成立）？</p>",
+          "answers": [
+            {
+              "text": "當 encode 是單射，且 decode 在 encode 的值域上是 encode 的左反函式——亦即對每個可被產生的值 x，decode 都能還原 encode",
+              "fraction": 100,
+              "feedback": "正確——這正是讓往返能還原 x 的條件。"
+            },
+            {
+              "text": "永遠成立，對任何 encode 與 decode 函式皆然",
+              "fraction": 0,
+              "feedback": "若 encode 遺失資訊（非單射），解碼便無法還原 x。"
+            },
+            {
+              "text": "只有當 encode 與 decode 是同一個函式時",
+              "fraction": 0,
+              "feedback": "它們互為反函式，一般是不同的函式，而非相等。"
+            },
+            {
+              "text": "只有當 x 是字串時",
+              "fraction": 0,
+              "feedback": "x 的型別無關緊要；重要的是反函式關係。"
+            }
+          ],
+          "generalFeedback": "decode(encode(x)) == x 要求 encode 為單射（無損），且 decode 在 encode 的輸出上將其反轉。若 encode 把兩個相異值對應到同一編碼，任何解碼器都無法同時還原兩者，該性質便不健全。陳述此條件正是維持往返性質有效的關鍵。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為鍵值儲存選擇模型",
+          "text": "<p>在對鍵值儲存進行模型導向測試時，什麼樣的<strong>模型</strong>適合作為比對對象？</p>",
+          "answers": [
+            {
+              "text": "一個顯然正確的簡單記憶體字典；在每個產生的指令（put／get／delete）之後，儲存的可觀察結果都必須與字典相符",
+              "fraction": 100,
+              "feedback": "正確——一個一望即知正確的參考模型是理想的預言。"
+            },
+            {
+              "text": "同一個儲存實作的第二份副本",
+              "fraction": 0,
+              "feedback": "副本共享相同的缺陷，因此一致並不能證明什麼。"
+            },
+            {
+              "text": "一個回傳任意值的隨機預言",
+              "fraction": 0,
+              "feedback": "隨機預言沒有可供比對的既定正確行為。"
+            },
+            {
+              "text": "儲存自身的效能計數器",
+              "fraction": 0,
+              "feedback": "效能計數器不是正確性的功能模型。"
+            }
+          ],
+          "generalFeedback": "模型應是最小、一望即知正確的抽象（此處為一個普通字典）。模型導向測試的重點正是拿複雜的真實系統去比對某個簡單到足以信任的東西。用真實實作的第二份副本只會複製它的缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何單靠冪等性是弱的排序性質",
+          "text": "<p>某人只用 <code>sort(sort(xs)) == sort(xs)</code>（冪等性）來測試排序函式。為什麼這很弱？</p>",
+          "answers": [
+            {
+              "text": "許多錯誤函式都是冪等的——例如永遠回傳 [] 者，或原樣回傳 xs 的恆等——所以冪等性並不要求輸出有序或保留輸入的元素",
+              "fraction": 100,
+              "feedback": "正確——冪等性會被明顯不正確的排序滿足。"
+            },
+            {
+              "text": "冪等性對正確的排序為假",
+              "fraction": 0,
+              "feedback": "它對正確的排序為真；只是單獨不足。"
+            },
+            {
+              "text": "它單獨就能完整驗證排序",
+              "fraction": 0,
+              "feedback": "並不能——錯誤函式也會通過它。"
+            },
+            {
+              "text": "它只在空清單上失敗",
+              "fraction": 0,
+              "feedback": "它在空清單上也通過；弱點在於錯誤函式會滿足它。"
+            }
+          ],
+          "generalFeedback": "「永遠回傳 []」與「原樣回傳輸入」都滿足 sort(sort(xs)) == sort(xs)，卻都沒有排序。冪等性是排序真正的性質，但很弱；必須與排序性及排列（多重集合）條件結合才能刻畫正確性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "過窄的產生器範圍掩蓋溢位",
+          "text": "<p>一個關於 32 位元整數加法器的性質通過了，但產生器只產出範圍在 <code>[0, 100]</code> 的運算元。最佳結論為何？</p>",
+          "answers": [
+            {
+              "text": "此通過是薄弱的證據——接近 2^31 的溢位與邊界行為從未被產生，所以性質未在最可能失敗的輸入上被測試到",
+              "fraction": 100,
+              "feedback": "正確——有風險的輸入從未被抽樣，信心因此有限。"
+            },
+            {
+              "text": "該加法器對所有 32 位元輸入都已被證明正確",
+              "fraction": 0,
+              "feedback": "只嘗試了極小的運算元；對大數毫無證明。"
+            },
+            {
+              "text": "性質導向測試是不健全的",
+              "fraction": 0,
+              "feedback": "PBT 沒問題；只是產生器範圍太窄。"
+            },
+            {
+              "text": "該性質必為假",
+              "fraction": 0,
+              "feedback": "性質可能正確；只是被測試得不足。"
+            }
+          ],
+          "generalFeedback": "溢位缺陷藏在型別的極端。侷限於 [0, 100] 的產生器無法觸及接近 2^31 的值，所以乾淨的執行對危險區域毫無說明。在信任結果之前，應拓寬產生器以納入邊界與大值（並檢視其分布）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "評析一個為假的全稱性質",
+          "text": "<p>某測試者提出對所有清單 <code>reverse(xs) != xs</code>（宣稱反轉總會改變清單）。為什麼這是個糟糕的性質？</p>",
+          "answers": [
+            {
+              "text": "它為假：回文清單，以及空清單或單一元素清單，都滿足 reverse(xs) == xs，因此正確的 reverse 會違反這個提議性質——出錯的是性質，而非程式",
+              "fraction": 100,
+              "feedback": "正確——許多清單在反轉後不變，所以「總會改變」的宣稱為假。"
+            },
+            {
+              "text": "它照字面寫就是正確且有用的",
+              "fraction": 0,
+              "feedback": "它對回文與短清單失敗，所以並不正確。"
+            },
+            {
+              "text": "它只對很長的清單失敗",
+              "fraction": 0,
+              "feedback": "它對最短的清單（空、單一元素）與任何回文都失敗。"
+            },
+            {
+              "text": "reverse 不是純函式，所以沒有性質適用",
+              "fraction": 0,
+              "feedback": "reverse 是純函式；問題在於所斷言的性質根本為假。"
+            }
+          ],
+          "generalFeedback": "空清單、任何單一元素清單，以及每個回文，在反轉後都不變，所以 reverse(xs) != xs 並非全稱成立。PBT 會回報其中之一作為反例，揭露的是一個有瑕疵的性質而非缺陷。在信任其失敗之前，務必確認所提議的性質確實是必要的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "乾淨的收縮與通過的執行能確立什麼",
+          "text": "<p>經過數千個案例，並對開發期間遇到的任何失敗做了乾淨的收縮之後，所有性質現在都通過。你能得出什麼結論？</p>",
+          "answers": [
+            {
+              "text": "在所產生的輸入中未找到反例；這提升信心，但不證明性質對所有輸入成立，因為輸入空間通常無界",
+              "fraction": 100,
+              "feedback": "正確——乾淨的執行是強力證據，而非證明。"
+            },
+            {
+              "text": "程式現在已被證明正確",
+              "fraction": 0,
+              "feedback": "抽樣有限多個輸入無法證明全稱性質。"
+            },
+            {
+              "text": "每個可能的輸入都已被測試",
+              "fraction": 0,
+              "feedback": "只測試了有限的隨機樣本，而非整個空間。"
+            },
+            {
+              "text": "這些性質現在成了數學定理",
+              "fraction": 0,
+              "feedback": "通過的測試不會把性質變成已證明的定理。"
+            }
+          ],
+          "generalFeedback": "PBT 探索的是一個往往無限的輸入空間的樣本。乾淨的執行——即使有優良的產生器與收縮——只表示「在此未找到反例」，這提升信心卻絕不等於證明。要證明得靠形式化驗證，而非測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "差分式性質導向測試",
+          "text": "<p>什麼是<strong>差分式（differential）</strong>性質導向測試？</p>",
+          "answers": [
+            {
+              "text": "產生隨機輸入，並斷言同一規格的兩個獨立實作產生相等的結果；不一致即是一個反例，指出（至少）其中之一有缺陷",
+              "fraction": 100,
+              "feedback": "正確——差分式測試讓兩個實作互相對照。"
+            },
+            {
+              "text": "在隨機輸入上比較兩個實作的執行時間",
+              "fraction": 0,
+              "feedback": "那是效能比較，不是差分式正確性測試。"
+            },
+            {
+              "text": "測試兩個數字的算術差",
+              "fraction": 0,
+              "feedback": "此處的「差分」指比較實作，而非相減。"
+            },
+            {
+              "text": "以兩個不同種子把同一個實作跑兩次",
+              "fraction": 0,
+              "feedback": "那頂多檢查確定性；差分式測試比較的是兩個相異實作。"
+            }
+          ],
+          "generalFeedback": "差分式測試把相同的產生輸入餵給同一規格的兩個實作（例如優化版剖析器與參考剖析器），要求輸出相符。任何不一致，一旦收縮為最小輸入，即揭露其中之一的缺陷——前提是至少一方對該輸入可信。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "risk-based-testing": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What is a risk",
+          "text": "<p>In risk-based testing, a <em>risk</em> is best described as:</p>",
+          "answers": [
+            {
+              "text": "A potential problem, characterised by the combination of its likelihood of occurring and its impact if it does",
+              "fraction": 100,
+              "feedback": "Correct — a risk pairs a likelihood (probability) with an impact (consequence)."
+            },
+            {
+              "text": "A defect that has already been found and logged",
+              "fraction": 0,
+              "feedback": "That is a known defect; a risk is a potential future problem, not a confirmed one."
+            },
+            {
+              "text": "A test case that always fails",
+              "fraction": 0,
+              "feedback": "A failing test is evidence of a defect, not the definition of a risk."
+            },
+            {
+              "text": "The total number of test cases in the plan",
+              "fraction": 0,
+              "feedback": "That is a size metric of the suite, unrelated to what a risk is."
+            }
+          ],
+          "generalFeedback": "A risk is a possible future problem. It is characterised by two dimensions: the likelihood that it occurs and the impact (severity of the consequence) if it does. Risk-based testing uses both dimensions to decide where to focus test effort.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of likelihood",
+          "text": "<p>The <em>likelihood</em> component of a risk refers to:</p>",
+          "answers": [
+            {
+              "text": "The probability that the failure or defect actually occurs",
+              "fraction": 100,
+              "feedback": "Correct — likelihood is how probable the problem is."
+            },
+            {
+              "text": "How severe the consequence would be if the problem occurred",
+              "fraction": 0,
+              "feedback": "That is the impact dimension, not likelihood."
+            },
+            {
+              "text": "The cost of writing the test cases",
+              "fraction": 0,
+              "feedback": "Test-authoring cost is a project concern, not the likelihood of a risk."
+            },
+            {
+              "text": "The number of testers assigned to the feature",
+              "fraction": 0,
+              "feedback": "Staffing is unrelated to the probability that a defect occurs."
+            }
+          ],
+          "generalFeedback": "Likelihood (probability) is one of the two dimensions of risk: how probable it is that a failure or defect will actually happen. The other dimension is impact.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of impact",
+          "text": "<p>The <em>impact</em> component of a risk refers to:</p>",
+          "answers": [
+            {
+              "text": "The severity of the consequence if the failure or defect occurs",
+              "fraction": 100,
+              "feedback": "Correct — impact is how bad it would be if the problem happened."
+            },
+            {
+              "text": "How probable it is that the defect will occur",
+              "fraction": 0,
+              "feedback": "That is likelihood, the other dimension of risk."
+            },
+            {
+              "text": "How many test cases exercise the feature",
+              "fraction": 0,
+              "feedback": "That is a coverage figure, not the impact of a risk."
+            },
+            {
+              "text": "How quickly a fix can be deployed",
+              "fraction": 0,
+              "feedback": "Deployment speed is a mitigation concern, not the definition of impact."
+            }
+          ],
+          "generalFeedback": "Impact (severity/consequence) is one of the two dimensions of risk: how damaging the outcome would be if the problem occurred. Combined with likelihood, it gives the risk exposure.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Risk exposure formula",
+          "text": "<p>Risk exposure (the risk level) is normally computed as:</p>",
+          "answers": [
+            {
+              "text": "likelihood × impact",
+              "fraction": 100,
+              "feedback": "Correct — combining probability and consequence gives the risk exposure."
+            },
+            {
+              "text": "likelihood + impact",
+              "fraction": 0,
+              "feedback": "Risk exposure multiplies the two dimensions; it is not their sum."
+            },
+            {
+              "text": "impact &#8722; likelihood",
+              "fraction": 0,
+              "feedback": "Subtracting the dimensions has no standard meaning for risk exposure."
+            },
+            {
+              "text": "likelihood ÷ impact",
+              "fraction": 0,
+              "feedback": "Dividing the two does not give a risk level; the standard formula multiplies them."
+            }
+          ],
+          "generalFeedback": "Risk exposure (also called risk level or risk rating) = likelihood × impact. It combines how probable a problem is with how serious it would be, giving a single number used to prioritise testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is risk-based testing",
+          "text": "<p><em>Risk-based testing</em> is an approach in which:</p>",
+          "answers": [
+            {
+              "text": "Test effort is allocated in proportion to the assessed risk of each item, testing the highest-risk items first",
+              "fraction": 100,
+              "feedback": "Correct — risk drives the depth and order of testing."
+            },
+            {
+              "text": "Every feature is tested with exactly the same number of test cases",
+              "fraction": 0,
+              "feedback": "That is uniform effort; risk-based testing deliberately varies effort by risk."
+            },
+            {
+              "text": "Only features chosen at random are tested",
+              "fraction": 0,
+              "feedback": "Risk-based testing selects by assessed risk, not at random."
+            },
+            {
+              "text": "Testing stops as soon as the first defect is found",
+              "fraction": 0,
+              "feedback": "Stopping at the first defect is not risk-based testing; effort is guided by risk levels."
+            }
+          ],
+          "generalFeedback": "Risk-based testing identifies risks, assesses their likelihood and impact, prioritises them, and allocates more and deeper testing to the highest-risk items — using limited test effort where it matters most.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is a risk matrix",
+          "text": "<p>A <em>risk matrix</em> (heat map) is:</p>",
+          "answers": [
+            {
+              "text": "A grid of likelihood against impact used to visualise and rank each item's risk level",
+              "fraction": 100,
+              "feedback": "Correct — the two axes are likelihood and impact, and cells show the resulting risk level."
+            },
+            {
+              "text": "A table listing every test case and its execution time",
+              "fraction": 0,
+              "feedback": "That is a test schedule, not a risk matrix."
+            },
+            {
+              "text": "A matrix of code modules against the developers who wrote them",
+              "fraction": 0,
+              "feedback": "That is an ownership map; a risk matrix plots likelihood against impact."
+            },
+            {
+              "text": "A record of which mutants each test kills",
+              "fraction": 0,
+              "feedback": "That belongs to mutation testing, not to a risk matrix."
+            }
+          ],
+          "generalFeedback": "A risk matrix (or heat map) plots likelihood on one axis and impact on the other. Each item lands in a cell; high-likelihood/high-impact items sit in the \"red\" corner and are tested first.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is residual risk",
+          "text": "<p><em>Residual risk</em> is:</p>",
+          "answers": [
+            {
+              "text": "The risk that remains after testing and other mitigation have been carried out",
+              "fraction": 100,
+              "feedback": "Correct — some risk always remains once mitigation is done."
+            },
+            {
+              "text": "The risk that exists before any testing begins",
+              "fraction": 0,
+              "feedback": "That is the initial (inherent) risk, not the residual risk."
+            },
+            {
+              "text": "A risk that has been completely eliminated",
+              "fraction": 0,
+              "feedback": "Residual risk is precisely what is not eliminated; it remains."
+            },
+            {
+              "text": "The risk of running the test suite itself",
+              "fraction": 0,
+              "feedback": "That is not the standard meaning; residual risk is what is left in the product after mitigation."
+            }
+          ],
+          "generalFeedback": "Residual risk is the risk that still remains after testing and mitigation. Because testing reduces but never eliminates risk, some residual risk is always present, and stakeholders decide whether it is acceptable to release.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Product risk vs project risk",
+          "text": "<p>A <em>product risk</em> (as opposed to a project risk) concerns:</p>",
+          "answers": [
+            {
+              "text": "The quality of the product itself — that the delivered software may fail to meet needs or contain defects",
+              "fraction": 100,
+              "feedback": "Correct — product risk is about the software's quality."
+            },
+            {
+              "text": "Schedule slippage caused by a delayed supplier",
+              "fraction": 0,
+              "feedback": "That is a project risk (schedule/resource), not a product risk."
+            },
+            {
+              "text": "A key team member leaving mid-project",
+              "fraction": 0,
+              "feedback": "That is a project/staffing risk, not a product-quality risk."
+            },
+            {
+              "text": "The test-management tool licence expiring",
+              "fraction": 0,
+              "feedback": "That is a project/resource risk, not a product risk."
+            }
+          ],
+          "generalFeedback": "Product risks relate to the quality of the product — defects, missing functionality, poor performance. Project risks relate to managing the project — schedule, budget, staffing, suppliers. Risk-based testing chiefly targets product risks.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute risk exposure 4 × 5",
+          "text": "<p>On a 1&#8211;5 scale, an item has likelihood 4 and impact 5. Its risk exposure is:</p>",
+          "answers": [
+            {
+              "text": "20",
+              "fraction": 100,
+              "feedback": "Correct — 4 × 5 = 20."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "That is 4 + 5; risk exposure multiplies the two values."
+            },
+            {
+              "text": "45",
+              "fraction": 0,
+              "feedback": "That concatenates the digits; the exposure is 4 × 5 = 20."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "That is 5 &#8722; 4; risk exposure is the product, 20."
+            }
+          ],
+          "generalFeedback": "Risk exposure = likelihood × impact = 4 × 5 = 20.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute risk exposure 3 × 2",
+          "text": "<p>An item has likelihood 3 and impact 2. Its risk exposure is:</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 3 × 2 = 6."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "That is 3 + 2; risk exposure multiplies the two values."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "That is 3 &#8722; 2; risk exposure is the product, 6."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "That is not 3 × 2; the correct product is 6."
+            }
+          ],
+          "generalFeedback": "Risk exposure = likelihood × impact = 3 × 2 = 6.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Testing reduces but does not eliminate risk",
+          "text": "<p>Testing can reduce risk, but it cannot completely eliminate it.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — testing lowers risk (mainly by finding defects and by giving information), but some residual risk always remains."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Testing cannot prove the absence of all defects, so it reduces risk rather than eliminating it; residual risk always remains."
+            }
+          ],
+          "generalFeedback": "Testing reduces risk by finding defects and by providing information about quality, but no amount of testing eliminates all risk — residual risk always remains. Claiming testing eliminates risk is an overstatement."
+        },
+        {
+          "type": "multichoice",
+          "name": "Which items are tested first",
+          "text": "<p>In risk-based testing, when effort must be prioritised, which items are tested first?</p>",
+          "answers": [
+            {
+              "text": "The items with the highest risk exposure",
+              "fraction": 100,
+              "feedback": "Correct — highest-risk items get attention first."
+            },
+            {
+              "text": "The items that are quickest to test",
+              "fraction": 0,
+              "feedback": "Ease of testing may be a tie-breaker, but the primary driver is risk level."
+            },
+            {
+              "text": "The items added most recently to the backlog",
+              "fraction": 0,
+              "feedback": "Recency is not the ordering criterion; risk exposure is."
+            },
+            {
+              "text": "The items with the lowest impact",
+              "fraction": 0,
+              "feedback": "Low-impact items are typically deferred, not tested first."
+            }
+          ],
+          "generalFeedback": "Risk-based testing ranks items by risk exposure (likelihood × impact) and tests the highest-risk items first, so that if time runs out the most important risks have already been addressed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Two dimensions of risk",
+          "text": "<p>Risk is the combination of which two factors?</p>",
+          "answers": [
+            {
+              "text": "Likelihood and impact",
+              "fraction": 100,
+              "feedback": "Correct — probability of occurrence and severity of consequence."
+            },
+            {
+              "text": "Cost and schedule",
+              "fraction": 0,
+              "feedback": "Those are project constraints, not the two dimensions of a risk."
+            },
+            {
+              "text": "Coverage and mutation score",
+              "fraction": 0,
+              "feedback": "Those are test-adequacy metrics, not the components of risk."
+            },
+            {
+              "text": "Severity and reproducibility",
+              "fraction": 0,
+              "feedback": "Those describe defects; risk itself combines likelihood and impact."
+            }
+          ],
+          "generalFeedback": "A risk combines its likelihood (how probable it is) with its impact (how severe the consequence would be). Risk exposure = likelihood × impact captures both.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute risk exposure 5 × 5",
+          "text": "<p>On a 1&#8211;5 scale, an item has likelihood 5 and impact 5. Its risk exposure is:</p>",
+          "answers": [
+            {
+              "text": "25",
+              "fraction": 100,
+              "feedback": "Correct — 5 × 5 = 25, the maximum on a 5×5 scale."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "That is 5 + 5; risk exposure multiplies the two values."
+            },
+            {
+              "text": "55",
+              "fraction": 0,
+              "feedback": "That concatenates the digits; the exposure is 5 × 5 = 25."
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "That is 5 &#8722; 5; risk exposure is the product, 25."
+            }
+          ],
+          "generalFeedback": "Risk exposure = likelihood × impact = 5 × 5 = 25 — the highest value on a 5×5 rating scale, marking a top-priority item.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test depth and risk level",
+          "text": "<p>How should the depth of test design relate to an item's risk level?</p>",
+          "answers": [
+            {
+              "text": "Higher-risk items get more and deeper tests; lower-risk items get lighter testing",
+              "fraction": 100,
+              "feedback": "Correct — depth of testing scales with risk."
+            },
+            {
+              "text": "All items get exactly the same depth of testing regardless of risk",
+              "fraction": 0,
+              "feedback": "That is uniform testing, which ignores risk; risk-based testing varies depth."
+            },
+            {
+              "text": "Lower-risk items get the deepest testing",
+              "fraction": 0,
+              "feedback": "That inverts the principle; effort should follow the higher risks."
+            },
+            {
+              "text": "Depth of testing depends only on the size of the code, not on risk",
+              "fraction": 0,
+              "feedback": "Code size may influence effort, but risk-based testing scales depth with risk."
+            }
+          ],
+          "generalFeedback": "In risk-based testing the depth and rigour of test design scale with risk: high-risk items receive more, and more thorough, tests, while low-risk items receive lighter coverage.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Rank three items by exposure",
+          "text": "<p>Three items are rated on a 1&#8211;9 scale: A (likelihood 2, impact 9), B (likelihood 5, impact 5), C (likelihood 8, impact 2). Which should be tested <strong>first</strong>?</p>",
+          "answers": [
+            {
+              "text": "B — its exposure 25 is the highest",
+              "fraction": 100,
+              "feedback": "Correct — A = 2×9 = 18, B = 5×5 = 25, C = 8×2 = 16, so B is highest."
+            },
+            {
+              "text": "A — because it has the highest impact",
+              "fraction": 0,
+              "feedback": "A's exposure is 2×9 = 18, less than B's 25; impact alone does not decide it."
+            },
+            {
+              "text": "C — because it has the highest likelihood",
+              "fraction": 0,
+              "feedback": "C's exposure is 8×2 = 16, the lowest here; likelihood alone does not decide it."
+            },
+            {
+              "text": "All three are equal, so order does not matter",
+              "fraction": 0,
+              "feedback": "The exposures 18, 25 and 16 are all different, so B is clearly first."
+            }
+          ],
+          "generalFeedback": "Compute exposure = likelihood × impact for each: A = 18, B = 25, C = 16. Highest first gives the order B, A, C, so B is tested first. Neither impact nor likelihood alone determines priority — the product does.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Place an item on the risk matrix",
+          "text": "<p>An item has high likelihood and high impact. Where does it sit on the risk matrix, and how is it treated?</p>",
+          "answers": [
+            {
+              "text": "In the high-high (\"red\") corner — it is the highest priority and is tested first",
+              "fraction": 100,
+              "feedback": "Correct — high likelihood combined with high impact is the top-priority cell."
+            },
+            {
+              "text": "In the low-low (\"green\") corner — it can safely be deferred",
+              "fraction": 0,
+              "feedback": "Low-low is the corner for the least risky items; a high-high item is the opposite."
+            },
+            {
+              "text": "Off the matrix, because both values are extreme",
+              "fraction": 0,
+              "feedback": "Extreme values still land on the matrix — in fact in its most critical cell."
+            },
+            {
+              "text": "In the middle, because the two high values cancel out",
+              "fraction": 0,
+              "feedback": "High values do not cancel; they compound into the highest exposure."
+            }
+          ],
+          "generalFeedback": "On a risk matrix, likelihood and impact are the two axes. An item high on both lands in the high-high (red) corner with the greatest risk exposure, making it the first thing to test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why more effort on high-risk items",
+          "text": "<p>Why does risk-based testing allocate more test effort to high-risk items?</p>",
+          "answers": [
+            {
+              "text": "Because a defect there is both more likely and more damaging, so testing there reduces the most risk per unit of effort",
+              "fraction": 100,
+              "feedback": "Correct — effort is spent where it buys the greatest reduction in risk."
+            },
+            {
+              "text": "Because high-risk items always contain more lines of code",
+              "fraction": 0,
+              "feedback": "Risk is about likelihood and impact, not code size; a small module can be high-risk."
+            },
+            {
+              "text": "Because low-risk items cannot contain any defects",
+              "fraction": 0,
+              "feedback": "Low-risk items can still have defects; they are simply less critical, not defect-free."
+            },
+            {
+              "text": "Because high-risk items are always the easiest to test",
+              "fraction": 0,
+              "feedback": "Ease of testing is unrelated to risk level; the reason is the greater risk reduction."
+            }
+          ],
+          "generalFeedback": "With limited resources, testing the highest-risk items first yields the greatest reduction in overall risk exposure. A defect there is more probable and more costly, so effort spent there is more valuable than the same effort on a low-risk item.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: key tester leaves",
+          "text": "<p>\"The only tester who knows the payment module resigns two weeks before release.\" This is primarily a:</p>",
+          "answers": [
+            {
+              "text": "Project risk — it concerns staffing/resources, not the product's quality directly",
+              "fraction": 100,
+              "feedback": "Correct — losing a key person is a project/resource risk."
+            },
+            {
+              "text": "Product risk — it is about a defect in the software",
+              "fraction": 0,
+              "feedback": "No product defect is described; the issue is a staffing/resource problem."
+            },
+            {
+              "text": "Residual risk — it is what remains after testing",
+              "fraction": 0,
+              "feedback": "Residual risk is leftover product risk after mitigation, not a staffing event."
+            },
+            {
+              "text": "Neither — staffing is never a risk",
+              "fraction": 0,
+              "feedback": "Staffing changes are a classic project risk."
+            }
+          ],
+          "generalFeedback": "Project risks concern the management of the project — schedule, budget, staffing, suppliers. Losing a key tester is a staffing/resource issue, hence a project risk. (It may increase product risk indirectly, but the event itself is a project risk.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: incorrect tax calculation",
+          "text": "<p>\"The application might compute sales tax incorrectly on some orders.\" This is primarily a:</p>",
+          "answers": [
+            {
+              "text": "Product risk — it concerns a possible defect in the delivered software",
+              "fraction": 100,
+              "feedback": "Correct — a wrong calculation is a quality problem in the product."
+            },
+            {
+              "text": "Project risk — it concerns schedule or staffing",
+              "fraction": 0,
+              "feedback": "Nothing here is about schedule, budget or staffing; it is about the software's behaviour."
+            },
+            {
+              "text": "Residual risk only, never a product risk",
+              "fraction": 0,
+              "feedback": "It is a product risk; it may become residual risk if it survives testing, but it is a product risk."
+            },
+            {
+              "text": "Not a risk, because it has not happened yet",
+              "fraction": 0,
+              "feedback": "A risk is by definition a potential problem that has not yet occurred."
+            }
+          ],
+          "generalFeedback": "Product risks are about the quality of the software itself. An incorrect tax calculation is a defect in the delivered product, so it is a product risk — exactly the kind of thing risk-based testing targets.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rank X, Y, Z",
+          "text": "<p>Items are rated: X (likelihood 3, impact 4), Y (likelihood 6, impact 3), Z (likelihood 2, impact 5). What is the correct test-first ordering (highest risk first)?</p>",
+          "answers": [
+            {
+              "text": "Y, X, Z",
+              "fraction": 100,
+              "feedback": "Correct — Y = 6×3 = 18, X = 3×4 = 12, Z = 2×5 = 10."
+            },
+            {
+              "text": "Z, X, Y",
+              "fraction": 0,
+              "feedback": "That is the reverse; Z's exposure (10) is the lowest, not the highest."
+            },
+            {
+              "text": "X, Y, Z",
+              "fraction": 0,
+              "feedback": "X's exposure is 12, below Y's 18, so X is not first."
+            },
+            {
+              "text": "Y, Z, X",
+              "fraction": 0,
+              "feedback": "Z (10) is below X (12), so Z cannot come before X."
+            }
+          ],
+          "generalFeedback": "Exposure = likelihood × impact: X = 12, Y = 18, Z = 10. Highest first gives Y, X, Z.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compare two items' exposure",
+          "text": "<p>Item P has likelihood 4 and impact 6; item Q has likelihood 7 and impact 3. Which has the higher risk exposure?</p>",
+          "answers": [
+            {
+              "text": "P, with exposure 24 versus Q's 21",
+              "fraction": 100,
+              "feedback": "Correct — P = 4×6 = 24, Q = 7×3 = 21."
+            },
+            {
+              "text": "Q, because it has the higher likelihood",
+              "fraction": 0,
+              "feedback": "Q's exposure is 7×3 = 21, below P's 24; higher likelihood alone does not win."
+            },
+            {
+              "text": "They are equal",
+              "fraction": 0,
+              "feedback": "24 and 21 are not equal; P is higher."
+            },
+            {
+              "text": "Q, with exposure 24 versus P's 21",
+              "fraction": 0,
+              "feedback": "The values are swapped: P = 24 and Q = 21, so P is higher."
+            }
+          ],
+          "generalFeedback": "P = 4 × 6 = 24 and Q = 7 × 3 = 21, so P has the higher risk exposure despite Q's larger likelihood. The product, not either factor alone, decides priority.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Equal exposure, different factors",
+          "text": "<p>Item J has likelihood 6 and impact 2; item K has likelihood 4 and impact 3. Compare their risk exposures.</p>",
+          "answers": [
+            {
+              "text": "They are equal — both have exposure 12",
+              "fraction": 100,
+              "feedback": "Correct — J = 6×2 = 12 and K = 4×3 = 12."
+            },
+            {
+              "text": "J is higher, because it has the greater likelihood",
+              "fraction": 0,
+              "feedback": "J = 6×2 = 12, the same as K; a greater likelihood does not by itself raise exposure."
+            },
+            {
+              "text": "K is higher, because it has the greater impact",
+              "fraction": 0,
+              "feedback": "K = 4×3 = 12, equal to J; a greater impact alone does not raise exposure."
+            },
+            {
+              "text": "They cannot be compared, because their factors differ",
+              "fraction": 0,
+              "feedback": "They can be compared directly through the product, which is 12 for both."
+            }
+          ],
+          "generalFeedback": "Risk exposure = likelihood × impact: J = 6×2 = 12 and K = 4×3 = 12, so they tie. Different likelihood/impact combinations can yield the same exposure — which is why prioritisation may then need secondary criteria such as detectability or the severity of the impact.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which item to defer",
+          "text": "<p>Time is short. Three items are rated: Payment (likelihood 5, impact 8), Help page (likelihood 2, impact 3), Login (likelihood 4, impact 7). If one item must be deferred, which is the safest to defer?</p>",
+          "answers": [
+            {
+              "text": "Help page — its exposure 6 is by far the lowest",
+              "fraction": 100,
+              "feedback": "Correct — Payment = 40, Login = 28, Help page = 6, so Help page is safest to defer."
+            },
+            {
+              "text": "Payment — because it has the highest impact",
+              "fraction": 0,
+              "feedback": "Payment's exposure (40) is the highest; deferring it would leave the biggest risk untested."
+            },
+            {
+              "text": "Login — because it is a common feature",
+              "fraction": 0,
+              "feedback": "Login's exposure (28) is far above the Help page's 6; the Help page is the safer defer."
+            },
+            {
+              "text": "None can be deferred; all are equally risky",
+              "fraction": 0,
+              "feedback": "The exposures 40, 6 and 28 differ greatly, so the Help page is clearly the least risky."
+            }
+          ],
+          "generalFeedback": "Exposure = likelihood × impact: Payment = 40, Help page = 6, Login = 28. When time is limited you defer the lowest-risk item, so the Help page is the safest to skip.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Low likelihood, high impact on the matrix",
+          "text": "<p>A rare but catastrophic event (e.g. permanent loss of all customer data) has low likelihood but very high impact. On the risk matrix it should be:</p>",
+          "answers": [
+            {
+              "text": "Placed in the high-impact band and still given serious attention, because the consequence is severe",
+              "fraction": 100,
+              "feedback": "Correct — high impact keeps it important even when likelihood is low."
+            },
+            {
+              "text": "Ignored entirely, because low likelihood means low risk",
+              "fraction": 0,
+              "feedback": "Low likelihood does not make it negligible; the severe impact keeps its exposure meaningful."
+            },
+            {
+              "text": "Treated as the very lowest priority automatically",
+              "fraction": 0,
+              "feedback": "A catastrophic impact prevents it from being the lowest priority despite low likelihood."
+            },
+            {
+              "text": "Removed from the matrix because it is unlikely",
+              "fraction": 0,
+              "feedback": "Unlikely items still belong on the matrix; impact must also be weighed."
+            }
+          ],
+          "generalFeedback": "Because exposure = likelihood × impact, a very high impact can keep the exposure significant even when likelihood is low. Such rare-but-catastrophic items are placed high on the impact axis and are not dismissed just because they are improbable.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Residual risk after thorough testing",
+          "text": "<p>Even after very thorough risk-based testing, some residual risk normally remains in the product.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — testing reduces risk but cannot eliminate it, so residual risk remains."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "No amount of testing removes all risk; residual risk always remains after mitigation."
+            }
+          ],
+          "generalFeedback": "Testing reduces risk but never drives it to zero — untested combinations, unknown risks and unfixed low-priority defects all leave residual risk. Stakeholders judge whether that residual risk is acceptable for release."
+        },
+        {
+          "type": "multichoice",
+          "name": "Severity versus priority",
+          "text": "<p>For a reported defect, how do <em>severity</em> and <em>priority</em> differ?</p>",
+          "answers": [
+            {
+              "text": "Severity is how serious the defect's effect is; priority is how soon it should be fixed",
+              "fraction": 100,
+              "feedback": "Correct — severity is about technical impact, priority is about fix urgency."
+            },
+            {
+              "text": "They are two names for exactly the same thing",
+              "fraction": 0,
+              "feedback": "They are related but distinct: a defect can be high-severity yet low-priority, or vice versa."
+            },
+            {
+              "text": "Severity is set by the customer; priority is set by the compiler",
+              "fraction": 0,
+              "feedback": "Neither is set by a compiler; both are judgements made by the team/stakeholders."
+            },
+            {
+              "text": "Priority is how severe the defect is; severity is how quickly it recurs",
+              "fraction": 0,
+              "feedback": "That swaps and distorts the definitions; severity = seriousness, priority = fix urgency."
+            }
+          ],
+          "generalFeedback": "Severity measures how damaging the defect's effect is (technical impact); priority measures how urgently it should be fixed (business urgency). They often correlate, but a high-severity defect in a rarely used feature may be low-priority, and a low-severity defect on a prominent screen may be high-priority.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Re-assessing risk during a project",
+          "text": "<p>Why should risks be re-assessed periodically during a project rather than rated only once at the start?</p>",
+          "answers": [
+            {
+              "text": "Because likelihoods and impacts change as the product, information and circumstances evolve",
+              "fraction": 100,
+              "feedback": "Correct — risk ratings are not static, so priorities must be updated."
+            },
+            {
+              "text": "Because the risk-exposure formula changes over time",
+              "fraction": 0,
+              "feedback": "The formula (likelihood × impact) stays the same; it is the inputs that change."
+            },
+            {
+              "text": "Because re-assessment guarantees zero residual risk",
+              "fraction": 0,
+              "feedback": "Re-assessment refines priorities; it does not eliminate residual risk."
+            },
+            {
+              "text": "Because a single early assessment is always perfectly accurate",
+              "fraction": 0,
+              "feedback": "Early estimates are uncertain; that is exactly why re-assessment is needed."
+            }
+          ],
+          "generalFeedback": "Risk is dynamic: as code is written, defects are found or fixed, and requirements shift, both likelihood and impact change. Periodic re-assessment keeps the prioritisation aligned with the current state of the project.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How testing reduces risk exposure",
+          "text": "<p>By finding and enabling the fixing of defects, testing most directly reduces which part of a product risk's exposure?</p>",
+          "answers": [
+            {
+              "text": "The likelihood — fixing found defects lowers the probability that a failure occurs in the field",
+              "fraction": 100,
+              "feedback": "Correct — testing chiefly attacks the likelihood dimension."
+            },
+            {
+              "text": "The impact — testing changes how damaging a failure would be",
+              "fraction": 0,
+              "feedback": "The business consequence of a failure is largely fixed by context; testing mainly reduces likelihood."
+            },
+            {
+              "text": "Neither — testing cannot affect risk exposure at all",
+              "fraction": 0,
+              "feedback": "Testing does reduce exposure, primarily by lowering likelihood."
+            },
+            {
+              "text": "Both are reduced to zero once testing is complete",
+              "fraction": 0,
+              "feedback": "Exposure is reduced but never to zero; residual risk remains."
+            }
+          ],
+          "generalFeedback": "Testing finds defects that can then be fixed, lowering the probability (likelihood) that they cause a field failure. The impact of a given failure is usually set by its business context, not by testing. Testing also informs stakeholders, but its direct effect on exposure is mainly through likelihood — and it never reaches zero.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Monitoring risks over time",
+          "text": "<p>After test effort has been allocated by risk, what is the correct ongoing activity?</p>",
+          "answers": [
+            {
+              "text": "Monitor and re-assess the risks, re-prioritising test effort as ratings change",
+              "fraction": 100,
+              "feedback": "Correct — risk-based testing is an iterative identify–assess–prioritise–monitor loop."
+            },
+            {
+              "text": "Freeze the priorities, since re-assessing wastes effort",
+              "fraction": 0,
+              "feedback": "Frozen priorities ignore new information; monitoring and re-assessment are essential."
+            },
+            {
+              "text": "Stop all testing once the first high-risk item passes",
+              "fraction": 0,
+              "feedback": "Passing one item does not address the remaining risks; testing continues by priority."
+            },
+            {
+              "text": "Switch to testing the lowest-risk items exclusively",
+              "fraction": 0,
+              "feedback": "Effort still follows the highest current risks, not the lowest."
+            }
+          ],
+          "generalFeedback": "Risk-based testing is a continuous loop: identify risks, assess likelihood and impact, prioritise, allocate effort, then monitor and re-assess. As new defects, information and changes arrive, ratings shift and priorities are updated.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Prioritise a table of four items",
+          "text": "<p>Four features are rated on a 1&#8211;9 scale:</p>\n<table border=\"1\" cellpadding=\"4\"><tr><th>Feature</th><th>Likelihood</th><th>Impact</th></tr>\n<tr><td>A</td><td>2</td><td>8</td></tr>\n<tr><td>B</td><td>5</td><td>6</td></tr>\n<tr><td>C</td><td>9</td><td>2</td></tr>\n<tr><td>D</td><td>3</td><td>3</td></tr></table>\n<p>What is the correct test-first ordering (highest risk exposure first)?</p>",
+          "answers": [
+            {
+              "text": "B, C, A, D",
+              "fraction": 100,
+              "feedback": "Correct — B = 30, C = 18, A = 16, D = 9."
+            },
+            {
+              "text": "C, B, A, D",
+              "fraction": 0,
+              "feedback": "C = 9×2 = 18, below B = 30, so C is not first."
+            },
+            {
+              "text": "A, B, C, D",
+              "fraction": 0,
+              "feedback": "A = 2×8 = 16, below both B (30) and C (18), so A is not first."
+            },
+            {
+              "text": "B, A, C, D",
+              "fraction": 0,
+              "feedback": "A = 16 is below C = 18, so A must come after C, not before."
+            }
+          ],
+          "generalFeedback": "Exposure = likelihood × impact: A = 2×8 = 16, B = 5×6 = 30, C = 9×2 = 18, D = 3×3 = 9. Ordering by descending exposure gives B (30), C (18), A (16), D (9).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Choose two under a time budget",
+          "text": "<p>There is time to fully test only two of these four items:</p>\n<table border=\"1\" cellpadding=\"4\"><tr><th>Item</th><th>Likelihood</th><th>Impact</th></tr>\n<tr><td>Checkout</td><td>6</td><td>8</td></tr>\n<tr><td>Login</td><td>4</td><td>7</td></tr>\n<tr><td>Search</td><td>5</td><td>2</td></tr>\n<tr><td>Reporting</td><td>2</td><td>3</td></tr></table>\n<p>Which two should be tested?</p>",
+          "answers": [
+            {
+              "text": "Checkout and Login",
+              "fraction": 100,
+              "feedback": "Correct — Checkout = 48 and Login = 28 are the two highest exposures."
+            },
+            {
+              "text": "Checkout and Search",
+              "fraction": 0,
+              "feedback": "Search = 5×2 = 10 is below Login's 28, so Login should be chosen over Search."
+            },
+            {
+              "text": "Search and Reporting",
+              "fraction": 0,
+              "feedback": "Those are the two lowest exposures (10 and 6); they are the ones to defer, not test."
+            },
+            {
+              "text": "Login and Search",
+              "fraction": 0,
+              "feedback": "Checkout (48) is the single highest and must be included; Search (10) should not displace it."
+            }
+          ],
+          "generalFeedback": "Exposure = likelihood × impact: Checkout = 48, Login = 28, Search = 10, Reporting = 6. With capacity for two, you test the two highest — Checkout and Login — and defer Search and Reporting.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rank four close exposures",
+          "text": "<p>Four modules are rated:</p>\n<table border=\"1\" cellpadding=\"4\"><tr><th>Module</th><th>Likelihood</th><th>Impact</th></tr>\n<tr><td>M1</td><td>3</td><td>5</td></tr>\n<tr><td>M2</td><td>4</td><td>4</td></tr>\n<tr><td>M3</td><td>2</td><td>9</td></tr>\n<tr><td>M4</td><td>6</td><td>2</td></tr></table>\n<p>Order them from highest to lowest risk exposure.</p>",
+          "answers": [
+            {
+              "text": "M3, M2, M1, M4",
+              "fraction": 100,
+              "feedback": "Correct — M3 = 18, M2 = 16, M1 = 15, M4 = 12."
+            },
+            {
+              "text": "M1, M2, M3, M4",
+              "fraction": 0,
+              "feedback": "M1 = 3×5 = 15 is not the highest; M3 = 18 is."
+            },
+            {
+              "text": "M4, M3, M2, M1",
+              "fraction": 0,
+              "feedback": "M4 = 6×2 = 12 is the lowest, not the highest."
+            },
+            {
+              "text": "M3, M1, M2, M4",
+              "fraction": 0,
+              "feedback": "M2 = 16 exceeds M1 = 15, so M2 must come before M1."
+            }
+          ],
+          "generalFeedback": "Exposure = likelihood × impact: M1 = 15, M2 = 16, M3 = 18, M4 = 12. Descending order is M3 (18), M2 (16), M1 (15), M4 (12) — the close values reward computing each product exactly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Recompute exposure after mitigation",
+          "text": "<p>An item is rated likelihood 8, impact 5 (exposure 40). A mitigation (adding automated input validation plus a targeted test suite) is expected to cut the likelihood to 3, while the impact of a failure is unchanged. What is the new risk exposure?</p>",
+          "answers": [
+            {
+              "text": "15",
+              "fraction": 100,
+              "feedback": "Correct — new exposure = 3 × 5 = 15."
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "Mitigation lowers likelihood but does not remove it; residual exposure is 3 × 5 = 15, not 0."
+            },
+            {
+              "text": "40",
+              "fraction": 0,
+              "feedback": "That is the original exposure; the reduced likelihood gives 3 × 5 = 15."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "That is likelihood + impact after the change; exposure is the product 3 × 5 = 15."
+            }
+          ],
+          "generalFeedback": "Mitigation reduces the likelihood from 8 to 3 while impact stays at 5, so the residual exposure is 3 × 5 = 15. Note it drops from 40 to 15 but not to zero — residual risk remains.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Low likelihood, catastrophic impact warrants testing",
+          "text": "<p>A failure mode has likelihood 1 but impact 10 (exposure 10), while a routine feature has likelihood 3 and impact 3 (exposure 9). Why might the rare-but-catastrophic failure still warrant careful testing?</p>",
+          "answers": [
+            {
+              "text": "Its exposure (10) is actually higher, and a catastrophic consequence justifies attention even at low likelihood",
+              "fraction": 100,
+              "feedback": "Correct — 1×10 = 10 exceeds 3×3 = 9, and severe impact matters."
+            },
+            {
+              "text": "Because low likelihood always means low risk, so it can be ignored",
+              "fraction": 0,
+              "feedback": "Low likelihood does not by itself make risk low; the high impact keeps exposure significant."
+            },
+            {
+              "text": "Because the routine feature has the higher exposure",
+              "fraction": 0,
+              "feedback": "The routine feature's exposure is 9, below the catastrophic mode's 10."
+            },
+            {
+              "text": "Because likelihood is the only factor that ever matters",
+              "fraction": 0,
+              "feedback": "Both factors matter; impact can dominate when it is extreme."
+            }
+          ],
+          "generalFeedback": "Exposure = likelihood × impact: the catastrophic mode is 1×10 = 10, above the routine feature's 3×3 = 9. Beyond the raw number, a catastrophic consequence (e.g. safety or total data loss) often justifies extra testing even when the probability is small, because the cost of being wrong is so high.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Misconception: 100% coverage eliminates risk",
+          "text": "<p>A team claims: \"We achieved 100% code coverage, so there is now zero risk of any defect in production.\" The best critique is:</p>",
+          "answers": [
+            {
+              "text": "Coverage does not eliminate risk — it does not guarantee correct oracles, cover all data/paths/environments, or address missing requirements, so residual risk remains",
+              "fraction": 100,
+              "feedback": "Correct — full coverage reduces risk but cannot drive it to zero."
+            },
+            {
+              "text": "Correct — 100% coverage does mean zero remaining risk",
+              "fraction": 0,
+              "feedback": "This is the misconception; coverage of code executed says nothing about unchecked outputs, missing features, or untried data."
+            },
+            {
+              "text": "Coverage is irrelevant and has no effect on risk at all",
+              "fraction": 0,
+              "feedback": "Coverage does reduce risk; the error is claiming it removes all of it."
+            },
+            {
+              "text": "The only flaw is that 100% coverage is too expensive",
+              "fraction": 0,
+              "feedback": "Cost is a separate issue; the key flaw is that even full coverage leaves residual risk."
+            }
+          ],
+          "generalFeedback": "Executing every line does not verify that outputs were checked correctly, does not exercise every input value, path combination, timing or environment, and cannot reveal a missing requirement. Testing reduces risk but never eliminates it, so claiming zero risk after 100% coverage is an overstatement — residual risk always remains.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "High-severity but low-priority defect",
+          "text": "<p>A crash occurs only in an obscure administrative report that one internal user runs once a year. The crash is high <em>severity</em> (it fully stops that function). Why might its fix be assigned low <em>priority</em>?</p>",
+          "answers": [
+            {
+              "text": "Because it is triggered rarely and affects almost no users, so the business urgency to fix it is low despite the severe local effect",
+              "fraction": 100,
+              "feedback": "Correct — severity (how bad the effect) can be high while priority (how urgent to fix) is low."
+            },
+            {
+              "text": "Because a crash can never be high severity",
+              "fraction": 0,
+              "feedback": "A crash that stops a function is genuinely high severity; the point is that priority can still be low."
+            },
+            {
+              "text": "Because severity and priority must always be equal",
+              "fraction": 0,
+              "feedback": "They frequently diverge; this example is exactly such a case."
+            },
+            {
+              "text": "Because low priority means the defect is not really a defect",
+              "fraction": 0,
+              "feedback": "It is still a real defect; priority only reflects fix urgency."
+            }
+          ],
+          "generalFeedback": "Severity measures the technical seriousness of the effect (here, a full crash), while priority reflects how urgently the business needs it fixed. A rarely used, low-exposure feature can carry a high-severity but low-priority defect — the two dimensions are related but distinct.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Low-severity but high-priority defect",
+          "text": "<p>The company's name is misspelled in large text on the public home page. Functionally nothing breaks (low <em>severity</em>). Why might this be given high <em>priority</em>?</p>",
+          "answers": [
+            {
+              "text": "Because it is highly visible and damages the brand, so the urgency to fix it is high even though the functional effect is minor",
+              "fraction": 100,
+              "feedback": "Correct — high visibility/business impact drives priority up despite low technical severity."
+            },
+            {
+              "text": "Because a cosmetic issue is automatically high severity",
+              "fraction": 0,
+              "feedback": "It is low severity functionally; the point is that priority is nonetheless high."
+            },
+            {
+              "text": "Because priority is always identical to severity",
+              "fraction": 0,
+              "feedback": "They diverge here: low severity, high priority."
+            },
+            {
+              "text": "Because low-severity defects are never worth fixing",
+              "fraction": 0,
+              "feedback": "This one is clearly worth fixing quickly, which is why priority is high."
+            }
+          ],
+          "generalFeedback": "Severity is low because nothing functionally breaks, but the defect is on the most visible page and harms the brand, so business urgency — priority — is high. This is the mirror image of a high-severity/low-priority defect and shows the two dimensions are independent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Residual risk of a deferred item",
+          "text": "<p>Under a deadline, a team fully tests its highest-risk items and deliberately defers a medium-risk item with no testing. On release, what is the correct characterisation?</p>",
+          "answers": [
+            {
+              "text": "The deferred item contributes to the product's residual risk, which stakeholders should knowingly accept or reject before release",
+              "fraction": 100,
+              "feedback": "Correct — untested deferred items are exactly residual risk to be acknowledged."
+            },
+            {
+              "text": "There is no residual risk because the highest-risk items were tested",
+              "fraction": 0,
+              "feedback": "The deferred, untested item still carries risk into production; residual risk is not zero."
+            },
+            {
+              "text": "Deferring an item removes its risk entirely",
+              "fraction": 0,
+              "feedback": "Deferring testing does not remove the underlying risk; it leaves it unaddressed."
+            },
+            {
+              "text": "The deferred item is now guaranteed defect-free",
+              "fraction": 0,
+              "feedback": "Not testing something cannot make it defect-free; its risk simply remains unexamined."
+            }
+          ],
+          "generalFeedback": "Consciously deferring a medium-risk item is a legitimate risk-based decision, but the untested item still carries risk into production. That is residual risk, and good practice is to make it explicit so stakeholders can decide whether it is acceptable to ship.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Breaking a tie in exposure",
+          "text": "<p>Two items tie at exposure 12: item G (likelihood 2, impact 6) and item H (likelihood 6, impact 2). A defect in G would be catastrophic and hard to detect in the field, whereas H's failures are minor and quickly noticed. Which is the more defensible action?</p>",
+          "answers": [
+            {
+              "text": "Test G more deeply, because with equal exposure the higher-impact, harder-to-detect item deserves the extra rigour",
+              "fraction": 100,
+              "feedback": "Correct — when exposures tie, secondary factors such as impact severity and detectability break the tie."
+            },
+            {
+              "text": "Test H more deeply, because it has the higher likelihood",
+              "fraction": 0,
+              "feedback": "Higher likelihood alone does not justify more rigour when the exposures are equal and H's failures are minor and obvious."
+            },
+            {
+              "text": "Skip both, because equal exposure means neither matters",
+              "fraction": 0,
+              "feedback": "Equal exposure does not mean the risk is negligible; both still matter, and G especially."
+            },
+            {
+              "text": "Test them identically, because the numbers must never be overridden",
+              "fraction": 0,
+              "feedback": "The exposure number is a starting point; qualitative factors legitimately refine equal-exposure decisions."
+            }
+          ],
+          "generalFeedback": "Both items have exposure 2×6 = 6×2 = 12, so the product cannot separate them. Risk-based testing then uses secondary criteria: G's catastrophic, hard-to-detect impact makes it the more dangerous of the two, so it warrants deeper testing. This shows the exposure score guides but does not fully determine priority.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of re-assessment mid-project",
+          "text": "<p>An item initially rated likelihood 2, impact 4 (exposure 8) is later found to sit on a newly discovered critical integration path, raising its likelihood to 7 (impact unchanged). What should happen?</p>",
+          "answers": [
+            {
+              "text": "Its exposure rises to 28, so it should be re-prioritised upward and given more test effort",
+              "fraction": 100,
+              "feedback": "Correct — 7 × 4 = 28, a large jump that moves it up the priority list."
+            },
+            {
+              "text": "Nothing changes, because risk ratings are fixed once set",
+              "fraction": 0,
+              "feedback": "Ratings are not fixed; new information must trigger re-assessment."
+            },
+            {
+              "text": "Its exposure stays 8, because only impact affects exposure",
+              "fraction": 0,
+              "feedback": "Exposure depends on both factors; a higher likelihood raises it to 7 × 4 = 28."
+            },
+            {
+              "text": "It should be deprioritised, because it was low-risk at the start",
+              "fraction": 0,
+              "feedback": "The initial rating is superseded; the item is now higher risk, not lower."
+            }
+          ],
+          "generalFeedback": "Re-assessment recomputes exposure with the updated likelihood: 7 × 4 = 28, up from 8. Because risk is dynamic, the item is moved up the priority order and receives more test effort — illustrating the monitor/re-assess step of risk-based testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Ranking beats single-factor sorting",
+          "text": "<p>Items: R (likelihood 9, impact 2), S (likelihood 3, impact 5), T (likelihood 4, impact 6). A colleague proposes testing in order of likelihood: R, T, S. What is wrong with that plan?</p>",
+          "answers": [
+            {
+              "text": "Sorting by likelihood alone is wrong; by exposure the correct order is T (24), R (18), S (15)",
+              "fraction": 100,
+              "feedback": "Correct — exposures are R = 18, S = 15, T = 24, so the correct order is T, R, S, not R, T, S."
+            },
+            {
+              "text": "Nothing is wrong; sorting by likelihood always matches sorting by exposure",
+              "fraction": 0,
+              "feedback": "It does not: T has a lower likelihood than R but a higher exposure (24 vs 18)."
+            },
+            {
+              "text": "The plan is right because R has the highest likelihood",
+              "fraction": 0,
+              "feedback": "Highest likelihood does not mean highest exposure; R's exposure (18) is below T's (24)."
+            },
+            {
+              "text": "Exposure should be sorted ascending, so the order is R, S, T",
+              "fraction": 0,
+              "feedback": "Higher risk is tested first (descending), and R is not the lowest anyway."
+            }
+          ],
+          "generalFeedback": "Exposure = likelihood × impact: R = 9×2 = 18, S = 3×5 = 15, T = 4×6 = 24. Sorting by exposure (descending) gives T, R, S — different from the likelihood-only order R, T, S. Prioritisation must use the product of both factors, not one factor alone.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Testing informs the risk decision",
+          "text": "<p>Beyond finding defects, how does executing risk-based tests reduce risk for stakeholders?</p>",
+          "answers": [
+            {
+              "text": "It provides information that shrinks uncertainty about the true risk level, enabling better-informed release decisions",
+              "fraction": 100,
+              "feedback": "Correct — test results reduce uncertainty even where no defect is found."
+            },
+            {
+              "text": "It proves the software is completely defect-free",
+              "fraction": 0,
+              "feedback": "Testing cannot prove the absence of all defects; it reduces uncertainty, not to zero."
+            },
+            {
+              "text": "It permanently sets the risk to zero for every tested item",
+              "fraction": 0,
+              "feedback": "Residual risk remains even after testing; risk is not driven to zero."
+            },
+            {
+              "text": "It has no value unless a defect is actually found",
+              "fraction": 0,
+              "feedback": "Even passing tests add value by reducing uncertainty about the risk."
+            }
+          ],
+          "generalFeedback": "Risk-based testing reduces risk in two ways: by finding defects that can be fixed (lowering likelihood), and by supplying evidence that lowers uncertainty about the actual quality — helping stakeholders judge the residual risk and make informed release decisions. It never eliminates risk entirely.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Untestable high-risk item",
+          "text": "<p>A high-exposure item depends on a third-party service that cannot be exercised before release. What is the sound risk-based response?</p>",
+          "answers": [
+            {
+              "text": "Mitigate by other means (e.g. stubs, contracts, monitoring) and record the remaining untested part as explicit residual risk",
+              "fraction": 100,
+              "feedback": "Correct — where direct testing is impossible, use alternative mitigation and make the residual risk visible."
+            },
+            {
+              "text": "Declare the item zero-risk because it cannot be tested",
+              "fraction": 0,
+              "feedback": "Inability to test does not remove risk; if anything the risk is less understood."
+            },
+            {
+              "text": "Ignore it entirely, since untestable items are out of scope",
+              "fraction": 0,
+              "feedback": "A high-exposure item cannot simply be ignored; it must be mitigated and its residual risk tracked."
+            },
+            {
+              "text": "Assume the third party guarantees it is defect-free",
+              "fraction": 0,
+              "feedback": "Assuming defect-freeness is unjustified; the residual risk must be acknowledged."
+            }
+          ],
+          "generalFeedback": "When a high-risk item cannot be tested directly, risk-based testing applies alternative mitigation — service stubs, contract tests, extra monitoring, contingency plans — and explicitly documents whatever risk remains as residual risk so stakeholders can weigh it in the release decision.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Full loop of risk-based testing",
+          "text": "<p>Which sequence best describes the risk-based testing process?</p>",
+          "answers": [
+            {
+              "text": "Identify risks → assess likelihood and impact → prioritise by exposure → allocate/execute tests → monitor and re-assess",
+              "fraction": 100,
+              "feedback": "Correct — this is the iterative risk-based testing loop."
+            },
+            {
+              "text": "Write all tests → run them in random order → stop at the first failure",
+              "fraction": 0,
+              "feedback": "That ignores risk assessment and prioritisation entirely."
+            },
+            {
+              "text": "Assign equal effort to every item → never re-assess",
+              "fraction": 0,
+              "feedback": "Equal effort with no re-assessment is the opposite of risk-based testing."
+            },
+            {
+              "text": "Fix all defects first → then decide which risks exist",
+              "fraction": 0,
+              "feedback": "Risks are identified and assessed before, and throughout, testing — not after fixing everything."
+            }
+          ],
+          "generalFeedback": "Risk-based testing is an iterative loop: identify the risks, assess each one's likelihood and impact, prioritise by risk exposure, allocate and execute test effort accordingly, then monitor and re-assess as the project and its risks evolve.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是風險",
+          "text": "<p>在風險式測試（risk-based testing）中，<em>風險（risk）</em>最適切的描述是：</p>",
+          "answers": [
+            {
+              "text": "一個潛在的問題，由其「發生的可能性」與「一旦發生的衝擊」兩者組合而成",
+              "fraction": 100,
+              "feedback": "正確——風險把可能性（機率）與衝擊（後果）配對在一起。"
+            },
+            {
+              "text": "已經被找到並記錄下來的缺陷",
+              "fraction": 0,
+              "feedback": "那是已知缺陷；風險是尚未發生的潛在問題，而非已確認的問題。"
+            },
+            {
+              "text": "一個永遠失敗的測試案例",
+              "fraction": 0,
+              "feedback": "失敗的測試是缺陷的證據，並非風險的定義。"
+            },
+            {
+              "text": "測試計畫中測試案例的總數",
+              "fraction": 0,
+              "feedback": "那是測試套件的規模度量，與風險的定義無關。"
+            }
+          ],
+          "generalFeedback": "風險是一個可能發生的未來問題，由兩個面向刻畫：發生的可能性（likelihood）與一旦發生的衝擊（impact）。風險式測試同時用這兩個面向來決定測試資源要投在哪裡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可能性的意義",
+          "text": "<p>風險中的<em>可能性（likelihood）</em>面向是指：</p>",
+          "answers": [
+            {
+              "text": "失敗或缺陷實際發生的機率",
+              "fraction": 100,
+              "feedback": "正確——可能性就是問題有多可能發生。"
+            },
+            {
+              "text": "一旦問題發生，後果有多嚴重",
+              "fraction": 0,
+              "feedback": "那是衝擊面向，不是可能性。"
+            },
+            {
+              "text": "撰寫測試案例的成本",
+              "fraction": 0,
+              "feedback": "撰寫測試的成本是專案考量，不是風險的可能性。"
+            },
+            {
+              "text": "指派到該功能的測試人員數目",
+              "fraction": 0,
+              "feedback": "人力配置與缺陷發生的機率無關。"
+            }
+          ],
+          "generalFeedback": "可能性（機率）是風險的兩個面向之一：失敗或缺陷實際發生的機率有多高。另一個面向是衝擊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "衝擊的意義",
+          "text": "<p>風險中的<em>衝擊（impact）</em>面向是指：</p>",
+          "answers": [
+            {
+              "text": "一旦失敗或缺陷發生時，後果的嚴重程度",
+              "fraction": 100,
+              "feedback": "正確——衝擊就是問題若發生會有多糟。"
+            },
+            {
+              "text": "缺陷發生的機率有多高",
+              "fraction": 0,
+              "feedback": "那是可能性，風險的另一個面向。"
+            },
+            {
+              "text": "有多少測試案例涵蓋該功能",
+              "fraction": 0,
+              "feedback": "那是覆蓋數字，不是風險的衝擊。"
+            },
+            {
+              "text": "修正能多快部署上線",
+              "fraction": 0,
+              "feedback": "部署速度是緩解措施的考量，不是衝擊的定義。"
+            }
+          ],
+          "generalFeedback": "衝擊（嚴重度／後果）是風險的兩個面向之一：一旦問題發生，結果會有多具破壞性。結合可能性後，即得到風險暴露度。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "風險暴露度公式",
+          "text": "<p>風險暴露度（risk exposure，即風險等級）通常如何計算？</p>",
+          "answers": [
+            {
+              "text": "可能性 × 衝擊",
+              "fraction": 100,
+              "feedback": "正確——把機率與後果相乘即得到風險暴露度。"
+            },
+            {
+              "text": "可能性 + 衝擊",
+              "fraction": 0,
+              "feedback": "風險暴露度是兩個面向相乘，不是相加。"
+            },
+            {
+              "text": "衝擊 &#8722; 可能性",
+              "fraction": 0,
+              "feedback": "把兩個面向相減對風險暴露度沒有標準意義。"
+            },
+            {
+              "text": "可能性 ÷ 衝擊",
+              "fraction": 0,
+              "feedback": "相除得不到風險等級；標準公式是相乘。"
+            }
+          ],
+          "generalFeedback": "風險暴露度（又稱風險等級或風險評分）＝ 可能性 × 衝擊。它結合了問題有多可能發生與後果有多嚴重，得到一個用來排定測試優先序的數值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是風險式測試",
+          "text": "<p><em>風險式測試（risk-based testing）</em>是一種做法，其特徵是：</p>",
+          "answers": [
+            {
+              "text": "依各項目所評估的風險比例分配測試資源，最高風險者最先測試",
+              "fraction": 100,
+              "feedback": "正確——風險驅動測試的深度與順序。"
+            },
+            {
+              "text": "每個功能都用完全相同數量的測試案例來測",
+              "fraction": 0,
+              "feedback": "那是平均投入；風險式測試刻意依風險調整投入。"
+            },
+            {
+              "text": "只測試隨機挑選出來的功能",
+              "fraction": 0,
+              "feedback": "風險式測試依評估的風險挑選，不是隨機。"
+            },
+            {
+              "text": "一找到第一個缺陷就停止測試",
+              "fraction": 0,
+              "feedback": "找到第一個缺陷就停止並非風險式測試；投入是由風險等級引導的。"
+            }
+          ],
+          "generalFeedback": "風險式測試會辨識風險、評估其可能性與衝擊、排定優先序，並把較多、較深入的測試投注在最高風險的項目上——在有限的測試資源下用在最重要的地方。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是風險矩陣",
+          "text": "<p><em>風險矩陣（risk matrix，熱力圖）</em>是：</p>",
+          "answers": [
+            {
+              "text": "一個以可能性對衝擊構成的方格圖，用來視覺化並排序各項目的風險等級",
+              "fraction": 100,
+              "feedback": "正確——兩軸是可能性與衝擊，格子顯示所得的風險等級。"
+            },
+            {
+              "text": "列出每個測試案例及其執行時間的表格",
+              "fraction": 0,
+              "feedback": "那是測試排程，不是風險矩陣。"
+            },
+            {
+              "text": "把程式模組對應到撰寫它們的開發者的矩陣",
+              "fraction": 0,
+              "feedback": "那是負責人對應表；風險矩陣是以可能性對衝擊作圖。"
+            },
+            {
+              "text": "記錄每個測試殺死哪些突變體的表",
+              "fraction": 0,
+              "feedback": "那屬於突變測試，不是風險矩陣。"
+            }
+          ],
+          "generalFeedback": "風險矩陣（或熱力圖）以可能性為一軸、衝擊為另一軸。每個項目落在某一格；高可能性／高衝擊的項目位於「紅色」角落，最先被測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是殘餘風險",
+          "text": "<p><em>殘餘風險（residual risk）</em>是：</p>",
+          "answers": [
+            {
+              "text": "在測試與其他緩解措施完成之後仍然殘留的風險",
+              "fraction": 100,
+              "feedback": "正確——緩解做完後總會殘留一些風險。"
+            },
+            {
+              "text": "在任何測試開始之前就存在的風險",
+              "fraction": 0,
+              "feedback": "那是初始（固有）風險，不是殘餘風險。"
+            },
+            {
+              "text": "已被完全消除的風險",
+              "fraction": 0,
+              "feedback": "殘餘風險正是那些沒有被消除、仍然殘留的部分。"
+            },
+            {
+              "text": "執行測試套件本身的風險",
+              "fraction": 0,
+              "feedback": "那不是標準意義；殘餘風險是緩解後產品中仍殘留的部分。"
+            }
+          ],
+          "generalFeedback": "殘餘風險是測試與緩解之後仍殘留的風險。因為測試只能降低而無法消除風險，總會有一些殘餘風險存在，由利害關係人判斷是否可接受而發行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "產品風險與專案風險",
+          "text": "<p><em>產品風險（product risk）</em>（相對於專案風險）關注的是：</p>",
+          "answers": [
+            {
+              "text": "產品本身的品質——交付的軟體可能無法滿足需求或含有缺陷",
+              "fraction": 100,
+              "feedback": "正確——產品風險關乎軟體的品質。"
+            },
+            {
+              "text": "因供應商延遲而造成的時程延誤",
+              "fraction": 0,
+              "feedback": "那是專案風險（時程／資源），不是產品風險。"
+            },
+            {
+              "text": "關鍵團隊成員在專案途中離職",
+              "fraction": 0,
+              "feedback": "那是專案／人力風險，不是產品品質風險。"
+            },
+            {
+              "text": "測試管理工具的授權到期",
+              "fraction": 0,
+              "feedback": "那是專案／資源風險，不是產品風險。"
+            }
+          ],
+          "generalFeedback": "產品風險關乎產品的品質——缺陷、功能缺漏、效能不佳。專案風險關乎專案的管理——時程、預算、人力、供應商。風險式測試主要針對產品風險。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算風險暴露度 4 × 5",
+          "text": "<p>在 1&#8211;5 的量表上，某項目可能性為 4、衝擊為 5。其風險暴露度為：</p>",
+          "answers": [
+            {
+              "text": "20",
+              "fraction": 100,
+              "feedback": "正確——4 × 5 = 20。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "那是 4 + 5；風險暴露度是兩值相乘。"
+            },
+            {
+              "text": "45",
+              "fraction": 0,
+              "feedback": "那是把數字並排；暴露度是 4 × 5 = 20。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "那是 5 &#8722; 4；風險暴露度是乘積 20。"
+            }
+          ],
+          "generalFeedback": "風險暴露度 ＝ 可能性 × 衝擊 ＝ 4 × 5 = 20。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算風險暴露度 3 × 2",
+          "text": "<p>某項目可能性為 3、衝擊為 2。其風險暴露度為：</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——3 × 2 = 6。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "那是 3 + 2；風險暴露度是兩值相乘。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "那是 3 &#8722; 2；風險暴露度是乘積 6。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "那不是 3 × 2；正確的乘積是 6。"
+            }
+          ],
+          "generalFeedback": "風險暴露度 ＝ 可能性 × 衝擊 ＝ 3 × 2 = 6。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "測試降低但不消除風險",
+          "text": "<p>測試可以降低風險，但無法完全消除風險。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——測試會降低風險（主要靠找出缺陷並提供資訊），但總會殘留一些殘餘風險。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "測試無法證明所有缺陷都不存在，因此它是降低而非消除風險；殘餘風險總是存在。"
+            }
+          ],
+          "generalFeedback": "測試藉由找出缺陷並提供品質資訊來降低風險，但再多的測試也無法消除所有風險——殘餘風險總是存在。宣稱測試能消除風險是誇大其詞。"
+        },
+        {
+          "type": "multichoice",
+          "name": "哪些項目最先測試",
+          "text": "<p>在風險式測試中，當必須排定投入的優先序時，哪些項目最先測試？</p>",
+          "answers": [
+            {
+              "text": "風險暴露度最高的項目",
+              "fraction": 100,
+              "feedback": "正確——最高風險的項目最先受到關注。"
+            },
+            {
+              "text": "最快能測完的項目",
+              "fraction": 0,
+              "feedback": "測試難易可作為次要的打破平手依據，但主要驅動因素是風險等級。"
+            },
+            {
+              "text": "最近才加入待辦清單的項目",
+              "fraction": 0,
+              "feedback": "加入的時間先後不是排序準則；風險暴露度才是。"
+            },
+            {
+              "text": "衝擊最低的項目",
+              "fraction": 0,
+              "feedback": "低衝擊的項目通常被延後，而非最先測試。"
+            }
+          ],
+          "generalFeedback": "風險式測試依風險暴露度（可能性 × 衝擊）為項目排序，最高風險者最先測試，如此一來即使時間用盡，最重要的風險也已先被處理。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "風險的兩個面向",
+          "text": "<p>風險是由哪兩個因素組合而成？</p>",
+          "answers": [
+            {
+              "text": "可能性與衝擊",
+              "fraction": 100,
+              "feedback": "正確——發生的機率與後果的嚴重度。"
+            },
+            {
+              "text": "成本與時程",
+              "fraction": 0,
+              "feedback": "那些是專案限制，不是風險的兩個面向。"
+            },
+            {
+              "text": "覆蓋率與突變分數",
+              "fraction": 0,
+              "feedback": "那些是測試適切性度量，不是風險的組成。"
+            },
+            {
+              "text": "嚴重度與可重現性",
+              "fraction": 0,
+              "feedback": "那些描述缺陷；風險本身是可能性與衝擊的組合。"
+            }
+          ],
+          "generalFeedback": "風險結合其可能性（有多可能發生）與其衝擊（後果有多嚴重）。風險暴露度 ＝ 可能性 × 衝擊 同時涵蓋兩者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算風險暴露度 5 × 5",
+          "text": "<p>在 1&#8211;5 的量表上，某項目可能性為 5、衝擊為 5。其風險暴露度為：</p>",
+          "answers": [
+            {
+              "text": "25",
+              "fraction": 100,
+              "feedback": "正確——5 × 5 = 25，是 5×5 量表上的最大值。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "那是 5 + 5；風險暴露度是兩值相乘。"
+            },
+            {
+              "text": "55",
+              "fraction": 0,
+              "feedback": "那是把數字並排；暴露度是 5 × 5 = 25。"
+            },
+            {
+              "text": "1",
+              "fraction": 0,
+              "feedback": "那是 5 &#8722; 5；風險暴露度是乘積 25。"
+            }
+          ],
+          "generalFeedback": "風險暴露度 ＝ 可能性 × 衝擊 ＝ 5 × 5 = 25——在 5×5 評分量表上的最高值，代表最優先的項目。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試深度與風險等級",
+          "text": "<p>測試設計的深度應如何與項目的風險等級相關聯？</p>",
+          "answers": [
+            {
+              "text": "高風險項目給予更多、更深入的測試；低風險項目給予較輕量的測試",
+              "fraction": 100,
+              "feedback": "正確——測試深度隨風險而調整。"
+            },
+            {
+              "text": "不論風險如何，所有項目都給予完全相同的測試深度",
+              "fraction": 0,
+              "feedback": "那是均一測試，忽略了風險；風險式測試會調整深度。"
+            },
+            {
+              "text": "低風險項目給予最深入的測試",
+              "fraction": 0,
+              "feedback": "那顛倒了原則；投入應跟隨較高的風險。"
+            },
+            {
+              "text": "測試深度只取決於程式碼的大小，與風險無關",
+              "fraction": 0,
+              "feedback": "程式碼大小可能影響投入，但風險式測試是依風險調整深度。"
+            }
+          ],
+          "generalFeedback": "在風險式測試中，測試設計的深度與嚴謹度隨風險而變：高風險項目獲得更多、更徹底的測試，低風險項目則獲得較輕量的覆蓋。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "依暴露度排序三個項目",
+          "text": "<p>三個項目以 1&#8211;9 量表評分：A（可能性 2、衝擊 9）、B（可能性 5、衝擊 5）、C（可能性 8、衝擊 2）。哪一個應<strong>最先</strong>測試？</p>",
+          "answers": [
+            {
+              "text": "B——其暴露度 25 為最高",
+              "fraction": 100,
+              "feedback": "正確——A ＝ 2×9 = 18、B ＝ 5×5 = 25、C ＝ 8×2 = 16，故 B 最高。"
+            },
+            {
+              "text": "A——因為它的衝擊最高",
+              "fraction": 0,
+              "feedback": "A 的暴露度是 2×9 = 18，低於 B 的 25；單看衝擊無法決定。"
+            },
+            {
+              "text": "C——因為它的可能性最高",
+              "fraction": 0,
+              "feedback": "C 的暴露度是 8×2 = 16，在此最低；單看可能性無法決定。"
+            },
+            {
+              "text": "三者相等，所以順序無關緊要",
+              "fraction": 0,
+              "feedback": "暴露度 18、25、16 各不相同，B 明顯最先。"
+            }
+          ],
+          "generalFeedback": "逐一計算暴露度 ＝ 可能性 × 衝擊：A ＝ 18、B ＝ 25、C ＝ 16。由高到低即為 B、A、C，故 B 最先測試。單看衝擊或單看可能性都無法決定優先序——決定的是乘積。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "把項目放到風險矩陣上",
+          "text": "<p>某項目的可能性高、衝擊也高。它落在風險矩陣的哪個位置，又如何處理？</p>",
+          "answers": [
+            {
+              "text": "落在高-高（「紅色」）角落——優先序最高，最先測試",
+              "fraction": 100,
+              "feedback": "正確——高可能性搭配高衝擊是最高優先的格子。"
+            },
+            {
+              "text": "落在低-低（「綠色」）角落——可安心延後",
+              "fraction": 0,
+              "feedback": "低-低是風險最小項目的角落；高-高項目正好相反。"
+            },
+            {
+              "text": "落在矩陣之外，因為兩個值都太極端",
+              "fraction": 0,
+              "feedback": "極端值仍會落在矩陣上——而且正落在最關鍵的格子。"
+            },
+            {
+              "text": "落在中間，因為兩個高值相互抵消",
+              "fraction": 0,
+              "feedback": "高值不會抵消；它們相乘成為最高的暴露度。"
+            }
+          ],
+          "generalFeedback": "在風險矩陣上，可能性與衝擊是兩軸。兩者皆高的項目落在高-高（紅色）角落，風險暴露度最大，是最先要測試的對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何在高風險項目投入更多",
+          "text": "<p>為什麼風險式測試會把較多的測試資源分配給高風險項目？</p>",
+          "answers": [
+            {
+              "text": "因為那裡的缺陷既較可能發生又較具破壞性，所以在那裡測試每單位投入能降低最多風險",
+              "fraction": 100,
+              "feedback": "正確——資源花在能換取最大風險降低之處。"
+            },
+            {
+              "text": "因為高風險項目一定含有較多行程式碼",
+              "fraction": 0,
+              "feedback": "風險關乎可能性與衝擊，不是程式碼大小；小模組也可能是高風險。"
+            },
+            {
+              "text": "因為低風險項目不可能含有任何缺陷",
+              "fraction": 0,
+              "feedback": "低風險項目仍可能有缺陷；只是較不關鍵，而非零缺陷。"
+            },
+            {
+              "text": "因為高風險項目一定最容易測試",
+              "fraction": 0,
+              "feedback": "測試難易與風險等級無關；理由是能降低較多風險。"
+            }
+          ],
+          "generalFeedback": "在資源有限下，先測試最高風險的項目能換取整體風險暴露度最大的降低。那裡的缺陷較可能發生也較昂貴，因此同樣的投入用在那裡比用在低風險項目更有價值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：關鍵測試人員離職",
+          "text": "<p>「唯一熟悉付款模組的測試人員在發行前兩週辭職。」這主要是一種：</p>",
+          "answers": [
+            {
+              "text": "專案風險——它關乎人力／資源，並非直接關乎產品的品質",
+              "fraction": 100,
+              "feedback": "正確——失去關鍵人員是專案／資源風險。"
+            },
+            {
+              "text": "產品風險——它關乎軟體中的缺陷",
+              "fraction": 0,
+              "feedback": "此處並未描述任何產品缺陷；問題是人力／資源問題。"
+            },
+            {
+              "text": "殘餘風險——它是測試後仍殘留的部分",
+              "fraction": 0,
+              "feedback": "殘餘風險是緩解後殘留的產品風險，不是人力事件。"
+            },
+            {
+              "text": "都不是——人力從來不算風險",
+              "fraction": 0,
+              "feedback": "人力異動是典型的專案風險。"
+            }
+          ],
+          "generalFeedback": "專案風險關乎專案的管理——時程、預算、人力、供應商。失去關鍵測試人員是人力／資源問題，因此是專案風險。（它可能間接提高產品風險，但事件本身是專案風險。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：稅額計算錯誤",
+          "text": "<p>「應用程式在某些訂單上可能把營業稅算錯。」這主要是一種：</p>",
+          "answers": [
+            {
+              "text": "產品風險——它關乎交付軟體中可能存在的缺陷",
+              "fraction": 100,
+              "feedback": "正確——算錯是產品中的品質問題。"
+            },
+            {
+              "text": "專案風險——它關乎時程或人力",
+              "fraction": 0,
+              "feedback": "此處與時程、預算、人力無關；關乎的是軟體的行為。"
+            },
+            {
+              "text": "只是殘餘風險，從不算產品風險",
+              "fraction": 0,
+              "feedback": "它是產品風險；若測試後仍殘留才可能成為殘餘風險，但它本身是產品風險。"
+            },
+            {
+              "text": "不算風險，因為它尚未發生",
+              "fraction": 0,
+              "feedback": "風險依定義就是尚未發生的潛在問題。"
+            }
+          ],
+          "generalFeedback": "產品風險關乎軟體本身的品質。稅額計算錯誤是交付產品中的缺陷，因此是產品風險——正是風險式測試針對的對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序 X、Y、Z",
+          "text": "<p>項目評分為：X（可能性 3、衝擊 4）、Y（可能性 6、衝擊 3）、Z（可能性 2、衝擊 5）。正確的測試先後順序（最高風險先）為何？</p>",
+          "answers": [
+            {
+              "text": "Y、X、Z",
+              "fraction": 100,
+              "feedback": "正確——Y ＝ 6×3 = 18、X ＝ 3×4 = 12、Z ＝ 2×5 = 10。"
+            },
+            {
+              "text": "Z、X、Y",
+              "fraction": 0,
+              "feedback": "那是相反的順序；Z 的暴露度（10）是最低而非最高。"
+            },
+            {
+              "text": "X、Y、Z",
+              "fraction": 0,
+              "feedback": "X 的暴露度是 12，低於 Y 的 18，故 X 不是第一。"
+            },
+            {
+              "text": "Y、Z、X",
+              "fraction": 0,
+              "feedback": "Z（10）低於 X（12），故 Z 不能排在 X 之前。"
+            }
+          ],
+          "generalFeedback": "暴露度 ＝ 可能性 × 衝擊：X ＝ 12、Y ＝ 18、Z ＝ 10。由高到低即為 Y、X、Z。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "比較兩個項目的暴露度",
+          "text": "<p>項目 P 的可能性為 4、衝擊為 6；項目 Q 的可能性為 7、衝擊為 3。哪一個的風險暴露度較高？</p>",
+          "answers": [
+            {
+              "text": "P，暴露度 24 對 Q 的 21",
+              "fraction": 100,
+              "feedback": "正確——P ＝ 4×6 = 24、Q ＝ 7×3 = 21。"
+            },
+            {
+              "text": "Q，因為它的可能性較高",
+              "fraction": 0,
+              "feedback": "Q 的暴露度是 7×3 = 21，低於 P 的 24；單看較高的可能性不會勝出。"
+            },
+            {
+              "text": "兩者相等",
+              "fraction": 0,
+              "feedback": "24 與 21 並不相等；P 較高。"
+            },
+            {
+              "text": "Q，暴露度 24 對 P 的 21",
+              "fraction": 0,
+              "feedback": "數值弄反了：P ＝ 24、Q ＝ 21，故 P 較高。"
+            }
+          ],
+          "generalFeedback": "P ＝ 4 × 6 = 24、Q ＝ 7 × 3 = 21，故儘管 Q 的可能性較大，P 的風險暴露度仍較高。決定優先序的是乘積，而非任一單一因素。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "暴露度相等、因素不同",
+          "text": "<p>項目 J 的可能性為 6、衝擊為 2；項目 K 的可能性為 4、衝擊為 3。比較它們的風險暴露度。</p>",
+          "answers": [
+            {
+              "text": "兩者相等——暴露度都是 12",
+              "fraction": 100,
+              "feedback": "正確——J ＝ 6×2 = 12、K ＝ 4×3 = 12。"
+            },
+            {
+              "text": "J 較高，因為它的可能性較大",
+              "fraction": 0,
+              "feedback": "J ＝ 6×2 = 12，與 K 相同；較大的可能性本身不會提高暴露度。"
+            },
+            {
+              "text": "K 較高，因為它的衝擊較大",
+              "fraction": 0,
+              "feedback": "K ＝ 4×3 = 12，與 J 相等；單看較大的衝擊不會提高暴露度。"
+            },
+            {
+              "text": "無法比較，因為它們的因素不同",
+              "fraction": 0,
+              "feedback": "可以透過乘積直接比較，兩者都是 12。"
+            }
+          ],
+          "generalFeedback": "風險暴露度 ＝ 可能性 × 衝擊：J ＝ 6×2 = 12、K ＝ 4×3 = 12，故打成平手。不同的可能性／衝擊組合可能得到相同的暴露度——因此排優先序時可能需要次要準則，例如可偵測性或衝擊的嚴重度。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "該延後哪個項目",
+          "text": "<p>時間緊迫。三個項目評分為：付款（可能性 5、衝擊 8）、說明頁（可能性 2、衝擊 3）、登入（可能性 4、衝擊 7）。若必須延後一個，延後哪個最安全？</p>",
+          "answers": [
+            {
+              "text": "說明頁——其暴露度 6 遠為最低",
+              "fraction": 100,
+              "feedback": "正確——付款 ＝ 40、登入 ＝ 28、說明頁 ＝ 6，故延後說明頁最安全。"
+            },
+            {
+              "text": "付款——因為它的衝擊最高",
+              "fraction": 0,
+              "feedback": "付款的暴露度（40）最高；延後它會留下最大的風險未測。"
+            },
+            {
+              "text": "登入——因為它是常見功能",
+              "fraction": 0,
+              "feedback": "登入的暴露度（28）遠高於說明頁的 6；說明頁才是較安全的延後對象。"
+            },
+            {
+              "text": "都不能延後；三者風險相同",
+              "fraction": 0,
+              "feedback": "暴露度 40、6、28 差異很大，說明頁明顯風險最低。"
+            }
+          ],
+          "generalFeedback": "暴露度 ＝ 可能性 × 衝擊：付款 ＝ 40、說明頁 ＝ 6、登入 ＝ 28。時間有限時應延後風險最低的項目，故延後說明頁最安全。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "低可能性、高衝擊在矩陣上",
+          "text": "<p>一個罕見但災難性的事件（例如所有客戶資料永久遺失）可能性低，但衝擊極高。在風險矩陣上，它應該：</p>",
+          "answers": [
+            {
+              "text": "放在高衝擊帶，仍給予認真的關注，因為後果嚴重",
+              "fraction": 100,
+              "feedback": "正確——高衝擊使它即使可能性低仍然重要。"
+            },
+            {
+              "text": "完全忽略，因為低可能性代表低風險",
+              "fraction": 0,
+              "feedback": "低可能性不代表可忽略；嚴重的衝擊使其暴露度仍具意義。"
+            },
+            {
+              "text": "自動當成最低優先序",
+              "fraction": 0,
+              "feedback": "災難性的衝擊使它即使可能性低也無法成為最低優先。"
+            },
+            {
+              "text": "因為不太可能發生就把它從矩陣移除",
+              "fraction": 0,
+              "feedback": "不太可能發生的項目仍屬於矩陣；還必須一併衡量衝擊。"
+            }
+          ],
+          "generalFeedback": "因為暴露度 ＝ 可能性 × 衝擊，極高的衝擊即使在可能性低時也能讓暴露度保持顯著。這類罕見但災難性的項目會放在衝擊軸的高處，不會只因為不太可能發生就被忽視。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "徹底測試後的殘餘風險",
+          "text": "<p>即使經過非常徹底的風險式測試，產品中通常仍會殘留一些殘餘風險。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——測試降低風險但無法消除，故殘餘風險仍會殘留。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "再多的測試也無法移除所有風險；緩解後殘餘風險總是存在。"
+            }
+          ],
+          "generalFeedback": "測試降低風險但永遠無法歸零——未測到的組合、未知的風險、未修正的低優先缺陷都會留下殘餘風險。利害關係人須判斷該殘餘風險對發行而言是否可接受。"
+        },
+        {
+          "type": "multichoice",
+          "name": "嚴重度與優先度",
+          "text": "<p>對於一個回報的缺陷，<em>嚴重度（severity）</em>與<em>優先度（priority）</em>有何不同？</p>",
+          "answers": [
+            {
+              "text": "嚴重度是缺陷的影響有多嚴重；優先度是它應多快被修正",
+              "fraction": 100,
+              "feedback": "正確——嚴重度關乎技術上的衝擊，優先度關乎修正的急迫性。"
+            },
+            {
+              "text": "它們是同一件事的兩個名稱",
+              "fraction": 0,
+              "feedback": "兩者相關但不同：缺陷可以高嚴重度卻低優先度，反之亦然。"
+            },
+            {
+              "text": "嚴重度由客戶設定；優先度由編譯器設定",
+              "fraction": 0,
+              "feedback": "兩者都不是由編譯器設定；都是團隊／利害關係人的判斷。"
+            },
+            {
+              "text": "優先度是缺陷有多嚴重；嚴重度是它多快重現",
+              "fraction": 0,
+              "feedback": "那把定義弄反又扭曲了；嚴重度＝嚴重程度、優先度＝修正急迫性。"
+            }
+          ],
+          "generalFeedback": "嚴重度衡量缺陷影響的破壞程度（技術衝擊）；優先度衡量應多急迫修正（業務急迫性）。兩者常相關，但在很少使用的功能中的高嚴重度缺陷可能低優先，而顯眼畫面上的低嚴重度缺陷可能高優先。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "專案進行中重新評估風險",
+          "text": "<p>為什麼應在專案進行中定期重新評估風險，而不是只在一開始評一次？</p>",
+          "answers": [
+            {
+              "text": "因為隨著產品、資訊與情況演變，可能性與衝擊都會改變",
+              "fraction": 100,
+              "feedback": "正確——風險評分並非靜態，優先序必須更新。"
+            },
+            {
+              "text": "因為風險暴露度公式會隨時間改變",
+              "fraction": 0,
+              "feedback": "公式（可能性 × 衝擊）不變；改變的是它的輸入。"
+            },
+            {
+              "text": "因為重新評估可保證殘餘風險為零",
+              "fraction": 0,
+              "feedback": "重新評估是精修優先序，並不能消除殘餘風險。"
+            },
+            {
+              "text": "因為一開始的單次評估永遠完全準確",
+              "fraction": 0,
+              "feedback": "初期估計本就不確定；這正是需要重新評估的原因。"
+            }
+          ],
+          "generalFeedback": "風險是動態的：隨著程式被寫出、缺陷被找到或修正、需求變動，可能性與衝擊都會改變。定期重新評估能讓優先排序與專案的當前狀態保持一致。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試如何降低風險暴露度",
+          "text": "<p>透過找出並促成修正缺陷，測試最直接降低的是產品風險暴露度的哪一部分？</p>",
+          "answers": [
+            {
+              "text": "可能性——修正找到的缺陷可降低失敗在現場發生的機率",
+              "fraction": 100,
+              "feedback": "正確——測試主要針對可能性面向。"
+            },
+            {
+              "text": "衝擊——測試會改變失敗會有多具破壞性",
+              "fraction": 0,
+              "feedback": "失敗的業務後果大多由情境固定；測試主要降低的是可能性。"
+            },
+            {
+              "text": "都不是——測試根本無法影響風險暴露度",
+              "fraction": 0,
+              "feedback": "測試確實會降低暴露度，主要靠降低可能性。"
+            },
+            {
+              "text": "測試完成後兩者都降為零",
+              "fraction": 0,
+              "feedback": "暴露度會降低但永遠不會歸零；殘餘風險仍存在。"
+            }
+          ],
+          "generalFeedback": "測試找出可被修正的缺陷，降低它們在現場造成失敗的機率（可能性）。特定失敗的衝擊通常由其業務情境決定，而非由測試決定。測試也會提供資訊給利害關係人，但它對暴露度的直接影響主要透過可能性——而且永遠達不到零。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "隨時間監控風險",
+          "text": "<p>在依風險分配好測試資源之後，正確的持續活動是什麼？</p>",
+          "answers": [
+            {
+              "text": "監控並重新評估風險，隨評分改變而重新排定測試投入",
+              "fraction": 100,
+              "feedback": "正確——風險式測試是「辨識–評估–排序–監控」的反覆循環。"
+            },
+            {
+              "text": "凍結優先序，因為重新評估浪費心力",
+              "fraction": 0,
+              "feedback": "凍結優先序會忽略新資訊；監控與重新評估是必要的。"
+            },
+            {
+              "text": "第一個高風險項目通過後就停止所有測試",
+              "fraction": 0,
+              "feedback": "通過一個項目並未處理其餘風險；測試會依優先序繼續。"
+            },
+            {
+              "text": "改成只測試風險最低的項目",
+              "fraction": 0,
+              "feedback": "投入仍應跟隨當前最高的風險，而非最低。"
+            }
+          ],
+          "generalFeedback": "風險式測試是一個持續循環：辨識風險、評估可能性與衝擊、排定優先序、分配投入，然後監控並重新評估。隨著新缺陷、新資訊與變動到來，評分會改變，優先序也隨之更新。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "為四個項目的表格排定優先序",
+          "text": "<p>四個功能以 1&#8211;9 量表評分：</p>\n<table border=\"1\" cellpadding=\"4\"><tr><th>功能</th><th>可能性</th><th>衝擊</th></tr>\n<tr><td>A</td><td>2</td><td>8</td></tr>\n<tr><td>B</td><td>5</td><td>6</td></tr>\n<tr><td>C</td><td>9</td><td>2</td></tr>\n<tr><td>D</td><td>3</td><td>3</td></tr></table>\n<p>正確的測試先後順序（風險暴露度最高先）為何？</p>",
+          "answers": [
+            {
+              "text": "B、C、A、D",
+              "fraction": 100,
+              "feedback": "正確——B ＝ 30、C ＝ 18、A ＝ 16、D ＝ 9。"
+            },
+            {
+              "text": "C、B、A、D",
+              "fraction": 0,
+              "feedback": "C ＝ 9×2 = 18，低於 B ＝ 30，故 C 不是第一。"
+            },
+            {
+              "text": "A、B、C、D",
+              "fraction": 0,
+              "feedback": "A ＝ 2×8 = 16，同時低於 B（30）與 C（18），故 A 不是第一。"
+            },
+            {
+              "text": "B、A、C、D",
+              "fraction": 0,
+              "feedback": "A ＝ 16 低於 C ＝ 18，故 A 必須排在 C 之後，而非之前。"
+            }
+          ],
+          "generalFeedback": "暴露度 ＝ 可能性 × 衝擊：A ＝ 2×8 = 16、B ＝ 5×6 = 30、C ＝ 9×2 = 18、D ＝ 3×3 = 9。依暴露度由高到低排序即為 B（30）、C（18）、A（16）、D（9）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在時間預算下選兩個",
+          "text": "<p>時間只夠完整測試以下四個項目中的兩個：</p>\n<table border=\"1\" cellpadding=\"4\"><tr><th>項目</th><th>可能性</th><th>衝擊</th></tr>\n<tr><td>結帳</td><td>6</td><td>8</td></tr>\n<tr><td>登入</td><td>4</td><td>7</td></tr>\n<tr><td>搜尋</td><td>5</td><td>2</td></tr>\n<tr><td>報表</td><td>2</td><td>3</td></tr></table>\n<p>應測試哪兩個？</p>",
+          "answers": [
+            {
+              "text": "結帳與登入",
+              "fraction": 100,
+              "feedback": "正確——結帳 ＝ 48、登入 ＝ 28，是暴露度最高的兩個。"
+            },
+            {
+              "text": "結帳與搜尋",
+              "fraction": 0,
+              "feedback": "搜尋 ＝ 5×2 = 10，低於登入的 28，故應選登入而非搜尋。"
+            },
+            {
+              "text": "搜尋與報表",
+              "fraction": 0,
+              "feedback": "那是暴露度最低的兩個（10 與 6）；它們是該延後的，不是該測試的。"
+            },
+            {
+              "text": "登入與搜尋",
+              "fraction": 0,
+              "feedback": "結帳（48）是單項最高，必須納入；搜尋（10）不應取代它。"
+            }
+          ],
+          "generalFeedback": "暴露度 ＝ 可能性 × 衝擊：結帳 ＝ 48、登入 ＝ 28、搜尋 ＝ 10、報表 ＝ 6。在只能測兩個的容量下，測最高的兩個——結帳與登入——並延後搜尋與報表。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序四個相近的暴露度",
+          "text": "<p>四個模組評分為：</p>\n<table border=\"1\" cellpadding=\"4\"><tr><th>模組</th><th>可能性</th><th>衝擊</th></tr>\n<tr><td>M1</td><td>3</td><td>5</td></tr>\n<tr><td>M2</td><td>4</td><td>4</td></tr>\n<tr><td>M3</td><td>2</td><td>9</td></tr>\n<tr><td>M4</td><td>6</td><td>2</td></tr></table>\n<p>把它們由風險暴露度最高排到最低。</p>",
+          "answers": [
+            {
+              "text": "M3、M2、M1、M4",
+              "fraction": 100,
+              "feedback": "正確——M3 ＝ 18、M2 ＝ 16、M1 ＝ 15、M4 ＝ 12。"
+            },
+            {
+              "text": "M1、M2、M3、M4",
+              "fraction": 0,
+              "feedback": "M1 ＝ 3×5 = 15 不是最高；M3 ＝ 18 才是。"
+            },
+            {
+              "text": "M4、M3、M2、M1",
+              "fraction": 0,
+              "feedback": "M4 ＝ 6×2 = 12 是最低，而非最高。"
+            },
+            {
+              "text": "M3、M1、M2、M4",
+              "fraction": 0,
+              "feedback": "M2 ＝ 16 大於 M1 ＝ 15，故 M2 必須排在 M1 之前。"
+            }
+          ],
+          "generalFeedback": "暴露度 ＝ 可能性 × 衝擊：M1 ＝ 15、M2 ＝ 16、M3 ＝ 18、M4 ＝ 12。由高到低為 M3（18）、M2（16）、M1（15）、M4（12）——相近的數值正好要求逐一精確計算每個乘積。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "緩解後重新計算暴露度",
+          "text": "<p>某項目評為可能性 8、衝擊 5（暴露度 40）。一項緩解措施（加入自動輸入驗證加上針對性的測試套件）預期可把可能性降到 3，而失敗的衝擊維持不變。新的風險暴露度是多少？</p>",
+          "answers": [
+            {
+              "text": "15",
+              "fraction": 100,
+              "feedback": "正確——新暴露度 ＝ 3 × 5 = 15。"
+            },
+            {
+              "text": "0",
+              "fraction": 0,
+              "feedback": "緩解降低了可能性但並未消除它；殘餘暴露度是 3 × 5 = 15，而非 0。"
+            },
+            {
+              "text": "40",
+              "fraction": 0,
+              "feedback": "那是原本的暴露度；降低後的可能性得到 3 × 5 = 15。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "那是改變後的可能性 + 衝擊；暴露度是乘積 3 × 5 = 15。"
+            }
+          ],
+          "generalFeedback": "緩解把可能性由 8 降到 3，而衝擊維持 5，故殘餘暴露度是 3 × 5 = 15。注意它從 40 降到 15，但並未降到零——殘餘風險仍然存在。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "低可能性、災難性衝擊值得測試",
+          "text": "<p>某失效模式可能性為 1、衝擊為 10（暴露度 10），而一個例行功能可能性為 3、衝擊為 3（暴露度 9）。為什麼這個罕見但災難性的失效仍值得仔細測試？</p>",
+          "answers": [
+            {
+              "text": "它的暴露度（10）其實較高，而災難性的後果即使在低可能性下也值得關注",
+              "fraction": 100,
+              "feedback": "正確——1×10 = 10 大於 3×3 = 9，而且嚴重的衝擊本就重要。"
+            },
+            {
+              "text": "因為低可能性一定代表低風險，所以可以忽略",
+              "fraction": 0,
+              "feedback": "低可能性本身不會使風險變低；高衝擊使暴露度仍然顯著。"
+            },
+            {
+              "text": "因為例行功能的暴露度較高",
+              "fraction": 0,
+              "feedback": "例行功能的暴露度是 9，低於災難性模式的 10。"
+            },
+            {
+              "text": "因為可能性是唯一重要的因素",
+              "fraction": 0,
+              "feedback": "兩個因素都重要；當衝擊極端時，它可能占主導。"
+            }
+          ],
+          "generalFeedback": "暴露度 ＝ 可能性 × 衝擊：災難性模式是 1×10 = 10，高於例行功能的 3×3 = 9。除了數字本身，災難性後果（例如安全或全部資料遺失）即使機率很小，往往也值得額外測試，因為出錯的代價太高。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "迷思：100% 覆蓋率可消除風險",
+          "text": "<p>某團隊宣稱：「我們達到了 100% 程式碼覆蓋率，所以現在正式環境出現任何缺陷的風險為零。」最佳的批評是：</p>",
+          "answers": [
+            {
+              "text": "覆蓋率並不能消除風險——它不保證諭示正確、不涵蓋所有資料／路徑／環境，也無法處理缺漏的需求，因此殘餘風險仍存在",
+              "fraction": 100,
+              "feedback": "正確——完整覆蓋降低風險，但無法將其歸零。"
+            },
+            {
+              "text": "正確——100% 覆蓋率確實代表零殘餘風險",
+              "fraction": 0,
+              "feedback": "這正是迷思；程式碼被執行到，並不代表輸出被檢查、缺漏的功能被涵蓋、或未試過的資料被測到。"
+            },
+            {
+              "text": "覆蓋率無關緊要，對風險完全沒有影響",
+              "fraction": 0,
+              "feedback": "覆蓋率確實會降低風險；錯在宣稱它移除了全部風險。"
+            },
+            {
+              "text": "唯一的缺陷是 100% 覆蓋率太昂貴",
+              "fraction": 0,
+              "feedback": "成本是另一個議題；關鍵缺陷在於即使完整覆蓋仍留有殘餘風險。"
+            }
+          ],
+          "generalFeedback": "執行過每一行並不能驗證輸出是否被正確檢查，也不會演練每個輸入值、路徑組合、時序或環境，更無法揭露缺漏的需求。測試降低風險但永遠無法消除，因此宣稱 100% 覆蓋率後風險為零是誇大其詞——殘餘風險總是存在。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "高嚴重度但低優先度的缺陷",
+          "text": "<p>某個當機只在一個冷僻的管理報表中發生，一位內部使用者一年才跑一次。此當機屬高<em>嚴重度</em>（它會完全中止該功能）。為什麼它的修正可能被排為低<em>優先度</em>？</p>",
+          "answers": [
+            {
+              "text": "因為它極少被觸發且幾乎不影響任何使用者，所以儘管局部影響嚴重，修正的業務急迫性很低",
+              "fraction": 100,
+              "feedback": "正確——嚴重度（影響有多糟）可以很高，而優先度（修正有多急）可以很低。"
+            },
+            {
+              "text": "因為當機永遠不可能是高嚴重度",
+              "fraction": 0,
+              "feedback": "會中止功能的當機確實屬高嚴重度；重點是優先度仍可以很低。"
+            },
+            {
+              "text": "因為嚴重度與優先度必須永遠相等",
+              "fraction": 0,
+              "feedback": "兩者經常分歧；此例正是如此。"
+            },
+            {
+              "text": "因為低優先度代表它其實不算缺陷",
+              "fraction": 0,
+              "feedback": "它仍是真正的缺陷；優先度只反映修正的急迫性。"
+            }
+          ],
+          "generalFeedback": "嚴重度衡量影響的技術嚴重程度（此處為完全當機），而優先度反映業務上多急需修正。很少使用、低暴露的功能可以帶有高嚴重度但低優先度的缺陷——這兩個面向相關但不同。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "低嚴重度但高優先度的缺陷",
+          "text": "<p>公司名稱在公開首頁上以大字拼錯。功能上沒有任何東西壞掉（低<em>嚴重度</em>）。為什麼這可能被排為高<em>優先度</em>？</p>",
+          "answers": [
+            {
+              "text": "因為它非常顯眼且損害品牌，所以即使功能影響很小，修正的急迫性仍然很高",
+              "fraction": 100,
+              "feedback": "正確——高能見度／業務衝擊使優先度上升，儘管技術嚴重度低。"
+            },
+            {
+              "text": "因為外觀問題自動屬於高嚴重度",
+              "fraction": 0,
+              "feedback": "它在功能上是低嚴重度；重點是優先度依然很高。"
+            },
+            {
+              "text": "因為優先度永遠等同於嚴重度",
+              "fraction": 0,
+              "feedback": "此處兩者分歧：低嚴重度、高優先度。"
+            },
+            {
+              "text": "因為低嚴重度的缺陷從不值得修正",
+              "fraction": 0,
+              "feedback": "這個顯然值得盡快修正，這正是優先度高的原因。"
+            }
+          ],
+          "generalFeedback": "嚴重度低，因為功能上沒壞掉，但這個缺陷位於最顯眼的頁面且損害品牌，因此業務急迫性——優先度——很高。這是「高嚴重度／低優先度」的鏡像，說明兩個面向彼此獨立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "被延後項目的殘餘風險",
+          "text": "<p>在期限壓力下，團隊完整測試了最高風險的項目，並刻意延後一個未加測試的中等風險項目。發行時，正確的描述是什麼？</p>",
+          "answers": [
+            {
+              "text": "被延後的項目構成產品的殘餘風險，利害關係人應在發行前明知地接受或拒絕它",
+              "fraction": 100,
+              "feedback": "正確——未測試而延後的項目正是應被明確承認的殘餘風險。"
+            },
+            {
+              "text": "沒有殘餘風險，因為最高風險的項目都測過了",
+              "fraction": 0,
+              "feedback": "被延後、未測試的項目仍把風險帶進正式環境；殘餘風險不是零。"
+            },
+            {
+              "text": "延後一個項目就消除了它的風險",
+              "fraction": 0,
+              "feedback": "延後測試並不會消除底層風險；它只是讓風險未被處理。"
+            },
+            {
+              "text": "被延後的項目現在保證無缺陷",
+              "fraction": 0,
+              "feedback": "不測試某物不可能使它無缺陷；它的風險只是未被檢視。"
+            }
+          ],
+          "generalFeedback": "刻意延後一個中等風險項目是正當的風險式決策，但這個未測試的項目仍把風險帶進正式環境。那就是殘餘風險，良好做法是把它明確化，讓利害關係人判斷是否可接受而出貨。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "打破暴露度的平手",
+          "text": "<p>兩個項目暴露度同為 12：項目 G（可能性 2、衝擊 6）與項目 H（可能性 6、衝擊 2）。G 的缺陷會是災難性且在現場難以偵測，而 H 的失敗輕微且很快就會被注意到。哪個做法比較站得住腳？</p>",
+          "answers": [
+            {
+              "text": "更深入地測試 G，因為在暴露度相等時，衝擊較高、較難偵測的項目值得額外的嚴謹",
+              "fraction": 100,
+              "feedback": "正確——暴露度打平時，衝擊嚴重度與可偵測性等次要因素用來打破平手。"
+            },
+            {
+              "text": "更深入地測試 H，因為它的可能性較高",
+              "fraction": 0,
+              "feedback": "在暴露度相等、且 H 的失敗輕微又明顯時，單看較高的可能性不足以證成更多嚴謹。"
+            },
+            {
+              "text": "兩者都跳過，因為暴露度相等代表都不重要",
+              "fraction": 0,
+              "feedback": "暴露度相等不代表風險可忽略；兩者都仍重要，尤其是 G。"
+            },
+            {
+              "text": "對兩者測試完全相同，因為數字絕不可被推翻",
+              "fraction": 0,
+              "feedback": "暴露度數字是起點；在暴露度相等時，質性因素可正當地精修決策。"
+            }
+          ],
+          "generalFeedback": "兩個項目暴露度都是 2×6 = 6×2 = 12，故乘積無法區分它們。風險式測試接著使用次要準則：G 那災難性、難偵測的衝擊使它是兩者中較危險者，因此值得更深入測試。這說明暴露度分數引導但不完全決定優先序。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "專案中重新評估的效果",
+          "text": "<p>某項目起初評為可能性 2、衝擊 4（暴露度 8），後來發現它位於一條新發現的關鍵整合路徑上，使其可能性升到 7（衝擊不變）。應該怎麼做？</p>",
+          "answers": [
+            {
+              "text": "其暴露度升為 28，因此應向上重新排定優先序並投入更多測試",
+              "fraction": 100,
+              "feedback": "正確——7 × 4 = 28，是一次大跳升，把它往優先清單上方移。"
+            },
+            {
+              "text": "什麼都不變，因為風險評分一經設定就固定",
+              "fraction": 0,
+              "feedback": "評分並非固定；新資訊必須觸發重新評估。"
+            },
+            {
+              "text": "暴露度仍是 8，因為只有衝擊會影響暴露度",
+              "fraction": 0,
+              "feedback": "暴露度取決於兩個因素；較高的可能性使它升為 7 × 4 = 28。"
+            },
+            {
+              "text": "應調降優先序，因為它一開始是低風險",
+              "fraction": 0,
+              "feedback": "初始評分已被取代；此項目現在是較高風險，而非較低。"
+            }
+          ],
+          "generalFeedback": "重新評估以更新後的可能性重算暴露度：7 × 4 = 28，由 8 升上來。因為風險是動態的，該項目被往優先序上方移並獲得更多測試投入——正說明了風險式測試的監控／重新評估步驟。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序勝過單因素排序",
+          "text": "<p>項目：R（可能性 9、衝擊 2）、S（可能性 3、衝擊 5）、T（可能性 4、衝擊 6）。一位同事提議依可能性排序來測試：R、T、S。這個計畫錯在哪裡？</p>",
+          "answers": [
+            {
+              "text": "只依可能性排序是錯的；依暴露度，正確順序是 T（24）、R（18）、S（15）",
+              "fraction": 100,
+              "feedback": "正確——暴露度為 R ＝ 18、S ＝ 15、T ＝ 24，故正確順序是 T、R、S，而非 R、T、S。"
+            },
+            {
+              "text": "沒有錯；依可能性排序永遠等同於依暴露度排序",
+              "fraction": 0,
+              "feedback": "並非如此：T 的可能性低於 R，暴露度卻較高（24 對 18）。"
+            },
+            {
+              "text": "計畫是對的，因為 R 的可能性最高",
+              "fraction": 0,
+              "feedback": "最高的可能性不代表最高的暴露度；R 的暴露度（18）低於 T 的（24）。"
+            },
+            {
+              "text": "暴露度應由小到大排序，故順序為 R、S、T",
+              "fraction": 0,
+              "feedback": "較高風險先測（由大到小），而且 R 也並非最低。"
+            }
+          ],
+          "generalFeedback": "暴露度 ＝ 可能性 × 衝擊：R ＝ 9×2 = 18、S ＝ 3×5 = 15、T ＝ 4×6 = 24。依暴露度（由大到小）排序為 T、R、S——與只依可能性的順序 R、T、S 不同。排優先序必須用兩因素的乘積，而非單一因素。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試為風險決策提供資訊",
+          "text": "<p>除了找出缺陷之外，執行風險式測試還如何為利害關係人降低風險？</p>",
+          "answers": [
+            {
+              "text": "它提供資訊，縮小對真實風險等級的不確定性，使發行決策更有依據",
+              "fraction": 100,
+              "feedback": "正確——即使沒找到缺陷，測試結果也降低不確定性。"
+            },
+            {
+              "text": "它證明軟體完全沒有缺陷",
+              "fraction": 0,
+              "feedback": "測試無法證明所有缺陷都不存在；它降低不確定性，但不會降到零。"
+            },
+            {
+              "text": "它把每個測過的項目的風險永久設為零",
+              "fraction": 0,
+              "feedback": "測試後殘餘風險仍存在；風險不會被歸零。"
+            },
+            {
+              "text": "除非真的找到缺陷，否則它沒有價值",
+              "fraction": 0,
+              "feedback": "即使測試通過，也因降低了對風險的不確定性而有價值。"
+            }
+          ],
+          "generalFeedback": "風險式測試以兩種方式降低風險：找出可修正的缺陷（降低可能性），以及提供證據以降低對實際品質的不確定性——幫助利害關係人判斷殘餘風險並做出有依據的發行決策。它永遠不會完全消除風險。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "無法測試的高風險項目",
+          "text": "<p>一個高暴露度的項目依賴一個在發行前無法演練的第三方服務。合理的風險式回應是什麼？</p>",
+          "answers": [
+            {
+              "text": "以其他方式緩解（例如樁程式、契約、監控），並把仍未測試的部分記錄為明確的殘餘風險",
+              "fraction": 100,
+              "feedback": "正確——在無法直接測試時，採用替代緩解並讓殘餘風險可見。"
+            },
+            {
+              "text": "因為它無法測試就宣告它零風險",
+              "fraction": 0,
+              "feedback": "無法測試並不會移除風險；反而使風險更不被理解。"
+            },
+            {
+              "text": "完全忽略它，因為無法測試的項目不在範圍內",
+              "fraction": 0,
+              "feedback": "高暴露度的項目不能就此忽略；必須緩解並追蹤其殘餘風險。"
+            },
+            {
+              "text": "假設第三方保證它無缺陷",
+              "fraction": 0,
+              "feedback": "假設無缺陷並無根據；必須承認殘餘風險。"
+            }
+          ],
+          "generalFeedback": "當高風險項目無法直接測試時，風險式測試會採用替代緩解——服務樁程式、契約測試、額外監控、應變計畫——並明確記錄仍殘留的風險為殘餘風險，讓利害關係人在發行決策中一併衡量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "風險式測試的完整循環",
+          "text": "<p>哪個順序最能描述風險式測試的流程？</p>",
+          "answers": [
+            {
+              "text": "辨識風險 → 評估可能性與衝擊 → 依暴露度排優先序 → 分配／執行測試 → 監控並重新評估",
+              "fraction": 100,
+              "feedback": "正確——這就是反覆的風險式測試循環。"
+            },
+            {
+              "text": "寫好所有測試 → 以隨機順序執行 → 一失敗就停止",
+              "fraction": 0,
+              "feedback": "那完全忽略了風險評估與排定優先序。"
+            },
+            {
+              "text": "對每個項目投入相同心力 → 從不重新評估",
+              "fraction": 0,
+              "feedback": "均一投入且不重新評估，正好與風險式測試相反。"
+            },
+            {
+              "text": "先修好所有缺陷 → 再決定存在哪些風險",
+              "fraction": 0,
+              "feedback": "風險是在測試之前並貫穿測試過程中辨識與評估的，而非在修完一切之後。"
+            }
+          ],
+          "generalFeedback": "風險式測試是一個反覆的循環：辨識風險、評估每個風險的可能性與衝擊、依風險暴露度排優先序、據此分配並執行測試投入，然後隨著專案與其風險演變而監控並重新評估。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "spec-mutation": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What specification mutation mutates",
+          "text": "<p>Specification mutation testing applies mutation operators to:</p>",
+          "answers": [
+            {
+              "text": "A specification or model of the system (e.g. a requirement, an FSM, or a temporal-logic property), not the program source code",
+              "fraction": 100,
+              "feedback": "Correct — in specification mutation the artifact that is altered is the spec/model, not the code."
+            },
+            {
+              "text": "The program's source code",
+              "fraction": 0,
+              "feedback": "Mutating source code is program (code) mutation, a different technique."
+            },
+            {
+              "text": "The compiled binary of the program",
+              "fraction": 0,
+              "feedback": "Specification mutation works on the specification, not on compiled code."
+            },
+            {
+              "text": "The test cases themselves",
+              "fraction": 0,
+              "feedback": "Test cases are what we evaluate or generate; specification mutation changes the spec."
+            }
+          ],
+          "generalFeedback": "Specification mutation applies mutation operators to a specification or model — a boolean/logic requirement, a finite-state machine, or a temporal-logic property — rather than to the program's code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutant specification",
+          "text": "<p>A <em>mutant specification</em> is:</p>",
+          "answers": [
+            {
+              "text": "A copy of the original specification with one small change introduced by a mutation operator",
+              "fraction": 100,
+              "feedback": "Correct — a mutant spec is the original spec seeded with one deliberate small change."
+            },
+            {
+              "text": "A specification defect reported by users in the field",
+              "fraction": 0,
+              "feedback": "Mutant specs are artificial changes seeded on purpose, not field-reported defects."
+            },
+            {
+              "text": "A test case derived from the specification",
+              "fraction": 0,
+              "feedback": "That is a test, not a mutant specification."
+            },
+            {
+              "text": "An execution trace produced by a model checker",
+              "fraction": 0,
+              "feedback": "That is a counterexample/trace, not a mutant specification."
+            }
+          ],
+          "generalFeedback": "A mutant specification is a variant of the specification produced by applying a spec mutation operator that makes one small change (e.g. negating a clause), just as a program mutant is a small change to code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is deliberately altered",
+          "text": "<p>In specification mutation, the artifact that is deliberately altered to create a mutant is:</p>",
+          "answers": [
+            {
+              "text": "The specification / model",
+              "fraction": 100,
+              "feedback": "Correct — the spec or model is what gets mutated."
+            },
+            {
+              "text": "The source code",
+              "fraction": 0,
+              "feedback": "Altering source code is program mutation, not specification mutation."
+            },
+            {
+              "text": "The test harness",
+              "fraction": 0,
+              "feedback": "The test harness is infrastructure, not the mutated artifact."
+            },
+            {
+              "text": "The input data files",
+              "fraction": 0,
+              "feedback": "Input data is not what a spec mutation operator changes."
+            }
+          ],
+          "generalFeedback": "Specification mutation seeds a change into the specification or model (a requirement, an FSM, or a temporal property), leaving the program code untouched.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Specification vs program mutation",
+          "text": "<p>The key difference between <em>specification mutation</em> and <em>program (code) mutation</em> is:</p>",
+          "answers": [
+            {
+              "text": "Specification mutation changes the specification/model, whereas program mutation changes the program's source code",
+              "fraction": 100,
+              "feedback": "Correct — the two differ in which artifact is mutated."
+            },
+            {
+              "text": "Specification mutation uses random inputs while program mutation is systematic",
+              "fraction": 0,
+              "feedback": "Both use systematic mutation operators; the difference is the artifact mutated."
+            },
+            {
+              "text": "Specification mutation needs no mutation operators",
+              "fraction": 0,
+              "feedback": "Both rely on mutation operators; spec mutation just applies them to the spec."
+            },
+            {
+              "text": "They are the same technique under two names",
+              "fraction": 0,
+              "feedback": "They are distinct: one mutates the spec, the other the code."
+            }
+          ],
+          "generalFeedback": "Both are mutation techniques, but program mutation seeds faults into code and runs tests to detect them, while specification mutation seeds changes into the spec/model to assess or generate tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Killing a spec mutant",
+          "text": "<p>A <em>mutant specification is killed</em> when:</p>",
+          "answers": [
+            {
+              "text": "Some test or analysis distinguishes the behavior described by the mutant spec from that of the original spec",
+              "fraction": 100,
+              "feedback": "Correct — an observable difference between mutant and original spec kills it."
+            },
+            {
+              "text": "The mutant specification fails to parse",
+              "fraction": 0,
+              "feedback": "A malformed mutant is discarded, not \"killed\" by distinguishing behavior."
+            },
+            {
+              "text": "The mutant specification is longer than the original",
+              "fraction": 0,
+              "feedback": "Length is irrelevant to killing; killing requires a behavioral difference."
+            },
+            {
+              "text": "The original specification is proven correct",
+              "fraction": 0,
+              "feedback": "Killing concerns distinguishing mutant from original, not proving correctness."
+            }
+          ],
+          "generalFeedback": "A spec mutant is killed when a test case (or a model-checker run) reveals that the mutant specification and the original specification disagree on some behavior.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Equivalent spec mutant",
+          "text": "<p>An <em>equivalent spec mutant</em> is a mutant specification that:</p>",
+          "answers": [
+            {
+              "text": "Is syntactically different from the original spec but semantically identical, so no test can distinguish them",
+              "fraction": 100,
+              "feedback": "Correct — identical meaning means it can never be killed."
+            },
+            {
+              "text": "Is textually identical to the original specification",
+              "fraction": 0,
+              "feedback": "A mutation always introduces a syntactic change; identical text is not a mutant."
+            },
+            {
+              "text": "Always contradicts the original specification",
+              "fraction": 0,
+              "feedback": "A contradicting mutant differs in meaning and is killable; an equivalent one has the same meaning."
+            },
+            {
+              "text": "Cannot be expressed in the specification language",
+              "fraction": 0,
+              "feedback": "Equivalence is about meaning, not expressibility."
+            }
+          ],
+          "generalFeedback": "An equivalent spec mutant differs syntactically from the original but denotes exactly the same behavior for every input, so no test or model-check can ever distinguish (kill) it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model-based mutation testing",
+          "text": "<p><em>Model-based mutation testing</em> refers to:</p>",
+          "answers": [
+            {
+              "text": "Applying mutation operators to a behavioral model of the system (e.g. an FSM), rather than to the code",
+              "fraction": 100,
+              "feedback": "Correct — the model is mutated."
+            },
+            {
+              "text": "Building a statistical model of how often each code mutant is killed",
+              "fraction": 0,
+              "feedback": "That is not what model-based mutation means; here the model is the mutated artifact."
+            },
+            {
+              "text": "Mutating only the program's data model (database schema)",
+              "fraction": 0,
+              "feedback": "The \"model\" is a behavioral model/spec, not specifically a database schema."
+            },
+            {
+              "text": "Randomly mutating the model checker's algorithm",
+              "fraction": 0,
+              "feedback": "The model checker is a tool, not the artifact being mutated."
+            }
+          ],
+          "generalFeedback": "Model-based mutation testing seeds mutations into a model (such as an FSM or a formal specification) and uses the difference between the model and its mutants to assess or generate tests — a form of specification mutation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose: adequacy",
+          "text": "<p>One purpose of specification mutation is to:</p>",
+          "answers": [
+            {
+              "text": "Assess the adequacy of a test suite or the quality/completeness of the specification",
+              "fraction": 100,
+              "feedback": "Correct — killed mutants measure how well tests (or the spec) capture the intended behavior."
+            },
+            {
+              "text": "Automatically repair defects in the program",
+              "fraction": 0,
+              "feedback": "Specification mutation evaluates or generates tests; it does not fix code."
+            },
+            {
+              "text": "Prove the program has no defects",
+              "fraction": 0,
+              "feedback": "No mutation technique proves the absence of all defects."
+            },
+            {
+              "text": "Compress the specification into fewer states",
+              "fraction": 0,
+              "feedback": "That is model minimization, not the purpose of specification mutation."
+            }
+          ],
+          "generalFeedback": "Specification mutation is used to (a) assess the adequacy of a test suite or the quality of the specification and (b) generate tests. Measuring which spec mutants a suite kills gauges its adequacy.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose: test generation",
+          "text": "<p>Specification mutation can be used to <em>generate tests</em> by:</p>",
+          "answers": [
+            {
+              "text": "Using a model checker's counterexample from a mutated property as a test case",
+              "fraction": 100,
+              "feedback": "Correct — a counterexample that distinguishes the mutant from the original spec becomes a test."
+            },
+            {
+              "text": "Compiling the mutant specification into an executable",
+              "fraction": 0,
+              "feedback": "Compiling a spec does not by itself produce test cases."
+            },
+            {
+              "text": "Counting the number of clauses in the specification",
+              "fraction": 0,
+              "feedback": "Counting clauses is a metric, not a test-generation method."
+            },
+            {
+              "text": "Removing all temporal operators from the specification",
+              "fraction": 0,
+              "feedback": "That would change the spec's meaning and does not generate tests."
+            }
+          ],
+          "generalFeedback": "A model checker checking a mutated property against the model returns a counterexample — a trace where the mutant and original disagree. That trace is turned into a test case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Example spec mutation operator",
+          "text": "<p>Which is an example of a <em>specification</em> mutation operator?</p>",
+          "answers": [
+            {
+              "text": "Negating a clause in a requirement (e.g. condition C becomes NOT C)",
+              "fraction": 100,
+              "feedback": "Correct — negating a requirement's clause mutates the specification."
+            },
+            {
+              "text": "Deleting a line of C++ source in the implementation",
+              "fraction": 0,
+              "feedback": "That mutates code, so it is program mutation."
+            },
+            {
+              "text": "Renaming a local variable in the program",
+              "fraction": 0,
+              "feedback": "That is a code-level change, not a specification change."
+            },
+            {
+              "text": "Inserting a unary minus into a program expression",
+              "fraction": 0,
+              "feedback": "That is a code mutation operator (UOI), not a spec operator."
+            }
+          ],
+          "generalFeedback": "Spec mutation operators change the specification: negate a clause, swap a relational/logical/temporal operator in a requirement, or redirect an FSM transition. Changes to source code are program mutation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Temporal operator G",
+          "text": "<p>In linear temporal logic, the operator <strong>G</strong> (globally) applied to a property <code>p</code> means that <code>p</code>:</p>",
+          "answers": [
+            {
+              "text": "Holds in every state along the path (always)",
+              "fraction": 100,
+              "feedback": "Correct — G means \"always / globally\"."
+            },
+            {
+              "text": "Holds in at least one future state",
+              "fraction": 0,
+              "feedback": "That is F (eventually), not G."
+            },
+            {
+              "text": "Holds only in the immediately next state",
+              "fraction": 0,
+              "feedback": "That is X (next), not G."
+            },
+            {
+              "text": "Holds until some other property becomes true",
+              "fraction": 0,
+              "feedback": "That is the U (until) operator, not G."
+            }
+          ],
+          "generalFeedback": "In LTL, G p (\"globally p\") asserts that p is true in every state of the execution path — the \"always\" operator.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Temporal operator F",
+          "text": "<p>In linear temporal logic, <strong>F</strong> (eventually/finally) applied to <code>p</code> means that <code>p</code>:</p>",
+          "answers": [
+            {
+              "text": "Holds in some current-or-future state",
+              "fraction": 100,
+              "feedback": "Correct — F means \"eventually\"."
+            },
+            {
+              "text": "Holds in every state along the path",
+              "fraction": 0,
+              "feedback": "That is G (globally), not F."
+            },
+            {
+              "text": "Holds in the immediately next state only",
+              "fraction": 0,
+              "feedback": "That is X (next), not F."
+            },
+            {
+              "text": "Never holds",
+              "fraction": 0,
+              "feedback": "F asserts p does hold at some point, the opposite of never."
+            }
+          ],
+          "generalFeedback": "In LTL, F p (\"eventually p\") asserts that p becomes true at some state now or later along the path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Counterexample definition",
+          "text": "<p>When a model checker finds that a property is violated by the model, it produces a <em>counterexample</em>, which is:</p>",
+          "answers": [
+            {
+              "text": "A concrete execution trace of the model that violates the property",
+              "fraction": 100,
+              "feedback": "Correct — the counterexample is a witnessing trace of the violation."
+            },
+            {
+              "text": "A corrected version of the property that now holds",
+              "fraction": 0,
+              "feedback": "The checker returns a violating trace, not a rewritten property."
+            },
+            {
+              "text": "A proof that the property holds on the model",
+              "fraction": 0,
+              "feedback": "A counterexample demonstrates a violation, not a proof of correctness."
+            },
+            {
+              "text": "A random input unrelated to the model",
+              "fraction": 0,
+              "feedback": "A counterexample is a specific trace of the model, not a random input."
+            }
+          ],
+          "generalFeedback": "A counterexample is a concrete sequence of states (an execution trace) of the model that demonstrates how the property is violated. This trace is exactly what specification-mutation test generation turns into a test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify specification mutation",
+          "text": "<p>Which activity is <em>specification</em> mutation (not program mutation)?</p>",
+          "answers": [
+            {
+              "text": "Replacing G with F in an LTL requirement and re-checking it against the model",
+              "fraction": 100,
+              "feedback": "Correct — the requirement (specification) was mutated."
+            },
+            {
+              "text": "Replacing + with - in a C function and re-running the tests",
+              "fraction": 0,
+              "feedback": "That mutates code — program mutation."
+            },
+            {
+              "text": "Deleting a statement in the source and re-running the tests",
+              "fraction": 0,
+              "feedback": "Deleting a source statement is program mutation."
+            },
+            {
+              "text": "Inserting a unary minus in a program expression",
+              "fraction": 0,
+              "feedback": "That is a code-level (UOI) mutation."
+            }
+          ],
+          "generalFeedback": "Changing a temporal-logic requirement (G to F) mutates the specification. Changing operators, statements, or expressions in the source code is program mutation.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Spec mutation mutates the code",
+          "text": "<p>Specification mutation testing works by mutating the program's source code and running tests against it.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Mutating source code is program mutation. Specification mutation changes the specification/model instead."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — specification mutation mutates the specification or model, not the source code (that would be program mutation)."
+            }
+          ],
+          "generalFeedback": "Specification mutation applies mutation operators to a specification or model (a requirement, an FSM, or a temporal property). Mutating source code is the separate technique of program mutation."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "When a mutant spec is killed by a test",
+          "text": "<p>A mutant specification is killed by a test case when:</p>",
+          "answers": [
+            {
+              "text": "The test's expected result under the mutant spec differs from its expected result under the original spec",
+              "fraction": 100,
+              "feedback": "Correct — a test that the two specs would judge differently kills the mutant."
+            },
+            {
+              "text": "The test executes quickly on the model checker",
+              "fraction": 0,
+              "feedback": "Execution speed has nothing to do with killing a mutant."
+            },
+            {
+              "text": "The test passes on the original specification",
+              "fraction": 0,
+              "feedback": "Passing the original alone does not distinguish the mutant; disagreement between the two is required."
+            },
+            {
+              "text": "The mutant specification has more states than the original",
+              "fraction": 0,
+              "feedback": "State count is irrelevant; killing requires a behavioral disagreement."
+            }
+          ],
+          "generalFeedback": "A spec mutant is killed when some test would be judged differently by the mutant and by the original specification — i.e. the two specs disagree on that test's expected behavior.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Condition-negation operator",
+          "text": "<p>Applying a <em>condition-negation</em> spec mutation operator to the requirement guard <code>temp &gt; 100</code> yields which mutant?</p>",
+          "answers": [
+            {
+              "text": "<code>NOT (temp &gt; 100)</code>",
+              "fraction": 100,
+              "feedback": "Correct — condition negation wraps the guard in a logical NOT."
+            },
+            {
+              "text": "<code>temp &gt;= 100</code>",
+              "fraction": 0,
+              "feedback": "That is a relational-operator swap, not negation."
+            },
+            {
+              "text": "<code>temp &gt; 200</code>",
+              "fraction": 0,
+              "feedback": "That is an operand change, not negation."
+            },
+            {
+              "text": "<code>temp &gt; 100 AND active</code>",
+              "fraction": 0,
+              "feedback": "That adds a conjunct (guard strengthening), not negation."
+            }
+          ],
+          "generalFeedback": "Condition negation replaces a requirement's condition C with NOT C. Herebecomes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Relational-operator swap in a requirement",
+          "text": "<p>Replacing <code>&gt;=</code> with <code>&gt;</code> in the requirement \"the alarm sounds when <code>pressure &gt;= threshold</code>\" is a spec mutation operator that:</p>",
+          "answers": [
+            {
+              "text": "Swaps a relational operator, changing the boundary behavior of the requirement",
+              "fraction": 100,
+              "feedback": "Correct — it alters what happens exactly at."
+            },
+            {
+              "text": "Deletes a clause from the requirement",
+              "fraction": 0,
+              "feedback": "No clause is removed; a relational operator is changed."
+            },
+            {
+              "text": "Changes a temporal operator",
+              "fraction": 0,
+              "feedback": "No temporal operator is involved here."
+            },
+            {
+              "text": "Redirects a state-machine transition",
+              "fraction": 0,
+              "feedback": "This is a relational change in a condition, not a transition redirection."
+            }
+          ],
+          "generalFeedback": "Swapping a relational operator (hereto) changes the requirement's behavior at the boundary value; a killing test must include that boundary.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "FSM transition redirection",
+          "text": "<p>In an FSM specification, a mutation operator that changes a transition's destination (e.g. on input <code>x</code> the machine goes to state C instead of state B) is:</p>",
+          "answers": [
+            {
+              "text": "Transition redirection — changing the target state of a transition",
+              "fraction": 100,
+              "feedback": "Correct — the transition's destination is altered."
+            },
+            {
+              "text": "A relational-operator swap",
+              "fraction": 0,
+              "feedback": "No relational operator is involved; the transition target changed."
+            },
+            {
+              "text": "A temporal-operator replacement",
+              "fraction": 0,
+              "feedback": "No temporal operator is involved."
+            },
+            {
+              "text": "Condition negation",
+              "fraction": 0,
+              "feedback": "The guard is not negated; the destination state is changed."
+            }
+          ],
+          "generalFeedback": "Redirecting a transition (changing where an input leads) is a standard FSM/model mutation operator. Other FSM operators change the triggering event or the guard.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Logical-operator swap effect",
+          "text": "<p>A spec mutation replaces <strong>AND</strong> with <strong>OR</strong> in a requirement's condition. Compared with the original, the mutated condition is:</p>",
+          "answers": [
+            {
+              "text": "Weaker — it is satisfied in more cases (either operand true suffices)",
+              "fraction": 100,
+              "feedback": "Correct — AND needs both true; OR needs only one, so OR holds more often."
+            },
+            {
+              "text": "Stronger — it is satisfied in fewer cases",
+              "fraction": 0,
+              "feedback": "OR is satisfied more often than AND, so it is weaker, not stronger."
+            },
+            {
+              "text": "Unchanged in meaning",
+              "fraction": 0,
+              "feedback": "AND and OR differ whenever the operands have different truth values."
+            },
+            {
+              "text": "Only affects arithmetic, not logic",
+              "fraction": 0,
+              "feedback": "AND/OR are logical connectives; the change is logical, not arithmetic."
+            }
+          ],
+          "generalFeedback": "Replacing AND with OR (a logical-operator mutation, analogous to program mutation's LOR) weakens the condition: it now holds whenever either operand is true, a superset of the AND case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Temporal operator mutation G to F",
+          "text": "<p>A temporal-operator mutation replaces <code>G p</code> with <code>F p</code> in a property. This changes the requirement from:</p>",
+          "answers": [
+            {
+              "text": "\"p holds in every state\" to \"p holds in at least one state\" — a strictly weaker requirement",
+              "fraction": 100,
+              "feedback": "Correct — G (always) becomes F (eventually), which is weaker."
+            },
+            {
+              "text": "An equivalent restatement with the same meaning",
+              "fraction": 0,
+              "feedback": "G p and F p differ: G p implies F p, but not conversely."
+            },
+            {
+              "text": "\"p holds in some state\" to \"p holds in every state\" — a stronger requirement",
+              "fraction": 0,
+              "feedback": "That is the reverse direction; G to F weakens the requirement."
+            },
+            {
+              "text": "A change that only affects the next state",
+              "fraction": 0,
+              "feedback": "Next-state semantics belong to X, not to G or F."
+            }
+          ],
+          "generalFeedback": "G p (\"always p\") requires p in every state; F p (\"eventually p\") requires p in some state. G p implies F p but not the reverse, so this mutation weakens the property and generally changes its meaning.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Counterexample as a test from a mutated property",
+          "text": "<p>The original property <code>p</code> holds on model <code>M</code>. To generate a test from a mutant property <code>p'</code>, you:</p>",
+          "answers": [
+            {
+              "text": "Model-check p' against M; if M violates p', the counterexample trace is a test that distinguishes p' from p",
+              "fraction": 100,
+              "feedback": "Correct — the violating trace satisfies p (since M ⊨ p) but not p', so it distinguishes them."
+            },
+            {
+              "text": "Model-check p against M again and discard the result",
+              "fraction": 0,
+              "feedback": "Re-checking the original property does not use the mutant and generates nothing new."
+            },
+            {
+              "text": "Compile p' into code and profile it",
+              "fraction": 0,
+              "feedback": "Profiling a compiled property is not how tests are derived here."
+            },
+            {
+              "text": "Count the states reachable in M",
+              "fraction": 0,
+              "feedback": "Counting states does not produce a distinguishing test."
+            }
+          ],
+          "generalFeedback": "Model-checking the mutant property p' against M yields a counterexample when M violates p'. Because M satisfies the original p, that trace satisfies p but not p', so it distinguishes the two specifications and becomes a test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Measuring test-suite adequacy with spec mutation",
+          "text": "<p>To use specification mutation to <em>measure a test suite's adequacy</em>, you:</p>",
+          "answers": [
+            {
+              "text": "Generate mutant specs and check what fraction of them the suite's tests distinguish from the original spec",
+              "fraction": 100,
+              "feedback": "Correct — the fraction of spec mutants killed measures adequacy."
+            },
+            {
+              "text": "Count how many lines the specification has",
+              "fraction": 0,
+              "feedback": "Spec length is not an adequacy measure."
+            },
+            {
+              "text": "Run the suite once against the original spec only",
+              "fraction": 0,
+              "feedback": "Without mutants there is nothing to kill, so no adequacy is measured."
+            },
+            {
+              "text": "Remove every failing test from the suite",
+              "fraction": 0,
+              "feedback": "Removing tests does not measure adequacy against mutants."
+            }
+          ],
+          "generalFeedback": "As with program mutation, you produce a set of spec mutants and see how many the test suite kills (distinguishes from the original). The proportion killed is an adequacy measure for the suite relative to the spec.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutant property with no counterexample",
+          "text": "<p>During property-mutation test generation, a model checker reports that a <em>mutated</em> property still holds on the model (no counterexample). This means the mutant is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent with respect to that model — it cannot be killed via the model, so no test is produced",
+              "fraction": 100,
+              "feedback": "Correct — no counterexample means the model cannot distinguish mutant from original."
+            },
+            {
+              "text": "Killed — the absence of a counterexample kills it",
+              "fraction": 0,
+              "feedback": "The opposite: a counterexample is what would distinguish (kill) it; its absence means it survives."
+            },
+            {
+              "text": "Malformed and must be discarded",
+              "fraction": 0,
+              "feedback": "A well-formed mutant that still holds is equivalent, not malformed."
+            },
+            {
+              "text": "Proof that the implementation is correct",
+              "fraction": 0,
+              "feedback": "It says nothing about the implementation, only about the model and this mutant."
+            }
+          ],
+          "generalFeedback": "If the mutated property still holds on the model, there is no counterexample distinguishing it from the original with respect to that model — it is an equivalent mutant (relative to the model) and yields no test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "FSM triggering-event mutation",
+          "text": "<p>Changing the triggering event on an FSM transition (e.g. it now fires on input \"coin\" instead of \"button\") is a spec mutation operator that:</p>",
+          "answers": [
+            {
+              "text": "Alters which input causes the transition, potentially changing the accepted behavior",
+              "fraction": 100,
+              "feedback": "Correct — the transition now responds to a different input."
+            },
+            {
+              "text": "Changes the number of states in the machine",
+              "fraction": 0,
+              "feedback": "The states are unchanged; only the triggering input changed."
+            },
+            {
+              "text": "Negates a temporal-logic property",
+              "fraction": 0,
+              "feedback": "No temporal property is involved in an FSM event change."
+            },
+            {
+              "text": "Deletes the transition entirely",
+              "fraction": 0,
+              "feedback": "The transition still exists; only its trigger changed."
+            }
+          ],
+          "generalFeedback": "Mutating the event/input that fires a transition is a standard FSM mutation operator; it changes which inputs drive the machine and thus the specified behavior.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the counterexample makes a good test",
+          "text": "<p>A counterexample obtained by model-checking a mutant property is a good test case because:</p>",
+          "answers": [
+            {
+              "text": "It is a concrete trace where the mutant and original specifications disagree, so it can reveal whether an implementation follows the correct one",
+              "fraction": 100,
+              "feedback": "Correct — it targets exactly the behavior that distinguishes the two specs."
+            },
+            {
+              "text": "It is chosen at random, giving broad coverage",
+              "fraction": 0,
+              "feedback": "A counterexample is targeted, not random."
+            },
+            {
+              "text": "It always exercises every state of the model",
+              "fraction": 0,
+              "feedback": "A counterexample is a single trace, not a tour of all states."
+            },
+            {
+              "text": "It proves the specification is complete",
+              "fraction": 0,
+              "feedback": "A counterexample distinguishes two specs; it does not prove completeness."
+            }
+          ],
+          "generalFeedback": "The counterexample is a concrete execution where the original and mutant specs diverge. Running it against an implementation checks whether the implementation obeys the intended (original) spec rather than the mutated (faulty) one.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SMV scenario classification",
+          "text": "<p>You have an SMV model and an LTL requirement. You alter the LTL formula and re-run the model checker. This is:</p>",
+          "answers": [
+            {
+              "text": "Specification (property) mutation, since the requirement — not the code — was changed",
+              "fraction": 100,
+              "feedback": "Correct — the LTL requirement is part of the specification."
+            },
+            {
+              "text": "Program mutation, since the model checker ran the model",
+              "fraction": 0,
+              "feedback": "Running the checker does not make it program mutation; the mutated artifact was the requirement."
+            },
+            {
+              "text": "Fuzz testing, since inputs were varied",
+              "fraction": 0,
+              "feedback": "No random inputs were fuzzed; a formula was mutated."
+            },
+            {
+              "text": "Neither — changing a formula is not a mutation",
+              "fraction": 0,
+              "feedback": "Changing the LTL formula is exactly a specification mutation."
+            }
+          ],
+          "generalFeedback": "Mutating an LTL/CTL requirement and re-checking it is specification mutation: the mutated artifact is the requirement (part of the spec), not the program code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Operand-replacement operator on a requirement",
+          "text": "<p>A spec mutation replaces one operand with another in a requirement, turning <code>level &gt; max</code> into <code>level &gt; min</code>. This is:</p>",
+          "answers": [
+            {
+              "text": "An operand (variable) replacement mutation on the specification",
+              "fraction": 100,
+              "feedback": "Correct — a variable operand was swapped for another."
+            },
+            {
+              "text": "A relational-operator swap",
+              "fraction": 0,
+              "feedback": "The relational operatoris unchanged; an operand was replaced."
+            },
+            {
+              "text": "A temporal-operator replacement",
+              "fraction": 0,
+              "feedback": "No temporal operator is involved."
+            },
+            {
+              "text": "A transition redirection",
+              "fraction": 0,
+              "feedback": "No FSM transition is involved; this is a condition-operand change."
+            }
+          ],
+          "generalFeedback": "Replacing a variable operand (herewith) is an operand/variable-replacement spec mutation, analogous to variable replacement in program mutation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model-mutation alternative",
+          "text": "<p>Instead of mutating a property, model-based mutation testing can mutate the <em>model</em> itself and then:</p>",
+          "answers": [
+            {
+              "text": "Check the original requirements against the mutant model; a requirement now violated yields a counterexample distinguishing the two models",
+              "fraction": 100,
+              "feedback": "Correct — the counterexample separates the original model from the mutant."
+            },
+            {
+              "text": "Delete all requirements and keep only the mutant model",
+              "fraction": 0,
+              "feedback": "Requirements are needed to detect the mutant's difference; you do not delete them."
+            },
+            {
+              "text": "Mutate the source code as well to match",
+              "fraction": 0,
+              "feedback": "Model mutation changes the model, not the code."
+            },
+            {
+              "text": "Run the mutant model without any properties",
+              "fraction": 0,
+              "feedback": "Without properties there is nothing for the checker to violate, so no test emerges."
+            }
+          ],
+          "generalFeedback": "One can mutate the model and check the original requirements against it. If the mutant model violates a requirement the original satisfied, the counterexample is a trace distinguishing model from mutant — a test that kills the model mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Boundary of a relational mutation",
+          "text": "<p>Mutating <code>x &gt;= 5</code> to <code>x &gt; 5</code> in a requirement changes the specified behavior:</p>",
+          "answers": [
+            {
+              "text": "Only at x = 5; a killing test must include that boundary value",
+              "fraction": 100,
+              "feedback": "Correct — the two conditions agree everywhere except x = 5."
+            },
+            {
+              "text": "For all values of x",
+              "fraction": 0,
+              "feedback": "They agree for every x except exactly 5."
+            },
+            {
+              "text": "Only for negative x",
+              "fraction": 0,
+              "feedback": "They agree for negative x; they differ only at x = 5."
+            },
+            {
+              "text": "Never — the mutant is equivalent",
+              "fraction": 0,
+              "feedback": "It is not equivalent: x = 5 distinguishesfrom."
+            }
+          ],
+          "generalFeedback": "anddiffer only at x = 5 (true vs false). A test that omits the boundary would fail to kill this mutant, so the killing test must include x = 5.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "De Morgan equivalent mutant (AND form)",
+          "text": "<p>A requirement's guard <code>NOT (a AND b)</code> is mutated to <code>NOT a OR NOT b</code>. This mutant is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — by De Morgan's law the two forms are logically identical, so no test can kill it",
+              "fraction": 100,
+              "feedback": "Correct — NOT (a AND b) is exactly NOT a OR NOT b."
+            },
+            {
+              "text": "Killed by any test where a and b differ",
+              "fraction": 0,
+              "feedback": "The two forms agree on every assignment, so no test distinguishes them."
+            },
+            {
+              "text": "Non-equivalent because OR replaced AND",
+              "fraction": 0,
+              "feedback": "The surrounding negations make the whole expression equivalent under De Morgan's law."
+            },
+            {
+              "text": "Malformed and therefore discarded",
+              "fraction": 0,
+              "feedback": "It is well-formed and logically equivalent, not malformed."
+            }
+          ],
+          "generalFeedback": "De Morgan's law states NOT (a AND b) is equivalent to NOT a OR NOT b. The mutant denotes the identical boolean function, so it is an equivalent spec mutant that no test can kill.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is G to F an equivalent mutation?",
+          "text": "<p>Is replacing <code>G p</code> by <code>F p</code> in a property an <em>equivalent</em> mutation?</p>",
+          "answers": [
+            {
+              "text": "No — G p (always) and F p (eventually) have different meanings (G p implies F p but not conversely), so it generally changes the spec and is killable",
+              "fraction": 100,
+              "feedback": "Correct — the two operators are not interchangeable."
+            },
+            {
+              "text": "Yes — G and F always mean the same thing",
+              "fraction": 0,
+              "feedback": "They do not: \"always\" is strictly stronger than \"eventually\"."
+            },
+            {
+              "text": "Yes — F p implies G p, so they coincide",
+              "fraction": 0,
+              "feedback": "F p does not imply G p; the implication runs the other way."
+            },
+            {
+              "text": "No — but only because F is undefined in LTL",
+              "fraction": 0,
+              "feedback": "F is a standard LTL operator; the reason is the difference in meaning, not undefinedness."
+            }
+          ],
+          "generalFeedback": "G p requires p in every state; F p only requires p somewhere. G p implies F p, but not the reverse, so the mutation changes the property's meaning — it is non-equivalent and generally killable (a trace where p holds sometime but not always distinguishes them).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why a mutant property yields a distinguishing counterexample",
+          "text": "<p>Model-checking a mutant property <code>p'</code> against a model <code>M</code> (with the original <code>p</code> true on <code>M</code>) yields a counterexample. Why does that trace distinguish the mutant from the original?</p>",
+          "answers": [
+            {
+              "text": "The trace is an execution of M that violates p'; since M satisfies p, the same trace satisfies p, so p and p' disagree on it",
+              "fraction": 100,
+              "feedback": "Correct — the trace satisfies p but not p', exactly distinguishing them."
+            },
+            {
+              "text": "The counterexample is generated independently of both p and p'",
+              "fraction": 0,
+              "feedback": "The counterexample is specifically a violation of p', so it is tied to the mutant."
+            },
+            {
+              "text": "Because p' is syntactically longer than p",
+              "fraction": 0,
+              "feedback": "Syntactic length is irrelevant; the distinguishing power comes from the semantic disagreement on the trace."
+            },
+            {
+              "text": "Because the model checker rewrites p to match p'",
+              "fraction": 0,
+              "feedback": "The checker does not rewrite the original; it finds a trace violating p'."
+            }
+          ],
+          "generalFeedback": "The counterexample violates p' by construction. Because M satisfies the original p, every trace of M (including this one) satisfies p. So the trace satisfies p but not p' — a concrete witness that the two specifications differ, which is why it works as a test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Unkillable mutant signals redundancy",
+          "text": "<p>A clause of a requirement is mutated, but no test (and no model-check) can ever kill the resulting mutant. This most likely indicates:</p>",
+          "answers": [
+            {
+              "text": "The mutant is equivalent, which suggests the clause is redundant or the spec is over-constrained — it does not affect the specified behavior",
+              "fraction": 100,
+              "feedback": "Correct — an unkillable mutation points to a clause with no effect on meaning."
+            },
+            {
+              "text": "The test suite is perfectly adequate",
+              "fraction": 0,
+              "feedback": "An unkillable mutant is equivalent; it says nothing positive about suite adequacy."
+            },
+            {
+              "text": "The specification is guaranteed complete",
+              "fraction": 0,
+              "feedback": "Equivalence of one mutant does not imply completeness of the whole spec."
+            },
+            {
+              "text": "The program contains a fault",
+              "fraction": 0,
+              "feedback": "This is about the spec's structure, not a program fault."
+            }
+          ],
+          "generalFeedback": "If mutating a clause never changes the specified behavior, the mutant is equivalent — evidence that the clause is redundant or the requirement over-constrained. Specification mutation can thus expose redundancy and help assess spec quality.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a CTL-property fault-seeding workflow",
+          "text": "<p>A team seeds a fault into a CTL property, re-runs the model checker to obtain a counterexample, and turns it into a test. Which best describes this?</p>",
+          "answers": [
+            {
+              "text": "Specification (model-based) mutation testing — the property was mutated, and the counterexample becomes a test",
+              "fraction": 100,
+              "feedback": "Correct — mutating a CTL property and deriving a test from the counterexample is specification mutation."
+            },
+            {
+              "text": "Program mutation — because a test was produced at the end",
+              "fraction": 0,
+              "feedback": "Producing a test does not make it program mutation; the mutated artifact was the property."
+            },
+            {
+              "text": "Structural code coverage measurement",
+              "fraction": 0,
+              "feedback": "No code structure was measured; a property was mutated."
+            },
+            {
+              "text": "Equivalence-class partitioning of the input domain",
+              "fraction": 0,
+              "feedback": "That is a black-box input-partition technique, unrelated to mutating a CTL property."
+            }
+          ],
+          "generalFeedback": "Seeding a fault into a temporal (CTL) property and using the model checker's counterexample as a test is specification/model-based mutation: the mutated artifact is the property, and the counterexample distinguishes it from the original.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Temporal idempotence equivalent mutant",
+          "text": "<p>A property <code>F p</code> is mutated to <code>F F p</code> (\"eventually eventually p\"). This mutant is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — F is idempotent, so F F p is logically the same as F p and cannot be killed",
+              "fraction": 100,
+              "feedback": "Correct — F F p ≡ F p."
+            },
+            {
+              "text": "Non-equivalent — F F p requires p twice",
+              "fraction": 0,
+              "feedback": "F F p does not require p \"twice\"; it reduces to F p."
+            },
+            {
+              "text": "Non-equivalent — it is stronger than F p",
+              "fraction": 0,
+              "feedback": "They are equal in strength; F F p ≡ F p."
+            },
+            {
+              "text": "Malformed — F cannot be nested",
+              "fraction": 0,
+              "feedback": "Nesting temporal operators is allowed; here it simply collapses to F p."
+            }
+          ],
+          "generalFeedback": "The eventually operator is idempotent: F F p is equivalent to F p (likewise G G p ≡ G p). So this mutation produces an equivalent spec mutant that no test can kill.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Practical limitations",
+          "text": "<p>Two major practical limitations of specification/model mutation testing are:</p>",
+          "answers": [
+            {
+              "text": "Detecting equivalent mutants is hard (undecidable in general), and model-checking many mutants can suffer state-space explosion",
+              "fraction": 100,
+              "feedback": "Correct — equivalent mutants and model size are the classic limitations."
+            },
+            {
+              "text": "Mutation operators cannot be defined for specifications, and models never have states",
+              "fraction": 0,
+              "feedback": "Spec mutation operators are well defined, and models do have states."
+            },
+            {
+              "text": "Model checkers cannot produce counterexamples, and specs cannot be mutated",
+              "fraction": 0,
+              "feedback": "Both are false: checkers produce counterexamples and specs can be mutated."
+            },
+            {
+              "text": "It requires source code and cannot use a model",
+              "fraction": 0,
+              "feedback": "The opposite — it works on a spec/model and needs no source code."
+            }
+          ],
+          "generalFeedback": "Like program mutation, specification mutation faces the equivalent-mutant problem (equivalence is undecidable in general). Additionally, checking many mutant properties/models against a large model can hit state-space explosion, limiting scalability.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "No counterexample means equivalent w.r.t. model",
+          "text": "<p>In property-mutation test generation, a mutant property that the model <em>still satisfies</em>:</p>",
+          "answers": [
+            {
+              "text": "Yields no counterexample and hence no test — it is an equivalent mutant relative to the model",
+              "fraction": 100,
+              "feedback": "Correct — with nothing to violate, the model cannot distinguish it from the original."
+            },
+            {
+              "text": "Yields the strongest possible test",
+              "fraction": 0,
+              "feedback": "No counterexample means no test at all is produced."
+            },
+            {
+              "text": "Proves the original property was wrong",
+              "fraction": 0,
+              "feedback": "It says nothing about the original property being wrong."
+            },
+            {
+              "text": "Forces the model checker to enumerate all traces as tests",
+              "fraction": 0,
+              "feedback": "No violation means no counterexample; the checker does not emit all traces."
+            }
+          ],
+          "generalFeedback": "If the model satisfies the mutant property, the model checker returns no counterexample, so no distinguishing test can be generated — the mutant is equivalent with respect to that model.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Guard-strengthening mutation on an FSM",
+          "text": "<p>In an FSM spec, a mutation <em>strengthens</em> a transition guard by adding an extra conjunct (guard becomes <code>g AND extra</code>). Relative to the original, the mutated transition:</p>",
+          "answers": [
+            {
+              "text": "Fires in fewer cases (a subset of the original); a killing test must reach an input where the original fired but the mutant does not",
+              "fraction": 100,
+              "feedback": "Correct — adding a conjunct can only shrink the set of firing inputs."
+            },
+            {
+              "text": "Fires in more cases than before",
+              "fraction": 0,
+              "feedback": "Adding a conjunct makes the guard harder to satisfy, so it fires less often."
+            },
+            {
+              "text": "Fires in exactly the same cases",
+              "fraction": 0,
+              "feedback": "Only if the extra conjunct were always true given g; in general the guard is strictly narrower."
+            },
+            {
+              "text": "Never fires under any input",
+              "fraction": 0,
+              "feedback": "It still fires whenever both g and the extra conjunct hold."
+            }
+          ],
+          "generalFeedback": "Strengthening a guard with an added conjunct restricts firing to a subset of the original cases. A test that kills this mutant must reach an input where the original guard held but the strengthened guard does not.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "De Morgan equivalent mutant (OR form)",
+          "text": "<p>A requirement condition <code>a OR b</code> is mutated to <code>NOT (NOT a AND NOT b)</code>. This mutant is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — by De Morgan's law it denotes the same function as, so it cannot be killed",
+              "fraction": 100,
+              "feedback": "Correct — NOT (NOT a AND NOT b) is exactly a OR b."
+            },
+            {
+              "text": "Non-equivalent because AND now appears",
+              "fraction": 0,
+              "feedback": "The negations restore the OR meaning under De Morgan's law."
+            },
+            {
+              "text": "Killed whenever exactly one of a, b is true",
+              "fraction": 0,
+              "feedback": "Both forms give true then, so they still agree; no test distinguishes them."
+            },
+            {
+              "text": "Only equivalent when a equals b",
+              "fraction": 0,
+              "feedback": "They agree on all four assignments, not only when a equals b."
+            }
+          ],
+          "generalFeedback": "De Morgan's law gives a OR b is equivalent to NOT (NOT a AND NOT b). The mutant computes the identical boolean function, so it is an equivalent spec mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Absorption law equivalent mutant",
+          "text": "<p>A requirement <code>a AND (a OR b)</code> is mutated to <code>a AND (a OR c)</code> (operand b replaced by c). The mutant is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — by absorptionreduces to, so both forms equal; this also reveals the second clause is redundant",
+              "fraction": 100,
+              "feedback": "Correct — the value depends only on a, so replacing b by c changes nothing."
+            },
+            {
+              "text": "Killed by any test where b and c differ",
+              "fraction": 0,
+              "feedback": "Since the whole expression equals a, the value of b or c never matters; no such test kills it."
+            },
+            {
+              "text": "Non-equivalent because c is a new variable",
+              "fraction": 0,
+              "feedback": "Introducing c has no effect: the expression reduces to a regardless."
+            },
+            {
+              "text": "Stronger than the original",
+              "fraction": 0,
+              "feedback": "Both are equivalent to a; neither is stronger."
+            }
+          ],
+          "generalFeedback": "By the absorption law, a AND (a OR X) equals a for any X. So both the original and the mutant equal a, making the mutant equivalent. Its unkillability exposes that the \"(a OR ...)\" clause is redundant in the requirement.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trap property to witness a behavior",
+          "text": "<p>A model checker returns a trace only when a property is <em>violated</em>. To obtain a trace that <em>witnesses</em> a desired behavior B (for use as a test), you can:</p>",
+          "answers": [
+            {
+              "text": "Assert a \"trap\" property claiming B never occurs; the model checker's counterexample is then a trace exhibiting B",
+              "fraction": 100,
+              "feedback": "Correct — negating the behavior of interest makes the counterexample a witness of it."
+            },
+            {
+              "text": "Assert that B always occurs and take the proof as the test",
+              "fraction": 0,
+              "feedback": "A proof (no violation) yields no trace; you need a violated property to get a counterexample."
+            },
+            {
+              "text": "Disable the model checker and enumerate inputs by hand",
+              "fraction": 0,
+              "feedback": "The trap-property technique uses the checker itself; manual enumeration is not the method."
+            },
+            {
+              "text": "Remove all properties so every trace is a counterexample",
+              "fraction": 0,
+              "feedback": "With no property there is nothing to violate, so no counterexample is produced."
+            }
+          ],
+          "generalFeedback": "Because a counterexample is produced only for a violated property, test-generation methods assert a \"trap\" (never-claim) property stating the behavior of interest never happens. The model checker then returns a counterexample that is exactly a trace realizing that behavior.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Next-operator mutation",
+          "text": "<p>A property <code>p</code> is mutated to <code>X p</code> (next p). In general this mutant is:</p>",
+          "answers": [
+            {
+              "text": "Non-equivalent — X p refers to the next state, so it differs from p evaluated at the current state",
+              "fraction": 100,
+              "feedback": "Correct — shifting the evaluation point by one state generally changes meaning."
+            },
+            {
+              "text": "Equivalent — X p always means the same as p",
+              "fraction": 0,
+              "feedback": "X p is about the next state, not the current one, so it differs in general."
+            },
+            {
+              "text": "Equivalent — because every path repeats",
+              "fraction": 0,
+              "feedback": "Paths do not generally repeat, and even so X shifts the evaluation point."
+            },
+            {
+              "text": "Malformed — X cannot be applied to an atomic property",
+              "fraction": 0,
+              "feedback": "X can be applied to any subformula, including an atomic one."
+            }
+          ],
+          "generalFeedback": "X p asserts p holds in the next state, whereas p asserts it in the current state. On a path where p holds now but not next (or vice versa), the two differ, so the mutation is generally non-equivalent and killable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Commutativity equivalent mutant",
+          "text": "<p>A logical-operand-swap mutation changes a side-effect-free spec condition <code>a AND b</code> to <code>b AND a</code>. This mutant is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — AND is commutative in a side-effect-free specification, so the two forms are identical and cannot be killed",
+              "fraction": 100,
+              "feedback": "Correct — order of operands does not matter for a pure boolean condition."
+            },
+            {
+              "text": "Non-equivalent because the operands were reordered",
+              "fraction": 0,
+              "feedback": "Reordering a commutative operator does not change a side-effect-free condition's meaning."
+            },
+            {
+              "text": "Killed by any test where a and b differ",
+              "fraction": 0,
+              "feedback": "a AND b and b AND a agree on every assignment, so no such test kills it."
+            },
+            {
+              "text": "Equivalent only when a equals b",
+              "fraction": 0,
+              "feedback": "They agree on all assignments, not only when a equals b."
+            }
+          ],
+          "generalFeedback": "Boolean AND is commutative, so in a specification without evaluation-order side effects, a AND b equals b AND a. The mutant denotes the same function — an equivalent spec mutant. (In short-circuiting code with side effects, order can matter; that is a program, not spec, concern.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Value of a test from a killed spec mutant",
+          "text": "<p>A test derived from a <em>killed</em> spec mutant is valuable because, when executed on an implementation, it:</p>",
+          "answers": [
+            {
+              "text": "Distinguishes the original spec's behavior from the mutant's, so an implementation that matches the mutated (faulty) spec instead of the original will fail",
+              "fraction": 100,
+              "feedback": "Correct — the test targets exactly the behavior on which the two specs disagree."
+            },
+            {
+              "text": "Guarantees the implementation is free of all faults",
+              "fraction": 0,
+              "feedback": "One targeted test cannot prove global correctness."
+            },
+            {
+              "text": "Exercises every path in the implementation",
+              "fraction": 0,
+              "feedback": "It is a single distinguishing trace, not a full path tour."
+            },
+            {
+              "text": "Is independent of both the original and mutant specs",
+              "fraction": 0,
+              "feedback": "It is derived precisely from where the two specs differ, so it depends on both."
+            }
+          ],
+          "generalFeedback": "The killing test is a trace where the original and mutant specs disagree. Running it against an implementation checks whether the implementation follows the intended (original) behavior; an implementation exhibiting the mutant's faulty behavior would fail the test.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "規格突變所突變的對象",
+          "text": "<p>規格突變測試（specification mutation testing）將突變運算子套用於：</p>",
+          "answers": [
+            {
+              "text": "系統的規格或模型（例如一條需求、一台 FSM、或一條時序邏輯性質），而非程式原始碼",
+              "fraction": 100,
+              "feedback": "正確——在規格突變中被更動的對象是規格／模型，而不是程式碼。"
+            },
+            {
+              "text": "程式的原始碼",
+              "fraction": 0,
+              "feedback": "突變原始碼屬於程式（碼）突變，是另一種技術。"
+            },
+            {
+              "text": "程式編譯後的二進位檔",
+              "fraction": 0,
+              "feedback": "規格突變作用於規格，不是編譯後的碼。"
+            },
+            {
+              "text": "測試案例本身",
+              "fraction": 0,
+              "feedback": "測試案例是我們評估或生成的對象；規格突變更動的是規格。"
+            }
+          ],
+          "generalFeedback": "規格突變把突變運算子套用到規格或模型——布林／邏輯需求、有限狀態機（FSM）、或時序邏輯性質——而不是套用到程式碼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "突變規格",
+          "text": "<p><em>突變規格</em>（mutant specification）是指：</p>",
+          "answers": [
+            {
+              "text": "原始規格的複本，其中由突變運算子引入了一個微小的改動",
+              "fraction": 100,
+              "feedback": "正確——突變規格是被刻意植入一個微小改動的原始規格。"
+            },
+            {
+              "text": "使用者在實際環境中回報的規格缺陷",
+              "fraction": 0,
+              "feedback": "突變規格是刻意植入的人造改動，不是現場回報的缺陷。"
+            },
+            {
+              "text": "由規格衍生出的測試案例",
+              "fraction": 0,
+              "feedback": "那是一個測試，不是突變規格。"
+            },
+            {
+              "text": "模型檢查器產生的執行軌跡",
+              "fraction": 0,
+              "feedback": "那是反例／軌跡，不是突變規格。"
+            }
+          ],
+          "generalFeedback": "突變規格是套用規格突變運算子後產生的規格變體，做出一個微小改動（例如將某子句取反），就像程式突變體是對程式碼做的微小改動一樣。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "被刻意更動的對象",
+          "text": "<p>在規格突變中，被刻意更動以建立突變體的對象是：</p>",
+          "answers": [
+            {
+              "text": "規格／模型",
+              "fraction": 100,
+              "feedback": "正確——被突變的是規格或模型。"
+            },
+            {
+              "text": "原始碼",
+              "fraction": 0,
+              "feedback": "更動原始碼屬於程式突變，而非規格突變。"
+            },
+            {
+              "text": "測試框架（test harness）",
+              "fraction": 0,
+              "feedback": "測試框架是基礎設施，不是被突變的對象。"
+            },
+            {
+              "text": "輸入資料檔",
+              "fraction": 0,
+              "feedback": "輸入資料不是規格突變運算子更動的對象。"
+            }
+          ],
+          "generalFeedback": "規格突變將改動植入規格或模型（一條需求、一台 FSM、或一條時序性質），而讓程式碼維持不變。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "規格突變與程式突變之別",
+          "text": "<p><em>規格突變</em>與<em>程式（碼）突變</em>之間的關鍵差異是：</p>",
+          "answers": [
+            {
+              "text": "規格突變更動規格／模型，而程式突變更動程式的原始碼",
+              "fraction": 100,
+              "feedback": "正確——兩者的差別在於被突變的對象不同。"
+            },
+            {
+              "text": "規格突變使用隨機輸入，程式突變則是系統化的",
+              "fraction": 0,
+              "feedback": "兩者都使用系統化的突變運算子；差別在被突變的對象。"
+            },
+            {
+              "text": "規格突變不需要突變運算子",
+              "fraction": 0,
+              "feedback": "兩者都仰賴突變運算子；規格突變只是把它們套用到規格上。"
+            },
+            {
+              "text": "它們是同一種技術的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們是不同的：一個突變規格，一個突變程式碼。"
+            }
+          ],
+          "generalFeedback": "兩者都是突變技術，但程式突變把故障植入程式碼並執行測試去偵測；規格突變則把改動植入規格／模型，以評估或生成測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺死規格突變體",
+          "text": "<p>一個<em>突變規格被殺死（killed）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "某個測試或分析能區分突變規格所描述的行為與原始規格的行為",
+              "fraction": 100,
+              "feedback": "正確——突變規格與原始規格之間可觀察的差異即可殺死它。"
+            },
+            {
+              "text": "突變規格無法被解析（parse）",
+              "fraction": 0,
+              "feedback": "格式錯誤的突變體會被丟棄，而不是因行為差異被「殺死」。"
+            },
+            {
+              "text": "突變規格比原始規格更長",
+              "fraction": 0,
+              "feedback": "長度與殺死無關；殺死需要行為上的差異。"
+            },
+            {
+              "text": "原始規格被證明為正確",
+              "fraction": 0,
+              "feedback": "殺死關乎區分突變體與原始規格，而非證明其正確性。"
+            }
+          ],
+          "generalFeedback": "當某個測試案例（或一次模型檢查）顯示突變規格與原始規格在某項行為上不一致時，該規格突變體即被殺死。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價規格突變體",
+          "text": "<p><em>等價規格突變體</em>（equivalent spec mutant）是指一個突變規格：</p>",
+          "answers": [
+            {
+              "text": "在語法上與原始規格不同，但語意上完全相同，因此沒有任何測試能區分兩者",
+              "fraction": 100,
+              "feedback": "正確——語意相同就永遠無法被殺死。"
+            },
+            {
+              "text": "在文字上與原始規格完全相同",
+              "fraction": 0,
+              "feedback": "突變一定會引入語法上的改動；文字完全相同就不是突變體。"
+            },
+            {
+              "text": "永遠與原始規格相矛盾",
+              "fraction": 0,
+              "feedback": "相矛盾的突變體語意不同、可被殺死；等價者則語意相同。"
+            },
+            {
+              "text": "無法以該規格語言表達",
+              "fraction": 0,
+              "feedback": "等價與否關乎語意，而非可表達性。"
+            }
+          ],
+          "generalFeedback": "等價規格突變體在語法上與原始規格不同，但對每個輸入都表示完全相同的行為，因此沒有任何測試或模型檢查能區分（殺死）它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "基於模型的突變測試",
+          "text": "<p><em>基於模型的突變測試</em>（model-based mutation testing）是指：</p>",
+          "answers": [
+            {
+              "text": "將突變運算子套用於系統的行為模型（例如一台 FSM），而非程式碼",
+              "fraction": 100,
+              "feedback": "正確——被突變的是模型。"
+            },
+            {
+              "text": "建立一個統計模型來描述每個程式碼突變體被殺死的頻率",
+              "fraction": 0,
+              "feedback": "那不是基於模型突變的意思；這裡模型才是被突變的對象。"
+            },
+            {
+              "text": "只突變程式的資料模型（資料庫綱要）",
+              "fraction": 0,
+              "feedback": "此處「模型」指行為模型／規格，並非特指資料庫綱要。"
+            },
+            {
+              "text": "隨機突變模型檢查器的演算法",
+              "fraction": 0,
+              "feedback": "模型檢查器是工具，不是被突變的對象。"
+            }
+          ],
+          "generalFeedback": "基於模型的突變測試把突變植入模型（例如 FSM 或形式規格），並用模型與其突變體之間的差異來評估或生成測試——這是規格突變的一種形式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "目的：適切性",
+          "text": "<p>規格突變的其中一個目的是：</p>",
+          "answers": [
+            {
+              "text": "評估測試套組的適切性（adequacy），或評估規格本身的品質／完整性",
+              "fraction": 100,
+              "feedback": "正確——被殺死的突變體可衡量測試（或規格）掌握預期行為的程度。"
+            },
+            {
+              "text": "自動修復程式中的缺陷",
+              "fraction": 0,
+              "feedback": "規格突變是評估或生成測試，並不修改程式碼。"
+            },
+            {
+              "text": "證明程式沒有任何缺陷",
+              "fraction": 0,
+              "feedback": "沒有任何突變技術能證明所有缺陷都不存在。"
+            },
+            {
+              "text": "把規格壓縮成較少的狀態",
+              "fraction": 0,
+              "feedback": "那是模型最小化，不是規格突變的目的。"
+            }
+          ],
+          "generalFeedback": "規格突變用來（甲）評估測試套組的適切性或規格品質，以及（乙）生成測試。測量某套組能殺死哪些規格突變體，即可衡量其適切性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "目的：測試生成",
+          "text": "<p>規格突變可用於<em>生成測試</em>，方法是：</p>",
+          "answers": [
+            {
+              "text": "將模型檢查器針對突變後性質所產生的反例當作測試案例",
+              "fraction": 100,
+              "feedback": "正確——能區分突變體與原始規格的反例即成為測試。"
+            },
+            {
+              "text": "將突變規格編譯成可執行檔",
+              "fraction": 0,
+              "feedback": "編譯規格本身並不會產生測試案例。"
+            },
+            {
+              "text": "計算規格中子句的數量",
+              "fraction": 0,
+              "feedback": "計算子句是一種度量，不是測試生成方法。"
+            },
+            {
+              "text": "移除規格中所有時序運算子",
+              "fraction": 0,
+              "feedback": "那會改變規格的語意，且無法生成測試。"
+            }
+          ],
+          "generalFeedback": "模型檢查器將突變後的性質對模型檢查，會回傳一個反例——一條突變體與原始規格不一致的軌跡。該軌跡即被轉為測試案例。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "規格突變運算子範例",
+          "text": "<p>下列何者是<em>規格</em>突變運算子的例子？</p>",
+          "answers": [
+            {
+              "text": "對需求中的某個子句取反（例如條件 C 變成 NOT C）",
+              "fraction": 100,
+              "feedback": "正確——對需求子句取反即突變了規格。"
+            },
+            {
+              "text": "在實作中刪除一行 C++ 原始碼",
+              "fraction": 0,
+              "feedback": "那突變的是程式碼，屬於程式突變。"
+            },
+            {
+              "text": "重新命名程式中的某個區域變數",
+              "fraction": 0,
+              "feedback": "那是程式碼層級的改動，不是規格改動。"
+            },
+            {
+              "text": "在程式運算式中插入一個一元負號",
+              "fraction": 0,
+              "feedback": "那是程式碼突變運算子（UOI），不是規格運算子。"
+            }
+          ],
+          "generalFeedback": "規格突變運算子更動的是規格：對子句取反、在需求中替換關係／邏輯／時序運算子、或重導 FSM 轉移。對原始碼的改動則屬於程式突變。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "時序運算子 G",
+          "text": "<p>在線性時序邏輯（LTL）中，對性質 <code>p</code> 套用運算子 <strong>G</strong>（globally）表示 <code>p</code>：</p>",
+          "answers": [
+            {
+              "text": "在路徑上的每一個狀態都成立（永遠成立）",
+              "fraction": 100,
+              "feedback": "正確——G 表示「永遠／全域」。"
+            },
+            {
+              "text": "在至少一個未來狀態成立",
+              "fraction": 0,
+              "feedback": "那是 F（eventually），不是 G。"
+            },
+            {
+              "text": "只在緊接的下一個狀態成立",
+              "fraction": 0,
+              "feedback": "那是 X（next），不是 G。"
+            },
+            {
+              "text": "直到另一個性質成立為止都成立",
+              "fraction": 0,
+              "feedback": "那是 U（until）運算子，不是 G。"
+            }
+          ],
+          "generalFeedback": "在 LTL 中，G p（「全域 p」）主張 p 在執行路徑的每一個狀態都為真——即「永遠」運算子。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "時序運算子 F",
+          "text": "<p>在線性時序邏輯（LTL）中，對 <code>p</code> 套用 <strong>F</strong>（eventually／finally）表示 <code>p</code>：</p>",
+          "answers": [
+            {
+              "text": "在當前或某個未來狀態成立",
+              "fraction": 100,
+              "feedback": "正確——F 表示「終究會」。"
+            },
+            {
+              "text": "在路徑上的每一個狀態都成立",
+              "fraction": 0,
+              "feedback": "那是 G（globally），不是 F。"
+            },
+            {
+              "text": "只在緊接的下一個狀態成立",
+              "fraction": 0,
+              "feedback": "那是 X（next），不是 F。"
+            },
+            {
+              "text": "永遠不成立",
+              "fraction": 0,
+              "feedback": "F 主張 p 在某個時點確實成立，與「永不」相反。"
+            }
+          ],
+          "generalFeedback": "在 LTL 中，F p（「終究 p」）主張 p 會在路徑上當前或稍後的某個狀態成為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "反例的定義",
+          "text": "<p>當模型檢查器發現某性質被模型違反時，會產生一個<em>反例（counterexample）</em>，它是：</p>",
+          "answers": [
+            {
+              "text": "模型中一條違反該性質的具體執行軌跡",
+              "fraction": 100,
+              "feedback": "正確——反例是一條見證違反的軌跡。"
+            },
+            {
+              "text": "一個修正後、現在能成立的性質",
+              "fraction": 0,
+              "feedback": "檢查器回傳的是違反的軌跡，不是改寫後的性質。"
+            },
+            {
+              "text": "該性質在模型上成立的證明",
+              "fraction": 0,
+              "feedback": "反例展示的是違反，而非正確性的證明。"
+            },
+            {
+              "text": "與模型無關的隨機輸入",
+              "fraction": 0,
+              "feedback": "反例是模型的一條特定軌跡，不是隨機輸入。"
+            }
+          ],
+          "generalFeedback": "反例是模型的一串具體狀態（一條執行軌跡），展示該性質如何被違反。這條軌跡正是規格突變測試生成所轉成的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識規格突變",
+          "text": "<p>下列哪一項活動屬於<em>規格</em>突變（而非程式突變）？</p>",
+          "answers": [
+            {
+              "text": "在一條 LTL 需求中將 G 替換為 F，並重新對模型檢查",
+              "fraction": 100,
+              "feedback": "正確——被突變的是需求（規格）。"
+            },
+            {
+              "text": "在某 C 函式中把 + 換成 - 並重新執行測試",
+              "fraction": 0,
+              "feedback": "那突變的是程式碼——屬於程式突變。"
+            },
+            {
+              "text": "刪除原始碼中的一個敘述並重新執行測試",
+              "fraction": 0,
+              "feedback": "刪除原始碼敘述屬於程式突變。"
+            },
+            {
+              "text": "在程式運算式中插入一元負號",
+              "fraction": 0,
+              "feedback": "那是程式碼層級（UOI）突變。"
+            }
+          ],
+          "generalFeedback": "更動時序邏輯需求（G 換 F）突變的是規格。更動原始碼中的運算子、敘述或運算式則屬於程式突變。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "規格突變是否突變程式碼",
+          "text": "<p>規格突變測試的做法是突變程式的原始碼，並對其執行測試。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "突變原始碼屬於程式突變。規格突變改動的是規格／模型。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——規格突變突變的是規格或模型，而非原始碼（後者屬於程式突變）。"
+            }
+          ],
+          "generalFeedback": "規格突變把突變運算子套用到規格或模型（一條需求、一台 FSM、或一條時序性質）。突變原始碼則是另一項獨立的技術：程式突變。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "測試何時殺死突變規格",
+          "text": "<p>一個測試案例何時會殺死一個突變規格？</p>",
+          "answers": [
+            {
+              "text": "該測試在突變規格下的預期結果，與在原始規格下的預期結果不同",
+              "fraction": 100,
+              "feedback": "正確——兩份規格對它會做出不同判定的測試即可殺死突變體。"
+            },
+            {
+              "text": "該測試在模型檢查器上執行得很快",
+              "fraction": 0,
+              "feedback": "執行速度與殺死突變體無關。"
+            },
+            {
+              "text": "該測試在原始規格上通過",
+              "fraction": 0,
+              "feedback": "僅通過原始規格並不能區分突變體；必須兩者之間有不一致。"
+            },
+            {
+              "text": "突變規格的狀態數比原始規格多",
+              "fraction": 0,
+              "feedback": "狀態數無關緊要；殺死需要行為上的不一致。"
+            }
+          ],
+          "generalFeedback": "當某測試會被突變規格與原始規格做出不同判定時——即兩份規格對該測試的預期行為不一致——該規格突變體即被殺死。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "條件取反運算子",
+          "text": "<p>將<em>條件取反</em>規格突變運算子套用於需求守衛 <code>temp &gt; 100</code>，會產生哪個突變體？</p>",
+          "answers": [
+            {
+              "text": "<code>NOT (temp &gt; 100)</code>",
+              "fraction": 100,
+              "feedback": "正確——條件取反將守衛包在邏輯 NOT 之中。"
+            },
+            {
+              "text": "<code>temp &gt;= 100</code>",
+              "fraction": 0,
+              "feedback": "那是關係運算子替換，不是取反。"
+            },
+            {
+              "text": "<code>temp &gt; 200</code>",
+              "fraction": 0,
+              "feedback": "那是運算元改動，不是取反。"
+            },
+            {
+              "text": "<code>temp &gt; 100 AND active</code>",
+              "fraction": 0,
+              "feedback": "那是加入一個合取項（守衛強化），不是取反。"
+            }
+          ],
+          "generalFeedback": "條件取反把需求的條件 C 換成 NOT C。此處變成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需求中的關係運算子替換",
+          "text": "<p>在需求「當 <code>pressure &gt;= threshold</code> 時警報響起」中，將 <code>&gt;=</code> 換成 <code>&gt;</code> 是一個規格突變運算子，其作用為：</p>",
+          "answers": [
+            {
+              "text": "替換一個關係運算子，改變該需求在邊界上的行為",
+              "fraction": 100,
+              "feedback": "正確——它改變了在這一點的結果。"
+            },
+            {
+              "text": "從需求中刪除一個子句",
+              "fraction": 0,
+              "feedback": "沒有子句被移除；被更動的是一個關係運算子。"
+            },
+            {
+              "text": "更動一個時序運算子",
+              "fraction": 0,
+              "feedback": "此處並不涉及任何時序運算子。"
+            },
+            {
+              "text": "重導一個狀態機轉移",
+              "fraction": 0,
+              "feedback": "這是條件中的關係改動，不是轉移重導。"
+            }
+          ],
+          "generalFeedback": "替換關係運算子（此處換成）會改變需求在邊界值的行為；殺死它的測試必須包含該邊界。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "FSM 轉移重導",
+          "text": "<p>在一台 FSM 規格中，改變某轉移目的地的突變運算子（例如輸入 <code>x</code> 時機器改往狀態 C 而非狀態 B）是：</p>",
+          "answers": [
+            {
+              "text": "轉移重導——改變一個轉移的目標狀態",
+              "fraction": 100,
+              "feedback": "正確——被更動的是轉移的目的地。"
+            },
+            {
+              "text": "關係運算子替換",
+              "fraction": 0,
+              "feedback": "此處不涉及關係運算子；改變的是轉移目標。"
+            },
+            {
+              "text": "時序運算子替換",
+              "fraction": 0,
+              "feedback": "此處不涉及時序運算子。"
+            },
+            {
+              "text": "條件取反",
+              "fraction": 0,
+              "feedback": "守衛沒有被取反；被改的是目的地狀態。"
+            }
+          ],
+          "generalFeedback": "重導轉移（改變某輸入導向何處）是標準的 FSM／模型突變運算子。其他 FSM 運算子則會改變觸發事件或守衛。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邏輯運算子替換的效果",
+          "text": "<p>一次規格突變把需求條件中的 <strong>AND</strong> 換成 <strong>OR</strong>。與原始相比，突變後的條件：</p>",
+          "answers": [
+            {
+              "text": "較弱——在更多情況下成立（任一運算元為真即足夠）",
+              "fraction": 100,
+              "feedback": "正確——AND 需兩者為真；OR 只需其一，故 OR 更常成立。"
+            },
+            {
+              "text": "較強——在更少情況下成立",
+              "fraction": 0,
+              "feedback": "OR 比 AND 更常成立，故是較弱而非較強。"
+            },
+            {
+              "text": "語意不變",
+              "fraction": 0,
+              "feedback": "當兩個運算元真假值不同時，AND 與 OR 就會不同。"
+            },
+            {
+              "text": "只影響算術，不影響邏輯",
+              "fraction": 0,
+              "feedback": "AND／OR 是邏輯連接詞；此改動屬邏輯，非算術。"
+            }
+          ],
+          "generalFeedback": "把 AND 換成 OR（一種邏輯運算子突變，類比程式突變的 LOR）會弱化條件：只要任一運算元為真它就成立，是 AND 情況的超集。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "時序運算子突變 G 換 F",
+          "text": "<p>一次時序運算子突變把某性質中的 <code>G p</code> 換成 <code>F p</code>。這將需求從：</p>",
+          "answers": [
+            {
+              "text": "「p 在每個狀態都成立」改為「p 至少在一個狀態成立」——一個嚴格較弱的需求",
+              "fraction": 100,
+              "feedback": "正確——G（永遠）變成 F（終究），是較弱的。"
+            },
+            {
+              "text": "一個語意相同的等價改寫",
+              "fraction": 0,
+              "feedback": "G p 與 F p 不同：G p 蘊涵 F p，但反之不然。"
+            },
+            {
+              "text": "「p 在某個狀態成立」改為「p 在每個狀態成立」——一個較強的需求",
+              "fraction": 0,
+              "feedback": "那是相反方向；G 換 F 是弱化需求。"
+            },
+            {
+              "text": "一個只影響下一狀態的改動",
+              "fraction": 0,
+              "feedback": "下一狀態語意屬於 X，而非 G 或 F。"
+            }
+          ],
+          "generalFeedback": "G p（「永遠 p」）要求每個狀態都有 p；F p（「終究 p」）只要求某個狀態有 p。G p 蘊涵 F p，但反之不然，故此突變弱化該性質，並且通常改變其語意。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以突變後性質的反例作為測試",
+          "text": "<p>原始性質 <code>p</code> 在模型 <code>M</code> 上成立。要從突變性質 <code>p'</code> 生成一個測試，你會：</p>",
+          "answers": [
+            {
+              "text": "將 p' 對 M 做模型檢查；若 M 違反 p'，其反例軌跡即為一個能區分 p' 與 p 的測試",
+              "fraction": 100,
+              "feedback": "正確——由於 M ⊨ p，該違反的軌跡滿足 p 卻不滿足 p'，故能區分兩者。"
+            },
+            {
+              "text": "再次將 p 對 M 做模型檢查並丟棄結果",
+              "fraction": 0,
+              "feedback": "重新檢查原始性質並未用到突變體，也生成不出新東西。"
+            },
+            {
+              "text": "把 p' 編譯成程式碼並做效能分析",
+              "fraction": 0,
+              "feedback": "對編譯後的性質做效能分析不是此處衍生測試的方法。"
+            },
+            {
+              "text": "計算 M 中可達的狀態數",
+              "fraction": 0,
+              "feedback": "計算狀態數並不能產生能區分兩者的測試。"
+            }
+          ],
+          "generalFeedback": "將突變性質 p' 對 M 做模型檢查，當 M 違反 p' 時會得到一個反例。因為 M 滿足原始的 p，該軌跡滿足 p 卻不滿足 p'，故能區分兩份規格，成為測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以規格突變衡量測試套組適切性",
+          "text": "<p>要以規格突變<em>衡量測試套組的適切性</em>，你會：</p>",
+          "answers": [
+            {
+              "text": "生成一批突變規格，檢查套組的測試能區分其中多少比例與原始規格",
+              "fraction": 100,
+              "feedback": "正確——被殺死的規格突變體比例即衡量適切性。"
+            },
+            {
+              "text": "計算規格有多少行",
+              "fraction": 0,
+              "feedback": "規格長度不是適切性的度量。"
+            },
+            {
+              "text": "只把套組對原始規格執行一次",
+              "fraction": 0,
+              "feedback": "沒有突變體就沒有東西可殺死，也就衡量不出適切性。"
+            },
+            {
+              "text": "移除套組中所有失敗的測試",
+              "fraction": 0,
+              "feedback": "移除測試無法衡量對突變體的適切性。"
+            }
+          ],
+          "generalFeedback": "如同程式突變，你產生一批規格突變體，看測試套組能殺死（區分於原始規格）多少。被殺死的比例即為套組相對於規格的一項適切性度量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "沒有反例的突變性質",
+          "text": "<p>在以性質突變生成測試時，模型檢查器回報某<em>突變後</em>性質在模型上仍然成立（沒有反例）。這表示該突變體是：</p>",
+          "answers": [
+            {
+              "text": "相對於該模型為等價——無法透過模型被殺死，故不會產生測試",
+              "fraction": 100,
+              "feedback": "正確——沒有反例代表模型無法區分突變體與原始。"
+            },
+            {
+              "text": "被殺死——沒有反例即殺死了它",
+              "fraction": 0,
+              "feedback": "恰好相反：反例才能區分（殺死）它；沒有反例代表它存活。"
+            },
+            {
+              "text": "格式錯誤，必須丟棄",
+              "fraction": 0,
+              "feedback": "一個仍成立的良構突變體是等價，而非格式錯誤。"
+            },
+            {
+              "text": "證明了實作是正確的",
+              "fraction": 0,
+              "feedback": "它對實作毫無說明，只關乎模型與此突變體。"
+            }
+          ],
+          "generalFeedback": "若突變性質在模型上仍成立，就沒有反例能相對於該模型區分它與原始——它是（相對於模型的）等價突變體，不會生成測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "FSM 觸發事件突變",
+          "text": "<p>改變一個 FSM 轉移的觸發事件（例如它現在以輸入「coin」而非「button」觸發）是一個規格突變運算子，其作用為：</p>",
+          "answers": [
+            {
+              "text": "改變哪個輸入會引發該轉移，可能改變被接受的行為",
+              "fraction": 100,
+              "feedback": "正確——該轉移現在回應不同的輸入。"
+            },
+            {
+              "text": "改變機器中的狀態數量",
+              "fraction": 0,
+              "feedback": "狀態不變；改變的只是觸發輸入。"
+            },
+            {
+              "text": "對一條時序邏輯性質取反",
+              "fraction": 0,
+              "feedback": "FSM 事件改動並不涉及時序性質。"
+            },
+            {
+              "text": "完全刪除該轉移",
+              "fraction": 0,
+              "feedback": "轉移仍存在；改變的只是它的觸發條件。"
+            }
+          ],
+          "generalFeedback": "突變觸發轉移的事件／輸入是標準的 FSM 突變運算子；它改變哪些輸入驅動機器，因而改變被規定的行為。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何反例是好測試",
+          "text": "<p>對突變性質做模型檢查所得的反例之所以是好的測試案例，是因為：</p>",
+          "answers": [
+            {
+              "text": "它是一條突變規格與原始規格不一致的具體軌跡，故能揭示實作是否遵循正確的那一份",
+              "fraction": 100,
+              "feedback": "正確——它正好瞄準區分兩份規格的行為。"
+            },
+            {
+              "text": "它是隨機挑選的，能提供廣泛的涵蓋",
+              "fraction": 0,
+              "feedback": "反例是有針對性的，不是隨機的。"
+            },
+            {
+              "text": "它總會走遍模型的每一個狀態",
+              "fraction": 0,
+              "feedback": "反例是單一軌跡，不是走遍所有狀態的巡覽。"
+            },
+            {
+              "text": "它證明了規格是完整的",
+              "fraction": 0,
+              "feedback": "反例區分兩份規格，並不證明完整性。"
+            }
+          ],
+          "generalFeedback": "反例是原始與突變規格分歧之處的一條具體執行。將它對實作執行，即可檢查實作是否遵循預期（原始）規格，而非突變（有故障）的那份。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SMV 情境分類",
+          "text": "<p>你有一個 SMV 模型與一條 LTL 需求。你更動該 LTL 公式並重新執行模型檢查器。這是：</p>",
+          "answers": [
+            {
+              "text": "規格（性質）突變，因為被更動的是需求——而非程式碼",
+              "fraction": 100,
+              "feedback": "正確——LTL 需求是規格的一部分。"
+            },
+            {
+              "text": "程式突變，因為模型檢查器執行了模型",
+              "fraction": 0,
+              "feedback": "執行檢查器不會使它變成程式突變；被突變的對象是需求。"
+            },
+            {
+              "text": "模糊測試（fuzz testing），因為輸入被變動了",
+              "fraction": 0,
+              "feedback": "並沒有對輸入做模糊變動；被突變的是一條公式。"
+            },
+            {
+              "text": "都不是——更動公式不算突變",
+              "fraction": 0,
+              "feedback": "更動 LTL 公式正是一種規格突變。"
+            }
+          ],
+          "generalFeedback": "突變一條 LTL／CTL 需求並重新檢查屬於規格突變：被突變的對象是需求（規格的一部分），而非程式碼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需求上的運算元替換運算子",
+          "text": "<p>一次規格突變把需求中的一個運算元換成另一個，將 <code>level &gt; max</code> 變成 <code>level &gt; min</code>。這是：</p>",
+          "answers": [
+            {
+              "text": "對規格所做的運算元（變數）替換突變",
+              "fraction": 100,
+              "feedback": "正確——一個變數運算元被換成了另一個。"
+            },
+            {
+              "text": "關係運算子替換",
+              "fraction": 0,
+              "feedback": "關係運算子未變；被換的是一個運算元。"
+            },
+            {
+              "text": "時序運算子替換",
+              "fraction": 0,
+              "feedback": "此處不涉及時序運算子。"
+            },
+            {
+              "text": "轉移重導",
+              "fraction": 0,
+              "feedback": "此處不涉及 FSM 轉移；這是條件運算元的改動。"
+            }
+          ],
+          "generalFeedback": "替換變數運算元（此處換成）是運算元／變數替換規格突變，類比程式突變中的變數替換。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "模型突變替代做法",
+          "text": "<p>基於模型的突變測試除了突變性質外，也可以突變<em>模型</em>本身，然後：</p>",
+          "answers": [
+            {
+              "text": "把原始需求對突變模型做檢查；現在被違反的需求會產生一個能區分兩個模型的反例",
+              "fraction": 100,
+              "feedback": "正確——該反例把原始模型與突變體區分開來。"
+            },
+            {
+              "text": "刪除所有需求，只保留突變模型",
+              "fraction": 0,
+              "feedback": "需要需求才能偵測突變體的差異，不能刪除它們。"
+            },
+            {
+              "text": "也一併突變原始碼以相符",
+              "fraction": 0,
+              "feedback": "模型突變改動的是模型，不是程式碼。"
+            },
+            {
+              "text": "在沒有任何性質的情況下執行突變模型",
+              "fraction": 0,
+              "feedback": "沒有性質，檢查器就沒有可違反的對象，也就得不到測試。"
+            }
+          ],
+          "generalFeedback": "可以突變模型，再把原始需求對它檢查。若突變模型違反了原始所滿足的某需求，其反例就是一條區分模型與突變體的軌跡——一個能殺死該模型突變體的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "關係突變的邊界",
+          "text": "<p>在需求中將 <code>x &gt;= 5</code> 突變成 <code>x &gt; 5</code>，會改變被規定的行為：</p>",
+          "answers": [
+            {
+              "text": "只在 x = 5 處改變；殺死它的測試必須包含該邊界值",
+              "fraction": 100,
+              "feedback": "正確——兩個條件除了 x = 5 之外處處一致。"
+            },
+            {
+              "text": "對所有 x 值都改變",
+              "fraction": 0,
+              "feedback": "除了正好在 5，其他每個 x 兩者都一致。"
+            },
+            {
+              "text": "只對負的 x 改變",
+              "fraction": 0,
+              "feedback": "負的 x 兩者一致；它們只在 x = 5 不同。"
+            },
+            {
+              "text": "永遠不改變——該突變體為等價",
+              "fraction": 0,
+              "feedback": "它不是等價：x = 5 就能區分與。"
+            }
+          ],
+          "generalFeedback": "與只在 x = 5 不同（真與假）。省略邊界的測試無法殺死此突變體，故殺死它的測試必須包含 x = 5。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "De Morgan 等價突變體（AND 形式）",
+          "text": "<p>一條需求守衛 <code>NOT (a AND b)</code> 被突變成 <code>NOT a OR NOT b</code>。這個突變體是：</p>",
+          "answers": [
+            {
+              "text": "等價——依 De Morgan 定律兩種形式在邏輯上完全相同，故無法被殺死",
+              "fraction": 100,
+              "feedback": "正確——NOT (a AND b) 正好就是 NOT a OR NOT b。"
+            },
+            {
+              "text": "只要有 a 與 b 不同的測試就能殺死",
+              "fraction": 0,
+              "feedback": "兩種形式在每一種賦值下都一致，故沒有測試能區分它們。"
+            },
+            {
+              "text": "非等價，因為 OR 取代了 AND",
+              "fraction": 0,
+              "feedback": "外層的取反使得整個運算式在 De Morgan 定律下等價。"
+            },
+            {
+              "text": "格式錯誤，因此應丟棄",
+              "fraction": 0,
+              "feedback": "它是良構且邏輯等價的，並非格式錯誤。"
+            }
+          ],
+          "generalFeedback": "De Morgan 定律指出 NOT (a AND b) 等價於 NOT a OR NOT b。此突變體表示完全相同的布林函數，故是無法被任何測試殺死的等價規格突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "G 換 F 是等價突變嗎",
+          "text": "<p>在某性質中把 <code>G p</code> 換成 <code>F p</code>，是一個<em>等價</em>突變嗎？</p>",
+          "answers": [
+            {
+              "text": "不是——G p（永遠）與 F p（終究）語意不同（G p 蘊涵 F p，但反之不然），故通常改變規格且可被殺死",
+              "fraction": 100,
+              "feedback": "正確——這兩個運算子不可互換。"
+            },
+            {
+              "text": "是——G 與 F 永遠是同一個意思",
+              "fraction": 0,
+              "feedback": "並非如此：「永遠」嚴格強於「終究」。"
+            },
+            {
+              "text": "是——F p 蘊涵 G p，故兩者一致",
+              "fraction": 0,
+              "feedback": "F p 並不蘊涵 G p；蘊涵方向恰好相反。"
+            },
+            {
+              "text": "不是——但只因為 F 在 LTL 中未定義",
+              "fraction": 0,
+              "feedback": "F 是標準的 LTL 運算子；原因在於語意不同，而非未定義。"
+            }
+          ],
+          "generalFeedback": "G p 要求每個狀態都有 p；F p 只要求某處有 p。G p 蘊涵 F p，但反之不然，故此突變改變性質語意——它非等價且通常可被殺死（一條「p 有時成立但非永遠」的軌跡即可區分兩者）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何突變性質會產生能區分的反例",
+          "text": "<p>將突變性質 <code>p'</code> 對模型 <code>M</code> 做模型檢查（原始 <code>p</code> 在 <code>M</code> 上成立），得到一個反例。為何該軌跡能區分突變體與原始？</p>",
+          "answers": [
+            {
+              "text": "該軌跡是 M 的一條違反 p' 的執行；由於 M 滿足 p，同一條軌跡也滿足 p，故 p 與 p' 在它上不一致",
+              "fraction": 100,
+              "feedback": "正確——該軌跡滿足 p 卻不滿足 p'，正好區分兩者。"
+            },
+            {
+              "text": "反例的產生與 p 及 p' 皆無關",
+              "fraction": 0,
+              "feedback": "反例正是 p' 的一個違反，故與突變體緊密相關。"
+            },
+            {
+              "text": "因為 p' 在語法上比 p 長",
+              "fraction": 0,
+              "feedback": "語法長度無關緊要；區分力來自軌跡上的語意不一致。"
+            },
+            {
+              "text": "因為模型檢查器把 p 改寫成 p'",
+              "fraction": 0,
+              "feedback": "檢查器不會改寫原始性質；它找的是一條違反 p' 的軌跡。"
+            }
+          ],
+          "generalFeedback": "反例依定義違反 p'。由於 M 滿足原始的 p，M 的每一條軌跡（包括這條）都滿足 p。故該軌跡滿足 p 卻不滿足 p'——一個兩份規格相異的具體見證，這正是它可作為測試的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "無法殺死的突變體代表冗餘",
+          "text": "<p>某需求的一個子句被突變，但沒有任何測試（也沒有任何模型檢查）能殺死所產生的突變體。這最可能表示：</p>",
+          "answers": [
+            {
+              "text": "該突變體是等價的，這暗示該子句是冗餘的（或規格過度約束）——它不影響被規定的行為",
+              "fraction": 100,
+              "feedback": "正確——無法殺死的突變指向一個對語意無影響的子句。"
+            },
+            {
+              "text": "測試套組完全適切",
+              "fraction": 0,
+              "feedback": "無法殺死的突變體是等價；它對套組適切性無正面說明。"
+            },
+            {
+              "text": "規格保證完整",
+              "fraction": 0,
+              "feedback": "單一突變體的等價並不蘊涵整份規格的完整性。"
+            },
+            {
+              "text": "程式含有故障",
+              "fraction": 0,
+              "feedback": "這關乎規格的結構，而非程式故障。"
+            }
+          ],
+          "generalFeedback": "若突變一個子句從不改變被規定的行為，該突變體即為等價——這是該子句冗餘或需求過度約束的證據。規格突變因而能揭露冗餘並協助評估規格品質。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類 CTL 性質植入故障的流程",
+          "text": "<p>某團隊在一條 CTL 性質中植入一個故障，重新執行模型檢查器以取得反例，再把它轉成測試。下列何者最能描述這件事？</p>",
+          "answers": [
+            {
+              "text": "規格（基於模型）突變測試——性質被突變，而反例成為測試",
+              "fraction": 100,
+              "feedback": "正確——突變一條 CTL 性質並由反例衍生測試屬於規格突變。"
+            },
+            {
+              "text": "程式突變——因為最後產生了一個測試",
+              "fraction": 0,
+              "feedback": "產生測試不使它成為程式突變；被突變的對象是性質。"
+            },
+            {
+              "text": "結構化程式碼涵蓋度量",
+              "fraction": 0,
+              "feedback": "並未度量任何程式碼結構；被突變的是一條性質。"
+            },
+            {
+              "text": "輸入定義域的等價類劃分",
+              "fraction": 0,
+              "feedback": "那是黑箱輸入劃分技術，與突變 CTL 性質無關。"
+            }
+          ],
+          "generalFeedback": "在時序（CTL）性質中植入故障，並用模型檢查器的反例作為測試，屬於規格／基於模型的突變：被突變的對象是性質，而反例把它與原始區分開來。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "時序冪等等價突變體",
+          "text": "<p>某性質 <code>F p</code> 被突變成 <code>F F p</code>（「終究終究 p」）。這個突變體是：</p>",
+          "answers": [
+            {
+              "text": "等價——F 具冪等性，故 F F p 在邏輯上與 F p 相同，無法被殺死",
+              "fraction": 100,
+              "feedback": "正確——F F p ≡ F p。"
+            },
+            {
+              "text": "非等價——F F p 需要 p 兩次",
+              "fraction": 0,
+              "feedback": "F F p 並不「需要兩次 p」；它化簡為 F p。"
+            },
+            {
+              "text": "非等價——它比 F p 更強",
+              "fraction": 0,
+              "feedback": "兩者強度相等；F F p ≡ F p。"
+            },
+            {
+              "text": "格式錯誤——F 不能巢狀",
+              "fraction": 0,
+              "feedback": "時序運算子可以巢狀；此處只是化簡為 F p。"
+            }
+          ],
+          "generalFeedback": "終究運算子具冪等性：F F p 等價於 F p（同理 G G p ≡ G p）。故此突變產生一個無法被任何測試殺死的等價規格突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "實務上的限制",
+          "text": "<p>規格／模型突變測試在實務上的兩大限制是：</p>",
+          "answers": [
+            {
+              "text": "偵測等價突變體很困難（一般而言不可判定），而且對眾多突變體做模型檢查可能遭遇狀態空間爆炸",
+              "fraction": 100,
+              "feedback": "正確——等價突變體與模型規模是經典限制。"
+            },
+            {
+              "text": "無法為規格定義突變運算子，且模型從不具有狀態",
+              "fraction": 0,
+              "feedback": "規格突變運算子有明確定義，模型也確實有狀態。"
+            },
+            {
+              "text": "模型檢查器無法產生反例，且規格無法被突變",
+              "fraction": 0,
+              "feedback": "兩者皆非：檢查器會產生反例，規格也能被突變。"
+            },
+            {
+              "text": "它需要原始碼，且無法使用模型",
+              "fraction": 0,
+              "feedback": "恰好相反——它作用於規格／模型，且不需要原始碼。"
+            }
+          ],
+          "generalFeedback": "如同程式突變，規格突變面臨等價突變體問題（等價一般而言不可判定）。此外，對大型模型檢查眾多突變性質／模型可能遭遇狀態空間爆炸，限制其可擴充性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "沒有反例即相對於模型等價",
+          "text": "<p>在以性質突變生成測試時，一個模型<em>仍然滿足</em>的突變性質：</p>",
+          "answers": [
+            {
+              "text": "不會產生反例、因而不會產生測試——它是相對於該模型的等價突變體",
+              "fraction": 100,
+              "feedback": "正確——沒有可違反的對象，模型就無法區分它與原始。"
+            },
+            {
+              "text": "會產生最強的測試",
+              "fraction": 0,
+              "feedback": "沒有反例代表根本不會產生測試。"
+            },
+            {
+              "text": "證明原始性質是錯的",
+              "fraction": 0,
+              "feedback": "它對原始性質是否為錯毫無說明。"
+            },
+            {
+              "text": "迫使模型檢查器把所有軌跡都列為測試",
+              "fraction": 0,
+              "feedback": "沒有違反就沒有反例；檢查器不會輸出所有軌跡。"
+            }
+          ],
+          "generalFeedback": "若模型滿足突變性質，模型檢查器不會回傳反例，故無法生成能區分它與原始的測試——該突變體相對於該模型為等價。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "FSM 上的守衛強化突變",
+          "text": "<p>在一台 FSM 規格中，某突變藉由加入一個額外合取項來<em>強化</em>轉移守衛（守衛變成 <code>g AND extra</code>）。相對於原始，突變後的轉移：</p>",
+          "answers": [
+            {
+              "text": "在較少情況下觸發（原始情況的子集）；殺死它的測試必須到達一個原始會觸發但突變體不會的輸入",
+              "fraction": 100,
+              "feedback": "正確——加入合取項只會縮小觸發輸入的集合。"
+            },
+            {
+              "text": "比以前在更多情況下觸發",
+              "fraction": 0,
+              "feedback": "加入合取項使守衛更難滿足，故觸發較少。"
+            },
+            {
+              "text": "在完全相同的情況下觸發",
+              "fraction": 0,
+              "feedback": "只有當該額外合取項在 g 成立時恆為真才如此；一般而言守衛更窄。"
+            },
+            {
+              "text": "在任何輸入下都永不觸發",
+              "fraction": 0,
+              "feedback": "只要 g 與該額外合取項同時成立，它仍會觸發。"
+            }
+          ],
+          "generalFeedback": "以加入合取項強化守衛，會把觸發限制在原始情況的子集。殺死此突變體的測試必須到達一個原始守衛成立、但強化後守衛不成立的輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "De Morgan 等價突變體（OR 形式）",
+          "text": "<p>某需求條件 <code>a OR b</code> 被突變成 <code>NOT (NOT a AND NOT b)</code>。這個突變體是：</p>",
+          "answers": [
+            {
+              "text": "等價——依 De Morgan 定律它表示與相同的函數，故無法被殺死",
+              "fraction": 100,
+              "feedback": "正確——NOT (NOT a AND NOT b) 正好就是 a OR b。"
+            },
+            {
+              "text": "非等價，因為現在出現了 AND",
+              "fraction": 0,
+              "feedback": "那些取反在 De Morgan 定律下恢復了 OR 的語意。"
+            },
+            {
+              "text": "每當 a、b 恰有一為真時就被殺死",
+              "fraction": 0,
+              "feedback": "那時兩種形式都為真，故仍一致；沒有測試能區分它們。"
+            },
+            {
+              "text": "只有當 a 等於 b 時才等價",
+              "fraction": 0,
+              "feedback": "它們在全部四種賦值下都一致，不只在 a 等於 b 時。"
+            }
+          ],
+          "generalFeedback": "De Morgan 定律給出 a OR b 等價於 NOT (NOT a AND NOT b)。此突變體計算完全相同的布林函數，故是等價規格突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "吸收律等價突變體",
+          "text": "<p>某需求 <code>a AND (a OR b)</code> 被突變成 <code>a AND (a OR c)</code>（運算元 b 換成 c）。這個突變體是：</p>",
+          "answers": [
+            {
+              "text": "等價——依吸收律化簡為，故兩種形式都等於；這也揭露了第二個子句是冗餘的",
+              "fraction": 100,
+              "feedback": "正確——其值只取決於 a，故把 b 換成 c 毫無改變。"
+            },
+            {
+              "text": "只要有 b 與 c 不同的測試就能殺死",
+              "fraction": 0,
+              "feedback": "由於整個運算式等於 a，b 或 c 的值永不影響結果；沒有這種測試能殺死它。"
+            },
+            {
+              "text": "非等價，因為 c 是新變數",
+              "fraction": 0,
+              "feedback": "引入 c 毫無作用：運算式無論如何都化簡為 a。"
+            },
+            {
+              "text": "比原始更強",
+              "fraction": 0,
+              "feedback": "兩者都等價於 a；沒有哪個更強。"
+            }
+          ],
+          "generalFeedback": "依吸收律，a AND (a OR X) 對任何 X 都等於 a。故原始與突變體都等於 a，使突變體等價。它無法被殺死，恰恰暴露了需求中「(a OR ...)」子句是冗餘的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以陷阱性質見證某行為",
+          "text": "<p>模型檢查器只在性質<em>被違反</em>時才回傳軌跡。要取得一條<em>見證</em>某期望行為 B 的軌跡（用作測試），你可以：</p>",
+          "answers": [
+            {
+              "text": "斷言一條「陷阱」性質，宣稱 B 從不發生；模型檢查器的反例便是一條展現 B 的軌跡",
+              "fraction": 100,
+              "feedback": "正確——對感興趣的行為取反，反例就成為它的見證。"
+            },
+            {
+              "text": "斷言 B 永遠發生，並把證明當作測試",
+              "fraction": 0,
+              "feedback": "證明（無違反）不產生軌跡；要取得反例需要一條被違反的性質。"
+            },
+            {
+              "text": "停用模型檢查器，改以手動列舉輸入",
+              "fraction": 0,
+              "feedback": "陷阱性質技術是使用檢查器本身；手動列舉不是此方法。"
+            },
+            {
+              "text": "移除所有性質，讓每條軌跡都成為反例",
+              "fraction": 0,
+              "feedback": "沒有性質就沒有可違反的對象，也就不會產生反例。"
+            }
+          ],
+          "generalFeedback": "因為反例只針對被違反的性質而產生，測試生成方法會斷言一條「陷阱」（never-claim）性質，宣稱感興趣的行為從不發生。模型檢查器隨後回傳的反例，正是一條實現該行為的軌跡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "next 運算子突變",
+          "text": "<p>某性質 <code>p</code> 被突變成 <code>X p</code>（next p）。一般而言這個突變體是：</p>",
+          "answers": [
+            {
+              "text": "非等價——X p 指的是下一個狀態，故與在當前狀態求值的 p 不同",
+              "fraction": 100,
+              "feedback": "正確——把求值點位移一個狀態通常改變語意。"
+            },
+            {
+              "text": "等價——X p 永遠與 p 同義",
+              "fraction": 0,
+              "feedback": "X p 關乎下一個狀態，而非當前狀態，故一般而言不同。"
+            },
+            {
+              "text": "等價——因為每條路徑都會重複",
+              "fraction": 0,
+              "feedback": "路徑一般不會重複，且即使重複，X 仍位移了求值點。"
+            },
+            {
+              "text": "格式錯誤——X 不能套用於原子性質",
+              "fraction": 0,
+              "feedback": "X 可套用於任何子式，包括原子子式。"
+            }
+          ],
+          "generalFeedback": "X p 主張 p 在下一個狀態成立，而 p 主張它在當前狀態成立。在一條 p 現在成立但下一狀態不成立（或反之）的路徑上，兩者相異，故此突變一般為非等價且可被殺死。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "交換律等價突變體",
+          "text": "<p>一次邏輯運算元交換突變把一個無副作用的規格條件 <code>a AND b</code> 換成 <code>b AND a</code>。這個突變體是：</p>",
+          "answers": [
+            {
+              "text": "等價——在無副作用的規格中 AND 具交換律，故兩種形式相同且無法被殺死",
+              "fraction": 100,
+              "feedback": "正確——對純布林條件而言，運算元順序無關緊要。"
+            },
+            {
+              "text": "非等價，因為運算元被調換了",
+              "fraction": 0,
+              "feedback": "調換交換律運算子的順序不會改變無副作用條件的語意。"
+            },
+            {
+              "text": "只要有 a 與 b 不同的測試就能殺死",
+              "fraction": 0,
+              "feedback": "a AND b 與 b AND a 在每一種賦值下都一致，故沒有這種測試能殺死它。"
+            },
+            {
+              "text": "只有當 a 等於 b 時才等價",
+              "fraction": 0,
+              "feedback": "它們在所有賦值下都一致，不只在 a 等於 b 時。"
+            }
+          ],
+          "generalFeedback": "布林 AND 具交換律，故在無求值順序副作用的規格中，a AND b 等於 b AND a。此突變體表示相同的函數——一個等價規格突變體。（在具副作用的短路程式碼中順序可能有影響；那屬於程式而非規格的考量。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由被殺死的規格突變體所得測試的價值",
+          "text": "<p>由一個<em>被殺死</em>的規格突變體所衍生的測試之所以有價值，是因為當它在實作上執行時：</p>",
+          "answers": [
+            {
+              "text": "它區分原始規格與突變體的行為，故一個符合突變（有故障）規格而非原始規格的實作將會失敗",
+              "fraction": 100,
+              "feedback": "正確——該測試正好瞄準兩份規格相異之處的行為。"
+            },
+            {
+              "text": "它保證實作沒有任何故障",
+              "fraction": 0,
+              "feedback": "單一有針對性的測試無法證明整體正確性。"
+            },
+            {
+              "text": "它走遍實作中的每一條路徑",
+              "fraction": 0,
+              "feedback": "它是單一能區分的軌跡，不是完整的路徑巡覽。"
+            },
+            {
+              "text": "它與原始規格及突變規格皆無關",
+              "fraction": 0,
+              "feedback": "它正是由兩份規格相異之處衍生，故取決於兩者。"
+            }
+          ],
+          "generalFeedback": "殺死用的測試是一條原始與突變規格不一致的軌跡。將它對實作執行，即可檢查實作是否遵循預期（原始）行為；一個表現出突變體有故障行為的實作將無法通過該測試。",
           "single": true
         }
       ]

@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Metamorphic Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是蛻變測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>蛻變測試（metamorphic testing, MT）</strong>的核心概念為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它不是把單一輸出與已知的期望值比對，而是檢查程式多次相關執行之間輸出所滿足的一個關係（蛻變關係）</text><feedback><text>正確——MT 檢查相關執行之間的關係，而非將單一輸出比對固定期望值。</text></feedback></answer>
+    <answer fraction="0"><text>它形式化地證明程式滿足其完整規格</text><feedback><text>MT 找出違反情形，並不證明程式正確。</text></feedback></answer>
+    <answer fraction="0"><text>它量測測試套件覆蓋了多少分支</text><feedback><text>那是覆蓋率量測；MT 是一種預言技術，不是覆蓋率指標。</text></feedback></answer>
+    <answer fraction="0"><text>它產生隨機輸入並只回報當機</text><feedback><text>那是當機預言的模糊測試；MT 檢查輸出之間的蛻變關係。</text></feedback></answer>
+    <generalfeedback><text>蛻變測試針對的是預言問題。它不需要某個輸入的確切期望輸出，而是對兩個以上相關的輸入執行程式，檢查其輸出之間是否滿足所需的關係（蛻變關係）。即使不知道任何單一期望值，被破壞的關係也能揭露缺陷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是蛻變關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p>什麼是<strong>蛻變關係（metamorphic relation, MR）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個在正確程式的兩次以上相關執行的輸入與輸出之間必須成立的性質</text><feedback><text>正確——MR 連結相關執行的輸入／輸出，且對任何正確實作都必須成立。</text></feedback></answer>
+    <answer fraction="0"><text>某個特定輸入唯一的確切期望輸出值</text><feedback><text>那是傳統的期望值預言；MR 正是為了避免需要那個確切值。</text></feedback></answer>
+    <answer fraction="0"><text>程式兩個分支覆蓋率之間的關係</text><feedback><text>MR 連結的是相關輸入的輸出，而非分支的覆蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>連結生成器兩次執行的隨機種子</text><feedback><text>種子關乎可重現性，而非輸出之間所需的正確性關係。</text></feedback></answer>
+    <generalfeedback><text>蛻變關係是連結多次執行的必要性質：給定輸入之間的關係（輸入轉換），它規定輸出之間必須有的關係。例如，排序一份清單的任一排列必然得到相同結果。MR 對每個正確實作都必須成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MT 針對的預言問題</text></name>
+    <questiontext format="html"><text><![CDATA[<p>蛻變測試主要針對哪一項困難？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試預言問題——當確切期望輸出未知或代價高昂時，如何判斷程式對某輸入的輸出是否正確</text><feedback><text>正確——當你難以輕易算出期望輸出時，MT 提供一種檢查方式。</text></feedback></answer>
+    <answer fraction="0"><text>涵蓋深層巢狀分支的可達性問題</text><feedback><text>到達程式碼是生成／覆蓋率的議題；MT 針對的是判斷正確性。</text></feedback></answer>
+    <answer fraction="0"><text>符號執行中的路徑爆炸</text><feedback><text>路徑爆炸是符號分析的規模限制，不是 MT 針對的對象。</text></feedback></answer>
+    <answer fraction="0"><text>停機問題</text><feedback><text>MT 不判定是否終止；它檢查輸出之間的關係。</text></feedback></answer>
+    <generalfeedback><text>預言問題是指：即便手上有輸入，判斷輸出是否正確通常仍需要那個「應有的答案」，而它可能未知或代價高昂。MT 改為檢查相關執行之間的關係，而非任何單一期望值，藉此提供可用的部分預言。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>源測試案例與後續測試案例</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 MT 中，<strong>後續（follow-up）</strong>測試案例與<strong>源（source）</strong>測試案例有何關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>後續輸入是由源輸入依蛻變關係所規定的輸入轉換推導而來</text><feedback><text>正確——MR 規定如何將源輸入轉換為後續輸入。</text></feedback></answer>
+    <answer fraction="0"><text>後續輸入是隨機挑選、與源無關的輸入</text><feedback><text>後續輸入必須經由 MR 的轉換從源導出，而非隨機挑選。</text></feedback></answer>
+    <answer fraction="0"><text>後續是源執行的期望輸出</text><feedback><text>後續是另一個輸入，而非輸出值。</text></feedback></answer>
+    <answer fraction="0"><text>後續只是把源輸入換一個隨機種子再跑一次</text><feedback><text>只更換種子並非 MR 所規定的輸入轉換。</text></feedback></answer>
+    <generalfeedback><text>MT 先執行源測試案例，再依 MR 對源輸入做轉換（例如排列清單、取 π − x、把所有值縮放）以建構後續測試案例，然後檢查兩次執行的輸出是否滿足 MR 的輸出關係。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>違反 MR 代表什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某次執行的輸出<strong>違反</strong>了一個有效的蛻變關係。這代表什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>實作有缺陷——正確程式本應滿足該關係（前提是該 MR 是真正的必要性質）</text><feedback><text>正確——違反一個有效的 MR 就揭露了缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都不代表；蛻變關係只是效能提示</text><feedback><text>MR 是正確性性質，不是效能提示；違反有效的 MR 代表有缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>證明程式正確</text><feedback><text>違反代表相反的情況——是缺陷，而非正確。</text></feedback></answer>
+    <answer fraction="0"><text>只代表分支覆蓋率不足</text><feedback><text>違反 MR 關乎輸出行為錯誤，而非覆蓋率。</text></feedback></answer>
+    <generalfeedback><text>若該 MR 對任何正確實作都是真正必要的，那麼違反就意味著程式產生了正確程式不可能產生的結果——也就是缺陷。這正是 MT 的威力：無需計算任何確切期望輸出即可偵測缺陷。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>滿足 MR 不能證明正確</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若程式在所有受測輸入上都滿足所有選定的蛻變關係，即可據此證明它正確。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>否——MT 能揭露違反，卻無法證明正確；未受測的輸入與未被涵蓋的性質仍可能藏有缺陷。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——滿足 MR 永遠不能證明正確，只代表在那些輸入上未發現違反那些關係。</text></feedback></answer>
+    <generalfeedback><text>與一般測試相同，MT 能顯示缺陷存在（透過違反），卻無法顯示其不存在。所選關係只捕捉部分必要性質，且僅嘗試有限多個輸入，因此程式可能滿足所有 MR，卻在未受測案例上出錯，或違反任何 MR 都未涵蓋的性質。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>正弦的有效 MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於正確實作的 <code>sin(x)</code>，下列何者是有效的蛻變關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對所有 x，sin(x) = sin(π − x)</text><feedback><text>正確——這是恆等式，正確的正弦必然滿足它。</text></feedback></answer>
+    <answer fraction="0"><text>對所有 x，sin(2x) = 2·sin(x)</text><feedback><text>一般而言為假——例如 x = π/2 時 sin(π) = 0，但 2·sin(π/2) = 2。</text></feedback></answer>
+    <answer fraction="0"><text>對所有 x，sin(x) = sin(x + π)</text><feedback><text>為假——sin(x + π) = −sin(x)，並非 sin(x)。</text></feedback></answer>
+    <answer fraction="0"><text>對所有 x，sin(x) = x</text><feedback><text>為假——這只在接近 0 時作為近似成立，並非恆等式。</text></feedback></answer>
+    <generalfeedback><text>恆等式 sin(x) = sin(π − x) 對每個實數 x 都成立（補角的正弦相等）。它是經典的蛻變關係：由源輸入 x，後續輸入 π − x 必然產生相等的輸出。其餘選項都不是恆等式，因此不是有效的 MR。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>排序的有效 MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於正確的<strong>排序</strong>函式，下列何者是有效的蛻變關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>排序清單的任一排列會得到相同結果：sort(perm(L)) == sort(L)</text><feedback><text>正確——排序輸出只取決於元素的多重集合，與其順序無關。</text></feedback></answer>
+    <answer fraction="0"><text>把清單排序兩次會使它反轉</text><feedback><text>排序具冪等性：對已排序清單再排序不變，而非反轉。</text></feedback></answer>
+    <answer fraction="0"><text>先反轉清單再排序，會得到排序結果的反轉</text><feedback><text>否——sort(reverse(L)) == sort(L)；先反轉並不會反轉排序輸出。</text></feedback></answer>
+    <answer fraction="0"><text>排序會使清單長度加倍</text><feedback><text>排序是輸入的一個排列，永遠不改變長度。</text></feedback></answer>
+    <generalfeedback><text>正確的排序所產生的順序只取決於元素的多重集合。因此對同樣元素的任一排列排序，必然得到相同結果——即排列不變性。這是很強的 MR，因為你可以打亂源清單來建構後續輸入，而事先不必知道期望的順序。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可交換加法的有效 MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於函式 <code>add(a, b) = a + b</code>，下列何者是有效的蛻變關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>add(a, b) == add(b, a)</text><feedback><text>正確——加法可交換，交換運算元必然得到相同結果。</text></feedback></answer>
+    <answer fraction="0"><text>add(a, b) == add(a, b + 1)</text><feedback><text>為假——改變運算元就改變了和。</text></feedback></answer>
+    <answer fraction="0"><text>add(a, b) == a</text><feedback><text>除非 b = 0 否則為假；並非一般性質。</text></feedback></answer>
+    <answer fraction="0"><text>add(a, b) == 2·add(b, a)</text><feedback><text>一般而言為假——交換運算元並不會使和加倍。</text></feedback></answer>
+    <generalfeedback><text>可交換性 f(a, b) = f(b, a) 對任何可交換運算（如加法或乘法）都是有效的 MR。後續輸入只需交換兩個運算元，其輸出必須相等。注意，它對減法或除法等不可交換運算並不成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MR 與傳統預言的差異</text></name>
+    <questiontext format="html"><text><![CDATA[<p>蛻變關係與傳統（期望值）預言有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>傳統預言把單次執行的輸出與預先算好的期望值比對；MR 則檢查數次相關執行的輸出之間所需的關係，不需要預先算好的期望值</text><feedback><text>正確——MR 以跨執行的關係取代逐一輸入的期望值。</text></feedback></answer>
+    <answer fraction="0"><text>兩者相同；都需要每個輸入的確切期望輸出</text><feedback><text>MR 正是為了避免需要確切期望輸出。</text></feedback></answer>
+    <answer fraction="0"><text>MR 比對原始碼，傳統預言比對輸出</text><feedback><text>兩者都關乎輸出；MR 比對跨執行的輸出，而非原始碼。</text></feedback></answer>
+    <answer fraction="0"><text>MR 量測執行時間，傳統預言量測記憶體</text><feedback><text>兩者都不關乎效能；都在判斷功能正確性。</text></feedback></answer>
+    <generalfeedback><text>傳統預言需要每個輸入的確切答案，而這可能未知或代價高昂。MR 只需要相關執行之間必須成立的關係（例如相等、≤、按 k 縮放）。這正是為什麼在難以算出期望輸出時 MT 特別有用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何時適合用蛻變測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在哪種情況下蛻變測試特別有用？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>當沒有簡便或負擔得起的預言時——例如機器學習模型、科學計算、編譯器、圖形、搜尋引擎——確切期望輸出難以取得</text><feedback><text>正確——MT 正是在難以算出期望輸出之處大放異彩。</text></feedback></answer>
+    <answer fraction="0"><text>只有在已具備完整形式規格與可信賴參考實作時</text><feedback><text>若已有參考實作可直接使用；MT 最有價值之處正是在沒有它的時候。</text></feedback></answer>
+    <answer fraction="0"><text>只有對完全不吃輸入的程式才適用</text><feedback><text>MT 需要能轉換的輸入；無輸入的程式沒有東西可轉換。</text></feedback></answer>
+    <answer fraction="0"><text>只有在已達到 100% 分支覆蓋率之後</text><feedback><text>MT 與覆蓋率層級無關；它針對預言，而非覆蓋率。</text></feedback></answer>
+    <generalfeedback><text>MT 正是為預言問題最嚴重的領域而生：機器學習、數值／科學程式、編譯器、電腦圖形與搜尋——這些程式的正確輸出難以或無法事先陳述，卻仍遵守相關執行之間可檢查的關係。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是輸入轉換</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 MT 中，什麼是<strong>輸入轉換</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>由源輸入建構後續輸入的規則（例如取 π − x、排列清單、把所有值乘以 k）</text><feedback><text>正確——輸入轉換用來建構後續輸入。</text></feedback></answer>
+    <answer fraction="0"><text>把程式原始碼轉成位元組碼的規則</text><feedback><text>那是編譯，與 MT 的輸入轉換無關。</text></feedback></answer>
+    <answer fraction="0"><text>源輸入所期望的確切數值輸出</text><feedback><text>MT 正是要避免它；轉換產生的是輸入，而非期望輸出。</text></feedback></answer>
+    <answer fraction="0"><text>量測套件分支覆蓋率的指標</text><feedback><text>那是覆蓋率，不是輸入轉換。</text></feedback></answer>
+    <generalfeedback><text>每個 MR 都附帶一個輸入轉換（如何由源輸入導出後續輸入）與一個輸出關係（兩個輸出必須如何相關）。把轉換施加於源輸入，即得到要執行的後續輸入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>集合的有效 MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於<strong>集合（set）</strong>資料結構，下列何者是有效的蛻變關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>插入一個已存在的元素，會使成員關係與集合大小維持不變</text><feedback><text>正確——集合中每個元素至多一份，重複插入不改變任何東西。</text></feedback></answer>
+    <answer fraction="0"><text>插入重複元素必然使大小加一</text><feedback><text>集合不儲存重複元素，大小維持不變。</text></feedback></answer>
+    <answer fraction="0"><text>插入重複元素會移除原本的元素</text><feedback><text>該元素仍是成員；既不會被移除也不會變成兩份。</text></feedback></answer>
+    <answer fraction="0"><text>插入重複元素會確定性地反轉迭代順序</text><feedback><text>那不是集合的必要性質；迭代順序不保證反轉。</text></feedback></answer>
+    <generalfeedback><text>集合中每個值至多儲存一份。加入它已包含的元素，必然使成員判斷與基數都維持不變。這是乾淨的 MR：後續輸入加入一個重複元素，其輸出（大小或成員關係）必須與源相符。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>平均值函式的有效 MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於計算清單<strong>算術平均值</strong>的函式，下列何者是有效的蛻變關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把每個輸入值都乘以常數 k，會使平均值乘以 k</text><feedback><text>正確——平均值是線性的，縮放所有輸入會同等縮放平均值。</text></feedback></answer>
+    <answer fraction="0"><text>把每個值都乘以 k，平均值維持不變</text><feedback><text>平均值會隨值縮放；它在縮放下並非不變。</text></feedback></answer>
+    <answer fraction="0"><text>只對其中一個值加上常數 k，平均值維持不變</text><feedback><text>改變一個值就改變了總和，因而改變平均值。</text></feedback></answer>
+    <answer fraction="0"><text>把每個值都乘以 k，會使平均值乘以 k²</text><feedback><text>那是變異數的縮放方式；平均值乘以 k，而非 k²。</text></feedback></answer>
+    <generalfeedback><text>mean(k·x₁, …, k·xₙ) = k·mean(x₁, …, xₙ)，因為平均值是其輸入的線性函式。因此「把每個值乘以 k」是輸入轉換，其輸出關係為「平均值乘以 k」——一個不需要期望值的有效 MR。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>MT 使用多次相關執行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>蛻變測試檢查的是多次相關執行的輸出之間所滿足的性質，而非把單次執行比對固定的期望值。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——MT 比對相關執行的輸出，這正是它不需要逐一輸入期望值的原因。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>MT 確實依賴多次相關執行；這正是蛻變關係的本質。</text></feedback></answer>
+    <generalfeedback><text>MT 的定義特徵是需要至少兩次相關執行——一個源與一個以上的後續——並檢查其輸出之間的關係。把單次執行比對固定期望值是一般預言，而非 MT。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Metamorphic Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>建構正弦的後續輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>使用 MR <code>sin(x) = sin(π − x)</code>，某源測試使用輸入 <code>x = 0.3</code>。後續輸入與期望的輸出關係為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>後續輸入 = π − 0.3（≈ 2.8416）；兩個輸出必須相等</text><feedback><text>正確——施加轉換 π − x，並要求輸出相等。</text></feedback></answer>
+    <answer fraction="0"><text>後續輸入 = 2 × 0.3；兩個輸出必須相等</text><feedback><text>把輸入加倍不是此 MR 的轉換，且 sin(0.6) ≠ sin(0.3)。</text></feedback></answer>
+    <answer fraction="0"><text>後續輸入 = 0.3 + π；兩個輸出必須相等</text><feedback><text>那用的是 π + x，得 sin(0.3 + π) = −sin(0.3)，並不相等。</text></feedback></answer>
+    <answer fraction="0"><text>後續輸入 = π − 0.3；後續輸出必須是源的兩倍</text><feedback><text>轉換正確，但關係是相等，而非加倍。</text></feedback></answer>
+    <generalfeedback><text>此 MR 的轉換為 x ↦ π − x，輸出關係為相等。因此後續輸入為 π − 0.3 ≈ 2.8416，正確的正弦對兩者必然回傳相同值——完全不需要知道任何期望值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>建構排序的後續輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>要以排列不變性測試排序常式，由源清單 <code>L = [3, 1, 2]</code> 該如何建構後續輸入，且必須成立什麼關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>後續 = L 的任一排列，例如 [2, 3, 1]；L 與後續的排序輸出必須完全相同</text><feedback><text>正確——打亂元素順序；排序結果必須相符。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = 排序輸出的反轉；兩個輸出必須不同</text><feedback><text>後續必須是同一輸入的排列，且輸出必須相等而非不同。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = L 移除一個元素；兩個輸出必須相等</text><feedback><text>移除元素改變了多重集合，因此排序輸出會合理地改變。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = L 每個值加倍；兩個輸出必須相等</text><feedback><text>把值加倍改變了元素，因此排序輸出會改變。</text></feedback></answer>
+    <generalfeedback><text>排列不變性表示排序輸出只取決於元素的多重集合。因此後續輸入是 L 的任一重排（例如 [2, 3, 1]），且 sort(後續) 必須等於 sort(L)。此處只有重排是有效轉換；新增、移除或更改值都會改變多重集合。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>搜尋結果數的單調性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於會回傳<em>所有</em>符合<em>全部</em>查詢字詞的文件的搜尋（合取式過濾），下列何者是有效的蛻變關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>再加入一個必要字詞只會使結果數維持不變或減少（較具體的查詢回傳的結果 ≤ 較不具體者）</text><feedback><text>正確——較具體查詢的結果集是子集，故其數量 ≤。</text></feedback></answer>
+    <answer fraction="0"><text>再加入一個必要字詞只會使結果數增加</text><feedback><text>方向相反——縮窄查詢不可能增加符合項。</text></feedback></answer>
+    <answer fraction="0"><text>移除一個必要字詞只會使結果數減少</text><feedback><text>方向相反——放寬查詢不可能失去符合項。</text></feedback></answer>
+    <answer fraction="0"><text>結果數與查詢字詞無關</text><feedback><text>結果數顯然取決於需要哪些字詞。</text></feedback></answer>
+    <generalfeedback><text>在合取式過濾語意下，一份文件被回傳的充要條件是它符合每個必要字詞。多要求一個字詞只會移除文件、不會增加，因此較具體查詢的結果集是較廣者的子集，其數量 ≤。此單調性是有效的 MR：不需要期望數量，只需兩個相關查詢之間的 ≤ 關係。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>建構平均值縮放的後續輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某程式計算清單的平均值。源輸入 <code>[2, 4, 6]</code> 得 <code>4</code>。使用縮放 MR 且 <code>k = 3</code>，後續輸入與期望輸出為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>後續 = [6, 12, 18]；期望平均值 = 12（= 3 × 4）</text><feedback><text>正確——把每個值乘以 3，平均值也乘以 3。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = [6, 12, 18]；期望平均值 = 4</text><feedback><text>轉換正確，但把輸入乘以 3 會使平均值變成 12，而非 4。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = [5, 7, 9]；期望平均值 = 7</text><feedback><text>對每個值加 3（而非乘）是與此 MR 不同的轉換。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = [2, 4, 6, 3]；期望平均值 = 12</text><feedback><text>附加一個值不是縮放轉換，且該平均值會是 3.75。</text></feedback></answer>
+    <generalfeedback><text>縮放 MR 把每個輸入乘以 k，並期望平均值乘以 k。當 k = 3，後續輸入為 [6, 12, 18]，期望平均值為 3 × 4 = 12。驗證：(6 + 12 + 18)/3 = 12。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>建構可交換性的後續輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於函式 <code>f(a, b) = a × b</code>，使用可交換性 MR，該如何由源 <code>(a = 5, b = 7)</code> 建構後續？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>後續 = (a = 7, b = 5)；兩個輸出必須相等（皆為 35）</text><feedback><text>正確——交換運算元；乘法可交換，故輸出相符。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = (a = 5, b = 5)；兩個輸出必須相等</text><feedback><text>那是更改了運算元而非交換；5 × 5 ≠ 5 × 7。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = (a = 7, b = 5)；後續輸出必須是源的兩倍</text><feedback><text>交換正確，但關係是相等，而非加倍。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = (a = 10, b = 14)；兩個輸出必須相等</text><feedback><text>把兩個運算元都加倍不是可交換性的轉換，且 10 × 14 ≠ 5 × 7。</text></feedback></answer>
+    <generalfeedback><text>可交換性 MR 的轉換是交換運算元，輸出關係為相等。由 (5, 7) 得後續 (7, 5)，正確的乘法對兩者都回傳 35。不需要任何期望值——只需兩個輸出一致。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何無預言時 MT 有用</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於確切期望輸出難以計算的程式，MT 為何有價值？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它藉由檢查相關執行之間所需的關係來偵測缺陷，完全不需要任何單次執行的確切期望輸出</text><feedback><text>正確——關係取代了缺失的逐一輸入期望值。</text></feedback></answer>
+    <answer fraction="0"><text>它自動計算出確切的期望輸出</text><feedback><text>MT 不計算期望輸出；它檢查執行之間的關係。</text></feedback></answer>
+    <answer fraction="0"><text>它不執行程式就能證明正確性</text><feedback><text>MT 會對相關輸入執行程式；它不證明正確性。</text></feedback></answer>
+    <answer fraction="0"><text>它讓程式不必執行超過一次</text><feedback><text>MT 需要多次相關執行，而非更少。</text></feedback></answer>
+    <generalfeedback><text>當沒有預言能告訴你某輸入的正確答案時，你仍能知道相關執行之間必須如何相關。MT 利用這一點：轉換輸入、再次執行，並檢查輸出關係。即便從未取得確切期望輸出，違反也能揭露缺陷。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>通過測試不是證明</text></name>
+    <questiontext format="html"><text><![CDATA[<p>通過許多蛻變測試即可證明程式沒有缺陷。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>否——MT 能揭露違反，卻無法確立缺陷不存在。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——通過測試仍留有未被所選關係或輸入揭露的缺陷。</text></feedback></answer>
+    <generalfeedback><text>MT 是一種測試技術，因此能找出缺陷卻不能證明其不存在。程式可能在每個嘗試過的輸入上滿足每個所選 MR，卻仍在未受測輸入上失敗，或違反任何 MR 都未涵蓋的性質。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最短路徑重新命名的 MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某程式計算加權圖中兩節點間的最短路徑距離。下列何者是有效的蛻變關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>以雙射對節點重新命名，並查詢對應改名後的端點，必然回傳相同距離</text><feedback><text>正確——雙射重新命名是圖同構，保留所有距離。</text></feedback></answer>
+    <answer fraction="0"><text>對節點重新命名會使距離改變節點數那麼多</text><feedback><text>改名不改變任何結構或權重，故距離不受影響。</text></feedback></answer>
+    <answer fraction="0"><text>把每個節點的標籤加倍會使距離加倍</text><feedback><text>節點標籤只是識別碼，其數值不影響距離。</text></feedback></answer>
+    <answer fraction="0"><text>反轉節點標籤會使距離變號</text><feedback><text>距離非負，且取決於邊／權重，而非標籤順序。</text></feedback></answer>
+    <generalfeedback><text>以雙射對節點改名，會使圖在結構上完全相同（同構）：相同的邊、相同的權重，只是名稱不同。因此改名後端點間的最短路徑距離必須等於原本的。此 MR 很強，因為它完全不需要知道實際距離。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>建構集合大小的後續輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某程式維護一個集合並回報其大小。源：插入 <code>[1, 2, 3]</code> 得大小 <code>3</code>。使用重複插入 MR，後續與期望大小為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>後續 = 插入 [1, 2, 3, 2]（加入一個重複）；期望大小仍為 3</text><feedback><text>正確——加入重複元素使集合大小維持不變。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = 插入 [1, 2, 3, 2]；期望大小 4</text><feedback><text>集合忽略重複，故大小維持 3，而非 4。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = 插入 [1, 2, 3, 4]；期望大小 3</text><feedback><text>加入新的相異元素 4 不是重複轉換，且會使大小變成 4。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = 插入 [1, 2, 3, 2]；期望大小 2</text><feedback><text>加入重複不可能縮小集合；大小維持 3。</text></feedback></answer>
+    <generalfeedback><text>重複插入轉換加入一個已存在的元素，輸出關係為大小不變。由源 [1, 2, 3]（大小 3），後續 [1, 2, 3, 2] 必須仍回報大小 3。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>建構最大值的後續輸入</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某程式回傳清單的最大值。由源 <code>L = [4, 9, 1]</code>（最大值 9），哪個後續測試了有效的 MR，且成立什麼關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>後續 = 在 L 附加一個 ≤ 9 的元素，例如 [4, 9, 1, 7]；最大值必須維持不變（仍為 9）</text><feedback><text>正確——附加一個不超過當前最大值的值，最大值維持不變。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = [4, 9, 1, 15]；最大值必須維持不變</text><feedback><text>附加 15（大於 9）會合理地把最大值提升為 15，故「不變」錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = [4, 9, 1, 7]；最大值必須增加</text><feedback><text>附加 7（≤ 9）不可能提升最大值；它維持 9。</text></feedback></answer>
+    <answer fraction="0"><text>後續 = [8, 18, 2]；最大值必須維持不變</text><feedback><text>那是不同的值，並非在 L 附加一個 ≤ 9 的元素。</text></feedback></answer>
+    <generalfeedback><text>max(L ++ [y]) = max(max(L), y)。若 y ≤ max(L)，最大值不變；若 y &gt; max(L)，則變為 y。因此有效的 MR 是「附加一個 ≤ 當前最大值的值使最大值不變」，給出如 [4, 9, 1, 7] 的後續，期望最大值 9。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>放寬查詢</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於合取式過濾搜尋，哪個轉換會給出結果數必須 ≥ 源的後續？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>移除其中一個必要查詢字詞（使查詢較不具體）</text><feedback><text>正確——較廣查詢的結果集是超集，故其數量 ≥。</text></feedback></answer>
+    <answer fraction="0"><text>再加入一個必要字詞</text><feedback><text>那會縮窄查詢，給出 ≤ 的結果，而非 ≥。</text></feedback></answer>
+    <answer fraction="0"><text>把一個字詞替換為較具體的同義詞</text><feedback><text>把字詞變得較具體不保證 ≥ 的結果。</text></feedback></answer>
+    <answer fraction="0"><text>要求所有字詞只出現在標題中</text><feedback><text>加入位置限制會縮窄符合項；不保證 ≥ 的結果。</text></feedback></answer>
+    <generalfeedback><text>移除一個必要字詞使查詢較不具體，因此原本符合的每份文件仍符合（且可能更多）。較廣的結果集是超集，故其數量 ≥ 源的。這是縮窄 MR 的「≥」對應版本。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>挑出平均值的有效 MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是正確平均值函式真正的必要性質（有效的 MR）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>附加一個等於當前平均值的額外值，使平均值維持不變</text><feedback><text>正確——加入一個等於平均值的資料點不會移動平均值。</text></feedback></answer>
+    <answer fraction="0"><text>附加任一個額外值，都使平均值維持不變</text><feedback><text>為假——只有等於當前平均值的值才使它不變。</text></feedback></answer>
+    <answer fraction="0"><text>移除最大值使平均值維持不變</text><feedback><text>為假——移除最大值一般會降低平均值。</text></feedback></answer>
+    <answer fraction="0"><text>把清單重複一次使長度加倍，會使平均值加倍</text><feedback><text>為假——把清單重複會使平均值不變，而非加倍。</text></feedback></answer>
+    <generalfeedback><text>設有 n 個值、平均值為 m，附加一個等於 m 的值後，新平均值為 (n·m + m)/(n + 1) = m(n + 1)/(n + 1) = m。故平均值不變——這是有效的 MR。其餘選項都不是正確平均值的必要性質。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>縮放下的變異數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某程式計算清單的（母體）<strong>變異數</strong>。把每個值乘以 <code>k</code> 有何效果，構成有效的 MR？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>變異數乘以 k²</text><feedback><text>正確——Var(kX) = k²·Var(X)。</text></feedback></answer>
+    <answer fraction="0"><text>變異數乘以 k</text><feedback><text>那是平均值（或線性量）的縮放方式；變異數乘以 k²。</text></feedback></answer>
+    <answer fraction="0"><text>變異數維持不變</text><feedback><text>縮放資料會使其散布改變；變異數乘以 k²。</text></feedback></answer>
+    <answer fraction="0"><text>變異數乘以 |k|</text><feedback><text>那是標準差的縮放方式；變異數乘以 k²。</text></feedback></answer>
+    <generalfeedback><text>變異數是二次量：Var(kX) = k²·Var(X)。因此把每個輸入乘以 k 是輸入轉換，其輸出關係為「變異數乘以 k²」。（標準差是其平方根，故乘以 |k|。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最短路徑的邊重新排序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某最短路徑程式接收一份加權邊清單。哪個後續轉換必然使每個最短路徑距離維持不變（有效的 MR）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>重新排序輸入清單中的邊（同一組邊，以不同順序列出）</text><feedback><text>正確——圖由其邊的集合定義，與它們出現的順序無關。</text></feedback></answer>
+    <answer fraction="0"><text>把某條最短路徑上的邊權重加倍</text><feedback><text>那改變了圖，可能改變距離。</text></feedback></answer>
+    <answer fraction="0"><text>加入一條權重較小的新邊</text><feedback><text>較便宜的新邊可能造出更短路徑，改變距離。</text></feedback></answer>
+    <answer fraction="0"><text>刪除某條最短路徑上的邊</text><feedback><text>移除邊可能拉長路徑或使其中斷，改變距離。</text></feedback></answer>
+    <generalfeedback><text>圖就是那組邊；邊列出的順序不帶任何意義。因此排列邊清單是輸入轉換，其輸出關係為「所有距離不變」——一個有效的 MR。其餘選項都真正改變了圖。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>通過的源／後續配對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>若某源／後續配對滿足其蛻變關係，該特定配對並未揭露缺陷，但別處仍可能存在缺陷。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——一個滿足的配對只代表該配對未見違反。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>一個滿足的配對不能為程式背書；其他輸入或關係仍可能揭露缺陷。</text></feedback></answer>
+    <generalfeedback><text>在一個配對上滿足關係，只代表該配對未產生任何缺陷證據。缺陷仍可能藏在未受測輸入中，或藏在此 MR 未限制的行為中，因此不能推出正確的結論。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Metamorphic Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>評判一個提議的正弦 MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試者提議把 <code>sin(2x) = 2·sin(x)</code> 當作正弦常式的蛻變關係。它有什麼問題？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它不是真正的恆等式（例如 x = π/2 時 sin(π) = 0，但 2·sin(π/2) = 2），故正確的正弦不必滿足它；任何「違反」都會是假警報</text><feedback><text>正確——該關係不是必要性質，故是無效的 MR。</text></feedback></answer>
+    <answer fraction="0"><text>沒有問題；它對所有 x 都成立</text><feedback><text>它在 x = π/2 時失敗，故並非對所有 x 成立。</text></feedback></answer>
+    <answer fraction="0"><text>它有效，但只偵測效能缺陷</text><feedback><text>它根本無效；MR 是正確性性質，不是效能檢查。</text></feedback></answer>
+    <answer fraction="0"><text>它只對負的 x 有效</text><feedback><text>對負的 x 它也不是恆等式（例如 x = −π/2）。</text></feedback></answer>
+    <generalfeedback><text>倍角恆等式是 sin(2x) = 2·sin(x)·cos(x)，只有在 cos(x) = 1 時才等於 2·sin(x)。因此 sin(2x) = 2·sin(x) 一般為假，並非正確正弦的必要性質。把它當作 MR 會標記正確的實作——一個典型的無效 MR。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>組合蛻變關係</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於最短路徑程式，你有 MR_A（對節點重新命名使距離不變）與 MR_B（把所有邊權重乘以常數 <code>c &gt; 0</code> 使每個距離乘以 c）。若對源圖<em>同時</em>施加兩個轉換，必然成立什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉換後圖中的距離等於源距離的 c 倍</text><feedback><text>正確——保距轉換與 c 倍縮放轉換組合後，得到 c 倍縮放。</text></feedback></answer>
+    <answer fraction="0"><text>距離維持不變</text><feedback><text>僅重新命名會保距，但把權重乘以 c 會使它乘以 c。</text></feedback></answer>
+    <answer fraction="0"><text>距離等於源距離的 c² 倍</text><feedback><text>只施加一次 c 倍縮放（重新命名不加係數），故係數是 c 而非 c²。</text></feedback></answer>
+    <answer fraction="0"><text>沒有關係成立，因為兩個轉換無法組合</text><feedback><text>MR 可組合：依序施加轉換並結合其輸出關係。</text></feedback></answer>
+    <generalfeedback><text>MR 可藉由一併施加其輸入轉換、並結合其輸出關係來組合。重新命名貢獻係數 1（距離不變），權重縮放貢獻係數 c，故組合後的關係使距離乘以 1 × c = c。組合讓你能由簡單、個別已驗證的 MR 建構更豐富的檢查。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邊權重縮放：健全性的但書</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「把所有邊權重乘以常數 <code>c</code> 使每個最短路徑距離乘以 c」是健全的蛻變關係嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>是，但只在 c &gt; 0 時成立；當 c ≤ 0 可能造出零／負權重或負環，改變哪條路徑最佳，故關係不必成立</text><feedback><text>正確——縮放 MR 只在正常數時健全。</text></feedback></answer>
+    <answer fraction="0"><text>是，對每個實數 c 都成立</text><feedback><text>負的 c 可能引入負環或翻轉最佳路徑，破壞此關係。</text></feedback></answer>
+    <answer fraction="0"><text>否，它對任何 c 都不成立</text><feedback><text>它對每個正的 c 都成立，故「不成立」是錯的。</text></feedback></answer>
+    <answer fraction="0"><text>是，但只對整數 c 成立</text><feedback><text>任何正實數 c 都行；限制在於正性，而非整數性。</text></feedback></answer>
+    <generalfeedback><text>當 c &gt; 0，把所有權重乘以 c 會使每條路徑的成本都乘以 c，故最小成本路徑不變、其距離按 c 縮放——一個健全的 MR。當 c ≤ 0，轉換後的圖可能有負權重或負環，改變（或使其未定義）最短路徑，故關係不再必要。明確陳述定義域（c &gt; 0）對維持 MR 的有效性至關重要。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>無效 MR 對比真正的缺陷：浮點數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試以精確的浮點相等檢查 <code>sin(x) == sin(π − x)</code>，並在兩個結果最後一位不同處回報「違反」。最佳的詮釋為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>精確相等的 MR 對浮點運算過於嚴格；微小差異是捨入所致，故此違反很可能是假的，該關係應允許一個小容差</text><feedback><text>正確——造成假警報的是過於嚴格的關係，而非缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>這一定是正弦實作的缺陷</text><feedback><text>最後一位的差異與正常捨入一致，未必是缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>數學上 sin(x) = sin(π − x) 為假，故此 MR 是錯的</text><feedback><text>該恆等式為真；問題在於把精確相等套用到非精確的運算上。</text></feedback></answer>
+    <answer fraction="0"><text>浮點數無法表示 π，故正弦未定義</text><feedback><text>π 被近似，但正弦在該近似值上有良好定義；那不是問題所在。</text></feedback></answer>
+    <generalfeedback><text>該恆等式在數學上成立，但浮點會以捨入計算 π − x 及兩個正弦值，故無法保證逐位元相等。此失敗反映的是對此定義域而言過於嚴格（實質上無效）的 MR，而非缺陷。修正之道是以適當容差陳述輸出關係，例如 |sin(x) − sin(π − x)| ≤ ε。分辨真正的違反與有瑕疵的關係，正是 MT 的關鍵技能。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>影像分類器的 MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於影像分類器，下列何者是合適的蛻變關係，其違反暗示存在缺陷（例如強健性問題）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>保留標籤的轉換——人類同意其不改變真實類別者，例如輕微改變亮度或小幅旋轉——應使預測類別維持不變</text><feedback><text>正確——轉換必須保留真實標籤，「預測不變」的關係才會是預期的。</text></feedback></answer>
+    <answer fraction="0"><text>隨機打亂所有像素應使預測類別維持不變</text><feedback><text>打亂像素會摧毀影像內容，故並非保留標籤。</text></feedback></answer>
+    <answer fraction="0"><text>把影像替換為另一類別的不同影像應使預測維持不變</text><feedback><text>那改變了真實類別，故預測應改變，而非維持不變。</text></feedback></answer>
+    <answer fraction="0"><text>把每個像素值加倍應使預測的類別索引加倍</text><feedback><text>類別索引是標籤而非量值；沒有理由某個有效轉換會使它們加倍。</text></feedback></answer>
+    <generalfeedback><text>MT 用於機器學習時，仰賴保留真實標籤的轉換——輕微的亮度／對比變化、小幅旋轉，或對文字而言的同義詞替換。理想分類器的預測不應改變；若改變了，該測試便揭露了強健性或一致性缺陷。轉換必須真正保留標籤，這正是為何打亂像素或換成另一類別的影像都不是有效選擇。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>搜尋方向錯誤是壞 MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試者宣稱：對合取式過濾查詢而言，「把查詢變得<em>更</em>具體（加入一個必要字詞）應回傳<em>至少一樣多</em>的結果」。這為何是壞 MR？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>方向反了——較具體查詢的結果是子集，故數量只會維持不變或減少；程式不必滿足所提關係，故它會產生假警報</text><feedback><text>正確——縮窄時健全的方向是 ≤，故所提的 ≥ 關係無效。</text></feedback></answer>
+    <answer fraction="0"><text>它正確且永遠成立</text><feedback><text>它把方向弄反了，故對合取式過濾並不成立。</text></feedback></answer>
+    <answer fraction="0"><text>它只對空查詢正確</text><feedback><text>它一般並不正確；瑕疵在於方向反了，而非空查詢的情況。</text></feedback></answer>
+    <answer fraction="0"><text>它是有效的 MR，但只偵測效能問題</text><feedback><text>它無效，且 MR 檢查的是正確性而非效能。</text></feedback></answer>
+    <generalfeedback><text>在合取式過濾語意下，縮窄查詢會移除符合項，故正確的關係是 count(較具體) ≤ count(較不具體)。提議 ≥ 把它倒轉了：正確的引擎會例行「違反」它，產生假警報。把方向弄對，對健全的 MR 至關重要。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可交換性對減法不健全</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於減法函式 <code>sub(a, b) = a − b</code>，為何 <code>f(a, b) = f(b, a)</code> 是無效的蛻變關係？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>減法不可交換（5 − 3 = 2 但 3 − 5 = −2），故正確實作不必滿足它；把它當作 MR 會把正確行為標記為缺陷</text><feedback><text>正確——該關係對減法而言並非必要，故是無效的 MR。</text></feedback></answer>
+    <answer fraction="0"><text>因為運算元相等時減法未定義</text><feedback><text>減法對相等運算元有良好定義（a − a = 0）；那不是問題所在。</text></feedback></answer>
+    <answer fraction="0"><text>因為減法一定溢位</text><feedback><text>減法並非一定溢位；瑕疵在於不可交換性。</text></feedback></answer>
+    <answer fraction="0"><text>它其實是減法的有效 MR</text><feedback><text>並非如此——一般而言交換運算元會使結果變號。</text></feedback></answer>
+    <generalfeedback><text>可交換性對加法與乘法成立，但對減法不成立：a − b = −(b − a)，除非 a = b 否則不同於 b − a。因此 f(a, b) = f(b, a) 不是減法的必要性質，把它當作 MR 會把正確結果回報為違反。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗證附加平均值的 MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「附加一個等於當前算術平均值的資料點使平均值維持不變」，是正確平均值函式健全的必要性質嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>是——設有 n 個值、平均值為 m，新平均值為 (n·m + m)/(n + 1) = m，故對每個清單都成立</text><feedback><text>正確——代數確認平均值不變，故是有效的 MR。</text></feedback></answer>
+    <answer fraction="0"><text>否，加入一點時平均值總會增加</text><feedback><text>加入一個等於平均值的點不會使它增加；代數給出 m。</text></feedback></answer>
+    <answer fraction="0"><text>只有在所有值都相等時</text><feedback><text>它對任何清單都成立，而非只對值皆相等的清單。</text></feedback></answer>
+    <answer fraction="0"><text>只對偶數長度的清單</text><feedback><text>長度的奇偶無關；該恆等式對每個 n 都成立。</text></feedback></answer>
+    <generalfeedback><text>設清單有 n 個值、總和為 n·m，故平均值為 m。附加 m 後總和為 n·m + m = m(n + 1)，除以 n + 1 個值，新平均值為 m(n + 1)/(n + 1) = m。此性質對每個清單都成立，故是健全的 MR——已具體演算確認。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>違反一個無效的 MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某平均值函式的測試使用「移除最大值使平均值維持不變」這個關係，並回報一個違反。你應下什麼結論？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>關於缺陷什麼都不能下結論——該關係不是正確平均值的必要性質，故此「違反」反映的是有瑕疵的 MR，而非程式的缺陷</text><feedback><text>正確——唯有 MR 真正必要時，違反才牽連到程式。</text></feedback></answer>
+    <answer fraction="0"><text>平均值函式一定有缺陷</text><feedback><text>MR 本身無效，故此違反對程式毫無說明。</text></feedback></answer>
+    <answer fraction="0"><text>程式有捨入誤差</text><feedback><text>沒有捨入的證據；該關係就只是不是必要性質。</text></feedback></answer>
+    <answer fraction="0"><text>輸入清單一定是空的</text><feedback><text>清單不必是空的；移除最大值通常確實會改變平均值。</text></feedback></answer>
+    <generalfeedback><text>移除最大值一般會降低平均值，故「平均值不變」不是必要性質。正確的實作會例行「違反」它。教訓是：在信任一個違反之前，先確認該 MR 對任何正確實作都真正必要；否則缺陷是在關係，而非在程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>統計量在乘法下如何縮放</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把清單中每個值都乘以 <code>k</code>。對平均值、標準差、變異數而言，哪一組輸出關係正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>平均值 → ×k，標準差 → ×|k|，變異數 → ×k²</text><feedback><text>正確——平均值是線性、變異數是二次、標準差是其平方根。</text></feedback></answer>
+    <answer fraction="0"><text>平均值 → ×k，標準差 → ×k²，變異數 → ×k</text><feedback><text>對調了——變異數乘以 k²，標準差乘以 |k|。</text></feedback></answer>
+    <answer fraction="0"><text>三者皆 → ×k</text><feedback><text>只有平均值乘以 k；變異數乘以 k²，標準差乘以 |k|。</text></feedback></answer>
+    <answer fraction="0"><text>平均值 → ×k²，標準差 → ×k，變異數 → ×|k|</text><feedback><text>平均值乘以 k 而非 k²；其餘也都錯了。</text></feedback></answer>
+    <generalfeedback><text>平均值是線性：mean(kX) = k·mean(X)。變異數是二次：Var(kX) = k²·Var(X)。標準差是變異數的平方根，故 SD(kX) = |k|·SD(X)（取絕對值，因為標準差非負）。在同一個縮放轉換下，三者各給出不同的有效 MR。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由通過的 MR 能下的最強結論</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某程式在數百萬個輸入上通過了一大組精心設計的蛻變關係。最強的<em>健全</em>結論為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在那些輸入上未發現違反那些關係；這提升信心但不證明正確——所選 MR 或輸入未揭露的缺陷仍可能存在</text><feedback><text>正確——MT 能提升信心，卻永遠不證明正確。</text></feedback></answer>
+    <answer fraction="0"><text>程式已被證明正確</text><feedback><text>再多的通過測試都不能證明正確。</text></feedback></answer>
+    <answer fraction="0"><text>程式在受測輸入與所有其他輸入上都正確</text><feedback><text>對未受測輸入無法下任何結論。</text></feedback></answer>
+    <answer fraction="0"><text>這些 MR 一定無效，因為什麼都沒失敗</text><feedback><text>通過並不表示 MR 無效；有效的 MR 也可能就是被滿足了。</text></feedback></answer>
+    <generalfeedback><text>MT 能揭露缺陷（透過違反），卻不能顯示其不存在。大量通過的結果提升信心、也是品質的證據，但缺陷仍可能藏在從未嘗試的輸入中，或藏在所選 MR 未限制的性質中。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>組合保序映射與排列</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於排序函式，考慮兩個轉換：排列輸入，以及把每個元素透過一個<em>嚴格遞增</em>函式 <code>g</code> 映射。哪個組合關係是健全的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對任一嚴格遞增 g，sort(把 g 映射到 L 的任一排列) 等於 把 g 映射到 sort(L)</text><feedback><text>正確——嚴格遞增映射保序，故與排序可交換；排列與排序結果無關。</text></feedback></answer>
+    <answer fraction="0"><text>sort(把 g 映射到 L) 等於（把 g 映射到 sort(L)）的反轉</text><feedback><text>嚴格遞增的 g 保序，故不會使結果反轉。</text></feedback></answer>
+    <answer fraction="0"><text>sort(把 g 映射到 L) 等於 sort(L) 維持不變</text><feedback><text>施加 g 改變了元素值，故排序輸出隨之改變。</text></feedback></answer>
+    <answer fraction="0"><text>只有當 g 是恆等函式時該關係才健全</text><feedback><text>它對任一嚴格遞增 g 都健全，而不只是恆等函式。</text></feedback></answer>
+    <generalfeedback><text>若 g 嚴格遞增，則 a &lt; b 等價於 g(a) &lt; g(b)，故施加 g 保留相對順序、與排序可交換：sort(把 g 映射到 L) = 把 g 映射到 sort(L)。由於排序具排列不變性，先排列什麼都不改變。組合兩者得 sort(把 g 映射到 perm(L)) = 把 g 映射到 sort(L)——一個健全的組合 MR。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情感分類器的不健全 MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於情感分類器，下列何者是<em>不健全</em>的蛻變關係（會產生假警報）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>「把句子否定（插入『不』）必須使預測的情感維持不變」</text><feedback><text>正確——否定改變了真實情感，故並非保留標籤；預測應改變。</text></feedback></answer>
+    <answer fraction="0"><text>「把一個詞替換為相近的同義詞應使預測的情感維持不變」</text><feedback><text>同義詞替換保留語意，故這是健全的保留標籤 MR。</text></feedback></answer>
+    <answer fraction="0"><text>「加入一個中性、保留語意的填充語句應使預測的情感維持不變」</text><feedback><text>中性填充保留情感，故這是健全的 MR。</text></feedback></answer>
+    <answer fraction="0"><text>「重新排序兩個彼此獨立、順序無關的子句應使預測的情感維持不變」</text><feedback><text>重新排序獨立子句保留語意，故這是健全的 MR。</text></feedback></answer>
+    <generalfeedback><text>MT 用於機器學習時仰賴保留標籤的轉換。同義詞替換、中性填充、以及重新排序獨立子句，都保留真實情感，故「預測不變」是預期的。相對地，否定會翻轉情感，故要求預測不變是不健全的，會把正確的分類器標記為錯。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何子集 MR 在排名引擎上可能失敗</text></name>
+    <questiontext format="html"><text><![CDATA[<p>子集 MR（「較具體的查詢回傳 ≤ 的結果」）對純合取式過濾是健全的。為何它對真實的<em>排名</em>網路搜尋引擎可能不是有效的 MR？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>排名引擎可能不回傳所有符合的文件（它截斷為前 k 筆、套用相關性門檻、查詢擴展或同義詞），故較具體查詢回傳的集合不保證是子集</text><feedback><text>正確——MR 的有效性取決於受測程式的實際規格。</text></feedback></answer>
+    <answer fraction="0"><text>因為排名搜尋引擎永遠正確，故不需要 MR</text><feedback><text>重點不在正確性；只是在排名語意下該關係不再有保證。</text></feedback></answer>
+    <answer fraction="0"><text>因為較具體的查詢一定計算得較快</text><feedback><text>效能與子集關係是否成立無關。</text></feedback></answer>
+    <answer fraction="0"><text>因為子集的數學在網路上不一樣</text><feedback><text>集合論並無改變；問題在於排名結果並非完整的符合集合。</text></feedback></answer>
+    <generalfeedback><text>子集 MR 假設引擎恰好回傳符合所有字詞的文件。排名引擎則回傳經整理、截斷、可能經查詢擴展的清單，故較具體查詢的結果未必是較廣查詢結果的子集。MR 只在對應實際規格時才有效：改變語意，原本健全的 MR 可能變成無效。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>MR 必須是必要性質</text></name>
+    <questiontext format="html"><text><![CDATA[<p>蛻變關係要能當作預言使用，它必須是每個正確實作的必要性質；否則「違反」可能代表關係有瑕疵，而非缺陷。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——唯有真正必要的性質才能讓違反牽連到程式。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>若關係並非必要，正確程式也可能違反它，故違反便不代表缺陷。</text></feedback></answer>
+    <generalfeedback><text>MT 的健全性建立在 MR 是必要性質之上：每個正確實作都必須滿足的東西。如此一來，違反就必然代表程式有錯。若該關係僅是合理但非必要，正確程式也可能違反它，而「缺陷」其實在關係中——這正是為何驗證 MR 是 MT 的關鍵功課。</text></generalfeedback>
+  </question>
+</quiz>

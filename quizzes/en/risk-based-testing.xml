@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Risk-Based Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a risk</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In risk-based testing, a <em>risk</em> is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A potential problem, characterised by the combination of its likelihood of occurring and its impact if it does</text><feedback><text>Correct — a risk pairs a likelihood (probability) with an impact (consequence).</text></feedback></answer>
+    <answer fraction="0"><text>A defect that has already been found and logged</text><feedback><text>That is a known defect; a risk is a potential future problem, not a confirmed one.</text></feedback></answer>
+    <answer fraction="0"><text>A test case that always fails</text><feedback><text>A failing test is evidence of a defect, not the definition of a risk.</text></feedback></answer>
+    <answer fraction="0"><text>The total number of test cases in the plan</text><feedback><text>That is a size metric of the suite, unrelated to what a risk is.</text></feedback></answer>
+    <generalfeedback><text>A risk is a possible future problem. It is characterised by two dimensions: the likelihood that it occurs and the impact (severity of the consequence) if it does. Risk-based testing uses both dimensions to decide where to focus test effort.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of likelihood</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>likelihood</em> component of a risk refers to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The probability that the failure or defect actually occurs</text><feedback><text>Correct — likelihood is how probable the problem is.</text></feedback></answer>
+    <answer fraction="0"><text>How severe the consequence would be if the problem occurred</text><feedback><text>That is the impact dimension, not likelihood.</text></feedback></answer>
+    <answer fraction="0"><text>The cost of writing the test cases</text><feedback><text>Test-authoring cost is a project concern, not the likelihood of a risk.</text></feedback></answer>
+    <answer fraction="0"><text>The number of testers assigned to the feature</text><feedback><text>Staffing is unrelated to the probability that a defect occurs.</text></feedback></answer>
+    <generalfeedback><text>Likelihood (probability) is one of the two dimensions of risk: how probable it is that a failure or defect will actually happen. The other dimension is impact.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of impact</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>impact</em> component of a risk refers to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The severity of the consequence if the failure or defect occurs</text><feedback><text>Correct — impact is how bad it would be if the problem happened.</text></feedback></answer>
+    <answer fraction="0"><text>How probable it is that the defect will occur</text><feedback><text>That is likelihood, the other dimension of risk.</text></feedback></answer>
+    <answer fraction="0"><text>How many test cases exercise the feature</text><feedback><text>That is a coverage figure, not the impact of a risk.</text></feedback></answer>
+    <answer fraction="0"><text>How quickly a fix can be deployed</text><feedback><text>Deployment speed is a mitigation concern, not the definition of impact.</text></feedback></answer>
+    <generalfeedback><text>Impact (severity/consequence) is one of the two dimensions of risk: how damaging the outcome would be if the problem occurred. Combined with likelihood, it gives the risk exposure.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Risk exposure formula</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Risk exposure (the risk level) is normally computed as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>likelihood × impact</text><feedback><text>Correct — combining probability and consequence gives the risk exposure.</text></feedback></answer>
+    <answer fraction="0"><text>likelihood + impact</text><feedback><text>Risk exposure multiplies the two dimensions; it is not their sum.</text></feedback></answer>
+    <answer fraction="0"><text>impact &#8722; likelihood</text><feedback><text>Subtracting the dimensions has no standard meaning for risk exposure.</text></feedback></answer>
+    <answer fraction="0"><text>likelihood ÷ impact</text><feedback><text>Dividing the two does not give a risk level; the standard formula multiplies them.</text></feedback></answer>
+    <generalfeedback><text>Risk exposure (also called risk level or risk rating) = likelihood × impact. It combines how probable a problem is with how serious it would be, giving a single number used to prioritise testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is risk-based testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Risk-based testing</em> is an approach in which:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test effort is allocated in proportion to the assessed risk of each item, testing the highest-risk items first</text><feedback><text>Correct — risk drives the depth and order of testing.</text></feedback></answer>
+    <answer fraction="0"><text>Every feature is tested with exactly the same number of test cases</text><feedback><text>That is uniform effort; risk-based testing deliberately varies effort by risk.</text></feedback></answer>
+    <answer fraction="0"><text>Only features chosen at random are tested</text><feedback><text>Risk-based testing selects by assessed risk, not at random.</text></feedback></answer>
+    <answer fraction="0"><text>Testing stops as soon as the first defect is found</text><feedback><text>Stopping at the first defect is not risk-based testing; effort is guided by risk levels.</text></feedback></answer>
+    <generalfeedback><text>Risk-based testing identifies risks, assesses their likelihood and impact, prioritises them, and allocates more and deeper testing to the highest-risk items — using limited test effort where it matters most.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a risk matrix</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>risk matrix</em> (heat map) is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A grid of likelihood against impact used to visualise and rank each item's risk level</text><feedback><text>Correct — the two axes are likelihood and impact, and cells show the resulting risk level.</text></feedback></answer>
+    <answer fraction="0"><text>A table listing every test case and its execution time</text><feedback><text>That is a test schedule, not a risk matrix.</text></feedback></answer>
+    <answer fraction="0"><text>A matrix of code modules against the developers who wrote them</text><feedback><text>That is an ownership map; a risk matrix plots likelihood against impact.</text></feedback></answer>
+    <answer fraction="0"><text>A record of which mutants each test kills</text><feedback><text>That belongs to mutation testing, not to a risk matrix.</text></feedback></answer>
+    <generalfeedback><text>A risk matrix (or heat map) plots likelihood on one axis and impact on the other. Each item lands in a cell; high-likelihood/high-impact items sit in the "red" corner and are tested first.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is residual risk</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Residual risk</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The risk that remains after testing and other mitigation have been carried out</text><feedback><text>Correct — some risk always remains once mitigation is done.</text></feedback></answer>
+    <answer fraction="0"><text>The risk that exists before any testing begins</text><feedback><text>That is the initial (inherent) risk, not the residual risk.</text></feedback></answer>
+    <answer fraction="0"><text>A risk that has been completely eliminated</text><feedback><text>Residual risk is precisely what is not eliminated; it remains.</text></feedback></answer>
+    <answer fraction="0"><text>The risk of running the test suite itself</text><feedback><text>That is not the standard meaning; residual risk is what is left in the product after mitigation.</text></feedback></answer>
+    <generalfeedback><text>Residual risk is the risk that still remains after testing and mitigation. Because testing reduces but never eliminates risk, some residual risk is always present, and stakeholders decide whether it is acceptable to release.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Product risk vs project risk</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>product risk</em> (as opposed to a project risk) concerns:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The quality of the product itself — that the delivered software may fail to meet needs or contain defects</text><feedback><text>Correct — product risk is about the software's quality.</text></feedback></answer>
+    <answer fraction="0"><text>Schedule slippage caused by a delayed supplier</text><feedback><text>That is a project risk (schedule/resource), not a product risk.</text></feedback></answer>
+    <answer fraction="0"><text>A key team member leaving mid-project</text><feedback><text>That is a project/staffing risk, not a product-quality risk.</text></feedback></answer>
+    <answer fraction="0"><text>The test-management tool licence expiring</text><feedback><text>That is a project/resource risk, not a product risk.</text></feedback></answer>
+    <generalfeedback><text>Product risks relate to the quality of the product — defects, missing functionality, poor performance. Project risks relate to managing the project — schedule, budget, staffing, suppliers. Risk-based testing chiefly targets product risks.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute risk exposure 4 × 5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On a 1&#8211;5 scale, an item has likelihood 4 and impact 5. Its risk exposure is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>20</text><feedback><text>Correct — 4 × 5 = 20.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>That is 4 + 5; risk exposure multiplies the two values.</text></feedback></answer>
+    <answer fraction="0"><text>45</text><feedback><text>That concatenates the digits; the exposure is 4 × 5 = 20.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>That is 5 &#8722; 4; risk exposure is the product, 20.</text></feedback></answer>
+    <generalfeedback><text>Risk exposure = likelihood × impact = 4 × 5 = 20.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute risk exposure 3 × 2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An item has likelihood 3 and impact 2. Its risk exposure is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — 3 × 2 = 6.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>That is 3 + 2; risk exposure multiplies the two values.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>That is 3 &#8722; 2; risk exposure is the product, 6.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>That is not 3 × 2; the correct product is 6.</text></feedback></answer>
+    <generalfeedback><text>Risk exposure = likelihood × impact = 3 × 2 = 6.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Testing reduces but does not eliminate risk</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Testing can reduce risk, but it cannot completely eliminate it.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — testing lowers risk (mainly by finding defects and by giving information), but some residual risk always remains.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Testing cannot prove the absence of all defects, so it reduces risk rather than eliminating it; residual risk always remains.</text></feedback></answer>
+    <generalfeedback><text>Testing reduces risk by finding defects and by providing information about quality, but no amount of testing eliminates all risk — residual risk always remains. Claiming testing eliminates risk is an overstatement.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which items are tested first</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In risk-based testing, when effort must be prioritised, which items are tested first?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The items with the highest risk exposure</text><feedback><text>Correct — highest-risk items get attention first.</text></feedback></answer>
+    <answer fraction="0"><text>The items that are quickest to test</text><feedback><text>Ease of testing may be a tie-breaker, but the primary driver is risk level.</text></feedback></answer>
+    <answer fraction="0"><text>The items added most recently to the backlog</text><feedback><text>Recency is not the ordering criterion; risk exposure is.</text></feedback></answer>
+    <answer fraction="0"><text>The items with the lowest impact</text><feedback><text>Low-impact items are typically deferred, not tested first.</text></feedback></answer>
+    <generalfeedback><text>Risk-based testing ranks items by risk exposure (likelihood × impact) and tests the highest-risk items first, so that if time runs out the most important risks have already been addressed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Two dimensions of risk</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Risk is the combination of which two factors?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Likelihood and impact</text><feedback><text>Correct — probability of occurrence and severity of consequence.</text></feedback></answer>
+    <answer fraction="0"><text>Cost and schedule</text><feedback><text>Those are project constraints, not the two dimensions of a risk.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage and mutation score</text><feedback><text>Those are test-adequacy metrics, not the components of risk.</text></feedback></answer>
+    <answer fraction="0"><text>Severity and reproducibility</text><feedback><text>Those describe defects; risk itself combines likelihood and impact.</text></feedback></answer>
+    <generalfeedback><text>A risk combines its likelihood (how probable it is) with its impact (how severe the consequence would be). Risk exposure = likelihood × impact captures both.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute risk exposure 5 × 5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On a 1&#8211;5 scale, an item has likelihood 5 and impact 5. Its risk exposure is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>25</text><feedback><text>Correct — 5 × 5 = 25, the maximum on a 5×5 scale.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>That is 5 + 5; risk exposure multiplies the two values.</text></feedback></answer>
+    <answer fraction="0"><text>55</text><feedback><text>That concatenates the digits; the exposure is 5 × 5 = 25.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>That is 5 &#8722; 5; risk exposure is the product, 25.</text></feedback></answer>
+    <generalfeedback><text>Risk exposure = likelihood × impact = 5 × 5 = 25 — the highest value on a 5×5 rating scale, marking a top-priority item.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test depth and risk level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How should the depth of test design relate to an item's risk level?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Higher-risk items get more and deeper tests; lower-risk items get lighter testing</text><feedback><text>Correct — depth of testing scales with risk.</text></feedback></answer>
+    <answer fraction="0"><text>All items get exactly the same depth of testing regardless of risk</text><feedback><text>That is uniform testing, which ignores risk; risk-based testing varies depth.</text></feedback></answer>
+    <answer fraction="0"><text>Lower-risk items get the deepest testing</text><feedback><text>That inverts the principle; effort should follow the higher risks.</text></feedback></answer>
+    <answer fraction="0"><text>Depth of testing depends only on the size of the code, not on risk</text><feedback><text>Code size may influence effort, but risk-based testing scales depth with risk.</text></feedback></answer>
+    <generalfeedback><text>In risk-based testing the depth and rigour of test design scale with risk: high-risk items receive more, and more thorough, tests, while low-risk items receive lighter coverage.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Risk-Based Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Rank three items by exposure</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Three items are rated on a 1&#8211;9 scale: A (likelihood 2, impact 9), B (likelihood 5, impact 5), C (likelihood 8, impact 2). Which should be tested <strong>first</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>B — its exposure 25 is the highest</text><feedback><text>Correct — A = 2×9 = 18, B = 5×5 = 25, C = 8×2 = 16, so B is highest.</text></feedback></answer>
+    <answer fraction="0"><text>A — because it has the highest impact</text><feedback><text>A's exposure is 2×9 = 18, less than B's 25; impact alone does not decide it.</text></feedback></answer>
+    <answer fraction="0"><text>C — because it has the highest likelihood</text><feedback><text>C's exposure is 8×2 = 16, the lowest here; likelihood alone does not decide it.</text></feedback></answer>
+    <answer fraction="0"><text>All three are equal, so order does not matter</text><feedback><text>The exposures 18, 25 and 16 are all different, so B is clearly first.</text></feedback></answer>
+    <generalfeedback><text>Compute exposure = likelihood × impact for each: A = 18, B = 25, C = 16. Highest first gives the order B, A, C, so B is tested first. Neither impact nor likelihood alone determines priority — the product does.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Place an item on the risk matrix</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An item has high likelihood and high impact. Where does it sit on the risk matrix, and how is it treated?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>In the high-high ("red") corner — it is the highest priority and is tested first</text><feedback><text>Correct — high likelihood combined with high impact is the top-priority cell.</text></feedback></answer>
+    <answer fraction="0"><text>In the low-low ("green") corner — it can safely be deferred</text><feedback><text>Low-low is the corner for the least risky items; a high-high item is the opposite.</text></feedback></answer>
+    <answer fraction="0"><text>Off the matrix, because both values are extreme</text><feedback><text>Extreme values still land on the matrix — in fact in its most critical cell.</text></feedback></answer>
+    <answer fraction="0"><text>In the middle, because the two high values cancel out</text><feedback><text>High values do not cancel; they compound into the highest exposure.</text></feedback></answer>
+    <generalfeedback><text>On a risk matrix, likelihood and impact are the two axes. An item high on both lands in the high-high (red) corner with the greatest risk exposure, making it the first thing to test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why more effort on high-risk items</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does risk-based testing allocate more test effort to high-risk items?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because a defect there is both more likely and more damaging, so testing there reduces the most risk per unit of effort</text><feedback><text>Correct — effort is spent where it buys the greatest reduction in risk.</text></feedback></answer>
+    <answer fraction="0"><text>Because high-risk items always contain more lines of code</text><feedback><text>Risk is about likelihood and impact, not code size; a small module can be high-risk.</text></feedback></answer>
+    <answer fraction="0"><text>Because low-risk items cannot contain any defects</text><feedback><text>Low-risk items can still have defects; they are simply less critical, not defect-free.</text></feedback></answer>
+    <answer fraction="0"><text>Because high-risk items are always the easiest to test</text><feedback><text>Ease of testing is unrelated to risk level; the reason is the greater risk reduction.</text></feedback></answer>
+    <generalfeedback><text>With limited resources, testing the highest-risk items first yields the greatest reduction in overall risk exposure. A defect there is more probable and more costly, so effort spent there is more valuable than the same effort on a low-risk item.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: key tester leaves</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"The only tester who knows the payment module resigns two weeks before release." This is primarily a:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Project risk — it concerns staffing/resources, not the product's quality directly</text><feedback><text>Correct — losing a key person is a project/resource risk.</text></feedback></answer>
+    <answer fraction="0"><text>Product risk — it is about a defect in the software</text><feedback><text>No product defect is described; the issue is a staffing/resource problem.</text></feedback></answer>
+    <answer fraction="0"><text>Residual risk — it is what remains after testing</text><feedback><text>Residual risk is leftover product risk after mitigation, not a staffing event.</text></feedback></answer>
+    <answer fraction="0"><text>Neither — staffing is never a risk</text><feedback><text>Staffing changes are a classic project risk.</text></feedback></answer>
+    <generalfeedback><text>Project risks concern the management of the project — schedule, budget, staffing, suppliers. Losing a key tester is a staffing/resource issue, hence a project risk. (It may increase product risk indirectly, but the event itself is a project risk.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: incorrect tax calculation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"The application might compute sales tax incorrectly on some orders." This is primarily a:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Product risk — it concerns a possible defect in the delivered software</text><feedback><text>Correct — a wrong calculation is a quality problem in the product.</text></feedback></answer>
+    <answer fraction="0"><text>Project risk — it concerns schedule or staffing</text><feedback><text>Nothing here is about schedule, budget or staffing; it is about the software's behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>Residual risk only, never a product risk</text><feedback><text>It is a product risk; it may become residual risk if it survives testing, but it is a product risk.</text></feedback></answer>
+    <answer fraction="0"><text>Not a risk, because it has not happened yet</text><feedback><text>A risk is by definition a potential problem that has not yet occurred.</text></feedback></answer>
+    <generalfeedback><text>Product risks are about the quality of the software itself. An incorrect tax calculation is a defect in the delivered product, so it is a product risk — exactly the kind of thing risk-based testing targets.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Rank X, Y, Z</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Items are rated: X (likelihood 3, impact 4), Y (likelihood 6, impact 3), Z (likelihood 2, impact 5). What is the correct test-first ordering (highest risk first)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Y, X, Z</text><feedback><text>Correct — Y = 6×3 = 18, X = 3×4 = 12, Z = 2×5 = 10.</text></feedback></answer>
+    <answer fraction="0"><text>Z, X, Y</text><feedback><text>That is the reverse; Z's exposure (10) is the lowest, not the highest.</text></feedback></answer>
+    <answer fraction="0"><text>X, Y, Z</text><feedback><text>X's exposure is 12, below Y's 18, so X is not first.</text></feedback></answer>
+    <answer fraction="0"><text>Y, Z, X</text><feedback><text>Z (10) is below X (12), so Z cannot come before X.</text></feedback></answer>
+    <generalfeedback><text>Exposure = likelihood × impact: X = 12, Y = 18, Z = 10. Highest first gives Y, X, Z.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compare two items' exposure</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Item P has likelihood 4 and impact 6; item Q has likelihood 7 and impact 3. Which has the higher risk exposure?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>P, with exposure 24 versus Q's 21</text><feedback><text>Correct — P = 4×6 = 24, Q = 7×3 = 21.</text></feedback></answer>
+    <answer fraction="0"><text>Q, because it has the higher likelihood</text><feedback><text>Q's exposure is 7×3 = 21, below P's 24; higher likelihood alone does not win.</text></feedback></answer>
+    <answer fraction="0"><text>They are equal</text><feedback><text>24 and 21 are not equal; P is higher.</text></feedback></answer>
+    <answer fraction="0"><text>Q, with exposure 24 versus P's 21</text><feedback><text>The values are swapped: P = 24 and Q = 21, so P is higher.</text></feedback></answer>
+    <generalfeedback><text>P = 4 × 6 = 24 and Q = 7 × 3 = 21, so P has the higher risk exposure despite Q's larger likelihood. The product, not either factor alone, decides priority.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Equal exposure, different factors</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Item J has likelihood 6 and impact 2; item K has likelihood 4 and impact 3. Compare their risk exposures.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They are equal — both have exposure 12</text><feedback><text>Correct — J = 6×2 = 12 and K = 4×3 = 12.</text></feedback></answer>
+    <answer fraction="0"><text>J is higher, because it has the greater likelihood</text><feedback><text>J = 6×2 = 12, the same as K; a greater likelihood does not by itself raise exposure.</text></feedback></answer>
+    <answer fraction="0"><text>K is higher, because it has the greater impact</text><feedback><text>K = 4×3 = 12, equal to J; a greater impact alone does not raise exposure.</text></feedback></answer>
+    <answer fraction="0"><text>They cannot be compared, because their factors differ</text><feedback><text>They can be compared directly through the product, which is 12 for both.</text></feedback></answer>
+    <generalfeedback><text>Risk exposure = likelihood × impact: J = 6×2 = 12 and K = 4×3 = 12, so they tie. Different likelihood/impact combinations can yield the same exposure — which is why prioritisation may then need secondary criteria such as detectability or the severity of the impact.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which item to defer</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Time is short. Three items are rated: Payment (likelihood 5, impact 8), Help page (likelihood 2, impact 3), Login (likelihood 4, impact 7). If one item must be deferred, which is the safest to defer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Help page — its exposure 6 is by far the lowest</text><feedback><text>Correct — Payment = 40, Login = 28, Help page = 6, so Help page is safest to defer.</text></feedback></answer>
+    <answer fraction="0"><text>Payment — because it has the highest impact</text><feedback><text>Payment's exposure (40) is the highest; deferring it would leave the biggest risk untested.</text></feedback></answer>
+    <answer fraction="0"><text>Login — because it is a common feature</text><feedback><text>Login's exposure (28) is far above the Help page's 6; the Help page is the safer defer.</text></feedback></answer>
+    <answer fraction="0"><text>None can be deferred; all are equally risky</text><feedback><text>The exposures 40, 6 and 28 differ greatly, so the Help page is clearly the least risky.</text></feedback></answer>
+    <generalfeedback><text>Exposure = likelihood × impact: Payment = 40, Help page = 6, Login = 28. When time is limited you defer the lowest-risk item, so the Help page is the safest to skip.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Low likelihood, high impact on the matrix</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A rare but catastrophic event (e.g. permanent loss of all customer data) has low likelihood but very high impact. On the risk matrix it should be:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Placed in the high-impact band and still given serious attention, because the consequence is severe</text><feedback><text>Correct — high impact keeps it important even when likelihood is low.</text></feedback></answer>
+    <answer fraction="0"><text>Ignored entirely, because low likelihood means low risk</text><feedback><text>Low likelihood does not make it negligible; the severe impact keeps its exposure meaningful.</text></feedback></answer>
+    <answer fraction="0"><text>Treated as the very lowest priority automatically</text><feedback><text>A catastrophic impact prevents it from being the lowest priority despite low likelihood.</text></feedback></answer>
+    <answer fraction="0"><text>Removed from the matrix because it is unlikely</text><feedback><text>Unlikely items still belong on the matrix; impact must also be weighed.</text></feedback></answer>
+    <generalfeedback><text>Because exposure = likelihood × impact, a very high impact can keep the exposure significant even when likelihood is low. Such rare-but-catastrophic items are placed high on the impact axis and are not dismissed just because they are improbable.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Residual risk after thorough testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Even after very thorough risk-based testing, some residual risk normally remains in the product.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — testing reduces risk but cannot eliminate it, so residual risk remains.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>No amount of testing removes all risk; residual risk always remains after mitigation.</text></feedback></answer>
+    <generalfeedback><text>Testing reduces risk but never drives it to zero — untested combinations, unknown risks and unfixed low-priority defects all leave residual risk. Stakeholders judge whether that residual risk is acceptable for release.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Severity versus priority</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a reported defect, how do <em>severity</em> and <em>priority</em> differ?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Severity is how serious the defect's effect is; priority is how soon it should be fixed</text><feedback><text>Correct — severity is about technical impact, priority is about fix urgency.</text></feedback></answer>
+    <answer fraction="0"><text>They are two names for exactly the same thing</text><feedback><text>They are related but distinct: a defect can be high-severity yet low-priority, or vice versa.</text></feedback></answer>
+    <answer fraction="0"><text>Severity is set by the customer; priority is set by the compiler</text><feedback><text>Neither is set by a compiler; both are judgements made by the team/stakeholders.</text></feedback></answer>
+    <answer fraction="0"><text>Priority is how severe the defect is; severity is how quickly it recurs</text><feedback><text>That swaps and distorts the definitions; severity = seriousness, priority = fix urgency.</text></feedback></answer>
+    <generalfeedback><text>Severity measures how damaging the defect's effect is (technical impact); priority measures how urgently it should be fixed (business urgency). They often correlate, but a high-severity defect in a rarely used feature may be low-priority, and a low-severity defect on a prominent screen may be high-priority.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Re-assessing risk during a project</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why should risks be re-assessed periodically during a project rather than rated only once at the start?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because likelihoods and impacts change as the product, information and circumstances evolve</text><feedback><text>Correct — risk ratings are not static, so priorities must be updated.</text></feedback></answer>
+    <answer fraction="0"><text>Because the risk-exposure formula changes over time</text><feedback><text>The formula (likelihood × impact) stays the same; it is the inputs that change.</text></feedback></answer>
+    <answer fraction="0"><text>Because re-assessment guarantees zero residual risk</text><feedback><text>Re-assessment refines priorities; it does not eliminate residual risk.</text></feedback></answer>
+    <answer fraction="0"><text>Because a single early assessment is always perfectly accurate</text><feedback><text>Early estimates are uncertain; that is exactly why re-assessment is needed.</text></feedback></answer>
+    <generalfeedback><text>Risk is dynamic: as code is written, defects are found or fixed, and requirements shift, both likelihood and impact change. Periodic re-assessment keeps the prioritisation aligned with the current state of the project.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How testing reduces risk exposure</text></name>
+    <questiontext format="html"><text><![CDATA[<p>By finding and enabling the fixing of defects, testing most directly reduces which part of a product risk's exposure?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The likelihood — fixing found defects lowers the probability that a failure occurs in the field</text><feedback><text>Correct — testing chiefly attacks the likelihood dimension.</text></feedback></answer>
+    <answer fraction="0"><text>The impact — testing changes how damaging a failure would be</text><feedback><text>The business consequence of a failure is largely fixed by context; testing mainly reduces likelihood.</text></feedback></answer>
+    <answer fraction="0"><text>Neither — testing cannot affect risk exposure at all</text><feedback><text>Testing does reduce exposure, primarily by lowering likelihood.</text></feedback></answer>
+    <answer fraction="0"><text>Both are reduced to zero once testing is complete</text><feedback><text>Exposure is reduced but never to zero; residual risk remains.</text></feedback></answer>
+    <generalfeedback><text>Testing finds defects that can then be fixed, lowering the probability (likelihood) that they cause a field failure. The impact of a given failure is usually set by its business context, not by testing. Testing also informs stakeholders, but its direct effect on exposure is mainly through likelihood — and it never reaches zero.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Monitoring risks over time</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After test effort has been allocated by risk, what is the correct ongoing activity?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Monitor and re-assess the risks, re-prioritising test effort as ratings change</text><feedback><text>Correct — risk-based testing is an iterative identify–assess–prioritise–monitor loop.</text></feedback></answer>
+    <answer fraction="0"><text>Freeze the priorities, since re-assessing wastes effort</text><feedback><text>Frozen priorities ignore new information; monitoring and re-assessment are essential.</text></feedback></answer>
+    <answer fraction="0"><text>Stop all testing once the first high-risk item passes</text><feedback><text>Passing one item does not address the remaining risks; testing continues by priority.</text></feedback></answer>
+    <answer fraction="0"><text>Switch to testing the lowest-risk items exclusively</text><feedback><text>Effort still follows the highest current risks, not the lowest.</text></feedback></answer>
+    <generalfeedback><text>Risk-based testing is a continuous loop: identify risks, assess likelihood and impact, prioritise, allocate effort, then monitor and re-assess. As new defects, information and changes arrive, ratings shift and priorities are updated.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Risk-Based Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Prioritise a table of four items</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Four features are rated on a 1&#8211;9 scale:</p>
+<table border="1" cellpadding="4"><tr><th>Feature</th><th>Likelihood</th><th>Impact</th></tr>
+<tr><td>A</td><td>2</td><td>8</td></tr>
+<tr><td>B</td><td>5</td><td>6</td></tr>
+<tr><td>C</td><td>9</td><td>2</td></tr>
+<tr><td>D</td><td>3</td><td>3</td></tr></table>
+<p>What is the correct test-first ordering (highest risk exposure first)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>B, C, A, D</text><feedback><text>Correct — B = 30, C = 18, A = 16, D = 9.</text></feedback></answer>
+    <answer fraction="0"><text>C, B, A, D</text><feedback><text>C = 9×2 = 18, below B = 30, so C is not first.</text></feedback></answer>
+    <answer fraction="0"><text>A, B, C, D</text><feedback><text>A = 2×8 = 16, below both B (30) and C (18), so A is not first.</text></feedback></answer>
+    <answer fraction="0"><text>B, A, C, D</text><feedback><text>A = 16 is below C = 18, so A must come after C, not before.</text></feedback></answer>
+    <generalfeedback><text>Exposure = likelihood × impact: A = 2×8 = 16, B = 5×6 = 30, C = 9×2 = 18, D = 3×3 = 9. Ordering by descending exposure gives B (30), C (18), A (16), D (9).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Choose two under a time budget</text></name>
+    <questiontext format="html"><text><![CDATA[<p>There is time to fully test only two of these four items:</p>
+<table border="1" cellpadding="4"><tr><th>Item</th><th>Likelihood</th><th>Impact</th></tr>
+<tr><td>Checkout</td><td>6</td><td>8</td></tr>
+<tr><td>Login</td><td>4</td><td>7</td></tr>
+<tr><td>Search</td><td>5</td><td>2</td></tr>
+<tr><td>Reporting</td><td>2</td><td>3</td></tr></table>
+<p>Which two should be tested?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Checkout and Login</text><feedback><text>Correct — Checkout = 48 and Login = 28 are the two highest exposures.</text></feedback></answer>
+    <answer fraction="0"><text>Checkout and Search</text><feedback><text>Search = 5×2 = 10 is below Login's 28, so Login should be chosen over Search.</text></feedback></answer>
+    <answer fraction="0"><text>Search and Reporting</text><feedback><text>Those are the two lowest exposures (10 and 6); they are the ones to defer, not test.</text></feedback></answer>
+    <answer fraction="0"><text>Login and Search</text><feedback><text>Checkout (48) is the single highest and must be included; Search (10) should not displace it.</text></feedback></answer>
+    <generalfeedback><text>Exposure = likelihood × impact: Checkout = 48, Login = 28, Search = 10, Reporting = 6. With capacity for two, you test the two highest — Checkout and Login — and defer Search and Reporting.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Rank four close exposures</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Four modules are rated:</p>
+<table border="1" cellpadding="4"><tr><th>Module</th><th>Likelihood</th><th>Impact</th></tr>
+<tr><td>M1</td><td>3</td><td>5</td></tr>
+<tr><td>M2</td><td>4</td><td>4</td></tr>
+<tr><td>M3</td><td>2</td><td>9</td></tr>
+<tr><td>M4</td><td>6</td><td>2</td></tr></table>
+<p>Order them from highest to lowest risk exposure.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>M3, M2, M1, M4</text><feedback><text>Correct — M3 = 18, M2 = 16, M1 = 15, M4 = 12.</text></feedback></answer>
+    <answer fraction="0"><text>M1, M2, M3, M4</text><feedback><text>M1 = 3×5 = 15 is not the highest; M3 = 18 is.</text></feedback></answer>
+    <answer fraction="0"><text>M4, M3, M2, M1</text><feedback><text>M4 = 6×2 = 12 is the lowest, not the highest.</text></feedback></answer>
+    <answer fraction="0"><text>M3, M1, M2, M4</text><feedback><text>M2 = 16 exceeds M1 = 15, so M2 must come before M1.</text></feedback></answer>
+    <generalfeedback><text>Exposure = likelihood × impact: M1 = 15, M2 = 16, M3 = 18, M4 = 12. Descending order is M3 (18), M2 (16), M1 (15), M4 (12) — the close values reward computing each product exactly.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Recompute exposure after mitigation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An item is rated likelihood 8, impact 5 (exposure 40). A mitigation (adding automated input validation plus a targeted test suite) is expected to cut the likelihood to 3, while the impact of a failure is unchanged. What is the new risk exposure?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>15</text><feedback><text>Correct — new exposure = 3 × 5 = 15.</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>Mitigation lowers likelihood but does not remove it; residual exposure is 3 × 5 = 15, not 0.</text></feedback></answer>
+    <answer fraction="0"><text>40</text><feedback><text>That is the original exposure; the reduced likelihood gives 3 × 5 = 15.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>That is likelihood + impact after the change; exposure is the product 3 × 5 = 15.</text></feedback></answer>
+    <generalfeedback><text>Mitigation reduces the likelihood from 8 to 3 while impact stays at 5, so the residual exposure is 3 × 5 = 15. Note it drops from 40 to 15 but not to zero — residual risk remains.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Low likelihood, catastrophic impact warrants testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A failure mode has likelihood 1 but impact 10 (exposure 10), while a routine feature has likelihood 3 and impact 3 (exposure 9). Why might the rare-but-catastrophic failure still warrant careful testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Its exposure (10) is actually higher, and a catastrophic consequence justifies attention even at low likelihood</text><feedback><text>Correct — 1×10 = 10 exceeds 3×3 = 9, and severe impact matters.</text></feedback></answer>
+    <answer fraction="0"><text>Because low likelihood always means low risk, so it can be ignored</text><feedback><text>Low likelihood does not by itself make risk low; the high impact keeps exposure significant.</text></feedback></answer>
+    <answer fraction="0"><text>Because the routine feature has the higher exposure</text><feedback><text>The routine feature's exposure is 9, below the catastrophic mode's 10.</text></feedback></answer>
+    <answer fraction="0"><text>Because likelihood is the only factor that ever matters</text><feedback><text>Both factors matter; impact can dominate when it is extreme.</text></feedback></answer>
+    <generalfeedback><text>Exposure = likelihood × impact: the catastrophic mode is 1×10 = 10, above the routine feature's 3×3 = 9. Beyond the raw number, a catastrophic consequence (e.g. safety or total data loss) often justifies extra testing even when the probability is small, because the cost of being wrong is so high.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Misconception: 100% coverage eliminates risk</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team claims: "We achieved 100% code coverage, so there is now zero risk of any defect in production." The best critique is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Coverage does not eliminate risk — it does not guarantee correct oracles, cover all data/paths/environments, or address missing requirements, so residual risk remains</text><feedback><text>Correct — full coverage reduces risk but cannot drive it to zero.</text></feedback></answer>
+    <answer fraction="0"><text>Correct — 100% coverage does mean zero remaining risk</text><feedback><text>This is the misconception; coverage of code executed says nothing about unchecked outputs, missing features, or untried data.</text></feedback></answer>
+    <answer fraction="0"><text>Coverage is irrelevant and has no effect on risk at all</text><feedback><text>Coverage does reduce risk; the error is claiming it removes all of it.</text></feedback></answer>
+    <answer fraction="0"><text>The only flaw is that 100% coverage is too expensive</text><feedback><text>Cost is a separate issue; the key flaw is that even full coverage leaves residual risk.</text></feedback></answer>
+    <generalfeedback><text>Executing every line does not verify that outputs were checked correctly, does not exercise every input value, path combination, timing or environment, and cannot reveal a missing requirement. Testing reduces risk but never eliminates it, so claiming zero risk after 100% coverage is an overstatement — residual risk always remains.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>High-severity but low-priority defect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A crash occurs only in an obscure administrative report that one internal user runs once a year. The crash is high <em>severity</em> (it fully stops that function). Why might its fix be assigned low <em>priority</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because it is triggered rarely and affects almost no users, so the business urgency to fix it is low despite the severe local effect</text><feedback><text>Correct — severity (how bad the effect) can be high while priority (how urgent to fix) is low.</text></feedback></answer>
+    <answer fraction="0"><text>Because a crash can never be high severity</text><feedback><text>A crash that stops a function is genuinely high severity; the point is that priority can still be low.</text></feedback></answer>
+    <answer fraction="0"><text>Because severity and priority must always be equal</text><feedback><text>They frequently diverge; this example is exactly such a case.</text></feedback></answer>
+    <answer fraction="0"><text>Because low priority means the defect is not really a defect</text><feedback><text>It is still a real defect; priority only reflects fix urgency.</text></feedback></answer>
+    <generalfeedback><text>Severity measures the technical seriousness of the effect (here, a full crash), while priority reflects how urgently the business needs it fixed. A rarely used, low-exposure feature can carry a high-severity but low-priority defect — the two dimensions are related but distinct.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Low-severity but high-priority defect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The company's name is misspelled in large text on the public home page. Functionally nothing breaks (low <em>severity</em>). Why might this be given high <em>priority</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because it is highly visible and damages the brand, so the urgency to fix it is high even though the functional effect is minor</text><feedback><text>Correct — high visibility/business impact drives priority up despite low technical severity.</text></feedback></answer>
+    <answer fraction="0"><text>Because a cosmetic issue is automatically high severity</text><feedback><text>It is low severity functionally; the point is that priority is nonetheless high.</text></feedback></answer>
+    <answer fraction="0"><text>Because priority is always identical to severity</text><feedback><text>They diverge here: low severity, high priority.</text></feedback></answer>
+    <answer fraction="0"><text>Because low-severity defects are never worth fixing</text><feedback><text>This one is clearly worth fixing quickly, which is why priority is high.</text></feedback></answer>
+    <generalfeedback><text>Severity is low because nothing functionally breaks, but the defect is on the most visible page and harms the brand, so business urgency — priority — is high. This is the mirror image of a high-severity/low-priority defect and shows the two dimensions are independent.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Residual risk of a deferred item</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Under a deadline, a team fully tests its highest-risk items and deliberately defers a medium-risk item with no testing. On release, what is the correct characterisation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The deferred item contributes to the product's residual risk, which stakeholders should knowingly accept or reject before release</text><feedback><text>Correct — untested deferred items are exactly residual risk to be acknowledged.</text></feedback></answer>
+    <answer fraction="0"><text>There is no residual risk because the highest-risk items were tested</text><feedback><text>The deferred, untested item still carries risk into production; residual risk is not zero.</text></feedback></answer>
+    <answer fraction="0"><text>Deferring an item removes its risk entirely</text><feedback><text>Deferring testing does not remove the underlying risk; it leaves it unaddressed.</text></feedback></answer>
+    <answer fraction="0"><text>The deferred item is now guaranteed defect-free</text><feedback><text>Not testing something cannot make it defect-free; its risk simply remains unexamined.</text></feedback></answer>
+    <generalfeedback><text>Consciously deferring a medium-risk item is a legitimate risk-based decision, but the untested item still carries risk into production. That is residual risk, and good practice is to make it explicit so stakeholders can decide whether it is acceptable to ship.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Breaking a tie in exposure</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two items tie at exposure 12: item G (likelihood 2, impact 6) and item H (likelihood 6, impact 2). A defect in G would be catastrophic and hard to detect in the field, whereas H's failures are minor and quickly noticed. Which is the more defensible action?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test G more deeply, because with equal exposure the higher-impact, harder-to-detect item deserves the extra rigour</text><feedback><text>Correct — when exposures tie, secondary factors such as impact severity and detectability break the tie.</text></feedback></answer>
+    <answer fraction="0"><text>Test H more deeply, because it has the higher likelihood</text><feedback><text>Higher likelihood alone does not justify more rigour when the exposures are equal and H's failures are minor and obvious.</text></feedback></answer>
+    <answer fraction="0"><text>Skip both, because equal exposure means neither matters</text><feedback><text>Equal exposure does not mean the risk is negligible; both still matter, and G especially.</text></feedback></answer>
+    <answer fraction="0"><text>Test them identically, because the numbers must never be overridden</text><feedback><text>The exposure number is a starting point; qualitative factors legitimately refine equal-exposure decisions.</text></feedback></answer>
+    <generalfeedback><text>Both items have exposure 2×6 = 6×2 = 12, so the product cannot separate them. Risk-based testing then uses secondary criteria: G's catastrophic, hard-to-detect impact makes it the more dangerous of the two, so it warrants deeper testing. This shows the exposure score guides but does not fully determine priority.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Effect of re-assessment mid-project</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An item initially rated likelihood 2, impact 4 (exposure 8) is later found to sit on a newly discovered critical integration path, raising its likelihood to 7 (impact unchanged). What should happen?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Its exposure rises to 28, so it should be re-prioritised upward and given more test effort</text><feedback><text>Correct — 7 × 4 = 28, a large jump that moves it up the priority list.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing changes, because risk ratings are fixed once set</text><feedback><text>Ratings are not fixed; new information must trigger re-assessment.</text></feedback></answer>
+    <answer fraction="0"><text>Its exposure stays 8, because only impact affects exposure</text><feedback><text>Exposure depends on both factors; a higher likelihood raises it to 7 × 4 = 28.</text></feedback></answer>
+    <answer fraction="0"><text>It should be deprioritised, because it was low-risk at the start</text><feedback><text>The initial rating is superseded; the item is now higher risk, not lower.</text></feedback></answer>
+    <generalfeedback><text>Re-assessment recomputes exposure with the updated likelihood: 7 × 4 = 28, up from 8. Because risk is dynamic, the item is moved up the priority order and receives more test effort — illustrating the monitor/re-assess step of risk-based testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Ranking beats single-factor sorting</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Items: R (likelihood 9, impact 2), S (likelihood 3, impact 5), T (likelihood 4, impact 6). A colleague proposes testing in order of likelihood: R, T, S. What is wrong with that plan?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Sorting by likelihood alone is wrong; by exposure the correct order is T (24), R (18), S (15)</text><feedback><text>Correct — exposures are R = 18, S = 15, T = 24, so the correct order is T, R, S, not R, T, S.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing is wrong; sorting by likelihood always matches sorting by exposure</text><feedback><text>It does not: T has a lower likelihood than R but a higher exposure (24 vs 18).</text></feedback></answer>
+    <answer fraction="0"><text>The plan is right because R has the highest likelihood</text><feedback><text>Highest likelihood does not mean highest exposure; R's exposure (18) is below T's (24).</text></feedback></answer>
+    <answer fraction="0"><text>Exposure should be sorted ascending, so the order is R, S, T</text><feedback><text>Higher risk is tested first (descending), and R is not the lowest anyway.</text></feedback></answer>
+    <generalfeedback><text>Exposure = likelihood × impact: R = 9×2 = 18, S = 3×5 = 15, T = 4×6 = 24. Sorting by exposure (descending) gives T, R, S — different from the likelihood-only order R, T, S. Prioritisation must use the product of both factors, not one factor alone.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Testing informs the risk decision</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Beyond finding defects, how does executing risk-based tests reduce risk for stakeholders?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It provides information that shrinks uncertainty about the true risk level, enabling better-informed release decisions</text><feedback><text>Correct — test results reduce uncertainty even where no defect is found.</text></feedback></answer>
+    <answer fraction="0"><text>It proves the software is completely defect-free</text><feedback><text>Testing cannot prove the absence of all defects; it reduces uncertainty, not to zero.</text></feedback></answer>
+    <answer fraction="0"><text>It permanently sets the risk to zero for every tested item</text><feedback><text>Residual risk remains even after testing; risk is not driven to zero.</text></feedback></answer>
+    <answer fraction="0"><text>It has no value unless a defect is actually found</text><feedback><text>Even passing tests add value by reducing uncertainty about the risk.</text></feedback></answer>
+    <generalfeedback><text>Risk-based testing reduces risk in two ways: by finding defects that can be fixed (lowering likelihood), and by supplying evidence that lowers uncertainty about the actual quality — helping stakeholders judge the residual risk and make informed release decisions. It never eliminates risk entirely.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Untestable high-risk item</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A high-exposure item depends on a third-party service that cannot be exercised before release. What is the sound risk-based response?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Mitigate by other means (e.g. stubs, contracts, monitoring) and record the remaining untested part as explicit residual risk</text><feedback><text>Correct — where direct testing is impossible, use alternative mitigation and make the residual risk visible.</text></feedback></answer>
+    <answer fraction="0"><text>Declare the item zero-risk because it cannot be tested</text><feedback><text>Inability to test does not remove risk; if anything the risk is less understood.</text></feedback></answer>
+    <answer fraction="0"><text>Ignore it entirely, since untestable items are out of scope</text><feedback><text>A high-exposure item cannot simply be ignored; it must be mitigated and its residual risk tracked.</text></feedback></answer>
+    <answer fraction="0"><text>Assume the third party guarantees it is defect-free</text><feedback><text>Assuming defect-freeness is unjustified; the residual risk must be acknowledged.</text></feedback></answer>
+    <generalfeedback><text>When a high-risk item cannot be tested directly, risk-based testing applies alternative mitigation — service stubs, contract tests, extra monitoring, contingency plans — and explicitly documents whatever risk remains as residual risk so stakeholders can weigh it in the release decision.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Full loop of risk-based testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which sequence best describes the risk-based testing process?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Identify risks → assess likelihood and impact → prioritise by exposure → allocate/execute tests → monitor and re-assess</text><feedback><text>Correct — this is the iterative risk-based testing loop.</text></feedback></answer>
+    <answer fraction="0"><text>Write all tests → run them in random order → stop at the first failure</text><feedback><text>That ignores risk assessment and prioritisation entirely.</text></feedback></answer>
+    <answer fraction="0"><text>Assign equal effort to every item → never re-assess</text><feedback><text>Equal effort with no re-assessment is the opposite of risk-based testing.</text></feedback></answer>
+    <answer fraction="0"><text>Fix all defects first → then decide which risks exist</text><feedback><text>Risks are identified and assessed before, and throughout, testing — not after fixing everything.</text></feedback></answer>
+    <generalfeedback><text>Risk-based testing is an iterative loop: identify the risks, assess each one's likelihood and impact, prioritise by risk exposure, allocate and execute test effort accordingly, then monitor and re-assess as the project and its risks evolve.</text></generalfeedback>
+  </question>
+</quiz>

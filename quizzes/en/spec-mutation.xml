@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Specification Mutation/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What specification mutation mutates</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Specification mutation testing applies mutation operators to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A specification or model of the system (e.g. a requirement, an FSM, or a temporal-logic property), not the program source code</text><feedback><text>Correct — in specification mutation the artifact that is altered is the spec/model, not the code.</text></feedback></answer>
+    <answer fraction="0"><text>The program's source code</text><feedback><text>Mutating source code is program (code) mutation, a different technique.</text></feedback></answer>
+    <answer fraction="0"><text>The compiled binary of the program</text><feedback><text>Specification mutation works on the specification, not on compiled code.</text></feedback></answer>
+    <answer fraction="0"><text>The test cases themselves</text><feedback><text>Test cases are what we evaluate or generate; specification mutation changes the spec.</text></feedback></answer>
+    <generalfeedback><text>Specification mutation applies mutation operators to a specification or model — a boolean/logic requirement, a finite-state machine, or a temporal-logic property — rather than to the program's code.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mutant specification</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>mutant specification</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A copy of the original specification with one small change introduced by a mutation operator</text><feedback><text>Correct — a mutant spec is the original spec seeded with one deliberate small change.</text></feedback></answer>
+    <answer fraction="0"><text>A specification defect reported by users in the field</text><feedback><text>Mutant specs are artificial changes seeded on purpose, not field-reported defects.</text></feedback></answer>
+    <answer fraction="0"><text>A test case derived from the specification</text><feedback><text>That is a test, not a mutant specification.</text></feedback></answer>
+    <answer fraction="0"><text>An execution trace produced by a model checker</text><feedback><text>That is a counterexample/trace, not a mutant specification.</text></feedback></answer>
+    <generalfeedback><text>A mutant specification is a variant of the specification produced by applying a spec mutation operator that makes one small change (e.g. negating a clause), just as a program mutant is a small change to code.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is deliberately altered</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In specification mutation, the artifact that is deliberately altered to create a mutant is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The specification / model</text><feedback><text>Correct — the spec or model is what gets mutated.</text></feedback></answer>
+    <answer fraction="0"><text>The source code</text><feedback><text>Altering source code is program mutation, not specification mutation.</text></feedback></answer>
+    <answer fraction="0"><text>The test harness</text><feedback><text>The test harness is infrastructure, not the mutated artifact.</text></feedback></answer>
+    <answer fraction="0"><text>The input data files</text><feedback><text>Input data is not what a spec mutation operator changes.</text></feedback></answer>
+    <generalfeedback><text>Specification mutation seeds a change into the specification or model (a requirement, an FSM, or a temporal property), leaving the program code untouched.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Specification vs program mutation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The key difference between <em>specification mutation</em> and <em>program (code) mutation</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Specification mutation changes the specification/model, whereas program mutation changes the program's source code</text><feedback><text>Correct — the two differ in which artifact is mutated.</text></feedback></answer>
+    <answer fraction="0"><text>Specification mutation uses random inputs while program mutation is systematic</text><feedback><text>Both use systematic mutation operators; the difference is the artifact mutated.</text></feedback></answer>
+    <answer fraction="0"><text>Specification mutation needs no mutation operators</text><feedback><text>Both rely on mutation operators; spec mutation just applies them to the spec.</text></feedback></answer>
+    <answer fraction="0"><text>They are the same technique under two names</text><feedback><text>They are distinct: one mutates the spec, the other the code.</text></feedback></answer>
+    <generalfeedback><text>Both are mutation techniques, but program mutation seeds faults into code and runs tests to detect them, while specification mutation seeds changes into the spec/model to assess or generate tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Killing a spec mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>mutant specification is killed</em> when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Some test or analysis distinguishes the behavior described by the mutant spec from that of the original spec</text><feedback><text>Correct — an observable difference between mutant and original spec kills it.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant specification fails to parse</text><feedback><text>A malformed mutant is discarded, not "killed" by distinguishing behavior.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant specification is longer than the original</text><feedback><text>Length is irrelevant to killing; killing requires a behavioral difference.</text></feedback></answer>
+    <answer fraction="0"><text>The original specification is proven correct</text><feedback><text>Killing concerns distinguishing mutant from original, not proving correctness.</text></feedback></answer>
+    <generalfeedback><text>A spec mutant is killed when a test case (or a model-checker run) reveals that the mutant specification and the original specification disagree on some behavior.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Equivalent spec mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An <em>equivalent spec mutant</em> is a mutant specification that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Is syntactically different from the original spec but semantically identical, so no test can distinguish them</text><feedback><text>Correct — identical meaning means it can never be killed.</text></feedback></answer>
+    <answer fraction="0"><text>Is textually identical to the original specification</text><feedback><text>A mutation always introduces a syntactic change; identical text is not a mutant.</text></feedback></answer>
+    <answer fraction="0"><text>Always contradicts the original specification</text><feedback><text>A contradicting mutant differs in meaning and is killable; an equivalent one has the same meaning.</text></feedback></answer>
+    <answer fraction="0"><text>Cannot be expressed in the specification language</text><feedback><text>Equivalence is about meaning, not expressibility.</text></feedback></answer>
+    <generalfeedback><text>An equivalent spec mutant differs syntactically from the original but denotes exactly the same behavior for every input, so no test or model-check can ever distinguish (kill) it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Model-based mutation testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Model-based mutation testing</em> refers to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Applying mutation operators to a behavioral model of the system (e.g. an FSM), rather than to the code</text><feedback><text>Correct — the model is mutated.</text></feedback></answer>
+    <answer fraction="0"><text>Building a statistical model of how often each code mutant is killed</text><feedback><text>That is not what model-based mutation means; here the model is the mutated artifact.</text></feedback></answer>
+    <answer fraction="0"><text>Mutating only the program's data model (database schema)</text><feedback><text>The "model" is a behavioral model/spec, not specifically a database schema.</text></feedback></answer>
+    <answer fraction="0"><text>Randomly mutating the model checker's algorithm</text><feedback><text>The model checker is a tool, not the artifact being mutated.</text></feedback></answer>
+    <generalfeedback><text>Model-based mutation testing seeds mutations into a model (such as an FSM or a formal specification) and uses the difference between the model and its mutants to assess or generate tests — a form of specification mutation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose: adequacy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>One purpose of specification mutation is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Assess the adequacy of a test suite or the quality/completeness of the specification</text><feedback><text>Correct — killed mutants measure how well tests (or the spec) capture the intended behavior.</text></feedback></answer>
+    <answer fraction="0"><text>Automatically repair defects in the program</text><feedback><text>Specification mutation evaluates or generates tests; it does not fix code.</text></feedback></answer>
+    <answer fraction="0"><text>Prove the program has no defects</text><feedback><text>No mutation technique proves the absence of all defects.</text></feedback></answer>
+    <answer fraction="0"><text>Compress the specification into fewer states</text><feedback><text>That is model minimization, not the purpose of specification mutation.</text></feedback></answer>
+    <generalfeedback><text>Specification mutation is used to (a) assess the adequacy of a test suite or the quality of the specification and (b) generate tests. Measuring which spec mutants a suite kills gauges its adequacy.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose: test generation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Specification mutation can be used to <em>generate tests</em> by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Using a model checker's counterexample from a mutated property as a test case</text><feedback><text>Correct — a counterexample that distinguishes the mutant from the original spec becomes a test.</text></feedback></answer>
+    <answer fraction="0"><text>Compiling the mutant specification into an executable</text><feedback><text>Compiling a spec does not by itself produce test cases.</text></feedback></answer>
+    <answer fraction="0"><text>Counting the number of clauses in the specification</text><feedback><text>Counting clauses is a metric, not a test-generation method.</text></feedback></answer>
+    <answer fraction="0"><text>Removing all temporal operators from the specification</text><feedback><text>That would change the spec's meaning and does not generate tests.</text></feedback></answer>
+    <generalfeedback><text>A model checker checking a mutated property against the model returns a counterexample — a trace where the mutant and original disagree. That trace is turned into a test case.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Example spec mutation operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which is an example of a <em>specification</em> mutation operator?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Negating a clause in a requirement (e.g. condition C becomes NOT C)</text><feedback><text>Correct — negating a requirement's clause mutates the specification.</text></feedback></answer>
+    <answer fraction="0"><text>Deleting a line of C++ source in the implementation</text><feedback><text>That mutates code, so it is program mutation.</text></feedback></answer>
+    <answer fraction="0"><text>Renaming a local variable in the program</text><feedback><text>That is a code-level change, not a specification change.</text></feedback></answer>
+    <answer fraction="0"><text>Inserting a unary minus into a program expression</text><feedback><text>That is a code mutation operator (UOI), not a spec operator.</text></feedback></answer>
+    <generalfeedback><text>Spec mutation operators change the specification: negate a clause, swap a relational/logical/temporal operator in a requirement, or redirect an FSM transition. Changes to source code are program mutation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Temporal operator G</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In linear temporal logic, the operator <strong>G</strong> (globally) applied to a property <code>p</code> means that <code>p</code>:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Holds in every state along the path (always)</text><feedback><text>Correct — G means "always / globally".</text></feedback></answer>
+    <answer fraction="0"><text>Holds in at least one future state</text><feedback><text>That is F (eventually), not G.</text></feedback></answer>
+    <answer fraction="0"><text>Holds only in the immediately next state</text><feedback><text>That is X (next), not G.</text></feedback></answer>
+    <answer fraction="0"><text>Holds until some other property becomes true</text><feedback><text>That is the U (until) operator, not G.</text></feedback></answer>
+    <generalfeedback><text>In LTL, G p ("globally p") asserts that p is true in every state of the execution path — the "always" operator.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Temporal operator F</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In linear temporal logic, <strong>F</strong> (eventually/finally) applied to <code>p</code> means that <code>p</code>:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Holds in some current-or-future state</text><feedback><text>Correct — F means "eventually".</text></feedback></answer>
+    <answer fraction="0"><text>Holds in every state along the path</text><feedback><text>That is G (globally), not F.</text></feedback></answer>
+    <answer fraction="0"><text>Holds in the immediately next state only</text><feedback><text>That is X (next), not F.</text></feedback></answer>
+    <answer fraction="0"><text>Never holds</text><feedback><text>F asserts p does hold at some point, the opposite of never.</text></feedback></answer>
+    <generalfeedback><text>In LTL, F p ("eventually p") asserts that p becomes true at some state now or later along the path.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Counterexample definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When a model checker finds that a property is violated by the model, it produces a <em>counterexample</em>, which is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A concrete execution trace of the model that violates the property</text><feedback><text>Correct — the counterexample is a witnessing trace of the violation.</text></feedback></answer>
+    <answer fraction="0"><text>A corrected version of the property that now holds</text><feedback><text>The checker returns a violating trace, not a rewritten property.</text></feedback></answer>
+    <answer fraction="0"><text>A proof that the property holds on the model</text><feedback><text>A counterexample demonstrates a violation, not a proof of correctness.</text></feedback></answer>
+    <answer fraction="0"><text>A random input unrelated to the model</text><feedback><text>A counterexample is a specific trace of the model, not a random input.</text></feedback></answer>
+    <generalfeedback><text>A counterexample is a concrete sequence of states (an execution trace) of the model that demonstrates how the property is violated. This trace is exactly what specification-mutation test generation turns into a test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify specification mutation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which activity is <em>specification</em> mutation (not program mutation)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Replacing G with F in an LTL requirement and re-checking it against the model</text><feedback><text>Correct — the requirement (specification) was mutated.</text></feedback></answer>
+    <answer fraction="0"><text>Replacing + with - in a C function and re-running the tests</text><feedback><text>That mutates code — program mutation.</text></feedback></answer>
+    <answer fraction="0"><text>Deleting a statement in the source and re-running the tests</text><feedback><text>Deleting a source statement is program mutation.</text></feedback></answer>
+    <answer fraction="0"><text>Inserting a unary minus in a program expression</text><feedback><text>That is a code-level (UOI) mutation.</text></feedback></answer>
+    <generalfeedback><text>Changing a temporal-logic requirement (G to F) mutates the specification. Changing operators, statements, or expressions in the source code is program mutation.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Spec mutation mutates the code</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Specification mutation testing works by mutating the program's source code and running tests against it.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>Mutating source code is program mutation. Specification mutation changes the specification/model instead.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — specification mutation mutates the specification or model, not the source code (that would be program mutation).</text></feedback></answer>
+    <generalfeedback><text>Specification mutation applies mutation operators to a specification or model (a requirement, an FSM, or a temporal property). Mutating source code is the separate technique of program mutation.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Specification Mutation/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>When a mutant spec is killed by a test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A mutant specification is killed by a test case when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The test's expected result under the mutant spec differs from its expected result under the original spec</text><feedback><text>Correct — a test that the two specs would judge differently kills the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>The test executes quickly on the model checker</text><feedback><text>Execution speed has nothing to do with killing a mutant.</text></feedback></answer>
+    <answer fraction="0"><text>The test passes on the original specification</text><feedback><text>Passing the original alone does not distinguish the mutant; disagreement between the two is required.</text></feedback></answer>
+    <answer fraction="0"><text>The mutant specification has more states than the original</text><feedback><text>State count is irrelevant; killing requires a behavioral disagreement.</text></feedback></answer>
+    <generalfeedback><text>A spec mutant is killed when some test would be judged differently by the mutant and by the original specification — i.e. the two specs disagree on that test's expected behavior.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Condition-negation operator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Applying a <em>condition-negation</em> spec mutation operator to the requirement guard <code>temp &gt; 100</code> yields which mutant?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[<code>NOT (temp &gt; 100)</code>]]></text><feedback><text>Correct — condition negation wraps the guard in a logical NOT.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>temp &gt;= 100</code>]]></text><feedback><text>That is a relational-operator swap, not negation.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>temp &gt; 200</code>]]></text><feedback><text>That is an operand change, not negation.</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>temp &gt; 100 AND active</code>]]></text><feedback><text>That adds a conjunct (guard strengthening), not negation.</text></feedback></answer>
+    <generalfeedback><text>Condition negation replaces a requirement's condition C with NOT C. Here <code>temp &gt; 100</code> becomes <code>NOT (temp &gt; 100)</code>.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Relational-operator swap in a requirement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Replacing <code>&gt;=</code> with <code>&gt;</code> in the requirement "the alarm sounds when <code>pressure &gt;= threshold</code>" is a spec mutation operator that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Swaps a relational operator, changing the boundary behavior of the requirement</text><feedback><text>Correct — it alters what happens exactly at <code>pressure = threshold</code>.</text></feedback></answer>
+    <answer fraction="0"><text>Deletes a clause from the requirement</text><feedback><text>No clause is removed; a relational operator is changed.</text></feedback></answer>
+    <answer fraction="0"><text>Changes a temporal operator</text><feedback><text>No temporal operator is involved here.</text></feedback></answer>
+    <answer fraction="0"><text>Redirects a state-machine transition</text><feedback><text>This is a relational change in a condition, not a transition redirection.</text></feedback></answer>
+    <generalfeedback><text>Swapping a relational operator (here <code>&gt;=</code> to <code>&gt;</code>) changes the requirement's behavior at the boundary value <code>pressure = threshold</code>; a killing test must include that boundary.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>FSM transition redirection</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In an FSM specification, a mutation operator that changes a transition's destination (e.g. on input <code>x</code> the machine goes to state C instead of state B) is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Transition redirection — changing the target state of a transition</text><feedback><text>Correct — the transition's destination is altered.</text></feedback></answer>
+    <answer fraction="0"><text>A relational-operator swap</text><feedback><text>No relational operator is involved; the transition target changed.</text></feedback></answer>
+    <answer fraction="0"><text>A temporal-operator replacement</text><feedback><text>No temporal operator is involved.</text></feedback></answer>
+    <answer fraction="0"><text>Condition negation</text><feedback><text>The guard is not negated; the destination state is changed.</text></feedback></answer>
+    <generalfeedback><text>Redirecting a transition (changing where an input leads) is a standard FSM/model mutation operator. Other FSM operators change the triggering event or the guard.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Logical-operator swap effect</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A spec mutation replaces <strong>AND</strong> with <strong>OR</strong> in a requirement's condition. Compared with the original, the mutated condition is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Weaker — it is satisfied in more cases (either operand true suffices)</text><feedback><text>Correct — AND needs both true; OR needs only one, so OR holds more often.</text></feedback></answer>
+    <answer fraction="0"><text>Stronger — it is satisfied in fewer cases</text><feedback><text>OR is satisfied more often than AND, so it is weaker, not stronger.</text></feedback></answer>
+    <answer fraction="0"><text>Unchanged in meaning</text><feedback><text>AND and OR differ whenever the operands have different truth values.</text></feedback></answer>
+    <answer fraction="0"><text>Only affects arithmetic, not logic</text><feedback><text>AND/OR are logical connectives; the change is logical, not arithmetic.</text></feedback></answer>
+    <generalfeedback><text>Replacing AND with OR (a logical-operator mutation, analogous to program mutation's LOR) weakens the condition: it now holds whenever either operand is true, a superset of the AND case.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Temporal operator mutation G to F</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A temporal-operator mutation replaces <code>G p</code> with <code>F p</code> in a property. This changes the requirement from:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>"p holds in every state" to "p holds in at least one state" — a strictly weaker requirement</text><feedback><text>Correct — G (always) becomes F (eventually), which is weaker.</text></feedback></answer>
+    <answer fraction="0"><text>An equivalent restatement with the same meaning</text><feedback><text>G p and F p differ: G p implies F p, but not conversely.</text></feedback></answer>
+    <answer fraction="0"><text>"p holds in some state" to "p holds in every state" — a stronger requirement</text><feedback><text>That is the reverse direction; G to F weakens the requirement.</text></feedback></answer>
+    <answer fraction="0"><text>A change that only affects the next state</text><feedback><text>Next-state semantics belong to X, not to G or F.</text></feedback></answer>
+    <generalfeedback><text>G p ("always p") requires p in every state; F p ("eventually p") requires p in some state. G p implies F p but not the reverse, so this mutation weakens the property and generally changes its meaning.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Counterexample as a test from a mutated property</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The original property <code>p</code> holds on model <code>M</code>. To generate a test from a mutant property <code>p'</code>, you:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Model-check p' against M; if M violates p', the counterexample trace is a test that distinguishes p' from p</text><feedback><text>Correct — the violating trace satisfies p (since M ⊨ p) but not p', so it distinguishes them.</text></feedback></answer>
+    <answer fraction="0"><text>Model-check p against M again and discard the result</text><feedback><text>Re-checking the original property does not use the mutant and generates nothing new.</text></feedback></answer>
+    <answer fraction="0"><text>Compile p' into code and profile it</text><feedback><text>Profiling a compiled property is not how tests are derived here.</text></feedback></answer>
+    <answer fraction="0"><text>Count the states reachable in M</text><feedback><text>Counting states does not produce a distinguishing test.</text></feedback></answer>
+    <generalfeedback><text>Model-checking the mutant property p' against M yields a counterexample when M violates p'. Because M satisfies the original p, that trace satisfies p but not p', so it distinguishes the two specifications and becomes a test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Measuring test-suite adequacy with spec mutation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To use specification mutation to <em>measure a test suite's adequacy</em>, you:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Generate mutant specs and check what fraction of them the suite's tests distinguish from the original spec</text><feedback><text>Correct — the fraction of spec mutants killed measures adequacy.</text></feedback></answer>
+    <answer fraction="0"><text>Count how many lines the specification has</text><feedback><text>Spec length is not an adequacy measure.</text></feedback></answer>
+    <answer fraction="0"><text>Run the suite once against the original spec only</text><feedback><text>Without mutants there is nothing to kill, so no adequacy is measured.</text></feedback></answer>
+    <answer fraction="0"><text>Remove every failing test from the suite</text><feedback><text>Removing tests does not measure adequacy against mutants.</text></feedback></answer>
+    <generalfeedback><text>As with program mutation, you produce a set of spec mutants and see how many the test suite kills (distinguishes from the original). The proportion killed is an adequacy measure for the suite relative to the spec.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mutant property with no counterexample</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During property-mutation test generation, a model checker reports that a <em>mutated</em> property still holds on the model (no counterexample). This means the mutant is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Equivalent with respect to that model — it cannot be killed via the model, so no test is produced</text><feedback><text>Correct — no counterexample means the model cannot distinguish mutant from original.</text></feedback></answer>
+    <answer fraction="0"><text>Killed — the absence of a counterexample kills it</text><feedback><text>The opposite: a counterexample is what would distinguish (kill) it; its absence means it survives.</text></feedback></answer>
+    <answer fraction="0"><text>Malformed and must be discarded</text><feedback><text>A well-formed mutant that still holds is equivalent, not malformed.</text></feedback></answer>
+    <answer fraction="0"><text>Proof that the implementation is correct</text><feedback><text>It says nothing about the implementation, only about the model and this mutant.</text></feedback></answer>
+    <generalfeedback><text>If the mutated property still holds on the model, there is no counterexample distinguishing it from the original with respect to that model — it is an equivalent mutant (relative to the model) and yields no test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>FSM triggering-event mutation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Changing the triggering event on an FSM transition (e.g. it now fires on input "coin" instead of "button") is a spec mutation operator that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Alters which input causes the transition, potentially changing the accepted behavior</text><feedback><text>Correct — the transition now responds to a different input.</text></feedback></answer>
+    <answer fraction="0"><text>Changes the number of states in the machine</text><feedback><text>The states are unchanged; only the triggering input changed.</text></feedback></answer>
+    <answer fraction="0"><text>Negates a temporal-logic property</text><feedback><text>No temporal property is involved in an FSM event change.</text></feedback></answer>
+    <answer fraction="0"><text>Deletes the transition entirely</text><feedback><text>The transition still exists; only its trigger changed.</text></feedback></answer>
+    <generalfeedback><text>Mutating the event/input that fires a transition is a standard FSM mutation operator; it changes which inputs drive the machine and thus the specified behavior.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the counterexample makes a good test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A counterexample obtained by model-checking a mutant property is a good test case because:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is a concrete trace where the mutant and original specifications disagree, so it can reveal whether an implementation follows the correct one</text><feedback><text>Correct — it targets exactly the behavior that distinguishes the two specs.</text></feedback></answer>
+    <answer fraction="0"><text>It is chosen at random, giving broad coverage</text><feedback><text>A counterexample is targeted, not random.</text></feedback></answer>
+    <answer fraction="0"><text>It always exercises every state of the model</text><feedback><text>A counterexample is a single trace, not a tour of all states.</text></feedback></answer>
+    <answer fraction="0"><text>It proves the specification is complete</text><feedback><text>A counterexample distinguishes two specs; it does not prove completeness.</text></feedback></answer>
+    <generalfeedback><text>The counterexample is a concrete execution where the original and mutant specs diverge. Running it against an implementation checks whether the implementation obeys the intended (original) spec rather than the mutated (faulty) one.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>SMV scenario classification</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You have an SMV model and an LTL requirement. You alter the LTL formula and re-run the model checker. This is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Specification (property) mutation, since the requirement — not the code — was changed</text><feedback><text>Correct — the LTL requirement is part of the specification.</text></feedback></answer>
+    <answer fraction="0"><text>Program mutation, since the model checker ran the model</text><feedback><text>Running the checker does not make it program mutation; the mutated artifact was the requirement.</text></feedback></answer>
+    <answer fraction="0"><text>Fuzz testing, since inputs were varied</text><feedback><text>No random inputs were fuzzed; a formula was mutated.</text></feedback></answer>
+    <answer fraction="0"><text>Neither — changing a formula is not a mutation</text><feedback><text>Changing the LTL formula is exactly a specification mutation.</text></feedback></answer>
+    <generalfeedback><text>Mutating an LTL/CTL requirement and re-checking it is specification mutation: the mutated artifact is the requirement (part of the spec), not the program code.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Operand-replacement operator on a requirement</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A spec mutation replaces one operand with another in a requirement, turning <code>level &gt; max</code> into <code>level &gt; min</code>. This is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An operand (variable) replacement mutation on the specification</text><feedback><text>Correct — a variable operand was swapped for another.</text></feedback></answer>
+    <answer fraction="0"><text>A relational-operator swap</text><feedback><text>The relational operator <code>&gt;</code> is unchanged; an operand was replaced.</text></feedback></answer>
+    <answer fraction="0"><text>A temporal-operator replacement</text><feedback><text>No temporal operator is involved.</text></feedback></answer>
+    <answer fraction="0"><text>A transition redirection</text><feedback><text>No FSM transition is involved; this is a condition-operand change.</text></feedback></answer>
+    <generalfeedback><text>Replacing a variable operand (here <code>max</code> with <code>min</code>) is an operand/variable-replacement spec mutation, analogous to variable replacement in program mutation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Model-mutation alternative</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Instead of mutating a property, model-based mutation testing can mutate the <em>model</em> itself and then:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Check the original requirements against the mutant model; a requirement now violated yields a counterexample distinguishing the two models</text><feedback><text>Correct — the counterexample separates the original model from the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>Delete all requirements and keep only the mutant model</text><feedback><text>Requirements are needed to detect the mutant's difference; you do not delete them.</text></feedback></answer>
+    <answer fraction="0"><text>Mutate the source code as well to match</text><feedback><text>Model mutation changes the model, not the code.</text></feedback></answer>
+    <answer fraction="0"><text>Run the mutant model without any properties</text><feedback><text>Without properties there is nothing for the checker to violate, so no test emerges.</text></feedback></answer>
+    <generalfeedback><text>One can mutate the model and check the original requirements against it. If the mutant model violates a requirement the original satisfied, the counterexample is a trace distinguishing model from mutant — a test that kills the model mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Boundary of a relational mutation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Mutating <code>x &gt;= 5</code> to <code>x &gt; 5</code> in a requirement changes the specified behavior:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Only at x = 5; a killing test must include that boundary value</text><feedback><text>Correct — the two conditions agree everywhere except x = 5.</text></feedback></answer>
+    <answer fraction="0"><text>For all values of x</text><feedback><text>They agree for every x except exactly 5.</text></feedback></answer>
+    <answer fraction="0"><text>Only for negative x</text><feedback><text>They agree for negative x; they differ only at x = 5.</text></feedback></answer>
+    <answer fraction="0"><text>Never — the mutant is equivalent</text><feedback><text>It is not equivalent: x = 5 distinguishes <code>&gt;=</code> from <code>&gt;</code>.</text></feedback></answer>
+    <generalfeedback><text><code>x &gt;= 5</code> and <code>x &gt; 5</code> differ only at x = 5 (true vs false). A test that omits the boundary would fail to kill this mutant, so the killing test must include x = 5.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Specification Mutation/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>De Morgan equivalent mutant (AND form)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A requirement's guard <code>NOT (a AND b)</code> is mutated to <code>NOT a OR NOT b</code>. This mutant is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Equivalent — by De Morgan's law the two forms are logically identical, so no test can kill it</text><feedback><text>Correct — NOT (a AND b) is exactly NOT a OR NOT b.</text></feedback></answer>
+    <answer fraction="0"><text>Killed by any test where a and b differ</text><feedback><text>The two forms agree on every assignment, so no test distinguishes them.</text></feedback></answer>
+    <answer fraction="0"><text>Non-equivalent because OR replaced AND</text><feedback><text>The surrounding negations make the whole expression equivalent under De Morgan's law.</text></feedback></answer>
+    <answer fraction="0"><text>Malformed and therefore discarded</text><feedback><text>It is well-formed and logically equivalent, not malformed.</text></feedback></answer>
+    <generalfeedback><text>De Morgan's law states NOT (a AND b) is equivalent to NOT a OR NOT b. The mutant denotes the identical boolean function, so it is an equivalent spec mutant that no test can kill.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Is G to F an equivalent mutation?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Is replacing <code>G p</code> by <code>F p</code> in a property an <em>equivalent</em> mutation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — G p (always) and F p (eventually) have different meanings (G p implies F p but not conversely), so it generally changes the spec and is killable</text><feedback><text>Correct — the two operators are not interchangeable.</text></feedback></answer>
+    <answer fraction="0"><text>Yes — G and F always mean the same thing</text><feedback><text>They do not: "always" is strictly stronger than "eventually".</text></feedback></answer>
+    <answer fraction="0"><text>Yes — F p implies G p, so they coincide</text><feedback><text>F p does not imply G p; the implication runs the other way.</text></feedback></answer>
+    <answer fraction="0"><text>No — but only because F is undefined in LTL</text><feedback><text>F is a standard LTL operator; the reason is the difference in meaning, not undefinedness.</text></feedback></answer>
+    <generalfeedback><text>G p requires p in every state; F p only requires p somewhere. G p implies F p, but not the reverse, so the mutation changes the property's meaning — it is non-equivalent and generally killable (a trace where p holds sometime but not always distinguishes them).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why a mutant property yields a distinguishing counterexample</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Model-checking a mutant property <code>p'</code> against a model <code>M</code> (with the original <code>p</code> true on <code>M</code>) yields a counterexample. Why does that trace distinguish the mutant from the original?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The trace is an execution of M that violates p'; since M satisfies p, the same trace satisfies p, so p and p' disagree on it</text><feedback><text>Correct — the trace satisfies p but not p', exactly distinguishing them.</text></feedback></answer>
+    <answer fraction="0"><text>The counterexample is generated independently of both p and p'</text><feedback><text>The counterexample is specifically a violation of p', so it is tied to the mutant.</text></feedback></answer>
+    <answer fraction="0"><text>Because p' is syntactically longer than p</text><feedback><text>Syntactic length is irrelevant; the distinguishing power comes from the semantic disagreement on the trace.</text></feedback></answer>
+    <answer fraction="0"><text>Because the model checker rewrites p to match p'</text><feedback><text>The checker does not rewrite the original; it finds a trace violating p'.</text></feedback></answer>
+    <generalfeedback><text>The counterexample violates p' by construction. Because M satisfies the original p, every trace of M (including this one) satisfies p. So the trace satisfies p but not p' — a concrete witness that the two specifications differ, which is why it works as a test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Unkillable mutant signals redundancy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A clause of a requirement is mutated, but no test (and no model-check) can ever kill the resulting mutant. This most likely indicates:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The mutant is equivalent, which suggests the clause is redundant or the spec is over-constrained — it does not affect the specified behavior</text><feedback><text>Correct — an unkillable mutation points to a clause with no effect on meaning.</text></feedback></answer>
+    <answer fraction="0"><text>The test suite is perfectly adequate</text><feedback><text>An unkillable mutant is equivalent; it says nothing positive about suite adequacy.</text></feedback></answer>
+    <answer fraction="0"><text>The specification is guaranteed complete</text><feedback><text>Equivalence of one mutant does not imply completeness of the whole spec.</text></feedback></answer>
+    <answer fraction="0"><text>The program contains a fault</text><feedback><text>This is about the spec's structure, not a program fault.</text></feedback></answer>
+    <generalfeedback><text>If mutating a clause never changes the specified behavior, the mutant is equivalent — evidence that the clause is redundant or the requirement over-constrained. Specification mutation can thus expose redundancy and help assess spec quality.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify a CTL-property fault-seeding workflow</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team seeds a fault into a CTL property, re-runs the model checker to obtain a counterexample, and turns it into a test. Which best describes this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Specification (model-based) mutation testing — the property was mutated, and the counterexample becomes a test</text><feedback><text>Correct — mutating a CTL property and deriving a test from the counterexample is specification mutation.</text></feedback></answer>
+    <answer fraction="0"><text>Program mutation — because a test was produced at the end</text><feedback><text>Producing a test does not make it program mutation; the mutated artifact was the property.</text></feedback></answer>
+    <answer fraction="0"><text>Structural code coverage measurement</text><feedback><text>No code structure was measured; a property was mutated.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalence-class partitioning of the input domain</text><feedback><text>That is a black-box input-partition technique, unrelated to mutating a CTL property.</text></feedback></answer>
+    <generalfeedback><text>Seeding a fault into a temporal (CTL) property and using the model checker's counterexample as a test is specification/model-based mutation: the mutated artifact is the property, and the counterexample distinguishes it from the original.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Temporal idempotence equivalent mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A property <code>F p</code> is mutated to <code>F F p</code> ("eventually eventually p"). This mutant is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Equivalent — F is idempotent, so F F p is logically the same as F p and cannot be killed</text><feedback><text>Correct — F F p ≡ F p.</text></feedback></answer>
+    <answer fraction="0"><text>Non-equivalent — F F p requires p twice</text><feedback><text>F F p does not require p "twice"; it reduces to F p.</text></feedback></answer>
+    <answer fraction="0"><text>Non-equivalent — it is stronger than F p</text><feedback><text>They are equal in strength; F F p ≡ F p.</text></feedback></answer>
+    <answer fraction="0"><text>Malformed — F cannot be nested</text><feedback><text>Nesting temporal operators is allowed; here it simply collapses to F p.</text></feedback></answer>
+    <generalfeedback><text>The eventually operator is idempotent: F F p is equivalent to F p (likewise G G p ≡ G p). So this mutation produces an equivalent spec mutant that no test can kill.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Practical limitations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two major practical limitations of specification/model mutation testing are:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Detecting equivalent mutants is hard (undecidable in general), and model-checking many mutants can suffer state-space explosion</text><feedback><text>Correct — equivalent mutants and model size are the classic limitations.</text></feedback></answer>
+    <answer fraction="0"><text>Mutation operators cannot be defined for specifications, and models never have states</text><feedback><text>Spec mutation operators are well defined, and models do have states.</text></feedback></answer>
+    <answer fraction="0"><text>Model checkers cannot produce counterexamples, and specs cannot be mutated</text><feedback><text>Both are false: checkers produce counterexamples and specs can be mutated.</text></feedback></answer>
+    <answer fraction="0"><text>It requires source code and cannot use a model</text><feedback><text>The opposite — it works on a spec/model and needs no source code.</text></feedback></answer>
+    <generalfeedback><text>Like program mutation, specification mutation faces the equivalent-mutant problem (equivalence is undecidable in general). Additionally, checking many mutant properties/models against a large model can hit state-space explosion, limiting scalability.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>No counterexample means equivalent w.r.t. model</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In property-mutation test generation, a mutant property that the model <em>still satisfies</em>:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yields no counterexample and hence no test — it is an equivalent mutant relative to the model</text><feedback><text>Correct — with nothing to violate, the model cannot distinguish it from the original.</text></feedback></answer>
+    <answer fraction="0"><text>Yields the strongest possible test</text><feedback><text>No counterexample means no test at all is produced.</text></feedback></answer>
+    <answer fraction="0"><text>Proves the original property was wrong</text><feedback><text>It says nothing about the original property being wrong.</text></feedback></answer>
+    <answer fraction="0"><text>Forces the model checker to enumerate all traces as tests</text><feedback><text>No violation means no counterexample; the checker does not emit all traces.</text></feedback></answer>
+    <generalfeedback><text>If the model satisfies the mutant property, the model checker returns no counterexample, so no distinguishing test can be generated — the mutant is equivalent with respect to that model.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Guard-strengthening mutation on an FSM</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In an FSM spec, a mutation <em>strengthens</em> a transition guard by adding an extra conjunct (guard becomes <code>g AND extra</code>). Relative to the original, the mutated transition:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fires in fewer cases (a subset of the original); a killing test must reach an input where the original fired but the mutant does not</text><feedback><text>Correct — adding a conjunct can only shrink the set of firing inputs.</text></feedback></answer>
+    <answer fraction="0"><text>Fires in more cases than before</text><feedback><text>Adding a conjunct makes the guard harder to satisfy, so it fires less often.</text></feedback></answer>
+    <answer fraction="0"><text>Fires in exactly the same cases</text><feedback><text>Only if the extra conjunct were always true given g; in general the guard is strictly narrower.</text></feedback></answer>
+    <answer fraction="0"><text>Never fires under any input</text><feedback><text>It still fires whenever both g and the extra conjunct hold.</text></feedback></answer>
+    <generalfeedback><text>Strengthening a guard with an added conjunct restricts firing to a subset of the original cases. A test that kills this mutant must reach an input where the original guard held but the strengthened guard does not.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>De Morgan equivalent mutant (OR form)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A requirement condition <code>a OR b</code> is mutated to <code>NOT (NOT a AND NOT b)</code>. This mutant is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Equivalent — by De Morgan's law it denotes the same function as <code>a OR b</code>, so it cannot be killed</text><feedback><text>Correct — NOT (NOT a AND NOT b) is exactly a OR b.</text></feedback></answer>
+    <answer fraction="0"><text>Non-equivalent because AND now appears</text><feedback><text>The negations restore the OR meaning under De Morgan's law.</text></feedback></answer>
+    <answer fraction="0"><text>Killed whenever exactly one of a, b is true</text><feedback><text>Both forms give true then, so they still agree; no test distinguishes them.</text></feedback></answer>
+    <answer fraction="0"><text>Only equivalent when a equals b</text><feedback><text>They agree on all four assignments, not only when a equals b.</text></feedback></answer>
+    <generalfeedback><text>De Morgan's law gives a OR b is equivalent to NOT (NOT a AND NOT b). The mutant computes the identical boolean function, so it is an equivalent spec mutant.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Absorption law equivalent mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A requirement <code>a AND (a OR b)</code> is mutated to <code>a AND (a OR c)</code> (operand b replaced by c). The mutant is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Equivalent — by absorption <code>a AND (a OR anything)</code> reduces to <code>a</code>, so both forms equal <code>a</code>; this also reveals the second clause is redundant</text><feedback><text>Correct — the value depends only on a, so replacing b by c changes nothing.</text></feedback></answer>
+    <answer fraction="0"><text>Killed by any test where b and c differ</text><feedback><text>Since the whole expression equals a, the value of b or c never matters; no such test kills it.</text></feedback></answer>
+    <answer fraction="0"><text>Non-equivalent because c is a new variable</text><feedback><text>Introducing c has no effect: the expression reduces to a regardless.</text></feedback></answer>
+    <answer fraction="0"><text>Stronger than the original</text><feedback><text>Both are equivalent to a; neither is stronger.</text></feedback></answer>
+    <generalfeedback><text>By the absorption law, a AND (a OR X) equals a for any X. So both the original and the mutant equal a, making the mutant equivalent. Its unkillability exposes that the "(a OR ...)" clause is redundant in the requirement.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Trap property to witness a behavior</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A model checker returns a trace only when a property is <em>violated</em>. To obtain a trace that <em>witnesses</em> a desired behavior B (for use as a test), you can:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Assert a "trap" property claiming B never occurs; the model checker's counterexample is then a trace exhibiting B</text><feedback><text>Correct — negating the behavior of interest makes the counterexample a witness of it.</text></feedback></answer>
+    <answer fraction="0"><text>Assert that B always occurs and take the proof as the test</text><feedback><text>A proof (no violation) yields no trace; you need a violated property to get a counterexample.</text></feedback></answer>
+    <answer fraction="0"><text>Disable the model checker and enumerate inputs by hand</text><feedback><text>The trap-property technique uses the checker itself; manual enumeration is not the method.</text></feedback></answer>
+    <answer fraction="0"><text>Remove all properties so every trace is a counterexample</text><feedback><text>With no property there is nothing to violate, so no counterexample is produced.</text></feedback></answer>
+    <generalfeedback><text>Because a counterexample is produced only for a violated property, test-generation methods assert a "trap" (never-claim) property stating the behavior of interest never happens. The model checker then returns a counterexample that is exactly a trace realizing that behavior.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Next-operator mutation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A property <code>p</code> is mutated to <code>X p</code> (next p). In general this mutant is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Non-equivalent — X p refers to the next state, so it differs from p evaluated at the current state</text><feedback><text>Correct — shifting the evaluation point by one state generally changes meaning.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent — X p always means the same as p</text><feedback><text>X p is about the next state, not the current one, so it differs in general.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent — because every path repeats</text><feedback><text>Paths do not generally repeat, and even so X shifts the evaluation point.</text></feedback></answer>
+    <answer fraction="0"><text>Malformed — X cannot be applied to an atomic property</text><feedback><text>X can be applied to any subformula, including an atomic one.</text></feedback></answer>
+    <generalfeedback><text>X p asserts p holds in the next state, whereas p asserts it in the current state. On a path where p holds now but not next (or vice versa), the two differ, so the mutation is generally non-equivalent and killable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Commutativity equivalent mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A logical-operand-swap mutation changes a side-effect-free spec condition <code>a AND b</code> to <code>b AND a</code>. This mutant is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Equivalent — AND is commutative in a side-effect-free specification, so the two forms are identical and cannot be killed</text><feedback><text>Correct — order of operands does not matter for a pure boolean condition.</text></feedback></answer>
+    <answer fraction="0"><text>Non-equivalent because the operands were reordered</text><feedback><text>Reordering a commutative operator does not change a side-effect-free condition's meaning.</text></feedback></answer>
+    <answer fraction="0"><text>Killed by any test where a and b differ</text><feedback><text>a AND b and b AND a agree on every assignment, so no such test kills it.</text></feedback></answer>
+    <answer fraction="0"><text>Equivalent only when a equals b</text><feedback><text>They agree on all assignments, not only when a equals b.</text></feedback></answer>
+    <generalfeedback><text>Boolean AND is commutative, so in a specification without evaluation-order side effects, a AND b equals b AND a. The mutant denotes the same function — an equivalent spec mutant. (In short-circuiting code with side effects, order can matter; that is a program, not spec, concern.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Value of a test from a killed spec mutant</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test derived from a <em>killed</em> spec mutant is valuable because, when executed on an implementation, it:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Distinguishes the original spec's behavior from the mutant's, so an implementation that matches the mutated (faulty) spec instead of the original will fail</text><feedback><text>Correct — the test targets exactly the behavior on which the two specs disagree.</text></feedback></answer>
+    <answer fraction="0"><text>Guarantees the implementation is free of all faults</text><feedback><text>One targeted test cannot prove global correctness.</text></feedback></answer>
+    <answer fraction="0"><text>Exercises every path in the implementation</text><feedback><text>It is a single distinguishing trace, not a full path tour.</text></feedback></answer>
+    <answer fraction="0"><text>Is independent of both the original and mutant specs</text><feedback><text>It is derived precisely from where the two specs differ, so it depends on both.</text></feedback></answer>
+    <generalfeedback><text>The killing test is a trace where the original and mutant specs disagree. Running it against an implementation checks whether the implementation follows the intended (original) behavior; an implementation exhibiting the mutant's faulty behavior would fail the test.</text></generalfeedback>
+  </question>
+</quiz>

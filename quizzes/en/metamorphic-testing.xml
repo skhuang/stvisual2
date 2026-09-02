@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Metamorphic Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What metamorphic testing is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the core idea of <strong>metamorphic testing (MT)</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Instead of checking one output against a known expected value, it checks a relation (a metamorphic relation) between the outputs of multiple related runs of the program</text><feedback><text>Correct — MT verifies a relationship across related runs rather than one output against a fixed expected value.</text></feedback></answer>
+    <answer fraction="0"><text>It formally proves that the program satisfies its full specification</text><feedback><text>MT finds violations; it does not prove a program correct.</text></feedback></answer>
+    <answer fraction="0"><text>It measures how many branches a test suite covers</text><feedback><text>That is coverage measurement; MT is an oracle technique, not a coverage metric.</text></feedback></answer>
+    <answer fraction="0"><text>It generates random inputs and only reports crashes</text><feedback><text>That is a crash-oracle fuzzing approach; MT checks a metamorphic relation between outputs.</text></feedback></answer>
+    <generalfeedback><text>Metamorphic testing attacks the oracle problem. Rather than needing the exact expected output for an input, it runs the program on two or more related inputs and checks that a required relationship (a metamorphic relation) holds among the outputs. A broken relation exposes a fault even when no single expected value is known.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a metamorphic relation is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a <strong>metamorphic relation (MR)</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A property that must hold among the inputs and outputs of two or more related runs of a correct program</text><feedback><text>Correct — an MR links the inputs/outputs of related runs and must hold for any correct implementation.</text></feedback></answer>
+    <answer fraction="0"><text>The single exact expected output value for one specific input</text><feedback><text>That is a conventional expected-value oracle; an MR avoids needing that exact value.</text></feedback></answer>
+    <answer fraction="0"><text>A relation between the coverage of two branches of the program</text><feedback><text>MRs relate outputs of related inputs, not the coverage of branches.</text></feedback></answer>
+    <answer fraction="0"><text>A random seed that links two runs of a generator</text><feedback><text>A seed concerns reproducibility, not a required correctness relationship among outputs.</text></feedback></answer>
+    <generalfeedback><text>A metamorphic relation is a necessary property connecting multiple executions: given how the inputs are related (an input transformation), it states how the outputs must be related. For example, sorting a permutation of a list must give the same result. An MR must hold for every correct implementation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The oracle problem MT addresses</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Metamorphic testing is chiefly aimed at which difficulty?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The test oracle problem — deciding whether a program's output for an input is correct when the exact expected output is unknown or expensive to obtain</text><feedback><text>Correct — MT provides a check when you cannot easily compute the expected output.</text></feedback></answer>
+    <answer fraction="0"><text>The reachability problem of covering deeply nested branches</text><feedback><text>Reaching code is a generation/coverage concern; MT addresses judging correctness.</text></feedback></answer>
+    <answer fraction="0"><text>Path explosion in symbolic execution</text><feedback><text>Path explosion is a scaling limit of symbolic analysis, not what MT targets.</text></feedback></answer>
+    <answer fraction="0"><text>The halting problem</text><feedback><text>MT does not decide termination; it checks relations among outputs.</text></feedback></answer>
+    <generalfeedback><text>The oracle problem is that, even with an input in hand, deciding whether the output is correct usually needs the intended answer — which may be unknown or costly. MT sidesteps this by checking a relation between related runs instead of any single expected value, giving a usable partial oracle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Source versus follow-up test case</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In MT, how is a <strong>follow-up</strong> test case related to a <strong>source</strong> test case?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The follow-up input is derived from the source input by an input transformation prescribed by the metamorphic relation</text><feedback><text>Correct — the MR dictates how to transform the source input into the follow-up input.</text></feedback></answer>
+    <answer fraction="0"><text>The follow-up input is an unrelated input chosen at random</text><feedback><text>The follow-up must be derived from the source via the MR's transformation, not chosen at random.</text></feedback></answer>
+    <answer fraction="0"><text>The follow-up is the expected output of the source run</text><feedback><text>The follow-up is another input, not an output value.</text></feedback></answer>
+    <answer fraction="0"><text>The follow-up is the source input run again with a different random seed only</text><feedback><text>Merely changing a seed is not the input transformation an MR prescribes.</text></feedback></answer>
+    <generalfeedback><text>MT runs a source test case, then constructs a follow-up test case by transforming the source input according to the MR (e.g. permute the list, add π − x, scale all values). It then checks that the outputs of the two runs satisfy the MR's output relation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an MR violation means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A run's outputs <strong>violate</strong> a valid metamorphic relation. What does this indicate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The implementation is faulty — a correct program would have satisfied the relation (assuming the MR is a genuine necessary property)</text><feedback><text>Correct — violating a valid MR reveals a bug.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing; metamorphic relations are only performance hints</text><feedback><text>An MR is a correctness property, not a performance hint; violating a valid one signals a fault.</text></feedback></answer>
+    <answer fraction="0"><text>The program is proven correct</text><feedback><text>A violation indicates the opposite — a fault, not correctness.</text></feedback></answer>
+    <answer fraction="0"><text>Only that branch coverage was insufficient</text><feedback><text>An MR violation is about incorrect output behavior, not coverage.</text></feedback></answer>
+    <generalfeedback><text>If the MR is genuinely necessary for any correct implementation, then a violation means the program produced results that a correct program could not — i.e. a bug. This is the power of MT: it detects faults without ever computing an exact expected output.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Satisfying MRs does not prove correctness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If a program satisfies all chosen metamorphic relations on all tested inputs, it is thereby proven correct.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>No — MT can reveal violations but cannot prove correctness; untested inputs and unmodeled properties can still hide faults.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — satisfying MRs never proves correctness; it only means no violation of those relations was found on those inputs.</text></feedback></answer>
+    <generalfeedback><text>Like testing generally, MT can show the presence of faults (via a violation) but not their absence. The chosen relations capture only some required properties, and only finitely many inputs are tried, so a program can satisfy every MR and still be wrong on an untested case or a property no MR captures.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Valid MR for sine</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which is a valid metamorphic relation for a correct implementation of <code>sin(x)</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>sin(x) = sin(π − x) for all x</text><feedback><text>Correct — this is a true identity, so a correct sine must satisfy it.</text></feedback></answer>
+    <answer fraction="0"><text>sin(2x) = 2·sin(x) for all x</text><feedback><text>False in general — e.g. at x = π/2, sin(π) = 0 but 2·sin(π/2) = 2.</text></feedback></answer>
+    <answer fraction="0"><text>sin(x) = sin(x + π) for all x</text><feedback><text>False — sin(x + π) = −sin(x), not sin(x).</text></feedback></answer>
+    <answer fraction="0"><text>sin(x) = x for all x</text><feedback><text>False — this holds only near 0 as an approximation, not as an identity.</text></feedback></answer>
+    <generalfeedback><text>The identity sin(x) = sin(π − x) holds for every real x (supplementary angles have equal sine). It is a classic metamorphic relation: from a source input x, the follow-up input π − x must yield an equal output. The distractors are not identities, so they would not be valid MRs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Valid MR for sorting</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which relation is a valid metamorphic relation for a correct <strong>sort</strong> function?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Sorting any permutation of a list yields the same result: sort(perm(L)) == sort(L)</text><feedback><text>Correct — the sorted output depends only on the multiset of elements, not their order.</text></feedback></answer>
+    <answer fraction="0"><text>Sorting a list twice reverses it</text><feedback><text>Sorting is idempotent: sorting an already-sorted list leaves it unchanged, not reversed.</text></feedback></answer>
+    <answer fraction="0"><text>Sorting the reverse of a list gives the reverse of the sorted list</text><feedback><text>No — sort(reverse(L)) == sort(L); reversing first does not reverse the sorted output.</text></feedback></answer>
+    <answer fraction="0"><text>Sorting doubles the length of the list</text><feedback><text>Sorting is a permutation of the input; it never changes the length.</text></feedback></answer>
+    <generalfeedback><text>A correct sort produces an ordering that depends only on the multiset of elements. So sorting any permutation of the same elements must give an identical result — permutation invariance. This makes a strong MR, since you can shuffle a source list to build a follow-up input without knowing the expected order in advance.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Valid MR for commutative addition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a function <code>add(a, b) = a + b</code>, which is a valid metamorphic relation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>add(a, b) == add(b, a)</text><feedback><text>Correct — addition is commutative, so swapping the operands must give the same result.</text></feedback></answer>
+    <answer fraction="0"><text>add(a, b) == add(a, b + 1)</text><feedback><text>False — changing an operand changes the sum.</text></feedback></answer>
+    <answer fraction="0"><text>add(a, b) == a</text><feedback><text>False unless b = 0; not a general property.</text></feedback></answer>
+    <answer fraction="0"><text>add(a, b) == 2·add(b, a)</text><feedback><text>False in general — the sum is not doubled by swapping operands.</text></feedback></answer>
+    <generalfeedback><text>Commutativity, f(a, b) = f(b, a), is a valid MR for any commutative operation such as addition or multiplication. The follow-up input simply swaps the two operands, and the outputs must be equal. Note it is not valid for non-commutative operations like subtraction or division.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MR versus a conventional oracle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does a metamorphic relation differ from a conventional (expected-value) oracle?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A conventional oracle compares one run's output to a precomputed expected value; an MR checks a required relationship among the outputs of several related runs, needing no precomputed expected value</text><feedback><text>Correct — the MR replaces a per-input expected value with a cross-run relationship.</text></feedback></answer>
+    <answer fraction="0"><text>They are identical; both require the exact expected output of each input</text><feedback><text>An MR specifically avoids needing the exact expected output.</text></feedback></answer>
+    <answer fraction="0"><text>An MR compares source code while a conventional oracle compares outputs</text><feedback><text>Both concern outputs; an MR compares outputs across runs, not source code.</text></feedback></answer>
+    <answer fraction="0"><text>An MR measures runtime while a conventional oracle measures memory</text><feedback><text>Neither is about performance; both judge functional correctness.</text></feedback></answer>
+    <generalfeedback><text>A conventional oracle needs the exact answer for each input, which can be unknown or costly. An MR needs only a relationship that must hold between related runs (e.g. equal, ≤, scaled by k). That is precisely why MT helps when computing expected outputs is infeasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When metamorphic testing fits</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In which situation is metamorphic testing especially useful?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When there is no easy or affordable oracle — e.g. machine-learning models, scientific computing, compilers, graphics, and search engines — so exact expected outputs are hard to obtain</text><feedback><text>Correct — MT shines precisely where computing the expected output is hard.</text></feedback></answer>
+    <answer fraction="0"><text>Only when a full formal specification and a trusted reference implementation already exist</text><feedback><text>If you already have a reference, you can use it directly; MT is most valuable when you do not.</text></feedback></answer>
+    <answer fraction="0"><text>Only for programs that take no inputs at all</text><feedback><text>MT needs inputs it can transform; a no-input program has nothing to transform.</text></feedback></answer>
+    <answer fraction="0"><text>Only after 100% branch coverage has already been achieved</text><feedback><text>MT is independent of coverage level; it addresses the oracle, not coverage.</text></feedback></answer>
+    <generalfeedback><text>MT was created for exactly the domains where the oracle problem bites: machine learning, numerical/scientific code, compilers, computer graphics, and search — programs whose correct output is hard or impossible to state in advance, but which nonetheless obey checkable relationships between related runs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the input transformation is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In MT, what is the <strong>input transformation</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The rule that constructs the follow-up input from the source input (e.g. take π − x, permute a list, scale all values by k)</text><feedback><text>Correct — the input transformation builds the follow-up input.</text></feedback></answer>
+    <answer fraction="0"><text>The rule that converts the program's source code into bytecode</text><feedback><text>That is compilation, unrelated to the MT input transformation.</text></feedback></answer>
+    <answer fraction="0"><text>The exact numeric output expected for the source input</text><feedback><text>MT avoids needing that; the transformation produces an input, not an expected output.</text></feedback></answer>
+    <answer fraction="0"><text>The metric that measures branch coverage of the suite</text><feedback><text>That is coverage, not the input transformation.</text></feedback></answer>
+    <generalfeedback><text>Each MR comes with an input transformation (how to derive the follow-up input from the source) and an output relation (how the two outputs must relate). Applying the transformation to a source input yields the follow-up input to run.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Valid MR for a set</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a <strong>set</strong> data structure, which is a valid metamorphic relation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inserting an element that is already present leaves membership and the set's size unchanged</text><feedback><text>Correct — a set holds each element at most once, so re-inserting a duplicate changes nothing.</text></feedback></answer>
+    <answer fraction="0"><text>Inserting a duplicate always increases the size by one</text><feedback><text>A set does not store duplicates, so size stays the same.</text></feedback></answer>
+    <answer fraction="0"><text>Inserting a duplicate removes the original element</text><feedback><text>The element remains a member; it is neither removed nor doubled.</text></feedback></answer>
+    <answer fraction="0"><text>Inserting a duplicate deterministically reverses iteration order</text><feedback><text>That is not a required property of a set; iteration order is not guaranteed to reverse.</text></feedback></answer>
+    <generalfeedback><text>A set stores each value at most once. Adding an element it already contains must leave both the membership predicate and the cardinality unchanged. This is a clean MR: the follow-up input adds a duplicate, and the output (size or membership) must match the source.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Valid MR for a mean function</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a function computing the <strong>arithmetic mean</strong> of a list, which is a valid metamorphic relation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Multiplying every input value by a constant k multiplies the mean by k</text><feedback><text>Correct — the mean is linear, so scaling all inputs scales the mean identically.</text></feedback></answer>
+    <answer fraction="0"><text>Multiplying every value by k leaves the mean unchanged</text><feedback><text>The mean scales with the values; it is not invariant under scaling.</text></feedback></answer>
+    <answer fraction="0"><text>Adding a constant k to just one value leaves the mean unchanged</text><feedback><text>Changing one value changes the sum and hence the mean.</text></feedback></answer>
+    <answer fraction="0"><text>Multiplying every value by k multiplies the mean by k²</text><feedback><text>That is how variance scales; the mean scales by k, not k².</text></feedback></answer>
+    <generalfeedback><text>mean(k·x₁, …, k·xₙ) = k·mean(x₁, …, xₙ) because the mean is a linear function of its inputs. So scaling every value by k is an input transformation whose output relation is "the mean is multiplied by k" — a valid MR requiring no expected value.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>MT uses multiple related runs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Metamorphic testing checks a property across the outputs of multiple related runs, rather than judging a single run against a fixed expected value.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — MT compares outputs of related runs, which is what lets it work without a per-input expected value.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>MT does rely on multiple related runs; that is the essence of a metamorphic relation.</text></feedback></answer>
+    <generalfeedback><text>The defining feature of MT is that it needs at least two related executions — a source and one or more follow-ups — and checks a relationship among their outputs. A single run compared to a fixed expected value is an ordinary oracle, not MT.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Metamorphic Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Construct the follow-up for sine</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Using the MR <code>sin(x) = sin(π − x)</code>, a source test uses input <code>x = 0.3</code>. What is the follow-up input and the expected output relation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Follow-up input = π − 0.3 (≈ 2.8416); the two outputs must be equal</text><feedback><text>Correct — apply the transformation π − x and require equal outputs.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up input = 2 × 0.3; the two outputs must be equal</text><feedback><text>Doubling the input is not this MR's transformation, and sin(0.6) ≠ sin(0.3).</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up input = 0.3 + π; the two outputs must be equal</text><feedback><text>That uses π + x, giving sin(0.3 + π) = −sin(0.3), which is not equal.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up input = π − 0.3; the follow-up output must be double the source</text><feedback><text>The transformation is right but the relation is equality, not doubling.</text></feedback></answer>
+    <generalfeedback><text>The MR's transformation is x ↦ π − x and its output relation is equality. So the follow-up input is π − 0.3 ≈ 2.8416, and a correct sine must return the same value for both — no expected value needs to be known.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Construct the follow-up for sort</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To test a sort routine with permutation invariance, from source list <code>L = [3, 1, 2]</code> how do you build the follow-up input and what relation must hold?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Follow-up = any permutation of L, e.g. [2, 3, 1]; the sorted outputs of L and the follow-up must be identical</text><feedback><text>Correct — shuffle the elements; the sorted results must match.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = the reverse of the sorted output; the two outputs must differ</text><feedback><text>The follow-up must be a permutation of the same input, and the outputs must be equal, not differ.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = L with one element removed; the two outputs must be equal</text><feedback><text>Removing an element changes the multiset, so the sorted output legitimately changes.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = L with every value doubled; the two outputs must be equal</text><feedback><text>Doubling the values changes the elements, so the sorted output changes.</text></feedback></answer>
+    <generalfeedback><text>Permutation invariance says the sorted output depends only on the multiset of elements. So the follow-up input is any reordering of L (e.g. [2, 3, 1]), and sort(follow-up) must equal sort(L). Only reorderings are valid transformations here; adding, removing, or altering values changes the multiset.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Search result-count monotonicity</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a search that returns <em>every</em> document matching <em>all</em> query terms (a conjunctive filter), which is a valid metamorphic relation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Adding another required term can only keep or reduce the number of results (a more specific query returns ≤ the results of the less specific one)</text><feedback><text>Correct — the more specific query's result set is a subset, so its count is ≤.</text></feedback></answer>
+    <answer fraction="0"><text>Adding another required term can only increase the number of results</text><feedback><text>Wrong direction — narrowing the query cannot add matches.</text></feedback></answer>
+    <answer fraction="0"><text>Removing a required term can only reduce the number of results</text><feedback><text>Wrong direction — broadening the query cannot lose matches.</text></feedback></answer>
+    <answer fraction="0"><text>The result count is independent of the query terms</text><feedback><text>The count clearly depends on which terms are required.</text></feedback></answer>
+    <generalfeedback><text>Under conjunctive-filter semantics, a document is returned iff it matches every required term. Requiring one more term can only remove documents, never add them, so the result set of the more specific query is a subset of the broader one and its count is ≤. This monotonicity is a valid MR: no expected count is needed, only the ≤ relation between two related queries.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Construct the follow-up for mean scaling</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A program computes the mean of a list. Source input <code>[2, 4, 6]</code> gives <code>4</code>. Using the scaling MR with <code>k = 3</code>, what is the follow-up input and expected output?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Follow-up = [6, 12, 18]; expected mean = 12 (= 3 × 4)</text><feedback><text>Correct — scale every value by 3, and the mean scales by 3.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = [6, 12, 18]; expected mean = 4</text><feedback><text>The transformation is right but scaling the inputs by 3 scales the mean to 12, not 4.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = [5, 7, 9]; expected mean = 7</text><feedback><text>Adding 3 to each value (not multiplying) is a different transformation than this MR.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = [2, 4, 6, 3]; expected mean = 12</text><feedback><text>Appending a value is not the scaling transformation, and that mean would be 3.75.</text></feedback></answer>
+    <generalfeedback><text>The scaling MR multiplies every input by k and expects the mean to be multiplied by k. With k = 3, the follow-up input is [6, 12, 18] and the expected mean is 3 × 4 = 12. Verify: (6 + 12 + 18)/3 = 12.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Construct the follow-up for commutativity</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a function <code>f(a, b) = a × b</code>, using the commutativity MR, how do you build the follow-up from source <code>(a = 5, b = 7)</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Follow-up = (a = 7, b = 5); the two outputs must be equal (both 35)</text><feedback><text>Correct — swap the operands; multiplication is commutative, so outputs match.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = (a = 5, b = 5); the two outputs must be equal</text><feedback><text>That changes an operand rather than swapping; 5 × 5 ≠ 5 × 7.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = (a = 7, b = 5); the follow-up output must be double the source</text><feedback><text>The swap is right, but the relation is equality, not doubling.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = (a = 10, b = 14); the two outputs must be equal</text><feedback><text>Doubling both operands is not the commutativity transformation, and 10 × 14 ≠ 5 × 7.</text></feedback></answer>
+    <generalfeedback><text>The commutativity MR's transformation swaps the operands, and its output relation is equality. From (5, 7) the follow-up is (7, 5), and a correct multiplication returns 35 for both. No expected value is needed — only that the two outputs agree.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why MT helps with no oracle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is MT valuable for a program whose exact expected output is infeasible to compute?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It detects faults by checking a required relationship between related runs, without ever needing the exact expected output of any single run</text><feedback><text>Correct — the relation replaces the missing per-input expected value.</text></feedback></answer>
+    <answer fraction="0"><text>It computes the exact expected output automatically</text><feedback><text>MT does not compute expected outputs; it checks relations among runs.</text></feedback></answer>
+    <answer fraction="0"><text>It proves correctness without running the program</text><feedback><text>MT runs the program on related inputs; it does not prove correctness.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need to run the program more than once</text><feedback><text>MT requires multiple related runs, not fewer.</text></feedback></answer>
+    <generalfeedback><text>When no oracle can tell you the right answer for an input, you can still know how related runs must relate. MT exploits that: it transforms the input, runs again, and checks the output relation. A violation exposes a fault even though the exact expected output was never available.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Passing tests is not a proof</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Passing many metamorphic tests demonstrates that the program is free of defects.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>No — MT reveals violations but cannot establish the absence of faults.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — passing tests leaves open faults not exposed by the chosen relations or inputs.</text></feedback></answer>
+    <generalfeedback><text>MT is a testing technique, so it can find bugs but not prove their absence. A program can satisfy every chosen MR on every tried input and still fail on an untested input or violate a property no MR captures.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Shortest-path relabeling MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A program computes the shortest-path distance between two nodes in a weighted graph. Which is a valid metamorphic relation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Relabeling (renaming) the nodes by a bijection and querying the correspondingly renamed endpoints must return the same distance</text><feedback><text>Correct — a bijective relabeling is a graph isomorphism, which preserves all distances.</text></feedback></answer>
+    <answer fraction="0"><text>Relabeling the nodes changes the distance by the number of nodes</text><feedback><text>Renaming nodes changes no structure or weight, so the distance is unaffected.</text></feedback></answer>
+    <answer fraction="0"><text>Doubling every node's label doubles the distance</text><feedback><text>Node labels are identifiers; their numeric value does not affect distances.</text></feedback></answer>
+    <answer fraction="0"><text>Reversing the node labels negates the distance</text><feedback><text>Distances are non-negative and depend on edges/weights, not on label order.</text></feedback></answer>
+    <generalfeedback><text>Renaming nodes via a bijection leaves the graph structurally identical (an isomorphism): the same edges with the same weights, just different names. So the shortest-path distance between the renamed endpoints must equal the original. This is a strong MR because it needs no knowledge of the actual distance.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Construct the follow-up for set size</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A program maintains a set and reports its size. Source: inserting <code>[1, 2, 3]</code> gives size <code>3</code>. Using the duplicate-insertion MR, what follow-up and expected size?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Follow-up = insert [1, 2, 3, 2] (a duplicate added); expected size still 3</text><feedback><text>Correct — adding a duplicate leaves the set's size unchanged.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = insert [1, 2, 3, 2]; expected size 4</text><feedback><text>A set ignores the duplicate, so the size stays 3, not 4.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = insert [1, 2, 3, 4]; expected size 3</text><feedback><text>Adding a new distinct element 4 is not the duplicate transformation, and it would make size 4.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = insert [1, 2, 3, 2]; expected size 2</text><feedback><text>Adding a duplicate cannot shrink the set; the size stays 3.</text></feedback></answer>
+    <generalfeedback><text>The duplicate-insertion transformation adds an element already present. The output relation is that the size is unchanged. From a source of [1, 2, 3] (size 3), the follow-up [1, 2, 3, 2] must still report size 3.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Construct the follow-up for maximum</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A program returns the maximum of a list. From source <code>L = [4, 9, 1]</code> (max 9), which follow-up tests a valid MR and what relation holds?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Follow-up = L with an element ≤ 9 appended, e.g. [4, 9, 1, 7]; the maximum must be unchanged (still 9)</text><feedback><text>Correct — appending a value not exceeding the current max leaves the max unchanged.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = [4, 9, 1, 15]; the max must be unchanged</text><feedback><text>Appending 15 (greater than 9) legitimately raises the max to 15, so "unchanged" is wrong.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = [4, 9, 1, 7]; the max must increase</text><feedback><text>Appending 7 (≤ 9) cannot raise the max; it stays 9.</text></feedback></answer>
+    <answer fraction="0"><text>Follow-up = [8, 18, 2]; the max must be unchanged</text><feedback><text>Those are different values, not an append of an element ≤ 9 to L.</text></feedback></answer>
+    <generalfeedback><text>max(L ++ [y]) = max(max(L), y). If y ≤ max(L), the maximum is unchanged; if y &gt; max(L), it becomes y. A valid MR is therefore "appending a value ≤ the current max leaves the max unchanged," giving a follow-up like [4, 9, 1, 7] with expected max 9.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Broadening a query</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a conjunctive-filter search, which transformation gives a follow-up whose result count must be ≥ the source's?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Removing one of the required query terms (making the query less specific)</text><feedback><text>Correct — the broader query's result set is a superset, so the count is ≥.</text></feedback></answer>
+    <answer fraction="0"><text>Adding one more required term</text><feedback><text>That narrows the query, giving ≤ results, not ≥.</text></feedback></answer>
+    <answer fraction="0"><text>Replacing a term with a more specific synonym</text><feedback><text>Making a term more specific does not guarantee ≥ results.</text></feedback></answer>
+    <answer fraction="0"><text>Requiring all terms to appear only in the title</text><feedback><text>Adding a location constraint narrows matches; it does not guarantee ≥ results.</text></feedback></answer>
+    <generalfeedback><text>Dropping a required term makes the query less specific, so every document that matched before still matches (and possibly more). The broader result set is a superset, so its count is ≥ the source's. This is the "≥" companion to the narrowing MR.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Pick the valid MR for a mean</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of these is a genuine necessary property (a valid MR) of a correct mean function?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Appending one extra value equal to the current mean leaves the mean unchanged</text><feedback><text>Correct — adding a point equal to the mean does not move the mean.</text></feedback></answer>
+    <answer fraction="0"><text>Appending any one extra value leaves the mean unchanged</text><feedback><text>False — only a value equal to the current mean leaves it unchanged.</text></feedback></answer>
+    <answer fraction="0"><text>Removing the largest value leaves the mean unchanged</text><feedback><text>False — removing the largest value generally lowers the mean.</text></feedback></answer>
+    <answer fraction="0"><text>Doubling the list length by repeating it leaves the mean doubled</text><feedback><text>False — repeating the list leaves the mean unchanged, not doubled.</text></feedback></answer>
+    <generalfeedback><text>With n values of mean m, appending a value equal to m gives a new mean of (n·m + m)/(n + 1) = m(n + 1)/(n + 1) = m. So the mean is unchanged — a valid MR. The distractors are not necessary properties of a correct mean.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Variance under scaling</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A program computes the (population) <strong>variance</strong> of a list. Multiplying every value by <code>k</code> has what effect, giving a valid MR?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The variance is multiplied by k²</text><feedback><text>Correct — Var(kX) = k²·Var(X).</text></feedback></answer>
+    <answer fraction="0"><text>The variance is multiplied by k</text><feedback><text>That is how the mean (or a linear quantity) scales; variance scales by k².</text></feedback></answer>
+    <answer fraction="0"><text>The variance is unchanged</text><feedback><text>Scaling the data spreads it out; the variance changes by k².</text></feedback></answer>
+    <answer fraction="0"><text>The variance is multiplied by |k|</text><feedback><text>That is how the standard deviation scales; variance scales by k².</text></feedback></answer>
+    <generalfeedback><text>Variance is a quadratic quantity: Var(kX) = k²·Var(X). So scaling every input by k is an input transformation whose output relation is "the variance is multiplied by k²." (The standard deviation, being the square root, scales by |k|.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge reordering for shortest path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A shortest-path program takes a list of weighted edges. Which follow-up transformation must leave every shortest-path distance unchanged (a valid MR)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Reordering the edges in the input list (the same set of edges, listed in a different order)</text><feedback><text>Correct — the graph is defined by its set of edges, not the order they appear.</text></feedback></answer>
+    <answer fraction="0"><text>Doubling the weight of one edge on a shortest path</text><feedback><text>That changes the graph and can change the distance.</text></feedback></answer>
+    <answer fraction="0"><text>Adding a new edge with a smaller weight</text><feedback><text>A new cheaper edge can create a shorter path, changing distances.</text></feedback></answer>
+    <answer fraction="0"><text>Deleting an edge on a shortest path</text><feedback><text>Removing an edge can lengthen or disconnect a path, changing distances.</text></feedback></answer>
+    <generalfeedback><text>The graph is the set of edges; the order in which the edges are listed carries no meaning. So permuting the edge list is an input transformation whose output relation is "all distances unchanged" — a valid MR. The other options genuinely alter the graph.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>A passing source/follow-up pair</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If a source/follow-up pair satisfies its metamorphic relation, that specific pair has not revealed a bug, but a bug may still exist elsewhere.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — one satisfied pair only means no violation was seen for that pair.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A satisfied pair does not clear the program; other inputs or relations may still expose faults.</text></feedback></answer>
+    <generalfeedback><text>Satisfying the relation on one pair simply means that pair produced no evidence of a fault. Faults can still hide in untested inputs or in behaviors that this MR does not constrain, so no conclusion of correctness follows.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Metamorphic Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Critique a proposed sine MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A tester proposes <code>sin(2x) = 2·sin(x)</code> as a metamorphic relation for a sine routine. What is wrong with it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is not a true identity (e.g. at x = π/2, sin(π) = 0 but 2·sin(π/2) = 2), so a correct sine need not satisfy it; any "violation" would be spurious</text><feedback><text>Correct — the relation is not a necessary property, so it is an invalid MR.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing is wrong; it holds for all x</text><feedback><text>It fails at x = π/2, so it does not hold for all x.</text></feedback></answer>
+    <answer fraction="0"><text>It is valid but detects only performance bugs</text><feedback><text>It is not valid at all; MRs are correctness properties, not performance checks.</text></feedback></answer>
+    <answer fraction="0"><text>It is valid only for negative x</text><feedback><text>It is not an identity for negative x either (e.g. x = −π/2).</text></feedback></answer>
+    <generalfeedback><text>The double-angle identity is sin(2x) = 2·sin(x)·cos(x), which equals 2·sin(x) only when cos(x) = 1. So sin(2x) = 2·sin(x) is false in general and is not a necessary property of a correct sine. Using it as an MR would flag correct implementations — a classic invalid MR.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Composing metamorphic relations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a shortest-path program you have MR_A (relabeling nodes leaves distances unchanged) and MR_B (multiplying all edge weights by a constant <code>c &gt; 0</code> multiplies every distance by c). If you apply <em>both</em> transformations to a source graph, what must hold?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The distance in the transformed graph equals c times the source distance</text><feedback><text>Correct — a distance-preserving transform composed with a c-scaling transform yields c-scaling.</text></feedback></answer>
+    <answer fraction="0"><text>The distance is unchanged</text><feedback><text>Relabeling alone preserves distance, but scaling weights by c multiplies it by c.</text></feedback></answer>
+    <answer fraction="0"><text>The distance equals c² times the source distance</text><feedback><text>Only one c-scaling is applied (relabeling adds no factor), so the factor is c, not c².</text></feedback></answer>
+    <answer fraction="0"><text>No relation holds, because two transformations cannot be composed</text><feedback><text>MRs compose: apply the transformations in sequence and combine their output relations.</text></feedback></answer>
+    <generalfeedback><text>MRs can be composed by applying their input transformations together and combining the output relations. Relabeling contributes a factor of 1 (distance unchanged) and weight-scaling contributes a factor of c, so the composed relation multiplies the distance by 1 × c = c. Composition lets you build richer checks from simple, individually-verified MRs.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Edge-weight scaling: soundness caveat</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Is "multiplying all edge weights by a constant <code>c</code> scales every shortest-path distance by c" a sound metamorphic relation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes, but only for c &gt; 0; for c ≤ 0 it can create zero/negative weights or negative cycles and change which path is optimal, so the relation need not hold</text><feedback><text>Correct — the scaling MR is sound only for a positive constant.</text></feedback></answer>
+    <answer fraction="0"><text>Yes, for every real c</text><feedback><text>Negative c can introduce negative cycles or flip the optimal path, breaking the relation.</text></feedback></answer>
+    <answer fraction="0"><text>No, it never holds for any c</text><feedback><text>It does hold for every positive c, so "never" is wrong.</text></feedback></answer>
+    <answer fraction="0"><text>Yes, but only for integer c</text><feedback><text>Any positive real c works; the restriction is positivity, not integrality.</text></feedback></answer>
+    <generalfeedback><text>For c &gt; 0, multiplying all weights by c multiplies the cost of every path by c, so the minimum-cost path is unchanged and its distance is scaled by c — a sound MR. For c ≤ 0 the transformed graph can have negative weights or negative cycles, changing (or undefining) the shortest path, so the relation is not necessary. Stating the domain (c &gt; 0) is essential to keeping the MR valid.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Invalid MR versus genuine bug: floating point</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test checks <code>sin(x) == sin(π − x)</code> with exact floating-point equality and reports a "violation" where the two results differ in the last bit. Best interpretation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The exact-equality MR is too strict for floating-point arithmetic; the tiny difference is rounding, so the violation is likely spurious and the relation should allow a small tolerance</text><feedback><text>Correct — an over-strict relation, not a fault, produced the false alarm.</text></feedback></answer>
+    <answer fraction="0"><text>It is definitely a bug in the sine implementation</text><feedback><text>A last-bit difference is consistent with normal rounding, not necessarily a fault.</text></feedback></answer>
+    <answer fraction="0"><text>The mathematics sin(x) = sin(π − x) is false, so the MR is wrong</text><feedback><text>The identity is true; the issue is applying exact equality to inexact arithmetic.</text></feedback></answer>
+    <answer fraction="0"><text>Floating-point numbers cannot represent π, so sine is undefined</text><feedback><text>π is approximated, but sine is well-defined on the approximation; that is not the issue.</text></feedback></answer>
+    <generalfeedback><text>The identity holds mathematically, but floating-point computes π − x and the two sines with rounding, so bit-for-bit equality is not guaranteed. The failure reflects an over-strict (effectively invalid) MR for this domain, not a defect. The fix is to state the output relation with an appropriate tolerance, e.g. |sin(x) − sin(π − x)| ≤ ε. This is the key skill of separating a genuine violation from a flawed relation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MR for an image classifier</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For an image classifier, which is a suitable metamorphic relation whose violation suggests a defect (e.g. a robustness problem)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A label-preserving transformation — one a human agrees does not change the true class, such as a slight brightness change or small rotation — should leave the predicted class unchanged</text><feedback><text>Correct — the transformation must preserve the ground-truth label for the "unchanged prediction" relation to be expected.</text></feedback></answer>
+    <answer fraction="0"><text>Randomly shuffling all the pixels should leave the predicted class unchanged</text><feedback><text>Shuffling pixels destroys the image content, so it is not label-preserving.</text></feedback></answer>
+    <answer fraction="0"><text>Replacing the image with a different image of another class should leave the prediction unchanged</text><feedback><text>That changes the true class, so the prediction should change, not stay the same.</text></feedback></answer>
+    <answer fraction="0"><text>Doubling every pixel value should double the predicted class index</text><feedback><text>Class indices are labels, not magnitudes; there is no reason a valid transformation would double them.</text></feedback></answer>
+    <generalfeedback><text>MT for ML uses transformations that preserve the ground-truth label — mild brightness/contrast changes, small rotations, or, for text, synonym substitution. An ideal classifier's prediction should not change; if it does, the test reveals a robustness or consistency defect. The transformation must genuinely preserve the label, which is why pixel-shuffling or swapping in a different-class image are not valid choices.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Wrong search direction is a bad MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A tester claims that "making a conjunctive-filter query <em>more</em> specific (adding a required term) should return <em>at least as many</em> results." Why is this a bad MR?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The direction is backwards — a more specific query's results are a subset, so the count can only stay the same or shrink; the program need not satisfy the proposed relation, so it would raise false alarms</text><feedback><text>Correct — the sound direction is ≤ for narrowing, so the proposed ≥ relation is invalid.</text></feedback></answer>
+    <answer fraction="0"><text>It is correct and always holds</text><feedback><text>It has the direction reversed, so it does not hold for a conjunctive filter.</text></feedback></answer>
+    <answer fraction="0"><text>It is correct only for empty queries</text><feedback><text>It is not correct in general; the flaw is the reversed direction, not the empty case.</text></feedback></answer>
+    <answer fraction="0"><text>It is a valid MR but detects only performance issues</text><feedback><text>It is not valid, and MRs check correctness rather than performance.</text></feedback></answer>
+    <generalfeedback><text>Under conjunctive-filter semantics, narrowing a query removes matches, so the correct relation is count(more specific) ≤ count(less specific). Proposing ≥ inverts this: a correct engine would routinely "violate" it, producing false alarms. Getting the direction right is essential to a sound MR.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Commutativity is unsound for subtraction</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is <code>f(a, b) = f(b, a)</code> an invalid metamorphic relation for a subtraction function <code>sub(a, b) = a − b</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Subtraction is not commutative (5 − 3 = 2 but 3 − 5 = −2), so a correct implementation need not satisfy it; treating it as an MR would flag correct behavior as a fault</text><feedback><text>Correct — the relation is not necessary for subtraction, so it is an invalid MR.</text></feedback></answer>
+    <answer fraction="0"><text>Because subtraction is undefined when the operands are equal</text><feedback><text>Subtraction is well-defined for equal operands (a − a = 0); that is not the issue.</text></feedback></answer>
+    <answer fraction="0"><text>Because subtraction always overflows</text><feedback><text>Subtraction does not always overflow; the flaw is non-commutativity.</text></feedback></answer>
+    <answer fraction="0"><text>It is actually a valid MR for subtraction</text><feedback><text>It is not — swapping operands negates the result in general.</text></feedback></answer>
+    <generalfeedback><text>Commutativity holds for addition and multiplication but not subtraction: a − b = −(b − a), which differs from b − a unless a = b. So f(a, b) = f(b, a) is not a necessary property of subtraction, and using it as an MR would report correct results as violations.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Verify an appended-mean MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Is "appending one data point equal to the current arithmetic mean leaves the mean unchanged" a sound necessary property of a correct mean function?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — with n values of mean m, the new mean is (n·m + m)/(n + 1) = m, so it holds for every list</text><feedback><text>Correct — the algebra confirms the mean is unchanged, so it is a valid MR.</text></feedback></answer>
+    <answer fraction="0"><text>No, the mean always increases when a point is added</text><feedback><text>Adding a point equal to the mean does not increase it; the algebra gives m.</text></feedback></answer>
+    <answer fraction="0"><text>Only when all the values are equal</text><feedback><text>It holds for any list, not only lists of equal values.</text></feedback></answer>
+    <answer fraction="0"><text>Only for lists of even length</text><feedback><text>Length parity is irrelevant; the identity holds for every n.</text></feedback></answer>
+    <generalfeedback><text>Let the list have n values summing to n·m, so the mean is m. Appending m gives sum n·m + m = m(n + 1) over n + 1 values, so the new mean is m(n + 1)/(n + 1) = m. The property holds for every list, making it a sound MR — worked concretely to confirm.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Violation of an invalid MR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test for a mean function uses the relation "removing the largest value leaves the mean unchanged" and reports a violation. What should you conclude?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Nothing about a bug — the relation is not a necessary property of a correct mean, so the "violation" reflects a flawed MR, not a defect in the program</text><feedback><text>Correct — a violation implicates the program only when the MR is genuinely necessary.</text></feedback></answer>
+    <answer fraction="0"><text>The mean function is definitely buggy</text><feedback><text>The MR itself is invalid, so the violation says nothing about the program.</text></feedback></answer>
+    <answer fraction="0"><text>The program has a rounding error</text><feedback><text>There is no evidence of rounding; the relation is simply not a required property.</text></feedback></answer>
+    <answer fraction="0"><text>The input list must have been empty</text><feedback><text>The list need not be empty; removing the largest value normally does change the mean.</text></feedback></answer>
+    <generalfeedback><text>Removing the largest value generally lowers the mean, so "the mean is unchanged" is not a necessary property. A correct implementation will routinely "violate" it. The lesson: before trusting a violation, confirm the MR is genuinely necessary for any correct implementation; otherwise the fault is in the relation, not the code.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How statistics scale under multiplication</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Multiplying every value in a list by <code>k</code>. Which set of output relations is correct for the mean, standard deviation, and variance?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>mean → ×k, standard deviation → ×|k|, variance → ×k²</text><feedback><text>Correct — the mean is linear, variance is quadratic, and the standard deviation is its square root.</text></feedback></answer>
+    <answer fraction="0"><text>mean → ×k, standard deviation → ×k², variance → ×k</text><feedback><text>Swapped — variance scales by k² and the standard deviation by |k|.</text></feedback></answer>
+    <answer fraction="0"><text>all three → ×k</text><feedback><text>Only the mean scales by k; variance scales by k² and SD by |k|.</text></feedback></answer>
+    <answer fraction="0"><text>mean → ×k², standard deviation → ×k, variance → ×|k|</text><feedback><text>The mean scales by k, not k²; the others are wrong too.</text></feedback></answer>
+    <generalfeedback><text>Mean is linear: mean(kX) = k·mean(X). Variance is quadratic: Var(kX) = k²·Var(X). The standard deviation is the square root of the variance, so SD(kX) = |k|·SD(X) (absolute value because a standard deviation is non-negative). Each gives a distinct valid MR under the same scaling transformation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Strongest conclusion from passing MRs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A program passes a large, well-designed set of metamorphic relations on millions of inputs. What is the strongest <em>sound</em> conclusion?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No violation of those relations was found on those inputs; this raises confidence but does not prove correctness — faults not exposed by the chosen MRs or inputs may remain</text><feedback><text>Correct — MT can raise confidence but never proves correctness.</text></feedback></answer>
+    <answer fraction="0"><text>The program is proven correct</text><feedback><text>No amount of passing tests proves correctness.</text></feedback></answer>
+    <answer fraction="0"><text>The program is correct on the tested inputs and on all others</text><feedback><text>Nothing can be concluded about untested inputs.</text></feedback></answer>
+    <answer fraction="0"><text>The MRs must have been invalid, since nothing failed</text><feedback><text>Passing does not imply the MRs are invalid; valid MRs can simply be satisfied.</text></feedback></answer>
+    <generalfeedback><text>MT can reveal faults (via violations) but cannot demonstrate their absence. Extensive passing results increase confidence and are evidence of quality, but faults may still hide in inputs never tried or in properties the chosen MRs do not constrain.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Composing order-preserving map with permutation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a sort function, consider two transformations: permuting the input, and mapping every element through a <em>strictly increasing</em> function <code>g</code>. Which composed relation is sound?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>sort(map g over any permutation of L) equals map g over sort(L), for any strictly increasing g</text><feedback><text>Correct — a strictly increasing map preserves order, so it commutes with sorting; permutation is irrelevant to the sorted result.</text></feedback></answer>
+    <answer fraction="0"><text>sort(map g over L) equals the reverse of (map g over sort(L))</text><feedback><text>A strictly increasing g preserves order, so it does not reverse the result.</text></feedback></answer>
+    <answer fraction="0"><text>sort(map g over L) equals sort(L) unchanged</text><feedback><text>Applying g changes the element values, so the sorted output changes accordingly.</text></feedback></answer>
+    <answer fraction="0"><text>The relation is sound only when g is the identity function</text><feedback><text>It is sound for any strictly increasing g, not just the identity.</text></feedback></answer>
+    <generalfeedback><text>If g is strictly increasing, then a &lt; b iff g(a) &lt; g(b), so applying g preserves relative order and commutes with sorting: sort(map g over L) = map g over sort(L). Since sorting is permutation-invariant, permuting first changes nothing. Composing the two gives sort(map g over perm(L)) = map g over sort(L) — a sound composed MR.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>An unsound MR for a sentiment classifier</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a sentiment classifier, which proposed metamorphic relation is <em>unsound</em> (would produce false alarms)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>"Negating the sentence (inserting 'not') must leave the predicted sentiment unchanged"</text><feedback><text>Correct — negation changes the true sentiment, so it is not label-preserving; the prediction should change.</text></feedback></answer>
+    <answer fraction="0"><text>"Replacing a word with a close synonym should leave the predicted sentiment unchanged"</text><feedback><text>Synonym substitution preserves meaning, so this is a sound label-preserving MR.</text></feedback></answer>
+    <answer fraction="0"><text>"Adding a neutral, meaning-preserving filler phrase should leave the predicted sentiment unchanged"</text><feedback><text>A neutral filler preserves sentiment, so this is a sound MR.</text></feedback></answer>
+    <answer fraction="0"><text>"Reordering two independent, order-irrelevant clauses should leave the predicted sentiment unchanged"</text><feedback><text>Reordering independent clauses preserves meaning, so this is a sound MR.</text></feedback></answer>
+    <generalfeedback><text>MT for ML relies on label-preserving transformations. Synonym substitution, neutral filler, and reordering independent clauses all keep the true sentiment, so "prediction unchanged" is expected. Negation, by contrast, flips the sentiment, so demanding an unchanged prediction is unsound and would flag a correct classifier.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why the subset MR may fail on a ranked engine</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The subset MR ("a more specific query returns ≤ results") is sound for a pure conjunctive filter. Why might it fail to be a valid MR for a real <em>ranked</em> web search engine?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A ranked engine may not return all matching documents (it truncates to top-k, applies relevance thresholds, query expansion, or synonyms), so the more specific query's returned set is not guaranteed to be a subset</text><feedback><text>Correct — MR validity depends on the actual specification of the program under test.</text></feedback></answer>
+    <answer fraction="0"><text>Because ranked search engines are always correct, so no MR is needed</text><feedback><text>Correctness is not the point; the relation simply is not guaranteed under ranking semantics.</text></feedback></answer>
+    <answer fraction="0"><text>Because more specific queries are always computed faster</text><feedback><text>Performance is irrelevant to whether the subset relation holds.</text></feedback></answer>
+    <answer fraction="0"><text>Because the mathematics of subsets is different on the web</text><feedback><text>Set theory is unchanged; the issue is that ranked results are not the full match set.</text></feedback></answer>
+    <generalfeedback><text>The subset MR assumes the engine returns exactly the documents matching all terms. A ranked engine instead returns a curated, truncated, possibly query-expanded list, so a more specific query's results need not be a subset of the broader query's. An MR is only valid against the actual specification: change the semantics and a previously sound MR can become invalid.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>An MR must be a necessary property</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a metamorphic relation to be usable as an oracle, it must be a necessary property of every correct implementation; otherwise a "violation" may indicate a flawed relation rather than a fault.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — only a genuinely necessary property lets a violation implicate the program.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>If the relation is not necessary, a correct program can violate it, so a violation would not indicate a fault.</text></feedback></answer>
+    <generalfeedback><text>The soundness of MT rests on the MR being a necessary property: something every correct implementation must satisfy. Then a violation must mean the program is wrong. If the relation is merely plausible but not necessary, a correct program can violate it, and the "fault" is really in the relation — which is why verifying MRs is the crucial discipline of MT.</text></generalfeedback>
+  </question>
+</quiz>

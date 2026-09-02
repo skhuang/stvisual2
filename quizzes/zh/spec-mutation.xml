@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Specification Mutation/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>規格突變所突變的對象</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格突變測試（specification mutation testing）將突變運算子套用於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>系統的規格或模型（例如一條需求、一台 FSM、或一條時序邏輯性質），而非程式原始碼</text><feedback><text>正確——在規格突變中被更動的對象是規格／模型，而不是程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>程式的原始碼</text><feedback><text>突變原始碼屬於程式（碼）突變，是另一種技術。</text></feedback></answer>
+    <answer fraction="0"><text>程式編譯後的二進位檔</text><feedback><text>規格突變作用於規格，不是編譯後的碼。</text></feedback></answer>
+    <answer fraction="0"><text>測試案例本身</text><feedback><text>測試案例是我們評估或生成的對象；規格突變更動的是規格。</text></feedback></answer>
+    <generalfeedback><text>規格突變把突變運算子套用到規格或模型——布林／邏輯需求、有限狀態機（FSM）、或時序邏輯性質——而不是套用到程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>突變規格</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>突變規格</em>（mutant specification）是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>原始規格的複本，其中由突變運算子引入了一個微小的改動</text><feedback><text>正確——突變規格是被刻意植入一個微小改動的原始規格。</text></feedback></answer>
+    <answer fraction="0"><text>使用者在實際環境中回報的規格缺陷</text><feedback><text>突變規格是刻意植入的人造改動，不是現場回報的缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>由規格衍生出的測試案例</text><feedback><text>那是一個測試，不是突變規格。</text></feedback></answer>
+    <answer fraction="0"><text>模型檢查器產生的執行軌跡</text><feedback><text>那是反例／軌跡，不是突變規格。</text></feedback></answer>
+    <generalfeedback><text>突變規格是套用規格突變運算子後產生的規格變體，做出一個微小改動（例如將某子句取反），就像程式突變體是對程式碼做的微小改動一樣。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>被刻意更動的對象</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在規格突變中，被刻意更動以建立突變體的對象是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>規格／模型</text><feedback><text>正確——被突變的是規格或模型。</text></feedback></answer>
+    <answer fraction="0"><text>原始碼</text><feedback><text>更動原始碼屬於程式突變，而非規格突變。</text></feedback></answer>
+    <answer fraction="0"><text>測試框架（test harness）</text><feedback><text>測試框架是基礎設施，不是被突變的對象。</text></feedback></answer>
+    <answer fraction="0"><text>輸入資料檔</text><feedback><text>輸入資料不是規格突變運算子更動的對象。</text></feedback></answer>
+    <generalfeedback><text>規格突變將改動植入規格或模型（一條需求、一台 FSM、或一條時序性質），而讓程式碼維持不變。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>規格突變與程式突變之別</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>規格突變</em>與<em>程式（碼）突變</em>之間的關鍵差異是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>規格突變更動規格／模型，而程式突變更動程式的原始碼</text><feedback><text>正確——兩者的差別在於被突變的對象不同。</text></feedback></answer>
+    <answer fraction="0"><text>規格突變使用隨機輸入，程式突變則是系統化的</text><feedback><text>兩者都使用系統化的突變運算子；差別在被突變的對象。</text></feedback></answer>
+    <answer fraction="0"><text>規格突變不需要突變運算子</text><feedback><text>兩者都仰賴突變運算子；規格突變只是把它們套用到規格上。</text></feedback></answer>
+    <answer fraction="0"><text>它們是同一種技術的兩個名稱</text><feedback><text>它們是不同的：一個突變規格，一個突變程式碼。</text></feedback></answer>
+    <generalfeedback><text>兩者都是突變技術，但程式突變把故障植入程式碼並執行測試去偵測；規格突變則把改動植入規格／模型，以評估或生成測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>殺死規格突變體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個<em>突變規格被殺死（killed）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>某個測試或分析能區分突變規格所描述的行為與原始規格的行為</text><feedback><text>正確——突變規格與原始規格之間可觀察的差異即可殺死它。</text></feedback></answer>
+    <answer fraction="0"><text>突變規格無法被解析（parse）</text><feedback><text>格式錯誤的突變體會被丟棄，而不是因行為差異被「殺死」。</text></feedback></answer>
+    <answer fraction="0"><text>突變規格比原始規格更長</text><feedback><text>長度與殺死無關；殺死需要行為上的差異。</text></feedback></answer>
+    <answer fraction="0"><text>原始規格被證明為正確</text><feedback><text>殺死關乎區分突變體與原始規格，而非證明其正確性。</text></feedback></answer>
+    <generalfeedback><text>當某個測試案例（或一次模型檢查）顯示突變規格與原始規格在某項行為上不一致時，該規格突變體即被殺死。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>等價規格突變體</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>等價規格突變體</em>（equivalent spec mutant）是指一個突變規格：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在語法上與原始規格不同，但語意上完全相同，因此沒有任何測試能區分兩者</text><feedback><text>正確——語意相同就永遠無法被殺死。</text></feedback></answer>
+    <answer fraction="0"><text>在文字上與原始規格完全相同</text><feedback><text>突變一定會引入語法上的改動；文字完全相同就不是突變體。</text></feedback></answer>
+    <answer fraction="0"><text>永遠與原始規格相矛盾</text><feedback><text>相矛盾的突變體語意不同、可被殺死；等價者則語意相同。</text></feedback></answer>
+    <answer fraction="0"><text>無法以該規格語言表達</text><feedback><text>等價與否關乎語意，而非可表達性。</text></feedback></answer>
+    <generalfeedback><text>等價規格突變體在語法上與原始規格不同，但對每個輸入都表示完全相同的行為，因此沒有任何測試或模型檢查能區分（殺死）它。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>基於模型的突變測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>基於模型的突變測試</em>（model-based mutation testing）是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>將突變運算子套用於系統的行為模型（例如一台 FSM），而非程式碼</text><feedback><text>正確——被突變的是模型。</text></feedback></answer>
+    <answer fraction="0"><text>建立一個統計模型來描述每個程式碼突變體被殺死的頻率</text><feedback><text>那不是基於模型突變的意思；這裡模型才是被突變的對象。</text></feedback></answer>
+    <answer fraction="0"><text>只突變程式的資料模型（資料庫綱要）</text><feedback><text>此處「模型」指行為模型／規格，並非特指資料庫綱要。</text></feedback></answer>
+    <answer fraction="0"><text>隨機突變模型檢查器的演算法</text><feedback><text>模型檢查器是工具，不是被突變的對象。</text></feedback></answer>
+    <generalfeedback><text>基於模型的突變測試把突變植入模型（例如 FSM 或形式規格），並用模型與其突變體之間的差異來評估或生成測試——這是規格突變的一種形式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>目的：適切性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格突變的其中一個目的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>評估測試套組的適切性（adequacy），或評估規格本身的品質／完整性</text><feedback><text>正確——被殺死的突變體可衡量測試（或規格）掌握預期行為的程度。</text></feedback></answer>
+    <answer fraction="0"><text>自動修復程式中的缺陷</text><feedback><text>規格突變是評估或生成測試，並不修改程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>證明程式沒有任何缺陷</text><feedback><text>沒有任何突變技術能證明所有缺陷都不存在。</text></feedback></answer>
+    <answer fraction="0"><text>把規格壓縮成較少的狀態</text><feedback><text>那是模型最小化，不是規格突變的目的。</text></feedback></answer>
+    <generalfeedback><text>規格突變用來（甲）評估測試套組的適切性或規格品質，以及（乙）生成測試。測量某套組能殺死哪些規格突變體，即可衡量其適切性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>目的：測試生成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格突變可用於<em>生成測試</em>，方法是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>將模型檢查器針對突變後性質所產生的反例當作測試案例</text><feedback><text>正確——能區分突變體與原始規格的反例即成為測試。</text></feedback></answer>
+    <answer fraction="0"><text>將突變規格編譯成可執行檔</text><feedback><text>編譯規格本身並不會產生測試案例。</text></feedback></answer>
+    <answer fraction="0"><text>計算規格中子句的數量</text><feedback><text>計算子句是一種度量，不是測試生成方法。</text></feedback></answer>
+    <answer fraction="0"><text>移除規格中所有時序運算子</text><feedback><text>那會改變規格的語意，且無法生成測試。</text></feedback></answer>
+    <generalfeedback><text>模型檢查器將突變後的性質對模型檢查，會回傳一個反例——一條突變體與原始規格不一致的軌跡。該軌跡即被轉為測試案例。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>規格突變運算子範例</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是<em>規格</em>突變運算子的例子？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對需求中的某個子句取反（例如條件 C 變成 NOT C）</text><feedback><text>正確——對需求子句取反即突變了規格。</text></feedback></answer>
+    <answer fraction="0"><text>在實作中刪除一行 C++ 原始碼</text><feedback><text>那突變的是程式碼，屬於程式突變。</text></feedback></answer>
+    <answer fraction="0"><text>重新命名程式中的某個區域變數</text><feedback><text>那是程式碼層級的改動，不是規格改動。</text></feedback></answer>
+    <answer fraction="0"><text>在程式運算式中插入一個一元負號</text><feedback><text>那是程式碼突變運算子（UOI），不是規格運算子。</text></feedback></answer>
+    <generalfeedback><text>規格突變運算子更動的是規格：對子句取反、在需求中替換關係／邏輯／時序運算子、或重導 FSM 轉移。對原始碼的改動則屬於程式突變。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>時序運算子 G</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在線性時序邏輯（LTL）中，對性質 <code>p</code> 套用運算子 <strong>G</strong>（globally）表示 <code>p</code>：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在路徑上的每一個狀態都成立（永遠成立）</text><feedback><text>正確——G 表示「永遠／全域」。</text></feedback></answer>
+    <answer fraction="0"><text>在至少一個未來狀態成立</text><feedback><text>那是 F（eventually），不是 G。</text></feedback></answer>
+    <answer fraction="0"><text>只在緊接的下一個狀態成立</text><feedback><text>那是 X（next），不是 G。</text></feedback></answer>
+    <answer fraction="0"><text>直到另一個性質成立為止都成立</text><feedback><text>那是 U（until）運算子，不是 G。</text></feedback></answer>
+    <generalfeedback><text>在 LTL 中，G p（「全域 p」）主張 p 在執行路徑的每一個狀態都為真——即「永遠」運算子。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>時序運算子 F</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在線性時序邏輯（LTL）中，對 <code>p</code> 套用 <strong>F</strong>（eventually／finally）表示 <code>p</code>：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在當前或某個未來狀態成立</text><feedback><text>正確——F 表示「終究會」。</text></feedback></answer>
+    <answer fraction="0"><text>在路徑上的每一個狀態都成立</text><feedback><text>那是 G（globally），不是 F。</text></feedback></answer>
+    <answer fraction="0"><text>只在緊接的下一個狀態成立</text><feedback><text>那是 X（next），不是 F。</text></feedback></answer>
+    <answer fraction="0"><text>永遠不成立</text><feedback><text>F 主張 p 在某個時點確實成立，與「永不」相反。</text></feedback></answer>
+    <generalfeedback><text>在 LTL 中，F p（「終究 p」）主張 p 會在路徑上當前或稍後的某個狀態成為真。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>反例的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當模型檢查器發現某性質被模型違反時，會產生一個<em>反例（counterexample）</em>，它是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>模型中一條違反該性質的具體執行軌跡</text><feedback><text>正確——反例是一條見證違反的軌跡。</text></feedback></answer>
+    <answer fraction="0"><text>一個修正後、現在能成立的性質</text><feedback><text>檢查器回傳的是違反的軌跡，不是改寫後的性質。</text></feedback></answer>
+    <answer fraction="0"><text>該性質在模型上成立的證明</text><feedback><text>反例展示的是違反，而非正確性的證明。</text></feedback></answer>
+    <answer fraction="0"><text>與模型無關的隨機輸入</text><feedback><text>反例是模型的一條特定軌跡，不是隨機輸入。</text></feedback></answer>
+    <generalfeedback><text>反例是模型的一串具體狀態（一條執行軌跡），展示該性質如何被違反。這條軌跡正是規格突變測試生成所轉成的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識規格突變</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一項活動屬於<em>規格</em>突變（而非程式突變）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在一條 LTL 需求中將 G 替換為 F，並重新對模型檢查</text><feedback><text>正確——被突變的是需求（規格）。</text></feedback></answer>
+    <answer fraction="0"><text>在某 C 函式中把 + 換成 - 並重新執行測試</text><feedback><text>那突變的是程式碼——屬於程式突變。</text></feedback></answer>
+    <answer fraction="0"><text>刪除原始碼中的一個敘述並重新執行測試</text><feedback><text>刪除原始碼敘述屬於程式突變。</text></feedback></answer>
+    <answer fraction="0"><text>在程式運算式中插入一元負號</text><feedback><text>那是程式碼層級（UOI）突變。</text></feedback></answer>
+    <generalfeedback><text>更動時序邏輯需求（G 換 F）突變的是規格。更動原始碼中的運算子、敘述或運算式則屬於程式突變。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>規格突變是否突變程式碼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格突變測試的做法是突變程式的原始碼，並對其執行測試。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>突變原始碼屬於程式突變。規格突變改動的是規格／模型。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——規格突變突變的是規格或模型，而非原始碼（後者屬於程式突變）。</text></feedback></answer>
+    <generalfeedback><text>規格突變把突變運算子套用到規格或模型（一條需求、一台 FSM、或一條時序性質）。突變原始碼則是另一項獨立的技術：程式突變。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Specification Mutation/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>測試何時殺死突變規格</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個測試案例何時會殺死一個突變規格？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該測試在突變規格下的預期結果，與在原始規格下的預期結果不同</text><feedback><text>正確——兩份規格對它會做出不同判定的測試即可殺死突變體。</text></feedback></answer>
+    <answer fraction="0"><text>該測試在模型檢查器上執行得很快</text><feedback><text>執行速度與殺死突變體無關。</text></feedback></answer>
+    <answer fraction="0"><text>該測試在原始規格上通過</text><feedback><text>僅通過原始規格並不能區分突變體；必須兩者之間有不一致。</text></feedback></answer>
+    <answer fraction="0"><text>突變規格的狀態數比原始規格多</text><feedback><text>狀態數無關緊要；殺死需要行為上的不一致。</text></feedback></answer>
+    <generalfeedback><text>當某測試會被突變規格與原始規格做出不同判定時——即兩份規格對該測試的預期行為不一致——該規格突變體即被殺死。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>條件取反運算子</text></name>
+    <questiontext format="html"><text><![CDATA[<p>將<em>條件取反</em>規格突變運算子套用於需求守衛 <code>temp &gt; 100</code>，會產生哪個突變體？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text><![CDATA[<code>NOT (temp &gt; 100)</code>]]></text><feedback><text>正確——條件取反將守衛包在邏輯 NOT 之中。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>temp &gt;= 100</code>]]></text><feedback><text>那是關係運算子替換，不是取反。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>temp &gt; 200</code>]]></text><feedback><text>那是運算元改動，不是取反。</text></feedback></answer>
+    <answer fraction="0"><text><![CDATA[<code>temp &gt; 100 AND active</code>]]></text><feedback><text>那是加入一個合取項（守衛強化），不是取反。</text></feedback></answer>
+    <generalfeedback><text>條件取反把需求的條件 C 換成 NOT C。此處 <code>temp &gt; 100</code> 變成 <code>NOT (temp &gt; 100)</code>。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>需求中的關係運算子替換</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在需求「當 <code>pressure &gt;= threshold</code> 時警報響起」中，將 <code>&gt;=</code> 換成 <code>&gt;</code> 是一個規格突變運算子，其作用為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>替換一個關係運算子，改變該需求在邊界上的行為</text><feedback><text>正確——它改變了在 <code>pressure = threshold</code> 這一點的結果。</text></feedback></answer>
+    <answer fraction="0"><text>從需求中刪除一個子句</text><feedback><text>沒有子句被移除；被更動的是一個關係運算子。</text></feedback></answer>
+    <answer fraction="0"><text>更動一個時序運算子</text><feedback><text>此處並不涉及任何時序運算子。</text></feedback></answer>
+    <answer fraction="0"><text>重導一個狀態機轉移</text><feedback><text>這是條件中的關係改動，不是轉移重導。</text></feedback></answer>
+    <generalfeedback><text>替換關係運算子（此處 <code>&gt;=</code> 換成 <code>&gt;</code>）會改變需求在邊界值 <code>pressure = threshold</code> 的行為；殺死它的測試必須包含該邊界。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>FSM 轉移重導</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一台 FSM 規格中，改變某轉移目的地的突變運算子（例如輸入 <code>x</code> 時機器改往狀態 C 而非狀態 B）是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>轉移重導——改變一個轉移的目標狀態</text><feedback><text>正確——被更動的是轉移的目的地。</text></feedback></answer>
+    <answer fraction="0"><text>關係運算子替換</text><feedback><text>此處不涉及關係運算子；改變的是轉移目標。</text></feedback></answer>
+    <answer fraction="0"><text>時序運算子替換</text><feedback><text>此處不涉及時序運算子。</text></feedback></answer>
+    <answer fraction="0"><text>條件取反</text><feedback><text>守衛沒有被取反；被改的是目的地狀態。</text></feedback></answer>
+    <generalfeedback><text>重導轉移（改變某輸入導向何處）是標準的 FSM／模型突變運算子。其他 FSM 運算子則會改變觸發事件或守衛。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>邏輯運算子替換的效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一次規格突變把需求條件中的 <strong>AND</strong> 換成 <strong>OR</strong>。與原始相比，突變後的條件：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>較弱——在更多情況下成立（任一運算元為真即足夠）</text><feedback><text>正確——AND 需兩者為真；OR 只需其一，故 OR 更常成立。</text></feedback></answer>
+    <answer fraction="0"><text>較強——在更少情況下成立</text><feedback><text>OR 比 AND 更常成立，故是較弱而非較強。</text></feedback></answer>
+    <answer fraction="0"><text>語意不變</text><feedback><text>當兩個運算元真假值不同時，AND 與 OR 就會不同。</text></feedback></answer>
+    <answer fraction="0"><text>只影響算術，不影響邏輯</text><feedback><text>AND／OR 是邏輯連接詞；此改動屬邏輯，非算術。</text></feedback></answer>
+    <generalfeedback><text>把 AND 換成 OR（一種邏輯運算子突變，類比程式突變的 LOR）會弱化條件：只要任一運算元為真它就成立，是 AND 情況的超集。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>時序運算子突變 G 換 F</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一次時序運算子突變把某性質中的 <code>G p</code> 換成 <code>F p</code>。這將需求從：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>「p 在每個狀態都成立」改為「p 至少在一個狀態成立」——一個嚴格較弱的需求</text><feedback><text>正確——G（永遠）變成 F（終究），是較弱的。</text></feedback></answer>
+    <answer fraction="0"><text>一個語意相同的等價改寫</text><feedback><text>G p 與 F p 不同：G p 蘊涵 F p，但反之不然。</text></feedback></answer>
+    <answer fraction="0"><text>「p 在某個狀態成立」改為「p 在每個狀態成立」——一個較強的需求</text><feedback><text>那是相反方向；G 換 F 是弱化需求。</text></feedback></answer>
+    <answer fraction="0"><text>一個只影響下一狀態的改動</text><feedback><text>下一狀態語意屬於 X，而非 G 或 F。</text></feedback></answer>
+    <generalfeedback><text>G p（「永遠 p」）要求每個狀態都有 p；F p（「終究 p」）只要求某個狀態有 p。G p 蘊涵 F p，但反之不然，故此突變弱化該性質，並且通常改變其語意。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>以突變後性質的反例作為測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>原始性質 <code>p</code> 在模型 <code>M</code> 上成立。要從突變性質 <code>p'</code> 生成一個測試，你會：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>將 p' 對 M 做模型檢查；若 M 違反 p'，其反例軌跡即為一個能區分 p' 與 p 的測試</text><feedback><text>正確——由於 M ⊨ p，該違反的軌跡滿足 p 卻不滿足 p'，故能區分兩者。</text></feedback></answer>
+    <answer fraction="0"><text>再次將 p 對 M 做模型檢查並丟棄結果</text><feedback><text>重新檢查原始性質並未用到突變體，也生成不出新東西。</text></feedback></answer>
+    <answer fraction="0"><text>把 p' 編譯成程式碼並做效能分析</text><feedback><text>對編譯後的性質做效能分析不是此處衍生測試的方法。</text></feedback></answer>
+    <answer fraction="0"><text>計算 M 中可達的狀態數</text><feedback><text>計算狀態數並不能產生能區分兩者的測試。</text></feedback></answer>
+    <generalfeedback><text>將突變性質 p' 對 M 做模型檢查，當 M 違反 p' 時會得到一個反例。因為 M 滿足原始的 p，該軌跡滿足 p 卻不滿足 p'，故能區分兩份規格，成為測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>以規格突變衡量測試套組適切性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>要以規格突變<em>衡量測試套組的適切性</em>，你會：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>生成一批突變規格，檢查套組的測試能區分其中多少比例與原始規格</text><feedback><text>正確——被殺死的規格突變體比例即衡量適切性。</text></feedback></answer>
+    <answer fraction="0"><text>計算規格有多少行</text><feedback><text>規格長度不是適切性的度量。</text></feedback></answer>
+    <answer fraction="0"><text>只把套組對原始規格執行一次</text><feedback><text>沒有突變體就沒有東西可殺死，也就衡量不出適切性。</text></feedback></answer>
+    <answer fraction="0"><text>移除套組中所有失敗的測試</text><feedback><text>移除測試無法衡量對突變體的適切性。</text></feedback></answer>
+    <generalfeedback><text>如同程式突變，你產生一批規格突變體，看測試套組能殺死（區分於原始規格）多少。被殺死的比例即為套組相對於規格的一項適切性度量。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>沒有反例的突變性質</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在以性質突變生成測試時，模型檢查器回報某<em>突變後</em>性質在模型上仍然成立（沒有反例）。這表示該突變體是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>相對於該模型為等價——無法透過模型被殺死，故不會產生測試</text><feedback><text>正確——沒有反例代表模型無法區分突變體與原始。</text></feedback></answer>
+    <answer fraction="0"><text>被殺死——沒有反例即殺死了它</text><feedback><text>恰好相反：反例才能區分（殺死）它；沒有反例代表它存活。</text></feedback></answer>
+    <answer fraction="0"><text>格式錯誤，必須丟棄</text><feedback><text>一個仍成立的良構突變體是等價，而非格式錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>證明了實作是正確的</text><feedback><text>它對實作毫無說明，只關乎模型與此突變體。</text></feedback></answer>
+    <generalfeedback><text>若突變性質在模型上仍成立，就沒有反例能相對於該模型區分它與原始——它是（相對於模型的）等價突變體，不會生成測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>FSM 觸發事件突變</text></name>
+    <questiontext format="html"><text><![CDATA[<p>改變一個 FSM 轉移的觸發事件（例如它現在以輸入「coin」而非「button」觸發）是一個規格突變運算子，其作用為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>改變哪個輸入會引發該轉移，可能改變被接受的行為</text><feedback><text>正確——該轉移現在回應不同的輸入。</text></feedback></answer>
+    <answer fraction="0"><text>改變機器中的狀態數量</text><feedback><text>狀態不變；改變的只是觸發輸入。</text></feedback></answer>
+    <answer fraction="0"><text>對一條時序邏輯性質取反</text><feedback><text>FSM 事件改動並不涉及時序性質。</text></feedback></answer>
+    <answer fraction="0"><text>完全刪除該轉移</text><feedback><text>轉移仍存在；改變的只是它的觸發條件。</text></feedback></answer>
+    <generalfeedback><text>突變觸發轉移的事件／輸入是標準的 FSM 突變運算子；它改變哪些輸入驅動機器，因而改變被規定的行為。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何反例是好測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對突變性質做模型檢查所得的反例之所以是好的測試案例，是因為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它是一條突變規格與原始規格不一致的具體軌跡，故能揭示實作是否遵循正確的那一份</text><feedback><text>正確——它正好瞄準區分兩份規格的行為。</text></feedback></answer>
+    <answer fraction="0"><text>它是隨機挑選的，能提供廣泛的涵蓋</text><feedback><text>反例是有針對性的，不是隨機的。</text></feedback></answer>
+    <answer fraction="0"><text>它總會走遍模型的每一個狀態</text><feedback><text>反例是單一軌跡，不是走遍所有狀態的巡覽。</text></feedback></answer>
+    <answer fraction="0"><text>它證明了規格是完整的</text><feedback><text>反例區分兩份規格，並不證明完整性。</text></feedback></answer>
+    <generalfeedback><text>反例是原始與突變規格分歧之處的一條具體執行。將它對實作執行，即可檢查實作是否遵循預期（原始）規格，而非突變（有故障）的那份。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>SMV 情境分類</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你有一個 SMV 模型與一條 LTL 需求。你更動該 LTL 公式並重新執行模型檢查器。這是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>規格（性質）突變，因為被更動的是需求——而非程式碼</text><feedback><text>正確——LTL 需求是規格的一部分。</text></feedback></answer>
+    <answer fraction="0"><text>程式突變，因為模型檢查器執行了模型</text><feedback><text>執行檢查器不會使它變成程式突變；被突變的對象是需求。</text></feedback></answer>
+    <answer fraction="0"><text>模糊測試（fuzz testing），因為輸入被變動了</text><feedback><text>並沒有對輸入做模糊變動；被突變的是一條公式。</text></feedback></answer>
+    <answer fraction="0"><text>都不是——更動公式不算突變</text><feedback><text>更動 LTL 公式正是一種規格突變。</text></feedback></answer>
+    <generalfeedback><text>突變一條 LTL／CTL 需求並重新檢查屬於規格突變：被突變的對象是需求（規格的一部分），而非程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>需求上的運算元替換運算子</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一次規格突變把需求中的一個運算元換成另一個，將 <code>level &gt; max</code> 變成 <code>level &gt; min</code>。這是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對規格所做的運算元（變數）替換突變</text><feedback><text>正確——一個變數運算元被換成了另一個。</text></feedback></answer>
+    <answer fraction="0"><text>關係運算子替換</text><feedback><text>關係運算子 <code>&gt;</code> 未變；被換的是一個運算元。</text></feedback></answer>
+    <answer fraction="0"><text>時序運算子替換</text><feedback><text>此處不涉及時序運算子。</text></feedback></answer>
+    <answer fraction="0"><text>轉移重導</text><feedback><text>此處不涉及 FSM 轉移；這是條件運算元的改動。</text></feedback></answer>
+    <generalfeedback><text>替換變數運算元（此處 <code>max</code> 換成 <code>min</code>）是運算元／變數替換規格突變，類比程式突變中的變數替換。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>模型突變替代做法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>基於模型的突變測試除了突變性質外，也可以突變<em>模型</em>本身，然後：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把原始需求對突變模型做檢查；現在被違反的需求會產生一個能區分兩個模型的反例</text><feedback><text>正確——該反例把原始模型與突變體區分開來。</text></feedback></answer>
+    <answer fraction="0"><text>刪除所有需求，只保留突變模型</text><feedback><text>需要需求才能偵測突變體的差異，不能刪除它們。</text></feedback></answer>
+    <answer fraction="0"><text>也一併突變原始碼以相符</text><feedback><text>模型突變改動的是模型，不是程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>在沒有任何性質的情況下執行突變模型</text><feedback><text>沒有性質，檢查器就沒有可違反的對象，也就得不到測試。</text></feedback></answer>
+    <generalfeedback><text>可以突變模型，再把原始需求對它檢查。若突變模型違反了原始所滿足的某需求，其反例就是一條區分模型與突變體的軌跡——一個能殺死該模型突變體的測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>關係突變的邊界</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在需求中將 <code>x &gt;= 5</code> 突變成 <code>x &gt; 5</code>，會改變被規定的行為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只在 x = 5 處改變；殺死它的測試必須包含該邊界值</text><feedback><text>正確——兩個條件除了 x = 5 之外處處一致。</text></feedback></answer>
+    <answer fraction="0"><text>對所有 x 值都改變</text><feedback><text>除了正好在 5，其他每個 x 兩者都一致。</text></feedback></answer>
+    <answer fraction="0"><text>只對負的 x 改變</text><feedback><text>負的 x 兩者一致；它們只在 x = 5 不同。</text></feedback></answer>
+    <answer fraction="0"><text>永遠不改變——該突變體為等價</text><feedback><text>它不是等價：x = 5 就能區分 <code>&gt;=</code> 與 <code>&gt;</code>。</text></feedback></answer>
+    <generalfeedback><text><code>x &gt;= 5</code> 與 <code>x &gt; 5</code> 只在 x = 5 不同（真與假）。省略邊界的測試無法殺死此突變體，故殺死它的測試必須包含 x = 5。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Specification Mutation/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>De Morgan 等價突變體（AND 形式）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一條需求守衛 <code>NOT (a AND b)</code> 被突變成 <code>NOT a OR NOT b</code>。這個突變體是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>等價——依 De Morgan 定律兩種形式在邏輯上完全相同，故無法被殺死</text><feedback><text>正確——NOT (a AND b) 正好就是 NOT a OR NOT b。</text></feedback></answer>
+    <answer fraction="0"><text>只要有 a 與 b 不同的測試就能殺死</text><feedback><text>兩種形式在每一種賦值下都一致，故沒有測試能區分它們。</text></feedback></answer>
+    <answer fraction="0"><text>非等價，因為 OR 取代了 AND</text><feedback><text>外層的取反使得整個運算式在 De Morgan 定律下等價。</text></feedback></answer>
+    <answer fraction="0"><text>格式錯誤，因此應丟棄</text><feedback><text>它是良構且邏輯等價的，並非格式錯誤。</text></feedback></answer>
+    <generalfeedback><text>De Morgan 定律指出 NOT (a AND b) 等價於 NOT a OR NOT b。此突變體表示完全相同的布林函數，故是無法被任何測試殺死的等價規格突變體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>G 換 F 是等價突變嗎</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在某性質中把 <code>G p</code> 換成 <code>F p</code>，是一個<em>等價</em>突變嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不是——G p（永遠）與 F p（終究）語意不同（G p 蘊涵 F p，但反之不然），故通常改變規格且可被殺死</text><feedback><text>正確——這兩個運算子不可互換。</text></feedback></answer>
+    <answer fraction="0"><text>是——G 與 F 永遠是同一個意思</text><feedback><text>並非如此：「永遠」嚴格強於「終究」。</text></feedback></answer>
+    <answer fraction="0"><text>是——F p 蘊涵 G p，故兩者一致</text><feedback><text>F p 並不蘊涵 G p；蘊涵方向恰好相反。</text></feedback></answer>
+    <answer fraction="0"><text>不是——但只因為 F 在 LTL 中未定義</text><feedback><text>F 是標準的 LTL 運算子；原因在於語意不同，而非未定義。</text></feedback></answer>
+    <generalfeedback><text>G p 要求每個狀態都有 p；F p 只要求某處有 p。G p 蘊涵 F p，但反之不然，故此突變改變性質語意——它非等價且通常可被殺死（一條「p 有時成立但非永遠」的軌跡即可區分兩者）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何突變性質會產生能區分的反例</text></name>
+    <questiontext format="html"><text><![CDATA[<p>將突變性質 <code>p'</code> 對模型 <code>M</code> 做模型檢查（原始 <code>p</code> 在 <code>M</code> 上成立），得到一個反例。為何該軌跡能區分突變體與原始？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該軌跡是 M 的一條違反 p' 的執行；由於 M 滿足 p，同一條軌跡也滿足 p，故 p 與 p' 在它上不一致</text><feedback><text>正確——該軌跡滿足 p 卻不滿足 p'，正好區分兩者。</text></feedback></answer>
+    <answer fraction="0"><text>反例的產生與 p 及 p' 皆無關</text><feedback><text>反例正是 p' 的一個違反，故與突變體緊密相關。</text></feedback></answer>
+    <answer fraction="0"><text>因為 p' 在語法上比 p 長</text><feedback><text>語法長度無關緊要；區分力來自軌跡上的語意不一致。</text></feedback></answer>
+    <answer fraction="0"><text>因為模型檢查器把 p 改寫成 p'</text><feedback><text>檢查器不會改寫原始性質；它找的是一條違反 p' 的軌跡。</text></feedback></answer>
+    <generalfeedback><text>反例依定義違反 p'。由於 M 滿足原始的 p，M 的每一條軌跡（包括這條）都滿足 p。故該軌跡滿足 p 卻不滿足 p'——一個兩份規格相異的具體見證，這正是它可作為測試的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>無法殺死的突變體代表冗餘</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某需求的一個子句被突變，但沒有任何測試（也沒有任何模型檢查）能殺死所產生的突變體。這最可能表示：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該突變體是等價的，這暗示該子句是冗餘的（或規格過度約束）——它不影響被規定的行為</text><feedback><text>正確——無法殺死的突變指向一個對語意無影響的子句。</text></feedback></answer>
+    <answer fraction="0"><text>測試套組完全適切</text><feedback><text>無法殺死的突變體是等價；它對套組適切性無正面說明。</text></feedback></answer>
+    <answer fraction="0"><text>規格保證完整</text><feedback><text>單一突變體的等價並不蘊涵整份規格的完整性。</text></feedback></answer>
+    <answer fraction="0"><text>程式含有故障</text><feedback><text>這關乎規格的結構，而非程式故障。</text></feedback></answer>
+    <generalfeedback><text>若突變一個子句從不改變被規定的行為，該突變體即為等價——這是該子句冗餘或需求過度約束的證據。規格突變因而能揭露冗餘並協助評估規格品質。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類 CTL 性質植入故障的流程</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊在一條 CTL 性質中植入一個故障，重新執行模型檢查器以取得反例，再把它轉成測試。下列何者最能描述這件事？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>規格（基於模型）突變測試——性質被突變，而反例成為測試</text><feedback><text>正確——突變一條 CTL 性質並由反例衍生測試屬於規格突變。</text></feedback></answer>
+    <answer fraction="0"><text>程式突變——因為最後產生了一個測試</text><feedback><text>產生測試不使它成為程式突變；被突變的對象是性質。</text></feedback></answer>
+    <answer fraction="0"><text>結構化程式碼涵蓋度量</text><feedback><text>並未度量任何程式碼結構；被突變的是一條性質。</text></feedback></answer>
+    <answer fraction="0"><text>輸入定義域的等價類劃分</text><feedback><text>那是黑箱輸入劃分技術，與突變 CTL 性質無關。</text></feedback></answer>
+    <generalfeedback><text>在時序（CTL）性質中植入故障，並用模型檢查器的反例作為測試，屬於規格／基於模型的突變：被突變的對象是性質，而反例把它與原始區分開來。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>時序冪等等價突變體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某性質 <code>F p</code> 被突變成 <code>F F p</code>（「終究終究 p」）。這個突變體是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>等價——F 具冪等性，故 F F p 在邏輯上與 F p 相同，無法被殺死</text><feedback><text>正確——F F p ≡ F p。</text></feedback></answer>
+    <answer fraction="0"><text>非等價——F F p 需要 p 兩次</text><feedback><text>F F p 並不「需要兩次 p」；它化簡為 F p。</text></feedback></answer>
+    <answer fraction="0"><text>非等價——它比 F p 更強</text><feedback><text>兩者強度相等；F F p ≡ F p。</text></feedback></answer>
+    <answer fraction="0"><text>格式錯誤——F 不能巢狀</text><feedback><text>時序運算子可以巢狀；此處只是化簡為 F p。</text></feedback></answer>
+    <generalfeedback><text>終究運算子具冪等性：F F p 等價於 F p（同理 G G p ≡ G p）。故此突變產生一個無法被任何測試殺死的等價規格突變體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>實務上的限制</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格／模型突變測試在實務上的兩大限制是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>偵測等價突變體很困難（一般而言不可判定），而且對眾多突變體做模型檢查可能遭遇狀態空間爆炸</text><feedback><text>正確——等價突變體與模型規模是經典限制。</text></feedback></answer>
+    <answer fraction="0"><text>無法為規格定義突變運算子，且模型從不具有狀態</text><feedback><text>規格突變運算子有明確定義，模型也確實有狀態。</text></feedback></answer>
+    <answer fraction="0"><text>模型檢查器無法產生反例，且規格無法被突變</text><feedback><text>兩者皆非：檢查器會產生反例，規格也能被突變。</text></feedback></answer>
+    <answer fraction="0"><text>它需要原始碼，且無法使用模型</text><feedback><text>恰好相反——它作用於規格／模型，且不需要原始碼。</text></feedback></answer>
+    <generalfeedback><text>如同程式突變，規格突變面臨等價突變體問題（等價一般而言不可判定）。此外，對大型模型檢查眾多突變性質／模型可能遭遇狀態空間爆炸，限制其可擴充性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>沒有反例即相對於模型等價</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在以性質突變生成測試時，一個模型<em>仍然滿足</em>的突變性質：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不會產生反例、因而不會產生測試——它是相對於該模型的等價突變體</text><feedback><text>正確——沒有可違反的對象，模型就無法區分它與原始。</text></feedback></answer>
+    <answer fraction="0"><text>會產生最強的測試</text><feedback><text>沒有反例代表根本不會產生測試。</text></feedback></answer>
+    <answer fraction="0"><text>證明原始性質是錯的</text><feedback><text>它對原始性質是否為錯毫無說明。</text></feedback></answer>
+    <answer fraction="0"><text>迫使模型檢查器把所有軌跡都列為測試</text><feedback><text>沒有違反就沒有反例；檢查器不會輸出所有軌跡。</text></feedback></answer>
+    <generalfeedback><text>若模型滿足突變性質，模型檢查器不會回傳反例，故無法生成能區分它與原始的測試——該突變體相對於該模型為等價。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>FSM 上的守衛強化突變</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一台 FSM 規格中，某突變藉由加入一個額外合取項來<em>強化</em>轉移守衛（守衛變成 <code>g AND extra</code>）。相對於原始，突變後的轉移：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在較少情況下觸發（原始情況的子集）；殺死它的測試必須到達一個原始會觸發但突變體不會的輸入</text><feedback><text>正確——加入合取項只會縮小觸發輸入的集合。</text></feedback></answer>
+    <answer fraction="0"><text>比以前在更多情況下觸發</text><feedback><text>加入合取項使守衛更難滿足，故觸發較少。</text></feedback></answer>
+    <answer fraction="0"><text>在完全相同的情況下觸發</text><feedback><text>只有當該額外合取項在 g 成立時恆為真才如此；一般而言守衛更窄。</text></feedback></answer>
+    <answer fraction="0"><text>在任何輸入下都永不觸發</text><feedback><text>只要 g 與該額外合取項同時成立，它仍會觸發。</text></feedback></answer>
+    <generalfeedback><text>以加入合取項強化守衛，會把觸發限制在原始情況的子集。殺死此突變體的測試必須到達一個原始守衛成立、但強化後守衛不成立的輸入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>De Morgan 等價突變體（OR 形式）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某需求條件 <code>a OR b</code> 被突變成 <code>NOT (NOT a AND NOT b)</code>。這個突變體是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>等價——依 De Morgan 定律它表示與 <code>a OR b</code> 相同的函數，故無法被殺死</text><feedback><text>正確——NOT (NOT a AND NOT b) 正好就是 a OR b。</text></feedback></answer>
+    <answer fraction="0"><text>非等價，因為現在出現了 AND</text><feedback><text>那些取反在 De Morgan 定律下恢復了 OR 的語意。</text></feedback></answer>
+    <answer fraction="0"><text>每當 a、b 恰有一為真時就被殺死</text><feedback><text>那時兩種形式都為真，故仍一致；沒有測試能區分它們。</text></feedback></answer>
+    <answer fraction="0"><text>只有當 a 等於 b 時才等價</text><feedback><text>它們在全部四種賦值下都一致，不只在 a 等於 b 時。</text></feedback></answer>
+    <generalfeedback><text>De Morgan 定律給出 a OR b 等價於 NOT (NOT a AND NOT b)。此突變體計算完全相同的布林函數，故是等價規格突變體。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>吸收律等價突變體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某需求 <code>a AND (a OR b)</code> 被突變成 <code>a AND (a OR c)</code>（運算元 b 換成 c）。這個突變體是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>等價——依吸收律 <code>a AND (a OR 任何東西)</code> 化簡為 <code>a</code>，故兩種形式都等於 <code>a</code>；這也揭露了第二個子句是冗餘的</text><feedback><text>正確——其值只取決於 a，故把 b 換成 c 毫無改變。</text></feedback></answer>
+    <answer fraction="0"><text>只要有 b 與 c 不同的測試就能殺死</text><feedback><text>由於整個運算式等於 a，b 或 c 的值永不影響結果；沒有這種測試能殺死它。</text></feedback></answer>
+    <answer fraction="0"><text>非等價，因為 c 是新變數</text><feedback><text>引入 c 毫無作用：運算式無論如何都化簡為 a。</text></feedback></answer>
+    <answer fraction="0"><text>比原始更強</text><feedback><text>兩者都等價於 a；沒有哪個更強。</text></feedback></answer>
+    <generalfeedback><text>依吸收律，a AND (a OR X) 對任何 X 都等於 a。故原始與突變體都等於 a，使突變體等價。它無法被殺死，恰恰暴露了需求中「(a OR ...)」子句是冗餘的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>以陷阱性質見證某行為</text></name>
+    <questiontext format="html"><text><![CDATA[<p>模型檢查器只在性質<em>被違反</em>時才回傳軌跡。要取得一條<em>見證</em>某期望行為 B 的軌跡（用作測試），你可以：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>斷言一條「陷阱」性質，宣稱 B 從不發生；模型檢查器的反例便是一條展現 B 的軌跡</text><feedback><text>正確——對感興趣的行為取反，反例就成為它的見證。</text></feedback></answer>
+    <answer fraction="0"><text>斷言 B 永遠發生，並把證明當作測試</text><feedback><text>證明（無違反）不產生軌跡；要取得反例需要一條被違反的性質。</text></feedback></answer>
+    <answer fraction="0"><text>停用模型檢查器，改以手動列舉輸入</text><feedback><text>陷阱性質技術是使用檢查器本身；手動列舉不是此方法。</text></feedback></answer>
+    <answer fraction="0"><text>移除所有性質，讓每條軌跡都成為反例</text><feedback><text>沒有性質就沒有可違反的對象，也就不會產生反例。</text></feedback></answer>
+    <generalfeedback><text>因為反例只針對被違反的性質而產生，測試生成方法會斷言一條「陷阱」（never-claim）性質，宣稱感興趣的行為從不發生。模型檢查器隨後回傳的反例，正是一條實現該行為的軌跡。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>next 運算子突變</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某性質 <code>p</code> 被突變成 <code>X p</code>（next p）。一般而言這個突變體是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>非等價——X p 指的是下一個狀態，故與在當前狀態求值的 p 不同</text><feedback><text>正確——把求值點位移一個狀態通常改變語意。</text></feedback></answer>
+    <answer fraction="0"><text>等價——X p 永遠與 p 同義</text><feedback><text>X p 關乎下一個狀態，而非當前狀態，故一般而言不同。</text></feedback></answer>
+    <answer fraction="0"><text>等價——因為每條路徑都會重複</text><feedback><text>路徑一般不會重複，且即使重複，X 仍位移了求值點。</text></feedback></answer>
+    <answer fraction="0"><text>格式錯誤——X 不能套用於原子性質</text><feedback><text>X 可套用於任何子式，包括原子子式。</text></feedback></answer>
+    <generalfeedback><text>X p 主張 p 在下一個狀態成立，而 p 主張它在當前狀態成立。在一條 p 現在成立但下一狀態不成立（或反之）的路徑上，兩者相異，故此突變一般為非等價且可被殺死。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>交換律等價突變體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一次邏輯運算元交換突變把一個無副作用的規格條件 <code>a AND b</code> 換成 <code>b AND a</code>。這個突變體是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>等價——在無副作用的規格中 AND 具交換律，故兩種形式相同且無法被殺死</text><feedback><text>正確——對純布林條件而言，運算元順序無關緊要。</text></feedback></answer>
+    <answer fraction="0"><text>非等價，因為運算元被調換了</text><feedback><text>調換交換律運算子的順序不會改變無副作用條件的語意。</text></feedback></answer>
+    <answer fraction="0"><text>只要有 a 與 b 不同的測試就能殺死</text><feedback><text>a AND b 與 b AND a 在每一種賦值下都一致，故沒有這種測試能殺死它。</text></feedback></answer>
+    <answer fraction="0"><text>只有當 a 等於 b 時才等價</text><feedback><text>它們在所有賦值下都一致，不只在 a 等於 b 時。</text></feedback></answer>
+    <generalfeedback><text>布林 AND 具交換律，故在無求值順序副作用的規格中，a AND b 等於 b AND a。此突變體表示相同的函數——一個等價規格突變體。（在具副作用的短路程式碼中順序可能有影響；那屬於程式而非規格的考量。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>由被殺死的規格突變體所得測試的價值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由一個<em>被殺死</em>的規格突變體所衍生的測試之所以有價值，是因為當它在實作上執行時：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它區分原始規格與突變體的行為，故一個符合突變（有故障）規格而非原始規格的實作將會失敗</text><feedback><text>正確——該測試正好瞄準兩份規格相異之處的行為。</text></feedback></answer>
+    <answer fraction="0"><text>它保證實作沒有任何故障</text><feedback><text>單一有針對性的測試無法證明整體正確性。</text></feedback></answer>
+    <answer fraction="0"><text>它走遍實作中的每一條路徑</text><feedback><text>它是單一能區分的軌跡，不是完整的路徑巡覽。</text></feedback></answer>
+    <answer fraction="0"><text>它與原始規格及突變規格皆無關</text><feedback><text>它正是由兩份規格相異之處衍生，故取決於兩者。</text></feedback></answer>
+    <generalfeedback><text>殺死用的測試是一條原始與突變規格不一致的軌跡。將它對實作執行，即可檢查實作是否遵循預期（原始）行為；一個表現出突變體有故障行為的實作將無法通過該測試。</text></generalfeedback>
+  </question>
+</quiz>

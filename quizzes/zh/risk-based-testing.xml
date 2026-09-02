@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Risk-Based Testing/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是風險</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在風險式測試（risk-based testing）中，<em>風險（risk）</em>最適切的描述是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個潛在的問題，由其「發生的可能性」與「一旦發生的衝擊」兩者組合而成</text><feedback><text>正確——風險把可能性（機率）與衝擊（後果）配對在一起。</text></feedback></answer>
+    <answer fraction="0"><text>已經被找到並記錄下來的缺陷</text><feedback><text>那是已知缺陷；風險是尚未發生的潛在問題，而非已確認的問題。</text></feedback></answer>
+    <answer fraction="0"><text>一個永遠失敗的測試案例</text><feedback><text>失敗的測試是缺陷的證據，並非風險的定義。</text></feedback></answer>
+    <answer fraction="0"><text>測試計畫中測試案例的總數</text><feedback><text>那是測試套件的規模度量，與風險的定義無關。</text></feedback></answer>
+    <generalfeedback><text>風險是一個可能發生的未來問題，由兩個面向刻畫：發生的可能性（likelihood）與一旦發生的衝擊（impact）。風險式測試同時用這兩個面向來決定測試資源要投在哪裡。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可能性的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>風險中的<em>可能性（likelihood）</em>面向是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>失敗或缺陷實際發生的機率</text><feedback><text>正確——可能性就是問題有多可能發生。</text></feedback></answer>
+    <answer fraction="0"><text>一旦問題發生，後果有多嚴重</text><feedback><text>那是衝擊面向，不是可能性。</text></feedback></answer>
+    <answer fraction="0"><text>撰寫測試案例的成本</text><feedback><text>撰寫測試的成本是專案考量，不是風險的可能性。</text></feedback></answer>
+    <answer fraction="0"><text>指派到該功能的測試人員數目</text><feedback><text>人力配置與缺陷發生的機率無關。</text></feedback></answer>
+    <generalfeedback><text>可能性（機率）是風險的兩個面向之一：失敗或缺陷實際發生的機率有多高。另一個面向是衝擊。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>衝擊的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>風險中的<em>衝擊（impact）</em>面向是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一旦失敗或缺陷發生時，後果的嚴重程度</text><feedback><text>正確——衝擊就是問題若發生會有多糟。</text></feedback></answer>
+    <answer fraction="0"><text>缺陷發生的機率有多高</text><feedback><text>那是可能性，風險的另一個面向。</text></feedback></answer>
+    <answer fraction="0"><text>有多少測試案例涵蓋該功能</text><feedback><text>那是覆蓋數字，不是風險的衝擊。</text></feedback></answer>
+    <answer fraction="0"><text>修正能多快部署上線</text><feedback><text>部署速度是緩解措施的考量，不是衝擊的定義。</text></feedback></answer>
+    <generalfeedback><text>衝擊（嚴重度／後果）是風險的兩個面向之一：一旦問題發生，結果會有多具破壞性。結合可能性後，即得到風險暴露度。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>風險暴露度公式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>風險暴露度（risk exposure，即風險等級）通常如何計算？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可能性 × 衝擊</text><feedback><text>正確——把機率與後果相乘即得到風險暴露度。</text></feedback></answer>
+    <answer fraction="0"><text>可能性 + 衝擊</text><feedback><text>風險暴露度是兩個面向相乘，不是相加。</text></feedback></answer>
+    <answer fraction="0"><text>衝擊 &#8722; 可能性</text><feedback><text>把兩個面向相減對風險暴露度沒有標準意義。</text></feedback></answer>
+    <answer fraction="0"><text>可能性 ÷ 衝擊</text><feedback><text>相除得不到風險等級；標準公式是相乘。</text></feedback></answer>
+    <generalfeedback><text>風險暴露度（又稱風險等級或風險評分）＝ 可能性 × 衝擊。它結合了問題有多可能發生與後果有多嚴重，得到一個用來排定測試優先序的數值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是風險式測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>風險式測試（risk-based testing）</em>是一種做法，其特徵是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>依各項目所評估的風險比例分配測試資源，最高風險者最先測試</text><feedback><text>正確——風險驅動測試的深度與順序。</text></feedback></answer>
+    <answer fraction="0"><text>每個功能都用完全相同數量的測試案例來測</text><feedback><text>那是平均投入；風險式測試刻意依風險調整投入。</text></feedback></answer>
+    <answer fraction="0"><text>只測試隨機挑選出來的功能</text><feedback><text>風險式測試依評估的風險挑選，不是隨機。</text></feedback></answer>
+    <answer fraction="0"><text>一找到第一個缺陷就停止測試</text><feedback><text>找到第一個缺陷就停止並非風險式測試；投入是由風險等級引導的。</text></feedback></answer>
+    <generalfeedback><text>風險式測試會辨識風險、評估其可能性與衝擊、排定優先序，並把較多、較深入的測試投注在最高風險的項目上——在有限的測試資源下用在最重要的地方。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是風險矩陣</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>風險矩陣（risk matrix，熱力圖）</em>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個以可能性對衝擊構成的方格圖，用來視覺化並排序各項目的風險等級</text><feedback><text>正確——兩軸是可能性與衝擊，格子顯示所得的風險等級。</text></feedback></answer>
+    <answer fraction="0"><text>列出每個測試案例及其執行時間的表格</text><feedback><text>那是測試排程，不是風險矩陣。</text></feedback></answer>
+    <answer fraction="0"><text>把程式模組對應到撰寫它們的開發者的矩陣</text><feedback><text>那是負責人對應表；風險矩陣是以可能性對衝擊作圖。</text></feedback></answer>
+    <answer fraction="0"><text>記錄每個測試殺死哪些突變體的表</text><feedback><text>那屬於突變測試，不是風險矩陣。</text></feedback></answer>
+    <generalfeedback><text>風險矩陣（或熱力圖）以可能性為一軸、衝擊為另一軸。每個項目落在某一格；高可能性／高衝擊的項目位於「紅色」角落，最先被測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是殘餘風險</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>殘餘風險（residual risk）</em>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在測試與其他緩解措施完成之後仍然殘留的風險</text><feedback><text>正確——緩解做完後總會殘留一些風險。</text></feedback></answer>
+    <answer fraction="0"><text>在任何測試開始之前就存在的風險</text><feedback><text>那是初始（固有）風險，不是殘餘風險。</text></feedback></answer>
+    <answer fraction="0"><text>已被完全消除的風險</text><feedback><text>殘餘風險正是那些沒有被消除、仍然殘留的部分。</text></feedback></answer>
+    <answer fraction="0"><text>執行測試套件本身的風險</text><feedback><text>那不是標準意義；殘餘風險是緩解後產品中仍殘留的部分。</text></feedback></answer>
+    <generalfeedback><text>殘餘風險是測試與緩解之後仍殘留的風險。因為測試只能降低而無法消除風險，總會有一些殘餘風險存在，由利害關係人判斷是否可接受而發行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>產品風險與專案風險</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>產品風險（product risk）</em>（相對於專案風險）關注的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>產品本身的品質——交付的軟體可能無法滿足需求或含有缺陷</text><feedback><text>正確——產品風險關乎軟體的品質。</text></feedback></answer>
+    <answer fraction="0"><text>因供應商延遲而造成的時程延誤</text><feedback><text>那是專案風險（時程／資源），不是產品風險。</text></feedback></answer>
+    <answer fraction="0"><text>關鍵團隊成員在專案途中離職</text><feedback><text>那是專案／人力風險，不是產品品質風險。</text></feedback></answer>
+    <answer fraction="0"><text>測試管理工具的授權到期</text><feedback><text>那是專案／資源風險，不是產品風險。</text></feedback></answer>
+    <generalfeedback><text>產品風險關乎產品的品質——缺陷、功能缺漏、效能不佳。專案風險關乎專案的管理——時程、預算、人力、供應商。風險式測試主要針對產品風險。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算風險暴露度 4 × 5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 1&#8211;5 的量表上，某項目可能性為 4、衝擊為 5。其風險暴露度為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>20</text><feedback><text>正確——4 × 5 = 20。</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>那是 4 + 5；風險暴露度是兩值相乘。</text></feedback></answer>
+    <answer fraction="0"><text>45</text><feedback><text>那是把數字並排；暴露度是 4 × 5 = 20。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>那是 5 &#8722; 4；風險暴露度是乘積 20。</text></feedback></answer>
+    <generalfeedback><text>風險暴露度 ＝ 可能性 × 衝擊 ＝ 4 × 5 = 20。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算風險暴露度 3 × 2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某項目可能性為 3、衝擊為 2。其風險暴露度為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>正確——3 × 2 = 6。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>那是 3 + 2；風險暴露度是兩值相乘。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>那是 3 &#8722; 2；風險暴露度是乘積 6。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>那不是 3 × 2；正確的乘積是 6。</text></feedback></answer>
+    <generalfeedback><text>風險暴露度 ＝ 可能性 × 衝擊 ＝ 3 × 2 = 6。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>測試降低但不消除風險</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試可以降低風險，但無法完全消除風險。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——測試會降低風險（主要靠找出缺陷並提供資訊），但總會殘留一些殘餘風險。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>測試無法證明所有缺陷都不存在，因此它是降低而非消除風險；殘餘風險總是存在。</text></feedback></answer>
+    <generalfeedback><text>測試藉由找出缺陷並提供品質資訊來降低風險，但再多的測試也無法消除所有風險——殘餘風險總是存在。宣稱測試能消除風險是誇大其詞。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪些項目最先測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在風險式測試中，當必須排定投入的優先序時，哪些項目最先測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>風險暴露度最高的項目</text><feedback><text>正確——最高風險的項目最先受到關注。</text></feedback></answer>
+    <answer fraction="0"><text>最快能測完的項目</text><feedback><text>測試難易可作為次要的打破平手依據，但主要驅動因素是風險等級。</text></feedback></answer>
+    <answer fraction="0"><text>最近才加入待辦清單的項目</text><feedback><text>加入的時間先後不是排序準則；風險暴露度才是。</text></feedback></answer>
+    <answer fraction="0"><text>衝擊最低的項目</text><feedback><text>低衝擊的項目通常被延後，而非最先測試。</text></feedback></answer>
+    <generalfeedback><text>風險式測試依風險暴露度（可能性 × 衝擊）為項目排序，最高風險者最先測試，如此一來即使時間用盡，最重要的風險也已先被處理。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>風險的兩個面向</text></name>
+    <questiontext format="html"><text><![CDATA[<p>風險是由哪兩個因素組合而成？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可能性與衝擊</text><feedback><text>正確——發生的機率與後果的嚴重度。</text></feedback></answer>
+    <answer fraction="0"><text>成本與時程</text><feedback><text>那些是專案限制，不是風險的兩個面向。</text></feedback></answer>
+    <answer fraction="0"><text>覆蓋率與突變分數</text><feedback><text>那些是測試適切性度量，不是風險的組成。</text></feedback></answer>
+    <answer fraction="0"><text>嚴重度與可重現性</text><feedback><text>那些描述缺陷；風險本身是可能性與衝擊的組合。</text></feedback></answer>
+    <generalfeedback><text>風險結合其可能性（有多可能發生）與其衝擊（後果有多嚴重）。風險暴露度 ＝ 可能性 × 衝擊 同時涵蓋兩者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算風險暴露度 5 × 5</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 1&#8211;5 的量表上，某項目可能性為 5、衝擊為 5。其風險暴露度為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>25</text><feedback><text>正確——5 × 5 = 25，是 5×5 量表上的最大值。</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>那是 5 + 5；風險暴露度是兩值相乘。</text></feedback></answer>
+    <answer fraction="0"><text>55</text><feedback><text>那是把數字並排；暴露度是 5 × 5 = 25。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>那是 5 &#8722; 5；風險暴露度是乘積 25。</text></feedback></answer>
+    <generalfeedback><text>風險暴露度 ＝ 可能性 × 衝擊 ＝ 5 × 5 = 25——在 5×5 評分量表上的最高值，代表最優先的項目。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試深度與風險等級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試設計的深度應如何與項目的風險等級相關聯？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>高風險項目給予更多、更深入的測試；低風險項目給予較輕量的測試</text><feedback><text>正確——測試深度隨風險而調整。</text></feedback></answer>
+    <answer fraction="0"><text>不論風險如何，所有項目都給予完全相同的測試深度</text><feedback><text>那是均一測試，忽略了風險；風險式測試會調整深度。</text></feedback></answer>
+    <answer fraction="0"><text>低風險項目給予最深入的測試</text><feedback><text>那顛倒了原則；投入應跟隨較高的風險。</text></feedback></answer>
+    <answer fraction="0"><text>測試深度只取決於程式碼的大小，與風險無關</text><feedback><text>程式碼大小可能影響投入，但風險式測試是依風險調整深度。</text></feedback></answer>
+    <generalfeedback><text>在風險式測試中，測試設計的深度與嚴謹度隨風險而變：高風險項目獲得更多、更徹底的測試，低風險項目則獲得較輕量的覆蓋。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Risk-Based Testing/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>依暴露度排序三個項目</text></name>
+    <questiontext format="html"><text><![CDATA[<p>三個項目以 1&#8211;9 量表評分：A（可能性 2、衝擊 9）、B（可能性 5、衝擊 5）、C（可能性 8、衝擊 2）。哪一個應<strong>最先</strong>測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>B——其暴露度 25 為最高</text><feedback><text>正確——A ＝ 2×9 = 18、B ＝ 5×5 = 25、C ＝ 8×2 = 16，故 B 最高。</text></feedback></answer>
+    <answer fraction="0"><text>A——因為它的衝擊最高</text><feedback><text>A 的暴露度是 2×9 = 18，低於 B 的 25；單看衝擊無法決定。</text></feedback></answer>
+    <answer fraction="0"><text>C——因為它的可能性最高</text><feedback><text>C 的暴露度是 8×2 = 16，在此最低；單看可能性無法決定。</text></feedback></answer>
+    <answer fraction="0"><text>三者相等，所以順序無關緊要</text><feedback><text>暴露度 18、25、16 各不相同，B 明顯最先。</text></feedback></answer>
+    <generalfeedback><text>逐一計算暴露度 ＝ 可能性 × 衝擊：A ＝ 18、B ＝ 25、C ＝ 16。由高到低即為 B、A、C，故 B 最先測試。單看衝擊或單看可能性都無法決定優先序——決定的是乘積。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>把項目放到風險矩陣上</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某項目的可能性高、衝擊也高。它落在風險矩陣的哪個位置，又如何處理？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>落在高-高（「紅色」）角落——優先序最高，最先測試</text><feedback><text>正確——高可能性搭配高衝擊是最高優先的格子。</text></feedback></answer>
+    <answer fraction="0"><text>落在低-低（「綠色」）角落——可安心延後</text><feedback><text>低-低是風險最小項目的角落；高-高項目正好相反。</text></feedback></answer>
+    <answer fraction="0"><text>落在矩陣之外，因為兩個值都太極端</text><feedback><text>極端值仍會落在矩陣上——而且正落在最關鍵的格子。</text></feedback></answer>
+    <answer fraction="0"><text>落在中間，因為兩個高值相互抵消</text><feedback><text>高值不會抵消；它們相乘成為最高的暴露度。</text></feedback></answer>
+    <generalfeedback><text>在風險矩陣上，可能性與衝擊是兩軸。兩者皆高的項目落在高-高（紅色）角落，風險暴露度最大，是最先要測試的對象。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何在高風險項目投入更多</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼風險式測試會把較多的測試資源分配給高風險項目？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為那裡的缺陷既較可能發生又較具破壞性，所以在那裡測試每單位投入能降低最多風險</text><feedback><text>正確——資源花在能換取最大風險降低之處。</text></feedback></answer>
+    <answer fraction="0"><text>因為高風險項目一定含有較多行程式碼</text><feedback><text>風險關乎可能性與衝擊，不是程式碼大小；小模組也可能是高風險。</text></feedback></answer>
+    <answer fraction="0"><text>因為低風險項目不可能含有任何缺陷</text><feedback><text>低風險項目仍可能有缺陷；只是較不關鍵，而非零缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>因為高風險項目一定最容易測試</text><feedback><text>測試難易與風險等級無關；理由是能降低較多風險。</text></feedback></answer>
+    <generalfeedback><text>在資源有限下，先測試最高風險的項目能換取整體風險暴露度最大的降低。那裡的缺陷較可能發生也較昂貴，因此同樣的投入用在那裡比用在低風險項目更有價值。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：關鍵測試人員離職</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「唯一熟悉付款模組的測試人員在發行前兩週辭職。」這主要是一種：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>專案風險——它關乎人力／資源，並非直接關乎產品的品質</text><feedback><text>正確——失去關鍵人員是專案／資源風險。</text></feedback></answer>
+    <answer fraction="0"><text>產品風險——它關乎軟體中的缺陷</text><feedback><text>此處並未描述任何產品缺陷；問題是人力／資源問題。</text></feedback></answer>
+    <answer fraction="0"><text>殘餘風險——它是測試後仍殘留的部分</text><feedback><text>殘餘風險是緩解後殘留的產品風險，不是人力事件。</text></feedback></answer>
+    <answer fraction="0"><text>都不是——人力從來不算風險</text><feedback><text>人力異動是典型的專案風險。</text></feedback></answer>
+    <generalfeedback><text>專案風險關乎專案的管理——時程、預算、人力、供應商。失去關鍵測試人員是人力／資源問題，因此是專案風險。（它可能間接提高產品風險，但事件本身是專案風險。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：稅額計算錯誤</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「應用程式在某些訂單上可能把營業稅算錯。」這主要是一種：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>產品風險——它關乎交付軟體中可能存在的缺陷</text><feedback><text>正確——算錯是產品中的品質問題。</text></feedback></answer>
+    <answer fraction="0"><text>專案風險——它關乎時程或人力</text><feedback><text>此處與時程、預算、人力無關；關乎的是軟體的行為。</text></feedback></answer>
+    <answer fraction="0"><text>只是殘餘風險，從不算產品風險</text><feedback><text>它是產品風險；若測試後仍殘留才可能成為殘餘風險，但它本身是產品風險。</text></feedback></answer>
+    <answer fraction="0"><text>不算風險，因為它尚未發生</text><feedback><text>風險依定義就是尚未發生的潛在問題。</text></feedback></answer>
+    <generalfeedback><text>產品風險關乎軟體本身的品質。稅額計算錯誤是交付產品中的缺陷，因此是產品風險——正是風險式測試針對的對象。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>排序 X、Y、Z</text></name>
+    <questiontext format="html"><text><![CDATA[<p>項目評分為：X（可能性 3、衝擊 4）、Y（可能性 6、衝擊 3）、Z（可能性 2、衝擊 5）。正確的測試先後順序（最高風險先）為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Y、X、Z</text><feedback><text>正確——Y ＝ 6×3 = 18、X ＝ 3×4 = 12、Z ＝ 2×5 = 10。</text></feedback></answer>
+    <answer fraction="0"><text>Z、X、Y</text><feedback><text>那是相反的順序；Z 的暴露度（10）是最低而非最高。</text></feedback></answer>
+    <answer fraction="0"><text>X、Y、Z</text><feedback><text>X 的暴露度是 12，低於 Y 的 18，故 X 不是第一。</text></feedback></answer>
+    <answer fraction="0"><text>Y、Z、X</text><feedback><text>Z（10）低於 X（12），故 Z 不能排在 X 之前。</text></feedback></answer>
+    <generalfeedback><text>暴露度 ＝ 可能性 × 衝擊：X ＝ 12、Y ＝ 18、Z ＝ 10。由高到低即為 Y、X、Z。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>比較兩個項目的暴露度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>項目 P 的可能性為 4、衝擊為 6；項目 Q 的可能性為 7、衝擊為 3。哪一個的風險暴露度較高？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>P，暴露度 24 對 Q 的 21</text><feedback><text>正確——P ＝ 4×6 = 24、Q ＝ 7×3 = 21。</text></feedback></answer>
+    <answer fraction="0"><text>Q，因為它的可能性較高</text><feedback><text>Q 的暴露度是 7×3 = 21，低於 P 的 24；單看較高的可能性不會勝出。</text></feedback></answer>
+    <answer fraction="0"><text>兩者相等</text><feedback><text>24 與 21 並不相等；P 較高。</text></feedback></answer>
+    <answer fraction="0"><text>Q，暴露度 24 對 P 的 21</text><feedback><text>數值弄反了：P ＝ 24、Q ＝ 21，故 P 較高。</text></feedback></answer>
+    <generalfeedback><text>P ＝ 4 × 6 = 24、Q ＝ 7 × 3 = 21，故儘管 Q 的可能性較大，P 的風險暴露度仍較高。決定優先序的是乘積，而非任一單一因素。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>暴露度相等、因素不同</text></name>
+    <questiontext format="html"><text><![CDATA[<p>項目 J 的可能性為 6、衝擊為 2；項目 K 的可能性為 4、衝擊為 3。比較它們的風險暴露度。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>兩者相等——暴露度都是 12</text><feedback><text>正確——J ＝ 6×2 = 12、K ＝ 4×3 = 12。</text></feedback></answer>
+    <answer fraction="0"><text>J 較高，因為它的可能性較大</text><feedback><text>J ＝ 6×2 = 12，與 K 相同；較大的可能性本身不會提高暴露度。</text></feedback></answer>
+    <answer fraction="0"><text>K 較高，因為它的衝擊較大</text><feedback><text>K ＝ 4×3 = 12，與 J 相等；單看較大的衝擊不會提高暴露度。</text></feedback></answer>
+    <answer fraction="0"><text>無法比較，因為它們的因素不同</text><feedback><text>可以透過乘積直接比較，兩者都是 12。</text></feedback></answer>
+    <generalfeedback><text>風險暴露度 ＝ 可能性 × 衝擊：J ＝ 6×2 = 12、K ＝ 4×3 = 12，故打成平手。不同的可能性／衝擊組合可能得到相同的暴露度——因此排優先序時可能需要次要準則，例如可偵測性或衝擊的嚴重度。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>該延後哪個項目</text></name>
+    <questiontext format="html"><text><![CDATA[<p>時間緊迫。三個項目評分為：付款（可能性 5、衝擊 8）、說明頁（可能性 2、衝擊 3）、登入（可能性 4、衝擊 7）。若必須延後一個，延後哪個最安全？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>說明頁——其暴露度 6 遠為最低</text><feedback><text>正確——付款 ＝ 40、登入 ＝ 28、說明頁 ＝ 6，故延後說明頁最安全。</text></feedback></answer>
+    <answer fraction="0"><text>付款——因為它的衝擊最高</text><feedback><text>付款的暴露度（40）最高；延後它會留下最大的風險未測。</text></feedback></answer>
+    <answer fraction="0"><text>登入——因為它是常見功能</text><feedback><text>登入的暴露度（28）遠高於說明頁的 6；說明頁才是較安全的延後對象。</text></feedback></answer>
+    <answer fraction="0"><text>都不能延後；三者風險相同</text><feedback><text>暴露度 40、6、28 差異很大，說明頁明顯風險最低。</text></feedback></answer>
+    <generalfeedback><text>暴露度 ＝ 可能性 × 衝擊：付款 ＝ 40、說明頁 ＝ 6、登入 ＝ 28。時間有限時應延後風險最低的項目，故延後說明頁最安全。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>低可能性、高衝擊在矩陣上</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個罕見但災難性的事件（例如所有客戶資料永久遺失）可能性低，但衝擊極高。在風險矩陣上，它應該：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>放在高衝擊帶，仍給予認真的關注，因為後果嚴重</text><feedback><text>正確——高衝擊使它即使可能性低仍然重要。</text></feedback></answer>
+    <answer fraction="0"><text>完全忽略，因為低可能性代表低風險</text><feedback><text>低可能性不代表可忽略；嚴重的衝擊使其暴露度仍具意義。</text></feedback></answer>
+    <answer fraction="0"><text>自動當成最低優先序</text><feedback><text>災難性的衝擊使它即使可能性低也無法成為最低優先。</text></feedback></answer>
+    <answer fraction="0"><text>因為不太可能發生就把它從矩陣移除</text><feedback><text>不太可能發生的項目仍屬於矩陣；還必須一併衡量衝擊。</text></feedback></answer>
+    <generalfeedback><text>因為暴露度 ＝ 可能性 × 衝擊，極高的衝擊即使在可能性低時也能讓暴露度保持顯著。這類罕見但災難性的項目會放在衝擊軸的高處，不會只因為不太可能發生就被忽視。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>徹底測試後的殘餘風險</text></name>
+    <questiontext format="html"><text><![CDATA[<p>即使經過非常徹底的風險式測試，產品中通常仍會殘留一些殘餘風險。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——測試降低風險但無法消除，故殘餘風險仍會殘留。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>再多的測試也無法移除所有風險；緩解後殘餘風險總是存在。</text></feedback></answer>
+    <generalfeedback><text>測試降低風險但永遠無法歸零——未測到的組合、未知的風險、未修正的低優先缺陷都會留下殘餘風險。利害關係人須判斷該殘餘風險對發行而言是否可接受。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>嚴重度與優先度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對於一個回報的缺陷，<em>嚴重度（severity）</em>與<em>優先度（priority）</em>有何不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>嚴重度是缺陷的影響有多嚴重；優先度是它應多快被修正</text><feedback><text>正確——嚴重度關乎技術上的衝擊，優先度關乎修正的急迫性。</text></feedback></answer>
+    <answer fraction="0"><text>它們是同一件事的兩個名稱</text><feedback><text>兩者相關但不同：缺陷可以高嚴重度卻低優先度，反之亦然。</text></feedback></answer>
+    <answer fraction="0"><text>嚴重度由客戶設定；優先度由編譯器設定</text><feedback><text>兩者都不是由編譯器設定；都是團隊／利害關係人的判斷。</text></feedback></answer>
+    <answer fraction="0"><text>優先度是缺陷有多嚴重；嚴重度是它多快重現</text><feedback><text>那把定義弄反又扭曲了；嚴重度＝嚴重程度、優先度＝修正急迫性。</text></feedback></answer>
+    <generalfeedback><text>嚴重度衡量缺陷影響的破壞程度（技術衝擊）；優先度衡量應多急迫修正（業務急迫性）。兩者常相關，但在很少使用的功能中的高嚴重度缺陷可能低優先，而顯眼畫面上的低嚴重度缺陷可能高優先。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>專案進行中重新評估風險</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼應在專案進行中定期重新評估風險，而不是只在一開始評一次？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為隨著產品、資訊與情況演變，可能性與衝擊都會改變</text><feedback><text>正確——風險評分並非靜態，優先序必須更新。</text></feedback></answer>
+    <answer fraction="0"><text>因為風險暴露度公式會隨時間改變</text><feedback><text>公式（可能性 × 衝擊）不變；改變的是它的輸入。</text></feedback></answer>
+    <answer fraction="0"><text>因為重新評估可保證殘餘風險為零</text><feedback><text>重新評估是精修優先序，並不能消除殘餘風險。</text></feedback></answer>
+    <answer fraction="0"><text>因為一開始的單次評估永遠完全準確</text><feedback><text>初期估計本就不確定；這正是需要重新評估的原因。</text></feedback></answer>
+    <generalfeedback><text>風險是動態的：隨著程式被寫出、缺陷被找到或修正、需求變動，可能性與衝擊都會改變。定期重新評估能讓優先排序與專案的當前狀態保持一致。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試如何降低風險暴露度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>透過找出並促成修正缺陷，測試最直接降低的是產品風險暴露度的哪一部分？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可能性——修正找到的缺陷可降低失敗在現場發生的機率</text><feedback><text>正確——測試主要針對可能性面向。</text></feedback></answer>
+    <answer fraction="0"><text>衝擊——測試會改變失敗會有多具破壞性</text><feedback><text>失敗的業務後果大多由情境固定；測試主要降低的是可能性。</text></feedback></answer>
+    <answer fraction="0"><text>都不是——測試根本無法影響風險暴露度</text><feedback><text>測試確實會降低暴露度，主要靠降低可能性。</text></feedback></answer>
+    <answer fraction="0"><text>測試完成後兩者都降為零</text><feedback><text>暴露度會降低但永遠不會歸零；殘餘風險仍存在。</text></feedback></answer>
+    <generalfeedback><text>測試找出可被修正的缺陷，降低它們在現場造成失敗的機率（可能性）。特定失敗的衝擊通常由其業務情境決定，而非由測試決定。測試也會提供資訊給利害關係人，但它對暴露度的直接影響主要透過可能性——而且永遠達不到零。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>隨時間監控風險</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在依風險分配好測試資源之後，正確的持續活動是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>監控並重新評估風險，隨評分改變而重新排定測試投入</text><feedback><text>正確——風險式測試是「辨識–評估–排序–監控」的反覆循環。</text></feedback></answer>
+    <answer fraction="0"><text>凍結優先序，因為重新評估浪費心力</text><feedback><text>凍結優先序會忽略新資訊；監控與重新評估是必要的。</text></feedback></answer>
+    <answer fraction="0"><text>第一個高風險項目通過後就停止所有測試</text><feedback><text>通過一個項目並未處理其餘風險；測試會依優先序繼續。</text></feedback></answer>
+    <answer fraction="0"><text>改成只測試風險最低的項目</text><feedback><text>投入仍應跟隨當前最高的風險，而非最低。</text></feedback></answer>
+    <generalfeedback><text>風險式測試是一個持續循環：辨識風險、評估可能性與衝擊、排定優先序、分配投入，然後監控並重新評估。隨著新缺陷、新資訊與變動到來，評分會改變，優先序也隨之更新。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Risk-Based Testing/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為四個項目的表格排定優先序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>四個功能以 1&#8211;9 量表評分：</p>
+<table border="1" cellpadding="4"><tr><th>功能</th><th>可能性</th><th>衝擊</th></tr>
+<tr><td>A</td><td>2</td><td>8</td></tr>
+<tr><td>B</td><td>5</td><td>6</td></tr>
+<tr><td>C</td><td>9</td><td>2</td></tr>
+<tr><td>D</td><td>3</td><td>3</td></tr></table>
+<p>正確的測試先後順序（風險暴露度最高先）為何？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>B、C、A、D</text><feedback><text>正確——B ＝ 30、C ＝ 18、A ＝ 16、D ＝ 9。</text></feedback></answer>
+    <answer fraction="0"><text>C、B、A、D</text><feedback><text>C ＝ 9×2 = 18，低於 B ＝ 30，故 C 不是第一。</text></feedback></answer>
+    <answer fraction="0"><text>A、B、C、D</text><feedback><text>A ＝ 2×8 = 16，同時低於 B（30）與 C（18），故 A 不是第一。</text></feedback></answer>
+    <answer fraction="0"><text>B、A、C、D</text><feedback><text>A ＝ 16 低於 C ＝ 18，故 A 必須排在 C 之後，而非之前。</text></feedback></answer>
+    <generalfeedback><text>暴露度 ＝ 可能性 × 衝擊：A ＝ 2×8 = 16、B ＝ 5×6 = 30、C ＝ 9×2 = 18、D ＝ 3×3 = 9。依暴露度由高到低排序即為 B（30）、C（18）、A（16）、D（9）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>在時間預算下選兩個</text></name>
+    <questiontext format="html"><text><![CDATA[<p>時間只夠完整測試以下四個項目中的兩個：</p>
+<table border="1" cellpadding="4"><tr><th>項目</th><th>可能性</th><th>衝擊</th></tr>
+<tr><td>結帳</td><td>6</td><td>8</td></tr>
+<tr><td>登入</td><td>4</td><td>7</td></tr>
+<tr><td>搜尋</td><td>5</td><td>2</td></tr>
+<tr><td>報表</td><td>2</td><td>3</td></tr></table>
+<p>應測試哪兩個？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>結帳與登入</text><feedback><text>正確——結帳 ＝ 48、登入 ＝ 28，是暴露度最高的兩個。</text></feedback></answer>
+    <answer fraction="0"><text>結帳與搜尋</text><feedback><text>搜尋 ＝ 5×2 = 10，低於登入的 28，故應選登入而非搜尋。</text></feedback></answer>
+    <answer fraction="0"><text>搜尋與報表</text><feedback><text>那是暴露度最低的兩個（10 與 6）；它們是該延後的，不是該測試的。</text></feedback></answer>
+    <answer fraction="0"><text>登入與搜尋</text><feedback><text>結帳（48）是單項最高，必須納入；搜尋（10）不應取代它。</text></feedback></answer>
+    <generalfeedback><text>暴露度 ＝ 可能性 × 衝擊：結帳 ＝ 48、登入 ＝ 28、搜尋 ＝ 10、報表 ＝ 6。在只能測兩個的容量下，測最高的兩個——結帳與登入——並延後搜尋與報表。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>排序四個相近的暴露度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>四個模組評分為：</p>
+<table border="1" cellpadding="4"><tr><th>模組</th><th>可能性</th><th>衝擊</th></tr>
+<tr><td>M1</td><td>3</td><td>5</td></tr>
+<tr><td>M2</td><td>4</td><td>4</td></tr>
+<tr><td>M3</td><td>2</td><td>9</td></tr>
+<tr><td>M4</td><td>6</td><td>2</td></tr></table>
+<p>把它們由風險暴露度最高排到最低。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>M3、M2、M1、M4</text><feedback><text>正確——M3 ＝ 18、M2 ＝ 16、M1 ＝ 15、M4 ＝ 12。</text></feedback></answer>
+    <answer fraction="0"><text>M1、M2、M3、M4</text><feedback><text>M1 ＝ 3×5 = 15 不是最高；M3 ＝ 18 才是。</text></feedback></answer>
+    <answer fraction="0"><text>M4、M3、M2、M1</text><feedback><text>M4 ＝ 6×2 = 12 是最低，而非最高。</text></feedback></answer>
+    <answer fraction="0"><text>M3、M1、M2、M4</text><feedback><text>M2 ＝ 16 大於 M1 ＝ 15，故 M2 必須排在 M1 之前。</text></feedback></answer>
+    <generalfeedback><text>暴露度 ＝ 可能性 × 衝擊：M1 ＝ 15、M2 ＝ 16、M3 ＝ 18、M4 ＝ 12。由高到低為 M3（18）、M2（16）、M1（15）、M4（12）——相近的數值正好要求逐一精確計算每個乘積。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>緩解後重新計算暴露度</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某項目評為可能性 8、衝擊 5（暴露度 40）。一項緩解措施（加入自動輸入驗證加上針對性的測試套件）預期可把可能性降到 3，而失敗的衝擊維持不變。新的風險暴露度是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>15</text><feedback><text>正確——新暴露度 ＝ 3 × 5 = 15。</text></feedback></answer>
+    <answer fraction="0"><text>0</text><feedback><text>緩解降低了可能性但並未消除它；殘餘暴露度是 3 × 5 = 15，而非 0。</text></feedback></answer>
+    <answer fraction="0"><text>40</text><feedback><text>那是原本的暴露度；降低後的可能性得到 3 × 5 = 15。</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>那是改變後的可能性 + 衝擊；暴露度是乘積 3 × 5 = 15。</text></feedback></answer>
+    <generalfeedback><text>緩解把可能性由 8 降到 3，而衝擊維持 5，故殘餘暴露度是 3 × 5 = 15。注意它從 40 降到 15，但並未降到零——殘餘風險仍然存在。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>低可能性、災難性衝擊值得測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某失效模式可能性為 1、衝擊為 10（暴露度 10），而一個例行功能可能性為 3、衝擊為 3（暴露度 9）。為什麼這個罕見但災難性的失效仍值得仔細測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它的暴露度（10）其實較高，而災難性的後果即使在低可能性下也值得關注</text><feedback><text>正確——1×10 = 10 大於 3×3 = 9，而且嚴重的衝擊本就重要。</text></feedback></answer>
+    <answer fraction="0"><text>因為低可能性一定代表低風險，所以可以忽略</text><feedback><text>低可能性本身不會使風險變低；高衝擊使暴露度仍然顯著。</text></feedback></answer>
+    <answer fraction="0"><text>因為例行功能的暴露度較高</text><feedback><text>例行功能的暴露度是 9，低於災難性模式的 10。</text></feedback></answer>
+    <answer fraction="0"><text>因為可能性是唯一重要的因素</text><feedback><text>兩個因素都重要；當衝擊極端時，它可能占主導。</text></feedback></answer>
+    <generalfeedback><text>暴露度 ＝ 可能性 × 衝擊：災難性模式是 1×10 = 10，高於例行功能的 3×3 = 9。除了數字本身，災難性後果（例如安全或全部資料遺失）即使機率很小，往往也值得額外測試，因為出錯的代價太高。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>迷思：100% 覆蓋率可消除風險</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊宣稱：「我們達到了 100% 程式碼覆蓋率，所以現在正式環境出現任何缺陷的風險為零。」最佳的批評是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>覆蓋率並不能消除風險——它不保證諭示正確、不涵蓋所有資料／路徑／環境，也無法處理缺漏的需求，因此殘餘風險仍存在</text><feedback><text>正確——完整覆蓋降低風險，但無法將其歸零。</text></feedback></answer>
+    <answer fraction="0"><text>正確——100% 覆蓋率確實代表零殘餘風險</text><feedback><text>這正是迷思；程式碼被執行到，並不代表輸出被檢查、缺漏的功能被涵蓋、或未試過的資料被測到。</text></feedback></answer>
+    <answer fraction="0"><text>覆蓋率無關緊要，對風險完全沒有影響</text><feedback><text>覆蓋率確實會降低風險；錯在宣稱它移除了全部風險。</text></feedback></answer>
+    <answer fraction="0"><text>唯一的缺陷是 100% 覆蓋率太昂貴</text><feedback><text>成本是另一個議題；關鍵缺陷在於即使完整覆蓋仍留有殘餘風險。</text></feedback></answer>
+    <generalfeedback><text>執行過每一行並不能驗證輸出是否被正確檢查，也不會演練每個輸入值、路徑組合、時序或環境，更無法揭露缺漏的需求。測試降低風險但永遠無法消除，因此宣稱 100% 覆蓋率後風險為零是誇大其詞——殘餘風險總是存在。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>高嚴重度但低優先度的缺陷</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某個當機只在一個冷僻的管理報表中發生，一位內部使用者一年才跑一次。此當機屬高<em>嚴重度</em>（它會完全中止該功能）。為什麼它的修正可能被排為低<em>優先度</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為它極少被觸發且幾乎不影響任何使用者，所以儘管局部影響嚴重，修正的業務急迫性很低</text><feedback><text>正確——嚴重度（影響有多糟）可以很高，而優先度（修正有多急）可以很低。</text></feedback></answer>
+    <answer fraction="0"><text>因為當機永遠不可能是高嚴重度</text><feedback><text>會中止功能的當機確實屬高嚴重度；重點是優先度仍可以很低。</text></feedback></answer>
+    <answer fraction="0"><text>因為嚴重度與優先度必須永遠相等</text><feedback><text>兩者經常分歧；此例正是如此。</text></feedback></answer>
+    <answer fraction="0"><text>因為低優先度代表它其實不算缺陷</text><feedback><text>它仍是真正的缺陷；優先度只反映修正的急迫性。</text></feedback></answer>
+    <generalfeedback><text>嚴重度衡量影響的技術嚴重程度（此處為完全當機），而優先度反映業務上多急需修正。很少使用、低暴露的功能可以帶有高嚴重度但低優先度的缺陷——這兩個面向相關但不同。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>低嚴重度但高優先度的缺陷</text></name>
+    <questiontext format="html"><text><![CDATA[<p>公司名稱在公開首頁上以大字拼錯。功能上沒有任何東西壞掉（低<em>嚴重度</em>）。為什麼這可能被排為高<em>優先度</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為它非常顯眼且損害品牌，所以即使功能影響很小，修正的急迫性仍然很高</text><feedback><text>正確——高能見度／業務衝擊使優先度上升，儘管技術嚴重度低。</text></feedback></answer>
+    <answer fraction="0"><text>因為外觀問題自動屬於高嚴重度</text><feedback><text>它在功能上是低嚴重度；重點是優先度依然很高。</text></feedback></answer>
+    <answer fraction="0"><text>因為優先度永遠等同於嚴重度</text><feedback><text>此處兩者分歧：低嚴重度、高優先度。</text></feedback></answer>
+    <answer fraction="0"><text>因為低嚴重度的缺陷從不值得修正</text><feedback><text>這個顯然值得盡快修正，這正是優先度高的原因。</text></feedback></answer>
+    <generalfeedback><text>嚴重度低，因為功能上沒壞掉，但這個缺陷位於最顯眼的頁面且損害品牌，因此業務急迫性——優先度——很高。這是「高嚴重度／低優先度」的鏡像，說明兩個面向彼此獨立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>被延後項目的殘餘風險</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在期限壓力下，團隊完整測試了最高風險的項目，並刻意延後一個未加測試的中等風險項目。發行時，正確的描述是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>被延後的項目構成產品的殘餘風險，利害關係人應在發行前明知地接受或拒絕它</text><feedback><text>正確——未測試而延後的項目正是應被明確承認的殘餘風險。</text></feedback></answer>
+    <answer fraction="0"><text>沒有殘餘風險，因為最高風險的項目都測過了</text><feedback><text>被延後、未測試的項目仍把風險帶進正式環境；殘餘風險不是零。</text></feedback></answer>
+    <answer fraction="0"><text>延後一個項目就消除了它的風險</text><feedback><text>延後測試並不會消除底層風險；它只是讓風險未被處理。</text></feedback></answer>
+    <answer fraction="0"><text>被延後的項目現在保證無缺陷</text><feedback><text>不測試某物不可能使它無缺陷；它的風險只是未被檢視。</text></feedback></answer>
+    <generalfeedback><text>刻意延後一個中等風險項目是正當的風險式決策，但這個未測試的項目仍把風險帶進正式環境。那就是殘餘風險，良好做法是把它明確化，讓利害關係人判斷是否可接受而出貨。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>打破暴露度的平手</text></name>
+    <questiontext format="html"><text><![CDATA[<p>兩個項目暴露度同為 12：項目 G（可能性 2、衝擊 6）與項目 H（可能性 6、衝擊 2）。G 的缺陷會是災難性且在現場難以偵測，而 H 的失敗輕微且很快就會被注意到。哪個做法比較站得住腳？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>更深入地測試 G，因為在暴露度相等時，衝擊較高、較難偵測的項目值得額外的嚴謹</text><feedback><text>正確——暴露度打平時，衝擊嚴重度與可偵測性等次要因素用來打破平手。</text></feedback></answer>
+    <answer fraction="0"><text>更深入地測試 H，因為它的可能性較高</text><feedback><text>在暴露度相等、且 H 的失敗輕微又明顯時，單看較高的可能性不足以證成更多嚴謹。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都跳過，因為暴露度相等代表都不重要</text><feedback><text>暴露度相等不代表風險可忽略；兩者都仍重要，尤其是 G。</text></feedback></answer>
+    <answer fraction="0"><text>對兩者測試完全相同，因為數字絕不可被推翻</text><feedback><text>暴露度數字是起點；在暴露度相等時，質性因素可正當地精修決策。</text></feedback></answer>
+    <generalfeedback><text>兩個項目暴露度都是 2×6 = 6×2 = 12，故乘積無法區分它們。風險式測試接著使用次要準則：G 那災難性、難偵測的衝擊使它是兩者中較危險者，因此值得更深入測試。這說明暴露度分數引導但不完全決定優先序。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>專案中重新評估的效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某項目起初評為可能性 2、衝擊 4（暴露度 8），後來發現它位於一條新發現的關鍵整合路徑上，使其可能性升到 7（衝擊不變）。應該怎麼做？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>其暴露度升為 28，因此應向上重新排定優先序並投入更多測試</text><feedback><text>正確——7 × 4 = 28，是一次大跳升，把它往優先清單上方移。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都不變，因為風險評分一經設定就固定</text><feedback><text>評分並非固定；新資訊必須觸發重新評估。</text></feedback></answer>
+    <answer fraction="0"><text>暴露度仍是 8，因為只有衝擊會影響暴露度</text><feedback><text>暴露度取決於兩個因素；較高的可能性使它升為 7 × 4 = 28。</text></feedback></answer>
+    <answer fraction="0"><text>應調降優先序，因為它一開始是低風險</text><feedback><text>初始評分已被取代；此項目現在是較高風險，而非較低。</text></feedback></answer>
+    <generalfeedback><text>重新評估以更新後的可能性重算暴露度：7 × 4 = 28，由 8 升上來。因為風險是動態的，該項目被往優先序上方移並獲得更多測試投入——正說明了風險式測試的監控／重新評估步驟。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>排序勝過單因素排序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>項目：R（可能性 9、衝擊 2）、S（可能性 3、衝擊 5）、T（可能性 4、衝擊 6）。一位同事提議依可能性排序來測試：R、T、S。這個計畫錯在哪裡？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>只依可能性排序是錯的；依暴露度，正確順序是 T（24）、R（18）、S（15）</text><feedback><text>正確——暴露度為 R ＝ 18、S ＝ 15、T ＝ 24，故正確順序是 T、R、S，而非 R、T、S。</text></feedback></answer>
+    <answer fraction="0"><text>沒有錯；依可能性排序永遠等同於依暴露度排序</text><feedback><text>並非如此：T 的可能性低於 R，暴露度卻較高（24 對 18）。</text></feedback></answer>
+    <answer fraction="0"><text>計畫是對的，因為 R 的可能性最高</text><feedback><text>最高的可能性不代表最高的暴露度；R 的暴露度（18）低於 T 的（24）。</text></feedback></answer>
+    <answer fraction="0"><text>暴露度應由小到大排序，故順序為 R、S、T</text><feedback><text>較高風險先測（由大到小），而且 R 也並非最低。</text></feedback></answer>
+    <generalfeedback><text>暴露度 ＝ 可能性 × 衝擊：R ＝ 9×2 = 18、S ＝ 3×5 = 15、T ＝ 4×6 = 24。依暴露度（由大到小）排序為 T、R、S——與只依可能性的順序 R、T、S 不同。排優先序必須用兩因素的乘積，而非單一因素。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試為風險決策提供資訊</text></name>
+    <questiontext format="html"><text><![CDATA[<p>除了找出缺陷之外，執行風險式測試還如何為利害關係人降低風險？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它提供資訊，縮小對真實風險等級的不確定性，使發行決策更有依據</text><feedback><text>正確——即使沒找到缺陷，測試結果也降低不確定性。</text></feedback></answer>
+    <answer fraction="0"><text>它證明軟體完全沒有缺陷</text><feedback><text>測試無法證明所有缺陷都不存在；它降低不確定性，但不會降到零。</text></feedback></answer>
+    <answer fraction="0"><text>它把每個測過的項目的風險永久設為零</text><feedback><text>測試後殘餘風險仍存在；風險不會被歸零。</text></feedback></answer>
+    <answer fraction="0"><text>除非真的找到缺陷，否則它沒有價值</text><feedback><text>即使測試通過，也因降低了對風險的不確定性而有價值。</text></feedback></answer>
+    <generalfeedback><text>風險式測試以兩種方式降低風險：找出可修正的缺陷（降低可能性），以及提供證據以降低對實際品質的不確定性——幫助利害關係人判斷殘餘風險並做出有依據的發行決策。它永遠不會完全消除風險。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>無法測試的高風險項目</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個高暴露度的項目依賴一個在發行前無法演練的第三方服務。合理的風險式回應是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>以其他方式緩解（例如樁程式、契約、監控），並把仍未測試的部分記錄為明確的殘餘風險</text><feedback><text>正確——在無法直接測試時，採用替代緩解並讓殘餘風險可見。</text></feedback></answer>
+    <answer fraction="0"><text>因為它無法測試就宣告它零風險</text><feedback><text>無法測試並不會移除風險；反而使風險更不被理解。</text></feedback></answer>
+    <answer fraction="0"><text>完全忽略它，因為無法測試的項目不在範圍內</text><feedback><text>高暴露度的項目不能就此忽略；必須緩解並追蹤其殘餘風險。</text></feedback></answer>
+    <answer fraction="0"><text>假設第三方保證它無缺陷</text><feedback><text>假設無缺陷並無根據；必須承認殘餘風險。</text></feedback></answer>
+    <generalfeedback><text>當高風險項目無法直接測試時，風險式測試會採用替代緩解——服務樁程式、契約測試、額外監控、應變計畫——並明確記錄仍殘留的風險為殘餘風險，讓利害關係人在發行決策中一併衡量。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>風險式測試的完整循環</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個順序最能描述風險式測試的流程？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>辨識風險 → 評估可能性與衝擊 → 依暴露度排優先序 → 分配／執行測試 → 監控並重新評估</text><feedback><text>正確——這就是反覆的風險式測試循環。</text></feedback></answer>
+    <answer fraction="0"><text>寫好所有測試 → 以隨機順序執行 → 一失敗就停止</text><feedback><text>那完全忽略了風險評估與排定優先序。</text></feedback></answer>
+    <answer fraction="0"><text>對每個項目投入相同心力 → 從不重新評估</text><feedback><text>均一投入且不重新評估，正好與風險式測試相反。</text></feedback></answer>
+    <answer fraction="0"><text>先修好所有缺陷 → 再決定存在哪些風險</text><feedback><text>風險是在測試之前並貫穿測試過程中辨識與評估的，而非在修完一切之後。</text></feedback></answer>
+    <generalfeedback><text>風險式測試是一個反覆的循環：辨識風險、評估每個風險的可能性與衝擊、依風險暴露度排優先序、據此分配並執行測試投入，然後隨著專案與其風險演變而監控並重新評估。</text></generalfeedback>
+  </question>
+</quiz>
