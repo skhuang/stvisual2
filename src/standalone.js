@@ -86346,6 +86346,2524 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "metamorphic-testing": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What metamorphic testing is",
+            "text": "<p>What is the core idea of <strong>metamorphic testing (MT)</strong>?</p>",
+            "answers": [
+              {
+                "text": "Instead of checking one output against a known expected value, it checks a relation (a metamorphic relation) between the outputs of multiple related runs of the program",
+                "fraction": 100,
+                "feedback": "Correct \u2014 MT verifies a relationship across related runs rather than one output against a fixed expected value."
+              },
+              {
+                "text": "It formally proves that the program satisfies its full specification",
+                "fraction": 0,
+                "feedback": "MT finds violations; it does not prove a program correct."
+              },
+              {
+                "text": "It measures how many branches a test suite covers",
+                "fraction": 0,
+                "feedback": "That is coverage measurement; MT is an oracle technique, not a coverage metric."
+              },
+              {
+                "text": "It generates random inputs and only reports crashes",
+                "fraction": 0,
+                "feedback": "That is a crash-oracle fuzzing approach; MT checks a metamorphic relation between outputs."
+              }
+            ],
+            "generalFeedback": "Metamorphic testing attacks the oracle problem. Rather than needing the exact expected output for an input, it runs the program on two or more related inputs and checks that a required relationship (a metamorphic relation) holds among the outputs. A broken relation exposes a fault even when no single expected value is known.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a metamorphic relation is",
+            "text": "<p>What is a <strong>metamorphic relation (MR)</strong>?</p>",
+            "answers": [
+              {
+                "text": "A property that must hold among the inputs and outputs of two or more related runs of a correct program",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an MR links the inputs/outputs of related runs and must hold for any correct implementation."
+              },
+              {
+                "text": "The single exact expected output value for one specific input",
+                "fraction": 0,
+                "feedback": "That is a conventional expected-value oracle; an MR avoids needing that exact value."
+              },
+              {
+                "text": "A relation between the coverage of two branches of the program",
+                "fraction": 0,
+                "feedback": "MRs relate outputs of related inputs, not the coverage of branches."
+              },
+              {
+                "text": "A random seed that links two runs of a generator",
+                "fraction": 0,
+                "feedback": "A seed concerns reproducibility, not a required correctness relationship among outputs."
+              }
+            ],
+            "generalFeedback": "A metamorphic relation is a necessary property connecting multiple executions: given how the inputs are related (an input transformation), it states how the outputs must be related. For example, sorting a permutation of a list must give the same result. An MR must hold for every correct implementation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The oracle problem MT addresses",
+            "text": "<p>Metamorphic testing is chiefly aimed at which difficulty?</p>",
+            "answers": [
+              {
+                "text": "The test oracle problem \u2014 deciding whether a program's output for an input is correct when the exact expected output is unknown or expensive to obtain",
+                "fraction": 100,
+                "feedback": "Correct \u2014 MT provides a check when you cannot easily compute the expected output."
+              },
+              {
+                "text": "The reachability problem of covering deeply nested branches",
+                "fraction": 0,
+                "feedback": "Reaching code is a generation/coverage concern; MT addresses judging correctness."
+              },
+              {
+                "text": "Path explosion in symbolic execution",
+                "fraction": 0,
+                "feedback": "Path explosion is a scaling limit of symbolic analysis, not what MT targets."
+              },
+              {
+                "text": "The halting problem",
+                "fraction": 0,
+                "feedback": "MT does not decide termination; it checks relations among outputs."
+              }
+            ],
+            "generalFeedback": "The oracle problem is that, even with an input in hand, deciding whether the output is correct usually needs the intended answer \u2014 which may be unknown or costly. MT sidesteps this by checking a relation between related runs instead of any single expected value, giving a usable partial oracle.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Source versus follow-up test case",
+            "text": "<p>In MT, how is a <strong>follow-up</strong> test case related to a <strong>source</strong> test case?</p>",
+            "answers": [
+              {
+                "text": "The follow-up input is derived from the source input by an input transformation prescribed by the metamorphic relation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the MR dictates how to transform the source input into the follow-up input."
+              },
+              {
+                "text": "The follow-up input is an unrelated input chosen at random",
+                "fraction": 0,
+                "feedback": "The follow-up must be derived from the source via the MR's transformation, not chosen at random."
+              },
+              {
+                "text": "The follow-up is the expected output of the source run",
+                "fraction": 0,
+                "feedback": "The follow-up is another input, not an output value."
+              },
+              {
+                "text": "The follow-up is the source input run again with a different random seed only",
+                "fraction": 0,
+                "feedback": "Merely changing a seed is not the input transformation an MR prescribes."
+              }
+            ],
+            "generalFeedback": "MT runs a source test case, then constructs a follow-up test case by transforming the source input according to the MR (e.g. permute the list, add \u03C0 \u2212 x, scale all values). It then checks that the outputs of the two runs satisfy the MR's output relation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What an MR violation means",
+            "text": "<p>A run's outputs <strong>violate</strong> a valid metamorphic relation. What does this indicate?</p>",
+            "answers": [
+              {
+                "text": "The implementation is faulty \u2014 a correct program would have satisfied the relation (assuming the MR is a genuine necessary property)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 violating a valid MR reveals a bug."
+              },
+              {
+                "text": "Nothing; metamorphic relations are only performance hints",
+                "fraction": 0,
+                "feedback": "An MR is a correctness property, not a performance hint; violating a valid one signals a fault."
+              },
+              {
+                "text": "The program is proven correct",
+                "fraction": 0,
+                "feedback": "A violation indicates the opposite \u2014 a fault, not correctness."
+              },
+              {
+                "text": "Only that branch coverage was insufficient",
+                "fraction": 0,
+                "feedback": "An MR violation is about incorrect output behavior, not coverage."
+              }
+            ],
+            "generalFeedback": "If the MR is genuinely necessary for any correct implementation, then a violation means the program produced results that a correct program could not \u2014 i.e. a bug. This is the power of MT: it detects faults without ever computing an exact expected output.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Satisfying MRs does not prove correctness",
+            "text": "<p>If a program satisfies all chosen metamorphic relations on all tested inputs, it is thereby proven correct.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "No \u2014 MT can reveal violations but cannot prove correctness; untested inputs and unmodeled properties can still hide faults."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 satisfying MRs never proves correctness; it only means no violation of those relations was found on those inputs."
+              }
+            ],
+            "generalFeedback": "Like testing generally, MT can show the presence of faults (via a violation) but not their absence. The chosen relations capture only some required properties, and only finitely many inputs are tried, so a program can satisfy every MR and still be wrong on an untested case or a property no MR captures."
+          },
+          {
+            "type": "multichoice",
+            "name": "Valid MR for sine",
+            "text": "<p>Which is a valid metamorphic relation for a correct implementation of <code>sin(x)</code>?</p>",
+            "answers": [
+              {
+                "text": "sin(x) = sin(\u03C0 \u2212 x) for all x",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this is a true identity, so a correct sine must satisfy it."
+              },
+              {
+                "text": "sin(2x) = 2\xB7sin(x) for all x",
+                "fraction": 0,
+                "feedback": "False in general \u2014 e.g. at x = \u03C0/2, sin(\u03C0) = 0 but 2\xB7sin(\u03C0/2) = 2."
+              },
+              {
+                "text": "sin(x) = sin(x + \u03C0) for all x",
+                "fraction": 0,
+                "feedback": "False \u2014 sin(x + \u03C0) = \u2212sin(x), not sin(x)."
+              },
+              {
+                "text": "sin(x) = x for all x",
+                "fraction": 0,
+                "feedback": "False \u2014 this holds only near 0 as an approximation, not as an identity."
+              }
+            ],
+            "generalFeedback": "The identity sin(x) = sin(\u03C0 \u2212 x) holds for every real x (supplementary angles have equal sine). It is a classic metamorphic relation: from a source input x, the follow-up input \u03C0 \u2212 x must yield an equal output. The distractors are not identities, so they would not be valid MRs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Valid MR for sorting",
+            "text": "<p>Which relation is a valid metamorphic relation for a correct <strong>sort</strong> function?</p>",
+            "answers": [
+              {
+                "text": "Sorting any permutation of a list yields the same result: sort(perm(L)) == sort(L)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the sorted output depends only on the multiset of elements, not their order."
+              },
+              {
+                "text": "Sorting a list twice reverses it",
+                "fraction": 0,
+                "feedback": "Sorting is idempotent: sorting an already-sorted list leaves it unchanged, not reversed."
+              },
+              {
+                "text": "Sorting the reverse of a list gives the reverse of the sorted list",
+                "fraction": 0,
+                "feedback": "No \u2014 sort(reverse(L)) == sort(L); reversing first does not reverse the sorted output."
+              },
+              {
+                "text": "Sorting doubles the length of the list",
+                "fraction": 0,
+                "feedback": "Sorting is a permutation of the input; it never changes the length."
+              }
+            ],
+            "generalFeedback": "A correct sort produces an ordering that depends only on the multiset of elements. So sorting any permutation of the same elements must give an identical result \u2014 permutation invariance. This makes a strong MR, since you can shuffle a source list to build a follow-up input without knowing the expected order in advance.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Valid MR for commutative addition",
+            "text": "<p>For a function <code>add(a, b) = a + b</code>, which is a valid metamorphic relation?</p>",
+            "answers": [
+              {
+                "text": "add(a, b) == add(b, a)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 addition is commutative, so swapping the operands must give the same result."
+              },
+              {
+                "text": "add(a, b) == add(a, b + 1)",
+                "fraction": 0,
+                "feedback": "False \u2014 changing an operand changes the sum."
+              },
+              {
+                "text": "add(a, b) == a",
+                "fraction": 0,
+                "feedback": "False unless b = 0; not a general property."
+              },
+              {
+                "text": "add(a, b) == 2\xB7add(b, a)",
+                "fraction": 0,
+                "feedback": "False in general \u2014 the sum is not doubled by swapping operands."
+              }
+            ],
+            "generalFeedback": "Commutativity, f(a, b) = f(b, a), is a valid MR for any commutative operation such as addition or multiplication. The follow-up input simply swaps the two operands, and the outputs must be equal. Note it is not valid for non-commutative operations like subtraction or division.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MR versus a conventional oracle",
+            "text": "<p>How does a metamorphic relation differ from a conventional (expected-value) oracle?</p>",
+            "answers": [
+              {
+                "text": "A conventional oracle compares one run's output to a precomputed expected value; an MR checks a required relationship among the outputs of several related runs, needing no precomputed expected value",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the MR replaces a per-input expected value with a cross-run relationship."
+              },
+              {
+                "text": "They are identical; both require the exact expected output of each input",
+                "fraction": 0,
+                "feedback": "An MR specifically avoids needing the exact expected output."
+              },
+              {
+                "text": "An MR compares source code while a conventional oracle compares outputs",
+                "fraction": 0,
+                "feedback": "Both concern outputs; an MR compares outputs across runs, not source code."
+              },
+              {
+                "text": "An MR measures runtime while a conventional oracle measures memory",
+                "fraction": 0,
+                "feedback": "Neither is about performance; both judge functional correctness."
+              }
+            ],
+            "generalFeedback": "A conventional oracle needs the exact answer for each input, which can be unknown or costly. An MR needs only a relationship that must hold between related runs (e.g. equal, \u2264, scaled by k). That is precisely why MT helps when computing expected outputs is infeasible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When metamorphic testing fits",
+            "text": "<p>In which situation is metamorphic testing especially useful?</p>",
+            "answers": [
+              {
+                "text": "When there is no easy or affordable oracle \u2014 e.g. machine-learning models, scientific computing, compilers, graphics, and search engines \u2014 so exact expected outputs are hard to obtain",
+                "fraction": 100,
+                "feedback": "Correct \u2014 MT shines precisely where computing the expected output is hard."
+              },
+              {
+                "text": "Only when a full formal specification and a trusted reference implementation already exist",
+                "fraction": 0,
+                "feedback": "If you already have a reference, you can use it directly; MT is most valuable when you do not."
+              },
+              {
+                "text": "Only for programs that take no inputs at all",
+                "fraction": 0,
+                "feedback": "MT needs inputs it can transform; a no-input program has nothing to transform."
+              },
+              {
+                "text": "Only after 100% branch coverage has already been achieved",
+                "fraction": 0,
+                "feedback": "MT is independent of coverage level; it addresses the oracle, not coverage."
+              }
+            ],
+            "generalFeedback": "MT was created for exactly the domains where the oracle problem bites: machine learning, numerical/scientific code, compilers, computer graphics, and search \u2014 programs whose correct output is hard or impossible to state in advance, but which nonetheless obey checkable relationships between related runs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the input transformation is",
+            "text": "<p>In MT, what is the <strong>input transformation</strong>?</p>",
+            "answers": [
+              {
+                "text": "The rule that constructs the follow-up input from the source input (e.g. take \u03C0 \u2212 x, permute a list, scale all values by k)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the input transformation builds the follow-up input."
+              },
+              {
+                "text": "The rule that converts the program's source code into bytecode",
+                "fraction": 0,
+                "feedback": "That is compilation, unrelated to the MT input transformation."
+              },
+              {
+                "text": "The exact numeric output expected for the source input",
+                "fraction": 0,
+                "feedback": "MT avoids needing that; the transformation produces an input, not an expected output."
+              },
+              {
+                "text": "The metric that measures branch coverage of the suite",
+                "fraction": 0,
+                "feedback": "That is coverage, not the input transformation."
+              }
+            ],
+            "generalFeedback": "Each MR comes with an input transformation (how to derive the follow-up input from the source) and an output relation (how the two outputs must relate). Applying the transformation to a source input yields the follow-up input to run.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Valid MR for a set",
+            "text": "<p>For a <strong>set</strong> data structure, which is a valid metamorphic relation?</p>",
+            "answers": [
+              {
+                "text": "Inserting an element that is already present leaves membership and the set's size unchanged",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a set holds each element at most once, so re-inserting a duplicate changes nothing."
+              },
+              {
+                "text": "Inserting a duplicate always increases the size by one",
+                "fraction": 0,
+                "feedback": "A set does not store duplicates, so size stays the same."
+              },
+              {
+                "text": "Inserting a duplicate removes the original element",
+                "fraction": 0,
+                "feedback": "The element remains a member; it is neither removed nor doubled."
+              },
+              {
+                "text": "Inserting a duplicate deterministically reverses iteration order",
+                "fraction": 0,
+                "feedback": "That is not a required property of a set; iteration order is not guaranteed to reverse."
+              }
+            ],
+            "generalFeedback": "A set stores each value at most once. Adding an element it already contains must leave both the membership predicate and the cardinality unchanged. This is a clean MR: the follow-up input adds a duplicate, and the output (size or membership) must match the source.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Valid MR for a mean function",
+            "text": "<p>For a function computing the <strong>arithmetic mean</strong> of a list, which is a valid metamorphic relation?</p>",
+            "answers": [
+              {
+                "text": "Multiplying every input value by a constant k multiplies the mean by k",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the mean is linear, so scaling all inputs scales the mean identically."
+              },
+              {
+                "text": "Multiplying every value by k leaves the mean unchanged",
+                "fraction": 0,
+                "feedback": "The mean scales with the values; it is not invariant under scaling."
+              },
+              {
+                "text": "Adding a constant k to just one value leaves the mean unchanged",
+                "fraction": 0,
+                "feedback": "Changing one value changes the sum and hence the mean."
+              },
+              {
+                "text": "Multiplying every value by k multiplies the mean by k\xB2",
+                "fraction": 0,
+                "feedback": "That is how variance scales; the mean scales by k, not k\xB2."
+              }
+            ],
+            "generalFeedback": 'mean(k\xB7x\u2081, \u2026, k\xB7x\u2099) = k\xB7mean(x\u2081, \u2026, x\u2099) because the mean is a linear function of its inputs. So scaling every value by k is an input transformation whose output relation is "the mean is multiplied by k" \u2014 a valid MR requiring no expected value.',
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "MT uses multiple related runs",
+            "text": "<p>Metamorphic testing checks a property across the outputs of multiple related runs, rather than judging a single run against a fixed expected value.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 MT compares outputs of related runs, which is what lets it work without a per-input expected value."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "MT does rely on multiple related runs; that is the essence of a metamorphic relation."
+              }
+            ],
+            "generalFeedback": "The defining feature of MT is that it needs at least two related executions \u2014 a source and one or more follow-ups \u2014 and checks a relationship among their outputs. A single run compared to a fixed expected value is an ordinary oracle, not MT."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Construct the follow-up for sine",
+            "text": "<p>Using the MR <code>sin(x) = sin(\u03C0 \u2212 x)</code>, a source test uses input <code>x = 0.3</code>. What is the follow-up input and the expected output relation?</p>",
+            "answers": [
+              {
+                "text": "Follow-up input = \u03C0 \u2212 0.3 (\u2248 2.8416); the two outputs must be equal",
+                "fraction": 100,
+                "feedback": "Correct \u2014 apply the transformation \u03C0 \u2212 x and require equal outputs."
+              },
+              {
+                "text": "Follow-up input = 2 \xD7 0.3; the two outputs must be equal",
+                "fraction": 0,
+                "feedback": "Doubling the input is not this MR's transformation, and sin(0.6) \u2260 sin(0.3)."
+              },
+              {
+                "text": "Follow-up input = 0.3 + \u03C0; the two outputs must be equal",
+                "fraction": 0,
+                "feedback": "That uses \u03C0 + x, giving sin(0.3 + \u03C0) = \u2212sin(0.3), which is not equal."
+              },
+              {
+                "text": "Follow-up input = \u03C0 \u2212 0.3; the follow-up output must be double the source",
+                "fraction": 0,
+                "feedback": "The transformation is right but the relation is equality, not doubling."
+              }
+            ],
+            "generalFeedback": "The MR's transformation is x \u21A6 \u03C0 \u2212 x and its output relation is equality. So the follow-up input is \u03C0 \u2212 0.3 \u2248 2.8416, and a correct sine must return the same value for both \u2014 no expected value needs to be known.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Construct the follow-up for sort",
+            "text": "<p>To test a sort routine with permutation invariance, from source list <code>L = [3, 1, 2]</code> how do you build the follow-up input and what relation must hold?</p>",
+            "answers": [
+              {
+                "text": "Follow-up = any permutation of L, e.g. [2, 3, 1]; the sorted outputs of L and the follow-up must be identical",
+                "fraction": 100,
+                "feedback": "Correct \u2014 shuffle the elements; the sorted results must match."
+              },
+              {
+                "text": "Follow-up = the reverse of the sorted output; the two outputs must differ",
+                "fraction": 0,
+                "feedback": "The follow-up must be a permutation of the same input, and the outputs must be equal, not differ."
+              },
+              {
+                "text": "Follow-up = L with one element removed; the two outputs must be equal",
+                "fraction": 0,
+                "feedback": "Removing an element changes the multiset, so the sorted output legitimately changes."
+              },
+              {
+                "text": "Follow-up = L with every value doubled; the two outputs must be equal",
+                "fraction": 0,
+                "feedback": "Doubling the values changes the elements, so the sorted output changes."
+              }
+            ],
+            "generalFeedback": "Permutation invariance says the sorted output depends only on the multiset of elements. So the follow-up input is any reordering of L (e.g. [2, 3, 1]), and sort(follow-up) must equal sort(L). Only reorderings are valid transformations here; adding, removing, or altering values changes the multiset.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Search result-count monotonicity",
+            "text": "<p>For a search that returns <em>every</em> document matching <em>all</em> query terms (a conjunctive filter), which is a valid metamorphic relation?</p>",
+            "answers": [
+              {
+                "text": "Adding another required term can only keep or reduce the number of results (a more specific query returns \u2264 the results of the less specific one)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the more specific query's result set is a subset, so its count is \u2264."
+              },
+              {
+                "text": "Adding another required term can only increase the number of results",
+                "fraction": 0,
+                "feedback": "Wrong direction \u2014 narrowing the query cannot add matches."
+              },
+              {
+                "text": "Removing a required term can only reduce the number of results",
+                "fraction": 0,
+                "feedback": "Wrong direction \u2014 broadening the query cannot lose matches."
+              },
+              {
+                "text": "The result count is independent of the query terms",
+                "fraction": 0,
+                "feedback": "The count clearly depends on which terms are required."
+              }
+            ],
+            "generalFeedback": "Under conjunctive-filter semantics, a document is returned iff it matches every required term. Requiring one more term can only remove documents, never add them, so the result set of the more specific query is a subset of the broader one and its count is \u2264. This monotonicity is a valid MR: no expected count is needed, only the \u2264 relation between two related queries.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Construct the follow-up for mean scaling",
+            "text": "<p>A program computes the mean of a list. Source input <code>[2, 4, 6]</code> gives <code>4</code>. Using the scaling MR with <code>k = 3</code>, what is the follow-up input and expected output?</p>",
+            "answers": [
+              {
+                "text": "Follow-up = [6, 12, 18]; expected mean = 12 (= 3 \xD7 4)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 scale every value by 3, and the mean scales by 3."
+              },
+              {
+                "text": "Follow-up = [6, 12, 18]; expected mean = 4",
+                "fraction": 0,
+                "feedback": "The transformation is right but scaling the inputs by 3 scales the mean to 12, not 4."
+              },
+              {
+                "text": "Follow-up = [5, 7, 9]; expected mean = 7",
+                "fraction": 0,
+                "feedback": "Adding 3 to each value (not multiplying) is a different transformation than this MR."
+              },
+              {
+                "text": "Follow-up = [2, 4, 6, 3]; expected mean = 12",
+                "fraction": 0,
+                "feedback": "Appending a value is not the scaling transformation, and that mean would be 3.75."
+              }
+            ],
+            "generalFeedback": "The scaling MR multiplies every input by k and expects the mean to be multiplied by k. With k = 3, the follow-up input is [6, 12, 18] and the expected mean is 3 \xD7 4 = 12. Verify: (6 + 12 + 18)/3 = 12.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Construct the follow-up for commutativity",
+            "text": "<p>For a function <code>f(a, b) = a \xD7 b</code>, using the commutativity MR, how do you build the follow-up from source <code>(a = 5, b = 7)</code>?</p>",
+            "answers": [
+              {
+                "text": "Follow-up = (a = 7, b = 5); the two outputs must be equal (both 35)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 swap the operands; multiplication is commutative, so outputs match."
+              },
+              {
+                "text": "Follow-up = (a = 5, b = 5); the two outputs must be equal",
+                "fraction": 0,
+                "feedback": "That changes an operand rather than swapping; 5 \xD7 5 \u2260 5 \xD7 7."
+              },
+              {
+                "text": "Follow-up = (a = 7, b = 5); the follow-up output must be double the source",
+                "fraction": 0,
+                "feedback": "The swap is right, but the relation is equality, not doubling."
+              },
+              {
+                "text": "Follow-up = (a = 10, b = 14); the two outputs must be equal",
+                "fraction": 0,
+                "feedback": "Doubling both operands is not the commutativity transformation, and 10 \xD7 14 \u2260 5 \xD7 7."
+              }
+            ],
+            "generalFeedback": "The commutativity MR's transformation swaps the operands, and its output relation is equality. From (5, 7) the follow-up is (7, 5), and a correct multiplication returns 35 for both. No expected value is needed \u2014 only that the two outputs agree.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why MT helps with no oracle",
+            "text": "<p>Why is MT valuable for a program whose exact expected output is infeasible to compute?</p>",
+            "answers": [
+              {
+                "text": "It detects faults by checking a required relationship between related runs, without ever needing the exact expected output of any single run",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the relation replaces the missing per-input expected value."
+              },
+              {
+                "text": "It computes the exact expected output automatically",
+                "fraction": 0,
+                "feedback": "MT does not compute expected outputs; it checks relations among runs."
+              },
+              {
+                "text": "It proves correctness without running the program",
+                "fraction": 0,
+                "feedback": "MT runs the program on related inputs; it does not prove correctness."
+              },
+              {
+                "text": "It removes the need to run the program more than once",
+                "fraction": 0,
+                "feedback": "MT requires multiple related runs, not fewer."
+              }
+            ],
+            "generalFeedback": "When no oracle can tell you the right answer for an input, you can still know how related runs must relate. MT exploits that: it transforms the input, runs again, and checks the output relation. A violation exposes a fault even though the exact expected output was never available.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Passing tests is not a proof",
+            "text": "<p>Passing many metamorphic tests demonstrates that the program is free of defects.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "No \u2014 MT reveals violations but cannot establish the absence of faults."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 passing tests leaves open faults not exposed by the chosen relations or inputs."
+              }
+            ],
+            "generalFeedback": "MT is a testing technique, so it can find bugs but not prove their absence. A program can satisfy every chosen MR on every tried input and still fail on an untested input or violate a property no MR captures."
+          },
+          {
+            "type": "multichoice",
+            "name": "Shortest-path relabeling MR",
+            "text": "<p>A program computes the shortest-path distance between two nodes in a weighted graph. Which is a valid metamorphic relation?</p>",
+            "answers": [
+              {
+                "text": "Relabeling (renaming) the nodes by a bijection and querying the correspondingly renamed endpoints must return the same distance",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a bijective relabeling is a graph isomorphism, which preserves all distances."
+              },
+              {
+                "text": "Relabeling the nodes changes the distance by the number of nodes",
+                "fraction": 0,
+                "feedback": "Renaming nodes changes no structure or weight, so the distance is unaffected."
+              },
+              {
+                "text": "Doubling every node's label doubles the distance",
+                "fraction": 0,
+                "feedback": "Node labels are identifiers; their numeric value does not affect distances."
+              },
+              {
+                "text": "Reversing the node labels negates the distance",
+                "fraction": 0,
+                "feedback": "Distances are non-negative and depend on edges/weights, not on label order."
+              }
+            ],
+            "generalFeedback": "Renaming nodes via a bijection leaves the graph structurally identical (an isomorphism): the same edges with the same weights, just different names. So the shortest-path distance between the renamed endpoints must equal the original. This is a strong MR because it needs no knowledge of the actual distance.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Construct the follow-up for set size",
+            "text": "<p>A program maintains a set and reports its size. Source: inserting <code>[1, 2, 3]</code> gives size <code>3</code>. Using the duplicate-insertion MR, what follow-up and expected size?</p>",
+            "answers": [
+              {
+                "text": "Follow-up = insert [1, 2, 3, 2] (a duplicate added); expected size still 3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 adding a duplicate leaves the set's size unchanged."
+              },
+              {
+                "text": "Follow-up = insert [1, 2, 3, 2]; expected size 4",
+                "fraction": 0,
+                "feedback": "A set ignores the duplicate, so the size stays 3, not 4."
+              },
+              {
+                "text": "Follow-up = insert [1, 2, 3, 4]; expected size 3",
+                "fraction": 0,
+                "feedback": "Adding a new distinct element 4 is not the duplicate transformation, and it would make size 4."
+              },
+              {
+                "text": "Follow-up = insert [1, 2, 3, 2]; expected size 2",
+                "fraction": 0,
+                "feedback": "Adding a duplicate cannot shrink the set; the size stays 3."
+              }
+            ],
+            "generalFeedback": "The duplicate-insertion transformation adds an element already present. The output relation is that the size is unchanged. From a source of [1, 2, 3] (size 3), the follow-up [1, 2, 3, 2] must still report size 3.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Construct the follow-up for maximum",
+            "text": "<p>A program returns the maximum of a list. From source <code>L = [4, 9, 1]</code> (max 9), which follow-up tests a valid MR and what relation holds?</p>",
+            "answers": [
+              {
+                "text": "Follow-up = L with an element \u2264 9 appended, e.g. [4, 9, 1, 7]; the maximum must be unchanged (still 9)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 appending a value not exceeding the current max leaves the max unchanged."
+              },
+              {
+                "text": "Follow-up = [4, 9, 1, 15]; the max must be unchanged",
+                "fraction": 0,
+                "feedback": 'Appending 15 (greater than 9) legitimately raises the max to 15, so "unchanged" is wrong.'
+              },
+              {
+                "text": "Follow-up = [4, 9, 1, 7]; the max must increase",
+                "fraction": 0,
+                "feedback": "Appending 7 (\u2264 9) cannot raise the max; it stays 9."
+              },
+              {
+                "text": "Follow-up = [8, 18, 2]; the max must be unchanged",
+                "fraction": 0,
+                "feedback": "Those are different values, not an append of an element \u2264 9 to L."
+              }
+            ],
+            "generalFeedback": 'max(L ++ [y]) = max(max(L), y). If y \u2264 max(L), the maximum is unchanged; if y > max(L), it becomes y. A valid MR is therefore "appending a value \u2264 the current max leaves the max unchanged," giving a follow-up like [4, 9, 1, 7] with expected max 9.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Broadening a query",
+            "text": "<p>For a conjunctive-filter search, which transformation gives a follow-up whose result count must be \u2265 the source's?</p>",
+            "answers": [
+              {
+                "text": "Removing one of the required query terms (making the query less specific)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the broader query's result set is a superset, so the count is \u2265."
+              },
+              {
+                "text": "Adding one more required term",
+                "fraction": 0,
+                "feedback": "That narrows the query, giving \u2264 results, not \u2265."
+              },
+              {
+                "text": "Replacing a term with a more specific synonym",
+                "fraction": 0,
+                "feedback": "Making a term more specific does not guarantee \u2265 results."
+              },
+              {
+                "text": "Requiring all terms to appear only in the title",
+                "fraction": 0,
+                "feedback": "Adding a location constraint narrows matches; it does not guarantee \u2265 results."
+              }
+            ],
+            "generalFeedback": `Dropping a required term makes the query less specific, so every document that matched before still matches (and possibly more). The broader result set is a superset, so its count is \u2265 the source's. This is the "\u2265" companion to the narrowing MR.`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Pick the valid MR for a mean",
+            "text": "<p>Which of these is a genuine necessary property (a valid MR) of a correct mean function?</p>",
+            "answers": [
+              {
+                "text": "Appending one extra value equal to the current mean leaves the mean unchanged",
+                "fraction": 100,
+                "feedback": "Correct \u2014 adding a point equal to the mean does not move the mean."
+              },
+              {
+                "text": "Appending any one extra value leaves the mean unchanged",
+                "fraction": 0,
+                "feedback": "False \u2014 only a value equal to the current mean leaves it unchanged."
+              },
+              {
+                "text": "Removing the largest value leaves the mean unchanged",
+                "fraction": 0,
+                "feedback": "False \u2014 removing the largest value generally lowers the mean."
+              },
+              {
+                "text": "Doubling the list length by repeating it leaves the mean doubled",
+                "fraction": 0,
+                "feedback": "False \u2014 repeating the list leaves the mean unchanged, not doubled."
+              }
+            ],
+            "generalFeedback": "With n values of mean m, appending a value equal to m gives a new mean of (n\xB7m + m)/(n + 1) = m(n + 1)/(n + 1) = m. So the mean is unchanged \u2014 a valid MR. The distractors are not necessary properties of a correct mean.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Variance under scaling",
+            "text": "<p>A program computes the (population) <strong>variance</strong> of a list. Multiplying every value by <code>k</code> has what effect, giving a valid MR?</p>",
+            "answers": [
+              {
+                "text": "The variance is multiplied by k\xB2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Var(kX) = k\xB2\xB7Var(X)."
+              },
+              {
+                "text": "The variance is multiplied by k",
+                "fraction": 0,
+                "feedback": "That is how the mean (or a linear quantity) scales; variance scales by k\xB2."
+              },
+              {
+                "text": "The variance is unchanged",
+                "fraction": 0,
+                "feedback": "Scaling the data spreads it out; the variance changes by k\xB2."
+              },
+              {
+                "text": "The variance is multiplied by |k|",
+                "fraction": 0,
+                "feedback": "That is how the standard deviation scales; variance scales by k\xB2."
+              }
+            ],
+            "generalFeedback": 'Variance is a quadratic quantity: Var(kX) = k\xB2\xB7Var(X). So scaling every input by k is an input transformation whose output relation is "the variance is multiplied by k\xB2." (The standard deviation, being the square root, scales by |k|.)',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge reordering for shortest path",
+            "text": "<p>A shortest-path program takes a list of weighted edges. Which follow-up transformation must leave every shortest-path distance unchanged (a valid MR)?</p>",
+            "answers": [
+              {
+                "text": "Reordering the edges in the input list (the same set of edges, listed in a different order)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the graph is defined by its set of edges, not the order they appear."
+              },
+              {
+                "text": "Doubling the weight of one edge on a shortest path",
+                "fraction": 0,
+                "feedback": "That changes the graph and can change the distance."
+              },
+              {
+                "text": "Adding a new edge with a smaller weight",
+                "fraction": 0,
+                "feedback": "A new cheaper edge can create a shorter path, changing distances."
+              },
+              {
+                "text": "Deleting an edge on a shortest path",
+                "fraction": 0,
+                "feedback": "Removing an edge can lengthen or disconnect a path, changing distances."
+              }
+            ],
+            "generalFeedback": 'The graph is the set of edges; the order in which the edges are listed carries no meaning. So permuting the edge list is an input transformation whose output relation is "all distances unchanged" \u2014 a valid MR. The other options genuinely alter the graph.',
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "A passing source/follow-up pair",
+            "text": "<p>If a source/follow-up pair satisfies its metamorphic relation, that specific pair has not revealed a bug, but a bug may still exist elsewhere.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one satisfied pair only means no violation was seen for that pair."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "A satisfied pair does not clear the program; other inputs or relations may still expose faults."
+              }
+            ],
+            "generalFeedback": "Satisfying the relation on one pair simply means that pair produced no evidence of a fault. Faults can still hide in untested inputs or in behaviors that this MR does not constrain, so no conclusion of correctness follows."
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Critique a proposed sine MR",
+            "text": "<p>A tester proposes <code>sin(2x) = 2\xB7sin(x)</code> as a metamorphic relation for a sine routine. What is wrong with it?</p>",
+            "answers": [
+              {
+                "text": 'It is not a true identity (e.g. at x = \u03C0/2, sin(\u03C0) = 0 but 2\xB7sin(\u03C0/2) = 2), so a correct sine need not satisfy it; any "violation" would be spurious',
+                "fraction": 100,
+                "feedback": "Correct \u2014 the relation is not a necessary property, so it is an invalid MR."
+              },
+              {
+                "text": "Nothing is wrong; it holds for all x",
+                "fraction": 0,
+                "feedback": "It fails at x = \u03C0/2, so it does not hold for all x."
+              },
+              {
+                "text": "It is valid but detects only performance bugs",
+                "fraction": 0,
+                "feedback": "It is not valid at all; MRs are correctness properties, not performance checks."
+              },
+              {
+                "text": "It is valid only for negative x",
+                "fraction": 0,
+                "feedback": "It is not an identity for negative x either (e.g. x = \u2212\u03C0/2)."
+              }
+            ],
+            "generalFeedback": "The double-angle identity is sin(2x) = 2\xB7sin(x)\xB7cos(x), which equals 2\xB7sin(x) only when cos(x) = 1. So sin(2x) = 2\xB7sin(x) is false in general and is not a necessary property of a correct sine. Using it as an MR would flag correct implementations \u2014 a classic invalid MR.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Composing metamorphic relations",
+            "text": "<p>For a shortest-path program you have MR_A (relabeling nodes leaves distances unchanged) and MR_B (multiplying all edge weights by a constant <code>c &gt; 0</code> multiplies every distance by c). If you apply <em>both</em> transformations to a source graph, what must hold?</p>",
+            "answers": [
+              {
+                "text": "The distance in the transformed graph equals c times the source distance",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a distance-preserving transform composed with a c-scaling transform yields c-scaling."
+              },
+              {
+                "text": "The distance is unchanged",
+                "fraction": 0,
+                "feedback": "Relabeling alone preserves distance, but scaling weights by c multiplies it by c."
+              },
+              {
+                "text": "The distance equals c\xB2 times the source distance",
+                "fraction": 0,
+                "feedback": "Only one c-scaling is applied (relabeling adds no factor), so the factor is c, not c\xB2."
+              },
+              {
+                "text": "No relation holds, because two transformations cannot be composed",
+                "fraction": 0,
+                "feedback": "MRs compose: apply the transformations in sequence and combine their output relations."
+              }
+            ],
+            "generalFeedback": "MRs can be composed by applying their input transformations together and combining the output relations. Relabeling contributes a factor of 1 (distance unchanged) and weight-scaling contributes a factor of c, so the composed relation multiplies the distance by 1 \xD7 c = c. Composition lets you build richer checks from simple, individually-verified MRs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Edge-weight scaling: soundness caveat",
+            "text": '<p>Is "multiplying all edge weights by a constant <code>c</code> scales every shortest-path distance by c" a sound metamorphic relation?</p>',
+            "answers": [
+              {
+                "text": "Yes, but only for c > 0; for c \u2264 0 it can create zero/negative weights or negative cycles and change which path is optimal, so the relation need not hold",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the scaling MR is sound only for a positive constant."
+              },
+              {
+                "text": "Yes, for every real c",
+                "fraction": 0,
+                "feedback": "Negative c can introduce negative cycles or flip the optimal path, breaking the relation."
+              },
+              {
+                "text": "No, it never holds for any c",
+                "fraction": 0,
+                "feedback": 'It does hold for every positive c, so "never" is wrong.'
+              },
+              {
+                "text": "Yes, but only for integer c",
+                "fraction": 0,
+                "feedback": "Any positive real c works; the restriction is positivity, not integrality."
+              }
+            ],
+            "generalFeedback": "For c > 0, multiplying all weights by c multiplies the cost of every path by c, so the minimum-cost path is unchanged and its distance is scaled by c \u2014 a sound MR. For c \u2264 0 the transformed graph can have negative weights or negative cycles, changing (or undefining) the shortest path, so the relation is not necessary. Stating the domain (c > 0) is essential to keeping the MR valid.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Invalid MR versus genuine bug: floating point",
+            "text": '<p>A test checks <code>sin(x) == sin(\u03C0 \u2212 x)</code> with exact floating-point equality and reports a "violation" where the two results differ in the last bit. Best interpretation?</p>',
+            "answers": [
+              {
+                "text": "The exact-equality MR is too strict for floating-point arithmetic; the tiny difference is rounding, so the violation is likely spurious and the relation should allow a small tolerance",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an over-strict relation, not a fault, produced the false alarm."
+              },
+              {
+                "text": "It is definitely a bug in the sine implementation",
+                "fraction": 0,
+                "feedback": "A last-bit difference is consistent with normal rounding, not necessarily a fault."
+              },
+              {
+                "text": "The mathematics sin(x) = sin(\u03C0 \u2212 x) is false, so the MR is wrong",
+                "fraction": 0,
+                "feedback": "The identity is true; the issue is applying exact equality to inexact arithmetic."
+              },
+              {
+                "text": "Floating-point numbers cannot represent \u03C0, so sine is undefined",
+                "fraction": 0,
+                "feedback": "\u03C0 is approximated, but sine is well-defined on the approximation; that is not the issue."
+              }
+            ],
+            "generalFeedback": "The identity holds mathematically, but floating-point computes \u03C0 \u2212 x and the two sines with rounding, so bit-for-bit equality is not guaranteed. The failure reflects an over-strict (effectively invalid) MR for this domain, not a defect. The fix is to state the output relation with an appropriate tolerance, e.g. |sin(x) \u2212 sin(\u03C0 \u2212 x)| \u2264 \u03B5. This is the key skill of separating a genuine violation from a flawed relation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MR for an image classifier",
+            "text": "<p>For an image classifier, which is a suitable metamorphic relation whose violation suggests a defect (e.g. a robustness problem)?</p>",
+            "answers": [
+              {
+                "text": "A label-preserving transformation \u2014 one a human agrees does not change the true class, such as a slight brightness change or small rotation \u2014 should leave the predicted class unchanged",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 the transformation must preserve the ground-truth label for the "unchanged prediction" relation to be expected.'
+              },
+              {
+                "text": "Randomly shuffling all the pixels should leave the predicted class unchanged",
+                "fraction": 0,
+                "feedback": "Shuffling pixels destroys the image content, so it is not label-preserving."
+              },
+              {
+                "text": "Replacing the image with a different image of another class should leave the prediction unchanged",
+                "fraction": 0,
+                "feedback": "That changes the true class, so the prediction should change, not stay the same."
+              },
+              {
+                "text": "Doubling every pixel value should double the predicted class index",
+                "fraction": 0,
+                "feedback": "Class indices are labels, not magnitudes; there is no reason a valid transformation would double them."
+              }
+            ],
+            "generalFeedback": "MT for ML uses transformations that preserve the ground-truth label \u2014 mild brightness/contrast changes, small rotations, or, for text, synonym substitution. An ideal classifier's prediction should not change; if it does, the test reveals a robustness or consistency defect. The transformation must genuinely preserve the label, which is why pixel-shuffling or swapping in a different-class image are not valid choices.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Wrong search direction is a bad MR",
+            "text": '<p>A tester claims that "making a conjunctive-filter query <em>more</em> specific (adding a required term) should return <em>at least as many</em> results." Why is this a bad MR?</p>',
+            "answers": [
+              {
+                "text": "The direction is backwards \u2014 a more specific query's results are a subset, so the count can only stay the same or shrink; the program need not satisfy the proposed relation, so it would raise false alarms",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the sound direction is \u2264 for narrowing, so the proposed \u2265 relation is invalid."
+              },
+              {
+                "text": "It is correct and always holds",
+                "fraction": 0,
+                "feedback": "It has the direction reversed, so it does not hold for a conjunctive filter."
+              },
+              {
+                "text": "It is correct only for empty queries",
+                "fraction": 0,
+                "feedback": "It is not correct in general; the flaw is the reversed direction, not the empty case."
+              },
+              {
+                "text": "It is a valid MR but detects only performance issues",
+                "fraction": 0,
+                "feedback": "It is not valid, and MRs check correctness rather than performance."
+              }
+            ],
+            "generalFeedback": 'Under conjunctive-filter semantics, narrowing a query removes matches, so the correct relation is count(more specific) \u2264 count(less specific). Proposing \u2265 inverts this: a correct engine would routinely "violate" it, producing false alarms. Getting the direction right is essential to a sound MR.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Commutativity is unsound for subtraction",
+            "text": "<p>Why is <code>f(a, b) = f(b, a)</code> an invalid metamorphic relation for a subtraction function <code>sub(a, b) = a \u2212 b</code>?</p>",
+            "answers": [
+              {
+                "text": "Subtraction is not commutative (5 \u2212 3 = 2 but 3 \u2212 5 = \u22122), so a correct implementation need not satisfy it; treating it as an MR would flag correct behavior as a fault",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the relation is not necessary for subtraction, so it is an invalid MR."
+              },
+              {
+                "text": "Because subtraction is undefined when the operands are equal",
+                "fraction": 0,
+                "feedback": "Subtraction is well-defined for equal operands (a \u2212 a = 0); that is not the issue."
+              },
+              {
+                "text": "Because subtraction always overflows",
+                "fraction": 0,
+                "feedback": "Subtraction does not always overflow; the flaw is non-commutativity."
+              },
+              {
+                "text": "It is actually a valid MR for subtraction",
+                "fraction": 0,
+                "feedback": "It is not \u2014 swapping operands negates the result in general."
+              }
+            ],
+            "generalFeedback": "Commutativity holds for addition and multiplication but not subtraction: a \u2212 b = \u2212(b \u2212 a), which differs from b \u2212 a unless a = b. So f(a, b) = f(b, a) is not a necessary property of subtraction, and using it as an MR would report correct results as violations.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Verify an appended-mean MR",
+            "text": '<p>Is "appending one data point equal to the current arithmetic mean leaves the mean unchanged" a sound necessary property of a correct mean function?</p>',
+            "answers": [
+              {
+                "text": "Yes \u2014 with n values of mean m, the new mean is (n\xB7m + m)/(n + 1) = m, so it holds for every list",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the algebra confirms the mean is unchanged, so it is a valid MR."
+              },
+              {
+                "text": "No, the mean always increases when a point is added",
+                "fraction": 0,
+                "feedback": "Adding a point equal to the mean does not increase it; the algebra gives m."
+              },
+              {
+                "text": "Only when all the values are equal",
+                "fraction": 0,
+                "feedback": "It holds for any list, not only lists of equal values."
+              },
+              {
+                "text": "Only for lists of even length",
+                "fraction": 0,
+                "feedback": "Length parity is irrelevant; the identity holds for every n."
+              }
+            ],
+            "generalFeedback": "Let the list have n values summing to n\xB7m, so the mean is m. Appending m gives sum n\xB7m + m = m(n + 1) over n + 1 values, so the new mean is m(n + 1)/(n + 1) = m. The property holds for every list, making it a sound MR \u2014 worked concretely to confirm.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Violation of an invalid MR",
+            "text": '<p>A test for a mean function uses the relation "removing the largest value leaves the mean unchanged" and reports a violation. What should you conclude?</p>',
+            "answers": [
+              {
+                "text": 'Nothing about a bug \u2014 the relation is not a necessary property of a correct mean, so the "violation" reflects a flawed MR, not a defect in the program',
+                "fraction": 100,
+                "feedback": "Correct \u2014 a violation implicates the program only when the MR is genuinely necessary."
+              },
+              {
+                "text": "The mean function is definitely buggy",
+                "fraction": 0,
+                "feedback": "The MR itself is invalid, so the violation says nothing about the program."
+              },
+              {
+                "text": "The program has a rounding error",
+                "fraction": 0,
+                "feedback": "There is no evidence of rounding; the relation is simply not a required property."
+              },
+              {
+                "text": "The input list must have been empty",
+                "fraction": 0,
+                "feedback": "The list need not be empty; removing the largest value normally does change the mean."
+              }
+            ],
+            "generalFeedback": 'Removing the largest value generally lowers the mean, so "the mean is unchanged" is not a necessary property. A correct implementation will routinely "violate" it. The lesson: before trusting a violation, confirm the MR is genuinely necessary for any correct implementation; otherwise the fault is in the relation, not the code.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "How statistics scale under multiplication",
+            "text": "<p>Multiplying every value in a list by <code>k</code>. Which set of output relations is correct for the mean, standard deviation, and variance?</p>",
+            "answers": [
+              {
+                "text": "mean \u2192 \xD7k, standard deviation \u2192 \xD7|k|, variance \u2192 \xD7k\xB2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the mean is linear, variance is quadratic, and the standard deviation is its square root."
+              },
+              {
+                "text": "mean \u2192 \xD7k, standard deviation \u2192 \xD7k\xB2, variance \u2192 \xD7k",
+                "fraction": 0,
+                "feedback": "Swapped \u2014 variance scales by k\xB2 and the standard deviation by |k|."
+              },
+              {
+                "text": "all three \u2192 \xD7k",
+                "fraction": 0,
+                "feedback": "Only the mean scales by k; variance scales by k\xB2 and SD by |k|."
+              },
+              {
+                "text": "mean \u2192 \xD7k\xB2, standard deviation \u2192 \xD7k, variance \u2192 \xD7|k|",
+                "fraction": 0,
+                "feedback": "The mean scales by k, not k\xB2; the others are wrong too."
+              }
+            ],
+            "generalFeedback": "Mean is linear: mean(kX) = k\xB7mean(X). Variance is quadratic: Var(kX) = k\xB2\xB7Var(X). The standard deviation is the square root of the variance, so SD(kX) = |k|\xB7SD(X) (absolute value because a standard deviation is non-negative). Each gives a distinct valid MR under the same scaling transformation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Strongest conclusion from passing MRs",
+            "text": "<p>A program passes a large, well-designed set of metamorphic relations on millions of inputs. What is the strongest <em>sound</em> conclusion?</p>",
+            "answers": [
+              {
+                "text": "No violation of those relations was found on those inputs; this raises confidence but does not prove correctness \u2014 faults not exposed by the chosen MRs or inputs may remain",
+                "fraction": 100,
+                "feedback": "Correct \u2014 MT can raise confidence but never proves correctness."
+              },
+              {
+                "text": "The program is proven correct",
+                "fraction": 0,
+                "feedback": "No amount of passing tests proves correctness."
+              },
+              {
+                "text": "The program is correct on the tested inputs and on all others",
+                "fraction": 0,
+                "feedback": "Nothing can be concluded about untested inputs."
+              },
+              {
+                "text": "The MRs must have been invalid, since nothing failed",
+                "fraction": 0,
+                "feedback": "Passing does not imply the MRs are invalid; valid MRs can simply be satisfied."
+              }
+            ],
+            "generalFeedback": "MT can reveal faults (via violations) but cannot demonstrate their absence. Extensive passing results increase confidence and are evidence of quality, but faults may still hide in inputs never tried or in properties the chosen MRs do not constrain.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Composing order-preserving map with permutation",
+            "text": "<p>For a sort function, consider two transformations: permuting the input, and mapping every element through a <em>strictly increasing</em> function <code>g</code>. Which composed relation is sound?</p>",
+            "answers": [
+              {
+                "text": "sort(map g over any permutation of L) equals map g over sort(L), for any strictly increasing g",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a strictly increasing map preserves order, so it commutes with sorting; permutation is irrelevant to the sorted result."
+              },
+              {
+                "text": "sort(map g over L) equals the reverse of (map g over sort(L))",
+                "fraction": 0,
+                "feedback": "A strictly increasing g preserves order, so it does not reverse the result."
+              },
+              {
+                "text": "sort(map g over L) equals sort(L) unchanged",
+                "fraction": 0,
+                "feedback": "Applying g changes the element values, so the sorted output changes accordingly."
+              },
+              {
+                "text": "The relation is sound only when g is the identity function",
+                "fraction": 0,
+                "feedback": "It is sound for any strictly increasing g, not just the identity."
+              }
+            ],
+            "generalFeedback": "If g is strictly increasing, then a < b iff g(a) < g(b), so applying g preserves relative order and commutes with sorting: sort(map g over L) = map g over sort(L). Since sorting is permutation-invariant, permuting first changes nothing. Composing the two gives sort(map g over perm(L)) = map g over sort(L) \u2014 a sound composed MR.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "An unsound MR for a sentiment classifier",
+            "text": "<p>For a sentiment classifier, which proposed metamorphic relation is <em>unsound</em> (would produce false alarms)?</p>",
+            "answers": [
+              {
+                "text": `"Negating the sentence (inserting 'not') must leave the predicted sentiment unchanged"`,
+                "fraction": 100,
+                "feedback": "Correct \u2014 negation changes the true sentiment, so it is not label-preserving; the prediction should change."
+              },
+              {
+                "text": '"Replacing a word with a close synonym should leave the predicted sentiment unchanged"',
+                "fraction": 0,
+                "feedback": "Synonym substitution preserves meaning, so this is a sound label-preserving MR."
+              },
+              {
+                "text": '"Adding a neutral, meaning-preserving filler phrase should leave the predicted sentiment unchanged"',
+                "fraction": 0,
+                "feedback": "A neutral filler preserves sentiment, so this is a sound MR."
+              },
+              {
+                "text": '"Reordering two independent, order-irrelevant clauses should leave the predicted sentiment unchanged"',
+                "fraction": 0,
+                "feedback": "Reordering independent clauses preserves meaning, so this is a sound MR."
+              }
+            ],
+            "generalFeedback": 'MT for ML relies on label-preserving transformations. Synonym substitution, neutral filler, and reordering independent clauses all keep the true sentiment, so "prediction unchanged" is expected. Negation, by contrast, flips the sentiment, so demanding an unchanged prediction is unsound and would flag a correct classifier.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the subset MR may fail on a ranked engine",
+            "text": '<p>The subset MR ("a more specific query returns \u2264 results") is sound for a pure conjunctive filter. Why might it fail to be a valid MR for a real <em>ranked</em> web search engine?</p>',
+            "answers": [
+              {
+                "text": "A ranked engine may not return all matching documents (it truncates to top-k, applies relevance thresholds, query expansion, or synonyms), so the more specific query's returned set is not guaranteed to be a subset",
+                "fraction": 100,
+                "feedback": "Correct \u2014 MR validity depends on the actual specification of the program under test."
+              },
+              {
+                "text": "Because ranked search engines are always correct, so no MR is needed",
+                "fraction": 0,
+                "feedback": "Correctness is not the point; the relation simply is not guaranteed under ranking semantics."
+              },
+              {
+                "text": "Because more specific queries are always computed faster",
+                "fraction": 0,
+                "feedback": "Performance is irrelevant to whether the subset relation holds."
+              },
+              {
+                "text": "Because the mathematics of subsets is different on the web",
+                "fraction": 0,
+                "feedback": "Set theory is unchanged; the issue is that ranked results are not the full match set."
+              }
+            ],
+            "generalFeedback": "The subset MR assumes the engine returns exactly the documents matching all terms. A ranked engine instead returns a curated, truncated, possibly query-expanded list, so a more specific query's results need not be a subset of the broader query's. An MR is only valid against the actual specification: change the semantics and a previously sound MR can become invalid.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "An MR must be a necessary property",
+            "text": '<p>For a metamorphic relation to be usable as an oracle, it must be a necessary property of every correct implementation; otherwise a "violation" may indicate a flawed relation rather than a fault.</p>',
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 only a genuinely necessary property lets a violation implicate the program."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "If the relation is not necessary, a correct program can violate it, so a violation would not indicate a fault."
+              }
+            ],
+            "generalFeedback": 'The soundness of MT rests on the MR being a necessary property: something every correct implementation must satisfy. Then a violation must mean the program is wrong. If the relation is merely plausible but not necessary, a correct program can violate it, and the "fault" is really in the relation \u2014 which is why verifying MRs is the crucial discipline of MT.'
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u86FB\u8B8A\u6E2C\u8A66",
+            "text": "<p><strong>\u86FB\u8B8A\u6E2C\u8A66\uFF08metamorphic testing, MT\uFF09</strong>\u7684\u6838\u5FC3\u6982\u5FF5\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u4E0D\u662F\u628A\u55AE\u4E00\u8F38\u51FA\u8207\u5DF2\u77E5\u7684\u671F\u671B\u503C\u6BD4\u5C0D\uFF0C\u800C\u662F\u6AA2\u67E5\u7A0B\u5F0F\u591A\u6B21\u76F8\u95DC\u57F7\u884C\u4E4B\u9593\u8F38\u51FA\u6240\u6EFF\u8DB3\u7684\u4E00\u500B\u95DC\u4FC2\uFF08\u86FB\u8B8A\u95DC\u4FC2\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MT \u6AA2\u67E5\u76F8\u95DC\u57F7\u884C\u4E4B\u9593\u7684\u95DC\u4FC2\uFF0C\u800C\u975E\u5C07\u55AE\u4E00\u8F38\u51FA\u6BD4\u5C0D\u56FA\u5B9A\u671F\u671B\u503C\u3002"
+              },
+              {
+                "text": "\u5B83\u5F62\u5F0F\u5316\u5730\u8B49\u660E\u7A0B\u5F0F\u6EFF\u8DB3\u5176\u5B8C\u6574\u898F\u683C",
+                "fraction": 0,
+                "feedback": "MT \u627E\u51FA\u9055\u53CD\u60C5\u5F62\uFF0C\u4E26\u4E0D\u8B49\u660E\u7A0B\u5F0F\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "\u5B83\u91CF\u6E2C\u6E2C\u8A66\u5957\u4EF6\u8986\u84CB\u4E86\u591A\u5C11\u5206\u652F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8986\u84CB\u7387\u91CF\u6E2C\uFF1BMT \u662F\u4E00\u7A2E\u9810\u8A00\u6280\u8853\uFF0C\u4E0D\u662F\u8986\u84CB\u7387\u6307\u6A19\u3002"
+              },
+              {
+                "text": "\u5B83\u7522\u751F\u96A8\u6A5F\u8F38\u5165\u4E26\u53EA\u56DE\u5831\u7576\u6A5F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7576\u6A5F\u9810\u8A00\u7684\u6A21\u7CCA\u6E2C\u8A66\uFF1BMT \u6AA2\u67E5\u8F38\u51FA\u4E4B\u9593\u7684\u86FB\u8B8A\u95DC\u4FC2\u3002"
+              }
+            ],
+            "generalFeedback": "\u86FB\u8B8A\u6E2C\u8A66\u91DD\u5C0D\u7684\u662F\u9810\u8A00\u554F\u984C\u3002\u5B83\u4E0D\u9700\u8981\u67D0\u500B\u8F38\u5165\u7684\u78BA\u5207\u671F\u671B\u8F38\u51FA\uFF0C\u800C\u662F\u5C0D\u5169\u500B\u4EE5\u4E0A\u76F8\u95DC\u7684\u8F38\u5165\u57F7\u884C\u7A0B\u5F0F\uFF0C\u6AA2\u67E5\u5176\u8F38\u51FA\u4E4B\u9593\u662F\u5426\u6EFF\u8DB3\u6240\u9700\u7684\u95DC\u4FC2\uFF08\u86FB\u8B8A\u95DC\u4FC2\uFF09\u3002\u5373\u4F7F\u4E0D\u77E5\u9053\u4EFB\u4F55\u55AE\u4E00\u671F\u671B\u503C\uFF0C\u88AB\u7834\u58DE\u7684\u95DC\u4FC2\u4E5F\u80FD\u63ED\u9732\u7F3A\u9677\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u86FB\u8B8A\u95DC\u4FC2",
+            "text": "<p>\u4EC0\u9EBC\u662F<strong>\u86FB\u8B8A\u95DC\u4FC2\uFF08metamorphic relation, MR\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u5728\u6B63\u78BA\u7A0B\u5F0F\u7684\u5169\u6B21\u4EE5\u4E0A\u76F8\u95DC\u57F7\u884C\u7684\u8F38\u5165\u8207\u8F38\u51FA\u4E4B\u9593\u5FC5\u9808\u6210\u7ACB\u7684\u6027\u8CEA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MR \u9023\u7D50\u76F8\u95DC\u57F7\u884C\u7684\u8F38\u5165\uFF0F\u8F38\u51FA\uFF0C\u4E14\u5C0D\u4EFB\u4F55\u6B63\u78BA\u5BE6\u4F5C\u90FD\u5FC5\u9808\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "\u67D0\u500B\u7279\u5B9A\u8F38\u5165\u552F\u4E00\u7684\u78BA\u5207\u671F\u671B\u8F38\u51FA\u503C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u50B3\u7D71\u7684\u671F\u671B\u503C\u9810\u8A00\uFF1BMR \u6B63\u662F\u70BA\u4E86\u907F\u514D\u9700\u8981\u90A3\u500B\u78BA\u5207\u503C\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u5169\u500B\u5206\u652F\u8986\u84CB\u7387\u4E4B\u9593\u7684\u95DC\u4FC2",
+                "fraction": 0,
+                "feedback": "MR \u9023\u7D50\u7684\u662F\u76F8\u95DC\u8F38\u5165\u7684\u8F38\u51FA\uFF0C\u800C\u975E\u5206\u652F\u7684\u8986\u84CB\u7387\u3002"
+              },
+              {
+                "text": "\u9023\u7D50\u751F\u6210\u5668\u5169\u6B21\u57F7\u884C\u7684\u96A8\u6A5F\u7A2E\u5B50",
+                "fraction": 0,
+                "feedback": "\u7A2E\u5B50\u95DC\u4E4E\u53EF\u91CD\u73FE\u6027\uFF0C\u800C\u975E\u8F38\u51FA\u4E4B\u9593\u6240\u9700\u7684\u6B63\u78BA\u6027\u95DC\u4FC2\u3002"
+              }
+            ],
+            "generalFeedback": "\u86FB\u8B8A\u95DC\u4FC2\u662F\u9023\u7D50\u591A\u6B21\u57F7\u884C\u7684\u5FC5\u8981\u6027\u8CEA\uFF1A\u7D66\u5B9A\u8F38\u5165\u4E4B\u9593\u7684\u95DC\u4FC2\uFF08\u8F38\u5165\u8F49\u63DB\uFF09\uFF0C\u5B83\u898F\u5B9A\u8F38\u51FA\u4E4B\u9593\u5FC5\u9808\u6709\u7684\u95DC\u4FC2\u3002\u4F8B\u5982\uFF0C\u6392\u5E8F\u4E00\u4EFD\u6E05\u55AE\u7684\u4EFB\u4E00\u6392\u5217\u5FC5\u7136\u5F97\u5230\u76F8\u540C\u7D50\u679C\u3002MR \u5C0D\u6BCF\u500B\u6B63\u78BA\u5BE6\u4F5C\u90FD\u5FC5\u9808\u6210\u7ACB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MT \u91DD\u5C0D\u7684\u9810\u8A00\u554F\u984C",
+            "text": "<p>\u86FB\u8B8A\u6E2C\u8A66\u4E3B\u8981\u91DD\u5C0D\u54EA\u4E00\u9805\u56F0\u96E3\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u9810\u8A00\u554F\u984C\u2014\u2014\u7576\u78BA\u5207\u671F\u671B\u8F38\u51FA\u672A\u77E5\u6216\u4EE3\u50F9\u9AD8\u6602\u6642\uFF0C\u5982\u4F55\u5224\u65B7\u7A0B\u5F0F\u5C0D\u67D0\u8F38\u5165\u7684\u8F38\u51FA\u662F\u5426\u6B63\u78BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7576\u4F60\u96E3\u4EE5\u8F15\u6613\u7B97\u51FA\u671F\u671B\u8F38\u51FA\u6642\uFF0CMT \u63D0\u4F9B\u4E00\u7A2E\u6AA2\u67E5\u65B9\u5F0F\u3002"
+              },
+              {
+                "text": "\u6DB5\u84CB\u6DF1\u5C64\u5DE2\u72C0\u5206\u652F\u7684\u53EF\u9054\u6027\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u5230\u9054\u7A0B\u5F0F\u78BC\u662F\u751F\u6210\uFF0F\u8986\u84CB\u7387\u7684\u8B70\u984C\uFF1BMT \u91DD\u5C0D\u7684\u662F\u5224\u65B7\u6B63\u78BA\u6027\u3002"
+              },
+              {
+                "text": "\u7B26\u865F\u57F7\u884C\u4E2D\u7684\u8DEF\u5F91\u7206\u70B8",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91\u7206\u70B8\u662F\u7B26\u865F\u5206\u6790\u7684\u898F\u6A21\u9650\u5236\uFF0C\u4E0D\u662F MT \u91DD\u5C0D\u7684\u5C0D\u8C61\u3002"
+              },
+              {
+                "text": "\u505C\u6A5F\u554F\u984C",
+                "fraction": 0,
+                "feedback": "MT \u4E0D\u5224\u5B9A\u662F\u5426\u7D42\u6B62\uFF1B\u5B83\u6AA2\u67E5\u8F38\u51FA\u4E4B\u9593\u7684\u95DC\u4FC2\u3002"
+              }
+            ],
+            "generalFeedback": "\u9810\u8A00\u554F\u984C\u662F\u6307\uFF1A\u5373\u4FBF\u624B\u4E0A\u6709\u8F38\u5165\uFF0C\u5224\u65B7\u8F38\u51FA\u662F\u5426\u6B63\u78BA\u901A\u5E38\u4ECD\u9700\u8981\u90A3\u500B\u300C\u61C9\u6709\u7684\u7B54\u6848\u300D\uFF0C\u800C\u5B83\u53EF\u80FD\u672A\u77E5\u6216\u4EE3\u50F9\u9AD8\u6602\u3002MT \u6539\u70BA\u6AA2\u67E5\u76F8\u95DC\u57F7\u884C\u4E4B\u9593\u7684\u95DC\u4FC2\uFF0C\u800C\u975E\u4EFB\u4F55\u55AE\u4E00\u671F\u671B\u503C\uFF0C\u85C9\u6B64\u63D0\u4F9B\u53EF\u7528\u7684\u90E8\u5206\u9810\u8A00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E90\u6E2C\u8A66\u6848\u4F8B\u8207\u5F8C\u7E8C\u6E2C\u8A66\u6848\u4F8B",
+            "text": "<p>\u5728 MT \u4E2D\uFF0C<strong>\u5F8C\u7E8C\uFF08follow-up\uFF09</strong>\u6E2C\u8A66\u6848\u4F8B\u8207<strong>\u6E90\uFF08source\uFF09</strong>\u6E2C\u8A66\u6848\u4F8B\u6709\u4F55\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F8C\u7E8C\u8F38\u5165\u662F\u7531\u6E90\u8F38\u5165\u4F9D\u86FB\u8B8A\u95DC\u4FC2\u6240\u898F\u5B9A\u7684\u8F38\u5165\u8F49\u63DB\u63A8\u5C0E\u800C\u4F86",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MR \u898F\u5B9A\u5982\u4F55\u5C07\u6E90\u8F38\u5165\u8F49\u63DB\u70BA\u5F8C\u7E8C\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C\u8F38\u5165\u662F\u96A8\u6A5F\u6311\u9078\u3001\u8207\u6E90\u7121\u95DC\u7684\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u5F8C\u7E8C\u8F38\u5165\u5FC5\u9808\u7D93\u7531 MR \u7684\u8F49\u63DB\u5F9E\u6E90\u5C0E\u51FA\uFF0C\u800C\u975E\u96A8\u6A5F\u6311\u9078\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C\u662F\u6E90\u57F7\u884C\u7684\u671F\u671B\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u5F8C\u7E8C\u662F\u53E6\u4E00\u500B\u8F38\u5165\uFF0C\u800C\u975E\u8F38\u51FA\u503C\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C\u53EA\u662F\u628A\u6E90\u8F38\u5165\u63DB\u4E00\u500B\u96A8\u6A5F\u7A2E\u5B50\u518D\u8DD1\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u53EA\u66F4\u63DB\u7A2E\u5B50\u4E26\u975E MR \u6240\u898F\u5B9A\u7684\u8F38\u5165\u8F49\u63DB\u3002"
+              }
+            ],
+            "generalFeedback": "MT \u5148\u57F7\u884C\u6E90\u6E2C\u8A66\u6848\u4F8B\uFF0C\u518D\u4F9D MR \u5C0D\u6E90\u8F38\u5165\u505A\u8F49\u63DB\uFF08\u4F8B\u5982\u6392\u5217\u6E05\u55AE\u3001\u53D6 \u03C0 \u2212 x\u3001\u628A\u6240\u6709\u503C\u7E2E\u653E\uFF09\u4EE5\u5EFA\u69CB\u5F8C\u7E8C\u6E2C\u8A66\u6848\u4F8B\uFF0C\u7136\u5F8C\u6AA2\u67E5\u5169\u6B21\u57F7\u884C\u7684\u8F38\u51FA\u662F\u5426\u6EFF\u8DB3 MR \u7684\u8F38\u51FA\u95DC\u4FC2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9055\u53CD MR \u4EE3\u8868\u4EC0\u9EBC",
+            "text": "<p>\u67D0\u6B21\u57F7\u884C\u7684\u8F38\u51FA<strong>\u9055\u53CD</strong>\u4E86\u4E00\u500B\u6709\u6548\u7684\u86FB\u8B8A\u95DC\u4FC2\u3002\u9019\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5BE6\u4F5C\u6709\u7F3A\u9677\u2014\u2014\u6B63\u78BA\u7A0B\u5F0F\u672C\u61C9\u6EFF\u8DB3\u8A72\u95DC\u4FC2\uFF08\u524D\u63D0\u662F\u8A72 MR \u662F\u771F\u6B63\u7684\u5FC5\u8981\u6027\u8CEA\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9055\u53CD\u4E00\u500B\u6709\u6548\u7684 MR \u5C31\u63ED\u9732\u4E86\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u4EC0\u9EBC\u90FD\u4E0D\u4EE3\u8868\uFF1B\u86FB\u8B8A\u95DC\u4FC2\u53EA\u662F\u6548\u80FD\u63D0\u793A",
+                "fraction": 0,
+                "feedback": "MR \u662F\u6B63\u78BA\u6027\u6027\u8CEA\uFF0C\u4E0D\u662F\u6548\u80FD\u63D0\u793A\uFF1B\u9055\u53CD\u6709\u6548\u7684 MR \u4EE3\u8868\u6709\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u8B49\u660E\u7A0B\u5F0F\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u9055\u53CD\u4EE3\u8868\u76F8\u53CD\u7684\u60C5\u6CC1\u2014\u2014\u662F\u7F3A\u9677\uFF0C\u800C\u975E\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "\u53EA\u4EE3\u8868\u5206\u652F\u8986\u84CB\u7387\u4E0D\u8DB3",
+                "fraction": 0,
+                "feedback": "\u9055\u53CD MR \u95DC\u4E4E\u8F38\u51FA\u884C\u70BA\u932F\u8AA4\uFF0C\u800C\u975E\u8986\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5\u8A72 MR \u5C0D\u4EFB\u4F55\u6B63\u78BA\u5BE6\u4F5C\u90FD\u662F\u771F\u6B63\u5FC5\u8981\u7684\uFF0C\u90A3\u9EBC\u9055\u53CD\u5C31\u610F\u5473\u8457\u7A0B\u5F0F\u7522\u751F\u4E86\u6B63\u78BA\u7A0B\u5F0F\u4E0D\u53EF\u80FD\u7522\u751F\u7684\u7D50\u679C\u2014\u2014\u4E5F\u5C31\u662F\u7F3A\u9677\u3002\u9019\u6B63\u662F MT \u7684\u5A01\u529B\uFF1A\u7121\u9700\u8A08\u7B97\u4EFB\u4F55\u78BA\u5207\u671F\u671B\u8F38\u51FA\u5373\u53EF\u5075\u6E2C\u7F3A\u9677\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6EFF\u8DB3 MR \u4E0D\u80FD\u8B49\u660E\u6B63\u78BA",
+            "text": "<p>\u82E5\u7A0B\u5F0F\u5728\u6240\u6709\u53D7\u6E2C\u8F38\u5165\u4E0A\u90FD\u6EFF\u8DB3\u6240\u6709\u9078\u5B9A\u7684\u86FB\u8B8A\u95DC\u4FC2\uFF0C\u5373\u53EF\u64DA\u6B64\u8B49\u660E\u5B83\u6B63\u78BA\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u5426\u2014\u2014MT \u80FD\u63ED\u9732\u9055\u53CD\uFF0C\u537B\u7121\u6CD5\u8B49\u660E\u6B63\u78BA\uFF1B\u672A\u53D7\u6E2C\u7684\u8F38\u5165\u8207\u672A\u88AB\u6DB5\u84CB\u7684\u6027\u8CEA\u4ECD\u53EF\u80FD\u85CF\u6709\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6EFF\u8DB3 MR \u6C38\u9060\u4E0D\u80FD\u8B49\u660E\u6B63\u78BA\uFF0C\u53EA\u4EE3\u8868\u5728\u90A3\u4E9B\u8F38\u5165\u4E0A\u672A\u767C\u73FE\u9055\u53CD\u90A3\u4E9B\u95DC\u4FC2\u3002"
+              }
+            ],
+            "generalFeedback": "\u8207\u4E00\u822C\u6E2C\u8A66\u76F8\u540C\uFF0CMT \u80FD\u986F\u793A\u7F3A\u9677\u5B58\u5728\uFF08\u900F\u904E\u9055\u53CD\uFF09\uFF0C\u537B\u7121\u6CD5\u986F\u793A\u5176\u4E0D\u5B58\u5728\u3002\u6240\u9078\u95DC\u4FC2\u53EA\u6355\u6349\u90E8\u5206\u5FC5\u8981\u6027\u8CEA\uFF0C\u4E14\u50C5\u5617\u8A66\u6709\u9650\u591A\u500B\u8F38\u5165\uFF0C\u56E0\u6B64\u7A0B\u5F0F\u53EF\u80FD\u6EFF\u8DB3\u6240\u6709 MR\uFF0C\u537B\u5728\u672A\u53D7\u6E2C\u6848\u4F8B\u4E0A\u51FA\u932F\uFF0C\u6216\u9055\u53CD\u4EFB\u4F55 MR \u90FD\u672A\u6DB5\u84CB\u7684\u6027\u8CEA\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6B63\u5F26\u7684\u6709\u6548 MR",
+            "text": "<p>\u5C0D\u65BC\u6B63\u78BA\u5BE6\u4F5C\u7684 <code>sin(x)</code>\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u6709\u6548\u7684\u86FB\u8B8A\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u6240\u6709 x\uFF0Csin(x) = sin(\u03C0 \u2212 x)",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u6046\u7B49\u5F0F\uFF0C\u6B63\u78BA\u7684\u6B63\u5F26\u5FC5\u7136\u6EFF\u8DB3\u5B83\u3002"
+              },
+              {
+                "text": "\u5C0D\u6240\u6709 x\uFF0Csin(2x) = 2\xB7sin(x)",
+                "fraction": 0,
+                "feedback": "\u4E00\u822C\u800C\u8A00\u70BA\u5047\u2014\u2014\u4F8B\u5982 x = \u03C0/2 \u6642 sin(\u03C0) = 0\uFF0C\u4F46 2\xB7sin(\u03C0/2) = 2\u3002"
+              },
+              {
+                "text": "\u5C0D\u6240\u6709 x\uFF0Csin(x) = sin(x + \u03C0)",
+                "fraction": 0,
+                "feedback": "\u70BA\u5047\u2014\u2014sin(x + \u03C0) = \u2212sin(x)\uFF0C\u4E26\u975E sin(x)\u3002"
+              },
+              {
+                "text": "\u5C0D\u6240\u6709 x\uFF0Csin(x) = x",
+                "fraction": 0,
+                "feedback": "\u70BA\u5047\u2014\u2014\u9019\u53EA\u5728\u63A5\u8FD1 0 \u6642\u4F5C\u70BA\u8FD1\u4F3C\u6210\u7ACB\uFF0C\u4E26\u975E\u6046\u7B49\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6046\u7B49\u5F0F sin(x) = sin(\u03C0 \u2212 x) \u5C0D\u6BCF\u500B\u5BE6\u6578 x \u90FD\u6210\u7ACB\uFF08\u88DC\u89D2\u7684\u6B63\u5F26\u76F8\u7B49\uFF09\u3002\u5B83\u662F\u7D93\u5178\u7684\u86FB\u8B8A\u95DC\u4FC2\uFF1A\u7531\u6E90\u8F38\u5165 x\uFF0C\u5F8C\u7E8C\u8F38\u5165 \u03C0 \u2212 x \u5FC5\u7136\u7522\u751F\u76F8\u7B49\u7684\u8F38\u51FA\u3002\u5176\u9918\u9078\u9805\u90FD\u4E0D\u662F\u6046\u7B49\u5F0F\uFF0C\u56E0\u6B64\u4E0D\u662F\u6709\u6548\u7684 MR\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6392\u5E8F\u7684\u6709\u6548 MR",
+            "text": "<p>\u5C0D\u65BC\u6B63\u78BA\u7684<strong>\u6392\u5E8F</strong>\u51FD\u5F0F\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u6709\u6548\u7684\u86FB\u8B8A\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6392\u5E8F\u6E05\u55AE\u7684\u4EFB\u4E00\u6392\u5217\u6703\u5F97\u5230\u76F8\u540C\u7D50\u679C\uFF1Asort(perm(L)) == sort(L)",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6392\u5E8F\u8F38\u51FA\u53EA\u53D6\u6C7A\u65BC\u5143\u7D20\u7684\u591A\u91CD\u96C6\u5408\uFF0C\u8207\u5176\u9806\u5E8F\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u628A\u6E05\u55AE\u6392\u5E8F\u5169\u6B21\u6703\u4F7F\u5B83\u53CD\u8F49",
+                "fraction": 0,
+                "feedback": "\u6392\u5E8F\u5177\u51AA\u7B49\u6027\uFF1A\u5C0D\u5DF2\u6392\u5E8F\u6E05\u55AE\u518D\u6392\u5E8F\u4E0D\u8B8A\uFF0C\u800C\u975E\u53CD\u8F49\u3002"
+              },
+              {
+                "text": "\u5148\u53CD\u8F49\u6E05\u55AE\u518D\u6392\u5E8F\uFF0C\u6703\u5F97\u5230\u6392\u5E8F\u7D50\u679C\u7684\u53CD\u8F49",
+                "fraction": 0,
+                "feedback": "\u5426\u2014\u2014sort(reverse(L)) == sort(L)\uFF1B\u5148\u53CD\u8F49\u4E26\u4E0D\u6703\u53CD\u8F49\u6392\u5E8F\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u6392\u5E8F\u6703\u4F7F\u6E05\u55AE\u9577\u5EA6\u52A0\u500D",
+                "fraction": 0,
+                "feedback": "\u6392\u5E8F\u662F\u8F38\u5165\u7684\u4E00\u500B\u6392\u5217\uFF0C\u6C38\u9060\u4E0D\u6539\u8B8A\u9577\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B63\u78BA\u7684\u6392\u5E8F\u6240\u7522\u751F\u7684\u9806\u5E8F\u53EA\u53D6\u6C7A\u65BC\u5143\u7D20\u7684\u591A\u91CD\u96C6\u5408\u3002\u56E0\u6B64\u5C0D\u540C\u6A23\u5143\u7D20\u7684\u4EFB\u4E00\u6392\u5217\u6392\u5E8F\uFF0C\u5FC5\u7136\u5F97\u5230\u76F8\u540C\u7D50\u679C\u2014\u2014\u5373\u6392\u5217\u4E0D\u8B8A\u6027\u3002\u9019\u662F\u5F88\u5F37\u7684 MR\uFF0C\u56E0\u70BA\u4F60\u53EF\u4EE5\u6253\u4E82\u6E90\u6E05\u55AE\u4F86\u5EFA\u69CB\u5F8C\u7E8C\u8F38\u5165\uFF0C\u800C\u4E8B\u5148\u4E0D\u5FC5\u77E5\u9053\u671F\u671B\u7684\u9806\u5E8F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53EF\u4EA4\u63DB\u52A0\u6CD5\u7684\u6709\u6548 MR",
+            "text": "<p>\u5C0D\u65BC\u51FD\u5F0F <code>add(a, b) = a + b</code>\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u6709\u6548\u7684\u86FB\u8B8A\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "add(a, b) == add(b, a)",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u52A0\u6CD5\u53EF\u4EA4\u63DB\uFF0C\u4EA4\u63DB\u904B\u7B97\u5143\u5FC5\u7136\u5F97\u5230\u76F8\u540C\u7D50\u679C\u3002"
+              },
+              {
+                "text": "add(a, b) == add(a, b + 1)",
+                "fraction": 0,
+                "feedback": "\u70BA\u5047\u2014\u2014\u6539\u8B8A\u904B\u7B97\u5143\u5C31\u6539\u8B8A\u4E86\u548C\u3002"
+              },
+              {
+                "text": "add(a, b) == a",
+                "fraction": 0,
+                "feedback": "\u9664\u975E b = 0 \u5426\u5247\u70BA\u5047\uFF1B\u4E26\u975E\u4E00\u822C\u6027\u8CEA\u3002"
+              },
+              {
+                "text": "add(a, b) == 2\xB7add(b, a)",
+                "fraction": 0,
+                "feedback": "\u4E00\u822C\u800C\u8A00\u70BA\u5047\u2014\u2014\u4EA4\u63DB\u904B\u7B97\u5143\u4E26\u4E0D\u6703\u4F7F\u548C\u52A0\u500D\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u4EA4\u63DB\u6027 f(a, b) = f(b, a) \u5C0D\u4EFB\u4F55\u53EF\u4EA4\u63DB\u904B\u7B97\uFF08\u5982\u52A0\u6CD5\u6216\u4E58\u6CD5\uFF09\u90FD\u662F\u6709\u6548\u7684 MR\u3002\u5F8C\u7E8C\u8F38\u5165\u53EA\u9700\u4EA4\u63DB\u5169\u500B\u904B\u7B97\u5143\uFF0C\u5176\u8F38\u51FA\u5FC5\u9808\u76F8\u7B49\u3002\u6CE8\u610F\uFF0C\u5B83\u5C0D\u6E1B\u6CD5\u6216\u9664\u6CD5\u7B49\u4E0D\u53EF\u4EA4\u63DB\u904B\u7B97\u4E26\u4E0D\u6210\u7ACB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MR \u8207\u50B3\u7D71\u9810\u8A00\u7684\u5DEE\u7570",
+            "text": "<p>\u86FB\u8B8A\u95DC\u4FC2\u8207\u50B3\u7D71\uFF08\u671F\u671B\u503C\uFF09\u9810\u8A00\u6709\u4F55\u4E0D\u540C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u50B3\u7D71\u9810\u8A00\u628A\u55AE\u6B21\u57F7\u884C\u7684\u8F38\u51FA\u8207\u9810\u5148\u7B97\u597D\u7684\u671F\u671B\u503C\u6BD4\u5C0D\uFF1BMR \u5247\u6AA2\u67E5\u6578\u6B21\u76F8\u95DC\u57F7\u884C\u7684\u8F38\u51FA\u4E4B\u9593\u6240\u9700\u7684\u95DC\u4FC2\uFF0C\u4E0D\u9700\u8981\u9810\u5148\u7B97\u597D\u7684\u671F\u671B\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MR \u4EE5\u8DE8\u57F7\u884C\u7684\u95DC\u4FC2\u53D6\u4EE3\u9010\u4E00\u8F38\u5165\u7684\u671F\u671B\u503C\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u76F8\u540C\uFF1B\u90FD\u9700\u8981\u6BCF\u500B\u8F38\u5165\u7684\u78BA\u5207\u671F\u671B\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "MR \u6B63\u662F\u70BA\u4E86\u907F\u514D\u9700\u8981\u78BA\u5207\u671F\u671B\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "MR \u6BD4\u5C0D\u539F\u59CB\u78BC\uFF0C\u50B3\u7D71\u9810\u8A00\u6BD4\u5C0D\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u95DC\u4E4E\u8F38\u51FA\uFF1BMR \u6BD4\u5C0D\u8DE8\u57F7\u884C\u7684\u8F38\u51FA\uFF0C\u800C\u975E\u539F\u59CB\u78BC\u3002"
+              },
+              {
+                "text": "MR \u91CF\u6E2C\u57F7\u884C\u6642\u9593\uFF0C\u50B3\u7D71\u9810\u8A00\u91CF\u6E2C\u8A18\u61B6\u9AD4",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u4E0D\u95DC\u4E4E\u6548\u80FD\uFF1B\u90FD\u5728\u5224\u65B7\u529F\u80FD\u6B63\u78BA\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u50B3\u7D71\u9810\u8A00\u9700\u8981\u6BCF\u500B\u8F38\u5165\u7684\u78BA\u5207\u7B54\u6848\uFF0C\u800C\u9019\u53EF\u80FD\u672A\u77E5\u6216\u4EE3\u50F9\u9AD8\u6602\u3002MR \u53EA\u9700\u8981\u76F8\u95DC\u57F7\u884C\u4E4B\u9593\u5FC5\u9808\u6210\u7ACB\u7684\u95DC\u4FC2\uFF08\u4F8B\u5982\u76F8\u7B49\u3001\u2264\u3001\u6309 k \u7E2E\u653E\uFF09\u3002\u9019\u6B63\u662F\u70BA\u4EC0\u9EBC\u5728\u96E3\u4EE5\u7B97\u51FA\u671F\u671B\u8F38\u51FA\u6642 MT \u7279\u5225\u6709\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u6642\u9069\u5408\u7528\u86FB\u8B8A\u6E2C\u8A66",
+            "text": "<p>\u5728\u54EA\u7A2E\u60C5\u6CC1\u4E0B\u86FB\u8B8A\u6E2C\u8A66\u7279\u5225\u6709\u7528\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7576\u6C92\u6709\u7C21\u4FBF\u6216\u8CA0\u64D4\u5F97\u8D77\u7684\u9810\u8A00\u6642\u2014\u2014\u4F8B\u5982\u6A5F\u5668\u5B78\u7FD2\u6A21\u578B\u3001\u79D1\u5B78\u8A08\u7B97\u3001\u7DE8\u8B6F\u5668\u3001\u5716\u5F62\u3001\u641C\u5C0B\u5F15\u64CE\u2014\u2014\u78BA\u5207\u671F\u671B\u8F38\u51FA\u96E3\u4EE5\u53D6\u5F97",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MT \u6B63\u662F\u5728\u96E3\u4EE5\u7B97\u51FA\u671F\u671B\u8F38\u51FA\u4E4B\u8655\u5927\u653E\u7570\u5F69\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5728\u5DF2\u5177\u5099\u5B8C\u6574\u5F62\u5F0F\u898F\u683C\u8207\u53EF\u4FE1\u8CF4\u53C3\u8003\u5BE6\u4F5C\u6642",
+                "fraction": 0,
+                "feedback": "\u82E5\u5DF2\u6709\u53C3\u8003\u5BE6\u4F5C\u53EF\u76F4\u63A5\u4F7F\u7528\uFF1BMT \u6700\u6709\u50F9\u503C\u4E4B\u8655\u6B63\u662F\u5728\u6C92\u6709\u5B83\u7684\u6642\u5019\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5C0D\u5B8C\u5168\u4E0D\u5403\u8F38\u5165\u7684\u7A0B\u5F0F\u624D\u9069\u7528",
+                "fraction": 0,
+                "feedback": "MT \u9700\u8981\u80FD\u8F49\u63DB\u7684\u8F38\u5165\uFF1B\u7121\u8F38\u5165\u7684\u7A0B\u5F0F\u6C92\u6709\u6771\u897F\u53EF\u8F49\u63DB\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5728\u5DF2\u9054\u5230 100% \u5206\u652F\u8986\u84CB\u7387\u4E4B\u5F8C",
+                "fraction": 0,
+                "feedback": "MT \u8207\u8986\u84CB\u7387\u5C64\u7D1A\u7121\u95DC\uFF1B\u5B83\u91DD\u5C0D\u9810\u8A00\uFF0C\u800C\u975E\u8986\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "MT \u6B63\u662F\u70BA\u9810\u8A00\u554F\u984C\u6700\u56B4\u91CD\u7684\u9818\u57DF\u800C\u751F\uFF1A\u6A5F\u5668\u5B78\u7FD2\u3001\u6578\u503C\uFF0F\u79D1\u5B78\u7A0B\u5F0F\u3001\u7DE8\u8B6F\u5668\u3001\u96FB\u8166\u5716\u5F62\u8207\u641C\u5C0B\u2014\u2014\u9019\u4E9B\u7A0B\u5F0F\u7684\u6B63\u78BA\u8F38\u51FA\u96E3\u4EE5\u6216\u7121\u6CD5\u4E8B\u5148\u9673\u8FF0\uFF0C\u537B\u4ECD\u9075\u5B88\u76F8\u95DC\u57F7\u884C\u4E4B\u9593\u53EF\u6AA2\u67E5\u7684\u95DC\u4FC2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u8F38\u5165\u8F49\u63DB",
+            "text": "<p>\u5728 MT \u4E2D\uFF0C\u4EC0\u9EBC\u662F<strong>\u8F38\u5165\u8F49\u63DB</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7531\u6E90\u8F38\u5165\u5EFA\u69CB\u5F8C\u7E8C\u8F38\u5165\u7684\u898F\u5247\uFF08\u4F8B\u5982\u53D6 \u03C0 \u2212 x\u3001\u6392\u5217\u6E05\u55AE\u3001\u628A\u6240\u6709\u503C\u4E58\u4EE5 k\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8F38\u5165\u8F49\u63DB\u7528\u4F86\u5EFA\u69CB\u5F8C\u7E8C\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u628A\u7A0B\u5F0F\u539F\u59CB\u78BC\u8F49\u6210\u4F4D\u5143\u7D44\u78BC\u7684\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7DE8\u8B6F\uFF0C\u8207 MT \u7684\u8F38\u5165\u8F49\u63DB\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u6E90\u8F38\u5165\u6240\u671F\u671B\u7684\u78BA\u5207\u6578\u503C\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "MT \u6B63\u662F\u8981\u907F\u514D\u5B83\uFF1B\u8F49\u63DB\u7522\u751F\u7684\u662F\u8F38\u5165\uFF0C\u800C\u975E\u671F\u671B\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u5957\u4EF6\u5206\u652F\u8986\u84CB\u7387\u7684\u6307\u6A19",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8986\u84CB\u7387\uFF0C\u4E0D\u662F\u8F38\u5165\u8F49\u63DB\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B MR \u90FD\u9644\u5E36\u4E00\u500B\u8F38\u5165\u8F49\u63DB\uFF08\u5982\u4F55\u7531\u6E90\u8F38\u5165\u5C0E\u51FA\u5F8C\u7E8C\u8F38\u5165\uFF09\u8207\u4E00\u500B\u8F38\u51FA\u95DC\u4FC2\uFF08\u5169\u500B\u8F38\u51FA\u5FC5\u9808\u5982\u4F55\u76F8\u95DC\uFF09\u3002\u628A\u8F49\u63DB\u65BD\u52A0\u65BC\u6E90\u8F38\u5165\uFF0C\u5373\u5F97\u5230\u8981\u57F7\u884C\u7684\u5F8C\u7E8C\u8F38\u5165\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u96C6\u5408\u7684\u6709\u6548 MR",
+            "text": "<p>\u5C0D\u65BC<strong>\u96C6\u5408\uFF08set\uFF09</strong>\u8CC7\u6599\u7D50\u69CB\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u6709\u6548\u7684\u86FB\u8B8A\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63D2\u5165\u4E00\u500B\u5DF2\u5B58\u5728\u7684\u5143\u7D20\uFF0C\u6703\u4F7F\u6210\u54E1\u95DC\u4FC2\u8207\u96C6\u5408\u5927\u5C0F\u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u96C6\u5408\u4E2D\u6BCF\u500B\u5143\u7D20\u81F3\u591A\u4E00\u4EFD\uFF0C\u91CD\u8907\u63D2\u5165\u4E0D\u6539\u8B8A\u4EFB\u4F55\u6771\u897F\u3002"
+              },
+              {
+                "text": "\u63D2\u5165\u91CD\u8907\u5143\u7D20\u5FC5\u7136\u4F7F\u5927\u5C0F\u52A0\u4E00",
+                "fraction": 0,
+                "feedback": "\u96C6\u5408\u4E0D\u5132\u5B58\u91CD\u8907\u5143\u7D20\uFF0C\u5927\u5C0F\u7DAD\u6301\u4E0D\u8B8A\u3002"
+              },
+              {
+                "text": "\u63D2\u5165\u91CD\u8907\u5143\u7D20\u6703\u79FB\u9664\u539F\u672C\u7684\u5143\u7D20",
+                "fraction": 0,
+                "feedback": "\u8A72\u5143\u7D20\u4ECD\u662F\u6210\u54E1\uFF1B\u65E2\u4E0D\u6703\u88AB\u79FB\u9664\u4E5F\u4E0D\u6703\u8B8A\u6210\u5169\u4EFD\u3002"
+              },
+              {
+                "text": "\u63D2\u5165\u91CD\u8907\u5143\u7D20\u6703\u78BA\u5B9A\u6027\u5730\u53CD\u8F49\u8FED\u4EE3\u9806\u5E8F",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E0D\u662F\u96C6\u5408\u7684\u5FC5\u8981\u6027\u8CEA\uFF1B\u8FED\u4EE3\u9806\u5E8F\u4E0D\u4FDD\u8B49\u53CD\u8F49\u3002"
+              }
+            ],
+            "generalFeedback": "\u96C6\u5408\u4E2D\u6BCF\u500B\u503C\u81F3\u591A\u5132\u5B58\u4E00\u4EFD\u3002\u52A0\u5165\u5B83\u5DF2\u5305\u542B\u7684\u5143\u7D20\uFF0C\u5FC5\u7136\u4F7F\u6210\u54E1\u5224\u65B7\u8207\u57FA\u6578\u90FD\u7DAD\u6301\u4E0D\u8B8A\u3002\u9019\u662F\u4E7E\u6DE8\u7684 MR\uFF1A\u5F8C\u7E8C\u8F38\u5165\u52A0\u5165\u4E00\u500B\u91CD\u8907\u5143\u7D20\uFF0C\u5176\u8F38\u51FA\uFF08\u5927\u5C0F\u6216\u6210\u54E1\u95DC\u4FC2\uFF09\u5FC5\u9808\u8207\u6E90\u76F8\u7B26\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5E73\u5747\u503C\u51FD\u5F0F\u7684\u6709\u6548 MR",
+            "text": "<p>\u5C0D\u65BC\u8A08\u7B97\u6E05\u55AE<strong>\u7B97\u8853\u5E73\u5747\u503C</strong>\u7684\u51FD\u5F0F\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u6709\u6548\u7684\u86FB\u8B8A\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u6BCF\u500B\u8F38\u5165\u503C\u90FD\u4E58\u4EE5\u5E38\u6578 k\uFF0C\u6703\u4F7F\u5E73\u5747\u503C\u4E58\u4EE5 k",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5E73\u5747\u503C\u662F\u7DDA\u6027\u7684\uFF0C\u7E2E\u653E\u6240\u6709\u8F38\u5165\u6703\u540C\u7B49\u7E2E\u653E\u5E73\u5747\u503C\u3002"
+              },
+              {
+                "text": "\u628A\u6BCF\u500B\u503C\u90FD\u4E58\u4EE5 k\uFF0C\u5E73\u5747\u503C\u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u5E73\u5747\u503C\u6703\u96A8\u503C\u7E2E\u653E\uFF1B\u5B83\u5728\u7E2E\u653E\u4E0B\u4E26\u975E\u4E0D\u8B8A\u3002"
+              },
+              {
+                "text": "\u53EA\u5C0D\u5176\u4E2D\u4E00\u500B\u503C\u52A0\u4E0A\u5E38\u6578 k\uFF0C\u5E73\u5747\u503C\u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u6539\u8B8A\u4E00\u500B\u503C\u5C31\u6539\u8B8A\u4E86\u7E3D\u548C\uFF0C\u56E0\u800C\u6539\u8B8A\u5E73\u5747\u503C\u3002"
+              },
+              {
+                "text": "\u628A\u6BCF\u500B\u503C\u90FD\u4E58\u4EE5 k\uFF0C\u6703\u4F7F\u5E73\u5747\u503C\u4E58\u4EE5 k\xB2",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8B8A\u7570\u6578\u7684\u7E2E\u653E\u65B9\u5F0F\uFF1B\u5E73\u5747\u503C\u4E58\u4EE5 k\uFF0C\u800C\u975E k\xB2\u3002"
+              }
+            ],
+            "generalFeedback": "mean(k\xB7x\u2081, \u2026, k\xB7x\u2099) = k\xB7mean(x\u2081, \u2026, x\u2099)\uFF0C\u56E0\u70BA\u5E73\u5747\u503C\u662F\u5176\u8F38\u5165\u7684\u7DDA\u6027\u51FD\u5F0F\u3002\u56E0\u6B64\u300C\u628A\u6BCF\u500B\u503C\u4E58\u4EE5 k\u300D\u662F\u8F38\u5165\u8F49\u63DB\uFF0C\u5176\u8F38\u51FA\u95DC\u4FC2\u70BA\u300C\u5E73\u5747\u503C\u4E58\u4EE5 k\u300D\u2014\u2014\u4E00\u500B\u4E0D\u9700\u8981\u671F\u671B\u503C\u7684\u6709\u6548 MR\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "MT \u4F7F\u7528\u591A\u6B21\u76F8\u95DC\u57F7\u884C",
+            "text": "<p>\u86FB\u8B8A\u6E2C\u8A66\u6AA2\u67E5\u7684\u662F\u591A\u6B21\u76F8\u95DC\u57F7\u884C\u7684\u8F38\u51FA\u4E4B\u9593\u6240\u6EFF\u8DB3\u7684\u6027\u8CEA\uFF0C\u800C\u975E\u628A\u55AE\u6B21\u57F7\u884C\u6BD4\u5C0D\u56FA\u5B9A\u7684\u671F\u671B\u503C\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MT \u6BD4\u5C0D\u76F8\u95DC\u57F7\u884C\u7684\u8F38\u51FA\uFF0C\u9019\u6B63\u662F\u5B83\u4E0D\u9700\u8981\u9010\u4E00\u8F38\u5165\u671F\u671B\u503C\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "MT \u78BA\u5BE6\u4F9D\u8CF4\u591A\u6B21\u76F8\u95DC\u57F7\u884C\uFF1B\u9019\u6B63\u662F\u86FB\u8B8A\u95DC\u4FC2\u7684\u672C\u8CEA\u3002"
+              }
+            ],
+            "generalFeedback": "MT \u7684\u5B9A\u7FA9\u7279\u5FB5\u662F\u9700\u8981\u81F3\u5C11\u5169\u6B21\u76F8\u95DC\u57F7\u884C\u2014\u2014\u4E00\u500B\u6E90\u8207\u4E00\u500B\u4EE5\u4E0A\u7684\u5F8C\u7E8C\u2014\u2014\u4E26\u6AA2\u67E5\u5176\u8F38\u51FA\u4E4B\u9593\u7684\u95DC\u4FC2\u3002\u628A\u55AE\u6B21\u57F7\u884C\u6BD4\u5C0D\u56FA\u5B9A\u671F\u671B\u503C\u662F\u4E00\u822C\u9810\u8A00\uFF0C\u800C\u975E MT\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u5EFA\u69CB\u6B63\u5F26\u7684\u5F8C\u7E8C\u8F38\u5165",
+            "text": "<p>\u4F7F\u7528 MR <code>sin(x) = sin(\u03C0 \u2212 x)</code>\uFF0C\u67D0\u6E90\u6E2C\u8A66\u4F7F\u7528\u8F38\u5165 <code>x = 0.3</code>\u3002\u5F8C\u7E8C\u8F38\u5165\u8207\u671F\u671B\u7684\u8F38\u51FA\u95DC\u4FC2\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F8C\u7E8C\u8F38\u5165 = \u03C0 \u2212 0.3\uFF08\u2248 2.8416\uFF09\uFF1B\u5169\u500B\u8F38\u51FA\u5FC5\u9808\u76F8\u7B49",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u65BD\u52A0\u8F49\u63DB \u03C0 \u2212 x\uFF0C\u4E26\u8981\u6C42\u8F38\u51FA\u76F8\u7B49\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C\u8F38\u5165 = 2 \xD7 0.3\uFF1B\u5169\u500B\u8F38\u51FA\u5FC5\u9808\u76F8\u7B49",
+                "fraction": 0,
+                "feedback": "\u628A\u8F38\u5165\u52A0\u500D\u4E0D\u662F\u6B64 MR \u7684\u8F49\u63DB\uFF0C\u4E14 sin(0.6) \u2260 sin(0.3)\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C\u8F38\u5165 = 0.3 + \u03C0\uFF1B\u5169\u500B\u8F38\u51FA\u5FC5\u9808\u76F8\u7B49",
+                "fraction": 0,
+                "feedback": "\u90A3\u7528\u7684\u662F \u03C0 + x\uFF0C\u5F97 sin(0.3 + \u03C0) = \u2212sin(0.3)\uFF0C\u4E26\u4E0D\u76F8\u7B49\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C\u8F38\u5165 = \u03C0 \u2212 0.3\uFF1B\u5F8C\u7E8C\u8F38\u51FA\u5FC5\u9808\u662F\u6E90\u7684\u5169\u500D",
+                "fraction": 0,
+                "feedback": "\u8F49\u63DB\u6B63\u78BA\uFF0C\u4F46\u95DC\u4FC2\u662F\u76F8\u7B49\uFF0C\u800C\u975E\u52A0\u500D\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64 MR \u7684\u8F49\u63DB\u70BA x \u21A6 \u03C0 \u2212 x\uFF0C\u8F38\u51FA\u95DC\u4FC2\u70BA\u76F8\u7B49\u3002\u56E0\u6B64\u5F8C\u7E8C\u8F38\u5165\u70BA \u03C0 \u2212 0.3 \u2248 2.8416\uFF0C\u6B63\u78BA\u7684\u6B63\u5F26\u5C0D\u5169\u8005\u5FC5\u7136\u56DE\u50B3\u76F8\u540C\u503C\u2014\u2014\u5B8C\u5168\u4E0D\u9700\u8981\u77E5\u9053\u4EFB\u4F55\u671F\u671B\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EFA\u69CB\u6392\u5E8F\u7684\u5F8C\u7E8C\u8F38\u5165",
+            "text": "<p>\u8981\u4EE5\u6392\u5217\u4E0D\u8B8A\u6027\u6E2C\u8A66\u6392\u5E8F\u5E38\u5F0F\uFF0C\u7531\u6E90\u6E05\u55AE <code>L = [3, 1, 2]</code> \u8A72\u5982\u4F55\u5EFA\u69CB\u5F8C\u7E8C\u8F38\u5165\uFF0C\u4E14\u5FC5\u9808\u6210\u7ACB\u4EC0\u9EBC\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F8C\u7E8C = L \u7684\u4EFB\u4E00\u6392\u5217\uFF0C\u4F8B\u5982 [2, 3, 1]\uFF1BL \u8207\u5F8C\u7E8C\u7684\u6392\u5E8F\u8F38\u51FA\u5FC5\u9808\u5B8C\u5168\u76F8\u540C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6253\u4E82\u5143\u7D20\u9806\u5E8F\uFF1B\u6392\u5E8F\u7D50\u679C\u5FC5\u9808\u76F8\u7B26\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = \u6392\u5E8F\u8F38\u51FA\u7684\u53CD\u8F49\uFF1B\u5169\u500B\u8F38\u51FA\u5FC5\u9808\u4E0D\u540C",
+                "fraction": 0,
+                "feedback": "\u5F8C\u7E8C\u5FC5\u9808\u662F\u540C\u4E00\u8F38\u5165\u7684\u6392\u5217\uFF0C\u4E14\u8F38\u51FA\u5FC5\u9808\u76F8\u7B49\u800C\u975E\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = L \u79FB\u9664\u4E00\u500B\u5143\u7D20\uFF1B\u5169\u500B\u8F38\u51FA\u5FC5\u9808\u76F8\u7B49",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u5143\u7D20\u6539\u8B8A\u4E86\u591A\u91CD\u96C6\u5408\uFF0C\u56E0\u6B64\u6392\u5E8F\u8F38\u51FA\u6703\u5408\u7406\u5730\u6539\u8B8A\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = L \u6BCF\u500B\u503C\u52A0\u500D\uFF1B\u5169\u500B\u8F38\u51FA\u5FC5\u9808\u76F8\u7B49",
+                "fraction": 0,
+                "feedback": "\u628A\u503C\u52A0\u500D\u6539\u8B8A\u4E86\u5143\u7D20\uFF0C\u56E0\u6B64\u6392\u5E8F\u8F38\u51FA\u6703\u6539\u8B8A\u3002"
+              }
+            ],
+            "generalFeedback": "\u6392\u5217\u4E0D\u8B8A\u6027\u8868\u793A\u6392\u5E8F\u8F38\u51FA\u53EA\u53D6\u6C7A\u65BC\u5143\u7D20\u7684\u591A\u91CD\u96C6\u5408\u3002\u56E0\u6B64\u5F8C\u7E8C\u8F38\u5165\u662F L \u7684\u4EFB\u4E00\u91CD\u6392\uFF08\u4F8B\u5982 [2, 3, 1]\uFF09\uFF0C\u4E14 sort(\u5F8C\u7E8C) \u5FC5\u9808\u7B49\u65BC sort(L)\u3002\u6B64\u8655\u53EA\u6709\u91CD\u6392\u662F\u6709\u6548\u8F49\u63DB\uFF1B\u65B0\u589E\u3001\u79FB\u9664\u6216\u66F4\u6539\u503C\u90FD\u6703\u6539\u8B8A\u591A\u91CD\u96C6\u5408\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u641C\u5C0B\u7D50\u679C\u6578\u7684\u55AE\u8ABF\u6027",
+            "text": "<p>\u5C0D\u65BC\u6703\u56DE\u50B3<em>\u6240\u6709</em>\u7B26\u5408<em>\u5168\u90E8</em>\u67E5\u8A62\u5B57\u8A5E\u7684\u6587\u4EF6\u7684\u641C\u5C0B\uFF08\u5408\u53D6\u5F0F\u904E\u6FFE\uFF09\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u6709\u6548\u7684\u86FB\u8B8A\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u518D\u52A0\u5165\u4E00\u500B\u5FC5\u8981\u5B57\u8A5E\u53EA\u6703\u4F7F\u7D50\u679C\u6578\u7DAD\u6301\u4E0D\u8B8A\u6216\u6E1B\u5C11\uFF08\u8F03\u5177\u9AD4\u7684\u67E5\u8A62\u56DE\u50B3\u7684\u7D50\u679C \u2264 \u8F03\u4E0D\u5177\u9AD4\u8005\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8F03\u5177\u9AD4\u67E5\u8A62\u7684\u7D50\u679C\u96C6\u662F\u5B50\u96C6\uFF0C\u6545\u5176\u6578\u91CF \u2264\u3002"
+              },
+              {
+                "text": "\u518D\u52A0\u5165\u4E00\u500B\u5FC5\u8981\u5B57\u8A5E\u53EA\u6703\u4F7F\u7D50\u679C\u6578\u589E\u52A0",
+                "fraction": 0,
+                "feedback": "\u65B9\u5411\u76F8\u53CD\u2014\u2014\u7E2E\u7A84\u67E5\u8A62\u4E0D\u53EF\u80FD\u589E\u52A0\u7B26\u5408\u9805\u3002"
+              },
+              {
+                "text": "\u79FB\u9664\u4E00\u500B\u5FC5\u8981\u5B57\u8A5E\u53EA\u6703\u4F7F\u7D50\u679C\u6578\u6E1B\u5C11",
+                "fraction": 0,
+                "feedback": "\u65B9\u5411\u76F8\u53CD\u2014\u2014\u653E\u5BEC\u67E5\u8A62\u4E0D\u53EF\u80FD\u5931\u53BB\u7B26\u5408\u9805\u3002"
+              },
+              {
+                "text": "\u7D50\u679C\u6578\u8207\u67E5\u8A62\u5B57\u8A5E\u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u7D50\u679C\u6578\u986F\u7136\u53D6\u6C7A\u65BC\u9700\u8981\u54EA\u4E9B\u5B57\u8A5E\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u5408\u53D6\u5F0F\u904E\u6FFE\u8A9E\u610F\u4E0B\uFF0C\u4E00\u4EFD\u6587\u4EF6\u88AB\u56DE\u50B3\u7684\u5145\u8981\u689D\u4EF6\u662F\u5B83\u7B26\u5408\u6BCF\u500B\u5FC5\u8981\u5B57\u8A5E\u3002\u591A\u8981\u6C42\u4E00\u500B\u5B57\u8A5E\u53EA\u6703\u79FB\u9664\u6587\u4EF6\u3001\u4E0D\u6703\u589E\u52A0\uFF0C\u56E0\u6B64\u8F03\u5177\u9AD4\u67E5\u8A62\u7684\u7D50\u679C\u96C6\u662F\u8F03\u5EE3\u8005\u7684\u5B50\u96C6\uFF0C\u5176\u6578\u91CF \u2264\u3002\u6B64\u55AE\u8ABF\u6027\u662F\u6709\u6548\u7684 MR\uFF1A\u4E0D\u9700\u8981\u671F\u671B\u6578\u91CF\uFF0C\u53EA\u9700\u5169\u500B\u76F8\u95DC\u67E5\u8A62\u4E4B\u9593\u7684 \u2264 \u95DC\u4FC2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EFA\u69CB\u5E73\u5747\u503C\u7E2E\u653E\u7684\u5F8C\u7E8C\u8F38\u5165",
+            "text": "<p>\u67D0\u7A0B\u5F0F\u8A08\u7B97\u6E05\u55AE\u7684\u5E73\u5747\u503C\u3002\u6E90\u8F38\u5165 <code>[2, 4, 6]</code> \u5F97 <code>4</code>\u3002\u4F7F\u7528\u7E2E\u653E MR \u4E14 <code>k = 3</code>\uFF0C\u5F8C\u7E8C\u8F38\u5165\u8207\u671F\u671B\u8F38\u51FA\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F8C\u7E8C = [6, 12, 18]\uFF1B\u671F\u671B\u5E73\u5747\u503C = 12\uFF08= 3 \xD7 4\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u6BCF\u500B\u503C\u4E58\u4EE5 3\uFF0C\u5E73\u5747\u503C\u4E5F\u4E58\u4EE5 3\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = [6, 12, 18]\uFF1B\u671F\u671B\u5E73\u5747\u503C = 4",
+                "fraction": 0,
+                "feedback": "\u8F49\u63DB\u6B63\u78BA\uFF0C\u4F46\u628A\u8F38\u5165\u4E58\u4EE5 3 \u6703\u4F7F\u5E73\u5747\u503C\u8B8A\u6210 12\uFF0C\u800C\u975E 4\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = [5, 7, 9]\uFF1B\u671F\u671B\u5E73\u5747\u503C = 7",
+                "fraction": 0,
+                "feedback": "\u5C0D\u6BCF\u500B\u503C\u52A0 3\uFF08\u800C\u975E\u4E58\uFF09\u662F\u8207\u6B64 MR \u4E0D\u540C\u7684\u8F49\u63DB\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = [2, 4, 6, 3]\uFF1B\u671F\u671B\u5E73\u5747\u503C = 12",
+                "fraction": 0,
+                "feedback": "\u9644\u52A0\u4E00\u500B\u503C\u4E0D\u662F\u7E2E\u653E\u8F49\u63DB\uFF0C\u4E14\u8A72\u5E73\u5747\u503C\u6703\u662F 3.75\u3002"
+              }
+            ],
+            "generalFeedback": "\u7E2E\u653E MR \u628A\u6BCF\u500B\u8F38\u5165\u4E58\u4EE5 k\uFF0C\u4E26\u671F\u671B\u5E73\u5747\u503C\u4E58\u4EE5 k\u3002\u7576 k = 3\uFF0C\u5F8C\u7E8C\u8F38\u5165\u70BA [6, 12, 18]\uFF0C\u671F\u671B\u5E73\u5747\u503C\u70BA 3 \xD7 4 = 12\u3002\u9A57\u8B49\uFF1A(6 + 12 + 18)/3 = 12\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EFA\u69CB\u53EF\u4EA4\u63DB\u6027\u7684\u5F8C\u7E8C\u8F38\u5165",
+            "text": "<p>\u5C0D\u65BC\u51FD\u5F0F <code>f(a, b) = a \xD7 b</code>\uFF0C\u4F7F\u7528\u53EF\u4EA4\u63DB\u6027 MR\uFF0C\u8A72\u5982\u4F55\u7531\u6E90 <code>(a = 5, b = 7)</code> \u5EFA\u69CB\u5F8C\u7E8C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F8C\u7E8C = (a = 7, b = 5)\uFF1B\u5169\u500B\u8F38\u51FA\u5FC5\u9808\u76F8\u7B49\uFF08\u7686\u70BA 35\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4EA4\u63DB\u904B\u7B97\u5143\uFF1B\u4E58\u6CD5\u53EF\u4EA4\u63DB\uFF0C\u6545\u8F38\u51FA\u76F8\u7B26\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = (a = 5, b = 5)\uFF1B\u5169\u500B\u8F38\u51FA\u5FC5\u9808\u76F8\u7B49",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u66F4\u6539\u4E86\u904B\u7B97\u5143\u800C\u975E\u4EA4\u63DB\uFF1B5 \xD7 5 \u2260 5 \xD7 7\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = (a = 7, b = 5)\uFF1B\u5F8C\u7E8C\u8F38\u51FA\u5FC5\u9808\u662F\u6E90\u7684\u5169\u500D",
+                "fraction": 0,
+                "feedback": "\u4EA4\u63DB\u6B63\u78BA\uFF0C\u4F46\u95DC\u4FC2\u662F\u76F8\u7B49\uFF0C\u800C\u975E\u52A0\u500D\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = (a = 10, b = 14)\uFF1B\u5169\u500B\u8F38\u51FA\u5FC5\u9808\u76F8\u7B49",
+                "fraction": 0,
+                "feedback": "\u628A\u5169\u500B\u904B\u7B97\u5143\u90FD\u52A0\u500D\u4E0D\u662F\u53EF\u4EA4\u63DB\u6027\u7684\u8F49\u63DB\uFF0C\u4E14 10 \xD7 14 \u2260 5 \xD7 7\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u4EA4\u63DB\u6027 MR \u7684\u8F49\u63DB\u662F\u4EA4\u63DB\u904B\u7B97\u5143\uFF0C\u8F38\u51FA\u95DC\u4FC2\u70BA\u76F8\u7B49\u3002\u7531 (5, 7) \u5F97\u5F8C\u7E8C (7, 5)\uFF0C\u6B63\u78BA\u7684\u4E58\u6CD5\u5C0D\u5169\u8005\u90FD\u56DE\u50B3 35\u3002\u4E0D\u9700\u8981\u4EFB\u4F55\u671F\u671B\u503C\u2014\u2014\u53EA\u9700\u5169\u500B\u8F38\u51FA\u4E00\u81F4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u7121\u9810\u8A00\u6642 MT \u6709\u7528",
+            "text": "<p>\u5C0D\u65BC\u78BA\u5207\u671F\u671B\u8F38\u51FA\u96E3\u4EE5\u8A08\u7B97\u7684\u7A0B\u5F0F\uFF0CMT \u70BA\u4F55\u6709\u50F9\u503C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u85C9\u7531\u6AA2\u67E5\u76F8\u95DC\u57F7\u884C\u4E4B\u9593\u6240\u9700\u7684\u95DC\u4FC2\u4F86\u5075\u6E2C\u7F3A\u9677\uFF0C\u5B8C\u5168\u4E0D\u9700\u8981\u4EFB\u4F55\u55AE\u6B21\u57F7\u884C\u7684\u78BA\u5207\u671F\u671B\u8F38\u51FA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u95DC\u4FC2\u53D6\u4EE3\u4E86\u7F3A\u5931\u7684\u9010\u4E00\u8F38\u5165\u671F\u671B\u503C\u3002"
+              },
+              {
+                "text": "\u5B83\u81EA\u52D5\u8A08\u7B97\u51FA\u78BA\u5207\u7684\u671F\u671B\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "MT \u4E0D\u8A08\u7B97\u671F\u671B\u8F38\u51FA\uFF1B\u5B83\u6AA2\u67E5\u57F7\u884C\u4E4B\u9593\u7684\u95DC\u4FC2\u3002"
+              },
+              {
+                "text": "\u5B83\u4E0D\u57F7\u884C\u7A0B\u5F0F\u5C31\u80FD\u8B49\u660E\u6B63\u78BA\u6027",
+                "fraction": 0,
+                "feedback": "MT \u6703\u5C0D\u76F8\u95DC\u8F38\u5165\u57F7\u884C\u7A0B\u5F0F\uFF1B\u5B83\u4E0D\u8B49\u660E\u6B63\u78BA\u6027\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u7A0B\u5F0F\u4E0D\u5FC5\u57F7\u884C\u8D85\u904E\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "MT \u9700\u8981\u591A\u6B21\u76F8\u95DC\u57F7\u884C\uFF0C\u800C\u975E\u66F4\u5C11\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6C92\u6709\u9810\u8A00\u80FD\u544A\u8A34\u4F60\u67D0\u8F38\u5165\u7684\u6B63\u78BA\u7B54\u6848\u6642\uFF0C\u4F60\u4ECD\u80FD\u77E5\u9053\u76F8\u95DC\u57F7\u884C\u4E4B\u9593\u5FC5\u9808\u5982\u4F55\u76F8\u95DC\u3002MT \u5229\u7528\u9019\u4E00\u9EDE\uFF1A\u8F49\u63DB\u8F38\u5165\u3001\u518D\u6B21\u57F7\u884C\uFF0C\u4E26\u6AA2\u67E5\u8F38\u51FA\u95DC\u4FC2\u3002\u5373\u4FBF\u5F9E\u672A\u53D6\u5F97\u78BA\u5207\u671F\u671B\u8F38\u51FA\uFF0C\u9055\u53CD\u4E5F\u80FD\u63ED\u9732\u7F3A\u9677\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u901A\u904E\u6E2C\u8A66\u4E0D\u662F\u8B49\u660E",
+            "text": "<p>\u901A\u904E\u8A31\u591A\u86FB\u8B8A\u6E2C\u8A66\u5373\u53EF\u8B49\u660E\u7A0B\u5F0F\u6C92\u6709\u7F3A\u9677\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u5426\u2014\u2014MT \u80FD\u63ED\u9732\u9055\u53CD\uFF0C\u537B\u7121\u6CD5\u78BA\u7ACB\u7F3A\u9677\u4E0D\u5B58\u5728\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u901A\u904E\u6E2C\u8A66\u4ECD\u7559\u6709\u672A\u88AB\u6240\u9078\u95DC\u4FC2\u6216\u8F38\u5165\u63ED\u9732\u7684\u7F3A\u9677\u3002"
+              }
+            ],
+            "generalFeedback": "MT \u662F\u4E00\u7A2E\u6E2C\u8A66\u6280\u8853\uFF0C\u56E0\u6B64\u80FD\u627E\u51FA\u7F3A\u9677\u537B\u4E0D\u80FD\u8B49\u660E\u5176\u4E0D\u5B58\u5728\u3002\u7A0B\u5F0F\u53EF\u80FD\u5728\u6BCF\u500B\u5617\u8A66\u904E\u7684\u8F38\u5165\u4E0A\u6EFF\u8DB3\u6BCF\u500B\u6240\u9078 MR\uFF0C\u537B\u4ECD\u5728\u672A\u53D7\u6E2C\u8F38\u5165\u4E0A\u5931\u6557\uFF0C\u6216\u9055\u53CD\u4EFB\u4F55 MR \u90FD\u672A\u6DB5\u84CB\u7684\u6027\u8CEA\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6700\u77ED\u8DEF\u5F91\u91CD\u65B0\u547D\u540D\u7684 MR",
+            "text": "<p>\u67D0\u7A0B\u5F0F\u8A08\u7B97\u52A0\u6B0A\u5716\u4E2D\u5169\u7BC0\u9EDE\u9593\u7684\u6700\u77ED\u8DEF\u5F91\u8DDD\u96E2\u3002\u4E0B\u5217\u4F55\u8005\u662F\u6709\u6548\u7684\u86FB\u8B8A\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EE5\u96D9\u5C04\u5C0D\u7BC0\u9EDE\u91CD\u65B0\u547D\u540D\uFF0C\u4E26\u67E5\u8A62\u5C0D\u61C9\u6539\u540D\u5F8C\u7684\u7AEF\u9EDE\uFF0C\u5FC5\u7136\u56DE\u50B3\u76F8\u540C\u8DDD\u96E2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u96D9\u5C04\u91CD\u65B0\u547D\u540D\u662F\u5716\u540C\u69CB\uFF0C\u4FDD\u7559\u6240\u6709\u8DDD\u96E2\u3002"
+              },
+              {
+                "text": "\u5C0D\u7BC0\u9EDE\u91CD\u65B0\u547D\u540D\u6703\u4F7F\u8DDD\u96E2\u6539\u8B8A\u7BC0\u9EDE\u6578\u90A3\u9EBC\u591A",
+                "fraction": 0,
+                "feedback": "\u6539\u540D\u4E0D\u6539\u8B8A\u4EFB\u4F55\u7D50\u69CB\u6216\u6B0A\u91CD\uFF0C\u6545\u8DDD\u96E2\u4E0D\u53D7\u5F71\u97FF\u3002"
+              },
+              {
+                "text": "\u628A\u6BCF\u500B\u7BC0\u9EDE\u7684\u6A19\u7C64\u52A0\u500D\u6703\u4F7F\u8DDD\u96E2\u52A0\u500D",
+                "fraction": 0,
+                "feedback": "\u7BC0\u9EDE\u6A19\u7C64\u53EA\u662F\u8B58\u5225\u78BC\uFF0C\u5176\u6578\u503C\u4E0D\u5F71\u97FF\u8DDD\u96E2\u3002"
+              },
+              {
+                "text": "\u53CD\u8F49\u7BC0\u9EDE\u6A19\u7C64\u6703\u4F7F\u8DDD\u96E2\u8B8A\u865F",
+                "fraction": 0,
+                "feedback": "\u8DDD\u96E2\u975E\u8CA0\uFF0C\u4E14\u53D6\u6C7A\u65BC\u908A\uFF0F\u6B0A\u91CD\uFF0C\u800C\u975E\u6A19\u7C64\u9806\u5E8F\u3002"
+              }
+            ],
+            "generalFeedback": "\u4EE5\u96D9\u5C04\u5C0D\u7BC0\u9EDE\u6539\u540D\uFF0C\u6703\u4F7F\u5716\u5728\u7D50\u69CB\u4E0A\u5B8C\u5168\u76F8\u540C\uFF08\u540C\u69CB\uFF09\uFF1A\u76F8\u540C\u7684\u908A\u3001\u76F8\u540C\u7684\u6B0A\u91CD\uFF0C\u53EA\u662F\u540D\u7A31\u4E0D\u540C\u3002\u56E0\u6B64\u6539\u540D\u5F8C\u7AEF\u9EDE\u9593\u7684\u6700\u77ED\u8DEF\u5F91\u8DDD\u96E2\u5FC5\u9808\u7B49\u65BC\u539F\u672C\u7684\u3002\u6B64 MR \u5F88\u5F37\uFF0C\u56E0\u70BA\u5B83\u5B8C\u5168\u4E0D\u9700\u8981\u77E5\u9053\u5BE6\u969B\u8DDD\u96E2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EFA\u69CB\u96C6\u5408\u5927\u5C0F\u7684\u5F8C\u7E8C\u8F38\u5165",
+            "text": "<p>\u67D0\u7A0B\u5F0F\u7DAD\u8B77\u4E00\u500B\u96C6\u5408\u4E26\u56DE\u5831\u5176\u5927\u5C0F\u3002\u6E90\uFF1A\u63D2\u5165 <code>[1, 2, 3]</code> \u5F97\u5927\u5C0F <code>3</code>\u3002\u4F7F\u7528\u91CD\u8907\u63D2\u5165 MR\uFF0C\u5F8C\u7E8C\u8207\u671F\u671B\u5927\u5C0F\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F8C\u7E8C = \u63D2\u5165 [1, 2, 3, 2]\uFF08\u52A0\u5165\u4E00\u500B\u91CD\u8907\uFF09\uFF1B\u671F\u671B\u5927\u5C0F\u4ECD\u70BA 3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u52A0\u5165\u91CD\u8907\u5143\u7D20\u4F7F\u96C6\u5408\u5927\u5C0F\u7DAD\u6301\u4E0D\u8B8A\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = \u63D2\u5165 [1, 2, 3, 2]\uFF1B\u671F\u671B\u5927\u5C0F 4",
+                "fraction": 0,
+                "feedback": "\u96C6\u5408\u5FFD\u7565\u91CD\u8907\uFF0C\u6545\u5927\u5C0F\u7DAD\u6301 3\uFF0C\u800C\u975E 4\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = \u63D2\u5165 [1, 2, 3, 4]\uFF1B\u671F\u671B\u5927\u5C0F 3",
+                "fraction": 0,
+                "feedback": "\u52A0\u5165\u65B0\u7684\u76F8\u7570\u5143\u7D20 4 \u4E0D\u662F\u91CD\u8907\u8F49\u63DB\uFF0C\u4E14\u6703\u4F7F\u5927\u5C0F\u8B8A\u6210 4\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = \u63D2\u5165 [1, 2, 3, 2]\uFF1B\u671F\u671B\u5927\u5C0F 2",
+                "fraction": 0,
+                "feedback": "\u52A0\u5165\u91CD\u8907\u4E0D\u53EF\u80FD\u7E2E\u5C0F\u96C6\u5408\uFF1B\u5927\u5C0F\u7DAD\u6301 3\u3002"
+              }
+            ],
+            "generalFeedback": "\u91CD\u8907\u63D2\u5165\u8F49\u63DB\u52A0\u5165\u4E00\u500B\u5DF2\u5B58\u5728\u7684\u5143\u7D20\uFF0C\u8F38\u51FA\u95DC\u4FC2\u70BA\u5927\u5C0F\u4E0D\u8B8A\u3002\u7531\u6E90 [1, 2, 3]\uFF08\u5927\u5C0F 3\uFF09\uFF0C\u5F8C\u7E8C [1, 2, 3, 2] \u5FC5\u9808\u4ECD\u56DE\u5831\u5927\u5C0F 3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EFA\u69CB\u6700\u5927\u503C\u7684\u5F8C\u7E8C\u8F38\u5165",
+            "text": "<p>\u67D0\u7A0B\u5F0F\u56DE\u50B3\u6E05\u55AE\u7684\u6700\u5927\u503C\u3002\u7531\u6E90 <code>L = [4, 9, 1]</code>\uFF08\u6700\u5927\u503C 9\uFF09\uFF0C\u54EA\u500B\u5F8C\u7E8C\u6E2C\u8A66\u4E86\u6709\u6548\u7684 MR\uFF0C\u4E14\u6210\u7ACB\u4EC0\u9EBC\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F8C\u7E8C = \u5728 L \u9644\u52A0\u4E00\u500B \u2264 9 \u7684\u5143\u7D20\uFF0C\u4F8B\u5982 [4, 9, 1, 7]\uFF1B\u6700\u5927\u503C\u5FC5\u9808\u7DAD\u6301\u4E0D\u8B8A\uFF08\u4ECD\u70BA 9\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9644\u52A0\u4E00\u500B\u4E0D\u8D85\u904E\u7576\u524D\u6700\u5927\u503C\u7684\u503C\uFF0C\u6700\u5927\u503C\u7DAD\u6301\u4E0D\u8B8A\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = [4, 9, 1, 15]\uFF1B\u6700\u5927\u503C\u5FC5\u9808\u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u9644\u52A0 15\uFF08\u5927\u65BC 9\uFF09\u6703\u5408\u7406\u5730\u628A\u6700\u5927\u503C\u63D0\u5347\u70BA 15\uFF0C\u6545\u300C\u4E0D\u8B8A\u300D\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = [4, 9, 1, 7]\uFF1B\u6700\u5927\u503C\u5FC5\u9808\u589E\u52A0",
+                "fraction": 0,
+                "feedback": "\u9644\u52A0 7\uFF08\u2264 9\uFF09\u4E0D\u53EF\u80FD\u63D0\u5347\u6700\u5927\u503C\uFF1B\u5B83\u7DAD\u6301 9\u3002"
+              },
+              {
+                "text": "\u5F8C\u7E8C = [8, 18, 2]\uFF1B\u6700\u5927\u503C\u5FC5\u9808\u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E0D\u540C\u7684\u503C\uFF0C\u4E26\u975E\u5728 L \u9644\u52A0\u4E00\u500B \u2264 9 \u7684\u5143\u7D20\u3002"
+              }
+            ],
+            "generalFeedback": "max(L ++ [y]) = max(max(L), y)\u3002\u82E5 y \u2264 max(L)\uFF0C\u6700\u5927\u503C\u4E0D\u8B8A\uFF1B\u82E5 y > max(L)\uFF0C\u5247\u8B8A\u70BA y\u3002\u56E0\u6B64\u6709\u6548\u7684 MR \u662F\u300C\u9644\u52A0\u4E00\u500B \u2264 \u7576\u524D\u6700\u5927\u503C\u7684\u503C\u4F7F\u6700\u5927\u503C\u4E0D\u8B8A\u300D\uFF0C\u7D66\u51FA\u5982 [4, 9, 1, 7] \u7684\u5F8C\u7E8C\uFF0C\u671F\u671B\u6700\u5927\u503C 9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u653E\u5BEC\u67E5\u8A62",
+            "text": "<p>\u5C0D\u65BC\u5408\u53D6\u5F0F\u904E\u6FFE\u641C\u5C0B\uFF0C\u54EA\u500B\u8F49\u63DB\u6703\u7D66\u51FA\u7D50\u679C\u6578\u5FC5\u9808 \u2265 \u6E90\u7684\u5F8C\u7E8C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u79FB\u9664\u5176\u4E2D\u4E00\u500B\u5FC5\u8981\u67E5\u8A62\u5B57\u8A5E\uFF08\u4F7F\u67E5\u8A62\u8F03\u4E0D\u5177\u9AD4\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8F03\u5EE3\u67E5\u8A62\u7684\u7D50\u679C\u96C6\u662F\u8D85\u96C6\uFF0C\u6545\u5176\u6578\u91CF \u2265\u3002"
+              },
+              {
+                "text": "\u518D\u52A0\u5165\u4E00\u500B\u5FC5\u8981\u5B57\u8A5E",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u7E2E\u7A84\u67E5\u8A62\uFF0C\u7D66\u51FA \u2264 \u7684\u7D50\u679C\uFF0C\u800C\u975E \u2265\u3002"
+              },
+              {
+                "text": "\u628A\u4E00\u500B\u5B57\u8A5E\u66FF\u63DB\u70BA\u8F03\u5177\u9AD4\u7684\u540C\u7FA9\u8A5E",
+                "fraction": 0,
+                "feedback": "\u628A\u5B57\u8A5E\u8B8A\u5F97\u8F03\u5177\u9AD4\u4E0D\u4FDD\u8B49 \u2265 \u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u8981\u6C42\u6240\u6709\u5B57\u8A5E\u53EA\u51FA\u73FE\u5728\u6A19\u984C\u4E2D",
+                "fraction": 0,
+                "feedback": "\u52A0\u5165\u4F4D\u7F6E\u9650\u5236\u6703\u7E2E\u7A84\u7B26\u5408\u9805\uFF1B\u4E0D\u4FDD\u8B49 \u2265 \u7684\u7D50\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "\u79FB\u9664\u4E00\u500B\u5FC5\u8981\u5B57\u8A5E\u4F7F\u67E5\u8A62\u8F03\u4E0D\u5177\u9AD4\uFF0C\u56E0\u6B64\u539F\u672C\u7B26\u5408\u7684\u6BCF\u4EFD\u6587\u4EF6\u4ECD\u7B26\u5408\uFF08\u4E14\u53EF\u80FD\u66F4\u591A\uFF09\u3002\u8F03\u5EE3\u7684\u7D50\u679C\u96C6\u662F\u8D85\u96C6\uFF0C\u6545\u5176\u6578\u91CF \u2265 \u6E90\u7684\u3002\u9019\u662F\u7E2E\u7A84 MR \u7684\u300C\u2265\u300D\u5C0D\u61C9\u7248\u672C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6311\u51FA\u5E73\u5747\u503C\u7684\u6709\u6548 MR",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F\u6B63\u78BA\u5E73\u5747\u503C\u51FD\u5F0F\u771F\u6B63\u7684\u5FC5\u8981\u6027\u8CEA\uFF08\u6709\u6548\u7684 MR\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9644\u52A0\u4E00\u500B\u7B49\u65BC\u7576\u524D\u5E73\u5747\u503C\u7684\u984D\u5916\u503C\uFF0C\u4F7F\u5E73\u5747\u503C\u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u52A0\u5165\u4E00\u500B\u7B49\u65BC\u5E73\u5747\u503C\u7684\u8CC7\u6599\u9EDE\u4E0D\u6703\u79FB\u52D5\u5E73\u5747\u503C\u3002"
+              },
+              {
+                "text": "\u9644\u52A0\u4EFB\u4E00\u500B\u984D\u5916\u503C\uFF0C\u90FD\u4F7F\u5E73\u5747\u503C\u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u70BA\u5047\u2014\u2014\u53EA\u6709\u7B49\u65BC\u7576\u524D\u5E73\u5747\u503C\u7684\u503C\u624D\u4F7F\u5B83\u4E0D\u8B8A\u3002"
+              },
+              {
+                "text": "\u79FB\u9664\u6700\u5927\u503C\u4F7F\u5E73\u5747\u503C\u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u70BA\u5047\u2014\u2014\u79FB\u9664\u6700\u5927\u503C\u4E00\u822C\u6703\u964D\u4F4E\u5E73\u5747\u503C\u3002"
+              },
+              {
+                "text": "\u628A\u6E05\u55AE\u91CD\u8907\u4E00\u6B21\u4F7F\u9577\u5EA6\u52A0\u500D\uFF0C\u6703\u4F7F\u5E73\u5747\u503C\u52A0\u500D",
+                "fraction": 0,
+                "feedback": "\u70BA\u5047\u2014\u2014\u628A\u6E05\u55AE\u91CD\u8907\u6703\u4F7F\u5E73\u5747\u503C\u4E0D\u8B8A\uFF0C\u800C\u975E\u52A0\u500D\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A2D\u6709 n \u500B\u503C\u3001\u5E73\u5747\u503C\u70BA m\uFF0C\u9644\u52A0\u4E00\u500B\u7B49\u65BC m \u7684\u503C\u5F8C\uFF0C\u65B0\u5E73\u5747\u503C\u70BA (n\xB7m + m)/(n + 1) = m(n + 1)/(n + 1) = m\u3002\u6545\u5E73\u5747\u503C\u4E0D\u8B8A\u2014\u2014\u9019\u662F\u6709\u6548\u7684 MR\u3002\u5176\u9918\u9078\u9805\u90FD\u4E0D\u662F\u6B63\u78BA\u5E73\u5747\u503C\u7684\u5FC5\u8981\u6027\u8CEA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7E2E\u653E\u4E0B\u7684\u8B8A\u7570\u6578",
+            "text": "<p>\u67D0\u7A0B\u5F0F\u8A08\u7B97\u6E05\u55AE\u7684\uFF08\u6BCD\u9AD4\uFF09<strong>\u8B8A\u7570\u6578</strong>\u3002\u628A\u6BCF\u500B\u503C\u4E58\u4EE5 <code>k</code> \u6709\u4F55\u6548\u679C\uFF0C\u69CB\u6210\u6709\u6548\u7684 MR\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B8A\u7570\u6578\u4E58\u4EE5 k\xB2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Var(kX) = k\xB2\xB7Var(X)\u3002"
+              },
+              {
+                "text": "\u8B8A\u7570\u6578\u4E58\u4EE5 k",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5E73\u5747\u503C\uFF08\u6216\u7DDA\u6027\u91CF\uFF09\u7684\u7E2E\u653E\u65B9\u5F0F\uFF1B\u8B8A\u7570\u6578\u4E58\u4EE5 k\xB2\u3002"
+              },
+              {
+                "text": "\u8B8A\u7570\u6578\u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u7E2E\u653E\u8CC7\u6599\u6703\u4F7F\u5176\u6563\u5E03\u6539\u8B8A\uFF1B\u8B8A\u7570\u6578\u4E58\u4EE5 k\xB2\u3002"
+              },
+              {
+                "text": "\u8B8A\u7570\u6578\u4E58\u4EE5 |k|",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6A19\u6E96\u5DEE\u7684\u7E2E\u653E\u65B9\u5F0F\uFF1B\u8B8A\u7570\u6578\u4E58\u4EE5 k\xB2\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B8A\u7570\u6578\u662F\u4E8C\u6B21\u91CF\uFF1AVar(kX) = k\xB2\xB7Var(X)\u3002\u56E0\u6B64\u628A\u6BCF\u500B\u8F38\u5165\u4E58\u4EE5 k \u662F\u8F38\u5165\u8F49\u63DB\uFF0C\u5176\u8F38\u51FA\u95DC\u4FC2\u70BA\u300C\u8B8A\u7570\u6578\u4E58\u4EE5 k\xB2\u300D\u3002\uFF08\u6A19\u6E96\u5DEE\u662F\u5176\u5E73\u65B9\u6839\uFF0C\u6545\u4E58\u4EE5 |k|\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6700\u77ED\u8DEF\u5F91\u7684\u908A\u91CD\u65B0\u6392\u5E8F",
+            "text": "<p>\u67D0\u6700\u77ED\u8DEF\u5F91\u7A0B\u5F0F\u63A5\u6536\u4E00\u4EFD\u52A0\u6B0A\u908A\u6E05\u55AE\u3002\u54EA\u500B\u5F8C\u7E8C\u8F49\u63DB\u5FC5\u7136\u4F7F\u6BCF\u500B\u6700\u77ED\u8DEF\u5F91\u8DDD\u96E2\u7DAD\u6301\u4E0D\u8B8A\uFF08\u6709\u6548\u7684 MR\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u91CD\u65B0\u6392\u5E8F\u8F38\u5165\u6E05\u55AE\u4E2D\u7684\u908A\uFF08\u540C\u4E00\u7D44\u908A\uFF0C\u4EE5\u4E0D\u540C\u9806\u5E8F\u5217\u51FA\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5716\u7531\u5176\u908A\u7684\u96C6\u5408\u5B9A\u7FA9\uFF0C\u8207\u5B83\u5011\u51FA\u73FE\u7684\u9806\u5E8F\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u628A\u67D0\u689D\u6700\u77ED\u8DEF\u5F91\u4E0A\u7684\u908A\u6B0A\u91CD\u52A0\u500D",
+                "fraction": 0,
+                "feedback": "\u90A3\u6539\u8B8A\u4E86\u5716\uFF0C\u53EF\u80FD\u6539\u8B8A\u8DDD\u96E2\u3002"
+              },
+              {
+                "text": "\u52A0\u5165\u4E00\u689D\u6B0A\u91CD\u8F03\u5C0F\u7684\u65B0\u908A",
+                "fraction": 0,
+                "feedback": "\u8F03\u4FBF\u5B9C\u7684\u65B0\u908A\u53EF\u80FD\u9020\u51FA\u66F4\u77ED\u8DEF\u5F91\uFF0C\u6539\u8B8A\u8DDD\u96E2\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u67D0\u689D\u6700\u77ED\u8DEF\u5F91\u4E0A\u7684\u908A",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u908A\u53EF\u80FD\u62C9\u9577\u8DEF\u5F91\u6216\u4F7F\u5176\u4E2D\u65B7\uFF0C\u6539\u8B8A\u8DDD\u96E2\u3002"
+              }
+            ],
+            "generalFeedback": "\u5716\u5C31\u662F\u90A3\u7D44\u908A\uFF1B\u908A\u5217\u51FA\u7684\u9806\u5E8F\u4E0D\u5E36\u4EFB\u4F55\u610F\u7FA9\u3002\u56E0\u6B64\u6392\u5217\u908A\u6E05\u55AE\u662F\u8F38\u5165\u8F49\u63DB\uFF0C\u5176\u8F38\u51FA\u95DC\u4FC2\u70BA\u300C\u6240\u6709\u8DDD\u96E2\u4E0D\u8B8A\u300D\u2014\u2014\u4E00\u500B\u6709\u6548\u7684 MR\u3002\u5176\u9918\u9078\u9805\u90FD\u771F\u6B63\u6539\u8B8A\u4E86\u5716\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u901A\u904E\u7684\u6E90\uFF0F\u5F8C\u7E8C\u914D\u5C0D",
+            "text": "<p>\u82E5\u67D0\u6E90\uFF0F\u5F8C\u7E8C\u914D\u5C0D\u6EFF\u8DB3\u5176\u86FB\u8B8A\u95DC\u4FC2\uFF0C\u8A72\u7279\u5B9A\u914D\u5C0D\u4E26\u672A\u63ED\u9732\u7F3A\u9677\uFF0C\u4F46\u5225\u8655\u4ECD\u53EF\u80FD\u5B58\u5728\u7F3A\u9677\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u6EFF\u8DB3\u7684\u914D\u5C0D\u53EA\u4EE3\u8868\u8A72\u914D\u5C0D\u672A\u898B\u9055\u53CD\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u6EFF\u8DB3\u7684\u914D\u5C0D\u4E0D\u80FD\u70BA\u7A0B\u5F0F\u80CC\u66F8\uFF1B\u5176\u4ED6\u8F38\u5165\u6216\u95DC\u4FC2\u4ECD\u53EF\u80FD\u63ED\u9732\u7F3A\u9677\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u4E00\u500B\u914D\u5C0D\u4E0A\u6EFF\u8DB3\u95DC\u4FC2\uFF0C\u53EA\u4EE3\u8868\u8A72\u914D\u5C0D\u672A\u7522\u751F\u4EFB\u4F55\u7F3A\u9677\u8B49\u64DA\u3002\u7F3A\u9677\u4ECD\u53EF\u80FD\u85CF\u5728\u672A\u53D7\u6E2C\u8F38\u5165\u4E2D\uFF0C\u6216\u85CF\u5728\u6B64 MR \u672A\u9650\u5236\u7684\u884C\u70BA\u4E2D\uFF0C\u56E0\u6B64\u4E0D\u80FD\u63A8\u51FA\u6B63\u78BA\u7684\u7D50\u8AD6\u3002"
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u8A55\u5224\u4E00\u500B\u63D0\u8B70\u7684\u6B63\u5F26 MR",
+            "text": "<p>\u67D0\u6E2C\u8A66\u8005\u63D0\u8B70\u628A <code>sin(2x) = 2\xB7sin(x)</code> \u7576\u4F5C\u6B63\u5F26\u5E38\u5F0F\u7684\u86FB\u8B8A\u95DC\u4FC2\u3002\u5B83\u6709\u4EC0\u9EBC\u554F\u984C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u4E0D\u662F\u771F\u6B63\u7684\u6046\u7B49\u5F0F\uFF08\u4F8B\u5982 x = \u03C0/2 \u6642 sin(\u03C0) = 0\uFF0C\u4F46 2\xB7sin(\u03C0/2) = 2\uFF09\uFF0C\u6545\u6B63\u78BA\u7684\u6B63\u5F26\u4E0D\u5FC5\u6EFF\u8DB3\u5B83\uFF1B\u4EFB\u4F55\u300C\u9055\u53CD\u300D\u90FD\u6703\u662F\u5047\u8B66\u5831",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A72\u95DC\u4FC2\u4E0D\u662F\u5FC5\u8981\u6027\u8CEA\uFF0C\u6545\u662F\u7121\u6548\u7684 MR\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u554F\u984C\uFF1B\u5B83\u5C0D\u6240\u6709 x \u90FD\u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u5B83\u5728 x = \u03C0/2 \u6642\u5931\u6557\uFF0C\u6545\u4E26\u975E\u5C0D\u6240\u6709 x \u6210\u7ACB\u3002"
+              },
+              {
+                "text": "\u5B83\u6709\u6548\uFF0C\u4F46\u53EA\u5075\u6E2C\u6548\u80FD\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u5B83\u6839\u672C\u7121\u6548\uFF1BMR \u662F\u6B63\u78BA\u6027\u6027\u8CEA\uFF0C\u4E0D\u662F\u6548\u80FD\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u5C0D\u8CA0\u7684 x \u6709\u6548",
+                "fraction": 0,
+                "feedback": "\u5C0D\u8CA0\u7684 x \u5B83\u4E5F\u4E0D\u662F\u6046\u7B49\u5F0F\uFF08\u4F8B\u5982 x = \u2212\u03C0/2\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u500D\u89D2\u6046\u7B49\u5F0F\u662F sin(2x) = 2\xB7sin(x)\xB7cos(x)\uFF0C\u53EA\u6709\u5728 cos(x) = 1 \u6642\u624D\u7B49\u65BC 2\xB7sin(x)\u3002\u56E0\u6B64 sin(2x) = 2\xB7sin(x) \u4E00\u822C\u70BA\u5047\uFF0C\u4E26\u975E\u6B63\u78BA\u6B63\u5F26\u7684\u5FC5\u8981\u6027\u8CEA\u3002\u628A\u5B83\u7576\u4F5C MR \u6703\u6A19\u8A18\u6B63\u78BA\u7684\u5BE6\u4F5C\u2014\u2014\u4E00\u500B\u5178\u578B\u7684\u7121\u6548 MR\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D44\u5408\u86FB\u8B8A\u95DC\u4FC2",
+            "text": "<p>\u5C0D\u65BC\u6700\u77ED\u8DEF\u5F91\u7A0B\u5F0F\uFF0C\u4F60\u6709 MR_A\uFF08\u5C0D\u7BC0\u9EDE\u91CD\u65B0\u547D\u540D\u4F7F\u8DDD\u96E2\u4E0D\u8B8A\uFF09\u8207 MR_B\uFF08\u628A\u6240\u6709\u908A\u6B0A\u91CD\u4E58\u4EE5\u5E38\u6578 <code>c &gt; 0</code> \u4F7F\u6BCF\u500B\u8DDD\u96E2\u4E58\u4EE5 c\uFF09\u3002\u82E5\u5C0D\u6E90\u5716<em>\u540C\u6642</em>\u65BD\u52A0\u5169\u500B\u8F49\u63DB\uFF0C\u5FC5\u7136\u6210\u7ACB\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8F49\u63DB\u5F8C\u5716\u4E2D\u7684\u8DDD\u96E2\u7B49\u65BC\u6E90\u8DDD\u96E2\u7684 c \u500D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4FDD\u8DDD\u8F49\u63DB\u8207 c \u500D\u7E2E\u653E\u8F49\u63DB\u7D44\u5408\u5F8C\uFF0C\u5F97\u5230 c \u500D\u7E2E\u653E\u3002"
+              },
+              {
+                "text": "\u8DDD\u96E2\u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u50C5\u91CD\u65B0\u547D\u540D\u6703\u4FDD\u8DDD\uFF0C\u4F46\u628A\u6B0A\u91CD\u4E58\u4EE5 c \u6703\u4F7F\u5B83\u4E58\u4EE5 c\u3002"
+              },
+              {
+                "text": "\u8DDD\u96E2\u7B49\u65BC\u6E90\u8DDD\u96E2\u7684 c\xB2 \u500D",
+                "fraction": 0,
+                "feedback": "\u53EA\u65BD\u52A0\u4E00\u6B21 c \u500D\u7E2E\u653E\uFF08\u91CD\u65B0\u547D\u540D\u4E0D\u52A0\u4FC2\u6578\uFF09\uFF0C\u6545\u4FC2\u6578\u662F c \u800C\u975E c\xB2\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u95DC\u4FC2\u6210\u7ACB\uFF0C\u56E0\u70BA\u5169\u500B\u8F49\u63DB\u7121\u6CD5\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "MR \u53EF\u7D44\u5408\uFF1A\u4F9D\u5E8F\u65BD\u52A0\u8F49\u63DB\u4E26\u7D50\u5408\u5176\u8F38\u51FA\u95DC\u4FC2\u3002"
+              }
+            ],
+            "generalFeedback": "MR \u53EF\u85C9\u7531\u4E00\u4F75\u65BD\u52A0\u5176\u8F38\u5165\u8F49\u63DB\u3001\u4E26\u7D50\u5408\u5176\u8F38\u51FA\u95DC\u4FC2\u4F86\u7D44\u5408\u3002\u91CD\u65B0\u547D\u540D\u8CA2\u737B\u4FC2\u6578 1\uFF08\u8DDD\u96E2\u4E0D\u8B8A\uFF09\uFF0C\u6B0A\u91CD\u7E2E\u653E\u8CA2\u737B\u4FC2\u6578 c\uFF0C\u6545\u7D44\u5408\u5F8C\u7684\u95DC\u4FC2\u4F7F\u8DDD\u96E2\u4E58\u4EE5 1 \xD7 c = c\u3002\u7D44\u5408\u8B93\u4F60\u80FD\u7531\u7C21\u55AE\u3001\u500B\u5225\u5DF2\u9A57\u8B49\u7684 MR \u5EFA\u69CB\u66F4\u8C50\u5BCC\u7684\u6AA2\u67E5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908A\u6B0A\u91CD\u7E2E\u653E\uFF1A\u5065\u5168\u6027\u7684\u4F46\u66F8",
+            "text": "<p>\u300C\u628A\u6240\u6709\u908A\u6B0A\u91CD\u4E58\u4EE5\u5E38\u6578 <code>c</code> \u4F7F\u6BCF\u500B\u6700\u77ED\u8DEF\u5F91\u8DDD\u96E2\u4E58\u4EE5 c\u300D\u662F\u5065\u5168\u7684\u86FB\u8B8A\u95DC\u4FC2\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u662F\uFF0C\u4F46\u53EA\u5728 c > 0 \u6642\u6210\u7ACB\uFF1B\u7576 c \u2264 0 \u53EF\u80FD\u9020\u51FA\u96F6\uFF0F\u8CA0\u6B0A\u91CD\u6216\u8CA0\u74B0\uFF0C\u6539\u8B8A\u54EA\u689D\u8DEF\u5F91\u6700\u4F73\uFF0C\u6545\u95DC\u4FC2\u4E0D\u5FC5\u6210\u7ACB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7E2E\u653E MR \u53EA\u5728\u6B63\u5E38\u6578\u6642\u5065\u5168\u3002"
+              },
+              {
+                "text": "\u662F\uFF0C\u5C0D\u6BCF\u500B\u5BE6\u6578 c \u90FD\u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u8CA0\u7684 c \u53EF\u80FD\u5F15\u5165\u8CA0\u74B0\u6216\u7FFB\u8F49\u6700\u4F73\u8DEF\u5F91\uFF0C\u7834\u58DE\u6B64\u95DC\u4FC2\u3002"
+              },
+              {
+                "text": "\u5426\uFF0C\u5B83\u5C0D\u4EFB\u4F55 c \u90FD\u4E0D\u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u5B83\u5C0D\u6BCF\u500B\u6B63\u7684 c \u90FD\u6210\u7ACB\uFF0C\u6545\u300C\u4E0D\u6210\u7ACB\u300D\u662F\u932F\u7684\u3002"
+              },
+              {
+                "text": "\u662F\uFF0C\u4F46\u53EA\u5C0D\u6574\u6578 c \u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u4EFB\u4F55\u6B63\u5BE6\u6578 c \u90FD\u884C\uFF1B\u9650\u5236\u5728\u65BC\u6B63\u6027\uFF0C\u800C\u975E\u6574\u6578\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576 c > 0\uFF0C\u628A\u6240\u6709\u6B0A\u91CD\u4E58\u4EE5 c \u6703\u4F7F\u6BCF\u689D\u8DEF\u5F91\u7684\u6210\u672C\u90FD\u4E58\u4EE5 c\uFF0C\u6545\u6700\u5C0F\u6210\u672C\u8DEF\u5F91\u4E0D\u8B8A\u3001\u5176\u8DDD\u96E2\u6309 c \u7E2E\u653E\u2014\u2014\u4E00\u500B\u5065\u5168\u7684 MR\u3002\u7576 c \u2264 0\uFF0C\u8F49\u63DB\u5F8C\u7684\u5716\u53EF\u80FD\u6709\u8CA0\u6B0A\u91CD\u6216\u8CA0\u74B0\uFF0C\u6539\u8B8A\uFF08\u6216\u4F7F\u5176\u672A\u5B9A\u7FA9\uFF09\u6700\u77ED\u8DEF\u5F91\uFF0C\u6545\u95DC\u4FC2\u4E0D\u518D\u5FC5\u8981\u3002\u660E\u78BA\u9673\u8FF0\u5B9A\u7FA9\u57DF\uFF08c > 0\uFF09\u5C0D\u7DAD\u6301 MR \u7684\u6709\u6548\u6027\u81F3\u95DC\u91CD\u8981\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7121\u6548 MR \u5C0D\u6BD4\u771F\u6B63\u7684\u7F3A\u9677\uFF1A\u6D6E\u9EDE\u6578",
+            "text": "<p>\u67D0\u6E2C\u8A66\u4EE5\u7CBE\u78BA\u7684\u6D6E\u9EDE\u76F8\u7B49\u6AA2\u67E5 <code>sin(x) == sin(\u03C0 \u2212 x)</code>\uFF0C\u4E26\u5728\u5169\u500B\u7D50\u679C\u6700\u5F8C\u4E00\u4F4D\u4E0D\u540C\u8655\u56DE\u5831\u300C\u9055\u53CD\u300D\u3002\u6700\u4F73\u7684\u8A6E\u91CB\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7CBE\u78BA\u76F8\u7B49\u7684 MR \u5C0D\u6D6E\u9EDE\u904B\u7B97\u904E\u65BC\u56B4\u683C\uFF1B\u5FAE\u5C0F\u5DEE\u7570\u662F\u6368\u5165\u6240\u81F4\uFF0C\u6545\u6B64\u9055\u53CD\u5F88\u53EF\u80FD\u662F\u5047\u7684\uFF0C\u8A72\u95DC\u4FC2\u61C9\u5141\u8A31\u4E00\u500B\u5C0F\u5BB9\u5DEE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9020\u6210\u5047\u8B66\u5831\u7684\u662F\u904E\u65BC\u56B4\u683C\u7684\u95DC\u4FC2\uFF0C\u800C\u975E\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u9019\u4E00\u5B9A\u662F\u6B63\u5F26\u5BE6\u4F5C\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6700\u5F8C\u4E00\u4F4D\u7684\u5DEE\u7570\u8207\u6B63\u5E38\u6368\u5165\u4E00\u81F4\uFF0C\u672A\u5FC5\u662F\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u6578\u5B78\u4E0A sin(x) = sin(\u03C0 \u2212 x) \u70BA\u5047\uFF0C\u6545\u6B64 MR \u662F\u932F\u7684",
+                "fraction": 0,
+                "feedback": "\u8A72\u6046\u7B49\u5F0F\u70BA\u771F\uFF1B\u554F\u984C\u5728\u65BC\u628A\u7CBE\u78BA\u76F8\u7B49\u5957\u7528\u5230\u975E\u7CBE\u78BA\u7684\u904B\u7B97\u4E0A\u3002"
+              },
+              {
+                "text": "\u6D6E\u9EDE\u6578\u7121\u6CD5\u8868\u793A \u03C0\uFF0C\u6545\u6B63\u5F26\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u03C0 \u88AB\u8FD1\u4F3C\uFF0C\u4F46\u6B63\u5F26\u5728\u8A72\u8FD1\u4F3C\u503C\u4E0A\u6709\u826F\u597D\u5B9A\u7FA9\uFF1B\u90A3\u4E0D\u662F\u554F\u984C\u6240\u5728\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A72\u6046\u7B49\u5F0F\u5728\u6578\u5B78\u4E0A\u6210\u7ACB\uFF0C\u4F46\u6D6E\u9EDE\u6703\u4EE5\u6368\u5165\u8A08\u7B97 \u03C0 \u2212 x \u53CA\u5169\u500B\u6B63\u5F26\u503C\uFF0C\u6545\u7121\u6CD5\u4FDD\u8B49\u9010\u4F4D\u5143\u76F8\u7B49\u3002\u6B64\u5931\u6557\u53CD\u6620\u7684\u662F\u5C0D\u6B64\u5B9A\u7FA9\u57DF\u800C\u8A00\u904E\u65BC\u56B4\u683C\uFF08\u5BE6\u8CEA\u4E0A\u7121\u6548\uFF09\u7684 MR\uFF0C\u800C\u975E\u7F3A\u9677\u3002\u4FEE\u6B63\u4E4B\u9053\u662F\u4EE5\u9069\u7576\u5BB9\u5DEE\u9673\u8FF0\u8F38\u51FA\u95DC\u4FC2\uFF0C\u4F8B\u5982 |sin(x) \u2212 sin(\u03C0 \u2212 x)| \u2264 \u03B5\u3002\u5206\u8FA8\u771F\u6B63\u7684\u9055\u53CD\u8207\u6709\u7455\u75B5\u7684\u95DC\u4FC2\uFF0C\u6B63\u662F MT \u7684\u95DC\u9375\u6280\u80FD\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F71\u50CF\u5206\u985E\u5668\u7684 MR",
+            "text": "<p>\u5C0D\u65BC\u5F71\u50CF\u5206\u985E\u5668\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u5408\u9069\u7684\u86FB\u8B8A\u95DC\u4FC2\uFF0C\u5176\u9055\u53CD\u6697\u793A\u5B58\u5728\u7F3A\u9677\uFF08\u4F8B\u5982\u5F37\u5065\u6027\u554F\u984C\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4FDD\u7559\u6A19\u7C64\u7684\u8F49\u63DB\u2014\u2014\u4EBA\u985E\u540C\u610F\u5176\u4E0D\u6539\u8B8A\u771F\u5BE6\u985E\u5225\u8005\uFF0C\u4F8B\u5982\u8F15\u5FAE\u6539\u8B8A\u4EAE\u5EA6\u6216\u5C0F\u5E45\u65CB\u8F49\u2014\u2014\u61C9\u4F7F\u9810\u6E2C\u985E\u5225\u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8F49\u63DB\u5FC5\u9808\u4FDD\u7559\u771F\u5BE6\u6A19\u7C64\uFF0C\u300C\u9810\u6E2C\u4E0D\u8B8A\u300D\u7684\u95DC\u4FC2\u624D\u6703\u662F\u9810\u671F\u7684\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u6253\u4E82\u6240\u6709\u50CF\u7D20\u61C9\u4F7F\u9810\u6E2C\u985E\u5225\u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u6253\u4E82\u50CF\u7D20\u6703\u6467\u6BC0\u5F71\u50CF\u5167\u5BB9\uFF0C\u6545\u4E26\u975E\u4FDD\u7559\u6A19\u7C64\u3002"
+              },
+              {
+                "text": "\u628A\u5F71\u50CF\u66FF\u63DB\u70BA\u53E6\u4E00\u985E\u5225\u7684\u4E0D\u540C\u5F71\u50CF\u61C9\u4F7F\u9810\u6E2C\u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u90A3\u6539\u8B8A\u4E86\u771F\u5BE6\u985E\u5225\uFF0C\u6545\u9810\u6E2C\u61C9\u6539\u8B8A\uFF0C\u800C\u975E\u7DAD\u6301\u4E0D\u8B8A\u3002"
+              },
+              {
+                "text": "\u628A\u6BCF\u500B\u50CF\u7D20\u503C\u52A0\u500D\u61C9\u4F7F\u9810\u6E2C\u7684\u985E\u5225\u7D22\u5F15\u52A0\u500D",
+                "fraction": 0,
+                "feedback": "\u985E\u5225\u7D22\u5F15\u662F\u6A19\u7C64\u800C\u975E\u91CF\u503C\uFF1B\u6C92\u6709\u7406\u7531\u67D0\u500B\u6709\u6548\u8F49\u63DB\u6703\u4F7F\u5B83\u5011\u52A0\u500D\u3002"
+              }
+            ],
+            "generalFeedback": "MT \u7528\u65BC\u6A5F\u5668\u5B78\u7FD2\u6642\uFF0C\u4EF0\u8CF4\u4FDD\u7559\u771F\u5BE6\u6A19\u7C64\u7684\u8F49\u63DB\u2014\u2014\u8F15\u5FAE\u7684\u4EAE\u5EA6\uFF0F\u5C0D\u6BD4\u8B8A\u5316\u3001\u5C0F\u5E45\u65CB\u8F49\uFF0C\u6216\u5C0D\u6587\u5B57\u800C\u8A00\u7684\u540C\u7FA9\u8A5E\u66FF\u63DB\u3002\u7406\u60F3\u5206\u985E\u5668\u7684\u9810\u6E2C\u4E0D\u61C9\u6539\u8B8A\uFF1B\u82E5\u6539\u8B8A\u4E86\uFF0C\u8A72\u6E2C\u8A66\u4FBF\u63ED\u9732\u4E86\u5F37\u5065\u6027\u6216\u4E00\u81F4\u6027\u7F3A\u9677\u3002\u8F49\u63DB\u5FC5\u9808\u771F\u6B63\u4FDD\u7559\u6A19\u7C64\uFF0C\u9019\u6B63\u662F\u70BA\u4F55\u6253\u4E82\u50CF\u7D20\u6216\u63DB\u6210\u53E6\u4E00\u985E\u5225\u7684\u5F71\u50CF\u90FD\u4E0D\u662F\u6709\u6548\u9078\u64C7\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u641C\u5C0B\u65B9\u5411\u932F\u8AA4\u662F\u58DE MR",
+            "text": "<p>\u67D0\u6E2C\u8A66\u8005\u5BA3\u7A31\uFF1A\u5C0D\u5408\u53D6\u5F0F\u904E\u6FFE\u67E5\u8A62\u800C\u8A00\uFF0C\u300C\u628A\u67E5\u8A62\u8B8A\u5F97<em>\u66F4</em>\u5177\u9AD4\uFF08\u52A0\u5165\u4E00\u500B\u5FC5\u8981\u5B57\u8A5E\uFF09\u61C9\u56DE\u50B3<em>\u81F3\u5C11\u4E00\u6A23\u591A</em>\u7684\u7D50\u679C\u300D\u3002\u9019\u70BA\u4F55\u662F\u58DE MR\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u65B9\u5411\u53CD\u4E86\u2014\u2014\u8F03\u5177\u9AD4\u67E5\u8A62\u7684\u7D50\u679C\u662F\u5B50\u96C6\uFF0C\u6545\u6578\u91CF\u53EA\u6703\u7DAD\u6301\u4E0D\u8B8A\u6216\u6E1B\u5C11\uFF1B\u7A0B\u5F0F\u4E0D\u5FC5\u6EFF\u8DB3\u6240\u63D0\u95DC\u4FC2\uFF0C\u6545\u5B83\u6703\u7522\u751F\u5047\u8B66\u5831",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7E2E\u7A84\u6642\u5065\u5168\u7684\u65B9\u5411\u662F \u2264\uFF0C\u6545\u6240\u63D0\u7684 \u2265 \u95DC\u4FC2\u7121\u6548\u3002"
+              },
+              {
+                "text": "\u5B83\u6B63\u78BA\u4E14\u6C38\u9060\u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u5B83\u628A\u65B9\u5411\u5F04\u53CD\u4E86\uFF0C\u6545\u5C0D\u5408\u53D6\u5F0F\u904E\u6FFE\u4E26\u4E0D\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u5C0D\u7A7A\u67E5\u8A62\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E00\u822C\u4E26\u4E0D\u6B63\u78BA\uFF1B\u7455\u75B5\u5728\u65BC\u65B9\u5411\u53CD\u4E86\uFF0C\u800C\u975E\u7A7A\u67E5\u8A62\u7684\u60C5\u6CC1\u3002"
+              },
+              {
+                "text": "\u5B83\u662F\u6709\u6548\u7684 MR\uFF0C\u4F46\u53EA\u5075\u6E2C\u6548\u80FD\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u5B83\u7121\u6548\uFF0C\u4E14 MR \u6AA2\u67E5\u7684\u662F\u6B63\u78BA\u6027\u800C\u975E\u6548\u80FD\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u5408\u53D6\u5F0F\u904E\u6FFE\u8A9E\u610F\u4E0B\uFF0C\u7E2E\u7A84\u67E5\u8A62\u6703\u79FB\u9664\u7B26\u5408\u9805\uFF0C\u6545\u6B63\u78BA\u7684\u95DC\u4FC2\u662F count(\u8F03\u5177\u9AD4) \u2264 count(\u8F03\u4E0D\u5177\u9AD4)\u3002\u63D0\u8B70 \u2265 \u628A\u5B83\u5012\u8F49\u4E86\uFF1A\u6B63\u78BA\u7684\u5F15\u64CE\u6703\u4F8B\u884C\u300C\u9055\u53CD\u300D\u5B83\uFF0C\u7522\u751F\u5047\u8B66\u5831\u3002\u628A\u65B9\u5411\u5F04\u5C0D\uFF0C\u5C0D\u5065\u5168\u7684 MR \u81F3\u95DC\u91CD\u8981\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53EF\u4EA4\u63DB\u6027\u5C0D\u6E1B\u6CD5\u4E0D\u5065\u5168",
+            "text": "<p>\u5C0D\u65BC\u6E1B\u6CD5\u51FD\u5F0F <code>sub(a, b) = a \u2212 b</code>\uFF0C\u70BA\u4F55 <code>f(a, b) = f(b, a)</code> \u662F\u7121\u6548\u7684\u86FB\u8B8A\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E1B\u6CD5\u4E0D\u53EF\u4EA4\u63DB\uFF085 \u2212 3 = 2 \u4F46 3 \u2212 5 = \u22122\uFF09\uFF0C\u6545\u6B63\u78BA\u5BE6\u4F5C\u4E0D\u5FC5\u6EFF\u8DB3\u5B83\uFF1B\u628A\u5B83\u7576\u4F5C MR \u6703\u628A\u6B63\u78BA\u884C\u70BA\u6A19\u8A18\u70BA\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A72\u95DC\u4FC2\u5C0D\u6E1B\u6CD5\u800C\u8A00\u4E26\u975E\u5FC5\u8981\uFF0C\u6545\u662F\u7121\u6548\u7684 MR\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u904B\u7B97\u5143\u76F8\u7B49\u6642\u6E1B\u6CD5\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u6E1B\u6CD5\u5C0D\u76F8\u7B49\u904B\u7B97\u5143\u6709\u826F\u597D\u5B9A\u7FA9\uFF08a \u2212 a = 0\uFF09\uFF1B\u90A3\u4E0D\u662F\u554F\u984C\u6240\u5728\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6E1B\u6CD5\u4E00\u5B9A\u6EA2\u4F4D",
+                "fraction": 0,
+                "feedback": "\u6E1B\u6CD5\u4E26\u975E\u4E00\u5B9A\u6EA2\u4F4D\uFF1B\u7455\u75B5\u5728\u65BC\u4E0D\u53EF\u4EA4\u63DB\u6027\u3002"
+              },
+              {
+                "text": "\u5B83\u5176\u5BE6\u662F\u6E1B\u6CD5\u7684\u6709\u6548 MR",
+                "fraction": 0,
+                "feedback": "\u4E26\u975E\u5982\u6B64\u2014\u2014\u4E00\u822C\u800C\u8A00\u4EA4\u63DB\u904B\u7B97\u5143\u6703\u4F7F\u7D50\u679C\u8B8A\u865F\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u4EA4\u63DB\u6027\u5C0D\u52A0\u6CD5\u8207\u4E58\u6CD5\u6210\u7ACB\uFF0C\u4F46\u5C0D\u6E1B\u6CD5\u4E0D\u6210\u7ACB\uFF1Aa \u2212 b = \u2212(b \u2212 a)\uFF0C\u9664\u975E a = b \u5426\u5247\u4E0D\u540C\u65BC b \u2212 a\u3002\u56E0\u6B64 f(a, b) = f(b, a) \u4E0D\u662F\u6E1B\u6CD5\u7684\u5FC5\u8981\u6027\u8CEA\uFF0C\u628A\u5B83\u7576\u4F5C MR \u6703\u628A\u6B63\u78BA\u7D50\u679C\u56DE\u5831\u70BA\u9055\u53CD\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9A57\u8B49\u9644\u52A0\u5E73\u5747\u503C\u7684 MR",
+            "text": "<p>\u300C\u9644\u52A0\u4E00\u500B\u7B49\u65BC\u7576\u524D\u7B97\u8853\u5E73\u5747\u503C\u7684\u8CC7\u6599\u9EDE\u4F7F\u5E73\u5747\u503C\u7DAD\u6301\u4E0D\u8B8A\u300D\uFF0C\u662F\u6B63\u78BA\u5E73\u5747\u503C\u51FD\u5F0F\u5065\u5168\u7684\u5FC5\u8981\u6027\u8CEA\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u662F\u2014\u2014\u8A2D\u6709 n \u500B\u503C\u3001\u5E73\u5747\u503C\u70BA m\uFF0C\u65B0\u5E73\u5747\u503C\u70BA (n\xB7m + m)/(n + 1) = m\uFF0C\u6545\u5C0D\u6BCF\u500B\u6E05\u55AE\u90FD\u6210\u7ACB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4EE3\u6578\u78BA\u8A8D\u5E73\u5747\u503C\u4E0D\u8B8A\uFF0C\u6545\u662F\u6709\u6548\u7684 MR\u3002"
+              },
+              {
+                "text": "\u5426\uFF0C\u52A0\u5165\u4E00\u9EDE\u6642\u5E73\u5747\u503C\u7E3D\u6703\u589E\u52A0",
+                "fraction": 0,
+                "feedback": "\u52A0\u5165\u4E00\u500B\u7B49\u65BC\u5E73\u5747\u503C\u7684\u9EDE\u4E0D\u6703\u4F7F\u5B83\u589E\u52A0\uFF1B\u4EE3\u6578\u7D66\u51FA m\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5728\u6240\u6709\u503C\u90FD\u76F8\u7B49\u6642",
+                "fraction": 0,
+                "feedback": "\u5B83\u5C0D\u4EFB\u4F55\u6E05\u55AE\u90FD\u6210\u7ACB\uFF0C\u800C\u975E\u53EA\u5C0D\u503C\u7686\u76F8\u7B49\u7684\u6E05\u55AE\u3002"
+              },
+              {
+                "text": "\u53EA\u5C0D\u5076\u6578\u9577\u5EA6\u7684\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u9577\u5EA6\u7684\u5947\u5076\u7121\u95DC\uFF1B\u8A72\u6046\u7B49\u5F0F\u5C0D\u6BCF\u500B n \u90FD\u6210\u7ACB\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A2D\u6E05\u55AE\u6709 n \u500B\u503C\u3001\u7E3D\u548C\u70BA n\xB7m\uFF0C\u6545\u5E73\u5747\u503C\u70BA m\u3002\u9644\u52A0 m \u5F8C\u7E3D\u548C\u70BA n\xB7m + m = m(n + 1)\uFF0C\u9664\u4EE5 n + 1 \u500B\u503C\uFF0C\u65B0\u5E73\u5747\u503C\u70BA m(n + 1)/(n + 1) = m\u3002\u6B64\u6027\u8CEA\u5C0D\u6BCF\u500B\u6E05\u55AE\u90FD\u6210\u7ACB\uFF0C\u6545\u662F\u5065\u5168\u7684 MR\u2014\u2014\u5DF2\u5177\u9AD4\u6F14\u7B97\u78BA\u8A8D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9055\u53CD\u4E00\u500B\u7121\u6548\u7684 MR",
+            "text": "<p>\u67D0\u5E73\u5747\u503C\u51FD\u5F0F\u7684\u6E2C\u8A66\u4F7F\u7528\u300C\u79FB\u9664\u6700\u5927\u503C\u4F7F\u5E73\u5747\u503C\u7DAD\u6301\u4E0D\u8B8A\u300D\u9019\u500B\u95DC\u4FC2\uFF0C\u4E26\u56DE\u5831\u4E00\u500B\u9055\u53CD\u3002\u4F60\u61C9\u4E0B\u4EC0\u9EBC\u7D50\u8AD6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u95DC\u65BC\u7F3A\u9677\u4EC0\u9EBC\u90FD\u4E0D\u80FD\u4E0B\u7D50\u8AD6\u2014\u2014\u8A72\u95DC\u4FC2\u4E0D\u662F\u6B63\u78BA\u5E73\u5747\u503C\u7684\u5FC5\u8981\u6027\u8CEA\uFF0C\u6545\u6B64\u300C\u9055\u53CD\u300D\u53CD\u6620\u7684\u662F\u6709\u7455\u75B5\u7684 MR\uFF0C\u800C\u975E\u7A0B\u5F0F\u7684\u7F3A\u9677",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u552F\u6709 MR \u771F\u6B63\u5FC5\u8981\u6642\uFF0C\u9055\u53CD\u624D\u727D\u9023\u5230\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u5E73\u5747\u503C\u51FD\u5F0F\u4E00\u5B9A\u6709\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "MR \u672C\u8EAB\u7121\u6548\uFF0C\u6545\u6B64\u9055\u53CD\u5C0D\u7A0B\u5F0F\u6BEB\u7121\u8AAA\u660E\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u6709\u6368\u5165\u8AA4\u5DEE",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u6368\u5165\u7684\u8B49\u64DA\uFF1B\u8A72\u95DC\u4FC2\u5C31\u53EA\u662F\u4E0D\u662F\u5FC5\u8981\u6027\u8CEA\u3002"
+              },
+              {
+                "text": "\u8F38\u5165\u6E05\u55AE\u4E00\u5B9A\u662F\u7A7A\u7684",
+                "fraction": 0,
+                "feedback": "\u6E05\u55AE\u4E0D\u5FC5\u662F\u7A7A\u7684\uFF1B\u79FB\u9664\u6700\u5927\u503C\u901A\u5E38\u78BA\u5BE6\u6703\u6539\u8B8A\u5E73\u5747\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u79FB\u9664\u6700\u5927\u503C\u4E00\u822C\u6703\u964D\u4F4E\u5E73\u5747\u503C\uFF0C\u6545\u300C\u5E73\u5747\u503C\u4E0D\u8B8A\u300D\u4E0D\u662F\u5FC5\u8981\u6027\u8CEA\u3002\u6B63\u78BA\u7684\u5BE6\u4F5C\u6703\u4F8B\u884C\u300C\u9055\u53CD\u300D\u5B83\u3002\u6559\u8A13\u662F\uFF1A\u5728\u4FE1\u4EFB\u4E00\u500B\u9055\u53CD\u4E4B\u524D\uFF0C\u5148\u78BA\u8A8D\u8A72 MR \u5C0D\u4EFB\u4F55\u6B63\u78BA\u5BE6\u4F5C\u90FD\u771F\u6B63\u5FC5\u8981\uFF1B\u5426\u5247\u7F3A\u9677\u662F\u5728\u95DC\u4FC2\uFF0C\u800C\u975E\u5728\u7A0B\u5F0F\u78BC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D71\u8A08\u91CF\u5728\u4E58\u6CD5\u4E0B\u5982\u4F55\u7E2E\u653E",
+            "text": "<p>\u628A\u6E05\u55AE\u4E2D\u6BCF\u500B\u503C\u90FD\u4E58\u4EE5 <code>k</code>\u3002\u5C0D\u5E73\u5747\u503C\u3001\u6A19\u6E96\u5DEE\u3001\u8B8A\u7570\u6578\u800C\u8A00\uFF0C\u54EA\u4E00\u7D44\u8F38\u51FA\u95DC\u4FC2\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5E73\u5747\u503C \u2192 \xD7k\uFF0C\u6A19\u6E96\u5DEE \u2192 \xD7|k|\uFF0C\u8B8A\u7570\u6578 \u2192 \xD7k\xB2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5E73\u5747\u503C\u662F\u7DDA\u6027\u3001\u8B8A\u7570\u6578\u662F\u4E8C\u6B21\u3001\u6A19\u6E96\u5DEE\u662F\u5176\u5E73\u65B9\u6839\u3002"
+              },
+              {
+                "text": "\u5E73\u5747\u503C \u2192 \xD7k\uFF0C\u6A19\u6E96\u5DEE \u2192 \xD7k\xB2\uFF0C\u8B8A\u7570\u6578 \u2192 \xD7k",
+                "fraction": 0,
+                "feedback": "\u5C0D\u8ABF\u4E86\u2014\u2014\u8B8A\u7570\u6578\u4E58\u4EE5 k\xB2\uFF0C\u6A19\u6E96\u5DEE\u4E58\u4EE5 |k|\u3002"
+              },
+              {
+                "text": "\u4E09\u8005\u7686 \u2192 \xD7k",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u5E73\u5747\u503C\u4E58\u4EE5 k\uFF1B\u8B8A\u7570\u6578\u4E58\u4EE5 k\xB2\uFF0C\u6A19\u6E96\u5DEE\u4E58\u4EE5 |k|\u3002"
+              },
+              {
+                "text": "\u5E73\u5747\u503C \u2192 \xD7k\xB2\uFF0C\u6A19\u6E96\u5DEE \u2192 \xD7k\uFF0C\u8B8A\u7570\u6578 \u2192 \xD7|k|",
+                "fraction": 0,
+                "feedback": "\u5E73\u5747\u503C\u4E58\u4EE5 k \u800C\u975E k\xB2\uFF1B\u5176\u9918\u4E5F\u90FD\u932F\u4E86\u3002"
+              }
+            ],
+            "generalFeedback": "\u5E73\u5747\u503C\u662F\u7DDA\u6027\uFF1Amean(kX) = k\xB7mean(X)\u3002\u8B8A\u7570\u6578\u662F\u4E8C\u6B21\uFF1AVar(kX) = k\xB2\xB7Var(X)\u3002\u6A19\u6E96\u5DEE\u662F\u8B8A\u7570\u6578\u7684\u5E73\u65B9\u6839\uFF0C\u6545 SD(kX) = |k|\xB7SD(X)\uFF08\u53D6\u7D55\u5C0D\u503C\uFF0C\u56E0\u70BA\u6A19\u6E96\u5DEE\u975E\u8CA0\uFF09\u3002\u5728\u540C\u4E00\u500B\u7E2E\u653E\u8F49\u63DB\u4E0B\uFF0C\u4E09\u8005\u5404\u7D66\u51FA\u4E0D\u540C\u7684\u6709\u6548 MR\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u901A\u904E\u7684 MR \u80FD\u4E0B\u7684\u6700\u5F37\u7D50\u8AD6",
+            "text": "<p>\u67D0\u7A0B\u5F0F\u5728\u6578\u767E\u842C\u500B\u8F38\u5165\u4E0A\u901A\u904E\u4E86\u4E00\u5927\u7D44\u7CBE\u5FC3\u8A2D\u8A08\u7684\u86FB\u8B8A\u95DC\u4FC2\u3002\u6700\u5F37\u7684<em>\u5065\u5168</em>\u7D50\u8AD6\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u90A3\u4E9B\u8F38\u5165\u4E0A\u672A\u767C\u73FE\u9055\u53CD\u90A3\u4E9B\u95DC\u4FC2\uFF1B\u9019\u63D0\u5347\u4FE1\u5FC3\u4F46\u4E0D\u8B49\u660E\u6B63\u78BA\u2014\u2014\u6240\u9078 MR \u6216\u8F38\u5165\u672A\u63ED\u9732\u7684\u7F3A\u9677\u4ECD\u53EF\u80FD\u5B58\u5728",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MT \u80FD\u63D0\u5347\u4FE1\u5FC3\uFF0C\u537B\u6C38\u9060\u4E0D\u8B49\u660E\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u5DF2\u88AB\u8B49\u660E\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u518D\u591A\u7684\u901A\u904E\u6E2C\u8A66\u90FD\u4E0D\u80FD\u8B49\u660E\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u5728\u53D7\u6E2C\u8F38\u5165\u8207\u6240\u6709\u5176\u4ED6\u8F38\u5165\u4E0A\u90FD\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u5C0D\u672A\u53D7\u6E2C\u8F38\u5165\u7121\u6CD5\u4E0B\u4EFB\u4F55\u7D50\u8AD6\u3002"
+              },
+              {
+                "text": "\u9019\u4E9B MR \u4E00\u5B9A\u7121\u6548\uFF0C\u56E0\u70BA\u4EC0\u9EBC\u90FD\u6C92\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u901A\u904E\u4E26\u4E0D\u8868\u793A MR \u7121\u6548\uFF1B\u6709\u6548\u7684 MR \u4E5F\u53EF\u80FD\u5C31\u662F\u88AB\u6EFF\u8DB3\u4E86\u3002"
+              }
+            ],
+            "generalFeedback": "MT \u80FD\u63ED\u9732\u7F3A\u9677\uFF08\u900F\u904E\u9055\u53CD\uFF09\uFF0C\u537B\u4E0D\u80FD\u986F\u793A\u5176\u4E0D\u5B58\u5728\u3002\u5927\u91CF\u901A\u904E\u7684\u7D50\u679C\u63D0\u5347\u4FE1\u5FC3\u3001\u4E5F\u662F\u54C1\u8CEA\u7684\u8B49\u64DA\uFF0C\u4F46\u7F3A\u9677\u4ECD\u53EF\u80FD\u85CF\u5728\u5F9E\u672A\u5617\u8A66\u7684\u8F38\u5165\u4E2D\uFF0C\u6216\u85CF\u5728\u6240\u9078 MR \u672A\u9650\u5236\u7684\u6027\u8CEA\u4E2D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D44\u5408\u4FDD\u5E8F\u6620\u5C04\u8207\u6392\u5217",
+            "text": "<p>\u5C0D\u65BC\u6392\u5E8F\u51FD\u5F0F\uFF0C\u8003\u616E\u5169\u500B\u8F49\u63DB\uFF1A\u6392\u5217\u8F38\u5165\uFF0C\u4EE5\u53CA\u628A\u6BCF\u500B\u5143\u7D20\u900F\u904E\u4E00\u500B<em>\u56B4\u683C\u905E\u589E</em>\u51FD\u5F0F <code>g</code> \u6620\u5C04\u3002\u54EA\u500B\u7D44\u5408\u95DC\u4FC2\u662F\u5065\u5168\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u4EFB\u4E00\u56B4\u683C\u905E\u589E g\uFF0Csort(\u628A g \u6620\u5C04\u5230 L \u7684\u4EFB\u4E00\u6392\u5217) \u7B49\u65BC \u628A g \u6620\u5C04\u5230 sort(L)",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56B4\u683C\u905E\u589E\u6620\u5C04\u4FDD\u5E8F\uFF0C\u6545\u8207\u6392\u5E8F\u53EF\u4EA4\u63DB\uFF1B\u6392\u5217\u8207\u6392\u5E8F\u7D50\u679C\u7121\u95DC\u3002"
+              },
+              {
+                "text": "sort(\u628A g \u6620\u5C04\u5230 L) \u7B49\u65BC\uFF08\u628A g \u6620\u5C04\u5230 sort(L)\uFF09\u7684\u53CD\u8F49",
+                "fraction": 0,
+                "feedback": "\u56B4\u683C\u905E\u589E\u7684 g \u4FDD\u5E8F\uFF0C\u6545\u4E0D\u6703\u4F7F\u7D50\u679C\u53CD\u8F49\u3002"
+              },
+              {
+                "text": "sort(\u628A g \u6620\u5C04\u5230 L) \u7B49\u65BC sort(L) \u7DAD\u6301\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u65BD\u52A0 g \u6539\u8B8A\u4E86\u5143\u7D20\u503C\uFF0C\u6545\u6392\u5E8F\u8F38\u51FA\u96A8\u4E4B\u6539\u8B8A\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7576 g \u662F\u6046\u7B49\u51FD\u5F0F\u6642\u8A72\u95DC\u4FC2\u624D\u5065\u5168",
+                "fraction": 0,
+                "feedback": "\u5B83\u5C0D\u4EFB\u4E00\u56B4\u683C\u905E\u589E g \u90FD\u5065\u5168\uFF0C\u800C\u4E0D\u53EA\u662F\u6046\u7B49\u51FD\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5 g \u56B4\u683C\u905E\u589E\uFF0C\u5247 a < b \u7B49\u50F9\u65BC g(a) < g(b)\uFF0C\u6545\u65BD\u52A0 g \u4FDD\u7559\u76F8\u5C0D\u9806\u5E8F\u3001\u8207\u6392\u5E8F\u53EF\u4EA4\u63DB\uFF1Asort(\u628A g \u6620\u5C04\u5230 L) = \u628A g \u6620\u5C04\u5230 sort(L)\u3002\u7531\u65BC\u6392\u5E8F\u5177\u6392\u5217\u4E0D\u8B8A\u6027\uFF0C\u5148\u6392\u5217\u4EC0\u9EBC\u90FD\u4E0D\u6539\u8B8A\u3002\u7D44\u5408\u5169\u8005\u5F97 sort(\u628A g \u6620\u5C04\u5230 perm(L)) = \u628A g \u6620\u5C04\u5230 sort(L)\u2014\u2014\u4E00\u500B\u5065\u5168\u7684\u7D44\u5408 MR\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u611F\u5206\u985E\u5668\u7684\u4E0D\u5065\u5168 MR",
+            "text": "<p>\u5C0D\u65BC\u60C5\u611F\u5206\u985E\u5668\uFF0C\u4E0B\u5217\u4F55\u8005\u662F<em>\u4E0D\u5065\u5168</em>\u7684\u86FB\u8B8A\u95DC\u4FC2\uFF08\u6703\u7522\u751F\u5047\u8B66\u5831\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u300C\u628A\u53E5\u5B50\u5426\u5B9A\uFF08\u63D2\u5165\u300E\u4E0D\u300F\uFF09\u5FC5\u9808\u4F7F\u9810\u6E2C\u7684\u60C5\u611F\u7DAD\u6301\u4E0D\u8B8A\u300D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5426\u5B9A\u6539\u8B8A\u4E86\u771F\u5BE6\u60C5\u611F\uFF0C\u6545\u4E26\u975E\u4FDD\u7559\u6A19\u7C64\uFF1B\u9810\u6E2C\u61C9\u6539\u8B8A\u3002"
+              },
+              {
+                "text": "\u300C\u628A\u4E00\u500B\u8A5E\u66FF\u63DB\u70BA\u76F8\u8FD1\u7684\u540C\u7FA9\u8A5E\u61C9\u4F7F\u9810\u6E2C\u7684\u60C5\u611F\u7DAD\u6301\u4E0D\u8B8A\u300D",
+                "fraction": 0,
+                "feedback": "\u540C\u7FA9\u8A5E\u66FF\u63DB\u4FDD\u7559\u8A9E\u610F\uFF0C\u6545\u9019\u662F\u5065\u5168\u7684\u4FDD\u7559\u6A19\u7C64 MR\u3002"
+              },
+              {
+                "text": "\u300C\u52A0\u5165\u4E00\u500B\u4E2D\u6027\u3001\u4FDD\u7559\u8A9E\u610F\u7684\u586B\u5145\u8A9E\u53E5\u61C9\u4F7F\u9810\u6E2C\u7684\u60C5\u611F\u7DAD\u6301\u4E0D\u8B8A\u300D",
+                "fraction": 0,
+                "feedback": "\u4E2D\u6027\u586B\u5145\u4FDD\u7559\u60C5\u611F\uFF0C\u6545\u9019\u662F\u5065\u5168\u7684 MR\u3002"
+              },
+              {
+                "text": "\u300C\u91CD\u65B0\u6392\u5E8F\u5169\u500B\u5F7C\u6B64\u7368\u7ACB\u3001\u9806\u5E8F\u7121\u95DC\u7684\u5B50\u53E5\u61C9\u4F7F\u9810\u6E2C\u7684\u60C5\u611F\u7DAD\u6301\u4E0D\u8B8A\u300D",
+                "fraction": 0,
+                "feedback": "\u91CD\u65B0\u6392\u5E8F\u7368\u7ACB\u5B50\u53E5\u4FDD\u7559\u8A9E\u610F\uFF0C\u6545\u9019\u662F\u5065\u5168\u7684 MR\u3002"
+              }
+            ],
+            "generalFeedback": "MT \u7528\u65BC\u6A5F\u5668\u5B78\u7FD2\u6642\u4EF0\u8CF4\u4FDD\u7559\u6A19\u7C64\u7684\u8F49\u63DB\u3002\u540C\u7FA9\u8A5E\u66FF\u63DB\u3001\u4E2D\u6027\u586B\u5145\u3001\u4EE5\u53CA\u91CD\u65B0\u6392\u5E8F\u7368\u7ACB\u5B50\u53E5\uFF0C\u90FD\u4FDD\u7559\u771F\u5BE6\u60C5\u611F\uFF0C\u6545\u300C\u9810\u6E2C\u4E0D\u8B8A\u300D\u662F\u9810\u671F\u7684\u3002\u76F8\u5C0D\u5730\uFF0C\u5426\u5B9A\u6703\u7FFB\u8F49\u60C5\u611F\uFF0C\u6545\u8981\u6C42\u9810\u6E2C\u4E0D\u8B8A\u662F\u4E0D\u5065\u5168\u7684\uFF0C\u6703\u628A\u6B63\u78BA\u7684\u5206\u985E\u5668\u6A19\u8A18\u70BA\u932F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5B50\u96C6 MR \u5728\u6392\u540D\u5F15\u64CE\u4E0A\u53EF\u80FD\u5931\u6557",
+            "text": "<p>\u5B50\u96C6 MR\uFF08\u300C\u8F03\u5177\u9AD4\u7684\u67E5\u8A62\u56DE\u50B3 \u2264 \u7684\u7D50\u679C\u300D\uFF09\u5C0D\u7D14\u5408\u53D6\u5F0F\u904E\u6FFE\u662F\u5065\u5168\u7684\u3002\u70BA\u4F55\u5B83\u5C0D\u771F\u5BE6\u7684<em>\u6392\u540D</em>\u7DB2\u8DEF\u641C\u5C0B\u5F15\u64CE\u53EF\u80FD\u4E0D\u662F\u6709\u6548\u7684 MR\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6392\u540D\u5F15\u64CE\u53EF\u80FD\u4E0D\u56DE\u50B3\u6240\u6709\u7B26\u5408\u7684\u6587\u4EF6\uFF08\u5B83\u622A\u65B7\u70BA\u524D k \u7B46\u3001\u5957\u7528\u76F8\u95DC\u6027\u9580\u6ABB\u3001\u67E5\u8A62\u64F4\u5C55\u6216\u540C\u7FA9\u8A5E\uFF09\uFF0C\u6545\u8F03\u5177\u9AD4\u67E5\u8A62\u56DE\u50B3\u7684\u96C6\u5408\u4E0D\u4FDD\u8B49\u662F\u5B50\u96C6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MR \u7684\u6709\u6548\u6027\u53D6\u6C7A\u65BC\u53D7\u6E2C\u7A0B\u5F0F\u7684\u5BE6\u969B\u898F\u683C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6392\u540D\u641C\u5C0B\u5F15\u64CE\u6C38\u9060\u6B63\u78BA\uFF0C\u6545\u4E0D\u9700\u8981 MR",
+                "fraction": 0,
+                "feedback": "\u91CD\u9EDE\u4E0D\u5728\u6B63\u78BA\u6027\uFF1B\u53EA\u662F\u5728\u6392\u540D\u8A9E\u610F\u4E0B\u8A72\u95DC\u4FC2\u4E0D\u518D\u6709\u4FDD\u8B49\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u8F03\u5177\u9AD4\u7684\u67E5\u8A62\u4E00\u5B9A\u8A08\u7B97\u5F97\u8F03\u5FEB",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u8207\u5B50\u96C6\u95DC\u4FC2\u662F\u5426\u6210\u7ACB\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B50\u96C6\u7684\u6578\u5B78\u5728\u7DB2\u8DEF\u4E0A\u4E0D\u4E00\u6A23",
+                "fraction": 0,
+                "feedback": "\u96C6\u5408\u8AD6\u4E26\u7121\u6539\u8B8A\uFF1B\u554F\u984C\u5728\u65BC\u6392\u540D\u7D50\u679C\u4E26\u975E\u5B8C\u6574\u7684\u7B26\u5408\u96C6\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B50\u96C6 MR \u5047\u8A2D\u5F15\u64CE\u6070\u597D\u56DE\u50B3\u7B26\u5408\u6240\u6709\u5B57\u8A5E\u7684\u6587\u4EF6\u3002\u6392\u540D\u5F15\u64CE\u5247\u56DE\u50B3\u7D93\u6574\u7406\u3001\u622A\u65B7\u3001\u53EF\u80FD\u7D93\u67E5\u8A62\u64F4\u5C55\u7684\u6E05\u55AE\uFF0C\u6545\u8F03\u5177\u9AD4\u67E5\u8A62\u7684\u7D50\u679C\u672A\u5FC5\u662F\u8F03\u5EE3\u67E5\u8A62\u7D50\u679C\u7684\u5B50\u96C6\u3002MR \u53EA\u5728\u5C0D\u61C9\u5BE6\u969B\u898F\u683C\u6642\u624D\u6709\u6548\uFF1A\u6539\u8B8A\u8A9E\u610F\uFF0C\u539F\u672C\u5065\u5168\u7684 MR \u53EF\u80FD\u8B8A\u6210\u7121\u6548\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "MR \u5FC5\u9808\u662F\u5FC5\u8981\u6027\u8CEA",
+            "text": "<p>\u86FB\u8B8A\u95DC\u4FC2\u8981\u80FD\u7576\u4F5C\u9810\u8A00\u4F7F\u7528\uFF0C\u5B83\u5FC5\u9808\u662F\u6BCF\u500B\u6B63\u78BA\u5BE6\u4F5C\u7684\u5FC5\u8981\u6027\u8CEA\uFF1B\u5426\u5247\u300C\u9055\u53CD\u300D\u53EF\u80FD\u4EE3\u8868\u95DC\u4FC2\u6709\u7455\u75B5\uFF0C\u800C\u975E\u7F3A\u9677\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u552F\u6709\u771F\u6B63\u5FC5\u8981\u7684\u6027\u8CEA\u624D\u80FD\u8B93\u9055\u53CD\u727D\u9023\u5230\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u82E5\u95DC\u4FC2\u4E26\u975E\u5FC5\u8981\uFF0C\u6B63\u78BA\u7A0B\u5F0F\u4E5F\u53EF\u80FD\u9055\u53CD\u5B83\uFF0C\u6545\u9055\u53CD\u4FBF\u4E0D\u4EE3\u8868\u7F3A\u9677\u3002"
+              }
+            ],
+            "generalFeedback": "MT \u7684\u5065\u5168\u6027\u5EFA\u7ACB\u5728 MR \u662F\u5FC5\u8981\u6027\u8CEA\u4E4B\u4E0A\uFF1A\u6BCF\u500B\u6B63\u78BA\u5BE6\u4F5C\u90FD\u5FC5\u9808\u6EFF\u8DB3\u7684\u6771\u897F\u3002\u5982\u6B64\u4E00\u4F86\uFF0C\u9055\u53CD\u5C31\u5FC5\u7136\u4EE3\u8868\u7A0B\u5F0F\u6709\u932F\u3002\u82E5\u8A72\u95DC\u4FC2\u50C5\u662F\u5408\u7406\u4F46\u975E\u5FC5\u8981\uFF0C\u6B63\u78BA\u7A0B\u5F0F\u4E5F\u53EF\u80FD\u9055\u53CD\u5B83\uFF0C\u800C\u300C\u7F3A\u9677\u300D\u5176\u5BE6\u5728\u95DC\u4FC2\u4E2D\u2014\u2014\u9019\u6B63\u662F\u70BA\u4F55\u9A57\u8B49 MR \u662F MT \u7684\u95DC\u9375\u529F\u8AB2\u3002"
+          }
+        ]
+      }
+    },
     "mutation-testing": {
       "en": {
         "easy": [

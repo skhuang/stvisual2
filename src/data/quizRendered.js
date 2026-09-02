@@ -40339,6 +40339,2524 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "metamorphic-testing": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What metamorphic testing is",
+          "text": "<p>What is the core idea of <strong>metamorphic testing (MT)</strong>?</p>",
+          "answers": [
+            {
+              "text": "Instead of checking one output against a known expected value, it checks a relation (a metamorphic relation) between the outputs of multiple related runs of the program",
+              "fraction": 100,
+              "feedback": "Correct — MT verifies a relationship across related runs rather than one output against a fixed expected value."
+            },
+            {
+              "text": "It formally proves that the program satisfies its full specification",
+              "fraction": 0,
+              "feedback": "MT finds violations; it does not prove a program correct."
+            },
+            {
+              "text": "It measures how many branches a test suite covers",
+              "fraction": 0,
+              "feedback": "That is coverage measurement; MT is an oracle technique, not a coverage metric."
+            },
+            {
+              "text": "It generates random inputs and only reports crashes",
+              "fraction": 0,
+              "feedback": "That is a crash-oracle fuzzing approach; MT checks a metamorphic relation between outputs."
+            }
+          ],
+          "generalFeedback": "Metamorphic testing attacks the oracle problem. Rather than needing the exact expected output for an input, it runs the program on two or more related inputs and checks that a required relationship (a metamorphic relation) holds among the outputs. A broken relation exposes a fault even when no single expected value is known.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a metamorphic relation is",
+          "text": "<p>What is a <strong>metamorphic relation (MR)</strong>?</p>",
+          "answers": [
+            {
+              "text": "A property that must hold among the inputs and outputs of two or more related runs of a correct program",
+              "fraction": 100,
+              "feedback": "Correct — an MR links the inputs/outputs of related runs and must hold for any correct implementation."
+            },
+            {
+              "text": "The single exact expected output value for one specific input",
+              "fraction": 0,
+              "feedback": "That is a conventional expected-value oracle; an MR avoids needing that exact value."
+            },
+            {
+              "text": "A relation between the coverage of two branches of the program",
+              "fraction": 0,
+              "feedback": "MRs relate outputs of related inputs, not the coverage of branches."
+            },
+            {
+              "text": "A random seed that links two runs of a generator",
+              "fraction": 0,
+              "feedback": "A seed concerns reproducibility, not a required correctness relationship among outputs."
+            }
+          ],
+          "generalFeedback": "A metamorphic relation is a necessary property connecting multiple executions: given how the inputs are related (an input transformation), it states how the outputs must be related. For example, sorting a permutation of a list must give the same result. An MR must hold for every correct implementation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The oracle problem MT addresses",
+          "text": "<p>Metamorphic testing is chiefly aimed at which difficulty?</p>",
+          "answers": [
+            {
+              "text": "The test oracle problem — deciding whether a program's output for an input is correct when the exact expected output is unknown or expensive to obtain",
+              "fraction": 100,
+              "feedback": "Correct — MT provides a check when you cannot easily compute the expected output."
+            },
+            {
+              "text": "The reachability problem of covering deeply nested branches",
+              "fraction": 0,
+              "feedback": "Reaching code is a generation/coverage concern; MT addresses judging correctness."
+            },
+            {
+              "text": "Path explosion in symbolic execution",
+              "fraction": 0,
+              "feedback": "Path explosion is a scaling limit of symbolic analysis, not what MT targets."
+            },
+            {
+              "text": "The halting problem",
+              "fraction": 0,
+              "feedback": "MT does not decide termination; it checks relations among outputs."
+            }
+          ],
+          "generalFeedback": "The oracle problem is that, even with an input in hand, deciding whether the output is correct usually needs the intended answer — which may be unknown or costly. MT sidesteps this by checking a relation between related runs instead of any single expected value, giving a usable partial oracle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Source versus follow-up test case",
+          "text": "<p>In MT, how is a <strong>follow-up</strong> test case related to a <strong>source</strong> test case?</p>",
+          "answers": [
+            {
+              "text": "The follow-up input is derived from the source input by an input transformation prescribed by the metamorphic relation",
+              "fraction": 100,
+              "feedback": "Correct — the MR dictates how to transform the source input into the follow-up input."
+            },
+            {
+              "text": "The follow-up input is an unrelated input chosen at random",
+              "fraction": 0,
+              "feedback": "The follow-up must be derived from the source via the MR's transformation, not chosen at random."
+            },
+            {
+              "text": "The follow-up is the expected output of the source run",
+              "fraction": 0,
+              "feedback": "The follow-up is another input, not an output value."
+            },
+            {
+              "text": "The follow-up is the source input run again with a different random seed only",
+              "fraction": 0,
+              "feedback": "Merely changing a seed is not the input transformation an MR prescribes."
+            }
+          ],
+          "generalFeedback": "MT runs a source test case, then constructs a follow-up test case by transforming the source input according to the MR (e.g. permute the list, add π − x, scale all values). It then checks that the outputs of the two runs satisfy the MR's output relation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What an MR violation means",
+          "text": "<p>A run's outputs <strong>violate</strong> a valid metamorphic relation. What does this indicate?</p>",
+          "answers": [
+            {
+              "text": "The implementation is faulty — a correct program would have satisfied the relation (assuming the MR is a genuine necessary property)",
+              "fraction": 100,
+              "feedback": "Correct — violating a valid MR reveals a bug."
+            },
+            {
+              "text": "Nothing; metamorphic relations are only performance hints",
+              "fraction": 0,
+              "feedback": "An MR is a correctness property, not a performance hint; violating a valid one signals a fault."
+            },
+            {
+              "text": "The program is proven correct",
+              "fraction": 0,
+              "feedback": "A violation indicates the opposite — a fault, not correctness."
+            },
+            {
+              "text": "Only that branch coverage was insufficient",
+              "fraction": 0,
+              "feedback": "An MR violation is about incorrect output behavior, not coverage."
+            }
+          ],
+          "generalFeedback": "If the MR is genuinely necessary for any correct implementation, then a violation means the program produced results that a correct program could not — i.e. a bug. This is the power of MT: it detects faults without ever computing an exact expected output.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Satisfying MRs does not prove correctness",
+          "text": "<p>If a program satisfies all chosen metamorphic relations on all tested inputs, it is thereby proven correct.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "No — MT can reveal violations but cannot prove correctness; untested inputs and unmodeled properties can still hide faults."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — satisfying MRs never proves correctness; it only means no violation of those relations was found on those inputs."
+            }
+          ],
+          "generalFeedback": "Like testing generally, MT can show the presence of faults (via a violation) but not their absence. The chosen relations capture only some required properties, and only finitely many inputs are tried, so a program can satisfy every MR and still be wrong on an untested case or a property no MR captures."
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid MR for sine",
+          "text": "<p>Which is a valid metamorphic relation for a correct implementation of <code>sin(x)</code>?</p>",
+          "answers": [
+            {
+              "text": "sin(x) = sin(π − x) for all x",
+              "fraction": 100,
+              "feedback": "Correct — this is a true identity, so a correct sine must satisfy it."
+            },
+            {
+              "text": "sin(2x) = 2·sin(x) for all x",
+              "fraction": 0,
+              "feedback": "False in general — e.g. at x = π/2, sin(π) = 0 but 2·sin(π/2) = 2."
+            },
+            {
+              "text": "sin(x) = sin(x + π) for all x",
+              "fraction": 0,
+              "feedback": "False — sin(x + π) = −sin(x), not sin(x)."
+            },
+            {
+              "text": "sin(x) = x for all x",
+              "fraction": 0,
+              "feedback": "False — this holds only near 0 as an approximation, not as an identity."
+            }
+          ],
+          "generalFeedback": "The identity sin(x) = sin(π − x) holds for every real x (supplementary angles have equal sine). It is a classic metamorphic relation: from a source input x, the follow-up input π − x must yield an equal output. The distractors are not identities, so they would not be valid MRs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid MR for sorting",
+          "text": "<p>Which relation is a valid metamorphic relation for a correct <strong>sort</strong> function?</p>",
+          "answers": [
+            {
+              "text": "Sorting any permutation of a list yields the same result: sort(perm(L)) == sort(L)",
+              "fraction": 100,
+              "feedback": "Correct — the sorted output depends only on the multiset of elements, not their order."
+            },
+            {
+              "text": "Sorting a list twice reverses it",
+              "fraction": 0,
+              "feedback": "Sorting is idempotent: sorting an already-sorted list leaves it unchanged, not reversed."
+            },
+            {
+              "text": "Sorting the reverse of a list gives the reverse of the sorted list",
+              "fraction": 0,
+              "feedback": "No — sort(reverse(L)) == sort(L); reversing first does not reverse the sorted output."
+            },
+            {
+              "text": "Sorting doubles the length of the list",
+              "fraction": 0,
+              "feedback": "Sorting is a permutation of the input; it never changes the length."
+            }
+          ],
+          "generalFeedback": "A correct sort produces an ordering that depends only on the multiset of elements. So sorting any permutation of the same elements must give an identical result — permutation invariance. This makes a strong MR, since you can shuffle a source list to build a follow-up input without knowing the expected order in advance.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid MR for commutative addition",
+          "text": "<p>For a function <code>add(a, b) = a + b</code>, which is a valid metamorphic relation?</p>",
+          "answers": [
+            {
+              "text": "add(a, b) == add(b, a)",
+              "fraction": 100,
+              "feedback": "Correct — addition is commutative, so swapping the operands must give the same result."
+            },
+            {
+              "text": "add(a, b) == add(a, b + 1)",
+              "fraction": 0,
+              "feedback": "False — changing an operand changes the sum."
+            },
+            {
+              "text": "add(a, b) == a",
+              "fraction": 0,
+              "feedback": "False unless b = 0; not a general property."
+            },
+            {
+              "text": "add(a, b) == 2·add(b, a)",
+              "fraction": 0,
+              "feedback": "False in general — the sum is not doubled by swapping operands."
+            }
+          ],
+          "generalFeedback": "Commutativity, f(a, b) = f(b, a), is a valid MR for any commutative operation such as addition or multiplication. The follow-up input simply swaps the two operands, and the outputs must be equal. Note it is not valid for non-commutative operations like subtraction or division.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MR versus a conventional oracle",
+          "text": "<p>How does a metamorphic relation differ from a conventional (expected-value) oracle?</p>",
+          "answers": [
+            {
+              "text": "A conventional oracle compares one run's output to a precomputed expected value; an MR checks a required relationship among the outputs of several related runs, needing no precomputed expected value",
+              "fraction": 100,
+              "feedback": "Correct — the MR replaces a per-input expected value with a cross-run relationship."
+            },
+            {
+              "text": "They are identical; both require the exact expected output of each input",
+              "fraction": 0,
+              "feedback": "An MR specifically avoids needing the exact expected output."
+            },
+            {
+              "text": "An MR compares source code while a conventional oracle compares outputs",
+              "fraction": 0,
+              "feedback": "Both concern outputs; an MR compares outputs across runs, not source code."
+            },
+            {
+              "text": "An MR measures runtime while a conventional oracle measures memory",
+              "fraction": 0,
+              "feedback": "Neither is about performance; both judge functional correctness."
+            }
+          ],
+          "generalFeedback": "A conventional oracle needs the exact answer for each input, which can be unknown or costly. An MR needs only a relationship that must hold between related runs (e.g. equal, ≤, scaled by k). That is precisely why MT helps when computing expected outputs is infeasible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When metamorphic testing fits",
+          "text": "<p>In which situation is metamorphic testing especially useful?</p>",
+          "answers": [
+            {
+              "text": "When there is no easy or affordable oracle — e.g. machine-learning models, scientific computing, compilers, graphics, and search engines — so exact expected outputs are hard to obtain",
+              "fraction": 100,
+              "feedback": "Correct — MT shines precisely where computing the expected output is hard."
+            },
+            {
+              "text": "Only when a full formal specification and a trusted reference implementation already exist",
+              "fraction": 0,
+              "feedback": "If you already have a reference, you can use it directly; MT is most valuable when you do not."
+            },
+            {
+              "text": "Only for programs that take no inputs at all",
+              "fraction": 0,
+              "feedback": "MT needs inputs it can transform; a no-input program has nothing to transform."
+            },
+            {
+              "text": "Only after 100% branch coverage has already been achieved",
+              "fraction": 0,
+              "feedback": "MT is independent of coverage level; it addresses the oracle, not coverage."
+            }
+          ],
+          "generalFeedback": "MT was created for exactly the domains where the oracle problem bites: machine learning, numerical/scientific code, compilers, computer graphics, and search — programs whose correct output is hard or impossible to state in advance, but which nonetheless obey checkable relationships between related runs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the input transformation is",
+          "text": "<p>In MT, what is the <strong>input transformation</strong>?</p>",
+          "answers": [
+            {
+              "text": "The rule that constructs the follow-up input from the source input (e.g. take π − x, permute a list, scale all values by k)",
+              "fraction": 100,
+              "feedback": "Correct — the input transformation builds the follow-up input."
+            },
+            {
+              "text": "The rule that converts the program's source code into bytecode",
+              "fraction": 0,
+              "feedback": "That is compilation, unrelated to the MT input transformation."
+            },
+            {
+              "text": "The exact numeric output expected for the source input",
+              "fraction": 0,
+              "feedback": "MT avoids needing that; the transformation produces an input, not an expected output."
+            },
+            {
+              "text": "The metric that measures branch coverage of the suite",
+              "fraction": 0,
+              "feedback": "That is coverage, not the input transformation."
+            }
+          ],
+          "generalFeedback": "Each MR comes with an input transformation (how to derive the follow-up input from the source) and an output relation (how the two outputs must relate). Applying the transformation to a source input yields the follow-up input to run.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid MR for a set",
+          "text": "<p>For a <strong>set</strong> data structure, which is a valid metamorphic relation?</p>",
+          "answers": [
+            {
+              "text": "Inserting an element that is already present leaves membership and the set's size unchanged",
+              "fraction": 100,
+              "feedback": "Correct — a set holds each element at most once, so re-inserting a duplicate changes nothing."
+            },
+            {
+              "text": "Inserting a duplicate always increases the size by one",
+              "fraction": 0,
+              "feedback": "A set does not store duplicates, so size stays the same."
+            },
+            {
+              "text": "Inserting a duplicate removes the original element",
+              "fraction": 0,
+              "feedback": "The element remains a member; it is neither removed nor doubled."
+            },
+            {
+              "text": "Inserting a duplicate deterministically reverses iteration order",
+              "fraction": 0,
+              "feedback": "That is not a required property of a set; iteration order is not guaranteed to reverse."
+            }
+          ],
+          "generalFeedback": "A set stores each value at most once. Adding an element it already contains must leave both the membership predicate and the cardinality unchanged. This is a clean MR: the follow-up input adds a duplicate, and the output (size or membership) must match the source.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid MR for a mean function",
+          "text": "<p>For a function computing the <strong>arithmetic mean</strong> of a list, which is a valid metamorphic relation?</p>",
+          "answers": [
+            {
+              "text": "Multiplying every input value by a constant k multiplies the mean by k",
+              "fraction": 100,
+              "feedback": "Correct — the mean is linear, so scaling all inputs scales the mean identically."
+            },
+            {
+              "text": "Multiplying every value by k leaves the mean unchanged",
+              "fraction": 0,
+              "feedback": "The mean scales with the values; it is not invariant under scaling."
+            },
+            {
+              "text": "Adding a constant k to just one value leaves the mean unchanged",
+              "fraction": 0,
+              "feedback": "Changing one value changes the sum and hence the mean."
+            },
+            {
+              "text": "Multiplying every value by k multiplies the mean by k²",
+              "fraction": 0,
+              "feedback": "That is how variance scales; the mean scales by k, not k²."
+            }
+          ],
+          "generalFeedback": "mean(k·x₁, …, k·xₙ) = k·mean(x₁, …, xₙ) because the mean is a linear function of its inputs. So scaling every value by k is an input transformation whose output relation is \"the mean is multiplied by k\" — a valid MR requiring no expected value.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "MT uses multiple related runs",
+          "text": "<p>Metamorphic testing checks a property across the outputs of multiple related runs, rather than judging a single run against a fixed expected value.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — MT compares outputs of related runs, which is what lets it work without a per-input expected value."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "MT does rely on multiple related runs; that is the essence of a metamorphic relation."
+            }
+          ],
+          "generalFeedback": "The defining feature of MT is that it needs at least two related executions — a source and one or more follow-ups — and checks a relationship among their outputs. A single run compared to a fixed expected value is an ordinary oracle, not MT."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Construct the follow-up for sine",
+          "text": "<p>Using the MR <code>sin(x) = sin(π − x)</code>, a source test uses input <code>x = 0.3</code>. What is the follow-up input and the expected output relation?</p>",
+          "answers": [
+            {
+              "text": "Follow-up input = π − 0.3 (≈ 2.8416); the two outputs must be equal",
+              "fraction": 100,
+              "feedback": "Correct — apply the transformation π − x and require equal outputs."
+            },
+            {
+              "text": "Follow-up input = 2 × 0.3; the two outputs must be equal",
+              "fraction": 0,
+              "feedback": "Doubling the input is not this MR's transformation, and sin(0.6) ≠ sin(0.3)."
+            },
+            {
+              "text": "Follow-up input = 0.3 + π; the two outputs must be equal",
+              "fraction": 0,
+              "feedback": "That uses π + x, giving sin(0.3 + π) = −sin(0.3), which is not equal."
+            },
+            {
+              "text": "Follow-up input = π − 0.3; the follow-up output must be double the source",
+              "fraction": 0,
+              "feedback": "The transformation is right but the relation is equality, not doubling."
+            }
+          ],
+          "generalFeedback": "The MR's transformation is x ↦ π − x and its output relation is equality. So the follow-up input is π − 0.3 ≈ 2.8416, and a correct sine must return the same value for both — no expected value needs to be known.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Construct the follow-up for sort",
+          "text": "<p>To test a sort routine with permutation invariance, from source list <code>L = [3, 1, 2]</code> how do you build the follow-up input and what relation must hold?</p>",
+          "answers": [
+            {
+              "text": "Follow-up = any permutation of L, e.g. [2, 3, 1]; the sorted outputs of L and the follow-up must be identical",
+              "fraction": 100,
+              "feedback": "Correct — shuffle the elements; the sorted results must match."
+            },
+            {
+              "text": "Follow-up = the reverse of the sorted output; the two outputs must differ",
+              "fraction": 0,
+              "feedback": "The follow-up must be a permutation of the same input, and the outputs must be equal, not differ."
+            },
+            {
+              "text": "Follow-up = L with one element removed; the two outputs must be equal",
+              "fraction": 0,
+              "feedback": "Removing an element changes the multiset, so the sorted output legitimately changes."
+            },
+            {
+              "text": "Follow-up = L with every value doubled; the two outputs must be equal",
+              "fraction": 0,
+              "feedback": "Doubling the values changes the elements, so the sorted output changes."
+            }
+          ],
+          "generalFeedback": "Permutation invariance says the sorted output depends only on the multiset of elements. So the follow-up input is any reordering of L (e.g. [2, 3, 1]), and sort(follow-up) must equal sort(L). Only reorderings are valid transformations here; adding, removing, or altering values changes the multiset.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Search result-count monotonicity",
+          "text": "<p>For a search that returns <em>every</em> document matching <em>all</em> query terms (a conjunctive filter), which is a valid metamorphic relation?</p>",
+          "answers": [
+            {
+              "text": "Adding another required term can only keep or reduce the number of results (a more specific query returns ≤ the results of the less specific one)",
+              "fraction": 100,
+              "feedback": "Correct — the more specific query's result set is a subset, so its count is ≤."
+            },
+            {
+              "text": "Adding another required term can only increase the number of results",
+              "fraction": 0,
+              "feedback": "Wrong direction — narrowing the query cannot add matches."
+            },
+            {
+              "text": "Removing a required term can only reduce the number of results",
+              "fraction": 0,
+              "feedback": "Wrong direction — broadening the query cannot lose matches."
+            },
+            {
+              "text": "The result count is independent of the query terms",
+              "fraction": 0,
+              "feedback": "The count clearly depends on which terms are required."
+            }
+          ],
+          "generalFeedback": "Under conjunctive-filter semantics, a document is returned iff it matches every required term. Requiring one more term can only remove documents, never add them, so the result set of the more specific query is a subset of the broader one and its count is ≤. This monotonicity is a valid MR: no expected count is needed, only the ≤ relation between two related queries.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Construct the follow-up for mean scaling",
+          "text": "<p>A program computes the mean of a list. Source input <code>[2, 4, 6]</code> gives <code>4</code>. Using the scaling MR with <code>k = 3</code>, what is the follow-up input and expected output?</p>",
+          "answers": [
+            {
+              "text": "Follow-up = [6, 12, 18]; expected mean = 12 (= 3 × 4)",
+              "fraction": 100,
+              "feedback": "Correct — scale every value by 3, and the mean scales by 3."
+            },
+            {
+              "text": "Follow-up = [6, 12, 18]; expected mean = 4",
+              "fraction": 0,
+              "feedback": "The transformation is right but scaling the inputs by 3 scales the mean to 12, not 4."
+            },
+            {
+              "text": "Follow-up = [5, 7, 9]; expected mean = 7",
+              "fraction": 0,
+              "feedback": "Adding 3 to each value (not multiplying) is a different transformation than this MR."
+            },
+            {
+              "text": "Follow-up = [2, 4, 6, 3]; expected mean = 12",
+              "fraction": 0,
+              "feedback": "Appending a value is not the scaling transformation, and that mean would be 3.75."
+            }
+          ],
+          "generalFeedback": "The scaling MR multiplies every input by k and expects the mean to be multiplied by k. With k = 3, the follow-up input is [6, 12, 18] and the expected mean is 3 × 4 = 12. Verify: (6 + 12 + 18)/3 = 12.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Construct the follow-up for commutativity",
+          "text": "<p>For a function <code>f(a, b) = a × b</code>, using the commutativity MR, how do you build the follow-up from source <code>(a = 5, b = 7)</code>?</p>",
+          "answers": [
+            {
+              "text": "Follow-up = (a = 7, b = 5); the two outputs must be equal (both 35)",
+              "fraction": 100,
+              "feedback": "Correct — swap the operands; multiplication is commutative, so outputs match."
+            },
+            {
+              "text": "Follow-up = (a = 5, b = 5); the two outputs must be equal",
+              "fraction": 0,
+              "feedback": "That changes an operand rather than swapping; 5 × 5 ≠ 5 × 7."
+            },
+            {
+              "text": "Follow-up = (a = 7, b = 5); the follow-up output must be double the source",
+              "fraction": 0,
+              "feedback": "The swap is right, but the relation is equality, not doubling."
+            },
+            {
+              "text": "Follow-up = (a = 10, b = 14); the two outputs must be equal",
+              "fraction": 0,
+              "feedback": "Doubling both operands is not the commutativity transformation, and 10 × 14 ≠ 5 × 7."
+            }
+          ],
+          "generalFeedback": "The commutativity MR's transformation swaps the operands, and its output relation is equality. From (5, 7) the follow-up is (7, 5), and a correct multiplication returns 35 for both. No expected value is needed — only that the two outputs agree.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why MT helps with no oracle",
+          "text": "<p>Why is MT valuable for a program whose exact expected output is infeasible to compute?</p>",
+          "answers": [
+            {
+              "text": "It detects faults by checking a required relationship between related runs, without ever needing the exact expected output of any single run",
+              "fraction": 100,
+              "feedback": "Correct — the relation replaces the missing per-input expected value."
+            },
+            {
+              "text": "It computes the exact expected output automatically",
+              "fraction": 0,
+              "feedback": "MT does not compute expected outputs; it checks relations among runs."
+            },
+            {
+              "text": "It proves correctness without running the program",
+              "fraction": 0,
+              "feedback": "MT runs the program on related inputs; it does not prove correctness."
+            },
+            {
+              "text": "It removes the need to run the program more than once",
+              "fraction": 0,
+              "feedback": "MT requires multiple related runs, not fewer."
+            }
+          ],
+          "generalFeedback": "When no oracle can tell you the right answer for an input, you can still know how related runs must relate. MT exploits that: it transforms the input, runs again, and checks the output relation. A violation exposes a fault even though the exact expected output was never available.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Passing tests is not a proof",
+          "text": "<p>Passing many metamorphic tests demonstrates that the program is free of defects.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "No — MT reveals violations but cannot establish the absence of faults."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — passing tests leaves open faults not exposed by the chosen relations or inputs."
+            }
+          ],
+          "generalFeedback": "MT is a testing technique, so it can find bugs but not prove their absence. A program can satisfy every chosen MR on every tried input and still fail on an untested input or violate a property no MR captures."
+        },
+        {
+          "type": "multichoice",
+          "name": "Shortest-path relabeling MR",
+          "text": "<p>A program computes the shortest-path distance between two nodes in a weighted graph. Which is a valid metamorphic relation?</p>",
+          "answers": [
+            {
+              "text": "Relabeling (renaming) the nodes by a bijection and querying the correspondingly renamed endpoints must return the same distance",
+              "fraction": 100,
+              "feedback": "Correct — a bijective relabeling is a graph isomorphism, which preserves all distances."
+            },
+            {
+              "text": "Relabeling the nodes changes the distance by the number of nodes",
+              "fraction": 0,
+              "feedback": "Renaming nodes changes no structure or weight, so the distance is unaffected."
+            },
+            {
+              "text": "Doubling every node's label doubles the distance",
+              "fraction": 0,
+              "feedback": "Node labels are identifiers; their numeric value does not affect distances."
+            },
+            {
+              "text": "Reversing the node labels negates the distance",
+              "fraction": 0,
+              "feedback": "Distances are non-negative and depend on edges/weights, not on label order."
+            }
+          ],
+          "generalFeedback": "Renaming nodes via a bijection leaves the graph structurally identical (an isomorphism): the same edges with the same weights, just different names. So the shortest-path distance between the renamed endpoints must equal the original. This is a strong MR because it needs no knowledge of the actual distance.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Construct the follow-up for set size",
+          "text": "<p>A program maintains a set and reports its size. Source: inserting <code>[1, 2, 3]</code> gives size <code>3</code>. Using the duplicate-insertion MR, what follow-up and expected size?</p>",
+          "answers": [
+            {
+              "text": "Follow-up = insert [1, 2, 3, 2] (a duplicate added); expected size still 3",
+              "fraction": 100,
+              "feedback": "Correct — adding a duplicate leaves the set's size unchanged."
+            },
+            {
+              "text": "Follow-up = insert [1, 2, 3, 2]; expected size 4",
+              "fraction": 0,
+              "feedback": "A set ignores the duplicate, so the size stays 3, not 4."
+            },
+            {
+              "text": "Follow-up = insert [1, 2, 3, 4]; expected size 3",
+              "fraction": 0,
+              "feedback": "Adding a new distinct element 4 is not the duplicate transformation, and it would make size 4."
+            },
+            {
+              "text": "Follow-up = insert [1, 2, 3, 2]; expected size 2",
+              "fraction": 0,
+              "feedback": "Adding a duplicate cannot shrink the set; the size stays 3."
+            }
+          ],
+          "generalFeedback": "The duplicate-insertion transformation adds an element already present. The output relation is that the size is unchanged. From a source of [1, 2, 3] (size 3), the follow-up [1, 2, 3, 2] must still report size 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Construct the follow-up for maximum",
+          "text": "<p>A program returns the maximum of a list. From source <code>L = [4, 9, 1]</code> (max 9), which follow-up tests a valid MR and what relation holds?</p>",
+          "answers": [
+            {
+              "text": "Follow-up = L with an element ≤ 9 appended, e.g. [4, 9, 1, 7]; the maximum must be unchanged (still 9)",
+              "fraction": 100,
+              "feedback": "Correct — appending a value not exceeding the current max leaves the max unchanged."
+            },
+            {
+              "text": "Follow-up = [4, 9, 1, 15]; the max must be unchanged",
+              "fraction": 0,
+              "feedback": "Appending 15 (greater than 9) legitimately raises the max to 15, so \"unchanged\" is wrong."
+            },
+            {
+              "text": "Follow-up = [4, 9, 1, 7]; the max must increase",
+              "fraction": 0,
+              "feedback": "Appending 7 (≤ 9) cannot raise the max; it stays 9."
+            },
+            {
+              "text": "Follow-up = [8, 18, 2]; the max must be unchanged",
+              "fraction": 0,
+              "feedback": "Those are different values, not an append of an element ≤ 9 to L."
+            }
+          ],
+          "generalFeedback": "max(L ++ [y]) = max(max(L), y). If y ≤ max(L), the maximum is unchanged; if y > max(L), it becomes y. A valid MR is therefore \"appending a value ≤ the current max leaves the max unchanged,\" giving a follow-up like [4, 9, 1, 7] with expected max 9.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Broadening a query",
+          "text": "<p>For a conjunctive-filter search, which transformation gives a follow-up whose result count must be ≥ the source's?</p>",
+          "answers": [
+            {
+              "text": "Removing one of the required query terms (making the query less specific)",
+              "fraction": 100,
+              "feedback": "Correct — the broader query's result set is a superset, so the count is ≥."
+            },
+            {
+              "text": "Adding one more required term",
+              "fraction": 0,
+              "feedback": "That narrows the query, giving ≤ results, not ≥."
+            },
+            {
+              "text": "Replacing a term with a more specific synonym",
+              "fraction": 0,
+              "feedback": "Making a term more specific does not guarantee ≥ results."
+            },
+            {
+              "text": "Requiring all terms to appear only in the title",
+              "fraction": 0,
+              "feedback": "Adding a location constraint narrows matches; it does not guarantee ≥ results."
+            }
+          ],
+          "generalFeedback": "Dropping a required term makes the query less specific, so every document that matched before still matches (and possibly more). The broader result set is a superset, so its count is ≥ the source's. This is the \"≥\" companion to the narrowing MR.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pick the valid MR for a mean",
+          "text": "<p>Which of these is a genuine necessary property (a valid MR) of a correct mean function?</p>",
+          "answers": [
+            {
+              "text": "Appending one extra value equal to the current mean leaves the mean unchanged",
+              "fraction": 100,
+              "feedback": "Correct — adding a point equal to the mean does not move the mean."
+            },
+            {
+              "text": "Appending any one extra value leaves the mean unchanged",
+              "fraction": 0,
+              "feedback": "False — only a value equal to the current mean leaves it unchanged."
+            },
+            {
+              "text": "Removing the largest value leaves the mean unchanged",
+              "fraction": 0,
+              "feedback": "False — removing the largest value generally lowers the mean."
+            },
+            {
+              "text": "Doubling the list length by repeating it leaves the mean doubled",
+              "fraction": 0,
+              "feedback": "False — repeating the list leaves the mean unchanged, not doubled."
+            }
+          ],
+          "generalFeedback": "With n values of mean m, appending a value equal to m gives a new mean of (n·m + m)/(n + 1) = m(n + 1)/(n + 1) = m. So the mean is unchanged — a valid MR. The distractors are not necessary properties of a correct mean.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Variance under scaling",
+          "text": "<p>A program computes the (population) <strong>variance</strong> of a list. Multiplying every value by <code>k</code> has what effect, giving a valid MR?</p>",
+          "answers": [
+            {
+              "text": "The variance is multiplied by k²",
+              "fraction": 100,
+              "feedback": "Correct — Var(kX) = k²·Var(X)."
+            },
+            {
+              "text": "The variance is multiplied by k",
+              "fraction": 0,
+              "feedback": "That is how the mean (or a linear quantity) scales; variance scales by k²."
+            },
+            {
+              "text": "The variance is unchanged",
+              "fraction": 0,
+              "feedback": "Scaling the data spreads it out; the variance changes by k²."
+            },
+            {
+              "text": "The variance is multiplied by |k|",
+              "fraction": 0,
+              "feedback": "That is how the standard deviation scales; variance scales by k²."
+            }
+          ],
+          "generalFeedback": "Variance is a quadratic quantity: Var(kX) = k²·Var(X). So scaling every input by k is an input transformation whose output relation is \"the variance is multiplied by k².\" (The standard deviation, being the square root, scales by |k|.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge reordering for shortest path",
+          "text": "<p>A shortest-path program takes a list of weighted edges. Which follow-up transformation must leave every shortest-path distance unchanged (a valid MR)?</p>",
+          "answers": [
+            {
+              "text": "Reordering the edges in the input list (the same set of edges, listed in a different order)",
+              "fraction": 100,
+              "feedback": "Correct — the graph is defined by its set of edges, not the order they appear."
+            },
+            {
+              "text": "Doubling the weight of one edge on a shortest path",
+              "fraction": 0,
+              "feedback": "That changes the graph and can change the distance."
+            },
+            {
+              "text": "Adding a new edge with a smaller weight",
+              "fraction": 0,
+              "feedback": "A new cheaper edge can create a shorter path, changing distances."
+            },
+            {
+              "text": "Deleting an edge on a shortest path",
+              "fraction": 0,
+              "feedback": "Removing an edge can lengthen or disconnect a path, changing distances."
+            }
+          ],
+          "generalFeedback": "The graph is the set of edges; the order in which the edges are listed carries no meaning. So permuting the edge list is an input transformation whose output relation is \"all distances unchanged\" — a valid MR. The other options genuinely alter the graph.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "A passing source/follow-up pair",
+          "text": "<p>If a source/follow-up pair satisfies its metamorphic relation, that specific pair has not revealed a bug, but a bug may still exist elsewhere.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — one satisfied pair only means no violation was seen for that pair."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "A satisfied pair does not clear the program; other inputs or relations may still expose faults."
+            }
+          ],
+          "generalFeedback": "Satisfying the relation on one pair simply means that pair produced no evidence of a fault. Faults can still hide in untested inputs or in behaviors that this MR does not constrain, so no conclusion of correctness follows."
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Critique a proposed sine MR",
+          "text": "<p>A tester proposes <code>sin(2x) = 2·sin(x)</code> as a metamorphic relation for a sine routine. What is wrong with it?</p>",
+          "answers": [
+            {
+              "text": "It is not a true identity (e.g. at x = π/2, sin(π) = 0 but 2·sin(π/2) = 2), so a correct sine need not satisfy it; any \"violation\" would be spurious",
+              "fraction": 100,
+              "feedback": "Correct — the relation is not a necessary property, so it is an invalid MR."
+            },
+            {
+              "text": "Nothing is wrong; it holds for all x",
+              "fraction": 0,
+              "feedback": "It fails at x = π/2, so it does not hold for all x."
+            },
+            {
+              "text": "It is valid but detects only performance bugs",
+              "fraction": 0,
+              "feedback": "It is not valid at all; MRs are correctness properties, not performance checks."
+            },
+            {
+              "text": "It is valid only for negative x",
+              "fraction": 0,
+              "feedback": "It is not an identity for negative x either (e.g. x = −π/2)."
+            }
+          ],
+          "generalFeedback": "The double-angle identity is sin(2x) = 2·sin(x)·cos(x), which equals 2·sin(x) only when cos(x) = 1. So sin(2x) = 2·sin(x) is false in general and is not a necessary property of a correct sine. Using it as an MR would flag correct implementations — a classic invalid MR.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Composing metamorphic relations",
+          "text": "<p>For a shortest-path program you have MR_A (relabeling nodes leaves distances unchanged) and MR_B (multiplying all edge weights by a constant <code>c &gt; 0</code> multiplies every distance by c). If you apply <em>both</em> transformations to a source graph, what must hold?</p>",
+          "answers": [
+            {
+              "text": "The distance in the transformed graph equals c times the source distance",
+              "fraction": 100,
+              "feedback": "Correct — a distance-preserving transform composed with a c-scaling transform yields c-scaling."
+            },
+            {
+              "text": "The distance is unchanged",
+              "fraction": 0,
+              "feedback": "Relabeling alone preserves distance, but scaling weights by c multiplies it by c."
+            },
+            {
+              "text": "The distance equals c² times the source distance",
+              "fraction": 0,
+              "feedback": "Only one c-scaling is applied (relabeling adds no factor), so the factor is c, not c²."
+            },
+            {
+              "text": "No relation holds, because two transformations cannot be composed",
+              "fraction": 0,
+              "feedback": "MRs compose: apply the transformations in sequence and combine their output relations."
+            }
+          ],
+          "generalFeedback": "MRs can be composed by applying their input transformations together and combining the output relations. Relabeling contributes a factor of 1 (distance unchanged) and weight-scaling contributes a factor of c, so the composed relation multiplies the distance by 1 × c = c. Composition lets you build richer checks from simple, individually-verified MRs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Edge-weight scaling: soundness caveat",
+          "text": "<p>Is \"multiplying all edge weights by a constant <code>c</code> scales every shortest-path distance by c\" a sound metamorphic relation?</p>",
+          "answers": [
+            {
+              "text": "Yes, but only for c > 0; for c ≤ 0 it can create zero/negative weights or negative cycles and change which path is optimal, so the relation need not hold",
+              "fraction": 100,
+              "feedback": "Correct — the scaling MR is sound only for a positive constant."
+            },
+            {
+              "text": "Yes, for every real c",
+              "fraction": 0,
+              "feedback": "Negative c can introduce negative cycles or flip the optimal path, breaking the relation."
+            },
+            {
+              "text": "No, it never holds for any c",
+              "fraction": 0,
+              "feedback": "It does hold for every positive c, so \"never\" is wrong."
+            },
+            {
+              "text": "Yes, but only for integer c",
+              "fraction": 0,
+              "feedback": "Any positive real c works; the restriction is positivity, not integrality."
+            }
+          ],
+          "generalFeedback": "For c > 0, multiplying all weights by c multiplies the cost of every path by c, so the minimum-cost path is unchanged and its distance is scaled by c — a sound MR. For c ≤ 0 the transformed graph can have negative weights or negative cycles, changing (or undefining) the shortest path, so the relation is not necessary. Stating the domain (c > 0) is essential to keeping the MR valid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Invalid MR versus genuine bug: floating point",
+          "text": "<p>A test checks <code>sin(x) == sin(π − x)</code> with exact floating-point equality and reports a \"violation\" where the two results differ in the last bit. Best interpretation?</p>",
+          "answers": [
+            {
+              "text": "The exact-equality MR is too strict for floating-point arithmetic; the tiny difference is rounding, so the violation is likely spurious and the relation should allow a small tolerance",
+              "fraction": 100,
+              "feedback": "Correct — an over-strict relation, not a fault, produced the false alarm."
+            },
+            {
+              "text": "It is definitely a bug in the sine implementation",
+              "fraction": 0,
+              "feedback": "A last-bit difference is consistent with normal rounding, not necessarily a fault."
+            },
+            {
+              "text": "The mathematics sin(x) = sin(π − x) is false, so the MR is wrong",
+              "fraction": 0,
+              "feedback": "The identity is true; the issue is applying exact equality to inexact arithmetic."
+            },
+            {
+              "text": "Floating-point numbers cannot represent π, so sine is undefined",
+              "fraction": 0,
+              "feedback": "π is approximated, but sine is well-defined on the approximation; that is not the issue."
+            }
+          ],
+          "generalFeedback": "The identity holds mathematically, but floating-point computes π − x and the two sines with rounding, so bit-for-bit equality is not guaranteed. The failure reflects an over-strict (effectively invalid) MR for this domain, not a defect. The fix is to state the output relation with an appropriate tolerance, e.g. |sin(x) − sin(π − x)| ≤ ε. This is the key skill of separating a genuine violation from a flawed relation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MR for an image classifier",
+          "text": "<p>For an image classifier, which is a suitable metamorphic relation whose violation suggests a defect (e.g. a robustness problem)?</p>",
+          "answers": [
+            {
+              "text": "A label-preserving transformation — one a human agrees does not change the true class, such as a slight brightness change or small rotation — should leave the predicted class unchanged",
+              "fraction": 100,
+              "feedback": "Correct — the transformation must preserve the ground-truth label for the \"unchanged prediction\" relation to be expected."
+            },
+            {
+              "text": "Randomly shuffling all the pixels should leave the predicted class unchanged",
+              "fraction": 0,
+              "feedback": "Shuffling pixels destroys the image content, so it is not label-preserving."
+            },
+            {
+              "text": "Replacing the image with a different image of another class should leave the prediction unchanged",
+              "fraction": 0,
+              "feedback": "That changes the true class, so the prediction should change, not stay the same."
+            },
+            {
+              "text": "Doubling every pixel value should double the predicted class index",
+              "fraction": 0,
+              "feedback": "Class indices are labels, not magnitudes; there is no reason a valid transformation would double them."
+            }
+          ],
+          "generalFeedback": "MT for ML uses transformations that preserve the ground-truth label — mild brightness/contrast changes, small rotations, or, for text, synonym substitution. An ideal classifier's prediction should not change; if it does, the test reveals a robustness or consistency defect. The transformation must genuinely preserve the label, which is why pixel-shuffling or swapping in a different-class image are not valid choices.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Wrong search direction is a bad MR",
+          "text": "<p>A tester claims that \"making a conjunctive-filter query <em>more</em> specific (adding a required term) should return <em>at least as many</em> results.\" Why is this a bad MR?</p>",
+          "answers": [
+            {
+              "text": "The direction is backwards — a more specific query's results are a subset, so the count can only stay the same or shrink; the program need not satisfy the proposed relation, so it would raise false alarms",
+              "fraction": 100,
+              "feedback": "Correct — the sound direction is ≤ for narrowing, so the proposed ≥ relation is invalid."
+            },
+            {
+              "text": "It is correct and always holds",
+              "fraction": 0,
+              "feedback": "It has the direction reversed, so it does not hold for a conjunctive filter."
+            },
+            {
+              "text": "It is correct only for empty queries",
+              "fraction": 0,
+              "feedback": "It is not correct in general; the flaw is the reversed direction, not the empty case."
+            },
+            {
+              "text": "It is a valid MR but detects only performance issues",
+              "fraction": 0,
+              "feedback": "It is not valid, and MRs check correctness rather than performance."
+            }
+          ],
+          "generalFeedback": "Under conjunctive-filter semantics, narrowing a query removes matches, so the correct relation is count(more specific) ≤ count(less specific). Proposing ≥ inverts this: a correct engine would routinely \"violate\" it, producing false alarms. Getting the direction right is essential to a sound MR.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Commutativity is unsound for subtraction",
+          "text": "<p>Why is <code>f(a, b) = f(b, a)</code> an invalid metamorphic relation for a subtraction function <code>sub(a, b) = a − b</code>?</p>",
+          "answers": [
+            {
+              "text": "Subtraction is not commutative (5 − 3 = 2 but 3 − 5 = −2), so a correct implementation need not satisfy it; treating it as an MR would flag correct behavior as a fault",
+              "fraction": 100,
+              "feedback": "Correct — the relation is not necessary for subtraction, so it is an invalid MR."
+            },
+            {
+              "text": "Because subtraction is undefined when the operands are equal",
+              "fraction": 0,
+              "feedback": "Subtraction is well-defined for equal operands (a − a = 0); that is not the issue."
+            },
+            {
+              "text": "Because subtraction always overflows",
+              "fraction": 0,
+              "feedback": "Subtraction does not always overflow; the flaw is non-commutativity."
+            },
+            {
+              "text": "It is actually a valid MR for subtraction",
+              "fraction": 0,
+              "feedback": "It is not — swapping operands negates the result in general."
+            }
+          ],
+          "generalFeedback": "Commutativity holds for addition and multiplication but not subtraction: a − b = −(b − a), which differs from b − a unless a = b. So f(a, b) = f(b, a) is not a necessary property of subtraction, and using it as an MR would report correct results as violations.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Verify an appended-mean MR",
+          "text": "<p>Is \"appending one data point equal to the current arithmetic mean leaves the mean unchanged\" a sound necessary property of a correct mean function?</p>",
+          "answers": [
+            {
+              "text": "Yes — with n values of mean m, the new mean is (n·m + m)/(n + 1) = m, so it holds for every list",
+              "fraction": 100,
+              "feedback": "Correct — the algebra confirms the mean is unchanged, so it is a valid MR."
+            },
+            {
+              "text": "No, the mean always increases when a point is added",
+              "fraction": 0,
+              "feedback": "Adding a point equal to the mean does not increase it; the algebra gives m."
+            },
+            {
+              "text": "Only when all the values are equal",
+              "fraction": 0,
+              "feedback": "It holds for any list, not only lists of equal values."
+            },
+            {
+              "text": "Only for lists of even length",
+              "fraction": 0,
+              "feedback": "Length parity is irrelevant; the identity holds for every n."
+            }
+          ],
+          "generalFeedback": "Let the list have n values summing to n·m, so the mean is m. Appending m gives sum n·m + m = m(n + 1) over n + 1 values, so the new mean is m(n + 1)/(n + 1) = m. The property holds for every list, making it a sound MR — worked concretely to confirm.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Violation of an invalid MR",
+          "text": "<p>A test for a mean function uses the relation \"removing the largest value leaves the mean unchanged\" and reports a violation. What should you conclude?</p>",
+          "answers": [
+            {
+              "text": "Nothing about a bug — the relation is not a necessary property of a correct mean, so the \"violation\" reflects a flawed MR, not a defect in the program",
+              "fraction": 100,
+              "feedback": "Correct — a violation implicates the program only when the MR is genuinely necessary."
+            },
+            {
+              "text": "The mean function is definitely buggy",
+              "fraction": 0,
+              "feedback": "The MR itself is invalid, so the violation says nothing about the program."
+            },
+            {
+              "text": "The program has a rounding error",
+              "fraction": 0,
+              "feedback": "There is no evidence of rounding; the relation is simply not a required property."
+            },
+            {
+              "text": "The input list must have been empty",
+              "fraction": 0,
+              "feedback": "The list need not be empty; removing the largest value normally does change the mean."
+            }
+          ],
+          "generalFeedback": "Removing the largest value generally lowers the mean, so \"the mean is unchanged\" is not a necessary property. A correct implementation will routinely \"violate\" it. The lesson: before trusting a violation, confirm the MR is genuinely necessary for any correct implementation; otherwise the fault is in the relation, not the code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How statistics scale under multiplication",
+          "text": "<p>Multiplying every value in a list by <code>k</code>. Which set of output relations is correct for the mean, standard deviation, and variance?</p>",
+          "answers": [
+            {
+              "text": "mean → ×k, standard deviation → ×|k|, variance → ×k²",
+              "fraction": 100,
+              "feedback": "Correct — the mean is linear, variance is quadratic, and the standard deviation is its square root."
+            },
+            {
+              "text": "mean → ×k, standard deviation → ×k², variance → ×k",
+              "fraction": 0,
+              "feedback": "Swapped — variance scales by k² and the standard deviation by |k|."
+            },
+            {
+              "text": "all three → ×k",
+              "fraction": 0,
+              "feedback": "Only the mean scales by k; variance scales by k² and SD by |k|."
+            },
+            {
+              "text": "mean → ×k², standard deviation → ×k, variance → ×|k|",
+              "fraction": 0,
+              "feedback": "The mean scales by k, not k²; the others are wrong too."
+            }
+          ],
+          "generalFeedback": "Mean is linear: mean(kX) = k·mean(X). Variance is quadratic: Var(kX) = k²·Var(X). The standard deviation is the square root of the variance, so SD(kX) = |k|·SD(X) (absolute value because a standard deviation is non-negative). Each gives a distinct valid MR under the same scaling transformation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Strongest conclusion from passing MRs",
+          "text": "<p>A program passes a large, well-designed set of metamorphic relations on millions of inputs. What is the strongest <em>sound</em> conclusion?</p>",
+          "answers": [
+            {
+              "text": "No violation of those relations was found on those inputs; this raises confidence but does not prove correctness — faults not exposed by the chosen MRs or inputs may remain",
+              "fraction": 100,
+              "feedback": "Correct — MT can raise confidence but never proves correctness."
+            },
+            {
+              "text": "The program is proven correct",
+              "fraction": 0,
+              "feedback": "No amount of passing tests proves correctness."
+            },
+            {
+              "text": "The program is correct on the tested inputs and on all others",
+              "fraction": 0,
+              "feedback": "Nothing can be concluded about untested inputs."
+            },
+            {
+              "text": "The MRs must have been invalid, since nothing failed",
+              "fraction": 0,
+              "feedback": "Passing does not imply the MRs are invalid; valid MRs can simply be satisfied."
+            }
+          ],
+          "generalFeedback": "MT can reveal faults (via violations) but cannot demonstrate their absence. Extensive passing results increase confidence and are evidence of quality, but faults may still hide in inputs never tried or in properties the chosen MRs do not constrain.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Composing order-preserving map with permutation",
+          "text": "<p>For a sort function, consider two transformations: permuting the input, and mapping every element through a <em>strictly increasing</em> function <code>g</code>. Which composed relation is sound?</p>",
+          "answers": [
+            {
+              "text": "sort(map g over any permutation of L) equals map g over sort(L), for any strictly increasing g",
+              "fraction": 100,
+              "feedback": "Correct — a strictly increasing map preserves order, so it commutes with sorting; permutation is irrelevant to the sorted result."
+            },
+            {
+              "text": "sort(map g over L) equals the reverse of (map g over sort(L))",
+              "fraction": 0,
+              "feedback": "A strictly increasing g preserves order, so it does not reverse the result."
+            },
+            {
+              "text": "sort(map g over L) equals sort(L) unchanged",
+              "fraction": 0,
+              "feedback": "Applying g changes the element values, so the sorted output changes accordingly."
+            },
+            {
+              "text": "The relation is sound only when g is the identity function",
+              "fraction": 0,
+              "feedback": "It is sound for any strictly increasing g, not just the identity."
+            }
+          ],
+          "generalFeedback": "If g is strictly increasing, then a < b iff g(a) < g(b), so applying g preserves relative order and commutes with sorting: sort(map g over L) = map g over sort(L). Since sorting is permutation-invariant, permuting first changes nothing. Composing the two gives sort(map g over perm(L)) = map g over sort(L) — a sound composed MR.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "An unsound MR for a sentiment classifier",
+          "text": "<p>For a sentiment classifier, which proposed metamorphic relation is <em>unsound</em> (would produce false alarms)?</p>",
+          "answers": [
+            {
+              "text": "\"Negating the sentence (inserting 'not') must leave the predicted sentiment unchanged\"",
+              "fraction": 100,
+              "feedback": "Correct — negation changes the true sentiment, so it is not label-preserving; the prediction should change."
+            },
+            {
+              "text": "\"Replacing a word with a close synonym should leave the predicted sentiment unchanged\"",
+              "fraction": 0,
+              "feedback": "Synonym substitution preserves meaning, so this is a sound label-preserving MR."
+            },
+            {
+              "text": "\"Adding a neutral, meaning-preserving filler phrase should leave the predicted sentiment unchanged\"",
+              "fraction": 0,
+              "feedback": "A neutral filler preserves sentiment, so this is a sound MR."
+            },
+            {
+              "text": "\"Reordering two independent, order-irrelevant clauses should leave the predicted sentiment unchanged\"",
+              "fraction": 0,
+              "feedback": "Reordering independent clauses preserves meaning, so this is a sound MR."
+            }
+          ],
+          "generalFeedback": "MT for ML relies on label-preserving transformations. Synonym substitution, neutral filler, and reordering independent clauses all keep the true sentiment, so \"prediction unchanged\" is expected. Negation, by contrast, flips the sentiment, so demanding an unchanged prediction is unsound and would flag a correct classifier.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the subset MR may fail on a ranked engine",
+          "text": "<p>The subset MR (\"a more specific query returns ≤ results\") is sound for a pure conjunctive filter. Why might it fail to be a valid MR for a real <em>ranked</em> web search engine?</p>",
+          "answers": [
+            {
+              "text": "A ranked engine may not return all matching documents (it truncates to top-k, applies relevance thresholds, query expansion, or synonyms), so the more specific query's returned set is not guaranteed to be a subset",
+              "fraction": 100,
+              "feedback": "Correct — MR validity depends on the actual specification of the program under test."
+            },
+            {
+              "text": "Because ranked search engines are always correct, so no MR is needed",
+              "fraction": 0,
+              "feedback": "Correctness is not the point; the relation simply is not guaranteed under ranking semantics."
+            },
+            {
+              "text": "Because more specific queries are always computed faster",
+              "fraction": 0,
+              "feedback": "Performance is irrelevant to whether the subset relation holds."
+            },
+            {
+              "text": "Because the mathematics of subsets is different on the web",
+              "fraction": 0,
+              "feedback": "Set theory is unchanged; the issue is that ranked results are not the full match set."
+            }
+          ],
+          "generalFeedback": "The subset MR assumes the engine returns exactly the documents matching all terms. A ranked engine instead returns a curated, truncated, possibly query-expanded list, so a more specific query's results need not be a subset of the broader query's. An MR is only valid against the actual specification: change the semantics and a previously sound MR can become invalid.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "An MR must be a necessary property",
+          "text": "<p>For a metamorphic relation to be usable as an oracle, it must be a necessary property of every correct implementation; otherwise a \"violation\" may indicate a flawed relation rather than a fault.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — only a genuinely necessary property lets a violation implicate the program."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "If the relation is not necessary, a correct program can violate it, so a violation would not indicate a fault."
+            }
+          ],
+          "generalFeedback": "The soundness of MT rests on the MR being a necessary property: something every correct implementation must satisfy. Then a violation must mean the program is wrong. If the relation is merely plausible but not necessary, a correct program can violate it, and the \"fault\" is really in the relation — which is why verifying MRs is the crucial discipline of MT."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是蛻變測試",
+          "text": "<p><strong>蛻變測試（metamorphic testing, MT）</strong>的核心概念為何？</p>",
+          "answers": [
+            {
+              "text": "它不是把單一輸出與已知的期望值比對，而是檢查程式多次相關執行之間輸出所滿足的一個關係（蛻變關係）",
+              "fraction": 100,
+              "feedback": "正確——MT 檢查相關執行之間的關係，而非將單一輸出比對固定期望值。"
+            },
+            {
+              "text": "它形式化地證明程式滿足其完整規格",
+              "fraction": 0,
+              "feedback": "MT 找出違反情形，並不證明程式正確。"
+            },
+            {
+              "text": "它量測測試套件覆蓋了多少分支",
+              "fraction": 0,
+              "feedback": "那是覆蓋率量測；MT 是一種預言技術，不是覆蓋率指標。"
+            },
+            {
+              "text": "它產生隨機輸入並只回報當機",
+              "fraction": 0,
+              "feedback": "那是當機預言的模糊測試；MT 檢查輸出之間的蛻變關係。"
+            }
+          ],
+          "generalFeedback": "蛻變測試針對的是預言問題。它不需要某個輸入的確切期望輸出，而是對兩個以上相關的輸入執行程式，檢查其輸出之間是否滿足所需的關係（蛻變關係）。即使不知道任何單一期望值，被破壞的關係也能揭露缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是蛻變關係",
+          "text": "<p>什麼是<strong>蛻變關係（metamorphic relation, MR）</strong>？</p>",
+          "answers": [
+            {
+              "text": "一個在正確程式的兩次以上相關執行的輸入與輸出之間必須成立的性質",
+              "fraction": 100,
+              "feedback": "正確——MR 連結相關執行的輸入／輸出，且對任何正確實作都必須成立。"
+            },
+            {
+              "text": "某個特定輸入唯一的確切期望輸出值",
+              "fraction": 0,
+              "feedback": "那是傳統的期望值預言；MR 正是為了避免需要那個確切值。"
+            },
+            {
+              "text": "程式兩個分支覆蓋率之間的關係",
+              "fraction": 0,
+              "feedback": "MR 連結的是相關輸入的輸出，而非分支的覆蓋率。"
+            },
+            {
+              "text": "連結生成器兩次執行的隨機種子",
+              "fraction": 0,
+              "feedback": "種子關乎可重現性，而非輸出之間所需的正確性關係。"
+            }
+          ],
+          "generalFeedback": "蛻變關係是連結多次執行的必要性質：給定輸入之間的關係（輸入轉換），它規定輸出之間必須有的關係。例如，排序一份清單的任一排列必然得到相同結果。MR 對每個正確實作都必須成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MT 針對的預言問題",
+          "text": "<p>蛻變測試主要針對哪一項困難？</p>",
+          "answers": [
+            {
+              "text": "測試預言問題——當確切期望輸出未知或代價高昂時，如何判斷程式對某輸入的輸出是否正確",
+              "fraction": 100,
+              "feedback": "正確——當你難以輕易算出期望輸出時，MT 提供一種檢查方式。"
+            },
+            {
+              "text": "涵蓋深層巢狀分支的可達性問題",
+              "fraction": 0,
+              "feedback": "到達程式碼是生成／覆蓋率的議題；MT 針對的是判斷正確性。"
+            },
+            {
+              "text": "符號執行中的路徑爆炸",
+              "fraction": 0,
+              "feedback": "路徑爆炸是符號分析的規模限制，不是 MT 針對的對象。"
+            },
+            {
+              "text": "停機問題",
+              "fraction": 0,
+              "feedback": "MT 不判定是否終止；它檢查輸出之間的關係。"
+            }
+          ],
+          "generalFeedback": "預言問題是指：即便手上有輸入，判斷輸出是否正確通常仍需要那個「應有的答案」，而它可能未知或代價高昂。MT 改為檢查相關執行之間的關係，而非任何單一期望值，藉此提供可用的部分預言。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "源測試案例與後續測試案例",
+          "text": "<p>在 MT 中，<strong>後續（follow-up）</strong>測試案例與<strong>源（source）</strong>測試案例有何關係？</p>",
+          "answers": [
+            {
+              "text": "後續輸入是由源輸入依蛻變關係所規定的輸入轉換推導而來",
+              "fraction": 100,
+              "feedback": "正確——MR 規定如何將源輸入轉換為後續輸入。"
+            },
+            {
+              "text": "後續輸入是隨機挑選、與源無關的輸入",
+              "fraction": 0,
+              "feedback": "後續輸入必須經由 MR 的轉換從源導出，而非隨機挑選。"
+            },
+            {
+              "text": "後續是源執行的期望輸出",
+              "fraction": 0,
+              "feedback": "後續是另一個輸入，而非輸出值。"
+            },
+            {
+              "text": "後續只是把源輸入換一個隨機種子再跑一次",
+              "fraction": 0,
+              "feedback": "只更換種子並非 MR 所規定的輸入轉換。"
+            }
+          ],
+          "generalFeedback": "MT 先執行源測試案例，再依 MR 對源輸入做轉換（例如排列清單、取 π − x、把所有值縮放）以建構後續測試案例，然後檢查兩次執行的輸出是否滿足 MR 的輸出關係。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "違反 MR 代表什麼",
+          "text": "<p>某次執行的輸出<strong>違反</strong>了一個有效的蛻變關係。這代表什麼？</p>",
+          "answers": [
+            {
+              "text": "實作有缺陷——正確程式本應滿足該關係（前提是該 MR 是真正的必要性質）",
+              "fraction": 100,
+              "feedback": "正確——違反一個有效的 MR 就揭露了缺陷。"
+            },
+            {
+              "text": "什麼都不代表；蛻變關係只是效能提示",
+              "fraction": 0,
+              "feedback": "MR 是正確性性質，不是效能提示；違反有效的 MR 代表有缺陷。"
+            },
+            {
+              "text": "證明程式正確",
+              "fraction": 0,
+              "feedback": "違反代表相反的情況——是缺陷，而非正確。"
+            },
+            {
+              "text": "只代表分支覆蓋率不足",
+              "fraction": 0,
+              "feedback": "違反 MR 關乎輸出行為錯誤，而非覆蓋率。"
+            }
+          ],
+          "generalFeedback": "若該 MR 對任何正確實作都是真正必要的，那麼違反就意味著程式產生了正確程式不可能產生的結果——也就是缺陷。這正是 MT 的威力：無需計算任何確切期望輸出即可偵測缺陷。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "滿足 MR 不能證明正確",
+          "text": "<p>若程式在所有受測輸入上都滿足所有選定的蛻變關係，即可據此證明它正確。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "否——MT 能揭露違反，卻無法證明正確；未受測的輸入與未被涵蓋的性質仍可能藏有缺陷。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——滿足 MR 永遠不能證明正確，只代表在那些輸入上未發現違反那些關係。"
+            }
+          ],
+          "generalFeedback": "與一般測試相同，MT 能顯示缺陷存在（透過違反），卻無法顯示其不存在。所選關係只捕捉部分必要性質，且僅嘗試有限多個輸入，因此程式可能滿足所有 MR，卻在未受測案例上出錯，或違反任何 MR 都未涵蓋的性質。"
+        },
+        {
+          "type": "multichoice",
+          "name": "正弦的有效 MR",
+          "text": "<p>對於正確實作的 <code>sin(x)</code>，下列何者是有效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "對所有 x，sin(x) = sin(π − x)",
+              "fraction": 100,
+              "feedback": "正確——這是恆等式，正確的正弦必然滿足它。"
+            },
+            {
+              "text": "對所有 x，sin(2x) = 2·sin(x)",
+              "fraction": 0,
+              "feedback": "一般而言為假——例如 x = π/2 時 sin(π) = 0，但 2·sin(π/2) = 2。"
+            },
+            {
+              "text": "對所有 x，sin(x) = sin(x + π)",
+              "fraction": 0,
+              "feedback": "為假——sin(x + π) = −sin(x)，並非 sin(x)。"
+            },
+            {
+              "text": "對所有 x，sin(x) = x",
+              "fraction": 0,
+              "feedback": "為假——這只在接近 0 時作為近似成立，並非恆等式。"
+            }
+          ],
+          "generalFeedback": "恆等式 sin(x) = sin(π − x) 對每個實數 x 都成立（補角的正弦相等）。它是經典的蛻變關係：由源輸入 x，後續輸入 π − x 必然產生相等的輸出。其餘選項都不是恆等式，因此不是有效的 MR。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "排序的有效 MR",
+          "text": "<p>對於正確的<strong>排序</strong>函式，下列何者是有效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "排序清單的任一排列會得到相同結果：sort(perm(L)) == sort(L)",
+              "fraction": 100,
+              "feedback": "正確——排序輸出只取決於元素的多重集合，與其順序無關。"
+            },
+            {
+              "text": "把清單排序兩次會使它反轉",
+              "fraction": 0,
+              "feedback": "排序具冪等性：對已排序清單再排序不變，而非反轉。"
+            },
+            {
+              "text": "先反轉清單再排序，會得到排序結果的反轉",
+              "fraction": 0,
+              "feedback": "否——sort(reverse(L)) == sort(L)；先反轉並不會反轉排序輸出。"
+            },
+            {
+              "text": "排序會使清單長度加倍",
+              "fraction": 0,
+              "feedback": "排序是輸入的一個排列，永遠不改變長度。"
+            }
+          ],
+          "generalFeedback": "正確的排序所產生的順序只取決於元素的多重集合。因此對同樣元素的任一排列排序，必然得到相同結果——即排列不變性。這是很強的 MR，因為你可以打亂源清單來建構後續輸入，而事先不必知道期望的順序。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可交換加法的有效 MR",
+          "text": "<p>對於函式 <code>add(a, b) = a + b</code>，下列何者是有效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "add(a, b) == add(b, a)",
+              "fraction": 100,
+              "feedback": "正確——加法可交換，交換運算元必然得到相同結果。"
+            },
+            {
+              "text": "add(a, b) == add(a, b + 1)",
+              "fraction": 0,
+              "feedback": "為假——改變運算元就改變了和。"
+            },
+            {
+              "text": "add(a, b) == a",
+              "fraction": 0,
+              "feedback": "除非 b = 0 否則為假；並非一般性質。"
+            },
+            {
+              "text": "add(a, b) == 2·add(b, a)",
+              "fraction": 0,
+              "feedback": "一般而言為假——交換運算元並不會使和加倍。"
+            }
+          ],
+          "generalFeedback": "可交換性 f(a, b) = f(b, a) 對任何可交換運算（如加法或乘法）都是有效的 MR。後續輸入只需交換兩個運算元，其輸出必須相等。注意，它對減法或除法等不可交換運算並不成立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MR 與傳統預言的差異",
+          "text": "<p>蛻變關係與傳統（期望值）預言有何不同？</p>",
+          "answers": [
+            {
+              "text": "傳統預言把單次執行的輸出與預先算好的期望值比對；MR 則檢查數次相關執行的輸出之間所需的關係，不需要預先算好的期望值",
+              "fraction": 100,
+              "feedback": "正確——MR 以跨執行的關係取代逐一輸入的期望值。"
+            },
+            {
+              "text": "兩者相同；都需要每個輸入的確切期望輸出",
+              "fraction": 0,
+              "feedback": "MR 正是為了避免需要確切期望輸出。"
+            },
+            {
+              "text": "MR 比對原始碼，傳統預言比對輸出",
+              "fraction": 0,
+              "feedback": "兩者都關乎輸出；MR 比對跨執行的輸出，而非原始碼。"
+            },
+            {
+              "text": "MR 量測執行時間，傳統預言量測記憶體",
+              "fraction": 0,
+              "feedback": "兩者都不關乎效能；都在判斷功能正確性。"
+            }
+          ],
+          "generalFeedback": "傳統預言需要每個輸入的確切答案，而這可能未知或代價高昂。MR 只需要相關執行之間必須成立的關係（例如相等、≤、按 k 縮放）。這正是為什麼在難以算出期望輸出時 MT 特別有用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何時適合用蛻變測試",
+          "text": "<p>在哪種情況下蛻變測試特別有用？</p>",
+          "answers": [
+            {
+              "text": "當沒有簡便或負擔得起的預言時——例如機器學習模型、科學計算、編譯器、圖形、搜尋引擎——確切期望輸出難以取得",
+              "fraction": 100,
+              "feedback": "正確——MT 正是在難以算出期望輸出之處大放異彩。"
+            },
+            {
+              "text": "只有在已具備完整形式規格與可信賴參考實作時",
+              "fraction": 0,
+              "feedback": "若已有參考實作可直接使用；MT 最有價值之處正是在沒有它的時候。"
+            },
+            {
+              "text": "只有對完全不吃輸入的程式才適用",
+              "fraction": 0,
+              "feedback": "MT 需要能轉換的輸入；無輸入的程式沒有東西可轉換。"
+            },
+            {
+              "text": "只有在已達到 100% 分支覆蓋率之後",
+              "fraction": 0,
+              "feedback": "MT 與覆蓋率層級無關；它針對預言，而非覆蓋率。"
+            }
+          ],
+          "generalFeedback": "MT 正是為預言問題最嚴重的領域而生：機器學習、數值／科學程式、編譯器、電腦圖形與搜尋——這些程式的正確輸出難以或無法事先陳述，卻仍遵守相關執行之間可檢查的關係。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是輸入轉換",
+          "text": "<p>在 MT 中，什麼是<strong>輸入轉換</strong>？</p>",
+          "answers": [
+            {
+              "text": "由源輸入建構後續輸入的規則（例如取 π − x、排列清單、把所有值乘以 k）",
+              "fraction": 100,
+              "feedback": "正確——輸入轉換用來建構後續輸入。"
+            },
+            {
+              "text": "把程式原始碼轉成位元組碼的規則",
+              "fraction": 0,
+              "feedback": "那是編譯，與 MT 的輸入轉換無關。"
+            },
+            {
+              "text": "源輸入所期望的確切數值輸出",
+              "fraction": 0,
+              "feedback": "MT 正是要避免它；轉換產生的是輸入，而非期望輸出。"
+            },
+            {
+              "text": "量測套件分支覆蓋率的指標",
+              "fraction": 0,
+              "feedback": "那是覆蓋率，不是輸入轉換。"
+            }
+          ],
+          "generalFeedback": "每個 MR 都附帶一個輸入轉換（如何由源輸入導出後續輸入）與一個輸出關係（兩個輸出必須如何相關）。把轉換施加於源輸入，即得到要執行的後續輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "集合的有效 MR",
+          "text": "<p>對於<strong>集合（set）</strong>資料結構，下列何者是有效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "插入一個已存在的元素，會使成員關係與集合大小維持不變",
+              "fraction": 100,
+              "feedback": "正確——集合中每個元素至多一份，重複插入不改變任何東西。"
+            },
+            {
+              "text": "插入重複元素必然使大小加一",
+              "fraction": 0,
+              "feedback": "集合不儲存重複元素，大小維持不變。"
+            },
+            {
+              "text": "插入重複元素會移除原本的元素",
+              "fraction": 0,
+              "feedback": "該元素仍是成員；既不會被移除也不會變成兩份。"
+            },
+            {
+              "text": "插入重複元素會確定性地反轉迭代順序",
+              "fraction": 0,
+              "feedback": "那不是集合的必要性質；迭代順序不保證反轉。"
+            }
+          ],
+          "generalFeedback": "集合中每個值至多儲存一份。加入它已包含的元素，必然使成員判斷與基數都維持不變。這是乾淨的 MR：後續輸入加入一個重複元素，其輸出（大小或成員關係）必須與源相符。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "平均值函式的有效 MR",
+          "text": "<p>對於計算清單<strong>算術平均值</strong>的函式，下列何者是有效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "把每個輸入值都乘以常數 k，會使平均值乘以 k",
+              "fraction": 100,
+              "feedback": "正確——平均值是線性的，縮放所有輸入會同等縮放平均值。"
+            },
+            {
+              "text": "把每個值都乘以 k，平均值維持不變",
+              "fraction": 0,
+              "feedback": "平均值會隨值縮放；它在縮放下並非不變。"
+            },
+            {
+              "text": "只對其中一個值加上常數 k，平均值維持不變",
+              "fraction": 0,
+              "feedback": "改變一個值就改變了總和，因而改變平均值。"
+            },
+            {
+              "text": "把每個值都乘以 k，會使平均值乘以 k²",
+              "fraction": 0,
+              "feedback": "那是變異數的縮放方式；平均值乘以 k，而非 k²。"
+            }
+          ],
+          "generalFeedback": "mean(k·x₁, …, k·xₙ) = k·mean(x₁, …, xₙ)，因為平均值是其輸入的線性函式。因此「把每個值乘以 k」是輸入轉換，其輸出關係為「平均值乘以 k」——一個不需要期望值的有效 MR。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "MT 使用多次相關執行",
+          "text": "<p>蛻變測試檢查的是多次相關執行的輸出之間所滿足的性質，而非把單次執行比對固定的期望值。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——MT 比對相關執行的輸出，這正是它不需要逐一輸入期望值的原因。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "MT 確實依賴多次相關執行；這正是蛻變關係的本質。"
+            }
+          ],
+          "generalFeedback": "MT 的定義特徵是需要至少兩次相關執行——一個源與一個以上的後續——並檢查其輸出之間的關係。把單次執行比對固定期望值是一般預言，而非 MT。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "建構正弦的後續輸入",
+          "text": "<p>使用 MR <code>sin(x) = sin(π − x)</code>，某源測試使用輸入 <code>x = 0.3</code>。後續輸入與期望的輸出關係為何？</p>",
+          "answers": [
+            {
+              "text": "後續輸入 = π − 0.3（≈ 2.8416）；兩個輸出必須相等",
+              "fraction": 100,
+              "feedback": "正確——施加轉換 π − x，並要求輸出相等。"
+            },
+            {
+              "text": "後續輸入 = 2 × 0.3；兩個輸出必須相等",
+              "fraction": 0,
+              "feedback": "把輸入加倍不是此 MR 的轉換，且 sin(0.6) ≠ sin(0.3)。"
+            },
+            {
+              "text": "後續輸入 = 0.3 + π；兩個輸出必須相等",
+              "fraction": 0,
+              "feedback": "那用的是 π + x，得 sin(0.3 + π) = −sin(0.3)，並不相等。"
+            },
+            {
+              "text": "後續輸入 = π − 0.3；後續輸出必須是源的兩倍",
+              "fraction": 0,
+              "feedback": "轉換正確，但關係是相等，而非加倍。"
+            }
+          ],
+          "generalFeedback": "此 MR 的轉換為 x ↦ π − x，輸出關係為相等。因此後續輸入為 π − 0.3 ≈ 2.8416，正確的正弦對兩者必然回傳相同值——完全不需要知道任何期望值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "建構排序的後續輸入",
+          "text": "<p>要以排列不變性測試排序常式，由源清單 <code>L = [3, 1, 2]</code> 該如何建構後續輸入，且必須成立什麼關係？</p>",
+          "answers": [
+            {
+              "text": "後續 = L 的任一排列，例如 [2, 3, 1]；L 與後續的排序輸出必須完全相同",
+              "fraction": 100,
+              "feedback": "正確——打亂元素順序；排序結果必須相符。"
+            },
+            {
+              "text": "後續 = 排序輸出的反轉；兩個輸出必須不同",
+              "fraction": 0,
+              "feedback": "後續必須是同一輸入的排列，且輸出必須相等而非不同。"
+            },
+            {
+              "text": "後續 = L 移除一個元素；兩個輸出必須相等",
+              "fraction": 0,
+              "feedback": "移除元素改變了多重集合，因此排序輸出會合理地改變。"
+            },
+            {
+              "text": "後續 = L 每個值加倍；兩個輸出必須相等",
+              "fraction": 0,
+              "feedback": "把值加倍改變了元素，因此排序輸出會改變。"
+            }
+          ],
+          "generalFeedback": "排列不變性表示排序輸出只取決於元素的多重集合。因此後續輸入是 L 的任一重排（例如 [2, 3, 1]），且 sort(後續) 必須等於 sort(L)。此處只有重排是有效轉換；新增、移除或更改值都會改變多重集合。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "搜尋結果數的單調性",
+          "text": "<p>對於會回傳<em>所有</em>符合<em>全部</em>查詢字詞的文件的搜尋（合取式過濾），下列何者是有效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "再加入一個必要字詞只會使結果數維持不變或減少（較具體的查詢回傳的結果 ≤ 較不具體者）",
+              "fraction": 100,
+              "feedback": "正確——較具體查詢的結果集是子集，故其數量 ≤。"
+            },
+            {
+              "text": "再加入一個必要字詞只會使結果數增加",
+              "fraction": 0,
+              "feedback": "方向相反——縮窄查詢不可能增加符合項。"
+            },
+            {
+              "text": "移除一個必要字詞只會使結果數減少",
+              "fraction": 0,
+              "feedback": "方向相反——放寬查詢不可能失去符合項。"
+            },
+            {
+              "text": "結果數與查詢字詞無關",
+              "fraction": 0,
+              "feedback": "結果數顯然取決於需要哪些字詞。"
+            }
+          ],
+          "generalFeedback": "在合取式過濾語意下，一份文件被回傳的充要條件是它符合每個必要字詞。多要求一個字詞只會移除文件、不會增加，因此較具體查詢的結果集是較廣者的子集，其數量 ≤。此單調性是有效的 MR：不需要期望數量，只需兩個相關查詢之間的 ≤ 關係。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "建構平均值縮放的後續輸入",
+          "text": "<p>某程式計算清單的平均值。源輸入 <code>[2, 4, 6]</code> 得 <code>4</code>。使用縮放 MR 且 <code>k = 3</code>，後續輸入與期望輸出為何？</p>",
+          "answers": [
+            {
+              "text": "後續 = [6, 12, 18]；期望平均值 = 12（= 3 × 4）",
+              "fraction": 100,
+              "feedback": "正確——把每個值乘以 3，平均值也乘以 3。"
+            },
+            {
+              "text": "後續 = [6, 12, 18]；期望平均值 = 4",
+              "fraction": 0,
+              "feedback": "轉換正確，但把輸入乘以 3 會使平均值變成 12，而非 4。"
+            },
+            {
+              "text": "後續 = [5, 7, 9]；期望平均值 = 7",
+              "fraction": 0,
+              "feedback": "對每個值加 3（而非乘）是與此 MR 不同的轉換。"
+            },
+            {
+              "text": "後續 = [2, 4, 6, 3]；期望平均值 = 12",
+              "fraction": 0,
+              "feedback": "附加一個值不是縮放轉換，且該平均值會是 3.75。"
+            }
+          ],
+          "generalFeedback": "縮放 MR 把每個輸入乘以 k，並期望平均值乘以 k。當 k = 3，後續輸入為 [6, 12, 18]，期望平均值為 3 × 4 = 12。驗證：(6 + 12 + 18)/3 = 12。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "建構可交換性的後續輸入",
+          "text": "<p>對於函式 <code>f(a, b) = a × b</code>，使用可交換性 MR，該如何由源 <code>(a = 5, b = 7)</code> 建構後續？</p>",
+          "answers": [
+            {
+              "text": "後續 = (a = 7, b = 5)；兩個輸出必須相等（皆為 35）",
+              "fraction": 100,
+              "feedback": "正確——交換運算元；乘法可交換，故輸出相符。"
+            },
+            {
+              "text": "後續 = (a = 5, b = 5)；兩個輸出必須相等",
+              "fraction": 0,
+              "feedback": "那是更改了運算元而非交換；5 × 5 ≠ 5 × 7。"
+            },
+            {
+              "text": "後續 = (a = 7, b = 5)；後續輸出必須是源的兩倍",
+              "fraction": 0,
+              "feedback": "交換正確，但關係是相等，而非加倍。"
+            },
+            {
+              "text": "後續 = (a = 10, b = 14)；兩個輸出必須相等",
+              "fraction": 0,
+              "feedback": "把兩個運算元都加倍不是可交換性的轉換，且 10 × 14 ≠ 5 × 7。"
+            }
+          ],
+          "generalFeedback": "可交換性 MR 的轉換是交換運算元，輸出關係為相等。由 (5, 7) 得後續 (7, 5)，正確的乘法對兩者都回傳 35。不需要任何期望值——只需兩個輸出一致。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何無預言時 MT 有用",
+          "text": "<p>對於確切期望輸出難以計算的程式，MT 為何有價值？</p>",
+          "answers": [
+            {
+              "text": "它藉由檢查相關執行之間所需的關係來偵測缺陷，完全不需要任何單次執行的確切期望輸出",
+              "fraction": 100,
+              "feedback": "正確——關係取代了缺失的逐一輸入期望值。"
+            },
+            {
+              "text": "它自動計算出確切的期望輸出",
+              "fraction": 0,
+              "feedback": "MT 不計算期望輸出；它檢查執行之間的關係。"
+            },
+            {
+              "text": "它不執行程式就能證明正確性",
+              "fraction": 0,
+              "feedback": "MT 會對相關輸入執行程式；它不證明正確性。"
+            },
+            {
+              "text": "它讓程式不必執行超過一次",
+              "fraction": 0,
+              "feedback": "MT 需要多次相關執行，而非更少。"
+            }
+          ],
+          "generalFeedback": "當沒有預言能告訴你某輸入的正確答案時，你仍能知道相關執行之間必須如何相關。MT 利用這一點：轉換輸入、再次執行，並檢查輸出關係。即便從未取得確切期望輸出，違反也能揭露缺陷。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "通過測試不是證明",
+          "text": "<p>通過許多蛻變測試即可證明程式沒有缺陷。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "否——MT 能揭露違反，卻無法確立缺陷不存在。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——通過測試仍留有未被所選關係或輸入揭露的缺陷。"
+            }
+          ],
+          "generalFeedback": "MT 是一種測試技術，因此能找出缺陷卻不能證明其不存在。程式可能在每個嘗試過的輸入上滿足每個所選 MR，卻仍在未受測輸入上失敗，或違反任何 MR 都未涵蓋的性質。"
+        },
+        {
+          "type": "multichoice",
+          "name": "最短路徑重新命名的 MR",
+          "text": "<p>某程式計算加權圖中兩節點間的最短路徑距離。下列何者是有效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "以雙射對節點重新命名，並查詢對應改名後的端點，必然回傳相同距離",
+              "fraction": 100,
+              "feedback": "正確——雙射重新命名是圖同構，保留所有距離。"
+            },
+            {
+              "text": "對節點重新命名會使距離改變節點數那麼多",
+              "fraction": 0,
+              "feedback": "改名不改變任何結構或權重，故距離不受影響。"
+            },
+            {
+              "text": "把每個節點的標籤加倍會使距離加倍",
+              "fraction": 0,
+              "feedback": "節點標籤只是識別碼，其數值不影響距離。"
+            },
+            {
+              "text": "反轉節點標籤會使距離變號",
+              "fraction": 0,
+              "feedback": "距離非負，且取決於邊／權重，而非標籤順序。"
+            }
+          ],
+          "generalFeedback": "以雙射對節點改名，會使圖在結構上完全相同（同構）：相同的邊、相同的權重，只是名稱不同。因此改名後端點間的最短路徑距離必須等於原本的。此 MR 很強，因為它完全不需要知道實際距離。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "建構集合大小的後續輸入",
+          "text": "<p>某程式維護一個集合並回報其大小。源：插入 <code>[1, 2, 3]</code> 得大小 <code>3</code>。使用重複插入 MR，後續與期望大小為何？</p>",
+          "answers": [
+            {
+              "text": "後續 = 插入 [1, 2, 3, 2]（加入一個重複）；期望大小仍為 3",
+              "fraction": 100,
+              "feedback": "正確——加入重複元素使集合大小維持不變。"
+            },
+            {
+              "text": "後續 = 插入 [1, 2, 3, 2]；期望大小 4",
+              "fraction": 0,
+              "feedback": "集合忽略重複，故大小維持 3，而非 4。"
+            },
+            {
+              "text": "後續 = 插入 [1, 2, 3, 4]；期望大小 3",
+              "fraction": 0,
+              "feedback": "加入新的相異元素 4 不是重複轉換，且會使大小變成 4。"
+            },
+            {
+              "text": "後續 = 插入 [1, 2, 3, 2]；期望大小 2",
+              "fraction": 0,
+              "feedback": "加入重複不可能縮小集合；大小維持 3。"
+            }
+          ],
+          "generalFeedback": "重複插入轉換加入一個已存在的元素，輸出關係為大小不變。由源 [1, 2, 3]（大小 3），後續 [1, 2, 3, 2] 必須仍回報大小 3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "建構最大值的後續輸入",
+          "text": "<p>某程式回傳清單的最大值。由源 <code>L = [4, 9, 1]</code>（最大值 9），哪個後續測試了有效的 MR，且成立什麼關係？</p>",
+          "answers": [
+            {
+              "text": "後續 = 在 L 附加一個 ≤ 9 的元素，例如 [4, 9, 1, 7]；最大值必須維持不變（仍為 9）",
+              "fraction": 100,
+              "feedback": "正確——附加一個不超過當前最大值的值，最大值維持不變。"
+            },
+            {
+              "text": "後續 = [4, 9, 1, 15]；最大值必須維持不變",
+              "fraction": 0,
+              "feedback": "附加 15（大於 9）會合理地把最大值提升為 15，故「不變」錯誤。"
+            },
+            {
+              "text": "後續 = [4, 9, 1, 7]；最大值必須增加",
+              "fraction": 0,
+              "feedback": "附加 7（≤ 9）不可能提升最大值；它維持 9。"
+            },
+            {
+              "text": "後續 = [8, 18, 2]；最大值必須維持不變",
+              "fraction": 0,
+              "feedback": "那是不同的值，並非在 L 附加一個 ≤ 9 的元素。"
+            }
+          ],
+          "generalFeedback": "max(L ++ [y]) = max(max(L), y)。若 y ≤ max(L)，最大值不變；若 y > max(L)，則變為 y。因此有效的 MR 是「附加一個 ≤ 當前最大值的值使最大值不變」，給出如 [4, 9, 1, 7] 的後續，期望最大值 9。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "放寬查詢",
+          "text": "<p>對於合取式過濾搜尋，哪個轉換會給出結果數必須 ≥ 源的後續？</p>",
+          "answers": [
+            {
+              "text": "移除其中一個必要查詢字詞（使查詢較不具體）",
+              "fraction": 100,
+              "feedback": "正確——較廣查詢的結果集是超集，故其數量 ≥。"
+            },
+            {
+              "text": "再加入一個必要字詞",
+              "fraction": 0,
+              "feedback": "那會縮窄查詢，給出 ≤ 的結果，而非 ≥。"
+            },
+            {
+              "text": "把一個字詞替換為較具體的同義詞",
+              "fraction": 0,
+              "feedback": "把字詞變得較具體不保證 ≥ 的結果。"
+            },
+            {
+              "text": "要求所有字詞只出現在標題中",
+              "fraction": 0,
+              "feedback": "加入位置限制會縮窄符合項；不保證 ≥ 的結果。"
+            }
+          ],
+          "generalFeedback": "移除一個必要字詞使查詢較不具體，因此原本符合的每份文件仍符合（且可能更多）。較廣的結果集是超集，故其數量 ≥ 源的。這是縮窄 MR 的「≥」對應版本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "挑出平均值的有效 MR",
+          "text": "<p>下列何者是正確平均值函式真正的必要性質（有效的 MR）？</p>",
+          "answers": [
+            {
+              "text": "附加一個等於當前平均值的額外值，使平均值維持不變",
+              "fraction": 100,
+              "feedback": "正確——加入一個等於平均值的資料點不會移動平均值。"
+            },
+            {
+              "text": "附加任一個額外值，都使平均值維持不變",
+              "fraction": 0,
+              "feedback": "為假——只有等於當前平均值的值才使它不變。"
+            },
+            {
+              "text": "移除最大值使平均值維持不變",
+              "fraction": 0,
+              "feedback": "為假——移除最大值一般會降低平均值。"
+            },
+            {
+              "text": "把清單重複一次使長度加倍，會使平均值加倍",
+              "fraction": 0,
+              "feedback": "為假——把清單重複會使平均值不變，而非加倍。"
+            }
+          ],
+          "generalFeedback": "設有 n 個值、平均值為 m，附加一個等於 m 的值後，新平均值為 (n·m + m)/(n + 1) = m(n + 1)/(n + 1) = m。故平均值不變——這是有效的 MR。其餘選項都不是正確平均值的必要性質。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "縮放下的變異數",
+          "text": "<p>某程式計算清單的（母體）<strong>變異數</strong>。把每個值乘以 <code>k</code> 有何效果，構成有效的 MR？</p>",
+          "answers": [
+            {
+              "text": "變異數乘以 k²",
+              "fraction": 100,
+              "feedback": "正確——Var(kX) = k²·Var(X)。"
+            },
+            {
+              "text": "變異數乘以 k",
+              "fraction": 0,
+              "feedback": "那是平均值（或線性量）的縮放方式；變異數乘以 k²。"
+            },
+            {
+              "text": "變異數維持不變",
+              "fraction": 0,
+              "feedback": "縮放資料會使其散布改變；變異數乘以 k²。"
+            },
+            {
+              "text": "變異數乘以 |k|",
+              "fraction": 0,
+              "feedback": "那是標準差的縮放方式；變異數乘以 k²。"
+            }
+          ],
+          "generalFeedback": "變異數是二次量：Var(kX) = k²·Var(X)。因此把每個輸入乘以 k 是輸入轉換，其輸出關係為「變異數乘以 k²」。（標準差是其平方根，故乘以 |k|。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最短路徑的邊重新排序",
+          "text": "<p>某最短路徑程式接收一份加權邊清單。哪個後續轉換必然使每個最短路徑距離維持不變（有效的 MR）？</p>",
+          "answers": [
+            {
+              "text": "重新排序輸入清單中的邊（同一組邊，以不同順序列出）",
+              "fraction": 100,
+              "feedback": "正確——圖由其邊的集合定義，與它們出現的順序無關。"
+            },
+            {
+              "text": "把某條最短路徑上的邊權重加倍",
+              "fraction": 0,
+              "feedback": "那改變了圖，可能改變距離。"
+            },
+            {
+              "text": "加入一條權重較小的新邊",
+              "fraction": 0,
+              "feedback": "較便宜的新邊可能造出更短路徑，改變距離。"
+            },
+            {
+              "text": "刪除某條最短路徑上的邊",
+              "fraction": 0,
+              "feedback": "移除邊可能拉長路徑或使其中斷，改變距離。"
+            }
+          ],
+          "generalFeedback": "圖就是那組邊；邊列出的順序不帶任何意義。因此排列邊清單是輸入轉換，其輸出關係為「所有距離不變」——一個有效的 MR。其餘選項都真正改變了圖。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "通過的源／後續配對",
+          "text": "<p>若某源／後續配對滿足其蛻變關係，該特定配對並未揭露缺陷，但別處仍可能存在缺陷。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——一個滿足的配對只代表該配對未見違反。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "一個滿足的配對不能為程式背書；其他輸入或關係仍可能揭露缺陷。"
+            }
+          ],
+          "generalFeedback": "在一個配對上滿足關係，只代表該配對未產生任何缺陷證據。缺陷仍可能藏在未受測輸入中，或藏在此 MR 未限制的行為中，因此不能推出正確的結論。"
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "評判一個提議的正弦 MR",
+          "text": "<p>某測試者提議把 <code>sin(2x) = 2·sin(x)</code> 當作正弦常式的蛻變關係。它有什麼問題？</p>",
+          "answers": [
+            {
+              "text": "它不是真正的恆等式（例如 x = π/2 時 sin(π) = 0，但 2·sin(π/2) = 2），故正確的正弦不必滿足它；任何「違反」都會是假警報",
+              "fraction": 100,
+              "feedback": "正確——該關係不是必要性質，故是無效的 MR。"
+            },
+            {
+              "text": "沒有問題；它對所有 x 都成立",
+              "fraction": 0,
+              "feedback": "它在 x = π/2 時失敗，故並非對所有 x 成立。"
+            },
+            {
+              "text": "它有效，但只偵測效能缺陷",
+              "fraction": 0,
+              "feedback": "它根本無效；MR 是正確性性質，不是效能檢查。"
+            },
+            {
+              "text": "它只對負的 x 有效",
+              "fraction": 0,
+              "feedback": "對負的 x 它也不是恆等式（例如 x = −π/2）。"
+            }
+          ],
+          "generalFeedback": "倍角恆等式是 sin(2x) = 2·sin(x)·cos(x)，只有在 cos(x) = 1 時才等於 2·sin(x)。因此 sin(2x) = 2·sin(x) 一般為假，並非正確正弦的必要性質。把它當作 MR 會標記正確的實作——一個典型的無效 MR。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合蛻變關係",
+          "text": "<p>對於最短路徑程式，你有 MR_A（對節點重新命名使距離不變）與 MR_B（把所有邊權重乘以常數 <code>c &gt; 0</code> 使每個距離乘以 c）。若對源圖<em>同時</em>施加兩個轉換，必然成立什麼？</p>",
+          "answers": [
+            {
+              "text": "轉換後圖中的距離等於源距離的 c 倍",
+              "fraction": 100,
+              "feedback": "正確——保距轉換與 c 倍縮放轉換組合後，得到 c 倍縮放。"
+            },
+            {
+              "text": "距離維持不變",
+              "fraction": 0,
+              "feedback": "僅重新命名會保距，但把權重乘以 c 會使它乘以 c。"
+            },
+            {
+              "text": "距離等於源距離的 c² 倍",
+              "fraction": 0,
+              "feedback": "只施加一次 c 倍縮放（重新命名不加係數），故係數是 c 而非 c²。"
+            },
+            {
+              "text": "沒有關係成立，因為兩個轉換無法組合",
+              "fraction": 0,
+              "feedback": "MR 可組合：依序施加轉換並結合其輸出關係。"
+            }
+          ],
+          "generalFeedback": "MR 可藉由一併施加其輸入轉換、並結合其輸出關係來組合。重新命名貢獻係數 1（距離不變），權重縮放貢獻係數 c，故組合後的關係使距離乘以 1 × c = c。組合讓你能由簡單、個別已驗證的 MR 建構更豐富的檢查。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邊權重縮放：健全性的但書",
+          "text": "<p>「把所有邊權重乘以常數 <code>c</code> 使每個最短路徑距離乘以 c」是健全的蛻變關係嗎？</p>",
+          "answers": [
+            {
+              "text": "是，但只在 c > 0 時成立；當 c ≤ 0 可能造出零／負權重或負環，改變哪條路徑最佳，故關係不必成立",
+              "fraction": 100,
+              "feedback": "正確——縮放 MR 只在正常數時健全。"
+            },
+            {
+              "text": "是，對每個實數 c 都成立",
+              "fraction": 0,
+              "feedback": "負的 c 可能引入負環或翻轉最佳路徑，破壞此關係。"
+            },
+            {
+              "text": "否，它對任何 c 都不成立",
+              "fraction": 0,
+              "feedback": "它對每個正的 c 都成立，故「不成立」是錯的。"
+            },
+            {
+              "text": "是，但只對整數 c 成立",
+              "fraction": 0,
+              "feedback": "任何正實數 c 都行；限制在於正性，而非整數性。"
+            }
+          ],
+          "generalFeedback": "當 c > 0，把所有權重乘以 c 會使每條路徑的成本都乘以 c，故最小成本路徑不變、其距離按 c 縮放——一個健全的 MR。當 c ≤ 0，轉換後的圖可能有負權重或負環，改變（或使其未定義）最短路徑，故關係不再必要。明確陳述定義域（c > 0）對維持 MR 的有效性至關重要。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "無效 MR 對比真正的缺陷：浮點數",
+          "text": "<p>某測試以精確的浮點相等檢查 <code>sin(x) == sin(π − x)</code>，並在兩個結果最後一位不同處回報「違反」。最佳的詮釋為何？</p>",
+          "answers": [
+            {
+              "text": "精確相等的 MR 對浮點運算過於嚴格；微小差異是捨入所致，故此違反很可能是假的，該關係應允許一個小容差",
+              "fraction": 100,
+              "feedback": "正確——造成假警報的是過於嚴格的關係，而非缺陷。"
+            },
+            {
+              "text": "這一定是正弦實作的缺陷",
+              "fraction": 0,
+              "feedback": "最後一位的差異與正常捨入一致，未必是缺陷。"
+            },
+            {
+              "text": "數學上 sin(x) = sin(π − x) 為假，故此 MR 是錯的",
+              "fraction": 0,
+              "feedback": "該恆等式為真；問題在於把精確相等套用到非精確的運算上。"
+            },
+            {
+              "text": "浮點數無法表示 π，故正弦未定義",
+              "fraction": 0,
+              "feedback": "π 被近似，但正弦在該近似值上有良好定義；那不是問題所在。"
+            }
+          ],
+          "generalFeedback": "該恆等式在數學上成立，但浮點會以捨入計算 π − x 及兩個正弦值，故無法保證逐位元相等。此失敗反映的是對此定義域而言過於嚴格（實質上無效）的 MR，而非缺陷。修正之道是以適當容差陳述輸出關係，例如 |sin(x) − sin(π − x)| ≤ ε。分辨真正的違反與有瑕疵的關係，正是 MT 的關鍵技能。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "影像分類器的 MR",
+          "text": "<p>對於影像分類器，下列何者是合適的蛻變關係，其違反暗示存在缺陷（例如強健性問題）？</p>",
+          "answers": [
+            {
+              "text": "保留標籤的轉換——人類同意其不改變真實類別者，例如輕微改變亮度或小幅旋轉——應使預測類別維持不變",
+              "fraction": 100,
+              "feedback": "正確——轉換必須保留真實標籤，「預測不變」的關係才會是預期的。"
+            },
+            {
+              "text": "隨機打亂所有像素應使預測類別維持不變",
+              "fraction": 0,
+              "feedback": "打亂像素會摧毀影像內容，故並非保留標籤。"
+            },
+            {
+              "text": "把影像替換為另一類別的不同影像應使預測維持不變",
+              "fraction": 0,
+              "feedback": "那改變了真實類別，故預測應改變，而非維持不變。"
+            },
+            {
+              "text": "把每個像素值加倍應使預測的類別索引加倍",
+              "fraction": 0,
+              "feedback": "類別索引是標籤而非量值；沒有理由某個有效轉換會使它們加倍。"
+            }
+          ],
+          "generalFeedback": "MT 用於機器學習時，仰賴保留真實標籤的轉換——輕微的亮度／對比變化、小幅旋轉，或對文字而言的同義詞替換。理想分類器的預測不應改變；若改變了，該測試便揭露了強健性或一致性缺陷。轉換必須真正保留標籤，這正是為何打亂像素或換成另一類別的影像都不是有效選擇。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "搜尋方向錯誤是壞 MR",
+          "text": "<p>某測試者宣稱：對合取式過濾查詢而言，「把查詢變得<em>更</em>具體（加入一個必要字詞）應回傳<em>至少一樣多</em>的結果」。這為何是壞 MR？</p>",
+          "answers": [
+            {
+              "text": "方向反了——較具體查詢的結果是子集，故數量只會維持不變或減少；程式不必滿足所提關係，故它會產生假警報",
+              "fraction": 100,
+              "feedback": "正確——縮窄時健全的方向是 ≤，故所提的 ≥ 關係無效。"
+            },
+            {
+              "text": "它正確且永遠成立",
+              "fraction": 0,
+              "feedback": "它把方向弄反了，故對合取式過濾並不成立。"
+            },
+            {
+              "text": "它只對空查詢正確",
+              "fraction": 0,
+              "feedback": "它一般並不正確；瑕疵在於方向反了，而非空查詢的情況。"
+            },
+            {
+              "text": "它是有效的 MR，但只偵測效能問題",
+              "fraction": 0,
+              "feedback": "它無效，且 MR 檢查的是正確性而非效能。"
+            }
+          ],
+          "generalFeedback": "在合取式過濾語意下，縮窄查詢會移除符合項，故正確的關係是 count(較具體) ≤ count(較不具體)。提議 ≥ 把它倒轉了：正確的引擎會例行「違反」它，產生假警報。把方向弄對，對健全的 MR 至關重要。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可交換性對減法不健全",
+          "text": "<p>對於減法函式 <code>sub(a, b) = a − b</code>，為何 <code>f(a, b) = f(b, a)</code> 是無效的蛻變關係？</p>",
+          "answers": [
+            {
+              "text": "減法不可交換（5 − 3 = 2 但 3 − 5 = −2），故正確實作不必滿足它；把它當作 MR 會把正確行為標記為缺陷",
+              "fraction": 100,
+              "feedback": "正確——該關係對減法而言並非必要，故是無效的 MR。"
+            },
+            {
+              "text": "因為運算元相等時減法未定義",
+              "fraction": 0,
+              "feedback": "減法對相等運算元有良好定義（a − a = 0）；那不是問題所在。"
+            },
+            {
+              "text": "因為減法一定溢位",
+              "fraction": 0,
+              "feedback": "減法並非一定溢位；瑕疵在於不可交換性。"
+            },
+            {
+              "text": "它其實是減法的有效 MR",
+              "fraction": 0,
+              "feedback": "並非如此——一般而言交換運算元會使結果變號。"
+            }
+          ],
+          "generalFeedback": "可交換性對加法與乘法成立，但對減法不成立：a − b = −(b − a)，除非 a = b 否則不同於 b − a。因此 f(a, b) = f(b, a) 不是減法的必要性質，把它當作 MR 會把正確結果回報為違反。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗證附加平均值的 MR",
+          "text": "<p>「附加一個等於當前算術平均值的資料點使平均值維持不變」，是正確平均值函式健全的必要性質嗎？</p>",
+          "answers": [
+            {
+              "text": "是——設有 n 個值、平均值為 m，新平均值為 (n·m + m)/(n + 1) = m，故對每個清單都成立",
+              "fraction": 100,
+              "feedback": "正確——代數確認平均值不變，故是有效的 MR。"
+            },
+            {
+              "text": "否，加入一點時平均值總會增加",
+              "fraction": 0,
+              "feedback": "加入一個等於平均值的點不會使它增加；代數給出 m。"
+            },
+            {
+              "text": "只有在所有值都相等時",
+              "fraction": 0,
+              "feedback": "它對任何清單都成立，而非只對值皆相等的清單。"
+            },
+            {
+              "text": "只對偶數長度的清單",
+              "fraction": 0,
+              "feedback": "長度的奇偶無關；該恆等式對每個 n 都成立。"
+            }
+          ],
+          "generalFeedback": "設清單有 n 個值、總和為 n·m，故平均值為 m。附加 m 後總和為 n·m + m = m(n + 1)，除以 n + 1 個值，新平均值為 m(n + 1)/(n + 1) = m。此性質對每個清單都成立，故是健全的 MR——已具體演算確認。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "違反一個無效的 MR",
+          "text": "<p>某平均值函式的測試使用「移除最大值使平均值維持不變」這個關係，並回報一個違反。你應下什麼結論？</p>",
+          "answers": [
+            {
+              "text": "關於缺陷什麼都不能下結論——該關係不是正確平均值的必要性質，故此「違反」反映的是有瑕疵的 MR，而非程式的缺陷",
+              "fraction": 100,
+              "feedback": "正確——唯有 MR 真正必要時，違反才牽連到程式。"
+            },
+            {
+              "text": "平均值函式一定有缺陷",
+              "fraction": 0,
+              "feedback": "MR 本身無效，故此違反對程式毫無說明。"
+            },
+            {
+              "text": "程式有捨入誤差",
+              "fraction": 0,
+              "feedback": "沒有捨入的證據；該關係就只是不是必要性質。"
+            },
+            {
+              "text": "輸入清單一定是空的",
+              "fraction": 0,
+              "feedback": "清單不必是空的；移除最大值通常確實會改變平均值。"
+            }
+          ],
+          "generalFeedback": "移除最大值一般會降低平均值，故「平均值不變」不是必要性質。正確的實作會例行「違反」它。教訓是：在信任一個違反之前，先確認該 MR 對任何正確實作都真正必要；否則缺陷是在關係，而非在程式碼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "統計量在乘法下如何縮放",
+          "text": "<p>把清單中每個值都乘以 <code>k</code>。對平均值、標準差、變異數而言，哪一組輸出關係正確？</p>",
+          "answers": [
+            {
+              "text": "平均值 → ×k，標準差 → ×|k|，變異數 → ×k²",
+              "fraction": 100,
+              "feedback": "正確——平均值是線性、變異數是二次、標準差是其平方根。"
+            },
+            {
+              "text": "平均值 → ×k，標準差 → ×k²，變異數 → ×k",
+              "fraction": 0,
+              "feedback": "對調了——變異數乘以 k²，標準差乘以 |k|。"
+            },
+            {
+              "text": "三者皆 → ×k",
+              "fraction": 0,
+              "feedback": "只有平均值乘以 k；變異數乘以 k²，標準差乘以 |k|。"
+            },
+            {
+              "text": "平均值 → ×k²，標準差 → ×k，變異數 → ×|k|",
+              "fraction": 0,
+              "feedback": "平均值乘以 k 而非 k²；其餘也都錯了。"
+            }
+          ],
+          "generalFeedback": "平均值是線性：mean(kX) = k·mean(X)。變異數是二次：Var(kX) = k²·Var(X)。標準差是變異數的平方根，故 SD(kX) = |k|·SD(X)（取絕對值，因為標準差非負）。在同一個縮放轉換下，三者各給出不同的有效 MR。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由通過的 MR 能下的最強結論",
+          "text": "<p>某程式在數百萬個輸入上通過了一大組精心設計的蛻變關係。最強的<em>健全</em>結論為何？</p>",
+          "answers": [
+            {
+              "text": "在那些輸入上未發現違反那些關係；這提升信心但不證明正確——所選 MR 或輸入未揭露的缺陷仍可能存在",
+              "fraction": 100,
+              "feedback": "正確——MT 能提升信心，卻永遠不證明正確。"
+            },
+            {
+              "text": "程式已被證明正確",
+              "fraction": 0,
+              "feedback": "再多的通過測試都不能證明正確。"
+            },
+            {
+              "text": "程式在受測輸入與所有其他輸入上都正確",
+              "fraction": 0,
+              "feedback": "對未受測輸入無法下任何結論。"
+            },
+            {
+              "text": "這些 MR 一定無效，因為什麼都沒失敗",
+              "fraction": 0,
+              "feedback": "通過並不表示 MR 無效；有效的 MR 也可能就是被滿足了。"
+            }
+          ],
+          "generalFeedback": "MT 能揭露缺陷（透過違反），卻不能顯示其不存在。大量通過的結果提升信心、也是品質的證據，但缺陷仍可能藏在從未嘗試的輸入中，或藏在所選 MR 未限制的性質中。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "組合保序映射與排列",
+          "text": "<p>對於排序函式，考慮兩個轉換：排列輸入，以及把每個元素透過一個<em>嚴格遞增</em>函式 <code>g</code> 映射。哪個組合關係是健全的？</p>",
+          "answers": [
+            {
+              "text": "對任一嚴格遞增 g，sort(把 g 映射到 L 的任一排列) 等於 把 g 映射到 sort(L)",
+              "fraction": 100,
+              "feedback": "正確——嚴格遞增映射保序，故與排序可交換；排列與排序結果無關。"
+            },
+            {
+              "text": "sort(把 g 映射到 L) 等於（把 g 映射到 sort(L)）的反轉",
+              "fraction": 0,
+              "feedback": "嚴格遞增的 g 保序，故不會使結果反轉。"
+            },
+            {
+              "text": "sort(把 g 映射到 L) 等於 sort(L) 維持不變",
+              "fraction": 0,
+              "feedback": "施加 g 改變了元素值，故排序輸出隨之改變。"
+            },
+            {
+              "text": "只有當 g 是恆等函式時該關係才健全",
+              "fraction": 0,
+              "feedback": "它對任一嚴格遞增 g 都健全，而不只是恆等函式。"
+            }
+          ],
+          "generalFeedback": "若 g 嚴格遞增，則 a < b 等價於 g(a) < g(b)，故施加 g 保留相對順序、與排序可交換：sort(把 g 映射到 L) = 把 g 映射到 sort(L)。由於排序具排列不變性，先排列什麼都不改變。組合兩者得 sort(把 g 映射到 perm(L)) = 把 g 映射到 sort(L)——一個健全的組合 MR。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情感分類器的不健全 MR",
+          "text": "<p>對於情感分類器，下列何者是<em>不健全</em>的蛻變關係（會產生假警報）？</p>",
+          "answers": [
+            {
+              "text": "「把句子否定（插入『不』）必須使預測的情感維持不變」",
+              "fraction": 100,
+              "feedback": "正確——否定改變了真實情感，故並非保留標籤；預測應改變。"
+            },
+            {
+              "text": "「把一個詞替換為相近的同義詞應使預測的情感維持不變」",
+              "fraction": 0,
+              "feedback": "同義詞替換保留語意，故這是健全的保留標籤 MR。"
+            },
+            {
+              "text": "「加入一個中性、保留語意的填充語句應使預測的情感維持不變」",
+              "fraction": 0,
+              "feedback": "中性填充保留情感，故這是健全的 MR。"
+            },
+            {
+              "text": "「重新排序兩個彼此獨立、順序無關的子句應使預測的情感維持不變」",
+              "fraction": 0,
+              "feedback": "重新排序獨立子句保留語意，故這是健全的 MR。"
+            }
+          ],
+          "generalFeedback": "MT 用於機器學習時仰賴保留標籤的轉換。同義詞替換、中性填充、以及重新排序獨立子句，都保留真實情感，故「預測不變」是預期的。相對地，否定會翻轉情感，故要求預測不變是不健全的，會把正確的分類器標記為錯。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何子集 MR 在排名引擎上可能失敗",
+          "text": "<p>子集 MR（「較具體的查詢回傳 ≤ 的結果」）對純合取式過濾是健全的。為何它對真實的<em>排名</em>網路搜尋引擎可能不是有效的 MR？</p>",
+          "answers": [
+            {
+              "text": "排名引擎可能不回傳所有符合的文件（它截斷為前 k 筆、套用相關性門檻、查詢擴展或同義詞），故較具體查詢回傳的集合不保證是子集",
+              "fraction": 100,
+              "feedback": "正確——MR 的有效性取決於受測程式的實際規格。"
+            },
+            {
+              "text": "因為排名搜尋引擎永遠正確，故不需要 MR",
+              "fraction": 0,
+              "feedback": "重點不在正確性；只是在排名語意下該關係不再有保證。"
+            },
+            {
+              "text": "因為較具體的查詢一定計算得較快",
+              "fraction": 0,
+              "feedback": "效能與子集關係是否成立無關。"
+            },
+            {
+              "text": "因為子集的數學在網路上不一樣",
+              "fraction": 0,
+              "feedback": "集合論並無改變；問題在於排名結果並非完整的符合集合。"
+            }
+          ],
+          "generalFeedback": "子集 MR 假設引擎恰好回傳符合所有字詞的文件。排名引擎則回傳經整理、截斷、可能經查詢擴展的清單，故較具體查詢的結果未必是較廣查詢結果的子集。MR 只在對應實際規格時才有效：改變語意，原本健全的 MR 可能變成無效。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "MR 必須是必要性質",
+          "text": "<p>蛻變關係要能當作預言使用，它必須是每個正確實作的必要性質；否則「違反」可能代表關係有瑕疵，而非缺陷。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——唯有真正必要的性質才能讓違反牽連到程式。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "若關係並非必要，正確程式也可能違反它，故違反便不代表缺陷。"
+            }
+          ],
+          "generalFeedback": "MT 的健全性建立在 MR 是必要性質之上：每個正確實作都必須滿足的東西。如此一來，違反就必然代表程式有錯。若該關係僅是合理但非必要，正確程式也可能違反它，而「缺陷」其實在關係中——這正是為何驗證 MR 是 MT 的關鍵功課。"
+        }
+      ]
+    }
+  },
   "mutation-testing": {
     "en": {
       "easy": [
