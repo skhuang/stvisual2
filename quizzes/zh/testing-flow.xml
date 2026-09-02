@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Testing Process Flow/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>測試計畫是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對<em>測試計畫（test plan）</em>最貼切的描述是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一份描述預定測試活動之範圍、目標、方法、資源與時程的文件</text><feedback><text>正確——測試計畫是測試規劃的產物，訂出要測什麼、如何測、由誰測、何時測。</text></feedback></answer>
+    <answer fraction="0"><text>某一個特定測試的具體輸入與預期結果清單</text><feedback><text>那描述的是單一測試案例，不是整體測試計畫。</text></feedback></answer>
+    <answer fraction="0"><text>執行軟體時觀察到某次失敗的紀錄</text><feedback><text>那是在執行階段產生的缺陷（事件）報告。</text></feedback></answer>
+    <answer fraction="0"><text>待測程式的原始碼</text><feedback><text>程式碼屬於測試對象，不是測試計畫。</text></feedback></answer>
+    <generalfeedback><text>測試規劃是基本測試流程的第一個活動；其產物測試計畫界定測試的目標、範圍、方法、資源與時程。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試基礎是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>測試基礎（test basis）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>用來分析與設計測試所依據的知識體（需求、規格、設計、使用者故事、風險報告等）</text><feedback><text>正確——測試是從測試基礎推導出來的。</text></feedback></answer>
+    <answer fraction="0"><text>發行前必須通過的最小測試集合</text><feedback><text>那較接近退出準則或冒煙測試集，不是測試基礎。</text></feedback></answer>
+    <answer fraction="0"><text>執行測試所在的軟硬體環境</text><feedback><text>那是測試環境，不是測試基礎。</text></feedback></answer>
+    <answer fraction="0"><text>負責測試的人員團隊</text><feedback><text>人員是資源；測試基礎是測試推導的來源材料。</text></feedback></answer>
+    <generalfeedback><text>測試基礎是測試所推導自的一切——需求、規格、設計與實作資訊、使用者故事、風險分析等。測試分析以它為依據來決定要測什麼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試條件是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>測試條件（test condition）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試基礎中一個可測試的面向（某功能、機能、需求或品質屬性），測試可據以驗證</text><feedback><text>正確——測試條件說明「要測什麼」；它在測試分析階段被識別出來。</text></feedback></answer>
+    <answer fraction="0"><text>一個可執行測試的具體輸入值與預期輸出</text><feedback><text>那屬於測試案例，是稍後從測試條件設計出來的。</text></feedback></answer>
+    <answer fraction="0"><text>測試開始前系統必須處於的狀態</text><feedback><text>那是測試案例的前置條件，不是測試條件。</text></feedback></answer>
+    <answer fraction="0"><text>執行時發現的缺陷</text><feedback><text>缺陷是觀察到的失敗／錯誤，不是測試條件。</text></feedback></answer>
+    <generalfeedback><text>測試條件是測試基礎中值得測試的項目或面向（某機能、需求或品質特性）。它回答「要測什麼」，是測試分析的產物；具體的測試案例則於之後設計而成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試案例是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>測試案例（test case）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>為驗證某測試條件而建立的一組前置條件、輸入、預期結果與後置條件</text><feedback><text>正確——測試案例讓測試條件變得具體且可執行。</text></feedback></answer>
+    <answer fraction="0"><text>對測試基礎中一個值得測試面向的高階陳述</text><feedback><text>那是測試條件；測試案例是由它推導而來且更具體。</text></feedback></answer>
+    <answer fraction="0"><text>測試整體的時程與資源配置文件</text><feedback><text>那是測試計畫。</text></feedback></answer>
+    <answer fraction="0"><text>專案結束時對測試情況的總結</text><feedback><text>那是測試總結報告，於測試完成階段產生。</text></feedback></answer>
+    <generalfeedback><text>測試案例把測試條件變成可執行的東西：它指定前置條件、輸入、用以比對的預期結果與後置條件。它是測試設計的主要產物。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試案例必須包含什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個完整的測試案例中，何者是不可或缺的要素？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>用以與實際結果比對的預期結果</text><feedback><text>正確——沒有記載預期結果就無法判定通過或失敗（此即神諭／oracle 問題）。</text></feedback></answer>
+    <answer fraction="0"><text>撰寫程式碼之開發者的姓名</text><feedback><text>那也許是有用的中繼資料，但並非測試案例不可或缺的部分。</text></feedback></answer>
+    <answer fraction="0"><text>保證該測試一定會通過</text><feedback><text>測試案例並不需要保證通過；它必須有明確定義的預期結果。</text></feedback></answer>
+    <answer fraction="0"><text>整個專案的總預算</text><feedback><text>預算是規劃層面的事，不屬於測試案例。</text></feedback></answer>
+    <generalfeedback><text>測試案例指定前置條件、輸入、預期結果與後置條件。其中預期結果不可或缺：把實際結果與預先定義的預期結果比對，正是能做出判定（通過／失敗）的關鍵。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>進入準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試活動的<em>進入準則（entry criteria）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在該活動能合理開始之前必須先滿足的條件</text><feedback><text>正確——進入準則把關活動的「開始」（即「就緒的定義」）。</text></feedback></answer>
+    <answer fraction="0"><text>在測試可宣告結束之前必須滿足的條件</text><feedback><text>那是退出準則，把關的是停止而非開始。</text></feedback></answer>
+    <answer fraction="0"><text>測試結束時仍未解決的缺陷清單</text><feedback><text>那是殘餘缺陷資料，不是進入準則。</text></feedback></answer>
+    <answer fraction="0"><text>單一測試案例的輸入</text><feedback><text>那是測試案例的輸入，不是某活動的進入準則。</text></feedback></answer>
+    <generalfeedback><text>進入準則界定活動開始前必須到位的事項——例如已部署穩定版本、測試環境就緒、測試資料備妥。它們在測試實作／執行的開始時被檢查。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>退出準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試的<em>退出準則（exit criteria）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在測試可視為對既定目標已完成之前必須滿足的條件</text><feedback><text>正確——退出準則把關「停止」（測試的「完成的定義」）。</text></feedback></answer>
+    <answer fraction="0"><text>在測試可以開始之前必須滿足的條件</text><feedback><text>那是進入準則，把關的是開始。</text></feedback></answer>
+    <answer fraction="0"><text>核准測試計畫的利害關係人名單</text><feedback><text>核准簽核與退出準則並不相同。</text></feedback></answer>
+    <answer fraction="0"><text>測試分析所產出的一組測試條件</text><feedback><text>那是分析的產物，不是退出準則。</text></feedback></answer>
+    <generalfeedback><text>退出準則（完成準則）說明測試何時算完成——例如已達成計畫的覆蓋率、無未解決的高嚴重度缺陷、時間／預算已用盡。它們在測試監控與控制以及完成階段被檢查。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試程序是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>測試程序（test procedure，測試腳本）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>依執行順序排列的一連串動作與測試案例，並含所需的前置設定</text><feedback><text>正確——測試程序指定執行步驟與順序；它在測試實作階段建立。</text></feedback></answer>
+    <answer fraction="0"><text>測試基礎中一個值得測試的高階面向</text><feedback><text>那是測試條件。</text></feedback></answer>
+    <answer fraction="0"><text>整體測試工作的目標與時程</text><feedback><text>那是測試計畫。</text></feedback></answer>
+    <answer fraction="0"><text>有多少測試通過的報告</text><feedback><text>那是測試結果／總結，不是程序。</text></feedback></answer>
+    <generalfeedback><text>測試程序指定執行測試的步驟順序（以及依執行順序排列的測試案例），含前置條件與設定。產出測試程序屬於測試實作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試套組是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>測試套組（test suite）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把一批測試案例或測試程序集結在一起、作為一組來執行的集合</text><feedback><text>正確——套組把相關的測試整合起來以便執行與報告。</text></feedback></answer>
+    <answer fraction="0"><text>單一組輸入／預期結果配對</text><feedback><text>那是一個測試案例，而非一整組。</text></feedback></answer>
+    <answer fraction="0"><text>測試所推導自的需求文件</text><feedback><text>那屬於測試基礎的一部分。</text></feedback></answer>
+    <answer fraction="0"><text>一個量測程式碼覆蓋率的工具</text><feedback><text>那是覆蓋率工具，不是測試套組。</text></feedback></answer>
+    <generalfeedback><text>測試套組把測試案例／程序集結起來以供執行（例如冒煙套組或回歸套組）。把測試組織成套組發生在測試實作階段。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>缺陷報告是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>缺陷（事件）報告</em>主要記錄：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>觀察到的異常（實際行為與預期行為之間的差異），以便調查與追蹤</text><feedback><text>正確——缺陷報告在執行階段記錄，並推動缺陷生命週期。</text></feedback></answer>
+    <answer fraction="0"><text>測試的計畫範圍與時程</text><feedback><text>那是測試計畫。</text></feedback></answer>
+    <answer fraction="0"><text>要涵蓋的測試條件清單</text><feedback><text>那來自測試分析，不是缺陷報告。</text></feedback></answer>
+    <answer fraction="0"><text>保證軟體毫無缺陷</text><feedback><text>測試無法證明沒有缺陷；缺陷報告記錄的是所發現的某個特定異常。</text></feedback></answer>
+    <generalfeedback><text>當執行時實際行為與預期行為不同，測試者會記錄一份缺陷報告，描述異常、如何重現以及影響。這啟動了缺陷生命週期。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>主要活動的正確順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>先不計持續進行的監控與控制活動，下列哪個序列給出基本測試流程活動的正確順序？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>規劃、分析、設計、實作、執行、完成</text><feedback><text>正確——這是標準順序（監控與控制則貫穿全程）。</text></feedback></answer>
+    <answer fraction="0"><text>規劃、設計、分析、執行、實作、完成</text><feedback><text>分析（要測什麼）必須先於設計（如何測），且實作必須先於執行。</text></feedback></answer>
+    <answer fraction="0"><text>分析、規劃、設計、執行、實作、完成</text><feedback><text>規劃在最前面，且實作先於執行。</text></feedback></answer>
+    <answer fraction="0"><text>規劃、分析、設計、執行、實作、完成</text><feedback><text>實作（建立程序／資料／環境）先於執行，而非反過來。</text></feedback></answer>
+    <generalfeedback><text>基本測試流程為：測試規劃 &#8594; 測試分析 &#8594; 測試設計 &#8594; 測試實作 &#8594; 測試執行 &#8594; 測試完成，並以測試監控與控制作為貫穿全部的持續性活動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個活動實際執行測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>實際執行測試、把實際結果與預期結果比對、並記錄缺陷，是在下列哪個活動進行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試執行</text><feedback><text>正確——執行負責跑測試並記錄結果與任何缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>測試分析</text><feedback><text>分析識別測試條件；它不執行測試。</text></feedback></answer>
+    <answer fraction="0"><text>測試設計</text><feedback><text>設計產出測試案例；它不執行它們。</text></feedback></answer>
+    <answer fraction="0"><text>測試規劃</text><feedback><text>規劃訂定範圍與方法；執行測試發生在很後面。</text></feedback></answer>
+    <generalfeedback><text>測試執行是把測試套組跑起來、將實際結果與預期結果比對、把差異記為缺陷，並進行確認／回歸測試的活動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試完成的目的</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>測試完成（test completion，收尾）</em>的主要目的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>為測試收尾——報告結果、定稿並歸檔測試資產，並汲取經驗教訓</text><feedback><text>正確——完成階段彙整並移交測試的成果。</text></feedback></answer>
+    <answer fraction="0"><text>從測試基礎識別出測試條件</text><feedback><text>那是測試分析，位於流程前段。</text></feedback></answer>
+    <answer fraction="0"><text>寫出每個測試的具體輸入與預期結果</text><feedback><text>那是測試設計。</text></feedback></answer>
+    <answer fraction="0"><text>首次執行測試套組</text><feedback><text>那是測試執行，先於完成。</text></feedback></answer>
+    <generalfeedback><text>測試完成發生在到達里程碑時（發行、疊代結束、專案收尾）。它蒐集資料、產出測試總結報告、定稿並歸檔測試資產、移交，並記錄經驗教訓。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>監控與控制是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>測試監控與控制（test monitoring and control）</em>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一項持續進行的活動，在整個測試過程中把實際進度與計畫比對並採取矯正行動</text><feedback><text>正確——它持續進行，而非只做一次，並引導整個工作。</text></feedback></answer>
+    <answer fraction="0"><text>只在專案最末端做一次的一次性活動</text><feedback><text>那較接近完成階段；監控與控制是持續進行的。</text></feedback></answer>
+    <answer fraction="0"><text>從測試條件推導測試案例的活動</text><feedback><text>那是測試設計。</text></feedback></answer>
+    <answer fraction="0"><text>逐一記錄每個缺陷的活動</text><feedback><text>缺陷在執行階段記錄；監控利用這些資料來引導。</text></feedback></answer>
+    <generalfeedback><text>測試監控與控制貫穿整個流程：監控蒐集資訊（進度、覆蓋率、缺陷資料），控制則用這些資訊引導測試，使退出準則得以達成。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>分析決定要測什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試分析藉由從測試基礎識別測試條件，來決定<em>要測什麼</em>。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——分析從測試基礎識別並排序測試條件（「要測什麼」）；設計「如何測」則在其後。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>此為真：測試分析識別測試條件（要測什麼）；測試設計再產出測試案例（如何測）。</text></feedback></answer>
+    <generalfeedback><text>測試分析分析測試基礎以決定要測什麼，產出測試條件。測試設計再把這些條件轉成具體的測試案例。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testing Process Flow/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>測試設計之前是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在基本測試流程中，哪個活動緊接在測試設計<strong>之前</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試分析</text><feedback><text>正確——分析識別出測試條件，設計再把它們轉成測試案例。</text></feedback></answer>
+    <answer fraction="0"><text>測試實作</text><feedback><text>實作在設計之後，而非之前。</text></feedback></answer>
+    <answer fraction="0"><text>測試執行</text><feedback><text>執行在很後面，位於實作之後。</text></feedback></answer>
+    <answer fraction="0"><text>測試完成</text><feedback><text>完成是最後一個活動，不會在設計之前。</text></feedback></answer>
+    <generalfeedback><text>順序為 分析 &#8594; 設計 &#8594; 實作。測試設計取用測試分析所產出的測試條件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試設計之後是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個活動緊接在測試設計<strong>之後</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試實作</text><feedback><text>正確——測試案例設計完成後，實作接著建立程序、套組、資料與環境。</text></feedback></answer>
+    <answer fraction="0"><text>測試分析</text><feedback><text>分析在設計之前，而非之後。</text></feedback></answer>
+    <answer fraction="0"><text>測試執行</text><feedback><text>執行在實作之後，並非緊接在設計之後。</text></feedback></answer>
+    <answer fraction="0"><text>測試規劃</text><feedback><text>規劃是第一個活動，不會在設計之後。</text></feedback></answer>
+    <generalfeedback><text>分析 &#8594; 設計 &#8594; 實作 &#8594; 執行。實作緊接在設計之後：它讓設計好的測試變得可執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試實作之後是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個活動緊接在測試實作<strong>之後</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試執行</text><feedback><text>正確——一旦測試資產與環境就緒且進入準則滿足，即執行測試。</text></feedback></answer>
+    <answer fraction="0"><text>測試設計</text><feedback><text>設計在實作之前。</text></feedback></answer>
+    <answer fraction="0"><text>測試分析</text><feedback><text>分析更早。</text></feedback></answer>
+    <answer fraction="0"><text>測試完成</text><feedback><text>完成在執行之後，並非緊接在實作之後。</text></feedback></answer>
+    <generalfeedback><text>實作 &#8594; 執行：實作定稿測試資產、資料與環境（並檢查就緒／進入準則）；執行接著把測試跑起來。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>依工作內容指認活動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「分析測試基礎以決定可測試的功能並推導出測試條件。」這描述的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試分析</text><feedback><text>正確——評估測試基礎並產出測試條件正是測試分析。</text></feedback></answer>
+    <answer fraction="0"><text>測試設計</text><feedback><text>設計把這些條件轉成測試案例；它不推導條件本身。</text></feedback></answer>
+    <answer fraction="0"><text>測試規劃</text><feedback><text>規劃訂定範圍與方法；它不把基礎分析成條件。</text></feedback></answer>
+    <answer fraction="0"><text>測試實作</text><feedback><text>實作建立程序與資料；它不推導測試條件。</text></feedback></answer>
+    <generalfeedback><text>測試分析評估測試基礎、識別可測試的功能，並定義與排序測試條件——即「要測什麼」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨認進入準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是開始測試執行的<strong>進入</strong>準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>已部署穩定、可測試的版本，且測試環境與測試資料皆已就緒</text><feedback><text>正確——這些必須在執行能有意義地開始之前成立。</text></feedback></answer>
+    <answer fraction="0"><text>已達成計畫的需求覆蓋率</text><feedback><text>那是退出準則——它描述何時停止，而非何時開始。</text></feedback></answer>
+    <answer fraction="0"><text>已無未解決的高嚴重度缺陷</text><feedback><text>那是退出準則，用來判定是否完成。</text></feedback></answer>
+    <answer fraction="0"><text>測試總結報告已簽核</text><feedback><text>那發生在完成階段，遠在執行開始之後。</text></feedback></answer>
+    <generalfeedback><text>進入準則把關開始：可部署的版本、就緒的環境與備妥的測試資料是執行的典型進入準則。已達覆蓋率與無未解決高嚴重度缺陷則屬退出準則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨認退出準則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是測試的<strong>退出</strong>準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>所有計畫的測試案例皆已執行，且已達成要求的覆蓋率目標</text><feedback><text>正確——那是完成條件，用來判定是否可停止。</text></feedback></answer>
+    <answer fraction="0"><text>測試環境已建置完成</text><feedback><text>那是執行的進入準則。</text></feedback></answer>
+    <answer fraction="0"><text>需求規格已可取得</text><feedback><text>那讓分析／設計得以開始，屬於進入側的前置條件，不是退出準則。</text></feedback></answer>
+    <answer fraction="0"><text>測試資料已備妥</text><feedback><text>那是進入側的就緒條件，不是退出準則。</text></feedback></answer>
+    <generalfeedback><text>退出（完成）準則描述測試何時算完成：例如計畫測試已執行、覆蓋率目標達成、缺陷水準可接受、時間／預算已用盡。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>推導鏈</text></name>
+    <questiontext format="html"><text><![CDATA[<p>填入推導鏈的空格：<em>測試基礎 &#8594; ______ &#8594; 測試案例</em>。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試條件</text><feedback><text>正確——分析從基礎推導測試條件，設計再從條件推導測試案例。</text></feedback></answer>
+    <answer fraction="0"><text>缺陷報告</text><feedback><text>缺陷報告來自執行，不在基礎與測試案例之間。</text></feedback></answer>
+    <answer fraction="0"><text>測試套組</text><feedback><text>測試套組在實作階段把案例集結起來；它不是基礎到案例之間的步驟。</text></feedback></answer>
+    <answer fraction="0"><text>退出準則</text><feedback><text>退出準則是完成條件，不是推導步驟。</text></feedback></answer>
+    <generalfeedback><text>流程為 測試基礎 &#8594; 測試條件（分析）&#8594; 測試案例（設計）&#8594; 測試程序／套組（實作）&#8594; 執行 &#8594; 缺陷 &#8594; 收尾。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>確認測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>開發者修好了回報的缺陷之後，<em>確認測試（confirmation／re-test）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>重新執行原本失敗的那個測試，以確認缺陷確已修復</text><feedback><text>正確——確認測試驗證的是那個特定修復。</text></feedback></answer>
+    <answer fraction="0"><text>執行一大批其他測試，以檢查是否有別處被弄壞</text><feedback><text>那是回歸測試，目的不同。</text></feedback></answer>
+    <answer fraction="0"><text>從需求撰寫一條新的測試條件</text><feedback><text>那是測試分析，與確認修復無關。</text></feedback></answer>
+    <answer fraction="0"><text>審查需求文件以找出缺陷</text><feedback><text>那是對工作產物的靜態驗證，不是對修復的確認測試。</text></feedback></answer>
+    <generalfeedback><text>確認測試（re-test）在修復交付後重跑先前失敗的測試，以確認原缺陷已被排除。回歸測試則另外檢查該變更沒有弄壞其他地方。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>回歸測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>回歸測試（regression testing）</em>的目的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>偵測某項變更是否弄壞了先前正常運作的功能</text><feedback><text>正確——回歸測試防範變更帶來的非預期副作用。</text></feedback></answer>
+    <answer fraction="0"><text>確認某個回報的缺陷已被修復</text><feedback><text>那是確認測試（re-test），不是回歸測試。</text></feedback></answer>
+    <answer fraction="0"><text>決定要涵蓋哪些測試條件</text><feedback><text>那是測試分析。</text></feedback></answer>
+    <answer fraction="0"><text>建置測試環境</text><feedback><text>那是測試實作的一部分。</text></feedback></answer>
+    <generalfeedback><text>變更（修復或新功能）可能有副作用。回歸測試在未變動的區域重跑既有測試以偵測這類非預期的破壞，而確認測試驗證的是預期中的修復本身。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可追溯性的目的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>維護從測試基礎項目到測試條件、測試案例與結果的<em>可追溯性（traceability）</em>，主要能讓你：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>量測對測試基礎的覆蓋程度，並評估變更的影響</text><feedback><text>正確——可追溯性顯示哪些需求被涵蓋，以及某處變更時需重測什麼。</text></feedback></answer>
+    <answer fraction="0"><text>保證軟體不含任何缺陷</text><feedback><text>再多的追溯也無法證明沒有缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>免除設定退出準則的需要</text><feedback><text>可追溯性支援評估退出準則；它不取代退出準則。</text></feedback></answer>
+    <answer fraction="0"><text>加快編譯器速度</text><feedback><text>可追溯性關乎串連工作產物，與建置效能無關。</text></feedback></answer>
+    <generalfeedback><text>雙向可追溯性串連 需求／測試基礎 &#8596; 測試條件 &#8596; 測試案例 &#8596; 結果／缺陷。它支援覆蓋率量測、變更的影響分析，以及有意義的進度報告。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>缺陷修復之後</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在典型的缺陷生命週期中，開發者把缺陷標記為<em>已修復／已解決</em>之後，測試者緊接著應：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>重測（確認測試）該修復，若通過則把缺陷推向關閉</text><feedback><text>正確——修復必須先經確認，缺陷才能關閉。</text></feedback></answer>
+    <answer fraction="0"><text>不重跑任何測試就立刻關閉缺陷</text><feedback><text>修復應先經重測確認再關閉。</text></feedback></answer>
+    <answer fraction="0"><text>刪除該缺陷報告</text><feedback><text>報告會保留以供歷史與度量之用，不會被刪除。</text></feedback></answer>
+    <answer fraction="0"><text>把它改派給需求撰寫者</text><feedback><text>已解決的缺陷交回測試者做確認，而非退回需求端。</text></feedback></answer>
+    <generalfeedback><text>常見的生命週期為 新增 &#8594; 已指派 &#8594; 已修復 &#8594; 重測（確認）&#8594; 關閉，若重測失敗則有重新開啟的路徑。測試者在關閉前先確認修復。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>缺陷的起始狀態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當測試者在執行時首次記錄一項異常，該缺陷通常進入哪個狀態？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>新增（開啟），等待分流／指派</text><feedback><text>正確——剛回報的缺陷在被指派之前先為新增／開啟。</text></feedback></answer>
+    <answer fraction="0"><text>已關閉</text><feedback><text>關閉是結束狀態，於修復經確認後才達到。</text></feedback></answer>
+    <answer fraction="0"><text>已修復</text><feedback><text>已修復發生在開發者解決之後，而非首次回報時。</text></feedback></answer>
+    <answer fraction="0"><text>重測通過</text><feedback><text>那只在修復經確認之後才會出現。</text></feedback></answer>
+    <generalfeedback><text>生命週期通常始於 新增／開啟 &#8594; 已指派 &#8594; 處理中 &#8594; 已修復 &#8594; 重測 &#8594; 關閉（並有重新開啟／退回／延後等分支）。剛記錄的缺陷為新增／開啟。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>產出程序並檢查就緒的活動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>建立測試程序與套組、準備測試資料與環境，並檢查進入準則／就緒是否滿足，屬於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試實作</text><feedback><text>正確——實作讓設計好的測試變得可執行，並確認一切已備妥可執行。</text></feedback></answer>
+    <answer fraction="0"><text>測試設計</text><feedback><text>設計產出測試案例；組織程序／資料／環境屬於實作。</text></feedback></answer>
+    <answer fraction="0"><text>測試執行</text><feedback><text>執行把測試跑起來；測試資產與環境的準備先於它。</text></feedback></answer>
+    <answer fraction="0"><text>測試完成</text><feedback><text>完成在執行之後收尾測試。</text></feedback></answer>
+    <generalfeedback><text>測試實作為執行而組織測試資產：它建立／定稿測試程序與套組、準備測試資料與環境，並在執行開始前確認就緒（進入準則）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從條件建立測試案例的活動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>把測試條件轉成具體的測試案例（含輸入與預期結果）是哪個活動的工作？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試設計</text><feedback><text>正確——設計把測試條件細化為可執行的測試案例；即「如何測」。</text></feedback></answer>
+    <answer fraction="0"><text>測試分析</text><feedback><text>分析產出測試條件；設計再把它們轉成測試案例。</text></feedback></answer>
+    <answer fraction="0"><text>測試實作</text><feedback><text>實作把案例排序並組織起來；它不是先從條件建立案例的一步。</text></feedback></answer>
+    <answer fraction="0"><text>測試監控與控制</text><feedback><text>那是引導整體工作；它不設計測試案例。</text></feedback></answer>
+    <generalfeedback><text>測試設計取用分析產出的測試條件，設計出測試案例與案例集（輸入、預期結果、覆蓋項目）——即「如何測」。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>修復前的確認</text></name>
+    <questiontext format="html"><text><![CDATA[<p>確認測試通常在缺陷被修復<em>之前</em>進行。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——確認測試在修復<em>之後</em>重跑失敗的測試，以確認缺陷已消除。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>此為假：在修復完成前無從確認；確認測試在修復之後進行。</text></feedback></answer>
+    <generalfeedback><text>確認測試（re-test）在修復交付後才做，重跑先前失敗的測試以確認缺陷已解決。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testing Process Flow/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>把打亂的流程重新排序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某同事把循序進行的活動打亂列成：<em>執行、規劃、設計、完成、實作、分析</em>。請把它們排回正確順序。</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>規劃、分析、設計、實作、執行、完成</text><feedback><text>正確——這是基本測試流程的標準循序順序。</text></feedback></answer>
+    <answer fraction="0"><text>規劃、分析、設計、執行、實作、完成</text><feedback><text>實作必須先於執行——測試資產與環境就緒前無法跑測試。</text></feedback></answer>
+    <answer fraction="0"><text>規劃、設計、分析、實作、執行、完成</text><feedback><text>分析（要測什麼）必須在設計（如何測）之前。</text></feedback></answer>
+    <answer fraction="0"><text>分析、規劃、設計、實作、執行、完成</text><feedback><text>規劃是第一個活動，在分析之前。</text></feedback></answer>
+    <generalfeedback><text>循序而言：規劃 &#8594; 分析 &#8594; 設計 &#8594; 實作 &#8594; 執行 &#8594; 完成（監控與控制貫穿全程）。注意兩個常見陷阱：分析先於設計、實作先於執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>退出準則為何重要</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何議定的<em>退出準則</em>對測試流程很重要？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們提供客觀、經議定的依據來判定何時停止測試，而非隨意停止</text><feedback><text>正確——測試可能永無止境，因此退出準則預先界定「完成」。</text></feedback></answer>
+    <answer fraction="0"><text>一旦滿足，就保證產品完全沒有缺陷</text><feedback><text>滿足退出準則永遠無法證明沒有缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>它們免除了規劃或監控測試的需要</text><feedback><text>退出準則在規劃時訂定、在監控與控制時評估；它們不取代這些活動。</text></feedback></answer>
+    <answer fraction="0"><text>它們決定要從基礎推導哪些測試條件</text><feedback><text>那是測試分析，與停止無關。</text></feedback></answer>
+    <generalfeedback><text>由於窮盡測試不可能，退出（完成）準則提供一個經議定、可衡量的依據來判定測試已做足，支援理性的停止／繼續決策。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>退出準則該包含什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者<strong>最不</strong>適合作為測試的退出準則？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試環境已安裝完成、版本已部署</text><feedback><text>正確——那是進入／就緒條件；它並未說明測試是否完成。</text></feedback></answer>
+    <answer fraction="0"><text>已達成計畫的覆蓋率目標</text><feedback><text>那是正當的退出準則。</text></feedback></answer>
+    <answer fraction="0"><text>殘餘缺陷率在議定的門檻之內</text><feedback><text>那是正當的退出準則。</text></feedback></answer>
+    <answer fraction="0"><text>分配的測試時間／預算已用盡</text><feedback><text>時間／預算是常用（雖較粗略）的退出準則。</text></feedback></answer>
+    <generalfeedback><text>退出準則描述完成——覆蓋率達成、缺陷水準可接受、時間／預算用盡。「環境已安裝／版本已部署」是進入側的就緒條件，而非測試是否完成的衡量。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>誰產出測試總結報告</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>測試總結報告（test summary report）</em>是作為哪個活動的一部分而產出？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試完成</text><feedback><text>正確——總結報告是完成階段的產物，彙整測試結果。</text></feedback></answer>
+    <answer fraction="0"><text>測試規劃</text><feedback><text>規劃產出測試計畫，不是總結報告。</text></feedback></answer>
+    <answer fraction="0"><text>測試分析</text><feedback><text>分析產出測試條件。</text></feedback></answer>
+    <answer fraction="0"><text>測試執行</text><feedback><text>執行產出日誌與缺陷報告；彙整的總結報告在完成階段撰寫。</text></feedback></answer>
+    <generalfeedback><text>測試完成蒐集各已結束活動的資料，為利害關係人產出測試總結報告，並同時歸檔測試資產與汲取經驗教訓。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試分析的工作產物</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是<em>測試分析</em>的主要輸出工作產物？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>（經排序的）測試條件</text><feedback><text>正確——分析評估基礎並產出測試條件。</text></feedback></answer>
+    <answer fraction="0"><text>含具體輸入與預期結果的測試案例</text><feedback><text>那是測試設計的輸出。</text></feedback></answer>
+    <answer fraction="0"><text>可供執行的測試程序與套組</text><feedback><text>那來自測試實作。</text></feedback></answer>
+    <answer fraction="0"><text>測試總結報告</text><feedback><text>那來自測試完成。</text></feedback></answer>
+    <generalfeedback><text>每個活動有其特徵性的工作產物：分析 &#8594; 測試條件；設計 &#8594; 測試案例；實作 &#8594; 測試程序／套組、資料、環境；執行 &#8594; 結果／缺陷報告；完成 &#8594; 總結報告與歸檔的測試資產。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>監控與控制 vs 規劃</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者最能區分<em>測試監控與控制</em>和<em>測試規劃</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>規劃在前期訂出預定的方法；監控與控制則持續把實際進度與計畫比對並採取矯正行動</text><feedback><text>正確——規劃定義計畫；監控與控制據此把測試維持在正軌上。</text></feedback></answer>
+    <answer fraction="0"><text>它們是同一活動的兩個名稱</text><feedback><text>它們不同：一個定義計畫，另一個持續據此引導。</text></feedback></answer>
+    <answer fraction="0"><text>規劃持續進行，而監控與控制只在一開始做</text><feedback><text>恰好相反：監控與控制才是持續進行的那個。</text></feedback></answer>
+    <answer fraction="0"><text>監控與控制從測試條件推導測試案例</text><feedback><text>那是測試設計，不是監控與控制。</text></feedback></answer>
+    <generalfeedback><text>規劃大多在前期完成（並視需要修訂）並產出計畫。監控與控制是持續性活動：把進度／覆蓋率／缺陷與計畫比對，並施以控制行動（如重新排序、重新配置）以達成退出準則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>指認測試完成的活動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是真正的<em>測試完成</em>活動？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>分析經驗教訓並歸檔測試資產以供日後重用</text><feedback><text>正確——汲取經驗教訓、歸檔／移交測試資產是典型的完成工作。</text></feedback></answer>
+    <answer fraction="0"><text>從需求推導測試條件</text><feedback><text>那是測試分析，位於流程前段。</text></feedback></answer>
+    <answer fraction="0"><text>準備測試資料並建置環境</text><feedback><text>那是測試實作。</text></feedback></answer>
+    <answer fraction="0"><text>把實際結果與預期結果比對</text><feedback><text>那是測試執行。</text></feedback></answer>
+    <generalfeedback><text>測試完成活動包括：檢查所有缺陷已關閉／延後、產出測試總結報告、定稿並歸檔測試資產、移交，以及汲取經驗教訓以供流程改善。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>細辨：組織套組是哪個活動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「把完成的測試案例集結成可執行的回歸套組、排序，並載入所需的測試資料。」這是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試實作</text><feedback><text>正確——把案例組織成可執行的套組／程序並備妥資料，屬於實作。</text></feedback></answer>
+    <answer fraction="0"><text>測試設計</text><feedback><text>設計建立案例；把它們集結／排序以供執行則屬實作。</text></feedback></answer>
+    <answer fraction="0"><text>測試分析</text><feedback><text>分析識別條件，不是可執行的套組。</text></feedback></answer>
+    <answer fraction="0"><text>測試執行</text><feedback><text>執行把套組跑起來；組裝與載入它是前一步的實作。</text></feedback></answer>
+    <generalfeedback><text>測試案例存在（設計）之後，實作把它們排序成測試程序／套組、備妥資料與環境並確認就緒。之後執行才把它們跑起來。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>細辨：依風險排序條件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「審閱需求與風險報告、列出可測試的功能，並把所得的測試條件依風險排序。」這是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試分析</text><feedback><text>正確——從基礎識別並排序測試條件屬於分析。</text></feedback></answer>
+    <answer fraction="0"><text>測試設計</text><feedback><text>設計在其後，把排序好的條件轉成測試案例。</text></feedback></answer>
+    <answer fraction="0"><text>測試規劃</text><feedback><text>規劃訂定整體策略；推導並排序條件屬於分析。</text></feedback></answer>
+    <answer fraction="0"><text>測試監控與控制</text><feedback><text>那是引導進度；它不推導測試條件。</text></feedback></answer>
+    <generalfeedback><text>測試分析評估測試基礎（含風險資訊）、識別可測試的功能，並定義與排序測試條件——仍是「要測什麼」，尚非「如何測」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>細辨：指定輸入與預期結果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「針對測試條件『提款超過餘額』，指定帳戶狀態、要提領的金額，以及確切的預期錯誤訊息。」這是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試設計</text><feedback><text>正確——把條件轉成具體的輸入、前置條件與預期結果屬於設計。</text></feedback></answer>
+    <answer fraction="0"><text>測試分析</text><feedback><text>分析產出了該條件；指定具體輸入／預期結果屬於設計。</text></feedback></answer>
+    <answer fraction="0"><text>測試實作</text><feedback><text>實作接著把這個案例排序並備妥以供執行；它不是先指定其輸入／預期結果的一步。</text></feedback></answer>
+    <answer fraction="0"><text>測試執行</text><feedback><text>執行把案例跑起來；此處仍在設計它。</text></feedback></answer>
+    <generalfeedback><text>從測試條件推導具體的前置條件、輸入與預期結果，正是測試設計（「如何測」）。分析給出條件；實作稍後才讓案例可執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>工作產物的驗證 vs 執行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在還沒跑任何程式碼之前，審查需求規格以找出模糊與矛盾之處，最適合被歸類為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對工作產物的靜態驗證，可在測試分析期間開始</text><feedback><text>正確——審查測試基礎是靜態工作，常能在動態執行前及早發現缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>測試執行，因為發現了缺陷</text><feedback><text>執行需要跑軟體；審查文件是靜態的，不是動態的。</text></feedback></answer>
+    <answer fraction="0"><text>對修復的確認測試</text><feedback><text>此處沒有在重測任何修復；這是靜態審查。</text></feedback></answer>
+    <answer fraction="0"><text>測試完成，因為它在收尾</text><feedback><text>審查基礎發生在前期，而非收尾。</text></feedback></answer>
+    <generalfeedback><text>驗證檢查工作產物是否符合其規格，可以靜態進行（審查、靜態分析）而不執行程式碼。審查測試基礎常在測試分析前後進行，並能在動態執行開始前發現缺陷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>退出準則未達成時</text></name>
+    <questiontext format="html"><text><![CDATA[<p>監控顯示，在計畫的結束日期，議定的退出準則<strong>尚未</strong>達成。哪個回應最符合測試流程？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>報告狀態，並透過控制決定繼續測試，或與利害關係人重新協商準則／範圍</text><feedback><text>正確——未達成的退出準則觸發控制決策；不能就這樣宣告完成。</text></feedback></answer>
+    <answer fraction="0"><text>因為日期到了就自動宣告測試完成</text><feedback><text>光是日曆日期並不滿足退出準則；那忽略了準則的用意。</text></feedback></answer>
+    <answer fraction="0"><text>刪除失敗的測試，讓準則看起來已滿足</text><feedback><text>操弄指標會隱藏風險；那不是正當的回應。</text></feedback></answer>
+    <answer fraction="0"><text>不做任何報告就直接跳到歸檔測試資產</text><feedback><text>完成仍需報告；且停止的決定必須明確做出。</text></feedback></answer>
+    <generalfeedback><text>退出準則驅動停止／繼續的決策。若未達成，監控與控制報告此情況，由利害關係人決定繼續測試、增加資源，或透過重新協商範圍／準則而有意識地接受風險——絕不是假裝它們已達成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>監控 vs 控制</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在這項持續性活動中，下列何者是<em>控制</em>行動而非<em>監控</em>行動？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>因為某高風險區域落後，而重新排序剩餘測試並重新指派測試者</text><feedback><text>正確——採取矯正行動以引導工作屬於控制。</text></feedback></answer>
+    <answer fraction="0"><text>量測到目前為止已執行了多少計畫的測試案例</text><feedback><text>那是監控——蒐集資訊，而非據以行動。</text></feedback></answer>
+    <answer fraction="0"><text>記錄目前的缺陷發現／修復數量</text><feedback><text>那是監控（蒐集資料）。</text></feedback></answer>
+    <answer fraction="0"><text>把覆蓋率進度對照計畫加以報告</text><feedback><text>那是監控／報告，不是矯正行動。</text></feedback></answer>
+    <generalfeedback><text>監控蒐集並報告資訊（進度、覆蓋率、缺陷資料）；控制利用這些資訊採取矯正行動——重新排序、重新配置資源、調整時程——以使退出準則仍能達成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>活動與工作產物配對錯誤者</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一組「活動與其特徵性工作產物」的配對是<strong>錯誤</strong>的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>測試執行產出測試條件</text><feedback><text>正確——這組配對是錯的：測試條件來自測試分析，而非執行。</text></feedback></answer>
+    <answer fraction="0"><text>測試設計產出測試案例</text><feedback><text>這組配對正確，故非答案。</text></feedback></answer>
+    <answer fraction="0"><text>測試實作產出測試程序與套組</text><feedback><text>這組配對正確，故非答案。</text></feedback></answer>
+    <answer fraction="0"><text>測試完成產出測試總結報告</text><feedback><text>這組配對正確，故非答案。</text></feedback></answer>
+    <generalfeedback><text>特徵性工作產物：分析 &#8594; 測試條件；設計 &#8594; 測試案例；實作 &#8594; 測試程序／套組、資料、環境；執行 &#8594; 測試日誌與缺陷報告；完成 &#8594; 測試總結報告。執行並不產出測試條件。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>進入把關開始、退出把關停止</text></name>
+    <questiontext format="html"><text><![CDATA[<p>進入準則把關測試活動的<em>開始</em>，而退出準則把關其<em>完成</em>。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——進入準則是可以開始的「就緒的定義」；退出準則是可以停止的「完成的定義」。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>此為真：進入準則必須在活動開始前成立；退出準則必須在宣告完成前成立。</text></feedback></answer>
+    <generalfeedback><text>進入準則（就緒）必須在如執行等活動開始前滿足；退出／完成準則必須在測試被視為結束前滿足。混淆兩者是常見的錯誤。</text></generalfeedback>
+  </question>
+</quiz>

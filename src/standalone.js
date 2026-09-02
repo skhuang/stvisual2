@@ -114322,6 +114322,2568 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "testing-flow": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What a test plan is",
+            "text": "<p>A <em>test plan</em> is best described as:</p>",
+            "answers": [
+              {
+                "text": "A document describing the scope, objectives, approach, resources and schedule of the intended test activities",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the test plan is the output of test planning and sets out what will be tested, how, by whom, and when."
+              },
+              {
+                "text": "A list of the concrete inputs and expected results for one specific test",
+                "fraction": 0,
+                "feedback": "That describes a single test case, not the overall test plan."
+              },
+              {
+                "text": "A record of a single failure observed while running the software",
+                "fraction": 0,
+                "feedback": "That is a defect (incident) report, produced during execution."
+              },
+              {
+                "text": "The source code of the program under test",
+                "fraction": 0,
+                "feedback": "The code is part of the test object, not the test plan."
+              }
+            ],
+            "generalFeedback": "Test planning is the first activity of the fundamental test process; its work product, the test plan, defines the objectives, scope, approach, resources and schedule for testing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the test basis is",
+            "text": "<p>The <em>test basis</em> is:</p>",
+            "answers": [
+              {
+                "text": "The body of knowledge (requirements, specifications, designs, user stories, risk reports) used as the basis for analysing and designing tests",
+                "fraction": 100,
+                "feedback": "Correct \u2014 tests are derived from the test basis."
+              },
+              {
+                "text": "The minimum set of tests that must pass before release",
+                "fraction": 0,
+                "feedback": "That is closer to an exit criterion or a smoke-test set, not the test basis."
+              },
+              {
+                "text": "The hardware and software environment in which tests are executed",
+                "fraction": 0,
+                "feedback": "That is the test environment, not the test basis."
+              },
+              {
+                "text": "The team of people responsible for testing",
+                "fraction": 0,
+                "feedback": "People are resources; the test basis is the source material tests are derived from."
+              }
+            ],
+            "generalFeedback": "The test basis is everything a test is derived from \u2014 requirements, specifications, design and implementation information, user stories, risk analyses and so on. Test analysis works from it to determine what to test.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a test condition is",
+            "text": "<p>A <em>test condition</em> is:</p>",
+            "answers": [
+              {
+                "text": "A testable aspect of the test basis (a feature, function, requirement or quality attribute) that a test could exercise",
+                "fraction": 100,
+                "feedback": "Correct \u2014 test conditions say WHAT should be tested; they are identified during test analysis."
+              },
+              {
+                "text": "The concrete input values and expected outputs of a runnable test",
+                "fraction": 0,
+                "feedback": "Those belong to a test case, which is designed later from a test condition."
+              },
+              {
+                "text": "The state the system must be in before a test can start",
+                "fraction": 0,
+                "feedback": "That is a precondition of a test case, not a test condition."
+              },
+              {
+                "text": "A defect found during execution",
+                "fraction": 0,
+                "feedback": "A defect is an observed failure/fault, not a test condition."
+              }
+            ],
+            "generalFeedback": "A test condition is an item or aspect of the test basis (a function, requirement, or quality characteristic) worth testing. It answers &#8220;what to test&#8221; and is the output of test analysis; the concrete test case is designed from it afterwards.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a test case is",
+            "text": "<p>A <em>test case</em> is:</p>",
+            "answers": [
+              {
+                "text": "A set of preconditions, inputs, expected results and postconditions developed to exercise a test condition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a test case makes a test condition concrete and executable."
+              },
+              {
+                "text": "A high-level statement of an aspect of the test basis worth testing",
+                "fraction": 0,
+                "feedback": "That is a test condition; a test case is derived from it and is concrete."
+              },
+              {
+                "text": "The overall schedule and resourcing document for testing",
+                "fraction": 0,
+                "feedback": "That is the test plan."
+              },
+              {
+                "text": "The end-of-project summary of how testing went",
+                "fraction": 0,
+                "feedback": "That is the test summary report, produced at test completion."
+              }
+            ],
+            "generalFeedback": "A test case turns a test condition into something you can run: it specifies preconditions, inputs, the expected results to compare against, and postconditions. It is the main work product of test design.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a test case must contain",
+            "text": "<p>Which element is essential to a well-formed test case?</p>",
+            "answers": [
+              {
+                "text": "The expected result to compare the actual result against",
+                "fraction": 100,
+                "feedback": "Correct \u2014 without a documented expected result you cannot decide pass or fail (the oracle problem)."
+              },
+              {
+                "text": "The name of the developer who wrote the code",
+                "fraction": 0,
+                "feedback": "Useful metadata perhaps, but not an essential part of a test case."
+              },
+              {
+                "text": "A guarantee that the test will pass",
+                "fraction": 0,
+                "feedback": "A test case is not required to pass; it must have a defined expected result."
+              },
+              {
+                "text": "The total project budget",
+                "fraction": 0,
+                "feedback": "Budget is a planning concern, not part of a test case."
+              }
+            ],
+            "generalFeedback": "A test case specifies preconditions, inputs, expected results and postconditions. The expected result is essential: comparing the actual result to a predefined expected result is what makes a verdict (pass/fail) possible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Entry criteria",
+            "text": "<p><em>Entry criteria</em> for a test activity are:</p>",
+            "answers": [
+              {
+                "text": "The conditions that must be satisfied before that activity can sensibly begin",
+                "fraction": 100,
+                "feedback": "Correct \u2014 entry criteria gate the START of an activity (a &#8220;definition of ready&#8221;)."
+              },
+              {
+                "text": "The conditions that must be met before testing can be declared finished",
+                "fraction": 0,
+                "feedback": "Those are exit criteria, which gate the stop, not the start."
+              },
+              {
+                "text": "The list of defects still open at the end of testing",
+                "fraction": 0,
+                "feedback": "That is residual-defect data, not entry criteria."
+              },
+              {
+                "text": "The inputs of a single test case",
+                "fraction": 0,
+                "feedback": "Those are test-case inputs, not entry criteria for an activity."
+              }
+            ],
+            "generalFeedback": "Entry criteria define what must be in place before an activity starts \u2014 e.g. a stable build deployed, the test environment ready, and test data available. They are checked at the start of test implementation/execution.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Exit criteria",
+            "text": "<p><em>Exit criteria</em> for testing are:</p>",
+            "answers": [
+              {
+                "text": "The conditions that must be met before testing can be considered complete for the agreed objectives",
+                "fraction": 100,
+                "feedback": "Correct \u2014 exit criteria gate the STOP (a &#8220;definition of done&#8221; for testing)."
+              },
+              {
+                "text": "The conditions that must be met before testing can begin",
+                "fraction": 0,
+                "feedback": "Those are entry criteria, which gate the start."
+              },
+              {
+                "text": "The list of stakeholders who approved the test plan",
+                "fraction": 0,
+                "feedback": "Approval sign-off is not the same as exit criteria."
+              },
+              {
+                "text": "The set of test conditions produced by test analysis",
+                "fraction": 0,
+                "feedback": "Those are analysis outputs, not exit criteria."
+              }
+            ],
+            "generalFeedback": "Exit criteria (completion criteria) state when testing is done \u2014 e.g. planned coverage achieved, no unresolved high-severity defects, and the time/budget consumed. They are checked during test monitoring & control and at completion.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a test procedure is",
+            "text": "<p>A <em>test procedure</em> (test script) is:</p>",
+            "answers": [
+              {
+                "text": "A sequence of actions and test cases arranged in the order they will be executed, with any needed setup",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the test procedure specifies the execution steps and ordering; it is built during test implementation."
+              },
+              {
+                "text": "A high-level aspect of the test basis worth testing",
+                "fraction": 0,
+                "feedback": "That is a test condition."
+              },
+              {
+                "text": "The overall objectives and schedule for the whole test effort",
+                "fraction": 0,
+                "feedback": "That is the test plan."
+              },
+              {
+                "text": "A report on how many tests passed",
+                "fraction": 0,
+                "feedback": "That is a test result / summary, not a procedure."
+              }
+            ],
+            "generalFeedback": "A test procedure specifies the sequence of steps (and the test cases in execution order) to run tests, including preconditions and setup. Producing test procedures is part of test implementation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a test suite is",
+            "text": "<p>A <em>test suite</em> is:</p>",
+            "answers": [
+              {
+                "text": "A collection of test cases or test procedures grouped together to be run as a set",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a suite bundles related tests for execution and reporting."
+              },
+              {
+                "text": "A single input/expected-result pair",
+                "fraction": 0,
+                "feedback": "That is one test case, not a suite of them."
+              },
+              {
+                "text": "The requirements document the tests are derived from",
+                "fraction": 0,
+                "feedback": "That is part of the test basis."
+              },
+              {
+                "text": "A tool that measures code coverage",
+                "fraction": 0,
+                "feedback": "That is a coverage tool, not a test suite."
+              }
+            ],
+            "generalFeedback": "A test suite groups test cases/procedures for execution (for example a smoke suite or a regression suite). Organising tests into suites happens during test implementation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a defect report is",
+            "text": "<p>A <em>defect (incident) report</em> primarily records:</p>",
+            "answers": [
+              {
+                "text": "An observed anomaly (the discrepancy between actual and expected behaviour) so it can be investigated and tracked",
+                "fraction": 100,
+                "feedback": "Correct \u2014 defect reports are logged during execution and drive the defect lifecycle."
+              },
+              {
+                "text": "The planned scope and schedule of testing",
+                "fraction": 0,
+                "feedback": "That is the test plan."
+              },
+              {
+                "text": "The list of test conditions to be covered",
+                "fraction": 0,
+                "feedback": "Those come from test analysis, not from a defect report."
+              },
+              {
+                "text": "A guarantee that the software is defect-free",
+                "fraction": 0,
+                "feedback": "Testing cannot prove the absence of defects; a defect report records a specific anomaly found."
+              }
+            ],
+            "generalFeedback": "When actual behaviour differs from expected behaviour during execution, the tester logs a defect report describing the anomaly, how to reproduce it, and its impact. This starts the defect lifecycle.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Correct order of the main activities",
+            "text": "<p>Ignoring the continuous monitoring &amp; control activity, which sequence gives the correct order of the fundamental test process activities?</p>",
+            "answers": [
+              {
+                "text": "Planning, analysis, design, implementation, execution, completion",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this is the canonical order (with monitoring & control running throughout)."
+              },
+              {
+                "text": "Planning, design, analysis, execution, implementation, completion",
+                "fraction": 0,
+                "feedback": "Analysis (what to test) must precede design (how to test), and implementation must precede execution."
+              },
+              {
+                "text": "Analysis, planning, design, execution, implementation, completion",
+                "fraction": 0,
+                "feedback": "Planning comes first, and implementation precedes execution."
+              },
+              {
+                "text": "Planning, analysis, design, execution, implementation, completion",
+                "fraction": 0,
+                "feedback": "Implementation (building procedures/data/environment) precedes execution, not the other way round."
+              }
+            ],
+            "generalFeedback": "The fundamental test process runs: test planning &#8594; test analysis &#8594; test design &#8594; test implementation &#8594; test execution &#8594; test completion, with test monitoring & control as a continuous activity spanning all of them.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which activity runs the tests",
+            "text": "<p>Actually running the tests, comparing actual results to expected results, and logging defects is done in:</p>",
+            "answers": [
+              {
+                "text": "Test execution",
+                "fraction": 100,
+                "feedback": "Correct \u2014 execution runs the tests and records the outcomes and any defects."
+              },
+              {
+                "text": "Test analysis",
+                "fraction": 0,
+                "feedback": "Analysis identifies test conditions; it does not run tests."
+              },
+              {
+                "text": "Test design",
+                "fraction": 0,
+                "feedback": "Design produces test cases; it does not run them."
+              },
+              {
+                "text": "Test planning",
+                "fraction": 0,
+                "feedback": "Planning sets scope and approach; running tests happens much later."
+              }
+            ],
+            "generalFeedback": "Test execution is the activity where test suites are run, actual results are compared with expected results, discrepancies are logged as defects, and confirmation/regression testing takes place.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of test completion",
+            "text": "<p>The main purpose of <em>test completion</em> (test closure) is to:</p>",
+            "answers": [
+              {
+                "text": "Wrap up testing \u2014 report results, finalise and archive testware, and capture lessons learned",
+                "fraction": 100,
+                "feedback": "Correct \u2014 completion consolidates and hands over the outcomes of testing."
+              },
+              {
+                "text": "Identify the test conditions from the test basis",
+                "fraction": 0,
+                "feedback": "That is test analysis, near the start of the process."
+              },
+              {
+                "text": "Write the concrete inputs and expected results of each test",
+                "fraction": 0,
+                "feedback": "That is test design."
+              },
+              {
+                "text": "Run the test suites for the first time",
+                "fraction": 0,
+                "feedback": "That is test execution, which precedes completion."
+              }
+            ],
+            "generalFeedback": "Test completion happens when a milestone is reached (release, end of iteration, project close). It gathers data, produces a test summary report, finalises and archives testware, hands it over, and records lessons learned.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What monitoring and control is",
+            "text": "<p><em>Test monitoring and control</em> is:</p>",
+            "answers": [
+              {
+                "text": "An ongoing activity that compares actual progress against the plan and takes corrective action throughout testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it runs continuously, not just once, and steers the effort."
+              },
+              {
+                "text": "A one-off activity done only at the very end of the project",
+                "fraction": 0,
+                "feedback": "That would be closer to completion; monitoring & control is continuous."
+              },
+              {
+                "text": "The activity that derives test cases from test conditions",
+                "fraction": 0,
+                "feedback": "That is test design."
+              },
+              {
+                "text": "The activity that logs each individual defect",
+                "fraction": 0,
+                "feedback": "Defects are logged during execution; monitoring uses that data to steer."
+              }
+            ],
+            "generalFeedback": "Test monitoring & control runs throughout the whole process: monitoring gathers information (progress, coverage, defect data) and control uses it to guide testing so exit criteria can be met.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Analysis determines what to test",
+            "text": "<p>Test analysis determines <em>what</em> to test by identifying test conditions from the test basis.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 analysis works from the test basis to identify and prioritise test conditions (the &#8220;what&#8221;); designing the &#8220;how&#8221; comes next."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "It is true: test analysis identifies test conditions (what to test); test design then produces the test cases (how to test)."
+              }
+            ],
+            "generalFeedback": "Test analysis analyses the test basis to determine what to test, producing test conditions. Test design then turns those conditions into concrete test cases."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "What precedes test design",
+            "text": "<p>In the fundamental test process, which activity immediately <strong>precedes</strong> test design?</p>",
+            "answers": [
+              {
+                "text": "Test analysis",
+                "fraction": 100,
+                "feedback": "Correct \u2014 analysis identifies the test conditions that design then turns into test cases."
+              },
+              {
+                "text": "Test implementation",
+                "fraction": 0,
+                "feedback": "Implementation follows design, not precedes it."
+              },
+              {
+                "text": "Test execution",
+                "fraction": 0,
+                "feedback": "Execution comes much later, after implementation."
+              },
+              {
+                "text": "Test completion",
+                "fraction": 0,
+                "feedback": "Completion is the last activity, not before design."
+              }
+            ],
+            "generalFeedback": "The order is analysis &#8594; design &#8594; implementation. Test design consumes the test conditions produced by test analysis.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What follows test design",
+            "text": "<p>Which activity immediately <strong>follows</strong> test design?</p>",
+            "answers": [
+              {
+                "text": "Test implementation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 after the test cases are designed, implementation builds the procedures, suites, data and environment."
+              },
+              {
+                "text": "Test analysis",
+                "fraction": 0,
+                "feedback": "Analysis precedes design, not follows it."
+              },
+              {
+                "text": "Test execution",
+                "fraction": 0,
+                "feedback": "Execution comes after implementation, not directly after design."
+              },
+              {
+                "text": "Test planning",
+                "fraction": 0,
+                "feedback": "Planning is the first activity, not after design."
+              }
+            ],
+            "generalFeedback": "Analysis &#8594; design &#8594; implementation &#8594; execution. Implementation directly follows design: it makes the designed tests runnable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What follows test implementation",
+            "text": "<p>Which activity immediately <strong>follows</strong> test implementation?</p>",
+            "answers": [
+              {
+                "text": "Test execution",
+                "fraction": 100,
+                "feedback": "Correct \u2014 once the testware and environment are ready and entry criteria are met, the tests are executed."
+              },
+              {
+                "text": "Test design",
+                "fraction": 0,
+                "feedback": "Design precedes implementation."
+              },
+              {
+                "text": "Test analysis",
+                "fraction": 0,
+                "feedback": "Analysis is earlier still."
+              },
+              {
+                "text": "Test completion",
+                "fraction": 0,
+                "feedback": "Completion comes after execution, not directly after implementation."
+              }
+            ],
+            "generalFeedback": "Implementation &#8594; execution: implementation finalises the testware, data and environment (and checks readiness/entry criteria); execution then runs the tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Naming the activity from its work",
+            "text": "<p>&#8220;Analyse the test basis to determine testable features and derive test conditions.&#8221; This describes:</p>",
+            "answers": [
+              {
+                "text": "Test analysis",
+                "fraction": 100,
+                "feedback": "Correct \u2014 evaluating the test basis and producing test conditions is exactly test analysis."
+              },
+              {
+                "text": "Test design",
+                "fraction": 0,
+                "feedback": "Design turns those conditions into test cases; it does not derive the conditions."
+              },
+              {
+                "text": "Test planning",
+                "fraction": 0,
+                "feedback": "Planning sets scope and approach; it does not analyse the basis into conditions."
+              },
+              {
+                "text": "Test implementation",
+                "fraction": 0,
+                "feedback": "Implementation builds procedures and data; it does not derive test conditions."
+              }
+            ],
+            "generalFeedback": "Test analysis evaluates the test basis, identifies testable features, and defines and prioritises test conditions \u2014 the &#8220;what to test&#8221;.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Spotting an entry criterion",
+            "text": "<p>Which of the following is an <strong>entry</strong> criterion for starting test execution?</p>",
+            "answers": [
+              {
+                "text": "A stable, testable build is deployed and the test environment and test data are ready",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that must hold before execution can meaningfully begin."
+              },
+              {
+                "text": "Planned requirements coverage has been achieved",
+                "fraction": 0,
+                "feedback": "That is an exit criterion \u2014 it describes when to stop, not when to start."
+              },
+              {
+                "text": "No high-severity defects remain open",
+                "fraction": 0,
+                "feedback": "That is an exit criterion, evaluated to decide completion."
+              },
+              {
+                "text": "The test summary report has been signed off",
+                "fraction": 0,
+                "feedback": "That happens at completion, well after execution starts."
+              }
+            ],
+            "generalFeedback": "Entry criteria gate the start: a deployable build, a ready environment and available test data are typical entry criteria for execution. Coverage achieved and no open high-severity defects are exit criteria.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Spotting an exit criterion",
+            "text": "<p>Which of the following is an <strong>exit</strong> criterion for testing?</p>",
+            "answers": [
+              {
+                "text": "All planned test cases have been executed and the required coverage target has been met",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is a completion condition, checked to decide whether to stop."
+              },
+              {
+                "text": "The test environment has been provisioned",
+                "fraction": 0,
+                "feedback": "That is an entry criterion for execution."
+              },
+              {
+                "text": "The requirements specification is available",
+                "fraction": 0,
+                "feedback": "That enables analysis/design to start; it is an entry-side precondition, not an exit criterion."
+              },
+              {
+                "text": "Test data has been prepared",
+                "fraction": 0,
+                "feedback": "That is an entry-side readiness condition, not an exit criterion."
+              }
+            ],
+            "generalFeedback": "Exit (completion) criteria describe when testing is done: e.g. planned tests executed, coverage targets met, defect levels acceptable, and time/budget consumed.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The derivation chain",
+            "text": "<p>Fill the blank in the derivation chain: <em>test basis &#8594; ______ &#8594; test cases</em>.</p>",
+            "answers": [
+              {
+                "text": "Test conditions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 analysis derives test conditions from the basis, then design derives test cases from the conditions."
+              },
+              {
+                "text": "Defect reports",
+                "fraction": 0,
+                "feedback": "Defect reports come from execution, not between the basis and the test cases."
+              },
+              {
+                "text": "Test suites",
+                "fraction": 0,
+                "feedback": "Test suites group cases during implementation; they are not the step between basis and cases."
+              },
+              {
+                "text": "Exit criteria",
+                "fraction": 0,
+                "feedback": "Exit criteria are completion conditions, not a derivation step."
+              }
+            ],
+            "generalFeedback": "The flow is test basis &#8594; test conditions (analysis) &#8594; test cases (design) &#8594; test procedures/suites (implementation) &#8594; execution &#8594; defects &#8594; closure.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Confirmation testing",
+            "text": "<p>After a developer fixes a reported defect, <em>confirmation (re-)testing</em> means:</p>",
+            "answers": [
+              {
+                "text": "Re-executing the test that originally failed to confirm the defect is now fixed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 confirmation testing verifies the specific fix."
+              },
+              {
+                "text": "Running a broad set of other tests to check nothing else broke",
+                "fraction": 0,
+                "feedback": "That is regression testing, a different purpose."
+              },
+              {
+                "text": "Writing a new test condition from the requirements",
+                "fraction": 0,
+                "feedback": "That is test analysis, unrelated to confirming a fix."
+              },
+              {
+                "text": "Reviewing the requirements document for defects",
+                "fraction": 0,
+                "feedback": "That is static verification of a work product, not confirmation testing of a fix."
+              }
+            ],
+            "generalFeedback": "Confirmation testing (re-testing) re-runs the previously failing test after the fix, to confirm the original defect has been removed. Regression testing separately checks that the change did not break anything else.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Regression testing",
+            "text": "<p>The purpose of <em>regression testing</em> is to:</p>",
+            "answers": [
+              {
+                "text": "Detect whether a change has broken previously working functionality",
+                "fraction": 100,
+                "feedback": "Correct \u2014 regression testing guards against unintended side effects of changes."
+              },
+              {
+                "text": "Confirm that a specific reported defect has been fixed",
+                "fraction": 0,
+                "feedback": "That is confirmation (re-)testing, not regression testing."
+              },
+              {
+                "text": "Determine which test conditions to cover",
+                "fraction": 0,
+                "feedback": "That is test analysis."
+              },
+              {
+                "text": "Provision the test environment",
+                "fraction": 0,
+                "feedback": "That is part of test implementation."
+              }
+            ],
+            "generalFeedback": "A change (a fix or new feature) can have side effects. Regression testing re-runs existing tests on unchanged areas to detect such unintended breakages, whereas confirmation testing verifies the intended fix itself.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of traceability",
+            "text": "<p>Maintaining <em>traceability</em> from test basis items to test conditions, test cases and results mainly enables you to:</p>",
+            "answers": [
+              {
+                "text": "Measure coverage of the test basis and assess the impact of changes",
+                "fraction": 100,
+                "feedback": "Correct \u2014 traceability shows which requirements are covered and what to re-test when something changes."
+              },
+              {
+                "text": "Guarantee that the software contains no defects",
+                "fraction": 0,
+                "feedback": "No amount of tracing can prove the absence of defects."
+              },
+              {
+                "text": "Remove the need for exit criteria",
+                "fraction": 0,
+                "feedback": "Traceability supports evaluating exit criteria; it does not replace them."
+              },
+              {
+                "text": "Speed up the compiler",
+                "fraction": 0,
+                "feedback": "Traceability is about relating work products, not build performance."
+              }
+            ],
+            "generalFeedback": "Bidirectional traceability links requirements/test basis &#8596; test conditions &#8596; test cases &#8596; results/defects. It supports coverage measurement, impact analysis for changes, and meaningful progress reporting.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "After a defect is fixed",
+            "text": "<p>In a typical defect lifecycle, immediately after the defect is marked <em>fixed/resolved</em> by the developer, the tester should:</p>",
+            "answers": [
+              {
+                "text": "Re-test (confirmation test) the fix and, if it passes, move the defect toward closed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the fix must be confirmed before the defect can be closed."
+              },
+              {
+                "text": "Immediately close the defect without re-running any test",
+                "fraction": 0,
+                "feedback": "A fix should be confirmed by re-testing before closing."
+              },
+              {
+                "text": "Delete the defect report",
+                "fraction": 0,
+                "feedback": "Reports are retained for history and metrics, not deleted."
+              },
+              {
+                "text": "Reassign it to the requirements author",
+                "fraction": 0,
+                "feedback": "A resolved defect goes to the tester for confirmation, not back to requirements."
+              }
+            ],
+            "generalFeedback": "A common lifecycle is new &#8594; assigned &#8594; fixed &#8594; retest (confirmation) &#8594; closed, with a reopen path if the retest fails. The tester confirms the fix before closure.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Initial defect state",
+            "text": "<p>When a tester first logs an anomaly during execution, the defect typically enters which state?</p>",
+            "answers": [
+              {
+                "text": "New (open), awaiting triage/assignment",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a freshly reported defect starts as new/open before being assigned."
+              },
+              {
+                "text": "Closed",
+                "fraction": 0,
+                "feedback": "Closed is the end state, reached after a confirmed fix."
+              },
+              {
+                "text": "Fixed",
+                "fraction": 0,
+                "feedback": "Fixed comes after a developer resolves it, not at first report."
+              },
+              {
+                "text": "Retest passed",
+                "fraction": 0,
+                "feedback": "That occurs only after a fix has been confirmed."
+              }
+            ],
+            "generalFeedback": "The lifecycle usually begins new/open &#8594; assigned &#8594; in progress &#8594; fixed &#8594; retest &#8594; closed (with reopen/reject/defer branches). A newly logged defect is new/open.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Activity that produces procedures and checks readiness",
+            "text": "<p>Building test procedures and suites, preparing test data and the environment, and checking that entry criteria/readiness are met belongs to:</p>",
+            "answers": [
+              {
+                "text": "Test implementation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 implementation makes the designed tests runnable and confirms everything is ready to execute."
+              },
+              {
+                "text": "Test design",
+                "fraction": 0,
+                "feedback": "Design produces the test cases; organising procedures/data/environment is implementation."
+              },
+              {
+                "text": "Test execution",
+                "fraction": 0,
+                "feedback": "Execution runs the tests; the preparation of testware and environment precedes it."
+              },
+              {
+                "text": "Test completion",
+                "fraction": 0,
+                "feedback": "Completion wraps up testing after execution."
+              }
+            ],
+            "generalFeedback": "Test implementation organises testware for execution: it creates/finalises test procedures and suites, prepares test data and the environment, and verifies readiness (entry criteria) before execution starts.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Activity that builds test cases from conditions",
+            "text": "<p>Turning test conditions into concrete test cases (with inputs and expected results) is the job of:</p>",
+            "answers": [
+              {
+                "text": "Test design",
+                "fraction": 100,
+                "feedback": "Correct \u2014 design elaborates test conditions into runnable test cases; the &#8220;how to test&#8221;."
+              },
+              {
+                "text": "Test analysis",
+                "fraction": 0,
+                "feedback": "Analysis produces the test conditions; design turns them into test cases."
+              },
+              {
+                "text": "Test implementation",
+                "fraction": 0,
+                "feedback": "Implementation sequences and organises the cases; it does not first create them from conditions."
+              },
+              {
+                "text": "Test monitoring and control",
+                "fraction": 0,
+                "feedback": "That steers the effort; it does not design test cases."
+              }
+            ],
+            "generalFeedback": "Test design takes the test conditions from analysis and designs test cases and sets of test cases (inputs, expected results, coverage items) \u2014 the &#8220;how to test&#8221;.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Confirmation before the fix",
+            "text": "<p>Confirmation testing is normally performed <em>before</em> the defect has been fixed.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 confirmation testing re-runs the failing test AFTER the fix, to confirm the defect is gone."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "It is false: there is nothing to confirm until the fix has been made; confirmation testing follows the fix."
+              }
+            ],
+            "generalFeedback": "Confirmation (re-)testing is done after a fix is delivered, re-executing the previously failing test to confirm the defect has been resolved."
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Reorder the scrambled process",
+            "text": "<p>A colleague lists the sequential activities scrambled as: <em>execution, planning, design, completion, implementation, analysis</em>. Put them back into the correct order.</p>",
+            "answers": [
+              {
+                "text": "Planning, analysis, design, implementation, execution, completion",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the canonical sequential order of the fundamental test process."
+              },
+              {
+                "text": "Planning, analysis, design, execution, implementation, completion",
+                "fraction": 0,
+                "feedback": "Implementation must precede execution \u2014 you cannot run tests before the testware and environment are ready."
+              },
+              {
+                "text": "Planning, design, analysis, implementation, execution, completion",
+                "fraction": 0,
+                "feedback": "Analysis (what to test) must come before design (how to test)."
+              },
+              {
+                "text": "Analysis, planning, design, implementation, execution, completion",
+                "fraction": 0,
+                "feedback": "Planning is the first activity, before analysis."
+              }
+            ],
+            "generalFeedback": "Sequentially: planning &#8594; analysis &#8594; design &#8594; implementation &#8594; execution &#8594; completion (with monitoring & control throughout). Watch the two common traps: analysis before design, and implementation before execution.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why exit criteria matter",
+            "text": "<p>Why are agreed <em>exit criteria</em> important to the test process?</p>",
+            "answers": [
+              {
+                "text": "They give an objective, agreed basis for deciding when to stop testing, rather than stopping arbitrarily",
+                "fraction": 100,
+                "feedback": "Correct \u2014 testing is potentially endless, so exit criteria define &#8220;done&#8221; up front."
+              },
+              {
+                "text": "They guarantee that the product is completely defect-free once met",
+                "fraction": 0,
+                "feedback": "Meeting exit criteria never proves the absence of defects."
+              },
+              {
+                "text": "They remove the need to plan or monitor testing",
+                "fraction": 0,
+                "feedback": "Exit criteria are set during planning and evaluated during monitoring & control; they do not replace them."
+              },
+              {
+                "text": "They decide which test conditions to derive from the basis",
+                "fraction": 0,
+                "feedback": "That is test analysis, unrelated to stopping."
+              }
+            ],
+            "generalFeedback": "Because exhaustive testing is impossible, exit (completion) criteria provide an agreed, measurable basis for deciding when enough testing has been done, supporting a rational stop/continue decision.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What belongs in exit criteria",
+            "text": "<p>Which of the following is <strong>least</strong> appropriate as an exit criterion for testing?</p>",
+            "answers": [
+              {
+                "text": "The test environment has been installed and the build deployed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is an entry/readiness condition; it says nothing about whether testing is complete."
+              },
+              {
+                "text": "The planned coverage target has been achieved",
+                "fraction": 0,
+                "feedback": "That is a legitimate exit criterion."
+              },
+              {
+                "text": "The residual defect rate is within the agreed threshold",
+                "fraction": 0,
+                "feedback": "That is a legitimate exit criterion."
+              },
+              {
+                "text": "The allotted test time/budget has been consumed",
+                "fraction": 0,
+                "feedback": "Time/budget is a commonly used (if blunt) exit criterion."
+              }
+            ],
+            "generalFeedback": "Exit criteria describe completion \u2014 coverage achieved, defect levels acceptable, time/budget consumed. &#8220;Environment installed / build deployed&#8221; is an entry-side readiness condition, not a measure of whether testing is finished.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Who produces the test summary report",
+            "text": "<p>The <em>test summary report</em> is produced as part of which activity?</p>",
+            "answers": [
+              {
+                "text": "Test completion",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the summary report is a completion work product that consolidates the results."
+              },
+              {
+                "text": "Test planning",
+                "fraction": 0,
+                "feedback": "Planning produces the test plan, not the summary report."
+              },
+              {
+                "text": "Test analysis",
+                "fraction": 0,
+                "feedback": "Analysis produces test conditions."
+              },
+              {
+                "text": "Test execution",
+                "fraction": 0,
+                "feedback": "Execution produces logs and defect reports; the consolidated summary is written at completion."
+              }
+            ],
+            "generalFeedback": "Test completion gathers data from finished activities and produces the test summary report for stakeholders, alongside archiving testware and capturing lessons learned.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Work product of test analysis",
+            "text": "<p>Which work product is the primary output of <em>test analysis</em>?</p>",
+            "answers": [
+              {
+                "text": "(Prioritised) test conditions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 analysis evaluates the basis and yields test conditions."
+              },
+              {
+                "text": "Test cases with concrete inputs and expected results",
+                "fraction": 0,
+                "feedback": "Those are the output of test design."
+              },
+              {
+                "text": "Test procedures and suites ready to run",
+                "fraction": 0,
+                "feedback": "Those come from test implementation."
+              },
+              {
+                "text": "The test summary report",
+                "fraction": 0,
+                "feedback": "That comes from test completion."
+              }
+            ],
+            "generalFeedback": "Each activity has characteristic work products: analysis &#8594; test conditions; design &#8594; test cases; implementation &#8594; test procedures/suites, data, environment; execution &#8594; results/defect reports; completion &#8594; summary report and archived testware.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Monitoring and control vs planning",
+            "text": "<p>Which statement best distinguishes <em>test monitoring &amp; control</em> from <em>test planning</em>?</p>",
+            "answers": [
+              {
+                "text": "Planning sets out the intended approach up front; monitoring & control continuously compares actual progress with the plan and takes corrective action",
+                "fraction": 100,
+                "feedback": "Correct \u2014 planning defines the plan; monitoring & control keeps testing on track against it."
+              },
+              {
+                "text": "They are the same activity under two different names",
+                "fraction": 0,
+                "feedback": "They are distinct: one defines the plan, the other continuously steers against it."
+              },
+              {
+                "text": "Planning happens continuously while monitoring & control happens only at the start",
+                "fraction": 0,
+                "feedback": "It is the reverse: monitoring & control is the continuous one."
+              },
+              {
+                "text": "Monitoring & control derives the test cases from test conditions",
+                "fraction": 0,
+                "feedback": "That is test design, not monitoring & control."
+              }
+            ],
+            "generalFeedback": "Planning is largely done up front (and revised as needed) and yields the plan. Monitoring & control is a continuous activity: it measures progress/coverage/defects against the plan and applies control actions (e.g. re-prioritising, reallocating) to meet the exit criteria.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify a test completion activity",
+            "text": "<p>Which of the following is a genuine <em>test completion</em> activity?</p>",
+            "answers": [
+              {
+                "text": "Analysing lessons learned and archiving the testware for future reuse",
+                "fraction": 100,
+                "feedback": "Correct \u2014 capturing lessons learned and archiving/handing over testware are classic completion tasks."
+              },
+              {
+                "text": "Deriving test conditions from the requirements",
+                "fraction": 0,
+                "feedback": "That is test analysis, near the start of the process."
+              },
+              {
+                "text": "Preparing test data and provisioning the environment",
+                "fraction": 0,
+                "feedback": "That is test implementation."
+              },
+              {
+                "text": "Comparing actual results with expected results",
+                "fraction": 0,
+                "feedback": "That is test execution."
+              }
+            ],
+            "generalFeedback": "Test completion activities include: checking all defects are closed/deferred, creating the test summary report, finalising and archiving testware, handing it over, and capturing lessons learned for process improvement.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Subtle: which activity organises the suite",
+            "text": "<p>&#8220;Group the finished test cases into an executable regression suite, sequence them, and load the required test data.&#8221; This is:</p>",
+            "answers": [
+              {
+                "text": "Test implementation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 organising cases into runnable suites/procedures with data prepared is implementation."
+              },
+              {
+                "text": "Test design",
+                "fraction": 0,
+                "feedback": "Design creates the cases; grouping/sequencing them for execution is implementation."
+              },
+              {
+                "text": "Test analysis",
+                "fraction": 0,
+                "feedback": "Analysis identifies conditions, not runnable suites."
+              },
+              {
+                "text": "Test execution",
+                "fraction": 0,
+                "feedback": "Execution runs the suite; assembling and loading it is the preceding implementation step."
+              }
+            ],
+            "generalFeedback": "Once test cases exist (design), implementation sequences them into test procedures/suites, prepares data and environment, and confirms readiness. Only then does execution run them.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Subtle: prioritising conditions by risk",
+            "text": "<p>&#8220;Review the requirements and risk report, list the testable features, and rank the resulting test conditions by risk.&#8221; This is:</p>",
+            "answers": [
+              {
+                "text": "Test analysis",
+                "fraction": 100,
+                "feedback": "Correct \u2014 identifying and prioritising test conditions from the basis is analysis."
+              },
+              {
+                "text": "Test design",
+                "fraction": 0,
+                "feedback": "Design comes next, converting the prioritised conditions into test cases."
+              },
+              {
+                "text": "Test planning",
+                "fraction": 0,
+                "feedback": "Planning sets overall strategy; deriving and ranking conditions is analysis."
+              },
+              {
+                "text": "Test monitoring and control",
+                "fraction": 0,
+                "feedback": "That steers progress; it does not derive test conditions."
+              }
+            ],
+            "generalFeedback": "Test analysis evaluates the test basis (including risk information), identifies testable features, and defines and prioritises test conditions \u2014 still the &#8220;what&#8221;, not yet the &#8220;how&#8221;.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Subtle: specifying inputs and expected results",
+            "text": "<p>&#8220;For the test condition &#8216;withdrawal exceeds balance&#8217;, specify the account state, the amount to withdraw, and the exact expected error message.&#8221; This is:</p>",
+            "answers": [
+              {
+                "text": "Test design",
+                "fraction": 100,
+                "feedback": "Correct \u2014 turning a condition into concrete inputs, preconditions and expected results is design."
+              },
+              {
+                "text": "Test analysis",
+                "fraction": 0,
+                "feedback": "Analysis produced the condition; specifying concrete inputs/expected results is design."
+              },
+              {
+                "text": "Test implementation",
+                "fraction": 0,
+                "feedback": "Implementation would then sequence and prepare this case for execution; it does not first specify its inputs/expected results."
+              },
+              {
+                "text": "Test execution",
+                "fraction": 0,
+                "feedback": "Execution runs the case; here we are still designing it."
+              }
+            ],
+            "generalFeedback": "Deriving concrete preconditions, inputs and expected results from a test condition is exactly test design (the &#8220;how&#8221;). Analysis gave the condition; implementation later makes the case runnable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Verification of work products vs execution",
+            "text": "<p>Reviewing a requirements specification for ambiguities and contradictions, before any code is run, is best characterised as:</p>",
+            "answers": [
+              {
+                "text": "Static verification of a work product, which can begin during test analysis",
+                "fraction": 100,
+                "feedback": "Correct \u2014 reviewing the test basis is static work and often surfaces defects early, before dynamic execution."
+              },
+              {
+                "text": "Test execution, because a defect was found",
+                "fraction": 0,
+                "feedback": "Execution requires running the software; reviewing a document is static, not dynamic."
+              },
+              {
+                "text": "Confirmation testing of a fix",
+                "fraction": 0,
+                "feedback": "There is no fix being re-tested here; this is a static review."
+              },
+              {
+                "text": "Test completion, because it wraps things up",
+                "fraction": 0,
+                "feedback": "Reviewing the basis happens early, not at closure."
+              }
+            ],
+            "generalFeedback": "Verification checks whether a work product meets its specification and can be done statically (reviews, static analysis) without executing code. Reviewing the test basis often happens as part of/around test analysis and can find defects before dynamic execution begins.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When exit criteria are not met",
+            "text": "<p>Monitoring shows that, at the planned end date, the agreed exit criteria are <strong>not</strong> yet met. Which response is most consistent with the test process?</p>",
+            "answers": [
+              {
+                "text": "Report the status and, via control, decide to continue testing or renegotiate the criteria/scope with stakeholders",
+                "fraction": 100,
+                "feedback": "Correct \u2014 unmet exit criteria feed a control decision; you do not simply declare done."
+              },
+              {
+                "text": "Automatically declare testing complete because the date arrived",
+                "fraction": 0,
+                "feedback": "A calendar date alone does not satisfy exit criteria; that ignores the criteria's purpose."
+              },
+              {
+                "text": "Delete the failing tests so the criteria appear satisfied",
+                "fraction": 0,
+                "feedback": "Gaming the metric hides risk; it is not a legitimate response."
+              },
+              {
+                "text": "Skip straight to archiving testware without any report",
+                "fraction": 0,
+                "feedback": "Completion still requires reporting; and the decision to stop must be made explicitly."
+              }
+            ],
+            "generalFeedback": "Exit criteria drive a stop/continue decision. If they are unmet, monitoring & control reports the situation and stakeholders decide to continue testing, add resources, or consciously accept the risk by renegotiating scope/criteria \u2014 never by pretending they are met.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Monitoring vs control",
+            "text": "<p>Within the continuous activity, which is a <em>control</em> action rather than a <em>monitoring</em> action?</p>",
+            "answers": [
+              {
+                "text": "Re-prioritising the remaining tests and reassigning testers because a risky area is behind",
+                "fraction": 100,
+                "feedback": "Correct \u2014 taking corrective action to steer the effort is control."
+              },
+              {
+                "text": "Measuring how many planned test cases have run so far",
+                "fraction": 0,
+                "feedback": "That is monitoring \u2014 gathering information, not acting on it."
+              },
+              {
+                "text": "Recording the current defect find/fix counts",
+                "fraction": 0,
+                "feedback": "That is monitoring (collecting data)."
+              },
+              {
+                "text": "Reporting coverage progress against the plan",
+                "fraction": 0,
+                "feedback": "That is monitoring/reporting, not a corrective action."
+              }
+            ],
+            "generalFeedback": "Monitoring gathers and reports information (progress, coverage, defect data); control uses that information to take corrective actions \u2014 re-prioritising, reallocating resources, adjusting the schedule \u2014 so that the exit criteria can still be met.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mismatched activity and work product",
+            "text": "<p>Which pairing of an activity with its characteristic work product is <strong>incorrect</strong>?</p>",
+            "answers": [
+              {
+                "text": "Test execution produces the test conditions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this pairing is wrong: test conditions come from test analysis, not execution."
+              },
+              {
+                "text": "Test design produces test cases",
+                "fraction": 0,
+                "feedback": "This pairing is correct, so it is not the answer."
+              },
+              {
+                "text": "Test implementation produces test procedures and suites",
+                "fraction": 0,
+                "feedback": "This pairing is correct, so it is not the answer."
+              },
+              {
+                "text": "Test completion produces the test summary report",
+                "fraction": 0,
+                "feedback": "This pairing is correct, so it is not the answer."
+              }
+            ],
+            "generalFeedback": "Characteristic work products: analysis &#8594; test conditions; design &#8594; test cases; implementation &#8594; test procedures/suites, data, environment; execution &#8594; test logs and defect reports; completion &#8594; test summary report. Execution does not produce test conditions.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Entry gates start, exit gates stop",
+            "text": "<p>Entry criteria gate the <em>start</em> of a test activity, whereas exit criteria gate its <em>completion</em>.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 entry criteria are the &#8220;definition of ready&#8221; to begin; exit criteria are the &#8220;definition of done&#8221; to stop."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "It is true: entry criteria must hold before an activity begins; exit criteria must hold before it is declared complete."
+              }
+            ],
+            "generalFeedback": "Entry criteria (readiness) must be satisfied before an activity such as execution starts; exit/completion criteria must be satisfied before testing is considered finished. Confusing the two is a common error."
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u8A08\u756B\u662F\u4EC0\u9EBC",
+            "text": "<p>\u5C0D<em>\u6E2C\u8A66\u8A08\u756B\uFF08test plan\uFF09</em>\u6700\u8CBC\u5207\u7684\u63CF\u8FF0\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u4EFD\u63CF\u8FF0\u9810\u5B9A\u6E2C\u8A66\u6D3B\u52D5\u4E4B\u7BC4\u570D\u3001\u76EE\u6A19\u3001\u65B9\u6CD5\u3001\u8CC7\u6E90\u8207\u6642\u7A0B\u7684\u6587\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u8A08\u756B\u662F\u6E2C\u8A66\u898F\u5283\u7684\u7522\u7269\uFF0C\u8A02\u51FA\u8981\u6E2C\u4EC0\u9EBC\u3001\u5982\u4F55\u6E2C\u3001\u7531\u8AB0\u6E2C\u3001\u4F55\u6642\u6E2C\u3002"
+              },
+              {
+                "text": "\u67D0\u4E00\u500B\u7279\u5B9A\u6E2C\u8A66\u7684\u5177\u9AD4\u8F38\u5165\u8207\u9810\u671F\u7D50\u679C\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u55AE\u4E00\u6E2C\u8A66\u6848\u4F8B\uFF0C\u4E0D\u662F\u6574\u9AD4\u6E2C\u8A66\u8A08\u756B\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u8EDF\u9AD4\u6642\u89C0\u5BDF\u5230\u67D0\u6B21\u5931\u6557\u7684\u7D00\u9304",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5728\u57F7\u884C\u968E\u6BB5\u7522\u751F\u7684\u7F3A\u9677\uFF08\u4E8B\u4EF6\uFF09\u5831\u544A\u3002"
+              },
+              {
+                "text": "\u5F85\u6E2C\u7A0B\u5F0F\u7684\u539F\u59CB\u78BC",
+                "fraction": 0,
+                "feedback": "\u7A0B\u5F0F\u78BC\u5C6C\u65BC\u6E2C\u8A66\u5C0D\u8C61\uFF0C\u4E0D\u662F\u6E2C\u8A66\u8A08\u756B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u898F\u5283\u662F\u57FA\u672C\u6E2C\u8A66\u6D41\u7A0B\u7684\u7B2C\u4E00\u500B\u6D3B\u52D5\uFF1B\u5176\u7522\u7269\u6E2C\u8A66\u8A08\u756B\u754C\u5B9A\u6E2C\u8A66\u7684\u76EE\u6A19\u3001\u7BC4\u570D\u3001\u65B9\u6CD5\u3001\u8CC7\u6E90\u8207\u6642\u7A0B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u57FA\u790E\u662F\u4EC0\u9EBC",
+            "text": "<p><em>\u6E2C\u8A66\u57FA\u790E\uFF08test basis\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7528\u4F86\u5206\u6790\u8207\u8A2D\u8A08\u6E2C\u8A66\u6240\u4F9D\u64DA\u7684\u77E5\u8B58\u9AD4\uFF08\u9700\u6C42\u3001\u898F\u683C\u3001\u8A2D\u8A08\u3001\u4F7F\u7528\u8005\u6545\u4E8B\u3001\u98A8\u96AA\u5831\u544A\u7B49\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u662F\u5F9E\u6E2C\u8A66\u57FA\u790E\u63A8\u5C0E\u51FA\u4F86\u7684\u3002"
+              },
+              {
+                "text": "\u767C\u884C\u524D\u5FC5\u9808\u901A\u904E\u7684\u6700\u5C0F\u6E2C\u8A66\u96C6\u5408",
+                "fraction": 0,
+                "feedback": "\u90A3\u8F03\u63A5\u8FD1\u9000\u51FA\u6E96\u5247\u6216\u5192\u7159\u6E2C\u8A66\u96C6\uFF0C\u4E0D\u662F\u6E2C\u8A66\u57FA\u790E\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u6E2C\u8A66\u6240\u5728\u7684\u8EDF\u786C\u9AD4\u74B0\u5883",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u74B0\u5883\uFF0C\u4E0D\u662F\u6E2C\u8A66\u57FA\u790E\u3002"
+              },
+              {
+                "text": "\u8CA0\u8CAC\u6E2C\u8A66\u7684\u4EBA\u54E1\u5718\u968A",
+                "fraction": 0,
+                "feedback": "\u4EBA\u54E1\u662F\u8CC7\u6E90\uFF1B\u6E2C\u8A66\u57FA\u790E\u662F\u6E2C\u8A66\u63A8\u5C0E\u7684\u4F86\u6E90\u6750\u6599\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u57FA\u790E\u662F\u6E2C\u8A66\u6240\u63A8\u5C0E\u81EA\u7684\u4E00\u5207\u2014\u2014\u9700\u6C42\u3001\u898F\u683C\u3001\u8A2D\u8A08\u8207\u5BE6\u4F5C\u8CC7\u8A0A\u3001\u4F7F\u7528\u8005\u6545\u4E8B\u3001\u98A8\u96AA\u5206\u6790\u7B49\u3002\u6E2C\u8A66\u5206\u6790\u4EE5\u5B83\u70BA\u4F9D\u64DA\u4F86\u6C7A\u5B9A\u8981\u6E2C\u4EC0\u9EBC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u689D\u4EF6\u662F\u4EC0\u9EBC",
+            "text": "<p><em>\u6E2C\u8A66\u689D\u4EF6\uFF08test condition\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u57FA\u790E\u4E2D\u4E00\u500B\u53EF\u6E2C\u8A66\u7684\u9762\u5411\uFF08\u67D0\u529F\u80FD\u3001\u6A5F\u80FD\u3001\u9700\u6C42\u6216\u54C1\u8CEA\u5C6C\u6027\uFF09\uFF0C\u6E2C\u8A66\u53EF\u64DA\u4EE5\u9A57\u8B49",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u689D\u4EF6\u8AAA\u660E\u300C\u8981\u6E2C\u4EC0\u9EBC\u300D\uFF1B\u5B83\u5728\u6E2C\u8A66\u5206\u6790\u968E\u6BB5\u88AB\u8B58\u5225\u51FA\u4F86\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u53EF\u57F7\u884C\u6E2C\u8A66\u7684\u5177\u9AD4\u8F38\u5165\u503C\u8207\u9810\u671F\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u90A3\u5C6C\u65BC\u6E2C\u8A66\u6848\u4F8B\uFF0C\u662F\u7A0D\u5F8C\u5F9E\u6E2C\u8A66\u689D\u4EF6\u8A2D\u8A08\u51FA\u4F86\u7684\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u958B\u59CB\u524D\u7CFB\u7D71\u5FC5\u9808\u8655\u65BC\u7684\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u6848\u4F8B\u7684\u524D\u7F6E\u689D\u4EF6\uFF0C\u4E0D\u662F\u6E2C\u8A66\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u6642\u767C\u73FE\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u7F3A\u9677\u662F\u89C0\u5BDF\u5230\u7684\u5931\u6557\uFF0F\u932F\u8AA4\uFF0C\u4E0D\u662F\u6E2C\u8A66\u689D\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u689D\u4EF6\u662F\u6E2C\u8A66\u57FA\u790E\u4E2D\u503C\u5F97\u6E2C\u8A66\u7684\u9805\u76EE\u6216\u9762\u5411\uFF08\u67D0\u6A5F\u80FD\u3001\u9700\u6C42\u6216\u54C1\u8CEA\u7279\u6027\uFF09\u3002\u5B83\u56DE\u7B54\u300C\u8981\u6E2C\u4EC0\u9EBC\u300D\uFF0C\u662F\u6E2C\u8A66\u5206\u6790\u7684\u7522\u7269\uFF1B\u5177\u9AD4\u7684\u6E2C\u8A66\u6848\u4F8B\u5247\u65BC\u4E4B\u5F8C\u8A2D\u8A08\u800C\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u6848\u4F8B\u662F\u4EC0\u9EBC",
+            "text": "<p><em>\u6E2C\u8A66\u6848\u4F8B\uFF08test case\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u70BA\u9A57\u8B49\u67D0\u6E2C\u8A66\u689D\u4EF6\u800C\u5EFA\u7ACB\u7684\u4E00\u7D44\u524D\u7F6E\u689D\u4EF6\u3001\u8F38\u5165\u3001\u9810\u671F\u7D50\u679C\u8207\u5F8C\u7F6E\u689D\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u6848\u4F8B\u8B93\u6E2C\u8A66\u689D\u4EF6\u8B8A\u5F97\u5177\u9AD4\u4E14\u53EF\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u5C0D\u6E2C\u8A66\u57FA\u790E\u4E2D\u4E00\u500B\u503C\u5F97\u6E2C\u8A66\u9762\u5411\u7684\u9AD8\u968E\u9673\u8FF0",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u689D\u4EF6\uFF1B\u6E2C\u8A66\u6848\u4F8B\u662F\u7531\u5B83\u63A8\u5C0E\u800C\u4F86\u4E14\u66F4\u5177\u9AD4\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u6574\u9AD4\u7684\u6642\u7A0B\u8207\u8CC7\u6E90\u914D\u7F6E\u6587\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u8A08\u756B\u3002"
+              },
+              {
+                "text": "\u5C08\u6848\u7D50\u675F\u6642\u5C0D\u6E2C\u8A66\u60C5\u6CC1\u7684\u7E3D\u7D50",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u7E3D\u7D50\u5831\u544A\uFF0C\u65BC\u6E2C\u8A66\u5B8C\u6210\u968E\u6BB5\u7522\u751F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u6848\u4F8B\u628A\u6E2C\u8A66\u689D\u4EF6\u8B8A\u6210\u53EF\u57F7\u884C\u7684\u6771\u897F\uFF1A\u5B83\u6307\u5B9A\u524D\u7F6E\u689D\u4EF6\u3001\u8F38\u5165\u3001\u7528\u4EE5\u6BD4\u5C0D\u7684\u9810\u671F\u7D50\u679C\u8207\u5F8C\u7F6E\u689D\u4EF6\u3002\u5B83\u662F\u6E2C\u8A66\u8A2D\u8A08\u7684\u4E3B\u8981\u7522\u7269\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u6848\u4F8B\u5FC5\u9808\u5305\u542B\u4EC0\u9EBC",
+            "text": "<p>\u4E00\u500B\u5B8C\u6574\u7684\u6E2C\u8A66\u6848\u4F8B\u4E2D\uFF0C\u4F55\u8005\u662F\u4E0D\u53EF\u6216\u7F3A\u7684\u8981\u7D20\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7528\u4EE5\u8207\u5BE6\u969B\u7D50\u679C\u6BD4\u5C0D\u7684\u9810\u671F\u7D50\u679C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u8A18\u8F09\u9810\u671F\u7D50\u679C\u5C31\u7121\u6CD5\u5224\u5B9A\u901A\u904E\u6216\u5931\u6557\uFF08\u6B64\u5373\u795E\u8AED\uFF0Foracle \u554F\u984C\uFF09\u3002"
+              },
+              {
+                "text": "\u64B0\u5BEB\u7A0B\u5F0F\u78BC\u4E4B\u958B\u767C\u8005\u7684\u59D3\u540D",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E5F\u8A31\u662F\u6709\u7528\u7684\u4E2D\u7E7C\u8CC7\u6599\uFF0C\u4F46\u4E26\u975E\u6E2C\u8A66\u6848\u4F8B\u4E0D\u53EF\u6216\u7F3A\u7684\u90E8\u5206\u3002"
+              },
+              {
+                "text": "\u4FDD\u8B49\u8A72\u6E2C\u8A66\u4E00\u5B9A\u6703\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u6848\u4F8B\u4E26\u4E0D\u9700\u8981\u4FDD\u8B49\u901A\u904E\uFF1B\u5B83\u5FC5\u9808\u6709\u660E\u78BA\u5B9A\u7FA9\u7684\u9810\u671F\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u6574\u500B\u5C08\u6848\u7684\u7E3D\u9810\u7B97",
+                "fraction": 0,
+                "feedback": "\u9810\u7B97\u662F\u898F\u5283\u5C64\u9762\u7684\u4E8B\uFF0C\u4E0D\u5C6C\u65BC\u6E2C\u8A66\u6848\u4F8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u6848\u4F8B\u6307\u5B9A\u524D\u7F6E\u689D\u4EF6\u3001\u8F38\u5165\u3001\u9810\u671F\u7D50\u679C\u8207\u5F8C\u7F6E\u689D\u4EF6\u3002\u5176\u4E2D\u9810\u671F\u7D50\u679C\u4E0D\u53EF\u6216\u7F3A\uFF1A\u628A\u5BE6\u969B\u7D50\u679C\u8207\u9810\u5148\u5B9A\u7FA9\u7684\u9810\u671F\u7D50\u679C\u6BD4\u5C0D\uFF0C\u6B63\u662F\u80FD\u505A\u51FA\u5224\u5B9A\uFF08\u901A\u904E\uFF0F\u5931\u6557\uFF09\u7684\u95DC\u9375\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9032\u5165\u6E96\u5247",
+            "text": "<p>\u67D0\u6E2C\u8A66\u6D3B\u52D5\u7684<em>\u9032\u5165\u6E96\u5247\uFF08entry criteria\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u8A72\u6D3B\u52D5\u80FD\u5408\u7406\u958B\u59CB\u4E4B\u524D\u5FC5\u9808\u5148\u6EFF\u8DB3\u7684\u689D\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9032\u5165\u6E96\u5247\u628A\u95DC\u6D3B\u52D5\u7684\u300C\u958B\u59CB\u300D\uFF08\u5373\u300C\u5C31\u7DD2\u7684\u5B9A\u7FA9\u300D\uFF09\u3002"
+              },
+              {
+                "text": "\u5728\u6E2C\u8A66\u53EF\u5BA3\u544A\u7D50\u675F\u4E4B\u524D\u5FC5\u9808\u6EFF\u8DB3\u7684\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9000\u51FA\u6E96\u5247\uFF0C\u628A\u95DC\u7684\u662F\u505C\u6B62\u800C\u975E\u958B\u59CB\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u7D50\u675F\u6642\u4ECD\u672A\u89E3\u6C7A\u7684\u7F3A\u9677\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6B98\u9918\u7F3A\u9677\u8CC7\u6599\uFF0C\u4E0D\u662F\u9032\u5165\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u6E2C\u8A66\u6848\u4F8B\u7684\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u6848\u4F8B\u7684\u8F38\u5165\uFF0C\u4E0D\u662F\u67D0\u6D3B\u52D5\u7684\u9032\u5165\u6E96\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u9032\u5165\u6E96\u5247\u754C\u5B9A\u6D3B\u52D5\u958B\u59CB\u524D\u5FC5\u9808\u5230\u4F4D\u7684\u4E8B\u9805\u2014\u2014\u4F8B\u5982\u5DF2\u90E8\u7F72\u7A69\u5B9A\u7248\u672C\u3001\u6E2C\u8A66\u74B0\u5883\u5C31\u7DD2\u3001\u6E2C\u8A66\u8CC7\u6599\u5099\u59A5\u3002\u5B83\u5011\u5728\u6E2C\u8A66\u5BE6\u4F5C\uFF0F\u57F7\u884C\u7684\u958B\u59CB\u6642\u88AB\u6AA2\u67E5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9000\u51FA\u6E96\u5247",
+            "text": "<p>\u6E2C\u8A66\u7684<em>\u9000\u51FA\u6E96\u5247\uFF08exit criteria\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u6E2C\u8A66\u53EF\u8996\u70BA\u5C0D\u65E2\u5B9A\u76EE\u6A19\u5DF2\u5B8C\u6210\u4E4B\u524D\u5FC5\u9808\u6EFF\u8DB3\u7684\u689D\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9000\u51FA\u6E96\u5247\u628A\u95DC\u300C\u505C\u6B62\u300D\uFF08\u6E2C\u8A66\u7684\u300C\u5B8C\u6210\u7684\u5B9A\u7FA9\u300D\uFF09\u3002"
+              },
+              {
+                "text": "\u5728\u6E2C\u8A66\u53EF\u4EE5\u958B\u59CB\u4E4B\u524D\u5FC5\u9808\u6EFF\u8DB3\u7684\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9032\u5165\u6E96\u5247\uFF0C\u628A\u95DC\u7684\u662F\u958B\u59CB\u3002"
+              },
+              {
+                "text": "\u6838\u51C6\u6E2C\u8A66\u8A08\u756B\u7684\u5229\u5BB3\u95DC\u4FC2\u4EBA\u540D\u55AE",
+                "fraction": 0,
+                "feedback": "\u6838\u51C6\u7C3D\u6838\u8207\u9000\u51FA\u6E96\u5247\u4E26\u4E0D\u76F8\u540C\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5206\u6790\u6240\u7522\u51FA\u7684\u4E00\u7D44\u6E2C\u8A66\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5206\u6790\u7684\u7522\u7269\uFF0C\u4E0D\u662F\u9000\u51FA\u6E96\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u9000\u51FA\u6E96\u5247\uFF08\u5B8C\u6210\u6E96\u5247\uFF09\u8AAA\u660E\u6E2C\u8A66\u4F55\u6642\u7B97\u5B8C\u6210\u2014\u2014\u4F8B\u5982\u5DF2\u9054\u6210\u8A08\u756B\u7684\u8986\u84CB\u7387\u3001\u7121\u672A\u89E3\u6C7A\u7684\u9AD8\u56B4\u91CD\u5EA6\u7F3A\u9677\u3001\u6642\u9593\uFF0F\u9810\u7B97\u5DF2\u7528\u76E1\u3002\u5B83\u5011\u5728\u6E2C\u8A66\u76E3\u63A7\u8207\u63A7\u5236\u4EE5\u53CA\u5B8C\u6210\u968E\u6BB5\u88AB\u6AA2\u67E5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u7A0B\u5E8F\u662F\u4EC0\u9EBC",
+            "text": "<p><em>\u6E2C\u8A66\u7A0B\u5E8F\uFF08test procedure\uFF0C\u6E2C\u8A66\u8173\u672C\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4F9D\u57F7\u884C\u9806\u5E8F\u6392\u5217\u7684\u4E00\u9023\u4E32\u52D5\u4F5C\u8207\u6E2C\u8A66\u6848\u4F8B\uFF0C\u4E26\u542B\u6240\u9700\u7684\u524D\u7F6E\u8A2D\u5B9A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u7A0B\u5E8F\u6307\u5B9A\u57F7\u884C\u6B65\u9A5F\u8207\u9806\u5E8F\uFF1B\u5B83\u5728\u6E2C\u8A66\u5BE6\u4F5C\u968E\u6BB5\u5EFA\u7ACB\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u57FA\u790E\u4E2D\u4E00\u500B\u503C\u5F97\u6E2C\u8A66\u7684\u9AD8\u968E\u9762\u5411",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u6574\u9AD4\u6E2C\u8A66\u5DE5\u4F5C\u7684\u76EE\u6A19\u8207\u6642\u7A0B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u8A08\u756B\u3002"
+              },
+              {
+                "text": "\u6709\u591A\u5C11\u6E2C\u8A66\u901A\u904E\u7684\u5831\u544A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u7D50\u679C\uFF0F\u7E3D\u7D50\uFF0C\u4E0D\u662F\u7A0B\u5E8F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u7A0B\u5E8F\u6307\u5B9A\u57F7\u884C\u6E2C\u8A66\u7684\u6B65\u9A5F\u9806\u5E8F\uFF08\u4EE5\u53CA\u4F9D\u57F7\u884C\u9806\u5E8F\u6392\u5217\u7684\u6E2C\u8A66\u6848\u4F8B\uFF09\uFF0C\u542B\u524D\u7F6E\u689D\u4EF6\u8207\u8A2D\u5B9A\u3002\u7522\u51FA\u6E2C\u8A66\u7A0B\u5E8F\u5C6C\u65BC\u6E2C\u8A66\u5BE6\u4F5C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u5957\u7D44\u662F\u4EC0\u9EBC",
+            "text": "<p><em>\u6E2C\u8A66\u5957\u7D44\uFF08test suite\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u628A\u4E00\u6279\u6E2C\u8A66\u6848\u4F8B\u6216\u6E2C\u8A66\u7A0B\u5E8F\u96C6\u7D50\u5728\u4E00\u8D77\u3001\u4F5C\u70BA\u4E00\u7D44\u4F86\u57F7\u884C\u7684\u96C6\u5408",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5957\u7D44\u628A\u76F8\u95DC\u7684\u6E2C\u8A66\u6574\u5408\u8D77\u4F86\u4EE5\u4FBF\u57F7\u884C\u8207\u5831\u544A\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u7D44\u8F38\u5165\uFF0F\u9810\u671F\u7D50\u679C\u914D\u5C0D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B\uFF0C\u800C\u975E\u4E00\u6574\u7D44\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u6240\u63A8\u5C0E\u81EA\u7684\u9700\u6C42\u6587\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u5C6C\u65BC\u6E2C\u8A66\u57FA\u790E\u7684\u4E00\u90E8\u5206\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u91CF\u6E2C\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387\u7684\u5DE5\u5177",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8986\u84CB\u7387\u5DE5\u5177\uFF0C\u4E0D\u662F\u6E2C\u8A66\u5957\u7D44\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u5957\u7D44\u628A\u6E2C\u8A66\u6848\u4F8B\uFF0F\u7A0B\u5E8F\u96C6\u7D50\u8D77\u4F86\u4EE5\u4F9B\u57F7\u884C\uFF08\u4F8B\u5982\u5192\u7159\u5957\u7D44\u6216\u56DE\u6B78\u5957\u7D44\uFF09\u3002\u628A\u6E2C\u8A66\u7D44\u7E54\u6210\u5957\u7D44\u767C\u751F\u5728\u6E2C\u8A66\u5BE6\u4F5C\u968E\u6BB5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7F3A\u9677\u5831\u544A\u662F\u4EC0\u9EBC",
+            "text": "<p><em>\u7F3A\u9677\uFF08\u4E8B\u4EF6\uFF09\u5831\u544A</em>\u4E3B\u8981\u8A18\u9304\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u89C0\u5BDF\u5230\u7684\u7570\u5E38\uFF08\u5BE6\u969B\u884C\u70BA\u8207\u9810\u671F\u884C\u70BA\u4E4B\u9593\u7684\u5DEE\u7570\uFF09\uFF0C\u4EE5\u4FBF\u8ABF\u67E5\u8207\u8FFD\u8E64",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7F3A\u9677\u5831\u544A\u5728\u57F7\u884C\u968E\u6BB5\u8A18\u9304\uFF0C\u4E26\u63A8\u52D5\u7F3A\u9677\u751F\u547D\u9031\u671F\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u7684\u8A08\u756B\u7BC4\u570D\u8207\u6642\u7A0B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u8A08\u756B\u3002"
+              },
+              {
+                "text": "\u8981\u6DB5\u84CB\u7684\u6E2C\u8A66\u689D\u4EF6\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u90A3\u4F86\u81EA\u6E2C\u8A66\u5206\u6790\uFF0C\u4E0D\u662F\u7F3A\u9677\u5831\u544A\u3002"
+              },
+              {
+                "text": "\u4FDD\u8B49\u8EDF\u9AD4\u6BEB\u7121\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u7121\u6CD5\u8B49\u660E\u6C92\u6709\u7F3A\u9677\uFF1B\u7F3A\u9677\u5831\u544A\u8A18\u9304\u7684\u662F\u6240\u767C\u73FE\u7684\u67D0\u500B\u7279\u5B9A\u7570\u5E38\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u57F7\u884C\u6642\u5BE6\u969B\u884C\u70BA\u8207\u9810\u671F\u884C\u70BA\u4E0D\u540C\uFF0C\u6E2C\u8A66\u8005\u6703\u8A18\u9304\u4E00\u4EFD\u7F3A\u9677\u5831\u544A\uFF0C\u63CF\u8FF0\u7570\u5E38\u3001\u5982\u4F55\u91CD\u73FE\u4EE5\u53CA\u5F71\u97FF\u3002\u9019\u555F\u52D5\u4E86\u7F3A\u9677\u751F\u547D\u9031\u671F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E3B\u8981\u6D3B\u52D5\u7684\u6B63\u78BA\u9806\u5E8F",
+            "text": "<p>\u5148\u4E0D\u8A08\u6301\u7E8C\u9032\u884C\u7684\u76E3\u63A7\u8207\u63A7\u5236\u6D3B\u52D5\uFF0C\u4E0B\u5217\u54EA\u500B\u5E8F\u5217\u7D66\u51FA\u57FA\u672C\u6E2C\u8A66\u6D41\u7A0B\u6D3B\u52D5\u7684\u6B63\u78BA\u9806\u5E8F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u898F\u5283\u3001\u5206\u6790\u3001\u8A2D\u8A08\u3001\u5BE6\u4F5C\u3001\u57F7\u884C\u3001\u5B8C\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u6A19\u6E96\u9806\u5E8F\uFF08\u76E3\u63A7\u8207\u63A7\u5236\u5247\u8CAB\u7A7F\u5168\u7A0B\uFF09\u3002"
+              },
+              {
+                "text": "\u898F\u5283\u3001\u8A2D\u8A08\u3001\u5206\u6790\u3001\u57F7\u884C\u3001\u5BE6\u4F5C\u3001\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u5206\u6790\uFF08\u8981\u6E2C\u4EC0\u9EBC\uFF09\u5FC5\u9808\u5148\u65BC\u8A2D\u8A08\uFF08\u5982\u4F55\u6E2C\uFF09\uFF0C\u4E14\u5BE6\u4F5C\u5FC5\u9808\u5148\u65BC\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u5206\u6790\u3001\u898F\u5283\u3001\u8A2D\u8A08\u3001\u57F7\u884C\u3001\u5BE6\u4F5C\u3001\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u898F\u5283\u5728\u6700\u524D\u9762\uFF0C\u4E14\u5BE6\u4F5C\u5148\u65BC\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u898F\u5283\u3001\u5206\u6790\u3001\u8A2D\u8A08\u3001\u57F7\u884C\u3001\u5BE6\u4F5C\u3001\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u5BE6\u4F5C\uFF08\u5EFA\u7ACB\u7A0B\u5E8F\uFF0F\u8CC7\u6599\uFF0F\u74B0\u5883\uFF09\u5148\u65BC\u57F7\u884C\uFF0C\u800C\u975E\u53CD\u904E\u4F86\u3002"
+              }
+            ],
+            "generalFeedback": "\u57FA\u672C\u6E2C\u8A66\u6D41\u7A0B\u70BA\uFF1A\u6E2C\u8A66\u898F\u5283 &#8594; \u6E2C\u8A66\u5206\u6790 &#8594; \u6E2C\u8A66\u8A2D\u8A08 &#8594; \u6E2C\u8A66\u5BE6\u4F5C &#8594; \u6E2C\u8A66\u57F7\u884C &#8594; \u6E2C\u8A66\u5B8C\u6210\uFF0C\u4E26\u4EE5\u6E2C\u8A66\u76E3\u63A7\u8207\u63A7\u5236\u4F5C\u70BA\u8CAB\u7A7F\u5168\u90E8\u7684\u6301\u7E8C\u6027\u6D3B\u52D5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u6D3B\u52D5\u5BE6\u969B\u57F7\u884C\u6E2C\u8A66",
+            "text": "<p>\u5BE6\u969B\u57F7\u884C\u6E2C\u8A66\u3001\u628A\u5BE6\u969B\u7D50\u679C\u8207\u9810\u671F\u7D50\u679C\u6BD4\u5C0D\u3001\u4E26\u8A18\u9304\u7F3A\u9677\uFF0C\u662F\u5728\u4E0B\u5217\u54EA\u500B\u6D3B\u52D5\u9032\u884C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u57F7\u884C\u8CA0\u8CAC\u8DD1\u6E2C\u8A66\u4E26\u8A18\u9304\u7D50\u679C\u8207\u4EFB\u4F55\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u5206\u6790\u8B58\u5225\u6E2C\u8A66\u689D\u4EF6\uFF1B\u5B83\u4E0D\u57F7\u884C\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u8A2D\u8A08",
+                "fraction": 0,
+                "feedback": "\u8A2D\u8A08\u7522\u51FA\u6E2C\u8A66\u6848\u4F8B\uFF1B\u5B83\u4E0D\u57F7\u884C\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u898F\u5283",
+                "fraction": 0,
+                "feedback": "\u898F\u5283\u8A02\u5B9A\u7BC4\u570D\u8207\u65B9\u6CD5\uFF1B\u57F7\u884C\u6E2C\u8A66\u767C\u751F\u5728\u5F88\u5F8C\u9762\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u57F7\u884C\u662F\u628A\u6E2C\u8A66\u5957\u7D44\u8DD1\u8D77\u4F86\u3001\u5C07\u5BE6\u969B\u7D50\u679C\u8207\u9810\u671F\u7D50\u679C\u6BD4\u5C0D\u3001\u628A\u5DEE\u7570\u8A18\u70BA\u7F3A\u9677\uFF0C\u4E26\u9032\u884C\u78BA\u8A8D\uFF0F\u56DE\u6B78\u6E2C\u8A66\u7684\u6D3B\u52D5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u5B8C\u6210\u7684\u76EE\u7684",
+            "text": "<p><em>\u6E2C\u8A66\u5B8C\u6210\uFF08test completion\uFF0C\u6536\u5C3E\uFF09</em>\u7684\u4E3B\u8981\u76EE\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u70BA\u6E2C\u8A66\u6536\u5C3E\u2014\u2014\u5831\u544A\u7D50\u679C\u3001\u5B9A\u7A3F\u4E26\u6B78\u6A94\u6E2C\u8A66\u8CC7\u7522\uFF0C\u4E26\u6C72\u53D6\u7D93\u9A57\u6559\u8A13",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B8C\u6210\u968E\u6BB5\u5F59\u6574\u4E26\u79FB\u4EA4\u6E2C\u8A66\u7684\u6210\u679C\u3002"
+              },
+              {
+                "text": "\u5F9E\u6E2C\u8A66\u57FA\u790E\u8B58\u5225\u51FA\u6E2C\u8A66\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u5206\u6790\uFF0C\u4F4D\u65BC\u6D41\u7A0B\u524D\u6BB5\u3002"
+              },
+              {
+                "text": "\u5BEB\u51FA\u6BCF\u500B\u6E2C\u8A66\u7684\u5177\u9AD4\u8F38\u5165\u8207\u9810\u671F\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u8A2D\u8A08\u3002"
+              },
+              {
+                "text": "\u9996\u6B21\u57F7\u884C\u6E2C\u8A66\u5957\u7D44",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u57F7\u884C\uFF0C\u5148\u65BC\u5B8C\u6210\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u5B8C\u6210\u767C\u751F\u5728\u5230\u9054\u91CC\u7A0B\u7891\u6642\uFF08\u767C\u884C\u3001\u758A\u4EE3\u7D50\u675F\u3001\u5C08\u6848\u6536\u5C3E\uFF09\u3002\u5B83\u8490\u96C6\u8CC7\u6599\u3001\u7522\u51FA\u6E2C\u8A66\u7E3D\u7D50\u5831\u544A\u3001\u5B9A\u7A3F\u4E26\u6B78\u6A94\u6E2C\u8A66\u8CC7\u7522\u3001\u79FB\u4EA4\uFF0C\u4E26\u8A18\u9304\u7D93\u9A57\u6559\u8A13\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u76E3\u63A7\u8207\u63A7\u5236\u662F\u4EC0\u9EBC",
+            "text": "<p><em>\u6E2C\u8A66\u76E3\u63A7\u8207\u63A7\u5236\uFF08test monitoring and control\uFF09</em>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u9805\u6301\u7E8C\u9032\u884C\u7684\u6D3B\u52D5\uFF0C\u5728\u6574\u500B\u6E2C\u8A66\u904E\u7A0B\u4E2D\u628A\u5BE6\u969B\u9032\u5EA6\u8207\u8A08\u756B\u6BD4\u5C0D\u4E26\u63A1\u53D6\u77EF\u6B63\u884C\u52D5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u6301\u7E8C\u9032\u884C\uFF0C\u800C\u975E\u53EA\u505A\u4E00\u6B21\uFF0C\u4E26\u5F15\u5C0E\u6574\u500B\u5DE5\u4F5C\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u5C08\u6848\u6700\u672B\u7AEF\u505A\u4E00\u6B21\u7684\u4E00\u6B21\u6027\u6D3B\u52D5",
+                "fraction": 0,
+                "feedback": "\u90A3\u8F03\u63A5\u8FD1\u5B8C\u6210\u968E\u6BB5\uFF1B\u76E3\u63A7\u8207\u63A7\u5236\u662F\u6301\u7E8C\u9032\u884C\u7684\u3002"
+              },
+              {
+                "text": "\u5F9E\u6E2C\u8A66\u689D\u4EF6\u63A8\u5C0E\u6E2C\u8A66\u6848\u4F8B\u7684\u6D3B\u52D5",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u8A2D\u8A08\u3002"
+              },
+              {
+                "text": "\u9010\u4E00\u8A18\u9304\u6BCF\u500B\u7F3A\u9677\u7684\u6D3B\u52D5",
+                "fraction": 0,
+                "feedback": "\u7F3A\u9677\u5728\u57F7\u884C\u968E\u6BB5\u8A18\u9304\uFF1B\u76E3\u63A7\u5229\u7528\u9019\u4E9B\u8CC7\u6599\u4F86\u5F15\u5C0E\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u76E3\u63A7\u8207\u63A7\u5236\u8CAB\u7A7F\u6574\u500B\u6D41\u7A0B\uFF1A\u76E3\u63A7\u8490\u96C6\u8CC7\u8A0A\uFF08\u9032\u5EA6\u3001\u8986\u84CB\u7387\u3001\u7F3A\u9677\u8CC7\u6599\uFF09\uFF0C\u63A7\u5236\u5247\u7528\u9019\u4E9B\u8CC7\u8A0A\u5F15\u5C0E\u6E2C\u8A66\uFF0C\u4F7F\u9000\u51FA\u6E96\u5247\u5F97\u4EE5\u9054\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5206\u6790\u6C7A\u5B9A\u8981\u6E2C\u4EC0\u9EBC",
+            "text": "<p>\u6E2C\u8A66\u5206\u6790\u85C9\u7531\u5F9E\u6E2C\u8A66\u57FA\u790E\u8B58\u5225\u6E2C\u8A66\u689D\u4EF6\uFF0C\u4F86\u6C7A\u5B9A<em>\u8981\u6E2C\u4EC0\u9EBC</em>\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u6790\u5F9E\u6E2C\u8A66\u57FA\u790E\u8B58\u5225\u4E26\u6392\u5E8F\u6E2C\u8A66\u689D\u4EF6\uFF08\u300C\u8981\u6E2C\u4EC0\u9EBC\u300D\uFF09\uFF1B\u8A2D\u8A08\u300C\u5982\u4F55\u6E2C\u300D\u5247\u5728\u5176\u5F8C\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u771F\uFF1A\u6E2C\u8A66\u5206\u6790\u8B58\u5225\u6E2C\u8A66\u689D\u4EF6\uFF08\u8981\u6E2C\u4EC0\u9EBC\uFF09\uFF1B\u6E2C\u8A66\u8A2D\u8A08\u518D\u7522\u51FA\u6E2C\u8A66\u6848\u4F8B\uFF08\u5982\u4F55\u6E2C\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u5206\u6790\u5206\u6790\u6E2C\u8A66\u57FA\u790E\u4EE5\u6C7A\u5B9A\u8981\u6E2C\u4EC0\u9EBC\uFF0C\u7522\u51FA\u6E2C\u8A66\u689D\u4EF6\u3002\u6E2C\u8A66\u8A2D\u8A08\u518D\u628A\u9019\u4E9B\u689D\u4EF6\u8F49\u6210\u5177\u9AD4\u7684\u6E2C\u8A66\u6848\u4F8B\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u8A2D\u8A08\u4E4B\u524D\u662F\u4EC0\u9EBC",
+            "text": "<p>\u5728\u57FA\u672C\u6E2C\u8A66\u6D41\u7A0B\u4E2D\uFF0C\u54EA\u500B\u6D3B\u52D5\u7DCA\u63A5\u5728\u6E2C\u8A66\u8A2D\u8A08<strong>\u4E4B\u524D</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u5206\u6790",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u6790\u8B58\u5225\u51FA\u6E2C\u8A66\u689D\u4EF6\uFF0C\u8A2D\u8A08\u518D\u628A\u5B83\u5011\u8F49\u6210\u6E2C\u8A66\u6848\u4F8B\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5BE6\u4F5C",
+                "fraction": 0,
+                "feedback": "\u5BE6\u4F5C\u5728\u8A2D\u8A08\u4E4B\u5F8C\uFF0C\u800C\u975E\u4E4B\u524D\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u5728\u5F88\u5F8C\u9762\uFF0C\u4F4D\u65BC\u5BE6\u4F5C\u4E4B\u5F8C\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6210\u662F\u6700\u5F8C\u4E00\u500B\u6D3B\u52D5\uFF0C\u4E0D\u6703\u5728\u8A2D\u8A08\u4E4B\u524D\u3002"
+              }
+            ],
+            "generalFeedback": "\u9806\u5E8F\u70BA \u5206\u6790 &#8594; \u8A2D\u8A08 &#8594; \u5BE6\u4F5C\u3002\u6E2C\u8A66\u8A2D\u8A08\u53D6\u7528\u6E2C\u8A66\u5206\u6790\u6240\u7522\u51FA\u7684\u6E2C\u8A66\u689D\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u8A2D\u8A08\u4E4B\u5F8C\u662F\u4EC0\u9EBC",
+            "text": "<p>\u54EA\u500B\u6D3B\u52D5\u7DCA\u63A5\u5728\u6E2C\u8A66\u8A2D\u8A08<strong>\u4E4B\u5F8C</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u5BE6\u4F5C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u6848\u4F8B\u8A2D\u8A08\u5B8C\u6210\u5F8C\uFF0C\u5BE6\u4F5C\u63A5\u8457\u5EFA\u7ACB\u7A0B\u5E8F\u3001\u5957\u7D44\u3001\u8CC7\u6599\u8207\u74B0\u5883\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u5206\u6790\u5728\u8A2D\u8A08\u4E4B\u524D\uFF0C\u800C\u975E\u4E4B\u5F8C\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u5728\u5BE6\u4F5C\u4E4B\u5F8C\uFF0C\u4E26\u975E\u7DCA\u63A5\u5728\u8A2D\u8A08\u4E4B\u5F8C\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u898F\u5283",
+                "fraction": 0,
+                "feedback": "\u898F\u5283\u662F\u7B2C\u4E00\u500B\u6D3B\u52D5\uFF0C\u4E0D\u6703\u5728\u8A2D\u8A08\u4E4B\u5F8C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u6790 &#8594; \u8A2D\u8A08 &#8594; \u5BE6\u4F5C &#8594; \u57F7\u884C\u3002\u5BE6\u4F5C\u7DCA\u63A5\u5728\u8A2D\u8A08\u4E4B\u5F8C\uFF1A\u5B83\u8B93\u8A2D\u8A08\u597D\u7684\u6E2C\u8A66\u8B8A\u5F97\u53EF\u57F7\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u5BE6\u4F5C\u4E4B\u5F8C\u662F\u4EC0\u9EBC",
+            "text": "<p>\u54EA\u500B\u6D3B\u52D5\u7DCA\u63A5\u5728\u6E2C\u8A66\u5BE6\u4F5C<strong>\u4E4B\u5F8C</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u57F7\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u65E6\u6E2C\u8A66\u8CC7\u7522\u8207\u74B0\u5883\u5C31\u7DD2\u4E14\u9032\u5165\u6E96\u5247\u6EFF\u8DB3\uFF0C\u5373\u57F7\u884C\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u8A2D\u8A08",
+                "fraction": 0,
+                "feedback": "\u8A2D\u8A08\u5728\u5BE6\u4F5C\u4E4B\u524D\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u5206\u6790\u66F4\u65E9\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6210\u5728\u57F7\u884C\u4E4B\u5F8C\uFF0C\u4E26\u975E\u7DCA\u63A5\u5728\u5BE6\u4F5C\u4E4B\u5F8C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5BE6\u4F5C &#8594; \u57F7\u884C\uFF1A\u5BE6\u4F5C\u5B9A\u7A3F\u6E2C\u8A66\u8CC7\u7522\u3001\u8CC7\u6599\u8207\u74B0\u5883\uFF08\u4E26\u6AA2\u67E5\u5C31\u7DD2\uFF0F\u9032\u5165\u6E96\u5247\uFF09\uFF1B\u57F7\u884C\u63A5\u8457\u628A\u6E2C\u8A66\u8DD1\u8D77\u4F86\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F9D\u5DE5\u4F5C\u5167\u5BB9\u6307\u8A8D\u6D3B\u52D5",
+            "text": "<p>\u300C\u5206\u6790\u6E2C\u8A66\u57FA\u790E\u4EE5\u6C7A\u5B9A\u53EF\u6E2C\u8A66\u7684\u529F\u80FD\u4E26\u63A8\u5C0E\u51FA\u6E2C\u8A66\u689D\u4EF6\u3002\u300D\u9019\u63CF\u8FF0\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u5206\u6790",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A55\u4F30\u6E2C\u8A66\u57FA\u790E\u4E26\u7522\u51FA\u6E2C\u8A66\u689D\u4EF6\u6B63\u662F\u6E2C\u8A66\u5206\u6790\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u8A2D\u8A08",
+                "fraction": 0,
+                "feedback": "\u8A2D\u8A08\u628A\u9019\u4E9B\u689D\u4EF6\u8F49\u6210\u6E2C\u8A66\u6848\u4F8B\uFF1B\u5B83\u4E0D\u63A8\u5C0E\u689D\u4EF6\u672C\u8EAB\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u898F\u5283",
+                "fraction": 0,
+                "feedback": "\u898F\u5283\u8A02\u5B9A\u7BC4\u570D\u8207\u65B9\u6CD5\uFF1B\u5B83\u4E0D\u628A\u57FA\u790E\u5206\u6790\u6210\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5BE6\u4F5C",
+                "fraction": 0,
+                "feedback": "\u5BE6\u4F5C\u5EFA\u7ACB\u7A0B\u5E8F\u8207\u8CC7\u6599\uFF1B\u5B83\u4E0D\u63A8\u5C0E\u6E2C\u8A66\u689D\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u5206\u6790\u8A55\u4F30\u6E2C\u8A66\u57FA\u790E\u3001\u8B58\u5225\u53EF\u6E2C\u8A66\u7684\u529F\u80FD\uFF0C\u4E26\u5B9A\u7FA9\u8207\u6392\u5E8F\u6E2C\u8A66\u689D\u4EF6\u2014\u2014\u5373\u300C\u8981\u6E2C\u4EC0\u9EBC\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8A8D\u9032\u5165\u6E96\u5247",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F\u958B\u59CB\u6E2C\u8A66\u57F7\u884C\u7684<strong>\u9032\u5165</strong>\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5DF2\u90E8\u7F72\u7A69\u5B9A\u3001\u53EF\u6E2C\u8A66\u7684\u7248\u672C\uFF0C\u4E14\u6E2C\u8A66\u74B0\u5883\u8207\u6E2C\u8A66\u8CC7\u6599\u7686\u5DF2\u5C31\u7DD2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u4E9B\u5FC5\u9808\u5728\u57F7\u884C\u80FD\u6709\u610F\u7FA9\u5730\u958B\u59CB\u4E4B\u524D\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "\u5DF2\u9054\u6210\u8A08\u756B\u7684\u9700\u6C42\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9000\u51FA\u6E96\u5247\u2014\u2014\u5B83\u63CF\u8FF0\u4F55\u6642\u505C\u6B62\uFF0C\u800C\u975E\u4F55\u6642\u958B\u59CB\u3002"
+              },
+              {
+                "text": "\u5DF2\u7121\u672A\u89E3\u6C7A\u7684\u9AD8\u56B4\u91CD\u5EA6\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9000\u51FA\u6E96\u5247\uFF0C\u7528\u4F86\u5224\u5B9A\u662F\u5426\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u7E3D\u7D50\u5831\u544A\u5DF2\u7C3D\u6838",
+                "fraction": 0,
+                "feedback": "\u90A3\u767C\u751F\u5728\u5B8C\u6210\u968E\u6BB5\uFF0C\u9060\u5728\u57F7\u884C\u958B\u59CB\u4E4B\u5F8C\u3002"
+              }
+            ],
+            "generalFeedback": "\u9032\u5165\u6E96\u5247\u628A\u95DC\u958B\u59CB\uFF1A\u53EF\u90E8\u7F72\u7684\u7248\u672C\u3001\u5C31\u7DD2\u7684\u74B0\u5883\u8207\u5099\u59A5\u7684\u6E2C\u8A66\u8CC7\u6599\u662F\u57F7\u884C\u7684\u5178\u578B\u9032\u5165\u6E96\u5247\u3002\u5DF2\u9054\u8986\u84CB\u7387\u8207\u7121\u672A\u89E3\u6C7A\u9AD8\u56B4\u91CD\u5EA6\u7F3A\u9677\u5247\u5C6C\u9000\u51FA\u6E96\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8A8D\u9000\u51FA\u6E96\u5247",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F\u6E2C\u8A66\u7684<strong>\u9000\u51FA</strong>\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6240\u6709\u8A08\u756B\u7684\u6E2C\u8A66\u6848\u4F8B\u7686\u5DF2\u57F7\u884C\uFF0C\u4E14\u5DF2\u9054\u6210\u8981\u6C42\u7684\u8986\u84CB\u7387\u76EE\u6A19",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u90A3\u662F\u5B8C\u6210\u689D\u4EF6\uFF0C\u7528\u4F86\u5224\u5B9A\u662F\u5426\u53EF\u505C\u6B62\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u74B0\u5883\u5DF2\u5EFA\u7F6E\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u57F7\u884C\u7684\u9032\u5165\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u9700\u6C42\u898F\u683C\u5DF2\u53EF\u53D6\u5F97",
+                "fraction": 0,
+                "feedback": "\u90A3\u8B93\u5206\u6790\uFF0F\u8A2D\u8A08\u5F97\u4EE5\u958B\u59CB\uFF0C\u5C6C\u65BC\u9032\u5165\u5074\u7684\u524D\u7F6E\u689D\u4EF6\uFF0C\u4E0D\u662F\u9000\u51FA\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u8CC7\u6599\u5DF2\u5099\u59A5",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9032\u5165\u5074\u7684\u5C31\u7DD2\u689D\u4EF6\uFF0C\u4E0D\u662F\u9000\u51FA\u6E96\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u9000\u51FA\uFF08\u5B8C\u6210\uFF09\u6E96\u5247\u63CF\u8FF0\u6E2C\u8A66\u4F55\u6642\u7B97\u5B8C\u6210\uFF1A\u4F8B\u5982\u8A08\u756B\u6E2C\u8A66\u5DF2\u57F7\u884C\u3001\u8986\u84CB\u7387\u76EE\u6A19\u9054\u6210\u3001\u7F3A\u9677\u6C34\u6E96\u53EF\u63A5\u53D7\u3001\u6642\u9593\uFF0F\u9810\u7B97\u5DF2\u7528\u76E1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63A8\u5C0E\u93C8",
+            "text": "<p>\u586B\u5165\u63A8\u5C0E\u93C8\u7684\u7A7A\u683C\uFF1A<em>\u6E2C\u8A66\u57FA\u790E &#8594; ______ &#8594; \u6E2C\u8A66\u6848\u4F8B</em>\u3002</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u689D\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u6790\u5F9E\u57FA\u790E\u63A8\u5C0E\u6E2C\u8A66\u689D\u4EF6\uFF0C\u8A2D\u8A08\u518D\u5F9E\u689D\u4EF6\u63A8\u5C0E\u6E2C\u8A66\u6848\u4F8B\u3002"
+              },
+              {
+                "text": "\u7F3A\u9677\u5831\u544A",
+                "fraction": 0,
+                "feedback": "\u7F3A\u9677\u5831\u544A\u4F86\u81EA\u57F7\u884C\uFF0C\u4E0D\u5728\u57FA\u790E\u8207\u6E2C\u8A66\u6848\u4F8B\u4E4B\u9593\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5957\u7D44",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u5957\u7D44\u5728\u5BE6\u4F5C\u968E\u6BB5\u628A\u6848\u4F8B\u96C6\u7D50\u8D77\u4F86\uFF1B\u5B83\u4E0D\u662F\u57FA\u790E\u5230\u6848\u4F8B\u4E4B\u9593\u7684\u6B65\u9A5F\u3002"
+              },
+              {
+                "text": "\u9000\u51FA\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u9000\u51FA\u6E96\u5247\u662F\u5B8C\u6210\u689D\u4EF6\uFF0C\u4E0D\u662F\u63A8\u5C0E\u6B65\u9A5F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D41\u7A0B\u70BA \u6E2C\u8A66\u57FA\u790E &#8594; \u6E2C\u8A66\u689D\u4EF6\uFF08\u5206\u6790\uFF09&#8594; \u6E2C\u8A66\u6848\u4F8B\uFF08\u8A2D\u8A08\uFF09&#8594; \u6E2C\u8A66\u7A0B\u5E8F\uFF0F\u5957\u7D44\uFF08\u5BE6\u4F5C\uFF09&#8594; \u57F7\u884C &#8594; \u7F3A\u9677 &#8594; \u6536\u5C3E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u78BA\u8A8D\u6E2C\u8A66",
+            "text": "<p>\u958B\u767C\u8005\u4FEE\u597D\u4E86\u56DE\u5831\u7684\u7F3A\u9677\u4E4B\u5F8C\uFF0C<em>\u78BA\u8A8D\u6E2C\u8A66\uFF08confirmation\uFF0Fre-test\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u91CD\u65B0\u57F7\u884C\u539F\u672C\u5931\u6557\u7684\u90A3\u500B\u6E2C\u8A66\uFF0C\u4EE5\u78BA\u8A8D\u7F3A\u9677\u78BA\u5DF2\u4FEE\u5FA9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u78BA\u8A8D\u6E2C\u8A66\u9A57\u8B49\u7684\u662F\u90A3\u500B\u7279\u5B9A\u4FEE\u5FA9\u3002"
+              },
+              {
+                "text": "\u57F7\u884C\u4E00\u5927\u6279\u5176\u4ED6\u6E2C\u8A66\uFF0C\u4EE5\u6AA2\u67E5\u662F\u5426\u6709\u5225\u8655\u88AB\u5F04\u58DE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u56DE\u6B78\u6E2C\u8A66\uFF0C\u76EE\u7684\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "\u5F9E\u9700\u6C42\u64B0\u5BEB\u4E00\u689D\u65B0\u7684\u6E2C\u8A66\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u5206\u6790\uFF0C\u8207\u78BA\u8A8D\u4FEE\u5FA9\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u5BE9\u67E5\u9700\u6C42\u6587\u4EF6\u4EE5\u627E\u51FA\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C0D\u5DE5\u4F5C\u7522\u7269\u7684\u975C\u614B\u9A57\u8B49\uFF0C\u4E0D\u662F\u5C0D\u4FEE\u5FA9\u7684\u78BA\u8A8D\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u78BA\u8A8D\u6E2C\u8A66\uFF08re-test\uFF09\u5728\u4FEE\u5FA9\u4EA4\u4ED8\u5F8C\u91CD\u8DD1\u5148\u524D\u5931\u6557\u7684\u6E2C\u8A66\uFF0C\u4EE5\u78BA\u8A8D\u539F\u7F3A\u9677\u5DF2\u88AB\u6392\u9664\u3002\u56DE\u6B78\u6E2C\u8A66\u5247\u53E6\u5916\u6AA2\u67E5\u8A72\u8B8A\u66F4\u6C92\u6709\u5F04\u58DE\u5176\u4ED6\u5730\u65B9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DE\u6B78\u6E2C\u8A66",
+            "text": "<p><em>\u56DE\u6B78\u6E2C\u8A66\uFF08regression testing\uFF09</em>\u7684\u76EE\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5075\u6E2C\u67D0\u9805\u8B8A\u66F4\u662F\u5426\u5F04\u58DE\u4E86\u5148\u524D\u6B63\u5E38\u904B\u4F5C\u7684\u529F\u80FD",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56DE\u6B78\u6E2C\u8A66\u9632\u7BC4\u8B8A\u66F4\u5E36\u4F86\u7684\u975E\u9810\u671F\u526F\u4F5C\u7528\u3002"
+              },
+              {
+                "text": "\u78BA\u8A8D\u67D0\u500B\u56DE\u5831\u7684\u7F3A\u9677\u5DF2\u88AB\u4FEE\u5FA9",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u78BA\u8A8D\u6E2C\u8A66\uFF08re-test\uFF09\uFF0C\u4E0D\u662F\u56DE\u6B78\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6C7A\u5B9A\u8981\u6DB5\u84CB\u54EA\u4E9B\u6E2C\u8A66\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u5206\u6790\u3002"
+              },
+              {
+                "text": "\u5EFA\u7F6E\u6E2C\u8A66\u74B0\u5883",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u5BE6\u4F5C\u7684\u4E00\u90E8\u5206\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B8A\u66F4\uFF08\u4FEE\u5FA9\u6216\u65B0\u529F\u80FD\uFF09\u53EF\u80FD\u6709\u526F\u4F5C\u7528\u3002\u56DE\u6B78\u6E2C\u8A66\u5728\u672A\u8B8A\u52D5\u7684\u5340\u57DF\u91CD\u8DD1\u65E2\u6709\u6E2C\u8A66\u4EE5\u5075\u6E2C\u9019\u985E\u975E\u9810\u671F\u7684\u7834\u58DE\uFF0C\u800C\u78BA\u8A8D\u6E2C\u8A66\u9A57\u8B49\u7684\u662F\u9810\u671F\u4E2D\u7684\u4FEE\u5FA9\u672C\u8EAB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53EF\u8FFD\u6EAF\u6027\u7684\u76EE\u7684",
+            "text": "<p>\u7DAD\u8B77\u5F9E\u6E2C\u8A66\u57FA\u790E\u9805\u76EE\u5230\u6E2C\u8A66\u689D\u4EF6\u3001\u6E2C\u8A66\u6848\u4F8B\u8207\u7D50\u679C\u7684<em>\u53EF\u8FFD\u6EAF\u6027\uFF08traceability\uFF09</em>\uFF0C\u4E3B\u8981\u80FD\u8B93\u4F60\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u91CF\u6E2C\u5C0D\u6E2C\u8A66\u57FA\u790E\u7684\u8986\u84CB\u7A0B\u5EA6\uFF0C\u4E26\u8A55\u4F30\u8B8A\u66F4\u7684\u5F71\u97FF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u8FFD\u6EAF\u6027\u986F\u793A\u54EA\u4E9B\u9700\u6C42\u88AB\u6DB5\u84CB\uFF0C\u4EE5\u53CA\u67D0\u8655\u8B8A\u66F4\u6642\u9700\u91CD\u6E2C\u4EC0\u9EBC\u3002"
+              },
+              {
+                "text": "\u4FDD\u8B49\u8EDF\u9AD4\u4E0D\u542B\u4EFB\u4F55\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u518D\u591A\u7684\u8FFD\u6EAF\u4E5F\u7121\u6CD5\u8B49\u660E\u6C92\u6709\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u514D\u9664\u8A2D\u5B9A\u9000\u51FA\u6E96\u5247\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u53EF\u8FFD\u6EAF\u6027\u652F\u63F4\u8A55\u4F30\u9000\u51FA\u6E96\u5247\uFF1B\u5B83\u4E0D\u53D6\u4EE3\u9000\u51FA\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u52A0\u5FEB\u7DE8\u8B6F\u5668\u901F\u5EA6",
+                "fraction": 0,
+                "feedback": "\u53EF\u8FFD\u6EAF\u6027\u95DC\u4E4E\u4E32\u9023\u5DE5\u4F5C\u7522\u7269\uFF0C\u8207\u5EFA\u7F6E\u6548\u80FD\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u96D9\u5411\u53EF\u8FFD\u6EAF\u6027\u4E32\u9023 \u9700\u6C42\uFF0F\u6E2C\u8A66\u57FA\u790E &#8596; \u6E2C\u8A66\u689D\u4EF6 &#8596; \u6E2C\u8A66\u6848\u4F8B &#8596; \u7D50\u679C\uFF0F\u7F3A\u9677\u3002\u5B83\u652F\u63F4\u8986\u84CB\u7387\u91CF\u6E2C\u3001\u8B8A\u66F4\u7684\u5F71\u97FF\u5206\u6790\uFF0C\u4EE5\u53CA\u6709\u610F\u7FA9\u7684\u9032\u5EA6\u5831\u544A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7F3A\u9677\u4FEE\u5FA9\u4E4B\u5F8C",
+            "text": "<p>\u5728\u5178\u578B\u7684\u7F3A\u9677\u751F\u547D\u9031\u671F\u4E2D\uFF0C\u958B\u767C\u8005\u628A\u7F3A\u9677\u6A19\u8A18\u70BA<em>\u5DF2\u4FEE\u5FA9\uFF0F\u5DF2\u89E3\u6C7A</em>\u4E4B\u5F8C\uFF0C\u6E2C\u8A66\u8005\u7DCA\u63A5\u8457\u61C9\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u91CD\u6E2C\uFF08\u78BA\u8A8D\u6E2C\u8A66\uFF09\u8A72\u4FEE\u5FA9\uFF0C\u82E5\u901A\u904E\u5247\u628A\u7F3A\u9677\u63A8\u5411\u95DC\u9589",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4FEE\u5FA9\u5FC5\u9808\u5148\u7D93\u78BA\u8A8D\uFF0C\u7F3A\u9677\u624D\u80FD\u95DC\u9589\u3002"
+              },
+              {
+                "text": "\u4E0D\u91CD\u8DD1\u4EFB\u4F55\u6E2C\u8A66\u5C31\u7ACB\u523B\u95DC\u9589\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u4FEE\u5FA9\u61C9\u5148\u7D93\u91CD\u6E2C\u78BA\u8A8D\u518D\u95DC\u9589\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u8A72\u7F3A\u9677\u5831\u544A",
+                "fraction": 0,
+                "feedback": "\u5831\u544A\u6703\u4FDD\u7559\u4EE5\u4F9B\u6B77\u53F2\u8207\u5EA6\u91CF\u4E4B\u7528\uFF0C\u4E0D\u6703\u88AB\u522A\u9664\u3002"
+              },
+              {
+                "text": "\u628A\u5B83\u6539\u6D3E\u7D66\u9700\u6C42\u64B0\u5BEB\u8005",
+                "fraction": 0,
+                "feedback": "\u5DF2\u89E3\u6C7A\u7684\u7F3A\u9677\u4EA4\u56DE\u6E2C\u8A66\u8005\u505A\u78BA\u8A8D\uFF0C\u800C\u975E\u9000\u56DE\u9700\u6C42\u7AEF\u3002"
+              }
+            ],
+            "generalFeedback": "\u5E38\u898B\u7684\u751F\u547D\u9031\u671F\u70BA \u65B0\u589E &#8594; \u5DF2\u6307\u6D3E &#8594; \u5DF2\u4FEE\u5FA9 &#8594; \u91CD\u6E2C\uFF08\u78BA\u8A8D\uFF09&#8594; \u95DC\u9589\uFF0C\u82E5\u91CD\u6E2C\u5931\u6557\u5247\u6709\u91CD\u65B0\u958B\u555F\u7684\u8DEF\u5F91\u3002\u6E2C\u8A66\u8005\u5728\u95DC\u9589\u524D\u5148\u78BA\u8A8D\u4FEE\u5FA9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7F3A\u9677\u7684\u8D77\u59CB\u72C0\u614B",
+            "text": "<p>\u7576\u6E2C\u8A66\u8005\u5728\u57F7\u884C\u6642\u9996\u6B21\u8A18\u9304\u4E00\u9805\u7570\u5E38\uFF0C\u8A72\u7F3A\u9677\u901A\u5E38\u9032\u5165\u54EA\u500B\u72C0\u614B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u65B0\u589E\uFF08\u958B\u555F\uFF09\uFF0C\u7B49\u5F85\u5206\u6D41\uFF0F\u6307\u6D3E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u525B\u56DE\u5831\u7684\u7F3A\u9677\u5728\u88AB\u6307\u6D3E\u4E4B\u524D\u5148\u70BA\u65B0\u589E\uFF0F\u958B\u555F\u3002"
+              },
+              {
+                "text": "\u5DF2\u95DC\u9589",
+                "fraction": 0,
+                "feedback": "\u95DC\u9589\u662F\u7D50\u675F\u72C0\u614B\uFF0C\u65BC\u4FEE\u5FA9\u7D93\u78BA\u8A8D\u5F8C\u624D\u9054\u5230\u3002"
+              },
+              {
+                "text": "\u5DF2\u4FEE\u5FA9",
+                "fraction": 0,
+                "feedback": "\u5DF2\u4FEE\u5FA9\u767C\u751F\u5728\u958B\u767C\u8005\u89E3\u6C7A\u4E4B\u5F8C\uFF0C\u800C\u975E\u9996\u6B21\u56DE\u5831\u6642\u3002"
+              },
+              {
+                "text": "\u91CD\u6E2C\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u90A3\u53EA\u5728\u4FEE\u5FA9\u7D93\u78BA\u8A8D\u4E4B\u5F8C\u624D\u6703\u51FA\u73FE\u3002"
+              }
+            ],
+            "generalFeedback": "\u751F\u547D\u9031\u671F\u901A\u5E38\u59CB\u65BC \u65B0\u589E\uFF0F\u958B\u555F &#8594; \u5DF2\u6307\u6D3E &#8594; \u8655\u7406\u4E2D &#8594; \u5DF2\u4FEE\u5FA9 &#8594; \u91CD\u6E2C &#8594; \u95DC\u9589\uFF08\u4E26\u6709\u91CD\u65B0\u958B\u555F\uFF0F\u9000\u56DE\uFF0F\u5EF6\u5F8C\u7B49\u5206\u652F\uFF09\u3002\u525B\u8A18\u9304\u7684\u7F3A\u9677\u70BA\u65B0\u589E\uFF0F\u958B\u555F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7522\u51FA\u7A0B\u5E8F\u4E26\u6AA2\u67E5\u5C31\u7DD2\u7684\u6D3B\u52D5",
+            "text": "<p>\u5EFA\u7ACB\u6E2C\u8A66\u7A0B\u5E8F\u8207\u5957\u7D44\u3001\u6E96\u5099\u6E2C\u8A66\u8CC7\u6599\u8207\u74B0\u5883\uFF0C\u4E26\u6AA2\u67E5\u9032\u5165\u6E96\u5247\uFF0F\u5C31\u7DD2\u662F\u5426\u6EFF\u8DB3\uFF0C\u5C6C\u65BC\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u5BE6\u4F5C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BE6\u4F5C\u8B93\u8A2D\u8A08\u597D\u7684\u6E2C\u8A66\u8B8A\u5F97\u53EF\u57F7\u884C\uFF0C\u4E26\u78BA\u8A8D\u4E00\u5207\u5DF2\u5099\u59A5\u53EF\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u8A2D\u8A08",
+                "fraction": 0,
+                "feedback": "\u8A2D\u8A08\u7522\u51FA\u6E2C\u8A66\u6848\u4F8B\uFF1B\u7D44\u7E54\u7A0B\u5E8F\uFF0F\u8CC7\u6599\uFF0F\u74B0\u5883\u5C6C\u65BC\u5BE6\u4F5C\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u628A\u6E2C\u8A66\u8DD1\u8D77\u4F86\uFF1B\u6E2C\u8A66\u8CC7\u7522\u8207\u74B0\u5883\u7684\u6E96\u5099\u5148\u65BC\u5B83\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6210\u5728\u57F7\u884C\u4E4B\u5F8C\u6536\u5C3E\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u5BE6\u4F5C\u70BA\u57F7\u884C\u800C\u7D44\u7E54\u6E2C\u8A66\u8CC7\u7522\uFF1A\u5B83\u5EFA\u7ACB\uFF0F\u5B9A\u7A3F\u6E2C\u8A66\u7A0B\u5E8F\u8207\u5957\u7D44\u3001\u6E96\u5099\u6E2C\u8A66\u8CC7\u6599\u8207\u74B0\u5883\uFF0C\u4E26\u5728\u57F7\u884C\u958B\u59CB\u524D\u78BA\u8A8D\u5C31\u7DD2\uFF08\u9032\u5165\u6E96\u5247\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F9E\u689D\u4EF6\u5EFA\u7ACB\u6E2C\u8A66\u6848\u4F8B\u7684\u6D3B\u52D5",
+            "text": "<p>\u628A\u6E2C\u8A66\u689D\u4EF6\u8F49\u6210\u5177\u9AD4\u7684\u6E2C\u8A66\u6848\u4F8B\uFF08\u542B\u8F38\u5165\u8207\u9810\u671F\u7D50\u679C\uFF09\u662F\u54EA\u500B\u6D3B\u52D5\u7684\u5DE5\u4F5C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u8A2D\u8A08",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A2D\u8A08\u628A\u6E2C\u8A66\u689D\u4EF6\u7D30\u5316\u70BA\u53EF\u57F7\u884C\u7684\u6E2C\u8A66\u6848\u4F8B\uFF1B\u5373\u300C\u5982\u4F55\u6E2C\u300D\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u5206\u6790\u7522\u51FA\u6E2C\u8A66\u689D\u4EF6\uFF1B\u8A2D\u8A08\u518D\u628A\u5B83\u5011\u8F49\u6210\u6E2C\u8A66\u6848\u4F8B\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5BE6\u4F5C",
+                "fraction": 0,
+                "feedback": "\u5BE6\u4F5C\u628A\u6848\u4F8B\u6392\u5E8F\u4E26\u7D44\u7E54\u8D77\u4F86\uFF1B\u5B83\u4E0D\u662F\u5148\u5F9E\u689D\u4EF6\u5EFA\u7ACB\u6848\u4F8B\u7684\u4E00\u6B65\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u76E3\u63A7\u8207\u63A7\u5236",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5F15\u5C0E\u6574\u9AD4\u5DE5\u4F5C\uFF1B\u5B83\u4E0D\u8A2D\u8A08\u6E2C\u8A66\u6848\u4F8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u8A2D\u8A08\u53D6\u7528\u5206\u6790\u7522\u51FA\u7684\u6E2C\u8A66\u689D\u4EF6\uFF0C\u8A2D\u8A08\u51FA\u6E2C\u8A66\u6848\u4F8B\u8207\u6848\u4F8B\u96C6\uFF08\u8F38\u5165\u3001\u9810\u671F\u7D50\u679C\u3001\u8986\u84CB\u9805\u76EE\uFF09\u2014\u2014\u5373\u300C\u5982\u4F55\u6E2C\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u4FEE\u5FA9\u524D\u7684\u78BA\u8A8D",
+            "text": "<p>\u78BA\u8A8D\u6E2C\u8A66\u901A\u5E38\u5728\u7F3A\u9677\u88AB\u4FEE\u5FA9<em>\u4E4B\u524D</em>\u9032\u884C\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u78BA\u8A8D\u6E2C\u8A66\u5728\u4FEE\u5FA9\u91CD\u8DD1\u5931\u6557\u7684\u6E2C\u8A66\uFF0C\u4EE5\u78BA\u8A8D\u7F3A\u9677\u5DF2\u6D88\u9664\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u5047\uFF1A\u5728\u4FEE\u5FA9\u5B8C\u6210\u524D\u7121\u5F9E\u78BA\u8A8D\uFF1B\u78BA\u8A8D\u6E2C\u8A66\u5728\u4FEE\u5FA9\u4E4B\u5F8C\u9032\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u78BA\u8A8D\u6E2C\u8A66\uFF08re-test\uFF09\u5728\u4FEE\u5FA9\u4EA4\u4ED8\u5F8C\u624D\u505A\uFF0C\u91CD\u8DD1\u5148\u524D\u5931\u6557\u7684\u6E2C\u8A66\u4EE5\u78BA\u8A8D\u7F3A\u9677\u5DF2\u89E3\u6C7A\u3002"
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u628A\u6253\u4E82\u7684\u6D41\u7A0B\u91CD\u65B0\u6392\u5E8F",
+            "text": "<p>\u67D0\u540C\u4E8B\u628A\u5FAA\u5E8F\u9032\u884C\u7684\u6D3B\u52D5\u6253\u4E82\u5217\u6210\uFF1A<em>\u57F7\u884C\u3001\u898F\u5283\u3001\u8A2D\u8A08\u3001\u5B8C\u6210\u3001\u5BE6\u4F5C\u3001\u5206\u6790</em>\u3002\u8ACB\u628A\u5B83\u5011\u6392\u56DE\u6B63\u78BA\u9806\u5E8F\u3002</p>",
+            "answers": [
+              {
+                "text": "\u898F\u5283\u3001\u5206\u6790\u3001\u8A2D\u8A08\u3001\u5BE6\u4F5C\u3001\u57F7\u884C\u3001\u5B8C\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u57FA\u672C\u6E2C\u8A66\u6D41\u7A0B\u7684\u6A19\u6E96\u5FAA\u5E8F\u9806\u5E8F\u3002"
+              },
+              {
+                "text": "\u898F\u5283\u3001\u5206\u6790\u3001\u8A2D\u8A08\u3001\u57F7\u884C\u3001\u5BE6\u4F5C\u3001\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u5BE6\u4F5C\u5FC5\u9808\u5148\u65BC\u57F7\u884C\u2014\u2014\u6E2C\u8A66\u8CC7\u7522\u8207\u74B0\u5883\u5C31\u7DD2\u524D\u7121\u6CD5\u8DD1\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u898F\u5283\u3001\u8A2D\u8A08\u3001\u5206\u6790\u3001\u5BE6\u4F5C\u3001\u57F7\u884C\u3001\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u5206\u6790\uFF08\u8981\u6E2C\u4EC0\u9EBC\uFF09\u5FC5\u9808\u5728\u8A2D\u8A08\uFF08\u5982\u4F55\u6E2C\uFF09\u4E4B\u524D\u3002"
+              },
+              {
+                "text": "\u5206\u6790\u3001\u898F\u5283\u3001\u8A2D\u8A08\u3001\u5BE6\u4F5C\u3001\u57F7\u884C\u3001\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u898F\u5283\u662F\u7B2C\u4E00\u500B\u6D3B\u52D5\uFF0C\u5728\u5206\u6790\u4E4B\u524D\u3002"
+              }
+            ],
+            "generalFeedback": "\u5FAA\u5E8F\u800C\u8A00\uFF1A\u898F\u5283 &#8594; \u5206\u6790 &#8594; \u8A2D\u8A08 &#8594; \u5BE6\u4F5C &#8594; \u57F7\u884C &#8594; \u5B8C\u6210\uFF08\u76E3\u63A7\u8207\u63A7\u5236\u8CAB\u7A7F\u5168\u7A0B\uFF09\u3002\u6CE8\u610F\u5169\u500B\u5E38\u898B\u9677\u9631\uFF1A\u5206\u6790\u5148\u65BC\u8A2D\u8A08\u3001\u5BE6\u4F5C\u5148\u65BC\u57F7\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9000\u51FA\u6E96\u5247\u70BA\u4F55\u91CD\u8981",
+            "text": "<p>\u70BA\u4F55\u8B70\u5B9A\u7684<em>\u9000\u51FA\u6E96\u5247</em>\u5C0D\u6E2C\u8A66\u6D41\u7A0B\u5F88\u91CD\u8981\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5011\u63D0\u4F9B\u5BA2\u89C0\u3001\u7D93\u8B70\u5B9A\u7684\u4F9D\u64DA\u4F86\u5224\u5B9A\u4F55\u6642\u505C\u6B62\u6E2C\u8A66\uFF0C\u800C\u975E\u96A8\u610F\u505C\u6B62",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u53EF\u80FD\u6C38\u7121\u6B62\u5883\uFF0C\u56E0\u6B64\u9000\u51FA\u6E96\u5247\u9810\u5148\u754C\u5B9A\u300C\u5B8C\u6210\u300D\u3002"
+              },
+              {
+                "text": "\u4E00\u65E6\u6EFF\u8DB3\uFF0C\u5C31\u4FDD\u8B49\u7522\u54C1\u5B8C\u5168\u6C92\u6709\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6EFF\u8DB3\u9000\u51FA\u6E96\u5247\u6C38\u9060\u7121\u6CD5\u8B49\u660E\u6C92\u6709\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u514D\u9664\u4E86\u898F\u5283\u6216\u76E3\u63A7\u6E2C\u8A66\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u9000\u51FA\u6E96\u5247\u5728\u898F\u5283\u6642\u8A02\u5B9A\u3001\u5728\u76E3\u63A7\u8207\u63A7\u5236\u6642\u8A55\u4F30\uFF1B\u5B83\u5011\u4E0D\u53D6\u4EE3\u9019\u4E9B\u6D3B\u52D5\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u6C7A\u5B9A\u8981\u5F9E\u57FA\u790E\u63A8\u5C0E\u54EA\u4E9B\u6E2C\u8A66\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u5206\u6790\uFF0C\u8207\u505C\u6B62\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u7AAE\u76E1\u6E2C\u8A66\u4E0D\u53EF\u80FD\uFF0C\u9000\u51FA\uFF08\u5B8C\u6210\uFF09\u6E96\u5247\u63D0\u4F9B\u4E00\u500B\u7D93\u8B70\u5B9A\u3001\u53EF\u8861\u91CF\u7684\u4F9D\u64DA\u4F86\u5224\u5B9A\u6E2C\u8A66\u5DF2\u505A\u8DB3\uFF0C\u652F\u63F4\u7406\u6027\u7684\u505C\u6B62\uFF0F\u7E7C\u7E8C\u6C7A\u7B56\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9000\u51FA\u6E96\u5247\u8A72\u5305\u542B\u4EC0\u9EBC",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005<strong>\u6700\u4E0D</strong>\u9069\u5408\u4F5C\u70BA\u6E2C\u8A66\u7684\u9000\u51FA\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u74B0\u5883\u5DF2\u5B89\u88DD\u5B8C\u6210\u3001\u7248\u672C\u5DF2\u90E8\u7F72",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u90A3\u662F\u9032\u5165\uFF0F\u5C31\u7DD2\u689D\u4EF6\uFF1B\u5B83\u4E26\u672A\u8AAA\u660E\u6E2C\u8A66\u662F\u5426\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "\u5DF2\u9054\u6210\u8A08\u756B\u7684\u8986\u84CB\u7387\u76EE\u6A19",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6B63\u7576\u7684\u9000\u51FA\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u6B98\u9918\u7F3A\u9677\u7387\u5728\u8B70\u5B9A\u7684\u9580\u6ABB\u4E4B\u5167",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6B63\u7576\u7684\u9000\u51FA\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u5206\u914D\u7684\u6E2C\u8A66\u6642\u9593\uFF0F\u9810\u7B97\u5DF2\u7528\u76E1",
+                "fraction": 0,
+                "feedback": "\u6642\u9593\uFF0F\u9810\u7B97\u662F\u5E38\u7528\uFF08\u96D6\u8F03\u7C97\u7565\uFF09\u7684\u9000\u51FA\u6E96\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u9000\u51FA\u6E96\u5247\u63CF\u8FF0\u5B8C\u6210\u2014\u2014\u8986\u84CB\u7387\u9054\u6210\u3001\u7F3A\u9677\u6C34\u6E96\u53EF\u63A5\u53D7\u3001\u6642\u9593\uFF0F\u9810\u7B97\u7528\u76E1\u3002\u300C\u74B0\u5883\u5DF2\u5B89\u88DD\uFF0F\u7248\u672C\u5DF2\u90E8\u7F72\u300D\u662F\u9032\u5165\u5074\u7684\u5C31\u7DD2\u689D\u4EF6\uFF0C\u800C\u975E\u6E2C\u8A66\u662F\u5426\u5B8C\u6210\u7684\u8861\u91CF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8AB0\u7522\u51FA\u6E2C\u8A66\u7E3D\u7D50\u5831\u544A",
+            "text": "<p><em>\u6E2C\u8A66\u7E3D\u7D50\u5831\u544A\uFF08test summary report\uFF09</em>\u662F\u4F5C\u70BA\u54EA\u500B\u6D3B\u52D5\u7684\u4E00\u90E8\u5206\u800C\u7522\u51FA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u5B8C\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7E3D\u7D50\u5831\u544A\u662F\u5B8C\u6210\u968E\u6BB5\u7684\u7522\u7269\uFF0C\u5F59\u6574\u6E2C\u8A66\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u898F\u5283",
+                "fraction": 0,
+                "feedback": "\u898F\u5283\u7522\u51FA\u6E2C\u8A66\u8A08\u756B\uFF0C\u4E0D\u662F\u7E3D\u7D50\u5831\u544A\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u5206\u6790\u7522\u51FA\u6E2C\u8A66\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u7522\u51FA\u65E5\u8A8C\u8207\u7F3A\u9677\u5831\u544A\uFF1B\u5F59\u6574\u7684\u7E3D\u7D50\u5831\u544A\u5728\u5B8C\u6210\u968E\u6BB5\u64B0\u5BEB\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u5B8C\u6210\u8490\u96C6\u5404\u5DF2\u7D50\u675F\u6D3B\u52D5\u7684\u8CC7\u6599\uFF0C\u70BA\u5229\u5BB3\u95DC\u4FC2\u4EBA\u7522\u51FA\u6E2C\u8A66\u7E3D\u7D50\u5831\u544A\uFF0C\u4E26\u540C\u6642\u6B78\u6A94\u6E2C\u8A66\u8CC7\u7522\u8207\u6C72\u53D6\u7D93\u9A57\u6559\u8A13\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u5206\u6790\u7684\u5DE5\u4F5C\u7522\u7269",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F<em>\u6E2C\u8A66\u5206\u6790</em>\u7684\u4E3B\u8981\u8F38\u51FA\u5DE5\u4F5C\u7522\u7269\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\uFF08\u7D93\u6392\u5E8F\u7684\uFF09\u6E2C\u8A66\u689D\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u6790\u8A55\u4F30\u57FA\u790E\u4E26\u7522\u51FA\u6E2C\u8A66\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u542B\u5177\u9AD4\u8F38\u5165\u8207\u9810\u671F\u7D50\u679C\u7684\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u8A2D\u8A08\u7684\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u53EF\u4F9B\u57F7\u884C\u7684\u6E2C\u8A66\u7A0B\u5E8F\u8207\u5957\u7D44",
+                "fraction": 0,
+                "feedback": "\u90A3\u4F86\u81EA\u6E2C\u8A66\u5BE6\u4F5C\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u7E3D\u7D50\u5831\u544A",
+                "fraction": 0,
+                "feedback": "\u90A3\u4F86\u81EA\u6E2C\u8A66\u5B8C\u6210\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u6D3B\u52D5\u6709\u5176\u7279\u5FB5\u6027\u7684\u5DE5\u4F5C\u7522\u7269\uFF1A\u5206\u6790 &#8594; \u6E2C\u8A66\u689D\u4EF6\uFF1B\u8A2D\u8A08 &#8594; \u6E2C\u8A66\u6848\u4F8B\uFF1B\u5BE6\u4F5C &#8594; \u6E2C\u8A66\u7A0B\u5E8F\uFF0F\u5957\u7D44\u3001\u8CC7\u6599\u3001\u74B0\u5883\uFF1B\u57F7\u884C &#8594; \u7D50\u679C\uFF0F\u7F3A\u9677\u5831\u544A\uFF1B\u5B8C\u6210 &#8594; \u7E3D\u7D50\u5831\u544A\u8207\u6B78\u6A94\u7684\u6E2C\u8A66\u8CC7\u7522\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u76E3\u63A7\u8207\u63A7\u5236 vs \u898F\u5283",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u6700\u80FD\u5340\u5206<em>\u6E2C\u8A66\u76E3\u63A7\u8207\u63A7\u5236</em>\u548C<em>\u6E2C\u8A66\u898F\u5283</em>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u898F\u5283\u5728\u524D\u671F\u8A02\u51FA\u9810\u5B9A\u7684\u65B9\u6CD5\uFF1B\u76E3\u63A7\u8207\u63A7\u5236\u5247\u6301\u7E8C\u628A\u5BE6\u969B\u9032\u5EA6\u8207\u8A08\u756B\u6BD4\u5C0D\u4E26\u63A1\u53D6\u77EF\u6B63\u884C\u52D5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u898F\u5283\u5B9A\u7FA9\u8A08\u756B\uFF1B\u76E3\u63A7\u8207\u63A7\u5236\u64DA\u6B64\u628A\u6E2C\u8A66\u7DAD\u6301\u5728\u6B63\u8ECC\u4E0A\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u540C\u4E00\u6D3B\u52D5\u7684\u5169\u500B\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E0D\u540C\uFF1A\u4E00\u500B\u5B9A\u7FA9\u8A08\u756B\uFF0C\u53E6\u4E00\u500B\u6301\u7E8C\u64DA\u6B64\u5F15\u5C0E\u3002"
+              },
+              {
+                "text": "\u898F\u5283\u6301\u7E8C\u9032\u884C\uFF0C\u800C\u76E3\u63A7\u8207\u63A7\u5236\u53EA\u5728\u4E00\u958B\u59CB\u505A",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u76F8\u53CD\uFF1A\u76E3\u63A7\u8207\u63A7\u5236\u624D\u662F\u6301\u7E8C\u9032\u884C\u7684\u90A3\u500B\u3002"
+              },
+              {
+                "text": "\u76E3\u63A7\u8207\u63A7\u5236\u5F9E\u6E2C\u8A66\u689D\u4EF6\u63A8\u5C0E\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u8A2D\u8A08\uFF0C\u4E0D\u662F\u76E3\u63A7\u8207\u63A7\u5236\u3002"
+              }
+            ],
+            "generalFeedback": "\u898F\u5283\u5927\u591A\u5728\u524D\u671F\u5B8C\u6210\uFF08\u4E26\u8996\u9700\u8981\u4FEE\u8A02\uFF09\u4E26\u7522\u51FA\u8A08\u756B\u3002\u76E3\u63A7\u8207\u63A7\u5236\u662F\u6301\u7E8C\u6027\u6D3B\u52D5\uFF1A\u628A\u9032\u5EA6\uFF0F\u8986\u84CB\u7387\uFF0F\u7F3A\u9677\u8207\u8A08\u756B\u6BD4\u5C0D\uFF0C\u4E26\u65BD\u4EE5\u63A7\u5236\u884C\u52D5\uFF08\u5982\u91CD\u65B0\u6392\u5E8F\u3001\u91CD\u65B0\u914D\u7F6E\uFF09\u4EE5\u9054\u6210\u9000\u51FA\u6E96\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6307\u8A8D\u6E2C\u8A66\u5B8C\u6210\u7684\u6D3B\u52D5",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F\u771F\u6B63\u7684<em>\u6E2C\u8A66\u5B8C\u6210</em>\u6D3B\u52D5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5206\u6790\u7D93\u9A57\u6559\u8A13\u4E26\u6B78\u6A94\u6E2C\u8A66\u8CC7\u7522\u4EE5\u4F9B\u65E5\u5F8C\u91CD\u7528",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C72\u53D6\u7D93\u9A57\u6559\u8A13\u3001\u6B78\u6A94\uFF0F\u79FB\u4EA4\u6E2C\u8A66\u8CC7\u7522\u662F\u5178\u578B\u7684\u5B8C\u6210\u5DE5\u4F5C\u3002"
+              },
+              {
+                "text": "\u5F9E\u9700\u6C42\u63A8\u5C0E\u6E2C\u8A66\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u5206\u6790\uFF0C\u4F4D\u65BC\u6D41\u7A0B\u524D\u6BB5\u3002"
+              },
+              {
+                "text": "\u6E96\u5099\u6E2C\u8A66\u8CC7\u6599\u4E26\u5EFA\u7F6E\u74B0\u5883",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u5BE6\u4F5C\u3002"
+              },
+              {
+                "text": "\u628A\u5BE6\u969B\u7D50\u679C\u8207\u9810\u671F\u7D50\u679C\u6BD4\u5C0D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u5B8C\u6210\u6D3B\u52D5\u5305\u62EC\uFF1A\u6AA2\u67E5\u6240\u6709\u7F3A\u9677\u5DF2\u95DC\u9589\uFF0F\u5EF6\u5F8C\u3001\u7522\u51FA\u6E2C\u8A66\u7E3D\u7D50\u5831\u544A\u3001\u5B9A\u7A3F\u4E26\u6B78\u6A94\u6E2C\u8A66\u8CC7\u7522\u3001\u79FB\u4EA4\uFF0C\u4EE5\u53CA\u6C72\u53D6\u7D93\u9A57\u6559\u8A13\u4EE5\u4F9B\u6D41\u7A0B\u6539\u5584\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D30\u8FA8\uFF1A\u7D44\u7E54\u5957\u7D44\u662F\u54EA\u500B\u6D3B\u52D5",
+            "text": "<p>\u300C\u628A\u5B8C\u6210\u7684\u6E2C\u8A66\u6848\u4F8B\u96C6\u7D50\u6210\u53EF\u57F7\u884C\u7684\u56DE\u6B78\u5957\u7D44\u3001\u6392\u5E8F\uFF0C\u4E26\u8F09\u5165\u6240\u9700\u7684\u6E2C\u8A66\u8CC7\u6599\u3002\u300D\u9019\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u5BE6\u4F5C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u6848\u4F8B\u7D44\u7E54\u6210\u53EF\u57F7\u884C\u7684\u5957\u7D44\uFF0F\u7A0B\u5E8F\u4E26\u5099\u59A5\u8CC7\u6599\uFF0C\u5C6C\u65BC\u5BE6\u4F5C\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u8A2D\u8A08",
+                "fraction": 0,
+                "feedback": "\u8A2D\u8A08\u5EFA\u7ACB\u6848\u4F8B\uFF1B\u628A\u5B83\u5011\u96C6\u7D50\uFF0F\u6392\u5E8F\u4EE5\u4F9B\u57F7\u884C\u5247\u5C6C\u5BE6\u4F5C\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u5206\u6790\u8B58\u5225\u689D\u4EF6\uFF0C\u4E0D\u662F\u53EF\u57F7\u884C\u7684\u5957\u7D44\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u628A\u5957\u7D44\u8DD1\u8D77\u4F86\uFF1B\u7D44\u88DD\u8207\u8F09\u5165\u5B83\u662F\u524D\u4E00\u6B65\u7684\u5BE6\u4F5C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u6848\u4F8B\u5B58\u5728\uFF08\u8A2D\u8A08\uFF09\u4E4B\u5F8C\uFF0C\u5BE6\u4F5C\u628A\u5B83\u5011\u6392\u5E8F\u6210\u6E2C\u8A66\u7A0B\u5E8F\uFF0F\u5957\u7D44\u3001\u5099\u59A5\u8CC7\u6599\u8207\u74B0\u5883\u4E26\u78BA\u8A8D\u5C31\u7DD2\u3002\u4E4B\u5F8C\u57F7\u884C\u624D\u628A\u5B83\u5011\u8DD1\u8D77\u4F86\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D30\u8FA8\uFF1A\u4F9D\u98A8\u96AA\u6392\u5E8F\u689D\u4EF6",
+            "text": "<p>\u300C\u5BE9\u95B1\u9700\u6C42\u8207\u98A8\u96AA\u5831\u544A\u3001\u5217\u51FA\u53EF\u6E2C\u8A66\u7684\u529F\u80FD\uFF0C\u4E26\u628A\u6240\u5F97\u7684\u6E2C\u8A66\u689D\u4EF6\u4F9D\u98A8\u96AA\u6392\u5E8F\u3002\u300D\u9019\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u5206\u6790",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5F9E\u57FA\u790E\u8B58\u5225\u4E26\u6392\u5E8F\u6E2C\u8A66\u689D\u4EF6\u5C6C\u65BC\u5206\u6790\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u8A2D\u8A08",
+                "fraction": 0,
+                "feedback": "\u8A2D\u8A08\u5728\u5176\u5F8C\uFF0C\u628A\u6392\u5E8F\u597D\u7684\u689D\u4EF6\u8F49\u6210\u6E2C\u8A66\u6848\u4F8B\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u898F\u5283",
+                "fraction": 0,
+                "feedback": "\u898F\u5283\u8A02\u5B9A\u6574\u9AD4\u7B56\u7565\uFF1B\u63A8\u5C0E\u4E26\u6392\u5E8F\u689D\u4EF6\u5C6C\u65BC\u5206\u6790\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u76E3\u63A7\u8207\u63A7\u5236",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5F15\u5C0E\u9032\u5EA6\uFF1B\u5B83\u4E0D\u63A8\u5C0E\u6E2C\u8A66\u689D\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u5206\u6790\u8A55\u4F30\u6E2C\u8A66\u57FA\u790E\uFF08\u542B\u98A8\u96AA\u8CC7\u8A0A\uFF09\u3001\u8B58\u5225\u53EF\u6E2C\u8A66\u7684\u529F\u80FD\uFF0C\u4E26\u5B9A\u7FA9\u8207\u6392\u5E8F\u6E2C\u8A66\u689D\u4EF6\u2014\u2014\u4ECD\u662F\u300C\u8981\u6E2C\u4EC0\u9EBC\u300D\uFF0C\u5C1A\u975E\u300C\u5982\u4F55\u6E2C\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D30\u8FA8\uFF1A\u6307\u5B9A\u8F38\u5165\u8207\u9810\u671F\u7D50\u679C",
+            "text": "<p>\u300C\u91DD\u5C0D\u6E2C\u8A66\u689D\u4EF6\u300E\u63D0\u6B3E\u8D85\u904E\u9918\u984D\u300F\uFF0C\u6307\u5B9A\u5E33\u6236\u72C0\u614B\u3001\u8981\u63D0\u9818\u7684\u91D1\u984D\uFF0C\u4EE5\u53CA\u78BA\u5207\u7684\u9810\u671F\u932F\u8AA4\u8A0A\u606F\u3002\u300D\u9019\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u8A2D\u8A08",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u689D\u4EF6\u8F49\u6210\u5177\u9AD4\u7684\u8F38\u5165\u3001\u524D\u7F6E\u689D\u4EF6\u8207\u9810\u671F\u7D50\u679C\u5C6C\u65BC\u8A2D\u8A08\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u5206\u6790\u7522\u51FA\u4E86\u8A72\u689D\u4EF6\uFF1B\u6307\u5B9A\u5177\u9AD4\u8F38\u5165\uFF0F\u9810\u671F\u7D50\u679C\u5C6C\u65BC\u8A2D\u8A08\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5BE6\u4F5C",
+                "fraction": 0,
+                "feedback": "\u5BE6\u4F5C\u63A5\u8457\u628A\u9019\u500B\u6848\u4F8B\u6392\u5E8F\u4E26\u5099\u59A5\u4EE5\u4F9B\u57F7\u884C\uFF1B\u5B83\u4E0D\u662F\u5148\u6307\u5B9A\u5176\u8F38\u5165\uFF0F\u9810\u671F\u7D50\u679C\u7684\u4E00\u6B65\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u628A\u6848\u4F8B\u8DD1\u8D77\u4F86\uFF1B\u6B64\u8655\u4ECD\u5728\u8A2D\u8A08\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u5F9E\u6E2C\u8A66\u689D\u4EF6\u63A8\u5C0E\u5177\u9AD4\u7684\u524D\u7F6E\u689D\u4EF6\u3001\u8F38\u5165\u8207\u9810\u671F\u7D50\u679C\uFF0C\u6B63\u662F\u6E2C\u8A66\u8A2D\u8A08\uFF08\u300C\u5982\u4F55\u6E2C\u300D\uFF09\u3002\u5206\u6790\u7D66\u51FA\u689D\u4EF6\uFF1B\u5BE6\u4F5C\u7A0D\u5F8C\u624D\u8B93\u6848\u4F8B\u53EF\u57F7\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DE5\u4F5C\u7522\u7269\u7684\u9A57\u8B49 vs \u57F7\u884C",
+            "text": "<p>\u5728\u9084\u6C92\u8DD1\u4EFB\u4F55\u7A0B\u5F0F\u78BC\u4E4B\u524D\uFF0C\u5BE9\u67E5\u9700\u6C42\u898F\u683C\u4EE5\u627E\u51FA\u6A21\u7CCA\u8207\u77DB\u76FE\u4E4B\u8655\uFF0C\u6700\u9069\u5408\u88AB\u6B78\u985E\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u5DE5\u4F5C\u7522\u7269\u7684\u975C\u614B\u9A57\u8B49\uFF0C\u53EF\u5728\u6E2C\u8A66\u5206\u6790\u671F\u9593\u958B\u59CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BE9\u67E5\u6E2C\u8A66\u57FA\u790E\u662F\u975C\u614B\u5DE5\u4F5C\uFF0C\u5E38\u80FD\u5728\u52D5\u614B\u57F7\u884C\u524D\u53CA\u65E9\u767C\u73FE\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u57F7\u884C\uFF0C\u56E0\u70BA\u767C\u73FE\u4E86\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u9700\u8981\u8DD1\u8EDF\u9AD4\uFF1B\u5BE9\u67E5\u6587\u4EF6\u662F\u975C\u614B\u7684\uFF0C\u4E0D\u662F\u52D5\u614B\u7684\u3002"
+              },
+              {
+                "text": "\u5C0D\u4FEE\u5FA9\u7684\u78BA\u8A8D\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u6C92\u6709\u5728\u91CD\u6E2C\u4EFB\u4F55\u4FEE\u5FA9\uFF1B\u9019\u662F\u975C\u614B\u5BE9\u67E5\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5B8C\u6210\uFF0C\u56E0\u70BA\u5B83\u5728\u6536\u5C3E",
+                "fraction": 0,
+                "feedback": "\u5BE9\u67E5\u57FA\u790E\u767C\u751F\u5728\u524D\u671F\uFF0C\u800C\u975E\u6536\u5C3E\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u8B49\u6AA2\u67E5\u5DE5\u4F5C\u7522\u7269\u662F\u5426\u7B26\u5408\u5176\u898F\u683C\uFF0C\u53EF\u4EE5\u975C\u614B\u9032\u884C\uFF08\u5BE9\u67E5\u3001\u975C\u614B\u5206\u6790\uFF09\u800C\u4E0D\u57F7\u884C\u7A0B\u5F0F\u78BC\u3002\u5BE9\u67E5\u6E2C\u8A66\u57FA\u790E\u5E38\u5728\u6E2C\u8A66\u5206\u6790\u524D\u5F8C\u9032\u884C\uFF0C\u4E26\u80FD\u5728\u52D5\u614B\u57F7\u884C\u958B\u59CB\u524D\u767C\u73FE\u7F3A\u9677\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9000\u51FA\u6E96\u5247\u672A\u9054\u6210\u6642",
+            "text": "<p>\u76E3\u63A7\u986F\u793A\uFF0C\u5728\u8A08\u756B\u7684\u7D50\u675F\u65E5\u671F\uFF0C\u8B70\u5B9A\u7684\u9000\u51FA\u6E96\u5247<strong>\u5C1A\u672A</strong>\u9054\u6210\u3002\u54EA\u500B\u56DE\u61C9\u6700\u7B26\u5408\u6E2C\u8A66\u6D41\u7A0B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5831\u544A\u72C0\u614B\uFF0C\u4E26\u900F\u904E\u63A7\u5236\u6C7A\u5B9A\u7E7C\u7E8C\u6E2C\u8A66\uFF0C\u6216\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u91CD\u65B0\u5354\u5546\u6E96\u5247\uFF0F\u7BC4\u570D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u672A\u9054\u6210\u7684\u9000\u51FA\u6E96\u5247\u89F8\u767C\u63A7\u5236\u6C7A\u7B56\uFF1B\u4E0D\u80FD\u5C31\u9019\u6A23\u5BA3\u544A\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u65E5\u671F\u5230\u4E86\u5C31\u81EA\u52D5\u5BA3\u544A\u6E2C\u8A66\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u5149\u662F\u65E5\u66C6\u65E5\u671F\u4E26\u4E0D\u6EFF\u8DB3\u9000\u51FA\u6E96\u5247\uFF1B\u90A3\u5FFD\u7565\u4E86\u6E96\u5247\u7684\u7528\u610F\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u5931\u6557\u7684\u6E2C\u8A66\uFF0C\u8B93\u6E96\u5247\u770B\u8D77\u4F86\u5DF2\u6EFF\u8DB3",
+                "fraction": 0,
+                "feedback": "\u64CD\u5F04\u6307\u6A19\u6703\u96B1\u85CF\u98A8\u96AA\uFF1B\u90A3\u4E0D\u662F\u6B63\u7576\u7684\u56DE\u61C9\u3002"
+              },
+              {
+                "text": "\u4E0D\u505A\u4EFB\u4F55\u5831\u544A\u5C31\u76F4\u63A5\u8DF3\u5230\u6B78\u6A94\u6E2C\u8A66\u8CC7\u7522",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6210\u4ECD\u9700\u5831\u544A\uFF1B\u4E14\u505C\u6B62\u7684\u6C7A\u5B9A\u5FC5\u9808\u660E\u78BA\u505A\u51FA\u3002"
+              }
+            ],
+            "generalFeedback": "\u9000\u51FA\u6E96\u5247\u9A45\u52D5\u505C\u6B62\uFF0F\u7E7C\u7E8C\u7684\u6C7A\u7B56\u3002\u82E5\u672A\u9054\u6210\uFF0C\u76E3\u63A7\u8207\u63A7\u5236\u5831\u544A\u6B64\u60C5\u6CC1\uFF0C\u7531\u5229\u5BB3\u95DC\u4FC2\u4EBA\u6C7A\u5B9A\u7E7C\u7E8C\u6E2C\u8A66\u3001\u589E\u52A0\u8CC7\u6E90\uFF0C\u6216\u900F\u904E\u91CD\u65B0\u5354\u5546\u7BC4\u570D\uFF0F\u6E96\u5247\u800C\u6709\u610F\u8B58\u5730\u63A5\u53D7\u98A8\u96AA\u2014\u2014\u7D55\u4E0D\u662F\u5047\u88DD\u5B83\u5011\u5DF2\u9054\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u76E3\u63A7 vs \u63A7\u5236",
+            "text": "<p>\u5728\u9019\u9805\u6301\u7E8C\u6027\u6D3B\u52D5\u4E2D\uFF0C\u4E0B\u5217\u4F55\u8005\u662F<em>\u63A7\u5236</em>\u884C\u52D5\u800C\u975E<em>\u76E3\u63A7</em>\u884C\u52D5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u67D0\u9AD8\u98A8\u96AA\u5340\u57DF\u843D\u5F8C\uFF0C\u800C\u91CD\u65B0\u6392\u5E8F\u5269\u9918\u6E2C\u8A66\u4E26\u91CD\u65B0\u6307\u6D3E\u6E2C\u8A66\u8005",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A1\u53D6\u77EF\u6B63\u884C\u52D5\u4EE5\u5F15\u5C0E\u5DE5\u4F5C\u5C6C\u65BC\u63A7\u5236\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u5230\u76EE\u524D\u70BA\u6B62\u5DF2\u57F7\u884C\u4E86\u591A\u5C11\u8A08\u756B\u7684\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u76E3\u63A7\u2014\u2014\u8490\u96C6\u8CC7\u8A0A\uFF0C\u800C\u975E\u64DA\u4EE5\u884C\u52D5\u3002"
+              },
+              {
+                "text": "\u8A18\u9304\u76EE\u524D\u7684\u7F3A\u9677\u767C\u73FE\uFF0F\u4FEE\u5FA9\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u76E3\u63A7\uFF08\u8490\u96C6\u8CC7\u6599\uFF09\u3002"
+              },
+              {
+                "text": "\u628A\u8986\u84CB\u7387\u9032\u5EA6\u5C0D\u7167\u8A08\u756B\u52A0\u4EE5\u5831\u544A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u76E3\u63A7\uFF0F\u5831\u544A\uFF0C\u4E0D\u662F\u77EF\u6B63\u884C\u52D5\u3002"
+              }
+            ],
+            "generalFeedback": "\u76E3\u63A7\u8490\u96C6\u4E26\u5831\u544A\u8CC7\u8A0A\uFF08\u9032\u5EA6\u3001\u8986\u84CB\u7387\u3001\u7F3A\u9677\u8CC7\u6599\uFF09\uFF1B\u63A7\u5236\u5229\u7528\u9019\u4E9B\u8CC7\u8A0A\u63A1\u53D6\u77EF\u6B63\u884C\u52D5\u2014\u2014\u91CD\u65B0\u6392\u5E8F\u3001\u91CD\u65B0\u914D\u7F6E\u8CC7\u6E90\u3001\u8ABF\u6574\u6642\u7A0B\u2014\u2014\u4EE5\u4F7F\u9000\u51FA\u6E96\u5247\u4ECD\u80FD\u9054\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6D3B\u52D5\u8207\u5DE5\u4F5C\u7522\u7269\u914D\u5C0D\u932F\u8AA4\u8005",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u7D44\u300C\u6D3B\u52D5\u8207\u5176\u7279\u5FB5\u6027\u5DE5\u4F5C\u7522\u7269\u300D\u7684\u914D\u5C0D\u662F<strong>\u932F\u8AA4</strong>\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66\u57F7\u884C\u7522\u51FA\u6E2C\u8A66\u689D\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u7D44\u914D\u5C0D\u662F\u932F\u7684\uFF1A\u6E2C\u8A66\u689D\u4EF6\u4F86\u81EA\u6E2C\u8A66\u5206\u6790\uFF0C\u800C\u975E\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u8A2D\u8A08\u7522\u51FA\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u9019\u7D44\u914D\u5C0D\u6B63\u78BA\uFF0C\u6545\u975E\u7B54\u6848\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5BE6\u4F5C\u7522\u51FA\u6E2C\u8A66\u7A0B\u5E8F\u8207\u5957\u7D44",
+                "fraction": 0,
+                "feedback": "\u9019\u7D44\u914D\u5C0D\u6B63\u78BA\uFF0C\u6545\u975E\u7B54\u6848\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5B8C\u6210\u7522\u51FA\u6E2C\u8A66\u7E3D\u7D50\u5831\u544A",
+                "fraction": 0,
+                "feedback": "\u9019\u7D44\u914D\u5C0D\u6B63\u78BA\uFF0C\u6545\u975E\u7B54\u6848\u3002"
+              }
+            ],
+            "generalFeedback": "\u7279\u5FB5\u6027\u5DE5\u4F5C\u7522\u7269\uFF1A\u5206\u6790 &#8594; \u6E2C\u8A66\u689D\u4EF6\uFF1B\u8A2D\u8A08 &#8594; \u6E2C\u8A66\u6848\u4F8B\uFF1B\u5BE6\u4F5C &#8594; \u6E2C\u8A66\u7A0B\u5E8F\uFF0F\u5957\u7D44\u3001\u8CC7\u6599\u3001\u74B0\u5883\uFF1B\u57F7\u884C &#8594; \u6E2C\u8A66\u65E5\u8A8C\u8207\u7F3A\u9677\u5831\u544A\uFF1B\u5B8C\u6210 &#8594; \u6E2C\u8A66\u7E3D\u7D50\u5831\u544A\u3002\u57F7\u884C\u4E26\u4E0D\u7522\u51FA\u6E2C\u8A66\u689D\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u9032\u5165\u628A\u95DC\u958B\u59CB\u3001\u9000\u51FA\u628A\u95DC\u505C\u6B62",
+            "text": "<p>\u9032\u5165\u6E96\u5247\u628A\u95DC\u6E2C\u8A66\u6D3B\u52D5\u7684<em>\u958B\u59CB</em>\uFF0C\u800C\u9000\u51FA\u6E96\u5247\u628A\u95DC\u5176<em>\u5B8C\u6210</em>\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9032\u5165\u6E96\u5247\u662F\u53EF\u4EE5\u958B\u59CB\u7684\u300C\u5C31\u7DD2\u7684\u5B9A\u7FA9\u300D\uFF1B\u9000\u51FA\u6E96\u5247\u662F\u53EF\u4EE5\u505C\u6B62\u7684\u300C\u5B8C\u6210\u7684\u5B9A\u7FA9\u300D\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6B64\u70BA\u771F\uFF1A\u9032\u5165\u6E96\u5247\u5FC5\u9808\u5728\u6D3B\u52D5\u958B\u59CB\u524D\u6210\u7ACB\uFF1B\u9000\u51FA\u6E96\u5247\u5FC5\u9808\u5728\u5BA3\u544A\u5B8C\u6210\u524D\u6210\u7ACB\u3002"
+              }
+            ],
+            "generalFeedback": "\u9032\u5165\u6E96\u5247\uFF08\u5C31\u7DD2\uFF09\u5FC5\u9808\u5728\u5982\u57F7\u884C\u7B49\u6D3B\u52D5\u958B\u59CB\u524D\u6EFF\u8DB3\uFF1B\u9000\u51FA\uFF0F\u5B8C\u6210\u6E96\u5247\u5FC5\u9808\u5728\u6E2C\u8A66\u88AB\u8996\u70BA\u7D50\u675F\u524D\u6EFF\u8DB3\u3002\u6DF7\u6DC6\u5169\u8005\u662F\u5E38\u898B\u7684\u932F\u8AA4\u3002"
+          }
+        ]
+      }
+    },
     "testing-method-tree": {
       "en": {
         "easy": [

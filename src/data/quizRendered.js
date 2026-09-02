@@ -68315,6 +68315,2568 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "testing-flow": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What a test plan is",
+          "text": "<p>A <em>test plan</em> is best described as:</p>",
+          "answers": [
+            {
+              "text": "A document describing the scope, objectives, approach, resources and schedule of the intended test activities",
+              "fraction": 100,
+              "feedback": "Correct — the test plan is the output of test planning and sets out what will be tested, how, by whom, and when."
+            },
+            {
+              "text": "A list of the concrete inputs and expected results for one specific test",
+              "fraction": 0,
+              "feedback": "That describes a single test case, not the overall test plan."
+            },
+            {
+              "text": "A record of a single failure observed while running the software",
+              "fraction": 0,
+              "feedback": "That is a defect (incident) report, produced during execution."
+            },
+            {
+              "text": "The source code of the program under test",
+              "fraction": 0,
+              "feedback": "The code is part of the test object, not the test plan."
+            }
+          ],
+          "generalFeedback": "Test planning is the first activity of the fundamental test process; its work product, the test plan, defines the objectives, scope, approach, resources and schedule for testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the test basis is",
+          "text": "<p>The <em>test basis</em> is:</p>",
+          "answers": [
+            {
+              "text": "The body of knowledge (requirements, specifications, designs, user stories, risk reports) used as the basis for analysing and designing tests",
+              "fraction": 100,
+              "feedback": "Correct — tests are derived from the test basis."
+            },
+            {
+              "text": "The minimum set of tests that must pass before release",
+              "fraction": 0,
+              "feedback": "That is closer to an exit criterion or a smoke-test set, not the test basis."
+            },
+            {
+              "text": "The hardware and software environment in which tests are executed",
+              "fraction": 0,
+              "feedback": "That is the test environment, not the test basis."
+            },
+            {
+              "text": "The team of people responsible for testing",
+              "fraction": 0,
+              "feedback": "People are resources; the test basis is the source material tests are derived from."
+            }
+          ],
+          "generalFeedback": "The test basis is everything a test is derived from — requirements, specifications, design and implementation information, user stories, risk analyses and so on. Test analysis works from it to determine what to test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test condition is",
+          "text": "<p>A <em>test condition</em> is:</p>",
+          "answers": [
+            {
+              "text": "A testable aspect of the test basis (a feature, function, requirement or quality attribute) that a test could exercise",
+              "fraction": 100,
+              "feedback": "Correct — test conditions say WHAT should be tested; they are identified during test analysis."
+            },
+            {
+              "text": "The concrete input values and expected outputs of a runnable test",
+              "fraction": 0,
+              "feedback": "Those belong to a test case, which is designed later from a test condition."
+            },
+            {
+              "text": "The state the system must be in before a test can start",
+              "fraction": 0,
+              "feedback": "That is a precondition of a test case, not a test condition."
+            },
+            {
+              "text": "A defect found during execution",
+              "fraction": 0,
+              "feedback": "A defect is an observed failure/fault, not a test condition."
+            }
+          ],
+          "generalFeedback": "A test condition is an item or aspect of the test basis (a function, requirement, or quality characteristic) worth testing. It answers &#8220;what to test&#8221; and is the output of test analysis; the concrete test case is designed from it afterwards.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test case is",
+          "text": "<p>A <em>test case</em> is:</p>",
+          "answers": [
+            {
+              "text": "A set of preconditions, inputs, expected results and postconditions developed to exercise a test condition",
+              "fraction": 100,
+              "feedback": "Correct — a test case makes a test condition concrete and executable."
+            },
+            {
+              "text": "A high-level statement of an aspect of the test basis worth testing",
+              "fraction": 0,
+              "feedback": "That is a test condition; a test case is derived from it and is concrete."
+            },
+            {
+              "text": "The overall schedule and resourcing document for testing",
+              "fraction": 0,
+              "feedback": "That is the test plan."
+            },
+            {
+              "text": "The end-of-project summary of how testing went",
+              "fraction": 0,
+              "feedback": "That is the test summary report, produced at test completion."
+            }
+          ],
+          "generalFeedback": "A test case turns a test condition into something you can run: it specifies preconditions, inputs, the expected results to compare against, and postconditions. It is the main work product of test design.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test case must contain",
+          "text": "<p>Which element is essential to a well-formed test case?</p>",
+          "answers": [
+            {
+              "text": "The expected result to compare the actual result against",
+              "fraction": 100,
+              "feedback": "Correct — without a documented expected result you cannot decide pass or fail (the oracle problem)."
+            },
+            {
+              "text": "The name of the developer who wrote the code",
+              "fraction": 0,
+              "feedback": "Useful metadata perhaps, but not an essential part of a test case."
+            },
+            {
+              "text": "A guarantee that the test will pass",
+              "fraction": 0,
+              "feedback": "A test case is not required to pass; it must have a defined expected result."
+            },
+            {
+              "text": "The total project budget",
+              "fraction": 0,
+              "feedback": "Budget is a planning concern, not part of a test case."
+            }
+          ],
+          "generalFeedback": "A test case specifies preconditions, inputs, expected results and postconditions. The expected result is essential: comparing the actual result to a predefined expected result is what makes a verdict (pass/fail) possible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Entry criteria",
+          "text": "<p><em>Entry criteria</em> for a test activity are:</p>",
+          "answers": [
+            {
+              "text": "The conditions that must be satisfied before that activity can sensibly begin",
+              "fraction": 100,
+              "feedback": "Correct — entry criteria gate the START of an activity (a &#8220;definition of ready&#8221;)."
+            },
+            {
+              "text": "The conditions that must be met before testing can be declared finished",
+              "fraction": 0,
+              "feedback": "Those are exit criteria, which gate the stop, not the start."
+            },
+            {
+              "text": "The list of defects still open at the end of testing",
+              "fraction": 0,
+              "feedback": "That is residual-defect data, not entry criteria."
+            },
+            {
+              "text": "The inputs of a single test case",
+              "fraction": 0,
+              "feedback": "Those are test-case inputs, not entry criteria for an activity."
+            }
+          ],
+          "generalFeedback": "Entry criteria define what must be in place before an activity starts — e.g. a stable build deployed, the test environment ready, and test data available. They are checked at the start of test implementation/execution.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Exit criteria",
+          "text": "<p><em>Exit criteria</em> for testing are:</p>",
+          "answers": [
+            {
+              "text": "The conditions that must be met before testing can be considered complete for the agreed objectives",
+              "fraction": 100,
+              "feedback": "Correct — exit criteria gate the STOP (a &#8220;definition of done&#8221; for testing)."
+            },
+            {
+              "text": "The conditions that must be met before testing can begin",
+              "fraction": 0,
+              "feedback": "Those are entry criteria, which gate the start."
+            },
+            {
+              "text": "The list of stakeholders who approved the test plan",
+              "fraction": 0,
+              "feedback": "Approval sign-off is not the same as exit criteria."
+            },
+            {
+              "text": "The set of test conditions produced by test analysis",
+              "fraction": 0,
+              "feedback": "Those are analysis outputs, not exit criteria."
+            }
+          ],
+          "generalFeedback": "Exit criteria (completion criteria) state when testing is done — e.g. planned coverage achieved, no unresolved high-severity defects, and the time/budget consumed. They are checked during test monitoring & control and at completion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test procedure is",
+          "text": "<p>A <em>test procedure</em> (test script) is:</p>",
+          "answers": [
+            {
+              "text": "A sequence of actions and test cases arranged in the order they will be executed, with any needed setup",
+              "fraction": 100,
+              "feedback": "Correct — the test procedure specifies the execution steps and ordering; it is built during test implementation."
+            },
+            {
+              "text": "A high-level aspect of the test basis worth testing",
+              "fraction": 0,
+              "feedback": "That is a test condition."
+            },
+            {
+              "text": "The overall objectives and schedule for the whole test effort",
+              "fraction": 0,
+              "feedback": "That is the test plan."
+            },
+            {
+              "text": "A report on how many tests passed",
+              "fraction": 0,
+              "feedback": "That is a test result / summary, not a procedure."
+            }
+          ],
+          "generalFeedback": "A test procedure specifies the sequence of steps (and the test cases in execution order) to run tests, including preconditions and setup. Producing test procedures is part of test implementation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test suite is",
+          "text": "<p>A <em>test suite</em> is:</p>",
+          "answers": [
+            {
+              "text": "A collection of test cases or test procedures grouped together to be run as a set",
+              "fraction": 100,
+              "feedback": "Correct — a suite bundles related tests for execution and reporting."
+            },
+            {
+              "text": "A single input/expected-result pair",
+              "fraction": 0,
+              "feedback": "That is one test case, not a suite of them."
+            },
+            {
+              "text": "The requirements document the tests are derived from",
+              "fraction": 0,
+              "feedback": "That is part of the test basis."
+            },
+            {
+              "text": "A tool that measures code coverage",
+              "fraction": 0,
+              "feedback": "That is a coverage tool, not a test suite."
+            }
+          ],
+          "generalFeedback": "A test suite groups test cases/procedures for execution (for example a smoke suite or a regression suite). Organising tests into suites happens during test implementation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a defect report is",
+          "text": "<p>A <em>defect (incident) report</em> primarily records:</p>",
+          "answers": [
+            {
+              "text": "An observed anomaly (the discrepancy between actual and expected behaviour) so it can be investigated and tracked",
+              "fraction": 100,
+              "feedback": "Correct — defect reports are logged during execution and drive the defect lifecycle."
+            },
+            {
+              "text": "The planned scope and schedule of testing",
+              "fraction": 0,
+              "feedback": "That is the test plan."
+            },
+            {
+              "text": "The list of test conditions to be covered",
+              "fraction": 0,
+              "feedback": "Those come from test analysis, not from a defect report."
+            },
+            {
+              "text": "A guarantee that the software is defect-free",
+              "fraction": 0,
+              "feedback": "Testing cannot prove the absence of defects; a defect report records a specific anomaly found."
+            }
+          ],
+          "generalFeedback": "When actual behaviour differs from expected behaviour during execution, the tester logs a defect report describing the anomaly, how to reproduce it, and its impact. This starts the defect lifecycle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Correct order of the main activities",
+          "text": "<p>Ignoring the continuous monitoring &amp; control activity, which sequence gives the correct order of the fundamental test process activities?</p>",
+          "answers": [
+            {
+              "text": "Planning, analysis, design, implementation, execution, completion",
+              "fraction": 100,
+              "feedback": "Correct — this is the canonical order (with monitoring & control running throughout)."
+            },
+            {
+              "text": "Planning, design, analysis, execution, implementation, completion",
+              "fraction": 0,
+              "feedback": "Analysis (what to test) must precede design (how to test), and implementation must precede execution."
+            },
+            {
+              "text": "Analysis, planning, design, execution, implementation, completion",
+              "fraction": 0,
+              "feedback": "Planning comes first, and implementation precedes execution."
+            },
+            {
+              "text": "Planning, analysis, design, execution, implementation, completion",
+              "fraction": 0,
+              "feedback": "Implementation (building procedures/data/environment) precedes execution, not the other way round."
+            }
+          ],
+          "generalFeedback": "The fundamental test process runs: test planning &#8594; test analysis &#8594; test design &#8594; test implementation &#8594; test execution &#8594; test completion, with test monitoring & control as a continuous activity spanning all of them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which activity runs the tests",
+          "text": "<p>Actually running the tests, comparing actual results to expected results, and logging defects is done in:</p>",
+          "answers": [
+            {
+              "text": "Test execution",
+              "fraction": 100,
+              "feedback": "Correct — execution runs the tests and records the outcomes and any defects."
+            },
+            {
+              "text": "Test analysis",
+              "fraction": 0,
+              "feedback": "Analysis identifies test conditions; it does not run tests."
+            },
+            {
+              "text": "Test design",
+              "fraction": 0,
+              "feedback": "Design produces test cases; it does not run them."
+            },
+            {
+              "text": "Test planning",
+              "fraction": 0,
+              "feedback": "Planning sets scope and approach; running tests happens much later."
+            }
+          ],
+          "generalFeedback": "Test execution is the activity where test suites are run, actual results are compared with expected results, discrepancies are logged as defects, and confirmation/regression testing takes place.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of test completion",
+          "text": "<p>The main purpose of <em>test completion</em> (test closure) is to:</p>",
+          "answers": [
+            {
+              "text": "Wrap up testing — report results, finalise and archive testware, and capture lessons learned",
+              "fraction": 100,
+              "feedback": "Correct — completion consolidates and hands over the outcomes of testing."
+            },
+            {
+              "text": "Identify the test conditions from the test basis",
+              "fraction": 0,
+              "feedback": "That is test analysis, near the start of the process."
+            },
+            {
+              "text": "Write the concrete inputs and expected results of each test",
+              "fraction": 0,
+              "feedback": "That is test design."
+            },
+            {
+              "text": "Run the test suites for the first time",
+              "fraction": 0,
+              "feedback": "That is test execution, which precedes completion."
+            }
+          ],
+          "generalFeedback": "Test completion happens when a milestone is reached (release, end of iteration, project close). It gathers data, produces a test summary report, finalises and archives testware, hands it over, and records lessons learned.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What monitoring and control is",
+          "text": "<p><em>Test monitoring and control</em> is:</p>",
+          "answers": [
+            {
+              "text": "An ongoing activity that compares actual progress against the plan and takes corrective action throughout testing",
+              "fraction": 100,
+              "feedback": "Correct — it runs continuously, not just once, and steers the effort."
+            },
+            {
+              "text": "A one-off activity done only at the very end of the project",
+              "fraction": 0,
+              "feedback": "That would be closer to completion; monitoring & control is continuous."
+            },
+            {
+              "text": "The activity that derives test cases from test conditions",
+              "fraction": 0,
+              "feedback": "That is test design."
+            },
+            {
+              "text": "The activity that logs each individual defect",
+              "fraction": 0,
+              "feedback": "Defects are logged during execution; monitoring uses that data to steer."
+            }
+          ],
+          "generalFeedback": "Test monitoring & control runs throughout the whole process: monitoring gathers information (progress, coverage, defect data) and control uses it to guide testing so exit criteria can be met.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Analysis determines what to test",
+          "text": "<p>Test analysis determines <em>what</em> to test by identifying test conditions from the test basis.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — analysis works from the test basis to identify and prioritise test conditions (the &#8220;what&#8221;); designing the &#8220;how&#8221; comes next."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "It is true: test analysis identifies test conditions (what to test); test design then produces the test cases (how to test)."
+            }
+          ],
+          "generalFeedback": "Test analysis analyses the test basis to determine what to test, producing test conditions. Test design then turns those conditions into concrete test cases."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "What precedes test design",
+          "text": "<p>In the fundamental test process, which activity immediately <strong>precedes</strong> test design?</p>",
+          "answers": [
+            {
+              "text": "Test analysis",
+              "fraction": 100,
+              "feedback": "Correct — analysis identifies the test conditions that design then turns into test cases."
+            },
+            {
+              "text": "Test implementation",
+              "fraction": 0,
+              "feedback": "Implementation follows design, not precedes it."
+            },
+            {
+              "text": "Test execution",
+              "fraction": 0,
+              "feedback": "Execution comes much later, after implementation."
+            },
+            {
+              "text": "Test completion",
+              "fraction": 0,
+              "feedback": "Completion is the last activity, not before design."
+            }
+          ],
+          "generalFeedback": "The order is analysis &#8594; design &#8594; implementation. Test design consumes the test conditions produced by test analysis.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What follows test design",
+          "text": "<p>Which activity immediately <strong>follows</strong> test design?</p>",
+          "answers": [
+            {
+              "text": "Test implementation",
+              "fraction": 100,
+              "feedback": "Correct — after the test cases are designed, implementation builds the procedures, suites, data and environment."
+            },
+            {
+              "text": "Test analysis",
+              "fraction": 0,
+              "feedback": "Analysis precedes design, not follows it."
+            },
+            {
+              "text": "Test execution",
+              "fraction": 0,
+              "feedback": "Execution comes after implementation, not directly after design."
+            },
+            {
+              "text": "Test planning",
+              "fraction": 0,
+              "feedback": "Planning is the first activity, not after design."
+            }
+          ],
+          "generalFeedback": "Analysis &#8594; design &#8594; implementation &#8594; execution. Implementation directly follows design: it makes the designed tests runnable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What follows test implementation",
+          "text": "<p>Which activity immediately <strong>follows</strong> test implementation?</p>",
+          "answers": [
+            {
+              "text": "Test execution",
+              "fraction": 100,
+              "feedback": "Correct — once the testware and environment are ready and entry criteria are met, the tests are executed."
+            },
+            {
+              "text": "Test design",
+              "fraction": 0,
+              "feedback": "Design precedes implementation."
+            },
+            {
+              "text": "Test analysis",
+              "fraction": 0,
+              "feedback": "Analysis is earlier still."
+            },
+            {
+              "text": "Test completion",
+              "fraction": 0,
+              "feedback": "Completion comes after execution, not directly after implementation."
+            }
+          ],
+          "generalFeedback": "Implementation &#8594; execution: implementation finalises the testware, data and environment (and checks readiness/entry criteria); execution then runs the tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Naming the activity from its work",
+          "text": "<p>&#8220;Analyse the test basis to determine testable features and derive test conditions.&#8221; This describes:</p>",
+          "answers": [
+            {
+              "text": "Test analysis",
+              "fraction": 100,
+              "feedback": "Correct — evaluating the test basis and producing test conditions is exactly test analysis."
+            },
+            {
+              "text": "Test design",
+              "fraction": 0,
+              "feedback": "Design turns those conditions into test cases; it does not derive the conditions."
+            },
+            {
+              "text": "Test planning",
+              "fraction": 0,
+              "feedback": "Planning sets scope and approach; it does not analyse the basis into conditions."
+            },
+            {
+              "text": "Test implementation",
+              "fraction": 0,
+              "feedback": "Implementation builds procedures and data; it does not derive test conditions."
+            }
+          ],
+          "generalFeedback": "Test analysis evaluates the test basis, identifies testable features, and defines and prioritises test conditions — the &#8220;what to test&#8221;.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Spotting an entry criterion",
+          "text": "<p>Which of the following is an <strong>entry</strong> criterion for starting test execution?</p>",
+          "answers": [
+            {
+              "text": "A stable, testable build is deployed and the test environment and test data are ready",
+              "fraction": 100,
+              "feedback": "Correct — that must hold before execution can meaningfully begin."
+            },
+            {
+              "text": "Planned requirements coverage has been achieved",
+              "fraction": 0,
+              "feedback": "That is an exit criterion — it describes when to stop, not when to start."
+            },
+            {
+              "text": "No high-severity defects remain open",
+              "fraction": 0,
+              "feedback": "That is an exit criterion, evaluated to decide completion."
+            },
+            {
+              "text": "The test summary report has been signed off",
+              "fraction": 0,
+              "feedback": "That happens at completion, well after execution starts."
+            }
+          ],
+          "generalFeedback": "Entry criteria gate the start: a deployable build, a ready environment and available test data are typical entry criteria for execution. Coverage achieved and no open high-severity defects are exit criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Spotting an exit criterion",
+          "text": "<p>Which of the following is an <strong>exit</strong> criterion for testing?</p>",
+          "answers": [
+            {
+              "text": "All planned test cases have been executed and the required coverage target has been met",
+              "fraction": 100,
+              "feedback": "Correct — that is a completion condition, checked to decide whether to stop."
+            },
+            {
+              "text": "The test environment has been provisioned",
+              "fraction": 0,
+              "feedback": "That is an entry criterion for execution."
+            },
+            {
+              "text": "The requirements specification is available",
+              "fraction": 0,
+              "feedback": "That enables analysis/design to start; it is an entry-side precondition, not an exit criterion."
+            },
+            {
+              "text": "Test data has been prepared",
+              "fraction": 0,
+              "feedback": "That is an entry-side readiness condition, not an exit criterion."
+            }
+          ],
+          "generalFeedback": "Exit (completion) criteria describe when testing is done: e.g. planned tests executed, coverage targets met, defect levels acceptable, and time/budget consumed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The derivation chain",
+          "text": "<p>Fill the blank in the derivation chain: <em>test basis &#8594; ______ &#8594; test cases</em>.</p>",
+          "answers": [
+            {
+              "text": "Test conditions",
+              "fraction": 100,
+              "feedback": "Correct — analysis derives test conditions from the basis, then design derives test cases from the conditions."
+            },
+            {
+              "text": "Defect reports",
+              "fraction": 0,
+              "feedback": "Defect reports come from execution, not between the basis and the test cases."
+            },
+            {
+              "text": "Test suites",
+              "fraction": 0,
+              "feedback": "Test suites group cases during implementation; they are not the step between basis and cases."
+            },
+            {
+              "text": "Exit criteria",
+              "fraction": 0,
+              "feedback": "Exit criteria are completion conditions, not a derivation step."
+            }
+          ],
+          "generalFeedback": "The flow is test basis &#8594; test conditions (analysis) &#8594; test cases (design) &#8594; test procedures/suites (implementation) &#8594; execution &#8594; defects &#8594; closure.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Confirmation testing",
+          "text": "<p>After a developer fixes a reported defect, <em>confirmation (re-)testing</em> means:</p>",
+          "answers": [
+            {
+              "text": "Re-executing the test that originally failed to confirm the defect is now fixed",
+              "fraction": 100,
+              "feedback": "Correct — confirmation testing verifies the specific fix."
+            },
+            {
+              "text": "Running a broad set of other tests to check nothing else broke",
+              "fraction": 0,
+              "feedback": "That is regression testing, a different purpose."
+            },
+            {
+              "text": "Writing a new test condition from the requirements",
+              "fraction": 0,
+              "feedback": "That is test analysis, unrelated to confirming a fix."
+            },
+            {
+              "text": "Reviewing the requirements document for defects",
+              "fraction": 0,
+              "feedback": "That is static verification of a work product, not confirmation testing of a fix."
+            }
+          ],
+          "generalFeedback": "Confirmation testing (re-testing) re-runs the previously failing test after the fix, to confirm the original defect has been removed. Regression testing separately checks that the change did not break anything else.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Regression testing",
+          "text": "<p>The purpose of <em>regression testing</em> is to:</p>",
+          "answers": [
+            {
+              "text": "Detect whether a change has broken previously working functionality",
+              "fraction": 100,
+              "feedback": "Correct — regression testing guards against unintended side effects of changes."
+            },
+            {
+              "text": "Confirm that a specific reported defect has been fixed",
+              "fraction": 0,
+              "feedback": "That is confirmation (re-)testing, not regression testing."
+            },
+            {
+              "text": "Determine which test conditions to cover",
+              "fraction": 0,
+              "feedback": "That is test analysis."
+            },
+            {
+              "text": "Provision the test environment",
+              "fraction": 0,
+              "feedback": "That is part of test implementation."
+            }
+          ],
+          "generalFeedback": "A change (a fix or new feature) can have side effects. Regression testing re-runs existing tests on unchanged areas to detect such unintended breakages, whereas confirmation testing verifies the intended fix itself.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of traceability",
+          "text": "<p>Maintaining <em>traceability</em> from test basis items to test conditions, test cases and results mainly enables you to:</p>",
+          "answers": [
+            {
+              "text": "Measure coverage of the test basis and assess the impact of changes",
+              "fraction": 100,
+              "feedback": "Correct — traceability shows which requirements are covered and what to re-test when something changes."
+            },
+            {
+              "text": "Guarantee that the software contains no defects",
+              "fraction": 0,
+              "feedback": "No amount of tracing can prove the absence of defects."
+            },
+            {
+              "text": "Remove the need for exit criteria",
+              "fraction": 0,
+              "feedback": "Traceability supports evaluating exit criteria; it does not replace them."
+            },
+            {
+              "text": "Speed up the compiler",
+              "fraction": 0,
+              "feedback": "Traceability is about relating work products, not build performance."
+            }
+          ],
+          "generalFeedback": "Bidirectional traceability links requirements/test basis &#8596; test conditions &#8596; test cases &#8596; results/defects. It supports coverage measurement, impact analysis for changes, and meaningful progress reporting.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "After a defect is fixed",
+          "text": "<p>In a typical defect lifecycle, immediately after the defect is marked <em>fixed/resolved</em> by the developer, the tester should:</p>",
+          "answers": [
+            {
+              "text": "Re-test (confirmation test) the fix and, if it passes, move the defect toward closed",
+              "fraction": 100,
+              "feedback": "Correct — the fix must be confirmed before the defect can be closed."
+            },
+            {
+              "text": "Immediately close the defect without re-running any test",
+              "fraction": 0,
+              "feedback": "A fix should be confirmed by re-testing before closing."
+            },
+            {
+              "text": "Delete the defect report",
+              "fraction": 0,
+              "feedback": "Reports are retained for history and metrics, not deleted."
+            },
+            {
+              "text": "Reassign it to the requirements author",
+              "fraction": 0,
+              "feedback": "A resolved defect goes to the tester for confirmation, not back to requirements."
+            }
+          ],
+          "generalFeedback": "A common lifecycle is new &#8594; assigned &#8594; fixed &#8594; retest (confirmation) &#8594; closed, with a reopen path if the retest fails. The tester confirms the fix before closure.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Initial defect state",
+          "text": "<p>When a tester first logs an anomaly during execution, the defect typically enters which state?</p>",
+          "answers": [
+            {
+              "text": "New (open), awaiting triage/assignment",
+              "fraction": 100,
+              "feedback": "Correct — a freshly reported defect starts as new/open before being assigned."
+            },
+            {
+              "text": "Closed",
+              "fraction": 0,
+              "feedback": "Closed is the end state, reached after a confirmed fix."
+            },
+            {
+              "text": "Fixed",
+              "fraction": 0,
+              "feedback": "Fixed comes after a developer resolves it, not at first report."
+            },
+            {
+              "text": "Retest passed",
+              "fraction": 0,
+              "feedback": "That occurs only after a fix has been confirmed."
+            }
+          ],
+          "generalFeedback": "The lifecycle usually begins new/open &#8594; assigned &#8594; in progress &#8594; fixed &#8594; retest &#8594; closed (with reopen/reject/defer branches). A newly logged defect is new/open.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Activity that produces procedures and checks readiness",
+          "text": "<p>Building test procedures and suites, preparing test data and the environment, and checking that entry criteria/readiness are met belongs to:</p>",
+          "answers": [
+            {
+              "text": "Test implementation",
+              "fraction": 100,
+              "feedback": "Correct — implementation makes the designed tests runnable and confirms everything is ready to execute."
+            },
+            {
+              "text": "Test design",
+              "fraction": 0,
+              "feedback": "Design produces the test cases; organising procedures/data/environment is implementation."
+            },
+            {
+              "text": "Test execution",
+              "fraction": 0,
+              "feedback": "Execution runs the tests; the preparation of testware and environment precedes it."
+            },
+            {
+              "text": "Test completion",
+              "fraction": 0,
+              "feedback": "Completion wraps up testing after execution."
+            }
+          ],
+          "generalFeedback": "Test implementation organises testware for execution: it creates/finalises test procedures and suites, prepares test data and the environment, and verifies readiness (entry criteria) before execution starts.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Activity that builds test cases from conditions",
+          "text": "<p>Turning test conditions into concrete test cases (with inputs and expected results) is the job of:</p>",
+          "answers": [
+            {
+              "text": "Test design",
+              "fraction": 100,
+              "feedback": "Correct — design elaborates test conditions into runnable test cases; the &#8220;how to test&#8221;."
+            },
+            {
+              "text": "Test analysis",
+              "fraction": 0,
+              "feedback": "Analysis produces the test conditions; design turns them into test cases."
+            },
+            {
+              "text": "Test implementation",
+              "fraction": 0,
+              "feedback": "Implementation sequences and organises the cases; it does not first create them from conditions."
+            },
+            {
+              "text": "Test monitoring and control",
+              "fraction": 0,
+              "feedback": "That steers the effort; it does not design test cases."
+            }
+          ],
+          "generalFeedback": "Test design takes the test conditions from analysis and designs test cases and sets of test cases (inputs, expected results, coverage items) — the &#8220;how to test&#8221;.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Confirmation before the fix",
+          "text": "<p>Confirmation testing is normally performed <em>before</em> the defect has been fixed.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — confirmation testing re-runs the failing test AFTER the fix, to confirm the defect is gone."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "It is false: there is nothing to confirm until the fix has been made; confirmation testing follows the fix."
+            }
+          ],
+          "generalFeedback": "Confirmation (re-)testing is done after a fix is delivered, re-executing the previously failing test to confirm the defect has been resolved."
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Reorder the scrambled process",
+          "text": "<p>A colleague lists the sequential activities scrambled as: <em>execution, planning, design, completion, implementation, analysis</em>. Put them back into the correct order.</p>",
+          "answers": [
+            {
+              "text": "Planning, analysis, design, implementation, execution, completion",
+              "fraction": 100,
+              "feedback": "Correct — the canonical sequential order of the fundamental test process."
+            },
+            {
+              "text": "Planning, analysis, design, execution, implementation, completion",
+              "fraction": 0,
+              "feedback": "Implementation must precede execution — you cannot run tests before the testware and environment are ready."
+            },
+            {
+              "text": "Planning, design, analysis, implementation, execution, completion",
+              "fraction": 0,
+              "feedback": "Analysis (what to test) must come before design (how to test)."
+            },
+            {
+              "text": "Analysis, planning, design, implementation, execution, completion",
+              "fraction": 0,
+              "feedback": "Planning is the first activity, before analysis."
+            }
+          ],
+          "generalFeedback": "Sequentially: planning &#8594; analysis &#8594; design &#8594; implementation &#8594; execution &#8594; completion (with monitoring & control throughout). Watch the two common traps: analysis before design, and implementation before execution.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why exit criteria matter",
+          "text": "<p>Why are agreed <em>exit criteria</em> important to the test process?</p>",
+          "answers": [
+            {
+              "text": "They give an objective, agreed basis for deciding when to stop testing, rather than stopping arbitrarily",
+              "fraction": 100,
+              "feedback": "Correct — testing is potentially endless, so exit criteria define &#8220;done&#8221; up front."
+            },
+            {
+              "text": "They guarantee that the product is completely defect-free once met",
+              "fraction": 0,
+              "feedback": "Meeting exit criteria never proves the absence of defects."
+            },
+            {
+              "text": "They remove the need to plan or monitor testing",
+              "fraction": 0,
+              "feedback": "Exit criteria are set during planning and evaluated during monitoring & control; they do not replace them."
+            },
+            {
+              "text": "They decide which test conditions to derive from the basis",
+              "fraction": 0,
+              "feedback": "That is test analysis, unrelated to stopping."
+            }
+          ],
+          "generalFeedback": "Because exhaustive testing is impossible, exit (completion) criteria provide an agreed, measurable basis for deciding when enough testing has been done, supporting a rational stop/continue decision.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What belongs in exit criteria",
+          "text": "<p>Which of the following is <strong>least</strong> appropriate as an exit criterion for testing?</p>",
+          "answers": [
+            {
+              "text": "The test environment has been installed and the build deployed",
+              "fraction": 100,
+              "feedback": "Correct — that is an entry/readiness condition; it says nothing about whether testing is complete."
+            },
+            {
+              "text": "The planned coverage target has been achieved",
+              "fraction": 0,
+              "feedback": "That is a legitimate exit criterion."
+            },
+            {
+              "text": "The residual defect rate is within the agreed threshold",
+              "fraction": 0,
+              "feedback": "That is a legitimate exit criterion."
+            },
+            {
+              "text": "The allotted test time/budget has been consumed",
+              "fraction": 0,
+              "feedback": "Time/budget is a commonly used (if blunt) exit criterion."
+            }
+          ],
+          "generalFeedback": "Exit criteria describe completion — coverage achieved, defect levels acceptable, time/budget consumed. &#8220;Environment installed / build deployed&#8221; is an entry-side readiness condition, not a measure of whether testing is finished.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Who produces the test summary report",
+          "text": "<p>The <em>test summary report</em> is produced as part of which activity?</p>",
+          "answers": [
+            {
+              "text": "Test completion",
+              "fraction": 100,
+              "feedback": "Correct — the summary report is a completion work product that consolidates the results."
+            },
+            {
+              "text": "Test planning",
+              "fraction": 0,
+              "feedback": "Planning produces the test plan, not the summary report."
+            },
+            {
+              "text": "Test analysis",
+              "fraction": 0,
+              "feedback": "Analysis produces test conditions."
+            },
+            {
+              "text": "Test execution",
+              "fraction": 0,
+              "feedback": "Execution produces logs and defect reports; the consolidated summary is written at completion."
+            }
+          ],
+          "generalFeedback": "Test completion gathers data from finished activities and produces the test summary report for stakeholders, alongside archiving testware and capturing lessons learned.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Work product of test analysis",
+          "text": "<p>Which work product is the primary output of <em>test analysis</em>?</p>",
+          "answers": [
+            {
+              "text": "(Prioritised) test conditions",
+              "fraction": 100,
+              "feedback": "Correct — analysis evaluates the basis and yields test conditions."
+            },
+            {
+              "text": "Test cases with concrete inputs and expected results",
+              "fraction": 0,
+              "feedback": "Those are the output of test design."
+            },
+            {
+              "text": "Test procedures and suites ready to run",
+              "fraction": 0,
+              "feedback": "Those come from test implementation."
+            },
+            {
+              "text": "The test summary report",
+              "fraction": 0,
+              "feedback": "That comes from test completion."
+            }
+          ],
+          "generalFeedback": "Each activity has characteristic work products: analysis &#8594; test conditions; design &#8594; test cases; implementation &#8594; test procedures/suites, data, environment; execution &#8594; results/defect reports; completion &#8594; summary report and archived testware.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Monitoring and control vs planning",
+          "text": "<p>Which statement best distinguishes <em>test monitoring &amp; control</em> from <em>test planning</em>?</p>",
+          "answers": [
+            {
+              "text": "Planning sets out the intended approach up front; monitoring & control continuously compares actual progress with the plan and takes corrective action",
+              "fraction": 100,
+              "feedback": "Correct — planning defines the plan; monitoring & control keeps testing on track against it."
+            },
+            {
+              "text": "They are the same activity under two different names",
+              "fraction": 0,
+              "feedback": "They are distinct: one defines the plan, the other continuously steers against it."
+            },
+            {
+              "text": "Planning happens continuously while monitoring & control happens only at the start",
+              "fraction": 0,
+              "feedback": "It is the reverse: monitoring & control is the continuous one."
+            },
+            {
+              "text": "Monitoring & control derives the test cases from test conditions",
+              "fraction": 0,
+              "feedback": "That is test design, not monitoring & control."
+            }
+          ],
+          "generalFeedback": "Planning is largely done up front (and revised as needed) and yields the plan. Monitoring & control is a continuous activity: it measures progress/coverage/defects against the plan and applies control actions (e.g. re-prioritising, reallocating) to meet the exit criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify a test completion activity",
+          "text": "<p>Which of the following is a genuine <em>test completion</em> activity?</p>",
+          "answers": [
+            {
+              "text": "Analysing lessons learned and archiving the testware for future reuse",
+              "fraction": 100,
+              "feedback": "Correct — capturing lessons learned and archiving/handing over testware are classic completion tasks."
+            },
+            {
+              "text": "Deriving test conditions from the requirements",
+              "fraction": 0,
+              "feedback": "That is test analysis, near the start of the process."
+            },
+            {
+              "text": "Preparing test data and provisioning the environment",
+              "fraction": 0,
+              "feedback": "That is test implementation."
+            },
+            {
+              "text": "Comparing actual results with expected results",
+              "fraction": 0,
+              "feedback": "That is test execution."
+            }
+          ],
+          "generalFeedback": "Test completion activities include: checking all defects are closed/deferred, creating the test summary report, finalising and archiving testware, handing it over, and capturing lessons learned for process improvement.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subtle: which activity organises the suite",
+          "text": "<p>&#8220;Group the finished test cases into an executable regression suite, sequence them, and load the required test data.&#8221; This is:</p>",
+          "answers": [
+            {
+              "text": "Test implementation",
+              "fraction": 100,
+              "feedback": "Correct — organising cases into runnable suites/procedures with data prepared is implementation."
+            },
+            {
+              "text": "Test design",
+              "fraction": 0,
+              "feedback": "Design creates the cases; grouping/sequencing them for execution is implementation."
+            },
+            {
+              "text": "Test analysis",
+              "fraction": 0,
+              "feedback": "Analysis identifies conditions, not runnable suites."
+            },
+            {
+              "text": "Test execution",
+              "fraction": 0,
+              "feedback": "Execution runs the suite; assembling and loading it is the preceding implementation step."
+            }
+          ],
+          "generalFeedback": "Once test cases exist (design), implementation sequences them into test procedures/suites, prepares data and environment, and confirms readiness. Only then does execution run them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subtle: prioritising conditions by risk",
+          "text": "<p>&#8220;Review the requirements and risk report, list the testable features, and rank the resulting test conditions by risk.&#8221; This is:</p>",
+          "answers": [
+            {
+              "text": "Test analysis",
+              "fraction": 100,
+              "feedback": "Correct — identifying and prioritising test conditions from the basis is analysis."
+            },
+            {
+              "text": "Test design",
+              "fraction": 0,
+              "feedback": "Design comes next, converting the prioritised conditions into test cases."
+            },
+            {
+              "text": "Test planning",
+              "fraction": 0,
+              "feedback": "Planning sets overall strategy; deriving and ranking conditions is analysis."
+            },
+            {
+              "text": "Test monitoring and control",
+              "fraction": 0,
+              "feedback": "That steers progress; it does not derive test conditions."
+            }
+          ],
+          "generalFeedback": "Test analysis evaluates the test basis (including risk information), identifies testable features, and defines and prioritises test conditions — still the &#8220;what&#8221;, not yet the &#8220;how&#8221;.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subtle: specifying inputs and expected results",
+          "text": "<p>&#8220;For the test condition &#8216;withdrawal exceeds balance&#8217;, specify the account state, the amount to withdraw, and the exact expected error message.&#8221; This is:</p>",
+          "answers": [
+            {
+              "text": "Test design",
+              "fraction": 100,
+              "feedback": "Correct — turning a condition into concrete inputs, preconditions and expected results is design."
+            },
+            {
+              "text": "Test analysis",
+              "fraction": 0,
+              "feedback": "Analysis produced the condition; specifying concrete inputs/expected results is design."
+            },
+            {
+              "text": "Test implementation",
+              "fraction": 0,
+              "feedback": "Implementation would then sequence and prepare this case for execution; it does not first specify its inputs/expected results."
+            },
+            {
+              "text": "Test execution",
+              "fraction": 0,
+              "feedback": "Execution runs the case; here we are still designing it."
+            }
+          ],
+          "generalFeedback": "Deriving concrete preconditions, inputs and expected results from a test condition is exactly test design (the &#8220;how&#8221;). Analysis gave the condition; implementation later makes the case runnable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Verification of work products vs execution",
+          "text": "<p>Reviewing a requirements specification for ambiguities and contradictions, before any code is run, is best characterised as:</p>",
+          "answers": [
+            {
+              "text": "Static verification of a work product, which can begin during test analysis",
+              "fraction": 100,
+              "feedback": "Correct — reviewing the test basis is static work and often surfaces defects early, before dynamic execution."
+            },
+            {
+              "text": "Test execution, because a defect was found",
+              "fraction": 0,
+              "feedback": "Execution requires running the software; reviewing a document is static, not dynamic."
+            },
+            {
+              "text": "Confirmation testing of a fix",
+              "fraction": 0,
+              "feedback": "There is no fix being re-tested here; this is a static review."
+            },
+            {
+              "text": "Test completion, because it wraps things up",
+              "fraction": 0,
+              "feedback": "Reviewing the basis happens early, not at closure."
+            }
+          ],
+          "generalFeedback": "Verification checks whether a work product meets its specification and can be done statically (reviews, static analysis) without executing code. Reviewing the test basis often happens as part of/around test analysis and can find defects before dynamic execution begins.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When exit criteria are not met",
+          "text": "<p>Monitoring shows that, at the planned end date, the agreed exit criteria are <strong>not</strong> yet met. Which response is most consistent with the test process?</p>",
+          "answers": [
+            {
+              "text": "Report the status and, via control, decide to continue testing or renegotiate the criteria/scope with stakeholders",
+              "fraction": 100,
+              "feedback": "Correct — unmet exit criteria feed a control decision; you do not simply declare done."
+            },
+            {
+              "text": "Automatically declare testing complete because the date arrived",
+              "fraction": 0,
+              "feedback": "A calendar date alone does not satisfy exit criteria; that ignores the criteria's purpose."
+            },
+            {
+              "text": "Delete the failing tests so the criteria appear satisfied",
+              "fraction": 0,
+              "feedback": "Gaming the metric hides risk; it is not a legitimate response."
+            },
+            {
+              "text": "Skip straight to archiving testware without any report",
+              "fraction": 0,
+              "feedback": "Completion still requires reporting; and the decision to stop must be made explicitly."
+            }
+          ],
+          "generalFeedback": "Exit criteria drive a stop/continue decision. If they are unmet, monitoring & control reports the situation and stakeholders decide to continue testing, add resources, or consciously accept the risk by renegotiating scope/criteria — never by pretending they are met.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Monitoring vs control",
+          "text": "<p>Within the continuous activity, which is a <em>control</em> action rather than a <em>monitoring</em> action?</p>",
+          "answers": [
+            {
+              "text": "Re-prioritising the remaining tests and reassigning testers because a risky area is behind",
+              "fraction": 100,
+              "feedback": "Correct — taking corrective action to steer the effort is control."
+            },
+            {
+              "text": "Measuring how many planned test cases have run so far",
+              "fraction": 0,
+              "feedback": "That is monitoring — gathering information, not acting on it."
+            },
+            {
+              "text": "Recording the current defect find/fix counts",
+              "fraction": 0,
+              "feedback": "That is monitoring (collecting data)."
+            },
+            {
+              "text": "Reporting coverage progress against the plan",
+              "fraction": 0,
+              "feedback": "That is monitoring/reporting, not a corrective action."
+            }
+          ],
+          "generalFeedback": "Monitoring gathers and reports information (progress, coverage, defect data); control uses that information to take corrective actions — re-prioritising, reallocating resources, adjusting the schedule — so that the exit criteria can still be met.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mismatched activity and work product",
+          "text": "<p>Which pairing of an activity with its characteristic work product is <strong>incorrect</strong>?</p>",
+          "answers": [
+            {
+              "text": "Test execution produces the test conditions",
+              "fraction": 100,
+              "feedback": "Correct — this pairing is wrong: test conditions come from test analysis, not execution."
+            },
+            {
+              "text": "Test design produces test cases",
+              "fraction": 0,
+              "feedback": "This pairing is correct, so it is not the answer."
+            },
+            {
+              "text": "Test implementation produces test procedures and suites",
+              "fraction": 0,
+              "feedback": "This pairing is correct, so it is not the answer."
+            },
+            {
+              "text": "Test completion produces the test summary report",
+              "fraction": 0,
+              "feedback": "This pairing is correct, so it is not the answer."
+            }
+          ],
+          "generalFeedback": "Characteristic work products: analysis &#8594; test conditions; design &#8594; test cases; implementation &#8594; test procedures/suites, data, environment; execution &#8594; test logs and defect reports; completion &#8594; test summary report. Execution does not produce test conditions.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Entry gates start, exit gates stop",
+          "text": "<p>Entry criteria gate the <em>start</em> of a test activity, whereas exit criteria gate its <em>completion</em>.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — entry criteria are the &#8220;definition of ready&#8221; to begin; exit criteria are the &#8220;definition of done&#8221; to stop."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "It is true: entry criteria must hold before an activity begins; exit criteria must hold before it is declared complete."
+            }
+          ],
+          "generalFeedback": "Entry criteria (readiness) must be satisfied before an activity such as execution starts; exit/completion criteria must be satisfied before testing is considered finished. Confusing the two is a common error."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "測試計畫是什麼",
+          "text": "<p>對<em>測試計畫（test plan）</em>最貼切的描述是：</p>",
+          "answers": [
+            {
+              "text": "一份描述預定測試活動之範圍、目標、方法、資源與時程的文件",
+              "fraction": 100,
+              "feedback": "正確——測試計畫是測試規劃的產物，訂出要測什麼、如何測、由誰測、何時測。"
+            },
+            {
+              "text": "某一個特定測試的具體輸入與預期結果清單",
+              "fraction": 0,
+              "feedback": "那描述的是單一測試案例，不是整體測試計畫。"
+            },
+            {
+              "text": "執行軟體時觀察到某次失敗的紀錄",
+              "fraction": 0,
+              "feedback": "那是在執行階段產生的缺陷（事件）報告。"
+            },
+            {
+              "text": "待測程式的原始碼",
+              "fraction": 0,
+              "feedback": "程式碼屬於測試對象，不是測試計畫。"
+            }
+          ],
+          "generalFeedback": "測試規劃是基本測試流程的第一個活動；其產物測試計畫界定測試的目標、範圍、方法、資源與時程。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試基礎是什麼",
+          "text": "<p><em>測試基礎（test basis）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "用來分析與設計測試所依據的知識體（需求、規格、設計、使用者故事、風險報告等）",
+              "fraction": 100,
+              "feedback": "正確——測試是從測試基礎推導出來的。"
+            },
+            {
+              "text": "發行前必須通過的最小測試集合",
+              "fraction": 0,
+              "feedback": "那較接近退出準則或冒煙測試集，不是測試基礎。"
+            },
+            {
+              "text": "執行測試所在的軟硬體環境",
+              "fraction": 0,
+              "feedback": "那是測試環境，不是測試基礎。"
+            },
+            {
+              "text": "負責測試的人員團隊",
+              "fraction": 0,
+              "feedback": "人員是資源；測試基礎是測試推導的來源材料。"
+            }
+          ],
+          "generalFeedback": "測試基礎是測試所推導自的一切——需求、規格、設計與實作資訊、使用者故事、風險分析等。測試分析以它為依據來決定要測什麼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試條件是什麼",
+          "text": "<p><em>測試條件（test condition）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "測試基礎中一個可測試的面向（某功能、機能、需求或品質屬性），測試可據以驗證",
+              "fraction": 100,
+              "feedback": "正確——測試條件說明「要測什麼」；它在測試分析階段被識別出來。"
+            },
+            {
+              "text": "一個可執行測試的具體輸入值與預期輸出",
+              "fraction": 0,
+              "feedback": "那屬於測試案例，是稍後從測試條件設計出來的。"
+            },
+            {
+              "text": "測試開始前系統必須處於的狀態",
+              "fraction": 0,
+              "feedback": "那是測試案例的前置條件，不是測試條件。"
+            },
+            {
+              "text": "執行時發現的缺陷",
+              "fraction": 0,
+              "feedback": "缺陷是觀察到的失敗／錯誤，不是測試條件。"
+            }
+          ],
+          "generalFeedback": "測試條件是測試基礎中值得測試的項目或面向（某機能、需求或品質特性）。它回答「要測什麼」，是測試分析的產物；具體的測試案例則於之後設計而成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試案例是什麼",
+          "text": "<p><em>測試案例（test case）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "為驗證某測試條件而建立的一組前置條件、輸入、預期結果與後置條件",
+              "fraction": 100,
+              "feedback": "正確——測試案例讓測試條件變得具體且可執行。"
+            },
+            {
+              "text": "對測試基礎中一個值得測試面向的高階陳述",
+              "fraction": 0,
+              "feedback": "那是測試條件；測試案例是由它推導而來且更具體。"
+            },
+            {
+              "text": "測試整體的時程與資源配置文件",
+              "fraction": 0,
+              "feedback": "那是測試計畫。"
+            },
+            {
+              "text": "專案結束時對測試情況的總結",
+              "fraction": 0,
+              "feedback": "那是測試總結報告，於測試完成階段產生。"
+            }
+          ],
+          "generalFeedback": "測試案例把測試條件變成可執行的東西：它指定前置條件、輸入、用以比對的預期結果與後置條件。它是測試設計的主要產物。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試案例必須包含什麼",
+          "text": "<p>一個完整的測試案例中，何者是不可或缺的要素？</p>",
+          "answers": [
+            {
+              "text": "用以與實際結果比對的預期結果",
+              "fraction": 100,
+              "feedback": "正確——沒有記載預期結果就無法判定通過或失敗（此即神諭／oracle 問題）。"
+            },
+            {
+              "text": "撰寫程式碼之開發者的姓名",
+              "fraction": 0,
+              "feedback": "那也許是有用的中繼資料，但並非測試案例不可或缺的部分。"
+            },
+            {
+              "text": "保證該測試一定會通過",
+              "fraction": 0,
+              "feedback": "測試案例並不需要保證通過；它必須有明確定義的預期結果。"
+            },
+            {
+              "text": "整個專案的總預算",
+              "fraction": 0,
+              "feedback": "預算是規劃層面的事，不屬於測試案例。"
+            }
+          ],
+          "generalFeedback": "測試案例指定前置條件、輸入、預期結果與後置條件。其中預期結果不可或缺：把實際結果與預先定義的預期結果比對，正是能做出判定（通過／失敗）的關鍵。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "進入準則",
+          "text": "<p>某測試活動的<em>進入準則（entry criteria）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "在該活動能合理開始之前必須先滿足的條件",
+              "fraction": 100,
+              "feedback": "正確——進入準則把關活動的「開始」（即「就緒的定義」）。"
+            },
+            {
+              "text": "在測試可宣告結束之前必須滿足的條件",
+              "fraction": 0,
+              "feedback": "那是退出準則，把關的是停止而非開始。"
+            },
+            {
+              "text": "測試結束時仍未解決的缺陷清單",
+              "fraction": 0,
+              "feedback": "那是殘餘缺陷資料，不是進入準則。"
+            },
+            {
+              "text": "單一測試案例的輸入",
+              "fraction": 0,
+              "feedback": "那是測試案例的輸入，不是某活動的進入準則。"
+            }
+          ],
+          "generalFeedback": "進入準則界定活動開始前必須到位的事項——例如已部署穩定版本、測試環境就緒、測試資料備妥。它們在測試實作／執行的開始時被檢查。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "退出準則",
+          "text": "<p>測試的<em>退出準則（exit criteria）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "在測試可視為對既定目標已完成之前必須滿足的條件",
+              "fraction": 100,
+              "feedback": "正確——退出準則把關「停止」（測試的「完成的定義」）。"
+            },
+            {
+              "text": "在測試可以開始之前必須滿足的條件",
+              "fraction": 0,
+              "feedback": "那是進入準則，把關的是開始。"
+            },
+            {
+              "text": "核准測試計畫的利害關係人名單",
+              "fraction": 0,
+              "feedback": "核准簽核與退出準則並不相同。"
+            },
+            {
+              "text": "測試分析所產出的一組測試條件",
+              "fraction": 0,
+              "feedback": "那是分析的產物，不是退出準則。"
+            }
+          ],
+          "generalFeedback": "退出準則（完成準則）說明測試何時算完成——例如已達成計畫的覆蓋率、無未解決的高嚴重度缺陷、時間／預算已用盡。它們在測試監控與控制以及完成階段被檢查。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試程序是什麼",
+          "text": "<p><em>測試程序（test procedure，測試腳本）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "依執行順序排列的一連串動作與測試案例，並含所需的前置設定",
+              "fraction": 100,
+              "feedback": "正確——測試程序指定執行步驟與順序；它在測試實作階段建立。"
+            },
+            {
+              "text": "測試基礎中一個值得測試的高階面向",
+              "fraction": 0,
+              "feedback": "那是測試條件。"
+            },
+            {
+              "text": "整體測試工作的目標與時程",
+              "fraction": 0,
+              "feedback": "那是測試計畫。"
+            },
+            {
+              "text": "有多少測試通過的報告",
+              "fraction": 0,
+              "feedback": "那是測試結果／總結，不是程序。"
+            }
+          ],
+          "generalFeedback": "測試程序指定執行測試的步驟順序（以及依執行順序排列的測試案例），含前置條件與設定。產出測試程序屬於測試實作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試套組是什麼",
+          "text": "<p><em>測試套組（test suite）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "把一批測試案例或測試程序集結在一起、作為一組來執行的集合",
+              "fraction": 100,
+              "feedback": "正確——套組把相關的測試整合起來以便執行與報告。"
+            },
+            {
+              "text": "單一組輸入／預期結果配對",
+              "fraction": 0,
+              "feedback": "那是一個測試案例，而非一整組。"
+            },
+            {
+              "text": "測試所推導自的需求文件",
+              "fraction": 0,
+              "feedback": "那屬於測試基礎的一部分。"
+            },
+            {
+              "text": "一個量測程式碼覆蓋率的工具",
+              "fraction": 0,
+              "feedback": "那是覆蓋率工具，不是測試套組。"
+            }
+          ],
+          "generalFeedback": "測試套組把測試案例／程序集結起來以供執行（例如冒煙套組或回歸套組）。把測試組織成套組發生在測試實作階段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷報告是什麼",
+          "text": "<p><em>缺陷（事件）報告</em>主要記錄：</p>",
+          "answers": [
+            {
+              "text": "觀察到的異常（實際行為與預期行為之間的差異），以便調查與追蹤",
+              "fraction": 100,
+              "feedback": "正確——缺陷報告在執行階段記錄，並推動缺陷生命週期。"
+            },
+            {
+              "text": "測試的計畫範圍與時程",
+              "fraction": 0,
+              "feedback": "那是測試計畫。"
+            },
+            {
+              "text": "要涵蓋的測試條件清單",
+              "fraction": 0,
+              "feedback": "那來自測試分析，不是缺陷報告。"
+            },
+            {
+              "text": "保證軟體毫無缺陷",
+              "fraction": 0,
+              "feedback": "測試無法證明沒有缺陷；缺陷報告記錄的是所發現的某個特定異常。"
+            }
+          ],
+          "generalFeedback": "當執行時實際行為與預期行為不同，測試者會記錄一份缺陷報告，描述異常、如何重現以及影響。這啟動了缺陷生命週期。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "主要活動的正確順序",
+          "text": "<p>先不計持續進行的監控與控制活動，下列哪個序列給出基本測試流程活動的正確順序？</p>",
+          "answers": [
+            {
+              "text": "規劃、分析、設計、實作、執行、完成",
+              "fraction": 100,
+              "feedback": "正確——這是標準順序（監控與控制則貫穿全程）。"
+            },
+            {
+              "text": "規劃、設計、分析、執行、實作、完成",
+              "fraction": 0,
+              "feedback": "分析（要測什麼）必須先於設計（如何測），且實作必須先於執行。"
+            },
+            {
+              "text": "分析、規劃、設計、執行、實作、完成",
+              "fraction": 0,
+              "feedback": "規劃在最前面，且實作先於執行。"
+            },
+            {
+              "text": "規劃、分析、設計、執行、實作、完成",
+              "fraction": 0,
+              "feedback": "實作（建立程序／資料／環境）先於執行，而非反過來。"
+            }
+          ],
+          "generalFeedback": "基本測試流程為：測試規劃 &#8594; 測試分析 &#8594; 測試設計 &#8594; 測試實作 &#8594; 測試執行 &#8594; 測試完成，並以測試監控與控制作為貫穿全部的持續性活動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個活動實際執行測試",
+          "text": "<p>實際執行測試、把實際結果與預期結果比對、並記錄缺陷，是在下列哪個活動進行？</p>",
+          "answers": [
+            {
+              "text": "測試執行",
+              "fraction": 100,
+              "feedback": "正確——執行負責跑測試並記錄結果與任何缺陷。"
+            },
+            {
+              "text": "測試分析",
+              "fraction": 0,
+              "feedback": "分析識別測試條件；它不執行測試。"
+            },
+            {
+              "text": "測試設計",
+              "fraction": 0,
+              "feedback": "設計產出測試案例；它不執行它們。"
+            },
+            {
+              "text": "測試規劃",
+              "fraction": 0,
+              "feedback": "規劃訂定範圍與方法；執行測試發生在很後面。"
+            }
+          ],
+          "generalFeedback": "測試執行是把測試套組跑起來、將實際結果與預期結果比對、把差異記為缺陷，並進行確認／回歸測試的活動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試完成的目的",
+          "text": "<p><em>測試完成（test completion，收尾）</em>的主要目的是：</p>",
+          "answers": [
+            {
+              "text": "為測試收尾——報告結果、定稿並歸檔測試資產，並汲取經驗教訓",
+              "fraction": 100,
+              "feedback": "正確——完成階段彙整並移交測試的成果。"
+            },
+            {
+              "text": "從測試基礎識別出測試條件",
+              "fraction": 0,
+              "feedback": "那是測試分析，位於流程前段。"
+            },
+            {
+              "text": "寫出每個測試的具體輸入與預期結果",
+              "fraction": 0,
+              "feedback": "那是測試設計。"
+            },
+            {
+              "text": "首次執行測試套組",
+              "fraction": 0,
+              "feedback": "那是測試執行，先於完成。"
+            }
+          ],
+          "generalFeedback": "測試完成發生在到達里程碑時（發行、疊代結束、專案收尾）。它蒐集資料、產出測試總結報告、定稿並歸檔測試資產、移交，並記錄經驗教訓。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "監控與控制是什麼",
+          "text": "<p><em>測試監控與控制（test monitoring and control）</em>是：</p>",
+          "answers": [
+            {
+              "text": "一項持續進行的活動，在整個測試過程中把實際進度與計畫比對並採取矯正行動",
+              "fraction": 100,
+              "feedback": "正確——它持續進行，而非只做一次，並引導整個工作。"
+            },
+            {
+              "text": "只在專案最末端做一次的一次性活動",
+              "fraction": 0,
+              "feedback": "那較接近完成階段；監控與控制是持續進行的。"
+            },
+            {
+              "text": "從測試條件推導測試案例的活動",
+              "fraction": 0,
+              "feedback": "那是測試設計。"
+            },
+            {
+              "text": "逐一記錄每個缺陷的活動",
+              "fraction": 0,
+              "feedback": "缺陷在執行階段記錄；監控利用這些資料來引導。"
+            }
+          ],
+          "generalFeedback": "測試監控與控制貫穿整個流程：監控蒐集資訊（進度、覆蓋率、缺陷資料），控制則用這些資訊引導測試，使退出準則得以達成。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "分析決定要測什麼",
+          "text": "<p>測試分析藉由從測試基礎識別測試條件，來決定<em>要測什麼</em>。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——分析從測試基礎識別並排序測試條件（「要測什麼」）；設計「如何測」則在其後。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此為真：測試分析識別測試條件（要測什麼）；測試設計再產出測試案例（如何測）。"
+            }
+          ],
+          "generalFeedback": "測試分析分析測試基礎以決定要測什麼，產出測試條件。測試設計再把這些條件轉成具體的測試案例。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "測試設計之前是什麼",
+          "text": "<p>在基本測試流程中，哪個活動緊接在測試設計<strong>之前</strong>？</p>",
+          "answers": [
+            {
+              "text": "測試分析",
+              "fraction": 100,
+              "feedback": "正確——分析識別出測試條件，設計再把它們轉成測試案例。"
+            },
+            {
+              "text": "測試實作",
+              "fraction": 0,
+              "feedback": "實作在設計之後，而非之前。"
+            },
+            {
+              "text": "測試執行",
+              "fraction": 0,
+              "feedback": "執行在很後面，位於實作之後。"
+            },
+            {
+              "text": "測試完成",
+              "fraction": 0,
+              "feedback": "完成是最後一個活動，不會在設計之前。"
+            }
+          ],
+          "generalFeedback": "順序為 分析 &#8594; 設計 &#8594; 實作。測試設計取用測試分析所產出的測試條件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試設計之後是什麼",
+          "text": "<p>哪個活動緊接在測試設計<strong>之後</strong>？</p>",
+          "answers": [
+            {
+              "text": "測試實作",
+              "fraction": 100,
+              "feedback": "正確——測試案例設計完成後，實作接著建立程序、套組、資料與環境。"
+            },
+            {
+              "text": "測試分析",
+              "fraction": 0,
+              "feedback": "分析在設計之前，而非之後。"
+            },
+            {
+              "text": "測試執行",
+              "fraction": 0,
+              "feedback": "執行在實作之後，並非緊接在設計之後。"
+            },
+            {
+              "text": "測試規劃",
+              "fraction": 0,
+              "feedback": "規劃是第一個活動，不會在設計之後。"
+            }
+          ],
+          "generalFeedback": "分析 &#8594; 設計 &#8594; 實作 &#8594; 執行。實作緊接在設計之後：它讓設計好的測試變得可執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試實作之後是什麼",
+          "text": "<p>哪個活動緊接在測試實作<strong>之後</strong>？</p>",
+          "answers": [
+            {
+              "text": "測試執行",
+              "fraction": 100,
+              "feedback": "正確——一旦測試資產與環境就緒且進入準則滿足，即執行測試。"
+            },
+            {
+              "text": "測試設計",
+              "fraction": 0,
+              "feedback": "設計在實作之前。"
+            },
+            {
+              "text": "測試分析",
+              "fraction": 0,
+              "feedback": "分析更早。"
+            },
+            {
+              "text": "測試完成",
+              "fraction": 0,
+              "feedback": "完成在執行之後，並非緊接在實作之後。"
+            }
+          ],
+          "generalFeedback": "實作 &#8594; 執行：實作定稿測試資產、資料與環境（並檢查就緒／進入準則）；執行接著把測試跑起來。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "依工作內容指認活動",
+          "text": "<p>「分析測試基礎以決定可測試的功能並推導出測試條件。」這描述的是：</p>",
+          "answers": [
+            {
+              "text": "測試分析",
+              "fraction": 100,
+              "feedback": "正確——評估測試基礎並產出測試條件正是測試分析。"
+            },
+            {
+              "text": "測試設計",
+              "fraction": 0,
+              "feedback": "設計把這些條件轉成測試案例；它不推導條件本身。"
+            },
+            {
+              "text": "測試規劃",
+              "fraction": 0,
+              "feedback": "規劃訂定範圍與方法；它不把基礎分析成條件。"
+            },
+            {
+              "text": "測試實作",
+              "fraction": 0,
+              "feedback": "實作建立程序與資料；它不推導測試條件。"
+            }
+          ],
+          "generalFeedback": "測試分析評估測試基礎、識別可測試的功能，並定義與排序測試條件——即「要測什麼」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨認進入準則",
+          "text": "<p>下列何者是開始測試執行的<strong>進入</strong>準則？</p>",
+          "answers": [
+            {
+              "text": "已部署穩定、可測試的版本，且測試環境與測試資料皆已就緒",
+              "fraction": 100,
+              "feedback": "正確——這些必須在執行能有意義地開始之前成立。"
+            },
+            {
+              "text": "已達成計畫的需求覆蓋率",
+              "fraction": 0,
+              "feedback": "那是退出準則——它描述何時停止，而非何時開始。"
+            },
+            {
+              "text": "已無未解決的高嚴重度缺陷",
+              "fraction": 0,
+              "feedback": "那是退出準則，用來判定是否完成。"
+            },
+            {
+              "text": "測試總結報告已簽核",
+              "fraction": 0,
+              "feedback": "那發生在完成階段，遠在執行開始之後。"
+            }
+          ],
+          "generalFeedback": "進入準則把關開始：可部署的版本、就緒的環境與備妥的測試資料是執行的典型進入準則。已達覆蓋率與無未解決高嚴重度缺陷則屬退出準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨認退出準則",
+          "text": "<p>下列何者是測試的<strong>退出</strong>準則？</p>",
+          "answers": [
+            {
+              "text": "所有計畫的測試案例皆已執行，且已達成要求的覆蓋率目標",
+              "fraction": 100,
+              "feedback": "正確——那是完成條件，用來判定是否可停止。"
+            },
+            {
+              "text": "測試環境已建置完成",
+              "fraction": 0,
+              "feedback": "那是執行的進入準則。"
+            },
+            {
+              "text": "需求規格已可取得",
+              "fraction": 0,
+              "feedback": "那讓分析／設計得以開始，屬於進入側的前置條件，不是退出準則。"
+            },
+            {
+              "text": "測試資料已備妥",
+              "fraction": 0,
+              "feedback": "那是進入側的就緒條件，不是退出準則。"
+            }
+          ],
+          "generalFeedback": "退出（完成）準則描述測試何時算完成：例如計畫測試已執行、覆蓋率目標達成、缺陷水準可接受、時間／預算已用盡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "推導鏈",
+          "text": "<p>填入推導鏈的空格：<em>測試基礎 &#8594; ______ &#8594; 測試案例</em>。</p>",
+          "answers": [
+            {
+              "text": "測試條件",
+              "fraction": 100,
+              "feedback": "正確——分析從基礎推導測試條件，設計再從條件推導測試案例。"
+            },
+            {
+              "text": "缺陷報告",
+              "fraction": 0,
+              "feedback": "缺陷報告來自執行，不在基礎與測試案例之間。"
+            },
+            {
+              "text": "測試套組",
+              "fraction": 0,
+              "feedback": "測試套組在實作階段把案例集結起來；它不是基礎到案例之間的步驟。"
+            },
+            {
+              "text": "退出準則",
+              "fraction": 0,
+              "feedback": "退出準則是完成條件，不是推導步驟。"
+            }
+          ],
+          "generalFeedback": "流程為 測試基礎 &#8594; 測試條件（分析）&#8594; 測試案例（設計）&#8594; 測試程序／套組（實作）&#8594; 執行 &#8594; 缺陷 &#8594; 收尾。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "確認測試",
+          "text": "<p>開發者修好了回報的缺陷之後，<em>確認測試（confirmation／re-test）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "重新執行原本失敗的那個測試，以確認缺陷確已修復",
+              "fraction": 100,
+              "feedback": "正確——確認測試驗證的是那個特定修復。"
+            },
+            {
+              "text": "執行一大批其他測試，以檢查是否有別處被弄壞",
+              "fraction": 0,
+              "feedback": "那是回歸測試，目的不同。"
+            },
+            {
+              "text": "從需求撰寫一條新的測試條件",
+              "fraction": 0,
+              "feedback": "那是測試分析，與確認修復無關。"
+            },
+            {
+              "text": "審查需求文件以找出缺陷",
+              "fraction": 0,
+              "feedback": "那是對工作產物的靜態驗證，不是對修復的確認測試。"
+            }
+          ],
+          "generalFeedback": "確認測試（re-test）在修復交付後重跑先前失敗的測試，以確認原缺陷已被排除。回歸測試則另外檢查該變更沒有弄壞其他地方。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "回歸測試",
+          "text": "<p><em>回歸測試（regression testing）</em>的目的是：</p>",
+          "answers": [
+            {
+              "text": "偵測某項變更是否弄壞了先前正常運作的功能",
+              "fraction": 100,
+              "feedback": "正確——回歸測試防範變更帶來的非預期副作用。"
+            },
+            {
+              "text": "確認某個回報的缺陷已被修復",
+              "fraction": 0,
+              "feedback": "那是確認測試（re-test），不是回歸測試。"
+            },
+            {
+              "text": "決定要涵蓋哪些測試條件",
+              "fraction": 0,
+              "feedback": "那是測試分析。"
+            },
+            {
+              "text": "建置測試環境",
+              "fraction": 0,
+              "feedback": "那是測試實作的一部分。"
+            }
+          ],
+          "generalFeedback": "變更（修復或新功能）可能有副作用。回歸測試在未變動的區域重跑既有測試以偵測這類非預期的破壞，而確認測試驗證的是預期中的修復本身。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可追溯性的目的",
+          "text": "<p>維護從測試基礎項目到測試條件、測試案例與結果的<em>可追溯性（traceability）</em>，主要能讓你：</p>",
+          "answers": [
+            {
+              "text": "量測對測試基礎的覆蓋程度，並評估變更的影響",
+              "fraction": 100,
+              "feedback": "正確——可追溯性顯示哪些需求被涵蓋，以及某處變更時需重測什麼。"
+            },
+            {
+              "text": "保證軟體不含任何缺陷",
+              "fraction": 0,
+              "feedback": "再多的追溯也無法證明沒有缺陷。"
+            },
+            {
+              "text": "免除設定退出準則的需要",
+              "fraction": 0,
+              "feedback": "可追溯性支援評估退出準則；它不取代退出準則。"
+            },
+            {
+              "text": "加快編譯器速度",
+              "fraction": 0,
+              "feedback": "可追溯性關乎串連工作產物，與建置效能無關。"
+            }
+          ],
+          "generalFeedback": "雙向可追溯性串連 需求／測試基礎 &#8596; 測試條件 &#8596; 測試案例 &#8596; 結果／缺陷。它支援覆蓋率量測、變更的影響分析，以及有意義的進度報告。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷修復之後",
+          "text": "<p>在典型的缺陷生命週期中，開發者把缺陷標記為<em>已修復／已解決</em>之後，測試者緊接著應：</p>",
+          "answers": [
+            {
+              "text": "重測（確認測試）該修復，若通過則把缺陷推向關閉",
+              "fraction": 100,
+              "feedback": "正確——修復必須先經確認，缺陷才能關閉。"
+            },
+            {
+              "text": "不重跑任何測試就立刻關閉缺陷",
+              "fraction": 0,
+              "feedback": "修復應先經重測確認再關閉。"
+            },
+            {
+              "text": "刪除該缺陷報告",
+              "fraction": 0,
+              "feedback": "報告會保留以供歷史與度量之用，不會被刪除。"
+            },
+            {
+              "text": "把它改派給需求撰寫者",
+              "fraction": 0,
+              "feedback": "已解決的缺陷交回測試者做確認，而非退回需求端。"
+            }
+          ],
+          "generalFeedback": "常見的生命週期為 新增 &#8594; 已指派 &#8594; 已修復 &#8594; 重測（確認）&#8594; 關閉，若重測失敗則有重新開啟的路徑。測試者在關閉前先確認修復。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷的起始狀態",
+          "text": "<p>當測試者在執行時首次記錄一項異常，該缺陷通常進入哪個狀態？</p>",
+          "answers": [
+            {
+              "text": "新增（開啟），等待分流／指派",
+              "fraction": 100,
+              "feedback": "正確——剛回報的缺陷在被指派之前先為新增／開啟。"
+            },
+            {
+              "text": "已關閉",
+              "fraction": 0,
+              "feedback": "關閉是結束狀態，於修復經確認後才達到。"
+            },
+            {
+              "text": "已修復",
+              "fraction": 0,
+              "feedback": "已修復發生在開發者解決之後，而非首次回報時。"
+            },
+            {
+              "text": "重測通過",
+              "fraction": 0,
+              "feedback": "那只在修復經確認之後才會出現。"
+            }
+          ],
+          "generalFeedback": "生命週期通常始於 新增／開啟 &#8594; 已指派 &#8594; 處理中 &#8594; 已修復 &#8594; 重測 &#8594; 關閉（並有重新開啟／退回／延後等分支）。剛記錄的缺陷為新增／開啟。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "產出程序並檢查就緒的活動",
+          "text": "<p>建立測試程序與套組、準備測試資料與環境，並檢查進入準則／就緒是否滿足，屬於：</p>",
+          "answers": [
+            {
+              "text": "測試實作",
+              "fraction": 100,
+              "feedback": "正確——實作讓設計好的測試變得可執行，並確認一切已備妥可執行。"
+            },
+            {
+              "text": "測試設計",
+              "fraction": 0,
+              "feedback": "設計產出測試案例；組織程序／資料／環境屬於實作。"
+            },
+            {
+              "text": "測試執行",
+              "fraction": 0,
+              "feedback": "執行把測試跑起來；測試資產與環境的準備先於它。"
+            },
+            {
+              "text": "測試完成",
+              "fraction": 0,
+              "feedback": "完成在執行之後收尾測試。"
+            }
+          ],
+          "generalFeedback": "測試實作為執行而組織測試資產：它建立／定稿測試程序與套組、準備測試資料與環境，並在執行開始前確認就緒（進入準則）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "從條件建立測試案例的活動",
+          "text": "<p>把測試條件轉成具體的測試案例（含輸入與預期結果）是哪個活動的工作？</p>",
+          "answers": [
+            {
+              "text": "測試設計",
+              "fraction": 100,
+              "feedback": "正確——設計把測試條件細化為可執行的測試案例；即「如何測」。"
+            },
+            {
+              "text": "測試分析",
+              "fraction": 0,
+              "feedback": "分析產出測試條件；設計再把它們轉成測試案例。"
+            },
+            {
+              "text": "測試實作",
+              "fraction": 0,
+              "feedback": "實作把案例排序並組織起來；它不是先從條件建立案例的一步。"
+            },
+            {
+              "text": "測試監控與控制",
+              "fraction": 0,
+              "feedback": "那是引導整體工作；它不設計測試案例。"
+            }
+          ],
+          "generalFeedback": "測試設計取用分析產出的測試條件，設計出測試案例與案例集（輸入、預期結果、覆蓋項目）——即「如何測」。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "修復前的確認",
+          "text": "<p>確認測試通常在缺陷被修復<em>之前</em>進行。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——確認測試在修復重跑失敗的測試，以確認缺陷已消除。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "此為假：在修復完成前無從確認；確認測試在修復之後進行。"
+            }
+          ],
+          "generalFeedback": "確認測試（re-test）在修復交付後才做，重跑先前失敗的測試以確認缺陷已解決。"
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "把打亂的流程重新排序",
+          "text": "<p>某同事把循序進行的活動打亂列成：<em>執行、規劃、設計、完成、實作、分析</em>。請把它們排回正確順序。</p>",
+          "answers": [
+            {
+              "text": "規劃、分析、設計、實作、執行、完成",
+              "fraction": 100,
+              "feedback": "正確——這是基本測試流程的標準循序順序。"
+            },
+            {
+              "text": "規劃、分析、設計、執行、實作、完成",
+              "fraction": 0,
+              "feedback": "實作必須先於執行——測試資產與環境就緒前無法跑測試。"
+            },
+            {
+              "text": "規劃、設計、分析、實作、執行、完成",
+              "fraction": 0,
+              "feedback": "分析（要測什麼）必須在設計（如何測）之前。"
+            },
+            {
+              "text": "分析、規劃、設計、實作、執行、完成",
+              "fraction": 0,
+              "feedback": "規劃是第一個活動，在分析之前。"
+            }
+          ],
+          "generalFeedback": "循序而言：規劃 &#8594; 分析 &#8594; 設計 &#8594; 實作 &#8594; 執行 &#8594; 完成（監控與控制貫穿全程）。注意兩個常見陷阱：分析先於設計、實作先於執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "退出準則為何重要",
+          "text": "<p>為何議定的<em>退出準則</em>對測試流程很重要？</p>",
+          "answers": [
+            {
+              "text": "它們提供客觀、經議定的依據來判定何時停止測試，而非隨意停止",
+              "fraction": 100,
+              "feedback": "正確——測試可能永無止境，因此退出準則預先界定「完成」。"
+            },
+            {
+              "text": "一旦滿足，就保證產品完全沒有缺陷",
+              "fraction": 0,
+              "feedback": "滿足退出準則永遠無法證明沒有缺陷。"
+            },
+            {
+              "text": "它們免除了規劃或監控測試的需要",
+              "fraction": 0,
+              "feedback": "退出準則在規劃時訂定、在監控與控制時評估；它們不取代這些活動。"
+            },
+            {
+              "text": "它們決定要從基礎推導哪些測試條件",
+              "fraction": 0,
+              "feedback": "那是測試分析，與停止無關。"
+            }
+          ],
+          "generalFeedback": "由於窮盡測試不可能，退出（完成）準則提供一個經議定、可衡量的依據來判定測試已做足，支援理性的停止／繼續決策。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "退出準則該包含什麼",
+          "text": "<p>下列何者<strong>最不</strong>適合作為測試的退出準則？</p>",
+          "answers": [
+            {
+              "text": "測試環境已安裝完成、版本已部署",
+              "fraction": 100,
+              "feedback": "正確——那是進入／就緒條件；它並未說明測試是否完成。"
+            },
+            {
+              "text": "已達成計畫的覆蓋率目標",
+              "fraction": 0,
+              "feedback": "那是正當的退出準則。"
+            },
+            {
+              "text": "殘餘缺陷率在議定的門檻之內",
+              "fraction": 0,
+              "feedback": "那是正當的退出準則。"
+            },
+            {
+              "text": "分配的測試時間／預算已用盡",
+              "fraction": 0,
+              "feedback": "時間／預算是常用（雖較粗略）的退出準則。"
+            }
+          ],
+          "generalFeedback": "退出準則描述完成——覆蓋率達成、缺陷水準可接受、時間／預算用盡。「環境已安裝／版本已部署」是進入側的就緒條件，而非測試是否完成的衡量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "誰產出測試總結報告",
+          "text": "<p><em>測試總結報告（test summary report）</em>是作為哪個活動的一部分而產出？</p>",
+          "answers": [
+            {
+              "text": "測試完成",
+              "fraction": 100,
+              "feedback": "正確——總結報告是完成階段的產物，彙整測試結果。"
+            },
+            {
+              "text": "測試規劃",
+              "fraction": 0,
+              "feedback": "規劃產出測試計畫，不是總結報告。"
+            },
+            {
+              "text": "測試分析",
+              "fraction": 0,
+              "feedback": "分析產出測試條件。"
+            },
+            {
+              "text": "測試執行",
+              "fraction": 0,
+              "feedback": "執行產出日誌與缺陷報告；彙整的總結報告在完成階段撰寫。"
+            }
+          ],
+          "generalFeedback": "測試完成蒐集各已結束活動的資料，為利害關係人產出測試總結報告，並同時歸檔測試資產與汲取經驗教訓。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試分析的工作產物",
+          "text": "<p>下列何者是<em>測試分析</em>的主要輸出工作產物？</p>",
+          "answers": [
+            {
+              "text": "（經排序的）測試條件",
+              "fraction": 100,
+              "feedback": "正確——分析評估基礎並產出測試條件。"
+            },
+            {
+              "text": "含具體輸入與預期結果的測試案例",
+              "fraction": 0,
+              "feedback": "那是測試設計的輸出。"
+            },
+            {
+              "text": "可供執行的測試程序與套組",
+              "fraction": 0,
+              "feedback": "那來自測試實作。"
+            },
+            {
+              "text": "測試總結報告",
+              "fraction": 0,
+              "feedback": "那來自測試完成。"
+            }
+          ],
+          "generalFeedback": "每個活動有其特徵性的工作產物：分析 &#8594; 測試條件；設計 &#8594; 測試案例；實作 &#8594; 測試程序／套組、資料、環境；執行 &#8594; 結果／缺陷報告；完成 &#8594; 總結報告與歸檔的測試資產。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "監控與控制 vs 規劃",
+          "text": "<p>下列何者最能區分<em>測試監控與控制</em>和<em>測試規劃</em>？</p>",
+          "answers": [
+            {
+              "text": "規劃在前期訂出預定的方法；監控與控制則持續把實際進度與計畫比對並採取矯正行動",
+              "fraction": 100,
+              "feedback": "正確——規劃定義計畫；監控與控制據此把測試維持在正軌上。"
+            },
+            {
+              "text": "它們是同一活動的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們不同：一個定義計畫，另一個持續據此引導。"
+            },
+            {
+              "text": "規劃持續進行，而監控與控制只在一開始做",
+              "fraction": 0,
+              "feedback": "恰好相反：監控與控制才是持續進行的那個。"
+            },
+            {
+              "text": "監控與控制從測試條件推導測試案例",
+              "fraction": 0,
+              "feedback": "那是測試設計，不是監控與控制。"
+            }
+          ],
+          "generalFeedback": "規劃大多在前期完成（並視需要修訂）並產出計畫。監控與控制是持續性活動：把進度／覆蓋率／缺陷與計畫比對，並施以控制行動（如重新排序、重新配置）以達成退出準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "指認測試完成的活動",
+          "text": "<p>下列何者是真正的<em>測試完成</em>活動？</p>",
+          "answers": [
+            {
+              "text": "分析經驗教訓並歸檔測試資產以供日後重用",
+              "fraction": 100,
+              "feedback": "正確——汲取經驗教訓、歸檔／移交測試資產是典型的完成工作。"
+            },
+            {
+              "text": "從需求推導測試條件",
+              "fraction": 0,
+              "feedback": "那是測試分析，位於流程前段。"
+            },
+            {
+              "text": "準備測試資料並建置環境",
+              "fraction": 0,
+              "feedback": "那是測試實作。"
+            },
+            {
+              "text": "把實際結果與預期結果比對",
+              "fraction": 0,
+              "feedback": "那是測試執行。"
+            }
+          ],
+          "generalFeedback": "測試完成活動包括：檢查所有缺陷已關閉／延後、產出測試總結報告、定稿並歸檔測試資產、移交，以及汲取經驗教訓以供流程改善。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "細辨：組織套組是哪個活動",
+          "text": "<p>「把完成的測試案例集結成可執行的回歸套組、排序，並載入所需的測試資料。」這是：</p>",
+          "answers": [
+            {
+              "text": "測試實作",
+              "fraction": 100,
+              "feedback": "正確——把案例組織成可執行的套組／程序並備妥資料，屬於實作。"
+            },
+            {
+              "text": "測試設計",
+              "fraction": 0,
+              "feedback": "設計建立案例；把它們集結／排序以供執行則屬實作。"
+            },
+            {
+              "text": "測試分析",
+              "fraction": 0,
+              "feedback": "分析識別條件，不是可執行的套組。"
+            },
+            {
+              "text": "測試執行",
+              "fraction": 0,
+              "feedback": "執行把套組跑起來；組裝與載入它是前一步的實作。"
+            }
+          ],
+          "generalFeedback": "測試案例存在（設計）之後，實作把它們排序成測試程序／套組、備妥資料與環境並確認就緒。之後執行才把它們跑起來。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "細辨：依風險排序條件",
+          "text": "<p>「審閱需求與風險報告、列出可測試的功能，並把所得的測試條件依風險排序。」這是：</p>",
+          "answers": [
+            {
+              "text": "測試分析",
+              "fraction": 100,
+              "feedback": "正確——從基礎識別並排序測試條件屬於分析。"
+            },
+            {
+              "text": "測試設計",
+              "fraction": 0,
+              "feedback": "設計在其後，把排序好的條件轉成測試案例。"
+            },
+            {
+              "text": "測試規劃",
+              "fraction": 0,
+              "feedback": "規劃訂定整體策略；推導並排序條件屬於分析。"
+            },
+            {
+              "text": "測試監控與控制",
+              "fraction": 0,
+              "feedback": "那是引導進度；它不推導測試條件。"
+            }
+          ],
+          "generalFeedback": "測試分析評估測試基礎（含風險資訊）、識別可測試的功能，並定義與排序測試條件——仍是「要測什麼」，尚非「如何測」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "細辨：指定輸入與預期結果",
+          "text": "<p>「針對測試條件『提款超過餘額』，指定帳戶狀態、要提領的金額，以及確切的預期錯誤訊息。」這是：</p>",
+          "answers": [
+            {
+              "text": "測試設計",
+              "fraction": 100,
+              "feedback": "正確——把條件轉成具體的輸入、前置條件與預期結果屬於設計。"
+            },
+            {
+              "text": "測試分析",
+              "fraction": 0,
+              "feedback": "分析產出了該條件；指定具體輸入／預期結果屬於設計。"
+            },
+            {
+              "text": "測試實作",
+              "fraction": 0,
+              "feedback": "實作接著把這個案例排序並備妥以供執行；它不是先指定其輸入／預期結果的一步。"
+            },
+            {
+              "text": "測試執行",
+              "fraction": 0,
+              "feedback": "執行把案例跑起來；此處仍在設計它。"
+            }
+          ],
+          "generalFeedback": "從測試條件推導具體的前置條件、輸入與預期結果，正是測試設計（「如何測」）。分析給出條件；實作稍後才讓案例可執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "工作產物的驗證 vs 執行",
+          "text": "<p>在還沒跑任何程式碼之前，審查需求規格以找出模糊與矛盾之處，最適合被歸類為：</p>",
+          "answers": [
+            {
+              "text": "對工作產物的靜態驗證，可在測試分析期間開始",
+              "fraction": 100,
+              "feedback": "正確——審查測試基礎是靜態工作，常能在動態執行前及早發現缺陷。"
+            },
+            {
+              "text": "測試執行，因為發現了缺陷",
+              "fraction": 0,
+              "feedback": "執行需要跑軟體；審查文件是靜態的，不是動態的。"
+            },
+            {
+              "text": "對修復的確認測試",
+              "fraction": 0,
+              "feedback": "此處沒有在重測任何修復；這是靜態審查。"
+            },
+            {
+              "text": "測試完成，因為它在收尾",
+              "fraction": 0,
+              "feedback": "審查基礎發生在前期，而非收尾。"
+            }
+          ],
+          "generalFeedback": "驗證檢查工作產物是否符合其規格，可以靜態進行（審查、靜態分析）而不執行程式碼。審查測試基礎常在測試分析前後進行，並能在動態執行開始前發現缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "退出準則未達成時",
+          "text": "<p>監控顯示，在計畫的結束日期，議定的退出準則<strong>尚未</strong>達成。哪個回應最符合測試流程？</p>",
+          "answers": [
+            {
+              "text": "報告狀態，並透過控制決定繼續測試，或與利害關係人重新協商準則／範圍",
+              "fraction": 100,
+              "feedback": "正確——未達成的退出準則觸發控制決策；不能就這樣宣告完成。"
+            },
+            {
+              "text": "因為日期到了就自動宣告測試完成",
+              "fraction": 0,
+              "feedback": "光是日曆日期並不滿足退出準則；那忽略了準則的用意。"
+            },
+            {
+              "text": "刪除失敗的測試，讓準則看起來已滿足",
+              "fraction": 0,
+              "feedback": "操弄指標會隱藏風險；那不是正當的回應。"
+            },
+            {
+              "text": "不做任何報告就直接跳到歸檔測試資產",
+              "fraction": 0,
+              "feedback": "完成仍需報告；且停止的決定必須明確做出。"
+            }
+          ],
+          "generalFeedback": "退出準則驅動停止／繼續的決策。若未達成，監控與控制報告此情況，由利害關係人決定繼續測試、增加資源，或透過重新協商範圍／準則而有意識地接受風險——絕不是假裝它們已達成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "監控 vs 控制",
+          "text": "<p>在這項持續性活動中，下列何者是<em>控制</em>行動而非<em>監控</em>行動？</p>",
+          "answers": [
+            {
+              "text": "因為某高風險區域落後，而重新排序剩餘測試並重新指派測試者",
+              "fraction": 100,
+              "feedback": "正確——採取矯正行動以引導工作屬於控制。"
+            },
+            {
+              "text": "量測到目前為止已執行了多少計畫的測試案例",
+              "fraction": 0,
+              "feedback": "那是監控——蒐集資訊，而非據以行動。"
+            },
+            {
+              "text": "記錄目前的缺陷發現／修復數量",
+              "fraction": 0,
+              "feedback": "那是監控（蒐集資料）。"
+            },
+            {
+              "text": "把覆蓋率進度對照計畫加以報告",
+              "fraction": 0,
+              "feedback": "那是監控／報告，不是矯正行動。"
+            }
+          ],
+          "generalFeedback": "監控蒐集並報告資訊（進度、覆蓋率、缺陷資料）；控制利用這些資訊採取矯正行動——重新排序、重新配置資源、調整時程——以使退出準則仍能達成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "活動與工作產物配對錯誤者",
+          "text": "<p>下列哪一組「活動與其特徵性工作產物」的配對是<strong>錯誤</strong>的？</p>",
+          "answers": [
+            {
+              "text": "測試執行產出測試條件",
+              "fraction": 100,
+              "feedback": "正確——這組配對是錯的：測試條件來自測試分析，而非執行。"
+            },
+            {
+              "text": "測試設計產出測試案例",
+              "fraction": 0,
+              "feedback": "這組配對正確，故非答案。"
+            },
+            {
+              "text": "測試實作產出測試程序與套組",
+              "fraction": 0,
+              "feedback": "這組配對正確，故非答案。"
+            },
+            {
+              "text": "測試完成產出測試總結報告",
+              "fraction": 0,
+              "feedback": "這組配對正確，故非答案。"
+            }
+          ],
+          "generalFeedback": "特徵性工作產物：分析 &#8594; 測試條件；設計 &#8594; 測試案例；實作 &#8594; 測試程序／套組、資料、環境；執行 &#8594; 測試日誌與缺陷報告；完成 &#8594; 測試總結報告。執行並不產出測試條件。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "進入把關開始、退出把關停止",
+          "text": "<p>進入準則把關測試活動的<em>開始</em>，而退出準則把關其<em>完成</em>。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——進入準則是可以開始的「就緒的定義」；退出準則是可以停止的「完成的定義」。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此為真：進入準則必須在活動開始前成立；退出準則必須在宣告完成前成立。"
+            }
+          ],
+          "generalFeedback": "進入準則（就緒）必須在如執行等活動開始前滿足；退出／完成準則必須在測試被視為結束前滿足。混淆兩者是常見的錯誤。"
+        }
+      ]
+    }
+  },
   "testing-method-tree": {
     "en": {
       "easy": [
