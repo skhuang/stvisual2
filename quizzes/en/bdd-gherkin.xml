@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/BDD and Gherkin/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What BDD is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <strong>Behaviour-Driven Development (BDD)</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A collaborative practice in which business, development, and testing describe desired behaviour through concrete examples that become executable specifications and living documentation</text><feedback><text>Correct — BDD centres on shared, example-based descriptions of behaviour that can be run.</text></feedback></answer>
+    <answer fraction="0"><text>A tool that automatically generates production code from a UML class diagram</text><feedback><text>BDD is a collaboration and specification practice, not a code generator from diagrams.</text></feedback></answer>
+    <answer fraction="0"><text>A profiling technique for measuring how fast each function runs</text><feedback><text>That is performance profiling; BDD is about specifying behaviour by example.</text></feedback></answer>
+    <answer fraction="0"><text>A branch-coverage metric for deciding when testing is finished</text><feedback><text>Coverage is a separate idea; BDD describes behaviour collaboratively via examples.</text></feedback></answer>
+    <generalfeedback><text>BDD grew out of TDD and emphasises conversation between business, developers, and testers ("the three amigos"). The team agrees on concrete examples of behaviour, writes them in a shared language, and turns them into automated, executable specifications that also serve as living documentation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Gherkin is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <strong>Gherkin</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A structured, mostly-plain-language syntax (Feature, Scenario, Given/When/Then) for writing BDD specifications that both people and tools can read</text><feedback><text>Correct — Gherkin is the business-readable, keyword-based language used to write BDD scenarios.</text></feedback></answer>
+    <answer fraction="0"><text>A general-purpose programming language that compiles to machine code</text><feedback><text>Gherkin is a specification syntax, not a compiled programming language.</text></feedback></answer>
+    <answer fraction="0"><text>A database query language for retrieving test results</text><feedback><text>Gherkin describes behaviour scenarios; it is not a query language.</text></feedback></answer>
+    <answer fraction="0"><text>A continuous-integration server that runs builds</text><feedback><text>That is a CI tool; Gherkin is the language scenarios are written in.</text></feedback></answer>
+    <generalfeedback><text>Gherkin is the line-oriented language used by Cucumber-style tools. It uses a small set of keywords — Feature, Scenario, Given, When, Then, And, But, Background, Scenario Outline, Examples — so that a specification reads almost like ordinary prose yet can be automated through step definitions.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a Feature is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Gherkin, what does the <strong>Feature</strong> keyword introduce?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A named piece of functionality, with a free-text description, that groups together the scenarios illustrating it</text><feedback><text>Correct — a Feature names a capability and holds the scenarios that describe it.</text></feedback></answer>
+    <answer fraction="0"><text>A single test step that checks one expected value</text><feedback><text>A single step is a Given/When/Then line; a Feature groups whole scenarios.</text></feedback></answer>
+    <answer fraction="0"><text>The block of glue code that maps steps to functions</text><feedback><text>That is a step definition; a Feature is the top-level grouping in a .feature file.</text></feedback></answer>
+    <answer fraction="0"><text>A table of example data for a data-driven run</text><feedback><text>That is an Examples table; a Feature is the named functionality it belongs to.</text></feedback></answer>
+    <generalfeedback><text>A .feature file usually begins with one Feature: line naming the capability, optionally followed by a free-text description of its business value. Underneath it come the Scenarios (and optionally a Background and Scenario Outlines) that give concrete examples of that feature's behaviour.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a Scenario is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Gherkin, what is a <strong>Scenario</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A single concrete example of the feature's behaviour, expressed as a sequence of Given/When/Then steps</text><feedback><text>Correct — a Scenario is one concrete illustration of behaviour built from steps.</text></feedback></answer>
+    <answer fraction="0"><text>The name of the file that contains the feature</text><feedback><text>The file is the .feature file; a Scenario is one example inside it.</text></feedback></answer>
+    <answer fraction="0"><text>A programming loop that repeats a test many times</text><feedback><text>A Scenario is a described example, not a loop construct.</text></feedback></answer>
+    <answer fraction="0"><text>The random seed used to reproduce a failing run</text><feedback><text>Gherkin scenarios are concrete examples; there is no random seed involved.</text></feedback></answer>
+    <generalfeedback><text>A Scenario captures one concrete case of how the feature should behave: a context (Given), an event (When), and an expected outcome (Then). A feature typically contains several scenarios, each illustrating a different situation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of Given</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>Given</strong> keyword express in a Gherkin scenario?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The context or precondition — the state of the world that must already hold before the behaviour is exercised</text><feedback><text>Correct — Given establishes the starting context/preconditions.</text></feedback></answer>
+    <answer fraction="0"><text>The single action or event that triggers the behaviour</text><feedback><text>That is the role of When; Given sets up the context beforehand.</text></feedback></answer>
+    <answer fraction="0"><text>The expected, observable outcome to be verified</text><feedback><text>That is the role of Then; Given describes the precondition.</text></feedback></answer>
+    <answer fraction="0"><text>The name of the feature under test</text><feedback><text>The feature name follows Feature:; Given describes the scenario's starting state.</text></feedback></answer>
+    <generalfeedback><text>Given puts the system into a known state — a precondition or context — such as "Given the user is logged in". It is setup, not the action being tested, and it should not contain the outcome you intend to check.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of When</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>When</strong> keyword express in a Gherkin scenario?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The action or event under test — ideally a single thing the actor does that triggers the behaviour</text><feedback><text>Correct — When names the event/action being exercised, ideally just one.</text></feedback></answer>
+    <answer fraction="0"><text>The precondition that must already hold beforehand</text><feedback><text>That is the role of Given; When is the triggering action.</text></feedback></answer>
+    <answer fraction="0"><text>The expected result that should be observed afterwards</text><feedback><text>That is the role of Then; When is the action that leads to it.</text></feedback></answer>
+    <answer fraction="0"><text>A comment describing why the scenario exists</text><feedback><text>When is a behavioural step, not a comment; it names the action.</text></feedback></answer>
+    <generalfeedback><text>When describes the event or action that exercises the behaviour, such as "When the user submits the form". A well-written scenario has essentially one When: the single action whose consequences the Then step then verifies.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of Then</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <strong>Then</strong> keyword express in a Gherkin scenario?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The expected, observable outcome that should hold after the action — the thing the scenario verifies</text><feedback><text>Correct — Then states the observable outcome to be checked.</text></feedback></answer>
+    <answer fraction="0"><text>The context that must be set up before anything happens</text><feedback><text>That is the role of Given; Then is the outcome checked at the end.</text></feedback></answer>
+    <answer fraction="0"><text>The action the user performs to trigger behaviour</text><feedback><text>That is the role of When; Then verifies the result of that action.</text></feedback></answer>
+    <answer fraction="0"><text>A list of example rows for a data-driven scenario</text><feedback><text>That is an Examples table; Then states the expected outcome.</text></feedback></answer>
+    <generalfeedback><text>Then asserts an observable outcome, e.g. "Then the account balance is 100". It should describe what can be observed (a result, a message, a state), not another action the actor takes — actions belong in When.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>And and But continuations</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Gherkin, what do the <strong>And</strong> and <strong>But</strong> keywords do?</p><pre>Given the user is logged in
+And the cart contains 2 items</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They continue the previous step and take on its type, so a step after Given (via And/But) is still a Given (a precondition here)</text><feedback><text>Correct — And/But inherit the category of the step they follow.</text></feedback></answer>
+    <answer fraction="0"><text>They always introduce a new action, regardless of what came before</text><feedback><text>No — And/But do not have a fixed type; they inherit the previous step's type.</text></feedback></answer>
+    <answer fraction="0"><text>They are comments that the tool ignores</text><feedback><text>And/But are real steps; they simply share the prior keyword's category.</text></feedback></answer>
+    <answer fraction="0"><text>But means the step is expected to fail</text><feedback><text>But is just a readability continuation; it does not mark an expected failure.</text></feedback></answer>
+    <generalfeedback><text>And and But exist purely for readability. A step written with And or But belongs to the same phase (Given, When, or Then) as the most recent such keyword above it. In the example, "And the cart contains 2 items" is another Given (precondition).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a step definition is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a <strong>step definition</strong> in a BDD tool?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Code (glue) that matches a Gherkin step's text and performs the corresponding automation against the system</text><feedback><text>Correct — a step definition binds a plain-language step to executable code.</text></feedback></answer>
+    <answer fraction="0"><text>The plain-language line inside a scenario itself</text><feedback><text>That is the step; the step definition is the code the step maps to.</text></feedback></answer>
+    <answer fraction="0"><text>The Examples table that supplies data to a Scenario Outline</text><feedback><text>That is an Examples table; a step definition is the glue code behind steps.</text></feedback></answer>
+    <answer fraction="0"><text>A comment describing the feature's business value</text><feedback><text>Step definitions are executable glue code, not comments.</text></feedback></answer>
+    <generalfeedback><text>Gherkin steps are plain text; a step definition is the glue code (in Java, Python, C#, JavaScript, etc.) whose pattern matches a step and drives the application. Running a scenario means matching each step to its definition and executing it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Scenario Outline and Examples are</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What do a <strong>Scenario Outline</strong> and its <strong>Examples</strong> table provide?</p><pre>Scenario Outline: adding items
+  When I add &lt;qty&gt; items
+  Then the cart shows &lt;qty&gt; items
+
+  Examples:
+    | qty |
+    | 1   |
+    | 5   |</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A data-driven template with &lt;placeholders&gt; that is run once per data row of the Examples table</text><feedback><text>Correct — a Scenario Outline is a parameterised template filled in by each Examples row.</text></feedback></answer>
+    <answer fraction="0"><text>A way to mark a scenario as skipped during a run</text><feedback><text>Skipping is done with tags/filters; a Scenario Outline is a data-driven template.</text></feedback></answer>
+    <answer fraction="0"><text>The glue code that maps steps to functions</text><feedback><text>That is a step definition; a Scenario Outline is a parameterised scenario.</text></feedback></answer>
+    <answer fraction="0"><text>A shared Given that runs before every scenario</text><feedback><text>That is Background; a Scenario Outline is a template driven by Examples data.</text></feedback></answer>
+    <generalfeedback><text>A Scenario Outline uses &lt;placeholders&gt; in its steps and pairs them with an Examples table. Each data row substitutes its values into the placeholders and runs the scenario once, giving concise data-driven coverage of many similar cases.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Background is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the purpose of the <strong>Background</strong> keyword in a feature file?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>To hold steps (usually shared Given preconditions) that run before every scenario in the feature, avoiding repetition</text><feedback><text>Correct — Background factors out the common setup steps for all scenarios in the feature.</text></feedback></answer>
+    <answer fraction="0"><text>To define the expected outcome shared by all scenarios</text><feedback><text>Outcomes are Then steps per scenario; Background holds shared setup, typically Givens.</text></feedback></answer>
+    <answer fraction="0"><text>To supply the data rows for a Scenario Outline</text><feedback><text>That is an Examples table; Background is shared setup run before each scenario.</text></feedback></answer>
+    <answer fraction="0"><text>To store the glue code for the feature's steps</text><feedback><text>Glue code lives in step definitions; Background is common Gherkin setup.</text></feedback></answer>
+    <generalfeedback><text>Background lets you write setup steps once and have them execute before each scenario in the feature. It normally contains Given steps that establish common context (e.g. "Given the user is logged in"), keeping individual scenarios focused and free of repeated setup.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Cucumber is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What are <strong>Cucumber</strong>, <strong>SpecFlow</strong>, <strong>Behave</strong>, and <strong>JBehave</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>BDD tools that parse Gherkin-style scenarios and run them by matching steps to step definitions</text><feedback><text>Correct — these are BDD frameworks that execute Gherkin scenarios via step definitions.</text></feedback></answer>
+    <answer fraction="0"><text>Code-coverage measurement tools</text><feedback><text>They are BDD execution tools, not coverage measurers.</text></feedback></answer>
+    <answer fraction="0"><text>Version-control systems</text><feedback><text>They run BDD scenarios; they are not version-control systems.</text></feedback></answer>
+    <answer fraction="0"><text>Static type checkers</text><feedback><text>They execute behaviour specifications; they are not type checkers.</text></feedback></answer>
+    <generalfeedback><text>Cucumber (Ruby/Java/JS), SpecFlow (.NET), Behave (Python), and JBehave (Java) are BDD frameworks. They read Gherkin (or Gherkin-like) scenarios, match each step to its step definition, and execute the automation, reporting each scenario as pass or fail.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify a precondition line</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which Gherkin keyword best fits this line, given that it states a starting condition rather than an action or a result?</p><pre>___ the user has an account with a balance of 100</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Given — it is a precondition/context</text><feedback><text>Correct — an existing state that holds before the action is a Given.</text></feedback></answer>
+    <answer fraction="0"><text>When — it is the triggering action</text><feedback><text>No action is performed here; this is setup, which is a Given.</text></feedback></answer>
+    <answer fraction="0"><text>Then — it is the expected outcome</text><feedback><text>Nothing is being verified yet; a starting balance is a precondition (Given).</text></feedback></answer>
+    <answer fraction="0"><text>Feature — it names the functionality</text><feedback><text>Feature names the capability; this line describes a precondition, so it is a Given.</text></feedback></answer>
+    <generalfeedback><text>"The user has an account with a balance of 100" describes the state of the world before anything happens — a precondition. Preconditions are expressed with Given.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify an action line</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which Gherkin keyword best fits this line, which describes the actor performing the event under test?</p><pre>___ the user withdraws 30 from the account</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When — it is the action/event under test</text><feedback><text>Correct — the actor performing the triggering event is a When step.</text></feedback></answer>
+    <answer fraction="0"><text>Given — it is a precondition</text><feedback><text>This is the action being exercised, not setup; that is a When.</text></feedback></answer>
+    <answer fraction="0"><text>Then — it is the expected outcome</text><feedback><text>Withdrawing is the action, not the outcome to verify; that is a When.</text></feedback></answer>
+    <answer fraction="0"><text>Background — it is shared setup</text><feedback><text>Background holds shared Givens; an action performed by the actor is a When.</text></feedback></answer>
+    <generalfeedback><text>"The user withdraws 30" is the event that triggers the behaviour being tested, so it is a When step. The resulting balance would then be checked in a Then step.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Then expresses the expected outcome</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Gherkin, the <strong>Then</strong> keyword is used to state the expected, observable outcome that the scenario verifies.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — Then states the observable outcome being checked.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Then does express the expected outcome; the precondition is Given and the action is When.</text></feedback></answer>
+    <generalfeedback><text>The Given/When/Then structure maps to precondition / action / expected outcome. Then is the assertion step: it describes what should be observable after the When action, which is exactly the outcome the scenario verifies.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/BDD and Gherkin/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Complete the scenario: outcome line</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which keyword correctly completes the last line, which states the result to be verified?</p><pre>Given the cart contains 2 items
+When the user removes 1 item
+___ the cart contains 1 item</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Then</text><feedback><text>Correct — the final line asserts the observable result, so it is a Then step.</text></feedback></answer>
+    <answer fraction="0"><text>Given</text><feedback><text>Given is the precondition at the top; the result line after the action is a Then.</text></feedback></answer>
+    <answer fraction="0"><text>When</text><feedback><text>The action (removing an item) is already the When; the result is a Then.</text></feedback></answer>
+    <answer fraction="0"><text>Background</text><feedback><text>Background is feature-level shared setup, not the outcome line of a scenario.</text></feedback></answer>
+    <generalfeedback><text>The scenario sets context (Given), performs one action (When), and then checks the observable result. "The cart contains 1 item" is that verified outcome, so it takes Then.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario Outline expansion (3 rows)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many times does this Scenario Outline run?</p><pre>Scenario Outline: login attempts
+  When I sign in as &lt;user&gt;
+  Then I see &lt;result&gt;
+
+  Examples:
+    | user  | result   |
+    | alice | welcome  |
+    | bob   | welcome  |
+    | mallory | blocked |</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 — once per data row in the Examples table</text><feedback><text>Correct — the header row is not counted; the 3 data rows produce 3 runs.</text></feedback></answer>
+    <answer fraction="0"><text>4 — the header row counts as a run too</text><feedback><text>The header row only names the columns; it is not a run. Only the 3 data rows count.</text></feedback></answer>
+    <answer fraction="0"><text>1 — a Scenario Outline always runs once</text><feedback><text>A Scenario Outline runs once per data row, so with 3 rows it runs 3 times.</text></feedback></answer>
+    <answer fraction="0"><text>6 — rows times columns</text><feedback><text>Runs equal the number of data rows (3), not rows multiplied by columns.</text></feedback></answer>
+    <generalfeedback><text>A Scenario Outline expands to one concrete scenario per data row of its Examples table. Here there are 3 data rows (the first line is the column header), so it runs 3 times.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of Background</text></name>
+    <questiontext format="html"><text><![CDATA[<p>You notice the same two Given steps at the top of every scenario in a feature. What is the idiomatic fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Move those shared Given steps into a Background block so they run before each scenario without repetition</text><feedback><text>Correct — Background is exactly for common setup shared by all scenarios in the feature.</text></feedback></answer>
+    <answer fraction="0"><text>Move them into an Examples table</text><feedback><text>Examples supply data to a Scenario Outline, not shared setup for ordinary scenarios.</text></feedback></answer>
+    <answer fraction="0"><text>Delete them from every scenario and rely on the tool to infer the context</text><feedback><text>The tool infers nothing; the shared setup must be stated once in a Background.</text></feedback></answer>
+    <answer fraction="0"><text>Convert each scenario into a step definition</text><feedback><text>Step definitions are glue code; the repetition of Gherkin setup is solved by Background.</text></feedback></answer>
+    <generalfeedback><text>Background collects steps — usually common Given preconditions — that should run before every scenario in the feature. It removes duplicated setup and keeps each scenario focused on what makes it distinct.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Declarative versus imperative scenario</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two scenarios test the same login behaviour. Which is the better-written (declarative, business-readable) one?</p><p><strong>A</strong></p><pre>Given I am a registered user
+When I log in with valid credentials
+Then I see my dashboard</pre><p><strong>B</strong></p><pre>Given I open "/login"
+When I type "alice" into field #user
+And I type "secret" into field #pass
+And I click the button with id "submit"
+Then the element #dash is visible</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A — it states the behaviour at a business level, independent of UI details</text><feedback><text>Correct — declarative scenarios describe intent and survive UI changes.</text></feedback></answer>
+    <answer fraction="0"><text>B — it is better because it lists every UI click and field id</text><feedback><text>B is imperative: it is brittle, hard to read, and breaks when the UI changes.</text></feedback></answer>
+    <answer fraction="0"><text>Both are equally good; style does not matter</text><feedback><text>Style matters: the declarative version is more readable and more maintainable.</text></feedback></answer>
+    <answer fraction="0"><text>Neither is valid Gherkin</text><feedback><text>Both are valid Gherkin; A is simply the better-written, declarative form.</text></feedback></answer>
+    <generalfeedback><text>Declarative scenarios (A) describe what the user is trying to achieve in business terms, hiding UI mechanics inside step definitions. Imperative scenarios (B) hard-code clicks, field ids, and selectors, making them brittle and hard to read. Prefer declarative.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Given is setup, not the action</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which line is an appropriate <strong>Given</strong> step (setup/precondition) rather than an action?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Given the user already has 3 unread messages</text><feedback><text>Correct — this establishes a starting state, which is what Given is for.</text></feedback></answer>
+    <answer fraction="0"><text>Given the user clicks the "Mark all read" button</text><feedback><text>Clicking is an action; it belongs in a When, not a Given.</text></feedback></answer>
+    <answer fraction="0"><text>Given the inbox shows 0 unread messages afterwards</text><feedback><text>That is an expected outcome; it belongs in a Then, not a Given.</text></feedback></answer>
+    <answer fraction="0"><text>Given the user submits the registration form</text><feedback><text>Submitting is an action; it belongs in a When, not a Given.</text></feedback></answer>
+    <generalfeedback><text>A Given establishes context: a state that already holds before the behaviour is exercised. "The user already has 3 unread messages" is such a state. Clicks and submissions are actions (When); results checked afterwards are outcomes (Then).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When should be a single action</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which line is the best single <strong>When</strong> step for a scenario about placing an order?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When the customer places the order</text><feedback><text>Correct — one clear action that triggers the behaviour under test.</text></feedback></answer>
+    <answer fraction="0"><text>When the customer adds an item, applies a coupon, and places the order</text><feedback><text>That bundles several actions; a When should ideally be one event, with setup moved to Given.</text></feedback></answer>
+    <answer fraction="0"><text>When the customer is logged in</text><feedback><text>Being logged in is a precondition (Given), not the action under test.</text></feedback></answer>
+    <answer fraction="0"><text>When the order confirmation is displayed</text><feedback><text>That is an observable outcome (Then), not the action.</text></feedback></answer>
+    <generalfeedback><text>A well-formed scenario has one When: the single action whose result you verify. Preceding setup (adding items, applying coupons) belongs in Given steps; the confirmation shown afterwards belongs in Then.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Then is an outcome, not an action</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which line is an appropriate <strong>Then</strong> step (an observable outcome)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Then the account balance is 70</text><feedback><text>Correct — an observable result that the scenario can verify.</text></feedback></answer>
+    <answer fraction="0"><text>Then the user clicks "Confirm"</text><feedback><text>Clicking is an action (When); a Then should observe a result, not perform an action.</text></feedback></answer>
+    <answer fraction="0"><text>Then the user is logged in with a valid session</text><feedback><text>That reads as a precondition (Given) or setup, not the outcome being verified here.</text></feedback></answer>
+    <answer fraction="0"><text>Then enter the withdrawal amount</text><feedback><text>Entering an amount is an action (When), not an observable outcome.</text></feedback></answer>
+    <generalfeedback><text>Then states something observable that should hold after the action, such as a resulting balance, a message, or a visible state. Putting an action (a click, an input) into a Then confuses the outcome with the event and is a common anti-pattern.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a step definition does at run time</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When a BDD tool runs the step <code>When the user withdraws 30</code>, what happens?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The tool finds the step definition whose pattern matches that text and executes its code against the system</text><feedback><text>Correct — the step text is matched to glue code, which is then run.</text></feedback></answer>
+    <answer fraction="0"><text>The tool prints the line and moves on without executing anything</text><feedback><text>Steps are executed via their step definitions, not merely printed.</text></feedback></answer>
+    <answer fraction="0"><text>The tool rewrites the Gherkin into production source code</text><feedback><text>BDD tools run scenarios via step definitions; they do not generate production code.</text></feedback></answer>
+    <answer fraction="0"><text>The tool asks the user to confirm the outcome manually</text><feedback><text>Execution is automated through step definitions, not confirmed by hand.</text></feedback></answer>
+    <generalfeedback><text>Each Gherkin step is matched at run time to a step definition — glue code whose pattern captures the step's text (and any parameters). The tool executes that code to drive the application, then reports the step (and scenario) as pass or fail.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>And inherits the previous keyword's type</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this scenario, what type of step is the <code>And</code> line?</p><pre>Given the user is logged in
+And the user is an administrator
+When the user opens the settings page
+Then the audit log is shown</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A Given (precondition) — And inherits the type of the step above it</text><feedback><text>Correct — And after a Given is itself a Given.</text></feedback></answer>
+    <answer fraction="0"><text>A When (action) — And always means an action</text><feedback><text>And has no fixed type; here it follows a Given, so it is a precondition.</text></feedback></answer>
+    <answer fraction="0"><text>A Then (outcome) — And always checks a result</text><feedback><text>And inherits the prior keyword; following a Given it is a precondition, not an outcome.</text></feedback></answer>
+    <answer fraction="0"><text>It is ignored because And is not a real keyword</text><feedback><text>And is a real continuation keyword; the step runs and here counts as a Given.</text></feedback></answer>
+    <generalfeedback><text>And (and But) continue whatever phase preceded them. Because the line above is a Given, "And the user is an administrator" is a second precondition — another Given.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario Outline expansion (4 rows)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An Examples table for a Scenario Outline has a header row followed by 4 data rows. How many concrete scenarios run?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4 — one per data row</text><feedback><text>Correct — the header is not a run; the 4 data rows give 4 scenarios.</text></feedback></answer>
+    <answer fraction="0"><text>5 — the header row counts too</text><feedback><text>The header only labels columns; only the 4 data rows run.</text></feedback></answer>
+    <answer fraction="0"><text>1 — outlines run once</text><feedback><text>An outline runs once per data row, so 4 rows give 4 runs.</text></feedback></answer>
+    <answer fraction="0"><text>8 — data rows are doubled</text><feedback><text>Each data row runs exactly once, giving 4, not 8.</text></feedback></answer>
+    <generalfeedback><text>The number of runs equals the number of data rows in the Examples table. A header row plus 4 data rows means 4 executions of the outline.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which step belongs in Background</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Every scenario in a feature needs a logged-in user before doing anything else. Which step is the right one to place in <strong>Background</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Given the user is logged in</text><feedback><text>Correct — a common precondition shared by all scenarios belongs in Background.</text></feedback></answer>
+    <answer fraction="0"><text>When the user deletes their account</text><feedback><text>A scenario-specific action does not belong in shared Background setup.</text></feedback></answer>
+    <answer fraction="0"><text>Then the dashboard is displayed</text><feedback><text>Outcomes are per-scenario Then steps, not shared Background setup.</text></feedback></answer>
+    <answer fraction="0"><text>Examples: | plan | price |</text><feedback><text>An Examples table drives a Scenario Outline; it is not Background setup.</text></feedback></answer>
+    <generalfeedback><text>Background holds the setup common to every scenario in the feature, which is almost always Given preconditions such as "Given the user is logged in". Actions and outcomes stay inside individual scenarios.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Placeholders map to Examples columns</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a Scenario Outline, what does a step placeholder like <code>&lt;price&gt;</code> refer to?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The value in the column headed "price" of the current Examples row, substituted for each run</text><feedback><text>Correct — placeholders are filled from the matching Examples column per row.</text></feedback></answer>
+    <answer fraction="0"><text>A random value the tool generates for each run</text><feedback><text>Placeholders take fixed values from the Examples table, not random ones.</text></feedback></answer>
+    <answer fraction="0"><text>The name of a step definition to call</text><feedback><text>Placeholders are data slots; step definitions are matched by the step text.</text></feedback></answer>
+    <answer fraction="0"><text>A comment that the tool ignores</text><feedback><text>Placeholders are substituted with real data; they are not comments.</text></feedback></answer>
+    <generalfeedback><text>Each &lt;placeholder&gt; in a Scenario Outline is replaced, for every run, by the value under the matching column header in the current Examples row. This is how one outline covers many data cases concisely.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of tags</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the main purpose of <strong>tags</strong> (e.g. <code>@smoke</code>) on Gherkin scenarios?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>To label scenarios so runs can be filtered, grouped, or given hooks (e.g. run only @smoke scenarios)</text><feedback><text>Correct — tags categorise scenarios for selective execution and hooks.</text></feedback></answer>
+    <answer fraction="0"><text>To assert the expected outcome of a scenario</text><feedback><text>Outcomes are Then steps; tags are labels for organising and filtering runs.</text></feedback></answer>
+    <answer fraction="0"><text>To supply data rows to a Scenario Outline</text><feedback><text>Data rows come from Examples; tags are metadata labels.</text></feedback></answer>
+    <answer fraction="0"><text>To define the glue code for a step</text><feedback><text>Glue code is in step definitions; tags simply categorise scenarios.</text></feedback></answer>
+    <generalfeedback><text>Tags are metadata annotations on features or scenarios. They let you select subsets to run (e.g. only @smoke or @wip), organise reports, and attach setup/teardown hooks to tagged scenarios.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Correct order of Given/When/Then</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the conventional order of the three main step phases within a scenario?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Given (context), then When (action), then Then (outcome)</text><feedback><text>Correct — context first, then the action, then the outcome to verify.</text></feedback></answer>
+    <answer fraction="0"><text>Then, then When, then Given</text><feedback><text>That reverses the flow; context must be established before the action and outcome.</text></feedback></answer>
+    <answer fraction="0"><text>When, then Given, then Then</text><feedback><text>The precondition (Given) comes before the action (When), not after.</text></feedback></answer>
+    <answer fraction="0"><text>The order does not matter at all</text><feedback><text>The Given/When/Then order reflects context to action to outcome and should be followed.</text></feedback></answer>
+    <generalfeedback><text>A scenario reads as a small story: Given sets the context, When performs the action, and Then verifies the observable outcome. This context to action to outcome order is what makes scenarios readable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Complete the scenario: action line</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which keyword completes the middle line, which is the event that triggers the behaviour?</p><pre>Given the article is in the "draft" state
+___ the author publishes the article
+Then the article is visible to readers</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When</text><feedback><text>Correct — publishing the article is the triggering action, so it is a When.</text></feedback></answer>
+    <answer fraction="0"><text>Given</text><feedback><text>The precondition (draft state) is already the Given; the action is a When.</text></feedback></answer>
+    <answer fraction="0"><text>Then</text><feedback><text>Then is the visible-to-readers outcome; the publishing action is a When.</text></feedback></answer>
+    <answer fraction="0"><text>Examples</text><feedback><text>Examples supply data rows to an outline; the action line is a When.</text></feedback></answer>
+    <generalfeedback><text>The scenario starts in a draft state (Given), the author performs the publish action (When), and the article becoming visible is the verified outcome (Then). The middle line is the action, so it takes When.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/BDD and Gherkin/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Critique: multiple behaviours in one scenario</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the main problem with this scenario?</p><pre>Scenario: account operations
+  Given the balance is 100
+  When the user deposits 50
+  Then the balance is 150
+  When the user withdraws 30
+  Then the balance is 120</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It tests two distinct behaviours (deposit and withdrawal) in one scenario; each behaviour should be its own scenario with a single When/Then focus</text><feedback><text>Correct — one behaviour per scenario keeps failures diagnosable and scenarios readable.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing is wrong; multiple When/Then pairs are the recommended style</text><feedback><text>Chaining multiple When/Then pairs mixes behaviours; split them into separate scenarios.</text></feedback></answer>
+    <answer fraction="0"><text>The Given must come after the first Then</text><feedback><text>Given correctly comes first; the real issue is two behaviours in one scenario.</text></feedback></answer>
+    <answer fraction="0"><text>Balances are not allowed in Gherkin steps</text><feedback><text>Concrete values are fine; the problem is combining two behaviours in one scenario.</text></feedback></answer>
+    <generalfeedback><text>A scenario should illustrate one behaviour with essentially one When and its Then. Chaining When/Then/When/Then bundles deposit and withdrawal together, so a failure is harder to localise and the scenario is harder to read. Split it into two focused scenarios.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fix a scenario with multiple When steps</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A scenario reads:</p><pre>Given I am on the checkout page
+When I enter my address
+When I enter my card details
+When I click "Pay"
+Then the order is confirmed</pre><p>What is the best improvement?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Treat entering address and card details as setup (Given/And) and keep a single When for the "Pay" action that triggers the behaviour</text><feedback><text>Correct — reserve When for the one triggering action and move the rest to setup.</text></feedback></answer>
+    <answer fraction="0"><text>Merge all three actions into one long When sentence joined by "and"</text><feedback><text>That just hides several actions in one step; better to make the earlier ones setup and keep one triggering When.</text></feedback></answer>
+    <answer fraction="0"><text>Convert every When into a Then</text><feedback><text>Then is for outcomes; the actions are not outcomes, so this is wrong.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the Then so only actions remain</text><feedback><text>Removing the outcome leaves nothing to verify; the fix is to have one clear When.</text></feedback></answer>
+    <generalfeedback><text>The behaviour under test is "paying" confirms the order. Entering address and card details are preconditions, so they read better as Given/And setup, leaving a single When ("I click Pay") whose Then checks the confirmation. One action per When keeps the scenario focused.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Rationale for declarative over imperative</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why are declarative, business-level scenarios generally preferred over imperative UI-step scenarios?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They express intent independent of UI mechanics, so they read clearly to business stakeholders and do not break when buttons, ids, or layouts change</text><feedback><text>Correct — declarative scenarios are more readable and far less brittle.</text></feedback></answer>
+    <answer fraction="0"><text>They run faster because they skip the step definitions</text><feedback><text>Both styles run through step definitions; the benefit is readability and robustness, not speed.</text></feedback></answer>
+    <answer fraction="0"><text>They make the Examples table unnecessary in every case</text><feedback><text>Examples relate to data-driven outlines; that is unrelated to declarative style.</text></feedback></answer>
+    <answer fraction="0"><text>They allow multiple When steps without any downside</text><feedback><text>Declarative style is about intent versus UI detail, not about permitting many Whens.</text></feedback></answer>
+    <generalfeedback><text>Declarative scenarios describe what the user wants to accomplish, pushing UI mechanics (clicks, selectors, field ids) down into step definitions. This keeps scenarios readable as shared documentation and stable across UI redesigns, whereas imperative scenarios break whenever the interface changes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Misuse: an assertion inside Given</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is wrong with this step?</p><pre>Given the account balance should be 100</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It phrases a Given as an assertion ("should be"); Given must set up state ("the balance is 100"), while assertions belong in Then</text><feedback><text>Correct — a Given establishes context, it does not verify anything.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing is wrong; Given steps normally contain assertions</text><feedback><text>Given is setup, not verification; assertions belong in Then.</text></feedback></answer>
+    <answer fraction="0"><text>Given may not mention numbers</text><feedback><text>Numbers are fine; the issue is that a precondition should not be an assertion.</text></feedback></answer>
+    <answer fraction="0"><text>The step should start with When instead</text><feedback><text>It is a precondition, so Given is the right phase; it just must state, not assert.</text></feedback></answer>
+    <generalfeedback><text>Given establishes a known state of the world; it should read as a fact being set up ("the balance is 100"), not as something to be checked ("should be"). Turning setup into an assertion muddles precondition and outcome — assertions belong in Then.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Misuse: a UI click inside Then</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the problem with this final step?</p><pre>Given I am viewing my cart
+When I proceed to checkout
+Then I click "Place order"</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Then contains an action (a click), but Then must state an observable outcome; the click is an action that belongs in a When</text><feedback><text>Correct — Then verifies a result; it should not perform an action.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing is wrong; Then steps commonly perform clicks</text><feedback><text>Then should observe, not act; a click belongs in When.</text></feedback></answer>
+    <answer fraction="0"><text>The scenario has too few steps to be valid</text><feedback><text>Step count is not the issue; the Then step wrongly performs an action.</text></feedback></answer>
+    <answer fraction="0"><text>Then must always come before When</text><feedback><text>Then comes after When; the real problem is that the Then performs an action.</text></feedback></answer>
+    <generalfeedback><text>Then asserts an observable outcome after the action. Putting a click ("Place order") in a Then confuses the outcome with a new action; that click is itself an event and belongs in a When, with the resulting confirmation checked in Then.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>And after When is an action step</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In this scenario, what phase does the <code>And</code> line belong to?</p><pre>Given I am logged in
+When I enter a search term
+And I press "Search"
+Then results are displayed</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A When (action) — And inherits the type of the When above it</text><feedback><text>Correct — following a When, the And is another action step.</text></feedback></answer>
+    <answer fraction="0"><text>A Given (precondition) — And is always setup</text><feedback><text>And has no fixed type; here it follows a When, so it is an action.</text></feedback></answer>
+    <answer fraction="0"><text>A Then (outcome) — And is always an assertion</text><feedback><text>And inherits the prior keyword; after a When it is an action, not an outcome.</text></feedback></answer>
+    <answer fraction="0"><text>It has no type and is skipped</text><feedback><text>And executes as a real step and here counts as part of the When phase.</text></feedback></answer>
+    <generalfeedback><text>And continues the phase of the most recent Given/When/Then above it. Because it follows a When, "And I press Search" is an action step. (Note that two Whens like this often signal that some of the actions should really be setup.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Ubiquitous language rationale</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does BDD stress using a <strong>ubiquitous (shared) language</strong> in scenarios?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>So business, developers, and testers describe behaviour with the same domain terms, reducing miscommunication and keeping the specification meaningful to everyone</text><feedback><text>Correct — a shared vocabulary aligns the whole team on what the behaviour means.</text></feedback></answer>
+    <answer fraction="0"><text>So scenarios can be written only by programmers</text><feedback><text>The opposite — shared language lets non-programmers read and contribute too.</text></feedback></answer>
+    <answer fraction="0"><text>So the tool can generate production code automatically</text><feedback><text>Shared language is about communication, not code generation.</text></feedback></answer>
+    <answer fraction="0"><text>So scenarios run faster at test time</text><feedback><text>Shared language improves understanding, not execution speed.</text></feedback></answer>
+    <generalfeedback><text>A ubiquitous language uses consistent domain terms across conversation, scenarios, and code. It closes the gap between what the business means and what developers build, so the executable specification stays a trustworthy shared description of behaviour.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Living documentation rationale</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In what sense are BDD scenarios <strong>living documentation</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because they are executed against the system, a passing suite means the documentation still matches actual behaviour, so it cannot silently go stale</text><feedback><text>Correct — executable scenarios stay in sync with the system as it changes.</text></feedback></answer>
+    <answer fraction="0"><text>Because they are printed on paper and archived</text><feedback><text>Living documentation is executable and kept current, not a static archive.</text></feedback></answer>
+    <answer fraction="0"><text>Because a technical writer rewrites them after every release</text><feedback><text>The point is that execution keeps them current automatically, not manual rewriting.</text></feedback></answer>
+    <answer fraction="0"><text>Because they can only be read, never run</text><feedback><text>They are run against the system; that is exactly what keeps them alive.</text></feedback></answer>
+    <generalfeedback><text>Traditional documents drift from the code over time. BDD scenarios are executed, so if behaviour changes without updating the scenarios, they fail. A green suite is evidence the documentation still describes the real system — documentation that stays alive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify a one-behaviour violation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which scenario title/step combination most clearly violates the "one behaviour per scenario" guideline?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A scenario titled "user management" that in one body registers a user, then logs them in, then deletes the account, each with its own Then</text><feedback><text>Correct — that bundles three separate behaviours into one scenario.</text></feedback></answer>
+    <answer fraction="0"><text>A scenario "successful login" with one When (log in) and one Then (dashboard shown)</text><feedback><text>That is a single, well-focused behaviour — not a violation.</text></feedback></answer>
+    <answer fraction="0"><text>A scenario "withdraw within balance" with a Given, a single When, and a single Then</text><feedback><text>That is one behaviour with a clear action and outcome — not a violation.</text></feedback></answer>
+    <answer fraction="0"><text>A scenario "empty cart shows message" with a Given and a single Then</text><feedback><text>That checks one behaviour; it is not a violation.</text></feedback></answer>
+    <generalfeedback><text>A scenario that registers, logs in, and deletes an account tests three behaviours at once. Each should be its own scenario so failures are localised and each reads as one clear example. Focused single-behaviour scenarios are the correct pattern.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Misuse: an action inside Background</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is this Background block a poor design?</p><pre>Background:
+  Given the user is logged in
+  When the user deletes their most recent order</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Background should contain shared setup (Givens), not an action; the When forces a behaviour-changing action before every scenario, which distorts the tests</text><feedback><text>Correct — Background is for common context, not for performing actions.</text></feedback></answer>
+    <answer fraction="0"><text>Background may not contain any steps at all</text><feedback><text>Background does contain steps — it is just meant for shared setup, not actions.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing is wrong; running an action before each scenario is recommended</text><feedback><text>Running a behaviour-changing action before every scenario is exactly the anti-pattern here.</text></feedback></answer>
+    <answer fraction="0"><text>Background must appear after the scenarios, not before</text><feedback><text>Background is placed before scenarios; the real issue is the action step in it.</text></feedback></answer>
+    <generalfeedback><text>Background factors out common context and should hold Given setup only. Putting a When (a state-changing action) there runs that action before every scenario, mixing setup with behaviour and making scenarios depend on a side effect. Keep actions inside the scenarios that test them.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Misuse: a Given that performs an action</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A scenario about withdrawal begins:</p><pre>Given the user withdraws 30 from the account
+When the balance is checked
+Then it shows 70</pre><p>What is the flaw?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The withdrawal — the actual behaviour under test — is buried in a Given as if it were setup; the withdrawal should be the When, with a Given establishing the starting balance</text><feedback><text>Correct — the action to be tested must be the When, not hidden in a Given.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing is wrong; the action is fine as a Given</text><feedback><text>The action under test should be the When; placing it in Given misframes the scenario.</text></feedback></answer>
+    <answer fraction="0"><text>The Then must state an action, not a number</text><feedback><text>Then correctly states an outcome; the flaw is the action placed in the Given.</text></feedback></answer>
+    <answer fraction="0"><text>Scenarios may not check a balance</text><feedback><text>Checking a balance is fine; the problem is the misplaced action in the Given.</text></feedback></answer>
+    <generalfeedback><text>The behaviour being tested is the withdrawal, so it should be the When. A better form is: "Given the balance is 100 / When the user withdraws 30 / Then the balance is 70." Hiding the action in a Given treats the very thing under test as mere setup.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario Outline expansion with two Examples tables</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How many concrete scenarios does this Scenario Outline produce?</p><pre>Scenario Outline: discount by tier
+  When a &lt;tier&gt; customer checks out
+  Then the discount is &lt;pct&gt;%
+
+  Examples: standard tiers
+    | tier   | pct |
+    | bronze | 0   |
+    | silver | 5   |
+
+  Examples: premium tiers
+    | tier     | pct |
+    | gold     | 10  |
+    | platinum | 15  |
+    | diamond  | 20  |</pre>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5 — 2 data rows from the first table plus 3 from the second</text><feedback><text>Correct — runs equal the total data rows across all Examples tables: 2 + 3 = 5.</text></feedback></answer>
+    <answer fraction="0"><text>2 — only the first Examples table counts</text><feedback><text>Both Examples tables contribute; the total is 2 + 3 = 5.</text></feedback></answer>
+    <answer fraction="0"><text>6 — 2 multiplied by 3</text><feedback><text>Tables add their rows, they are not multiplied: 2 + 3 = 5.</text></feedback></answer>
+    <answer fraction="0"><text>7 — the two header rows count as runs too</text><feedback><text>Header rows never count; only the 5 data rows run.</text></feedback></answer>
+    <generalfeedback><text>A Scenario Outline may have more than one Examples table; it runs once per data row across all of them. Here 2 data rows plus 3 data rows give 5 concrete scenarios (header rows are not counted).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Spec by example and executable specification</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is meant by "specification by example" / an <strong>executable specification</strong> in BDD?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Concrete examples of desired behaviour are written so precisely that they can be executed directly as automated acceptance tests, serving as both specification and verification</text><feedback><text>Correct — the examples are the spec and can be run to verify the system.</text></feedback></answer>
+    <answer fraction="0"><text>A separate specification document is written first and the examples are discarded before coding</text><feedback><text>The examples are not discarded; they become the executable spec itself.</text></feedback></answer>
+    <answer fraction="0"><text>Examples are only used to illustrate a spec but can never be run</text><feedback><text>The point is precisely that they can be run — that is what makes them executable.</text></feedback></answer>
+    <answer fraction="0"><text>It means writing production code first and adding examples afterwards</text><feedback><text>BDD drives from examples outward; the examples specify behaviour before/with implementation.</text></feedback></answer>
+    <generalfeedback><text>Specification by example captures requirements as concrete, agreed examples. Written in Gherkin and backed by step definitions, those examples run as acceptance tests: they specify what the system should do and simultaneously verify that it does, collapsing spec and test into one artefact.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Relation to TDD and ATDD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How does BDD relate to TDD and ATDD?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>BDD evolved from TDD, shifting emphasis to behaviour described in shared language; like ATDD it drives development from acceptance-level examples agreed with the business (outside-in)</text><feedback><text>Correct — BDD is a behaviour- and collaboration-focused evolution of TDD, closely aligned with ATDD.</text></feedback></answer>
+    <answer fraction="0"><text>BDD replaces all testing and makes unit tests unnecessary</text><feedback><text>BDD complements, not replaces, unit-level TDD; both have their place.</text></feedback></answer>
+    <answer fraction="0"><text>BDD is unrelated to TDD and forbids writing tests before code</text><feedback><text>BDD grew out of TDD and still favours specifying behaviour before/with implementation.</text></feedback></answer>
+    <answer fraction="0"><text>BDD is only about performance testing</text><feedback><text>BDD is about specifying functional behaviour by example, not performance testing.</text></feedback></answer>
+    <generalfeedback><text>TDD drives code from failing unit tests. BDD reframes this around behaviour expressed in ubiquitous language and readable examples, working outside-in from acceptance criteria — much like ATDD (acceptance-test-driven development). The three share the "tests/examples first" spirit at different levels of granularity.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>A single Examples data row runs once</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A Scenario Outline whose Examples table has a header row and exactly one data row will run exactly one concrete scenario.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — one data row means one run; the header row is not counted.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>It does run once: the number of runs equals the number of data rows, which is one here.</text></feedback></answer>
+    <generalfeedback><text>The number of concrete scenarios a Scenario Outline produces equals the number of data rows in its Examples table(s). With a single data row (plus the header, which never counts), it runs exactly once — behaving like an ordinary scenario with those values substituted.</text></generalfeedback>
+  </question>
+</quiz>

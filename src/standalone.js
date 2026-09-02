@@ -46008,6 +46008,2590 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
 
   // src/data/quizRendered.js
   var QUIZ_RENDERED = {
+    "bdd-gherkin": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What BDD is",
+            "text": "<p>What is <strong>Behaviour-Driven Development (BDD)</strong>?</p>",
+            "answers": [
+              {
+                "text": "A collaborative practice in which business, development, and testing describe desired behaviour through concrete examples that become executable specifications and living documentation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 BDD centres on shared, example-based descriptions of behaviour that can be run."
+              },
+              {
+                "text": "A tool that automatically generates production code from a UML class diagram",
+                "fraction": 0,
+                "feedback": "BDD is a collaboration and specification practice, not a code generator from diagrams."
+              },
+              {
+                "text": "A profiling technique for measuring how fast each function runs",
+                "fraction": 0,
+                "feedback": "That is performance profiling; BDD is about specifying behaviour by example."
+              },
+              {
+                "text": "A branch-coverage metric for deciding when testing is finished",
+                "fraction": 0,
+                "feedback": "Coverage is a separate idea; BDD describes behaviour collaboratively via examples."
+              }
+            ],
+            "generalFeedback": 'BDD grew out of TDD and emphasises conversation between business, developers, and testers ("the three amigos"). The team agrees on concrete examples of behaviour, writes them in a shared language, and turns them into automated, executable specifications that also serve as living documentation.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Gherkin is",
+            "text": "<p>What is <strong>Gherkin</strong>?</p>",
+            "answers": [
+              {
+                "text": "A structured, mostly-plain-language syntax (Feature, Scenario, Given/When/Then) for writing BDD specifications that both people and tools can read",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Gherkin is the business-readable, keyword-based language used to write BDD scenarios."
+              },
+              {
+                "text": "A general-purpose programming language that compiles to machine code",
+                "fraction": 0,
+                "feedback": "Gherkin is a specification syntax, not a compiled programming language."
+              },
+              {
+                "text": "A database query language for retrieving test results",
+                "fraction": 0,
+                "feedback": "Gherkin describes behaviour scenarios; it is not a query language."
+              },
+              {
+                "text": "A continuous-integration server that runs builds",
+                "fraction": 0,
+                "feedback": "That is a CI tool; Gherkin is the language scenarios are written in."
+              }
+            ],
+            "generalFeedback": "Gherkin is the line-oriented language used by Cucumber-style tools. It uses a small set of keywords \u2014 Feature, Scenario, Given, When, Then, And, But, Background, Scenario Outline, Examples \u2014 so that a specification reads almost like ordinary prose yet can be automated through step definitions.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a Feature is",
+            "text": "<p>In Gherkin, what does the <strong>Feature</strong> keyword introduce?</p>",
+            "answers": [
+              {
+                "text": "A named piece of functionality, with a free-text description, that groups together the scenarios illustrating it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a Feature names a capability and holds the scenarios that describe it."
+              },
+              {
+                "text": "A single test step that checks one expected value",
+                "fraction": 0,
+                "feedback": "A single step is a Given/When/Then line; a Feature groups whole scenarios."
+              },
+              {
+                "text": "The block of glue code that maps steps to functions",
+                "fraction": 0,
+                "feedback": "That is a step definition; a Feature is the top-level grouping in a .feature file."
+              },
+              {
+                "text": "A table of example data for a data-driven run",
+                "fraction": 0,
+                "feedback": "That is an Examples table; a Feature is the named functionality it belongs to."
+              }
+            ],
+            "generalFeedback": "A .feature file usually begins with one Feature: line naming the capability, optionally followed by a free-text description of its business value. Underneath it come the Scenarios (and optionally a Background and Scenario Outlines) that give concrete examples of that feature's behaviour.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a Scenario is",
+            "text": "<p>In Gherkin, what is a <strong>Scenario</strong>?</p>",
+            "answers": [
+              {
+                "text": "A single concrete example of the feature's behaviour, expressed as a sequence of Given/When/Then steps",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a Scenario is one concrete illustration of behaviour built from steps."
+              },
+              {
+                "text": "The name of the file that contains the feature",
+                "fraction": 0,
+                "feedback": "The file is the .feature file; a Scenario is one example inside it."
+              },
+              {
+                "text": "A programming loop that repeats a test many times",
+                "fraction": 0,
+                "feedback": "A Scenario is a described example, not a loop construct."
+              },
+              {
+                "text": "The random seed used to reproduce a failing run",
+                "fraction": 0,
+                "feedback": "Gherkin scenarios are concrete examples; there is no random seed involved."
+              }
+            ],
+            "generalFeedback": "A Scenario captures one concrete case of how the feature should behave: a context (Given), an event (When), and an expected outcome (Then). A feature typically contains several scenarios, each illustrating a different situation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of Given",
+            "text": "<p>What does the <strong>Given</strong> keyword express in a Gherkin scenario?</p>",
+            "answers": [
+              {
+                "text": "The context or precondition \u2014 the state of the world that must already hold before the behaviour is exercised",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Given establishes the starting context/preconditions."
+              },
+              {
+                "text": "The single action or event that triggers the behaviour",
+                "fraction": 0,
+                "feedback": "That is the role of When; Given sets up the context beforehand."
+              },
+              {
+                "text": "The expected, observable outcome to be verified",
+                "fraction": 0,
+                "feedback": "That is the role of Then; Given describes the precondition."
+              },
+              {
+                "text": "The name of the feature under test",
+                "fraction": 0,
+                "feedback": "The feature name follows Feature:; Given describes the scenario's starting state."
+              }
+            ],
+            "generalFeedback": 'Given puts the system into a known state \u2014 a precondition or context \u2014 such as "Given the user is logged in". It is setup, not the action being tested, and it should not contain the outcome you intend to check.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of When",
+            "text": "<p>What does the <strong>When</strong> keyword express in a Gherkin scenario?</p>",
+            "answers": [
+              {
+                "text": "The action or event under test \u2014 ideally a single thing the actor does that triggers the behaviour",
+                "fraction": 100,
+                "feedback": "Correct \u2014 When names the event/action being exercised, ideally just one."
+              },
+              {
+                "text": "The precondition that must already hold beforehand",
+                "fraction": 0,
+                "feedback": "That is the role of Given; When is the triggering action."
+              },
+              {
+                "text": "The expected result that should be observed afterwards",
+                "fraction": 0,
+                "feedback": "That is the role of Then; When is the action that leads to it."
+              },
+              {
+                "text": "A comment describing why the scenario exists",
+                "fraction": 0,
+                "feedback": "When is a behavioural step, not a comment; it names the action."
+              }
+            ],
+            "generalFeedback": 'When describes the event or action that exercises the behaviour, such as "When the user submits the form". A well-written scenario has essentially one When: the single action whose consequences the Then step then verifies.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of Then",
+            "text": "<p>What does the <strong>Then</strong> keyword express in a Gherkin scenario?</p>",
+            "answers": [
+              {
+                "text": "The expected, observable outcome that should hold after the action \u2014 the thing the scenario verifies",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Then states the observable outcome to be checked."
+              },
+              {
+                "text": "The context that must be set up before anything happens",
+                "fraction": 0,
+                "feedback": "That is the role of Given; Then is the outcome checked at the end."
+              },
+              {
+                "text": "The action the user performs to trigger behaviour",
+                "fraction": 0,
+                "feedback": "That is the role of When; Then verifies the result of that action."
+              },
+              {
+                "text": "A list of example rows for a data-driven scenario",
+                "fraction": 0,
+                "feedback": "That is an Examples table; Then states the expected outcome."
+              }
+            ],
+            "generalFeedback": 'Then asserts an observable outcome, e.g. "Then the account balance is 100". It should describe what can be observed (a result, a message, a state), not another action the actor takes \u2014 actions belong in When.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "And and But continuations",
+            "text": "<p>In Gherkin, what do the <strong>And</strong> and <strong>But</strong> keywords do?</p><pre>Given the user is logged in\nAnd the cart contains 2 items</pre>",
+            "answers": [
+              {
+                "text": "They continue the previous step and take on its type, so a step after Given (via And/But) is still a Given (a precondition here)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 And/But inherit the category of the step they follow."
+              },
+              {
+                "text": "They always introduce a new action, regardless of what came before",
+                "fraction": 0,
+                "feedback": "No \u2014 And/But do not have a fixed type; they inherit the previous step's type."
+              },
+              {
+                "text": "They are comments that the tool ignores",
+                "fraction": 0,
+                "feedback": "And/But are real steps; they simply share the prior keyword's category."
+              },
+              {
+                "text": "But means the step is expected to fail",
+                "fraction": 0,
+                "feedback": "But is just a readability continuation; it does not mark an expected failure."
+              }
+            ],
+            "generalFeedback": 'And and But exist purely for readability. A step written with And or But belongs to the same phase (Given, When, or Then) as the most recent such keyword above it. In the example, "And the cart contains 2 items" is another Given (precondition).',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a step definition is",
+            "text": "<p>What is a <strong>step definition</strong> in a BDD tool?</p>",
+            "answers": [
+              {
+                "text": "Code (glue) that matches a Gherkin step's text and performs the corresponding automation against the system",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a step definition binds a plain-language step to executable code."
+              },
+              {
+                "text": "The plain-language line inside a scenario itself",
+                "fraction": 0,
+                "feedback": "That is the step; the step definition is the code the step maps to."
+              },
+              {
+                "text": "The Examples table that supplies data to a Scenario Outline",
+                "fraction": 0,
+                "feedback": "That is an Examples table; a step definition is the glue code behind steps."
+              },
+              {
+                "text": "A comment describing the feature's business value",
+                "fraction": 0,
+                "feedback": "Step definitions are executable glue code, not comments."
+              }
+            ],
+            "generalFeedback": "Gherkin steps are plain text; a step definition is the glue code (in Java, Python, C#, JavaScript, etc.) whose pattern matches a step and drives the application. Running a scenario means matching each step to its definition and executing it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Scenario Outline and Examples are",
+            "text": "<p>What do a <strong>Scenario Outline</strong> and its <strong>Examples</strong> table provide?</p><pre>Scenario Outline: adding items\n  When I add &lt;qty&gt; items\n  Then the cart shows &lt;qty&gt; items\n\n  Examples:\n    | qty |\n    | 1   |\n    | 5   |</pre>",
+            "answers": [
+              {
+                "text": "A data-driven template with <placeholders> that is run once per data row of the Examples table",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a Scenario Outline is a parameterised template filled in by each Examples row."
+              },
+              {
+                "text": "A way to mark a scenario as skipped during a run",
+                "fraction": 0,
+                "feedback": "Skipping is done with tags/filters; a Scenario Outline is a data-driven template."
+              },
+              {
+                "text": "The glue code that maps steps to functions",
+                "fraction": 0,
+                "feedback": "That is a step definition; a Scenario Outline is a parameterised scenario."
+              },
+              {
+                "text": "A shared Given that runs before every scenario",
+                "fraction": 0,
+                "feedback": "That is Background; a Scenario Outline is a template driven by Examples data."
+              }
+            ],
+            "generalFeedback": "A Scenario Outline uses <placeholders> in its steps and pairs them with an Examples table. Each data row substitutes its values into the placeholders and runs the scenario once, giving concise data-driven coverage of many similar cases.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Background is",
+            "text": "<p>What is the purpose of the <strong>Background</strong> keyword in a feature file?</p>",
+            "answers": [
+              {
+                "text": "To hold steps (usually shared Given preconditions) that run before every scenario in the feature, avoiding repetition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Background factors out the common setup steps for all scenarios in the feature."
+              },
+              {
+                "text": "To define the expected outcome shared by all scenarios",
+                "fraction": 0,
+                "feedback": "Outcomes are Then steps per scenario; Background holds shared setup, typically Givens."
+              },
+              {
+                "text": "To supply the data rows for a Scenario Outline",
+                "fraction": 0,
+                "feedback": "That is an Examples table; Background is shared setup run before each scenario."
+              },
+              {
+                "text": "To store the glue code for the feature's steps",
+                "fraction": 0,
+                "feedback": "Glue code lives in step definitions; Background is common Gherkin setup."
+              }
+            ],
+            "generalFeedback": 'Background lets you write setup steps once and have them execute before each scenario in the feature. It normally contains Given steps that establish common context (e.g. "Given the user is logged in"), keeping individual scenarios focused and free of repeated setup.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Cucumber is",
+            "text": "<p>What are <strong>Cucumber</strong>, <strong>SpecFlow</strong>, <strong>Behave</strong>, and <strong>JBehave</strong>?</p>",
+            "answers": [
+              {
+                "text": "BDD tools that parse Gherkin-style scenarios and run them by matching steps to step definitions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 these are BDD frameworks that execute Gherkin scenarios via step definitions."
+              },
+              {
+                "text": "Code-coverage measurement tools",
+                "fraction": 0,
+                "feedback": "They are BDD execution tools, not coverage measurers."
+              },
+              {
+                "text": "Version-control systems",
+                "fraction": 0,
+                "feedback": "They run BDD scenarios; they are not version-control systems."
+              },
+              {
+                "text": "Static type checkers",
+                "fraction": 0,
+                "feedback": "They execute behaviour specifications; they are not type checkers."
+              }
+            ],
+            "generalFeedback": "Cucumber (Ruby/Java/JS), SpecFlow (.NET), Behave (Python), and JBehave (Java) are BDD frameworks. They read Gherkin (or Gherkin-like) scenarios, match each step to its step definition, and execute the automation, reporting each scenario as pass or fail.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify a precondition line",
+            "text": "<p>Which Gherkin keyword best fits this line, given that it states a starting condition rather than an action or a result?</p><pre>___ the user has an account with a balance of 100</pre>",
+            "answers": [
+              {
+                "text": "Given \u2014 it is a precondition/context",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an existing state that holds before the action is a Given."
+              },
+              {
+                "text": "When \u2014 it is the triggering action",
+                "fraction": 0,
+                "feedback": "No action is performed here; this is setup, which is a Given."
+              },
+              {
+                "text": "Then \u2014 it is the expected outcome",
+                "fraction": 0,
+                "feedback": "Nothing is being verified yet; a starting balance is a precondition (Given)."
+              },
+              {
+                "text": "Feature \u2014 it names the functionality",
+                "fraction": 0,
+                "feedback": "Feature names the capability; this line describes a precondition, so it is a Given."
+              }
+            ],
+            "generalFeedback": '"The user has an account with a balance of 100" describes the state of the world before anything happens \u2014 a precondition. Preconditions are expressed with Given.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify an action line",
+            "text": "<p>Which Gherkin keyword best fits this line, which describes the actor performing the event under test?</p><pre>___ the user withdraws 30 from the account</pre>",
+            "answers": [
+              {
+                "text": "When \u2014 it is the action/event under test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the actor performing the triggering event is a When step."
+              },
+              {
+                "text": "Given \u2014 it is a precondition",
+                "fraction": 0,
+                "feedback": "This is the action being exercised, not setup; that is a When."
+              },
+              {
+                "text": "Then \u2014 it is the expected outcome",
+                "fraction": 0,
+                "feedback": "Withdrawing is the action, not the outcome to verify; that is a When."
+              },
+              {
+                "text": "Background \u2014 it is shared setup",
+                "fraction": 0,
+                "feedback": "Background holds shared Givens; an action performed by the actor is a When."
+              }
+            ],
+            "generalFeedback": '"The user withdraws 30" is the event that triggers the behaviour being tested, so it is a When step. The resulting balance would then be checked in a Then step.',
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Then expresses the expected outcome",
+            "text": "<p>In Gherkin, the <strong>Then</strong> keyword is used to state the expected, observable outcome that the scenario verifies.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Then states the observable outcome being checked."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Then does express the expected outcome; the precondition is Given and the action is When."
+              }
+            ],
+            "generalFeedback": "The Given/When/Then structure maps to precondition / action / expected outcome. Then is the assertion step: it describes what should be observable after the When action, which is exactly the outcome the scenario verifies."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Complete the scenario: outcome line",
+            "text": "<p>Which keyword correctly completes the last line, which states the result to be verified?</p><pre>Given the cart contains 2 items\nWhen the user removes 1 item\n___ the cart contains 1 item</pre>",
+            "answers": [
+              {
+                "text": "Then",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the final line asserts the observable result, so it is a Then step."
+              },
+              {
+                "text": "Given",
+                "fraction": 0,
+                "feedback": "Given is the precondition at the top; the result line after the action is a Then."
+              },
+              {
+                "text": "When",
+                "fraction": 0,
+                "feedback": "The action (removing an item) is already the When; the result is a Then."
+              },
+              {
+                "text": "Background",
+                "fraction": 0,
+                "feedback": "Background is feature-level shared setup, not the outcome line of a scenario."
+              }
+            ],
+            "generalFeedback": 'The scenario sets context (Given), performs one action (When), and then checks the observable result. "The cart contains 1 item" is that verified outcome, so it takes Then.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario Outline expansion (3 rows)",
+            "text": "<p>How many times does this Scenario Outline run?</p><pre>Scenario Outline: login attempts\n  When I sign in as &lt;user&gt;\n  Then I see &lt;result&gt;\n\n  Examples:\n    | user  | result   |\n    | alice | welcome  |\n    | bob   | welcome  |\n    | mallory | blocked |</pre>",
+            "answers": [
+              {
+                "text": "3 \u2014 once per data row in the Examples table",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the header row is not counted; the 3 data rows produce 3 runs."
+              },
+              {
+                "text": "4 \u2014 the header row counts as a run too",
+                "fraction": 0,
+                "feedback": "The header row only names the columns; it is not a run. Only the 3 data rows count."
+              },
+              {
+                "text": "1 \u2014 a Scenario Outline always runs once",
+                "fraction": 0,
+                "feedback": "A Scenario Outline runs once per data row, so with 3 rows it runs 3 times."
+              },
+              {
+                "text": "6 \u2014 rows times columns",
+                "fraction": 0,
+                "feedback": "Runs equal the number of data rows (3), not rows multiplied by columns."
+              }
+            ],
+            "generalFeedback": "A Scenario Outline expands to one concrete scenario per data row of its Examples table. Here there are 3 data rows (the first line is the column header), so it runs 3 times.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of Background",
+            "text": "<p>You notice the same two Given steps at the top of every scenario in a feature. What is the idiomatic fix?</p>",
+            "answers": [
+              {
+                "text": "Move those shared Given steps into a Background block so they run before each scenario without repetition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Background is exactly for common setup shared by all scenarios in the feature."
+              },
+              {
+                "text": "Move them into an Examples table",
+                "fraction": 0,
+                "feedback": "Examples supply data to a Scenario Outline, not shared setup for ordinary scenarios."
+              },
+              {
+                "text": "Delete them from every scenario and rely on the tool to infer the context",
+                "fraction": 0,
+                "feedback": "The tool infers nothing; the shared setup must be stated once in a Background."
+              },
+              {
+                "text": "Convert each scenario into a step definition",
+                "fraction": 0,
+                "feedback": "Step definitions are glue code; the repetition of Gherkin setup is solved by Background."
+              }
+            ],
+            "generalFeedback": "Background collects steps \u2014 usually common Given preconditions \u2014 that should run before every scenario in the feature. It removes duplicated setup and keeps each scenario focused on what makes it distinct.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Declarative versus imperative scenario",
+            "text": '<p>Two scenarios test the same login behaviour. Which is the better-written (declarative, business-readable) one?</p><p><strong>A</strong></p><pre>Given I am a registered user\nWhen I log in with valid credentials\nThen I see my dashboard</pre><p><strong>B</strong></p><pre>Given I open "/login"\nWhen I type "alice" into field #user\nAnd I type "secret" into field #pass\nAnd I click the button with id "submit"\nThen the element #dash is visible</pre>',
+            "answers": [
+              {
+                "text": "A \u2014 it states the behaviour at a business level, independent of UI details",
+                "fraction": 100,
+                "feedback": "Correct \u2014 declarative scenarios describe intent and survive UI changes."
+              },
+              {
+                "text": "B \u2014 it is better because it lists every UI click and field id",
+                "fraction": 0,
+                "feedback": "B is imperative: it is brittle, hard to read, and breaks when the UI changes."
+              },
+              {
+                "text": "Both are equally good; style does not matter",
+                "fraction": 0,
+                "feedback": "Style matters: the declarative version is more readable and more maintainable."
+              },
+              {
+                "text": "Neither is valid Gherkin",
+                "fraction": 0,
+                "feedback": "Both are valid Gherkin; A is simply the better-written, declarative form."
+              }
+            ],
+            "generalFeedback": "Declarative scenarios (A) describe what the user is trying to achieve in business terms, hiding UI mechanics inside step definitions. Imperative scenarios (B) hard-code clicks, field ids, and selectors, making them brittle and hard to read. Prefer declarative.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Given is setup, not the action",
+            "text": "<p>Which line is an appropriate <strong>Given</strong> step (setup/precondition) rather than an action?</p>",
+            "answers": [
+              {
+                "text": "Given the user already has 3 unread messages",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this establishes a starting state, which is what Given is for."
+              },
+              {
+                "text": 'Given the user clicks the "Mark all read" button',
+                "fraction": 0,
+                "feedback": "Clicking is an action; it belongs in a When, not a Given."
+              },
+              {
+                "text": "Given the inbox shows 0 unread messages afterwards",
+                "fraction": 0,
+                "feedback": "That is an expected outcome; it belongs in a Then, not a Given."
+              },
+              {
+                "text": "Given the user submits the registration form",
+                "fraction": 0,
+                "feedback": "Submitting is an action; it belongs in a When, not a Given."
+              }
+            ],
+            "generalFeedback": 'A Given establishes context: a state that already holds before the behaviour is exercised. "The user already has 3 unread messages" is such a state. Clicks and submissions are actions (When); results checked afterwards are outcomes (Then).',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When should be a single action",
+            "text": "<p>Which line is the best single <strong>When</strong> step for a scenario about placing an order?</p>",
+            "answers": [
+              {
+                "text": "When the customer places the order",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one clear action that triggers the behaviour under test."
+              },
+              {
+                "text": "When the customer adds an item, applies a coupon, and places the order",
+                "fraction": 0,
+                "feedback": "That bundles several actions; a When should ideally be one event, with setup moved to Given."
+              },
+              {
+                "text": "When the customer is logged in",
+                "fraction": 0,
+                "feedback": "Being logged in is a precondition (Given), not the action under test."
+              },
+              {
+                "text": "When the order confirmation is displayed",
+                "fraction": 0,
+                "feedback": "That is an observable outcome (Then), not the action."
+              }
+            ],
+            "generalFeedback": "A well-formed scenario has one When: the single action whose result you verify. Preceding setup (adding items, applying coupons) belongs in Given steps; the confirmation shown afterwards belongs in Then.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Then is an outcome, not an action",
+            "text": "<p>Which line is an appropriate <strong>Then</strong> step (an observable outcome)?</p>",
+            "answers": [
+              {
+                "text": "Then the account balance is 70",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an observable result that the scenario can verify."
+              },
+              {
+                "text": 'Then the user clicks "Confirm"',
+                "fraction": 0,
+                "feedback": "Clicking is an action (When); a Then should observe a result, not perform an action."
+              },
+              {
+                "text": "Then the user is logged in with a valid session",
+                "fraction": 0,
+                "feedback": "That reads as a precondition (Given) or setup, not the outcome being verified here."
+              },
+              {
+                "text": "Then enter the withdrawal amount",
+                "fraction": 0,
+                "feedback": "Entering an amount is an action (When), not an observable outcome."
+              }
+            ],
+            "generalFeedback": "Then states something observable that should hold after the action, such as a resulting balance, a message, or a visible state. Putting an action (a click, an input) into a Then confuses the outcome with the event and is a common anti-pattern.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a step definition does at run time",
+            "text": "<p>When a BDD tool runs the step <code>When the user withdraws 30</code>, what happens?</p>",
+            "answers": [
+              {
+                "text": "The tool finds the step definition whose pattern matches that text and executes its code against the system",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the step text is matched to glue code, which is then run."
+              },
+              {
+                "text": "The tool prints the line and moves on without executing anything",
+                "fraction": 0,
+                "feedback": "Steps are executed via their step definitions, not merely printed."
+              },
+              {
+                "text": "The tool rewrites the Gherkin into production source code",
+                "fraction": 0,
+                "feedback": "BDD tools run scenarios via step definitions; they do not generate production code."
+              },
+              {
+                "text": "The tool asks the user to confirm the outcome manually",
+                "fraction": 0,
+                "feedback": "Execution is automated through step definitions, not confirmed by hand."
+              }
+            ],
+            "generalFeedback": "Each Gherkin step is matched at run time to a step definition \u2014 glue code whose pattern captures the step's text (and any parameters). The tool executes that code to drive the application, then reports the step (and scenario) as pass or fail.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "And inherits the previous keyword's type",
+            "text": "<p>In this scenario, what type of step is the <code>And</code> line?</p><pre>Given the user is logged in\nAnd the user is an administrator\nWhen the user opens the settings page\nThen the audit log is shown</pre>",
+            "answers": [
+              {
+                "text": "A Given (precondition) \u2014 And inherits the type of the step above it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 And after a Given is itself a Given."
+              },
+              {
+                "text": "A When (action) \u2014 And always means an action",
+                "fraction": 0,
+                "feedback": "And has no fixed type; here it follows a Given, so it is a precondition."
+              },
+              {
+                "text": "A Then (outcome) \u2014 And always checks a result",
+                "fraction": 0,
+                "feedback": "And inherits the prior keyword; following a Given it is a precondition, not an outcome."
+              },
+              {
+                "text": "It is ignored because And is not a real keyword",
+                "fraction": 0,
+                "feedback": "And is a real continuation keyword; the step runs and here counts as a Given."
+              }
+            ],
+            "generalFeedback": 'And (and But) continue whatever phase preceded them. Because the line above is a Given, "And the user is an administrator" is a second precondition \u2014 another Given.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario Outline expansion (4 rows)",
+            "text": "<p>An Examples table for a Scenario Outline has a header row followed by 4 data rows. How many concrete scenarios run?</p>",
+            "answers": [
+              {
+                "text": "4 \u2014 one per data row",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the header is not a run; the 4 data rows give 4 scenarios."
+              },
+              {
+                "text": "5 \u2014 the header row counts too",
+                "fraction": 0,
+                "feedback": "The header only labels columns; only the 4 data rows run."
+              },
+              {
+                "text": "1 \u2014 outlines run once",
+                "fraction": 0,
+                "feedback": "An outline runs once per data row, so 4 rows give 4 runs."
+              },
+              {
+                "text": "8 \u2014 data rows are doubled",
+                "fraction": 0,
+                "feedback": "Each data row runs exactly once, giving 4, not 8."
+              }
+            ],
+            "generalFeedback": "The number of runs equals the number of data rows in the Examples table. A header row plus 4 data rows means 4 executions of the outline.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which step belongs in Background",
+            "text": "<p>Every scenario in a feature needs a logged-in user before doing anything else. Which step is the right one to place in <strong>Background</strong>?</p>",
+            "answers": [
+              {
+                "text": "Given the user is logged in",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a common precondition shared by all scenarios belongs in Background."
+              },
+              {
+                "text": "When the user deletes their account",
+                "fraction": 0,
+                "feedback": "A scenario-specific action does not belong in shared Background setup."
+              },
+              {
+                "text": "Then the dashboard is displayed",
+                "fraction": 0,
+                "feedback": "Outcomes are per-scenario Then steps, not shared Background setup."
+              },
+              {
+                "text": "Examples: | plan | price |",
+                "fraction": 0,
+                "feedback": "An Examples table drives a Scenario Outline; it is not Background setup."
+              }
+            ],
+            "generalFeedback": 'Background holds the setup common to every scenario in the feature, which is almost always Given preconditions such as "Given the user is logged in". Actions and outcomes stay inside individual scenarios.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Placeholders map to Examples columns",
+            "text": "<p>In a Scenario Outline, what does a step placeholder like <code>&lt;price&gt;</code> refer to?</p>",
+            "answers": [
+              {
+                "text": 'The value in the column headed "price" of the current Examples row, substituted for each run',
+                "fraction": 100,
+                "feedback": "Correct \u2014 placeholders are filled from the matching Examples column per row."
+              },
+              {
+                "text": "A random value the tool generates for each run",
+                "fraction": 0,
+                "feedback": "Placeholders take fixed values from the Examples table, not random ones."
+              },
+              {
+                "text": "The name of a step definition to call",
+                "fraction": 0,
+                "feedback": "Placeholders are data slots; step definitions are matched by the step text."
+              },
+              {
+                "text": "A comment that the tool ignores",
+                "fraction": 0,
+                "feedback": "Placeholders are substituted with real data; they are not comments."
+              }
+            ],
+            "generalFeedback": "Each <placeholder> in a Scenario Outline is replaced, for every run, by the value under the matching column header in the current Examples row. This is how one outline covers many data cases concisely.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of tags",
+            "text": "<p>What is the main purpose of <strong>tags</strong> (e.g. <code>@smoke</code>) on Gherkin scenarios?</p>",
+            "answers": [
+              {
+                "text": "To label scenarios so runs can be filtered, grouped, or given hooks (e.g. run only @smoke scenarios)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 tags categorise scenarios for selective execution and hooks."
+              },
+              {
+                "text": "To assert the expected outcome of a scenario",
+                "fraction": 0,
+                "feedback": "Outcomes are Then steps; tags are labels for organising and filtering runs."
+              },
+              {
+                "text": "To supply data rows to a Scenario Outline",
+                "fraction": 0,
+                "feedback": "Data rows come from Examples; tags are metadata labels."
+              },
+              {
+                "text": "To define the glue code for a step",
+                "fraction": 0,
+                "feedback": "Glue code is in step definitions; tags simply categorise scenarios."
+              }
+            ],
+            "generalFeedback": "Tags are metadata annotations on features or scenarios. They let you select subsets to run (e.g. only @smoke or @wip), organise reports, and attach setup/teardown hooks to tagged scenarios.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Correct order of Given/When/Then",
+            "text": "<p>What is the conventional order of the three main step phases within a scenario?</p>",
+            "answers": [
+              {
+                "text": "Given (context), then When (action), then Then (outcome)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 context first, then the action, then the outcome to verify."
+              },
+              {
+                "text": "Then, then When, then Given",
+                "fraction": 0,
+                "feedback": "That reverses the flow; context must be established before the action and outcome."
+              },
+              {
+                "text": "When, then Given, then Then",
+                "fraction": 0,
+                "feedback": "The precondition (Given) comes before the action (When), not after."
+              },
+              {
+                "text": "The order does not matter at all",
+                "fraction": 0,
+                "feedback": "The Given/When/Then order reflects context to action to outcome and should be followed."
+              }
+            ],
+            "generalFeedback": "A scenario reads as a small story: Given sets the context, When performs the action, and Then verifies the observable outcome. This context to action to outcome order is what makes scenarios readable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Complete the scenario: action line",
+            "text": '<p>Which keyword completes the middle line, which is the event that triggers the behaviour?</p><pre>Given the article is in the "draft" state\n___ the author publishes the article\nThen the article is visible to readers</pre>',
+            "answers": [
+              {
+                "text": "When",
+                "fraction": 100,
+                "feedback": "Correct \u2014 publishing the article is the triggering action, so it is a When."
+              },
+              {
+                "text": "Given",
+                "fraction": 0,
+                "feedback": "The precondition (draft state) is already the Given; the action is a When."
+              },
+              {
+                "text": "Then",
+                "fraction": 0,
+                "feedback": "Then is the visible-to-readers outcome; the publishing action is a When."
+              },
+              {
+                "text": "Examples",
+                "fraction": 0,
+                "feedback": "Examples supply data rows to an outline; the action line is a When."
+              }
+            ],
+            "generalFeedback": "The scenario starts in a draft state (Given), the author performs the publish action (When), and the article becoming visible is the verified outcome (Then). The middle line is the action, so it takes When.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Critique: multiple behaviours in one scenario",
+            "text": "<p>What is the main problem with this scenario?</p><pre>Scenario: account operations\n  Given the balance is 100\n  When the user deposits 50\n  Then the balance is 150\n  When the user withdraws 30\n  Then the balance is 120</pre>",
+            "answers": [
+              {
+                "text": "It tests two distinct behaviours (deposit and withdrawal) in one scenario; each behaviour should be its own scenario with a single When/Then focus",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one behaviour per scenario keeps failures diagnosable and scenarios readable."
+              },
+              {
+                "text": "Nothing is wrong; multiple When/Then pairs are the recommended style",
+                "fraction": 0,
+                "feedback": "Chaining multiple When/Then pairs mixes behaviours; split them into separate scenarios."
+              },
+              {
+                "text": "The Given must come after the first Then",
+                "fraction": 0,
+                "feedback": "Given correctly comes first; the real issue is two behaviours in one scenario."
+              },
+              {
+                "text": "Balances are not allowed in Gherkin steps",
+                "fraction": 0,
+                "feedback": "Concrete values are fine; the problem is combining two behaviours in one scenario."
+              }
+            ],
+            "generalFeedback": "A scenario should illustrate one behaviour with essentially one When and its Then. Chaining When/Then/When/Then bundles deposit and withdrawal together, so a failure is harder to localise and the scenario is harder to read. Split it into two focused scenarios.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fix a scenario with multiple When steps",
+            "text": '<p>A scenario reads:</p><pre>Given I am on the checkout page\nWhen I enter my address\nWhen I enter my card details\nWhen I click "Pay"\nThen the order is confirmed</pre><p>What is the best improvement?</p>',
+            "answers": [
+              {
+                "text": 'Treat entering address and card details as setup (Given/And) and keep a single When for the "Pay" action that triggers the behaviour',
+                "fraction": 100,
+                "feedback": "Correct \u2014 reserve When for the one triggering action and move the rest to setup."
+              },
+              {
+                "text": 'Merge all three actions into one long When sentence joined by "and"',
+                "fraction": 0,
+                "feedback": "That just hides several actions in one step; better to make the earlier ones setup and keep one triggering When."
+              },
+              {
+                "text": "Convert every When into a Then",
+                "fraction": 0,
+                "feedback": "Then is for outcomes; the actions are not outcomes, so this is wrong."
+              },
+              {
+                "text": "Delete the Then so only actions remain",
+                "fraction": 0,
+                "feedback": "Removing the outcome leaves nothing to verify; the fix is to have one clear When."
+              }
+            ],
+            "generalFeedback": 'The behaviour under test is "paying" confirms the order. Entering address and card details are preconditions, so they read better as Given/And setup, leaving a single When ("I click Pay") whose Then checks the confirmation. One action per When keeps the scenario focused.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Rationale for declarative over imperative",
+            "text": "<p>Why are declarative, business-level scenarios generally preferred over imperative UI-step scenarios?</p>",
+            "answers": [
+              {
+                "text": "They express intent independent of UI mechanics, so they read clearly to business stakeholders and do not break when buttons, ids, or layouts change",
+                "fraction": 100,
+                "feedback": "Correct \u2014 declarative scenarios are more readable and far less brittle."
+              },
+              {
+                "text": "They run faster because they skip the step definitions",
+                "fraction": 0,
+                "feedback": "Both styles run through step definitions; the benefit is readability and robustness, not speed."
+              },
+              {
+                "text": "They make the Examples table unnecessary in every case",
+                "fraction": 0,
+                "feedback": "Examples relate to data-driven outlines; that is unrelated to declarative style."
+              },
+              {
+                "text": "They allow multiple When steps without any downside",
+                "fraction": 0,
+                "feedback": "Declarative style is about intent versus UI detail, not about permitting many Whens."
+              }
+            ],
+            "generalFeedback": "Declarative scenarios describe what the user wants to accomplish, pushing UI mechanics (clicks, selectors, field ids) down into step definitions. This keeps scenarios readable as shared documentation and stable across UI redesigns, whereas imperative scenarios break whenever the interface changes.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Misuse: an assertion inside Given",
+            "text": "<p>What is wrong with this step?</p><pre>Given the account balance should be 100</pre>",
+            "answers": [
+              {
+                "text": 'It phrases a Given as an assertion ("should be"); Given must set up state ("the balance is 100"), while assertions belong in Then',
+                "fraction": 100,
+                "feedback": "Correct \u2014 a Given establishes context, it does not verify anything."
+              },
+              {
+                "text": "Nothing is wrong; Given steps normally contain assertions",
+                "fraction": 0,
+                "feedback": "Given is setup, not verification; assertions belong in Then."
+              },
+              {
+                "text": "Given may not mention numbers",
+                "fraction": 0,
+                "feedback": "Numbers are fine; the issue is that a precondition should not be an assertion."
+              },
+              {
+                "text": "The step should start with When instead",
+                "fraction": 0,
+                "feedback": "It is a precondition, so Given is the right phase; it just must state, not assert."
+              }
+            ],
+            "generalFeedback": 'Given establishes a known state of the world; it should read as a fact being set up ("the balance is 100"), not as something to be checked ("should be"). Turning setup into an assertion muddles precondition and outcome \u2014 assertions belong in Then.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Misuse: a UI click inside Then",
+            "text": '<p>What is the problem with this final step?</p><pre>Given I am viewing my cart\nWhen I proceed to checkout\nThen I click "Place order"</pre>',
+            "answers": [
+              {
+                "text": "Then contains an action (a click), but Then must state an observable outcome; the click is an action that belongs in a When",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Then verifies a result; it should not perform an action."
+              },
+              {
+                "text": "Nothing is wrong; Then steps commonly perform clicks",
+                "fraction": 0,
+                "feedback": "Then should observe, not act; a click belongs in When."
+              },
+              {
+                "text": "The scenario has too few steps to be valid",
+                "fraction": 0,
+                "feedback": "Step count is not the issue; the Then step wrongly performs an action."
+              },
+              {
+                "text": "Then must always come before When",
+                "fraction": 0,
+                "feedback": "Then comes after When; the real problem is that the Then performs an action."
+              }
+            ],
+            "generalFeedback": 'Then asserts an observable outcome after the action. Putting a click ("Place order") in a Then confuses the outcome with a new action; that click is itself an event and belongs in a When, with the resulting confirmation checked in Then.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "And after When is an action step",
+            "text": '<p>In this scenario, what phase does the <code>And</code> line belong to?</p><pre>Given I am logged in\nWhen I enter a search term\nAnd I press "Search"\nThen results are displayed</pre>',
+            "answers": [
+              {
+                "text": "A When (action) \u2014 And inherits the type of the When above it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 following a When, the And is another action step."
+              },
+              {
+                "text": "A Given (precondition) \u2014 And is always setup",
+                "fraction": 0,
+                "feedback": "And has no fixed type; here it follows a When, so it is an action."
+              },
+              {
+                "text": "A Then (outcome) \u2014 And is always an assertion",
+                "fraction": 0,
+                "feedback": "And inherits the prior keyword; after a When it is an action, not an outcome."
+              },
+              {
+                "text": "It has no type and is skipped",
+                "fraction": 0,
+                "feedback": "And executes as a real step and here counts as part of the When phase."
+              }
+            ],
+            "generalFeedback": 'And continues the phase of the most recent Given/When/Then above it. Because it follows a When, "And I press Search" is an action step. (Note that two Whens like this often signal that some of the actions should really be setup.)',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Ubiquitous language rationale",
+            "text": "<p>Why does BDD stress using a <strong>ubiquitous (shared) language</strong> in scenarios?</p>",
+            "answers": [
+              {
+                "text": "So business, developers, and testers describe behaviour with the same domain terms, reducing miscommunication and keeping the specification meaningful to everyone",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a shared vocabulary aligns the whole team on what the behaviour means."
+              },
+              {
+                "text": "So scenarios can be written only by programmers",
+                "fraction": 0,
+                "feedback": "The opposite \u2014 shared language lets non-programmers read and contribute too."
+              },
+              {
+                "text": "So the tool can generate production code automatically",
+                "fraction": 0,
+                "feedback": "Shared language is about communication, not code generation."
+              },
+              {
+                "text": "So scenarios run faster at test time",
+                "fraction": 0,
+                "feedback": "Shared language improves understanding, not execution speed."
+              }
+            ],
+            "generalFeedback": "A ubiquitous language uses consistent domain terms across conversation, scenarios, and code. It closes the gap between what the business means and what developers build, so the executable specification stays a trustworthy shared description of behaviour.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Living documentation rationale",
+            "text": "<p>In what sense are BDD scenarios <strong>living documentation</strong>?</p>",
+            "answers": [
+              {
+                "text": "Because they are executed against the system, a passing suite means the documentation still matches actual behaviour, so it cannot silently go stale",
+                "fraction": 100,
+                "feedback": "Correct \u2014 executable scenarios stay in sync with the system as it changes."
+              },
+              {
+                "text": "Because they are printed on paper and archived",
+                "fraction": 0,
+                "feedback": "Living documentation is executable and kept current, not a static archive."
+              },
+              {
+                "text": "Because a technical writer rewrites them after every release",
+                "fraction": 0,
+                "feedback": "The point is that execution keeps them current automatically, not manual rewriting."
+              },
+              {
+                "text": "Because they can only be read, never run",
+                "fraction": 0,
+                "feedback": "They are run against the system; that is exactly what keeps them alive."
+              }
+            ],
+            "generalFeedback": "Traditional documents drift from the code over time. BDD scenarios are executed, so if behaviour changes without updating the scenarios, they fail. A green suite is evidence the documentation still describes the real system \u2014 documentation that stays alive.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify a one-behaviour violation",
+            "text": '<p>Which scenario title/step combination most clearly violates the "one behaviour per scenario" guideline?</p>',
+            "answers": [
+              {
+                "text": 'A scenario titled "user management" that in one body registers a user, then logs them in, then deletes the account, each with its own Then',
+                "fraction": 100,
+                "feedback": "Correct \u2014 that bundles three separate behaviours into one scenario."
+              },
+              {
+                "text": 'A scenario "successful login" with one When (log in) and one Then (dashboard shown)',
+                "fraction": 0,
+                "feedback": "That is a single, well-focused behaviour \u2014 not a violation."
+              },
+              {
+                "text": 'A scenario "withdraw within balance" with a Given, a single When, and a single Then',
+                "fraction": 0,
+                "feedback": "That is one behaviour with a clear action and outcome \u2014 not a violation."
+              },
+              {
+                "text": 'A scenario "empty cart shows message" with a Given and a single Then',
+                "fraction": 0,
+                "feedback": "That checks one behaviour; it is not a violation."
+              }
+            ],
+            "generalFeedback": "A scenario that registers, logs in, and deletes an account tests three behaviours at once. Each should be its own scenario so failures are localised and each reads as one clear example. Focused single-behaviour scenarios are the correct pattern.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Misuse: an action inside Background",
+            "text": "<p>Why is this Background block a poor design?</p><pre>Background:\n  Given the user is logged in\n  When the user deletes their most recent order</pre>",
+            "answers": [
+              {
+                "text": "Background should contain shared setup (Givens), not an action; the When forces a behaviour-changing action before every scenario, which distorts the tests",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Background is for common context, not for performing actions."
+              },
+              {
+                "text": "Background may not contain any steps at all",
+                "fraction": 0,
+                "feedback": "Background does contain steps \u2014 it is just meant for shared setup, not actions."
+              },
+              {
+                "text": "Nothing is wrong; running an action before each scenario is recommended",
+                "fraction": 0,
+                "feedback": "Running a behaviour-changing action before every scenario is exactly the anti-pattern here."
+              },
+              {
+                "text": "Background must appear after the scenarios, not before",
+                "fraction": 0,
+                "feedback": "Background is placed before scenarios; the real issue is the action step in it."
+              }
+            ],
+            "generalFeedback": "Background factors out common context and should hold Given setup only. Putting a When (a state-changing action) there runs that action before every scenario, mixing setup with behaviour and making scenarios depend on a side effect. Keep actions inside the scenarios that test them.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Misuse: a Given that performs an action",
+            "text": "<p>A scenario about withdrawal begins:</p><pre>Given the user withdraws 30 from the account\nWhen the balance is checked\nThen it shows 70</pre><p>What is the flaw?</p>",
+            "answers": [
+              {
+                "text": "The withdrawal \u2014 the actual behaviour under test \u2014 is buried in a Given as if it were setup; the withdrawal should be the When, with a Given establishing the starting balance",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the action to be tested must be the When, not hidden in a Given."
+              },
+              {
+                "text": "Nothing is wrong; the action is fine as a Given",
+                "fraction": 0,
+                "feedback": "The action under test should be the When; placing it in Given misframes the scenario."
+              },
+              {
+                "text": "The Then must state an action, not a number",
+                "fraction": 0,
+                "feedback": "Then correctly states an outcome; the flaw is the action placed in the Given."
+              },
+              {
+                "text": "Scenarios may not check a balance",
+                "fraction": 0,
+                "feedback": "Checking a balance is fine; the problem is the misplaced action in the Given."
+              }
+            ],
+            "generalFeedback": 'The behaviour being tested is the withdrawal, so it should be the When. A better form is: "Given the balance is 100 / When the user withdraws 30 / Then the balance is 70." Hiding the action in a Given treats the very thing under test as mere setup.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario Outline expansion with two Examples tables",
+            "text": "<p>How many concrete scenarios does this Scenario Outline produce?</p><pre>Scenario Outline: discount by tier\n  When a &lt;tier&gt; customer checks out\n  Then the discount is &lt;pct&gt;%\n\n  Examples: standard tiers\n    | tier   | pct |\n    | bronze | 0   |\n    | silver | 5   |\n\n  Examples: premium tiers\n    | tier     | pct |\n    | gold     | 10  |\n    | platinum | 15  |\n    | diamond  | 20  |</pre>",
+            "answers": [
+              {
+                "text": "5 \u2014 2 data rows from the first table plus 3 from the second",
+                "fraction": 100,
+                "feedback": "Correct \u2014 runs equal the total data rows across all Examples tables: 2 + 3 = 5."
+              },
+              {
+                "text": "2 \u2014 only the first Examples table counts",
+                "fraction": 0,
+                "feedback": "Both Examples tables contribute; the total is 2 + 3 = 5."
+              },
+              {
+                "text": "6 \u2014 2 multiplied by 3",
+                "fraction": 0,
+                "feedback": "Tables add their rows, they are not multiplied: 2 + 3 = 5."
+              },
+              {
+                "text": "7 \u2014 the two header rows count as runs too",
+                "fraction": 0,
+                "feedback": "Header rows never count; only the 5 data rows run."
+              }
+            ],
+            "generalFeedback": "A Scenario Outline may have more than one Examples table; it runs once per data row across all of them. Here 2 data rows plus 3 data rows give 5 concrete scenarios (header rows are not counted).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Spec by example and executable specification",
+            "text": '<p>What is meant by "specification by example" / an <strong>executable specification</strong> in BDD?</p>',
+            "answers": [
+              {
+                "text": "Concrete examples of desired behaviour are written so precisely that they can be executed directly as automated acceptance tests, serving as both specification and verification",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the examples are the spec and can be run to verify the system."
+              },
+              {
+                "text": "A separate specification document is written first and the examples are discarded before coding",
+                "fraction": 0,
+                "feedback": "The examples are not discarded; they become the executable spec itself."
+              },
+              {
+                "text": "Examples are only used to illustrate a spec but can never be run",
+                "fraction": 0,
+                "feedback": "The point is precisely that they can be run \u2014 that is what makes them executable."
+              },
+              {
+                "text": "It means writing production code first and adding examples afterwards",
+                "fraction": 0,
+                "feedback": "BDD drives from examples outward; the examples specify behaviour before/with implementation."
+              }
+            ],
+            "generalFeedback": "Specification by example captures requirements as concrete, agreed examples. Written in Gherkin and backed by step definitions, those examples run as acceptance tests: they specify what the system should do and simultaneously verify that it does, collapsing spec and test into one artefact.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Relation to TDD and ATDD",
+            "text": "<p>How does BDD relate to TDD and ATDD?</p>",
+            "answers": [
+              {
+                "text": "BDD evolved from TDD, shifting emphasis to behaviour described in shared language; like ATDD it drives development from acceptance-level examples agreed with the business (outside-in)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 BDD is a behaviour- and collaboration-focused evolution of TDD, closely aligned with ATDD."
+              },
+              {
+                "text": "BDD replaces all testing and makes unit tests unnecessary",
+                "fraction": 0,
+                "feedback": "BDD complements, not replaces, unit-level TDD; both have their place."
+              },
+              {
+                "text": "BDD is unrelated to TDD and forbids writing tests before code",
+                "fraction": 0,
+                "feedback": "BDD grew out of TDD and still favours specifying behaviour before/with implementation."
+              },
+              {
+                "text": "BDD is only about performance testing",
+                "fraction": 0,
+                "feedback": "BDD is about specifying functional behaviour by example, not performance testing."
+              }
+            ],
+            "generalFeedback": 'TDD drives code from failing unit tests. BDD reframes this around behaviour expressed in ubiquitous language and readable examples, working outside-in from acceptance criteria \u2014 much like ATDD (acceptance-test-driven development). The three share the "tests/examples first" spirit at different levels of granularity.',
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "A single Examples data row runs once",
+            "text": "<p>A Scenario Outline whose Examples table has a header row and exactly one data row will run exactly one concrete scenario.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one data row means one run; the header row is not counted."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "It does run once: the number of runs equals the number of data rows, which is one here."
+              }
+            ],
+            "generalFeedback": "The number of concrete scenarios a Scenario Outline produces equals the number of data rows in its Examples table(s). With a single data row (plus the header, which never counts), it runs exactly once \u2014 behaving like an ordinary scenario with those values substituted."
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F BDD",
+            "text": "<p>\u4EC0\u9EBC\u662F<strong>\u884C\u70BA\u9A45\u52D5\u958B\u767C\uFF08Behaviour-Driven Development, BDD\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7A2E\u5354\u4F5C\u5BE6\u8E10\uFF1A\u7531\u696D\u52D9\u3001\u958B\u767C\u8207\u6E2C\u8A66\u4E09\u65B9\u4EE5\u5177\u9AD4\u7BC4\u4F8B\u63CF\u8FF0\u671F\u671B\u7684\u884C\u70BA\uFF0C\u9019\u4E9B\u7BC4\u4F8B\u6703\u6210\u70BA\u53EF\u57F7\u884C\u7684\u898F\u683C\u8207\u6D3B\u6587\u4EF6\uFF08living documentation\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014BDD \u7684\u6838\u5FC3\u662F\u4EE5\u5171\u4EAB\u7684\u3001\u4EE5\u7BC4\u4F8B\u70BA\u672C\u7684\u884C\u70BA\u63CF\u8FF0\uFF0C\u4E14\u53EF\u88AB\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u80FD\u5F9E UML \u985E\u5225\u5716\u81EA\u52D5\u7522\u751F\u7522\u54C1\u7A0B\u5F0F\u78BC\u7684\u5DE5\u5177",
+                "fraction": 0,
+                "feedback": "BDD \u662F\u5354\u4F5C\u8207\u898F\u683C\u5BE6\u8E10\uFF0C\u4E0D\u662F\u5F9E\u5716\u7522\u751F\u7A0B\u5F0F\u78BC\u7684\u5DE5\u5177\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u91CF\u6E2C\u6BCF\u500B\u51FD\u5F0F\u57F7\u884C\u901F\u5EA6\u7684\u6548\u80FD\u5256\u6790\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6548\u80FD\u5256\u6790\uFF1BBDD \u8457\u91CD\u4EE5\u7BC4\u4F8B\u63CF\u8FF0\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u7528\u4F86\u6C7A\u5B9A\u6E2C\u8A66\u4F55\u6642\u7D50\u675F\u7684\u5206\u652F\u8986\u84CB\u7387\u6307\u6A19",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u662F\u53E6\u4E00\u56DE\u4E8B\uFF1BBDD \u4EE5\u5354\u4F5C\u65B9\u5F0F\u7528\u7BC4\u4F8B\u63CF\u8FF0\u884C\u70BA\u3002"
+              }
+            ],
+            "generalFeedback": "BDD \u7531 TDD \u6F14\u9032\u800C\u4F86\uFF0C\u5F37\u8ABF\u696D\u52D9\u3001\u958B\u767C\u8207\u6E2C\u8A66\u4E4B\u9593\u7684\u5C0D\u8A71\uFF08\u300C\u4E09\u65B9\u6703\u8AC7 / three amigos\u300D\uFF09\u3002\u5718\u968A\u5C31\u5177\u9AD4\u7684\u884C\u70BA\u7BC4\u4F8B\u9054\u6210\u5171\u8B58\uFF0C\u4EE5\u5171\u4EAB\u8A9E\u8A00\u64B0\u5BEB\uFF0C\u4E26\u8F49\u6210\u81EA\u52D5\u5316\u3001\u53EF\u57F7\u884C\u7684\u898F\u683C\uFF0C\u540C\u6642\u4F5C\u70BA\u6D3B\u6587\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F Gherkin",
+            "text": "<p>\u4EC0\u9EBC\u662F <strong>Gherkin</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7A2E\u7D50\u69CB\u5316\u3001\u5927\u81F4\u4EE5\u81EA\u7136\u8A9E\u8A00\u66F8\u5BEB\u7684\u8A9E\u6CD5\uFF08Feature\u3001Scenario\u3001Given/When/Then\uFF09\uFF0C\u7528\u4F86\u64B0\u5BEB\u4EBA\u8207\u5DE5\u5177\u90FD\u80FD\u8B80\u7684 BDD \u898F\u683C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Gherkin \u662F\u64B0\u5BEB BDD scenario \u7528\u3001\u4EE5\u95DC\u9375\u5B57\u70BA\u672C\u4E14\u696D\u52D9\u53EF\u8B80\u7684\u8A9E\u8A00\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u6703\u7DE8\u8B6F\u6210\u6A5F\u5668\u78BC\u7684\u901A\u7528\u7A0B\u5F0F\u8A9E\u8A00",
+                "fraction": 0,
+                "feedback": "Gherkin \u662F\u898F\u683C\u8A9E\u6CD5\uFF0C\u4E0D\u662F\u6703\u88AB\u7DE8\u8B6F\u7684\u7A0B\u5F0F\u8A9E\u8A00\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u7528\u4F86\u53D6\u56DE\u6E2C\u8A66\u7D50\u679C\u7684\u8CC7\u6599\u5EAB\u67E5\u8A62\u8A9E\u8A00",
+                "fraction": 0,
+                "feedback": "Gherkin \u63CF\u8FF0\u884C\u70BA scenario\uFF0C\u4E0D\u662F\u67E5\u8A62\u8A9E\u8A00\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u57F7\u884C\u5EFA\u7F6E\u7684\u6301\u7E8C\u6574\u5408\u4F3A\u670D\u5668",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F CI \u5DE5\u5177\uFF1BGherkin \u662F\u64B0\u5BEB scenario \u7684\u8A9E\u8A00\u3002"
+              }
+            ],
+            "generalFeedback": "Gherkin \u662F Cucumber \u985E\u5DE5\u5177\u4F7F\u7528\u3001\u4EE5\u884C\u70BA\u55AE\u4F4D\u7684\u8A9E\u8A00\u3002\u5B83\u4F7F\u7528\u4E00\u5C0F\u7D44\u95DC\u9375\u5B57\u2014\u2014Feature\u3001Scenario\u3001Given\u3001When\u3001Then\u3001And\u3001But\u3001Background\u3001Scenario Outline\u3001Examples\u2014\u2014\u8B93\u898F\u683C\u8B80\u8D77\u4F86\u5E7E\u4E4E\u50CF\u4E00\u822C\u6587\u53E5\uFF0C\u537B\u80FD\u900F\u904E step definition \u81EA\u52D5\u5316\u57F7\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F Feature",
+            "text": "<p>\u5728 Gherkin \u4E2D\uFF0C<strong>Feature</strong> \u95DC\u9375\u5B57\u5F15\u5165\u7684\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u9805\u5177\u540D\u7684\u529F\u80FD\uFF0C\u9644\u6709\u81EA\u7531\u6587\u5B57\u63CF\u8FF0\uFF0C\u4E26\u628A\u8AAA\u660E\u5B83\u7684\u5404\u500B scenario \u805A\u96C6\u5728\u4E00\u8D77",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Feature \u70BA\u4E00\u9805\u80FD\u529B\u547D\u540D\uFF0C\u4E26\u5BB9\u7D0D\u63CF\u8FF0\u5B83\u7684\u5404\u500B scenario\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u6AA2\u67E5\u55AE\u4E00\u671F\u671B\u503C\u7684\u6E2C\u8A66\u6B65\u9A5F",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u6B65\u9A5F\u662F Given/When/Then \u884C\uFF1BFeature \u805A\u96C6\u7684\u662F\u6574\u500B scenario\u3002"
+              },
+              {
+                "text": "\u628A\u6B65\u9A5F\u5C0D\u61C9\u5230\u51FD\u5F0F\u7684\u81A0\u5408\u7A0B\u5F0F\u78BC\u5340\u584A",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F step definition\uFF1BFeature \u662F .feature \u6A94\u4E2D\u6700\u4E0A\u5C64\u7684\u5206\u7D44\u3002"
+              },
+              {
+                "text": "\u4F9B\u8CC7\u6599\u9A45\u52D5\u57F7\u884C\u7528\u7684\u7BC4\u4F8B\u8CC7\u6599\u8868",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F Examples \u8868\uFF1BFeature \u662F\u5B83\u6240\u5C6C\u7684\u5177\u540D\u529F\u80FD\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B .feature \u6A94\u901A\u5E38\u4EE5\u4E00\u884C Feature: \u958B\u982D\uFF0C\u70BA\u8A72\u80FD\u529B\u547D\u540D\uFF0C\u5F8C\u9762\u53EF\u63A5\u4E00\u6BB5\u63CF\u8FF0\u5176\u696D\u52D9\u50F9\u503C\u7684\u81EA\u7531\u6587\u5B57\u3002\u5176\u4E0B\u4FBF\u662F\u7D66\u51FA\u8A72\u529F\u80FD\u5177\u9AD4\u884C\u70BA\u7BC4\u4F8B\u7684\u5404\u500B Scenario\uFF08\u4EE5\u53CA\u53EF\u9078\u7684 Background \u8207 Scenario Outline\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F Scenario",
+            "text": "<p>\u5728 Gherkin \u4E2D\uFF0C\u4EC0\u9EBC\u662F <strong>Scenario</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u529F\u80FD\u884C\u70BA\u7684\u55AE\u4E00\u5177\u9AD4\u7BC4\u4F8B\uFF0C\u4EE5\u4E00\u9023\u4E32 Given/When/Then \u6B65\u9A5F\u8868\u9054",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Scenario \u662F\u7531\u6B65\u9A5F\u7D44\u6210\u3001\u5C0D\u67D0\u884C\u70BA\u7684\u4E00\u500B\u5177\u9AD4\u793A\u4F8B\u3002"
+              },
+              {
+                "text": "\u5305\u542B\u8A72 feature \u7684\u6A94\u6848\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u6A94\u6848\u662F .feature \u6A94\uFF1BScenario \u662F\u5176\u5167\u7684\u4E00\u500B\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u628A\u4E00\u500B\u6E2C\u8A66\u91CD\u8907\u591A\u6B21\u7684\u7A0B\u5F0F\u8FF4\u5708",
+                "fraction": 0,
+                "feedback": "Scenario \u662F\u88AB\u63CF\u8FF0\u7684\u7BC4\u4F8B\uFF0C\u4E0D\u662F\u8FF4\u5708\u7D50\u69CB\u3002"
+              },
+              {
+                "text": "\u7528\u4F86\u91CD\u73FE\u5931\u6557\u57F7\u884C\u7684\u96A8\u6A5F\u7A2E\u5B50",
+                "fraction": 0,
+                "feedback": "Gherkin \u7684 scenario \u662F\u5177\u9AD4\u7BC4\u4F8B\uFF0C\u4E0D\u6D89\u53CA\u96A8\u6A5F\u7A2E\u5B50\u3002"
+              }
+            ],
+            "generalFeedback": "Scenario \u6355\u6349\u8A72\u529F\u80FD\u61C9\u5982\u4F55\u904B\u4F5C\u7684\u4E00\u500B\u5177\u9AD4\u60C5\u6CC1\uFF1A\u4E00\u6BB5\u8108\u7D61\uFF08Given\uFF09\u3001\u4E00\u500B\u4E8B\u4EF6\uFF08When\uFF09\u3001\u4EE5\u53CA\u4E00\u500B\u671F\u671B\u7D50\u679C\uFF08Then\uFF09\u3002\u4E00\u500B feature \u901A\u5E38\u5305\u542B\u6578\u500B scenario\uFF0C\u5404\u81EA\u5448\u73FE\u4E0D\u540C\u60C5\u6CC1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Given \u7684\u542B\u610F",
+            "text": "<p>\u5728 Gherkin scenario \u4E2D\uFF0C<strong>Given</strong> \u95DC\u9375\u5B57\u8868\u9054\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8108\u7D61\u6216\u524D\u7F6E\u689D\u4EF6\u2014\u2014\u5728\u884C\u70BA\u88AB\u89F8\u767C\u4E4B\u524D\u5FC5\u9808\u5DF2\u7136\u6210\u7ACB\u7684\u4E16\u754C\u72C0\u614B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Given \u5EFA\u7ACB\u8D77\u59CB\u8108\u7D61\uFF0F\u524D\u7F6E\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u89F8\u767C\u884C\u70BA\u7684\u90A3\u500B\u55AE\u4E00\u52D5\u4F5C\u6216\u4E8B\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F When \u7684\u89D2\u8272\uFF1BGiven \u4E8B\u5148\u8A2D\u5B9A\u8108\u7D61\u3002"
+              },
+              {
+                "text": "\u8981\u88AB\u9A57\u8B49\u7684\u671F\u671B\u3001\u53EF\u89C0\u5BDF\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F Then \u7684\u89D2\u8272\uFF1BGiven \u63CF\u8FF0\u524D\u7F6E\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u53D7\u6E2C feature \u7684\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "feature \u540D\u7A31\u63A5\u5728 Feature: \u4E4B\u5F8C\uFF1BGiven \u63CF\u8FF0 scenario \u7684\u8D77\u59CB\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "Given \u628A\u7CFB\u7D71\u7F6E\u65BC\u4E00\u500B\u5DF2\u77E5\u72C0\u614B\u2014\u2014\u524D\u7F6E\u689D\u4EF6\u6216\u8108\u7D61\uFF0C\u4F8B\u5982\u300CGiven the user is logged in\u300D\u3002\u5B83\u662F\u8A2D\u5B9A\uFF08setup\uFF09\uFF0C\u4E0D\u662F\u53D7\u6E2C\u7684\u52D5\u4F5C\uFF0C\u4E14\u4E0D\u61C9\u5305\u542B\u4F60\u6253\u7B97\u6AA2\u67E5\u7684\u7D50\u679C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When \u7684\u542B\u610F",
+            "text": "<p>\u5728 Gherkin scenario \u4E2D\uFF0C<strong>When</strong> \u95DC\u9375\u5B57\u8868\u9054\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u53D7\u6E2C\u7684\u52D5\u4F5C\u6216\u4E8B\u4EF6\u2014\u2014\u7406\u60F3\u4E0A\u662F\u884C\u70BA\u4E3B\u9AD4\u6240\u505A\u3001\u7528\u4F86\u89F8\u767C\u884C\u70BA\u7684\u55AE\u4E00\u4E00\u4EF6\u4E8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014When \u6307\u51FA\u88AB\u884C\u4F7F\u7684\u4E8B\u4EF6\uFF0F\u52D5\u4F5C\uFF0C\u7406\u60F3\u4E0A\u53EA\u6709\u4E00\u500B\u3002"
+              },
+              {
+                "text": "\u4E8B\u5148\u5FC5\u9808\u5DF2\u6210\u7ACB\u7684\u524D\u7F6E\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F Given \u7684\u89D2\u8272\uFF1BWhen \u662F\u89F8\u767C\u7684\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "\u4E4B\u5F8C\u61C9\u89C0\u5BDF\u5230\u7684\u671F\u671B\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F Then \u7684\u89D2\u8272\uFF1BWhen \u662F\u5C0E\u81F4\u8A72\u7D50\u679C\u7684\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "\u8AAA\u660E scenario \u5B58\u5728\u539F\u56E0\u7684\u8A3B\u89E3",
+                "fraction": 0,
+                "feedback": "When \u662F\u884C\u70BA\u6B65\u9A5F\uFF0C\u4E0D\u662F\u8A3B\u89E3\uFF1B\u5B83\u6307\u51FA\u52D5\u4F5C\u3002"
+              }
+            ],
+            "generalFeedback": "When \u63CF\u8FF0\u884C\u4F7F\u884C\u70BA\u7684\u4E8B\u4EF6\u6216\u52D5\u4F5C\uFF0C\u4F8B\u5982\u300CWhen the user submits the form\u300D\u3002\u4E00\u500B\u5BEB\u5F97\u597D\u7684 scenario \u57FA\u672C\u4E0A\u53EA\u6709\u4E00\u500B When\uFF1A\u90A3\u500B\u55AE\u4E00\u52D5\u4F5C\uFF0C\u5176\u5F8C\u679C\u7531 Then \u6B65\u9A5F\u52A0\u4EE5\u9A57\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Then \u7684\u542B\u610F",
+            "text": "<p>\u5728 Gherkin scenario \u4E2D\uFF0C<strong>Then</strong> \u95DC\u9375\u5B57\u8868\u9054\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u52D5\u4F5C\u4E4B\u5F8C\u61C9\u6210\u7ACB\u7684\u671F\u671B\u3001\u53EF\u89C0\u5BDF\u7D50\u679C\u2014\u2014\u5373 scenario \u6240\u9A57\u8B49\u7684\u90A3\u4EF6\u4E8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Then \u9673\u8FF0\u8981\u88AB\u6AA2\u67E5\u7684\u53EF\u89C0\u5BDF\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u5728\u4EFB\u4F55\u4E8B\u60C5\u767C\u751F\u524D\u5FC5\u9808\u8A2D\u5B9A\u597D\u7684\u8108\u7D61",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F Given \u7684\u89D2\u8272\uFF1BThen \u662F\u6700\u5F8C\u6AA2\u67E5\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u7528\u4F86\u89F8\u767C\u884C\u70BA\u6240\u57F7\u884C\u7684\u52D5\u4F5C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F When \u7684\u89D2\u8272\uFF1BThen \u9A57\u8B49\u8A72\u52D5\u4F5C\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u8CC7\u6599\u9A45\u52D5 scenario \u7684\u4E00\u7D44\u7BC4\u4F8B\u5217",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F Examples \u8868\uFF1BThen \u9673\u8FF0\u671F\u671B\u7D50\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "Then \u65B7\u8A00\u4E00\u500B\u53EF\u89C0\u5BDF\u7684\u7D50\u679C\uFF0C\u4F8B\u5982\u300CThen the account balance is 100\u300D\u3002\u5B83\u61C9\u63CF\u8FF0\u53EF\u88AB\u89C0\u5BDF\u7684\u4E8B\u7269\uFF08\u4E00\u500B\u7D50\u679C\u3001\u4E00\u5247\u8A0A\u606F\u3001\u4E00\u500B\u72C0\u614B\uFF09\uFF0C\u800C\u4E0D\u662F\u884C\u70BA\u4E3B\u9AD4\u518D\u505A\u7684\u53E6\u4E00\u500B\u52D5\u4F5C\u2014\u2014\u52D5\u4F5C\u5C6C\u65BC When\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "And \u8207 But \u7684\u5EF6\u7E8C",
+            "text": "<p>\u5728 Gherkin \u4E2D\uFF0C<strong>And</strong> \u8207 <strong>But</strong> \u95DC\u9375\u5B57\u7684\u4F5C\u7528\u662F\u4EC0\u9EBC\uFF1F</p><pre>Given the user is logged in\nAnd the cart contains 2 items</pre>",
+            "answers": [
+              {
+                "text": "\u5B83\u5011\u5EF6\u7E8C\u524D\u4E00\u500B\u6B65\u9A5F\u4E26\u627F\u63A5\u5176\u985E\u578B\uFF0C\u56E0\u6B64\u5728 Given \u4E4B\u5F8C\uFF08\u4EE5 And/But \u63A5\u7E8C\uFF09\u7684\u6B65\u9A5F\u4ECD\u662F\u4E00\u500B Given\uFF08\u6B64\u8655\u70BA\u524D\u7F6E\u689D\u4EF6\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014And/But \u627F\u63A5\u5176\u6240\u63A5\u7E8C\u6B65\u9A5F\u7684\u985E\u5225\u3002"
+              },
+              {
+                "text": "\u4E0D\u8AD6\u524D\u9762\u662F\u4EC0\u9EBC\uFF0C\u5B83\u5011\u4E00\u5F8B\u5F15\u5165\u4E00\u500B\u65B0\u7684\u52D5\u4F5C",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014And/But \u6C92\u6709\u56FA\u5B9A\u985E\u578B\uFF1B\u5B83\u5011\u627F\u63A5\u524D\u4E00\u6B65\u9A5F\u7684\u985E\u578B\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u5DE5\u5177\u6703\u5FFD\u7565\u7684\u8A3B\u89E3",
+                "fraction": 0,
+                "feedback": "And/But \u662F\u771F\u6B63\u7684\u6B65\u9A5F\uFF1B\u5B83\u5011\u53EA\u662F\u5171\u4EAB\u4E0A\u4E00\u500B\u95DC\u9375\u5B57\u7684\u985E\u5225\u3002"
+              },
+              {
+                "text": "But \u8868\u793A\u8A72\u6B65\u9A5F\u9810\u671F\u6703\u5931\u6557",
+                "fraction": 0,
+                "feedback": "But \u53EA\u662F\u70BA\u4E86\u53EF\u8B80\u6027\u7684\u5EF6\u7E8C\uFF1B\u5B83\u4E0D\u6A19\u8A18\u9810\u671F\u5931\u6557\u3002"
+              }
+            ],
+            "generalFeedback": "And \u8207 But \u7D14\u7CB9\u662F\u70BA\u4E86\u53EF\u8B80\u6027\u3002\u4EE5 And \u6216 But \u66F8\u5BEB\u7684\u6B65\u9A5F\uFF0C\u5C6C\u65BC\u5176\u4E0A\u65B9\u6700\u8FD1\u7684\u95DC\u9375\u5B57\uFF08Given\u3001When \u6216 Then\uFF09\u6240\u5728\u7684\u540C\u4E00\u968E\u6BB5\u3002\u5728\u7BC4\u4F8B\u4E2D\uFF0C\u300CAnd the cart contains 2 items\u300D\u662F\u53E6\u4E00\u500B Given\uFF08\u524D\u7F6E\u689D\u4EF6\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F step definition",
+            "text": "<p>\u5728 BDD \u5DE5\u5177\u4E2D\uFF0C\u4EC0\u9EBC\u662F <strong>step definition\uFF08\u6B65\u9A5F\u5B9A\u7FA9\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BD4\u5C0D\u67D0\u500B Gherkin \u6B65\u9A5F\u6587\u5B57\uFF0C\u4E26\u5C0D\u7CFB\u7D71\u57F7\u884C\u76F8\u61C9\u81EA\u52D5\u5316\u7684\u7A0B\u5F0F\u78BC\uFF08\u81A0\u5408\u7A0B\u5F0F\u78BC / glue\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014step definition \u628A\u81EA\u7136\u8A9E\u8A00\u6B65\u9A5F\u7D81\u5B9A\u5230\u53EF\u57F7\u884C\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "scenario \u5167\u90A3\u4E00\u884C\u81EA\u7136\u8A9E\u8A00\u6587\u5B57\u672C\u8EAB",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6B65\u9A5F\uFF1Bstep definition \u662F\u8A72\u6B65\u9A5F\u6240\u5C0D\u61C9\u7684\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u4F9B Scenario Outline \u4F7F\u7528\u7684 Examples \u8CC7\u6599\u8868",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F Examples \u8868\uFF1Bstep definition \u662F\u6B65\u9A5F\u80CC\u5F8C\u7684\u81A0\u5408\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u63CF\u8FF0 feature \u696D\u52D9\u50F9\u503C\u7684\u8A3B\u89E3",
+                "fraction": 0,
+                "feedback": "step definition \u662F\u53EF\u57F7\u884C\u7684\u81A0\u5408\u7A0B\u5F0F\u78BC\uFF0C\u4E0D\u662F\u8A3B\u89E3\u3002"
+              }
+            ],
+            "generalFeedback": "Gherkin \u6B65\u9A5F\u662F\u7D14\u6587\u5B57\uFF1Bstep definition \u662F\u81A0\u5408\u7A0B\u5F0F\u78BC\uFF08\u4EE5 Java\u3001Python\u3001C#\u3001JavaScript \u7B49\u64B0\u5BEB\uFF09\uFF0C\u5176\u6A23\u5F0F\u6BD4\u5C0D\u67D0\u500B\u6B65\u9A5F\u4E26\u9A45\u52D5\u61C9\u7528\u7A0B\u5F0F\u3002\u57F7\u884C\u4E00\u500B scenario \u5C31\u662F\u628A\u6BCF\u500B\u6B65\u9A5F\u6BD4\u5C0D\u5230\u5B83\u7684 step definition \u4E26\u52A0\u4EE5\u57F7\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F Scenario Outline \u8207 Examples",
+            "text": "<p><strong>Scenario Outline</strong> \u53CA\u5176 <strong>Examples</strong> \u8868\u63D0\u4F9B\u4E86\u4EC0\u9EBC\uFF1F</p><pre>Scenario Outline: adding items\n  When I add &lt;qty&gt; items\n  Then the cart shows &lt;qty&gt; items\n\n  Examples:\n    | qty |\n    | 1   |\n    | 5   |</pre>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u5E36\u6709 <placeholder> \u7684\u8CC7\u6599\u9A45\u52D5\u6A23\u677F\uFF0C\u6703\u4F9D Examples \u8868\u7684\u6BCF\u4E00\u8CC7\u6599\u5217\u5404\u57F7\u884C\u4E00\u6B21",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Scenario Outline \u662F\u88AB\u6BCF\u4E00 Examples \u5217\u586B\u5165\u7684\u53C3\u6578\u5316\u6A23\u677F\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u5728\u57F7\u884C\u671F\u9593\u628A\u67D0 scenario \u6A19\u8A18\u70BA\u7565\u904E\u7684\u65B9\u5F0F",
+                "fraction": 0,
+                "feedback": "\u7565\u904E\u662F\u7528 tag\uFF0F\u904E\u6FFE\u5B8C\u6210\uFF1BScenario Outline \u662F\u8CC7\u6599\u9A45\u52D5\u6A23\u677F\u3002"
+              },
+              {
+                "text": "\u628A\u6B65\u9A5F\u5C0D\u61C9\u5230\u51FD\u5F0F\u7684\u81A0\u5408\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F step definition\uFF1BScenario Outline \u662F\u53C3\u6578\u5316\u7684 scenario\u3002"
+              },
+              {
+                "text": "\u5728\u6BCF\u500B scenario \u4E4B\u524D\u57F7\u884C\u7684\u5171\u4EAB Given",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F Background\uFF1BScenario Outline \u662F\u7531 Examples \u8CC7\u6599\u9A45\u52D5\u7684\u6A23\u677F\u3002"
+              }
+            ],
+            "generalFeedback": "Scenario Outline \u5728\u5176\u6B65\u9A5F\u4E2D\u4F7F\u7528 <placeholder>\uFF0C\u4E26\u642D\u914D\u4E00\u500B Examples \u8868\u3002\u6BCF\u4E00\u8CC7\u6599\u5217\u628A\u5176\u503C\u4EE3\u5165 placeholder \u4E26\u57F7\u884C\u8A72 scenario \u4E00\u6B21\uFF0C\u4EE5\u7C21\u6F54\u7684\u65B9\u5F0F\u5C0D\u8A31\u591A\u985E\u4F3C\u6848\u4F8B\u505A\u8CC7\u6599\u9A45\u52D5\u6DB5\u84CB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F Background",
+            "text": "<p>\u5728 feature \u6A94\u4E2D\uFF0C<strong>Background</strong> \u95DC\u9375\u5B57\u7684\u7528\u9014\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5BB9\u7D0D\u90A3\u4E9B\u6703\u5728\u8A72 feature \u4E2D\u6BCF\u500B scenario \u4E4B\u524D\u57F7\u884C\u7684\u6B65\u9A5F\uFF08\u901A\u5E38\u662F\u5171\u4EAB\u7684 Given \u524D\u7F6E\u689D\u4EF6\uFF09\uFF0C\u4EE5\u907F\u514D\u91CD\u8907",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Background \u628A\u8A72 feature \u4E2D\u6240\u6709 scenario \u5171\u901A\u7684\u8A2D\u5B9A\u62BD\u51FA\u4F86\u3002"
+              },
+              {
+                "text": "\u5B9A\u7FA9\u6240\u6709 scenario \u5171\u4EAB\u7684\u671F\u671B\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u7D50\u679C\u662F\u5404 scenario \u7684 Then \u6B65\u9A5F\uFF1BBackground \u5BB9\u7D0D\u5171\u4EAB\u8A2D\u5B9A\uFF0C\u901A\u5E38\u662F Given\u3002"
+              },
+              {
+                "text": "\u4F9B Scenario Outline \u4F7F\u7528\u7684\u8CC7\u6599\u5217",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F Examples \u8868\uFF1BBackground \u662F\u5728\u6BCF\u500B scenario \u4E4B\u524D\u57F7\u884C\u7684\u5171\u4EAB\u8A2D\u5B9A\u3002"
+              },
+              {
+                "text": "\u5132\u5B58\u8A72 feature \u5404\u6B65\u9A5F\u7684\u81A0\u5408\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u81A0\u5408\u7A0B\u5F0F\u78BC\u5728 step definition \u4E2D\uFF1BBackground \u662F\u5171\u901A\u7684 Gherkin \u8A2D\u5B9A\u3002"
+              }
+            ],
+            "generalFeedback": "Background \u8B93\u4F60\u628A\u8A2D\u5B9A\u6B65\u9A5F\u53EA\u5BEB\u4E00\u6B21\uFF0C\u4E26\u5728\u8A72 feature \u4E2D\u6BCF\u500B scenario \u4E4B\u524D\u57F7\u884C\u3002\u5B83\u901A\u5E38\u5305\u542B\u5EFA\u7ACB\u5171\u901A\u8108\u7D61\u7684 Given \u6B65\u9A5F\uFF08\u4F8B\u5982\u300CGiven the user is logged in\u300D\uFF09\uFF0C\u4F7F\u5404\u500B scenario \u4FDD\u6301\u805A\u7126\u4E14\u7121\u91CD\u8907\u8A2D\u5B9A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F Cucumber",
+            "text": "<p><strong>Cucumber</strong>\u3001<strong>SpecFlow</strong>\u3001<strong>Behave</strong> \u8207 <strong>JBehave</strong> \u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "BDD \u5DE5\u5177\uFF0C\u6703\u5256\u6790 Gherkin \u98A8\u683C\u7684 scenario\uFF0C\u4E26\u85C9\u7531\u628A\u6B65\u9A5F\u6BD4\u5C0D\u5230 step definition \u4F86\u57F7\u884C\u5B83\u5011",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u4E9B\u662F\u900F\u904E step definition \u57F7\u884C Gherkin scenario \u7684 BDD \u6846\u67B6\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387\u91CF\u6E2C\u5DE5\u5177",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F BDD \u57F7\u884C\u5DE5\u5177\uFF0C\u4E0D\u662F\u8986\u84CB\u7387\u91CF\u6E2C\u5DE5\u5177\u3002"
+              },
+              {
+                "text": "\u7248\u672C\u63A7\u5236\u7CFB\u7D71",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u57F7\u884C BDD scenario\uFF1B\u4E0D\u662F\u7248\u672C\u63A7\u5236\u7CFB\u7D71\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u578B\u5225\u6AA2\u67E5\u5668",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u57F7\u884C\u884C\u70BA\u898F\u683C\uFF1B\u4E0D\u662F\u578B\u5225\u6AA2\u67E5\u5668\u3002"
+              }
+            ],
+            "generalFeedback": "Cucumber\uFF08Ruby/Java/JS\uFF09\u3001SpecFlow\uFF08.NET\uFF09\u3001Behave\uFF08Python\uFF09\u8207 JBehave\uFF08Java\uFF09\u662F BDD \u6846\u67B6\u3002\u5B83\u5011\u8B80\u53D6 Gherkin\uFF08\u6216\u985E Gherkin\uFF09scenario\uFF0C\u628A\u6BCF\u500B\u6B65\u9A5F\u6BD4\u5C0D\u5230\u5176 step definition \u4E26\u57F7\u884C\u81EA\u52D5\u5316\uFF0C\u518D\u56DE\u5831\u6BCF\u500B scenario \u901A\u904E\u6216\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5224\u5225\u524D\u7F6E\u689D\u4EF6\u884C",
+            "text": "<p>\u9019\u4E00\u884C\u9673\u8FF0\u7684\u662F\u8D77\u59CB\u689D\u4EF6\uFF0C\u800C\u975E\u52D5\u4F5C\u6216\u7D50\u679C\uFF0C\u6700\u9069\u5408\u7528\u54EA\u500B Gherkin \u95DC\u9375\u5B57\uFF1F</p><pre>___ the user has an account with a balance of 100</pre>",
+            "answers": [
+              {
+                "text": "Given\u2014\u2014\u5B83\u662F\u524D\u7F6E\u689D\u4EF6\uFF0F\u8108\u7D61",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u52D5\u4F5C\u4E4B\u524D\u5DF2\u6210\u7ACB\u7684\u65E2\u6709\u72C0\u614B\u662F\u4E00\u500B Given\u3002"
+              },
+              {
+                "text": "When\u2014\u2014\u5B83\u662F\u89F8\u767C\u7684\u52D5\u4F5C",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u6C92\u6709\u57F7\u884C\u4EFB\u4F55\u52D5\u4F5C\uFF1B\u9019\u662F\u8A2D\u5B9A\uFF0C\u5C6C\u65BC Given\u3002"
+              },
+              {
+                "text": "Then\u2014\u2014\u5B83\u662F\u671F\u671B\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u5C1A\u672A\u9A57\u8B49\u4EFB\u4F55\u6771\u897F\uFF1B\u8D77\u59CB\u9918\u984D\u662F\u524D\u7F6E\u689D\u4EF6\uFF08Given\uFF09\u3002"
+              },
+              {
+                "text": "Feature\u2014\u2014\u5B83\u70BA\u529F\u80FD\u547D\u540D",
+                "fraction": 0,
+                "feedback": "Feature \u70BA\u80FD\u529B\u547D\u540D\uFF1B\u9019\u4E00\u884C\u63CF\u8FF0\u524D\u7F6E\u689D\u4EF6\uFF0C\u6240\u4EE5\u662F Given\u3002"
+              }
+            ],
+            "generalFeedback": "\u300Cthe user has an account with a balance of 100\u300D\u63CF\u8FF0\u7684\u662F\u5728\u4EFB\u4F55\u4E8B\u60C5\u767C\u751F\u524D\u4E16\u754C\u7684\u72C0\u614B\u2014\u2014\u4E00\u500B\u524D\u7F6E\u689D\u4EF6\u3002\u524D\u7F6E\u689D\u4EF6\u4EE5 Given \u8868\u9054\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5224\u5225\u52D5\u4F5C\u884C",
+            "text": "<p>\u9019\u4E00\u884C\u63CF\u8FF0\u884C\u70BA\u4E3B\u9AD4\u57F7\u884C\u53D7\u6E2C\u4E8B\u4EF6\uFF0C\u6700\u9069\u5408\u7528\u54EA\u500B Gherkin \u95DC\u9375\u5B57\uFF1F</p><pre>___ the user withdraws 30 from the account</pre>",
+            "answers": [
+              {
+                "text": "When\u2014\u2014\u5B83\u662F\u53D7\u6E2C\u7684\u52D5\u4F5C\uFF0F\u4E8B\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u884C\u70BA\u4E3B\u9AD4\u57F7\u884C\u89F8\u767C\u4E8B\u4EF6\u662F\u4E00\u500B When \u6B65\u9A5F\u3002"
+              },
+              {
+                "text": "Given\u2014\u2014\u5B83\u662F\u524D\u7F6E\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u88AB\u884C\u4F7F\u7684\u52D5\u4F5C\uFF0C\u800C\u975E\u8A2D\u5B9A\uFF1B\u90A3\u662F\u4E00\u500B When\u3002"
+              },
+              {
+                "text": "Then\u2014\u2014\u5B83\u662F\u671F\u671B\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u63D0\u6B3E\u662F\u52D5\u4F5C\uFF0C\u4E0D\u662F\u8981\u9A57\u8B49\u7684\u7D50\u679C\uFF1B\u90A3\u662F\u4E00\u500B When\u3002"
+              },
+              {
+                "text": "Background\u2014\u2014\u5B83\u662F\u5171\u4EAB\u8A2D\u5B9A",
+                "fraction": 0,
+                "feedback": "Background \u5BB9\u7D0D\u5171\u4EAB\u7684 Given\uFF1B\u884C\u70BA\u4E3B\u9AD4\u57F7\u884C\u7684\u52D5\u4F5C\u662F When\u3002"
+              }
+            ],
+            "generalFeedback": "\u300Cthe user withdraws 30\u300D\u662F\u89F8\u767C\u53D7\u6E2C\u884C\u70BA\u7684\u4E8B\u4EF6\uFF0C\u56E0\u6B64\u662F When \u6B65\u9A5F\u3002\u4E4B\u5F8C\u6240\u5F97\u7684\u9918\u984D\u5247\u6703\u5728 Then \u6B65\u9A5F\u4E2D\u6AA2\u67E5\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Then \u8868\u9054\u671F\u671B\u7D50\u679C",
+            "text": "<p>\u5728 Gherkin \u4E2D\uFF0C<strong>Then</strong> \u95DC\u9375\u5B57\u7528\u4F86\u9673\u8FF0 scenario \u6240\u9A57\u8B49\u7684\u671F\u671B\u3001\u53EF\u89C0\u5BDF\u7D50\u679C\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Then \u9673\u8FF0\u88AB\u6AA2\u67E5\u7684\u53EF\u89C0\u5BDF\u7D50\u679C\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Then \u78BA\u5BE6\u8868\u9054\u671F\u671B\u7D50\u679C\uFF1B\u524D\u7F6E\u689D\u4EF6\u662F Given\uFF0C\u52D5\u4F5C\u662F When\u3002"
+              }
+            ],
+            "generalFeedback": "Given/When/Then \u7D50\u69CB\u5C0D\u61C9\u5230\u524D\u7F6E\u689D\u4EF6\uFF0F\u52D5\u4F5C\uFF0F\u671F\u671B\u7D50\u679C\u3002Then \u662F\u65B7\u8A00\u6B65\u9A5F\uFF1A\u5B83\u63CF\u8FF0\u5728 When \u52D5\u4F5C\u4E4B\u5F8C\u61C9\u53EF\u89C0\u5BDF\u5230\u7684\u4E8B\u7269\uFF0C\u6B63\u662F scenario \u6240\u9A57\u8B49\u7684\u7D50\u679C\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u88DC\u5168 scenario\uFF1A\u7D50\u679C\u884C",
+            "text": "<p>\u6700\u5F8C\u4E00\u884C\u9673\u8FF0\u8981\u88AB\u9A57\u8B49\u7684\u7D50\u679C\uFF0C\u7528\u54EA\u500B\u95DC\u9375\u5B57\u624D\u6B63\u78BA\uFF1F</p><pre>Given the cart contains 2 items\nWhen the user removes 1 item\n___ the cart contains 1 item</pre>",
+            "answers": [
+              {
+                "text": "Then",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u5F8C\u4E00\u884C\u65B7\u8A00\u53EF\u89C0\u5BDF\u7684\u7D50\u679C\uFF0C\u6240\u4EE5\u662F Then \u6B65\u9A5F\u3002"
+              },
+              {
+                "text": "Given",
+                "fraction": 0,
+                "feedback": "Given \u662F\u6700\u4E0A\u65B9\u7684\u524D\u7F6E\u689D\u4EF6\uFF1B\u52D5\u4F5C\u4E4B\u5F8C\u7684\u7D50\u679C\u884C\u662F Then\u3002"
+              },
+              {
+                "text": "When",
+                "fraction": 0,
+                "feedback": "\u52D5\u4F5C\uFF08\u79FB\u9664\u54C1\u9805\uFF09\u5DF2\u7D93\u662F When\uFF1B\u7D50\u679C\u662F Then\u3002"
+              },
+              {
+                "text": "Background",
+                "fraction": 0,
+                "feedback": "Background \u662F feature \u5C64\u7D1A\u7684\u5171\u4EAB\u8A2D\u5B9A\uFF0C\u4E0D\u662F scenario \u7684\u7D50\u679C\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64 scenario \u5148\u8A2D\u5B9A\u8108\u7D61\uFF08Given\uFF09\uFF0C\u57F7\u884C\u4E00\u500B\u52D5\u4F5C\uFF08When\uFF09\uFF0C\u518D\u6AA2\u67E5\u53EF\u89C0\u5BDF\u7684\u7D50\u679C\u3002\u300Cthe cart contains 1 item\u300D\u5C31\u662F\u90A3\u500B\u88AB\u9A57\u8B49\u7684\u7D50\u679C\uFF0C\u56E0\u6B64\u7528 Then\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario Outline \u5C55\u958B\uFF083 \u5217\uFF09",
+            "text": "<p>\u9019\u500B Scenario Outline \u6703\u57F7\u884C\u5E7E\u6B21\uFF1F</p><pre>Scenario Outline: login attempts\n  When I sign in as &lt;user&gt;\n  Then I see &lt;result&gt;\n\n  Examples:\n    | user  | result   |\n    | alice | welcome  |\n    | bob   | welcome  |\n    | mallory | blocked |</pre>",
+            "answers": [
+              {
+                "text": "3\u2014\u2014Examples \u8868\u6BCF\u4E00\u8CC7\u6599\u5217\u5404\u57F7\u884C\u4E00\u6B21",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6A19\u982D\u5217\u4E0D\u8A08\u5165\uFF1B3 \u500B\u8CC7\u6599\u5217\u7522\u751F 3 \u6B21\u57F7\u884C\u3002"
+              },
+              {
+                "text": "4\u2014\u2014\u6A19\u982D\u5217\u4E5F\u7B97\u4E00\u6B21\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u6A19\u982D\u5217\u53EA\u662F\u66FF\u5404\u6B04\u547D\u540D\uFF0C\u4E0D\u662F\u4E00\u6B21\u57F7\u884C\u3002\u53EA\u6709 3 \u500B\u8CC7\u6599\u5217\u8A08\u5165\u3002"
+              },
+              {
+                "text": "1\u2014\u2014Scenario Outline \u4E00\u5F8B\u53EA\u57F7\u884C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "Scenario Outline \u4F9D\u6BCF\u4E00\u8CC7\u6599\u5217\u5404\u57F7\u884C\u4E00\u6B21\uFF0C3 \u5217\u5373\u57F7\u884C 3 \u6B21\u3002"
+              },
+              {
+                "text": "6\u2014\u2014\u5217\u6578\u4E58\u4EE5\u6B04\u6578",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u6B21\u6578\u7B49\u65BC\u8CC7\u6599\u5217\u6578\uFF083\uFF09\uFF0C\u800C\u975E\u5217\u4E58\u6B04\u3002"
+              }
+            ],
+            "generalFeedback": "Scenario Outline \u4F9D\u5176 Examples \u8868\u7684\u6BCF\u4E00\u8CC7\u6599\u5217\u5C55\u958B\u70BA\u4E00\u500B\u5177\u9AD4 scenario\u3002\u6B64\u8655\u6709 3 \u500B\u8CC7\u6599\u5217\uFF08\u7B2C\u4E00\u884C\u662F\u6B04\u6A19\u982D\uFF09\uFF0C\u6240\u4EE5\u57F7\u884C 3 \u6B21\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Background \u7684\u7528\u9014",
+            "text": "<p>\u4F60\u6CE8\u610F\u5230\u67D0 feature \u4E2D\u6BCF\u500B scenario \u6700\u4E0A\u65B9\u90FD\u6709\u76F8\u540C\u7684\u5169\u500B Given \u6B65\u9A5F\u3002\u6163\u7528\u7684\u4FEE\u6B63\u65B9\u5F0F\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u90A3\u4E9B\u5171\u4EAB\u7684 Given \u6B65\u9A5F\u79FB\u5165 Background \u5340\u584A\uFF0C\u4F7F\u5176\u5728\u6BCF\u500B scenario \u4E4B\u524D\u57F7\u884C\u800C\u4E0D\u91CD\u8907",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Background \u6B63\u662F\u7528\u65BC\u8A72 feature \u4E2D\u6240\u6709 scenario \u5171\u901A\u7684\u8A2D\u5B9A\u3002"
+              },
+              {
+                "text": "\u628A\u5B83\u5011\u79FB\u5165 Examples \u8868",
+                "fraction": 0,
+                "feedback": "Examples \u662F\u4F9B Scenario Outline \u63D0\u4F9B\u8CC7\u6599\uFF0C\u800C\u975E\u4E00\u822C scenario \u7684\u5171\u4EAB\u8A2D\u5B9A\u3002"
+              },
+              {
+                "text": "\u5F9E\u6BCF\u500B scenario \u522A\u9664\u5B83\u5011\uFF0C\u501A\u8CF4\u5DE5\u5177\u53BB\u63A8\u65B7\u8108\u7D61",
+                "fraction": 0,
+                "feedback": "\u5DE5\u5177\u4E0D\u6703\u63A8\u65B7\u4EFB\u4F55\u6771\u897F\uFF1B\u5171\u4EAB\u8A2D\u5B9A\u5FC5\u9808\u5728 Background \u4E2D\u9673\u8FF0\u4E00\u6B21\u3002"
+              },
+              {
+                "text": "\u628A\u6BCF\u500B scenario \u8F49\u6210\u4E00\u500B step definition",
+                "fraction": 0,
+                "feedback": "step definition \u662F\u81A0\u5408\u7A0B\u5F0F\u78BC\uFF1B\u91CD\u8907\u7684 Gherkin \u8A2D\u5B9A\u8981\u7528 Background \u89E3\u6C7A\u3002"
+              }
+            ],
+            "generalFeedback": "Background \u6536\u96C6\u61C9\u5728\u8A72 feature \u4E2D\u6BCF\u500B scenario \u4E4B\u524D\u57F7\u884C\u7684\u6B65\u9A5F\u2014\u2014\u901A\u5E38\u662F\u5171\u901A\u7684 Given \u524D\u7F6E\u689D\u4EF6\u3002\u5B83\u53BB\u9664\u91CD\u8907\u7684\u8A2D\u5B9A\uFF0C\u8B93\u6BCF\u500B scenario \u5C08\u6CE8\u5728\u4F7F\u5176\u7368\u7279\u4E4B\u8655\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5BA3\u544A\u5F0F vs \u547D\u4EE4\u5F0F scenario",
+            "text": '<p>\u5169\u500B scenario \u6E2C\u8A66\u540C\u4E00\u9805\u767B\u5165\u884C\u70BA\u3002\u54EA\u4E00\u500B\u5BEB\u5F97\u6BD4\u8F03\u597D\uFF08\u5BA3\u544A\u5F0F\u3001\u696D\u52D9\u53EF\u8B80\uFF09\uFF1F</p><p><strong>A</strong></p><pre>Given I am a registered user\nWhen I log in with valid credentials\nThen I see my dashboard</pre><p><strong>B</strong></p><pre>Given I open "/login"\nWhen I type "alice" into field #user\nAnd I type "secret" into field #pass\nAnd I click the button with id "submit"\nThen the element #dash is visible</pre>',
+            "answers": [
+              {
+                "text": "A\u2014\u2014\u5B83\u4EE5\u696D\u52D9\u5C64\u7D1A\u9673\u8FF0\u884C\u70BA\uFF0C\u8207 UI \u7D30\u7BC0\u7121\u95DC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BA3\u544A\u5F0F scenario \u63CF\u8FF0\u610F\u5716\uFF0C\u80FD\u5728 UI \u6539\u8B8A\u6642\u4ECD\u7136\u5B58\u6D3B\u3002"
+              },
+              {
+                "text": "B\u2014\u2014\u5B83\u6BD4\u8F03\u597D\uFF0C\u56E0\u70BA\u5217\u51FA\u4E86\u6BCF\u4E00\u6B21 UI \u9EDE\u64CA\u8207\u6B04\u4F4D id",
+                "fraction": 0,
+                "feedback": "B \u662F\u547D\u4EE4\u5F0F\uFF1A\u8106\u5F31\u3001\u96E3\u8B80\uFF0C\u4E14 UI \u4E00\u6539\u5C31\u58DE\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u4E00\u6A23\u597D\uFF1B\u98A8\u683C\u7121\u95DC\u7DCA\u8981",
+                "fraction": 0,
+                "feedback": "\u98A8\u683C\u5F88\u91CD\u8981\uFF1A\u5BA3\u544A\u5F0F\u7248\u672C\u66F4\u53EF\u8B80\u3001\u66F4\u6613\u7DAD\u8B77\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u4E0D\u662F\u6709\u6548\u7684 Gherkin",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u662F\u6709\u6548\u7684 Gherkin\uFF1BA \u53EA\u662F\u5BEB\u5F97\u8F03\u597D\u7684\u5BA3\u544A\u5F0F\u5F62\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u5BA3\u544A\u5F0F scenario\uFF08A\uFF09\u4EE5\u696D\u52D9\u7528\u8A9E\u63CF\u8FF0\u4F7F\u7528\u8005\u60F3\u9054\u6210\u4EC0\u9EBC\uFF0C\u628A UI \u6A5F\u5236\u85CF\u9032 step definition\u3002\u547D\u4EE4\u5F0F scenario\uFF08B\uFF09\u5BEB\u6B7B\u9EDE\u64CA\u3001\u6B04\u4F4D id \u8207\u9078\u64C7\u5668\uFF0C\u4F7F\u5176\u8106\u5F31\u4E14\u96E3\u8B80\u3002\u5B9C\u63A1\u5BA3\u544A\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Given \u662F\u8A2D\u5B9A\uFF0C\u4E0D\u662F\u52D5\u4F5C",
+            "text": "<p>\u54EA\u4E00\u884C\u662F\u6070\u7576\u7684 <strong>Given</strong> \u6B65\u9A5F\uFF08\u8A2D\u5B9A\uFF0F\u524D\u7F6E\u689D\u4EF6\uFF09\u800C\u975E\u52D5\u4F5C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Given the user already has 3 unread messages",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u5EFA\u7ACB\u4E86\u4E00\u500B\u8D77\u59CB\u72C0\u614B\uFF0C\u6B63\u662F Given \u7684\u7528\u9014\u3002"
+              },
+              {
+                "text": 'Given the user clicks the "Mark all read" button',
+                "fraction": 0,
+                "feedback": "\u9EDE\u64CA\u662F\u52D5\u4F5C\uFF1B\u5B83\u5C6C\u65BC When\uFF0C\u800C\u975E Given\u3002"
+              },
+              {
+                "text": "Given the inbox shows 0 unread messages afterwards",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u671F\u671B\u7D50\u679C\uFF1B\u5B83\u5C6C\u65BC Then\uFF0C\u800C\u975E Given\u3002"
+              },
+              {
+                "text": "Given the user submits the registration form",
+                "fraction": 0,
+                "feedback": "\u9001\u51FA\u662F\u52D5\u4F5C\uFF1B\u5B83\u5C6C\u65BC When\uFF0C\u800C\u975E Given\u3002"
+              }
+            ],
+            "generalFeedback": "Given \u5EFA\u7ACB\u8108\u7D61\uFF1A\u5728\u884C\u70BA\u88AB\u884C\u4F7F\u4E4B\u524D\u5DF2\u6210\u7ACB\u7684\u72C0\u614B\u3002\u300Cthe user already has 3 unread messages\u300D\u5C31\u662F\u9019\u6A23\u7684\u72C0\u614B\u3002\u9EDE\u64CA\u8207\u9001\u51FA\u662F\u52D5\u4F5C\uFF08When\uFF09\uFF1B\u4E4B\u5F8C\u6AA2\u67E5\u7684\u7D50\u679C\u662F\u7D50\u679C\uFF08Then\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When \u61C9\u70BA\u55AE\u4E00\u52D5\u4F5C",
+            "text": "<p>\u5C0D\u65BC\u4E00\u500B\u95DC\u65BC\u4E0B\u55AE\u7684 scenario\uFF0C\u54EA\u4E00\u884C\u662F\u6700\u597D\u7684\u55AE\u4E00 <strong>When</strong> \u6B65\u9A5F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "When the customer places the order",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u6E05\u695A\u3001\u89F8\u767C\u53D7\u6E2C\u884C\u70BA\u7684\u55AE\u4E00\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "When the customer adds an item, applies a coupon, and places the order",
+                "fraction": 0,
+                "feedback": "\u90A3\u7D91\u7D81\u4E86\u6578\u500B\u52D5\u4F5C\uFF1BWhen \u7406\u60F3\u4E0A\u61C9\u70BA\u4E00\u500B\u4E8B\u4EF6\uFF0C\u5176\u9918\u8A2D\u5B9A\u79FB\u5165 Given\u3002"
+              },
+              {
+                "text": "When the customer is logged in",
+                "fraction": 0,
+                "feedback": "\u5DF2\u767B\u5165\u662F\u524D\u7F6E\u689D\u4EF6\uFF08Given\uFF09\uFF0C\u4E0D\u662F\u53D7\u6E2C\u7684\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "When the order confirmation is displayed",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53EF\u89C0\u5BDF\u7684\u7D50\u679C\uFF08Then\uFF09\uFF0C\u4E0D\u662F\u52D5\u4F5C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5BEB\u5F97\u597D\u7684 scenario \u53EA\u6709\u4E00\u500B When\uFF1A\u90A3\u500B\u4F60\u8981\u9A57\u8B49\u5176\u7D50\u679C\u7684\u55AE\u4E00\u52D5\u4F5C\u3002\u524D\u7F6E\u8A2D\u5B9A\uFF08\u52A0\u5165\u54C1\u9805\u3001\u5957\u7528\u6298\u50F9\u5238\uFF09\u5C6C\u65BC Given \u6B65\u9A5F\uFF1B\u4E4B\u5F8C\u986F\u793A\u7684\u78BA\u8A8D\u5C6C\u65BC Then\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Then \u662F\u7D50\u679C\uFF0C\u4E0D\u662F\u52D5\u4F5C",
+            "text": "<p>\u54EA\u4E00\u884C\u662F\u6070\u7576\u7684 <strong>Then</strong> \u6B65\u9A5F\uFF08\u4E00\u500B\u53EF\u89C0\u5BDF\u7684\u7D50\u679C\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Then the account balance is 70",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B scenario \u53EF\u4EE5\u9A57\u8B49\u7684\u53EF\u89C0\u5BDF\u7D50\u679C\u3002"
+              },
+              {
+                "text": 'Then the user clicks "Confirm"',
+                "fraction": 0,
+                "feedback": "\u9EDE\u64CA\u662F\u52D5\u4F5C\uFF08When\uFF09\uFF1BThen \u61C9\u89C0\u5BDF\u7D50\u679C\uFF0C\u800C\u975E\u57F7\u884C\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "Then the user is logged in with a valid session",
+                "fraction": 0,
+                "feedback": "\u90A3\u8B80\u8D77\u4F86\u50CF\u524D\u7F6E\u689D\u4EF6\uFF08Given\uFF09\u6216\u8A2D\u5B9A\uFF0C\u4E0D\u662F\u6B64\u8655\u8981\u9A57\u8B49\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "Then enter the withdrawal amount",
+                "fraction": 0,
+                "feedback": "\u8F38\u5165\u91D1\u984D\u662F\u52D5\u4F5C\uFF08When\uFF09\uFF0C\u4E0D\u662F\u53EF\u89C0\u5BDF\u7684\u7D50\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "Then \u9673\u8FF0\u52D5\u4F5C\u4E4B\u5F8C\u61C9\u6210\u7ACB\u3001\u53EF\u88AB\u89C0\u5BDF\u7684\u4E8B\u7269\uFF0C\u4F8B\u5982\u6240\u5F97\u9918\u984D\u3001\u4E00\u5247\u8A0A\u606F\u6216\u4E00\u500B\u53EF\u898B\u72C0\u614B\u3002\u628A\u52D5\u4F5C\uFF08\u9EDE\u64CA\u3001\u8F38\u5165\uFF09\u653E\u9032 Then \u6703\u628A\u7D50\u679C\u548C\u4E8B\u4EF6\u6DF7\u70BA\u4E00\u8AC7\uFF0C\u662F\u5E38\u898B\u7684\u53CD\u6A23\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "step definition \u5728\u57F7\u884C\u671F\u505A\u4EC0\u9EBC",
+            "text": "<p>\u7576 BDD \u5DE5\u5177\u57F7\u884C\u6B65\u9A5F <code>When the user withdraws 30</code> \u6642\uFF0C\u6703\u767C\u751F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5DE5\u5177\u627E\u51FA\u6A23\u5F0F\u6BD4\u5C0D\u5230\u8A72\u6587\u5B57\u7684 step definition\uFF0C\u4E26\u5C0D\u7CFB\u7D71\u57F7\u884C\u5176\u7A0B\u5F0F\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B65\u9A5F\u6587\u5B57\u88AB\u6BD4\u5C0D\u5230\u81A0\u5408\u7A0B\u5F0F\u78BC\uFF0C\u7136\u5F8C\u88AB\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u5DE5\u5177\u5370\u51FA\u8A72\u884C\u5F8C\u5C31\u8DF3\u904E\uFF0C\u4E0D\u57F7\u884C\u4EFB\u4F55\u6771\u897F",
+                "fraction": 0,
+                "feedback": "\u6B65\u9A5F\u662F\u900F\u904E\u5176 step definition \u57F7\u884C\uFF0C\u800C\u975E\u53EA\u662F\u5370\u51FA\u3002"
+              },
+              {
+                "text": "\u5DE5\u5177\u628A\u8A72 Gherkin \u6539\u5BEB\u6210\u7522\u54C1\u539F\u59CB\u78BC",
+                "fraction": 0,
+                "feedback": "BDD \u5DE5\u5177\u900F\u904E step definition \u57F7\u884C scenario\uFF1B\u4E0D\u6703\u7522\u751F\u7522\u54C1\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u5DE5\u5177\u8ACB\u4F7F\u7528\u8005\u624B\u52D5\u78BA\u8A8D\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u662F\u900F\u904E step definition \u81EA\u52D5\u5316\uFF0C\u800C\u975E\u4EBA\u5DE5\u78BA\u8A8D\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B Gherkin \u6B65\u9A5F\u5728\u57F7\u884C\u671F\u6703\u88AB\u6BD4\u5C0D\u5230\u4E00\u500B step definition\u2014\u2014\u5176\u6A23\u5F0F\u6355\u6349\u6B65\u9A5F\u6587\u5B57\uFF08\u8207\u4EFB\u4F55\u53C3\u6578\uFF09\u7684\u81A0\u5408\u7A0B\u5F0F\u78BC\u3002\u5DE5\u5177\u57F7\u884C\u8A72\u7A0B\u5F0F\u78BC\u4EE5\u9A45\u52D5\u61C9\u7528\u7A0B\u5F0F\uFF0C\u518D\u56DE\u5831\u8A72\u6B65\u9A5F\uFF08\u8207 scenario\uFF09\u901A\u904E\u6216\u5931\u6557\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "And \u627F\u63A5\u524D\u4E00\u95DC\u9375\u5B57\u7684\u985E\u578B",
+            "text": "<p>\u5728\u6B64 scenario \u4E2D\uFF0C<code>And</code> \u9019\u4E00\u884C\u662F\u4EC0\u9EBC\u985E\u578B\u7684\u6B65\u9A5F\uFF1F</p><pre>Given the user is logged in\nAnd the user is an administrator\nWhen the user opens the settings page\nThen the audit log is shown</pre>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B Given\uFF08\u524D\u7F6E\u689D\u4EF6\uFF09\u2014\u2014And \u627F\u63A5\u5176\u4E0A\u65B9\u6B65\u9A5F\u7684\u985E\u578B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Given \u4E4B\u5F8C\u7684 And \u672C\u8EAB\u4E5F\u662F\u4E00\u500B Given\u3002"
+              },
+              {
+                "text": "\u4E00\u500B When\uFF08\u52D5\u4F5C\uFF09\u2014\u2014And \u4E00\u5F8B\u8868\u793A\u52D5\u4F5C",
+                "fraction": 0,
+                "feedback": "And \u6C92\u6709\u56FA\u5B9A\u985E\u578B\uFF1B\u6B64\u8655\u5B83\u63A5\u5728 Given \u4E4B\u5F8C\uFF0C\u6240\u4EE5\u662F\u524D\u7F6E\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u4E00\u500B Then\uFF08\u7D50\u679C\uFF09\u2014\u2014And \u4E00\u5F8B\u6AA2\u67E5\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "And \u627F\u63A5\u524D\u4E00\u95DC\u9375\u5B57\uFF1B\u63A5\u5728 Given \u4E4B\u5F8C\u662F\u524D\u7F6E\u689D\u4EF6\uFF0C\u4E0D\u662F\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u5B83\u6703\u88AB\u5FFD\u7565\uFF0C\u56E0\u70BA And \u4E0D\u662F\u771F\u7684\u95DC\u9375\u5B57",
+                "fraction": 0,
+                "feedback": "And \u662F\u771F\u6B63\u7684\u5EF6\u7E8C\u95DC\u9375\u5B57\uFF1B\u6B64\u6B65\u9A5F\u6703\u57F7\u884C\uFF0C\u4E14\u6B64\u8655\u7B97\u4F5C Given\u3002"
+              }
+            ],
+            "generalFeedback": "And\uFF08\u8207 But\uFF09\u5EF6\u7E8C\u5176\u524D\u7684\u968E\u6BB5\u3002\u56E0\u70BA\u4E0A\u4E00\u884C\u662F Given\uFF0C\u300CAnd the user is an administrator\u300D\u662F\u7B2C\u4E8C\u500B\u524D\u7F6E\u689D\u4EF6\u2014\u2014\u53E6\u4E00\u500B Given\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario Outline \u5C55\u958B\uFF084 \u5217\uFF09",
+            "text": "<p>\u67D0 Scenario Outline \u7684 Examples \u8868\u6709\u4E00\u500B\u6A19\u982D\u5217\uFF0C\u5F8C\u63A5 4 \u500B\u8CC7\u6599\u5217\u3002\u6703\u57F7\u884C\u5E7E\u500B\u5177\u9AD4 scenario\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4\u2014\u2014\u6BCF\u4E00\u8CC7\u6599\u5217\u5404\u4E00\u500B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6A19\u982D\u4E0D\u7B97\u57F7\u884C\uFF1B4 \u500B\u8CC7\u6599\u5217\u7522\u751F 4 \u500B scenario\u3002"
+              },
+              {
+                "text": "5\u2014\u2014\u6A19\u982D\u5217\u4E5F\u7B97",
+                "fraction": 0,
+                "feedback": "\u6A19\u982D\u53EA\u662F\u66FF\u5404\u6B04\u547D\u540D\uFF1B\u53EA\u6709 4 \u500B\u8CC7\u6599\u5217\u6703\u57F7\u884C\u3002"
+              },
+              {
+                "text": "1\u2014\u2014outline \u53EA\u57F7\u884C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "outline \u4F9D\u6BCF\u4E00\u8CC7\u6599\u5217\u5404\u57F7\u884C\u4E00\u6B21\uFF0C4 \u5217\u5373 4 \u6B21\u3002"
+              },
+              {
+                "text": "8\u2014\u2014\u8CC7\u6599\u5217\u88AB\u52A0\u500D",
+                "fraction": 0,
+                "feedback": "\u6BCF\u4E00\u8CC7\u6599\u5217\u525B\u597D\u57F7\u884C\u4E00\u6B21\uFF0C\u5F97 4\uFF0C\u800C\u975E 8\u3002"
+              }
+            ],
+            "generalFeedback": "\u57F7\u884C\u6B21\u6578\u7B49\u65BC Examples \u8868\u7684\u8CC7\u6599\u5217\u6578\u3002\u4E00\u500B\u6A19\u982D\u5217\u52A0\u4E0A 4 \u500B\u8CC7\u6599\u5217\uFF0C\u4EE3\u8868\u57F7\u884C 4 \u6B21\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u6B65\u9A5F\u5C6C\u65BC Background",
+            "text": "<p>\u67D0 feature \u4E2D\u7684\u6BCF\u500B scenario \u5728\u505A\u4EFB\u4F55\u4E8B\u4E4B\u524D\u90FD\u9700\u8981\u4E00\u500B\u5DF2\u767B\u5165\u7684\u4F7F\u7528\u8005\u3002\u54EA\u4E00\u500B\u6B65\u9A5F\u9069\u5408\u653E\u9032 <strong>Background</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Given the user is logged in",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6240\u6709 scenario \u5171\u901A\u7684\u524D\u7F6E\u689D\u4EF6\u5C6C\u65BC Background\u3002"
+              },
+              {
+                "text": "When the user deletes their account",
+                "fraction": 0,
+                "feedback": "\u7279\u5B9A\u65BC\u67D0 scenario \u7684\u52D5\u4F5C\u4E0D\u5C6C\u65BC\u5171\u4EAB\u7684 Background \u8A2D\u5B9A\u3002"
+              },
+              {
+                "text": "Then the dashboard is displayed",
+                "fraction": 0,
+                "feedback": "\u7D50\u679C\u662F\u5404 scenario \u7684 Then \u6B65\u9A5F\uFF0C\u4E0D\u662F\u5171\u4EAB\u7684 Background \u8A2D\u5B9A\u3002"
+              },
+              {
+                "text": "Examples: | plan | price |",
+                "fraction": 0,
+                "feedback": "Examples \u8868\u9A45\u52D5 Scenario Outline\uFF1B\u5B83\u4E0D\u662F Background \u8A2D\u5B9A\u3002"
+              }
+            ],
+            "generalFeedback": "Background \u5BB9\u7D0D\u8A72 feature \u4E2D\u6BCF\u500B scenario \u5171\u901A\u7684\u8A2D\u5B9A\uFF0C\u5E7E\u4E4E\u7E3D\u662F Given \u524D\u7F6E\u689D\u4EF6\uFF0C\u4F8B\u5982\u300CGiven the user is logged in\u300D\u3002\u52D5\u4F5C\u8207\u7D50\u679C\u7559\u5728\u5404\u5225 scenario \u5167\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "placeholder \u5C0D\u61C9\u5230 Examples \u6B04",
+            "text": "<p>\u5728 Scenario Outline \u4E2D\uFF0C\u50CF <code>&lt;price&gt;</code> \u9019\u6A23\u7684\u6B65\u9A5F placeholder \u6307\u7684\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u76EE\u524D Examples \u5217\u4E2D\u6A19\u984C\u70BA\u300Cprice\u300D\u90A3\u4E00\u6B04\u7684\u503C\uFF0C\u6BCF\u6B21\u57F7\u884C\u6642\u88AB\u4EE3\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014placeholder \u4F9D\u6BCF\u4E00\u5217\u7531\u5C0D\u61C9\u7684 Examples \u6B04\u586B\u5165\u3002"
+              },
+              {
+                "text": "\u5DE5\u5177\u70BA\u6BCF\u6B21\u57F7\u884C\u7522\u751F\u7684\u96A8\u6A5F\u503C",
+                "fraction": 0,
+                "feedback": "placeholder \u53D6\u81EA Examples \u8868\u7684\u56FA\u5B9A\u503C\uFF0C\u800C\u975E\u96A8\u6A5F\u503C\u3002"
+              },
+              {
+                "text": "\u8981\u547C\u53EB\u7684 step definition \u540D\u7A31",
+                "fraction": 0,
+                "feedback": "placeholder \u662F\u8CC7\u6599\u69FD\uFF1Bstep definition \u662F\u4F9D\u6B65\u9A5F\u6587\u5B57\u6BD4\u5C0D\u7684\u3002"
+              },
+              {
+                "text": "\u5DE5\u5177\u6703\u5FFD\u7565\u7684\u8A3B\u89E3",
+                "fraction": 0,
+                "feedback": "placeholder \u6703\u88AB\u5BE6\u969B\u8CC7\u6599\u4EE3\u5165\uFF1B\u5B83\u4E0D\u662F\u8A3B\u89E3\u3002"
+              }
+            ],
+            "generalFeedback": "Scenario Outline \u4E2D\u7684\u6BCF\u500B <placeholder>\uFF0C\u5728\u6BCF\u6B21\u57F7\u884C\u6642\u6703\u88AB\u76EE\u524D Examples \u5217\u4E2D\u5C0D\u61C9\u6B04\u6A19\u982D\u4E0B\u7684\u503C\u53D6\u4EE3\u3002\u9019\u5C31\u662F\u4E00\u500B outline \u80FD\u7C21\u6F54\u6DB5\u84CB\u8A31\u591A\u8CC7\u6599\u6848\u4F8B\u7684\u65B9\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "tag \u7684\u7528\u9014",
+            "text": "<p>Gherkin scenario \u4E0A\u7684 <strong>tag</strong>\uFF08\u4F8B\u5982 <code>@smoke</code>\uFF09\u4E3B\u8981\u7528\u9014\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6A19\u793A scenario\uFF0C\u4EE5\u4FBF\u57F7\u884C\u6642\u53EF\u904E\u6FFE\u3001\u5206\u7D44\u6216\u639B\u4E0A hook\uFF08\u4F8B\u5982\u53EA\u8DD1 @smoke \u7684 scenario\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014tag \u70BA scenario \u5206\u985E\uFF0C\u4EE5\u4F9B\u9078\u64C7\u6027\u57F7\u884C\u8207 hook\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00\u67D0 scenario \u7684\u671F\u671B\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u7D50\u679C\u662F Then \u6B65\u9A5F\uFF1Btag \u662F\u7528\u4F86\u7D44\u7E54\u8207\u904E\u6FFE\u57F7\u884C\u7684\u6A19\u7C64\u3002"
+              },
+              {
+                "text": "\u4F9B Scenario Outline \u63D0\u4F9B\u8CC7\u6599\u5217",
+                "fraction": 0,
+                "feedback": "\u8CC7\u6599\u5217\u4F86\u81EA Examples\uFF1Btag \u662F\u4E2D\u7E7C\u8CC7\u6599\u6A19\u7C64\u3002"
+              },
+              {
+                "text": "\u5B9A\u7FA9\u67D0\u6B65\u9A5F\u7684\u81A0\u5408\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u81A0\u5408\u7A0B\u5F0F\u78BC\u5728 step definition \u4E2D\uFF1Btag \u53EA\u662F\u66FF scenario \u5206\u985E\u3002"
+              }
+            ],
+            "generalFeedback": "tag \u662F\u52A0\u5728 feature \u6216 scenario \u4E0A\u7684\u4E2D\u7E7C\u8CC7\u6599\u6A19\u8A3B\u3002\u5B83\u8B93\u4F60\u6311\u9078\u5B50\u96C6\u4F86\u57F7\u884C\uFF08\u4F8B\u5982\u53EA\u8DD1 @smoke \u6216 @wip\uFF09\u3001\u7D44\u7E54\u5831\u544A\uFF0C\u4E26\u628A setup/teardown hook \u639B\u5230\u6709\u6A19\u7C64\u7684 scenario \u4E0A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Given/When/Then \u7684\u6B63\u78BA\u9806\u5E8F",
+            "text": "<p>\u5728\u4E00\u500B scenario \u4E2D\uFF0C\u4E09\u500B\u4E3B\u8981\u6B65\u9A5F\u968E\u6BB5\u7684\u6163\u7528\u9806\u5E8F\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Given\uFF08\u8108\u7D61\uFF09\uFF0C\u518D When\uFF08\u52D5\u4F5C\uFF09\uFF0C\u518D Then\uFF08\u7D50\u679C\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5148\u8108\u7D61\uFF0C\u518D\u52D5\u4F5C\uFF0C\u518D\u8981\u9A57\u8B49\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "Then\uFF0C\u518D When\uFF0C\u518D Given",
+                "fraction": 0,
+                "feedback": "\u90A3\u985B\u5012\u4E86\u6D41\u7A0B\uFF1B\u8108\u7D61\u5FC5\u9808\u5728\u52D5\u4F5C\u8207\u7D50\u679C\u4E4B\u524D\u5148\u5EFA\u7ACB\u3002"
+              },
+              {
+                "text": "When\uFF0C\u518D Given\uFF0C\u518D Then",
+                "fraction": 0,
+                "feedback": "\u524D\u7F6E\u689D\u4EF6\uFF08Given\uFF09\u5728\u52D5\u4F5C\uFF08When\uFF09\u4E4B\u524D\uFF0C\u800C\u975E\u4E4B\u5F8C\u3002"
+              },
+              {
+                "text": "\u9806\u5E8F\u5B8C\u5168\u7121\u6240\u8B02",
+                "fraction": 0,
+                "feedback": "Given/When/Then \u7684\u9806\u5E8F\u53CD\u6620\u300C\u8108\u7D61\u5230\u52D5\u4F5C\u5230\u7D50\u679C\u300D\uFF0C\u61C9\u4E88\u9075\u5FAA\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B scenario \u8B80\u8D77\u4F86\u50CF\u4E00\u5247\u5C0F\u6545\u4E8B\uFF1AGiven \u8A2D\u5B9A\u8108\u7D61\uFF0CWhen \u57F7\u884C\u52D5\u4F5C\uFF0CThen \u9A57\u8B49\u53EF\u89C0\u5BDF\u7684\u7D50\u679C\u3002\u9019\u500B\u300C\u8108\u7D61\u5230\u52D5\u4F5C\u5230\u7D50\u679C\u300D\u7684\u9806\u5E8F\uFF0C\u6B63\u662F scenario \u53EF\u8B80\u7684\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u88DC\u5168 scenario\uFF1A\u52D5\u4F5C\u884C",
+            "text": '<p>\u4E2D\u9593\u90A3\u4E00\u884C\u662F\u89F8\u767C\u884C\u70BA\u7684\u4E8B\u4EF6\uFF0C\u7528\u54EA\u500B\u95DC\u9375\u5B57\u88DC\u5168\uFF1F</p><pre>Given the article is in the "draft" state\n___ the author publishes the article\nThen the article is visible to readers</pre>',
+            "answers": [
+              {
+                "text": "When",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u767C\u4F48\u6587\u7AE0\u662F\u89F8\u767C\u7684\u52D5\u4F5C\uFF0C\u6240\u4EE5\u662F When\u3002"
+              },
+              {
+                "text": "Given",
+                "fraction": 0,
+                "feedback": "\u524D\u7F6E\u689D\u4EF6\uFF08\u8349\u7A3F\u72C0\u614B\uFF09\u5DF2\u7D93\u662F Given\uFF1B\u52D5\u4F5C\u662F When\u3002"
+              },
+              {
+                "text": "Then",
+                "fraction": 0,
+                "feedback": "Then \u662F\u300C\u8B80\u8005\u53EF\u898B\u300D\u7684\u7D50\u679C\uFF1B\u767C\u4F48\u52D5\u4F5C\u662F When\u3002"
+              },
+              {
+                "text": "Examples",
+                "fraction": 0,
+                "feedback": "Examples \u4F9B outline \u63D0\u4F9B\u8CC7\u6599\u5217\uFF1B\u52D5\u4F5C\u884C\u662F When\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64 scenario \u5F9E\u8349\u7A3F\u72C0\u614B\u958B\u59CB\uFF08Given\uFF09\uFF0C\u4F5C\u8005\u57F7\u884C\u767C\u4F48\u52D5\u4F5C\uFF08When\uFF09\uFF0C\u6587\u7AE0\u8B8A\u5F97\u53EF\u898B\u5247\u662F\u88AB\u9A57\u8B49\u7684\u7D50\u679C\uFF08Then\uFF09\u3002\u4E2D\u9593\u90A3\u4E00\u884C\u662F\u52D5\u4F5C\uFF0C\u6240\u4EE5\u7528 When\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u8A55\u6790\uFF1A\u4E00\u500B scenario \u6DF7\u5165\u591A\u500B\u884C\u70BA",
+            "text": "<p>\u9019\u500B scenario \u4E3B\u8981\u7684\u554F\u984C\u662F\u4EC0\u9EBC\uFF1F</p><pre>Scenario: account operations\n  Given the balance is 100\n  When the user deposits 50\n  Then the balance is 150\n  When the user withdraws 30\n  Then the balance is 120</pre>",
+            "answers": [
+              {
+                "text": "\u5B83\u5728\u4E00\u500B scenario \u4E2D\u6E2C\u8A66\u4E86\u5169\u500B\u4E0D\u540C\u7684\u884C\u70BA\uFF08\u5B58\u6B3E\u8207\u63D0\u6B3E\uFF09\uFF1B\u6BCF\u500B\u884C\u70BA\u61C9\u5404\u81EA\u6210\u70BA\u4E00\u500B scenario\uFF0C\u805A\u7126\u65BC\u55AE\u4E00 When/Then",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B scenario \u4E00\u500B\u884C\u70BA\uFF0C\u80FD\u8B93\u5931\u6557\u6613\u65BC\u8A3A\u65B7\u3001scenario \u6613\u65BC\u95B1\u8B80\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u554F\u984C\uFF1B\u591A\u7D44 When/Then \u662F\u5EFA\u8B70\u7684\u98A8\u683C",
+                "fraction": 0,
+                "feedback": "\u4E32\u63A5\u591A\u7D44 When/Then \u6703\u6DF7\u5165\u591A\u500B\u884C\u70BA\uFF1B\u61C9\u62C6\u6210\u5404\u5225 scenario\u3002"
+              },
+              {
+                "text": "Given \u5FC5\u9808\u653E\u5728\u7B2C\u4E00\u500B Then \u4E4B\u5F8C",
+                "fraction": 0,
+                "feedback": "Given \u6B63\u78BA\u5730\u653E\u5728\u6700\u524D\u9762\uFF1B\u771F\u6B63\u7684\u554F\u984C\u662F\u4E00\u500B scenario \u542B\u5169\u500B\u884C\u70BA\u3002"
+              },
+              {
+                "text": "Gherkin \u6B65\u9A5F\u4E2D\u4E0D\u5141\u8A31\u51FA\u73FE\u9918\u984D",
+                "fraction": 0,
+                "feedback": "\u5177\u9AD4\u6578\u503C\u6C92\u554F\u984C\uFF1B\u554F\u984C\u5728\u65BC\u4E00\u500B scenario \u7D50\u5408\u4E86\u5169\u500B\u884C\u70BA\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B scenario \u61C9\u4EE5\u57FA\u672C\u4E0A\u4E00\u500B When \u53CA\u5176 Then \u5448\u73FE\u4E00\u500B\u884C\u70BA\u3002\u4E32\u63A5 When/Then/When/Then \u628A\u5B58\u6B3E\u8207\u63D0\u6B3E\u7D91\u5728\u4E00\u8D77\uFF0C\u4F7F\u5931\u6557\u96E3\u4EE5\u5B9A\u4F4D\u3001scenario \u96E3\u4EE5\u95B1\u8B80\u3002\u61C9\u62C6\u6210\u5169\u500B\u805A\u7126\u7684 scenario\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4FEE\u6B63\u542B\u591A\u500B When \u7684 scenario",
+            "text": '<p>\u67D0 scenario \u70BA\uFF1A</p><pre>Given I am on the checkout page\nWhen I enter my address\nWhen I enter my card details\nWhen I click "Pay"\nThen the order is confirmed</pre><p>\u6700\u4F73\u7684\u6539\u9032\u662F\u4EC0\u9EBC\uFF1F</p>',
+            "answers": [
+              {
+                "text": "\u628A\u8F38\u5165\u5730\u5740\u8207\u5361\u7247\u8CC7\u6599\u8996\u70BA\u8A2D\u5B9A\uFF08Given/And\uFF09\uFF0C\u53EA\u4FDD\u7559\u89F8\u767C\u884C\u70BA\u7684\u55AE\u4E00 When\uFF08\u300CPay\u300D\u52D5\u4F5C\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A When \u4FDD\u7559\u7D66\u90A3\u500B\u55AE\u4E00\u89F8\u767C\u52D5\u4F5C\uFF0C\u5176\u9918\u79FB\u70BA\u8A2D\u5B9A\u3002"
+              },
+              {
+                "text": "\u628A\u4E09\u500B\u52D5\u4F5C\u7528\u300Cand\u300D\u4F75\u6210\u4E00\u500B\u5F88\u9577\u7684 When \u53E5\u5B50",
+                "fraction": 0,
+                "feedback": "\u90A3\u53EA\u662F\u628A\u6578\u500B\u52D5\u4F5C\u85CF\u9032\u4E00\u500B\u6B65\u9A5F\uFF1B\u8F03\u597D\u7684\u505A\u6CD5\u662F\u628A\u524D\u9762\u7684\u52D5\u4F5C\u8B8A\u6210\u8A2D\u5B9A\uFF0C\u4FDD\u7559\u4E00\u500B\u89F8\u767C\u7684 When\u3002"
+              },
+              {
+                "text": "\u628A\u6BCF\u500B When \u90FD\u6539\u6210 Then",
+                "fraction": 0,
+                "feedback": "Then \u662F\u7528\u65BC\u7D50\u679C\uFF1B\u90A3\u4E9B\u52D5\u4F5C\u4E0D\u662F\u7D50\u679C\uFF0C\u6240\u4EE5\u9019\u662F\u932F\u7684\u3002"
+              },
+              {
+                "text": "\u522A\u6389 Then\uFF0C\u53EA\u7559\u4E0B\u52D5\u4F5C",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u7D50\u679C\u5C31\u6C92\u6709\u6771\u897F\u53EF\u9A57\u8B49\u4E86\uFF1B\u4FEE\u6B63\u4E4B\u9053\u662F\u6709\u4E00\u500B\u6E05\u695A\u7684 When\u3002"
+              }
+            ],
+            "generalFeedback": "\u53D7\u6E2C\u7684\u884C\u70BA\u662F\u300C\u4ED8\u6B3E\u300D\u4F7F\u8A02\u55AE\u88AB\u78BA\u8A8D\u3002\u8F38\u5165\u5730\u5740\u8207\u5361\u7247\u8CC7\u6599\u662F\u524D\u7F6E\u689D\u4EF6\uFF0C\u56E0\u6B64\u4EE5 Given/And \u8A2D\u5B9A\u8B80\u8D77\u4F86\u8F03\u597D\uFF0C\u7559\u4E0B\u55AE\u4E00 When\uFF08\u300CI click Pay\u300D\uFF09\uFF0C\u5176 Then \u6AA2\u67E5\u78BA\u8A8D\u3002\u4E00\u500B When \u4E00\u500B\u52D5\u4F5C\u53EF\u4F7F scenario \u4FDD\u6301\u805A\u7126\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5BA3\u544A\u5F0F\u512A\u65BC\u547D\u4EE4\u5F0F\u7684\u7406\u7531",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u5BA3\u544A\u5F0F\u3001\u696D\u52D9\u5C64\u7D1A\u7684 scenario \u901A\u5E38\u512A\u65BC\u547D\u4EE4\u5F0F\u7684 UI \u6B65\u9A5F scenario\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5011\u8868\u9054\u8207 UI \u6A5F\u5236\u7121\u95DC\u7684\u610F\u5716\uFF0C\u56E0\u6B64\u5C0D\u696D\u52D9\u95DC\u4FC2\u4EBA\u6E05\u695A\u6613\u8B80\uFF0C\u4E14\u5728\u6309\u9215\u3001id \u6216\u7248\u9762\u6539\u8B8A\u6642\u4E0D\u6703\u58DE\u6389",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BA3\u544A\u5F0F scenario \u66F4\u53EF\u8B80\u4E14\u9060\u8F03\u4E0D\u8106\u5F31\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u8DF3\u904E step definition\uFF0C\u6240\u4EE5\u8DD1\u5F97\u6BD4\u8F03\u5FEB",
+                "fraction": 0,
+                "feedback": "\u5169\u7A2E\u98A8\u683C\u90FD\u7D93 step definition \u57F7\u884C\uFF1B\u597D\u8655\u662F\u53EF\u8B80\u6027\u8207\u7A69\u5065\u6027\uFF0C\u800C\u975E\u901F\u5EA6\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u8B93\u6BCF\u500B\u60C5\u6CC1\u90FD\u4E0D\u518D\u9700\u8981 Examples \u8868",
+                "fraction": 0,
+                "feedback": "Examples \u8207\u8CC7\u6599\u9A45\u52D5\u7684 outline \u6709\u95DC\uFF1B\u90A3\u548C\u5BA3\u544A\u5F0F\u98A8\u683C\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u5141\u8A31\u4F7F\u7528\u591A\u500B When \u6B65\u9A5F\u800C\u6BEB\u7121\u7F3A\u9EDE",
+                "fraction": 0,
+                "feedback": "\u5BA3\u544A\u5F0F\u98A8\u683C\u95DC\u4E4E\u610F\u5716 vs UI \u7D30\u7BC0\uFF0C\u800C\u975E\u5141\u8A31\u591A\u500B When\u3002"
+              }
+            ],
+            "generalFeedback": "\u5BA3\u544A\u5F0F scenario \u63CF\u8FF0\u4F7F\u7528\u8005\u60F3\u9054\u6210\u4EC0\u9EBC\uFF0C\u628A UI \u6A5F\u5236\uFF08\u9EDE\u64CA\u3001\u9078\u64C7\u5668\u3001\u6B04\u4F4D id\uFF09\u4E0B\u653E\u5230 step definition\u3002\u9019\u8B93 scenario \u53EF\u4F5C\u70BA\u5171\u4EAB\u6587\u4EF6\u95B1\u8B80\uFF0C\u4E14\u5728 UI \u91CD\u65B0\u8A2D\u8A08\u6642\u4ECD\u7136\u7A69\u5B9A\uFF1B\u547D\u4EE4\u5F0F scenario \u5247\u6703\u5728\u4ECB\u9762\u4E00\u6539\u6642\u5C31\u58DE\u6389\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8AA4\u7528\uFF1A\u5728 Given \u4E2D\u653E\u5165\u65B7\u8A00",
+            "text": "<p>\u9019\u500B\u6B65\u9A5F\u6709\u4EC0\u9EBC\u554F\u984C\uFF1F</p><pre>Given the account balance should be 100</pre>",
+            "answers": [
+              {
+                "text": "\u5B83\u628A Given \u5BEB\u6210\u65B7\u8A00\uFF08\u300Cshould be\u300D\uFF09\uFF1BGiven \u5FC5\u9808\u8A2D\u5B9A\u72C0\u614B\uFF08\u300Cthe balance is 100\u300D\uFF09\uFF0C\u800C\u65B7\u8A00\u5C6C\u65BC Then",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Given \u5EFA\u7ACB\u8108\u7D61\uFF0C\u5B83\u4E0D\u9A57\u8B49\u4EFB\u4F55\u6771\u897F\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u554F\u984C\uFF1BGiven \u6B65\u9A5F\u901A\u5E38\u542B\u6709\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "Given \u662F\u8A2D\u5B9A\uFF0C\u4E0D\u662F\u9A57\u8B49\uFF1B\u65B7\u8A00\u5C6C\u65BC Then\u3002"
+              },
+              {
+                "text": "Given \u4E0D\u53EF\u63D0\u53CA\u6578\u5B57",
+                "fraction": 0,
+                "feedback": "\u6578\u5B57\u6C92\u554F\u984C\uFF1B\u554F\u984C\u5728\u65BC\u524D\u7F6E\u689D\u4EF6\u4E0D\u61C9\u662F\u65B7\u8A00\u3002"
+              },
+              {
+                "text": "\u8A72\u6B65\u9A5F\u61C9\u6539\u4EE5 When \u958B\u982D",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u524D\u7F6E\u689D\u4EF6\uFF0C\u6240\u4EE5 Given \u662F\u6B63\u78BA\u7684\u968E\u6BB5\uFF1B\u5B83\u53EA\u662F\u61C9\u8A72\u9673\u8FF0\u3001\u800C\u975E\u65B7\u8A00\u3002"
+              }
+            ],
+            "generalFeedback": "Given \u5EFA\u7ACB\u4E00\u500B\u5DF2\u77E5\u7684\u4E16\u754C\u72C0\u614B\uFF1B\u5B83\u61C9\u8B80\u4F5C\u4E00\u500B\u88AB\u8A2D\u5B9A\u7684\u4E8B\u5BE6\uFF08\u300Cthe balance is 100\u300D\uFF09\uFF0C\u800C\u4E0D\u662F\u8981\u88AB\u6AA2\u67E5\u7684\u6771\u897F\uFF08\u300Cshould be\u300D\uFF09\u3002\u628A\u8A2D\u5B9A\u5BEB\u6210\u65B7\u8A00\u6703\u6DF7\u6DC6\u524D\u7F6E\u689D\u4EF6\u8207\u7D50\u679C\u2014\u2014\u65B7\u8A00\u5C6C\u65BC Then\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8AA4\u7528\uFF1A\u5728 Then \u4E2D\u653E\u5165 UI \u9EDE\u64CA",
+            "text": '<p>\u9019\u500B\u6700\u5F8C\u6B65\u9A5F\u7684\u554F\u984C\u662F\u4EC0\u9EBC\uFF1F</p><pre>Given I am viewing my cart\nWhen I proceed to checkout\nThen I click "Place order"</pre>',
+            "answers": [
+              {
+                "text": "Then \u542B\u6709\u4E00\u500B\u52D5\u4F5C\uFF08\u9EDE\u64CA\uFF09\uFF0C\u4F46 Then \u5FC5\u9808\u9673\u8FF0\u53EF\u89C0\u5BDF\u7684\u7D50\u679C\uFF1B\u8A72\u9EDE\u64CA\u662F\u52D5\u4F5C\uFF0C\u5C6C\u65BC When",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Then \u9A57\u8B49\u7D50\u679C\uFF1B\u5B83\u4E0D\u61C9\u57F7\u884C\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u554F\u984C\uFF1BThen \u6B65\u9A5F\u5E38\u5E38\u57F7\u884C\u9EDE\u64CA",
+                "fraction": 0,
+                "feedback": "Then \u61C9\u89C0\u5BDF\u800C\u975E\u884C\u52D5\uFF1B\u9EDE\u64CA\u5C6C\u65BC When\u3002"
+              },
+              {
+                "text": "\u8A72 scenario \u6B65\u9A5F\u592A\u5C11\u800C\u7121\u6548",
+                "fraction": 0,
+                "feedback": "\u6B65\u9A5F\u6578\u4E0D\u662F\u554F\u984C\uFF1B\u554F\u984C\u5728\u65BC Then \u6B65\u9A5F\u932F\u8AA4\u5730\u57F7\u884C\u4E86\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "Then \u5FC5\u9808\u6C38\u9060\u653E\u5728 When \u4E4B\u524D",
+                "fraction": 0,
+                "feedback": "Then \u5728 When \u4E4B\u5F8C\uFF1B\u771F\u6B63\u7684\u554F\u984C\u662F\u8A72 Then \u57F7\u884C\u4E86\u52D5\u4F5C\u3002"
+              }
+            ],
+            "generalFeedback": "Then \u5728\u52D5\u4F5C\u4E4B\u5F8C\u65B7\u8A00\u53EF\u89C0\u5BDF\u7684\u7D50\u679C\u3002\u628A\u9EDE\u64CA\uFF08\u300CPlace order\u300D\uFF09\u653E\u9032 Then \u6703\u628A\u7D50\u679C\u548C\u65B0\u52D5\u4F5C\u6DF7\u70BA\u4E00\u8AC7\uFF1B\u8A72\u9EDE\u64CA\u672C\u8EAB\u662F\u4E8B\u4EF6\uFF0C\u5C6C\u65BC When\uFF0C\u5176\u5F8C\u7684\u78BA\u8A8D\u5247\u5728 Then \u6AA2\u67E5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When \u4E4B\u5F8C\u7684 And \u662F\u52D5\u4F5C\u6B65\u9A5F",
+            "text": '<p>\u5728\u6B64 scenario \u4E2D\uFF0C<code>And</code> \u9019\u4E00\u884C\u5C6C\u65BC\u54EA\u500B\u968E\u6BB5\uFF1F</p><pre>Given I am logged in\nWhen I enter a search term\nAnd I press "Search"\nThen results are displayed</pre>',
+            "answers": [
+              {
+                "text": "\u4E00\u500B When\uFF08\u52D5\u4F5C\uFF09\u2014\u2014And \u627F\u63A5\u5176\u4E0A\u65B9 When \u7684\u985E\u578B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A5\u5728 When \u4E4B\u5F8C\uFF0CAnd \u662F\u53E6\u4E00\u500B\u52D5\u4F5C\u6B65\u9A5F\u3002"
+              },
+              {
+                "text": "\u4E00\u500B Given\uFF08\u524D\u7F6E\u689D\u4EF6\uFF09\u2014\u2014And \u4E00\u5F8B\u662F\u8A2D\u5B9A",
+                "fraction": 0,
+                "feedback": "And \u6C92\u6709\u56FA\u5B9A\u985E\u578B\uFF1B\u6B64\u8655\u5B83\u63A5\u5728 When \u4E4B\u5F8C\uFF0C\u6240\u4EE5\u662F\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "\u4E00\u500B Then\uFF08\u7D50\u679C\uFF09\u2014\u2014And \u4E00\u5F8B\u662F\u65B7\u8A00",
+                "fraction": 0,
+                "feedback": "And \u627F\u63A5\u524D\u4E00\u95DC\u9375\u5B57\uFF1B\u63A5\u5728 When \u4E4B\u5F8C\u662F\u52D5\u4F5C\uFF0C\u4E0D\u662F\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u5B83\u6C92\u6709\u985E\u578B\u4E14\u88AB\u7565\u904E",
+                "fraction": 0,
+                "feedback": "And \u6703\u4F5C\u70BA\u771F\u6B63\u7684\u6B65\u9A5F\u57F7\u884C\uFF0C\u6B64\u8655\u7B97\u4F5C When \u968E\u6BB5\u7684\u4E00\u90E8\u5206\u3002"
+              }
+            ],
+            "generalFeedback": "And \u5EF6\u7E8C\u5176\u4E0A\u65B9\u6700\u8FD1 Given/When/Then \u7684\u968E\u6BB5\u3002\u56E0\u70BA\u5B83\u63A5\u5728 When \u4E4B\u5F8C\uFF0C\u300CAnd I press Search\u300D\u662F\u52D5\u4F5C\u6B65\u9A5F\u3002\uFF08\u6CE8\u610F\u50CF\u9019\u6A23\u7684\u5169\u500B When \u5E38\u6697\u793A\u5176\u4E2D\u4E00\u4E9B\u52D5\u4F5C\u5176\u5BE6\u61C9\u70BA\u8A2D\u5B9A\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ubiquitous language \u7684\u7406\u7531",
+            "text": "<p>\u70BA\u4EC0\u9EBC BDD \u5F37\u8ABF\u5728 scenario \u4E2D\u4F7F\u7528<strong>\u5171\u901A\u8A9E\u8A00\uFF08ubiquitous language\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8B93\u696D\u52D9\u3001\u958B\u767C\u8207\u6E2C\u8A66\u4EE5\u76F8\u540C\u7684\u9818\u57DF\u7528\u8A9E\u63CF\u8FF0\u884C\u70BA\uFF0C\u6E1B\u5C11\u8AA4\u89E3\uFF0C\u4E26\u4F7F\u898F\u683C\u5C0D\u6BCF\u500B\u4EBA\u90FD\u4FDD\u6709\u610F\u7FA9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5171\u4EAB\u8A5E\u5F59\u8B93\u6574\u500B\u5718\u968A\u5C0D\u884C\u70BA\u7684\u610F\u7FA9\u9054\u6210\u4E00\u81F4\u3002"
+              },
+              {
+                "text": "\u8B93 scenario \u53EA\u80FD\u7531\u7A0B\u5F0F\u8A2D\u8A08\u5E2B\u64B0\u5BEB",
+                "fraction": 0,
+                "feedback": "\u6B63\u597D\u76F8\u53CD\u2014\u2014\u5171\u901A\u8A9E\u8A00\u8B93\u975E\u7A0B\u5F0F\u8A2D\u8A08\u5E2B\u4E5F\u80FD\u95B1\u8B80\u8207\u8CA2\u737B\u3002"
+              },
+              {
+                "text": "\u8B93\u5DE5\u5177\u80FD\u81EA\u52D5\u7522\u751F\u7522\u54C1\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u5171\u901A\u8A9E\u8A00\u95DC\u4E4E\u6E9D\u901A\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC\u7522\u751F\u3002"
+              },
+              {
+                "text": "\u8B93 scenario \u5728\u6E2C\u8A66\u6642\u8DD1\u5F97\u66F4\u5FEB",
+                "fraction": 0,
+                "feedback": "\u5171\u901A\u8A9E\u8A00\u6539\u5584\u7684\u662F\u7406\u89E3\uFF0C\u800C\u975E\u57F7\u884C\u901F\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u5171\u901A\u8A9E\u8A00\u5728\u5C0D\u8A71\u3001scenario \u8207\u7A0B\u5F0F\u78BC\u4E2D\u4F7F\u7528\u4E00\u81F4\u7684\u9818\u57DF\u7528\u8A9E\u3002\u5B83\u62C9\u8FD1\u696D\u52D9\u6240\u6307\u8207\u958B\u767C\u6240\u5EFA\u4E4B\u9593\u7684\u843D\u5DEE\uFF0C\u4F7F\u53EF\u57F7\u884C\u898F\u683C\u4FDD\u6301\u70BA\u503C\u5F97\u4FE1\u8CF4\u3001\u5C0D\u884C\u70BA\u7684\u5171\u4EAB\u63CF\u8FF0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "living documentation \u7684\u7406\u7531",
+            "text": "<p>\u5728\u4EC0\u9EBC\u610F\u7FA9\u4E0A\uFF0CBDD scenario \u662F<strong>\u6D3B\u6587\u4EF6\uFF08living documentation\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u5B83\u5011\u5C0D\u7CFB\u7D71\u57F7\u884C\uFF0C\u901A\u904E\u7684\u5957\u4EF6\u5373\u4EE3\u8868\u6587\u4EF6\u4ECD\u8207\u5BE6\u969B\u884C\u70BA\u76F8\u7B26\uFF0C\u56E0\u6B64\u4E0D\u6703\u6084\u6084\u904E\u6642",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u57F7\u884C\u7684 scenario \u96A8\u7CFB\u7D71\u8B8A\u5316\u4FDD\u6301\u540C\u6B65\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u5011\u88AB\u5370\u5728\u7D19\u4E0A\u4E26\u6B78\u6A94",
+                "fraction": 0,
+                "feedback": "\u6D3B\u6587\u4EF6\u662F\u53EF\u57F7\u884C\u4E14\u4FDD\u6301\u6700\u65B0\u7684\uFF0C\u4E0D\u662F\u975C\u614B\u7684\u6B78\u6A94\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6BCF\u6B21\u767C\u4F48\u5F8C\u7531\u6280\u8853\u6587\u4EF6\u64B0\u5BEB\u8005\u91CD\u5BEB\u5B83\u5011",
+                "fraction": 0,
+                "feedback": "\u91CD\u9EDE\u662F\u57F7\u884C\u81EA\u52D5\u4F7F\u5176\u4FDD\u6301\u6700\u65B0\uFF0C\u800C\u975E\u4EBA\u5DE5\u91CD\u5BEB\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u5011\u53EA\u80FD\u88AB\u95B1\u8B80\u3001\u6C38\u9060\u4E0D\u80FD\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5C0D\u7CFB\u7D71\u57F7\u884C\uFF1B\u90A3\u6B63\u662F\u4F7F\u5176\u4FDD\u6301\u9BAE\u6D3B\u7684\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u50B3\u7D71\u6587\u4EF6\u6703\u96A8\u6642\u9593\u8207\u7A0B\u5F0F\u78BC\u812B\u7BC0\u3002BDD scenario \u6703\u88AB\u57F7\u884C\uFF0C\u56E0\u6B64\u82E5\u884C\u70BA\u6539\u8B8A\u800C\u672A\u66F4\u65B0 scenario\uFF0C\u5B83\u5011\u5C31\u6703\u5931\u6557\u3002\u7DA0\u71C8\u7684\u5957\u4EF6\u5373\u662F\u6587\u4EF6\u4ECD\u63CF\u8FF0\u771F\u5BE6\u7CFB\u7D71\u7684\u8B49\u64DA\u2014\u2014\u4FDD\u6301\u9BAE\u6D3B\u7684\u6587\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6307\u51FA\u9055\u53CD\u300C\u4E00\u500B scenario \u4E00\u500B\u884C\u70BA\u300D",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u7D44\u6A19\u984C\uFF0F\u6B65\u9A5F\u6700\u660E\u986F\u9055\u53CD\u300C\u4E00\u500B scenario \u4E00\u500B\u884C\u70BA\u300D\u7684\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u6A19\u984C\u70BA\u300Cuser management\u300D\u7684 scenario\uFF0C\u5728\u55AE\u4E00\u5167\u6587\u4E2D\u5148\u8A3B\u518A\u4F7F\u7528\u8005\u3001\u518D\u767B\u5165\u3001\u518D\u522A\u9664\u5E33\u865F\uFF0C\u5404\u81EA\u6709\u5176 Then",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u90A3\u628A\u4E09\u500B\u5404\u5225\u884C\u70BA\u7D91\u9032\u4E00\u500B scenario\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u300Csuccessful login\u300Dscenario\uFF0C\u6709\u4E00\u500B When\uFF08\u767B\u5165\uFF09\u8207\u4E00\u500B Then\uFF08\u986F\u793A dashboard\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u4E00\u3001\u805A\u7126\u826F\u597D\u7684\u884C\u70BA\u2014\u2014\u4E0D\u7B97\u9055\u53CD\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u300Cwithdraw within balance\u300Dscenario\uFF0C\u6709\u4E00\u500B Given\u3001\u55AE\u4E00 When \u8207\u55AE\u4E00 Then",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u500B\u884C\u70BA\uFF0C\u52D5\u4F5C\u8207\u7D50\u679C\u6E05\u695A\u2014\u2014\u4E0D\u7B97\u9055\u53CD\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u300Cempty cart shows message\u300Dscenario\uFF0C\u6709\u4E00\u500B Given \u8207\u55AE\u4E00 Then",
+                "fraction": 0,
+                "feedback": "\u90A3\u6AA2\u67E5\u4E00\u500B\u884C\u70BA\uFF1B\u4E0D\u7B97\u9055\u53CD\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B\u5148\u8A3B\u518A\u3001\u518D\u767B\u5165\u3001\u518D\u522A\u9664\u5E33\u865F\u7684 scenario \u4E00\u6B21\u6E2C\u8A66\u4E86\u4E09\u500B\u884C\u70BA\u3002\u6BCF\u500B\u90FD\u61C9\u5404\u81EA\u6210\u70BA\u4E00\u500B scenario\uFF0C\u4F7F\u5931\u6557\u5F97\u4EE5\u5B9A\u4F4D\uFF0C\u4E14\u5404\u81EA\u8B80\u4F5C\u4E00\u500B\u6E05\u695A\u7684\u7BC4\u4F8B\u3002\u805A\u7126\u65BC\u55AE\u4E00\u884C\u70BA\u7684 scenario \u624D\u662F\u6B63\u78BA\u6A23\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8AA4\u7528\uFF1A\u5728 Background \u4E2D\u653E\u5165\u52D5\u4F5C",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u9019\u500B Background \u5340\u584A\u662F\u4E0D\u826F\u8A2D\u8A08\uFF1F</p><pre>Background:\n  Given the user is logged in\n  When the user deletes their most recent order</pre>",
+            "answers": [
+              {
+                "text": "Background \u61C9\u542B\u5171\u4EAB\u8A2D\u5B9A\uFF08Given\uFF09\uFF0C\u800C\u975E\u52D5\u4F5C\uFF1B\u8A72 When \u6703\u5728\u6BCF\u500B scenario \u4E4B\u524D\u5F37\u5236\u57F7\u884C\u4E00\u500B\u6539\u8B8A\u884C\u70BA\u7684\u52D5\u4F5C\uFF0C\u626D\u66F2\u4E86\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Background \u662F\u7528\u65BC\u5171\u901A\u8108\u7D61\uFF0C\u800C\u975E\u57F7\u884C\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "Background \u5B8C\u5168\u4E0D\u53EF\u542B\u4EFB\u4F55\u6B65\u9A5F",
+                "fraction": 0,
+                "feedback": "Background \u78BA\u5BE6\u542B\u6B65\u9A5F\u2014\u2014\u53EA\u662F\u5B83\u61C9\u7528\u65BC\u5171\u4EAB\u8A2D\u5B9A\uFF0C\u800C\u975E\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u554F\u984C\uFF1B\u5728\u6BCF\u500B scenario \u524D\u57F7\u884C\u4E00\u500B\u52D5\u4F5C\u662F\u5EFA\u8B70\u505A\u6CD5",
+                "fraction": 0,
+                "feedback": "\u5728\u6BCF\u500B scenario \u524D\u57F7\u884C\u4E00\u500B\u6539\u8B8A\u884C\u70BA\u7684\u52D5\u4F5C\uFF0C\u6B63\u662F\u6B64\u8655\u7684\u53CD\u6A23\u5F0F\u3002"
+              },
+              {
+                "text": "Background \u5FC5\u9808\u51FA\u73FE\u5728 scenario \u4E4B\u5F8C\uFF0C\u800C\u975E\u4E4B\u524D",
+                "fraction": 0,
+                "feedback": "Background \u653E\u5728 scenario \u4E4B\u524D\uFF1B\u771F\u6B63\u7684\u554F\u984C\u662F\u5176\u4E2D\u7684\u52D5\u4F5C\u6B65\u9A5F\u3002"
+              }
+            ],
+            "generalFeedback": "Background \u62BD\u51FA\u5171\u901A\u8108\u7D61\uFF0C\u61C9\u53EA\u542B Given \u8A2D\u5B9A\u3002\u628A When\uFF08\u6539\u8B8A\u72C0\u614B\u7684\u52D5\u4F5C\uFF09\u653E\u9032\u53BB\uFF0C\u6703\u5728\u6BCF\u500B scenario \u4E4B\u524D\u57F7\u884C\u8A72\u52D5\u4F5C\uFF0C\u6DF7\u5408\u8A2D\u5B9A\u8207\u884C\u70BA\uFF0C\u4E26\u4F7F scenario \u4F9D\u8CF4\u67D0\u500B\u526F\u4F5C\u7528\u3002\u52D5\u4F5C\u61C9\u7559\u5728\u6E2C\u8A66\u5B83\u7684 scenario \u5167\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8AA4\u7528\uFF1A\u57F7\u884C\u52D5\u4F5C\u7684 Given",
+            "text": "<p>\u4E00\u500B\u95DC\u65BC\u63D0\u6B3E\u7684 scenario \u958B\u982D\u70BA\uFF1A</p><pre>Given the user withdraws 30 from the account\nWhen the balance is checked\nThen it shows 70</pre><p>\u7F3A\u9677\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63D0\u6B3E\u2014\u2014\u771F\u6B63\u53D7\u6E2C\u7684\u884C\u70BA\u2014\u2014\u88AB\u85CF\u9032 Given \u7576\u6210\u8A2D\u5B9A\uFF1B\u63D0\u6B3E\u61C9\u662F When\uFF0C\u4E26\u7531 Given \u5EFA\u7ACB\u8D77\u59CB\u9918\u984D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53D7\u6E2C\u7684\u52D5\u4F5C\u5FC5\u9808\u662F When\uFF0C\u800C\u975E\u85CF\u5728 Given \u88E1\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u554F\u984C\uFF1B\u8A72\u52D5\u4F5C\u4F5C\u70BA Given \u6C92\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u53D7\u6E2C\u7684\u52D5\u4F5C\u61C9\u662F When\uFF1B\u653E\u9032 Given \u6703\u8AA4\u7F6E scenario \u7684\u6846\u67B6\u3002"
+              },
+              {
+                "text": "Then \u5FC5\u9808\u9673\u8FF0\u52D5\u4F5C\uFF0C\u800C\u975E\u6578\u5B57",
+                "fraction": 0,
+                "feedback": "Then \u6B63\u78BA\u5730\u9673\u8FF0\u7D50\u679C\uFF1B\u7F3A\u9677\u5728\u65BC\u653E\u9032 Given \u7684\u52D5\u4F5C\u3002"
+              },
+              {
+                "text": "scenario \u4E0D\u53EF\u6AA2\u67E5\u9918\u984D",
+                "fraction": 0,
+                "feedback": "\u6AA2\u67E5\u9918\u984D\u6C92\u554F\u984C\uFF1B\u554F\u984C\u5728\u65BC Given \u4E2D\u8AA4\u7F6E\u7684\u52D5\u4F5C\u3002"
+              }
+            ],
+            "generalFeedback": "\u53D7\u6E2C\u7684\u884C\u70BA\u662F\u63D0\u6B3E\uFF0C\u6240\u4EE5\u5B83\u61C9\u662F When\u3002\u8F03\u4F73\u5F62\u5F0F\u70BA\uFF1A\u300CGiven the balance is 100 / When the user withdraws 30 / Then the balance is 70\u300D\u3002\u628A\u52D5\u4F5C\u85CF\u9032 Given\uFF0C\u7B49\u65BC\u628A\u53D7\u6E2C\u7684\u6838\u5FC3\u7576\u6210\u7D14\u8A2D\u5B9A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5169\u500B Examples \u8868\u7684 Scenario Outline \u5C55\u958B",
+            "text": "<p>\u9019\u500B Scenario Outline \u7522\u751F\u5E7E\u500B\u5177\u9AD4 scenario\uFF1F</p><pre>Scenario Outline: discount by tier\n  When a &lt;tier&gt; customer checks out\n  Then the discount is &lt;pct&gt;%\n\n  Examples: standard tiers\n    | tier   | pct |\n    | bronze | 0   |\n    | silver | 5   |\n\n  Examples: premium tiers\n    | tier     | pct |\n    | gold     | 10  |\n    | platinum | 15  |\n    | diamond  | 20  |</pre>",
+            "answers": [
+              {
+                "text": "5\u2014\u2014\u7B2C\u4E00\u500B\u8868 2 \u500B\u8CC7\u6599\u5217\uFF0C\u52A0\u4E0A\u7B2C\u4E8C\u500B\u8868 3 \u500B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u57F7\u884C\u6B21\u6578\u7B49\u65BC\u6240\u6709 Examples \u8868\u7684\u8CC7\u6599\u5217\u7E3D\u6578\uFF1A2 + 3 = 5\u3002"
+              },
+              {
+                "text": "2\u2014\u2014\u53EA\u6709\u7B2C\u4E00\u500B Examples \u8868\u8A08\u5165",
+                "fraction": 0,
+                "feedback": "\u5169\u500B Examples \u8868\u90FD\u8A08\u5165\uFF1B\u7E3D\u6578\u662F 2 + 3 = 5\u3002"
+              },
+              {
+                "text": "6\u2014\u20142 \u4E58\u4EE5 3",
+                "fraction": 0,
+                "feedback": "\u8868\u662F\u628A\u5404\u81EA\u7684\u5217\u6578\u76F8\u52A0\uFF0C\u800C\u975E\u76F8\u4E58\uFF1A2 + 3 = 5\u3002"
+              },
+              {
+                "text": "7\u2014\u2014\u5169\u500B\u6A19\u982D\u5217\u4E5F\u7B97\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u6A19\u982D\u5217\u6C38\u9060\u4E0D\u8A08\u5165\uFF1B\u53EA\u6709 5 \u500B\u8CC7\u6599\u5217\u6703\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B Scenario Outline \u53EF\u6709\u591A\u500B Examples \u8868\uFF1B\u5B83\u4F9D\u6240\u6709\u8868\u7684\u6BCF\u4E00\u8CC7\u6599\u5217\u5404\u57F7\u884C\u4E00\u6B21\u3002\u6B64\u8655 2 \u500B\u8CC7\u6599\u5217\u52A0 3 \u500B\u8CC7\u6599\u5217\u5F97 5 \u500B\u5177\u9AD4 scenario\uFF08\u6A19\u982D\u5217\u4E0D\u8A08\u5165\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "spec by example \u8207\u53EF\u57F7\u884C\u898F\u683C",
+            "text": "<p>\u5728 BDD \u4E2D\uFF0C\u300C\u4EE5\u7BC4\u4F8B\u5B9A\u898F\u683C\uFF08specification by example\uFF09\u300D\uFF0F<strong>\u53EF\u57F7\u884C\u898F\u683C</strong>\u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u671F\u671B\u884C\u70BA\u7684\u5177\u9AD4\u7BC4\u4F8B\u5BEB\u5F97\u5920\u7CBE\u78BA\uFF0C\u4F7F\u5176\u80FD\u76F4\u63A5\u4F5C\u70BA\u81EA\u52D5\u5316\u9A57\u6536\u6E2C\u8A66\u57F7\u884C\uFF0C\u540C\u6642\u517C\u4EFB\u898F\u683C\u8207\u9A57\u8B49",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7BC4\u4F8B\u5373\u898F\u683C\uFF0C\u4E14\u53EF\u88AB\u57F7\u884C\u4EE5\u9A57\u8B49\u7CFB\u7D71\u3002"
+              },
+              {
+                "text": "\u5148\u5BEB\u4E00\u4EFD\u7368\u7ACB\u7684\u898F\u683C\u6587\u4EF6\uFF0C\u7BC4\u4F8B\u5728\u5BEB\u7A0B\u5F0F\u524D\u88AB\u4E1F\u68C4",
+                "fraction": 0,
+                "feedback": "\u7BC4\u4F8B\u4E0D\u6703\u88AB\u4E1F\u68C4\uFF1B\u5B83\u5011\u672C\u8EAB\u6210\u70BA\u53EF\u57F7\u884C\u7684\u898F\u683C\u3002"
+              },
+              {
+                "text": "\u7BC4\u4F8B\u53EA\u7528\u4F86\u8AAA\u660E\u898F\u683C\uFF0C\u4F46\u6C38\u9060\u4E0D\u80FD\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u91CD\u9EDE\u6B63\u662F\u5B83\u5011\u53EF\u88AB\u57F7\u884C\u2014\u2014\u90A3\u624D\u662F\u300C\u53EF\u57F7\u884C\u300D\u7684\u610F\u7FA9\u3002"
+              },
+              {
+                "text": "\u5B83\u6307\u5148\u5BEB\u7522\u54C1\u7A0B\u5F0F\u78BC\u3001\u4E4B\u5F8C\u518D\u88DC\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "BDD \u7531\u7BC4\u4F8B\u5411\u5916\u9A45\u52D5\uFF1B\u7BC4\u4F8B\u5728\u5BE6\u4F5C\u4E4B\u524D\uFF0F\u540C\u6642\u754C\u5B9A\u884C\u70BA\u3002"
+              }
+            ],
+            "generalFeedback": "\u4EE5\u7BC4\u4F8B\u5B9A\u898F\u683C\u628A\u9700\u6C42\u6355\u6349\u70BA\u5177\u9AD4\u3001\u5DF2\u9054\u6210\u5171\u8B58\u7684\u7BC4\u4F8B\u3002\u4EE5 Gherkin \u64B0\u5BEB\u4E26\u7531 step definition \u652F\u6490\uFF0C\u9019\u4E9B\u7BC4\u4F8B\u5373\u4F5C\u70BA\u9A57\u6536\u6E2C\u8A66\u57F7\u884C\uFF1A\u5B83\u5011\u754C\u5B9A\u7CFB\u7D71\u61C9\u505A\u4EC0\u9EBC\uFF0C\u540C\u6642\u9A57\u8B49\u5B83\u78BA\u5BE6\u6709\u505A\uFF0C\u628A\u898F\u683C\u8207\u6E2C\u8A66\u5408\u70BA\u4E00\u4EF6\u7522\u7269\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8207 TDD \u53CA ATDD \u7684\u95DC\u4FC2",
+            "text": "<p>BDD \u8207 TDD\u3001ATDD \u7684\u95DC\u4FC2\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "BDD \u7531 TDD \u6F14\u9032\u800C\u4F86\uFF0C\u628A\u91CD\u5FC3\u79FB\u5230\u4EE5\u5171\u4EAB\u8A9E\u8A00\u63CF\u8FF0\u7684\u884C\u70BA\uFF1B\u5982\u540C ATDD\uFF0C\u5B83\u4EE5\u8207\u696D\u52D9\u9054\u6210\u5171\u8B58\u7684\u9A57\u6536\u5C64\u7D1A\u7BC4\u4F8B\u4F86\u9A45\u52D5\u958B\u767C\uFF08outside-in\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014BDD \u662F\u805A\u7126\u884C\u70BA\u8207\u5354\u4F5C\u3001\u7531 TDD \u6F14\u9032\u800C\u4F86\uFF0C\u4E14\u8207 ATDD \u5BC6\u5207\u4E00\u81F4\u3002"
+              },
+              {
+                "text": "BDD \u53D6\u4EE3\u6240\u6709\u6E2C\u8A66\uFF0C\u4F7F\u55AE\u5143\u6E2C\u8A66\u8B8A\u5F97\u591A\u9918",
+                "fraction": 0,
+                "feedback": "BDD \u88DC\u8DB3\u800C\u975E\u53D6\u4EE3\u55AE\u5143\u5C64\u7D1A\u7684 TDD\uFF1B\u5169\u8005\u5404\u6709\u5176\u4F4D\u3002"
+              },
+              {
+                "text": "BDD \u8207 TDD \u7121\u95DC\uFF0C\u4E14\u7981\u6B62\u5728\u5BEB\u7A0B\u5F0F\u524D\u5148\u5BEB\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "BDD \u7531 TDD \u6F14\u9032\u800C\u4F86\uFF0C\u4ECD\u504F\u597D\u5728\u5BE6\u4F5C\u4E4B\u524D\uFF0F\u540C\u6642\u754C\u5B9A\u884C\u70BA\u3002"
+              },
+              {
+                "text": "BDD \u53EA\u95DC\u4E4E\u6548\u80FD\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "BDD \u95DC\u4E4E\u4EE5\u7BC4\u4F8B\u754C\u5B9A\u529F\u80FD\u884C\u70BA\uFF0C\u800C\u975E\u6548\u80FD\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "TDD \u7531\u5931\u6557\u7684\u55AE\u5143\u6E2C\u8A66\u9A45\u52D5\u7A0B\u5F0F\u78BC\u3002BDD \u628A\u9019\u91CD\u65B0\u6846\u5728\u4EE5\u5171\u901A\u8A9E\u8A00\u8868\u9054\u7684\u884C\u70BA\u8207\u53EF\u8B80\u7BC4\u4F8B\u4E0A\uFF0C\u5F9E\u9A57\u6536\u6E96\u5247 outside-in \u9032\u884C\u2014\u2014\u8207 ATDD\uFF08\u9A57\u6536\u6E2C\u8A66\u9A45\u52D5\u958B\u767C\uFF09\u76F8\u4F3C\u3002\u4E09\u8005\u5728\u4E0D\u540C\u7C92\u5EA6\u4E0A\u5171\u4EAB\u300C\u6E2C\u8A66\uFF0F\u7BC4\u4F8B\u5148\u884C\u300D\u7684\u7CBE\u795E\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u55AE\u4E00 Examples \u8CC7\u6599\u5217\u57F7\u884C\u4E00\u6B21",
+            "text": "<p>\u4E00\u500B Scenario Outline\uFF0C\u5176 Examples \u8868\u6709\u4E00\u500B\u6A19\u982D\u5217\u548C\u6070\u597D\u4E00\u500B\u8CC7\u6599\u5217\uFF0C\u5C07\u525B\u597D\u57F7\u884C\u4E00\u500B\u5177\u9AD4 scenario\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u8CC7\u6599\u5217\u4EE3\u8868\u4E00\u6B21\u57F7\u884C\uFF1B\u6A19\u982D\u5217\u4E0D\u8A08\u5165\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5B83\u78BA\u5BE6\u57F7\u884C\u4E00\u6B21\uFF1A\u57F7\u884C\u6B21\u6578\u7B49\u65BC\u8CC7\u6599\u5217\u6578\uFF0C\u6B64\u8655\u70BA\u4E00\u3002"
+              }
+            ],
+            "generalFeedback": "Scenario Outline \u7522\u751F\u7684\u5177\u9AD4 scenario \u6578\u7B49\u65BC\u5176 Examples \u8868\u7684\u8CC7\u6599\u5217\u6578\u3002\u53EA\u6709\u4E00\u500B\u8CC7\u6599\u5217\uFF08\u52A0\u4E0A\u6C38\u4E0D\u8A08\u5165\u7684\u6A19\u982D\uFF09\uFF0C\u5B83\u525B\u597D\u57F7\u884C\u4E00\u6B21\u2014\u2014\u5982\u540C\u4E00\u500B\u4EE3\u5165\u4E86\u90A3\u4E9B\u503C\u7684\u666E\u901A scenario\u3002"
+          }
+        ]
+      }
+    },
     "boundary-value-equivalence": {
       "en": {
         "easy": [
