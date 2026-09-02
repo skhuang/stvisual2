@@ -25339,6 +25339,2590 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "input-space-partitioning": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What a block is",
+          "text": "<p>In Input Space Partitioning (ISP), a characteristic divides the input domain into <strong>blocks</strong>. What is a block?</p>",
+          "answers": [
+            {
+              "text": "A subset of the domain's values that the characteristic groups together and treats as one class",
+              "fraction": 100,
+              "feedback": "Correct — each block is one class of values produced by partitioning along that characteristic."
+            },
+            {
+              "text": "A single concrete test case ready to run",
+              "fraction": 0,
+              "feedback": "A block is a class of values; a concrete test is one representative chosen from a block."
+            },
+            {
+              "text": "A line of source code exercised by the input",
+              "fraction": 0,
+              "feedback": "ISP is black-box and describes the input domain, not code lines."
+            },
+            {
+              "text": "The expected output the program should produce",
+              "fraction": 0,
+              "feedback": "That is an oracle result, not a block of the input domain."
+            }
+          ],
+          "generalFeedback": "A characteristic partitions the input domain into blocks; each block is a set of values assumed to be handled equivalently, and one representative value is later chosen from each block.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a partition is",
+          "text": "<p>For one characteristic, its <strong>partition</strong> of the input domain is best described as which of the following?</p>",
+          "answers": [
+            {
+              "text": "The collection of blocks that are pairwise disjoint and whose union is the whole domain",
+              "fraction": 100,
+              "feedback": "Correct — a partition is exactly a set of disjoint, complete blocks."
+            },
+            {
+              "text": "Any collection of overlapping value ranges chosen for convenience",
+              "fraction": 0,
+              "feedback": "Overlap breaks disjointness, so overlapping ranges do not form a valid partition."
+            },
+            {
+              "text": "The single most important value of the domain",
+              "fraction": 0,
+              "feedback": "A partition is a set of blocks covering the domain, not one value."
+            },
+            {
+              "text": "The list of test cases produced by a coverage criterion",
+              "fraction": 0,
+              "feedback": "Tests come later; the partition is the division of the domain itself."
+            }
+          ],
+          "generalFeedback": "A partition (for one characteristic) is a set of blocks that together are complete (cover the whole domain) and disjoint (no value in two blocks).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of disjoint blocks",
+          "text": "<p>The blocks of a characteristic are required to be <strong>disjoint</strong>. What does that mean?</p>",
+          "answers": [
+            {
+              "text": "No value of the domain belongs to more than one block",
+              "fraction": 100,
+              "feedback": "Correct — disjoint means the blocks do not overlap."
+            },
+            {
+              "text": "Every value of the domain belongs to some block",
+              "fraction": 0,
+              "feedback": "That describes completeness, not disjointness."
+            },
+            {
+              "text": "All blocks contain the same number of values",
+              "fraction": 0,
+              "feedback": "Equal size is not required; disjointness only forbids overlap."
+            },
+            {
+              "text": "There are exactly two blocks",
+              "fraction": 0,
+              "feedback": "Disjointness says nothing about how many blocks there are."
+            }
+          ],
+          "generalFeedback": "Disjoint means the blocks are mutually exclusive: any given input value falls into at most one block of that characteristic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of complete blocks",
+          "text": "<p>The blocks of a characteristic are required to be <strong>complete</strong>. What does that mean?</p>",
+          "answers": [
+            {
+              "text": "The union of the blocks is the entire input domain — every value falls into some block",
+              "fraction": 100,
+              "feedback": "Correct — completeness means the blocks leave no value uncovered."
+            },
+            {
+              "text": "No value belongs to two blocks",
+              "fraction": 0,
+              "feedback": "That describes disjointness, not completeness."
+            },
+            {
+              "text": "Each block is tested with at least two values",
+              "fraction": 0,
+              "feedback": "Completeness is about covering the domain, not about how many values per block."
+            },
+            {
+              "text": "The characteristic has at least three blocks",
+              "fraction": 0,
+              "feedback": "Completeness places no minimum on the number of blocks."
+            }
+          ],
+          "generalFeedback": "Complete means the blocks cover the whole domain: taken together they contain every possible input value, so nothing is left unclassifiable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Choosing values from blocks",
+          "text": "<p>Once the blocks are defined, how does ISP turn them into concrete tests?</p>",
+          "answers": [
+            {
+              "text": "Choose one representative value from each block used in a test",
+              "fraction": 100,
+              "feedback": "Correct — one representative per block stands in for the whole block."
+            },
+            {
+              "text": "Use every value in every block exhaustively",
+              "fraction": 0,
+              "feedback": "Exhaustive enumeration is exactly what partitioning avoids."
+            },
+            {
+              "text": "Pick values only from the largest block",
+              "fraction": 0,
+              "feedback": "Every block used in a test needs a representative, not just the largest one."
+            },
+            {
+              "text": "Generate values randomly, ignoring the blocks",
+              "fraction": 0,
+              "feedback": "Then the blocks would play no role; ISP deliberately picks a representative per block."
+            }
+          ],
+          "generalFeedback": "ISP relies on the assumption that a block's values are handled equivalently, so a single representative value per block is chosen to build each test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interface-based characteristics",
+          "text": "<p>What are <strong>interface-based</strong> characteristics derived from?</p>",
+          "answers": [
+            {
+              "text": "The parameters of the method under test, considered individually from its signature",
+              "fraction": 100,
+              "feedback": "Correct — interface-based characteristics come straight from the input parameters."
+            },
+            {
+              "text": "The program's specification and intended behavior",
+              "fraction": 0,
+              "feedback": "That describes functionality-based characteristics."
+            },
+            {
+              "text": "The internal control-flow graph of the code",
+              "fraction": 0,
+              "feedback": "ISP is black-box; interface-based characteristics use the parameters, not the CFG."
+            },
+            {
+              "text": "The measured runtime of each test",
+              "fraction": 0,
+              "feedback": "Timing is unrelated to how characteristics are derived."
+            }
+          ],
+          "generalFeedback": "Interface-based characteristics are read off the method's parameters one at a time (e.g. \"is parameter x null?\"). They are easy to derive but can miss relationships between parameters.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Functionality-based characteristics",
+          "text": "<p>What are <strong>functionality-based</strong> characteristics derived from?</p>",
+          "answers": [
+            {
+              "text": "The specified behavior or semantics of the function, possibly combining several parameters",
+              "fraction": 100,
+              "feedback": "Correct — functionality-based characteristics come from what the function is supposed to do."
+            },
+            {
+              "text": "Each parameter taken in isolation from the signature",
+              "fraction": 0,
+              "feedback": "That is the interface-based approach."
+            },
+            {
+              "text": "The number of statements in the implementation",
+              "fraction": 0,
+              "feedback": "Statement counts are code metrics, not functionality-based characteristics."
+            },
+            {
+              "text": "The compiler's optimization level",
+              "fraction": 0,
+              "feedback": "Compilation settings have nothing to do with deriving characteristics."
+            }
+          ],
+          "generalFeedback": "Functionality-based characteristics come from the specification (e.g. \"list is already sorted\"), and may relate several parameters at once. They often yield better tests but require more domain understanding.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What ECC requires",
+          "text": "<p>What does Each Choice Coverage (ECC) require of a test set?</p>",
+          "answers": [
+            {
+              "text": "Every block of every characteristic must appear in at least one test",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly the each-choice requirement."
+            },
+            {
+              "text": "Every combination of blocks across all characteristics must appear",
+              "fraction": 0,
+              "feedback": "That is All Combinations Coverage, which is far stronger."
+            },
+            {
+              "text": "Every pair of blocks from every pair of characteristics must appear together",
+              "fraction": 0,
+              "feedback": "That is Pair-Wise Coverage, not Each Choice."
+            },
+            {
+              "text": "Exactly one test is needed regardless of the blocks",
+              "fraction": 0,
+              "feedback": "One test cannot include two different blocks of the same characteristic."
+            }
+          ],
+          "generalFeedback": "ECC only asks that each block of each characteristic be used at least once somewhere in the test set — the weakest of the standard ISP criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What ACoC requires",
+          "text": "<p>What does All Combinations Coverage (ACoC) require of a test set?</p>",
+          "answers": [
+            {
+              "text": "Every combination of one block from each characteristic must appear in some test",
+              "fraction": 100,
+              "feedback": "Correct — ACoC covers the full cross-product of blocks."
+            },
+            {
+              "text": "Only that each block appears at least once",
+              "fraction": 0,
+              "feedback": "That is Each Choice Coverage, which is weaker."
+            },
+            {
+              "text": "Only that every pair of blocks appears together",
+              "fraction": 0,
+              "feedback": "That is Pair-Wise Coverage, weaker than ACoC."
+            },
+            {
+              "text": "That a single base test is varied one characteristic at a time",
+              "fraction": 0,
+              "feedback": "That describes Base Choice Coverage, not ACoC."
+            }
+          ],
+          "generalFeedback": "ACoC requires every combination of blocks — one from each characteristic — so the number of tests is the product of the block counts.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC count for two characteristics",
+          "text": "<p>An ISP model has two characteristics with 2 and 3 blocks. How many tests does All Combinations Coverage (ACoC) require?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 2 × 3 = 6, the product of the block counts."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the sum 2 + 3; ACoC multiplies the block counts."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is the larger block count (that is Each Choice), not All Combinations."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 does not match 2 × 3."
+            }
+          ],
+          "generalFeedback": "ACoC is the product of the block counts: 2 × 3 = 6.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC count for three binary characteristics",
+          "text": "<p>An ISP model has three characteristics, each with 2 blocks. How many tests does ACoC require?</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "Correct — 2 × 2 × 2 = 8."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is the sum 2 + 2 + 2; ACoC multiplies."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 is one block count (Each Choice), not All Combinations."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 ignores one characteristic; the product over all three is 8."
+            }
+          ],
+          "generalFeedback": "ACoC is the product of the block counts: 2 × 2 × 2 = 8.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ECC count equals the largest block count",
+          "text": "<p>An ISP model has three characteristics with 2, 5, and 3 blocks. What is the minimum number of tests for Each Choice Coverage (ECC)?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — ECC needs at least the largest block count, max(2,5,3) = 5."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 is the sum of the block counts; blocks can be reused across characteristics within one test."
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 is the product (All Combinations), far more than ECC needs."
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 is not enough to cover the characteristic with 5 blocks."
+            }
+          ],
+          "generalFeedback": "Each test picks one block per characteristic, so covering every block needs at least as many tests as the largest block count: max(2,5,3) = 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ECC count with two characteristics",
+          "text": "<p>An ISP model has two characteristics with 4 and 2 blocks. What is the minimum number of tests for Each Choice Coverage (ECC)?</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "Correct — ECC needs at least max(4,2) = 4 tests."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is the product (All Combinations), not the each-choice minimum."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 is the sum of the block counts; ECC reuses blocks within a test."
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 cannot cover the characteristic that has 4 blocks."
+            }
+          ],
+          "generalFeedback": "ECC equals the largest block count: max(4,2) = 4. The 2-block characteristic's blocks are simply reused within those four tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A valid characteristic and its blocks",
+          "text": "<p>For an integer input <code>x</code>, which of these is a well-formed ISP characteristic with disjoint, complete blocks?</p>",
+          "answers": [
+            {
+              "text": "\"Sign of x\" with blocks {x < 0}, {x = 0}, {x > 0}",
+              "fraction": 100,
+              "feedback": "Correct — these three blocks are disjoint and cover every integer."
+            },
+            {
+              "text": "\"Size of x\" with blocks {x < 10}, {x > 5}",
+              "fraction": 0,
+              "feedback": "Values 6..9 fall in both blocks, so they overlap (not disjoint)."
+            },
+            {
+              "text": "\"Range of x\" with blocks {x < 0}, {x > 0}",
+              "fraction": 0,
+              "feedback": "The value 0 belongs to no block, so this is incomplete."
+            },
+            {
+              "text": "\"Value of x\" with one block {x = 7}",
+              "fraction": 0,
+              "feedback": "Every other integer is uncovered, so this partition is incomplete."
+            }
+          ],
+          "generalFeedback": "A well-formed characteristic partitions the domain into disjoint, complete blocks. \"Sign of x\" as negative / zero / positive does exactly that for the integers.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "ISP is black-box",
+          "text": "<p>Input Space Partitioning is a black-box technique: it models the input domain and does not require access to the source code.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — ISP derives characteristics from parameters and the specification, not from code."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "ISP works on the input domain (interface- or functionality-based), so it needs no source code."
+            }
+          ],
+          "generalFeedback": "ISP is a black-box, input-domain technique. Characteristics come from the method's parameters (interface-based) or its specified behavior (functionality-based), so the implementation is not needed."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Spot the overlapping partition",
+          "text": "<p>A characteristic \"string length L\" is split into blocks {L &lt; 10}, {10 ≤ L ≤ 20}, {L &gt; 15}. Is this a valid partition, and why?</p>",
+          "answers": [
+            {
+              "text": "Invalid — the blocks are not disjoint (e.g. L = 18 falls in both {10 ≤ L ≤ 20} and {L > 15})",
+              "fraction": 100,
+              "feedback": "Correct — 16..20 lie in two blocks at once, breaking disjointness."
+            },
+            {
+              "text": "Valid — the blocks are disjoint and complete",
+              "fraction": 0,
+              "feedback": "They are not disjoint: values 16..20 belong to two blocks."
+            },
+            {
+              "text": "Invalid — some lengths are left uncovered (incomplete)",
+              "fraction": 0,
+              "feedback": "Every length is covered; the defect here is overlap, not a gap."
+            },
+            {
+              "text": "Valid — overlap between blocks is allowed in ISP",
+              "fraction": 0,
+              "feedback": "Overlap is not allowed; blocks of a partition must be disjoint."
+            }
+          ],
+          "generalFeedback": "Lengths 16..20 satisfy both {10 ≤ L ≤ 20} and {L > 15}, so the blocks overlap. A valid partition must be disjoint, so this is invalid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Spot the gap in a partition",
+          "text": "<p>A characteristic \"age\" (non-negative integer) is split into blocks {0..17}, {19..65}, {&gt; 65}. Is this a valid partition, and why?</p>",
+          "answers": [
+            {
+              "text": "Invalid — it is incomplete: age 18 belongs to no block",
+              "fraction": 100,
+              "feedback": "Correct — 18 is missing, so the blocks do not cover the whole domain."
+            },
+            {
+              "text": "Valid — the blocks are disjoint and complete",
+              "fraction": 0,
+              "feedback": "Age 18 is uncovered, so completeness fails."
+            },
+            {
+              "text": "Invalid — the blocks overlap at 65",
+              "fraction": 0,
+              "feedback": "65 is only in {19..65}; there is no overlap. The defect is the missing 18."
+            },
+            {
+              "text": "Valid — small gaps are acceptable in ISP",
+              "fraction": 0,
+              "feedback": "Gaps violate completeness; every domain value must fall into some block."
+            }
+          ],
+          "generalFeedback": "Age 18 is not in {0..17}, {19..65}, or {> 65}, so the partition is incomplete and therefore invalid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Recognize a valid partition",
+          "text": "<p>A characteristic \"temperature T (integer °C)\" is split into blocks {T &lt; 0}, {0 ≤ T ≤ 100}, {T &gt; 100}. Is this a valid partition?</p>",
+          "answers": [
+            {
+              "text": "Valid — the three blocks are disjoint and together cover every integer temperature",
+              "fraction": 100,
+              "feedback": "Correct — no overlap and no gap, so it is a proper partition."
+            },
+            {
+              "text": "Invalid — the blocks overlap at 0 and 100",
+              "fraction": 0,
+              "feedback": "0 is only in the middle block and 100 only in the middle block; there is no overlap."
+            },
+            {
+              "text": "Invalid — temperatures below 0 are uncovered",
+              "fraction": 0,
+              "feedback": "{T < 0} covers them, so nothing is uncovered."
+            },
+            {
+              "text": "Invalid — a partition may have at most two blocks",
+              "fraction": 0,
+              "feedback": "A characteristic may have any number of blocks; three is fine."
+            }
+          ],
+          "generalFeedback": "The blocks {T < 0}, {0..100}, {T > 100} are mutually exclusive and jointly exhaustive over the integers, so the partition is disjoint and complete — valid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC count for three characteristics",
+          "text": "<p>An ISP model has three characteristics with 4, 3, and 2 blocks. How many tests does All Combinations Coverage (ACoC) require?</p>",
+          "answers": [
+            {
+              "text": "24",
+              "fraction": 100,
+              "feedback": "Correct — 4 × 3 × 2 = 24."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the sum 4 + 3 + 2; ACoC multiplies the block counts."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is the product of only the two largest (a PWC lower bound), not all three."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the largest single block count (Each Choice), not All Combinations."
+            }
+          ],
+          "generalFeedback": "ACoC = product of the block counts = 4 × 3 × 2 = 24.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ECC count for four characteristics",
+          "text": "<p>An ISP model has four characteristics with 3, 3, 5, and 2 blocks. What is the minimum number of tests for Each Choice Coverage (ECC)?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — ECC needs at least max(3,3,5,2) = 5 tests."
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 is the sum of the block counts; ECC reuses blocks within each test."
+            },
+            {
+              "text": "90",
+              "fraction": 0,
+              "feedback": "90 is the product (All Combinations), not the each-choice minimum."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is not enough to cover the characteristic that has 5 blocks."
+            }
+          ],
+          "generalFeedback": "ECC equals the largest block count: max(3,3,5,2) = 5.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "BCC count for 2,4,3",
+          "text": "<p>An ISP model has three characteristics with 2, 4, and 3 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "Correct — 1 + (2-1) + (4-1) + (3-1) = 1 + 1 + 3 + 2 = 7."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the sum of the block counts; BCC is 1 + Σ(blocks - 1)."
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 is the product (All Combinations), not the base-choice count."
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 forgets the +1 base test: 1 + (1 + 3 + 2) = 7."
+            }
+          ],
+          "generalFeedback": "BCC = 1 + Σ(b_i - 1) = 1 + (1 + 3 + 2) = 7: one base test plus varying each characteristic through its non-base blocks.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "BCC count for 2,2,4",
+          "text": "<p>An ISP model has three characteristics with 2, 2, and 4 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "Correct — 1 + (2-1) + (2-1) + (4-1) = 1 + 1 + 1 + 3 = 6."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is the sum of the block counts; BCC is 1 + Σ(blocks - 1)."
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 is the product (All Combinations), not the base-choice count."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 forgets the +1 base test: 1 + (1 + 1 + 3) = 6."
+            }
+          ],
+          "generalFeedback": "BCC = 1 + Σ(b_i - 1) = 1 + (1 + 1 + 3) = 6.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PWC lower bound for 4,3,2",
+          "text": "<p>An ISP model has three characteristics with 4, 3, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage (PWC) set must contain?</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "Correct — at least the product of the two largest block counts, 4 × 3 = 12."
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 is the full All Combinations product; PWC needs fewer."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 is the sum of the block counts, unrelated to the pairwise lower bound."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 (the largest single block count) is the Each Choice minimum, not the pairwise bound."
+            }
+          ],
+          "generalFeedback": "Covering every pair from the two largest characteristics (4 and 3 blocks) already needs all 4 × 3 = 12 of their combinations, so any PWC set has at least 12 tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PWC lower bound for 2,5,3,2",
+          "text": "<p>An ISP model has four characteristics with 2, 5, 3, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage (PWC) set must contain?</p>",
+          "answers": [
+            {
+              "text": "15",
+              "fraction": 100,
+              "feedback": "Correct — the product of the two largest block counts, 5 × 3 = 15."
+            },
+            {
+              "text": "60",
+              "fraction": 0,
+              "feedback": "60 is the full All Combinations product; PWC needs fewer."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is the sum of the block counts, not the pairwise lower bound."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 (the largest single block count) is the Each Choice minimum, not the pairwise bound."
+            }
+          ],
+          "generalFeedback": "The PWC lower bound is the product of the two largest block counts: 5 × 3 = 15.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a null-check characteristic",
+          "text": "<p>For <code>int indexOf(List list, Object target)</code>, a tester defines the characteristic \"is <code>list</code> null?\" with blocks {null}, {non-null}. How is this characteristic best classified?</p>",
+          "answers": [
+            {
+              "text": "Interface-based — it comes directly from a single parameter of the signature",
+              "fraction": 100,
+              "feedback": "Correct — nullness of one parameter is read straight off the interface."
+            },
+            {
+              "text": "Functionality-based — it comes from the specified search behavior",
+              "fraction": 0,
+              "feedback": "It is derived from the parameter itself, not from what indexOf is specified to do."
+            },
+            {
+              "text": "Neither — nullness cannot be a characteristic",
+              "fraction": 0,
+              "feedback": "Nullness of a reference parameter is a common, valid interface-based characteristic."
+            },
+            {
+              "text": "It depends on the implementation's control flow",
+              "fraction": 0,
+              "feedback": "ISP is black-box; this characteristic is defined without looking at code."
+            }
+          ],
+          "generalFeedback": "\"Is list null?\" is derived from one parameter considered on its own, which is the defining trait of an interface-based characteristic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify an already-sorted characteristic",
+          "text": "<p>For a sorting routine <code>sort(int[] a)</code>, a tester defines the characteristic \"is <code>a</code> already sorted ascending?\" with blocks {already sorted}, {not sorted}. How is this best classified?</p>",
+          "answers": [
+            {
+              "text": "Functionality-based — it comes from the meaning of sorting, not from the parameter's type alone",
+              "fraction": 100,
+              "feedback": "Correct — \"already sorted\" is a property of the specified behavior over the input's contents."
+            },
+            {
+              "text": "Interface-based — it comes directly from the array parameter's type",
+              "fraction": 0,
+              "feedback": "The type is just \"int[]\"; being already-sorted is a semantic property, not read off the signature."
+            },
+            {
+              "text": "It is not a valid characteristic because it depends on values",
+              "fraction": 0,
+              "feedback": "Depending on the input's contents is exactly what functionality-based characteristics do."
+            },
+            {
+              "text": "It is a structural (white-box) characteristic",
+              "fraction": 0,
+              "feedback": "ISP is black-box; this comes from the specification of sorting, not the code structure."
+            }
+          ],
+          "generalFeedback": "\"Already sorted?\" reflects the semantics of the sorting task and the array's contents, so it is functionality-based rather than interface-based.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which value proves non-disjointness",
+          "text": "<p>A characteristic \"score S\" has blocks {S ≤ 50}, {40 ≤ S ≤ 90}, {S &gt; 90}. Which value demonstrates that the partition is <strong>not disjoint</strong>?</p>",
+          "answers": [
+            {
+              "text": "S = 45",
+              "fraction": 100,
+              "feedback": "Correct — 45 is in both {S ≤ 50} and {40 ≤ S ≤ 90}, proving overlap."
+            },
+            {
+              "text": "S = 20",
+              "fraction": 0,
+              "feedback": "20 is only in {S ≤ 50}; it does not show overlap."
+            },
+            {
+              "text": "S = 95",
+              "fraction": 0,
+              "feedback": "95 is only in {S > 90}; it does not show overlap."
+            },
+            {
+              "text": "S = 91",
+              "fraction": 0,
+              "feedback": "91 is only in {S > 90}; it does not show overlap."
+            }
+          ],
+          "generalFeedback": "The blocks {S ≤ 50} and {40 ≤ S ≤ 90} both contain 40..50. Any value there, such as 45, lies in two blocks and proves the partition is not disjoint.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which value proves incompleteness",
+          "text": "<p>A characteristic \"quantity Q (integer)\" has blocks {Q &lt; 0}, {1 ≤ Q ≤ 100}, {Q &gt; 100}. Which value demonstrates that the partition is <strong>incomplete</strong>?</p>",
+          "answers": [
+            {
+              "text": "Q = 0",
+              "fraction": 100,
+              "feedback": "Correct — 0 is not negative, not in 1..100, and not > 100, so it is uncovered."
+            },
+            {
+              "text": "Q = 50",
+              "fraction": 0,
+              "feedback": "50 is covered by {1 ≤ Q ≤ 100}."
+            },
+            {
+              "text": "Q = -5",
+              "fraction": 0,
+              "feedback": "-5 is covered by {Q < 0}."
+            },
+            {
+              "text": "Q = 200",
+              "fraction": 0,
+              "feedback": "200 is covered by {Q > 100}."
+            }
+          ],
+          "generalFeedback": "Q = 0 falls into none of {Q < 0}, {1..100}, {Q > 100}, so the partition leaves a gap and is incomplete.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Extra tests ACoC needs over ECC",
+          "text": "<p>An ISP model has two characteristics with 3 and 2 blocks. How many <strong>more</strong> tests does All Combinations Coverage require than the Each Choice minimum?</p>",
+          "answers": [
+            {
+              "text": "3 (ACoC = 6, ECC = 3)",
+              "fraction": 100,
+              "feedback": "Correct — 3 × 2 = 6 for ACoC and max(3,2) = 3 for ECC, a difference of 3."
+            },
+            {
+              "text": "0 (they are always equal)",
+              "fraction": 0,
+              "feedback": "ACoC = 6 but ECC = 3, so they differ here."
+            },
+            {
+              "text": "6 (ACoC = 6, ECC = 0)",
+              "fraction": 0,
+              "feedback": "ECC is not 0; it is max(3,2) = 3, so the difference is 3."
+            },
+            {
+              "text": "2 (ACoC = 5, ECC = 3)",
+              "fraction": 0,
+              "feedback": "ACoC is the product 3 × 2 = 6, not 5, so the difference is 3."
+            }
+          ],
+          "generalFeedback": "ACoC = 3 × 2 = 6 and ECC = max(3,2) = 3, so ACoC needs 6 - 3 = 3 more tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "BCC count for 2,3,2",
+          "text": "<p>An ISP model has three characteristics with 2, 3, and 2 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "Correct — 1 + (2-1) + (3-1) + (2-1) = 1 + 1 + 2 + 1 = 5."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is the sum of the block counts; BCC is 1 + Σ(blocks - 1)."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is the product (All Combinations), not the base-choice count."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 forgets the +1 base test: 1 + (1 + 2 + 1) = 5."
+            }
+          ],
+          "generalFeedback": "BCC = 1 + Σ(b_i - 1) = 1 + (1 + 2 + 1) = 5.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "BCC count for 4,3,3,2",
+          "text": "<p>An ISP model has four characteristics with 4, 3, 3, and 2 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "Correct — 1 + (4-1) + (3-1) + (3-1) + (2-1) = 1 + 3 + 2 + 2 + 1 = 9."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is the sum of the block counts; BCC is 1 + Σ(blocks - 1)."
+            },
+            {
+              "text": "72",
+              "fraction": 0,
+              "feedback": "72 is the product (All Combinations), not the base-choice count."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 forgets the +1 base test: 1 + (3 + 2 + 2 + 1) = 9."
+            }
+          ],
+          "generalFeedback": "BCC = 1 + Σ(b_i - 1) = 1 + (3 + 2 + 2 + 1) = 9.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pick the BCC test set from a base",
+          "text": "<p>Characteristics A, B, C have blocks A∈{a1,a2}, B∈{b1,b2,b3}, C∈{c1,c2}. The base choice is (a1, b1, c1). Which set of tests is exactly the Base Choice Coverage set?</p>",
+          "answers": [
+            {
+              "text": "(a1,b1,c1), (a2,b1,c1), (a1,b2,c1), (a1,b3,c1), (a1,b1,c2) — five tests",
+              "fraction": 100,
+              "feedback": "Correct — the base test plus one test per non-base block, changing exactly one characteristic each time."
+            },
+            {
+              "text": "(a1,b1,c1), (a2,b2,c2) — two tests",
+              "fraction": 0,
+              "feedback": "This changes several characteristics at once and misses most non-base blocks; it is not the BCC set."
+            },
+            {
+              "text": "All 12 combinations of A × B × C",
+              "fraction": 0,
+              "feedback": "That is All Combinations Coverage, not Base Choice."
+            },
+            {
+              "text": "(a2,b2,c2), (a2,b3,c2) — varying from a non-base test",
+              "fraction": 0,
+              "feedback": "BCC varies from the designated base test (a1,b1,c1), holding the others at their base values."
+            }
+          ],
+          "generalFeedback": "BCC keeps the base (a1,b1,c1) and changes one characteristic at a time to each non-base block: a2; b2; b3; c2. That yields 1 + (1 + 2 + 1) = 5 tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC-PWC-ECC subsumption chain",
+          "text": "<p>Which subsumption chain correctly orders these ISP criteria (each subsumes the next)?</p>",
+          "answers": [
+            {
+              "text": "ACoC ⊇ PWC ⊇ ECC",
+              "fraction": 100,
+              "feedback": "Correct — all combinations subsume pairwise, which subsumes each choice."
+            },
+            {
+              "text": "ECC ⊇ PWC ⊇ ACoC",
+              "fraction": 0,
+              "feedback": "This reverses the order; ECC is the weakest, so it cannot subsume the others."
+            },
+            {
+              "text": "PWC ⊇ ACoC ⊇ ECC",
+              "fraction": 0,
+              "feedback": "ACoC subsumes PWC, not the other way around."
+            },
+            {
+              "text": "ACoC ⊇ ECC ⊇ PWC",
+              "fraction": 0,
+              "feedback": "ECC does not subsume PWC; PWC is the stronger of the two."
+            }
+          ],
+          "generalFeedback": "All Combinations covers every pair, so ACoC subsumes PWC; Pair-Wise covers each single block, so PWC subsumes ECC. Hence ACoC ⊇ PWC ⊇ ECC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why non-disjoint blocks are invalid",
+          "text": "<p>Suppose a characteristic's blocks overlap, so some value <code>v</code> belongs to two blocks. Why does this make the partition invalid for ISP?</p>",
+          "answers": [
+            {
+              "text": "A value that maps to two blocks makes block membership ambiguous, so coverage of \"each block\" is ill-defined and a chosen value may unintentionally satisfy two blocks at once",
+              "fraction": 100,
+              "feedback": "Correct — disjointness is what makes \"the block of a value\" well-defined."
+            },
+            {
+              "text": "Overlap makes the model too small to test",
+              "fraction": 0,
+              "feedback": "Overlap does not shrink the model; it makes membership ambiguous."
+            },
+            {
+              "text": "Overlap forces the use of All Combinations Coverage",
+              "fraction": 0,
+              "feedback": "Overlap does not dictate a coverage criterion; it violates the partition definition."
+            },
+            {
+              "text": "Overlap is fine as long as the blocks are complete",
+              "fraction": 0,
+              "feedback": "Completeness does not repair a disjointness violation; both are required."
+            }
+          ],
+          "generalFeedback": "If v is in two blocks, then \"cover each block\" and \"the representative of a value's block\" become ambiguous — one test value may count for two blocks, undermining the criterion. Disjointness removes that ambiguity.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why incomplete blocks are invalid",
+          "text": "<p>Suppose a characteristic's blocks miss some domain value <code>w</code> (no block contains it). Why is this partition invalid for ISP?</p>",
+          "answers": [
+            {
+              "text": "An input equal to w cannot be classified into any block, so a legitimate part of the domain would never be scheduled for testing",
+              "fraction": 100,
+              "feedback": "Correct — completeness guarantees every input is represented by some block."
+            },
+            {
+              "text": "The number of tests would become infinite",
+              "fraction": 0,
+              "feedback": "A gap does not change the test count; it leaves part of the domain unmodeled."
+            },
+            {
+              "text": "Each Choice Coverage would then be impossible to satisfy",
+              "fraction": 0,
+              "feedback": "ECC could still be satisfied on the defined blocks; the problem is the unmodeled value w."
+            },
+            {
+              "text": "Incompleteness is acceptable if the blocks are disjoint",
+              "fraction": 0,
+              "feedback": "Disjointness does not repair a coverage gap; both properties are required."
+            }
+          ],
+          "generalFeedback": "A partition must be complete so that every possible input belongs to exactly one block. If w belongs to no block, that input is unmodeled and would be systematically left out of the test design.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Choosing a criterion under a test budget",
+          "text": "<p>A model has 5 characteristics, each with 4 blocks. All Combinations needs 4^5 = 1024 tests, which the budget cannot afford, but you still want each block exercised together with a common base configuration. Which criterion best fits a budget of roughly 16 tests?</p>",
+          "answers": [
+            {
+              "text": "Base Choice Coverage — 1 + 5 × (4-1) = 16 tests, varying each block from a base",
+              "fraction": 100,
+              "feedback": "Correct — BCC hits exactly 16 here and exercises every block relative to a base configuration."
+            },
+            {
+              "text": "All Combinations Coverage — 1024 tests",
+              "fraction": 0,
+              "feedback": "1024 is far over the budget; that is the criterion being ruled out."
+            },
+            {
+              "text": "Pair-Wise Coverage — at least 4 × 4 = 16 but typically more",
+              "fraction": 0,
+              "feedback": "PWC's lower bound is 16, but a real pairwise set for five 4-block characteristics needs more than 16 and does not use a single base configuration."
+            },
+            {
+              "text": "Each Choice Coverage — 4 tests",
+              "fraction": 0,
+              "feedback": "ECC needs only 4 tests but does not exercise blocks against a common base as asked."
+            }
+          ],
+          "generalFeedback": "BCC = 1 + Σ(b_i - 1) = 1 + 5 × 3 = 16, right at the budget, and by construction it varies each block one at a time from a base test — matching the stated goal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MBCC count with two base tests",
+          "text": "<p>An ISP model has three characteristics with 3, 2, and 2 blocks. Using Multiple Base Choice Coverage with <strong>2 base tests</strong> (one base choice per characteristic in each), how many tests result? Vary one characteristic at a time from each base test.</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "Correct — each base contributes 1 + (2 + 1 + 1) = 5 tests, and 2 × 5 = 10."
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 is the single-base (BCC) count; MBCC with 2 bases doubles it to 10."
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 is the ACoC product (3 × 2 × 2) doubled would be 24; MBCC here is 2 × 5 = 10."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 is not consistent with m × (1 + Σ(b_i - 1)); the correct value is 2 × 5 = 10."
+            }
+          ],
+          "generalFeedback": "With m base tests and one base choice per characteristic, MBCC = m × (1 + Σ(b_i - 1)). Here BCC = 1 + (2 + 1 + 1) = 5, so MBCC = 2 × 5 = 10.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MBCC subsumes BCC",
+          "text": "<p>What is the subsumption relationship between Multiple Base Choice Coverage (MBCC) and Base Choice Coverage (BCC)?</p>",
+          "answers": [
+            {
+              "text": "MBCC subsumes BCC — using several base tests includes the coverage of a single base test",
+              "fraction": 100,
+              "feedback": "Correct — MBCC ⊇ BCC ⊇ ECC."
+            },
+            {
+              "text": "BCC subsumes MBCC",
+              "fraction": 0,
+              "feedback": "This reverses the direction; more base tests can only add coverage."
+            },
+            {
+              "text": "They are incomparable — neither subsumes the other",
+              "fraction": 0,
+              "feedback": "MBCC is a generalization of BCC and always covers what BCC does."
+            },
+            {
+              "text": "They are identical criteria",
+              "fraction": 0,
+              "feedback": "MBCC uses multiple base tests, so it can require strictly more tests than BCC."
+            }
+          ],
+          "generalFeedback": "MBCC generalizes BCC by using more than one base test, so every BCC requirement is met by MBCC: MBCC ⊇ BCC ⊇ ECC.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC count for four binary characteristics",
+          "text": "<p>An ISP model has four characteristics, each with 2 blocks. How many tests does All Combinations Coverage require?</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "Correct — 2 × 2 × 2 × 2 = 2^4 = 16."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is 2^3; there are four characteristics, so the product is 2^4 = 16."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the number of pairs of blocks summed; ACoC multiplies all four block counts."
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 = 1 + 4 × 2 is a base-choice-style count, not the ACoC product."
+            }
+          ],
+          "generalFeedback": "ACoC = 2^4 = 16, the product of the four block counts.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "PWC lower bound with tied largest counts",
+          "text": "<p>An ISP model has three characteristics with 4, 4, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage set must contain?</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "Correct — the two largest block counts are 4 and 4, so the lower bound is 4 × 4 = 16."
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 is the full All Combinations product (4 × 4 × 2); PWC needs fewer."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 is the sum of the block counts, not the pairwise lower bound."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 (4 × 2) uses the wrong pair; the two largest are both 4, giving 16."
+            }
+          ],
+          "generalFeedback": "The PWC lower bound is the product of the two largest block counts. Both largest are 4, so the bound is 4 × 4 = 16. (Actual pairwise sets may need a few more tests, but never fewer.)",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "PWC equals ACoC for two characteristics",
+          "text": "<p>When a model has exactly <strong>two</strong> characteristics, Pair-Wise Coverage and All Combinations Coverage require the same number of tests.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — with only one pair of characteristics, covering every pair of blocks is the full cross-product."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "With two characteristics the single pair's block combinations are exactly the All Combinations set, so PWC = ACoC here."
+            }
+          ],
+          "generalFeedback": "PWC requires every pair of blocks from every pair of characteristics. With just two characteristics there is only one pair, and covering all of its block pairs is precisely b1 × b2 — the same as ACoC."
+        },
+        {
+          "type": "multichoice",
+          "name": "Does PWC subsume BCC?",
+          "text": "<p>Which statement about Pair-Wise Coverage (PWC) and Base Choice Coverage (BCC) is correct?</p>",
+          "answers": [
+            {
+              "text": "Neither subsumes the other — PWC and BCC are incomparable",
+              "fraction": 100,
+              "feedback": "Correct — PWC guarantees pairs but not base-variation; BCC guarantees base-variation but not all pairs."
+            },
+            {
+              "text": "PWC subsumes BCC",
+              "fraction": 0,
+              "feedback": "A pairwise set need not include a single base test varied one characteristic at a time, so it does not always satisfy BCC."
+            },
+            {
+              "text": "BCC subsumes PWC",
+              "fraction": 0,
+              "feedback": "A base-choice set covers only Σ(b_i - 1) + 1 tests and misses most block pairs, so it does not satisfy PWC."
+            },
+            {
+              "text": "They are equivalent criteria",
+              "fraction": 0,
+              "feedback": "They impose different requirements and generally produce different test sets."
+            }
+          ],
+          "generalFeedback": "PWC and BCC are incomparable: both subsume ECC, but PWC covers all block pairs (not base variations) while BCC covers base variations (not all pairs).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fixing an invalid partition",
+          "text": "<p>A characteristic \"discount tier by amount A\" is defined as {A &lt; 100}, {100 ≤ A ≤ 500}, {A ≥ 500}. It is invalid. What is the minimal fix that makes it a valid partition?</p>",
+          "answers": [
+            {
+              "text": "Change one bound so 500 is in exactly one block, e.g. {A < 100}, {100 ≤ A < 500}, {A ≥ 500}",
+              "fraction": 100,
+              "feedback": "Correct — the only defect is that 500 sits in two blocks; excluding it from one restores disjointness while keeping completeness."
+            },
+            {
+              "text": "Delete the middle block entirely",
+              "fraction": 0,
+              "feedback": "That would leave 100..499 uncovered, creating an incompleteness gap."
+            },
+            {
+              "text": "Add a fourth block {A = 500}",
+              "fraction": 0,
+              "feedback": "500 would still remain in the existing blocks too, so the overlap is not removed."
+            },
+            {
+              "text": "Nothing — the partition is already valid",
+              "fraction": 0,
+              "feedback": "500 satisfies both {100 ≤ A ≤ 500} and {A ≥ 500}, so it is not disjoint."
+            }
+          ],
+          "generalFeedback": "The value 500 lies in both the middle block and {A ≥ 500}, breaking disjointness. Making the middle block {100 ≤ A < 500} removes the overlap while still covering every amount, yielding a valid partition.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Does the base choice change the BCC count?",
+          "text": "<p>Two testers model the same characteristics with 3, 2, and 2 blocks but pick different base choices. How do their Base Choice Coverage test sets compare?</p>",
+          "answers": [
+            {
+              "text": "Both sets have the same size, 1 + (2 + 1 + 1) = 5, though the concrete test values differ",
+              "fraction": 100,
+              "feedback": "Correct — the BCC count 1 + Σ(b_i - 1) is independent of which block is chosen as the base."
+            },
+            {
+              "text": "The set built from the \"larger\" base is always bigger",
+              "fraction": 0,
+              "feedback": "Block counts, not the chosen base, fix the size; both are 1 + Σ(b_i - 1) = 5."
+            },
+            {
+              "text": "One set will satisfy ACoC and the other will not",
+              "fraction": 0,
+              "feedback": "Neither BCC set reaches ACoC (which needs 3 × 2 × 2 = 12 tests); base choice does not change that."
+            },
+            {
+              "text": "The sizes differ by the number of characteristics",
+              "fraction": 0,
+              "feedback": "Both sizes equal 1 + Σ(b_i - 1) = 5 regardless of the base; the base only changes which values appear."
+            }
+          ],
+          "generalFeedback": "BCC always produces 1 + Σ(b_i - 1) tests = 1 + (2 + 1 + 1) = 5 here. Changing the base choice changes which concrete tests are generated but not the count or the criterion satisfied.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MBCC count with three base tests",
+          "text": "<p>An ISP model has three characteristics, each with 2 blocks. Using Multiple Base Choice Coverage with <strong>3 base tests</strong> (one base choice per characteristic in each), varying one characteristic at a time from each base, how many tests result?</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "Correct — each base contributes 1 + (1 + 1 + 1) = 4 tests, and 3 × 4 = 12."
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 is the single-base (BCC) count; with 3 bases it becomes 3 × 4 = 12."
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 is the ACoC product (2 × 2 × 2); MBCC here is 3 × 4 = 12."
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 does not match m × (1 + Σ(b_i - 1)); the correct value is 3 × 4 = 12."
+            }
+          ],
+          "generalFeedback": "MBCC = m × (1 + Σ(b_i - 1)). Here BCC = 1 + (1 + 1 + 1) = 4, so with 3 base tests MBCC = 3 × 4 = 12.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是區塊（block）",
+          "text": "<p>在輸入空間劃分（Input Space Partitioning, ISP）中，一個特徵（characteristic）會把輸入定義域分成若干<strong>區塊（block）</strong>。區塊是什麼？</p>",
+          "answers": [
+            {
+              "text": "定義域中被該特徵歸為同一類、視為一體的一組值",
+              "fraction": 100,
+              "feedback": "正確——每個區塊是沿該特徵劃分後所得的一類值。"
+            },
+            {
+              "text": "一個可直接執行的具體測試案例",
+              "fraction": 0,
+              "feedback": "區塊是一類值；具體測試是從某個區塊挑出的一個代表值。"
+            },
+            {
+              "text": "該輸入所執行到的一行原始碼",
+              "fraction": 0,
+              "feedback": "ISP 屬黑箱技術，描述的是輸入定義域，而非程式碼。"
+            },
+            {
+              "text": "程式應產生的預期輸出",
+              "fraction": 0,
+              "feedback": "那是預期結果（oracle），不是輸入定義域的區塊。"
+            }
+          ],
+          "generalFeedback": "特徵會把輸入定義域劃分成若干區塊；每個區塊是一組被假設會被同等處理的值，之後再從每個區塊挑一個代表值。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是劃分（partition）",
+          "text": "<p>對於某個特徵，它對輸入定義域的<strong>劃分（partition）</strong>最適合以下列何者描述？</p>",
+          "answers": [
+            {
+              "text": "一組彼此互斥（disjoint）、且聯集涵蓋整個定義域的區塊集合",
+              "fraction": 100,
+              "feedback": "正確——劃分正是一組互斥且完整的區塊。"
+            },
+            {
+              "text": "為了方便而任意選取、彼此重疊的一些值域範圍",
+              "fraction": 0,
+              "feedback": "重疊會破壞互斥性，因此重疊的範圍無法構成有效劃分。"
+            },
+            {
+              "text": "定義域中最重要的那個單一值",
+              "fraction": 0,
+              "feedback": "劃分是涵蓋定義域的區塊集合，而非單一值。"
+            },
+            {
+              "text": "某個涵蓋準則所產生的測試案例清單",
+              "fraction": 0,
+              "feedback": "測試是後續才產生的；劃分指的是對定義域本身的切分。"
+            }
+          ],
+          "generalFeedback": "某特徵的劃分是一組區塊，這些區塊合起來是完整的（涵蓋整個定義域）且互斥的（沒有任何值落在兩個區塊中）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "互斥（disjoint）的意義",
+          "text": "<p>某特徵的區塊必須是<strong>互斥（disjoint）</strong>的。這是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "定義域中沒有任何值同時屬於一個以上的區塊",
+              "fraction": 100,
+              "feedback": "正確——互斥表示區塊之間不重疊。"
+            },
+            {
+              "text": "定義域中的每個值都屬於某個區塊",
+              "fraction": 0,
+              "feedback": "那描述的是完整性（complete），不是互斥性。"
+            },
+            {
+              "text": "所有區塊包含相同數量的值",
+              "fraction": 0,
+              "feedback": "不要求大小相等；互斥只禁止重疊。"
+            },
+            {
+              "text": "恰好只有兩個區塊",
+              "fraction": 0,
+              "feedback": "互斥性與區塊的數量無關。"
+            }
+          ],
+          "generalFeedback": "互斥表示區塊彼此排斥：任一個輸入值最多只會落入該特徵的一個區塊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "完整（complete）的意義",
+          "text": "<p>某特徵的區塊必須是<strong>完整（complete）</strong>的。這是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "區塊的聯集就是整個輸入定義域——每個值都落入某個區塊",
+              "fraction": 100,
+              "feedback": "正確——完整表示區塊不遺漏任何值。"
+            },
+            {
+              "text": "沒有任何值同時屬於兩個區塊",
+              "fraction": 0,
+              "feedback": "那描述的是互斥性，不是完整性。"
+            },
+            {
+              "text": "每個區塊至少用兩個值來測試",
+              "fraction": 0,
+              "feedback": "完整性談的是涵蓋定義域，而不是每個區塊用幾個值。"
+            },
+            {
+              "text": "該特徵至少要有三個區塊",
+              "fraction": 0,
+              "feedback": "完整性對區塊數量沒有下限要求。"
+            }
+          ],
+          "generalFeedback": "完整表示區塊涵蓋整個定義域：它們合起來包含所有可能的輸入值，因此不會有任何值無法歸類。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "從區塊選值",
+          "text": "<p>當區塊定義完成後，ISP 如何把它們轉成具體測試？</p>",
+          "answers": [
+            {
+              "text": "從測試所用的每個區塊各挑一個代表值",
+              "fraction": 100,
+              "feedback": "正確——以每個區塊一個代表值來代表整個區塊。"
+            },
+            {
+              "text": "窮舉每個區塊中的每一個值",
+              "fraction": 0,
+              "feedback": "窮舉正是劃分技術要避免的做法。"
+            },
+            {
+              "text": "只從最大的區塊挑值",
+              "fraction": 0,
+              "feedback": "測試所用的每個區塊都需要代表值，而不是只挑最大的。"
+            },
+            {
+              "text": "隨機產生值，忽略區塊",
+              "fraction": 0,
+              "feedback": "那樣區塊就毫無作用；ISP 是刻意從每個區塊挑代表值。"
+            }
+          ],
+          "generalFeedback": "ISP 依賴「同一區塊的值會被同等處理」的假設，因此每個區塊挑一個代表值來組成各個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "介面式（interface-based）特徵",
+          "text": "<p><strong>介面式（interface-based）</strong>特徵是從何處推導出來的？</p>",
+          "answers": [
+            {
+              "text": "從受測方法的參數推導，逐一檢視其簽章中的各參數",
+              "fraction": 100,
+              "feedback": "正確——介面式特徵直接來自輸入參數。"
+            },
+            {
+              "text": "從程式的規格與預期行為推導",
+              "fraction": 0,
+              "feedback": "那描述的是功能式（functionality-based）特徵。"
+            },
+            {
+              "text": "從程式碼內部的控制流程圖推導",
+              "fraction": 0,
+              "feedback": "ISP 屬黑箱；介面式特徵用的是參數，而非控制流程圖。"
+            },
+            {
+              "text": "從每個測試量測到的執行時間推導",
+              "fraction": 0,
+              "feedback": "執行時間與特徵的推導無關。"
+            }
+          ],
+          "generalFeedback": "介面式特徵是逐一從方法的參數讀出（例如「參數 x 是否為 null？」）。這種方式容易推導，但可能忽略參數之間的關係。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "功能式（functionality-based）特徵",
+          "text": "<p><strong>功能式（functionality-based）</strong>特徵是從何處推導出來的？</p>",
+          "answers": [
+            {
+              "text": "從函式所規定的行為或語意推導，可能同時牽涉多個參數",
+              "fraction": 100,
+              "feedback": "正確——功能式特徵來自函式應做的事。"
+            },
+            {
+              "text": "從簽章中逐一獨立檢視的各個參數推導",
+              "fraction": 0,
+              "feedback": "那是介面式的做法。"
+            },
+            {
+              "text": "從實作中的敘述句數量推導",
+              "fraction": 0,
+              "feedback": "敘述句數量是程式碼度量，不是功能式特徵。"
+            },
+            {
+              "text": "從編譯器的最佳化等級推導",
+              "fraction": 0,
+              "feedback": "編譯設定與特徵的推導毫無關係。"
+            }
+          ],
+          "generalFeedback": "功能式特徵來自規格（例如「串列是否已排序」），且可能同時關聯多個參數。它們通常能導出較好的測試，但需要更多領域理解。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ECC 的要求",
+          "text": "<p>各選擇涵蓋（Each Choice Coverage, ECC）對一組測試的要求是什麼？</p>",
+          "answers": [
+            {
+              "text": "每個特徵的每個區塊都必須至少出現在一個測試中",
+              "fraction": 100,
+              "feedback": "正確——這正是「各選擇」的要求。"
+            },
+            {
+              "text": "所有特徵之間的每一種區塊組合都必須出現",
+              "fraction": 0,
+              "feedback": "那是全組合涵蓋（ACoC），要求強得多。"
+            },
+            {
+              "text": "每一對特徵的每一對區塊都必須一起出現",
+              "fraction": 0,
+              "feedback": "那是成對涵蓋（PWC），不是各選擇。"
+            },
+            {
+              "text": "不論有多少區塊，只需要一個測試",
+              "fraction": 0,
+              "feedback": "一個測試不可能同時包含同一特徵的兩個不同區塊。"
+            }
+          ],
+          "generalFeedback": "ECC 只要求每個特徵的每個區塊在整組測試中至少被用到一次——是標準 ISP 準則中最弱的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC 的要求",
+          "text": "<p>全組合涵蓋（All Combinations Coverage, ACoC）對一組測試的要求是什麼？</p>",
+          "answers": [
+            {
+              "text": "每個特徵各取一個區塊所形成的每一種組合，都必須出現在某個測試中",
+              "fraction": 100,
+              "feedback": "正確——ACoC 涵蓋區塊的完整笛卡兒積。"
+            },
+            {
+              "text": "只要求每個區塊至少出現一次",
+              "fraction": 0,
+              "feedback": "那是各選擇涵蓋（ECC），較弱。"
+            },
+            {
+              "text": "只要求每一對區塊一起出現",
+              "fraction": 0,
+              "feedback": "那是成對涵蓋（PWC），比 ACoC 弱。"
+            },
+            {
+              "text": "把一個基底測試每次只變動一個特徵",
+              "fraction": 0,
+              "feedback": "那描述的是基底選擇涵蓋（BCC），不是 ACoC。"
+            }
+          ],
+          "generalFeedback": "ACoC 要求每個特徵各取一個區塊的所有組合，因此測試數是各區塊數的乘積。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩個特徵的 ACoC 數量",
+          "text": "<p>某 ISP 模型有兩個特徵，區塊數分別為 2 與 3。全組合涵蓋（ACoC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——2 × 3 = 6，即各區塊數的乘積。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是總和 2 + 3；ACoC 是各區塊數相乘。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 是較大的區塊數（那是各選擇涵蓋），不是全組合。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 與 2 × 3 不符。"
+            }
+          ],
+          "generalFeedback": "ACoC 是各區塊數的乘積：2 × 3 = 6。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三個二元特徵的 ACoC 數量",
+          "text": "<p>某 ISP 模型有三個特徵，每個都有 2 個區塊。ACoC 需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "8",
+              "fraction": 100,
+              "feedback": "正確——2 × 2 × 2 = 8。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是總和 2 + 2 + 2；ACoC 是相乘。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 是單一區塊數（各選擇），不是全組合。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 少算了一個特徵；三者相乘為 8。"
+            }
+          ],
+          "generalFeedback": "ACoC 是各區塊數的乘積：2 × 2 × 2 = 8。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ECC 數量等於最大區塊數",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 2、5、3。各選擇涵蓋（ECC）所需的最少測試數是多少？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——ECC 至少需要最大的區塊數，max(2,5,3) = 5。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 是各區塊數的總和；同一個測試中不同特徵的區塊可以共用。"
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 是乘積（全組合），遠多於 ECC 所需。"
+            },
+            {
+              "text": "3",
+              "fraction": 0,
+              "feedback": "3 不足以涵蓋那個有 5 個區塊的特徵。"
+            }
+          ],
+          "generalFeedback": "每個測試對每個特徵各取一個區塊，因此要涵蓋所有區塊，至少需要與最大區塊數一樣多的測試：max(2,5,3) = 5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩個特徵的 ECC 數量",
+          "text": "<p>某 ISP 模型有兩個特徵，區塊數分別為 4 與 2。各選擇涵蓋（ECC）所需的最少測試數是多少？</p>",
+          "answers": [
+            {
+              "text": "4",
+              "fraction": 100,
+              "feedback": "正確——ECC 至少需要 max(4,2) = 4 個測試。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是乘積（全組合），不是各選擇的最少值。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 是各區塊數的總和；ECC 在同一測試中可共用區塊。"
+            },
+            {
+              "text": "2",
+              "fraction": 0,
+              "feedback": "2 無法涵蓋那個有 4 個區塊的特徵。"
+            }
+          ],
+          "generalFeedback": "ECC 等於最大的區塊數：max(4,2) = 4。那個 2 區塊的特徵，其區塊在這四個測試中重複使用即可。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有效的特徵與其區塊",
+          "text": "<p>對於一個整數輸入 <code>x</code>，下列何者是區塊互斥且完整、格式良好的 ISP 特徵？</p>",
+          "answers": [
+            {
+              "text": "「x 的正負號」，區塊為 {x < 0}、{x = 0}、{x > 0}",
+              "fraction": 100,
+              "feedback": "正確——這三個區塊互斥，且涵蓋所有整數。"
+            },
+            {
+              "text": "「x 的大小」，區塊為 {x < 10}、{x > 5}",
+              "fraction": 0,
+              "feedback": "值 6..9 同時落入兩個區塊，因此重疊（非互斥）。"
+            },
+            {
+              "text": "「x 的範圍」，區塊為 {x < 0}、{x > 0}",
+              "fraction": 0,
+              "feedback": "值 0 不屬於任何區塊，因此不完整。"
+            },
+            {
+              "text": "「x 的值」，只有一個區塊 {x = 7}",
+              "fraction": 0,
+              "feedback": "其他所有整數都未被涵蓋，因此此劃分不完整。"
+            }
+          ],
+          "generalFeedback": "格式良好的特徵會把定義域劃分成互斥且完整的區塊。「x 的正負號」分成負、零、正，正好對整數做到這一點。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "ISP 是黑箱技術",
+          "text": "<p>輸入空間劃分是一種黑箱技術：它為輸入定義域建模，且不需要存取原始碼。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——ISP 由參數與規格推導特徵，而非由程式碼。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "ISP 作用於輸入定義域（介面式或功能式），因此不需要原始碼。"
+            }
+          ],
+          "generalFeedback": "ISP 是黑箱、以輸入定義域為對象的技術。特徵來自方法的參數（介面式）或其規定的行為（功能式），因此不需要實作程式碼。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "找出重疊的劃分",
+          "text": "<p>特徵「字串長度 L」被分成區塊 {L &lt; 10}、{10 ≤ L ≤ 20}、{L &gt; 15}。這是有效的劃分嗎？為什麼？</p>",
+          "answers": [
+            {
+              "text": "無效——區塊並非互斥（例如 L = 18 同時落入 {10 ≤ L ≤ 20} 與 {L > 15}）",
+              "fraction": 100,
+              "feedback": "正確——16..20 同時落在兩個區塊，破壞了互斥性。"
+            },
+            {
+              "text": "有效——區塊互斥且完整",
+              "fraction": 0,
+              "feedback": "它們並不互斥：值 16..20 屬於兩個區塊。"
+            },
+            {
+              "text": "無效——有些長度未被涵蓋（不完整）",
+              "fraction": 0,
+              "feedback": "每個長度都有被涵蓋；這裡的缺陷是重疊，不是遺漏。"
+            },
+            {
+              "text": "有效——ISP 允許區塊之間重疊",
+              "fraction": 0,
+              "feedback": "不允許重疊；劃分的區塊必須互斥。"
+            }
+          ],
+          "generalFeedback": "長度 16..20 同時滿足 {10 ≤ L ≤ 20} 與 {L > 15}，因此區塊重疊。有效劃分必須互斥，所以這是無效的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "找出劃分中的遺漏",
+          "text": "<p>特徵「年齡」（非負整數）被分成區塊 {0..17}、{19..65}、{&gt; 65}。這是有效的劃分嗎？為什麼？</p>",
+          "answers": [
+            {
+              "text": "無效——不完整：年齡 18 不屬於任何區塊",
+              "fraction": 100,
+              "feedback": "正確——18 被遺漏，因此區塊未涵蓋整個定義域。"
+            },
+            {
+              "text": "有效——區塊互斥且完整",
+              "fraction": 0,
+              "feedback": "年齡 18 未被涵蓋，因此不符合完整性。"
+            },
+            {
+              "text": "無效——區塊在 65 處重疊",
+              "fraction": 0,
+              "feedback": "65 只在 {19..65} 中，沒有重疊。缺陷是遺漏了 18。"
+            },
+            {
+              "text": "有效——ISP 可以接受小的遺漏",
+              "fraction": 0,
+              "feedback": "遺漏違反完整性；每個定義域的值都必須落入某個區塊。"
+            }
+          ],
+          "generalFeedback": "年齡 18 不在 {0..17}、{19..65} 或 {> 65} 中，因此劃分不完整，故為無效。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識有效的劃分",
+          "text": "<p>特徵「溫度 T（整數 °C）」被分成區塊 {T &lt; 0}、{0 ≤ T ≤ 100}、{T &gt; 100}。這是有效的劃分嗎？</p>",
+          "answers": [
+            {
+              "text": "有效——這三個區塊互斥，且合起來涵蓋每一個整數溫度",
+              "fraction": 100,
+              "feedback": "正確——沒有重疊也沒有遺漏，是正確的劃分。"
+            },
+            {
+              "text": "無效——區塊在 0 與 100 處重疊",
+              "fraction": 0,
+              "feedback": "0 只在中間區塊、100 也只在中間區塊；沒有重疊。"
+            },
+            {
+              "text": "無效——低於 0 的溫度未被涵蓋",
+              "fraction": 0,
+              "feedback": "{T < 0} 已涵蓋它們，沒有任何遺漏。"
+            },
+            {
+              "text": "無效——劃分最多只能有兩個區塊",
+              "fraction": 0,
+              "feedback": "一個特徵可以有任意數量的區塊；三個沒問題。"
+            }
+          ],
+          "generalFeedback": "區塊 {T < 0}、{0..100}、{T > 100} 對整數而言互斥且窮盡，因此劃分互斥又完整——有效。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三個特徵的 ACoC 數量",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 4、3、2。全組合涵蓋（ACoC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "24",
+              "fraction": 100,
+              "feedback": "正確——4 × 3 × 2 = 24。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是總和 4 + 3 + 2；ACoC 是各區塊數相乘。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 只乘了最大的兩個（那是 PWC 下界），而非全部三個。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是最大的單一區塊數（各選擇），不是全組合。"
+            }
+          ],
+          "generalFeedback": "ACoC ＝ 各區塊數的乘積 ＝ 4 × 3 × 2 = 24。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四個特徵的 ECC 數量",
+          "text": "<p>某 ISP 模型有四個特徵，區塊數分別為 3、3、5、2。各選擇涵蓋（ECC）所需的最少測試數是多少？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——ECC 至少需要 max(3,3,5,2) = 5 個測試。"
+            },
+            {
+              "text": "13",
+              "fraction": 0,
+              "feedback": "13 是各區塊數的總和；ECC 在每個測試中可共用區塊。"
+            },
+            {
+              "text": "90",
+              "fraction": 0,
+              "feedback": "90 是乘積（全組合），不是各選擇的最少值。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 不足以涵蓋那個有 5 個區塊的特徵。"
+            }
+          ],
+          "generalFeedback": "ECC 等於最大的區塊數：max(3,3,5,2) = 5。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "2,4,3 的 BCC 數量",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 2、4、3。基底選擇涵蓋（BCC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "7",
+              "fraction": 100,
+              "feedback": "正確——1 + (2-1) + (4-1) + (3-1) = 1 + 1 + 3 + 2 = 7。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是各區塊數的總和；BCC 是 1 + Σ(區塊數 - 1)。"
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 是乘積（全組合），不是基底選擇的數量。"
+            },
+            {
+              "text": "6",
+              "fraction": 0,
+              "feedback": "6 漏掉了 +1 的基底測試：1 + (1 + 3 + 2) = 7。"
+            }
+          ],
+          "generalFeedback": "BCC ＝ 1 + Σ(b_i - 1) = 1 + (1 + 3 + 2) = 7：一個基底測試，加上把每個特徵變動到其各個非基底區塊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "2,2,4 的 BCC 數量",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 2、2、4。基底選擇涵蓋（BCC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "6",
+              "fraction": 100,
+              "feedback": "正確——1 + (2-1) + (2-1) + (4-1) = 1 + 1 + 1 + 3 = 6。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是各區塊數的總和；BCC 是 1 + Σ(區塊數 - 1)。"
+            },
+            {
+              "text": "16",
+              "fraction": 0,
+              "feedback": "16 是乘積（全組合），不是基底選擇的數量。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 漏掉了 +1 的基底測試：1 + (1 + 1 + 3) = 6。"
+            }
+          ],
+          "generalFeedback": "BCC ＝ 1 + Σ(b_i - 1) = 1 + (1 + 1 + 3) = 6。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "4,3,2 的 PWC 下界",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 4、3、2。任何成對涵蓋（PWC）測試集至少必須包含多少個測試？</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "正確——至少為最大兩個區塊數的乘積，4 × 3 = 12。"
+            },
+            {
+              "text": "24",
+              "fraction": 0,
+              "feedback": "24 是完整的全組合乘積；PWC 需要的較少。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 是各區塊數的總和，與成對下界無關。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4（最大的單一區塊數）是各選擇的最少值，不是成對下界。"
+            }
+          ],
+          "generalFeedback": "要涵蓋最大兩個特徵（4 與 3 個區塊）之間的每一對，已需要它們全部 4 × 3 = 12 種組合，因此任何 PWC 測試集至少有 12 個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "2,5,3,2 的 PWC 下界",
+          "text": "<p>某 ISP 模型有四個特徵，區塊數分別為 2、5、3、2。任何成對涵蓋（PWC）測試集至少必須包含多少個測試？</p>",
+          "answers": [
+            {
+              "text": "15",
+              "fraction": 100,
+              "feedback": "正確——最大兩個區塊數的乘積，5 × 3 = 15。"
+            },
+            {
+              "text": "60",
+              "fraction": 0,
+              "feedback": "60 是完整的全組合乘積；PWC 需要的較少。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 是各區塊數的總和，不是成對下界。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5（最大的單一區塊數）是各選擇的最少值，不是成對下界。"
+            }
+          ],
+          "generalFeedback": "PWC 下界是最大兩個區塊數的乘積：5 × 3 = 15。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：null 檢查特徵",
+          "text": "<p>對於 <code>int indexOf(List list, Object target)</code>，測試者定義特徵「<code>list</code> 是否為 null？」，區塊為 {null}、{non-null}。此特徵最適合歸為哪一類？</p>",
+          "answers": [
+            {
+              "text": "介面式——它直接來自簽章中的單一參數",
+              "fraction": 100,
+              "feedback": "正確——單一參數是否為 null，可直接從介面讀出。"
+            },
+            {
+              "text": "功能式——它來自所規定的搜尋行為",
+              "fraction": 0,
+              "feedback": "它是從參數本身推導，而非從 indexOf 所規定要做的事。"
+            },
+            {
+              "text": "都不是——null 不能成為特徵",
+              "fraction": 0,
+              "feedback": "參考型參數是否為 null，是常見且有效的介面式特徵。"
+            },
+            {
+              "text": "視實作的控制流程而定",
+              "fraction": 0,
+              "feedback": "ISP 屬黑箱；此特徵是在不看程式碼的情況下定義的。"
+            }
+          ],
+          "generalFeedback": "「list 是否為 null？」是從單一參數本身推導，這正是介面式特徵的定義性特點。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：已排序特徵",
+          "text": "<p>對於排序程式 <code>sort(int[] a)</code>，測試者定義特徵「<code>a</code> 是否已遞增排序？」，區塊為 {已排序}、{未排序}。此特徵最適合歸為哪一類？</p>",
+          "answers": [
+            {
+              "text": "功能式——它來自排序的語意，而非僅由參數的型別決定",
+              "fraction": 100,
+              "feedback": "正確——「已排序」是與規定行為、與輸入內容有關的性質。"
+            },
+            {
+              "text": "介面式——它直接來自陣列參數的型別",
+              "fraction": 0,
+              "feedback": "型別只是「int[]」；「已排序」是語意性質，無法從簽章讀出。"
+            },
+            {
+              "text": "它不是有效的特徵，因為取決於值",
+              "fraction": 0,
+              "feedback": "取決於輸入內容正是功能式特徵的作法。"
+            },
+            {
+              "text": "它是結構式（白箱）特徵",
+              "fraction": 0,
+              "feedback": "ISP 屬黑箱；這來自排序的規格，而非程式碼結構。"
+            }
+          ],
+          "generalFeedback": "「是否已排序？」反映排序任務的語意與陣列的內容，因此屬功能式而非介面式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個值證明非互斥",
+          "text": "<p>特徵「分數 S」有區塊 {S ≤ 50}、{40 ≤ S ≤ 90}、{S &gt; 90}。哪個值可證明此劃分<strong>非互斥</strong>？</p>",
+          "answers": [
+            {
+              "text": "S = 45",
+              "fraction": 100,
+              "feedback": "正確——45 同時落在 {S ≤ 50} 與 {40 ≤ S ≤ 90}，證明重疊。"
+            },
+            {
+              "text": "S = 20",
+              "fraction": 0,
+              "feedback": "20 只在 {S ≤ 50}；無法顯示重疊。"
+            },
+            {
+              "text": "S = 95",
+              "fraction": 0,
+              "feedback": "95 只在 {S > 90}；無法顯示重疊。"
+            },
+            {
+              "text": "S = 91",
+              "fraction": 0,
+              "feedback": "91 只在 {S > 90}；無法顯示重疊。"
+            }
+          ],
+          "generalFeedback": "區塊 {S ≤ 50} 與 {40 ≤ S ≤ 90} 都包含 40..50。該範圍內的任何值（例如 45）都落在兩個區塊，證明此劃分非互斥。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個值證明不完整",
+          "text": "<p>特徵「數量 Q（整數）」有區塊 {Q &lt; 0}、{1 ≤ Q ≤ 100}、{Q &gt; 100}。哪個值可證明此劃分<strong>不完整</strong>？</p>",
+          "answers": [
+            {
+              "text": "Q = 0",
+              "fraction": 100,
+              "feedback": "正確——0 既非負、不在 1..100、也不 > 100，因此未被涵蓋。"
+            },
+            {
+              "text": "Q = 50",
+              "fraction": 0,
+              "feedback": "50 已被 {1 ≤ Q ≤ 100} 涵蓋。"
+            },
+            {
+              "text": "Q = -5",
+              "fraction": 0,
+              "feedback": "-5 已被 {Q < 0} 涵蓋。"
+            },
+            {
+              "text": "Q = 200",
+              "fraction": 0,
+              "feedback": "200 已被 {Q > 100} 涵蓋。"
+            }
+          ],
+          "generalFeedback": "Q = 0 不落入 {Q < 0}、{1..100}、{Q > 100} 中的任一個，因此劃分有遺漏、不完整。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC 比 ECC 多出的測試數",
+          "text": "<p>某 ISP 模型有兩個特徵，區塊數分別為 3 與 2。全組合涵蓋比各選擇最少值多需要幾個測試？</p>",
+          "answers": [
+            {
+              "text": "3（ACoC = 6，ECC = 3）",
+              "fraction": 100,
+              "feedback": "正確——ACoC 為 3 × 2 = 6，ECC 為 max(3,2) = 3，差為 3。"
+            },
+            {
+              "text": "0（兩者永遠相等）",
+              "fraction": 0,
+              "feedback": "此處 ACoC = 6 但 ECC = 3，並不相等。"
+            },
+            {
+              "text": "6（ACoC = 6，ECC = 0）",
+              "fraction": 0,
+              "feedback": "ECC 不是 0；它是 max(3,2) = 3，因此差為 3。"
+            },
+            {
+              "text": "2（ACoC = 5，ECC = 3）",
+              "fraction": 0,
+              "feedback": "ACoC 是乘積 3 × 2 = 6，而非 5，因此差為 3。"
+            }
+          ],
+          "generalFeedback": "ACoC = 3 × 2 = 6，ECC = max(3,2) = 3，因此 ACoC 多需要 6 - 3 = 3 個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "2,3,2 的 BCC 數量",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 2、3、2。基底選擇涵蓋（BCC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "5",
+              "fraction": 100,
+              "feedback": "正確——1 + (2-1) + (3-1) + (2-1) = 1 + 1 + 2 + 1 = 5。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 是各區塊數的總和；BCC 是 1 + Σ(區塊數 - 1)。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 是乘積（全組合），不是基底選擇的數量。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 漏掉了 +1 的基底測試：1 + (1 + 2 + 1) = 5。"
+            }
+          ],
+          "generalFeedback": "BCC ＝ 1 + Σ(b_i - 1) = 1 + (1 + 2 + 1) = 5。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "4,3,3,2 的 BCC 數量",
+          "text": "<p>某 ISP 模型有四個特徵，區塊數分別為 4、3、3、2。基底選擇涵蓋（BCC）需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "9",
+              "fraction": 100,
+              "feedback": "正確——1 + (4-1) + (3-1) + (3-1) + (2-1) = 1 + 3 + 2 + 2 + 1 = 9。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "12 是各區塊數的總和；BCC 是 1 + Σ(區塊數 - 1)。"
+            },
+            {
+              "text": "72",
+              "fraction": 0,
+              "feedback": "72 是乘積（全組合），不是基底選擇的數量。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 漏掉了 +1 的基底測試：1 + (3 + 2 + 2 + 1) = 9。"
+            }
+          ],
+          "generalFeedback": "BCC ＝ 1 + Σ(b_i - 1) = 1 + (3 + 2 + 2 + 1) = 9。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "從基底挑出 BCC 測試集",
+          "text": "<p>特徵 A、B、C 的區塊為 A∈{a1,a2}、B∈{b1,b2,b3}、C∈{c1,c2}。基底選擇為 (a1, b1, c1)。下列哪一組測試恰好是基底選擇涵蓋（BCC）的測試集？</p>",
+          "answers": [
+            {
+              "text": "(a1,b1,c1)、(a2,b1,c1)、(a1,b2,c1)、(a1,b3,c1)、(a1,b1,c2)——五個測試",
+              "fraction": 100,
+              "feedback": "正確——基底測試，加上每個非基底區塊各一個測試，每次只變動一個特徵。"
+            },
+            {
+              "text": "(a1,b1,c1)、(a2,b2,c2)——兩個測試",
+              "fraction": 0,
+              "feedback": "這一次變動了多個特徵，且漏掉大多數非基底區塊；不是 BCC 測試集。"
+            },
+            {
+              "text": "A × B × C 的全部 12 種組合",
+              "fraction": 0,
+              "feedback": "那是全組合涵蓋（ACoC），不是基底選擇。"
+            },
+            {
+              "text": "(a2,b2,c2)、(a2,b3,c2)——從非基底測試開始變動",
+              "fraction": 0,
+              "feedback": "BCC 是從指定的基底測試 (a1,b1,c1) 開始變動，其餘保持基底值。"
+            }
+          ],
+          "generalFeedback": "BCC 保留基底 (a1,b1,c1)，每次只把一個特徵變動到其非基底區塊：a2；b2；b3；c2。共得 1 + (1 + 2 + 1) = 5 個測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "ACoC-PWC-ECC 的包含鏈",
+          "text": "<p>下列哪一條包含（subsumption）鏈正確地排列這些 ISP 準則（每個包含下一個）？</p>",
+          "answers": [
+            {
+              "text": "ACoC ⊇ PWC ⊇ ECC",
+              "fraction": 100,
+              "feedback": "正確——全組合包含成對，成對包含各選擇。"
+            },
+            {
+              "text": "ECC ⊇ PWC ⊇ ACoC",
+              "fraction": 0,
+              "feedback": "這把順序反了；ECC 最弱，無法包含其他。"
+            },
+            {
+              "text": "PWC ⊇ ACoC ⊇ ECC",
+              "fraction": 0,
+              "feedback": "是 ACoC 包含 PWC，而非相反。"
+            },
+            {
+              "text": "ACoC ⊇ ECC ⊇ PWC",
+              "fraction": 0,
+              "feedback": "ECC 無法包含 PWC；PWC 是兩者中較強的。"
+            }
+          ],
+          "generalFeedback": "全組合涵蓋每一對，故 ACoC 包含 PWC；成對涵蓋每個單一區塊，故 PWC 包含 ECC。因此 ACoC ⊇ PWC ⊇ ECC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何非互斥區塊無效",
+          "text": "<p>假設某特徵的區塊重疊，使某個值 <code>v</code> 同時屬於兩個區塊。為什麼這會使該劃分對 ISP 而言無效？</p>",
+          "answers": [
+            {
+              "text": "同時對應兩個區塊的值會使區塊歸屬變得模稜兩可，因此「涵蓋每個區塊」定義不明，且所選的值可能無意間同時滿足兩個區塊",
+              "fraction": 100,
+              "feedback": "正確——互斥性正是讓「某個值所屬的區塊」有明確定義的原因。"
+            },
+            {
+              "text": "重疊會使模型太小而無法測試",
+              "fraction": 0,
+              "feedback": "重疊不會縮小模型；它使歸屬變得模稜兩可。"
+            },
+            {
+              "text": "重疊會強制使用全組合涵蓋",
+              "fraction": 0,
+              "feedback": "重疊不會決定採用哪個涵蓋準則；它違反了劃分的定義。"
+            },
+            {
+              "text": "只要區塊完整，重疊就沒問題",
+              "fraction": 0,
+              "feedback": "完整性無法修補互斥性的違反；兩者都必須滿足。"
+            }
+          ],
+          "generalFeedback": "若 v 同時在兩個區塊中，則「涵蓋每個區塊」與「某個值所屬區塊的代表值」都變得模稜兩可——一個測試值可能同時被算作兩個區塊，損及準則。互斥性可消除這種模糊。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何不完整區塊無效",
+          "text": "<p>假設某特徵的區塊漏掉了某個定義域的值 <code>w</code>（沒有任何區塊包含它）。為什麼這個劃分對 ISP 而言無效？</p>",
+          "answers": [
+            {
+              "text": "等於 w 的輸入無法歸入任何區塊，因此定義域中一個正當的部分將永遠不會被排入測試",
+              "fraction": 100,
+              "feedback": "正確——完整性保證每個輸入都由某個區塊代表。"
+            },
+            {
+              "text": "測試數會變成無限大",
+              "fraction": 0,
+              "feedback": "遺漏不會改變測試數量；它使定義域的一部分未被建模。"
+            },
+            {
+              "text": "屆時各選擇涵蓋（ECC）將無法被滿足",
+              "fraction": 0,
+              "feedback": "在已定義的區塊上 ECC 仍可被滿足；問題在於未建模的值 w。"
+            },
+            {
+              "text": "只要區塊互斥，不完整就可以接受",
+              "fraction": 0,
+              "feedback": "互斥無法修補涵蓋的遺漏；兩個性質都必須滿足。"
+            }
+          ],
+          "generalFeedback": "劃分必須完整，使每個可能的輸入恰好屬於一個區塊。若 w 不屬於任何區塊，該輸入就未被建模，會在測試設計中被系統性地遺漏。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "在測試預算下選擇準則",
+          "text": "<p>某模型有 5 個特徵，每個都有 4 個區塊。全組合需要 4^5 = 1024 個測試，超出預算；但你仍希望每個區塊都相對於一個共同的基底組態被測到。在大約 16 個測試的預算下，哪個準則最合適？</p>",
+          "answers": [
+            {
+              "text": "基底選擇涵蓋（BCC）——1 + 5 × (4-1) = 16 個測試，從基底變動每個區塊",
+              "fraction": 100,
+              "feedback": "正確——這裡 BCC 恰好是 16，且相對於共同基底組態測到每個區塊。"
+            },
+            {
+              "text": "全組合涵蓋（ACoC）——1024 個測試",
+              "fraction": 0,
+              "feedback": "1024 遠超預算；這正是要被排除的準則。"
+            },
+            {
+              "text": "成對涵蓋（PWC）——至少 4 × 4 = 16，但通常更多",
+              "fraction": 0,
+              "feedback": "PWC 下界是 16，但五個 4 區塊特徵的實際成對測試集會超過 16，且不使用單一的基底組態。"
+            },
+            {
+              "text": "各選擇涵蓋（ECC）——4 個測試",
+              "fraction": 0,
+              "feedback": "ECC 只需 4 個測試，但不像題目要求那樣相對於共同基底測到各區塊。"
+            }
+          ],
+          "generalFeedback": "BCC ＝ 1 + Σ(b_i - 1) = 1 + 5 × 3 = 16，正好在預算內，且依其構造每次從基底測試變動一個區塊——正符合所述目標。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩個基底測試的 MBCC 數量",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 3、2、2。使用多重基底選擇涵蓋（MBCC），採 <strong>2 個基底測試</strong>（每個基底對每個特徵各取一個基底選擇），並從每個基底測試每次只變動一個特徵，總共會有多少個測試？</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "正確——每個基底貢獻 1 + (2 + 1 + 1) = 5 個測試，2 × 5 = 10。"
+            },
+            {
+              "text": "5",
+              "fraction": 0,
+              "feedback": "5 是單一基底（BCC）的數量；有 2 個基底時翻倍為 10。"
+            },
+            {
+              "text": "12",
+              "fraction": 0,
+              "feedback": "ACoC 乘積為 3 × 2 × 2 = 12；此處 MBCC 是 2 × 5 = 10。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 與 m × (1 + Σ(b_i - 1)) 不符；正確值為 2 × 5 = 10。"
+            }
+          ],
+          "generalFeedback": "當有 m 個基底測試、每個特徵各一個基底選擇時，MBCC = m × (1 + Σ(b_i - 1))。此處 BCC = 1 + (2 + 1 + 1) = 5，故 MBCC = 2 × 5 = 10。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "MBCC 包含 BCC",
+          "text": "<p>多重基底選擇涵蓋（MBCC）與基底選擇涵蓋（BCC）之間的包含關係為何？</p>",
+          "answers": [
+            {
+              "text": "MBCC 包含 BCC——使用多個基底測試涵蓋了單一基底測試的涵蓋範圍",
+              "fraction": 100,
+              "feedback": "正確——MBCC ⊇ BCC ⊇ ECC。"
+            },
+            {
+              "text": "BCC 包含 MBCC",
+              "fraction": 0,
+              "feedback": "這把方向反了；增加基底測試只會增加涵蓋。"
+            },
+            {
+              "text": "兩者不可比較——彼此都不包含對方",
+              "fraction": 0,
+              "feedback": "MBCC 是 BCC 的推廣，永遠涵蓋 BCC 所做的。"
+            },
+            {
+              "text": "兩者是相同的準則",
+              "fraction": 0,
+              "feedback": "MBCC 使用多個基底測試，因此可能需要比 BCC 嚴格更多的測試。"
+            }
+          ],
+          "generalFeedback": "MBCC 透過使用一個以上的基底測試來推廣 BCC，因此 BCC 的每項要求都被 MBCC 滿足：MBCC ⊇ BCC ⊇ ECC。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四個二元特徵的 ACoC 數量",
+          "text": "<p>某 ISP 模型有四個特徵，每個都有 2 個區塊。全組合涵蓋需要多少個測試？</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "正確——2 × 2 × 2 × 2 = 2^4 = 16。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是 2^3；有四個特徵，因此乘積是 2^4 = 16。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是把成對區塊數相加；ACoC 是四個區塊數相乘。"
+            },
+            {
+              "text": "9",
+              "fraction": 0,
+              "feedback": "9 = 1 + 4 × 2 是基底選擇式的數量，不是 ACoC 乘積。"
+            }
+          ],
+          "generalFeedback": "ACoC = 2^4 = 16，即四個區塊數的乘積。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最大兩個區塊數相同時的 PWC 下界",
+          "text": "<p>某 ISP 模型有三個特徵，區塊數分別為 4、4、2。任何成對涵蓋測試集至少必須包含多少個測試？</p>",
+          "answers": [
+            {
+              "text": "16",
+              "fraction": 100,
+              "feedback": "正確——最大兩個區塊數為 4 與 4，故下界為 4 × 4 = 16。"
+            },
+            {
+              "text": "32",
+              "fraction": 0,
+              "feedback": "32 是完整的全組合乘積（4 × 4 × 2）；PWC 需要的較少。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 是各區塊數的總和，不是成對下界。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8（4 × 2）用錯了一對；最大兩個都是 4，得 16。"
+            }
+          ],
+          "generalFeedback": "PWC 下界是最大兩個區塊數的乘積。兩個最大都是 4，故下界為 4 × 4 = 16。（實際成對測試集可能還需要多幾個，但絕不會更少。）",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "兩個特徵時 PWC 等於 ACoC",
+          "text": "<p>當模型恰有<strong>兩個</strong>特徵時，成對涵蓋與全組合涵蓋所需的測試數相同。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——只有一對特徵時，涵蓋每一對區塊就是完整的笛卡兒積。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "兩個特徵時，該唯一一對的區塊組合正好就是全組合集合，所以此處 PWC = ACoC。"
+            }
+          ],
+          "generalFeedback": "PWC 要求每一對特徵的每一對區塊。只有兩個特徵時就只有一對，涵蓋其所有區塊對正好是 b1 × b2——與 ACoC 相同。"
+        },
+        {
+          "type": "multichoice",
+          "name": "PWC 是否包含 BCC？",
+          "text": "<p>關於成對涵蓋（PWC）與基底選擇涵蓋（BCC），下列哪個敘述正確？</p>",
+          "answers": [
+            {
+              "text": "兩者互不包含——PWC 與 BCC 不可比較",
+              "fraction": 100,
+              "feedback": "正確——PWC 保證區塊對但不保證基底變動；BCC 保證基底變動但不保證所有區塊對。"
+            },
+            {
+              "text": "PWC 包含 BCC",
+              "fraction": 0,
+              "feedback": "成對測試集不必包含「每次只變動一個特徵的單一基底測試」，因此不一定滿足 BCC。"
+            },
+            {
+              "text": "BCC 包含 PWC",
+              "fraction": 0,
+              "feedback": "基底選擇集只涵蓋 1 + Σ(b_i - 1) 個測試，漏掉大多數區塊對，因此不滿足 PWC。"
+            },
+            {
+              "text": "兩者是等價的準則",
+              "fraction": 0,
+              "feedback": "它們施加不同要求，通常產生不同的測試集。"
+            }
+          ],
+          "generalFeedback": "PWC 與 BCC 不可比較：兩者都包含 ECC，但 PWC 涵蓋所有區塊對（非基底變動），而 BCC 涵蓋基底變動（非所有區塊對）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "修正無效的劃分",
+          "text": "<p>特徵「依金額 A 分的折扣級距」定義為 {A &lt; 100}、{100 ≤ A ≤ 500}、{A ≥ 500}。它是無效的。要使其成為有效劃分，最小的修正是什麼？</p>",
+          "answers": [
+            {
+              "text": "調整一個邊界，使 500 恰好只屬於一個區塊，例如 {A < 100}、{100 ≤ A < 500}、{A ≥ 500}",
+              "fraction": 100,
+              "feedback": "正確——唯一的缺陷是 500 落在兩個區塊；把它從其中一個排除即可恢復互斥並保持完整。"
+            },
+            {
+              "text": "完全刪除中間區塊",
+              "fraction": 0,
+              "feedback": "那會使 100..499 未被涵蓋，造成不完整的遺漏。"
+            },
+            {
+              "text": "新增第四個區塊 {A = 500}",
+              "fraction": 0,
+              "feedback": "500 仍會留在原本的區塊中，因此重疊並未被移除。"
+            },
+            {
+              "text": "不用改——此劃分已經有效",
+              "fraction": 0,
+              "feedback": "500 同時滿足 {100 ≤ A ≤ 500} 與 {A ≥ 500}，因此並非互斥。"
+            }
+          ],
+          "generalFeedback": "值 500 同時落在中間區塊與 {A ≥ 500}，破壞互斥性。把中間區塊改為 {100 ≤ A < 500} 可移除重疊，同時仍涵蓋每個金額，得到有效劃分。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "基底選擇會改變 BCC 數量嗎？",
+          "text": "<p>兩位測試者為相同的特徵（區塊數 3、2、2）建模，但選了不同的基底選擇。他們的基底選擇涵蓋測試集相比之下如何？</p>",
+          "answers": [
+            {
+              "text": "兩者大小相同，皆為 1 + (2 + 1 + 1) = 5，儘管具體的測試值不同",
+              "fraction": 100,
+              "feedback": "正確——BCC 數量 1 + Σ(b_i - 1) 與選哪個區塊當基底無關。"
+            },
+            {
+              "text": "從「較大」基底建出的那組一定較大",
+              "fraction": 0,
+              "feedback": "決定大小的是區塊數而非所選基底；兩者都是 1 + Σ(b_i - 1) = 5。"
+            },
+            {
+              "text": "其中一組會滿足 ACoC，另一組不會",
+              "fraction": 0,
+              "feedback": "兩個 BCC 測試集都達不到 ACoC（需要 3 × 2 × 2 = 12 個測試）；基底選擇不會改變這點。"
+            },
+            {
+              "text": "大小會相差特徵的數量",
+              "fraction": 0,
+              "feedback": "兩者大小都等於 1 + Σ(b_i - 1) = 5，與基底無關；基底只改變出現的值。"
+            }
+          ],
+          "generalFeedback": "BCC 永遠產生 1 + Σ(b_i - 1) 個測試，此處為 1 + (2 + 1 + 1) = 5。改變基底選擇只改變產生哪些具體測試，而不改變數量或所滿足的準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "三個基底測試的 MBCC 數量",
+          "text": "<p>某 ISP 模型有三個特徵，每個都有 2 個區塊。使用多重基底選擇涵蓋（MBCC），採 <strong>3 個基底測試</strong>（每個基底對每個特徵各取一個基底選擇），並從每個基底每次只變動一個特徵，總共會有多少個測試？</p>",
+          "answers": [
+            {
+              "text": "12",
+              "fraction": 100,
+              "feedback": "正確——每個基底貢獻 1 + (1 + 1 + 1) = 4 個測試，3 × 4 = 12。"
+            },
+            {
+              "text": "4",
+              "fraction": 0,
+              "feedback": "4 是單一基底（BCC）的數量；有 3 個基底時變為 3 × 4 = 12。"
+            },
+            {
+              "text": "8",
+              "fraction": 0,
+              "feedback": "8 是 ACoC 乘積（2 × 2 × 2）；此處 MBCC 是 3 × 4 = 12。"
+            },
+            {
+              "text": "7",
+              "fraction": 0,
+              "feedback": "7 與 m × (1 + Σ(b_i - 1)) 不符；正確值為 3 × 4 = 12。"
+            }
+          ],
+          "generalFeedback": "MBCC = m × (1 + Σ(b_i - 1))。此處 BCC = 1 + (1 + 1 + 1) = 4，故採 3 個基底測試時 MBCC = 3 × 4 = 12。",
+          "single": true
+        }
+      ]
+    }
+  },
   "integration-testing": {
     "en": {
       "easy": [

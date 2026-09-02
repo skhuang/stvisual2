@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Input Space Partitioning/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What a block is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In Input Space Partitioning (ISP), a characteristic divides the input domain into <strong>blocks</strong>. What is a block?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A subset of the domain's values that the characteristic groups together and treats as one class</text><feedback><text>Correct — each block is one class of values produced by partitioning along that characteristic.</text></feedback></answer>
+    <answer fraction="0"><text>A single concrete test case ready to run</text><feedback><text>A block is a class of values; a concrete test is one representative chosen from a block.</text></feedback></answer>
+    <answer fraction="0"><text>A line of source code exercised by the input</text><feedback><text>ISP is black-box and describes the input domain, not code lines.</text></feedback></answer>
+    <answer fraction="0"><text>The expected output the program should produce</text><feedback><text>That is an oracle result, not a block of the input domain.</text></feedback></answer>
+    <generalfeedback><text>A characteristic partitions the input domain into blocks; each block is a set of values assumed to be handled equivalently, and one representative value is later chosen from each block.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a partition is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For one characteristic, its <strong>partition</strong> of the input domain is best described as which of the following?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The collection of blocks that are pairwise disjoint and whose union is the whole domain</text><feedback><text>Correct — a partition is exactly a set of disjoint, complete blocks.</text></feedback></answer>
+    <answer fraction="0"><text>Any collection of overlapping value ranges chosen for convenience</text><feedback><text>Overlap breaks disjointness, so overlapping ranges do not form a valid partition.</text></feedback></answer>
+    <answer fraction="0"><text>The single most important value of the domain</text><feedback><text>A partition is a set of blocks covering the domain, not one value.</text></feedback></answer>
+    <answer fraction="0"><text>The list of test cases produced by a coverage criterion</text><feedback><text>Tests come later; the partition is the division of the domain itself.</text></feedback></answer>
+    <generalfeedback><text>A partition (for one characteristic) is a set of blocks that together are complete (cover the whole domain) and disjoint (no value in two blocks).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of disjoint blocks</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The blocks of a characteristic are required to be <strong>disjoint</strong>. What does that mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No value of the domain belongs to more than one block</text><feedback><text>Correct — disjoint means the blocks do not overlap.</text></feedback></answer>
+    <answer fraction="0"><text>Every value of the domain belongs to some block</text><feedback><text>That describes completeness, not disjointness.</text></feedback></answer>
+    <answer fraction="0"><text>All blocks contain the same number of values</text><feedback><text>Equal size is not required; disjointness only forbids overlap.</text></feedback></answer>
+    <answer fraction="0"><text>There are exactly two blocks</text><feedback><text>Disjointness says nothing about how many blocks there are.</text></feedback></answer>
+    <generalfeedback><text>Disjoint means the blocks are mutually exclusive: any given input value falls into at most one block of that characteristic.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of complete blocks</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The blocks of a characteristic are required to be <strong>complete</strong>. What does that mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The union of the blocks is the entire input domain — every value falls into some block</text><feedback><text>Correct — completeness means the blocks leave no value uncovered.</text></feedback></answer>
+    <answer fraction="0"><text>No value belongs to two blocks</text><feedback><text>That describes disjointness, not completeness.</text></feedback></answer>
+    <answer fraction="0"><text>Each block is tested with at least two values</text><feedback><text>Completeness is about covering the domain, not about how many values per block.</text></feedback></answer>
+    <answer fraction="0"><text>The characteristic has at least three blocks</text><feedback><text>Completeness places no minimum on the number of blocks.</text></feedback></answer>
+    <generalfeedback><text>Complete means the blocks cover the whole domain: taken together they contain every possible input value, so nothing is left unclassifiable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Choosing values from blocks</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Once the blocks are defined, how does ISP turn them into concrete tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Choose one representative value from each block used in a test</text><feedback><text>Correct — one representative per block stands in for the whole block.</text></feedback></answer>
+    <answer fraction="0"><text>Use every value in every block exhaustively</text><feedback><text>Exhaustive enumeration is exactly what partitioning avoids.</text></feedback></answer>
+    <answer fraction="0"><text>Pick values only from the largest block</text><feedback><text>Every block used in a test needs a representative, not just the largest one.</text></feedback></answer>
+    <answer fraction="0"><text>Generate values randomly, ignoring the blocks</text><feedback><text>Then the blocks would play no role; ISP deliberately picks a representative per block.</text></feedback></answer>
+    <generalfeedback><text>ISP relies on the assumption that a block's values are handled equivalently, so a single representative value per block is chosen to build each test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interface-based characteristics</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What are <strong>interface-based</strong> characteristics derived from?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The parameters of the method under test, considered individually from its signature</text><feedback><text>Correct — interface-based characteristics come straight from the input parameters.</text></feedback></answer>
+    <answer fraction="0"><text>The program's specification and intended behavior</text><feedback><text>That describes functionality-based characteristics.</text></feedback></answer>
+    <answer fraction="0"><text>The internal control-flow graph of the code</text><feedback><text>ISP is black-box; interface-based characteristics use the parameters, not the CFG.</text></feedback></answer>
+    <answer fraction="0"><text>The measured runtime of each test</text><feedback><text>Timing is unrelated to how characteristics are derived.</text></feedback></answer>
+    <generalfeedback><text>Interface-based characteristics are read off the method's parameters one at a time (e.g. "is parameter x null?"). They are easy to derive but can miss relationships between parameters.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Functionality-based characteristics</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What are <strong>functionality-based</strong> characteristics derived from?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The specified behavior or semantics of the function, possibly combining several parameters</text><feedback><text>Correct — functionality-based characteristics come from what the function is supposed to do.</text></feedback></answer>
+    <answer fraction="0"><text>Each parameter taken in isolation from the signature</text><feedback><text>That is the interface-based approach.</text></feedback></answer>
+    <answer fraction="0"><text>The number of statements in the implementation</text><feedback><text>Statement counts are code metrics, not functionality-based characteristics.</text></feedback></answer>
+    <answer fraction="0"><text>The compiler's optimization level</text><feedback><text>Compilation settings have nothing to do with deriving characteristics.</text></feedback></answer>
+    <generalfeedback><text>Functionality-based characteristics come from the specification (e.g. "list is already sorted"), and may relate several parameters at once. They often yield better tests but require more domain understanding.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What ECC requires</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does Each Choice Coverage (ECC) require of a test set?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every block of every characteristic must appear in at least one test</text><feedback><text>Correct — that is exactly the each-choice requirement.</text></feedback></answer>
+    <answer fraction="0"><text>Every combination of blocks across all characteristics must appear</text><feedback><text>That is All Combinations Coverage, which is far stronger.</text></feedback></answer>
+    <answer fraction="0"><text>Every pair of blocks from every pair of characteristics must appear together</text><feedback><text>That is Pair-Wise Coverage, not Each Choice.</text></feedback></answer>
+    <answer fraction="0"><text>Exactly one test is needed regardless of the blocks</text><feedback><text>One test cannot include two different blocks of the same characteristic.</text></feedback></answer>
+    <generalfeedback><text>ECC only asks that each block of each characteristic be used at least once somewhere in the test set — the weakest of the standard ISP criteria.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What ACoC requires</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does All Combinations Coverage (ACoC) require of a test set?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every combination of one block from each characteristic must appear in some test</text><feedback><text>Correct — ACoC covers the full cross-product of blocks.</text></feedback></answer>
+    <answer fraction="0"><text>Only that each block appears at least once</text><feedback><text>That is Each Choice Coverage, which is weaker.</text></feedback></answer>
+    <answer fraction="0"><text>Only that every pair of blocks appears together</text><feedback><text>That is Pair-Wise Coverage, weaker than ACoC.</text></feedback></answer>
+    <answer fraction="0"><text>That a single base test is varied one characteristic at a time</text><feedback><text>That describes Base Choice Coverage, not ACoC.</text></feedback></answer>
+    <generalfeedback><text>ACoC requires every combination of blocks — one from each characteristic — so the number of tests is the product of the block counts.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ACoC count for two characteristics</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has two characteristics with 2 and 3 blocks. How many tests does All Combinations Coverage (ACoC) require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — 2 × 3 = 6, the product of the block counts.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the sum 2 + 3; ACoC multiplies the block counts.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is the larger block count (that is Each Choice), not All Combinations.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 does not match 2 × 3.</text></feedback></answer>
+    <generalfeedback><text>ACoC is the product of the block counts: 2 × 3 = 6.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ACoC count for three binary characteristics</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has three characteristics, each with 2 blocks. How many tests does ACoC require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>8</text><feedback><text>Correct — 2 × 2 × 2 = 8.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is the sum 2 + 2 + 2; ACoC multiplies.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 is one block count (Each Choice), not All Combinations.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 ignores one characteristic; the product over all three is 8.</text></feedback></answer>
+    <generalfeedback><text>ACoC is the product of the block counts: 2 × 2 × 2 = 8.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ECC count equals the largest block count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has three characteristics with 2, 5, and 3 blocks. What is the minimum number of tests for Each Choice Coverage (ECC)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — ECC needs at least the largest block count, max(2,5,3) = 5.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 is the sum of the block counts; blocks can be reused across characteristics within one test.</text></feedback></answer>
+    <answer fraction="0"><text>30</text><feedback><text>30 is the product (All Combinations), far more than ECC needs.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is not enough to cover the characteristic with 5 blocks.</text></feedback></answer>
+    <generalfeedback><text>Each test picks one block per characteristic, so covering every block needs at least as many tests as the largest block count: max(2,5,3) = 5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ECC count with two characteristics</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has two characteristics with 4 and 2 blocks. What is the minimum number of tests for Each Choice Coverage (ECC)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — ECC needs at least max(4,2) = 4 tests.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 is the product (All Combinations), not the each-choice minimum.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is the sum of the block counts; ECC reuses blocks within a test.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>2 cannot cover the characteristic that has 4 blocks.</text></feedback></answer>
+    <generalfeedback><text>ECC equals the largest block count: max(4,2) = 4. The 2-block characteristic's blocks are simply reused within those four tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A valid characteristic and its blocks</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For an integer input <code>x</code>, which of these is a well-formed ISP characteristic with disjoint, complete blocks?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>"Sign of x" with blocks {x &lt; 0}, {x = 0}, {x &gt; 0}</text><feedback><text>Correct — these three blocks are disjoint and cover every integer.</text></feedback></answer>
+    <answer fraction="0"><text>"Size of x" with blocks {x &lt; 10}, {x &gt; 5}</text><feedback><text>Values 6..9 fall in both blocks, so they overlap (not disjoint).</text></feedback></answer>
+    <answer fraction="0"><text>"Range of x" with blocks {x &lt; 0}, {x &gt; 0}</text><feedback><text>The value 0 belongs to no block, so this is incomplete.</text></feedback></answer>
+    <answer fraction="0"><text>"Value of x" with one block {x = 7}</text><feedback><text>Every other integer is uncovered, so this partition is incomplete.</text></feedback></answer>
+    <generalfeedback><text>A well-formed characteristic partitions the domain into disjoint, complete blocks. "Sign of x" as negative / zero / positive does exactly that for the integers.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>ISP is black-box</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Input Space Partitioning is a black-box technique: it models the input domain and does not require access to the source code.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — ISP derives characteristics from parameters and the specification, not from code.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>ISP works on the input domain (interface- or functionality-based), so it needs no source code.</text></feedback></answer>
+    <generalfeedback><text>ISP is a black-box, input-domain technique. Characteristics come from the method's parameters (interface-based) or its specified behavior (functionality-based), so the implementation is not needed.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Input Space Partitioning/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Spot the overlapping partition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A characteristic "string length L" is split into blocks {L &lt; 10}, {10 ≤ L ≤ 20}, {L &gt; 15}. Is this a valid partition, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Invalid — the blocks are not disjoint (e.g. L = 18 falls in both {10 ≤ L ≤ 20} and {L &gt; 15})</text><feedback><text>Correct — 16..20 lie in two blocks at once, breaking disjointness.</text></feedback></answer>
+    <answer fraction="0"><text>Valid — the blocks are disjoint and complete</text><feedback><text>They are not disjoint: values 16..20 belong to two blocks.</text></feedback></answer>
+    <answer fraction="0"><text>Invalid — some lengths are left uncovered (incomplete)</text><feedback><text>Every length is covered; the defect here is overlap, not a gap.</text></feedback></answer>
+    <answer fraction="0"><text>Valid — overlap between blocks is allowed in ISP</text><feedback><text>Overlap is not allowed; blocks of a partition must be disjoint.</text></feedback></answer>
+    <generalfeedback><text>Lengths 16..20 satisfy both {10 ≤ L ≤ 20} and {L &gt; 15}, so the blocks overlap. A valid partition must be disjoint, so this is invalid.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Spot the gap in a partition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A characteristic "age" (non-negative integer) is split into blocks {0..17}, {19..65}, {&gt; 65}. Is this a valid partition, and why?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Invalid — it is incomplete: age 18 belongs to no block</text><feedback><text>Correct — 18 is missing, so the blocks do not cover the whole domain.</text></feedback></answer>
+    <answer fraction="0"><text>Valid — the blocks are disjoint and complete</text><feedback><text>Age 18 is uncovered, so completeness fails.</text></feedback></answer>
+    <answer fraction="0"><text>Invalid — the blocks overlap at 65</text><feedback><text>65 is only in {19..65}; there is no overlap. The defect is the missing 18.</text></feedback></answer>
+    <answer fraction="0"><text>Valid — small gaps are acceptable in ISP</text><feedback><text>Gaps violate completeness; every domain value must fall into some block.</text></feedback></answer>
+    <generalfeedback><text>Age 18 is not in {0..17}, {19..65}, or {&gt; 65}, so the partition is incomplete and therefore invalid.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Recognize a valid partition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A characteristic "temperature T (integer °C)" is split into blocks {T &lt; 0}, {0 ≤ T ≤ 100}, {T &gt; 100}. Is this a valid partition?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Valid — the three blocks are disjoint and together cover every integer temperature</text><feedback><text>Correct — no overlap and no gap, so it is a proper partition.</text></feedback></answer>
+    <answer fraction="0"><text>Invalid — the blocks overlap at 0 and 100</text><feedback><text>0 is only in the middle block and 100 only in the middle block; there is no overlap.</text></feedback></answer>
+    <answer fraction="0"><text>Invalid — temperatures below 0 are uncovered</text><feedback><text>{T &lt; 0} covers them, so nothing is uncovered.</text></feedback></answer>
+    <answer fraction="0"><text>Invalid — a partition may have at most two blocks</text><feedback><text>A characteristic may have any number of blocks; three is fine.</text></feedback></answer>
+    <generalfeedback><text>The blocks {T &lt; 0}, {0..100}, {T &gt; 100} are mutually exclusive and jointly exhaustive over the integers, so the partition is disjoint and complete — valid.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ACoC count for three characteristics</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has three characteristics with 4, 3, and 2 blocks. How many tests does All Combinations Coverage (ACoC) require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>24</text><feedback><text>Correct — 4 × 3 × 2 = 24.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is the sum 4 + 3 + 2; ACoC multiplies the block counts.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 is the product of only the two largest (a PWC lower bound), not all three.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the largest single block count (Each Choice), not All Combinations.</text></feedback></answer>
+    <generalfeedback><text>ACoC = product of the block counts = 4 × 3 × 2 = 24.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ECC count for four characteristics</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has four characteristics with 3, 3, 5, and 2 blocks. What is the minimum number of tests for Each Choice Coverage (ECC)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — ECC needs at least max(3,3,5,2) = 5 tests.</text></feedback></answer>
+    <answer fraction="0"><text>13</text><feedback><text>13 is the sum of the block counts; ECC reuses blocks within each test.</text></feedback></answer>
+    <answer fraction="0"><text>90</text><feedback><text>90 is the product (All Combinations), not the each-choice minimum.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is not enough to cover the characteristic that has 5 blocks.</text></feedback></answer>
+    <generalfeedback><text>ECC equals the largest block count: max(3,3,5,2) = 5.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>BCC count for 2,4,3</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has three characteristics with 2, 4, and 3 blocks. How many tests does Base Choice Coverage (BCC) require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>7</text><feedback><text>Correct — 1 + (2-1) + (4-1) + (3-1) = 1 + 1 + 3 + 2 = 7.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is the sum of the block counts; BCC is 1 + Σ(blocks - 1).</text></feedback></answer>
+    <answer fraction="0"><text>24</text><feedback><text>24 is the product (All Combinations), not the base-choice count.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 forgets the +1 base test: 1 + (1 + 3 + 2) = 7.</text></feedback></answer>
+    <generalfeedback><text>BCC = 1 + Σ(b_i - 1) = 1 + (1 + 3 + 2) = 7: one base test plus varying each characteristic through its non-base blocks.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>BCC count for 2,2,4</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has three characteristics with 2, 2, and 4 blocks. How many tests does Base Choice Coverage (BCC) require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>6</text><feedback><text>Correct — 1 + (2-1) + (2-1) + (4-1) = 1 + 1 + 1 + 3 = 6.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 is the sum of the block counts; BCC is 1 + Σ(blocks - 1).</text></feedback></answer>
+    <answer fraction="0"><text>16</text><feedback><text>16 is the product (All Combinations), not the base-choice count.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 forgets the +1 base test: 1 + (1 + 1 + 3) = 6.</text></feedback></answer>
+    <generalfeedback><text>BCC = 1 + Σ(b_i - 1) = 1 + (1 + 1 + 3) = 6.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PWC lower bound for 4,3,2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has three characteristics with 4, 3, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage (PWC) set must contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>12</text><feedback><text>Correct — at least the product of the two largest block counts, 4 × 3 = 12.</text></feedback></answer>
+    <answer fraction="0"><text>24</text><feedback><text>24 is the full All Combinations product; PWC needs fewer.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 is the sum of the block counts, unrelated to the pairwise lower bound.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 (the largest single block count) is the Each Choice minimum, not the pairwise bound.</text></feedback></answer>
+    <generalfeedback><text>Covering every pair from the two largest characteristics (4 and 3 blocks) already needs all 4 × 3 = 12 of their combinations, so any PWC set has at least 12 tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PWC lower bound for 2,5,3,2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has four characteristics with 2, 5, 3, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage (PWC) set must contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>15</text><feedback><text>Correct — the product of the two largest block counts, 5 × 3 = 15.</text></feedback></answer>
+    <answer fraction="0"><text>60</text><feedback><text>60 is the full All Combinations product; PWC needs fewer.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 is the sum of the block counts, not the pairwise lower bound.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 (the largest single block count) is the Each Choice minimum, not the pairwise bound.</text></feedback></answer>
+    <generalfeedback><text>The PWC lower bound is the product of the two largest block counts: 5 × 3 = 15.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify a null-check characteristic</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For <code>int indexOf(List list, Object target)</code>, a tester defines the characteristic "is <code>list</code> null?" with blocks {null}, {non-null}. How is this characteristic best classified?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Interface-based — it comes directly from a single parameter of the signature</text><feedback><text>Correct — nullness of one parameter is read straight off the interface.</text></feedback></answer>
+    <answer fraction="0"><text>Functionality-based — it comes from the specified search behavior</text><feedback><text>It is derived from the parameter itself, not from what indexOf is specified to do.</text></feedback></answer>
+    <answer fraction="0"><text>Neither — nullness cannot be a characteristic</text><feedback><text>Nullness of a reference parameter is a common, valid interface-based characteristic.</text></feedback></answer>
+    <answer fraction="0"><text>It depends on the implementation's control flow</text><feedback><text>ISP is black-box; this characteristic is defined without looking at code.</text></feedback></answer>
+    <generalfeedback><text>"Is list null?" is derived from one parameter considered on its own, which is the defining trait of an interface-based characteristic.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify an already-sorted characteristic</text></name>
+    <questiontext format="html"><text><![CDATA[<p>For a sorting routine <code>sort(int[] a)</code>, a tester defines the characteristic "is <code>a</code> already sorted ascending?" with blocks {already sorted}, {not sorted}. How is this best classified?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Functionality-based — it comes from the meaning of sorting, not from the parameter's type alone</text><feedback><text>Correct — "already sorted" is a property of the specified behavior over the input's contents.</text></feedback></answer>
+    <answer fraction="0"><text>Interface-based — it comes directly from the array parameter's type</text><feedback><text>The type is just "int[]"; being already-sorted is a semantic property, not read off the signature.</text></feedback></answer>
+    <answer fraction="0"><text>It is not a valid characteristic because it depends on values</text><feedback><text>Depending on the input's contents is exactly what functionality-based characteristics do.</text></feedback></answer>
+    <answer fraction="0"><text>It is a structural (white-box) characteristic</text><feedback><text>ISP is black-box; this comes from the specification of sorting, not the code structure.</text></feedback></answer>
+    <generalfeedback><text>"Already sorted?" reflects the semantics of the sorting task and the array's contents, so it is functionality-based rather than interface-based.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which value proves non-disjointness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A characteristic "score S" has blocks {S ≤ 50}, {40 ≤ S ≤ 90}, {S &gt; 90}. Which value demonstrates that the partition is <strong>not disjoint</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>S = 45</text><feedback><text>Correct — 45 is in both {S ≤ 50} and {40 ≤ S ≤ 90}, proving overlap.</text></feedback></answer>
+    <answer fraction="0"><text>S = 20</text><feedback><text>20 is only in {S ≤ 50}; it does not show overlap.</text></feedback></answer>
+    <answer fraction="0"><text>S = 95</text><feedback><text>95 is only in {S &gt; 90}; it does not show overlap.</text></feedback></answer>
+    <answer fraction="0"><text>S = 91</text><feedback><text>91 is only in {S &gt; 90}; it does not show overlap.</text></feedback></answer>
+    <generalfeedback><text>The blocks {S ≤ 50} and {40 ≤ S ≤ 90} both contain 40..50. Any value there, such as 45, lies in two blocks and proves the partition is not disjoint.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which value proves incompleteness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A characteristic "quantity Q (integer)" has blocks {Q &lt; 0}, {1 ≤ Q ≤ 100}, {Q &gt; 100}. Which value demonstrates that the partition is <strong>incomplete</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q = 0</text><feedback><text>Correct — 0 is not negative, not in 1..100, and not &gt; 100, so it is uncovered.</text></feedback></answer>
+    <answer fraction="0"><text>Q = 50</text><feedback><text>50 is covered by {1 ≤ Q ≤ 100}.</text></feedback></answer>
+    <answer fraction="0"><text>Q = -5</text><feedback><text>-5 is covered by {Q &lt; 0}.</text></feedback></answer>
+    <answer fraction="0"><text>Q = 200</text><feedback><text>200 is covered by {Q &gt; 100}.</text></feedback></answer>
+    <generalfeedback><text>Q = 0 falls into none of {Q &lt; 0}, {1..100}, {Q &gt; 100}, so the partition leaves a gap and is incomplete.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Extra tests ACoC needs over ECC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has two characteristics with 3 and 2 blocks. How many <strong>more</strong> tests does All Combinations Coverage require than the Each Choice minimum?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 (ACoC = 6, ECC = 3)</text><feedback><text>Correct — 3 × 2 = 6 for ACoC and max(3,2) = 3 for ECC, a difference of 3.</text></feedback></answer>
+    <answer fraction="0"><text>0 (they are always equal)</text><feedback><text>ACoC = 6 but ECC = 3, so they differ here.</text></feedback></answer>
+    <answer fraction="0"><text>6 (ACoC = 6, ECC = 0)</text><feedback><text>ECC is not 0; it is max(3,2) = 3, so the difference is 3.</text></feedback></answer>
+    <answer fraction="0"><text>2 (ACoC = 5, ECC = 3)</text><feedback><text>ACoC is the product 3 × 2 = 6, not 5, so the difference is 3.</text></feedback></answer>
+    <generalfeedback><text>ACoC = 3 × 2 = 6 and ECC = max(3,2) = 3, so ACoC needs 6 - 3 = 3 more tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>BCC count for 2,3,2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has three characteristics with 2, 3, and 2 blocks. How many tests does Base Choice Coverage (BCC) require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — 1 + (2-1) + (3-1) + (2-1) = 1 + 1 + 2 + 1 = 5.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is the sum of the block counts; BCC is 1 + Σ(blocks - 1).</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 is the product (All Combinations), not the base-choice count.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 forgets the +1 base test: 1 + (1 + 2 + 1) = 5.</text></feedback></answer>
+    <generalfeedback><text>BCC = 1 + Σ(b_i - 1) = 1 + (1 + 2 + 1) = 5.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Input Space Partitioning/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>BCC count for 4,3,3,2</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has four characteristics with 4, 3, 3, and 2 blocks. How many tests does Base Choice Coverage (BCC) require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>9</text><feedback><text>Correct — 1 + (4-1) + (3-1) + (3-1) + (2-1) = 1 + 3 + 2 + 2 + 1 = 9.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 is the sum of the block counts; BCC is 1 + Σ(blocks - 1).</text></feedback></answer>
+    <answer fraction="0"><text>72</text><feedback><text>72 is the product (All Combinations), not the base-choice count.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 forgets the +1 base test: 1 + (3 + 2 + 2 + 1) = 9.</text></feedback></answer>
+    <generalfeedback><text>BCC = 1 + Σ(b_i - 1) = 1 + (3 + 2 + 2 + 1) = 9.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Pick the BCC test set from a base</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Characteristics A, B, C have blocks A∈{a1,a2}, B∈{b1,b2,b3}, C∈{c1,c2}. The base choice is (a1, b1, c1). Which set of tests is exactly the Base Choice Coverage set?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(a1,b1,c1), (a2,b1,c1), (a1,b2,c1), (a1,b3,c1), (a1,b1,c2) — five tests</text><feedback><text>Correct — the base test plus one test per non-base block, changing exactly one characteristic each time.</text></feedback></answer>
+    <answer fraction="0"><text>(a1,b1,c1), (a2,b2,c2) — two tests</text><feedback><text>This changes several characteristics at once and misses most non-base blocks; it is not the BCC set.</text></feedback></answer>
+    <answer fraction="0"><text>All 12 combinations of A × B × C</text><feedback><text>That is All Combinations Coverage, not Base Choice.</text></feedback></answer>
+    <answer fraction="0"><text>(a2,b2,c2), (a2,b3,c2) — varying from a non-base test</text><feedback><text>BCC varies from the designated base test (a1,b1,c1), holding the others at their base values.</text></feedback></answer>
+    <generalfeedback><text>BCC keeps the base (a1,b1,c1) and changes one characteristic at a time to each non-base block: a2; b2; b3; c2. That yields 1 + (1 + 2 + 1) = 5 tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ACoC-PWC-ECC subsumption chain</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which subsumption chain correctly orders these ISP criteria (each subsumes the next)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ACoC ⊇ PWC ⊇ ECC</text><feedback><text>Correct — all combinations subsume pairwise, which subsumes each choice.</text></feedback></answer>
+    <answer fraction="0"><text>ECC ⊇ PWC ⊇ ACoC</text><feedback><text>This reverses the order; ECC is the weakest, so it cannot subsume the others.</text></feedback></answer>
+    <answer fraction="0"><text>PWC ⊇ ACoC ⊇ ECC</text><feedback><text>ACoC subsumes PWC, not the other way around.</text></feedback></answer>
+    <answer fraction="0"><text>ACoC ⊇ ECC ⊇ PWC</text><feedback><text>ECC does not subsume PWC; PWC is the stronger of the two.</text></feedback></answer>
+    <generalfeedback><text>All Combinations covers every pair, so ACoC subsumes PWC; Pair-Wise covers each single block, so PWC subsumes ECC. Hence ACoC ⊇ PWC ⊇ ECC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why non-disjoint blocks are invalid</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose a characteristic's blocks overlap, so some value <code>v</code> belongs to two blocks. Why does this make the partition invalid for ISP?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A value that maps to two blocks makes block membership ambiguous, so coverage of "each block" is ill-defined and a chosen value may unintentionally satisfy two blocks at once</text><feedback><text>Correct — disjointness is what makes "the block of a value" well-defined.</text></feedback></answer>
+    <answer fraction="0"><text>Overlap makes the model too small to test</text><feedback><text>Overlap does not shrink the model; it makes membership ambiguous.</text></feedback></answer>
+    <answer fraction="0"><text>Overlap forces the use of All Combinations Coverage</text><feedback><text>Overlap does not dictate a coverage criterion; it violates the partition definition.</text></feedback></answer>
+    <answer fraction="0"><text>Overlap is fine as long as the blocks are complete</text><feedback><text>Completeness does not repair a disjointness violation; both are required.</text></feedback></answer>
+    <generalfeedback><text>If v is in two blocks, then "cover each block" and "the representative of a value's block" become ambiguous — one test value may count for two blocks, undermining the criterion. Disjointness removes that ambiguity.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why incomplete blocks are invalid</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Suppose a characteristic's blocks miss some domain value <code>w</code> (no block contains it). Why is this partition invalid for ISP?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An input equal to w cannot be classified into any block, so a legitimate part of the domain would never be scheduled for testing</text><feedback><text>Correct — completeness guarantees every input is represented by some block.</text></feedback></answer>
+    <answer fraction="0"><text>The number of tests would become infinite</text><feedback><text>A gap does not change the test count; it leaves part of the domain unmodeled.</text></feedback></answer>
+    <answer fraction="0"><text>Each Choice Coverage would then be impossible to satisfy</text><feedback><text>ECC could still be satisfied on the defined blocks; the problem is the unmodeled value w.</text></feedback></answer>
+    <answer fraction="0"><text>Incompleteness is acceptable if the blocks are disjoint</text><feedback><text>Disjointness does not repair a coverage gap; both properties are required.</text></feedback></answer>
+    <generalfeedback><text>A partition must be complete so that every possible input belongs to exactly one block. If w belongs to no block, that input is unmodeled and would be systematically left out of the test design.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Choosing a criterion under a test budget</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A model has 5 characteristics, each with 4 blocks. All Combinations needs 4^5 = 1024 tests, which the budget cannot afford, but you still want each block exercised together with a common base configuration. Which criterion best fits a budget of roughly 16 tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Base Choice Coverage — 1 + 5 × (4-1) = 16 tests, varying each block from a base</text><feedback><text>Correct — BCC hits exactly 16 here and exercises every block relative to a base configuration.</text></feedback></answer>
+    <answer fraction="0"><text>All Combinations Coverage — 1024 tests</text><feedback><text>1024 is far over the budget; that is the criterion being ruled out.</text></feedback></answer>
+    <answer fraction="0"><text>Pair-Wise Coverage — at least 4 × 4 = 16 but typically more</text><feedback><text>PWC's lower bound is 16, but a real pairwise set for five 4-block characteristics needs more than 16 and does not use a single base configuration.</text></feedback></answer>
+    <answer fraction="0"><text>Each Choice Coverage — 4 tests</text><feedback><text>ECC needs only 4 tests but does not exercise blocks against a common base as asked.</text></feedback></answer>
+    <generalfeedback><text>BCC = 1 + Σ(b_i - 1) = 1 + 5 × 3 = 16, right at the budget, and by construction it varies each block one at a time from a base test — matching the stated goal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MBCC count with two base tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has three characteristics with 3, 2, and 2 blocks. Using Multiple Base Choice Coverage with <strong>2 base tests</strong> (one base choice per characteristic in each), how many tests result? Vary one characteristic at a time from each base test.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10</text><feedback><text>Correct — each base contributes 1 + (2 + 1 + 1) = 5 tests, and 2 × 5 = 10.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the single-base (BCC) count; MBCC with 2 bases doubles it to 10.</text></feedback></answer>
+    <answer fraction="0"><text>12</text><feedback><text>12 is the ACoC product (3 × 2 × 2) doubled would be 24; MBCC here is 2 × 5 = 10.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 is not consistent with m × (1 + Σ(b_i - 1)); the correct value is 2 × 5 = 10.</text></feedback></answer>
+    <generalfeedback><text>With m base tests and one base choice per characteristic, MBCC = m × (1 + Σ(b_i - 1)). Here BCC = 1 + (2 + 1 + 1) = 5, so MBCC = 2 × 5 = 10.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MBCC subsumes BCC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the subsumption relationship between Multiple Base Choice Coverage (MBCC) and Base Choice Coverage (BCC)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>MBCC subsumes BCC — using several base tests includes the coverage of a single base test</text><feedback><text>Correct — MBCC ⊇ BCC ⊇ ECC.</text></feedback></answer>
+    <answer fraction="0"><text>BCC subsumes MBCC</text><feedback><text>This reverses the direction; more base tests can only add coverage.</text></feedback></answer>
+    <answer fraction="0"><text>They are incomparable — neither subsumes the other</text><feedback><text>MBCC is a generalization of BCC and always covers what BCC does.</text></feedback></answer>
+    <answer fraction="0"><text>They are identical criteria</text><feedback><text>MBCC uses multiple base tests, so it can require strictly more tests than BCC.</text></feedback></answer>
+    <generalfeedback><text>MBCC generalizes BCC by using more than one base test, so every BCC requirement is met by MBCC: MBCC ⊇ BCC ⊇ ECC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ACoC count for four binary characteristics</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has four characteristics, each with 2 blocks. How many tests does All Combinations Coverage require?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16</text><feedback><text>Correct — 2 × 2 × 2 × 2 = 2^4 = 16.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 is 2^3; there are four characteristics, so the product is 2^4 = 16.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the number of pairs of blocks summed; ACoC multiplies all four block counts.</text></feedback></answer>
+    <answer fraction="0"><text>9</text><feedback><text>9 = 1 + 4 × 2 is a base-choice-style count, not the ACoC product.</text></feedback></answer>
+    <generalfeedback><text>ACoC = 2^4 = 16, the product of the four block counts.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PWC lower bound with tied largest counts</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has three characteristics with 4, 4, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage set must contain?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>16</text><feedback><text>Correct — the two largest block counts are 4 and 4, so the lower bound is 4 × 4 = 16.</text></feedback></answer>
+    <answer fraction="0"><text>32</text><feedback><text>32 is the full All Combinations product (4 × 4 × 2); PWC needs fewer.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 is the sum of the block counts, not the pairwise lower bound.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 (4 × 2) uses the wrong pair; the two largest are both 4, giving 16.</text></feedback></answer>
+    <generalfeedback><text>The PWC lower bound is the product of the two largest block counts. Both largest are 4, so the bound is 4 × 4 = 16. (Actual pairwise sets may need a few more tests, but never fewer.)</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>PWC equals ACoC for two characteristics</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When a model has exactly <strong>two</strong> characteristics, Pair-Wise Coverage and All Combinations Coverage require the same number of tests.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — with only one pair of characteristics, covering every pair of blocks is the full cross-product.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>With two characteristics the single pair's block combinations are exactly the All Combinations set, so PWC = ACoC here.</text></feedback></answer>
+    <generalfeedback><text>PWC requires every pair of blocks from every pair of characteristics. With just two characteristics there is only one pair, and covering all of its block pairs is precisely b1 × b2 — the same as ACoC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Does PWC subsume BCC?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about Pair-Wise Coverage (PWC) and Base Choice Coverage (BCC) is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Neither subsumes the other — PWC and BCC are incomparable</text><feedback><text>Correct — PWC guarantees pairs but not base-variation; BCC guarantees base-variation but not all pairs.</text></feedback></answer>
+    <answer fraction="0"><text>PWC subsumes BCC</text><feedback><text>A pairwise set need not include a single base test varied one characteristic at a time, so it does not always satisfy BCC.</text></feedback></answer>
+    <answer fraction="0"><text>BCC subsumes PWC</text><feedback><text>A base-choice set covers only Σ(b_i - 1) + 1 tests and misses most block pairs, so it does not satisfy PWC.</text></feedback></answer>
+    <answer fraction="0"><text>They are equivalent criteria</text><feedback><text>They impose different requirements and generally produce different test sets.</text></feedback></answer>
+    <generalfeedback><text>PWC and BCC are incomparable: both subsume ECC, but PWC covers all block pairs (not base variations) while BCC covers base variations (not all pairs).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Fixing an invalid partition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A characteristic "discount tier by amount A" is defined as {A &lt; 100}, {100 ≤ A ≤ 500}, {A ≥ 500}. It is invalid. What is the minimal fix that makes it a valid partition?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Change one bound so 500 is in exactly one block, e.g. {A &lt; 100}, {100 ≤ A &lt; 500}, {A ≥ 500}</text><feedback><text>Correct — the only defect is that 500 sits in two blocks; excluding it from one restores disjointness while keeping completeness.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the middle block entirely</text><feedback><text>That would leave 100..499 uncovered, creating an incompleteness gap.</text></feedback></answer>
+    <answer fraction="0"><text>Add a fourth block {A = 500}</text><feedback><text>500 would still remain in the existing blocks too, so the overlap is not removed.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — the partition is already valid</text><feedback><text>500 satisfies both {100 ≤ A ≤ 500} and {A ≥ 500}, so it is not disjoint.</text></feedback></answer>
+    <generalfeedback><text>The value 500 lies in both the middle block and {A ≥ 500}, breaking disjointness. Making the middle block {100 ≤ A &lt; 500} removes the overlap while still covering every amount, yielding a valid partition.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Does the base choice change the BCC count?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two testers model the same characteristics with 3, 2, and 2 blocks but pick different base choices. How do their Base Choice Coverage test sets compare?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Both sets have the same size, 1 + (2 + 1 + 1) = 5, though the concrete test values differ</text><feedback><text>Correct — the BCC count 1 + Σ(b_i - 1) is independent of which block is chosen as the base.</text></feedback></answer>
+    <answer fraction="0"><text>The set built from the "larger" base is always bigger</text><feedback><text>Block counts, not the chosen base, fix the size; both are 1 + Σ(b_i - 1) = 5.</text></feedback></answer>
+    <answer fraction="0"><text>One set will satisfy ACoC and the other will not</text><feedback><text>Neither BCC set reaches ACoC (which needs 3 × 2 × 2 = 12 tests); base choice does not change that.</text></feedback></answer>
+    <answer fraction="0"><text>The sizes differ by the number of characteristics</text><feedback><text>Both sizes equal 1 + Σ(b_i - 1) = 5 regardless of the base; the base only changes which values appear.</text></feedback></answer>
+    <generalfeedback><text>BCC always produces 1 + Σ(b_i - 1) tests = 1 + (2 + 1 + 1) = 5 here. Changing the base choice changes which concrete tests are generated but not the count or the criterion satisfied.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>MBCC count with three base tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An ISP model has three characteristics, each with 2 blocks. Using Multiple Base Choice Coverage with <strong>3 base tests</strong> (one base choice per characteristic in each), varying one characteristic at a time from each base, how many tests result?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>12</text><feedback><text>Correct — each base contributes 1 + (1 + 1 + 1) = 4 tests, and 3 × 4 = 12.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the single-base (BCC) count; with 3 bases it becomes 3 × 4 = 12.</text></feedback></answer>
+    <answer fraction="0"><text>8</text><feedback><text>8 is the ACoC product (2 × 2 × 2); MBCC here is 3 × 4 = 12.</text></feedback></answer>
+    <answer fraction="0"><text>7</text><feedback><text>7 does not match m × (1 + Σ(b_i - 1)); the correct value is 3 × 4 = 12.</text></feedback></answer>
+    <generalfeedback><text>MBCC = m × (1 + Σ(b_i - 1)). Here BCC = 1 + (1 + 1 + 1) = 4, so with 3 base tests MBCC = 3 × 4 = 12.</text></generalfeedback>
+  </question>
+</quiz>

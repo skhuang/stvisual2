@@ -71346,6 +71346,2590 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "input-space-partitioning": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What a block is",
+            "text": "<p>In Input Space Partitioning (ISP), a characteristic divides the input domain into <strong>blocks</strong>. What is a block?</p>",
+            "answers": [
+              {
+                "text": "A subset of the domain's values that the characteristic groups together and treats as one class",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each block is one class of values produced by partitioning along that characteristic."
+              },
+              {
+                "text": "A single concrete test case ready to run",
+                "fraction": 0,
+                "feedback": "A block is a class of values; a concrete test is one representative chosen from a block."
+              },
+              {
+                "text": "A line of source code exercised by the input",
+                "fraction": 0,
+                "feedback": "ISP is black-box and describes the input domain, not code lines."
+              },
+              {
+                "text": "The expected output the program should produce",
+                "fraction": 0,
+                "feedback": "That is an oracle result, not a block of the input domain."
+              }
+            ],
+            "generalFeedback": "A characteristic partitions the input domain into blocks; each block is a set of values assumed to be handled equivalently, and one representative value is later chosen from each block.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What a partition is",
+            "text": "<p>For one characteristic, its <strong>partition</strong> of the input domain is best described as which of the following?</p>",
+            "answers": [
+              {
+                "text": "The collection of blocks that are pairwise disjoint and whose union is the whole domain",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a partition is exactly a set of disjoint, complete blocks."
+              },
+              {
+                "text": "Any collection of overlapping value ranges chosen for convenience",
+                "fraction": 0,
+                "feedback": "Overlap breaks disjointness, so overlapping ranges do not form a valid partition."
+              },
+              {
+                "text": "The single most important value of the domain",
+                "fraction": 0,
+                "feedback": "A partition is a set of blocks covering the domain, not one value."
+              },
+              {
+                "text": "The list of test cases produced by a coverage criterion",
+                "fraction": 0,
+                "feedback": "Tests come later; the partition is the division of the domain itself."
+              }
+            ],
+            "generalFeedback": "A partition (for one characteristic) is a set of blocks that together are complete (cover the whole domain) and disjoint (no value in two blocks).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of disjoint blocks",
+            "text": "<p>The blocks of a characteristic are required to be <strong>disjoint</strong>. What does that mean?</p>",
+            "answers": [
+              {
+                "text": "No value of the domain belongs to more than one block",
+                "fraction": 100,
+                "feedback": "Correct \u2014 disjoint means the blocks do not overlap."
+              },
+              {
+                "text": "Every value of the domain belongs to some block",
+                "fraction": 0,
+                "feedback": "That describes completeness, not disjointness."
+              },
+              {
+                "text": "All blocks contain the same number of values",
+                "fraction": 0,
+                "feedback": "Equal size is not required; disjointness only forbids overlap."
+              },
+              {
+                "text": "There are exactly two blocks",
+                "fraction": 0,
+                "feedback": "Disjointness says nothing about how many blocks there are."
+              }
+            ],
+            "generalFeedback": "Disjoint means the blocks are mutually exclusive: any given input value falls into at most one block of that characteristic.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of complete blocks",
+            "text": "<p>The blocks of a characteristic are required to be <strong>complete</strong>. What does that mean?</p>",
+            "answers": [
+              {
+                "text": "The union of the blocks is the entire input domain \u2014 every value falls into some block",
+                "fraction": 100,
+                "feedback": "Correct \u2014 completeness means the blocks leave no value uncovered."
+              },
+              {
+                "text": "No value belongs to two blocks",
+                "fraction": 0,
+                "feedback": "That describes disjointness, not completeness."
+              },
+              {
+                "text": "Each block is tested with at least two values",
+                "fraction": 0,
+                "feedback": "Completeness is about covering the domain, not about how many values per block."
+              },
+              {
+                "text": "The characteristic has at least three blocks",
+                "fraction": 0,
+                "feedback": "Completeness places no minimum on the number of blocks."
+              }
+            ],
+            "generalFeedback": "Complete means the blocks cover the whole domain: taken together they contain every possible input value, so nothing is left unclassifiable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Choosing values from blocks",
+            "text": "<p>Once the blocks are defined, how does ISP turn them into concrete tests?</p>",
+            "answers": [
+              {
+                "text": "Choose one representative value from each block used in a test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one representative per block stands in for the whole block."
+              },
+              {
+                "text": "Use every value in every block exhaustively",
+                "fraction": 0,
+                "feedback": "Exhaustive enumeration is exactly what partitioning avoids."
+              },
+              {
+                "text": "Pick values only from the largest block",
+                "fraction": 0,
+                "feedback": "Every block used in a test needs a representative, not just the largest one."
+              },
+              {
+                "text": "Generate values randomly, ignoring the blocks",
+                "fraction": 0,
+                "feedback": "Then the blocks would play no role; ISP deliberately picks a representative per block."
+              }
+            ],
+            "generalFeedback": "ISP relies on the assumption that a block's values are handled equivalently, so a single representative value per block is chosen to build each test.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interface-based characteristics",
+            "text": "<p>What are <strong>interface-based</strong> characteristics derived from?</p>",
+            "answers": [
+              {
+                "text": "The parameters of the method under test, considered individually from its signature",
+                "fraction": 100,
+                "feedback": "Correct \u2014 interface-based characteristics come straight from the input parameters."
+              },
+              {
+                "text": "The program's specification and intended behavior",
+                "fraction": 0,
+                "feedback": "That describes functionality-based characteristics."
+              },
+              {
+                "text": "The internal control-flow graph of the code",
+                "fraction": 0,
+                "feedback": "ISP is black-box; interface-based characteristics use the parameters, not the CFG."
+              },
+              {
+                "text": "The measured runtime of each test",
+                "fraction": 0,
+                "feedback": "Timing is unrelated to how characteristics are derived."
+              }
+            ],
+            "generalFeedback": `Interface-based characteristics are read off the method's parameters one at a time (e.g. "is parameter x null?"). They are easy to derive but can miss relationships between parameters.`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Functionality-based characteristics",
+            "text": "<p>What are <strong>functionality-based</strong> characteristics derived from?</p>",
+            "answers": [
+              {
+                "text": "The specified behavior or semantics of the function, possibly combining several parameters",
+                "fraction": 100,
+                "feedback": "Correct \u2014 functionality-based characteristics come from what the function is supposed to do."
+              },
+              {
+                "text": "Each parameter taken in isolation from the signature",
+                "fraction": 0,
+                "feedback": "That is the interface-based approach."
+              },
+              {
+                "text": "The number of statements in the implementation",
+                "fraction": 0,
+                "feedback": "Statement counts are code metrics, not functionality-based characteristics."
+              },
+              {
+                "text": "The compiler's optimization level",
+                "fraction": 0,
+                "feedback": "Compilation settings have nothing to do with deriving characteristics."
+              }
+            ],
+            "generalFeedback": 'Functionality-based characteristics come from the specification (e.g. "list is already sorted"), and may relate several parameters at once. They often yield better tests but require more domain understanding.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What ECC requires",
+            "text": "<p>What does Each Choice Coverage (ECC) require of a test set?</p>",
+            "answers": [
+              {
+                "text": "Every block of every characteristic must appear in at least one test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is exactly the each-choice requirement."
+              },
+              {
+                "text": "Every combination of blocks across all characteristics must appear",
+                "fraction": 0,
+                "feedback": "That is All Combinations Coverage, which is far stronger."
+              },
+              {
+                "text": "Every pair of blocks from every pair of characteristics must appear together",
+                "fraction": 0,
+                "feedback": "That is Pair-Wise Coverage, not Each Choice."
+              },
+              {
+                "text": "Exactly one test is needed regardless of the blocks",
+                "fraction": 0,
+                "feedback": "One test cannot include two different blocks of the same characteristic."
+              }
+            ],
+            "generalFeedback": "ECC only asks that each block of each characteristic be used at least once somewhere in the test set \u2014 the weakest of the standard ISP criteria.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What ACoC requires",
+            "text": "<p>What does All Combinations Coverage (ACoC) require of a test set?</p>",
+            "answers": [
+              {
+                "text": "Every combination of one block from each characteristic must appear in some test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ACoC covers the full cross-product of blocks."
+              },
+              {
+                "text": "Only that each block appears at least once",
+                "fraction": 0,
+                "feedback": "That is Each Choice Coverage, which is weaker."
+              },
+              {
+                "text": "Only that every pair of blocks appears together",
+                "fraction": 0,
+                "feedback": "That is Pair-Wise Coverage, weaker than ACoC."
+              },
+              {
+                "text": "That a single base test is varied one characteristic at a time",
+                "fraction": 0,
+                "feedback": "That describes Base Choice Coverage, not ACoC."
+              }
+            ],
+            "generalFeedback": "ACoC requires every combination of blocks \u2014 one from each characteristic \u2014 so the number of tests is the product of the block counts.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ACoC count for two characteristics",
+            "text": "<p>An ISP model has two characteristics with 2 and 3 blocks. How many tests does All Combinations Coverage (ACoC) require?</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "Correct \u2014 2 \xD7 3 = 6, the product of the block counts."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 is the sum 2 + 3; ACoC multiplies the block counts."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 is the larger block count (that is Each Choice), not All Combinations."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 does not match 2 \xD7 3."
+              }
+            ],
+            "generalFeedback": "ACoC is the product of the block counts: 2 \xD7 3 = 6.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ACoC count for three binary characteristics",
+            "text": "<p>An ISP model has three characteristics, each with 2 blocks. How many tests does ACoC require?</p>",
+            "answers": [
+              {
+                "text": "8",
+                "fraction": 100,
+                "feedback": "Correct \u2014 2 \xD7 2 \xD7 2 = 8."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 is the sum 2 + 2 + 2; ACoC multiplies."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 is one block count (Each Choice), not All Combinations."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 ignores one characteristic; the product over all three is 8."
+              }
+            ],
+            "generalFeedback": "ACoC is the product of the block counts: 2 \xD7 2 \xD7 2 = 8.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ECC count equals the largest block count",
+            "text": "<p>An ISP model has three characteristics with 2, 5, and 3 blocks. What is the minimum number of tests for Each Choice Coverage (ECC)?</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ECC needs at least the largest block count, max(2,5,3) = 5."
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "10 is the sum of the block counts; blocks can be reused across characteristics within one test."
+              },
+              {
+                "text": "30",
+                "fraction": 0,
+                "feedback": "30 is the product (All Combinations), far more than ECC needs."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 is not enough to cover the characteristic with 5 blocks."
+              }
+            ],
+            "generalFeedback": "Each test picks one block per characteristic, so covering every block needs at least as many tests as the largest block count: max(2,5,3) = 5.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ECC count with two characteristics",
+            "text": "<p>An ISP model has two characteristics with 4 and 2 blocks. What is the minimum number of tests for Each Choice Coverage (ECC)?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ECC needs at least max(4,2) = 4 tests."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 is the product (All Combinations), not the each-choice minimum."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 is the sum of the block counts; ECC reuses blocks within a test."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 cannot cover the characteristic that has 4 blocks."
+              }
+            ],
+            "generalFeedback": "ECC equals the largest block count: max(4,2) = 4. The 2-block characteristic's blocks are simply reused within those four tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "A valid characteristic and its blocks",
+            "text": "<p>For an integer input <code>x</code>, which of these is a well-formed ISP characteristic with disjoint, complete blocks?</p>",
+            "answers": [
+              {
+                "text": '"Sign of x" with blocks {x < 0}, {x = 0}, {x > 0}',
+                "fraction": 100,
+                "feedback": "Correct \u2014 these three blocks are disjoint and cover every integer."
+              },
+              {
+                "text": '"Size of x" with blocks {x < 10}, {x > 5}',
+                "fraction": 0,
+                "feedback": "Values 6..9 fall in both blocks, so they overlap (not disjoint)."
+              },
+              {
+                "text": '"Range of x" with blocks {x < 0}, {x > 0}',
+                "fraction": 0,
+                "feedback": "The value 0 belongs to no block, so this is incomplete."
+              },
+              {
+                "text": '"Value of x" with one block {x = 7}',
+                "fraction": 0,
+                "feedback": "Every other integer is uncovered, so this partition is incomplete."
+              }
+            ],
+            "generalFeedback": 'A well-formed characteristic partitions the domain into disjoint, complete blocks. "Sign of x" as negative / zero / positive does exactly that for the integers.',
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "ISP is black-box",
+            "text": "<p>Input Space Partitioning is a black-box technique: it models the input domain and does not require access to the source code.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ISP derives characteristics from parameters and the specification, not from code."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "ISP works on the input domain (interface- or functionality-based), so it needs no source code."
+              }
+            ],
+            "generalFeedback": "ISP is a black-box, input-domain technique. Characteristics come from the method's parameters (interface-based) or its specified behavior (functionality-based), so the implementation is not needed."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Spot the overlapping partition",
+            "text": '<p>A characteristic "string length L" is split into blocks {L &lt; 10}, {10 \u2264 L \u2264 20}, {L &gt; 15}. Is this a valid partition, and why?</p>',
+            "answers": [
+              {
+                "text": "Invalid \u2014 the blocks are not disjoint (e.g. L = 18 falls in both {10 \u2264 L \u2264 20} and {L > 15})",
+                "fraction": 100,
+                "feedback": "Correct \u2014 16..20 lie in two blocks at once, breaking disjointness."
+              },
+              {
+                "text": "Valid \u2014 the blocks are disjoint and complete",
+                "fraction": 0,
+                "feedback": "They are not disjoint: values 16..20 belong to two blocks."
+              },
+              {
+                "text": "Invalid \u2014 some lengths are left uncovered (incomplete)",
+                "fraction": 0,
+                "feedback": "Every length is covered; the defect here is overlap, not a gap."
+              },
+              {
+                "text": "Valid \u2014 overlap between blocks is allowed in ISP",
+                "fraction": 0,
+                "feedback": "Overlap is not allowed; blocks of a partition must be disjoint."
+              }
+            ],
+            "generalFeedback": "Lengths 16..20 satisfy both {10 \u2264 L \u2264 20} and {L > 15}, so the blocks overlap. A valid partition must be disjoint, so this is invalid.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Spot the gap in a partition",
+            "text": '<p>A characteristic "age" (non-negative integer) is split into blocks {0..17}, {19..65}, {&gt; 65}. Is this a valid partition, and why?</p>',
+            "answers": [
+              {
+                "text": "Invalid \u2014 it is incomplete: age 18 belongs to no block",
+                "fraction": 100,
+                "feedback": "Correct \u2014 18 is missing, so the blocks do not cover the whole domain."
+              },
+              {
+                "text": "Valid \u2014 the blocks are disjoint and complete",
+                "fraction": 0,
+                "feedback": "Age 18 is uncovered, so completeness fails."
+              },
+              {
+                "text": "Invalid \u2014 the blocks overlap at 65",
+                "fraction": 0,
+                "feedback": "65 is only in {19..65}; there is no overlap. The defect is the missing 18."
+              },
+              {
+                "text": "Valid \u2014 small gaps are acceptable in ISP",
+                "fraction": 0,
+                "feedback": "Gaps violate completeness; every domain value must fall into some block."
+              }
+            ],
+            "generalFeedback": "Age 18 is not in {0..17}, {19..65}, or {> 65}, so the partition is incomplete and therefore invalid.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Recognize a valid partition",
+            "text": '<p>A characteristic "temperature T (integer \xB0C)" is split into blocks {T &lt; 0}, {0 \u2264 T \u2264 100}, {T &gt; 100}. Is this a valid partition?</p>',
+            "answers": [
+              {
+                "text": "Valid \u2014 the three blocks are disjoint and together cover every integer temperature",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no overlap and no gap, so it is a proper partition."
+              },
+              {
+                "text": "Invalid \u2014 the blocks overlap at 0 and 100",
+                "fraction": 0,
+                "feedback": "0 is only in the middle block and 100 only in the middle block; there is no overlap."
+              },
+              {
+                "text": "Invalid \u2014 temperatures below 0 are uncovered",
+                "fraction": 0,
+                "feedback": "{T < 0} covers them, so nothing is uncovered."
+              },
+              {
+                "text": "Invalid \u2014 a partition may have at most two blocks",
+                "fraction": 0,
+                "feedback": "A characteristic may have any number of blocks; three is fine."
+              }
+            ],
+            "generalFeedback": "The blocks {T < 0}, {0..100}, {T > 100} are mutually exclusive and jointly exhaustive over the integers, so the partition is disjoint and complete \u2014 valid.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ACoC count for three characteristics",
+            "text": "<p>An ISP model has three characteristics with 4, 3, and 2 blocks. How many tests does All Combinations Coverage (ACoC) require?</p>",
+            "answers": [
+              {
+                "text": "24",
+                "fraction": 100,
+                "feedback": "Correct \u2014 4 \xD7 3 \xD7 2 = 24."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 is the sum 4 + 3 + 2; ACoC multiplies the block counts."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 is the product of only the two largest (a PWC lower bound), not all three."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the largest single block count (Each Choice), not All Combinations."
+              }
+            ],
+            "generalFeedback": "ACoC = product of the block counts = 4 \xD7 3 \xD7 2 = 24.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ECC count for four characteristics",
+            "text": "<p>An ISP model has four characteristics with 3, 3, 5, and 2 blocks. What is the minimum number of tests for Each Choice Coverage (ECC)?</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ECC needs at least max(3,3,5,2) = 5 tests."
+              },
+              {
+                "text": "13",
+                "fraction": 0,
+                "feedback": "13 is the sum of the block counts; ECC reuses blocks within each test."
+              },
+              {
+                "text": "90",
+                "fraction": 0,
+                "feedback": "90 is the product (All Combinations), not the each-choice minimum."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is not enough to cover the characteristic that has 5 blocks."
+              }
+            ],
+            "generalFeedback": "ECC equals the largest block count: max(3,3,5,2) = 5.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "BCC count for 2,4,3",
+            "text": "<p>An ISP model has three characteristics with 2, 4, and 3 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+            "answers": [
+              {
+                "text": "7",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1 + (2-1) + (4-1) + (3-1) = 1 + 1 + 3 + 2 = 7."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 is the sum of the block counts; BCC is 1 + \u03A3(blocks - 1)."
+              },
+              {
+                "text": "24",
+                "fraction": 0,
+                "feedback": "24 is the product (All Combinations), not the base-choice count."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 forgets the +1 base test: 1 + (1 + 3 + 2) = 7."
+              }
+            ],
+            "generalFeedback": "BCC = 1 + \u03A3(b_i - 1) = 1 + (1 + 3 + 2) = 7: one base test plus varying each characteristic through its non-base blocks.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "BCC count for 2,2,4",
+            "text": "<p>An ISP model has three characteristics with 2, 2, and 4 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1 + (2-1) + (2-1) + (4-1) = 1 + 1 + 1 + 3 = 6."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 is the sum of the block counts; BCC is 1 + \u03A3(blocks - 1)."
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 is the product (All Combinations), not the base-choice count."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 forgets the +1 base test: 1 + (1 + 1 + 3) = 6."
+              }
+            ],
+            "generalFeedback": "BCC = 1 + \u03A3(b_i - 1) = 1 + (1 + 1 + 3) = 6.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "PWC lower bound for 4,3,2",
+            "text": "<p>An ISP model has three characteristics with 4, 3, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage (PWC) set must contain?</p>",
+            "answers": [
+              {
+                "text": "12",
+                "fraction": 100,
+                "feedback": "Correct \u2014 at least the product of the two largest block counts, 4 \xD7 3 = 12."
+              },
+              {
+                "text": "24",
+                "fraction": 0,
+                "feedback": "24 is the full All Combinations product; PWC needs fewer."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 is the sum of the block counts, unrelated to the pairwise lower bound."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 (the largest single block count) is the Each Choice minimum, not the pairwise bound."
+              }
+            ],
+            "generalFeedback": "Covering every pair from the two largest characteristics (4 and 3 blocks) already needs all 4 \xD7 3 = 12 of their combinations, so any PWC set has at least 12 tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "PWC lower bound for 2,5,3,2",
+            "text": "<p>An ISP model has four characteristics with 2, 5, 3, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage (PWC) set must contain?</p>",
+            "answers": [
+              {
+                "text": "15",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the product of the two largest block counts, 5 \xD7 3 = 15."
+              },
+              {
+                "text": "60",
+                "fraction": 0,
+                "feedback": "60 is the full All Combinations product; PWC needs fewer."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 is the sum of the block counts, not the pairwise lower bound."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 (the largest single block count) is the Each Choice minimum, not the pairwise bound."
+              }
+            ],
+            "generalFeedback": "The PWC lower bound is the product of the two largest block counts: 5 \xD7 3 = 15.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify a null-check characteristic",
+            "text": '<p>For <code>int indexOf(List list, Object target)</code>, a tester defines the characteristic "is <code>list</code> null?" with blocks {null}, {non-null}. How is this characteristic best classified?</p>',
+            "answers": [
+              {
+                "text": "Interface-based \u2014 it comes directly from a single parameter of the signature",
+                "fraction": 100,
+                "feedback": "Correct \u2014 nullness of one parameter is read straight off the interface."
+              },
+              {
+                "text": "Functionality-based \u2014 it comes from the specified search behavior",
+                "fraction": 0,
+                "feedback": "It is derived from the parameter itself, not from what indexOf is specified to do."
+              },
+              {
+                "text": "Neither \u2014 nullness cannot be a characteristic",
+                "fraction": 0,
+                "feedback": "Nullness of a reference parameter is a common, valid interface-based characteristic."
+              },
+              {
+                "text": "It depends on the implementation's control flow",
+                "fraction": 0,
+                "feedback": "ISP is black-box; this characteristic is defined without looking at code."
+              }
+            ],
+            "generalFeedback": '"Is list null?" is derived from one parameter considered on its own, which is the defining trait of an interface-based characteristic.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify an already-sorted characteristic",
+            "text": '<p>For a sorting routine <code>sort(int[] a)</code>, a tester defines the characteristic "is <code>a</code> already sorted ascending?" with blocks {already sorted}, {not sorted}. How is this best classified?</p>',
+            "answers": [
+              {
+                "text": "Functionality-based \u2014 it comes from the meaning of sorting, not from the parameter's type alone",
+                "fraction": 100,
+                "feedback": `Correct \u2014 "already sorted" is a property of the specified behavior over the input's contents.`
+              },
+              {
+                "text": "Interface-based \u2014 it comes directly from the array parameter's type",
+                "fraction": 0,
+                "feedback": 'The type is just "int[]"; being already-sorted is a semantic property, not read off the signature.'
+              },
+              {
+                "text": "It is not a valid characteristic because it depends on values",
+                "fraction": 0,
+                "feedback": "Depending on the input's contents is exactly what functionality-based characteristics do."
+              },
+              {
+                "text": "It is a structural (white-box) characteristic",
+                "fraction": 0,
+                "feedback": "ISP is black-box; this comes from the specification of sorting, not the code structure."
+              }
+            ],
+            "generalFeedback": `"Already sorted?" reflects the semantics of the sorting task and the array's contents, so it is functionality-based rather than interface-based.`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which value proves non-disjointness",
+            "text": '<p>A characteristic "score S" has blocks {S \u2264 50}, {40 \u2264 S \u2264 90}, {S &gt; 90}. Which value demonstrates that the partition is <strong>not disjoint</strong>?</p>',
+            "answers": [
+              {
+                "text": "S = 45",
+                "fraction": 100,
+                "feedback": "Correct \u2014 45 is in both {S \u2264 50} and {40 \u2264 S \u2264 90}, proving overlap."
+              },
+              {
+                "text": "S = 20",
+                "fraction": 0,
+                "feedback": "20 is only in {S \u2264 50}; it does not show overlap."
+              },
+              {
+                "text": "S = 95",
+                "fraction": 0,
+                "feedback": "95 is only in {S > 90}; it does not show overlap."
+              },
+              {
+                "text": "S = 91",
+                "fraction": 0,
+                "feedback": "91 is only in {S > 90}; it does not show overlap."
+              }
+            ],
+            "generalFeedback": "The blocks {S \u2264 50} and {40 \u2264 S \u2264 90} both contain 40..50. Any value there, such as 45, lies in two blocks and proves the partition is not disjoint.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which value proves incompleteness",
+            "text": '<p>A characteristic "quantity Q (integer)" has blocks {Q &lt; 0}, {1 \u2264 Q \u2264 100}, {Q &gt; 100}. Which value demonstrates that the partition is <strong>incomplete</strong>?</p>',
+            "answers": [
+              {
+                "text": "Q = 0",
+                "fraction": 100,
+                "feedback": "Correct \u2014 0 is not negative, not in 1..100, and not > 100, so it is uncovered."
+              },
+              {
+                "text": "Q = 50",
+                "fraction": 0,
+                "feedback": "50 is covered by {1 \u2264 Q \u2264 100}."
+              },
+              {
+                "text": "Q = -5",
+                "fraction": 0,
+                "feedback": "-5 is covered by {Q < 0}."
+              },
+              {
+                "text": "Q = 200",
+                "fraction": 0,
+                "feedback": "200 is covered by {Q > 100}."
+              }
+            ],
+            "generalFeedback": "Q = 0 falls into none of {Q < 0}, {1..100}, {Q > 100}, so the partition leaves a gap and is incomplete.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Extra tests ACoC needs over ECC",
+            "text": "<p>An ISP model has two characteristics with 3 and 2 blocks. How many <strong>more</strong> tests does All Combinations Coverage require than the Each Choice minimum?</p>",
+            "answers": [
+              {
+                "text": "3 (ACoC = 6, ECC = 3)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 3 \xD7 2 = 6 for ACoC and max(3,2) = 3 for ECC, a difference of 3."
+              },
+              {
+                "text": "0 (they are always equal)",
+                "fraction": 0,
+                "feedback": "ACoC = 6 but ECC = 3, so they differ here."
+              },
+              {
+                "text": "6 (ACoC = 6, ECC = 0)",
+                "fraction": 0,
+                "feedback": "ECC is not 0; it is max(3,2) = 3, so the difference is 3."
+              },
+              {
+                "text": "2 (ACoC = 5, ECC = 3)",
+                "fraction": 0,
+                "feedback": "ACoC is the product 3 \xD7 2 = 6, not 5, so the difference is 3."
+              }
+            ],
+            "generalFeedback": "ACoC = 3 \xD7 2 = 6 and ECC = max(3,2) = 3, so ACoC needs 6 - 3 = 3 more tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "BCC count for 2,3,2",
+            "text": "<p>An ISP model has three characteristics with 2, 3, and 2 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1 + (2-1) + (3-1) + (2-1) = 1 + 1 + 2 + 1 = 5."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 is the sum of the block counts; BCC is 1 + \u03A3(blocks - 1)."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 is the product (All Combinations), not the base-choice count."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 forgets the +1 base test: 1 + (1 + 2 + 1) = 5."
+              }
+            ],
+            "generalFeedback": "BCC = 1 + \u03A3(b_i - 1) = 1 + (1 + 2 + 1) = 5.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "BCC count for 4,3,3,2",
+            "text": "<p>An ISP model has four characteristics with 4, 3, 3, and 2 blocks. How many tests does Base Choice Coverage (BCC) require?</p>",
+            "answers": [
+              {
+                "text": "9",
+                "fraction": 100,
+                "feedback": "Correct \u2014 1 + (4-1) + (3-1) + (3-1) + (2-1) = 1 + 3 + 2 + 2 + 1 = 9."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 is the sum of the block counts; BCC is 1 + \u03A3(blocks - 1)."
+              },
+              {
+                "text": "72",
+                "fraction": 0,
+                "feedback": "72 is the product (All Combinations), not the base-choice count."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 forgets the +1 base test: 1 + (3 + 2 + 2 + 1) = 9."
+              }
+            ],
+            "generalFeedback": "BCC = 1 + \u03A3(b_i - 1) = 1 + (3 + 2 + 2 + 1) = 9.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Pick the BCC test set from a base",
+            "text": "<p>Characteristics A, B, C have blocks A\u2208{a1,a2}, B\u2208{b1,b2,b3}, C\u2208{c1,c2}. The base choice is (a1, b1, c1). Which set of tests is exactly the Base Choice Coverage set?</p>",
+            "answers": [
+              {
+                "text": "(a1,b1,c1), (a2,b1,c1), (a1,b2,c1), (a1,b3,c1), (a1,b1,c2) \u2014 five tests",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the base test plus one test per non-base block, changing exactly one characteristic each time."
+              },
+              {
+                "text": "(a1,b1,c1), (a2,b2,c2) \u2014 two tests",
+                "fraction": 0,
+                "feedback": "This changes several characteristics at once and misses most non-base blocks; it is not the BCC set."
+              },
+              {
+                "text": "All 12 combinations of A \xD7 B \xD7 C",
+                "fraction": 0,
+                "feedback": "That is All Combinations Coverage, not Base Choice."
+              },
+              {
+                "text": "(a2,b2,c2), (a2,b3,c2) \u2014 varying from a non-base test",
+                "fraction": 0,
+                "feedback": "BCC varies from the designated base test (a1,b1,c1), holding the others at their base values."
+              }
+            ],
+            "generalFeedback": "BCC keeps the base (a1,b1,c1) and changes one characteristic at a time to each non-base block: a2; b2; b3; c2. That yields 1 + (1 + 2 + 1) = 5 tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ACoC-PWC-ECC subsumption chain",
+            "text": "<p>Which subsumption chain correctly orders these ISP criteria (each subsumes the next)?</p>",
+            "answers": [
+              {
+                "text": "ACoC \u2287 PWC \u2287 ECC",
+                "fraction": 100,
+                "feedback": "Correct \u2014 all combinations subsume pairwise, which subsumes each choice."
+              },
+              {
+                "text": "ECC \u2287 PWC \u2287 ACoC",
+                "fraction": 0,
+                "feedback": "This reverses the order; ECC is the weakest, so it cannot subsume the others."
+              },
+              {
+                "text": "PWC \u2287 ACoC \u2287 ECC",
+                "fraction": 0,
+                "feedback": "ACoC subsumes PWC, not the other way around."
+              },
+              {
+                "text": "ACoC \u2287 ECC \u2287 PWC",
+                "fraction": 0,
+                "feedback": "ECC does not subsume PWC; PWC is the stronger of the two."
+              }
+            ],
+            "generalFeedback": "All Combinations covers every pair, so ACoC subsumes PWC; Pair-Wise covers each single block, so PWC subsumes ECC. Hence ACoC \u2287 PWC \u2287 ECC.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why non-disjoint blocks are invalid",
+            "text": "<p>Suppose a characteristic's blocks overlap, so some value <code>v</code> belongs to two blocks. Why does this make the partition invalid for ISP?</p>",
+            "answers": [
+              {
+                "text": 'A value that maps to two blocks makes block membership ambiguous, so coverage of "each block" is ill-defined and a chosen value may unintentionally satisfy two blocks at once',
+                "fraction": 100,
+                "feedback": 'Correct \u2014 disjointness is what makes "the block of a value" well-defined.'
+              },
+              {
+                "text": "Overlap makes the model too small to test",
+                "fraction": 0,
+                "feedback": "Overlap does not shrink the model; it makes membership ambiguous."
+              },
+              {
+                "text": "Overlap forces the use of All Combinations Coverage",
+                "fraction": 0,
+                "feedback": "Overlap does not dictate a coverage criterion; it violates the partition definition."
+              },
+              {
+                "text": "Overlap is fine as long as the blocks are complete",
+                "fraction": 0,
+                "feedback": "Completeness does not repair a disjointness violation; both are required."
+              }
+            ],
+            "generalFeedback": `If v is in two blocks, then "cover each block" and "the representative of a value's block" become ambiguous \u2014 one test value may count for two blocks, undermining the criterion. Disjointness removes that ambiguity.`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why incomplete blocks are invalid",
+            "text": "<p>Suppose a characteristic's blocks miss some domain value <code>w</code> (no block contains it). Why is this partition invalid for ISP?</p>",
+            "answers": [
+              {
+                "text": "An input equal to w cannot be classified into any block, so a legitimate part of the domain would never be scheduled for testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 completeness guarantees every input is represented by some block."
+              },
+              {
+                "text": "The number of tests would become infinite",
+                "fraction": 0,
+                "feedback": "A gap does not change the test count; it leaves part of the domain unmodeled."
+              },
+              {
+                "text": "Each Choice Coverage would then be impossible to satisfy",
+                "fraction": 0,
+                "feedback": "ECC could still be satisfied on the defined blocks; the problem is the unmodeled value w."
+              },
+              {
+                "text": "Incompleteness is acceptable if the blocks are disjoint",
+                "fraction": 0,
+                "feedback": "Disjointness does not repair a coverage gap; both properties are required."
+              }
+            ],
+            "generalFeedback": "A partition must be complete so that every possible input belongs to exactly one block. If w belongs to no block, that input is unmodeled and would be systematically left out of the test design.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Choosing a criterion under a test budget",
+            "text": "<p>A model has 5 characteristics, each with 4 blocks. All Combinations needs 4^5 = 1024 tests, which the budget cannot afford, but you still want each block exercised together with a common base configuration. Which criterion best fits a budget of roughly 16 tests?</p>",
+            "answers": [
+              {
+                "text": "Base Choice Coverage \u2014 1 + 5 \xD7 (4-1) = 16 tests, varying each block from a base",
+                "fraction": 100,
+                "feedback": "Correct \u2014 BCC hits exactly 16 here and exercises every block relative to a base configuration."
+              },
+              {
+                "text": "All Combinations Coverage \u2014 1024 tests",
+                "fraction": 0,
+                "feedback": "1024 is far over the budget; that is the criterion being ruled out."
+              },
+              {
+                "text": "Pair-Wise Coverage \u2014 at least 4 \xD7 4 = 16 but typically more",
+                "fraction": 0,
+                "feedback": "PWC's lower bound is 16, but a real pairwise set for five 4-block characteristics needs more than 16 and does not use a single base configuration."
+              },
+              {
+                "text": "Each Choice Coverage \u2014 4 tests",
+                "fraction": 0,
+                "feedback": "ECC needs only 4 tests but does not exercise blocks against a common base as asked."
+              }
+            ],
+            "generalFeedback": "BCC = 1 + \u03A3(b_i - 1) = 1 + 5 \xD7 3 = 16, right at the budget, and by construction it varies each block one at a time from a base test \u2014 matching the stated goal.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MBCC count with two base tests",
+            "text": "<p>An ISP model has three characteristics with 3, 2, and 2 blocks. Using Multiple Base Choice Coverage with <strong>2 base tests</strong> (one base choice per characteristic in each), how many tests result? Vary one characteristic at a time from each base test.</p>",
+            "answers": [
+              {
+                "text": "10",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each base contributes 1 + (2 + 1 + 1) = 5 tests, and 2 \xD7 5 = 10."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 is the single-base (BCC) count; MBCC with 2 bases doubles it to 10."
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 is the ACoC product (3 \xD7 2 \xD7 2) doubled would be 24; MBCC here is 2 \xD7 5 = 10."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 is not consistent with m \xD7 (1 + \u03A3(b_i - 1)); the correct value is 2 \xD7 5 = 10."
+              }
+            ],
+            "generalFeedback": "With m base tests and one base choice per characteristic, MBCC = m \xD7 (1 + \u03A3(b_i - 1)). Here BCC = 1 + (2 + 1 + 1) = 5, so MBCC = 2 \xD7 5 = 10.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MBCC subsumes BCC",
+            "text": "<p>What is the subsumption relationship between Multiple Base Choice Coverage (MBCC) and Base Choice Coverage (BCC)?</p>",
+            "answers": [
+              {
+                "text": "MBCC subsumes BCC \u2014 using several base tests includes the coverage of a single base test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 MBCC \u2287 BCC \u2287 ECC."
+              },
+              {
+                "text": "BCC subsumes MBCC",
+                "fraction": 0,
+                "feedback": "This reverses the direction; more base tests can only add coverage."
+              },
+              {
+                "text": "They are incomparable \u2014 neither subsumes the other",
+                "fraction": 0,
+                "feedback": "MBCC is a generalization of BCC and always covers what BCC does."
+              },
+              {
+                "text": "They are identical criteria",
+                "fraction": 0,
+                "feedback": "MBCC uses multiple base tests, so it can require strictly more tests than BCC."
+              }
+            ],
+            "generalFeedback": "MBCC generalizes BCC by using more than one base test, so every BCC requirement is met by MBCC: MBCC \u2287 BCC \u2287 ECC.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ACoC count for four binary characteristics",
+            "text": "<p>An ISP model has four characteristics, each with 2 blocks. How many tests does All Combinations Coverage require?</p>",
+            "answers": [
+              {
+                "text": "16",
+                "fraction": 100,
+                "feedback": "Correct \u2014 2 \xD7 2 \xD7 2 \xD7 2 = 2^4 = 16."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 is 2^3; there are four characteristics, so the product is 2^4 = 16."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the number of pairs of blocks summed; ACoC multiplies all four block counts."
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 = 1 + 4 \xD7 2 is a base-choice-style count, not the ACoC product."
+              }
+            ],
+            "generalFeedback": "ACoC = 2^4 = 16, the product of the four block counts.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "PWC lower bound with tied largest counts",
+            "text": "<p>An ISP model has three characteristics with 4, 4, and 2 blocks. What is the minimum number of tests any Pair-Wise Coverage set must contain?</p>",
+            "answers": [
+              {
+                "text": "16",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the two largest block counts are 4 and 4, so the lower bound is 4 \xD7 4 = 16."
+              },
+              {
+                "text": "32",
+                "fraction": 0,
+                "feedback": "32 is the full All Combinations product (4 \xD7 4 \xD7 2); PWC needs fewer."
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "10 is the sum of the block counts, not the pairwise lower bound."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 (4 \xD7 2) uses the wrong pair; the two largest are both 4, giving 16."
+              }
+            ],
+            "generalFeedback": "The PWC lower bound is the product of the two largest block counts. Both largest are 4, so the bound is 4 \xD7 4 = 16. (Actual pairwise sets may need a few more tests, but never fewer.)",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "PWC equals ACoC for two characteristics",
+            "text": "<p>When a model has exactly <strong>two</strong> characteristics, Pair-Wise Coverage and All Combinations Coverage require the same number of tests.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with only one pair of characteristics, covering every pair of blocks is the full cross-product."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "With two characteristics the single pair's block combinations are exactly the All Combinations set, so PWC = ACoC here."
+              }
+            ],
+            "generalFeedback": "PWC requires every pair of blocks from every pair of characteristics. With just two characteristics there is only one pair, and covering all of its block pairs is precisely b1 \xD7 b2 \u2014 the same as ACoC."
+          },
+          {
+            "type": "multichoice",
+            "name": "Does PWC subsume BCC?",
+            "text": "<p>Which statement about Pair-Wise Coverage (PWC) and Base Choice Coverage (BCC) is correct?</p>",
+            "answers": [
+              {
+                "text": "Neither subsumes the other \u2014 PWC and BCC are incomparable",
+                "fraction": 100,
+                "feedback": "Correct \u2014 PWC guarantees pairs but not base-variation; BCC guarantees base-variation but not all pairs."
+              },
+              {
+                "text": "PWC subsumes BCC",
+                "fraction": 0,
+                "feedback": "A pairwise set need not include a single base test varied one characteristic at a time, so it does not always satisfy BCC."
+              },
+              {
+                "text": "BCC subsumes PWC",
+                "fraction": 0,
+                "feedback": "A base-choice set covers only \u03A3(b_i - 1) + 1 tests and misses most block pairs, so it does not satisfy PWC."
+              },
+              {
+                "text": "They are equivalent criteria",
+                "fraction": 0,
+                "feedback": "They impose different requirements and generally produce different test sets."
+              }
+            ],
+            "generalFeedback": "PWC and BCC are incomparable: both subsume ECC, but PWC covers all block pairs (not base variations) while BCC covers base variations (not all pairs).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Fixing an invalid partition",
+            "text": '<p>A characteristic "discount tier by amount A" is defined as {A &lt; 100}, {100 \u2264 A \u2264 500}, {A \u2265 500}. It is invalid. What is the minimal fix that makes it a valid partition?</p>',
+            "answers": [
+              {
+                "text": "Change one bound so 500 is in exactly one block, e.g. {A < 100}, {100 \u2264 A < 500}, {A \u2265 500}",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the only defect is that 500 sits in two blocks; excluding it from one restores disjointness while keeping completeness."
+              },
+              {
+                "text": "Delete the middle block entirely",
+                "fraction": 0,
+                "feedback": "That would leave 100..499 uncovered, creating an incompleteness gap."
+              },
+              {
+                "text": "Add a fourth block {A = 500}",
+                "fraction": 0,
+                "feedback": "500 would still remain in the existing blocks too, so the overlap is not removed."
+              },
+              {
+                "text": "Nothing \u2014 the partition is already valid",
+                "fraction": 0,
+                "feedback": "500 satisfies both {100 \u2264 A \u2264 500} and {A \u2265 500}, so it is not disjoint."
+              }
+            ],
+            "generalFeedback": "The value 500 lies in both the middle block and {A \u2265 500}, breaking disjointness. Making the middle block {100 \u2264 A < 500} removes the overlap while still covering every amount, yielding a valid partition.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Does the base choice change the BCC count?",
+            "text": "<p>Two testers model the same characteristics with 3, 2, and 2 blocks but pick different base choices. How do their Base Choice Coverage test sets compare?</p>",
+            "answers": [
+              {
+                "text": "Both sets have the same size, 1 + (2 + 1 + 1) = 5, though the concrete test values differ",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the BCC count 1 + \u03A3(b_i - 1) is independent of which block is chosen as the base."
+              },
+              {
+                "text": 'The set built from the "larger" base is always bigger',
+                "fraction": 0,
+                "feedback": "Block counts, not the chosen base, fix the size; both are 1 + \u03A3(b_i - 1) = 5."
+              },
+              {
+                "text": "One set will satisfy ACoC and the other will not",
+                "fraction": 0,
+                "feedback": "Neither BCC set reaches ACoC (which needs 3 \xD7 2 \xD7 2 = 12 tests); base choice does not change that."
+              },
+              {
+                "text": "The sizes differ by the number of characteristics",
+                "fraction": 0,
+                "feedback": "Both sizes equal 1 + \u03A3(b_i - 1) = 5 regardless of the base; the base only changes which values appear."
+              }
+            ],
+            "generalFeedback": "BCC always produces 1 + \u03A3(b_i - 1) tests = 1 + (2 + 1 + 1) = 5 here. Changing the base choice changes which concrete tests are generated but not the count or the criterion satisfied.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MBCC count with three base tests",
+            "text": "<p>An ISP model has three characteristics, each with 2 blocks. Using Multiple Base Choice Coverage with <strong>3 base tests</strong> (one base choice per characteristic in each), varying one characteristic at a time from each base, how many tests result?</p>",
+            "answers": [
+              {
+                "text": "12",
+                "fraction": 100,
+                "feedback": "Correct \u2014 each base contributes 1 + (1 + 1 + 1) = 4 tests, and 3 \xD7 4 = 12."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the single-base (BCC) count; with 3 bases it becomes 3 \xD7 4 = 12."
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 is the ACoC product (2 \xD7 2 \xD7 2); MBCC here is 3 \xD7 4 = 12."
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 does not match m \xD7 (1 + \u03A3(b_i - 1)); the correct value is 3 \xD7 4 = 12."
+              }
+            ],
+            "generalFeedback": "MBCC = m \xD7 (1 + \u03A3(b_i - 1)). Here BCC = 1 + (1 + 1 + 1) = 4, so with 3 base tests MBCC = 3 \xD7 4 = 12.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u5340\u584A\uFF08block\uFF09",
+            "text": "<p>\u5728\u8F38\u5165\u7A7A\u9593\u5283\u5206\uFF08Input Space Partitioning, ISP\uFF09\u4E2D\uFF0C\u4E00\u500B\u7279\u5FB5\uFF08characteristic\uFF09\u6703\u628A\u8F38\u5165\u5B9A\u7FA9\u57DF\u5206\u6210\u82E5\u5E72<strong>\u5340\u584A\uFF08block\uFF09</strong>\u3002\u5340\u584A\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B9A\u7FA9\u57DF\u4E2D\u88AB\u8A72\u7279\u5FB5\u6B78\u70BA\u540C\u4E00\u985E\u3001\u8996\u70BA\u4E00\u9AD4\u7684\u4E00\u7D44\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u5340\u584A\u662F\u6CBF\u8A72\u7279\u5FB5\u5283\u5206\u5F8C\u6240\u5F97\u7684\u4E00\u985E\u503C\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u53EF\u76F4\u63A5\u57F7\u884C\u7684\u5177\u9AD4\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u5340\u584A\u662F\u4E00\u985E\u503C\uFF1B\u5177\u9AD4\u6E2C\u8A66\u662F\u5F9E\u67D0\u500B\u5340\u584A\u6311\u51FA\u7684\u4E00\u500B\u4EE3\u8868\u503C\u3002"
+              },
+              {
+                "text": "\u8A72\u8F38\u5165\u6240\u57F7\u884C\u5230\u7684\u4E00\u884C\u539F\u59CB\u78BC",
+                "fraction": 0,
+                "feedback": "ISP \u5C6C\u9ED1\u7BB1\u6280\u8853\uFF0C\u63CF\u8FF0\u7684\u662F\u8F38\u5165\u5B9A\u7FA9\u57DF\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u61C9\u7522\u751F\u7684\u9810\u671F\u8F38\u51FA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9810\u671F\u7D50\u679C\uFF08oracle\uFF09\uFF0C\u4E0D\u662F\u8F38\u5165\u5B9A\u7FA9\u57DF\u7684\u5340\u584A\u3002"
+              }
+            ],
+            "generalFeedback": "\u7279\u5FB5\u6703\u628A\u8F38\u5165\u5B9A\u7FA9\u57DF\u5283\u5206\u6210\u82E5\u5E72\u5340\u584A\uFF1B\u6BCF\u500B\u5340\u584A\u662F\u4E00\u7D44\u88AB\u5047\u8A2D\u6703\u88AB\u540C\u7B49\u8655\u7406\u7684\u503C\uFF0C\u4E4B\u5F8C\u518D\u5F9E\u6BCF\u500B\u5340\u584A\u6311\u4E00\u500B\u4EE3\u8868\u503C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u5283\u5206\uFF08partition\uFF09",
+            "text": "<p>\u5C0D\u65BC\u67D0\u500B\u7279\u5FB5\uFF0C\u5B83\u5C0D\u8F38\u5165\u5B9A\u7FA9\u57DF\u7684<strong>\u5283\u5206\uFF08partition\uFF09</strong>\u6700\u9069\u5408\u4EE5\u4E0B\u5217\u4F55\u8005\u63CF\u8FF0\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7D44\u5F7C\u6B64\u4E92\u65A5\uFF08disjoint\uFF09\u3001\u4E14\u806F\u96C6\u6DB5\u84CB\u6574\u500B\u5B9A\u7FA9\u57DF\u7684\u5340\u584A\u96C6\u5408",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5283\u5206\u6B63\u662F\u4E00\u7D44\u4E92\u65A5\u4E14\u5B8C\u6574\u7684\u5340\u584A\u3002"
+              },
+              {
+                "text": "\u70BA\u4E86\u65B9\u4FBF\u800C\u4EFB\u610F\u9078\u53D6\u3001\u5F7C\u6B64\u91CD\u758A\u7684\u4E00\u4E9B\u503C\u57DF\u7BC4\u570D",
+                "fraction": 0,
+                "feedback": "\u91CD\u758A\u6703\u7834\u58DE\u4E92\u65A5\u6027\uFF0C\u56E0\u6B64\u91CD\u758A\u7684\u7BC4\u570D\u7121\u6CD5\u69CB\u6210\u6709\u6548\u5283\u5206\u3002"
+              },
+              {
+                "text": "\u5B9A\u7FA9\u57DF\u4E2D\u6700\u91CD\u8981\u7684\u90A3\u500B\u55AE\u4E00\u503C",
+                "fraction": 0,
+                "feedback": "\u5283\u5206\u662F\u6DB5\u84CB\u5B9A\u7FA9\u57DF\u7684\u5340\u584A\u96C6\u5408\uFF0C\u800C\u975E\u55AE\u4E00\u503C\u3002"
+              },
+              {
+                "text": "\u67D0\u500B\u6DB5\u84CB\u6E96\u5247\u6240\u7522\u751F\u7684\u6E2C\u8A66\u6848\u4F8B\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u662F\u5F8C\u7E8C\u624D\u7522\u751F\u7684\uFF1B\u5283\u5206\u6307\u7684\u662F\u5C0D\u5B9A\u7FA9\u57DF\u672C\u8EAB\u7684\u5207\u5206\u3002"
+              }
+            ],
+            "generalFeedback": "\u67D0\u7279\u5FB5\u7684\u5283\u5206\u662F\u4E00\u7D44\u5340\u584A\uFF0C\u9019\u4E9B\u5340\u584A\u5408\u8D77\u4F86\u662F\u5B8C\u6574\u7684\uFF08\u6DB5\u84CB\u6574\u500B\u5B9A\u7FA9\u57DF\uFF09\u4E14\u4E92\u65A5\u7684\uFF08\u6C92\u6709\u4EFB\u4F55\u503C\u843D\u5728\u5169\u500B\u5340\u584A\u4E2D\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E92\u65A5\uFF08disjoint\uFF09\u7684\u610F\u7FA9",
+            "text": "<p>\u67D0\u7279\u5FB5\u7684\u5340\u584A\u5FC5\u9808\u662F<strong>\u4E92\u65A5\uFF08disjoint\uFF09</strong>\u7684\u3002\u9019\u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B9A\u7FA9\u57DF\u4E2D\u6C92\u6709\u4EFB\u4F55\u503C\u540C\u6642\u5C6C\u65BC\u4E00\u500B\u4EE5\u4E0A\u7684\u5340\u584A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E92\u65A5\u8868\u793A\u5340\u584A\u4E4B\u9593\u4E0D\u91CD\u758A\u3002"
+              },
+              {
+                "text": "\u5B9A\u7FA9\u57DF\u4E2D\u7684\u6BCF\u500B\u503C\u90FD\u5C6C\u65BC\u67D0\u500B\u5340\u584A",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u5B8C\u6574\u6027\uFF08complete\uFF09\uFF0C\u4E0D\u662F\u4E92\u65A5\u6027\u3002"
+              },
+              {
+                "text": "\u6240\u6709\u5340\u584A\u5305\u542B\u76F8\u540C\u6578\u91CF\u7684\u503C",
+                "fraction": 0,
+                "feedback": "\u4E0D\u8981\u6C42\u5927\u5C0F\u76F8\u7B49\uFF1B\u4E92\u65A5\u53EA\u7981\u6B62\u91CD\u758A\u3002"
+              },
+              {
+                "text": "\u6070\u597D\u53EA\u6709\u5169\u500B\u5340\u584A",
+                "fraction": 0,
+                "feedback": "\u4E92\u65A5\u6027\u8207\u5340\u584A\u7684\u6578\u91CF\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E92\u65A5\u8868\u793A\u5340\u584A\u5F7C\u6B64\u6392\u65A5\uFF1A\u4EFB\u4E00\u500B\u8F38\u5165\u503C\u6700\u591A\u53EA\u6703\u843D\u5165\u8A72\u7279\u5FB5\u7684\u4E00\u500B\u5340\u584A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B8C\u6574\uFF08complete\uFF09\u7684\u610F\u7FA9",
+            "text": "<p>\u67D0\u7279\u5FB5\u7684\u5340\u584A\u5FC5\u9808\u662F<strong>\u5B8C\u6574\uFF08complete\uFF09</strong>\u7684\u3002\u9019\u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5340\u584A\u7684\u806F\u96C6\u5C31\u662F\u6574\u500B\u8F38\u5165\u5B9A\u7FA9\u57DF\u2014\u2014\u6BCF\u500B\u503C\u90FD\u843D\u5165\u67D0\u500B\u5340\u584A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B8C\u6574\u8868\u793A\u5340\u584A\u4E0D\u907A\u6F0F\u4EFB\u4F55\u503C\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u4EFB\u4F55\u503C\u540C\u6642\u5C6C\u65BC\u5169\u500B\u5340\u584A",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u4E92\u65A5\u6027\uFF0C\u4E0D\u662F\u5B8C\u6574\u6027\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u5340\u584A\u81F3\u5C11\u7528\u5169\u500B\u503C\u4F86\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6574\u6027\u8AC7\u7684\u662F\u6DB5\u84CB\u5B9A\u7FA9\u57DF\uFF0C\u800C\u4E0D\u662F\u6BCF\u500B\u5340\u584A\u7528\u5E7E\u500B\u503C\u3002"
+              },
+              {
+                "text": "\u8A72\u7279\u5FB5\u81F3\u5C11\u8981\u6709\u4E09\u500B\u5340\u584A",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6574\u6027\u5C0D\u5340\u584A\u6578\u91CF\u6C92\u6709\u4E0B\u9650\u8981\u6C42\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B8C\u6574\u8868\u793A\u5340\u584A\u6DB5\u84CB\u6574\u500B\u5B9A\u7FA9\u57DF\uFF1A\u5B83\u5011\u5408\u8D77\u4F86\u5305\u542B\u6240\u6709\u53EF\u80FD\u7684\u8F38\u5165\u503C\uFF0C\u56E0\u6B64\u4E0D\u6703\u6709\u4EFB\u4F55\u503C\u7121\u6CD5\u6B78\u985E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F9E\u5340\u584A\u9078\u503C",
+            "text": "<p>\u7576\u5340\u584A\u5B9A\u7FA9\u5B8C\u6210\u5F8C\uFF0CISP \u5982\u4F55\u628A\u5B83\u5011\u8F49\u6210\u5177\u9AD4\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u6E2C\u8A66\u6240\u7528\u7684\u6BCF\u500B\u5340\u584A\u5404\u6311\u4E00\u500B\u4EE3\u8868\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4EE5\u6BCF\u500B\u5340\u584A\u4E00\u500B\u4EE3\u8868\u503C\u4F86\u4EE3\u8868\u6574\u500B\u5340\u584A\u3002"
+              },
+              {
+                "text": "\u7AAE\u8209\u6BCF\u500B\u5340\u584A\u4E2D\u7684\u6BCF\u4E00\u500B\u503C",
+                "fraction": 0,
+                "feedback": "\u7AAE\u8209\u6B63\u662F\u5283\u5206\u6280\u8853\u8981\u907F\u514D\u7684\u505A\u6CD5\u3002"
+              },
+              {
+                "text": "\u53EA\u5F9E\u6700\u5927\u7684\u5340\u584A\u6311\u503C",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u6240\u7528\u7684\u6BCF\u500B\u5340\u584A\u90FD\u9700\u8981\u4EE3\u8868\u503C\uFF0C\u800C\u4E0D\u662F\u53EA\u6311\u6700\u5927\u7684\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u7522\u751F\u503C\uFF0C\u5FFD\u7565\u5340\u584A",
+                "fraction": 0,
+                "feedback": "\u90A3\u6A23\u5340\u584A\u5C31\u6BEB\u7121\u4F5C\u7528\uFF1BISP \u662F\u523B\u610F\u5F9E\u6BCF\u500B\u5340\u584A\u6311\u4EE3\u8868\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "ISP \u4F9D\u8CF4\u300C\u540C\u4E00\u5340\u584A\u7684\u503C\u6703\u88AB\u540C\u7B49\u8655\u7406\u300D\u7684\u5047\u8A2D\uFF0C\u56E0\u6B64\u6BCF\u500B\u5340\u584A\u6311\u4E00\u500B\u4EE3\u8868\u503C\u4F86\u7D44\u6210\u5404\u500B\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4ECB\u9762\u5F0F\uFF08interface-based\uFF09\u7279\u5FB5",
+            "text": "<p><strong>\u4ECB\u9762\u5F0F\uFF08interface-based\uFF09</strong>\u7279\u5FB5\u662F\u5F9E\u4F55\u8655\u63A8\u5C0E\u51FA\u4F86\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u53D7\u6E2C\u65B9\u6CD5\u7684\u53C3\u6578\u63A8\u5C0E\uFF0C\u9010\u4E00\u6AA2\u8996\u5176\u7C3D\u7AE0\u4E2D\u7684\u5404\u53C3\u6578",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4ECB\u9762\u5F0F\u7279\u5FB5\u76F4\u63A5\u4F86\u81EA\u8F38\u5165\u53C3\u6578\u3002"
+              },
+              {
+                "text": "\u5F9E\u7A0B\u5F0F\u7684\u898F\u683C\u8207\u9810\u671F\u884C\u70BA\u63A8\u5C0E",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u529F\u80FD\u5F0F\uFF08functionality-based\uFF09\u7279\u5FB5\u3002"
+              },
+              {
+                "text": "\u5F9E\u7A0B\u5F0F\u78BC\u5167\u90E8\u7684\u63A7\u5236\u6D41\u7A0B\u5716\u63A8\u5C0E",
+                "fraction": 0,
+                "feedback": "ISP \u5C6C\u9ED1\u7BB1\uFF1B\u4ECB\u9762\u5F0F\u7279\u5FB5\u7528\u7684\u662F\u53C3\u6578\uFF0C\u800C\u975E\u63A7\u5236\u6D41\u7A0B\u5716\u3002"
+              },
+              {
+                "text": "\u5F9E\u6BCF\u500B\u6E2C\u8A66\u91CF\u6E2C\u5230\u7684\u57F7\u884C\u6642\u9593\u63A8\u5C0E",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u6642\u9593\u8207\u7279\u5FB5\u7684\u63A8\u5C0E\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u4ECB\u9762\u5F0F\u7279\u5FB5\u662F\u9010\u4E00\u5F9E\u65B9\u6CD5\u7684\u53C3\u6578\u8B80\u51FA\uFF08\u4F8B\u5982\u300C\u53C3\u6578 x \u662F\u5426\u70BA null\uFF1F\u300D\uFF09\u3002\u9019\u7A2E\u65B9\u5F0F\u5BB9\u6613\u63A8\u5C0E\uFF0C\u4F46\u53EF\u80FD\u5FFD\u7565\u53C3\u6578\u4E4B\u9593\u7684\u95DC\u4FC2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u529F\u80FD\u5F0F\uFF08functionality-based\uFF09\u7279\u5FB5",
+            "text": "<p><strong>\u529F\u80FD\u5F0F\uFF08functionality-based\uFF09</strong>\u7279\u5FB5\u662F\u5F9E\u4F55\u8655\u63A8\u5C0E\u51FA\u4F86\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u51FD\u5F0F\u6240\u898F\u5B9A\u7684\u884C\u70BA\u6216\u8A9E\u610F\u63A8\u5C0E\uFF0C\u53EF\u80FD\u540C\u6642\u727D\u6D89\u591A\u500B\u53C3\u6578",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u529F\u80FD\u5F0F\u7279\u5FB5\u4F86\u81EA\u51FD\u5F0F\u61C9\u505A\u7684\u4E8B\u3002"
+              },
+              {
+                "text": "\u5F9E\u7C3D\u7AE0\u4E2D\u9010\u4E00\u7368\u7ACB\u6AA2\u8996\u7684\u5404\u500B\u53C3\u6578\u63A8\u5C0E",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4ECB\u9762\u5F0F\u7684\u505A\u6CD5\u3002"
+              },
+              {
+                "text": "\u5F9E\u5BE6\u4F5C\u4E2D\u7684\u6558\u8FF0\u53E5\u6578\u91CF\u63A8\u5C0E",
+                "fraction": 0,
+                "feedback": "\u6558\u8FF0\u53E5\u6578\u91CF\u662F\u7A0B\u5F0F\u78BC\u5EA6\u91CF\uFF0C\u4E0D\u662F\u529F\u80FD\u5F0F\u7279\u5FB5\u3002"
+              },
+              {
+                "text": "\u5F9E\u7DE8\u8B6F\u5668\u7684\u6700\u4F73\u5316\u7B49\u7D1A\u63A8\u5C0E",
+                "fraction": 0,
+                "feedback": "\u7DE8\u8B6F\u8A2D\u5B9A\u8207\u7279\u5FB5\u7684\u63A8\u5C0E\u6BEB\u7121\u95DC\u4FC2\u3002"
+              }
+            ],
+            "generalFeedback": "\u529F\u80FD\u5F0F\u7279\u5FB5\u4F86\u81EA\u898F\u683C\uFF08\u4F8B\u5982\u300C\u4E32\u5217\u662F\u5426\u5DF2\u6392\u5E8F\u300D\uFF09\uFF0C\u4E14\u53EF\u80FD\u540C\u6642\u95DC\u806F\u591A\u500B\u53C3\u6578\u3002\u5B83\u5011\u901A\u5E38\u80FD\u5C0E\u51FA\u8F03\u597D\u7684\u6E2C\u8A66\uFF0C\u4F46\u9700\u8981\u66F4\u591A\u9818\u57DF\u7406\u89E3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ECC \u7684\u8981\u6C42",
+            "text": "<p>\u5404\u9078\u64C7\u6DB5\u84CB\uFF08Each Choice Coverage, ECC\uFF09\u5C0D\u4E00\u7D44\u6E2C\u8A66\u7684\u8981\u6C42\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u7279\u5FB5\u7684\u6BCF\u500B\u5340\u584A\u90FD\u5FC5\u9808\u81F3\u5C11\u51FA\u73FE\u5728\u4E00\u500B\u6E2C\u8A66\u4E2D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F\u300C\u5404\u9078\u64C7\u300D\u7684\u8981\u6C42\u3002"
+              },
+              {
+                "text": "\u6240\u6709\u7279\u5FB5\u4E4B\u9593\u7684\u6BCF\u4E00\u7A2E\u5340\u584A\u7D44\u5408\u90FD\u5FC5\u9808\u51FA\u73FE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5168\u7D44\u5408\u6DB5\u84CB\uFF08ACoC\uFF09\uFF0C\u8981\u6C42\u5F37\u5F97\u591A\u3002"
+              },
+              {
+                "text": "\u6BCF\u4E00\u5C0D\u7279\u5FB5\u7684\u6BCF\u4E00\u5C0D\u5340\u584A\u90FD\u5FC5\u9808\u4E00\u8D77\u51FA\u73FE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6210\u5C0D\u6DB5\u84CB\uFF08PWC\uFF09\uFF0C\u4E0D\u662F\u5404\u9078\u64C7\u3002"
+              },
+              {
+                "text": "\u4E0D\u8AD6\u6709\u591A\u5C11\u5340\u584A\uFF0C\u53EA\u9700\u8981\u4E00\u500B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u6E2C\u8A66\u4E0D\u53EF\u80FD\u540C\u6642\u5305\u542B\u540C\u4E00\u7279\u5FB5\u7684\u5169\u500B\u4E0D\u540C\u5340\u584A\u3002"
+              }
+            ],
+            "generalFeedback": "ECC \u53EA\u8981\u6C42\u6BCF\u500B\u7279\u5FB5\u7684\u6BCF\u500B\u5340\u584A\u5728\u6574\u7D44\u6E2C\u8A66\u4E2D\u81F3\u5C11\u88AB\u7528\u5230\u4E00\u6B21\u2014\u2014\u662F\u6A19\u6E96 ISP \u6E96\u5247\u4E2D\u6700\u5F31\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ACoC \u7684\u8981\u6C42",
+            "text": "<p>\u5168\u7D44\u5408\u6DB5\u84CB\uFF08All Combinations Coverage, ACoC\uFF09\u5C0D\u4E00\u7D44\u6E2C\u8A66\u7684\u8981\u6C42\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u7279\u5FB5\u5404\u53D6\u4E00\u500B\u5340\u584A\u6240\u5F62\u6210\u7684\u6BCF\u4E00\u7A2E\u7D44\u5408\uFF0C\u90FD\u5FC5\u9808\u51FA\u73FE\u5728\u67D0\u500B\u6E2C\u8A66\u4E2D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ACoC \u6DB5\u84CB\u5340\u584A\u7684\u5B8C\u6574\u7B1B\u5361\u5152\u7A4D\u3002"
+              },
+              {
+                "text": "\u53EA\u8981\u6C42\u6BCF\u500B\u5340\u584A\u81F3\u5C11\u51FA\u73FE\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5404\u9078\u64C7\u6DB5\u84CB\uFF08ECC\uFF09\uFF0C\u8F03\u5F31\u3002"
+              },
+              {
+                "text": "\u53EA\u8981\u6C42\u6BCF\u4E00\u5C0D\u5340\u584A\u4E00\u8D77\u51FA\u73FE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6210\u5C0D\u6DB5\u84CB\uFF08PWC\uFF09\uFF0C\u6BD4 ACoC \u5F31\u3002"
+              },
+              {
+                "text": "\u628A\u4E00\u500B\u57FA\u5E95\u6E2C\u8A66\u6BCF\u6B21\u53EA\u8B8A\u52D5\u4E00\u500B\u7279\u5FB5",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u57FA\u5E95\u9078\u64C7\u6DB5\u84CB\uFF08BCC\uFF09\uFF0C\u4E0D\u662F ACoC\u3002"
+              }
+            ],
+            "generalFeedback": "ACoC \u8981\u6C42\u6BCF\u500B\u7279\u5FB5\u5404\u53D6\u4E00\u500B\u5340\u584A\u7684\u6240\u6709\u7D44\u5408\uFF0C\u56E0\u6B64\u6E2C\u8A66\u6578\u662F\u5404\u5340\u584A\u6578\u7684\u4E58\u7A4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5169\u500B\u7279\u5FB5\u7684 ACoC \u6578\u91CF",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u5169\u500B\u7279\u5FB5\uFF0C\u5340\u584A\u6578\u5206\u5225\u70BA 2 \u8207 3\u3002\u5168\u7D44\u5408\u6DB5\u84CB\uFF08ACoC\uFF09\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20142 \xD7 3 = 6\uFF0C\u5373\u5404\u5340\u584A\u6578\u7684\u4E58\u7A4D\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 \u662F\u7E3D\u548C 2 + 3\uFF1BACoC \u662F\u5404\u5340\u584A\u6578\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u662F\u8F03\u5927\u7684\u5340\u584A\u6578\uFF08\u90A3\u662F\u5404\u9078\u64C7\u6DB5\u84CB\uFF09\uFF0C\u4E0D\u662F\u5168\u7D44\u5408\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 \u8207 2 \xD7 3 \u4E0D\u7B26\u3002"
+              }
+            ],
+            "generalFeedback": "ACoC \u662F\u5404\u5340\u584A\u6578\u7684\u4E58\u7A4D\uFF1A2 \xD7 3 = 6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E09\u500B\u4E8C\u5143\u7279\u5FB5\u7684 ACoC \u6578\u91CF",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u4E09\u500B\u7279\u5FB5\uFF0C\u6BCF\u500B\u90FD\u6709 2 \u500B\u5340\u584A\u3002ACoC \u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20142 \xD7 2 \xD7 2 = 8\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u662F\u7E3D\u548C 2 + 2 + 2\uFF1BACoC \u662F\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u662F\u55AE\u4E00\u5340\u584A\u6578\uFF08\u5404\u9078\u64C7\uFF09\uFF0C\u4E0D\u662F\u5168\u7D44\u5408\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u5C11\u7B97\u4E86\u4E00\u500B\u7279\u5FB5\uFF1B\u4E09\u8005\u76F8\u4E58\u70BA 8\u3002"
+              }
+            ],
+            "generalFeedback": "ACoC \u662F\u5404\u5340\u584A\u6578\u7684\u4E58\u7A4D\uFF1A2 \xD7 2 \xD7 2 = 8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ECC \u6578\u91CF\u7B49\u65BC\u6700\u5927\u5340\u584A\u6578",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u4E09\u500B\u7279\u5FB5\uFF0C\u5340\u584A\u6578\u5206\u5225\u70BA 2\u30015\u30013\u3002\u5404\u9078\u64C7\u6DB5\u84CB\uFF08ECC\uFF09\u6240\u9700\u7684\u6700\u5C11\u6E2C\u8A66\u6578\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ECC \u81F3\u5C11\u9700\u8981\u6700\u5927\u7684\u5340\u584A\u6578\uFF0Cmax(2,5,3) = 5\u3002"
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "10 \u662F\u5404\u5340\u584A\u6578\u7684\u7E3D\u548C\uFF1B\u540C\u4E00\u500B\u6E2C\u8A66\u4E2D\u4E0D\u540C\u7279\u5FB5\u7684\u5340\u584A\u53EF\u4EE5\u5171\u7528\u3002"
+              },
+              {
+                "text": "30",
+                "fraction": 0,
+                "feedback": "30 \u662F\u4E58\u7A4D\uFF08\u5168\u7D44\u5408\uFF09\uFF0C\u9060\u591A\u65BC ECC \u6240\u9700\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u4E0D\u8DB3\u4EE5\u6DB5\u84CB\u90A3\u500B\u6709 5 \u500B\u5340\u584A\u7684\u7279\u5FB5\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u6E2C\u8A66\u5C0D\u6BCF\u500B\u7279\u5FB5\u5404\u53D6\u4E00\u500B\u5340\u584A\uFF0C\u56E0\u6B64\u8981\u6DB5\u84CB\u6240\u6709\u5340\u584A\uFF0C\u81F3\u5C11\u9700\u8981\u8207\u6700\u5927\u5340\u584A\u6578\u4E00\u6A23\u591A\u7684\u6E2C\u8A66\uFF1Amax(2,5,3) = 5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5169\u500B\u7279\u5FB5\u7684 ECC \u6578\u91CF",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u5169\u500B\u7279\u5FB5\uFF0C\u5340\u584A\u6578\u5206\u5225\u70BA 4 \u8207 2\u3002\u5404\u9078\u64C7\u6DB5\u84CB\uFF08ECC\uFF09\u6240\u9700\u7684\u6700\u5C11\u6E2C\u8A66\u6578\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ECC \u81F3\u5C11\u9700\u8981 max(4,2) = 4 \u500B\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 \u662F\u4E58\u7A4D\uFF08\u5168\u7D44\u5408\uFF09\uFF0C\u4E0D\u662F\u5404\u9078\u64C7\u7684\u6700\u5C11\u503C\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u662F\u5404\u5340\u584A\u6578\u7684\u7E3D\u548C\uFF1BECC \u5728\u540C\u4E00\u6E2C\u8A66\u4E2D\u53EF\u5171\u7528\u5340\u584A\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "2 \u7121\u6CD5\u6DB5\u84CB\u90A3\u500B\u6709 4 \u500B\u5340\u584A\u7684\u7279\u5FB5\u3002"
+              }
+            ],
+            "generalFeedback": "ECC \u7B49\u65BC\u6700\u5927\u7684\u5340\u584A\u6578\uFF1Amax(4,2) = 4\u3002\u90A3\u500B 2 \u5340\u584A\u7684\u7279\u5FB5\uFF0C\u5176\u5340\u584A\u5728\u9019\u56DB\u500B\u6E2C\u8A66\u4E2D\u91CD\u8907\u4F7F\u7528\u5373\u53EF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6709\u6548\u7684\u7279\u5FB5\u8207\u5176\u5340\u584A",
+            "text": "<p>\u5C0D\u65BC\u4E00\u500B\u6574\u6578\u8F38\u5165 <code>x</code>\uFF0C\u4E0B\u5217\u4F55\u8005\u662F\u5340\u584A\u4E92\u65A5\u4E14\u5B8C\u6574\u3001\u683C\u5F0F\u826F\u597D\u7684 ISP \u7279\u5FB5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u300Cx \u7684\u6B63\u8CA0\u865F\u300D\uFF0C\u5340\u584A\u70BA {x < 0}\u3001{x = 0}\u3001{x > 0}",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u4E09\u500B\u5340\u584A\u4E92\u65A5\uFF0C\u4E14\u6DB5\u84CB\u6240\u6709\u6574\u6578\u3002"
+              },
+              {
+                "text": "\u300Cx \u7684\u5927\u5C0F\u300D\uFF0C\u5340\u584A\u70BA {x < 10}\u3001{x > 5}",
+                "fraction": 0,
+                "feedback": "\u503C 6..9 \u540C\u6642\u843D\u5165\u5169\u500B\u5340\u584A\uFF0C\u56E0\u6B64\u91CD\u758A\uFF08\u975E\u4E92\u65A5\uFF09\u3002"
+              },
+              {
+                "text": "\u300Cx \u7684\u7BC4\u570D\u300D\uFF0C\u5340\u584A\u70BA {x < 0}\u3001{x > 0}",
+                "fraction": 0,
+                "feedback": "\u503C 0 \u4E0D\u5C6C\u65BC\u4EFB\u4F55\u5340\u584A\uFF0C\u56E0\u6B64\u4E0D\u5B8C\u6574\u3002"
+              },
+              {
+                "text": "\u300Cx \u7684\u503C\u300D\uFF0C\u53EA\u6709\u4E00\u500B\u5340\u584A {x = 7}",
+                "fraction": 0,
+                "feedback": "\u5176\u4ED6\u6240\u6709\u6574\u6578\u90FD\u672A\u88AB\u6DB5\u84CB\uFF0C\u56E0\u6B64\u6B64\u5283\u5206\u4E0D\u5B8C\u6574\u3002"
+              }
+            ],
+            "generalFeedback": "\u683C\u5F0F\u826F\u597D\u7684\u7279\u5FB5\u6703\u628A\u5B9A\u7FA9\u57DF\u5283\u5206\u6210\u4E92\u65A5\u4E14\u5B8C\u6574\u7684\u5340\u584A\u3002\u300Cx \u7684\u6B63\u8CA0\u865F\u300D\u5206\u6210\u8CA0\u3001\u96F6\u3001\u6B63\uFF0C\u6B63\u597D\u5C0D\u6574\u6578\u505A\u5230\u9019\u4E00\u9EDE\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "ISP \u662F\u9ED1\u7BB1\u6280\u8853",
+            "text": "<p>\u8F38\u5165\u7A7A\u9593\u5283\u5206\u662F\u4E00\u7A2E\u9ED1\u7BB1\u6280\u8853\uFF1A\u5B83\u70BA\u8F38\u5165\u5B9A\u7FA9\u57DF\u5EFA\u6A21\uFF0C\u4E14\u4E0D\u9700\u8981\u5B58\u53D6\u539F\u59CB\u78BC\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ISP \u7531\u53C3\u6578\u8207\u898F\u683C\u63A8\u5C0E\u7279\u5FB5\uFF0C\u800C\u975E\u7531\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "ISP \u4F5C\u7528\u65BC\u8F38\u5165\u5B9A\u7FA9\u57DF\uFF08\u4ECB\u9762\u5F0F\u6216\u529F\u80FD\u5F0F\uFF09\uFF0C\u56E0\u6B64\u4E0D\u9700\u8981\u539F\u59CB\u78BC\u3002"
+              }
+            ],
+            "generalFeedback": "ISP \u662F\u9ED1\u7BB1\u3001\u4EE5\u8F38\u5165\u5B9A\u7FA9\u57DF\u70BA\u5C0D\u8C61\u7684\u6280\u8853\u3002\u7279\u5FB5\u4F86\u81EA\u65B9\u6CD5\u7684\u53C3\u6578\uFF08\u4ECB\u9762\u5F0F\uFF09\u6216\u5176\u898F\u5B9A\u7684\u884C\u70BA\uFF08\u529F\u80FD\u5F0F\uFF09\uFF0C\u56E0\u6B64\u4E0D\u9700\u8981\u5BE6\u4F5C\u7A0B\u5F0F\u78BC\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u627E\u51FA\u91CD\u758A\u7684\u5283\u5206",
+            "text": "<p>\u7279\u5FB5\u300C\u5B57\u4E32\u9577\u5EA6 L\u300D\u88AB\u5206\u6210\u5340\u584A {L &lt; 10}\u3001{10 \u2264 L \u2264 20}\u3001{L &gt; 15}\u3002\u9019\u662F\u6709\u6548\u7684\u5283\u5206\u55CE\uFF1F\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7121\u6548\u2014\u2014\u5340\u584A\u4E26\u975E\u4E92\u65A5\uFF08\u4F8B\u5982 L = 18 \u540C\u6642\u843D\u5165 {10 \u2264 L \u2264 20} \u8207 {L > 15}\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201416..20 \u540C\u6642\u843D\u5728\u5169\u500B\u5340\u584A\uFF0C\u7834\u58DE\u4E86\u4E92\u65A5\u6027\u3002"
+              },
+              {
+                "text": "\u6709\u6548\u2014\u2014\u5340\u584A\u4E92\u65A5\u4E14\u5B8C\u6574",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E26\u4E0D\u4E92\u65A5\uFF1A\u503C 16..20 \u5C6C\u65BC\u5169\u500B\u5340\u584A\u3002"
+              },
+              {
+                "text": "\u7121\u6548\u2014\u2014\u6709\u4E9B\u9577\u5EA6\u672A\u88AB\u6DB5\u84CB\uFF08\u4E0D\u5B8C\u6574\uFF09",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B\u9577\u5EA6\u90FD\u6709\u88AB\u6DB5\u84CB\uFF1B\u9019\u88E1\u7684\u7F3A\u9677\u662F\u91CD\u758A\uFF0C\u4E0D\u662F\u907A\u6F0F\u3002"
+              },
+              {
+                "text": "\u6709\u6548\u2014\u2014ISP \u5141\u8A31\u5340\u584A\u4E4B\u9593\u91CD\u758A",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5141\u8A31\u91CD\u758A\uFF1B\u5283\u5206\u7684\u5340\u584A\u5FC5\u9808\u4E92\u65A5\u3002"
+              }
+            ],
+            "generalFeedback": "\u9577\u5EA6 16..20 \u540C\u6642\u6EFF\u8DB3 {10 \u2264 L \u2264 20} \u8207 {L > 15}\uFF0C\u56E0\u6B64\u5340\u584A\u91CD\u758A\u3002\u6709\u6548\u5283\u5206\u5FC5\u9808\u4E92\u65A5\uFF0C\u6240\u4EE5\u9019\u662F\u7121\u6548\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u627E\u51FA\u5283\u5206\u4E2D\u7684\u907A\u6F0F",
+            "text": "<p>\u7279\u5FB5\u300C\u5E74\u9F61\u300D\uFF08\u975E\u8CA0\u6574\u6578\uFF09\u88AB\u5206\u6210\u5340\u584A {0..17}\u3001{19..65}\u3001{&gt; 65}\u3002\u9019\u662F\u6709\u6548\u7684\u5283\u5206\u55CE\uFF1F\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7121\u6548\u2014\u2014\u4E0D\u5B8C\u6574\uFF1A\u5E74\u9F61 18 \u4E0D\u5C6C\u65BC\u4EFB\u4F55\u5340\u584A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201418 \u88AB\u907A\u6F0F\uFF0C\u56E0\u6B64\u5340\u584A\u672A\u6DB5\u84CB\u6574\u500B\u5B9A\u7FA9\u57DF\u3002"
+              },
+              {
+                "text": "\u6709\u6548\u2014\u2014\u5340\u584A\u4E92\u65A5\u4E14\u5B8C\u6574",
+                "fraction": 0,
+                "feedback": "\u5E74\u9F61 18 \u672A\u88AB\u6DB5\u84CB\uFF0C\u56E0\u6B64\u4E0D\u7B26\u5408\u5B8C\u6574\u6027\u3002"
+              },
+              {
+                "text": "\u7121\u6548\u2014\u2014\u5340\u584A\u5728 65 \u8655\u91CD\u758A",
+                "fraction": 0,
+                "feedback": "65 \u53EA\u5728 {19..65} \u4E2D\uFF0C\u6C92\u6709\u91CD\u758A\u3002\u7F3A\u9677\u662F\u907A\u6F0F\u4E86 18\u3002"
+              },
+              {
+                "text": "\u6709\u6548\u2014\u2014ISP \u53EF\u4EE5\u63A5\u53D7\u5C0F\u7684\u907A\u6F0F",
+                "fraction": 0,
+                "feedback": "\u907A\u6F0F\u9055\u53CD\u5B8C\u6574\u6027\uFF1B\u6BCF\u500B\u5B9A\u7FA9\u57DF\u7684\u503C\u90FD\u5FC5\u9808\u843D\u5165\u67D0\u500B\u5340\u584A\u3002"
+              }
+            ],
+            "generalFeedback": "\u5E74\u9F61 18 \u4E0D\u5728 {0..17}\u3001{19..65} \u6216 {> 65} \u4E2D\uFF0C\u56E0\u6B64\u5283\u5206\u4E0D\u5B8C\u6574\uFF0C\u6545\u70BA\u7121\u6548\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u6709\u6548\u7684\u5283\u5206",
+            "text": "<p>\u7279\u5FB5\u300C\u6EAB\u5EA6 T\uFF08\u6574\u6578 \xB0C\uFF09\u300D\u88AB\u5206\u6210\u5340\u584A {T &lt; 0}\u3001{0 \u2264 T \u2264 100}\u3001{T &gt; 100}\u3002\u9019\u662F\u6709\u6548\u7684\u5283\u5206\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6709\u6548\u2014\u2014\u9019\u4E09\u500B\u5340\u584A\u4E92\u65A5\uFF0C\u4E14\u5408\u8D77\u4F86\u6DB5\u84CB\u6BCF\u4E00\u500B\u6574\u6578\u6EAB\u5EA6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u91CD\u758A\u4E5F\u6C92\u6709\u907A\u6F0F\uFF0C\u662F\u6B63\u78BA\u7684\u5283\u5206\u3002"
+              },
+              {
+                "text": "\u7121\u6548\u2014\u2014\u5340\u584A\u5728 0 \u8207 100 \u8655\u91CD\u758A",
+                "fraction": 0,
+                "feedback": "0 \u53EA\u5728\u4E2D\u9593\u5340\u584A\u3001100 \u4E5F\u53EA\u5728\u4E2D\u9593\u5340\u584A\uFF1B\u6C92\u6709\u91CD\u758A\u3002"
+              },
+              {
+                "text": "\u7121\u6548\u2014\u2014\u4F4E\u65BC 0 \u7684\u6EAB\u5EA6\u672A\u88AB\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "{T < 0} \u5DF2\u6DB5\u84CB\u5B83\u5011\uFF0C\u6C92\u6709\u4EFB\u4F55\u907A\u6F0F\u3002"
+              },
+              {
+                "text": "\u7121\u6548\u2014\u2014\u5283\u5206\u6700\u591A\u53EA\u80FD\u6709\u5169\u500B\u5340\u584A",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u7279\u5FB5\u53EF\u4EE5\u6709\u4EFB\u610F\u6578\u91CF\u7684\u5340\u584A\uFF1B\u4E09\u500B\u6C92\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5340\u584A {T < 0}\u3001{0..100}\u3001{T > 100} \u5C0D\u6574\u6578\u800C\u8A00\u4E92\u65A5\u4E14\u7AAE\u76E1\uFF0C\u56E0\u6B64\u5283\u5206\u4E92\u65A5\u53C8\u5B8C\u6574\u2014\u2014\u6709\u6548\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E09\u500B\u7279\u5FB5\u7684 ACoC \u6578\u91CF",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u4E09\u500B\u7279\u5FB5\uFF0C\u5340\u584A\u6578\u5206\u5225\u70BA 4\u30013\u30012\u3002\u5168\u7D44\u5408\u6DB5\u84CB\uFF08ACoC\uFF09\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "24",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20144 \xD7 3 \xD7 2 = 24\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 \u662F\u7E3D\u548C 4 + 3 + 2\uFF1BACoC \u662F\u5404\u5340\u584A\u6578\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 \u53EA\u4E58\u4E86\u6700\u5927\u7684\u5169\u500B\uFF08\u90A3\u662F PWC \u4E0B\u754C\uFF09\uFF0C\u800C\u975E\u5168\u90E8\u4E09\u500B\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u6700\u5927\u7684\u55AE\u4E00\u5340\u584A\u6578\uFF08\u5404\u9078\u64C7\uFF09\uFF0C\u4E0D\u662F\u5168\u7D44\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "ACoC \uFF1D \u5404\u5340\u584A\u6578\u7684\u4E58\u7A4D \uFF1D 4 \xD7 3 \xD7 2 = 24\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DB\u500B\u7279\u5FB5\u7684 ECC \u6578\u91CF",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u56DB\u500B\u7279\u5FB5\uFF0C\u5340\u584A\u6578\u5206\u5225\u70BA 3\u30013\u30015\u30012\u3002\u5404\u9078\u64C7\u6DB5\u84CB\uFF08ECC\uFF09\u6240\u9700\u7684\u6700\u5C11\u6E2C\u8A66\u6578\u662F\u591A\u5C11\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ECC \u81F3\u5C11\u9700\u8981 max(3,3,5,2) = 5 \u500B\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "13",
+                "fraction": 0,
+                "feedback": "13 \u662F\u5404\u5340\u584A\u6578\u7684\u7E3D\u548C\uFF1BECC \u5728\u6BCF\u500B\u6E2C\u8A66\u4E2D\u53EF\u5171\u7528\u5340\u584A\u3002"
+              },
+              {
+                "text": "90",
+                "fraction": 0,
+                "feedback": "90 \u662F\u4E58\u7A4D\uFF08\u5168\u7D44\u5408\uFF09\uFF0C\u4E0D\u662F\u5404\u9078\u64C7\u7684\u6700\u5C11\u503C\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u4E0D\u8DB3\u4EE5\u6DB5\u84CB\u90A3\u500B\u6709 5 \u500B\u5340\u584A\u7684\u7279\u5FB5\u3002"
+              }
+            ],
+            "generalFeedback": "ECC \u7B49\u65BC\u6700\u5927\u7684\u5340\u584A\u6578\uFF1Amax(3,3,5,2) = 5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "2,4,3 \u7684 BCC \u6578\u91CF",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u4E09\u500B\u7279\u5FB5\uFF0C\u5340\u584A\u6578\u5206\u5225\u70BA 2\u30014\u30013\u3002\u57FA\u5E95\u9078\u64C7\u6DB5\u84CB\uFF08BCC\uFF09\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "7",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141 + (2-1) + (4-1) + (3-1) = 1 + 1 + 3 + 2 = 7\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 \u662F\u5404\u5340\u584A\u6578\u7684\u7E3D\u548C\uFF1BBCC \u662F 1 + \u03A3(\u5340\u584A\u6578 - 1)\u3002"
+              },
+              {
+                "text": "24",
+                "fraction": 0,
+                "feedback": "24 \u662F\u4E58\u7A4D\uFF08\u5168\u7D44\u5408\uFF09\uFF0C\u4E0D\u662F\u57FA\u5E95\u9078\u64C7\u7684\u6578\u91CF\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u6F0F\u6389\u4E86 +1 \u7684\u57FA\u5E95\u6E2C\u8A66\uFF1A1 + (1 + 3 + 2) = 7\u3002"
+              }
+            ],
+            "generalFeedback": "BCC \uFF1D 1 + \u03A3(b_i - 1) = 1 + (1 + 3 + 2) = 7\uFF1A\u4E00\u500B\u57FA\u5E95\u6E2C\u8A66\uFF0C\u52A0\u4E0A\u628A\u6BCF\u500B\u7279\u5FB5\u8B8A\u52D5\u5230\u5176\u5404\u500B\u975E\u57FA\u5E95\u5340\u584A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "2,2,4 \u7684 BCC \u6578\u91CF",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u4E09\u500B\u7279\u5FB5\uFF0C\u5340\u584A\u6578\u5206\u5225\u70BA 2\u30012\u30014\u3002\u57FA\u5E95\u9078\u64C7\u6DB5\u84CB\uFF08BCC\uFF09\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141 + (2-1) + (2-1) + (4-1) = 1 + 1 + 1 + 3 = 6\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 \u662F\u5404\u5340\u584A\u6578\u7684\u7E3D\u548C\uFF1BBCC \u662F 1 + \u03A3(\u5340\u584A\u6578 - 1)\u3002"
+              },
+              {
+                "text": "16",
+                "fraction": 0,
+                "feedback": "16 \u662F\u4E58\u7A4D\uFF08\u5168\u7D44\u5408\uFF09\uFF0C\u4E0D\u662F\u57FA\u5E95\u9078\u64C7\u7684\u6578\u91CF\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 \u6F0F\u6389\u4E86 +1 \u7684\u57FA\u5E95\u6E2C\u8A66\uFF1A1 + (1 + 1 + 3) = 6\u3002"
+              }
+            ],
+            "generalFeedback": "BCC \uFF1D 1 + \u03A3(b_i - 1) = 1 + (1 + 1 + 3) = 6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "4,3,2 \u7684 PWC \u4E0B\u754C",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u4E09\u500B\u7279\u5FB5\uFF0C\u5340\u584A\u6578\u5206\u5225\u70BA 4\u30013\u30012\u3002\u4EFB\u4F55\u6210\u5C0D\u6DB5\u84CB\uFF08PWC\uFF09\u6E2C\u8A66\u96C6\u81F3\u5C11\u5FC5\u9808\u5305\u542B\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "12",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u81F3\u5C11\u70BA\u6700\u5927\u5169\u500B\u5340\u584A\u6578\u7684\u4E58\u7A4D\uFF0C4 \xD7 3 = 12\u3002"
+              },
+              {
+                "text": "24",
+                "fraction": 0,
+                "feedback": "24 \u662F\u5B8C\u6574\u7684\u5168\u7D44\u5408\u4E58\u7A4D\uFF1BPWC \u9700\u8981\u7684\u8F03\u5C11\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 \u662F\u5404\u5340\u584A\u6578\u7684\u7E3D\u548C\uFF0C\u8207\u6210\u5C0D\u4E0B\u754C\u7121\u95DC\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4\uFF08\u6700\u5927\u7684\u55AE\u4E00\u5340\u584A\u6578\uFF09\u662F\u5404\u9078\u64C7\u7684\u6700\u5C11\u503C\uFF0C\u4E0D\u662F\u6210\u5C0D\u4E0B\u754C\u3002"
+              }
+            ],
+            "generalFeedback": "\u8981\u6DB5\u84CB\u6700\u5927\u5169\u500B\u7279\u5FB5\uFF084 \u8207 3 \u500B\u5340\u584A\uFF09\u4E4B\u9593\u7684\u6BCF\u4E00\u5C0D\uFF0C\u5DF2\u9700\u8981\u5B83\u5011\u5168\u90E8 4 \xD7 3 = 12 \u7A2E\u7D44\u5408\uFF0C\u56E0\u6B64\u4EFB\u4F55 PWC \u6E2C\u8A66\u96C6\u81F3\u5C11\u6709 12 \u500B\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "2,5,3,2 \u7684 PWC \u4E0B\u754C",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u56DB\u500B\u7279\u5FB5\uFF0C\u5340\u584A\u6578\u5206\u5225\u70BA 2\u30015\u30013\u30012\u3002\u4EFB\u4F55\u6210\u5C0D\u6DB5\u84CB\uFF08PWC\uFF09\u6E2C\u8A66\u96C6\u81F3\u5C11\u5FC5\u9808\u5305\u542B\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "15",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u5927\u5169\u500B\u5340\u584A\u6578\u7684\u4E58\u7A4D\uFF0C5 \xD7 3 = 15\u3002"
+              },
+              {
+                "text": "60",
+                "fraction": 0,
+                "feedback": "60 \u662F\u5B8C\u6574\u7684\u5168\u7D44\u5408\u4E58\u7A4D\uFF1BPWC \u9700\u8981\u7684\u8F03\u5C11\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 \u662F\u5404\u5340\u584A\u6578\u7684\u7E3D\u548C\uFF0C\u4E0D\u662F\u6210\u5C0D\u4E0B\u754C\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5\uFF08\u6700\u5927\u7684\u55AE\u4E00\u5340\u584A\u6578\uFF09\u662F\u5404\u9078\u64C7\u7684\u6700\u5C11\u503C\uFF0C\u4E0D\u662F\u6210\u5C0D\u4E0B\u754C\u3002"
+              }
+            ],
+            "generalFeedback": "PWC \u4E0B\u754C\u662F\u6700\u5927\u5169\u500B\u5340\u584A\u6578\u7684\u4E58\u7A4D\uFF1A5 \xD7 3 = 15\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1Anull \u6AA2\u67E5\u7279\u5FB5",
+            "text": "<p>\u5C0D\u65BC <code>int indexOf(List list, Object target)</code>\uFF0C\u6E2C\u8A66\u8005\u5B9A\u7FA9\u7279\u5FB5\u300C<code>list</code> \u662F\u5426\u70BA null\uFF1F\u300D\uFF0C\u5340\u584A\u70BA {null}\u3001{non-null}\u3002\u6B64\u7279\u5FB5\u6700\u9069\u5408\u6B78\u70BA\u54EA\u4E00\u985E\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4ECB\u9762\u5F0F\u2014\u2014\u5B83\u76F4\u63A5\u4F86\u81EA\u7C3D\u7AE0\u4E2D\u7684\u55AE\u4E00\u53C3\u6578",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u55AE\u4E00\u53C3\u6578\u662F\u5426\u70BA null\uFF0C\u53EF\u76F4\u63A5\u5F9E\u4ECB\u9762\u8B80\u51FA\u3002"
+              },
+              {
+                "text": "\u529F\u80FD\u5F0F\u2014\u2014\u5B83\u4F86\u81EA\u6240\u898F\u5B9A\u7684\u641C\u5C0B\u884C\u70BA",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u5F9E\u53C3\u6578\u672C\u8EAB\u63A8\u5C0E\uFF0C\u800C\u975E\u5F9E indexOf \u6240\u898F\u5B9A\u8981\u505A\u7684\u4E8B\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F\u2014\u2014null \u4E0D\u80FD\u6210\u70BA\u7279\u5FB5",
+                "fraction": 0,
+                "feedback": "\u53C3\u8003\u578B\u53C3\u6578\u662F\u5426\u70BA null\uFF0C\u662F\u5E38\u898B\u4E14\u6709\u6548\u7684\u4ECB\u9762\u5F0F\u7279\u5FB5\u3002"
+              },
+              {
+                "text": "\u8996\u5BE6\u4F5C\u7684\u63A7\u5236\u6D41\u7A0B\u800C\u5B9A",
+                "fraction": 0,
+                "feedback": "ISP \u5C6C\u9ED1\u7BB1\uFF1B\u6B64\u7279\u5FB5\u662F\u5728\u4E0D\u770B\u7A0B\u5F0F\u78BC\u7684\u60C5\u6CC1\u4E0B\u5B9A\u7FA9\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u300Clist \u662F\u5426\u70BA null\uFF1F\u300D\u662F\u5F9E\u55AE\u4E00\u53C3\u6578\u672C\u8EAB\u63A8\u5C0E\uFF0C\u9019\u6B63\u662F\u4ECB\u9762\u5F0F\u7279\u5FB5\u7684\u5B9A\u7FA9\u6027\u7279\u9EDE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u5DF2\u6392\u5E8F\u7279\u5FB5",
+            "text": "<p>\u5C0D\u65BC\u6392\u5E8F\u7A0B\u5F0F <code>sort(int[] a)</code>\uFF0C\u6E2C\u8A66\u8005\u5B9A\u7FA9\u7279\u5FB5\u300C<code>a</code> \u662F\u5426\u5DF2\u905E\u589E\u6392\u5E8F\uFF1F\u300D\uFF0C\u5340\u584A\u70BA {\u5DF2\u6392\u5E8F}\u3001{\u672A\u6392\u5E8F}\u3002\u6B64\u7279\u5FB5\u6700\u9069\u5408\u6B78\u70BA\u54EA\u4E00\u985E\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u529F\u80FD\u5F0F\u2014\u2014\u5B83\u4F86\u81EA\u6392\u5E8F\u7684\u8A9E\u610F\uFF0C\u800C\u975E\u50C5\u7531\u53C3\u6578\u7684\u578B\u5225\u6C7A\u5B9A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u300C\u5DF2\u6392\u5E8F\u300D\u662F\u8207\u898F\u5B9A\u884C\u70BA\u3001\u8207\u8F38\u5165\u5167\u5BB9\u6709\u95DC\u7684\u6027\u8CEA\u3002"
+              },
+              {
+                "text": "\u4ECB\u9762\u5F0F\u2014\u2014\u5B83\u76F4\u63A5\u4F86\u81EA\u9663\u5217\u53C3\u6578\u7684\u578B\u5225",
+                "fraction": 0,
+                "feedback": "\u578B\u5225\u53EA\u662F\u300Cint[]\u300D\uFF1B\u300C\u5DF2\u6392\u5E8F\u300D\u662F\u8A9E\u610F\u6027\u8CEA\uFF0C\u7121\u6CD5\u5F9E\u7C3D\u7AE0\u8B80\u51FA\u3002"
+              },
+              {
+                "text": "\u5B83\u4E0D\u662F\u6709\u6548\u7684\u7279\u5FB5\uFF0C\u56E0\u70BA\u53D6\u6C7A\u65BC\u503C",
+                "fraction": 0,
+                "feedback": "\u53D6\u6C7A\u65BC\u8F38\u5165\u5167\u5BB9\u6B63\u662F\u529F\u80FD\u5F0F\u7279\u5FB5\u7684\u4F5C\u6CD5\u3002"
+              },
+              {
+                "text": "\u5B83\u662F\u7D50\u69CB\u5F0F\uFF08\u767D\u7BB1\uFF09\u7279\u5FB5",
+                "fraction": 0,
+                "feedback": "ISP \u5C6C\u9ED1\u7BB1\uFF1B\u9019\u4F86\u81EA\u6392\u5E8F\u7684\u898F\u683C\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC\u7D50\u69CB\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u662F\u5426\u5DF2\u6392\u5E8F\uFF1F\u300D\u53CD\u6620\u6392\u5E8F\u4EFB\u52D9\u7684\u8A9E\u610F\u8207\u9663\u5217\u7684\u5167\u5BB9\uFF0C\u56E0\u6B64\u5C6C\u529F\u80FD\u5F0F\u800C\u975E\u4ECB\u9762\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u503C\u8B49\u660E\u975E\u4E92\u65A5",
+            "text": "<p>\u7279\u5FB5\u300C\u5206\u6578 S\u300D\u6709\u5340\u584A {S \u2264 50}\u3001{40 \u2264 S \u2264 90}\u3001{S &gt; 90}\u3002\u54EA\u500B\u503C\u53EF\u8B49\u660E\u6B64\u5283\u5206<strong>\u975E\u4E92\u65A5</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "S = 45",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201445 \u540C\u6642\u843D\u5728 {S \u2264 50} \u8207 {40 \u2264 S \u2264 90}\uFF0C\u8B49\u660E\u91CD\u758A\u3002"
+              },
+              {
+                "text": "S = 20",
+                "fraction": 0,
+                "feedback": "20 \u53EA\u5728 {S \u2264 50}\uFF1B\u7121\u6CD5\u986F\u793A\u91CD\u758A\u3002"
+              },
+              {
+                "text": "S = 95",
+                "fraction": 0,
+                "feedback": "95 \u53EA\u5728 {S > 90}\uFF1B\u7121\u6CD5\u986F\u793A\u91CD\u758A\u3002"
+              },
+              {
+                "text": "S = 91",
+                "fraction": 0,
+                "feedback": "91 \u53EA\u5728 {S > 90}\uFF1B\u7121\u6CD5\u986F\u793A\u91CD\u758A\u3002"
+              }
+            ],
+            "generalFeedback": "\u5340\u584A {S \u2264 50} \u8207 {40 \u2264 S \u2264 90} \u90FD\u5305\u542B 40..50\u3002\u8A72\u7BC4\u570D\u5167\u7684\u4EFB\u4F55\u503C\uFF08\u4F8B\u5982 45\uFF09\u90FD\u843D\u5728\u5169\u500B\u5340\u584A\uFF0C\u8B49\u660E\u6B64\u5283\u5206\u975E\u4E92\u65A5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u503C\u8B49\u660E\u4E0D\u5B8C\u6574",
+            "text": "<p>\u7279\u5FB5\u300C\u6578\u91CF Q\uFF08\u6574\u6578\uFF09\u300D\u6709\u5340\u584A {Q &lt; 0}\u3001{1 \u2264 Q \u2264 100}\u3001{Q &gt; 100}\u3002\u54EA\u500B\u503C\u53EF\u8B49\u660E\u6B64\u5283\u5206<strong>\u4E0D\u5B8C\u6574</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q = 0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20140 \u65E2\u975E\u8CA0\u3001\u4E0D\u5728 1..100\u3001\u4E5F\u4E0D > 100\uFF0C\u56E0\u6B64\u672A\u88AB\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "Q = 50",
+                "fraction": 0,
+                "feedback": "50 \u5DF2\u88AB {1 \u2264 Q \u2264 100} \u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "Q = -5",
+                "fraction": 0,
+                "feedback": "-5 \u5DF2\u88AB {Q < 0} \u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "Q = 200",
+                "fraction": 0,
+                "feedback": "200 \u5DF2\u88AB {Q > 100} \u6DB5\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "Q = 0 \u4E0D\u843D\u5165 {Q < 0}\u3001{1..100}\u3001{Q > 100} \u4E2D\u7684\u4EFB\u4E00\u500B\uFF0C\u56E0\u6B64\u5283\u5206\u6709\u907A\u6F0F\u3001\u4E0D\u5B8C\u6574\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ACoC \u6BD4 ECC \u591A\u51FA\u7684\u6E2C\u8A66\u6578",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u5169\u500B\u7279\u5FB5\uFF0C\u5340\u584A\u6578\u5206\u5225\u70BA 3 \u8207 2\u3002\u5168\u7D44\u5408\u6DB5\u84CB\u6BD4\u5404\u9078\u64C7\u6700\u5C11\u503C\u591A\u9700\u8981\u5E7E\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3\uFF08ACoC = 6\uFF0CECC = 3\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ACoC \u70BA 3 \xD7 2 = 6\uFF0CECC \u70BA max(3,2) = 3\uFF0C\u5DEE\u70BA 3\u3002"
+              },
+              {
+                "text": "0\uFF08\u5169\u8005\u6C38\u9060\u76F8\u7B49\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655 ACoC = 6 \u4F46 ECC = 3\uFF0C\u4E26\u4E0D\u76F8\u7B49\u3002"
+              },
+              {
+                "text": "6\uFF08ACoC = 6\uFF0CECC = 0\uFF09",
+                "fraction": 0,
+                "feedback": "ECC \u4E0D\u662F 0\uFF1B\u5B83\u662F max(3,2) = 3\uFF0C\u56E0\u6B64\u5DEE\u70BA 3\u3002"
+              },
+              {
+                "text": "2\uFF08ACoC = 5\uFF0CECC = 3\uFF09",
+                "fraction": 0,
+                "feedback": "ACoC \u662F\u4E58\u7A4D 3 \xD7 2 = 6\uFF0C\u800C\u975E 5\uFF0C\u56E0\u6B64\u5DEE\u70BA 3\u3002"
+              }
+            ],
+            "generalFeedback": "ACoC = 3 \xD7 2 = 6\uFF0CECC = max(3,2) = 3\uFF0C\u56E0\u6B64 ACoC \u591A\u9700\u8981 6 - 3 = 3 \u500B\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "2,3,2 \u7684 BCC \u6578\u91CF",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u4E09\u500B\u7279\u5FB5\uFF0C\u5340\u584A\u6578\u5206\u5225\u70BA 2\u30013\u30012\u3002\u57FA\u5E95\u9078\u64C7\u6DB5\u84CB\uFF08BCC\uFF09\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141 + (2-1) + (3-1) + (2-1) = 1 + 1 + 2 + 1 = 5\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u662F\u5404\u5340\u584A\u6578\u7684\u7E3D\u548C\uFF1BBCC \u662F 1 + \u03A3(\u5340\u584A\u6578 - 1)\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 \u662F\u4E58\u7A4D\uFF08\u5168\u7D44\u5408\uFF09\uFF0C\u4E0D\u662F\u57FA\u5E95\u9078\u64C7\u7684\u6578\u91CF\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u6F0F\u6389\u4E86 +1 \u7684\u57FA\u5E95\u6E2C\u8A66\uFF1A1 + (1 + 2 + 1) = 5\u3002"
+              }
+            ],
+            "generalFeedback": "BCC \uFF1D 1 + \u03A3(b_i - 1) = 1 + (1 + 2 + 1) = 5\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "4,3,3,2 \u7684 BCC \u6578\u91CF",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u56DB\u500B\u7279\u5FB5\uFF0C\u5340\u584A\u6578\u5206\u5225\u70BA 4\u30013\u30013\u30012\u3002\u57FA\u5E95\u9078\u64C7\u6DB5\u84CB\uFF08BCC\uFF09\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20141 + (4-1) + (3-1) + (3-1) + (2-1) = 1 + 3 + 2 + 2 + 1 = 9\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "12 \u662F\u5404\u5340\u584A\u6578\u7684\u7E3D\u548C\uFF1BBCC \u662F 1 + \u03A3(\u5340\u584A\u6578 - 1)\u3002"
+              },
+              {
+                "text": "72",
+                "fraction": 0,
+                "feedback": "72 \u662F\u4E58\u7A4D\uFF08\u5168\u7D44\u5408\uFF09\uFF0C\u4E0D\u662F\u57FA\u5E95\u9078\u64C7\u7684\u6578\u91CF\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 \u6F0F\u6389\u4E86 +1 \u7684\u57FA\u5E95\u6E2C\u8A66\uFF1A1 + (3 + 2 + 2 + 1) = 9\u3002"
+              }
+            ],
+            "generalFeedback": "BCC \uFF1D 1 + \u03A3(b_i - 1) = 1 + (3 + 2 + 2 + 1) = 9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F9E\u57FA\u5E95\u6311\u51FA BCC \u6E2C\u8A66\u96C6",
+            "text": "<p>\u7279\u5FB5 A\u3001B\u3001C \u7684\u5340\u584A\u70BA A\u2208{a1,a2}\u3001B\u2208{b1,b2,b3}\u3001C\u2208{c1,c2}\u3002\u57FA\u5E95\u9078\u64C7\u70BA (a1, b1, c1)\u3002\u4E0B\u5217\u54EA\u4E00\u7D44\u6E2C\u8A66\u6070\u597D\u662F\u57FA\u5E95\u9078\u64C7\u6DB5\u84CB\uFF08BCC\uFF09\u7684\u6E2C\u8A66\u96C6\uFF1F</p>",
+            "answers": [
+              {
+                "text": "(a1,b1,c1)\u3001(a2,b1,c1)\u3001(a1,b2,c1)\u3001(a1,b3,c1)\u3001(a1,b1,c2)\u2014\u2014\u4E94\u500B\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u57FA\u5E95\u6E2C\u8A66\uFF0C\u52A0\u4E0A\u6BCF\u500B\u975E\u57FA\u5E95\u5340\u584A\u5404\u4E00\u500B\u6E2C\u8A66\uFF0C\u6BCF\u6B21\u53EA\u8B8A\u52D5\u4E00\u500B\u7279\u5FB5\u3002"
+              },
+              {
+                "text": "(a1,b1,c1)\u3001(a2,b2,c2)\u2014\u2014\u5169\u500B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9019\u4E00\u6B21\u8B8A\u52D5\u4E86\u591A\u500B\u7279\u5FB5\uFF0C\u4E14\u6F0F\u6389\u5927\u591A\u6578\u975E\u57FA\u5E95\u5340\u584A\uFF1B\u4E0D\u662F BCC \u6E2C\u8A66\u96C6\u3002"
+              },
+              {
+                "text": "A \xD7 B \xD7 C \u7684\u5168\u90E8 12 \u7A2E\u7D44\u5408",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5168\u7D44\u5408\u6DB5\u84CB\uFF08ACoC\uFF09\uFF0C\u4E0D\u662F\u57FA\u5E95\u9078\u64C7\u3002"
+              },
+              {
+                "text": "(a2,b2,c2)\u3001(a2,b3,c2)\u2014\u2014\u5F9E\u975E\u57FA\u5E95\u6E2C\u8A66\u958B\u59CB\u8B8A\u52D5",
+                "fraction": 0,
+                "feedback": "BCC \u662F\u5F9E\u6307\u5B9A\u7684\u57FA\u5E95\u6E2C\u8A66 (a1,b1,c1) \u958B\u59CB\u8B8A\u52D5\uFF0C\u5176\u9918\u4FDD\u6301\u57FA\u5E95\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "BCC \u4FDD\u7559\u57FA\u5E95 (a1,b1,c1)\uFF0C\u6BCF\u6B21\u53EA\u628A\u4E00\u500B\u7279\u5FB5\u8B8A\u52D5\u5230\u5176\u975E\u57FA\u5E95\u5340\u584A\uFF1Aa2\uFF1Bb2\uFF1Bb3\uFF1Bc2\u3002\u5171\u5F97 1 + (1 + 2 + 1) = 5 \u500B\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ACoC-PWC-ECC \u7684\u5305\u542B\u93C8",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u689D\u5305\u542B\uFF08subsumption\uFF09\u93C8\u6B63\u78BA\u5730\u6392\u5217\u9019\u4E9B ISP \u6E96\u5247\uFF08\u6BCF\u500B\u5305\u542B\u4E0B\u4E00\u500B\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "ACoC \u2287 PWC \u2287 ECC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5168\u7D44\u5408\u5305\u542B\u6210\u5C0D\uFF0C\u6210\u5C0D\u5305\u542B\u5404\u9078\u64C7\u3002"
+              },
+              {
+                "text": "ECC \u2287 PWC \u2287 ACoC",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u9806\u5E8F\u53CD\u4E86\uFF1BECC \u6700\u5F31\uFF0C\u7121\u6CD5\u5305\u542B\u5176\u4ED6\u3002"
+              },
+              {
+                "text": "PWC \u2287 ACoC \u2287 ECC",
+                "fraction": 0,
+                "feedback": "\u662F ACoC \u5305\u542B PWC\uFF0C\u800C\u975E\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "ACoC \u2287 ECC \u2287 PWC",
+                "fraction": 0,
+                "feedback": "ECC \u7121\u6CD5\u5305\u542B PWC\uFF1BPWC \u662F\u5169\u8005\u4E2D\u8F03\u5F37\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u5168\u7D44\u5408\u6DB5\u84CB\u6BCF\u4E00\u5C0D\uFF0C\u6545 ACoC \u5305\u542B PWC\uFF1B\u6210\u5C0D\u6DB5\u84CB\u6BCF\u500B\u55AE\u4E00\u5340\u584A\uFF0C\u6545 PWC \u5305\u542B ECC\u3002\u56E0\u6B64 ACoC \u2287 PWC \u2287 ECC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u975E\u4E92\u65A5\u5340\u584A\u7121\u6548",
+            "text": "<p>\u5047\u8A2D\u67D0\u7279\u5FB5\u7684\u5340\u584A\u91CD\u758A\uFF0C\u4F7F\u67D0\u500B\u503C <code>v</code> \u540C\u6642\u5C6C\u65BC\u5169\u500B\u5340\u584A\u3002\u70BA\u4EC0\u9EBC\u9019\u6703\u4F7F\u8A72\u5283\u5206\u5C0D ISP \u800C\u8A00\u7121\u6548\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u540C\u6642\u5C0D\u61C9\u5169\u500B\u5340\u584A\u7684\u503C\u6703\u4F7F\u5340\u584A\u6B78\u5C6C\u8B8A\u5F97\u6A21\u7A1C\u5169\u53EF\uFF0C\u56E0\u6B64\u300C\u6DB5\u84CB\u6BCF\u500B\u5340\u584A\u300D\u5B9A\u7FA9\u4E0D\u660E\uFF0C\u4E14\u6240\u9078\u7684\u503C\u53EF\u80FD\u7121\u610F\u9593\u540C\u6642\u6EFF\u8DB3\u5169\u500B\u5340\u584A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E92\u65A5\u6027\u6B63\u662F\u8B93\u300C\u67D0\u500B\u503C\u6240\u5C6C\u7684\u5340\u584A\u300D\u6709\u660E\u78BA\u5B9A\u7FA9\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u91CD\u758A\u6703\u4F7F\u6A21\u578B\u592A\u5C0F\u800C\u7121\u6CD5\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u91CD\u758A\u4E0D\u6703\u7E2E\u5C0F\u6A21\u578B\uFF1B\u5B83\u4F7F\u6B78\u5C6C\u8B8A\u5F97\u6A21\u7A1C\u5169\u53EF\u3002"
+              },
+              {
+                "text": "\u91CD\u758A\u6703\u5F37\u5236\u4F7F\u7528\u5168\u7D44\u5408\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u91CD\u758A\u4E0D\u6703\u6C7A\u5B9A\u63A1\u7528\u54EA\u500B\u6DB5\u84CB\u6E96\u5247\uFF1B\u5B83\u9055\u53CD\u4E86\u5283\u5206\u7684\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u53EA\u8981\u5340\u584A\u5B8C\u6574\uFF0C\u91CD\u758A\u5C31\u6C92\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6574\u6027\u7121\u6CD5\u4FEE\u88DC\u4E92\u65A5\u6027\u7684\u9055\u53CD\uFF1B\u5169\u8005\u90FD\u5FC5\u9808\u6EFF\u8DB3\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5 v \u540C\u6642\u5728\u5169\u500B\u5340\u584A\u4E2D\uFF0C\u5247\u300C\u6DB5\u84CB\u6BCF\u500B\u5340\u584A\u300D\u8207\u300C\u67D0\u500B\u503C\u6240\u5C6C\u5340\u584A\u7684\u4EE3\u8868\u503C\u300D\u90FD\u8B8A\u5F97\u6A21\u7A1C\u5169\u53EF\u2014\u2014\u4E00\u500B\u6E2C\u8A66\u503C\u53EF\u80FD\u540C\u6642\u88AB\u7B97\u4F5C\u5169\u500B\u5340\u584A\uFF0C\u640D\u53CA\u6E96\u5247\u3002\u4E92\u65A5\u6027\u53EF\u6D88\u9664\u9019\u7A2E\u6A21\u7CCA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u4E0D\u5B8C\u6574\u5340\u584A\u7121\u6548",
+            "text": "<p>\u5047\u8A2D\u67D0\u7279\u5FB5\u7684\u5340\u584A\u6F0F\u6389\u4E86\u67D0\u500B\u5B9A\u7FA9\u57DF\u7684\u503C <code>w</code>\uFF08\u6C92\u6709\u4EFB\u4F55\u5340\u584A\u5305\u542B\u5B83\uFF09\u3002\u70BA\u4EC0\u9EBC\u9019\u500B\u5283\u5206\u5C0D ISP \u800C\u8A00\u7121\u6548\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7B49\u65BC w \u7684\u8F38\u5165\u7121\u6CD5\u6B78\u5165\u4EFB\u4F55\u5340\u584A\uFF0C\u56E0\u6B64\u5B9A\u7FA9\u57DF\u4E2D\u4E00\u500B\u6B63\u7576\u7684\u90E8\u5206\u5C07\u6C38\u9060\u4E0D\u6703\u88AB\u6392\u5165\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B8C\u6574\u6027\u4FDD\u8B49\u6BCF\u500B\u8F38\u5165\u90FD\u7531\u67D0\u500B\u5340\u584A\u4EE3\u8868\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u6578\u6703\u8B8A\u6210\u7121\u9650\u5927",
+                "fraction": 0,
+                "feedback": "\u907A\u6F0F\u4E0D\u6703\u6539\u8B8A\u6E2C\u8A66\u6578\u91CF\uFF1B\u5B83\u4F7F\u5B9A\u7FA9\u57DF\u7684\u4E00\u90E8\u5206\u672A\u88AB\u5EFA\u6A21\u3002"
+              },
+              {
+                "text": "\u5C46\u6642\u5404\u9078\u64C7\u6DB5\u84CB\uFF08ECC\uFF09\u5C07\u7121\u6CD5\u88AB\u6EFF\u8DB3",
+                "fraction": 0,
+                "feedback": "\u5728\u5DF2\u5B9A\u7FA9\u7684\u5340\u584A\u4E0A ECC \u4ECD\u53EF\u88AB\u6EFF\u8DB3\uFF1B\u554F\u984C\u5728\u65BC\u672A\u5EFA\u6A21\u7684\u503C w\u3002"
+              },
+              {
+                "text": "\u53EA\u8981\u5340\u584A\u4E92\u65A5\uFF0C\u4E0D\u5B8C\u6574\u5C31\u53EF\u4EE5\u63A5\u53D7",
+                "fraction": 0,
+                "feedback": "\u4E92\u65A5\u7121\u6CD5\u4FEE\u88DC\u6DB5\u84CB\u7684\u907A\u6F0F\uFF1B\u5169\u500B\u6027\u8CEA\u90FD\u5FC5\u9808\u6EFF\u8DB3\u3002"
+              }
+            ],
+            "generalFeedback": "\u5283\u5206\u5FC5\u9808\u5B8C\u6574\uFF0C\u4F7F\u6BCF\u500B\u53EF\u80FD\u7684\u8F38\u5165\u6070\u597D\u5C6C\u65BC\u4E00\u500B\u5340\u584A\u3002\u82E5 w \u4E0D\u5C6C\u65BC\u4EFB\u4F55\u5340\u584A\uFF0C\u8A72\u8F38\u5165\u5C31\u672A\u88AB\u5EFA\u6A21\uFF0C\u6703\u5728\u6E2C\u8A66\u8A2D\u8A08\u4E2D\u88AB\u7CFB\u7D71\u6027\u5730\u907A\u6F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5728\u6E2C\u8A66\u9810\u7B97\u4E0B\u9078\u64C7\u6E96\u5247",
+            "text": "<p>\u67D0\u6A21\u578B\u6709 5 \u500B\u7279\u5FB5\uFF0C\u6BCF\u500B\u90FD\u6709 4 \u500B\u5340\u584A\u3002\u5168\u7D44\u5408\u9700\u8981 4^5 = 1024 \u500B\u6E2C\u8A66\uFF0C\u8D85\u51FA\u9810\u7B97\uFF1B\u4F46\u4F60\u4ECD\u5E0C\u671B\u6BCF\u500B\u5340\u584A\u90FD\u76F8\u5C0D\u65BC\u4E00\u500B\u5171\u540C\u7684\u57FA\u5E95\u7D44\u614B\u88AB\u6E2C\u5230\u3002\u5728\u5927\u7D04 16 \u500B\u6E2C\u8A66\u7684\u9810\u7B97\u4E0B\uFF0C\u54EA\u500B\u6E96\u5247\u6700\u5408\u9069\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u57FA\u5E95\u9078\u64C7\u6DB5\u84CB\uFF08BCC\uFF09\u2014\u20141 + 5 \xD7 (4-1) = 16 \u500B\u6E2C\u8A66\uFF0C\u5F9E\u57FA\u5E95\u8B8A\u52D5\u6BCF\u500B\u5340\u584A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u88E1 BCC \u6070\u597D\u662F 16\uFF0C\u4E14\u76F8\u5C0D\u65BC\u5171\u540C\u57FA\u5E95\u7D44\u614B\u6E2C\u5230\u6BCF\u500B\u5340\u584A\u3002"
+              },
+              {
+                "text": "\u5168\u7D44\u5408\u6DB5\u84CB\uFF08ACoC\uFF09\u2014\u20141024 \u500B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "1024 \u9060\u8D85\u9810\u7B97\uFF1B\u9019\u6B63\u662F\u8981\u88AB\u6392\u9664\u7684\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u6210\u5C0D\u6DB5\u84CB\uFF08PWC\uFF09\u2014\u2014\u81F3\u5C11 4 \xD7 4 = 16\uFF0C\u4F46\u901A\u5E38\u66F4\u591A",
+                "fraction": 0,
+                "feedback": "PWC \u4E0B\u754C\u662F 16\uFF0C\u4F46\u4E94\u500B 4 \u5340\u584A\u7279\u5FB5\u7684\u5BE6\u969B\u6210\u5C0D\u6E2C\u8A66\u96C6\u6703\u8D85\u904E 16\uFF0C\u4E14\u4E0D\u4F7F\u7528\u55AE\u4E00\u7684\u57FA\u5E95\u7D44\u614B\u3002"
+              },
+              {
+                "text": "\u5404\u9078\u64C7\u6DB5\u84CB\uFF08ECC\uFF09\u2014\u20144 \u500B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "ECC \u53EA\u9700 4 \u500B\u6E2C\u8A66\uFF0C\u4F46\u4E0D\u50CF\u984C\u76EE\u8981\u6C42\u90A3\u6A23\u76F8\u5C0D\u65BC\u5171\u540C\u57FA\u5E95\u6E2C\u5230\u5404\u5340\u584A\u3002"
+              }
+            ],
+            "generalFeedback": "BCC \uFF1D 1 + \u03A3(b_i - 1) = 1 + 5 \xD7 3 = 16\uFF0C\u6B63\u597D\u5728\u9810\u7B97\u5167\uFF0C\u4E14\u4F9D\u5176\u69CB\u9020\u6BCF\u6B21\u5F9E\u57FA\u5E95\u6E2C\u8A66\u8B8A\u52D5\u4E00\u500B\u5340\u584A\u2014\u2014\u6B63\u7B26\u5408\u6240\u8FF0\u76EE\u6A19\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5169\u500B\u57FA\u5E95\u6E2C\u8A66\u7684 MBCC \u6578\u91CF",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u4E09\u500B\u7279\u5FB5\uFF0C\u5340\u584A\u6578\u5206\u5225\u70BA 3\u30012\u30012\u3002\u4F7F\u7528\u591A\u91CD\u57FA\u5E95\u9078\u64C7\u6DB5\u84CB\uFF08MBCC\uFF09\uFF0C\u63A1 <strong>2 \u500B\u57FA\u5E95\u6E2C\u8A66</strong>\uFF08\u6BCF\u500B\u57FA\u5E95\u5C0D\u6BCF\u500B\u7279\u5FB5\u5404\u53D6\u4E00\u500B\u57FA\u5E95\u9078\u64C7\uFF09\uFF0C\u4E26\u5F9E\u6BCF\u500B\u57FA\u5E95\u6E2C\u8A66\u6BCF\u6B21\u53EA\u8B8A\u52D5\u4E00\u500B\u7279\u5FB5\uFF0C\u7E3D\u5171\u6703\u6709\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "10",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u57FA\u5E95\u8CA2\u737B 1 + (2 + 1 + 1) = 5 \u500B\u6E2C\u8A66\uFF0C2 \xD7 5 = 10\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 \u662F\u55AE\u4E00\u57FA\u5E95\uFF08BCC\uFF09\u7684\u6578\u91CF\uFF1B\u6709 2 \u500B\u57FA\u5E95\u6642\u7FFB\u500D\u70BA 10\u3002"
+              },
+              {
+                "text": "12",
+                "fraction": 0,
+                "feedback": "ACoC \u4E58\u7A4D\u70BA 3 \xD7 2 \xD7 2 = 12\uFF1B\u6B64\u8655 MBCC \u662F 2 \xD7 5 = 10\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u8207 m \xD7 (1 + \u03A3(b_i - 1)) \u4E0D\u7B26\uFF1B\u6B63\u78BA\u503C\u70BA 2 \xD7 5 = 10\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u6709 m \u500B\u57FA\u5E95\u6E2C\u8A66\u3001\u6BCF\u500B\u7279\u5FB5\u5404\u4E00\u500B\u57FA\u5E95\u9078\u64C7\u6642\uFF0CMBCC = m \xD7 (1 + \u03A3(b_i - 1))\u3002\u6B64\u8655 BCC = 1 + (2 + 1 + 1) = 5\uFF0C\u6545 MBCC = 2 \xD7 5 = 10\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "MBCC \u5305\u542B BCC",
+            "text": "<p>\u591A\u91CD\u57FA\u5E95\u9078\u64C7\u6DB5\u84CB\uFF08MBCC\uFF09\u8207\u57FA\u5E95\u9078\u64C7\u6DB5\u84CB\uFF08BCC\uFF09\u4E4B\u9593\u7684\u5305\u542B\u95DC\u4FC2\u70BA\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "MBCC \u5305\u542B BCC\u2014\u2014\u4F7F\u7528\u591A\u500B\u57FA\u5E95\u6E2C\u8A66\u6DB5\u84CB\u4E86\u55AE\u4E00\u57FA\u5E95\u6E2C\u8A66\u7684\u6DB5\u84CB\u7BC4\u570D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014MBCC \u2287 BCC \u2287 ECC\u3002"
+              },
+              {
+                "text": "BCC \u5305\u542B MBCC",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u65B9\u5411\u53CD\u4E86\uFF1B\u589E\u52A0\u57FA\u5E95\u6E2C\u8A66\u53EA\u6703\u589E\u52A0\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u4E0D\u53EF\u6BD4\u8F03\u2014\u2014\u5F7C\u6B64\u90FD\u4E0D\u5305\u542B\u5C0D\u65B9",
+                "fraction": 0,
+                "feedback": "MBCC \u662F BCC \u7684\u63A8\u5EE3\uFF0C\u6C38\u9060\u6DB5\u84CB BCC \u6240\u505A\u7684\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u662F\u76F8\u540C\u7684\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "MBCC \u4F7F\u7528\u591A\u500B\u57FA\u5E95\u6E2C\u8A66\uFF0C\u56E0\u6B64\u53EF\u80FD\u9700\u8981\u6BD4 BCC \u56B4\u683C\u66F4\u591A\u7684\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "MBCC \u900F\u904E\u4F7F\u7528\u4E00\u500B\u4EE5\u4E0A\u7684\u57FA\u5E95\u6E2C\u8A66\u4F86\u63A8\u5EE3 BCC\uFF0C\u56E0\u6B64 BCC \u7684\u6BCF\u9805\u8981\u6C42\u90FD\u88AB MBCC \u6EFF\u8DB3\uFF1AMBCC \u2287 BCC \u2287 ECC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DB\u500B\u4E8C\u5143\u7279\u5FB5\u7684 ACoC \u6578\u91CF",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u56DB\u500B\u7279\u5FB5\uFF0C\u6BCF\u500B\u90FD\u6709 2 \u500B\u5340\u584A\u3002\u5168\u7D44\u5408\u6DB5\u84CB\u9700\u8981\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "16",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u20142 \xD7 2 \xD7 2 \xD7 2 = 2^4 = 16\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 \u662F 2^3\uFF1B\u6709\u56DB\u500B\u7279\u5FB5\uFF0C\u56E0\u6B64\u4E58\u7A4D\u662F 2^4 = 16\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u628A\u6210\u5C0D\u5340\u584A\u6578\u76F8\u52A0\uFF1BACoC \u662F\u56DB\u500B\u5340\u584A\u6578\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "9",
+                "fraction": 0,
+                "feedback": "9 = 1 + 4 \xD7 2 \u662F\u57FA\u5E95\u9078\u64C7\u5F0F\u7684\u6578\u91CF\uFF0C\u4E0D\u662F ACoC \u4E58\u7A4D\u3002"
+              }
+            ],
+            "generalFeedback": "ACoC = 2^4 = 16\uFF0C\u5373\u56DB\u500B\u5340\u584A\u6578\u7684\u4E58\u7A4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6700\u5927\u5169\u500B\u5340\u584A\u6578\u76F8\u540C\u6642\u7684 PWC \u4E0B\u754C",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u4E09\u500B\u7279\u5FB5\uFF0C\u5340\u584A\u6578\u5206\u5225\u70BA 4\u30014\u30012\u3002\u4EFB\u4F55\u6210\u5C0D\u6DB5\u84CB\u6E2C\u8A66\u96C6\u81F3\u5C11\u5FC5\u9808\u5305\u542B\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "16",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u5927\u5169\u500B\u5340\u584A\u6578\u70BA 4 \u8207 4\uFF0C\u6545\u4E0B\u754C\u70BA 4 \xD7 4 = 16\u3002"
+              },
+              {
+                "text": "32",
+                "fraction": 0,
+                "feedback": "32 \u662F\u5B8C\u6574\u7684\u5168\u7D44\u5408\u4E58\u7A4D\uFF084 \xD7 4 \xD7 2\uFF09\uFF1BPWC \u9700\u8981\u7684\u8F03\u5C11\u3002"
+              },
+              {
+                "text": "10",
+                "fraction": 0,
+                "feedback": "10 \u662F\u5404\u5340\u584A\u6578\u7684\u7E3D\u548C\uFF0C\u4E0D\u662F\u6210\u5C0D\u4E0B\u754C\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8\uFF084 \xD7 2\uFF09\u7528\u932F\u4E86\u4E00\u5C0D\uFF1B\u6700\u5927\u5169\u500B\u90FD\u662F 4\uFF0C\u5F97 16\u3002"
+              }
+            ],
+            "generalFeedback": "PWC \u4E0B\u754C\u662F\u6700\u5927\u5169\u500B\u5340\u584A\u6578\u7684\u4E58\u7A4D\u3002\u5169\u500B\u6700\u5927\u90FD\u662F 4\uFF0C\u6545\u4E0B\u754C\u70BA 4 \xD7 4 = 16\u3002\uFF08\u5BE6\u969B\u6210\u5C0D\u6E2C\u8A66\u96C6\u53EF\u80FD\u9084\u9700\u8981\u591A\u5E7E\u500B\uFF0C\u4F46\u7D55\u4E0D\u6703\u66F4\u5C11\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5169\u500B\u7279\u5FB5\u6642 PWC \u7B49\u65BC ACoC",
+            "text": "<p>\u7576\u6A21\u578B\u6070\u6709<strong>\u5169\u500B</strong>\u7279\u5FB5\u6642\uFF0C\u6210\u5C0D\u6DB5\u84CB\u8207\u5168\u7D44\u5408\u6DB5\u84CB\u6240\u9700\u7684\u6E2C\u8A66\u6578\u76F8\u540C\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EA\u6709\u4E00\u5C0D\u7279\u5FB5\u6642\uFF0C\u6DB5\u84CB\u6BCF\u4E00\u5C0D\u5340\u584A\u5C31\u662F\u5B8C\u6574\u7684\u7B1B\u5361\u5152\u7A4D\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u7279\u5FB5\u6642\uFF0C\u8A72\u552F\u4E00\u4E00\u5C0D\u7684\u5340\u584A\u7D44\u5408\u6B63\u597D\u5C31\u662F\u5168\u7D44\u5408\u96C6\u5408\uFF0C\u6240\u4EE5\u6B64\u8655 PWC = ACoC\u3002"
+              }
+            ],
+            "generalFeedback": "PWC \u8981\u6C42\u6BCF\u4E00\u5C0D\u7279\u5FB5\u7684\u6BCF\u4E00\u5C0D\u5340\u584A\u3002\u53EA\u6709\u5169\u500B\u7279\u5FB5\u6642\u5C31\u53EA\u6709\u4E00\u5C0D\uFF0C\u6DB5\u84CB\u5176\u6240\u6709\u5340\u584A\u5C0D\u6B63\u597D\u662F b1 \xD7 b2\u2014\u2014\u8207 ACoC \u76F8\u540C\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "PWC \u662F\u5426\u5305\u542B BCC\uFF1F",
+            "text": "<p>\u95DC\u65BC\u6210\u5C0D\u6DB5\u84CB\uFF08PWC\uFF09\u8207\u57FA\u5E95\u9078\u64C7\u6DB5\u84CB\uFF08BCC\uFF09\uFF0C\u4E0B\u5217\u54EA\u500B\u6558\u8FF0\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5169\u8005\u4E92\u4E0D\u5305\u542B\u2014\u2014PWC \u8207 BCC \u4E0D\u53EF\u6BD4\u8F03",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014PWC \u4FDD\u8B49\u5340\u584A\u5C0D\u4F46\u4E0D\u4FDD\u8B49\u57FA\u5E95\u8B8A\u52D5\uFF1BBCC \u4FDD\u8B49\u57FA\u5E95\u8B8A\u52D5\u4F46\u4E0D\u4FDD\u8B49\u6240\u6709\u5340\u584A\u5C0D\u3002"
+              },
+              {
+                "text": "PWC \u5305\u542B BCC",
+                "fraction": 0,
+                "feedback": "\u6210\u5C0D\u6E2C\u8A66\u96C6\u4E0D\u5FC5\u5305\u542B\u300C\u6BCF\u6B21\u53EA\u8B8A\u52D5\u4E00\u500B\u7279\u5FB5\u7684\u55AE\u4E00\u57FA\u5E95\u6E2C\u8A66\u300D\uFF0C\u56E0\u6B64\u4E0D\u4E00\u5B9A\u6EFF\u8DB3 BCC\u3002"
+              },
+              {
+                "text": "BCC \u5305\u542B PWC",
+                "fraction": 0,
+                "feedback": "\u57FA\u5E95\u9078\u64C7\u96C6\u53EA\u6DB5\u84CB 1 + \u03A3(b_i - 1) \u500B\u6E2C\u8A66\uFF0C\u6F0F\u6389\u5927\u591A\u6578\u5340\u584A\u5C0D\uFF0C\u56E0\u6B64\u4E0D\u6EFF\u8DB3 PWC\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u662F\u7B49\u50F9\u7684\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u65BD\u52A0\u4E0D\u540C\u8981\u6C42\uFF0C\u901A\u5E38\u7522\u751F\u4E0D\u540C\u7684\u6E2C\u8A66\u96C6\u3002"
+              }
+            ],
+            "generalFeedback": "PWC \u8207 BCC \u4E0D\u53EF\u6BD4\u8F03\uFF1A\u5169\u8005\u90FD\u5305\u542B ECC\uFF0C\u4F46 PWC \u6DB5\u84CB\u6240\u6709\u5340\u584A\u5C0D\uFF08\u975E\u57FA\u5E95\u8B8A\u52D5\uFF09\uFF0C\u800C BCC \u6DB5\u84CB\u57FA\u5E95\u8B8A\u52D5\uFF08\u975E\u6240\u6709\u5340\u584A\u5C0D\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4FEE\u6B63\u7121\u6548\u7684\u5283\u5206",
+            "text": "<p>\u7279\u5FB5\u300C\u4F9D\u91D1\u984D A \u5206\u7684\u6298\u6263\u7D1A\u8DDD\u300D\u5B9A\u7FA9\u70BA {A &lt; 100}\u3001{100 \u2264 A \u2264 500}\u3001{A \u2265 500}\u3002\u5B83\u662F\u7121\u6548\u7684\u3002\u8981\u4F7F\u5176\u6210\u70BA\u6709\u6548\u5283\u5206\uFF0C\u6700\u5C0F\u7684\u4FEE\u6B63\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8ABF\u6574\u4E00\u500B\u908A\u754C\uFF0C\u4F7F 500 \u6070\u597D\u53EA\u5C6C\u65BC\u4E00\u500B\u5340\u584A\uFF0C\u4F8B\u5982 {A < 100}\u3001{100 \u2264 A < 500}\u3001{A \u2265 500}",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u552F\u4E00\u7684\u7F3A\u9677\u662F 500 \u843D\u5728\u5169\u500B\u5340\u584A\uFF1B\u628A\u5B83\u5F9E\u5176\u4E2D\u4E00\u500B\u6392\u9664\u5373\u53EF\u6062\u5FA9\u4E92\u65A5\u4E26\u4FDD\u6301\u5B8C\u6574\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u522A\u9664\u4E2D\u9593\u5340\u584A",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u4F7F 100..499 \u672A\u88AB\u6DB5\u84CB\uFF0C\u9020\u6210\u4E0D\u5B8C\u6574\u7684\u907A\u6F0F\u3002"
+              },
+              {
+                "text": "\u65B0\u589E\u7B2C\u56DB\u500B\u5340\u584A {A = 500}",
+                "fraction": 0,
+                "feedback": "500 \u4ECD\u6703\u7559\u5728\u539F\u672C\u7684\u5340\u584A\u4E2D\uFF0C\u56E0\u6B64\u91CD\u758A\u4E26\u672A\u88AB\u79FB\u9664\u3002"
+              },
+              {
+                "text": "\u4E0D\u7528\u6539\u2014\u2014\u6B64\u5283\u5206\u5DF2\u7D93\u6709\u6548",
+                "fraction": 0,
+                "feedback": "500 \u540C\u6642\u6EFF\u8DB3 {100 \u2264 A \u2264 500} \u8207 {A \u2265 500}\uFF0C\u56E0\u6B64\u4E26\u975E\u4E92\u65A5\u3002"
+              }
+            ],
+            "generalFeedback": "\u503C 500 \u540C\u6642\u843D\u5728\u4E2D\u9593\u5340\u584A\u8207 {A \u2265 500}\uFF0C\u7834\u58DE\u4E92\u65A5\u6027\u3002\u628A\u4E2D\u9593\u5340\u584A\u6539\u70BA {100 \u2264 A < 500} \u53EF\u79FB\u9664\u91CD\u758A\uFF0C\u540C\u6642\u4ECD\u6DB5\u84CB\u6BCF\u500B\u91D1\u984D\uFF0C\u5F97\u5230\u6709\u6548\u5283\u5206\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u57FA\u5E95\u9078\u64C7\u6703\u6539\u8B8A BCC \u6578\u91CF\u55CE\uFF1F",
+            "text": "<p>\u5169\u4F4D\u6E2C\u8A66\u8005\u70BA\u76F8\u540C\u7684\u7279\u5FB5\uFF08\u5340\u584A\u6578 3\u30012\u30012\uFF09\u5EFA\u6A21\uFF0C\u4F46\u9078\u4E86\u4E0D\u540C\u7684\u57FA\u5E95\u9078\u64C7\u3002\u4ED6\u5011\u7684\u57FA\u5E95\u9078\u64C7\u6DB5\u84CB\u6E2C\u8A66\u96C6\u76F8\u6BD4\u4E4B\u4E0B\u5982\u4F55\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5169\u8005\u5927\u5C0F\u76F8\u540C\uFF0C\u7686\u70BA 1 + (2 + 1 + 1) = 5\uFF0C\u5118\u7BA1\u5177\u9AD4\u7684\u6E2C\u8A66\u503C\u4E0D\u540C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014BCC \u6578\u91CF 1 + \u03A3(b_i - 1) \u8207\u9078\u54EA\u500B\u5340\u584A\u7576\u57FA\u5E95\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u5F9E\u300C\u8F03\u5927\u300D\u57FA\u5E95\u5EFA\u51FA\u7684\u90A3\u7D44\u4E00\u5B9A\u8F03\u5927",
+                "fraction": 0,
+                "feedback": "\u6C7A\u5B9A\u5927\u5C0F\u7684\u662F\u5340\u584A\u6578\u800C\u975E\u6240\u9078\u57FA\u5E95\uFF1B\u5169\u8005\u90FD\u662F 1 + \u03A3(b_i - 1) = 5\u3002"
+              },
+              {
+                "text": "\u5176\u4E2D\u4E00\u7D44\u6703\u6EFF\u8DB3 ACoC\uFF0C\u53E6\u4E00\u7D44\u4E0D\u6703",
+                "fraction": 0,
+                "feedback": "\u5169\u500B BCC \u6E2C\u8A66\u96C6\u90FD\u9054\u4E0D\u5230 ACoC\uFF08\u9700\u8981 3 \xD7 2 \xD7 2 = 12 \u500B\u6E2C\u8A66\uFF09\uFF1B\u57FA\u5E95\u9078\u64C7\u4E0D\u6703\u6539\u8B8A\u9019\u9EDE\u3002"
+              },
+              {
+                "text": "\u5927\u5C0F\u6703\u76F8\u5DEE\u7279\u5FB5\u7684\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u5927\u5C0F\u90FD\u7B49\u65BC 1 + \u03A3(b_i - 1) = 5\uFF0C\u8207\u57FA\u5E95\u7121\u95DC\uFF1B\u57FA\u5E95\u53EA\u6539\u8B8A\u51FA\u73FE\u7684\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "BCC \u6C38\u9060\u7522\u751F 1 + \u03A3(b_i - 1) \u500B\u6E2C\u8A66\uFF0C\u6B64\u8655\u70BA 1 + (2 + 1 + 1) = 5\u3002\u6539\u8B8A\u57FA\u5E95\u9078\u64C7\u53EA\u6539\u8B8A\u7522\u751F\u54EA\u4E9B\u5177\u9AD4\u6E2C\u8A66\uFF0C\u800C\u4E0D\u6539\u8B8A\u6578\u91CF\u6216\u6240\u6EFF\u8DB3\u7684\u6E96\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E09\u500B\u57FA\u5E95\u6E2C\u8A66\u7684 MBCC \u6578\u91CF",
+            "text": "<p>\u67D0 ISP \u6A21\u578B\u6709\u4E09\u500B\u7279\u5FB5\uFF0C\u6BCF\u500B\u90FD\u6709 2 \u500B\u5340\u584A\u3002\u4F7F\u7528\u591A\u91CD\u57FA\u5E95\u9078\u64C7\u6DB5\u84CB\uFF08MBCC\uFF09\uFF0C\u63A1 <strong>3 \u500B\u57FA\u5E95\u6E2C\u8A66</strong>\uFF08\u6BCF\u500B\u57FA\u5E95\u5C0D\u6BCF\u500B\u7279\u5FB5\u5404\u53D6\u4E00\u500B\u57FA\u5E95\u9078\u64C7\uFF09\uFF0C\u4E26\u5F9E\u6BCF\u500B\u57FA\u5E95\u6BCF\u6B21\u53EA\u8B8A\u52D5\u4E00\u500B\u7279\u5FB5\uFF0C\u7E3D\u5171\u6703\u6709\u591A\u5C11\u500B\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "12",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u57FA\u5E95\u8CA2\u737B 1 + (1 + 1 + 1) = 4 \u500B\u6E2C\u8A66\uFF0C3 \xD7 4 = 12\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u55AE\u4E00\u57FA\u5E95\uFF08BCC\uFF09\u7684\u6578\u91CF\uFF1B\u6709 3 \u500B\u57FA\u5E95\u6642\u8B8A\u70BA 3 \xD7 4 = 12\u3002"
+              },
+              {
+                "text": "8",
+                "fraction": 0,
+                "feedback": "8 \u662F ACoC \u4E58\u7A4D\uFF082 \xD7 2 \xD7 2\uFF09\uFF1B\u6B64\u8655 MBCC \u662F 3 \xD7 4 = 12\u3002"
+              },
+              {
+                "text": "7",
+                "fraction": 0,
+                "feedback": "7 \u8207 m \xD7 (1 + \u03A3(b_i - 1)) \u4E0D\u7B26\uFF1B\u6B63\u78BA\u503C\u70BA 3 \xD7 4 = 12\u3002"
+              }
+            ],
+            "generalFeedback": "MBCC = m \xD7 (1 + \u03A3(b_i - 1))\u3002\u6B64\u8655 BCC = 1 + (1 + 1 + 1) = 4\uFF0C\u6545\u63A1 3 \u500B\u57FA\u5E95\u6E2C\u8A66\u6642 MBCC = 3 \xD7 4 = 12\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "integration-testing": {
       "en": {
         "easy": [
