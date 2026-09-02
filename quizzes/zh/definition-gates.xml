@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Definition of Ready and Done/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>就緒的定義是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>就緒的定義（Definition of Ready，DoR）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>待辦項目在團隊將其納入衝刺之前必須滿足的共同準則</text><feedback><text>正確——DoR 是入口關卡：它界定一個項目何時已就緒、可以開始著手。</text></feedback></answer>
+    <answer fraction="0"><text>用來判斷一項工作何時真正完成的共同準則</text><feedback><text>那描述的是完成的定義（出口關卡），不是 DoR。</text></feedback></answer>
+    <answer fraction="0"><text>單一故事為了被接受而必須展現的特定行為</text><feedback><text>那是該故事的驗收準則，不是 DoR 本身。</text></feedback></answer>
+    <answer fraction="0"><text>項目在產品待辦清單中出現的順序</text><feedback><text>待辦清單的排序屬於優先排序，不是就緒關卡。</text></feedback></answer>
+    <generalfeedback><text>就緒的定義是一份共同議定的檢查清單，待辦項目在團隊承諾投入某個衝刺之前必須滿足它——例如清楚、具有可測試的驗收準則、已估算、小到可以在一個衝刺內完成、依賴已解決。它是入口關卡，把模糊、未就緒的工作擋在衝刺之外。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>完成的定義是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>完成的定義（Definition of Done，DoD）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>用來判斷一項工作何時真正完成的共同準則</text><feedback><text>正確——DoD 是出口關卡，界定「完成」究竟意味著什麼。</text></feedback></answer>
+    <answer fraction="0"><text>故事在被納入衝刺之前必須滿足的共同準則</text><feedback><text>那是就緒的定義（入口關卡），不是 DoD。</text></feedback></answer>
+    <answer fraction="0"><text>單一故事必須滿足的特定行為清單</text><feedback><text>那是該故事的驗收準則；DoD 是一條通用的品質標準。</text></feedback></answer>
+    <answer fraction="0"><text>以故事點數估算一個故事有多大</text><feedback><text>估算大小屬於就緒的一環，不是完成的定義。</text></feedback></answer>
+    <generalfeedback><text>完成的定義是一組共同議定的準則，工作要算完成必須全部成立——例如程式碼已撰寫並經審查、單元與驗收測試通過、已整合、文件已更新、且沒有已知的重大缺陷。它是出口關卡，阻止把未完成的工作稱作「完成」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>DoR 屬於哪一種關卡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>就緒的定義扮演哪一種<strong>關卡</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>入口關卡，管控工作是否已就緒、可以開始</text><feedback><text>正確——DoR 管控入口：它決定一個項目何時可被納入衝刺。</text></feedback></answer>
+    <answer fraction="0"><text>出口關卡，管控工作是否已完成</text><feedback><text>出口關卡是完成的定義，不是 DoR。</text></feedback></answer>
+    <answer fraction="0"><text>只在工作已發布之後才適用的關卡</text><feedback><text>DoR 在工作開始之前適用，而非發布之後。</text></feedback></answer>
+    <answer fraction="0"><text>只由產品負責人擁有、對團隊隱藏的關卡</text><feedback><text>DoR 是共同、由團隊擁有的，不是隱藏的個人檢查清單。</text></feedback></answer>
+    <generalfeedback><text>DoR 是入口關卡。它在團隊即將把項目納入衝刺時套用，確保該項目已被理解、已估算、已就緒，藉此避免開始模糊或未就緒的工作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>DoD 屬於哪一種關卡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>完成的定義扮演哪一種<strong>關卡</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>出口關卡，管控工作是否可被稱作已完成</text><feedback><text>正確——DoD 管控出口：它決定工作何時真正完成。</text></feedback></answer>
+    <answer fraction="0"><text>入口關卡，管控工作是否已就緒、可以開始</text><feedback><text>入口關卡是就緒的定義，不是 DoD。</text></feedback></answer>
+    <answer fraction="0"><text>只限制待辦清單中有多少項目的關卡</text><feedback><text>DoD 關注工作的完整性，不是待辦清單的大小。</text></feedback></answer>
+    <answer fraction="0"><text>衡量團隊寫程式碼有多快的關卡</text><feedback><text>DoD 是完整性的品質標準，不是速度指標。</text></feedback></answer>
+    <generalfeedback><text>DoD 是出口關卡。它在團隊想宣告工作完成時套用，確保議定的品質準則都已滿足，藉此避免把未完成的工作稱作「完成」。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>DoR 在把故事拉進來之前檢查</text></name>
+    <questiontext format="html"><text><![CDATA[<p>就緒的定義是在故事被納入衝刺<strong>之前</strong>檢查的。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——DoR 是入口關卡，在承諾投入工作之前套用。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>DoR 正是在團隊把項目納入衝刺之前所做的檢查。</text></feedback></answer>
+    <generalfeedback><text>DoR 是入口關卡。團隊在待辦清單精煉與衝刺規劃時檢查它，也就是在承諾投入某個項目之前，藉此確保只有就緒的工作才進入衝刺。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>DoD 判斷工作是否完成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>完成的定義用來判斷一項工作是否可被視為<strong>完成</strong>。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——DoD 是界定完整性的出口關卡。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>判斷完整性正是 DoD 的用途。</text></feedback></answer>
+    <generalfeedback><text>DoD 是出口關卡。工作唯有在每一項 DoD 準則都成立時才算完成，讓「完成」的意義保持誠實而一致。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗收準則是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個故事的<strong>驗收準則（acceptance criteria）</strong>是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>描述該特定故事必須做到什麼的、具體且可測試的條件</text><feedback><text>正確——驗收準則是每個故事各自的、專屬於該故事行為的條件。</text></feedback></answer>
+    <answer fraction="0"><text>團隊每個故事都必須滿足的通用品質標準</text><feedback><text>那是完成的定義；驗收準則專屬於單一故事。</text></feedback></answer>
+    <answer fraction="0"><text>同時進行中的故事數量上限的規則</text><feedback><text>那是在製品（WIP）上限，不是驗收準則。</text></feedback></answer>
+    <answer fraction="0"><text>該故事會花費多少工時的估算</text><feedback><text>那是估算；驗收準則描述所需行為，而非工作量。</text></feedback></answer>
+    <generalfeedback><text>驗收準則是界定單一故事被接受所需達成的、具體且可測試的條件。它是每個故事各自的，因故事而異；不同於 DoD——DoD 是套用到每個故事的通用標準。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>開始故事時適用哪個關卡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當團隊在判斷是否可以<strong>開始</strong>一個故事時，適用哪個關卡？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>就緒的定義</text><feedback><text>正確——是否就緒可開始，由 DoR 這道入口關卡管控。</text></feedback></answer>
+    <answer fraction="0"><text>完成的定義</text><feedback><text>DoD 適用於收尾完成時，而非開始時。</text></feedback></answer>
+    <answer fraction="0"><text>都不適用——開始一個故事不需要任何關卡</text><feedback><text>開始正是 DoR 入口關卡適用的時機。</text></feedback></answer>
+    <answer fraction="0"><text>開始的那一刻兩者同等適用</text><feedback><text>開始時只有 DoR 適用；DoD 是為了判斷完成。</text></feedback></answer>
+    <generalfeedback><text>開始一個故事是入口決策，因此適用就緒的定義。完成的定義是出口關卡，只有在判斷故事是否完成時才相關。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>完成故事時適用哪個關卡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當團隊在判斷一個故事是否可被稱作<strong>完成</strong>時，適用哪個關卡？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>完成的定義</text><feedback><text>正確——完成與否由 DoD 這道出口關卡管控。</text></feedback></answer>
+    <answer fraction="0"><text>就緒的定義</text><feedback><text>DoR 適用於開始時，而非收尾完成時。</text></feedback></answer>
+    <answer fraction="0"><text>都不適用——完整性是個人主觀看法</text><feedback><text>完整性依 DoD 來判斷，而非個人看法。</text></feedback></answer>
+    <answer fraction="0"><text>由開發者當下偏好哪個關卡而定</text><feedback><text>關卡是固定的：完成與否由 DoD 判斷。</text></feedback></answer>
+    <generalfeedback><text>判斷完整性是出口決策，因此適用完成的定義。DoR 管控工作是否本該開始；DoD 管控工作是否已經收尾完成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>已估算是 DoR 還是 DoD 項目</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「該故事已被<strong>估算並定出大小</strong>。」這是就緒的定義項目，還是完成的定義項目？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>就緒的定義項目</text><feedback><text>正確——已被估算屬於開始前的就緒條件，在衝刺之前檢查。</text></feedback></answer>
+    <answer fraction="0"><text>完成的定義項目</text><feedback><text>估算發生在工作開始之前；它不是完整性準則。</text></feedback></answer>
+    <answer fraction="0"><text>都不是——它屬於發布說明</text><feedback><text>定出大小屬於就緒的關注，不是發布文件。</text></feedback></answer>
+    <answer fraction="0"><text>兩者皆是，開始時與完成時都要</text><feedback><text>估算屬於就緒（入口）關注，而非完成（出口）關注。</text></feedback></answer>
+    <generalfeedback><text>已被估算、且小到可在一個衝刺內完成，都屬於就緒關注：它們必須在團隊把項目拉進來之前成立。它們屬於 DoR 入口關卡，不屬於 DoD。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>程式碼審查是 DoR 還是 DoD 項目</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「程式碼已經過<strong>審查（review）</strong>。」這是就緒的定義項目，還是完成的定義項目？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>完成的定義項目</text><feedback><text>正確——程式碼審查屬於收尾完成工作的一環，是出口關卡準則。</text></feedback></answer>
+    <answer fraction="0"><text>就緒的定義項目</text><feedback><text>故事開始之前並無程式碼可審查；審查屬於完成關注。</text></feedback></answer>
+    <answer fraction="0"><text>都不是——它只是個估算</text><feedback><text>程式碼審查是完整性準則，不是估算。</text></feedback></answer>
+    <answer fraction="0"><text>專屬於該單一故事的驗收準則</text><feedback><text>審查通用地套用到每個故事，因此是 DoD 項目，而非每故事的驗收準則。</text></feedback></answer>
+    <generalfeedback><text>程式碼審查只能在程式碼存在之後進行，因此屬於收尾完成工作的一環。它屬於 DoD 出口關卡；又因為它套用到每個故事，所以是通用的 DoD 項目，而非某故事專屬的驗收準則。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>完成需要驗收準則與 DoD 兩者</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個故事唯有在<strong>同時</strong>滿足它自己的驗收準則<strong>以及</strong>團隊的完成的定義時，才算「完成」。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——完成需要同時滿足每故事的驗收準則與通用的 DoD。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>只滿足其中一項並不足夠；完成需要驗收準則與 DoD 兩者。</text></feedback></answer>
+    <generalfeedback><text>驗收準則說明這個特定故事必須做到什麼；DoD 是每個故事的通用品質標準。故事唯有在兩者都成立時才算完成：它做到被要求的事，也達到共同的品質標準。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>具備可測試驗收準則是否為 DoR 項目</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「該故事已定義清楚、<strong>可測試的驗收準則</strong>。」在衝刺之前，這滿足哪個關卡？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>就緒的定義——具備可測試的驗收準則屬於就緒的一環</text><feedback><text>正確——一個就緒的故事必須已有清楚、可測試的驗收準則。</text></feedback></answer>
+    <answer fraction="0"><text>完成的定義——這表示測試已經通過</text><feedback><text>已定義準則並不等於測試已通過；後者屬於完成時。</text></feedback></answer>
+    <answer fraction="0"><text>都不是——驗收準則與就緒無關</text><feedback><text>可測試的驗收準則是核心的就緒要求。</text></feedback></answer>
+    <answer fraction="0"><text>它是發布說明的要求</text><feedback><text>定義驗收準則屬於就緒關注，不是發布文件。</text></feedback></answer>
+    <generalfeedback><text>就緒的故事在被拉進來之前必須具備清楚、可測試的驗收準則——這是 DoR 項目。注意其中的區別：已定義驗收準則屬於就緒（DoR），而驗收準則實際被滿足則屬於完成（DoD）的一環。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試通過是否為 DoD 項目</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「單元測試與驗收測試已撰寫並<strong>通過</strong>。」這屬於哪個關卡？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>完成的定義</text><feedback><text>正確——測試通過屬於收尾完成工作的一環，是出口關卡準則。</text></feedback></answer>
+    <answer fraction="0"><text>就緒的定義</text><feedback><text>工作尚未建置前測試無法通過；這屬於完成關注。</text></feedback></answer>
+    <answer fraction="0"><text>都不是——它只是工作量的估算</text><feedback><text>測試通過是完整性準則，不是估算。</text></feedback></answer>
+    <answer fraction="0"><text>因為提到測試，所以是就緒項目</text><feedback><text>提到測試並不使它成為就緒；測試通過是完成準則。</text></feedback></answer>
+    <generalfeedback><text>測試只能在工作建置之後才會通過，因此「測試已撰寫並通過」屬於 DoD 出口關卡。就緒只要求存在可測試的驗收準則，而非測試已然通過。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>DoR 與 DoD 由團隊擁有並會演進</text></name>
+    <questiontext format="html"><text><![CDATA[<p>就緒的定義與完成的定義兩者都應是<strong>由團隊擁有、明確寫下、並允許隨時間演進</strong>的。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——兩者都是共同、明確的團隊協議，並隨團隊學習而調整。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>兩道關卡都由團隊擁有、明確、並預期會演進；它們不是固定的外部規則。</text></feedback></answer>
+    <generalfeedback><text>DoR 與 DoD 是團隊訂立、明確寫下並會回顧檢視（通常在回顧會議）的共同協議。讓它們由團隊擁有並持續演進，能使它們保持務實而被落實，而不是被忽略。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Definition of Ready and Done/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：已估算且依賴已解決</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊的檢查清單寫著：「該故事<strong>已估算，且其依賴已解決</strong>。」這條準則屬於何處？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>就緒的定義——兩者都是開始前檢查的入口條件</text><feedback><text>正確——估算與依賴已解決都是就緒條件。</text></feedback></answer>
+    <answer fraction="0"><text>完成的定義——它們描述已完成的工作</text><feedback><text>兩者都與完整性無關；它們必須在工作開始之前成立。</text></feedback></answer>
+    <answer fraction="0"><text>它們是該單一故事的驗收準則</text><feedback><text>這些是通用的就緒條件，不是該故事的特定行為。</text></feedback></answer>
+    <answer fraction="0"><text>它們只屬於發布關卡</text><feedback><text>估算與依賴解決把關的是進入衝刺，而非發布。</text></feedback></answer>
+    <generalfeedback><text>已被估算、且依賴已被辨識並解決，都是典型的就緒條件：它們必須在團隊承諾投入之前為真，因此屬於 DoR 入口關卡。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：已審查且測試通過</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某檢查清單寫著：「程式碼<strong>已審查，且其測試通過</strong>。」這屬於何處？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>完成的定義——兩者都是在出口關卡檢查的完成條件</text><feedback><text>正確——審查與測試通過屬於收尾完成工作的一環。</text></feedback></answer>
+    <answer fraction="0"><text>就緒的定義——兩者使故事就緒可開始</text><feedback><text>兩者都無法在工作建置前發生；它們屬於完成，而非就緒。</text></feedback></answer>
+    <answer fraction="0"><text>因為提到測試，所以是就緒條件</text><feedback><text>提到測試並不使它成為就緒；測試通過屬於完成關注。</text></feedback></answer>
+    <answer fraction="0"><text>只有在產品退役後才重要</text><feedback><text>它們把關的是故事的完成，不是產品退役。</text></feedback></answer>
+    <generalfeedback><text>程式碼審查與測試通過都需要工作已然存在，因此都是屬於 DoD 出口關卡的完成條件——而非就緒條件。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗收準則與 DoD 的範圍對比</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪個陳述正確地對比了<strong>驗收準則</strong>與<strong>完成的定義</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驗收準則專屬於單一故事；DoD 是通用的，套用到每個故事</text><feedback><text>正確——AC 是每故事、特定的；DoD 是套用到所有故事的共同標準。</text></feedback></answer>
+    <answer fraction="0"><text>DoD 專屬於單一故事；驗收準則套用到每個故事</text><feedback><text>這說反了：AC 是每故事的，DoD 是通用的。</text></feedback></answer>
+    <answer fraction="0"><text>它們是同一件事的兩種名稱</text><feedback><text>它們不同：AC 描述這個故事，DoD 是共同的品質標準。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都各故事獨有、從不共用</text><feedback><text>DoD 在所有故事間共用，不同於每故事的驗收準則。</text></feedback></answer>
+    <generalfeedback><text>驗收準則描述某一特定故事必須做到什麼，因故事而異。DoD 則是套用到每個故事的單一通用品質標準。這正是為什麼一個故事必須同時滿足兩者才算完成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何完成需要 AC 與 DoD 兩者</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼一個故事必須<strong>同時</strong>滿足其驗收準則與 DoD 才算完成？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驗收準則證明它做對了該做的事；DoD 證明它是依團隊的品質標準建置的</text><feedback><text>正確——AC 涵蓋「做到被要求的事」，DoD 涵蓋「建置得夠好」。</text></feedback></answer>
+    <answer fraction="0"><text>因為驗收準則取代了對完成的定義的需要</text><feedback><text>AC 不取代 DoD；它們回答不同的問題。</text></feedback></answer>
+    <answer fraction="0"><text>因為 DoD 列出的是那一個故事的特定行為</text><feedback><text>特定行為是 AC；DoD 是通用的品質標準。</text></feedback></answer>
+    <answer fraction="0"><text>因為滿足其中任一項總是意味著另一項也成立</text><feedback><text>它們彼此獨立：行為正確並不保證已審查、已測試或已整合。</text></feedback></answer>
+    <generalfeedback><text>驗收準則與 DoD 回答不同問題。AC：這個故事做到被要求它做的特定事情了嗎？DoD：它是依共同的品質標準（已審查、已測試、已整合、無重大缺陷）建置的嗎？一個故事可能滿足其一而不滿足其二，因此完成需要兩者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>完成的定義薄弱的後果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個<strong>薄弱或未被落實的完成的定義</strong>最可能造成什麼後果？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>未測試、未審查的工作被稱作「完成」，於是品質侵蝕、隱藏的工作日後結轉</text><feedback><text>正確——薄弱的 DoD 讓不完整的工作過關，把真正的工作往後延。</text></feedback></answer>
+    <answer fraction="0"><text>故事變得不可能開始</text><feedback><text>開始由 DoR 管控；薄弱的 DoD 影響完成，而非開始。</text></feedback></answer>
+    <answer fraction="0"><text>估算自動變得更準確</text><feedback><text>薄弱的 DoD 不會改善估算；它隱藏了剩餘的工作。</text></feedback></answer>
+    <answer fraction="0"><text>團隊被迫寫更多驗收準則</text><feedback><text>薄弱的 DoD 不會逼出更多 AC；它讓低品質的工作過關。</text></feedback></answer>
+    <generalfeedback><text>當 DoD 薄弱或未被落實時，未測試、未審查、未整合的工作會被標記為完成。品質侵蝕，「90% 完成」的工作藏起了剩餘的工作量，而那些工作量之後會以結轉與缺陷的形式浮現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>缺少就緒的定義的後果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>沒有一個<strong>有效的就緒的定義</strong>，最可能造成什麼後果？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>模糊、未就緒的項目被拉進來，並在衝刺途中因發現缺漏細節而反覆折騰</text><feedback><text>正確——沒有 DoR，未就緒的工作進入衝刺並產生折騰。</text></feedback></answer>
+    <answer fraction="0"><text>已完成的工作永遠無法被標記為完成</text><feedback><text>標記完成由 DoD 管控，而非 DoR。</text></feedback></answer>
+    <answer fraction="0"><text>團隊保證每個故事都能提早完成</text><feedback><text>未就緒的工作傾向延誤，而非提早完成。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試變得沒有必要</text><feedback><text>缺少 DoR 並不會消除對驗收測試的需要。</text></feedback></answer>
+    <generalfeedback><text>沒有 DoR，團隊會承諾投入不清楚、未估算、或被依賴阻擋的項目。缺漏的細節在衝刺途中浮現，造成重工、被阻擋的時間與折騰——正是入口關卡要防止的事。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>INVEST 概括的是什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>INVEST</strong> 口訣（Independent 獨立、Negotiable 可協商、Valuable 有價值、Estimable 可估算、Small 夠小、Testable 可測試）最常用來檢查一個故事是否：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>就緒——它概括了一個良好、可開始的故事應具備的特質</text><feedback><text>正確——INVEST 是就緒的啟發式，與 DoR 密切相關。</text></feedback></answer>
+    <answer fraction="0"><text>完成——它列出已完成工作的完成準則</text><feedback><text>INVEST 檢查故事的就緒程度，不是已完成工作的完整性。</text></feedback></answer>
+    <answer fraction="0"><text>已發布——它是發布說明的檢查清單</text><feedback><text>INVEST 關乎就緒的故事品質，不是發布文件。</text></feedback></answer>
+    <answer fraction="0"><text>超出預算——它是成本追蹤口訣</text><feedback><text>INVEST 描述故事特質，不是預算追蹤。</text></feedback></answer>
+    <generalfeedback><text>INVEST 捕捉一個良好成形故事的特質——獨立、可協商、有價值、可估算、夠小、可測試。其中「可估算、夠小、可測試」特別對應到就緒，這正是 INVEST 常被用來支持就緒的定義的原因。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：小到可在一個衝刺內完成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「該故事<strong>小到可在單一衝刺內完成</strong>。」這是哪個關卡？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>就緒的定義項目</text><feedback><text>正確——小到能塞進一個衝刺是就緒條件。</text></feedback></answer>
+    <answer fraction="0"><text>完成的定義項目</text><feedback><text>定出大小是在開始前檢查，而非完成時。</text></feedback></answer>
+    <answer fraction="0"><text>描述故事行為的驗收準則</text><feedback><text>大小是就緒屬性，不是行為性的驗收準則。</text></feedback></answer>
+    <answer fraction="0"><text>發布層級的準則</text><feedback><text>能塞進一個衝刺把關的是進入，而非發布。</text></feedback></answer>
+    <generalfeedback><text>小到可在一個衝刺內完成是就緒屬性（INVEST 中的「S」）。若故事太大，必須在就緒之前先切分，因此這屬於 DoR。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：已整合且無重大缺陷</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「該變更已<strong>整合／合併，且沒有已知的重大缺陷</strong>。」這是哪個關卡？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>完成的定義項目</text><feedback><text>正確——整合與無重大缺陷都是完成條件。</text></feedback></answer>
+    <answer fraction="0"><text>就緒的定義項目</text><feedback><text>工作建置前沒有東西可整合；這屬於完成。</text></feedback></answer>
+    <answer fraction="0"><text>該故事大小的估算</text><feedback><text>這些是完整性條件，不是估算。</text></feedback></answer>
+    <answer fraction="0"><text>因為提到缺陷，所以是就緒條件</text><feedback><text>建置後無缺陷屬於完成關注，而非就緒。</text></feedback></answer>
+    <generalfeedback><text>合併工作並確認沒有已知的重大缺陷，都只能在工作存在之後才發生，因此兩者都是 DoD 出口關卡準則。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>滿足 AC 但不滿足 DoD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某故事做到了其驗收準則要求的一切，但程式碼<strong>未經審查、也沒有寫任何測試</strong>。它算完成嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不算——它未通過 DoD，因此即使滿足 AC 仍不算完成</text><feedback><text>正確——完成需要 AC 與 DoD 兩者；此處 DoD 未滿足。</text></feedback></answer>
+    <answer fraction="0"><text>算——滿足驗收準則就足以算完成</text><feedback><text>只滿足 AC 並不足夠；通用的 DoD 也必須成立。</text></feedback></answer>
+    <answer fraction="0"><text>算——審查與測試是可有可無的附加項</text><feedback><text>審查與測試是 DoD 準則，不是可有可無的附加項。</text></feedback></answer>
+    <answer fraction="0"><text>不重新估算該故事就無法判斷</text><feedback><text>完整性依 AC 與 DoD 判斷，而非重新估算。</text></feedback></answer>
+    <generalfeedback><text>該故事的行為符合要求（AC 已滿足），但未經審查或測試，因此未通過通用的品質標準。由於完成需要 AC 與 DoD 兩者，該故事不算完成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>滿足 DoD 但不滿足其 AC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某變更已審查、已測試、已整合，但它<strong>並未真正實現</strong>其驗收準則所描述的行為。該故事算完成嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不算——它滿足通用的 DoD，卻未通過它自己的驗收準則</text><feedback><text>正確——一個做錯事的、建置良好的變更，仍未通過其 AC。</text></feedback></answer>
+    <answer fraction="0"><text>算——通過 DoD 就足以算完成</text><feedback><text>只有 DoD 並不足夠；故事還必須滿足其驗收準則。</text></feedback></answer>
+    <answer fraction="0"><text>算——驗收準則只是建議</text><feedback><text>驗收準則界定故事必須做到什麼，並非可有可無。</text></feedback></answer>
+    <answer fraction="0"><text>只由產品負責人的心情決定</text><feedback><text>完成依 AC 與 DoD 判斷，而非心情。</text></feedback></answer>
+    <generalfeedback><text>此處工作品質很高（DoD 已滿足），卻解決了錯的問題（AC 未滿足）。完成需要兩者，因此一個建置良好卻未滿足其驗收準則的變更不算完成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 DoD 是通用的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼完成的定義寫成<strong>通用</strong>的檢查清單，而不是每故事各一份？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>如此一來，無論每個故事的特定行為為何，都受同一條一致的品質標準約束</text><feedback><text>正確——通用的 DoD 為所有故事提供統一的品質標準。</text></feedback></answer>
+    <answer fraction="0"><text>如此一來，每個故事可以定義自己獨有的完成規則</text><feedback><text>每故事的規則是驗收準則；DoD 刻意做成通用的。</text></feedback></answer>
+    <answer fraction="0"><text>因為 DoD 永遠只含一個項目</text><feedback><text>DoD 通常含多個項目；通用是指它套用到所有故事。</text></feedback></answer>
+    <answer fraction="0"><text>因為通用的檢查清單較容易被忽略</text><feedback><text>通用 DoD 的重點是一致地落實，而非便於忽略。</text></feedback></answer>
+    <generalfeedback><text>DoD 之所以通用，正是為了作為統一的品質標準：同一套標準（已審查、已測試、已整合、無重大缺陷）套用到每個故事。故事各自的期望則改放在每故事的驗收準則裡。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>INVEST 支持哪個關卡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊在精煉待辦項目時使用 <strong>INVEST</strong>。這最直接支持哪個關卡？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>就緒的定義——INVEST 協助確認故事已良好成形、可開始</text><feedback><text>正確——INVEST 是支持入口關卡的就緒輔助。</text></feedback></answer>
+    <answer fraction="0"><text>完成的定義——INVEST 列出完成檢查</text><feedback><text>INVEST 檢查故事就緒，不是已完成工作是否完整。</text></feedback></answer>
+    <answer fraction="0"><text>都不是——INVEST 只關乎部署</text><feedback><text>INVEST 關乎就緒的故事品質，不是部署。</text></feedback></answer>
+    <answer fraction="0"><text>兩道關卡同等，因為 INVEST 也涵蓋測試</text><feedback><text>雖然 INVEST 含「可測試」，但它評估的是故事的就緒，因此支持 DoR。</text></feedback></answer>
+    <generalfeedback><text>INVEST 在精煉時套用，用來判斷故事是否已良好成形、就緒。由於那正是入口關卡所關注的，INVEST 最直接支持就緒的定義。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>具備 AC 與滿足 AC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪個配對正確地把<strong>驗收準則的兩種用途</strong>對應到其關卡？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>已定義清楚、可測試的 AC 是 DoR 項目；AC 實際被滿足則屬於 DoD 的一環</text><feedback><text>正確——定義 AC 屬於就緒；滿足 AC 屬於完成的一環。</text></feedback></answer>
+    <answer fraction="0"><text>已定義 AC 是 DoD 項目；滿足 AC 是 DoR 項目</text><feedback><text>這說反了：定義 AC 屬於就緒，滿足 AC 屬於完成。</text></feedback></answer>
+    <answer fraction="0"><text>定義與滿足 AC 都只屬於 DoR</text><feedback><text>滿足 AC 只能在工作建置之後發生，因此屬於 DoD 的一環。</text></feedback></answer>
+    <answer fraction="0"><text>驗收準則在兩道關卡都沒有角色</text><feedback><text>AC 在兩道關卡都有角色：為就緒而定義、為完成而滿足。</text></feedback></answer>
+    <generalfeedback><text>驗收準則以不同方式牽涉兩道關卡。就緒（DoR）：故事必須已定義清楚、可測試的 AC。完成（DoD）：那些 AC 必須被已建置的工作實際滿足。把「已定義」與「已滿足」混為一談，是關卡歸類錯誤的常見來源。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>DoR 過於寬鬆造成折騰</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊把只被粗略理解的故事拉進來。衝刺途中他們不斷停下來釐清範圍、追查缺漏的依賴。哪個關卡薄弱，又如何顯現？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>DoR 過於寬鬆，於是未就緒的工作進入並在衝刺途中折騰</text><feedback><text>正確——寬鬆的入口關卡放進不清楚的工作，造成衝刺途中的折騰。</text></feedback></answer>
+    <answer fraction="0"><text>DoD 過於嚴格，於是什麼都無法完成</text><feedback><text>症狀是未就緒的工作進入，這指向 DoR，而非嚴格的 DoD。</text></feedback></answer>
+    <answer fraction="0"><text>各故事間的驗收準則過於通用</text><feedback><text>問題在於未就緒地進入，這是 DoR 薄弱，而非通用的 AC。</text></feedback></answer>
+    <answer fraction="0"><text>沒有問題；在衝刺途中釐清範圍是理想的</text><feedback><text>不斷在衝刺途中釐清是折騰，顯示 DoR 放進了未就緒的工作。</text></feedback></answer>
+    <generalfeedback><text>不清楚、被依賴阻擋的故事本不該通過入口關卡。一旦通過，團隊便在衝刺途中發現缺漏並折騰。寬鬆的 DoR 是主因；收緊它可防止未就緒的工作進入。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Definition of Ready and Done/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>哪條準則屬於發布層級 DoD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在<strong>分層</strong>的完成的定義中，哪條準則最自然地屬於<strong>發布層級</strong>，而非每個故事？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>完整回歸測試、效能與安全檢查通過，且發布說明已備妥</text><feedback><text>正確——跨切面的回歸、效能、安全與發布說明屬於發布層級。</text></feedback></answer>
+    <answer fraction="0"><text>這個故事的程式碼已經過同儕審查</text><feedback><text>單一故事的同儕審查是故事層級的 DoD 項目。</text></feedback></answer>
+    <answer fraction="0"><text>這個故事的單元測試通過</text><feedback><text>這個故事的單元測試通過屬於故事層級項目。</text></feedback></answer>
+    <answer fraction="0"><text>這個故事滿足它自己的驗收準則</text><feedback><text>滿足單一故事的 AC 是故事層級，而非發布層級。</text></feedback></answer>
+    <generalfeedback><text>分層的 DoD 有故事、衝刺／增量、發布三個層級。只對整個產品才有意義的跨切面關注——完整回歸、效能與安全測試、發布說明與簽核——屬於發布層級，而非每個獨立故事。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪條準則屬於故事層級 DoD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在分層的完成的定義中，哪條準則最自然地屬於<strong>故事層級</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>該故事的程式碼已審查、其單元測試通過、且它滿足自己的驗收準則</text><feedback><text>正確——審查、單元測試與滿足 AC 都是每故事的完成項目。</text></feedback></answer>
+    <answer fraction="0"><text>整個產品的回歸測試套件已執行</text><feedback><text>全產品回歸是發布層級關注，而非故事層級。</text></feedback></answer>
+    <answer fraction="0"><text>取得該發布正式的效能與安全簽核</text><feedback><text>發布簽核是發布層級，而非故事層級。</text></feedback></answer>
+    <answer fraction="0"><text>行銷用的發布說明已核准</text><feedback><text>發布說明是發布層級項目。</text></feedback></answer>
+    <generalfeedback><text>故事層級的 DoD 涵蓋單一故事完成所需：程式碼已審查、其單元與驗收測試通過、其驗收準則已滿足且無已知重大缺陷。更廣的關注則升級到衝刺／增量層級與發布層級。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何未測試的故事不算完成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某開發者說一項功能「在我的機器上能跑——基本上算完成了，只是還沒測試」。為什麼它<strong>不</strong>算完成？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>未測試、未驗證的工作品質未知，稱它為完成等於隱藏了風險與剩餘的工作</text><feedback><text>正確——沒有測試與審查，品質未知，「完成」是個不實的宣稱。</text></feedback></answer>
+    <answer fraction="0"><text>它算完成；在開發者機器上能跑就滿足了 DoD</text><feedback><text>「在我的機器上能跑」不是 DoD；它對別人什麼都沒驗證。</text></feedback></answer>
+    <answer fraction="0"><text>只要程式碼能編譯，它就算完成</text><feedback><text>能編譯不是 DoD；仍需測試、審查與整合。</text></feedback></answer>
+    <answer fraction="0"><text>無法判斷，因為 DoD 不涵蓋測試</text><feedback><text>一份適當的 DoD 明確包含測試，而這項工作尚未測試。</text></feedback></answer>
+    <generalfeedback><text>「在我的機器上能跑」與「90% 完成」都掩飾了未經驗證的工作。在它被測試、審查並整合之前，其真正品質與剩餘工作量都未知。一份包含測試的 DoD 存在的意義，正是阻止這類工作被算作完成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>DoR 過於嚴格變成迷你瀑布</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊把 DoR 訂得極為苛刻，要求每個故事在進入衝刺前都必須有完整的前期設計與完整規格。風險是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它會漂向迷你瀑布與分析癱瘓，在任何撰寫程式之前就前置了沉重的設計</text><feedback><text>正確——過於嚴格的 DoR 重現了大量前期分析，與敏捷背道而馳。</text></feedback></answer>
+    <answer fraction="0"><text>故事將總是太模糊而無法開始</text><feedback><text>那是 DoR 過於寬鬆的風險，而非過於嚴格。</text></feedback></answer>
+    <answer fraction="0"><text>DoD 將變得不可能滿足</text><feedback><text>過於嚴格的 DoR 影響入口，而非完成準則。</text></feedback></answer>
+    <answer fraction="0"><text>驗收準則變得沒有必要</text><feedback><text>過於嚴格的 DoR 並不會消除對驗收準則的需要。</text></feedback></answer>
+    <generalfeedback><text>DoR 應確保有足夠的清晰度可以開始，而不是要求完整的前期設計。推得太過，它就重現了瀑布：在任何程式碼之前進行沉重的分析與規格，造成分析癱瘓與延誤。平衡點是「就緒到足以開始」，而非「完整設計」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>平衡過於寬鬆的 DoR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>過於<strong>寬鬆</strong>的 DoR 造成折騰，過於<strong>嚴格</strong>的 DoR 造成分析癱瘓。健康的平衡是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>要求剛好足夠的清晰度、大小與可測試準則以有信心地開始，並在工作進行中再精修細節</text><feedback><text>正確——「就緒到足以開始」既避免折騰也避免癱瘓。</text></feedback></answer>
+    <answer fraction="0"><text>完全移除 DoR，讓沒有任何東西阻擋開始工作</text><feedback><text>移除它會回到未就緒工作造成的折騰。</text></feedback></answer>
+    <answer fraction="0"><text>要求每個故事都有完整、凍結的規格</text><feedback><text>那是造成分析癱瘓的過於嚴格的極端。</text></feedback></answer>
+    <answer fraction="0"><text>讓每位開發者私下逐一判斷每個故事的就緒</text><feedback><text>DoR 是共同的團隊協議，而非私下的個人判斷。</text></feedback></answer>
+    <generalfeedback><text>DoR 應保證故事已被理解、已定出大小、且有可測試的驗收準則與已解決的依賴——足以有信心地開始——同時保留在衝刺中精修細節的空間。太寬鬆造成衝刺途中折騰；太嚴格則重現瀑布式分析。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：特定行為與通用標準</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「該 API 對未知 id <strong>回傳 404</strong>」相對於「<strong>所有新程式碼都有自動化測試覆蓋</strong>」。這兩者如何歸類？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>回傳 404 的行為是每故事的驗收準則；測試覆蓋規則是通用的 DoD 項目</text><feedback><text>正確——特定行為是 AC；全面的品質規則是 DoD。</text></feedback></answer>
+    <answer fraction="0"><text>回傳 404 的行為是 DoD 項目；測試覆蓋規則是驗收準則</text><feedback><text>說反了：特定行為是 AC，全面規則是 DoD。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是該單一故事的驗收準則</text><feedback><text>測試覆蓋規則套用到每個故事，因此是通用 DoD，而非 AC。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是通用的 DoD 項目</text><feedback><text>對未知 id 回傳 404 專屬於這個故事，因此是 AC。</text></feedback></answer>
+    <generalfeedback><text>描述這個故事具體必須做到什麼的陳述（對未知 id 回傳 404）是驗收準則。套用到每個故事的全面品質規則（所有新程式碼都有測試覆蓋）是通用的 DoD 項目。分辨特定與通用，是歸類它們的關鍵。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷被繞過的 DoD 造成的漏出缺陷</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊的速度看起來很高，但漏到正式環境的缺陷持續攀升，而故事在未經程式碼審查的情況下就被標記為完成。哪個關卡被違反了？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>完成的定義——工作在未滿足審查與測試準則的情況下就被稱作完成</text><feedback><text>正確——跳過審查與測試卻標記完成，是違反 DoD。</text></feedback></answer>
+    <answer fraction="0"><text>就緒的定義——這些故事一開始就不清楚</text><feedback><text>症狀是未達品質即完成，這指向 DoD，而非 DoR。</text></feedback></answer>
+    <answer fraction="0"><text>驗收準則——它們太過具體</text><feedback><text>跳過審查造成的漏出缺陷指向 DoD，而非過於具體的 AC。</text></feedback></answer>
+    <answer fraction="0"><text>沒有關卡——高速度證明流程很健康</text><feedback><text>高速度伴隨攀升的漏出缺陷，正顯示 DoD 被繞過。</text></feedback></answer>
+    <generalfeedback><text>在未審查、未測試的情況下標記完成，會膨脹速度，同時讓缺陷漏到正式環境。那是被繞過的出口關卡：DoD 被違反了。落實 DoD 能讓「完成」重新對齊到真正、已驗證的完整性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷缺少的 DoR</text></name>
+    <questiontext format="html"><text><![CDATA[<p>故事不斷在沒有估算、沒有驗收準則的情況下進入衝刺，接著範圍暴增並卡住。哪個關卡缺少或被違反？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>就緒的定義——未就緒的項目正被拉進衝刺</text><feedback><text>正確——未估算、無準則的項目進入衝刺，是 DoR 失效。</text></feedback></answer>
+    <answer fraction="0"><text>完成的定義——完成的工作缺乏品質</text><feedback><text>問題出在入口（未就緒項目），是 DoR 失效，而非 DoD。</text></feedback></answer>
+    <answer fraction="0"><text>發布層級的檢查清單——缺少發布說明</text><feedback><text>症狀是未就緒地進入，而非發布文件缺口。</text></feedback></answer>
+    <answer fraction="0"><text>都不是——範圍暴增無可避免</text><feedback><text>一份要求估算與清楚 AC 的 DoR 本會在入口攔下這些項目。</text></feedback></answer>
+    <generalfeedback><text>缺少估算與驗收準則的項目本不該通過入口關卡。既然通過了，範圍就在衝刺途中才被發現，工作因而卡住。這是缺少或被忽略的 DoR；在入口落實就緒可防止它發生。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>發布層級 DoD 額外加入什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在故事層級的 DoD 之上，<strong>發布層級</strong>的 DoD 通常額外加入什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>跨切面檢查，例如完整回歸、效能、安全、發布說明與簽核</text><feedback><text>正確——發布層級加入超出單一故事的全產品關注。</text></feedback></answer>
+    <answer fraction="0"><text>什麼都沒加——它與故事層級的 DoD 相同</text><feedback><text>發布層級加入了故事層級無法涵蓋的全產品關注。</text></feedback></answer>
+    <answer fraction="0"><text>只有該發布中最後一個故事的驗收準則</text><feedback><text>發布層級 DoD 關乎跨切面品質，而非某個故事的 AC。</text></feedback></answer>
+    <answer fraction="0"><text>放寬故事層級規則以加速出貨</text><feedback><text>發布層級加入更嚴的跨切面檢查，並不放寬故事標準。</text></feedback></answer>
+    <generalfeedback><text>有些品質關注只有對整個產品在發布時才有意義：跨功能的完整回歸、效能與安全驗證、文件與發布說明、以及正式簽核。分層的 DoD 把這些放在發布層級，疊加在故事層級與衝刺／增量層級的準則之上。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>衝刺／增量層級 DoD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在分層 DoD 中，哪項關注最適合放在<strong>衝刺／增量層級</strong>，介於故事與發布層級之間？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>各故事合併成一個已整合、可展示、並部署到測試環境的增量</text><feedback><text>正確——把各故事整合成可出貨的增量是增量層級關注。</text></feedback></answer>
+    <answer fraction="0"><text>這個單一故事的單元測試通過</text><feedback><text>單一故事的單元測試是故事層級項目。</text></feedback></answer>
+    <answer fraction="0"><text>公開發布的正式外部安全簽核</text><feedback><text>外部發布簽核是發布層級關注。</text></feedback></answer>
+    <answer fraction="0"><text>某個故事驗收準則的措辭</text><feedback><text>故事 AC 的措辭是故事層級細節，而非增量層級關注。</text></feedback></answer>
+    <generalfeedback><text>介於故事與發布之間的是增量層級：各自已完成的故事必須整合成一個連貫、可展示的增量，通常建置並部署到測試環境。每故事的檢查留在故事層級；全產品的把關留在發布層級。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何僅有 AC 無法宣告完成</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼一個故事的驗收準則，單憑它們自己，<strong>不足以</strong>宣告它完成？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們確認故事做對了事，卻不確認它是依共同的品質標準建置的</text><feedback><text>正確——AC 涵蓋行為的正確性，不涵蓋審查、測試與整合。</text></feedback></answer>
+    <answer fraction="0"><text>因為驗收準則從來都不可測試</text><feedback><text>好的驗收準則是可測試的；缺口在於它們不涵蓋通用的 DoD。</text></feedback></answer>
+    <answer fraction="0"><text>因為驗收準則與 DoD 是同一件事</text><feedback><text>它們不同：AC 是每故事的，DoD 是通用的品質標準。</text></feedback></answer>
+    <answer fraction="0"><text>因為 DoD 取代了對驗收準則的需要</text><feedback><text>DoD 不取代 AC；完成需要兩者。</text></feedback></answer>
+    <generalfeedback><text>驗收準則驗證故事交付了被要求它做的特定行為，卻對它是否已審查、已測試、已整合且無重大缺陷隻字未提。那些通用的品質關注存於 DoD，因此完成需要兩者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>DoD 如何對抗「90% 完成」</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊連續數週不斷聽到「它 90% 完成了」。一份明確、被落實的 DoD 如何<strong>對抗</strong>這件事？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它讓「完成」變得二元且客觀，於是隱藏的剩餘工作無法被偽裝成幾乎完成</text><feedback><text>正確——清楚的 DoD 把模糊的進度宣稱變成通過／未通過的檢查。</text></feedback></answer>
+    <answer fraction="0"><text>它讓團隊把 90% 完成的工作算成完全完成以維持士氣</text><feedback><text>把未完成的工作算成完成，正是真正的 DoD 所禁止的。</text></feedback></answer>
+    <answer fraction="0"><text>它加速寫程式，使沒有東西會停在 90%</text><feedback><text>DoD 不加速寫程式；它揭露隱藏的剩餘 10%。</text></feedback></answer>
+    <answer fraction="0"><text>它消除了測試最後 10% 的需要</text><feedback><text>DoD 要求那項測試，因此不會消除它。</text></feedback></answer>
+    <generalfeedback><text>「90% 完成」問題藏起了未知、往往很大的剩餘工作量。明確的 DoD 讓完成成為客觀、二元的檢查：要嘛每項準則都滿足，要嘛故事不算完成。這會把隱藏的工作攤開，而不是讓它躲在一個令人安心的百分比後面。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>負載下效能屬於哪一層</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「系統滿足其<strong>負載下效能 SLA</strong>。」在分層 DoD 中，這條準則最自然地放在何處？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>發布（或增量）層級，作為跨切面的全系統關注——而非放在每個獨立故事上</text><feedback><text>正確——全系統效能在發布／增量層級驗證。</text></feedback></answer>
+    <answer fraction="0"><text>放在每一個故事上，作為每故事的驗收準則</text><feedback><text>全系統負載效能無法對每個小故事有意義地檢查；它是跨切面的。</text></feedback></answer>
+    <answer fraction="0"><text>放在 DoR，作為就緒條件</text><feedback><text>效能是在建置之後驗證，而非作為入口條件。</text></feedback></answer>
+    <answer fraction="0"><text>不放在任何地方——效能不屬於任何 DoD</text><feedback><text>系統效能是正當的發布層級 DoD 關注。</text></feedback></answer>
+    <generalfeedback><text>負載下效能是已整合系統的屬性，而非某個小故事的屬性，因此在分層 DoD 的發布或增量層級驗證。把它附加到每個故事既不切實際也會誤導。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷跳過測試造成的結轉</text></name>
+    <questiontext format="html"><text><![CDATA[<p>每個衝刺，團隊把程式碼寫完的故事標記為完成，並把其測試「延到下個衝刺」。結轉不斷增加，且晚期冒出意外。診斷與修正是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>DoD（必須包含測試）正被違反；落實它，使故事唯有在測試後才算完成，藉此攤開真正的剩餘工作</text><feedback><text>正確——延後測試卻標記完成違反了 DoD 並隱藏工作。</text></feedback></answer>
+    <answer fraction="0"><text>DoR 過於嚴格；放寬它讓更多故事能開始</text><feedback><text>失效發生在完成端（測試被延後），因此是 DoD 問題，而非嚴格的 DoR。</text></feedback></answer>
+    <answer fraction="0"><text>沒有問題；把測試延一個衝刺是標準做法</text><feedback><text>延後測試卻稱工作完成是隱藏結轉的反模式。</text></feedback></answer>
+    <answer fraction="0"><text>驗收準則太過通用，應予移除</text><feedback><text>問題在於出口關卡跳過了測試，而非 AC 的措辭。</text></feedback></answer>
+    <generalfeedback><text>把工作標記為完成卻延後其測試，違反了包含測試的 DoD。它膨脹了已完成的計數、累積隱藏的測試債，並迫使結轉與晚期意外。修正之道是落實 DoD，使故事唯有在真正被測試後才算完成，讓真正的剩餘工作現在就可見。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>故事都完成但增量不可出貨</text></name>
+    <questiontext format="html"><text><![CDATA[<p>每個故事都通過了它的故事層級 DoD，但合併後的增量卻在完整回歸執行中失敗，無法發布。這揭露了團隊 DoD 的什麼問題？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>分層 DoD 不完整：故事層級檢查通過了，但增量／發布層級的整合與回歸準則缺少或未被落實</text><feedback><text>正確——通過故事層級並不保證整合後的增量；需要更高層級。</text></feedback></answer>
+    <answer fraction="0"><text>沒有問題——若每個故事都完成，發布自然也完成</text><feedback><text>各自完成的故事仍可能彼此破壞；這正是需要更高 DoD 層級的原因。</text></feedback></answer>
+    <answer fraction="0"><text>DoR 太寬鬆，這些故事本不該開始</text><feedback><text>故事已就緒且各自完成；缺口在整合／發布層級。</text></feedback></answer>
+    <answer fraction="0"><text>驗收準則對每個故事太過具體</text><feedback><text>具體的每故事 AC 沒問題；缺的是跨切面的整合與回歸。</text></feedback></answer>
+    <generalfeedback><text>各自都完成的故事，一旦整合仍可能彼此不良互動。分層 DoD 預見了這點：增量／發布層級加入整合、完整回歸與跨切面檢查。若那些層級缺少或未被落實，由各自完成故事組成的增量仍可能不可出貨——正是此處所見的缺口。</text></generalfeedback>
+  </question>
+</quiz>

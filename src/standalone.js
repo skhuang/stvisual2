@@ -74082,6 +74082,2546 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "definition-gates": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What the Definition of Ready is",
+            "text": "<p>What is the <strong>Definition of Ready (DoR)</strong>?</p>",
+            "answers": [
+              {
+                "text": "The shared criteria a backlog item must meet before the team pulls it into a sprint",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the DoR is the entry gate: it says when an item is ready to be started."
+              },
+              {
+                "text": "The shared criteria for deciding when a piece of work is truly complete",
+                "fraction": 0,
+                "feedback": "That describes the Definition of Done, the exit gate, not the DoR."
+              },
+              {
+                "text": "The specific behaviours a single story must exhibit to be accepted",
+                "fraction": 0,
+                "feedback": "Those are that story's acceptance criteria, not the DoR itself."
+              },
+              {
+                "text": "The order in which items appear in the product backlog",
+                "fraction": 0,
+                "feedback": "Backlog ordering is prioritisation, not the readiness gate."
+              }
+            ],
+            "generalFeedback": "The Definition of Ready is a shared, agreed checklist a backlog item must satisfy before the team commits to it in a sprint \u2014 for example it is clear, has testable acceptance criteria, is estimated, is small enough to finish in a sprint, and its dependencies are resolved. It is the entry gate that keeps vague, unready work out of the sprint.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What the Definition of Done is",
+            "text": "<p>What is the <strong>Definition of Done (DoD)</strong>?</p>",
+            "answers": [
+              {
+                "text": "The shared criteria for when a piece of work is truly complete",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 the DoD is the exit gate that defines what "complete" really means.'
+              },
+              {
+                "text": "The shared criteria a story must meet before it is pulled into a sprint",
+                "fraction": 0,
+                "feedback": "That is the Definition of Ready, the entry gate, not the DoD."
+              },
+              {
+                "text": "The list of specific behaviours a single story must satisfy",
+                "fraction": 0,
+                "feedback": "Those are that story's acceptance criteria; the DoD is a generic quality bar."
+              },
+              {
+                "text": "The estimate, in story points, of how large a story is",
+                "fraction": 0,
+                "feedback": "Sizing is part of readiness, not the definition of completeness."
+              }
+            ],
+            "generalFeedback": 'The Definition of Done is a shared, agreed set of criteria that must all hold before work counts as complete \u2014 for example code written and reviewed, unit and acceptance tests passing, work integrated, docs updated, and no known critical defects. It is the exit gate that stops unfinished work being called "Done".',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "DoR is which kind of gate",
+            "text": "<p>The Definition of Ready acts as which kind of <strong>gate</strong>?</p>",
+            "answers": [
+              {
+                "text": "An entry gate, controlling whether work is ready to be started",
+                "fraction": 100,
+                "feedback": "Correct \u2014 DoR governs entry: it decides when an item may be pulled into a sprint."
+              },
+              {
+                "text": "An exit gate, controlling whether work is complete",
+                "fraction": 0,
+                "feedback": "The exit gate is the Definition of Done, not the DoR."
+              },
+              {
+                "text": "A gate that applies only after the work has been released",
+                "fraction": 0,
+                "feedback": "DoR applies before work starts, not after release."
+              },
+              {
+                "text": "A gate owned solely by the product owner and hidden from the team",
+                "fraction": 0,
+                "feedback": "The DoR is shared and team-owned, not a hidden personal checklist."
+              }
+            ],
+            "generalFeedback": "DoR is the entry gate. It is applied when the team is about to pull an item into a sprint, ensuring the item is understood, sized, and ready. This prevents starting vague or unready work.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "DoD is which kind of gate",
+            "text": "<p>The Definition of Done acts as which kind of <strong>gate</strong>?</p>",
+            "answers": [
+              {
+                "text": "An exit gate, controlling whether work may be called complete",
+                "fraction": 100,
+                "feedback": "Correct \u2014 DoD governs exit: it decides when work is truly Done."
+              },
+              {
+                "text": "An entry gate, controlling whether work is ready to start",
+                "fraction": 0,
+                "feedback": "The entry gate is the Definition of Ready, not the DoD."
+              },
+              {
+                "text": "A gate that only limits how many items are in the backlog",
+                "fraction": 0,
+                "feedback": "The DoD concerns completeness of work, not backlog size."
+              },
+              {
+                "text": "A gate that measures how fast the team writes code",
+                "fraction": 0,
+                "feedback": "The DoD is a quality bar for completeness, not a speed metric."
+              }
+            ],
+            "generalFeedback": 'DoD is the exit gate. It is applied when the team wants to declare work complete, ensuring the agreed quality criteria are met. This prevents calling unfinished work "Done".',
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "DoR is checked before pulling a story in",
+            "text": "<p>The Definition of Ready is checked <strong>before</strong> a story is pulled into a sprint.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 DoR is the entry gate, applied before committing to the work."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "DoR is precisely the check made before the team pulls an item into a sprint."
+              }
+            ],
+            "generalFeedback": "The DoR is the entry gate. The team checks it during backlog refinement and sprint planning, before committing to an item, so that only ready work enters the sprint."
+          },
+          {
+            "type": "truefalse",
+            "name": "DoD decides whether work is complete",
+            "text": "<p>The Definition of Done is used to decide whether a piece of work may be considered <strong>complete</strong>.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 DoD is the exit gate that defines completeness."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Deciding completeness is exactly what the DoD is for."
+              }
+            ],
+            "generalFeedback": 'The DoD is the exit gate. Work counts as complete only when every DoD criterion holds, keeping the meaning of "Done" honest and consistent.'
+          },
+          {
+            "type": "multichoice",
+            "name": "What acceptance criteria are",
+            "text": "<p>What are a story's <strong>acceptance criteria</strong>?</p>",
+            "answers": [
+              {
+                "text": "The specific, testable conditions describing what that particular story must do",
+                "fraction": 100,
+                "feedback": "Correct \u2014 acceptance criteria are per-story and specific to that story's behaviour."
+              },
+              {
+                "text": "The generic quality bar that every story in the team must meet",
+                "fraction": 0,
+                "feedback": "That is the Definition of Done; acceptance criteria are specific to one story."
+              },
+              {
+                "text": "The rule for how many stories may be in progress at once",
+                "fraction": 0,
+                "feedback": "That is a work-in-progress limit, not acceptance criteria."
+              },
+              {
+                "text": "The estimate of how many hours the story will take",
+                "fraction": 0,
+                "feedback": "That is an estimate; acceptance criteria describe required behaviour, not effort."
+              }
+            ],
+            "generalFeedback": "Acceptance criteria are the specific, testable conditions that define what a single story must do to be accepted. They are per-story and vary from story to story, unlike the DoD, which is a generic bar applied to every story.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which gate applies when starting a story",
+            "text": "<p>When the team is deciding whether it may <strong>start</strong> a story, which gate applies?</p>",
+            "answers": [
+              {
+                "text": "The Definition of Ready",
+                "fraction": 100,
+                "feedback": "Correct \u2014 readiness to start is governed by the DoR entry gate."
+              },
+              {
+                "text": "The Definition of Done",
+                "fraction": 0,
+                "feedback": "The DoD applies when finishing, not when starting."
+              },
+              {
+                "text": "Neither \u2014 starting a story needs no gate",
+                "fraction": 0,
+                "feedback": "Starting is exactly where the DoR entry gate applies."
+              },
+              {
+                "text": "Both apply equally at the moment of starting",
+                "fraction": 0,
+                "feedback": "Only the DoR applies at the start; the DoD is for completion."
+              }
+            ],
+            "generalFeedback": "Starting a story is an entry decision, so the Definition of Ready applies. The Definition of Done is the exit gate and is only relevant when deciding whether the story is complete.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which gate applies when completing a story",
+            "text": "<p>When the team is deciding whether a story may be called <strong>complete</strong>, which gate applies?</p>",
+            "answers": [
+              {
+                "text": "The Definition of Done",
+                "fraction": 100,
+                "feedback": "Correct \u2014 completion is governed by the DoD exit gate."
+              },
+              {
+                "text": "The Definition of Ready",
+                "fraction": 0,
+                "feedback": "The DoR applies when starting, not when finishing."
+              },
+              {
+                "text": "Neither \u2014 completeness is a matter of personal opinion",
+                "fraction": 0,
+                "feedback": "Completeness is judged against the DoD, not personal opinion."
+              },
+              {
+                "text": "Whichever gate the developer prefers at the time",
+                "fraction": 0,
+                "feedback": "The gate is fixed: completion is judged by the DoD."
+              }
+            ],
+            "generalFeedback": "Deciding completeness is an exit decision, so the Definition of Done applies. The DoR governed whether the work should have started; the DoD governs whether it is finished.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Is being estimated a DoR or DoD item",
+            "text": '<p>"The story has been <strong>estimated and sized</strong>." Is this a Definition of Ready item or a Definition of Done item?</p>',
+            "answers": [
+              {
+                "text": "A Definition of Ready item",
+                "fraction": 100,
+                "feedback": "Correct \u2014 being estimated is part of readiness to start, checked before the sprint."
+              },
+              {
+                "text": "A Definition of Done item",
+                "fraction": 0,
+                "feedback": "Estimation happens before work starts; it is not a completeness criterion."
+              },
+              {
+                "text": "Neither \u2014 it belongs to release notes",
+                "fraction": 0,
+                "feedback": "Sizing is a readiness concern, not release documentation."
+              },
+              {
+                "text": "Both equally, at start and at completion",
+                "fraction": 0,
+                "feedback": "Estimation is a readiness (entry) concern, not a completion (exit) one."
+              }
+            ],
+            "generalFeedback": "Being estimated and small enough to finish in a sprint are readiness concerns: they must hold before the team pulls the item in. They belong to the DoR entry gate, not the DoD.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Is code review a DoR or DoD item",
+            "text": '<p>"The code has been <strong>reviewed</strong>." Is this a Definition of Ready item or a Definition of Done item?</p>',
+            "answers": [
+              {
+                "text": "A Definition of Done item",
+                "fraction": 100,
+                "feedback": "Correct \u2014 code review is part of completing the work, an exit-gate criterion."
+              },
+              {
+                "text": "A Definition of Ready item",
+                "fraction": 0,
+                "feedback": "There is no code to review before the story starts; review is a completion concern."
+              },
+              {
+                "text": "Neither \u2014 it is only an estimate",
+                "fraction": 0,
+                "feedback": "Code review is a completeness criterion, not an estimate."
+              },
+              {
+                "text": "An acceptance criterion specific to that one story",
+                "fraction": 0,
+                "feedback": "Review applies to every story generically, so it is a DoD item, not a per-story AC."
+              }
+            ],
+            "generalFeedback": "Code review can only happen after code exists, so it is part of completing the work. It belongs to the DoD exit gate, and because it applies to every story it is a generic DoD item rather than a per-story acceptance criterion.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Done needs both acceptance criteria and DoD",
+            "text": `<p>A story is only "Done" when it meets <strong>both</strong> its own acceptance criteria <strong>and</strong> the team's Definition of Done.</p>`,
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Done requires satisfying the per-story acceptance criteria and the generic DoD."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Meeting only one of the two is not enough; Done needs both the AC and the DoD."
+              }
+            ],
+            "generalFeedback": "Acceptance criteria say what this specific story must do; the DoD is the generic quality bar for every story. A story is Done only when both hold: it does what was asked and it meets the shared quality standard."
+          },
+          {
+            "type": "multichoice",
+            "name": "Is testable acceptance criteria a DoR item",
+            "text": '<p>"The story has clear, <strong>testable acceptance criteria</strong> defined." Before the sprint, which gate does this satisfy?</p>',
+            "answers": [
+              {
+                "text": "The Definition of Ready \u2014 having testable acceptance criteria is part of readiness",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a ready story must already have clear, testable acceptance criteria."
+              },
+              {
+                "text": "The Definition of Done \u2014 it means the tests already pass",
+                "fraction": 0,
+                "feedback": "Having criteria defined is not the same as the tests passing; that comes at completion."
+              },
+              {
+                "text": "Neither \u2014 acceptance criteria are irrelevant to readiness",
+                "fraction": 0,
+                "feedback": "Testable acceptance criteria are a core readiness requirement."
+              },
+              {
+                "text": "It is a release-notes requirement",
+                "fraction": 0,
+                "feedback": "Defining acceptance criteria is a readiness concern, not release documentation."
+              }
+            ],
+            "generalFeedback": "A ready story must have clear, testable acceptance criteria before it is pulled in \u2014 that is a DoR item. Note the distinction: having acceptance criteria defined is readiness (DoR), whereas the criteria actually being met is part of completion (DoD).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Are passing tests a DoD item",
+            "text": '<p>"Unit and acceptance tests are written and <strong>passing</strong>." Which gate does this belong to?</p>',
+            "answers": [
+              {
+                "text": "The Definition of Done",
+                "fraction": 100,
+                "feedback": "Correct \u2014 passing tests are part of completing the work, an exit-gate criterion."
+              },
+              {
+                "text": "The Definition of Ready",
+                "fraction": 0,
+                "feedback": "Tests cannot pass before the work is built; this is a completion concern."
+              },
+              {
+                "text": "Neither \u2014 it is just an estimate of effort",
+                "fraction": 0,
+                "feedback": "Passing tests are a completeness criterion, not an estimate."
+              },
+              {
+                "text": "It is a readiness item because tests are mentioned",
+                "fraction": 0,
+                "feedback": "Mentioning tests does not make it readiness; passing tests is a completion criterion."
+              }
+            ],
+            "generalFeedback": 'Tests can only pass after the work is built, so "tests written and passing" is part of the DoD exit gate. Readiness only requires that testable acceptance criteria exist, not that tests already pass.',
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "DoR and DoD are team-owned and evolve",
+            "text": "<p>Both the Definition of Ready and the Definition of Done are meant to be <strong>team-owned, explicit, and allowed to evolve</strong> over time.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 both are shared, explicit team agreements that the team refines as it learns."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Both gates are team-owned, explicit, and expected to evolve; they are not fixed external rules."
+              }
+            ],
+            "generalFeedback": "DoR and DoD are shared agreements the team makes explicit and revisits, typically in retrospectives. Keeping them owned by the team and evolving keeps them realistic and enforced rather than ignored."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Classify estimated with dependencies resolved",
+            "text": `<p>A team's checklist says: "the story is <strong>estimated and its dependencies are resolved</strong>." Where does this criterion belong?</p>`,
+            "answers": [
+              {
+                "text": "The Definition of Ready \u2014 both are entry conditions checked before starting",
+                "fraction": 100,
+                "feedback": "Correct \u2014 estimation and resolved dependencies are readiness conditions."
+              },
+              {
+                "text": "The Definition of Done \u2014 they describe completed work",
+                "fraction": 0,
+                "feedback": "Neither is about completeness; both must hold before the work begins."
+              },
+              {
+                "text": "They are acceptance criteria for that one story",
+                "fraction": 0,
+                "feedback": "These are generic readiness conditions, not the story's specific behaviour."
+              },
+              {
+                "text": "They belong only at the release gate",
+                "fraction": 0,
+                "feedback": "Estimation and dependency resolution gate entry to the sprint, not release."
+              }
+            ],
+            "generalFeedback": "Being estimated and having dependencies identified and resolved are classic readiness conditions: they must be true before the team commits, so they belong to the DoR entry gate.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify reviewed and tests passing",
+            "text": '<p>A checklist says: "the code is <strong>reviewed and its tests are passing</strong>." Where does this belong?</p>',
+            "answers": [
+              {
+                "text": "The Definition of Done \u2014 both are completion conditions checked at the exit gate",
+                "fraction": 100,
+                "feedback": "Correct \u2014 review and passing tests are part of finishing the work."
+              },
+              {
+                "text": "The Definition of Ready \u2014 both make the story ready to start",
+                "fraction": 0,
+                "feedback": "Neither can occur before the work is built; they are completion, not readiness."
+              },
+              {
+                "text": "They are readiness conditions because they mention tests",
+                "fraction": 0,
+                "feedback": "Mentioning tests does not make it readiness; passing them is a completion concern."
+              },
+              {
+                "text": "They only matter after the product is retired",
+                "fraction": 0,
+                "feedback": "They gate completion of the story, not product retirement."
+              }
+            ],
+            "generalFeedback": "Code review and passing tests both require the work to already exist, so they are completion conditions belonging to the DoD exit gate \u2014 not readiness conditions.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Acceptance criteria versus DoD scope",
+            "text": "<p>Which statement correctly contrasts <strong>acceptance criteria</strong> with the <strong>Definition of Done</strong>?</p>",
+            "answers": [
+              {
+                "text": "Acceptance criteria are specific to one story; the DoD is generic and applies to every story",
+                "fraction": 100,
+                "feedback": "Correct \u2014 AC are per-story and specific; the DoD is a shared bar for all stories."
+              },
+              {
+                "text": "The DoD is specific to one story; acceptance criteria apply to every story",
+                "fraction": 0,
+                "feedback": "This is reversed: AC are per-story, the DoD is generic."
+              },
+              {
+                "text": "They are the same thing under two different names",
+                "fraction": 0,
+                "feedback": "They are distinct: AC describe this story, the DoD is the shared quality bar."
+              },
+              {
+                "text": "Both are unique to each story and never shared",
+                "fraction": 0,
+                "feedback": "The DoD is shared across all stories, unlike per-story acceptance criteria."
+              }
+            ],
+            "generalFeedback": "Acceptance criteria describe what one particular story must do and differ from story to story. The DoD is a single generic quality bar applied to every story alike. This is why a story must meet both to be Done.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why Done needs both AC and DoD",
+            "text": "<p>Why must a story satisfy <strong>both</strong> its acceptance criteria and the DoD to be Done?</p>",
+            "answers": [
+              {
+                "text": "Acceptance criteria prove it does the right thing; the DoD proves it was built to the team's quality bar",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 AC cover "does what was asked", the DoD covers "built well enough".'
+              },
+              {
+                "text": "Because acceptance criteria replace the need for any Definition of Done",
+                "fraction": 0,
+                "feedback": "AC do not replace the DoD; they answer different questions."
+              },
+              {
+                "text": "Because the DoD lists the specific behaviours of that one story",
+                "fraction": 0,
+                "feedback": "The specific behaviours are the AC; the DoD is the generic quality bar."
+              },
+              {
+                "text": "Because meeting either one alone always implies the other",
+                "fraction": 0,
+                "feedback": "They are independent: correct behaviour does not guarantee review, tests, or integration."
+              }
+            ],
+            "generalFeedback": "Acceptance criteria and the DoD answer different questions. AC: does the story do the specific thing asked of it? DoD: was it built to the shared quality standard (reviewed, tested, integrated, no critical defects)? A story can meet one without the other, so Done requires both.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Consequence of a weak Definition of Done",
+            "text": "<p>What is the most likely consequence of a <strong>weak or unenforced Definition of Done</strong>?</p>",
+            "answers": [
+              {
+                "text": 'Untested, unreviewed work gets called "Done", so quality erodes and hidden work carries over later',
+                "fraction": 100,
+                "feedback": "Correct \u2014 a weak DoD lets incomplete work pass as done, deferring the real work."
+              },
+              {
+                "text": "Stories become impossible to start",
+                "fraction": 0,
+                "feedback": "Starting is governed by the DoR; a weak DoD affects completion, not starting."
+              },
+              {
+                "text": "Estimates automatically become more accurate",
+                "fraction": 0,
+                "feedback": "A weak DoD does not improve estimation; it hides remaining work."
+              },
+              {
+                "text": "The team is forced to write more acceptance criteria",
+                "fraction": 0,
+                "feedback": "A weak DoD does not compel more AC; it lets low-quality work pass."
+              }
+            ],
+            "generalFeedback": 'When the DoD is weak or not enforced, work that is untested, unreviewed, or unintegrated gets marked Done. Quality erodes, "90% done" work hides remaining effort, and that effort resurfaces as carryover and defects later.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Consequence of a missing Definition of Ready",
+            "text": "<p>What is the most likely consequence of having <strong>no effective Definition of Ready</strong>?</p>",
+            "answers": [
+              {
+                "text": "Vague, unready items get pulled in and churn mid-sprint as the team discovers missing detail",
+                "fraction": 100,
+                "feedback": "Correct \u2014 without a DoR, unready work enters the sprint and thrashes."
+              },
+              {
+                "text": "Completed work can never be marked Done",
+                "fraction": 0,
+                "feedback": "Marking work Done is governed by the DoD, not the DoR."
+              },
+              {
+                "text": "The team is guaranteed to finish every story early",
+                "fraction": 0,
+                "feedback": "Unready work tends to slip, not finish early."
+              },
+              {
+                "text": "Acceptance tests become unnecessary",
+                "fraction": 0,
+                "feedback": "A missing DoR does not remove the need for acceptance tests."
+              }
+            ],
+            "generalFeedback": "Without a DoR, the team commits to items that are unclear, unestimated, or blocked by dependencies. Missing detail surfaces mid-sprint, forcing rework, blocked time, and churn \u2014 exactly what the entry gate exists to prevent.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What INVEST summarises",
+            "text": "<p>The <strong>INVEST</strong> mnemonic (Independent, Negotiable, Valuable, Estimable, Small, Testable) is most often used to check that a story is:</p>",
+            "answers": [
+              {
+                "text": "Ready \u2014 it summarises qualities a good, ready-to-start story should have",
+                "fraction": 100,
+                "feedback": "Correct \u2014 INVEST is a readiness heuristic, closely tied to the DoR."
+              },
+              {
+                "text": "Done \u2014 it lists the completion criteria for finished work",
+                "fraction": 0,
+                "feedback": "INVEST checks readiness of a story, not completeness of finished work."
+              },
+              {
+                "text": "Released \u2014 it is a checklist for release notes",
+                "fraction": 0,
+                "feedback": "INVEST is about story quality for readiness, not release documentation."
+              },
+              {
+                "text": "Over budget \u2014 it is a cost-tracking mnemonic",
+                "fraction": 0,
+                "feedback": "INVEST describes story qualities, not budget tracking."
+              }
+            ],
+            "generalFeedback": "INVEST captures qualities of a well-formed story \u2014 Independent, Negotiable, Valuable, Estimable, Small, Testable. Estimable, Small, and Testable in particular map onto readiness, which is why INVEST is commonly used to support the Definition of Ready.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify small enough for one sprint",
+            "text": '<p>"The story is <strong>small enough to finish within a single sprint</strong>." Which gate is this?</p>',
+            "answers": [
+              {
+                "text": "A Definition of Ready item",
+                "fraction": 100,
+                "feedback": "Correct \u2014 being small enough to fit a sprint is a readiness condition."
+              },
+              {
+                "text": "A Definition of Done item",
+                "fraction": 0,
+                "feedback": "Sizing is checked before starting, not at completion."
+              },
+              {
+                "text": "An acceptance criterion describing the story's behaviour",
+                "fraction": 0,
+                "feedback": "Size is a readiness property, not a behavioural acceptance criterion."
+              },
+              {
+                "text": "A release-level criterion",
+                "fraction": 0,
+                "feedback": "Fitting in a sprint gates entry, not release."
+              }
+            ],
+            "generalFeedback": 'Being small enough to complete in one sprint is a readiness property (the "S" in INVEST). If a story is too big it must be split before it is ready, so this belongs to the DoR.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify integrated with no critical defects",
+            "text": '<p>"The change is <strong>integrated/merged and has no known critical defects</strong>." Which gate is this?</p>',
+            "answers": [
+              {
+                "text": "A Definition of Done item",
+                "fraction": 100,
+                "feedback": "Correct \u2014 integration and freedom from critical defects are completion conditions."
+              },
+              {
+                "text": "A Definition of Ready item",
+                "fraction": 0,
+                "feedback": "There is nothing to integrate before the work is built; this is completion."
+              },
+              {
+                "text": "An estimate of the story's size",
+                "fraction": 0,
+                "feedback": "These are completeness conditions, not an estimate."
+              },
+              {
+                "text": "A readiness condition, because defects are mentioned",
+                "fraction": 0,
+                "feedback": "Being defect-free after building is a completion concern, not readiness."
+              }
+            ],
+            "generalFeedback": "Merging the work and confirming there are no known critical defects can only happen once the work exists, so both are DoD exit-gate criteria.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meets AC but not DoD",
+            "text": "<p>A story does everything its acceptance criteria require, but the code has <strong>not been reviewed and no tests were written</strong>. Is it Done?</p>",
+            "answers": [
+              {
+                "text": "No \u2014 it fails the DoD, so it is not Done even though the AC are met",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Done needs both the AC and the DoD; the DoD is unmet here."
+              },
+              {
+                "text": "Yes \u2014 meeting the acceptance criteria is sufficient for Done",
+                "fraction": 0,
+                "feedback": "Meeting AC alone is not enough; the generic DoD must also hold."
+              },
+              {
+                "text": "Yes \u2014 review and tests are optional extras",
+                "fraction": 0,
+                "feedback": "Review and tests are DoD criteria, not optional extras."
+              },
+              {
+                "text": "It cannot be judged without re-estimating the story",
+                "fraction": 0,
+                "feedback": "Completeness is judged against AC and the DoD, not a re-estimate."
+              }
+            ],
+            "generalFeedback": "The story behaves as required (AC met) but has not been reviewed or tested, so it fails the generic quality bar. Because Done requires both the AC and the DoD, the story is not Done.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meets DoD but not its AC",
+            "text": "<p>A change is reviewed, tested, and integrated, but it does <strong>not actually deliver the behaviour</strong> its acceptance criteria describe. Is the story Done?</p>",
+            "answers": [
+              {
+                "text": "No \u2014 it satisfies the generic DoD but fails its own acceptance criteria",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a well-built change that does the wrong thing still fails its AC."
+              },
+              {
+                "text": "Yes \u2014 passing the DoD is enough to be Done",
+                "fraction": 0,
+                "feedback": "The DoD alone is not enough; the story must also meet its acceptance criteria."
+              },
+              {
+                "text": "Yes \u2014 acceptance criteria are just suggestions",
+                "fraction": 0,
+                "feedback": "Acceptance criteria define what the story must do; they are not optional."
+              },
+              {
+                "text": "Only the product owner's mood decides",
+                "fraction": 0,
+                "feedback": "Done is judged against the AC and the DoD, not mood."
+              }
+            ],
+            "generalFeedback": "Here the work is high quality (DoD met) but solves the wrong problem (AC unmet). Done requires both, so a change that is well-built but does not meet its acceptance criteria is not Done.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the DoD is generic",
+            "text": "<p>Why is the Definition of Done written as a <strong>generic</strong> checklist rather than per-story?</p>",
+            "answers": [
+              {
+                "text": "So every story is held to the same consistent quality bar, whatever its specific behaviour",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a generic DoD gives a uniform quality standard across all stories."
+              },
+              {
+                "text": "So each story can define its own unique completion rules",
+                "fraction": 0,
+                "feedback": "Per-story rules are the acceptance criteria; the DoD is deliberately generic."
+              },
+              {
+                "text": "Because the DoD only ever contains one item",
+                "fraction": 0,
+                "feedback": "The DoD usually has several items; being generic is about applying to all stories."
+              },
+              {
+                "text": "Because generic checklists are easier to ignore",
+                "fraction": 0,
+                "feedback": "The point of a generic DoD is consistent enforcement, not ease of ignoring it."
+              }
+            ],
+            "generalFeedback": "The DoD is generic precisely so it can act as a uniform quality bar: the same standard (reviewed, tested, integrated, no critical defects) applies to every story. Story-specific expectations live in the per-story acceptance criteria instead.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "INVEST supports which gate",
+            "text": "<p>A team uses <strong>INVEST</strong> when refining backlog items. Which gate does this most directly support?</p>",
+            "answers": [
+              {
+                "text": "The Definition of Ready \u2014 INVEST helps confirm a story is well-formed and ready to start",
+                "fraction": 100,
+                "feedback": "Correct \u2014 INVEST is a readiness aid supporting the entry gate."
+              },
+              {
+                "text": "The Definition of Done \u2014 INVEST lists completion checks",
+                "fraction": 0,
+                "feedback": "INVEST checks story readiness, not whether finished work is complete."
+              },
+              {
+                "text": "Neither \u2014 INVEST is only about deployment",
+                "fraction": 0,
+                "feedback": "INVEST concerns story quality for readiness, not deployment."
+              },
+              {
+                "text": "Both gates equally, since INVEST covers testing too",
+                "fraction": 0,
+                "feedback": "Although INVEST includes Testable, it assesses readiness of a story, so it supports the DoR."
+              }
+            ],
+            "generalFeedback": "INVEST is applied during refinement to judge whether a story is well-formed and ready. Because that is exactly the concern of the entry gate, INVEST most directly supports the Definition of Ready.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Having AC versus meeting AC",
+            "text": "<p>Which pairing correctly maps the two <strong>uses of acceptance criteria</strong> to their gates?</p>",
+            "answers": [
+              {
+                "text": "Having clear, testable AC defined is a DoR item; the AC actually being met is part of the DoD",
+                "fraction": 100,
+                "feedback": "Correct \u2014 defining AC is readiness; satisfying them is part of completion."
+              },
+              {
+                "text": "Having AC defined is a DoD item; meeting them is a DoR item",
+                "fraction": 0,
+                "feedback": "This is reversed: defining AC is readiness, meeting them is completion."
+              },
+              {
+                "text": "Both defining and meeting AC belong only to the DoR",
+                "fraction": 0,
+                "feedback": "Meeting the AC can only happen once the work is built, so it is part of the DoD."
+              },
+              {
+                "text": "Acceptance criteria play no role in either gate",
+                "fraction": 0,
+                "feedback": "AC feature in both: defined for readiness, met for completion."
+              }
+            ],
+            "generalFeedback": 'Acceptance criteria touch both gates in different ways. For readiness (DoR), the story must have clear, testable AC defined. For completion (DoD), those AC must actually be satisfied by the built work. Confusing "defined" with "met" is a common source of gate errors.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "DoR too loose causes churn",
+            "text": "<p>A team pulls in stories that are only loosely understood. Mid-sprint they keep stopping to clarify scope and chase missing dependencies. Which gate is weak, and how does it show?</p>",
+            "answers": [
+              {
+                "text": "The DoR is too loose, so unready work enters and churns mid-sprint",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a loose entry gate lets unclear work in, causing mid-sprint thrash."
+              },
+              {
+                "text": "The DoD is too strict, so nothing can be finished",
+                "fraction": 0,
+                "feedback": "The symptom is unready work entering, which points at the DoR, not a strict DoD."
+              },
+              {
+                "text": "The acceptance criteria are too generic across stories",
+                "fraction": 0,
+                "feedback": "The problem is unready entry, a DoR weakness, not generic AC."
+              },
+              {
+                "text": "Nothing is wrong; clarifying scope mid-sprint is ideal",
+                "fraction": 0,
+                "feedback": "Constant mid-sprint clarification is churn, a sign the DoR let unready work in."
+              }
+            ],
+            "generalFeedback": "Stories that are unclear and dependency-blocked should not have passed the entry gate. When they do, the team discovers the gaps mid-sprint and churns. A loose DoR is the cause; tightening it prevents unready work from entering.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Which criterion is release-level DoD",
+            "text": "<p>In a <strong>layered</strong> Definition of Done, which criterion most naturally belongs at the <strong>release level</strong> rather than per story?</p>",
+            "answers": [
+              {
+                "text": "Full regression, performance, and security checks pass and release notes are prepared",
+                "fraction": 100,
+                "feedback": "Correct \u2014 cross-cutting regression, performance, security, and release notes are release-level."
+              },
+              {
+                "text": "This story's code has been peer reviewed",
+                "fraction": 0,
+                "feedback": "Peer review of one story is a story-level DoD item."
+              },
+              {
+                "text": "The unit tests for this story pass",
+                "fraction": 0,
+                "feedback": "Passing this story's unit tests is a story-level item."
+              },
+              {
+                "text": "This story meets its own acceptance criteria",
+                "fraction": 0,
+                "feedback": "Meeting one story's AC is story-level, not release-level."
+              }
+            ],
+            "generalFeedback": "A layered DoD has story, sprint/increment, and release levels. Cross-cutting concerns that only make sense for the whole product \u2014 full regression, performance and security testing, and release notes and sign-off \u2014 belong at the release level, not to each individual story.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which criterion is story-level DoD",
+            "text": "<p>In a layered Definition of Done, which criterion most naturally belongs at the <strong>story level</strong>?</p>",
+            "answers": [
+              {
+                "text": "The story's code is reviewed, its unit tests pass, and it meets its acceptance criteria",
+                "fraction": 100,
+                "feedback": "Correct \u2014 review, unit tests, and meeting the AC are per-story completion items."
+              },
+              {
+                "text": "The full product regression suite has been run",
+                "fraction": 0,
+                "feedback": "Whole-product regression is a release-level concern, not story-level."
+              },
+              {
+                "text": "Formal performance and security sign-off for the release is obtained",
+                "fraction": 0,
+                "feedback": "Release sign-off is release-level, not story-level."
+              },
+              {
+                "text": "Marketing release notes are approved",
+                "fraction": 0,
+                "feedback": "Release notes are a release-level item."
+              }
+            ],
+            "generalFeedback": "Story-level DoD covers what one story needs to be complete: code reviewed, its unit and acceptance tests passing, and its acceptance criteria met with no known critical defects. Wider concerns escalate to the sprint/increment and release levels.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why an untested story is not Done",
+            "text": `<p>A developer says a feature "works on my machine \u2014 it's basically Done, just untested." Why is it <strong>not</strong> Done?</p>`,
+            "answers": [
+              {
+                "text": "Untested, unverified work has unknown quality, so calling it Done hides risk and remaining effort",
+                "fraction": 100,
+                "feedback": "Correct \u2014 without testing and review, quality is unknown and Done is a false claim."
+              },
+              {
+                "text": "It is Done; running on the developer's machine satisfies the DoD",
+                "fraction": 0,
+                "feedback": '"Works on my machine" is not a DoD; it verifies nothing for others.'
+              },
+              {
+                "text": "It is Done as long as the code compiles",
+                "fraction": 0,
+                "feedback": "Compiling is not the DoD; testing, review, and integration are still required."
+              },
+              {
+                "text": "It cannot be judged because the DoD does not cover testing",
+                "fraction": 0,
+                "feedback": "A proper DoD explicitly includes testing, which this work has not had."
+              }
+            ],
+            "generalFeedback": '"Works on my machine" and "90% done" both disguise unverified work. Until it is tested, reviewed, and integrated, its real quality and the remaining effort are unknown. A DoD that includes testing exists precisely to stop such work being counted as Done.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "DoR too strict becomes mini-waterfall",
+            "text": "<p>A team makes its DoR so demanding that every story needs a full up-front design and complete specification before it may enter a sprint. What is the risk?</p>",
+            "answers": [
+              {
+                "text": "It drifts toward a mini-waterfall and analysis-paralysis, front-loading heavy design before any coding",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an over-strict DoR recreates big up-front analysis, the opposite of agile."
+              },
+              {
+                "text": "Stories will always be too vague to start",
+                "fraction": 0,
+                "feedback": "That is the risk of a too-loose DoR, not a too-strict one."
+              },
+              {
+                "text": "The DoD becomes impossible to satisfy",
+                "fraction": 0,
+                "feedback": "An over-strict DoR affects entry, not the completion criteria."
+              },
+              {
+                "text": "Acceptance criteria become unnecessary",
+                "fraction": 0,
+                "feedback": "An over-strict DoR does not remove the need for acceptance criteria."
+              }
+            ],
+            "generalFeedback": 'A DoR should ensure enough clarity to start, not demand a complete design up front. Pushed too far it recreates a waterfall: heavy analysis and specification before any code, causing analysis-paralysis and delay. The balance is "ready enough to start", not "fully designed".',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Balancing a too-loose DoR",
+            "text": "<p>A too-<strong>loose</strong> DoR causes churn, while a too-<strong>strict</strong> DoR causes analysis-paralysis. What is the healthy balance?</p>",
+            "answers": [
+              {
+                "text": "Require just enough clarity, sizing, and testable criteria to start confidently, refining details as work proceeds",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 "ready enough to start" avoids both churn and paralysis.'
+              },
+              {
+                "text": "Remove the DoR entirely so nothing blocks starting work",
+                "fraction": 0,
+                "feedback": "Removing it returns to churn from unready work."
+              },
+              {
+                "text": "Require a complete, frozen specification for every story",
+                "fraction": 0,
+                "feedback": "That is the too-strict extreme causing analysis-paralysis."
+              },
+              {
+                "text": "Let each developer decide readiness privately per story",
+                "fraction": 0,
+                "feedback": "The DoR is a shared team agreement, not a private per-person judgement."
+              }
+            ],
+            "generalFeedback": "The DoR should guarantee a story is understood, sized, and has testable acceptance criteria and resolved dependencies \u2014 enough to start with confidence \u2014 while leaving room to refine detail during the sprint. Too loose causes mid-sprint churn; too strict recreates waterfall analysis.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify a specific behaviour versus generic bar",
+            "text": '<p>"The API returns <strong>404 for an unknown id</strong>" versus "<strong>all new code is covered by automated tests</strong>". How are these classified?</p>',
+            "answers": [
+              {
+                "text": "The 404 behaviour is a per-story acceptance criterion; the test-coverage rule is a generic DoD item",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the specific behaviour is AC; the blanket quality rule is DoD."
+              },
+              {
+                "text": "The 404 behaviour is a DoD item; the test-coverage rule is an acceptance criterion",
+                "fraction": 0,
+                "feedback": "Reversed: specific behaviour is AC, the blanket rule is DoD."
+              },
+              {
+                "text": "Both are acceptance criteria for that one story",
+                "fraction": 0,
+                "feedback": "The test-coverage rule applies to every story, so it is generic DoD, not AC."
+              },
+              {
+                "text": "Both are generic DoD items",
+                "fraction": 0,
+                "feedback": "Returning 404 for an unknown id is specific to this story, so it is an AC."
+              }
+            ],
+            "generalFeedback": "A statement about what this story specifically must do (return 404 for an unknown id) is an acceptance criterion. A blanket quality rule that applies to every story (all new code covered by tests) is a generic DoD item. Telling the specific from the generic is the key to classifying them.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose escaped defects from a bypassed DoD",
+            "text": "<p>A team's velocity looks high, yet defects escaping to production keep rising and stories are marked Done without code review. Which gate is being violated?</p>",
+            "answers": [
+              {
+                "text": "The Definition of Done \u2014 work is called complete without meeting its review and testing criteria",
+                "fraction": 100,
+                "feedback": "Correct \u2014 skipping review and testing while marking Done is a DoD violation."
+              },
+              {
+                "text": "The Definition of Ready \u2014 the stories were unclear at the start",
+                "fraction": 0,
+                "feedback": "The symptom is completion without quality, which points at the DoD, not the DoR."
+              },
+              {
+                "text": "The acceptance criteria \u2014 they were too specific",
+                "fraction": 0,
+                "feedback": "Escaped defects from skipped review point at the DoD, not overly specific AC."
+              },
+              {
+                "text": "No gate \u2014 high velocity proves the process is healthy",
+                "fraction": 0,
+                "feedback": "High velocity with rising escaped defects signals the DoD is being bypassed."
+              }
+            ],
+            "generalFeedback": 'Marking work Done without review or tests inflates velocity while defects leak to production. That is a bypassed exit gate: the DoD is being violated. Enforcing the DoD realigns "Done" with genuine, verified completeness.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose a missing DoR",
+            "text": "<p>Stories keep entering sprints with no estimate and no acceptance criteria, then balloon in scope and stall. Which gate is missing or violated?</p>",
+            "answers": [
+              {
+                "text": "The Definition of Ready \u2014 unready items are being pulled into the sprint",
+                "fraction": 100,
+                "feedback": "Correct \u2014 unestimated, criteria-less items entering the sprint is a DoR failure."
+              },
+              {
+                "text": "The Definition of Done \u2014 the finished work lacks quality",
+                "fraction": 0,
+                "feedback": "The problem is at entry (unready items), which is a DoR failure, not a DoD one."
+              },
+              {
+                "text": "The release-level checklist \u2014 release notes are missing",
+                "fraction": 0,
+                "feedback": "The symptom is unready entry, not a release-documentation gap."
+              },
+              {
+                "text": "None \u2014 ballooning scope is unavoidable",
+                "fraction": 0,
+                "feedback": "A DoR requiring estimation and clear AC would have caught these items at entry."
+              }
+            ],
+            "generalFeedback": "Items lacking estimates and acceptance criteria should never have passed the entry gate. Because they did, scope is discovered mid-sprint and the work stalls. This is a missing or ignored DoR; enforcing readiness at entry prevents it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What release-level DoD adds",
+            "text": "<p>Beyond the story-level DoD, what does a <strong>release-level</strong> DoD typically add?</p>",
+            "answers": [
+              {
+                "text": "Cross-cutting checks such as full regression, performance, security, release notes, and sign-off",
+                "fraction": 100,
+                "feedback": "Correct \u2014 release-level adds whole-product concerns beyond a single story."
+              },
+              {
+                "text": "Nothing \u2014 it is identical to the story-level DoD",
+                "fraction": 0,
+                "feedback": "The release level adds whole-product concerns the story level cannot cover."
+              },
+              {
+                "text": "Only the acceptance criteria of the last story in the release",
+                "fraction": 0,
+                "feedback": "Release-level DoD is about cross-cutting quality, not one story's AC."
+              },
+              {
+                "text": "A relaxation of the story-level rules to speed up shipping",
+                "fraction": 0,
+                "feedback": "The release level adds stricter cross-cutting checks, it does not relax the story bar."
+              }
+            ],
+            "generalFeedback": "Some quality concerns only make sense for the whole product at release: full regression across features, performance and security validation, documentation and release notes, and formal sign-off. A layered DoD places these at the release level, on top of the story-level and sprint/increment-level criteria.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Sprint-increment level DoD",
+            "text": "<p>Which concern is best placed at the <strong>sprint/increment level</strong> of a layered DoD, between the story and release levels?</p>",
+            "answers": [
+              {
+                "text": "The stories combine into an integrated, demoable increment deployed to a test environment",
+                "fraction": 100,
+                "feedback": "Correct \u2014 integrating stories into a shippable increment is an increment-level concern."
+              },
+              {
+                "text": "This single story's unit tests pass",
+                "fraction": 0,
+                "feedback": "One story's unit tests are a story-level item."
+              },
+              {
+                "text": "Formal external security sign-off for the public release",
+                "fraction": 0,
+                "feedback": "External release sign-off is a release-level concern."
+              },
+              {
+                "text": "The wording of one story's acceptance criteria",
+                "fraction": 0,
+                "feedback": "A story's AC wording is a story-level detail, not an increment-level concern."
+              }
+            ],
+            "generalFeedback": "Between story and release sits the increment level: individually-Done stories must integrate into a coherent, demoable increment, typically built and deployed to a test environment. Per-story checks stay at story level; whole-product gating stays at release level.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why AC alone cannot declare Done",
+            "text": "<p>Why are a story's acceptance criteria, on their own, <strong>not enough</strong> to declare it Done?</p>",
+            "answers": [
+              {
+                "text": "They confirm the story does the right thing but not that it was built to the shared quality bar",
+                "fraction": 100,
+                "feedback": "Correct \u2014 AC cover correctness of behaviour, not review, testing, and integration."
+              },
+              {
+                "text": "Because acceptance criteria are never testable",
+                "fraction": 0,
+                "feedback": "Good acceptance criteria are testable; the gap is that they do not cover the generic DoD."
+              },
+              {
+                "text": "Because acceptance criteria are the same as the DoD",
+                "fraction": 0,
+                "feedback": "They are distinct: AC are per-story, the DoD is the generic quality bar."
+              },
+              {
+                "text": "Because the DoD replaces the need for acceptance criteria",
+                "fraction": 0,
+                "feedback": "The DoD does not replace AC; both are needed for Done."
+              }
+            ],
+            "generalFeedback": "Acceptance criteria verify that the story delivers the specific behaviour asked of it, but they say nothing about whether it was reviewed, tested, integrated, and free of critical defects. Those generic quality concerns live in the DoD, so both are required for Done.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "How DoD combats 90 percent done",
+            "text": `<p>A team repeatedly hears "it's 90% done" for weeks. How does an explicit, enforced DoD <strong>combat</strong> this?</p>`,
+            "answers": [
+              {
+                "text": 'It makes "Done" binary and objective, so hidden remaining work cannot be disguised as almost finished',
+                "fraction": 100,
+                "feedback": "Correct \u2014 a clear DoD turns fuzzy progress claims into a pass/fail check."
+              },
+              {
+                "text": "It lets the team count 90%-done work as fully Done to keep morale up",
+                "fraction": 0,
+                "feedback": "Counting unfinished work as Done is exactly what a real DoD forbids."
+              },
+              {
+                "text": "It speeds up coding so nothing is ever left at 90%",
+                "fraction": 0,
+                "feedback": "The DoD does not speed coding; it exposes the hidden remaining 10%."
+              },
+              {
+                "text": "It removes the need to test the last 10%",
+                "fraction": 0,
+                "feedback": "The DoD requires that testing, so it does not remove it."
+              }
+            ],
+            "generalFeedback": 'The "90% done" problem hides an unknown, often large, remaining effort. An explicit DoD makes Done an objective, binary check: either every criterion is met or the story is not Done. That surfaces the hidden work instead of letting it hide behind a comfortable percentage.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Layer for performance under load",
+            "text": '<p>"The system meets its <strong>performance-under-load SLA</strong>." In a layered DoD, where does this criterion most naturally sit?</p>',
+            "answers": [
+              {
+                "text": "At the release (or increment) level, as a cross-cutting whole-system concern \u2014 not on every individual story",
+                "fraction": 100,
+                "feedback": "Correct \u2014 system-wide performance is validated at the release/increment level."
+              },
+              {
+                "text": "On every single story, as a per-story acceptance criterion",
+                "fraction": 0,
+                "feedback": "Whole-system load performance is not meaningfully checked per tiny story; it is cross-cutting."
+              },
+              {
+                "text": "In the DoR, as a readiness condition",
+                "fraction": 0,
+                "feedback": "Performance is verified after building, not as an entry condition."
+              },
+              {
+                "text": "Nowhere \u2014 performance is not part of any DoD",
+                "fraction": 0,
+                "feedback": "System performance is a legitimate release-level DoD concern."
+              }
+            ],
+            "generalFeedback": "Performance under load is a property of the integrated system, not of one small story, so it is validated at the release or increment level of a layered DoD. Attaching it to every story would be both impractical and misleading.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose skipped-testing carryover",
+            "text": '<p>Each sprint the team marks code-complete stories Done and defers their testing "to next sprint". Carryover grows and surprises appear late. What is the diagnosis and fix?</p>',
+            "answers": [
+              {
+                "text": "The DoD (which must include testing) is being violated; enforce it so stories are only Done when tested, exposing the real remaining work",
+                "fraction": 100,
+                "feedback": "Correct \u2014 deferring testing while marking Done violates the DoD and hides work."
+              },
+              {
+                "text": "The DoR is too strict; loosen it so more stories can start",
+                "fraction": 0,
+                "feedback": "The failure is at completion (testing deferred), so it is a DoD problem, not a strict DoR."
+              },
+              {
+                "text": "Nothing is wrong; deferring testing a sprint is standard practice",
+                "fraction": 0,
+                "feedback": "Deferring testing while calling work Done is an anti-pattern that hides carryover."
+              },
+              {
+                "text": "The acceptance criteria are too generic and should be removed",
+                "fraction": 0,
+                "feedback": "The problem is skipped testing at the exit gate, not the AC wording."
+              }
+            ],
+            "generalFeedback": "Marking work Done while deferring its testing violates a DoD that includes testing. It inflates completed counts, builds hidden test debt, and forces carryover and late surprises. The fix is to enforce the DoD so a story is Done only when it is actually tested, making the real remaining work visible now.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Stories Done but increment not shippable",
+            "text": "<p>Every story passed its story-level DoD, yet when combined the increment fails a full regression run and cannot be released. What does this reveal about the team's DoD?</p>",
+            "answers": [
+              {
+                "text": "The layered DoD is incomplete: story-level checks passed, but increment/release-level integration and regression criteria are missing or unenforced",
+                "fraction": 100,
+                "feedback": "Correct \u2014 passing story-level does not guarantee the integrated increment; higher layers are needed."
+              },
+              {
+                "text": "Nothing \u2014 if every story is Done, the release is automatically Done too",
+                "fraction": 0,
+                "feedback": "Individually-Done stories can still break each other; that is why higher DoD layers exist."
+              },
+              {
+                "text": "The DoR was too loose, so the stories should not have started",
+                "fraction": 0,
+                "feedback": "The stories were ready and individually complete; the gap is at the integration/release layer."
+              },
+              {
+                "text": "The acceptance criteria were too specific to each story",
+                "fraction": 0,
+                "feedback": "Specific per-story AC are fine; the missing piece is cross-cutting integration and regression."
+              }
+            ],
+            "generalFeedback": "Stories that are each Done can still interact badly once integrated. A layered DoD anticipates this: the increment/release levels add integration, full regression, and cross-cutting checks. If those layers are missing or unenforced, an increment of individually-Done stories can still be un-shippable \u2014 exactly the gap seen here.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u5C31\u7DD2\u7684\u5B9A\u7FA9\u662F\u4EC0\u9EBC",
+            "text": "<p><strong>\u5C31\u7DD2\u7684\u5B9A\u7FA9\uFF08Definition of Ready\uFF0CDoR\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F85\u8FA6\u9805\u76EE\u5728\u5718\u968A\u5C07\u5176\u7D0D\u5165\u885D\u523A\u4E4B\u524D\u5FC5\u9808\u6EFF\u8DB3\u7684\u5171\u540C\u6E96\u5247",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014DoR \u662F\u5165\u53E3\u95DC\u5361\uFF1A\u5B83\u754C\u5B9A\u4E00\u500B\u9805\u76EE\u4F55\u6642\u5DF2\u5C31\u7DD2\u3001\u53EF\u4EE5\u958B\u59CB\u8457\u624B\u3002"
+              },
+              {
+                "text": "\u7528\u4F86\u5224\u65B7\u4E00\u9805\u5DE5\u4F5C\u4F55\u6642\u771F\u6B63\u5B8C\u6210\u7684\u5171\u540C\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u5B8C\u6210\u7684\u5B9A\u7FA9\uFF08\u51FA\u53E3\u95DC\u5361\uFF09\uFF0C\u4E0D\u662F DoR\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u6545\u4E8B\u70BA\u4E86\u88AB\u63A5\u53D7\u800C\u5FC5\u9808\u5C55\u73FE\u7684\u7279\u5B9A\u884C\u70BA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8A72\u6545\u4E8B\u7684\u9A57\u6536\u6E96\u5247\uFF0C\u4E0D\u662F DoR \u672C\u8EAB\u3002"
+              },
+              {
+                "text": "\u9805\u76EE\u5728\u7522\u54C1\u5F85\u8FA6\u6E05\u55AE\u4E2D\u51FA\u73FE\u7684\u9806\u5E8F",
+                "fraction": 0,
+                "feedback": "\u5F85\u8FA6\u6E05\u55AE\u7684\u6392\u5E8F\u5C6C\u65BC\u512A\u5148\u6392\u5E8F\uFF0C\u4E0D\u662F\u5C31\u7DD2\u95DC\u5361\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C31\u7DD2\u7684\u5B9A\u7FA9\u662F\u4E00\u4EFD\u5171\u540C\u8B70\u5B9A\u7684\u6AA2\u67E5\u6E05\u55AE\uFF0C\u5F85\u8FA6\u9805\u76EE\u5728\u5718\u968A\u627F\u8AFE\u6295\u5165\u67D0\u500B\u885D\u523A\u4E4B\u524D\u5FC5\u9808\u6EFF\u8DB3\u5B83\u2014\u2014\u4F8B\u5982\u6E05\u695A\u3001\u5177\u6709\u53EF\u6E2C\u8A66\u7684\u9A57\u6536\u6E96\u5247\u3001\u5DF2\u4F30\u7B97\u3001\u5C0F\u5230\u53EF\u4EE5\u5728\u4E00\u500B\u885D\u523A\u5167\u5B8C\u6210\u3001\u4F9D\u8CF4\u5DF2\u89E3\u6C7A\u3002\u5B83\u662F\u5165\u53E3\u95DC\u5361\uFF0C\u628A\u6A21\u7CCA\u3001\u672A\u5C31\u7DD2\u7684\u5DE5\u4F5C\u64CB\u5728\u885D\u523A\u4E4B\u5916\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u662F\u4EC0\u9EBC",
+            "text": "<p><strong>\u5B8C\u6210\u7684\u5B9A\u7FA9\uFF08Definition of Done\uFF0CDoD\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7528\u4F86\u5224\u65B7\u4E00\u9805\u5DE5\u4F5C\u4F55\u6642\u771F\u6B63\u5B8C\u6210\u7684\u5171\u540C\u6E96\u5247",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014DoD \u662F\u51FA\u53E3\u95DC\u5361\uFF0C\u754C\u5B9A\u300C\u5B8C\u6210\u300D\u7A76\u7ADF\u610F\u5473\u8457\u4EC0\u9EBC\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u5728\u88AB\u7D0D\u5165\u885D\u523A\u4E4B\u524D\u5FC5\u9808\u6EFF\u8DB3\u7684\u5171\u540C\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C31\u7DD2\u7684\u5B9A\u7FA9\uFF08\u5165\u53E3\u95DC\u5361\uFF09\uFF0C\u4E0D\u662F DoD\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u6545\u4E8B\u5FC5\u9808\u6EFF\u8DB3\u7684\u7279\u5B9A\u884C\u70BA\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8A72\u6545\u4E8B\u7684\u9A57\u6536\u6E96\u5247\uFF1BDoD \u662F\u4E00\u689D\u901A\u7528\u7684\u54C1\u8CEA\u6A19\u6E96\u3002"
+              },
+              {
+                "text": "\u4EE5\u6545\u4E8B\u9EDE\u6578\u4F30\u7B97\u4E00\u500B\u6545\u4E8B\u6709\u591A\u5927",
+                "fraction": 0,
+                "feedback": "\u4F30\u7B97\u5927\u5C0F\u5C6C\u65BC\u5C31\u7DD2\u7684\u4E00\u74B0\uFF0C\u4E0D\u662F\u5B8C\u6210\u7684\u5B9A\u7FA9\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u662F\u4E00\u7D44\u5171\u540C\u8B70\u5B9A\u7684\u6E96\u5247\uFF0C\u5DE5\u4F5C\u8981\u7B97\u5B8C\u6210\u5FC5\u9808\u5168\u90E8\u6210\u7ACB\u2014\u2014\u4F8B\u5982\u7A0B\u5F0F\u78BC\u5DF2\u64B0\u5BEB\u4E26\u7D93\u5BE9\u67E5\u3001\u55AE\u5143\u8207\u9A57\u6536\u6E2C\u8A66\u901A\u904E\u3001\u5DF2\u6574\u5408\u3001\u6587\u4EF6\u5DF2\u66F4\u65B0\u3001\u4E14\u6C92\u6709\u5DF2\u77E5\u7684\u91CD\u5927\u7F3A\u9677\u3002\u5B83\u662F\u51FA\u53E3\u95DC\u5361\uFF0C\u963B\u6B62\u628A\u672A\u5B8C\u6210\u7684\u5DE5\u4F5C\u7A31\u4F5C\u300C\u5B8C\u6210\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "DoR \u5C6C\u65BC\u54EA\u4E00\u7A2E\u95DC\u5361",
+            "text": "<p>\u5C31\u7DD2\u7684\u5B9A\u7FA9\u626E\u6F14\u54EA\u4E00\u7A2E<strong>\u95DC\u5361</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5165\u53E3\u95DC\u5361\uFF0C\u7BA1\u63A7\u5DE5\u4F5C\u662F\u5426\u5DF2\u5C31\u7DD2\u3001\u53EF\u4EE5\u958B\u59CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014DoR \u7BA1\u63A7\u5165\u53E3\uFF1A\u5B83\u6C7A\u5B9A\u4E00\u500B\u9805\u76EE\u4F55\u6642\u53EF\u88AB\u7D0D\u5165\u885D\u523A\u3002"
+              },
+              {
+                "text": "\u51FA\u53E3\u95DC\u5361\uFF0C\u7BA1\u63A7\u5DE5\u4F5C\u662F\u5426\u5DF2\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u51FA\u53E3\u95DC\u5361\u662F\u5B8C\u6210\u7684\u5B9A\u7FA9\uFF0C\u4E0D\u662F DoR\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u5DE5\u4F5C\u5DF2\u767C\u5E03\u4E4B\u5F8C\u624D\u9069\u7528\u7684\u95DC\u5361",
+                "fraction": 0,
+                "feedback": "DoR \u5728\u5DE5\u4F5C\u958B\u59CB\u4E4B\u524D\u9069\u7528\uFF0C\u800C\u975E\u767C\u5E03\u4E4B\u5F8C\u3002"
+              },
+              {
+                "text": "\u53EA\u7531\u7522\u54C1\u8CA0\u8CAC\u4EBA\u64C1\u6709\u3001\u5C0D\u5718\u968A\u96B1\u85CF\u7684\u95DC\u5361",
+                "fraction": 0,
+                "feedback": "DoR \u662F\u5171\u540C\u3001\u7531\u5718\u968A\u64C1\u6709\u7684\uFF0C\u4E0D\u662F\u96B1\u85CF\u7684\u500B\u4EBA\u6AA2\u67E5\u6E05\u55AE\u3002"
+              }
+            ],
+            "generalFeedback": "DoR \u662F\u5165\u53E3\u95DC\u5361\u3002\u5B83\u5728\u5718\u968A\u5373\u5C07\u628A\u9805\u76EE\u7D0D\u5165\u885D\u523A\u6642\u5957\u7528\uFF0C\u78BA\u4FDD\u8A72\u9805\u76EE\u5DF2\u88AB\u7406\u89E3\u3001\u5DF2\u4F30\u7B97\u3001\u5DF2\u5C31\u7DD2\uFF0C\u85C9\u6B64\u907F\u514D\u958B\u59CB\u6A21\u7CCA\u6216\u672A\u5C31\u7DD2\u7684\u5DE5\u4F5C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "DoD \u5C6C\u65BC\u54EA\u4E00\u7A2E\u95DC\u5361",
+            "text": "<p>\u5B8C\u6210\u7684\u5B9A\u7FA9\u626E\u6F14\u54EA\u4E00\u7A2E<strong>\u95DC\u5361</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u51FA\u53E3\u95DC\u5361\uFF0C\u7BA1\u63A7\u5DE5\u4F5C\u662F\u5426\u53EF\u88AB\u7A31\u4F5C\u5DF2\u5B8C\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014DoD \u7BA1\u63A7\u51FA\u53E3\uFF1A\u5B83\u6C7A\u5B9A\u5DE5\u4F5C\u4F55\u6642\u771F\u6B63\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "\u5165\u53E3\u95DC\u5361\uFF0C\u7BA1\u63A7\u5DE5\u4F5C\u662F\u5426\u5DF2\u5C31\u7DD2\u3001\u53EF\u4EE5\u958B\u59CB",
+                "fraction": 0,
+                "feedback": "\u5165\u53E3\u95DC\u5361\u662F\u5C31\u7DD2\u7684\u5B9A\u7FA9\uFF0C\u4E0D\u662F DoD\u3002"
+              },
+              {
+                "text": "\u53EA\u9650\u5236\u5F85\u8FA6\u6E05\u55AE\u4E2D\u6709\u591A\u5C11\u9805\u76EE\u7684\u95DC\u5361",
+                "fraction": 0,
+                "feedback": "DoD \u95DC\u6CE8\u5DE5\u4F5C\u7684\u5B8C\u6574\u6027\uFF0C\u4E0D\u662F\u5F85\u8FA6\u6E05\u55AE\u7684\u5927\u5C0F\u3002"
+              },
+              {
+                "text": "\u8861\u91CF\u5718\u968A\u5BEB\u7A0B\u5F0F\u78BC\u6709\u591A\u5FEB\u7684\u95DC\u5361",
+                "fraction": 0,
+                "feedback": "DoD \u662F\u5B8C\u6574\u6027\u7684\u54C1\u8CEA\u6A19\u6E96\uFF0C\u4E0D\u662F\u901F\u5EA6\u6307\u6A19\u3002"
+              }
+            ],
+            "generalFeedback": "DoD \u662F\u51FA\u53E3\u95DC\u5361\u3002\u5B83\u5728\u5718\u968A\u60F3\u5BA3\u544A\u5DE5\u4F5C\u5B8C\u6210\u6642\u5957\u7528\uFF0C\u78BA\u4FDD\u8B70\u5B9A\u7684\u54C1\u8CEA\u6E96\u5247\u90FD\u5DF2\u6EFF\u8DB3\uFF0C\u85C9\u6B64\u907F\u514D\u628A\u672A\u5B8C\u6210\u7684\u5DE5\u4F5C\u7A31\u4F5C\u300C\u5B8C\u6210\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "DoR \u5728\u628A\u6545\u4E8B\u62C9\u9032\u4F86\u4E4B\u524D\u6AA2\u67E5",
+            "text": "<p>\u5C31\u7DD2\u7684\u5B9A\u7FA9\u662F\u5728\u6545\u4E8B\u88AB\u7D0D\u5165\u885D\u523A<strong>\u4E4B\u524D</strong>\u6AA2\u67E5\u7684\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014DoR \u662F\u5165\u53E3\u95DC\u5361\uFF0C\u5728\u627F\u8AFE\u6295\u5165\u5DE5\u4F5C\u4E4B\u524D\u5957\u7528\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "DoR \u6B63\u662F\u5728\u5718\u968A\u628A\u9805\u76EE\u7D0D\u5165\u885D\u523A\u4E4B\u524D\u6240\u505A\u7684\u6AA2\u67E5\u3002"
+              }
+            ],
+            "generalFeedback": "DoR \u662F\u5165\u53E3\u95DC\u5361\u3002\u5718\u968A\u5728\u5F85\u8FA6\u6E05\u55AE\u7CBE\u7149\u8207\u885D\u523A\u898F\u5283\u6642\u6AA2\u67E5\u5B83\uFF0C\u4E5F\u5C31\u662F\u5728\u627F\u8AFE\u6295\u5165\u67D0\u500B\u9805\u76EE\u4E4B\u524D\uFF0C\u85C9\u6B64\u78BA\u4FDD\u53EA\u6709\u5C31\u7DD2\u7684\u5DE5\u4F5C\u624D\u9032\u5165\u885D\u523A\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "DoD \u5224\u65B7\u5DE5\u4F5C\u662F\u5426\u5B8C\u6210",
+            "text": "<p>\u5B8C\u6210\u7684\u5B9A\u7FA9\u7528\u4F86\u5224\u65B7\u4E00\u9805\u5DE5\u4F5C\u662F\u5426\u53EF\u88AB\u8996\u70BA<strong>\u5B8C\u6210</strong>\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014DoD \u662F\u754C\u5B9A\u5B8C\u6574\u6027\u7684\u51FA\u53E3\u95DC\u5361\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5224\u65B7\u5B8C\u6574\u6027\u6B63\u662F DoD \u7684\u7528\u9014\u3002"
+              }
+            ],
+            "generalFeedback": "DoD \u662F\u51FA\u53E3\u95DC\u5361\u3002\u5DE5\u4F5C\u552F\u6709\u5728\u6BCF\u4E00\u9805 DoD \u6E96\u5247\u90FD\u6210\u7ACB\u6642\u624D\u7B97\u5B8C\u6210\uFF0C\u8B93\u300C\u5B8C\u6210\u300D\u7684\u610F\u7FA9\u4FDD\u6301\u8AA0\u5BE6\u800C\u4E00\u81F4\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9A57\u6536\u6E96\u5247\u662F\u4EC0\u9EBC",
+            "text": "<p>\u4E00\u500B\u6545\u4E8B\u7684<strong>\u9A57\u6536\u6E96\u5247\uFF08acceptance criteria\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63CF\u8FF0\u8A72\u7279\u5B9A\u6545\u4E8B\u5FC5\u9808\u505A\u5230\u4EC0\u9EBC\u7684\u3001\u5177\u9AD4\u4E14\u53EF\u6E2C\u8A66\u7684\u689D\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u6E96\u5247\u662F\u6BCF\u500B\u6545\u4E8B\u5404\u81EA\u7684\u3001\u5C08\u5C6C\u65BC\u8A72\u6545\u4E8B\u884C\u70BA\u7684\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u6BCF\u500B\u6545\u4E8B\u90FD\u5FC5\u9808\u6EFF\u8DB3\u7684\u901A\u7528\u54C1\u8CEA\u6A19\u6E96",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5B8C\u6210\u7684\u5B9A\u7FA9\uFF1B\u9A57\u6536\u6E96\u5247\u5C08\u5C6C\u65BC\u55AE\u4E00\u6545\u4E8B\u3002"
+              },
+              {
+                "text": "\u540C\u6642\u9032\u884C\u4E2D\u7684\u6545\u4E8B\u6578\u91CF\u4E0A\u9650\u7684\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5728\u88FD\u54C1\uFF08WIP\uFF09\u4E0A\u9650\uFF0C\u4E0D\u662F\u9A57\u6536\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u8A72\u6545\u4E8B\u6703\u82B1\u8CBB\u591A\u5C11\u5DE5\u6642\u7684\u4F30\u7B97",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4F30\u7B97\uFF1B\u9A57\u6536\u6E96\u5247\u63CF\u8FF0\u6240\u9700\u884C\u70BA\uFF0C\u800C\u975E\u5DE5\u4F5C\u91CF\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u6536\u6E96\u5247\u662F\u754C\u5B9A\u55AE\u4E00\u6545\u4E8B\u88AB\u63A5\u53D7\u6240\u9700\u9054\u6210\u7684\u3001\u5177\u9AD4\u4E14\u53EF\u6E2C\u8A66\u7684\u689D\u4EF6\u3002\u5B83\u662F\u6BCF\u500B\u6545\u4E8B\u5404\u81EA\u7684\uFF0C\u56E0\u6545\u4E8B\u800C\u7570\uFF1B\u4E0D\u540C\u65BC DoD\u2014\u2014DoD \u662F\u5957\u7528\u5230\u6BCF\u500B\u6545\u4E8B\u7684\u901A\u7528\u6A19\u6E96\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u958B\u59CB\u6545\u4E8B\u6642\u9069\u7528\u54EA\u500B\u95DC\u5361",
+            "text": "<p>\u7576\u5718\u968A\u5728\u5224\u65B7\u662F\u5426\u53EF\u4EE5<strong>\u958B\u59CB</strong>\u4E00\u500B\u6545\u4E8B\u6642\uFF0C\u9069\u7528\u54EA\u500B\u95DC\u5361\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C31\u7DD2\u7684\u5B9A\u7FA9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u662F\u5426\u5C31\u7DD2\u53EF\u958B\u59CB\uFF0C\u7531 DoR \u9019\u9053\u5165\u53E3\u95DC\u5361\u7BA1\u63A7\u3002"
+              },
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "DoD \u9069\u7528\u65BC\u6536\u5C3E\u5B8C\u6210\u6642\uFF0C\u800C\u975E\u958B\u59CB\u6642\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u9069\u7528\u2014\u2014\u958B\u59CB\u4E00\u500B\u6545\u4E8B\u4E0D\u9700\u8981\u4EFB\u4F55\u95DC\u5361",
+                "fraction": 0,
+                "feedback": "\u958B\u59CB\u6B63\u662F DoR \u5165\u53E3\u95DC\u5361\u9069\u7528\u7684\u6642\u6A5F\u3002"
+              },
+              {
+                "text": "\u958B\u59CB\u7684\u90A3\u4E00\u523B\u5169\u8005\u540C\u7B49\u9069\u7528",
+                "fraction": 0,
+                "feedback": "\u958B\u59CB\u6642\u53EA\u6709 DoR \u9069\u7528\uFF1BDoD \u662F\u70BA\u4E86\u5224\u65B7\u5B8C\u6210\u3002"
+              }
+            ],
+            "generalFeedback": "\u958B\u59CB\u4E00\u500B\u6545\u4E8B\u662F\u5165\u53E3\u6C7A\u7B56\uFF0C\u56E0\u6B64\u9069\u7528\u5C31\u7DD2\u7684\u5B9A\u7FA9\u3002\u5B8C\u6210\u7684\u5B9A\u7FA9\u662F\u51FA\u53E3\u95DC\u5361\uFF0C\u53EA\u6709\u5728\u5224\u65B7\u6545\u4E8B\u662F\u5426\u5B8C\u6210\u6642\u624D\u76F8\u95DC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B8C\u6210\u6545\u4E8B\u6642\u9069\u7528\u54EA\u500B\u95DC\u5361",
+            "text": "<p>\u7576\u5718\u968A\u5728\u5224\u65B7\u4E00\u500B\u6545\u4E8B\u662F\u5426\u53EF\u88AB\u7A31\u4F5C<strong>\u5B8C\u6210</strong>\u6642\uFF0C\u9069\u7528\u54EA\u500B\u95DC\u5361\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B8C\u6210\u8207\u5426\u7531 DoD \u9019\u9053\u51FA\u53E3\u95DC\u5361\u7BA1\u63A7\u3002"
+              },
+              {
+                "text": "\u5C31\u7DD2\u7684\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "DoR \u9069\u7528\u65BC\u958B\u59CB\u6642\uFF0C\u800C\u975E\u6536\u5C3E\u5B8C\u6210\u6642\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u9069\u7528\u2014\u2014\u5B8C\u6574\u6027\u662F\u500B\u4EBA\u4E3B\u89C0\u770B\u6CD5",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6574\u6027\u4F9D DoD \u4F86\u5224\u65B7\uFF0C\u800C\u975E\u500B\u4EBA\u770B\u6CD5\u3002"
+              },
+              {
+                "text": "\u7531\u958B\u767C\u8005\u7576\u4E0B\u504F\u597D\u54EA\u500B\u95DC\u5361\u800C\u5B9A",
+                "fraction": 0,
+                "feedback": "\u95DC\u5361\u662F\u56FA\u5B9A\u7684\uFF1A\u5B8C\u6210\u8207\u5426\u7531 DoD \u5224\u65B7\u3002"
+              }
+            ],
+            "generalFeedback": "\u5224\u65B7\u5B8C\u6574\u6027\u662F\u51FA\u53E3\u6C7A\u7B56\uFF0C\u56E0\u6B64\u9069\u7528\u5B8C\u6210\u7684\u5B9A\u7FA9\u3002DoR \u7BA1\u63A7\u5DE5\u4F5C\u662F\u5426\u672C\u8A72\u958B\u59CB\uFF1BDoD \u7BA1\u63A7\u5DE5\u4F5C\u662F\u5426\u5DF2\u7D93\u6536\u5C3E\u5B8C\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5DF2\u4F30\u7B97\u662F DoR \u9084\u662F DoD \u9805\u76EE",
+            "text": "<p>\u300C\u8A72\u6545\u4E8B\u5DF2\u88AB<strong>\u4F30\u7B97\u4E26\u5B9A\u51FA\u5927\u5C0F</strong>\u3002\u300D\u9019\u662F\u5C31\u7DD2\u7684\u5B9A\u7FA9\u9805\u76EE\uFF0C\u9084\u662F\u5B8C\u6210\u7684\u5B9A\u7FA9\u9805\u76EE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C31\u7DD2\u7684\u5B9A\u7FA9\u9805\u76EE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5DF2\u88AB\u4F30\u7B97\u5C6C\u65BC\u958B\u59CB\u524D\u7684\u5C31\u7DD2\u689D\u4EF6\uFF0C\u5728\u885D\u523A\u4E4B\u524D\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u9805\u76EE",
+                "fraction": 0,
+                "feedback": "\u4F30\u7B97\u767C\u751F\u5728\u5DE5\u4F5C\u958B\u59CB\u4E4B\u524D\uFF1B\u5B83\u4E0D\u662F\u5B8C\u6574\u6027\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F\u2014\u2014\u5B83\u5C6C\u65BC\u767C\u5E03\u8AAA\u660E",
+                "fraction": 0,
+                "feedback": "\u5B9A\u51FA\u5927\u5C0F\u5C6C\u65BC\u5C31\u7DD2\u7684\u95DC\u6CE8\uFF0C\u4E0D\u662F\u767C\u5E03\u6587\u4EF6\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u7686\u662F\uFF0C\u958B\u59CB\u6642\u8207\u5B8C\u6210\u6642\u90FD\u8981",
+                "fraction": 0,
+                "feedback": "\u4F30\u7B97\u5C6C\u65BC\u5C31\u7DD2\uFF08\u5165\u53E3\uFF09\u95DC\u6CE8\uFF0C\u800C\u975E\u5B8C\u6210\uFF08\u51FA\u53E3\uFF09\u95DC\u6CE8\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DF2\u88AB\u4F30\u7B97\u3001\u4E14\u5C0F\u5230\u53EF\u5728\u4E00\u500B\u885D\u523A\u5167\u5B8C\u6210\uFF0C\u90FD\u5C6C\u65BC\u5C31\u7DD2\u95DC\u6CE8\uFF1A\u5B83\u5011\u5FC5\u9808\u5728\u5718\u968A\u628A\u9805\u76EE\u62C9\u9032\u4F86\u4E4B\u524D\u6210\u7ACB\u3002\u5B83\u5011\u5C6C\u65BC DoR \u5165\u53E3\u95DC\u5361\uFF0C\u4E0D\u5C6C\u65BC DoD\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7A0B\u5F0F\u78BC\u5BE9\u67E5\u662F DoR \u9084\u662F DoD \u9805\u76EE",
+            "text": "<p>\u300C\u7A0B\u5F0F\u78BC\u5DF2\u7D93\u904E<strong>\u5BE9\u67E5\uFF08review\uFF09</strong>\u3002\u300D\u9019\u662F\u5C31\u7DD2\u7684\u5B9A\u7FA9\u9805\u76EE\uFF0C\u9084\u662F\u5B8C\u6210\u7684\u5B9A\u7FA9\u9805\u76EE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u9805\u76EE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A0B\u5F0F\u78BC\u5BE9\u67E5\u5C6C\u65BC\u6536\u5C3E\u5B8C\u6210\u5DE5\u4F5C\u7684\u4E00\u74B0\uFF0C\u662F\u51FA\u53E3\u95DC\u5361\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u5C31\u7DD2\u7684\u5B9A\u7FA9\u9805\u76EE",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u958B\u59CB\u4E4B\u524D\u4E26\u7121\u7A0B\u5F0F\u78BC\u53EF\u5BE9\u67E5\uFF1B\u5BE9\u67E5\u5C6C\u65BC\u5B8C\u6210\u95DC\u6CE8\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F\u2014\u2014\u5B83\u53EA\u662F\u500B\u4F30\u7B97",
+                "fraction": 0,
+                "feedback": "\u7A0B\u5F0F\u78BC\u5BE9\u67E5\u662F\u5B8C\u6574\u6027\u6E96\u5247\uFF0C\u4E0D\u662F\u4F30\u7B97\u3002"
+              },
+              {
+                "text": "\u5C08\u5C6C\u65BC\u8A72\u55AE\u4E00\u6545\u4E8B\u7684\u9A57\u6536\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u5BE9\u67E5\u901A\u7528\u5730\u5957\u7528\u5230\u6BCF\u500B\u6545\u4E8B\uFF0C\u56E0\u6B64\u662F DoD \u9805\u76EE\uFF0C\u800C\u975E\u6BCF\u6545\u4E8B\u7684\u9A57\u6536\u6E96\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A0B\u5F0F\u78BC\u5BE9\u67E5\u53EA\u80FD\u5728\u7A0B\u5F0F\u78BC\u5B58\u5728\u4E4B\u5F8C\u9032\u884C\uFF0C\u56E0\u6B64\u5C6C\u65BC\u6536\u5C3E\u5B8C\u6210\u5DE5\u4F5C\u7684\u4E00\u74B0\u3002\u5B83\u5C6C\u65BC DoD \u51FA\u53E3\u95DC\u5361\uFF1B\u53C8\u56E0\u70BA\u5B83\u5957\u7528\u5230\u6BCF\u500B\u6545\u4E8B\uFF0C\u6240\u4EE5\u662F\u901A\u7528\u7684 DoD \u9805\u76EE\uFF0C\u800C\u975E\u67D0\u6545\u4E8B\u5C08\u5C6C\u7684\u9A57\u6536\u6E96\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5B8C\u6210\u9700\u8981\u9A57\u6536\u6E96\u5247\u8207 DoD \u5169\u8005",
+            "text": "<p>\u4E00\u500B\u6545\u4E8B\u552F\u6709\u5728<strong>\u540C\u6642</strong>\u6EFF\u8DB3\u5B83\u81EA\u5DF1\u7684\u9A57\u6536\u6E96\u5247<strong>\u4EE5\u53CA</strong>\u5718\u968A\u7684\u5B8C\u6210\u7684\u5B9A\u7FA9\u6642\uFF0C\u624D\u7B97\u300C\u5B8C\u6210\u300D\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B8C\u6210\u9700\u8981\u540C\u6642\u6EFF\u8DB3\u6BCF\u6545\u4E8B\u7684\u9A57\u6536\u6E96\u5247\u8207\u901A\u7528\u7684 DoD\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u53EA\u6EFF\u8DB3\u5176\u4E2D\u4E00\u9805\u4E26\u4E0D\u8DB3\u5920\uFF1B\u5B8C\u6210\u9700\u8981\u9A57\u6536\u6E96\u5247\u8207 DoD \u5169\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u6536\u6E96\u5247\u8AAA\u660E\u9019\u500B\u7279\u5B9A\u6545\u4E8B\u5FC5\u9808\u505A\u5230\u4EC0\u9EBC\uFF1BDoD \u662F\u6BCF\u500B\u6545\u4E8B\u7684\u901A\u7528\u54C1\u8CEA\u6A19\u6E96\u3002\u6545\u4E8B\u552F\u6709\u5728\u5169\u8005\u90FD\u6210\u7ACB\u6642\u624D\u7B97\u5B8C\u6210\uFF1A\u5B83\u505A\u5230\u88AB\u8981\u6C42\u7684\u4E8B\uFF0C\u4E5F\u9054\u5230\u5171\u540C\u7684\u54C1\u8CEA\u6A19\u6E96\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5177\u5099\u53EF\u6E2C\u8A66\u9A57\u6536\u6E96\u5247\u662F\u5426\u70BA DoR \u9805\u76EE",
+            "text": "<p>\u300C\u8A72\u6545\u4E8B\u5DF2\u5B9A\u7FA9\u6E05\u695A\u3001<strong>\u53EF\u6E2C\u8A66\u7684\u9A57\u6536\u6E96\u5247</strong>\u3002\u300D\u5728\u885D\u523A\u4E4B\u524D\uFF0C\u9019\u6EFF\u8DB3\u54EA\u500B\u95DC\u5361\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C31\u7DD2\u7684\u5B9A\u7FA9\u2014\u2014\u5177\u5099\u53EF\u6E2C\u8A66\u7684\u9A57\u6536\u6E96\u5247\u5C6C\u65BC\u5C31\u7DD2\u7684\u4E00\u74B0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u5C31\u7DD2\u7684\u6545\u4E8B\u5FC5\u9808\u5DF2\u6709\u6E05\u695A\u3001\u53EF\u6E2C\u8A66\u7684\u9A57\u6536\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u2014\u2014\u9019\u8868\u793A\u6E2C\u8A66\u5DF2\u7D93\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u5DF2\u5B9A\u7FA9\u6E96\u5247\u4E26\u4E0D\u7B49\u65BC\u6E2C\u8A66\u5DF2\u901A\u904E\uFF1B\u5F8C\u8005\u5C6C\u65BC\u5B8C\u6210\u6642\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F\u2014\u2014\u9A57\u6536\u6E96\u5247\u8207\u5C31\u7DD2\u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u53EF\u6E2C\u8A66\u7684\u9A57\u6536\u6E96\u5247\u662F\u6838\u5FC3\u7684\u5C31\u7DD2\u8981\u6C42\u3002"
+              },
+              {
+                "text": "\u5B83\u662F\u767C\u5E03\u8AAA\u660E\u7684\u8981\u6C42",
+                "fraction": 0,
+                "feedback": "\u5B9A\u7FA9\u9A57\u6536\u6E96\u5247\u5C6C\u65BC\u5C31\u7DD2\u95DC\u6CE8\uFF0C\u4E0D\u662F\u767C\u5E03\u6587\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C31\u7DD2\u7684\u6545\u4E8B\u5728\u88AB\u62C9\u9032\u4F86\u4E4B\u524D\u5FC5\u9808\u5177\u5099\u6E05\u695A\u3001\u53EF\u6E2C\u8A66\u7684\u9A57\u6536\u6E96\u5247\u2014\u2014\u9019\u662F DoR \u9805\u76EE\u3002\u6CE8\u610F\u5176\u4E2D\u7684\u5340\u5225\uFF1A\u5DF2\u5B9A\u7FA9\u9A57\u6536\u6E96\u5247\u5C6C\u65BC\u5C31\u7DD2\uFF08DoR\uFF09\uFF0C\u800C\u9A57\u6536\u6E96\u5247\u5BE6\u969B\u88AB\u6EFF\u8DB3\u5247\u5C6C\u65BC\u5B8C\u6210\uFF08DoD\uFF09\u7684\u4E00\u74B0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u901A\u904E\u662F\u5426\u70BA DoD \u9805\u76EE",
+            "text": "<p>\u300C\u55AE\u5143\u6E2C\u8A66\u8207\u9A57\u6536\u6E2C\u8A66\u5DF2\u64B0\u5BEB\u4E26<strong>\u901A\u904E</strong>\u3002\u300D\u9019\u5C6C\u65BC\u54EA\u500B\u95DC\u5361\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u901A\u904E\u5C6C\u65BC\u6536\u5C3E\u5B8C\u6210\u5DE5\u4F5C\u7684\u4E00\u74B0\uFF0C\u662F\u51FA\u53E3\u95DC\u5361\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u5C31\u7DD2\u7684\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "\u5DE5\u4F5C\u5C1A\u672A\u5EFA\u7F6E\u524D\u6E2C\u8A66\u7121\u6CD5\u901A\u904E\uFF1B\u9019\u5C6C\u65BC\u5B8C\u6210\u95DC\u6CE8\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F\u2014\u2014\u5B83\u53EA\u662F\u5DE5\u4F5C\u91CF\u7684\u4F30\u7B97",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u901A\u904E\u662F\u5B8C\u6574\u6027\u6E96\u5247\uFF0C\u4E0D\u662F\u4F30\u7B97\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u63D0\u5230\u6E2C\u8A66\uFF0C\u6240\u4EE5\u662F\u5C31\u7DD2\u9805\u76EE",
+                "fraction": 0,
+                "feedback": "\u63D0\u5230\u6E2C\u8A66\u4E26\u4E0D\u4F7F\u5B83\u6210\u70BA\u5C31\u7DD2\uFF1B\u6E2C\u8A66\u901A\u904E\u662F\u5B8C\u6210\u6E96\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u53EA\u80FD\u5728\u5DE5\u4F5C\u5EFA\u7F6E\u4E4B\u5F8C\u624D\u6703\u901A\u904E\uFF0C\u56E0\u6B64\u300C\u6E2C\u8A66\u5DF2\u64B0\u5BEB\u4E26\u901A\u904E\u300D\u5C6C\u65BC DoD \u51FA\u53E3\u95DC\u5361\u3002\u5C31\u7DD2\u53EA\u8981\u6C42\u5B58\u5728\u53EF\u6E2C\u8A66\u7684\u9A57\u6536\u6E96\u5247\uFF0C\u800C\u975E\u6E2C\u8A66\u5DF2\u7136\u901A\u904E\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "DoR \u8207 DoD \u7531\u5718\u968A\u64C1\u6709\u4E26\u6703\u6F14\u9032",
+            "text": "<p>\u5C31\u7DD2\u7684\u5B9A\u7FA9\u8207\u5B8C\u6210\u7684\u5B9A\u7FA9\u5169\u8005\u90FD\u61C9\u662F<strong>\u7531\u5718\u968A\u64C1\u6709\u3001\u660E\u78BA\u5BEB\u4E0B\u3001\u4E26\u5141\u8A31\u96A8\u6642\u9593\u6F14\u9032</strong>\u7684\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u8005\u90FD\u662F\u5171\u540C\u3001\u660E\u78BA\u7684\u5718\u968A\u5354\u8B70\uFF0C\u4E26\u96A8\u5718\u968A\u5B78\u7FD2\u800C\u8ABF\u6574\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5169\u9053\u95DC\u5361\u90FD\u7531\u5718\u968A\u64C1\u6709\u3001\u660E\u78BA\u3001\u4E26\u9810\u671F\u6703\u6F14\u9032\uFF1B\u5B83\u5011\u4E0D\u662F\u56FA\u5B9A\u7684\u5916\u90E8\u898F\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "DoR \u8207 DoD \u662F\u5718\u968A\u8A02\u7ACB\u3001\u660E\u78BA\u5BEB\u4E0B\u4E26\u6703\u56DE\u9867\u6AA2\u8996\uFF08\u901A\u5E38\u5728\u56DE\u9867\u6703\u8B70\uFF09\u7684\u5171\u540C\u5354\u8B70\u3002\u8B93\u5B83\u5011\u7531\u5718\u968A\u64C1\u6709\u4E26\u6301\u7E8C\u6F14\u9032\uFF0C\u80FD\u4F7F\u5B83\u5011\u4FDD\u6301\u52D9\u5BE6\u800C\u88AB\u843D\u5BE6\uFF0C\u800C\u4E0D\u662F\u88AB\u5FFD\u7565\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u5DF2\u4F30\u7B97\u4E14\u4F9D\u8CF4\u5DF2\u89E3\u6C7A",
+            "text": "<p>\u67D0\u5718\u968A\u7684\u6AA2\u67E5\u6E05\u55AE\u5BEB\u8457\uFF1A\u300C\u8A72\u6545\u4E8B<strong>\u5DF2\u4F30\u7B97\uFF0C\u4E14\u5176\u4F9D\u8CF4\u5DF2\u89E3\u6C7A</strong>\u3002\u300D\u9019\u689D\u6E96\u5247\u5C6C\u65BC\u4F55\u8655\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C31\u7DD2\u7684\u5B9A\u7FA9\u2014\u2014\u5169\u8005\u90FD\u662F\u958B\u59CB\u524D\u6AA2\u67E5\u7684\u5165\u53E3\u689D\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F30\u7B97\u8207\u4F9D\u8CF4\u5DF2\u89E3\u6C7A\u90FD\u662F\u5C31\u7DD2\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u2014\u2014\u5B83\u5011\u63CF\u8FF0\u5DF2\u5B8C\u6210\u7684\u5DE5\u4F5C",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u8207\u5B8C\u6574\u6027\u7121\u95DC\uFF1B\u5B83\u5011\u5FC5\u9808\u5728\u5DE5\u4F5C\u958B\u59CB\u4E4B\u524D\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u8A72\u55AE\u4E00\u6545\u4E8B\u7684\u9A57\u6536\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u9019\u4E9B\u662F\u901A\u7528\u7684\u5C31\u7DD2\u689D\u4EF6\uFF0C\u4E0D\u662F\u8A72\u6545\u4E8B\u7684\u7279\u5B9A\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u53EA\u5C6C\u65BC\u767C\u5E03\u95DC\u5361",
+                "fraction": 0,
+                "feedback": "\u4F30\u7B97\u8207\u4F9D\u8CF4\u89E3\u6C7A\u628A\u95DC\u7684\u662F\u9032\u5165\u885D\u523A\uFF0C\u800C\u975E\u767C\u5E03\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DF2\u88AB\u4F30\u7B97\u3001\u4E14\u4F9D\u8CF4\u5DF2\u88AB\u8FA8\u8B58\u4E26\u89E3\u6C7A\uFF0C\u90FD\u662F\u5178\u578B\u7684\u5C31\u7DD2\u689D\u4EF6\uFF1A\u5B83\u5011\u5FC5\u9808\u5728\u5718\u968A\u627F\u8AFE\u6295\u5165\u4E4B\u524D\u70BA\u771F\uFF0C\u56E0\u6B64\u5C6C\u65BC DoR \u5165\u53E3\u95DC\u5361\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u5DF2\u5BE9\u67E5\u4E14\u6E2C\u8A66\u901A\u904E",
+            "text": "<p>\u67D0\u6AA2\u67E5\u6E05\u55AE\u5BEB\u8457\uFF1A\u300C\u7A0B\u5F0F\u78BC<strong>\u5DF2\u5BE9\u67E5\uFF0C\u4E14\u5176\u6E2C\u8A66\u901A\u904E</strong>\u3002\u300D\u9019\u5C6C\u65BC\u4F55\u8655\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u2014\u2014\u5169\u8005\u90FD\u662F\u5728\u51FA\u53E3\u95DC\u5361\u6AA2\u67E5\u7684\u5B8C\u6210\u689D\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BE9\u67E5\u8207\u6E2C\u8A66\u901A\u904E\u5C6C\u65BC\u6536\u5C3E\u5B8C\u6210\u5DE5\u4F5C\u7684\u4E00\u74B0\u3002"
+              },
+              {
+                "text": "\u5C31\u7DD2\u7684\u5B9A\u7FA9\u2014\u2014\u5169\u8005\u4F7F\u6545\u4E8B\u5C31\u7DD2\u53EF\u958B\u59CB",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u7121\u6CD5\u5728\u5DE5\u4F5C\u5EFA\u7F6E\u524D\u767C\u751F\uFF1B\u5B83\u5011\u5C6C\u65BC\u5B8C\u6210\uFF0C\u800C\u975E\u5C31\u7DD2\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u63D0\u5230\u6E2C\u8A66\uFF0C\u6240\u4EE5\u662F\u5C31\u7DD2\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u63D0\u5230\u6E2C\u8A66\u4E26\u4E0D\u4F7F\u5B83\u6210\u70BA\u5C31\u7DD2\uFF1B\u6E2C\u8A66\u901A\u904E\u5C6C\u65BC\u5B8C\u6210\u95DC\u6CE8\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5728\u7522\u54C1\u9000\u5F79\u5F8C\u624D\u91CD\u8981",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u628A\u95DC\u7684\u662F\u6545\u4E8B\u7684\u5B8C\u6210\uFF0C\u4E0D\u662F\u7522\u54C1\u9000\u5F79\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A0B\u5F0F\u78BC\u5BE9\u67E5\u8207\u6E2C\u8A66\u901A\u904E\u90FD\u9700\u8981\u5DE5\u4F5C\u5DF2\u7136\u5B58\u5728\uFF0C\u56E0\u6B64\u90FD\u662F\u5C6C\u65BC DoD \u51FA\u53E3\u95DC\u5361\u7684\u5B8C\u6210\u689D\u4EF6\u2014\u2014\u800C\u975E\u5C31\u7DD2\u689D\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9A57\u6536\u6E96\u5247\u8207 DoD \u7684\u7BC4\u570D\u5C0D\u6BD4",
+            "text": "<p>\u4E0B\u5217\u54EA\u500B\u9673\u8FF0\u6B63\u78BA\u5730\u5C0D\u6BD4\u4E86<strong>\u9A57\u6536\u6E96\u5247</strong>\u8207<strong>\u5B8C\u6210\u7684\u5B9A\u7FA9</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9A57\u6536\u6E96\u5247\u5C08\u5C6C\u65BC\u55AE\u4E00\u6545\u4E8B\uFF1BDoD \u662F\u901A\u7528\u7684\uFF0C\u5957\u7528\u5230\u6BCF\u500B\u6545\u4E8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014AC \u662F\u6BCF\u6545\u4E8B\u3001\u7279\u5B9A\u7684\uFF1BDoD \u662F\u5957\u7528\u5230\u6240\u6709\u6545\u4E8B\u7684\u5171\u540C\u6A19\u6E96\u3002"
+              },
+              {
+                "text": "DoD \u5C08\u5C6C\u65BC\u55AE\u4E00\u6545\u4E8B\uFF1B\u9A57\u6536\u6E96\u5247\u5957\u7528\u5230\u6BCF\u500B\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u9019\u8AAA\u53CD\u4E86\uFF1AAC \u662F\u6BCF\u6545\u4E8B\u7684\uFF0CDoD \u662F\u901A\u7528\u7684\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u540C\u4E00\u4EF6\u4E8B\u7684\u5169\u7A2E\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E0D\u540C\uFF1AAC \u63CF\u8FF0\u9019\u500B\u6545\u4E8B\uFF0CDoD \u662F\u5171\u540C\u7684\u54C1\u8CEA\u6A19\u6E96\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u5404\u6545\u4E8B\u7368\u6709\u3001\u5F9E\u4E0D\u5171\u7528",
+                "fraction": 0,
+                "feedback": "DoD \u5728\u6240\u6709\u6545\u4E8B\u9593\u5171\u7528\uFF0C\u4E0D\u540C\u65BC\u6BCF\u6545\u4E8B\u7684\u9A57\u6536\u6E96\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u6536\u6E96\u5247\u63CF\u8FF0\u67D0\u4E00\u7279\u5B9A\u6545\u4E8B\u5FC5\u9808\u505A\u5230\u4EC0\u9EBC\uFF0C\u56E0\u6545\u4E8B\u800C\u7570\u3002DoD \u5247\u662F\u5957\u7528\u5230\u6BCF\u500B\u6545\u4E8B\u7684\u55AE\u4E00\u901A\u7528\u54C1\u8CEA\u6A19\u6E96\u3002\u9019\u6B63\u662F\u70BA\u4EC0\u9EBC\u4E00\u500B\u6545\u4E8B\u5FC5\u9808\u540C\u6642\u6EFF\u8DB3\u5169\u8005\u624D\u7B97\u5B8C\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5B8C\u6210\u9700\u8981 AC \u8207 DoD \u5169\u8005",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u4E00\u500B\u6545\u4E8B\u5FC5\u9808<strong>\u540C\u6642</strong>\u6EFF\u8DB3\u5176\u9A57\u6536\u6E96\u5247\u8207 DoD \u624D\u7B97\u5B8C\u6210\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9A57\u6536\u6E96\u5247\u8B49\u660E\u5B83\u505A\u5C0D\u4E86\u8A72\u505A\u7684\u4E8B\uFF1BDoD \u8B49\u660E\u5B83\u662F\u4F9D\u5718\u968A\u7684\u54C1\u8CEA\u6A19\u6E96\u5EFA\u7F6E\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014AC \u6DB5\u84CB\u300C\u505A\u5230\u88AB\u8981\u6C42\u7684\u4E8B\u300D\uFF0CDoD \u6DB5\u84CB\u300C\u5EFA\u7F6E\u5F97\u5920\u597D\u300D\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9A57\u6536\u6E96\u5247\u53D6\u4EE3\u4E86\u5C0D\u5B8C\u6210\u7684\u5B9A\u7FA9\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "AC \u4E0D\u53D6\u4EE3 DoD\uFF1B\u5B83\u5011\u56DE\u7B54\u4E0D\u540C\u7684\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA DoD \u5217\u51FA\u7684\u662F\u90A3\u4E00\u500B\u6545\u4E8B\u7684\u7279\u5B9A\u884C\u70BA",
+                "fraction": 0,
+                "feedback": "\u7279\u5B9A\u884C\u70BA\u662F AC\uFF1BDoD \u662F\u901A\u7528\u7684\u54C1\u8CEA\u6A19\u6E96\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6EFF\u8DB3\u5176\u4E2D\u4EFB\u4E00\u9805\u7E3D\u662F\u610F\u5473\u8457\u53E6\u4E00\u9805\u4E5F\u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5F7C\u6B64\u7368\u7ACB\uFF1A\u884C\u70BA\u6B63\u78BA\u4E26\u4E0D\u4FDD\u8B49\u5DF2\u5BE9\u67E5\u3001\u5DF2\u6E2C\u8A66\u6216\u5DF2\u6574\u5408\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u6536\u6E96\u5247\u8207 DoD \u56DE\u7B54\u4E0D\u540C\u554F\u984C\u3002AC\uFF1A\u9019\u500B\u6545\u4E8B\u505A\u5230\u88AB\u8981\u6C42\u5B83\u505A\u7684\u7279\u5B9A\u4E8B\u60C5\u4E86\u55CE\uFF1FDoD\uFF1A\u5B83\u662F\u4F9D\u5171\u540C\u7684\u54C1\u8CEA\u6A19\u6E96\uFF08\u5DF2\u5BE9\u67E5\u3001\u5DF2\u6E2C\u8A66\u3001\u5DF2\u6574\u5408\u3001\u7121\u91CD\u5927\u7F3A\u9677\uFF09\u5EFA\u7F6E\u7684\u55CE\uFF1F\u4E00\u500B\u6545\u4E8B\u53EF\u80FD\u6EFF\u8DB3\u5176\u4E00\u800C\u4E0D\u6EFF\u8DB3\u5176\u4E8C\uFF0C\u56E0\u6B64\u5B8C\u6210\u9700\u8981\u5169\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u8584\u5F31\u7684\u5F8C\u679C",
+            "text": "<p>\u4E00\u500B<strong>\u8584\u5F31\u6216\u672A\u88AB\u843D\u5BE6\u7684\u5B8C\u6210\u7684\u5B9A\u7FA9</strong>\u6700\u53EF\u80FD\u9020\u6210\u4EC0\u9EBC\u5F8C\u679C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u672A\u6E2C\u8A66\u3001\u672A\u5BE9\u67E5\u7684\u5DE5\u4F5C\u88AB\u7A31\u4F5C\u300C\u5B8C\u6210\u300D\uFF0C\u65BC\u662F\u54C1\u8CEA\u4FB5\u8755\u3001\u96B1\u85CF\u7684\u5DE5\u4F5C\u65E5\u5F8C\u7D50\u8F49",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8584\u5F31\u7684 DoD \u8B93\u4E0D\u5B8C\u6574\u7684\u5DE5\u4F5C\u904E\u95DC\uFF0C\u628A\u771F\u6B63\u7684\u5DE5\u4F5C\u5F80\u5F8C\u5EF6\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u8B8A\u5F97\u4E0D\u53EF\u80FD\u958B\u59CB",
+                "fraction": 0,
+                "feedback": "\u958B\u59CB\u7531 DoR \u7BA1\u63A7\uFF1B\u8584\u5F31\u7684 DoD \u5F71\u97FF\u5B8C\u6210\uFF0C\u800C\u975E\u958B\u59CB\u3002"
+              },
+              {
+                "text": "\u4F30\u7B97\u81EA\u52D5\u8B8A\u5F97\u66F4\u6E96\u78BA",
+                "fraction": 0,
+                "feedback": "\u8584\u5F31\u7684 DoD \u4E0D\u6703\u6539\u5584\u4F30\u7B97\uFF1B\u5B83\u96B1\u85CF\u4E86\u5269\u9918\u7684\u5DE5\u4F5C\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u88AB\u8FEB\u5BEB\u66F4\u591A\u9A57\u6536\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u8584\u5F31\u7684 DoD \u4E0D\u6703\u903C\u51FA\u66F4\u591A AC\uFF1B\u5B83\u8B93\u4F4E\u54C1\u8CEA\u7684\u5DE5\u4F5C\u904E\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576 DoD \u8584\u5F31\u6216\u672A\u88AB\u843D\u5BE6\u6642\uFF0C\u672A\u6E2C\u8A66\u3001\u672A\u5BE9\u67E5\u3001\u672A\u6574\u5408\u7684\u5DE5\u4F5C\u6703\u88AB\u6A19\u8A18\u70BA\u5B8C\u6210\u3002\u54C1\u8CEA\u4FB5\u8755\uFF0C\u300C90% \u5B8C\u6210\u300D\u7684\u5DE5\u4F5C\u85CF\u8D77\u4E86\u5269\u9918\u7684\u5DE5\u4F5C\u91CF\uFF0C\u800C\u90A3\u4E9B\u5DE5\u4F5C\u91CF\u4E4B\u5F8C\u6703\u4EE5\u7D50\u8F49\u8207\u7F3A\u9677\u7684\u5F62\u5F0F\u6D6E\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7F3A\u5C11\u5C31\u7DD2\u7684\u5B9A\u7FA9\u7684\u5F8C\u679C",
+            "text": "<p>\u6C92\u6709\u4E00\u500B<strong>\u6709\u6548\u7684\u5C31\u7DD2\u7684\u5B9A\u7FA9</strong>\uFF0C\u6700\u53EF\u80FD\u9020\u6210\u4EC0\u9EBC\u5F8C\u679C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6A21\u7CCA\u3001\u672A\u5C31\u7DD2\u7684\u9805\u76EE\u88AB\u62C9\u9032\u4F86\uFF0C\u4E26\u5728\u885D\u523A\u9014\u4E2D\u56E0\u767C\u73FE\u7F3A\u6F0F\u7D30\u7BC0\u800C\u53CD\u8986\u6298\u9A30",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709 DoR\uFF0C\u672A\u5C31\u7DD2\u7684\u5DE5\u4F5C\u9032\u5165\u885D\u523A\u4E26\u7522\u751F\u6298\u9A30\u3002"
+              },
+              {
+                "text": "\u5DF2\u5B8C\u6210\u7684\u5DE5\u4F5C\u6C38\u9060\u7121\u6CD5\u88AB\u6A19\u8A18\u70BA\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u6A19\u8A18\u5B8C\u6210\u7531 DoD \u7BA1\u63A7\uFF0C\u800C\u975E DoR\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u4FDD\u8B49\u6BCF\u500B\u6545\u4E8B\u90FD\u80FD\u63D0\u65E9\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u672A\u5C31\u7DD2\u7684\u5DE5\u4F5C\u50BE\u5411\u5EF6\u8AA4\uFF0C\u800C\u975E\u63D0\u65E9\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E2C\u8A66\u8B8A\u5F97\u6C92\u6709\u5FC5\u8981",
+                "fraction": 0,
+                "feedback": "\u7F3A\u5C11 DoR \u4E26\u4E0D\u6703\u6D88\u9664\u5C0D\u9A57\u6536\u6E2C\u8A66\u7684\u9700\u8981\u3002"
+              }
+            ],
+            "generalFeedback": "\u6C92\u6709 DoR\uFF0C\u5718\u968A\u6703\u627F\u8AFE\u6295\u5165\u4E0D\u6E05\u695A\u3001\u672A\u4F30\u7B97\u3001\u6216\u88AB\u4F9D\u8CF4\u963B\u64CB\u7684\u9805\u76EE\u3002\u7F3A\u6F0F\u7684\u7D30\u7BC0\u5728\u885D\u523A\u9014\u4E2D\u6D6E\u73FE\uFF0C\u9020\u6210\u91CD\u5DE5\u3001\u88AB\u963B\u64CB\u7684\u6642\u9593\u8207\u6298\u9A30\u2014\u2014\u6B63\u662F\u5165\u53E3\u95DC\u5361\u8981\u9632\u6B62\u7684\u4E8B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "INVEST \u6982\u62EC\u7684\u662F\u4EC0\u9EBC",
+            "text": "<p><strong>INVEST</strong> \u53E3\u8A23\uFF08Independent \u7368\u7ACB\u3001Negotiable \u53EF\u5354\u5546\u3001Valuable \u6709\u50F9\u503C\u3001Estimable \u53EF\u4F30\u7B97\u3001Small \u5920\u5C0F\u3001Testable \u53EF\u6E2C\u8A66\uFF09\u6700\u5E38\u7528\u4F86\u6AA2\u67E5\u4E00\u500B\u6545\u4E8B\u662F\u5426\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C31\u7DD2\u2014\u2014\u5B83\u6982\u62EC\u4E86\u4E00\u500B\u826F\u597D\u3001\u53EF\u958B\u59CB\u7684\u6545\u4E8B\u61C9\u5177\u5099\u7684\u7279\u8CEA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014INVEST \u662F\u5C31\u7DD2\u7684\u555F\u767C\u5F0F\uFF0C\u8207 DoR \u5BC6\u5207\u76F8\u95DC\u3002"
+              },
+              {
+                "text": "\u5B8C\u6210\u2014\u2014\u5B83\u5217\u51FA\u5DF2\u5B8C\u6210\u5DE5\u4F5C\u7684\u5B8C\u6210\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "INVEST \u6AA2\u67E5\u6545\u4E8B\u7684\u5C31\u7DD2\u7A0B\u5EA6\uFF0C\u4E0D\u662F\u5DF2\u5B8C\u6210\u5DE5\u4F5C\u7684\u5B8C\u6574\u6027\u3002"
+              },
+              {
+                "text": "\u5DF2\u767C\u5E03\u2014\u2014\u5B83\u662F\u767C\u5E03\u8AAA\u660E\u7684\u6AA2\u67E5\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "INVEST \u95DC\u4E4E\u5C31\u7DD2\u7684\u6545\u4E8B\u54C1\u8CEA\uFF0C\u4E0D\u662F\u767C\u5E03\u6587\u4EF6\u3002"
+              },
+              {
+                "text": "\u8D85\u51FA\u9810\u7B97\u2014\u2014\u5B83\u662F\u6210\u672C\u8FFD\u8E64\u53E3\u8A23",
+                "fraction": 0,
+                "feedback": "INVEST \u63CF\u8FF0\u6545\u4E8B\u7279\u8CEA\uFF0C\u4E0D\u662F\u9810\u7B97\u8FFD\u8E64\u3002"
+              }
+            ],
+            "generalFeedback": "INVEST \u6355\u6349\u4E00\u500B\u826F\u597D\u6210\u5F62\u6545\u4E8B\u7684\u7279\u8CEA\u2014\u2014\u7368\u7ACB\u3001\u53EF\u5354\u5546\u3001\u6709\u50F9\u503C\u3001\u53EF\u4F30\u7B97\u3001\u5920\u5C0F\u3001\u53EF\u6E2C\u8A66\u3002\u5176\u4E2D\u300C\u53EF\u4F30\u7B97\u3001\u5920\u5C0F\u3001\u53EF\u6E2C\u8A66\u300D\u7279\u5225\u5C0D\u61C9\u5230\u5C31\u7DD2\uFF0C\u9019\u6B63\u662F INVEST \u5E38\u88AB\u7528\u4F86\u652F\u6301\u5C31\u7DD2\u7684\u5B9A\u7FA9\u7684\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u5C0F\u5230\u53EF\u5728\u4E00\u500B\u885D\u523A\u5167\u5B8C\u6210",
+            "text": "<p>\u300C\u8A72\u6545\u4E8B<strong>\u5C0F\u5230\u53EF\u5728\u55AE\u4E00\u885D\u523A\u5167\u5B8C\u6210</strong>\u3002\u300D\u9019\u662F\u54EA\u500B\u95DC\u5361\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C31\u7DD2\u7684\u5B9A\u7FA9\u9805\u76EE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0F\u5230\u80FD\u585E\u9032\u4E00\u500B\u885D\u523A\u662F\u5C31\u7DD2\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u9805\u76EE",
+                "fraction": 0,
+                "feedback": "\u5B9A\u51FA\u5927\u5C0F\u662F\u5728\u958B\u59CB\u524D\u6AA2\u67E5\uFF0C\u800C\u975E\u5B8C\u6210\u6642\u3002"
+              },
+              {
+                "text": "\u63CF\u8FF0\u6545\u4E8B\u884C\u70BA\u7684\u9A57\u6536\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u5927\u5C0F\u662F\u5C31\u7DD2\u5C6C\u6027\uFF0C\u4E0D\u662F\u884C\u70BA\u6027\u7684\u9A57\u6536\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u767C\u5E03\u5C64\u7D1A\u7684\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u80FD\u585E\u9032\u4E00\u500B\u885D\u523A\u628A\u95DC\u7684\u662F\u9032\u5165\uFF0C\u800C\u975E\u767C\u5E03\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0F\u5230\u53EF\u5728\u4E00\u500B\u885D\u523A\u5167\u5B8C\u6210\u662F\u5C31\u7DD2\u5C6C\u6027\uFF08INVEST \u4E2D\u7684\u300CS\u300D\uFF09\u3002\u82E5\u6545\u4E8B\u592A\u5927\uFF0C\u5FC5\u9808\u5728\u5C31\u7DD2\u4E4B\u524D\u5148\u5207\u5206\uFF0C\u56E0\u6B64\u9019\u5C6C\u65BC DoR\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u5DF2\u6574\u5408\u4E14\u7121\u91CD\u5927\u7F3A\u9677",
+            "text": "<p>\u300C\u8A72\u8B8A\u66F4\u5DF2<strong>\u6574\u5408\uFF0F\u5408\u4F75\uFF0C\u4E14\u6C92\u6709\u5DF2\u77E5\u7684\u91CD\u5927\u7F3A\u9677</strong>\u3002\u300D\u9019\u662F\u54EA\u500B\u95DC\u5361\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u9805\u76EE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6574\u5408\u8207\u7121\u91CD\u5927\u7F3A\u9677\u90FD\u662F\u5B8C\u6210\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u5C31\u7DD2\u7684\u5B9A\u7FA9\u9805\u76EE",
+                "fraction": 0,
+                "feedback": "\u5DE5\u4F5C\u5EFA\u7F6E\u524D\u6C92\u6709\u6771\u897F\u53EF\u6574\u5408\uFF1B\u9019\u5C6C\u65BC\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "\u8A72\u6545\u4E8B\u5927\u5C0F\u7684\u4F30\u7B97",
+                "fraction": 0,
+                "feedback": "\u9019\u4E9B\u662F\u5B8C\u6574\u6027\u689D\u4EF6\uFF0C\u4E0D\u662F\u4F30\u7B97\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u63D0\u5230\u7F3A\u9677\uFF0C\u6240\u4EE5\u662F\u5C31\u7DD2\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u5EFA\u7F6E\u5F8C\u7121\u7F3A\u9677\u5C6C\u65BC\u5B8C\u6210\u95DC\u6CE8\uFF0C\u800C\u975E\u5C31\u7DD2\u3002"
+              }
+            ],
+            "generalFeedback": "\u5408\u4F75\u5DE5\u4F5C\u4E26\u78BA\u8A8D\u6C92\u6709\u5DF2\u77E5\u7684\u91CD\u5927\u7F3A\u9677\uFF0C\u90FD\u53EA\u80FD\u5728\u5DE5\u4F5C\u5B58\u5728\u4E4B\u5F8C\u624D\u767C\u751F\uFF0C\u56E0\u6B64\u5169\u8005\u90FD\u662F DoD \u51FA\u53E3\u95DC\u5361\u6E96\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6EFF\u8DB3 AC \u4F46\u4E0D\u6EFF\u8DB3 DoD",
+            "text": "<p>\u67D0\u6545\u4E8B\u505A\u5230\u4E86\u5176\u9A57\u6536\u6E96\u5247\u8981\u6C42\u7684\u4E00\u5207\uFF0C\u4F46\u7A0B\u5F0F\u78BC<strong>\u672A\u7D93\u5BE9\u67E5\u3001\u4E5F\u6C92\u6709\u5BEB\u4EFB\u4F55\u6E2C\u8A66</strong>\u3002\u5B83\u7B97\u5B8C\u6210\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u7B97\u2014\u2014\u5B83\u672A\u901A\u904E DoD\uFF0C\u56E0\u6B64\u5373\u4F7F\u6EFF\u8DB3 AC \u4ECD\u4E0D\u7B97\u5B8C\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B8C\u6210\u9700\u8981 AC \u8207 DoD \u5169\u8005\uFF1B\u6B64\u8655 DoD \u672A\u6EFF\u8DB3\u3002"
+              },
+              {
+                "text": "\u7B97\u2014\u2014\u6EFF\u8DB3\u9A57\u6536\u6E96\u5247\u5C31\u8DB3\u4EE5\u7B97\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u53EA\u6EFF\u8DB3 AC \u4E26\u4E0D\u8DB3\u5920\uFF1B\u901A\u7528\u7684 DoD \u4E5F\u5FC5\u9808\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "\u7B97\u2014\u2014\u5BE9\u67E5\u8207\u6E2C\u8A66\u662F\u53EF\u6709\u53EF\u7121\u7684\u9644\u52A0\u9805",
+                "fraction": 0,
+                "feedback": "\u5BE9\u67E5\u8207\u6E2C\u8A66\u662F DoD \u6E96\u5247\uFF0C\u4E0D\u662F\u53EF\u6709\u53EF\u7121\u7684\u9644\u52A0\u9805\u3002"
+              },
+              {
+                "text": "\u4E0D\u91CD\u65B0\u4F30\u7B97\u8A72\u6545\u4E8B\u5C31\u7121\u6CD5\u5224\u65B7",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6574\u6027\u4F9D AC \u8207 DoD \u5224\u65B7\uFF0C\u800C\u975E\u91CD\u65B0\u4F30\u7B97\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A72\u6545\u4E8B\u7684\u884C\u70BA\u7B26\u5408\u8981\u6C42\uFF08AC \u5DF2\u6EFF\u8DB3\uFF09\uFF0C\u4F46\u672A\u7D93\u5BE9\u67E5\u6216\u6E2C\u8A66\uFF0C\u56E0\u6B64\u672A\u901A\u904E\u901A\u7528\u7684\u54C1\u8CEA\u6A19\u6E96\u3002\u7531\u65BC\u5B8C\u6210\u9700\u8981 AC \u8207 DoD \u5169\u8005\uFF0C\u8A72\u6545\u4E8B\u4E0D\u7B97\u5B8C\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6EFF\u8DB3 DoD \u4F46\u4E0D\u6EFF\u8DB3\u5176 AC",
+            "text": "<p>\u67D0\u8B8A\u66F4\u5DF2\u5BE9\u67E5\u3001\u5DF2\u6E2C\u8A66\u3001\u5DF2\u6574\u5408\uFF0C\u4F46\u5B83<strong>\u4E26\u672A\u771F\u6B63\u5BE6\u73FE</strong>\u5176\u9A57\u6536\u6E96\u5247\u6240\u63CF\u8FF0\u7684\u884C\u70BA\u3002\u8A72\u6545\u4E8B\u7B97\u5B8C\u6210\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u7B97\u2014\u2014\u5B83\u6EFF\u8DB3\u901A\u7528\u7684 DoD\uFF0C\u537B\u672A\u901A\u904E\u5B83\u81EA\u5DF1\u7684\u9A57\u6536\u6E96\u5247",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u505A\u932F\u4E8B\u7684\u3001\u5EFA\u7F6E\u826F\u597D\u7684\u8B8A\u66F4\uFF0C\u4ECD\u672A\u901A\u904E\u5176 AC\u3002"
+              },
+              {
+                "text": "\u7B97\u2014\u2014\u901A\u904E DoD \u5C31\u8DB3\u4EE5\u7B97\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709 DoD \u4E26\u4E0D\u8DB3\u5920\uFF1B\u6545\u4E8B\u9084\u5FC5\u9808\u6EFF\u8DB3\u5176\u9A57\u6536\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u7B97\u2014\u2014\u9A57\u6536\u6E96\u5247\u53EA\u662F\u5EFA\u8B70",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u6E96\u5247\u754C\u5B9A\u6545\u4E8B\u5FC5\u9808\u505A\u5230\u4EC0\u9EBC\uFF0C\u4E26\u975E\u53EF\u6709\u53EF\u7121\u3002"
+              },
+              {
+                "text": "\u53EA\u7531\u7522\u54C1\u8CA0\u8CAC\u4EBA\u7684\u5FC3\u60C5\u6C7A\u5B9A",
+                "fraction": 0,
+                "feedback": "\u5B8C\u6210\u4F9D AC \u8207 DoD \u5224\u65B7\uFF0C\u800C\u975E\u5FC3\u60C5\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u8655\u5DE5\u4F5C\u54C1\u8CEA\u5F88\u9AD8\uFF08DoD \u5DF2\u6EFF\u8DB3\uFF09\uFF0C\u537B\u89E3\u6C7A\u4E86\u932F\u7684\u554F\u984C\uFF08AC \u672A\u6EFF\u8DB3\uFF09\u3002\u5B8C\u6210\u9700\u8981\u5169\u8005\uFF0C\u56E0\u6B64\u4E00\u500B\u5EFA\u7F6E\u826F\u597D\u537B\u672A\u6EFF\u8DB3\u5176\u9A57\u6536\u6E96\u5247\u7684\u8B8A\u66F4\u4E0D\u7B97\u5B8C\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 DoD \u662F\u901A\u7528\u7684",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u5B8C\u6210\u7684\u5B9A\u7FA9\u5BEB\u6210<strong>\u901A\u7528</strong>\u7684\u6AA2\u67E5\u6E05\u55AE\uFF0C\u800C\u4E0D\u662F\u6BCF\u6545\u4E8B\u5404\u4E00\u4EFD\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5982\u6B64\u4E00\u4F86\uFF0C\u7121\u8AD6\u6BCF\u500B\u6545\u4E8B\u7684\u7279\u5B9A\u884C\u70BA\u70BA\u4F55\uFF0C\u90FD\u53D7\u540C\u4E00\u689D\u4E00\u81F4\u7684\u54C1\u8CEA\u6A19\u6E96\u7D04\u675F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u901A\u7528\u7684 DoD \u70BA\u6240\u6709\u6545\u4E8B\u63D0\u4F9B\u7D71\u4E00\u7684\u54C1\u8CEA\u6A19\u6E96\u3002"
+              },
+              {
+                "text": "\u5982\u6B64\u4E00\u4F86\uFF0C\u6BCF\u500B\u6545\u4E8B\u53EF\u4EE5\u5B9A\u7FA9\u81EA\u5DF1\u7368\u6709\u7684\u5B8C\u6210\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u6BCF\u6545\u4E8B\u7684\u898F\u5247\u662F\u9A57\u6536\u6E96\u5247\uFF1BDoD \u523B\u610F\u505A\u6210\u901A\u7528\u7684\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA DoD \u6C38\u9060\u53EA\u542B\u4E00\u500B\u9805\u76EE",
+                "fraction": 0,
+                "feedback": "DoD \u901A\u5E38\u542B\u591A\u500B\u9805\u76EE\uFF1B\u901A\u7528\u662F\u6307\u5B83\u5957\u7528\u5230\u6240\u6709\u6545\u4E8B\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u901A\u7528\u7684\u6AA2\u67E5\u6E05\u55AE\u8F03\u5BB9\u6613\u88AB\u5FFD\u7565",
+                "fraction": 0,
+                "feedback": "\u901A\u7528 DoD \u7684\u91CD\u9EDE\u662F\u4E00\u81F4\u5730\u843D\u5BE6\uFF0C\u800C\u975E\u4FBF\u65BC\u5FFD\u7565\u3002"
+              }
+            ],
+            "generalFeedback": "DoD \u4E4B\u6240\u4EE5\u901A\u7528\uFF0C\u6B63\u662F\u70BA\u4E86\u4F5C\u70BA\u7D71\u4E00\u7684\u54C1\u8CEA\u6A19\u6E96\uFF1A\u540C\u4E00\u5957\u6A19\u6E96\uFF08\u5DF2\u5BE9\u67E5\u3001\u5DF2\u6E2C\u8A66\u3001\u5DF2\u6574\u5408\u3001\u7121\u91CD\u5927\u7F3A\u9677\uFF09\u5957\u7528\u5230\u6BCF\u500B\u6545\u4E8B\u3002\u6545\u4E8B\u5404\u81EA\u7684\u671F\u671B\u5247\u6539\u653E\u5728\u6BCF\u6545\u4E8B\u7684\u9A57\u6536\u6E96\u5247\u88E1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "INVEST \u652F\u6301\u54EA\u500B\u95DC\u5361",
+            "text": "<p>\u67D0\u5718\u968A\u5728\u7CBE\u7149\u5F85\u8FA6\u9805\u76EE\u6642\u4F7F\u7528 <strong>INVEST</strong>\u3002\u9019\u6700\u76F4\u63A5\u652F\u6301\u54EA\u500B\u95DC\u5361\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C31\u7DD2\u7684\u5B9A\u7FA9\u2014\u2014INVEST \u5354\u52A9\u78BA\u8A8D\u6545\u4E8B\u5DF2\u826F\u597D\u6210\u5F62\u3001\u53EF\u958B\u59CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014INVEST \u662F\u652F\u6301\u5165\u53E3\u95DC\u5361\u7684\u5C31\u7DD2\u8F14\u52A9\u3002"
+              },
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u2014\u2014INVEST \u5217\u51FA\u5B8C\u6210\u6AA2\u67E5",
+                "fraction": 0,
+                "feedback": "INVEST \u6AA2\u67E5\u6545\u4E8B\u5C31\u7DD2\uFF0C\u4E0D\u662F\u5DF2\u5B8C\u6210\u5DE5\u4F5C\u662F\u5426\u5B8C\u6574\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F\u2014\u2014INVEST \u53EA\u95DC\u4E4E\u90E8\u7F72",
+                "fraction": 0,
+                "feedback": "INVEST \u95DC\u4E4E\u5C31\u7DD2\u7684\u6545\u4E8B\u54C1\u8CEA\uFF0C\u4E0D\u662F\u90E8\u7F72\u3002"
+              },
+              {
+                "text": "\u5169\u9053\u95DC\u5361\u540C\u7B49\uFF0C\u56E0\u70BA INVEST \u4E5F\u6DB5\u84CB\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u96D6\u7136 INVEST \u542B\u300C\u53EF\u6E2C\u8A66\u300D\uFF0C\u4F46\u5B83\u8A55\u4F30\u7684\u662F\u6545\u4E8B\u7684\u5C31\u7DD2\uFF0C\u56E0\u6B64\u652F\u6301 DoR\u3002"
+              }
+            ],
+            "generalFeedback": "INVEST \u5728\u7CBE\u7149\u6642\u5957\u7528\uFF0C\u7528\u4F86\u5224\u65B7\u6545\u4E8B\u662F\u5426\u5DF2\u826F\u597D\u6210\u5F62\u3001\u5C31\u7DD2\u3002\u7531\u65BC\u90A3\u6B63\u662F\u5165\u53E3\u95DC\u5361\u6240\u95DC\u6CE8\u7684\uFF0CINVEST \u6700\u76F4\u63A5\u652F\u6301\u5C31\u7DD2\u7684\u5B9A\u7FA9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5177\u5099 AC \u8207\u6EFF\u8DB3 AC",
+            "text": "<p>\u4E0B\u5217\u54EA\u500B\u914D\u5C0D\u6B63\u78BA\u5730\u628A<strong>\u9A57\u6536\u6E96\u5247\u7684\u5169\u7A2E\u7528\u9014</strong>\u5C0D\u61C9\u5230\u5176\u95DC\u5361\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5DF2\u5B9A\u7FA9\u6E05\u695A\u3001\u53EF\u6E2C\u8A66\u7684 AC \u662F DoR \u9805\u76EE\uFF1BAC \u5BE6\u969B\u88AB\u6EFF\u8DB3\u5247\u5C6C\u65BC DoD \u7684\u4E00\u74B0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B9A\u7FA9 AC \u5C6C\u65BC\u5C31\u7DD2\uFF1B\u6EFF\u8DB3 AC \u5C6C\u65BC\u5B8C\u6210\u7684\u4E00\u74B0\u3002"
+              },
+              {
+                "text": "\u5DF2\u5B9A\u7FA9 AC \u662F DoD \u9805\u76EE\uFF1B\u6EFF\u8DB3 AC \u662F DoR \u9805\u76EE",
+                "fraction": 0,
+                "feedback": "\u9019\u8AAA\u53CD\u4E86\uFF1A\u5B9A\u7FA9 AC \u5C6C\u65BC\u5C31\u7DD2\uFF0C\u6EFF\u8DB3 AC \u5C6C\u65BC\u5B8C\u6210\u3002"
+              },
+              {
+                "text": "\u5B9A\u7FA9\u8207\u6EFF\u8DB3 AC \u90FD\u53EA\u5C6C\u65BC DoR",
+                "fraction": 0,
+                "feedback": "\u6EFF\u8DB3 AC \u53EA\u80FD\u5728\u5DE5\u4F5C\u5EFA\u7F6E\u4E4B\u5F8C\u767C\u751F\uFF0C\u56E0\u6B64\u5C6C\u65BC DoD \u7684\u4E00\u74B0\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E96\u5247\u5728\u5169\u9053\u95DC\u5361\u90FD\u6C92\u6709\u89D2\u8272",
+                "fraction": 0,
+                "feedback": "AC \u5728\u5169\u9053\u95DC\u5361\u90FD\u6709\u89D2\u8272\uFF1A\u70BA\u5C31\u7DD2\u800C\u5B9A\u7FA9\u3001\u70BA\u5B8C\u6210\u800C\u6EFF\u8DB3\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u6536\u6E96\u5247\u4EE5\u4E0D\u540C\u65B9\u5F0F\u727D\u6D89\u5169\u9053\u95DC\u5361\u3002\u5C31\u7DD2\uFF08DoR\uFF09\uFF1A\u6545\u4E8B\u5FC5\u9808\u5DF2\u5B9A\u7FA9\u6E05\u695A\u3001\u53EF\u6E2C\u8A66\u7684 AC\u3002\u5B8C\u6210\uFF08DoD\uFF09\uFF1A\u90A3\u4E9B AC \u5FC5\u9808\u88AB\u5DF2\u5EFA\u7F6E\u7684\u5DE5\u4F5C\u5BE6\u969B\u6EFF\u8DB3\u3002\u628A\u300C\u5DF2\u5B9A\u7FA9\u300D\u8207\u300C\u5DF2\u6EFF\u8DB3\u300D\u6DF7\u70BA\u4E00\u8AC7\uFF0C\u662F\u95DC\u5361\u6B78\u985E\u932F\u8AA4\u7684\u5E38\u898B\u4F86\u6E90\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "DoR \u904E\u65BC\u5BEC\u9B06\u9020\u6210\u6298\u9A30",
+            "text": "<p>\u67D0\u5718\u968A\u628A\u53EA\u88AB\u7C97\u7565\u7406\u89E3\u7684\u6545\u4E8B\u62C9\u9032\u4F86\u3002\u885D\u523A\u9014\u4E2D\u4ED6\u5011\u4E0D\u65B7\u505C\u4E0B\u4F86\u91D0\u6E05\u7BC4\u570D\u3001\u8FFD\u67E5\u7F3A\u6F0F\u7684\u4F9D\u8CF4\u3002\u54EA\u500B\u95DC\u5361\u8584\u5F31\uFF0C\u53C8\u5982\u4F55\u986F\u73FE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "DoR \u904E\u65BC\u5BEC\u9B06\uFF0C\u65BC\u662F\u672A\u5C31\u7DD2\u7684\u5DE5\u4F5C\u9032\u5165\u4E26\u5728\u885D\u523A\u9014\u4E2D\u6298\u9A30",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BEC\u9B06\u7684\u5165\u53E3\u95DC\u5361\u653E\u9032\u4E0D\u6E05\u695A\u7684\u5DE5\u4F5C\uFF0C\u9020\u6210\u885D\u523A\u9014\u4E2D\u7684\u6298\u9A30\u3002"
+              },
+              {
+                "text": "DoD \u904E\u65BC\u56B4\u683C\uFF0C\u65BC\u662F\u4EC0\u9EBC\u90FD\u7121\u6CD5\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u75C7\u72C0\u662F\u672A\u5C31\u7DD2\u7684\u5DE5\u4F5C\u9032\u5165\uFF0C\u9019\u6307\u5411 DoR\uFF0C\u800C\u975E\u56B4\u683C\u7684 DoD\u3002"
+              },
+              {
+                "text": "\u5404\u6545\u4E8B\u9593\u7684\u9A57\u6536\u6E96\u5247\u904E\u65BC\u901A\u7528",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u5728\u65BC\u672A\u5C31\u7DD2\u5730\u9032\u5165\uFF0C\u9019\u662F DoR \u8584\u5F31\uFF0C\u800C\u975E\u901A\u7528\u7684 AC\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u554F\u984C\uFF1B\u5728\u885D\u523A\u9014\u4E2D\u91D0\u6E05\u7BC4\u570D\u662F\u7406\u60F3\u7684",
+                "fraction": 0,
+                "feedback": "\u4E0D\u65B7\u5728\u885D\u523A\u9014\u4E2D\u91D0\u6E05\u662F\u6298\u9A30\uFF0C\u986F\u793A DoR \u653E\u9032\u4E86\u672A\u5C31\u7DD2\u7684\u5DE5\u4F5C\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E0D\u6E05\u695A\u3001\u88AB\u4F9D\u8CF4\u963B\u64CB\u7684\u6545\u4E8B\u672C\u4E0D\u8A72\u901A\u904E\u5165\u53E3\u95DC\u5361\u3002\u4E00\u65E6\u901A\u904E\uFF0C\u5718\u968A\u4FBF\u5728\u885D\u523A\u9014\u4E2D\u767C\u73FE\u7F3A\u6F0F\u4E26\u6298\u9A30\u3002\u5BEC\u9B06\u7684 DoR \u662F\u4E3B\u56E0\uFF1B\u6536\u7DCA\u5B83\u53EF\u9632\u6B62\u672A\u5C31\u7DD2\u7684\u5DE5\u4F5C\u9032\u5165\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u689D\u6E96\u5247\u5C6C\u65BC\u767C\u5E03\u5C64\u7D1A DoD",
+            "text": "<p>\u5728<strong>\u5206\u5C64</strong>\u7684\u5B8C\u6210\u7684\u5B9A\u7FA9\u4E2D\uFF0C\u54EA\u689D\u6E96\u5247\u6700\u81EA\u7136\u5730\u5C6C\u65BC<strong>\u767C\u5E03\u5C64\u7D1A</strong>\uFF0C\u800C\u975E\u6BCF\u500B\u6545\u4E8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B8C\u6574\u56DE\u6B78\u6E2C\u8A66\u3001\u6548\u80FD\u8207\u5B89\u5168\u6AA2\u67E5\u901A\u904E\uFF0C\u4E14\u767C\u5E03\u8AAA\u660E\u5DF2\u5099\u59A5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8DE8\u5207\u9762\u7684\u56DE\u6B78\u3001\u6548\u80FD\u3001\u5B89\u5168\u8207\u767C\u5E03\u8AAA\u660E\u5C6C\u65BC\u767C\u5E03\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u9019\u500B\u6545\u4E8B\u7684\u7A0B\u5F0F\u78BC\u5DF2\u7D93\u904E\u540C\u5115\u5BE9\u67E5",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u6545\u4E8B\u7684\u540C\u5115\u5BE9\u67E5\u662F\u6545\u4E8B\u5C64\u7D1A\u7684 DoD \u9805\u76EE\u3002"
+              },
+              {
+                "text": "\u9019\u500B\u6545\u4E8B\u7684\u55AE\u5143\u6E2C\u8A66\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u9019\u500B\u6545\u4E8B\u7684\u55AE\u5143\u6E2C\u8A66\u901A\u904E\u5C6C\u65BC\u6545\u4E8B\u5C64\u7D1A\u9805\u76EE\u3002"
+              },
+              {
+                "text": "\u9019\u500B\u6545\u4E8B\u6EFF\u8DB3\u5B83\u81EA\u5DF1\u7684\u9A57\u6536\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u6EFF\u8DB3\u55AE\u4E00\u6545\u4E8B\u7684 AC \u662F\u6545\u4E8B\u5C64\u7D1A\uFF0C\u800C\u975E\u767C\u5E03\u5C64\u7D1A\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u5C64\u7684 DoD \u6709\u6545\u4E8B\u3001\u885D\u523A\uFF0F\u589E\u91CF\u3001\u767C\u5E03\u4E09\u500B\u5C64\u7D1A\u3002\u53EA\u5C0D\u6574\u500B\u7522\u54C1\u624D\u6709\u610F\u7FA9\u7684\u8DE8\u5207\u9762\u95DC\u6CE8\u2014\u2014\u5B8C\u6574\u56DE\u6B78\u3001\u6548\u80FD\u8207\u5B89\u5168\u6E2C\u8A66\u3001\u767C\u5E03\u8AAA\u660E\u8207\u7C3D\u6838\u2014\u2014\u5C6C\u65BC\u767C\u5E03\u5C64\u7D1A\uFF0C\u800C\u975E\u6BCF\u500B\u7368\u7ACB\u6545\u4E8B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u689D\u6E96\u5247\u5C6C\u65BC\u6545\u4E8B\u5C64\u7D1A DoD",
+            "text": "<p>\u5728\u5206\u5C64\u7684\u5B8C\u6210\u7684\u5B9A\u7FA9\u4E2D\uFF0C\u54EA\u689D\u6E96\u5247\u6700\u81EA\u7136\u5730\u5C6C\u65BC<strong>\u6545\u4E8B\u5C64\u7D1A</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u6545\u4E8B\u7684\u7A0B\u5F0F\u78BC\u5DF2\u5BE9\u67E5\u3001\u5176\u55AE\u5143\u6E2C\u8A66\u901A\u904E\u3001\u4E14\u5B83\u6EFF\u8DB3\u81EA\u5DF1\u7684\u9A57\u6536\u6E96\u5247",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BE9\u67E5\u3001\u55AE\u5143\u6E2C\u8A66\u8207\u6EFF\u8DB3 AC \u90FD\u662F\u6BCF\u6545\u4E8B\u7684\u5B8C\u6210\u9805\u76EE\u3002"
+              },
+              {
+                "text": "\u6574\u500B\u7522\u54C1\u7684\u56DE\u6B78\u6E2C\u8A66\u5957\u4EF6\u5DF2\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u5168\u7522\u54C1\u56DE\u6B78\u662F\u767C\u5E03\u5C64\u7D1A\u95DC\u6CE8\uFF0C\u800C\u975E\u6545\u4E8B\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u53D6\u5F97\u8A72\u767C\u5E03\u6B63\u5F0F\u7684\u6548\u80FD\u8207\u5B89\u5168\u7C3D\u6838",
+                "fraction": 0,
+                "feedback": "\u767C\u5E03\u7C3D\u6838\u662F\u767C\u5E03\u5C64\u7D1A\uFF0C\u800C\u975E\u6545\u4E8B\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u884C\u92B7\u7528\u7684\u767C\u5E03\u8AAA\u660E\u5DF2\u6838\u51C6",
+                "fraction": 0,
+                "feedback": "\u767C\u5E03\u8AAA\u660E\u662F\u767C\u5E03\u5C64\u7D1A\u9805\u76EE\u3002"
+              }
+            ],
+            "generalFeedback": "\u6545\u4E8B\u5C64\u7D1A\u7684 DoD \u6DB5\u84CB\u55AE\u4E00\u6545\u4E8B\u5B8C\u6210\u6240\u9700\uFF1A\u7A0B\u5F0F\u78BC\u5DF2\u5BE9\u67E5\u3001\u5176\u55AE\u5143\u8207\u9A57\u6536\u6E2C\u8A66\u901A\u904E\u3001\u5176\u9A57\u6536\u6E96\u5247\u5DF2\u6EFF\u8DB3\u4E14\u7121\u5DF2\u77E5\u91CD\u5927\u7F3A\u9677\u3002\u66F4\u5EE3\u7684\u95DC\u6CE8\u5247\u5347\u7D1A\u5230\u885D\u523A\uFF0F\u589E\u91CF\u5C64\u7D1A\u8207\u767C\u5E03\u5C64\u7D1A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u672A\u6E2C\u8A66\u7684\u6545\u4E8B\u4E0D\u7B97\u5B8C\u6210",
+            "text": "<p>\u67D0\u958B\u767C\u8005\u8AAA\u4E00\u9805\u529F\u80FD\u300C\u5728\u6211\u7684\u6A5F\u5668\u4E0A\u80FD\u8DD1\u2014\u2014\u57FA\u672C\u4E0A\u7B97\u5B8C\u6210\u4E86\uFF0C\u53EA\u662F\u9084\u6C92\u6E2C\u8A66\u300D\u3002\u70BA\u4EC0\u9EBC\u5B83<strong>\u4E0D</strong>\u7B97\u5B8C\u6210\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u672A\u6E2C\u8A66\u3001\u672A\u9A57\u8B49\u7684\u5DE5\u4F5C\u54C1\u8CEA\u672A\u77E5\uFF0C\u7A31\u5B83\u70BA\u5B8C\u6210\u7B49\u65BC\u96B1\u85CF\u4E86\u98A8\u96AA\u8207\u5269\u9918\u7684\u5DE5\u4F5C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u6E2C\u8A66\u8207\u5BE9\u67E5\uFF0C\u54C1\u8CEA\u672A\u77E5\uFF0C\u300C\u5B8C\u6210\u300D\u662F\u500B\u4E0D\u5BE6\u7684\u5BA3\u7A31\u3002"
+              },
+              {
+                "text": "\u5B83\u7B97\u5B8C\u6210\uFF1B\u5728\u958B\u767C\u8005\u6A5F\u5668\u4E0A\u80FD\u8DD1\u5C31\u6EFF\u8DB3\u4E86 DoD",
+                "fraction": 0,
+                "feedback": "\u300C\u5728\u6211\u7684\u6A5F\u5668\u4E0A\u80FD\u8DD1\u300D\u4E0D\u662F DoD\uFF1B\u5B83\u5C0D\u5225\u4EBA\u4EC0\u9EBC\u90FD\u6C92\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u53EA\u8981\u7A0B\u5F0F\u78BC\u80FD\u7DE8\u8B6F\uFF0C\u5B83\u5C31\u7B97\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u80FD\u7DE8\u8B6F\u4E0D\u662F DoD\uFF1B\u4ECD\u9700\u6E2C\u8A66\u3001\u5BE9\u67E5\u8207\u6574\u5408\u3002"
+              },
+              {
+                "text": "\u7121\u6CD5\u5224\u65B7\uFF0C\u56E0\u70BA DoD \u4E0D\u6DB5\u84CB\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4E00\u4EFD\u9069\u7576\u7684 DoD \u660E\u78BA\u5305\u542B\u6E2C\u8A66\uFF0C\u800C\u9019\u9805\u5DE5\u4F5C\u5C1A\u672A\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u5728\u6211\u7684\u6A5F\u5668\u4E0A\u80FD\u8DD1\u300D\u8207\u300C90% \u5B8C\u6210\u300D\u90FD\u63A9\u98FE\u4E86\u672A\u7D93\u9A57\u8B49\u7684\u5DE5\u4F5C\u3002\u5728\u5B83\u88AB\u6E2C\u8A66\u3001\u5BE9\u67E5\u4E26\u6574\u5408\u4E4B\u524D\uFF0C\u5176\u771F\u6B63\u54C1\u8CEA\u8207\u5269\u9918\u5DE5\u4F5C\u91CF\u90FD\u672A\u77E5\u3002\u4E00\u4EFD\u5305\u542B\u6E2C\u8A66\u7684 DoD \u5B58\u5728\u7684\u610F\u7FA9\uFF0C\u6B63\u662F\u963B\u6B62\u9019\u985E\u5DE5\u4F5C\u88AB\u7B97\u4F5C\u5B8C\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "DoR \u904E\u65BC\u56B4\u683C\u8B8A\u6210\u8FF7\u4F60\u7011\u5E03",
+            "text": "<p>\u67D0\u5718\u968A\u628A DoR \u8A02\u5F97\u6975\u70BA\u82DB\u523B\uFF0C\u8981\u6C42\u6BCF\u500B\u6545\u4E8B\u5728\u9032\u5165\u885D\u523A\u524D\u90FD\u5FC5\u9808\u6709\u5B8C\u6574\u7684\u524D\u671F\u8A2D\u8A08\u8207\u5B8C\u6574\u898F\u683C\u3002\u98A8\u96AA\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u6703\u6F02\u5411\u8FF7\u4F60\u7011\u5E03\u8207\u5206\u6790\u7671\u7613\uFF0C\u5728\u4EFB\u4F55\u64B0\u5BEB\u7A0B\u5F0F\u4E4B\u524D\u5C31\u524D\u7F6E\u4E86\u6C89\u91CD\u7684\u8A2D\u8A08",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u904E\u65BC\u56B4\u683C\u7684 DoR \u91CD\u73FE\u4E86\u5927\u91CF\u524D\u671F\u5206\u6790\uFF0C\u8207\u654F\u6377\u80CC\u9053\u800C\u99B3\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u5C07\u7E3D\u662F\u592A\u6A21\u7CCA\u800C\u7121\u6CD5\u958B\u59CB",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F DoR \u904E\u65BC\u5BEC\u9B06\u7684\u98A8\u96AA\uFF0C\u800C\u975E\u904E\u65BC\u56B4\u683C\u3002"
+              },
+              {
+                "text": "DoD \u5C07\u8B8A\u5F97\u4E0D\u53EF\u80FD\u6EFF\u8DB3",
+                "fraction": 0,
+                "feedback": "\u904E\u65BC\u56B4\u683C\u7684 DoR \u5F71\u97FF\u5165\u53E3\uFF0C\u800C\u975E\u5B8C\u6210\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E96\u5247\u8B8A\u5F97\u6C92\u6709\u5FC5\u8981",
+                "fraction": 0,
+                "feedback": "\u904E\u65BC\u56B4\u683C\u7684 DoR \u4E26\u4E0D\u6703\u6D88\u9664\u5C0D\u9A57\u6536\u6E96\u5247\u7684\u9700\u8981\u3002"
+              }
+            ],
+            "generalFeedback": "DoR \u61C9\u78BA\u4FDD\u6709\u8DB3\u5920\u7684\u6E05\u6670\u5EA6\u53EF\u4EE5\u958B\u59CB\uFF0C\u800C\u4E0D\u662F\u8981\u6C42\u5B8C\u6574\u7684\u524D\u671F\u8A2D\u8A08\u3002\u63A8\u5F97\u592A\u904E\uFF0C\u5B83\u5C31\u91CD\u73FE\u4E86\u7011\u5E03\uFF1A\u5728\u4EFB\u4F55\u7A0B\u5F0F\u78BC\u4E4B\u524D\u9032\u884C\u6C89\u91CD\u7684\u5206\u6790\u8207\u898F\u683C\uFF0C\u9020\u6210\u5206\u6790\u7671\u7613\u8207\u5EF6\u8AA4\u3002\u5E73\u8861\u9EDE\u662F\u300C\u5C31\u7DD2\u5230\u8DB3\u4EE5\u958B\u59CB\u300D\uFF0C\u800C\u975E\u300C\u5B8C\u6574\u8A2D\u8A08\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5E73\u8861\u904E\u65BC\u5BEC\u9B06\u7684 DoR",
+            "text": "<p>\u904E\u65BC<strong>\u5BEC\u9B06</strong>\u7684 DoR \u9020\u6210\u6298\u9A30\uFF0C\u904E\u65BC<strong>\u56B4\u683C</strong>\u7684 DoR \u9020\u6210\u5206\u6790\u7671\u7613\u3002\u5065\u5EB7\u7684\u5E73\u8861\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8981\u6C42\u525B\u597D\u8DB3\u5920\u7684\u6E05\u6670\u5EA6\u3001\u5927\u5C0F\u8207\u53EF\u6E2C\u8A66\u6E96\u5247\u4EE5\u6709\u4FE1\u5FC3\u5730\u958B\u59CB\uFF0C\u4E26\u5728\u5DE5\u4F5C\u9032\u884C\u4E2D\u518D\u7CBE\u4FEE\u7D30\u7BC0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u300C\u5C31\u7DD2\u5230\u8DB3\u4EE5\u958B\u59CB\u300D\u65E2\u907F\u514D\u6298\u9A30\u4E5F\u907F\u514D\u7671\u7613\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u79FB\u9664 DoR\uFF0C\u8B93\u6C92\u6709\u4EFB\u4F55\u6771\u897F\u963B\u64CB\u958B\u59CB\u5DE5\u4F5C",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u5B83\u6703\u56DE\u5230\u672A\u5C31\u7DD2\u5DE5\u4F5C\u9020\u6210\u7684\u6298\u9A30\u3002"
+              },
+              {
+                "text": "\u8981\u6C42\u6BCF\u500B\u6545\u4E8B\u90FD\u6709\u5B8C\u6574\u3001\u51CD\u7D50\u7684\u898F\u683C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9020\u6210\u5206\u6790\u7671\u7613\u7684\u904E\u65BC\u56B4\u683C\u7684\u6975\u7AEF\u3002"
+              },
+              {
+                "text": "\u8B93\u6BCF\u4F4D\u958B\u767C\u8005\u79C1\u4E0B\u9010\u4E00\u5224\u65B7\u6BCF\u500B\u6545\u4E8B\u7684\u5C31\u7DD2",
+                "fraction": 0,
+                "feedback": "DoR \u662F\u5171\u540C\u7684\u5718\u968A\u5354\u8B70\uFF0C\u800C\u975E\u79C1\u4E0B\u7684\u500B\u4EBA\u5224\u65B7\u3002"
+              }
+            ],
+            "generalFeedback": "DoR \u61C9\u4FDD\u8B49\u6545\u4E8B\u5DF2\u88AB\u7406\u89E3\u3001\u5DF2\u5B9A\u51FA\u5927\u5C0F\u3001\u4E14\u6709\u53EF\u6E2C\u8A66\u7684\u9A57\u6536\u6E96\u5247\u8207\u5DF2\u89E3\u6C7A\u7684\u4F9D\u8CF4\u2014\u2014\u8DB3\u4EE5\u6709\u4FE1\u5FC3\u5730\u958B\u59CB\u2014\u2014\u540C\u6642\u4FDD\u7559\u5728\u885D\u523A\u4E2D\u7CBE\u4FEE\u7D30\u7BC0\u7684\u7A7A\u9593\u3002\u592A\u5BEC\u9B06\u9020\u6210\u885D\u523A\u9014\u4E2D\u6298\u9A30\uFF1B\u592A\u56B4\u683C\u5247\u91CD\u73FE\u7011\u5E03\u5F0F\u5206\u6790\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u7279\u5B9A\u884C\u70BA\u8207\u901A\u7528\u6A19\u6E96",
+            "text": "<p>\u300C\u8A72 API \u5C0D\u672A\u77E5 id <strong>\u56DE\u50B3 404</strong>\u300D\u76F8\u5C0D\u65BC\u300C<strong>\u6240\u6709\u65B0\u7A0B\u5F0F\u78BC\u90FD\u6709\u81EA\u52D5\u5316\u6E2C\u8A66\u8986\u84CB</strong>\u300D\u3002\u9019\u5169\u8005\u5982\u4F55\u6B78\u985E\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56DE\u50B3 404 \u7684\u884C\u70BA\u662F\u6BCF\u6545\u4E8B\u7684\u9A57\u6536\u6E96\u5247\uFF1B\u6E2C\u8A66\u8986\u84CB\u898F\u5247\u662F\u901A\u7528\u7684 DoD \u9805\u76EE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7279\u5B9A\u884C\u70BA\u662F AC\uFF1B\u5168\u9762\u7684\u54C1\u8CEA\u898F\u5247\u662F DoD\u3002"
+              },
+              {
+                "text": "\u56DE\u50B3 404 \u7684\u884C\u70BA\u662F DoD \u9805\u76EE\uFF1B\u6E2C\u8A66\u8986\u84CB\u898F\u5247\u662F\u9A57\u6536\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u8AAA\u53CD\u4E86\uFF1A\u7279\u5B9A\u884C\u70BA\u662F AC\uFF0C\u5168\u9762\u898F\u5247\u662F DoD\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u8A72\u55AE\u4E00\u6545\u4E8B\u7684\u9A57\u6536\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u8986\u84CB\u898F\u5247\u5957\u7528\u5230\u6BCF\u500B\u6545\u4E8B\uFF0C\u56E0\u6B64\u662F\u901A\u7528 DoD\uFF0C\u800C\u975E AC\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u901A\u7528\u7684 DoD \u9805\u76EE",
+                "fraction": 0,
+                "feedback": "\u5C0D\u672A\u77E5 id \u56DE\u50B3 404 \u5C08\u5C6C\u65BC\u9019\u500B\u6545\u4E8B\uFF0C\u56E0\u6B64\u662F AC\u3002"
+              }
+            ],
+            "generalFeedback": "\u63CF\u8FF0\u9019\u500B\u6545\u4E8B\u5177\u9AD4\u5FC5\u9808\u505A\u5230\u4EC0\u9EBC\u7684\u9673\u8FF0\uFF08\u5C0D\u672A\u77E5 id \u56DE\u50B3 404\uFF09\u662F\u9A57\u6536\u6E96\u5247\u3002\u5957\u7528\u5230\u6BCF\u500B\u6545\u4E8B\u7684\u5168\u9762\u54C1\u8CEA\u898F\u5247\uFF08\u6240\u6709\u65B0\u7A0B\u5F0F\u78BC\u90FD\u6709\u6E2C\u8A66\u8986\u84CB\uFF09\u662F\u901A\u7528\u7684 DoD \u9805\u76EE\u3002\u5206\u8FA8\u7279\u5B9A\u8207\u901A\u7528\uFF0C\u662F\u6B78\u985E\u5B83\u5011\u7684\u95DC\u9375\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\u88AB\u7E5E\u904E\u7684 DoD \u9020\u6210\u7684\u6F0F\u51FA\u7F3A\u9677",
+            "text": "<p>\u67D0\u5718\u968A\u7684\u901F\u5EA6\u770B\u8D77\u4F86\u5F88\u9AD8\uFF0C\u4F46\u6F0F\u5230\u6B63\u5F0F\u74B0\u5883\u7684\u7F3A\u9677\u6301\u7E8C\u6500\u5347\uFF0C\u800C\u6545\u4E8B\u5728\u672A\u7D93\u7A0B\u5F0F\u78BC\u5BE9\u67E5\u7684\u60C5\u6CC1\u4E0B\u5C31\u88AB\u6A19\u8A18\u70BA\u5B8C\u6210\u3002\u54EA\u500B\u95DC\u5361\u88AB\u9055\u53CD\u4E86\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u2014\u2014\u5DE5\u4F5C\u5728\u672A\u6EFF\u8DB3\u5BE9\u67E5\u8207\u6E2C\u8A66\u6E96\u5247\u7684\u60C5\u6CC1\u4E0B\u5C31\u88AB\u7A31\u4F5C\u5B8C\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8DF3\u904E\u5BE9\u67E5\u8207\u6E2C\u8A66\u537B\u6A19\u8A18\u5B8C\u6210\uFF0C\u662F\u9055\u53CD DoD\u3002"
+              },
+              {
+                "text": "\u5C31\u7DD2\u7684\u5B9A\u7FA9\u2014\u2014\u9019\u4E9B\u6545\u4E8B\u4E00\u958B\u59CB\u5C31\u4E0D\u6E05\u695A",
+                "fraction": 0,
+                "feedback": "\u75C7\u72C0\u662F\u672A\u9054\u54C1\u8CEA\u5373\u5B8C\u6210\uFF0C\u9019\u6307\u5411 DoD\uFF0C\u800C\u975E DoR\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E96\u5247\u2014\u2014\u5B83\u5011\u592A\u904E\u5177\u9AD4",
+                "fraction": 0,
+                "feedback": "\u8DF3\u904E\u5BE9\u67E5\u9020\u6210\u7684\u6F0F\u51FA\u7F3A\u9677\u6307\u5411 DoD\uFF0C\u800C\u975E\u904E\u65BC\u5177\u9AD4\u7684 AC\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u95DC\u5361\u2014\u2014\u9AD8\u901F\u5EA6\u8B49\u660E\u6D41\u7A0B\u5F88\u5065\u5EB7",
+                "fraction": 0,
+                "feedback": "\u9AD8\u901F\u5EA6\u4F34\u96A8\u6500\u5347\u7684\u6F0F\u51FA\u7F3A\u9677\uFF0C\u6B63\u986F\u793A DoD \u88AB\u7E5E\u904E\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u672A\u5BE9\u67E5\u3001\u672A\u6E2C\u8A66\u7684\u60C5\u6CC1\u4E0B\u6A19\u8A18\u5B8C\u6210\uFF0C\u6703\u81A8\u8139\u901F\u5EA6\uFF0C\u540C\u6642\u8B93\u7F3A\u9677\u6F0F\u5230\u6B63\u5F0F\u74B0\u5883\u3002\u90A3\u662F\u88AB\u7E5E\u904E\u7684\u51FA\u53E3\u95DC\u5361\uFF1ADoD \u88AB\u9055\u53CD\u4E86\u3002\u843D\u5BE6 DoD \u80FD\u8B93\u300C\u5B8C\u6210\u300D\u91CD\u65B0\u5C0D\u9F4A\u5230\u771F\u6B63\u3001\u5DF2\u9A57\u8B49\u7684\u5B8C\u6574\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\u7F3A\u5C11\u7684 DoR",
+            "text": "<p>\u6545\u4E8B\u4E0D\u65B7\u5728\u6C92\u6709\u4F30\u7B97\u3001\u6C92\u6709\u9A57\u6536\u6E96\u5247\u7684\u60C5\u6CC1\u4E0B\u9032\u5165\u885D\u523A\uFF0C\u63A5\u8457\u7BC4\u570D\u66B4\u589E\u4E26\u5361\u4F4F\u3002\u54EA\u500B\u95DC\u5361\u7F3A\u5C11\u6216\u88AB\u9055\u53CD\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C31\u7DD2\u7684\u5B9A\u7FA9\u2014\u2014\u672A\u5C31\u7DD2\u7684\u9805\u76EE\u6B63\u88AB\u62C9\u9032\u885D\u523A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u672A\u4F30\u7B97\u3001\u7121\u6E96\u5247\u7684\u9805\u76EE\u9032\u5165\u885D\u523A\uFF0C\u662F DoR \u5931\u6548\u3002"
+              },
+              {
+                "text": "\u5B8C\u6210\u7684\u5B9A\u7FA9\u2014\u2014\u5B8C\u6210\u7684\u5DE5\u4F5C\u7F3A\u4E4F\u54C1\u8CEA",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u51FA\u5728\u5165\u53E3\uFF08\u672A\u5C31\u7DD2\u9805\u76EE\uFF09\uFF0C\u662F DoR \u5931\u6548\uFF0C\u800C\u975E DoD\u3002"
+              },
+              {
+                "text": "\u767C\u5E03\u5C64\u7D1A\u7684\u6AA2\u67E5\u6E05\u55AE\u2014\u2014\u7F3A\u5C11\u767C\u5E03\u8AAA\u660E",
+                "fraction": 0,
+                "feedback": "\u75C7\u72C0\u662F\u672A\u5C31\u7DD2\u5730\u9032\u5165\uFF0C\u800C\u975E\u767C\u5E03\u6587\u4EF6\u7F3A\u53E3\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F\u2014\u2014\u7BC4\u570D\u66B4\u589E\u7121\u53EF\u907F\u514D",
+                "fraction": 0,
+                "feedback": "\u4E00\u4EFD\u8981\u6C42\u4F30\u7B97\u8207\u6E05\u695A AC \u7684 DoR \u672C\u6703\u5728\u5165\u53E3\u6514\u4E0B\u9019\u4E9B\u9805\u76EE\u3002"
+              }
+            ],
+            "generalFeedback": "\u7F3A\u5C11\u4F30\u7B97\u8207\u9A57\u6536\u6E96\u5247\u7684\u9805\u76EE\u672C\u4E0D\u8A72\u901A\u904E\u5165\u53E3\u95DC\u5361\u3002\u65E2\u7136\u901A\u904E\u4E86\uFF0C\u7BC4\u570D\u5C31\u5728\u885D\u523A\u9014\u4E2D\u624D\u88AB\u767C\u73FE\uFF0C\u5DE5\u4F5C\u56E0\u800C\u5361\u4F4F\u3002\u9019\u662F\u7F3A\u5C11\u6216\u88AB\u5FFD\u7565\u7684 DoR\uFF1B\u5728\u5165\u53E3\u843D\u5BE6\u5C31\u7DD2\u53EF\u9632\u6B62\u5B83\u767C\u751F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u767C\u5E03\u5C64\u7D1A DoD \u984D\u5916\u52A0\u5165\u4EC0\u9EBC",
+            "text": "<p>\u5728\u6545\u4E8B\u5C64\u7D1A\u7684 DoD \u4E4B\u4E0A\uFF0C<strong>\u767C\u5E03\u5C64\u7D1A</strong>\u7684 DoD \u901A\u5E38\u984D\u5916\u52A0\u5165\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8DE8\u5207\u9762\u6AA2\u67E5\uFF0C\u4F8B\u5982\u5B8C\u6574\u56DE\u6B78\u3001\u6548\u80FD\u3001\u5B89\u5168\u3001\u767C\u5E03\u8AAA\u660E\u8207\u7C3D\u6838",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u767C\u5E03\u5C64\u7D1A\u52A0\u5165\u8D85\u51FA\u55AE\u4E00\u6545\u4E8B\u7684\u5168\u7522\u54C1\u95DC\u6CE8\u3002"
+              },
+              {
+                "text": "\u4EC0\u9EBC\u90FD\u6C92\u52A0\u2014\u2014\u5B83\u8207\u6545\u4E8B\u5C64\u7D1A\u7684 DoD \u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u767C\u5E03\u5C64\u7D1A\u52A0\u5165\u4E86\u6545\u4E8B\u5C64\u7D1A\u7121\u6CD5\u6DB5\u84CB\u7684\u5168\u7522\u54C1\u95DC\u6CE8\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u8A72\u767C\u5E03\u4E2D\u6700\u5F8C\u4E00\u500B\u6545\u4E8B\u7684\u9A57\u6536\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u767C\u5E03\u5C64\u7D1A DoD \u95DC\u4E4E\u8DE8\u5207\u9762\u54C1\u8CEA\uFF0C\u800C\u975E\u67D0\u500B\u6545\u4E8B\u7684 AC\u3002"
+              },
+              {
+                "text": "\u653E\u5BEC\u6545\u4E8B\u5C64\u7D1A\u898F\u5247\u4EE5\u52A0\u901F\u51FA\u8CA8",
+                "fraction": 0,
+                "feedback": "\u767C\u5E03\u5C64\u7D1A\u52A0\u5165\u66F4\u56B4\u7684\u8DE8\u5207\u9762\u6AA2\u67E5\uFF0C\u4E26\u4E0D\u653E\u5BEC\u6545\u4E8B\u6A19\u6E96\u3002"
+              }
+            ],
+            "generalFeedback": "\u6709\u4E9B\u54C1\u8CEA\u95DC\u6CE8\u53EA\u6709\u5C0D\u6574\u500B\u7522\u54C1\u5728\u767C\u5E03\u6642\u624D\u6709\u610F\u7FA9\uFF1A\u8DE8\u529F\u80FD\u7684\u5B8C\u6574\u56DE\u6B78\u3001\u6548\u80FD\u8207\u5B89\u5168\u9A57\u8B49\u3001\u6587\u4EF6\u8207\u767C\u5E03\u8AAA\u660E\u3001\u4EE5\u53CA\u6B63\u5F0F\u7C3D\u6838\u3002\u5206\u5C64\u7684 DoD \u628A\u9019\u4E9B\u653E\u5728\u767C\u5E03\u5C64\u7D1A\uFF0C\u758A\u52A0\u5728\u6545\u4E8B\u5C64\u7D1A\u8207\u885D\u523A\uFF0F\u589E\u91CF\u5C64\u7D1A\u7684\u6E96\u5247\u4E4B\u4E0A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u885D\u523A\uFF0F\u589E\u91CF\u5C64\u7D1A DoD",
+            "text": "<p>\u5728\u5206\u5C64 DoD \u4E2D\uFF0C\u54EA\u9805\u95DC\u6CE8\u6700\u9069\u5408\u653E\u5728<strong>\u885D\u523A\uFF0F\u589E\u91CF\u5C64\u7D1A</strong>\uFF0C\u4ECB\u65BC\u6545\u4E8B\u8207\u767C\u5E03\u5C64\u7D1A\u4E4B\u9593\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5404\u6545\u4E8B\u5408\u4F75\u6210\u4E00\u500B\u5DF2\u6574\u5408\u3001\u53EF\u5C55\u793A\u3001\u4E26\u90E8\u7F72\u5230\u6E2C\u8A66\u74B0\u5883\u7684\u589E\u91CF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u5404\u6545\u4E8B\u6574\u5408\u6210\u53EF\u51FA\u8CA8\u7684\u589E\u91CF\u662F\u589E\u91CF\u5C64\u7D1A\u95DC\u6CE8\u3002"
+              },
+              {
+                "text": "\u9019\u500B\u55AE\u4E00\u6545\u4E8B\u7684\u55AE\u5143\u6E2C\u8A66\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u6545\u4E8B\u7684\u55AE\u5143\u6E2C\u8A66\u662F\u6545\u4E8B\u5C64\u7D1A\u9805\u76EE\u3002"
+              },
+              {
+                "text": "\u516C\u958B\u767C\u5E03\u7684\u6B63\u5F0F\u5916\u90E8\u5B89\u5168\u7C3D\u6838",
+                "fraction": 0,
+                "feedback": "\u5916\u90E8\u767C\u5E03\u7C3D\u6838\u662F\u767C\u5E03\u5C64\u7D1A\u95DC\u6CE8\u3002"
+              },
+              {
+                "text": "\u67D0\u500B\u6545\u4E8B\u9A57\u6536\u6E96\u5247\u7684\u63AA\u8FAD",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B AC \u7684\u63AA\u8FAD\u662F\u6545\u4E8B\u5C64\u7D1A\u7D30\u7BC0\uFF0C\u800C\u975E\u589E\u91CF\u5C64\u7D1A\u95DC\u6CE8\u3002"
+              }
+            ],
+            "generalFeedback": "\u4ECB\u65BC\u6545\u4E8B\u8207\u767C\u5E03\u4E4B\u9593\u7684\u662F\u589E\u91CF\u5C64\u7D1A\uFF1A\u5404\u81EA\u5DF2\u5B8C\u6210\u7684\u6545\u4E8B\u5FC5\u9808\u6574\u5408\u6210\u4E00\u500B\u9023\u8CAB\u3001\u53EF\u5C55\u793A\u7684\u589E\u91CF\uFF0C\u901A\u5E38\u5EFA\u7F6E\u4E26\u90E8\u7F72\u5230\u6E2C\u8A66\u74B0\u5883\u3002\u6BCF\u6545\u4E8B\u7684\u6AA2\u67E5\u7559\u5728\u6545\u4E8B\u5C64\u7D1A\uFF1B\u5168\u7522\u54C1\u7684\u628A\u95DC\u7559\u5728\u767C\u5E03\u5C64\u7D1A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u50C5\u6709 AC \u7121\u6CD5\u5BA3\u544A\u5B8C\u6210",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u4E00\u500B\u6545\u4E8B\u7684\u9A57\u6536\u6E96\u5247\uFF0C\u55AE\u6191\u5B83\u5011\u81EA\u5DF1\uFF0C<strong>\u4E0D\u8DB3\u4EE5</strong>\u5BA3\u544A\u5B83\u5B8C\u6210\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5011\u78BA\u8A8D\u6545\u4E8B\u505A\u5C0D\u4E86\u4E8B\uFF0C\u537B\u4E0D\u78BA\u8A8D\u5B83\u662F\u4F9D\u5171\u540C\u7684\u54C1\u8CEA\u6A19\u6E96\u5EFA\u7F6E\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014AC \u6DB5\u84CB\u884C\u70BA\u7684\u6B63\u78BA\u6027\uFF0C\u4E0D\u6DB5\u84CB\u5BE9\u67E5\u3001\u6E2C\u8A66\u8207\u6574\u5408\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9A57\u6536\u6E96\u5247\u5F9E\u4F86\u90FD\u4E0D\u53EF\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u597D\u7684\u9A57\u6536\u6E96\u5247\u662F\u53EF\u6E2C\u8A66\u7684\uFF1B\u7F3A\u53E3\u5728\u65BC\u5B83\u5011\u4E0D\u6DB5\u84CB\u901A\u7528\u7684 DoD\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9A57\u6536\u6E96\u5247\u8207 DoD \u662F\u540C\u4E00\u4EF6\u4E8B",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E0D\u540C\uFF1AAC \u662F\u6BCF\u6545\u4E8B\u7684\uFF0CDoD \u662F\u901A\u7528\u7684\u54C1\u8CEA\u6A19\u6E96\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA DoD \u53D6\u4EE3\u4E86\u5C0D\u9A57\u6536\u6E96\u5247\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "DoD \u4E0D\u53D6\u4EE3 AC\uFF1B\u5B8C\u6210\u9700\u8981\u5169\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u6536\u6E96\u5247\u9A57\u8B49\u6545\u4E8B\u4EA4\u4ED8\u4E86\u88AB\u8981\u6C42\u5B83\u505A\u7684\u7279\u5B9A\u884C\u70BA\uFF0C\u537B\u5C0D\u5B83\u662F\u5426\u5DF2\u5BE9\u67E5\u3001\u5DF2\u6E2C\u8A66\u3001\u5DF2\u6574\u5408\u4E14\u7121\u91CD\u5927\u7F3A\u9677\u96BB\u5B57\u672A\u63D0\u3002\u90A3\u4E9B\u901A\u7528\u7684\u54C1\u8CEA\u95DC\u6CE8\u5B58\u65BC DoD\uFF0C\u56E0\u6B64\u5B8C\u6210\u9700\u8981\u5169\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "DoD \u5982\u4F55\u5C0D\u6297\u300C90% \u5B8C\u6210\u300D",
+            "text": "<p>\u67D0\u5718\u968A\u9023\u7E8C\u6578\u9031\u4E0D\u65B7\u807D\u5230\u300C\u5B83 90% \u5B8C\u6210\u4E86\u300D\u3002\u4E00\u4EFD\u660E\u78BA\u3001\u88AB\u843D\u5BE6\u7684 DoD \u5982\u4F55<strong>\u5C0D\u6297</strong>\u9019\u4EF6\u4E8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u8B93\u300C\u5B8C\u6210\u300D\u8B8A\u5F97\u4E8C\u5143\u4E14\u5BA2\u89C0\uFF0C\u65BC\u662F\u96B1\u85CF\u7684\u5269\u9918\u5DE5\u4F5C\u7121\u6CD5\u88AB\u507D\u88DD\u6210\u5E7E\u4E4E\u5B8C\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E05\u695A\u7684 DoD \u628A\u6A21\u7CCA\u7684\u9032\u5EA6\u5BA3\u7A31\u8B8A\u6210\u901A\u904E\uFF0F\u672A\u901A\u904E\u7684\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u5718\u968A\u628A 90% \u5B8C\u6210\u7684\u5DE5\u4F5C\u7B97\u6210\u5B8C\u5168\u5B8C\u6210\u4EE5\u7DAD\u6301\u58EB\u6C23",
+                "fraction": 0,
+                "feedback": "\u628A\u672A\u5B8C\u6210\u7684\u5DE5\u4F5C\u7B97\u6210\u5B8C\u6210\uFF0C\u6B63\u662F\u771F\u6B63\u7684 DoD \u6240\u7981\u6B62\u7684\u3002"
+              },
+              {
+                "text": "\u5B83\u52A0\u901F\u5BEB\u7A0B\u5F0F\uFF0C\u4F7F\u6C92\u6709\u6771\u897F\u6703\u505C\u5728 90%",
+                "fraction": 0,
+                "feedback": "DoD \u4E0D\u52A0\u901F\u5BEB\u7A0B\u5F0F\uFF1B\u5B83\u63ED\u9732\u96B1\u85CF\u7684\u5269\u9918 10%\u3002"
+              },
+              {
+                "text": "\u5B83\u6D88\u9664\u4E86\u6E2C\u8A66\u6700\u5F8C 10% \u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "DoD \u8981\u6C42\u90A3\u9805\u6E2C\u8A66\uFF0C\u56E0\u6B64\u4E0D\u6703\u6D88\u9664\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C90% \u5B8C\u6210\u300D\u554F\u984C\u85CF\u8D77\u4E86\u672A\u77E5\u3001\u5F80\u5F80\u5F88\u5927\u7684\u5269\u9918\u5DE5\u4F5C\u91CF\u3002\u660E\u78BA\u7684 DoD \u8B93\u5B8C\u6210\u6210\u70BA\u5BA2\u89C0\u3001\u4E8C\u5143\u7684\u6AA2\u67E5\uFF1A\u8981\u561B\u6BCF\u9805\u6E96\u5247\u90FD\u6EFF\u8DB3\uFF0C\u8981\u561B\u6545\u4E8B\u4E0D\u7B97\u5B8C\u6210\u3002\u9019\u6703\u628A\u96B1\u85CF\u7684\u5DE5\u4F5C\u6524\u958B\uFF0C\u800C\u4E0D\u662F\u8B93\u5B83\u8EB2\u5728\u4E00\u500B\u4EE4\u4EBA\u5B89\u5FC3\u7684\u767E\u5206\u6BD4\u5F8C\u9762\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8CA0\u8F09\u4E0B\u6548\u80FD\u5C6C\u65BC\u54EA\u4E00\u5C64",
+            "text": "<p>\u300C\u7CFB\u7D71\u6EFF\u8DB3\u5176<strong>\u8CA0\u8F09\u4E0B\u6548\u80FD SLA</strong>\u3002\u300D\u5728\u5206\u5C64 DoD \u4E2D\uFF0C\u9019\u689D\u6E96\u5247\u6700\u81EA\u7136\u5730\u653E\u5728\u4F55\u8655\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u767C\u5E03\uFF08\u6216\u589E\u91CF\uFF09\u5C64\u7D1A\uFF0C\u4F5C\u70BA\u8DE8\u5207\u9762\u7684\u5168\u7CFB\u7D71\u95DC\u6CE8\u2014\u2014\u800C\u975E\u653E\u5728\u6BCF\u500B\u7368\u7ACB\u6545\u4E8B\u4E0A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5168\u7CFB\u7D71\u6548\u80FD\u5728\u767C\u5E03\uFF0F\u589E\u91CF\u5C64\u7D1A\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u653E\u5728\u6BCF\u4E00\u500B\u6545\u4E8B\u4E0A\uFF0C\u4F5C\u70BA\u6BCF\u6545\u4E8B\u7684\u9A57\u6536\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u5168\u7CFB\u7D71\u8CA0\u8F09\u6548\u80FD\u7121\u6CD5\u5C0D\u6BCF\u500B\u5C0F\u6545\u4E8B\u6709\u610F\u7FA9\u5730\u6AA2\u67E5\uFF1B\u5B83\u662F\u8DE8\u5207\u9762\u7684\u3002"
+              },
+              {
+                "text": "\u653E\u5728 DoR\uFF0C\u4F5C\u70BA\u5C31\u7DD2\u689D\u4EF6",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u662F\u5728\u5EFA\u7F6E\u4E4B\u5F8C\u9A57\u8B49\uFF0C\u800C\u975E\u4F5C\u70BA\u5165\u53E3\u689D\u4EF6\u3002"
+              },
+              {
+                "text": "\u4E0D\u653E\u5728\u4EFB\u4F55\u5730\u65B9\u2014\u2014\u6548\u80FD\u4E0D\u5C6C\u65BC\u4EFB\u4F55 DoD",
+                "fraction": 0,
+                "feedback": "\u7CFB\u7D71\u6548\u80FD\u662F\u6B63\u7576\u7684\u767C\u5E03\u5C64\u7D1A DoD \u95DC\u6CE8\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CA0\u8F09\u4E0B\u6548\u80FD\u662F\u5DF2\u6574\u5408\u7CFB\u7D71\u7684\u5C6C\u6027\uFF0C\u800C\u975E\u67D0\u500B\u5C0F\u6545\u4E8B\u7684\u5C6C\u6027\uFF0C\u56E0\u6B64\u5728\u5206\u5C64 DoD \u7684\u767C\u5E03\u6216\u589E\u91CF\u5C64\u7D1A\u9A57\u8B49\u3002\u628A\u5B83\u9644\u52A0\u5230\u6BCF\u500B\u6545\u4E8B\u65E2\u4E0D\u5207\u5BE6\u969B\u4E5F\u6703\u8AA4\u5C0E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\u8DF3\u904E\u6E2C\u8A66\u9020\u6210\u7684\u7D50\u8F49",
+            "text": "<p>\u6BCF\u500B\u885D\u523A\uFF0C\u5718\u968A\u628A\u7A0B\u5F0F\u78BC\u5BEB\u5B8C\u7684\u6545\u4E8B\u6A19\u8A18\u70BA\u5B8C\u6210\uFF0C\u4E26\u628A\u5176\u6E2C\u8A66\u300C\u5EF6\u5230\u4E0B\u500B\u885D\u523A\u300D\u3002\u7D50\u8F49\u4E0D\u65B7\u589E\u52A0\uFF0C\u4E14\u665A\u671F\u5192\u51FA\u610F\u5916\u3002\u8A3A\u65B7\u8207\u4FEE\u6B63\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "DoD\uFF08\u5FC5\u9808\u5305\u542B\u6E2C\u8A66\uFF09\u6B63\u88AB\u9055\u53CD\uFF1B\u843D\u5BE6\u5B83\uFF0C\u4F7F\u6545\u4E8B\u552F\u6709\u5728\u6E2C\u8A66\u5F8C\u624D\u7B97\u5B8C\u6210\uFF0C\u85C9\u6B64\u6524\u958B\u771F\u6B63\u7684\u5269\u9918\u5DE5\u4F5C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5EF6\u5F8C\u6E2C\u8A66\u537B\u6A19\u8A18\u5B8C\u6210\u9055\u53CD\u4E86 DoD \u4E26\u96B1\u85CF\u5DE5\u4F5C\u3002"
+              },
+              {
+                "text": "DoR \u904E\u65BC\u56B4\u683C\uFF1B\u653E\u5BEC\u5B83\u8B93\u66F4\u591A\u6545\u4E8B\u80FD\u958B\u59CB",
+                "fraction": 0,
+                "feedback": "\u5931\u6548\u767C\u751F\u5728\u5B8C\u6210\u7AEF\uFF08\u6E2C\u8A66\u88AB\u5EF6\u5F8C\uFF09\uFF0C\u56E0\u6B64\u662F DoD \u554F\u984C\uFF0C\u800C\u975E\u56B4\u683C\u7684 DoR\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u554F\u984C\uFF1B\u628A\u6E2C\u8A66\u5EF6\u4E00\u500B\u885D\u523A\u662F\u6A19\u6E96\u505A\u6CD5",
+                "fraction": 0,
+                "feedback": "\u5EF6\u5F8C\u6E2C\u8A66\u537B\u7A31\u5DE5\u4F5C\u5B8C\u6210\u662F\u96B1\u85CF\u7D50\u8F49\u7684\u53CD\u6A21\u5F0F\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E96\u5247\u592A\u904E\u901A\u7528\uFF0C\u61C9\u4E88\u79FB\u9664",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u5728\u65BC\u51FA\u53E3\u95DC\u5361\u8DF3\u904E\u4E86\u6E2C\u8A66\uFF0C\u800C\u975E AC \u7684\u63AA\u8FAD\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u5DE5\u4F5C\u6A19\u8A18\u70BA\u5B8C\u6210\u537B\u5EF6\u5F8C\u5176\u6E2C\u8A66\uFF0C\u9055\u53CD\u4E86\u5305\u542B\u6E2C\u8A66\u7684 DoD\u3002\u5B83\u81A8\u8139\u4E86\u5DF2\u5B8C\u6210\u7684\u8A08\u6578\u3001\u7D2F\u7A4D\u96B1\u85CF\u7684\u6E2C\u8A66\u50B5\uFF0C\u4E26\u8FEB\u4F7F\u7D50\u8F49\u8207\u665A\u671F\u610F\u5916\u3002\u4FEE\u6B63\u4E4B\u9053\u662F\u843D\u5BE6 DoD\uFF0C\u4F7F\u6545\u4E8B\u552F\u6709\u5728\u771F\u6B63\u88AB\u6E2C\u8A66\u5F8C\u624D\u7B97\u5B8C\u6210\uFF0C\u8B93\u771F\u6B63\u7684\u5269\u9918\u5DE5\u4F5C\u73FE\u5728\u5C31\u53EF\u898B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6545\u4E8B\u90FD\u5B8C\u6210\u4F46\u589E\u91CF\u4E0D\u53EF\u51FA\u8CA8",
+            "text": "<p>\u6BCF\u500B\u6545\u4E8B\u90FD\u901A\u904E\u4E86\u5B83\u7684\u6545\u4E8B\u5C64\u7D1A DoD\uFF0C\u4F46\u5408\u4F75\u5F8C\u7684\u589E\u91CF\u537B\u5728\u5B8C\u6574\u56DE\u6B78\u57F7\u884C\u4E2D\u5931\u6557\uFF0C\u7121\u6CD5\u767C\u5E03\u3002\u9019\u63ED\u9732\u4E86\u5718\u968A DoD \u7684\u4EC0\u9EBC\u554F\u984C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5206\u5C64 DoD \u4E0D\u5B8C\u6574\uFF1A\u6545\u4E8B\u5C64\u7D1A\u6AA2\u67E5\u901A\u904E\u4E86\uFF0C\u4F46\u589E\u91CF\uFF0F\u767C\u5E03\u5C64\u7D1A\u7684\u6574\u5408\u8207\u56DE\u6B78\u6E96\u5247\u7F3A\u5C11\u6216\u672A\u88AB\u843D\u5BE6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u901A\u904E\u6545\u4E8B\u5C64\u7D1A\u4E26\u4E0D\u4FDD\u8B49\u6574\u5408\u5F8C\u7684\u589E\u91CF\uFF1B\u9700\u8981\u66F4\u9AD8\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u554F\u984C\u2014\u2014\u82E5\u6BCF\u500B\u6545\u4E8B\u90FD\u5B8C\u6210\uFF0C\u767C\u5E03\u81EA\u7136\u4E5F\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u5404\u81EA\u5B8C\u6210\u7684\u6545\u4E8B\u4ECD\u53EF\u80FD\u5F7C\u6B64\u7834\u58DE\uFF1B\u9019\u6B63\u662F\u9700\u8981\u66F4\u9AD8 DoD \u5C64\u7D1A\u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "DoR \u592A\u5BEC\u9B06\uFF0C\u9019\u4E9B\u6545\u4E8B\u672C\u4E0D\u8A72\u958B\u59CB",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u5DF2\u5C31\u7DD2\u4E14\u5404\u81EA\u5B8C\u6210\uFF1B\u7F3A\u53E3\u5728\u6574\u5408\uFF0F\u767C\u5E03\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "\u9A57\u6536\u6E96\u5247\u5C0D\u6BCF\u500B\u6545\u4E8B\u592A\u904E\u5177\u9AD4",
+                "fraction": 0,
+                "feedback": "\u5177\u9AD4\u7684\u6BCF\u6545\u4E8B AC \u6C92\u554F\u984C\uFF1B\u7F3A\u7684\u662F\u8DE8\u5207\u9762\u7684\u6574\u5408\u8207\u56DE\u6B78\u3002"
+              }
+            ],
+            "generalFeedback": "\u5404\u81EA\u90FD\u5B8C\u6210\u7684\u6545\u4E8B\uFF0C\u4E00\u65E6\u6574\u5408\u4ECD\u53EF\u80FD\u5F7C\u6B64\u4E0D\u826F\u4E92\u52D5\u3002\u5206\u5C64 DoD \u9810\u898B\u4E86\u9019\u9EDE\uFF1A\u589E\u91CF\uFF0F\u767C\u5E03\u5C64\u7D1A\u52A0\u5165\u6574\u5408\u3001\u5B8C\u6574\u56DE\u6B78\u8207\u8DE8\u5207\u9762\u6AA2\u67E5\u3002\u82E5\u90A3\u4E9B\u5C64\u7D1A\u7F3A\u5C11\u6216\u672A\u88AB\u843D\u5BE6\uFF0C\u7531\u5404\u81EA\u5B8C\u6210\u6545\u4E8B\u7D44\u6210\u7684\u589E\u91CF\u4ECD\u53EF\u80FD\u4E0D\u53EF\u51FA\u8CA8\u2014\u2014\u6B63\u662F\u6B64\u8655\u6240\u898B\u7684\u7F3A\u53E3\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "e2e-user-journey": {
       "en": {
         "easy": [

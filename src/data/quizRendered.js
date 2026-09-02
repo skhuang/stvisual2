@@ -28075,6 +28075,2546 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "definition-gates": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What the Definition of Ready is",
+          "text": "<p>What is the <strong>Definition of Ready (DoR)</strong>?</p>",
+          "answers": [
+            {
+              "text": "The shared criteria a backlog item must meet before the team pulls it into a sprint",
+              "fraction": 100,
+              "feedback": "Correct — the DoR is the entry gate: it says when an item is ready to be started."
+            },
+            {
+              "text": "The shared criteria for deciding when a piece of work is truly complete",
+              "fraction": 0,
+              "feedback": "That describes the Definition of Done, the exit gate, not the DoR."
+            },
+            {
+              "text": "The specific behaviours a single story must exhibit to be accepted",
+              "fraction": 0,
+              "feedback": "Those are that story's acceptance criteria, not the DoR itself."
+            },
+            {
+              "text": "The order in which items appear in the product backlog",
+              "fraction": 0,
+              "feedback": "Backlog ordering is prioritisation, not the readiness gate."
+            }
+          ],
+          "generalFeedback": "The Definition of Ready is a shared, agreed checklist a backlog item must satisfy before the team commits to it in a sprint — for example it is clear, has testable acceptance criteria, is estimated, is small enough to finish in a sprint, and its dependencies are resolved. It is the entry gate that keeps vague, unready work out of the sprint.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the Definition of Done is",
+          "text": "<p>What is the <strong>Definition of Done (DoD)</strong>?</p>",
+          "answers": [
+            {
+              "text": "The shared criteria for when a piece of work is truly complete",
+              "fraction": 100,
+              "feedback": "Correct — the DoD is the exit gate that defines what \"complete\" really means."
+            },
+            {
+              "text": "The shared criteria a story must meet before it is pulled into a sprint",
+              "fraction": 0,
+              "feedback": "That is the Definition of Ready, the entry gate, not the DoD."
+            },
+            {
+              "text": "The list of specific behaviours a single story must satisfy",
+              "fraction": 0,
+              "feedback": "Those are that story's acceptance criteria; the DoD is a generic quality bar."
+            },
+            {
+              "text": "The estimate, in story points, of how large a story is",
+              "fraction": 0,
+              "feedback": "Sizing is part of readiness, not the definition of completeness."
+            }
+          ],
+          "generalFeedback": "The Definition of Done is a shared, agreed set of criteria that must all hold before work counts as complete — for example code written and reviewed, unit and acceptance tests passing, work integrated, docs updated, and no known critical defects. It is the exit gate that stops unfinished work being called \"Done\".",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DoR is which kind of gate",
+          "text": "<p>The Definition of Ready acts as which kind of <strong>gate</strong>?</p>",
+          "answers": [
+            {
+              "text": "An entry gate, controlling whether work is ready to be started",
+              "fraction": 100,
+              "feedback": "Correct — DoR governs entry: it decides when an item may be pulled into a sprint."
+            },
+            {
+              "text": "An exit gate, controlling whether work is complete",
+              "fraction": 0,
+              "feedback": "The exit gate is the Definition of Done, not the DoR."
+            },
+            {
+              "text": "A gate that applies only after the work has been released",
+              "fraction": 0,
+              "feedback": "DoR applies before work starts, not after release."
+            },
+            {
+              "text": "A gate owned solely by the product owner and hidden from the team",
+              "fraction": 0,
+              "feedback": "The DoR is shared and team-owned, not a hidden personal checklist."
+            }
+          ],
+          "generalFeedback": "DoR is the entry gate. It is applied when the team is about to pull an item into a sprint, ensuring the item is understood, sized, and ready. This prevents starting vague or unready work.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DoD is which kind of gate",
+          "text": "<p>The Definition of Done acts as which kind of <strong>gate</strong>?</p>",
+          "answers": [
+            {
+              "text": "An exit gate, controlling whether work may be called complete",
+              "fraction": 100,
+              "feedback": "Correct — DoD governs exit: it decides when work is truly Done."
+            },
+            {
+              "text": "An entry gate, controlling whether work is ready to start",
+              "fraction": 0,
+              "feedback": "The entry gate is the Definition of Ready, not the DoD."
+            },
+            {
+              "text": "A gate that only limits how many items are in the backlog",
+              "fraction": 0,
+              "feedback": "The DoD concerns completeness of work, not backlog size."
+            },
+            {
+              "text": "A gate that measures how fast the team writes code",
+              "fraction": 0,
+              "feedback": "The DoD is a quality bar for completeness, not a speed metric."
+            }
+          ],
+          "generalFeedback": "DoD is the exit gate. It is applied when the team wants to declare work complete, ensuring the agreed quality criteria are met. This prevents calling unfinished work \"Done\".",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "DoR is checked before pulling a story in",
+          "text": "<p>The Definition of Ready is checked <strong>before</strong> a story is pulled into a sprint.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — DoR is the entry gate, applied before committing to the work."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "DoR is precisely the check made before the team pulls an item into a sprint."
+            }
+          ],
+          "generalFeedback": "The DoR is the entry gate. The team checks it during backlog refinement and sprint planning, before committing to an item, so that only ready work enters the sprint."
+        },
+        {
+          "type": "truefalse",
+          "name": "DoD decides whether work is complete",
+          "text": "<p>The Definition of Done is used to decide whether a piece of work may be considered <strong>complete</strong>.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — DoD is the exit gate that defines completeness."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Deciding completeness is exactly what the DoD is for."
+            }
+          ],
+          "generalFeedback": "The DoD is the exit gate. Work counts as complete only when every DoD criterion holds, keeping the meaning of \"Done\" honest and consistent."
+        },
+        {
+          "type": "multichoice",
+          "name": "What acceptance criteria are",
+          "text": "<p>What are a story's <strong>acceptance criteria</strong>?</p>",
+          "answers": [
+            {
+              "text": "The specific, testable conditions describing what that particular story must do",
+              "fraction": 100,
+              "feedback": "Correct — acceptance criteria are per-story and specific to that story's behaviour."
+            },
+            {
+              "text": "The generic quality bar that every story in the team must meet",
+              "fraction": 0,
+              "feedback": "That is the Definition of Done; acceptance criteria are specific to one story."
+            },
+            {
+              "text": "The rule for how many stories may be in progress at once",
+              "fraction": 0,
+              "feedback": "That is a work-in-progress limit, not acceptance criteria."
+            },
+            {
+              "text": "The estimate of how many hours the story will take",
+              "fraction": 0,
+              "feedback": "That is an estimate; acceptance criteria describe required behaviour, not effort."
+            }
+          ],
+          "generalFeedback": "Acceptance criteria are the specific, testable conditions that define what a single story must do to be accepted. They are per-story and vary from story to story, unlike the DoD, which is a generic bar applied to every story.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which gate applies when starting a story",
+          "text": "<p>When the team is deciding whether it may <strong>start</strong> a story, which gate applies?</p>",
+          "answers": [
+            {
+              "text": "The Definition of Ready",
+              "fraction": 100,
+              "feedback": "Correct — readiness to start is governed by the DoR entry gate."
+            },
+            {
+              "text": "The Definition of Done",
+              "fraction": 0,
+              "feedback": "The DoD applies when finishing, not when starting."
+            },
+            {
+              "text": "Neither — starting a story needs no gate",
+              "fraction": 0,
+              "feedback": "Starting is exactly where the DoR entry gate applies."
+            },
+            {
+              "text": "Both apply equally at the moment of starting",
+              "fraction": 0,
+              "feedback": "Only the DoR applies at the start; the DoD is for completion."
+            }
+          ],
+          "generalFeedback": "Starting a story is an entry decision, so the Definition of Ready applies. The Definition of Done is the exit gate and is only relevant when deciding whether the story is complete.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which gate applies when completing a story",
+          "text": "<p>When the team is deciding whether a story may be called <strong>complete</strong>, which gate applies?</p>",
+          "answers": [
+            {
+              "text": "The Definition of Done",
+              "fraction": 100,
+              "feedback": "Correct — completion is governed by the DoD exit gate."
+            },
+            {
+              "text": "The Definition of Ready",
+              "fraction": 0,
+              "feedback": "The DoR applies when starting, not when finishing."
+            },
+            {
+              "text": "Neither — completeness is a matter of personal opinion",
+              "fraction": 0,
+              "feedback": "Completeness is judged against the DoD, not personal opinion."
+            },
+            {
+              "text": "Whichever gate the developer prefers at the time",
+              "fraction": 0,
+              "feedback": "The gate is fixed: completion is judged by the DoD."
+            }
+          ],
+          "generalFeedback": "Deciding completeness is an exit decision, so the Definition of Done applies. The DoR governed whether the work should have started; the DoD governs whether it is finished.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is being estimated a DoR or DoD item",
+          "text": "<p>\"The story has been <strong>estimated and sized</strong>.\" Is this a Definition of Ready item or a Definition of Done item?</p>",
+          "answers": [
+            {
+              "text": "A Definition of Ready item",
+              "fraction": 100,
+              "feedback": "Correct — being estimated is part of readiness to start, checked before the sprint."
+            },
+            {
+              "text": "A Definition of Done item",
+              "fraction": 0,
+              "feedback": "Estimation happens before work starts; it is not a completeness criterion."
+            },
+            {
+              "text": "Neither — it belongs to release notes",
+              "fraction": 0,
+              "feedback": "Sizing is a readiness concern, not release documentation."
+            },
+            {
+              "text": "Both equally, at start and at completion",
+              "fraction": 0,
+              "feedback": "Estimation is a readiness (entry) concern, not a completion (exit) one."
+            }
+          ],
+          "generalFeedback": "Being estimated and small enough to finish in a sprint are readiness concerns: they must hold before the team pulls the item in. They belong to the DoR entry gate, not the DoD.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is code review a DoR or DoD item",
+          "text": "<p>\"The code has been <strong>reviewed</strong>.\" Is this a Definition of Ready item or a Definition of Done item?</p>",
+          "answers": [
+            {
+              "text": "A Definition of Done item",
+              "fraction": 100,
+              "feedback": "Correct — code review is part of completing the work, an exit-gate criterion."
+            },
+            {
+              "text": "A Definition of Ready item",
+              "fraction": 0,
+              "feedback": "There is no code to review before the story starts; review is a completion concern."
+            },
+            {
+              "text": "Neither — it is only an estimate",
+              "fraction": 0,
+              "feedback": "Code review is a completeness criterion, not an estimate."
+            },
+            {
+              "text": "An acceptance criterion specific to that one story",
+              "fraction": 0,
+              "feedback": "Review applies to every story generically, so it is a DoD item, not a per-story AC."
+            }
+          ],
+          "generalFeedback": "Code review can only happen after code exists, so it is part of completing the work. It belongs to the DoD exit gate, and because it applies to every story it is a generic DoD item rather than a per-story acceptance criterion.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Done needs both acceptance criteria and DoD",
+          "text": "<p>A story is only \"Done\" when it meets <strong>both</strong> its own acceptance criteria <strong>and</strong> the team's Definition of Done.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — Done requires satisfying the per-story acceptance criteria and the generic DoD."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Meeting only one of the two is not enough; Done needs both the AC and the DoD."
+            }
+          ],
+          "generalFeedback": "Acceptance criteria say what this specific story must do; the DoD is the generic quality bar for every story. A story is Done only when both hold: it does what was asked and it meets the shared quality standard."
+        },
+        {
+          "type": "multichoice",
+          "name": "Is testable acceptance criteria a DoR item",
+          "text": "<p>\"The story has clear, <strong>testable acceptance criteria</strong> defined.\" Before the sprint, which gate does this satisfy?</p>",
+          "answers": [
+            {
+              "text": "The Definition of Ready — having testable acceptance criteria is part of readiness",
+              "fraction": 100,
+              "feedback": "Correct — a ready story must already have clear, testable acceptance criteria."
+            },
+            {
+              "text": "The Definition of Done — it means the tests already pass",
+              "fraction": 0,
+              "feedback": "Having criteria defined is not the same as the tests passing; that comes at completion."
+            },
+            {
+              "text": "Neither — acceptance criteria are irrelevant to readiness",
+              "fraction": 0,
+              "feedback": "Testable acceptance criteria are a core readiness requirement."
+            },
+            {
+              "text": "It is a release-notes requirement",
+              "fraction": 0,
+              "feedback": "Defining acceptance criteria is a readiness concern, not release documentation."
+            }
+          ],
+          "generalFeedback": "A ready story must have clear, testable acceptance criteria before it is pulled in — that is a DoR item. Note the distinction: having acceptance criteria defined is readiness (DoR), whereas the criteria actually being met is part of completion (DoD).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Are passing tests a DoD item",
+          "text": "<p>\"Unit and acceptance tests are written and <strong>passing</strong>.\" Which gate does this belong to?</p>",
+          "answers": [
+            {
+              "text": "The Definition of Done",
+              "fraction": 100,
+              "feedback": "Correct — passing tests are part of completing the work, an exit-gate criterion."
+            },
+            {
+              "text": "The Definition of Ready",
+              "fraction": 0,
+              "feedback": "Tests cannot pass before the work is built; this is a completion concern."
+            },
+            {
+              "text": "Neither — it is just an estimate of effort",
+              "fraction": 0,
+              "feedback": "Passing tests are a completeness criterion, not an estimate."
+            },
+            {
+              "text": "It is a readiness item because tests are mentioned",
+              "fraction": 0,
+              "feedback": "Mentioning tests does not make it readiness; passing tests is a completion criterion."
+            }
+          ],
+          "generalFeedback": "Tests can only pass after the work is built, so \"tests written and passing\" is part of the DoD exit gate. Readiness only requires that testable acceptance criteria exist, not that tests already pass.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "DoR and DoD are team-owned and evolve",
+          "text": "<p>Both the Definition of Ready and the Definition of Done are meant to be <strong>team-owned, explicit, and allowed to evolve</strong> over time.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — both are shared, explicit team agreements that the team refines as it learns."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Both gates are team-owned, explicit, and expected to evolve; they are not fixed external rules."
+            }
+          ],
+          "generalFeedback": "DoR and DoD are shared agreements the team makes explicit and revisits, typically in retrospectives. Keeping them owned by the team and evolving keeps them realistic and enforced rather than ignored."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Classify estimated with dependencies resolved",
+          "text": "<p>A team's checklist says: \"the story is <strong>estimated and its dependencies are resolved</strong>.\" Where does this criterion belong?</p>",
+          "answers": [
+            {
+              "text": "The Definition of Ready — both are entry conditions checked before starting",
+              "fraction": 100,
+              "feedback": "Correct — estimation and resolved dependencies are readiness conditions."
+            },
+            {
+              "text": "The Definition of Done — they describe completed work",
+              "fraction": 0,
+              "feedback": "Neither is about completeness; both must hold before the work begins."
+            },
+            {
+              "text": "They are acceptance criteria for that one story",
+              "fraction": 0,
+              "feedback": "These are generic readiness conditions, not the story's specific behaviour."
+            },
+            {
+              "text": "They belong only at the release gate",
+              "fraction": 0,
+              "feedback": "Estimation and dependency resolution gate entry to the sprint, not release."
+            }
+          ],
+          "generalFeedback": "Being estimated and having dependencies identified and resolved are classic readiness conditions: they must be true before the team commits, so they belong to the DoR entry gate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify reviewed and tests passing",
+          "text": "<p>A checklist says: \"the code is <strong>reviewed and its tests are passing</strong>.\" Where does this belong?</p>",
+          "answers": [
+            {
+              "text": "The Definition of Done — both are completion conditions checked at the exit gate",
+              "fraction": 100,
+              "feedback": "Correct — review and passing tests are part of finishing the work."
+            },
+            {
+              "text": "The Definition of Ready — both make the story ready to start",
+              "fraction": 0,
+              "feedback": "Neither can occur before the work is built; they are completion, not readiness."
+            },
+            {
+              "text": "They are readiness conditions because they mention tests",
+              "fraction": 0,
+              "feedback": "Mentioning tests does not make it readiness; passing them is a completion concern."
+            },
+            {
+              "text": "They only matter after the product is retired",
+              "fraction": 0,
+              "feedback": "They gate completion of the story, not product retirement."
+            }
+          ],
+          "generalFeedback": "Code review and passing tests both require the work to already exist, so they are completion conditions belonging to the DoD exit gate — not readiness conditions.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Acceptance criteria versus DoD scope",
+          "text": "<p>Which statement correctly contrasts <strong>acceptance criteria</strong> with the <strong>Definition of Done</strong>?</p>",
+          "answers": [
+            {
+              "text": "Acceptance criteria are specific to one story; the DoD is generic and applies to every story",
+              "fraction": 100,
+              "feedback": "Correct — AC are per-story and specific; the DoD is a shared bar for all stories."
+            },
+            {
+              "text": "The DoD is specific to one story; acceptance criteria apply to every story",
+              "fraction": 0,
+              "feedback": "This is reversed: AC are per-story, the DoD is generic."
+            },
+            {
+              "text": "They are the same thing under two different names",
+              "fraction": 0,
+              "feedback": "They are distinct: AC describe this story, the DoD is the shared quality bar."
+            },
+            {
+              "text": "Both are unique to each story and never shared",
+              "fraction": 0,
+              "feedback": "The DoD is shared across all stories, unlike per-story acceptance criteria."
+            }
+          ],
+          "generalFeedback": "Acceptance criteria describe what one particular story must do and differ from story to story. The DoD is a single generic quality bar applied to every story alike. This is why a story must meet both to be Done.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why Done needs both AC and DoD",
+          "text": "<p>Why must a story satisfy <strong>both</strong> its acceptance criteria and the DoD to be Done?</p>",
+          "answers": [
+            {
+              "text": "Acceptance criteria prove it does the right thing; the DoD proves it was built to the team's quality bar",
+              "fraction": 100,
+              "feedback": "Correct — AC cover \"does what was asked\", the DoD covers \"built well enough\"."
+            },
+            {
+              "text": "Because acceptance criteria replace the need for any Definition of Done",
+              "fraction": 0,
+              "feedback": "AC do not replace the DoD; they answer different questions."
+            },
+            {
+              "text": "Because the DoD lists the specific behaviours of that one story",
+              "fraction": 0,
+              "feedback": "The specific behaviours are the AC; the DoD is the generic quality bar."
+            },
+            {
+              "text": "Because meeting either one alone always implies the other",
+              "fraction": 0,
+              "feedback": "They are independent: correct behaviour does not guarantee review, tests, or integration."
+            }
+          ],
+          "generalFeedback": "Acceptance criteria and the DoD answer different questions. AC: does the story do the specific thing asked of it? DoD: was it built to the shared quality standard (reviewed, tested, integrated, no critical defects)? A story can meet one without the other, so Done requires both.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Consequence of a weak Definition of Done",
+          "text": "<p>What is the most likely consequence of a <strong>weak or unenforced Definition of Done</strong>?</p>",
+          "answers": [
+            {
+              "text": "Untested, unreviewed work gets called \"Done\", so quality erodes and hidden work carries over later",
+              "fraction": 100,
+              "feedback": "Correct — a weak DoD lets incomplete work pass as done, deferring the real work."
+            },
+            {
+              "text": "Stories become impossible to start",
+              "fraction": 0,
+              "feedback": "Starting is governed by the DoR; a weak DoD affects completion, not starting."
+            },
+            {
+              "text": "Estimates automatically become more accurate",
+              "fraction": 0,
+              "feedback": "A weak DoD does not improve estimation; it hides remaining work."
+            },
+            {
+              "text": "The team is forced to write more acceptance criteria",
+              "fraction": 0,
+              "feedback": "A weak DoD does not compel more AC; it lets low-quality work pass."
+            }
+          ],
+          "generalFeedback": "When the DoD is weak or not enforced, work that is untested, unreviewed, or unintegrated gets marked Done. Quality erodes, \"90% done\" work hides remaining effort, and that effort resurfaces as carryover and defects later.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Consequence of a missing Definition of Ready",
+          "text": "<p>What is the most likely consequence of having <strong>no effective Definition of Ready</strong>?</p>",
+          "answers": [
+            {
+              "text": "Vague, unready items get pulled in and churn mid-sprint as the team discovers missing detail",
+              "fraction": 100,
+              "feedback": "Correct — without a DoR, unready work enters the sprint and thrashes."
+            },
+            {
+              "text": "Completed work can never be marked Done",
+              "fraction": 0,
+              "feedback": "Marking work Done is governed by the DoD, not the DoR."
+            },
+            {
+              "text": "The team is guaranteed to finish every story early",
+              "fraction": 0,
+              "feedback": "Unready work tends to slip, not finish early."
+            },
+            {
+              "text": "Acceptance tests become unnecessary",
+              "fraction": 0,
+              "feedback": "A missing DoR does not remove the need for acceptance tests."
+            }
+          ],
+          "generalFeedback": "Without a DoR, the team commits to items that are unclear, unestimated, or blocked by dependencies. Missing detail surfaces mid-sprint, forcing rework, blocked time, and churn — exactly what the entry gate exists to prevent.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What INVEST summarises",
+          "text": "<p>The <strong>INVEST</strong> mnemonic (Independent, Negotiable, Valuable, Estimable, Small, Testable) is most often used to check that a story is:</p>",
+          "answers": [
+            {
+              "text": "Ready — it summarises qualities a good, ready-to-start story should have",
+              "fraction": 100,
+              "feedback": "Correct — INVEST is a readiness heuristic, closely tied to the DoR."
+            },
+            {
+              "text": "Done — it lists the completion criteria for finished work",
+              "fraction": 0,
+              "feedback": "INVEST checks readiness of a story, not completeness of finished work."
+            },
+            {
+              "text": "Released — it is a checklist for release notes",
+              "fraction": 0,
+              "feedback": "INVEST is about story quality for readiness, not release documentation."
+            },
+            {
+              "text": "Over budget — it is a cost-tracking mnemonic",
+              "fraction": 0,
+              "feedback": "INVEST describes story qualities, not budget tracking."
+            }
+          ],
+          "generalFeedback": "INVEST captures qualities of a well-formed story — Independent, Negotiable, Valuable, Estimable, Small, Testable. Estimable, Small, and Testable in particular map onto readiness, which is why INVEST is commonly used to support the Definition of Ready.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify small enough for one sprint",
+          "text": "<p>\"The story is <strong>small enough to finish within a single sprint</strong>.\" Which gate is this?</p>",
+          "answers": [
+            {
+              "text": "A Definition of Ready item",
+              "fraction": 100,
+              "feedback": "Correct — being small enough to fit a sprint is a readiness condition."
+            },
+            {
+              "text": "A Definition of Done item",
+              "fraction": 0,
+              "feedback": "Sizing is checked before starting, not at completion."
+            },
+            {
+              "text": "An acceptance criterion describing the story's behaviour",
+              "fraction": 0,
+              "feedback": "Size is a readiness property, not a behavioural acceptance criterion."
+            },
+            {
+              "text": "A release-level criterion",
+              "fraction": 0,
+              "feedback": "Fitting in a sprint gates entry, not release."
+            }
+          ],
+          "generalFeedback": "Being small enough to complete in one sprint is a readiness property (the \"S\" in INVEST). If a story is too big it must be split before it is ready, so this belongs to the DoR.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify integrated with no critical defects",
+          "text": "<p>\"The change is <strong>integrated/merged and has no known critical defects</strong>.\" Which gate is this?</p>",
+          "answers": [
+            {
+              "text": "A Definition of Done item",
+              "fraction": 100,
+              "feedback": "Correct — integration and freedom from critical defects are completion conditions."
+            },
+            {
+              "text": "A Definition of Ready item",
+              "fraction": 0,
+              "feedback": "There is nothing to integrate before the work is built; this is completion."
+            },
+            {
+              "text": "An estimate of the story's size",
+              "fraction": 0,
+              "feedback": "These are completeness conditions, not an estimate."
+            },
+            {
+              "text": "A readiness condition, because defects are mentioned",
+              "fraction": 0,
+              "feedback": "Being defect-free after building is a completion concern, not readiness."
+            }
+          ],
+          "generalFeedback": "Merging the work and confirming there are no known critical defects can only happen once the work exists, so both are DoD exit-gate criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meets AC but not DoD",
+          "text": "<p>A story does everything its acceptance criteria require, but the code has <strong>not been reviewed and no tests were written</strong>. Is it Done?</p>",
+          "answers": [
+            {
+              "text": "No — it fails the DoD, so it is not Done even though the AC are met",
+              "fraction": 100,
+              "feedback": "Correct — Done needs both the AC and the DoD; the DoD is unmet here."
+            },
+            {
+              "text": "Yes — meeting the acceptance criteria is sufficient for Done",
+              "fraction": 0,
+              "feedback": "Meeting AC alone is not enough; the generic DoD must also hold."
+            },
+            {
+              "text": "Yes — review and tests are optional extras",
+              "fraction": 0,
+              "feedback": "Review and tests are DoD criteria, not optional extras."
+            },
+            {
+              "text": "It cannot be judged without re-estimating the story",
+              "fraction": 0,
+              "feedback": "Completeness is judged against AC and the DoD, not a re-estimate."
+            }
+          ],
+          "generalFeedback": "The story behaves as required (AC met) but has not been reviewed or tested, so it fails the generic quality bar. Because Done requires both the AC and the DoD, the story is not Done.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meets DoD but not its AC",
+          "text": "<p>A change is reviewed, tested, and integrated, but it does <strong>not actually deliver the behaviour</strong> its acceptance criteria describe. Is the story Done?</p>",
+          "answers": [
+            {
+              "text": "No — it satisfies the generic DoD but fails its own acceptance criteria",
+              "fraction": 100,
+              "feedback": "Correct — a well-built change that does the wrong thing still fails its AC."
+            },
+            {
+              "text": "Yes — passing the DoD is enough to be Done",
+              "fraction": 0,
+              "feedback": "The DoD alone is not enough; the story must also meet its acceptance criteria."
+            },
+            {
+              "text": "Yes — acceptance criteria are just suggestions",
+              "fraction": 0,
+              "feedback": "Acceptance criteria define what the story must do; they are not optional."
+            },
+            {
+              "text": "Only the product owner's mood decides",
+              "fraction": 0,
+              "feedback": "Done is judged against the AC and the DoD, not mood."
+            }
+          ],
+          "generalFeedback": "Here the work is high quality (DoD met) but solves the wrong problem (AC unmet). Done requires both, so a change that is well-built but does not meet its acceptance criteria is not Done.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the DoD is generic",
+          "text": "<p>Why is the Definition of Done written as a <strong>generic</strong> checklist rather than per-story?</p>",
+          "answers": [
+            {
+              "text": "So every story is held to the same consistent quality bar, whatever its specific behaviour",
+              "fraction": 100,
+              "feedback": "Correct — a generic DoD gives a uniform quality standard across all stories."
+            },
+            {
+              "text": "So each story can define its own unique completion rules",
+              "fraction": 0,
+              "feedback": "Per-story rules are the acceptance criteria; the DoD is deliberately generic."
+            },
+            {
+              "text": "Because the DoD only ever contains one item",
+              "fraction": 0,
+              "feedback": "The DoD usually has several items; being generic is about applying to all stories."
+            },
+            {
+              "text": "Because generic checklists are easier to ignore",
+              "fraction": 0,
+              "feedback": "The point of a generic DoD is consistent enforcement, not ease of ignoring it."
+            }
+          ],
+          "generalFeedback": "The DoD is generic precisely so it can act as a uniform quality bar: the same standard (reviewed, tested, integrated, no critical defects) applies to every story. Story-specific expectations live in the per-story acceptance criteria instead.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "INVEST supports which gate",
+          "text": "<p>A team uses <strong>INVEST</strong> when refining backlog items. Which gate does this most directly support?</p>",
+          "answers": [
+            {
+              "text": "The Definition of Ready — INVEST helps confirm a story is well-formed and ready to start",
+              "fraction": 100,
+              "feedback": "Correct — INVEST is a readiness aid supporting the entry gate."
+            },
+            {
+              "text": "The Definition of Done — INVEST lists completion checks",
+              "fraction": 0,
+              "feedback": "INVEST checks story readiness, not whether finished work is complete."
+            },
+            {
+              "text": "Neither — INVEST is only about deployment",
+              "fraction": 0,
+              "feedback": "INVEST concerns story quality for readiness, not deployment."
+            },
+            {
+              "text": "Both gates equally, since INVEST covers testing too",
+              "fraction": 0,
+              "feedback": "Although INVEST includes Testable, it assesses readiness of a story, so it supports the DoR."
+            }
+          ],
+          "generalFeedback": "INVEST is applied during refinement to judge whether a story is well-formed and ready. Because that is exactly the concern of the entry gate, INVEST most directly supports the Definition of Ready.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Having AC versus meeting AC",
+          "text": "<p>Which pairing correctly maps the two <strong>uses of acceptance criteria</strong> to their gates?</p>",
+          "answers": [
+            {
+              "text": "Having clear, testable AC defined is a DoR item; the AC actually being met is part of the DoD",
+              "fraction": 100,
+              "feedback": "Correct — defining AC is readiness; satisfying them is part of completion."
+            },
+            {
+              "text": "Having AC defined is a DoD item; meeting them is a DoR item",
+              "fraction": 0,
+              "feedback": "This is reversed: defining AC is readiness, meeting them is completion."
+            },
+            {
+              "text": "Both defining and meeting AC belong only to the DoR",
+              "fraction": 0,
+              "feedback": "Meeting the AC can only happen once the work is built, so it is part of the DoD."
+            },
+            {
+              "text": "Acceptance criteria play no role in either gate",
+              "fraction": 0,
+              "feedback": "AC feature in both: defined for readiness, met for completion."
+            }
+          ],
+          "generalFeedback": "Acceptance criteria touch both gates in different ways. For readiness (DoR), the story must have clear, testable AC defined. For completion (DoD), those AC must actually be satisfied by the built work. Confusing \"defined\" with \"met\" is a common source of gate errors.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DoR too loose causes churn",
+          "text": "<p>A team pulls in stories that are only loosely understood. Mid-sprint they keep stopping to clarify scope and chase missing dependencies. Which gate is weak, and how does it show?</p>",
+          "answers": [
+            {
+              "text": "The DoR is too loose, so unready work enters and churns mid-sprint",
+              "fraction": 100,
+              "feedback": "Correct — a loose entry gate lets unclear work in, causing mid-sprint thrash."
+            },
+            {
+              "text": "The DoD is too strict, so nothing can be finished",
+              "fraction": 0,
+              "feedback": "The symptom is unready work entering, which points at the DoR, not a strict DoD."
+            },
+            {
+              "text": "The acceptance criteria are too generic across stories",
+              "fraction": 0,
+              "feedback": "The problem is unready entry, a DoR weakness, not generic AC."
+            },
+            {
+              "text": "Nothing is wrong; clarifying scope mid-sprint is ideal",
+              "fraction": 0,
+              "feedback": "Constant mid-sprint clarification is churn, a sign the DoR let unready work in."
+            }
+          ],
+          "generalFeedback": "Stories that are unclear and dependency-blocked should not have passed the entry gate. When they do, the team discovers the gaps mid-sprint and churns. A loose DoR is the cause; tightening it prevents unready work from entering.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Which criterion is release-level DoD",
+          "text": "<p>In a <strong>layered</strong> Definition of Done, which criterion most naturally belongs at the <strong>release level</strong> rather than per story?</p>",
+          "answers": [
+            {
+              "text": "Full regression, performance, and security checks pass and release notes are prepared",
+              "fraction": 100,
+              "feedback": "Correct — cross-cutting regression, performance, security, and release notes are release-level."
+            },
+            {
+              "text": "This story's code has been peer reviewed",
+              "fraction": 0,
+              "feedback": "Peer review of one story is a story-level DoD item."
+            },
+            {
+              "text": "The unit tests for this story pass",
+              "fraction": 0,
+              "feedback": "Passing this story's unit tests is a story-level item."
+            },
+            {
+              "text": "This story meets its own acceptance criteria",
+              "fraction": 0,
+              "feedback": "Meeting one story's AC is story-level, not release-level."
+            }
+          ],
+          "generalFeedback": "A layered DoD has story, sprint/increment, and release levels. Cross-cutting concerns that only make sense for the whole product — full regression, performance and security testing, and release notes and sign-off — belong at the release level, not to each individual story.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which criterion is story-level DoD",
+          "text": "<p>In a layered Definition of Done, which criterion most naturally belongs at the <strong>story level</strong>?</p>",
+          "answers": [
+            {
+              "text": "The story's code is reviewed, its unit tests pass, and it meets its acceptance criteria",
+              "fraction": 100,
+              "feedback": "Correct — review, unit tests, and meeting the AC are per-story completion items."
+            },
+            {
+              "text": "The full product regression suite has been run",
+              "fraction": 0,
+              "feedback": "Whole-product regression is a release-level concern, not story-level."
+            },
+            {
+              "text": "Formal performance and security sign-off for the release is obtained",
+              "fraction": 0,
+              "feedback": "Release sign-off is release-level, not story-level."
+            },
+            {
+              "text": "Marketing release notes are approved",
+              "fraction": 0,
+              "feedback": "Release notes are a release-level item."
+            }
+          ],
+          "generalFeedback": "Story-level DoD covers what one story needs to be complete: code reviewed, its unit and acceptance tests passing, and its acceptance criteria met with no known critical defects. Wider concerns escalate to the sprint/increment and release levels.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why an untested story is not Done",
+          "text": "<p>A developer says a feature \"works on my machine — it's basically Done, just untested.\" Why is it <strong>not</strong> Done?</p>",
+          "answers": [
+            {
+              "text": "Untested, unverified work has unknown quality, so calling it Done hides risk and remaining effort",
+              "fraction": 100,
+              "feedback": "Correct — without testing and review, quality is unknown and Done is a false claim."
+            },
+            {
+              "text": "It is Done; running on the developer's machine satisfies the DoD",
+              "fraction": 0,
+              "feedback": "\"Works on my machine\" is not a DoD; it verifies nothing for others."
+            },
+            {
+              "text": "It is Done as long as the code compiles",
+              "fraction": 0,
+              "feedback": "Compiling is not the DoD; testing, review, and integration are still required."
+            },
+            {
+              "text": "It cannot be judged because the DoD does not cover testing",
+              "fraction": 0,
+              "feedback": "A proper DoD explicitly includes testing, which this work has not had."
+            }
+          ],
+          "generalFeedback": "\"Works on my machine\" and \"90% done\" both disguise unverified work. Until it is tested, reviewed, and integrated, its real quality and the remaining effort are unknown. A DoD that includes testing exists precisely to stop such work being counted as Done.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DoR too strict becomes mini-waterfall",
+          "text": "<p>A team makes its DoR so demanding that every story needs a full up-front design and complete specification before it may enter a sprint. What is the risk?</p>",
+          "answers": [
+            {
+              "text": "It drifts toward a mini-waterfall and analysis-paralysis, front-loading heavy design before any coding",
+              "fraction": 100,
+              "feedback": "Correct — an over-strict DoR recreates big up-front analysis, the opposite of agile."
+            },
+            {
+              "text": "Stories will always be too vague to start",
+              "fraction": 0,
+              "feedback": "That is the risk of a too-loose DoR, not a too-strict one."
+            },
+            {
+              "text": "The DoD becomes impossible to satisfy",
+              "fraction": 0,
+              "feedback": "An over-strict DoR affects entry, not the completion criteria."
+            },
+            {
+              "text": "Acceptance criteria become unnecessary",
+              "fraction": 0,
+              "feedback": "An over-strict DoR does not remove the need for acceptance criteria."
+            }
+          ],
+          "generalFeedback": "A DoR should ensure enough clarity to start, not demand a complete design up front. Pushed too far it recreates a waterfall: heavy analysis and specification before any code, causing analysis-paralysis and delay. The balance is \"ready enough to start\", not \"fully designed\".",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Balancing a too-loose DoR",
+          "text": "<p>A too-<strong>loose</strong> DoR causes churn, while a too-<strong>strict</strong> DoR causes analysis-paralysis. What is the healthy balance?</p>",
+          "answers": [
+            {
+              "text": "Require just enough clarity, sizing, and testable criteria to start confidently, refining details as work proceeds",
+              "fraction": 100,
+              "feedback": "Correct — \"ready enough to start\" avoids both churn and paralysis."
+            },
+            {
+              "text": "Remove the DoR entirely so nothing blocks starting work",
+              "fraction": 0,
+              "feedback": "Removing it returns to churn from unready work."
+            },
+            {
+              "text": "Require a complete, frozen specification for every story",
+              "fraction": 0,
+              "feedback": "That is the too-strict extreme causing analysis-paralysis."
+            },
+            {
+              "text": "Let each developer decide readiness privately per story",
+              "fraction": 0,
+              "feedback": "The DoR is a shared team agreement, not a private per-person judgement."
+            }
+          ],
+          "generalFeedback": "The DoR should guarantee a story is understood, sized, and has testable acceptance criteria and resolved dependencies — enough to start with confidence — while leaving room to refine detail during the sprint. Too loose causes mid-sprint churn; too strict recreates waterfall analysis.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a specific behaviour versus generic bar",
+          "text": "<p>\"The API returns <strong>404 for an unknown id</strong>\" versus \"<strong>all new code is covered by automated tests</strong>\". How are these classified?</p>",
+          "answers": [
+            {
+              "text": "The 404 behaviour is a per-story acceptance criterion; the test-coverage rule is a generic DoD item",
+              "fraction": 100,
+              "feedback": "Correct — the specific behaviour is AC; the blanket quality rule is DoD."
+            },
+            {
+              "text": "The 404 behaviour is a DoD item; the test-coverage rule is an acceptance criterion",
+              "fraction": 0,
+              "feedback": "Reversed: specific behaviour is AC, the blanket rule is DoD."
+            },
+            {
+              "text": "Both are acceptance criteria for that one story",
+              "fraction": 0,
+              "feedback": "The test-coverage rule applies to every story, so it is generic DoD, not AC."
+            },
+            {
+              "text": "Both are generic DoD items",
+              "fraction": 0,
+              "feedback": "Returning 404 for an unknown id is specific to this story, so it is an AC."
+            }
+          ],
+          "generalFeedback": "A statement about what this story specifically must do (return 404 for an unknown id) is an acceptance criterion. A blanket quality rule that applies to every story (all new code covered by tests) is a generic DoD item. Telling the specific from the generic is the key to classifying them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose escaped defects from a bypassed DoD",
+          "text": "<p>A team's velocity looks high, yet defects escaping to production keep rising and stories are marked Done without code review. Which gate is being violated?</p>",
+          "answers": [
+            {
+              "text": "The Definition of Done — work is called complete without meeting its review and testing criteria",
+              "fraction": 100,
+              "feedback": "Correct — skipping review and testing while marking Done is a DoD violation."
+            },
+            {
+              "text": "The Definition of Ready — the stories were unclear at the start",
+              "fraction": 0,
+              "feedback": "The symptom is completion without quality, which points at the DoD, not the DoR."
+            },
+            {
+              "text": "The acceptance criteria — they were too specific",
+              "fraction": 0,
+              "feedback": "Escaped defects from skipped review point at the DoD, not overly specific AC."
+            },
+            {
+              "text": "No gate — high velocity proves the process is healthy",
+              "fraction": 0,
+              "feedback": "High velocity with rising escaped defects signals the DoD is being bypassed."
+            }
+          ],
+          "generalFeedback": "Marking work Done without review or tests inflates velocity while defects leak to production. That is a bypassed exit gate: the DoD is being violated. Enforcing the DoD realigns \"Done\" with genuine, verified completeness.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose a missing DoR",
+          "text": "<p>Stories keep entering sprints with no estimate and no acceptance criteria, then balloon in scope and stall. Which gate is missing or violated?</p>",
+          "answers": [
+            {
+              "text": "The Definition of Ready — unready items are being pulled into the sprint",
+              "fraction": 100,
+              "feedback": "Correct — unestimated, criteria-less items entering the sprint is a DoR failure."
+            },
+            {
+              "text": "The Definition of Done — the finished work lacks quality",
+              "fraction": 0,
+              "feedback": "The problem is at entry (unready items), which is a DoR failure, not a DoD one."
+            },
+            {
+              "text": "The release-level checklist — release notes are missing",
+              "fraction": 0,
+              "feedback": "The symptom is unready entry, not a release-documentation gap."
+            },
+            {
+              "text": "None — ballooning scope is unavoidable",
+              "fraction": 0,
+              "feedback": "A DoR requiring estimation and clear AC would have caught these items at entry."
+            }
+          ],
+          "generalFeedback": "Items lacking estimates and acceptance criteria should never have passed the entry gate. Because they did, scope is discovered mid-sprint and the work stalls. This is a missing or ignored DoR; enforcing readiness at entry prevents it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What release-level DoD adds",
+          "text": "<p>Beyond the story-level DoD, what does a <strong>release-level</strong> DoD typically add?</p>",
+          "answers": [
+            {
+              "text": "Cross-cutting checks such as full regression, performance, security, release notes, and sign-off",
+              "fraction": 100,
+              "feedback": "Correct — release-level adds whole-product concerns beyond a single story."
+            },
+            {
+              "text": "Nothing — it is identical to the story-level DoD",
+              "fraction": 0,
+              "feedback": "The release level adds whole-product concerns the story level cannot cover."
+            },
+            {
+              "text": "Only the acceptance criteria of the last story in the release",
+              "fraction": 0,
+              "feedback": "Release-level DoD is about cross-cutting quality, not one story's AC."
+            },
+            {
+              "text": "A relaxation of the story-level rules to speed up shipping",
+              "fraction": 0,
+              "feedback": "The release level adds stricter cross-cutting checks, it does not relax the story bar."
+            }
+          ],
+          "generalFeedback": "Some quality concerns only make sense for the whole product at release: full regression across features, performance and security validation, documentation and release notes, and formal sign-off. A layered DoD places these at the release level, on top of the story-level and sprint/increment-level criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Sprint-increment level DoD",
+          "text": "<p>Which concern is best placed at the <strong>sprint/increment level</strong> of a layered DoD, between the story and release levels?</p>",
+          "answers": [
+            {
+              "text": "The stories combine into an integrated, demoable increment deployed to a test environment",
+              "fraction": 100,
+              "feedback": "Correct — integrating stories into a shippable increment is an increment-level concern."
+            },
+            {
+              "text": "This single story's unit tests pass",
+              "fraction": 0,
+              "feedback": "One story's unit tests are a story-level item."
+            },
+            {
+              "text": "Formal external security sign-off for the public release",
+              "fraction": 0,
+              "feedback": "External release sign-off is a release-level concern."
+            },
+            {
+              "text": "The wording of one story's acceptance criteria",
+              "fraction": 0,
+              "feedback": "A story's AC wording is a story-level detail, not an increment-level concern."
+            }
+          ],
+          "generalFeedback": "Between story and release sits the increment level: individually-Done stories must integrate into a coherent, demoable increment, typically built and deployed to a test environment. Per-story checks stay at story level; whole-product gating stays at release level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why AC alone cannot declare Done",
+          "text": "<p>Why are a story's acceptance criteria, on their own, <strong>not enough</strong> to declare it Done?</p>",
+          "answers": [
+            {
+              "text": "They confirm the story does the right thing but not that it was built to the shared quality bar",
+              "fraction": 100,
+              "feedback": "Correct — AC cover correctness of behaviour, not review, testing, and integration."
+            },
+            {
+              "text": "Because acceptance criteria are never testable",
+              "fraction": 0,
+              "feedback": "Good acceptance criteria are testable; the gap is that they do not cover the generic DoD."
+            },
+            {
+              "text": "Because acceptance criteria are the same as the DoD",
+              "fraction": 0,
+              "feedback": "They are distinct: AC are per-story, the DoD is the generic quality bar."
+            },
+            {
+              "text": "Because the DoD replaces the need for acceptance criteria",
+              "fraction": 0,
+              "feedback": "The DoD does not replace AC; both are needed for Done."
+            }
+          ],
+          "generalFeedback": "Acceptance criteria verify that the story delivers the specific behaviour asked of it, but they say nothing about whether it was reviewed, tested, integrated, and free of critical defects. Those generic quality concerns live in the DoD, so both are required for Done.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How DoD combats 90 percent done",
+          "text": "<p>A team repeatedly hears \"it's 90% done\" for weeks. How does an explicit, enforced DoD <strong>combat</strong> this?</p>",
+          "answers": [
+            {
+              "text": "It makes \"Done\" binary and objective, so hidden remaining work cannot be disguised as almost finished",
+              "fraction": 100,
+              "feedback": "Correct — a clear DoD turns fuzzy progress claims into a pass/fail check."
+            },
+            {
+              "text": "It lets the team count 90%-done work as fully Done to keep morale up",
+              "fraction": 0,
+              "feedback": "Counting unfinished work as Done is exactly what a real DoD forbids."
+            },
+            {
+              "text": "It speeds up coding so nothing is ever left at 90%",
+              "fraction": 0,
+              "feedback": "The DoD does not speed coding; it exposes the hidden remaining 10%."
+            },
+            {
+              "text": "It removes the need to test the last 10%",
+              "fraction": 0,
+              "feedback": "The DoD requires that testing, so it does not remove it."
+            }
+          ],
+          "generalFeedback": "The \"90% done\" problem hides an unknown, often large, remaining effort. An explicit DoD makes Done an objective, binary check: either every criterion is met or the story is not Done. That surfaces the hidden work instead of letting it hide behind a comfortable percentage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Layer for performance under load",
+          "text": "<p>\"The system meets its <strong>performance-under-load SLA</strong>.\" In a layered DoD, where does this criterion most naturally sit?</p>",
+          "answers": [
+            {
+              "text": "At the release (or increment) level, as a cross-cutting whole-system concern — not on every individual story",
+              "fraction": 100,
+              "feedback": "Correct — system-wide performance is validated at the release/increment level."
+            },
+            {
+              "text": "On every single story, as a per-story acceptance criterion",
+              "fraction": 0,
+              "feedback": "Whole-system load performance is not meaningfully checked per tiny story; it is cross-cutting."
+            },
+            {
+              "text": "In the DoR, as a readiness condition",
+              "fraction": 0,
+              "feedback": "Performance is verified after building, not as an entry condition."
+            },
+            {
+              "text": "Nowhere — performance is not part of any DoD",
+              "fraction": 0,
+              "feedback": "System performance is a legitimate release-level DoD concern."
+            }
+          ],
+          "generalFeedback": "Performance under load is a property of the integrated system, not of one small story, so it is validated at the release or increment level of a layered DoD. Attaching it to every story would be both impractical and misleading.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose skipped-testing carryover",
+          "text": "<p>Each sprint the team marks code-complete stories Done and defers their testing \"to next sprint\". Carryover grows and surprises appear late. What is the diagnosis and fix?</p>",
+          "answers": [
+            {
+              "text": "The DoD (which must include testing) is being violated; enforce it so stories are only Done when tested, exposing the real remaining work",
+              "fraction": 100,
+              "feedback": "Correct — deferring testing while marking Done violates the DoD and hides work."
+            },
+            {
+              "text": "The DoR is too strict; loosen it so more stories can start",
+              "fraction": 0,
+              "feedback": "The failure is at completion (testing deferred), so it is a DoD problem, not a strict DoR."
+            },
+            {
+              "text": "Nothing is wrong; deferring testing a sprint is standard practice",
+              "fraction": 0,
+              "feedback": "Deferring testing while calling work Done is an anti-pattern that hides carryover."
+            },
+            {
+              "text": "The acceptance criteria are too generic and should be removed",
+              "fraction": 0,
+              "feedback": "The problem is skipped testing at the exit gate, not the AC wording."
+            }
+          ],
+          "generalFeedback": "Marking work Done while deferring its testing violates a DoD that includes testing. It inflates completed counts, builds hidden test debt, and forces carryover and late surprises. The fix is to enforce the DoD so a story is Done only when it is actually tested, making the real remaining work visible now.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Stories Done but increment not shippable",
+          "text": "<p>Every story passed its story-level DoD, yet when combined the increment fails a full regression run and cannot be released. What does this reveal about the team's DoD?</p>",
+          "answers": [
+            {
+              "text": "The layered DoD is incomplete: story-level checks passed, but increment/release-level integration and regression criteria are missing or unenforced",
+              "fraction": 100,
+              "feedback": "Correct — passing story-level does not guarantee the integrated increment; higher layers are needed."
+            },
+            {
+              "text": "Nothing — if every story is Done, the release is automatically Done too",
+              "fraction": 0,
+              "feedback": "Individually-Done stories can still break each other; that is why higher DoD layers exist."
+            },
+            {
+              "text": "The DoR was too loose, so the stories should not have started",
+              "fraction": 0,
+              "feedback": "The stories were ready and individually complete; the gap is at the integration/release layer."
+            },
+            {
+              "text": "The acceptance criteria were too specific to each story",
+              "fraction": 0,
+              "feedback": "Specific per-story AC are fine; the missing piece is cross-cutting integration and regression."
+            }
+          ],
+          "generalFeedback": "Stories that are each Done can still interact badly once integrated. A layered DoD anticipates this: the increment/release levels add integration, full regression, and cross-cutting checks. If those layers are missing or unenforced, an increment of individually-Done stories can still be un-shippable — exactly the gap seen here.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "就緒的定義是什麼",
+          "text": "<p><strong>就緒的定義（Definition of Ready，DoR）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "待辦項目在團隊將其納入衝刺之前必須滿足的共同準則",
+              "fraction": 100,
+              "feedback": "正確——DoR 是入口關卡：它界定一個項目何時已就緒、可以開始著手。"
+            },
+            {
+              "text": "用來判斷一項工作何時真正完成的共同準則",
+              "fraction": 0,
+              "feedback": "那描述的是完成的定義（出口關卡），不是 DoR。"
+            },
+            {
+              "text": "單一故事為了被接受而必須展現的特定行為",
+              "fraction": 0,
+              "feedback": "那是該故事的驗收準則，不是 DoR 本身。"
+            },
+            {
+              "text": "項目在產品待辦清單中出現的順序",
+              "fraction": 0,
+              "feedback": "待辦清單的排序屬於優先排序，不是就緒關卡。"
+            }
+          ],
+          "generalFeedback": "就緒的定義是一份共同議定的檢查清單，待辦項目在團隊承諾投入某個衝刺之前必須滿足它——例如清楚、具有可測試的驗收準則、已估算、小到可以在一個衝刺內完成、依賴已解決。它是入口關卡，把模糊、未就緒的工作擋在衝刺之外。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "完成的定義是什麼",
+          "text": "<p><strong>完成的定義（Definition of Done，DoD）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "用來判斷一項工作何時真正完成的共同準則",
+              "fraction": 100,
+              "feedback": "正確——DoD 是出口關卡，界定「完成」究竟意味著什麼。"
+            },
+            {
+              "text": "故事在被納入衝刺之前必須滿足的共同準則",
+              "fraction": 0,
+              "feedback": "那是就緒的定義（入口關卡），不是 DoD。"
+            },
+            {
+              "text": "單一故事必須滿足的特定行為清單",
+              "fraction": 0,
+              "feedback": "那是該故事的驗收準則；DoD 是一條通用的品質標準。"
+            },
+            {
+              "text": "以故事點數估算一個故事有多大",
+              "fraction": 0,
+              "feedback": "估算大小屬於就緒的一環，不是完成的定義。"
+            }
+          ],
+          "generalFeedback": "完成的定義是一組共同議定的準則，工作要算完成必須全部成立——例如程式碼已撰寫並經審查、單元與驗收測試通過、已整合、文件已更新、且沒有已知的重大缺陷。它是出口關卡，阻止把未完成的工作稱作「完成」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DoR 屬於哪一種關卡",
+          "text": "<p>就緒的定義扮演哪一種<strong>關卡</strong>？</p>",
+          "answers": [
+            {
+              "text": "入口關卡，管控工作是否已就緒、可以開始",
+              "fraction": 100,
+              "feedback": "正確——DoR 管控入口：它決定一個項目何時可被納入衝刺。"
+            },
+            {
+              "text": "出口關卡，管控工作是否已完成",
+              "fraction": 0,
+              "feedback": "出口關卡是完成的定義，不是 DoR。"
+            },
+            {
+              "text": "只在工作已發布之後才適用的關卡",
+              "fraction": 0,
+              "feedback": "DoR 在工作開始之前適用，而非發布之後。"
+            },
+            {
+              "text": "只由產品負責人擁有、對團隊隱藏的關卡",
+              "fraction": 0,
+              "feedback": "DoR 是共同、由團隊擁有的，不是隱藏的個人檢查清單。"
+            }
+          ],
+          "generalFeedback": "DoR 是入口關卡。它在團隊即將把項目納入衝刺時套用，確保該項目已被理解、已估算、已就緒，藉此避免開始模糊或未就緒的工作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DoD 屬於哪一種關卡",
+          "text": "<p>完成的定義扮演哪一種<strong>關卡</strong>？</p>",
+          "answers": [
+            {
+              "text": "出口關卡，管控工作是否可被稱作已完成",
+              "fraction": 100,
+              "feedback": "正確——DoD 管控出口：它決定工作何時真正完成。"
+            },
+            {
+              "text": "入口關卡，管控工作是否已就緒、可以開始",
+              "fraction": 0,
+              "feedback": "入口關卡是就緒的定義，不是 DoD。"
+            },
+            {
+              "text": "只限制待辦清單中有多少項目的關卡",
+              "fraction": 0,
+              "feedback": "DoD 關注工作的完整性，不是待辦清單的大小。"
+            },
+            {
+              "text": "衡量團隊寫程式碼有多快的關卡",
+              "fraction": 0,
+              "feedback": "DoD 是完整性的品質標準，不是速度指標。"
+            }
+          ],
+          "generalFeedback": "DoD 是出口關卡。它在團隊想宣告工作完成時套用，確保議定的品質準則都已滿足，藉此避免把未完成的工作稱作「完成」。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "DoR 在把故事拉進來之前檢查",
+          "text": "<p>就緒的定義是在故事被納入衝刺<strong>之前</strong>檢查的。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——DoR 是入口關卡，在承諾投入工作之前套用。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "DoR 正是在團隊把項目納入衝刺之前所做的檢查。"
+            }
+          ],
+          "generalFeedback": "DoR 是入口關卡。團隊在待辦清單精煉與衝刺規劃時檢查它，也就是在承諾投入某個項目之前，藉此確保只有就緒的工作才進入衝刺。"
+        },
+        {
+          "type": "truefalse",
+          "name": "DoD 判斷工作是否完成",
+          "text": "<p>完成的定義用來判斷一項工作是否可被視為<strong>完成</strong>。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——DoD 是界定完整性的出口關卡。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "判斷完整性正是 DoD 的用途。"
+            }
+          ],
+          "generalFeedback": "DoD 是出口關卡。工作唯有在每一項 DoD 準則都成立時才算完成，讓「完成」的意義保持誠實而一致。"
+        },
+        {
+          "type": "multichoice",
+          "name": "驗收準則是什麼",
+          "text": "<p>一個故事的<strong>驗收準則（acceptance criteria）</strong>是什麼？</p>",
+          "answers": [
+            {
+              "text": "描述該特定故事必須做到什麼的、具體且可測試的條件",
+              "fraction": 100,
+              "feedback": "正確——驗收準則是每個故事各自的、專屬於該故事行為的條件。"
+            },
+            {
+              "text": "團隊每個故事都必須滿足的通用品質標準",
+              "fraction": 0,
+              "feedback": "那是完成的定義；驗收準則專屬於單一故事。"
+            },
+            {
+              "text": "同時進行中的故事數量上限的規則",
+              "fraction": 0,
+              "feedback": "那是在製品（WIP）上限，不是驗收準則。"
+            },
+            {
+              "text": "該故事會花費多少工時的估算",
+              "fraction": 0,
+              "feedback": "那是估算；驗收準則描述所需行為，而非工作量。"
+            }
+          ],
+          "generalFeedback": "驗收準則是界定單一故事被接受所需達成的、具體且可測試的條件。它是每個故事各自的，因故事而異；不同於 DoD——DoD 是套用到每個故事的通用標準。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "開始故事時適用哪個關卡",
+          "text": "<p>當團隊在判斷是否可以<strong>開始</strong>一個故事時，適用哪個關卡？</p>",
+          "answers": [
+            {
+              "text": "就緒的定義",
+              "fraction": 100,
+              "feedback": "正確——是否就緒可開始，由 DoR 這道入口關卡管控。"
+            },
+            {
+              "text": "完成的定義",
+              "fraction": 0,
+              "feedback": "DoD 適用於收尾完成時，而非開始時。"
+            },
+            {
+              "text": "都不適用——開始一個故事不需要任何關卡",
+              "fraction": 0,
+              "feedback": "開始正是 DoR 入口關卡適用的時機。"
+            },
+            {
+              "text": "開始的那一刻兩者同等適用",
+              "fraction": 0,
+              "feedback": "開始時只有 DoR 適用；DoD 是為了判斷完成。"
+            }
+          ],
+          "generalFeedback": "開始一個故事是入口決策，因此適用就緒的定義。完成的定義是出口關卡，只有在判斷故事是否完成時才相關。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "完成故事時適用哪個關卡",
+          "text": "<p>當團隊在判斷一個故事是否可被稱作<strong>完成</strong>時，適用哪個關卡？</p>",
+          "answers": [
+            {
+              "text": "完成的定義",
+              "fraction": 100,
+              "feedback": "正確——完成與否由 DoD 這道出口關卡管控。"
+            },
+            {
+              "text": "就緒的定義",
+              "fraction": 0,
+              "feedback": "DoR 適用於開始時，而非收尾完成時。"
+            },
+            {
+              "text": "都不適用——完整性是個人主觀看法",
+              "fraction": 0,
+              "feedback": "完整性依 DoD 來判斷，而非個人看法。"
+            },
+            {
+              "text": "由開發者當下偏好哪個關卡而定",
+              "fraction": 0,
+              "feedback": "關卡是固定的：完成與否由 DoD 判斷。"
+            }
+          ],
+          "generalFeedback": "判斷完整性是出口決策，因此適用完成的定義。DoR 管控工作是否本該開始；DoD 管控工作是否已經收尾完成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "已估算是 DoR 還是 DoD 項目",
+          "text": "<p>「該故事已被<strong>估算並定出大小</strong>。」這是就緒的定義項目，還是完成的定義項目？</p>",
+          "answers": [
+            {
+              "text": "就緒的定義項目",
+              "fraction": 100,
+              "feedback": "正確——已被估算屬於開始前的就緒條件，在衝刺之前檢查。"
+            },
+            {
+              "text": "完成的定義項目",
+              "fraction": 0,
+              "feedback": "估算發生在工作開始之前；它不是完整性準則。"
+            },
+            {
+              "text": "都不是——它屬於發布說明",
+              "fraction": 0,
+              "feedback": "定出大小屬於就緒的關注，不是發布文件。"
+            },
+            {
+              "text": "兩者皆是，開始時與完成時都要",
+              "fraction": 0,
+              "feedback": "估算屬於就緒（入口）關注，而非完成（出口）關注。"
+            }
+          ],
+          "generalFeedback": "已被估算、且小到可在一個衝刺內完成，都屬於就緒關注：它們必須在團隊把項目拉進來之前成立。它們屬於 DoR 入口關卡，不屬於 DoD。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "程式碼審查是 DoR 還是 DoD 項目",
+          "text": "<p>「程式碼已經過<strong>審查（review）</strong>。」這是就緒的定義項目，還是完成的定義項目？</p>",
+          "answers": [
+            {
+              "text": "完成的定義項目",
+              "fraction": 100,
+              "feedback": "正確——程式碼審查屬於收尾完成工作的一環，是出口關卡準則。"
+            },
+            {
+              "text": "就緒的定義項目",
+              "fraction": 0,
+              "feedback": "故事開始之前並無程式碼可審查；審查屬於完成關注。"
+            },
+            {
+              "text": "都不是——它只是個估算",
+              "fraction": 0,
+              "feedback": "程式碼審查是完整性準則，不是估算。"
+            },
+            {
+              "text": "專屬於該單一故事的驗收準則",
+              "fraction": 0,
+              "feedback": "審查通用地套用到每個故事，因此是 DoD 項目，而非每故事的驗收準則。"
+            }
+          ],
+          "generalFeedback": "程式碼審查只能在程式碼存在之後進行，因此屬於收尾完成工作的一環。它屬於 DoD 出口關卡；又因為它套用到每個故事，所以是通用的 DoD 項目，而非某故事專屬的驗收準則。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "完成需要驗收準則與 DoD 兩者",
+          "text": "<p>一個故事唯有在<strong>同時</strong>滿足它自己的驗收準則<strong>以及</strong>團隊的完成的定義時，才算「完成」。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——完成需要同時滿足每故事的驗收準則與通用的 DoD。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "只滿足其中一項並不足夠；完成需要驗收準則與 DoD 兩者。"
+            }
+          ],
+          "generalFeedback": "驗收準則說明這個特定故事必須做到什麼；DoD 是每個故事的通用品質標準。故事唯有在兩者都成立時才算完成：它做到被要求的事，也達到共同的品質標準。"
+        },
+        {
+          "type": "multichoice",
+          "name": "具備可測試驗收準則是否為 DoR 項目",
+          "text": "<p>「該故事已定義清楚、<strong>可測試的驗收準則</strong>。」在衝刺之前，這滿足哪個關卡？</p>",
+          "answers": [
+            {
+              "text": "就緒的定義——具備可測試的驗收準則屬於就緒的一環",
+              "fraction": 100,
+              "feedback": "正確——一個就緒的故事必須已有清楚、可測試的驗收準則。"
+            },
+            {
+              "text": "完成的定義——這表示測試已經通過",
+              "fraction": 0,
+              "feedback": "已定義準則並不等於測試已通過；後者屬於完成時。"
+            },
+            {
+              "text": "都不是——驗收準則與就緒無關",
+              "fraction": 0,
+              "feedback": "可測試的驗收準則是核心的就緒要求。"
+            },
+            {
+              "text": "它是發布說明的要求",
+              "fraction": 0,
+              "feedback": "定義驗收準則屬於就緒關注，不是發布文件。"
+            }
+          ],
+          "generalFeedback": "就緒的故事在被拉進來之前必須具備清楚、可測試的驗收準則——這是 DoR 項目。注意其中的區別：已定義驗收準則屬於就緒（DoR），而驗收準則實際被滿足則屬於完成（DoD）的一環。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試通過是否為 DoD 項目",
+          "text": "<p>「單元測試與驗收測試已撰寫並<strong>通過</strong>。」這屬於哪個關卡？</p>",
+          "answers": [
+            {
+              "text": "完成的定義",
+              "fraction": 100,
+              "feedback": "正確——測試通過屬於收尾完成工作的一環，是出口關卡準則。"
+            },
+            {
+              "text": "就緒的定義",
+              "fraction": 0,
+              "feedback": "工作尚未建置前測試無法通過；這屬於完成關注。"
+            },
+            {
+              "text": "都不是——它只是工作量的估算",
+              "fraction": 0,
+              "feedback": "測試通過是完整性準則，不是估算。"
+            },
+            {
+              "text": "因為提到測試，所以是就緒項目",
+              "fraction": 0,
+              "feedback": "提到測試並不使它成為就緒；測試通過是完成準則。"
+            }
+          ],
+          "generalFeedback": "測試只能在工作建置之後才會通過，因此「測試已撰寫並通過」屬於 DoD 出口關卡。就緒只要求存在可測試的驗收準則，而非測試已然通過。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "DoR 與 DoD 由團隊擁有並會演進",
+          "text": "<p>就緒的定義與完成的定義兩者都應是<strong>由團隊擁有、明確寫下、並允許隨時間演進</strong>的。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——兩者都是共同、明確的團隊協議，並隨團隊學習而調整。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "兩道關卡都由團隊擁有、明確、並預期會演進；它們不是固定的外部規則。"
+            }
+          ],
+          "generalFeedback": "DoR 與 DoD 是團隊訂立、明確寫下並會回顧檢視（通常在回顧會議）的共同協議。讓它們由團隊擁有並持續演進，能使它們保持務實而被落實，而不是被忽略。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "分類：已估算且依賴已解決",
+          "text": "<p>某團隊的檢查清單寫著：「該故事<strong>已估算，且其依賴已解決</strong>。」這條準則屬於何處？</p>",
+          "answers": [
+            {
+              "text": "就緒的定義——兩者都是開始前檢查的入口條件",
+              "fraction": 100,
+              "feedback": "正確——估算與依賴已解決都是就緒條件。"
+            },
+            {
+              "text": "完成的定義——它們描述已完成的工作",
+              "fraction": 0,
+              "feedback": "兩者都與完整性無關；它們必須在工作開始之前成立。"
+            },
+            {
+              "text": "它們是該單一故事的驗收準則",
+              "fraction": 0,
+              "feedback": "這些是通用的就緒條件，不是該故事的特定行為。"
+            },
+            {
+              "text": "它們只屬於發布關卡",
+              "fraction": 0,
+              "feedback": "估算與依賴解決把關的是進入衝刺，而非發布。"
+            }
+          ],
+          "generalFeedback": "已被估算、且依賴已被辨識並解決，都是典型的就緒條件：它們必須在團隊承諾投入之前為真，因此屬於 DoR 入口關卡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：已審查且測試通過",
+          "text": "<p>某檢查清單寫著：「程式碼<strong>已審查，且其測試通過</strong>。」這屬於何處？</p>",
+          "answers": [
+            {
+              "text": "完成的定義——兩者都是在出口關卡檢查的完成條件",
+              "fraction": 100,
+              "feedback": "正確——審查與測試通過屬於收尾完成工作的一環。"
+            },
+            {
+              "text": "就緒的定義——兩者使故事就緒可開始",
+              "fraction": 0,
+              "feedback": "兩者都無法在工作建置前發生；它們屬於完成，而非就緒。"
+            },
+            {
+              "text": "因為提到測試，所以是就緒條件",
+              "fraction": 0,
+              "feedback": "提到測試並不使它成為就緒；測試通過屬於完成關注。"
+            },
+            {
+              "text": "只有在產品退役後才重要",
+              "fraction": 0,
+              "feedback": "它們把關的是故事的完成，不是產品退役。"
+            }
+          ],
+          "generalFeedback": "程式碼審查與測試通過都需要工作已然存在，因此都是屬於 DoD 出口關卡的完成條件——而非就緒條件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗收準則與 DoD 的範圍對比",
+          "text": "<p>下列哪個陳述正確地對比了<strong>驗收準則</strong>與<strong>完成的定義</strong>？</p>",
+          "answers": [
+            {
+              "text": "驗收準則專屬於單一故事；DoD 是通用的，套用到每個故事",
+              "fraction": 100,
+              "feedback": "正確——AC 是每故事、特定的；DoD 是套用到所有故事的共同標準。"
+            },
+            {
+              "text": "DoD 專屬於單一故事；驗收準則套用到每個故事",
+              "fraction": 0,
+              "feedback": "這說反了：AC 是每故事的，DoD 是通用的。"
+            },
+            {
+              "text": "它們是同一件事的兩種名稱",
+              "fraction": 0,
+              "feedback": "它們不同：AC 描述這個故事，DoD 是共同的品質標準。"
+            },
+            {
+              "text": "兩者都各故事獨有、從不共用",
+              "fraction": 0,
+              "feedback": "DoD 在所有故事間共用，不同於每故事的驗收準則。"
+            }
+          ],
+          "generalFeedback": "驗收準則描述某一特定故事必須做到什麼，因故事而異。DoD 則是套用到每個故事的單一通用品質標準。這正是為什麼一個故事必須同時滿足兩者才算完成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何完成需要 AC 與 DoD 兩者",
+          "text": "<p>為什麼一個故事必須<strong>同時</strong>滿足其驗收準則與 DoD 才算完成？</p>",
+          "answers": [
+            {
+              "text": "驗收準則證明它做對了該做的事；DoD 證明它是依團隊的品質標準建置的",
+              "fraction": 100,
+              "feedback": "正確——AC 涵蓋「做到被要求的事」，DoD 涵蓋「建置得夠好」。"
+            },
+            {
+              "text": "因為驗收準則取代了對完成的定義的需要",
+              "fraction": 0,
+              "feedback": "AC 不取代 DoD；它們回答不同的問題。"
+            },
+            {
+              "text": "因為 DoD 列出的是那一個故事的特定行為",
+              "fraction": 0,
+              "feedback": "特定行為是 AC；DoD 是通用的品質標準。"
+            },
+            {
+              "text": "因為滿足其中任一項總是意味著另一項也成立",
+              "fraction": 0,
+              "feedback": "它們彼此獨立：行為正確並不保證已審查、已測試或已整合。"
+            }
+          ],
+          "generalFeedback": "驗收準則與 DoD 回答不同問題。AC：這個故事做到被要求它做的特定事情了嗎？DoD：它是依共同的品質標準（已審查、已測試、已整合、無重大缺陷）建置的嗎？一個故事可能滿足其一而不滿足其二，因此完成需要兩者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "完成的定義薄弱的後果",
+          "text": "<p>一個<strong>薄弱或未被落實的完成的定義</strong>最可能造成什麼後果？</p>",
+          "answers": [
+            {
+              "text": "未測試、未審查的工作被稱作「完成」，於是品質侵蝕、隱藏的工作日後結轉",
+              "fraction": 100,
+              "feedback": "正確——薄弱的 DoD 讓不完整的工作過關，把真正的工作往後延。"
+            },
+            {
+              "text": "故事變得不可能開始",
+              "fraction": 0,
+              "feedback": "開始由 DoR 管控；薄弱的 DoD 影響完成，而非開始。"
+            },
+            {
+              "text": "估算自動變得更準確",
+              "fraction": 0,
+              "feedback": "薄弱的 DoD 不會改善估算；它隱藏了剩餘的工作。"
+            },
+            {
+              "text": "團隊被迫寫更多驗收準則",
+              "fraction": 0,
+              "feedback": "薄弱的 DoD 不會逼出更多 AC；它讓低品質的工作過關。"
+            }
+          ],
+          "generalFeedback": "當 DoD 薄弱或未被落實時，未測試、未審查、未整合的工作會被標記為完成。品質侵蝕，「90% 完成」的工作藏起了剩餘的工作量，而那些工作量之後會以結轉與缺陷的形式浮現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺少就緒的定義的後果",
+          "text": "<p>沒有一個<strong>有效的就緒的定義</strong>，最可能造成什麼後果？</p>",
+          "answers": [
+            {
+              "text": "模糊、未就緒的項目被拉進來，並在衝刺途中因發現缺漏細節而反覆折騰",
+              "fraction": 100,
+              "feedback": "正確——沒有 DoR，未就緒的工作進入衝刺並產生折騰。"
+            },
+            {
+              "text": "已完成的工作永遠無法被標記為完成",
+              "fraction": 0,
+              "feedback": "標記完成由 DoD 管控，而非 DoR。"
+            },
+            {
+              "text": "團隊保證每個故事都能提早完成",
+              "fraction": 0,
+              "feedback": "未就緒的工作傾向延誤，而非提早完成。"
+            },
+            {
+              "text": "驗收測試變得沒有必要",
+              "fraction": 0,
+              "feedback": "缺少 DoR 並不會消除對驗收測試的需要。"
+            }
+          ],
+          "generalFeedback": "沒有 DoR，團隊會承諾投入不清楚、未估算、或被依賴阻擋的項目。缺漏的細節在衝刺途中浮現，造成重工、被阻擋的時間與折騰——正是入口關卡要防止的事。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "INVEST 概括的是什麼",
+          "text": "<p><strong>INVEST</strong> 口訣（Independent 獨立、Negotiable 可協商、Valuable 有價值、Estimable 可估算、Small 夠小、Testable 可測試）最常用來檢查一個故事是否：</p>",
+          "answers": [
+            {
+              "text": "就緒——它概括了一個良好、可開始的故事應具備的特質",
+              "fraction": 100,
+              "feedback": "正確——INVEST 是就緒的啟發式，與 DoR 密切相關。"
+            },
+            {
+              "text": "完成——它列出已完成工作的完成準則",
+              "fraction": 0,
+              "feedback": "INVEST 檢查故事的就緒程度，不是已完成工作的完整性。"
+            },
+            {
+              "text": "已發布——它是發布說明的檢查清單",
+              "fraction": 0,
+              "feedback": "INVEST 關乎就緒的故事品質，不是發布文件。"
+            },
+            {
+              "text": "超出預算——它是成本追蹤口訣",
+              "fraction": 0,
+              "feedback": "INVEST 描述故事特質，不是預算追蹤。"
+            }
+          ],
+          "generalFeedback": "INVEST 捕捉一個良好成形故事的特質——獨立、可協商、有價值、可估算、夠小、可測試。其中「可估算、夠小、可測試」特別對應到就緒，這正是 INVEST 常被用來支持就緒的定義的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：小到可在一個衝刺內完成",
+          "text": "<p>「該故事<strong>小到可在單一衝刺內完成</strong>。」這是哪個關卡？</p>",
+          "answers": [
+            {
+              "text": "就緒的定義項目",
+              "fraction": 100,
+              "feedback": "正確——小到能塞進一個衝刺是就緒條件。"
+            },
+            {
+              "text": "完成的定義項目",
+              "fraction": 0,
+              "feedback": "定出大小是在開始前檢查，而非完成時。"
+            },
+            {
+              "text": "描述故事行為的驗收準則",
+              "fraction": 0,
+              "feedback": "大小是就緒屬性，不是行為性的驗收準則。"
+            },
+            {
+              "text": "發布層級的準則",
+              "fraction": 0,
+              "feedback": "能塞進一個衝刺把關的是進入，而非發布。"
+            }
+          ],
+          "generalFeedback": "小到可在一個衝刺內完成是就緒屬性（INVEST 中的「S」）。若故事太大，必須在就緒之前先切分，因此這屬於 DoR。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：已整合且無重大缺陷",
+          "text": "<p>「該變更已<strong>整合／合併，且沒有已知的重大缺陷</strong>。」這是哪個關卡？</p>",
+          "answers": [
+            {
+              "text": "完成的定義項目",
+              "fraction": 100,
+              "feedback": "正確——整合與無重大缺陷都是完成條件。"
+            },
+            {
+              "text": "就緒的定義項目",
+              "fraction": 0,
+              "feedback": "工作建置前沒有東西可整合；這屬於完成。"
+            },
+            {
+              "text": "該故事大小的估算",
+              "fraction": 0,
+              "feedback": "這些是完整性條件，不是估算。"
+            },
+            {
+              "text": "因為提到缺陷，所以是就緒條件",
+              "fraction": 0,
+              "feedback": "建置後無缺陷屬於完成關注，而非就緒。"
+            }
+          ],
+          "generalFeedback": "合併工作並確認沒有已知的重大缺陷，都只能在工作存在之後才發生，因此兩者都是 DoD 出口關卡準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "滿足 AC 但不滿足 DoD",
+          "text": "<p>某故事做到了其驗收準則要求的一切，但程式碼<strong>未經審查、也沒有寫任何測試</strong>。它算完成嗎？</p>",
+          "answers": [
+            {
+              "text": "不算——它未通過 DoD，因此即使滿足 AC 仍不算完成",
+              "fraction": 100,
+              "feedback": "正確——完成需要 AC 與 DoD 兩者；此處 DoD 未滿足。"
+            },
+            {
+              "text": "算——滿足驗收準則就足以算完成",
+              "fraction": 0,
+              "feedback": "只滿足 AC 並不足夠；通用的 DoD 也必須成立。"
+            },
+            {
+              "text": "算——審查與測試是可有可無的附加項",
+              "fraction": 0,
+              "feedback": "審查與測試是 DoD 準則，不是可有可無的附加項。"
+            },
+            {
+              "text": "不重新估算該故事就無法判斷",
+              "fraction": 0,
+              "feedback": "完整性依 AC 與 DoD 判斷，而非重新估算。"
+            }
+          ],
+          "generalFeedback": "該故事的行為符合要求（AC 已滿足），但未經審查或測試，因此未通過通用的品質標準。由於完成需要 AC 與 DoD 兩者，該故事不算完成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "滿足 DoD 但不滿足其 AC",
+          "text": "<p>某變更已審查、已測試、已整合，但它<strong>並未真正實現</strong>其驗收準則所描述的行為。該故事算完成嗎？</p>",
+          "answers": [
+            {
+              "text": "不算——它滿足通用的 DoD，卻未通過它自己的驗收準則",
+              "fraction": 100,
+              "feedback": "正確——一個做錯事的、建置良好的變更，仍未通過其 AC。"
+            },
+            {
+              "text": "算——通過 DoD 就足以算完成",
+              "fraction": 0,
+              "feedback": "只有 DoD 並不足夠；故事還必須滿足其驗收準則。"
+            },
+            {
+              "text": "算——驗收準則只是建議",
+              "fraction": 0,
+              "feedback": "驗收準則界定故事必須做到什麼，並非可有可無。"
+            },
+            {
+              "text": "只由產品負責人的心情決定",
+              "fraction": 0,
+              "feedback": "完成依 AC 與 DoD 判斷，而非心情。"
+            }
+          ],
+          "generalFeedback": "此處工作品質很高（DoD 已滿足），卻解決了錯的問題（AC 未滿足）。完成需要兩者，因此一個建置良好卻未滿足其驗收準則的變更不算完成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 DoD 是通用的",
+          "text": "<p>為什麼完成的定義寫成<strong>通用</strong>的檢查清單，而不是每故事各一份？</p>",
+          "answers": [
+            {
+              "text": "如此一來，無論每個故事的特定行為為何，都受同一條一致的品質標準約束",
+              "fraction": 100,
+              "feedback": "正確——通用的 DoD 為所有故事提供統一的品質標準。"
+            },
+            {
+              "text": "如此一來，每個故事可以定義自己獨有的完成規則",
+              "fraction": 0,
+              "feedback": "每故事的規則是驗收準則；DoD 刻意做成通用的。"
+            },
+            {
+              "text": "因為 DoD 永遠只含一個項目",
+              "fraction": 0,
+              "feedback": "DoD 通常含多個項目；通用是指它套用到所有故事。"
+            },
+            {
+              "text": "因為通用的檢查清單較容易被忽略",
+              "fraction": 0,
+              "feedback": "通用 DoD 的重點是一致地落實，而非便於忽略。"
+            }
+          ],
+          "generalFeedback": "DoD 之所以通用，正是為了作為統一的品質標準：同一套標準（已審查、已測試、已整合、無重大缺陷）套用到每個故事。故事各自的期望則改放在每故事的驗收準則裡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "INVEST 支持哪個關卡",
+          "text": "<p>某團隊在精煉待辦項目時使用 <strong>INVEST</strong>。這最直接支持哪個關卡？</p>",
+          "answers": [
+            {
+              "text": "就緒的定義——INVEST 協助確認故事已良好成形、可開始",
+              "fraction": 100,
+              "feedback": "正確——INVEST 是支持入口關卡的就緒輔助。"
+            },
+            {
+              "text": "完成的定義——INVEST 列出完成檢查",
+              "fraction": 0,
+              "feedback": "INVEST 檢查故事就緒，不是已完成工作是否完整。"
+            },
+            {
+              "text": "都不是——INVEST 只關乎部署",
+              "fraction": 0,
+              "feedback": "INVEST 關乎就緒的故事品質，不是部署。"
+            },
+            {
+              "text": "兩道關卡同等，因為 INVEST 也涵蓋測試",
+              "fraction": 0,
+              "feedback": "雖然 INVEST 含「可測試」，但它評估的是故事的就緒，因此支持 DoR。"
+            }
+          ],
+          "generalFeedback": "INVEST 在精煉時套用，用來判斷故事是否已良好成形、就緒。由於那正是入口關卡所關注的，INVEST 最直接支持就緒的定義。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "具備 AC 與滿足 AC",
+          "text": "<p>下列哪個配對正確地把<strong>驗收準則的兩種用途</strong>對應到其關卡？</p>",
+          "answers": [
+            {
+              "text": "已定義清楚、可測試的 AC 是 DoR 項目；AC 實際被滿足則屬於 DoD 的一環",
+              "fraction": 100,
+              "feedback": "正確——定義 AC 屬於就緒；滿足 AC 屬於完成的一環。"
+            },
+            {
+              "text": "已定義 AC 是 DoD 項目；滿足 AC 是 DoR 項目",
+              "fraction": 0,
+              "feedback": "這說反了：定義 AC 屬於就緒，滿足 AC 屬於完成。"
+            },
+            {
+              "text": "定義與滿足 AC 都只屬於 DoR",
+              "fraction": 0,
+              "feedback": "滿足 AC 只能在工作建置之後發生，因此屬於 DoD 的一環。"
+            },
+            {
+              "text": "驗收準則在兩道關卡都沒有角色",
+              "fraction": 0,
+              "feedback": "AC 在兩道關卡都有角色：為就緒而定義、為完成而滿足。"
+            }
+          ],
+          "generalFeedback": "驗收準則以不同方式牽涉兩道關卡。就緒（DoR）：故事必須已定義清楚、可測試的 AC。完成（DoD）：那些 AC 必須被已建置的工作實際滿足。把「已定義」與「已滿足」混為一談，是關卡歸類錯誤的常見來源。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DoR 過於寬鬆造成折騰",
+          "text": "<p>某團隊把只被粗略理解的故事拉進來。衝刺途中他們不斷停下來釐清範圍、追查缺漏的依賴。哪個關卡薄弱，又如何顯現？</p>",
+          "answers": [
+            {
+              "text": "DoR 過於寬鬆，於是未就緒的工作進入並在衝刺途中折騰",
+              "fraction": 100,
+              "feedback": "正確——寬鬆的入口關卡放進不清楚的工作，造成衝刺途中的折騰。"
+            },
+            {
+              "text": "DoD 過於嚴格，於是什麼都無法完成",
+              "fraction": 0,
+              "feedback": "症狀是未就緒的工作進入，這指向 DoR，而非嚴格的 DoD。"
+            },
+            {
+              "text": "各故事間的驗收準則過於通用",
+              "fraction": 0,
+              "feedback": "問題在於未就緒地進入，這是 DoR 薄弱，而非通用的 AC。"
+            },
+            {
+              "text": "沒有問題；在衝刺途中釐清範圍是理想的",
+              "fraction": 0,
+              "feedback": "不斷在衝刺途中釐清是折騰，顯示 DoR 放進了未就緒的工作。"
+            }
+          ],
+          "generalFeedback": "不清楚、被依賴阻擋的故事本不該通過入口關卡。一旦通過，團隊便在衝刺途中發現缺漏並折騰。寬鬆的 DoR 是主因；收緊它可防止未就緒的工作進入。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "哪條準則屬於發布層級 DoD",
+          "text": "<p>在<strong>分層</strong>的完成的定義中，哪條準則最自然地屬於<strong>發布層級</strong>，而非每個故事？</p>",
+          "answers": [
+            {
+              "text": "完整回歸測試、效能與安全檢查通過，且發布說明已備妥",
+              "fraction": 100,
+              "feedback": "正確——跨切面的回歸、效能、安全與發布說明屬於發布層級。"
+            },
+            {
+              "text": "這個故事的程式碼已經過同儕審查",
+              "fraction": 0,
+              "feedback": "單一故事的同儕審查是故事層級的 DoD 項目。"
+            },
+            {
+              "text": "這個故事的單元測試通過",
+              "fraction": 0,
+              "feedback": "這個故事的單元測試通過屬於故事層級項目。"
+            },
+            {
+              "text": "這個故事滿足它自己的驗收準則",
+              "fraction": 0,
+              "feedback": "滿足單一故事的 AC 是故事層級，而非發布層級。"
+            }
+          ],
+          "generalFeedback": "分層的 DoD 有故事、衝刺／增量、發布三個層級。只對整個產品才有意義的跨切面關注——完整回歸、效能與安全測試、發布說明與簽核——屬於發布層級，而非每個獨立故事。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪條準則屬於故事層級 DoD",
+          "text": "<p>在分層的完成的定義中，哪條準則最自然地屬於<strong>故事層級</strong>？</p>",
+          "answers": [
+            {
+              "text": "該故事的程式碼已審查、其單元測試通過、且它滿足自己的驗收準則",
+              "fraction": 100,
+              "feedback": "正確——審查、單元測試與滿足 AC 都是每故事的完成項目。"
+            },
+            {
+              "text": "整個產品的回歸測試套件已執行",
+              "fraction": 0,
+              "feedback": "全產品回歸是發布層級關注，而非故事層級。"
+            },
+            {
+              "text": "取得該發布正式的效能與安全簽核",
+              "fraction": 0,
+              "feedback": "發布簽核是發布層級，而非故事層級。"
+            },
+            {
+              "text": "行銷用的發布說明已核准",
+              "fraction": 0,
+              "feedback": "發布說明是發布層級項目。"
+            }
+          ],
+          "generalFeedback": "故事層級的 DoD 涵蓋單一故事完成所需：程式碼已審查、其單元與驗收測試通過、其驗收準則已滿足且無已知重大缺陷。更廣的關注則升級到衝刺／增量層級與發布層級。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何未測試的故事不算完成",
+          "text": "<p>某開發者說一項功能「在我的機器上能跑——基本上算完成了，只是還沒測試」。為什麼它<strong>不</strong>算完成？</p>",
+          "answers": [
+            {
+              "text": "未測試、未驗證的工作品質未知，稱它為完成等於隱藏了風險與剩餘的工作",
+              "fraction": 100,
+              "feedback": "正確——沒有測試與審查，品質未知，「完成」是個不實的宣稱。"
+            },
+            {
+              "text": "它算完成；在開發者機器上能跑就滿足了 DoD",
+              "fraction": 0,
+              "feedback": "「在我的機器上能跑」不是 DoD；它對別人什麼都沒驗證。"
+            },
+            {
+              "text": "只要程式碼能編譯，它就算完成",
+              "fraction": 0,
+              "feedback": "能編譯不是 DoD；仍需測試、審查與整合。"
+            },
+            {
+              "text": "無法判斷，因為 DoD 不涵蓋測試",
+              "fraction": 0,
+              "feedback": "一份適當的 DoD 明確包含測試，而這項工作尚未測試。"
+            }
+          ],
+          "generalFeedback": "「在我的機器上能跑」與「90% 完成」都掩飾了未經驗證的工作。在它被測試、審查並整合之前，其真正品質與剩餘工作量都未知。一份包含測試的 DoD 存在的意義，正是阻止這類工作被算作完成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DoR 過於嚴格變成迷你瀑布",
+          "text": "<p>某團隊把 DoR 訂得極為苛刻，要求每個故事在進入衝刺前都必須有完整的前期設計與完整規格。風險是什麼？</p>",
+          "answers": [
+            {
+              "text": "它會漂向迷你瀑布與分析癱瘓，在任何撰寫程式之前就前置了沉重的設計",
+              "fraction": 100,
+              "feedback": "正確——過於嚴格的 DoR 重現了大量前期分析，與敏捷背道而馳。"
+            },
+            {
+              "text": "故事將總是太模糊而無法開始",
+              "fraction": 0,
+              "feedback": "那是 DoR 過於寬鬆的風險，而非過於嚴格。"
+            },
+            {
+              "text": "DoD 將變得不可能滿足",
+              "fraction": 0,
+              "feedback": "過於嚴格的 DoR 影響入口，而非完成準則。"
+            },
+            {
+              "text": "驗收準則變得沒有必要",
+              "fraction": 0,
+              "feedback": "過於嚴格的 DoR 並不會消除對驗收準則的需要。"
+            }
+          ],
+          "generalFeedback": "DoR 應確保有足夠的清晰度可以開始，而不是要求完整的前期設計。推得太過，它就重現了瀑布：在任何程式碼之前進行沉重的分析與規格，造成分析癱瘓與延誤。平衡點是「就緒到足以開始」，而非「完整設計」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "平衡過於寬鬆的 DoR",
+          "text": "<p>過於<strong>寬鬆</strong>的 DoR 造成折騰，過於<strong>嚴格</strong>的 DoR 造成分析癱瘓。健康的平衡是什麼？</p>",
+          "answers": [
+            {
+              "text": "要求剛好足夠的清晰度、大小與可測試準則以有信心地開始，並在工作進行中再精修細節",
+              "fraction": 100,
+              "feedback": "正確——「就緒到足以開始」既避免折騰也避免癱瘓。"
+            },
+            {
+              "text": "完全移除 DoR，讓沒有任何東西阻擋開始工作",
+              "fraction": 0,
+              "feedback": "移除它會回到未就緒工作造成的折騰。"
+            },
+            {
+              "text": "要求每個故事都有完整、凍結的規格",
+              "fraction": 0,
+              "feedback": "那是造成分析癱瘓的過於嚴格的極端。"
+            },
+            {
+              "text": "讓每位開發者私下逐一判斷每個故事的就緒",
+              "fraction": 0,
+              "feedback": "DoR 是共同的團隊協議，而非私下的個人判斷。"
+            }
+          ],
+          "generalFeedback": "DoR 應保證故事已被理解、已定出大小、且有可測試的驗收準則與已解決的依賴——足以有信心地開始——同時保留在衝刺中精修細節的空間。太寬鬆造成衝刺途中折騰；太嚴格則重現瀑布式分析。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：特定行為與通用標準",
+          "text": "<p>「該 API 對未知 id <strong>回傳 404</strong>」相對於「<strong>所有新程式碼都有自動化測試覆蓋</strong>」。這兩者如何歸類？</p>",
+          "answers": [
+            {
+              "text": "回傳 404 的行為是每故事的驗收準則；測試覆蓋規則是通用的 DoD 項目",
+              "fraction": 100,
+              "feedback": "正確——特定行為是 AC；全面的品質規則是 DoD。"
+            },
+            {
+              "text": "回傳 404 的行為是 DoD 項目；測試覆蓋規則是驗收準則",
+              "fraction": 0,
+              "feedback": "說反了：特定行為是 AC，全面規則是 DoD。"
+            },
+            {
+              "text": "兩者都是該單一故事的驗收準則",
+              "fraction": 0,
+              "feedback": "測試覆蓋規則套用到每個故事，因此是通用 DoD，而非 AC。"
+            },
+            {
+              "text": "兩者都是通用的 DoD 項目",
+              "fraction": 0,
+              "feedback": "對未知 id 回傳 404 專屬於這個故事，因此是 AC。"
+            }
+          ],
+          "generalFeedback": "描述這個故事具體必須做到什麼的陳述（對未知 id 回傳 404）是驗收準則。套用到每個故事的全面品質規則（所有新程式碼都有測試覆蓋）是通用的 DoD 項目。分辨特定與通用，是歸類它們的關鍵。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷被繞過的 DoD 造成的漏出缺陷",
+          "text": "<p>某團隊的速度看起來很高，但漏到正式環境的缺陷持續攀升，而故事在未經程式碼審查的情況下就被標記為完成。哪個關卡被違反了？</p>",
+          "answers": [
+            {
+              "text": "完成的定義——工作在未滿足審查與測試準則的情況下就被稱作完成",
+              "fraction": 100,
+              "feedback": "正確——跳過審查與測試卻標記完成，是違反 DoD。"
+            },
+            {
+              "text": "就緒的定義——這些故事一開始就不清楚",
+              "fraction": 0,
+              "feedback": "症狀是未達品質即完成，這指向 DoD，而非 DoR。"
+            },
+            {
+              "text": "驗收準則——它們太過具體",
+              "fraction": 0,
+              "feedback": "跳過審查造成的漏出缺陷指向 DoD，而非過於具體的 AC。"
+            },
+            {
+              "text": "沒有關卡——高速度證明流程很健康",
+              "fraction": 0,
+              "feedback": "高速度伴隨攀升的漏出缺陷，正顯示 DoD 被繞過。"
+            }
+          ],
+          "generalFeedback": "在未審查、未測試的情況下標記完成，會膨脹速度，同時讓缺陷漏到正式環境。那是被繞過的出口關卡：DoD 被違反了。落實 DoD 能讓「完成」重新對齊到真正、已驗證的完整性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷缺少的 DoR",
+          "text": "<p>故事不斷在沒有估算、沒有驗收準則的情況下進入衝刺，接著範圍暴增並卡住。哪個關卡缺少或被違反？</p>",
+          "answers": [
+            {
+              "text": "就緒的定義——未就緒的項目正被拉進衝刺",
+              "fraction": 100,
+              "feedback": "正確——未估算、無準則的項目進入衝刺，是 DoR 失效。"
+            },
+            {
+              "text": "完成的定義——完成的工作缺乏品質",
+              "fraction": 0,
+              "feedback": "問題出在入口（未就緒項目），是 DoR 失效，而非 DoD。"
+            },
+            {
+              "text": "發布層級的檢查清單——缺少發布說明",
+              "fraction": 0,
+              "feedback": "症狀是未就緒地進入，而非發布文件缺口。"
+            },
+            {
+              "text": "都不是——範圍暴增無可避免",
+              "fraction": 0,
+              "feedback": "一份要求估算與清楚 AC 的 DoR 本會在入口攔下這些項目。"
+            }
+          ],
+          "generalFeedback": "缺少估算與驗收準則的項目本不該通過入口關卡。既然通過了，範圍就在衝刺途中才被發現，工作因而卡住。這是缺少或被忽略的 DoR；在入口落實就緒可防止它發生。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "發布層級 DoD 額外加入什麼",
+          "text": "<p>在故事層級的 DoD 之上，<strong>發布層級</strong>的 DoD 通常額外加入什麼？</p>",
+          "answers": [
+            {
+              "text": "跨切面檢查，例如完整回歸、效能、安全、發布說明與簽核",
+              "fraction": 100,
+              "feedback": "正確——發布層級加入超出單一故事的全產品關注。"
+            },
+            {
+              "text": "什麼都沒加——它與故事層級的 DoD 相同",
+              "fraction": 0,
+              "feedback": "發布層級加入了故事層級無法涵蓋的全產品關注。"
+            },
+            {
+              "text": "只有該發布中最後一個故事的驗收準則",
+              "fraction": 0,
+              "feedback": "發布層級 DoD 關乎跨切面品質，而非某個故事的 AC。"
+            },
+            {
+              "text": "放寬故事層級規則以加速出貨",
+              "fraction": 0,
+              "feedback": "發布層級加入更嚴的跨切面檢查，並不放寬故事標準。"
+            }
+          ],
+          "generalFeedback": "有些品質關注只有對整個產品在發布時才有意義：跨功能的完整回歸、效能與安全驗證、文件與發布說明、以及正式簽核。分層的 DoD 把這些放在發布層級，疊加在故事層級與衝刺／增量層級的準則之上。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "衝刺／增量層級 DoD",
+          "text": "<p>在分層 DoD 中，哪項關注最適合放在<strong>衝刺／增量層級</strong>，介於故事與發布層級之間？</p>",
+          "answers": [
+            {
+              "text": "各故事合併成一個已整合、可展示、並部署到測試環境的增量",
+              "fraction": 100,
+              "feedback": "正確——把各故事整合成可出貨的增量是增量層級關注。"
+            },
+            {
+              "text": "這個單一故事的單元測試通過",
+              "fraction": 0,
+              "feedback": "單一故事的單元測試是故事層級項目。"
+            },
+            {
+              "text": "公開發布的正式外部安全簽核",
+              "fraction": 0,
+              "feedback": "外部發布簽核是發布層級關注。"
+            },
+            {
+              "text": "某個故事驗收準則的措辭",
+              "fraction": 0,
+              "feedback": "故事 AC 的措辭是故事層級細節，而非增量層級關注。"
+            }
+          ],
+          "generalFeedback": "介於故事與發布之間的是增量層級：各自已完成的故事必須整合成一個連貫、可展示的增量，通常建置並部署到測試環境。每故事的檢查留在故事層級；全產品的把關留在發布層級。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何僅有 AC 無法宣告完成",
+          "text": "<p>為什麼一個故事的驗收準則，單憑它們自己，<strong>不足以</strong>宣告它完成？</p>",
+          "answers": [
+            {
+              "text": "它們確認故事做對了事，卻不確認它是依共同的品質標準建置的",
+              "fraction": 100,
+              "feedback": "正確——AC 涵蓋行為的正確性，不涵蓋審查、測試與整合。"
+            },
+            {
+              "text": "因為驗收準則從來都不可測試",
+              "fraction": 0,
+              "feedback": "好的驗收準則是可測試的；缺口在於它們不涵蓋通用的 DoD。"
+            },
+            {
+              "text": "因為驗收準則與 DoD 是同一件事",
+              "fraction": 0,
+              "feedback": "它們不同：AC 是每故事的，DoD 是通用的品質標準。"
+            },
+            {
+              "text": "因為 DoD 取代了對驗收準則的需要",
+              "fraction": 0,
+              "feedback": "DoD 不取代 AC；完成需要兩者。"
+            }
+          ],
+          "generalFeedback": "驗收準則驗證故事交付了被要求它做的特定行為，卻對它是否已審查、已測試、已整合且無重大缺陷隻字未提。那些通用的品質關注存於 DoD，因此完成需要兩者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "DoD 如何對抗「90% 完成」",
+          "text": "<p>某團隊連續數週不斷聽到「它 90% 完成了」。一份明確、被落實的 DoD 如何<strong>對抗</strong>這件事？</p>",
+          "answers": [
+            {
+              "text": "它讓「完成」變得二元且客觀，於是隱藏的剩餘工作無法被偽裝成幾乎完成",
+              "fraction": 100,
+              "feedback": "正確——清楚的 DoD 把模糊的進度宣稱變成通過／未通過的檢查。"
+            },
+            {
+              "text": "它讓團隊把 90% 完成的工作算成完全完成以維持士氣",
+              "fraction": 0,
+              "feedback": "把未完成的工作算成完成，正是真正的 DoD 所禁止的。"
+            },
+            {
+              "text": "它加速寫程式，使沒有東西會停在 90%",
+              "fraction": 0,
+              "feedback": "DoD 不加速寫程式；它揭露隱藏的剩餘 10%。"
+            },
+            {
+              "text": "它消除了測試最後 10% 的需要",
+              "fraction": 0,
+              "feedback": "DoD 要求那項測試，因此不會消除它。"
+            }
+          ],
+          "generalFeedback": "「90% 完成」問題藏起了未知、往往很大的剩餘工作量。明確的 DoD 讓完成成為客觀、二元的檢查：要嘛每項準則都滿足，要嘛故事不算完成。這會把隱藏的工作攤開，而不是讓它躲在一個令人安心的百分比後面。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "負載下效能屬於哪一層",
+          "text": "<p>「系統滿足其<strong>負載下效能 SLA</strong>。」在分層 DoD 中，這條準則最自然地放在何處？</p>",
+          "answers": [
+            {
+              "text": "發布（或增量）層級，作為跨切面的全系統關注——而非放在每個獨立故事上",
+              "fraction": 100,
+              "feedback": "正確——全系統效能在發布／增量層級驗證。"
+            },
+            {
+              "text": "放在每一個故事上，作為每故事的驗收準則",
+              "fraction": 0,
+              "feedback": "全系統負載效能無法對每個小故事有意義地檢查；它是跨切面的。"
+            },
+            {
+              "text": "放在 DoR，作為就緒條件",
+              "fraction": 0,
+              "feedback": "效能是在建置之後驗證，而非作為入口條件。"
+            },
+            {
+              "text": "不放在任何地方——效能不屬於任何 DoD",
+              "fraction": 0,
+              "feedback": "系統效能是正當的發布層級 DoD 關注。"
+            }
+          ],
+          "generalFeedback": "負載下效能是已整合系統的屬性，而非某個小故事的屬性，因此在分層 DoD 的發布或增量層級驗證。把它附加到每個故事既不切實際也會誤導。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷跳過測試造成的結轉",
+          "text": "<p>每個衝刺，團隊把程式碼寫完的故事標記為完成，並把其測試「延到下個衝刺」。結轉不斷增加，且晚期冒出意外。診斷與修正是什麼？</p>",
+          "answers": [
+            {
+              "text": "DoD（必須包含測試）正被違反；落實它，使故事唯有在測試後才算完成，藉此攤開真正的剩餘工作",
+              "fraction": 100,
+              "feedback": "正確——延後測試卻標記完成違反了 DoD 並隱藏工作。"
+            },
+            {
+              "text": "DoR 過於嚴格；放寬它讓更多故事能開始",
+              "fraction": 0,
+              "feedback": "失效發生在完成端（測試被延後），因此是 DoD 問題，而非嚴格的 DoR。"
+            },
+            {
+              "text": "沒有問題；把測試延一個衝刺是標準做法",
+              "fraction": 0,
+              "feedback": "延後測試卻稱工作完成是隱藏結轉的反模式。"
+            },
+            {
+              "text": "驗收準則太過通用，應予移除",
+              "fraction": 0,
+              "feedback": "問題在於出口關卡跳過了測試，而非 AC 的措辭。"
+            }
+          ],
+          "generalFeedback": "把工作標記為完成卻延後其測試，違反了包含測試的 DoD。它膨脹了已完成的計數、累積隱藏的測試債，並迫使結轉與晚期意外。修正之道是落實 DoD，使故事唯有在真正被測試後才算完成，讓真正的剩餘工作現在就可見。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "故事都完成但增量不可出貨",
+          "text": "<p>每個故事都通過了它的故事層級 DoD，但合併後的增量卻在完整回歸執行中失敗，無法發布。這揭露了團隊 DoD 的什麼問題？</p>",
+          "answers": [
+            {
+              "text": "分層 DoD 不完整：故事層級檢查通過了，但增量／發布層級的整合與回歸準則缺少或未被落實",
+              "fraction": 100,
+              "feedback": "正確——通過故事層級並不保證整合後的增量；需要更高層級。"
+            },
+            {
+              "text": "沒有問題——若每個故事都完成，發布自然也完成",
+              "fraction": 0,
+              "feedback": "各自完成的故事仍可能彼此破壞；這正是需要更高 DoD 層級的原因。"
+            },
+            {
+              "text": "DoR 太寬鬆，這些故事本不該開始",
+              "fraction": 0,
+              "feedback": "故事已就緒且各自完成；缺口在整合／發布層級。"
+            },
+            {
+              "text": "驗收準則對每個故事太過具體",
+              "fraction": 0,
+              "feedback": "具體的每故事 AC 沒問題；缺的是跨切面的整合與回歸。"
+            }
+          ],
+          "generalFeedback": "各自都完成的故事，一旦整合仍可能彼此不良互動。分層 DoD 預見了這點：增量／發布層級加入整合、完整回歸與跨切面檢查。若那些層級缺少或未被落實，由各自完成故事組成的增量仍可能不可出貨——正是此處所見的缺口。",
+          "single": true
+        }
+      ]
+    }
+  },
   "e2e-user-journey": {
     "en": {
       "easy": [
