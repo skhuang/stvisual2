@@ -109088,6 +109088,2634 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "performance-load-profile": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What load testing evaluates",
+            "text": "<p><em>Load testing</em> primarily evaluates a system's behaviour when it is subjected to:</p>",
+            "answers": [
+              {
+                "text": "The expected / normal level of concurrent load it is designed to handle",
+                "fraction": 100,
+                "feedback": "Correct \u2014 load testing checks behaviour and performance under anticipated, realistic load."
+              },
+              {
+                "text": "A load pushed far beyond its capacity until it breaks",
+                "fraction": 0,
+                "feedback": "That is stress testing, which deliberately exceeds capacity to find the breaking point."
+              },
+              {
+                "text": "A sudden extreme surge that appears and disappears within seconds",
+                "fraction": 0,
+                "feedback": "That describes spike testing, not load testing."
+              },
+              {
+                "text": "A moderate load sustained continuously for many hours or days",
+                "fraction": 0,
+                "feedback": "That is soak (endurance) testing, aimed at long-run problems."
+              }
+            ],
+            "generalFeedback": "Load testing measures how a system performs under its expected, normal (up to anticipated peak) load \u2014 checking response time, throughput and error rate against targets for realistic usage.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What stress testing does",
+            "text": "<p><em>Stress testing</em> deliberately drives a system:</p>",
+            "answers": [
+              {
+                "text": "Beyond its expected capacity to find its breaking point and observe how it fails",
+                "fraction": 100,
+                "feedback": "Correct \u2014 stress testing pushes past the limits to reveal the breaking point and failure mode."
+              },
+              {
+                "text": "At exactly its normal expected load to confirm day-to-day behaviour",
+                "fraction": 0,
+                "feedback": "That is load testing; stress testing goes beyond the expected load."
+              },
+              {
+                "text": "With an unusually large volume of stored data records",
+                "fraction": 0,
+                "feedback": "That is volume testing, which focuses on data size, not on exceeding request capacity."
+              },
+              {
+                "text": "With a brief surge followed by an immediate return to normal",
+                "fraction": 0,
+                "feedback": "That is spike testing, a short sharp burst rather than sustained overload."
+              }
+            ],
+            "generalFeedback": "Stress testing loads a system past its capacity to locate the breaking point and see how it fails \u2014 graceful degradation versus a crash \u2014 and whether it recovers afterwards.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What spike testing applies",
+            "text": "<p><em>Spike testing</em> subjects a system to:</p>",
+            "answers": [
+              {
+                "text": "A sudden, sharp surge in load followed by a rapid drop back down",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a spike test applies an abrupt jump then removes it."
+              },
+              {
+                "text": "A steady load held constant over a long period",
+                "fraction": 0,
+                "feedback": "That is soak (endurance) testing, not a spike."
+              },
+              {
+                "text": "The normal expected level of load",
+                "fraction": 0,
+                "feedback": "That is load testing; a spike is a sudden abnormal surge."
+              },
+              {
+                "text": "A load pushed steadily higher until the system breaks",
+                "fraction": 0,
+                "feedback": "That gradual push to failure is stress testing, not a sudden spike."
+              }
+            ],
+            "generalFeedback": "A spike test applies a large, abrupt increase in load over a very short time and then removes it, checking whether the system copes with and recovers from sudden surges.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What soak testing applies",
+            "text": "<p><em>Soak (endurance) testing</em> applies:</p>",
+            "answers": [
+              {
+                "text": "A sustained load over a long duration to reveal problems such as memory leaks and resource exhaustion",
+                "fraction": 100,
+                "feedback": "Correct \u2014 soak testing runs for hours or days to expose slow-building problems."
+              },
+              {
+                "text": "A load beyond capacity to find the breaking point",
+                "fraction": 0,
+                "feedback": "That is stress testing; soak testing stays at a sustainable load but for a long time."
+              },
+              {
+                "text": "An instantaneous surge and immediate drop",
+                "fraction": 0,
+                "feedback": "That is spike testing, the opposite of a long sustained run."
+              },
+              {
+                "text": "A very large data set processed in a single run",
+                "fraction": 0,
+                "feedback": "That is volume testing, which is about data size rather than duration."
+              }
+            ],
+            "generalFeedback": "Soak / endurance testing holds a normal-to-high load for a long time (hours or days) to expose gradual problems \u2014 memory leaks, connection-pool exhaustion, slow response-time degradation \u2014 that short tests miss.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What volume testing focuses on",
+            "text": "<p><em>Volume testing</em> focuses on system behaviour when it must handle:</p>",
+            "answers": [
+              {
+                "text": "Large amounts of data \u2014 huge database tables, big files or long queues",
+                "fraction": 100,
+                "feedback": "Correct \u2014 volume testing is about coping with large quantities of data."
+              },
+              {
+                "text": "A sudden short-lived surge of requests",
+                "fraction": 0,
+                "feedback": "That is spike testing, which is about request rate, not data size."
+              },
+              {
+                "text": "A load held steady for many days",
+                "fraction": 0,
+                "feedback": "That is soak testing; volume testing concerns data quantity, not duration."
+              },
+              {
+                "text": "A request rate pushed beyond the breaking point",
+                "fraction": 0,
+                "feedback": "That is stress testing; volume testing is about data size, not overload."
+              }
+            ],
+            "generalFeedback": "Volume testing checks how the system copes with large quantities of data \u2014 for example very large tables, files, imports or message queues \u2014 where behaviour or performance may change at scale.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What scalability testing measures",
+            "text": "<p><em>Scalability testing</em> measures:</p>",
+            "answers": [
+              {
+                "text": "How performance changes as the load, or the resources allocated to the system, are scaled up or down",
+                "fraction": 100,
+                "feedback": "Correct \u2014 scalability testing observes how metrics evolve as load or resources scale."
+              },
+              {
+                "text": "Only the behaviour at a single fixed normal load",
+                "fraction": 0,
+                "feedback": "That is a single load test point; scalability is about the trend as things scale."
+              },
+              {
+                "text": "The failure mode when load exceeds capacity",
+                "fraction": 0,
+                "feedback": "That is stress testing; scalability is about how performance changes with scale, not the breaking point alone."
+              },
+              {
+                "text": "The effect of a single sudden spike",
+                "fraction": 0,
+                "feedback": "That is spike testing, not scalability."
+              }
+            ],
+            "generalFeedback": "Scalability testing observes how metrics such as throughput and response time evolve as you add load, or add/remove resources (CPU, instances) \u2014 telling you whether the system scales well and where it stops scaling.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Definition of response time",
+            "text": "<p>In performance testing, <em>response time</em> (latency) is:</p>",
+            "answers": [
+              {
+                "text": "The time taken to complete a single request, from sending it to receiving the response",
+                "fraction": 100,
+                "feedback": "Correct \u2014 latency is per-request elapsed time."
+              },
+              {
+                "text": "The number of requests completed per second",
+                "fraction": 0,
+                "feedback": "That is throughput, a rate, not the time of one request."
+              },
+              {
+                "text": "The percentage of requests that fail",
+                "fraction": 0,
+                "feedback": "That is the error rate, not response time."
+              },
+              {
+                "text": "The number of users active at the same time",
+                "fraction": 0,
+                "feedback": "That is concurrency, not response time."
+              }
+            ],
+            "generalFeedback": "Response time (latency) measures how long one request takes end to end. It is usually summarised with percentiles (p50, p95, p99) rather than a single number.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Definition of throughput",
+            "text": "<p><em>Throughput</em> in performance testing is:</p>",
+            "answers": [
+              {
+                "text": "The number of requests (or transactions) the system completes per unit of time, e.g. requests per second",
+                "fraction": 100,
+                "feedback": "Correct \u2014 throughput is a rate of completed work."
+              },
+              {
+                "text": "The time a single request takes to complete",
+                "fraction": 0,
+                "feedback": "That is response time (latency), not throughput."
+              },
+              {
+                "text": "The number of virtual users configured in the test",
+                "fraction": 0,
+                "feedback": "That is a concurrency setting, not the achieved rate of completed work."
+              },
+              {
+                "text": "The fraction of requests that return an error",
+                "fraction": 0,
+                "feedback": "That is the error rate, not throughput."
+              }
+            ],
+            "generalFeedback": "Throughput is a rate \u2014 requests/second or transactions/second (TPS). It measures how much work the system actually completes per unit time, distinct from how long any single request takes.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of a latency percentile",
+            "text": "<p>A latency percentile such as <em>p95</em> reports:</p>",
+            "answers": [
+              {
+                "text": "The latency value at or below which 95% of requests fall (95% are at least that fast)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 95% of requests are &#8804; p95, and the slowest 5% exceed it."
+              },
+              {
+                "text": "The average latency across all requests",
+                "fraction": 0,
+                "feedback": "That is the mean; a percentile is not an average."
+              },
+              {
+                "text": "The single slowest request observed in the run",
+                "fraction": 0,
+                "feedback": "That is the maximum (p100), not p95."
+              },
+              {
+                "text": "The number of requests slower than 95 ms",
+                "fraction": 0,
+                "feedback": "p95 is a percentile of the distribution, not a count against a fixed 95 ms."
+              }
+            ],
+            "generalFeedback": "The p95 latency is the value such that 95% of requests are at or below it and the slowest 5% exceed it. Percentiles describe the shape of the distribution, unlike the mean.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of concurrency",
+            "text": "<p><em>Concurrency</em> (concurrent users / virtual users) refers to:</p>",
+            "answers": [
+              {
+                "text": "The number of users or requests being handled by the system at the same time",
+                "fraction": 100,
+                "feedback": "Correct \u2014 concurrency is how many are in the system simultaneously."
+              },
+              {
+                "text": "The total number of distinct users over an entire day",
+                "fraction": 0,
+                "feedback": "That is a daily total, not simultaneous concurrency."
+              },
+              {
+                "text": "The time each request takes to complete",
+                "fraction": 0,
+                "feedback": "That is response time, not concurrency."
+              },
+              {
+                "text": "The number of requests completed per second",
+                "fraction": 0,
+                "feedback": "That is throughput, not concurrency."
+              }
+            ],
+            "generalFeedback": `Concurrency is how many requests or users are in the system at once. Load tools simulate them as "virtual users". Little's Law relates concurrency, throughput and response time.`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of error rate",
+            "text": "<p>The <em>error rate</em> in a performance test is:</p>",
+            "answers": [
+              {
+                "text": "The proportion of requests that fail (return errors or time out), usually expressed as a percentage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 error rate is the fraction of requests that do not succeed."
+              },
+              {
+                "text": "The average time per request",
+                "fraction": 0,
+                "feedback": "That is response time, not error rate."
+              },
+              {
+                "text": "The number of concurrent users",
+                "fraction": 0,
+                "feedback": "That is concurrency, not error rate."
+              },
+              {
+                "text": "The number of requests completed per second",
+                "fraction": 0,
+                "feedback": "That is throughput, not error rate."
+              }
+            ],
+            "generalFeedback": "Error rate is the fraction of requests that do not succeed. It often rises sharply as a system approaches saturation, and is a key signal when identifying the breaking point.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Definition of an SLO",
+            "text": "<p>A <em>Service Level Objective (SLO)</em> is:</p>",
+            "answers": [
+              {
+                "text": 'A target value for a service metric, such as "p95 latency under 200 ms", that the service aims to meet',
+                "fraction": 100,
+                "feedback": "Correct \u2014 an SLO is a measurable target for a chosen metric."
+              },
+              {
+                "text": "The number of servers the service is allowed to use",
+                "fraction": 0,
+                "feedback": "That is a capacity limit, not a service-level objective."
+              },
+              {
+                "text": "The total number of requests sent during a test",
+                "fraction": 0,
+                "feedback": "That is a test-workload figure, not an SLO."
+              },
+              {
+                "text": "A guarantee that the system can never fail",
+                "fraction": 0,
+                "feedback": "No realistic SLO promises zero failures; an SLO sets a measurable target."
+              }
+            ],
+            "generalFeedback": 'An SLO is a target (objective) for a service-level indicator (SLI), e.g. "p95 latency under 200 ms" or "error rate under 0.1%". An SLA is the broader agreement, often with consequences, built around one or more SLOs.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Goal: find the breaking point",
+            "text": "<p>You want to discover the maximum load your system can handle before it fails, and how it fails. Which test type fits best?</p>",
+            "answers": [
+              {
+                "text": "Stress test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 finding the breaking point and failure mode is the defining goal of stress testing."
+              },
+              {
+                "text": "Load test",
+                "fraction": 0,
+                "feedback": "A load test stays at expected load; it does not push to the breaking point."
+              },
+              {
+                "text": "Soak test",
+                "fraction": 0,
+                "feedback": "A soak test targets long-run degradation, not the breaking point."
+              },
+              {
+                "text": "Volume test",
+                "fraction": 0,
+                "feedback": "A volume test is about large data, not the maximum request load."
+              }
+            ],
+            "generalFeedback": "Finding the maximum sustainable load and the failure mode beyond it is exactly what stress testing is for.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Goal: catch a slow memory leak",
+            "text": "<p>You suspect a slow memory leak that only shows up after the service runs for many hours. Which test type fits best?</p>",
+            "answers": [
+              {
+                "text": "Soak (endurance) test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a leak that manifests over long runtime is exactly what soak testing targets."
+              },
+              {
+                "text": "Spike test",
+                "fraction": 0,
+                "feedback": "A spike test is a brief surge; it will not run long enough to reveal a slow leak."
+              },
+              {
+                "text": "Stress test",
+                "fraction": 0,
+                "feedback": "A stress test finds the breaking point quickly; it is not a long-duration run."
+              },
+              {
+                "text": "Volume test",
+                "fraction": 0,
+                "feedback": "A volume test is about data size, not sustained runtime."
+              }
+            ],
+            "generalFeedback": "Problems that only appear after long continuous operation \u2014 memory leaks, resource exhaustion, gradual degradation \u2014 are the domain of soak / endurance testing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Goal: sudden ticket-sale surge",
+            "text": "<p>Your site expects a sudden, brief traffic surge the instant tickets go on sale, then traffic falls back. Which test type best reproduces this?</p>",
+            "answers": [
+              {
+                "text": "Spike test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a sudden sharp surge then drop is the spike-test pattern."
+              },
+              {
+                "text": "Soak test",
+                "fraction": 0,
+                "feedback": "A soak test sustains load for a long time, the opposite of a brief surge."
+              },
+              {
+                "text": "Load test",
+                "fraction": 0,
+                "feedback": "A load test uses steady expected load, not an abrupt surge."
+              },
+              {
+                "text": "Volume test",
+                "fraction": 0,
+                "feedback": "A volume test concerns data size, not a sudden traffic jump."
+              }
+            ],
+            "generalFeedback": "An abrupt, short-lived jump in load followed by a rapid return to normal is precisely the scenario a spike test reproduces.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Scenario: where does it break",
+            "text": "<p>A team wants to know at how many concurrent users response times become unacceptable and the service starts returning errors \u2014 i.e. where it breaks. The right test type is:</p>",
+            "answers": [
+              {
+                "text": "Stress test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 locating the point of unacceptable response and rising errors is the breaking point, found by stress testing."
+              },
+              {
+                "text": "Load test",
+                "fraction": 0,
+                "feedback": "A load test confirms behaviour at expected load; it does not deliberately drive the system to failure."
+              },
+              {
+                "text": "Soak test",
+                "fraction": 0,
+                "feedback": "A soak test looks for long-run degradation at a sustainable load, not the breaking point."
+              },
+              {
+                "text": "Spike test",
+                "fraction": 0,
+                "feedback": "A spike test checks recovery from a sudden surge, not the gradual approach to the breaking point."
+              }
+            ],
+            "generalFeedback": "Progressively increasing load until response times degrade and errors climb is how stress testing exposes the breaking point and failure mode.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario: 8-hour creep",
+            "text": "<p>Over an 8-hour continuous run at normal load, engineers want to catch gradually rising memory use and slow response-time creep. The right test type is:</p>",
+            "answers": [
+              {
+                "text": "Soak (endurance) test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 sustained runtime revealing gradual degradation is soak testing."
+              },
+              {
+                "text": "Spike test",
+                "fraction": 0,
+                "feedback": "A spike test lasts moments, not 8 hours; it cannot reveal gradual creep."
+              },
+              {
+                "text": "Stress test",
+                "fraction": 0,
+                "feedback": "A stress test seeks the breaking point, not slow degradation over hours."
+              },
+              {
+                "text": "Volume test",
+                "fraction": 0,
+                "feedback": "A volume test is about large data size, not long runtime."
+              }
+            ],
+            "generalFeedback": "Gradual memory growth and response-time creep over a long steady run are the hallmark findings of soak / endurance testing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario: Black-Friday open",
+            "text": "<p>An e-commerce site expects a huge, near-instant jump in traffic when a Black-Friday sale opens at midnight, then a quick fall-off. The right test type is:</p>",
+            "answers": [
+              {
+                "text": "Spike test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a near-instant jump then fall-off is the spike pattern."
+              },
+              {
+                "text": "Soak test",
+                "fraction": 0,
+                "feedback": "A soak test sustains load for a long time; it does not model an instant surge."
+              },
+              {
+                "text": "Load test",
+                "fraction": 0,
+                "feedback": "A load test uses steady expected traffic, not an abrupt jump."
+              },
+              {
+                "text": "Volume test",
+                "fraction": 0,
+                "feedback": "A volume test is about data quantity, not a sudden traffic surge."
+              }
+            ],
+            "generalFeedback": "A sudden, large, short-lived surge followed by a drop is exactly what a spike test reproduces, verifying the system copes and recovers.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario: expected daily peak",
+            "text": "<p>A team wants to confirm the system behaves well under the ordinary, expected daily peak traffic it was designed for. The right test type is:</p>",
+            "answers": [
+              {
+                "text": "Load test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 verifying behaviour at expected/normal load is load testing."
+              },
+              {
+                "text": "Stress test",
+                "fraction": 0,
+                "feedback": "A stress test exceeds capacity; here the goal is the expected load only."
+              },
+              {
+                "text": "Spike test",
+                "fraction": 0,
+                "feedback": "A spike test is a sudden surge, not the ordinary expected peak."
+              },
+              {
+                "text": "Volume test",
+                "fraction": 0,
+                "feedback": "A volume test targets data size, not the expected request load."
+              }
+            ],
+            "generalFeedback": "Confirming performance under the anticipated, designed-for load is the core purpose of load testing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario: 500-million-row table",
+            "text": "<p>A reporting service must process a table that has grown to 500 million rows. The team wants to confirm queries and exports still work at that data size. The right test type is:</p>",
+            "answers": [
+              {
+                "text": "Volume test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 behaviour with a very large data set is volume testing."
+              },
+              {
+                "text": "Spike test",
+                "fraction": 0,
+                "feedback": "A spike test is about a sudden request surge, not data size."
+              },
+              {
+                "text": "Soak test",
+                "fraction": 0,
+                "feedback": "A soak test is about long runtime, not the size of the data set."
+              },
+              {
+                "text": "Stress test",
+                "fraction": 0,
+                "feedback": "A stress test overloads request rate; here the concern is data volume."
+              }
+            ],
+            "generalFeedback": "Checking that the system still functions and performs acceptably with very large quantities of data is exactly volume testing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario: does doubling servers help",
+            "text": "<p>A team doubles the number of application servers and wants to see whether throughput roughly doubles. This is an example of:</p>",
+            "answers": [
+              {
+                "text": "Scalability testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 measuring how performance changes as resources scale is scalability testing."
+              },
+              {
+                "text": "Stress testing",
+                "fraction": 0,
+                "feedback": "A stress test seeks the breaking point, not the effect of adding resources."
+              },
+              {
+                "text": "Soak testing",
+                "fraction": 0,
+                "feedback": "A soak test is about long-run stability, not scaling resources."
+              },
+              {
+                "text": "Spike testing",
+                "fraction": 0,
+                "feedback": "A spike test is a sudden surge, unrelated to scaling servers."
+              }
+            ],
+            "generalFeedback": "Observing how throughput (or latency) responds when you add or remove resources is scalability testing \u2014 ideally throughput should rise close to proportionally, though real systems deviate.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why percentiles beat the mean",
+            "text": "<p>Why are tail percentiles (p95 / p99) usually more informative than the mean response time?</p>",
+            "answers": [
+              {
+                "text": "The mean can hide a slow tail; a small fraction of very slow requests barely moves the average but badly hurts real users",
+                "fraction": 100,
+                "feedback": "Correct \u2014 averages are dominated by the many fast requests and mask the tail."
+              },
+              {
+                "text": "The mean is always larger than any percentile, so it overstates performance",
+                "fraction": 0,
+                "feedback": "False \u2014 the mean is not always larger than every percentile; the real issue is that it hides the tail."
+              },
+              {
+                "text": "Percentiles are cheaper to compute than the mean",
+                "fraction": 0,
+                "feedback": "Computational cost is not the reason; percentiles reveal the tail the mean conceals."
+              },
+              {
+                "text": "The mean cannot be computed for latency data",
+                "fraction": 0,
+                "feedback": "The mean is perfectly computable; it simply hides outliers."
+              }
+            ],
+            "generalFeedback": "Latency distributions are skewed: most requests are fast, so the mean stays low even when a small fraction are very slow. Those slow requests are exactly what p95/p99 (tail latency) expose \u2014 and what users notice.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpret p99 = 500 ms",
+            "text": '<p>A report states "p99 latency = 500 ms". This means:</p>',
+            "answers": [
+              {
+                "text": "99% of requests completed in 500 ms or less, and the slowest 1% took longer",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is exactly what a p99 of 500 ms means."
+              },
+              {
+                "text": "Every request took exactly 500 ms",
+                "fraction": 0,
+                "feedback": "A percentile is not a single fixed value for all requests."
+              },
+              {
+                "text": "The average request took 500 ms",
+                "fraction": 0,
+                "feedback": "p99 is not the mean; it is a tail percentile."
+              },
+              {
+                "text": "Only 1% of requests completed in 500 ms or less",
+                "fraction": 0,
+                "feedback": "That inverts it \u2014 99% are at or below 500 ms, not 1%."
+              }
+            ],
+            "generalFeedback": "p99 = 500 ms means 99% of requests were at or below 500 ms and the slowest 1% exceeded it. It says nothing directly about the mean.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of p50",
+            "text": "<p>The <em>p50</em> latency of a service is:</p>",
+            "answers": [
+              {
+                "text": "The median latency \u2014 half the requests are faster and half are slower",
+                "fraction": 100,
+                "feedback": "Correct \u2014 p50 is the median."
+              },
+              {
+                "text": "The mean (arithmetic average) latency",
+                "fraction": 0,
+                "feedback": "The mean and median coincide only for symmetric data; p50 is the median."
+              },
+              {
+                "text": "The latency of the fastest 50 requests",
+                "fraction": 0,
+                "feedback": "p50 is a percentile of the whole distribution, not a count of 50 requests."
+              },
+              {
+                "text": "The maximum latency divided by two",
+                "fraction": 0,
+                "feedback": "The median has nothing to do with halving the maximum."
+              }
+            ],
+            "generalFeedback": "p50 is the median: 50% of requests are at or below it. For skewed latency data the mean is usually higher than p50, which is why both, plus tail percentiles, are reported.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Order of a load profile",
+            "text": "<p>A typical load-test profile runs its phases in which order?</p>",
+            "answers": [
+              {
+                "text": "ramp-up &#8594; steady-state &#8594; ramp-down",
+                "fraction": 100,
+                "feedback": "Correct \u2014 build load up, hold it while measuring, then reduce it."
+              },
+              {
+                "text": "steady-state &#8594; ramp-up &#8594; ramp-down",
+                "fraction": 0,
+                "feedback": "You cannot hold steady-state before ramping up to it."
+              },
+              {
+                "text": "ramp-down &#8594; steady-state &#8594; ramp-up",
+                "fraction": 0,
+                "feedback": "That reverses the profile; load starts low and is ramped up first."
+              },
+              {
+                "text": "spike &#8594; soak &#8594; volume",
+                "fraction": 0,
+                "feedback": "Those are test types, not the phases of a single load profile."
+              }
+            ],
+            "generalFeedback": "A load profile ramps load up gradually, holds it at steady-state (where the key measurements are taken), then ramps it down. Measuring during steady-state avoids the transient effects of ramping.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "SLA check: 180 vs 200",
+            "text": '<p>The SLO says "p95 &lt; 200 ms". A test measures p95 = 180 ms. The result is:</p>',
+            "answers": [
+              {
+                "text": "Pass \u2014 180 ms is below the 200 ms threshold",
+                "fraction": 100,
+                "feedback": "Correct \u2014 180 < 200, so the p95 target is met."
+              },
+              {
+                "text": "Fail \u2014 180 ms violates the threshold",
+                "fraction": 0,
+                "feedback": "180 ms is below 200 ms, so it satisfies the target."
+              },
+              {
+                "text": "Cannot tell without the mean latency",
+                "fraction": 0,
+                "feedback": "The SLO is stated on p95, and p95 = 180 ms is measured, so it can be decided."
+              },
+              {
+                "text": "Pass only if p99 is also 180 ms",
+                "fraction": 0,
+                "feedback": "The SLO here constrains only p95; p99 is not part of this target."
+              }
+            ],
+            "generalFeedback": "The SLO constrains p95 to under 200 ms. The measured p95 of 180 ms is below the threshold, so the target is met \u2014 a pass.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "SLA check: 240 vs 200",
+            "text": '<p>The SLO says "p95 &lt; 200 ms". A test measures p95 = 240 ms. The result is:</p>',
+            "answers": [
+              {
+                "text": "Fail \u2014 240 ms exceeds the 200 ms threshold",
+                "fraction": 100,
+                "feedback": "Correct \u2014 240 > 200, so the p95 target is missed."
+              },
+              {
+                "text": "Pass \u2014 240 ms is acceptable",
+                "fraction": 0,
+                "feedback": "240 ms is above the 200 ms limit, so it fails."
+              },
+              {
+                "text": "Pass, because the mean is probably under 200 ms",
+                "fraction": 0,
+                "feedback": "The SLO is on p95, not the mean; a low mean does not rescue a failing p95."
+              },
+              {
+                "text": "Cannot tell without the error rate",
+                "fraction": 0,
+                "feedback": "The SLO is stated on p95 alone, and the measured p95 already decides it."
+              }
+            ],
+            "generalFeedback": "The SLO requires p95 under 200 ms; the measured p95 of 240 ms exceeds it, so the target is missed regardless of the mean or other metrics.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Valid unit of throughput",
+            "text": "<p>Which of these is a valid unit of throughput?</p>",
+            "answers": [
+              {
+                "text": "Requests per second (equivalently transactions per second, TPS)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 throughput is work completed per unit time."
+              },
+              {
+                "text": "Milliseconds per request",
+                "fraction": 0,
+                "feedback": "That is a response-time unit, not throughput."
+              },
+              {
+                "text": "Percent of failed requests",
+                "fraction": 0,
+                "feedback": "That is the error rate, not throughput."
+              },
+              {
+                "text": "Number of concurrent virtual users",
+                "fraction": 0,
+                "feedback": "That is a concurrency count, not a rate of completed work."
+              }
+            ],
+            "generalFeedback": "Throughput is a rate: work completed per unit time (req/s, TPS). Milliseconds/request is response time, percent-failed is error rate, and virtual users measure concurrency.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose of think time",
+            "text": "<p>In a realistic load profile, <em>think time</em> models:</p>",
+            "answers": [
+              {
+                "text": "The pauses a real user takes between actions, so the generated load resembles genuine usage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 think time is the idle interval between a user's successive requests."
+              },
+              {
+                "text": "The CPU time the server spends processing a request",
+                "fraction": 0,
+                "feedback": "That is server processing time, not think time."
+              },
+              {
+                "text": "The delay before the whole test begins",
+                "fraction": 0,
+                "feedback": "That is a start delay, not think time between user actions."
+              },
+              {
+                "text": "The time taken to ramp the load down",
+                "fraction": 0,
+                "feedback": "That is the ramp-down phase, not think time."
+              }
+            ],
+            "generalFeedback": "Think time is the pause between a user's successive actions. Including it (with a realistic transaction mix) keeps the arrival pattern lifelike rather than hammering the server with back-to-back requests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Concurrency versus throughput",
+            "text": "<p><em>Concurrency</em> and <em>throughput</em> are related but distinct because:</p>",
+            "answers": [
+              {
+                "text": "Concurrency is how many requests are in the system at once, while throughput is how many complete per unit time",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one is a count in flight, the other a completion rate."
+              },
+              {
+                "text": "They are two names for exactly the same quantity",
+                "fraction": 0,
+                "feedback": "They are different: a count in the system versus a rate of completion."
+              },
+              {
+                "text": "Concurrency is measured in req/s and throughput in number of users",
+                "fraction": 0,
+                "feedback": "That swaps them: throughput is req/s and concurrency is a count of in-flight requests/users."
+              },
+              {
+                "text": "Throughput is always equal to the number of virtual users",
+                "fraction": 0,
+                "feedback": "Throughput is a completion rate, not the virtual-user count; they differ unless response time is exactly one second."
+              }
+            ],
+            "generalFeedback": "Concurrency (L) is the number of requests in flight; throughput (&#955;) is the completion rate. Little's Law ties them together with response time: L = &#955; &#215; W.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Little's Law: compute concurrency (50, 0.2)",
+            "text": "<p>A service sustains a throughput of 50 requests/second with an average response time of 0.2 s. By Little's Law (L = &#955; &#215; W), the average concurrency (number of requests in the system) is:</p>",
+            "answers": [
+              {
+                "text": "10",
+                "fraction": 100,
+                "feedback": "Correct \u2014 L = 50 /s &#215; 0.2 s = 10."
+              },
+              {
+                "text": "250",
+                "fraction": 0,
+                "feedback": "That is 50 &#247; 0.2; Little's Law multiplies throughput by response time."
+              },
+              {
+                "text": "50.2",
+                "fraction": 0,
+                "feedback": "That adds the two values; the law multiplies them."
+              },
+              {
+                "text": "0.004",
+                "fraction": 0,
+                "feedback": "That is 0.2 &#247; 50; the correct product is 50 &#215; 0.2 = 10."
+              }
+            ],
+            "generalFeedback": "Little's Law: L = &#955; &#215; W = 50 requests/second &#215; 0.2 second = 10 requests in the system on average.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Little's Law: compute throughput (200, 0.5)",
+            "text": "<p>By Little's Law, if the average concurrency is 200 requests and the average response time is 0.5 s, the throughput is:</p>",
+            "answers": [
+              {
+                "text": "400 requests/second",
+                "fraction": 100,
+                "feedback": "Correct \u2014 &#955; = L &#247; W = 200 &#247; 0.5 s = 400 /s."
+              },
+              {
+                "text": "100 requests/second",
+                "fraction": 0,
+                "feedback": "That is 200 &#215; 0.5; to get throughput you divide L by W, not multiply."
+              },
+              {
+                "text": "0.0025 requests/second",
+                "fraction": 0,
+                "feedback": "That is 0.5 &#247; 200; the correct value is 200 &#247; 0.5 = 400."
+              },
+              {
+                "text": "200.5 requests/second",
+                "fraction": 0,
+                "feedback": "That adds the two values; the law gives &#955; = L &#247; W = 400."
+              }
+            ],
+            "generalFeedback": "Rearranging L = &#955; &#215; W gives &#955; = L &#247; W = 200 &#247; 0.5 s = 400 requests/second.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Little's Law: compute response time (60, 120)",
+            "text": "<p>By Little's Law, if the average concurrency is 60 and the throughput is 120 requests/second, the average response time is:</p>",
+            "answers": [
+              {
+                "text": "0.5 s",
+                "fraction": 100,
+                "feedback": "Correct \u2014 W = L &#247; &#955; = 60 &#247; 120 /s = 0.5 s."
+              },
+              {
+                "text": "2 s",
+                "fraction": 0,
+                "feedback": "That is 120 &#247; 60; response time is L &#247; &#955;, not &#955; &#247; L."
+              },
+              {
+                "text": "7200 s",
+                "fraction": 0,
+                "feedback": "That is 60 &#215; 120; the law divides L by &#955; here."
+              },
+              {
+                "text": "180 s",
+                "fraction": 0,
+                "feedback": "That adds the two values; W = L &#247; &#955; = 0.5 s."
+              }
+            ],
+            "generalFeedback": "Rearranging L = &#955; &#215; W gives W = L &#247; &#955; = 60 &#247; 120 requests/second = 0.5 s.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Little's Law: compute concurrency (25, 0.4)",
+            "text": "<p>A checkout service handles 25 transactions/second with an average response time of 0.4 s. Its average concurrency is:</p>",
+            "answers": [
+              {
+                "text": "10",
+                "fraction": 100,
+                "feedback": "Correct \u2014 L = 25 /s &#215; 0.4 s = 10."
+              },
+              {
+                "text": "62.5",
+                "fraction": 0,
+                "feedback": "That is 25 &#247; 0.4; Little's Law multiplies throughput by response time."
+              },
+              {
+                "text": "25.4",
+                "fraction": 0,
+                "feedback": "That adds the two values; the law multiplies them."
+              },
+              {
+                "text": "0.016",
+                "fraction": 0,
+                "feedback": "That is 0.4 &#247; 25; the correct product is 25 &#215; 0.4 = 10."
+              }
+            ],
+            "generalFeedback": "Little's Law: L = &#955; &#215; W = 25 transactions/second &#215; 0.4 second = 10 in the system on average.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Little's Law: compute response time (100, 250)",
+            "text": "<p>A service shows average concurrency 100 and throughput 250 requests/second. Its average response time is:</p>",
+            "answers": [
+              {
+                "text": "0.4 s",
+                "fraction": 100,
+                "feedback": "Correct \u2014 W = L &#247; &#955; = 100 &#247; 250 /s = 0.4 s."
+              },
+              {
+                "text": "2.5 s",
+                "fraction": 0,
+                "feedback": "That is 250 &#247; 100; response time is L &#247; &#955;, not &#955; &#247; L."
+              },
+              {
+                "text": "25000 s",
+                "fraction": 0,
+                "feedback": "That is 100 &#215; 250; here the law divides L by &#955;."
+              },
+              {
+                "text": "350 s",
+                "fraction": 0,
+                "feedback": "That adds the two values; W = L &#247; &#955; = 0.4 s."
+              }
+            ],
+            "generalFeedback": "W = L &#247; &#955; = 100 &#247; 250 requests/second = 0.4 s.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mean passes while p99 fails",
+            "text": "<p>A service meets its mean-latency target easily, yet users complain of frequent freezes, and the p99 latency is far above target. The best explanation is:</p>",
+            "answers": [
+              {
+                "text": "A small fraction of requests are very slow; they barely move the mean but dominate p99, and those are the freezes users notice",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the tail is what users feel, and only the high percentile reveals it."
+              },
+              {
+                "text": "The mean must be computed incorrectly whenever p99 is high",
+                "fraction": 0,
+                "feedback": "Both can be correct at once; a low mean with a high p99 is exactly a skewed distribution."
+              },
+              {
+                "text": "A high p99 proves the mean must also be above target",
+                "fraction": 0,
+                "feedback": "No \u2014 a few slow requests raise p99 without lifting the mean much."
+              },
+              {
+                "text": "The users are mistaken, because the mean target is met",
+                "fraction": 0,
+                "feedback": "The users experience the tail; a passing mean does not mean everyone is served quickly."
+              }
+            ],
+            "generalFeedback": "The mean is dominated by the many fast requests, so a slow tail hardly moves it. p99 captures exactly that tail \u2014 the slow 1% that users experience as freezes. This is why SLOs are set on tail percentiles, not the average.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which statistic reveals the tail",
+            "text": "<p>In a run of 1000 requests, 985 take about 50 ms and 15 take about 5000 ms. Which single statistic best reveals the problem those slow requests cause?</p>",
+            "answers": [
+              {
+                "text": "The p99 latency (about 5000 ms), which exposes the slow tail",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with 1.5% of requests slow, p99 lands in the slow group."
+              },
+              {
+                "text": "The mean latency, which stays low (about 124 ms)",
+                "fraction": 0,
+                "feedback": "The mean = (985&#215;50 + 15&#215;5000)/1000 &#8776; 124 ms \u2014 it hides the tail rather than revealing it."
+              },
+              {
+                "text": "The throughput, which is unaffected",
+                "fraction": 0,
+                "feedback": "Throughput does not describe per-request latency, so it cannot reveal the slow tail."
+              },
+              {
+                "text": "The p50 latency, which is about 50 ms",
+                "fraction": 0,
+                "feedback": "p50 (the median) sits among the fast requests at about 50 ms and hides the tail."
+              }
+            ],
+            "generalFeedback": "mean &#8776; (985&#215;50 + 15&#215;5000)/1000 &#8776; 124 ms and p50 &#8776; 50 ms both look acceptable. Because 1.5% of requests are slow, the p99 falls into the slow group at about 5000 ms \u2014 only the high percentile exposes the tail.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify the bottleneck: CPU",
+            "text": "<p>At a load of 300 req/s, monitoring shows CPU pinned at about 100% while memory, disk and network all sit below 50%. The bottleneck is most likely:</p>",
+            "answers": [
+              {
+                "text": "The CPU \u2014 it is the saturated resource limiting further throughput",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the first resource to saturate is the bottleneck."
+              },
+              {
+                "text": "Memory, because it has spare capacity",
+                "fraction": 0,
+                "feedback": "Spare capacity means memory is not the limit; the saturated resource is."
+              },
+              {
+                "text": "The network, because it is under 50%",
+                "fraction": 0,
+                "feedback": "A resource under 50% is not saturated, so it is not the bottleneck."
+              },
+              {
+                "text": "Nothing \u2014 an idle resource is always the bottleneck",
+                "fraction": 0,
+                "feedback": "The bottleneck is the saturated resource, not an idle one."
+              }
+            ],
+            "generalFeedback": "The bottleneck is the first resource to saturate. CPU at ~100% while others are idle means CPU caps throughput; the fix is to add CPU or reduce CPU cost per request.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Interpret the scalability knee",
+            "text": '<p>As virtual users increase, throughput rises, then flattens to a plateau while response time keeps climbing. The plateau (the "knee") indicates:</p>',
+            "answers": [
+              {
+                "text": "The system has reached its capacity / saturation; extra users now only add latency, not throughput",
+                "fraction": 100,
+                "feedback": "Correct \u2014 beyond the knee the bottleneck is saturated and work cannot increase."
+              },
+              {
+                "text": "The system scales linearly without limit",
+                "fraction": 0,
+                "feedback": "A plateau is the opposite of unlimited linear scaling."
+              },
+              {
+                "text": "A measurement error, since throughput can never plateau",
+                "fraction": 0,
+                "feedback": "Throughput plateauing at saturation is expected, not an error."
+              },
+              {
+                "text": "The error rate has necessarily dropped to zero",
+                "fraction": 0,
+                "feedback": "A throughput plateau says nothing of the sort; errors often rise at saturation."
+              }
+            ],
+            "generalFeedback": "Beyond the knee the bottleneck is saturated: adding load cannot raise completed work, so requests queue and response time grows while throughput stays flat. That point marks the system's effective capacity.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Diagnose soak-test degradation",
+            "text": "<p>During a 12-hour soak test at constant load, response time slowly climbs and memory usage trends steadily upward without recovering. The most likely diagnosis is:</p>",
+            "answers": [
+              {
+                "text": "A memory leak / resource exhaustion that only manifests over long runtime",
+                "fraction": 100,
+                "feedback": "Correct \u2014 steady load with rising memory and degrading latency is the classic leak signature."
+              },
+              {
+                "text": "Normal behaviour that needs no investigation",
+                "fraction": 0,
+                "feedback": "Monotonic memory growth under constant load is not normal; it signals a leak."
+              },
+              {
+                "text": "A network spike, since the load is constant",
+                "fraction": 0,
+                "feedback": "The load is constant, so a spike does not explain a steady upward trend."
+              },
+              {
+                "text": "Insufficient concurrency in the test",
+                "fraction": 0,
+                "feedback": "Concurrency is held constant here; the growing memory points to a leak, not to too few users."
+              }
+            ],
+            "generalFeedback": "Constant load with monotonically rising memory and worsening response time is the textbook signature of a memory leak or unreleased resource \u2014 exactly what soak / endurance testing is designed to reveal.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Choose a well-formed SLO",
+            "text": "<p>Which is the best-formed latency SLO for a user-facing API?</p>",
+            "answers": [
+              {
+                "text": "95% of requests complete in under 200 ms (p95 < 200 ms)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 specific, measurable, and targeting the tail users experience."
+              },
+              {
+                "text": "The server should be fast",
+                "fraction": 0,
+                "feedback": "Too vague to measure or verify; a good SLO is quantitative."
+              },
+              {
+                "text": "The mean latency should be low most of the time",
+                "fraction": 0,
+                "feedback": '"Low" and "most of the time" are unquantified, and the mean hides the tail.'
+              },
+              {
+                "text": "No request may ever exceed 1 ms",
+                "fraction": 0,
+                "feedback": "An absolute on the maximum is unrealistic and fails on a single outlier \u2014 a poor SLO."
+              }
+            ],
+            "generalFeedback": "A good SLO is specific and measurable and targets the tail experienced by users \u2014 a percentile with a numeric threshold, such as p95 under 200 ms. Vague wording and impossible absolutes make poor SLOs.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Little's Law: saturated, users double",
+            "text": "<p>A saturated service runs at its maximum throughput &#955;. The number of concurrent requests L doubles (more users arrive) but &#955; cannot increase. By L = &#955; &#215; W, the average response time W will:</p>",
+            "answers": [
+              {
+                "text": "Double, because W = L &#247; &#955; and L doubled while &#955; is fixed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with throughput pinned, doubling in-flight work doubles response time."
+              },
+              {
+                "text": "Stay the same, because response time is independent of load",
+                "fraction": 0,
+                "feedback": "Response time is not independent of load; once saturated, queueing grows W."
+              },
+              {
+                "text": "Halve, because more users share the work",
+                "fraction": 0,
+                "feedback": "Adding users to a saturated system worsens, not improves, response time."
+              },
+              {
+                "text": "Drop to zero once the system is saturated",
+                "fraction": 0,
+                "feedback": "Saturation makes response time grow, not vanish."
+              }
+            ],
+            "generalFeedback": "Rearranging gives W = L &#247; &#955;. With &#955; pinned at the maximum and L doubled, W doubles \u2014 queueing makes each request wait longer once the system is saturated.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Same mean, different p99",
+            "text": "<p>Two services have the same mean latency, but service A has p99 = 220 ms and service B has p99 = 900 ms. For user experience, which is better and why?</p>",
+            "answers": [
+              {
+                "text": "A \u2014 despite equal means, its lower p99 means far fewer users hit very slow responses",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the tighter tail gives a more consistent experience."
+              },
+              {
+                "text": "B \u2014 a higher p99 means it is faster",
+                "fraction": 0,
+                "feedback": "A higher p99 is slower at the tail, not faster."
+              },
+              {
+                "text": "They are identical, because the means are equal",
+                "fraction": 0,
+                "feedback": "Equal means can hide very different tails, as here."
+              },
+              {
+                "text": "Cannot say, because only the mean matters",
+                "fraction": 0,
+                "feedback": "The tail matters greatly for user experience; the mean alone is insufficient."
+              }
+            ],
+            "generalFeedback": "Equal means hide different tails. A's lower p99 (220 ms vs 900 ms) means far fewer requests are very slow, giving a more consistent experience \u2014 the mean alone cannot distinguish the two.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Bottleneck shifts to memory",
+            "text": "<p>After the CPU bottleneck is fixed, throughput improves but soon plateaus again; now memory sits at about 100% while the CPU has headroom. The correct interpretation is:</p>",
+            "answers": [
+              {
+                "text": "The bottleneck has moved to memory \u2014 the new limiting resource",
+                "fraction": 100,
+                "feedback": "Correct \u2014 relieving one bottleneck exposes the next."
+              },
+              {
+                "text": "The CPU fix did not work, since throughput plateaued again",
+                "fraction": 0,
+                "feedback": "Throughput improved first, and CPU now has headroom, so the fix did work; the limit shifted."
+              },
+              {
+                "text": "There is never more than one possible bottleneck in a system",
+                "fraction": 0,
+                "feedback": "Systems have successive bottlenecks; fixing one reveals another."
+              },
+              {
+                "text": "Memory usage is irrelevant once the CPU is fixed",
+                "fraction": 0,
+                "feedback": "Memory is now the saturated resource, so it is highly relevant."
+              }
+            ],
+            "generalFeedback": "Relieving one bottleneck exposes the next. With memory now saturated and CPU idle, memory is the new limiting resource. Performance tuning is iterative: fix, re-measure, find the next bottleneck.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Little's Law: capacity planning (400, 0.25)",
+            "text": "<p>A service must sustain a throughput of 400 req/s, and each request takes on average 0.25 s. By Little's Law, the average concurrency it must support is:</p>",
+            "answers": [
+              {
+                "text": "100",
+                "fraction": 100,
+                "feedback": "Correct \u2014 L = 400 /s &#215; 0.25 s = 100."
+              },
+              {
+                "text": "1600",
+                "fraction": 0,
+                "feedback": "That is 400 &#247; 0.25; Little's Law multiplies throughput by response time."
+              },
+              {
+                "text": "400.25",
+                "fraction": 0,
+                "feedback": "That adds the two values; the law multiplies them."
+              },
+              {
+                "text": "0.000625",
+                "fraction": 0,
+                "feedback": "That is 0.25 &#247; 400; the correct product is 400 &#215; 0.25 = 100."
+              }
+            ],
+            "generalFeedback": "Little's Law: L = &#955; &#215; W = 400 requests/second &#215; 0.25 second = 100 concurrent requests on average \u2014 useful for sizing thread and connection pools.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u8CA0\u8F09\u6E2C\u8A66\u8A55\u4F30\u4EC0\u9EBC",
+            "text": "<p><em>\u8CA0\u8F09\u6E2C\u8A66\uFF08load testing\uFF09</em>\u4E3B\u8981\u8A55\u4F30\u7CFB\u7D71\u5728\u627F\u53D7\u4E0B\u5217\u4F55\u7A2E\u60C5\u6CC1\u6642\u7684\u884C\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u88AB\u8A2D\u8A08\u4F86\u627F\u53D7\u7684\u300C\u9810\u671F\uFF0F\u6B63\u5E38\u300D\u7684\u4E26\u884C\u8CA0\u8F09\u6C34\u6E96",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8CA0\u8F09\u6E2C\u8A66\u6AA2\u9A57\u7CFB\u7D71\u5728\u9810\u671F\u3001\u771F\u5BE6\u8CA0\u8F09\u4E0B\u7684\u884C\u70BA\u8207\u6548\u80FD\u3002"
+              },
+              {
+                "text": "\u9060\u9060\u8D85\u904E\u5176\u5BB9\u91CF\u3001\u4E00\u8DEF\u58D3\u5230\u58DE\u6389\u70BA\u6B62\u7684\u8CA0\u8F09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u58D3\u529B\u6E2C\u8A66\uFF08stress testing\uFF09\uFF0C\u523B\u610F\u8D85\u904E\u5BB9\u91CF\u4EE5\u627E\u51FA\u5D29\u6F70\u9EDE\u3002"
+              },
+              {
+                "text": "\u5728\u6578\u79D2\u5167\u7A81\u7136\u51FA\u73FE\u53C8\u6D88\u5931\u7684\u6975\u7AEF\u66B4\u589E",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u5C16\u5CF0\u6E2C\u8A66\uFF08spike testing\uFF09\uFF0C\u4E0D\u662F\u8CA0\u8F09\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6301\u7E8C\u597D\u5E7E\u5C0F\u6642\u6216\u597D\u5E7E\u5929\u7684\u4E2D\u7B49\u8CA0\u8F09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6D78\u6CE1\uFF08\u8010\u4E45\uFF09\u6E2C\u8A66\uFF0C\u91DD\u5C0D\u7684\u662F\u9577\u6642\u9593\u624D\u6703\u6D6E\u73FE\u7684\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CA0\u8F09\u6E2C\u8A66\u91CF\u6E2C\u7CFB\u7D71\u5728\u5176\u9810\u671F\u3001\u6B63\u5E38\uFF08\u76F4\u5230\u53EF\u9810\u671F\u5C16\u5CF0\uFF09\u8CA0\u8F09\u4E0B\u7684\u8868\u73FE\u2014\u2014\u4EE5\u771F\u5BE6\u4F7F\u7528\u60C5\u5883\u6AA2\u67E5\u56DE\u61C9\u6642\u9593\u3001\u541E\u5410\u91CF\u8207\u932F\u8AA4\u7387\u662F\u5426\u9054\u6A19\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u58D3\u529B\u6E2C\u8A66\u505A\u4EC0\u9EBC",
+            "text": "<p><em>\u58D3\u529B\u6E2C\u8A66\uFF08stress testing\uFF09</em>\u523B\u610F\u628A\u7CFB\u7D71\u63A8\u5411\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8D85\u904E\u5176\u9810\u671F\u5BB9\u91CF\uFF0C\u4EE5\u627E\u51FA\u5D29\u6F70\u9EDE\u4E26\u89C0\u5BDF\u5B83\u5982\u4F55\u5931\u6557",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u58D3\u529B\u6E2C\u8A66\u63A8\u904E\u6975\u9650\uFF0C\u4EE5\u63ED\u9732\u5D29\u6F70\u9EDE\u8207\u5931\u6557\u6A21\u5F0F\u3002"
+              },
+              {
+                "text": "\u525B\u597D\u5728\u6B63\u5E38\u9810\u671F\u8CA0\u8F09\u4E0B\uFF0C\u4EE5\u78BA\u8A8D\u65E5\u5E38\u884C\u70BA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8CA0\u8F09\u6E2C\u8A66\uFF1B\u58D3\u529B\u6E2C\u8A66\u6703\u8D85\u904E\u9810\u671F\u8CA0\u8F09\u3002"
+              },
+              {
+                "text": "\u7528\u7570\u5E38\u5927\u91CF\u7684\u5132\u5B58\u8CC7\u6599\u7B46\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5BB9\u91CF\u6E2C\u8A66\uFF08volume testing\uFF09\uFF0C\u805A\u7126\u65BC\u8CC7\u6599\u5927\u5C0F\uFF0C\u800C\u975E\u8D85\u904E\u8ACB\u6C42\u5BB9\u91CF\u3002"
+              },
+              {
+                "text": "\u77ED\u66AB\u66B4\u589E\u5F8C\u7ACB\u523B\u56DE\u5230\u6B63\u5E38",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C16\u5CF0\u6E2C\u8A66\uFF0C\u662F\u77ED\u4FC3\u7684\u7206\u767C\u800C\u975E\u6301\u7E8C\u7684\u904E\u8F09\u3002"
+              }
+            ],
+            "generalFeedback": "\u58D3\u529B\u6E2C\u8A66\u628A\u7CFB\u7D71\u52A0\u8F09\u8D85\u904E\u5176\u5BB9\u91CF\uFF0C\u4EE5\u5B9A\u4F4D\u5D29\u6F70\u9EDE\u4E26\u89C0\u5BDF\u5B83\u5982\u4F55\u5931\u6557\u2014\u2014\u662F\u512A\u96C5\u964D\u7D1A\u9084\u662F\u76F4\u63A5\u5D29\u6F70\u2014\u2014\u4EE5\u53CA\u4E4B\u5F8C\u662F\u5426\u80FD\u5FA9\u539F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C16\u5CF0\u6E2C\u8A66\u65BD\u52A0\u4EC0\u9EBC",
+            "text": "<p><em>\u5C16\u5CF0\u6E2C\u8A66\uFF08spike testing\uFF09</em>\u8B93\u7CFB\u7D71\u627F\u53D7\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7A81\u7136\u3001\u5287\u70C8\u7684\u8CA0\u8F09\u66B4\u589E\uFF0C\u96A8\u5F8C\u5FEB\u901F\u6389\u56DE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C16\u5CF0\u6E2C\u8A66\u65BD\u52A0\u9661\u7136\u7684\u8DF3\u5347\uFF0C\u7136\u5F8C\u79FB\u9664\u5B83\u3002"
+              },
+              {
+                "text": "\u9577\u6642\u9593\u7DAD\u6301\u4E0D\u8B8A\u7684\u7A69\u5B9A\u8CA0\u8F09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6D78\u6CE1\uFF08\u8010\u4E45\uFF09\u6E2C\u8A66\uFF0C\u4E0D\u662F\u5C16\u5CF0\u3002"
+              },
+              {
+                "text": "\u6B63\u5E38\u9810\u671F\u7684\u8CA0\u8F09\u6C34\u6E96",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8CA0\u8F09\u6E2C\u8A66\uFF1B\u5C16\u5CF0\u662F\u7A81\u7136\u7684\u7570\u5E38\u66B4\u589E\u3002"
+              },
+              {
+                "text": "\u7A69\u5B9A\u5730\u6108\u58D3\u6108\u9AD8\uFF0C\u76F4\u5230\u7CFB\u7D71\u58DE\u6389",
+                "fraction": 0,
+                "feedback": "\u90A3\u7A2E\u9010\u6B65\u58D3\u5230\u5931\u6557\u662F\u58D3\u529B\u6E2C\u8A66\uFF0C\u4E0D\u662F\u7A81\u7136\u7684\u5C16\u5CF0\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C16\u5CF0\u6E2C\u8A66\u5728\u6975\u77ED\u6642\u9593\u5167\u65BD\u52A0\u4E00\u500B\u5DE8\u5927\u3001\u9661\u7136\u7684\u8CA0\u8F09\u589E\u52A0\uFF0C\u7136\u5F8C\u79FB\u9664\u5B83\uFF0C\u6AA2\u9A57\u7CFB\u7D71\u80FD\u5426\u627F\u53D7\u4E26\u5F9E\u7A81\u767C\u66B4\u589E\u4E2D\u5FA9\u539F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6D78\u6CE1\u6E2C\u8A66\u65BD\u52A0\u4EC0\u9EBC",
+            "text": "<p><em>\u6D78\u6CE1\uFF08\u8010\u4E45\uFF09\u6E2C\u8A66\uFF08soak / endurance testing\uFF09</em>\u65BD\u52A0\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9577\u6642\u9593\u6301\u7E8C\u7684\u8CA0\u8F09\uFF0C\u4EE5\u63ED\u9732\u8A18\u61B6\u9AD4\u6D29\u6F0F\u8207\u8CC7\u6E90\u8017\u76E1\u7B49\u554F\u984C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6D78\u6CE1\u6E2C\u8A66\u8DD1\u4E0A\u6578\u5C0F\u6642\u6216\u6578\u5929\uFF0C\u4EE5\u66B4\u9732\u7DE9\u6162\u7D2F\u7A4D\u7684\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u8D85\u904E\u5BB9\u91CF\u7684\u8CA0\u8F09\uFF0C\u4EE5\u627E\u51FA\u5D29\u6F70\u9EDE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u58D3\u529B\u6E2C\u8A66\uFF1B\u6D78\u6CE1\u6E2C\u8A66\u505C\u5728\u53EF\u6301\u7E8C\u7684\u8CA0\u8F09\uFF0C\u4F46\u8DD1\u5F88\u4E45\u3002"
+              },
+              {
+                "text": "\u77AC\u9593\u66B4\u589E\u53C8\u7ACB\u523B\u6389\u56DE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C16\u5CF0\u6E2C\u8A66\uFF0C\u8207\u9577\u6642\u9593\u6301\u7E8C\u6B63\u597D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u5728\u55AE\u6B21\u57F7\u884C\u4E2D\u8655\u7406\u6975\u5927\u7684\u8CC7\u6599\u96C6",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5BB9\u91CF\u6E2C\u8A66\uFF0C\u95DC\u4E4E\u7684\u662F\u8CC7\u6599\u5927\u5C0F\u800C\u975E\u6642\u9593\u9577\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u6D78\u6CE1\uFF0F\u8010\u4E45\u6E2C\u8A66\u628A\u300C\u6B63\u5E38\u5230\u504F\u9AD8\u300D\u7684\u8CA0\u8F09\u7DAD\u6301\u5F88\u9577\u6642\u9593\uFF08\u6578\u5C0F\u6642\u6216\u6578\u5929\uFF09\uFF0C\u4EE5\u66B4\u9732\u77ED\u6E2C\u6293\u4E0D\u5230\u7684\u6F38\u9032\u554F\u984C\u2014\u2014\u8A18\u61B6\u9AD4\u6D29\u6F0F\u3001\u9023\u7DDA\u6C60\u8017\u76E1\u3001\u56DE\u61C9\u6642\u9593\u9010\u6F38\u52A3\u5316\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5BB9\u91CF\u6E2C\u8A66\u805A\u7126\u65BC\u4EC0\u9EBC",
+            "text": "<p><em>\u5BB9\u91CF\u6E2C\u8A66\uFF08volume testing\uFF09</em>\u805A\u7126\u65BC\u7CFB\u7D71\u5FC5\u9808\u8655\u7406\u4E0B\u5217\u4F55\u8005\u6642\u7684\u884C\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5927\u91CF\u7684\u8CC7\u6599\u2014\u2014\u9F90\u5927\u7684\u8CC7\u6599\u8868\u3001\u5927\u578B\u6A94\u6848\u6216\u5F88\u9577\u7684\u4F47\u5217",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BB9\u91CF\u6E2C\u8A66\u95DC\u4E4E\u80FD\u5426\u61C9\u4ED8\u5927\u91CF\u8CC7\u6599\u3002"
+              },
+              {
+                "text": "\u7A81\u7136\u800C\u77ED\u66AB\u7684\u8ACB\u6C42\u66B4\u589E",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C16\u5CF0\u6E2C\u8A66\uFF0C\u95DC\u4E4E\u8ACB\u6C42\u901F\u7387\u800C\u975E\u8CC7\u6599\u5927\u5C0F\u3002"
+              },
+              {
+                "text": "\u7DAD\u6301\u7A69\u5B9A\u597D\u5E7E\u5929\u7684\u8CA0\u8F09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6D78\u6CE1\u6E2C\u8A66\uFF1B\u5BB9\u91CF\u6E2C\u8A66\u95DC\u4E4E\u8CC7\u6599\u91CF\u800C\u975E\u6642\u9593\u9577\u5EA6\u3002"
+              },
+              {
+                "text": "\u628A\u8ACB\u6C42\u901F\u7387\u63A8\u904E\u5D29\u6F70\u9EDE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u58D3\u529B\u6E2C\u8A66\uFF1B\u5BB9\u91CF\u6E2C\u8A66\u95DC\u4E4E\u8CC7\u6599\u5927\u5C0F\u800C\u975E\u904E\u8F09\u3002"
+              }
+            ],
+            "generalFeedback": "\u5BB9\u91CF\u6E2C\u8A66\u6AA2\u67E5\u7CFB\u7D71\u61C9\u4ED8\u5927\u91CF\u8CC7\u6599\u7684\u80FD\u529B\u2014\u2014\u4F8B\u5982\u975E\u5E38\u5927\u7684\u8CC7\u6599\u8868\u3001\u6A94\u6848\u3001\u532F\u5165\u6216\u8A0A\u606F\u4F47\u5217\u2014\u2014\u5728\u898F\u6A21\u8B8A\u5927\u6642\u884C\u70BA\u6216\u6548\u80FD\u53EF\u80FD\u6539\u8B8A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53EF\u64F4\u5C55\u6027\u6E2C\u8A66\u91CF\u6E2C\u4EC0\u9EBC",
+            "text": "<p><em>\u53EF\u64F4\u5C55\u6027\u6E2C\u8A66\uFF08scalability testing\uFF09</em>\u91CF\u6E2C\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7576\u8CA0\u8F09\u3001\u6216\u914D\u7F6E\u7D66\u7CFB\u7D71\u7684\u8CC7\u6E90\u88AB\u653E\u5927\u6216\u7E2E\u5C0F\u6642\uFF0C\u6548\u80FD\u5982\u4F55\u8B8A\u5316",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u64F4\u5C55\u6027\u6E2C\u8A66\u89C0\u5BDF\u6307\u6A19\u96A8\u8CA0\u8F09\u6216\u8CC7\u6E90\u7E2E\u653E\u800C\u6F14\u8B8A\u7684\u60C5\u5F62\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u55AE\u4E00\u56FA\u5B9A\u7684\u6B63\u5E38\u8CA0\u8F09\u4E0B\u7684\u884C\u70BA",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u4E00\u8CA0\u8F09\u6E2C\u8A66\u9EDE\uFF1B\u53EF\u64F4\u5C55\u6027\u95DC\u4E4E\u7E2E\u653E\u6642\u7684\u8DA8\u52E2\u3002"
+              },
+              {
+                "text": "\u8CA0\u8F09\u8D85\u904E\u5BB9\u91CF\u6642\u7684\u5931\u6557\u6A21\u5F0F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u58D3\u529B\u6E2C\u8A66\uFF1B\u53EF\u64F4\u5C55\u6027\u95DC\u4E4E\u6548\u80FD\u96A8\u898F\u6A21\u7684\u8B8A\u5316\uFF0C\u4E0D\u53EA\u662F\u5D29\u6F70\u9EDE\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u7A81\u767C\u5C16\u5CF0\u7684\u5F71\u97FF",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C16\u5CF0\u6E2C\u8A66\uFF0C\u4E0D\u662F\u53EF\u64F4\u5C55\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u64F4\u5C55\u6027\u6E2C\u8A66\u89C0\u5BDF\u541E\u5410\u91CF\u3001\u56DE\u61C9\u6642\u9593\u7B49\u6307\u6A19\uFF0C\u5982\u4F55\u96A8\u8457\u4F60\u589E\u52A0\u8CA0\u8F09\u3001\u6216\u589E\u6E1B\u8CC7\u6E90\uFF08CPU\u3001\u57F7\u884C\u500B\u9AD4\uFF09\u800C\u6F14\u8B8A\u2014\u2014\u544A\u8A34\u4F60\u7CFB\u7D71\u64F4\u5C55\u5F97\u597D\u4E0D\u597D\uFF0C\u4EE5\u53CA\u5728\u54EA\u88E1\u505C\u6B62\u64F4\u5C55\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DE\u61C9\u6642\u9593\u7684\u5B9A\u7FA9",
+            "text": "<p>\u5728\u6548\u80FD\u6E2C\u8A66\u4E2D\uFF0C<em>\u56DE\u61C9\u6642\u9593\uFF08response time\uFF0Clatency\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B8C\u6210\u55AE\u4E00\u8ACB\u6C42\u6240\u82B1\u7684\u6642\u9593\uFF0C\u5F9E\u9001\u51FA\u8ACB\u6C42\u5230\u6536\u5230\u56DE\u61C9\u70BA\u6B62",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5EF6\u9072\u662F\u55AE\u4E00\u8ACB\u6C42\u7684\u7D93\u6B77\u6642\u9593\u3002"
+              },
+              {
+                "text": "\u6BCF\u79D2\u5B8C\u6210\u7684\u8ACB\u6C42\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u541E\u5410\u91CF\uFF0C\u662F\u4E00\u7A2E\u901F\u7387\uFF0C\u4E0D\u662F\u55AE\u4E00\u8ACB\u6C42\u7684\u6642\u9593\u3002"
+              },
+              {
+                "text": "\u5931\u6557\u8ACB\u6C42\u7684\u767E\u5206\u6BD4",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u932F\u8AA4\u7387\uFF0C\u4E0D\u662F\u56DE\u61C9\u6642\u9593\u3002"
+              },
+              {
+                "text": "\u540C\u6642\u6D3B\u8E8D\u7684\u4F7F\u7528\u8005\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E26\u884C\u5EA6\uFF0C\u4E0D\u662F\u56DE\u61C9\u6642\u9593\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DE\u61C9\u6642\u9593\uFF08\u5EF6\u9072\uFF09\u91CF\u6E2C\u55AE\u4E00\u8ACB\u6C42\u5F9E\u982D\u5230\u5C3E\u82B1\u591A\u4E45\u3002\u5B83\u901A\u5E38\u4EE5\u767E\u5206\u4F4D\uFF08p50\u3001p95\u3001p99\uFF09\u800C\u975E\u55AE\u4E00\u6578\u503C\u4F86\u5F59\u7E3D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u541E\u5410\u91CF\u7684\u5B9A\u7FA9",
+            "text": "<p>\u6548\u80FD\u6E2C\u8A66\u4E2D\u7684<em>\u541E\u5410\u91CF\uFF08throughput\uFF09</em>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7CFB\u7D71\u5728\u55AE\u4F4D\u6642\u9593\u5167\u5B8C\u6210\u7684\u8ACB\u6C42\uFF08\u6216\u4EA4\u6613\uFF09\u6578\uFF0C\u4F8B\u5982\u6BCF\u79D2\u8ACB\u6C42\u6578",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u541E\u5410\u91CF\u662F\u5B8C\u6210\u5DE5\u4F5C\u7684\u901F\u7387\u3002"
+              },
+              {
+                "text": "\u55AE\u4E00\u8ACB\u6C42\u5B8C\u6210\u6240\u82B1\u7684\u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u56DE\u61C9\u6642\u9593\uFF08\u5EF6\u9072\uFF09\uFF0C\u4E0D\u662F\u541E\u5410\u91CF\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4E2D\u8A2D\u5B9A\u7684\u865B\u64EC\u4F7F\u7528\u8005\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E26\u884C\u5EA6\u8A2D\u5B9A\uFF0C\u4E0D\u662F\u5BE6\u969B\u9054\u6210\u7684\u5B8C\u6210\u5DE5\u4F5C\u901F\u7387\u3002"
+              },
+              {
+                "text": "\u56DE\u50B3\u932F\u8AA4\u7684\u8ACB\u6C42\u6BD4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u932F\u8AA4\u7387\uFF0C\u4E0D\u662F\u541E\u5410\u91CF\u3002"
+              }
+            ],
+            "generalFeedback": "\u541E\u5410\u91CF\u662F\u4E00\u7A2E\u901F\u7387\u2014\u2014\u6BCF\u79D2\u8ACB\u6C42\u6578\u6216\u6BCF\u79D2\u4EA4\u6613\u6578\uFF08TPS\uFF09\u3002\u5B83\u91CF\u6E2C\u7CFB\u7D71\u5BE6\u969B\u6BCF\u55AE\u4F4D\u6642\u9593\u5B8C\u6210\u591A\u5C11\u5DE5\u4F5C\uFF0C\u8207\u4EFB\u4E00\u55AE\u4E00\u8ACB\u6C42\u82B1\u591A\u4E45\u4E0D\u540C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5EF6\u9072\u767E\u5206\u4F4D\u7684\u610F\u7FA9",
+            "text": "<p>\u50CF <em>p95</em> \u9019\u6A23\u7684\u5EF6\u9072\u767E\u5206\u4F4D\u6240\u56DE\u5831\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6709 95% \u7684\u8ACB\u6C42\u843D\u5728\u5176\u4E0A\u6216\u5176\u4E0B\u7684\u90A3\u500B\u5EF6\u9072\u503C\uFF0895% \u81F3\u5C11\u9019\u9EBC\u5FEB\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u201495% \u7684\u8ACB\u6C42 &#8804; p95\uFF0C\u6700\u6162\u7684 5% \u8D85\u904E\u5B83\u3002"
+              },
+              {
+                "text": "\u6240\u6709\u8ACB\u6C42\u7684\u5E73\u5747\u5EF6\u9072",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5E73\u5747\u503C\uFF1B\u767E\u5206\u4F4D\u4E0D\u662F\u5E73\u5747\u3002"
+              },
+              {
+                "text": "\u672C\u6B21\u57F7\u884C\u4E2D\u89C0\u5BDF\u5230\u6700\u6162\u7684\u90A3\u4E00\u500B\u8ACB\u6C42",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6700\u5927\u503C\uFF08p100\uFF09\uFF0C\u4E0D\u662F p95\u3002"
+              },
+              {
+                "text": "\u6BD4 95 \u6BEB\u79D2\u6162\u7684\u8ACB\u6C42\u6578\u76EE",
+                "fraction": 0,
+                "feedback": "p95 \u662F\u5206\u5E03\u7684\u767E\u5206\u4F4D\uFF0C\u4E0D\u662F\u76F8\u5C0D\u65BC\u56FA\u5B9A 95 \u6BEB\u79D2\u7684\u8A08\u6578\u3002"
+              }
+            ],
+            "generalFeedback": "p95 \u5EF6\u9072\u662F\u4E00\u500B\u503C\uFF0C\u4F7F\u5F97 95% \u7684\u8ACB\u6C42\u5728\u5176\u4E0A\u6216\u5176\u4E0B\uFF0C\u800C\u6700\u6162\u7684 5% \u8D85\u904E\u5B83\u3002\u767E\u5206\u4F4D\u63CF\u8FF0\u5206\u5E03\u7684\u5F62\u72C0\uFF0C\u8207\u5E73\u5747\u503C\u4E0D\u540C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E26\u884C\u5EA6\u7684\u610F\u7FA9",
+            "text": "<p><em>\u4E26\u884C\u5EA6\uFF08concurrency\uFF0C\u4E26\u884C\u4F7F\u7528\u8005\uFF0F\u865B\u64EC\u4F7F\u7528\u8005\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u540C\u4E00\u6642\u9593\u6B63\u88AB\u7CFB\u7D71\u8655\u7406\u7684\u4F7F\u7528\u8005\u6216\u8ACB\u6C42\u6578",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E26\u884C\u5EA6\u662F\u540C\u6642\u9593\u5167\u6709\u591A\u5C11\u500B\u5728\u7CFB\u7D71\u4E2D\u3002"
+              },
+              {
+                "text": "\u4E00\u6574\u5929\u5167\u4E0D\u91CD\u8907\u4F7F\u7528\u8005\u7684\u7E3D\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u65E5\u7E3D\u6578\uFF0C\u4E0D\u662F\u540C\u6642\u7684\u4E26\u884C\u5EA6\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u8ACB\u6C42\u5B8C\u6210\u6240\u82B1\u7684\u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u56DE\u61C9\u6642\u9593\uFF0C\u4E0D\u662F\u4E26\u884C\u5EA6\u3002"
+              },
+              {
+                "text": "\u6BCF\u79D2\u5B8C\u6210\u7684\u8ACB\u6C42\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u541E\u5410\u91CF\uFF0C\u4E0D\u662F\u4E26\u884C\u5EA6\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E26\u884C\u5EA6\u662F\u540C\u6642\u9593\u6709\u591A\u5C11\u8ACB\u6C42\u6216\u4F7F\u7528\u8005\u5728\u7CFB\u7D71\u4E2D\u3002\u8CA0\u8F09\u5DE5\u5177\u4EE5\u300C\u865B\u64EC\u4F7F\u7528\u8005\u300D\u6A21\u64EC\u5B83\u5011\u3002Little's Law \u628A\u4E26\u884C\u5EA6\u3001\u541E\u5410\u91CF\u8207\u56DE\u61C9\u6642\u9593\u4E32\u5728\u4E00\u8D77\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u932F\u8AA4\u7387\u7684\u610F\u7FA9",
+            "text": "<p>\u6548\u80FD\u6E2C\u8A66\u4E2D\u7684<em>\u932F\u8AA4\u7387\uFF08error rate\uFF09</em>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5931\u6557\uFF08\u56DE\u50B3\u932F\u8AA4\u6216\u903E\u6642\uFF09\u7684\u8ACB\u6C42\u6BD4\u4F8B\uFF0C\u901A\u5E38\u4EE5\u767E\u5206\u6BD4\u8868\u793A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u932F\u8AA4\u7387\u662F\u672A\u6210\u529F\u8ACB\u6C42\u7684\u5360\u6BD4\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u8ACB\u6C42\u7684\u5E73\u5747\u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u56DE\u61C9\u6642\u9593\uFF0C\u4E0D\u662F\u932F\u8AA4\u7387\u3002"
+              },
+              {
+                "text": "\u4E26\u884C\u4F7F\u7528\u8005\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E26\u884C\u5EA6\uFF0C\u4E0D\u662F\u932F\u8AA4\u7387\u3002"
+              },
+              {
+                "text": "\u6BCF\u79D2\u5B8C\u6210\u7684\u8ACB\u6C42\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u541E\u5410\u91CF\uFF0C\u4E0D\u662F\u932F\u8AA4\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u932F\u8AA4\u7387\u662F\u672A\u6210\u529F\u8ACB\u6C42\u7684\u5360\u6BD4\u3002\u7576\u7CFB\u7D71\u63A5\u8FD1\u98FD\u548C\u6642\u5B83\u5E38\u6703\u6025\u907D\u4E0A\u5347\uFF0C\u662F\u8FA8\u8B58\u5D29\u6F70\u9EDE\u7684\u91CD\u8981\u8A0A\u865F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "SLO \u7684\u5B9A\u7FA9",
+            "text": "<p><em>\u670D\u52D9\u6C34\u6E96\u76EE\u6A19\uFF08Service Level Objective\uFF0CSLO\uFF09</em>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u67D0\u9805\u670D\u52D9\u6307\u6A19\u7684\u76EE\u6A19\u503C\uFF0C\u4F8B\u5982\u300Cp95 \u5EF6\u9072\u4F4E\u65BC 200 \u6BEB\u79D2\u300D\uFF0C\u662F\u670D\u52D9\u529B\u6C42\u9054\u6210\u7684\u76EE\u6A19",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014SLO \u662F\u6240\u9078\u6307\u6A19\u7684\u53EF\u91CF\u6E2C\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u670D\u52D9\u88AB\u5141\u8A31\u4F7F\u7528\u7684\u4F3A\u670D\u5668\u6578\u76EE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5BB9\u91CF\u4E0A\u9650\uFF0C\u4E0D\u662F\u670D\u52D9\u6C34\u6E96\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u4E00\u6B21\u6E2C\u8A66\u4E2D\u9001\u51FA\u7684\u8ACB\u6C42\u7E3D\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u5DE5\u4F5C\u91CF\u7684\u6578\u5B57\uFF0C\u4E0D\u662F SLO\u3002"
+              },
+              {
+                "text": "\u4FDD\u8B49\u7CFB\u7D71\u6C38\u9060\u4E0D\u6703\u5931\u6557",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u5BE6\u969B\u7684 SLO \u4FDD\u8B49\u96F6\u5931\u6557\uFF1BSLO \u8A02\u7684\u662F\u53EF\u91CF\u6E2C\u7684\u76EE\u6A19\u3002"
+              }
+            ],
+            "generalFeedback": "SLO \u662F\u67D0\u500B\u670D\u52D9\u6C34\u6E96\u6307\u6A19\uFF08SLI\uFF09\u7684\u76EE\u6A19\uFF0C\u4F8B\u5982\u300Cp95 \u5EF6\u9072\u4F4E\u65BC 200 \u6BEB\u79D2\u300D\u6216\u300C\u932F\u8AA4\u7387\u4F4E\u65BC 0.1%\u300D\u3002SLA \u5247\u662F\u66F4\u5EE3\u7FA9\u7684\u5354\u8B70\uFF0C\u901A\u5E38\u5E36\u6709\u5F8C\u679C\uFF0C\u570D\u7E5E\u4E00\u500B\u6216\u591A\u500B SLO \u5EFA\u7ACB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u76EE\u6A19\uFF1A\u627E\u51FA\u5D29\u6F70\u9EDE",
+            "text": "<p>\u4F60\u60F3\u627E\u51FA\u7CFB\u7D71\u5728\u5931\u6557\u524D\u80FD\u627F\u53D7\u7684\u6700\u5927\u8CA0\u8F09\uFF0C\u4EE5\u53CA\u5B83\u5982\u4F55\u5931\u6557\u3002\u54EA\u7A2E\u6E2C\u8A66\u985E\u578B\u6700\u5408\u9069\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u58D3\u529B\u6E2C\u8A66\uFF08Stress test\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u627E\u51FA\u5D29\u6F70\u9EDE\u8207\u5931\u6557\u6A21\u5F0F\u6B63\u662F\u58D3\u529B\u6E2C\u8A66\u7684\u6838\u5FC3\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u8CA0\u8F09\u6E2C\u8A66\uFF08Load test\uFF09",
+                "fraction": 0,
+                "feedback": "\u8CA0\u8F09\u6E2C\u8A66\u505C\u5728\u9810\u671F\u8CA0\u8F09\uFF0C\u4E0D\u6703\u63A8\u5230\u5D29\u6F70\u9EDE\u3002"
+              },
+              {
+                "text": "\u6D78\u6CE1\u6E2C\u8A66\uFF08Soak test\uFF09",
+                "fraction": 0,
+                "feedback": "\u6D78\u6CE1\u6E2C\u8A66\u91DD\u5C0D\u9577\u6642\u9593\u7684\u52A3\u5316\uFF0C\u800C\u975E\u5D29\u6F70\u9EDE\u3002"
+              },
+              {
+                "text": "\u5BB9\u91CF\u6E2C\u8A66\uFF08Volume test\uFF09",
+                "fraction": 0,
+                "feedback": "\u5BB9\u91CF\u6E2C\u8A66\u95DC\u4E4E\u5927\u91CF\u8CC7\u6599\uFF0C\u800C\u975E\u6700\u5927\u8ACB\u6C42\u8CA0\u8F09\u3002"
+              }
+            ],
+            "generalFeedback": "\u627E\u51FA\u6700\u5927\u53EF\u6301\u7E8C\u8CA0\u8F09\uFF0C\u4EE5\u53CA\u8D85\u904E\u5B83\u4E4B\u5F8C\u7684\u5931\u6557\u6A21\u5F0F\uFF0C\u6B63\u662F\u58D3\u529B\u6E2C\u8A66\u7684\u7528\u9014\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u76EE\u6A19\uFF1A\u6293\u51FA\u7DE9\u6162\u7684\u8A18\u61B6\u9AD4\u6D29\u6F0F",
+            "text": "<p>\u4F60\u61F7\u7591\u6709\u500B\u7DE9\u6162\u7684\u8A18\u61B6\u9AD4\u6D29\u6F0F\uFF0C\u53EA\u6709\u5728\u670D\u52D9\u8DD1\u4E86\u5F88\u591A\u5C0F\u6642\u5F8C\u624D\u6703\u986F\u73FE\u3002\u54EA\u7A2E\u6E2C\u8A66\u985E\u578B\u6700\u5408\u9069\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6D78\u6CE1\uFF08\u8010\u4E45\uFF09\u6E2C\u8A66\uFF08Soak test\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9577\u6642\u9593\u57F7\u884C\u624D\u986F\u73FE\u7684\u6D29\u6F0F\u6B63\u662F\u6D78\u6CE1\u6E2C\u8A66\u7684\u5C0D\u8C61\u3002"
+              },
+              {
+                "text": "\u5C16\u5CF0\u6E2C\u8A66\uFF08Spike test\uFF09",
+                "fraction": 0,
+                "feedback": "\u5C16\u5CF0\u6E2C\u8A66\u662F\u77ED\u66AB\u66B4\u589E\uFF0C\u8DD1\u4E0D\u5920\u4E45\uFF0C\u7121\u6CD5\u63ED\u9732\u7DE9\u6162\u6D29\u6F0F\u3002"
+              },
+              {
+                "text": "\u58D3\u529B\u6E2C\u8A66\uFF08Stress test\uFF09",
+                "fraction": 0,
+                "feedback": "\u58D3\u529B\u6E2C\u8A66\u5F88\u5FEB\u5C31\u627E\u5230\u5D29\u6F70\u9EDE\uFF0C\u4E0D\u662F\u9577\u6642\u9593\u7684\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u5BB9\u91CF\u6E2C\u8A66\uFF08Volume test\uFF09",
+                "fraction": 0,
+                "feedback": "\u5BB9\u91CF\u6E2C\u8A66\u95DC\u4E4E\u8CC7\u6599\u5927\u5C0F\uFF0C\u800C\u975E\u6301\u7E8C\u7684\u57F7\u884C\u6642\u9593\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6709\u5728\u9577\u6642\u9593\u9023\u7E8C\u904B\u8F49\u5F8C\u624D\u6703\u51FA\u73FE\u7684\u554F\u984C\u2014\u2014\u8A18\u61B6\u9AD4\u6D29\u6F0F\u3001\u8CC7\u6E90\u8017\u76E1\u3001\u6F38\u9032\u52A3\u5316\u2014\u2014\u662F\u6D78\u6CE1\uFF0F\u8010\u4E45\u6E2C\u8A66\u7684\u9818\u57DF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u76EE\u6A19\uFF1A\u7A81\u767C\u7684\u552E\u7968\u66B4\u589E",
+            "text": "<p>\u4F60\u7684\u7DB2\u7AD9\u9810\u671F\u5728\u958B\u8CE3\u9580\u7968\u7684\u77AC\u9593\u6703\u6709\u7A81\u767C\u3001\u77ED\u66AB\u7684\u6D41\u91CF\u66B4\u589E\uFF0C\u4E4B\u5F8C\u6D41\u91CF\u56DE\u843D\u3002\u54EA\u7A2E\u6E2C\u8A66\u6700\u80FD\u91CD\u73FE\u9019\u500B\u60C5\u6CC1\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C16\u5CF0\u6E2C\u8A66\uFF08Spike test\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A81\u7136\u5287\u70C8\u66B4\u589E\u5F8C\u6389\u56DE\uFF0C\u5C31\u662F\u5C16\u5CF0\u6E2C\u8A66\u7684\u6A23\u614B\u3002"
+              },
+              {
+                "text": "\u6D78\u6CE1\u6E2C\u8A66\uFF08Soak test\uFF09",
+                "fraction": 0,
+                "feedback": "\u6D78\u6CE1\u6E2C\u8A66\u9577\u6642\u9593\u7DAD\u6301\u8CA0\u8F09\uFF0C\u8207\u77ED\u66AB\u66B4\u589E\u6B63\u597D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u8CA0\u8F09\u6E2C\u8A66\uFF08Load test\uFF09",
+                "fraction": 0,
+                "feedback": "\u8CA0\u8F09\u6E2C\u8A66\u7528\u7A69\u5B9A\u7684\u9810\u671F\u8CA0\u8F09\uFF0C\u800C\u975E\u9661\u7136\u66B4\u589E\u3002"
+              },
+              {
+                "text": "\u5BB9\u91CF\u6E2C\u8A66\uFF08Volume test\uFF09",
+                "fraction": 0,
+                "feedback": "\u5BB9\u91CF\u6E2C\u8A66\u95DC\u4E4E\u8CC7\u6599\u5927\u5C0F\uFF0C\u800C\u975E\u7A81\u767C\u7684\u6D41\u91CF\u8DF3\u5347\u3002"
+              }
+            ],
+            "generalFeedback": "\u9661\u7136\u3001\u77ED\u66AB\u7684\u8CA0\u8F09\u8DF3\u5347\u5F8C\u5FEB\u901F\u56DE\u5230\u6B63\u5E38\uFF0C\u6B63\u662F\u5C16\u5CF0\u6E2C\u8A66\u91CD\u73FE\u7684\u60C5\u5883\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\uFF1A\u5B83\u5728\u54EA\u88E1\u58DE\u6389",
+            "text": "<p>\u67D0\u5718\u968A\u60F3\u77E5\u9053\u5728\u591A\u5C11\u4E26\u884C\u4F7F\u7528\u8005\u6642\u56DE\u61C9\u6642\u9593\u8B8A\u5F97\u7121\u6CD5\u63A5\u53D7\u3001\u670D\u52D9\u958B\u59CB\u56DE\u50B3\u932F\u8AA4\u2014\u2014\u4E5F\u5C31\u662F\u5B83\u5728\u54EA\u88E1\u58DE\u6389\u3002\u5408\u9069\u7684\u6E2C\u8A66\u985E\u578B\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u58D3\u529B\u6E2C\u8A66\uFF08Stress test\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B9A\u4F4D\u300C\u56DE\u61C9\u8B8A\u5DEE\u3001\u932F\u8AA4\u4E0A\u5347\u300D\u7684\u90A3\u4E00\u9EDE\u5C31\u662F\u5D29\u6F70\u9EDE\uFF0C\u7531\u58D3\u529B\u6E2C\u8A66\u627E\u51FA\u3002"
+              },
+              {
+                "text": "\u8CA0\u8F09\u6E2C\u8A66\uFF08Load test\uFF09",
+                "fraction": 0,
+                "feedback": "\u8CA0\u8F09\u6E2C\u8A66\u78BA\u8A8D\u7684\u662F\u9810\u671F\u8CA0\u8F09\u4E0B\u7684\u884C\u70BA\uFF0C\u4E0D\u6703\u523B\u610F\u628A\u7CFB\u7D71\u903C\u5230\u5931\u6557\u3002"
+              },
+              {
+                "text": "\u6D78\u6CE1\u6E2C\u8A66\uFF08Soak test\uFF09",
+                "fraction": 0,
+                "feedback": "\u6D78\u6CE1\u6E2C\u8A66\u5728\u53EF\u6301\u7E8C\u8CA0\u8F09\u4E0B\u627E\u9577\u6642\u9593\u52A3\u5316\uFF0C\u4E0D\u662F\u5D29\u6F70\u9EDE\u3002"
+              },
+              {
+                "text": "\u5C16\u5CF0\u6E2C\u8A66\uFF08Spike test\uFF09",
+                "fraction": 0,
+                "feedback": "\u5C16\u5CF0\u6E2C\u8A66\u6AA2\u9A57\u5F9E\u7A81\u767C\u66B4\u589E\u4E2D\u5FA9\u539F\uFF0C\u4E0D\u662F\u9010\u6B65\u903C\u8FD1\u5D29\u6F70\u9EDE\u3002"
+              }
+            ],
+            "generalFeedback": "\u9010\u6B65\u5347\u9AD8\u8CA0\u8F09\uFF0C\u76F4\u5230\u56DE\u61C9\u6642\u9593\u52A3\u5316\u3001\u932F\u8AA4\u6500\u5347\uFF0C\u5C31\u662F\u58D3\u529B\u6E2C\u8A66\u63ED\u9732\u5D29\u6F70\u9EDE\u8207\u5931\u6557\u6A21\u5F0F\u7684\u65B9\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\uFF1A8 \u5C0F\u6642\u7684\u7DE9\u6162\u722C\u5347",
+            "text": "<p>\u5728\u6B63\u5E38\u8CA0\u8F09\u4E0B\u9023\u7E8C\u57F7\u884C 8 \u5C0F\u6642\uFF0C\u5DE5\u7A0B\u5E2B\u60F3\u6293\u51FA\u9010\u6F38\u4E0A\u5347\u7684\u8A18\u61B6\u9AD4\u7528\u91CF\u8207\u7DE9\u6162\u7684\u56DE\u61C9\u6642\u9593\u722C\u5347\u3002\u5408\u9069\u7684\u6E2C\u8A66\u985E\u578B\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6D78\u6CE1\uFF08\u8010\u4E45\uFF09\u6E2C\u8A66\uFF08Soak test\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9577\u6642\u9593\u57F7\u884C\u63ED\u9732\u6F38\u9032\u52A3\u5316\u5C31\u662F\u6D78\u6CE1\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5C16\u5CF0\u6E2C\u8A66\uFF08Spike test\uFF09",
+                "fraction": 0,
+                "feedback": "\u5C16\u5CF0\u6E2C\u8A66\u53EA\u6301\u7E8C\u7247\u523B\uFF0C\u4E0D\u662F 8 \u5C0F\u6642\uFF0C\u7121\u6CD5\u63ED\u9732\u6F38\u9032\u722C\u5347\u3002"
+              },
+              {
+                "text": "\u58D3\u529B\u6E2C\u8A66\uFF08Stress test\uFF09",
+                "fraction": 0,
+                "feedback": "\u58D3\u529B\u6E2C\u8A66\u627E\u7684\u662F\u5D29\u6F70\u9EDE\uFF0C\u4E0D\u662F\u6578\u5C0F\u6642\u9593\u7684\u7DE9\u6162\u52A3\u5316\u3002"
+              },
+              {
+                "text": "\u5BB9\u91CF\u6E2C\u8A66\uFF08Volume test\uFF09",
+                "fraction": 0,
+                "feedback": "\u5BB9\u91CF\u6E2C\u8A66\u95DC\u4E4E\u5927\u91CF\u8CC7\u6599\uFF0C\u4E0D\u662F\u9577\u6642\u9593\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u9577\u6642\u9593\u7A69\u5B9A\u57F7\u884C\u4E2D\u51FA\u73FE\u7684\u8A18\u61B6\u9AD4\u6F38\u589E\u8207\u56DE\u61C9\u6642\u9593\u722C\u5347\uFF0C\u6B63\u662F\u6D78\u6CE1\uFF0F\u8010\u4E45\u6E2C\u8A66\u7684\u5178\u578B\u767C\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\uFF1A\u9ED1\u8272\u661F\u671F\u4E94\u958B\u8CE3",
+            "text": "<p>\u67D0\u96FB\u5546\u7DB2\u7AD9\u9810\u671F\u5728\u9ED1\u8272\u661F\u671F\u4E94\u5348\u591C\u958B\u8CE3\u6642\uFF0C\u6D41\u91CF\u6703\u8FD1\u4E4E\u77AC\u9593\u66B4\u589E\uFF0C\u96A8\u5F8C\u5FEB\u901F\u56DE\u843D\u3002\u5408\u9069\u7684\u6E2C\u8A66\u985E\u578B\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C16\u5CF0\u6E2C\u8A66\uFF08Spike test\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8FD1\u4E4E\u77AC\u9593\u8DF3\u5347\u5F8C\u56DE\u843D\u5C31\u662F\u5C16\u5CF0\u6A23\u614B\u3002"
+              },
+              {
+                "text": "\u6D78\u6CE1\u6E2C\u8A66\uFF08Soak test\uFF09",
+                "fraction": 0,
+                "feedback": "\u6D78\u6CE1\u6E2C\u8A66\u9577\u6642\u9593\u7DAD\u6301\u8CA0\u8F09\uFF0C\u4E0D\u6A21\u64EC\u77AC\u9593\u66B4\u589E\u3002"
+              },
+              {
+                "text": "\u8CA0\u8F09\u6E2C\u8A66\uFF08Load test\uFF09",
+                "fraction": 0,
+                "feedback": "\u8CA0\u8F09\u6E2C\u8A66\u7528\u7A69\u5B9A\u7684\u9810\u671F\u6D41\u91CF\uFF0C\u800C\u975E\u9661\u7136\u8DF3\u5347\u3002"
+              },
+              {
+                "text": "\u5BB9\u91CF\u6E2C\u8A66\uFF08Volume test\uFF09",
+                "fraction": 0,
+                "feedback": "\u5BB9\u91CF\u6E2C\u8A66\u95DC\u4E4E\u8CC7\u6599\u91CF\uFF0C\u800C\u975E\u7A81\u767C\u7684\u6D41\u91CF\u66B4\u589E\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u7136\u3001\u9F90\u5927\u3001\u77ED\u66AB\u7684\u66B4\u589E\u5F8C\u6389\u56DE\uFF0C\u6B63\u662F\u5C16\u5CF0\u6E2C\u8A66\u91CD\u73FE\u7684\u60C5\u6CC1\uFF0C\u7528\u4EE5\u9A57\u8B49\u7CFB\u7D71\u80FD\u627F\u53D7\u4E26\u5FA9\u539F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\uFF1A\u9810\u671F\u7684\u6BCF\u65E5\u5C16\u5CF0",
+            "text": "<p>\u67D0\u5718\u968A\u60F3\u78BA\u8A8D\u7CFB\u7D71\u5728\u5B83\u88AB\u8A2D\u8A08\u4F86\u627F\u53D7\u7684\u4E00\u822C\u3001\u9810\u671F\u7684\u6BCF\u65E5\u5C16\u5CF0\u6D41\u91CF\u4E0B\u8868\u73FE\u826F\u597D\u3002\u5408\u9069\u7684\u6E2C\u8A66\u985E\u578B\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8CA0\u8F09\u6E2C\u8A66\uFF08Load test\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u8B49\u9810\u671F\uFF0F\u6B63\u5E38\u8CA0\u8F09\u4E0B\u7684\u884C\u70BA\u5C31\u662F\u8CA0\u8F09\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u58D3\u529B\u6E2C\u8A66\uFF08Stress test\uFF09",
+                "fraction": 0,
+                "feedback": "\u58D3\u529B\u6E2C\u8A66\u6703\u8D85\u904E\u5BB9\u91CF\uFF1B\u9019\u88E1\u7684\u76EE\u6A19\u53EA\u662F\u9810\u671F\u8CA0\u8F09\u3002"
+              },
+              {
+                "text": "\u5C16\u5CF0\u6E2C\u8A66\uFF08Spike test\uFF09",
+                "fraction": 0,
+                "feedback": "\u5C16\u5CF0\u6E2C\u8A66\u662F\u7A81\u767C\u66B4\u589E\uFF0C\u4E0D\u662F\u4E00\u822C\u7684\u9810\u671F\u5C16\u5CF0\u3002"
+              },
+              {
+                "text": "\u5BB9\u91CF\u6E2C\u8A66\uFF08Volume test\uFF09",
+                "fraction": 0,
+                "feedback": "\u5BB9\u91CF\u6E2C\u8A66\u91DD\u5C0D\u8CC7\u6599\u5927\u5C0F\uFF0C\u800C\u975E\u9810\u671F\u7684\u8ACB\u6C42\u8CA0\u8F09\u3002"
+              }
+            ],
+            "generalFeedback": "\u78BA\u8A8D\u7CFB\u7D71\u5728\u53EF\u9810\u671F\u3001\u4F9D\u8A2D\u8A08\u800C\u4F86\u7684\u8CA0\u8F09\u4E0B\u7684\u6548\u80FD\uFF0C\u6B63\u662F\u8CA0\u8F09\u6E2C\u8A66\u7684\u6838\u5FC3\u76EE\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\uFF1A\u4E94\u5104\u5217\u7684\u8CC7\u6599\u8868",
+            "text": "<p>\u67D0\u5831\u8868\u670D\u52D9\u5FC5\u9808\u8655\u7406\u4E00\u5F35\u5DF2\u6210\u9577\u5230\u4E94\u5104\u5217\u7684\u8CC7\u6599\u8868\u3002\u5718\u968A\u60F3\u78BA\u8A8D\u5728\u8A72\u8CC7\u6599\u898F\u6A21\u4E0B\u67E5\u8A62\u8207\u532F\u51FA\u4ECD\u80FD\u904B\u4F5C\u3002\u5408\u9069\u7684\u6E2C\u8A66\u985E\u578B\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5BB9\u91CF\u6E2C\u8A66\uFF08Volume test\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u6975\u5927\u8CC7\u6599\u96C6\u4E0B\u7684\u884C\u70BA\u5C31\u662F\u5BB9\u91CF\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5C16\u5CF0\u6E2C\u8A66\uFF08Spike test\uFF09",
+                "fraction": 0,
+                "feedback": "\u5C16\u5CF0\u6E2C\u8A66\u95DC\u4E4E\u7A81\u767C\u8ACB\u6C42\u66B4\u589E\uFF0C\u800C\u975E\u8CC7\u6599\u5927\u5C0F\u3002"
+              },
+              {
+                "text": "\u6D78\u6CE1\u6E2C\u8A66\uFF08Soak test\uFF09",
+                "fraction": 0,
+                "feedback": "\u6D78\u6CE1\u6E2C\u8A66\u95DC\u4E4E\u9577\u6642\u9593\u57F7\u884C\uFF0C\u800C\u975E\u8CC7\u6599\u96C6\u7684\u5927\u5C0F\u3002"
+              },
+              {
+                "text": "\u58D3\u529B\u6E2C\u8A66\uFF08Stress test\uFF09",
+                "fraction": 0,
+                "feedback": "\u58D3\u529B\u6E2C\u8A66\u628A\u8ACB\u6C42\u901F\u7387\u58D3\u904E\u8F09\uFF1B\u9019\u88E1\u95DC\u5207\u7684\u662F\u8CC7\u6599\u91CF\u3002"
+              }
+            ],
+            "generalFeedback": "\u6AA2\u67E5\u7CFB\u7D71\u5728\u6975\u5927\u91CF\u8CC7\u6599\u4E0B\u662F\u5426\u4ECD\u80FD\u904B\u4F5C\u4E14\u6548\u80FD\u53EF\u63A5\u53D7\uFF0C\u6B63\u662F\u5BB9\u91CF\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\uFF1A\u4F3A\u670D\u5668\u52A0\u500D\u6709\u5E6B\u52A9\u55CE",
+            "text": "<p>\u67D0\u5718\u968A\u628A\u61C9\u7528\u4F3A\u670D\u5668\u6578\u76EE\u52A0\u500D\uFF0C\u60F3\u770B\u770B\u541E\u5410\u91CF\u662F\u5426\u5927\u81F4\u8DDF\u8457\u52A0\u500D\u3002\u9019\u662F\u4E0B\u5217\u4F55\u8005\u7684\u4F8B\u5B50\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u53EF\u64F4\u5C55\u6027\u6E2C\u8A66\uFF08Scalability testing\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u91CF\u6E2C\u6548\u80FD\u96A8\u8CC7\u6E90\u7E2E\u653E\u800C\u8B8A\u5316\u5C31\u662F\u53EF\u64F4\u5C55\u6027\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u58D3\u529B\u6E2C\u8A66\uFF08Stress testing\uFF09",
+                "fraction": 0,
+                "feedback": "\u58D3\u529B\u6E2C\u8A66\u627E\u5D29\u6F70\u9EDE\uFF0C\u4E0D\u662F\u589E\u6DFB\u8CC7\u6E90\u7684\u6548\u679C\u3002"
+              },
+              {
+                "text": "\u6D78\u6CE1\u6E2C\u8A66\uFF08Soak testing\uFF09",
+                "fraction": 0,
+                "feedback": "\u6D78\u6CE1\u6E2C\u8A66\u95DC\u4E4E\u9577\u6642\u9593\u7684\u7A69\u5B9A\u6027\uFF0C\u800C\u975E\u7E2E\u653E\u8CC7\u6E90\u3002"
+              },
+              {
+                "text": "\u5C16\u5CF0\u6E2C\u8A66\uFF08Spike testing\uFF09",
+                "fraction": 0,
+                "feedback": "\u5C16\u5CF0\u6E2C\u8A66\u662F\u7A81\u767C\u66B4\u589E\uFF0C\u8207\u589E\u6DFB\u4F3A\u670D\u5668\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u89C0\u5BDF\u541E\u5410\u91CF\uFF08\u6216\u5EF6\u9072\uFF09\u5728\u4F60\u589E\u6E1B\u8CC7\u6E90\u6642\u5982\u4F55\u53CD\u61C9\uFF0C\u5C31\u662F\u53EF\u64F4\u5C55\u6027\u6E2C\u8A66\u2014\u2014\u7406\u60F3\u4E0A\u541E\u5410\u91CF\u61C9\u8FD1\u4E4E\u7B49\u6BD4\u4E0A\u5347\uFF0C\u4F46\u5BE6\u969B\u7CFB\u7D71\u6703\u6709\u504F\u5DEE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u767E\u5206\u4F4D\u52DD\u904E\u5E73\u5747",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u5C3E\u7AEF\u767E\u5206\u4F4D\uFF08p95\uFF0Fp99\uFF09\u901A\u5E38\u6BD4\u5E73\u5747\u56DE\u61C9\u6642\u9593\u66F4\u6709\u53C3\u8003\u50F9\u503C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5E73\u5747\u6703\u63A9\u84CB\u7DE9\u6162\u7684\u5C3E\u7AEF\uFF1B\u5C11\u6578\u975E\u5E38\u6162\u7684\u8ACB\u6C42\u5E7E\u4E4E\u4E0D\u52D5\u5E73\u5747\uFF0C\u537B\u56B4\u91CD\u50B7\u5BB3\u771F\u5BE6\u4F7F\u7528\u8005",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5E73\u5747\u7531\u5927\u91CF\u5FEB\u901F\u8ACB\u6C42\u4E3B\u5C0E\uFF0C\u63A9\u84CB\u4E86\u5C3E\u7AEF\u3002"
+              },
+              {
+                "text": "\u5E73\u5747\u6C38\u9060\u6BD4\u4EFB\u4F55\u767E\u5206\u4F4D\u90FD\u5927\uFF0C\u6240\u4EE5\u6703\u9AD8\u4F30\u6548\u80FD",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5E73\u5747\u4E0D\u6703\u6C38\u9060\u5927\u65BC\u6BCF\u500B\u767E\u5206\u4F4D\uFF1B\u771F\u6B63\u7684\u554F\u984C\u662F\u5B83\u63A9\u84CB\u5C3E\u7AEF\u3002"
+              },
+              {
+                "text": "\u767E\u5206\u4F4D\u6BD4\u5E73\u5747\u66F4\u7701\u8A08\u7B97\u6210\u672C",
+                "fraction": 0,
+                "feedback": "\u6210\u672C\u4E0D\u662F\u539F\u56E0\uFF1B\u767E\u5206\u4F4D\u63ED\u9732\u7684\u662F\u5E73\u5747\u6240\u96B1\u85CF\u7684\u5C3E\u7AEF\u3002"
+              },
+              {
+                "text": "\u5EF6\u9072\u8CC7\u6599\u7121\u6CD5\u8A08\u7B97\u5E73\u5747",
+                "fraction": 0,
+                "feedback": "\u5E73\u5747\u5B8C\u5168\u53EF\u4EE5\u8A08\u7B97\uFF0C\u53EA\u662F\u5B83\u6703\u63A9\u84CB\u96E2\u7FA4\u503C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5EF6\u9072\u5206\u5E03\u662F\u504F\u659C\u7684\uFF1A\u591A\u6578\u8ACB\u6C42\u5F88\u5FEB\uFF0C\u6240\u4EE5\u5373\u4F7F\u5C11\u6578\u975E\u5E38\u6162\uFF0C\u5E73\u5747\u4ECD\u504F\u4F4E\u3002\u90A3\u4E9B\u6162\u8ACB\u6C42\u6B63\u662F p95\uFF0Fp99\uFF08\u5C3E\u7AEF\u5EF6\u9072\uFF09\u6240\u63ED\u9732\u3001\u4E5F\u662F\u4F7F\u7528\u8005\u6240\u611F\u53D7\u5230\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u89E3\u8B80 p99 = 500 \u6BEB\u79D2",
+            "text": "<p>\u67D0\u4EFD\u5831\u544A\u5BEB\u8457\u300Cp99 \u5EF6\u9072 = 500 \u6BEB\u79D2\u300D\u3002\u9019\u4EE3\u8868\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6709 99% \u7684\u8ACB\u6C42\u5728 500 \u6BEB\u79D2\uFF08\u542B\uFF09\u4EE5\u5167\u5B8C\u6210\uFF0C\u6700\u6162\u7684 1% \u82B1\u66F4\u4E45",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F p99 \u70BA 500 \u6BEB\u79D2\u7684\u610F\u601D\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u8ACB\u6C42\u90FD\u525B\u597D\u82B1 500 \u6BEB\u79D2",
+                "fraction": 0,
+                "feedback": "\u767E\u5206\u4F4D\u4E0D\u662F\u6240\u6709\u8ACB\u6C42\u7684\u55AE\u4E00\u56FA\u5B9A\u503C\u3002"
+              },
+              {
+                "text": "\u5E73\u5747\u8ACB\u6C42\u82B1 500 \u6BEB\u79D2",
+                "fraction": 0,
+                "feedback": "p99 \u4E0D\u662F\u5E73\u5747\uFF1B\u5B83\u662F\u5C3E\u7AEF\u767E\u5206\u4F4D\u3002"
+              },
+              {
+                "text": "\u53EA\u6709 1% \u7684\u8ACB\u6C42\u5728 500 \u6BEB\u79D2\uFF08\u542B\uFF09\u4EE5\u5167\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5B83\u53CD\u904E\u4F86\u4E86\u2014\u2014\u662F 99%\uFF08\u800C\u975E 1%\uFF09\u5728 500 \u6BEB\u79D2\u4EE5\u5167\u3002"
+              }
+            ],
+            "generalFeedback": "p99 = 500 \u6BEB\u79D2\u4EE3\u8868 99% \u7684\u8ACB\u6C42\u5728 500 \u6BEB\u79D2\uFF08\u542B\uFF09\u4EE5\u5167\uFF0C\u6700\u6162\u7684 1% \u8D85\u904E\u5B83\u3002\u5B83\u4E26\u672A\u76F4\u63A5\u8AAA\u660E\u5E73\u5747\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "p50 \u7684\u610F\u7FA9",
+            "text": "<p>\u67D0\u670D\u52D9\u7684 <em>p50</em> \u5EF6\u9072\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E2D\u4F4D\u6578\u5EF6\u9072\u2014\u2014\u4E00\u534A\u7684\u8ACB\u6C42\u8F03\u5FEB\u3001\u4E00\u534A\u8F03\u6162",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014p50 \u5C31\u662F\u4E2D\u4F4D\u6578\u3002"
+              },
+              {
+                "text": "\u5E73\u5747\uFF08\u7B97\u8853\u5E73\u5747\uFF09\u5EF6\u9072",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u5728\u5C0D\u7A31\u8CC7\u6599\u4E0B\u5E73\u5747\u8207\u4E2D\u4F4D\u6578\u624D\u4E00\u81F4\uFF1Bp50 \u662F\u4E2D\u4F4D\u6578\u3002"
+              },
+              {
+                "text": "\u6700\u5FEB\u7684 50 \u500B\u8ACB\u6C42\u7684\u5EF6\u9072",
+                "fraction": 0,
+                "feedback": "p50 \u662F\u6574\u500B\u5206\u5E03\u7684\u767E\u5206\u4F4D\uFF0C\u4E0D\u662F 50 \u500B\u8ACB\u6C42\u7684\u8A08\u6578\u3002"
+              },
+              {
+                "text": "\u6700\u5927\u5EF6\u9072\u9664\u4EE5\u4E8C",
+                "fraction": 0,
+                "feedback": "\u4E2D\u4F4D\u6578\u8207\u300C\u628A\u6700\u5927\u503C\u6298\u534A\u300D\u6BEB\u7121\u95DC\u4FC2\u3002"
+              }
+            ],
+            "generalFeedback": "p50 \u662F\u4E2D\u4F4D\u6578\uFF1A50% \u7684\u8ACB\u6C42\u5728\u5176\u4E0A\u6216\u5176\u4E0B\u3002\u5C0D\u504F\u659C\u7684\u5EF6\u9072\u8CC7\u6599\uFF0C\u5E73\u5747\u901A\u5E38\u9AD8\u65BC p50\uFF0C\u9019\u4E5F\u662F\u70BA\u4EC0\u9EBC\u6703\u540C\u6642\u56DE\u5831\u5169\u8005\u4EE5\u53CA\u5C3E\u7AEF\u767E\u5206\u4F4D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8CA0\u8F09\u5256\u9762\u7684\u9806\u5E8F",
+            "text": "<p>\u5178\u578B\u7684\u8CA0\u8F09\u6E2C\u8A66\u5256\u9762\uFF08load profile\uFF09\u4EE5\u4F55\u7A2E\u9806\u5E8F\u57F7\u884C\u5404\u968E\u6BB5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u722C\u5347\uFF08ramp-up\uFF09&#8594; \u7A69\u614B\uFF08steady-state\uFF09&#8594; \u4E0B\u964D\uFF08ramp-down\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u8CA0\u8F09\u52A0\u4E0A\u53BB\u3001\u7DAD\u6301\u4E26\u91CF\u6E2C\u3001\u518D\u964D\u4E0B\u4F86\u3002"
+              },
+              {
+                "text": "\u7A69\u614B &#8594; \u722C\u5347 &#8594; \u4E0B\u964D",
+                "fraction": 0,
+                "feedback": "\u9084\u6C92\u722C\u5347\u5230\u7A69\u614B\u4E4B\u524D\uFF0C\u4E0D\u53EF\u80FD\u5148\u7DAD\u6301\u7A69\u614B\u3002"
+              },
+              {
+                "text": "\u4E0B\u964D &#8594; \u7A69\u614B &#8594; \u722C\u5347",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5256\u9762\u53CD\u904E\u4F86\u4E86\uFF1B\u8CA0\u8F09\u5F9E\u4F4E\u958B\u59CB\u3001\u5148\u722C\u5347\u3002"
+              },
+              {
+                "text": "\u5C16\u5CF0 &#8594; \u6D78\u6CE1 &#8594; \u5BB9\u91CF",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u6E2C\u8A66\u985E\u578B\uFF0C\u4E0D\u662F\u55AE\u4E00\u8CA0\u8F09\u5256\u9762\u7684\u5404\u968E\u6BB5\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CA0\u8F09\u5256\u9762\u9010\u6B65\u628A\u8CA0\u8F09\u722C\u5347\u4E0A\u53BB\uFF0C\u5728\u7A69\u614B\u7DAD\u6301\uFF08\u4E3B\u8981\u91CF\u6E2C\u5728\u6B64\u9032\u884C\uFF09\uFF0C\u518D\u628A\u5B83\u964D\u4E0B\u4F86\u3002\u5728\u7A69\u614B\u91CF\u6E2C\u53EF\u907F\u958B\u722C\u5347\u904E\u7A0B\u7684\u66AB\u614B\u6548\u61C9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "SLA \u6AA2\u67E5\uFF1A180 \u5C0D 200",
+            "text": "<p>SLO \u898F\u5B9A\u300Cp95 &lt; 200 \u6BEB\u79D2\u300D\u3002\u6E2C\u8A66\u91CF\u5230 p95 = 180 \u6BEB\u79D2\u3002\u7D50\u679C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u901A\u904E\u2014\u2014180 \u6BEB\u79D2\u4F4E\u65BC 200 \u6BEB\u79D2\u9580\u6ABB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014180 < 200\uFF0C\u6545\u9054\u6210 p95 \u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u4E0D\u901A\u904E\u2014\u2014180 \u6BEB\u79D2\u9055\u53CD\u9580\u6ABB",
+                "fraction": 0,
+                "feedback": "180 \u6BEB\u79D2\u4F4E\u65BC 200 \u6BEB\u79D2\uFF0C\u56E0\u6B64\u6EFF\u8DB3\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u5E73\u5747\u5EF6\u9072\u5C31\u7121\u6CD5\u5224\u65B7",
+                "fraction": 0,
+                "feedback": "SLO \u662F\u5C31 p95 \u8A02\u7684\uFF0C\u800C p95 = 180 \u6BEB\u79D2\u5DF2\u91CF\u5230\uFF0C\u6545\u53EF\u5224\u5B9A\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u5728 p99 \u4E5F\u662F 180 \u6BEB\u79D2\u6642\u624D\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u9019\u88E1\u7684 SLO \u53EA\u7D04\u675F p95\uFF1Bp99 \u4E0D\u5C6C\u65BC\u9019\u500B\u76EE\u6A19\u3002"
+              }
+            ],
+            "generalFeedback": "SLO \u7D04\u675F p95 \u4F4E\u65BC 200 \u6BEB\u79D2\u3002\u91CF\u5230\u7684 p95 \u70BA 180 \u6BEB\u79D2\uFF0C\u4F4E\u65BC\u9580\u6ABB\uFF0C\u6545\u9054\u6210\u76EE\u6A19\u2014\u2014\u901A\u904E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "SLA \u6AA2\u67E5\uFF1A240 \u5C0D 200",
+            "text": "<p>SLO \u898F\u5B9A\u300Cp95 &lt; 200 \u6BEB\u79D2\u300D\u3002\u6E2C\u8A66\u91CF\u5230 p95 = 240 \u6BEB\u79D2\u3002\u7D50\u679C\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u901A\u904E\u2014\u2014240 \u6BEB\u79D2\u8D85\u904E 200 \u6BEB\u79D2\u9580\u6ABB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014240 > 200\uFF0C\u6545\u672A\u9054\u6210 p95 \u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u901A\u904E\u2014\u2014240 \u6BEB\u79D2\u53EF\u4EE5\u63A5\u53D7",
+                "fraction": 0,
+                "feedback": "240 \u6BEB\u79D2\u9AD8\u65BC 200 \u6BEB\u79D2\u4E0A\u9650\uFF0C\u6545\u4E0D\u901A\u904E\u3002"
+              },
+              {
+                "text": "\u901A\u904E\uFF0C\u56E0\u70BA\u5E73\u5747\u5927\u6982\u4F4E\u65BC 200 \u6BEB\u79D2",
+                "fraction": 0,
+                "feedback": "SLO \u662F\u5C31 p95 \u800C\u975E\u5E73\u5747\u8A02\u7684\uFF1B\u4F4E\u5E73\u5747\u6551\u4E0D\u4E86\u4E0D\u901A\u904E\u7684 p95\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u932F\u8AA4\u7387\u5C31\u7121\u6CD5\u5224\u65B7",
+                "fraction": 0,
+                "feedback": "SLO \u53EA\u5C31 p95 \u8A02\u5B9A\uFF0C\u800C\u91CF\u5230\u7684 p95 \u5DF2\u8DB3\u4EE5\u5224\u5B9A\u3002"
+              }
+            ],
+            "generalFeedback": "SLO \u8981\u6C42 p95 \u4F4E\u65BC 200 \u6BEB\u79D2\uFF1B\u91CF\u5230\u7684 p95 \u70BA 240 \u6BEB\u79D2\uFF0C\u8D85\u904E\u5B83\uFF0C\u6545\u7121\u8AD6\u5E73\u5747\u6216\u5176\u4ED6\u6307\u6A19\u70BA\u4F55\u90FD\u672A\u9054\u6210\u76EE\u6A19\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6709\u6548\u7684\u541E\u5410\u91CF\u55AE\u4F4D",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F\u6709\u6548\u7684\u541E\u5410\u91CF\u55AE\u4F4D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u79D2\u8ACB\u6C42\u6578\uFF08\u7B49\u540C\u6BCF\u79D2\u4EA4\u6613\u6578\uFF0CTPS\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u541E\u5410\u91CF\u662F\u55AE\u4F4D\u6642\u9593\u5B8C\u6210\u7684\u5DE5\u4F5C\u91CF\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u8ACB\u6C42\u7684\u6BEB\u79D2\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u56DE\u61C9\u6642\u9593\u7684\u55AE\u4F4D\uFF0C\u4E0D\u662F\u541E\u5410\u91CF\u3002"
+              },
+              {
+                "text": "\u5931\u6557\u8ACB\u6C42\u7684\u767E\u5206\u6BD4",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u932F\u8AA4\u7387\uFF0C\u4E0D\u662F\u541E\u5410\u91CF\u3002"
+              },
+              {
+                "text": "\u4E26\u884C\u865B\u64EC\u4F7F\u7528\u8005\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E26\u884C\u5EA6\u8A08\u6578\uFF0C\u4E0D\u662F\u5B8C\u6210\u5DE5\u4F5C\u7684\u901F\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u541E\u5410\u91CF\u662F\u4E00\u7A2E\u901F\u7387\uFF1A\u55AE\u4F4D\u6642\u9593\u5B8C\u6210\u7684\u5DE5\u4F5C\uFF08req/s\u3001TPS\uFF09\u3002\u6BCF\u8ACB\u6C42\u6BEB\u79D2\u6578\u662F\u56DE\u61C9\u6642\u9593\uFF0C\u5931\u6557\u767E\u5206\u6BD4\u662F\u932F\u8AA4\u7387\uFF0C\u865B\u64EC\u4F7F\u7528\u8005\u91CF\u7684\u662F\u4E26\u884C\u5EA6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u601D\u8003\u6642\u9593\u7684\u7528\u9014",
+            "text": "<p>\u5728\u771F\u5BE6\u7684\u8CA0\u8F09\u5256\u9762\u4E2D\uFF0C<em>\u601D\u8003\u6642\u9593\uFF08think time\uFF09</em>\u6A21\u64EC\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u771F\u5BE6\u4F7F\u7528\u8005\u5728\u52D5\u4F5C\u4E4B\u9593\u7684\u505C\u9813\uFF0C\u597D\u8B93\u7522\u751F\u7684\u8CA0\u8F09\u8CBC\u8FD1\u771F\u5BE6\u4F7F\u7528",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u601D\u8003\u6642\u9593\u662F\u4F7F\u7528\u8005\u9023\u7E8C\u8ACB\u6C42\u4E4B\u9593\u7684\u9592\u7F6E\u9593\u9694\u3002"
+              },
+              {
+                "text": "\u4F3A\u670D\u5668\u8655\u7406\u4E00\u500B\u8ACB\u6C42\u6240\u82B1\u7684 CPU \u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4F3A\u670D\u5668\u8655\u7406\u6642\u9593\uFF0C\u4E0D\u662F\u601D\u8003\u6642\u9593\u3002"
+              },
+              {
+                "text": "\u6574\u500B\u6E2C\u8A66\u958B\u59CB\u524D\u7684\u5EF6\u9072",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u555F\u52D5\u5EF6\u9072\uFF0C\u4E0D\u662F\u4F7F\u7528\u8005\u52D5\u4F5C\u4E4B\u9593\u7684\u601D\u8003\u6642\u9593\u3002"
+              },
+              {
+                "text": "\u628A\u8CA0\u8F09\u964D\u4E0B\u4F86\u6240\u82B1\u7684\u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E0B\u964D\uFF08ramp-down\uFF09\u968E\u6BB5\uFF0C\u4E0D\u662F\u601D\u8003\u6642\u9593\u3002"
+              }
+            ],
+            "generalFeedback": "\u601D\u8003\u6642\u9593\u662F\u4F7F\u7528\u8005\u9023\u7E8C\u52D5\u4F5C\u4E4B\u9593\u7684\u505C\u9813\u3002\u52A0\u5165\u5B83\uFF08\u642D\u914D\u771F\u5BE6\u7684\u4EA4\u6613\u7D44\u5408\uFF09\u53EF\u8B93\u5230\u9054\u6A23\u614B\u8CBC\u8FD1\u771F\u5BE6\uFF0C\u800C\u975E\u4EE5\u80CC\u9760\u80CC\u7684\u8ACB\u6C42\u731B\u6253\u4F3A\u670D\u5668\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E26\u884C\u5EA6\u8207\u541E\u5410\u91CF",
+            "text": "<p><em>\u4E26\u884C\u5EA6</em>\u8207<em>\u541E\u5410\u91CF</em>\u76F8\u95DC\u4F46\u4E0D\u540C\uFF0C\u56E0\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E26\u884C\u5EA6\u662F\u540C\u4E00\u6642\u9593\u6709\u591A\u5C11\u8ACB\u6C42\u5728\u7CFB\u7D71\u4E2D\uFF0C\u541E\u5410\u91CF\u662F\u6BCF\u55AE\u4F4D\u6642\u9593\u5B8C\u6210\u591A\u5C11",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u662F\u5728\u9014\u7684\u8A08\u6578\uFF0C\u4E00\u500B\u662F\u5B8C\u6210\u7684\u901F\u7387\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u540C\u4E00\u500B\u91CF\u7684\u5169\u500B\u540D\u5B57",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E0D\u540C\uFF1A\u4E00\u500B\u662F\u7CFB\u7D71\u4E2D\u7684\u8A08\u6578\uFF0C\u4E00\u500B\u662F\u5B8C\u6210\u7684\u901F\u7387\u3002"
+              },
+              {
+                "text": "\u4E26\u884C\u5EA6\u4EE5 req/s \u91CF\u6E2C\u3001\u541E\u5410\u91CF\u4EE5\u4F7F\u7528\u8005\u6578\u91CF\u6E2C",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5169\u8005\u5C0D\u8ABF\u4E86\uFF1A\u541E\u5410\u91CF\u624D\u662F req/s\uFF0C\u4E26\u884C\u5EA6\u662F\u5728\u9014\u8ACB\u6C42\uFF0F\u4F7F\u7528\u8005\u7684\u8A08\u6578\u3002"
+              },
+              {
+                "text": "\u541E\u5410\u91CF\u6C38\u9060\u7B49\u65BC\u865B\u64EC\u4F7F\u7528\u8005\u6578",
+                "fraction": 0,
+                "feedback": "\u541E\u5410\u91CF\u662F\u5B8C\u6210\u901F\u7387\uFF0C\u4E0D\u662F\u865B\u64EC\u4F7F\u7528\u8005\u6578\uFF1B\u9664\u975E\u56DE\u61C9\u6642\u9593\u525B\u597D\u70BA\u4E00\u79D2\uFF0C\u5426\u5247\u5169\u8005\u4E0D\u540C\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E26\u884C\u5EA6\uFF08L\uFF09\u662F\u5728\u9014\u8ACB\u6C42\u6578\uFF1B\u541E\u5410\u91CF\uFF08&#955;\uFF09\u662F\u5B8C\u6210\u901F\u7387\u3002Little's Law \u7528\u56DE\u61C9\u6642\u9593\u628A\u5B83\u5011\u4E32\u8D77\u4F86\uFF1AL = &#955; &#215; W\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Little's Law\uFF1A\u7B97\u4E26\u884C\u5EA6\uFF0850, 0.2\uFF09",
+            "text": "<p>\u67D0\u670D\u52D9\u7DAD\u6301\u6BCF\u79D2 50 \u500B\u8ACB\u6C42\u7684\u541E\u5410\u91CF\uFF0C\u5E73\u5747\u56DE\u61C9\u6642\u9593\u70BA 0.2 \u79D2\u3002\u4F9D Little's Law\uFF08L = &#955; &#215; W\uFF09\uFF0C\u5E73\u5747\u4E26\u884C\u5EA6\uFF08\u7CFB\u7D71\u4E2D\u7684\u8ACB\u6C42\u6578\uFF09\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "10",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014L = 50 /\u79D2 &#215; 0.2 \u79D2 = 10\u3002"
+              },
+              {
+                "text": "250",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 50 &#247; 0.2\uFF1BLittle's Law \u662F\u628A\u541E\u5410\u91CF\u4E58\u4EE5\u56DE\u61C9\u6642\u9593\u3002"
+              },
+              {
+                "text": "50.2",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u628A\u5169\u500B\u503C\u76F8\u52A0\uFF1B\u6B64\u5B9A\u5F8B\u662F\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "0.004",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 0.2 &#247; 50\uFF1B\u6B63\u78BA\u7684\u4E58\u7A4D\u662F 50 &#215; 0.2 = 10\u3002"
+              }
+            ],
+            "generalFeedback": "Little's Law\uFF1AL = &#955; &#215; W = \u6BCF\u79D2 50 \u500B\u8ACB\u6C42 &#215; 0.2 \u79D2 = \u5E73\u5747 10 \u500B\u8ACB\u6C42\u5728\u7CFB\u7D71\u4E2D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Little's Law\uFF1A\u7B97\u541E\u5410\u91CF\uFF08200, 0.5\uFF09",
+            "text": "<p>\u4F9D Little's Law\uFF0C\u82E5\u5E73\u5747\u4E26\u884C\u5EA6\u70BA 200 \u500B\u8ACB\u6C42\u3001\u5E73\u5747\u56DE\u61C9\u6642\u9593\u70BA 0.5 \u79D2\uFF0C\u5247\u541E\u5410\u91CF\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u79D2 400 \u500B\u8ACB\u6C42",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014&#955; = L &#247; W = 200 &#247; 0.5 \u79D2 = 400 /\u79D2\u3002"
+              },
+              {
+                "text": "\u6BCF\u79D2 100 \u500B\u8ACB\u6C42",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 200 &#215; 0.5\uFF1B\u8981\u5F97\u541E\u5410\u91CF\u61C9\u628A L \u9664\u4EE5 W\uFF0C\u800C\u975E\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "\u6BCF\u79D2 0.0025 \u500B\u8ACB\u6C42",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 0.5 &#247; 200\uFF1B\u6B63\u78BA\u503C\u662F 200 &#247; 0.5 = 400\u3002"
+              },
+              {
+                "text": "\u6BCF\u79D2 200.5 \u500B\u8ACB\u6C42",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u628A\u5169\u500B\u503C\u76F8\u52A0\uFF1B\u6B64\u5B9A\u5F8B\u7D66\u51FA &#955; = L &#247; W = 400\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A L = &#955; &#215; W \u91CD\u6574\u5F97 &#955; = L &#247; W = 200 &#247; 0.5 \u79D2 = \u6BCF\u79D2 400 \u500B\u8ACB\u6C42\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Little's Law\uFF1A\u7B97\u56DE\u61C9\u6642\u9593\uFF0860, 120\uFF09",
+            "text": "<p>\u4F9D Little's Law\uFF0C\u82E5\u5E73\u5747\u4E26\u884C\u5EA6\u70BA 60\u3001\u541E\u5410\u91CF\u70BA\u6BCF\u79D2 120 \u500B\u8ACB\u6C42\uFF0C\u5247\u5E73\u5747\u56DE\u61C9\u6642\u9593\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0.5 \u79D2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014W = L &#247; &#955; = 60 &#247; 120 /\u79D2 = 0.5 \u79D2\u3002"
+              },
+              {
+                "text": "2 \u79D2",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 120 &#247; 60\uFF1B\u56DE\u61C9\u6642\u9593\u662F L &#247; &#955;\uFF0C\u4E0D\u662F &#955; &#247; L\u3002"
+              },
+              {
+                "text": "7200 \u79D2",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 60 &#215; 120\uFF1B\u6B64\u8655\u8A72\u628A L \u9664\u4EE5 &#955;\u3002"
+              },
+              {
+                "text": "180 \u79D2",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u628A\u5169\u500B\u503C\u76F8\u52A0\uFF1BW = L &#247; &#955; = 0.5 \u79D2\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A L = &#955; &#215; W \u91CD\u6574\u5F97 W = L &#247; &#955; = 60 &#247; \u6BCF\u79D2 120 \u500B\u8ACB\u6C42 = 0.5 \u79D2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Little's Law\uFF1A\u7B97\u4E26\u884C\u5EA6\uFF0825, 0.4\uFF09",
+            "text": "<p>\u67D0\u7D50\u5E33\u670D\u52D9\u6BCF\u79D2\u8655\u7406 25 \u7B46\u4EA4\u6613\uFF0C\u5E73\u5747\u56DE\u61C9\u6642\u9593\u70BA 0.4 \u79D2\u3002\u5176\u5E73\u5747\u4E26\u884C\u5EA6\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "10",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014L = 25 /\u79D2 &#215; 0.4 \u79D2 = 10\u3002"
+              },
+              {
+                "text": "62.5",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 25 &#247; 0.4\uFF1BLittle's Law \u662F\u628A\u541E\u5410\u91CF\u4E58\u4EE5\u56DE\u61C9\u6642\u9593\u3002"
+              },
+              {
+                "text": "25.4",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u628A\u5169\u500B\u503C\u76F8\u52A0\uFF1B\u6B64\u5B9A\u5F8B\u662F\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "0.016",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 0.4 &#247; 25\uFF1B\u6B63\u78BA\u7684\u4E58\u7A4D\u662F 25 &#215; 0.4 = 10\u3002"
+              }
+            ],
+            "generalFeedback": "Little's Law\uFF1AL = &#955; &#215; W = \u6BCF\u79D2 25 \u7B46\u4EA4\u6613 &#215; 0.4 \u79D2 = \u5E73\u5747 10 \u500B\u5728\u7CFB\u7D71\u4E2D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Little's Law\uFF1A\u7B97\u56DE\u61C9\u6642\u9593\uFF08100, 250\uFF09",
+            "text": "<p>\u67D0\u670D\u52D9\u986F\u793A\u5E73\u5747\u4E26\u884C\u5EA6 100\u3001\u541E\u5410\u91CF\u6BCF\u79D2 250 \u500B\u8ACB\u6C42\u3002\u5176\u5E73\u5747\u56DE\u61C9\u6642\u9593\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "0.4 \u79D2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014W = L &#247; &#955; = 100 &#247; 250 /\u79D2 = 0.4 \u79D2\u3002"
+              },
+              {
+                "text": "2.5 \u79D2",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 250 &#247; 100\uFF1B\u56DE\u61C9\u6642\u9593\u662F L &#247; &#955;\uFF0C\u4E0D\u662F &#955; &#247; L\u3002"
+              },
+              {
+                "text": "25000 \u79D2",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 100 &#215; 250\uFF1B\u6B64\u8655\u8A72\u628A L \u9664\u4EE5 &#955;\u3002"
+              },
+              {
+                "text": "350 \u79D2",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u628A\u5169\u500B\u503C\u76F8\u52A0\uFF1BW = L &#247; &#955; = 0.4 \u79D2\u3002"
+              }
+            ],
+            "generalFeedback": "W = L &#247; &#955; = 100 &#247; \u6BCF\u79D2 250 \u500B\u8ACB\u6C42 = 0.4 \u79D2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5E73\u5747\u901A\u904E\u4F46 p99 \u4E0D\u901A\u904E",
+            "text": "<p>\u67D0\u670D\u52D9\u8F15\u9B06\u9054\u6210\u5E73\u5747\u5EF6\u9072\u76EE\u6A19\uFF0C\u4F7F\u7528\u8005\u537B\u62B1\u6028\u7D93\u5E38\u5361\u9813\uFF0C\u800C p99 \u5EF6\u9072\u9060\u9AD8\u65BC\u76EE\u6A19\u3002\u6700\u4F73\u89E3\u91CB\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6709\u4E00\u5C0F\u90E8\u5206\u8ACB\u6C42\u975E\u5E38\u6162\uFF1B\u5B83\u5011\u5E7E\u4E4E\u4E0D\u52D5\u5E73\u5747\uFF0C\u537B\u4E3B\u5C0E p99\uFF0C\u800C\u90A3\u4E9B\u6B63\u662F\u4F7F\u7528\u8005\u611F\u53D7\u5230\u7684\u5361\u9813",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C3E\u7AEF\u624D\u662F\u4F7F\u7528\u8005\u6240\u611F\u53D7\u7684\uFF0C\u4E14\u53EA\u6709\u9AD8\u767E\u5206\u4F4D\u624D\u63ED\u9732\u5B83\u3002"
+              },
+              {
+                "text": "\u53EA\u8981 p99 \u9AD8\uFF0C\u5E73\u5747\u5C31\u4E00\u5B9A\u7B97\u932F\u4E86",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u53EF\u4EE5\u540C\u6642\u6B63\u78BA\uFF1B\u4F4E\u5E73\u5747\u642D\u914D\u9AD8 p99 \u6B63\u662F\u504F\u659C\u5206\u5E03\u3002"
+              },
+              {
+                "text": "p99 \u9AD8\u5C31\u8B49\u660E\u5E73\u5747\u4E5F\u4E00\u5B9A\u8D85\u904E\u76EE\u6A19",
+                "fraction": 0,
+                "feedback": "\u4E0D\u5C0D\u2014\u2014\u5C11\u6578\u6162\u8ACB\u6C42\u6703\u62AC\u9AD8 p99\uFF0C\u537B\u4E0D\u592A\u62AC\u9AD8\u5E73\u5747\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u641E\u932F\u4E86\uFF0C\u56E0\u70BA\u5E73\u5747\u76EE\u6A19\u5DF2\u9054\u6210",
+                "fraction": 0,
+                "feedback": "\u4F7F\u7528\u8005\u611F\u53D7\u5230\u7684\u662F\u5C3E\u7AEF\uFF1B\u5E73\u5747\u901A\u904E\u4E0D\u4EE3\u8868\u6BCF\u500B\u4EBA\u90FD\u88AB\u5FEB\u901F\u670D\u52D9\u3002"
+              }
+            ],
+            "generalFeedback": "\u5E73\u5747\u7531\u5927\u91CF\u5FEB\u901F\u8ACB\u6C42\u4E3B\u5C0E\uFF0C\u6240\u4EE5\u7DE9\u6162\u7684\u5C3E\u7AEF\u5E7E\u4E4E\u4E0D\u52D5\u5B83\u3002p99 \u6B63\u597D\u6355\u6349\u90A3\u689D\u5C3E\u7AEF\u2014\u2014\u4F7F\u7528\u8005\u611F\u53D7\u70BA\u5361\u9813\u7684\u90A3\u6700\u6162 1%\u3002\u9019\u4E5F\u662F\u70BA\u4EC0\u9EBC SLO \u8A02\u5728\u5C3E\u7AEF\u767E\u5206\u4F4D\uFF0C\u800C\u975E\u5E73\u5747\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u7D71\u8A08\u91CF\u63ED\u9732\u5C3E\u7AEF",
+            "text": "<p>\u5728\u4E00\u6B21 1000 \u500B\u8ACB\u6C42\u7684\u57F7\u884C\u4E2D\uFF0C985 \u500B\u7D04\u82B1 50 \u6BEB\u79D2\u300115 \u500B\u7D04\u82B1 5000 \u6BEB\u79D2\u3002\u54EA\u4E00\u500B\u55AE\u4E00\u7D71\u8A08\u91CF\u6700\u80FD\u63ED\u9732\u90A3\u4E9B\u6162\u8ACB\u6C42\u9020\u6210\u7684\u554F\u984C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "p99 \u5EF6\u9072\uFF08\u7D04 5000 \u6BEB\u79D2\uFF09\uFF0C\u5B83\u63ED\u9732\u4E86\u7DE9\u6162\u7684\u5C3E\u7AEF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6709 1.5% \u7684\u8ACB\u6C42\u6162\uFF0Cp99 \u843D\u5728\u6162\u7684\u90A3\u4E00\u7FA4\u3002"
+              },
+              {
+                "text": "\u5E73\u5747\u5EF6\u9072\uFF0C\u5B83\u7DAD\u6301\u5728\u4F4E\u9EDE\uFF08\u7D04 124 \u6BEB\u79D2\uFF09",
+                "fraction": 0,
+                "feedback": "\u5E73\u5747 = (985&#215;50 + 15&#215;5000)/1000 &#8776; 124 \u6BEB\u79D2\u2014\u2014\u5B83\u63A9\u84CB\u800C\u975E\u63ED\u9732\u5C3E\u7AEF\u3002"
+              },
+              {
+                "text": "\u541E\u5410\u91CF\uFF0C\u5B83\u4E0D\u53D7\u5F71\u97FF",
+                "fraction": 0,
+                "feedback": "\u541E\u5410\u91CF\u4E0D\u63CF\u8FF0\u55AE\u4E00\u8ACB\u6C42\u7684\u5EF6\u9072\uFF0C\u6545\u7121\u6CD5\u63ED\u9732\u6162\u7684\u5C3E\u7AEF\u3002"
+              },
+              {
+                "text": "p50 \u5EF6\u9072\uFF0C\u5B83\u7D04\u70BA 50 \u6BEB\u79D2",
+                "fraction": 0,
+                "feedback": "p50\uFF08\u4E2D\u4F4D\u6578\uFF09\u843D\u5728\u5FEB\u901F\u8ACB\u6C42\u4E4B\u9593\u3001\u7D04 50 \u6BEB\u79D2\uFF0C\u63A9\u84CB\u4E86\u5C3E\u7AEF\u3002"
+              }
+            ],
+            "generalFeedback": "\u5E73\u5747 &#8776; (985&#215;50 + 15&#215;5000)/1000 &#8776; 124 \u6BEB\u79D2\u3001p50 &#8776; 50 \u6BEB\u79D2\uFF0C\u5169\u8005\u770B\u8D77\u4F86\u90FD\u53EF\u63A5\u53D7\u3002\u7531\u65BC\u6709 1.5% \u7684\u8ACB\u6C42\u6162\uFF0Cp99 \u843D\u5165\u6162\u7684\u90A3\u4E00\u7FA4\u3001\u7D04 5000 \u6BEB\u79D2\u2014\u2014\u53EA\u6709\u9AD8\u767E\u5206\u4F4D\u624D\u63ED\u9732\u5C3E\u7AEF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u627E\u51FA\u74F6\u9838\uFF1ACPU",
+            "text": "<p>\u5728\u6BCF\u79D2 300 \u500B\u8ACB\u6C42\u7684\u8CA0\u8F09\u4E0B\uFF0C\u76E3\u63A7\u986F\u793A CPU \u91D8\u5728\u7D04 100%\uFF0C\u800C\u8A18\u61B6\u9AD4\u3001\u78C1\u789F\u8207\u7DB2\u8DEF\u90FD\u5728 50% \u4EE5\u4E0B\u3002\u74F6\u9838\u6700\u53EF\u80FD\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "CPU\u2014\u2014\u5B83\u662F\u9054\u5230\u98FD\u548C\u3001\u9650\u5236\u541E\u5410\u91CF\u518D\u4E0A\u5347\u7684\u8CC7\u6E90",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u5148\u98FD\u548C\u7684\u8CC7\u6E90\u5C31\u662F\u74F6\u9838\u3002"
+              },
+              {
+                "text": "\u8A18\u61B6\u9AD4\uFF0C\u56E0\u70BA\u5B83\u9084\u6709\u9918\u88D5",
+                "fraction": 0,
+                "feedback": "\u6709\u9918\u88D5\u4EE3\u8868\u8A18\u61B6\u9AD4\u4E0D\u662F\u9650\u5236\uFF1B\u9054\u5230\u98FD\u548C\u7684\u8CC7\u6E90\u624D\u662F\u3002"
+              },
+              {
+                "text": "\u7DB2\u8DEF\uFF0C\u56E0\u70BA\u5B83\u5728 50% \u4EE5\u4E0B",
+                "fraction": 0,
+                "feedback": "\u4F4E\u65BC 50% \u7684\u8CC7\u6E90\u5C1A\u672A\u98FD\u548C\uFF0C\u6545\u4E0D\u662F\u74F6\u9838\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u2014\u2014\u9592\u7F6E\u7684\u8CC7\u6E90\u6C38\u9060\u662F\u74F6\u9838",
+                "fraction": 0,
+                "feedback": "\u74F6\u9838\u662F\u9054\u5230\u98FD\u548C\u7684\u8CC7\u6E90\uFF0C\u4E0D\u662F\u9592\u7F6E\u7684\u8CC7\u6E90\u3002"
+              }
+            ],
+            "generalFeedback": "\u74F6\u9838\u662F\u6700\u5148\u98FD\u548C\u7684\u8CC7\u6E90\u3002CPU \u7D04 100% \u800C\u5176\u4ED6\u9592\u7F6E\uFF0C\u4EE3\u8868 CPU \u5361\u4F4F\u4E86\u541E\u5410\u91CF\uFF1B\u89E3\u6CD5\u662F\u52A0 CPU \u6216\u964D\u4F4E\u6BCF\u8ACB\u6C42\u7684 CPU \u6210\u672C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u89E3\u8B80\u53EF\u64F4\u5C55\u6027\u7684\u62D0\u9EDE",
+            "text": "<p>\u96A8\u8457\u865B\u64EC\u4F7F\u7528\u8005\u589E\u52A0\uFF0C\u541E\u5410\u91CF\u4E0A\u5347\uFF0C\u63A5\u8457\u8DA8\u5E73\u6210\u70BA\u4E00\u500B\u9AD8\u539F\uFF0C\u800C\u56DE\u61C9\u6642\u9593\u6301\u7E8C\u6500\u5347\u3002\u9019\u500B\u9AD8\u539F\uFF08\u300C\u62D0\u9EDE\uFF0Cknee\u300D\uFF09\u4EE3\u8868\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7CFB\u7D71\u5DF2\u9054\u5230\u5BB9\u91CF\uFF0F\u98FD\u548C\uFF1B\u591A\u51FA\u4F86\u7684\u4F7F\u7528\u8005\u73FE\u5728\u53EA\u589E\u52A0\u5EF6\u9072\uFF0C\u800C\u975E\u541E\u5410\u91CF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u904E\u4E86\u62D0\u9EDE\u5F8C\u74F6\u9838\u98FD\u548C\uFF0C\u5DE5\u4F5C\u91CF\u7121\u6CD5\u518D\u589E\u52A0\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u7121\u4E0A\u9650\u5730\u7DDA\u6027\u64F4\u5C55",
+                "fraction": 0,
+                "feedback": "\u9AD8\u539F\u6B63\u662F\u7121\u9650\u7DDA\u6027\u64F4\u5C55\u7684\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u932F\u8AA4\uFF0C\u56E0\u70BA\u541E\u5410\u91CF\u7D55\u4E0D\u53EF\u80FD\u8DA8\u5E73",
+                "fraction": 0,
+                "feedback": "\u541E\u5410\u91CF\u5728\u98FD\u548C\u6642\u8DA8\u5E73\u662F\u9810\u671F\u7684\uFF0C\u4E0D\u662F\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u932F\u8AA4\u7387\u5FC5\u7136\u5DF2\u964D\u5230\u96F6",
+                "fraction": 0,
+                "feedback": "\u541E\u5410\u91CF\u8DA8\u5E73\u6839\u672C\u4E0D\u4EE3\u8868\u9019\u4EF6\u4E8B\uFF1B\u5728\u98FD\u548C\u6642\u932F\u8AA4\u5F80\u5F80\u4E0A\u5347\u3002"
+              }
+            ],
+            "generalFeedback": "\u904E\u4E86\u62D0\u9EDE\u5F8C\u74F6\u9838\u98FD\u548C\uFF1A\u52A0\u8CA0\u8F09\u7121\u6CD5\u63D0\u9AD8\u5DF2\u5B8C\u6210\u7684\u5DE5\u4F5C\uFF0C\u65BC\u662F\u8ACB\u6C42\u6392\u968A\u3001\u56DE\u61C9\u6642\u9593\u589E\u9577\uFF0C\u800C\u541E\u5410\u91CF\u7DAD\u6301\u5E73\u5766\u3002\u8A72\u9EDE\u6A19\u793A\u4E86\u7CFB\u7D71\u7684\u6709\u6548\u5BB9\u91CF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A3A\u65B7\u6D78\u6CE1\u6E2C\u8A66\u7684\u52A3\u5316",
+            "text": "<p>\u5728\u4E00\u6B21 12 \u5C0F\u6642\u3001\u8CA0\u8F09\u56FA\u5B9A\u7684\u6D78\u6CE1\u6E2C\u8A66\u4E2D\uFF0C\u56DE\u61C9\u6642\u9593\u7DE9\u6162\u6500\u5347\uFF0C\u8A18\u61B6\u9AD4\u7528\u91CF\u6301\u7E8C\u5411\u4E0A\u4E14\u4E0D\u56DE\u843D\u3002\u6700\u53EF\u80FD\u7684\u8A3A\u65B7\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8A18\u61B6\u9AD4\u6D29\u6F0F\uFF0F\u8CC7\u6E90\u8017\u76E1\uFF0C\u53EA\u6709\u5728\u9577\u6642\u9593\u57F7\u884C\u5F8C\u624D\u986F\u73FE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56FA\u5B9A\u8CA0\u8F09\u4E0B\u8A18\u61B6\u9AD4\u4E0A\u5347\u3001\u5EF6\u9072\u52A3\u5316\u6B63\u662F\u6D29\u6F0F\u7684\u5178\u578B\u5FB5\u5146\u3002"
+              },
+              {
+                "text": "\u6B63\u5E38\u884C\u70BA\uFF0C\u4E0D\u9700\u8ABF\u67E5",
+                "fraction": 0,
+                "feedback": "\u56FA\u5B9A\u8CA0\u8F09\u4E0B\u8A18\u61B6\u9AD4\u55AE\u8ABF\u6210\u9577\u4E26\u4E0D\u6B63\u5E38\uFF0C\u5B83\u9810\u793A\u8457\u6D29\u6F0F\u3002"
+              },
+              {
+                "text": "\u7DB2\u8DEF\u5C16\u5CF0\uFF0C\u56E0\u70BA\u8CA0\u8F09\u56FA\u5B9A",
+                "fraction": 0,
+                "feedback": "\u8CA0\u8F09\u662F\u56FA\u5B9A\u7684\uFF0C\u6545\u5C16\u5CF0\u7121\u6CD5\u89E3\u91CB\u6301\u7E8C\u5411\u4E0A\u7684\u8DA8\u52E2\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u4E2D\u7684\u4E26\u884C\u5EA6\u4E0D\u8DB3",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u4E26\u884C\u5EA6\u7DAD\u6301\u56FA\u5B9A\uFF1B\u4E0D\u65B7\u6210\u9577\u7684\u8A18\u61B6\u9AD4\u6307\u5411\u6D29\u6F0F\uFF0C\u800C\u975E\u4F7F\u7528\u8005\u592A\u5C11\u3002"
+              }
+            ],
+            "generalFeedback": "\u56FA\u5B9A\u8CA0\u8F09\u4E0B\u8A18\u61B6\u9AD4\u55AE\u8ABF\u4E0A\u5347\u3001\u56DE\u61C9\u6642\u9593\u60E1\u5316\uFF0C\u662F\u8A18\u61B6\u9AD4\u6D29\u6F0F\u6216\u672A\u91CB\u653E\u8CC7\u6E90\u7684\u6559\u79D1\u66F8\u5FB5\u5146\u2014\u2014\u6B63\u662F\u6D78\u6CE1\uFF0F\u8010\u4E45\u6E2C\u8A66\u88AB\u8A2D\u8A08\u4F86\u63ED\u9732\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9078\u51FA\u826F\u597D\u7684 SLO",
+            "text": "<p>\u5C0D\u4E00\u500B\u9762\u5411\u4F7F\u7528\u8005\u7684 API\uFF0C\u54EA\u4E00\u500B\u662F\u6700\u826F\u597D\u5B9A\u7FA9\u7684\u5EF6\u9072 SLO\uFF1F</p>",
+            "answers": [
+              {
+                "text": "95% \u7684\u8ACB\u6C42\u5728 200 \u6BEB\u79D2\u4EE5\u5167\u5B8C\u6210\uFF08p95 < 200 \u6BEB\u79D2\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u660E\u78BA\u3001\u53EF\u91CF\u6E2C\uFF0C\u4E14\u91DD\u5C0D\u4F7F\u7528\u8005\u6240\u611F\u53D7\u7684\u5C3E\u7AEF\u3002"
+              },
+              {
+                "text": "\u4F3A\u670D\u5668\u61C9\u8A72\u8981\u5FEB",
+                "fraction": 0,
+                "feedback": "\u592A\u6A21\u7CCA\u3001\u7121\u6CD5\u91CF\u6E2C\u6216\u9A57\u8B49\uFF1B\u826F\u597D\u7684 SLO \u662F\u91CF\u5316\u7684\u3002"
+              },
+              {
+                "text": "\u591A\u6578\u6642\u5019\u5E73\u5747\u5EF6\u9072\u61C9\u8A72\u8981\u4F4E",
+                "fraction": 0,
+                "feedback": "\u300C\u4F4E\u300D\u8207\u300C\u591A\u6578\u6642\u5019\u300D\u90FD\u672A\u91CF\u5316\uFF0C\u4E14\u5E73\u5747\u6703\u63A9\u84CB\u5C3E\u7AEF\u3002"
+              },
+              {
+                "text": "\u4EFB\u4F55\u8ACB\u6C42\u90FD\u4E0D\u5F97\u8D85\u904E 1 \u6BEB\u79D2",
+                "fraction": 0,
+                "feedback": "\u5C0D\u6700\u5927\u503C\u8A02\u7D55\u5C0D\u503C\u4E0D\u5207\u5BE6\u969B\uFF0C\u4E14\u55AE\u4E00\u96E2\u7FA4\u503C\u5C31\u6703\u5931\u6557\u2014\u2014\u662F\u5DEE\u52C1\u7684 SLO\u3002"
+              }
+            ],
+            "generalFeedback": "\u826F\u597D\u7684 SLO \u660E\u78BA\u3001\u53EF\u91CF\u6E2C\uFF0C\u4E14\u91DD\u5C0D\u4F7F\u7528\u8005\u6240\u611F\u53D7\u7684\u5C3E\u7AEF\u2014\u2014\u5E36\u6709\u6578\u503C\u9580\u6ABB\u7684\u767E\u5206\u4F4D\uFF0C\u4F8B\u5982 p95 \u4F4E\u65BC 200 \u6BEB\u79D2\u3002\u6A21\u7CCA\u7684\u63AA\u8FAD\u8207\u4E0D\u53EF\u80FD\u7684\u7D55\u5C0D\u503C\u90FD\u662F\u5DEE\u52C1\u7684 SLO\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Little's Law\uFF1A\u98FD\u548C\u3001\u4F7F\u7528\u8005\u52A0\u500D",
+            "text": "<p>\u67D0\u5DF2\u98FD\u548C\u7684\u670D\u52D9\u4EE5\u6700\u5927\u541E\u5410\u91CF &#955; \u904B\u8F49\u3002\u4E26\u884C\u8ACB\u6C42\u6578 L \u52A0\u500D\uFF08\u66F4\u591A\u4F7F\u7528\u8005\u5230\u4F86\uFF09\uFF0C\u4F46 &#955; \u7121\u6CD5\u518D\u4E0A\u5347\u3002\u4F9D L = &#955; &#215; W\uFF0C\u5E73\u5747\u56DE\u61C9\u6642\u9593 W \u5C07\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u52A0\u500D\uFF0C\u56E0\u70BA W = L &#247; &#955;\uFF0CL \u52A0\u500D\u800C &#955; \u56FA\u5B9A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u541E\u5410\u91CF\u88AB\u5361\u4F4F\u6642\uFF0C\u5728\u9014\u5DE5\u4F5C\u52A0\u500D\u6703\u4F7F\u56DE\u61C9\u6642\u9593\u52A0\u500D\u3002"
+              },
+              {
+                "text": "\u7DAD\u6301\u4E0D\u8B8A\uFF0C\u56E0\u70BA\u56DE\u61C9\u6642\u9593\u8207\u8CA0\u8F09\u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u56DE\u61C9\u6642\u9593\u4E26\u975E\u8207\u8CA0\u8F09\u7121\u95DC\uFF1B\u4E00\u65E6\u98FD\u548C\uFF0C\u6392\u968A\u6703\u4F7F W \u589E\u9577\u3002"
+              },
+              {
+                "text": "\u6E1B\u534A\uFF0C\u56E0\u70BA\u66F4\u591A\u4F7F\u7528\u8005\u5206\u6524\u5DE5\u4F5C",
+                "fraction": 0,
+                "feedback": "\u5C0D\u5DF2\u98FD\u548C\u7684\u7CFB\u7D71\u52A0\u4F7F\u7528\u8005\u53EA\u6703\u60E1\u5316\u3001\u800C\u975E\u6539\u5584\u56DE\u61C9\u6642\u9593\u3002"
+              },
+              {
+                "text": "\u4E00\u65E6\u7CFB\u7D71\u98FD\u548C\u5C31\u964D\u5230\u96F6",
+                "fraction": 0,
+                "feedback": "\u98FD\u548C\u6703\u4F7F\u56DE\u61C9\u6642\u9593\u589E\u9577\uFF0C\u800C\u975E\u6B78\u96F6\u3002"
+              }
+            ],
+            "generalFeedback": "\u91CD\u6574\u5F97 W = L &#247; &#955;\u3002&#955; \u88AB\u5361\u5728\u6700\u5927\u503C\u800C L \u52A0\u500D\uFF0CW \u4FBF\u52A0\u500D\u2014\u2014\u4E00\u65E6\u98FD\u548C\uFF0C\u6392\u968A\u6703\u4F7F\u6BCF\u500B\u8ACB\u6C42\u7B49\u66F4\u4E45\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u76F8\u540C\u5E73\u5747\u3001\u4E0D\u540C p99",
+            "text": "<p>\u5169\u500B\u670D\u52D9\u6709\u76F8\u540C\u7684\u5E73\u5747\u5EF6\u9072\uFF0C\u4F46\u670D\u52D9 A \u7684 p99 = 220 \u6BEB\u79D2\u3001\u670D\u52D9 B \u7684 p99 = 900 \u6BEB\u79D2\u3002\u5C31\u4F7F\u7528\u8005\u9AD4\u9A57\u800C\u8A00\uFF0C\u54EA\u500B\u8F03\u597D\u3001\u70BA\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "A\u2014\u2014\u5118\u7BA1\u5E73\u5747\u76F8\u540C\uFF0C\u8F03\u4F4E\u7684 p99 \u4EE3\u8868\u9060\u5C11\u7684\u4F7F\u7528\u8005\u78B0\u5230\u975E\u5E38\u6162\u7684\u56DE\u61C9",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8F03\u7DCA\u7684\u5C3E\u7AEF\u5E36\u4F86\u8F03\u4E00\u81F4\u7684\u9AD4\u9A57\u3002"
+              },
+              {
+                "text": "B\u2014\u2014\u8F03\u9AD8\u7684 p99 \u4EE3\u8868\u5B83\u8F03\u5FEB",
+                "fraction": 0,
+                "feedback": "\u8F03\u9AD8\u7684 p99 \u5728\u5C3E\u7AEF\u662F\u8F03\u6162\uFF0C\u800C\u975E\u8F03\u5FEB\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u76F8\u540C\uFF0C\u56E0\u70BA\u5E73\u5747\u76F8\u7B49",
+                "fraction": 0,
+                "feedback": "\u76F8\u7B49\u7684\u5E73\u5747\u53EF\u80FD\u63A9\u84CB\u975E\u5E38\u4E0D\u540C\u7684\u5C3E\u7AEF\uFF0C\u6B63\u5982\u6B64\u4F8B\u3002"
+              },
+              {
+                "text": "\u7121\u6CD5\u5224\u65B7\uFF0C\u56E0\u70BA\u53EA\u6709\u5E73\u5747\u624D\u91CD\u8981",
+                "fraction": 0,
+                "feedback": "\u5C3E\u7AEF\u5C0D\u4F7F\u7528\u8005\u9AD4\u9A57\u6975\u70BA\u91CD\u8981\uFF1B\u53EA\u770B\u5E73\u5747\u4E26\u4E0D\u8DB3\u5920\u3002"
+              }
+            ],
+            "generalFeedback": "\u76F8\u7B49\u7684\u5E73\u5747\u63A9\u84CB\u4E86\u4E0D\u540C\u7684\u5C3E\u7AEF\u3002A \u8F03\u4F4E\u7684 p99\uFF08220 \u6BEB\u79D2\u5C0D 900 \u6BEB\u79D2\uFF09\u4EE3\u8868\u975E\u5E38\u6162\u7684\u8ACB\u6C42\u5C11\u5F97\u591A\uFF0C\u9AD4\u9A57\u8F03\u4E00\u81F4\u2014\u2014\u53EA\u770B\u5E73\u5747\u7121\u6CD5\u5340\u5206\u5169\u8005\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u74F6\u9838\u79FB\u5230\u8A18\u61B6\u9AD4",
+            "text": "<p>\u4FEE\u597D CPU \u74F6\u9838\u5F8C\uFF0C\u541E\u5410\u91CF\u63D0\u5347\uFF0C\u4F46\u5F88\u5FEB\u53C8\u8DA8\u5E73\uFF1B\u6B64\u6642\u8A18\u61B6\u9AD4\u7D04\u5728 100%\uFF0C\u800C CPU \u6709\u9918\u88D5\u3002\u6B63\u78BA\u7684\u89E3\u8B80\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u74F6\u9838\u5DF2\u79FB\u5230\u8A18\u61B6\u9AD4\u2014\u2014\u5B83\u662F\u65B0\u7684\u9650\u5236\u8CC7\u6E90",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u89E3\u9664\u4E00\u500B\u74F6\u9838\u6703\u8B93\u4E0B\u4E00\u500B\u6D6E\u73FE\u3002"
+              },
+              {
+                "text": "CPU \u7684\u4FEE\u6B63\u6C92\u6709\u7528\uFF0C\u56E0\u70BA\u541E\u5410\u91CF\u53C8\u8DA8\u5E73\u4E86",
+                "fraction": 0,
+                "feedback": "\u541E\u5410\u91CF\u5148\u63D0\u5347\u4E86\uFF0C\u4E14 CPU \u73FE\u5728\u6709\u9918\u88D5\uFF0C\u6545\u4FEE\u6B63\u662F\u6709\u7528\u7684\uFF1B\u9650\u5236\u53EA\u662F\u8F49\u79FB\u4E86\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u7CFB\u7D71\u6C38\u9060\u4E0D\u6703\u6709\u8D85\u904E\u4E00\u500B\u53EF\u80FD\u7684\u74F6\u9838",
+                "fraction": 0,
+                "feedback": "\u7CFB\u7D71\u6709\u4E00\u9023\u4E32\u74F6\u9838\uFF1B\u4FEE\u597D\u4E00\u500B\u6703\u63ED\u9732\u53E6\u4E00\u500B\u3002"
+              },
+              {
+                "text": "CPU \u4FEE\u597D\u5F8C\u8A18\u61B6\u9AD4\u7528\u91CF\u5C31\u7121\u95DC\u7DCA\u8981",
+                "fraction": 0,
+                "feedback": "\u8A18\u61B6\u9AD4\u73FE\u5728\u662F\u98FD\u548C\u7684\u8CC7\u6E90\uFF0C\u6545\u6975\u70BA\u76F8\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u89E3\u9664\u4E00\u500B\u74F6\u9838\u6703\u8B93\u4E0B\u4E00\u500B\u6D6E\u73FE\u3002\u8A18\u61B6\u9AD4\u73FE\u5728\u98FD\u548C\u800C CPU \u9592\u7F6E\uFF0C\u8A18\u61B6\u9AD4\u4FBF\u662F\u65B0\u7684\u9650\u5236\u8CC7\u6E90\u3002\u6548\u80FD\u8ABF\u6821\u662F\u53CD\u8986\u7684\uFF1A\u4FEE\u6B63\u3001\u518D\u91CF\u6E2C\u3001\u627E\u51FA\u4E0B\u4E00\u500B\u74F6\u9838\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Little's Law\uFF1A\u5BB9\u91CF\u898F\u5283\uFF08400, 0.25\uFF09",
+            "text": "<p>\u67D0\u670D\u52D9\u5FC5\u9808\u7DAD\u6301\u6BCF\u79D2 400 \u500B\u8ACB\u6C42\u7684\u541E\u5410\u91CF\uFF0C\u6BCF\u500B\u8ACB\u6C42\u5E73\u5747\u82B1 0.25 \u79D2\u3002\u4F9D Little's Law\uFF0C\u5B83\u5FC5\u9808\u652F\u63F4\u7684\u5E73\u5747\u4E26\u884C\u5EA6\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "100",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014L = 400 /\u79D2 &#215; 0.25 \u79D2 = 100\u3002"
+              },
+              {
+                "text": "1600",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 400 &#247; 0.25\uFF1BLittle's Law \u662F\u628A\u541E\u5410\u91CF\u4E58\u4EE5\u56DE\u61C9\u6642\u9593\u3002"
+              },
+              {
+                "text": "400.25",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u628A\u5169\u500B\u503C\u76F8\u52A0\uFF1B\u6B64\u5B9A\u5F8B\u662F\u76F8\u4E58\u3002"
+              },
+              {
+                "text": "0.000625",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F 0.25 &#247; 400\uFF1B\u6B63\u78BA\u7684\u4E58\u7A4D\u662F 400 &#215; 0.25 = 100\u3002"
+              }
+            ],
+            "generalFeedback": "Little's Law\uFF1AL = &#955; &#215; W = \u6BCF\u79D2 400 \u500B\u8ACB\u6C42 &#215; 0.25 \u79D2 = \u5E73\u5747 100 \u500B\u4E26\u884C\u8ACB\u6C42\u2014\u2014\u5C0D\u57F7\u884C\u7DD2\u8207\u9023\u7DDA\u6C60\u7684\u898F\u6A21\u8A2D\u5B9A\u5F88\u6709\u7528\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "property-based-testing": {
       "en": {
         "easy": [

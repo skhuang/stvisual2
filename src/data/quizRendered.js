@@ -63081,6 +63081,2634 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "performance-load-profile": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What load testing evaluates",
+          "text": "<p><em>Load testing</em> primarily evaluates a system's behaviour when it is subjected to:</p>",
+          "answers": [
+            {
+              "text": "The expected / normal level of concurrent load it is designed to handle",
+              "fraction": 100,
+              "feedback": "Correct — load testing checks behaviour and performance under anticipated, realistic load."
+            },
+            {
+              "text": "A load pushed far beyond its capacity until it breaks",
+              "fraction": 0,
+              "feedback": "That is stress testing, which deliberately exceeds capacity to find the breaking point."
+            },
+            {
+              "text": "A sudden extreme surge that appears and disappears within seconds",
+              "fraction": 0,
+              "feedback": "That describes spike testing, not load testing."
+            },
+            {
+              "text": "A moderate load sustained continuously for many hours or days",
+              "fraction": 0,
+              "feedback": "That is soak (endurance) testing, aimed at long-run problems."
+            }
+          ],
+          "generalFeedback": "Load testing measures how a system performs under its expected, normal (up to anticipated peak) load — checking response time, throughput and error rate against targets for realistic usage.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What stress testing does",
+          "text": "<p><em>Stress testing</em> deliberately drives a system:</p>",
+          "answers": [
+            {
+              "text": "Beyond its expected capacity to find its breaking point and observe how it fails",
+              "fraction": 100,
+              "feedback": "Correct — stress testing pushes past the limits to reveal the breaking point and failure mode."
+            },
+            {
+              "text": "At exactly its normal expected load to confirm day-to-day behaviour",
+              "fraction": 0,
+              "feedback": "That is load testing; stress testing goes beyond the expected load."
+            },
+            {
+              "text": "With an unusually large volume of stored data records",
+              "fraction": 0,
+              "feedback": "That is volume testing, which focuses on data size, not on exceeding request capacity."
+            },
+            {
+              "text": "With a brief surge followed by an immediate return to normal",
+              "fraction": 0,
+              "feedback": "That is spike testing, a short sharp burst rather than sustained overload."
+            }
+          ],
+          "generalFeedback": "Stress testing loads a system past its capacity to locate the breaking point and see how it fails — graceful degradation versus a crash — and whether it recovers afterwards.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What spike testing applies",
+          "text": "<p><em>Spike testing</em> subjects a system to:</p>",
+          "answers": [
+            {
+              "text": "A sudden, sharp surge in load followed by a rapid drop back down",
+              "fraction": 100,
+              "feedback": "Correct — a spike test applies an abrupt jump then removes it."
+            },
+            {
+              "text": "A steady load held constant over a long period",
+              "fraction": 0,
+              "feedback": "That is soak (endurance) testing, not a spike."
+            },
+            {
+              "text": "The normal expected level of load",
+              "fraction": 0,
+              "feedback": "That is load testing; a spike is a sudden abnormal surge."
+            },
+            {
+              "text": "A load pushed steadily higher until the system breaks",
+              "fraction": 0,
+              "feedback": "That gradual push to failure is stress testing, not a sudden spike."
+            }
+          ],
+          "generalFeedback": "A spike test applies a large, abrupt increase in load over a very short time and then removes it, checking whether the system copes with and recovers from sudden surges.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What soak testing applies",
+          "text": "<p><em>Soak (endurance) testing</em> applies:</p>",
+          "answers": [
+            {
+              "text": "A sustained load over a long duration to reveal problems such as memory leaks and resource exhaustion",
+              "fraction": 100,
+              "feedback": "Correct — soak testing runs for hours or days to expose slow-building problems."
+            },
+            {
+              "text": "A load beyond capacity to find the breaking point",
+              "fraction": 0,
+              "feedback": "That is stress testing; soak testing stays at a sustainable load but for a long time."
+            },
+            {
+              "text": "An instantaneous surge and immediate drop",
+              "fraction": 0,
+              "feedback": "That is spike testing, the opposite of a long sustained run."
+            },
+            {
+              "text": "A very large data set processed in a single run",
+              "fraction": 0,
+              "feedback": "That is volume testing, which is about data size rather than duration."
+            }
+          ],
+          "generalFeedback": "Soak / endurance testing holds a normal-to-high load for a long time (hours or days) to expose gradual problems — memory leaks, connection-pool exhaustion, slow response-time degradation — that short tests miss.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What volume testing focuses on",
+          "text": "<p><em>Volume testing</em> focuses on system behaviour when it must handle:</p>",
+          "answers": [
+            {
+              "text": "Large amounts of data — huge database tables, big files or long queues",
+              "fraction": 100,
+              "feedback": "Correct — volume testing is about coping with large quantities of data."
+            },
+            {
+              "text": "A sudden short-lived surge of requests",
+              "fraction": 0,
+              "feedback": "That is spike testing, which is about request rate, not data size."
+            },
+            {
+              "text": "A load held steady for many days",
+              "fraction": 0,
+              "feedback": "That is soak testing; volume testing concerns data quantity, not duration."
+            },
+            {
+              "text": "A request rate pushed beyond the breaking point",
+              "fraction": 0,
+              "feedback": "That is stress testing; volume testing is about data size, not overload."
+            }
+          ],
+          "generalFeedback": "Volume testing checks how the system copes with large quantities of data — for example very large tables, files, imports or message queues — where behaviour or performance may change at scale.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What scalability testing measures",
+          "text": "<p><em>Scalability testing</em> measures:</p>",
+          "answers": [
+            {
+              "text": "How performance changes as the load, or the resources allocated to the system, are scaled up or down",
+              "fraction": 100,
+              "feedback": "Correct — scalability testing observes how metrics evolve as load or resources scale."
+            },
+            {
+              "text": "Only the behaviour at a single fixed normal load",
+              "fraction": 0,
+              "feedback": "That is a single load test point; scalability is about the trend as things scale."
+            },
+            {
+              "text": "The failure mode when load exceeds capacity",
+              "fraction": 0,
+              "feedback": "That is stress testing; scalability is about how performance changes with scale, not the breaking point alone."
+            },
+            {
+              "text": "The effect of a single sudden spike",
+              "fraction": 0,
+              "feedback": "That is spike testing, not scalability."
+            }
+          ],
+          "generalFeedback": "Scalability testing observes how metrics such as throughput and response time evolve as you add load, or add/remove resources (CPU, instances) — telling you whether the system scales well and where it stops scaling.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of response time",
+          "text": "<p>In performance testing, <em>response time</em> (latency) is:</p>",
+          "answers": [
+            {
+              "text": "The time taken to complete a single request, from sending it to receiving the response",
+              "fraction": 100,
+              "feedback": "Correct — latency is per-request elapsed time."
+            },
+            {
+              "text": "The number of requests completed per second",
+              "fraction": 0,
+              "feedback": "That is throughput, a rate, not the time of one request."
+            },
+            {
+              "text": "The percentage of requests that fail",
+              "fraction": 0,
+              "feedback": "That is the error rate, not response time."
+            },
+            {
+              "text": "The number of users active at the same time",
+              "fraction": 0,
+              "feedback": "That is concurrency, not response time."
+            }
+          ],
+          "generalFeedback": "Response time (latency) measures how long one request takes end to end. It is usually summarised with percentiles (p50, p95, p99) rather than a single number.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of throughput",
+          "text": "<p><em>Throughput</em> in performance testing is:</p>",
+          "answers": [
+            {
+              "text": "The number of requests (or transactions) the system completes per unit of time, e.g. requests per second",
+              "fraction": 100,
+              "feedback": "Correct — throughput is a rate of completed work."
+            },
+            {
+              "text": "The time a single request takes to complete",
+              "fraction": 0,
+              "feedback": "That is response time (latency), not throughput."
+            },
+            {
+              "text": "The number of virtual users configured in the test",
+              "fraction": 0,
+              "feedback": "That is a concurrency setting, not the achieved rate of completed work."
+            },
+            {
+              "text": "The fraction of requests that return an error",
+              "fraction": 0,
+              "feedback": "That is the error rate, not throughput."
+            }
+          ],
+          "generalFeedback": "Throughput is a rate — requests/second or transactions/second (TPS). It measures how much work the system actually completes per unit time, distinct from how long any single request takes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of a latency percentile",
+          "text": "<p>A latency percentile such as <em>p95</em> reports:</p>",
+          "answers": [
+            {
+              "text": "The latency value at or below which 95% of requests fall (95% are at least that fast)",
+              "fraction": 100,
+              "feedback": "Correct — 95% of requests are &#8804; p95, and the slowest 5% exceed it."
+            },
+            {
+              "text": "The average latency across all requests",
+              "fraction": 0,
+              "feedback": "That is the mean; a percentile is not an average."
+            },
+            {
+              "text": "The single slowest request observed in the run",
+              "fraction": 0,
+              "feedback": "That is the maximum (p100), not p95."
+            },
+            {
+              "text": "The number of requests slower than 95 ms",
+              "fraction": 0,
+              "feedback": "p95 is a percentile of the distribution, not a count against a fixed 95 ms."
+            }
+          ],
+          "generalFeedback": "The p95 latency is the value such that 95% of requests are at or below it and the slowest 5% exceed it. Percentiles describe the shape of the distribution, unlike the mean.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of concurrency",
+          "text": "<p><em>Concurrency</em> (concurrent users / virtual users) refers to:</p>",
+          "answers": [
+            {
+              "text": "The number of users or requests being handled by the system at the same time",
+              "fraction": 100,
+              "feedback": "Correct — concurrency is how many are in the system simultaneously."
+            },
+            {
+              "text": "The total number of distinct users over an entire day",
+              "fraction": 0,
+              "feedback": "That is a daily total, not simultaneous concurrency."
+            },
+            {
+              "text": "The time each request takes to complete",
+              "fraction": 0,
+              "feedback": "That is response time, not concurrency."
+            },
+            {
+              "text": "The number of requests completed per second",
+              "fraction": 0,
+              "feedback": "That is throughput, not concurrency."
+            }
+          ],
+          "generalFeedback": "Concurrency is how many requests or users are in the system at once. Load tools simulate them as \"virtual users\". Little's Law relates concurrency, throughput and response time.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of error rate",
+          "text": "<p>The <em>error rate</em> in a performance test is:</p>",
+          "answers": [
+            {
+              "text": "The proportion of requests that fail (return errors or time out), usually expressed as a percentage",
+              "fraction": 100,
+              "feedback": "Correct — error rate is the fraction of requests that do not succeed."
+            },
+            {
+              "text": "The average time per request",
+              "fraction": 0,
+              "feedback": "That is response time, not error rate."
+            },
+            {
+              "text": "The number of concurrent users",
+              "fraction": 0,
+              "feedback": "That is concurrency, not error rate."
+            },
+            {
+              "text": "The number of requests completed per second",
+              "fraction": 0,
+              "feedback": "That is throughput, not error rate."
+            }
+          ],
+          "generalFeedback": "Error rate is the fraction of requests that do not succeed. It often rises sharply as a system approaches saturation, and is a key signal when identifying the breaking point.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Definition of an SLO",
+          "text": "<p>A <em>Service Level Objective (SLO)</em> is:</p>",
+          "answers": [
+            {
+              "text": "A target value for a service metric, such as \"p95 latency under 200 ms\", that the service aims to meet",
+              "fraction": 100,
+              "feedback": "Correct — an SLO is a measurable target for a chosen metric."
+            },
+            {
+              "text": "The number of servers the service is allowed to use",
+              "fraction": 0,
+              "feedback": "That is a capacity limit, not a service-level objective."
+            },
+            {
+              "text": "The total number of requests sent during a test",
+              "fraction": 0,
+              "feedback": "That is a test-workload figure, not an SLO."
+            },
+            {
+              "text": "A guarantee that the system can never fail",
+              "fraction": 0,
+              "feedback": "No realistic SLO promises zero failures; an SLO sets a measurable target."
+            }
+          ],
+          "generalFeedback": "An SLO is a target (objective) for a service-level indicator (SLI), e.g. \"p95 latency under 200 ms\" or \"error rate under 0.1%\". An SLA is the broader agreement, often with consequences, built around one or more SLOs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Goal: find the breaking point",
+          "text": "<p>You want to discover the maximum load your system can handle before it fails, and how it fails. Which test type fits best?</p>",
+          "answers": [
+            {
+              "text": "Stress test",
+              "fraction": 100,
+              "feedback": "Correct — finding the breaking point and failure mode is the defining goal of stress testing."
+            },
+            {
+              "text": "Load test",
+              "fraction": 0,
+              "feedback": "A load test stays at expected load; it does not push to the breaking point."
+            },
+            {
+              "text": "Soak test",
+              "fraction": 0,
+              "feedback": "A soak test targets long-run degradation, not the breaking point."
+            },
+            {
+              "text": "Volume test",
+              "fraction": 0,
+              "feedback": "A volume test is about large data, not the maximum request load."
+            }
+          ],
+          "generalFeedback": "Finding the maximum sustainable load and the failure mode beyond it is exactly what stress testing is for.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Goal: catch a slow memory leak",
+          "text": "<p>You suspect a slow memory leak that only shows up after the service runs for many hours. Which test type fits best?</p>",
+          "answers": [
+            {
+              "text": "Soak (endurance) test",
+              "fraction": 100,
+              "feedback": "Correct — a leak that manifests over long runtime is exactly what soak testing targets."
+            },
+            {
+              "text": "Spike test",
+              "fraction": 0,
+              "feedback": "A spike test is a brief surge; it will not run long enough to reveal a slow leak."
+            },
+            {
+              "text": "Stress test",
+              "fraction": 0,
+              "feedback": "A stress test finds the breaking point quickly; it is not a long-duration run."
+            },
+            {
+              "text": "Volume test",
+              "fraction": 0,
+              "feedback": "A volume test is about data size, not sustained runtime."
+            }
+          ],
+          "generalFeedback": "Problems that only appear after long continuous operation — memory leaks, resource exhaustion, gradual degradation — are the domain of soak / endurance testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Goal: sudden ticket-sale surge",
+          "text": "<p>Your site expects a sudden, brief traffic surge the instant tickets go on sale, then traffic falls back. Which test type best reproduces this?</p>",
+          "answers": [
+            {
+              "text": "Spike test",
+              "fraction": 100,
+              "feedback": "Correct — a sudden sharp surge then drop is the spike-test pattern."
+            },
+            {
+              "text": "Soak test",
+              "fraction": 0,
+              "feedback": "A soak test sustains load for a long time, the opposite of a brief surge."
+            },
+            {
+              "text": "Load test",
+              "fraction": 0,
+              "feedback": "A load test uses steady expected load, not an abrupt surge."
+            },
+            {
+              "text": "Volume test",
+              "fraction": 0,
+              "feedback": "A volume test concerns data size, not a sudden traffic jump."
+            }
+          ],
+          "generalFeedback": "An abrupt, short-lived jump in load followed by a rapid return to normal is precisely the scenario a spike test reproduces.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Scenario: where does it break",
+          "text": "<p>A team wants to know at how many concurrent users response times become unacceptable and the service starts returning errors — i.e. where it breaks. The right test type is:</p>",
+          "answers": [
+            {
+              "text": "Stress test",
+              "fraction": 100,
+              "feedback": "Correct — locating the point of unacceptable response and rising errors is the breaking point, found by stress testing."
+            },
+            {
+              "text": "Load test",
+              "fraction": 0,
+              "feedback": "A load test confirms behaviour at expected load; it does not deliberately drive the system to failure."
+            },
+            {
+              "text": "Soak test",
+              "fraction": 0,
+              "feedback": "A soak test looks for long-run degradation at a sustainable load, not the breaking point."
+            },
+            {
+              "text": "Spike test",
+              "fraction": 0,
+              "feedback": "A spike test checks recovery from a sudden surge, not the gradual approach to the breaking point."
+            }
+          ],
+          "generalFeedback": "Progressively increasing load until response times degrade and errors climb is how stress testing exposes the breaking point and failure mode.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario: 8-hour creep",
+          "text": "<p>Over an 8-hour continuous run at normal load, engineers want to catch gradually rising memory use and slow response-time creep. The right test type is:</p>",
+          "answers": [
+            {
+              "text": "Soak (endurance) test",
+              "fraction": 100,
+              "feedback": "Correct — sustained runtime revealing gradual degradation is soak testing."
+            },
+            {
+              "text": "Spike test",
+              "fraction": 0,
+              "feedback": "A spike test lasts moments, not 8 hours; it cannot reveal gradual creep."
+            },
+            {
+              "text": "Stress test",
+              "fraction": 0,
+              "feedback": "A stress test seeks the breaking point, not slow degradation over hours."
+            },
+            {
+              "text": "Volume test",
+              "fraction": 0,
+              "feedback": "A volume test is about large data size, not long runtime."
+            }
+          ],
+          "generalFeedback": "Gradual memory growth and response-time creep over a long steady run are the hallmark findings of soak / endurance testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario: Black-Friday open",
+          "text": "<p>An e-commerce site expects a huge, near-instant jump in traffic when a Black-Friday sale opens at midnight, then a quick fall-off. The right test type is:</p>",
+          "answers": [
+            {
+              "text": "Spike test",
+              "fraction": 100,
+              "feedback": "Correct — a near-instant jump then fall-off is the spike pattern."
+            },
+            {
+              "text": "Soak test",
+              "fraction": 0,
+              "feedback": "A soak test sustains load for a long time; it does not model an instant surge."
+            },
+            {
+              "text": "Load test",
+              "fraction": 0,
+              "feedback": "A load test uses steady expected traffic, not an abrupt jump."
+            },
+            {
+              "text": "Volume test",
+              "fraction": 0,
+              "feedback": "A volume test is about data quantity, not a sudden traffic surge."
+            }
+          ],
+          "generalFeedback": "A sudden, large, short-lived surge followed by a drop is exactly what a spike test reproduces, verifying the system copes and recovers.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario: expected daily peak",
+          "text": "<p>A team wants to confirm the system behaves well under the ordinary, expected daily peak traffic it was designed for. The right test type is:</p>",
+          "answers": [
+            {
+              "text": "Load test",
+              "fraction": 100,
+              "feedback": "Correct — verifying behaviour at expected/normal load is load testing."
+            },
+            {
+              "text": "Stress test",
+              "fraction": 0,
+              "feedback": "A stress test exceeds capacity; here the goal is the expected load only."
+            },
+            {
+              "text": "Spike test",
+              "fraction": 0,
+              "feedback": "A spike test is a sudden surge, not the ordinary expected peak."
+            },
+            {
+              "text": "Volume test",
+              "fraction": 0,
+              "feedback": "A volume test targets data size, not the expected request load."
+            }
+          ],
+          "generalFeedback": "Confirming performance under the anticipated, designed-for load is the core purpose of load testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario: 500-million-row table",
+          "text": "<p>A reporting service must process a table that has grown to 500 million rows. The team wants to confirm queries and exports still work at that data size. The right test type is:</p>",
+          "answers": [
+            {
+              "text": "Volume test",
+              "fraction": 100,
+              "feedback": "Correct — behaviour with a very large data set is volume testing."
+            },
+            {
+              "text": "Spike test",
+              "fraction": 0,
+              "feedback": "A spike test is about a sudden request surge, not data size."
+            },
+            {
+              "text": "Soak test",
+              "fraction": 0,
+              "feedback": "A soak test is about long runtime, not the size of the data set."
+            },
+            {
+              "text": "Stress test",
+              "fraction": 0,
+              "feedback": "A stress test overloads request rate; here the concern is data volume."
+            }
+          ],
+          "generalFeedback": "Checking that the system still functions and performs acceptably with very large quantities of data is exactly volume testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Scenario: does doubling servers help",
+          "text": "<p>A team doubles the number of application servers and wants to see whether throughput roughly doubles. This is an example of:</p>",
+          "answers": [
+            {
+              "text": "Scalability testing",
+              "fraction": 100,
+              "feedback": "Correct — measuring how performance changes as resources scale is scalability testing."
+            },
+            {
+              "text": "Stress testing",
+              "fraction": 0,
+              "feedback": "A stress test seeks the breaking point, not the effect of adding resources."
+            },
+            {
+              "text": "Soak testing",
+              "fraction": 0,
+              "feedback": "A soak test is about long-run stability, not scaling resources."
+            },
+            {
+              "text": "Spike testing",
+              "fraction": 0,
+              "feedback": "A spike test is a sudden surge, unrelated to scaling servers."
+            }
+          ],
+          "generalFeedback": "Observing how throughput (or latency) responds when you add or remove resources is scalability testing — ideally throughput should rise close to proportionally, though real systems deviate.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why percentiles beat the mean",
+          "text": "<p>Why are tail percentiles (p95 / p99) usually more informative than the mean response time?</p>",
+          "answers": [
+            {
+              "text": "The mean can hide a slow tail; a small fraction of very slow requests barely moves the average but badly hurts real users",
+              "fraction": 100,
+              "feedback": "Correct — averages are dominated by the many fast requests and mask the tail."
+            },
+            {
+              "text": "The mean is always larger than any percentile, so it overstates performance",
+              "fraction": 0,
+              "feedback": "False — the mean is not always larger than every percentile; the real issue is that it hides the tail."
+            },
+            {
+              "text": "Percentiles are cheaper to compute than the mean",
+              "fraction": 0,
+              "feedback": "Computational cost is not the reason; percentiles reveal the tail the mean conceals."
+            },
+            {
+              "text": "The mean cannot be computed for latency data",
+              "fraction": 0,
+              "feedback": "The mean is perfectly computable; it simply hides outliers."
+            }
+          ],
+          "generalFeedback": "Latency distributions are skewed: most requests are fast, so the mean stays low even when a small fraction are very slow. Those slow requests are exactly what p95/p99 (tail latency) expose — and what users notice.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpret p99 = 500 ms",
+          "text": "<p>A report states \"p99 latency = 500 ms\". This means:</p>",
+          "answers": [
+            {
+              "text": "99% of requests completed in 500 ms or less, and the slowest 1% took longer",
+              "fraction": 100,
+              "feedback": "Correct — that is exactly what a p99 of 500 ms means."
+            },
+            {
+              "text": "Every request took exactly 500 ms",
+              "fraction": 0,
+              "feedback": "A percentile is not a single fixed value for all requests."
+            },
+            {
+              "text": "The average request took 500 ms",
+              "fraction": 0,
+              "feedback": "p99 is not the mean; it is a tail percentile."
+            },
+            {
+              "text": "Only 1% of requests completed in 500 ms or less",
+              "fraction": 0,
+              "feedback": "That inverts it — 99% are at or below 500 ms, not 1%."
+            }
+          ],
+          "generalFeedback": "p99 = 500 ms means 99% of requests were at or below 500 ms and the slowest 1% exceeded it. It says nothing directly about the mean.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of p50",
+          "text": "<p>The <em>p50</em> latency of a service is:</p>",
+          "answers": [
+            {
+              "text": "The median latency — half the requests are faster and half are slower",
+              "fraction": 100,
+              "feedback": "Correct — p50 is the median."
+            },
+            {
+              "text": "The mean (arithmetic average) latency",
+              "fraction": 0,
+              "feedback": "The mean and median coincide only for symmetric data; p50 is the median."
+            },
+            {
+              "text": "The latency of the fastest 50 requests",
+              "fraction": 0,
+              "feedback": "p50 is a percentile of the whole distribution, not a count of 50 requests."
+            },
+            {
+              "text": "The maximum latency divided by two",
+              "fraction": 0,
+              "feedback": "The median has nothing to do with halving the maximum."
+            }
+          ],
+          "generalFeedback": "p50 is the median: 50% of requests are at or below it. For skewed latency data the mean is usually higher than p50, which is why both, plus tail percentiles, are reported.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Order of a load profile",
+          "text": "<p>A typical load-test profile runs its phases in which order?</p>",
+          "answers": [
+            {
+              "text": "ramp-up &#8594; steady-state &#8594; ramp-down",
+              "fraction": 100,
+              "feedback": "Correct — build load up, hold it while measuring, then reduce it."
+            },
+            {
+              "text": "steady-state &#8594; ramp-up &#8594; ramp-down",
+              "fraction": 0,
+              "feedback": "You cannot hold steady-state before ramping up to it."
+            },
+            {
+              "text": "ramp-down &#8594; steady-state &#8594; ramp-up",
+              "fraction": 0,
+              "feedback": "That reverses the profile; load starts low and is ramped up first."
+            },
+            {
+              "text": "spike &#8594; soak &#8594; volume",
+              "fraction": 0,
+              "feedback": "Those are test types, not the phases of a single load profile."
+            }
+          ],
+          "generalFeedback": "A load profile ramps load up gradually, holds it at steady-state (where the key measurements are taken), then ramps it down. Measuring during steady-state avoids the transient effects of ramping.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SLA check: 180 vs 200",
+          "text": "<p>The SLO says \"p95 &lt; 200 ms\". A test measures p95 = 180 ms. The result is:</p>",
+          "answers": [
+            {
+              "text": "Pass — 180 ms is below the 200 ms threshold",
+              "fraction": 100,
+              "feedback": "Correct — 180 < 200, so the p95 target is met."
+            },
+            {
+              "text": "Fail — 180 ms violates the threshold",
+              "fraction": 0,
+              "feedback": "180 ms is below 200 ms, so it satisfies the target."
+            },
+            {
+              "text": "Cannot tell without the mean latency",
+              "fraction": 0,
+              "feedback": "The SLO is stated on p95, and p95 = 180 ms is measured, so it can be decided."
+            },
+            {
+              "text": "Pass only if p99 is also 180 ms",
+              "fraction": 0,
+              "feedback": "The SLO here constrains only p95; p99 is not part of this target."
+            }
+          ],
+          "generalFeedback": "The SLO constrains p95 to under 200 ms. The measured p95 of 180 ms is below the threshold, so the target is met — a pass.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SLA check: 240 vs 200",
+          "text": "<p>The SLO says \"p95 &lt; 200 ms\". A test measures p95 = 240 ms. The result is:</p>",
+          "answers": [
+            {
+              "text": "Fail — 240 ms exceeds the 200 ms threshold",
+              "fraction": 100,
+              "feedback": "Correct — 240 > 200, so the p95 target is missed."
+            },
+            {
+              "text": "Pass — 240 ms is acceptable",
+              "fraction": 0,
+              "feedback": "240 ms is above the 200 ms limit, so it fails."
+            },
+            {
+              "text": "Pass, because the mean is probably under 200 ms",
+              "fraction": 0,
+              "feedback": "The SLO is on p95, not the mean; a low mean does not rescue a failing p95."
+            },
+            {
+              "text": "Cannot tell without the error rate",
+              "fraction": 0,
+              "feedback": "The SLO is stated on p95 alone, and the measured p95 already decides it."
+            }
+          ],
+          "generalFeedback": "The SLO requires p95 under 200 ms; the measured p95 of 240 ms exceeds it, so the target is missed regardless of the mean or other metrics.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Valid unit of throughput",
+          "text": "<p>Which of these is a valid unit of throughput?</p>",
+          "answers": [
+            {
+              "text": "Requests per second (equivalently transactions per second, TPS)",
+              "fraction": 100,
+              "feedback": "Correct — throughput is work completed per unit time."
+            },
+            {
+              "text": "Milliseconds per request",
+              "fraction": 0,
+              "feedback": "That is a response-time unit, not throughput."
+            },
+            {
+              "text": "Percent of failed requests",
+              "fraction": 0,
+              "feedback": "That is the error rate, not throughput."
+            },
+            {
+              "text": "Number of concurrent virtual users",
+              "fraction": 0,
+              "feedback": "That is a concurrency count, not a rate of completed work."
+            }
+          ],
+          "generalFeedback": "Throughput is a rate: work completed per unit time (req/s, TPS). Milliseconds/request is response time, percent-failed is error rate, and virtual users measure concurrency.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of think time",
+          "text": "<p>In a realistic load profile, <em>think time</em> models:</p>",
+          "answers": [
+            {
+              "text": "The pauses a real user takes between actions, so the generated load resembles genuine usage",
+              "fraction": 100,
+              "feedback": "Correct — think time is the idle interval between a user's successive requests."
+            },
+            {
+              "text": "The CPU time the server spends processing a request",
+              "fraction": 0,
+              "feedback": "That is server processing time, not think time."
+            },
+            {
+              "text": "The delay before the whole test begins",
+              "fraction": 0,
+              "feedback": "That is a start delay, not think time between user actions."
+            },
+            {
+              "text": "The time taken to ramp the load down",
+              "fraction": 0,
+              "feedback": "That is the ramp-down phase, not think time."
+            }
+          ],
+          "generalFeedback": "Think time is the pause between a user's successive actions. Including it (with a realistic transaction mix) keeps the arrival pattern lifelike rather than hammering the server with back-to-back requests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Concurrency versus throughput",
+          "text": "<p><em>Concurrency</em> and <em>throughput</em> are related but distinct because:</p>",
+          "answers": [
+            {
+              "text": "Concurrency is how many requests are in the system at once, while throughput is how many complete per unit time",
+              "fraction": 100,
+              "feedback": "Correct — one is a count in flight, the other a completion rate."
+            },
+            {
+              "text": "They are two names for exactly the same quantity",
+              "fraction": 0,
+              "feedback": "They are different: a count in the system versus a rate of completion."
+            },
+            {
+              "text": "Concurrency is measured in req/s and throughput in number of users",
+              "fraction": 0,
+              "feedback": "That swaps them: throughput is req/s and concurrency is a count of in-flight requests/users."
+            },
+            {
+              "text": "Throughput is always equal to the number of virtual users",
+              "fraction": 0,
+              "feedback": "Throughput is a completion rate, not the virtual-user count; they differ unless response time is exactly one second."
+            }
+          ],
+          "generalFeedback": "Concurrency (L) is the number of requests in flight; throughput (&#955;) is the completion rate. Little's Law ties them together with response time: L = &#955; &#215; W.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Little's Law: compute concurrency (50, 0.2)",
+          "text": "<p>A service sustains a throughput of 50 requests/second with an average response time of 0.2 s. By Little's Law (L = &#955; &#215; W), the average concurrency (number of requests in the system) is:</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "Correct — L = 50 /s &#215; 0.2 s = 10."
+            },
+            {
+              "text": "250",
+              "fraction": 0,
+              "feedback": "That is 50 &#247; 0.2; Little's Law multiplies throughput by response time."
+            },
+            {
+              "text": "50.2",
+              "fraction": 0,
+              "feedback": "That adds the two values; the law multiplies them."
+            },
+            {
+              "text": "0.004",
+              "fraction": 0,
+              "feedback": "That is 0.2 &#247; 50; the correct product is 50 &#215; 0.2 = 10."
+            }
+          ],
+          "generalFeedback": "Little's Law: L = &#955; &#215; W = 50 requests/second &#215; 0.2 second = 10 requests in the system on average.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Little's Law: compute throughput (200, 0.5)",
+          "text": "<p>By Little's Law, if the average concurrency is 200 requests and the average response time is 0.5 s, the throughput is:</p>",
+          "answers": [
+            {
+              "text": "400 requests/second",
+              "fraction": 100,
+              "feedback": "Correct — &#955; = L &#247; W = 200 &#247; 0.5 s = 400 /s."
+            },
+            {
+              "text": "100 requests/second",
+              "fraction": 0,
+              "feedback": "That is 200 &#215; 0.5; to get throughput you divide L by W, not multiply."
+            },
+            {
+              "text": "0.0025 requests/second",
+              "fraction": 0,
+              "feedback": "That is 0.5 &#247; 200; the correct value is 200 &#247; 0.5 = 400."
+            },
+            {
+              "text": "200.5 requests/second",
+              "fraction": 0,
+              "feedback": "That adds the two values; the law gives &#955; = L &#247; W = 400."
+            }
+          ],
+          "generalFeedback": "Rearranging L = &#955; &#215; W gives &#955; = L &#247; W = 200 &#247; 0.5 s = 400 requests/second.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Little's Law: compute response time (60, 120)",
+          "text": "<p>By Little's Law, if the average concurrency is 60 and the throughput is 120 requests/second, the average response time is:</p>",
+          "answers": [
+            {
+              "text": "0.5 s",
+              "fraction": 100,
+              "feedback": "Correct — W = L &#247; &#955; = 60 &#247; 120 /s = 0.5 s."
+            },
+            {
+              "text": "2 s",
+              "fraction": 0,
+              "feedback": "That is 120 &#247; 60; response time is L &#247; &#955;, not &#955; &#247; L."
+            },
+            {
+              "text": "7200 s",
+              "fraction": 0,
+              "feedback": "That is 60 &#215; 120; the law divides L by &#955; here."
+            },
+            {
+              "text": "180 s",
+              "fraction": 0,
+              "feedback": "That adds the two values; W = L &#247; &#955; = 0.5 s."
+            }
+          ],
+          "generalFeedback": "Rearranging L = &#955; &#215; W gives W = L &#247; &#955; = 60 &#247; 120 requests/second = 0.5 s.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Little's Law: compute concurrency (25, 0.4)",
+          "text": "<p>A checkout service handles 25 transactions/second with an average response time of 0.4 s. Its average concurrency is:</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "Correct — L = 25 /s &#215; 0.4 s = 10."
+            },
+            {
+              "text": "62.5",
+              "fraction": 0,
+              "feedback": "That is 25 &#247; 0.4; Little's Law multiplies throughput by response time."
+            },
+            {
+              "text": "25.4",
+              "fraction": 0,
+              "feedback": "That adds the two values; the law multiplies them."
+            },
+            {
+              "text": "0.016",
+              "fraction": 0,
+              "feedback": "That is 0.4 &#247; 25; the correct product is 25 &#215; 0.4 = 10."
+            }
+          ],
+          "generalFeedback": "Little's Law: L = &#955; &#215; W = 25 transactions/second &#215; 0.4 second = 10 in the system on average.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Little's Law: compute response time (100, 250)",
+          "text": "<p>A service shows average concurrency 100 and throughput 250 requests/second. Its average response time is:</p>",
+          "answers": [
+            {
+              "text": "0.4 s",
+              "fraction": 100,
+              "feedback": "Correct — W = L &#247; &#955; = 100 &#247; 250 /s = 0.4 s."
+            },
+            {
+              "text": "2.5 s",
+              "fraction": 0,
+              "feedback": "That is 250 &#247; 100; response time is L &#247; &#955;, not &#955; &#247; L."
+            },
+            {
+              "text": "25000 s",
+              "fraction": 0,
+              "feedback": "That is 100 &#215; 250; here the law divides L by &#955;."
+            },
+            {
+              "text": "350 s",
+              "fraction": 0,
+              "feedback": "That adds the two values; W = L &#247; &#955; = 0.4 s."
+            }
+          ],
+          "generalFeedback": "W = L &#247; &#955; = 100 &#247; 250 requests/second = 0.4 s.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mean passes while p99 fails",
+          "text": "<p>A service meets its mean-latency target easily, yet users complain of frequent freezes, and the p99 latency is far above target. The best explanation is:</p>",
+          "answers": [
+            {
+              "text": "A small fraction of requests are very slow; they barely move the mean but dominate p99, and those are the freezes users notice",
+              "fraction": 100,
+              "feedback": "Correct — the tail is what users feel, and only the high percentile reveals it."
+            },
+            {
+              "text": "The mean must be computed incorrectly whenever p99 is high",
+              "fraction": 0,
+              "feedback": "Both can be correct at once; a low mean with a high p99 is exactly a skewed distribution."
+            },
+            {
+              "text": "A high p99 proves the mean must also be above target",
+              "fraction": 0,
+              "feedback": "No — a few slow requests raise p99 without lifting the mean much."
+            },
+            {
+              "text": "The users are mistaken, because the mean target is met",
+              "fraction": 0,
+              "feedback": "The users experience the tail; a passing mean does not mean everyone is served quickly."
+            }
+          ],
+          "generalFeedback": "The mean is dominated by the many fast requests, so a slow tail hardly moves it. p99 captures exactly that tail — the slow 1% that users experience as freezes. This is why SLOs are set on tail percentiles, not the average.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which statistic reveals the tail",
+          "text": "<p>In a run of 1000 requests, 985 take about 50 ms and 15 take about 5000 ms. Which single statistic best reveals the problem those slow requests cause?</p>",
+          "answers": [
+            {
+              "text": "The p99 latency (about 5000 ms), which exposes the slow tail",
+              "fraction": 100,
+              "feedback": "Correct — with 1.5% of requests slow, p99 lands in the slow group."
+            },
+            {
+              "text": "The mean latency, which stays low (about 124 ms)",
+              "fraction": 0,
+              "feedback": "The mean = (985&#215;50 + 15&#215;5000)/1000 &#8776; 124 ms — it hides the tail rather than revealing it."
+            },
+            {
+              "text": "The throughput, which is unaffected",
+              "fraction": 0,
+              "feedback": "Throughput does not describe per-request latency, so it cannot reveal the slow tail."
+            },
+            {
+              "text": "The p50 latency, which is about 50 ms",
+              "fraction": 0,
+              "feedback": "p50 (the median) sits among the fast requests at about 50 ms and hides the tail."
+            }
+          ],
+          "generalFeedback": "mean &#8776; (985&#215;50 + 15&#215;5000)/1000 &#8776; 124 ms and p50 &#8776; 50 ms both look acceptable. Because 1.5% of requests are slow, the p99 falls into the slow group at about 5000 ms — only the high percentile exposes the tail.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the bottleneck: CPU",
+          "text": "<p>At a load of 300 req/s, monitoring shows CPU pinned at about 100% while memory, disk and network all sit below 50%. The bottleneck is most likely:</p>",
+          "answers": [
+            {
+              "text": "The CPU — it is the saturated resource limiting further throughput",
+              "fraction": 100,
+              "feedback": "Correct — the first resource to saturate is the bottleneck."
+            },
+            {
+              "text": "Memory, because it has spare capacity",
+              "fraction": 0,
+              "feedback": "Spare capacity means memory is not the limit; the saturated resource is."
+            },
+            {
+              "text": "The network, because it is under 50%",
+              "fraction": 0,
+              "feedback": "A resource under 50% is not saturated, so it is not the bottleneck."
+            },
+            {
+              "text": "Nothing — an idle resource is always the bottleneck",
+              "fraction": 0,
+              "feedback": "The bottleneck is the saturated resource, not an idle one."
+            }
+          ],
+          "generalFeedback": "The bottleneck is the first resource to saturate. CPU at ~100% while others are idle means CPU caps throughput; the fix is to add CPU or reduce CPU cost per request.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpret the scalability knee",
+          "text": "<p>As virtual users increase, throughput rises, then flattens to a plateau while response time keeps climbing. The plateau (the \"knee\") indicates:</p>",
+          "answers": [
+            {
+              "text": "The system has reached its capacity / saturation; extra users now only add latency, not throughput",
+              "fraction": 100,
+              "feedback": "Correct — beyond the knee the bottleneck is saturated and work cannot increase."
+            },
+            {
+              "text": "The system scales linearly without limit",
+              "fraction": 0,
+              "feedback": "A plateau is the opposite of unlimited linear scaling."
+            },
+            {
+              "text": "A measurement error, since throughput can never plateau",
+              "fraction": 0,
+              "feedback": "Throughput plateauing at saturation is expected, not an error."
+            },
+            {
+              "text": "The error rate has necessarily dropped to zero",
+              "fraction": 0,
+              "feedback": "A throughput plateau says nothing of the sort; errors often rise at saturation."
+            }
+          ],
+          "generalFeedback": "Beyond the knee the bottleneck is saturated: adding load cannot raise completed work, so requests queue and response time grows while throughput stays flat. That point marks the system's effective capacity.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose soak-test degradation",
+          "text": "<p>During a 12-hour soak test at constant load, response time slowly climbs and memory usage trends steadily upward without recovering. The most likely diagnosis is:</p>",
+          "answers": [
+            {
+              "text": "A memory leak / resource exhaustion that only manifests over long runtime",
+              "fraction": 100,
+              "feedback": "Correct — steady load with rising memory and degrading latency is the classic leak signature."
+            },
+            {
+              "text": "Normal behaviour that needs no investigation",
+              "fraction": 0,
+              "feedback": "Monotonic memory growth under constant load is not normal; it signals a leak."
+            },
+            {
+              "text": "A network spike, since the load is constant",
+              "fraction": 0,
+              "feedback": "The load is constant, so a spike does not explain a steady upward trend."
+            },
+            {
+              "text": "Insufficient concurrency in the test",
+              "fraction": 0,
+              "feedback": "Concurrency is held constant here; the growing memory points to a leak, not to too few users."
+            }
+          ],
+          "generalFeedback": "Constant load with monotonically rising memory and worsening response time is the textbook signature of a memory leak or unreleased resource — exactly what soak / endurance testing is designed to reveal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Choose a well-formed SLO",
+          "text": "<p>Which is the best-formed latency SLO for a user-facing API?</p>",
+          "answers": [
+            {
+              "text": "95% of requests complete in under 200 ms (p95 < 200 ms)",
+              "fraction": 100,
+              "feedback": "Correct — specific, measurable, and targeting the tail users experience."
+            },
+            {
+              "text": "The server should be fast",
+              "fraction": 0,
+              "feedback": "Too vague to measure or verify; a good SLO is quantitative."
+            },
+            {
+              "text": "The mean latency should be low most of the time",
+              "fraction": 0,
+              "feedback": "\"Low\" and \"most of the time\" are unquantified, and the mean hides the tail."
+            },
+            {
+              "text": "No request may ever exceed 1 ms",
+              "fraction": 0,
+              "feedback": "An absolute on the maximum is unrealistic and fails on a single outlier — a poor SLO."
+            }
+          ],
+          "generalFeedback": "A good SLO is specific and measurable and targets the tail experienced by users — a percentile with a numeric threshold, such as p95 under 200 ms. Vague wording and impossible absolutes make poor SLOs.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Little's Law: saturated, users double",
+          "text": "<p>A saturated service runs at its maximum throughput &#955;. The number of concurrent requests L doubles (more users arrive) but &#955; cannot increase. By L = &#955; &#215; W, the average response time W will:</p>",
+          "answers": [
+            {
+              "text": "Double, because W = L &#247; &#955; and L doubled while &#955; is fixed",
+              "fraction": 100,
+              "feedback": "Correct — with throughput pinned, doubling in-flight work doubles response time."
+            },
+            {
+              "text": "Stay the same, because response time is independent of load",
+              "fraction": 0,
+              "feedback": "Response time is not independent of load; once saturated, queueing grows W."
+            },
+            {
+              "text": "Halve, because more users share the work",
+              "fraction": 0,
+              "feedback": "Adding users to a saturated system worsens, not improves, response time."
+            },
+            {
+              "text": "Drop to zero once the system is saturated",
+              "fraction": 0,
+              "feedback": "Saturation makes response time grow, not vanish."
+            }
+          ],
+          "generalFeedback": "Rearranging gives W = L &#247; &#955;. With &#955; pinned at the maximum and L doubled, W doubles — queueing makes each request wait longer once the system is saturated.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Same mean, different p99",
+          "text": "<p>Two services have the same mean latency, but service A has p99 = 220 ms and service B has p99 = 900 ms. For user experience, which is better and why?</p>",
+          "answers": [
+            {
+              "text": "A — despite equal means, its lower p99 means far fewer users hit very slow responses",
+              "fraction": 100,
+              "feedback": "Correct — the tighter tail gives a more consistent experience."
+            },
+            {
+              "text": "B — a higher p99 means it is faster",
+              "fraction": 0,
+              "feedback": "A higher p99 is slower at the tail, not faster."
+            },
+            {
+              "text": "They are identical, because the means are equal",
+              "fraction": 0,
+              "feedback": "Equal means can hide very different tails, as here."
+            },
+            {
+              "text": "Cannot say, because only the mean matters",
+              "fraction": 0,
+              "feedback": "The tail matters greatly for user experience; the mean alone is insufficient."
+            }
+          ],
+          "generalFeedback": "Equal means hide different tails. A's lower p99 (220 ms vs 900 ms) means far fewer requests are very slow, giving a more consistent experience — the mean alone cannot distinguish the two.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Bottleneck shifts to memory",
+          "text": "<p>After the CPU bottleneck is fixed, throughput improves but soon plateaus again; now memory sits at about 100% while the CPU has headroom. The correct interpretation is:</p>",
+          "answers": [
+            {
+              "text": "The bottleneck has moved to memory — the new limiting resource",
+              "fraction": 100,
+              "feedback": "Correct — relieving one bottleneck exposes the next."
+            },
+            {
+              "text": "The CPU fix did not work, since throughput plateaued again",
+              "fraction": 0,
+              "feedback": "Throughput improved first, and CPU now has headroom, so the fix did work; the limit shifted."
+            },
+            {
+              "text": "There is never more than one possible bottleneck in a system",
+              "fraction": 0,
+              "feedback": "Systems have successive bottlenecks; fixing one reveals another."
+            },
+            {
+              "text": "Memory usage is irrelevant once the CPU is fixed",
+              "fraction": 0,
+              "feedback": "Memory is now the saturated resource, so it is highly relevant."
+            }
+          ],
+          "generalFeedback": "Relieving one bottleneck exposes the next. With memory now saturated and CPU idle, memory is the new limiting resource. Performance tuning is iterative: fix, re-measure, find the next bottleneck.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Little's Law: capacity planning (400, 0.25)",
+          "text": "<p>A service must sustain a throughput of 400 req/s, and each request takes on average 0.25 s. By Little's Law, the average concurrency it must support is:</p>",
+          "answers": [
+            {
+              "text": "100",
+              "fraction": 100,
+              "feedback": "Correct — L = 400 /s &#215; 0.25 s = 100."
+            },
+            {
+              "text": "1600",
+              "fraction": 0,
+              "feedback": "That is 400 &#247; 0.25; Little's Law multiplies throughput by response time."
+            },
+            {
+              "text": "400.25",
+              "fraction": 0,
+              "feedback": "That adds the two values; the law multiplies them."
+            },
+            {
+              "text": "0.000625",
+              "fraction": 0,
+              "feedback": "That is 0.25 &#247; 400; the correct product is 400 &#215; 0.25 = 100."
+            }
+          ],
+          "generalFeedback": "Little's Law: L = &#955; &#215; W = 400 requests/second &#215; 0.25 second = 100 concurrent requests on average — useful for sizing thread and connection pools.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "負載測試評估什麼",
+          "text": "<p><em>負載測試（load testing）</em>主要評估系統在承受下列何種情況時的行為：</p>",
+          "answers": [
+            {
+              "text": "它被設計來承受的「預期／正常」的並行負載水準",
+              "fraction": 100,
+              "feedback": "正確——負載測試檢驗系統在預期、真實負載下的行為與效能。"
+            },
+            {
+              "text": "遠遠超過其容量、一路壓到壞掉為止的負載",
+              "fraction": 0,
+              "feedback": "那是壓力測試（stress testing），刻意超過容量以找出崩潰點。"
+            },
+            {
+              "text": "在數秒內突然出現又消失的極端暴增",
+              "fraction": 0,
+              "feedback": "那描述的是尖峰測試（spike testing），不是負載測試。"
+            },
+            {
+              "text": "持續好幾小時或好幾天的中等負載",
+              "fraction": 0,
+              "feedback": "那是浸泡（耐久）測試，針對的是長時間才會浮現的問題。"
+            }
+          ],
+          "generalFeedback": "負載測試量測系統在其預期、正常（直到可預期尖峰）負載下的表現——以真實使用情境檢查回應時間、吞吐量與錯誤率是否達標。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "壓力測試做什麼",
+          "text": "<p><em>壓力測試（stress testing）</em>刻意把系統推向：</p>",
+          "answers": [
+            {
+              "text": "超過其預期容量，以找出崩潰點並觀察它如何失敗",
+              "fraction": 100,
+              "feedback": "正確——壓力測試推過極限，以揭露崩潰點與失敗模式。"
+            },
+            {
+              "text": "剛好在正常預期負載下，以確認日常行為",
+              "fraction": 0,
+              "feedback": "那是負載測試；壓力測試會超過預期負載。"
+            },
+            {
+              "text": "用異常大量的儲存資料筆數",
+              "fraction": 0,
+              "feedback": "那是容量測試（volume testing），聚焦於資料大小，而非超過請求容量。"
+            },
+            {
+              "text": "短暫暴增後立刻回到正常",
+              "fraction": 0,
+              "feedback": "那是尖峰測試，是短促的爆發而非持續的過載。"
+            }
+          ],
+          "generalFeedback": "壓力測試把系統加載超過其容量，以定位崩潰點並觀察它如何失敗——是優雅降級還是直接崩潰——以及之後是否能復原。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "尖峰測試施加什麼",
+          "text": "<p><em>尖峰測試（spike testing）</em>讓系統承受：</p>",
+          "answers": [
+            {
+              "text": "突然、劇烈的負載暴增，隨後快速掉回",
+              "fraction": 100,
+              "feedback": "正確——尖峰測試施加陡然的跳升，然後移除它。"
+            },
+            {
+              "text": "長時間維持不變的穩定負載",
+              "fraction": 0,
+              "feedback": "那是浸泡（耐久）測試，不是尖峰。"
+            },
+            {
+              "text": "正常預期的負載水準",
+              "fraction": 0,
+              "feedback": "那是負載測試；尖峰是突然的異常暴增。"
+            },
+            {
+              "text": "穩定地愈壓愈高，直到系統壞掉",
+              "fraction": 0,
+              "feedback": "那種逐步壓到失敗是壓力測試，不是突然的尖峰。"
+            }
+          ],
+          "generalFeedback": "尖峰測試在極短時間內施加一個巨大、陡然的負載增加，然後移除它，檢驗系統能否承受並從突發暴增中復原。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "浸泡測試施加什麼",
+          "text": "<p><em>浸泡（耐久）測試（soak / endurance testing）</em>施加：</p>",
+          "answers": [
+            {
+              "text": "長時間持續的負載，以揭露記憶體洩漏與資源耗盡等問題",
+              "fraction": 100,
+              "feedback": "正確——浸泡測試跑上數小時或數天，以暴露緩慢累積的問題。"
+            },
+            {
+              "text": "超過容量的負載，以找出崩潰點",
+              "fraction": 0,
+              "feedback": "那是壓力測試；浸泡測試停在可持續的負載，但跑很久。"
+            },
+            {
+              "text": "瞬間暴增又立刻掉回",
+              "fraction": 0,
+              "feedback": "那是尖峰測試，與長時間持續正好相反。"
+            },
+            {
+              "text": "在單次執行中處理極大的資料集",
+              "fraction": 0,
+              "feedback": "那是容量測試，關乎的是資料大小而非時間長度。"
+            }
+          ],
+          "generalFeedback": "浸泡／耐久測試把「正常到偏高」的負載維持很長時間（數小時或數天），以暴露短測抓不到的漸進問題——記憶體洩漏、連線池耗盡、回應時間逐漸劣化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "容量測試聚焦於什麼",
+          "text": "<p><em>容量測試（volume testing）</em>聚焦於系統必須處理下列何者時的行為：</p>",
+          "answers": [
+            {
+              "text": "大量的資料——龐大的資料表、大型檔案或很長的佇列",
+              "fraction": 100,
+              "feedback": "正確——容量測試關乎能否應付大量資料。"
+            },
+            {
+              "text": "突然而短暫的請求暴增",
+              "fraction": 0,
+              "feedback": "那是尖峰測試，關乎請求速率而非資料大小。"
+            },
+            {
+              "text": "維持穩定好幾天的負載",
+              "fraction": 0,
+              "feedback": "那是浸泡測試；容量測試關乎資料量而非時間長度。"
+            },
+            {
+              "text": "把請求速率推過崩潰點",
+              "fraction": 0,
+              "feedback": "那是壓力測試；容量測試關乎資料大小而非過載。"
+            }
+          ],
+          "generalFeedback": "容量測試檢查系統應付大量資料的能力——例如非常大的資料表、檔案、匯入或訊息佇列——在規模變大時行為或效能可能改變。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可擴展性測試量測什麼",
+          "text": "<p><em>可擴展性測試（scalability testing）</em>量測：</p>",
+          "answers": [
+            {
+              "text": "當負載、或配置給系統的資源被放大或縮小時，效能如何變化",
+              "fraction": 100,
+              "feedback": "正確——可擴展性測試觀察指標隨負載或資源縮放而演變的情形。"
+            },
+            {
+              "text": "只在單一固定的正常負載下的行為",
+              "fraction": 0,
+              "feedback": "那是單一負載測試點；可擴展性關乎縮放時的趨勢。"
+            },
+            {
+              "text": "負載超過容量時的失敗模式",
+              "fraction": 0,
+              "feedback": "那是壓力測試；可擴展性關乎效能隨規模的變化，不只是崩潰點。"
+            },
+            {
+              "text": "單一突發尖峰的影響",
+              "fraction": 0,
+              "feedback": "那是尖峰測試，不是可擴展性。"
+            }
+          ],
+          "generalFeedback": "可擴展性測試觀察吞吐量、回應時間等指標，如何隨著你增加負載、或增減資源（CPU、執行個體）而演變——告訴你系統擴展得好不好，以及在哪裡停止擴展。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "回應時間的定義",
+          "text": "<p>在效能測試中，<em>回應時間（response time，latency）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "完成單一請求所花的時間，從送出請求到收到回應為止",
+              "fraction": 100,
+              "feedback": "正確——延遲是單一請求的經歷時間。"
+            },
+            {
+              "text": "每秒完成的請求數",
+              "fraction": 0,
+              "feedback": "那是吞吐量，是一種速率，不是單一請求的時間。"
+            },
+            {
+              "text": "失敗請求的百分比",
+              "fraction": 0,
+              "feedback": "那是錯誤率，不是回應時間。"
+            },
+            {
+              "text": "同時活躍的使用者數",
+              "fraction": 0,
+              "feedback": "那是並行度，不是回應時間。"
+            }
+          ],
+          "generalFeedback": "回應時間（延遲）量測單一請求從頭到尾花多久。它通常以百分位（p50、p95、p99）而非單一數值來彙總。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "吞吐量的定義",
+          "text": "<p>效能測試中的<em>吞吐量（throughput）</em>是：</p>",
+          "answers": [
+            {
+              "text": "系統在單位時間內完成的請求（或交易）數，例如每秒請求數",
+              "fraction": 100,
+              "feedback": "正確——吞吐量是完成工作的速率。"
+            },
+            {
+              "text": "單一請求完成所花的時間",
+              "fraction": 0,
+              "feedback": "那是回應時間（延遲），不是吞吐量。"
+            },
+            {
+              "text": "測試中設定的虛擬使用者數",
+              "fraction": 0,
+              "feedback": "那是並行度設定，不是實際達成的完成工作速率。"
+            },
+            {
+              "text": "回傳錯誤的請求比例",
+              "fraction": 0,
+              "feedback": "那是錯誤率，不是吞吐量。"
+            }
+          ],
+          "generalFeedback": "吞吐量是一種速率——每秒請求數或每秒交易數（TPS）。它量測系統實際每單位時間完成多少工作，與任一單一請求花多久不同。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "延遲百分位的意義",
+          "text": "<p>像 <em>p95</em> 這樣的延遲百分位所回報的是：</p>",
+          "answers": [
+            {
+              "text": "有 95% 的請求落在其上或其下的那個延遲值（95% 至少這麼快）",
+              "fraction": 100,
+              "feedback": "正確——95% 的請求 &#8804; p95，最慢的 5% 超過它。"
+            },
+            {
+              "text": "所有請求的平均延遲",
+              "fraction": 0,
+              "feedback": "那是平均值；百分位不是平均。"
+            },
+            {
+              "text": "本次執行中觀察到最慢的那一個請求",
+              "fraction": 0,
+              "feedback": "那是最大值（p100），不是 p95。"
+            },
+            {
+              "text": "比 95 毫秒慢的請求數目",
+              "fraction": 0,
+              "feedback": "p95 是分布的百分位，不是相對於固定 95 毫秒的計數。"
+            }
+          ],
+          "generalFeedback": "p95 延遲是一個值，使得 95% 的請求在其上或其下，而最慢的 5% 超過它。百分位描述分布的形狀，與平均值不同。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "並行度的意義",
+          "text": "<p><em>並行度（concurrency，並行使用者／虛擬使用者）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "同一時間正被系統處理的使用者或請求數",
+              "fraction": 100,
+              "feedback": "正確——並行度是同時間內有多少個在系統中。"
+            },
+            {
+              "text": "一整天內不重複使用者的總數",
+              "fraction": 0,
+              "feedback": "那是單日總數，不是同時的並行度。"
+            },
+            {
+              "text": "每個請求完成所花的時間",
+              "fraction": 0,
+              "feedback": "那是回應時間，不是並行度。"
+            },
+            {
+              "text": "每秒完成的請求數",
+              "fraction": 0,
+              "feedback": "那是吞吐量，不是並行度。"
+            }
+          ],
+          "generalFeedback": "並行度是同時間有多少請求或使用者在系統中。負載工具以「虛擬使用者」模擬它們。Little's Law 把並行度、吞吐量與回應時間串在一起。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "錯誤率的意義",
+          "text": "<p>效能測試中的<em>錯誤率（error rate）</em>是：</p>",
+          "answers": [
+            {
+              "text": "失敗（回傳錯誤或逾時）的請求比例，通常以百分比表示",
+              "fraction": 100,
+              "feedback": "正確——錯誤率是未成功請求的占比。"
+            },
+            {
+              "text": "每個請求的平均時間",
+              "fraction": 0,
+              "feedback": "那是回應時間，不是錯誤率。"
+            },
+            {
+              "text": "並行使用者數",
+              "fraction": 0,
+              "feedback": "那是並行度，不是錯誤率。"
+            },
+            {
+              "text": "每秒完成的請求數",
+              "fraction": 0,
+              "feedback": "那是吞吐量，不是錯誤率。"
+            }
+          ],
+          "generalFeedback": "錯誤率是未成功請求的占比。當系統接近飽和時它常會急遽上升，是辨識崩潰點的重要訊號。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SLO 的定義",
+          "text": "<p><em>服務水準目標（Service Level Objective，SLO）</em>是：</p>",
+          "answers": [
+            {
+              "text": "某項服務指標的目標值，例如「p95 延遲低於 200 毫秒」，是服務力求達成的目標",
+              "fraction": 100,
+              "feedback": "正確——SLO 是所選指標的可量測目標。"
+            },
+            {
+              "text": "服務被允許使用的伺服器數目",
+              "fraction": 0,
+              "feedback": "那是容量上限，不是服務水準目標。"
+            },
+            {
+              "text": "一次測試中送出的請求總數",
+              "fraction": 0,
+              "feedback": "那是測試工作量的數字，不是 SLO。"
+            },
+            {
+              "text": "保證系統永遠不會失敗",
+              "fraction": 0,
+              "feedback": "沒有任何實際的 SLO 保證零失敗；SLO 訂的是可量測的目標。"
+            }
+          ],
+          "generalFeedback": "SLO 是某個服務水準指標（SLI）的目標，例如「p95 延遲低於 200 毫秒」或「錯誤率低於 0.1%」。SLA 則是更廣義的協議，通常帶有後果，圍繞一個或多個 SLO 建立。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "目標：找出崩潰點",
+          "text": "<p>你想找出系統在失敗前能承受的最大負載，以及它如何失敗。哪種測試類型最合適？</p>",
+          "answers": [
+            {
+              "text": "壓力測試（Stress test）",
+              "fraction": 100,
+              "feedback": "正確——找出崩潰點與失敗模式正是壓力測試的核心目標。"
+            },
+            {
+              "text": "負載測試（Load test）",
+              "fraction": 0,
+              "feedback": "負載測試停在預期負載，不會推到崩潰點。"
+            },
+            {
+              "text": "浸泡測試（Soak test）",
+              "fraction": 0,
+              "feedback": "浸泡測試針對長時間的劣化，而非崩潰點。"
+            },
+            {
+              "text": "容量測試（Volume test）",
+              "fraction": 0,
+              "feedback": "容量測試關乎大量資料，而非最大請求負載。"
+            }
+          ],
+          "generalFeedback": "找出最大可持續負載，以及超過它之後的失敗模式，正是壓力測試的用途。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "目標：抓出緩慢的記憶體洩漏",
+          "text": "<p>你懷疑有個緩慢的記憶體洩漏，只有在服務跑了很多小時後才會顯現。哪種測試類型最合適？</p>",
+          "answers": [
+            {
+              "text": "浸泡（耐久）測試（Soak test）",
+              "fraction": 100,
+              "feedback": "正確——長時間執行才顯現的洩漏正是浸泡測試的對象。"
+            },
+            {
+              "text": "尖峰測試（Spike test）",
+              "fraction": 0,
+              "feedback": "尖峰測試是短暫暴增，跑不夠久，無法揭露緩慢洩漏。"
+            },
+            {
+              "text": "壓力測試（Stress test）",
+              "fraction": 0,
+              "feedback": "壓力測試很快就找到崩潰點，不是長時間的執行。"
+            },
+            {
+              "text": "容量測試（Volume test）",
+              "fraction": 0,
+              "feedback": "容量測試關乎資料大小，而非持續的執行時間。"
+            }
+          ],
+          "generalFeedback": "只有在長時間連續運轉後才會出現的問題——記憶體洩漏、資源耗盡、漸進劣化——是浸泡／耐久測試的領域。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "目標：突發的售票暴增",
+          "text": "<p>你的網站預期在開賣門票的瞬間會有突發、短暫的流量暴增，之後流量回落。哪種測試最能重現這個情況？</p>",
+          "answers": [
+            {
+              "text": "尖峰測試（Spike test）",
+              "fraction": 100,
+              "feedback": "正確——突然劇烈暴增後掉回，就是尖峰測試的樣態。"
+            },
+            {
+              "text": "浸泡測試（Soak test）",
+              "fraction": 0,
+              "feedback": "浸泡測試長時間維持負載，與短暫暴增正好相反。"
+            },
+            {
+              "text": "負載測試（Load test）",
+              "fraction": 0,
+              "feedback": "負載測試用穩定的預期負載，而非陡然暴增。"
+            },
+            {
+              "text": "容量測試（Volume test）",
+              "fraction": 0,
+              "feedback": "容量測試關乎資料大小，而非突發的流量跳升。"
+            }
+          ],
+          "generalFeedback": "陡然、短暫的負載跳升後快速回到正常，正是尖峰測試重現的情境。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "情境：它在哪裡壞掉",
+          "text": "<p>某團隊想知道在多少並行使用者時回應時間變得無法接受、服務開始回傳錯誤——也就是它在哪裡壞掉。合適的測試類型是：</p>",
+          "answers": [
+            {
+              "text": "壓力測試（Stress test）",
+              "fraction": 100,
+              "feedback": "正確——定位「回應變差、錯誤上升」的那一點就是崩潰點，由壓力測試找出。"
+            },
+            {
+              "text": "負載測試（Load test）",
+              "fraction": 0,
+              "feedback": "負載測試確認的是預期負載下的行為，不會刻意把系統逼到失敗。"
+            },
+            {
+              "text": "浸泡測試（Soak test）",
+              "fraction": 0,
+              "feedback": "浸泡測試在可持續負載下找長時間劣化，不是崩潰點。"
+            },
+            {
+              "text": "尖峰測試（Spike test）",
+              "fraction": 0,
+              "feedback": "尖峰測試檢驗從突發暴增中復原，不是逐步逼近崩潰點。"
+            }
+          ],
+          "generalFeedback": "逐步升高負載，直到回應時間劣化、錯誤攀升，就是壓力測試揭露崩潰點與失敗模式的方式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境：8 小時的緩慢爬升",
+          "text": "<p>在正常負載下連續執行 8 小時，工程師想抓出逐漸上升的記憶體用量與緩慢的回應時間爬升。合適的測試類型是：</p>",
+          "answers": [
+            {
+              "text": "浸泡（耐久）測試（Soak test）",
+              "fraction": 100,
+              "feedback": "正確——長時間執行揭露漸進劣化就是浸泡測試。"
+            },
+            {
+              "text": "尖峰測試（Spike test）",
+              "fraction": 0,
+              "feedback": "尖峰測試只持續片刻，不是 8 小時，無法揭露漸進爬升。"
+            },
+            {
+              "text": "壓力測試（Stress test）",
+              "fraction": 0,
+              "feedback": "壓力測試找的是崩潰點，不是數小時間的緩慢劣化。"
+            },
+            {
+              "text": "容量測試（Volume test）",
+              "fraction": 0,
+              "feedback": "容量測試關乎大量資料，不是長時間執行。"
+            }
+          ],
+          "generalFeedback": "在長時間穩定執行中出現的記憶體漸增與回應時間爬升，正是浸泡／耐久測試的典型發現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境：黑色星期五開賣",
+          "text": "<p>某電商網站預期在黑色星期五午夜開賣時，流量會近乎瞬間暴增，隨後快速回落。合適的測試類型是：</p>",
+          "answers": [
+            {
+              "text": "尖峰測試（Spike test）",
+              "fraction": 100,
+              "feedback": "正確——近乎瞬間跳升後回落就是尖峰樣態。"
+            },
+            {
+              "text": "浸泡測試（Soak test）",
+              "fraction": 0,
+              "feedback": "浸泡測試長時間維持負載，不模擬瞬間暴增。"
+            },
+            {
+              "text": "負載測試（Load test）",
+              "fraction": 0,
+              "feedback": "負載測試用穩定的預期流量，而非陡然跳升。"
+            },
+            {
+              "text": "容量測試（Volume test）",
+              "fraction": 0,
+              "feedback": "容量測試關乎資料量，而非突發的流量暴增。"
+            }
+          ],
+          "generalFeedback": "突然、龐大、短暫的暴增後掉回，正是尖峰測試重現的情況，用以驗證系統能承受並復原。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境：預期的每日尖峰",
+          "text": "<p>某團隊想確認系統在它被設計來承受的一般、預期的每日尖峰流量下表現良好。合適的測試類型是：</p>",
+          "answers": [
+            {
+              "text": "負載測試（Load test）",
+              "fraction": 100,
+              "feedback": "正確——驗證預期／正常負載下的行為就是負載測試。"
+            },
+            {
+              "text": "壓力測試（Stress test）",
+              "fraction": 0,
+              "feedback": "壓力測試會超過容量；這裡的目標只是預期負載。"
+            },
+            {
+              "text": "尖峰測試（Spike test）",
+              "fraction": 0,
+              "feedback": "尖峰測試是突發暴增，不是一般的預期尖峰。"
+            },
+            {
+              "text": "容量測試（Volume test）",
+              "fraction": 0,
+              "feedback": "容量測試針對資料大小，而非預期的請求負載。"
+            }
+          ],
+          "generalFeedback": "確認系統在可預期、依設計而來的負載下的效能，正是負載測試的核心目的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境：五億列的資料表",
+          "text": "<p>某報表服務必須處理一張已成長到五億列的資料表。團隊想確認在該資料規模下查詢與匯出仍能運作。合適的測試類型是：</p>",
+          "answers": [
+            {
+              "text": "容量測試（Volume test）",
+              "fraction": 100,
+              "feedback": "正確——在極大資料集下的行為就是容量測試。"
+            },
+            {
+              "text": "尖峰測試（Spike test）",
+              "fraction": 0,
+              "feedback": "尖峰測試關乎突發請求暴增，而非資料大小。"
+            },
+            {
+              "text": "浸泡測試（Soak test）",
+              "fraction": 0,
+              "feedback": "浸泡測試關乎長時間執行，而非資料集的大小。"
+            },
+            {
+              "text": "壓力測試（Stress test）",
+              "fraction": 0,
+              "feedback": "壓力測試把請求速率壓過載；這裡關切的是資料量。"
+            }
+          ],
+          "generalFeedback": "檢查系統在極大量資料下是否仍能運作且效能可接受，正是容量測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "情境：伺服器加倍有幫助嗎",
+          "text": "<p>某團隊把應用伺服器數目加倍，想看看吞吐量是否大致跟著加倍。這是下列何者的例子：</p>",
+          "answers": [
+            {
+              "text": "可擴展性測試（Scalability testing）",
+              "fraction": 100,
+              "feedback": "正確——量測效能隨資源縮放而變化就是可擴展性測試。"
+            },
+            {
+              "text": "壓力測試（Stress testing）",
+              "fraction": 0,
+              "feedback": "壓力測試找崩潰點，不是增添資源的效果。"
+            },
+            {
+              "text": "浸泡測試（Soak testing）",
+              "fraction": 0,
+              "feedback": "浸泡測試關乎長時間的穩定性，而非縮放資源。"
+            },
+            {
+              "text": "尖峰測試（Spike testing）",
+              "fraction": 0,
+              "feedback": "尖峰測試是突發暴增，與增添伺服器無關。"
+            }
+          ],
+          "generalFeedback": "觀察吞吐量（或延遲）在你增減資源時如何反應，就是可擴展性測試——理想上吞吐量應近乎等比上升，但實際系統會有偏差。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何百分位勝過平均",
+          "text": "<p>為什麼尾端百分位（p95／p99）通常比平均回應時間更有參考價值？</p>",
+          "answers": [
+            {
+              "text": "平均會掩蓋緩慢的尾端；少數非常慢的請求幾乎不動平均，卻嚴重傷害真實使用者",
+              "fraction": 100,
+              "feedback": "正確——平均由大量快速請求主導，掩蓋了尾端。"
+            },
+            {
+              "text": "平均永遠比任何百分位都大，所以會高估效能",
+              "fraction": 0,
+              "feedback": "不對——平均不會永遠大於每個百分位；真正的問題是它掩蓋尾端。"
+            },
+            {
+              "text": "百分位比平均更省計算成本",
+              "fraction": 0,
+              "feedback": "成本不是原因；百分位揭露的是平均所隱藏的尾端。"
+            },
+            {
+              "text": "延遲資料無法計算平均",
+              "fraction": 0,
+              "feedback": "平均完全可以計算，只是它會掩蓋離群值。"
+            }
+          ],
+          "generalFeedback": "延遲分布是偏斜的：多數請求很快，所以即使少數非常慢，平均仍偏低。那些慢請求正是 p95／p99（尾端延遲）所揭露、也是使用者所感受到的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀 p99 = 500 毫秒",
+          "text": "<p>某份報告寫著「p99 延遲 = 500 毫秒」。這代表：</p>",
+          "answers": [
+            {
+              "text": "有 99% 的請求在 500 毫秒（含）以內完成，最慢的 1% 花更久",
+              "fraction": 100,
+              "feedback": "正確——這正是 p99 為 500 毫秒的意思。"
+            },
+            {
+              "text": "每個請求都剛好花 500 毫秒",
+              "fraction": 0,
+              "feedback": "百分位不是所有請求的單一固定值。"
+            },
+            {
+              "text": "平均請求花 500 毫秒",
+              "fraction": 0,
+              "feedback": "p99 不是平均；它是尾端百分位。"
+            },
+            {
+              "text": "只有 1% 的請求在 500 毫秒（含）以內完成",
+              "fraction": 0,
+              "feedback": "這把它反過來了——是 99%（而非 1%）在 500 毫秒以內。"
+            }
+          ],
+          "generalFeedback": "p99 = 500 毫秒代表 99% 的請求在 500 毫秒（含）以內，最慢的 1% 超過它。它並未直接說明平均。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "p50 的意義",
+          "text": "<p>某服務的 <em>p50</em> 延遲是：</p>",
+          "answers": [
+            {
+              "text": "中位數延遲——一半的請求較快、一半較慢",
+              "fraction": 100,
+              "feedback": "正確——p50 就是中位數。"
+            },
+            {
+              "text": "平均（算術平均）延遲",
+              "fraction": 0,
+              "feedback": "只有在對稱資料下平均與中位數才一致；p50 是中位數。"
+            },
+            {
+              "text": "最快的 50 個請求的延遲",
+              "fraction": 0,
+              "feedback": "p50 是整個分布的百分位，不是 50 個請求的計數。"
+            },
+            {
+              "text": "最大延遲除以二",
+              "fraction": 0,
+              "feedback": "中位數與「把最大值折半」毫無關係。"
+            }
+          ],
+          "generalFeedback": "p50 是中位數：50% 的請求在其上或其下。對偏斜的延遲資料，平均通常高於 p50，這也是為什麼會同時回報兩者以及尾端百分位。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "負載剖面的順序",
+          "text": "<p>典型的負載測試剖面（load profile）以何種順序執行各階段？</p>",
+          "answers": [
+            {
+              "text": "爬升（ramp-up）&#8594; 穩態（steady-state）&#8594; 下降（ramp-down）",
+              "fraction": 100,
+              "feedback": "正確——把負載加上去、維持並量測、再降下來。"
+            },
+            {
+              "text": "穩態 &#8594; 爬升 &#8594; 下降",
+              "fraction": 0,
+              "feedback": "還沒爬升到穩態之前，不可能先維持穩態。"
+            },
+            {
+              "text": "下降 &#8594; 穩態 &#8594; 爬升",
+              "fraction": 0,
+              "feedback": "這把剖面反過來了；負載從低開始、先爬升。"
+            },
+            {
+              "text": "尖峰 &#8594; 浸泡 &#8594; 容量",
+              "fraction": 0,
+              "feedback": "那些是測試類型，不是單一負載剖面的各階段。"
+            }
+          ],
+          "generalFeedback": "負載剖面逐步把負載爬升上去，在穩態維持（主要量測在此進行），再把它降下來。在穩態量測可避開爬升過程的暫態效應。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SLA 檢查：180 對 200",
+          "text": "<p>SLO 規定「p95 &lt; 200 毫秒」。測試量到 p95 = 180 毫秒。結果是：</p>",
+          "answers": [
+            {
+              "text": "通過——180 毫秒低於 200 毫秒門檻",
+              "fraction": 100,
+              "feedback": "正確——180 < 200，故達成 p95 目標。"
+            },
+            {
+              "text": "不通過——180 毫秒違反門檻",
+              "fraction": 0,
+              "feedback": "180 毫秒低於 200 毫秒，因此滿足目標。"
+            },
+            {
+              "text": "沒有平均延遲就無法判斷",
+              "fraction": 0,
+              "feedback": "SLO 是就 p95 訂的，而 p95 = 180 毫秒已量到，故可判定。"
+            },
+            {
+              "text": "只有在 p99 也是 180 毫秒時才通過",
+              "fraction": 0,
+              "feedback": "這裡的 SLO 只約束 p95；p99 不屬於這個目標。"
+            }
+          ],
+          "generalFeedback": "SLO 約束 p95 低於 200 毫秒。量到的 p95 為 180 毫秒，低於門檻，故達成目標——通過。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SLA 檢查：240 對 200",
+          "text": "<p>SLO 規定「p95 &lt; 200 毫秒」。測試量到 p95 = 240 毫秒。結果是：</p>",
+          "answers": [
+            {
+              "text": "不通過——240 毫秒超過 200 毫秒門檻",
+              "fraction": 100,
+              "feedback": "正確——240 > 200，故未達成 p95 目標。"
+            },
+            {
+              "text": "通過——240 毫秒可以接受",
+              "fraction": 0,
+              "feedback": "240 毫秒高於 200 毫秒上限，故不通過。"
+            },
+            {
+              "text": "通過，因為平均大概低於 200 毫秒",
+              "fraction": 0,
+              "feedback": "SLO 是就 p95 而非平均訂的；低平均救不了不通過的 p95。"
+            },
+            {
+              "text": "沒有錯誤率就無法判斷",
+              "fraction": 0,
+              "feedback": "SLO 只就 p95 訂定，而量到的 p95 已足以判定。"
+            }
+          ],
+          "generalFeedback": "SLO 要求 p95 低於 200 毫秒；量到的 p95 為 240 毫秒，超過它，故無論平均或其他指標為何都未達成目標。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "有效的吞吐量單位",
+          "text": "<p>下列何者是有效的吞吐量單位？</p>",
+          "answers": [
+            {
+              "text": "每秒請求數（等同每秒交易數，TPS）",
+              "fraction": 100,
+              "feedback": "正確——吞吐量是單位時間完成的工作量。"
+            },
+            {
+              "text": "每個請求的毫秒數",
+              "fraction": 0,
+              "feedback": "那是回應時間的單位，不是吞吐量。"
+            },
+            {
+              "text": "失敗請求的百分比",
+              "fraction": 0,
+              "feedback": "那是錯誤率，不是吞吐量。"
+            },
+            {
+              "text": "並行虛擬使用者數",
+              "fraction": 0,
+              "feedback": "那是並行度計數，不是完成工作的速率。"
+            }
+          ],
+          "generalFeedback": "吞吐量是一種速率：單位時間完成的工作（req/s、TPS）。每請求毫秒數是回應時間，失敗百分比是錯誤率，虛擬使用者量的是並行度。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "思考時間的用途",
+          "text": "<p>在真實的負載剖面中，<em>思考時間（think time）</em>模擬的是：</p>",
+          "answers": [
+            {
+              "text": "真實使用者在動作之間的停頓，好讓產生的負載貼近真實使用",
+              "fraction": 100,
+              "feedback": "正確——思考時間是使用者連續請求之間的閒置間隔。"
+            },
+            {
+              "text": "伺服器處理一個請求所花的 CPU 時間",
+              "fraction": 0,
+              "feedback": "那是伺服器處理時間，不是思考時間。"
+            },
+            {
+              "text": "整個測試開始前的延遲",
+              "fraction": 0,
+              "feedback": "那是啟動延遲，不是使用者動作之間的思考時間。"
+            },
+            {
+              "text": "把負載降下來所花的時間",
+              "fraction": 0,
+              "feedback": "那是下降（ramp-down）階段，不是思考時間。"
+            }
+          ],
+          "generalFeedback": "思考時間是使用者連續動作之間的停頓。加入它（搭配真實的交易組合）可讓到達樣態貼近真實，而非以背靠背的請求猛打伺服器。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "並行度與吞吐量",
+          "text": "<p><em>並行度</em>與<em>吞吐量</em>相關但不同，因為：</p>",
+          "answers": [
+            {
+              "text": "並行度是同一時間有多少請求在系統中，吞吐量是每單位時間完成多少",
+              "fraction": 100,
+              "feedback": "正確——一個是在途的計數，一個是完成的速率。"
+            },
+            {
+              "text": "它們是同一個量的兩個名字",
+              "fraction": 0,
+              "feedback": "它們不同：一個是系統中的計數，一個是完成的速率。"
+            },
+            {
+              "text": "並行度以 req/s 量測、吞吐量以使用者數量測",
+              "fraction": 0,
+              "feedback": "這把兩者對調了：吞吐量才是 req/s，並行度是在途請求／使用者的計數。"
+            },
+            {
+              "text": "吞吐量永遠等於虛擬使用者數",
+              "fraction": 0,
+              "feedback": "吞吐量是完成速率，不是虛擬使用者數；除非回應時間剛好為一秒，否則兩者不同。"
+            }
+          ],
+          "generalFeedback": "並行度（L）是在途請求數；吞吐量（&#955;）是完成速率。Little's Law 用回應時間把它們串起來：L = &#955; &#215; W。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Little's Law：算並行度（50, 0.2）",
+          "text": "<p>某服務維持每秒 50 個請求的吞吐量，平均回應時間為 0.2 秒。依 Little's Law（L = &#955; &#215; W），平均並行度（系統中的請求數）為：</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "正確——L = 50 /秒 &#215; 0.2 秒 = 10。"
+            },
+            {
+              "text": "250",
+              "fraction": 0,
+              "feedback": "那是 50 &#247; 0.2；Little's Law 是把吞吐量乘以回應時間。"
+            },
+            {
+              "text": "50.2",
+              "fraction": 0,
+              "feedback": "那是把兩個值相加；此定律是相乘。"
+            },
+            {
+              "text": "0.004",
+              "fraction": 0,
+              "feedback": "那是 0.2 &#247; 50；正確的乘積是 50 &#215; 0.2 = 10。"
+            }
+          ],
+          "generalFeedback": "Little's Law：L = &#955; &#215; W = 每秒 50 個請求 &#215; 0.2 秒 = 平均 10 個請求在系統中。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Little's Law：算吞吐量（200, 0.5）",
+          "text": "<p>依 Little's Law，若平均並行度為 200 個請求、平均回應時間為 0.5 秒，則吞吐量為：</p>",
+          "answers": [
+            {
+              "text": "每秒 400 個請求",
+              "fraction": 100,
+              "feedback": "正確——&#955; = L &#247; W = 200 &#247; 0.5 秒 = 400 /秒。"
+            },
+            {
+              "text": "每秒 100 個請求",
+              "fraction": 0,
+              "feedback": "那是 200 &#215; 0.5；要得吞吐量應把 L 除以 W，而非相乘。"
+            },
+            {
+              "text": "每秒 0.0025 個請求",
+              "fraction": 0,
+              "feedback": "那是 0.5 &#247; 200；正確值是 200 &#247; 0.5 = 400。"
+            },
+            {
+              "text": "每秒 200.5 個請求",
+              "fraction": 0,
+              "feedback": "那是把兩個值相加；此定律給出 &#955; = L &#247; W = 400。"
+            }
+          ],
+          "generalFeedback": "把 L = &#955; &#215; W 重整得 &#955; = L &#247; W = 200 &#247; 0.5 秒 = 每秒 400 個請求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Little's Law：算回應時間（60, 120）",
+          "text": "<p>依 Little's Law，若平均並行度為 60、吞吐量為每秒 120 個請求，則平均回應時間為：</p>",
+          "answers": [
+            {
+              "text": "0.5 秒",
+              "fraction": 100,
+              "feedback": "正確——W = L &#247; &#955; = 60 &#247; 120 /秒 = 0.5 秒。"
+            },
+            {
+              "text": "2 秒",
+              "fraction": 0,
+              "feedback": "那是 120 &#247; 60；回應時間是 L &#247; &#955;，不是 &#955; &#247; L。"
+            },
+            {
+              "text": "7200 秒",
+              "fraction": 0,
+              "feedback": "那是 60 &#215; 120；此處該把 L 除以 &#955;。"
+            },
+            {
+              "text": "180 秒",
+              "fraction": 0,
+              "feedback": "那是把兩個值相加；W = L &#247; &#955; = 0.5 秒。"
+            }
+          ],
+          "generalFeedback": "把 L = &#955; &#215; W 重整得 W = L &#247; &#955; = 60 &#247; 每秒 120 個請求 = 0.5 秒。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Little's Law：算並行度（25, 0.4）",
+          "text": "<p>某結帳服務每秒處理 25 筆交易，平均回應時間為 0.4 秒。其平均並行度為：</p>",
+          "answers": [
+            {
+              "text": "10",
+              "fraction": 100,
+              "feedback": "正確——L = 25 /秒 &#215; 0.4 秒 = 10。"
+            },
+            {
+              "text": "62.5",
+              "fraction": 0,
+              "feedback": "那是 25 &#247; 0.4；Little's Law 是把吞吐量乘以回應時間。"
+            },
+            {
+              "text": "25.4",
+              "fraction": 0,
+              "feedback": "那是把兩個值相加；此定律是相乘。"
+            },
+            {
+              "text": "0.016",
+              "fraction": 0,
+              "feedback": "那是 0.4 &#247; 25；正確的乘積是 25 &#215; 0.4 = 10。"
+            }
+          ],
+          "generalFeedback": "Little's Law：L = &#955; &#215; W = 每秒 25 筆交易 &#215; 0.4 秒 = 平均 10 個在系統中。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Little's Law：算回應時間（100, 250）",
+          "text": "<p>某服務顯示平均並行度 100、吞吐量每秒 250 個請求。其平均回應時間為：</p>",
+          "answers": [
+            {
+              "text": "0.4 秒",
+              "fraction": 100,
+              "feedback": "正確——W = L &#247; &#955; = 100 &#247; 250 /秒 = 0.4 秒。"
+            },
+            {
+              "text": "2.5 秒",
+              "fraction": 0,
+              "feedback": "那是 250 &#247; 100；回應時間是 L &#247; &#955;，不是 &#955; &#247; L。"
+            },
+            {
+              "text": "25000 秒",
+              "fraction": 0,
+              "feedback": "那是 100 &#215; 250；此處該把 L 除以 &#955;。"
+            },
+            {
+              "text": "350 秒",
+              "fraction": 0,
+              "feedback": "那是把兩個值相加；W = L &#247; &#955; = 0.4 秒。"
+            }
+          ],
+          "generalFeedback": "W = L &#247; &#955; = 100 &#247; 每秒 250 個請求 = 0.4 秒。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "平均通過但 p99 不通過",
+          "text": "<p>某服務輕鬆達成平均延遲目標，使用者卻抱怨經常卡頓，而 p99 延遲遠高於目標。最佳解釋是：</p>",
+          "answers": [
+            {
+              "text": "有一小部分請求非常慢；它們幾乎不動平均，卻主導 p99，而那些正是使用者感受到的卡頓",
+              "fraction": 100,
+              "feedback": "正確——尾端才是使用者所感受的，且只有高百分位才揭露它。"
+            },
+            {
+              "text": "只要 p99 高，平均就一定算錯了",
+              "fraction": 0,
+              "feedback": "兩者可以同時正確；低平均搭配高 p99 正是偏斜分布。"
+            },
+            {
+              "text": "p99 高就證明平均也一定超過目標",
+              "fraction": 0,
+              "feedback": "不對——少數慢請求會抬高 p99，卻不太抬高平均。"
+            },
+            {
+              "text": "使用者搞錯了，因為平均目標已達成",
+              "fraction": 0,
+              "feedback": "使用者感受到的是尾端；平均通過不代表每個人都被快速服務。"
+            }
+          ],
+          "generalFeedback": "平均由大量快速請求主導，所以緩慢的尾端幾乎不動它。p99 正好捕捉那條尾端——使用者感受為卡頓的那最慢 1%。這也是為什麼 SLO 訂在尾端百分位，而非平均。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個統計量揭露尾端",
+          "text": "<p>在一次 1000 個請求的執行中，985 個約花 50 毫秒、15 個約花 5000 毫秒。哪一個單一統計量最能揭露那些慢請求造成的問題？</p>",
+          "answers": [
+            {
+              "text": "p99 延遲（約 5000 毫秒），它揭露了緩慢的尾端",
+              "fraction": 100,
+              "feedback": "正確——有 1.5% 的請求慢，p99 落在慢的那一群。"
+            },
+            {
+              "text": "平均延遲，它維持在低點（約 124 毫秒）",
+              "fraction": 0,
+              "feedback": "平均 = (985&#215;50 + 15&#215;5000)/1000 &#8776; 124 毫秒——它掩蓋而非揭露尾端。"
+            },
+            {
+              "text": "吞吐量，它不受影響",
+              "fraction": 0,
+              "feedback": "吞吐量不描述單一請求的延遲，故無法揭露慢的尾端。"
+            },
+            {
+              "text": "p50 延遲，它約為 50 毫秒",
+              "fraction": 0,
+              "feedback": "p50（中位數）落在快速請求之間、約 50 毫秒，掩蓋了尾端。"
+            }
+          ],
+          "generalFeedback": "平均 &#8776; (985&#215;50 + 15&#215;5000)/1000 &#8776; 124 毫秒、p50 &#8776; 50 毫秒，兩者看起來都可接受。由於有 1.5% 的請求慢，p99 落入慢的那一群、約 5000 毫秒——只有高百分位才揭露尾端。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "找出瓶頸：CPU",
+          "text": "<p>在每秒 300 個請求的負載下，監控顯示 CPU 釘在約 100%，而記憶體、磁碟與網路都在 50% 以下。瓶頸最可能是：</p>",
+          "answers": [
+            {
+              "text": "CPU——它是達到飽和、限制吞吐量再上升的資源",
+              "fraction": 100,
+              "feedback": "正確——最先飽和的資源就是瓶頸。"
+            },
+            {
+              "text": "記憶體，因為它還有餘裕",
+              "fraction": 0,
+              "feedback": "有餘裕代表記憶體不是限制；達到飽和的資源才是。"
+            },
+            {
+              "text": "網路，因為它在 50% 以下",
+              "fraction": 0,
+              "feedback": "低於 50% 的資源尚未飽和，故不是瓶頸。"
+            },
+            {
+              "text": "沒有——閒置的資源永遠是瓶頸",
+              "fraction": 0,
+              "feedback": "瓶頸是達到飽和的資源，不是閒置的資源。"
+            }
+          ],
+          "generalFeedback": "瓶頸是最先飽和的資源。CPU 約 100% 而其他閒置，代表 CPU 卡住了吞吐量；解法是加 CPU 或降低每請求的 CPU 成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀可擴展性的拐點",
+          "text": "<p>隨著虛擬使用者增加，吞吐量上升，接著趨平成為一個高原，而回應時間持續攀升。這個高原（「拐點，knee」）代表：</p>",
+          "answers": [
+            {
+              "text": "系統已達到容量／飽和；多出來的使用者現在只增加延遲，而非吞吐量",
+              "fraction": 100,
+              "feedback": "正確——過了拐點後瓶頸飽和，工作量無法再增加。"
+            },
+            {
+              "text": "系統無上限地線性擴展",
+              "fraction": 0,
+              "feedback": "高原正是無限線性擴展的相反。"
+            },
+            {
+              "text": "量測錯誤，因為吞吐量絕不可能趨平",
+              "fraction": 0,
+              "feedback": "吞吐量在飽和時趨平是預期的，不是錯誤。"
+            },
+            {
+              "text": "錯誤率必然已降到零",
+              "fraction": 0,
+              "feedback": "吞吐量趨平根本不代表這件事；在飽和時錯誤往往上升。"
+            }
+          ],
+          "generalFeedback": "過了拐點後瓶頸飽和：加負載無法提高已完成的工作，於是請求排隊、回應時間增長，而吞吐量維持平坦。該點標示了系統的有效容量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷浸泡測試的劣化",
+          "text": "<p>在一次 12 小時、負載固定的浸泡測試中，回應時間緩慢攀升，記憶體用量持續向上且不回落。最可能的診斷是：</p>",
+          "answers": [
+            {
+              "text": "記憶體洩漏／資源耗盡，只有在長時間執行後才顯現",
+              "fraction": 100,
+              "feedback": "正確——固定負載下記憶體上升、延遲劣化正是洩漏的典型徵兆。"
+            },
+            {
+              "text": "正常行為，不需調查",
+              "fraction": 0,
+              "feedback": "固定負載下記憶體單調成長並不正常，它預示著洩漏。"
+            },
+            {
+              "text": "網路尖峰，因為負載固定",
+              "fraction": 0,
+              "feedback": "負載是固定的，故尖峰無法解釋持續向上的趨勢。"
+            },
+            {
+              "text": "測試中的並行度不足",
+              "fraction": 0,
+              "feedback": "此處並行度維持固定；不斷成長的記憶體指向洩漏，而非使用者太少。"
+            }
+          ],
+          "generalFeedback": "固定負載下記憶體單調上升、回應時間惡化，是記憶體洩漏或未釋放資源的教科書徵兆——正是浸泡／耐久測試被設計來揭露的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "選出良好的 SLO",
+          "text": "<p>對一個面向使用者的 API，哪一個是最良好定義的延遲 SLO？</p>",
+          "answers": [
+            {
+              "text": "95% 的請求在 200 毫秒以內完成（p95 < 200 毫秒）",
+              "fraction": 100,
+              "feedback": "正確——明確、可量測，且針對使用者所感受的尾端。"
+            },
+            {
+              "text": "伺服器應該要快",
+              "fraction": 0,
+              "feedback": "太模糊、無法量測或驗證；良好的 SLO 是量化的。"
+            },
+            {
+              "text": "多數時候平均延遲應該要低",
+              "fraction": 0,
+              "feedback": "「低」與「多數時候」都未量化，且平均會掩蓋尾端。"
+            },
+            {
+              "text": "任何請求都不得超過 1 毫秒",
+              "fraction": 0,
+              "feedback": "對最大值訂絕對值不切實際，且單一離群值就會失敗——是差勁的 SLO。"
+            }
+          ],
+          "generalFeedback": "良好的 SLO 明確、可量測，且針對使用者所感受的尾端——帶有數值門檻的百分位，例如 p95 低於 200 毫秒。模糊的措辭與不可能的絕對值都是差勁的 SLO。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Little's Law：飽和、使用者加倍",
+          "text": "<p>某已飽和的服務以最大吞吐量 &#955; 運轉。並行請求數 L 加倍（更多使用者到來），但 &#955; 無法再上升。依 L = &#955; &#215; W，平均回應時間 W 將：</p>",
+          "answers": [
+            {
+              "text": "加倍，因為 W = L &#247; &#955;，L 加倍而 &#955; 固定",
+              "fraction": 100,
+              "feedback": "正確——吞吐量被卡住時，在途工作加倍會使回應時間加倍。"
+            },
+            {
+              "text": "維持不變，因為回應時間與負載無關",
+              "fraction": 0,
+              "feedback": "回應時間並非與負載無關；一旦飽和，排隊會使 W 增長。"
+            },
+            {
+              "text": "減半，因為更多使用者分攤工作",
+              "fraction": 0,
+              "feedback": "對已飽和的系統加使用者只會惡化、而非改善回應時間。"
+            },
+            {
+              "text": "一旦系統飽和就降到零",
+              "fraction": 0,
+              "feedback": "飽和會使回應時間增長，而非歸零。"
+            }
+          ],
+          "generalFeedback": "重整得 W = L &#247; &#955;。&#955; 被卡在最大值而 L 加倍，W 便加倍——一旦飽和，排隊會使每個請求等更久。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "相同平均、不同 p99",
+          "text": "<p>兩個服務有相同的平均延遲，但服務 A 的 p99 = 220 毫秒、服務 B 的 p99 = 900 毫秒。就使用者體驗而言，哪個較好、為什麼？</p>",
+          "answers": [
+            {
+              "text": "A——儘管平均相同，較低的 p99 代表遠少的使用者碰到非常慢的回應",
+              "fraction": 100,
+              "feedback": "正確——較緊的尾端帶來較一致的體驗。"
+            },
+            {
+              "text": "B——較高的 p99 代表它較快",
+              "fraction": 0,
+              "feedback": "較高的 p99 在尾端是較慢，而非較快。"
+            },
+            {
+              "text": "兩者相同，因為平均相等",
+              "fraction": 0,
+              "feedback": "相等的平均可能掩蓋非常不同的尾端，正如此例。"
+            },
+            {
+              "text": "無法判斷，因為只有平均才重要",
+              "fraction": 0,
+              "feedback": "尾端對使用者體驗極為重要；只看平均並不足夠。"
+            }
+          ],
+          "generalFeedback": "相等的平均掩蓋了不同的尾端。A 較低的 p99（220 毫秒對 900 毫秒）代表非常慢的請求少得多，體驗較一致——只看平均無法區分兩者。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "瓶頸移到記憶體",
+          "text": "<p>修好 CPU 瓶頸後，吞吐量提升，但很快又趨平；此時記憶體約在 100%，而 CPU 有餘裕。正確的解讀是：</p>",
+          "answers": [
+            {
+              "text": "瓶頸已移到記憶體——它是新的限制資源",
+              "fraction": 100,
+              "feedback": "正確——解除一個瓶頸會讓下一個浮現。"
+            },
+            {
+              "text": "CPU 的修正沒有用，因為吞吐量又趨平了",
+              "fraction": 0,
+              "feedback": "吞吐量先提升了，且 CPU 現在有餘裕，故修正是有用的；限制只是轉移了。"
+            },
+            {
+              "text": "一個系統永遠不會有超過一個可能的瓶頸",
+              "fraction": 0,
+              "feedback": "系統有一連串瓶頸；修好一個會揭露另一個。"
+            },
+            {
+              "text": "CPU 修好後記憶體用量就無關緊要",
+              "fraction": 0,
+              "feedback": "記憶體現在是飽和的資源，故極為相關。"
+            }
+          ],
+          "generalFeedback": "解除一個瓶頸會讓下一個浮現。記憶體現在飽和而 CPU 閒置，記憶體便是新的限制資源。效能調校是反覆的：修正、再量測、找出下一個瓶頸。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Little's Law：容量規劃（400, 0.25）",
+          "text": "<p>某服務必須維持每秒 400 個請求的吞吐量，每個請求平均花 0.25 秒。依 Little's Law，它必須支援的平均並行度為：</p>",
+          "answers": [
+            {
+              "text": "100",
+              "fraction": 100,
+              "feedback": "正確——L = 400 /秒 &#215; 0.25 秒 = 100。"
+            },
+            {
+              "text": "1600",
+              "fraction": 0,
+              "feedback": "那是 400 &#247; 0.25；Little's Law 是把吞吐量乘以回應時間。"
+            },
+            {
+              "text": "400.25",
+              "fraction": 0,
+              "feedback": "那是把兩個值相加；此定律是相乘。"
+            },
+            {
+              "text": "0.000625",
+              "fraction": 0,
+              "feedback": "那是 0.25 &#247; 400；正確的乘積是 400 &#215; 0.25 = 100。"
+            }
+          ],
+          "generalFeedback": "Little's Law：L = &#955; &#215; W = 每秒 400 個請求 &#215; 0.25 秒 = 平均 100 個並行請求——對執行緒與連線池的規模設定很有用。",
+          "single": true
+        }
+      ]
+    }
+  },
   "property-based-testing": {
     "en": {
       "easy": [

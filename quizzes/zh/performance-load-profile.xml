@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Performance and Load/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>負載測試評估什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>負載測試（load testing）</em>主要評估系統在承受下列何種情況時的行為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它被設計來承受的「預期／正常」的並行負載水準</text><feedback><text>正確——負載測試檢驗系統在預期、真實負載下的行為與效能。</text></feedback></answer>
+    <answer fraction="0"><text>遠遠超過其容量、一路壓到壞掉為止的負載</text><feedback><text>那是壓力測試（stress testing），刻意超過容量以找出崩潰點。</text></feedback></answer>
+    <answer fraction="0"><text>在數秒內突然出現又消失的極端暴增</text><feedback><text>那描述的是尖峰測試（spike testing），不是負載測試。</text></feedback></answer>
+    <answer fraction="0"><text>持續好幾小時或好幾天的中等負載</text><feedback><text>那是浸泡（耐久）測試，針對的是長時間才會浮現的問題。</text></feedback></answer>
+    <generalfeedback><text>負載測試量測系統在其預期、正常（直到可預期尖峰）負載下的表現——以真實使用情境檢查回應時間、吞吐量與錯誤率是否達標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>壓力測試做什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>壓力測試（stress testing）</em>刻意把系統推向：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>超過其預期容量，以找出崩潰點並觀察它如何失敗</text><feedback><text>正確——壓力測試推過極限，以揭露崩潰點與失敗模式。</text></feedback></answer>
+    <answer fraction="0"><text>剛好在正常預期負載下，以確認日常行為</text><feedback><text>那是負載測試；壓力測試會超過預期負載。</text></feedback></answer>
+    <answer fraction="0"><text>用異常大量的儲存資料筆數</text><feedback><text>那是容量測試（volume testing），聚焦於資料大小，而非超過請求容量。</text></feedback></answer>
+    <answer fraction="0"><text>短暫暴增後立刻回到正常</text><feedback><text>那是尖峰測試，是短促的爆發而非持續的過載。</text></feedback></answer>
+    <generalfeedback><text>壓力測試把系統加載超過其容量，以定位崩潰點並觀察它如何失敗——是優雅降級還是直接崩潰——以及之後是否能復原。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>尖峰測試施加什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>尖峰測試（spike testing）</em>讓系統承受：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>突然、劇烈的負載暴增，隨後快速掉回</text><feedback><text>正確——尖峰測試施加陡然的跳升，然後移除它。</text></feedback></answer>
+    <answer fraction="0"><text>長時間維持不變的穩定負載</text><feedback><text>那是浸泡（耐久）測試，不是尖峰。</text></feedback></answer>
+    <answer fraction="0"><text>正常預期的負載水準</text><feedback><text>那是負載測試；尖峰是突然的異常暴增。</text></feedback></answer>
+    <answer fraction="0"><text>穩定地愈壓愈高，直到系統壞掉</text><feedback><text>那種逐步壓到失敗是壓力測試，不是突然的尖峰。</text></feedback></answer>
+    <generalfeedback><text>尖峰測試在極短時間內施加一個巨大、陡然的負載增加，然後移除它，檢驗系統能否承受並從突發暴增中復原。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>浸泡測試施加什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>浸泡（耐久）測試（soak / endurance testing）</em>施加：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>長時間持續的負載，以揭露記憶體洩漏與資源耗盡等問題</text><feedback><text>正確——浸泡測試跑上數小時或數天，以暴露緩慢累積的問題。</text></feedback></answer>
+    <answer fraction="0"><text>超過容量的負載，以找出崩潰點</text><feedback><text>那是壓力測試；浸泡測試停在可持續的負載，但跑很久。</text></feedback></answer>
+    <answer fraction="0"><text>瞬間暴增又立刻掉回</text><feedback><text>那是尖峰測試，與長時間持續正好相反。</text></feedback></answer>
+    <answer fraction="0"><text>在單次執行中處理極大的資料集</text><feedback><text>那是容量測試，關乎的是資料大小而非時間長度。</text></feedback></answer>
+    <generalfeedback><text>浸泡／耐久測試把「正常到偏高」的負載維持很長時間（數小時或數天），以暴露短測抓不到的漸進問題——記憶體洩漏、連線池耗盡、回應時間逐漸劣化。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>容量測試聚焦於什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>容量測試（volume testing）</em>聚焦於系統必須處理下列何者時的行為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>大量的資料——龐大的資料表、大型檔案或很長的佇列</text><feedback><text>正確——容量測試關乎能否應付大量資料。</text></feedback></answer>
+    <answer fraction="0"><text>突然而短暫的請求暴增</text><feedback><text>那是尖峰測試，關乎請求速率而非資料大小。</text></feedback></answer>
+    <answer fraction="0"><text>維持穩定好幾天的負載</text><feedback><text>那是浸泡測試；容量測試關乎資料量而非時間長度。</text></feedback></answer>
+    <answer fraction="0"><text>把請求速率推過崩潰點</text><feedback><text>那是壓力測試；容量測試關乎資料大小而非過載。</text></feedback></answer>
+    <generalfeedback><text>容量測試檢查系統應付大量資料的能力——例如非常大的資料表、檔案、匯入或訊息佇列——在規模變大時行為或效能可能改變。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可擴展性測試量測什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>可擴展性測試（scalability testing）</em>量測：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>當負載、或配置給系統的資源被放大或縮小時，效能如何變化</text><feedback><text>正確——可擴展性測試觀察指標隨負載或資源縮放而演變的情形。</text></feedback></answer>
+    <answer fraction="0"><text>只在單一固定的正常負載下的行為</text><feedback><text>那是單一負載測試點；可擴展性關乎縮放時的趨勢。</text></feedback></answer>
+    <answer fraction="0"><text>負載超過容量時的失敗模式</text><feedback><text>那是壓力測試；可擴展性關乎效能隨規模的變化，不只是崩潰點。</text></feedback></answer>
+    <answer fraction="0"><text>單一突發尖峰的影響</text><feedback><text>那是尖峰測試，不是可擴展性。</text></feedback></answer>
+    <generalfeedback><text>可擴展性測試觀察吞吐量、回應時間等指標，如何隨著你增加負載、或增減資源（CPU、執行個體）而演變——告訴你系統擴展得好不好，以及在哪裡停止擴展。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>回應時間的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在效能測試中，<em>回應時間（response time，latency）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>完成單一請求所花的時間，從送出請求到收到回應為止</text><feedback><text>正確——延遲是單一請求的經歷時間。</text></feedback></answer>
+    <answer fraction="0"><text>每秒完成的請求數</text><feedback><text>那是吞吐量，是一種速率，不是單一請求的時間。</text></feedback></answer>
+    <answer fraction="0"><text>失敗請求的百分比</text><feedback><text>那是錯誤率，不是回應時間。</text></feedback></answer>
+    <answer fraction="0"><text>同時活躍的使用者數</text><feedback><text>那是並行度，不是回應時間。</text></feedback></answer>
+    <generalfeedback><text>回應時間（延遲）量測單一請求從頭到尾花多久。它通常以百分位（p50、p95、p99）而非單一數值來彙總。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>吞吐量的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>效能測試中的<em>吞吐量（throughput）</em>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>系統在單位時間內完成的請求（或交易）數，例如每秒請求數</text><feedback><text>正確——吞吐量是完成工作的速率。</text></feedback></answer>
+    <answer fraction="0"><text>單一請求完成所花的時間</text><feedback><text>那是回應時間（延遲），不是吞吐量。</text></feedback></answer>
+    <answer fraction="0"><text>測試中設定的虛擬使用者數</text><feedback><text>那是並行度設定，不是實際達成的完成工作速率。</text></feedback></answer>
+    <answer fraction="0"><text>回傳錯誤的請求比例</text><feedback><text>那是錯誤率，不是吞吐量。</text></feedback></answer>
+    <generalfeedback><text>吞吐量是一種速率——每秒請求數或每秒交易數（TPS）。它量測系統實際每單位時間完成多少工作，與任一單一請求花多久不同。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>延遲百分位的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>像 <em>p95</em> 這樣的延遲百分位所回報的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有 95% 的請求落在其上或其下的那個延遲值（95% 至少這麼快）</text><feedback><text>正確——95% 的請求 &#8804; p95，最慢的 5% 超過它。</text></feedback></answer>
+    <answer fraction="0"><text>所有請求的平均延遲</text><feedback><text>那是平均值；百分位不是平均。</text></feedback></answer>
+    <answer fraction="0"><text>本次執行中觀察到最慢的那一個請求</text><feedback><text>那是最大值（p100），不是 p95。</text></feedback></answer>
+    <answer fraction="0"><text>比 95 毫秒慢的請求數目</text><feedback><text>p95 是分布的百分位，不是相對於固定 95 毫秒的計數。</text></feedback></answer>
+    <generalfeedback><text>p95 延遲是一個值，使得 95% 的請求在其上或其下，而最慢的 5% 超過它。百分位描述分布的形狀，與平均值不同。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>並行度的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>並行度（concurrency，並行使用者／虛擬使用者）</em>是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>同一時間正被系統處理的使用者或請求數</text><feedback><text>正確——並行度是同時間內有多少個在系統中。</text></feedback></answer>
+    <answer fraction="0"><text>一整天內不重複使用者的總數</text><feedback><text>那是單日總數，不是同時的並行度。</text></feedback></answer>
+    <answer fraction="0"><text>每個請求完成所花的時間</text><feedback><text>那是回應時間，不是並行度。</text></feedback></answer>
+    <answer fraction="0"><text>每秒完成的請求數</text><feedback><text>那是吞吐量，不是並行度。</text></feedback></answer>
+    <generalfeedback><text>並行度是同時間有多少請求或使用者在系統中。負載工具以「虛擬使用者」模擬它們。Little's Law 把並行度、吞吐量與回應時間串在一起。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>錯誤率的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>效能測試中的<em>錯誤率（error rate）</em>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>失敗（回傳錯誤或逾時）的請求比例，通常以百分比表示</text><feedback><text>正確——錯誤率是未成功請求的占比。</text></feedback></answer>
+    <answer fraction="0"><text>每個請求的平均時間</text><feedback><text>那是回應時間，不是錯誤率。</text></feedback></answer>
+    <answer fraction="0"><text>並行使用者數</text><feedback><text>那是並行度，不是錯誤率。</text></feedback></answer>
+    <answer fraction="0"><text>每秒完成的請求數</text><feedback><text>那是吞吐量，不是錯誤率。</text></feedback></answer>
+    <generalfeedback><text>錯誤率是未成功請求的占比。當系統接近飽和時它常會急遽上升，是辨識崩潰點的重要訊號。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>SLO 的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>服務水準目標（Service Level Objective，SLO）</em>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>某項服務指標的目標值，例如「p95 延遲低於 200 毫秒」，是服務力求達成的目標</text><feedback><text>正確——SLO 是所選指標的可量測目標。</text></feedback></answer>
+    <answer fraction="0"><text>服務被允許使用的伺服器數目</text><feedback><text>那是容量上限，不是服務水準目標。</text></feedback></answer>
+    <answer fraction="0"><text>一次測試中送出的請求總數</text><feedback><text>那是測試工作量的數字，不是 SLO。</text></feedback></answer>
+    <answer fraction="0"><text>保證系統永遠不會失敗</text><feedback><text>沒有任何實際的 SLO 保證零失敗；SLO 訂的是可量測的目標。</text></feedback></answer>
+    <generalfeedback><text>SLO 是某個服務水準指標（SLI）的目標，例如「p95 延遲低於 200 毫秒」或「錯誤率低於 0.1%」。SLA 則是更廣義的協議，通常帶有後果，圍繞一個或多個 SLO 建立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>目標：找出崩潰點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你想找出系統在失敗前能承受的最大負載，以及它如何失敗。哪種測試類型最合適？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>壓力測試（Stress test）</text><feedback><text>正確——找出崩潰點與失敗模式正是壓力測試的核心目標。</text></feedback></answer>
+    <answer fraction="0"><text>負載測試（Load test）</text><feedback><text>負載測試停在預期負載，不會推到崩潰點。</text></feedback></answer>
+    <answer fraction="0"><text>浸泡測試（Soak test）</text><feedback><text>浸泡測試針對長時間的劣化，而非崩潰點。</text></feedback></answer>
+    <answer fraction="0"><text>容量測試（Volume test）</text><feedback><text>容量測試關乎大量資料，而非最大請求負載。</text></feedback></answer>
+    <generalfeedback><text>找出最大可持續負載，以及超過它之後的失敗模式，正是壓力測試的用途。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>目標：抓出緩慢的記憶體洩漏</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你懷疑有個緩慢的記憶體洩漏，只有在服務跑了很多小時後才會顯現。哪種測試類型最合適？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>浸泡（耐久）測試（Soak test）</text><feedback><text>正確——長時間執行才顯現的洩漏正是浸泡測試的對象。</text></feedback></answer>
+    <answer fraction="0"><text>尖峰測試（Spike test）</text><feedback><text>尖峰測試是短暫暴增，跑不夠久，無法揭露緩慢洩漏。</text></feedback></answer>
+    <answer fraction="0"><text>壓力測試（Stress test）</text><feedback><text>壓力測試很快就找到崩潰點，不是長時間的執行。</text></feedback></answer>
+    <answer fraction="0"><text>容量測試（Volume test）</text><feedback><text>容量測試關乎資料大小，而非持續的執行時間。</text></feedback></answer>
+    <generalfeedback><text>只有在長時間連續運轉後才會出現的問題——記憶體洩漏、資源耗盡、漸進劣化——是浸泡／耐久測試的領域。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>目標：突發的售票暴增</text></name>
+    <questiontext format="html"><text><![CDATA[<p>你的網站預期在開賣門票的瞬間會有突發、短暫的流量暴增，之後流量回落。哪種測試最能重現這個情況？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>尖峰測試（Spike test）</text><feedback><text>正確——突然劇烈暴增後掉回，就是尖峰測試的樣態。</text></feedback></answer>
+    <answer fraction="0"><text>浸泡測試（Soak test）</text><feedback><text>浸泡測試長時間維持負載，與短暫暴增正好相反。</text></feedback></answer>
+    <answer fraction="0"><text>負載測試（Load test）</text><feedback><text>負載測試用穩定的預期負載，而非陡然暴增。</text></feedback></answer>
+    <answer fraction="0"><text>容量測試（Volume test）</text><feedback><text>容量測試關乎資料大小，而非突發的流量跳升。</text></feedback></answer>
+    <generalfeedback><text>陡然、短暫的負載跳升後快速回到正常，正是尖峰測試重現的情境。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Performance and Load/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：它在哪裡壞掉</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊想知道在多少並行使用者時回應時間變得無法接受、服務開始回傳錯誤——也就是它在哪裡壞掉。合適的測試類型是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>壓力測試（Stress test）</text><feedback><text>正確——定位「回應變差、錯誤上升」的那一點就是崩潰點，由壓力測試找出。</text></feedback></answer>
+    <answer fraction="0"><text>負載測試（Load test）</text><feedback><text>負載測試確認的是預期負載下的行為，不會刻意把系統逼到失敗。</text></feedback></answer>
+    <answer fraction="0"><text>浸泡測試（Soak test）</text><feedback><text>浸泡測試在可持續負載下找長時間劣化，不是崩潰點。</text></feedback></answer>
+    <answer fraction="0"><text>尖峰測試（Spike test）</text><feedback><text>尖峰測試檢驗從突發暴增中復原，不是逐步逼近崩潰點。</text></feedback></answer>
+    <generalfeedback><text>逐步升高負載，直到回應時間劣化、錯誤攀升，就是壓力測試揭露崩潰點與失敗模式的方式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：8 小時的緩慢爬升</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在正常負載下連續執行 8 小時，工程師想抓出逐漸上升的記憶體用量與緩慢的回應時間爬升。合適的測試類型是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>浸泡（耐久）測試（Soak test）</text><feedback><text>正確——長時間執行揭露漸進劣化就是浸泡測試。</text></feedback></answer>
+    <answer fraction="0"><text>尖峰測試（Spike test）</text><feedback><text>尖峰測試只持續片刻，不是 8 小時，無法揭露漸進爬升。</text></feedback></answer>
+    <answer fraction="0"><text>壓力測試（Stress test）</text><feedback><text>壓力測試找的是崩潰點，不是數小時間的緩慢劣化。</text></feedback></answer>
+    <answer fraction="0"><text>容量測試（Volume test）</text><feedback><text>容量測試關乎大量資料，不是長時間執行。</text></feedback></answer>
+    <generalfeedback><text>在長時間穩定執行中出現的記憶體漸增與回應時間爬升，正是浸泡／耐久測試的典型發現。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：黑色星期五開賣</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某電商網站預期在黑色星期五午夜開賣時，流量會近乎瞬間暴增，隨後快速回落。合適的測試類型是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>尖峰測試（Spike test）</text><feedback><text>正確——近乎瞬間跳升後回落就是尖峰樣態。</text></feedback></answer>
+    <answer fraction="0"><text>浸泡測試（Soak test）</text><feedback><text>浸泡測試長時間維持負載，不模擬瞬間暴增。</text></feedback></answer>
+    <answer fraction="0"><text>負載測試（Load test）</text><feedback><text>負載測試用穩定的預期流量，而非陡然跳升。</text></feedback></answer>
+    <answer fraction="0"><text>容量測試（Volume test）</text><feedback><text>容量測試關乎資料量，而非突發的流量暴增。</text></feedback></answer>
+    <generalfeedback><text>突然、龐大、短暫的暴增後掉回，正是尖峰測試重現的情況，用以驗證系統能承受並復原。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：預期的每日尖峰</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊想確認系統在它被設計來承受的一般、預期的每日尖峰流量下表現良好。合適的測試類型是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>負載測試（Load test）</text><feedback><text>正確——驗證預期／正常負載下的行為就是負載測試。</text></feedback></answer>
+    <answer fraction="0"><text>壓力測試（Stress test）</text><feedback><text>壓力測試會超過容量；這裡的目標只是預期負載。</text></feedback></answer>
+    <answer fraction="0"><text>尖峰測試（Spike test）</text><feedback><text>尖峰測試是突發暴增，不是一般的預期尖峰。</text></feedback></answer>
+    <answer fraction="0"><text>容量測試（Volume test）</text><feedback><text>容量測試針對資料大小，而非預期的請求負載。</text></feedback></answer>
+    <generalfeedback><text>確認系統在可預期、依設計而來的負載下的效能，正是負載測試的核心目的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：五億列的資料表</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某報表服務必須處理一張已成長到五億列的資料表。團隊想確認在該資料規模下查詢與匯出仍能運作。合適的測試類型是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>容量測試（Volume test）</text><feedback><text>正確——在極大資料集下的行為就是容量測試。</text></feedback></answer>
+    <answer fraction="0"><text>尖峰測試（Spike test）</text><feedback><text>尖峰測試關乎突發請求暴增，而非資料大小。</text></feedback></answer>
+    <answer fraction="0"><text>浸泡測試（Soak test）</text><feedback><text>浸泡測試關乎長時間執行，而非資料集的大小。</text></feedback></answer>
+    <answer fraction="0"><text>壓力測試（Stress test）</text><feedback><text>壓力測試把請求速率壓過載；這裡關切的是資料量。</text></feedback></answer>
+    <generalfeedback><text>檢查系統在極大量資料下是否仍能運作且效能可接受，正是容量測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>情境：伺服器加倍有幫助嗎</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊把應用伺服器數目加倍，想看看吞吐量是否大致跟著加倍。這是下列何者的例子：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可擴展性測試（Scalability testing）</text><feedback><text>正確——量測效能隨資源縮放而變化就是可擴展性測試。</text></feedback></answer>
+    <answer fraction="0"><text>壓力測試（Stress testing）</text><feedback><text>壓力測試找崩潰點，不是增添資源的效果。</text></feedback></answer>
+    <answer fraction="0"><text>浸泡測試（Soak testing）</text><feedback><text>浸泡測試關乎長時間的穩定性，而非縮放資源。</text></feedback></answer>
+    <answer fraction="0"><text>尖峰測試（Spike testing）</text><feedback><text>尖峰測試是突發暴增，與增添伺服器無關。</text></feedback></answer>
+    <generalfeedback><text>觀察吞吐量（或延遲）在你增減資源時如何反應，就是可擴展性測試——理想上吞吐量應近乎等比上升，但實際系統會有偏差。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何百分位勝過平均</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼尾端百分位（p95／p99）通常比平均回應時間更有參考價值？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>平均會掩蓋緩慢的尾端；少數非常慢的請求幾乎不動平均，卻嚴重傷害真實使用者</text><feedback><text>正確——平均由大量快速請求主導，掩蓋了尾端。</text></feedback></answer>
+    <answer fraction="0"><text>平均永遠比任何百分位都大，所以會高估效能</text><feedback><text>不對——平均不會永遠大於每個百分位；真正的問題是它掩蓋尾端。</text></feedback></answer>
+    <answer fraction="0"><text>百分位比平均更省計算成本</text><feedback><text>成本不是原因；百分位揭露的是平均所隱藏的尾端。</text></feedback></answer>
+    <answer fraction="0"><text>延遲資料無法計算平均</text><feedback><text>平均完全可以計算，只是它會掩蓋離群值。</text></feedback></answer>
+    <generalfeedback><text>延遲分布是偏斜的：多數請求很快，所以即使少數非常慢，平均仍偏低。那些慢請求正是 p95／p99（尾端延遲）所揭露、也是使用者所感受到的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀 p99 = 500 毫秒</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某份報告寫著「p99 延遲 = 500 毫秒」。這代表：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有 99% 的請求在 500 毫秒（含）以內完成，最慢的 1% 花更久</text><feedback><text>正確——這正是 p99 為 500 毫秒的意思。</text></feedback></answer>
+    <answer fraction="0"><text>每個請求都剛好花 500 毫秒</text><feedback><text>百分位不是所有請求的單一固定值。</text></feedback></answer>
+    <answer fraction="0"><text>平均請求花 500 毫秒</text><feedback><text>p99 不是平均；它是尾端百分位。</text></feedback></answer>
+    <answer fraction="0"><text>只有 1% 的請求在 500 毫秒（含）以內完成</text><feedback><text>這把它反過來了——是 99%（而非 1%）在 500 毫秒以內。</text></feedback></answer>
+    <generalfeedback><text>p99 = 500 毫秒代表 99% 的請求在 500 毫秒（含）以內，最慢的 1% 超過它。它並未直接說明平均。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>p50 的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某服務的 <em>p50</em> 延遲是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>中位數延遲——一半的請求較快、一半較慢</text><feedback><text>正確——p50 就是中位數。</text></feedback></answer>
+    <answer fraction="0"><text>平均（算術平均）延遲</text><feedback><text>只有在對稱資料下平均與中位數才一致；p50 是中位數。</text></feedback></answer>
+    <answer fraction="0"><text>最快的 50 個請求的延遲</text><feedback><text>p50 是整個分布的百分位，不是 50 個請求的計數。</text></feedback></answer>
+    <answer fraction="0"><text>最大延遲除以二</text><feedback><text>中位數與「把最大值折半」毫無關係。</text></feedback></answer>
+    <generalfeedback><text>p50 是中位數：50% 的請求在其上或其下。對偏斜的延遲資料，平均通常高於 p50，這也是為什麼會同時回報兩者以及尾端百分位。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>負載剖面的順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>典型的負載測試剖面（load profile）以何種順序執行各階段？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>爬升（ramp-up）&#8594; 穩態（steady-state）&#8594; 下降（ramp-down）</text><feedback><text>正確——把負載加上去、維持並量測、再降下來。</text></feedback></answer>
+    <answer fraction="0"><text>穩態 &#8594; 爬升 &#8594; 下降</text><feedback><text>還沒爬升到穩態之前，不可能先維持穩態。</text></feedback></answer>
+    <answer fraction="0"><text>下降 &#8594; 穩態 &#8594; 爬升</text><feedback><text>這把剖面反過來了；負載從低開始、先爬升。</text></feedback></answer>
+    <answer fraction="0"><text>尖峰 &#8594; 浸泡 &#8594; 容量</text><feedback><text>那些是測試類型，不是單一負載剖面的各階段。</text></feedback></answer>
+    <generalfeedback><text>負載剖面逐步把負載爬升上去，在穩態維持（主要量測在此進行），再把它降下來。在穩態量測可避開爬升過程的暫態效應。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>SLA 檢查：180 對 200</text></name>
+    <questiontext format="html"><text><![CDATA[<p>SLO 規定「p95 &lt; 200 毫秒」。測試量到 p95 = 180 毫秒。結果是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>通過——180 毫秒低於 200 毫秒門檻</text><feedback><text>正確——180 &lt; 200，故達成 p95 目標。</text></feedback></answer>
+    <answer fraction="0"><text>不通過——180 毫秒違反門檻</text><feedback><text>180 毫秒低於 200 毫秒，因此滿足目標。</text></feedback></answer>
+    <answer fraction="0"><text>沒有平均延遲就無法判斷</text><feedback><text>SLO 是就 p95 訂的，而 p95 = 180 毫秒已量到，故可判定。</text></feedback></answer>
+    <answer fraction="0"><text>只有在 p99 也是 180 毫秒時才通過</text><feedback><text>這裡的 SLO 只約束 p95；p99 不屬於這個目標。</text></feedback></answer>
+    <generalfeedback><text>SLO 約束 p95 低於 200 毫秒。量到的 p95 為 180 毫秒，低於門檻，故達成目標——通過。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>SLA 檢查：240 對 200</text></name>
+    <questiontext format="html"><text><![CDATA[<p>SLO 規定「p95 &lt; 200 毫秒」。測試量到 p95 = 240 毫秒。結果是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不通過——240 毫秒超過 200 毫秒門檻</text><feedback><text>正確——240 &gt; 200，故未達成 p95 目標。</text></feedback></answer>
+    <answer fraction="0"><text>通過——240 毫秒可以接受</text><feedback><text>240 毫秒高於 200 毫秒上限，故不通過。</text></feedback></answer>
+    <answer fraction="0"><text>通過，因為平均大概低於 200 毫秒</text><feedback><text>SLO 是就 p95 而非平均訂的；低平均救不了不通過的 p95。</text></feedback></answer>
+    <answer fraction="0"><text>沒有錯誤率就無法判斷</text><feedback><text>SLO 只就 p95 訂定，而量到的 p95 已足以判定。</text></feedback></answer>
+    <generalfeedback><text>SLO 要求 p95 低於 200 毫秒；量到的 p95 為 240 毫秒，超過它，故無論平均或其他指標為何都未達成目標。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>有效的吞吐量單位</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是有效的吞吐量單位？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每秒請求數（等同每秒交易數，TPS）</text><feedback><text>正確——吞吐量是單位時間完成的工作量。</text></feedback></answer>
+    <answer fraction="0"><text>每個請求的毫秒數</text><feedback><text>那是回應時間的單位，不是吞吐量。</text></feedback></answer>
+    <answer fraction="0"><text>失敗請求的百分比</text><feedback><text>那是錯誤率，不是吞吐量。</text></feedback></answer>
+    <answer fraction="0"><text>並行虛擬使用者數</text><feedback><text>那是並行度計數，不是完成工作的速率。</text></feedback></answer>
+    <generalfeedback><text>吞吐量是一種速率：單位時間完成的工作（req/s、TPS）。每請求毫秒數是回應時間，失敗百分比是錯誤率，虛擬使用者量的是並行度。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>思考時間的用途</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在真實的負載剖面中，<em>思考時間（think time）</em>模擬的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>真實使用者在動作之間的停頓，好讓產生的負載貼近真實使用</text><feedback><text>正確——思考時間是使用者連續請求之間的閒置間隔。</text></feedback></answer>
+    <answer fraction="0"><text>伺服器處理一個請求所花的 CPU 時間</text><feedback><text>那是伺服器處理時間，不是思考時間。</text></feedback></answer>
+    <answer fraction="0"><text>整個測試開始前的延遲</text><feedback><text>那是啟動延遲，不是使用者動作之間的思考時間。</text></feedback></answer>
+    <answer fraction="0"><text>把負載降下來所花的時間</text><feedback><text>那是下降（ramp-down）階段，不是思考時間。</text></feedback></answer>
+    <generalfeedback><text>思考時間是使用者連續動作之間的停頓。加入它（搭配真實的交易組合）可讓到達樣態貼近真實，而非以背靠背的請求猛打伺服器。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>並行度與吞吐量</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>並行度</em>與<em>吞吐量</em>相關但不同，因為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>並行度是同一時間有多少請求在系統中，吞吐量是每單位時間完成多少</text><feedback><text>正確——一個是在途的計數，一個是完成的速率。</text></feedback></answer>
+    <answer fraction="0"><text>它們是同一個量的兩個名字</text><feedback><text>它們不同：一個是系統中的計數，一個是完成的速率。</text></feedback></answer>
+    <answer fraction="0"><text>並行度以 req/s 量測、吞吐量以使用者數量測</text><feedback><text>這把兩者對調了：吞吐量才是 req/s，並行度是在途請求／使用者的計數。</text></feedback></answer>
+    <answer fraction="0"><text>吞吐量永遠等於虛擬使用者數</text><feedback><text>吞吐量是完成速率，不是虛擬使用者數；除非回應時間剛好為一秒，否則兩者不同。</text></feedback></answer>
+    <generalfeedback><text>並行度（L）是在途請求數；吞吐量（&#955;）是完成速率。Little's Law 用回應時間把它們串起來：L = &#955; &#215; W。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Performance and Load/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Little's Law：算並行度（50, 0.2）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某服務維持每秒 50 個請求的吞吐量，平均回應時間為 0.2 秒。依 Little's Law（L = &#955; &#215; W），平均並行度（系統中的請求數）為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10</text><feedback><text>正確——L = 50 /秒 &#215; 0.2 秒 = 10。</text></feedback></answer>
+    <answer fraction="0"><text>250</text><feedback><text>那是 50 &#247; 0.2；Little's Law 是把吞吐量乘以回應時間。</text></feedback></answer>
+    <answer fraction="0"><text>50.2</text><feedback><text>那是把兩個值相加；此定律是相乘。</text></feedback></answer>
+    <answer fraction="0"><text>0.004</text><feedback><text>那是 0.2 &#247; 50；正確的乘積是 50 &#215; 0.2 = 10。</text></feedback></answer>
+    <generalfeedback><text>Little's Law：L = &#955; &#215; W = 每秒 50 個請求 &#215; 0.2 秒 = 平均 10 個請求在系統中。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Little's Law：算吞吐量（200, 0.5）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依 Little's Law，若平均並行度為 200 個請求、平均回應時間為 0.5 秒，則吞吐量為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每秒 400 個請求</text><feedback><text>正確——&#955; = L &#247; W = 200 &#247; 0.5 秒 = 400 /秒。</text></feedback></answer>
+    <answer fraction="0"><text>每秒 100 個請求</text><feedback><text>那是 200 &#215; 0.5；要得吞吐量應把 L 除以 W，而非相乘。</text></feedback></answer>
+    <answer fraction="0"><text>每秒 0.0025 個請求</text><feedback><text>那是 0.5 &#247; 200；正確值是 200 &#247; 0.5 = 400。</text></feedback></answer>
+    <answer fraction="0"><text>每秒 200.5 個請求</text><feedback><text>那是把兩個值相加；此定律給出 &#955; = L &#247; W = 400。</text></feedback></answer>
+    <generalfeedback><text>把 L = &#955; &#215; W 重整得 &#955; = L &#247; W = 200 &#247; 0.5 秒 = 每秒 400 個請求。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Little's Law：算回應時間（60, 120）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依 Little's Law，若平均並行度為 60、吞吐量為每秒 120 個請求，則平均回應時間為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.5 秒</text><feedback><text>正確——W = L &#247; &#955; = 60 &#247; 120 /秒 = 0.5 秒。</text></feedback></answer>
+    <answer fraction="0"><text>2 秒</text><feedback><text>那是 120 &#247; 60；回應時間是 L &#247; &#955;，不是 &#955; &#247; L。</text></feedback></answer>
+    <answer fraction="0"><text>7200 秒</text><feedback><text>那是 60 &#215; 120；此處該把 L 除以 &#955;。</text></feedback></answer>
+    <answer fraction="0"><text>180 秒</text><feedback><text>那是把兩個值相加；W = L &#247; &#955; = 0.5 秒。</text></feedback></answer>
+    <generalfeedback><text>把 L = &#955; &#215; W 重整得 W = L &#247; &#955; = 60 &#247; 每秒 120 個請求 = 0.5 秒。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Little's Law：算並行度（25, 0.4）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某結帳服務每秒處理 25 筆交易，平均回應時間為 0.4 秒。其平均並行度為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10</text><feedback><text>正確——L = 25 /秒 &#215; 0.4 秒 = 10。</text></feedback></answer>
+    <answer fraction="0"><text>62.5</text><feedback><text>那是 25 &#247; 0.4；Little's Law 是把吞吐量乘以回應時間。</text></feedback></answer>
+    <answer fraction="0"><text>25.4</text><feedback><text>那是把兩個值相加；此定律是相乘。</text></feedback></answer>
+    <answer fraction="0"><text>0.016</text><feedback><text>那是 0.4 &#247; 25；正確的乘積是 25 &#215; 0.4 = 10。</text></feedback></answer>
+    <generalfeedback><text>Little's Law：L = &#955; &#215; W = 每秒 25 筆交易 &#215; 0.4 秒 = 平均 10 個在系統中。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Little's Law：算回應時間（100, 250）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某服務顯示平均並行度 100、吞吐量每秒 250 個請求。其平均回應時間為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>0.4 秒</text><feedback><text>正確——W = L &#247; &#955; = 100 &#247; 250 /秒 = 0.4 秒。</text></feedback></answer>
+    <answer fraction="0"><text>2.5 秒</text><feedback><text>那是 250 &#247; 100；回應時間是 L &#247; &#955;，不是 &#955; &#247; L。</text></feedback></answer>
+    <answer fraction="0"><text>25000 秒</text><feedback><text>那是 100 &#215; 250；此處該把 L 除以 &#955;。</text></feedback></answer>
+    <answer fraction="0"><text>350 秒</text><feedback><text>那是把兩個值相加；W = L &#247; &#955; = 0.4 秒。</text></feedback></answer>
+    <generalfeedback><text>W = L &#247; &#955; = 100 &#247; 每秒 250 個請求 = 0.4 秒。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>平均通過但 p99 不通過</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某服務輕鬆達成平均延遲目標，使用者卻抱怨經常卡頓，而 p99 延遲遠高於目標。最佳解釋是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>有一小部分請求非常慢；它們幾乎不動平均，卻主導 p99，而那些正是使用者感受到的卡頓</text><feedback><text>正確——尾端才是使用者所感受的，且只有高百分位才揭露它。</text></feedback></answer>
+    <answer fraction="0"><text>只要 p99 高，平均就一定算錯了</text><feedback><text>兩者可以同時正確；低平均搭配高 p99 正是偏斜分布。</text></feedback></answer>
+    <answer fraction="0"><text>p99 高就證明平均也一定超過目標</text><feedback><text>不對——少數慢請求會抬高 p99，卻不太抬高平均。</text></feedback></answer>
+    <answer fraction="0"><text>使用者搞錯了，因為平均目標已達成</text><feedback><text>使用者感受到的是尾端；平均通過不代表每個人都被快速服務。</text></feedback></answer>
+    <generalfeedback><text>平均由大量快速請求主導，所以緩慢的尾端幾乎不動它。p99 正好捕捉那條尾端——使用者感受為卡頓的那最慢 1%。這也是為什麼 SLO 訂在尾端百分位，而非平均。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個統計量揭露尾端</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一次 1000 個請求的執行中，985 個約花 50 毫秒、15 個約花 5000 毫秒。哪一個單一統計量最能揭露那些慢請求造成的問題？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>p99 延遲（約 5000 毫秒），它揭露了緩慢的尾端</text><feedback><text>正確——有 1.5% 的請求慢，p99 落在慢的那一群。</text></feedback></answer>
+    <answer fraction="0"><text>平均延遲，它維持在低點（約 124 毫秒）</text><feedback><text>平均 = (985&#215;50 + 15&#215;5000)/1000 &#8776; 124 毫秒——它掩蓋而非揭露尾端。</text></feedback></answer>
+    <answer fraction="0"><text>吞吐量，它不受影響</text><feedback><text>吞吐量不描述單一請求的延遲，故無法揭露慢的尾端。</text></feedback></answer>
+    <answer fraction="0"><text>p50 延遲，它約為 50 毫秒</text><feedback><text>p50（中位數）落在快速請求之間、約 50 毫秒，掩蓋了尾端。</text></feedback></answer>
+    <generalfeedback><text>平均 &#8776; (985&#215;50 + 15&#215;5000)/1000 &#8776; 124 毫秒、p50 &#8776; 50 毫秒，兩者看起來都可接受。由於有 1.5% 的請求慢，p99 落入慢的那一群、約 5000 毫秒——只有高百分位才揭露尾端。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>找出瓶頸：CPU</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在每秒 300 個請求的負載下，監控顯示 CPU 釘在約 100%，而記憶體、磁碟與網路都在 50% 以下。瓶頸最可能是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>CPU——它是達到飽和、限制吞吐量再上升的資源</text><feedback><text>正確——最先飽和的資源就是瓶頸。</text></feedback></answer>
+    <answer fraction="0"><text>記憶體，因為它還有餘裕</text><feedback><text>有餘裕代表記憶體不是限制；達到飽和的資源才是。</text></feedback></answer>
+    <answer fraction="0"><text>網路，因為它在 50% 以下</text><feedback><text>低於 50% 的資源尚未飽和，故不是瓶頸。</text></feedback></answer>
+    <answer fraction="0"><text>沒有——閒置的資源永遠是瓶頸</text><feedback><text>瓶頸是達到飽和的資源，不是閒置的資源。</text></feedback></answer>
+    <generalfeedback><text>瓶頸是最先飽和的資源。CPU 約 100% 而其他閒置，代表 CPU 卡住了吞吐量；解法是加 CPU 或降低每請求的 CPU 成本。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>解讀可擴展性的拐點</text></name>
+    <questiontext format="html"><text><![CDATA[<p>隨著虛擬使用者增加，吞吐量上升，接著趨平成為一個高原，而回應時間持續攀升。這個高原（「拐點，knee」）代表：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>系統已達到容量／飽和；多出來的使用者現在只增加延遲，而非吞吐量</text><feedback><text>正確——過了拐點後瓶頸飽和，工作量無法再增加。</text></feedback></answer>
+    <answer fraction="0"><text>系統無上限地線性擴展</text><feedback><text>高原正是無限線性擴展的相反。</text></feedback></answer>
+    <answer fraction="0"><text>量測錯誤，因為吞吐量絕不可能趨平</text><feedback><text>吞吐量在飽和時趨平是預期的，不是錯誤。</text></feedback></answer>
+    <answer fraction="0"><text>錯誤率必然已降到零</text><feedback><text>吞吐量趨平根本不代表這件事；在飽和時錯誤往往上升。</text></feedback></answer>
+    <generalfeedback><text>過了拐點後瓶頸飽和：加負載無法提高已完成的工作，於是請求排隊、回應時間增長，而吞吐量維持平坦。該點標示了系統的有效容量。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>診斷浸泡測試的劣化</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在一次 12 小時、負載固定的浸泡測試中，回應時間緩慢攀升，記憶體用量持續向上且不回落。最可能的診斷是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>記憶體洩漏／資源耗盡，只有在長時間執行後才顯現</text><feedback><text>正確——固定負載下記憶體上升、延遲劣化正是洩漏的典型徵兆。</text></feedback></answer>
+    <answer fraction="0"><text>正常行為，不需調查</text><feedback><text>固定負載下記憶體單調成長並不正常，它預示著洩漏。</text></feedback></answer>
+    <answer fraction="0"><text>網路尖峰，因為負載固定</text><feedback><text>負載是固定的，故尖峰無法解釋持續向上的趨勢。</text></feedback></answer>
+    <answer fraction="0"><text>測試中的並行度不足</text><feedback><text>此處並行度維持固定；不斷成長的記憶體指向洩漏，而非使用者太少。</text></feedback></answer>
+    <generalfeedback><text>固定負載下記憶體單調上升、回應時間惡化，是記憶體洩漏或未釋放資源的教科書徵兆——正是浸泡／耐久測試被設計來揭露的。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>選出良好的 SLO</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對一個面向使用者的 API，哪一個是最良好定義的延遲 SLO？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>95% 的請求在 200 毫秒以內完成（p95 &lt; 200 毫秒）</text><feedback><text>正確——明確、可量測，且針對使用者所感受的尾端。</text></feedback></answer>
+    <answer fraction="0"><text>伺服器應該要快</text><feedback><text>太模糊、無法量測或驗證；良好的 SLO 是量化的。</text></feedback></answer>
+    <answer fraction="0"><text>多數時候平均延遲應該要低</text><feedback><text>「低」與「多數時候」都未量化，且平均會掩蓋尾端。</text></feedback></answer>
+    <answer fraction="0"><text>任何請求都不得超過 1 毫秒</text><feedback><text>對最大值訂絕對值不切實際，且單一離群值就會失敗——是差勁的 SLO。</text></feedback></answer>
+    <generalfeedback><text>良好的 SLO 明確、可量測，且針對使用者所感受的尾端——帶有數值門檻的百分位，例如 p95 低於 200 毫秒。模糊的措辭與不可能的絕對值都是差勁的 SLO。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Little's Law：飽和、使用者加倍</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某已飽和的服務以最大吞吐量 &#955; 運轉。並行請求數 L 加倍（更多使用者到來），但 &#955; 無法再上升。依 L = &#955; &#215; W，平均回應時間 W 將：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>加倍，因為 W = L &#247; &#955;，L 加倍而 &#955; 固定</text><feedback><text>正確——吞吐量被卡住時，在途工作加倍會使回應時間加倍。</text></feedback></answer>
+    <answer fraction="0"><text>維持不變，因為回應時間與負載無關</text><feedback><text>回應時間並非與負載無關；一旦飽和，排隊會使 W 增長。</text></feedback></answer>
+    <answer fraction="0"><text>減半，因為更多使用者分攤工作</text><feedback><text>對已飽和的系統加使用者只會惡化、而非改善回應時間。</text></feedback></answer>
+    <answer fraction="0"><text>一旦系統飽和就降到零</text><feedback><text>飽和會使回應時間增長，而非歸零。</text></feedback></answer>
+    <generalfeedback><text>重整得 W = L &#247; &#955;。&#955; 被卡在最大值而 L 加倍，W 便加倍——一旦飽和，排隊會使每個請求等更久。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>相同平均、不同 p99</text></name>
+    <questiontext format="html"><text><![CDATA[<p>兩個服務有相同的平均延遲，但服務 A 的 p99 = 220 毫秒、服務 B 的 p99 = 900 毫秒。就使用者體驗而言，哪個較好、為什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A——儘管平均相同，較低的 p99 代表遠少的使用者碰到非常慢的回應</text><feedback><text>正確——較緊的尾端帶來較一致的體驗。</text></feedback></answer>
+    <answer fraction="0"><text>B——較高的 p99 代表它較快</text><feedback><text>較高的 p99 在尾端是較慢，而非較快。</text></feedback></answer>
+    <answer fraction="0"><text>兩者相同，因為平均相等</text><feedback><text>相等的平均可能掩蓋非常不同的尾端，正如此例。</text></feedback></answer>
+    <answer fraction="0"><text>無法判斷，因為只有平均才重要</text><feedback><text>尾端對使用者體驗極為重要；只看平均並不足夠。</text></feedback></answer>
+    <generalfeedback><text>相等的平均掩蓋了不同的尾端。A 較低的 p99（220 毫秒對 900 毫秒）代表非常慢的請求少得多，體驗較一致——只看平均無法區分兩者。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>瓶頸移到記憶體</text></name>
+    <questiontext format="html"><text><![CDATA[<p>修好 CPU 瓶頸後，吞吐量提升，但很快又趨平；此時記憶體約在 100%，而 CPU 有餘裕。正確的解讀是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>瓶頸已移到記憶體——它是新的限制資源</text><feedback><text>正確——解除一個瓶頸會讓下一個浮現。</text></feedback></answer>
+    <answer fraction="0"><text>CPU 的修正沒有用，因為吞吐量又趨平了</text><feedback><text>吞吐量先提升了，且 CPU 現在有餘裕，故修正是有用的；限制只是轉移了。</text></feedback></answer>
+    <answer fraction="0"><text>一個系統永遠不會有超過一個可能的瓶頸</text><feedback><text>系統有一連串瓶頸；修好一個會揭露另一個。</text></feedback></answer>
+    <answer fraction="0"><text>CPU 修好後記憶體用量就無關緊要</text><feedback><text>記憶體現在是飽和的資源，故極為相關。</text></feedback></answer>
+    <generalfeedback><text>解除一個瓶頸會讓下一個浮現。記憶體現在飽和而 CPU 閒置，記憶體便是新的限制資源。效能調校是反覆的：修正、再量測、找出下一個瓶頸。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Little's Law：容量規劃（400, 0.25）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某服務必須維持每秒 400 個請求的吞吐量，每個請求平均花 0.25 秒。依 Little's Law，它必須支援的平均並行度為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>100</text><feedback><text>正確——L = 400 /秒 &#215; 0.25 秒 = 100。</text></feedback></answer>
+    <answer fraction="0"><text>1600</text><feedback><text>那是 400 &#247; 0.25；Little's Law 是把吞吐量乘以回應時間。</text></feedback></answer>
+    <answer fraction="0"><text>400.25</text><feedback><text>那是把兩個值相加；此定律是相乘。</text></feedback></answer>
+    <answer fraction="0"><text>0.000625</text><feedback><text>那是 0.25 &#247; 400；正確的乘積是 400 &#215; 0.25 = 100。</text></feedback></answer>
+    <generalfeedback><text>Little's Law：L = &#955; &#215; W = 每秒 400 個請求 &#215; 0.25 秒 = 平均 100 個並行請求——對執行緒與連線池的規模設定很有用。</text></generalfeedback>
+  </question>
+</quiz>
