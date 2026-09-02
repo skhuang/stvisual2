@@ -33133,6 +33133,2546 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "example-mapping": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What Example Mapping is",
+          "text": "<p>What is <strong>Example Mapping</strong>?</p>",
+          "answers": [
+            {
+              "text": "A quick, collaborative technique for breaking a user story down before development, using coloured index cards for the story, its rules, concrete examples, and open questions",
+              "fraction": 100,
+              "feedback": "Correct — Example Mapping is a fast, card-based conversation that unpacks one story before coding."
+            },
+            {
+              "text": "An automated tool that generates test scripts from a UML diagram",
+              "fraction": 0,
+              "feedback": "Example Mapping is a human conversation with index cards, not a code or script generator."
+            },
+            {
+              "text": "A performance-profiling method for measuring how fast each function runs",
+              "fraction": 0,
+              "feedback": "That is profiling; Example Mapping is a refinement technique for understanding a story."
+            },
+            {
+              "text": "A deployment pipeline stage that releases code to production",
+              "fraction": 0,
+              "feedback": "Example Mapping happens before development during refinement, not at deployment."
+            }
+          ],
+          "generalFeedback": "Example Mapping (created by Matt Wynne) is a simple, timeboxed conversation used during backlog refinement. The team takes one user story and, using four colours of index card, teases out the business rules, concrete examples that illustrate them, and any open questions. It builds shared understanding before coding begins.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of the yellow card",
+          "text": "<p>In Example Mapping, what does a <strong>yellow</strong> card represent?</p>",
+          "answers": [
+            {
+              "text": "The story — the topic under discussion, one per session",
+              "fraction": 100,
+              "feedback": "Correct — yellow is the user story being unpacked, and there is one per session."
+            },
+            {
+              "text": "A business rule the story must satisfy",
+              "fraction": 0,
+              "feedback": "Rules are blue cards; yellow is the story itself."
+            },
+            {
+              "text": "A concrete example illustrating a rule",
+              "fraction": 0,
+              "feedback": "Concrete examples are green cards; yellow is the story."
+            },
+            {
+              "text": "An open question the team cannot answer yet",
+              "fraction": 0,
+              "feedback": "Open questions are red cards; yellow is the story."
+            }
+          ],
+          "generalFeedback": "The yellow card names the story (the topic under discussion). A session focuses on a single yellow card, and the blue rules, green examples, and red questions are all placed in relation to it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of the blue card",
+          "text": "<p>In Example Mapping, what does a <strong>blue</strong> card represent?</p>",
+          "answers": [
+            {
+              "text": "A rule — an acceptance criterion, business rule, or constraint that must hold",
+              "fraction": 100,
+              "feedback": "Correct — blue cards capture the rules/acceptance criteria of the story."
+            },
+            {
+              "text": "The story under discussion",
+              "fraction": 0,
+              "feedback": "The story is the yellow card; blue captures a rule."
+            },
+            {
+              "text": "A concrete example with specific data and an outcome",
+              "fraction": 0,
+              "feedback": "Concrete examples are green; blue is the general rule they illustrate."
+            },
+            {
+              "text": "Something the team cannot answer right now",
+              "fraction": 0,
+              "feedback": "Unknowns are red questions; blue is a rule that must hold."
+            }
+          ],
+          "generalFeedback": "Blue cards hold the rules: acceptance criteria, business rules, and constraints that the story must satisfy. Each blue rule is a general statement that green example cards then illustrate with concrete cases.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of the green card",
+          "text": "<p>In Example Mapping, what does a <strong>green</strong> card represent?</p>",
+          "answers": [
+            {
+              "text": "An example — a concrete illustration of a rule, a specific case with concrete data and an outcome",
+              "fraction": 100,
+              "feedback": "Correct — green cards are concrete examples that illustrate a blue rule."
+            },
+            {
+              "text": "A general business rule or acceptance criterion",
+              "fraction": 0,
+              "feedback": "General rules are blue; green is a specific concrete case of a rule."
+            },
+            {
+              "text": "The story being discussed",
+              "fraction": 0,
+              "feedback": "The story is the yellow card; green is a concrete example."
+            },
+            {
+              "text": "An unknown the team must resolve later",
+              "fraction": 0,
+              "feedback": "Unknowns are red questions; green is a concrete illustration of a rule."
+            }
+          ],
+          "generalFeedback": "Green cards give concrete examples: a specific case with real data and an expected outcome that illustrates a blue rule. Because they are concrete, green examples later feed BDD/ATDD scenarios (each becomes a Given-When-Then case).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of the red card",
+          "text": "<p>In Example Mapping, what does a <strong>red</strong> card represent?</p>",
+          "answers": [
+            {
+              "text": "A question — an unknown the team cannot answer right now (an assumption, edge case, or dependency needing a decision)",
+              "fraction": 100,
+              "feedback": "Correct — red cards capture open questions and unknowns surfaced during the conversation."
+            },
+            {
+              "text": "A business rule the story must satisfy",
+              "fraction": 0,
+              "feedback": "Rules are blue; red captures something the team cannot yet answer."
+            },
+            {
+              "text": "A concrete example illustrating a rule",
+              "fraction": 0,
+              "feedback": "Concrete examples are green; red is an open question."
+            },
+            {
+              "text": "The story under discussion",
+              "fraction": 0,
+              "feedback": "The story is yellow; red is an unknown that needs a decision."
+            }
+          ],
+          "generalFeedback": "Red cards capture questions: things the team cannot answer during the session — assumptions, edge cases needing a decision, or external dependencies. Parking them on red cards keeps the conversation moving and makes the unknowns visible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When Example Mapping is done",
+          "text": "<p>At what point in the workflow is Example Mapping typically done?</p>",
+          "answers": [
+            {
+              "text": "During backlog refinement, before development starts on the story",
+              "fraction": 100,
+              "feedback": "Correct — it is a refinement/discuss-phase activity that happens before coding."
+            },
+            {
+              "text": "After the story has been coded, as a way to write release notes",
+              "fraction": 0,
+              "feedback": "Example Mapping is done before development, not after coding."
+            },
+            {
+              "text": "During production incident response",
+              "fraction": 0,
+              "feedback": "It is a pre-development refinement technique, not an incident tool."
+            },
+            {
+              "text": "Only at the very end of the project, during final acceptance",
+              "fraction": 0,
+              "feedback": "It is used per story during refinement, before that story is built."
+            }
+          ],
+          "generalFeedback": "Example Mapping runs during the \"discuss\" phase of backlog refinement, before development begins on a story. Its whole purpose is to reach shared understanding early, so the team enters coding with clear rules, illustrative examples, and known questions.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Who participates",
+          "text": "<p>Who typically takes part in an Example Mapping session?</p>",
+          "answers": [
+            {
+              "text": "The \"three amigos\" — a business/product perspective, a developer, and a tester",
+              "fraction": 100,
+              "feedback": "Correct — the three amigos bring the business, development, and testing viewpoints together."
+            },
+            {
+              "text": "Only the product owner, working alone",
+              "fraction": 0,
+              "feedback": "It is a collaborative conversation; a single person cannot represent all three viewpoints."
+            },
+            {
+              "text": "Only end users, with no team members present",
+              "fraction": 0,
+              "feedback": "The session is run by the delivery team's three amigos, not end users alone."
+            },
+            {
+              "text": "Only the operations/deployment team",
+              "fraction": 0,
+              "feedback": "Example Mapping is a refinement conversation among the three amigos, not an ops activity."
+            }
+          ],
+          "generalFeedback": "Example Mapping is a conversation among the \"three amigos\": someone with the business/product view (e.g. a product owner), a developer, and a tester. Each brings a different perspective, which is what surfaces rules, examples, and questions that one role alone would miss.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How long a session lasts",
+          "text": "<p>How long is an Example Mapping session meant to take?</p>",
+          "answers": [
+            {
+              "text": "A short timebox, around 25 minutes per story",
+              "fraction": 100,
+              "feedback": "Correct — it is deliberately quick, roughly 25 minutes, to keep the conversation focused."
+            },
+            {
+              "text": "A full working day for each story",
+              "fraction": 0,
+              "feedback": "It is deliberately short (about 25 minutes), not a day-long meeting."
+            },
+            {
+              "text": "An open-ended discussion with no time limit",
+              "fraction": 0,
+              "feedback": "It is timeboxed; running long usually signals the story is not well understood."
+            },
+            {
+              "text": "Exactly one two-week sprint",
+              "fraction": 0,
+              "feedback": "A session is a short conversation of about 25 minutes, not a whole sprint."
+            }
+          ],
+          "generalFeedback": "Example Mapping is timeboxed to roughly 25 minutes per story. The short box keeps the conversation focused; if a story cannot be mapped in that time, that itself is a useful signal that it is too big or too poorly understood.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How many yellow story cards per session",
+          "text": "<p>How many <strong>yellow (story)</strong> cards are on the table in a single Example Mapping session?</p>",
+          "answers": [
+            {
+              "text": "One — the session focuses on a single story",
+              "fraction": 100,
+              "feedback": "Correct — one yellow card per session; everything else relates to that one story."
+            },
+            {
+              "text": "One per rule, so several yellow cards",
+              "fraction": 0,
+              "feedback": "Rules are blue cards; there is only one yellow story card per session."
+            },
+            {
+              "text": "One per participant",
+              "fraction": 0,
+              "feedback": "The number of yellow cards does not depend on participants; there is exactly one story."
+            },
+            {
+              "text": "As many as the whole backlog contains",
+              "fraction": 0,
+              "feedback": "A session maps one story at a time, so there is a single yellow card."
+            }
+          ],
+          "generalFeedback": "Each session unpacks exactly one story, so there is a single yellow card. The blue rules, green examples, and red questions are all arranged around that one story.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which colour is a rule",
+          "text": "<p>Which card colour is used for a <strong>business rule / acceptance criterion</strong>?</p>",
+          "answers": [
+            {
+              "text": "Blue",
+              "fraction": 100,
+              "feedback": "Correct — blue cards are the rules."
+            },
+            {
+              "text": "Green",
+              "fraction": 0,
+              "feedback": "Green is for concrete examples, not rules."
+            },
+            {
+              "text": "Red",
+              "fraction": 0,
+              "feedback": "Red is for open questions, not rules."
+            },
+            {
+              "text": "Yellow",
+              "fraction": 0,
+              "feedback": "Yellow is the story itself, not a rule."
+            }
+          ],
+          "generalFeedback": "The four colours map as: yellow = story, blue = rule, green = example, red = question. A business rule or acceptance criterion is therefore a blue card.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which colour is a concrete example",
+          "text": "<p>Which card colour is used for a <strong>concrete example</strong> (a specific case with real data)?</p>",
+          "answers": [
+            {
+              "text": "Green",
+              "fraction": 100,
+              "feedback": "Correct — green cards are the concrete examples."
+            },
+            {
+              "text": "Blue",
+              "fraction": 0,
+              "feedback": "Blue is for general rules; a concrete case is green."
+            },
+            {
+              "text": "Red",
+              "fraction": 0,
+              "feedback": "Red is for open questions, not concrete examples."
+            },
+            {
+              "text": "Yellow",
+              "fraction": 0,
+              "feedback": "Yellow is the story, not a concrete example."
+            }
+          ],
+          "generalFeedback": "Green cards hold concrete examples — specific cases with real data and an expected outcome that illustrate a blue rule. Remember: yellow = story, blue = rule, green = example, red = question.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which colour is an open question",
+          "text": "<p>Which card colour is used for an <strong>open question / unknown</strong> the team cannot answer right now?</p>",
+          "answers": [
+            {
+              "text": "Red",
+              "fraction": 100,
+              "feedback": "Correct — red cards capture open questions and unknowns."
+            },
+            {
+              "text": "Green",
+              "fraction": 0,
+              "feedback": "Green is for concrete examples, not questions."
+            },
+            {
+              "text": "Blue",
+              "fraction": 0,
+              "feedback": "Blue is for rules, not open questions."
+            },
+            {
+              "text": "Yellow",
+              "fraction": 0,
+              "feedback": "Yellow is the story, not an open question."
+            }
+          ],
+          "generalFeedback": "Red cards are for questions: unknowns, assumptions, edge cases needing a decision, or dependencies. The mnemonic is yellow = story, blue = rule, green = example, red = question.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Green illustrates a rule",
+          "text": "<p>A green card is a concrete example that illustrates a (blue) rule.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — green examples make blue rules concrete."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Green cards are concrete examples that illustrate blue rules, so the statement is true."
+            }
+          ],
+          "generalFeedback": "Rules (blue) are general statements; examples (green) illustrate them with specific, concrete cases. Every green example sits under the blue rule it demonstrates."
+        },
+        {
+          "type": "multichoice",
+          "name": "The four card colours",
+          "text": "<p>Which set correctly lists the four Example Mapping card colours and what each represents?</p>",
+          "answers": [
+            {
+              "text": "Yellow = story, blue = rule, green = example, red = question",
+              "fraction": 100,
+              "feedback": "Correct — that is the standard Example Mapping colour scheme."
+            },
+            {
+              "text": "Yellow = rule, blue = story, green = question, red = example",
+              "fraction": 0,
+              "feedback": "Colours are swapped: story is yellow, rule is blue, example is green, question is red."
+            },
+            {
+              "text": "Yellow = question, blue = example, green = rule, red = story",
+              "fraction": 0,
+              "feedback": "All four are wrong; the correct scheme is yellow story, blue rule, green example, red question."
+            },
+            {
+              "text": "Yellow = example, blue = question, green = story, red = rule",
+              "fraction": 0,
+              "feedback": "These are scrambled; the correct scheme is yellow story, blue rule, green example, red question."
+            }
+          ],
+          "generalFeedback": "The four colours are fixed: yellow for the story (one per session), blue for rules (acceptance criteria/constraints), green for concrete examples, and red for open questions. Knowing this scheme is the foundation for reading a map.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Mapping happens before development",
+          "text": "<p>Example Mapping is done before development on the story begins, as part of refinement.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — it is a refinement activity that precedes coding."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "It happens during refinement, before development, so the statement is true."
+            }
+          ],
+          "generalFeedback": "Example Mapping is a \"discuss\"-phase refinement technique. Doing it before development means the team surfaces rules, examples, and questions early, so coding starts from shared understanding rather than guesses."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Classify a business rule",
+          "text": "<p>During a session someone says: <em>\"Orders over $50 qualify for free shipping.\"</em> Which card colour is this?</p>",
+          "answers": [
+            {
+              "text": "Blue — it is a general business rule / acceptance criterion",
+              "fraction": 100,
+              "feedback": "Correct — a general \"orders over $50…\" constraint is a rule, so it is blue."
+            },
+            {
+              "text": "Green — it is a concrete example",
+              "fraction": 0,
+              "feedback": "It has no specific order value or outcome; it is a general rule (blue), not a concrete example."
+            },
+            {
+              "text": "Red — it is an open question",
+              "fraction": 0,
+              "feedback": "Nothing is unknown here; it is a stated rule, so it is blue."
+            },
+            {
+              "text": "Yellow — it is the story",
+              "fraction": 0,
+              "feedback": "The story is the topic under discussion; this is a rule about it, so it is blue."
+            }
+          ],
+          "generalFeedback": "\"Orders over $50 qualify for free shipping\" is a general constraint that must hold — an acceptance criterion. General rules are blue cards. A concrete order (\"a $60 order ships free\") would be a green example of this rule.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a concrete case",
+          "text": "<p>Someone says: <em>\"A $100 order with a 10% coupon pays $90.\"</em> Which card colour is this?</p>",
+          "answers": [
+            {
+              "text": "Green — it is a concrete example with specific data and an outcome",
+              "fraction": 100,
+              "feedback": "Correct — specific numbers and a resulting total make this a concrete example."
+            },
+            {
+              "text": "Blue — it is a general rule",
+              "fraction": 0,
+              "feedback": "It uses specific values ($100, 10%, $90); a general rule would not name concrete numbers."
+            },
+            {
+              "text": "Red — it is an open question",
+              "fraction": 0,
+              "feedback": "Nothing is unknown; it is a concrete illustration, so it is green."
+            },
+            {
+              "text": "Yellow — it is the story",
+              "fraction": 0,
+              "feedback": "The story is the topic; this is a concrete example of a rule, so it is green."
+            }
+          ],
+          "generalFeedback": "Concrete data ($100, 10%, $90) and a specific outcome make this a green example. It illustrates an underlying blue rule such as \"a percentage coupon reduces the order total by that percentage.\"",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify an unknown",
+          "text": "<p>Someone asks: <em>\"What happens if the coupon is expired?\"</em> Which card colour is this?</p>",
+          "answers": [
+            {
+              "text": "Red — it is an open question the team cannot answer yet",
+              "fraction": 100,
+              "feedback": "Correct — an unresolved \"what happens if…\" is a question, so it is red."
+            },
+            {
+              "text": "Blue — it is a rule",
+              "fraction": 0,
+              "feedback": "It is not a stated rule; it is an unknown to be decided, so it is red."
+            },
+            {
+              "text": "Green — it is a concrete example",
+              "fraction": 0,
+              "feedback": "It states no concrete case or outcome; it is an open question (red)."
+            },
+            {
+              "text": "Yellow — it is the story",
+              "fraction": 0,
+              "feedback": "The story is the topic; an unresolved edge case is a red question."
+            }
+          ],
+          "generalFeedback": "\"What happens if the coupon is expired?\" is an unknown edge case the team cannot answer during the session, so it goes on a red card. Once answered, it may turn into a new blue rule and green examples.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify the story title",
+          "text": "<p>The topic being unpacked is <em>\"Apply a discount coupon at checkout.\"</em> Which card colour is this?</p>",
+          "answers": [
+            {
+              "text": "Yellow — it is the story, the topic under discussion",
+              "fraction": 100,
+              "feedback": "Correct — the overall topic being mapped is the yellow story card."
+            },
+            {
+              "text": "Blue — it is a rule",
+              "fraction": 0,
+              "feedback": "It names the whole story, not a single constraint; the story is yellow."
+            },
+            {
+              "text": "Green — it is a concrete example",
+              "fraction": 0,
+              "feedback": "It is the topic, not a specific case with data; the story is yellow."
+            },
+            {
+              "text": "Red — it is an open question",
+              "fraction": 0,
+              "feedback": "It is the story being discussed, not an unknown; the story is yellow."
+            }
+          ],
+          "generalFeedback": "The title of the thing being unpacked is the story itself, which is the single yellow card for the session. Its rules (blue), examples (green), and questions (red) are arranged around it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Relationship between examples and rules",
+          "text": "<p>How do green example cards relate to blue rule cards on a map?</p>",
+          "answers": [
+            {
+              "text": "Each green example illustrates a blue rule with a concrete case, so examples sit beneath the rule they demonstrate",
+              "fraction": 100,
+              "feedback": "Correct — examples make rules concrete; they hang off the rule they illustrate."
+            },
+            {
+              "text": "Green examples replace blue rules, so a rule with examples can be discarded",
+              "fraction": 0,
+              "feedback": "Examples do not replace rules; they illustrate them, and both stay on the map."
+            },
+            {
+              "text": "Green examples are unrelated to rules and are placed randomly",
+              "fraction": 0,
+              "feedback": "Each example illustrates a specific rule; they are deliberately grouped, not random."
+            },
+            {
+              "text": "Green examples define the story while blue rules define the questions",
+              "fraction": 0,
+              "feedback": "The story is yellow and questions are red; green examples illustrate blue rules."
+            }
+          ],
+          "generalFeedback": "A rule is a general statement; an example is a concrete case that shows the rule in action. On the map, green examples are placed under the blue rule they illustrate, so you can see that each rule is backed by concrete cases.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Green examples feed BDD",
+          "text": "<p>What do the green example cards typically become when the team moves into BDD/ATDD?</p>",
+          "answers": [
+            {
+              "text": "Given-When-Then scenarios — each concrete example maps to a Gherkin scenario",
+              "fraction": 100,
+              "feedback": "Correct — green examples are concrete cases that translate naturally into GWT scenarios."
+            },
+            {
+              "text": "New user stories in the backlog",
+              "fraction": 0,
+              "feedback": "Examples become scenarios; it is the rules that may suggest splitting into stories."
+            },
+            {
+              "text": "Additional red question cards",
+              "fraction": 0,
+              "feedback": "Examples are concrete and resolved; they feed scenarios, not new questions."
+            },
+            {
+              "text": "Performance benchmarks",
+              "fraction": 0,
+              "feedback": "Green examples describe functional behaviour and become GWT scenarios, not benchmarks."
+            }
+          ],
+          "generalFeedback": "Because green cards are concrete (specific inputs and an expected outcome), each one maps cleanly to a Given-When-Then scenario in BDD/ATDD. The Example Mapping conversation thus produces the raw material for executable specifications.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Who and when combined",
+          "text": "<p>Which statement best describes <strong>who</strong> runs Example Mapping and <strong>when</strong>?</p>",
+          "answers": [
+            {
+              "text": "The three amigos (business, developer, tester) run it during refinement, before the story is developed",
+              "fraction": 100,
+              "feedback": "Correct — the three amigos, in refinement, before coding."
+            },
+            {
+              "text": "The developers alone run it during the retrospective at the end of the sprint",
+              "fraction": 0,
+              "feedback": "It involves all three amigos and happens in refinement before development, not in the retro."
+            },
+            {
+              "text": "The product owner alone runs it after the story is released",
+              "fraction": 0,
+              "feedback": "It is collaborative and pre-development, not a solo post-release activity."
+            },
+            {
+              "text": "The operations team runs it during deployment",
+              "fraction": 0,
+              "feedback": "The three amigos run it in refinement, before development; ops is not the audience."
+            }
+          ],
+          "generalFeedback": "Example Mapping brings the three amigos — a business/product voice, a developer, and a tester — together during backlog refinement, before development. That mix of viewpoints, applied early, is what surfaces the rules, examples, and questions.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a scope question",
+          "text": "<p>Someone asks: <em>\"Should we support both percentage and fixed-amount coupons?\"</em> Which card colour is this?</p>",
+          "answers": [
+            {
+              "text": "Red — it is an unresolved question about scope",
+              "fraction": 100,
+              "feedback": "Correct — an unanswered scope question is a red card."
+            },
+            {
+              "text": "Blue — it is a rule",
+              "fraction": 0,
+              "feedback": "It is not yet a decided rule; it is a question awaiting a decision, so it is red."
+            },
+            {
+              "text": "Green — it is a concrete example",
+              "fraction": 0,
+              "feedback": "It states no concrete case; it is an open question, so it is red."
+            },
+            {
+              "text": "Yellow — it is the story",
+              "fraction": 0,
+              "feedback": "The story is the topic; this is an unknown about it, so it is red."
+            }
+          ],
+          "generalFeedback": "A \"should we support…\" that the team has not decided is an open question — a red card. Once answered, the decision may become one or more blue rules with green examples.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a constraint",
+          "text": "<p>The team agrees: <em>\"A user may have at most 3 active sessions at once.\"</em> Which card colour is this?</p>",
+          "answers": [
+            {
+              "text": "Blue — it is a general constraint the story must satisfy",
+              "fraction": 100,
+              "feedback": "Correct — a general \"at most 3\" constraint is a rule, so it is blue."
+            },
+            {
+              "text": "Green — it is a concrete example",
+              "fraction": 0,
+              "feedback": "It describes a general limit, not a specific case with data; that is a blue rule."
+            },
+            {
+              "text": "Red — it is an open question",
+              "fraction": 0,
+              "feedback": "It is agreed and stated, not unknown; it is a blue rule."
+            },
+            {
+              "text": "Yellow — it is the story",
+              "fraction": 0,
+              "feedback": "The story is the topic; this is a constraint on it, so it is blue."
+            }
+          ],
+          "generalFeedback": "\"At most 3 active sessions\" is a general constraint that must always hold — an acceptance criterion, hence a blue rule. A green example might be \"a user who already has 3 sessions and tries a 4th login is refused.\"",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a specific outcome",
+          "text": "<p>Someone says: <em>\"A user who already has 3 sessions and opens a 4th is shown 'session limit reached'.\"</em> Which card colour is this?</p>",
+          "answers": [
+            {
+              "text": "Green — it is a concrete example illustrating a rule",
+              "fraction": 100,
+              "feedback": "Correct — a specific situation with a concrete outcome is a green example."
+            },
+            {
+              "text": "Blue — it is a general rule",
+              "fraction": 0,
+              "feedback": "It is a specific case with a concrete outcome, which illustrates a rule; that is green."
+            },
+            {
+              "text": "Red — it is an open question",
+              "fraction": 0,
+              "feedback": "Nothing is unknown; it is a concrete illustration, so it is green."
+            },
+            {
+              "text": "Yellow — it is the story",
+              "fraction": 0,
+              "feedback": "The story is the topic; this is a concrete example of a rule, so it is green."
+            }
+          ],
+          "generalFeedback": "This is a specific scenario (3 existing sessions, a 4th attempt, a particular message), so it is a green example. It illustrates the blue rule \"a user may have at most 3 active sessions.\"",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Red captures unknowns",
+          "text": "<p>Red cards are used to capture unknowns the team cannot answer during the session, such as assumptions, edge cases needing a decision, or dependencies.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — red cards park the open questions and unknowns."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Red cards do capture unknowns/questions, so the statement is true."
+            }
+          ],
+          "generalFeedback": "Red cards make the unknowns visible: assumptions, edge cases that need a decision, and dependencies the team cannot resolve on the spot. Capturing them lets the conversation keep moving while nothing important is lost."
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a coupon calculation case",
+          "text": "<p>Someone says: <em>\"Applying code SAVE10 to a $200 cart yields a $180 total.\"</em> Which card colour is this?</p>",
+          "answers": [
+            {
+              "text": "Green — it is a concrete example with specific data and an outcome",
+              "fraction": 100,
+              "feedback": "Correct — a specific code, cart value, and resulting total make it a green example."
+            },
+            {
+              "text": "Blue — it is a general rule",
+              "fraction": 0,
+              "feedback": "It names concrete values (SAVE10, $200, $180); a rule would be general, so this is green."
+            },
+            {
+              "text": "Red — it is an open question",
+              "fraction": 0,
+              "feedback": "Nothing is unknown; it is a concrete illustration, so it is green."
+            },
+            {
+              "text": "Yellow — it is the story",
+              "fraction": 0,
+              "feedback": "The story is the topic; this concrete case is a green example."
+            }
+          ],
+          "generalFeedback": "Specific data (SAVE10, a $200 cart, a $180 result) makes this a green example of a blue rule like \"code SAVE10 gives 10% off the cart total.\" Concrete cases are always green.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which ceremony",
+          "text": "<p>Example Mapping is most naturally slotted into which agile activity?</p>",
+          "answers": [
+            {
+              "text": "Backlog refinement (the \"discuss\" phase for upcoming stories)",
+              "fraction": 100,
+              "feedback": "Correct — it fits the refinement/discuss activity for stories not yet built."
+            },
+            {
+              "text": "The daily stand-up",
+              "fraction": 0,
+              "feedback": "The stand-up is a brief sync; Example Mapping is a focused refinement conversation per story."
+            },
+            {
+              "text": "The sprint retrospective",
+              "fraction": 0,
+              "feedback": "The retro reflects on process; Example Mapping refines a story before it is built."
+            },
+            {
+              "text": "The release/deployment step",
+              "fraction": 0,
+              "feedback": "It happens before development, during refinement, not at release."
+            }
+          ],
+          "generalFeedback": "Example Mapping belongs in backlog refinement, where the team discusses upcoming stories before committing to them. Running it there lets the three amigos reach shared understanding and right-size the story before development.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a tax rule",
+          "text": "<p>The team states: <em>\"All displayed prices must include sales tax.\"</em> Which card colour is this?</p>",
+          "answers": [
+            {
+              "text": "Blue — it is a general rule that must always hold",
+              "fraction": 100,
+              "feedback": "Correct — a general \"must include tax\" constraint is a blue rule."
+            },
+            {
+              "text": "Green — it is a concrete example",
+              "fraction": 0,
+              "feedback": "It gives no specific price or figure; it is a general rule, so it is blue."
+            },
+            {
+              "text": "Red — it is an open question",
+              "fraction": 0,
+              "feedback": "It is a stated, agreed constraint, not an unknown; that is a blue rule."
+            },
+            {
+              "text": "Yellow — it is the story",
+              "fraction": 0,
+              "feedback": "The story is the topic; this constraint about it is a blue rule."
+            }
+          ],
+          "generalFeedback": "\"All displayed prices must include sales tax\" is a general, always-true constraint — a blue rule. A green example would name a specific price, e.g. \"a $10 item is displayed as $10.70 at a 7% rate.\"",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pick the item that is a green example",
+          "text": "<p>Four items were raised in a session. Which one belongs on a <strong>green</strong> card?</p>",
+          "answers": [
+            {
+              "text": "\"A guest with 2 items in the cart is asked to log in before paying.\"",
+              "fraction": 100,
+              "feedback": "Correct — a specific case with a concrete situation and outcome is a green example."
+            },
+            {
+              "text": "\"Guests must log in before checkout.\"",
+              "fraction": 0,
+              "feedback": "That is a general rule (blue), not a concrete case."
+            },
+            {
+              "text": "\"Can guests save a cart without logging in?\"",
+              "fraction": 0,
+              "feedback": "That is an unresolved question (red), not a concrete example."
+            },
+            {
+              "text": "\"Guest checkout\" (the topic being unpacked)",
+              "fraction": 0,
+              "feedback": "That is the story itself (yellow), not a concrete example."
+            }
+          ],
+          "generalFeedback": "Only the item stated as a specific case with concrete detail and an outcome (\"a guest with 2 items… is asked to log in\") is a green example. The general \"must log in\" is a blue rule, the \"can guests…\" is a red question, and \"Guest checkout\" is the yellow story. Concreteness marks the green example.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Read the map: many red questions",
+          "text": "<p>At the end of a session, the map has one rule, two examples, and <strong>seven red question cards</strong>. What does this most likely mean?</p>",
+          "answers": [
+            {
+              "text": "The story is not ready — there are too many unknowns; the team should get answers before committing to build it",
+              "fraction": 100,
+              "feedback": "Correct — many red cards signal a poorly understood story that should be deferred until questions are answered."
+            },
+            {
+              "text": "The story is ready to build immediately because it generated so much discussion",
+              "fraction": 0,
+              "feedback": "Many open questions mean the opposite: too much is unknown to build it safely."
+            },
+            {
+              "text": "The story is too big and must be split into several stories",
+              "fraction": 0,
+              "feedback": "Splitting is the signal for many blue rules; many reds signal unknowns, not size."
+            },
+            {
+              "text": "The examples are wrong and should be deleted",
+              "fraction": 0,
+              "feedback": "The examples are not the issue; the pile of unanswered questions is."
+            }
+          ],
+          "generalFeedback": "A large number of red question cards means the team cannot yet answer key unknowns, so the story is not ready. The right move is to defer it and go get the answers (from the PO, users, or a spike) rather than start coding into uncertainty.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read the map: many blue rules",
+          "text": "<p>A session ends with <strong>nine blue rule cards</strong>, each with a couple of green examples and almost no red questions. What does the map suggest?</p>",
+          "answers": [
+            {
+              "text": "The story is too big; consider splitting it, e.g. one story per rule (or per group of rules)",
+              "fraction": 100,
+              "feedback": "Correct — many rules indicate an oversized story that should be split."
+            },
+            {
+              "text": "The story is not ready because of too many unknowns",
+              "fraction": 0,
+              "feedback": "There are almost no red questions, so unknowns are not the problem; the many rules indicate size."
+            },
+            {
+              "text": "The story is perfectly sized and should be left exactly as is",
+              "fraction": 0,
+              "feedback": "Nine rules is a strong signal the story is too big and should be split."
+            },
+            {
+              "text": "The examples are redundant and should be removed to shrink the story",
+              "fraction": 0,
+              "feedback": "Deleting examples does not shrink scope; splitting by rule does."
+            }
+          ],
+          "generalFeedback": "Many blue rules mean the story carries a lot of behaviour — it is too big. A common remedy is to split it, often one story per rule (or per cohesive group of rules), so each resulting story is small and well understood.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read the map: balanced and ready",
+          "text": "<p>A session ends with <strong>three rules, each illustrated by a couple of examples, and no open questions</strong>. What does this map indicate?</p>",
+          "answers": [
+            {
+              "text": "The story is well understood and ready to be developed",
+              "fraction": 100,
+              "feedback": "Correct — clear rules, illustrative examples, and no open questions signal readiness."
+            },
+            {
+              "text": "The story is not ready and should be deferred",
+              "fraction": 0,
+              "feedback": "With no open questions and clear rules/examples, it is ready, not blocked."
+            },
+            {
+              "text": "The story is too big and must be split",
+              "fraction": 0,
+              "feedback": "Three well-illustrated rules is a reasonable size; there is no splitting signal here."
+            },
+            {
+              "text": "The map is invalid because a ready story must always have some red cards",
+              "fraction": 0,
+              "feedback": "A ready story typically has few or no red cards; their absence here is a good sign."
+            }
+          ],
+          "generalFeedback": "A story with a small number of clear rules, each backed by concrete examples, and few or no open questions is well understood and right-sized — the ideal outcome of a session. The team can confidently take it into development.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why examples reduce ambiguity",
+          "text": "<p>Why do concrete examples reduce ambiguity better than abstract rules stated alone?</p>",
+          "answers": [
+            {
+              "text": "A concrete case forces specific data and an exact outcome, exposing hidden assumptions and disagreements that a general wording can gloss over",
+              "fraction": 100,
+              "feedback": "Correct — pinning down specifics surfaces misunderstandings a vague rule hides."
+            },
+            {
+              "text": "Examples are shorter to write than rules, so there is less text to misread",
+              "fraction": 0,
+              "feedback": "It is not about length; it is that concreteness forces agreement on specifics."
+            },
+            {
+              "text": "Examples remove the need to state any rules at all",
+              "fraction": 0,
+              "feedback": "Rules are still needed; examples make them precise, they do not replace them."
+            },
+            {
+              "text": "Examples are automatically executable, so no discussion is required",
+              "fraction": 0,
+              "feedback": "The value is in the conversation the concreteness triggers, not in skipping discussion."
+            }
+          ],
+          "generalFeedback": "An abstract rule (\"apply the discount\") can be read differently by each person. A concrete example (\"$100 with a 10% coupon → $90\") forces everyone to agree on exact inputs and the exact result, which quickly reveals hidden assumptions and disagreements. That is why examples anchor shared understanding.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rule versus example: pick the rule",
+          "text": "<p>Two cards are on the table. Which one is the <strong>rule</strong> (blue), as opposed to the example (green)?</p><p>A: \"Refunds are allowed within 30 days of purchase.\"</p><p>B: \"An item bought on March 1 and returned on March 20 is refunded.\"</p>",
+          "answers": [
+            {
+              "text": "A — it is the general constraint; B is a concrete instance of it",
+              "fraction": 100,
+              "feedback": "Correct — A states a general rule; B is a specific example illustrating it."
+            },
+            {
+              "text": "B — because it mentions specific dates, it must be the rule",
+              "fraction": 0,
+              "feedback": "Specific dates make B the concrete example (green); the general statement A is the rule."
+            },
+            {
+              "text": "Both are rules",
+              "fraction": 0,
+              "feedback": "Only A is general; B is a concrete case, so B is an example, not a rule."
+            },
+            {
+              "text": "Both are examples",
+              "fraction": 0,
+              "feedback": "Only B is concrete; A is a general constraint, so A is the rule."
+            }
+          ],
+          "generalFeedback": "A rule is general (\"within 30 days\"); an example is a specific instance with concrete values (\"March 1 to March 20\"). A is therefore the blue rule and B is a green example of it. The presence of specific data is the tell-tale sign of an example.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A question that hides a new rule",
+          "text": "<p>The red card \"What happens if two coupons are used on one order?\" is answered by the PO as \"only one coupon may be applied per order.\" What should happen on the map?</p>",
+          "answers": [
+            {
+              "text": "The answer becomes a new blue rule (with green examples), and the red card can be removed — the question hid a rule",
+              "fraction": 100,
+              "feedback": "Correct — resolving the question reveals a genuine new rule, which becomes a blue card."
+            },
+            {
+              "text": "The red card should simply be deleted with nothing added",
+              "fraction": 0,
+              "feedback": "The answer is a real constraint; it must be captured as a blue rule, not discarded."
+            },
+            {
+              "text": "The answer becomes a new yellow story card",
+              "fraction": 0,
+              "feedback": "A one-coupon-per-order constraint is a rule (blue), not a new story (yellow)."
+            },
+            {
+              "text": "Nothing changes; questions never turn into rules",
+              "fraction": 0,
+              "feedback": "Answering a question often reveals a rule — exactly what happens here."
+            }
+          ],
+          "generalFeedback": "Some red questions, once answered, expose a rule the team had not written down. \"Only one coupon per order\" is a new blue rule; you would add it (and illustrative green examples) and retire the red card. This is a common and valuable outcome — a question that hides a whole new rule.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Relation to BDD scenarios",
+          "text": "<p>How does the output of Example Mapping connect to BDD?</p>",
+          "answers": [
+            {
+              "text": "The green examples translate directly into Gherkin Given-When-Then scenarios, so the map seeds the BDD specification",
+              "fraction": 100,
+              "feedback": "Correct — concrete examples become the GWT scenarios of the BDD suite."
+            },
+            {
+              "text": "The blue rules become the step-definition glue code and the examples are discarded",
+              "fraction": 0,
+              "feedback": "Examples are not discarded; they become the scenarios, while rules give them structure."
+            },
+            {
+              "text": "The red questions become the passing scenarios",
+              "fraction": 0,
+              "feedback": "Open questions are unresolved; it is the concrete green examples that become scenarios."
+            },
+            {
+              "text": "There is no connection; Example Mapping and BDD are unrelated",
+              "fraction": 0,
+              "feedback": "They are closely linked: green examples feed directly into BDD scenarios."
+            }
+          ],
+          "generalFeedback": "Example Mapping and BDD dovetail: each green example is a concrete case with inputs and an outcome, which maps straight onto a Given-When-Then scenario. The map thus produces the examples that become executable specifications, while the blue rules organise them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Right-sizing by splitting on rules",
+          "text": "<p>A story maps to many blue rules and the team decides to split it. What is a common, sensible way to split?</p>",
+          "answers": [
+            {
+              "text": "Create smaller stories along rule boundaries, e.g. roughly one story per rule (or per cohesive group of rules)",
+              "fraction": 100,
+              "feedback": "Correct — splitting along the rules yields smaller, independently understandable stories."
+            },
+            {
+              "text": "Split by giving each developer a share of the same story",
+              "fraction": 0,
+              "feedback": "Splitting is about scope, not dividing one story among people; split along the rules."
+            },
+            {
+              "text": "Split by moving half the green examples to a new story while keeping all rules in the original",
+              "fraction": 0,
+              "feedback": "Examples follow their rules; you split by rule, carrying each rule's examples with it."
+            },
+            {
+              "text": "Split by turning each red question into its own story",
+              "fraction": 0,
+              "feedback": "Questions are unknowns to resolve, not the basis for splitting an oversized story."
+            }
+          ],
+          "generalFeedback": "When many rules signal an oversized story, the natural seams are the rules themselves. Splitting into roughly one story per rule (or per cohesive group) produces smaller stories, each with its own rule and the green examples that illustrate it — easier to understand, estimate, and deliver.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subtle classification: shipping rule vs case",
+          "text": "<p>Which of these is a <strong>green example</strong> rather than a blue rule?</p>",
+          "answers": [
+            {
+              "text": "\"A cart totalling $60 is charged $0 for shipping.\"",
+              "fraction": 100,
+              "feedback": "Correct — a specific cart value and a concrete shipping charge make this a green example."
+            },
+            {
+              "text": "\"Orders of $50 or more ship free.\"",
+              "fraction": 0,
+              "feedback": "That is the general rule (blue); the concrete $60 case is the green example."
+            },
+            {
+              "text": "\"Shipping is always calculated before tax.\"",
+              "fraction": 0,
+              "feedback": "That is a general ordering constraint — a blue rule, not a concrete example."
+            },
+            {
+              "text": "\"Free shipping applies only to physical goods.\"",
+              "fraction": 0,
+              "feedback": "That is a general constraint (blue rule), not a specific case with data."
+            }
+          ],
+          "generalFeedback": "The green example is the one stated in concrete terms with specific data and outcome (\"$60 → $0 shipping\"). The others are general statements that hold across many cases, which makes them blue rules. Concreteness is what distinguishes an example from a rule.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read the map: one rule, several examples, no questions",
+          "text": "<p>A map has a single clear rule, four concrete examples illustrating it, and no red cards. What is the best interpretation?</p>",
+          "answers": [
+            {
+              "text": "The story is small, well understood, and ready to build",
+              "fraction": 100,
+              "feedback": "Correct — a single well-illustrated rule with no open questions is ready and right-sized."
+            },
+            {
+              "text": "The story is too big and must be split into four stories, one per example",
+              "fraction": 0,
+              "feedback": "Examples do not drive splitting; one rule with examples is a small, ready story."
+            },
+            {
+              "text": "The story is not ready because four examples is too many",
+              "fraction": 0,
+              "feedback": "Multiple examples of one rule is healthy; with no open questions the story is ready."
+            },
+            {
+              "text": "The examples should be deleted because a single rule needs no illustration",
+              "fraction": 0,
+              "feedback": "Illustrating a rule with concrete examples is exactly the point; they should stay."
+            }
+          ],
+          "generalFeedback": "One clear rule, well illustrated by several concrete examples, with no unresolved questions, is a small and thoroughly understood story — ready to develop. Multiple examples per rule is a good sign, not a splitting trigger; splitting is driven by many rules, not many examples.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Action for a not-ready story",
+          "text": "<p>A story's map is dominated by red question cards. What is the most appropriate next action?</p>",
+          "answers": [
+            {
+              "text": "Defer the story, assign owners to get the questions answered, and re-map it once the unknowns are resolved",
+              "fraction": 100,
+              "feedback": "Correct — resolve the unknowns first, then bring the story back."
+            },
+            {
+              "text": "Pull it into the sprint anyway and resolve the questions during coding",
+              "fraction": 0,
+              "feedback": "Building into many unknowns risks rework; answer the questions first."
+            },
+            {
+              "text": "Delete the red cards so the map looks ready",
+              "fraction": 0,
+              "feedback": "Hiding the questions does not resolve them; the story is still not understood."
+            },
+            {
+              "text": "Split the story into one story per red question",
+              "fraction": 0,
+              "feedback": "Questions are unknowns to answer, not a basis for splitting; splitting is for many rules."
+            }
+          ],
+          "generalFeedback": "Many red cards mean the story is not ready. The right response is to defer it, get someone to answer the open questions (talk to the PO/users, run a spike), and then re-run the mapping. Forcing it into development invites significant rework.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Benefit of surfacing questions early",
+          "text": "<p>Why is surfacing red questions during refinement (rather than mid-development) valuable?</p>",
+          "answers": [
+            {
+              "text": "Unknowns are found while they are cheap to resolve, avoiding mid-sprint blockers and rework once code is being written",
+              "fraction": 100,
+              "feedback": "Correct — early discovery of unknowns is far cheaper than discovering them during coding."
+            },
+            {
+              "text": "It guarantees the story will need no tests later",
+              "fraction": 0,
+              "feedback": "Tests are still needed; early questions reduce rework, they do not remove testing."
+            },
+            {
+              "text": "It lets the team skip talking to the product owner entirely",
+              "fraction": 0,
+              "feedback": "Often the questions are answered by the PO; the point is to raise them early, not avoid them."
+            },
+            {
+              "text": "It makes the story automatically larger and more valuable",
+              "fraction": 0,
+              "feedback": "The benefit is cheaper, earlier clarity — not inflating the story."
+            }
+          ],
+          "generalFeedback": "Finding unknowns during refinement means they can be answered before anyone writes code, when changing direction is cheap. Discovering the same gaps mid-development causes blocked work, context-switching, and rework. Early questions are one of the biggest payoffs of Example Mapping.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subtle classification: general vs instance",
+          "text": "<p>Consider: \"Premium members get free returns.\" and \"Alice, a premium member, returns a jacket at no cost.\" Which classification is correct?</p>",
+          "answers": [
+            {
+              "text": "The first is a rule (blue); the second is an example (green) of that rule",
+              "fraction": 100,
+              "feedback": "Correct — the general policy is the rule; the named, concrete case is the example."
+            },
+            {
+              "text": "The first is an example (green); the second is a rule (blue)",
+              "fraction": 0,
+              "feedback": "Reversed: the general policy is the rule, and the concrete \"Alice…\" case is the example."
+            },
+            {
+              "text": "Both are rules (blue)",
+              "fraction": 0,
+              "feedback": "The second names a specific person and outcome, making it a concrete example, not a rule."
+            },
+            {
+              "text": "Both are examples (green)",
+              "fraction": 0,
+              "feedback": "The first is a general policy with no specific case, so it is a rule, not an example."
+            }
+          ],
+          "generalFeedback": "\"Premium members get free returns\" is a general policy — a blue rule. \"Alice, a premium member, returns a jacket at no cost\" is one concrete instance of that policy with a specific actor and outcome — a green example. The general/specific distinction is what separates rule from example.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Effect of answering a question on scope",
+          "text": "<p>Answering several red questions turns each into a new blue rule, so the map now has many rules. What has this revealed about the story?</p>",
+          "answers": [
+            {
+              "text": "The story was hiding more behaviour than it appeared; now that the rules are visible it is likely too big and a candidate for splitting",
+              "fraction": 100,
+              "feedback": "Correct — resolving questions exposed extra rules, revealing the story is larger than it looked."
+            },
+            {
+              "text": "The story has become smaller and simpler",
+              "fraction": 0,
+              "feedback": "More rules mean more behaviour, not less; the story looks bigger, not smaller."
+            },
+            {
+              "text": "Nothing about the size has changed; rule count is irrelevant to sizing",
+              "fraction": 0,
+              "feedback": "Rule count is a key sizing signal; many rules point to an oversized story."
+            },
+            {
+              "text": "The story is now guaranteed ready to build with no further thought",
+              "fraction": 0,
+              "feedback": "A newly large rule set suggests splitting first, not that it is automatically ready."
+            }
+          ],
+          "generalFeedback": "Questions can conceal rules. When answering them produces many new blue rules, the true size of the story becomes visible — it holds more behaviour than first thought. That growing rule count is the classic signal to consider splitting it into smaller, well-understood stories.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Few questions plus clear rules means ready",
+          "text": "<p>A story with clear rules, each illustrated by concrete examples, and few or no open questions is generally considered ready for development.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — clear rules, illustrative examples, and few/no questions is the readiness signal."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "That combination is exactly the sign of a well-understood, ready story, so the statement is true."
+            }
+          ],
+          "generalFeedback": "Reading the map: many red questions means not ready; many blue rules means too big; but clear rules backed by concrete examples with few or no open questions means the story is well understood and ready to build. This balanced shape is the goal of a session."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是範例對照",
+          "text": "<p>什麼是<strong>範例對照（Example Mapping）</strong>？</p>",
+          "answers": [
+            {
+              "text": "一種在開發前快速拆解使用者故事的協作技術，用不同顏色的索引卡代表故事、規則、具體範例與未解問題",
+              "fraction": 100,
+              "feedback": "正確——範例對照是一場以卡片為主的快速對話，在開始撰寫程式前先拆解一個故事。"
+            },
+            {
+              "text": "一個能從 UML 圖自動產生測試腳本的工具",
+              "fraction": 0,
+              "feedback": "範例對照是人與人之間以索引卡進行的對話，而非產生程式或腳本的工具。"
+            },
+            {
+              "text": "一種量測每個函式執行速度的效能剖析方法",
+              "fraction": 0,
+              "feedback": "那是效能剖析；範例對照是用來理解故事的精煉技術。"
+            },
+            {
+              "text": "一個把程式發佈到正式環境的部署管線階段",
+              "fraction": 0,
+              "feedback": "範例對照發生在開發前的精煉階段，而非部署時。"
+            }
+          ],
+          "generalFeedback": "範例對照（由 Matt Wynne 提出）是在待辦精煉（backlog refinement）期間進行的簡單、有時間盒的對話。團隊取一個使用者故事，用四種顏色的索引卡梳理出商業規則、illustrate 這些規則的具體範例，以及任何未解的問題。它在撰寫程式前建立共同理解。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "黃色卡的意義",
+          "text": "<p>在範例對照中，<strong>黃色</strong>卡代表什麼？</p>",
+          "answers": [
+            {
+              "text": "故事——正在討論的主題，每場只有一張",
+              "fraction": 100,
+              "feedback": "正確——黃色卡是正被拆解的使用者故事，每場只有一張。"
+            },
+            {
+              "text": "故事必須滿足的一條商業規則",
+              "fraction": 0,
+              "feedback": "規則是藍色卡；黃色卡是故事本身。"
+            },
+            {
+              "text": "illustrate 某條規則的具體範例",
+              "fraction": 0,
+              "feedback": "具體範例是綠色卡；黃色卡是故事。"
+            },
+            {
+              "text": "團隊目前還無法回答的未解問題",
+              "fraction": 0,
+              "feedback": "未解問題是紅色卡；黃色卡是故事。"
+            }
+          ],
+          "generalFeedback": "黃色卡標示故事（正在討論的主題）。一場對話聚焦於單一黃色卡，而藍色規則、綠色範例與紅色問題都是相對於這張卡擺放的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "藍色卡的意義",
+          "text": "<p>在範例對照中，<strong>藍色</strong>卡代表什麼？</p>",
+          "answers": [
+            {
+              "text": "規則——一條驗收準則、商業規則，或必須成立的限制",
+              "fraction": 100,
+              "feedback": "正確——藍色卡記錄故事的規則／驗收準則。"
+            },
+            {
+              "text": "正在討論的故事",
+              "fraction": 0,
+              "feedback": "故事是黃色卡；藍色卡記錄規則。"
+            },
+            {
+              "text": "帶有具體資料與結果的具體範例",
+              "fraction": 0,
+              "feedback": "具體範例是綠色卡；藍色卡是它們所 illustrate 的一般規則。"
+            },
+            {
+              "text": "團隊此刻無法回答的事情",
+              "fraction": 0,
+              "feedback": "未解事項是紅色問題卡；藍色卡是必須成立的規則。"
+            }
+          ],
+          "generalFeedback": "藍色卡承載規則：故事必須滿足的驗收準則、商業規則與限制。每條藍色規則都是一般性陳述，接著由綠色範例卡以具體案例加以 illustrate。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "綠色卡的意義",
+          "text": "<p>在範例對照中，<strong>綠色</strong>卡代表什麼？</p>",
+          "answers": [
+            {
+              "text": "範例——某條規則的具體 illustrate，一個帶有具體資料與結果的特定案例",
+              "fraction": 100,
+              "feedback": "正確——綠色卡是 illustrate 某條藍色規則的具體範例。"
+            },
+            {
+              "text": "一般性的商業規則或驗收準則",
+              "fraction": 0,
+              "feedback": "一般性規則是藍色；綠色是某條規則的具體案例。"
+            },
+            {
+              "text": "正在討論的故事",
+              "fraction": 0,
+              "feedback": "故事是黃色卡；綠色是具體範例。"
+            },
+            {
+              "text": "團隊之後必須解決的未解事項",
+              "fraction": 0,
+              "feedback": "未解事項是紅色問題卡；綠色是某條規則的具體 illustrate。"
+            }
+          ],
+          "generalFeedback": "綠色卡給出具體範例：一個帶有真實資料與預期結果、用來 illustrate 某條藍色規則的特定案例。由於它們是具體的，綠色範例之後會餵入 BDD/ATDD 情境（每個範例對應一個 Given-When-Then 案例）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "紅色卡的意義",
+          "text": "<p>在範例對照中，<strong>紅色</strong>卡代表什麼？</p>",
+          "answers": [
+            {
+              "text": "問題——團隊此刻無法回答的未解事項（一項假設、需要決策的邊界情況，或一項相依）",
+              "fraction": 100,
+              "feedback": "正確——紅色卡記錄對話中浮現的未解問題與未知事項。"
+            },
+            {
+              "text": "故事必須滿足的一條商業規則",
+              "fraction": 0,
+              "feedback": "規則是藍色；紅色記錄團隊尚無法回答的事情。"
+            },
+            {
+              "text": "illustrate 某條規則的具體範例",
+              "fraction": 0,
+              "feedback": "具體範例是綠色；紅色是未解問題。"
+            },
+            {
+              "text": "正在討論的故事",
+              "fraction": 0,
+              "feedback": "故事是黃色；紅色是需要決策的未解事項。"
+            }
+          ],
+          "generalFeedback": "紅色卡記錄問題：對話中團隊無法回答的事情——假設、需要決策的邊界情況，或外部相依。把它們暫存在紅色卡上能讓對話持續推進，同時讓未知事項清楚可見。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何時進行範例對照",
+          "text": "<p>範例對照通常在工作流程的哪個時點進行？</p>",
+          "answers": [
+            {
+              "text": "在待辦精煉期間，於該故事開始開發之前",
+              "fraction": 100,
+              "feedback": "正確——它是精煉／討論階段的活動，發生在撰寫程式之前。"
+            },
+            {
+              "text": "在故事已經完成撰寫程式之後，作為撰寫發佈說明的方式",
+              "fraction": 0,
+              "feedback": "範例對照在開發前進行，而非撰寫程式之後。"
+            },
+            {
+              "text": "在正式環境事故處理期間",
+              "fraction": 0,
+              "feedback": "它是開發前的精煉技術，而非事故處理工具。"
+            },
+            {
+              "text": "只在專案最末期、最終驗收時進行",
+              "fraction": 0,
+              "feedback": "它是在每個故事被建置前的精煉階段逐一使用的。"
+            }
+          ],
+          "generalFeedback": "範例對照在待辦精煉的「討論」階段進行，於故事開始開發之前。它的整個目的是及早達成共同理解，讓團隊帶著清楚的規則、illustrate 的範例與已知的問題進入開發。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "誰參與",
+          "text": "<p>誰通常會參與一場範例對照？</p>",
+          "answers": [
+            {
+              "text": "「三劍客（three amigos）」——分別代表商業／產品觀點、一位開發者，以及一位測試者",
+              "fraction": 100,
+              "feedback": "正確——三劍客把商業、開發與測試三種觀點聚在一起。"
+            },
+            {
+              "text": "只有產品負責人，獨自進行",
+              "fraction": 0,
+              "feedback": "這是一場協作對話；單一個人無法代表全部三種觀點。"
+            },
+            {
+              "text": "只有終端使用者，沒有任何團隊成員在場",
+              "fraction": 0,
+              "feedback": "對話由交付團隊的三劍客進行，而非只有終端使用者。"
+            },
+            {
+              "text": "只有維運／部署團隊",
+              "fraction": 0,
+              "feedback": "範例對照是三劍客之間的精煉對話，而非維運活動。"
+            }
+          ],
+          "generalFeedback": "範例對照是「三劍客」之間的對話：具備商業／產品觀點的人（例如產品負責人）、一位開發者，以及一位測試者。每個人帶來不同觀點，正是這一點讓單一角色會遺漏的規則、範例與問題得以浮現。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一場對話持續多久",
+          "text": "<p>一場範例對照預計花多久時間？</p>",
+          "answers": [
+            {
+              "text": "一個短的時間盒，每個故事大約 25 分鐘",
+              "fraction": 100,
+              "feedback": "正確——它刻意求快，大約 25 分鐘，以保持對話聚焦。"
+            },
+            {
+              "text": "每個故事一整個工作天",
+              "fraction": 0,
+              "feedback": "它刻意很短（約 25 分鐘），而非長達一天的會議。"
+            },
+            {
+              "text": "沒有時間限制的開放式討論",
+              "fraction": 0,
+              "feedback": "它有時間盒；超時通常代表故事還沒被充分理解。"
+            },
+            {
+              "text": "恰好一個兩週的衝刺",
+              "fraction": 0,
+              "feedback": "一場對話是約 25 分鐘的簡短對話，而非整個衝刺。"
+            }
+          ],
+          "generalFeedback": "範例對照的時間盒大約是每個故事 25 分鐘。短時間盒讓對話保持聚焦；如果一個故事無法在這段時間內完成對照，這本身就是它太大或理解不足的有用訊號。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "每場有幾張黃色故事卡",
+          "text": "<p>在單一場範例對照中，桌上有幾張<strong>黃色（故事）</strong>卡？</p>",
+          "answers": [
+            {
+              "text": "一張——該場聚焦於單一故事",
+              "fraction": 100,
+              "feedback": "正確——每場一張黃色卡；其餘一切都相對於那一個故事。"
+            },
+            {
+              "text": "每條規則一張，因此有數張黃色卡",
+              "fraction": 0,
+              "feedback": "規則是藍色卡；每場只有一張黃色故事卡。"
+            },
+            {
+              "text": "每位參與者一張",
+              "fraction": 0,
+              "feedback": "黃色卡的數量與參與者無關；恰好有一個故事。"
+            },
+            {
+              "text": "與整個待辦清單所含的一樣多",
+              "fraction": 0,
+              "feedback": "一場對話一次只對照一個故事，因此只有單一張黃色卡。"
+            }
+          ],
+          "generalFeedback": "每場對話只拆解一個故事，因此只有單一張黃色卡。藍色規則、綠色範例與紅色問題都圍繞著那一個故事擺放。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個顏色是規則",
+          "text": "<p>哪個卡片顏色用來表示<strong>商業規則／驗收準則</strong>？</p>",
+          "answers": [
+            {
+              "text": "藍色",
+              "fraction": 100,
+              "feedback": "正確——藍色卡就是規則。"
+            },
+            {
+              "text": "綠色",
+              "fraction": 0,
+              "feedback": "綠色用於具體範例，而非規則。"
+            },
+            {
+              "text": "紅色",
+              "fraction": 0,
+              "feedback": "紅色用於未解問題，而非規則。"
+            },
+            {
+              "text": "黃色",
+              "fraction": 0,
+              "feedback": "黃色是故事本身，而非規則。"
+            }
+          ],
+          "generalFeedback": "四種顏色對應為：黃色＝故事、藍色＝規則、綠色＝範例、紅色＝問題。因此商業規則或驗收準則是藍色卡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個顏色是具體範例",
+          "text": "<p>哪個卡片顏色用來表示<strong>具體範例</strong>（帶有真實資料的特定案例）？</p>",
+          "answers": [
+            {
+              "text": "綠色",
+              "fraction": 100,
+              "feedback": "正確——綠色卡就是具體範例。"
+            },
+            {
+              "text": "藍色",
+              "fraction": 0,
+              "feedback": "藍色用於一般性規則；具體案例是綠色。"
+            },
+            {
+              "text": "紅色",
+              "fraction": 0,
+              "feedback": "紅色用於未解問題，而非具體範例。"
+            },
+            {
+              "text": "黃色",
+              "fraction": 0,
+              "feedback": "黃色是故事，而非具體範例。"
+            }
+          ],
+          "generalFeedback": "綠色卡承載具體範例——帶有真實資料與預期結果、用來 illustrate 某條藍色規則的特定案例。請記住：黃色＝故事、藍色＝規則、綠色＝範例、紅色＝問題。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個顏色是未解問題",
+          "text": "<p>哪個卡片顏色用來表示團隊此刻無法回答的<strong>未解問題／未知事項</strong>？</p>",
+          "answers": [
+            {
+              "text": "紅色",
+              "fraction": 100,
+              "feedback": "正確——紅色卡記錄未解問題與未知事項。"
+            },
+            {
+              "text": "綠色",
+              "fraction": 0,
+              "feedback": "綠色用於具體範例，而非問題。"
+            },
+            {
+              "text": "藍色",
+              "fraction": 0,
+              "feedback": "藍色用於規則，而非未解問題。"
+            },
+            {
+              "text": "黃色",
+              "fraction": 0,
+              "feedback": "黃色是故事，而非未解問題。"
+            }
+          ],
+          "generalFeedback": "紅色卡用於問題：未知事項、假設、需要決策的邊界情況，或相依。口訣是黃色＝故事、藍色＝規則、綠色＝範例、紅色＝問題。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "綠色 illustrate 一條規則",
+          "text": "<p>綠色卡是一個 illustrate 某條（藍色）規則的具體範例。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——綠色範例讓藍色規則變得具體。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "綠色卡是 illustrate 藍色規則的具體範例，因此此敘述為真。"
+            }
+          ],
+          "generalFeedback": "規則（藍色）是一般性陳述；範例（綠色）以具體特定案例 illustrate 它們。每個綠色範例都坐落在它所示範的藍色規則之下。"
+        },
+        {
+          "type": "multichoice",
+          "name": "四種卡片顏色",
+          "text": "<p>哪一組正確列出四種範例對照卡片顏色以及各自代表的意義？</p>",
+          "answers": [
+            {
+              "text": "黃色＝故事、藍色＝規則、綠色＝範例、紅色＝問題",
+              "fraction": 100,
+              "feedback": "正確——這就是標準的範例對照配色方案。"
+            },
+            {
+              "text": "黃色＝規則、藍色＝故事、綠色＝問題、紅色＝範例",
+              "fraction": 0,
+              "feedback": "顏色顛倒了：故事是黃色、規則是藍色、範例是綠色、問題是紅色。"
+            },
+            {
+              "text": "黃色＝問題、藍色＝範例、綠色＝規則、紅色＝故事",
+              "fraction": 0,
+              "feedback": "四者皆錯；正確方案是黃色故事、藍色規則、綠色範例、紅色問題。"
+            },
+            {
+              "text": "黃色＝範例、藍色＝問題、綠色＝故事、紅色＝規則",
+              "fraction": 0,
+              "feedback": "這些被打亂了；正確方案是黃色故事、藍色規則、綠色範例、紅色問題。"
+            }
+          ],
+          "generalFeedback": "四種顏色是固定的：黃色代表故事（每場一張）、藍色代表規則（驗收準則／限制）、綠色代表具體範例、紅色代表未解問題。熟悉這個方案是讀懂一張對照圖的基礎。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "對照在開發之前進行",
+          "text": "<p>範例對照在故事開始開發之前進行，屬於精煉的一部分。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——它是先於撰寫程式的精煉活動。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "它發生在精煉期間、開發之前，因此此敘述為真。"
+            }
+          ],
+          "generalFeedback": "範例對照是「討論」階段的精煉技術。在開發前進行代表團隊會及早浮現規則、範例與問題，讓撰寫程式從共同理解出發，而非從猜測開始。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "分類一條商業規則",
+          "text": "<p>對話中有人說：<em>「金額超過 $50 的訂單可享免運。」</em>這屬於哪個卡片顏色？</p>",
+          "answers": [
+            {
+              "text": "藍色——它是一般性的商業規則／驗收準則",
+              "fraction": 100,
+              "feedback": "正確——一條一般性的「超過 $50…」限制是規則，因此是藍色。"
+            },
+            {
+              "text": "綠色——它是一個具體範例",
+              "fraction": 0,
+              "feedback": "它沒有特定的訂單金額或結果；它是一般性規則（藍色），而非具體範例。"
+            },
+            {
+              "text": "紅色——它是一個未解問題",
+              "fraction": 0,
+              "feedback": "這裡沒有任何未知；它是一條已陳述的規則，因此是藍色。"
+            },
+            {
+              "text": "黃色——它是故事",
+              "fraction": 0,
+              "feedback": "故事是正在討論的主題；這是關於它的一條規則，因此是藍色。"
+            }
+          ],
+          "generalFeedback": "「金額超過 $50 的訂單可享免運」是一條必須成立的一般性限制——一條驗收準則。一般性規則是藍色卡。而一筆具體訂單（「一筆 $60 訂單免運」）則會是這條規則的綠色範例。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類一個具體案例",
+          "text": "<p>有人說：<em>「一筆 $100 的訂單搭配 10% 折價券，付 $90。」</em>這屬於哪個卡片顏色？</p>",
+          "answers": [
+            {
+              "text": "綠色——它是一個帶有具體資料與結果的具體範例",
+              "fraction": 100,
+              "feedback": "正確——具體的數字與最終金額使它成為一個具體範例。"
+            },
+            {
+              "text": "藍色——它是一般性規則",
+              "fraction": 0,
+              "feedback": "它用到特定數值（$100、10%、$90）；一般性規則不會列出具體數字。"
+            },
+            {
+              "text": "紅色——它是一個未解問題",
+              "fraction": 0,
+              "feedback": "這裡沒有任何未知；它是一個具體 illustrate，因此是綠色。"
+            },
+            {
+              "text": "黃色——它是故事",
+              "fraction": 0,
+              "feedback": "故事是主題；這是某條規則的具體範例，因此是綠色。"
+            }
+          ],
+          "generalFeedback": "具體資料（$100、10%、$90）與特定結果使它成為綠色範例。它 illustrate 一條底層藍色規則，例如「百分比折價券依該百分比降低訂單總額」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類一個未知",
+          "text": "<p>有人問：<em>「如果折價券過期了會怎樣？」</em>這屬於哪個卡片顏色？</p>",
+          "answers": [
+            {
+              "text": "紅色——它是團隊尚無法回答的未解問題",
+              "fraction": 100,
+              "feedback": "正確——一個未解決的「會怎樣…」是問題，因此是紅色。"
+            },
+            {
+              "text": "藍色——它是一條規則",
+              "fraction": 0,
+              "feedback": "它不是已陳述的規則；它是待決策的未知，因此是紅色。"
+            },
+            {
+              "text": "綠色——它是一個具體範例",
+              "fraction": 0,
+              "feedback": "它沒有陳述具體案例或結果；它是一個未解問題（紅色）。"
+            },
+            {
+              "text": "黃色——它是故事",
+              "fraction": 0,
+              "feedback": "故事是主題；一個未解決的邊界情況是紅色問題。"
+            }
+          ],
+          "generalFeedback": "「如果折價券過期了會怎樣？」是團隊在對話中無法回答的未知邊界情況，因此放在紅色卡上。一旦回答，它可能轉變成一條新的藍色規則與若干綠色範例。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類故事標題",
+          "text": "<p>正在拆解的主題是<em>「在結帳時套用折價券」</em>。這屬於哪個卡片顏色？</p>",
+          "answers": [
+            {
+              "text": "黃色——它是故事，是正在討論的主題",
+              "fraction": 100,
+              "feedback": "正確——正被對照的整體主題就是黃色故事卡。"
+            },
+            {
+              "text": "藍色——它是一條規則",
+              "fraction": 0,
+              "feedback": "它指的是整個故事，而非單一限制；故事是黃色。"
+            },
+            {
+              "text": "綠色——它是一個具體範例",
+              "fraction": 0,
+              "feedback": "它是主題，而非帶有資料的特定案例；故事是黃色。"
+            },
+            {
+              "text": "紅色——它是一個未解問題",
+              "fraction": 0,
+              "feedback": "它是正在討論的故事，而非未知；故事是黃色。"
+            }
+          ],
+          "generalFeedback": "正被拆解之物的標題就是故事本身，也就是該場唯一的黃色卡。它的規則（藍色）、範例（綠色）與問題（紅色）都圍繞著它擺放。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "範例與規則的關係",
+          "text": "<p>在對照圖上，綠色範例卡與藍色規則卡之間有什麼關係？</p>",
+          "answers": [
+            {
+              "text": "每個綠色範例以一個具體案例 illustrate 某條藍色規則，因此範例坐落在它所示範的規則之下",
+              "fraction": 100,
+              "feedback": "正確——範例讓規則變得具體；它們掛在所 illustrate 的規則下方。"
+            },
+            {
+              "text": "綠色範例取代藍色規則，因此有範例的規則可以丟棄",
+              "fraction": 0,
+              "feedback": "範例不會取代規則；它們 illustrate 規則，且兩者都留在對照圖上。"
+            },
+            {
+              "text": "綠色範例與規則無關，是隨機擺放的",
+              "fraction": 0,
+              "feedback": "每個範例都 illustrate 某條特定規則；它們是刻意分組的，而非隨機。"
+            },
+            {
+              "text": "綠色範例定義故事，而藍色規則定義問題",
+              "fraction": 0,
+              "feedback": "故事是黃色、問題是紅色；綠色範例 illustrate 藍色規則。"
+            }
+          ],
+          "generalFeedback": "規則是一般性陳述；範例是展示規則實際運作的具體案例。在對照圖上，綠色範例擺在它所 illustrate 的藍色規則之下，因此你可以看到每條規則都有具體案例支撐。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "綠色範例餵入 BDD",
+          "text": "<p>當團隊進入 BDD/ATDD 時，綠色範例卡通常會變成什麼？</p>",
+          "answers": [
+            {
+              "text": "Given-When-Then 情境——每個具體範例對應到一個 Gherkin 情境",
+              "fraction": 100,
+              "feedback": "正確——綠色範例是具體案例，能自然轉譯成 GWT 情境。"
+            },
+            {
+              "text": "待辦清單中的新使用者故事",
+              "fraction": 0,
+              "feedback": "範例會變成情境；反倒是規則可能暗示拆分成故事。"
+            },
+            {
+              "text": "額外的紅色問題卡",
+              "fraction": 0,
+              "feedback": "範例是具體且已解決的；它們餵入情境，而非新的問題。"
+            },
+            {
+              "text": "效能基準測試",
+              "fraction": 0,
+              "feedback": "綠色範例描述功能行為並變成 GWT 情境，而非基準測試。"
+            }
+          ],
+          "generalFeedback": "由於綠色卡是具體的（特定輸入與預期結果），每一張都能乾淨地對應到 BDD/ATDD 中的一個 Given-When-Then 情境。因此範例對照對話會產出可執行規格的原料。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "誰與何時合併",
+          "text": "<p>哪個敘述最能描述<strong>誰</strong>進行範例對照以及<strong>何時</strong>進行？</p>",
+          "answers": [
+            {
+              "text": "三劍客（商業、開發者、測試者）在精煉期間、故事開發之前進行",
+              "fraction": 100,
+              "feedback": "正確——三劍客，在精煉階段，於撰寫程式之前。"
+            },
+            {
+              "text": "只有開發者，在衝刺結束的回顧會議上進行",
+              "fraction": 0,
+              "feedback": "它涉及全部三劍客，且發生在開發前的精煉，而非回顧會議。"
+            },
+            {
+              "text": "只有產品負責人，在故事發佈後進行",
+              "fraction": 0,
+              "feedback": "它是協作且先於開發的，而非發佈後獨自進行的活動。"
+            },
+            {
+              "text": "維運團隊在部署期間進行",
+              "fraction": 0,
+              "feedback": "三劍客在開發前的精煉階段進行；維運不是它的對象。"
+            }
+          ],
+          "generalFeedback": "範例對照在待辦精煉期間、開發之前，把三劍客——具備商業／產品觀點的人、一位開發者、一位測試者——聚在一起。這種觀點的組合及早施用，正是浮現規則、範例與問題的關鍵。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類一個範圍問題",
+          "text": "<p>有人問：<em>「我們該同時支援百分比與固定金額兩種折價券嗎？」</em>這屬於哪個卡片顏色？</p>",
+          "answers": [
+            {
+              "text": "紅色——它是一個關於範圍的未解問題",
+              "fraction": 100,
+              "feedback": "正確——一個未回答的範圍問題是紅色卡。"
+            },
+            {
+              "text": "藍色——它是一條規則",
+              "fraction": 0,
+              "feedback": "它還不是已決定的規則；它是等待決策的問題，因此是紅色。"
+            },
+            {
+              "text": "綠色——它是一個具體範例",
+              "fraction": 0,
+              "feedback": "它沒有陳述具體案例；它是未解問題，因此是紅色。"
+            },
+            {
+              "text": "黃色——它是故事",
+              "fraction": 0,
+              "feedback": "故事是主題；這是關於它的未知，因此是紅色。"
+            }
+          ],
+          "generalFeedback": "一個團隊尚未決定的「我們該不該支援…」是未解問題——紅色卡。一旦回答，該決策可能變成一條或多條藍色規則以及綠色範例。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類一項限制",
+          "text": "<p>團隊同意：<em>「一位使用者最多可同時擁有 3 個有效工作階段。」</em>這屬於哪個卡片顏色？</p>",
+          "answers": [
+            {
+              "text": "藍色——它是故事必須滿足的一般性限制",
+              "fraction": 100,
+              "feedback": "正確——一條一般性的「最多 3 個」限制是規則，因此是藍色。"
+            },
+            {
+              "text": "綠色——它是一個具體範例",
+              "fraction": 0,
+              "feedback": "它描述的是一般性上限，而非帶有資料的特定案例；那是一條藍色規則。"
+            },
+            {
+              "text": "紅色——它是一個未解問題",
+              "fraction": 0,
+              "feedback": "它已達成共識並被陳述，而非未知；它是一條藍色規則。"
+            },
+            {
+              "text": "黃色——它是故事",
+              "fraction": 0,
+              "feedback": "故事是主題；這是對它的一項限制，因此是藍色。"
+            }
+          ],
+          "generalFeedback": "「最多 3 個有效工作階段」是一項必須始終成立的一般性限制——一條驗收準則，因此是藍色規則。綠色範例則可能是「一位已有 3 個工作階段的使用者嘗試第 4 次登入時被拒絕」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類一個特定結果",
+          "text": "<p>有人說：<em>「一位已有 3 個工作階段的使用者開啟第 4 個時，會看到『已達工作階段上限』。」</em>這屬於哪個卡片顏色？</p>",
+          "answers": [
+            {
+              "text": "綠色——它是一個 illustrate 某條規則的具體範例",
+              "fraction": 100,
+              "feedback": "正確——一個帶有具體結果的特定情況是綠色範例。"
+            },
+            {
+              "text": "藍色——它是一般性規則",
+              "fraction": 0,
+              "feedback": "它是帶有具體結果的特定案例，用來 illustrate 某條規則；那是綠色。"
+            },
+            {
+              "text": "紅色——它是一個未解問題",
+              "fraction": 0,
+              "feedback": "這裡沒有任何未知；它是一個具體 illustrate，因此是綠色。"
+            },
+            {
+              "text": "黃色——它是故事",
+              "fraction": 0,
+              "feedback": "故事是主題；這是某條規則的具體範例，因此是綠色。"
+            }
+          ],
+          "generalFeedback": "這是一個特定情境（已有 3 個工作階段、第 4 次嘗試、一則特定訊息），因此是綠色範例。它 illustrate 藍色規則「一位使用者最多可同時擁有 3 個有效工作階段」。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "紅色記錄未知",
+          "text": "<p>紅色卡用來記錄團隊在對話中無法回答的未知事項，例如假設、需要決策的邊界情況，或相依。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——紅色卡暫存未解問題與未知事項。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "紅色卡確實記錄未知／問題，因此此敘述為真。"
+            }
+          ],
+          "generalFeedback": "紅色卡讓未知事項清楚可見：假設、需要決策的邊界情況，以及團隊當場無法解決的相依。把它們記錄下來能讓對話持續推進，同時不遺漏任何重要事項。"
+        },
+        {
+          "type": "multichoice",
+          "name": "分類一個折價券計算案例",
+          "text": "<p>有人說：<em>「將代碼 SAVE10 套用在一個 $200 的購物車上，總額為 $180。」</em>這屬於哪個卡片顏色？</p>",
+          "answers": [
+            {
+              "text": "綠色——它是一個帶有具體資料與結果的具體範例",
+              "fraction": 100,
+              "feedback": "正確——特定的代碼、購物車金額與最終總額使它成為綠色範例。"
+            },
+            {
+              "text": "藍色——它是一般性規則",
+              "fraction": 0,
+              "feedback": "它列出具體數值（SAVE10、$200、$180）；規則會是一般性的，因此這是綠色。"
+            },
+            {
+              "text": "紅色——它是一個未解問題",
+              "fraction": 0,
+              "feedback": "這裡沒有任何未知；它是一個具體 illustrate，因此是綠色。"
+            },
+            {
+              "text": "黃色——它是故事",
+              "fraction": 0,
+              "feedback": "故事是主題；這個具體案例是綠色範例。"
+            }
+          ],
+          "generalFeedback": "具體資料（SAVE10、一個 $200 購物車、$180 的結果）使它成為綠色範例，illustrate 一條藍色規則，例如「代碼 SAVE10 給予購物車總額 10% 折扣」。具體案例一律是綠色。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一個儀式",
+          "text": "<p>範例對照最自然地被安排在哪一項敏捷活動中？</p>",
+          "answers": [
+            {
+              "text": "待辦精煉（針對即將進行之故事的「討論」階段）",
+              "fraction": 100,
+              "feedback": "正確——它適合針對尚未建置之故事的精煉／討論活動。"
+            },
+            {
+              "text": "每日站立會議",
+              "fraction": 0,
+              "feedback": "站立會議是簡短同步；範例對照是針對每個故事的聚焦精煉對話。"
+            },
+            {
+              "text": "衝刺回顧會議",
+              "fraction": 0,
+              "feedback": "回顧會議檢視流程；範例對照在故事建置前精煉它。"
+            },
+            {
+              "text": "發佈／部署步驟",
+              "fraction": 0,
+              "feedback": "它發生在開發前的精煉，而非發佈時。"
+            }
+          ],
+          "generalFeedback": "範例對照屬於待辦精煉，在此團隊會於承諾投入前討論即將進行的故事。在那裡進行能讓三劍客達成共同理解，並在開發前把故事調整到合適大小。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類一條稅務規則",
+          "text": "<p>團隊陳述：<em>「所有顯示的價格都必須含銷售稅。」</em>這屬於哪個卡片顏色？</p>",
+          "answers": [
+            {
+              "text": "藍色——它是一條必須始終成立的一般性規則",
+              "fraction": 100,
+              "feedback": "正確——一條一般性的「必須含稅」限制是藍色規則。"
+            },
+            {
+              "text": "綠色——它是一個具體範例",
+              "fraction": 0,
+              "feedback": "它沒有給出特定價格或數字；它是一般性規則，因此是藍色。"
+            },
+            {
+              "text": "紅色——它是一個未解問題",
+              "fraction": 0,
+              "feedback": "它是一條已陳述、已達成共識的限制，而非未知；那是一條藍色規則。"
+            },
+            {
+              "text": "黃色——它是故事",
+              "fraction": 0,
+              "feedback": "故事是主題；這條關於它的限制是一條藍色規則。"
+            }
+          ],
+          "generalFeedback": "「所有顯示的價格都必須含銷售稅」是一條一般性、始終為真的限制——一條藍色規則。綠色範例則會列出特定價格，例如「在 7% 稅率下，一件 $10 的商品顯示為 $10.70」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "挑出屬於綠色範例的項目",
+          "text": "<p>一場對話中提出了四個項目。哪一個屬於<strong>綠色</strong>卡？</p>",
+          "answers": [
+            {
+              "text": "「一位購物車有 2 件商品的訪客，在付款前被要求登入。」",
+              "fraction": 100,
+              "feedback": "正確——一個帶有具體情況與結果的特定案例是綠色範例。"
+            },
+            {
+              "text": "「訪客必須在結帳前登入。」",
+              "fraction": 0,
+              "feedback": "那是一條一般性規則（藍色），而非具體案例。"
+            },
+            {
+              "text": "「訪客可以不登入就儲存購物車嗎？」",
+              "fraction": 0,
+              "feedback": "那是一個未解問題（紅色），而非具體範例。"
+            },
+            {
+              "text": "「訪客結帳」（正在拆解的主題）",
+              "fraction": 0,
+              "feedback": "那是故事本身（黃色），而非具體範例。"
+            }
+          ],
+          "generalFeedback": "只有以帶著具體細節與結果的特定案例陳述的項目（「一位有 2 件商品的訪客…被要求登入」）才是綠色範例。一般性的「必須登入」是藍色規則、「訪客可以…嗎」是紅色問題，而「訪客結帳」是黃色故事。具體性正是綠色範例的標誌。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "讀圖：許多紅色問題",
+          "text": "<p>一場對話結束時，對照圖上有一條規則、兩個範例，以及<strong>七張紅色問題卡</strong>。這最可能代表什麼？</p>",
+          "answers": [
+            {
+              "text": "故事尚未就緒——未知太多；團隊應在承諾建置前先取得答案",
+              "fraction": 100,
+              "feedback": "正確——大量紅色卡代表故事理解不足，應延後到問題有答案為止。"
+            },
+            {
+              "text": "故事已可立即建置，因為它引發了這麼多討論",
+              "fraction": 0,
+              "feedback": "大量未解問題代表相反的意思：太多未知，無法安全地建置它。"
+            },
+            {
+              "text": "故事太大，必須拆分成數個故事",
+              "fraction": 0,
+              "feedback": "拆分是大量藍色規則的訊號；大量紅色代表未知，而非大小。"
+            },
+            {
+              "text": "範例是錯的，應該刪除",
+              "fraction": 0,
+              "feedback": "問題不在範例；問題在那一堆未回答的問題。"
+            }
+          ],
+          "generalFeedback": "大量紅色問題卡代表團隊仍無法回答關鍵未知，因此故事尚未就緒。正確做法是延後它，去取得問題的答案（向 PO、使用者詢問，或做一次探究 spike），而非在不確定中就開始撰寫程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀圖：許多藍色規則",
+          "text": "<p>一場對話結束時有<strong>九張藍色規則卡</strong>，每條各有幾個綠色範例，且幾乎沒有紅色問題。這張圖暗示什麼？</p>",
+          "answers": [
+            {
+              "text": "故事太大；考慮拆分它，例如每條規則一個故事（或每組規則一個故事）",
+              "fraction": 100,
+              "feedback": "正確——大量規則指出故事過大，應予拆分。"
+            },
+            {
+              "text": "故事尚未就緒，因為未知太多",
+              "fraction": 0,
+              "feedback": "幾乎沒有紅色問題，因此未知不是問題所在；大量規則指出的是大小。"
+            },
+            {
+              "text": "故事大小恰到好處，應原封不動保留",
+              "fraction": 0,
+              "feedback": "九條規則是故事太大、應予拆分的強烈訊號。"
+            },
+            {
+              "text": "範例是多餘的，應移除以縮小故事",
+              "fraction": 0,
+              "feedback": "刪除範例並不會縮小範圍；按規則拆分才會。"
+            }
+          ],
+          "generalFeedback": "大量藍色規則代表故事承載了很多行為——它太大了。常見的補救是拆分它，通常是每條規則一個故事（或每組相關規則一個），讓每個產生的故事都小而易懂。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀圖：均衡且就緒",
+          "text": "<p>一場對話結束時有<strong>三條規則、每條各由幾個範例 illustrate，且沒有未解問題</strong>。這張圖代表什麼？</p>",
+          "answers": [
+            {
+              "text": "故事已被充分理解，且已就緒可開發",
+              "fraction": 100,
+              "feedback": "正確——清楚的規則、illustrate 的範例，以及沒有未解問題，代表就緒。"
+            },
+            {
+              "text": "故事尚未就緒，應予延後",
+              "fraction": 0,
+              "feedback": "沒有未解問題且規則／範例清楚，代表就緒，而非受阻。"
+            },
+            {
+              "text": "故事太大，必須拆分",
+              "fraction": 0,
+              "feedback": "三條有充分 illustrate 的規則是合理大小；這裡沒有拆分訊號。"
+            },
+            {
+              "text": "這張圖無效，因為就緒的故事必定要有一些紅色卡",
+              "fraction": 0,
+              "feedback": "就緒的故事通常紅色卡很少或沒有；這裡沒有紅色卡是好訊號。"
+            }
+          ],
+          "generalFeedback": "一個故事若有少數清楚的規則、每條都由具體範例支撐，且很少或沒有未解問題，就是被充分理解且大小適中——這正是一場對話的理想結果。團隊可以放心地把它帶入開發。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何範例能降低模糊",
+          "text": "<p>為什麼具體範例比單獨陳述抽象規則更能降低模糊性？</p>",
+          "answers": [
+            {
+              "text": "具體案例會逼出特定資料與精確結果，暴露一般性措辭可能帶過的隱藏假設與分歧",
+              "fraction": 100,
+              "feedback": "正確——把細節釘死能揭露模糊規則所掩蓋的誤解。"
+            },
+            {
+              "text": "範例比規則更短，所以要讀錯的文字較少",
+              "fraction": 0,
+              "feedback": "重點不在長度；而在具體性會逼出對細節的共識。"
+            },
+            {
+              "text": "範例讓陳述任何規則都變得不必要",
+              "fraction": 0,
+              "feedback": "規則仍然需要；範例使規則精確，而非取代它們。"
+            },
+            {
+              "text": "範例自動可執行，因此不需要討論",
+              "fraction": 0,
+              "feedback": "價值在於具體性所觸發的對話，而非省去討論。"
+            }
+          ],
+          "generalFeedback": "一條抽象規則（「套用折扣」）可能被每個人讀成不同意思。一個具體範例（「$100 搭配 10% 折價券 → $90」）逼所有人對確切輸入與確切結果達成共識，這會迅速揭露隱藏的假設與分歧。這正是範例能錨定共同理解的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "規則與範例：挑出規則",
+          "text": "<p>桌上有兩張卡。哪一張是<strong>規則</strong>（藍色），而非範例（綠色）？</p><p>A：「購買後 30 天內允許退款。」</p><p>B：「3 月 1 日購買、3 月 20 日退回的商品獲得退款。」</p>",
+          "answers": [
+            {
+              "text": "A——它是一般性限制；B 是它的一個具體實例",
+              "fraction": 100,
+              "feedback": "正確——A 陳述一般性規則；B 是 illustrate 它的特定範例。"
+            },
+            {
+              "text": "B——因為它提到特定日期，所以它必定是規則",
+              "fraction": 0,
+              "feedback": "特定日期使 B 成為具體範例（綠色）；一般性陳述 A 才是規則。"
+            },
+            {
+              "text": "兩者都是規則",
+              "fraction": 0,
+              "feedback": "只有 A 是一般性的；B 是具體案例，因此 B 是範例，而非規則。"
+            },
+            {
+              "text": "兩者都是範例",
+              "fraction": 0,
+              "feedback": "只有 B 是具體的；A 是一般性限制，因此 A 是規則。"
+            }
+          ],
+          "generalFeedback": "規則是一般性的（「30 天內」）；範例是帶有具體數值的特定實例（「3 月 1 日到 3 月 20 日」）。因此 A 是藍色規則，B 是它的綠色範例。是否有特定資料正是範例的判別標誌。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一個藏著新規則的問題",
+          "text": "<p>紅色卡「一筆訂單上同時使用兩張折價券會怎樣？」被 PO 回答為「一筆訂單只能套用一張折價券」。對照圖上應該發生什麼？</p>",
+          "answers": [
+            {
+              "text": "該答案成為一條新的藍色規則（附上綠色範例），而紅色卡可以移除——這個問題藏著一條規則",
+              "fraction": 100,
+              "feedback": "正確——解決該問題揭露出一條真正的新規則，它成為一張藍色卡。"
+            },
+            {
+              "text": "紅色卡應直接刪除，不新增任何東西",
+              "fraction": 0,
+              "feedback": "該答案是一條真正的限制；必須記為一條藍色規則，而非丟棄。"
+            },
+            {
+              "text": "該答案成為一張新的黃色故事卡",
+              "fraction": 0,
+              "feedback": "「一筆訂單一張折價券」的限制是規則（藍色），而非新故事（黃色）。"
+            },
+            {
+              "text": "什麼都不變；問題永遠不會變成規則",
+              "fraction": 0,
+              "feedback": "回答一個問題常會揭露出一條規則——這裡正是如此。"
+            }
+          ],
+          "generalFeedback": "有些紅色問題一旦被回答，就會暴露出團隊尚未寫下的規則。「一筆訂單只能一張折價券」是一條新的藍色規則；你會加上它（以及具體的綠色範例）並撤下紅色卡。這是常見且有價值的結果——一個藏著整條新規則的問題。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "與 BDD 情境的關係",
+          "text": "<p>範例對照的產出如何與 BDD 連結？</p>",
+          "answers": [
+            {
+              "text": "綠色範例直接轉譯成 Gherkin 的 Given-When-Then 情境，因此對照圖為 BDD 規格提供種子",
+              "fraction": 100,
+              "feedback": "正確——具體範例會變成 BDD 套件的 GWT 情境。"
+            },
+            {
+              "text": "藍色規則變成步驟定義的膠合程式碼，而範例被丟棄",
+              "fraction": 0,
+              "feedback": "範例不會被丟棄；它們變成情境，而規則賦予它們結構。"
+            },
+            {
+              "text": "紅色問題變成通過的情境",
+              "fraction": 0,
+              "feedback": "未解問題尚未解決；是具體的綠色範例變成情境。"
+            },
+            {
+              "text": "沒有連結；範例對照與 BDD 無關",
+              "fraction": 0,
+              "feedback": "兩者關係緊密：綠色範例直接餵入 BDD 情境。"
+            }
+          ],
+          "generalFeedback": "範例對照與 BDD 契合得天衣無縫：每個綠色範例都是帶有輸入與結果的具體案例，直接對應到一個 Given-When-Then 情境。因此對照圖產出會變成可執行規格的範例，而藍色規則負責組織它們。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "依規則拆分以調整大小",
+          "text": "<p>一個故事對照出許多藍色規則，團隊決定拆分它。哪一種是常見且合理的拆分方式？</p>",
+          "answers": [
+            {
+              "text": "沿規則邊界建立較小的故事，例如大致每條規則一個故事（或每組相關規則一個）",
+              "fraction": 100,
+              "feedback": "正確——沿規則拆分能產生較小、可獨立理解的故事。"
+            },
+            {
+              "text": "把同一個故事分給每位開發者一部分來拆分",
+              "fraction": 0,
+              "feedback": "拆分關乎範圍，而非把一個故事分給多人；應沿規則拆分。"
+            },
+            {
+              "text": "把一半綠色範例移到新故事，而把所有規則留在原故事來拆分",
+              "fraction": 0,
+              "feedback": "範例跟隨其規則；你依規則拆分，並讓每條規則帶著它的範例一起走。"
+            },
+            {
+              "text": "把每個紅色問題各自變成一個故事來拆分",
+              "fraction": 0,
+              "feedback": "問題是待解決的未知，而非拆分過大故事的依據。"
+            }
+          ],
+          "generalFeedback": "當大量規則指出故事過大時，天然的切割線就是規則本身。拆分成大致每條規則一個故事（或每組相關規則一個），會產生較小的故事，每個都有自己的規則以及 illustrate 它的綠色範例——更易理解、估算與交付。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "細膩分類：運費規則對案例",
+          "text": "<p>下列哪一個是<strong>綠色範例</strong>，而非藍色規則？</p>",
+          "answers": [
+            {
+              "text": "「一個總額 $60 的購物車，運費被收取 $0。」",
+              "fraction": 100,
+              "feedback": "正確——特定的購物車金額與具體的運費使它成為綠色範例。"
+            },
+            {
+              "text": "「金額 $50 以上的訂單免運。」",
+              "fraction": 0,
+              "feedback": "那是一般性規則（藍色）；具體的 $60 案例才是綠色範例。"
+            },
+            {
+              "text": "「運費一律在稅前計算。」",
+              "fraction": 0,
+              "feedback": "那是一般性的順序限制——一條藍色規則，而非具體範例。"
+            },
+            {
+              "text": "「免運只適用於實體商品。」",
+              "fraction": 0,
+              "feedback": "那是一般性限制（藍色規則），而非帶有資料的特定案例。"
+            }
+          ],
+          "generalFeedback": "綠色範例是以具體資料與結果陳述的那一個（「$60 → $0 運費」）。其他都是跨許多案例都成立的一般性陳述，因此是藍色規則。具體性正是區分範例與規則的關鍵。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀圖：一條規則、多個範例、無問題",
+          "text": "<p>一張對照圖有單一條清楚的規則、四個 illustrate 它的具體範例，以及沒有紅色卡。最佳解讀是什麼？</p>",
+          "answers": [
+            {
+              "text": "故事小、被充分理解，且已就緒可建置",
+              "fraction": 100,
+              "feedback": "正確——單一條有充分 illustrate 的規則且無未解問題，代表就緒且大小適中。"
+            },
+            {
+              "text": "故事太大，必須拆分成四個故事，每個範例一個",
+              "fraction": 0,
+              "feedback": "範例不會驅動拆分；一條規則配範例是一個小而就緒的故事。"
+            },
+            {
+              "text": "故事尚未就緒，因為四個範例太多了",
+              "fraction": 0,
+              "feedback": "一條規則有多個範例是健康的；沒有未解問題時故事已就緒。"
+            },
+            {
+              "text": "應刪除範例，因為單一條規則不需要 illustrate",
+              "fraction": 0,
+              "feedback": "以具體範例 illustrate 規則正是重點；它們應保留。"
+            }
+          ],
+          "generalFeedback": "一條清楚的規則、由數個具體範例充分 illustrate、且沒有未解問題，是一個小而被徹底理解的故事——已就緒可開發。一條規則有多個範例是好訊號，而非拆分觸發條件；拆分是由大量規則驅動，而非大量範例。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對尚未就緒故事的行動",
+          "text": "<p>一個故事的對照圖被紅色問題卡主導。最適當的下一步行動是什麼？</p>",
+          "answers": [
+            {
+              "text": "延後該故事，指派負責人去取得問題的答案，並在未知解決後重新對照它",
+              "fraction": 100,
+              "feedback": "正確——先解決未知，再把故事帶回來。"
+            },
+            {
+              "text": "無論如何都把它拉進衝刺，並在撰寫程式期間解決問題",
+              "fraction": 0,
+              "feedback": "在許多未知中就建置有返工風險；應先回答問題。"
+            },
+            {
+              "text": "刪除紅色卡，讓對照圖看起來就緒",
+              "fraction": 0,
+              "feedback": "藏起問題並不會解決它們；故事仍未被理解。"
+            },
+            {
+              "text": "把故事拆分成每個紅色問題一個故事",
+              "fraction": 0,
+              "feedback": "問題是待回答的未知，而非拆分依據；拆分是針對大量規則。"
+            }
+          ],
+          "generalFeedback": "大量紅色卡代表故事尚未就緒。正確回應是延後它、找人回答未解問題（與 PO／使用者交談、做一次 spike），然後重新進行對照。硬把它推進開發會招致大量返工。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "及早浮現問題的好處",
+          "text": "<p>為什麼在精煉期間（而非開發途中）浮現紅色問題是有價值的？</p>",
+          "answers": [
+            {
+              "text": "未知在其解決成本仍低時被發現，避免衝刺途中受阻，以及在程式已在撰寫後才返工",
+              "fraction": 100,
+              "feedback": "正確——及早發現未知遠比在撰寫程式期間才發現便宜得多。"
+            },
+            {
+              "text": "它保證故事之後不需要任何測試",
+              "fraction": 0,
+              "feedback": "測試仍然需要；及早發問減少返工，而非移除測試。"
+            },
+            {
+              "text": "它讓團隊得以完全不必與產品負責人交談",
+              "fraction": 0,
+              "feedback": "問題往往由 PO 回答；重點是及早提出，而非避免它們。"
+            },
+            {
+              "text": "它讓故事自動變得更大、更有價值",
+              "fraction": 0,
+              "feedback": "好處是更便宜、更早的清晰，而非把故事灌大。"
+            }
+          ],
+          "generalFeedback": "在精煉期間發現未知代表它們能在任何人撰寫程式之前被回答，此時改變方向成本很低。在開發途中發現同樣的缺口會造成工作受阻、情境切換與返工。及早發問是範例對照最大的回報之一。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "細膩分類：一般對實例",
+          "text": "<p>考慮：「白金會員享免費退貨。」以及「白金會員 Alice 免費退回一件外套。」哪一種分類正確？</p>",
+          "answers": [
+            {
+              "text": "第一句是規則（藍色）；第二句是那條規則的範例（綠色）",
+              "fraction": 100,
+              "feedback": "正確——一般性政策是規則；具名的具體案例是範例。"
+            },
+            {
+              "text": "第一句是範例（綠色）；第二句是規則（藍色）",
+              "fraction": 0,
+              "feedback": "顛倒了：一般性政策是規則，而具體的「Alice…」案例是範例。"
+            },
+            {
+              "text": "兩者都是規則（藍色）",
+              "fraction": 0,
+              "feedback": "第二句指名特定人物與結果，使它成為具體範例，而非規則。"
+            },
+            {
+              "text": "兩者都是範例（綠色）",
+              "fraction": 0,
+              "feedback": "第一句是沒有特定案例的一般性政策，因此是規則，而非範例。"
+            }
+          ],
+          "generalFeedback": "「白金會員享免費退貨」是一般性政策——一條藍色規則。「白金會員 Alice 免費退回一件外套」是該政策的一個具體實例，帶有特定行為者與結果——一個綠色範例。一般／特定的區別正是規則與範例的分野。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "回答問題對範圍的影響",
+          "text": "<p>回答數個紅色問題後，每個都變成一條新的藍色規則，於是對照圖現在有許多規則。這揭露了關於故事的什麼事？</p>",
+          "answers": [
+            {
+              "text": "故事藏著比表面看起來更多的行為；如今規則顯現後，它很可能太大，是拆分的候選",
+              "fraction": 100,
+              "feedback": "正確——解決問題暴露出額外規則，揭示故事比看起來更大。"
+            },
+            {
+              "text": "故事變得更小、更簡單",
+              "fraction": 0,
+              "feedback": "更多規則代表更多行為，而非更少；故事看起來更大，而非更小。"
+            },
+            {
+              "text": "大小沒有任何改變；規則數量與大小無關",
+              "fraction": 0,
+              "feedback": "規則數量是關鍵的大小訊號；大量規則指向過大的故事。"
+            },
+            {
+              "text": "故事現在必定已就緒，無需再思考即可建置",
+              "fraction": 0,
+              "feedback": "新出現的大量規則暗示應先拆分，而非它自動就緒。"
+            }
+          ],
+          "generalFeedback": "問題可能隱藏規則。當回答它們產生許多新的藍色規則時，故事的真實大小便顯現出來——它承載的行為比原先所想的更多。這個不斷增加的規則數量正是考慮把它拆分成較小、被充分理解之故事的經典訊號。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "少問題加清楚規則代表就緒",
+          "text": "<p>一個故事若有清楚的規則、每條都由具體範例 illustrate，且很少或沒有未解問題，通常被視為已就緒可開發。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——清楚的規則、illustrate 的範例，以及很少／沒有問題，就是就緒的訊號。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "該組合正是被充分理解、就緒之故事的特徵，因此此敘述為真。"
+            }
+          ],
+          "generalFeedback": "讀圖：大量紅色問題代表尚未就緒；大量藍色規則代表太大；但清楚的規則由具體範例支撐、且很少或沒有未解問題，則代表故事被充分理解且已就緒可建置。這種均衡的形狀正是一場對話的目標。"
+        }
+      ]
+    }
+  },
   "flaky-diagnosis": {
     "en": {
       "easy": [

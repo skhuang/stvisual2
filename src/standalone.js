@@ -79140,6 +79140,2546 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "example-mapping": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What Example Mapping is",
+            "text": "<p>What is <strong>Example Mapping</strong>?</p>",
+            "answers": [
+              {
+                "text": "A quick, collaborative technique for breaking a user story down before development, using coloured index cards for the story, its rules, concrete examples, and open questions",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Example Mapping is a fast, card-based conversation that unpacks one story before coding."
+              },
+              {
+                "text": "An automated tool that generates test scripts from a UML diagram",
+                "fraction": 0,
+                "feedback": "Example Mapping is a human conversation with index cards, not a code or script generator."
+              },
+              {
+                "text": "A performance-profiling method for measuring how fast each function runs",
+                "fraction": 0,
+                "feedback": "That is profiling; Example Mapping is a refinement technique for understanding a story."
+              },
+              {
+                "text": "A deployment pipeline stage that releases code to production",
+                "fraction": 0,
+                "feedback": "Example Mapping happens before development during refinement, not at deployment."
+              }
+            ],
+            "generalFeedback": "Example Mapping (created by Matt Wynne) is a simple, timeboxed conversation used during backlog refinement. The team takes one user story and, using four colours of index card, teases out the business rules, concrete examples that illustrate them, and any open questions. It builds shared understanding before coding begins.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of the yellow card",
+            "text": "<p>In Example Mapping, what does a <strong>yellow</strong> card represent?</p>",
+            "answers": [
+              {
+                "text": "The story \u2014 the topic under discussion, one per session",
+                "fraction": 100,
+                "feedback": "Correct \u2014 yellow is the user story being unpacked, and there is one per session."
+              },
+              {
+                "text": "A business rule the story must satisfy",
+                "fraction": 0,
+                "feedback": "Rules are blue cards; yellow is the story itself."
+              },
+              {
+                "text": "A concrete example illustrating a rule",
+                "fraction": 0,
+                "feedback": "Concrete examples are green cards; yellow is the story."
+              },
+              {
+                "text": "An open question the team cannot answer yet",
+                "fraction": 0,
+                "feedback": "Open questions are red cards; yellow is the story."
+              }
+            ],
+            "generalFeedback": "The yellow card names the story (the topic under discussion). A session focuses on a single yellow card, and the blue rules, green examples, and red questions are all placed in relation to it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of the blue card",
+            "text": "<p>In Example Mapping, what does a <strong>blue</strong> card represent?</p>",
+            "answers": [
+              {
+                "text": "A rule \u2014 an acceptance criterion, business rule, or constraint that must hold",
+                "fraction": 100,
+                "feedback": "Correct \u2014 blue cards capture the rules/acceptance criteria of the story."
+              },
+              {
+                "text": "The story under discussion",
+                "fraction": 0,
+                "feedback": "The story is the yellow card; blue captures a rule."
+              },
+              {
+                "text": "A concrete example with specific data and an outcome",
+                "fraction": 0,
+                "feedback": "Concrete examples are green; blue is the general rule they illustrate."
+              },
+              {
+                "text": "Something the team cannot answer right now",
+                "fraction": 0,
+                "feedback": "Unknowns are red questions; blue is a rule that must hold."
+              }
+            ],
+            "generalFeedback": "Blue cards hold the rules: acceptance criteria, business rules, and constraints that the story must satisfy. Each blue rule is a general statement that green example cards then illustrate with concrete cases.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of the green card",
+            "text": "<p>In Example Mapping, what does a <strong>green</strong> card represent?</p>",
+            "answers": [
+              {
+                "text": "An example \u2014 a concrete illustration of a rule, a specific case with concrete data and an outcome",
+                "fraction": 100,
+                "feedback": "Correct \u2014 green cards are concrete examples that illustrate a blue rule."
+              },
+              {
+                "text": "A general business rule or acceptance criterion",
+                "fraction": 0,
+                "feedback": "General rules are blue; green is a specific concrete case of a rule."
+              },
+              {
+                "text": "The story being discussed",
+                "fraction": 0,
+                "feedback": "The story is the yellow card; green is a concrete example."
+              },
+              {
+                "text": "An unknown the team must resolve later",
+                "fraction": 0,
+                "feedback": "Unknowns are red questions; green is a concrete illustration of a rule."
+              }
+            ],
+            "generalFeedback": "Green cards give concrete examples: a specific case with real data and an expected outcome that illustrates a blue rule. Because they are concrete, green examples later feed BDD/ATDD scenarios (each becomes a Given-When-Then case).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Meaning of the red card",
+            "text": "<p>In Example Mapping, what does a <strong>red</strong> card represent?</p>",
+            "answers": [
+              {
+                "text": "A question \u2014 an unknown the team cannot answer right now (an assumption, edge case, or dependency needing a decision)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 red cards capture open questions and unknowns surfaced during the conversation."
+              },
+              {
+                "text": "A business rule the story must satisfy",
+                "fraction": 0,
+                "feedback": "Rules are blue; red captures something the team cannot yet answer."
+              },
+              {
+                "text": "A concrete example illustrating a rule",
+                "fraction": 0,
+                "feedback": "Concrete examples are green; red is an open question."
+              },
+              {
+                "text": "The story under discussion",
+                "fraction": 0,
+                "feedback": "The story is yellow; red is an unknown that needs a decision."
+              }
+            ],
+            "generalFeedback": "Red cards capture questions: things the team cannot answer during the session \u2014 assumptions, edge cases needing a decision, or external dependencies. Parking them on red cards keeps the conversation moving and makes the unknowns visible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "When Example Mapping is done",
+            "text": "<p>At what point in the workflow is Example Mapping typically done?</p>",
+            "answers": [
+              {
+                "text": "During backlog refinement, before development starts on the story",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it is a refinement/discuss-phase activity that happens before coding."
+              },
+              {
+                "text": "After the story has been coded, as a way to write release notes",
+                "fraction": 0,
+                "feedback": "Example Mapping is done before development, not after coding."
+              },
+              {
+                "text": "During production incident response",
+                "fraction": 0,
+                "feedback": "It is a pre-development refinement technique, not an incident tool."
+              },
+              {
+                "text": "Only at the very end of the project, during final acceptance",
+                "fraction": 0,
+                "feedback": "It is used per story during refinement, before that story is built."
+              }
+            ],
+            "generalFeedback": 'Example Mapping runs during the "discuss" phase of backlog refinement, before development begins on a story. Its whole purpose is to reach shared understanding early, so the team enters coding with clear rules, illustrative examples, and known questions.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Who participates",
+            "text": "<p>Who typically takes part in an Example Mapping session?</p>",
+            "answers": [
+              {
+                "text": 'The "three amigos" \u2014 a business/product perspective, a developer, and a tester',
+                "fraction": 100,
+                "feedback": "Correct \u2014 the three amigos bring the business, development, and testing viewpoints together."
+              },
+              {
+                "text": "Only the product owner, working alone",
+                "fraction": 0,
+                "feedback": "It is a collaborative conversation; a single person cannot represent all three viewpoints."
+              },
+              {
+                "text": "Only end users, with no team members present",
+                "fraction": 0,
+                "feedback": "The session is run by the delivery team's three amigos, not end users alone."
+              },
+              {
+                "text": "Only the operations/deployment team",
+                "fraction": 0,
+                "feedback": "Example Mapping is a refinement conversation among the three amigos, not an ops activity."
+              }
+            ],
+            "generalFeedback": 'Example Mapping is a conversation among the "three amigos": someone with the business/product view (e.g. a product owner), a developer, and a tester. Each brings a different perspective, which is what surfaces rules, examples, and questions that one role alone would miss.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "How long a session lasts",
+            "text": "<p>How long is an Example Mapping session meant to take?</p>",
+            "answers": [
+              {
+                "text": "A short timebox, around 25 minutes per story",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it is deliberately quick, roughly 25 minutes, to keep the conversation focused."
+              },
+              {
+                "text": "A full working day for each story",
+                "fraction": 0,
+                "feedback": "It is deliberately short (about 25 minutes), not a day-long meeting."
+              },
+              {
+                "text": "An open-ended discussion with no time limit",
+                "fraction": 0,
+                "feedback": "It is timeboxed; running long usually signals the story is not well understood."
+              },
+              {
+                "text": "Exactly one two-week sprint",
+                "fraction": 0,
+                "feedback": "A session is a short conversation of about 25 minutes, not a whole sprint."
+              }
+            ],
+            "generalFeedback": "Example Mapping is timeboxed to roughly 25 minutes per story. The short box keeps the conversation focused; if a story cannot be mapped in that time, that itself is a useful signal that it is too big or too poorly understood.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "How many yellow story cards per session",
+            "text": "<p>How many <strong>yellow (story)</strong> cards are on the table in a single Example Mapping session?</p>",
+            "answers": [
+              {
+                "text": "One \u2014 the session focuses on a single story",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one yellow card per session; everything else relates to that one story."
+              },
+              {
+                "text": "One per rule, so several yellow cards",
+                "fraction": 0,
+                "feedback": "Rules are blue cards; there is only one yellow story card per session."
+              },
+              {
+                "text": "One per participant",
+                "fraction": 0,
+                "feedback": "The number of yellow cards does not depend on participants; there is exactly one story."
+              },
+              {
+                "text": "As many as the whole backlog contains",
+                "fraction": 0,
+                "feedback": "A session maps one story at a time, so there is a single yellow card."
+              }
+            ],
+            "generalFeedback": "Each session unpacks exactly one story, so there is a single yellow card. The blue rules, green examples, and red questions are all arranged around that one story.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which colour is a rule",
+            "text": "<p>Which card colour is used for a <strong>business rule / acceptance criterion</strong>?</p>",
+            "answers": [
+              {
+                "text": "Blue",
+                "fraction": 100,
+                "feedback": "Correct \u2014 blue cards are the rules."
+              },
+              {
+                "text": "Green",
+                "fraction": 0,
+                "feedback": "Green is for concrete examples, not rules."
+              },
+              {
+                "text": "Red",
+                "fraction": 0,
+                "feedback": "Red is for open questions, not rules."
+              },
+              {
+                "text": "Yellow",
+                "fraction": 0,
+                "feedback": "Yellow is the story itself, not a rule."
+              }
+            ],
+            "generalFeedback": "The four colours map as: yellow = story, blue = rule, green = example, red = question. A business rule or acceptance criterion is therefore a blue card.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which colour is a concrete example",
+            "text": "<p>Which card colour is used for a <strong>concrete example</strong> (a specific case with real data)?</p>",
+            "answers": [
+              {
+                "text": "Green",
+                "fraction": 100,
+                "feedback": "Correct \u2014 green cards are the concrete examples."
+              },
+              {
+                "text": "Blue",
+                "fraction": 0,
+                "feedback": "Blue is for general rules; a concrete case is green."
+              },
+              {
+                "text": "Red",
+                "fraction": 0,
+                "feedback": "Red is for open questions, not concrete examples."
+              },
+              {
+                "text": "Yellow",
+                "fraction": 0,
+                "feedback": "Yellow is the story, not a concrete example."
+              }
+            ],
+            "generalFeedback": "Green cards hold concrete examples \u2014 specific cases with real data and an expected outcome that illustrate a blue rule. Remember: yellow = story, blue = rule, green = example, red = question.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which colour is an open question",
+            "text": "<p>Which card colour is used for an <strong>open question / unknown</strong> the team cannot answer right now?</p>",
+            "answers": [
+              {
+                "text": "Red",
+                "fraction": 100,
+                "feedback": "Correct \u2014 red cards capture open questions and unknowns."
+              },
+              {
+                "text": "Green",
+                "fraction": 0,
+                "feedback": "Green is for concrete examples, not questions."
+              },
+              {
+                "text": "Blue",
+                "fraction": 0,
+                "feedback": "Blue is for rules, not open questions."
+              },
+              {
+                "text": "Yellow",
+                "fraction": 0,
+                "feedback": "Yellow is the story, not an open question."
+              }
+            ],
+            "generalFeedback": "Red cards are for questions: unknowns, assumptions, edge cases needing a decision, or dependencies. The mnemonic is yellow = story, blue = rule, green = example, red = question.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Green illustrates a rule",
+            "text": "<p>A green card is a concrete example that illustrates a (blue) rule.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 green examples make blue rules concrete."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Green cards are concrete examples that illustrate blue rules, so the statement is true."
+              }
+            ],
+            "generalFeedback": "Rules (blue) are general statements; examples (green) illustrate them with specific, concrete cases. Every green example sits under the blue rule it demonstrates."
+          },
+          {
+            "type": "multichoice",
+            "name": "The four card colours",
+            "text": "<p>Which set correctly lists the four Example Mapping card colours and what each represents?</p>",
+            "answers": [
+              {
+                "text": "Yellow = story, blue = rule, green = example, red = question",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is the standard Example Mapping colour scheme."
+              },
+              {
+                "text": "Yellow = rule, blue = story, green = question, red = example",
+                "fraction": 0,
+                "feedback": "Colours are swapped: story is yellow, rule is blue, example is green, question is red."
+              },
+              {
+                "text": "Yellow = question, blue = example, green = rule, red = story",
+                "fraction": 0,
+                "feedback": "All four are wrong; the correct scheme is yellow story, blue rule, green example, red question."
+              },
+              {
+                "text": "Yellow = example, blue = question, green = story, red = rule",
+                "fraction": 0,
+                "feedback": "These are scrambled; the correct scheme is yellow story, blue rule, green example, red question."
+              }
+            ],
+            "generalFeedback": "The four colours are fixed: yellow for the story (one per session), blue for rules (acceptance criteria/constraints), green for concrete examples, and red for open questions. Knowing this scheme is the foundation for reading a map.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Mapping happens before development",
+            "text": "<p>Example Mapping is done before development on the story begins, as part of refinement.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it is a refinement activity that precedes coding."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "It happens during refinement, before development, so the statement is true."
+              }
+            ],
+            "generalFeedback": 'Example Mapping is a "discuss"-phase refinement technique. Doing it before development means the team surfaces rules, examples, and questions early, so coding starts from shared understanding rather than guesses.'
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Classify a business rule",
+            "text": '<p>During a session someone says: <em>"Orders over $50 qualify for free shipping."</em> Which card colour is this?</p>',
+            "answers": [
+              {
+                "text": "Blue \u2014 it is a general business rule / acceptance criterion",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 a general "orders over $50\u2026" constraint is a rule, so it is blue.'
+              },
+              {
+                "text": "Green \u2014 it is a concrete example",
+                "fraction": 0,
+                "feedback": "It has no specific order value or outcome; it is a general rule (blue), not a concrete example."
+              },
+              {
+                "text": "Red \u2014 it is an open question",
+                "fraction": 0,
+                "feedback": "Nothing is unknown here; it is a stated rule, so it is blue."
+              },
+              {
+                "text": "Yellow \u2014 it is the story",
+                "fraction": 0,
+                "feedback": "The story is the topic under discussion; this is a rule about it, so it is blue."
+              }
+            ],
+            "generalFeedback": '"Orders over $50 qualify for free shipping" is a general constraint that must hold \u2014 an acceptance criterion. General rules are blue cards. A concrete order ("a $60 order ships free") would be a green example of this rule.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify a concrete case",
+            "text": '<p>Someone says: <em>"A $100 order with a 10% coupon pays $90."</em> Which card colour is this?</p>',
+            "answers": [
+              {
+                "text": "Green \u2014 it is a concrete example with specific data and an outcome",
+                "fraction": 100,
+                "feedback": "Correct \u2014 specific numbers and a resulting total make this a concrete example."
+              },
+              {
+                "text": "Blue \u2014 it is a general rule",
+                "fraction": 0,
+                "feedback": "It uses specific values ($100, 10%, $90); a general rule would not name concrete numbers."
+              },
+              {
+                "text": "Red \u2014 it is an open question",
+                "fraction": 0,
+                "feedback": "Nothing is unknown; it is a concrete illustration, so it is green."
+              },
+              {
+                "text": "Yellow \u2014 it is the story",
+                "fraction": 0,
+                "feedback": "The story is the topic; this is a concrete example of a rule, so it is green."
+              }
+            ],
+            "generalFeedback": 'Concrete data ($100, 10%, $90) and a specific outcome make this a green example. It illustrates an underlying blue rule such as "a percentage coupon reduces the order total by that percentage."',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify an unknown",
+            "text": '<p>Someone asks: <em>"What happens if the coupon is expired?"</em> Which card colour is this?</p>',
+            "answers": [
+              {
+                "text": "Red \u2014 it is an open question the team cannot answer yet",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 an unresolved "what happens if\u2026" is a question, so it is red.'
+              },
+              {
+                "text": "Blue \u2014 it is a rule",
+                "fraction": 0,
+                "feedback": "It is not a stated rule; it is an unknown to be decided, so it is red."
+              },
+              {
+                "text": "Green \u2014 it is a concrete example",
+                "fraction": 0,
+                "feedback": "It states no concrete case or outcome; it is an open question (red)."
+              },
+              {
+                "text": "Yellow \u2014 it is the story",
+                "fraction": 0,
+                "feedback": "The story is the topic; an unresolved edge case is a red question."
+              }
+            ],
+            "generalFeedback": '"What happens if the coupon is expired?" is an unknown edge case the team cannot answer during the session, so it goes on a red card. Once answered, it may turn into a new blue rule and green examples.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify the story title",
+            "text": '<p>The topic being unpacked is <em>"Apply a discount coupon at checkout."</em> Which card colour is this?</p>',
+            "answers": [
+              {
+                "text": "Yellow \u2014 it is the story, the topic under discussion",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the overall topic being mapped is the yellow story card."
+              },
+              {
+                "text": "Blue \u2014 it is a rule",
+                "fraction": 0,
+                "feedback": "It names the whole story, not a single constraint; the story is yellow."
+              },
+              {
+                "text": "Green \u2014 it is a concrete example",
+                "fraction": 0,
+                "feedback": "It is the topic, not a specific case with data; the story is yellow."
+              },
+              {
+                "text": "Red \u2014 it is an open question",
+                "fraction": 0,
+                "feedback": "It is the story being discussed, not an unknown; the story is yellow."
+              }
+            ],
+            "generalFeedback": "The title of the thing being unpacked is the story itself, which is the single yellow card for the session. Its rules (blue), examples (green), and questions (red) are arranged around it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Relationship between examples and rules",
+            "text": "<p>How do green example cards relate to blue rule cards on a map?</p>",
+            "answers": [
+              {
+                "text": "Each green example illustrates a blue rule with a concrete case, so examples sit beneath the rule they demonstrate",
+                "fraction": 100,
+                "feedback": "Correct \u2014 examples make rules concrete; they hang off the rule they illustrate."
+              },
+              {
+                "text": "Green examples replace blue rules, so a rule with examples can be discarded",
+                "fraction": 0,
+                "feedback": "Examples do not replace rules; they illustrate them, and both stay on the map."
+              },
+              {
+                "text": "Green examples are unrelated to rules and are placed randomly",
+                "fraction": 0,
+                "feedback": "Each example illustrates a specific rule; they are deliberately grouped, not random."
+              },
+              {
+                "text": "Green examples define the story while blue rules define the questions",
+                "fraction": 0,
+                "feedback": "The story is yellow and questions are red; green examples illustrate blue rules."
+              }
+            ],
+            "generalFeedback": "A rule is a general statement; an example is a concrete case that shows the rule in action. On the map, green examples are placed under the blue rule they illustrate, so you can see that each rule is backed by concrete cases.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Green examples feed BDD",
+            "text": "<p>What do the green example cards typically become when the team moves into BDD/ATDD?</p>",
+            "answers": [
+              {
+                "text": "Given-When-Then scenarios \u2014 each concrete example maps to a Gherkin scenario",
+                "fraction": 100,
+                "feedback": "Correct \u2014 green examples are concrete cases that translate naturally into GWT scenarios."
+              },
+              {
+                "text": "New user stories in the backlog",
+                "fraction": 0,
+                "feedback": "Examples become scenarios; it is the rules that may suggest splitting into stories."
+              },
+              {
+                "text": "Additional red question cards",
+                "fraction": 0,
+                "feedback": "Examples are concrete and resolved; they feed scenarios, not new questions."
+              },
+              {
+                "text": "Performance benchmarks",
+                "fraction": 0,
+                "feedback": "Green examples describe functional behaviour and become GWT scenarios, not benchmarks."
+              }
+            ],
+            "generalFeedback": "Because green cards are concrete (specific inputs and an expected outcome), each one maps cleanly to a Given-When-Then scenario in BDD/ATDD. The Example Mapping conversation thus produces the raw material for executable specifications.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Who and when combined",
+            "text": "<p>Which statement best describes <strong>who</strong> runs Example Mapping and <strong>when</strong>?</p>",
+            "answers": [
+              {
+                "text": "The three amigos (business, developer, tester) run it during refinement, before the story is developed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the three amigos, in refinement, before coding."
+              },
+              {
+                "text": "The developers alone run it during the retrospective at the end of the sprint",
+                "fraction": 0,
+                "feedback": "It involves all three amigos and happens in refinement before development, not in the retro."
+              },
+              {
+                "text": "The product owner alone runs it after the story is released",
+                "fraction": 0,
+                "feedback": "It is collaborative and pre-development, not a solo post-release activity."
+              },
+              {
+                "text": "The operations team runs it during deployment",
+                "fraction": 0,
+                "feedback": "The three amigos run it in refinement, before development; ops is not the audience."
+              }
+            ],
+            "generalFeedback": "Example Mapping brings the three amigos \u2014 a business/product voice, a developer, and a tester \u2014 together during backlog refinement, before development. That mix of viewpoints, applied early, is what surfaces the rules, examples, and questions.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify a scope question",
+            "text": '<p>Someone asks: <em>"Should we support both percentage and fixed-amount coupons?"</em> Which card colour is this?</p>',
+            "answers": [
+              {
+                "text": "Red \u2014 it is an unresolved question about scope",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an unanswered scope question is a red card."
+              },
+              {
+                "text": "Blue \u2014 it is a rule",
+                "fraction": 0,
+                "feedback": "It is not yet a decided rule; it is a question awaiting a decision, so it is red."
+              },
+              {
+                "text": "Green \u2014 it is a concrete example",
+                "fraction": 0,
+                "feedback": "It states no concrete case; it is an open question, so it is red."
+              },
+              {
+                "text": "Yellow \u2014 it is the story",
+                "fraction": 0,
+                "feedback": "The story is the topic; this is an unknown about it, so it is red."
+              }
+            ],
+            "generalFeedback": 'A "should we support\u2026" that the team has not decided is an open question \u2014 a red card. Once answered, the decision may become one or more blue rules with green examples.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify a constraint",
+            "text": '<p>The team agrees: <em>"A user may have at most 3 active sessions at once."</em> Which card colour is this?</p>',
+            "answers": [
+              {
+                "text": "Blue \u2014 it is a general constraint the story must satisfy",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 a general "at most 3" constraint is a rule, so it is blue.'
+              },
+              {
+                "text": "Green \u2014 it is a concrete example",
+                "fraction": 0,
+                "feedback": "It describes a general limit, not a specific case with data; that is a blue rule."
+              },
+              {
+                "text": "Red \u2014 it is an open question",
+                "fraction": 0,
+                "feedback": "It is agreed and stated, not unknown; it is a blue rule."
+              },
+              {
+                "text": "Yellow \u2014 it is the story",
+                "fraction": 0,
+                "feedback": "The story is the topic; this is a constraint on it, so it is blue."
+              }
+            ],
+            "generalFeedback": '"At most 3 active sessions" is a general constraint that must always hold \u2014 an acceptance criterion, hence a blue rule. A green example might be "a user who already has 3 sessions and tries a 4th login is refused."',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify a specific outcome",
+            "text": `<p>Someone says: <em>"A user who already has 3 sessions and opens a 4th is shown 'session limit reached'."</em> Which card colour is this?</p>`,
+            "answers": [
+              {
+                "text": "Green \u2014 it is a concrete example illustrating a rule",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a specific situation with a concrete outcome is a green example."
+              },
+              {
+                "text": "Blue \u2014 it is a general rule",
+                "fraction": 0,
+                "feedback": "It is a specific case with a concrete outcome, which illustrates a rule; that is green."
+              },
+              {
+                "text": "Red \u2014 it is an open question",
+                "fraction": 0,
+                "feedback": "Nothing is unknown; it is a concrete illustration, so it is green."
+              },
+              {
+                "text": "Yellow \u2014 it is the story",
+                "fraction": 0,
+                "feedback": "The story is the topic; this is a concrete example of a rule, so it is green."
+              }
+            ],
+            "generalFeedback": 'This is a specific scenario (3 existing sessions, a 4th attempt, a particular message), so it is a green example. It illustrates the blue rule "a user may have at most 3 active sessions."',
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Red captures unknowns",
+            "text": "<p>Red cards are used to capture unknowns the team cannot answer during the session, such as assumptions, edge cases needing a decision, or dependencies.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 red cards park the open questions and unknowns."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Red cards do capture unknowns/questions, so the statement is true."
+              }
+            ],
+            "generalFeedback": "Red cards make the unknowns visible: assumptions, edge cases that need a decision, and dependencies the team cannot resolve on the spot. Capturing them lets the conversation keep moving while nothing important is lost."
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify a coupon calculation case",
+            "text": '<p>Someone says: <em>"Applying code SAVE10 to a $200 cart yields a $180 total."</em> Which card colour is this?</p>',
+            "answers": [
+              {
+                "text": "Green \u2014 it is a concrete example with specific data and an outcome",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a specific code, cart value, and resulting total make it a green example."
+              },
+              {
+                "text": "Blue \u2014 it is a general rule",
+                "fraction": 0,
+                "feedback": "It names concrete values (SAVE10, $200, $180); a rule would be general, so this is green."
+              },
+              {
+                "text": "Red \u2014 it is an open question",
+                "fraction": 0,
+                "feedback": "Nothing is unknown; it is a concrete illustration, so it is green."
+              },
+              {
+                "text": "Yellow \u2014 it is the story",
+                "fraction": 0,
+                "feedback": "The story is the topic; this concrete case is a green example."
+              }
+            ],
+            "generalFeedback": 'Specific data (SAVE10, a $200 cart, a $180 result) makes this a green example of a blue rule like "code SAVE10 gives 10% off the cart total." Concrete cases are always green.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which ceremony",
+            "text": "<p>Example Mapping is most naturally slotted into which agile activity?</p>",
+            "answers": [
+              {
+                "text": 'Backlog refinement (the "discuss" phase for upcoming stories)',
+                "fraction": 100,
+                "feedback": "Correct \u2014 it fits the refinement/discuss activity for stories not yet built."
+              },
+              {
+                "text": "The daily stand-up",
+                "fraction": 0,
+                "feedback": "The stand-up is a brief sync; Example Mapping is a focused refinement conversation per story."
+              },
+              {
+                "text": "The sprint retrospective",
+                "fraction": 0,
+                "feedback": "The retro reflects on process; Example Mapping refines a story before it is built."
+              },
+              {
+                "text": "The release/deployment step",
+                "fraction": 0,
+                "feedback": "It happens before development, during refinement, not at release."
+              }
+            ],
+            "generalFeedback": "Example Mapping belongs in backlog refinement, where the team discusses upcoming stories before committing to them. Running it there lets the three amigos reach shared understanding and right-size the story before development.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify a tax rule",
+            "text": '<p>The team states: <em>"All displayed prices must include sales tax."</em> Which card colour is this?</p>',
+            "answers": [
+              {
+                "text": "Blue \u2014 it is a general rule that must always hold",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 a general "must include tax" constraint is a blue rule.'
+              },
+              {
+                "text": "Green \u2014 it is a concrete example",
+                "fraction": 0,
+                "feedback": "It gives no specific price or figure; it is a general rule, so it is blue."
+              },
+              {
+                "text": "Red \u2014 it is an open question",
+                "fraction": 0,
+                "feedback": "It is a stated, agreed constraint, not an unknown; that is a blue rule."
+              },
+              {
+                "text": "Yellow \u2014 it is the story",
+                "fraction": 0,
+                "feedback": "The story is the topic; this constraint about it is a blue rule."
+              }
+            ],
+            "generalFeedback": '"All displayed prices must include sales tax" is a general, always-true constraint \u2014 a blue rule. A green example would name a specific price, e.g. "a $10 item is displayed as $10.70 at a 7% rate."',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Pick the item that is a green example",
+            "text": "<p>Four items were raised in a session. Which one belongs on a <strong>green</strong> card?</p>",
+            "answers": [
+              {
+                "text": '"A guest with 2 items in the cart is asked to log in before paying."',
+                "fraction": 100,
+                "feedback": "Correct \u2014 a specific case with a concrete situation and outcome is a green example."
+              },
+              {
+                "text": '"Guests must log in before checkout."',
+                "fraction": 0,
+                "feedback": "That is a general rule (blue), not a concrete case."
+              },
+              {
+                "text": '"Can guests save a cart without logging in?"',
+                "fraction": 0,
+                "feedback": "That is an unresolved question (red), not a concrete example."
+              },
+              {
+                "text": '"Guest checkout" (the topic being unpacked)',
+                "fraction": 0,
+                "feedback": "That is the story itself (yellow), not a concrete example."
+              }
+            ],
+            "generalFeedback": 'Only the item stated as a specific case with concrete detail and an outcome ("a guest with 2 items\u2026 is asked to log in") is a green example. The general "must log in" is a blue rule, the "can guests\u2026" is a red question, and "Guest checkout" is the yellow story. Concreteness marks the green example.',
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Read the map: many red questions",
+            "text": "<p>At the end of a session, the map has one rule, two examples, and <strong>seven red question cards</strong>. What does this most likely mean?</p>",
+            "answers": [
+              {
+                "text": "The story is not ready \u2014 there are too many unknowns; the team should get answers before committing to build it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 many red cards signal a poorly understood story that should be deferred until questions are answered."
+              },
+              {
+                "text": "The story is ready to build immediately because it generated so much discussion",
+                "fraction": 0,
+                "feedback": "Many open questions mean the opposite: too much is unknown to build it safely."
+              },
+              {
+                "text": "The story is too big and must be split into several stories",
+                "fraction": 0,
+                "feedback": "Splitting is the signal for many blue rules; many reds signal unknowns, not size."
+              },
+              {
+                "text": "The examples are wrong and should be deleted",
+                "fraction": 0,
+                "feedback": "The examples are not the issue; the pile of unanswered questions is."
+              }
+            ],
+            "generalFeedback": "A large number of red question cards means the team cannot yet answer key unknowns, so the story is not ready. The right move is to defer it and go get the answers (from the PO, users, or a spike) rather than start coding into uncertainty.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read the map: many blue rules",
+            "text": "<p>A session ends with <strong>nine blue rule cards</strong>, each with a couple of green examples and almost no red questions. What does the map suggest?</p>",
+            "answers": [
+              {
+                "text": "The story is too big; consider splitting it, e.g. one story per rule (or per group of rules)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 many rules indicate an oversized story that should be split."
+              },
+              {
+                "text": "The story is not ready because of too many unknowns",
+                "fraction": 0,
+                "feedback": "There are almost no red questions, so unknowns are not the problem; the many rules indicate size."
+              },
+              {
+                "text": "The story is perfectly sized and should be left exactly as is",
+                "fraction": 0,
+                "feedback": "Nine rules is a strong signal the story is too big and should be split."
+              },
+              {
+                "text": "The examples are redundant and should be removed to shrink the story",
+                "fraction": 0,
+                "feedback": "Deleting examples does not shrink scope; splitting by rule does."
+              }
+            ],
+            "generalFeedback": "Many blue rules mean the story carries a lot of behaviour \u2014 it is too big. A common remedy is to split it, often one story per rule (or per cohesive group of rules), so each resulting story is small and well understood.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read the map: balanced and ready",
+            "text": "<p>A session ends with <strong>three rules, each illustrated by a couple of examples, and no open questions</strong>. What does this map indicate?</p>",
+            "answers": [
+              {
+                "text": "The story is well understood and ready to be developed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 clear rules, illustrative examples, and no open questions signal readiness."
+              },
+              {
+                "text": "The story is not ready and should be deferred",
+                "fraction": 0,
+                "feedback": "With no open questions and clear rules/examples, it is ready, not blocked."
+              },
+              {
+                "text": "The story is too big and must be split",
+                "fraction": 0,
+                "feedback": "Three well-illustrated rules is a reasonable size; there is no splitting signal here."
+              },
+              {
+                "text": "The map is invalid because a ready story must always have some red cards",
+                "fraction": 0,
+                "feedback": "A ready story typically has few or no red cards; their absence here is a good sign."
+              }
+            ],
+            "generalFeedback": "A story with a small number of clear rules, each backed by concrete examples, and few or no open questions is well understood and right-sized \u2014 the ideal outcome of a session. The team can confidently take it into development.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why examples reduce ambiguity",
+            "text": "<p>Why do concrete examples reduce ambiguity better than abstract rules stated alone?</p>",
+            "answers": [
+              {
+                "text": "A concrete case forces specific data and an exact outcome, exposing hidden assumptions and disagreements that a general wording can gloss over",
+                "fraction": 100,
+                "feedback": "Correct \u2014 pinning down specifics surfaces misunderstandings a vague rule hides."
+              },
+              {
+                "text": "Examples are shorter to write than rules, so there is less text to misread",
+                "fraction": 0,
+                "feedback": "It is not about length; it is that concreteness forces agreement on specifics."
+              },
+              {
+                "text": "Examples remove the need to state any rules at all",
+                "fraction": 0,
+                "feedback": "Rules are still needed; examples make them precise, they do not replace them."
+              },
+              {
+                "text": "Examples are automatically executable, so no discussion is required",
+                "fraction": 0,
+                "feedback": "The value is in the conversation the concreteness triggers, not in skipping discussion."
+              }
+            ],
+            "generalFeedback": 'An abstract rule ("apply the discount") can be read differently by each person. A concrete example ("$100 with a 10% coupon \u2192 $90") forces everyone to agree on exact inputs and the exact result, which quickly reveals hidden assumptions and disagreements. That is why examples anchor shared understanding.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Rule versus example: pick the rule",
+            "text": '<p>Two cards are on the table. Which one is the <strong>rule</strong> (blue), as opposed to the example (green)?</p><p>A: "Refunds are allowed within 30 days of purchase."</p><p>B: "An item bought on March 1 and returned on March 20 is refunded."</p>',
+            "answers": [
+              {
+                "text": "A \u2014 it is the general constraint; B is a concrete instance of it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 A states a general rule; B is a specific example illustrating it."
+              },
+              {
+                "text": "B \u2014 because it mentions specific dates, it must be the rule",
+                "fraction": 0,
+                "feedback": "Specific dates make B the concrete example (green); the general statement A is the rule."
+              },
+              {
+                "text": "Both are rules",
+                "fraction": 0,
+                "feedback": "Only A is general; B is a concrete case, so B is an example, not a rule."
+              },
+              {
+                "text": "Both are examples",
+                "fraction": 0,
+                "feedback": "Only B is concrete; A is a general constraint, so A is the rule."
+              }
+            ],
+            "generalFeedback": 'A rule is general ("within 30 days"); an example is a specific instance with concrete values ("March 1 to March 20"). A is therefore the blue rule and B is a green example of it. The presence of specific data is the tell-tale sign of an example.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "A question that hides a new rule",
+            "text": '<p>The red card "What happens if two coupons are used on one order?" is answered by the PO as "only one coupon may be applied per order." What should happen on the map?</p>',
+            "answers": [
+              {
+                "text": "The answer becomes a new blue rule (with green examples), and the red card can be removed \u2014 the question hid a rule",
+                "fraction": 100,
+                "feedback": "Correct \u2014 resolving the question reveals a genuine new rule, which becomes a blue card."
+              },
+              {
+                "text": "The red card should simply be deleted with nothing added",
+                "fraction": 0,
+                "feedback": "The answer is a real constraint; it must be captured as a blue rule, not discarded."
+              },
+              {
+                "text": "The answer becomes a new yellow story card",
+                "fraction": 0,
+                "feedback": "A one-coupon-per-order constraint is a rule (blue), not a new story (yellow)."
+              },
+              {
+                "text": "Nothing changes; questions never turn into rules",
+                "fraction": 0,
+                "feedback": "Answering a question often reveals a rule \u2014 exactly what happens here."
+              }
+            ],
+            "generalFeedback": 'Some red questions, once answered, expose a rule the team had not written down. "Only one coupon per order" is a new blue rule; you would add it (and illustrative green examples) and retire the red card. This is a common and valuable outcome \u2014 a question that hides a whole new rule.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Relation to BDD scenarios",
+            "text": "<p>How does the output of Example Mapping connect to BDD?</p>",
+            "answers": [
+              {
+                "text": "The green examples translate directly into Gherkin Given-When-Then scenarios, so the map seeds the BDD specification",
+                "fraction": 100,
+                "feedback": "Correct \u2014 concrete examples become the GWT scenarios of the BDD suite."
+              },
+              {
+                "text": "The blue rules become the step-definition glue code and the examples are discarded",
+                "fraction": 0,
+                "feedback": "Examples are not discarded; they become the scenarios, while rules give them structure."
+              },
+              {
+                "text": "The red questions become the passing scenarios",
+                "fraction": 0,
+                "feedback": "Open questions are unresolved; it is the concrete green examples that become scenarios."
+              },
+              {
+                "text": "There is no connection; Example Mapping and BDD are unrelated",
+                "fraction": 0,
+                "feedback": "They are closely linked: green examples feed directly into BDD scenarios."
+              }
+            ],
+            "generalFeedback": "Example Mapping and BDD dovetail: each green example is a concrete case with inputs and an outcome, which maps straight onto a Given-When-Then scenario. The map thus produces the examples that become executable specifications, while the blue rules organise them.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Right-sizing by splitting on rules",
+            "text": "<p>A story maps to many blue rules and the team decides to split it. What is a common, sensible way to split?</p>",
+            "answers": [
+              {
+                "text": "Create smaller stories along rule boundaries, e.g. roughly one story per rule (or per cohesive group of rules)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 splitting along the rules yields smaller, independently understandable stories."
+              },
+              {
+                "text": "Split by giving each developer a share of the same story",
+                "fraction": 0,
+                "feedback": "Splitting is about scope, not dividing one story among people; split along the rules."
+              },
+              {
+                "text": "Split by moving half the green examples to a new story while keeping all rules in the original",
+                "fraction": 0,
+                "feedback": "Examples follow their rules; you split by rule, carrying each rule's examples with it."
+              },
+              {
+                "text": "Split by turning each red question into its own story",
+                "fraction": 0,
+                "feedback": "Questions are unknowns to resolve, not the basis for splitting an oversized story."
+              }
+            ],
+            "generalFeedback": "When many rules signal an oversized story, the natural seams are the rules themselves. Splitting into roughly one story per rule (or per cohesive group) produces smaller stories, each with its own rule and the green examples that illustrate it \u2014 easier to understand, estimate, and deliver.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Subtle classification: shipping rule vs case",
+            "text": "<p>Which of these is a <strong>green example</strong> rather than a blue rule?</p>",
+            "answers": [
+              {
+                "text": '"A cart totalling $60 is charged $0 for shipping."',
+                "fraction": 100,
+                "feedback": "Correct \u2014 a specific cart value and a concrete shipping charge make this a green example."
+              },
+              {
+                "text": '"Orders of $50 or more ship free."',
+                "fraction": 0,
+                "feedback": "That is the general rule (blue); the concrete $60 case is the green example."
+              },
+              {
+                "text": '"Shipping is always calculated before tax."',
+                "fraction": 0,
+                "feedback": "That is a general ordering constraint \u2014 a blue rule, not a concrete example."
+              },
+              {
+                "text": '"Free shipping applies only to physical goods."',
+                "fraction": 0,
+                "feedback": "That is a general constraint (blue rule), not a specific case with data."
+              }
+            ],
+            "generalFeedback": 'The green example is the one stated in concrete terms with specific data and outcome ("$60 \u2192 $0 shipping"). The others are general statements that hold across many cases, which makes them blue rules. Concreteness is what distinguishes an example from a rule.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Read the map: one rule, several examples, no questions",
+            "text": "<p>A map has a single clear rule, four concrete examples illustrating it, and no red cards. What is the best interpretation?</p>",
+            "answers": [
+              {
+                "text": "The story is small, well understood, and ready to build",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a single well-illustrated rule with no open questions is ready and right-sized."
+              },
+              {
+                "text": "The story is too big and must be split into four stories, one per example",
+                "fraction": 0,
+                "feedback": "Examples do not drive splitting; one rule with examples is a small, ready story."
+              },
+              {
+                "text": "The story is not ready because four examples is too many",
+                "fraction": 0,
+                "feedback": "Multiple examples of one rule is healthy; with no open questions the story is ready."
+              },
+              {
+                "text": "The examples should be deleted because a single rule needs no illustration",
+                "fraction": 0,
+                "feedback": "Illustrating a rule with concrete examples is exactly the point; they should stay."
+              }
+            ],
+            "generalFeedback": "One clear rule, well illustrated by several concrete examples, with no unresolved questions, is a small and thoroughly understood story \u2014 ready to develop. Multiple examples per rule is a good sign, not a splitting trigger; splitting is driven by many rules, not many examples.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Action for a not-ready story",
+            "text": "<p>A story's map is dominated by red question cards. What is the most appropriate next action?</p>",
+            "answers": [
+              {
+                "text": "Defer the story, assign owners to get the questions answered, and re-map it once the unknowns are resolved",
+                "fraction": 100,
+                "feedback": "Correct \u2014 resolve the unknowns first, then bring the story back."
+              },
+              {
+                "text": "Pull it into the sprint anyway and resolve the questions during coding",
+                "fraction": 0,
+                "feedback": "Building into many unknowns risks rework; answer the questions first."
+              },
+              {
+                "text": "Delete the red cards so the map looks ready",
+                "fraction": 0,
+                "feedback": "Hiding the questions does not resolve them; the story is still not understood."
+              },
+              {
+                "text": "Split the story into one story per red question",
+                "fraction": 0,
+                "feedback": "Questions are unknowns to answer, not a basis for splitting; splitting is for many rules."
+              }
+            ],
+            "generalFeedback": "Many red cards mean the story is not ready. The right response is to defer it, get someone to answer the open questions (talk to the PO/users, run a spike), and then re-run the mapping. Forcing it into development invites significant rework.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Benefit of surfacing questions early",
+            "text": "<p>Why is surfacing red questions during refinement (rather than mid-development) valuable?</p>",
+            "answers": [
+              {
+                "text": "Unknowns are found while they are cheap to resolve, avoiding mid-sprint blockers and rework once code is being written",
+                "fraction": 100,
+                "feedback": "Correct \u2014 early discovery of unknowns is far cheaper than discovering them during coding."
+              },
+              {
+                "text": "It guarantees the story will need no tests later",
+                "fraction": 0,
+                "feedback": "Tests are still needed; early questions reduce rework, they do not remove testing."
+              },
+              {
+                "text": "It lets the team skip talking to the product owner entirely",
+                "fraction": 0,
+                "feedback": "Often the questions are answered by the PO; the point is to raise them early, not avoid them."
+              },
+              {
+                "text": "It makes the story automatically larger and more valuable",
+                "fraction": 0,
+                "feedback": "The benefit is cheaper, earlier clarity \u2014 not inflating the story."
+              }
+            ],
+            "generalFeedback": "Finding unknowns during refinement means they can be answered before anyone writes code, when changing direction is cheap. Discovering the same gaps mid-development causes blocked work, context-switching, and rework. Early questions are one of the biggest payoffs of Example Mapping.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Subtle classification: general vs instance",
+            "text": '<p>Consider: "Premium members get free returns." and "Alice, a premium member, returns a jacket at no cost." Which classification is correct?</p>',
+            "answers": [
+              {
+                "text": "The first is a rule (blue); the second is an example (green) of that rule",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the general policy is the rule; the named, concrete case is the example."
+              },
+              {
+                "text": "The first is an example (green); the second is a rule (blue)",
+                "fraction": 0,
+                "feedback": 'Reversed: the general policy is the rule, and the concrete "Alice\u2026" case is the example.'
+              },
+              {
+                "text": "Both are rules (blue)",
+                "fraction": 0,
+                "feedback": "The second names a specific person and outcome, making it a concrete example, not a rule."
+              },
+              {
+                "text": "Both are examples (green)",
+                "fraction": 0,
+                "feedback": "The first is a general policy with no specific case, so it is a rule, not an example."
+              }
+            ],
+            "generalFeedback": '"Premium members get free returns" is a general policy \u2014 a blue rule. "Alice, a premium member, returns a jacket at no cost" is one concrete instance of that policy with a specific actor and outcome \u2014 a green example. The general/specific distinction is what separates rule from example.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Effect of answering a question on scope",
+            "text": "<p>Answering several red questions turns each into a new blue rule, so the map now has many rules. What has this revealed about the story?</p>",
+            "answers": [
+              {
+                "text": "The story was hiding more behaviour than it appeared; now that the rules are visible it is likely too big and a candidate for splitting",
+                "fraction": 100,
+                "feedback": "Correct \u2014 resolving questions exposed extra rules, revealing the story is larger than it looked."
+              },
+              {
+                "text": "The story has become smaller and simpler",
+                "fraction": 0,
+                "feedback": "More rules mean more behaviour, not less; the story looks bigger, not smaller."
+              },
+              {
+                "text": "Nothing about the size has changed; rule count is irrelevant to sizing",
+                "fraction": 0,
+                "feedback": "Rule count is a key sizing signal; many rules point to an oversized story."
+              },
+              {
+                "text": "The story is now guaranteed ready to build with no further thought",
+                "fraction": 0,
+                "feedback": "A newly large rule set suggests splitting first, not that it is automatically ready."
+              }
+            ],
+            "generalFeedback": "Questions can conceal rules. When answering them produces many new blue rules, the true size of the story becomes visible \u2014 it holds more behaviour than first thought. That growing rule count is the classic signal to consider splitting it into smaller, well-understood stories.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Few questions plus clear rules means ready",
+            "text": "<p>A story with clear rules, each illustrated by concrete examples, and few or no open questions is generally considered ready for development.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 clear rules, illustrative examples, and few/no questions is the readiness signal."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "That combination is exactly the sign of a well-understood, ready story, so the statement is true."
+              }
+            ],
+            "generalFeedback": "Reading the map: many red questions means not ready; many blue rules means too big; but clear rules backed by concrete examples with few or no open questions means the story is well understood and ready to build. This balanced shape is the goal of a session."
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u7BC4\u4F8B\u5C0D\u7167",
+            "text": "<p>\u4EC0\u9EBC\u662F<strong>\u7BC4\u4F8B\u5C0D\u7167\uFF08Example Mapping\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7A2E\u5728\u958B\u767C\u524D\u5FEB\u901F\u62C6\u89E3\u4F7F\u7528\u8005\u6545\u4E8B\u7684\u5354\u4F5C\u6280\u8853\uFF0C\u7528\u4E0D\u540C\u984F\u8272\u7684\u7D22\u5F15\u5361\u4EE3\u8868\u6545\u4E8B\u3001\u898F\u5247\u3001\u5177\u9AD4\u7BC4\u4F8B\u8207\u672A\u89E3\u554F\u984C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7BC4\u4F8B\u5C0D\u7167\u662F\u4E00\u5834\u4EE5\u5361\u7247\u70BA\u4E3B\u7684\u5FEB\u901F\u5C0D\u8A71\uFF0C\u5728\u958B\u59CB\u64B0\u5BEB\u7A0B\u5F0F\u524D\u5148\u62C6\u89E3\u4E00\u500B\u6545\u4E8B\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u80FD\u5F9E UML \u5716\u81EA\u52D5\u7522\u751F\u6E2C\u8A66\u8173\u672C\u7684\u5DE5\u5177",
+                "fraction": 0,
+                "feedback": "\u7BC4\u4F8B\u5C0D\u7167\u662F\u4EBA\u8207\u4EBA\u4E4B\u9593\u4EE5\u7D22\u5F15\u5361\u9032\u884C\u7684\u5C0D\u8A71\uFF0C\u800C\u975E\u7522\u751F\u7A0B\u5F0F\u6216\u8173\u672C\u7684\u5DE5\u5177\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u91CF\u6E2C\u6BCF\u500B\u51FD\u5F0F\u57F7\u884C\u901F\u5EA6\u7684\u6548\u80FD\u5256\u6790\u65B9\u6CD5",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6548\u80FD\u5256\u6790\uFF1B\u7BC4\u4F8B\u5C0D\u7167\u662F\u7528\u4F86\u7406\u89E3\u6545\u4E8B\u7684\u7CBE\u7149\u6280\u8853\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u628A\u7A0B\u5F0F\u767C\u4F48\u5230\u6B63\u5F0F\u74B0\u5883\u7684\u90E8\u7F72\u7BA1\u7DDA\u968E\u6BB5",
+                "fraction": 0,
+                "feedback": "\u7BC4\u4F8B\u5C0D\u7167\u767C\u751F\u5728\u958B\u767C\u524D\u7684\u7CBE\u7149\u968E\u6BB5\uFF0C\u800C\u975E\u90E8\u7F72\u6642\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC4\u4F8B\u5C0D\u7167\uFF08\u7531 Matt Wynne \u63D0\u51FA\uFF09\u662F\u5728\u5F85\u8FA6\u7CBE\u7149\uFF08backlog refinement\uFF09\u671F\u9593\u9032\u884C\u7684\u7C21\u55AE\u3001\u6709\u6642\u9593\u76D2\u7684\u5C0D\u8A71\u3002\u5718\u968A\u53D6\u4E00\u500B\u4F7F\u7528\u8005\u6545\u4E8B\uFF0C\u7528\u56DB\u7A2E\u984F\u8272\u7684\u7D22\u5F15\u5361\u68B3\u7406\u51FA\u5546\u696D\u898F\u5247\u3001illustrate \u9019\u4E9B\u898F\u5247\u7684\u5177\u9AD4\u7BC4\u4F8B\uFF0C\u4EE5\u53CA\u4EFB\u4F55\u672A\u89E3\u7684\u554F\u984C\u3002\u5B83\u5728\u64B0\u5BEB\u7A0B\u5F0F\u524D\u5EFA\u7ACB\u5171\u540C\u7406\u89E3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9EC3\u8272\u5361\u7684\u610F\u7FA9",
+            "text": "<p>\u5728\u7BC4\u4F8B\u5C0D\u7167\u4E2D\uFF0C<strong>\u9EC3\u8272</strong>\u5361\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6545\u4E8B\u2014\u2014\u6B63\u5728\u8A0E\u8AD6\u7684\u4E3B\u984C\uFF0C\u6BCF\u5834\u53EA\u6709\u4E00\u5F35",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9EC3\u8272\u5361\u662F\u6B63\u88AB\u62C6\u89E3\u7684\u4F7F\u7528\u8005\u6545\u4E8B\uFF0C\u6BCF\u5834\u53EA\u6709\u4E00\u5F35\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u5FC5\u9808\u6EFF\u8DB3\u7684\u4E00\u689D\u5546\u696D\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u898F\u5247\u662F\u85CD\u8272\u5361\uFF1B\u9EC3\u8272\u5361\u662F\u6545\u4E8B\u672C\u8EAB\u3002"
+              },
+              {
+                "text": "illustrate \u67D0\u689D\u898F\u5247\u7684\u5177\u9AD4\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u5177\u9AD4\u7BC4\u4F8B\u662F\u7DA0\u8272\u5361\uFF1B\u9EC3\u8272\u5361\u662F\u6545\u4E8B\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u76EE\u524D\u9084\u7121\u6CD5\u56DE\u7B54\u7684\u672A\u89E3\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u672A\u89E3\u554F\u984C\u662F\u7D05\u8272\u5361\uFF1B\u9EC3\u8272\u5361\u662F\u6545\u4E8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u9EC3\u8272\u5361\u6A19\u793A\u6545\u4E8B\uFF08\u6B63\u5728\u8A0E\u8AD6\u7684\u4E3B\u984C\uFF09\u3002\u4E00\u5834\u5C0D\u8A71\u805A\u7126\u65BC\u55AE\u4E00\u9EC3\u8272\u5361\uFF0C\u800C\u85CD\u8272\u898F\u5247\u3001\u7DA0\u8272\u7BC4\u4F8B\u8207\u7D05\u8272\u554F\u984C\u90FD\u662F\u76F8\u5C0D\u65BC\u9019\u5F35\u5361\u64FA\u653E\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u85CD\u8272\u5361\u7684\u610F\u7FA9",
+            "text": "<p>\u5728\u7BC4\u4F8B\u5C0D\u7167\u4E2D\uFF0C<strong>\u85CD\u8272</strong>\u5361\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u898F\u5247\u2014\u2014\u4E00\u689D\u9A57\u6536\u6E96\u5247\u3001\u5546\u696D\u898F\u5247\uFF0C\u6216\u5FC5\u9808\u6210\u7ACB\u7684\u9650\u5236",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u85CD\u8272\u5361\u8A18\u9304\u6545\u4E8B\u7684\u898F\u5247\uFF0F\u9A57\u6536\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u6B63\u5728\u8A0E\u8AD6\u7684\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u662F\u9EC3\u8272\u5361\uFF1B\u85CD\u8272\u5361\u8A18\u9304\u898F\u5247\u3002"
+              },
+              {
+                "text": "\u5E36\u6709\u5177\u9AD4\u8CC7\u6599\u8207\u7D50\u679C\u7684\u5177\u9AD4\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u5177\u9AD4\u7BC4\u4F8B\u662F\u7DA0\u8272\u5361\uFF1B\u85CD\u8272\u5361\u662F\u5B83\u5011\u6240 illustrate \u7684\u4E00\u822C\u898F\u5247\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u6B64\u523B\u7121\u6CD5\u56DE\u7B54\u7684\u4E8B\u60C5",
+                "fraction": 0,
+                "feedback": "\u672A\u89E3\u4E8B\u9805\u662F\u7D05\u8272\u554F\u984C\u5361\uFF1B\u85CD\u8272\u5361\u662F\u5FC5\u9808\u6210\u7ACB\u7684\u898F\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u85CD\u8272\u5361\u627F\u8F09\u898F\u5247\uFF1A\u6545\u4E8B\u5FC5\u9808\u6EFF\u8DB3\u7684\u9A57\u6536\u6E96\u5247\u3001\u5546\u696D\u898F\u5247\u8207\u9650\u5236\u3002\u6BCF\u689D\u85CD\u8272\u898F\u5247\u90FD\u662F\u4E00\u822C\u6027\u9673\u8FF0\uFF0C\u63A5\u8457\u7531\u7DA0\u8272\u7BC4\u4F8B\u5361\u4EE5\u5177\u9AD4\u6848\u4F8B\u52A0\u4EE5 illustrate\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7DA0\u8272\u5361\u7684\u610F\u7FA9",
+            "text": "<p>\u5728\u7BC4\u4F8B\u5C0D\u7167\u4E2D\uFF0C<strong>\u7DA0\u8272</strong>\u5361\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7BC4\u4F8B\u2014\u2014\u67D0\u689D\u898F\u5247\u7684\u5177\u9AD4 illustrate\uFF0C\u4E00\u500B\u5E36\u6709\u5177\u9AD4\u8CC7\u6599\u8207\u7D50\u679C\u7684\u7279\u5B9A\u6848\u4F8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7DA0\u8272\u5361\u662F illustrate \u67D0\u689D\u85CD\u8272\u898F\u5247\u7684\u5177\u9AD4\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u4E00\u822C\u6027\u7684\u5546\u696D\u898F\u5247\u6216\u9A57\u6536\u6E96\u5247",
+                "fraction": 0,
+                "feedback": "\u4E00\u822C\u6027\u898F\u5247\u662F\u85CD\u8272\uFF1B\u7DA0\u8272\u662F\u67D0\u689D\u898F\u5247\u7684\u5177\u9AD4\u6848\u4F8B\u3002"
+              },
+              {
+                "text": "\u6B63\u5728\u8A0E\u8AD6\u7684\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u662F\u9EC3\u8272\u5361\uFF1B\u7DA0\u8272\u662F\u5177\u9AD4\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u4E4B\u5F8C\u5FC5\u9808\u89E3\u6C7A\u7684\u672A\u89E3\u4E8B\u9805",
+                "fraction": 0,
+                "feedback": "\u672A\u89E3\u4E8B\u9805\u662F\u7D05\u8272\u554F\u984C\u5361\uFF1B\u7DA0\u8272\u662F\u67D0\u689D\u898F\u5247\u7684\u5177\u9AD4 illustrate\u3002"
+              }
+            ],
+            "generalFeedback": "\u7DA0\u8272\u5361\u7D66\u51FA\u5177\u9AD4\u7BC4\u4F8B\uFF1A\u4E00\u500B\u5E36\u6709\u771F\u5BE6\u8CC7\u6599\u8207\u9810\u671F\u7D50\u679C\u3001\u7528\u4F86 illustrate \u67D0\u689D\u85CD\u8272\u898F\u5247\u7684\u7279\u5B9A\u6848\u4F8B\u3002\u7531\u65BC\u5B83\u5011\u662F\u5177\u9AD4\u7684\uFF0C\u7DA0\u8272\u7BC4\u4F8B\u4E4B\u5F8C\u6703\u9935\u5165 BDD/ATDD \u60C5\u5883\uFF08\u6BCF\u500B\u7BC4\u4F8B\u5C0D\u61C9\u4E00\u500B Given-When-Then \u6848\u4F8B\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D05\u8272\u5361\u7684\u610F\u7FA9",
+            "text": "<p>\u5728\u7BC4\u4F8B\u5C0D\u7167\u4E2D\uFF0C<strong>\u7D05\u8272</strong>\u5361\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u554F\u984C\u2014\u2014\u5718\u968A\u6B64\u523B\u7121\u6CD5\u56DE\u7B54\u7684\u672A\u89E3\u4E8B\u9805\uFF08\u4E00\u9805\u5047\u8A2D\u3001\u9700\u8981\u6C7A\u7B56\u7684\u908A\u754C\u60C5\u6CC1\uFF0C\u6216\u4E00\u9805\u76F8\u4F9D\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D05\u8272\u5361\u8A18\u9304\u5C0D\u8A71\u4E2D\u6D6E\u73FE\u7684\u672A\u89E3\u554F\u984C\u8207\u672A\u77E5\u4E8B\u9805\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u5FC5\u9808\u6EFF\u8DB3\u7684\u4E00\u689D\u5546\u696D\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u898F\u5247\u662F\u85CD\u8272\uFF1B\u7D05\u8272\u8A18\u9304\u5718\u968A\u5C1A\u7121\u6CD5\u56DE\u7B54\u7684\u4E8B\u60C5\u3002"
+              },
+              {
+                "text": "illustrate \u67D0\u689D\u898F\u5247\u7684\u5177\u9AD4\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u5177\u9AD4\u7BC4\u4F8B\u662F\u7DA0\u8272\uFF1B\u7D05\u8272\u662F\u672A\u89E3\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u6B63\u5728\u8A0E\u8AD6\u7684\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u662F\u9EC3\u8272\uFF1B\u7D05\u8272\u662F\u9700\u8981\u6C7A\u7B56\u7684\u672A\u89E3\u4E8B\u9805\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D05\u8272\u5361\u8A18\u9304\u554F\u984C\uFF1A\u5C0D\u8A71\u4E2D\u5718\u968A\u7121\u6CD5\u56DE\u7B54\u7684\u4E8B\u60C5\u2014\u2014\u5047\u8A2D\u3001\u9700\u8981\u6C7A\u7B56\u7684\u908A\u754C\u60C5\u6CC1\uFF0C\u6216\u5916\u90E8\u76F8\u4F9D\u3002\u628A\u5B83\u5011\u66AB\u5B58\u5728\u7D05\u8272\u5361\u4E0A\u80FD\u8B93\u5C0D\u8A71\u6301\u7E8C\u63A8\u9032\uFF0C\u540C\u6642\u8B93\u672A\u77E5\u4E8B\u9805\u6E05\u695A\u53EF\u898B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u6642\u9032\u884C\u7BC4\u4F8B\u5C0D\u7167",
+            "text": "<p>\u7BC4\u4F8B\u5C0D\u7167\u901A\u5E38\u5728\u5DE5\u4F5C\u6D41\u7A0B\u7684\u54EA\u500B\u6642\u9EDE\u9032\u884C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u5F85\u8FA6\u7CBE\u7149\u671F\u9593\uFF0C\u65BC\u8A72\u6545\u4E8B\u958B\u59CB\u958B\u767C\u4E4B\u524D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u662F\u7CBE\u7149\uFF0F\u8A0E\u8AD6\u968E\u6BB5\u7684\u6D3B\u52D5\uFF0C\u767C\u751F\u5728\u64B0\u5BEB\u7A0B\u5F0F\u4E4B\u524D\u3002"
+              },
+              {
+                "text": "\u5728\u6545\u4E8B\u5DF2\u7D93\u5B8C\u6210\u64B0\u5BEB\u7A0B\u5F0F\u4E4B\u5F8C\uFF0C\u4F5C\u70BA\u64B0\u5BEB\u767C\u4F48\u8AAA\u660E\u7684\u65B9\u5F0F",
+                "fraction": 0,
+                "feedback": "\u7BC4\u4F8B\u5C0D\u7167\u5728\u958B\u767C\u524D\u9032\u884C\uFF0C\u800C\u975E\u64B0\u5BEB\u7A0B\u5F0F\u4E4B\u5F8C\u3002"
+              },
+              {
+                "text": "\u5728\u6B63\u5F0F\u74B0\u5883\u4E8B\u6545\u8655\u7406\u671F\u9593",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u958B\u767C\u524D\u7684\u7CBE\u7149\u6280\u8853\uFF0C\u800C\u975E\u4E8B\u6545\u8655\u7406\u5DE5\u5177\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u5C08\u6848\u6700\u672B\u671F\u3001\u6700\u7D42\u9A57\u6536\u6642\u9032\u884C",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u5728\u6BCF\u500B\u6545\u4E8B\u88AB\u5EFA\u7F6E\u524D\u7684\u7CBE\u7149\u968E\u6BB5\u9010\u4E00\u4F7F\u7528\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC4\u4F8B\u5C0D\u7167\u5728\u5F85\u8FA6\u7CBE\u7149\u7684\u300C\u8A0E\u8AD6\u300D\u968E\u6BB5\u9032\u884C\uFF0C\u65BC\u6545\u4E8B\u958B\u59CB\u958B\u767C\u4E4B\u524D\u3002\u5B83\u7684\u6574\u500B\u76EE\u7684\u662F\u53CA\u65E9\u9054\u6210\u5171\u540C\u7406\u89E3\uFF0C\u8B93\u5718\u968A\u5E36\u8457\u6E05\u695A\u7684\u898F\u5247\u3001illustrate \u7684\u7BC4\u4F8B\u8207\u5DF2\u77E5\u7684\u554F\u984C\u9032\u5165\u958B\u767C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8AB0\u53C3\u8207",
+            "text": "<p>\u8AB0\u901A\u5E38\u6703\u53C3\u8207\u4E00\u5834\u7BC4\u4F8B\u5C0D\u7167\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u300C\u4E09\u528D\u5BA2\uFF08three amigos\uFF09\u300D\u2014\u2014\u5206\u5225\u4EE3\u8868\u5546\u696D\uFF0F\u7522\u54C1\u89C0\u9EDE\u3001\u4E00\u4F4D\u958B\u767C\u8005\uFF0C\u4EE5\u53CA\u4E00\u4F4D\u6E2C\u8A66\u8005",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E09\u528D\u5BA2\u628A\u5546\u696D\u3001\u958B\u767C\u8207\u6E2C\u8A66\u4E09\u7A2E\u89C0\u9EDE\u805A\u5728\u4E00\u8D77\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7522\u54C1\u8CA0\u8CAC\u4EBA\uFF0C\u7368\u81EA\u9032\u884C",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u4E00\u5834\u5354\u4F5C\u5C0D\u8A71\uFF1B\u55AE\u4E00\u500B\u4EBA\u7121\u6CD5\u4EE3\u8868\u5168\u90E8\u4E09\u7A2E\u89C0\u9EDE\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7D42\u7AEF\u4F7F\u7528\u8005\uFF0C\u6C92\u6709\u4EFB\u4F55\u5718\u968A\u6210\u54E1\u5728\u5834",
+                "fraction": 0,
+                "feedback": "\u5C0D\u8A71\u7531\u4EA4\u4ED8\u5718\u968A\u7684\u4E09\u528D\u5BA2\u9032\u884C\uFF0C\u800C\u975E\u53EA\u6709\u7D42\u7AEF\u4F7F\u7528\u8005\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7DAD\u904B\uFF0F\u90E8\u7F72\u5718\u968A",
+                "fraction": 0,
+                "feedback": "\u7BC4\u4F8B\u5C0D\u7167\u662F\u4E09\u528D\u5BA2\u4E4B\u9593\u7684\u7CBE\u7149\u5C0D\u8A71\uFF0C\u800C\u975E\u7DAD\u904B\u6D3B\u52D5\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC4\u4F8B\u5C0D\u7167\u662F\u300C\u4E09\u528D\u5BA2\u300D\u4E4B\u9593\u7684\u5C0D\u8A71\uFF1A\u5177\u5099\u5546\u696D\uFF0F\u7522\u54C1\u89C0\u9EDE\u7684\u4EBA\uFF08\u4F8B\u5982\u7522\u54C1\u8CA0\u8CAC\u4EBA\uFF09\u3001\u4E00\u4F4D\u958B\u767C\u8005\uFF0C\u4EE5\u53CA\u4E00\u4F4D\u6E2C\u8A66\u8005\u3002\u6BCF\u500B\u4EBA\u5E36\u4F86\u4E0D\u540C\u89C0\u9EDE\uFF0C\u6B63\u662F\u9019\u4E00\u9EDE\u8B93\u55AE\u4E00\u89D2\u8272\u6703\u907A\u6F0F\u7684\u898F\u5247\u3001\u7BC4\u4F8B\u8207\u554F\u984C\u5F97\u4EE5\u6D6E\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E00\u5834\u5C0D\u8A71\u6301\u7E8C\u591A\u4E45",
+            "text": "<p>\u4E00\u5834\u7BC4\u4F8B\u5C0D\u7167\u9810\u8A08\u82B1\u591A\u4E45\u6642\u9593\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u500B\u77ED\u7684\u6642\u9593\u76D2\uFF0C\u6BCF\u500B\u6545\u4E8B\u5927\u7D04 25 \u5206\u9418",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u523B\u610F\u6C42\u5FEB\uFF0C\u5927\u7D04 25 \u5206\u9418\uFF0C\u4EE5\u4FDD\u6301\u5C0D\u8A71\u805A\u7126\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6545\u4E8B\u4E00\u6574\u500B\u5DE5\u4F5C\u5929",
+                "fraction": 0,
+                "feedback": "\u5B83\u523B\u610F\u5F88\u77ED\uFF08\u7D04 25 \u5206\u9418\uFF09\uFF0C\u800C\u975E\u9577\u9054\u4E00\u5929\u7684\u6703\u8B70\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u6642\u9593\u9650\u5236\u7684\u958B\u653E\u5F0F\u8A0E\u8AD6",
+                "fraction": 0,
+                "feedback": "\u5B83\u6709\u6642\u9593\u76D2\uFF1B\u8D85\u6642\u901A\u5E38\u4EE3\u8868\u6545\u4E8B\u9084\u6C92\u88AB\u5145\u5206\u7406\u89E3\u3002"
+              },
+              {
+                "text": "\u6070\u597D\u4E00\u500B\u5169\u9031\u7684\u885D\u523A",
+                "fraction": 0,
+                "feedback": "\u4E00\u5834\u5C0D\u8A71\u662F\u7D04 25 \u5206\u9418\u7684\u7C21\u77ED\u5C0D\u8A71\uFF0C\u800C\u975E\u6574\u500B\u885D\u523A\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC4\u4F8B\u5C0D\u7167\u7684\u6642\u9593\u76D2\u5927\u7D04\u662F\u6BCF\u500B\u6545\u4E8B 25 \u5206\u9418\u3002\u77ED\u6642\u9593\u76D2\u8B93\u5C0D\u8A71\u4FDD\u6301\u805A\u7126\uFF1B\u5982\u679C\u4E00\u500B\u6545\u4E8B\u7121\u6CD5\u5728\u9019\u6BB5\u6642\u9593\u5167\u5B8C\u6210\u5C0D\u7167\uFF0C\u9019\u672C\u8EAB\u5C31\u662F\u5B83\u592A\u5927\u6216\u7406\u89E3\u4E0D\u8DB3\u7684\u6709\u7528\u8A0A\u865F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BCF\u5834\u6709\u5E7E\u5F35\u9EC3\u8272\u6545\u4E8B\u5361",
+            "text": "<p>\u5728\u55AE\u4E00\u5834\u7BC4\u4F8B\u5C0D\u7167\u4E2D\uFF0C\u684C\u4E0A\u6709\u5E7E\u5F35<strong>\u9EC3\u8272\uFF08\u6545\u4E8B\uFF09</strong>\u5361\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u5F35\u2014\u2014\u8A72\u5834\u805A\u7126\u65BC\u55AE\u4E00\u6545\u4E8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u5834\u4E00\u5F35\u9EC3\u8272\u5361\uFF1B\u5176\u9918\u4E00\u5207\u90FD\u76F8\u5C0D\u65BC\u90A3\u4E00\u500B\u6545\u4E8B\u3002"
+              },
+              {
+                "text": "\u6BCF\u689D\u898F\u5247\u4E00\u5F35\uFF0C\u56E0\u6B64\u6709\u6578\u5F35\u9EC3\u8272\u5361",
+                "fraction": 0,
+                "feedback": "\u898F\u5247\u662F\u85CD\u8272\u5361\uFF1B\u6BCF\u5834\u53EA\u6709\u4E00\u5F35\u9EC3\u8272\u6545\u4E8B\u5361\u3002"
+              },
+              {
+                "text": "\u6BCF\u4F4D\u53C3\u8207\u8005\u4E00\u5F35",
+                "fraction": 0,
+                "feedback": "\u9EC3\u8272\u5361\u7684\u6578\u91CF\u8207\u53C3\u8207\u8005\u7121\u95DC\uFF1B\u6070\u597D\u6709\u4E00\u500B\u6545\u4E8B\u3002"
+              },
+              {
+                "text": "\u8207\u6574\u500B\u5F85\u8FA6\u6E05\u55AE\u6240\u542B\u7684\u4E00\u6A23\u591A",
+                "fraction": 0,
+                "feedback": "\u4E00\u5834\u5C0D\u8A71\u4E00\u6B21\u53EA\u5C0D\u7167\u4E00\u500B\u6545\u4E8B\uFF0C\u56E0\u6B64\u53EA\u6709\u55AE\u4E00\u5F35\u9EC3\u8272\u5361\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u5834\u5C0D\u8A71\u53EA\u62C6\u89E3\u4E00\u500B\u6545\u4E8B\uFF0C\u56E0\u6B64\u53EA\u6709\u55AE\u4E00\u5F35\u9EC3\u8272\u5361\u3002\u85CD\u8272\u898F\u5247\u3001\u7DA0\u8272\u7BC4\u4F8B\u8207\u7D05\u8272\u554F\u984C\u90FD\u570D\u7E5E\u8457\u90A3\u4E00\u500B\u6545\u4E8B\u64FA\u653E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u984F\u8272\u662F\u898F\u5247",
+            "text": "<p>\u54EA\u500B\u5361\u7247\u984F\u8272\u7528\u4F86\u8868\u793A<strong>\u5546\u696D\u898F\u5247\uFF0F\u9A57\u6536\u6E96\u5247</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u85CD\u8272",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u85CD\u8272\u5361\u5C31\u662F\u898F\u5247\u3002"
+              },
+              {
+                "text": "\u7DA0\u8272",
+                "fraction": 0,
+                "feedback": "\u7DA0\u8272\u7528\u65BC\u5177\u9AD4\u7BC4\u4F8B\uFF0C\u800C\u975E\u898F\u5247\u3002"
+              },
+              {
+                "text": "\u7D05\u8272",
+                "fraction": 0,
+                "feedback": "\u7D05\u8272\u7528\u65BC\u672A\u89E3\u554F\u984C\uFF0C\u800C\u975E\u898F\u5247\u3002"
+              },
+              {
+                "text": "\u9EC3\u8272",
+                "fraction": 0,
+                "feedback": "\u9EC3\u8272\u662F\u6545\u4E8B\u672C\u8EAB\uFF0C\u800C\u975E\u898F\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DB\u7A2E\u984F\u8272\u5C0D\u61C9\u70BA\uFF1A\u9EC3\u8272\uFF1D\u6545\u4E8B\u3001\u85CD\u8272\uFF1D\u898F\u5247\u3001\u7DA0\u8272\uFF1D\u7BC4\u4F8B\u3001\u7D05\u8272\uFF1D\u554F\u984C\u3002\u56E0\u6B64\u5546\u696D\u898F\u5247\u6216\u9A57\u6536\u6E96\u5247\u662F\u85CD\u8272\u5361\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u984F\u8272\u662F\u5177\u9AD4\u7BC4\u4F8B",
+            "text": "<p>\u54EA\u500B\u5361\u7247\u984F\u8272\u7528\u4F86\u8868\u793A<strong>\u5177\u9AD4\u7BC4\u4F8B</strong>\uFF08\u5E36\u6709\u771F\u5BE6\u8CC7\u6599\u7684\u7279\u5B9A\u6848\u4F8B\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7DA0\u8272",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7DA0\u8272\u5361\u5C31\u662F\u5177\u9AD4\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u85CD\u8272",
+                "fraction": 0,
+                "feedback": "\u85CD\u8272\u7528\u65BC\u4E00\u822C\u6027\u898F\u5247\uFF1B\u5177\u9AD4\u6848\u4F8B\u662F\u7DA0\u8272\u3002"
+              },
+              {
+                "text": "\u7D05\u8272",
+                "fraction": 0,
+                "feedback": "\u7D05\u8272\u7528\u65BC\u672A\u89E3\u554F\u984C\uFF0C\u800C\u975E\u5177\u9AD4\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u9EC3\u8272",
+                "fraction": 0,
+                "feedback": "\u9EC3\u8272\u662F\u6545\u4E8B\uFF0C\u800C\u975E\u5177\u9AD4\u7BC4\u4F8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u7DA0\u8272\u5361\u627F\u8F09\u5177\u9AD4\u7BC4\u4F8B\u2014\u2014\u5E36\u6709\u771F\u5BE6\u8CC7\u6599\u8207\u9810\u671F\u7D50\u679C\u3001\u7528\u4F86 illustrate \u67D0\u689D\u85CD\u8272\u898F\u5247\u7684\u7279\u5B9A\u6848\u4F8B\u3002\u8ACB\u8A18\u4F4F\uFF1A\u9EC3\u8272\uFF1D\u6545\u4E8B\u3001\u85CD\u8272\uFF1D\u898F\u5247\u3001\u7DA0\u8272\uFF1D\u7BC4\u4F8B\u3001\u7D05\u8272\uFF1D\u554F\u984C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u984F\u8272\u662F\u672A\u89E3\u554F\u984C",
+            "text": "<p>\u54EA\u500B\u5361\u7247\u984F\u8272\u7528\u4F86\u8868\u793A\u5718\u968A\u6B64\u523B\u7121\u6CD5\u56DE\u7B54\u7684<strong>\u672A\u89E3\u554F\u984C\uFF0F\u672A\u77E5\u4E8B\u9805</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7D05\u8272",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D05\u8272\u5361\u8A18\u9304\u672A\u89E3\u554F\u984C\u8207\u672A\u77E5\u4E8B\u9805\u3002"
+              },
+              {
+                "text": "\u7DA0\u8272",
+                "fraction": 0,
+                "feedback": "\u7DA0\u8272\u7528\u65BC\u5177\u9AD4\u7BC4\u4F8B\uFF0C\u800C\u975E\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u85CD\u8272",
+                "fraction": 0,
+                "feedback": "\u85CD\u8272\u7528\u65BC\u898F\u5247\uFF0C\u800C\u975E\u672A\u89E3\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u9EC3\u8272",
+                "fraction": 0,
+                "feedback": "\u9EC3\u8272\u662F\u6545\u4E8B\uFF0C\u800C\u975E\u672A\u89E3\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D05\u8272\u5361\u7528\u65BC\u554F\u984C\uFF1A\u672A\u77E5\u4E8B\u9805\u3001\u5047\u8A2D\u3001\u9700\u8981\u6C7A\u7B56\u7684\u908A\u754C\u60C5\u6CC1\uFF0C\u6216\u76F8\u4F9D\u3002\u53E3\u8A23\u662F\u9EC3\u8272\uFF1D\u6545\u4E8B\u3001\u85CD\u8272\uFF1D\u898F\u5247\u3001\u7DA0\u8272\uFF1D\u7BC4\u4F8B\u3001\u7D05\u8272\uFF1D\u554F\u984C\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u7DA0\u8272 illustrate \u4E00\u689D\u898F\u5247",
+            "text": "<p>\u7DA0\u8272\u5361\u662F\u4E00\u500B illustrate \u67D0\u689D\uFF08\u85CD\u8272\uFF09\u898F\u5247\u7684\u5177\u9AD4\u7BC4\u4F8B\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7DA0\u8272\u7BC4\u4F8B\u8B93\u85CD\u8272\u898F\u5247\u8B8A\u5F97\u5177\u9AD4\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u7DA0\u8272\u5361\u662F illustrate \u85CD\u8272\u898F\u5247\u7684\u5177\u9AD4\u7BC4\u4F8B\uFF0C\u56E0\u6B64\u6B64\u6558\u8FF0\u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "\u898F\u5247\uFF08\u85CD\u8272\uFF09\u662F\u4E00\u822C\u6027\u9673\u8FF0\uFF1B\u7BC4\u4F8B\uFF08\u7DA0\u8272\uFF09\u4EE5\u5177\u9AD4\u7279\u5B9A\u6848\u4F8B illustrate \u5B83\u5011\u3002\u6BCF\u500B\u7DA0\u8272\u7BC4\u4F8B\u90FD\u5750\u843D\u5728\u5B83\u6240\u793A\u7BC4\u7684\u85CD\u8272\u898F\u5247\u4E4B\u4E0B\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DB\u7A2E\u5361\u7247\u984F\u8272",
+            "text": "<p>\u54EA\u4E00\u7D44\u6B63\u78BA\u5217\u51FA\u56DB\u7A2E\u7BC4\u4F8B\u5C0D\u7167\u5361\u7247\u984F\u8272\u4EE5\u53CA\u5404\u81EA\u4EE3\u8868\u7684\u610F\u7FA9\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9EC3\u8272\uFF1D\u6545\u4E8B\u3001\u85CD\u8272\uFF1D\u898F\u5247\u3001\u7DA0\u8272\uFF1D\u7BC4\u4F8B\u3001\u7D05\u8272\uFF1D\u554F\u984C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u5C31\u662F\u6A19\u6E96\u7684\u7BC4\u4F8B\u5C0D\u7167\u914D\u8272\u65B9\u6848\u3002"
+              },
+              {
+                "text": "\u9EC3\u8272\uFF1D\u898F\u5247\u3001\u85CD\u8272\uFF1D\u6545\u4E8B\u3001\u7DA0\u8272\uFF1D\u554F\u984C\u3001\u7D05\u8272\uFF1D\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u984F\u8272\u985B\u5012\u4E86\uFF1A\u6545\u4E8B\u662F\u9EC3\u8272\u3001\u898F\u5247\u662F\u85CD\u8272\u3001\u7BC4\u4F8B\u662F\u7DA0\u8272\u3001\u554F\u984C\u662F\u7D05\u8272\u3002"
+              },
+              {
+                "text": "\u9EC3\u8272\uFF1D\u554F\u984C\u3001\u85CD\u8272\uFF1D\u7BC4\u4F8B\u3001\u7DA0\u8272\uFF1D\u898F\u5247\u3001\u7D05\u8272\uFF1D\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u56DB\u8005\u7686\u932F\uFF1B\u6B63\u78BA\u65B9\u6848\u662F\u9EC3\u8272\u6545\u4E8B\u3001\u85CD\u8272\u898F\u5247\u3001\u7DA0\u8272\u7BC4\u4F8B\u3001\u7D05\u8272\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u9EC3\u8272\uFF1D\u7BC4\u4F8B\u3001\u85CD\u8272\uFF1D\u554F\u984C\u3001\u7DA0\u8272\uFF1D\u6545\u4E8B\u3001\u7D05\u8272\uFF1D\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u9019\u4E9B\u88AB\u6253\u4E82\u4E86\uFF1B\u6B63\u78BA\u65B9\u6848\u662F\u9EC3\u8272\u6545\u4E8B\u3001\u85CD\u8272\u898F\u5247\u3001\u7DA0\u8272\u7BC4\u4F8B\u3001\u7D05\u8272\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DB\u7A2E\u984F\u8272\u662F\u56FA\u5B9A\u7684\uFF1A\u9EC3\u8272\u4EE3\u8868\u6545\u4E8B\uFF08\u6BCF\u5834\u4E00\u5F35\uFF09\u3001\u85CD\u8272\u4EE3\u8868\u898F\u5247\uFF08\u9A57\u6536\u6E96\u5247\uFF0F\u9650\u5236\uFF09\u3001\u7DA0\u8272\u4EE3\u8868\u5177\u9AD4\u7BC4\u4F8B\u3001\u7D05\u8272\u4EE3\u8868\u672A\u89E3\u554F\u984C\u3002\u719F\u6089\u9019\u500B\u65B9\u6848\u662F\u8B80\u61C2\u4E00\u5F35\u5C0D\u7167\u5716\u7684\u57FA\u790E\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5C0D\u7167\u5728\u958B\u767C\u4E4B\u524D\u9032\u884C",
+            "text": "<p>\u7BC4\u4F8B\u5C0D\u7167\u5728\u6545\u4E8B\u958B\u59CB\u958B\u767C\u4E4B\u524D\u9032\u884C\uFF0C\u5C6C\u65BC\u7CBE\u7149\u7684\u4E00\u90E8\u5206\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u662F\u5148\u65BC\u64B0\u5BEB\u7A0B\u5F0F\u7684\u7CBE\u7149\u6D3B\u52D5\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5B83\u767C\u751F\u5728\u7CBE\u7149\u671F\u9593\u3001\u958B\u767C\u4E4B\u524D\uFF0C\u56E0\u6B64\u6B64\u6558\u8FF0\u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC4\u4F8B\u5C0D\u7167\u662F\u300C\u8A0E\u8AD6\u300D\u968E\u6BB5\u7684\u7CBE\u7149\u6280\u8853\u3002\u5728\u958B\u767C\u524D\u9032\u884C\u4EE3\u8868\u5718\u968A\u6703\u53CA\u65E9\u6D6E\u73FE\u898F\u5247\u3001\u7BC4\u4F8B\u8207\u554F\u984C\uFF0C\u8B93\u64B0\u5BEB\u7A0B\u5F0F\u5F9E\u5171\u540C\u7406\u89E3\u51FA\u767C\uFF0C\u800C\u975E\u5F9E\u731C\u6E2C\u958B\u59CB\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u4E00\u689D\u5546\u696D\u898F\u5247",
+            "text": "<p>\u5C0D\u8A71\u4E2D\u6709\u4EBA\u8AAA\uFF1A<em>\u300C\u91D1\u984D\u8D85\u904E $50 \u7684\u8A02\u55AE\u53EF\u4EAB\u514D\u904B\u3002\u300D</em>\u9019\u5C6C\u65BC\u54EA\u500B\u5361\u7247\u984F\u8272\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u85CD\u8272\u2014\u2014\u5B83\u662F\u4E00\u822C\u6027\u7684\u5546\u696D\u898F\u5247\uFF0F\u9A57\u6536\u6E96\u5247",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u689D\u4E00\u822C\u6027\u7684\u300C\u8D85\u904E $50\u2026\u300D\u9650\u5236\u662F\u898F\u5247\uFF0C\u56E0\u6B64\u662F\u85CD\u8272\u3002"
+              },
+              {
+                "text": "\u7DA0\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u5177\u9AD4\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u5B83\u6C92\u6709\u7279\u5B9A\u7684\u8A02\u55AE\u91D1\u984D\u6216\u7D50\u679C\uFF1B\u5B83\u662F\u4E00\u822C\u6027\u898F\u5247\uFF08\u85CD\u8272\uFF09\uFF0C\u800C\u975E\u5177\u9AD4\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u7D05\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u672A\u89E3\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u9019\u88E1\u6C92\u6709\u4EFB\u4F55\u672A\u77E5\uFF1B\u5B83\u662F\u4E00\u689D\u5DF2\u9673\u8FF0\u7684\u898F\u5247\uFF0C\u56E0\u6B64\u662F\u85CD\u8272\u3002"
+              },
+              {
+                "text": "\u9EC3\u8272\u2014\u2014\u5B83\u662F\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u662F\u6B63\u5728\u8A0E\u8AD6\u7684\u4E3B\u984C\uFF1B\u9019\u662F\u95DC\u65BC\u5B83\u7684\u4E00\u689D\u898F\u5247\uFF0C\u56E0\u6B64\u662F\u85CD\u8272\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u91D1\u984D\u8D85\u904E $50 \u7684\u8A02\u55AE\u53EF\u4EAB\u514D\u904B\u300D\u662F\u4E00\u689D\u5FC5\u9808\u6210\u7ACB\u7684\u4E00\u822C\u6027\u9650\u5236\u2014\u2014\u4E00\u689D\u9A57\u6536\u6E96\u5247\u3002\u4E00\u822C\u6027\u898F\u5247\u662F\u85CD\u8272\u5361\u3002\u800C\u4E00\u7B46\u5177\u9AD4\u8A02\u55AE\uFF08\u300C\u4E00\u7B46 $60 \u8A02\u55AE\u514D\u904B\u300D\uFF09\u5247\u6703\u662F\u9019\u689D\u898F\u5247\u7684\u7DA0\u8272\u7BC4\u4F8B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u4E00\u500B\u5177\u9AD4\u6848\u4F8B",
+            "text": "<p>\u6709\u4EBA\u8AAA\uFF1A<em>\u300C\u4E00\u7B46 $100 \u7684\u8A02\u55AE\u642D\u914D 10% \u6298\u50F9\u5238\uFF0C\u4ED8 $90\u3002\u300D</em>\u9019\u5C6C\u65BC\u54EA\u500B\u5361\u7247\u984F\u8272\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7DA0\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u5E36\u6709\u5177\u9AD4\u8CC7\u6599\u8207\u7D50\u679C\u7684\u5177\u9AD4\u7BC4\u4F8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5177\u9AD4\u7684\u6578\u5B57\u8207\u6700\u7D42\u91D1\u984D\u4F7F\u5B83\u6210\u70BA\u4E00\u500B\u5177\u9AD4\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u85CD\u8272\u2014\u2014\u5B83\u662F\u4E00\u822C\u6027\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u5B83\u7528\u5230\u7279\u5B9A\u6578\u503C\uFF08$100\u300110%\u3001$90\uFF09\uFF1B\u4E00\u822C\u6027\u898F\u5247\u4E0D\u6703\u5217\u51FA\u5177\u9AD4\u6578\u5B57\u3002"
+              },
+              {
+                "text": "\u7D05\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u672A\u89E3\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u9019\u88E1\u6C92\u6709\u4EFB\u4F55\u672A\u77E5\uFF1B\u5B83\u662F\u4E00\u500B\u5177\u9AD4 illustrate\uFF0C\u56E0\u6B64\u662F\u7DA0\u8272\u3002"
+              },
+              {
+                "text": "\u9EC3\u8272\u2014\u2014\u5B83\u662F\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u662F\u4E3B\u984C\uFF1B\u9019\u662F\u67D0\u689D\u898F\u5247\u7684\u5177\u9AD4\u7BC4\u4F8B\uFF0C\u56E0\u6B64\u662F\u7DA0\u8272\u3002"
+              }
+            ],
+            "generalFeedback": "\u5177\u9AD4\u8CC7\u6599\uFF08$100\u300110%\u3001$90\uFF09\u8207\u7279\u5B9A\u7D50\u679C\u4F7F\u5B83\u6210\u70BA\u7DA0\u8272\u7BC4\u4F8B\u3002\u5B83 illustrate \u4E00\u689D\u5E95\u5C64\u85CD\u8272\u898F\u5247\uFF0C\u4F8B\u5982\u300C\u767E\u5206\u6BD4\u6298\u50F9\u5238\u4F9D\u8A72\u767E\u5206\u6BD4\u964D\u4F4E\u8A02\u55AE\u7E3D\u984D\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u4E00\u500B\u672A\u77E5",
+            "text": "<p>\u6709\u4EBA\u554F\uFF1A<em>\u300C\u5982\u679C\u6298\u50F9\u5238\u904E\u671F\u4E86\u6703\u600E\u6A23\uFF1F\u300D</em>\u9019\u5C6C\u65BC\u54EA\u500B\u5361\u7247\u984F\u8272\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7D05\u8272\u2014\u2014\u5B83\u662F\u5718\u968A\u5C1A\u7121\u6CD5\u56DE\u7B54\u7684\u672A\u89E3\u554F\u984C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u672A\u89E3\u6C7A\u7684\u300C\u6703\u600E\u6A23\u2026\u300D\u662F\u554F\u984C\uFF0C\u56E0\u6B64\u662F\u7D05\u8272\u3002"
+              },
+              {
+                "text": "\u85CD\u8272\u2014\u2014\u5B83\u662F\u4E00\u689D\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E0D\u662F\u5DF2\u9673\u8FF0\u7684\u898F\u5247\uFF1B\u5B83\u662F\u5F85\u6C7A\u7B56\u7684\u672A\u77E5\uFF0C\u56E0\u6B64\u662F\u7D05\u8272\u3002"
+              },
+              {
+                "text": "\u7DA0\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u5177\u9AD4\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u5B83\u6C92\u6709\u9673\u8FF0\u5177\u9AD4\u6848\u4F8B\u6216\u7D50\u679C\uFF1B\u5B83\u662F\u4E00\u500B\u672A\u89E3\u554F\u984C\uFF08\u7D05\u8272\uFF09\u3002"
+              },
+              {
+                "text": "\u9EC3\u8272\u2014\u2014\u5B83\u662F\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u662F\u4E3B\u984C\uFF1B\u4E00\u500B\u672A\u89E3\u6C7A\u7684\u908A\u754C\u60C5\u6CC1\u662F\u7D05\u8272\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u5982\u679C\u6298\u50F9\u5238\u904E\u671F\u4E86\u6703\u600E\u6A23\uFF1F\u300D\u662F\u5718\u968A\u5728\u5C0D\u8A71\u4E2D\u7121\u6CD5\u56DE\u7B54\u7684\u672A\u77E5\u908A\u754C\u60C5\u6CC1\uFF0C\u56E0\u6B64\u653E\u5728\u7D05\u8272\u5361\u4E0A\u3002\u4E00\u65E6\u56DE\u7B54\uFF0C\u5B83\u53EF\u80FD\u8F49\u8B8A\u6210\u4E00\u689D\u65B0\u7684\u85CD\u8272\u898F\u5247\u8207\u82E5\u5E72\u7DA0\u8272\u7BC4\u4F8B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u6545\u4E8B\u6A19\u984C",
+            "text": "<p>\u6B63\u5728\u62C6\u89E3\u7684\u4E3B\u984C\u662F<em>\u300C\u5728\u7D50\u5E33\u6642\u5957\u7528\u6298\u50F9\u5238\u300D</em>\u3002\u9019\u5C6C\u65BC\u54EA\u500B\u5361\u7247\u984F\u8272\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9EC3\u8272\u2014\u2014\u5B83\u662F\u6545\u4E8B\uFF0C\u662F\u6B63\u5728\u8A0E\u8AD6\u7684\u4E3B\u984C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6B63\u88AB\u5C0D\u7167\u7684\u6574\u9AD4\u4E3B\u984C\u5C31\u662F\u9EC3\u8272\u6545\u4E8B\u5361\u3002"
+              },
+              {
+                "text": "\u85CD\u8272\u2014\u2014\u5B83\u662F\u4E00\u689D\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u5B83\u6307\u7684\u662F\u6574\u500B\u6545\u4E8B\uFF0C\u800C\u975E\u55AE\u4E00\u9650\u5236\uFF1B\u6545\u4E8B\u662F\u9EC3\u8272\u3002"
+              },
+              {
+                "text": "\u7DA0\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u5177\u9AD4\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u4E3B\u984C\uFF0C\u800C\u975E\u5E36\u6709\u8CC7\u6599\u7684\u7279\u5B9A\u6848\u4F8B\uFF1B\u6545\u4E8B\u662F\u9EC3\u8272\u3002"
+              },
+              {
+                "text": "\u7D05\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u672A\u89E3\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u6B63\u5728\u8A0E\u8AD6\u7684\u6545\u4E8B\uFF0C\u800C\u975E\u672A\u77E5\uFF1B\u6545\u4E8B\u662F\u9EC3\u8272\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B63\u88AB\u62C6\u89E3\u4E4B\u7269\u7684\u6A19\u984C\u5C31\u662F\u6545\u4E8B\u672C\u8EAB\uFF0C\u4E5F\u5C31\u662F\u8A72\u5834\u552F\u4E00\u7684\u9EC3\u8272\u5361\u3002\u5B83\u7684\u898F\u5247\uFF08\u85CD\u8272\uFF09\u3001\u7BC4\u4F8B\uFF08\u7DA0\u8272\uFF09\u8207\u554F\u984C\uFF08\u7D05\u8272\uFF09\u90FD\u570D\u7E5E\u8457\u5B83\u64FA\u653E\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7BC4\u4F8B\u8207\u898F\u5247\u7684\u95DC\u4FC2",
+            "text": "<p>\u5728\u5C0D\u7167\u5716\u4E0A\uFF0C\u7DA0\u8272\u7BC4\u4F8B\u5361\u8207\u85CD\u8272\u898F\u5247\u5361\u4E4B\u9593\u6709\u4EC0\u9EBC\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u7DA0\u8272\u7BC4\u4F8B\u4EE5\u4E00\u500B\u5177\u9AD4\u6848\u4F8B illustrate \u67D0\u689D\u85CD\u8272\u898F\u5247\uFF0C\u56E0\u6B64\u7BC4\u4F8B\u5750\u843D\u5728\u5B83\u6240\u793A\u7BC4\u7684\u898F\u5247\u4E4B\u4E0B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7BC4\u4F8B\u8B93\u898F\u5247\u8B8A\u5F97\u5177\u9AD4\uFF1B\u5B83\u5011\u639B\u5728\u6240 illustrate \u7684\u898F\u5247\u4E0B\u65B9\u3002"
+              },
+              {
+                "text": "\u7DA0\u8272\u7BC4\u4F8B\u53D6\u4EE3\u85CD\u8272\u898F\u5247\uFF0C\u56E0\u6B64\u6709\u7BC4\u4F8B\u7684\u898F\u5247\u53EF\u4EE5\u4E1F\u68C4",
+                "fraction": 0,
+                "feedback": "\u7BC4\u4F8B\u4E0D\u6703\u53D6\u4EE3\u898F\u5247\uFF1B\u5B83\u5011 illustrate \u898F\u5247\uFF0C\u4E14\u5169\u8005\u90FD\u7559\u5728\u5C0D\u7167\u5716\u4E0A\u3002"
+              },
+              {
+                "text": "\u7DA0\u8272\u7BC4\u4F8B\u8207\u898F\u5247\u7121\u95DC\uFF0C\u662F\u96A8\u6A5F\u64FA\u653E\u7684",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B\u7BC4\u4F8B\u90FD illustrate \u67D0\u689D\u7279\u5B9A\u898F\u5247\uFF1B\u5B83\u5011\u662F\u523B\u610F\u5206\u7D44\u7684\uFF0C\u800C\u975E\u96A8\u6A5F\u3002"
+              },
+              {
+                "text": "\u7DA0\u8272\u7BC4\u4F8B\u5B9A\u7FA9\u6545\u4E8B\uFF0C\u800C\u85CD\u8272\u898F\u5247\u5B9A\u7FA9\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u662F\u9EC3\u8272\u3001\u554F\u984C\u662F\u7D05\u8272\uFF1B\u7DA0\u8272\u7BC4\u4F8B illustrate \u85CD\u8272\u898F\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u898F\u5247\u662F\u4E00\u822C\u6027\u9673\u8FF0\uFF1B\u7BC4\u4F8B\u662F\u5C55\u793A\u898F\u5247\u5BE6\u969B\u904B\u4F5C\u7684\u5177\u9AD4\u6848\u4F8B\u3002\u5728\u5C0D\u7167\u5716\u4E0A\uFF0C\u7DA0\u8272\u7BC4\u4F8B\u64FA\u5728\u5B83\u6240 illustrate \u7684\u85CD\u8272\u898F\u5247\u4E4B\u4E0B\uFF0C\u56E0\u6B64\u4F60\u53EF\u4EE5\u770B\u5230\u6BCF\u689D\u898F\u5247\u90FD\u6709\u5177\u9AD4\u6848\u4F8B\u652F\u6490\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7DA0\u8272\u7BC4\u4F8B\u9935\u5165 BDD",
+            "text": "<p>\u7576\u5718\u968A\u9032\u5165 BDD/ATDD \u6642\uFF0C\u7DA0\u8272\u7BC4\u4F8B\u5361\u901A\u5E38\u6703\u8B8A\u6210\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Given-When-Then \u60C5\u5883\u2014\u2014\u6BCF\u500B\u5177\u9AD4\u7BC4\u4F8B\u5C0D\u61C9\u5230\u4E00\u500B Gherkin \u60C5\u5883",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7DA0\u8272\u7BC4\u4F8B\u662F\u5177\u9AD4\u6848\u4F8B\uFF0C\u80FD\u81EA\u7136\u8F49\u8B6F\u6210 GWT \u60C5\u5883\u3002"
+              },
+              {
+                "text": "\u5F85\u8FA6\u6E05\u55AE\u4E2D\u7684\u65B0\u4F7F\u7528\u8005\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u7BC4\u4F8B\u6703\u8B8A\u6210\u60C5\u5883\uFF1B\u53CD\u5012\u662F\u898F\u5247\u53EF\u80FD\u6697\u793A\u62C6\u5206\u6210\u6545\u4E8B\u3002"
+              },
+              {
+                "text": "\u984D\u5916\u7684\u7D05\u8272\u554F\u984C\u5361",
+                "fraction": 0,
+                "feedback": "\u7BC4\u4F8B\u662F\u5177\u9AD4\u4E14\u5DF2\u89E3\u6C7A\u7684\uFF1B\u5B83\u5011\u9935\u5165\u60C5\u5883\uFF0C\u800C\u975E\u65B0\u7684\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u6548\u80FD\u57FA\u6E96\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u7DA0\u8272\u7BC4\u4F8B\u63CF\u8FF0\u529F\u80FD\u884C\u70BA\u4E26\u8B8A\u6210 GWT \u60C5\u5883\uFF0C\u800C\u975E\u57FA\u6E96\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u65BC\u7DA0\u8272\u5361\u662F\u5177\u9AD4\u7684\uFF08\u7279\u5B9A\u8F38\u5165\u8207\u9810\u671F\u7D50\u679C\uFF09\uFF0C\u6BCF\u4E00\u5F35\u90FD\u80FD\u4E7E\u6DE8\u5730\u5C0D\u61C9\u5230 BDD/ATDD \u4E2D\u7684\u4E00\u500B Given-When-Then \u60C5\u5883\u3002\u56E0\u6B64\u7BC4\u4F8B\u5C0D\u7167\u5C0D\u8A71\u6703\u7522\u51FA\u53EF\u57F7\u884C\u898F\u683C\u7684\u539F\u6599\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8AB0\u8207\u4F55\u6642\u5408\u4F75",
+            "text": "<p>\u54EA\u500B\u6558\u8FF0\u6700\u80FD\u63CF\u8FF0<strong>\u8AB0</strong>\u9032\u884C\u7BC4\u4F8B\u5C0D\u7167\u4EE5\u53CA<strong>\u4F55\u6642</strong>\u9032\u884C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E09\u528D\u5BA2\uFF08\u5546\u696D\u3001\u958B\u767C\u8005\u3001\u6E2C\u8A66\u8005\uFF09\u5728\u7CBE\u7149\u671F\u9593\u3001\u6545\u4E8B\u958B\u767C\u4E4B\u524D\u9032\u884C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E09\u528D\u5BA2\uFF0C\u5728\u7CBE\u7149\u968E\u6BB5\uFF0C\u65BC\u64B0\u5BEB\u7A0B\u5F0F\u4E4B\u524D\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u958B\u767C\u8005\uFF0C\u5728\u885D\u523A\u7D50\u675F\u7684\u56DE\u9867\u6703\u8B70\u4E0A\u9032\u884C",
+                "fraction": 0,
+                "feedback": "\u5B83\u6D89\u53CA\u5168\u90E8\u4E09\u528D\u5BA2\uFF0C\u4E14\u767C\u751F\u5728\u958B\u767C\u524D\u7684\u7CBE\u7149\uFF0C\u800C\u975E\u56DE\u9867\u6703\u8B70\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7522\u54C1\u8CA0\u8CAC\u4EBA\uFF0C\u5728\u6545\u4E8B\u767C\u4F48\u5F8C\u9032\u884C",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u5354\u4F5C\u4E14\u5148\u65BC\u958B\u767C\u7684\uFF0C\u800C\u975E\u767C\u4F48\u5F8C\u7368\u81EA\u9032\u884C\u7684\u6D3B\u52D5\u3002"
+              },
+              {
+                "text": "\u7DAD\u904B\u5718\u968A\u5728\u90E8\u7F72\u671F\u9593\u9032\u884C",
+                "fraction": 0,
+                "feedback": "\u4E09\u528D\u5BA2\u5728\u958B\u767C\u524D\u7684\u7CBE\u7149\u968E\u6BB5\u9032\u884C\uFF1B\u7DAD\u904B\u4E0D\u662F\u5B83\u7684\u5C0D\u8C61\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC4\u4F8B\u5C0D\u7167\u5728\u5F85\u8FA6\u7CBE\u7149\u671F\u9593\u3001\u958B\u767C\u4E4B\u524D\uFF0C\u628A\u4E09\u528D\u5BA2\u2014\u2014\u5177\u5099\u5546\u696D\uFF0F\u7522\u54C1\u89C0\u9EDE\u7684\u4EBA\u3001\u4E00\u4F4D\u958B\u767C\u8005\u3001\u4E00\u4F4D\u6E2C\u8A66\u8005\u2014\u2014\u805A\u5728\u4E00\u8D77\u3002\u9019\u7A2E\u89C0\u9EDE\u7684\u7D44\u5408\u53CA\u65E9\u65BD\u7528\uFF0C\u6B63\u662F\u6D6E\u73FE\u898F\u5247\u3001\u7BC4\u4F8B\u8207\u554F\u984C\u7684\u95DC\u9375\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u4E00\u500B\u7BC4\u570D\u554F\u984C",
+            "text": "<p>\u6709\u4EBA\u554F\uFF1A<em>\u300C\u6211\u5011\u8A72\u540C\u6642\u652F\u63F4\u767E\u5206\u6BD4\u8207\u56FA\u5B9A\u91D1\u984D\u5169\u7A2E\u6298\u50F9\u5238\u55CE\uFF1F\u300D</em>\u9019\u5C6C\u65BC\u54EA\u500B\u5361\u7247\u984F\u8272\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7D05\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u95DC\u65BC\u7BC4\u570D\u7684\u672A\u89E3\u554F\u984C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u672A\u56DE\u7B54\u7684\u7BC4\u570D\u554F\u984C\u662F\u7D05\u8272\u5361\u3002"
+              },
+              {
+                "text": "\u85CD\u8272\u2014\u2014\u5B83\u662F\u4E00\u689D\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u5B83\u9084\u4E0D\u662F\u5DF2\u6C7A\u5B9A\u7684\u898F\u5247\uFF1B\u5B83\u662F\u7B49\u5F85\u6C7A\u7B56\u7684\u554F\u984C\uFF0C\u56E0\u6B64\u662F\u7D05\u8272\u3002"
+              },
+              {
+                "text": "\u7DA0\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u5177\u9AD4\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u5B83\u6C92\u6709\u9673\u8FF0\u5177\u9AD4\u6848\u4F8B\uFF1B\u5B83\u662F\u672A\u89E3\u554F\u984C\uFF0C\u56E0\u6B64\u662F\u7D05\u8272\u3002"
+              },
+              {
+                "text": "\u9EC3\u8272\u2014\u2014\u5B83\u662F\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u662F\u4E3B\u984C\uFF1B\u9019\u662F\u95DC\u65BC\u5B83\u7684\u672A\u77E5\uFF0C\u56E0\u6B64\u662F\u7D05\u8272\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B\u5718\u968A\u5C1A\u672A\u6C7A\u5B9A\u7684\u300C\u6211\u5011\u8A72\u4E0D\u8A72\u652F\u63F4\u2026\u300D\u662F\u672A\u89E3\u554F\u984C\u2014\u2014\u7D05\u8272\u5361\u3002\u4E00\u65E6\u56DE\u7B54\uFF0C\u8A72\u6C7A\u7B56\u53EF\u80FD\u8B8A\u6210\u4E00\u689D\u6216\u591A\u689D\u85CD\u8272\u898F\u5247\u4EE5\u53CA\u7DA0\u8272\u7BC4\u4F8B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u4E00\u9805\u9650\u5236",
+            "text": "<p>\u5718\u968A\u540C\u610F\uFF1A<em>\u300C\u4E00\u4F4D\u4F7F\u7528\u8005\u6700\u591A\u53EF\u540C\u6642\u64C1\u6709 3 \u500B\u6709\u6548\u5DE5\u4F5C\u968E\u6BB5\u3002\u300D</em>\u9019\u5C6C\u65BC\u54EA\u500B\u5361\u7247\u984F\u8272\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u85CD\u8272\u2014\u2014\u5B83\u662F\u6545\u4E8B\u5FC5\u9808\u6EFF\u8DB3\u7684\u4E00\u822C\u6027\u9650\u5236",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u689D\u4E00\u822C\u6027\u7684\u300C\u6700\u591A 3 \u500B\u300D\u9650\u5236\u662F\u898F\u5247\uFF0C\u56E0\u6B64\u662F\u85CD\u8272\u3002"
+              },
+              {
+                "text": "\u7DA0\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u5177\u9AD4\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u5B83\u63CF\u8FF0\u7684\u662F\u4E00\u822C\u6027\u4E0A\u9650\uFF0C\u800C\u975E\u5E36\u6709\u8CC7\u6599\u7684\u7279\u5B9A\u6848\u4F8B\uFF1B\u90A3\u662F\u4E00\u689D\u85CD\u8272\u898F\u5247\u3002"
+              },
+              {
+                "text": "\u7D05\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u672A\u89E3\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5DF2\u9054\u6210\u5171\u8B58\u4E26\u88AB\u9673\u8FF0\uFF0C\u800C\u975E\u672A\u77E5\uFF1B\u5B83\u662F\u4E00\u689D\u85CD\u8272\u898F\u5247\u3002"
+              },
+              {
+                "text": "\u9EC3\u8272\u2014\u2014\u5B83\u662F\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u662F\u4E3B\u984C\uFF1B\u9019\u662F\u5C0D\u5B83\u7684\u4E00\u9805\u9650\u5236\uFF0C\u56E0\u6B64\u662F\u85CD\u8272\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u6700\u591A 3 \u500B\u6709\u6548\u5DE5\u4F5C\u968E\u6BB5\u300D\u662F\u4E00\u9805\u5FC5\u9808\u59CB\u7D42\u6210\u7ACB\u7684\u4E00\u822C\u6027\u9650\u5236\u2014\u2014\u4E00\u689D\u9A57\u6536\u6E96\u5247\uFF0C\u56E0\u6B64\u662F\u85CD\u8272\u898F\u5247\u3002\u7DA0\u8272\u7BC4\u4F8B\u5247\u53EF\u80FD\u662F\u300C\u4E00\u4F4D\u5DF2\u6709 3 \u500B\u5DE5\u4F5C\u968E\u6BB5\u7684\u4F7F\u7528\u8005\u5617\u8A66\u7B2C 4 \u6B21\u767B\u5165\u6642\u88AB\u62D2\u7D55\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u4E00\u500B\u7279\u5B9A\u7D50\u679C",
+            "text": "<p>\u6709\u4EBA\u8AAA\uFF1A<em>\u300C\u4E00\u4F4D\u5DF2\u6709 3 \u500B\u5DE5\u4F5C\u968E\u6BB5\u7684\u4F7F\u7528\u8005\u958B\u555F\u7B2C 4 \u500B\u6642\uFF0C\u6703\u770B\u5230\u300E\u5DF2\u9054\u5DE5\u4F5C\u968E\u6BB5\u4E0A\u9650\u300F\u3002\u300D</em>\u9019\u5C6C\u65BC\u54EA\u500B\u5361\u7247\u984F\u8272\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7DA0\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B illustrate \u67D0\u689D\u898F\u5247\u7684\u5177\u9AD4\u7BC4\u4F8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u5E36\u6709\u5177\u9AD4\u7D50\u679C\u7684\u7279\u5B9A\u60C5\u6CC1\u662F\u7DA0\u8272\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u85CD\u8272\u2014\u2014\u5B83\u662F\u4E00\u822C\u6027\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u5E36\u6709\u5177\u9AD4\u7D50\u679C\u7684\u7279\u5B9A\u6848\u4F8B\uFF0C\u7528\u4F86 illustrate \u67D0\u689D\u898F\u5247\uFF1B\u90A3\u662F\u7DA0\u8272\u3002"
+              },
+              {
+                "text": "\u7D05\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u672A\u89E3\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u9019\u88E1\u6C92\u6709\u4EFB\u4F55\u672A\u77E5\uFF1B\u5B83\u662F\u4E00\u500B\u5177\u9AD4 illustrate\uFF0C\u56E0\u6B64\u662F\u7DA0\u8272\u3002"
+              },
+              {
+                "text": "\u9EC3\u8272\u2014\u2014\u5B83\u662F\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u662F\u4E3B\u984C\uFF1B\u9019\u662F\u67D0\u689D\u898F\u5247\u7684\u5177\u9AD4\u7BC4\u4F8B\uFF0C\u56E0\u6B64\u662F\u7DA0\u8272\u3002"
+              }
+            ],
+            "generalFeedback": "\u9019\u662F\u4E00\u500B\u7279\u5B9A\u60C5\u5883\uFF08\u5DF2\u6709 3 \u500B\u5DE5\u4F5C\u968E\u6BB5\u3001\u7B2C 4 \u6B21\u5617\u8A66\u3001\u4E00\u5247\u7279\u5B9A\u8A0A\u606F\uFF09\uFF0C\u56E0\u6B64\u662F\u7DA0\u8272\u7BC4\u4F8B\u3002\u5B83 illustrate \u85CD\u8272\u898F\u5247\u300C\u4E00\u4F4D\u4F7F\u7528\u8005\u6700\u591A\u53EF\u540C\u6642\u64C1\u6709 3 \u500B\u6709\u6548\u5DE5\u4F5C\u968E\u6BB5\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u7D05\u8272\u8A18\u9304\u672A\u77E5",
+            "text": "<p>\u7D05\u8272\u5361\u7528\u4F86\u8A18\u9304\u5718\u968A\u5728\u5C0D\u8A71\u4E2D\u7121\u6CD5\u56DE\u7B54\u7684\u672A\u77E5\u4E8B\u9805\uFF0C\u4F8B\u5982\u5047\u8A2D\u3001\u9700\u8981\u6C7A\u7B56\u7684\u908A\u754C\u60C5\u6CC1\uFF0C\u6216\u76F8\u4F9D\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D05\u8272\u5361\u66AB\u5B58\u672A\u89E3\u554F\u984C\u8207\u672A\u77E5\u4E8B\u9805\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u7D05\u8272\u5361\u78BA\u5BE6\u8A18\u9304\u672A\u77E5\uFF0F\u554F\u984C\uFF0C\u56E0\u6B64\u6B64\u6558\u8FF0\u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D05\u8272\u5361\u8B93\u672A\u77E5\u4E8B\u9805\u6E05\u695A\u53EF\u898B\uFF1A\u5047\u8A2D\u3001\u9700\u8981\u6C7A\u7B56\u7684\u908A\u754C\u60C5\u6CC1\uFF0C\u4EE5\u53CA\u5718\u968A\u7576\u5834\u7121\u6CD5\u89E3\u6C7A\u7684\u76F8\u4F9D\u3002\u628A\u5B83\u5011\u8A18\u9304\u4E0B\u4F86\u80FD\u8B93\u5C0D\u8A71\u6301\u7E8C\u63A8\u9032\uFF0C\u540C\u6642\u4E0D\u907A\u6F0F\u4EFB\u4F55\u91CD\u8981\u4E8B\u9805\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u4E00\u500B\u6298\u50F9\u5238\u8A08\u7B97\u6848\u4F8B",
+            "text": "<p>\u6709\u4EBA\u8AAA\uFF1A<em>\u300C\u5C07\u4EE3\u78BC SAVE10 \u5957\u7528\u5728\u4E00\u500B $200 \u7684\u8CFC\u7269\u8ECA\u4E0A\uFF0C\u7E3D\u984D\u70BA $180\u3002\u300D</em>\u9019\u5C6C\u65BC\u54EA\u500B\u5361\u7247\u984F\u8272\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7DA0\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u5E36\u6709\u5177\u9AD4\u8CC7\u6599\u8207\u7D50\u679C\u7684\u5177\u9AD4\u7BC4\u4F8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7279\u5B9A\u7684\u4EE3\u78BC\u3001\u8CFC\u7269\u8ECA\u91D1\u984D\u8207\u6700\u7D42\u7E3D\u984D\u4F7F\u5B83\u6210\u70BA\u7DA0\u8272\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u85CD\u8272\u2014\u2014\u5B83\u662F\u4E00\u822C\u6027\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u5B83\u5217\u51FA\u5177\u9AD4\u6578\u503C\uFF08SAVE10\u3001$200\u3001$180\uFF09\uFF1B\u898F\u5247\u6703\u662F\u4E00\u822C\u6027\u7684\uFF0C\u56E0\u6B64\u9019\u662F\u7DA0\u8272\u3002"
+              },
+              {
+                "text": "\u7D05\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u672A\u89E3\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u9019\u88E1\u6C92\u6709\u4EFB\u4F55\u672A\u77E5\uFF1B\u5B83\u662F\u4E00\u500B\u5177\u9AD4 illustrate\uFF0C\u56E0\u6B64\u662F\u7DA0\u8272\u3002"
+              },
+              {
+                "text": "\u9EC3\u8272\u2014\u2014\u5B83\u662F\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u662F\u4E3B\u984C\uFF1B\u9019\u500B\u5177\u9AD4\u6848\u4F8B\u662F\u7DA0\u8272\u7BC4\u4F8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5177\u9AD4\u8CC7\u6599\uFF08SAVE10\u3001\u4E00\u500B $200 \u8CFC\u7269\u8ECA\u3001$180 \u7684\u7D50\u679C\uFF09\u4F7F\u5B83\u6210\u70BA\u7DA0\u8272\u7BC4\u4F8B\uFF0Cillustrate \u4E00\u689D\u85CD\u8272\u898F\u5247\uFF0C\u4F8B\u5982\u300C\u4EE3\u78BC SAVE10 \u7D66\u4E88\u8CFC\u7269\u8ECA\u7E3D\u984D 10% \u6298\u6263\u300D\u3002\u5177\u9AD4\u6848\u4F8B\u4E00\u5F8B\u662F\u7DA0\u8272\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u4E00\u500B\u5100\u5F0F",
+            "text": "<p>\u7BC4\u4F8B\u5C0D\u7167\u6700\u81EA\u7136\u5730\u88AB\u5B89\u6392\u5728\u54EA\u4E00\u9805\u654F\u6377\u6D3B\u52D5\u4E2D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F85\u8FA6\u7CBE\u7149\uFF08\u91DD\u5C0D\u5373\u5C07\u9032\u884C\u4E4B\u6545\u4E8B\u7684\u300C\u8A0E\u8AD6\u300D\u968E\u6BB5\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u9069\u5408\u91DD\u5C0D\u5C1A\u672A\u5EFA\u7F6E\u4E4B\u6545\u4E8B\u7684\u7CBE\u7149\uFF0F\u8A0E\u8AD6\u6D3B\u52D5\u3002"
+              },
+              {
+                "text": "\u6BCF\u65E5\u7AD9\u7ACB\u6703\u8B70",
+                "fraction": 0,
+                "feedback": "\u7AD9\u7ACB\u6703\u8B70\u662F\u7C21\u77ED\u540C\u6B65\uFF1B\u7BC4\u4F8B\u5C0D\u7167\u662F\u91DD\u5C0D\u6BCF\u500B\u6545\u4E8B\u7684\u805A\u7126\u7CBE\u7149\u5C0D\u8A71\u3002"
+              },
+              {
+                "text": "\u885D\u523A\u56DE\u9867\u6703\u8B70",
+                "fraction": 0,
+                "feedback": "\u56DE\u9867\u6703\u8B70\u6AA2\u8996\u6D41\u7A0B\uFF1B\u7BC4\u4F8B\u5C0D\u7167\u5728\u6545\u4E8B\u5EFA\u7F6E\u524D\u7CBE\u7149\u5B83\u3002"
+              },
+              {
+                "text": "\u767C\u4F48\uFF0F\u90E8\u7F72\u6B65\u9A5F",
+                "fraction": 0,
+                "feedback": "\u5B83\u767C\u751F\u5728\u958B\u767C\u524D\u7684\u7CBE\u7149\uFF0C\u800C\u975E\u767C\u4F48\u6642\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC4\u4F8B\u5C0D\u7167\u5C6C\u65BC\u5F85\u8FA6\u7CBE\u7149\uFF0C\u5728\u6B64\u5718\u968A\u6703\u65BC\u627F\u8AFE\u6295\u5165\u524D\u8A0E\u8AD6\u5373\u5C07\u9032\u884C\u7684\u6545\u4E8B\u3002\u5728\u90A3\u88E1\u9032\u884C\u80FD\u8B93\u4E09\u528D\u5BA2\u9054\u6210\u5171\u540C\u7406\u89E3\uFF0C\u4E26\u5728\u958B\u767C\u524D\u628A\u6545\u4E8B\u8ABF\u6574\u5230\u5408\u9069\u5927\u5C0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u4E00\u689D\u7A05\u52D9\u898F\u5247",
+            "text": "<p>\u5718\u968A\u9673\u8FF0\uFF1A<em>\u300C\u6240\u6709\u986F\u793A\u7684\u50F9\u683C\u90FD\u5FC5\u9808\u542B\u92B7\u552E\u7A05\u3002\u300D</em>\u9019\u5C6C\u65BC\u54EA\u500B\u5361\u7247\u984F\u8272\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u85CD\u8272\u2014\u2014\u5B83\u662F\u4E00\u689D\u5FC5\u9808\u59CB\u7D42\u6210\u7ACB\u7684\u4E00\u822C\u6027\u898F\u5247",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u689D\u4E00\u822C\u6027\u7684\u300C\u5FC5\u9808\u542B\u7A05\u300D\u9650\u5236\u662F\u85CD\u8272\u898F\u5247\u3002"
+              },
+              {
+                "text": "\u7DA0\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u5177\u9AD4\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u5B83\u6C92\u6709\u7D66\u51FA\u7279\u5B9A\u50F9\u683C\u6216\u6578\u5B57\uFF1B\u5B83\u662F\u4E00\u822C\u6027\u898F\u5247\uFF0C\u56E0\u6B64\u662F\u85CD\u8272\u3002"
+              },
+              {
+                "text": "\u7D05\u8272\u2014\u2014\u5B83\u662F\u4E00\u500B\u672A\u89E3\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u4E00\u689D\u5DF2\u9673\u8FF0\u3001\u5DF2\u9054\u6210\u5171\u8B58\u7684\u9650\u5236\uFF0C\u800C\u975E\u672A\u77E5\uFF1B\u90A3\u662F\u4E00\u689D\u85CD\u8272\u898F\u5247\u3002"
+              },
+              {
+                "text": "\u9EC3\u8272\u2014\u2014\u5B83\u662F\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u662F\u4E3B\u984C\uFF1B\u9019\u689D\u95DC\u65BC\u5B83\u7684\u9650\u5236\u662F\u4E00\u689D\u85CD\u8272\u898F\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u6240\u6709\u986F\u793A\u7684\u50F9\u683C\u90FD\u5FC5\u9808\u542B\u92B7\u552E\u7A05\u300D\u662F\u4E00\u689D\u4E00\u822C\u6027\u3001\u59CB\u7D42\u70BA\u771F\u7684\u9650\u5236\u2014\u2014\u4E00\u689D\u85CD\u8272\u898F\u5247\u3002\u7DA0\u8272\u7BC4\u4F8B\u5247\u6703\u5217\u51FA\u7279\u5B9A\u50F9\u683C\uFF0C\u4F8B\u5982\u300C\u5728 7% \u7A05\u7387\u4E0B\uFF0C\u4E00\u4EF6 $10 \u7684\u5546\u54C1\u986F\u793A\u70BA $10.70\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6311\u51FA\u5C6C\u65BC\u7DA0\u8272\u7BC4\u4F8B\u7684\u9805\u76EE",
+            "text": "<p>\u4E00\u5834\u5C0D\u8A71\u4E2D\u63D0\u51FA\u4E86\u56DB\u500B\u9805\u76EE\u3002\u54EA\u4E00\u500B\u5C6C\u65BC<strong>\u7DA0\u8272</strong>\u5361\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u300C\u4E00\u4F4D\u8CFC\u7269\u8ECA\u6709 2 \u4EF6\u5546\u54C1\u7684\u8A2A\u5BA2\uFF0C\u5728\u4ED8\u6B3E\u524D\u88AB\u8981\u6C42\u767B\u5165\u3002\u300D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u5E36\u6709\u5177\u9AD4\u60C5\u6CC1\u8207\u7D50\u679C\u7684\u7279\u5B9A\u6848\u4F8B\u662F\u7DA0\u8272\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u300C\u8A2A\u5BA2\u5FC5\u9808\u5728\u7D50\u5E33\u524D\u767B\u5165\u3002\u300D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u689D\u4E00\u822C\u6027\u898F\u5247\uFF08\u85CD\u8272\uFF09\uFF0C\u800C\u975E\u5177\u9AD4\u6848\u4F8B\u3002"
+              },
+              {
+                "text": "\u300C\u8A2A\u5BA2\u53EF\u4EE5\u4E0D\u767B\u5165\u5C31\u5132\u5B58\u8CFC\u7269\u8ECA\u55CE\uFF1F\u300D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u500B\u672A\u89E3\u554F\u984C\uFF08\u7D05\u8272\uFF09\uFF0C\u800C\u975E\u5177\u9AD4\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u300C\u8A2A\u5BA2\u7D50\u5E33\u300D\uFF08\u6B63\u5728\u62C6\u89E3\u7684\u4E3B\u984C\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6545\u4E8B\u672C\u8EAB\uFF08\u9EC3\u8272\uFF09\uFF0C\u800C\u975E\u5177\u9AD4\u7BC4\u4F8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EA\u6709\u4EE5\u5E36\u8457\u5177\u9AD4\u7D30\u7BC0\u8207\u7D50\u679C\u7684\u7279\u5B9A\u6848\u4F8B\u9673\u8FF0\u7684\u9805\u76EE\uFF08\u300C\u4E00\u4F4D\u6709 2 \u4EF6\u5546\u54C1\u7684\u8A2A\u5BA2\u2026\u88AB\u8981\u6C42\u767B\u5165\u300D\uFF09\u624D\u662F\u7DA0\u8272\u7BC4\u4F8B\u3002\u4E00\u822C\u6027\u7684\u300C\u5FC5\u9808\u767B\u5165\u300D\u662F\u85CD\u8272\u898F\u5247\u3001\u300C\u8A2A\u5BA2\u53EF\u4EE5\u2026\u55CE\u300D\u662F\u7D05\u8272\u554F\u984C\uFF0C\u800C\u300C\u8A2A\u5BA2\u7D50\u5E33\u300D\u662F\u9EC3\u8272\u6545\u4E8B\u3002\u5177\u9AD4\u6027\u6B63\u662F\u7DA0\u8272\u7BC4\u4F8B\u7684\u6A19\u8A8C\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u5716\uFF1A\u8A31\u591A\u7D05\u8272\u554F\u984C",
+            "text": "<p>\u4E00\u5834\u5C0D\u8A71\u7D50\u675F\u6642\uFF0C\u5C0D\u7167\u5716\u4E0A\u6709\u4E00\u689D\u898F\u5247\u3001\u5169\u500B\u7BC4\u4F8B\uFF0C\u4EE5\u53CA<strong>\u4E03\u5F35\u7D05\u8272\u554F\u984C\u5361</strong>\u3002\u9019\u6700\u53EF\u80FD\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6545\u4E8B\u5C1A\u672A\u5C31\u7DD2\u2014\u2014\u672A\u77E5\u592A\u591A\uFF1B\u5718\u968A\u61C9\u5728\u627F\u8AFE\u5EFA\u7F6E\u524D\u5148\u53D6\u5F97\u7B54\u6848",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5927\u91CF\u7D05\u8272\u5361\u4EE3\u8868\u6545\u4E8B\u7406\u89E3\u4E0D\u8DB3\uFF0C\u61C9\u5EF6\u5F8C\u5230\u554F\u984C\u6709\u7B54\u6848\u70BA\u6B62\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u5DF2\u53EF\u7ACB\u5373\u5EFA\u7F6E\uFF0C\u56E0\u70BA\u5B83\u5F15\u767C\u4E86\u9019\u9EBC\u591A\u8A0E\u8AD6",
+                "fraction": 0,
+                "feedback": "\u5927\u91CF\u672A\u89E3\u554F\u984C\u4EE3\u8868\u76F8\u53CD\u7684\u610F\u601D\uFF1A\u592A\u591A\u672A\u77E5\uFF0C\u7121\u6CD5\u5B89\u5168\u5730\u5EFA\u7F6E\u5B83\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u592A\u5927\uFF0C\u5FC5\u9808\u62C6\u5206\u6210\u6578\u500B\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u62C6\u5206\u662F\u5927\u91CF\u85CD\u8272\u898F\u5247\u7684\u8A0A\u865F\uFF1B\u5927\u91CF\u7D05\u8272\u4EE3\u8868\u672A\u77E5\uFF0C\u800C\u975E\u5927\u5C0F\u3002"
+              },
+              {
+                "text": "\u7BC4\u4F8B\u662F\u932F\u7684\uFF0C\u61C9\u8A72\u522A\u9664",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u4E0D\u5728\u7BC4\u4F8B\uFF1B\u554F\u984C\u5728\u90A3\u4E00\u5806\u672A\u56DE\u7B54\u7684\u554F\u984C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5927\u91CF\u7D05\u8272\u554F\u984C\u5361\u4EE3\u8868\u5718\u968A\u4ECD\u7121\u6CD5\u56DE\u7B54\u95DC\u9375\u672A\u77E5\uFF0C\u56E0\u6B64\u6545\u4E8B\u5C1A\u672A\u5C31\u7DD2\u3002\u6B63\u78BA\u505A\u6CD5\u662F\u5EF6\u5F8C\u5B83\uFF0C\u53BB\u53D6\u5F97\u554F\u984C\u7684\u7B54\u6848\uFF08\u5411 PO\u3001\u4F7F\u7528\u8005\u8A62\u554F\uFF0C\u6216\u505A\u4E00\u6B21\u63A2\u7A76 spike\uFF09\uFF0C\u800C\u975E\u5728\u4E0D\u78BA\u5B9A\u4E2D\u5C31\u958B\u59CB\u64B0\u5BEB\u7A0B\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u5716\uFF1A\u8A31\u591A\u85CD\u8272\u898F\u5247",
+            "text": "<p>\u4E00\u5834\u5C0D\u8A71\u7D50\u675F\u6642\u6709<strong>\u4E5D\u5F35\u85CD\u8272\u898F\u5247\u5361</strong>\uFF0C\u6BCF\u689D\u5404\u6709\u5E7E\u500B\u7DA0\u8272\u7BC4\u4F8B\uFF0C\u4E14\u5E7E\u4E4E\u6C92\u6709\u7D05\u8272\u554F\u984C\u3002\u9019\u5F35\u5716\u6697\u793A\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6545\u4E8B\u592A\u5927\uFF1B\u8003\u616E\u62C6\u5206\u5B83\uFF0C\u4F8B\u5982\u6BCF\u689D\u898F\u5247\u4E00\u500B\u6545\u4E8B\uFF08\u6216\u6BCF\u7D44\u898F\u5247\u4E00\u500B\u6545\u4E8B\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5927\u91CF\u898F\u5247\u6307\u51FA\u6545\u4E8B\u904E\u5927\uFF0C\u61C9\u4E88\u62C6\u5206\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u5C1A\u672A\u5C31\u7DD2\uFF0C\u56E0\u70BA\u672A\u77E5\u592A\u591A",
+                "fraction": 0,
+                "feedback": "\u5E7E\u4E4E\u6C92\u6709\u7D05\u8272\u554F\u984C\uFF0C\u56E0\u6B64\u672A\u77E5\u4E0D\u662F\u554F\u984C\u6240\u5728\uFF1B\u5927\u91CF\u898F\u5247\u6307\u51FA\u7684\u662F\u5927\u5C0F\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u5927\u5C0F\u6070\u5230\u597D\u8655\uFF0C\u61C9\u539F\u5C01\u4E0D\u52D5\u4FDD\u7559",
+                "fraction": 0,
+                "feedback": "\u4E5D\u689D\u898F\u5247\u662F\u6545\u4E8B\u592A\u5927\u3001\u61C9\u4E88\u62C6\u5206\u7684\u5F37\u70C8\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u7BC4\u4F8B\u662F\u591A\u9918\u7684\uFF0C\u61C9\u79FB\u9664\u4EE5\u7E2E\u5C0F\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u522A\u9664\u7BC4\u4F8B\u4E26\u4E0D\u6703\u7E2E\u5C0F\u7BC4\u570D\uFF1B\u6309\u898F\u5247\u62C6\u5206\u624D\u6703\u3002"
+              }
+            ],
+            "generalFeedback": "\u5927\u91CF\u85CD\u8272\u898F\u5247\u4EE3\u8868\u6545\u4E8B\u627F\u8F09\u4E86\u5F88\u591A\u884C\u70BA\u2014\u2014\u5B83\u592A\u5927\u4E86\u3002\u5E38\u898B\u7684\u88DC\u6551\u662F\u62C6\u5206\u5B83\uFF0C\u901A\u5E38\u662F\u6BCF\u689D\u898F\u5247\u4E00\u500B\u6545\u4E8B\uFF08\u6216\u6BCF\u7D44\u76F8\u95DC\u898F\u5247\u4E00\u500B\uFF09\uFF0C\u8B93\u6BCF\u500B\u7522\u751F\u7684\u6545\u4E8B\u90FD\u5C0F\u800C\u6613\u61C2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u5716\uFF1A\u5747\u8861\u4E14\u5C31\u7DD2",
+            "text": "<p>\u4E00\u5834\u5C0D\u8A71\u7D50\u675F\u6642\u6709<strong>\u4E09\u689D\u898F\u5247\u3001\u6BCF\u689D\u5404\u7531\u5E7E\u500B\u7BC4\u4F8B illustrate\uFF0C\u4E14\u6C92\u6709\u672A\u89E3\u554F\u984C</strong>\u3002\u9019\u5F35\u5716\u4EE3\u8868\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6545\u4E8B\u5DF2\u88AB\u5145\u5206\u7406\u89E3\uFF0C\u4E14\u5DF2\u5C31\u7DD2\u53EF\u958B\u767C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E05\u695A\u7684\u898F\u5247\u3001illustrate \u7684\u7BC4\u4F8B\uFF0C\u4EE5\u53CA\u6C92\u6709\u672A\u89E3\u554F\u984C\uFF0C\u4EE3\u8868\u5C31\u7DD2\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u5C1A\u672A\u5C31\u7DD2\uFF0C\u61C9\u4E88\u5EF6\u5F8C",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u672A\u89E3\u554F\u984C\u4E14\u898F\u5247\uFF0F\u7BC4\u4F8B\u6E05\u695A\uFF0C\u4EE3\u8868\u5C31\u7DD2\uFF0C\u800C\u975E\u53D7\u963B\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u592A\u5927\uFF0C\u5FC5\u9808\u62C6\u5206",
+                "fraction": 0,
+                "feedback": "\u4E09\u689D\u6709\u5145\u5206 illustrate \u7684\u898F\u5247\u662F\u5408\u7406\u5927\u5C0F\uFF1B\u9019\u88E1\u6C92\u6709\u62C6\u5206\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "\u9019\u5F35\u5716\u7121\u6548\uFF0C\u56E0\u70BA\u5C31\u7DD2\u7684\u6545\u4E8B\u5FC5\u5B9A\u8981\u6709\u4E00\u4E9B\u7D05\u8272\u5361",
+                "fraction": 0,
+                "feedback": "\u5C31\u7DD2\u7684\u6545\u4E8B\u901A\u5E38\u7D05\u8272\u5361\u5F88\u5C11\u6216\u6C92\u6709\uFF1B\u9019\u88E1\u6C92\u6709\u7D05\u8272\u5361\u662F\u597D\u8A0A\u865F\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B\u6545\u4E8B\u82E5\u6709\u5C11\u6578\u6E05\u695A\u7684\u898F\u5247\u3001\u6BCF\u689D\u90FD\u7531\u5177\u9AD4\u7BC4\u4F8B\u652F\u6490\uFF0C\u4E14\u5F88\u5C11\u6216\u6C92\u6709\u672A\u89E3\u554F\u984C\uFF0C\u5C31\u662F\u88AB\u5145\u5206\u7406\u89E3\u4E14\u5927\u5C0F\u9069\u4E2D\u2014\u2014\u9019\u6B63\u662F\u4E00\u5834\u5C0D\u8A71\u7684\u7406\u60F3\u7D50\u679C\u3002\u5718\u968A\u53EF\u4EE5\u653E\u5FC3\u5730\u628A\u5B83\u5E36\u5165\u958B\u767C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u7BC4\u4F8B\u80FD\u964D\u4F4E\u6A21\u7CCA",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u5177\u9AD4\u7BC4\u4F8B\u6BD4\u55AE\u7368\u9673\u8FF0\u62BD\u8C61\u898F\u5247\u66F4\u80FD\u964D\u4F4E\u6A21\u7CCA\u6027\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5177\u9AD4\u6848\u4F8B\u6703\u903C\u51FA\u7279\u5B9A\u8CC7\u6599\u8207\u7CBE\u78BA\u7D50\u679C\uFF0C\u66B4\u9732\u4E00\u822C\u6027\u63AA\u8FAD\u53EF\u80FD\u5E36\u904E\u7684\u96B1\u85CF\u5047\u8A2D\u8207\u5206\u6B67",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u7D30\u7BC0\u91D8\u6B7B\u80FD\u63ED\u9732\u6A21\u7CCA\u898F\u5247\u6240\u63A9\u84CB\u7684\u8AA4\u89E3\u3002"
+              },
+              {
+                "text": "\u7BC4\u4F8B\u6BD4\u898F\u5247\u66F4\u77ED\uFF0C\u6240\u4EE5\u8981\u8B80\u932F\u7684\u6587\u5B57\u8F03\u5C11",
+                "fraction": 0,
+                "feedback": "\u91CD\u9EDE\u4E0D\u5728\u9577\u5EA6\uFF1B\u800C\u5728\u5177\u9AD4\u6027\u6703\u903C\u51FA\u5C0D\u7D30\u7BC0\u7684\u5171\u8B58\u3002"
+              },
+              {
+                "text": "\u7BC4\u4F8B\u8B93\u9673\u8FF0\u4EFB\u4F55\u898F\u5247\u90FD\u8B8A\u5F97\u4E0D\u5FC5\u8981",
+                "fraction": 0,
+                "feedback": "\u898F\u5247\u4ECD\u7136\u9700\u8981\uFF1B\u7BC4\u4F8B\u4F7F\u898F\u5247\u7CBE\u78BA\uFF0C\u800C\u975E\u53D6\u4EE3\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u7BC4\u4F8B\u81EA\u52D5\u53EF\u57F7\u884C\uFF0C\u56E0\u6B64\u4E0D\u9700\u8981\u8A0E\u8AD6",
+                "fraction": 0,
+                "feedback": "\u50F9\u503C\u5728\u65BC\u5177\u9AD4\u6027\u6240\u89F8\u767C\u7684\u5C0D\u8A71\uFF0C\u800C\u975E\u7701\u53BB\u8A0E\u8AD6\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u689D\u62BD\u8C61\u898F\u5247\uFF08\u300C\u5957\u7528\u6298\u6263\u300D\uFF09\u53EF\u80FD\u88AB\u6BCF\u500B\u4EBA\u8B80\u6210\u4E0D\u540C\u610F\u601D\u3002\u4E00\u500B\u5177\u9AD4\u7BC4\u4F8B\uFF08\u300C$100 \u642D\u914D 10% \u6298\u50F9\u5238 \u2192 $90\u300D\uFF09\u903C\u6240\u6709\u4EBA\u5C0D\u78BA\u5207\u8F38\u5165\u8207\u78BA\u5207\u7D50\u679C\u9054\u6210\u5171\u8B58\uFF0C\u9019\u6703\u8FC5\u901F\u63ED\u9732\u96B1\u85CF\u7684\u5047\u8A2D\u8207\u5206\u6B67\u3002\u9019\u6B63\u662F\u7BC4\u4F8B\u80FD\u9328\u5B9A\u5171\u540C\u7406\u89E3\u7684\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u898F\u5247\u8207\u7BC4\u4F8B\uFF1A\u6311\u51FA\u898F\u5247",
+            "text": "<p>\u684C\u4E0A\u6709\u5169\u5F35\u5361\u3002\u54EA\u4E00\u5F35\u662F<strong>\u898F\u5247</strong>\uFF08\u85CD\u8272\uFF09\uFF0C\u800C\u975E\u7BC4\u4F8B\uFF08\u7DA0\u8272\uFF09\uFF1F</p><p>A\uFF1A\u300C\u8CFC\u8CB7\u5F8C 30 \u5929\u5167\u5141\u8A31\u9000\u6B3E\u3002\u300D</p><p>B\uFF1A\u300C3 \u6708 1 \u65E5\u8CFC\u8CB7\u30013 \u6708 20 \u65E5\u9000\u56DE\u7684\u5546\u54C1\u7372\u5F97\u9000\u6B3E\u3002\u300D</p>",
+            "answers": [
+              {
+                "text": "A\u2014\u2014\u5B83\u662F\u4E00\u822C\u6027\u9650\u5236\uFF1BB \u662F\u5B83\u7684\u4E00\u500B\u5177\u9AD4\u5BE6\u4F8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014A \u9673\u8FF0\u4E00\u822C\u6027\u898F\u5247\uFF1BB \u662F illustrate \u5B83\u7684\u7279\u5B9A\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "B\u2014\u2014\u56E0\u70BA\u5B83\u63D0\u5230\u7279\u5B9A\u65E5\u671F\uFF0C\u6240\u4EE5\u5B83\u5FC5\u5B9A\u662F\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u7279\u5B9A\u65E5\u671F\u4F7F B \u6210\u70BA\u5177\u9AD4\u7BC4\u4F8B\uFF08\u7DA0\u8272\uFF09\uFF1B\u4E00\u822C\u6027\u9673\u8FF0 A \u624D\u662F\u898F\u5247\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709 A \u662F\u4E00\u822C\u6027\u7684\uFF1BB \u662F\u5177\u9AD4\u6848\u4F8B\uFF0C\u56E0\u6B64 B \u662F\u7BC4\u4F8B\uFF0C\u800C\u975E\u898F\u5247\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709 B \u662F\u5177\u9AD4\u7684\uFF1BA \u662F\u4E00\u822C\u6027\u9650\u5236\uFF0C\u56E0\u6B64 A \u662F\u898F\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u898F\u5247\u662F\u4E00\u822C\u6027\u7684\uFF08\u300C30 \u5929\u5167\u300D\uFF09\uFF1B\u7BC4\u4F8B\u662F\u5E36\u6709\u5177\u9AD4\u6578\u503C\u7684\u7279\u5B9A\u5BE6\u4F8B\uFF08\u300C3 \u6708 1 \u65E5\u5230 3 \u6708 20 \u65E5\u300D\uFF09\u3002\u56E0\u6B64 A \u662F\u85CD\u8272\u898F\u5247\uFF0CB \u662F\u5B83\u7684\u7DA0\u8272\u7BC4\u4F8B\u3002\u662F\u5426\u6709\u7279\u5B9A\u8CC7\u6599\u6B63\u662F\u7BC4\u4F8B\u7684\u5224\u5225\u6A19\u8A8C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E00\u500B\u85CF\u8457\u65B0\u898F\u5247\u7684\u554F\u984C",
+            "text": "<p>\u7D05\u8272\u5361\u300C\u4E00\u7B46\u8A02\u55AE\u4E0A\u540C\u6642\u4F7F\u7528\u5169\u5F35\u6298\u50F9\u5238\u6703\u600E\u6A23\uFF1F\u300D\u88AB PO \u56DE\u7B54\u70BA\u300C\u4E00\u7B46\u8A02\u55AE\u53EA\u80FD\u5957\u7528\u4E00\u5F35\u6298\u50F9\u5238\u300D\u3002\u5C0D\u7167\u5716\u4E0A\u61C9\u8A72\u767C\u751F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u7B54\u6848\u6210\u70BA\u4E00\u689D\u65B0\u7684\u85CD\u8272\u898F\u5247\uFF08\u9644\u4E0A\u7DA0\u8272\u7BC4\u4F8B\uFF09\uFF0C\u800C\u7D05\u8272\u5361\u53EF\u4EE5\u79FB\u9664\u2014\u2014\u9019\u500B\u554F\u984C\u85CF\u8457\u4E00\u689D\u898F\u5247",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u89E3\u6C7A\u8A72\u554F\u984C\u63ED\u9732\u51FA\u4E00\u689D\u771F\u6B63\u7684\u65B0\u898F\u5247\uFF0C\u5B83\u6210\u70BA\u4E00\u5F35\u85CD\u8272\u5361\u3002"
+              },
+              {
+                "text": "\u7D05\u8272\u5361\u61C9\u76F4\u63A5\u522A\u9664\uFF0C\u4E0D\u65B0\u589E\u4EFB\u4F55\u6771\u897F",
+                "fraction": 0,
+                "feedback": "\u8A72\u7B54\u6848\u662F\u4E00\u689D\u771F\u6B63\u7684\u9650\u5236\uFF1B\u5FC5\u9808\u8A18\u70BA\u4E00\u689D\u85CD\u8272\u898F\u5247\uFF0C\u800C\u975E\u4E1F\u68C4\u3002"
+              },
+              {
+                "text": "\u8A72\u7B54\u6848\u6210\u70BA\u4E00\u5F35\u65B0\u7684\u9EC3\u8272\u6545\u4E8B\u5361",
+                "fraction": 0,
+                "feedback": "\u300C\u4E00\u7B46\u8A02\u55AE\u4E00\u5F35\u6298\u50F9\u5238\u300D\u7684\u9650\u5236\u662F\u898F\u5247\uFF08\u85CD\u8272\uFF09\uFF0C\u800C\u975E\u65B0\u6545\u4E8B\uFF08\u9EC3\u8272\uFF09\u3002"
+              },
+              {
+                "text": "\u4EC0\u9EBC\u90FD\u4E0D\u8B8A\uFF1B\u554F\u984C\u6C38\u9060\u4E0D\u6703\u8B8A\u6210\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u56DE\u7B54\u4E00\u500B\u554F\u984C\u5E38\u6703\u63ED\u9732\u51FA\u4E00\u689D\u898F\u5247\u2014\u2014\u9019\u88E1\u6B63\u662F\u5982\u6B64\u3002"
+              }
+            ],
+            "generalFeedback": "\u6709\u4E9B\u7D05\u8272\u554F\u984C\u4E00\u65E6\u88AB\u56DE\u7B54\uFF0C\u5C31\u6703\u66B4\u9732\u51FA\u5718\u968A\u5C1A\u672A\u5BEB\u4E0B\u7684\u898F\u5247\u3002\u300C\u4E00\u7B46\u8A02\u55AE\u53EA\u80FD\u4E00\u5F35\u6298\u50F9\u5238\u300D\u662F\u4E00\u689D\u65B0\u7684\u85CD\u8272\u898F\u5247\uFF1B\u4F60\u6703\u52A0\u4E0A\u5B83\uFF08\u4EE5\u53CA\u5177\u9AD4\u7684\u7DA0\u8272\u7BC4\u4F8B\uFF09\u4E26\u64A4\u4E0B\u7D05\u8272\u5361\u3002\u9019\u662F\u5E38\u898B\u4E14\u6709\u50F9\u503C\u7684\u7D50\u679C\u2014\u2014\u4E00\u500B\u85CF\u8457\u6574\u689D\u65B0\u898F\u5247\u7684\u554F\u984C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8207 BDD \u60C5\u5883\u7684\u95DC\u4FC2",
+            "text": "<p>\u7BC4\u4F8B\u5C0D\u7167\u7684\u7522\u51FA\u5982\u4F55\u8207 BDD \u9023\u7D50\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7DA0\u8272\u7BC4\u4F8B\u76F4\u63A5\u8F49\u8B6F\u6210 Gherkin \u7684 Given-When-Then \u60C5\u5883\uFF0C\u56E0\u6B64\u5C0D\u7167\u5716\u70BA BDD \u898F\u683C\u63D0\u4F9B\u7A2E\u5B50",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5177\u9AD4\u7BC4\u4F8B\u6703\u8B8A\u6210 BDD \u5957\u4EF6\u7684 GWT \u60C5\u5883\u3002"
+              },
+              {
+                "text": "\u85CD\u8272\u898F\u5247\u8B8A\u6210\u6B65\u9A5F\u5B9A\u7FA9\u7684\u81A0\u5408\u7A0B\u5F0F\u78BC\uFF0C\u800C\u7BC4\u4F8B\u88AB\u4E1F\u68C4",
+                "fraction": 0,
+                "feedback": "\u7BC4\u4F8B\u4E0D\u6703\u88AB\u4E1F\u68C4\uFF1B\u5B83\u5011\u8B8A\u6210\u60C5\u5883\uFF0C\u800C\u898F\u5247\u8CE6\u4E88\u5B83\u5011\u7D50\u69CB\u3002"
+              },
+              {
+                "text": "\u7D05\u8272\u554F\u984C\u8B8A\u6210\u901A\u904E\u7684\u60C5\u5883",
+                "fraction": 0,
+                "feedback": "\u672A\u89E3\u554F\u984C\u5C1A\u672A\u89E3\u6C7A\uFF1B\u662F\u5177\u9AD4\u7684\u7DA0\u8272\u7BC4\u4F8B\u8B8A\u6210\u60C5\u5883\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u9023\u7D50\uFF1B\u7BC4\u4F8B\u5C0D\u7167\u8207 BDD \u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u95DC\u4FC2\u7DCA\u5BC6\uFF1A\u7DA0\u8272\u7BC4\u4F8B\u76F4\u63A5\u9935\u5165 BDD \u60C5\u5883\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC4\u4F8B\u5C0D\u7167\u8207 BDD \u5951\u5408\u5F97\u5929\u8863\u7121\u7E2B\uFF1A\u6BCF\u500B\u7DA0\u8272\u7BC4\u4F8B\u90FD\u662F\u5E36\u6709\u8F38\u5165\u8207\u7D50\u679C\u7684\u5177\u9AD4\u6848\u4F8B\uFF0C\u76F4\u63A5\u5C0D\u61C9\u5230\u4E00\u500B Given-When-Then \u60C5\u5883\u3002\u56E0\u6B64\u5C0D\u7167\u5716\u7522\u51FA\u6703\u8B8A\u6210\u53EF\u57F7\u884C\u898F\u683C\u7684\u7BC4\u4F8B\uFF0C\u800C\u85CD\u8272\u898F\u5247\u8CA0\u8CAC\u7D44\u7E54\u5B83\u5011\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F9D\u898F\u5247\u62C6\u5206\u4EE5\u8ABF\u6574\u5927\u5C0F",
+            "text": "<p>\u4E00\u500B\u6545\u4E8B\u5C0D\u7167\u51FA\u8A31\u591A\u85CD\u8272\u898F\u5247\uFF0C\u5718\u968A\u6C7A\u5B9A\u62C6\u5206\u5B83\u3002\u54EA\u4E00\u7A2E\u662F\u5E38\u898B\u4E14\u5408\u7406\u7684\u62C6\u5206\u65B9\u5F0F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6CBF\u898F\u5247\u908A\u754C\u5EFA\u7ACB\u8F03\u5C0F\u7684\u6545\u4E8B\uFF0C\u4F8B\u5982\u5927\u81F4\u6BCF\u689D\u898F\u5247\u4E00\u500B\u6545\u4E8B\uFF08\u6216\u6BCF\u7D44\u76F8\u95DC\u898F\u5247\u4E00\u500B\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6CBF\u898F\u5247\u62C6\u5206\u80FD\u7522\u751F\u8F03\u5C0F\u3001\u53EF\u7368\u7ACB\u7406\u89E3\u7684\u6545\u4E8B\u3002"
+              },
+              {
+                "text": "\u628A\u540C\u4E00\u500B\u6545\u4E8B\u5206\u7D66\u6BCF\u4F4D\u958B\u767C\u8005\u4E00\u90E8\u5206\u4F86\u62C6\u5206",
+                "fraction": 0,
+                "feedback": "\u62C6\u5206\u95DC\u4E4E\u7BC4\u570D\uFF0C\u800C\u975E\u628A\u4E00\u500B\u6545\u4E8B\u5206\u7D66\u591A\u4EBA\uFF1B\u61C9\u6CBF\u898F\u5247\u62C6\u5206\u3002"
+              },
+              {
+                "text": "\u628A\u4E00\u534A\u7DA0\u8272\u7BC4\u4F8B\u79FB\u5230\u65B0\u6545\u4E8B\uFF0C\u800C\u628A\u6240\u6709\u898F\u5247\u7559\u5728\u539F\u6545\u4E8B\u4F86\u62C6\u5206",
+                "fraction": 0,
+                "feedback": "\u7BC4\u4F8B\u8DDF\u96A8\u5176\u898F\u5247\uFF1B\u4F60\u4F9D\u898F\u5247\u62C6\u5206\uFF0C\u4E26\u8B93\u6BCF\u689D\u898F\u5247\u5E36\u8457\u5B83\u7684\u7BC4\u4F8B\u4E00\u8D77\u8D70\u3002"
+              },
+              {
+                "text": "\u628A\u6BCF\u500B\u7D05\u8272\u554F\u984C\u5404\u81EA\u8B8A\u6210\u4E00\u500B\u6545\u4E8B\u4F86\u62C6\u5206",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u662F\u5F85\u89E3\u6C7A\u7684\u672A\u77E5\uFF0C\u800C\u975E\u62C6\u5206\u904E\u5927\u6545\u4E8B\u7684\u4F9D\u64DA\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u5927\u91CF\u898F\u5247\u6307\u51FA\u6545\u4E8B\u904E\u5927\u6642\uFF0C\u5929\u7136\u7684\u5207\u5272\u7DDA\u5C31\u662F\u898F\u5247\u672C\u8EAB\u3002\u62C6\u5206\u6210\u5927\u81F4\u6BCF\u689D\u898F\u5247\u4E00\u500B\u6545\u4E8B\uFF08\u6216\u6BCF\u7D44\u76F8\u95DC\u898F\u5247\u4E00\u500B\uFF09\uFF0C\u6703\u7522\u751F\u8F03\u5C0F\u7684\u6545\u4E8B\uFF0C\u6BCF\u500B\u90FD\u6709\u81EA\u5DF1\u7684\u898F\u5247\u4EE5\u53CA illustrate \u5B83\u7684\u7DA0\u8272\u7BC4\u4F8B\u2014\u2014\u66F4\u6613\u7406\u89E3\u3001\u4F30\u7B97\u8207\u4EA4\u4ED8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D30\u81A9\u5206\u985E\uFF1A\u904B\u8CBB\u898F\u5247\u5C0D\u6848\u4F8B",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u500B\u662F<strong>\u7DA0\u8272\u7BC4\u4F8B</strong>\uFF0C\u800C\u975E\u85CD\u8272\u898F\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u300C\u4E00\u500B\u7E3D\u984D $60 \u7684\u8CFC\u7269\u8ECA\uFF0C\u904B\u8CBB\u88AB\u6536\u53D6 $0\u3002\u300D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7279\u5B9A\u7684\u8CFC\u7269\u8ECA\u91D1\u984D\u8207\u5177\u9AD4\u7684\u904B\u8CBB\u4F7F\u5B83\u6210\u70BA\u7DA0\u8272\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u300C\u91D1\u984D $50 \u4EE5\u4E0A\u7684\u8A02\u55AE\u514D\u904B\u3002\u300D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u822C\u6027\u898F\u5247\uFF08\u85CD\u8272\uFF09\uFF1B\u5177\u9AD4\u7684 $60 \u6848\u4F8B\u624D\u662F\u7DA0\u8272\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u300C\u904B\u8CBB\u4E00\u5F8B\u5728\u7A05\u524D\u8A08\u7B97\u3002\u300D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u822C\u6027\u7684\u9806\u5E8F\u9650\u5236\u2014\u2014\u4E00\u689D\u85CD\u8272\u898F\u5247\uFF0C\u800C\u975E\u5177\u9AD4\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u300C\u514D\u904B\u53EA\u9069\u7528\u65BC\u5BE6\u9AD4\u5546\u54C1\u3002\u300D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u822C\u6027\u9650\u5236\uFF08\u85CD\u8272\u898F\u5247\uFF09\uFF0C\u800C\u975E\u5E36\u6709\u8CC7\u6599\u7684\u7279\u5B9A\u6848\u4F8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u7DA0\u8272\u7BC4\u4F8B\u662F\u4EE5\u5177\u9AD4\u8CC7\u6599\u8207\u7D50\u679C\u9673\u8FF0\u7684\u90A3\u4E00\u500B\uFF08\u300C$60 \u2192 $0 \u904B\u8CBB\u300D\uFF09\u3002\u5176\u4ED6\u90FD\u662F\u8DE8\u8A31\u591A\u6848\u4F8B\u90FD\u6210\u7ACB\u7684\u4E00\u822C\u6027\u9673\u8FF0\uFF0C\u56E0\u6B64\u662F\u85CD\u8272\u898F\u5247\u3002\u5177\u9AD4\u6027\u6B63\u662F\u5340\u5206\u7BC4\u4F8B\u8207\u898F\u5247\u7684\u95DC\u9375\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8B80\u5716\uFF1A\u4E00\u689D\u898F\u5247\u3001\u591A\u500B\u7BC4\u4F8B\u3001\u7121\u554F\u984C",
+            "text": "<p>\u4E00\u5F35\u5C0D\u7167\u5716\u6709\u55AE\u4E00\u689D\u6E05\u695A\u7684\u898F\u5247\u3001\u56DB\u500B illustrate \u5B83\u7684\u5177\u9AD4\u7BC4\u4F8B\uFF0C\u4EE5\u53CA\u6C92\u6709\u7D05\u8272\u5361\u3002\u6700\u4F73\u89E3\u8B80\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6545\u4E8B\u5C0F\u3001\u88AB\u5145\u5206\u7406\u89E3\uFF0C\u4E14\u5DF2\u5C31\u7DD2\u53EF\u5EFA\u7F6E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u55AE\u4E00\u689D\u6709\u5145\u5206 illustrate \u7684\u898F\u5247\u4E14\u7121\u672A\u89E3\u554F\u984C\uFF0C\u4EE3\u8868\u5C31\u7DD2\u4E14\u5927\u5C0F\u9069\u4E2D\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u592A\u5927\uFF0C\u5FC5\u9808\u62C6\u5206\u6210\u56DB\u500B\u6545\u4E8B\uFF0C\u6BCF\u500B\u7BC4\u4F8B\u4E00\u500B",
+                "fraction": 0,
+                "feedback": "\u7BC4\u4F8B\u4E0D\u6703\u9A45\u52D5\u62C6\u5206\uFF1B\u4E00\u689D\u898F\u5247\u914D\u7BC4\u4F8B\u662F\u4E00\u500B\u5C0F\u800C\u5C31\u7DD2\u7684\u6545\u4E8B\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u5C1A\u672A\u5C31\u7DD2\uFF0C\u56E0\u70BA\u56DB\u500B\u7BC4\u4F8B\u592A\u591A\u4E86",
+                "fraction": 0,
+                "feedback": "\u4E00\u689D\u898F\u5247\u6709\u591A\u500B\u7BC4\u4F8B\u662F\u5065\u5EB7\u7684\uFF1B\u6C92\u6709\u672A\u89E3\u554F\u984C\u6642\u6545\u4E8B\u5DF2\u5C31\u7DD2\u3002"
+              },
+              {
+                "text": "\u61C9\u522A\u9664\u7BC4\u4F8B\uFF0C\u56E0\u70BA\u55AE\u4E00\u689D\u898F\u5247\u4E0D\u9700\u8981 illustrate",
+                "fraction": 0,
+                "feedback": "\u4EE5\u5177\u9AD4\u7BC4\u4F8B illustrate \u898F\u5247\u6B63\u662F\u91CD\u9EDE\uFF1B\u5B83\u5011\u61C9\u4FDD\u7559\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u689D\u6E05\u695A\u7684\u898F\u5247\u3001\u7531\u6578\u500B\u5177\u9AD4\u7BC4\u4F8B\u5145\u5206 illustrate\u3001\u4E14\u6C92\u6709\u672A\u89E3\u554F\u984C\uFF0C\u662F\u4E00\u500B\u5C0F\u800C\u88AB\u5FB9\u5E95\u7406\u89E3\u7684\u6545\u4E8B\u2014\u2014\u5DF2\u5C31\u7DD2\u53EF\u958B\u767C\u3002\u4E00\u689D\u898F\u5247\u6709\u591A\u500B\u7BC4\u4F8B\u662F\u597D\u8A0A\u865F\uFF0C\u800C\u975E\u62C6\u5206\u89F8\u767C\u689D\u4EF6\uFF1B\u62C6\u5206\u662F\u7531\u5927\u91CF\u898F\u5247\u9A45\u52D5\uFF0C\u800C\u975E\u5927\u91CF\u7BC4\u4F8B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C0D\u5C1A\u672A\u5C31\u7DD2\u6545\u4E8B\u7684\u884C\u52D5",
+            "text": "<p>\u4E00\u500B\u6545\u4E8B\u7684\u5C0D\u7167\u5716\u88AB\u7D05\u8272\u554F\u984C\u5361\u4E3B\u5C0E\u3002\u6700\u9069\u7576\u7684\u4E0B\u4E00\u6B65\u884C\u52D5\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5EF6\u5F8C\u8A72\u6545\u4E8B\uFF0C\u6307\u6D3E\u8CA0\u8CAC\u4EBA\u53BB\u53D6\u5F97\u554F\u984C\u7684\u7B54\u6848\uFF0C\u4E26\u5728\u672A\u77E5\u89E3\u6C7A\u5F8C\u91CD\u65B0\u5C0D\u7167\u5B83",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5148\u89E3\u6C7A\u672A\u77E5\uFF0C\u518D\u628A\u6545\u4E8B\u5E36\u56DE\u4F86\u3002"
+              },
+              {
+                "text": "\u7121\u8AD6\u5982\u4F55\u90FD\u628A\u5B83\u62C9\u9032\u885D\u523A\uFF0C\u4E26\u5728\u64B0\u5BEB\u7A0B\u5F0F\u671F\u9593\u89E3\u6C7A\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u5728\u8A31\u591A\u672A\u77E5\u4E2D\u5C31\u5EFA\u7F6E\u6709\u8FD4\u5DE5\u98A8\u96AA\uFF1B\u61C9\u5148\u56DE\u7B54\u554F\u984C\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u7D05\u8272\u5361\uFF0C\u8B93\u5C0D\u7167\u5716\u770B\u8D77\u4F86\u5C31\u7DD2",
+                "fraction": 0,
+                "feedback": "\u85CF\u8D77\u554F\u984C\u4E26\u4E0D\u6703\u89E3\u6C7A\u5B83\u5011\uFF1B\u6545\u4E8B\u4ECD\u672A\u88AB\u7406\u89E3\u3002"
+              },
+              {
+                "text": "\u628A\u6545\u4E8B\u62C6\u5206\u6210\u6BCF\u500B\u7D05\u8272\u554F\u984C\u4E00\u500B\u6545\u4E8B",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u662F\u5F85\u56DE\u7B54\u7684\u672A\u77E5\uFF0C\u800C\u975E\u62C6\u5206\u4F9D\u64DA\uFF1B\u62C6\u5206\u662F\u91DD\u5C0D\u5927\u91CF\u898F\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "\u5927\u91CF\u7D05\u8272\u5361\u4EE3\u8868\u6545\u4E8B\u5C1A\u672A\u5C31\u7DD2\u3002\u6B63\u78BA\u56DE\u61C9\u662F\u5EF6\u5F8C\u5B83\u3001\u627E\u4EBA\u56DE\u7B54\u672A\u89E3\u554F\u984C\uFF08\u8207 PO\uFF0F\u4F7F\u7528\u8005\u4EA4\u8AC7\u3001\u505A\u4E00\u6B21 spike\uFF09\uFF0C\u7136\u5F8C\u91CD\u65B0\u9032\u884C\u5C0D\u7167\u3002\u786C\u628A\u5B83\u63A8\u9032\u958B\u767C\u6703\u62DB\u81F4\u5927\u91CF\u8FD4\u5DE5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53CA\u65E9\u6D6E\u73FE\u554F\u984C\u7684\u597D\u8655",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u5728\u7CBE\u7149\u671F\u9593\uFF08\u800C\u975E\u958B\u767C\u9014\u4E2D\uFF09\u6D6E\u73FE\u7D05\u8272\u554F\u984C\u662F\u6709\u50F9\u503C\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u672A\u77E5\u5728\u5176\u89E3\u6C7A\u6210\u672C\u4ECD\u4F4E\u6642\u88AB\u767C\u73FE\uFF0C\u907F\u514D\u885D\u523A\u9014\u4E2D\u53D7\u963B\uFF0C\u4EE5\u53CA\u5728\u7A0B\u5F0F\u5DF2\u5728\u64B0\u5BEB\u5F8C\u624D\u8FD4\u5DE5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53CA\u65E9\u767C\u73FE\u672A\u77E5\u9060\u6BD4\u5728\u64B0\u5BEB\u7A0B\u5F0F\u671F\u9593\u624D\u767C\u73FE\u4FBF\u5B9C\u5F97\u591A\u3002"
+              },
+              {
+                "text": "\u5B83\u4FDD\u8B49\u6545\u4E8B\u4E4B\u5F8C\u4E0D\u9700\u8981\u4EFB\u4F55\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u4ECD\u7136\u9700\u8981\uFF1B\u53CA\u65E9\u767C\u554F\u6E1B\u5C11\u8FD4\u5DE5\uFF0C\u800C\u975E\u79FB\u9664\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u5718\u968A\u5F97\u4EE5\u5B8C\u5168\u4E0D\u5FC5\u8207\u7522\u54C1\u8CA0\u8CAC\u4EBA\u4EA4\u8AC7",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u5F80\u5F80\u7531 PO \u56DE\u7B54\uFF1B\u91CD\u9EDE\u662F\u53CA\u65E9\u63D0\u51FA\uFF0C\u800C\u975E\u907F\u514D\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u6545\u4E8B\u81EA\u52D5\u8B8A\u5F97\u66F4\u5927\u3001\u66F4\u6709\u50F9\u503C",
+                "fraction": 0,
+                "feedback": "\u597D\u8655\u662F\u66F4\u4FBF\u5B9C\u3001\u66F4\u65E9\u7684\u6E05\u6670\uFF0C\u800C\u975E\u628A\u6545\u4E8B\u704C\u5927\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u7CBE\u7149\u671F\u9593\u767C\u73FE\u672A\u77E5\u4EE3\u8868\u5B83\u5011\u80FD\u5728\u4EFB\u4F55\u4EBA\u64B0\u5BEB\u7A0B\u5F0F\u4E4B\u524D\u88AB\u56DE\u7B54\uFF0C\u6B64\u6642\u6539\u8B8A\u65B9\u5411\u6210\u672C\u5F88\u4F4E\u3002\u5728\u958B\u767C\u9014\u4E2D\u767C\u73FE\u540C\u6A23\u7684\u7F3A\u53E3\u6703\u9020\u6210\u5DE5\u4F5C\u53D7\u963B\u3001\u60C5\u5883\u5207\u63DB\u8207\u8FD4\u5DE5\u3002\u53CA\u65E9\u767C\u554F\u662F\u7BC4\u4F8B\u5C0D\u7167\u6700\u5927\u7684\u56DE\u5831\u4E4B\u4E00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D30\u81A9\u5206\u985E\uFF1A\u4E00\u822C\u5C0D\u5BE6\u4F8B",
+            "text": "<p>\u8003\u616E\uFF1A\u300C\u767D\u91D1\u6703\u54E1\u4EAB\u514D\u8CBB\u9000\u8CA8\u3002\u300D\u4EE5\u53CA\u300C\u767D\u91D1\u6703\u54E1 Alice \u514D\u8CBB\u9000\u56DE\u4E00\u4EF6\u5916\u5957\u3002\u300D\u54EA\u4E00\u7A2E\u5206\u985E\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7B2C\u4E00\u53E5\u662F\u898F\u5247\uFF08\u85CD\u8272\uFF09\uFF1B\u7B2C\u4E8C\u53E5\u662F\u90A3\u689D\u898F\u5247\u7684\u7BC4\u4F8B\uFF08\u7DA0\u8272\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u822C\u6027\u653F\u7B56\u662F\u898F\u5247\uFF1B\u5177\u540D\u7684\u5177\u9AD4\u6848\u4F8B\u662F\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u7B2C\u4E00\u53E5\u662F\u7BC4\u4F8B\uFF08\u7DA0\u8272\uFF09\uFF1B\u7B2C\u4E8C\u53E5\u662F\u898F\u5247\uFF08\u85CD\u8272\uFF09",
+                "fraction": 0,
+                "feedback": "\u985B\u5012\u4E86\uFF1A\u4E00\u822C\u6027\u653F\u7B56\u662F\u898F\u5247\uFF0C\u800C\u5177\u9AD4\u7684\u300CAlice\u2026\u300D\u6848\u4F8B\u662F\u7BC4\u4F8B\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u898F\u5247\uFF08\u85CD\u8272\uFF09",
+                "fraction": 0,
+                "feedback": "\u7B2C\u4E8C\u53E5\u6307\u540D\u7279\u5B9A\u4EBA\u7269\u8207\u7D50\u679C\uFF0C\u4F7F\u5B83\u6210\u70BA\u5177\u9AD4\u7BC4\u4F8B\uFF0C\u800C\u975E\u898F\u5247\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u7BC4\u4F8B\uFF08\u7DA0\u8272\uFF09",
+                "fraction": 0,
+                "feedback": "\u7B2C\u4E00\u53E5\u662F\u6C92\u6709\u7279\u5B9A\u6848\u4F8B\u7684\u4E00\u822C\u6027\u653F\u7B56\uFF0C\u56E0\u6B64\u662F\u898F\u5247\uFF0C\u800C\u975E\u7BC4\u4F8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u767D\u91D1\u6703\u54E1\u4EAB\u514D\u8CBB\u9000\u8CA8\u300D\u662F\u4E00\u822C\u6027\u653F\u7B56\u2014\u2014\u4E00\u689D\u85CD\u8272\u898F\u5247\u3002\u300C\u767D\u91D1\u6703\u54E1 Alice \u514D\u8CBB\u9000\u56DE\u4E00\u4EF6\u5916\u5957\u300D\u662F\u8A72\u653F\u7B56\u7684\u4E00\u500B\u5177\u9AD4\u5BE6\u4F8B\uFF0C\u5E36\u6709\u7279\u5B9A\u884C\u70BA\u8005\u8207\u7D50\u679C\u2014\u2014\u4E00\u500B\u7DA0\u8272\u7BC4\u4F8B\u3002\u4E00\u822C\uFF0F\u7279\u5B9A\u7684\u5340\u5225\u6B63\u662F\u898F\u5247\u8207\u7BC4\u4F8B\u7684\u5206\u91CE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u56DE\u7B54\u554F\u984C\u5C0D\u7BC4\u570D\u7684\u5F71\u97FF",
+            "text": "<p>\u56DE\u7B54\u6578\u500B\u7D05\u8272\u554F\u984C\u5F8C\uFF0C\u6BCF\u500B\u90FD\u8B8A\u6210\u4E00\u689D\u65B0\u7684\u85CD\u8272\u898F\u5247\uFF0C\u65BC\u662F\u5C0D\u7167\u5716\u73FE\u5728\u6709\u8A31\u591A\u898F\u5247\u3002\u9019\u63ED\u9732\u4E86\u95DC\u65BC\u6545\u4E8B\u7684\u4EC0\u9EBC\u4E8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6545\u4E8B\u85CF\u8457\u6BD4\u8868\u9762\u770B\u8D77\u4F86\u66F4\u591A\u7684\u884C\u70BA\uFF1B\u5982\u4ECA\u898F\u5247\u986F\u73FE\u5F8C\uFF0C\u5B83\u5F88\u53EF\u80FD\u592A\u5927\uFF0C\u662F\u62C6\u5206\u7684\u5019\u9078",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u89E3\u6C7A\u554F\u984C\u66B4\u9732\u51FA\u984D\u5916\u898F\u5247\uFF0C\u63ED\u793A\u6545\u4E8B\u6BD4\u770B\u8D77\u4F86\u66F4\u5927\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u8B8A\u5F97\u66F4\u5C0F\u3001\u66F4\u7C21\u55AE",
+                "fraction": 0,
+                "feedback": "\u66F4\u591A\u898F\u5247\u4EE3\u8868\u66F4\u591A\u884C\u70BA\uFF0C\u800C\u975E\u66F4\u5C11\uFF1B\u6545\u4E8B\u770B\u8D77\u4F86\u66F4\u5927\uFF0C\u800C\u975E\u66F4\u5C0F\u3002"
+              },
+              {
+                "text": "\u5927\u5C0F\u6C92\u6709\u4EFB\u4F55\u6539\u8B8A\uFF1B\u898F\u5247\u6578\u91CF\u8207\u5927\u5C0F\u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u898F\u5247\u6578\u91CF\u662F\u95DC\u9375\u7684\u5927\u5C0F\u8A0A\u865F\uFF1B\u5927\u91CF\u898F\u5247\u6307\u5411\u904E\u5927\u7684\u6545\u4E8B\u3002"
+              },
+              {
+                "text": "\u6545\u4E8B\u73FE\u5728\u5FC5\u5B9A\u5DF2\u5C31\u7DD2\uFF0C\u7121\u9700\u518D\u601D\u8003\u5373\u53EF\u5EFA\u7F6E",
+                "fraction": 0,
+                "feedback": "\u65B0\u51FA\u73FE\u7684\u5927\u91CF\u898F\u5247\u6697\u793A\u61C9\u5148\u62C6\u5206\uFF0C\u800C\u975E\u5B83\u81EA\u52D5\u5C31\u7DD2\u3002"
+              }
+            ],
+            "generalFeedback": "\u554F\u984C\u53EF\u80FD\u96B1\u85CF\u898F\u5247\u3002\u7576\u56DE\u7B54\u5B83\u5011\u7522\u751F\u8A31\u591A\u65B0\u7684\u85CD\u8272\u898F\u5247\u6642\uFF0C\u6545\u4E8B\u7684\u771F\u5BE6\u5927\u5C0F\u4FBF\u986F\u73FE\u51FA\u4F86\u2014\u2014\u5B83\u627F\u8F09\u7684\u884C\u70BA\u6BD4\u539F\u5148\u6240\u60F3\u7684\u66F4\u591A\u3002\u9019\u500B\u4E0D\u65B7\u589E\u52A0\u7684\u898F\u5247\u6578\u91CF\u6B63\u662F\u8003\u616E\u628A\u5B83\u62C6\u5206\u6210\u8F03\u5C0F\u3001\u88AB\u5145\u5206\u7406\u89E3\u4E4B\u6545\u4E8B\u7684\u7D93\u5178\u8A0A\u865F\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5C11\u554F\u984C\u52A0\u6E05\u695A\u898F\u5247\u4EE3\u8868\u5C31\u7DD2",
+            "text": "<p>\u4E00\u500B\u6545\u4E8B\u82E5\u6709\u6E05\u695A\u7684\u898F\u5247\u3001\u6BCF\u689D\u90FD\u7531\u5177\u9AD4\u7BC4\u4F8B illustrate\uFF0C\u4E14\u5F88\u5C11\u6216\u6C92\u6709\u672A\u89E3\u554F\u984C\uFF0C\u901A\u5E38\u88AB\u8996\u70BA\u5DF2\u5C31\u7DD2\u53EF\u958B\u767C\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E05\u695A\u7684\u898F\u5247\u3001illustrate \u7684\u7BC4\u4F8B\uFF0C\u4EE5\u53CA\u5F88\u5C11\uFF0F\u6C92\u6709\u554F\u984C\uFF0C\u5C31\u662F\u5C31\u7DD2\u7684\u8A0A\u865F\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u8A72\u7D44\u5408\u6B63\u662F\u88AB\u5145\u5206\u7406\u89E3\u3001\u5C31\u7DD2\u4E4B\u6545\u4E8B\u7684\u7279\u5FB5\uFF0C\u56E0\u6B64\u6B64\u6558\u8FF0\u70BA\u771F\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B80\u5716\uFF1A\u5927\u91CF\u7D05\u8272\u554F\u984C\u4EE3\u8868\u5C1A\u672A\u5C31\u7DD2\uFF1B\u5927\u91CF\u85CD\u8272\u898F\u5247\u4EE3\u8868\u592A\u5927\uFF1B\u4F46\u6E05\u695A\u7684\u898F\u5247\u7531\u5177\u9AD4\u7BC4\u4F8B\u652F\u6490\u3001\u4E14\u5F88\u5C11\u6216\u6C92\u6709\u672A\u89E3\u554F\u984C\uFF0C\u5247\u4EE3\u8868\u6545\u4E8B\u88AB\u5145\u5206\u7406\u89E3\u4E14\u5DF2\u5C31\u7DD2\u53EF\u5EFA\u7F6E\u3002\u9019\u7A2E\u5747\u8861\u7684\u5F62\u72C0\u6B63\u662F\u4E00\u5834\u5C0D\u8A71\u7684\u76EE\u6A19\u3002"
+          }
+        ]
+      }
+    },
     "flaky-diagnosis": {
       "en": {
         "easy": [
