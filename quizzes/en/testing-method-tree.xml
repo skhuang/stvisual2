@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Testing Method Taxonomy/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Black-box testing definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Black-box testing</strong> designs its tests based on:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The specification and external behavior, without knowledge of the internal code structure</text><feedback><text>Correct — black-box (specification-based) testing treats the implementation as opaque.</text></feedback></answer>
+    <answer fraction="0"><text>The internal control-flow graph of the code</text><feedback><text>That is white-box (structural) testing, which uses the code's structure.</text></feedback></answer>
+    <answer fraction="0"><text>The number of source lines executed by the tests</text><feedback><text>That describes a coverage measurement, not the black-box design basis.</text></feedback></answer>
+    <answer fraction="0"><text>The compiler's optimization settings</text><feedback><text>Compiler settings are unrelated to how black-box tests are derived.</text></feedback></answer>
+    <generalfeedback><text>Black-box (specification-based) testing derives tests from requirements and external behavior, treating the implementation as opaque — no code knowledge is used.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>White-box testing definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>White-box (structural)</strong> testing designs its tests based on:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Knowledge of the internal code structure, such as statements, branches, and paths</text><feedback><text>Correct — white-box (glass-box) testing uses the internal structure of the code.</text></feedback></answer>
+    <answer fraction="0"><text>Only the published requirements, ignoring the code entirely</text><feedback><text>That is black-box testing; white-box uses the code structure.</text></feedback></answer>
+    <answer fraction="0"><text>The user's subjective satisfaction with the product</text><feedback><text>That is closer to validation/usability, not structural testing.</text></feedback></answer>
+    <answer fraction="0"><text>The hardware the program will run on</text><feedback><text>The target hardware is not the basis of white-box test design.</text></feedback></answer>
+    <generalfeedback><text>White-box (structural / glass-box) testing uses the internal structure of the code — statements, branches, paths, conditions — to derive and measure tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Grey-box testing definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Grey-box testing</strong> is characterized by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Partial knowledge of the internal structure combined with tests driven through external interfaces</text><feedback><text>Correct — grey-box uses some internal insight (e.g. architecture or DB schema) while testing externally.</text></feedback></answer>
+    <answer fraction="0"><text>Complete ignorance of both the specification and the code</text><feedback><text>A tester always uses some basis; grey-box specifically uses partial internal knowledge.</text></feedback></answer>
+    <answer fraction="0"><text>A full mathematical proof of correctness</text><feedback><text>That is formal verification, not grey-box testing.</text></feedback></answer>
+    <answer fraction="0"><text>Testing only the colors of the graphical user interface</text><feedback><text>Grey-box is about the level of internal knowledge, not UI appearance.</text></feedback></answer>
+    <generalfeedback><text>Grey-box testing uses partial internal knowledge (architecture, data schema, key algorithms) to design tests that are still exercised through external interfaces.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Static testing definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Static testing</strong> is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Examining the software artifacts (documents or code) without executing the program</text><feedback><text>Correct — static techniques find defects by examination, with no execution.</text></feedback></answer>
+    <answer fraction="0"><text>Running the program with many different inputs</text><feedback><text>That is dynamic testing, which requires execution.</text></feedback></answer>
+    <answer fraction="0"><text>Measuring response time under heavy load</text><feedback><text>That is a dynamic, non-functional activity (performance testing).</text></feedback></answer>
+    <answer fraction="0"><text>Deploying to production and monitoring live users</text><feedback><text>Monitoring a running system is dynamic, not static.</text></feedback></answer>
+    <generalfeedback><text>Static testing (reviews, walkthroughs, inspections, static analysis) finds defects by examining artifacts without executing the program.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Dynamic testing definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Dynamic testing</strong> is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Executing the program with inputs and observing its behavior</text><feedback><text>Correct — dynamic testing runs the software and compares behavior to expectations.</text></feedback></answer>
+    <answer fraction="0"><text>Reading the code together in a review meeting</text><feedback><text>That is a static technique (review); nothing is executed.</text></feedback></answer>
+    <answer fraction="0"><text>Checking a requirements document for typographical errors</text><feedback><text>That is static examination of a document, not dynamic testing.</text></feedback></answer>
+    <answer fraction="0"><text>Analyzing the source with a tool but never running it</text><feedback><text>That is static analysis; dynamic testing requires execution.</text></feedback></answer>
+    <generalfeedback><text>Dynamic testing requires executing the software and comparing the observed behavior against expected results.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Functional testing definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Functional testing</strong> is primarily concerned with:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>What the system does — whether it produces the correct outputs for given inputs</text><feedback><text>Correct — functional testing checks behavior against the specified functions.</text></feedback></answer>
+    <answer fraction="0"><text>How fast the system responds under load</text><feedback><text>That is a non-functional (performance) concern.</text></feedback></answer>
+    <answer fraction="0"><text>How resistant the system is to attackers</text><feedback><text>That is a non-functional (security) concern.</text></feedback></answer>
+    <answer fraction="0"><text>How maintainable the source code is</text><feedback><text>Maintainability is a non-functional quality attribute, not a function.</text></feedback></answer>
+    <generalfeedback><text>Functional testing checks the functions/behavior of the system against the requirements — what it does — rather than how well it does it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Non-functional testing definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Non-functional testing</strong> primarily evaluates:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Quality attributes such as performance, security, usability, and reliability</text><feedback><text>Correct — non-functional testing targets how well the system operates.</text></feedback></answer>
+    <answer fraction="0"><text>Whether each required feature returns the correct result</text><feedback><text>That is functional testing (what the system does).</text></feedback></answer>
+    <answer fraction="0"><text>Whether every statement in the code is executed</text><feedback><text>That is a structural coverage (white-box) concern.</text></feedback></answer>
+    <answer fraction="0"><text>Whether the requirements document is grammatically complete</text><feedback><text>That is a static review concern, not non-functional testing.</text></feedback></answer>
+    <generalfeedback><text>Non-functional testing targets how well the system operates — performance, security, usability, reliability, portability, etc. — rather than which features work.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Verification definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the classic V&amp;V distinction, <strong>verification</strong> asks:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>"Are we building the product right?" — does it conform to its specification?</text><feedback><text>Correct — verification checks conformance to the spec and standards at each stage.</text></feedback></answer>
+    <answer fraction="0"><text>"Are we building the right product?" — does it meet the users' needs?</text><feedback><text>That is validation, not verification.</text></feedback></answer>
+    <answer fraction="0"><text>"Is the product faster than the competitors' products?"</text><feedback><text>That is a benchmarking/performance question, not verification.</text></feedback></answer>
+    <answer fraction="0"><text>"Will customers be willing to pay for the product?"</text><feedback><text>That is a market question, unrelated to the V&amp;V distinction.</text></feedback></answer>
+    <generalfeedback><text>Verification checks conformance to specifications, designs and standards at each development stage — "building the product right."</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Validation definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the classic V&amp;V distinction, <strong>validation</strong> asks:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>"Are we building the right product?" — does it meet the users' actual needs?</text><feedback><text>Correct — validation checks fitness for use against real user needs.</text></feedback></answer>
+    <answer fraction="0"><text>"Are we building the product right?" — does it conform to the spec?</text><feedback><text>That is verification, not validation.</text></feedback></answer>
+    <answer fraction="0"><text>"Does the source code compile without warnings?"</text><feedback><text>That is a static/build concern, not validation.</text></feedback></answer>
+    <answer fraction="0"><text>"Is every branch in the code covered by a test?"</text><feedback><text>That is a white-box coverage concern, not validation.</text></feedback></answer>
+    <generalfeedback><text>Validation checks fitness for use — whether the finished product satisfies the users' real needs — "building the right product."</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify boundary value analysis</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Boundary value analysis</strong> is an example of which kind of technique?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Black-box — it uses the input specification and partitions, not the code</text><feedback><text>Correct — BVA derives tests from the boundaries of specified input partitions.</text></feedback></answer>
+    <answer fraction="0"><text>White-box — it requires the control-flow graph</text><feedback><text>BVA needs no code structure; it works from the input spec.</text></feedback></answer>
+    <answer fraction="0"><text>Static — it never executes the program</text><feedback><text>BVA cases are executed against the program, so it is dynamic, not static.</text></feedback></answer>
+    <answer fraction="0"><text>Non-functional — it measures performance</text><feedback><text>BVA checks functional behavior at input boundaries, not performance.</text></feedback></answer>
+    <generalfeedback><text>Boundary value analysis derives tests from the boundaries of input partitions in the specification, with no code knowledge — a black-box technique.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify branch coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Branch (decision) coverage</strong> is which kind of technique?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>White-box — it is defined over the code's decisions and branches</text><feedback><text>Correct — branch coverage is measured against the code's structure.</text></feedback></answer>
+    <answer fraction="0"><text>Black-box — it needs only the specification</text><feedback><text>Branch coverage requires knowledge of the code's branches, so it is white-box.</text></feedback></answer>
+    <answer fraction="0"><text>Non-functional — it measures usability</text><feedback><text>Branch coverage is a structural metric, not a quality attribute.</text></feedback></answer>
+    <answer fraction="0"><text>Static — it needs no execution</text><feedback><text>Measuring branch coverage requires executing the tests, so it is dynamic.</text></feedback></answer>
+    <generalfeedback><text>Branch coverage is measured over the code's branches, requiring knowledge of internal structure — a white-box technique. (Measuring it also requires execution, so it is dynamic.)</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Code review is static</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A code review (inspection) is a form of <strong>static</strong> testing.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — a review examines the code without executing it, so it is static.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Reviews find defects by reading, not running, the code — they are static.</text></feedback></answer>
+    <generalfeedback><text>Reviews, walkthroughs and inspections are static techniques: defects are found by examination, without executing the program.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify equivalence partitioning</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Equivalence partitioning</strong> is which kind of technique?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Black-box — it partitions the input domain from the specification</text><feedback><text>Correct — equivalence partitioning groups inputs into classes from the spec.</text></feedback></answer>
+    <answer fraction="0"><text>White-box — it partitions the code paths</text><feedback><text>Equivalence partitioning works on the input domain, not code paths.</text></feedback></answer>
+    <answer fraction="0"><text>Static — it needs no test execution</text><feedback><text>The resulting cases are executed, so it is a dynamic, black-box technique.</text></feedback></answer>
+    <answer fraction="0"><text>A verification-only activity that never runs the software</text><feedback><text>Its test cases are executed against the software, so this is wrong.</text></feedback></answer>
+    <generalfeedback><text>Equivalence partitioning groups inputs into classes derived from the specification, without code knowledge — a black-box technique.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify statement coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Statement coverage</strong> is which kind of technique?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>White-box — it is defined over the code's executable statements</text><feedback><text>Correct — statement coverage is measured against the code's structure.</text></feedback></answer>
+    <answer fraction="0"><text>Black-box — it needs only the requirements</text><feedback><text>Statement coverage requires knowledge of the code, so it is white-box.</text></feedback></answer>
+    <answer fraction="0"><text>Non-functional — it measures reliability</text><feedback><text>Statement coverage is a structural metric, not a quality attribute.</text></feedback></answer>
+    <answer fraction="0"><text>Static — no execution is required</text><feedback><text>Measuring statement coverage requires running the tests, so it is dynamic.</text></feedback></answer>
+    <generalfeedback><text>Statement coverage is measured over the executable statements of the code, so it is a white-box (structural) technique; measuring it is dynamic (requires execution).</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Black-box needs source code?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Black-box testing requires access to the program's <strong>source code</strong>.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — black-box testing is based on the specification and behavior, not the source.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Black-box treats the implementation as opaque; it does not need the source (that is white-box).</text></feedback></answer>
+    <generalfeedback><text>Black-box testing derives tests from the specification and external behavior; the source code is not required. Needing the source is the mark of white-box testing.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testing Method Taxonomy/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Grey-box example (DB schema via UI)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A tester drives a web application through its public UI but uses knowledge of the <strong>database schema</strong> to craft inputs and check the stored results. This is best classified as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Grey-box testing</text><feedback><text>Correct — partial internal knowledge (the schema) used while driving the system externally is grey-box.</text></feedback></answer>
+    <answer fraction="0"><text>Pure black-box testing</text><feedback><text>Pure black-box uses no internal knowledge; here the schema is used, so it is grey-box.</text></feedback></answer>
+    <answer fraction="0"><text>Pure white-box testing</text><feedback><text>White-box would drive tests from the code structure; here tests run through the UI with only partial knowledge.</text></feedback></answer>
+    <answer fraction="0"><text>Static analysis</text><feedback><text>The system is executed through the UI, so this is dynamic, not static.</text></feedback></answer>
+    <generalfeedback><text>Using partial internal knowledge (the DB schema) while exercising the system through external interfaces is the defining pattern of grey-box testing.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Walkthrough is dynamic?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A specification <strong>walkthrough</strong> is a dynamic testing activity.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — a walkthrough examines a document without executing software, so it is static.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Walkthroughs, like reviews and inspections, are static — no program is executed.</text></feedback></answer>
+    <generalfeedback><text>Walkthroughs (like reviews and inspections) are static techniques — defects are found by examination, with no code executed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Performance testing: functional or not</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Performance testing</strong> (measuring throughput and response time under load) is classified as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Non-functional testing</text><feedback><text>Correct — performance is a quality attribute (how well), so it is non-functional.</text></feedback></answer>
+    <answer fraction="0"><text>Functional testing</text><feedback><text>Functional testing checks what the system does; performance is about how well it does it.</text></feedback></answer>
+    <answer fraction="0"><text>White-box testing</text><feedback><text>Performance testing is usually black-box; the black/white axis is separate from functional/non-functional anyway.</text></feedback></answer>
+    <answer fraction="0"><text>Static testing</text><feedback><text>Performance testing executes the system under load, so it is dynamic, not static.</text></feedback></answer>
+    <generalfeedback><text>Performance concerns a quality attribute (how well the system performs, not which features work), so it is non-functional. It is also dynamic and usually black-box.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Requirements review: verification or validation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Reviewing the <strong>requirements specification</strong> against the applicable standards and the customer contract is an example of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Verification — conformance to the specification and process ("building the product right")</text><feedback><text>Correct — a requirements review checks conformance to standards and the spec.</text></feedback></answer>
+    <answer fraction="0"><text>Validation — fitness for the users' real needs</text><feedback><text>Validation confirms real-world fitness of the delivered product, typically dynamically; a spec review is verification.</text></feedback></answer>
+    <answer fraction="0"><text>Non-functional testing</text><feedback><text>A document review is a static verification activity, not a non-functional test.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic testing</text><feedback><text>A review executes nothing, so it is static, not dynamic.</text></feedback></answer>
+    <generalfeedback><text>A requirements review checks conformance to specifications and standards — a verification activity, and a static one.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>UAT: verification or validation</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>User Acceptance Testing (UAT)</strong>, in which real users try the delivered system to confirm it meets their needs, is an example of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Validation — fitness for use ("building the right product")</text><feedback><text>Correct — UAT confirms the product satisfies actual user needs.</text></feedback></answer>
+    <answer fraction="0"><text>Verification — conformance to the design document</text><feedback><text>Conformance to the design is verification; UAT checks real user needs, which is validation.</text></feedback></answer>
+    <answer fraction="0"><text>Static testing</text><feedback><text>UAT runs the delivered system, so it is dynamic, not static.</text></feedback></answer>
+    <answer fraction="0"><text>White-box testing</text><feedback><text>Users exercise the system through its interfaces, not its code — it is black-box, and the question is really about V&amp;V.</text></feedback></answer>
+    <generalfeedback><text>UAT confirms the product satisfies the users' actual needs — validation. It is also dynamic and black-box.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which axis: BVA vs branch coverage</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Boundary value analysis</strong> and <strong>branch coverage</strong> differ primarily along which classification axis?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Black-box vs white-box (knowledge of the internal code structure)</text><feedback><text>Correct — BVA is spec-based (black-box) while branch coverage is structure-based (white-box).</text></feedback></answer>
+    <answer fraction="0"><text>Static vs dynamic</text><feedback><text>Both are dynamic (their tests are executed); they do not differ on this axis.</text></feedback></answer>
+    <answer fraction="0"><text>Functional vs non-functional</text><feedback><text>Both are oriented to functional correctness; the real difference is the knowledge basis.</text></feedback></answer>
+    <answer fraction="0"><text>Verification vs validation</text><feedback><text>Both are typically verification-oriented; they differ on black-box vs white-box.</text></feedback></answer>
+    <generalfeedback><text>BVA is black-box (derived from the spec) and branch coverage is white-box (derived from the code structure); they differ on the knowledge/structure axis. Both are dynamic.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Automation is orthogonal to black/white-box</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>black-box</strong> acceptance suite is rewritten to run automatically via a UI-driving tool. On the black-box/white-box axis, the automated suite is now:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Still black-box — automation is an orthogonal axis and adds no code-structure knowledge</text><feedback><text>Correct — manual vs automated is independent of black-box vs white-box.</text></feedback></answer>
+    <answer fraction="0"><text>Now white-box, because a tool interacts with the program</text><feedback><text>Automating a test does not give it knowledge of the code's internal structure.</text></feedback></answer>
+    <answer fraction="0"><text>Now grey-box, because automation tools always read the source</text><feedback><text>A UI-driving tool does not read the source; the knowledge basis is unchanged.</text></feedback></answer>
+    <answer fraction="0"><text>Neither black- nor white-box any more</text><feedback><text>It remains black-box; only the manual/automated axis changed.</text></feedback></answer>
+    <generalfeedback><text>Manual vs automated is orthogonal to black-box vs white-box. Automating a black-box suite keeps it black-box; the knowledge basis is unchanged.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify a source-scanning tool</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A tool scans the <strong>source code</strong> for null-pointer risks and unused variables without ever running the program. This activity is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Static analysis — a static technique that examines code without executing it</text><feedback><text>Correct — no execution takes place, so it is static analysis.</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic testing — it executes the program</text><feedback><text>The tool never runs the program, so it is static, not dynamic.</text></feedback></answer>
+    <answer fraction="0"><text>Black-box testing — it ignores the code</text><feedback><text>It reads the source (structure), so it is not black-box.</text></feedback></answer>
+    <answer fraction="0"><text>Performance testing</text><feedback><text>It analyzes code, not runtime performance.</text></feedback></answer>
+    <generalfeedback><text>Static analysis examines the source/structure without execution, so it is static. Because it uses the code structure, it is structure-based rather than spec-based.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Family of error guessing and exploratory</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Error guessing</strong> and <strong>exploratory testing</strong>, which rely on the tester's experience rather than a formal model, belong to which family?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Experience-based techniques</text><feedback><text>Correct — these are experience-based techniques driven by tester intuition and skill.</text></feedback></answer>
+    <answer fraction="0"><text>Structure-based (white-box) coverage techniques</text><feedback><text>They do not use code structure or coverage criteria.</text></feedback></answer>
+    <answer fraction="0"><text>Static review techniques</text><feedback><text>They execute the software, so they are dynamic, not static reviews.</text></feedback></answer>
+    <answer fraction="0"><text>Non-functional techniques</text><feedback><text>They target functional defects using experience, not quality attributes.</text></feedback></answer>
+    <generalfeedback><text>Error guessing and exploratory testing are experience-based techniques — a dynamic, black-box family driven by the tester's knowledge and intuition rather than a formal specification or the code structure.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify state-transition testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>State-transition testing</strong> derives its test cases from a behavioral state model built from the requirements. It is a:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Black-box technique — derived from a spec/behavioral model, not the code</text><feedback><text>Correct — the state model comes from the requirements, so it is black-box.</text></feedback></answer>
+    <answer fraction="0"><text>White-box technique — derived from the control-flow graph</text><feedback><text>The model is behavioral (from the spec), not the code's control-flow graph.</text></feedback></answer>
+    <answer fraction="0"><text>Static technique — no execution</text><feedback><text>The resulting cases are executed against the system, so it is dynamic.</text></feedback></answer>
+    <answer fraction="0"><text>Non-functional technique</text><feedback><text>It checks functional behavior via states and transitions, not a quality attribute.</text></feedback></answer>
+    <generalfeedback><text>State-transition testing uses a behavioral model derived from the specification, treating the implementation as opaque — a black-box technique.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify stress testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Stress testing</strong> (pushing the system beyond normal load to see how it degrades or fails) is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Non-functional (and dynamic) testing</text><feedback><text>Correct — it evaluates behavior under extreme load, a quality attribute, by executing the system.</text></feedback></answer>
+    <answer fraction="0"><text>Functional testing</text><feedback><text>It checks a quality attribute under load, not whether specific features return correct results.</text></feedback></answer>
+    <answer fraction="0"><text>Static testing</text><feedback><text>It runs the system under load, so it is dynamic, not static.</text></feedback></answer>
+    <answer fraction="0"><text>White-box coverage measurement</text><feedback><text>It measures behavior under load, not code structure coverage.</text></feedback></answer>
+    <generalfeedback><text>Stress/load testing evaluates a quality attribute (behavior under extreme load), so it is non-functional; because it executes the system it is also dynamic.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Pick the verification activity</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is a <strong>verification</strong> activity rather than a validation activity?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inspecting a module's code against its detailed design document</text><feedback><text>Correct — checking conformance to the design is verification.</text></feedback></answer>
+    <answer fraction="0"><text>Having end users trial the product to confirm it meets their needs</text><feedback><text>That confirms fitness for use — validation.</text></feedback></answer>
+    <answer fraction="0"><text>Running a beta program to gather real-world feedback</text><feedback><text>A beta program checks real user needs — validation.</text></feedback></answer>
+    <answer fraction="0"><text>Confirming the finished system solves the customer's actual problem</text><feedback><text>That is fitness for use — validation.</text></feedback></answer>
+    <generalfeedback><text>Checking a module against its design document is verification (conformance to spec). The other options confirm fitness for the users' real needs — validation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify security testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Security testing</strong> (checking resistance to unauthorized access) is primarily:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Non-functional testing</text><feedback><text>Correct — security is a quality attribute, so security testing is non-functional.</text></feedback></answer>
+    <answer fraction="0"><text>Functional testing</text><feedback><text>Security concerns a quality attribute (how well it resists attack), not a listed feature's output.</text></feedback></answer>
+    <answer fraction="0"><text>A purely static technique</text><feedback><text>Security testing typically executes the system (e.g. penetration tests), so it is dynamic.</text></feedback></answer>
+    <answer fraction="0"><text>A verification-only activity</text><feedback><text>Security testing is a non-functional test category, not a V&amp;V stage label.</text></feedback></answer>
+    <generalfeedback><text>Security is a quality attribute, so security testing is non-functional. It is typically dynamic and may be grey- or black-box depending on the knowledge used.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Clearest axis: walkthrough vs load test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The clearest classification difference between a <strong>walkthrough</strong> and a <strong>load test</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Static vs dynamic — a walkthrough executes nothing, a load test executes the system</text><feedback><text>Correct — the defining contrast is execution.</text></feedback></answer>
+    <answer fraction="0"><text>Black-box vs white-box</text><feedback><text>A walkthrough is not really placed on the black/white-box axis; the definitional contrast here is static vs dynamic.</text></feedback></answer>
+    <answer fraction="0"><text>Verification vs validation</text><feedback><text>Both can serve verification; the clear contrast is that one executes and the other does not.</text></feedback></answer>
+    <answer fraction="0"><text>Manual vs automated</text><feedback><text>Either could be manual or automated; the defining difference is execution.</text></feedback></answer>
+    <generalfeedback><text>A walkthrough is static (nothing is executed) while a load test is dynamic (the system runs under load); the static-vs-dynamic axis is the defining contrast.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify basis-path testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Basis-path testing</strong> (deriving tests from the code's linearly independent paths) is a:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>White-box (structure-based) technique</text><feedback><text>Correct — basis-path testing is derived from the code's control-flow graph.</text></feedback></answer>
+    <answer fraction="0"><text>Black-box technique</text><feedback><text>It uses the code's paths, so it is structure-based, not spec-based.</text></feedback></answer>
+    <answer fraction="0"><text>Non-functional technique</text><feedback><text>It targets structural coverage of paths, not a quality attribute.</text></feedback></answer>
+    <answer fraction="0"><text>Static technique</text><feedback><text>Its tests are executed, so it is dynamic, not static.</text></feedback></answer>
+    <generalfeedback><text>Basis-path testing is derived from the control-flow graph (independent paths) of the code, so it is white-box / structure-based, and dynamic.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testing Method Taxonomy/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Multi-axis: load testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Load testing</strong> executes the running system, is driven purely through external interfaces with no code knowledge, and measures response time under heavy traffic. Across the three axes it is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Dynamic, black-box, and non-functional</text><feedback><text>Correct — it executes (dynamic), uses no code knowledge (black-box), and measures a quality attribute (non-functional).</text></feedback></answer>
+    <answer fraction="0"><text>Static, white-box, and functional</text><feedback><text>It executes the system and uses no code knowledge, so it is dynamic and black-box, and it targets performance (non-functional).</text></feedback></answer>
+    <answer fraction="0"><text>Dynamic, white-box, and non-functional</text><feedback><text>It uses no knowledge of the code's internal structure, so it is black-box, not white-box.</text></feedback></answer>
+    <answer fraction="0"><text>Static, black-box, and functional</text><feedback><text>It runs the system (dynamic) and measures performance (non-functional).</text></feedback></answer>
+    <generalfeedback><text>Load testing executes the system (dynamic), needs no internal code knowledge (black-box), and targets a performance quality attribute (non-functional).</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Static analysis as dynamic white-box?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because static analysis inspects the source code, it is a form of <strong>dynamic white-box testing</strong>.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — static analysis is structure-based but does NOT execute the program, so it is static, not dynamic.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Static analysis uses the code structure but performs no execution, so it cannot be dynamic testing.</text></feedback></answer>
+    <generalfeedback><text>Static analysis is structure-based (it uses the code) yet static (no execution). "White-box" refers to knowledge of the structure, not to execution — so "uses the code" does not make it dynamic.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why grey-box is not black plus white</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement best captures why <strong>grey-box</strong> testing is not simply "black-box plus white-box"?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It uses partial internal knowledge to design better externally-driven tests, rather than performing the complete sets of both black-box and white-box tests</text><feedback><text>Correct — grey-box combines a limited source of internal insight with external testing; it is not the union of the two full test sets.</text></feedback></answer>
+    <answer fraction="0"><text>It performs every possible black-box test and every possible white-box test</text><feedback><text>Grey-box uses only partial internal knowledge; it does not run the full white-box test set.</text></feedback></answer>
+    <answer fraction="0"><text>It is identical to white-box testing but with a different name</text><feedback><text>Grey-box uses only partial internal knowledge and drives tests externally, unlike full white-box testing.</text></feedback></answer>
+    <answer fraction="0"><text>It requires no knowledge of either the specification or the code</text><feedback><text>That would be neither; grey-box specifically uses partial internal knowledge.</text></feedback></answer>
+    <generalfeedback><text>Grey-box combines sources of knowledge — using limited internal insight (architecture, schema, key algorithms) to target external tests. It is not the union of complete black-box and white-box test sets.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify MC/DC on two axes</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>MC/DC</strong> (Modified Condition/Decision Coverage) is best classified as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>White-box and dynamic — defined over code conditions and measured by executing tests</text><feedback><text>Correct — it is a structural criterion whose satisfaction is observed only by running the tests.</text></feedback></answer>
+    <answer fraction="0"><text>White-box and static — coverage can be computed without running the program</text><feedback><text>MC/DC is structural, but coverage is only observed by executing the tests, so it is dynamic.</text></feedback></answer>
+    <answer fraction="0"><text>Black-box and dynamic</text><feedback><text>MC/DC is defined over the code's conditions, so it is white-box, not black-box.</text></feedback></answer>
+    <answer fraction="0"><text>Black-box and static</text><feedback><text>It is defined over code conditions (white-box) and requires execution (dynamic).</text></feedback></answer>
+    <generalfeedback><text>MC/DC is a structural (white-box) criterion, but coverage is only observed by executing the tests, so it is dynamic. Structural coverage criteria are not static.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Unit test against design spec</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Executing a module's unit tests derived from its detailed <strong>design specification</strong>, to confirm the module conforms to that design, is chiefly an act of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Verification — conformance to the specification</text><feedback><text>Correct — confirming conformance to the design spec is verification.</text></feedback></answer>
+    <answer fraction="0"><text>Validation — fitness for the end user's real needs</text><feedback><text>Validation checks real user needs; here we check conformance to the design — verification.</text></feedback></answer>
+    <answer fraction="0"><text>Non-functional testing</text><feedback><text>It checks functional conformance to the design, not a quality attribute.</text></feedback></answer>
+    <answer fraction="0"><text>Static analysis</text><feedback><text>The tests are executed, so this is dynamic, and its V&amp;V role is verification.</text></feedback></answer>
+    <generalfeedback><text>Confirming conformance to the design specification is verification. The unit testing here is dynamic (and could be white-box), but on the V&amp;V axis its role is verification.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Spec satisfied but wrong for users</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A system perfectly satisfies its written requirements, yet those requirements misunderstood what users actually needed. Which activity is designed to catch this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Validation — it checks fitness for real user needs, independent of the written spec</text><feedback><text>Correct — validation catches "building the wrong product" even when the spec is met.</text></feedback></answer>
+    <answer fraction="0"><text>Verification — it checks conformance to the written spec</text><feedback><text>Verification would pass here, because the product matches the (flawed) spec.</text></feedback></answer>
+    <answer fraction="0"><text>Statement coverage</text><feedback><text>Coverage measures which code ran, not whether the requirements were right.</text></feedback></answer>
+    <answer fraction="0"><text>Static analysis of the source</text><feedback><text>Static analysis inspects code quality, not whether the requirements meet user needs.</text></feedback></answer>
+    <generalfeedback><text>Verification would pass (the product matches the spec), but the spec itself is wrong. Only validation, which checks against real user needs, catches "building the wrong product."</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why BVA is in the black-box family</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Boundary value analysis</strong> is classified in the black-box family because:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Its cases are derived from the boundaries of input partitions in the specification, needing no knowledge of the code</text><feedback><text>Correct — the test basis is the specified input domain, not the code.</text></feedback></answer>
+    <answer fraction="0"><text>It measures which branches of the code were executed</text><feedback><text>That describes branch coverage, a white-box technique, not BVA.</text></feedback></answer>
+    <answer fraction="0"><text>It never executes the program under test</text><feedback><text>BVA cases are executed; the reason it is black-box is its spec-based test basis, not a lack of execution.</text></feedback></answer>
+    <answer fraction="0"><text>It only evaluates non-functional quality attributes</text><feedback><text>BVA targets functional behavior at input boundaries, not quality attributes.</text></feedback></answer>
+    <generalfeedback><text>BVA belongs to the black-box family because its cases come from the boundaries of the specified input domain, requiring no knowledge of the code's internal structure.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>High coverage proves black-box testing?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Reporting <strong>90% branch coverage</strong> demonstrates that thorough black-box testing was performed.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — branch coverage is a white-box (structural) measure and says nothing about specification-based black-box testing.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Coverage is a structural metric; a high value does not indicate the specification was tested (black-box).</text></feedback></answer>
+    <generalfeedback><text>Coverage metrics are white-box / structural. High coverage does not imply the specification was tested (black-box), and vice versa; the black/white-box and coverage notions are independent.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which is white-box AND static</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which technique is both <strong>white-box (structure-based)</strong> AND <strong>static (no execution)</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Data-flow static analysis of the source code</text><feedback><text>Correct — it uses the code structure (white-box) but never executes it (static).</text></feedback></answer>
+    <answer fraction="0"><text>Branch coverage measurement</text><feedback><text>Branch coverage is white-box but dynamic — it requires executing the tests.</text></feedback></answer>
+    <answer fraction="0"><text>Boundary value analysis</text><feedback><text>BVA is black-box (spec-based) and dynamic.</text></feedback></answer>
+    <answer fraction="0"><text>Load testing</text><feedback><text>Load testing is black-box and dynamic.</text></feedback></answer>
+    <generalfeedback><text>Data-flow static analysis examines the code's structure (white-box) without executing it (static). Branch coverage is white-box but dynamic; BVA is black-box; load testing is black-box and dynamic.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Multi-axis: white-box dynamic functional</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A developer writes unit tests <em>from the code</em>, runs them, and asserts each function returns the correct result. Ignoring any coverage measurement, across the three axes these tests are:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>White-box, dynamic, and functional</text><feedback><text>Correct — derived from the code (white-box), executed (dynamic), and checking correct outputs (functional).</text></feedback></answer>
+    <answer fraction="0"><text>Black-box, static, and non-functional</text><feedback><text>They are derived from the code (white-box), executed (dynamic), and check correct results (functional).</text></feedback></answer>
+    <answer fraction="0"><text>White-box, static, and non-functional</text><feedback><text>Running the tests makes them dynamic, and checking correct results makes them functional.</text></feedback></answer>
+    <answer fraction="0"><text>Black-box, dynamic, and functional</text><feedback><text>Because they are written from the code, they are white-box, not black-box.</text></feedback></answer>
+    <generalfeedback><text>Tests derived from the code are white-box; running them is dynamic; asserting that each function returns the correct result is functional. Design basis, execution, and functional/non-functional are three separate axes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Multi-axis: penetration test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A penetration tester is given partial architecture diagrams and some API internals, then attacks the running system to find security flaws. This is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Grey-box, dynamic, and non-functional</text><feedback><text>Correct — partial internal knowledge (grey-box), attacking a running system (dynamic), targeting security (non-functional).</text></feedback></answer>
+    <answer fraction="0"><text>Black-box, static, and functional</text><feedback><text>The tester has partial internal knowledge (grey-box) and executes the system (dynamic), targeting a quality attribute (non-functional).</text></feedback></answer>
+    <answer fraction="0"><text>White-box, static, and functional</text><feedback><text>Only partial knowledge is used (grey-box), the system is executed (dynamic), and the goal is security (non-functional).</text></feedback></answer>
+    <answer fraction="0"><text>Pure black-box and functional</text><feedback><text>Using partial internals makes it grey-box, and the security goal is non-functional.</text></feedback></answer>
+    <generalfeedback><text>Partial internal knowledge makes it grey-box; attacking the running system makes it dynamic; targeting security (a quality attribute) makes it non-functional.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Multi-axis: design inspection</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On the V&amp;V axis and the static/dynamic axis, a formal <strong>inspection of a design document</strong> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Verification and static</text><feedback><text>Correct — it checks conformance to the spec/standards (verification) and executes nothing (static).</text></feedback></answer>
+    <answer fraction="0"><text>Validation and dynamic</text><feedback><text>An inspection executes nothing (static) and checks conformance to spec (verification).</text></feedback></answer>
+    <answer fraction="0"><text>Verification and dynamic</text><feedback><text>It is verification, but nothing is executed, so it is static, not dynamic.</text></feedback></answer>
+    <answer fraction="0"><text>Validation and static</text><feedback><text>It is static, but it checks conformance to spec, so it is verification, not validation.</text></feedback></answer>
+    <generalfeedback><text>A design inspection checks conformance to the specification and standards (verification) and executes nothing (static).</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Regression testing is white-box by definition?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Regression testing is, by definition, a <strong>white-box</strong> technique.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — regression testing is defined by its purpose (re-testing after a change) and can be black-box or white-box, manual or automated.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>Regression is about when and why you test, not the knowledge basis; it can be either black- or white-box.</text></feedback></answer>
+    <generalfeedback><text>Regression testing is categorized by purpose — confirming that a change did not break existing behavior — an axis orthogonal to black-box vs white-box. A regression suite may be either.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Verification/validation and static/dynamic</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about <strong>verification and validation</strong> is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Verification can be static (e.g. reviews) or dynamic (e.g. unit tests against the spec), while validation is normally dynamic</text><feedback><text>Correct — verification spans both static and dynamic methods; validation is usually dynamic.</text></feedback></answer>
+    <answer fraction="0"><text>Verification is always static and validation is always dynamic</text><feedback><text>Verification also includes dynamic methods, such as unit/integration tests checking conformance to the spec.</text></feedback></answer>
+    <answer fraction="0"><text>Verification and validation are the same activity under two names</text><feedback><text>They are distinct: conformance to spec versus fitness for user needs.</text></feedback></answer>
+    <answer fraction="0"><text>Validation must always be completed before any verification</text><feedback><text>There is no such strict ordering; verification runs throughout development.</text></feedback></answer>
+    <generalfeedback><text>Verification spans both static (reviews, inspections) and dynamic (spec-based unit/integration tests) methods; validation — confirming real-world fitness — is typically dynamic. They are distinct activities and not strictly ordered validation-first.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>EP design vs execution on two axes</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A tester designs cases with <strong>equivalence partitioning</strong> (from the spec) and then runs them against the program. On the knowledge axis and the static/dynamic axis respectively, this is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Black-box and dynamic — the design is spec-based, but running the cases executes the program</text><feedback><text>Correct — the design technique is black-box; executing the cases is dynamic.</text></feedback></answer>
+    <answer fraction="0"><text>White-box and static</text><feedback><text>The design uses the spec (black-box), and running the cases makes it dynamic.</text></feedback></answer>
+    <answer fraction="0"><text>Black-box and static</text><feedback><text>The cases are executed against the program, so the activity is dynamic, not static.</text></feedback></answer>
+    <answer fraction="0"><text>White-box and dynamic</text><feedback><text>Equivalence partitioning is spec-based, so it is black-box, not white-box.</text></feedback></answer>
+    <generalfeedback><text>Equivalence partitioning is a black-box design technique (spec-based); executing the resulting cases is dynamic. The design basis and the execution mode are separate axes.</text></generalfeedback>
+  </question>
+</quiz>

@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Testing Method Taxonomy/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>黑箱測試的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>黑箱測試（black-box testing）</strong>設計測試案例時所依據的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>規格與對外行為，不需知道程式內部結構</text><feedback><text>正確——黑箱（規格導向）測試把實作視為不透明的。</text></feedback></answer>
+    <answer fraction="0"><text>程式碼內部的控制流程圖</text><feedback><text>那是白箱（結構性）測試，會利用程式碼的結構。</text></feedback></answer>
+    <answer fraction="0"><text>測試所執行到的原始碼行數</text><feedback><text>那描述的是覆蓋率量測，並非黑箱測試的設計依據。</text></feedback></answer>
+    <answer fraction="0"><text>編譯器的最佳化設定</text><feedback><text>編譯器設定與黑箱測試如何產生無關。</text></feedback></answer>
+    <generalfeedback><text>黑箱（規格導向）測試依需求與對外行為來設計測試，把實作視為不透明——不使用任何程式碼知識。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>白箱測試的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>白箱（結構性）</strong>測試設計測試案例時所依據的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>程式內部結構的知識，例如敘述、分支與路徑</text><feedback><text>正確——白箱（透明箱）測試利用程式碼的內部結構。</text></feedback></answer>
+    <answer fraction="0"><text>只看公佈的需求，完全不看程式碼</text><feedback><text>那是黑箱測試；白箱會利用程式碼結構。</text></feedback></answer>
+    <answer fraction="0"><text>使用者對產品的主觀滿意度</text><feedback><text>那較接近驗證（validation）／可用性，而非結構性測試。</text></feedback></answer>
+    <answer fraction="0"><text>程式將執行於哪種硬體</text><feedback><text>目標硬體並非白箱測試設計的依據。</text></feedback></answer>
+    <generalfeedback><text>白箱（結構性／透明箱）測試利用程式碼的內部結構——敘述、分支、路徑、條件——來設計並量測測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>灰箱測試的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>灰箱測試（grey-box testing）</strong>的特徵是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>具備部分內部結構的知識，並透過對外介面來驅動測試</text><feedback><text>正確——灰箱運用部分內部洞見（如架構或資料庫結構）同時從外部進行測試。</text></feedback></answer>
+    <answer fraction="0"><text>對規格與程式碼皆完全一無所知</text><feedback><text>測試者總會依據某些資訊；灰箱特指運用部分內部知識。</text></feedback></answer>
+    <answer fraction="0"><text>對正確性進行完整的數學證明</text><feedback><text>那是形式化驗證，並非灰箱測試。</text></feedback></answer>
+    <answer fraction="0"><text>只測試圖形使用者介面的顏色</text><feedback><text>灰箱關乎內部知識的多寡，而非 UI 外觀。</text></feedback></answer>
+    <generalfeedback><text>灰箱測試運用部分內部知識（架構、資料結構、關鍵演算法）來設計測試，而這些測試仍透過對外介面來執行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>靜態測試的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>靜態測試（static testing）</strong>最貼切的描述是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>檢視軟體產出物（文件或程式碼）而不執行程式</text><feedback><text>正確——靜態技術以檢視方式找出缺陷，不需執行。</text></feedback></answer>
+    <answer fraction="0"><text>以許多不同輸入來執行程式</text><feedback><text>那是動態測試，需要執行。</text></feedback></answer>
+    <answer fraction="0"><text>量測高負載下的回應時間</text><feedback><text>那是動態的非功能性活動（效能測試）。</text></feedback></answer>
+    <answer fraction="0"><text>部署到正式環境並監看實際使用者</text><feedback><text>監看執行中的系統屬於動態，而非靜態。</text></feedback></answer>
+    <generalfeedback><text>靜態測試（審查、走查、檢驗、靜態分析）以檢視產出物的方式找出缺陷，不執行程式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>動態測試的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>動態測試（dynamic testing）</strong>最貼切的描述是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>以輸入執行程式並觀察其行為</text><feedback><text>正確——動態測試執行軟體並將行為與預期比對。</text></feedback></answer>
+    <answer fraction="0"><text>在審查會議中一起閱讀程式碼</text><feedback><text>那是靜態技術（審查）；沒有執行任何程式。</text></feedback></answer>
+    <answer fraction="0"><text>檢查需求文件是否有錯字</text><feedback><text>那是對文件的靜態檢視，並非動態測試。</text></feedback></answer>
+    <answer fraction="0"><text>用工具分析原始碼但從不執行它</text><feedback><text>那是靜態分析；動態測試需要執行。</text></feedback></answer>
+    <generalfeedback><text>動態測試需要執行軟體，並將觀察到的行為與預期結果比對。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>功能性測試的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>功能性測試（functional testing）</strong>主要關注的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>系統「做什麼」——對給定輸入是否產生正確輸出</text><feedback><text>正確——功能性測試依規定的功能來檢查行為。</text></feedback></answer>
+    <answer fraction="0"><text>系統在負載下回應有多快</text><feedback><text>那是非功能性（效能）的關注點。</text></feedback></answer>
+    <answer fraction="0"><text>系統對攻擊者的抵抗力有多強</text><feedback><text>那是非功能性（安全性）的關注點。</text></feedback></answer>
+    <answer fraction="0"><text>原始碼的可維護性有多高</text><feedback><text>可維護性是非功能性品質屬性，並非某項功能。</text></feedback></answer>
+    <generalfeedback><text>功能性測試依需求檢查系統的功能／行為——「做什麼」——而非「做得多好」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>非功能性測試的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>非功能性測試（non-functional testing）</strong>主要評估的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>品質屬性，例如效能、安全性、可用性與可靠性</text><feedback><text>正確——非功能性測試著重系統運作「有多好」。</text></feedback></answer>
+    <answer fraction="0"><text>每項所需功能是否回傳正確結果</text><feedback><text>那是功能性測試（系統做什麼）。</text></feedback></answer>
+    <answer fraction="0"><text>程式碼中每一條敘述是否都被執行</text><feedback><text>那是結構性覆蓋率（白箱）的關注點。</text></feedback></answer>
+    <answer fraction="0"><text>需求文件的文法是否完整</text><feedback><text>那是靜態審查的關注點，並非非功能性測試。</text></feedback></answer>
+    <generalfeedback><text>非功能性測試著重系統運作「有多好」——效能、安全性、可用性、可靠性、可攜性等——而非哪些功能可運作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗證（verification）的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在經典的 V&amp;V 區分中，<strong>驗證（verification）</strong>所問的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>「我們有把產品做對嗎？」——它是否符合規格？</text><feedback><text>正確——驗證在各階段檢查是否符合規格與標準。</text></feedback></answer>
+    <answer fraction="0"><text>「我們做的是對的產品嗎？」——它是否滿足使用者需求？</text><feedback><text>那是確認（validation），而非驗證。</text></feedback></answer>
+    <answer fraction="0"><text>「這產品比競爭對手快嗎？」</text><feedback><text>那是效能／標竿比較問題，與驗證無關。</text></feedback></answer>
+    <answer fraction="0"><text>「顧客會願意付錢買這產品嗎？」</text><feedback><text>那是市場問題，與 V&amp;V 區分無關。</text></feedback></answer>
+    <generalfeedback><text>驗證在每個開發階段檢查是否符合規格、設計與標準——「把產品做對」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>確認（validation）的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在經典的 V&amp;V 區分中，<strong>確認（validation）</strong>所問的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>「我們做的是對的產品嗎？」——它是否滿足使用者真正的需求？</text><feedback><text>正確——確認依真正的使用者需求檢查是否適用。</text></feedback></answer>
+    <answer fraction="0"><text>「我們有把產品做對嗎？」——它是否符合規格？</text><feedback><text>那是驗證，而非確認。</text></feedback></answer>
+    <answer fraction="0"><text>「原始碼編譯時沒有警告嗎？」</text><feedback><text>那是靜態／建置的關注點，並非確認。</text></feedback></answer>
+    <answer fraction="0"><text>「程式碼的每個分支都被某個測試覆蓋嗎？」</text><feedback><text>那是白箱覆蓋率的關注點，並非確認。</text></feedback></answer>
+    <generalfeedback><text>確認檢查是否適用——完成的產品是否滿足使用者真正的需求——「做對的產品」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：邊界值分析</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>邊界值分析（boundary value analysis）</strong>屬於哪一類技術？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>黑箱——它使用輸入規格與分割，不看程式碼</text><feedback><text>正確——BVA 依規定輸入分割的邊界來產生測試。</text></feedback></answer>
+    <answer fraction="0"><text>白箱——它需要控制流程圖</text><feedback><text>BVA 不需程式結構；它依輸入規格運作。</text></feedback></answer>
+    <answer fraction="0"><text>靜態——它從不執行程式</text><feedback><text>BVA 的案例會對程式執行，因此是動態而非靜態。</text></feedback></answer>
+    <answer fraction="0"><text>非功能性——它量測效能</text><feedback><text>BVA 檢查輸入邊界的功能行為，而非效能。</text></feedback></answer>
+    <generalfeedback><text>邊界值分析依規格中輸入分割的邊界產生測試，不需程式碼知識——是黑箱技術。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：分支覆蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>分支（決策）覆蓋率</strong>屬於哪一類技術？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>白箱——它是依程式碼的決策與分支來定義的</text><feedback><text>正確——分支覆蓋率是針對程式碼結構量測的。</text></feedback></answer>
+    <answer fraction="0"><text>黑箱——它只需要規格</text><feedback><text>分支覆蓋率需要程式碼分支的知識，因此是白箱。</text></feedback></answer>
+    <answer fraction="0"><text>非功能性——它量測可用性</text><feedback><text>分支覆蓋率是結構性指標，並非品質屬性。</text></feedback></answer>
+    <answer fraction="0"><text>靜態——它不需執行</text><feedback><text>量測分支覆蓋率需要執行測試，因此是動態。</text></feedback></answer>
+    <generalfeedback><text>分支覆蓋率是針對程式碼的分支量測，需要內部結構的知識——是白箱技術。（量測它也需要執行，因此是動態。）</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>程式碼審查屬於靜態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>程式碼審查（inspection）是一種<strong>靜態</strong>測試。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——審查是檢視程式碼而不執行它，因此屬於靜態。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>審查以閱讀而非執行程式碼來找缺陷——它們屬於靜態。</text></feedback></answer>
+    <generalfeedback><text>審查、走查與檢驗都是靜態技術：以檢視方式找出缺陷，不執行程式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：等價分割</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>等價分割（equivalence partitioning）</strong>屬於哪一類技術？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>黑箱——它依規格分割輸入定義域</text><feedback><text>正確——等價分割依規格把輸入分成若干類別。</text></feedback></answer>
+    <answer fraction="0"><text>白箱——它分割的是程式碼路徑</text><feedback><text>等價分割作用於輸入定義域，而非程式碼路徑。</text></feedback></answer>
+    <answer fraction="0"><text>靜態——它不需執行測試</text><feedback><text>產生的案例會被執行，因此是動態的黑箱技術。</text></feedback></answer>
+    <answer fraction="0"><text>只做驗證、從不執行軟體的活動</text><feedback><text>它的測試案例會對軟體執行，因此此說法錯誤。</text></feedback></answer>
+    <generalfeedback><text>等價分割依規格把輸入分成若干類別，不需程式碼知識——是黑箱技術。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：敘述覆蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>敘述覆蓋率（statement coverage）</strong>屬於哪一類技術？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>白箱——它是依程式碼的可執行敘述來定義的</text><feedback><text>正確——敘述覆蓋率是針對程式碼結構量測的。</text></feedback></answer>
+    <answer fraction="0"><text>黑箱——它只需要需求</text><feedback><text>敘述覆蓋率需要程式碼的知識，因此是白箱。</text></feedback></answer>
+    <answer fraction="0"><text>非功能性——它量測可靠性</text><feedback><text>敘述覆蓋率是結構性指標，並非品質屬性。</text></feedback></answer>
+    <answer fraction="0"><text>靜態——不需執行</text><feedback><text>量測敘述覆蓋率需要執行測試，因此是動態。</text></feedback></answer>
+    <generalfeedback><text>敘述覆蓋率是針對程式碼的可執行敘述量測，因此是白箱（結構性）技術；量測它是動態的（需要執行）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>黑箱需要原始碼嗎？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>黑箱測試需要取得程式的<strong>原始碼</strong>。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——黑箱測試依規格與行為進行，而非依原始碼。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>黑箱把實作視為不透明；它不需原始碼（需要原始碼的是白箱）。</text></feedback></answer>
+    <generalfeedback><text>黑箱測試依規格與對外行為來設計測試，不需要原始碼。需要原始碼是白箱測試的特徵。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testing Method Taxonomy/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>灰箱範例（透過 UI 用資料庫結構）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試者透過網頁應用程式的公開 UI 來驅動測試，但利用<strong>資料庫結構</strong>的知識來設計輸入並檢查已儲存的結果。這最適合歸類為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>灰箱測試</text><feedback><text>正確——在從外部驅動系統時運用部分內部知識（結構）即為灰箱。</text></feedback></answer>
+    <answer fraction="0"><text>純黑箱測試</text><feedback><text>純黑箱不使用任何內部知識；這裡用到了結構，因此是灰箱。</text></feedback></answer>
+    <answer fraction="0"><text>純白箱測試</text><feedback><text>白箱會依程式碼結構驅動測試；這裡是透過 UI 執行、僅具部分知識。</text></feedback></answer>
+    <answer fraction="0"><text>靜態分析</text><feedback><text>系統是透過 UI 執行的，因此是動態而非靜態。</text></feedback></answer>
+    <generalfeedback><text>在透過對外介面操作系統的同時運用部分內部知識（資料庫結構），正是灰箱測試的典型模式。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>走查是動態的嗎？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>規格<strong>走查（walkthrough）</strong>是一種動態測試活動。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——走查是檢視文件而不執行軟體，因此屬於靜態。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>走查與審查、檢驗一樣屬於靜態——沒有執行任何程式。</text></feedback></answer>
+    <generalfeedback><text>走查（如同審查與檢驗）是靜態技術——以檢視方式找出缺陷，不執行任何程式碼。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>效能測試：功能性與否</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>效能測試（performance testing）</strong>（量測負載下的吞吐量與回應時間）歸類為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>非功能性測試</text><feedback><text>正確——效能是品質屬性（做得多好），因此屬於非功能性。</text></feedback></answer>
+    <answer fraction="0"><text>功能性測試</text><feedback><text>功能性測試檢查系統做什麼；效能關乎它做得多好。</text></feedback></answer>
+    <answer fraction="0"><text>白箱測試</text><feedback><text>效能測試通常是黑箱；黑／白箱軸本來就與功能／非功能軸不同。</text></feedback></answer>
+    <answer fraction="0"><text>靜態測試</text><feedback><text>效能測試在負載下執行系統，因此是動態而非靜態。</text></feedback></answer>
+    <generalfeedback><text>效能關乎品質屬性（系統表現多好，而非哪些功能可運作），因此屬於非功能性。它同時也是動態且通常是黑箱。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>需求審查：驗證或確認</text></name>
+    <questiontext format="html"><text><![CDATA[<p>將<strong>需求規格</strong>對照適用標準與客戶合約進行審查，是下列何者的例子？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驗證——符合規格與流程（「把產品做對」）</text><feedback><text>正確——需求審查檢查是否符合標準與規格。</text></feedback></answer>
+    <answer fraction="0"><text>確認——是否適合使用者真正的需求</text><feedback><text>確認通常以動態方式確認交付產品在真實情境是否適用；規格審查屬於驗證。</text></feedback></answer>
+    <answer fraction="0"><text>非功能性測試</text><feedback><text>文件審查是靜態的驗證活動，並非非功能性測試。</text></feedback></answer>
+    <answer fraction="0"><text>動態測試</text><feedback><text>審查沒有執行任何東西，因此是靜態而非動態。</text></feedback></answer>
+    <generalfeedback><text>需求審查檢查是否符合規格與標準——是驗證活動，也是靜態活動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>UAT：驗證或確認</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>使用者驗收測試（UAT）</strong>——由真實使用者試用交付的系統以確認它滿足其需求——是下列何者的例子？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>確認——是否適合使用（「做對的產品」）</text><feedback><text>正確——UAT 確認產品滿足使用者真正的需求。</text></feedback></answer>
+    <answer fraction="0"><text>驗證——符合設計文件</text><feedback><text>符合設計是驗證；UAT 檢查真實使用者需求，屬於確認。</text></feedback></answer>
+    <answer fraction="0"><text>靜態測試</text><feedback><text>UAT 會執行交付的系統，因此是動態而非靜態。</text></feedback></answer>
+    <answer fraction="0"><text>白箱測試</text><feedback><text>使用者透過介面而非程式碼操作系統——這是黑箱，而問題其實是在問 V&amp;V。</text></feedback></answer>
+    <generalfeedback><text>UAT 確認產品滿足使用者真正的需求——是確認。它同時也是動態且黑箱。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個軸：BVA 與分支覆蓋率</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>邊界值分析</strong>與<strong>分支覆蓋率</strong>主要在哪一條分類軸上不同？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>黑箱與白箱（是否具備程式內部結構的知識）</text><feedback><text>正確——BVA 是規格導向（黑箱），而分支覆蓋率是結構導向（白箱）。</text></feedback></answer>
+    <answer fraction="0"><text>靜態與動態</text><feedback><text>兩者都是動態的（測試都會被執行）；在此軸上並無差異。</text></feedback></answer>
+    <answer fraction="0"><text>功能性與非功能性</text><feedback><text>兩者都偏向功能正確性；真正的差異在於知識依據。</text></feedback></answer>
+    <answer fraction="0"><text>驗證與確認</text><feedback><text>兩者通常都偏向驗證；它們的差異在於黑箱與白箱。</text></feedback></answer>
+    <generalfeedback><text>BVA 是黑箱（源自規格），分支覆蓋率是白箱（源自程式結構）；它們在知識／結構軸上不同。兩者都是動態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>自動化與黑／白箱正交</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個<strong>黑箱</strong>驗收測試組被改寫為透過 UI 驅動工具自動執行。在黑箱／白箱軸上，這個自動化測試組現在是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>仍是黑箱——自動化是一條正交的軸，並未加入程式結構的知識</text><feedback><text>正確——手動與自動化和黑箱與白箱互相獨立。</text></feedback></answer>
+    <answer fraction="0"><text>變成白箱，因為有工具與程式互動</text><feedback><text>把測試自動化並不會賦予它對程式內部結構的知識。</text></feedback></answer>
+    <answer fraction="0"><text>變成灰箱，因為自動化工具一定會讀原始碼</text><feedback><text>UI 驅動工具不會讀原始碼；知識依據並未改變。</text></feedback></answer>
+    <answer fraction="0"><text>不再是黑箱也不是白箱</text><feedback><text>它仍是黑箱；只有手動／自動化這條軸改變了。</text></feedback></answer>
+    <generalfeedback><text>手動與自動化和黑箱與白箱互相正交。把黑箱測試組自動化後它仍是黑箱；知識依據並未改變。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：掃描原始碼的工具</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某工具掃描<strong>原始碼</strong>找出空指標風險與未使用變數，但從不執行程式。這項活動是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>靜態分析——一種檢視程式碼而不執行它的靜態技術</text><feedback><text>正確——沒有發生任何執行，因此是靜態分析。</text></feedback></answer>
+    <answer fraction="0"><text>動態測試——它執行了程式</text><feedback><text>該工具從不執行程式，因此是靜態而非動態。</text></feedback></answer>
+    <answer fraction="0"><text>黑箱測試——它忽略程式碼</text><feedback><text>它讀取原始碼（結構），因此不是黑箱。</text></feedback></answer>
+    <answer fraction="0"><text>效能測試</text><feedback><text>它分析程式碼，而非執行期效能。</text></feedback></answer>
+    <generalfeedback><text>靜態分析在不執行的情況下檢視原始碼／結構，因此是靜態。由於它使用程式碼結構，所以是結構導向而非規格導向。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>錯誤猜測與探索性測試所屬族群</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>錯誤猜測（error guessing）</strong>與<strong>探索性測試（exploratory testing）</strong>依賴測試者的經驗而非正式模型，屬於哪一族群？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>經驗導向技術</text><feedback><text>正確——這些是由測試者直覺與技巧驅動的經驗導向技術。</text></feedback></answer>
+    <answer fraction="0"><text>結構導向（白箱）覆蓋率技術</text><feedback><text>它們不使用程式碼結構或覆蓋率準則。</text></feedback></answer>
+    <answer fraction="0"><text>靜態審查技術</text><feedback><text>它們會執行軟體，因此是動態而非靜態審查。</text></feedback></answer>
+    <answer fraction="0"><text>非功能性技術</text><feedback><text>它們憑經驗鎖定功能性缺陷，而非品質屬性。</text></feedback></answer>
+    <generalfeedback><text>錯誤猜測與探索性測試是經驗導向技術——一種由測試者知識與直覺（而非正式規格或程式碼結構）驅動的動態、黑箱族群。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：狀態轉移測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>狀態轉移測試（state-transition testing）</strong>從依需求建立的行為狀態模型導出測試案例。它是一種：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>黑箱技術——源自規格／行為模型，而非程式碼</text><feedback><text>正確——狀態模型來自需求，因此是黑箱。</text></feedback></answer>
+    <answer fraction="0"><text>白箱技術——源自控制流程圖</text><feedback><text>該模型是行為模型（源自規格），而非程式碼的控制流程圖。</text></feedback></answer>
+    <answer fraction="0"><text>靜態技術——不需執行</text><feedback><text>產生的案例會對系統執行，因此是動態。</text></feedback></answer>
+    <answer fraction="0"><text>非功能性技術</text><feedback><text>它透過狀態與轉移檢查功能行為，而非某項品質屬性。</text></feedback></answer>
+    <generalfeedback><text>狀態轉移測試使用源自規格的行為模型，把實作視為不透明——是黑箱技術。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：壓力測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>壓力測試（stress testing）</strong>（把系統推過正常負載，觀察它如何降級或失效）是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>非功能性（且動態）測試</text><feedback><text>正確——它藉由執行系統來評估負載下的行為（品質屬性）。</text></feedback></answer>
+    <answer fraction="0"><text>功能性測試</text><feedback><text>它檢查負載下的品質屬性，而非某項功能是否回傳正確結果。</text></feedback></answer>
+    <answer fraction="0"><text>靜態測試</text><feedback><text>它在負載下執行系統，因此是動態而非靜態。</text></feedback></answer>
+    <answer fraction="0"><text>白箱覆蓋率量測</text><feedback><text>它量測負載下的行為，而非程式結構覆蓋率。</text></feedback></answer>
+    <generalfeedback><text>壓力／負載測試評估品質屬性（極端負載下的行為），因此屬於非功能性；由於它執行系統，也是動態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>挑出驗證活動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者屬於<strong>驗證</strong>活動，而非確認活動？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>將某模組的程式碼對照其詳細設計文件進行檢驗</text><feedback><text>正確——檢查是否符合設計即為驗證。</text></feedback></answer>
+    <answer fraction="0"><text>讓終端使用者試用產品以確認它滿足需求</text><feedback><text>那是確認是否適用——屬於確認。</text></feedback></answer>
+    <answer fraction="0"><text>進行 beta 計畫以蒐集真實世界的回饋</text><feedback><text>beta 計畫檢查真實使用者需求——屬於確認。</text></feedback></answer>
+    <answer fraction="0"><text>確認完成的系統解決了客戶真正的問題</text><feedback><text>那是是否適用——屬於確認。</text></feedback></answer>
+    <generalfeedback><text>將模組對照其設計文件檢查屬於驗證（符合規格）。其他選項都是確認產品是否適合使用者真正的需求——屬於確認。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：安全性測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>安全性測試（security testing）</strong>（檢查對未授權存取的抵抗力）主要是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>非功能性測試</text><feedback><text>正確——安全性是品質屬性，因此安全性測試屬於非功能性。</text></feedback></answer>
+    <answer fraction="0"><text>功能性測試</text><feedback><text>安全性關乎品質屬性（抵抗攻擊做得多好），而非某項列出功能的輸出。</text></feedback></answer>
+    <answer fraction="0"><text>純粹的靜態技術</text><feedback><text>安全性測試通常會執行系統（如滲透測試），因此是動態。</text></feedback></answer>
+    <answer fraction="0"><text>只做驗證的活動</text><feedback><text>安全性測試是非功能性測試類別，而非 V&amp;V 階段標籤。</text></feedback></answer>
+    <generalfeedback><text>安全性是品質屬性，因此安全性測試屬於非功能性。它通常是動態，並視所用知識而可能是灰箱或黑箱。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最清楚的軸：走查與負載測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>走查</strong>與<strong>負載測試</strong>之間最清楚的分類差異是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>靜態與動態——走查不執行任何東西，負載測試會執行系統</text><feedback><text>正確——決定性的對比在於是否執行。</text></feedback></answer>
+    <answer fraction="0"><text>黑箱與白箱</text><feedback><text>走查其實不太放在黑／白箱軸上；此處決定性的對比是靜態與動態。</text></feedback></answer>
+    <answer fraction="0"><text>驗證與確認</text><feedback><text>兩者都可服務於驗證；清楚的對比是一者執行、一者不執行。</text></feedback></answer>
+    <answer fraction="0"><text>手動與自動化</text><feedback><text>兩者都可能是手動或自動化；決定性的差異在於是否執行。</text></feedback></answer>
+    <generalfeedback><text>走查是靜態（不執行任何東西），負載測試是動態（系統在負載下執行）；靜態與動態這條軸是決定性的對比。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：基本路徑測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>基本路徑測試（basis-path testing）</strong>（從程式碼的線性獨立路徑導出測試）是一種：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>白箱（結構導向）技術</text><feedback><text>正確——基本路徑測試源自程式碼的控制流程圖。</text></feedback></answer>
+    <answer fraction="0"><text>黑箱技術</text><feedback><text>它使用程式碼的路徑，因此是結構導向而非規格導向。</text></feedback></answer>
+    <answer fraction="0"><text>非功能性技術</text><feedback><text>它鎖定路徑的結構性覆蓋，而非品質屬性。</text></feedback></answer>
+    <answer fraction="0"><text>靜態技術</text><feedback><text>它的測試會被執行，因此是動態而非靜態。</text></feedback></answer>
+    <generalfeedback><text>基本路徑測試源自程式碼的控制流程圖（獨立路徑），因此是白箱／結構導向，且為動態。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testing Method Taxonomy/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>多軸分類：負載測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>負載測試（load testing）</strong>會執行運作中的系統、完全透過對外介面驅動而不具程式碼知識，並量測高流量下的回應時間。就三條軸而言，它是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>動態、黑箱且非功能性</text><feedback><text>正確——它會執行（動態）、不使用程式碼知識（黑箱），並量測品質屬性（非功能性）。</text></feedback></answer>
+    <answer fraction="0"><text>靜態、白箱且功能性</text><feedback><text>它會執行系統且不使用程式碼知識，因此是動態且黑箱，並鎖定效能（非功能性）。</text></feedback></answer>
+    <answer fraction="0"><text>動態、白箱且非功能性</text><feedback><text>它不使用程式內部結構的知識，因此是黑箱而非白箱。</text></feedback></answer>
+    <answer fraction="0"><text>靜態、黑箱且功能性</text><feedback><text>它會執行系統（動態）並量測效能（非功能性）。</text></feedback></answer>
+    <generalfeedback><text>負載測試會執行系統（動態）、不需內部程式碼知識（黑箱），並鎖定效能這項品質屬性（非功能性）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>靜態分析算是動態白箱測試嗎？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>因為靜態分析會檢視原始碼，所以它是一種<strong>動態白箱測試</strong>。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——靜態分析是結構導向，但「不」執行程式，因此是靜態而非動態。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>靜態分析使用程式碼結構，但不進行任何執行，因此不可能是動態測試。</text></feedback></answer>
+    <generalfeedback><text>靜態分析是結構導向的（它使用程式碼）但屬靜態（不執行）。「白箱」指的是對結構的知識，而非執行——因此「使用程式碼」並不代表它是動態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何灰箱不是黑箱加白箱</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者最能說明為何<strong>灰箱</strong>測試並非單純的「黑箱加白箱」？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它運用部分內部知識來設計更好的、從外部驅動的測試，而非執行黑箱與白箱兩者的完整測試集</text><feedback><text>正確——灰箱把有限的內部洞見與外部測試結合；它不是兩者完整測試集的聯集。</text></feedback></answer>
+    <answer fraction="0"><text>它執行所有可能的黑箱測試以及所有可能的白箱測試</text><feedback><text>灰箱只運用部分內部知識；它不會跑完整的白箱測試集。</text></feedback></answer>
+    <answer fraction="0"><text>它與白箱測試完全相同，只是換個名稱</text><feedback><text>灰箱只運用部分內部知識並從外部驅動測試，與完整白箱不同。</text></feedback></answer>
+    <answer fraction="0"><text>它對規格與程式碼皆無需任何知識</text><feedback><text>那會是兩者皆非；灰箱特指運用部分內部知識。</text></feedback></answer>
+    <generalfeedback><text>灰箱結合了知識來源——以有限的內部洞見（架構、結構、關鍵演算法）來鎖定外部測試。它並非黑箱與白箱完整測試集的聯集。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>就兩條軸分類 MC/DC</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>MC/DC</strong>（修正條件／決策覆蓋率）最適合歸類為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>白箱且動態——依程式碼條件定義，須藉由執行測試來量測</text><feedback><text>正確——它是結構性準則，但只有透過執行測試才能觀察其是否滿足。</text></feedback></answer>
+    <answer fraction="0"><text>白箱且靜態——不執行程式即可計算覆蓋率</text><feedback><text>MC/DC 是結構性的，但覆蓋率只有透過執行測試才能觀察，因此是動態。</text></feedback></answer>
+    <answer fraction="0"><text>黑箱且動態</text><feedback><text>MC/DC 依程式碼的條件定義，因此是白箱而非黑箱。</text></feedback></answer>
+    <answer fraction="0"><text>黑箱且靜態</text><feedback><text>它依程式碼條件定義（白箱）且需要執行（動態）。</text></feedback></answer>
+    <generalfeedback><text>MC/DC 是結構性（白箱）準則，但覆蓋率只有透過執行測試才能觀察，因此是動態。結構性覆蓋率準則並非靜態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>對照設計規格的單元測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>執行由某模組詳細<strong>設計規格</strong>導出的單元測試，以確認該模組符合此設計，主要屬於下列何種行為？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驗證——符合規格</text><feedback><text>正確——確認符合設計規格即為驗證。</text></feedback></answer>
+    <answer fraction="0"><text>確認——是否適合終端使用者真正的需求</text><feedback><text>確認檢查真實使用者需求；此處是檢查符合設計——屬於驗證。</text></feedback></answer>
+    <answer fraction="0"><text>非功能性測試</text><feedback><text>它檢查對設計的功能性符合度，而非品質屬性。</text></feedback></answer>
+    <answer fraction="0"><text>靜態分析</text><feedback><text>這些測試會被執行，因此是動態，而其 V&amp;V 角色是驗證。</text></feedback></answer>
+    <generalfeedback><text>確認符合設計規格即為驗證。此處的單元測試是動態的（也可能是白箱），但在 V&amp;V 軸上其角色是驗證。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>符合規格但不合使用者所需</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某系統完全符合其書面需求，但那些需求誤解了使用者實際的需要。哪一項活動的設計目的正是要抓出這個問題？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>確認——它檢查是否適合真實使用者需求，與書面規格無關</text><feedback><text>正確——即使符合規格，確認仍能抓出「做錯產品」。</text></feedback></answer>
+    <answer fraction="0"><text>驗證——它檢查是否符合書面規格</text><feedback><text>此處驗證會通過，因為產品符合（有瑕疵的）規格。</text></feedback></answer>
+    <answer fraction="0"><text>敘述覆蓋率</text><feedback><text>覆蓋率量測哪些程式碼被執行，而非需求是否正確。</text></feedback></answer>
+    <answer fraction="0"><text>對原始碼的靜態分析</text><feedback><text>靜態分析檢視程式碼品質，而非需求是否滿足使用者需要。</text></feedback></answer>
+    <generalfeedback><text>此處驗證會通過（產品符合規格），但規格本身錯了。只有依真實使用者需求檢查的確認，才能抓出「做錯產品」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 BVA 屬於黑箱族群</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>邊界值分析</strong>被歸入黑箱族群，是因為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它的案例源自規格中輸入分割的邊界，不需程式碼的知識</text><feedback><text>正確——測試依據是規定的輸入定義域，而非程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>它量測程式碼的哪些分支被執行</text><feedback><text>那描述的是分支覆蓋率（白箱技術），而非 BVA。</text></feedback></answer>
+    <answer fraction="0"><text>它從不執行受測程式</text><feedback><text>BVA 的案例會被執行；它屬於黑箱的原因是規格導向的測試依據，而非不執行。</text></feedback></answer>
+    <answer fraction="0"><text>它只評估非功能性品質屬性</text><feedback><text>BVA 鎖定輸入邊界的功能行為，而非品質屬性。</text></feedback></answer>
+    <generalfeedback><text>BVA 屬於黑箱族群，是因為其案例源自規定輸入定義域的邊界，不需程式碼內部結構的知識。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>高覆蓋率能證明做了黑箱測試嗎？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>回報<strong>90% 分支覆蓋率</strong>即證明已進行了徹底的黑箱測試。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——分支覆蓋率是白箱（結構性）指標，對規格導向的黑箱測試毫無說明力。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>覆蓋率是結構性指標；高數值並不代表規格已被測試（黑箱）。</text></feedback></answer>
+    <generalfeedback><text>覆蓋率指標是白箱／結構性的。高覆蓋率並不代表規格已被測試（黑箱），反之亦然；黑／白箱與覆蓋率的概念互相獨立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>何者同時是白箱且靜態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者同時是<strong>白箱（結構導向）</strong>且<strong>靜態（不執行）</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對原始碼進行資料流靜態分析</text><feedback><text>正確——它使用程式碼結構（白箱）但從不執行它（靜態）。</text></feedback></answer>
+    <answer fraction="0"><text>分支覆蓋率量測</text><feedback><text>分支覆蓋率是白箱但動態——它需要執行測試。</text></feedback></answer>
+    <answer fraction="0"><text>邊界值分析</text><feedback><text>BVA 是黑箱（規格導向）且動態。</text></feedback></answer>
+    <answer fraction="0"><text>負載測試</text><feedback><text>負載測試是黑箱且動態。</text></feedback></answer>
+    <generalfeedback><text>資料流靜態分析檢視程式碼結構（白箱）而不執行它（靜態）。分支覆蓋率是白箱但動態；BVA 是黑箱；負載測試是黑箱且動態。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>多軸：白箱、動態、功能性</text></name>
+    <questiontext format="html"><text><![CDATA[<p>開發者<em>依程式碼</em>撰寫單元測試、執行它們，並斷言每個函式回傳正確結果。撇開任何覆蓋率量測不談，就三條軸而言這些測試是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>白箱、動態且功能性</text><feedback><text>正確——源自程式碼（白箱）、被執行（動態），並檢查輸出正確（功能性）。</text></feedback></answer>
+    <answer fraction="0"><text>黑箱、靜態且非功能性</text><feedback><text>它們源自程式碼（白箱）、被執行（動態），並檢查結果正確（功能性）。</text></feedback></answer>
+    <answer fraction="0"><text>白箱、靜態且非功能性</text><feedback><text>執行這些測試使其為動態，檢查結果正確使其為功能性。</text></feedback></answer>
+    <answer fraction="0"><text>黑箱、動態且功能性</text><feedback><text>因為它們依程式碼撰寫，所以是白箱而非黑箱。</text></feedback></answer>
+    <generalfeedback><text>依程式碼導出的測試是白箱；執行它們是動態；斷言每個函式回傳正確結果是功能性。設計依據、執行、功能／非功能是三條獨立的軸。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>多軸：滲透測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某滲透測試者拿到部分架構圖與部分 API 內部細節，接著攻擊運作中的系統以找出安全漏洞。這最適合描述為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>灰箱、動態且非功能性</text><feedback><text>正確——部分內部知識（灰箱）、攻擊運作中的系統（動態）、鎖定安全性（非功能性）。</text></feedback></answer>
+    <answer fraction="0"><text>黑箱、靜態且功能性</text><feedback><text>測試者具部分內部知識（灰箱）且會執行系統（動態），並鎖定品質屬性（非功能性）。</text></feedback></answer>
+    <answer fraction="0"><text>白箱、靜態且功能性</text><feedback><text>只運用部分知識（灰箱）、系統被執行（動態）、目標是安全性（非功能性）。</text></feedback></answer>
+    <answer fraction="0"><text>純黑箱且功能性</text><feedback><text>運用部分內部細節使其為灰箱，而安全性目標是非功能性。</text></feedback></answer>
+    <generalfeedback><text>部分內部知識使其為灰箱；攻擊運作中的系統使其為動態；鎖定安全性（品質屬性）使其為非功能性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>多軸：設計檢驗</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 V&amp;V 軸與靜態／動態軸上，對<strong>設計文件</strong>進行正式檢驗（inspection）是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驗證且靜態</text><feedback><text>正確——它檢查是否符合規格／標準（驗證）且不執行任何東西（靜態）。</text></feedback></answer>
+    <answer fraction="0"><text>確認且動態</text><feedback><text>檢驗不執行任何東西（靜態），並檢查是否符合規格（驗證）。</text></feedback></answer>
+    <answer fraction="0"><text>驗證且動態</text><feedback><text>它是驗證，但沒有執行任何東西，因此是靜態而非動態。</text></feedback></answer>
+    <answer fraction="0"><text>確認且靜態</text><feedback><text>它是靜態，但檢查是否符合規格，因此是驗證而非確認。</text></feedback></answer>
+    <generalfeedback><text>設計檢驗檢查是否符合規格與標準（驗證）且不執行任何東西（靜態）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>回歸測試依定義是白箱嗎？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>回歸測試（regression testing）依定義是一種<strong>白箱</strong>技術。</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>正確——回歸測試由其目的（變更後重新測試）定義，可以是黑箱或白箱、手動或自動化。</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>回歸關乎何時與為何測試，而非知識依據；它可以是黑箱或白箱。</text></feedback></answer>
+    <generalfeedback><text>回歸測試依其目的分類——確認變更未破壞既有行為——這條軸與黑箱／白箱正交。回歸測試組可以是任一種。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗證／確認與靜態／動態</text></name>
+    <questiontext format="html"><text><![CDATA[<p>關於<strong>驗證與確認</strong>，下列哪一項敘述正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驗證可以是靜態（如審查）或動態（如對照規格的單元測試），而確認通常是動態</text><feedback><text>正確——驗證橫跨靜態與動態方法；確認通常是動態。</text></feedback></answer>
+    <answer fraction="0"><text>驗證一定是靜態，確認一定是動態</text><feedback><text>驗證也包含動態方法，例如檢查是否符合規格的單元／整合測試。</text></feedback></answer>
+    <answer fraction="0"><text>驗證與確認是同一活動的兩個名稱</text><feedback><text>它們不同：符合規格 相對於 適合使用者需求。</text></feedback></answer>
+    <answer fraction="0"><text>確認一定要在任何驗證之前完成</text><feedback><text>並無此嚴格順序；驗證在整個開發過程中都會進行。</text></feedback></answer>
+    <generalfeedback><text>驗證橫跨靜態（審查、檢驗）與動態（對照規格的單元／整合測試）方法；確認——確認真實世界的適用性——通常是動態。兩者是不同的活動，也並非硬性規定確認在先。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>等價分割：設計與執行的兩條軸</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試者以<strong>等價分割</strong>（依規格）設計案例，然後對程式執行它們。在知識軸與靜態／動態軸上分別而言，這是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>黑箱且動態——設計是規格導向，但執行案例會運行程式</text><feedback><text>正確——設計技術是黑箱；執行案例是動態。</text></feedback></answer>
+    <answer fraction="0"><text>白箱且靜態</text><feedback><text>設計使用規格（黑箱），而執行案例使其為動態。</text></feedback></answer>
+    <answer fraction="0"><text>黑箱且靜態</text><feedback><text>案例會對程式執行，因此該活動是動態而非靜態。</text></feedback></answer>
+    <answer fraction="0"><text>白箱且動態</text><feedback><text>等價分割是規格導向，因此是黑箱而非白箱。</text></feedback></answer>
+    <generalfeedback><text>等價分割是黑箱設計技術（規格導向）；執行所產生的案例是動態。設計依據與執行方式是兩條獨立的軸。</text></generalfeedback>
+  </question>
+</quiz>

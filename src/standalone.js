@@ -114321,6 +114321,2502 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
           }
         ]
       }
+    },
+    "testing-method-tree": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "Black-box testing definition",
+            "text": "<p><strong>Black-box testing</strong> designs its tests based on:</p>",
+            "answers": [
+              {
+                "text": "The specification and external behavior, without knowledge of the internal code structure",
+                "fraction": 100,
+                "feedback": "Correct \u2014 black-box (specification-based) testing treats the implementation as opaque."
+              },
+              {
+                "text": "The internal control-flow graph of the code",
+                "fraction": 0,
+                "feedback": "That is white-box (structural) testing, which uses the code's structure."
+              },
+              {
+                "text": "The number of source lines executed by the tests",
+                "fraction": 0,
+                "feedback": "That describes a coverage measurement, not the black-box design basis."
+              },
+              {
+                "text": "The compiler's optimization settings",
+                "fraction": 0,
+                "feedback": "Compiler settings are unrelated to how black-box tests are derived."
+              }
+            ],
+            "generalFeedback": "Black-box (specification-based) testing derives tests from requirements and external behavior, treating the implementation as opaque \u2014 no code knowledge is used.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "White-box testing definition",
+            "text": "<p><strong>White-box (structural)</strong> testing designs its tests based on:</p>",
+            "answers": [
+              {
+                "text": "Knowledge of the internal code structure, such as statements, branches, and paths",
+                "fraction": 100,
+                "feedback": "Correct \u2014 white-box (glass-box) testing uses the internal structure of the code."
+              },
+              {
+                "text": "Only the published requirements, ignoring the code entirely",
+                "fraction": 0,
+                "feedback": "That is black-box testing; white-box uses the code structure."
+              },
+              {
+                "text": "The user's subjective satisfaction with the product",
+                "fraction": 0,
+                "feedback": "That is closer to validation/usability, not structural testing."
+              },
+              {
+                "text": "The hardware the program will run on",
+                "fraction": 0,
+                "feedback": "The target hardware is not the basis of white-box test design."
+              }
+            ],
+            "generalFeedback": "White-box (structural / glass-box) testing uses the internal structure of the code \u2014 statements, branches, paths, conditions \u2014 to derive and measure tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Grey-box testing definition",
+            "text": "<p><strong>Grey-box testing</strong> is characterized by:</p>",
+            "answers": [
+              {
+                "text": "Partial knowledge of the internal structure combined with tests driven through external interfaces",
+                "fraction": 100,
+                "feedback": "Correct \u2014 grey-box uses some internal insight (e.g. architecture or DB schema) while testing externally."
+              },
+              {
+                "text": "Complete ignorance of both the specification and the code",
+                "fraction": 0,
+                "feedback": "A tester always uses some basis; grey-box specifically uses partial internal knowledge."
+              },
+              {
+                "text": "A full mathematical proof of correctness",
+                "fraction": 0,
+                "feedback": "That is formal verification, not grey-box testing."
+              },
+              {
+                "text": "Testing only the colors of the graphical user interface",
+                "fraction": 0,
+                "feedback": "Grey-box is about the level of internal knowledge, not UI appearance."
+              }
+            ],
+            "generalFeedback": "Grey-box testing uses partial internal knowledge (architecture, data schema, key algorithms) to design tests that are still exercised through external interfaces.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Static testing definition",
+            "text": "<p><strong>Static testing</strong> is best described as:</p>",
+            "answers": [
+              {
+                "text": "Examining the software artifacts (documents or code) without executing the program",
+                "fraction": 100,
+                "feedback": "Correct \u2014 static techniques find defects by examination, with no execution."
+              },
+              {
+                "text": "Running the program with many different inputs",
+                "fraction": 0,
+                "feedback": "That is dynamic testing, which requires execution."
+              },
+              {
+                "text": "Measuring response time under heavy load",
+                "fraction": 0,
+                "feedback": "That is a dynamic, non-functional activity (performance testing)."
+              },
+              {
+                "text": "Deploying to production and monitoring live users",
+                "fraction": 0,
+                "feedback": "Monitoring a running system is dynamic, not static."
+              }
+            ],
+            "generalFeedback": "Static testing (reviews, walkthroughs, inspections, static analysis) finds defects by examining artifacts without executing the program.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Dynamic testing definition",
+            "text": "<p><strong>Dynamic testing</strong> is best described as:</p>",
+            "answers": [
+              {
+                "text": "Executing the program with inputs and observing its behavior",
+                "fraction": 100,
+                "feedback": "Correct \u2014 dynamic testing runs the software and compares behavior to expectations."
+              },
+              {
+                "text": "Reading the code together in a review meeting",
+                "fraction": 0,
+                "feedback": "That is a static technique (review); nothing is executed."
+              },
+              {
+                "text": "Checking a requirements document for typographical errors",
+                "fraction": 0,
+                "feedback": "That is static examination of a document, not dynamic testing."
+              },
+              {
+                "text": "Analyzing the source with a tool but never running it",
+                "fraction": 0,
+                "feedback": "That is static analysis; dynamic testing requires execution."
+              }
+            ],
+            "generalFeedback": "Dynamic testing requires executing the software and comparing the observed behavior against expected results.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Functional testing definition",
+            "text": "<p><strong>Functional testing</strong> is primarily concerned with:</p>",
+            "answers": [
+              {
+                "text": "What the system does \u2014 whether it produces the correct outputs for given inputs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 functional testing checks behavior against the specified functions."
+              },
+              {
+                "text": "How fast the system responds under load",
+                "fraction": 0,
+                "feedback": "That is a non-functional (performance) concern."
+              },
+              {
+                "text": "How resistant the system is to attackers",
+                "fraction": 0,
+                "feedback": "That is a non-functional (security) concern."
+              },
+              {
+                "text": "How maintainable the source code is",
+                "fraction": 0,
+                "feedback": "Maintainability is a non-functional quality attribute, not a function."
+              }
+            ],
+            "generalFeedback": "Functional testing checks the functions/behavior of the system against the requirements \u2014 what it does \u2014 rather than how well it does it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Non-functional testing definition",
+            "text": "<p><strong>Non-functional testing</strong> primarily evaluates:</p>",
+            "answers": [
+              {
+                "text": "Quality attributes such as performance, security, usability, and reliability",
+                "fraction": 100,
+                "feedback": "Correct \u2014 non-functional testing targets how well the system operates."
+              },
+              {
+                "text": "Whether each required feature returns the correct result",
+                "fraction": 0,
+                "feedback": "That is functional testing (what the system does)."
+              },
+              {
+                "text": "Whether every statement in the code is executed",
+                "fraction": 0,
+                "feedback": "That is a structural coverage (white-box) concern."
+              },
+              {
+                "text": "Whether the requirements document is grammatically complete",
+                "fraction": 0,
+                "feedback": "That is a static review concern, not non-functional testing."
+              }
+            ],
+            "generalFeedback": "Non-functional testing targets how well the system operates \u2014 performance, security, usability, reliability, portability, etc. \u2014 rather than which features work.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Verification definition",
+            "text": "<p>In the classic V&amp;V distinction, <strong>verification</strong> asks:</p>",
+            "answers": [
+              {
+                "text": '"Are we building the product right?" \u2014 does it conform to its specification?',
+                "fraction": 100,
+                "feedback": "Correct \u2014 verification checks conformance to the spec and standards at each stage."
+              },
+              {
+                "text": `"Are we building the right product?" \u2014 does it meet the users' needs?`,
+                "fraction": 0,
+                "feedback": "That is validation, not verification."
+              },
+              {
+                "text": `"Is the product faster than the competitors' products?"`,
+                "fraction": 0,
+                "feedback": "That is a benchmarking/performance question, not verification."
+              },
+              {
+                "text": '"Will customers be willing to pay for the product?"',
+                "fraction": 0,
+                "feedback": "That is a market question, unrelated to the V&V distinction."
+              }
+            ],
+            "generalFeedback": 'Verification checks conformance to specifications, designs and standards at each development stage \u2014 "building the product right."',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Validation definition",
+            "text": "<p>In the classic V&amp;V distinction, <strong>validation</strong> asks:</p>",
+            "answers": [
+              {
+                "text": `"Are we building the right product?" \u2014 does it meet the users' actual needs?`,
+                "fraction": 100,
+                "feedback": "Correct \u2014 validation checks fitness for use against real user needs."
+              },
+              {
+                "text": '"Are we building the product right?" \u2014 does it conform to the spec?',
+                "fraction": 0,
+                "feedback": "That is verification, not validation."
+              },
+              {
+                "text": '"Does the source code compile without warnings?"',
+                "fraction": 0,
+                "feedback": "That is a static/build concern, not validation."
+              },
+              {
+                "text": '"Is every branch in the code covered by a test?"',
+                "fraction": 0,
+                "feedback": "That is a white-box coverage concern, not validation."
+              }
+            ],
+            "generalFeedback": `Validation checks fitness for use \u2014 whether the finished product satisfies the users' real needs \u2014 "building the right product."`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify boundary value analysis",
+            "text": "<p><strong>Boundary value analysis</strong> is an example of which kind of technique?</p>",
+            "answers": [
+              {
+                "text": "Black-box \u2014 it uses the input specification and partitions, not the code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 BVA derives tests from the boundaries of specified input partitions."
+              },
+              {
+                "text": "White-box \u2014 it requires the control-flow graph",
+                "fraction": 0,
+                "feedback": "BVA needs no code structure; it works from the input spec."
+              },
+              {
+                "text": "Static \u2014 it never executes the program",
+                "fraction": 0,
+                "feedback": "BVA cases are executed against the program, so it is dynamic, not static."
+              },
+              {
+                "text": "Non-functional \u2014 it measures performance",
+                "fraction": 0,
+                "feedback": "BVA checks functional behavior at input boundaries, not performance."
+              }
+            ],
+            "generalFeedback": "Boundary value analysis derives tests from the boundaries of input partitions in the specification, with no code knowledge \u2014 a black-box technique.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify branch coverage",
+            "text": "<p><strong>Branch (decision) coverage</strong> is which kind of technique?</p>",
+            "answers": [
+              {
+                "text": "White-box \u2014 it is defined over the code's decisions and branches",
+                "fraction": 100,
+                "feedback": "Correct \u2014 branch coverage is measured against the code's structure."
+              },
+              {
+                "text": "Black-box \u2014 it needs only the specification",
+                "fraction": 0,
+                "feedback": "Branch coverage requires knowledge of the code's branches, so it is white-box."
+              },
+              {
+                "text": "Non-functional \u2014 it measures usability",
+                "fraction": 0,
+                "feedback": "Branch coverage is a structural metric, not a quality attribute."
+              },
+              {
+                "text": "Static \u2014 it needs no execution",
+                "fraction": 0,
+                "feedback": "Measuring branch coverage requires executing the tests, so it is dynamic."
+              }
+            ],
+            "generalFeedback": "Branch coverage is measured over the code's branches, requiring knowledge of internal structure \u2014 a white-box technique. (Measuring it also requires execution, so it is dynamic.)",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Code review is static",
+            "text": "<p>A code review (inspection) is a form of <strong>static</strong> testing.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a review examines the code without executing it, so it is static."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Reviews find defects by reading, not running, the code \u2014 they are static."
+              }
+            ],
+            "generalFeedback": "Reviews, walkthroughs and inspections are static techniques: defects are found by examination, without executing the program."
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify equivalence partitioning",
+            "text": "<p><strong>Equivalence partitioning</strong> is which kind of technique?</p>",
+            "answers": [
+              {
+                "text": "Black-box \u2014 it partitions the input domain from the specification",
+                "fraction": 100,
+                "feedback": "Correct \u2014 equivalence partitioning groups inputs into classes from the spec."
+              },
+              {
+                "text": "White-box \u2014 it partitions the code paths",
+                "fraction": 0,
+                "feedback": "Equivalence partitioning works on the input domain, not code paths."
+              },
+              {
+                "text": "Static \u2014 it needs no test execution",
+                "fraction": 0,
+                "feedback": "The resulting cases are executed, so it is a dynamic, black-box technique."
+              },
+              {
+                "text": "A verification-only activity that never runs the software",
+                "fraction": 0,
+                "feedback": "Its test cases are executed against the software, so this is wrong."
+              }
+            ],
+            "generalFeedback": "Equivalence partitioning groups inputs into classes derived from the specification, without code knowledge \u2014 a black-box technique.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify statement coverage",
+            "text": "<p><strong>Statement coverage</strong> is which kind of technique?</p>",
+            "answers": [
+              {
+                "text": "White-box \u2014 it is defined over the code's executable statements",
+                "fraction": 100,
+                "feedback": "Correct \u2014 statement coverage is measured against the code's structure."
+              },
+              {
+                "text": "Black-box \u2014 it needs only the requirements",
+                "fraction": 0,
+                "feedback": "Statement coverage requires knowledge of the code, so it is white-box."
+              },
+              {
+                "text": "Non-functional \u2014 it measures reliability",
+                "fraction": 0,
+                "feedback": "Statement coverage is a structural metric, not a quality attribute."
+              },
+              {
+                "text": "Static \u2014 no execution is required",
+                "fraction": 0,
+                "feedback": "Measuring statement coverage requires running the tests, so it is dynamic."
+              }
+            ],
+            "generalFeedback": "Statement coverage is measured over the executable statements of the code, so it is a white-box (structural) technique; measuring it is dynamic (requires execution).",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Black-box needs source code?",
+            "text": "<p>Black-box testing requires access to the program's <strong>source code</strong>.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 black-box testing is based on the specification and behavior, not the source."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Black-box treats the implementation as opaque; it does not need the source (that is white-box)."
+              }
+            ],
+            "generalFeedback": "Black-box testing derives tests from the specification and external behavior; the source code is not required. Needing the source is the mark of white-box testing."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Grey-box example (DB schema via UI)",
+            "text": "<p>A tester drives a web application through its public UI but uses knowledge of the <strong>database schema</strong> to craft inputs and check the stored results. This is best classified as:</p>",
+            "answers": [
+              {
+                "text": "Grey-box testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 partial internal knowledge (the schema) used while driving the system externally is grey-box."
+              },
+              {
+                "text": "Pure black-box testing",
+                "fraction": 0,
+                "feedback": "Pure black-box uses no internal knowledge; here the schema is used, so it is grey-box."
+              },
+              {
+                "text": "Pure white-box testing",
+                "fraction": 0,
+                "feedback": "White-box would drive tests from the code structure; here tests run through the UI with only partial knowledge."
+              },
+              {
+                "text": "Static analysis",
+                "fraction": 0,
+                "feedback": "The system is executed through the UI, so this is dynamic, not static."
+              }
+            ],
+            "generalFeedback": "Using partial internal knowledge (the DB schema) while exercising the system through external interfaces is the defining pattern of grey-box testing.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Walkthrough is dynamic?",
+            "text": "<p>A specification <strong>walkthrough</strong> is a dynamic testing activity.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a walkthrough examines a document without executing software, so it is static."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Walkthroughs, like reviews and inspections, are static \u2014 no program is executed."
+              }
+            ],
+            "generalFeedback": "Walkthroughs (like reviews and inspections) are static techniques \u2014 defects are found by examination, with no code executed."
+          },
+          {
+            "type": "multichoice",
+            "name": "Performance testing: functional or not",
+            "text": "<p><strong>Performance testing</strong> (measuring throughput and response time under load) is classified as:</p>",
+            "answers": [
+              {
+                "text": "Non-functional testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 performance is a quality attribute (how well), so it is non-functional."
+              },
+              {
+                "text": "Functional testing",
+                "fraction": 0,
+                "feedback": "Functional testing checks what the system does; performance is about how well it does it."
+              },
+              {
+                "text": "White-box testing",
+                "fraction": 0,
+                "feedback": "Performance testing is usually black-box; the black/white axis is separate from functional/non-functional anyway."
+              },
+              {
+                "text": "Static testing",
+                "fraction": 0,
+                "feedback": "Performance testing executes the system under load, so it is dynamic, not static."
+              }
+            ],
+            "generalFeedback": "Performance concerns a quality attribute (how well the system performs, not which features work), so it is non-functional. It is also dynamic and usually black-box.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Requirements review: verification or validation",
+            "text": "<p>Reviewing the <strong>requirements specification</strong> against the applicable standards and the customer contract is an example of:</p>",
+            "answers": [
+              {
+                "text": 'Verification \u2014 conformance to the specification and process ("building the product right")',
+                "fraction": 100,
+                "feedback": "Correct \u2014 a requirements review checks conformance to standards and the spec."
+              },
+              {
+                "text": "Validation \u2014 fitness for the users' real needs",
+                "fraction": 0,
+                "feedback": "Validation confirms real-world fitness of the delivered product, typically dynamically; a spec review is verification."
+              },
+              {
+                "text": "Non-functional testing",
+                "fraction": 0,
+                "feedback": "A document review is a static verification activity, not a non-functional test."
+              },
+              {
+                "text": "Dynamic testing",
+                "fraction": 0,
+                "feedback": "A review executes nothing, so it is static, not dynamic."
+              }
+            ],
+            "generalFeedback": "A requirements review checks conformance to specifications and standards \u2014 a verification activity, and a static one.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "UAT: verification or validation",
+            "text": "<p><strong>User Acceptance Testing (UAT)</strong>, in which real users try the delivered system to confirm it meets their needs, is an example of:</p>",
+            "answers": [
+              {
+                "text": 'Validation \u2014 fitness for use ("building the right product")',
+                "fraction": 100,
+                "feedback": "Correct \u2014 UAT confirms the product satisfies actual user needs."
+              },
+              {
+                "text": "Verification \u2014 conformance to the design document",
+                "fraction": 0,
+                "feedback": "Conformance to the design is verification; UAT checks real user needs, which is validation."
+              },
+              {
+                "text": "Static testing",
+                "fraction": 0,
+                "feedback": "UAT runs the delivered system, so it is dynamic, not static."
+              },
+              {
+                "text": "White-box testing",
+                "fraction": 0,
+                "feedback": "Users exercise the system through its interfaces, not its code \u2014 it is black-box, and the question is really about V&V."
+              }
+            ],
+            "generalFeedback": "UAT confirms the product satisfies the users' actual needs \u2014 validation. It is also dynamic and black-box.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which axis: BVA vs branch coverage",
+            "text": "<p><strong>Boundary value analysis</strong> and <strong>branch coverage</strong> differ primarily along which classification axis?</p>",
+            "answers": [
+              {
+                "text": "Black-box vs white-box (knowledge of the internal code structure)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 BVA is spec-based (black-box) while branch coverage is structure-based (white-box)."
+              },
+              {
+                "text": "Static vs dynamic",
+                "fraction": 0,
+                "feedback": "Both are dynamic (their tests are executed); they do not differ on this axis."
+              },
+              {
+                "text": "Functional vs non-functional",
+                "fraction": 0,
+                "feedback": "Both are oriented to functional correctness; the real difference is the knowledge basis."
+              },
+              {
+                "text": "Verification vs validation",
+                "fraction": 0,
+                "feedback": "Both are typically verification-oriented; they differ on black-box vs white-box."
+              }
+            ],
+            "generalFeedback": "BVA is black-box (derived from the spec) and branch coverage is white-box (derived from the code structure); they differ on the knowledge/structure axis. Both are dynamic.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Automation is orthogonal to black/white-box",
+            "text": "<p>A <strong>black-box</strong> acceptance suite is rewritten to run automatically via a UI-driving tool. On the black-box/white-box axis, the automated suite is now:</p>",
+            "answers": [
+              {
+                "text": "Still black-box \u2014 automation is an orthogonal axis and adds no code-structure knowledge",
+                "fraction": 100,
+                "feedback": "Correct \u2014 manual vs automated is independent of black-box vs white-box."
+              },
+              {
+                "text": "Now white-box, because a tool interacts with the program",
+                "fraction": 0,
+                "feedback": "Automating a test does not give it knowledge of the code's internal structure."
+              },
+              {
+                "text": "Now grey-box, because automation tools always read the source",
+                "fraction": 0,
+                "feedback": "A UI-driving tool does not read the source; the knowledge basis is unchanged."
+              },
+              {
+                "text": "Neither black- nor white-box any more",
+                "fraction": 0,
+                "feedback": "It remains black-box; only the manual/automated axis changed."
+              }
+            ],
+            "generalFeedback": "Manual vs automated is orthogonal to black-box vs white-box. Automating a black-box suite keeps it black-box; the knowledge basis is unchanged.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify a source-scanning tool",
+            "text": "<p>A tool scans the <strong>source code</strong> for null-pointer risks and unused variables without ever running the program. This activity is:</p>",
+            "answers": [
+              {
+                "text": "Static analysis \u2014 a static technique that examines code without executing it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no execution takes place, so it is static analysis."
+              },
+              {
+                "text": "Dynamic testing \u2014 it executes the program",
+                "fraction": 0,
+                "feedback": "The tool never runs the program, so it is static, not dynamic."
+              },
+              {
+                "text": "Black-box testing \u2014 it ignores the code",
+                "fraction": 0,
+                "feedback": "It reads the source (structure), so it is not black-box."
+              },
+              {
+                "text": "Performance testing",
+                "fraction": 0,
+                "feedback": "It analyzes code, not runtime performance."
+              }
+            ],
+            "generalFeedback": "Static analysis examines the source/structure without execution, so it is static. Because it uses the code structure, it is structure-based rather than spec-based.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Family of error guessing and exploratory",
+            "text": "<p><strong>Error guessing</strong> and <strong>exploratory testing</strong>, which rely on the tester's experience rather than a formal model, belong to which family?</p>",
+            "answers": [
+              {
+                "text": "Experience-based techniques",
+                "fraction": 100,
+                "feedback": "Correct \u2014 these are experience-based techniques driven by tester intuition and skill."
+              },
+              {
+                "text": "Structure-based (white-box) coverage techniques",
+                "fraction": 0,
+                "feedback": "They do not use code structure or coverage criteria."
+              },
+              {
+                "text": "Static review techniques",
+                "fraction": 0,
+                "feedback": "They execute the software, so they are dynamic, not static reviews."
+              },
+              {
+                "text": "Non-functional techniques",
+                "fraction": 0,
+                "feedback": "They target functional defects using experience, not quality attributes."
+              }
+            ],
+            "generalFeedback": "Error guessing and exploratory testing are experience-based techniques \u2014 a dynamic, black-box family driven by the tester's knowledge and intuition rather than a formal specification or the code structure.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify state-transition testing",
+            "text": "<p><strong>State-transition testing</strong> derives its test cases from a behavioral state model built from the requirements. It is a:</p>",
+            "answers": [
+              {
+                "text": "Black-box technique \u2014 derived from a spec/behavioral model, not the code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the state model comes from the requirements, so it is black-box."
+              },
+              {
+                "text": "White-box technique \u2014 derived from the control-flow graph",
+                "fraction": 0,
+                "feedback": "The model is behavioral (from the spec), not the code's control-flow graph."
+              },
+              {
+                "text": "Static technique \u2014 no execution",
+                "fraction": 0,
+                "feedback": "The resulting cases are executed against the system, so it is dynamic."
+              },
+              {
+                "text": "Non-functional technique",
+                "fraction": 0,
+                "feedback": "It checks functional behavior via states and transitions, not a quality attribute."
+              }
+            ],
+            "generalFeedback": "State-transition testing uses a behavioral model derived from the specification, treating the implementation as opaque \u2014 a black-box technique.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify stress testing",
+            "text": "<p><strong>Stress testing</strong> (pushing the system beyond normal load to see how it degrades or fails) is:</p>",
+            "answers": [
+              {
+                "text": "Non-functional (and dynamic) testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it evaluates behavior under extreme load, a quality attribute, by executing the system."
+              },
+              {
+                "text": "Functional testing",
+                "fraction": 0,
+                "feedback": "It checks a quality attribute under load, not whether specific features return correct results."
+              },
+              {
+                "text": "Static testing",
+                "fraction": 0,
+                "feedback": "It runs the system under load, so it is dynamic, not static."
+              },
+              {
+                "text": "White-box coverage measurement",
+                "fraction": 0,
+                "feedback": "It measures behavior under load, not code structure coverage."
+              }
+            ],
+            "generalFeedback": "Stress/load testing evaluates a quality attribute (behavior under extreme load), so it is non-functional; because it executes the system it is also dynamic.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Pick the verification activity",
+            "text": "<p>Which of the following is a <strong>verification</strong> activity rather than a validation activity?</p>",
+            "answers": [
+              {
+                "text": "Inspecting a module's code against its detailed design document",
+                "fraction": 100,
+                "feedback": "Correct \u2014 checking conformance to the design is verification."
+              },
+              {
+                "text": "Having end users trial the product to confirm it meets their needs",
+                "fraction": 0,
+                "feedback": "That confirms fitness for use \u2014 validation."
+              },
+              {
+                "text": "Running a beta program to gather real-world feedback",
+                "fraction": 0,
+                "feedback": "A beta program checks real user needs \u2014 validation."
+              },
+              {
+                "text": "Confirming the finished system solves the customer's actual problem",
+                "fraction": 0,
+                "feedback": "That is fitness for use \u2014 validation."
+              }
+            ],
+            "generalFeedback": "Checking a module against its design document is verification (conformance to spec). The other options confirm fitness for the users' real needs \u2014 validation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify security testing",
+            "text": "<p><strong>Security testing</strong> (checking resistance to unauthorized access) is primarily:</p>",
+            "answers": [
+              {
+                "text": "Non-functional testing",
+                "fraction": 100,
+                "feedback": "Correct \u2014 security is a quality attribute, so security testing is non-functional."
+              },
+              {
+                "text": "Functional testing",
+                "fraction": 0,
+                "feedback": "Security concerns a quality attribute (how well it resists attack), not a listed feature's output."
+              },
+              {
+                "text": "A purely static technique",
+                "fraction": 0,
+                "feedback": "Security testing typically executes the system (e.g. penetration tests), so it is dynamic."
+              },
+              {
+                "text": "A verification-only activity",
+                "fraction": 0,
+                "feedback": "Security testing is a non-functional test category, not a V&V stage label."
+              }
+            ],
+            "generalFeedback": "Security is a quality attribute, so security testing is non-functional. It is typically dynamic and may be grey- or black-box depending on the knowledge used.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Clearest axis: walkthrough vs load test",
+            "text": "<p>The clearest classification difference between a <strong>walkthrough</strong> and a <strong>load test</strong> is:</p>",
+            "answers": [
+              {
+                "text": "Static vs dynamic \u2014 a walkthrough executes nothing, a load test executes the system",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the defining contrast is execution."
+              },
+              {
+                "text": "Black-box vs white-box",
+                "fraction": 0,
+                "feedback": "A walkthrough is not really placed on the black/white-box axis; the definitional contrast here is static vs dynamic."
+              },
+              {
+                "text": "Verification vs validation",
+                "fraction": 0,
+                "feedback": "Both can serve verification; the clear contrast is that one executes and the other does not."
+              },
+              {
+                "text": "Manual vs automated",
+                "fraction": 0,
+                "feedback": "Either could be manual or automated; the defining difference is execution."
+              }
+            ],
+            "generalFeedback": "A walkthrough is static (nothing is executed) while a load test is dynamic (the system runs under load); the static-vs-dynamic axis is the defining contrast.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify basis-path testing",
+            "text": "<p><strong>Basis-path testing</strong> (deriving tests from the code's linearly independent paths) is a:</p>",
+            "answers": [
+              {
+                "text": "White-box (structure-based) technique",
+                "fraction": 100,
+                "feedback": "Correct \u2014 basis-path testing is derived from the code's control-flow graph."
+              },
+              {
+                "text": "Black-box technique",
+                "fraction": 0,
+                "feedback": "It uses the code's paths, so it is structure-based, not spec-based."
+              },
+              {
+                "text": "Non-functional technique",
+                "fraction": 0,
+                "feedback": "It targets structural coverage of paths, not a quality attribute."
+              },
+              {
+                "text": "Static technique",
+                "fraction": 0,
+                "feedback": "Its tests are executed, so it is dynamic, not static."
+              }
+            ],
+            "generalFeedback": "Basis-path testing is derived from the control-flow graph (independent paths) of the code, so it is white-box / structure-based, and dynamic.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Multi-axis: load testing",
+            "text": "<p><strong>Load testing</strong> executes the running system, is driven purely through external interfaces with no code knowledge, and measures response time under heavy traffic. Across the three axes it is:</p>",
+            "answers": [
+              {
+                "text": "Dynamic, black-box, and non-functional",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it executes (dynamic), uses no code knowledge (black-box), and measures a quality attribute (non-functional)."
+              },
+              {
+                "text": "Static, white-box, and functional",
+                "fraction": 0,
+                "feedback": "It executes the system and uses no code knowledge, so it is dynamic and black-box, and it targets performance (non-functional)."
+              },
+              {
+                "text": "Dynamic, white-box, and non-functional",
+                "fraction": 0,
+                "feedback": "It uses no knowledge of the code's internal structure, so it is black-box, not white-box."
+              },
+              {
+                "text": "Static, black-box, and functional",
+                "fraction": 0,
+                "feedback": "It runs the system (dynamic) and measures performance (non-functional)."
+              }
+            ],
+            "generalFeedback": "Load testing executes the system (dynamic), needs no internal code knowledge (black-box), and targets a performance quality attribute (non-functional).",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Static analysis as dynamic white-box?",
+            "text": "<p>Because static analysis inspects the source code, it is a form of <strong>dynamic white-box testing</strong>.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 static analysis is structure-based but does NOT execute the program, so it is static, not dynamic."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Static analysis uses the code structure but performs no execution, so it cannot be dynamic testing."
+              }
+            ],
+            "generalFeedback": 'Static analysis is structure-based (it uses the code) yet static (no execution). "White-box" refers to knowledge of the structure, not to execution \u2014 so "uses the code" does not make it dynamic.'
+          },
+          {
+            "type": "multichoice",
+            "name": "Why grey-box is not black plus white",
+            "text": '<p>Which statement best captures why <strong>grey-box</strong> testing is not simply "black-box plus white-box"?</p>',
+            "answers": [
+              {
+                "text": "It uses partial internal knowledge to design better externally-driven tests, rather than performing the complete sets of both black-box and white-box tests",
+                "fraction": 100,
+                "feedback": "Correct \u2014 grey-box combines a limited source of internal insight with external testing; it is not the union of the two full test sets."
+              },
+              {
+                "text": "It performs every possible black-box test and every possible white-box test",
+                "fraction": 0,
+                "feedback": "Grey-box uses only partial internal knowledge; it does not run the full white-box test set."
+              },
+              {
+                "text": "It is identical to white-box testing but with a different name",
+                "fraction": 0,
+                "feedback": "Grey-box uses only partial internal knowledge and drives tests externally, unlike full white-box testing."
+              },
+              {
+                "text": "It requires no knowledge of either the specification or the code",
+                "fraction": 0,
+                "feedback": "That would be neither; grey-box specifically uses partial internal knowledge."
+              }
+            ],
+            "generalFeedback": "Grey-box combines sources of knowledge \u2014 using limited internal insight (architecture, schema, key algorithms) to target external tests. It is not the union of complete black-box and white-box test sets.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify MC/DC on two axes",
+            "text": "<p><strong>MC/DC</strong> (Modified Condition/Decision Coverage) is best classified as:</p>",
+            "answers": [
+              {
+                "text": "White-box and dynamic \u2014 defined over code conditions and measured by executing tests",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it is a structural criterion whose satisfaction is observed only by running the tests."
+              },
+              {
+                "text": "White-box and static \u2014 coverage can be computed without running the program",
+                "fraction": 0,
+                "feedback": "MC/DC is structural, but coverage is only observed by executing the tests, so it is dynamic."
+              },
+              {
+                "text": "Black-box and dynamic",
+                "fraction": 0,
+                "feedback": "MC/DC is defined over the code's conditions, so it is white-box, not black-box."
+              },
+              {
+                "text": "Black-box and static",
+                "fraction": 0,
+                "feedback": "It is defined over code conditions (white-box) and requires execution (dynamic)."
+              }
+            ],
+            "generalFeedback": "MC/DC is a structural (white-box) criterion, but coverage is only observed by executing the tests, so it is dynamic. Structural coverage criteria are not static.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Unit test against design spec",
+            "text": "<p>Executing a module's unit tests derived from its detailed <strong>design specification</strong>, to confirm the module conforms to that design, is chiefly an act of:</p>",
+            "answers": [
+              {
+                "text": "Verification \u2014 conformance to the specification",
+                "fraction": 100,
+                "feedback": "Correct \u2014 confirming conformance to the design spec is verification."
+              },
+              {
+                "text": "Validation \u2014 fitness for the end user's real needs",
+                "fraction": 0,
+                "feedback": "Validation checks real user needs; here we check conformance to the design \u2014 verification."
+              },
+              {
+                "text": "Non-functional testing",
+                "fraction": 0,
+                "feedback": "It checks functional conformance to the design, not a quality attribute."
+              },
+              {
+                "text": "Static analysis",
+                "fraction": 0,
+                "feedback": "The tests are executed, so this is dynamic, and its V&V role is verification."
+              }
+            ],
+            "generalFeedback": "Confirming conformance to the design specification is verification. The unit testing here is dynamic (and could be white-box), but on the V&V axis its role is verification.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Spec satisfied but wrong for users",
+            "text": "<p>A system perfectly satisfies its written requirements, yet those requirements misunderstood what users actually needed. Which activity is designed to catch this?</p>",
+            "answers": [
+              {
+                "text": "Validation \u2014 it checks fitness for real user needs, independent of the written spec",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 validation catches "building the wrong product" even when the spec is met.'
+              },
+              {
+                "text": "Verification \u2014 it checks conformance to the written spec",
+                "fraction": 0,
+                "feedback": "Verification would pass here, because the product matches the (flawed) spec."
+              },
+              {
+                "text": "Statement coverage",
+                "fraction": 0,
+                "feedback": "Coverage measures which code ran, not whether the requirements were right."
+              },
+              {
+                "text": "Static analysis of the source",
+                "fraction": 0,
+                "feedback": "Static analysis inspects code quality, not whether the requirements meet user needs."
+              }
+            ],
+            "generalFeedback": 'Verification would pass (the product matches the spec), but the spec itself is wrong. Only validation, which checks against real user needs, catches "building the wrong product."',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why BVA is in the black-box family",
+            "text": "<p><strong>Boundary value analysis</strong> is classified in the black-box family because:</p>",
+            "answers": [
+              {
+                "text": "Its cases are derived from the boundaries of input partitions in the specification, needing no knowledge of the code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the test basis is the specified input domain, not the code."
+              },
+              {
+                "text": "It measures which branches of the code were executed",
+                "fraction": 0,
+                "feedback": "That describes branch coverage, a white-box technique, not BVA."
+              },
+              {
+                "text": "It never executes the program under test",
+                "fraction": 0,
+                "feedback": "BVA cases are executed; the reason it is black-box is its spec-based test basis, not a lack of execution."
+              },
+              {
+                "text": "It only evaluates non-functional quality attributes",
+                "fraction": 0,
+                "feedback": "BVA targets functional behavior at input boundaries, not quality attributes."
+              }
+            ],
+            "generalFeedback": "BVA belongs to the black-box family because its cases come from the boundaries of the specified input domain, requiring no knowledge of the code's internal structure.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "High coverage proves black-box testing?",
+            "text": "<p>Reporting <strong>90% branch coverage</strong> demonstrates that thorough black-box testing was performed.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 branch coverage is a white-box (structural) measure and says nothing about specification-based black-box testing."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Coverage is a structural metric; a high value does not indicate the specification was tested (black-box)."
+              }
+            ],
+            "generalFeedback": "Coverage metrics are white-box / structural. High coverage does not imply the specification was tested (black-box), and vice versa; the black/white-box and coverage notions are independent."
+          },
+          {
+            "type": "multichoice",
+            "name": "Which is white-box AND static",
+            "text": "<p>Which technique is both <strong>white-box (structure-based)</strong> AND <strong>static (no execution)</strong>?</p>",
+            "answers": [
+              {
+                "text": "Data-flow static analysis of the source code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it uses the code structure (white-box) but never executes it (static)."
+              },
+              {
+                "text": "Branch coverage measurement",
+                "fraction": 0,
+                "feedback": "Branch coverage is white-box but dynamic \u2014 it requires executing the tests."
+              },
+              {
+                "text": "Boundary value analysis",
+                "fraction": 0,
+                "feedback": "BVA is black-box (spec-based) and dynamic."
+              },
+              {
+                "text": "Load testing",
+                "fraction": 0,
+                "feedback": "Load testing is black-box and dynamic."
+              }
+            ],
+            "generalFeedback": "Data-flow static analysis examines the code's structure (white-box) without executing it (static). Branch coverage is white-box but dynamic; BVA is black-box; load testing is black-box and dynamic.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Multi-axis: white-box dynamic functional",
+            "text": "<p>A developer writes unit tests <em>from the code</em>, runs them, and asserts each function returns the correct result. Ignoring any coverage measurement, across the three axes these tests are:</p>",
+            "answers": [
+              {
+                "text": "White-box, dynamic, and functional",
+                "fraction": 100,
+                "feedback": "Correct \u2014 derived from the code (white-box), executed (dynamic), and checking correct outputs (functional)."
+              },
+              {
+                "text": "Black-box, static, and non-functional",
+                "fraction": 0,
+                "feedback": "They are derived from the code (white-box), executed (dynamic), and check correct results (functional)."
+              },
+              {
+                "text": "White-box, static, and non-functional",
+                "fraction": 0,
+                "feedback": "Running the tests makes them dynamic, and checking correct results makes them functional."
+              },
+              {
+                "text": "Black-box, dynamic, and functional",
+                "fraction": 0,
+                "feedback": "Because they are written from the code, they are white-box, not black-box."
+              }
+            ],
+            "generalFeedback": "Tests derived from the code are white-box; running them is dynamic; asserting that each function returns the correct result is functional. Design basis, execution, and functional/non-functional are three separate axes.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Multi-axis: penetration test",
+            "text": "<p>A penetration tester is given partial architecture diagrams and some API internals, then attacks the running system to find security flaws. This is best described as:</p>",
+            "answers": [
+              {
+                "text": "Grey-box, dynamic, and non-functional",
+                "fraction": 100,
+                "feedback": "Correct \u2014 partial internal knowledge (grey-box), attacking a running system (dynamic), targeting security (non-functional)."
+              },
+              {
+                "text": "Black-box, static, and functional",
+                "fraction": 0,
+                "feedback": "The tester has partial internal knowledge (grey-box) and executes the system (dynamic), targeting a quality attribute (non-functional)."
+              },
+              {
+                "text": "White-box, static, and functional",
+                "fraction": 0,
+                "feedback": "Only partial knowledge is used (grey-box), the system is executed (dynamic), and the goal is security (non-functional)."
+              },
+              {
+                "text": "Pure black-box and functional",
+                "fraction": 0,
+                "feedback": "Using partial internals makes it grey-box, and the security goal is non-functional."
+              }
+            ],
+            "generalFeedback": "Partial internal knowledge makes it grey-box; attacking the running system makes it dynamic; targeting security (a quality attribute) makes it non-functional.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Multi-axis: design inspection",
+            "text": "<p>On the V&amp;V axis and the static/dynamic axis, a formal <strong>inspection of a design document</strong> is:</p>",
+            "answers": [
+              {
+                "text": "Verification and static",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it checks conformance to the spec/standards (verification) and executes nothing (static)."
+              },
+              {
+                "text": "Validation and dynamic",
+                "fraction": 0,
+                "feedback": "An inspection executes nothing (static) and checks conformance to spec (verification)."
+              },
+              {
+                "text": "Verification and dynamic",
+                "fraction": 0,
+                "feedback": "It is verification, but nothing is executed, so it is static, not dynamic."
+              },
+              {
+                "text": "Validation and static",
+                "fraction": 0,
+                "feedback": "It is static, but it checks conformance to spec, so it is verification, not validation."
+              }
+            ],
+            "generalFeedback": "A design inspection checks conformance to the specification and standards (verification) and executes nothing (static).",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Regression testing is white-box by definition?",
+            "text": "<p>Regression testing is, by definition, a <strong>white-box</strong> technique.</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 regression testing is defined by its purpose (re-testing after a change) and can be black-box or white-box, manual or automated."
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Regression is about when and why you test, not the knowledge basis; it can be either black- or white-box."
+              }
+            ],
+            "generalFeedback": "Regression testing is categorized by purpose \u2014 confirming that a change did not break existing behavior \u2014 an axis orthogonal to black-box vs white-box. A regression suite may be either."
+          },
+          {
+            "type": "multichoice",
+            "name": "Verification/validation and static/dynamic",
+            "text": "<p>Which statement about <strong>verification and validation</strong> is correct?</p>",
+            "answers": [
+              {
+                "text": "Verification can be static (e.g. reviews) or dynamic (e.g. unit tests against the spec), while validation is normally dynamic",
+                "fraction": 100,
+                "feedback": "Correct \u2014 verification spans both static and dynamic methods; validation is usually dynamic."
+              },
+              {
+                "text": "Verification is always static and validation is always dynamic",
+                "fraction": 0,
+                "feedback": "Verification also includes dynamic methods, such as unit/integration tests checking conformance to the spec."
+              },
+              {
+                "text": "Verification and validation are the same activity under two names",
+                "fraction": 0,
+                "feedback": "They are distinct: conformance to spec versus fitness for user needs."
+              },
+              {
+                "text": "Validation must always be completed before any verification",
+                "fraction": 0,
+                "feedback": "There is no such strict ordering; verification runs throughout development."
+              }
+            ],
+            "generalFeedback": "Verification spans both static (reviews, inspections) and dynamic (spec-based unit/integration tests) methods; validation \u2014 confirming real-world fitness \u2014 is typically dynamic. They are distinct activities and not strictly ordered validation-first.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "EP design vs execution on two axes",
+            "text": "<p>A tester designs cases with <strong>equivalence partitioning</strong> (from the spec) and then runs them against the program. On the knowledge axis and the static/dynamic axis respectively, this is:</p>",
+            "answers": [
+              {
+                "text": "Black-box and dynamic \u2014 the design is spec-based, but running the cases executes the program",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the design technique is black-box; executing the cases is dynamic."
+              },
+              {
+                "text": "White-box and static",
+                "fraction": 0,
+                "feedback": "The design uses the spec (black-box), and running the cases makes it dynamic."
+              },
+              {
+                "text": "Black-box and static",
+                "fraction": 0,
+                "feedback": "The cases are executed against the program, so the activity is dynamic, not static."
+              },
+              {
+                "text": "White-box and dynamic",
+                "fraction": 0,
+                "feedback": "Equivalence partitioning is spec-based, so it is black-box, not white-box."
+              }
+            ],
+            "generalFeedback": "Equivalence partitioning is a black-box design technique (spec-based); executing the resulting cases is dynamic. The design basis and the execution mode are separate axes.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u9ED1\u7BB1\u6E2C\u8A66\u7684\u5B9A\u7FA9",
+            "text": "<p><strong>\u9ED1\u7BB1\u6E2C\u8A66\uFF08black-box testing\uFF09</strong>\u8A2D\u8A08\u6E2C\u8A66\u6848\u4F8B\u6642\u6240\u4F9D\u64DA\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u898F\u683C\u8207\u5C0D\u5916\u884C\u70BA\uFF0C\u4E0D\u9700\u77E5\u9053\u7A0B\u5F0F\u5167\u90E8\u7D50\u69CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9ED1\u7BB1\uFF08\u898F\u683C\u5C0E\u5411\uFF09\u6E2C\u8A66\u628A\u5BE6\u4F5C\u8996\u70BA\u4E0D\u900F\u660E\u7684\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u78BC\u5167\u90E8\u7684\u63A7\u5236\u6D41\u7A0B\u5716",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u767D\u7BB1\uFF08\u7D50\u69CB\u6027\uFF09\u6E2C\u8A66\uFF0C\u6703\u5229\u7528\u7A0B\u5F0F\u78BC\u7684\u7D50\u69CB\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u6240\u57F7\u884C\u5230\u7684\u539F\u59CB\u78BC\u884C\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u8986\u84CB\u7387\u91CF\u6E2C\uFF0C\u4E26\u975E\u9ED1\u7BB1\u6E2C\u8A66\u7684\u8A2D\u8A08\u4F9D\u64DA\u3002"
+              },
+              {
+                "text": "\u7DE8\u8B6F\u5668\u7684\u6700\u4F73\u5316\u8A2D\u5B9A",
+                "fraction": 0,
+                "feedback": "\u7DE8\u8B6F\u5668\u8A2D\u5B9A\u8207\u9ED1\u7BB1\u6E2C\u8A66\u5982\u4F55\u7522\u751F\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u9ED1\u7BB1\uFF08\u898F\u683C\u5C0E\u5411\uFF09\u6E2C\u8A66\u4F9D\u9700\u6C42\u8207\u5C0D\u5916\u884C\u70BA\u4F86\u8A2D\u8A08\u6E2C\u8A66\uFF0C\u628A\u5BE6\u4F5C\u8996\u70BA\u4E0D\u900F\u660E\u2014\u2014\u4E0D\u4F7F\u7528\u4EFB\u4F55\u7A0B\u5F0F\u78BC\u77E5\u8B58\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u767D\u7BB1\u6E2C\u8A66\u7684\u5B9A\u7FA9",
+            "text": "<p><strong>\u767D\u7BB1\uFF08\u7D50\u69CB\u6027\uFF09</strong>\u6E2C\u8A66\u8A2D\u8A08\u6E2C\u8A66\u6848\u4F8B\u6642\u6240\u4F9D\u64DA\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7A0B\u5F0F\u5167\u90E8\u7D50\u69CB\u7684\u77E5\u8B58\uFF0C\u4F8B\u5982\u6558\u8FF0\u3001\u5206\u652F\u8207\u8DEF\u5F91",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u767D\u7BB1\uFF08\u900F\u660E\u7BB1\uFF09\u6E2C\u8A66\u5229\u7528\u7A0B\u5F0F\u78BC\u7684\u5167\u90E8\u7D50\u69CB\u3002"
+              },
+              {
+                "text": "\u53EA\u770B\u516C\u4F48\u7684\u9700\u6C42\uFF0C\u5B8C\u5168\u4E0D\u770B\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9ED1\u7BB1\u6E2C\u8A66\uFF1B\u767D\u7BB1\u6703\u5229\u7528\u7A0B\u5F0F\u78BC\u7D50\u69CB\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u5C0D\u7522\u54C1\u7684\u4E3B\u89C0\u6EFF\u610F\u5EA6",
+                "fraction": 0,
+                "feedback": "\u90A3\u8F03\u63A5\u8FD1\u9A57\u8B49\uFF08validation\uFF09\uFF0F\u53EF\u7528\u6027\uFF0C\u800C\u975E\u7D50\u69CB\u6027\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u5C07\u57F7\u884C\u65BC\u54EA\u7A2E\u786C\u9AD4",
+                "fraction": 0,
+                "feedback": "\u76EE\u6A19\u786C\u9AD4\u4E26\u975E\u767D\u7BB1\u6E2C\u8A66\u8A2D\u8A08\u7684\u4F9D\u64DA\u3002"
+              }
+            ],
+            "generalFeedback": "\u767D\u7BB1\uFF08\u7D50\u69CB\u6027\uFF0F\u900F\u660E\u7BB1\uFF09\u6E2C\u8A66\u5229\u7528\u7A0B\u5F0F\u78BC\u7684\u5167\u90E8\u7D50\u69CB\u2014\u2014\u6558\u8FF0\u3001\u5206\u652F\u3001\u8DEF\u5F91\u3001\u689D\u4EF6\u2014\u2014\u4F86\u8A2D\u8A08\u4E26\u91CF\u6E2C\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7070\u7BB1\u6E2C\u8A66\u7684\u5B9A\u7FA9",
+            "text": "<p><strong>\u7070\u7BB1\u6E2C\u8A66\uFF08grey-box testing\uFF09</strong>\u7684\u7279\u5FB5\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5177\u5099\u90E8\u5206\u5167\u90E8\u7D50\u69CB\u7684\u77E5\u8B58\uFF0C\u4E26\u900F\u904E\u5C0D\u5916\u4ECB\u9762\u4F86\u9A45\u52D5\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7070\u7BB1\u904B\u7528\u90E8\u5206\u5167\u90E8\u6D1E\u898B\uFF08\u5982\u67B6\u69CB\u6216\u8CC7\u6599\u5EAB\u7D50\u69CB\uFF09\u540C\u6642\u5F9E\u5916\u90E8\u9032\u884C\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5C0D\u898F\u683C\u8207\u7A0B\u5F0F\u78BC\u7686\u5B8C\u5168\u4E00\u7121\u6240\u77E5",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u8005\u7E3D\u6703\u4F9D\u64DA\u67D0\u4E9B\u8CC7\u8A0A\uFF1B\u7070\u7BB1\u7279\u6307\u904B\u7528\u90E8\u5206\u5167\u90E8\u77E5\u8B58\u3002"
+              },
+              {
+                "text": "\u5C0D\u6B63\u78BA\u6027\u9032\u884C\u5B8C\u6574\u7684\u6578\u5B78\u8B49\u660E",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5F62\u5F0F\u5316\u9A57\u8B49\uFF0C\u4E26\u975E\u7070\u7BB1\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u53EA\u6E2C\u8A66\u5716\u5F62\u4F7F\u7528\u8005\u4ECB\u9762\u7684\u984F\u8272",
+                "fraction": 0,
+                "feedback": "\u7070\u7BB1\u95DC\u4E4E\u5167\u90E8\u77E5\u8B58\u7684\u591A\u5BE1\uFF0C\u800C\u975E UI \u5916\u89C0\u3002"
+              }
+            ],
+            "generalFeedback": "\u7070\u7BB1\u6E2C\u8A66\u904B\u7528\u90E8\u5206\u5167\u90E8\u77E5\u8B58\uFF08\u67B6\u69CB\u3001\u8CC7\u6599\u7D50\u69CB\u3001\u95DC\u9375\u6F14\u7B97\u6CD5\uFF09\u4F86\u8A2D\u8A08\u6E2C\u8A66\uFF0C\u800C\u9019\u4E9B\u6E2C\u8A66\u4ECD\u900F\u904E\u5C0D\u5916\u4ECB\u9762\u4F86\u57F7\u884C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975C\u614B\u6E2C\u8A66\u7684\u5B9A\u7FA9",
+            "text": "<p><strong>\u975C\u614B\u6E2C\u8A66\uFF08static testing\uFF09</strong>\u6700\u8CBC\u5207\u7684\u63CF\u8FF0\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6AA2\u8996\u8EDF\u9AD4\u7522\u51FA\u7269\uFF08\u6587\u4EF6\u6216\u7A0B\u5F0F\u78BC\uFF09\u800C\u4E0D\u57F7\u884C\u7A0B\u5F0F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u975C\u614B\u6280\u8853\u4EE5\u6AA2\u8996\u65B9\u5F0F\u627E\u51FA\u7F3A\u9677\uFF0C\u4E0D\u9700\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u4EE5\u8A31\u591A\u4E0D\u540C\u8F38\u5165\u4F86\u57F7\u884C\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u52D5\u614B\u6E2C\u8A66\uFF0C\u9700\u8981\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u9AD8\u8CA0\u8F09\u4E0B\u7684\u56DE\u61C9\u6642\u9593",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u52D5\u614B\u7684\u975E\u529F\u80FD\u6027\u6D3B\u52D5\uFF08\u6548\u80FD\u6E2C\u8A66\uFF09\u3002"
+              },
+              {
+                "text": "\u90E8\u7F72\u5230\u6B63\u5F0F\u74B0\u5883\u4E26\u76E3\u770B\u5BE6\u969B\u4F7F\u7528\u8005",
+                "fraction": 0,
+                "feedback": "\u76E3\u770B\u57F7\u884C\u4E2D\u7684\u7CFB\u7D71\u5C6C\u65BC\u52D5\u614B\uFF0C\u800C\u975E\u975C\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u975C\u614B\u6E2C\u8A66\uFF08\u5BE9\u67E5\u3001\u8D70\u67E5\u3001\u6AA2\u9A57\u3001\u975C\u614B\u5206\u6790\uFF09\u4EE5\u6AA2\u8996\u7522\u51FA\u7269\u7684\u65B9\u5F0F\u627E\u51FA\u7F3A\u9677\uFF0C\u4E0D\u57F7\u884C\u7A0B\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u52D5\u614B\u6E2C\u8A66\u7684\u5B9A\u7FA9",
+            "text": "<p><strong>\u52D5\u614B\u6E2C\u8A66\uFF08dynamic testing\uFF09</strong>\u6700\u8CBC\u5207\u7684\u63CF\u8FF0\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4EE5\u8F38\u5165\u57F7\u884C\u7A0B\u5F0F\u4E26\u89C0\u5BDF\u5176\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u52D5\u614B\u6E2C\u8A66\u57F7\u884C\u8EDF\u9AD4\u4E26\u5C07\u884C\u70BA\u8207\u9810\u671F\u6BD4\u5C0D\u3002"
+              },
+              {
+                "text": "\u5728\u5BE9\u67E5\u6703\u8B70\u4E2D\u4E00\u8D77\u95B1\u8B80\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u975C\u614B\u6280\u8853\uFF08\u5BE9\u67E5\uFF09\uFF1B\u6C92\u6709\u57F7\u884C\u4EFB\u4F55\u7A0B\u5F0F\u3002"
+              },
+              {
+                "text": "\u6AA2\u67E5\u9700\u6C42\u6587\u4EF6\u662F\u5426\u6709\u932F\u5B57",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5C0D\u6587\u4EF6\u7684\u975C\u614B\u6AA2\u8996\uFF0C\u4E26\u975E\u52D5\u614B\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u7528\u5DE5\u5177\u5206\u6790\u539F\u59CB\u78BC\u4F46\u5F9E\u4E0D\u57F7\u884C\u5B83",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u975C\u614B\u5206\u6790\uFF1B\u52D5\u614B\u6E2C\u8A66\u9700\u8981\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u52D5\u614B\u6E2C\u8A66\u9700\u8981\u57F7\u884C\u8EDF\u9AD4\uFF0C\u4E26\u5C07\u89C0\u5BDF\u5230\u7684\u884C\u70BA\u8207\u9810\u671F\u7D50\u679C\u6BD4\u5C0D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u529F\u80FD\u6027\u6E2C\u8A66\u7684\u5B9A\u7FA9",
+            "text": "<p><strong>\u529F\u80FD\u6027\u6E2C\u8A66\uFF08functional testing\uFF09</strong>\u4E3B\u8981\u95DC\u6CE8\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7CFB\u7D71\u300C\u505A\u4EC0\u9EBC\u300D\u2014\u2014\u5C0D\u7D66\u5B9A\u8F38\u5165\u662F\u5426\u7522\u751F\u6B63\u78BA\u8F38\u51FA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u529F\u80FD\u6027\u6E2C\u8A66\u4F9D\u898F\u5B9A\u7684\u529F\u80FD\u4F86\u6AA2\u67E5\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u5728\u8CA0\u8F09\u4E0B\u56DE\u61C9\u6709\u591A\u5FEB",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u975E\u529F\u80FD\u6027\uFF08\u6548\u80FD\uFF09\u7684\u95DC\u6CE8\u9EDE\u3002"
+              },
+              {
+                "text": "\u7CFB\u7D71\u5C0D\u653B\u64CA\u8005\u7684\u62B5\u6297\u529B\u6709\u591A\u5F37",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u975E\u529F\u80FD\u6027\uFF08\u5B89\u5168\u6027\uFF09\u7684\u95DC\u6CE8\u9EDE\u3002"
+              },
+              {
+                "text": "\u539F\u59CB\u78BC\u7684\u53EF\u7DAD\u8B77\u6027\u6709\u591A\u9AD8",
+                "fraction": 0,
+                "feedback": "\u53EF\u7DAD\u8B77\u6027\u662F\u975E\u529F\u80FD\u6027\u54C1\u8CEA\u5C6C\u6027\uFF0C\u4E26\u975E\u67D0\u9805\u529F\u80FD\u3002"
+              }
+            ],
+            "generalFeedback": "\u529F\u80FD\u6027\u6E2C\u8A66\u4F9D\u9700\u6C42\u6AA2\u67E5\u7CFB\u7D71\u7684\u529F\u80FD\uFF0F\u884C\u70BA\u2014\u2014\u300C\u505A\u4EC0\u9EBC\u300D\u2014\u2014\u800C\u975E\u300C\u505A\u5F97\u591A\u597D\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u7684\u5B9A\u7FA9",
+            "text": "<p><strong>\u975E\u529F\u80FD\u6027\u6E2C\u8A66\uFF08non-functional testing\uFF09</strong>\u4E3B\u8981\u8A55\u4F30\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u54C1\u8CEA\u5C6C\u6027\uFF0C\u4F8B\u5982\u6548\u80FD\u3001\u5B89\u5168\u6027\u3001\u53EF\u7528\u6027\u8207\u53EF\u9760\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u8457\u91CD\u7CFB\u7D71\u904B\u4F5C\u300C\u6709\u591A\u597D\u300D\u3002"
+              },
+              {
+                "text": "\u6BCF\u9805\u6240\u9700\u529F\u80FD\u662F\u5426\u56DE\u50B3\u6B63\u78BA\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u529F\u80FD\u6027\u6E2C\u8A66\uFF08\u7CFB\u7D71\u505A\u4EC0\u9EBC\uFF09\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u78BC\u4E2D\u6BCF\u4E00\u689D\u6558\u8FF0\u662F\u5426\u90FD\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7D50\u69CB\u6027\u8986\u84CB\u7387\uFF08\u767D\u7BB1\uFF09\u7684\u95DC\u6CE8\u9EDE\u3002"
+              },
+              {
+                "text": "\u9700\u6C42\u6587\u4EF6\u7684\u6587\u6CD5\u662F\u5426\u5B8C\u6574",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u975C\u614B\u5BE9\u67E5\u7684\u95DC\u6CE8\u9EDE\uFF0C\u4E26\u975E\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u8457\u91CD\u7CFB\u7D71\u904B\u4F5C\u300C\u6709\u591A\u597D\u300D\u2014\u2014\u6548\u80FD\u3001\u5B89\u5168\u6027\u3001\u53EF\u7528\u6027\u3001\u53EF\u9760\u6027\u3001\u53EF\u651C\u6027\u7B49\u2014\u2014\u800C\u975E\u54EA\u4E9B\u529F\u80FD\u53EF\u904B\u4F5C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9A57\u8B49\uFF08verification\uFF09\u7684\u5B9A\u7FA9",
+            "text": "<p>\u5728\u7D93\u5178\u7684 V&amp;V \u5340\u5206\u4E2D\uFF0C<strong>\u9A57\u8B49\uFF08verification\uFF09</strong>\u6240\u554F\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u300C\u6211\u5011\u6709\u628A\u7522\u54C1\u505A\u5C0D\u55CE\uFF1F\u300D\u2014\u2014\u5B83\u662F\u5426\u7B26\u5408\u898F\u683C\uFF1F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u8B49\u5728\u5404\u968E\u6BB5\u6AA2\u67E5\u662F\u5426\u7B26\u5408\u898F\u683C\u8207\u6A19\u6E96\u3002"
+              },
+              {
+                "text": "\u300C\u6211\u5011\u505A\u7684\u662F\u5C0D\u7684\u7522\u54C1\u55CE\uFF1F\u300D\u2014\u2014\u5B83\u662F\u5426\u6EFF\u8DB3\u4F7F\u7528\u8005\u9700\u6C42\uFF1F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u78BA\u8A8D\uFF08validation\uFF09\uFF0C\u800C\u975E\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u300C\u9019\u7522\u54C1\u6BD4\u7AF6\u722D\u5C0D\u624B\u5FEB\u55CE\uFF1F\u300D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6548\u80FD\uFF0F\u6A19\u7AFF\u6BD4\u8F03\u554F\u984C\uFF0C\u8207\u9A57\u8B49\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u300C\u9867\u5BA2\u6703\u9858\u610F\u4ED8\u9322\u8CB7\u9019\u7522\u54C1\u55CE\uFF1F\u300D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5E02\u5834\u554F\u984C\uFF0C\u8207 V&V \u5340\u5206\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u8B49\u5728\u6BCF\u500B\u958B\u767C\u968E\u6BB5\u6AA2\u67E5\u662F\u5426\u7B26\u5408\u898F\u683C\u3001\u8A2D\u8A08\u8207\u6A19\u6E96\u2014\u2014\u300C\u628A\u7522\u54C1\u505A\u5C0D\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u78BA\u8A8D\uFF08validation\uFF09\u7684\u5B9A\u7FA9",
+            "text": "<p>\u5728\u7D93\u5178\u7684 V&amp;V \u5340\u5206\u4E2D\uFF0C<strong>\u78BA\u8A8D\uFF08validation\uFF09</strong>\u6240\u554F\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u300C\u6211\u5011\u505A\u7684\u662F\u5C0D\u7684\u7522\u54C1\u55CE\uFF1F\u300D\u2014\u2014\u5B83\u662F\u5426\u6EFF\u8DB3\u4F7F\u7528\u8005\u771F\u6B63\u7684\u9700\u6C42\uFF1F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u78BA\u8A8D\u4F9D\u771F\u6B63\u7684\u4F7F\u7528\u8005\u9700\u6C42\u6AA2\u67E5\u662F\u5426\u9069\u7528\u3002"
+              },
+              {
+                "text": "\u300C\u6211\u5011\u6709\u628A\u7522\u54C1\u505A\u5C0D\u55CE\uFF1F\u300D\u2014\u2014\u5B83\u662F\u5426\u7B26\u5408\u898F\u683C\uFF1F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9A57\u8B49\uFF0C\u800C\u975E\u78BA\u8A8D\u3002"
+              },
+              {
+                "text": "\u300C\u539F\u59CB\u78BC\u7DE8\u8B6F\u6642\u6C92\u6709\u8B66\u544A\u55CE\uFF1F\u300D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u975C\u614B\uFF0F\u5EFA\u7F6E\u7684\u95DC\u6CE8\u9EDE\uFF0C\u4E26\u975E\u78BA\u8A8D\u3002"
+              },
+              {
+                "text": "\u300C\u7A0B\u5F0F\u78BC\u7684\u6BCF\u500B\u5206\u652F\u90FD\u88AB\u67D0\u500B\u6E2C\u8A66\u8986\u84CB\u55CE\uFF1F\u300D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u767D\u7BB1\u8986\u84CB\u7387\u7684\u95DC\u6CE8\u9EDE\uFF0C\u4E26\u975E\u78BA\u8A8D\u3002"
+              }
+            ],
+            "generalFeedback": "\u78BA\u8A8D\u6AA2\u67E5\u662F\u5426\u9069\u7528\u2014\u2014\u5B8C\u6210\u7684\u7522\u54C1\u662F\u5426\u6EFF\u8DB3\u4F7F\u7528\u8005\u771F\u6B63\u7684\u9700\u6C42\u2014\u2014\u300C\u505A\u5C0D\u7684\u7522\u54C1\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u908A\u754C\u503C\u5206\u6790",
+            "text": "<p><strong>\u908A\u754C\u503C\u5206\u6790\uFF08boundary value analysis\uFF09</strong>\u5C6C\u65BC\u54EA\u4E00\u985E\u6280\u8853\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9ED1\u7BB1\u2014\u2014\u5B83\u4F7F\u7528\u8F38\u5165\u898F\u683C\u8207\u5206\u5272\uFF0C\u4E0D\u770B\u7A0B\u5F0F\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014BVA \u4F9D\u898F\u5B9A\u8F38\u5165\u5206\u5272\u7684\u908A\u754C\u4F86\u7522\u751F\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u767D\u7BB1\u2014\u2014\u5B83\u9700\u8981\u63A7\u5236\u6D41\u7A0B\u5716",
+                "fraction": 0,
+                "feedback": "BVA \u4E0D\u9700\u7A0B\u5F0F\u7D50\u69CB\uFF1B\u5B83\u4F9D\u8F38\u5165\u898F\u683C\u904B\u4F5C\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u2014\u2014\u5B83\u5F9E\u4E0D\u57F7\u884C\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "BVA \u7684\u6848\u4F8B\u6703\u5C0D\u7A0B\u5F0F\u57F7\u884C\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u800C\u975E\u975C\u614B\u3002"
+              },
+              {
+                "text": "\u975E\u529F\u80FD\u6027\u2014\u2014\u5B83\u91CF\u6E2C\u6548\u80FD",
+                "fraction": 0,
+                "feedback": "BVA \u6AA2\u67E5\u8F38\u5165\u908A\u754C\u7684\u529F\u80FD\u884C\u70BA\uFF0C\u800C\u975E\u6548\u80FD\u3002"
+              }
+            ],
+            "generalFeedback": "\u908A\u754C\u503C\u5206\u6790\u4F9D\u898F\u683C\u4E2D\u8F38\u5165\u5206\u5272\u7684\u908A\u754C\u7522\u751F\u6E2C\u8A66\uFF0C\u4E0D\u9700\u7A0B\u5F0F\u78BC\u77E5\u8B58\u2014\u2014\u662F\u9ED1\u7BB1\u6280\u8853\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u5206\u652F\u8986\u84CB\u7387",
+            "text": "<p><strong>\u5206\u652F\uFF08\u6C7A\u7B56\uFF09\u8986\u84CB\u7387</strong>\u5C6C\u65BC\u54EA\u4E00\u985E\u6280\u8853\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u767D\u7BB1\u2014\u2014\u5B83\u662F\u4F9D\u7A0B\u5F0F\u78BC\u7684\u6C7A\u7B56\u8207\u5206\u652F\u4F86\u5B9A\u7FA9\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u652F\u8986\u84CB\u7387\u662F\u91DD\u5C0D\u7A0B\u5F0F\u78BC\u7D50\u69CB\u91CF\u6E2C\u7684\u3002"
+              },
+              {
+                "text": "\u9ED1\u7BB1\u2014\u2014\u5B83\u53EA\u9700\u8981\u898F\u683C",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u8986\u84CB\u7387\u9700\u8981\u7A0B\u5F0F\u78BC\u5206\u652F\u7684\u77E5\u8B58\uFF0C\u56E0\u6B64\u662F\u767D\u7BB1\u3002"
+              },
+              {
+                "text": "\u975E\u529F\u80FD\u6027\u2014\u2014\u5B83\u91CF\u6E2C\u53EF\u7528\u6027",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u8986\u84CB\u7387\u662F\u7D50\u69CB\u6027\u6307\u6A19\uFF0C\u4E26\u975E\u54C1\u8CEA\u5C6C\u6027\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u2014\u2014\u5B83\u4E0D\u9700\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u91CF\u6E2C\u5206\u652F\u8986\u84CB\u7387\u9700\u8981\u57F7\u884C\u6E2C\u8A66\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5206\u652F\u8986\u84CB\u7387\u662F\u91DD\u5C0D\u7A0B\u5F0F\u78BC\u7684\u5206\u652F\u91CF\u6E2C\uFF0C\u9700\u8981\u5167\u90E8\u7D50\u69CB\u7684\u77E5\u8B58\u2014\u2014\u662F\u767D\u7BB1\u6280\u8853\u3002\uFF08\u91CF\u6E2C\u5B83\u4E5F\u9700\u8981\u57F7\u884C\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u7A0B\u5F0F\u78BC\u5BE9\u67E5\u5C6C\u65BC\u975C\u614B",
+            "text": "<p>\u7A0B\u5F0F\u78BC\u5BE9\u67E5\uFF08inspection\uFF09\u662F\u4E00\u7A2E<strong>\u975C\u614B</strong>\u6E2C\u8A66\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5BE9\u67E5\u662F\u6AA2\u8996\u7A0B\u5F0F\u78BC\u800C\u4E0D\u57F7\u884C\u5B83\uFF0C\u56E0\u6B64\u5C6C\u65BC\u975C\u614B\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5BE9\u67E5\u4EE5\u95B1\u8B80\u800C\u975E\u57F7\u884C\u7A0B\u5F0F\u78BC\u4F86\u627E\u7F3A\u9677\u2014\u2014\u5B83\u5011\u5C6C\u65BC\u975C\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5BE9\u67E5\u3001\u8D70\u67E5\u8207\u6AA2\u9A57\u90FD\u662F\u975C\u614B\u6280\u8853\uFF1A\u4EE5\u6AA2\u8996\u65B9\u5F0F\u627E\u51FA\u7F3A\u9677\uFF0C\u4E0D\u57F7\u884C\u7A0B\u5F0F\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u7B49\u50F9\u5206\u5272",
+            "text": "<p><strong>\u7B49\u50F9\u5206\u5272\uFF08equivalence partitioning\uFF09</strong>\u5C6C\u65BC\u54EA\u4E00\u985E\u6280\u8853\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9ED1\u7BB1\u2014\u2014\u5B83\u4F9D\u898F\u683C\u5206\u5272\u8F38\u5165\u5B9A\u7FA9\u57DF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B49\u50F9\u5206\u5272\u4F9D\u898F\u683C\u628A\u8F38\u5165\u5206\u6210\u82E5\u5E72\u985E\u5225\u3002"
+              },
+              {
+                "text": "\u767D\u7BB1\u2014\u2014\u5B83\u5206\u5272\u7684\u662F\u7A0B\u5F0F\u78BC\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u5206\u5272\u4F5C\u7528\u65BC\u8F38\u5165\u5B9A\u7FA9\u57DF\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC\u8DEF\u5F91\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u2014\u2014\u5B83\u4E0D\u9700\u57F7\u884C\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u7522\u751F\u7684\u6848\u4F8B\u6703\u88AB\u57F7\u884C\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u7684\u9ED1\u7BB1\u6280\u8853\u3002"
+              },
+              {
+                "text": "\u53EA\u505A\u9A57\u8B49\u3001\u5F9E\u4E0D\u57F7\u884C\u8EDF\u9AD4\u7684\u6D3B\u52D5",
+                "fraction": 0,
+                "feedback": "\u5B83\u7684\u6E2C\u8A66\u6848\u4F8B\u6703\u5C0D\u8EDF\u9AD4\u57F7\u884C\uFF0C\u56E0\u6B64\u6B64\u8AAA\u6CD5\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B49\u50F9\u5206\u5272\u4F9D\u898F\u683C\u628A\u8F38\u5165\u5206\u6210\u82E5\u5E72\u985E\u5225\uFF0C\u4E0D\u9700\u7A0B\u5F0F\u78BC\u77E5\u8B58\u2014\u2014\u662F\u9ED1\u7BB1\u6280\u8853\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u6558\u8FF0\u8986\u84CB\u7387",
+            "text": "<p><strong>\u6558\u8FF0\u8986\u84CB\u7387\uFF08statement coverage\uFF09</strong>\u5C6C\u65BC\u54EA\u4E00\u985E\u6280\u8853\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u767D\u7BB1\u2014\u2014\u5B83\u662F\u4F9D\u7A0B\u5F0F\u78BC\u7684\u53EF\u57F7\u884C\u6558\u8FF0\u4F86\u5B9A\u7FA9\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6558\u8FF0\u8986\u84CB\u7387\u662F\u91DD\u5C0D\u7A0B\u5F0F\u78BC\u7D50\u69CB\u91CF\u6E2C\u7684\u3002"
+              },
+              {
+                "text": "\u9ED1\u7BB1\u2014\u2014\u5B83\u53EA\u9700\u8981\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u6558\u8FF0\u8986\u84CB\u7387\u9700\u8981\u7A0B\u5F0F\u78BC\u7684\u77E5\u8B58\uFF0C\u56E0\u6B64\u662F\u767D\u7BB1\u3002"
+              },
+              {
+                "text": "\u975E\u529F\u80FD\u6027\u2014\u2014\u5B83\u91CF\u6E2C\u53EF\u9760\u6027",
+                "fraction": 0,
+                "feedback": "\u6558\u8FF0\u8986\u84CB\u7387\u662F\u7D50\u69CB\u6027\u6307\u6A19\uFF0C\u4E26\u975E\u54C1\u8CEA\u5C6C\u6027\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u2014\u2014\u4E0D\u9700\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u91CF\u6E2C\u6558\u8FF0\u8986\u84CB\u7387\u9700\u8981\u57F7\u884C\u6E2C\u8A66\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6558\u8FF0\u8986\u84CB\u7387\u662F\u91DD\u5C0D\u7A0B\u5F0F\u78BC\u7684\u53EF\u57F7\u884C\u6558\u8FF0\u91CF\u6E2C\uFF0C\u56E0\u6B64\u662F\u767D\u7BB1\uFF08\u7D50\u69CB\u6027\uFF09\u6280\u8853\uFF1B\u91CF\u6E2C\u5B83\u662F\u52D5\u614B\u7684\uFF08\u9700\u8981\u57F7\u884C\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u9ED1\u7BB1\u9700\u8981\u539F\u59CB\u78BC\u55CE\uFF1F",
+            "text": "<p>\u9ED1\u7BB1\u6E2C\u8A66\u9700\u8981\u53D6\u5F97\u7A0B\u5F0F\u7684<strong>\u539F\u59CB\u78BC</strong>\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9ED1\u7BB1\u6E2C\u8A66\u4F9D\u898F\u683C\u8207\u884C\u70BA\u9032\u884C\uFF0C\u800C\u975E\u4F9D\u539F\u59CB\u78BC\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u9ED1\u7BB1\u628A\u5BE6\u4F5C\u8996\u70BA\u4E0D\u900F\u660E\uFF1B\u5B83\u4E0D\u9700\u539F\u59CB\u78BC\uFF08\u9700\u8981\u539F\u59CB\u78BC\u7684\u662F\u767D\u7BB1\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u9ED1\u7BB1\u6E2C\u8A66\u4F9D\u898F\u683C\u8207\u5C0D\u5916\u884C\u70BA\u4F86\u8A2D\u8A08\u6E2C\u8A66\uFF0C\u4E0D\u9700\u8981\u539F\u59CB\u78BC\u3002\u9700\u8981\u539F\u59CB\u78BC\u662F\u767D\u7BB1\u6E2C\u8A66\u7684\u7279\u5FB5\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u7070\u7BB1\u7BC4\u4F8B\uFF08\u900F\u904E UI \u7528\u8CC7\u6599\u5EAB\u7D50\u69CB\uFF09",
+            "text": "<p>\u6E2C\u8A66\u8005\u900F\u904E\u7DB2\u9801\u61C9\u7528\u7A0B\u5F0F\u7684\u516C\u958B UI \u4F86\u9A45\u52D5\u6E2C\u8A66\uFF0C\u4F46\u5229\u7528<strong>\u8CC7\u6599\u5EAB\u7D50\u69CB</strong>\u7684\u77E5\u8B58\u4F86\u8A2D\u8A08\u8F38\u5165\u4E26\u6AA2\u67E5\u5DF2\u5132\u5B58\u7684\u7D50\u679C\u3002\u9019\u6700\u9069\u5408\u6B78\u985E\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7070\u7BB1\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u5F9E\u5916\u90E8\u9A45\u52D5\u7CFB\u7D71\u6642\u904B\u7528\u90E8\u5206\u5167\u90E8\u77E5\u8B58\uFF08\u7D50\u69CB\uFF09\u5373\u70BA\u7070\u7BB1\u3002"
+              },
+              {
+                "text": "\u7D14\u9ED1\u7BB1\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u7D14\u9ED1\u7BB1\u4E0D\u4F7F\u7528\u4EFB\u4F55\u5167\u90E8\u77E5\u8B58\uFF1B\u9019\u88E1\u7528\u5230\u4E86\u7D50\u69CB\uFF0C\u56E0\u6B64\u662F\u7070\u7BB1\u3002"
+              },
+              {
+                "text": "\u7D14\u767D\u7BB1\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u767D\u7BB1\u6703\u4F9D\u7A0B\u5F0F\u78BC\u7D50\u69CB\u9A45\u52D5\u6E2C\u8A66\uFF1B\u9019\u88E1\u662F\u900F\u904E UI \u57F7\u884C\u3001\u50C5\u5177\u90E8\u5206\u77E5\u8B58\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u7CFB\u7D71\u662F\u900F\u904E UI \u57F7\u884C\u7684\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u800C\u975E\u975C\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u900F\u904E\u5C0D\u5916\u4ECB\u9762\u64CD\u4F5C\u7CFB\u7D71\u7684\u540C\u6642\u904B\u7528\u90E8\u5206\u5167\u90E8\u77E5\u8B58\uFF08\u8CC7\u6599\u5EAB\u7D50\u69CB\uFF09\uFF0C\u6B63\u662F\u7070\u7BB1\u6E2C\u8A66\u7684\u5178\u578B\u6A21\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u8D70\u67E5\u662F\u52D5\u614B\u7684\u55CE\uFF1F",
+            "text": "<p>\u898F\u683C<strong>\u8D70\u67E5\uFF08walkthrough\uFF09</strong>\u662F\u4E00\u7A2E\u52D5\u614B\u6E2C\u8A66\u6D3B\u52D5\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8D70\u67E5\u662F\u6AA2\u8996\u6587\u4EF6\u800C\u4E0D\u57F7\u884C\u8EDF\u9AD4\uFF0C\u56E0\u6B64\u5C6C\u65BC\u975C\u614B\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u8D70\u67E5\u8207\u5BE9\u67E5\u3001\u6AA2\u9A57\u4E00\u6A23\u5C6C\u65BC\u975C\u614B\u2014\u2014\u6C92\u6709\u57F7\u884C\u4EFB\u4F55\u7A0B\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u8D70\u67E5\uFF08\u5982\u540C\u5BE9\u67E5\u8207\u6AA2\u9A57\uFF09\u662F\u975C\u614B\u6280\u8853\u2014\u2014\u4EE5\u6AA2\u8996\u65B9\u5F0F\u627E\u51FA\u7F3A\u9677\uFF0C\u4E0D\u57F7\u884C\u4EFB\u4F55\u7A0B\u5F0F\u78BC\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6548\u80FD\u6E2C\u8A66\uFF1A\u529F\u80FD\u6027\u8207\u5426",
+            "text": "<p><strong>\u6548\u80FD\u6E2C\u8A66\uFF08performance testing\uFF09</strong>\uFF08\u91CF\u6E2C\u8CA0\u8F09\u4E0B\u7684\u541E\u5410\u91CF\u8207\u56DE\u61C9\u6642\u9593\uFF09\u6B78\u985E\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u975E\u529F\u80FD\u6027\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6548\u80FD\u662F\u54C1\u8CEA\u5C6C\u6027\uFF08\u505A\u5F97\u591A\u597D\uFF09\uFF0C\u56E0\u6B64\u5C6C\u65BC\u975E\u529F\u80FD\u6027\u3002"
+              },
+              {
+                "text": "\u529F\u80FD\u6027\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u529F\u80FD\u6027\u6E2C\u8A66\u6AA2\u67E5\u7CFB\u7D71\u505A\u4EC0\u9EBC\uFF1B\u6548\u80FD\u95DC\u4E4E\u5B83\u505A\u5F97\u591A\u597D\u3002"
+              },
+              {
+                "text": "\u767D\u7BB1\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u6E2C\u8A66\u901A\u5E38\u662F\u9ED1\u7BB1\uFF1B\u9ED1\uFF0F\u767D\u7BB1\u8EF8\u672C\u4F86\u5C31\u8207\u529F\u80FD\uFF0F\u975E\u529F\u80FD\u8EF8\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u6E2C\u8A66\u5728\u8CA0\u8F09\u4E0B\u57F7\u884C\u7CFB\u7D71\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u800C\u975E\u975C\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6548\u80FD\u95DC\u4E4E\u54C1\u8CEA\u5C6C\u6027\uFF08\u7CFB\u7D71\u8868\u73FE\u591A\u597D\uFF0C\u800C\u975E\u54EA\u4E9B\u529F\u80FD\u53EF\u904B\u4F5C\uFF09\uFF0C\u56E0\u6B64\u5C6C\u65BC\u975E\u529F\u80FD\u6027\u3002\u5B83\u540C\u6642\u4E5F\u662F\u52D5\u614B\u4E14\u901A\u5E38\u662F\u9ED1\u7BB1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9700\u6C42\u5BE9\u67E5\uFF1A\u9A57\u8B49\u6216\u78BA\u8A8D",
+            "text": "<p>\u5C07<strong>\u9700\u6C42\u898F\u683C</strong>\u5C0D\u7167\u9069\u7528\u6A19\u6E96\u8207\u5BA2\u6236\u5408\u7D04\u9032\u884C\u5BE9\u67E5\uFF0C\u662F\u4E0B\u5217\u4F55\u8005\u7684\u4F8B\u5B50\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9A57\u8B49\u2014\u2014\u7B26\u5408\u898F\u683C\u8207\u6D41\u7A0B\uFF08\u300C\u628A\u7522\u54C1\u505A\u5C0D\u300D\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9700\u6C42\u5BE9\u67E5\u6AA2\u67E5\u662F\u5426\u7B26\u5408\u6A19\u6E96\u8207\u898F\u683C\u3002"
+              },
+              {
+                "text": "\u78BA\u8A8D\u2014\u2014\u662F\u5426\u9069\u5408\u4F7F\u7528\u8005\u771F\u6B63\u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u78BA\u8A8D\u901A\u5E38\u4EE5\u52D5\u614B\u65B9\u5F0F\u78BA\u8A8D\u4EA4\u4ED8\u7522\u54C1\u5728\u771F\u5BE6\u60C5\u5883\u662F\u5426\u9069\u7528\uFF1B\u898F\u683C\u5BE9\u67E5\u5C6C\u65BC\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u975E\u529F\u80FD\u6027\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6587\u4EF6\u5BE9\u67E5\u662F\u975C\u614B\u7684\u9A57\u8B49\u6D3B\u52D5\uFF0C\u4E26\u975E\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u52D5\u614B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5BE9\u67E5\u6C92\u6709\u57F7\u884C\u4EFB\u4F55\u6771\u897F\uFF0C\u56E0\u6B64\u662F\u975C\u614B\u800C\u975E\u52D5\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u9700\u6C42\u5BE9\u67E5\u6AA2\u67E5\u662F\u5426\u7B26\u5408\u898F\u683C\u8207\u6A19\u6E96\u2014\u2014\u662F\u9A57\u8B49\u6D3B\u52D5\uFF0C\u4E5F\u662F\u975C\u614B\u6D3B\u52D5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "UAT\uFF1A\u9A57\u8B49\u6216\u78BA\u8A8D",
+            "text": "<p><strong>\u4F7F\u7528\u8005\u9A57\u6536\u6E2C\u8A66\uFF08UAT\uFF09</strong>\u2014\u2014\u7531\u771F\u5BE6\u4F7F\u7528\u8005\u8A66\u7528\u4EA4\u4ED8\u7684\u7CFB\u7D71\u4EE5\u78BA\u8A8D\u5B83\u6EFF\u8DB3\u5176\u9700\u6C42\u2014\u2014\u662F\u4E0B\u5217\u4F55\u8005\u7684\u4F8B\u5B50\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u78BA\u8A8D\u2014\u2014\u662F\u5426\u9069\u5408\u4F7F\u7528\uFF08\u300C\u505A\u5C0D\u7684\u7522\u54C1\u300D\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014UAT \u78BA\u8A8D\u7522\u54C1\u6EFF\u8DB3\u4F7F\u7528\u8005\u771F\u6B63\u7684\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u9A57\u8B49\u2014\u2014\u7B26\u5408\u8A2D\u8A08\u6587\u4EF6",
+                "fraction": 0,
+                "feedback": "\u7B26\u5408\u8A2D\u8A08\u662F\u9A57\u8B49\uFF1BUAT \u6AA2\u67E5\u771F\u5BE6\u4F7F\u7528\u8005\u9700\u6C42\uFF0C\u5C6C\u65BC\u78BA\u8A8D\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "UAT \u6703\u57F7\u884C\u4EA4\u4ED8\u7684\u7CFB\u7D71\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u800C\u975E\u975C\u614B\u3002"
+              },
+              {
+                "text": "\u767D\u7BB1\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u4F7F\u7528\u8005\u900F\u904E\u4ECB\u9762\u800C\u975E\u7A0B\u5F0F\u78BC\u64CD\u4F5C\u7CFB\u7D71\u2014\u2014\u9019\u662F\u9ED1\u7BB1\uFF0C\u800C\u554F\u984C\u5176\u5BE6\u662F\u5728\u554F V&V\u3002"
+              }
+            ],
+            "generalFeedback": "UAT \u78BA\u8A8D\u7522\u54C1\u6EFF\u8DB3\u4F7F\u7528\u8005\u771F\u6B63\u7684\u9700\u6C42\u2014\u2014\u662F\u78BA\u8A8D\u3002\u5B83\u540C\u6642\u4E5F\u662F\u52D5\u614B\u4E14\u9ED1\u7BB1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u8EF8\uFF1ABVA \u8207\u5206\u652F\u8986\u84CB\u7387",
+            "text": "<p><strong>\u908A\u754C\u503C\u5206\u6790</strong>\u8207<strong>\u5206\u652F\u8986\u84CB\u7387</strong>\u4E3B\u8981\u5728\u54EA\u4E00\u689D\u5206\u985E\u8EF8\u4E0A\u4E0D\u540C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9ED1\u7BB1\u8207\u767D\u7BB1\uFF08\u662F\u5426\u5177\u5099\u7A0B\u5F0F\u5167\u90E8\u7D50\u69CB\u7684\u77E5\u8B58\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014BVA \u662F\u898F\u683C\u5C0E\u5411\uFF08\u9ED1\u7BB1\uFF09\uFF0C\u800C\u5206\u652F\u8986\u84CB\u7387\u662F\u7D50\u69CB\u5C0E\u5411\uFF08\u767D\u7BB1\uFF09\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u8207\u52D5\u614B",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u662F\u52D5\u614B\u7684\uFF08\u6E2C\u8A66\u90FD\u6703\u88AB\u57F7\u884C\uFF09\uFF1B\u5728\u6B64\u8EF8\u4E0A\u4E26\u7121\u5DEE\u7570\u3002"
+              },
+              {
+                "text": "\u529F\u80FD\u6027\u8207\u975E\u529F\u80FD\u6027",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u504F\u5411\u529F\u80FD\u6B63\u78BA\u6027\uFF1B\u771F\u6B63\u7684\u5DEE\u7570\u5728\u65BC\u77E5\u8B58\u4F9D\u64DA\u3002"
+              },
+              {
+                "text": "\u9A57\u8B49\u8207\u78BA\u8A8D",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u901A\u5E38\u90FD\u504F\u5411\u9A57\u8B49\uFF1B\u5B83\u5011\u7684\u5DEE\u7570\u5728\u65BC\u9ED1\u7BB1\u8207\u767D\u7BB1\u3002"
+              }
+            ],
+            "generalFeedback": "BVA \u662F\u9ED1\u7BB1\uFF08\u6E90\u81EA\u898F\u683C\uFF09\uFF0C\u5206\u652F\u8986\u84CB\u7387\u662F\u767D\u7BB1\uFF08\u6E90\u81EA\u7A0B\u5F0F\u7D50\u69CB\uFF09\uFF1B\u5B83\u5011\u5728\u77E5\u8B58\uFF0F\u7D50\u69CB\u8EF8\u4E0A\u4E0D\u540C\u3002\u5169\u8005\u90FD\u662F\u52D5\u614B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u81EA\u52D5\u5316\u8207\u9ED1\uFF0F\u767D\u7BB1\u6B63\u4EA4",
+            "text": "<p>\u4E00\u500B<strong>\u9ED1\u7BB1</strong>\u9A57\u6536\u6E2C\u8A66\u7D44\u88AB\u6539\u5BEB\u70BA\u900F\u904E UI \u9A45\u52D5\u5DE5\u5177\u81EA\u52D5\u57F7\u884C\u3002\u5728\u9ED1\u7BB1\uFF0F\u767D\u7BB1\u8EF8\u4E0A\uFF0C\u9019\u500B\u81EA\u52D5\u5316\u6E2C\u8A66\u7D44\u73FE\u5728\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4ECD\u662F\u9ED1\u7BB1\u2014\u2014\u81EA\u52D5\u5316\u662F\u4E00\u689D\u6B63\u4EA4\u7684\u8EF8\uFF0C\u4E26\u672A\u52A0\u5165\u7A0B\u5F0F\u7D50\u69CB\u7684\u77E5\u8B58",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u624B\u52D5\u8207\u81EA\u52D5\u5316\u548C\u9ED1\u7BB1\u8207\u767D\u7BB1\u4E92\u76F8\u7368\u7ACB\u3002"
+              },
+              {
+                "text": "\u8B8A\u6210\u767D\u7BB1\uFF0C\u56E0\u70BA\u6709\u5DE5\u5177\u8207\u7A0B\u5F0F\u4E92\u52D5",
+                "fraction": 0,
+                "feedback": "\u628A\u6E2C\u8A66\u81EA\u52D5\u5316\u4E26\u4E0D\u6703\u8CE6\u4E88\u5B83\u5C0D\u7A0B\u5F0F\u5167\u90E8\u7D50\u69CB\u7684\u77E5\u8B58\u3002"
+              },
+              {
+                "text": "\u8B8A\u6210\u7070\u7BB1\uFF0C\u56E0\u70BA\u81EA\u52D5\u5316\u5DE5\u5177\u4E00\u5B9A\u6703\u8B80\u539F\u59CB\u78BC",
+                "fraction": 0,
+                "feedback": "UI \u9A45\u52D5\u5DE5\u5177\u4E0D\u6703\u8B80\u539F\u59CB\u78BC\uFF1B\u77E5\u8B58\u4F9D\u64DA\u4E26\u672A\u6539\u8B8A\u3002"
+              },
+              {
+                "text": "\u4E0D\u518D\u662F\u9ED1\u7BB1\u4E5F\u4E0D\u662F\u767D\u7BB1",
+                "fraction": 0,
+                "feedback": "\u5B83\u4ECD\u662F\u9ED1\u7BB1\uFF1B\u53EA\u6709\u624B\u52D5\uFF0F\u81EA\u52D5\u5316\u9019\u689D\u8EF8\u6539\u8B8A\u4E86\u3002"
+              }
+            ],
+            "generalFeedback": "\u624B\u52D5\u8207\u81EA\u52D5\u5316\u548C\u9ED1\u7BB1\u8207\u767D\u7BB1\u4E92\u76F8\u6B63\u4EA4\u3002\u628A\u9ED1\u7BB1\u6E2C\u8A66\u7D44\u81EA\u52D5\u5316\u5F8C\u5B83\u4ECD\u662F\u9ED1\u7BB1\uFF1B\u77E5\u8B58\u4F9D\u64DA\u4E26\u672A\u6539\u8B8A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u6383\u63CF\u539F\u59CB\u78BC\u7684\u5DE5\u5177",
+            "text": "<p>\u67D0\u5DE5\u5177\u6383\u63CF<strong>\u539F\u59CB\u78BC</strong>\u627E\u51FA\u7A7A\u6307\u6A19\u98A8\u96AA\u8207\u672A\u4F7F\u7528\u8B8A\u6578\uFF0C\u4F46\u5F9E\u4E0D\u57F7\u884C\u7A0B\u5F0F\u3002\u9019\u9805\u6D3B\u52D5\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u975C\u614B\u5206\u6790\u2014\u2014\u4E00\u7A2E\u6AA2\u8996\u7A0B\u5F0F\u78BC\u800C\u4E0D\u57F7\u884C\u5B83\u7684\u975C\u614B\u6280\u8853",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u767C\u751F\u4EFB\u4F55\u57F7\u884C\uFF0C\u56E0\u6B64\u662F\u975C\u614B\u5206\u6790\u3002"
+              },
+              {
+                "text": "\u52D5\u614B\u6E2C\u8A66\u2014\u2014\u5B83\u57F7\u884C\u4E86\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "\u8A72\u5DE5\u5177\u5F9E\u4E0D\u57F7\u884C\u7A0B\u5F0F\uFF0C\u56E0\u6B64\u662F\u975C\u614B\u800C\u975E\u52D5\u614B\u3002"
+              },
+              {
+                "text": "\u9ED1\u7BB1\u6E2C\u8A66\u2014\u2014\u5B83\u5FFD\u7565\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u5B83\u8B80\u53D6\u539F\u59CB\u78BC\uFF08\u7D50\u69CB\uFF09\uFF0C\u56E0\u6B64\u4E0D\u662F\u9ED1\u7BB1\u3002"
+              },
+              {
+                "text": "\u6548\u80FD\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5B83\u5206\u6790\u7A0B\u5F0F\u78BC\uFF0C\u800C\u975E\u57F7\u884C\u671F\u6548\u80FD\u3002"
+              }
+            ],
+            "generalFeedback": "\u975C\u614B\u5206\u6790\u5728\u4E0D\u57F7\u884C\u7684\u60C5\u6CC1\u4E0B\u6AA2\u8996\u539F\u59CB\u78BC\uFF0F\u7D50\u69CB\uFF0C\u56E0\u6B64\u662F\u975C\u614B\u3002\u7531\u65BC\u5B83\u4F7F\u7528\u7A0B\u5F0F\u78BC\u7D50\u69CB\uFF0C\u6240\u4EE5\u662F\u7D50\u69CB\u5C0E\u5411\u800C\u975E\u898F\u683C\u5C0E\u5411\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u932F\u8AA4\u731C\u6E2C\u8207\u63A2\u7D22\u6027\u6E2C\u8A66\u6240\u5C6C\u65CF\u7FA4",
+            "text": "<p><strong>\u932F\u8AA4\u731C\u6E2C\uFF08error guessing\uFF09</strong>\u8207<strong>\u63A2\u7D22\u6027\u6E2C\u8A66\uFF08exploratory testing\uFF09</strong>\u4F9D\u8CF4\u6E2C\u8A66\u8005\u7684\u7D93\u9A57\u800C\u975E\u6B63\u5F0F\u6A21\u578B\uFF0C\u5C6C\u65BC\u54EA\u4E00\u65CF\u7FA4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7D93\u9A57\u5C0E\u5411\u6280\u8853",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u4E9B\u662F\u7531\u6E2C\u8A66\u8005\u76F4\u89BA\u8207\u6280\u5DE7\u9A45\u52D5\u7684\u7D93\u9A57\u5C0E\u5411\u6280\u8853\u3002"
+              },
+              {
+                "text": "\u7D50\u69CB\u5C0E\u5411\uFF08\u767D\u7BB1\uFF09\u8986\u84CB\u7387\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E0D\u4F7F\u7528\u7A0B\u5F0F\u78BC\u7D50\u69CB\u6216\u8986\u84CB\u7387\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u5BE9\u67E5\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u6703\u57F7\u884C\u8EDF\u9AD4\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u800C\u975E\u975C\u614B\u5BE9\u67E5\u3002"
+              },
+              {
+                "text": "\u975E\u529F\u80FD\u6027\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u6191\u7D93\u9A57\u9396\u5B9A\u529F\u80FD\u6027\u7F3A\u9677\uFF0C\u800C\u975E\u54C1\u8CEA\u5C6C\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u932F\u8AA4\u731C\u6E2C\u8207\u63A2\u7D22\u6027\u6E2C\u8A66\u662F\u7D93\u9A57\u5C0E\u5411\u6280\u8853\u2014\u2014\u4E00\u7A2E\u7531\u6E2C\u8A66\u8005\u77E5\u8B58\u8207\u76F4\u89BA\uFF08\u800C\u975E\u6B63\u5F0F\u898F\u683C\u6216\u7A0B\u5F0F\u78BC\u7D50\u69CB\uFF09\u9A45\u52D5\u7684\u52D5\u614B\u3001\u9ED1\u7BB1\u65CF\u7FA4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u72C0\u614B\u8F49\u79FB\u6E2C\u8A66",
+            "text": "<p><strong>\u72C0\u614B\u8F49\u79FB\u6E2C\u8A66\uFF08state-transition testing\uFF09</strong>\u5F9E\u4F9D\u9700\u6C42\u5EFA\u7ACB\u7684\u884C\u70BA\u72C0\u614B\u6A21\u578B\u5C0E\u51FA\u6E2C\u8A66\u6848\u4F8B\u3002\u5B83\u662F\u4E00\u7A2E\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9ED1\u7BB1\u6280\u8853\u2014\u2014\u6E90\u81EA\u898F\u683C\uFF0F\u884C\u70BA\u6A21\u578B\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u72C0\u614B\u6A21\u578B\u4F86\u81EA\u9700\u6C42\uFF0C\u56E0\u6B64\u662F\u9ED1\u7BB1\u3002"
+              },
+              {
+                "text": "\u767D\u7BB1\u6280\u8853\u2014\u2014\u6E90\u81EA\u63A7\u5236\u6D41\u7A0B\u5716",
+                "fraction": 0,
+                "feedback": "\u8A72\u6A21\u578B\u662F\u884C\u70BA\u6A21\u578B\uFF08\u6E90\u81EA\u898F\u683C\uFF09\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC\u7684\u63A7\u5236\u6D41\u7A0B\u5716\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u6280\u8853\u2014\u2014\u4E0D\u9700\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u7522\u751F\u7684\u6848\u4F8B\u6703\u5C0D\u7CFB\u7D71\u57F7\u884C\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u3002"
+              },
+              {
+                "text": "\u975E\u529F\u80FD\u6027\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u5B83\u900F\u904E\u72C0\u614B\u8207\u8F49\u79FB\u6AA2\u67E5\u529F\u80FD\u884C\u70BA\uFF0C\u800C\u975E\u67D0\u9805\u54C1\u8CEA\u5C6C\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u72C0\u614B\u8F49\u79FB\u6E2C\u8A66\u4F7F\u7528\u6E90\u81EA\u898F\u683C\u7684\u884C\u70BA\u6A21\u578B\uFF0C\u628A\u5BE6\u4F5C\u8996\u70BA\u4E0D\u900F\u660E\u2014\u2014\u662F\u9ED1\u7BB1\u6280\u8853\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u58D3\u529B\u6E2C\u8A66",
+            "text": "<p><strong>\u58D3\u529B\u6E2C\u8A66\uFF08stress testing\uFF09</strong>\uFF08\u628A\u7CFB\u7D71\u63A8\u904E\u6B63\u5E38\u8CA0\u8F09\uFF0C\u89C0\u5BDF\u5B83\u5982\u4F55\u964D\u7D1A\u6216\u5931\u6548\uFF09\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u975E\u529F\u80FD\u6027\uFF08\u4E14\u52D5\u614B\uFF09\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u85C9\u7531\u57F7\u884C\u7CFB\u7D71\u4F86\u8A55\u4F30\u8CA0\u8F09\u4E0B\u7684\u884C\u70BA\uFF08\u54C1\u8CEA\u5C6C\u6027\uFF09\u3002"
+              },
+              {
+                "text": "\u529F\u80FD\u6027\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5B83\u6AA2\u67E5\u8CA0\u8F09\u4E0B\u7684\u54C1\u8CEA\u5C6C\u6027\uFF0C\u800C\u975E\u67D0\u9805\u529F\u80FD\u662F\u5426\u56DE\u50B3\u6B63\u78BA\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5B83\u5728\u8CA0\u8F09\u4E0B\u57F7\u884C\u7CFB\u7D71\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u800C\u975E\u975C\u614B\u3002"
+              },
+              {
+                "text": "\u767D\u7BB1\u8986\u84CB\u7387\u91CF\u6E2C",
+                "fraction": 0,
+                "feedback": "\u5B83\u91CF\u6E2C\u8CA0\u8F09\u4E0B\u7684\u884C\u70BA\uFF0C\u800C\u975E\u7A0B\u5F0F\u7D50\u69CB\u8986\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u58D3\u529B\uFF0F\u8CA0\u8F09\u6E2C\u8A66\u8A55\u4F30\u54C1\u8CEA\u5C6C\u6027\uFF08\u6975\u7AEF\u8CA0\u8F09\u4E0B\u7684\u884C\u70BA\uFF09\uFF0C\u56E0\u6B64\u5C6C\u65BC\u975E\u529F\u80FD\u6027\uFF1B\u7531\u65BC\u5B83\u57F7\u884C\u7CFB\u7D71\uFF0C\u4E5F\u662F\u52D5\u614B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6311\u51FA\u9A57\u8B49\u6D3B\u52D5",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u5C6C\u65BC<strong>\u9A57\u8B49</strong>\u6D3B\u52D5\uFF0C\u800C\u975E\u78BA\u8A8D\u6D3B\u52D5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C07\u67D0\u6A21\u7D44\u7684\u7A0B\u5F0F\u78BC\u5C0D\u7167\u5176\u8A73\u7D30\u8A2D\u8A08\u6587\u4EF6\u9032\u884C\u6AA2\u9A57",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6AA2\u67E5\u662F\u5426\u7B26\u5408\u8A2D\u8A08\u5373\u70BA\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u8B93\u7D42\u7AEF\u4F7F\u7528\u8005\u8A66\u7528\u7522\u54C1\u4EE5\u78BA\u8A8D\u5B83\u6EFF\u8DB3\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u78BA\u8A8D\u662F\u5426\u9069\u7528\u2014\u2014\u5C6C\u65BC\u78BA\u8A8D\u3002"
+              },
+              {
+                "text": "\u9032\u884C beta \u8A08\u756B\u4EE5\u8490\u96C6\u771F\u5BE6\u4E16\u754C\u7684\u56DE\u994B",
+                "fraction": 0,
+                "feedback": "beta \u8A08\u756B\u6AA2\u67E5\u771F\u5BE6\u4F7F\u7528\u8005\u9700\u6C42\u2014\u2014\u5C6C\u65BC\u78BA\u8A8D\u3002"
+              },
+              {
+                "text": "\u78BA\u8A8D\u5B8C\u6210\u7684\u7CFB\u7D71\u89E3\u6C7A\u4E86\u5BA2\u6236\u771F\u6B63\u7684\u554F\u984C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u662F\u5426\u9069\u7528\u2014\u2014\u5C6C\u65BC\u78BA\u8A8D\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C07\u6A21\u7D44\u5C0D\u7167\u5176\u8A2D\u8A08\u6587\u4EF6\u6AA2\u67E5\u5C6C\u65BC\u9A57\u8B49\uFF08\u7B26\u5408\u898F\u683C\uFF09\u3002\u5176\u4ED6\u9078\u9805\u90FD\u662F\u78BA\u8A8D\u7522\u54C1\u662F\u5426\u9069\u5408\u4F7F\u7528\u8005\u771F\u6B63\u7684\u9700\u6C42\u2014\u2014\u5C6C\u65BC\u78BA\u8A8D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u5B89\u5168\u6027\u6E2C\u8A66",
+            "text": "<p><strong>\u5B89\u5168\u6027\u6E2C\u8A66\uFF08security testing\uFF09</strong>\uFF08\u6AA2\u67E5\u5C0D\u672A\u6388\u6B0A\u5B58\u53D6\u7684\u62B5\u6297\u529B\uFF09\u4E3B\u8981\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u975E\u529F\u80FD\u6027\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B89\u5168\u6027\u662F\u54C1\u8CEA\u5C6C\u6027\uFF0C\u56E0\u6B64\u5B89\u5168\u6027\u6E2C\u8A66\u5C6C\u65BC\u975E\u529F\u80FD\u6027\u3002"
+              },
+              {
+                "text": "\u529F\u80FD\u6027\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5B89\u5168\u6027\u95DC\u4E4E\u54C1\u8CEA\u5C6C\u6027\uFF08\u62B5\u6297\u653B\u64CA\u505A\u5F97\u591A\u597D\uFF09\uFF0C\u800C\u975E\u67D0\u9805\u5217\u51FA\u529F\u80FD\u7684\u8F38\u51FA\u3002"
+              },
+              {
+                "text": "\u7D14\u7CB9\u7684\u975C\u614B\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u5B89\u5168\u6027\u6E2C\u8A66\u901A\u5E38\u6703\u57F7\u884C\u7CFB\u7D71\uFF08\u5982\u6EF2\u900F\u6E2C\u8A66\uFF09\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u3002"
+              },
+              {
+                "text": "\u53EA\u505A\u9A57\u8B49\u7684\u6D3B\u52D5",
+                "fraction": 0,
+                "feedback": "\u5B89\u5168\u6027\u6E2C\u8A66\u662F\u975E\u529F\u80FD\u6027\u6E2C\u8A66\u985E\u5225\uFF0C\u800C\u975E V&V \u968E\u6BB5\u6A19\u7C64\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B89\u5168\u6027\u662F\u54C1\u8CEA\u5C6C\u6027\uFF0C\u56E0\u6B64\u5B89\u5168\u6027\u6E2C\u8A66\u5C6C\u65BC\u975E\u529F\u80FD\u6027\u3002\u5B83\u901A\u5E38\u662F\u52D5\u614B\uFF0C\u4E26\u8996\u6240\u7528\u77E5\u8B58\u800C\u53EF\u80FD\u662F\u7070\u7BB1\u6216\u9ED1\u7BB1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6700\u6E05\u695A\u7684\u8EF8\uFF1A\u8D70\u67E5\u8207\u8CA0\u8F09\u6E2C\u8A66",
+            "text": "<p><strong>\u8D70\u67E5</strong>\u8207<strong>\u8CA0\u8F09\u6E2C\u8A66</strong>\u4E4B\u9593\u6700\u6E05\u695A\u7684\u5206\u985E\u5DEE\u7570\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u975C\u614B\u8207\u52D5\u614B\u2014\u2014\u8D70\u67E5\u4E0D\u57F7\u884C\u4EFB\u4F55\u6771\u897F\uFF0C\u8CA0\u8F09\u6E2C\u8A66\u6703\u57F7\u884C\u7CFB\u7D71",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C7A\u5B9A\u6027\u7684\u5C0D\u6BD4\u5728\u65BC\u662F\u5426\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u9ED1\u7BB1\u8207\u767D\u7BB1",
+                "fraction": 0,
+                "feedback": "\u8D70\u67E5\u5176\u5BE6\u4E0D\u592A\u653E\u5728\u9ED1\uFF0F\u767D\u7BB1\u8EF8\u4E0A\uFF1B\u6B64\u8655\u6C7A\u5B9A\u6027\u7684\u5C0D\u6BD4\u662F\u975C\u614B\u8207\u52D5\u614B\u3002"
+              },
+              {
+                "text": "\u9A57\u8B49\u8207\u78BA\u8A8D",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u53EF\u670D\u52D9\u65BC\u9A57\u8B49\uFF1B\u6E05\u695A\u7684\u5C0D\u6BD4\u662F\u4E00\u8005\u57F7\u884C\u3001\u4E00\u8005\u4E0D\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u624B\u52D5\u8207\u81EA\u52D5\u5316",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u53EF\u80FD\u662F\u624B\u52D5\u6216\u81EA\u52D5\u5316\uFF1B\u6C7A\u5B9A\u6027\u7684\u5DEE\u7570\u5728\u65BC\u662F\u5426\u57F7\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u8D70\u67E5\u662F\u975C\u614B\uFF08\u4E0D\u57F7\u884C\u4EFB\u4F55\u6771\u897F\uFF09\uFF0C\u8CA0\u8F09\u6E2C\u8A66\u662F\u52D5\u614B\uFF08\u7CFB\u7D71\u5728\u8CA0\u8F09\u4E0B\u57F7\u884C\uFF09\uFF1B\u975C\u614B\u8207\u52D5\u614B\u9019\u689D\u8EF8\u662F\u6C7A\u5B9A\u6027\u7684\u5C0D\u6BD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\uFF1A\u57FA\u672C\u8DEF\u5F91\u6E2C\u8A66",
+            "text": "<p><strong>\u57FA\u672C\u8DEF\u5F91\u6E2C\u8A66\uFF08basis-path testing\uFF09</strong>\uFF08\u5F9E\u7A0B\u5F0F\u78BC\u7684\u7DDA\u6027\u7368\u7ACB\u8DEF\u5F91\u5C0E\u51FA\u6E2C\u8A66\uFF09\u662F\u4E00\u7A2E\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u767D\u7BB1\uFF08\u7D50\u69CB\u5C0E\u5411\uFF09\u6280\u8853",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u57FA\u672C\u8DEF\u5F91\u6E2C\u8A66\u6E90\u81EA\u7A0B\u5F0F\u78BC\u7684\u63A7\u5236\u6D41\u7A0B\u5716\u3002"
+              },
+              {
+                "text": "\u9ED1\u7BB1\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u5B83\u4F7F\u7528\u7A0B\u5F0F\u78BC\u7684\u8DEF\u5F91\uFF0C\u56E0\u6B64\u662F\u7D50\u69CB\u5C0E\u5411\u800C\u975E\u898F\u683C\u5C0E\u5411\u3002"
+              },
+              {
+                "text": "\u975E\u529F\u80FD\u6027\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u5B83\u9396\u5B9A\u8DEF\u5F91\u7684\u7D50\u69CB\u6027\u8986\u84CB\uFF0C\u800C\u975E\u54C1\u8CEA\u5C6C\u6027\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u5B83\u7684\u6E2C\u8A66\u6703\u88AB\u57F7\u884C\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u800C\u975E\u975C\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u57FA\u672C\u8DEF\u5F91\u6E2C\u8A66\u6E90\u81EA\u7A0B\u5F0F\u78BC\u7684\u63A7\u5236\u6D41\u7A0B\u5716\uFF08\u7368\u7ACB\u8DEF\u5F91\uFF09\uFF0C\u56E0\u6B64\u662F\u767D\u7BB1\uFF0F\u7D50\u69CB\u5C0E\u5411\uFF0C\u4E14\u70BA\u52D5\u614B\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u591A\u8EF8\u5206\u985E\uFF1A\u8CA0\u8F09\u6E2C\u8A66",
+            "text": "<p><strong>\u8CA0\u8F09\u6E2C\u8A66\uFF08load testing\uFF09</strong>\u6703\u57F7\u884C\u904B\u4F5C\u4E2D\u7684\u7CFB\u7D71\u3001\u5B8C\u5168\u900F\u904E\u5C0D\u5916\u4ECB\u9762\u9A45\u52D5\u800C\u4E0D\u5177\u7A0B\u5F0F\u78BC\u77E5\u8B58\uFF0C\u4E26\u91CF\u6E2C\u9AD8\u6D41\u91CF\u4E0B\u7684\u56DE\u61C9\u6642\u9593\u3002\u5C31\u4E09\u689D\u8EF8\u800C\u8A00\uFF0C\u5B83\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u52D5\u614B\u3001\u9ED1\u7BB1\u4E14\u975E\u529F\u80FD\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u6703\u57F7\u884C\uFF08\u52D5\u614B\uFF09\u3001\u4E0D\u4F7F\u7528\u7A0B\u5F0F\u78BC\u77E5\u8B58\uFF08\u9ED1\u7BB1\uFF09\uFF0C\u4E26\u91CF\u6E2C\u54C1\u8CEA\u5C6C\u6027\uFF08\u975E\u529F\u80FD\u6027\uFF09\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u3001\u767D\u7BB1\u4E14\u529F\u80FD\u6027",
+                "fraction": 0,
+                "feedback": "\u5B83\u6703\u57F7\u884C\u7CFB\u7D71\u4E14\u4E0D\u4F7F\u7528\u7A0B\u5F0F\u78BC\u77E5\u8B58\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u4E14\u9ED1\u7BB1\uFF0C\u4E26\u9396\u5B9A\u6548\u80FD\uFF08\u975E\u529F\u80FD\u6027\uFF09\u3002"
+              },
+              {
+                "text": "\u52D5\u614B\u3001\u767D\u7BB1\u4E14\u975E\u529F\u80FD\u6027",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E0D\u4F7F\u7528\u7A0B\u5F0F\u5167\u90E8\u7D50\u69CB\u7684\u77E5\u8B58\uFF0C\u56E0\u6B64\u662F\u9ED1\u7BB1\u800C\u975E\u767D\u7BB1\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u3001\u9ED1\u7BB1\u4E14\u529F\u80FD\u6027",
+                "fraction": 0,
+                "feedback": "\u5B83\u6703\u57F7\u884C\u7CFB\u7D71\uFF08\u52D5\u614B\uFF09\u4E26\u91CF\u6E2C\u6548\u80FD\uFF08\u975E\u529F\u80FD\u6027\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CA0\u8F09\u6E2C\u8A66\u6703\u57F7\u884C\u7CFB\u7D71\uFF08\u52D5\u614B\uFF09\u3001\u4E0D\u9700\u5167\u90E8\u7A0B\u5F0F\u78BC\u77E5\u8B58\uFF08\u9ED1\u7BB1\uFF09\uFF0C\u4E26\u9396\u5B9A\u6548\u80FD\u9019\u9805\u54C1\u8CEA\u5C6C\u6027\uFF08\u975E\u529F\u80FD\u6027\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u975C\u614B\u5206\u6790\u7B97\u662F\u52D5\u614B\u767D\u7BB1\u6E2C\u8A66\u55CE\uFF1F",
+            "text": "<p>\u56E0\u70BA\u975C\u614B\u5206\u6790\u6703\u6AA2\u8996\u539F\u59CB\u78BC\uFF0C\u6240\u4EE5\u5B83\u662F\u4E00\u7A2E<strong>\u52D5\u614B\u767D\u7BB1\u6E2C\u8A66</strong>\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u975C\u614B\u5206\u6790\u662F\u7D50\u69CB\u5C0E\u5411\uFF0C\u4F46\u300C\u4E0D\u300D\u57F7\u884C\u7A0B\u5F0F\uFF0C\u56E0\u6B64\u662F\u975C\u614B\u800C\u975E\u52D5\u614B\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u975C\u614B\u5206\u6790\u4F7F\u7528\u7A0B\u5F0F\u78BC\u7D50\u69CB\uFF0C\u4F46\u4E0D\u9032\u884C\u4EFB\u4F55\u57F7\u884C\uFF0C\u56E0\u6B64\u4E0D\u53EF\u80FD\u662F\u52D5\u614B\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u975C\u614B\u5206\u6790\u662F\u7D50\u69CB\u5C0E\u5411\u7684\uFF08\u5B83\u4F7F\u7528\u7A0B\u5F0F\u78BC\uFF09\u4F46\u5C6C\u975C\u614B\uFF08\u4E0D\u57F7\u884C\uFF09\u3002\u300C\u767D\u7BB1\u300D\u6307\u7684\u662F\u5C0D\u7D50\u69CB\u7684\u77E5\u8B58\uFF0C\u800C\u975E\u57F7\u884C\u2014\u2014\u56E0\u6B64\u300C\u4F7F\u7528\u7A0B\u5F0F\u78BC\u300D\u4E26\u4E0D\u4EE3\u8868\u5B83\u662F\u52D5\u614B\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u7070\u7BB1\u4E0D\u662F\u9ED1\u7BB1\u52A0\u767D\u7BB1",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u6700\u80FD\u8AAA\u660E\u70BA\u4F55<strong>\u7070\u7BB1</strong>\u6E2C\u8A66\u4E26\u975E\u55AE\u7D14\u7684\u300C\u9ED1\u7BB1\u52A0\u767D\u7BB1\u300D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u904B\u7528\u90E8\u5206\u5167\u90E8\u77E5\u8B58\u4F86\u8A2D\u8A08\u66F4\u597D\u7684\u3001\u5F9E\u5916\u90E8\u9A45\u52D5\u7684\u6E2C\u8A66\uFF0C\u800C\u975E\u57F7\u884C\u9ED1\u7BB1\u8207\u767D\u7BB1\u5169\u8005\u7684\u5B8C\u6574\u6E2C\u8A66\u96C6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7070\u7BB1\u628A\u6709\u9650\u7684\u5167\u90E8\u6D1E\u898B\u8207\u5916\u90E8\u6E2C\u8A66\u7D50\u5408\uFF1B\u5B83\u4E0D\u662F\u5169\u8005\u5B8C\u6574\u6E2C\u8A66\u96C6\u7684\u806F\u96C6\u3002"
+              },
+              {
+                "text": "\u5B83\u57F7\u884C\u6240\u6709\u53EF\u80FD\u7684\u9ED1\u7BB1\u6E2C\u8A66\u4EE5\u53CA\u6240\u6709\u53EF\u80FD\u7684\u767D\u7BB1\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u7070\u7BB1\u53EA\u904B\u7528\u90E8\u5206\u5167\u90E8\u77E5\u8B58\uFF1B\u5B83\u4E0D\u6703\u8DD1\u5B8C\u6574\u7684\u767D\u7BB1\u6E2C\u8A66\u96C6\u3002"
+              },
+              {
+                "text": "\u5B83\u8207\u767D\u7BB1\u6E2C\u8A66\u5B8C\u5168\u76F8\u540C\uFF0C\u53EA\u662F\u63DB\u500B\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u7070\u7BB1\u53EA\u904B\u7528\u90E8\u5206\u5167\u90E8\u77E5\u8B58\u4E26\u5F9E\u5916\u90E8\u9A45\u52D5\u6E2C\u8A66\uFF0C\u8207\u5B8C\u6574\u767D\u7BB1\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "\u5B83\u5C0D\u898F\u683C\u8207\u7A0B\u5F0F\u78BC\u7686\u7121\u9700\u4EFB\u4F55\u77E5\u8B58",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u662F\u5169\u8005\u7686\u975E\uFF1B\u7070\u7BB1\u7279\u6307\u904B\u7528\u90E8\u5206\u5167\u90E8\u77E5\u8B58\u3002"
+              }
+            ],
+            "generalFeedback": "\u7070\u7BB1\u7D50\u5408\u4E86\u77E5\u8B58\u4F86\u6E90\u2014\u2014\u4EE5\u6709\u9650\u7684\u5167\u90E8\u6D1E\u898B\uFF08\u67B6\u69CB\u3001\u7D50\u69CB\u3001\u95DC\u9375\u6F14\u7B97\u6CD5\uFF09\u4F86\u9396\u5B9A\u5916\u90E8\u6E2C\u8A66\u3002\u5B83\u4E26\u975E\u9ED1\u7BB1\u8207\u767D\u7BB1\u5B8C\u6574\u6E2C\u8A66\u96C6\u7684\u806F\u96C6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C31\u5169\u689D\u8EF8\u5206\u985E MC/DC",
+            "text": "<p><strong>MC/DC</strong>\uFF08\u4FEE\u6B63\u689D\u4EF6\uFF0F\u6C7A\u7B56\u8986\u84CB\u7387\uFF09\u6700\u9069\u5408\u6B78\u985E\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u767D\u7BB1\u4E14\u52D5\u614B\u2014\u2014\u4F9D\u7A0B\u5F0F\u78BC\u689D\u4EF6\u5B9A\u7FA9\uFF0C\u9808\u85C9\u7531\u57F7\u884C\u6E2C\u8A66\u4F86\u91CF\u6E2C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u662F\u7D50\u69CB\u6027\u6E96\u5247\uFF0C\u4F46\u53EA\u6709\u900F\u904E\u57F7\u884C\u6E2C\u8A66\u624D\u80FD\u89C0\u5BDF\u5176\u662F\u5426\u6EFF\u8DB3\u3002"
+              },
+              {
+                "text": "\u767D\u7BB1\u4E14\u975C\u614B\u2014\u2014\u4E0D\u57F7\u884C\u7A0B\u5F0F\u5373\u53EF\u8A08\u7B97\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "MC/DC \u662F\u7D50\u69CB\u6027\u7684\uFF0C\u4F46\u8986\u84CB\u7387\u53EA\u6709\u900F\u904E\u57F7\u884C\u6E2C\u8A66\u624D\u80FD\u89C0\u5BDF\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u3002"
+              },
+              {
+                "text": "\u9ED1\u7BB1\u4E14\u52D5\u614B",
+                "fraction": 0,
+                "feedback": "MC/DC \u4F9D\u7A0B\u5F0F\u78BC\u7684\u689D\u4EF6\u5B9A\u7FA9\uFF0C\u56E0\u6B64\u662F\u767D\u7BB1\u800C\u975E\u9ED1\u7BB1\u3002"
+              },
+              {
+                "text": "\u9ED1\u7BB1\u4E14\u975C\u614B",
+                "fraction": 0,
+                "feedback": "\u5B83\u4F9D\u7A0B\u5F0F\u78BC\u689D\u4EF6\u5B9A\u7FA9\uFF08\u767D\u7BB1\uFF09\u4E14\u9700\u8981\u57F7\u884C\uFF08\u52D5\u614B\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "MC/DC \u662F\u7D50\u69CB\u6027\uFF08\u767D\u7BB1\uFF09\u6E96\u5247\uFF0C\u4F46\u8986\u84CB\u7387\u53EA\u6709\u900F\u904E\u57F7\u884C\u6E2C\u8A66\u624D\u80FD\u89C0\u5BDF\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\u3002\u7D50\u69CB\u6027\u8986\u84CB\u7387\u6E96\u5247\u4E26\u975E\u975C\u614B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C0D\u7167\u8A2D\u8A08\u898F\u683C\u7684\u55AE\u5143\u6E2C\u8A66",
+            "text": "<p>\u57F7\u884C\u7531\u67D0\u6A21\u7D44\u8A73\u7D30<strong>\u8A2D\u8A08\u898F\u683C</strong>\u5C0E\u51FA\u7684\u55AE\u5143\u6E2C\u8A66\uFF0C\u4EE5\u78BA\u8A8D\u8A72\u6A21\u7D44\u7B26\u5408\u6B64\u8A2D\u8A08\uFF0C\u4E3B\u8981\u5C6C\u65BC\u4E0B\u5217\u4F55\u7A2E\u884C\u70BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9A57\u8B49\u2014\u2014\u7B26\u5408\u898F\u683C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u78BA\u8A8D\u7B26\u5408\u8A2D\u8A08\u898F\u683C\u5373\u70BA\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u78BA\u8A8D\u2014\u2014\u662F\u5426\u9069\u5408\u7D42\u7AEF\u4F7F\u7528\u8005\u771F\u6B63\u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u78BA\u8A8D\u6AA2\u67E5\u771F\u5BE6\u4F7F\u7528\u8005\u9700\u6C42\uFF1B\u6B64\u8655\u662F\u6AA2\u67E5\u7B26\u5408\u8A2D\u8A08\u2014\u2014\u5C6C\u65BC\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u975E\u529F\u80FD\u6027\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5B83\u6AA2\u67E5\u5C0D\u8A2D\u8A08\u7684\u529F\u80FD\u6027\u7B26\u5408\u5EA6\uFF0C\u800C\u975E\u54C1\u8CEA\u5C6C\u6027\u3002"
+              },
+              {
+                "text": "\u975C\u614B\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u9019\u4E9B\u6E2C\u8A66\u6703\u88AB\u57F7\u884C\uFF0C\u56E0\u6B64\u662F\u52D5\u614B\uFF0C\u800C\u5176 V&V \u89D2\u8272\u662F\u9A57\u8B49\u3002"
+              }
+            ],
+            "generalFeedback": "\u78BA\u8A8D\u7B26\u5408\u8A2D\u8A08\u898F\u683C\u5373\u70BA\u9A57\u8B49\u3002\u6B64\u8655\u7684\u55AE\u5143\u6E2C\u8A66\u662F\u52D5\u614B\u7684\uFF08\u4E5F\u53EF\u80FD\u662F\u767D\u7BB1\uFF09\uFF0C\u4F46\u5728 V&V \u8EF8\u4E0A\u5176\u89D2\u8272\u662F\u9A57\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B26\u5408\u898F\u683C\u4F46\u4E0D\u5408\u4F7F\u7528\u8005\u6240\u9700",
+            "text": "<p>\u67D0\u7CFB\u7D71\u5B8C\u5168\u7B26\u5408\u5176\u66F8\u9762\u9700\u6C42\uFF0C\u4F46\u90A3\u4E9B\u9700\u6C42\u8AA4\u89E3\u4E86\u4F7F\u7528\u8005\u5BE6\u969B\u7684\u9700\u8981\u3002\u54EA\u4E00\u9805\u6D3B\u52D5\u7684\u8A2D\u8A08\u76EE\u7684\u6B63\u662F\u8981\u6293\u51FA\u9019\u500B\u554F\u984C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u78BA\u8A8D\u2014\u2014\u5B83\u6AA2\u67E5\u662F\u5426\u9069\u5408\u771F\u5BE6\u4F7F\u7528\u8005\u9700\u6C42\uFF0C\u8207\u66F8\u9762\u898F\u683C\u7121\u95DC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5373\u4F7F\u7B26\u5408\u898F\u683C\uFF0C\u78BA\u8A8D\u4ECD\u80FD\u6293\u51FA\u300C\u505A\u932F\u7522\u54C1\u300D\u3002"
+              },
+              {
+                "text": "\u9A57\u8B49\u2014\u2014\u5B83\u6AA2\u67E5\u662F\u5426\u7B26\u5408\u66F8\u9762\u898F\u683C",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u9A57\u8B49\u6703\u901A\u904E\uFF0C\u56E0\u70BA\u7522\u54C1\u7B26\u5408\uFF08\u6709\u7455\u75B5\u7684\uFF09\u898F\u683C\u3002"
+              },
+              {
+                "text": "\u6558\u8FF0\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u91CF\u6E2C\u54EA\u4E9B\u7A0B\u5F0F\u78BC\u88AB\u57F7\u884C\uFF0C\u800C\u975E\u9700\u6C42\u662F\u5426\u6B63\u78BA\u3002"
+              },
+              {
+                "text": "\u5C0D\u539F\u59CB\u78BC\u7684\u975C\u614B\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u975C\u614B\u5206\u6790\u6AA2\u8996\u7A0B\u5F0F\u78BC\u54C1\u8CEA\uFF0C\u800C\u975E\u9700\u6C42\u662F\u5426\u6EFF\u8DB3\u4F7F\u7528\u8005\u9700\u8981\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u8655\u9A57\u8B49\u6703\u901A\u904E\uFF08\u7522\u54C1\u7B26\u5408\u898F\u683C\uFF09\uFF0C\u4F46\u898F\u683C\u672C\u8EAB\u932F\u4E86\u3002\u53EA\u6709\u4F9D\u771F\u5BE6\u4F7F\u7528\u8005\u9700\u6C42\u6AA2\u67E5\u7684\u78BA\u8A8D\uFF0C\u624D\u80FD\u6293\u51FA\u300C\u505A\u932F\u7522\u54C1\u300D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 BVA \u5C6C\u65BC\u9ED1\u7BB1\u65CF\u7FA4",
+            "text": "<p><strong>\u908A\u754C\u503C\u5206\u6790</strong>\u88AB\u6B78\u5165\u9ED1\u7BB1\u65CF\u7FA4\uFF0C\u662F\u56E0\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u7684\u6848\u4F8B\u6E90\u81EA\u898F\u683C\u4E2D\u8F38\u5165\u5206\u5272\u7684\u908A\u754C\uFF0C\u4E0D\u9700\u7A0B\u5F0F\u78BC\u7684\u77E5\u8B58",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u4F9D\u64DA\u662F\u898F\u5B9A\u7684\u8F38\u5165\u5B9A\u7FA9\u57DF\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u5B83\u91CF\u6E2C\u7A0B\u5F0F\u78BC\u7684\u54EA\u4E9B\u5206\u652F\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u5206\u652F\u8986\u84CB\u7387\uFF08\u767D\u7BB1\u6280\u8853\uFF09\uFF0C\u800C\u975E BVA\u3002"
+              },
+              {
+                "text": "\u5B83\u5F9E\u4E0D\u57F7\u884C\u53D7\u6E2C\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "BVA \u7684\u6848\u4F8B\u6703\u88AB\u57F7\u884C\uFF1B\u5B83\u5C6C\u65BC\u9ED1\u7BB1\u7684\u539F\u56E0\u662F\u898F\u683C\u5C0E\u5411\u7684\u6E2C\u8A66\u4F9D\u64DA\uFF0C\u800C\u975E\u4E0D\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u5B83\u53EA\u8A55\u4F30\u975E\u529F\u80FD\u6027\u54C1\u8CEA\u5C6C\u6027",
+                "fraction": 0,
+                "feedback": "BVA \u9396\u5B9A\u8F38\u5165\u908A\u754C\u7684\u529F\u80FD\u884C\u70BA\uFF0C\u800C\u975E\u54C1\u8CEA\u5C6C\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "BVA \u5C6C\u65BC\u9ED1\u7BB1\u65CF\u7FA4\uFF0C\u662F\u56E0\u70BA\u5176\u6848\u4F8B\u6E90\u81EA\u898F\u5B9A\u8F38\u5165\u5B9A\u7FA9\u57DF\u7684\u908A\u754C\uFF0C\u4E0D\u9700\u7A0B\u5F0F\u78BC\u5167\u90E8\u7D50\u69CB\u7684\u77E5\u8B58\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u9AD8\u8986\u84CB\u7387\u80FD\u8B49\u660E\u505A\u4E86\u9ED1\u7BB1\u6E2C\u8A66\u55CE\uFF1F",
+            "text": "<p>\u56DE\u5831<strong>90% \u5206\u652F\u8986\u84CB\u7387</strong>\u5373\u8B49\u660E\u5DF2\u9032\u884C\u4E86\u5FB9\u5E95\u7684\u9ED1\u7BB1\u6E2C\u8A66\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5206\u652F\u8986\u84CB\u7387\u662F\u767D\u7BB1\uFF08\u7D50\u69CB\u6027\uFF09\u6307\u6A19\uFF0C\u5C0D\u898F\u683C\u5C0E\u5411\u7684\u9ED1\u7BB1\u6E2C\u8A66\u6BEB\u7121\u8AAA\u660E\u529B\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u662F\u7D50\u69CB\u6027\u6307\u6A19\uFF1B\u9AD8\u6578\u503C\u4E26\u4E0D\u4EE3\u8868\u898F\u683C\u5DF2\u88AB\u6E2C\u8A66\uFF08\u9ED1\u7BB1\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u8986\u84CB\u7387\u6307\u6A19\u662F\u767D\u7BB1\uFF0F\u7D50\u69CB\u6027\u7684\u3002\u9AD8\u8986\u84CB\u7387\u4E26\u4E0D\u4EE3\u8868\u898F\u683C\u5DF2\u88AB\u6E2C\u8A66\uFF08\u9ED1\u7BB1\uFF09\uFF0C\u53CD\u4E4B\u4EA6\u7136\uFF1B\u9ED1\uFF0F\u767D\u7BB1\u8207\u8986\u84CB\u7387\u7684\u6982\u5FF5\u4E92\u76F8\u7368\u7ACB\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F55\u8005\u540C\u6642\u662F\u767D\u7BB1\u4E14\u975C\u614B",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u540C\u6642\u662F<strong>\u767D\u7BB1\uFF08\u7D50\u69CB\u5C0E\u5411\uFF09</strong>\u4E14<strong>\u975C\u614B\uFF08\u4E0D\u57F7\u884C\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u539F\u59CB\u78BC\u9032\u884C\u8CC7\u6599\u6D41\u975C\u614B\u5206\u6790",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u4F7F\u7528\u7A0B\u5F0F\u78BC\u7D50\u69CB\uFF08\u767D\u7BB1\uFF09\u4F46\u5F9E\u4E0D\u57F7\u884C\u5B83\uFF08\u975C\u614B\uFF09\u3002"
+              },
+              {
+                "text": "\u5206\u652F\u8986\u84CB\u7387\u91CF\u6E2C",
+                "fraction": 0,
+                "feedback": "\u5206\u652F\u8986\u84CB\u7387\u662F\u767D\u7BB1\u4F46\u52D5\u614B\u2014\u2014\u5B83\u9700\u8981\u57F7\u884C\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u908A\u754C\u503C\u5206\u6790",
+                "fraction": 0,
+                "feedback": "BVA \u662F\u9ED1\u7BB1\uFF08\u898F\u683C\u5C0E\u5411\uFF09\u4E14\u52D5\u614B\u3002"
+              },
+              {
+                "text": "\u8CA0\u8F09\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u8CA0\u8F09\u6E2C\u8A66\u662F\u9ED1\u7BB1\u4E14\u52D5\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CC7\u6599\u6D41\u975C\u614B\u5206\u6790\u6AA2\u8996\u7A0B\u5F0F\u78BC\u7D50\u69CB\uFF08\u767D\u7BB1\uFF09\u800C\u4E0D\u57F7\u884C\u5B83\uFF08\u975C\u614B\uFF09\u3002\u5206\u652F\u8986\u84CB\u7387\u662F\u767D\u7BB1\u4F46\u52D5\u614B\uFF1BBVA \u662F\u9ED1\u7BB1\uFF1B\u8CA0\u8F09\u6E2C\u8A66\u662F\u9ED1\u7BB1\u4E14\u52D5\u614B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u591A\u8EF8\uFF1A\u767D\u7BB1\u3001\u52D5\u614B\u3001\u529F\u80FD\u6027",
+            "text": "<p>\u958B\u767C\u8005<em>\u4F9D\u7A0B\u5F0F\u78BC</em>\u64B0\u5BEB\u55AE\u5143\u6E2C\u8A66\u3001\u57F7\u884C\u5B83\u5011\uFF0C\u4E26\u65B7\u8A00\u6BCF\u500B\u51FD\u5F0F\u56DE\u50B3\u6B63\u78BA\u7D50\u679C\u3002\u6487\u958B\u4EFB\u4F55\u8986\u84CB\u7387\u91CF\u6E2C\u4E0D\u8AC7\uFF0C\u5C31\u4E09\u689D\u8EF8\u800C\u8A00\u9019\u4E9B\u6E2C\u8A66\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u767D\u7BB1\u3001\u52D5\u614B\u4E14\u529F\u80FD\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E90\u81EA\u7A0B\u5F0F\u78BC\uFF08\u767D\u7BB1\uFF09\u3001\u88AB\u57F7\u884C\uFF08\u52D5\u614B\uFF09\uFF0C\u4E26\u6AA2\u67E5\u8F38\u51FA\u6B63\u78BA\uFF08\u529F\u80FD\u6027\uFF09\u3002"
+              },
+              {
+                "text": "\u9ED1\u7BB1\u3001\u975C\u614B\u4E14\u975E\u529F\u80FD\u6027",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u6E90\u81EA\u7A0B\u5F0F\u78BC\uFF08\u767D\u7BB1\uFF09\u3001\u88AB\u57F7\u884C\uFF08\u52D5\u614B\uFF09\uFF0C\u4E26\u6AA2\u67E5\u7D50\u679C\u6B63\u78BA\uFF08\u529F\u80FD\u6027\uFF09\u3002"
+              },
+              {
+                "text": "\u767D\u7BB1\u3001\u975C\u614B\u4E14\u975E\u529F\u80FD\u6027",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u9019\u4E9B\u6E2C\u8A66\u4F7F\u5176\u70BA\u52D5\u614B\uFF0C\u6AA2\u67E5\u7D50\u679C\u6B63\u78BA\u4F7F\u5176\u70BA\u529F\u80FD\u6027\u3002"
+              },
+              {
+                "text": "\u9ED1\u7BB1\u3001\u52D5\u614B\u4E14\u529F\u80FD\u6027",
+                "fraction": 0,
+                "feedback": "\u56E0\u70BA\u5B83\u5011\u4F9D\u7A0B\u5F0F\u78BC\u64B0\u5BEB\uFF0C\u6240\u4EE5\u662F\u767D\u7BB1\u800C\u975E\u9ED1\u7BB1\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F9D\u7A0B\u5F0F\u78BC\u5C0E\u51FA\u7684\u6E2C\u8A66\u662F\u767D\u7BB1\uFF1B\u57F7\u884C\u5B83\u5011\u662F\u52D5\u614B\uFF1B\u65B7\u8A00\u6BCF\u500B\u51FD\u5F0F\u56DE\u50B3\u6B63\u78BA\u7D50\u679C\u662F\u529F\u80FD\u6027\u3002\u8A2D\u8A08\u4F9D\u64DA\u3001\u57F7\u884C\u3001\u529F\u80FD\uFF0F\u975E\u529F\u80FD\u662F\u4E09\u689D\u7368\u7ACB\u7684\u8EF8\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u591A\u8EF8\uFF1A\u6EF2\u900F\u6E2C\u8A66",
+            "text": "<p>\u67D0\u6EF2\u900F\u6E2C\u8A66\u8005\u62FF\u5230\u90E8\u5206\u67B6\u69CB\u5716\u8207\u90E8\u5206 API \u5167\u90E8\u7D30\u7BC0\uFF0C\u63A5\u8457\u653B\u64CA\u904B\u4F5C\u4E2D\u7684\u7CFB\u7D71\u4EE5\u627E\u51FA\u5B89\u5168\u6F0F\u6D1E\u3002\u9019\u6700\u9069\u5408\u63CF\u8FF0\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7070\u7BB1\u3001\u52D5\u614B\u4E14\u975E\u529F\u80FD\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u90E8\u5206\u5167\u90E8\u77E5\u8B58\uFF08\u7070\u7BB1\uFF09\u3001\u653B\u64CA\u904B\u4F5C\u4E2D\u7684\u7CFB\u7D71\uFF08\u52D5\u614B\uFF09\u3001\u9396\u5B9A\u5B89\u5168\u6027\uFF08\u975E\u529F\u80FD\u6027\uFF09\u3002"
+              },
+              {
+                "text": "\u9ED1\u7BB1\u3001\u975C\u614B\u4E14\u529F\u80FD\u6027",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u8005\u5177\u90E8\u5206\u5167\u90E8\u77E5\u8B58\uFF08\u7070\u7BB1\uFF09\u4E14\u6703\u57F7\u884C\u7CFB\u7D71\uFF08\u52D5\u614B\uFF09\uFF0C\u4E26\u9396\u5B9A\u54C1\u8CEA\u5C6C\u6027\uFF08\u975E\u529F\u80FD\u6027\uFF09\u3002"
+              },
+              {
+                "text": "\u767D\u7BB1\u3001\u975C\u614B\u4E14\u529F\u80FD\u6027",
+                "fraction": 0,
+                "feedback": "\u53EA\u904B\u7528\u90E8\u5206\u77E5\u8B58\uFF08\u7070\u7BB1\uFF09\u3001\u7CFB\u7D71\u88AB\u57F7\u884C\uFF08\u52D5\u614B\uFF09\u3001\u76EE\u6A19\u662F\u5B89\u5168\u6027\uFF08\u975E\u529F\u80FD\u6027\uFF09\u3002"
+              },
+              {
+                "text": "\u7D14\u9ED1\u7BB1\u4E14\u529F\u80FD\u6027",
+                "fraction": 0,
+                "feedback": "\u904B\u7528\u90E8\u5206\u5167\u90E8\u7D30\u7BC0\u4F7F\u5176\u70BA\u7070\u7BB1\uFF0C\u800C\u5B89\u5168\u6027\u76EE\u6A19\u662F\u975E\u529F\u80FD\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u90E8\u5206\u5167\u90E8\u77E5\u8B58\u4F7F\u5176\u70BA\u7070\u7BB1\uFF1B\u653B\u64CA\u904B\u4F5C\u4E2D\u7684\u7CFB\u7D71\u4F7F\u5176\u70BA\u52D5\u614B\uFF1B\u9396\u5B9A\u5B89\u5168\u6027\uFF08\u54C1\u8CEA\u5C6C\u6027\uFF09\u4F7F\u5176\u70BA\u975E\u529F\u80FD\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u591A\u8EF8\uFF1A\u8A2D\u8A08\u6AA2\u9A57",
+            "text": "<p>\u5728 V&amp;V \u8EF8\u8207\u975C\u614B\uFF0F\u52D5\u614B\u8EF8\u4E0A\uFF0C\u5C0D<strong>\u8A2D\u8A08\u6587\u4EF6</strong>\u9032\u884C\u6B63\u5F0F\u6AA2\u9A57\uFF08inspection\uFF09\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9A57\u8B49\u4E14\u975C\u614B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u6AA2\u67E5\u662F\u5426\u7B26\u5408\u898F\u683C\uFF0F\u6A19\u6E96\uFF08\u9A57\u8B49\uFF09\u4E14\u4E0D\u57F7\u884C\u4EFB\u4F55\u6771\u897F\uFF08\u975C\u614B\uFF09\u3002"
+              },
+              {
+                "text": "\u78BA\u8A8D\u4E14\u52D5\u614B",
+                "fraction": 0,
+                "feedback": "\u6AA2\u9A57\u4E0D\u57F7\u884C\u4EFB\u4F55\u6771\u897F\uFF08\u975C\u614B\uFF09\uFF0C\u4E26\u6AA2\u67E5\u662F\u5426\u7B26\u5408\u898F\u683C\uFF08\u9A57\u8B49\uFF09\u3002"
+              },
+              {
+                "text": "\u9A57\u8B49\u4E14\u52D5\u614B",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u9A57\u8B49\uFF0C\u4F46\u6C92\u6709\u57F7\u884C\u4EFB\u4F55\u6771\u897F\uFF0C\u56E0\u6B64\u662F\u975C\u614B\u800C\u975E\u52D5\u614B\u3002"
+              },
+              {
+                "text": "\u78BA\u8A8D\u4E14\u975C\u614B",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u975C\u614B\uFF0C\u4F46\u6AA2\u67E5\u662F\u5426\u7B26\u5408\u898F\u683C\uFF0C\u56E0\u6B64\u662F\u9A57\u8B49\u800C\u975E\u78BA\u8A8D\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A2D\u8A08\u6AA2\u9A57\u6AA2\u67E5\u662F\u5426\u7B26\u5408\u898F\u683C\u8207\u6A19\u6E96\uFF08\u9A57\u8B49\uFF09\u4E14\u4E0D\u57F7\u884C\u4EFB\u4F55\u6771\u897F\uFF08\u975C\u614B\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u56DE\u6B78\u6E2C\u8A66\u4F9D\u5B9A\u7FA9\u662F\u767D\u7BB1\u55CE\uFF1F",
+            "text": "<p>\u56DE\u6B78\u6E2C\u8A66\uFF08regression testing\uFF09\u4F9D\u5B9A\u7FA9\u662F\u4E00\u7A2E<strong>\u767D\u7BB1</strong>\u6280\u8853\u3002</p>",
+            "answers": [
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u56DE\u6B78\u6E2C\u8A66\u7531\u5176\u76EE\u7684\uFF08\u8B8A\u66F4\u5F8C\u91CD\u65B0\u6E2C\u8A66\uFF09\u5B9A\u7FA9\uFF0C\u53EF\u4EE5\u662F\u9ED1\u7BB1\u6216\u767D\u7BB1\u3001\u624B\u52D5\u6216\u81EA\u52D5\u5316\u3002"
+              },
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u56DE\u6B78\u95DC\u4E4E\u4F55\u6642\u8207\u70BA\u4F55\u6E2C\u8A66\uFF0C\u800C\u975E\u77E5\u8B58\u4F9D\u64DA\uFF1B\u5B83\u53EF\u4EE5\u662F\u9ED1\u7BB1\u6216\u767D\u7BB1\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DE\u6B78\u6E2C\u8A66\u4F9D\u5176\u76EE\u7684\u5206\u985E\u2014\u2014\u78BA\u8A8D\u8B8A\u66F4\u672A\u7834\u58DE\u65E2\u6709\u884C\u70BA\u2014\u2014\u9019\u689D\u8EF8\u8207\u9ED1\u7BB1\uFF0F\u767D\u7BB1\u6B63\u4EA4\u3002\u56DE\u6B78\u6E2C\u8A66\u7D44\u53EF\u4EE5\u662F\u4EFB\u4E00\u7A2E\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9A57\u8B49\uFF0F\u78BA\u8A8D\u8207\u975C\u614B\uFF0F\u52D5\u614B",
+            "text": "<p>\u95DC\u65BC<strong>\u9A57\u8B49\u8207\u78BA\u8A8D</strong>\uFF0C\u4E0B\u5217\u54EA\u4E00\u9805\u6558\u8FF0\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9A57\u8B49\u53EF\u4EE5\u662F\u975C\u614B\uFF08\u5982\u5BE9\u67E5\uFF09\u6216\u52D5\u614B\uFF08\u5982\u5C0D\u7167\u898F\u683C\u7684\u55AE\u5143\u6E2C\u8A66\uFF09\uFF0C\u800C\u78BA\u8A8D\u901A\u5E38\u662F\u52D5\u614B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u8B49\u6A6B\u8DE8\u975C\u614B\u8207\u52D5\u614B\u65B9\u6CD5\uFF1B\u78BA\u8A8D\u901A\u5E38\u662F\u52D5\u614B\u3002"
+              },
+              {
+                "text": "\u9A57\u8B49\u4E00\u5B9A\u662F\u975C\u614B\uFF0C\u78BA\u8A8D\u4E00\u5B9A\u662F\u52D5\u614B",
+                "fraction": 0,
+                "feedback": "\u9A57\u8B49\u4E5F\u5305\u542B\u52D5\u614B\u65B9\u6CD5\uFF0C\u4F8B\u5982\u6AA2\u67E5\u662F\u5426\u7B26\u5408\u898F\u683C\u7684\u55AE\u5143\uFF0F\u6574\u5408\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u9A57\u8B49\u8207\u78BA\u8A8D\u662F\u540C\u4E00\u6D3B\u52D5\u7684\u5169\u500B\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u4E0D\u540C\uFF1A\u7B26\u5408\u898F\u683C \u76F8\u5C0D\u65BC \u9069\u5408\u4F7F\u7528\u8005\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u78BA\u8A8D\u4E00\u5B9A\u8981\u5728\u4EFB\u4F55\u9A57\u8B49\u4E4B\u524D\u5B8C\u6210",
+                "fraction": 0,
+                "feedback": "\u4E26\u7121\u6B64\u56B4\u683C\u9806\u5E8F\uFF1B\u9A57\u8B49\u5728\u6574\u500B\u958B\u767C\u904E\u7A0B\u4E2D\u90FD\u6703\u9032\u884C\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u8B49\u6A6B\u8DE8\u975C\u614B\uFF08\u5BE9\u67E5\u3001\u6AA2\u9A57\uFF09\u8207\u52D5\u614B\uFF08\u5C0D\u7167\u898F\u683C\u7684\u55AE\u5143\uFF0F\u6574\u5408\u6E2C\u8A66\uFF09\u65B9\u6CD5\uFF1B\u78BA\u8A8D\u2014\u2014\u78BA\u8A8D\u771F\u5BE6\u4E16\u754C\u7684\u9069\u7528\u6027\u2014\u2014\u901A\u5E38\u662F\u52D5\u614B\u3002\u5169\u8005\u662F\u4E0D\u540C\u7684\u6D3B\u52D5\uFF0C\u4E5F\u4E26\u975E\u786C\u6027\u898F\u5B9A\u78BA\u8A8D\u5728\u5148\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B49\u50F9\u5206\u5272\uFF1A\u8A2D\u8A08\u8207\u57F7\u884C\u7684\u5169\u689D\u8EF8",
+            "text": "<p>\u6E2C\u8A66\u8005\u4EE5<strong>\u7B49\u50F9\u5206\u5272</strong>\uFF08\u4F9D\u898F\u683C\uFF09\u8A2D\u8A08\u6848\u4F8B\uFF0C\u7136\u5F8C\u5C0D\u7A0B\u5F0F\u57F7\u884C\u5B83\u5011\u3002\u5728\u77E5\u8B58\u8EF8\u8207\u975C\u614B\uFF0F\u52D5\u614B\u8EF8\u4E0A\u5206\u5225\u800C\u8A00\uFF0C\u9019\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u9ED1\u7BB1\u4E14\u52D5\u614B\u2014\u2014\u8A2D\u8A08\u662F\u898F\u683C\u5C0E\u5411\uFF0C\u4F46\u57F7\u884C\u6848\u4F8B\u6703\u904B\u884C\u7A0B\u5F0F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A2D\u8A08\u6280\u8853\u662F\u9ED1\u7BB1\uFF1B\u57F7\u884C\u6848\u4F8B\u662F\u52D5\u614B\u3002"
+              },
+              {
+                "text": "\u767D\u7BB1\u4E14\u975C\u614B",
+                "fraction": 0,
+                "feedback": "\u8A2D\u8A08\u4F7F\u7528\u898F\u683C\uFF08\u9ED1\u7BB1\uFF09\uFF0C\u800C\u57F7\u884C\u6848\u4F8B\u4F7F\u5176\u70BA\u52D5\u614B\u3002"
+              },
+              {
+                "text": "\u9ED1\u7BB1\u4E14\u975C\u614B",
+                "fraction": 0,
+                "feedback": "\u6848\u4F8B\u6703\u5C0D\u7A0B\u5F0F\u57F7\u884C\uFF0C\u56E0\u6B64\u8A72\u6D3B\u52D5\u662F\u52D5\u614B\u800C\u975E\u975C\u614B\u3002"
+              },
+              {
+                "text": "\u767D\u7BB1\u4E14\u52D5\u614B",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u5206\u5272\u662F\u898F\u683C\u5C0E\u5411\uFF0C\u56E0\u6B64\u662F\u9ED1\u7BB1\u800C\u975E\u767D\u7BB1\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B49\u50F9\u5206\u5272\u662F\u9ED1\u7BB1\u8A2D\u8A08\u6280\u8853\uFF08\u898F\u683C\u5C0E\u5411\uFF09\uFF1B\u57F7\u884C\u6240\u7522\u751F\u7684\u6848\u4F8B\u662F\u52D5\u614B\u3002\u8A2D\u8A08\u4F9D\u64DA\u8207\u57F7\u884C\u65B9\u5F0F\u662F\u5169\u689D\u7368\u7ACB\u7684\u8EF8\u3002",
+            "single": true
+          }
+        ]
+      }
     }
   };
 

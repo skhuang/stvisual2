@@ -68314,5 +68314,2501 @@ export const QUIZ_RENDERED = {
         }
       ]
     }
+  },
+  "testing-method-tree": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Black-box testing definition",
+          "text": "<p><strong>Black-box testing</strong> designs its tests based on:</p>",
+          "answers": [
+            {
+              "text": "The specification and external behavior, without knowledge of the internal code structure",
+              "fraction": 100,
+              "feedback": "Correct — black-box (specification-based) testing treats the implementation as opaque."
+            },
+            {
+              "text": "The internal control-flow graph of the code",
+              "fraction": 0,
+              "feedback": "That is white-box (structural) testing, which uses the code's structure."
+            },
+            {
+              "text": "The number of source lines executed by the tests",
+              "fraction": 0,
+              "feedback": "That describes a coverage measurement, not the black-box design basis."
+            },
+            {
+              "text": "The compiler's optimization settings",
+              "fraction": 0,
+              "feedback": "Compiler settings are unrelated to how black-box tests are derived."
+            }
+          ],
+          "generalFeedback": "Black-box (specification-based) testing derives tests from requirements and external behavior, treating the implementation as opaque — no code knowledge is used.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "White-box testing definition",
+          "text": "<p><strong>White-box (structural)</strong> testing designs its tests based on:</p>",
+          "answers": [
+            {
+              "text": "Knowledge of the internal code structure, such as statements, branches, and paths",
+              "fraction": 100,
+              "feedback": "Correct — white-box (glass-box) testing uses the internal structure of the code."
+            },
+            {
+              "text": "Only the published requirements, ignoring the code entirely",
+              "fraction": 0,
+              "feedback": "That is black-box testing; white-box uses the code structure."
+            },
+            {
+              "text": "The user's subjective satisfaction with the product",
+              "fraction": 0,
+              "feedback": "That is closer to validation/usability, not structural testing."
+            },
+            {
+              "text": "The hardware the program will run on",
+              "fraction": 0,
+              "feedback": "The target hardware is not the basis of white-box test design."
+            }
+          ],
+          "generalFeedback": "White-box (structural / glass-box) testing uses the internal structure of the code — statements, branches, paths, conditions — to derive and measure tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Grey-box testing definition",
+          "text": "<p><strong>Grey-box testing</strong> is characterized by:</p>",
+          "answers": [
+            {
+              "text": "Partial knowledge of the internal structure combined with tests driven through external interfaces",
+              "fraction": 100,
+              "feedback": "Correct — grey-box uses some internal insight (e.g. architecture or DB schema) while testing externally."
+            },
+            {
+              "text": "Complete ignorance of both the specification and the code",
+              "fraction": 0,
+              "feedback": "A tester always uses some basis; grey-box specifically uses partial internal knowledge."
+            },
+            {
+              "text": "A full mathematical proof of correctness",
+              "fraction": 0,
+              "feedback": "That is formal verification, not grey-box testing."
+            },
+            {
+              "text": "Testing only the colors of the graphical user interface",
+              "fraction": 0,
+              "feedback": "Grey-box is about the level of internal knowledge, not UI appearance."
+            }
+          ],
+          "generalFeedback": "Grey-box testing uses partial internal knowledge (architecture, data schema, key algorithms) to design tests that are still exercised through external interfaces.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Static testing definition",
+          "text": "<p><strong>Static testing</strong> is best described as:</p>",
+          "answers": [
+            {
+              "text": "Examining the software artifacts (documents or code) without executing the program",
+              "fraction": 100,
+              "feedback": "Correct — static techniques find defects by examination, with no execution."
+            },
+            {
+              "text": "Running the program with many different inputs",
+              "fraction": 0,
+              "feedback": "That is dynamic testing, which requires execution."
+            },
+            {
+              "text": "Measuring response time under heavy load",
+              "fraction": 0,
+              "feedback": "That is a dynamic, non-functional activity (performance testing)."
+            },
+            {
+              "text": "Deploying to production and monitoring live users",
+              "fraction": 0,
+              "feedback": "Monitoring a running system is dynamic, not static."
+            }
+          ],
+          "generalFeedback": "Static testing (reviews, walkthroughs, inspections, static analysis) finds defects by examining artifacts without executing the program.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Dynamic testing definition",
+          "text": "<p><strong>Dynamic testing</strong> is best described as:</p>",
+          "answers": [
+            {
+              "text": "Executing the program with inputs and observing its behavior",
+              "fraction": 100,
+              "feedback": "Correct — dynamic testing runs the software and compares behavior to expectations."
+            },
+            {
+              "text": "Reading the code together in a review meeting",
+              "fraction": 0,
+              "feedback": "That is a static technique (review); nothing is executed."
+            },
+            {
+              "text": "Checking a requirements document for typographical errors",
+              "fraction": 0,
+              "feedback": "That is static examination of a document, not dynamic testing."
+            },
+            {
+              "text": "Analyzing the source with a tool but never running it",
+              "fraction": 0,
+              "feedback": "That is static analysis; dynamic testing requires execution."
+            }
+          ],
+          "generalFeedback": "Dynamic testing requires executing the software and comparing the observed behavior against expected results.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Functional testing definition",
+          "text": "<p><strong>Functional testing</strong> is primarily concerned with:</p>",
+          "answers": [
+            {
+              "text": "What the system does — whether it produces the correct outputs for given inputs",
+              "fraction": 100,
+              "feedback": "Correct — functional testing checks behavior against the specified functions."
+            },
+            {
+              "text": "How fast the system responds under load",
+              "fraction": 0,
+              "feedback": "That is a non-functional (performance) concern."
+            },
+            {
+              "text": "How resistant the system is to attackers",
+              "fraction": 0,
+              "feedback": "That is a non-functional (security) concern."
+            },
+            {
+              "text": "How maintainable the source code is",
+              "fraction": 0,
+              "feedback": "Maintainability is a non-functional quality attribute, not a function."
+            }
+          ],
+          "generalFeedback": "Functional testing checks the functions/behavior of the system against the requirements — what it does — rather than how well it does it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Non-functional testing definition",
+          "text": "<p><strong>Non-functional testing</strong> primarily evaluates:</p>",
+          "answers": [
+            {
+              "text": "Quality attributes such as performance, security, usability, and reliability",
+              "fraction": 100,
+              "feedback": "Correct — non-functional testing targets how well the system operates."
+            },
+            {
+              "text": "Whether each required feature returns the correct result",
+              "fraction": 0,
+              "feedback": "That is functional testing (what the system does)."
+            },
+            {
+              "text": "Whether every statement in the code is executed",
+              "fraction": 0,
+              "feedback": "That is a structural coverage (white-box) concern."
+            },
+            {
+              "text": "Whether the requirements document is grammatically complete",
+              "fraction": 0,
+              "feedback": "That is a static review concern, not non-functional testing."
+            }
+          ],
+          "generalFeedback": "Non-functional testing targets how well the system operates — performance, security, usability, reliability, portability, etc. — rather than which features work.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Verification definition",
+          "text": "<p>In the classic V&amp;V distinction, <strong>verification</strong> asks:</p>",
+          "answers": [
+            {
+              "text": "\"Are we building the product right?\" — does it conform to its specification?",
+              "fraction": 100,
+              "feedback": "Correct — verification checks conformance to the spec and standards at each stage."
+            },
+            {
+              "text": "\"Are we building the right product?\" — does it meet the users' needs?",
+              "fraction": 0,
+              "feedback": "That is validation, not verification."
+            },
+            {
+              "text": "\"Is the product faster than the competitors' products?\"",
+              "fraction": 0,
+              "feedback": "That is a benchmarking/performance question, not verification."
+            },
+            {
+              "text": "\"Will customers be willing to pay for the product?\"",
+              "fraction": 0,
+              "feedback": "That is a market question, unrelated to the V&V distinction."
+            }
+          ],
+          "generalFeedback": "Verification checks conformance to specifications, designs and standards at each development stage — \"building the product right.\"",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Validation definition",
+          "text": "<p>In the classic V&amp;V distinction, <strong>validation</strong> asks:</p>",
+          "answers": [
+            {
+              "text": "\"Are we building the right product?\" — does it meet the users' actual needs?",
+              "fraction": 100,
+              "feedback": "Correct — validation checks fitness for use against real user needs."
+            },
+            {
+              "text": "\"Are we building the product right?\" — does it conform to the spec?",
+              "fraction": 0,
+              "feedback": "That is verification, not validation."
+            },
+            {
+              "text": "\"Does the source code compile without warnings?\"",
+              "fraction": 0,
+              "feedback": "That is a static/build concern, not validation."
+            },
+            {
+              "text": "\"Is every branch in the code covered by a test?\"",
+              "fraction": 0,
+              "feedback": "That is a white-box coverage concern, not validation."
+            }
+          ],
+          "generalFeedback": "Validation checks fitness for use — whether the finished product satisfies the users' real needs — \"building the right product.\"",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify boundary value analysis",
+          "text": "<p><strong>Boundary value analysis</strong> is an example of which kind of technique?</p>",
+          "answers": [
+            {
+              "text": "Black-box — it uses the input specification and partitions, not the code",
+              "fraction": 100,
+              "feedback": "Correct — BVA derives tests from the boundaries of specified input partitions."
+            },
+            {
+              "text": "White-box — it requires the control-flow graph",
+              "fraction": 0,
+              "feedback": "BVA needs no code structure; it works from the input spec."
+            },
+            {
+              "text": "Static — it never executes the program",
+              "fraction": 0,
+              "feedback": "BVA cases are executed against the program, so it is dynamic, not static."
+            },
+            {
+              "text": "Non-functional — it measures performance",
+              "fraction": 0,
+              "feedback": "BVA checks functional behavior at input boundaries, not performance."
+            }
+          ],
+          "generalFeedback": "Boundary value analysis derives tests from the boundaries of input partitions in the specification, with no code knowledge — a black-box technique.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify branch coverage",
+          "text": "<p><strong>Branch (decision) coverage</strong> is which kind of technique?</p>",
+          "answers": [
+            {
+              "text": "White-box — it is defined over the code's decisions and branches",
+              "fraction": 100,
+              "feedback": "Correct — branch coverage is measured against the code's structure."
+            },
+            {
+              "text": "Black-box — it needs only the specification",
+              "fraction": 0,
+              "feedback": "Branch coverage requires knowledge of the code's branches, so it is white-box."
+            },
+            {
+              "text": "Non-functional — it measures usability",
+              "fraction": 0,
+              "feedback": "Branch coverage is a structural metric, not a quality attribute."
+            },
+            {
+              "text": "Static — it needs no execution",
+              "fraction": 0,
+              "feedback": "Measuring branch coverage requires executing the tests, so it is dynamic."
+            }
+          ],
+          "generalFeedback": "Branch coverage is measured over the code's branches, requiring knowledge of internal structure — a white-box technique. (Measuring it also requires execution, so it is dynamic.)",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Code review is static",
+          "text": "<p>A code review (inspection) is a form of <strong>static</strong> testing.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a review examines the code without executing it, so it is static."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Reviews find defects by reading, not running, the code — they are static."
+            }
+          ],
+          "generalFeedback": "Reviews, walkthroughs and inspections are static techniques: defects are found by examination, without executing the program."
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify equivalence partitioning",
+          "text": "<p><strong>Equivalence partitioning</strong> is which kind of technique?</p>",
+          "answers": [
+            {
+              "text": "Black-box — it partitions the input domain from the specification",
+              "fraction": 100,
+              "feedback": "Correct — equivalence partitioning groups inputs into classes from the spec."
+            },
+            {
+              "text": "White-box — it partitions the code paths",
+              "fraction": 0,
+              "feedback": "Equivalence partitioning works on the input domain, not code paths."
+            },
+            {
+              "text": "Static — it needs no test execution",
+              "fraction": 0,
+              "feedback": "The resulting cases are executed, so it is a dynamic, black-box technique."
+            },
+            {
+              "text": "A verification-only activity that never runs the software",
+              "fraction": 0,
+              "feedback": "Its test cases are executed against the software, so this is wrong."
+            }
+          ],
+          "generalFeedback": "Equivalence partitioning groups inputs into classes derived from the specification, without code knowledge — a black-box technique.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify statement coverage",
+          "text": "<p><strong>Statement coverage</strong> is which kind of technique?</p>",
+          "answers": [
+            {
+              "text": "White-box — it is defined over the code's executable statements",
+              "fraction": 100,
+              "feedback": "Correct — statement coverage is measured against the code's structure."
+            },
+            {
+              "text": "Black-box — it needs only the requirements",
+              "fraction": 0,
+              "feedback": "Statement coverage requires knowledge of the code, so it is white-box."
+            },
+            {
+              "text": "Non-functional — it measures reliability",
+              "fraction": 0,
+              "feedback": "Statement coverage is a structural metric, not a quality attribute."
+            },
+            {
+              "text": "Static — no execution is required",
+              "fraction": 0,
+              "feedback": "Measuring statement coverage requires running the tests, so it is dynamic."
+            }
+          ],
+          "generalFeedback": "Statement coverage is measured over the executable statements of the code, so it is a white-box (structural) technique; measuring it is dynamic (requires execution).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Black-box needs source code?",
+          "text": "<p>Black-box testing requires access to the program's <strong>source code</strong>.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — black-box testing is based on the specification and behavior, not the source."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Black-box treats the implementation as opaque; it does not need the source (that is white-box)."
+            }
+          ],
+          "generalFeedback": "Black-box testing derives tests from the specification and external behavior; the source code is not required. Needing the source is the mark of white-box testing."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Grey-box example (DB schema via UI)",
+          "text": "<p>A tester drives a web application through its public UI but uses knowledge of the <strong>database schema</strong> to craft inputs and check the stored results. This is best classified as:</p>",
+          "answers": [
+            {
+              "text": "Grey-box testing",
+              "fraction": 100,
+              "feedback": "Correct — partial internal knowledge (the schema) used while driving the system externally is grey-box."
+            },
+            {
+              "text": "Pure black-box testing",
+              "fraction": 0,
+              "feedback": "Pure black-box uses no internal knowledge; here the schema is used, so it is grey-box."
+            },
+            {
+              "text": "Pure white-box testing",
+              "fraction": 0,
+              "feedback": "White-box would drive tests from the code structure; here tests run through the UI with only partial knowledge."
+            },
+            {
+              "text": "Static analysis",
+              "fraction": 0,
+              "feedback": "The system is executed through the UI, so this is dynamic, not static."
+            }
+          ],
+          "generalFeedback": "Using partial internal knowledge (the DB schema) while exercising the system through external interfaces is the defining pattern of grey-box testing.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Walkthrough is dynamic?",
+          "text": "<p>A specification <strong>walkthrough</strong> is a dynamic testing activity.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — a walkthrough examines a document without executing software, so it is static."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Walkthroughs, like reviews and inspections, are static — no program is executed."
+            }
+          ],
+          "generalFeedback": "Walkthroughs (like reviews and inspections) are static techniques — defects are found by examination, with no code executed."
+        },
+        {
+          "type": "multichoice",
+          "name": "Performance testing: functional or not",
+          "text": "<p><strong>Performance testing</strong> (measuring throughput and response time under load) is classified as:</p>",
+          "answers": [
+            {
+              "text": "Non-functional testing",
+              "fraction": 100,
+              "feedback": "Correct — performance is a quality attribute (how well), so it is non-functional."
+            },
+            {
+              "text": "Functional testing",
+              "fraction": 0,
+              "feedback": "Functional testing checks what the system does; performance is about how well it does it."
+            },
+            {
+              "text": "White-box testing",
+              "fraction": 0,
+              "feedback": "Performance testing is usually black-box; the black/white axis is separate from functional/non-functional anyway."
+            },
+            {
+              "text": "Static testing",
+              "fraction": 0,
+              "feedback": "Performance testing executes the system under load, so it is dynamic, not static."
+            }
+          ],
+          "generalFeedback": "Performance concerns a quality attribute (how well the system performs, not which features work), so it is non-functional. It is also dynamic and usually black-box.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Requirements review: verification or validation",
+          "text": "<p>Reviewing the <strong>requirements specification</strong> against the applicable standards and the customer contract is an example of:</p>",
+          "answers": [
+            {
+              "text": "Verification — conformance to the specification and process (\"building the product right\")",
+              "fraction": 100,
+              "feedback": "Correct — a requirements review checks conformance to standards and the spec."
+            },
+            {
+              "text": "Validation — fitness for the users' real needs",
+              "fraction": 0,
+              "feedback": "Validation confirms real-world fitness of the delivered product, typically dynamically; a spec review is verification."
+            },
+            {
+              "text": "Non-functional testing",
+              "fraction": 0,
+              "feedback": "A document review is a static verification activity, not a non-functional test."
+            },
+            {
+              "text": "Dynamic testing",
+              "fraction": 0,
+              "feedback": "A review executes nothing, so it is static, not dynamic."
+            }
+          ],
+          "generalFeedback": "A requirements review checks conformance to specifications and standards — a verification activity, and a static one.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UAT: verification or validation",
+          "text": "<p><strong>User Acceptance Testing (UAT)</strong>, in which real users try the delivered system to confirm it meets their needs, is an example of:</p>",
+          "answers": [
+            {
+              "text": "Validation — fitness for use (\"building the right product\")",
+              "fraction": 100,
+              "feedback": "Correct — UAT confirms the product satisfies actual user needs."
+            },
+            {
+              "text": "Verification — conformance to the design document",
+              "fraction": 0,
+              "feedback": "Conformance to the design is verification; UAT checks real user needs, which is validation."
+            },
+            {
+              "text": "Static testing",
+              "fraction": 0,
+              "feedback": "UAT runs the delivered system, so it is dynamic, not static."
+            },
+            {
+              "text": "White-box testing",
+              "fraction": 0,
+              "feedback": "Users exercise the system through its interfaces, not its code — it is black-box, and the question is really about V&V."
+            }
+          ],
+          "generalFeedback": "UAT confirms the product satisfies the users' actual needs — validation. It is also dynamic and black-box.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which axis: BVA vs branch coverage",
+          "text": "<p><strong>Boundary value analysis</strong> and <strong>branch coverage</strong> differ primarily along which classification axis?</p>",
+          "answers": [
+            {
+              "text": "Black-box vs white-box (knowledge of the internal code structure)",
+              "fraction": 100,
+              "feedback": "Correct — BVA is spec-based (black-box) while branch coverage is structure-based (white-box)."
+            },
+            {
+              "text": "Static vs dynamic",
+              "fraction": 0,
+              "feedback": "Both are dynamic (their tests are executed); they do not differ on this axis."
+            },
+            {
+              "text": "Functional vs non-functional",
+              "fraction": 0,
+              "feedback": "Both are oriented to functional correctness; the real difference is the knowledge basis."
+            },
+            {
+              "text": "Verification vs validation",
+              "fraction": 0,
+              "feedback": "Both are typically verification-oriented; they differ on black-box vs white-box."
+            }
+          ],
+          "generalFeedback": "BVA is black-box (derived from the spec) and branch coverage is white-box (derived from the code structure); they differ on the knowledge/structure axis. Both are dynamic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Automation is orthogonal to black/white-box",
+          "text": "<p>A <strong>black-box</strong> acceptance suite is rewritten to run automatically via a UI-driving tool. On the black-box/white-box axis, the automated suite is now:</p>",
+          "answers": [
+            {
+              "text": "Still black-box — automation is an orthogonal axis and adds no code-structure knowledge",
+              "fraction": 100,
+              "feedback": "Correct — manual vs automated is independent of black-box vs white-box."
+            },
+            {
+              "text": "Now white-box, because a tool interacts with the program",
+              "fraction": 0,
+              "feedback": "Automating a test does not give it knowledge of the code's internal structure."
+            },
+            {
+              "text": "Now grey-box, because automation tools always read the source",
+              "fraction": 0,
+              "feedback": "A UI-driving tool does not read the source; the knowledge basis is unchanged."
+            },
+            {
+              "text": "Neither black- nor white-box any more",
+              "fraction": 0,
+              "feedback": "It remains black-box; only the manual/automated axis changed."
+            }
+          ],
+          "generalFeedback": "Manual vs automated is orthogonal to black-box vs white-box. Automating a black-box suite keeps it black-box; the knowledge basis is unchanged.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a source-scanning tool",
+          "text": "<p>A tool scans the <strong>source code</strong> for null-pointer risks and unused variables without ever running the program. This activity is:</p>",
+          "answers": [
+            {
+              "text": "Static analysis — a static technique that examines code without executing it",
+              "fraction": 100,
+              "feedback": "Correct — no execution takes place, so it is static analysis."
+            },
+            {
+              "text": "Dynamic testing — it executes the program",
+              "fraction": 0,
+              "feedback": "The tool never runs the program, so it is static, not dynamic."
+            },
+            {
+              "text": "Black-box testing — it ignores the code",
+              "fraction": 0,
+              "feedback": "It reads the source (structure), so it is not black-box."
+            },
+            {
+              "text": "Performance testing",
+              "fraction": 0,
+              "feedback": "It analyzes code, not runtime performance."
+            }
+          ],
+          "generalFeedback": "Static analysis examines the source/structure without execution, so it is static. Because it uses the code structure, it is structure-based rather than spec-based.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Family of error guessing and exploratory",
+          "text": "<p><strong>Error guessing</strong> and <strong>exploratory testing</strong>, which rely on the tester's experience rather than a formal model, belong to which family?</p>",
+          "answers": [
+            {
+              "text": "Experience-based techniques",
+              "fraction": 100,
+              "feedback": "Correct — these are experience-based techniques driven by tester intuition and skill."
+            },
+            {
+              "text": "Structure-based (white-box) coverage techniques",
+              "fraction": 0,
+              "feedback": "They do not use code structure or coverage criteria."
+            },
+            {
+              "text": "Static review techniques",
+              "fraction": 0,
+              "feedback": "They execute the software, so they are dynamic, not static reviews."
+            },
+            {
+              "text": "Non-functional techniques",
+              "fraction": 0,
+              "feedback": "They target functional defects using experience, not quality attributes."
+            }
+          ],
+          "generalFeedback": "Error guessing and exploratory testing are experience-based techniques — a dynamic, black-box family driven by the tester's knowledge and intuition rather than a formal specification or the code structure.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify state-transition testing",
+          "text": "<p><strong>State-transition testing</strong> derives its test cases from a behavioral state model built from the requirements. It is a:</p>",
+          "answers": [
+            {
+              "text": "Black-box technique — derived from a spec/behavioral model, not the code",
+              "fraction": 100,
+              "feedback": "Correct — the state model comes from the requirements, so it is black-box."
+            },
+            {
+              "text": "White-box technique — derived from the control-flow graph",
+              "fraction": 0,
+              "feedback": "The model is behavioral (from the spec), not the code's control-flow graph."
+            },
+            {
+              "text": "Static technique — no execution",
+              "fraction": 0,
+              "feedback": "The resulting cases are executed against the system, so it is dynamic."
+            },
+            {
+              "text": "Non-functional technique",
+              "fraction": 0,
+              "feedback": "It checks functional behavior via states and transitions, not a quality attribute."
+            }
+          ],
+          "generalFeedback": "State-transition testing uses a behavioral model derived from the specification, treating the implementation as opaque — a black-box technique.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify stress testing",
+          "text": "<p><strong>Stress testing</strong> (pushing the system beyond normal load to see how it degrades or fails) is:</p>",
+          "answers": [
+            {
+              "text": "Non-functional (and dynamic) testing",
+              "fraction": 100,
+              "feedback": "Correct — it evaluates behavior under extreme load, a quality attribute, by executing the system."
+            },
+            {
+              "text": "Functional testing",
+              "fraction": 0,
+              "feedback": "It checks a quality attribute under load, not whether specific features return correct results."
+            },
+            {
+              "text": "Static testing",
+              "fraction": 0,
+              "feedback": "It runs the system under load, so it is dynamic, not static."
+            },
+            {
+              "text": "White-box coverage measurement",
+              "fraction": 0,
+              "feedback": "It measures behavior under load, not code structure coverage."
+            }
+          ],
+          "generalFeedback": "Stress/load testing evaluates a quality attribute (behavior under extreme load), so it is non-functional; because it executes the system it is also dynamic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pick the verification activity",
+          "text": "<p>Which of the following is a <strong>verification</strong> activity rather than a validation activity?</p>",
+          "answers": [
+            {
+              "text": "Inspecting a module's code against its detailed design document",
+              "fraction": 100,
+              "feedback": "Correct — checking conformance to the design is verification."
+            },
+            {
+              "text": "Having end users trial the product to confirm it meets their needs",
+              "fraction": 0,
+              "feedback": "That confirms fitness for use — validation."
+            },
+            {
+              "text": "Running a beta program to gather real-world feedback",
+              "fraction": 0,
+              "feedback": "A beta program checks real user needs — validation."
+            },
+            {
+              "text": "Confirming the finished system solves the customer's actual problem",
+              "fraction": 0,
+              "feedback": "That is fitness for use — validation."
+            }
+          ],
+          "generalFeedback": "Checking a module against its design document is verification (conformance to spec). The other options confirm fitness for the users' real needs — validation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify security testing",
+          "text": "<p><strong>Security testing</strong> (checking resistance to unauthorized access) is primarily:</p>",
+          "answers": [
+            {
+              "text": "Non-functional testing",
+              "fraction": 100,
+              "feedback": "Correct — security is a quality attribute, so security testing is non-functional."
+            },
+            {
+              "text": "Functional testing",
+              "fraction": 0,
+              "feedback": "Security concerns a quality attribute (how well it resists attack), not a listed feature's output."
+            },
+            {
+              "text": "A purely static technique",
+              "fraction": 0,
+              "feedback": "Security testing typically executes the system (e.g. penetration tests), so it is dynamic."
+            },
+            {
+              "text": "A verification-only activity",
+              "fraction": 0,
+              "feedback": "Security testing is a non-functional test category, not a V&V stage label."
+            }
+          ],
+          "generalFeedback": "Security is a quality attribute, so security testing is non-functional. It is typically dynamic and may be grey- or black-box depending on the knowledge used.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Clearest axis: walkthrough vs load test",
+          "text": "<p>The clearest classification difference between a <strong>walkthrough</strong> and a <strong>load test</strong> is:</p>",
+          "answers": [
+            {
+              "text": "Static vs dynamic — a walkthrough executes nothing, a load test executes the system",
+              "fraction": 100,
+              "feedback": "Correct — the defining contrast is execution."
+            },
+            {
+              "text": "Black-box vs white-box",
+              "fraction": 0,
+              "feedback": "A walkthrough is not really placed on the black/white-box axis; the definitional contrast here is static vs dynamic."
+            },
+            {
+              "text": "Verification vs validation",
+              "fraction": 0,
+              "feedback": "Both can serve verification; the clear contrast is that one executes and the other does not."
+            },
+            {
+              "text": "Manual vs automated",
+              "fraction": 0,
+              "feedback": "Either could be manual or automated; the defining difference is execution."
+            }
+          ],
+          "generalFeedback": "A walkthrough is static (nothing is executed) while a load test is dynamic (the system runs under load); the static-vs-dynamic axis is the defining contrast.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify basis-path testing",
+          "text": "<p><strong>Basis-path testing</strong> (deriving tests from the code's linearly independent paths) is a:</p>",
+          "answers": [
+            {
+              "text": "White-box (structure-based) technique",
+              "fraction": 100,
+              "feedback": "Correct — basis-path testing is derived from the code's control-flow graph."
+            },
+            {
+              "text": "Black-box technique",
+              "fraction": 0,
+              "feedback": "It uses the code's paths, so it is structure-based, not spec-based."
+            },
+            {
+              "text": "Non-functional technique",
+              "fraction": 0,
+              "feedback": "It targets structural coverage of paths, not a quality attribute."
+            },
+            {
+              "text": "Static technique",
+              "fraction": 0,
+              "feedback": "Its tests are executed, so it is dynamic, not static."
+            }
+          ],
+          "generalFeedback": "Basis-path testing is derived from the control-flow graph (independent paths) of the code, so it is white-box / structure-based, and dynamic.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Multi-axis: load testing",
+          "text": "<p><strong>Load testing</strong> executes the running system, is driven purely through external interfaces with no code knowledge, and measures response time under heavy traffic. Across the three axes it is:</p>",
+          "answers": [
+            {
+              "text": "Dynamic, black-box, and non-functional",
+              "fraction": 100,
+              "feedback": "Correct — it executes (dynamic), uses no code knowledge (black-box), and measures a quality attribute (non-functional)."
+            },
+            {
+              "text": "Static, white-box, and functional",
+              "fraction": 0,
+              "feedback": "It executes the system and uses no code knowledge, so it is dynamic and black-box, and it targets performance (non-functional)."
+            },
+            {
+              "text": "Dynamic, white-box, and non-functional",
+              "fraction": 0,
+              "feedback": "It uses no knowledge of the code's internal structure, so it is black-box, not white-box."
+            },
+            {
+              "text": "Static, black-box, and functional",
+              "fraction": 0,
+              "feedback": "It runs the system (dynamic) and measures performance (non-functional)."
+            }
+          ],
+          "generalFeedback": "Load testing executes the system (dynamic), needs no internal code knowledge (black-box), and targets a performance quality attribute (non-functional).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Static analysis as dynamic white-box?",
+          "text": "<p>Because static analysis inspects the source code, it is a form of <strong>dynamic white-box testing</strong>.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — static analysis is structure-based but does NOT execute the program, so it is static, not dynamic."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Static analysis uses the code structure but performs no execution, so it cannot be dynamic testing."
+            }
+          ],
+          "generalFeedback": "Static analysis is structure-based (it uses the code) yet static (no execution). \"White-box\" refers to knowledge of the structure, not to execution — so \"uses the code\" does not make it dynamic."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why grey-box is not black plus white",
+          "text": "<p>Which statement best captures why <strong>grey-box</strong> testing is not simply \"black-box plus white-box\"?</p>",
+          "answers": [
+            {
+              "text": "It uses partial internal knowledge to design better externally-driven tests, rather than performing the complete sets of both black-box and white-box tests",
+              "fraction": 100,
+              "feedback": "Correct — grey-box combines a limited source of internal insight with external testing; it is not the union of the two full test sets."
+            },
+            {
+              "text": "It performs every possible black-box test and every possible white-box test",
+              "fraction": 0,
+              "feedback": "Grey-box uses only partial internal knowledge; it does not run the full white-box test set."
+            },
+            {
+              "text": "It is identical to white-box testing but with a different name",
+              "fraction": 0,
+              "feedback": "Grey-box uses only partial internal knowledge and drives tests externally, unlike full white-box testing."
+            },
+            {
+              "text": "It requires no knowledge of either the specification or the code",
+              "fraction": 0,
+              "feedback": "That would be neither; grey-box specifically uses partial internal knowledge."
+            }
+          ],
+          "generalFeedback": "Grey-box combines sources of knowledge — using limited internal insight (architecture, schema, key algorithms) to target external tests. It is not the union of complete black-box and white-box test sets.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify MC/DC on two axes",
+          "text": "<p><strong>MC/DC</strong> (Modified Condition/Decision Coverage) is best classified as:</p>",
+          "answers": [
+            {
+              "text": "White-box and dynamic — defined over code conditions and measured by executing tests",
+              "fraction": 100,
+              "feedback": "Correct — it is a structural criterion whose satisfaction is observed only by running the tests."
+            },
+            {
+              "text": "White-box and static — coverage can be computed without running the program",
+              "fraction": 0,
+              "feedback": "MC/DC is structural, but coverage is only observed by executing the tests, so it is dynamic."
+            },
+            {
+              "text": "Black-box and dynamic",
+              "fraction": 0,
+              "feedback": "MC/DC is defined over the code's conditions, so it is white-box, not black-box."
+            },
+            {
+              "text": "Black-box and static",
+              "fraction": 0,
+              "feedback": "It is defined over code conditions (white-box) and requires execution (dynamic)."
+            }
+          ],
+          "generalFeedback": "MC/DC is a structural (white-box) criterion, but coverage is only observed by executing the tests, so it is dynamic. Structural coverage criteria are not static.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Unit test against design spec",
+          "text": "<p>Executing a module's unit tests derived from its detailed <strong>design specification</strong>, to confirm the module conforms to that design, is chiefly an act of:</p>",
+          "answers": [
+            {
+              "text": "Verification — conformance to the specification",
+              "fraction": 100,
+              "feedback": "Correct — confirming conformance to the design spec is verification."
+            },
+            {
+              "text": "Validation — fitness for the end user's real needs",
+              "fraction": 0,
+              "feedback": "Validation checks real user needs; here we check conformance to the design — verification."
+            },
+            {
+              "text": "Non-functional testing",
+              "fraction": 0,
+              "feedback": "It checks functional conformance to the design, not a quality attribute."
+            },
+            {
+              "text": "Static analysis",
+              "fraction": 0,
+              "feedback": "The tests are executed, so this is dynamic, and its V&V role is verification."
+            }
+          ],
+          "generalFeedback": "Confirming conformance to the design specification is verification. The unit testing here is dynamic (and could be white-box), but on the V&V axis its role is verification.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Spec satisfied but wrong for users",
+          "text": "<p>A system perfectly satisfies its written requirements, yet those requirements misunderstood what users actually needed. Which activity is designed to catch this?</p>",
+          "answers": [
+            {
+              "text": "Validation — it checks fitness for real user needs, independent of the written spec",
+              "fraction": 100,
+              "feedback": "Correct — validation catches \"building the wrong product\" even when the spec is met."
+            },
+            {
+              "text": "Verification — it checks conformance to the written spec",
+              "fraction": 0,
+              "feedback": "Verification would pass here, because the product matches the (flawed) spec."
+            },
+            {
+              "text": "Statement coverage",
+              "fraction": 0,
+              "feedback": "Coverage measures which code ran, not whether the requirements were right."
+            },
+            {
+              "text": "Static analysis of the source",
+              "fraction": 0,
+              "feedback": "Static analysis inspects code quality, not whether the requirements meet user needs."
+            }
+          ],
+          "generalFeedback": "Verification would pass (the product matches the spec), but the spec itself is wrong. Only validation, which checks against real user needs, catches \"building the wrong product.\"",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why BVA is in the black-box family",
+          "text": "<p><strong>Boundary value analysis</strong> is classified in the black-box family because:</p>",
+          "answers": [
+            {
+              "text": "Its cases are derived from the boundaries of input partitions in the specification, needing no knowledge of the code",
+              "fraction": 100,
+              "feedback": "Correct — the test basis is the specified input domain, not the code."
+            },
+            {
+              "text": "It measures which branches of the code were executed",
+              "fraction": 0,
+              "feedback": "That describes branch coverage, a white-box technique, not BVA."
+            },
+            {
+              "text": "It never executes the program under test",
+              "fraction": 0,
+              "feedback": "BVA cases are executed; the reason it is black-box is its spec-based test basis, not a lack of execution."
+            },
+            {
+              "text": "It only evaluates non-functional quality attributes",
+              "fraction": 0,
+              "feedback": "BVA targets functional behavior at input boundaries, not quality attributes."
+            }
+          ],
+          "generalFeedback": "BVA belongs to the black-box family because its cases come from the boundaries of the specified input domain, requiring no knowledge of the code's internal structure.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "High coverage proves black-box testing?",
+          "text": "<p>Reporting <strong>90% branch coverage</strong> demonstrates that thorough black-box testing was performed.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — branch coverage is a white-box (structural) measure and says nothing about specification-based black-box testing."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Coverage is a structural metric; a high value does not indicate the specification was tested (black-box)."
+            }
+          ],
+          "generalFeedback": "Coverage metrics are white-box / structural. High coverage does not imply the specification was tested (black-box), and vice versa; the black/white-box and coverage notions are independent."
+        },
+        {
+          "type": "multichoice",
+          "name": "Which is white-box AND static",
+          "text": "<p>Which technique is both <strong>white-box (structure-based)</strong> AND <strong>static (no execution)</strong>?</p>",
+          "answers": [
+            {
+              "text": "Data-flow static analysis of the source code",
+              "fraction": 100,
+              "feedback": "Correct — it uses the code structure (white-box) but never executes it (static)."
+            },
+            {
+              "text": "Branch coverage measurement",
+              "fraction": 0,
+              "feedback": "Branch coverage is white-box but dynamic — it requires executing the tests."
+            },
+            {
+              "text": "Boundary value analysis",
+              "fraction": 0,
+              "feedback": "BVA is black-box (spec-based) and dynamic."
+            },
+            {
+              "text": "Load testing",
+              "fraction": 0,
+              "feedback": "Load testing is black-box and dynamic."
+            }
+          ],
+          "generalFeedback": "Data-flow static analysis examines the code's structure (white-box) without executing it (static). Branch coverage is white-box but dynamic; BVA is black-box; load testing is black-box and dynamic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multi-axis: white-box dynamic functional",
+          "text": "<p>A developer writes unit tests <em>from the code</em>, runs them, and asserts each function returns the correct result. Ignoring any coverage measurement, across the three axes these tests are:</p>",
+          "answers": [
+            {
+              "text": "White-box, dynamic, and functional",
+              "fraction": 100,
+              "feedback": "Correct — derived from the code (white-box), executed (dynamic), and checking correct outputs (functional)."
+            },
+            {
+              "text": "Black-box, static, and non-functional",
+              "fraction": 0,
+              "feedback": "They are derived from the code (white-box), executed (dynamic), and check correct results (functional)."
+            },
+            {
+              "text": "White-box, static, and non-functional",
+              "fraction": 0,
+              "feedback": "Running the tests makes them dynamic, and checking correct results makes them functional."
+            },
+            {
+              "text": "Black-box, dynamic, and functional",
+              "fraction": 0,
+              "feedback": "Because they are written from the code, they are white-box, not black-box."
+            }
+          ],
+          "generalFeedback": "Tests derived from the code are white-box; running them is dynamic; asserting that each function returns the correct result is functional. Design basis, execution, and functional/non-functional are three separate axes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multi-axis: penetration test",
+          "text": "<p>A penetration tester is given partial architecture diagrams and some API internals, then attacks the running system to find security flaws. This is best described as:</p>",
+          "answers": [
+            {
+              "text": "Grey-box, dynamic, and non-functional",
+              "fraction": 100,
+              "feedback": "Correct — partial internal knowledge (grey-box), attacking a running system (dynamic), targeting security (non-functional)."
+            },
+            {
+              "text": "Black-box, static, and functional",
+              "fraction": 0,
+              "feedback": "The tester has partial internal knowledge (grey-box) and executes the system (dynamic), targeting a quality attribute (non-functional)."
+            },
+            {
+              "text": "White-box, static, and functional",
+              "fraction": 0,
+              "feedback": "Only partial knowledge is used (grey-box), the system is executed (dynamic), and the goal is security (non-functional)."
+            },
+            {
+              "text": "Pure black-box and functional",
+              "fraction": 0,
+              "feedback": "Using partial internals makes it grey-box, and the security goal is non-functional."
+            }
+          ],
+          "generalFeedback": "Partial internal knowledge makes it grey-box; attacking the running system makes it dynamic; targeting security (a quality attribute) makes it non-functional.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multi-axis: design inspection",
+          "text": "<p>On the V&amp;V axis and the static/dynamic axis, a formal <strong>inspection of a design document</strong> is:</p>",
+          "answers": [
+            {
+              "text": "Verification and static",
+              "fraction": 100,
+              "feedback": "Correct — it checks conformance to the spec/standards (verification) and executes nothing (static)."
+            },
+            {
+              "text": "Validation and dynamic",
+              "fraction": 0,
+              "feedback": "An inspection executes nothing (static) and checks conformance to spec (verification)."
+            },
+            {
+              "text": "Verification and dynamic",
+              "fraction": 0,
+              "feedback": "It is verification, but nothing is executed, so it is static, not dynamic."
+            },
+            {
+              "text": "Validation and static",
+              "fraction": 0,
+              "feedback": "It is static, but it checks conformance to spec, so it is verification, not validation."
+            }
+          ],
+          "generalFeedback": "A design inspection checks conformance to the specification and standards (verification) and executes nothing (static).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Regression testing is white-box by definition?",
+          "text": "<p>Regression testing is, by definition, a <strong>white-box</strong> technique.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — regression testing is defined by its purpose (re-testing after a change) and can be black-box or white-box, manual or automated."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Regression is about when and why you test, not the knowledge basis; it can be either black- or white-box."
+            }
+          ],
+          "generalFeedback": "Regression testing is categorized by purpose — confirming that a change did not break existing behavior — an axis orthogonal to black-box vs white-box. A regression suite may be either."
+        },
+        {
+          "type": "multichoice",
+          "name": "Verification/validation and static/dynamic",
+          "text": "<p>Which statement about <strong>verification and validation</strong> is correct?</p>",
+          "answers": [
+            {
+              "text": "Verification can be static (e.g. reviews) or dynamic (e.g. unit tests against the spec), while validation is normally dynamic",
+              "fraction": 100,
+              "feedback": "Correct — verification spans both static and dynamic methods; validation is usually dynamic."
+            },
+            {
+              "text": "Verification is always static and validation is always dynamic",
+              "fraction": 0,
+              "feedback": "Verification also includes dynamic methods, such as unit/integration tests checking conformance to the spec."
+            },
+            {
+              "text": "Verification and validation are the same activity under two names",
+              "fraction": 0,
+              "feedback": "They are distinct: conformance to spec versus fitness for user needs."
+            },
+            {
+              "text": "Validation must always be completed before any verification",
+              "fraction": 0,
+              "feedback": "There is no such strict ordering; verification runs throughout development."
+            }
+          ],
+          "generalFeedback": "Verification spans both static (reviews, inspections) and dynamic (spec-based unit/integration tests) methods; validation — confirming real-world fitness — is typically dynamic. They are distinct activities and not strictly ordered validation-first.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "EP design vs execution on two axes",
+          "text": "<p>A tester designs cases with <strong>equivalence partitioning</strong> (from the spec) and then runs them against the program. On the knowledge axis and the static/dynamic axis respectively, this is:</p>",
+          "answers": [
+            {
+              "text": "Black-box and dynamic — the design is spec-based, but running the cases executes the program",
+              "fraction": 100,
+              "feedback": "Correct — the design technique is black-box; executing the cases is dynamic."
+            },
+            {
+              "text": "White-box and static",
+              "fraction": 0,
+              "feedback": "The design uses the spec (black-box), and running the cases makes it dynamic."
+            },
+            {
+              "text": "Black-box and static",
+              "fraction": 0,
+              "feedback": "The cases are executed against the program, so the activity is dynamic, not static."
+            },
+            {
+              "text": "White-box and dynamic",
+              "fraction": 0,
+              "feedback": "Equivalence partitioning is spec-based, so it is black-box, not white-box."
+            }
+          ],
+          "generalFeedback": "Equivalence partitioning is a black-box design technique (spec-based); executing the resulting cases is dynamic. The design basis and the execution mode are separate axes.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "黑箱測試的定義",
+          "text": "<p><strong>黑箱測試（black-box testing）</strong>設計測試案例時所依據的是：</p>",
+          "answers": [
+            {
+              "text": "規格與對外行為，不需知道程式內部結構",
+              "fraction": 100,
+              "feedback": "正確——黑箱（規格導向）測試把實作視為不透明的。"
+            },
+            {
+              "text": "程式碼內部的控制流程圖",
+              "fraction": 0,
+              "feedback": "那是白箱（結構性）測試，會利用程式碼的結構。"
+            },
+            {
+              "text": "測試所執行到的原始碼行數",
+              "fraction": 0,
+              "feedback": "那描述的是覆蓋率量測，並非黑箱測試的設計依據。"
+            },
+            {
+              "text": "編譯器的最佳化設定",
+              "fraction": 0,
+              "feedback": "編譯器設定與黑箱測試如何產生無關。"
+            }
+          ],
+          "generalFeedback": "黑箱（規格導向）測試依需求與對外行為來設計測試，把實作視為不透明——不使用任何程式碼知識。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "白箱測試的定義",
+          "text": "<p><strong>白箱（結構性）</strong>測試設計測試案例時所依據的是：</p>",
+          "answers": [
+            {
+              "text": "程式內部結構的知識，例如敘述、分支與路徑",
+              "fraction": 100,
+              "feedback": "正確——白箱（透明箱）測試利用程式碼的內部結構。"
+            },
+            {
+              "text": "只看公佈的需求，完全不看程式碼",
+              "fraction": 0,
+              "feedback": "那是黑箱測試；白箱會利用程式碼結構。"
+            },
+            {
+              "text": "使用者對產品的主觀滿意度",
+              "fraction": 0,
+              "feedback": "那較接近驗證（validation）／可用性，而非結構性測試。"
+            },
+            {
+              "text": "程式將執行於哪種硬體",
+              "fraction": 0,
+              "feedback": "目標硬體並非白箱測試設計的依據。"
+            }
+          ],
+          "generalFeedback": "白箱（結構性／透明箱）測試利用程式碼的內部結構——敘述、分支、路徑、條件——來設計並量測測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "灰箱測試的定義",
+          "text": "<p><strong>灰箱測試（grey-box testing）</strong>的特徵是：</p>",
+          "answers": [
+            {
+              "text": "具備部分內部結構的知識，並透過對外介面來驅動測試",
+              "fraction": 100,
+              "feedback": "正確——灰箱運用部分內部洞見（如架構或資料庫結構）同時從外部進行測試。"
+            },
+            {
+              "text": "對規格與程式碼皆完全一無所知",
+              "fraction": 0,
+              "feedback": "測試者總會依據某些資訊；灰箱特指運用部分內部知識。"
+            },
+            {
+              "text": "對正確性進行完整的數學證明",
+              "fraction": 0,
+              "feedback": "那是形式化驗證，並非灰箱測試。"
+            },
+            {
+              "text": "只測試圖形使用者介面的顏色",
+              "fraction": 0,
+              "feedback": "灰箱關乎內部知識的多寡，而非 UI 外觀。"
+            }
+          ],
+          "generalFeedback": "灰箱測試運用部分內部知識（架構、資料結構、關鍵演算法）來設計測試，而這些測試仍透過對外介面來執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "靜態測試的定義",
+          "text": "<p><strong>靜態測試（static testing）</strong>最貼切的描述是：</p>",
+          "answers": [
+            {
+              "text": "檢視軟體產出物（文件或程式碼）而不執行程式",
+              "fraction": 100,
+              "feedback": "正確——靜態技術以檢視方式找出缺陷，不需執行。"
+            },
+            {
+              "text": "以許多不同輸入來執行程式",
+              "fraction": 0,
+              "feedback": "那是動態測試，需要執行。"
+            },
+            {
+              "text": "量測高負載下的回應時間",
+              "fraction": 0,
+              "feedback": "那是動態的非功能性活動（效能測試）。"
+            },
+            {
+              "text": "部署到正式環境並監看實際使用者",
+              "fraction": 0,
+              "feedback": "監看執行中的系統屬於動態，而非靜態。"
+            }
+          ],
+          "generalFeedback": "靜態測試（審查、走查、檢驗、靜態分析）以檢視產出物的方式找出缺陷，不執行程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "動態測試的定義",
+          "text": "<p><strong>動態測試（dynamic testing）</strong>最貼切的描述是：</p>",
+          "answers": [
+            {
+              "text": "以輸入執行程式並觀察其行為",
+              "fraction": 100,
+              "feedback": "正確——動態測試執行軟體並將行為與預期比對。"
+            },
+            {
+              "text": "在審查會議中一起閱讀程式碼",
+              "fraction": 0,
+              "feedback": "那是靜態技術（審查）；沒有執行任何程式。"
+            },
+            {
+              "text": "檢查需求文件是否有錯字",
+              "fraction": 0,
+              "feedback": "那是對文件的靜態檢視，並非動態測試。"
+            },
+            {
+              "text": "用工具分析原始碼但從不執行它",
+              "fraction": 0,
+              "feedback": "那是靜態分析；動態測試需要執行。"
+            }
+          ],
+          "generalFeedback": "動態測試需要執行軟體，並將觀察到的行為與預期結果比對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "功能性測試的定義",
+          "text": "<p><strong>功能性測試（functional testing）</strong>主要關注的是：</p>",
+          "answers": [
+            {
+              "text": "系統「做什麼」——對給定輸入是否產生正確輸出",
+              "fraction": 100,
+              "feedback": "正確——功能性測試依規定的功能來檢查行為。"
+            },
+            {
+              "text": "系統在負載下回應有多快",
+              "fraction": 0,
+              "feedback": "那是非功能性（效能）的關注點。"
+            },
+            {
+              "text": "系統對攻擊者的抵抗力有多強",
+              "fraction": 0,
+              "feedback": "那是非功能性（安全性）的關注點。"
+            },
+            {
+              "text": "原始碼的可維護性有多高",
+              "fraction": 0,
+              "feedback": "可維護性是非功能性品質屬性，並非某項功能。"
+            }
+          ],
+          "generalFeedback": "功能性測試依需求檢查系統的功能／行為——「做什麼」——而非「做得多好」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非功能性測試的定義",
+          "text": "<p><strong>非功能性測試（non-functional testing）</strong>主要評估的是：</p>",
+          "answers": [
+            {
+              "text": "品質屬性，例如效能、安全性、可用性與可靠性",
+              "fraction": 100,
+              "feedback": "正確——非功能性測試著重系統運作「有多好」。"
+            },
+            {
+              "text": "每項所需功能是否回傳正確結果",
+              "fraction": 0,
+              "feedback": "那是功能性測試（系統做什麼）。"
+            },
+            {
+              "text": "程式碼中每一條敘述是否都被執行",
+              "fraction": 0,
+              "feedback": "那是結構性覆蓋率（白箱）的關注點。"
+            },
+            {
+              "text": "需求文件的文法是否完整",
+              "fraction": 0,
+              "feedback": "那是靜態審查的關注點，並非非功能性測試。"
+            }
+          ],
+          "generalFeedback": "非功能性測試著重系統運作「有多好」——效能、安全性、可用性、可靠性、可攜性等——而非哪些功能可運作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗證（verification）的定義",
+          "text": "<p>在經典的 V&amp;V 區分中，<strong>驗證（verification）</strong>所問的是：</p>",
+          "answers": [
+            {
+              "text": "「我們有把產品做對嗎？」——它是否符合規格？",
+              "fraction": 100,
+              "feedback": "正確——驗證在各階段檢查是否符合規格與標準。"
+            },
+            {
+              "text": "「我們做的是對的產品嗎？」——它是否滿足使用者需求？",
+              "fraction": 0,
+              "feedback": "那是確認（validation），而非驗證。"
+            },
+            {
+              "text": "「這產品比競爭對手快嗎？」",
+              "fraction": 0,
+              "feedback": "那是效能／標竿比較問題，與驗證無關。"
+            },
+            {
+              "text": "「顧客會願意付錢買這產品嗎？」",
+              "fraction": 0,
+              "feedback": "那是市場問題，與 V&V 區分無關。"
+            }
+          ],
+          "generalFeedback": "驗證在每個開發階段檢查是否符合規格、設計與標準——「把產品做對」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "確認（validation）的定義",
+          "text": "<p>在經典的 V&amp;V 區分中，<strong>確認（validation）</strong>所問的是：</p>",
+          "answers": [
+            {
+              "text": "「我們做的是對的產品嗎？」——它是否滿足使用者真正的需求？",
+              "fraction": 100,
+              "feedback": "正確——確認依真正的使用者需求檢查是否適用。"
+            },
+            {
+              "text": "「我們有把產品做對嗎？」——它是否符合規格？",
+              "fraction": 0,
+              "feedback": "那是驗證，而非確認。"
+            },
+            {
+              "text": "「原始碼編譯時沒有警告嗎？」",
+              "fraction": 0,
+              "feedback": "那是靜態／建置的關注點，並非確認。"
+            },
+            {
+              "text": "「程式碼的每個分支都被某個測試覆蓋嗎？」",
+              "fraction": 0,
+              "feedback": "那是白箱覆蓋率的關注點，並非確認。"
+            }
+          ],
+          "generalFeedback": "確認檢查是否適用——完成的產品是否滿足使用者真正的需求——「做對的產品」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：邊界值分析",
+          "text": "<p><strong>邊界值分析（boundary value analysis）</strong>屬於哪一類技術？</p>",
+          "answers": [
+            {
+              "text": "黑箱——它使用輸入規格與分割，不看程式碼",
+              "fraction": 100,
+              "feedback": "正確——BVA 依規定輸入分割的邊界來產生測試。"
+            },
+            {
+              "text": "白箱——它需要控制流程圖",
+              "fraction": 0,
+              "feedback": "BVA 不需程式結構；它依輸入規格運作。"
+            },
+            {
+              "text": "靜態——它從不執行程式",
+              "fraction": 0,
+              "feedback": "BVA 的案例會對程式執行，因此是動態而非靜態。"
+            },
+            {
+              "text": "非功能性——它量測效能",
+              "fraction": 0,
+              "feedback": "BVA 檢查輸入邊界的功能行為，而非效能。"
+            }
+          ],
+          "generalFeedback": "邊界值分析依規格中輸入分割的邊界產生測試，不需程式碼知識——是黑箱技術。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：分支覆蓋率",
+          "text": "<p><strong>分支（決策）覆蓋率</strong>屬於哪一類技術？</p>",
+          "answers": [
+            {
+              "text": "白箱——它是依程式碼的決策與分支來定義的",
+              "fraction": 100,
+              "feedback": "正確——分支覆蓋率是針對程式碼結構量測的。"
+            },
+            {
+              "text": "黑箱——它只需要規格",
+              "fraction": 0,
+              "feedback": "分支覆蓋率需要程式碼分支的知識，因此是白箱。"
+            },
+            {
+              "text": "非功能性——它量測可用性",
+              "fraction": 0,
+              "feedback": "分支覆蓋率是結構性指標，並非品質屬性。"
+            },
+            {
+              "text": "靜態——它不需執行",
+              "fraction": 0,
+              "feedback": "量測分支覆蓋率需要執行測試，因此是動態。"
+            }
+          ],
+          "generalFeedback": "分支覆蓋率是針對程式碼的分支量測，需要內部結構的知識——是白箱技術。（量測它也需要執行，因此是動態。）",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "程式碼審查屬於靜態",
+          "text": "<p>程式碼審查（inspection）是一種<strong>靜態</strong>測試。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——審查是檢視程式碼而不執行它，因此屬於靜態。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "審查以閱讀而非執行程式碼來找缺陷——它們屬於靜態。"
+            }
+          ],
+          "generalFeedback": "審查、走查與檢驗都是靜態技術：以檢視方式找出缺陷，不執行程式。"
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：等價分割",
+          "text": "<p><strong>等價分割（equivalence partitioning）</strong>屬於哪一類技術？</p>",
+          "answers": [
+            {
+              "text": "黑箱——它依規格分割輸入定義域",
+              "fraction": 100,
+              "feedback": "正確——等價分割依規格把輸入分成若干類別。"
+            },
+            {
+              "text": "白箱——它分割的是程式碼路徑",
+              "fraction": 0,
+              "feedback": "等價分割作用於輸入定義域，而非程式碼路徑。"
+            },
+            {
+              "text": "靜態——它不需執行測試",
+              "fraction": 0,
+              "feedback": "產生的案例會被執行，因此是動態的黑箱技術。"
+            },
+            {
+              "text": "只做驗證、從不執行軟體的活動",
+              "fraction": 0,
+              "feedback": "它的測試案例會對軟體執行，因此此說法錯誤。"
+            }
+          ],
+          "generalFeedback": "等價分割依規格把輸入分成若干類別，不需程式碼知識——是黑箱技術。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：敘述覆蓋率",
+          "text": "<p><strong>敘述覆蓋率（statement coverage）</strong>屬於哪一類技術？</p>",
+          "answers": [
+            {
+              "text": "白箱——它是依程式碼的可執行敘述來定義的",
+              "fraction": 100,
+              "feedback": "正確——敘述覆蓋率是針對程式碼結構量測的。"
+            },
+            {
+              "text": "黑箱——它只需要需求",
+              "fraction": 0,
+              "feedback": "敘述覆蓋率需要程式碼的知識，因此是白箱。"
+            },
+            {
+              "text": "非功能性——它量測可靠性",
+              "fraction": 0,
+              "feedback": "敘述覆蓋率是結構性指標，並非品質屬性。"
+            },
+            {
+              "text": "靜態——不需執行",
+              "fraction": 0,
+              "feedback": "量測敘述覆蓋率需要執行測試，因此是動態。"
+            }
+          ],
+          "generalFeedback": "敘述覆蓋率是針對程式碼的可執行敘述量測，因此是白箱（結構性）技術；量測它是動態的（需要執行）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "黑箱需要原始碼嗎？",
+          "text": "<p>黑箱測試需要取得程式的<strong>原始碼</strong>。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——黑箱測試依規格與行為進行，而非依原始碼。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "黑箱把實作視為不透明；它不需原始碼（需要原始碼的是白箱）。"
+            }
+          ],
+          "generalFeedback": "黑箱測試依規格與對外行為來設計測試，不需要原始碼。需要原始碼是白箱測試的特徵。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "灰箱範例（透過 UI 用資料庫結構）",
+          "text": "<p>測試者透過網頁應用程式的公開 UI 來驅動測試，但利用<strong>資料庫結構</strong>的知識來設計輸入並檢查已儲存的結果。這最適合歸類為：</p>",
+          "answers": [
+            {
+              "text": "灰箱測試",
+              "fraction": 100,
+              "feedback": "正確——在從外部驅動系統時運用部分內部知識（結構）即為灰箱。"
+            },
+            {
+              "text": "純黑箱測試",
+              "fraction": 0,
+              "feedback": "純黑箱不使用任何內部知識；這裡用到了結構，因此是灰箱。"
+            },
+            {
+              "text": "純白箱測試",
+              "fraction": 0,
+              "feedback": "白箱會依程式碼結構驅動測試；這裡是透過 UI 執行、僅具部分知識。"
+            },
+            {
+              "text": "靜態分析",
+              "fraction": 0,
+              "feedback": "系統是透過 UI 執行的，因此是動態而非靜態。"
+            }
+          ],
+          "generalFeedback": "在透過對外介面操作系統的同時運用部分內部知識（資料庫結構），正是灰箱測試的典型模式。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "走查是動態的嗎？",
+          "text": "<p>規格<strong>走查（walkthrough）</strong>是一種動態測試活動。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——走查是檢視文件而不執行軟體，因此屬於靜態。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "走查與審查、檢驗一樣屬於靜態——沒有執行任何程式。"
+            }
+          ],
+          "generalFeedback": "走查（如同審查與檢驗）是靜態技術——以檢視方式找出缺陷，不執行任何程式碼。"
+        },
+        {
+          "type": "multichoice",
+          "name": "效能測試：功能性與否",
+          "text": "<p><strong>效能測試（performance testing）</strong>（量測負載下的吞吐量與回應時間）歸類為：</p>",
+          "answers": [
+            {
+              "text": "非功能性測試",
+              "fraction": 100,
+              "feedback": "正確——效能是品質屬性（做得多好），因此屬於非功能性。"
+            },
+            {
+              "text": "功能性測試",
+              "fraction": 0,
+              "feedback": "功能性測試檢查系統做什麼；效能關乎它做得多好。"
+            },
+            {
+              "text": "白箱測試",
+              "fraction": 0,
+              "feedback": "效能測試通常是黑箱；黑／白箱軸本來就與功能／非功能軸不同。"
+            },
+            {
+              "text": "靜態測試",
+              "fraction": 0,
+              "feedback": "效能測試在負載下執行系統，因此是動態而非靜態。"
+            }
+          ],
+          "generalFeedback": "效能關乎品質屬性（系統表現多好，而非哪些功能可運作），因此屬於非功能性。它同時也是動態且通常是黑箱。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需求審查：驗證或確認",
+          "text": "<p>將<strong>需求規格</strong>對照適用標準與客戶合約進行審查，是下列何者的例子？</p>",
+          "answers": [
+            {
+              "text": "驗證——符合規格與流程（「把產品做對」）",
+              "fraction": 100,
+              "feedback": "正確——需求審查檢查是否符合標準與規格。"
+            },
+            {
+              "text": "確認——是否適合使用者真正的需求",
+              "fraction": 0,
+              "feedback": "確認通常以動態方式確認交付產品在真實情境是否適用；規格審查屬於驗證。"
+            },
+            {
+              "text": "非功能性測試",
+              "fraction": 0,
+              "feedback": "文件審查是靜態的驗證活動，並非非功能性測試。"
+            },
+            {
+              "text": "動態測試",
+              "fraction": 0,
+              "feedback": "審查沒有執行任何東西，因此是靜態而非動態。"
+            }
+          ],
+          "generalFeedback": "需求審查檢查是否符合規格與標準——是驗證活動，也是靜態活動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UAT：驗證或確認",
+          "text": "<p><strong>使用者驗收測試（UAT）</strong>——由真實使用者試用交付的系統以確認它滿足其需求——是下列何者的例子？</p>",
+          "answers": [
+            {
+              "text": "確認——是否適合使用（「做對的產品」）",
+              "fraction": 100,
+              "feedback": "正確——UAT 確認產品滿足使用者真正的需求。"
+            },
+            {
+              "text": "驗證——符合設計文件",
+              "fraction": 0,
+              "feedback": "符合設計是驗證；UAT 檢查真實使用者需求，屬於確認。"
+            },
+            {
+              "text": "靜態測試",
+              "fraction": 0,
+              "feedback": "UAT 會執行交付的系統，因此是動態而非靜態。"
+            },
+            {
+              "text": "白箱測試",
+              "fraction": 0,
+              "feedback": "使用者透過介面而非程式碼操作系統——這是黑箱，而問題其實是在問 V&V。"
+            }
+          ],
+          "generalFeedback": "UAT 確認產品滿足使用者真正的需求——是確認。它同時也是動態且黑箱。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個軸：BVA 與分支覆蓋率",
+          "text": "<p><strong>邊界值分析</strong>與<strong>分支覆蓋率</strong>主要在哪一條分類軸上不同？</p>",
+          "answers": [
+            {
+              "text": "黑箱與白箱（是否具備程式內部結構的知識）",
+              "fraction": 100,
+              "feedback": "正確——BVA 是規格導向（黑箱），而分支覆蓋率是結構導向（白箱）。"
+            },
+            {
+              "text": "靜態與動態",
+              "fraction": 0,
+              "feedback": "兩者都是動態的（測試都會被執行）；在此軸上並無差異。"
+            },
+            {
+              "text": "功能性與非功能性",
+              "fraction": 0,
+              "feedback": "兩者都偏向功能正確性；真正的差異在於知識依據。"
+            },
+            {
+              "text": "驗證與確認",
+              "fraction": 0,
+              "feedback": "兩者通常都偏向驗證；它們的差異在於黑箱與白箱。"
+            }
+          ],
+          "generalFeedback": "BVA 是黑箱（源自規格），分支覆蓋率是白箱（源自程式結構）；它們在知識／結構軸上不同。兩者都是動態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "自動化與黑／白箱正交",
+          "text": "<p>一個<strong>黑箱</strong>驗收測試組被改寫為透過 UI 驅動工具自動執行。在黑箱／白箱軸上，這個自動化測試組現在是：</p>",
+          "answers": [
+            {
+              "text": "仍是黑箱——自動化是一條正交的軸，並未加入程式結構的知識",
+              "fraction": 100,
+              "feedback": "正確——手動與自動化和黑箱與白箱互相獨立。"
+            },
+            {
+              "text": "變成白箱，因為有工具與程式互動",
+              "fraction": 0,
+              "feedback": "把測試自動化並不會賦予它對程式內部結構的知識。"
+            },
+            {
+              "text": "變成灰箱，因為自動化工具一定會讀原始碼",
+              "fraction": 0,
+              "feedback": "UI 驅動工具不會讀原始碼；知識依據並未改變。"
+            },
+            {
+              "text": "不再是黑箱也不是白箱",
+              "fraction": 0,
+              "feedback": "它仍是黑箱；只有手動／自動化這條軸改變了。"
+            }
+          ],
+          "generalFeedback": "手動與自動化和黑箱與白箱互相正交。把黑箱測試組自動化後它仍是黑箱；知識依據並未改變。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：掃描原始碼的工具",
+          "text": "<p>某工具掃描<strong>原始碼</strong>找出空指標風險與未使用變數，但從不執行程式。這項活動是：</p>",
+          "answers": [
+            {
+              "text": "靜態分析——一種檢視程式碼而不執行它的靜態技術",
+              "fraction": 100,
+              "feedback": "正確——沒有發生任何執行，因此是靜態分析。"
+            },
+            {
+              "text": "動態測試——它執行了程式",
+              "fraction": 0,
+              "feedback": "該工具從不執行程式，因此是靜態而非動態。"
+            },
+            {
+              "text": "黑箱測試——它忽略程式碼",
+              "fraction": 0,
+              "feedback": "它讀取原始碼（結構），因此不是黑箱。"
+            },
+            {
+              "text": "效能測試",
+              "fraction": 0,
+              "feedback": "它分析程式碼，而非執行期效能。"
+            }
+          ],
+          "generalFeedback": "靜態分析在不執行的情況下檢視原始碼／結構，因此是靜態。由於它使用程式碼結構，所以是結構導向而非規格導向。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "錯誤猜測與探索性測試所屬族群",
+          "text": "<p><strong>錯誤猜測（error guessing）</strong>與<strong>探索性測試（exploratory testing）</strong>依賴測試者的經驗而非正式模型，屬於哪一族群？</p>",
+          "answers": [
+            {
+              "text": "經驗導向技術",
+              "fraction": 100,
+              "feedback": "正確——這些是由測試者直覺與技巧驅動的經驗導向技術。"
+            },
+            {
+              "text": "結構導向（白箱）覆蓋率技術",
+              "fraction": 0,
+              "feedback": "它們不使用程式碼結構或覆蓋率準則。"
+            },
+            {
+              "text": "靜態審查技術",
+              "fraction": 0,
+              "feedback": "它們會執行軟體，因此是動態而非靜態審查。"
+            },
+            {
+              "text": "非功能性技術",
+              "fraction": 0,
+              "feedback": "它們憑經驗鎖定功能性缺陷，而非品質屬性。"
+            }
+          ],
+          "generalFeedback": "錯誤猜測與探索性測試是經驗導向技術——一種由測試者知識與直覺（而非正式規格或程式碼結構）驅動的動態、黑箱族群。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：狀態轉移測試",
+          "text": "<p><strong>狀態轉移測試（state-transition testing）</strong>從依需求建立的行為狀態模型導出測試案例。它是一種：</p>",
+          "answers": [
+            {
+              "text": "黑箱技術——源自規格／行為模型，而非程式碼",
+              "fraction": 100,
+              "feedback": "正確——狀態模型來自需求，因此是黑箱。"
+            },
+            {
+              "text": "白箱技術——源自控制流程圖",
+              "fraction": 0,
+              "feedback": "該模型是行為模型（源自規格），而非程式碼的控制流程圖。"
+            },
+            {
+              "text": "靜態技術——不需執行",
+              "fraction": 0,
+              "feedback": "產生的案例會對系統執行，因此是動態。"
+            },
+            {
+              "text": "非功能性技術",
+              "fraction": 0,
+              "feedback": "它透過狀態與轉移檢查功能行為，而非某項品質屬性。"
+            }
+          ],
+          "generalFeedback": "狀態轉移測試使用源自規格的行為模型，把實作視為不透明——是黑箱技術。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：壓力測試",
+          "text": "<p><strong>壓力測試（stress testing）</strong>（把系統推過正常負載，觀察它如何降級或失效）是：</p>",
+          "answers": [
+            {
+              "text": "非功能性（且動態）測試",
+              "fraction": 100,
+              "feedback": "正確——它藉由執行系統來評估負載下的行為（品質屬性）。"
+            },
+            {
+              "text": "功能性測試",
+              "fraction": 0,
+              "feedback": "它檢查負載下的品質屬性，而非某項功能是否回傳正確結果。"
+            },
+            {
+              "text": "靜態測試",
+              "fraction": 0,
+              "feedback": "它在負載下執行系統，因此是動態而非靜態。"
+            },
+            {
+              "text": "白箱覆蓋率量測",
+              "fraction": 0,
+              "feedback": "它量測負載下的行為，而非程式結構覆蓋率。"
+            }
+          ],
+          "generalFeedback": "壓力／負載測試評估品質屬性（極端負載下的行為），因此屬於非功能性；由於它執行系統，也是動態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "挑出驗證活動",
+          "text": "<p>下列何者屬於<strong>驗證</strong>活動，而非確認活動？</p>",
+          "answers": [
+            {
+              "text": "將某模組的程式碼對照其詳細設計文件進行檢驗",
+              "fraction": 100,
+              "feedback": "正確——檢查是否符合設計即為驗證。"
+            },
+            {
+              "text": "讓終端使用者試用產品以確認它滿足需求",
+              "fraction": 0,
+              "feedback": "那是確認是否適用——屬於確認。"
+            },
+            {
+              "text": "進行 beta 計畫以蒐集真實世界的回饋",
+              "fraction": 0,
+              "feedback": "beta 計畫檢查真實使用者需求——屬於確認。"
+            },
+            {
+              "text": "確認完成的系統解決了客戶真正的問題",
+              "fraction": 0,
+              "feedback": "那是是否適用——屬於確認。"
+            }
+          ],
+          "generalFeedback": "將模組對照其設計文件檢查屬於驗證（符合規格）。其他選項都是確認產品是否適合使用者真正的需求——屬於確認。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：安全性測試",
+          "text": "<p><strong>安全性測試（security testing）</strong>（檢查對未授權存取的抵抗力）主要是：</p>",
+          "answers": [
+            {
+              "text": "非功能性測試",
+              "fraction": 100,
+              "feedback": "正確——安全性是品質屬性，因此安全性測試屬於非功能性。"
+            },
+            {
+              "text": "功能性測試",
+              "fraction": 0,
+              "feedback": "安全性關乎品質屬性（抵抗攻擊做得多好），而非某項列出功能的輸出。"
+            },
+            {
+              "text": "純粹的靜態技術",
+              "fraction": 0,
+              "feedback": "安全性測試通常會執行系統（如滲透測試），因此是動態。"
+            },
+            {
+              "text": "只做驗證的活動",
+              "fraction": 0,
+              "feedback": "安全性測試是非功能性測試類別，而非 V&V 階段標籤。"
+            }
+          ],
+          "generalFeedback": "安全性是品質屬性，因此安全性測試屬於非功能性。它通常是動態，並視所用知識而可能是灰箱或黑箱。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最清楚的軸：走查與負載測試",
+          "text": "<p><strong>走查</strong>與<strong>負載測試</strong>之間最清楚的分類差異是：</p>",
+          "answers": [
+            {
+              "text": "靜態與動態——走查不執行任何東西，負載測試會執行系統",
+              "fraction": 100,
+              "feedback": "正確——決定性的對比在於是否執行。"
+            },
+            {
+              "text": "黑箱與白箱",
+              "fraction": 0,
+              "feedback": "走查其實不太放在黑／白箱軸上；此處決定性的對比是靜態與動態。"
+            },
+            {
+              "text": "驗證與確認",
+              "fraction": 0,
+              "feedback": "兩者都可服務於驗證；清楚的對比是一者執行、一者不執行。"
+            },
+            {
+              "text": "手動與自動化",
+              "fraction": 0,
+              "feedback": "兩者都可能是手動或自動化；決定性的差異在於是否執行。"
+            }
+          ],
+          "generalFeedback": "走查是靜態（不執行任何東西），負載測試是動態（系統在負載下執行）；靜態與動態這條軸是決定性的對比。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：基本路徑測試",
+          "text": "<p><strong>基本路徑測試（basis-path testing）</strong>（從程式碼的線性獨立路徑導出測試）是一種：</p>",
+          "answers": [
+            {
+              "text": "白箱（結構導向）技術",
+              "fraction": 100,
+              "feedback": "正確——基本路徑測試源自程式碼的控制流程圖。"
+            },
+            {
+              "text": "黑箱技術",
+              "fraction": 0,
+              "feedback": "它使用程式碼的路徑，因此是結構導向而非規格導向。"
+            },
+            {
+              "text": "非功能性技術",
+              "fraction": 0,
+              "feedback": "它鎖定路徑的結構性覆蓋，而非品質屬性。"
+            },
+            {
+              "text": "靜態技術",
+              "fraction": 0,
+              "feedback": "它的測試會被執行，因此是動態而非靜態。"
+            }
+          ],
+          "generalFeedback": "基本路徑測試源自程式碼的控制流程圖（獨立路徑），因此是白箱／結構導向，且為動態。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "多軸分類：負載測試",
+          "text": "<p><strong>負載測試（load testing）</strong>會執行運作中的系統、完全透過對外介面驅動而不具程式碼知識，並量測高流量下的回應時間。就三條軸而言，它是：</p>",
+          "answers": [
+            {
+              "text": "動態、黑箱且非功能性",
+              "fraction": 100,
+              "feedback": "正確——它會執行（動態）、不使用程式碼知識（黑箱），並量測品質屬性（非功能性）。"
+            },
+            {
+              "text": "靜態、白箱且功能性",
+              "fraction": 0,
+              "feedback": "它會執行系統且不使用程式碼知識，因此是動態且黑箱，並鎖定效能（非功能性）。"
+            },
+            {
+              "text": "動態、白箱且非功能性",
+              "fraction": 0,
+              "feedback": "它不使用程式內部結構的知識，因此是黑箱而非白箱。"
+            },
+            {
+              "text": "靜態、黑箱且功能性",
+              "fraction": 0,
+              "feedback": "它會執行系統（動態）並量測效能（非功能性）。"
+            }
+          ],
+          "generalFeedback": "負載測試會執行系統（動態）、不需內部程式碼知識（黑箱），並鎖定效能這項品質屬性（非功能性）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "靜態分析算是動態白箱測試嗎？",
+          "text": "<p>因為靜態分析會檢視原始碼，所以它是一種<strong>動態白箱測試</strong>。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——靜態分析是結構導向，但「不」執行程式，因此是靜態而非動態。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "靜態分析使用程式碼結構，但不進行任何執行，因此不可能是動態測試。"
+            }
+          ],
+          "generalFeedback": "靜態分析是結構導向的（它使用程式碼）但屬靜態（不執行）。「白箱」指的是對結構的知識，而非執行——因此「使用程式碼」並不代表它是動態。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何灰箱不是黑箱加白箱",
+          "text": "<p>下列何者最能說明為何<strong>灰箱</strong>測試並非單純的「黑箱加白箱」？</p>",
+          "answers": [
+            {
+              "text": "它運用部分內部知識來設計更好的、從外部驅動的測試，而非執行黑箱與白箱兩者的完整測試集",
+              "fraction": 100,
+              "feedback": "正確——灰箱把有限的內部洞見與外部測試結合；它不是兩者完整測試集的聯集。"
+            },
+            {
+              "text": "它執行所有可能的黑箱測試以及所有可能的白箱測試",
+              "fraction": 0,
+              "feedback": "灰箱只運用部分內部知識；它不會跑完整的白箱測試集。"
+            },
+            {
+              "text": "它與白箱測試完全相同，只是換個名稱",
+              "fraction": 0,
+              "feedback": "灰箱只運用部分內部知識並從外部驅動測試，與完整白箱不同。"
+            },
+            {
+              "text": "它對規格與程式碼皆無需任何知識",
+              "fraction": 0,
+              "feedback": "那會是兩者皆非；灰箱特指運用部分內部知識。"
+            }
+          ],
+          "generalFeedback": "灰箱結合了知識來源——以有限的內部洞見（架構、結構、關鍵演算法）來鎖定外部測試。它並非黑箱與白箱完整測試集的聯集。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "就兩條軸分類 MC/DC",
+          "text": "<p><strong>MC/DC</strong>（修正條件／決策覆蓋率）最適合歸類為：</p>",
+          "answers": [
+            {
+              "text": "白箱且動態——依程式碼條件定義，須藉由執行測試來量測",
+              "fraction": 100,
+              "feedback": "正確——它是結構性準則，但只有透過執行測試才能觀察其是否滿足。"
+            },
+            {
+              "text": "白箱且靜態——不執行程式即可計算覆蓋率",
+              "fraction": 0,
+              "feedback": "MC/DC 是結構性的，但覆蓋率只有透過執行測試才能觀察，因此是動態。"
+            },
+            {
+              "text": "黑箱且動態",
+              "fraction": 0,
+              "feedback": "MC/DC 依程式碼的條件定義，因此是白箱而非黑箱。"
+            },
+            {
+              "text": "黑箱且靜態",
+              "fraction": 0,
+              "feedback": "它依程式碼條件定義（白箱）且需要執行（動態）。"
+            }
+          ],
+          "generalFeedback": "MC/DC 是結構性（白箱）準則，但覆蓋率只有透過執行測試才能觀察，因此是動態。結構性覆蓋率準則並非靜態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對照設計規格的單元測試",
+          "text": "<p>執行由某模組詳細<strong>設計規格</strong>導出的單元測試，以確認該模組符合此設計，主要屬於下列何種行為？</p>",
+          "answers": [
+            {
+              "text": "驗證——符合規格",
+              "fraction": 100,
+              "feedback": "正確——確認符合設計規格即為驗證。"
+            },
+            {
+              "text": "確認——是否適合終端使用者真正的需求",
+              "fraction": 0,
+              "feedback": "確認檢查真實使用者需求；此處是檢查符合設計——屬於驗證。"
+            },
+            {
+              "text": "非功能性測試",
+              "fraction": 0,
+              "feedback": "它檢查對設計的功能性符合度，而非品質屬性。"
+            },
+            {
+              "text": "靜態分析",
+              "fraction": 0,
+              "feedback": "這些測試會被執行，因此是動態，而其 V&V 角色是驗證。"
+            }
+          ],
+          "generalFeedback": "確認符合設計規格即為驗證。此處的單元測試是動態的（也可能是白箱），但在 V&V 軸上其角色是驗證。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符合規格但不合使用者所需",
+          "text": "<p>某系統完全符合其書面需求，但那些需求誤解了使用者實際的需要。哪一項活動的設計目的正是要抓出這個問題？</p>",
+          "answers": [
+            {
+              "text": "確認——它檢查是否適合真實使用者需求，與書面規格無關",
+              "fraction": 100,
+              "feedback": "正確——即使符合規格，確認仍能抓出「做錯產品」。"
+            },
+            {
+              "text": "驗證——它檢查是否符合書面規格",
+              "fraction": 0,
+              "feedback": "此處驗證會通過，因為產品符合（有瑕疵的）規格。"
+            },
+            {
+              "text": "敘述覆蓋率",
+              "fraction": 0,
+              "feedback": "覆蓋率量測哪些程式碼被執行，而非需求是否正確。"
+            },
+            {
+              "text": "對原始碼的靜態分析",
+              "fraction": 0,
+              "feedback": "靜態分析檢視程式碼品質，而非需求是否滿足使用者需要。"
+            }
+          ],
+          "generalFeedback": "此處驗證會通過（產品符合規格），但規格本身錯了。只有依真實使用者需求檢查的確認，才能抓出「做錯產品」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 BVA 屬於黑箱族群",
+          "text": "<p><strong>邊界值分析</strong>被歸入黑箱族群，是因為：</p>",
+          "answers": [
+            {
+              "text": "它的案例源自規格中輸入分割的邊界，不需程式碼的知識",
+              "fraction": 100,
+              "feedback": "正確——測試依據是規定的輸入定義域，而非程式碼。"
+            },
+            {
+              "text": "它量測程式碼的哪些分支被執行",
+              "fraction": 0,
+              "feedback": "那描述的是分支覆蓋率（白箱技術），而非 BVA。"
+            },
+            {
+              "text": "它從不執行受測程式",
+              "fraction": 0,
+              "feedback": "BVA 的案例會被執行；它屬於黑箱的原因是規格導向的測試依據，而非不執行。"
+            },
+            {
+              "text": "它只評估非功能性品質屬性",
+              "fraction": 0,
+              "feedback": "BVA 鎖定輸入邊界的功能行為，而非品質屬性。"
+            }
+          ],
+          "generalFeedback": "BVA 屬於黑箱族群，是因為其案例源自規定輸入定義域的邊界，不需程式碼內部結構的知識。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "高覆蓋率能證明做了黑箱測試嗎？",
+          "text": "<p>回報<strong>90% 分支覆蓋率</strong>即證明已進行了徹底的黑箱測試。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——分支覆蓋率是白箱（結構性）指標，對規格導向的黑箱測試毫無說明力。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "覆蓋率是結構性指標；高數值並不代表規格已被測試（黑箱）。"
+            }
+          ],
+          "generalFeedback": "覆蓋率指標是白箱／結構性的。高覆蓋率並不代表規格已被測試（黑箱），反之亦然；黑／白箱與覆蓋率的概念互相獨立。"
+        },
+        {
+          "type": "multichoice",
+          "name": "何者同時是白箱且靜態",
+          "text": "<p>下列何者同時是<strong>白箱（結構導向）</strong>且<strong>靜態（不執行）</strong>？</p>",
+          "answers": [
+            {
+              "text": "對原始碼進行資料流靜態分析",
+              "fraction": 100,
+              "feedback": "正確——它使用程式碼結構（白箱）但從不執行它（靜態）。"
+            },
+            {
+              "text": "分支覆蓋率量測",
+              "fraction": 0,
+              "feedback": "分支覆蓋率是白箱但動態——它需要執行測試。"
+            },
+            {
+              "text": "邊界值分析",
+              "fraction": 0,
+              "feedback": "BVA 是黑箱（規格導向）且動態。"
+            },
+            {
+              "text": "負載測試",
+              "fraction": 0,
+              "feedback": "負載測試是黑箱且動態。"
+            }
+          ],
+          "generalFeedback": "資料流靜態分析檢視程式碼結構（白箱）而不執行它（靜態）。分支覆蓋率是白箱但動態；BVA 是黑箱；負載測試是黑箱且動態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "多軸：白箱、動態、功能性",
+          "text": "<p>開發者<em>依程式碼</em>撰寫單元測試、執行它們，並斷言每個函式回傳正確結果。撇開任何覆蓋率量測不談，就三條軸而言這些測試是：</p>",
+          "answers": [
+            {
+              "text": "白箱、動態且功能性",
+              "fraction": 100,
+              "feedback": "正確——源自程式碼（白箱）、被執行（動態），並檢查輸出正確（功能性）。"
+            },
+            {
+              "text": "黑箱、靜態且非功能性",
+              "fraction": 0,
+              "feedback": "它們源自程式碼（白箱）、被執行（動態），並檢查結果正確（功能性）。"
+            },
+            {
+              "text": "白箱、靜態且非功能性",
+              "fraction": 0,
+              "feedback": "執行這些測試使其為動態，檢查結果正確使其為功能性。"
+            },
+            {
+              "text": "黑箱、動態且功能性",
+              "fraction": 0,
+              "feedback": "因為它們依程式碼撰寫，所以是白箱而非黑箱。"
+            }
+          ],
+          "generalFeedback": "依程式碼導出的測試是白箱；執行它們是動態；斷言每個函式回傳正確結果是功能性。設計依據、執行、功能／非功能是三條獨立的軸。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "多軸：滲透測試",
+          "text": "<p>某滲透測試者拿到部分架構圖與部分 API 內部細節，接著攻擊運作中的系統以找出安全漏洞。這最適合描述為：</p>",
+          "answers": [
+            {
+              "text": "灰箱、動態且非功能性",
+              "fraction": 100,
+              "feedback": "正確——部分內部知識（灰箱）、攻擊運作中的系統（動態）、鎖定安全性（非功能性）。"
+            },
+            {
+              "text": "黑箱、靜態且功能性",
+              "fraction": 0,
+              "feedback": "測試者具部分內部知識（灰箱）且會執行系統（動態），並鎖定品質屬性（非功能性）。"
+            },
+            {
+              "text": "白箱、靜態且功能性",
+              "fraction": 0,
+              "feedback": "只運用部分知識（灰箱）、系統被執行（動態）、目標是安全性（非功能性）。"
+            },
+            {
+              "text": "純黑箱且功能性",
+              "fraction": 0,
+              "feedback": "運用部分內部細節使其為灰箱，而安全性目標是非功能性。"
+            }
+          ],
+          "generalFeedback": "部分內部知識使其為灰箱；攻擊運作中的系統使其為動態；鎖定安全性（品質屬性）使其為非功能性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "多軸：設計檢驗",
+          "text": "<p>在 V&amp;V 軸與靜態／動態軸上，對<strong>設計文件</strong>進行正式檢驗（inspection）是：</p>",
+          "answers": [
+            {
+              "text": "驗證且靜態",
+              "fraction": 100,
+              "feedback": "正確——它檢查是否符合規格／標準（驗證）且不執行任何東西（靜態）。"
+            },
+            {
+              "text": "確認且動態",
+              "fraction": 0,
+              "feedback": "檢驗不執行任何東西（靜態），並檢查是否符合規格（驗證）。"
+            },
+            {
+              "text": "驗證且動態",
+              "fraction": 0,
+              "feedback": "它是驗證，但沒有執行任何東西，因此是靜態而非動態。"
+            },
+            {
+              "text": "確認且靜態",
+              "fraction": 0,
+              "feedback": "它是靜態，但檢查是否符合規格，因此是驗證而非確認。"
+            }
+          ],
+          "generalFeedback": "設計檢驗檢查是否符合規格與標準（驗證）且不執行任何東西（靜態）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "回歸測試依定義是白箱嗎？",
+          "text": "<p>回歸測試（regression testing）依定義是一種<strong>白箱</strong>技術。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——回歸測試由其目的（變更後重新測試）定義，可以是黑箱或白箱、手動或自動化。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "回歸關乎何時與為何測試，而非知識依據；它可以是黑箱或白箱。"
+            }
+          ],
+          "generalFeedback": "回歸測試依其目的分類——確認變更未破壞既有行為——這條軸與黑箱／白箱正交。回歸測試組可以是任一種。"
+        },
+        {
+          "type": "multichoice",
+          "name": "驗證／確認與靜態／動態",
+          "text": "<p>關於<strong>驗證與確認</strong>，下列哪一項敘述正確？</p>",
+          "answers": [
+            {
+              "text": "驗證可以是靜態（如審查）或動態（如對照規格的單元測試），而確認通常是動態",
+              "fraction": 100,
+              "feedback": "正確——驗證橫跨靜態與動態方法；確認通常是動態。"
+            },
+            {
+              "text": "驗證一定是靜態，確認一定是動態",
+              "fraction": 0,
+              "feedback": "驗證也包含動態方法，例如檢查是否符合規格的單元／整合測試。"
+            },
+            {
+              "text": "驗證與確認是同一活動的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們不同：符合規格 相對於 適合使用者需求。"
+            },
+            {
+              "text": "確認一定要在任何驗證之前完成",
+              "fraction": 0,
+              "feedback": "並無此嚴格順序；驗證在整個開發過程中都會進行。"
+            }
+          ],
+          "generalFeedback": "驗證橫跨靜態（審查、檢驗）與動態（對照規格的單元／整合測試）方法；確認——確認真實世界的適用性——通常是動態。兩者是不同的活動，也並非硬性規定確認在先。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價分割：設計與執行的兩條軸",
+          "text": "<p>測試者以<strong>等價分割</strong>（依規格）設計案例，然後對程式執行它們。在知識軸與靜態／動態軸上分別而言，這是：</p>",
+          "answers": [
+            {
+              "text": "黑箱且動態——設計是規格導向，但執行案例會運行程式",
+              "fraction": 100,
+              "feedback": "正確——設計技術是黑箱；執行案例是動態。"
+            },
+            {
+              "text": "白箱且靜態",
+              "fraction": 0,
+              "feedback": "設計使用規格（黑箱），而執行案例使其為動態。"
+            },
+            {
+              "text": "黑箱且靜態",
+              "fraction": 0,
+              "feedback": "案例會對程式執行，因此該活動是動態而非靜態。"
+            },
+            {
+              "text": "白箱且動態",
+              "fraction": 0,
+              "feedback": "等價分割是規格導向，因此是黑箱而非白箱。"
+            }
+          ],
+          "generalFeedback": "等價分割是黑箱設計技術（規格導向）；執行所產生的案例是動態。設計依據與執行方式是兩條獨立的軸。",
+          "single": true
+        }
+      ]
+    }
   }
 };
