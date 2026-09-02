@@ -104096,6 +104096,2612 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "spec-mutation": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What specification mutation mutates",
+            "text": "<p>Specification mutation testing applies mutation operators to:</p>",
+            "answers": [
+              {
+                "text": "A specification or model of the system (e.g. a requirement, an FSM, or a temporal-logic property), not the program source code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 in specification mutation the artifact that is altered is the spec/model, not the code."
+              },
+              {
+                "text": "The program's source code",
+                "fraction": 0,
+                "feedback": "Mutating source code is program (code) mutation, a different technique."
+              },
+              {
+                "text": "The compiled binary of the program",
+                "fraction": 0,
+                "feedback": "Specification mutation works on the specification, not on compiled code."
+              },
+              {
+                "text": "The test cases themselves",
+                "fraction": 0,
+                "feedback": "Test cases are what we evaluate or generate; specification mutation changes the spec."
+              }
+            ],
+            "generalFeedback": "Specification mutation applies mutation operators to a specification or model \u2014 a boolean/logic requirement, a finite-state machine, or a temporal-logic property \u2014 rather than to the program's code.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mutant specification",
+            "text": "<p>A <em>mutant specification</em> is:</p>",
+            "answers": [
+              {
+                "text": "A copy of the original specification with one small change introduced by a mutation operator",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a mutant spec is the original spec seeded with one deliberate small change."
+              },
+              {
+                "text": "A specification defect reported by users in the field",
+                "fraction": 0,
+                "feedback": "Mutant specs are artificial changes seeded on purpose, not field-reported defects."
+              },
+              {
+                "text": "A test case derived from the specification",
+                "fraction": 0,
+                "feedback": "That is a test, not a mutant specification."
+              },
+              {
+                "text": "An execution trace produced by a model checker",
+                "fraction": 0,
+                "feedback": "That is a counterexample/trace, not a mutant specification."
+              }
+            ],
+            "generalFeedback": "A mutant specification is a variant of the specification produced by applying a spec mutation operator that makes one small change (e.g. negating a clause), just as a program mutant is a small change to code.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is deliberately altered",
+            "text": "<p>In specification mutation, the artifact that is deliberately altered to create a mutant is:</p>",
+            "answers": [
+              {
+                "text": "The specification / model",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the spec or model is what gets mutated."
+              },
+              {
+                "text": "The source code",
+                "fraction": 0,
+                "feedback": "Altering source code is program mutation, not specification mutation."
+              },
+              {
+                "text": "The test harness",
+                "fraction": 0,
+                "feedback": "The test harness is infrastructure, not the mutated artifact."
+              },
+              {
+                "text": "The input data files",
+                "fraction": 0,
+                "feedback": "Input data is not what a spec mutation operator changes."
+              }
+            ],
+            "generalFeedback": "Specification mutation seeds a change into the specification or model (a requirement, an FSM, or a temporal property), leaving the program code untouched.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Specification vs program mutation",
+            "text": "<p>The key difference between <em>specification mutation</em> and <em>program (code) mutation</em> is:</p>",
+            "answers": [
+              {
+                "text": "Specification mutation changes the specification/model, whereas program mutation changes the program's source code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the two differ in which artifact is mutated."
+              },
+              {
+                "text": "Specification mutation uses random inputs while program mutation is systematic",
+                "fraction": 0,
+                "feedback": "Both use systematic mutation operators; the difference is the artifact mutated."
+              },
+              {
+                "text": "Specification mutation needs no mutation operators",
+                "fraction": 0,
+                "feedback": "Both rely on mutation operators; spec mutation just applies them to the spec."
+              },
+              {
+                "text": "They are the same technique under two names",
+                "fraction": 0,
+                "feedback": "They are distinct: one mutates the spec, the other the code."
+              }
+            ],
+            "generalFeedback": "Both are mutation techniques, but program mutation seeds faults into code and runs tests to detect them, while specification mutation seeds changes into the spec/model to assess or generate tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Killing a spec mutant",
+            "text": "<p>A <em>mutant specification is killed</em> when:</p>",
+            "answers": [
+              {
+                "text": "Some test or analysis distinguishes the behavior described by the mutant spec from that of the original spec",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an observable difference between mutant and original spec kills it."
+              },
+              {
+                "text": "The mutant specification fails to parse",
+                "fraction": 0,
+                "feedback": 'A malformed mutant is discarded, not "killed" by distinguishing behavior.'
+              },
+              {
+                "text": "The mutant specification is longer than the original",
+                "fraction": 0,
+                "feedback": "Length is irrelevant to killing; killing requires a behavioral difference."
+              },
+              {
+                "text": "The original specification is proven correct",
+                "fraction": 0,
+                "feedback": "Killing concerns distinguishing mutant from original, not proving correctness."
+              }
+            ],
+            "generalFeedback": "A spec mutant is killed when a test case (or a model-checker run) reveals that the mutant specification and the original specification disagree on some behavior.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Equivalent spec mutant",
+            "text": "<p>An <em>equivalent spec mutant</em> is a mutant specification that:</p>",
+            "answers": [
+              {
+                "text": "Is syntactically different from the original spec but semantically identical, so no test can distinguish them",
+                "fraction": 100,
+                "feedback": "Correct \u2014 identical meaning means it can never be killed."
+              },
+              {
+                "text": "Is textually identical to the original specification",
+                "fraction": 0,
+                "feedback": "A mutation always introduces a syntactic change; identical text is not a mutant."
+              },
+              {
+                "text": "Always contradicts the original specification",
+                "fraction": 0,
+                "feedback": "A contradicting mutant differs in meaning and is killable; an equivalent one has the same meaning."
+              },
+              {
+                "text": "Cannot be expressed in the specification language",
+                "fraction": 0,
+                "feedback": "Equivalence is about meaning, not expressibility."
+              }
+            ],
+            "generalFeedback": "An equivalent spec mutant differs syntactically from the original but denotes exactly the same behavior for every input, so no test or model-check can ever distinguish (kill) it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Model-based mutation testing",
+            "text": "<p><em>Model-based mutation testing</em> refers to:</p>",
+            "answers": [
+              {
+                "text": "Applying mutation operators to a behavioral model of the system (e.g. an FSM), rather than to the code",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the model is mutated."
+              },
+              {
+                "text": "Building a statistical model of how often each code mutant is killed",
+                "fraction": 0,
+                "feedback": "That is not what model-based mutation means; here the model is the mutated artifact."
+              },
+              {
+                "text": "Mutating only the program's data model (database schema)",
+                "fraction": 0,
+                "feedback": 'The "model" is a behavioral model/spec, not specifically a database schema.'
+              },
+              {
+                "text": "Randomly mutating the model checker's algorithm",
+                "fraction": 0,
+                "feedback": "The model checker is a tool, not the artifact being mutated."
+              }
+            ],
+            "generalFeedback": "Model-based mutation testing seeds mutations into a model (such as an FSM or a formal specification) and uses the difference between the model and its mutants to assess or generate tests \u2014 a form of specification mutation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose: adequacy",
+            "text": "<p>One purpose of specification mutation is to:</p>",
+            "answers": [
+              {
+                "text": "Assess the adequacy of a test suite or the quality/completeness of the specification",
+                "fraction": 100,
+                "feedback": "Correct \u2014 killed mutants measure how well tests (or the spec) capture the intended behavior."
+              },
+              {
+                "text": "Automatically repair defects in the program",
+                "fraction": 0,
+                "feedback": "Specification mutation evaluates or generates tests; it does not fix code."
+              },
+              {
+                "text": "Prove the program has no defects",
+                "fraction": 0,
+                "feedback": "No mutation technique proves the absence of all defects."
+              },
+              {
+                "text": "Compress the specification into fewer states",
+                "fraction": 0,
+                "feedback": "That is model minimization, not the purpose of specification mutation."
+              }
+            ],
+            "generalFeedback": "Specification mutation is used to (a) assess the adequacy of a test suite or the quality of the specification and (b) generate tests. Measuring which spec mutants a suite kills gauges its adequacy.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Purpose: test generation",
+            "text": "<p>Specification mutation can be used to <em>generate tests</em> by:</p>",
+            "answers": [
+              {
+                "text": "Using a model checker's counterexample from a mutated property as a test case",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a counterexample that distinguishes the mutant from the original spec becomes a test."
+              },
+              {
+                "text": "Compiling the mutant specification into an executable",
+                "fraction": 0,
+                "feedback": "Compiling a spec does not by itself produce test cases."
+              },
+              {
+                "text": "Counting the number of clauses in the specification",
+                "fraction": 0,
+                "feedback": "Counting clauses is a metric, not a test-generation method."
+              },
+              {
+                "text": "Removing all temporal operators from the specification",
+                "fraction": 0,
+                "feedback": "That would change the spec's meaning and does not generate tests."
+              }
+            ],
+            "generalFeedback": "A model checker checking a mutated property against the model returns a counterexample \u2014 a trace where the mutant and original disagree. That trace is turned into a test case.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Example spec mutation operator",
+            "text": "<p>Which is an example of a <em>specification</em> mutation operator?</p>",
+            "answers": [
+              {
+                "text": "Negating a clause in a requirement (e.g. condition C becomes NOT C)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 negating a requirement's clause mutates the specification."
+              },
+              {
+                "text": "Deleting a line of C++ source in the implementation",
+                "fraction": 0,
+                "feedback": "That mutates code, so it is program mutation."
+              },
+              {
+                "text": "Renaming a local variable in the program",
+                "fraction": 0,
+                "feedback": "That is a code-level change, not a specification change."
+              },
+              {
+                "text": "Inserting a unary minus into a program expression",
+                "fraction": 0,
+                "feedback": "That is a code mutation operator (UOI), not a spec operator."
+              }
+            ],
+            "generalFeedback": "Spec mutation operators change the specification: negate a clause, swap a relational/logical/temporal operator in a requirement, or redirect an FSM transition. Changes to source code are program mutation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Temporal operator G",
+            "text": "<p>In linear temporal logic, the operator <strong>G</strong> (globally) applied to a property <code>p</code> means that <code>p</code>:</p>",
+            "answers": [
+              {
+                "text": "Holds in every state along the path (always)",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 G means "always / globally".'
+              },
+              {
+                "text": "Holds in at least one future state",
+                "fraction": 0,
+                "feedback": "That is F (eventually), not G."
+              },
+              {
+                "text": "Holds only in the immediately next state",
+                "fraction": 0,
+                "feedback": "That is X (next), not G."
+              },
+              {
+                "text": "Holds until some other property becomes true",
+                "fraction": 0,
+                "feedback": "That is the U (until) operator, not G."
+              }
+            ],
+            "generalFeedback": 'In LTL, G p ("globally p") asserts that p is true in every state of the execution path \u2014 the "always" operator.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Temporal operator F",
+            "text": "<p>In linear temporal logic, <strong>F</strong> (eventually/finally) applied to <code>p</code> means that <code>p</code>:</p>",
+            "answers": [
+              {
+                "text": "Holds in some current-or-future state",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 F means "eventually".'
+              },
+              {
+                "text": "Holds in every state along the path",
+                "fraction": 0,
+                "feedback": "That is G (globally), not F."
+              },
+              {
+                "text": "Holds in the immediately next state only",
+                "fraction": 0,
+                "feedback": "That is X (next), not F."
+              },
+              {
+                "text": "Never holds",
+                "fraction": 0,
+                "feedback": "F asserts p does hold at some point, the opposite of never."
+              }
+            ],
+            "generalFeedback": 'In LTL, F p ("eventually p") asserts that p becomes true at some state now or later along the path.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Counterexample definition",
+            "text": "<p>When a model checker finds that a property is violated by the model, it produces a <em>counterexample</em>, which is:</p>",
+            "answers": [
+              {
+                "text": "A concrete execution trace of the model that violates the property",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the counterexample is a witnessing trace of the violation."
+              },
+              {
+                "text": "A corrected version of the property that now holds",
+                "fraction": 0,
+                "feedback": "The checker returns a violating trace, not a rewritten property."
+              },
+              {
+                "text": "A proof that the property holds on the model",
+                "fraction": 0,
+                "feedback": "A counterexample demonstrates a violation, not a proof of correctness."
+              },
+              {
+                "text": "A random input unrelated to the model",
+                "fraction": 0,
+                "feedback": "A counterexample is a specific trace of the model, not a random input."
+              }
+            ],
+            "generalFeedback": "A counterexample is a concrete sequence of states (an execution trace) of the model that demonstrates how the property is violated. This trace is exactly what specification-mutation test generation turns into a test.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify specification mutation",
+            "text": "<p>Which activity is <em>specification</em> mutation (not program mutation)?</p>",
+            "answers": [
+              {
+                "text": "Replacing G with F in an LTL requirement and re-checking it against the model",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the requirement (specification) was mutated."
+              },
+              {
+                "text": "Replacing + with - in a C function and re-running the tests",
+                "fraction": 0,
+                "feedback": "That mutates code \u2014 program mutation."
+              },
+              {
+                "text": "Deleting a statement in the source and re-running the tests",
+                "fraction": 0,
+                "feedback": "Deleting a source statement is program mutation."
+              },
+              {
+                "text": "Inserting a unary minus in a program expression",
+                "fraction": 0,
+                "feedback": "That is a code-level (UOI) mutation."
+              }
+            ],
+            "generalFeedback": "Changing a temporal-logic requirement (G to F) mutates the specification. Changing operators, statements, or expressions in the source code is program mutation.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Spec mutation mutates the code",
+            "text": "<p>Specification mutation testing works by mutating the program's source code and running tests against it.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Mutating source code is program mutation. Specification mutation changes the specification/model instead."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 specification mutation mutates the specification or model, not the source code (that would be program mutation)."
+              }
+            ],
+            "generalFeedback": "Specification mutation applies mutation operators to a specification or model (a requirement, an FSM, or a temporal property). Mutating source code is the separate technique of program mutation."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "When a mutant spec is killed by a test",
+            "text": "<p>A mutant specification is killed by a test case when:</p>",
+            "answers": [
+              {
+                "text": "The test's expected result under the mutant spec differs from its expected result under the original spec",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a test that the two specs would judge differently kills the mutant."
+              },
+              {
+                "text": "The test executes quickly on the model checker",
+                "fraction": 0,
+                "feedback": "Execution speed has nothing to do with killing a mutant."
+              },
+              {
+                "text": "The test passes on the original specification",
+                "fraction": 0,
+                "feedback": "Passing the original alone does not distinguish the mutant; disagreement between the two is required."
+              },
+              {
+                "text": "The mutant specification has more states than the original",
+                "fraction": 0,
+                "feedback": "State count is irrelevant; killing requires a behavioral disagreement."
+              }
+            ],
+            "generalFeedback": "A spec mutant is killed when some test would be judged differently by the mutant and by the original specification \u2014 i.e. the two specs disagree on that test's expected behavior.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Condition-negation operator",
+            "text": "<p>Applying a <em>condition-negation</em> spec mutation operator to the requirement guard <code>temp &gt; 100</code> yields which mutant?</p>",
+            "answers": [
+              {
+                "text": "<code>NOT (temp &gt; 100)</code>",
+                "fraction": 100,
+                "feedback": "Correct \u2014 condition negation wraps the guard in a logical NOT."
+              },
+              {
+                "text": "<code>temp &gt;= 100</code>",
+                "fraction": 0,
+                "feedback": "That is a relational-operator swap, not negation."
+              },
+              {
+                "text": "<code>temp &gt; 200</code>",
+                "fraction": 0,
+                "feedback": "That is an operand change, not negation."
+              },
+              {
+                "text": "<code>temp &gt; 100 AND active</code>",
+                "fraction": 0,
+                "feedback": "That adds a conjunct (guard strengthening), not negation."
+              }
+            ],
+            "generalFeedback": "Condition negation replaces a requirement's condition C with NOT C. Herebecomes.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Relational-operator swap in a requirement",
+            "text": '<p>Replacing <code>&gt;=</code> with <code>&gt;</code> in the requirement "the alarm sounds when <code>pressure &gt;= threshold</code>" is a spec mutation operator that:</p>',
+            "answers": [
+              {
+                "text": "Swaps a relational operator, changing the boundary behavior of the requirement",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it alters what happens exactly at."
+              },
+              {
+                "text": "Deletes a clause from the requirement",
+                "fraction": 0,
+                "feedback": "No clause is removed; a relational operator is changed."
+              },
+              {
+                "text": "Changes a temporal operator",
+                "fraction": 0,
+                "feedback": "No temporal operator is involved here."
+              },
+              {
+                "text": "Redirects a state-machine transition",
+                "fraction": 0,
+                "feedback": "This is a relational change in a condition, not a transition redirection."
+              }
+            ],
+            "generalFeedback": "Swapping a relational operator (hereto) changes the requirement's behavior at the boundary value; a killing test must include that boundary.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "FSM transition redirection",
+            "text": "<p>In an FSM specification, a mutation operator that changes a transition's destination (e.g. on input <code>x</code> the machine goes to state C instead of state B) is:</p>",
+            "answers": [
+              {
+                "text": "Transition redirection \u2014 changing the target state of a transition",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the transition's destination is altered."
+              },
+              {
+                "text": "A relational-operator swap",
+                "fraction": 0,
+                "feedback": "No relational operator is involved; the transition target changed."
+              },
+              {
+                "text": "A temporal-operator replacement",
+                "fraction": 0,
+                "feedback": "No temporal operator is involved."
+              },
+              {
+                "text": "Condition negation",
+                "fraction": 0,
+                "feedback": "The guard is not negated; the destination state is changed."
+              }
+            ],
+            "generalFeedback": "Redirecting a transition (changing where an input leads) is a standard FSM/model mutation operator. Other FSM operators change the triggering event or the guard.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Logical-operator swap effect",
+            "text": "<p>A spec mutation replaces <strong>AND</strong> with <strong>OR</strong> in a requirement's condition. Compared with the original, the mutated condition is:</p>",
+            "answers": [
+              {
+                "text": "Weaker \u2014 it is satisfied in more cases (either operand true suffices)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 AND needs both true; OR needs only one, so OR holds more often."
+              },
+              {
+                "text": "Stronger \u2014 it is satisfied in fewer cases",
+                "fraction": 0,
+                "feedback": "OR is satisfied more often than AND, so it is weaker, not stronger."
+              },
+              {
+                "text": "Unchanged in meaning",
+                "fraction": 0,
+                "feedback": "AND and OR differ whenever the operands have different truth values."
+              },
+              {
+                "text": "Only affects arithmetic, not logic",
+                "fraction": 0,
+                "feedback": "AND/OR are logical connectives; the change is logical, not arithmetic."
+              }
+            ],
+            "generalFeedback": "Replacing AND with OR (a logical-operator mutation, analogous to program mutation's LOR) weakens the condition: it now holds whenever either operand is true, a superset of the AND case.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Temporal operator mutation G to F",
+            "text": "<p>A temporal-operator mutation replaces <code>G p</code> with <code>F p</code> in a property. This changes the requirement from:</p>",
+            "answers": [
+              {
+                "text": '"p holds in every state" to "p holds in at least one state" \u2014 a strictly weaker requirement',
+                "fraction": 100,
+                "feedback": "Correct \u2014 G (always) becomes F (eventually), which is weaker."
+              },
+              {
+                "text": "An equivalent restatement with the same meaning",
+                "fraction": 0,
+                "feedback": "G p and F p differ: G p implies F p, but not conversely."
+              },
+              {
+                "text": '"p holds in some state" to "p holds in every state" \u2014 a stronger requirement',
+                "fraction": 0,
+                "feedback": "That is the reverse direction; G to F weakens the requirement."
+              },
+              {
+                "text": "A change that only affects the next state",
+                "fraction": 0,
+                "feedback": "Next-state semantics belong to X, not to G or F."
+              }
+            ],
+            "generalFeedback": 'G p ("always p") requires p in every state; F p ("eventually p") requires p in some state. G p implies F p but not the reverse, so this mutation weakens the property and generally changes its meaning.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Counterexample as a test from a mutated property",
+            "text": "<p>The original property <code>p</code> holds on model <code>M</code>. To generate a test from a mutant property <code>p'</code>, you:</p>",
+            "answers": [
+              {
+                "text": "Model-check p' against M; if M violates p', the counterexample trace is a test that distinguishes p' from p",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the violating trace satisfies p (since M \u22A8 p) but not p', so it distinguishes them."
+              },
+              {
+                "text": "Model-check p against M again and discard the result",
+                "fraction": 0,
+                "feedback": "Re-checking the original property does not use the mutant and generates nothing new."
+              },
+              {
+                "text": "Compile p' into code and profile it",
+                "fraction": 0,
+                "feedback": "Profiling a compiled property is not how tests are derived here."
+              },
+              {
+                "text": "Count the states reachable in M",
+                "fraction": 0,
+                "feedback": "Counting states does not produce a distinguishing test."
+              }
+            ],
+            "generalFeedback": "Model-checking the mutant property p' against M yields a counterexample when M violates p'. Because M satisfies the original p, that trace satisfies p but not p', so it distinguishes the two specifications and becomes a test.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Measuring test-suite adequacy with spec mutation",
+            "text": "<p>To use specification mutation to <em>measure a test suite's adequacy</em>, you:</p>",
+            "answers": [
+              {
+                "text": "Generate mutant specs and check what fraction of them the suite's tests distinguish from the original spec",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the fraction of spec mutants killed measures adequacy."
+              },
+              {
+                "text": "Count how many lines the specification has",
+                "fraction": 0,
+                "feedback": "Spec length is not an adequacy measure."
+              },
+              {
+                "text": "Run the suite once against the original spec only",
+                "fraction": 0,
+                "feedback": "Without mutants there is nothing to kill, so no adequacy is measured."
+              },
+              {
+                "text": "Remove every failing test from the suite",
+                "fraction": 0,
+                "feedback": "Removing tests does not measure adequacy against mutants."
+              }
+            ],
+            "generalFeedback": "As with program mutation, you produce a set of spec mutants and see how many the test suite kills (distinguishes from the original). The proportion killed is an adequacy measure for the suite relative to the spec.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mutant property with no counterexample",
+            "text": "<p>During property-mutation test generation, a model checker reports that a <em>mutated</em> property still holds on the model (no counterexample). This means the mutant is:</p>",
+            "answers": [
+              {
+                "text": "Equivalent with respect to that model \u2014 it cannot be killed via the model, so no test is produced",
+                "fraction": 100,
+                "feedback": "Correct \u2014 no counterexample means the model cannot distinguish mutant from original."
+              },
+              {
+                "text": "Killed \u2014 the absence of a counterexample kills it",
+                "fraction": 0,
+                "feedback": "The opposite: a counterexample is what would distinguish (kill) it; its absence means it survives."
+              },
+              {
+                "text": "Malformed and must be discarded",
+                "fraction": 0,
+                "feedback": "A well-formed mutant that still holds is equivalent, not malformed."
+              },
+              {
+                "text": "Proof that the implementation is correct",
+                "fraction": 0,
+                "feedback": "It says nothing about the implementation, only about the model and this mutant."
+              }
+            ],
+            "generalFeedback": "If the mutated property still holds on the model, there is no counterexample distinguishing it from the original with respect to that model \u2014 it is an equivalent mutant (relative to the model) and yields no test.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "FSM triggering-event mutation",
+            "text": '<p>Changing the triggering event on an FSM transition (e.g. it now fires on input "coin" instead of "button") is a spec mutation operator that:</p>',
+            "answers": [
+              {
+                "text": "Alters which input causes the transition, potentially changing the accepted behavior",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the transition now responds to a different input."
+              },
+              {
+                "text": "Changes the number of states in the machine",
+                "fraction": 0,
+                "feedback": "The states are unchanged; only the triggering input changed."
+              },
+              {
+                "text": "Negates a temporal-logic property",
+                "fraction": 0,
+                "feedback": "No temporal property is involved in an FSM event change."
+              },
+              {
+                "text": "Deletes the transition entirely",
+                "fraction": 0,
+                "feedback": "The transition still exists; only its trigger changed."
+              }
+            ],
+            "generalFeedback": "Mutating the event/input that fires a transition is a standard FSM mutation operator; it changes which inputs drive the machine and thus the specified behavior.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why the counterexample makes a good test",
+            "text": "<p>A counterexample obtained by model-checking a mutant property is a good test case because:</p>",
+            "answers": [
+              {
+                "text": "It is a concrete trace where the mutant and original specifications disagree, so it can reveal whether an implementation follows the correct one",
+                "fraction": 100,
+                "feedback": "Correct \u2014 it targets exactly the behavior that distinguishes the two specs."
+              },
+              {
+                "text": "It is chosen at random, giving broad coverage",
+                "fraction": 0,
+                "feedback": "A counterexample is targeted, not random."
+              },
+              {
+                "text": "It always exercises every state of the model",
+                "fraction": 0,
+                "feedback": "A counterexample is a single trace, not a tour of all states."
+              },
+              {
+                "text": "It proves the specification is complete",
+                "fraction": 0,
+                "feedback": "A counterexample distinguishes two specs; it does not prove completeness."
+              }
+            ],
+            "generalFeedback": "The counterexample is a concrete execution where the original and mutant specs diverge. Running it against an implementation checks whether the implementation obeys the intended (original) spec rather than the mutated (faulty) one.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "SMV scenario classification",
+            "text": "<p>You have an SMV model and an LTL requirement. You alter the LTL formula and re-run the model checker. This is:</p>",
+            "answers": [
+              {
+                "text": "Specification (property) mutation, since the requirement \u2014 not the code \u2014 was changed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the LTL requirement is part of the specification."
+              },
+              {
+                "text": "Program mutation, since the model checker ran the model",
+                "fraction": 0,
+                "feedback": "Running the checker does not make it program mutation; the mutated artifact was the requirement."
+              },
+              {
+                "text": "Fuzz testing, since inputs were varied",
+                "fraction": 0,
+                "feedback": "No random inputs were fuzzed; a formula was mutated."
+              },
+              {
+                "text": "Neither \u2014 changing a formula is not a mutation",
+                "fraction": 0,
+                "feedback": "Changing the LTL formula is exactly a specification mutation."
+              }
+            ],
+            "generalFeedback": "Mutating an LTL/CTL requirement and re-checking it is specification mutation: the mutated artifact is the requirement (part of the spec), not the program code.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Operand-replacement operator on a requirement",
+            "text": "<p>A spec mutation replaces one operand with another in a requirement, turning <code>level &gt; max</code> into <code>level &gt; min</code>. This is:</p>",
+            "answers": [
+              {
+                "text": "An operand (variable) replacement mutation on the specification",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a variable operand was swapped for another."
+              },
+              {
+                "text": "A relational-operator swap",
+                "fraction": 0,
+                "feedback": "The relational operatoris unchanged; an operand was replaced."
+              },
+              {
+                "text": "A temporal-operator replacement",
+                "fraction": 0,
+                "feedback": "No temporal operator is involved."
+              },
+              {
+                "text": "A transition redirection",
+                "fraction": 0,
+                "feedback": "No FSM transition is involved; this is a condition-operand change."
+              }
+            ],
+            "generalFeedback": "Replacing a variable operand (herewith) is an operand/variable-replacement spec mutation, analogous to variable replacement in program mutation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Model-mutation alternative",
+            "text": "<p>Instead of mutating a property, model-based mutation testing can mutate the <em>model</em> itself and then:</p>",
+            "answers": [
+              {
+                "text": "Check the original requirements against the mutant model; a requirement now violated yields a counterexample distinguishing the two models",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the counterexample separates the original model from the mutant."
+              },
+              {
+                "text": "Delete all requirements and keep only the mutant model",
+                "fraction": 0,
+                "feedback": "Requirements are needed to detect the mutant's difference; you do not delete them."
+              },
+              {
+                "text": "Mutate the source code as well to match",
+                "fraction": 0,
+                "feedback": "Model mutation changes the model, not the code."
+              },
+              {
+                "text": "Run the mutant model without any properties",
+                "fraction": 0,
+                "feedback": "Without properties there is nothing for the checker to violate, so no test emerges."
+              }
+            ],
+            "generalFeedback": "One can mutate the model and check the original requirements against it. If the mutant model violates a requirement the original satisfied, the counterexample is a trace distinguishing model from mutant \u2014 a test that kills the model mutant.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Boundary of a relational mutation",
+            "text": "<p>Mutating <code>x &gt;= 5</code> to <code>x &gt; 5</code> in a requirement changes the specified behavior:</p>",
+            "answers": [
+              {
+                "text": "Only at x = 5; a killing test must include that boundary value",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the two conditions agree everywhere except x = 5."
+              },
+              {
+                "text": "For all values of x",
+                "fraction": 0,
+                "feedback": "They agree for every x except exactly 5."
+              },
+              {
+                "text": "Only for negative x",
+                "fraction": 0,
+                "feedback": "They agree for negative x; they differ only at x = 5."
+              },
+              {
+                "text": "Never \u2014 the mutant is equivalent",
+                "fraction": 0,
+                "feedback": "It is not equivalent: x = 5 distinguishesfrom."
+              }
+            ],
+            "generalFeedback": "anddiffer only at x = 5 (true vs false). A test that omits the boundary would fail to kill this mutant, so the killing test must include x = 5.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "De Morgan equivalent mutant (AND form)",
+            "text": "<p>A requirement's guard <code>NOT (a AND b)</code> is mutated to <code>NOT a OR NOT b</code>. This mutant is:</p>",
+            "answers": [
+              {
+                "text": "Equivalent \u2014 by De Morgan's law the two forms are logically identical, so no test can kill it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 NOT (a AND b) is exactly NOT a OR NOT b."
+              },
+              {
+                "text": "Killed by any test where a and b differ",
+                "fraction": 0,
+                "feedback": "The two forms agree on every assignment, so no test distinguishes them."
+              },
+              {
+                "text": "Non-equivalent because OR replaced AND",
+                "fraction": 0,
+                "feedback": "The surrounding negations make the whole expression equivalent under De Morgan's law."
+              },
+              {
+                "text": "Malformed and therefore discarded",
+                "fraction": 0,
+                "feedback": "It is well-formed and logically equivalent, not malformed."
+              }
+            ],
+            "generalFeedback": "De Morgan's law states NOT (a AND b) is equivalent to NOT a OR NOT b. The mutant denotes the identical boolean function, so it is an equivalent spec mutant that no test can kill.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Is G to F an equivalent mutation?",
+            "text": "<p>Is replacing <code>G p</code> by <code>F p</code> in a property an <em>equivalent</em> mutation?</p>",
+            "answers": [
+              {
+                "text": "No \u2014 G p (always) and F p (eventually) have different meanings (G p implies F p but not conversely), so it generally changes the spec and is killable",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the two operators are not interchangeable."
+              },
+              {
+                "text": "Yes \u2014 G and F always mean the same thing",
+                "fraction": 0,
+                "feedback": 'They do not: "always" is strictly stronger than "eventually".'
+              },
+              {
+                "text": "Yes \u2014 F p implies G p, so they coincide",
+                "fraction": 0,
+                "feedback": "F p does not imply G p; the implication runs the other way."
+              },
+              {
+                "text": "No \u2014 but only because F is undefined in LTL",
+                "fraction": 0,
+                "feedback": "F is a standard LTL operator; the reason is the difference in meaning, not undefinedness."
+              }
+            ],
+            "generalFeedback": "G p requires p in every state; F p only requires p somewhere. G p implies F p, but not the reverse, so the mutation changes the property's meaning \u2014 it is non-equivalent and generally killable (a trace where p holds sometime but not always distinguishes them).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why a mutant property yields a distinguishing counterexample",
+            "text": "<p>Model-checking a mutant property <code>p'</code> against a model <code>M</code> (with the original <code>p</code> true on <code>M</code>) yields a counterexample. Why does that trace distinguish the mutant from the original?</p>",
+            "answers": [
+              {
+                "text": "The trace is an execution of M that violates p'; since M satisfies p, the same trace satisfies p, so p and p' disagree on it",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the trace satisfies p but not p', exactly distinguishing them."
+              },
+              {
+                "text": "The counterexample is generated independently of both p and p'",
+                "fraction": 0,
+                "feedback": "The counterexample is specifically a violation of p', so it is tied to the mutant."
+              },
+              {
+                "text": "Because p' is syntactically longer than p",
+                "fraction": 0,
+                "feedback": "Syntactic length is irrelevant; the distinguishing power comes from the semantic disagreement on the trace."
+              },
+              {
+                "text": "Because the model checker rewrites p to match p'",
+                "fraction": 0,
+                "feedback": "The checker does not rewrite the original; it finds a trace violating p'."
+              }
+            ],
+            "generalFeedback": "The counterexample violates p' by construction. Because M satisfies the original p, every trace of M (including this one) satisfies p. So the trace satisfies p but not p' \u2014 a concrete witness that the two specifications differ, which is why it works as a test.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Unkillable mutant signals redundancy",
+            "text": "<p>A clause of a requirement is mutated, but no test (and no model-check) can ever kill the resulting mutant. This most likely indicates:</p>",
+            "answers": [
+              {
+                "text": "The mutant is equivalent, which suggests the clause is redundant or the spec is over-constrained \u2014 it does not affect the specified behavior",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an unkillable mutation points to a clause with no effect on meaning."
+              },
+              {
+                "text": "The test suite is perfectly adequate",
+                "fraction": 0,
+                "feedback": "An unkillable mutant is equivalent; it says nothing positive about suite adequacy."
+              },
+              {
+                "text": "The specification is guaranteed complete",
+                "fraction": 0,
+                "feedback": "Equivalence of one mutant does not imply completeness of the whole spec."
+              },
+              {
+                "text": "The program contains a fault",
+                "fraction": 0,
+                "feedback": "This is about the spec's structure, not a program fault."
+              }
+            ],
+            "generalFeedback": "If mutating a clause never changes the specified behavior, the mutant is equivalent \u2014 evidence that the clause is redundant or the requirement over-constrained. Specification mutation can thus expose redundancy and help assess spec quality.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify a CTL-property fault-seeding workflow",
+            "text": "<p>A team seeds a fault into a CTL property, re-runs the model checker to obtain a counterexample, and turns it into a test. Which best describes this?</p>",
+            "answers": [
+              {
+                "text": "Specification (model-based) mutation testing \u2014 the property was mutated, and the counterexample becomes a test",
+                "fraction": 100,
+                "feedback": "Correct \u2014 mutating a CTL property and deriving a test from the counterexample is specification mutation."
+              },
+              {
+                "text": "Program mutation \u2014 because a test was produced at the end",
+                "fraction": 0,
+                "feedback": "Producing a test does not make it program mutation; the mutated artifact was the property."
+              },
+              {
+                "text": "Structural code coverage measurement",
+                "fraction": 0,
+                "feedback": "No code structure was measured; a property was mutated."
+              },
+              {
+                "text": "Equivalence-class partitioning of the input domain",
+                "fraction": 0,
+                "feedback": "That is a black-box input-partition technique, unrelated to mutating a CTL property."
+              }
+            ],
+            "generalFeedback": "Seeding a fault into a temporal (CTL) property and using the model checker's counterexample as a test is specification/model-based mutation: the mutated artifact is the property, and the counterexample distinguishes it from the original.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Temporal idempotence equivalent mutant",
+            "text": '<p>A property <code>F p</code> is mutated to <code>F F p</code> ("eventually eventually p"). This mutant is:</p>',
+            "answers": [
+              {
+                "text": "Equivalent \u2014 F is idempotent, so F F p is logically the same as F p and cannot be killed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 F F p \u2261 F p."
+              },
+              {
+                "text": "Non-equivalent \u2014 F F p requires p twice",
+                "fraction": 0,
+                "feedback": 'F F p does not require p "twice"; it reduces to F p.'
+              },
+              {
+                "text": "Non-equivalent \u2014 it is stronger than F p",
+                "fraction": 0,
+                "feedback": "They are equal in strength; F F p \u2261 F p."
+              },
+              {
+                "text": "Malformed \u2014 F cannot be nested",
+                "fraction": 0,
+                "feedback": "Nesting temporal operators is allowed; here it simply collapses to F p."
+              }
+            ],
+            "generalFeedback": "The eventually operator is idempotent: F F p is equivalent to F p (likewise G G p \u2261 G p). So this mutation produces an equivalent spec mutant that no test can kill.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Practical limitations",
+            "text": "<p>Two major practical limitations of specification/model mutation testing are:</p>",
+            "answers": [
+              {
+                "text": "Detecting equivalent mutants is hard (undecidable in general), and model-checking many mutants can suffer state-space explosion",
+                "fraction": 100,
+                "feedback": "Correct \u2014 equivalent mutants and model size are the classic limitations."
+              },
+              {
+                "text": "Mutation operators cannot be defined for specifications, and models never have states",
+                "fraction": 0,
+                "feedback": "Spec mutation operators are well defined, and models do have states."
+              },
+              {
+                "text": "Model checkers cannot produce counterexamples, and specs cannot be mutated",
+                "fraction": 0,
+                "feedback": "Both are false: checkers produce counterexamples and specs can be mutated."
+              },
+              {
+                "text": "It requires source code and cannot use a model",
+                "fraction": 0,
+                "feedback": "The opposite \u2014 it works on a spec/model and needs no source code."
+              }
+            ],
+            "generalFeedback": "Like program mutation, specification mutation faces the equivalent-mutant problem (equivalence is undecidable in general). Additionally, checking many mutant properties/models against a large model can hit state-space explosion, limiting scalability.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "No counterexample means equivalent w.r.t. model",
+            "text": "<p>In property-mutation test generation, a mutant property that the model <em>still satisfies</em>:</p>",
+            "answers": [
+              {
+                "text": "Yields no counterexample and hence no test \u2014 it is an equivalent mutant relative to the model",
+                "fraction": 100,
+                "feedback": "Correct \u2014 with nothing to violate, the model cannot distinguish it from the original."
+              },
+              {
+                "text": "Yields the strongest possible test",
+                "fraction": 0,
+                "feedback": "No counterexample means no test at all is produced."
+              },
+              {
+                "text": "Proves the original property was wrong",
+                "fraction": 0,
+                "feedback": "It says nothing about the original property being wrong."
+              },
+              {
+                "text": "Forces the model checker to enumerate all traces as tests",
+                "fraction": 0,
+                "feedback": "No violation means no counterexample; the checker does not emit all traces."
+              }
+            ],
+            "generalFeedback": "If the model satisfies the mutant property, the model checker returns no counterexample, so no distinguishing test can be generated \u2014 the mutant is equivalent with respect to that model.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Guard-strengthening mutation on an FSM",
+            "text": "<p>In an FSM spec, a mutation <em>strengthens</em> a transition guard by adding an extra conjunct (guard becomes <code>g AND extra</code>). Relative to the original, the mutated transition:</p>",
+            "answers": [
+              {
+                "text": "Fires in fewer cases (a subset of the original); a killing test must reach an input where the original fired but the mutant does not",
+                "fraction": 100,
+                "feedback": "Correct \u2014 adding a conjunct can only shrink the set of firing inputs."
+              },
+              {
+                "text": "Fires in more cases than before",
+                "fraction": 0,
+                "feedback": "Adding a conjunct makes the guard harder to satisfy, so it fires less often."
+              },
+              {
+                "text": "Fires in exactly the same cases",
+                "fraction": 0,
+                "feedback": "Only if the extra conjunct were always true given g; in general the guard is strictly narrower."
+              },
+              {
+                "text": "Never fires under any input",
+                "fraction": 0,
+                "feedback": "It still fires whenever both g and the extra conjunct hold."
+              }
+            ],
+            "generalFeedback": "Strengthening a guard with an added conjunct restricts firing to a subset of the original cases. A test that kills this mutant must reach an input where the original guard held but the strengthened guard does not.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "De Morgan equivalent mutant (OR form)",
+            "text": "<p>A requirement condition <code>a OR b</code> is mutated to <code>NOT (NOT a AND NOT b)</code>. This mutant is:</p>",
+            "answers": [
+              {
+                "text": "Equivalent \u2014 by De Morgan's law it denotes the same function as, so it cannot be killed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 NOT (NOT a AND NOT b) is exactly a OR b."
+              },
+              {
+                "text": "Non-equivalent because AND now appears",
+                "fraction": 0,
+                "feedback": "The negations restore the OR meaning under De Morgan's law."
+              },
+              {
+                "text": "Killed whenever exactly one of a, b is true",
+                "fraction": 0,
+                "feedback": "Both forms give true then, so they still agree; no test distinguishes them."
+              },
+              {
+                "text": "Only equivalent when a equals b",
+                "fraction": 0,
+                "feedback": "They agree on all four assignments, not only when a equals b."
+              }
+            ],
+            "generalFeedback": "De Morgan's law gives a OR b is equivalent to NOT (NOT a AND NOT b). The mutant computes the identical boolean function, so it is an equivalent spec mutant.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Absorption law equivalent mutant",
+            "text": "<p>A requirement <code>a AND (a OR b)</code> is mutated to <code>a AND (a OR c)</code> (operand b replaced by c). The mutant is:</p>",
+            "answers": [
+              {
+                "text": "Equivalent \u2014 by absorptionreduces to, so both forms equal; this also reveals the second clause is redundant",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the value depends only on a, so replacing b by c changes nothing."
+              },
+              {
+                "text": "Killed by any test where b and c differ",
+                "fraction": 0,
+                "feedback": "Since the whole expression equals a, the value of b or c never matters; no such test kills it."
+              },
+              {
+                "text": "Non-equivalent because c is a new variable",
+                "fraction": 0,
+                "feedback": "Introducing c has no effect: the expression reduces to a regardless."
+              },
+              {
+                "text": "Stronger than the original",
+                "fraction": 0,
+                "feedback": "Both are equivalent to a; neither is stronger."
+              }
+            ],
+            "generalFeedback": 'By the absorption law, a AND (a OR X) equals a for any X. So both the original and the mutant equal a, making the mutant equivalent. Its unkillability exposes that the "(a OR ...)" clause is redundant in the requirement.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Trap property to witness a behavior",
+            "text": "<p>A model checker returns a trace only when a property is <em>violated</em>. To obtain a trace that <em>witnesses</em> a desired behavior B (for use as a test), you can:</p>",
+            "answers": [
+              {
+                "text": `Assert a "trap" property claiming B never occurs; the model checker's counterexample is then a trace exhibiting B`,
+                "fraction": 100,
+                "feedback": "Correct \u2014 negating the behavior of interest makes the counterexample a witness of it."
+              },
+              {
+                "text": "Assert that B always occurs and take the proof as the test",
+                "fraction": 0,
+                "feedback": "A proof (no violation) yields no trace; you need a violated property to get a counterexample."
+              },
+              {
+                "text": "Disable the model checker and enumerate inputs by hand",
+                "fraction": 0,
+                "feedback": "The trap-property technique uses the checker itself; manual enumeration is not the method."
+              },
+              {
+                "text": "Remove all properties so every trace is a counterexample",
+                "fraction": 0,
+                "feedback": "With no property there is nothing to violate, so no counterexample is produced."
+              }
+            ],
+            "generalFeedback": 'Because a counterexample is produced only for a violated property, test-generation methods assert a "trap" (never-claim) property stating the behavior of interest never happens. The model checker then returns a counterexample that is exactly a trace realizing that behavior.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Next-operator mutation",
+            "text": "<p>A property <code>p</code> is mutated to <code>X p</code> (next p). In general this mutant is:</p>",
+            "answers": [
+              {
+                "text": "Non-equivalent \u2014 X p refers to the next state, so it differs from p evaluated at the current state",
+                "fraction": 100,
+                "feedback": "Correct \u2014 shifting the evaluation point by one state generally changes meaning."
+              },
+              {
+                "text": "Equivalent \u2014 X p always means the same as p",
+                "fraction": 0,
+                "feedback": "X p is about the next state, not the current one, so it differs in general."
+              },
+              {
+                "text": "Equivalent \u2014 because every path repeats",
+                "fraction": 0,
+                "feedback": "Paths do not generally repeat, and even so X shifts the evaluation point."
+              },
+              {
+                "text": "Malformed \u2014 X cannot be applied to an atomic property",
+                "fraction": 0,
+                "feedback": "X can be applied to any subformula, including an atomic one."
+              }
+            ],
+            "generalFeedback": "X p asserts p holds in the next state, whereas p asserts it in the current state. On a path where p holds now but not next (or vice versa), the two differ, so the mutation is generally non-equivalent and killable.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Commutativity equivalent mutant",
+            "text": "<p>A logical-operand-swap mutation changes a side-effect-free spec condition <code>a AND b</code> to <code>b AND a</code>. This mutant is:</p>",
+            "answers": [
+              {
+                "text": "Equivalent \u2014 AND is commutative in a side-effect-free specification, so the two forms are identical and cannot be killed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 order of operands does not matter for a pure boolean condition."
+              },
+              {
+                "text": "Non-equivalent because the operands were reordered",
+                "fraction": 0,
+                "feedback": "Reordering a commutative operator does not change a side-effect-free condition's meaning."
+              },
+              {
+                "text": "Killed by any test where a and b differ",
+                "fraction": 0,
+                "feedback": "a AND b and b AND a agree on every assignment, so no such test kills it."
+              },
+              {
+                "text": "Equivalent only when a equals b",
+                "fraction": 0,
+                "feedback": "They agree on all assignments, not only when a equals b."
+              }
+            ],
+            "generalFeedback": "Boolean AND is commutative, so in a specification without evaluation-order side effects, a AND b equals b AND a. The mutant denotes the same function \u2014 an equivalent spec mutant. (In short-circuiting code with side effects, order can matter; that is a program, not spec, concern.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Value of a test from a killed spec mutant",
+            "text": "<p>A test derived from a <em>killed</em> spec mutant is valuable because, when executed on an implementation, it:</p>",
+            "answers": [
+              {
+                "text": "Distinguishes the original spec's behavior from the mutant's, so an implementation that matches the mutated (faulty) spec instead of the original will fail",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the test targets exactly the behavior on which the two specs disagree."
+              },
+              {
+                "text": "Guarantees the implementation is free of all faults",
+                "fraction": 0,
+                "feedback": "One targeted test cannot prove global correctness."
+              },
+              {
+                "text": "Exercises every path in the implementation",
+                "fraction": 0,
+                "feedback": "It is a single distinguishing trace, not a full path tour."
+              },
+              {
+                "text": "Is independent of both the original and mutant specs",
+                "fraction": 0,
+                "feedback": "It is derived precisely from where the two specs differ, so it depends on both."
+              }
+            ],
+            "generalFeedback": "The killing test is a trace where the original and mutant specs disagree. Running it against an implementation checks whether the implementation follows the intended (original) behavior; an implementation exhibiting the mutant's faulty behavior would fail the test.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u898F\u683C\u7A81\u8B8A\u6240\u7A81\u8B8A\u7684\u5C0D\u8C61",
+            "text": "<p>\u898F\u683C\u7A81\u8B8A\u6E2C\u8A66\uFF08specification mutation testing\uFF09\u5C07\u7A81\u8B8A\u904B\u7B97\u5B50\u5957\u7528\u65BC\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7CFB\u7D71\u7684\u898F\u683C\u6216\u6A21\u578B\uFF08\u4F8B\u5982\u4E00\u689D\u9700\u6C42\u3001\u4E00\u53F0 FSM\u3001\u6216\u4E00\u689D\u6642\u5E8F\u908F\u8F2F\u6027\u8CEA\uFF09\uFF0C\u800C\u975E\u7A0B\u5F0F\u539F\u59CB\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u898F\u683C\u7A81\u8B8A\u4E2D\u88AB\u66F4\u52D5\u7684\u5C0D\u8C61\u662F\u898F\u683C\uFF0F\u6A21\u578B\uFF0C\u800C\u4E0D\u662F\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u7684\u539F\u59CB\u78BC",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u539F\u59CB\u78BC\u5C6C\u65BC\u7A0B\u5F0F\uFF08\u78BC\uFF09\u7A81\u8B8A\uFF0C\u662F\u53E6\u4E00\u7A2E\u6280\u8853\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u7DE8\u8B6F\u5F8C\u7684\u4E8C\u9032\u4F4D\u6A94",
+                "fraction": 0,
+                "feedback": "\u898F\u683C\u7A81\u8B8A\u4F5C\u7528\u65BC\u898F\u683C\uFF0C\u4E0D\u662F\u7DE8\u8B6F\u5F8C\u7684\u78BC\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u6848\u4F8B\u672C\u8EAB",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u6848\u4F8B\u662F\u6211\u5011\u8A55\u4F30\u6216\u751F\u6210\u7684\u5C0D\u8C61\uFF1B\u898F\u683C\u7A81\u8B8A\u66F4\u52D5\u7684\u662F\u898F\u683C\u3002"
+              }
+            ],
+            "generalFeedback": "\u898F\u683C\u7A81\u8B8A\u628A\u7A81\u8B8A\u904B\u7B97\u5B50\u5957\u7528\u5230\u898F\u683C\u6216\u6A21\u578B\u2014\u2014\u5E03\u6797\uFF0F\u908F\u8F2F\u9700\u6C42\u3001\u6709\u9650\u72C0\u614B\u6A5F\uFF08FSM\uFF09\u3001\u6216\u6642\u5E8F\u908F\u8F2F\u6027\u8CEA\u2014\u2014\u800C\u4E0D\u662F\u5957\u7528\u5230\u7A0B\u5F0F\u78BC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7A81\u8B8A\u898F\u683C",
+            "text": "<p><em>\u7A81\u8B8A\u898F\u683C</em>\uFF08mutant specification\uFF09\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u539F\u59CB\u898F\u683C\u7684\u8907\u672C\uFF0C\u5176\u4E2D\u7531\u7A81\u8B8A\u904B\u7B97\u5B50\u5F15\u5165\u4E86\u4E00\u500B\u5FAE\u5C0F\u7684\u6539\u52D5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A81\u8B8A\u898F\u683C\u662F\u88AB\u523B\u610F\u690D\u5165\u4E00\u500B\u5FAE\u5C0F\u6539\u52D5\u7684\u539F\u59CB\u898F\u683C\u3002"
+              },
+              {
+                "text": "\u4F7F\u7528\u8005\u5728\u5BE6\u969B\u74B0\u5883\u4E2D\u56DE\u5831\u7684\u898F\u683C\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u898F\u683C\u662F\u523B\u610F\u690D\u5165\u7684\u4EBA\u9020\u6539\u52D5\uFF0C\u4E0D\u662F\u73FE\u5834\u56DE\u5831\u7684\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u7531\u898F\u683C\u884D\u751F\u51FA\u7684\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4E00\u500B\u6E2C\u8A66\uFF0C\u4E0D\u662F\u7A81\u8B8A\u898F\u683C\u3002"
+              },
+              {
+                "text": "\u6A21\u578B\u6AA2\u67E5\u5668\u7522\u751F\u7684\u57F7\u884C\u8ECC\u8DE1",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u53CD\u4F8B\uFF0F\u8ECC\u8DE1\uFF0C\u4E0D\u662F\u7A81\u8B8A\u898F\u683C\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u8B8A\u898F\u683C\u662F\u5957\u7528\u898F\u683C\u7A81\u8B8A\u904B\u7B97\u5B50\u5F8C\u7522\u751F\u7684\u898F\u683C\u8B8A\u9AD4\uFF0C\u505A\u51FA\u4E00\u500B\u5FAE\u5C0F\u6539\u52D5\uFF08\u4F8B\u5982\u5C07\u67D0\u5B50\u53E5\u53D6\u53CD\uFF09\uFF0C\u5C31\u50CF\u7A0B\u5F0F\u7A81\u8B8A\u9AD4\u662F\u5C0D\u7A0B\u5F0F\u78BC\u505A\u7684\u5FAE\u5C0F\u6539\u52D5\u4E00\u6A23\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u88AB\u523B\u610F\u66F4\u52D5\u7684\u5C0D\u8C61",
+            "text": "<p>\u5728\u898F\u683C\u7A81\u8B8A\u4E2D\uFF0C\u88AB\u523B\u610F\u66F4\u52D5\u4EE5\u5EFA\u7ACB\u7A81\u8B8A\u9AD4\u7684\u5C0D\u8C61\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u898F\u683C\uFF0F\u6A21\u578B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u88AB\u7A81\u8B8A\u7684\u662F\u898F\u683C\u6216\u6A21\u578B\u3002"
+              },
+              {
+                "text": "\u539F\u59CB\u78BC",
+                "fraction": 0,
+                "feedback": "\u66F4\u52D5\u539F\u59CB\u78BC\u5C6C\u65BC\u7A0B\u5F0F\u7A81\u8B8A\uFF0C\u800C\u975E\u898F\u683C\u7A81\u8B8A\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u6846\u67B6\uFF08test harness\uFF09",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u6846\u67B6\u662F\u57FA\u790E\u8A2D\u65BD\uFF0C\u4E0D\u662F\u88AB\u7A81\u8B8A\u7684\u5C0D\u8C61\u3002"
+              },
+              {
+                "text": "\u8F38\u5165\u8CC7\u6599\u6A94",
+                "fraction": 0,
+                "feedback": "\u8F38\u5165\u8CC7\u6599\u4E0D\u662F\u898F\u683C\u7A81\u8B8A\u904B\u7B97\u5B50\u66F4\u52D5\u7684\u5C0D\u8C61\u3002"
+              }
+            ],
+            "generalFeedback": "\u898F\u683C\u7A81\u8B8A\u5C07\u6539\u52D5\u690D\u5165\u898F\u683C\u6216\u6A21\u578B\uFF08\u4E00\u689D\u9700\u6C42\u3001\u4E00\u53F0 FSM\u3001\u6216\u4E00\u689D\u6642\u5E8F\u6027\u8CEA\uFF09\uFF0C\u800C\u8B93\u7A0B\u5F0F\u78BC\u7DAD\u6301\u4E0D\u8B8A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u898F\u683C\u7A81\u8B8A\u8207\u7A0B\u5F0F\u7A81\u8B8A\u4E4B\u5225",
+            "text": "<p><em>\u898F\u683C\u7A81\u8B8A</em>\u8207<em>\u7A0B\u5F0F\uFF08\u78BC\uFF09\u7A81\u8B8A</em>\u4E4B\u9593\u7684\u95DC\u9375\u5DEE\u7570\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u898F\u683C\u7A81\u8B8A\u66F4\u52D5\u898F\u683C\uFF0F\u6A21\u578B\uFF0C\u800C\u7A0B\u5F0F\u7A81\u8B8A\u66F4\u52D5\u7A0B\u5F0F\u7684\u539F\u59CB\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u8005\u7684\u5DEE\u5225\u5728\u65BC\u88AB\u7A81\u8B8A\u7684\u5C0D\u8C61\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "\u898F\u683C\u7A81\u8B8A\u4F7F\u7528\u96A8\u6A5F\u8F38\u5165\uFF0C\u7A0B\u5F0F\u7A81\u8B8A\u5247\u662F\u7CFB\u7D71\u5316\u7684",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u4F7F\u7528\u7CFB\u7D71\u5316\u7684\u7A81\u8B8A\u904B\u7B97\u5B50\uFF1B\u5DEE\u5225\u5728\u88AB\u7A81\u8B8A\u7684\u5C0D\u8C61\u3002"
+              },
+              {
+                "text": "\u898F\u683C\u7A81\u8B8A\u4E0D\u9700\u8981\u7A81\u8B8A\u904B\u7B97\u5B50",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u4EF0\u8CF4\u7A81\u8B8A\u904B\u7B97\u5B50\uFF1B\u898F\u683C\u7A81\u8B8A\u53EA\u662F\u628A\u5B83\u5011\u5957\u7528\u5230\u898F\u683C\u4E0A\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u662F\u540C\u4E00\u7A2E\u6280\u8853\u7684\u5169\u500B\u540D\u7A31",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u4E0D\u540C\u7684\uFF1A\u4E00\u500B\u7A81\u8B8A\u898F\u683C\uFF0C\u4E00\u500B\u7A81\u8B8A\u7A0B\u5F0F\u78BC\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u8005\u90FD\u662F\u7A81\u8B8A\u6280\u8853\uFF0C\u4F46\u7A0B\u5F0F\u7A81\u8B8A\u628A\u6545\u969C\u690D\u5165\u7A0B\u5F0F\u78BC\u4E26\u57F7\u884C\u6E2C\u8A66\u53BB\u5075\u6E2C\uFF1B\u898F\u683C\u7A81\u8B8A\u5247\u628A\u6539\u52D5\u690D\u5165\u898F\u683C\uFF0F\u6A21\u578B\uFF0C\u4EE5\u8A55\u4F30\u6216\u751F\u6210\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6BBA\u6B7B\u898F\u683C\u7A81\u8B8A\u9AD4",
+            "text": "<p>\u4E00\u500B<em>\u7A81\u8B8A\u898F\u683C\u88AB\u6BBA\u6B7B\uFF08killed\uFF09</em>\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u67D0\u500B\u6E2C\u8A66\u6216\u5206\u6790\u80FD\u5340\u5206\u7A81\u8B8A\u898F\u683C\u6240\u63CF\u8FF0\u7684\u884C\u70BA\u8207\u539F\u59CB\u898F\u683C\u7684\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A81\u8B8A\u898F\u683C\u8207\u539F\u59CB\u898F\u683C\u4E4B\u9593\u53EF\u89C0\u5BDF\u7684\u5DEE\u7570\u5373\u53EF\u6BBA\u6B7B\u5B83\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u898F\u683C\u7121\u6CD5\u88AB\u89E3\u6790\uFF08parse\uFF09",
+                "fraction": 0,
+                "feedback": "\u683C\u5F0F\u932F\u8AA4\u7684\u7A81\u8B8A\u9AD4\u6703\u88AB\u4E1F\u68C4\uFF0C\u800C\u4E0D\u662F\u56E0\u884C\u70BA\u5DEE\u7570\u88AB\u300C\u6BBA\u6B7B\u300D\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u898F\u683C\u6BD4\u539F\u59CB\u898F\u683C\u66F4\u9577",
+                "fraction": 0,
+                "feedback": "\u9577\u5EA6\u8207\u6BBA\u6B7B\u7121\u95DC\uFF1B\u6BBA\u6B7B\u9700\u8981\u884C\u70BA\u4E0A\u7684\u5DEE\u7570\u3002"
+              },
+              {
+                "text": "\u539F\u59CB\u898F\u683C\u88AB\u8B49\u660E\u70BA\u6B63\u78BA",
+                "fraction": 0,
+                "feedback": "\u6BBA\u6B7B\u95DC\u4E4E\u5340\u5206\u7A81\u8B8A\u9AD4\u8207\u539F\u59CB\u898F\u683C\uFF0C\u800C\u975E\u8B49\u660E\u5176\u6B63\u78BA\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u67D0\u500B\u6E2C\u8A66\u6848\u4F8B\uFF08\u6216\u4E00\u6B21\u6A21\u578B\u6AA2\u67E5\uFF09\u986F\u793A\u7A81\u8B8A\u898F\u683C\u8207\u539F\u59CB\u898F\u683C\u5728\u67D0\u9805\u884C\u70BA\u4E0A\u4E0D\u4E00\u81F4\u6642\uFF0C\u8A72\u898F\u683C\u7A81\u8B8A\u9AD4\u5373\u88AB\u6BBA\u6B7B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7B49\u50F9\u898F\u683C\u7A81\u8B8A\u9AD4",
+            "text": "<p><em>\u7B49\u50F9\u898F\u683C\u7A81\u8B8A\u9AD4</em>\uFF08equivalent spec mutant\uFF09\u662F\u6307\u4E00\u500B\u7A81\u8B8A\u898F\u683C\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u8A9E\u6CD5\u4E0A\u8207\u539F\u59CB\u898F\u683C\u4E0D\u540C\uFF0C\u4F46\u8A9E\u610F\u4E0A\u5B8C\u5168\u76F8\u540C\uFF0C\u56E0\u6B64\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u80FD\u5340\u5206\u5169\u8005",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A9E\u610F\u76F8\u540C\u5C31\u6C38\u9060\u7121\u6CD5\u88AB\u6BBA\u6B7B\u3002"
+              },
+              {
+                "text": "\u5728\u6587\u5B57\u4E0A\u8207\u539F\u59CB\u898F\u683C\u5B8C\u5168\u76F8\u540C",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u4E00\u5B9A\u6703\u5F15\u5165\u8A9E\u6CD5\u4E0A\u7684\u6539\u52D5\uFF1B\u6587\u5B57\u5B8C\u5168\u76F8\u540C\u5C31\u4E0D\u662F\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u8207\u539F\u59CB\u898F\u683C\u76F8\u77DB\u76FE",
+                "fraction": 0,
+                "feedback": "\u76F8\u77DB\u76FE\u7684\u7A81\u8B8A\u9AD4\u8A9E\u610F\u4E0D\u540C\u3001\u53EF\u88AB\u6BBA\u6B7B\uFF1B\u7B49\u50F9\u8005\u5247\u8A9E\u610F\u76F8\u540C\u3002"
+              },
+              {
+                "text": "\u7121\u6CD5\u4EE5\u8A72\u898F\u683C\u8A9E\u8A00\u8868\u9054",
+                "fraction": 0,
+                "feedback": "\u7B49\u50F9\u8207\u5426\u95DC\u4E4E\u8A9E\u610F\uFF0C\u800C\u975E\u53EF\u8868\u9054\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u7B49\u50F9\u898F\u683C\u7A81\u8B8A\u9AD4\u5728\u8A9E\u6CD5\u4E0A\u8207\u539F\u59CB\u898F\u683C\u4E0D\u540C\uFF0C\u4F46\u5C0D\u6BCF\u500B\u8F38\u5165\u90FD\u8868\u793A\u5B8C\u5168\u76F8\u540C\u7684\u884C\u70BA\uFF0C\u56E0\u6B64\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\u6216\u6A21\u578B\u6AA2\u67E5\u80FD\u5340\u5206\uFF08\u6BBA\u6B7B\uFF09\u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u57FA\u65BC\u6A21\u578B\u7684\u7A81\u8B8A\u6E2C\u8A66",
+            "text": "<p><em>\u57FA\u65BC\u6A21\u578B\u7684\u7A81\u8B8A\u6E2C\u8A66</em>\uFF08model-based mutation testing\uFF09\u662F\u6307\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C07\u7A81\u8B8A\u904B\u7B97\u5B50\u5957\u7528\u65BC\u7CFB\u7D71\u7684\u884C\u70BA\u6A21\u578B\uFF08\u4F8B\u5982\u4E00\u53F0 FSM\uFF09\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u88AB\u7A81\u8B8A\u7684\u662F\u6A21\u578B\u3002"
+              },
+              {
+                "text": "\u5EFA\u7ACB\u4E00\u500B\u7D71\u8A08\u6A21\u578B\u4F86\u63CF\u8FF0\u6BCF\u500B\u7A0B\u5F0F\u78BC\u7A81\u8B8A\u9AD4\u88AB\u6BBA\u6B7B\u7684\u983B\u7387",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E0D\u662F\u57FA\u65BC\u6A21\u578B\u7A81\u8B8A\u7684\u610F\u601D\uFF1B\u9019\u88E1\u6A21\u578B\u624D\u662F\u88AB\u7A81\u8B8A\u7684\u5C0D\u8C61\u3002"
+              },
+              {
+                "text": "\u53EA\u7A81\u8B8A\u7A0B\u5F0F\u7684\u8CC7\u6599\u6A21\u578B\uFF08\u8CC7\u6599\u5EAB\u7DB1\u8981\uFF09",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u300C\u6A21\u578B\u300D\u6307\u884C\u70BA\u6A21\u578B\uFF0F\u898F\u683C\uFF0C\u4E26\u975E\u7279\u6307\u8CC7\u6599\u5EAB\u7DB1\u8981\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u7A81\u8B8A\u6A21\u578B\u6AA2\u67E5\u5668\u7684\u6F14\u7B97\u6CD5",
+                "fraction": 0,
+                "feedback": "\u6A21\u578B\u6AA2\u67E5\u5668\u662F\u5DE5\u5177\uFF0C\u4E0D\u662F\u88AB\u7A81\u8B8A\u7684\u5C0D\u8C61\u3002"
+              }
+            ],
+            "generalFeedback": "\u57FA\u65BC\u6A21\u578B\u7684\u7A81\u8B8A\u6E2C\u8A66\u628A\u7A81\u8B8A\u690D\u5165\u6A21\u578B\uFF08\u4F8B\u5982 FSM \u6216\u5F62\u5F0F\u898F\u683C\uFF09\uFF0C\u4E26\u7528\u6A21\u578B\u8207\u5176\u7A81\u8B8A\u9AD4\u4E4B\u9593\u7684\u5DEE\u7570\u4F86\u8A55\u4F30\u6216\u751F\u6210\u6E2C\u8A66\u2014\u2014\u9019\u662F\u898F\u683C\u7A81\u8B8A\u7684\u4E00\u7A2E\u5F62\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u76EE\u7684\uFF1A\u9069\u5207\u6027",
+            "text": "<p>\u898F\u683C\u7A81\u8B8A\u7684\u5176\u4E2D\u4E00\u500B\u76EE\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8A55\u4F30\u6E2C\u8A66\u5957\u7D44\u7684\u9069\u5207\u6027\uFF08adequacy\uFF09\uFF0C\u6216\u8A55\u4F30\u898F\u683C\u672C\u8EAB\u7684\u54C1\u8CEA\uFF0F\u5B8C\u6574\u6027",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u88AB\u6BBA\u6B7B\u7684\u7A81\u8B8A\u9AD4\u53EF\u8861\u91CF\u6E2C\u8A66\uFF08\u6216\u898F\u683C\uFF09\u638C\u63E1\u9810\u671F\u884C\u70BA\u7684\u7A0B\u5EA6\u3002"
+              },
+              {
+                "text": "\u81EA\u52D5\u4FEE\u5FA9\u7A0B\u5F0F\u4E2D\u7684\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u898F\u683C\u7A81\u8B8A\u662F\u8A55\u4F30\u6216\u751F\u6210\u6E2C\u8A66\uFF0C\u4E26\u4E0D\u4FEE\u6539\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u8B49\u660E\u7A0B\u5F0F\u6C92\u6709\u4EFB\u4F55\u7F3A\u9677",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u7A81\u8B8A\u6280\u8853\u80FD\u8B49\u660E\u6240\u6709\u7F3A\u9677\u90FD\u4E0D\u5B58\u5728\u3002"
+              },
+              {
+                "text": "\u628A\u898F\u683C\u58D3\u7E2E\u6210\u8F03\u5C11\u7684\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6A21\u578B\u6700\u5C0F\u5316\uFF0C\u4E0D\u662F\u898F\u683C\u7A81\u8B8A\u7684\u76EE\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u898F\u683C\u7A81\u8B8A\u7528\u4F86\uFF08\u7532\uFF09\u8A55\u4F30\u6E2C\u8A66\u5957\u7D44\u7684\u9069\u5207\u6027\u6216\u898F\u683C\u54C1\u8CEA\uFF0C\u4EE5\u53CA\uFF08\u4E59\uFF09\u751F\u6210\u6E2C\u8A66\u3002\u6E2C\u91CF\u67D0\u5957\u7D44\u80FD\u6BBA\u6B7B\u54EA\u4E9B\u898F\u683C\u7A81\u8B8A\u9AD4\uFF0C\u5373\u53EF\u8861\u91CF\u5176\u9069\u5207\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u76EE\u7684\uFF1A\u6E2C\u8A66\u751F\u6210",
+            "text": "<p>\u898F\u683C\u7A81\u8B8A\u53EF\u7528\u65BC<em>\u751F\u6210\u6E2C\u8A66</em>\uFF0C\u65B9\u6CD5\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C07\u6A21\u578B\u6AA2\u67E5\u5668\u91DD\u5C0D\u7A81\u8B8A\u5F8C\u6027\u8CEA\u6240\u7522\u751F\u7684\u53CD\u4F8B\u7576\u4F5C\u6E2C\u8A66\u6848\u4F8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u80FD\u5340\u5206\u7A81\u8B8A\u9AD4\u8207\u539F\u59CB\u898F\u683C\u7684\u53CD\u4F8B\u5373\u6210\u70BA\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5C07\u7A81\u8B8A\u898F\u683C\u7DE8\u8B6F\u6210\u53EF\u57F7\u884C\u6A94",
+                "fraction": 0,
+                "feedback": "\u7DE8\u8B6F\u898F\u683C\u672C\u8EAB\u4E26\u4E0D\u6703\u7522\u751F\u6E2C\u8A66\u6848\u4F8B\u3002"
+              },
+              {
+                "text": "\u8A08\u7B97\u898F\u683C\u4E2D\u5B50\u53E5\u7684\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u8A08\u7B97\u5B50\u53E5\u662F\u4E00\u7A2E\u5EA6\u91CF\uFF0C\u4E0D\u662F\u6E2C\u8A66\u751F\u6210\u65B9\u6CD5\u3002"
+              },
+              {
+                "text": "\u79FB\u9664\u898F\u683C\u4E2D\u6240\u6709\u6642\u5E8F\u904B\u7B97\u5B50",
+                "fraction": 0,
+                "feedback": "\u90A3\u6703\u6539\u8B8A\u898F\u683C\u7684\u8A9E\u610F\uFF0C\u4E14\u7121\u6CD5\u751F\u6210\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u6A21\u578B\u6AA2\u67E5\u5668\u5C07\u7A81\u8B8A\u5F8C\u7684\u6027\u8CEA\u5C0D\u6A21\u578B\u6AA2\u67E5\uFF0C\u6703\u56DE\u50B3\u4E00\u500B\u53CD\u4F8B\u2014\u2014\u4E00\u689D\u7A81\u8B8A\u9AD4\u8207\u539F\u59CB\u898F\u683C\u4E0D\u4E00\u81F4\u7684\u8ECC\u8DE1\u3002\u8A72\u8ECC\u8DE1\u5373\u88AB\u8F49\u70BA\u6E2C\u8A66\u6848\u4F8B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u898F\u683C\u7A81\u8B8A\u904B\u7B97\u5B50\u7BC4\u4F8B",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u662F<em>\u898F\u683C</em>\u7A81\u8B8A\u904B\u7B97\u5B50\u7684\u4F8B\u5B50\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u9700\u6C42\u4E2D\u7684\u67D0\u500B\u5B50\u53E5\u53D6\u53CD\uFF08\u4F8B\u5982\u689D\u4EF6 C \u8B8A\u6210 NOT C\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u9700\u6C42\u5B50\u53E5\u53D6\u53CD\u5373\u7A81\u8B8A\u4E86\u898F\u683C\u3002"
+              },
+              {
+                "text": "\u5728\u5BE6\u4F5C\u4E2D\u522A\u9664\u4E00\u884C C++ \u539F\u59CB\u78BC",
+                "fraction": 0,
+                "feedback": "\u90A3\u7A81\u8B8A\u7684\u662F\u7A0B\u5F0F\u78BC\uFF0C\u5C6C\u65BC\u7A0B\u5F0F\u7A81\u8B8A\u3002"
+              },
+              {
+                "text": "\u91CD\u65B0\u547D\u540D\u7A0B\u5F0F\u4E2D\u7684\u67D0\u500B\u5340\u57DF\u8B8A\u6578",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7A0B\u5F0F\u78BC\u5C64\u7D1A\u7684\u6539\u52D5\uFF0C\u4E0D\u662F\u898F\u683C\u6539\u52D5\u3002"
+              },
+              {
+                "text": "\u5728\u7A0B\u5F0F\u904B\u7B97\u5F0F\u4E2D\u63D2\u5165\u4E00\u500B\u4E00\u5143\u8CA0\u865F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7A0B\u5F0F\u78BC\u7A81\u8B8A\u904B\u7B97\u5B50\uFF08UOI\uFF09\uFF0C\u4E0D\u662F\u898F\u683C\u904B\u7B97\u5B50\u3002"
+              }
+            ],
+            "generalFeedback": "\u898F\u683C\u7A81\u8B8A\u904B\u7B97\u5B50\u66F4\u52D5\u7684\u662F\u898F\u683C\uFF1A\u5C0D\u5B50\u53E5\u53D6\u53CD\u3001\u5728\u9700\u6C42\u4E2D\u66FF\u63DB\u95DC\u4FC2\uFF0F\u908F\u8F2F\uFF0F\u6642\u5E8F\u904B\u7B97\u5B50\u3001\u6216\u91CD\u5C0E FSM \u8F49\u79FB\u3002\u5C0D\u539F\u59CB\u78BC\u7684\u6539\u52D5\u5247\u5C6C\u65BC\u7A0B\u5F0F\u7A81\u8B8A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6642\u5E8F\u904B\u7B97\u5B50 G",
+            "text": "<p>\u5728\u7DDA\u6027\u6642\u5E8F\u908F\u8F2F\uFF08LTL\uFF09\u4E2D\uFF0C\u5C0D\u6027\u8CEA <code>p</code> \u5957\u7528\u904B\u7B97\u5B50 <strong>G</strong>\uFF08globally\uFF09\u8868\u793A <code>p</code>\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u8DEF\u5F91\u4E0A\u7684\u6BCF\u4E00\u500B\u72C0\u614B\u90FD\u6210\u7ACB\uFF08\u6C38\u9060\u6210\u7ACB\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014G \u8868\u793A\u300C\u6C38\u9060\uFF0F\u5168\u57DF\u300D\u3002"
+              },
+              {
+                "text": "\u5728\u81F3\u5C11\u4E00\u500B\u672A\u4F86\u72C0\u614B\u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F F\uFF08eventually\uFF09\uFF0C\u4E0D\u662F G\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u7DCA\u63A5\u7684\u4E0B\u4E00\u500B\u72C0\u614B\u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F X\uFF08next\uFF09\uFF0C\u4E0D\u662F G\u3002"
+              },
+              {
+                "text": "\u76F4\u5230\u53E6\u4E00\u500B\u6027\u8CEA\u6210\u7ACB\u70BA\u6B62\u90FD\u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F U\uFF08until\uFF09\u904B\u7B97\u5B50\uFF0C\u4E0D\u662F G\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 LTL \u4E2D\uFF0CG p\uFF08\u300C\u5168\u57DF p\u300D\uFF09\u4E3B\u5F35 p \u5728\u57F7\u884C\u8DEF\u5F91\u7684\u6BCF\u4E00\u500B\u72C0\u614B\u90FD\u70BA\u771F\u2014\u2014\u5373\u300C\u6C38\u9060\u300D\u904B\u7B97\u5B50\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6642\u5E8F\u904B\u7B97\u5B50 F",
+            "text": "<p>\u5728\u7DDA\u6027\u6642\u5E8F\u908F\u8F2F\uFF08LTL\uFF09\u4E2D\uFF0C\u5C0D <code>p</code> \u5957\u7528 <strong>F</strong>\uFF08eventually\uFF0Ffinally\uFF09\u8868\u793A <code>p</code>\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u7576\u524D\u6216\u67D0\u500B\u672A\u4F86\u72C0\u614B\u6210\u7ACB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014F \u8868\u793A\u300C\u7D42\u7A76\u6703\u300D\u3002"
+              },
+              {
+                "text": "\u5728\u8DEF\u5F91\u4E0A\u7684\u6BCF\u4E00\u500B\u72C0\u614B\u90FD\u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F G\uFF08globally\uFF09\uFF0C\u4E0D\u662F F\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u7DCA\u63A5\u7684\u4E0B\u4E00\u500B\u72C0\u614B\u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F X\uFF08next\uFF09\uFF0C\u4E0D\u662F F\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u4E0D\u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "F \u4E3B\u5F35 p \u5728\u67D0\u500B\u6642\u9EDE\u78BA\u5BE6\u6210\u7ACB\uFF0C\u8207\u300C\u6C38\u4E0D\u300D\u76F8\u53CD\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 LTL \u4E2D\uFF0CF p\uFF08\u300C\u7D42\u7A76 p\u300D\uFF09\u4E3B\u5F35 p \u6703\u5728\u8DEF\u5F91\u4E0A\u7576\u524D\u6216\u7A0D\u5F8C\u7684\u67D0\u500B\u72C0\u614B\u6210\u70BA\u771F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53CD\u4F8B\u7684\u5B9A\u7FA9",
+            "text": "<p>\u7576\u6A21\u578B\u6AA2\u67E5\u5668\u767C\u73FE\u67D0\u6027\u8CEA\u88AB\u6A21\u578B\u9055\u53CD\u6642\uFF0C\u6703\u7522\u751F\u4E00\u500B<em>\u53CD\u4F8B\uFF08counterexample\uFF09</em>\uFF0C\u5B83\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6A21\u578B\u4E2D\u4E00\u689D\u9055\u53CD\u8A72\u6027\u8CEA\u7684\u5177\u9AD4\u57F7\u884C\u8ECC\u8DE1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53CD\u4F8B\u662F\u4E00\u689D\u898B\u8B49\u9055\u53CD\u7684\u8ECC\u8DE1\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u4FEE\u6B63\u5F8C\u3001\u73FE\u5728\u80FD\u6210\u7ACB\u7684\u6027\u8CEA",
+                "fraction": 0,
+                "feedback": "\u6AA2\u67E5\u5668\u56DE\u50B3\u7684\u662F\u9055\u53CD\u7684\u8ECC\u8DE1\uFF0C\u4E0D\u662F\u6539\u5BEB\u5F8C\u7684\u6027\u8CEA\u3002"
+              },
+              {
+                "text": "\u8A72\u6027\u8CEA\u5728\u6A21\u578B\u4E0A\u6210\u7ACB\u7684\u8B49\u660E",
+                "fraction": 0,
+                "feedback": "\u53CD\u4F8B\u5C55\u793A\u7684\u662F\u9055\u53CD\uFF0C\u800C\u975E\u6B63\u78BA\u6027\u7684\u8B49\u660E\u3002"
+              },
+              {
+                "text": "\u8207\u6A21\u578B\u7121\u95DC\u7684\u96A8\u6A5F\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u53CD\u4F8B\u662F\u6A21\u578B\u7684\u4E00\u689D\u7279\u5B9A\u8ECC\u8DE1\uFF0C\u4E0D\u662F\u96A8\u6A5F\u8F38\u5165\u3002"
+              }
+            ],
+            "generalFeedback": "\u53CD\u4F8B\u662F\u6A21\u578B\u7684\u4E00\u4E32\u5177\u9AD4\u72C0\u614B\uFF08\u4E00\u689D\u57F7\u884C\u8ECC\u8DE1\uFF09\uFF0C\u5C55\u793A\u8A72\u6027\u8CEA\u5982\u4F55\u88AB\u9055\u53CD\u3002\u9019\u689D\u8ECC\u8DE1\u6B63\u662F\u898F\u683C\u7A81\u8B8A\u6E2C\u8A66\u751F\u6210\u6240\u8F49\u6210\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u898F\u683C\u7A81\u8B8A",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u9805\u6D3B\u52D5\u5C6C\u65BC<em>\u898F\u683C</em>\u7A81\u8B8A\uFF08\u800C\u975E\u7A0B\u5F0F\u7A81\u8B8A\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5728\u4E00\u689D LTL \u9700\u6C42\u4E2D\u5C07 G \u66FF\u63DB\u70BA F\uFF0C\u4E26\u91CD\u65B0\u5C0D\u6A21\u578B\u6AA2\u67E5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u88AB\u7A81\u8B8A\u7684\u662F\u9700\u6C42\uFF08\u898F\u683C\uFF09\u3002"
+              },
+              {
+                "text": "\u5728\u67D0 C \u51FD\u5F0F\u4E2D\u628A + \u63DB\u6210 - \u4E26\u91CD\u65B0\u57F7\u884C\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u7A81\u8B8A\u7684\u662F\u7A0B\u5F0F\u78BC\u2014\u2014\u5C6C\u65BC\u7A0B\u5F0F\u7A81\u8B8A\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u539F\u59CB\u78BC\u4E2D\u7684\u4E00\u500B\u6558\u8FF0\u4E26\u91CD\u65B0\u57F7\u884C\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u522A\u9664\u539F\u59CB\u78BC\u6558\u8FF0\u5C6C\u65BC\u7A0B\u5F0F\u7A81\u8B8A\u3002"
+              },
+              {
+                "text": "\u5728\u7A0B\u5F0F\u904B\u7B97\u5F0F\u4E2D\u63D2\u5165\u4E00\u5143\u8CA0\u865F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7A0B\u5F0F\u78BC\u5C64\u7D1A\uFF08UOI\uFF09\u7A81\u8B8A\u3002"
+              }
+            ],
+            "generalFeedback": "\u66F4\u52D5\u6642\u5E8F\u908F\u8F2F\u9700\u6C42\uFF08G \u63DB F\uFF09\u7A81\u8B8A\u7684\u662F\u898F\u683C\u3002\u66F4\u52D5\u539F\u59CB\u78BC\u4E2D\u7684\u904B\u7B97\u5B50\u3001\u6558\u8FF0\u6216\u904B\u7B97\u5F0F\u5247\u5C6C\u65BC\u7A0B\u5F0F\u7A81\u8B8A\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u898F\u683C\u7A81\u8B8A\u662F\u5426\u7A81\u8B8A\u7A0B\u5F0F\u78BC",
+            "text": "<p>\u898F\u683C\u7A81\u8B8A\u6E2C\u8A66\u7684\u505A\u6CD5\u662F\u7A81\u8B8A\u7A0B\u5F0F\u7684\u539F\u59CB\u78BC\uFF0C\u4E26\u5C0D\u5176\u57F7\u884C\u6E2C\u8A66\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u539F\u59CB\u78BC\u5C6C\u65BC\u7A0B\u5F0F\u7A81\u8B8A\u3002\u898F\u683C\u7A81\u8B8A\u6539\u52D5\u7684\u662F\u898F\u683C\uFF0F\u6A21\u578B\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u898F\u683C\u7A81\u8B8A\u7A81\u8B8A\u7684\u662F\u898F\u683C\u6216\u6A21\u578B\uFF0C\u800C\u975E\u539F\u59CB\u78BC\uFF08\u5F8C\u8005\u5C6C\u65BC\u7A0B\u5F0F\u7A81\u8B8A\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u898F\u683C\u7A81\u8B8A\u628A\u7A81\u8B8A\u904B\u7B97\u5B50\u5957\u7528\u5230\u898F\u683C\u6216\u6A21\u578B\uFF08\u4E00\u689D\u9700\u6C42\u3001\u4E00\u53F0 FSM\u3001\u6216\u4E00\u689D\u6642\u5E8F\u6027\u8CEA\uFF09\u3002\u7A81\u8B8A\u539F\u59CB\u78BC\u5247\u662F\u53E6\u4E00\u9805\u7368\u7ACB\u7684\u6280\u8853\uFF1A\u7A0B\u5F0F\u7A81\u8B8A\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u4F55\u6642\u6BBA\u6B7B\u7A81\u8B8A\u898F\u683C",
+            "text": "<p>\u4E00\u500B\u6E2C\u8A66\u6848\u4F8B\u4F55\u6642\u6703\u6BBA\u6B7B\u4E00\u500B\u7A81\u8B8A\u898F\u683C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u6E2C\u8A66\u5728\u7A81\u8B8A\u898F\u683C\u4E0B\u7684\u9810\u671F\u7D50\u679C\uFF0C\u8207\u5728\u539F\u59CB\u898F\u683C\u4E0B\u7684\u9810\u671F\u7D50\u679C\u4E0D\u540C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u4EFD\u898F\u683C\u5C0D\u5B83\u6703\u505A\u51FA\u4E0D\u540C\u5224\u5B9A\u7684\u6E2C\u8A66\u5373\u53EF\u6BBA\u6B7B\u7A81\u8B8A\u9AD4\u3002"
+              },
+              {
+                "text": "\u8A72\u6E2C\u8A66\u5728\u6A21\u578B\u6AA2\u67E5\u5668\u4E0A\u57F7\u884C\u5F97\u5F88\u5FEB",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u901F\u5EA6\u8207\u6BBA\u6B7B\u7A81\u8B8A\u9AD4\u7121\u95DC\u3002"
+              },
+              {
+                "text": "\u8A72\u6E2C\u8A66\u5728\u539F\u59CB\u898F\u683C\u4E0A\u901A\u904E",
+                "fraction": 0,
+                "feedback": "\u50C5\u901A\u904E\u539F\u59CB\u898F\u683C\u4E26\u4E0D\u80FD\u5340\u5206\u7A81\u8B8A\u9AD4\uFF1B\u5FC5\u9808\u5169\u8005\u4E4B\u9593\u6709\u4E0D\u4E00\u81F4\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u898F\u683C\u7684\u72C0\u614B\u6578\u6BD4\u539F\u59CB\u898F\u683C\u591A",
+                "fraction": 0,
+                "feedback": "\u72C0\u614B\u6578\u7121\u95DC\u7DCA\u8981\uFF1B\u6BBA\u6B7B\u9700\u8981\u884C\u70BA\u4E0A\u7684\u4E0D\u4E00\u81F4\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u67D0\u6E2C\u8A66\u6703\u88AB\u7A81\u8B8A\u898F\u683C\u8207\u539F\u59CB\u898F\u683C\u505A\u51FA\u4E0D\u540C\u5224\u5B9A\u6642\u2014\u2014\u5373\u5169\u4EFD\u898F\u683C\u5C0D\u8A72\u6E2C\u8A66\u7684\u9810\u671F\u884C\u70BA\u4E0D\u4E00\u81F4\u2014\u2014\u8A72\u898F\u683C\u7A81\u8B8A\u9AD4\u5373\u88AB\u6BBA\u6B7B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u689D\u4EF6\u53D6\u53CD\u904B\u7B97\u5B50",
+            "text": "<p>\u5C07<em>\u689D\u4EF6\u53D6\u53CD</em>\u898F\u683C\u7A81\u8B8A\u904B\u7B97\u5B50\u5957\u7528\u65BC\u9700\u6C42\u5B88\u885B <code>temp &gt; 100</code>\uFF0C\u6703\u7522\u751F\u54EA\u500B\u7A81\u8B8A\u9AD4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "<code>NOT (temp &gt; 100)</code>",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u689D\u4EF6\u53D6\u53CD\u5C07\u5B88\u885B\u5305\u5728\u908F\u8F2F NOT \u4E4B\u4E2D\u3002"
+              },
+              {
+                "text": "<code>temp &gt;= 100</code>",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u95DC\u4FC2\u904B\u7B97\u5B50\u66FF\u63DB\uFF0C\u4E0D\u662F\u53D6\u53CD\u3002"
+              },
+              {
+                "text": "<code>temp &gt; 200</code>",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u904B\u7B97\u5143\u6539\u52D5\uFF0C\u4E0D\u662F\u53D6\u53CD\u3002"
+              },
+              {
+                "text": "<code>temp &gt; 100 AND active</code>",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u52A0\u5165\u4E00\u500B\u5408\u53D6\u9805\uFF08\u5B88\u885B\u5F37\u5316\uFF09\uFF0C\u4E0D\u662F\u53D6\u53CD\u3002"
+              }
+            ],
+            "generalFeedback": "\u689D\u4EF6\u53D6\u53CD\u628A\u9700\u6C42\u7684\u689D\u4EF6 C \u63DB\u6210 NOT C\u3002\u6B64\u8655\u8B8A\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9700\u6C42\u4E2D\u7684\u95DC\u4FC2\u904B\u7B97\u5B50\u66FF\u63DB",
+            "text": "<p>\u5728\u9700\u6C42\u300C\u7576 <code>pressure &gt;= threshold</code> \u6642\u8B66\u5831\u97FF\u8D77\u300D\u4E2D\uFF0C\u5C07 <code>&gt;=</code> \u63DB\u6210 <code>&gt;</code> \u662F\u4E00\u500B\u898F\u683C\u7A81\u8B8A\u904B\u7B97\u5B50\uFF0C\u5176\u4F5C\u7528\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u66FF\u63DB\u4E00\u500B\u95DC\u4FC2\u904B\u7B97\u5B50\uFF0C\u6539\u8B8A\u8A72\u9700\u6C42\u5728\u908A\u754C\u4E0A\u7684\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u6539\u8B8A\u4E86\u5728\u9019\u4E00\u9EDE\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u5F9E\u9700\u6C42\u4E2D\u522A\u9664\u4E00\u500B\u5B50\u53E5",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u5B50\u53E5\u88AB\u79FB\u9664\uFF1B\u88AB\u66F4\u52D5\u7684\u662F\u4E00\u500B\u95DC\u4FC2\u904B\u7B97\u5B50\u3002"
+              },
+              {
+                "text": "\u66F4\u52D5\u4E00\u500B\u6642\u5E8F\u904B\u7B97\u5B50",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u4E26\u4E0D\u6D89\u53CA\u4EFB\u4F55\u6642\u5E8F\u904B\u7B97\u5B50\u3002"
+              },
+              {
+                "text": "\u91CD\u5C0E\u4E00\u500B\u72C0\u614B\u6A5F\u8F49\u79FB",
+                "fraction": 0,
+                "feedback": "\u9019\u662F\u689D\u4EF6\u4E2D\u7684\u95DC\u4FC2\u6539\u52D5\uFF0C\u4E0D\u662F\u8F49\u79FB\u91CD\u5C0E\u3002"
+              }
+            ],
+            "generalFeedback": "\u66FF\u63DB\u95DC\u4FC2\u904B\u7B97\u5B50\uFF08\u6B64\u8655\u63DB\u6210\uFF09\u6703\u6539\u8B8A\u9700\u6C42\u5728\u908A\u754C\u503C\u7684\u884C\u70BA\uFF1B\u6BBA\u6B7B\u5B83\u7684\u6E2C\u8A66\u5FC5\u9808\u5305\u542B\u8A72\u908A\u754C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "FSM \u8F49\u79FB\u91CD\u5C0E",
+            "text": "<p>\u5728\u4E00\u53F0 FSM \u898F\u683C\u4E2D\uFF0C\u6539\u8B8A\u67D0\u8F49\u79FB\u76EE\u7684\u5730\u7684\u7A81\u8B8A\u904B\u7B97\u5B50\uFF08\u4F8B\u5982\u8F38\u5165 <code>x</code> \u6642\u6A5F\u5668\u6539\u5F80\u72C0\u614B C \u800C\u975E\u72C0\u614B B\uFF09\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8F49\u79FB\u91CD\u5C0E\u2014\u2014\u6539\u8B8A\u4E00\u500B\u8F49\u79FB\u7684\u76EE\u6A19\u72C0\u614B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u88AB\u66F4\u52D5\u7684\u662F\u8F49\u79FB\u7684\u76EE\u7684\u5730\u3002"
+              },
+              {
+                "text": "\u95DC\u4FC2\u904B\u7B97\u5B50\u66FF\u63DB",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u4E0D\u6D89\u53CA\u95DC\u4FC2\u904B\u7B97\u5B50\uFF1B\u6539\u8B8A\u7684\u662F\u8F49\u79FB\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u6642\u5E8F\u904B\u7B97\u5B50\u66FF\u63DB",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u4E0D\u6D89\u53CA\u6642\u5E8F\u904B\u7B97\u5B50\u3002"
+              },
+              {
+                "text": "\u689D\u4EF6\u53D6\u53CD",
+                "fraction": 0,
+                "feedback": "\u5B88\u885B\u6C92\u6709\u88AB\u53D6\u53CD\uFF1B\u88AB\u6539\u7684\u662F\u76EE\u7684\u5730\u72C0\u614B\u3002"
+              }
+            ],
+            "generalFeedback": "\u91CD\u5C0E\u8F49\u79FB\uFF08\u6539\u8B8A\u67D0\u8F38\u5165\u5C0E\u5411\u4F55\u8655\uFF09\u662F\u6A19\u6E96\u7684 FSM\uFF0F\u6A21\u578B\u7A81\u8B8A\u904B\u7B97\u5B50\u3002\u5176\u4ED6 FSM \u904B\u7B97\u5B50\u5247\u6703\u6539\u8B8A\u89F8\u767C\u4E8B\u4EF6\u6216\u5B88\u885B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u908F\u8F2F\u904B\u7B97\u5B50\u66FF\u63DB\u7684\u6548\u679C",
+            "text": "<p>\u4E00\u6B21\u898F\u683C\u7A81\u8B8A\u628A\u9700\u6C42\u689D\u4EF6\u4E2D\u7684 <strong>AND</strong> \u63DB\u6210 <strong>OR</strong>\u3002\u8207\u539F\u59CB\u76F8\u6BD4\uFF0C\u7A81\u8B8A\u5F8C\u7684\u689D\u4EF6\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8F03\u5F31\u2014\u2014\u5728\u66F4\u591A\u60C5\u6CC1\u4E0B\u6210\u7ACB\uFF08\u4EFB\u4E00\u904B\u7B97\u5143\u70BA\u771F\u5373\u8DB3\u5920\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014AND \u9700\u5169\u8005\u70BA\u771F\uFF1BOR \u53EA\u9700\u5176\u4E00\uFF0C\u6545 OR \u66F4\u5E38\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "\u8F03\u5F37\u2014\u2014\u5728\u66F4\u5C11\u60C5\u6CC1\u4E0B\u6210\u7ACB",
+                "fraction": 0,
+                "feedback": "OR \u6BD4 AND \u66F4\u5E38\u6210\u7ACB\uFF0C\u6545\u662F\u8F03\u5F31\u800C\u975E\u8F03\u5F37\u3002"
+              },
+              {
+                "text": "\u8A9E\u610F\u4E0D\u8B8A",
+                "fraction": 0,
+                "feedback": "\u7576\u5169\u500B\u904B\u7B97\u5143\u771F\u5047\u503C\u4E0D\u540C\u6642\uFF0CAND \u8207 OR \u5C31\u6703\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "\u53EA\u5F71\u97FF\u7B97\u8853\uFF0C\u4E0D\u5F71\u97FF\u908F\u8F2F",
+                "fraction": 0,
+                "feedback": "AND\uFF0FOR \u662F\u908F\u8F2F\u9023\u63A5\u8A5E\uFF1B\u6B64\u6539\u52D5\u5C6C\u908F\u8F2F\uFF0C\u975E\u7B97\u8853\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A AND \u63DB\u6210 OR\uFF08\u4E00\u7A2E\u908F\u8F2F\u904B\u7B97\u5B50\u7A81\u8B8A\uFF0C\u985E\u6BD4\u7A0B\u5F0F\u7A81\u8B8A\u7684 LOR\uFF09\u6703\u5F31\u5316\u689D\u4EF6\uFF1A\u53EA\u8981\u4EFB\u4E00\u904B\u7B97\u5143\u70BA\u771F\u5B83\u5C31\u6210\u7ACB\uFF0C\u662F AND \u60C5\u6CC1\u7684\u8D85\u96C6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6642\u5E8F\u904B\u7B97\u5B50\u7A81\u8B8A G \u63DB F",
+            "text": "<p>\u4E00\u6B21\u6642\u5E8F\u904B\u7B97\u5B50\u7A81\u8B8A\u628A\u67D0\u6027\u8CEA\u4E2D\u7684 <code>G p</code> \u63DB\u6210 <code>F p</code>\u3002\u9019\u5C07\u9700\u6C42\u5F9E\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u300Cp \u5728\u6BCF\u500B\u72C0\u614B\u90FD\u6210\u7ACB\u300D\u6539\u70BA\u300Cp \u81F3\u5C11\u5728\u4E00\u500B\u72C0\u614B\u6210\u7ACB\u300D\u2014\u2014\u4E00\u500B\u56B4\u683C\u8F03\u5F31\u7684\u9700\u6C42",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014G\uFF08\u6C38\u9060\uFF09\u8B8A\u6210 F\uFF08\u7D42\u7A76\uFF09\uFF0C\u662F\u8F03\u5F31\u7684\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u8A9E\u610F\u76F8\u540C\u7684\u7B49\u50F9\u6539\u5BEB",
+                "fraction": 0,
+                "feedback": "G p \u8207 F p \u4E0D\u540C\uFF1AG p \u860A\u6DB5 F p\uFF0C\u4F46\u53CD\u4E4B\u4E0D\u7136\u3002"
+              },
+              {
+                "text": "\u300Cp \u5728\u67D0\u500B\u72C0\u614B\u6210\u7ACB\u300D\u6539\u70BA\u300Cp \u5728\u6BCF\u500B\u72C0\u614B\u6210\u7ACB\u300D\u2014\u2014\u4E00\u500B\u8F03\u5F37\u7684\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u76F8\u53CD\u65B9\u5411\uFF1BG \u63DB F \u662F\u5F31\u5316\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u53EA\u5F71\u97FF\u4E0B\u4E00\u72C0\u614B\u7684\u6539\u52D5",
+                "fraction": 0,
+                "feedback": "\u4E0B\u4E00\u72C0\u614B\u8A9E\u610F\u5C6C\u65BC X\uFF0C\u800C\u975E G \u6216 F\u3002"
+              }
+            ],
+            "generalFeedback": "G p\uFF08\u300C\u6C38\u9060 p\u300D\uFF09\u8981\u6C42\u6BCF\u500B\u72C0\u614B\u90FD\u6709 p\uFF1BF p\uFF08\u300C\u7D42\u7A76 p\u300D\uFF09\u53EA\u8981\u6C42\u67D0\u500B\u72C0\u614B\u6709 p\u3002G p \u860A\u6DB5 F p\uFF0C\u4F46\u53CD\u4E4B\u4E0D\u7136\uFF0C\u6545\u6B64\u7A81\u8B8A\u5F31\u5316\u8A72\u6027\u8CEA\uFF0C\u4E26\u4E14\u901A\u5E38\u6539\u8B8A\u5176\u8A9E\u610F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EE5\u7A81\u8B8A\u5F8C\u6027\u8CEA\u7684\u53CD\u4F8B\u4F5C\u70BA\u6E2C\u8A66",
+            "text": "<p>\u539F\u59CB\u6027\u8CEA <code>p</code> \u5728\u6A21\u578B <code>M</code> \u4E0A\u6210\u7ACB\u3002\u8981\u5F9E\u7A81\u8B8A\u6027\u8CEA <code>p'</code> \u751F\u6210\u4E00\u500B\u6E2C\u8A66\uFF0C\u4F60\u6703\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C07 p' \u5C0D M \u505A\u6A21\u578B\u6AA2\u67E5\uFF1B\u82E5 M \u9055\u53CD p'\uFF0C\u5176\u53CD\u4F8B\u8ECC\u8DE1\u5373\u70BA\u4E00\u500B\u80FD\u5340\u5206 p' \u8207 p \u7684\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7531\u65BC M \u22A8 p\uFF0C\u8A72\u9055\u53CD\u7684\u8ECC\u8DE1\u6EFF\u8DB3 p \u537B\u4E0D\u6EFF\u8DB3 p'\uFF0C\u6545\u80FD\u5340\u5206\u5169\u8005\u3002"
+              },
+              {
+                "text": "\u518D\u6B21\u5C07 p \u5C0D M \u505A\u6A21\u578B\u6AA2\u67E5\u4E26\u4E1F\u68C4\u7D50\u679C",
+                "fraction": 0,
+                "feedback": "\u91CD\u65B0\u6AA2\u67E5\u539F\u59CB\u6027\u8CEA\u4E26\u672A\u7528\u5230\u7A81\u8B8A\u9AD4\uFF0C\u4E5F\u751F\u6210\u4E0D\u51FA\u65B0\u6771\u897F\u3002"
+              },
+              {
+                "text": "\u628A p' \u7DE8\u8B6F\u6210\u7A0B\u5F0F\u78BC\u4E26\u505A\u6548\u80FD\u5206\u6790",
+                "fraction": 0,
+                "feedback": "\u5C0D\u7DE8\u8B6F\u5F8C\u7684\u6027\u8CEA\u505A\u6548\u80FD\u5206\u6790\u4E0D\u662F\u6B64\u8655\u884D\u751F\u6E2C\u8A66\u7684\u65B9\u6CD5\u3002"
+              },
+              {
+                "text": "\u8A08\u7B97 M \u4E2D\u53EF\u9054\u7684\u72C0\u614B\u6578",
+                "fraction": 0,
+                "feedback": "\u8A08\u7B97\u72C0\u614B\u6578\u4E26\u4E0D\u80FD\u7522\u751F\u80FD\u5340\u5206\u5169\u8005\u7684\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C07\u7A81\u8B8A\u6027\u8CEA p' \u5C0D M \u505A\u6A21\u578B\u6AA2\u67E5\uFF0C\u7576 M \u9055\u53CD p' \u6642\u6703\u5F97\u5230\u4E00\u500B\u53CD\u4F8B\u3002\u56E0\u70BA M \u6EFF\u8DB3\u539F\u59CB\u7684 p\uFF0C\u8A72\u8ECC\u8DE1\u6EFF\u8DB3 p \u537B\u4E0D\u6EFF\u8DB3 p'\uFF0C\u6545\u80FD\u5340\u5206\u5169\u4EFD\u898F\u683C\uFF0C\u6210\u70BA\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EE5\u898F\u683C\u7A81\u8B8A\u8861\u91CF\u6E2C\u8A66\u5957\u7D44\u9069\u5207\u6027",
+            "text": "<p>\u8981\u4EE5\u898F\u683C\u7A81\u8B8A<em>\u8861\u91CF\u6E2C\u8A66\u5957\u7D44\u7684\u9069\u5207\u6027</em>\uFF0C\u4F60\u6703\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u751F\u6210\u4E00\u6279\u7A81\u8B8A\u898F\u683C\uFF0C\u6AA2\u67E5\u5957\u7D44\u7684\u6E2C\u8A66\u80FD\u5340\u5206\u5176\u4E2D\u591A\u5C11\u6BD4\u4F8B\u8207\u539F\u59CB\u898F\u683C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u88AB\u6BBA\u6B7B\u7684\u898F\u683C\u7A81\u8B8A\u9AD4\u6BD4\u4F8B\u5373\u8861\u91CF\u9069\u5207\u6027\u3002"
+              },
+              {
+                "text": "\u8A08\u7B97\u898F\u683C\u6709\u591A\u5C11\u884C",
+                "fraction": 0,
+                "feedback": "\u898F\u683C\u9577\u5EA6\u4E0D\u662F\u9069\u5207\u6027\u7684\u5EA6\u91CF\u3002"
+              },
+              {
+                "text": "\u53EA\u628A\u5957\u7D44\u5C0D\u539F\u59CB\u898F\u683C\u57F7\u884C\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u7A81\u8B8A\u9AD4\u5C31\u6C92\u6709\u6771\u897F\u53EF\u6BBA\u6B7B\uFF0C\u4E5F\u5C31\u8861\u91CF\u4E0D\u51FA\u9069\u5207\u6027\u3002"
+              },
+              {
+                "text": "\u79FB\u9664\u5957\u7D44\u4E2D\u6240\u6709\u5931\u6557\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u79FB\u9664\u6E2C\u8A66\u7121\u6CD5\u8861\u91CF\u5C0D\u7A81\u8B8A\u9AD4\u7684\u9069\u5207\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u5982\u540C\u7A0B\u5F0F\u7A81\u8B8A\uFF0C\u4F60\u7522\u751F\u4E00\u6279\u898F\u683C\u7A81\u8B8A\u9AD4\uFF0C\u770B\u6E2C\u8A66\u5957\u7D44\u80FD\u6BBA\u6B7B\uFF08\u5340\u5206\u65BC\u539F\u59CB\u898F\u683C\uFF09\u591A\u5C11\u3002\u88AB\u6BBA\u6B7B\u7684\u6BD4\u4F8B\u5373\u70BA\u5957\u7D44\u76F8\u5C0D\u65BC\u898F\u683C\u7684\u4E00\u9805\u9069\u5207\u6027\u5EA6\u91CF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6C92\u6709\u53CD\u4F8B\u7684\u7A81\u8B8A\u6027\u8CEA",
+            "text": "<p>\u5728\u4EE5\u6027\u8CEA\u7A81\u8B8A\u751F\u6210\u6E2C\u8A66\u6642\uFF0C\u6A21\u578B\u6AA2\u67E5\u5668\u56DE\u5831\u67D0<em>\u7A81\u8B8A\u5F8C</em>\u6027\u8CEA\u5728\u6A21\u578B\u4E0A\u4ECD\u7136\u6210\u7ACB\uFF08\u6C92\u6709\u53CD\u4F8B\uFF09\u3002\u9019\u8868\u793A\u8A72\u7A81\u8B8A\u9AD4\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u76F8\u5C0D\u65BC\u8A72\u6A21\u578B\u70BA\u7B49\u50F9\u2014\u2014\u7121\u6CD5\u900F\u904E\u6A21\u578B\u88AB\u6BBA\u6B7B\uFF0C\u6545\u4E0D\u6703\u7522\u751F\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u53CD\u4F8B\u4EE3\u8868\u6A21\u578B\u7121\u6CD5\u5340\u5206\u7A81\u8B8A\u9AD4\u8207\u539F\u59CB\u3002"
+              },
+              {
+                "text": "\u88AB\u6BBA\u6B7B\u2014\u2014\u6C92\u6709\u53CD\u4F8B\u5373\u6BBA\u6B7B\u4E86\u5B83",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u76F8\u53CD\uFF1A\u53CD\u4F8B\u624D\u80FD\u5340\u5206\uFF08\u6BBA\u6B7B\uFF09\u5B83\uFF1B\u6C92\u6709\u53CD\u4F8B\u4EE3\u8868\u5B83\u5B58\u6D3B\u3002"
+              },
+              {
+                "text": "\u683C\u5F0F\u932F\u8AA4\uFF0C\u5FC5\u9808\u4E1F\u68C4",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u4ECD\u6210\u7ACB\u7684\u826F\u69CB\u7A81\u8B8A\u9AD4\u662F\u7B49\u50F9\uFF0C\u800C\u975E\u683C\u5F0F\u932F\u8AA4\u3002"
+              },
+              {
+                "text": "\u8B49\u660E\u4E86\u5BE6\u4F5C\u662F\u6B63\u78BA\u7684",
+                "fraction": 0,
+                "feedback": "\u5B83\u5C0D\u5BE6\u4F5C\u6BEB\u7121\u8AAA\u660E\uFF0C\u53EA\u95DC\u4E4E\u6A21\u578B\u8207\u6B64\u7A81\u8B8A\u9AD4\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5\u7A81\u8B8A\u6027\u8CEA\u5728\u6A21\u578B\u4E0A\u4ECD\u6210\u7ACB\uFF0C\u5C31\u6C92\u6709\u53CD\u4F8B\u80FD\u76F8\u5C0D\u65BC\u8A72\u6A21\u578B\u5340\u5206\u5B83\u8207\u539F\u59CB\u2014\u2014\u5B83\u662F\uFF08\u76F8\u5C0D\u65BC\u6A21\u578B\u7684\uFF09\u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF0C\u4E0D\u6703\u751F\u6210\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "FSM \u89F8\u767C\u4E8B\u4EF6\u7A81\u8B8A",
+            "text": "<p>\u6539\u8B8A\u4E00\u500B FSM \u8F49\u79FB\u7684\u89F8\u767C\u4E8B\u4EF6\uFF08\u4F8B\u5982\u5B83\u73FE\u5728\u4EE5\u8F38\u5165\u300Ccoin\u300D\u800C\u975E\u300Cbutton\u300D\u89F8\u767C\uFF09\u662F\u4E00\u500B\u898F\u683C\u7A81\u8B8A\u904B\u7B97\u5B50\uFF0C\u5176\u4F5C\u7528\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6539\u8B8A\u54EA\u500B\u8F38\u5165\u6703\u5F15\u767C\u8A72\u8F49\u79FB\uFF0C\u53EF\u80FD\u6539\u8B8A\u88AB\u63A5\u53D7\u7684\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A72\u8F49\u79FB\u73FE\u5728\u56DE\u61C9\u4E0D\u540C\u7684\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u6539\u8B8A\u6A5F\u5668\u4E2D\u7684\u72C0\u614B\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u72C0\u614B\u4E0D\u8B8A\uFF1B\u6539\u8B8A\u7684\u53EA\u662F\u89F8\u767C\u8F38\u5165\u3002"
+              },
+              {
+                "text": "\u5C0D\u4E00\u689D\u6642\u5E8F\u908F\u8F2F\u6027\u8CEA\u53D6\u53CD",
+                "fraction": 0,
+                "feedback": "FSM \u4E8B\u4EF6\u6539\u52D5\u4E26\u4E0D\u6D89\u53CA\u6642\u5E8F\u6027\u8CEA\u3002"
+              },
+              {
+                "text": "\u5B8C\u5168\u522A\u9664\u8A72\u8F49\u79FB",
+                "fraction": 0,
+                "feedback": "\u8F49\u79FB\u4ECD\u5B58\u5728\uFF1B\u6539\u8B8A\u7684\u53EA\u662F\u5B83\u7684\u89F8\u767C\u689D\u4EF6\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u8B8A\u89F8\u767C\u8F49\u79FB\u7684\u4E8B\u4EF6\uFF0F\u8F38\u5165\u662F\u6A19\u6E96\u7684 FSM \u7A81\u8B8A\u904B\u7B97\u5B50\uFF1B\u5B83\u6539\u8B8A\u54EA\u4E9B\u8F38\u5165\u9A45\u52D5\u6A5F\u5668\uFF0C\u56E0\u800C\u6539\u8B8A\u88AB\u898F\u5B9A\u7684\u884C\u70BA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u53CD\u4F8B\u662F\u597D\u6E2C\u8A66",
+            "text": "<p>\u5C0D\u7A81\u8B8A\u6027\u8CEA\u505A\u6A21\u578B\u6AA2\u67E5\u6240\u5F97\u7684\u53CD\u4F8B\u4E4B\u6240\u4EE5\u662F\u597D\u7684\u6E2C\u8A66\u6848\u4F8B\uFF0C\u662F\u56E0\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u662F\u4E00\u689D\u7A81\u8B8A\u898F\u683C\u8207\u539F\u59CB\u898F\u683C\u4E0D\u4E00\u81F4\u7684\u5177\u9AD4\u8ECC\u8DE1\uFF0C\u6545\u80FD\u63ED\u793A\u5BE6\u4F5C\u662F\u5426\u9075\u5FAA\u6B63\u78BA\u7684\u90A3\u4E00\u4EFD",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B83\u6B63\u597D\u7784\u6E96\u5340\u5206\u5169\u4EFD\u898F\u683C\u7684\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u5B83\u662F\u96A8\u6A5F\u6311\u9078\u7684\uFF0C\u80FD\u63D0\u4F9B\u5EE3\u6CDB\u7684\u6DB5\u84CB",
+                "fraction": 0,
+                "feedback": "\u53CD\u4F8B\u662F\u6709\u91DD\u5C0D\u6027\u7684\uFF0C\u4E0D\u662F\u96A8\u6A5F\u7684\u3002"
+              },
+              {
+                "text": "\u5B83\u7E3D\u6703\u8D70\u904D\u6A21\u578B\u7684\u6BCF\u4E00\u500B\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u53CD\u4F8B\u662F\u55AE\u4E00\u8ECC\u8DE1\uFF0C\u4E0D\u662F\u8D70\u904D\u6240\u6709\u72C0\u614B\u7684\u5DE1\u89BD\u3002"
+              },
+              {
+                "text": "\u5B83\u8B49\u660E\u4E86\u898F\u683C\u662F\u5B8C\u6574\u7684",
+                "fraction": 0,
+                "feedback": "\u53CD\u4F8B\u5340\u5206\u5169\u4EFD\u898F\u683C\uFF0C\u4E26\u4E0D\u8B49\u660E\u5B8C\u6574\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u53CD\u4F8B\u662F\u539F\u59CB\u8207\u7A81\u8B8A\u898F\u683C\u5206\u6B67\u4E4B\u8655\u7684\u4E00\u689D\u5177\u9AD4\u57F7\u884C\u3002\u5C07\u5B83\u5C0D\u5BE6\u4F5C\u57F7\u884C\uFF0C\u5373\u53EF\u6AA2\u67E5\u5BE6\u4F5C\u662F\u5426\u9075\u5FAA\u9810\u671F\uFF08\u539F\u59CB\uFF09\u898F\u683C\uFF0C\u800C\u975E\u7A81\u8B8A\uFF08\u6709\u6545\u969C\uFF09\u7684\u90A3\u4EFD\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "SMV \u60C5\u5883\u5206\u985E",
+            "text": "<p>\u4F60\u6709\u4E00\u500B SMV \u6A21\u578B\u8207\u4E00\u689D LTL \u9700\u6C42\u3002\u4F60\u66F4\u52D5\u8A72 LTL \u516C\u5F0F\u4E26\u91CD\u65B0\u57F7\u884C\u6A21\u578B\u6AA2\u67E5\u5668\u3002\u9019\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u898F\u683C\uFF08\u6027\u8CEA\uFF09\u7A81\u8B8A\uFF0C\u56E0\u70BA\u88AB\u66F4\u52D5\u7684\u662F\u9700\u6C42\u2014\u2014\u800C\u975E\u7A0B\u5F0F\u78BC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014LTL \u9700\u6C42\u662F\u898F\u683C\u7684\u4E00\u90E8\u5206\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u7A81\u8B8A\uFF0C\u56E0\u70BA\u6A21\u578B\u6AA2\u67E5\u5668\u57F7\u884C\u4E86\u6A21\u578B",
+                "fraction": 0,
+                "feedback": "\u57F7\u884C\u6AA2\u67E5\u5668\u4E0D\u6703\u4F7F\u5B83\u8B8A\u6210\u7A0B\u5F0F\u7A81\u8B8A\uFF1B\u88AB\u7A81\u8B8A\u7684\u5C0D\u8C61\u662F\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u6A21\u7CCA\u6E2C\u8A66\uFF08fuzz testing\uFF09\uFF0C\u56E0\u70BA\u8F38\u5165\u88AB\u8B8A\u52D5\u4E86",
+                "fraction": 0,
+                "feedback": "\u4E26\u6C92\u6709\u5C0D\u8F38\u5165\u505A\u6A21\u7CCA\u8B8A\u52D5\uFF1B\u88AB\u7A81\u8B8A\u7684\u662F\u4E00\u689D\u516C\u5F0F\u3002"
+              },
+              {
+                "text": "\u90FD\u4E0D\u662F\u2014\u2014\u66F4\u52D5\u516C\u5F0F\u4E0D\u7B97\u7A81\u8B8A",
+                "fraction": 0,
+                "feedback": "\u66F4\u52D5 LTL \u516C\u5F0F\u6B63\u662F\u4E00\u7A2E\u898F\u683C\u7A81\u8B8A\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u8B8A\u4E00\u689D LTL\uFF0FCTL \u9700\u6C42\u4E26\u91CD\u65B0\u6AA2\u67E5\u5C6C\u65BC\u898F\u683C\u7A81\u8B8A\uFF1A\u88AB\u7A81\u8B8A\u7684\u5C0D\u8C61\u662F\u9700\u6C42\uFF08\u898F\u683C\u7684\u4E00\u90E8\u5206\uFF09\uFF0C\u800C\u975E\u7A0B\u5F0F\u78BC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9700\u6C42\u4E0A\u7684\u904B\u7B97\u5143\u66FF\u63DB\u904B\u7B97\u5B50",
+            "text": "<p>\u4E00\u6B21\u898F\u683C\u7A81\u8B8A\u628A\u9700\u6C42\u4E2D\u7684\u4E00\u500B\u904B\u7B97\u5143\u63DB\u6210\u53E6\u4E00\u500B\uFF0C\u5C07 <code>level &gt; max</code> \u8B8A\u6210 <code>level &gt; min</code>\u3002\u9019\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u898F\u683C\u6240\u505A\u7684\u904B\u7B97\u5143\uFF08\u8B8A\u6578\uFF09\u66FF\u63DB\u7A81\u8B8A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E00\u500B\u8B8A\u6578\u904B\u7B97\u5143\u88AB\u63DB\u6210\u4E86\u53E6\u4E00\u500B\u3002"
+              },
+              {
+                "text": "\u95DC\u4FC2\u904B\u7B97\u5B50\u66FF\u63DB",
+                "fraction": 0,
+                "feedback": "\u95DC\u4FC2\u904B\u7B97\u5B50\u672A\u8B8A\uFF1B\u88AB\u63DB\u7684\u662F\u4E00\u500B\u904B\u7B97\u5143\u3002"
+              },
+              {
+                "text": "\u6642\u5E8F\u904B\u7B97\u5B50\u66FF\u63DB",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u4E0D\u6D89\u53CA\u6642\u5E8F\u904B\u7B97\u5B50\u3002"
+              },
+              {
+                "text": "\u8F49\u79FB\u91CD\u5C0E",
+                "fraction": 0,
+                "feedback": "\u6B64\u8655\u4E0D\u6D89\u53CA FSM \u8F49\u79FB\uFF1B\u9019\u662F\u689D\u4EF6\u904B\u7B97\u5143\u7684\u6539\u52D5\u3002"
+              }
+            ],
+            "generalFeedback": "\u66FF\u63DB\u8B8A\u6578\u904B\u7B97\u5143\uFF08\u6B64\u8655\u63DB\u6210\uFF09\u662F\u904B\u7B97\u5143\uFF0F\u8B8A\u6578\u66FF\u63DB\u898F\u683C\u7A81\u8B8A\uFF0C\u985E\u6BD4\u7A0B\u5F0F\u7A81\u8B8A\u4E2D\u7684\u8B8A\u6578\u66FF\u63DB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6A21\u578B\u7A81\u8B8A\u66FF\u4EE3\u505A\u6CD5",
+            "text": "<p>\u57FA\u65BC\u6A21\u578B\u7684\u7A81\u8B8A\u6E2C\u8A66\u9664\u4E86\u7A81\u8B8A\u6027\u8CEA\u5916\uFF0C\u4E5F\u53EF\u4EE5\u7A81\u8B8A<em>\u6A21\u578B</em>\u672C\u8EAB\uFF0C\u7136\u5F8C\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u628A\u539F\u59CB\u9700\u6C42\u5C0D\u7A81\u8B8A\u6A21\u578B\u505A\u6AA2\u67E5\uFF1B\u73FE\u5728\u88AB\u9055\u53CD\u7684\u9700\u6C42\u6703\u7522\u751F\u4E00\u500B\u80FD\u5340\u5206\u5169\u500B\u6A21\u578B\u7684\u53CD\u4F8B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A72\u53CD\u4F8B\u628A\u539F\u59CB\u6A21\u578B\u8207\u7A81\u8B8A\u9AD4\u5340\u5206\u958B\u4F86\u3002"
+              },
+              {
+                "text": "\u522A\u9664\u6240\u6709\u9700\u6C42\uFF0C\u53EA\u4FDD\u7559\u7A81\u8B8A\u6A21\u578B",
+                "fraction": 0,
+                "feedback": "\u9700\u8981\u9700\u6C42\u624D\u80FD\u5075\u6E2C\u7A81\u8B8A\u9AD4\u7684\u5DEE\u7570\uFF0C\u4E0D\u80FD\u522A\u9664\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u4E5F\u4E00\u4F75\u7A81\u8B8A\u539F\u59CB\u78BC\u4EE5\u76F8\u7B26",
+                "fraction": 0,
+                "feedback": "\u6A21\u578B\u7A81\u8B8A\u6539\u52D5\u7684\u662F\u6A21\u578B\uFF0C\u4E0D\u662F\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u5728\u6C92\u6709\u4EFB\u4F55\u6027\u8CEA\u7684\u60C5\u6CC1\u4E0B\u57F7\u884C\u7A81\u8B8A\u6A21\u578B",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u6027\u8CEA\uFF0C\u6AA2\u67E5\u5668\u5C31\u6C92\u6709\u53EF\u9055\u53CD\u7684\u5C0D\u8C61\uFF0C\u4E5F\u5C31\u5F97\u4E0D\u5230\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u4EE5\u7A81\u8B8A\u6A21\u578B\uFF0C\u518D\u628A\u539F\u59CB\u9700\u6C42\u5C0D\u5B83\u6AA2\u67E5\u3002\u82E5\u7A81\u8B8A\u6A21\u578B\u9055\u53CD\u4E86\u539F\u59CB\u6240\u6EFF\u8DB3\u7684\u67D0\u9700\u6C42\uFF0C\u5176\u53CD\u4F8B\u5C31\u662F\u4E00\u689D\u5340\u5206\u6A21\u578B\u8207\u7A81\u8B8A\u9AD4\u7684\u8ECC\u8DE1\u2014\u2014\u4E00\u500B\u80FD\u6BBA\u6B7B\u8A72\u6A21\u578B\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u95DC\u4FC2\u7A81\u8B8A\u7684\u908A\u754C",
+            "text": "<p>\u5728\u9700\u6C42\u4E2D\u5C07 <code>x &gt;= 5</code> \u7A81\u8B8A\u6210 <code>x &gt; 5</code>\uFF0C\u6703\u6539\u8B8A\u88AB\u898F\u5B9A\u7684\u884C\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u53EA\u5728 x = 5 \u8655\u6539\u8B8A\uFF1B\u6BBA\u6B7B\u5B83\u7684\u6E2C\u8A66\u5FC5\u9808\u5305\u542B\u8A72\u908A\u754C\u503C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u500B\u689D\u4EF6\u9664\u4E86 x = 5 \u4E4B\u5916\u8655\u8655\u4E00\u81F4\u3002"
+              },
+              {
+                "text": "\u5C0D\u6240\u6709 x \u503C\u90FD\u6539\u8B8A",
+                "fraction": 0,
+                "feedback": "\u9664\u4E86\u6B63\u597D\u5728 5\uFF0C\u5176\u4ED6\u6BCF\u500B x \u5169\u8005\u90FD\u4E00\u81F4\u3002"
+              },
+              {
+                "text": "\u53EA\u5C0D\u8CA0\u7684 x \u6539\u8B8A",
+                "fraction": 0,
+                "feedback": "\u8CA0\u7684 x \u5169\u8005\u4E00\u81F4\uFF1B\u5B83\u5011\u53EA\u5728 x = 5 \u4E0D\u540C\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u4E0D\u6539\u8B8A\u2014\u2014\u8A72\u7A81\u8B8A\u9AD4\u70BA\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "\u5B83\u4E0D\u662F\u7B49\u50F9\uFF1Ax = 5 \u5C31\u80FD\u5340\u5206\u8207\u3002"
+              }
+            ],
+            "generalFeedback": "\u8207\u53EA\u5728 x = 5 \u4E0D\u540C\uFF08\u771F\u8207\u5047\uFF09\u3002\u7701\u7565\u908A\u754C\u7684\u6E2C\u8A66\u7121\u6CD5\u6BBA\u6B7B\u6B64\u7A81\u8B8A\u9AD4\uFF0C\u6545\u6BBA\u6B7B\u5B83\u7684\u6E2C\u8A66\u5FC5\u9808\u5305\u542B x = 5\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "De Morgan \u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF08AND \u5F62\u5F0F\uFF09",
+            "text": "<p>\u4E00\u689D\u9700\u6C42\u5B88\u885B <code>NOT (a AND b)</code> \u88AB\u7A81\u8B8A\u6210 <code>NOT a OR NOT b</code>\u3002\u9019\u500B\u7A81\u8B8A\u9AD4\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u4F9D De Morgan \u5B9A\u5F8B\u5169\u7A2E\u5F62\u5F0F\u5728\u908F\u8F2F\u4E0A\u5B8C\u5168\u76F8\u540C\uFF0C\u6545\u7121\u6CD5\u88AB\u6BBA\u6B7B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014NOT (a AND b) \u6B63\u597D\u5C31\u662F NOT a OR NOT b\u3002"
+              },
+              {
+                "text": "\u53EA\u8981\u6709 a \u8207 b \u4E0D\u540C\u7684\u6E2C\u8A66\u5C31\u80FD\u6BBA\u6B7B",
+                "fraction": 0,
+                "feedback": "\u5169\u7A2E\u5F62\u5F0F\u5728\u6BCF\u4E00\u7A2E\u8CE6\u503C\u4E0B\u90FD\u4E00\u81F4\uFF0C\u6545\u6C92\u6709\u6E2C\u8A66\u80FD\u5340\u5206\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u975E\u7B49\u50F9\uFF0C\u56E0\u70BA OR \u53D6\u4EE3\u4E86 AND",
+                "fraction": 0,
+                "feedback": "\u5916\u5C64\u7684\u53D6\u53CD\u4F7F\u5F97\u6574\u500B\u904B\u7B97\u5F0F\u5728 De Morgan \u5B9A\u5F8B\u4E0B\u7B49\u50F9\u3002"
+              },
+              {
+                "text": "\u683C\u5F0F\u932F\u8AA4\uFF0C\u56E0\u6B64\u61C9\u4E1F\u68C4",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u826F\u69CB\u4E14\u908F\u8F2F\u7B49\u50F9\u7684\uFF0C\u4E26\u975E\u683C\u5F0F\u932F\u8AA4\u3002"
+              }
+            ],
+            "generalFeedback": "De Morgan \u5B9A\u5F8B\u6307\u51FA NOT (a AND b) \u7B49\u50F9\u65BC NOT a OR NOT b\u3002\u6B64\u7A81\u8B8A\u9AD4\u8868\u793A\u5B8C\u5168\u76F8\u540C\u7684\u5E03\u6797\u51FD\u6578\uFF0C\u6545\u662F\u7121\u6CD5\u88AB\u4EFB\u4F55\u6E2C\u8A66\u6BBA\u6B7B\u7684\u7B49\u50F9\u898F\u683C\u7A81\u8B8A\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "G \u63DB F \u662F\u7B49\u50F9\u7A81\u8B8A\u55CE",
+            "text": "<p>\u5728\u67D0\u6027\u8CEA\u4E2D\u628A <code>G p</code> \u63DB\u6210 <code>F p</code>\uFF0C\u662F\u4E00\u500B<em>\u7B49\u50F9</em>\u7A81\u8B8A\u55CE\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u662F\u2014\u2014G p\uFF08\u6C38\u9060\uFF09\u8207 F p\uFF08\u7D42\u7A76\uFF09\u8A9E\u610F\u4E0D\u540C\uFF08G p \u860A\u6DB5 F p\uFF0C\u4F46\u53CD\u4E4B\u4E0D\u7136\uFF09\uFF0C\u6545\u901A\u5E38\u6539\u8B8A\u898F\u683C\u4E14\u53EF\u88AB\u6BBA\u6B7B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u5169\u500B\u904B\u7B97\u5B50\u4E0D\u53EF\u4E92\u63DB\u3002"
+              },
+              {
+                "text": "\u662F\u2014\u2014G \u8207 F \u6C38\u9060\u662F\u540C\u4E00\u500B\u610F\u601D",
+                "fraction": 0,
+                "feedback": "\u4E26\u975E\u5982\u6B64\uFF1A\u300C\u6C38\u9060\u300D\u56B4\u683C\u5F37\u65BC\u300C\u7D42\u7A76\u300D\u3002"
+              },
+              {
+                "text": "\u662F\u2014\u2014F p \u860A\u6DB5 G p\uFF0C\u6545\u5169\u8005\u4E00\u81F4",
+                "fraction": 0,
+                "feedback": "F p \u4E26\u4E0D\u860A\u6DB5 G p\uFF1B\u860A\u6DB5\u65B9\u5411\u6070\u597D\u76F8\u53CD\u3002"
+              },
+              {
+                "text": "\u4E0D\u662F\u2014\u2014\u4F46\u53EA\u56E0\u70BA F \u5728 LTL \u4E2D\u672A\u5B9A\u7FA9",
+                "fraction": 0,
+                "feedback": "F \u662F\u6A19\u6E96\u7684 LTL \u904B\u7B97\u5B50\uFF1B\u539F\u56E0\u5728\u65BC\u8A9E\u610F\u4E0D\u540C\uFF0C\u800C\u975E\u672A\u5B9A\u7FA9\u3002"
+              }
+            ],
+            "generalFeedback": "G p \u8981\u6C42\u6BCF\u500B\u72C0\u614B\u90FD\u6709 p\uFF1BF p \u53EA\u8981\u6C42\u67D0\u8655\u6709 p\u3002G p \u860A\u6DB5 F p\uFF0C\u4F46\u53CD\u4E4B\u4E0D\u7136\uFF0C\u6545\u6B64\u7A81\u8B8A\u6539\u8B8A\u6027\u8CEA\u8A9E\u610F\u2014\u2014\u5B83\u975E\u7B49\u50F9\u4E14\u901A\u5E38\u53EF\u88AB\u6BBA\u6B7B\uFF08\u4E00\u689D\u300Cp \u6709\u6642\u6210\u7ACB\u4F46\u975E\u6C38\u9060\u300D\u7684\u8ECC\u8DE1\u5373\u53EF\u5340\u5206\u5169\u8005\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u7A81\u8B8A\u6027\u8CEA\u6703\u7522\u751F\u80FD\u5340\u5206\u7684\u53CD\u4F8B",
+            "text": "<p>\u5C07\u7A81\u8B8A\u6027\u8CEA <code>p'</code> \u5C0D\u6A21\u578B <code>M</code> \u505A\u6A21\u578B\u6AA2\u67E5\uFF08\u539F\u59CB <code>p</code> \u5728 <code>M</code> \u4E0A\u6210\u7ACB\uFF09\uFF0C\u5F97\u5230\u4E00\u500B\u53CD\u4F8B\u3002\u70BA\u4F55\u8A72\u8ECC\u8DE1\u80FD\u5340\u5206\u7A81\u8B8A\u9AD4\u8207\u539F\u59CB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u8ECC\u8DE1\u662F M \u7684\u4E00\u689D\u9055\u53CD p' \u7684\u57F7\u884C\uFF1B\u7531\u65BC M \u6EFF\u8DB3 p\uFF0C\u540C\u4E00\u689D\u8ECC\u8DE1\u4E5F\u6EFF\u8DB3 p\uFF0C\u6545 p \u8207 p' \u5728\u5B83\u4E0A\u4E0D\u4E00\u81F4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A72\u8ECC\u8DE1\u6EFF\u8DB3 p \u537B\u4E0D\u6EFF\u8DB3 p'\uFF0C\u6B63\u597D\u5340\u5206\u5169\u8005\u3002"
+              },
+              {
+                "text": "\u53CD\u4F8B\u7684\u7522\u751F\u8207 p \u53CA p' \u7686\u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u53CD\u4F8B\u6B63\u662F p' \u7684\u4E00\u500B\u9055\u53CD\uFF0C\u6545\u8207\u7A81\u8B8A\u9AD4\u7DCA\u5BC6\u76F8\u95DC\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA p' \u5728\u8A9E\u6CD5\u4E0A\u6BD4 p \u9577",
+                "fraction": 0,
+                "feedback": "\u8A9E\u6CD5\u9577\u5EA6\u7121\u95DC\u7DCA\u8981\uFF1B\u5340\u5206\u529B\u4F86\u81EA\u8ECC\u8DE1\u4E0A\u7684\u8A9E\u610F\u4E0D\u4E00\u81F4\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6A21\u578B\u6AA2\u67E5\u5668\u628A p \u6539\u5BEB\u6210 p'",
+                "fraction": 0,
+                "feedback": "\u6AA2\u67E5\u5668\u4E0D\u6703\u6539\u5BEB\u539F\u59CB\u6027\u8CEA\uFF1B\u5B83\u627E\u7684\u662F\u4E00\u689D\u9055\u53CD p' \u7684\u8ECC\u8DE1\u3002"
+              }
+            ],
+            "generalFeedback": "\u53CD\u4F8B\u4F9D\u5B9A\u7FA9\u9055\u53CD p'\u3002\u7531\u65BC M \u6EFF\u8DB3\u539F\u59CB\u7684 p\uFF0CM \u7684\u6BCF\u4E00\u689D\u8ECC\u8DE1\uFF08\u5305\u62EC\u9019\u689D\uFF09\u90FD\u6EFF\u8DB3 p\u3002\u6545\u8A72\u8ECC\u8DE1\u6EFF\u8DB3 p \u537B\u4E0D\u6EFF\u8DB3 p'\u2014\u2014\u4E00\u500B\u5169\u4EFD\u898F\u683C\u76F8\u7570\u7684\u5177\u9AD4\u898B\u8B49\uFF0C\u9019\u6B63\u662F\u5B83\u53EF\u4F5C\u70BA\u6E2C\u8A66\u7684\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7121\u6CD5\u6BBA\u6B7B\u7684\u7A81\u8B8A\u9AD4\u4EE3\u8868\u5197\u9918",
+            "text": "<p>\u67D0\u9700\u6C42\u7684\u4E00\u500B\u5B50\u53E5\u88AB\u7A81\u8B8A\uFF0C\u4F46\u6C92\u6709\u4EFB\u4F55\u6E2C\u8A66\uFF08\u4E5F\u6C92\u6709\u4EFB\u4F55\u6A21\u578B\u6AA2\u67E5\uFF09\u80FD\u6BBA\u6B7B\u6240\u7522\u751F\u7684\u7A81\u8B8A\u9AD4\u3002\u9019\u6700\u53EF\u80FD\u8868\u793A\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8A72\u7A81\u8B8A\u9AD4\u662F\u7B49\u50F9\u7684\uFF0C\u9019\u6697\u793A\u8A72\u5B50\u53E5\u662F\u5197\u9918\u7684\uFF08\u6216\u898F\u683C\u904E\u5EA6\u7D04\u675F\uFF09\u2014\u2014\u5B83\u4E0D\u5F71\u97FF\u88AB\u898F\u5B9A\u7684\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7121\u6CD5\u6BBA\u6B7B\u7684\u7A81\u8B8A\u6307\u5411\u4E00\u500B\u5C0D\u8A9E\u610F\u7121\u5F71\u97FF\u7684\u5B50\u53E5\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u5957\u7D44\u5B8C\u5168\u9069\u5207",
+                "fraction": 0,
+                "feedback": "\u7121\u6CD5\u6BBA\u6B7B\u7684\u7A81\u8B8A\u9AD4\u662F\u7B49\u50F9\uFF1B\u5B83\u5C0D\u5957\u7D44\u9069\u5207\u6027\u7121\u6B63\u9762\u8AAA\u660E\u3002"
+              },
+              {
+                "text": "\u898F\u683C\u4FDD\u8B49\u5B8C\u6574",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u7A81\u8B8A\u9AD4\u7684\u7B49\u50F9\u4E26\u4E0D\u860A\u6DB5\u6574\u4EFD\u898F\u683C\u7684\u5B8C\u6574\u6027\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u542B\u6709\u6545\u969C",
+                "fraction": 0,
+                "feedback": "\u9019\u95DC\u4E4E\u898F\u683C\u7684\u7D50\u69CB\uFF0C\u800C\u975E\u7A0B\u5F0F\u6545\u969C\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5\u7A81\u8B8A\u4E00\u500B\u5B50\u53E5\u5F9E\u4E0D\u6539\u8B8A\u88AB\u898F\u5B9A\u7684\u884C\u70BA\uFF0C\u8A72\u7A81\u8B8A\u9AD4\u5373\u70BA\u7B49\u50F9\u2014\u2014\u9019\u662F\u8A72\u5B50\u53E5\u5197\u9918\u6216\u9700\u6C42\u904E\u5EA6\u7D04\u675F\u7684\u8B49\u64DA\u3002\u898F\u683C\u7A81\u8B8A\u56E0\u800C\u80FD\u63ED\u9732\u5197\u9918\u4E26\u5354\u52A9\u8A55\u4F30\u898F\u683C\u54C1\u8CEA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E CTL \u6027\u8CEA\u690D\u5165\u6545\u969C\u7684\u6D41\u7A0B",
+            "text": "<p>\u67D0\u5718\u968A\u5728\u4E00\u689D CTL \u6027\u8CEA\u4E2D\u690D\u5165\u4E00\u500B\u6545\u969C\uFF0C\u91CD\u65B0\u57F7\u884C\u6A21\u578B\u6AA2\u67E5\u5668\u4EE5\u53D6\u5F97\u53CD\u4F8B\uFF0C\u518D\u628A\u5B83\u8F49\u6210\u6E2C\u8A66\u3002\u4E0B\u5217\u4F55\u8005\u6700\u80FD\u63CF\u8FF0\u9019\u4EF6\u4E8B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u898F\u683C\uFF08\u57FA\u65BC\u6A21\u578B\uFF09\u7A81\u8B8A\u6E2C\u8A66\u2014\u2014\u6027\u8CEA\u88AB\u7A81\u8B8A\uFF0C\u800C\u53CD\u4F8B\u6210\u70BA\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A81\u8B8A\u4E00\u689D CTL \u6027\u8CEA\u4E26\u7531\u53CD\u4F8B\u884D\u751F\u6E2C\u8A66\u5C6C\u65BC\u898F\u683C\u7A81\u8B8A\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u7A81\u8B8A\u2014\u2014\u56E0\u70BA\u6700\u5F8C\u7522\u751F\u4E86\u4E00\u500B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u7522\u751F\u6E2C\u8A66\u4E0D\u4F7F\u5B83\u6210\u70BA\u7A0B\u5F0F\u7A81\u8B8A\uFF1B\u88AB\u7A81\u8B8A\u7684\u5C0D\u8C61\u662F\u6027\u8CEA\u3002"
+              },
+              {
+                "text": "\u7D50\u69CB\u5316\u7A0B\u5F0F\u78BC\u6DB5\u84CB\u5EA6\u91CF",
+                "fraction": 0,
+                "feedback": "\u4E26\u672A\u5EA6\u91CF\u4EFB\u4F55\u7A0B\u5F0F\u78BC\u7D50\u69CB\uFF1B\u88AB\u7A81\u8B8A\u7684\u662F\u4E00\u689D\u6027\u8CEA\u3002"
+              },
+              {
+                "text": "\u8F38\u5165\u5B9A\u7FA9\u57DF\u7684\u7B49\u50F9\u985E\u5283\u5206",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9ED1\u7BB1\u8F38\u5165\u5283\u5206\u6280\u8853\uFF0C\u8207\u7A81\u8B8A CTL \u6027\u8CEA\u7121\u95DC\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728\u6642\u5E8F\uFF08CTL\uFF09\u6027\u8CEA\u4E2D\u690D\u5165\u6545\u969C\uFF0C\u4E26\u7528\u6A21\u578B\u6AA2\u67E5\u5668\u7684\u53CD\u4F8B\u4F5C\u70BA\u6E2C\u8A66\uFF0C\u5C6C\u65BC\u898F\u683C\uFF0F\u57FA\u65BC\u6A21\u578B\u7684\u7A81\u8B8A\uFF1A\u88AB\u7A81\u8B8A\u7684\u5C0D\u8C61\u662F\u6027\u8CEA\uFF0C\u800C\u53CD\u4F8B\u628A\u5B83\u8207\u539F\u59CB\u5340\u5206\u958B\u4F86\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6642\u5E8F\u51AA\u7B49\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+            "text": "<p>\u67D0\u6027\u8CEA <code>F p</code> \u88AB\u7A81\u8B8A\u6210 <code>F F p</code>\uFF08\u300C\u7D42\u7A76\u7D42\u7A76 p\u300D\uFF09\u3002\u9019\u500B\u7A81\u8B8A\u9AD4\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7B49\u50F9\u2014\u2014F \u5177\u51AA\u7B49\u6027\uFF0C\u6545 F F p \u5728\u908F\u8F2F\u4E0A\u8207 F p \u76F8\u540C\uFF0C\u7121\u6CD5\u88AB\u6BBA\u6B7B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014F F p \u2261 F p\u3002"
+              },
+              {
+                "text": "\u975E\u7B49\u50F9\u2014\u2014F F p \u9700\u8981 p \u5169\u6B21",
+                "fraction": 0,
+                "feedback": "F F p \u4E26\u4E0D\u300C\u9700\u8981\u5169\u6B21 p\u300D\uFF1B\u5B83\u5316\u7C21\u70BA F p\u3002"
+              },
+              {
+                "text": "\u975E\u7B49\u50F9\u2014\u2014\u5B83\u6BD4 F p \u66F4\u5F37",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u5F37\u5EA6\u76F8\u7B49\uFF1BF F p \u2261 F p\u3002"
+              },
+              {
+                "text": "\u683C\u5F0F\u932F\u8AA4\u2014\u2014F \u4E0D\u80FD\u5DE2\u72C0",
+                "fraction": 0,
+                "feedback": "\u6642\u5E8F\u904B\u7B97\u5B50\u53EF\u4EE5\u5DE2\u72C0\uFF1B\u6B64\u8655\u53EA\u662F\u5316\u7C21\u70BA F p\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D42\u7A76\u904B\u7B97\u5B50\u5177\u51AA\u7B49\u6027\uFF1AF F p \u7B49\u50F9\u65BC F p\uFF08\u540C\u7406 G G p \u2261 G p\uFF09\u3002\u6545\u6B64\u7A81\u8B8A\u7522\u751F\u4E00\u500B\u7121\u6CD5\u88AB\u4EFB\u4F55\u6E2C\u8A66\u6BBA\u6B7B\u7684\u7B49\u50F9\u898F\u683C\u7A81\u8B8A\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5BE6\u52D9\u4E0A\u7684\u9650\u5236",
+            "text": "<p>\u898F\u683C\uFF0F\u6A21\u578B\u7A81\u8B8A\u6E2C\u8A66\u5728\u5BE6\u52D9\u4E0A\u7684\u5169\u5927\u9650\u5236\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5075\u6E2C\u7B49\u50F9\u7A81\u8B8A\u9AD4\u5F88\u56F0\u96E3\uFF08\u4E00\u822C\u800C\u8A00\u4E0D\u53EF\u5224\u5B9A\uFF09\uFF0C\u800C\u4E14\u5C0D\u773E\u591A\u7A81\u8B8A\u9AD4\u505A\u6A21\u578B\u6AA2\u67E5\u53EF\u80FD\u906D\u9047\u72C0\u614B\u7A7A\u9593\u7206\u70B8",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7B49\u50F9\u7A81\u8B8A\u9AD4\u8207\u6A21\u578B\u898F\u6A21\u662F\u7D93\u5178\u9650\u5236\u3002"
+              },
+              {
+                "text": "\u7121\u6CD5\u70BA\u898F\u683C\u5B9A\u7FA9\u7A81\u8B8A\u904B\u7B97\u5B50\uFF0C\u4E14\u6A21\u578B\u5F9E\u4E0D\u5177\u6709\u72C0\u614B",
+                "fraction": 0,
+                "feedback": "\u898F\u683C\u7A81\u8B8A\u904B\u7B97\u5B50\u6709\u660E\u78BA\u5B9A\u7FA9\uFF0C\u6A21\u578B\u4E5F\u78BA\u5BE6\u6709\u72C0\u614B\u3002"
+              },
+              {
+                "text": "\u6A21\u578B\u6AA2\u67E5\u5668\u7121\u6CD5\u7522\u751F\u53CD\u4F8B\uFF0C\u4E14\u898F\u683C\u7121\u6CD5\u88AB\u7A81\u8B8A",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u7686\u975E\uFF1A\u6AA2\u67E5\u5668\u6703\u7522\u751F\u53CD\u4F8B\uFF0C\u898F\u683C\u4E5F\u80FD\u88AB\u7A81\u8B8A\u3002"
+              },
+              {
+                "text": "\u5B83\u9700\u8981\u539F\u59CB\u78BC\uFF0C\u4E14\u7121\u6CD5\u4F7F\u7528\u6A21\u578B",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u76F8\u53CD\u2014\u2014\u5B83\u4F5C\u7528\u65BC\u898F\u683C\uFF0F\u6A21\u578B\uFF0C\u4E14\u4E0D\u9700\u8981\u539F\u59CB\u78BC\u3002"
+              }
+            ],
+            "generalFeedback": "\u5982\u540C\u7A0B\u5F0F\u7A81\u8B8A\uFF0C\u898F\u683C\u7A81\u8B8A\u9762\u81E8\u7B49\u50F9\u7A81\u8B8A\u9AD4\u554F\u984C\uFF08\u7B49\u50F9\u4E00\u822C\u800C\u8A00\u4E0D\u53EF\u5224\u5B9A\uFF09\u3002\u6B64\u5916\uFF0C\u5C0D\u5927\u578B\u6A21\u578B\u6AA2\u67E5\u773E\u591A\u7A81\u8B8A\u6027\u8CEA\uFF0F\u6A21\u578B\u53EF\u80FD\u906D\u9047\u72C0\u614B\u7A7A\u9593\u7206\u70B8\uFF0C\u9650\u5236\u5176\u53EF\u64F4\u5145\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6C92\u6709\u53CD\u4F8B\u5373\u76F8\u5C0D\u65BC\u6A21\u578B\u7B49\u50F9",
+            "text": "<p>\u5728\u4EE5\u6027\u8CEA\u7A81\u8B8A\u751F\u6210\u6E2C\u8A66\u6642\uFF0C\u4E00\u500B\u6A21\u578B<em>\u4ECD\u7136\u6EFF\u8DB3</em>\u7684\u7A81\u8B8A\u6027\u8CEA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4E0D\u6703\u7522\u751F\u53CD\u4F8B\u3001\u56E0\u800C\u4E0D\u6703\u7522\u751F\u6E2C\u8A66\u2014\u2014\u5B83\u662F\u76F8\u5C0D\u65BC\u8A72\u6A21\u578B\u7684\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6C92\u6709\u53EF\u9055\u53CD\u7684\u5C0D\u8C61\uFF0C\u6A21\u578B\u5C31\u7121\u6CD5\u5340\u5206\u5B83\u8207\u539F\u59CB\u3002"
+              },
+              {
+                "text": "\u6703\u7522\u751F\u6700\u5F37\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u53CD\u4F8B\u4EE3\u8868\u6839\u672C\u4E0D\u6703\u7522\u751F\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u8B49\u660E\u539F\u59CB\u6027\u8CEA\u662F\u932F\u7684",
+                "fraction": 0,
+                "feedback": "\u5B83\u5C0D\u539F\u59CB\u6027\u8CEA\u662F\u5426\u70BA\u932F\u6BEB\u7121\u8AAA\u660E\u3002"
+              },
+              {
+                "text": "\u8FEB\u4F7F\u6A21\u578B\u6AA2\u67E5\u5668\u628A\u6240\u6709\u8ECC\u8DE1\u90FD\u5217\u70BA\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u9055\u53CD\u5C31\u6C92\u6709\u53CD\u4F8B\uFF1B\u6AA2\u67E5\u5668\u4E0D\u6703\u8F38\u51FA\u6240\u6709\u8ECC\u8DE1\u3002"
+              }
+            ],
+            "generalFeedback": "\u82E5\u6A21\u578B\u6EFF\u8DB3\u7A81\u8B8A\u6027\u8CEA\uFF0C\u6A21\u578B\u6AA2\u67E5\u5668\u4E0D\u6703\u56DE\u50B3\u53CD\u4F8B\uFF0C\u6545\u7121\u6CD5\u751F\u6210\u80FD\u5340\u5206\u5B83\u8207\u539F\u59CB\u7684\u6E2C\u8A66\u2014\u2014\u8A72\u7A81\u8B8A\u9AD4\u76F8\u5C0D\u65BC\u8A72\u6A21\u578B\u70BA\u7B49\u50F9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "FSM \u4E0A\u7684\u5B88\u885B\u5F37\u5316\u7A81\u8B8A",
+            "text": "<p>\u5728\u4E00\u53F0 FSM \u898F\u683C\u4E2D\uFF0C\u67D0\u7A81\u8B8A\u85C9\u7531\u52A0\u5165\u4E00\u500B\u984D\u5916\u5408\u53D6\u9805\u4F86<em>\u5F37\u5316</em>\u8F49\u79FB\u5B88\u885B\uFF08\u5B88\u885B\u8B8A\u6210 <code>g AND extra</code>\uFF09\u3002\u76F8\u5C0D\u65BC\u539F\u59CB\uFF0C\u7A81\u8B8A\u5F8C\u7684\u8F49\u79FB\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5728\u8F03\u5C11\u60C5\u6CC1\u4E0B\u89F8\u767C\uFF08\u539F\u59CB\u60C5\u6CC1\u7684\u5B50\u96C6\uFF09\uFF1B\u6BBA\u6B7B\u5B83\u7684\u6E2C\u8A66\u5FC5\u9808\u5230\u9054\u4E00\u500B\u539F\u59CB\u6703\u89F8\u767C\u4F46\u7A81\u8B8A\u9AD4\u4E0D\u6703\u7684\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u52A0\u5165\u5408\u53D6\u9805\u53EA\u6703\u7E2E\u5C0F\u89F8\u767C\u8F38\u5165\u7684\u96C6\u5408\u3002"
+              },
+              {
+                "text": "\u6BD4\u4EE5\u524D\u5728\u66F4\u591A\u60C5\u6CC1\u4E0B\u89F8\u767C",
+                "fraction": 0,
+                "feedback": "\u52A0\u5165\u5408\u53D6\u9805\u4F7F\u5B88\u885B\u66F4\u96E3\u6EFF\u8DB3\uFF0C\u6545\u89F8\u767C\u8F03\u5C11\u3002"
+              },
+              {
+                "text": "\u5728\u5B8C\u5168\u76F8\u540C\u7684\u60C5\u6CC1\u4E0B\u89F8\u767C",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709\u7576\u8A72\u984D\u5916\u5408\u53D6\u9805\u5728 g \u6210\u7ACB\u6642\u6046\u70BA\u771F\u624D\u5982\u6B64\uFF1B\u4E00\u822C\u800C\u8A00\u5B88\u885B\u66F4\u7A84\u3002"
+              },
+              {
+                "text": "\u5728\u4EFB\u4F55\u8F38\u5165\u4E0B\u90FD\u6C38\u4E0D\u89F8\u767C",
+                "fraction": 0,
+                "feedback": "\u53EA\u8981 g \u8207\u8A72\u984D\u5916\u5408\u53D6\u9805\u540C\u6642\u6210\u7ACB\uFF0C\u5B83\u4ECD\u6703\u89F8\u767C\u3002"
+              }
+            ],
+            "generalFeedback": "\u4EE5\u52A0\u5165\u5408\u53D6\u9805\u5F37\u5316\u5B88\u885B\uFF0C\u6703\u628A\u89F8\u767C\u9650\u5236\u5728\u539F\u59CB\u60C5\u6CC1\u7684\u5B50\u96C6\u3002\u6BBA\u6B7B\u6B64\u7A81\u8B8A\u9AD4\u7684\u6E2C\u8A66\u5FC5\u9808\u5230\u9054\u4E00\u500B\u539F\u59CB\u5B88\u885B\u6210\u7ACB\u3001\u4F46\u5F37\u5316\u5F8C\u5B88\u885B\u4E0D\u6210\u7ACB\u7684\u8F38\u5165\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "De Morgan \u7B49\u50F9\u7A81\u8B8A\u9AD4\uFF08OR \u5F62\u5F0F\uFF09",
+            "text": "<p>\u67D0\u9700\u6C42\u689D\u4EF6 <code>a OR b</code> \u88AB\u7A81\u8B8A\u6210 <code>NOT (NOT a AND NOT b)</code>\u3002\u9019\u500B\u7A81\u8B8A\u9AD4\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u4F9D De Morgan \u5B9A\u5F8B\u5B83\u8868\u793A\u8207\u76F8\u540C\u7684\u51FD\u6578\uFF0C\u6545\u7121\u6CD5\u88AB\u6BBA\u6B7B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014NOT (NOT a AND NOT b) \u6B63\u597D\u5C31\u662F a OR b\u3002"
+              },
+              {
+                "text": "\u975E\u7B49\u50F9\uFF0C\u56E0\u70BA\u73FE\u5728\u51FA\u73FE\u4E86 AND",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u53D6\u53CD\u5728 De Morgan \u5B9A\u5F8B\u4E0B\u6062\u5FA9\u4E86 OR \u7684\u8A9E\u610F\u3002"
+              },
+              {
+                "text": "\u6BCF\u7576 a\u3001b \u6070\u6709\u4E00\u70BA\u771F\u6642\u5C31\u88AB\u6BBA\u6B7B",
+                "fraction": 0,
+                "feedback": "\u90A3\u6642\u5169\u7A2E\u5F62\u5F0F\u90FD\u70BA\u771F\uFF0C\u6545\u4ECD\u4E00\u81F4\uFF1B\u6C92\u6709\u6E2C\u8A66\u80FD\u5340\u5206\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7576 a \u7B49\u65BC b \u6642\u624D\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5728\u5168\u90E8\u56DB\u7A2E\u8CE6\u503C\u4E0B\u90FD\u4E00\u81F4\uFF0C\u4E0D\u53EA\u5728 a \u7B49\u65BC b \u6642\u3002"
+              }
+            ],
+            "generalFeedback": "De Morgan \u5B9A\u5F8B\u7D66\u51FA a OR b \u7B49\u50F9\u65BC NOT (NOT a AND NOT b)\u3002\u6B64\u7A81\u8B8A\u9AD4\u8A08\u7B97\u5B8C\u5168\u76F8\u540C\u7684\u5E03\u6797\u51FD\u6578\uFF0C\u6545\u662F\u7B49\u50F9\u898F\u683C\u7A81\u8B8A\u9AD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5438\u6536\u5F8B\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+            "text": "<p>\u67D0\u9700\u6C42 <code>a AND (a OR b)</code> \u88AB\u7A81\u8B8A\u6210 <code>a AND (a OR c)</code>\uFF08\u904B\u7B97\u5143 b \u63DB\u6210 c\uFF09\u3002\u9019\u500B\u7A81\u8B8A\u9AD4\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u4F9D\u5438\u6536\u5F8B\u5316\u7C21\u70BA\uFF0C\u6545\u5169\u7A2E\u5F62\u5F0F\u90FD\u7B49\u65BC\uFF1B\u9019\u4E5F\u63ED\u9732\u4E86\u7B2C\u4E8C\u500B\u5B50\u53E5\u662F\u5197\u9918\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5176\u503C\u53EA\u53D6\u6C7A\u65BC a\uFF0C\u6545\u628A b \u63DB\u6210 c \u6BEB\u7121\u6539\u8B8A\u3002"
+              },
+              {
+                "text": "\u53EA\u8981\u6709 b \u8207 c \u4E0D\u540C\u7684\u6E2C\u8A66\u5C31\u80FD\u6BBA\u6B7B",
+                "fraction": 0,
+                "feedback": "\u7531\u65BC\u6574\u500B\u904B\u7B97\u5F0F\u7B49\u65BC a\uFF0Cb \u6216 c \u7684\u503C\u6C38\u4E0D\u5F71\u97FF\u7D50\u679C\uFF1B\u6C92\u6709\u9019\u7A2E\u6E2C\u8A66\u80FD\u6BBA\u6B7B\u5B83\u3002"
+              },
+              {
+                "text": "\u975E\u7B49\u50F9\uFF0C\u56E0\u70BA c \u662F\u65B0\u8B8A\u6578",
+                "fraction": 0,
+                "feedback": "\u5F15\u5165 c \u6BEB\u7121\u4F5C\u7528\uFF1A\u904B\u7B97\u5F0F\u7121\u8AD6\u5982\u4F55\u90FD\u5316\u7C21\u70BA a\u3002"
+              },
+              {
+                "text": "\u6BD4\u539F\u59CB\u66F4\u5F37",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u7B49\u50F9\u65BC a\uFF1B\u6C92\u6709\u54EA\u500B\u66F4\u5F37\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F9D\u5438\u6536\u5F8B\uFF0Ca AND (a OR X) \u5C0D\u4EFB\u4F55 X \u90FD\u7B49\u65BC a\u3002\u6545\u539F\u59CB\u8207\u7A81\u8B8A\u9AD4\u90FD\u7B49\u65BC a\uFF0C\u4F7F\u7A81\u8B8A\u9AD4\u7B49\u50F9\u3002\u5B83\u7121\u6CD5\u88AB\u6BBA\u6B7B\uFF0C\u6070\u6070\u66B4\u9732\u4E86\u9700\u6C42\u4E2D\u300C(a OR ...)\u300D\u5B50\u53E5\u662F\u5197\u9918\u7684\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EE5\u9677\u9631\u6027\u8CEA\u898B\u8B49\u67D0\u884C\u70BA",
+            "text": "<p>\u6A21\u578B\u6AA2\u67E5\u5668\u53EA\u5728\u6027\u8CEA<em>\u88AB\u9055\u53CD</em>\u6642\u624D\u56DE\u50B3\u8ECC\u8DE1\u3002\u8981\u53D6\u5F97\u4E00\u689D<em>\u898B\u8B49</em>\u67D0\u671F\u671B\u884C\u70BA B \u7684\u8ECC\u8DE1\uFF08\u7528\u4F5C\u6E2C\u8A66\uFF09\uFF0C\u4F60\u53EF\u4EE5\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u65B7\u8A00\u4E00\u689D\u300C\u9677\u9631\u300D\u6027\u8CEA\uFF0C\u5BA3\u7A31 B \u5F9E\u4E0D\u767C\u751F\uFF1B\u6A21\u578B\u6AA2\u67E5\u5668\u7684\u53CD\u4F8B\u4FBF\u662F\u4E00\u689D\u5C55\u73FE B \u7684\u8ECC\u8DE1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u611F\u8208\u8DA3\u7684\u884C\u70BA\u53D6\u53CD\uFF0C\u53CD\u4F8B\u5C31\u6210\u70BA\u5B83\u7684\u898B\u8B49\u3002"
+              },
+              {
+                "text": "\u65B7\u8A00 B \u6C38\u9060\u767C\u751F\uFF0C\u4E26\u628A\u8B49\u660E\u7576\u4F5C\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u8B49\u660E\uFF08\u7121\u9055\u53CD\uFF09\u4E0D\u7522\u751F\u8ECC\u8DE1\uFF1B\u8981\u53D6\u5F97\u53CD\u4F8B\u9700\u8981\u4E00\u689D\u88AB\u9055\u53CD\u7684\u6027\u8CEA\u3002"
+              },
+              {
+                "text": "\u505C\u7528\u6A21\u578B\u6AA2\u67E5\u5668\uFF0C\u6539\u4EE5\u624B\u52D5\u5217\u8209\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u9677\u9631\u6027\u8CEA\u6280\u8853\u662F\u4F7F\u7528\u6AA2\u67E5\u5668\u672C\u8EAB\uFF1B\u624B\u52D5\u5217\u8209\u4E0D\u662F\u6B64\u65B9\u6CD5\u3002"
+              },
+              {
+                "text": "\u79FB\u9664\u6240\u6709\u6027\u8CEA\uFF0C\u8B93\u6BCF\u689D\u8ECC\u8DE1\u90FD\u6210\u70BA\u53CD\u4F8B",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u6027\u8CEA\u5C31\u6C92\u6709\u53EF\u9055\u53CD\u7684\u5C0D\u8C61\uFF0C\u4E5F\u5C31\u4E0D\u6703\u7522\u751F\u53CD\u4F8B\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u53CD\u4F8B\u53EA\u91DD\u5C0D\u88AB\u9055\u53CD\u7684\u6027\u8CEA\u800C\u7522\u751F\uFF0C\u6E2C\u8A66\u751F\u6210\u65B9\u6CD5\u6703\u65B7\u8A00\u4E00\u689D\u300C\u9677\u9631\u300D\uFF08never-claim\uFF09\u6027\u8CEA\uFF0C\u5BA3\u7A31\u611F\u8208\u8DA3\u7684\u884C\u70BA\u5F9E\u4E0D\u767C\u751F\u3002\u6A21\u578B\u6AA2\u67E5\u5668\u96A8\u5F8C\u56DE\u50B3\u7684\u53CD\u4F8B\uFF0C\u6B63\u662F\u4E00\u689D\u5BE6\u73FE\u8A72\u884C\u70BA\u7684\u8ECC\u8DE1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "next \u904B\u7B97\u5B50\u7A81\u8B8A",
+            "text": "<p>\u67D0\u6027\u8CEA <code>p</code> \u88AB\u7A81\u8B8A\u6210 <code>X p</code>\uFF08next p\uFF09\u3002\u4E00\u822C\u800C\u8A00\u9019\u500B\u7A81\u8B8A\u9AD4\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u975E\u7B49\u50F9\u2014\u2014X p \u6307\u7684\u662F\u4E0B\u4E00\u500B\u72C0\u614B\uFF0C\u6545\u8207\u5728\u7576\u524D\u72C0\u614B\u6C42\u503C\u7684 p \u4E0D\u540C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u6C42\u503C\u9EDE\u4F4D\u79FB\u4E00\u500B\u72C0\u614B\u901A\u5E38\u6539\u8B8A\u8A9E\u610F\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u2014\u2014X p \u6C38\u9060\u8207 p \u540C\u7FA9",
+                "fraction": 0,
+                "feedback": "X p \u95DC\u4E4E\u4E0B\u4E00\u500B\u72C0\u614B\uFF0C\u800C\u975E\u7576\u524D\u72C0\u614B\uFF0C\u6545\u4E00\u822C\u800C\u8A00\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u56E0\u70BA\u6BCF\u689D\u8DEF\u5F91\u90FD\u6703\u91CD\u8907",
+                "fraction": 0,
+                "feedback": "\u8DEF\u5F91\u4E00\u822C\u4E0D\u6703\u91CD\u8907\uFF0C\u4E14\u5373\u4F7F\u91CD\u8907\uFF0CX \u4ECD\u4F4D\u79FB\u4E86\u6C42\u503C\u9EDE\u3002"
+              },
+              {
+                "text": "\u683C\u5F0F\u932F\u8AA4\u2014\u2014X \u4E0D\u80FD\u5957\u7528\u65BC\u539F\u5B50\u6027\u8CEA",
+                "fraction": 0,
+                "feedback": "X \u53EF\u5957\u7528\u65BC\u4EFB\u4F55\u5B50\u5F0F\uFF0C\u5305\u62EC\u539F\u5B50\u5B50\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "X p \u4E3B\u5F35 p \u5728\u4E0B\u4E00\u500B\u72C0\u614B\u6210\u7ACB\uFF0C\u800C p \u4E3B\u5F35\u5B83\u5728\u7576\u524D\u72C0\u614B\u6210\u7ACB\u3002\u5728\u4E00\u689D p \u73FE\u5728\u6210\u7ACB\u4F46\u4E0B\u4E00\u72C0\u614B\u4E0D\u6210\u7ACB\uFF08\u6216\u53CD\u4E4B\uFF09\u7684\u8DEF\u5F91\u4E0A\uFF0C\u5169\u8005\u76F8\u7570\uFF0C\u6545\u6B64\u7A81\u8B8A\u4E00\u822C\u70BA\u975E\u7B49\u50F9\u4E14\u53EF\u88AB\u6BBA\u6B7B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EA4\u63DB\u5F8B\u7B49\u50F9\u7A81\u8B8A\u9AD4",
+            "text": "<p>\u4E00\u6B21\u908F\u8F2F\u904B\u7B97\u5143\u4EA4\u63DB\u7A81\u8B8A\u628A\u4E00\u500B\u7121\u526F\u4F5C\u7528\u7684\u898F\u683C\u689D\u4EF6 <code>a AND b</code> \u63DB\u6210 <code>b AND a</code>\u3002\u9019\u500B\u7A81\u8B8A\u9AD4\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7B49\u50F9\u2014\u2014\u5728\u7121\u526F\u4F5C\u7528\u7684\u898F\u683C\u4E2D AND \u5177\u4EA4\u63DB\u5F8B\uFF0C\u6545\u5169\u7A2E\u5F62\u5F0F\u76F8\u540C\u4E14\u7121\u6CD5\u88AB\u6BBA\u6B7B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u7D14\u5E03\u6797\u689D\u4EF6\u800C\u8A00\uFF0C\u904B\u7B97\u5143\u9806\u5E8F\u7121\u95DC\u7DCA\u8981\u3002"
+              },
+              {
+                "text": "\u975E\u7B49\u50F9\uFF0C\u56E0\u70BA\u904B\u7B97\u5143\u88AB\u8ABF\u63DB\u4E86",
+                "fraction": 0,
+                "feedback": "\u8ABF\u63DB\u4EA4\u63DB\u5F8B\u904B\u7B97\u5B50\u7684\u9806\u5E8F\u4E0D\u6703\u6539\u8B8A\u7121\u526F\u4F5C\u7528\u689D\u4EF6\u7684\u8A9E\u610F\u3002"
+              },
+              {
+                "text": "\u53EA\u8981\u6709 a \u8207 b \u4E0D\u540C\u7684\u6E2C\u8A66\u5C31\u80FD\u6BBA\u6B7B",
+                "fraction": 0,
+                "feedback": "a AND b \u8207 b AND a \u5728\u6BCF\u4E00\u7A2E\u8CE6\u503C\u4E0B\u90FD\u4E00\u81F4\uFF0C\u6545\u6C92\u6709\u9019\u7A2E\u6E2C\u8A66\u80FD\u6BBA\u6B7B\u5B83\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7576 a \u7B49\u65BC b \u6642\u624D\u7B49\u50F9",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5728\u6240\u6709\u8CE6\u503C\u4E0B\u90FD\u4E00\u81F4\uFF0C\u4E0D\u53EA\u5728 a \u7B49\u65BC b \u6642\u3002"
+              }
+            ],
+            "generalFeedback": "\u5E03\u6797 AND \u5177\u4EA4\u63DB\u5F8B\uFF0C\u6545\u5728\u7121\u6C42\u503C\u9806\u5E8F\u526F\u4F5C\u7528\u7684\u898F\u683C\u4E2D\uFF0Ca AND b \u7B49\u65BC b AND a\u3002\u6B64\u7A81\u8B8A\u9AD4\u8868\u793A\u76F8\u540C\u7684\u51FD\u6578\u2014\u2014\u4E00\u500B\u7B49\u50F9\u898F\u683C\u7A81\u8B8A\u9AD4\u3002\uFF08\u5728\u5177\u526F\u4F5C\u7528\u7684\u77ED\u8DEF\u7A0B\u5F0F\u78BC\u4E2D\u9806\u5E8F\u53EF\u80FD\u6709\u5F71\u97FF\uFF1B\u90A3\u5C6C\u65BC\u7A0B\u5F0F\u800C\u975E\u898F\u683C\u7684\u8003\u91CF\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7531\u88AB\u6BBA\u6B7B\u7684\u898F\u683C\u7A81\u8B8A\u9AD4\u6240\u5F97\u6E2C\u8A66\u7684\u50F9\u503C",
+            "text": "<p>\u7531\u4E00\u500B<em>\u88AB\u6BBA\u6B7B</em>\u7684\u898F\u683C\u7A81\u8B8A\u9AD4\u6240\u884D\u751F\u7684\u6E2C\u8A66\u4E4B\u6240\u4EE5\u6709\u50F9\u503C\uFF0C\u662F\u56E0\u70BA\u7576\u5B83\u5728\u5BE6\u4F5C\u4E0A\u57F7\u884C\u6642\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5340\u5206\u539F\u59CB\u898F\u683C\u8207\u7A81\u8B8A\u9AD4\u7684\u884C\u70BA\uFF0C\u6545\u4E00\u500B\u7B26\u5408\u7A81\u8B8A\uFF08\u6709\u6545\u969C\uFF09\u898F\u683C\u800C\u975E\u539F\u59CB\u898F\u683C\u7684\u5BE6\u4F5C\u5C07\u6703\u5931\u6557",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A72\u6E2C\u8A66\u6B63\u597D\u7784\u6E96\u5169\u4EFD\u898F\u683C\u76F8\u7570\u4E4B\u8655\u7684\u884C\u70BA\u3002"
+              },
+              {
+                "text": "\u5B83\u4FDD\u8B49\u5BE6\u4F5C\u6C92\u6709\u4EFB\u4F55\u6545\u969C",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u6709\u91DD\u5C0D\u6027\u7684\u6E2C\u8A66\u7121\u6CD5\u8B49\u660E\u6574\u9AD4\u6B63\u78BA\u6027\u3002"
+              },
+              {
+                "text": "\u5B83\u8D70\u904D\u5BE6\u4F5C\u4E2D\u7684\u6BCF\u4E00\u689D\u8DEF\u5F91",
+                "fraction": 0,
+                "feedback": "\u5B83\u662F\u55AE\u4E00\u80FD\u5340\u5206\u7684\u8ECC\u8DE1\uFF0C\u4E0D\u662F\u5B8C\u6574\u7684\u8DEF\u5F91\u5DE1\u89BD\u3002"
+              },
+              {
+                "text": "\u5B83\u8207\u539F\u59CB\u898F\u683C\u53CA\u7A81\u8B8A\u898F\u683C\u7686\u7121\u95DC",
+                "fraction": 0,
+                "feedback": "\u5B83\u6B63\u662F\u7531\u5169\u4EFD\u898F\u683C\u76F8\u7570\u4E4B\u8655\u884D\u751F\uFF0C\u6545\u53D6\u6C7A\u65BC\u5169\u8005\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BBA\u6B7B\u7528\u7684\u6E2C\u8A66\u662F\u4E00\u689D\u539F\u59CB\u8207\u7A81\u8B8A\u898F\u683C\u4E0D\u4E00\u81F4\u7684\u8ECC\u8DE1\u3002\u5C07\u5B83\u5C0D\u5BE6\u4F5C\u57F7\u884C\uFF0C\u5373\u53EF\u6AA2\u67E5\u5BE6\u4F5C\u662F\u5426\u9075\u5FAA\u9810\u671F\uFF08\u539F\u59CB\uFF09\u884C\u70BA\uFF1B\u4E00\u500B\u8868\u73FE\u51FA\u7A81\u8B8A\u9AD4\u6709\u6545\u969C\u884C\u70BA\u7684\u5BE6\u4F5C\u5C07\u7121\u6CD5\u901A\u904E\u8A72\u6E2C\u8A66\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "state-transition": {
       "en": {
         "easy": [

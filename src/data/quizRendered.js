@@ -58089,6 +58089,2612 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "spec-mutation": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What specification mutation mutates",
+          "text": "<p>Specification mutation testing applies mutation operators to:</p>",
+          "answers": [
+            {
+              "text": "A specification or model of the system (e.g. a requirement, an FSM, or a temporal-logic property), not the program source code",
+              "fraction": 100,
+              "feedback": "Correct — in specification mutation the artifact that is altered is the spec/model, not the code."
+            },
+            {
+              "text": "The program's source code",
+              "fraction": 0,
+              "feedback": "Mutating source code is program (code) mutation, a different technique."
+            },
+            {
+              "text": "The compiled binary of the program",
+              "fraction": 0,
+              "feedback": "Specification mutation works on the specification, not on compiled code."
+            },
+            {
+              "text": "The test cases themselves",
+              "fraction": 0,
+              "feedback": "Test cases are what we evaluate or generate; specification mutation changes the spec."
+            }
+          ],
+          "generalFeedback": "Specification mutation applies mutation operators to a specification or model — a boolean/logic requirement, a finite-state machine, or a temporal-logic property — rather than to the program's code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutant specification",
+          "text": "<p>A <em>mutant specification</em> is:</p>",
+          "answers": [
+            {
+              "text": "A copy of the original specification with one small change introduced by a mutation operator",
+              "fraction": 100,
+              "feedback": "Correct — a mutant spec is the original spec seeded with one deliberate small change."
+            },
+            {
+              "text": "A specification defect reported by users in the field",
+              "fraction": 0,
+              "feedback": "Mutant specs are artificial changes seeded on purpose, not field-reported defects."
+            },
+            {
+              "text": "A test case derived from the specification",
+              "fraction": 0,
+              "feedback": "That is a test, not a mutant specification."
+            },
+            {
+              "text": "An execution trace produced by a model checker",
+              "fraction": 0,
+              "feedback": "That is a counterexample/trace, not a mutant specification."
+            }
+          ],
+          "generalFeedback": "A mutant specification is a variant of the specification produced by applying a spec mutation operator that makes one small change (e.g. negating a clause), just as a program mutant is a small change to code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is deliberately altered",
+          "text": "<p>In specification mutation, the artifact that is deliberately altered to create a mutant is:</p>",
+          "answers": [
+            {
+              "text": "The specification / model",
+              "fraction": 100,
+              "feedback": "Correct — the spec or model is what gets mutated."
+            },
+            {
+              "text": "The source code",
+              "fraction": 0,
+              "feedback": "Altering source code is program mutation, not specification mutation."
+            },
+            {
+              "text": "The test harness",
+              "fraction": 0,
+              "feedback": "The test harness is infrastructure, not the mutated artifact."
+            },
+            {
+              "text": "The input data files",
+              "fraction": 0,
+              "feedback": "Input data is not what a spec mutation operator changes."
+            }
+          ],
+          "generalFeedback": "Specification mutation seeds a change into the specification or model (a requirement, an FSM, or a temporal property), leaving the program code untouched.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Specification vs program mutation",
+          "text": "<p>The key difference between <em>specification mutation</em> and <em>program (code) mutation</em> is:</p>",
+          "answers": [
+            {
+              "text": "Specification mutation changes the specification/model, whereas program mutation changes the program's source code",
+              "fraction": 100,
+              "feedback": "Correct — the two differ in which artifact is mutated."
+            },
+            {
+              "text": "Specification mutation uses random inputs while program mutation is systematic",
+              "fraction": 0,
+              "feedback": "Both use systematic mutation operators; the difference is the artifact mutated."
+            },
+            {
+              "text": "Specification mutation needs no mutation operators",
+              "fraction": 0,
+              "feedback": "Both rely on mutation operators; spec mutation just applies them to the spec."
+            },
+            {
+              "text": "They are the same technique under two names",
+              "fraction": 0,
+              "feedback": "They are distinct: one mutates the spec, the other the code."
+            }
+          ],
+          "generalFeedback": "Both are mutation techniques, but program mutation seeds faults into code and runs tests to detect them, while specification mutation seeds changes into the spec/model to assess or generate tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Killing a spec mutant",
+          "text": "<p>A <em>mutant specification is killed</em> when:</p>",
+          "answers": [
+            {
+              "text": "Some test or analysis distinguishes the behavior described by the mutant spec from that of the original spec",
+              "fraction": 100,
+              "feedback": "Correct — an observable difference between mutant and original spec kills it."
+            },
+            {
+              "text": "The mutant specification fails to parse",
+              "fraction": 0,
+              "feedback": "A malformed mutant is discarded, not \"killed\" by distinguishing behavior."
+            },
+            {
+              "text": "The mutant specification is longer than the original",
+              "fraction": 0,
+              "feedback": "Length is irrelevant to killing; killing requires a behavioral difference."
+            },
+            {
+              "text": "The original specification is proven correct",
+              "fraction": 0,
+              "feedback": "Killing concerns distinguishing mutant from original, not proving correctness."
+            }
+          ],
+          "generalFeedback": "A spec mutant is killed when a test case (or a model-checker run) reveals that the mutant specification and the original specification disagree on some behavior.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Equivalent spec mutant",
+          "text": "<p>An <em>equivalent spec mutant</em> is a mutant specification that:</p>",
+          "answers": [
+            {
+              "text": "Is syntactically different from the original spec but semantically identical, so no test can distinguish them",
+              "fraction": 100,
+              "feedback": "Correct — identical meaning means it can never be killed."
+            },
+            {
+              "text": "Is textually identical to the original specification",
+              "fraction": 0,
+              "feedback": "A mutation always introduces a syntactic change; identical text is not a mutant."
+            },
+            {
+              "text": "Always contradicts the original specification",
+              "fraction": 0,
+              "feedback": "A contradicting mutant differs in meaning and is killable; an equivalent one has the same meaning."
+            },
+            {
+              "text": "Cannot be expressed in the specification language",
+              "fraction": 0,
+              "feedback": "Equivalence is about meaning, not expressibility."
+            }
+          ],
+          "generalFeedback": "An equivalent spec mutant differs syntactically from the original but denotes exactly the same behavior for every input, so no test or model-check can ever distinguish (kill) it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model-based mutation testing",
+          "text": "<p><em>Model-based mutation testing</em> refers to:</p>",
+          "answers": [
+            {
+              "text": "Applying mutation operators to a behavioral model of the system (e.g. an FSM), rather than to the code",
+              "fraction": 100,
+              "feedback": "Correct — the model is mutated."
+            },
+            {
+              "text": "Building a statistical model of how often each code mutant is killed",
+              "fraction": 0,
+              "feedback": "That is not what model-based mutation means; here the model is the mutated artifact."
+            },
+            {
+              "text": "Mutating only the program's data model (database schema)",
+              "fraction": 0,
+              "feedback": "The \"model\" is a behavioral model/spec, not specifically a database schema."
+            },
+            {
+              "text": "Randomly mutating the model checker's algorithm",
+              "fraction": 0,
+              "feedback": "The model checker is a tool, not the artifact being mutated."
+            }
+          ],
+          "generalFeedback": "Model-based mutation testing seeds mutations into a model (such as an FSM or a formal specification) and uses the difference between the model and its mutants to assess or generate tests — a form of specification mutation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose: adequacy",
+          "text": "<p>One purpose of specification mutation is to:</p>",
+          "answers": [
+            {
+              "text": "Assess the adequacy of a test suite or the quality/completeness of the specification",
+              "fraction": 100,
+              "feedback": "Correct — killed mutants measure how well tests (or the spec) capture the intended behavior."
+            },
+            {
+              "text": "Automatically repair defects in the program",
+              "fraction": 0,
+              "feedback": "Specification mutation evaluates or generates tests; it does not fix code."
+            },
+            {
+              "text": "Prove the program has no defects",
+              "fraction": 0,
+              "feedback": "No mutation technique proves the absence of all defects."
+            },
+            {
+              "text": "Compress the specification into fewer states",
+              "fraction": 0,
+              "feedback": "That is model minimization, not the purpose of specification mutation."
+            }
+          ],
+          "generalFeedback": "Specification mutation is used to (a) assess the adequacy of a test suite or the quality of the specification and (b) generate tests. Measuring which spec mutants a suite kills gauges its adequacy.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose: test generation",
+          "text": "<p>Specification mutation can be used to <em>generate tests</em> by:</p>",
+          "answers": [
+            {
+              "text": "Using a model checker's counterexample from a mutated property as a test case",
+              "fraction": 100,
+              "feedback": "Correct — a counterexample that distinguishes the mutant from the original spec becomes a test."
+            },
+            {
+              "text": "Compiling the mutant specification into an executable",
+              "fraction": 0,
+              "feedback": "Compiling a spec does not by itself produce test cases."
+            },
+            {
+              "text": "Counting the number of clauses in the specification",
+              "fraction": 0,
+              "feedback": "Counting clauses is a metric, not a test-generation method."
+            },
+            {
+              "text": "Removing all temporal operators from the specification",
+              "fraction": 0,
+              "feedback": "That would change the spec's meaning and does not generate tests."
+            }
+          ],
+          "generalFeedback": "A model checker checking a mutated property against the model returns a counterexample — a trace where the mutant and original disagree. That trace is turned into a test case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Example spec mutation operator",
+          "text": "<p>Which is an example of a <em>specification</em> mutation operator?</p>",
+          "answers": [
+            {
+              "text": "Negating a clause in a requirement (e.g. condition C becomes NOT C)",
+              "fraction": 100,
+              "feedback": "Correct — negating a requirement's clause mutates the specification."
+            },
+            {
+              "text": "Deleting a line of C++ source in the implementation",
+              "fraction": 0,
+              "feedback": "That mutates code, so it is program mutation."
+            },
+            {
+              "text": "Renaming a local variable in the program",
+              "fraction": 0,
+              "feedback": "That is a code-level change, not a specification change."
+            },
+            {
+              "text": "Inserting a unary minus into a program expression",
+              "fraction": 0,
+              "feedback": "That is a code mutation operator (UOI), not a spec operator."
+            }
+          ],
+          "generalFeedback": "Spec mutation operators change the specification: negate a clause, swap a relational/logical/temporal operator in a requirement, or redirect an FSM transition. Changes to source code are program mutation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Temporal operator G",
+          "text": "<p>In linear temporal logic, the operator <strong>G</strong> (globally) applied to a property <code>p</code> means that <code>p</code>:</p>",
+          "answers": [
+            {
+              "text": "Holds in every state along the path (always)",
+              "fraction": 100,
+              "feedback": "Correct — G means \"always / globally\"."
+            },
+            {
+              "text": "Holds in at least one future state",
+              "fraction": 0,
+              "feedback": "That is F (eventually), not G."
+            },
+            {
+              "text": "Holds only in the immediately next state",
+              "fraction": 0,
+              "feedback": "That is X (next), not G."
+            },
+            {
+              "text": "Holds until some other property becomes true",
+              "fraction": 0,
+              "feedback": "That is the U (until) operator, not G."
+            }
+          ],
+          "generalFeedback": "In LTL, G p (\"globally p\") asserts that p is true in every state of the execution path — the \"always\" operator.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Temporal operator F",
+          "text": "<p>In linear temporal logic, <strong>F</strong> (eventually/finally) applied to <code>p</code> means that <code>p</code>:</p>",
+          "answers": [
+            {
+              "text": "Holds in some current-or-future state",
+              "fraction": 100,
+              "feedback": "Correct — F means \"eventually\"."
+            },
+            {
+              "text": "Holds in every state along the path",
+              "fraction": 0,
+              "feedback": "That is G (globally), not F."
+            },
+            {
+              "text": "Holds in the immediately next state only",
+              "fraction": 0,
+              "feedback": "That is X (next), not F."
+            },
+            {
+              "text": "Never holds",
+              "fraction": 0,
+              "feedback": "F asserts p does hold at some point, the opposite of never."
+            }
+          ],
+          "generalFeedback": "In LTL, F p (\"eventually p\") asserts that p becomes true at some state now or later along the path.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Counterexample definition",
+          "text": "<p>When a model checker finds that a property is violated by the model, it produces a <em>counterexample</em>, which is:</p>",
+          "answers": [
+            {
+              "text": "A concrete execution trace of the model that violates the property",
+              "fraction": 100,
+              "feedback": "Correct — the counterexample is a witnessing trace of the violation."
+            },
+            {
+              "text": "A corrected version of the property that now holds",
+              "fraction": 0,
+              "feedback": "The checker returns a violating trace, not a rewritten property."
+            },
+            {
+              "text": "A proof that the property holds on the model",
+              "fraction": 0,
+              "feedback": "A counterexample demonstrates a violation, not a proof of correctness."
+            },
+            {
+              "text": "A random input unrelated to the model",
+              "fraction": 0,
+              "feedback": "A counterexample is a specific trace of the model, not a random input."
+            }
+          ],
+          "generalFeedback": "A counterexample is a concrete sequence of states (an execution trace) of the model that demonstrates how the property is violated. This trace is exactly what specification-mutation test generation turns into a test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify specification mutation",
+          "text": "<p>Which activity is <em>specification</em> mutation (not program mutation)?</p>",
+          "answers": [
+            {
+              "text": "Replacing G with F in an LTL requirement and re-checking it against the model",
+              "fraction": 100,
+              "feedback": "Correct — the requirement (specification) was mutated."
+            },
+            {
+              "text": "Replacing + with - in a C function and re-running the tests",
+              "fraction": 0,
+              "feedback": "That mutates code — program mutation."
+            },
+            {
+              "text": "Deleting a statement in the source and re-running the tests",
+              "fraction": 0,
+              "feedback": "Deleting a source statement is program mutation."
+            },
+            {
+              "text": "Inserting a unary minus in a program expression",
+              "fraction": 0,
+              "feedback": "That is a code-level (UOI) mutation."
+            }
+          ],
+          "generalFeedback": "Changing a temporal-logic requirement (G to F) mutates the specification. Changing operators, statements, or expressions in the source code is program mutation.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Spec mutation mutates the code",
+          "text": "<p>Specification mutation testing works by mutating the program's source code and running tests against it.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Mutating source code is program mutation. Specification mutation changes the specification/model instead."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — specification mutation mutates the specification or model, not the source code (that would be program mutation)."
+            }
+          ],
+          "generalFeedback": "Specification mutation applies mutation operators to a specification or model (a requirement, an FSM, or a temporal property). Mutating source code is the separate technique of program mutation."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "When a mutant spec is killed by a test",
+          "text": "<p>A mutant specification is killed by a test case when:</p>",
+          "answers": [
+            {
+              "text": "The test's expected result under the mutant spec differs from its expected result under the original spec",
+              "fraction": 100,
+              "feedback": "Correct — a test that the two specs would judge differently kills the mutant."
+            },
+            {
+              "text": "The test executes quickly on the model checker",
+              "fraction": 0,
+              "feedback": "Execution speed has nothing to do with killing a mutant."
+            },
+            {
+              "text": "The test passes on the original specification",
+              "fraction": 0,
+              "feedback": "Passing the original alone does not distinguish the mutant; disagreement between the two is required."
+            },
+            {
+              "text": "The mutant specification has more states than the original",
+              "fraction": 0,
+              "feedback": "State count is irrelevant; killing requires a behavioral disagreement."
+            }
+          ],
+          "generalFeedback": "A spec mutant is killed when some test would be judged differently by the mutant and by the original specification — i.e. the two specs disagree on that test's expected behavior.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Condition-negation operator",
+          "text": "<p>Applying a <em>condition-negation</em> spec mutation operator to the requirement guard <code>temp &gt; 100</code> yields which mutant?</p>",
+          "answers": [
+            {
+              "text": "<code>NOT (temp &gt; 100)</code>",
+              "fraction": 100,
+              "feedback": "Correct — condition negation wraps the guard in a logical NOT."
+            },
+            {
+              "text": "<code>temp &gt;= 100</code>",
+              "fraction": 0,
+              "feedback": "That is a relational-operator swap, not negation."
+            },
+            {
+              "text": "<code>temp &gt; 200</code>",
+              "fraction": 0,
+              "feedback": "That is an operand change, not negation."
+            },
+            {
+              "text": "<code>temp &gt; 100 AND active</code>",
+              "fraction": 0,
+              "feedback": "That adds a conjunct (guard strengthening), not negation."
+            }
+          ],
+          "generalFeedback": "Condition negation replaces a requirement's condition C with NOT C. Herebecomes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Relational-operator swap in a requirement",
+          "text": "<p>Replacing <code>&gt;=</code> with <code>&gt;</code> in the requirement \"the alarm sounds when <code>pressure &gt;= threshold</code>\" is a spec mutation operator that:</p>",
+          "answers": [
+            {
+              "text": "Swaps a relational operator, changing the boundary behavior of the requirement",
+              "fraction": 100,
+              "feedback": "Correct — it alters what happens exactly at."
+            },
+            {
+              "text": "Deletes a clause from the requirement",
+              "fraction": 0,
+              "feedback": "No clause is removed; a relational operator is changed."
+            },
+            {
+              "text": "Changes a temporal operator",
+              "fraction": 0,
+              "feedback": "No temporal operator is involved here."
+            },
+            {
+              "text": "Redirects a state-machine transition",
+              "fraction": 0,
+              "feedback": "This is a relational change in a condition, not a transition redirection."
+            }
+          ],
+          "generalFeedback": "Swapping a relational operator (hereto) changes the requirement's behavior at the boundary value; a killing test must include that boundary.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "FSM transition redirection",
+          "text": "<p>In an FSM specification, a mutation operator that changes a transition's destination (e.g. on input <code>x</code> the machine goes to state C instead of state B) is:</p>",
+          "answers": [
+            {
+              "text": "Transition redirection — changing the target state of a transition",
+              "fraction": 100,
+              "feedback": "Correct — the transition's destination is altered."
+            },
+            {
+              "text": "A relational-operator swap",
+              "fraction": 0,
+              "feedback": "No relational operator is involved; the transition target changed."
+            },
+            {
+              "text": "A temporal-operator replacement",
+              "fraction": 0,
+              "feedback": "No temporal operator is involved."
+            },
+            {
+              "text": "Condition negation",
+              "fraction": 0,
+              "feedback": "The guard is not negated; the destination state is changed."
+            }
+          ],
+          "generalFeedback": "Redirecting a transition (changing where an input leads) is a standard FSM/model mutation operator. Other FSM operators change the triggering event or the guard.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Logical-operator swap effect",
+          "text": "<p>A spec mutation replaces <strong>AND</strong> with <strong>OR</strong> in a requirement's condition. Compared with the original, the mutated condition is:</p>",
+          "answers": [
+            {
+              "text": "Weaker — it is satisfied in more cases (either operand true suffices)",
+              "fraction": 100,
+              "feedback": "Correct — AND needs both true; OR needs only one, so OR holds more often."
+            },
+            {
+              "text": "Stronger — it is satisfied in fewer cases",
+              "fraction": 0,
+              "feedback": "OR is satisfied more often than AND, so it is weaker, not stronger."
+            },
+            {
+              "text": "Unchanged in meaning",
+              "fraction": 0,
+              "feedback": "AND and OR differ whenever the operands have different truth values."
+            },
+            {
+              "text": "Only affects arithmetic, not logic",
+              "fraction": 0,
+              "feedback": "AND/OR are logical connectives; the change is logical, not arithmetic."
+            }
+          ],
+          "generalFeedback": "Replacing AND with OR (a logical-operator mutation, analogous to program mutation's LOR) weakens the condition: it now holds whenever either operand is true, a superset of the AND case.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Temporal operator mutation G to F",
+          "text": "<p>A temporal-operator mutation replaces <code>G p</code> with <code>F p</code> in a property. This changes the requirement from:</p>",
+          "answers": [
+            {
+              "text": "\"p holds in every state\" to \"p holds in at least one state\" — a strictly weaker requirement",
+              "fraction": 100,
+              "feedback": "Correct — G (always) becomes F (eventually), which is weaker."
+            },
+            {
+              "text": "An equivalent restatement with the same meaning",
+              "fraction": 0,
+              "feedback": "G p and F p differ: G p implies F p, but not conversely."
+            },
+            {
+              "text": "\"p holds in some state\" to \"p holds in every state\" — a stronger requirement",
+              "fraction": 0,
+              "feedback": "That is the reverse direction; G to F weakens the requirement."
+            },
+            {
+              "text": "A change that only affects the next state",
+              "fraction": 0,
+              "feedback": "Next-state semantics belong to X, not to G or F."
+            }
+          ],
+          "generalFeedback": "G p (\"always p\") requires p in every state; F p (\"eventually p\") requires p in some state. G p implies F p but not the reverse, so this mutation weakens the property and generally changes its meaning.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Counterexample as a test from a mutated property",
+          "text": "<p>The original property <code>p</code> holds on model <code>M</code>. To generate a test from a mutant property <code>p'</code>, you:</p>",
+          "answers": [
+            {
+              "text": "Model-check p' against M; if M violates p', the counterexample trace is a test that distinguishes p' from p",
+              "fraction": 100,
+              "feedback": "Correct — the violating trace satisfies p (since M ⊨ p) but not p', so it distinguishes them."
+            },
+            {
+              "text": "Model-check p against M again and discard the result",
+              "fraction": 0,
+              "feedback": "Re-checking the original property does not use the mutant and generates nothing new."
+            },
+            {
+              "text": "Compile p' into code and profile it",
+              "fraction": 0,
+              "feedback": "Profiling a compiled property is not how tests are derived here."
+            },
+            {
+              "text": "Count the states reachable in M",
+              "fraction": 0,
+              "feedback": "Counting states does not produce a distinguishing test."
+            }
+          ],
+          "generalFeedback": "Model-checking the mutant property p' against M yields a counterexample when M violates p'. Because M satisfies the original p, that trace satisfies p but not p', so it distinguishes the two specifications and becomes a test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Measuring test-suite adequacy with spec mutation",
+          "text": "<p>To use specification mutation to <em>measure a test suite's adequacy</em>, you:</p>",
+          "answers": [
+            {
+              "text": "Generate mutant specs and check what fraction of them the suite's tests distinguish from the original spec",
+              "fraction": 100,
+              "feedback": "Correct — the fraction of spec mutants killed measures adequacy."
+            },
+            {
+              "text": "Count how many lines the specification has",
+              "fraction": 0,
+              "feedback": "Spec length is not an adequacy measure."
+            },
+            {
+              "text": "Run the suite once against the original spec only",
+              "fraction": 0,
+              "feedback": "Without mutants there is nothing to kill, so no adequacy is measured."
+            },
+            {
+              "text": "Remove every failing test from the suite",
+              "fraction": 0,
+              "feedback": "Removing tests does not measure adequacy against mutants."
+            }
+          ],
+          "generalFeedback": "As with program mutation, you produce a set of spec mutants and see how many the test suite kills (distinguishes from the original). The proportion killed is an adequacy measure for the suite relative to the spec.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mutant property with no counterexample",
+          "text": "<p>During property-mutation test generation, a model checker reports that a <em>mutated</em> property still holds on the model (no counterexample). This means the mutant is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent with respect to that model — it cannot be killed via the model, so no test is produced",
+              "fraction": 100,
+              "feedback": "Correct — no counterexample means the model cannot distinguish mutant from original."
+            },
+            {
+              "text": "Killed — the absence of a counterexample kills it",
+              "fraction": 0,
+              "feedback": "The opposite: a counterexample is what would distinguish (kill) it; its absence means it survives."
+            },
+            {
+              "text": "Malformed and must be discarded",
+              "fraction": 0,
+              "feedback": "A well-formed mutant that still holds is equivalent, not malformed."
+            },
+            {
+              "text": "Proof that the implementation is correct",
+              "fraction": 0,
+              "feedback": "It says nothing about the implementation, only about the model and this mutant."
+            }
+          ],
+          "generalFeedback": "If the mutated property still holds on the model, there is no counterexample distinguishing it from the original with respect to that model — it is an equivalent mutant (relative to the model) and yields no test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "FSM triggering-event mutation",
+          "text": "<p>Changing the triggering event on an FSM transition (e.g. it now fires on input \"coin\" instead of \"button\") is a spec mutation operator that:</p>",
+          "answers": [
+            {
+              "text": "Alters which input causes the transition, potentially changing the accepted behavior",
+              "fraction": 100,
+              "feedback": "Correct — the transition now responds to a different input."
+            },
+            {
+              "text": "Changes the number of states in the machine",
+              "fraction": 0,
+              "feedback": "The states are unchanged; only the triggering input changed."
+            },
+            {
+              "text": "Negates a temporal-logic property",
+              "fraction": 0,
+              "feedback": "No temporal property is involved in an FSM event change."
+            },
+            {
+              "text": "Deletes the transition entirely",
+              "fraction": 0,
+              "feedback": "The transition still exists; only its trigger changed."
+            }
+          ],
+          "generalFeedback": "Mutating the event/input that fires a transition is a standard FSM mutation operator; it changes which inputs drive the machine and thus the specified behavior.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the counterexample makes a good test",
+          "text": "<p>A counterexample obtained by model-checking a mutant property is a good test case because:</p>",
+          "answers": [
+            {
+              "text": "It is a concrete trace where the mutant and original specifications disagree, so it can reveal whether an implementation follows the correct one",
+              "fraction": 100,
+              "feedback": "Correct — it targets exactly the behavior that distinguishes the two specs."
+            },
+            {
+              "text": "It is chosen at random, giving broad coverage",
+              "fraction": 0,
+              "feedback": "A counterexample is targeted, not random."
+            },
+            {
+              "text": "It always exercises every state of the model",
+              "fraction": 0,
+              "feedback": "A counterexample is a single trace, not a tour of all states."
+            },
+            {
+              "text": "It proves the specification is complete",
+              "fraction": 0,
+              "feedback": "A counterexample distinguishes two specs; it does not prove completeness."
+            }
+          ],
+          "generalFeedback": "The counterexample is a concrete execution where the original and mutant specs diverge. Running it against an implementation checks whether the implementation obeys the intended (original) spec rather than the mutated (faulty) one.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SMV scenario classification",
+          "text": "<p>You have an SMV model and an LTL requirement. You alter the LTL formula and re-run the model checker. This is:</p>",
+          "answers": [
+            {
+              "text": "Specification (property) mutation, since the requirement — not the code — was changed",
+              "fraction": 100,
+              "feedback": "Correct — the LTL requirement is part of the specification."
+            },
+            {
+              "text": "Program mutation, since the model checker ran the model",
+              "fraction": 0,
+              "feedback": "Running the checker does not make it program mutation; the mutated artifact was the requirement."
+            },
+            {
+              "text": "Fuzz testing, since inputs were varied",
+              "fraction": 0,
+              "feedback": "No random inputs were fuzzed; a formula was mutated."
+            },
+            {
+              "text": "Neither — changing a formula is not a mutation",
+              "fraction": 0,
+              "feedback": "Changing the LTL formula is exactly a specification mutation."
+            }
+          ],
+          "generalFeedback": "Mutating an LTL/CTL requirement and re-checking it is specification mutation: the mutated artifact is the requirement (part of the spec), not the program code.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Operand-replacement operator on a requirement",
+          "text": "<p>A spec mutation replaces one operand with another in a requirement, turning <code>level &gt; max</code> into <code>level &gt; min</code>. This is:</p>",
+          "answers": [
+            {
+              "text": "An operand (variable) replacement mutation on the specification",
+              "fraction": 100,
+              "feedback": "Correct — a variable operand was swapped for another."
+            },
+            {
+              "text": "A relational-operator swap",
+              "fraction": 0,
+              "feedback": "The relational operatoris unchanged; an operand was replaced."
+            },
+            {
+              "text": "A temporal-operator replacement",
+              "fraction": 0,
+              "feedback": "No temporal operator is involved."
+            },
+            {
+              "text": "A transition redirection",
+              "fraction": 0,
+              "feedback": "No FSM transition is involved; this is a condition-operand change."
+            }
+          ],
+          "generalFeedback": "Replacing a variable operand (herewith) is an operand/variable-replacement spec mutation, analogous to variable replacement in program mutation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Model-mutation alternative",
+          "text": "<p>Instead of mutating a property, model-based mutation testing can mutate the <em>model</em> itself and then:</p>",
+          "answers": [
+            {
+              "text": "Check the original requirements against the mutant model; a requirement now violated yields a counterexample distinguishing the two models",
+              "fraction": 100,
+              "feedback": "Correct — the counterexample separates the original model from the mutant."
+            },
+            {
+              "text": "Delete all requirements and keep only the mutant model",
+              "fraction": 0,
+              "feedback": "Requirements are needed to detect the mutant's difference; you do not delete them."
+            },
+            {
+              "text": "Mutate the source code as well to match",
+              "fraction": 0,
+              "feedback": "Model mutation changes the model, not the code."
+            },
+            {
+              "text": "Run the mutant model without any properties",
+              "fraction": 0,
+              "feedback": "Without properties there is nothing for the checker to violate, so no test emerges."
+            }
+          ],
+          "generalFeedback": "One can mutate the model and check the original requirements against it. If the mutant model violates a requirement the original satisfied, the counterexample is a trace distinguishing model from mutant — a test that kills the model mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Boundary of a relational mutation",
+          "text": "<p>Mutating <code>x &gt;= 5</code> to <code>x &gt; 5</code> in a requirement changes the specified behavior:</p>",
+          "answers": [
+            {
+              "text": "Only at x = 5; a killing test must include that boundary value",
+              "fraction": 100,
+              "feedback": "Correct — the two conditions agree everywhere except x = 5."
+            },
+            {
+              "text": "For all values of x",
+              "fraction": 0,
+              "feedback": "They agree for every x except exactly 5."
+            },
+            {
+              "text": "Only for negative x",
+              "fraction": 0,
+              "feedback": "They agree for negative x; they differ only at x = 5."
+            },
+            {
+              "text": "Never — the mutant is equivalent",
+              "fraction": 0,
+              "feedback": "It is not equivalent: x = 5 distinguishesfrom."
+            }
+          ],
+          "generalFeedback": "anddiffer only at x = 5 (true vs false). A test that omits the boundary would fail to kill this mutant, so the killing test must include x = 5.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "De Morgan equivalent mutant (AND form)",
+          "text": "<p>A requirement's guard <code>NOT (a AND b)</code> is mutated to <code>NOT a OR NOT b</code>. This mutant is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — by De Morgan's law the two forms are logically identical, so no test can kill it",
+              "fraction": 100,
+              "feedback": "Correct — NOT (a AND b) is exactly NOT a OR NOT b."
+            },
+            {
+              "text": "Killed by any test where a and b differ",
+              "fraction": 0,
+              "feedback": "The two forms agree on every assignment, so no test distinguishes them."
+            },
+            {
+              "text": "Non-equivalent because OR replaced AND",
+              "fraction": 0,
+              "feedback": "The surrounding negations make the whole expression equivalent under De Morgan's law."
+            },
+            {
+              "text": "Malformed and therefore discarded",
+              "fraction": 0,
+              "feedback": "It is well-formed and logically equivalent, not malformed."
+            }
+          ],
+          "generalFeedback": "De Morgan's law states NOT (a AND b) is equivalent to NOT a OR NOT b. The mutant denotes the identical boolean function, so it is an equivalent spec mutant that no test can kill.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is G to F an equivalent mutation?",
+          "text": "<p>Is replacing <code>G p</code> by <code>F p</code> in a property an <em>equivalent</em> mutation?</p>",
+          "answers": [
+            {
+              "text": "No — G p (always) and F p (eventually) have different meanings (G p implies F p but not conversely), so it generally changes the spec and is killable",
+              "fraction": 100,
+              "feedback": "Correct — the two operators are not interchangeable."
+            },
+            {
+              "text": "Yes — G and F always mean the same thing",
+              "fraction": 0,
+              "feedback": "They do not: \"always\" is strictly stronger than \"eventually\"."
+            },
+            {
+              "text": "Yes — F p implies G p, so they coincide",
+              "fraction": 0,
+              "feedback": "F p does not imply G p; the implication runs the other way."
+            },
+            {
+              "text": "No — but only because F is undefined in LTL",
+              "fraction": 0,
+              "feedback": "F is a standard LTL operator; the reason is the difference in meaning, not undefinedness."
+            }
+          ],
+          "generalFeedback": "G p requires p in every state; F p only requires p somewhere. G p implies F p, but not the reverse, so the mutation changes the property's meaning — it is non-equivalent and generally killable (a trace where p holds sometime but not always distinguishes them).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why a mutant property yields a distinguishing counterexample",
+          "text": "<p>Model-checking a mutant property <code>p'</code> against a model <code>M</code> (with the original <code>p</code> true on <code>M</code>) yields a counterexample. Why does that trace distinguish the mutant from the original?</p>",
+          "answers": [
+            {
+              "text": "The trace is an execution of M that violates p'; since M satisfies p, the same trace satisfies p, so p and p' disagree on it",
+              "fraction": 100,
+              "feedback": "Correct — the trace satisfies p but not p', exactly distinguishing them."
+            },
+            {
+              "text": "The counterexample is generated independently of both p and p'",
+              "fraction": 0,
+              "feedback": "The counterexample is specifically a violation of p', so it is tied to the mutant."
+            },
+            {
+              "text": "Because p' is syntactically longer than p",
+              "fraction": 0,
+              "feedback": "Syntactic length is irrelevant; the distinguishing power comes from the semantic disagreement on the trace."
+            },
+            {
+              "text": "Because the model checker rewrites p to match p'",
+              "fraction": 0,
+              "feedback": "The checker does not rewrite the original; it finds a trace violating p'."
+            }
+          ],
+          "generalFeedback": "The counterexample violates p' by construction. Because M satisfies the original p, every trace of M (including this one) satisfies p. So the trace satisfies p but not p' — a concrete witness that the two specifications differ, which is why it works as a test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Unkillable mutant signals redundancy",
+          "text": "<p>A clause of a requirement is mutated, but no test (and no model-check) can ever kill the resulting mutant. This most likely indicates:</p>",
+          "answers": [
+            {
+              "text": "The mutant is equivalent, which suggests the clause is redundant or the spec is over-constrained — it does not affect the specified behavior",
+              "fraction": 100,
+              "feedback": "Correct — an unkillable mutation points to a clause with no effect on meaning."
+            },
+            {
+              "text": "The test suite is perfectly adequate",
+              "fraction": 0,
+              "feedback": "An unkillable mutant is equivalent; it says nothing positive about suite adequacy."
+            },
+            {
+              "text": "The specification is guaranteed complete",
+              "fraction": 0,
+              "feedback": "Equivalence of one mutant does not imply completeness of the whole spec."
+            },
+            {
+              "text": "The program contains a fault",
+              "fraction": 0,
+              "feedback": "This is about the spec's structure, not a program fault."
+            }
+          ],
+          "generalFeedback": "If mutating a clause never changes the specified behavior, the mutant is equivalent — evidence that the clause is redundant or the requirement over-constrained. Specification mutation can thus expose redundancy and help assess spec quality.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a CTL-property fault-seeding workflow",
+          "text": "<p>A team seeds a fault into a CTL property, re-runs the model checker to obtain a counterexample, and turns it into a test. Which best describes this?</p>",
+          "answers": [
+            {
+              "text": "Specification (model-based) mutation testing — the property was mutated, and the counterexample becomes a test",
+              "fraction": 100,
+              "feedback": "Correct — mutating a CTL property and deriving a test from the counterexample is specification mutation."
+            },
+            {
+              "text": "Program mutation — because a test was produced at the end",
+              "fraction": 0,
+              "feedback": "Producing a test does not make it program mutation; the mutated artifact was the property."
+            },
+            {
+              "text": "Structural code coverage measurement",
+              "fraction": 0,
+              "feedback": "No code structure was measured; a property was mutated."
+            },
+            {
+              "text": "Equivalence-class partitioning of the input domain",
+              "fraction": 0,
+              "feedback": "That is a black-box input-partition technique, unrelated to mutating a CTL property."
+            }
+          ],
+          "generalFeedback": "Seeding a fault into a temporal (CTL) property and using the model checker's counterexample as a test is specification/model-based mutation: the mutated artifact is the property, and the counterexample distinguishes it from the original.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Temporal idempotence equivalent mutant",
+          "text": "<p>A property <code>F p</code> is mutated to <code>F F p</code> (\"eventually eventually p\"). This mutant is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — F is idempotent, so F F p is logically the same as F p and cannot be killed",
+              "fraction": 100,
+              "feedback": "Correct — F F p ≡ F p."
+            },
+            {
+              "text": "Non-equivalent — F F p requires p twice",
+              "fraction": 0,
+              "feedback": "F F p does not require p \"twice\"; it reduces to F p."
+            },
+            {
+              "text": "Non-equivalent — it is stronger than F p",
+              "fraction": 0,
+              "feedback": "They are equal in strength; F F p ≡ F p."
+            },
+            {
+              "text": "Malformed — F cannot be nested",
+              "fraction": 0,
+              "feedback": "Nesting temporal operators is allowed; here it simply collapses to F p."
+            }
+          ],
+          "generalFeedback": "The eventually operator is idempotent: F F p is equivalent to F p (likewise G G p ≡ G p). So this mutation produces an equivalent spec mutant that no test can kill.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Practical limitations",
+          "text": "<p>Two major practical limitations of specification/model mutation testing are:</p>",
+          "answers": [
+            {
+              "text": "Detecting equivalent mutants is hard (undecidable in general), and model-checking many mutants can suffer state-space explosion",
+              "fraction": 100,
+              "feedback": "Correct — equivalent mutants and model size are the classic limitations."
+            },
+            {
+              "text": "Mutation operators cannot be defined for specifications, and models never have states",
+              "fraction": 0,
+              "feedback": "Spec mutation operators are well defined, and models do have states."
+            },
+            {
+              "text": "Model checkers cannot produce counterexamples, and specs cannot be mutated",
+              "fraction": 0,
+              "feedback": "Both are false: checkers produce counterexamples and specs can be mutated."
+            },
+            {
+              "text": "It requires source code and cannot use a model",
+              "fraction": 0,
+              "feedback": "The opposite — it works on a spec/model and needs no source code."
+            }
+          ],
+          "generalFeedback": "Like program mutation, specification mutation faces the equivalent-mutant problem (equivalence is undecidable in general). Additionally, checking many mutant properties/models against a large model can hit state-space explosion, limiting scalability.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "No counterexample means equivalent w.r.t. model",
+          "text": "<p>In property-mutation test generation, a mutant property that the model <em>still satisfies</em>:</p>",
+          "answers": [
+            {
+              "text": "Yields no counterexample and hence no test — it is an equivalent mutant relative to the model",
+              "fraction": 100,
+              "feedback": "Correct — with nothing to violate, the model cannot distinguish it from the original."
+            },
+            {
+              "text": "Yields the strongest possible test",
+              "fraction": 0,
+              "feedback": "No counterexample means no test at all is produced."
+            },
+            {
+              "text": "Proves the original property was wrong",
+              "fraction": 0,
+              "feedback": "It says nothing about the original property being wrong."
+            },
+            {
+              "text": "Forces the model checker to enumerate all traces as tests",
+              "fraction": 0,
+              "feedback": "No violation means no counterexample; the checker does not emit all traces."
+            }
+          ],
+          "generalFeedback": "If the model satisfies the mutant property, the model checker returns no counterexample, so no distinguishing test can be generated — the mutant is equivalent with respect to that model.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Guard-strengthening mutation on an FSM",
+          "text": "<p>In an FSM spec, a mutation <em>strengthens</em> a transition guard by adding an extra conjunct (guard becomes <code>g AND extra</code>). Relative to the original, the mutated transition:</p>",
+          "answers": [
+            {
+              "text": "Fires in fewer cases (a subset of the original); a killing test must reach an input where the original fired but the mutant does not",
+              "fraction": 100,
+              "feedback": "Correct — adding a conjunct can only shrink the set of firing inputs."
+            },
+            {
+              "text": "Fires in more cases than before",
+              "fraction": 0,
+              "feedback": "Adding a conjunct makes the guard harder to satisfy, so it fires less often."
+            },
+            {
+              "text": "Fires in exactly the same cases",
+              "fraction": 0,
+              "feedback": "Only if the extra conjunct were always true given g; in general the guard is strictly narrower."
+            },
+            {
+              "text": "Never fires under any input",
+              "fraction": 0,
+              "feedback": "It still fires whenever both g and the extra conjunct hold."
+            }
+          ],
+          "generalFeedback": "Strengthening a guard with an added conjunct restricts firing to a subset of the original cases. A test that kills this mutant must reach an input where the original guard held but the strengthened guard does not.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "De Morgan equivalent mutant (OR form)",
+          "text": "<p>A requirement condition <code>a OR b</code> is mutated to <code>NOT (NOT a AND NOT b)</code>. This mutant is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — by De Morgan's law it denotes the same function as, so it cannot be killed",
+              "fraction": 100,
+              "feedback": "Correct — NOT (NOT a AND NOT b) is exactly a OR b."
+            },
+            {
+              "text": "Non-equivalent because AND now appears",
+              "fraction": 0,
+              "feedback": "The negations restore the OR meaning under De Morgan's law."
+            },
+            {
+              "text": "Killed whenever exactly one of a, b is true",
+              "fraction": 0,
+              "feedback": "Both forms give true then, so they still agree; no test distinguishes them."
+            },
+            {
+              "text": "Only equivalent when a equals b",
+              "fraction": 0,
+              "feedback": "They agree on all four assignments, not only when a equals b."
+            }
+          ],
+          "generalFeedback": "De Morgan's law gives a OR b is equivalent to NOT (NOT a AND NOT b). The mutant computes the identical boolean function, so it is an equivalent spec mutant.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Absorption law equivalent mutant",
+          "text": "<p>A requirement <code>a AND (a OR b)</code> is mutated to <code>a AND (a OR c)</code> (operand b replaced by c). The mutant is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — by absorptionreduces to, so both forms equal; this also reveals the second clause is redundant",
+              "fraction": 100,
+              "feedback": "Correct — the value depends only on a, so replacing b by c changes nothing."
+            },
+            {
+              "text": "Killed by any test where b and c differ",
+              "fraction": 0,
+              "feedback": "Since the whole expression equals a, the value of b or c never matters; no such test kills it."
+            },
+            {
+              "text": "Non-equivalent because c is a new variable",
+              "fraction": 0,
+              "feedback": "Introducing c has no effect: the expression reduces to a regardless."
+            },
+            {
+              "text": "Stronger than the original",
+              "fraction": 0,
+              "feedback": "Both are equivalent to a; neither is stronger."
+            }
+          ],
+          "generalFeedback": "By the absorption law, a AND (a OR X) equals a for any X. So both the original and the mutant equal a, making the mutant equivalent. Its unkillability exposes that the \"(a OR ...)\" clause is redundant in the requirement.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Trap property to witness a behavior",
+          "text": "<p>A model checker returns a trace only when a property is <em>violated</em>. To obtain a trace that <em>witnesses</em> a desired behavior B (for use as a test), you can:</p>",
+          "answers": [
+            {
+              "text": "Assert a \"trap\" property claiming B never occurs; the model checker's counterexample is then a trace exhibiting B",
+              "fraction": 100,
+              "feedback": "Correct — negating the behavior of interest makes the counterexample a witness of it."
+            },
+            {
+              "text": "Assert that B always occurs and take the proof as the test",
+              "fraction": 0,
+              "feedback": "A proof (no violation) yields no trace; you need a violated property to get a counterexample."
+            },
+            {
+              "text": "Disable the model checker and enumerate inputs by hand",
+              "fraction": 0,
+              "feedback": "The trap-property technique uses the checker itself; manual enumeration is not the method."
+            },
+            {
+              "text": "Remove all properties so every trace is a counterexample",
+              "fraction": 0,
+              "feedback": "With no property there is nothing to violate, so no counterexample is produced."
+            }
+          ],
+          "generalFeedback": "Because a counterexample is produced only for a violated property, test-generation methods assert a \"trap\" (never-claim) property stating the behavior of interest never happens. The model checker then returns a counterexample that is exactly a trace realizing that behavior.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Next-operator mutation",
+          "text": "<p>A property <code>p</code> is mutated to <code>X p</code> (next p). In general this mutant is:</p>",
+          "answers": [
+            {
+              "text": "Non-equivalent — X p refers to the next state, so it differs from p evaluated at the current state",
+              "fraction": 100,
+              "feedback": "Correct — shifting the evaluation point by one state generally changes meaning."
+            },
+            {
+              "text": "Equivalent — X p always means the same as p",
+              "fraction": 0,
+              "feedback": "X p is about the next state, not the current one, so it differs in general."
+            },
+            {
+              "text": "Equivalent — because every path repeats",
+              "fraction": 0,
+              "feedback": "Paths do not generally repeat, and even so X shifts the evaluation point."
+            },
+            {
+              "text": "Malformed — X cannot be applied to an atomic property",
+              "fraction": 0,
+              "feedback": "X can be applied to any subformula, including an atomic one."
+            }
+          ],
+          "generalFeedback": "X p asserts p holds in the next state, whereas p asserts it in the current state. On a path where p holds now but not next (or vice versa), the two differ, so the mutation is generally non-equivalent and killable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Commutativity equivalent mutant",
+          "text": "<p>A logical-operand-swap mutation changes a side-effect-free spec condition <code>a AND b</code> to <code>b AND a</code>. This mutant is:</p>",
+          "answers": [
+            {
+              "text": "Equivalent — AND is commutative in a side-effect-free specification, so the two forms are identical and cannot be killed",
+              "fraction": 100,
+              "feedback": "Correct — order of operands does not matter for a pure boolean condition."
+            },
+            {
+              "text": "Non-equivalent because the operands were reordered",
+              "fraction": 0,
+              "feedback": "Reordering a commutative operator does not change a side-effect-free condition's meaning."
+            },
+            {
+              "text": "Killed by any test where a and b differ",
+              "fraction": 0,
+              "feedback": "a AND b and b AND a agree on every assignment, so no such test kills it."
+            },
+            {
+              "text": "Equivalent only when a equals b",
+              "fraction": 0,
+              "feedback": "They agree on all assignments, not only when a equals b."
+            }
+          ],
+          "generalFeedback": "Boolean AND is commutative, so in a specification without evaluation-order side effects, a AND b equals b AND a. The mutant denotes the same function — an equivalent spec mutant. (In short-circuiting code with side effects, order can matter; that is a program, not spec, concern.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Value of a test from a killed spec mutant",
+          "text": "<p>A test derived from a <em>killed</em> spec mutant is valuable because, when executed on an implementation, it:</p>",
+          "answers": [
+            {
+              "text": "Distinguishes the original spec's behavior from the mutant's, so an implementation that matches the mutated (faulty) spec instead of the original will fail",
+              "fraction": 100,
+              "feedback": "Correct — the test targets exactly the behavior on which the two specs disagree."
+            },
+            {
+              "text": "Guarantees the implementation is free of all faults",
+              "fraction": 0,
+              "feedback": "One targeted test cannot prove global correctness."
+            },
+            {
+              "text": "Exercises every path in the implementation",
+              "fraction": 0,
+              "feedback": "It is a single distinguishing trace, not a full path tour."
+            },
+            {
+              "text": "Is independent of both the original and mutant specs",
+              "fraction": 0,
+              "feedback": "It is derived precisely from where the two specs differ, so it depends on both."
+            }
+          ],
+          "generalFeedback": "The killing test is a trace where the original and mutant specs disagree. Running it against an implementation checks whether the implementation follows the intended (original) behavior; an implementation exhibiting the mutant's faulty behavior would fail the test.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "規格突變所突變的對象",
+          "text": "<p>規格突變測試（specification mutation testing）將突變運算子套用於：</p>",
+          "answers": [
+            {
+              "text": "系統的規格或模型（例如一條需求、一台 FSM、或一條時序邏輯性質），而非程式原始碼",
+              "fraction": 100,
+              "feedback": "正確——在規格突變中被更動的對象是規格／模型，而不是程式碼。"
+            },
+            {
+              "text": "程式的原始碼",
+              "fraction": 0,
+              "feedback": "突變原始碼屬於程式（碼）突變，是另一種技術。"
+            },
+            {
+              "text": "程式編譯後的二進位檔",
+              "fraction": 0,
+              "feedback": "規格突變作用於規格，不是編譯後的碼。"
+            },
+            {
+              "text": "測試案例本身",
+              "fraction": 0,
+              "feedback": "測試案例是我們評估或生成的對象；規格突變更動的是規格。"
+            }
+          ],
+          "generalFeedback": "規格突變把突變運算子套用到規格或模型——布林／邏輯需求、有限狀態機（FSM）、或時序邏輯性質——而不是套用到程式碼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "突變規格",
+          "text": "<p><em>突變規格</em>（mutant specification）是指：</p>",
+          "answers": [
+            {
+              "text": "原始規格的複本，其中由突變運算子引入了一個微小的改動",
+              "fraction": 100,
+              "feedback": "正確——突變規格是被刻意植入一個微小改動的原始規格。"
+            },
+            {
+              "text": "使用者在實際環境中回報的規格缺陷",
+              "fraction": 0,
+              "feedback": "突變規格是刻意植入的人造改動，不是現場回報的缺陷。"
+            },
+            {
+              "text": "由規格衍生出的測試案例",
+              "fraction": 0,
+              "feedback": "那是一個測試，不是突變規格。"
+            },
+            {
+              "text": "模型檢查器產生的執行軌跡",
+              "fraction": 0,
+              "feedback": "那是反例／軌跡，不是突變規格。"
+            }
+          ],
+          "generalFeedback": "突變規格是套用規格突變運算子後產生的規格變體，做出一個微小改動（例如將某子句取反），就像程式突變體是對程式碼做的微小改動一樣。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "被刻意更動的對象",
+          "text": "<p>在規格突變中，被刻意更動以建立突變體的對象是：</p>",
+          "answers": [
+            {
+              "text": "規格／模型",
+              "fraction": 100,
+              "feedback": "正確——被突變的是規格或模型。"
+            },
+            {
+              "text": "原始碼",
+              "fraction": 0,
+              "feedback": "更動原始碼屬於程式突變，而非規格突變。"
+            },
+            {
+              "text": "測試框架（test harness）",
+              "fraction": 0,
+              "feedback": "測試框架是基礎設施，不是被突變的對象。"
+            },
+            {
+              "text": "輸入資料檔",
+              "fraction": 0,
+              "feedback": "輸入資料不是規格突變運算子更動的對象。"
+            }
+          ],
+          "generalFeedback": "規格突變將改動植入規格或模型（一條需求、一台 FSM、或一條時序性質），而讓程式碼維持不變。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "規格突變與程式突變之別",
+          "text": "<p><em>規格突變</em>與<em>程式（碼）突變</em>之間的關鍵差異是：</p>",
+          "answers": [
+            {
+              "text": "規格突變更動規格／模型，而程式突變更動程式的原始碼",
+              "fraction": 100,
+              "feedback": "正確——兩者的差別在於被突變的對象不同。"
+            },
+            {
+              "text": "規格突變使用隨機輸入，程式突變則是系統化的",
+              "fraction": 0,
+              "feedback": "兩者都使用系統化的突變運算子；差別在被突變的對象。"
+            },
+            {
+              "text": "規格突變不需要突變運算子",
+              "fraction": 0,
+              "feedback": "兩者都仰賴突變運算子；規格突變只是把它們套用到規格上。"
+            },
+            {
+              "text": "它們是同一種技術的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們是不同的：一個突變規格，一個突變程式碼。"
+            }
+          ],
+          "generalFeedback": "兩者都是突變技術，但程式突變把故障植入程式碼並執行測試去偵測；規格突變則把改動植入規格／模型，以評估或生成測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "殺死規格突變體",
+          "text": "<p>一個<em>突變規格被殺死（killed）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "某個測試或分析能區分突變規格所描述的行為與原始規格的行為",
+              "fraction": 100,
+              "feedback": "正確——突變規格與原始規格之間可觀察的差異即可殺死它。"
+            },
+            {
+              "text": "突變規格無法被解析（parse）",
+              "fraction": 0,
+              "feedback": "格式錯誤的突變體會被丟棄，而不是因行為差異被「殺死」。"
+            },
+            {
+              "text": "突變規格比原始規格更長",
+              "fraction": 0,
+              "feedback": "長度與殺死無關；殺死需要行為上的差異。"
+            },
+            {
+              "text": "原始規格被證明為正確",
+              "fraction": 0,
+              "feedback": "殺死關乎區分突變體與原始規格，而非證明其正確性。"
+            }
+          ],
+          "generalFeedback": "當某個測試案例（或一次模型檢查）顯示突變規格與原始規格在某項行為上不一致時，該規格突變體即被殺死。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價規格突變體",
+          "text": "<p><em>等價規格突變體</em>（equivalent spec mutant）是指一個突變規格：</p>",
+          "answers": [
+            {
+              "text": "在語法上與原始規格不同，但語意上完全相同，因此沒有任何測試能區分兩者",
+              "fraction": 100,
+              "feedback": "正確——語意相同就永遠無法被殺死。"
+            },
+            {
+              "text": "在文字上與原始規格完全相同",
+              "fraction": 0,
+              "feedback": "突變一定會引入語法上的改動；文字完全相同就不是突變體。"
+            },
+            {
+              "text": "永遠與原始規格相矛盾",
+              "fraction": 0,
+              "feedback": "相矛盾的突變體語意不同、可被殺死；等價者則語意相同。"
+            },
+            {
+              "text": "無法以該規格語言表達",
+              "fraction": 0,
+              "feedback": "等價與否關乎語意，而非可表達性。"
+            }
+          ],
+          "generalFeedback": "等價規格突變體在語法上與原始規格不同，但對每個輸入都表示完全相同的行為，因此沒有任何測試或模型檢查能區分（殺死）它。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "基於模型的突變測試",
+          "text": "<p><em>基於模型的突變測試</em>（model-based mutation testing）是指：</p>",
+          "answers": [
+            {
+              "text": "將突變運算子套用於系統的行為模型（例如一台 FSM），而非程式碼",
+              "fraction": 100,
+              "feedback": "正確——被突變的是模型。"
+            },
+            {
+              "text": "建立一個統計模型來描述每個程式碼突變體被殺死的頻率",
+              "fraction": 0,
+              "feedback": "那不是基於模型突變的意思；這裡模型才是被突變的對象。"
+            },
+            {
+              "text": "只突變程式的資料模型（資料庫綱要）",
+              "fraction": 0,
+              "feedback": "此處「模型」指行為模型／規格，並非特指資料庫綱要。"
+            },
+            {
+              "text": "隨機突變模型檢查器的演算法",
+              "fraction": 0,
+              "feedback": "模型檢查器是工具，不是被突變的對象。"
+            }
+          ],
+          "generalFeedback": "基於模型的突變測試把突變植入模型（例如 FSM 或形式規格），並用模型與其突變體之間的差異來評估或生成測試——這是規格突變的一種形式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "目的：適切性",
+          "text": "<p>規格突變的其中一個目的是：</p>",
+          "answers": [
+            {
+              "text": "評估測試套組的適切性（adequacy），或評估規格本身的品質／完整性",
+              "fraction": 100,
+              "feedback": "正確——被殺死的突變體可衡量測試（或規格）掌握預期行為的程度。"
+            },
+            {
+              "text": "自動修復程式中的缺陷",
+              "fraction": 0,
+              "feedback": "規格突變是評估或生成測試，並不修改程式碼。"
+            },
+            {
+              "text": "證明程式沒有任何缺陷",
+              "fraction": 0,
+              "feedback": "沒有任何突變技術能證明所有缺陷都不存在。"
+            },
+            {
+              "text": "把規格壓縮成較少的狀態",
+              "fraction": 0,
+              "feedback": "那是模型最小化，不是規格突變的目的。"
+            }
+          ],
+          "generalFeedback": "規格突變用來（甲）評估測試套組的適切性或規格品質，以及（乙）生成測試。測量某套組能殺死哪些規格突變體，即可衡量其適切性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "目的：測試生成",
+          "text": "<p>規格突變可用於<em>生成測試</em>，方法是：</p>",
+          "answers": [
+            {
+              "text": "將模型檢查器針對突變後性質所產生的反例當作測試案例",
+              "fraction": 100,
+              "feedback": "正確——能區分突變體與原始規格的反例即成為測試。"
+            },
+            {
+              "text": "將突變規格編譯成可執行檔",
+              "fraction": 0,
+              "feedback": "編譯規格本身並不會產生測試案例。"
+            },
+            {
+              "text": "計算規格中子句的數量",
+              "fraction": 0,
+              "feedback": "計算子句是一種度量，不是測試生成方法。"
+            },
+            {
+              "text": "移除規格中所有時序運算子",
+              "fraction": 0,
+              "feedback": "那會改變規格的語意，且無法生成測試。"
+            }
+          ],
+          "generalFeedback": "模型檢查器將突變後的性質對模型檢查，會回傳一個反例——一條突變體與原始規格不一致的軌跡。該軌跡即被轉為測試案例。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "規格突變運算子範例",
+          "text": "<p>下列何者是<em>規格</em>突變運算子的例子？</p>",
+          "answers": [
+            {
+              "text": "對需求中的某個子句取反（例如條件 C 變成 NOT C）",
+              "fraction": 100,
+              "feedback": "正確——對需求子句取反即突變了規格。"
+            },
+            {
+              "text": "在實作中刪除一行 C++ 原始碼",
+              "fraction": 0,
+              "feedback": "那突變的是程式碼，屬於程式突變。"
+            },
+            {
+              "text": "重新命名程式中的某個區域變數",
+              "fraction": 0,
+              "feedback": "那是程式碼層級的改動，不是規格改動。"
+            },
+            {
+              "text": "在程式運算式中插入一個一元負號",
+              "fraction": 0,
+              "feedback": "那是程式碼突變運算子（UOI），不是規格運算子。"
+            }
+          ],
+          "generalFeedback": "規格突變運算子更動的是規格：對子句取反、在需求中替換關係／邏輯／時序運算子、或重導 FSM 轉移。對原始碼的改動則屬於程式突變。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "時序運算子 G",
+          "text": "<p>在線性時序邏輯（LTL）中，對性質 <code>p</code> 套用運算子 <strong>G</strong>（globally）表示 <code>p</code>：</p>",
+          "answers": [
+            {
+              "text": "在路徑上的每一個狀態都成立（永遠成立）",
+              "fraction": 100,
+              "feedback": "正確——G 表示「永遠／全域」。"
+            },
+            {
+              "text": "在至少一個未來狀態成立",
+              "fraction": 0,
+              "feedback": "那是 F（eventually），不是 G。"
+            },
+            {
+              "text": "只在緊接的下一個狀態成立",
+              "fraction": 0,
+              "feedback": "那是 X（next），不是 G。"
+            },
+            {
+              "text": "直到另一個性質成立為止都成立",
+              "fraction": 0,
+              "feedback": "那是 U（until）運算子，不是 G。"
+            }
+          ],
+          "generalFeedback": "在 LTL 中，G p（「全域 p」）主張 p 在執行路徑的每一個狀態都為真——即「永遠」運算子。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "時序運算子 F",
+          "text": "<p>在線性時序邏輯（LTL）中，對 <code>p</code> 套用 <strong>F</strong>（eventually／finally）表示 <code>p</code>：</p>",
+          "answers": [
+            {
+              "text": "在當前或某個未來狀態成立",
+              "fraction": 100,
+              "feedback": "正確——F 表示「終究會」。"
+            },
+            {
+              "text": "在路徑上的每一個狀態都成立",
+              "fraction": 0,
+              "feedback": "那是 G（globally），不是 F。"
+            },
+            {
+              "text": "只在緊接的下一個狀態成立",
+              "fraction": 0,
+              "feedback": "那是 X（next），不是 F。"
+            },
+            {
+              "text": "永遠不成立",
+              "fraction": 0,
+              "feedback": "F 主張 p 在某個時點確實成立，與「永不」相反。"
+            }
+          ],
+          "generalFeedback": "在 LTL 中，F p（「終究 p」）主張 p 會在路徑上當前或稍後的某個狀態成為真。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "反例的定義",
+          "text": "<p>當模型檢查器發現某性質被模型違反時，會產生一個<em>反例（counterexample）</em>，它是：</p>",
+          "answers": [
+            {
+              "text": "模型中一條違反該性質的具體執行軌跡",
+              "fraction": 100,
+              "feedback": "正確——反例是一條見證違反的軌跡。"
+            },
+            {
+              "text": "一個修正後、現在能成立的性質",
+              "fraction": 0,
+              "feedback": "檢查器回傳的是違反的軌跡，不是改寫後的性質。"
+            },
+            {
+              "text": "該性質在模型上成立的證明",
+              "fraction": 0,
+              "feedback": "反例展示的是違反，而非正確性的證明。"
+            },
+            {
+              "text": "與模型無關的隨機輸入",
+              "fraction": 0,
+              "feedback": "反例是模型的一條特定軌跡，不是隨機輸入。"
+            }
+          ],
+          "generalFeedback": "反例是模型的一串具體狀態（一條執行軌跡），展示該性質如何被違反。這條軌跡正是規格突變測試生成所轉成的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識規格突變",
+          "text": "<p>下列哪一項活動屬於<em>規格</em>突變（而非程式突變）？</p>",
+          "answers": [
+            {
+              "text": "在一條 LTL 需求中將 G 替換為 F，並重新對模型檢查",
+              "fraction": 100,
+              "feedback": "正確——被突變的是需求（規格）。"
+            },
+            {
+              "text": "在某 C 函式中把 + 換成 - 並重新執行測試",
+              "fraction": 0,
+              "feedback": "那突變的是程式碼——屬於程式突變。"
+            },
+            {
+              "text": "刪除原始碼中的一個敘述並重新執行測試",
+              "fraction": 0,
+              "feedback": "刪除原始碼敘述屬於程式突變。"
+            },
+            {
+              "text": "在程式運算式中插入一元負號",
+              "fraction": 0,
+              "feedback": "那是程式碼層級（UOI）突變。"
+            }
+          ],
+          "generalFeedback": "更動時序邏輯需求（G 換 F）突變的是規格。更動原始碼中的運算子、敘述或運算式則屬於程式突變。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "規格突變是否突變程式碼",
+          "text": "<p>規格突變測試的做法是突變程式的原始碼，並對其執行測試。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "突變原始碼屬於程式突變。規格突變改動的是規格／模型。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——規格突變突變的是規格或模型，而非原始碼（後者屬於程式突變）。"
+            }
+          ],
+          "generalFeedback": "規格突變把突變運算子套用到規格或模型（一條需求、一台 FSM、或一條時序性質）。突變原始碼則是另一項獨立的技術：程式突變。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "測試何時殺死突變規格",
+          "text": "<p>一個測試案例何時會殺死一個突變規格？</p>",
+          "answers": [
+            {
+              "text": "該測試在突變規格下的預期結果，與在原始規格下的預期結果不同",
+              "fraction": 100,
+              "feedback": "正確——兩份規格對它會做出不同判定的測試即可殺死突變體。"
+            },
+            {
+              "text": "該測試在模型檢查器上執行得很快",
+              "fraction": 0,
+              "feedback": "執行速度與殺死突變體無關。"
+            },
+            {
+              "text": "該測試在原始規格上通過",
+              "fraction": 0,
+              "feedback": "僅通過原始規格並不能區分突變體；必須兩者之間有不一致。"
+            },
+            {
+              "text": "突變規格的狀態數比原始規格多",
+              "fraction": 0,
+              "feedback": "狀態數無關緊要；殺死需要行為上的不一致。"
+            }
+          ],
+          "generalFeedback": "當某測試會被突變規格與原始規格做出不同判定時——即兩份規格對該測試的預期行為不一致——該規格突變體即被殺死。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "條件取反運算子",
+          "text": "<p>將<em>條件取反</em>規格突變運算子套用於需求守衛 <code>temp &gt; 100</code>，會產生哪個突變體？</p>",
+          "answers": [
+            {
+              "text": "<code>NOT (temp &gt; 100)</code>",
+              "fraction": 100,
+              "feedback": "正確——條件取反將守衛包在邏輯 NOT 之中。"
+            },
+            {
+              "text": "<code>temp &gt;= 100</code>",
+              "fraction": 0,
+              "feedback": "那是關係運算子替換，不是取反。"
+            },
+            {
+              "text": "<code>temp &gt; 200</code>",
+              "fraction": 0,
+              "feedback": "那是運算元改動，不是取反。"
+            },
+            {
+              "text": "<code>temp &gt; 100 AND active</code>",
+              "fraction": 0,
+              "feedback": "那是加入一個合取項（守衛強化），不是取反。"
+            }
+          ],
+          "generalFeedback": "條件取反把需求的條件 C 換成 NOT C。此處變成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需求中的關係運算子替換",
+          "text": "<p>在需求「當 <code>pressure &gt;= threshold</code> 時警報響起」中，將 <code>&gt;=</code> 換成 <code>&gt;</code> 是一個規格突變運算子，其作用為：</p>",
+          "answers": [
+            {
+              "text": "替換一個關係運算子，改變該需求在邊界上的行為",
+              "fraction": 100,
+              "feedback": "正確——它改變了在這一點的結果。"
+            },
+            {
+              "text": "從需求中刪除一個子句",
+              "fraction": 0,
+              "feedback": "沒有子句被移除；被更動的是一個關係運算子。"
+            },
+            {
+              "text": "更動一個時序運算子",
+              "fraction": 0,
+              "feedback": "此處並不涉及任何時序運算子。"
+            },
+            {
+              "text": "重導一個狀態機轉移",
+              "fraction": 0,
+              "feedback": "這是條件中的關係改動，不是轉移重導。"
+            }
+          ],
+          "generalFeedback": "替換關係運算子（此處換成）會改變需求在邊界值的行為；殺死它的測試必須包含該邊界。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "FSM 轉移重導",
+          "text": "<p>在一台 FSM 規格中，改變某轉移目的地的突變運算子（例如輸入 <code>x</code> 時機器改往狀態 C 而非狀態 B）是：</p>",
+          "answers": [
+            {
+              "text": "轉移重導——改變一個轉移的目標狀態",
+              "fraction": 100,
+              "feedback": "正確——被更動的是轉移的目的地。"
+            },
+            {
+              "text": "關係運算子替換",
+              "fraction": 0,
+              "feedback": "此處不涉及關係運算子；改變的是轉移目標。"
+            },
+            {
+              "text": "時序運算子替換",
+              "fraction": 0,
+              "feedback": "此處不涉及時序運算子。"
+            },
+            {
+              "text": "條件取反",
+              "fraction": 0,
+              "feedback": "守衛沒有被取反；被改的是目的地狀態。"
+            }
+          ],
+          "generalFeedback": "重導轉移（改變某輸入導向何處）是標準的 FSM／模型突變運算子。其他 FSM 運算子則會改變觸發事件或守衛。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "邏輯運算子替換的效果",
+          "text": "<p>一次規格突變把需求條件中的 <strong>AND</strong> 換成 <strong>OR</strong>。與原始相比，突變後的條件：</p>",
+          "answers": [
+            {
+              "text": "較弱——在更多情況下成立（任一運算元為真即足夠）",
+              "fraction": 100,
+              "feedback": "正確——AND 需兩者為真；OR 只需其一，故 OR 更常成立。"
+            },
+            {
+              "text": "較強——在更少情況下成立",
+              "fraction": 0,
+              "feedback": "OR 比 AND 更常成立，故是較弱而非較強。"
+            },
+            {
+              "text": "語意不變",
+              "fraction": 0,
+              "feedback": "當兩個運算元真假值不同時，AND 與 OR 就會不同。"
+            },
+            {
+              "text": "只影響算術，不影響邏輯",
+              "fraction": 0,
+              "feedback": "AND／OR 是邏輯連接詞；此改動屬邏輯，非算術。"
+            }
+          ],
+          "generalFeedback": "把 AND 換成 OR（一種邏輯運算子突變，類比程式突變的 LOR）會弱化條件：只要任一運算元為真它就成立，是 AND 情況的超集。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "時序運算子突變 G 換 F",
+          "text": "<p>一次時序運算子突變把某性質中的 <code>G p</code> 換成 <code>F p</code>。這將需求從：</p>",
+          "answers": [
+            {
+              "text": "「p 在每個狀態都成立」改為「p 至少在一個狀態成立」——一個嚴格較弱的需求",
+              "fraction": 100,
+              "feedback": "正確——G（永遠）變成 F（終究），是較弱的。"
+            },
+            {
+              "text": "一個語意相同的等價改寫",
+              "fraction": 0,
+              "feedback": "G p 與 F p 不同：G p 蘊涵 F p，但反之不然。"
+            },
+            {
+              "text": "「p 在某個狀態成立」改為「p 在每個狀態成立」——一個較強的需求",
+              "fraction": 0,
+              "feedback": "那是相反方向；G 換 F 是弱化需求。"
+            },
+            {
+              "text": "一個只影響下一狀態的改動",
+              "fraction": 0,
+              "feedback": "下一狀態語意屬於 X，而非 G 或 F。"
+            }
+          ],
+          "generalFeedback": "G p（「永遠 p」）要求每個狀態都有 p；F p（「終究 p」）只要求某個狀態有 p。G p 蘊涵 F p，但反之不然，故此突變弱化該性質，並且通常改變其語意。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以突變後性質的反例作為測試",
+          "text": "<p>原始性質 <code>p</code> 在模型 <code>M</code> 上成立。要從突變性質 <code>p'</code> 生成一個測試，你會：</p>",
+          "answers": [
+            {
+              "text": "將 p' 對 M 做模型檢查；若 M 違反 p'，其反例軌跡即為一個能區分 p' 與 p 的測試",
+              "fraction": 100,
+              "feedback": "正確——由於 M ⊨ p，該違反的軌跡滿足 p 卻不滿足 p'，故能區分兩者。"
+            },
+            {
+              "text": "再次將 p 對 M 做模型檢查並丟棄結果",
+              "fraction": 0,
+              "feedback": "重新檢查原始性質並未用到突變體，也生成不出新東西。"
+            },
+            {
+              "text": "把 p' 編譯成程式碼並做效能分析",
+              "fraction": 0,
+              "feedback": "對編譯後的性質做效能分析不是此處衍生測試的方法。"
+            },
+            {
+              "text": "計算 M 中可達的狀態數",
+              "fraction": 0,
+              "feedback": "計算狀態數並不能產生能區分兩者的測試。"
+            }
+          ],
+          "generalFeedback": "將突變性質 p' 對 M 做模型檢查，當 M 違反 p' 時會得到一個反例。因為 M 滿足原始的 p，該軌跡滿足 p 卻不滿足 p'，故能區分兩份規格，成為測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以規格突變衡量測試套組適切性",
+          "text": "<p>要以規格突變<em>衡量測試套組的適切性</em>，你會：</p>",
+          "answers": [
+            {
+              "text": "生成一批突變規格，檢查套組的測試能區分其中多少比例與原始規格",
+              "fraction": 100,
+              "feedback": "正確——被殺死的規格突變體比例即衡量適切性。"
+            },
+            {
+              "text": "計算規格有多少行",
+              "fraction": 0,
+              "feedback": "規格長度不是適切性的度量。"
+            },
+            {
+              "text": "只把套組對原始規格執行一次",
+              "fraction": 0,
+              "feedback": "沒有突變體就沒有東西可殺死，也就衡量不出適切性。"
+            },
+            {
+              "text": "移除套組中所有失敗的測試",
+              "fraction": 0,
+              "feedback": "移除測試無法衡量對突變體的適切性。"
+            }
+          ],
+          "generalFeedback": "如同程式突變，你產生一批規格突變體，看測試套組能殺死（區分於原始規格）多少。被殺死的比例即為套組相對於規格的一項適切性度量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "沒有反例的突變性質",
+          "text": "<p>在以性質突變生成測試時，模型檢查器回報某<em>突變後</em>性質在模型上仍然成立（沒有反例）。這表示該突變體是：</p>",
+          "answers": [
+            {
+              "text": "相對於該模型為等價——無法透過模型被殺死，故不會產生測試",
+              "fraction": 100,
+              "feedback": "正確——沒有反例代表模型無法區分突變體與原始。"
+            },
+            {
+              "text": "被殺死——沒有反例即殺死了它",
+              "fraction": 0,
+              "feedback": "恰好相反：反例才能區分（殺死）它；沒有反例代表它存活。"
+            },
+            {
+              "text": "格式錯誤，必須丟棄",
+              "fraction": 0,
+              "feedback": "一個仍成立的良構突變體是等價，而非格式錯誤。"
+            },
+            {
+              "text": "證明了實作是正確的",
+              "fraction": 0,
+              "feedback": "它對實作毫無說明，只關乎模型與此突變體。"
+            }
+          ],
+          "generalFeedback": "若突變性質在模型上仍成立，就沒有反例能相對於該模型區分它與原始——它是（相對於模型的）等價突變體，不會生成測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "FSM 觸發事件突變",
+          "text": "<p>改變一個 FSM 轉移的觸發事件（例如它現在以輸入「coin」而非「button」觸發）是一個規格突變運算子，其作用為：</p>",
+          "answers": [
+            {
+              "text": "改變哪個輸入會引發該轉移，可能改變被接受的行為",
+              "fraction": 100,
+              "feedback": "正確——該轉移現在回應不同的輸入。"
+            },
+            {
+              "text": "改變機器中的狀態數量",
+              "fraction": 0,
+              "feedback": "狀態不變；改變的只是觸發輸入。"
+            },
+            {
+              "text": "對一條時序邏輯性質取反",
+              "fraction": 0,
+              "feedback": "FSM 事件改動並不涉及時序性質。"
+            },
+            {
+              "text": "完全刪除該轉移",
+              "fraction": 0,
+              "feedback": "轉移仍存在；改變的只是它的觸發條件。"
+            }
+          ],
+          "generalFeedback": "突變觸發轉移的事件／輸入是標準的 FSM 突變運算子；它改變哪些輸入驅動機器，因而改變被規定的行為。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何反例是好測試",
+          "text": "<p>對突變性質做模型檢查所得的反例之所以是好的測試案例，是因為：</p>",
+          "answers": [
+            {
+              "text": "它是一條突變規格與原始規格不一致的具體軌跡，故能揭示實作是否遵循正確的那一份",
+              "fraction": 100,
+              "feedback": "正確——它正好瞄準區分兩份規格的行為。"
+            },
+            {
+              "text": "它是隨機挑選的，能提供廣泛的涵蓋",
+              "fraction": 0,
+              "feedback": "反例是有針對性的，不是隨機的。"
+            },
+            {
+              "text": "它總會走遍模型的每一個狀態",
+              "fraction": 0,
+              "feedback": "反例是單一軌跡，不是走遍所有狀態的巡覽。"
+            },
+            {
+              "text": "它證明了規格是完整的",
+              "fraction": 0,
+              "feedback": "反例區分兩份規格，並不證明完整性。"
+            }
+          ],
+          "generalFeedback": "反例是原始與突變規格分歧之處的一條具體執行。將它對實作執行，即可檢查實作是否遵循預期（原始）規格，而非突變（有故障）的那份。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "SMV 情境分類",
+          "text": "<p>你有一個 SMV 模型與一條 LTL 需求。你更動該 LTL 公式並重新執行模型檢查器。這是：</p>",
+          "answers": [
+            {
+              "text": "規格（性質）突變，因為被更動的是需求——而非程式碼",
+              "fraction": 100,
+              "feedback": "正確——LTL 需求是規格的一部分。"
+            },
+            {
+              "text": "程式突變，因為模型檢查器執行了模型",
+              "fraction": 0,
+              "feedback": "執行檢查器不會使它變成程式突變；被突變的對象是需求。"
+            },
+            {
+              "text": "模糊測試（fuzz testing），因為輸入被變動了",
+              "fraction": 0,
+              "feedback": "並沒有對輸入做模糊變動；被突變的是一條公式。"
+            },
+            {
+              "text": "都不是——更動公式不算突變",
+              "fraction": 0,
+              "feedback": "更動 LTL 公式正是一種規格突變。"
+            }
+          ],
+          "generalFeedback": "突變一條 LTL／CTL 需求並重新檢查屬於規格突變：被突變的對象是需求（規格的一部分），而非程式碼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需求上的運算元替換運算子",
+          "text": "<p>一次規格突變把需求中的一個運算元換成另一個，將 <code>level &gt; max</code> 變成 <code>level &gt; min</code>。這是：</p>",
+          "answers": [
+            {
+              "text": "對規格所做的運算元（變數）替換突變",
+              "fraction": 100,
+              "feedback": "正確——一個變數運算元被換成了另一個。"
+            },
+            {
+              "text": "關係運算子替換",
+              "fraction": 0,
+              "feedback": "關係運算子未變；被換的是一個運算元。"
+            },
+            {
+              "text": "時序運算子替換",
+              "fraction": 0,
+              "feedback": "此處不涉及時序運算子。"
+            },
+            {
+              "text": "轉移重導",
+              "fraction": 0,
+              "feedback": "此處不涉及 FSM 轉移；這是條件運算元的改動。"
+            }
+          ],
+          "generalFeedback": "替換變數運算元（此處換成）是運算元／變數替換規格突變，類比程式突變中的變數替換。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "模型突變替代做法",
+          "text": "<p>基於模型的突變測試除了突變性質外，也可以突變<em>模型</em>本身，然後：</p>",
+          "answers": [
+            {
+              "text": "把原始需求對突變模型做檢查；現在被違反的需求會產生一個能區分兩個模型的反例",
+              "fraction": 100,
+              "feedback": "正確——該反例把原始模型與突變體區分開來。"
+            },
+            {
+              "text": "刪除所有需求，只保留突變模型",
+              "fraction": 0,
+              "feedback": "需要需求才能偵測突變體的差異，不能刪除它們。"
+            },
+            {
+              "text": "也一併突變原始碼以相符",
+              "fraction": 0,
+              "feedback": "模型突變改動的是模型，不是程式碼。"
+            },
+            {
+              "text": "在沒有任何性質的情況下執行突變模型",
+              "fraction": 0,
+              "feedback": "沒有性質，檢查器就沒有可違反的對象，也就得不到測試。"
+            }
+          ],
+          "generalFeedback": "可以突變模型，再把原始需求對它檢查。若突變模型違反了原始所滿足的某需求，其反例就是一條區分模型與突變體的軌跡——一個能殺死該模型突變體的測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "關係突變的邊界",
+          "text": "<p>在需求中將 <code>x &gt;= 5</code> 突變成 <code>x &gt; 5</code>，會改變被規定的行為：</p>",
+          "answers": [
+            {
+              "text": "只在 x = 5 處改變；殺死它的測試必須包含該邊界值",
+              "fraction": 100,
+              "feedback": "正確——兩個條件除了 x = 5 之外處處一致。"
+            },
+            {
+              "text": "對所有 x 值都改變",
+              "fraction": 0,
+              "feedback": "除了正好在 5，其他每個 x 兩者都一致。"
+            },
+            {
+              "text": "只對負的 x 改變",
+              "fraction": 0,
+              "feedback": "負的 x 兩者一致；它們只在 x = 5 不同。"
+            },
+            {
+              "text": "永遠不改變——該突變體為等價",
+              "fraction": 0,
+              "feedback": "它不是等價：x = 5 就能區分與。"
+            }
+          ],
+          "generalFeedback": "與只在 x = 5 不同（真與假）。省略邊界的測試無法殺死此突變體，故殺死它的測試必須包含 x = 5。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "De Morgan 等價突變體（AND 形式）",
+          "text": "<p>一條需求守衛 <code>NOT (a AND b)</code> 被突變成 <code>NOT a OR NOT b</code>。這個突變體是：</p>",
+          "answers": [
+            {
+              "text": "等價——依 De Morgan 定律兩種形式在邏輯上完全相同，故無法被殺死",
+              "fraction": 100,
+              "feedback": "正確——NOT (a AND b) 正好就是 NOT a OR NOT b。"
+            },
+            {
+              "text": "只要有 a 與 b 不同的測試就能殺死",
+              "fraction": 0,
+              "feedback": "兩種形式在每一種賦值下都一致，故沒有測試能區分它們。"
+            },
+            {
+              "text": "非等價，因為 OR 取代了 AND",
+              "fraction": 0,
+              "feedback": "外層的取反使得整個運算式在 De Morgan 定律下等價。"
+            },
+            {
+              "text": "格式錯誤，因此應丟棄",
+              "fraction": 0,
+              "feedback": "它是良構且邏輯等價的，並非格式錯誤。"
+            }
+          ],
+          "generalFeedback": "De Morgan 定律指出 NOT (a AND b) 等價於 NOT a OR NOT b。此突變體表示完全相同的布林函數，故是無法被任何測試殺死的等價規格突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "G 換 F 是等價突變嗎",
+          "text": "<p>在某性質中把 <code>G p</code> 換成 <code>F p</code>，是一個<em>等價</em>突變嗎？</p>",
+          "answers": [
+            {
+              "text": "不是——G p（永遠）與 F p（終究）語意不同（G p 蘊涵 F p，但反之不然），故通常改變規格且可被殺死",
+              "fraction": 100,
+              "feedback": "正確——這兩個運算子不可互換。"
+            },
+            {
+              "text": "是——G 與 F 永遠是同一個意思",
+              "fraction": 0,
+              "feedback": "並非如此：「永遠」嚴格強於「終究」。"
+            },
+            {
+              "text": "是——F p 蘊涵 G p，故兩者一致",
+              "fraction": 0,
+              "feedback": "F p 並不蘊涵 G p；蘊涵方向恰好相反。"
+            },
+            {
+              "text": "不是——但只因為 F 在 LTL 中未定義",
+              "fraction": 0,
+              "feedback": "F 是標準的 LTL 運算子；原因在於語意不同，而非未定義。"
+            }
+          ],
+          "generalFeedback": "G p 要求每個狀態都有 p；F p 只要求某處有 p。G p 蘊涵 F p，但反之不然，故此突變改變性質語意——它非等價且通常可被殺死（一條「p 有時成立但非永遠」的軌跡即可區分兩者）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何突變性質會產生能區分的反例",
+          "text": "<p>將突變性質 <code>p'</code> 對模型 <code>M</code> 做模型檢查（原始 <code>p</code> 在 <code>M</code> 上成立），得到一個反例。為何該軌跡能區分突變體與原始？</p>",
+          "answers": [
+            {
+              "text": "該軌跡是 M 的一條違反 p' 的執行；由於 M 滿足 p，同一條軌跡也滿足 p，故 p 與 p' 在它上不一致",
+              "fraction": 100,
+              "feedback": "正確——該軌跡滿足 p 卻不滿足 p'，正好區分兩者。"
+            },
+            {
+              "text": "反例的產生與 p 及 p' 皆無關",
+              "fraction": 0,
+              "feedback": "反例正是 p' 的一個違反，故與突變體緊密相關。"
+            },
+            {
+              "text": "因為 p' 在語法上比 p 長",
+              "fraction": 0,
+              "feedback": "語法長度無關緊要；區分力來自軌跡上的語意不一致。"
+            },
+            {
+              "text": "因為模型檢查器把 p 改寫成 p'",
+              "fraction": 0,
+              "feedback": "檢查器不會改寫原始性質；它找的是一條違反 p' 的軌跡。"
+            }
+          ],
+          "generalFeedback": "反例依定義違反 p'。由於 M 滿足原始的 p，M 的每一條軌跡（包括這條）都滿足 p。故該軌跡滿足 p 卻不滿足 p'——一個兩份規格相異的具體見證，這正是它可作為測試的原因。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "無法殺死的突變體代表冗餘",
+          "text": "<p>某需求的一個子句被突變，但沒有任何測試（也沒有任何模型檢查）能殺死所產生的突變體。這最可能表示：</p>",
+          "answers": [
+            {
+              "text": "該突變體是等價的，這暗示該子句是冗餘的（或規格過度約束）——它不影響被規定的行為",
+              "fraction": 100,
+              "feedback": "正確——無法殺死的突變指向一個對語意無影響的子句。"
+            },
+            {
+              "text": "測試套組完全適切",
+              "fraction": 0,
+              "feedback": "無法殺死的突變體是等價；它對套組適切性無正面說明。"
+            },
+            {
+              "text": "規格保證完整",
+              "fraction": 0,
+              "feedback": "單一突變體的等價並不蘊涵整份規格的完整性。"
+            },
+            {
+              "text": "程式含有故障",
+              "fraction": 0,
+              "feedback": "這關乎規格的結構，而非程式故障。"
+            }
+          ],
+          "generalFeedback": "若突變一個子句從不改變被規定的行為，該突變體即為等價——這是該子句冗餘或需求過度約束的證據。規格突變因而能揭露冗餘並協助評估規格品質。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類 CTL 性質植入故障的流程",
+          "text": "<p>某團隊在一條 CTL 性質中植入一個故障，重新執行模型檢查器以取得反例，再把它轉成測試。下列何者最能描述這件事？</p>",
+          "answers": [
+            {
+              "text": "規格（基於模型）突變測試——性質被突變，而反例成為測試",
+              "fraction": 100,
+              "feedback": "正確——突變一條 CTL 性質並由反例衍生測試屬於規格突變。"
+            },
+            {
+              "text": "程式突變——因為最後產生了一個測試",
+              "fraction": 0,
+              "feedback": "產生測試不使它成為程式突變；被突變的對象是性質。"
+            },
+            {
+              "text": "結構化程式碼涵蓋度量",
+              "fraction": 0,
+              "feedback": "並未度量任何程式碼結構；被突變的是一條性質。"
+            },
+            {
+              "text": "輸入定義域的等價類劃分",
+              "fraction": 0,
+              "feedback": "那是黑箱輸入劃分技術，與突變 CTL 性質無關。"
+            }
+          ],
+          "generalFeedback": "在時序（CTL）性質中植入故障，並用模型檢查器的反例作為測試，屬於規格／基於模型的突變：被突變的對象是性質，而反例把它與原始區分開來。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "時序冪等等價突變體",
+          "text": "<p>某性質 <code>F p</code> 被突變成 <code>F F p</code>（「終究終究 p」）。這個突變體是：</p>",
+          "answers": [
+            {
+              "text": "等價——F 具冪等性，故 F F p 在邏輯上與 F p 相同，無法被殺死",
+              "fraction": 100,
+              "feedback": "正確——F F p ≡ F p。"
+            },
+            {
+              "text": "非等價——F F p 需要 p 兩次",
+              "fraction": 0,
+              "feedback": "F F p 並不「需要兩次 p」；它化簡為 F p。"
+            },
+            {
+              "text": "非等價——它比 F p 更強",
+              "fraction": 0,
+              "feedback": "兩者強度相等；F F p ≡ F p。"
+            },
+            {
+              "text": "格式錯誤——F 不能巢狀",
+              "fraction": 0,
+              "feedback": "時序運算子可以巢狀；此處只是化簡為 F p。"
+            }
+          ],
+          "generalFeedback": "終究運算子具冪等性：F F p 等價於 F p（同理 G G p ≡ G p）。故此突變產生一個無法被任何測試殺死的等價規格突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "實務上的限制",
+          "text": "<p>規格／模型突變測試在實務上的兩大限制是：</p>",
+          "answers": [
+            {
+              "text": "偵測等價突變體很困難（一般而言不可判定），而且對眾多突變體做模型檢查可能遭遇狀態空間爆炸",
+              "fraction": 100,
+              "feedback": "正確——等價突變體與模型規模是經典限制。"
+            },
+            {
+              "text": "無法為規格定義突變運算子，且模型從不具有狀態",
+              "fraction": 0,
+              "feedback": "規格突變運算子有明確定義，模型也確實有狀態。"
+            },
+            {
+              "text": "模型檢查器無法產生反例，且規格無法被突變",
+              "fraction": 0,
+              "feedback": "兩者皆非：檢查器會產生反例，規格也能被突變。"
+            },
+            {
+              "text": "它需要原始碼，且無法使用模型",
+              "fraction": 0,
+              "feedback": "恰好相反——它作用於規格／模型，且不需要原始碼。"
+            }
+          ],
+          "generalFeedback": "如同程式突變，規格突變面臨等價突變體問題（等價一般而言不可判定）。此外，對大型模型檢查眾多突變性質／模型可能遭遇狀態空間爆炸，限制其可擴充性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "沒有反例即相對於模型等價",
+          "text": "<p>在以性質突變生成測試時，一個模型<em>仍然滿足</em>的突變性質：</p>",
+          "answers": [
+            {
+              "text": "不會產生反例、因而不會產生測試——它是相對於該模型的等價突變體",
+              "fraction": 100,
+              "feedback": "正確——沒有可違反的對象，模型就無法區分它與原始。"
+            },
+            {
+              "text": "會產生最強的測試",
+              "fraction": 0,
+              "feedback": "沒有反例代表根本不會產生測試。"
+            },
+            {
+              "text": "證明原始性質是錯的",
+              "fraction": 0,
+              "feedback": "它對原始性質是否為錯毫無說明。"
+            },
+            {
+              "text": "迫使模型檢查器把所有軌跡都列為測試",
+              "fraction": 0,
+              "feedback": "沒有違反就沒有反例；檢查器不會輸出所有軌跡。"
+            }
+          ],
+          "generalFeedback": "若模型滿足突變性質，模型檢查器不會回傳反例，故無法生成能區分它與原始的測試——該突變體相對於該模型為等價。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "FSM 上的守衛強化突變",
+          "text": "<p>在一台 FSM 規格中，某突變藉由加入一個額外合取項來<em>強化</em>轉移守衛（守衛變成 <code>g AND extra</code>）。相對於原始，突變後的轉移：</p>",
+          "answers": [
+            {
+              "text": "在較少情況下觸發（原始情況的子集）；殺死它的測試必須到達一個原始會觸發但突變體不會的輸入",
+              "fraction": 100,
+              "feedback": "正確——加入合取項只會縮小觸發輸入的集合。"
+            },
+            {
+              "text": "比以前在更多情況下觸發",
+              "fraction": 0,
+              "feedback": "加入合取項使守衛更難滿足，故觸發較少。"
+            },
+            {
+              "text": "在完全相同的情況下觸發",
+              "fraction": 0,
+              "feedback": "只有當該額外合取項在 g 成立時恆為真才如此；一般而言守衛更窄。"
+            },
+            {
+              "text": "在任何輸入下都永不觸發",
+              "fraction": 0,
+              "feedback": "只要 g 與該額外合取項同時成立，它仍會觸發。"
+            }
+          ],
+          "generalFeedback": "以加入合取項強化守衛，會把觸發限制在原始情況的子集。殺死此突變體的測試必須到達一個原始守衛成立、但強化後守衛不成立的輸入。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "De Morgan 等價突變體（OR 形式）",
+          "text": "<p>某需求條件 <code>a OR b</code> 被突變成 <code>NOT (NOT a AND NOT b)</code>。這個突變體是：</p>",
+          "answers": [
+            {
+              "text": "等價——依 De Morgan 定律它表示與相同的函數，故無法被殺死",
+              "fraction": 100,
+              "feedback": "正確——NOT (NOT a AND NOT b) 正好就是 a OR b。"
+            },
+            {
+              "text": "非等價，因為現在出現了 AND",
+              "fraction": 0,
+              "feedback": "那些取反在 De Morgan 定律下恢復了 OR 的語意。"
+            },
+            {
+              "text": "每當 a、b 恰有一為真時就被殺死",
+              "fraction": 0,
+              "feedback": "那時兩種形式都為真，故仍一致；沒有測試能區分它們。"
+            },
+            {
+              "text": "只有當 a 等於 b 時才等價",
+              "fraction": 0,
+              "feedback": "它們在全部四種賦值下都一致，不只在 a 等於 b 時。"
+            }
+          ],
+          "generalFeedback": "De Morgan 定律給出 a OR b 等價於 NOT (NOT a AND NOT b)。此突變體計算完全相同的布林函數，故是等價規格突變體。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "吸收律等價突變體",
+          "text": "<p>某需求 <code>a AND (a OR b)</code> 被突變成 <code>a AND (a OR c)</code>（運算元 b 換成 c）。這個突變體是：</p>",
+          "answers": [
+            {
+              "text": "等價——依吸收律化簡為，故兩種形式都等於；這也揭露了第二個子句是冗餘的",
+              "fraction": 100,
+              "feedback": "正確——其值只取決於 a，故把 b 換成 c 毫無改變。"
+            },
+            {
+              "text": "只要有 b 與 c 不同的測試就能殺死",
+              "fraction": 0,
+              "feedback": "由於整個運算式等於 a，b 或 c 的值永不影響結果；沒有這種測試能殺死它。"
+            },
+            {
+              "text": "非等價，因為 c 是新變數",
+              "fraction": 0,
+              "feedback": "引入 c 毫無作用：運算式無論如何都化簡為 a。"
+            },
+            {
+              "text": "比原始更強",
+              "fraction": 0,
+              "feedback": "兩者都等價於 a；沒有哪個更強。"
+            }
+          ],
+          "generalFeedback": "依吸收律，a AND (a OR X) 對任何 X 都等於 a。故原始與突變體都等於 a，使突變體等價。它無法被殺死，恰恰暴露了需求中「(a OR ...)」子句是冗餘的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "以陷阱性質見證某行為",
+          "text": "<p>模型檢查器只在性質<em>被違反</em>時才回傳軌跡。要取得一條<em>見證</em>某期望行為 B 的軌跡（用作測試），你可以：</p>",
+          "answers": [
+            {
+              "text": "斷言一條「陷阱」性質，宣稱 B 從不發生；模型檢查器的反例便是一條展現 B 的軌跡",
+              "fraction": 100,
+              "feedback": "正確——對感興趣的行為取反，反例就成為它的見證。"
+            },
+            {
+              "text": "斷言 B 永遠發生，並把證明當作測試",
+              "fraction": 0,
+              "feedback": "證明（無違反）不產生軌跡；要取得反例需要一條被違反的性質。"
+            },
+            {
+              "text": "停用模型檢查器，改以手動列舉輸入",
+              "fraction": 0,
+              "feedback": "陷阱性質技術是使用檢查器本身；手動列舉不是此方法。"
+            },
+            {
+              "text": "移除所有性質，讓每條軌跡都成為反例",
+              "fraction": 0,
+              "feedback": "沒有性質就沒有可違反的對象，也就不會產生反例。"
+            }
+          ],
+          "generalFeedback": "因為反例只針對被違反的性質而產生，測試生成方法會斷言一條「陷阱」（never-claim）性質，宣稱感興趣的行為從不發生。模型檢查器隨後回傳的反例，正是一條實現該行為的軌跡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "next 運算子突變",
+          "text": "<p>某性質 <code>p</code> 被突變成 <code>X p</code>（next p）。一般而言這個突變體是：</p>",
+          "answers": [
+            {
+              "text": "非等價——X p 指的是下一個狀態，故與在當前狀態求值的 p 不同",
+              "fraction": 100,
+              "feedback": "正確——把求值點位移一個狀態通常改變語意。"
+            },
+            {
+              "text": "等價——X p 永遠與 p 同義",
+              "fraction": 0,
+              "feedback": "X p 關乎下一個狀態，而非當前狀態，故一般而言不同。"
+            },
+            {
+              "text": "等價——因為每條路徑都會重複",
+              "fraction": 0,
+              "feedback": "路徑一般不會重複，且即使重複，X 仍位移了求值點。"
+            },
+            {
+              "text": "格式錯誤——X 不能套用於原子性質",
+              "fraction": 0,
+              "feedback": "X 可套用於任何子式，包括原子子式。"
+            }
+          ],
+          "generalFeedback": "X p 主張 p 在下一個狀態成立，而 p 主張它在當前狀態成立。在一條 p 現在成立但下一狀態不成立（或反之）的路徑上，兩者相異，故此突變一般為非等價且可被殺死。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "交換律等價突變體",
+          "text": "<p>一次邏輯運算元交換突變把一個無副作用的規格條件 <code>a AND b</code> 換成 <code>b AND a</code>。這個突變體是：</p>",
+          "answers": [
+            {
+              "text": "等價——在無副作用的規格中 AND 具交換律，故兩種形式相同且無法被殺死",
+              "fraction": 100,
+              "feedback": "正確——對純布林條件而言，運算元順序無關緊要。"
+            },
+            {
+              "text": "非等價，因為運算元被調換了",
+              "fraction": 0,
+              "feedback": "調換交換律運算子的順序不會改變無副作用條件的語意。"
+            },
+            {
+              "text": "只要有 a 與 b 不同的測試就能殺死",
+              "fraction": 0,
+              "feedback": "a AND b 與 b AND a 在每一種賦值下都一致，故沒有這種測試能殺死它。"
+            },
+            {
+              "text": "只有當 a 等於 b 時才等價",
+              "fraction": 0,
+              "feedback": "它們在所有賦值下都一致，不只在 a 等於 b 時。"
+            }
+          ],
+          "generalFeedback": "布林 AND 具交換律，故在無求值順序副作用的規格中，a AND b 等於 b AND a。此突變體表示相同的函數——一個等價規格突變體。（在具副作用的短路程式碼中順序可能有影響；那屬於程式而非規格的考量。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "由被殺死的規格突變體所得測試的價值",
+          "text": "<p>由一個<em>被殺死</em>的規格突變體所衍生的測試之所以有價值，是因為當它在實作上執行時：</p>",
+          "answers": [
+            {
+              "text": "它區分原始規格與突變體的行為，故一個符合突變（有故障）規格而非原始規格的實作將會失敗",
+              "fraction": 100,
+              "feedback": "正確——該測試正好瞄準兩份規格相異之處的行為。"
+            },
+            {
+              "text": "它保證實作沒有任何故障",
+              "fraction": 0,
+              "feedback": "單一有針對性的測試無法證明整體正確性。"
+            },
+            {
+              "text": "它走遍實作中的每一條路徑",
+              "fraction": 0,
+              "feedback": "它是單一能區分的軌跡，不是完整的路徑巡覽。"
+            },
+            {
+              "text": "它與原始規格及突變規格皆無關",
+              "fraction": 0,
+              "feedback": "它正是由兩份規格相異之處衍生，故取決於兩者。"
+            }
+          ],
+          "generalFeedback": "殺死用的測試是一條原始與突變規格不一致的軌跡。將它對實作執行，即可檢查實作是否遵循預期（原始）行為；一個表現出突變體有故障行為的實作將無法通過該測試。",
+          "single": true
+        }
+      ]
+    }
+  },
   "state-transition": {
     "en": {
       "easy": [
