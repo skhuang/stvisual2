@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/ATDD Cycle/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What ATDD is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is <strong>Acceptance Test-Driven Development (ATDD)</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A collaborative practice in which the team agrees on acceptance tests for a requirement, written from the customer's perspective, before the feature is developed</text><feedback><text>Correct — ATDD agrees acceptance tests up front, collaboratively, and drives development from them.</text></feedback></answer>
+    <answer fraction="0"><text>A way for testers to write bug reports after the developers have finished coding a feature</text><feedback><text>ATDD is test-first and collaborative; it is not after-the-fact bug reporting by testers alone.</text></feedback></answer>
+    <answer fraction="0"><text>A profiling technique for measuring how long each acceptance test takes to run</text><feedback><text>That is performance measurement; ATDD is about agreeing acceptance tests before development.</text></feedback></answer>
+    <answer fraction="0"><text>A tool that automatically generates production code from a database schema</text><feedback><text>ATDD is a collaboration and specification practice, not a code generator.</text></feedback></answer>
+    <generalfeedback><text>ATDD (Acceptance Test-Driven Development) has the whole team — business, developers, and testers — agree on concrete acceptance tests for a requirement before it is built. Those tests are written from the customer/business perspective, express what "done" means, and drive the implementation outside-in.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What an acceptance test is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is an <strong>acceptance test</strong> in ATDD?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A test, expressed from the customer/business point of view, that checks whether a feature satisfies an agreed requirement</text><feedback><text>Correct — an acceptance test verifies the feature against the customer's expectation of the requirement.</text></feedback></answer>
+    <answer fraction="0"><text>A test that a single developer writes to check one small internal function in isolation</text><feedback><text>That describes a unit test; an acceptance test works at the customer/requirement level.</text></feedback></answer>
+    <answer fraction="0"><text>A measurement of how much of the source code the test suite executes</text><feedback><text>That is code coverage; an acceptance test verifies a requirement from the customer's view.</text></feedback></answer>
+    <answer fraction="0"><text>A checklist of coding-style rules the code must follow</text><feedback><text>Style rules are a linting concern; an acceptance test checks customer-facing behaviour.</text></feedback></answer>
+    <generalfeedback><text>An acceptance test states, in customer/business terms, what the feature must do to be accepted. Unlike a developer unit test (which checks internal units), it captures the requirement as the customer sees it and is the yardstick for whether the feature is "done".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The four ATDD cycle stages</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The commonly taught ATDD cycle has four stages. What are their names?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Discuss, Distill, Develop, Demo</text><feedback><text>Correct — the four stages of the ATDD cycle are Discuss, Distill, Develop, and Demo.</text></feedback></answer>
+    <answer fraction="0"><text>Red, Green, Refactor, Release</text><feedback><text>Red-Green-Refactor is the TDD micro-cycle, not the four-stage ATDD cycle.</text></feedback></answer>
+    <answer fraction="0"><text>Plan, Do, Check, Act</text><feedback><text>That is the PDCA improvement cycle; the ATDD cycle is Discuss, Distill, Develop, Demo.</text></feedback></answer>
+    <answer fraction="0"><text>Design, Deploy, Debug, Document</text><feedback><text>Those are not the ATDD stages; the four are Discuss, Distill, Develop, Demo.</text></feedback></answer>
+    <generalfeedback><text>Markus Gärtner's widely taught ATDD cycle has four stages: Discuss (talk through a requirement with examples), Distill (turn examples into acceptance tests), Develop (implement and make the tests pass), and Demo (show/verify the feature with stakeholders).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Discuss means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the ATDD cycle, what happens in the <strong>Discuss</strong> stage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The team talks through the requirement or story with stakeholders, using concrete examples to build a shared understanding</text><feedback><text>Correct — Discuss explores the requirement with stakeholders through concrete examples.</text></feedback></answer>
+    <answer fraction="0"><text>The team writes the production code that implements the feature</text><feedback><text>Implementation happens in Develop; Discuss is the conversation about the requirement.</text></feedback></answer>
+    <answer fraction="0"><text>The team shows the finished feature to the product owner for sign-off</text><feedback><text>That is Demo; Discuss comes first and is about understanding the requirement.</text></feedback></answer>
+    <answer fraction="0"><text>The team measures branch coverage of the acceptance suite</text><feedback><text>Coverage measurement is unrelated; Discuss is the shared conversation using examples.</text></feedback></answer>
+    <generalfeedback><text>Discuss is the first stage: the team and stakeholders talk through a user story or requirement, raising concrete examples and edge cases so everyone shares the same understanding of what is wanted before any test is written or code is built.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Distill means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the ATDD cycle, what happens in the <strong>Distill</strong> stage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The concrete examples from the discussion are turned into acceptance tests / acceptance criteria, often in Given-When-Then form</text><feedback><text>Correct — Distill converts the agreed examples into acceptance tests.</text></feedback></answer>
+    <answer fraction="0"><text>The team deploys the release to the production servers</text><feedback><text>Deployment is not an ATDD stage; Distill turns examples into acceptance tests.</text></feedback></answer>
+    <answer fraction="0"><text>The team brainstorms the requirement with the customer for the first time</text><feedback><text>That first conversation is Discuss; Distill formalises its examples into tests.</text></feedback></answer>
+    <answer fraction="0"><text>The team profiles the feature to find performance bottlenecks</text><feedback><text>Profiling is unrelated; Distill produces the acceptance tests from the examples.</text></feedback></answer>
+    <generalfeedback><text>Distill is the second stage: the examples raised while discussing are refined and written down as acceptance tests (acceptance criteria), frequently in a Given-When-Then structure. These become the shared, agreed definition of what the feature must do.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Develop means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the ATDD cycle, what happens in the <strong>Develop</strong> stage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Developers implement the feature and make the acceptance test pass, typically using unit-level TDD (red-green-refactor) inside</text><feedback><text>Correct — Develop builds the feature to satisfy the acceptance test, using TDD internally.</text></feedback></answer>
+    <answer fraction="0"><text>The team only talks about the requirement and writes nothing</text><feedback><text>Talking is Discuss; Develop is where the feature is actually implemented.</text></feedback></answer>
+    <answer fraction="0"><text>The team deletes the acceptance tests so they do not slow the build</text><feedback><text>Acceptance tests are kept and made to pass; they are not deleted in Develop.</text></feedback></answer>
+    <answer fraction="0"><text>The customer signs off on the finished feature</text><feedback><text>Sign-off happens in Demo; Develop is the implementation stage.</text></feedback></answer>
+    <generalfeedback><text>Develop is the third stage: developers write the code that makes the agreed acceptance test pass. Inside this stage they normally use ordinary unit-level TDD (red-green-refactor), so ATDD's acceptance-level loop wraps around the developer's unit-level loop.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Demo means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the ATDD cycle, what happens in the <strong>Demo</strong> stage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The finished feature is shown to and verified with stakeholders to confirm it meets the agreed acceptance criteria</text><feedback><text>Correct — Demo verifies with stakeholders that the feature satisfies the acceptance criteria.</text></feedback></answer>
+    <answer fraction="0"><text>The team first discovers what the requirement is</text><feedback><text>Discovering the requirement is Discuss; Demo confirms the finished result.</text></feedback></answer>
+    <answer fraction="0"><text>The team writes the acceptance tests from examples</text><feedback><text>Writing the tests is Distill; Demo shows the completed feature against them.</text></feedback></answer>
+    <answer fraction="0"><text>The team refactors internal code with no stakeholder present</text><feedback><text>Refactoring is part of Develop; Demo is the stakeholder verification.</text></feedback></answer>
+    <generalfeedback><text>Demo is the fourth stage: the completed feature is demonstrated to stakeholders and checked against the acceptance criteria agreed earlier. It closes the loop by confirming, with the people who asked for it, that the right thing was built.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Who the Three Amigos are</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In ATDD, who are the <strong>Three Amigos</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A business/product representative, a developer, and a tester, who together specify the acceptance criteria</text><feedback><text>Correct — the three perspectives are business/PO, developer, and tester.</text></feedback></answer>
+    <answer fraction="0"><text>Three senior developers who review each other's code</text><feedback><text>The Three Amigos are three different roles (business, dev, tester), not three developers.</text></feedback></answer>
+    <answer fraction="0"><text>The project manager, the scrum master, and the release manager</text><feedback><text>The Three Amigos are the business/PO, a developer, and a tester — not management roles.</text></feedback></answer>
+    <answer fraction="0"><text>Three separate automated testing tools</text><feedback><text>The Three Amigos are people bringing three perspectives, not tools.</text></feedback></answer>
+    <generalfeedback><text>The "Three Amigos" are three viewpoints brought together to specify acceptance criteria: the business/product owner (what and why), the developer (how it can be built), and the tester (how it could fail or be misunderstood). Their collaboration is central to ATDD.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What Specification by Example is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <strong>Specification by Example</strong> mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Requirements are captured as concrete, agreed examples that become executable specifications and living documentation</text><feedback><text>Correct — concrete examples serve as the specification and can be run to verify the system.</text></feedback></answer>
+    <answer fraction="0"><text>Requirements are written only as abstract prose with no examples</text><feedback><text>The opposite — the whole point is to use concrete examples rather than vague prose.</text></feedback></answer>
+    <answer fraction="0"><text>Examples are used to illustrate a document but can never be executed</text><feedback><text>In Specification by Example the examples become executable, not merely illustrative.</text></feedback></answer>
+    <answer fraction="0"><text>Production code is written first and examples are added afterwards</text><feedback><text>Examples are agreed before/with development and drive it; they are not an afterthought.</text></feedback></answer>
+    <generalfeedback><text>Specification by Example (closely related to ATDD) captures requirements as concrete, agreed examples. Backed by automation, those examples run as acceptance tests, so they specify the behaviour and simultaneously verify it — and they stay accurate as living documentation.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Acceptance tests are written before development</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In ATDD, the acceptance tests for a feature are agreed and written <strong>before</strong> that feature is developed.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — ATDD is test-first at the acceptance level: the tests come before development.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>ATDD is test-first: acceptance tests are agreed before the feature is built, not after.</text></feedback></answer>
+    <generalfeedback><text>The "Test-Driven" in Acceptance Test-Driven Development means the acceptance tests are written first. Agreeing them before development gives the team a shared target and a definition of "done" that drives the implementation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATDD is collaborative</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement best describes <em>who</em> is involved in ATDD?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is a collaborative activity in which business, developers, and testers together specify the acceptance tests</text><feedback><text>Correct — ATDD is a whole-team collaboration, not the work of one role.</text></feedback></answer>
+    <answer fraction="0"><text>It is done solely by testers, working alone after the code is written</text><feedback><text>ATDD is collaborative and test-first; it is not a solo, after-coding tester activity.</text></feedback></answer>
+    <answer fraction="0"><text>It is done solely by developers, with no business or tester input</text><feedback><text>Business and testers are essential; ATDD needs all three perspectives.</text></feedback></answer>
+    <answer fraction="0"><text>It is done solely by the product owner, who hands finished tests to the team</text><feedback><text>The tests are produced together; the PO does not write them alone.</text></feedback></answer>
+    <generalfeedback><text>A defining feature of ATDD is collaboration: the business/product owner, developers, and testers jointly agree the acceptance tests. This shared authorship is what creates a single, common understanding of "done".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Acceptance criteria define done</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In ATDD, what do the agreed <strong>acceptance criteria</strong> primarily establish?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A shared definition of "done" — the conditions the feature must satisfy to be accepted</text><feedback><text>Correct — acceptance criteria are the agreed definition of when the feature is done.</text></feedback></answer>
+    <answer fraction="0"><text>The exact number of unit tests each class must have</text><feedback><text>That is a code-metric target; acceptance criteria define what the feature must do to be accepted.</text></feedback></answer>
+    <answer fraction="0"><text>The deployment schedule for the release</text><feedback><text>Scheduling is a planning concern; acceptance criteria define "done" for the feature.</text></feedback></answer>
+    <answer fraction="0"><text>The coding style the team must follow</text><feedback><text>Style is a separate concern; acceptance criteria capture the required behaviour.</text></feedback></answer>
+    <generalfeedback><text>Acceptance criteria, agreed by the team, state what a feature must do to be accepted by the customer. They form the shared definition of "done", turning a vague requirement into a concrete, checkable target.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Given-When-Then for acceptance criteria</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Acceptance criteria in ATDD are often written in a <strong>Given-When-Then</strong> form. What do those three parts express?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A precondition (Given), an action or event (When), and the expected outcome (Then)</text><feedback><text>Correct — Given-When-Then captures context, action, and expected result.</text></feedback></answer>
+    <answer fraction="0"><text>Three developers who must approve the test</text><feedback><text>Given-When-Then is a structure for one example, not a list of approvers.</text></feedback></answer>
+    <answer fraction="0"><text>The three environments dev, staging, and production</text><feedback><text>Given-When-Then describes context/action/outcome, not environments.</text></feedback></answer>
+    <answer fraction="0"><text>The past, present, and future versions of the feature</text><feedback><text>They are the parts of one acceptance example: precondition, action, outcome.</text></feedback></answer>
+    <generalfeedback><text>Given-When-Then is a common way to phrase an acceptance test or criterion: Given a starting context, When an action occurs, Then an observable outcome should hold. It makes a concrete example precise enough to be automated.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Outside-in direction of ATDD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>ATDD is often described as an <strong>outside-in</strong> approach. What does that mean?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Development is driven from the outside — the customer-facing acceptance criteria — inward to the implementation</text><feedback><text>Correct — ATDD starts from customer-level acceptance tests and works inward to the code.</text></feedback></answer>
+    <answer fraction="0"><text>Development starts from the database schema and works outward to the UI</text><feedback><text>That is an inside-out, data-first approach; ATDD drives from customer criteria inward.</text></feedback></answer>
+    <answer fraction="0"><text>Testing is performed only by people outside the company</text><feedback><text>"Outside-in" refers to starting from customer requirements, not to outsourcing testing.</text></feedback></answer>
+    <answer fraction="0"><text>Code is written first and requirements are inferred afterwards</text><feedback><text>ATDD agrees the customer-level requirement first, then builds inward to satisfy it.</text></feedback></answer>
+    <generalfeedback><text>Outside-in means you begin at the boundary the customer cares about — the acceptance criteria — and let those drive the design of the internals. ATDD's acceptance tests set the target, and the implementation is grown inward to satisfy them.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>ATDD acronym expansion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The acronym <strong>ATDD</strong> stands for "Acceptance Test-Driven Development".</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — ATDD expands to Acceptance Test-Driven Development.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>ATDD does stand for Acceptance Test-Driven Development.</text></feedback></answer>
+    <generalfeedback><text>ATDD = Acceptance Test-Driven Development: development driven by acceptance tests that are agreed, from the customer's perspective, before the feature is built.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/ATDD Cycle/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Order of the four stages</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the correct order of the four ATDD cycle stages?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Discuss, then Distill, then Develop, then Demo</text><feedback><text>Correct — understand the requirement, capture it as tests, build it, then verify with stakeholders.</text></feedback></answer>
+    <answer fraction="0"><text>Distill, then Discuss, then Demo, then Develop</text><feedback><text>You must Discuss before you can Distill examples, and Develop before you Demo.</text></feedback></answer>
+    <answer fraction="0"><text>Develop, then Discuss, then Distill, then Demo</text><feedback><text>Building before discussing and distilling defeats the purpose; Discuss comes first.</text></feedback></answer>
+    <answer fraction="0"><text>Demo, then Develop, then Distill, then Discuss</text><feedback><text>That is fully reversed; the cycle runs Discuss, Distill, Develop, Demo.</text></feedback></answer>
+    <generalfeedback><text>The ATDD cycle flows Discuss (understand the requirement with examples), Distill (turn examples into acceptance tests), Develop (implement and make them pass), Demo (verify with stakeholders). Each stage feeds the next.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Distill turns examples into tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>During <strong>Distill</strong>, what is the main output the team produces?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Acceptance tests / acceptance criteria (often Given-When-Then) derived from the agreed examples</text><feedback><text>Correct — Distill converts the discussion's examples into concrete acceptance tests.</text></feedback></answer>
+    <answer fraction="0"><text>The production implementation of the feature</text><feedback><text>Implementation is the Develop output; Distill produces the acceptance tests.</text></feedback></answer>
+    <answer fraction="0"><text>A stakeholder sign-off that the feature is finished</text><feedback><text>Sign-off comes in Demo; Distill produces the tests that Demo later checks against.</text></feedback></answer>
+    <answer fraction="0"><text>A performance benchmark report</text><feedback><text>Benchmarking is unrelated; Distill yields the acceptance criteria.</text></feedback></answer>
+    <generalfeedback><text>Distill takes the concrete examples raised in Discuss and refines them into precise acceptance tests / criteria — frequently written as Given-When-Then. These agreed tests are the target the Develop stage will implement against.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Demo verifies with stakeholders</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What distinguishes the <strong>Demo</strong> stage from the others?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It brings the stakeholders back to verify that the finished feature meets the acceptance criteria agreed earlier</text><feedback><text>Correct — Demo is the stakeholder verification that the right thing was built.</text></feedback></answer>
+    <answer fraction="0"><text>It is where developers first learn what the requirement is</text><feedback><text>Requirements are understood in Discuss; Demo confirms the completed feature.</text></feedback></answer>
+    <answer fraction="0"><text>It is where the acceptance tests are first written from examples</text><feedback><text>Writing the tests is Distill; Demo checks the built feature against them.</text></feedback></answer>
+    <answer fraction="0"><text>It is where developers refactor internal code without any stakeholder</text><feedback><text>Refactoring happens in Develop; Demo is explicitly a stakeholder verification.</text></feedback></answer>
+    <generalfeedback><text>Demo closes the loop with the people who asked for the feature. The team shows the completed work and checks it against the acceptance criteria distilled earlier, confirming — with stakeholders present — that it satisfies the requirement.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why three perspectives</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does ATDD bring together three roles (the Three Amigos) to specify acceptance criteria?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because business, developer, and tester each notice different things — value and intent, feasibility, and ways it could fail — so together they specify more complete, correct criteria</text><feedback><text>Correct — the three viewpoints complement each other and catch gaps a single role would miss.</text></feedback></answer>
+    <answer fraction="0"><text>Because three signatures are legally required before coding may start</text><feedback><text>It is about complementary perspectives, not a legal sign-off requirement.</text></feedback></answer>
+    <answer fraction="0"><text>Because it lets the work be split so no one has to talk to anyone else</text><feedback><text>The point is collaboration and conversation, not avoiding it.</text></feedback></answer>
+    <answer fraction="0"><text>Because three people always write code faster than one</text><feedback><text>The Three Amigos meet to specify criteria, not to speed up typing code.</text></feedback></answer>
+    <generalfeedback><text>Each amigo brings a distinct lens: the business/PO clarifies what is wanted and why, the developer flags what is feasible and any hidden complexity, and the tester probes edge cases and ambiguity. Combining the three yields acceptance criteria that are clearer and less likely to miss something.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATDD versus TDD level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the key difference between <strong>ATDD</strong> and ordinary <strong>TDD</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ATDD drives development from customer-facing acceptance tests agreed with the business, while TDD drives it from developer-written unit tests at the code level</text><feedback><text>Correct — ATDD works at the acceptance/customer level; TDD at the unit/developer level.</text></feedback></answer>
+    <answer fraction="0"><text>ATDD writes tests after the code, while TDD writes them before</text><feedback><text>Both are test-first; the difference is the level (acceptance/customer vs unit/developer).</text></feedback></answer>
+    <answer fraction="0"><text>ATDD is only manual testing, while TDD is only automated</text><feedback><text>Both can be automated; the real distinction is acceptance level versus unit level.</text></feedback></answer>
+    <answer fraction="0"><text>ATDD forbids unit tests, while TDD forbids acceptance tests</text><feedback><text>They coexist: ATDD's Develop stage typically uses unit-level TDD inside.</text></feedback></answer>
+    <generalfeedback><text>Both ATDD and TDD are test-first. TDD operates at the unit level — a developer writes a failing unit test, makes it pass, then refactors (red-green-refactor). ATDD operates at the acceptance level — the team agrees customer-facing acceptance tests that drive the feature outside-in. In practice, ATDD's Develop stage uses TDD inside.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATDD versus BDD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>How is <strong>BDD</strong> related to <strong>ATDD</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They are closely related, example-driven, collaborative practices; BDD especially emphasises describing behaviour in a shared, ubiquitous language (e.g. Gherkin's Given-When-Then)</text><feedback><text>Correct — BDD is a close relative of ATDD with a strong emphasis on behaviour and shared language.</text></feedback></answer>
+    <answer fraction="0"><text>BDD is a performance-testing technique unrelated to ATDD</text><feedback><text>BDD is about specifying behaviour by example, closely aligned with ATDD, not performance.</text></feedback></answer>
+    <answer fraction="0"><text>BDD writes tests only after release, the opposite of ATDD</text><feedback><text>BDD, like ATDD, favours specifying behaviour before/with development.</text></feedback></answer>
+    <answer fraction="0"><text>BDD replaces all collaboration with fully automated code generation</text><feedback><text>BDD is a collaboration and specification practice, not code generation.</text></feedback></answer>
+    <generalfeedback><text>BDD and ATDD overlap heavily: both are collaborative and example-driven, and both specify behaviour before development. BDD puts particular emphasis on describing behaviour in a ubiquitous language shared by the whole team, often using Gherkin (Given-When-Then). Many teams treat their ATDD acceptance tests as BDD scenarios.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Develop uses TDD inside</text></name>
+    <questiontext format="html"><text><![CDATA[<p>While making an acceptance test pass in the <strong>Develop</strong> stage, what do developers typically do at the code level?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Use unit-level TDD (red-green-refactor) to grow the implementation until the acceptance test passes</text><feedback><text>Correct — the acceptance loop wraps around an inner unit-level TDD loop.</text></feedback></answer>
+    <answer fraction="0"><text>Skip all unit tests because the acceptance test already exists</text><feedback><text>Unit tests are not skipped; TDD is normally used inside Develop.</text></feedback></answer>
+    <answer fraction="0"><text>Rewrite the acceptance criteria to match whatever code they produce</text><feedback><text>The agreed criteria are the target; you build to them, not rewrite them to fit the code.</text></feedback></answer>
+    <answer fraction="0"><text>Wait for the Demo stage to write any tests at all</text><feedback><text>Tests are written before and during development, not deferred to Demo.</text></feedback></answer>
+    <generalfeedback><text>ATDD nests loops: the outer loop is the acceptance test agreed with the business, and inside Develop the developer typically uses ordinary unit-level TDD (red-green-refactor) to build the code that eventually makes the acceptance test pass. Acceptance and unit tests complement each other.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Discuss uses concrete examples</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What makes the <strong>Discuss</strong> conversation effective in ATDD?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Grounding the requirement in concrete examples so ambiguity surfaces and everyone shares the same understanding</text><feedback><text>Correct — concrete examples expose misunderstandings early and align the team.</text></feedback></answer>
+    <answer fraction="0"><text>Keeping the requirement as abstract as possible so it stays flexible</text><feedback><text>Abstraction hides ambiguity; concrete examples are what make Discuss effective.</text></feedback></answer>
+    <answer fraction="0"><text>Having only the developer present so decisions are quick</text><feedback><text>Discuss needs the stakeholders' input, not just a developer.</text></feedback></answer>
+    <answer fraction="0"><text>Writing the production code during the meeting</text><feedback><text>Coding is Develop; Discuss is about understanding via examples.</text></feedback></answer>
+    <generalfeedback><text>Discuss works best when the team explores the requirement through concrete examples ("what should happen if...?"). Real cases and edge cases quickly reveal hidden assumptions and disagreements, producing a genuinely shared understanding before any test or code is written.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which stage comes first</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which stage of the ATDD cycle comes <strong>first</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Discuss</text><feedback><text>Correct — the cycle begins by discussing the requirement with stakeholders.</text></feedback></answer>
+    <answer fraction="0"><text>Develop</text><feedback><text>Develop is third; the cycle starts with Discuss.</text></feedback></answer>
+    <answer fraction="0"><text>Demo</text><feedback><text>Demo is last; the cycle starts with Discuss.</text></feedback></answer>
+    <answer fraction="0"><text>Distill</text><feedback><text>Distill is second; it follows the Discuss conversation.</text></feedback></answer>
+    <generalfeedback><text>The cycle opens with Discuss: understanding the requirement with stakeholders through examples. Only then can the team Distill those examples into acceptance tests, Develop the feature, and Demo it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which stage comes last</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which stage of the ATDD cycle comes <strong>last</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Demo</text><feedback><text>Correct — the cycle ends by demonstrating and verifying the feature with stakeholders.</text></feedback></answer>
+    <answer fraction="0"><text>Distill</text><feedback><text>Distill is second; the cycle ends with Demo.</text></feedback></answer>
+    <answer fraction="0"><text>Discuss</text><feedback><text>Discuss is first; the cycle ends with Demo.</text></feedback></answer>
+    <answer fraction="0"><text>Develop</text><feedback><text>Develop is third; Demo follows it as the final stage.</text></feedback></answer>
+    <generalfeedback><text>Demo is the final stage: after Discuss, Distill, and Develop, the team shows the finished feature to stakeholders and verifies it against the agreed acceptance criteria.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Acceptance tests drive development</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In what sense do acceptance tests "drive" development in ATDD?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They are agreed first and act as the target the implementation must satisfy, guiding what gets built and defining when it is done</text><feedback><text>Correct — the agreed acceptance tests set the goal that development works toward.</text></feedback></answer>
+    <answer fraction="0"><text>They are generated automatically from the finished code</text><feedback><text>Acceptance tests are agreed before development, not generated from finished code.</text></feedback></answer>
+    <answer fraction="0"><text>They are used only to reject the work at the very end</text><feedback><text>They guide the work throughout, not merely as a final gate.</text></feedback></answer>
+    <answer fraction="0"><text>They replace any need to talk to the customer</text><feedback><text>They come from customer collaboration; they do not replace it.</text></feedback></answer>
+    <generalfeedback><text>Because the acceptance tests are agreed before coding and express what "done" means, they set the target for the whole effort. Development proceeds until those tests pass, so the tests shape and drive what gets built rather than merely judging it afterwards.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Business amigo's contribution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a Three Amigos conversation, what does the <strong>business/product</strong> representative mainly contribute?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Clarity about what is wanted and why — the business value and intent behind the requirement</text><feedback><text>Correct — the business voice defines the desired outcome and its value.</text></feedback></answer>
+    <answer fraction="0"><text>The unit-test structure the developers should use internally</text><feedback><text>Internal test structure is the developer's area, not the business representative's.</text></feedback></answer>
+    <answer fraction="0"><text>The exact edge cases and failure modes to probe</text><feedback><text>Probing edge cases is chiefly the tester's contribution; business supplies intent and value.</text></feedback></answer>
+    <answer fraction="0"><text>The continuous-integration pipeline configuration</text><feedback><text>CI setup is not the business representative's role in the conversation.</text></feedback></answer>
+    <generalfeedback><text>The business/product owner brings the "what and why": the outcome the customer needs and the value behind it. The developer weighs feasibility and the tester probes how it could go wrong. Together the three specify well-rounded acceptance criteria.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Tester amigo's contribution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a Three Amigos conversation, what does the <strong>tester</strong> mainly contribute?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Questions about edge cases, ambiguity, and how the feature could fail or be misunderstood</text><feedback><text>Correct — the tester probes for gaps, edge cases, and ways the requirement could break.</text></feedback></answer>
+    <answer fraction="0"><text>The final business decision on whether the feature is worth building</text><feedback><text>That call belongs to the business/PO; the tester probes correctness and completeness.</text></feedback></answer>
+    <answer fraction="0"><text>The choice of programming language and frameworks</text><feedback><text>Technical implementation choices are the developer's area, not the tester's core role here.</text></feedback></answer>
+    <answer fraction="0"><text>Nothing — the tester only writes tests after coding is finished</text><feedback><text>In ATDD the tester participates up front in specifying criteria, not only afterwards.</text></feedback></answer>
+    <generalfeedback><text>The tester's lens is "how could this be wrong or misunderstood?" — surfacing edge cases, ambiguities, and failure modes while the criteria are still being written. This up-front questioning is far cheaper than discovering the gaps after the feature is built.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Living documentation from examples</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why can ATDD/Specification-by-Example acceptance tests serve as <strong>living documentation</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because they are executed against the system, a passing suite shows the documented examples still match the real behaviour, so the documentation cannot silently go stale</text><feedback><text>Correct — executing the examples keeps the documentation in step with the system.</text></feedback></answer>
+    <answer fraction="0"><text>Because they are printed and stored in a binder for reference</text><feedback><text>Living documentation is executable and self-checking, not a static archive.</text></feedback></answer>
+    <answer fraction="0"><text>Because a writer manually rewrites them after every release</text><feedback><text>The point is that execution keeps them current automatically, not manual rewriting.</text></feedback></answer>
+    <answer fraction="0"><text>Because they can be read but never run</text><feedback><text>They are run against the system; that is exactly what keeps them alive.</text></feedback></answer>
+    <generalfeedback><text>Ordinary documents drift from the code over time. Because ATDD acceptance tests (concrete examples) are executed, any behaviour change that is not reflected in them makes them fail. A green suite is evidence the examples still describe the real system — documentation that stays alive.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>ATDD versus TDD: wrong thing versus wrong code</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At the level each works, what kind of mistake does <strong>ATDD</strong> most directly guard against compared with <strong>TDD</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ATDD mainly guards against building the wrong thing (wrong requirement), while TDD mainly guards against building the thing wrong (defective code)</text><feedback><text>Correct — acceptance-level ATDD targets requirement correctness; unit-level TDD targets code correctness.</text></feedback></answer>
+    <answer fraction="0"><text>ATDD guards against slow code, while TDD guards against slow tests</text><feedback><text>Neither is about speed; ATDD targets the right requirement, TDD targets correct code.</text></feedback></answer>
+    <answer fraction="0"><text>They guard against exactly the same mistakes at the same level</text><feedback><text>They work at different levels: acceptance/customer versus unit/developer.</text></feedback></answer>
+    <answer fraction="0"><text>ATDD guards against compiler errors, while TDD guards against typos</text><feedback><text>That trivialises both; ATDD is about the right requirement, TDD about correct units.</text></feedback></answer>
+    <generalfeedback><text>Because ATDD agrees customer-facing acceptance tests first, it chiefly protects against building the wrong feature — a requirement mismatch. TDD, working at the unit level, chiefly protects against defects in the code that is built. The two levels are complementary: right thing (ATDD) and thing done right (TDD).</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/ATDD Cycle/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Place activity: turning examples into Given-When-Then</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The team takes the concrete examples agreed in a story conversation and writes them up as Given-When-Then acceptance tests. Which ATDD stage is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Distill</text><feedback><text>Correct — converting agreed examples into acceptance tests is the Distill stage.</text></feedback></answer>
+    <answer fraction="0"><text>Discuss</text><feedback><text>Discuss is the conversation that surfaces the examples; writing them up as tests is Distill.</text></feedback></answer>
+    <answer fraction="0"><text>Develop</text><feedback><text>Develop implements the feature; formalising examples into tests is Distill.</text></feedback></answer>
+    <answer fraction="0"><text>Demo</text><feedback><text>Demo verifies the finished feature; producing the acceptance tests is Distill.</text></feedback></answer>
+    <generalfeedback><text>Distill is exactly this: taking the concrete examples raised while discussing and refining them into precise acceptance tests, often as Given-When-Then. The output is the agreed criteria the Develop stage will build toward.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Place activity: showing the feature to the PO</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The developers show the completed feature to the product owner and walk through the acceptance criteria together to confirm it is right. Which ATDD stage is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Demo</text><feedback><text>Correct — verifying the finished feature with stakeholders is the Demo stage.</text></feedback></answer>
+    <answer fraction="0"><text>Discuss</text><feedback><text>Discuss happens before building; confirming the finished feature is Demo.</text></feedback></answer>
+    <answer fraction="0"><text>Distill</text><feedback><text>Distill produces the acceptance tests; checking the built feature against them is Demo.</text></feedback></answer>
+    <answer fraction="0"><text>Develop</text><feedback><text>Develop is the implementation; the stakeholder verification afterwards is Demo.</text></feedback></answer>
+    <generalfeedback><text>Demonstrating the completed work to stakeholders and confirming, with them, that it satisfies the agreed acceptance criteria is the Demo stage — the point where the team verifies it built the right thing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Place activity: red-green-refactor while coding</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A developer writes a failing unit test, makes it pass, and refactors, repeating this while building the code that will satisfy the acceptance test. Which ATDD stage does this happen in?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Develop — unit-level TDD is used inside the Develop stage</text><feedback><text>Correct — red-green-refactor is the inner TDD loop within Develop.</text></feedback></answer>
+    <answer fraction="0"><text>Distill — because that is where all tests are written</text><feedback><text>Distill writes the acceptance tests; unit-level red-green-refactor happens in Develop.</text></feedback></answer>
+    <answer fraction="0"><text>Discuss — because coding starts as soon as the conversation begins</text><feedback><text>Discuss is conversation; the coding with unit TDD is the Develop stage.</text></feedback></answer>
+    <answer fraction="0"><text>Demo — because tests are run in front of stakeholders</text><feedback><text>Demo verifies the finished feature; the red-green-refactor coding is in Develop.</text></feedback></answer>
+    <generalfeedback><text>Inside Develop, the team makes the acceptance test pass by growing the implementation with ordinary unit-level TDD (red-green-refactor). ATDD's acceptance loop wraps around this inner unit-test loop; the two operate at different levels.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why acceptance tests come first</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is the strongest reason to agree the acceptance tests <strong>before</strong> starting development?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It builds a shared understanding of "done" up front, reducing the risk of building the wrong thing and giving a clear target</text><feedback><text>Correct — agreeing tests first aligns everyone and prevents wasted effort on the wrong feature.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees the code will contain no bugs whatsoever</text><feedback><text>No practice guarantees zero bugs; ATDD's value is shared understanding and a clear target.</text></feedback></answer>
+    <answer fraction="0"><text>It lets the team skip talking to the customer later</text><feedback><text>ATDD is built on ongoing collaboration; it does not remove the need to communicate.</text></feedback></answer>
+    <answer fraction="0"><text>It makes unit tests unnecessary</text><feedback><text>Unit tests still matter; ATDD's Develop stage typically uses TDD inside.</text></feedback></answer>
+    <generalfeedback><text>Agreeing acceptance tests up front forces the business, developers, and testers to reach one concrete definition of "done" before effort is spent. That shared understanding is the main defence against the costliest failure — building the wrong thing well.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Misconception: ATDD is only a tester activity</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A colleague says, "ATDD is just the testers' job — they write the acceptance tests and hand them over." Why is this wrong?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ATDD is collaborative: business, developers, and testers specify the acceptance tests together, so it is a whole-team activity, not a tester-only one</text><feedback><text>Correct — the Three Amigos collaboration is central; ATDD is not owned by testers alone.</text></feedback></answer>
+    <answer fraction="0"><text>It is wrong because only developers are allowed to write acceptance tests</text><feedback><text>No single role owns it; the point is that all three collaborate, testers included.</text></feedback></answer>
+    <answer fraction="0"><text>It is correct — testers do own ATDD entirely</text><feedback><text>That is the misconception; ATDD is a collaborative, whole-team practice.</text></feedback></answer>
+    <answer fraction="0"><text>It is wrong because ATDD does not involve tests at all</text><feedback><text>ATDD is very much about acceptance tests; the error is thinking only testers make them.</text></feedback></answer>
+    <generalfeedback><text>A core idea of ATDD is shared authorship of the acceptance criteria. The Three Amigos — business/PO, developer, tester — specify them together so the whole team owns one definition of "done". Treating it as a testers-only handoff loses the shared understanding that gives ATDD its value.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Misconception: acceptance tests after coding</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team writes the code first and only then writes acceptance tests to check it. Why is this not ATDD?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>ATDD is test-first at the acceptance level: the tests must be agreed before development so they can drive it and define "done"</text><feedback><text>Correct — writing acceptance tests after the code inverts the "test-driven" idea of ATDD.</text></feedback></answer>
+    <answer fraction="0"><text>It is not ATDD because acceptance tests may never be automated</text><feedback><text>Automation is not the issue; the issue is that the tests came after the code, not before.</text></feedback></answer>
+    <answer fraction="0"><text>It is actually correct ATDD, since the order does not matter</text><feedback><text>Order is central: ATDD requires the acceptance tests to come before development.</text></feedback></answer>
+    <answer fraction="0"><text>It is not ATDD because ATDD forbids writing any code</text><feedback><text>ATDD includes a Develop stage; the point is the tests precede that development.</text></feedback></answer>
+    <generalfeedback><text>The "Test-Driven" in ATDD means the acceptance tests come first and shape what gets built. Writing them after the fact turns them into a verification checklist and forfeits the shared, up-front definition of "done" that drives the work.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Misconception: Develop skips unit tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"Because ATDD already has an acceptance test, the Develop stage doesn't need any unit testing." Why is this a misconception?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The Develop stage normally uses unit-level TDD inside; acceptance and unit tests operate at different levels and complement each other</text><feedback><text>Correct — the acceptance loop wraps an inner unit-level TDD loop; both are used.</text></feedback></answer>
+    <answer fraction="0"><text>It is correct — one acceptance test fully replaces all unit tests</text><feedback><text>An acceptance test checks customer-level behaviour; it does not replace fine-grained unit tests.</text></feedback></answer>
+    <answer fraction="0"><text>It is a misconception because acceptance tests cannot be automated</text><feedback><text>Acceptance tests can be automated; the error is thinking they remove the need for unit tests.</text></feedback></answer>
+    <answer fraction="0"><text>It is a misconception because Develop is where acceptance tests are first written</text><feedback><text>Acceptance tests are written in Distill; the error here is dropping unit testing in Develop.</text></feedback></answer>
+    <generalfeedback><text>ATDD nests loops. The outer, acceptance-level test defines customer-facing "done"; inside Develop, developers still use unit-level TDD (red-green-refactor) to build and verify the internals. The two levels catch different problems and are used together, not one instead of the other.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: distinguishing ATDD from TDD</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider two tests for a checkout feature. Test X, agreed with the product owner, says "Given a cart of $100 with a 10% coupon, When the customer checks out, Then the total is $90." Test Y, written by a developer, checks that the internal <code>applyDiscount()</code> function returns 90 for inputs (100, 0.10). Which is the ATDD-style acceptance test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test X — it is customer-facing, agreed with the business, and expressed as observable behaviour</text><feedback><text>Correct — X is an acceptance test; Y is a developer unit test.</text></feedback></answer>
+    <answer fraction="0"><text>Test Y — because it uses concrete numbers</text><feedback><text>Both use numbers; Y checks an internal function, so it is a unit test, not an acceptance test.</text></feedback></answer>
+    <answer fraction="0"><text>Both are unit tests, since both involve a discount</text><feedback><text>X is agreed with the business and describes customer behaviour — that is an acceptance test.</text></feedback></answer>
+    <answer fraction="0"><text>Neither is a test because no code is shown</text><feedback><text>Both are tests; X is the acceptance-level one and Y is the unit-level one.</text></feedback></answer>
+    <generalfeedback><text>Test X describes end-to-end, customer-visible behaviour agreed with the business — an ATDD acceptance test. Test Y verifies one internal function in isolation — a developer unit test (TDD). Both are valuable and typically coexist: Y is the kind of test written inside Develop to help make X pass.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Scenario: ATDD versus BDD emphasis</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two teams both agree acceptance tests before coding. Team A writes them as ad-hoc checklists; Team B writes them as Given-When-Then scenarios in a ubiquitous language shared with the business and runs them with a Cucumber-style tool. Which best describes Team B's emphasis?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It reflects the BDD emphasis: describing behaviour in a shared, ubiquitous language (Gherkin's Given-When-Then) that both people and tools can read</text><feedback><text>Correct — Team B leans into BDD's focus on behaviour and shared language, a close relative of ATDD.</text></feedback></answer>
+    <answer fraction="0"><text>It shows Team B is doing unit-level TDD rather than acceptance testing</text><feedback><text>Given-When-Then scenarios are acceptance-level behaviour, not unit-level TDD.</text></feedback></answer>
+    <answer fraction="0"><text>It shows Team B has abandoned collaboration with the business</text><feedback><text>The opposite — a ubiquitous language shared with the business strengthens collaboration.</text></feedback></answer>
+    <answer fraction="0"><text>It shows Team B is doing performance testing</text><feedback><text>Given-When-Then scenarios describe functional behaviour, not performance.</text></feedback></answer>
+    <generalfeedback><text>Both teams practise ATDD (acceptance tests first, collaboratively). Team B additionally embraces BDD's emphasis: expressing behaviour in a ubiquitous language via Gherkin (Given-When-Then) and executing it with tools like Cucumber. BDD is a close relative of ATDD that foregrounds shared language and behaviour.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Role of concrete examples</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Throughout the ATDD cycle, why are <strong>concrete examples</strong> (Specification by Example) so important?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They pin down ambiguous requirements precisely, become the executable acceptance tests, and double as living documentation of real behaviour</text><feedback><text>Correct — concrete examples align understanding, drive the tests, and stay accurate as documentation.</text></feedback></answer>
+    <answer fraction="0"><text>They exist only to make meetings longer and are discarded before coding</text><feedback><text>Examples are kept and turned into the acceptance tests; they are not thrown away.</text></feedback></answer>
+    <answer fraction="0"><text>They replace the need for any conversation between roles</text><feedback><text>Examples are the product of conversation, not a substitute for it.</text></feedback></answer>
+    <answer fraction="0"><text>They are only useful for measuring code coverage</text><feedback><text>Their role is shared understanding and executable specification, not coverage measurement.</text></feedback></answer>
+    <generalfeedback><text>Concrete examples make a fuzzy requirement precise ("what exactly should happen when...?"). Distilled into acceptance tests, they specify the behaviour, verify it when run, and remain trustworthy documentation of what the system actually does — the essence of Specification by Example.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cost of a missing amigo perspective</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team specifies acceptance criteria with only the product owner and a developer present; no tester takes part. What is the most likely consequence?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Edge cases, ambiguities, and failure modes are more likely to be missed, so the criteria are less complete and gaps surface later</text><feedback><text>Correct — without the tester's lens, exactly the "how could this go wrong?" cases tend to slip through.</text></feedback></answer>
+    <answer fraction="0"><text>The criteria will be perfect, since two roles are enough for any requirement</text><feedback><text>Missing the tester's perspective typically leaves edge cases and ambiguities unaddressed.</text></feedback></answer>
+    <answer fraction="0"><text>Development will be impossible to start without a tester's signature</text><feedback><text>It is not about a signature; it is about the missing viewpoint reducing the quality of the criteria.</text></feedback></answer>
+    <answer fraction="0"><text>The feature will automatically have full unit-test coverage</text><feedback><text>The Three Amigos concerns specifying criteria, not generating unit-test coverage.</text></feedback></answer>
+    <generalfeedback><text>Each amigo covers a blind spot of the others. The tester specifically probes edge cases, ambiguity, and failure modes. Leaving that lens out of the conversation means such gaps are less likely to be caught early, and they tend to reappear as defects or rework once the feature is built.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Order a full set of activities</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Put these four activities into the correct ATDD order: (1) implement the feature with unit TDD until the acceptance test passes; (2) show the finished feature to stakeholders for verification; (3) talk through the story with concrete examples; (4) write the examples up as acceptance tests.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3, then 4, then 1, then 2</text><feedback><text>Correct — Discuss (3), Distill (4), Develop (1), Demo (2).</text></feedback></answer>
+    <answer fraction="0"><text>4, then 3, then 2, then 1</text><feedback><text>You discuss before distilling, and develop before demoing; this order is wrong.</text></feedback></answer>
+    <answer fraction="0"><text>1, then 2, then 3, then 4</text><feedback><text>Building and demoing before discussing and distilling reverses the cycle.</text></feedback></answer>
+    <answer fraction="0"><text>3, then 1, then 4, then 2</text><feedback><text>The acceptance tests (4, Distill) must be written before development (1, Develop).</text></feedback></answer>
+    <generalfeedback><text>Mapping the activities to stages: (3) is Discuss, (4) is Distill, (1) is Develop, and (2) is Demo. The correct order therefore is 3, 4, 1, 2 — Discuss, Distill, Develop, Demo.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What "done" means at the acceptance level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In ATDD, when is a feature considered "done" at the acceptance level?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When it satisfies the agreed acceptance criteria — the acceptance tests pass and stakeholders confirm it in the Demo</text><feedback><text>Correct — "done" is defined by the agreed acceptance criteria being met and verified.</text></feedback></answer>
+    <answer fraction="0"><text>When the developer feels the code is finished, regardless of the criteria</text><feedback><text>"Done" is defined by the agreed acceptance criteria, not by individual feeling.</text></feedback></answer>
+    <answer fraction="0"><text>When 100% branch coverage is reached, whatever the behaviour</text><feedback><text>Coverage is a separate metric; acceptance "done" is meeting the agreed criteria.</text></feedback></answer>
+    <answer fraction="0"><text>When the code compiles without warnings</text><feedback><text>Compiling cleanly is not the same as satisfying the customer's acceptance criteria.</text></feedback></answer>
+    <generalfeedback><text>ATDD makes "done" objective and shared: the feature is done when it meets the acceptance criteria agreed up front — the acceptance tests pass and the stakeholders confirm it in the Demo. This removes ambiguity about whether the right thing was actually delivered.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Cycle order Discuss-Distill-Develop-Demo</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The four stages of the ATDD cycle occur in the order Discuss, Distill, Develop, Demo.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — that is the order: understand, capture as tests, build, then verify with stakeholders.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>The order is exactly Discuss, Distill, Develop, Demo.</text></feedback></answer>
+    <generalfeedback><text>The ATDD cycle runs Discuss (understand the requirement with examples), Distill (turn examples into acceptance tests), Develop (implement, making the tests pass with unit TDD inside), and Demo (verify the result with stakeholders).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Place activity: exploring a story with examples</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The business owner, a developer, and a tester sit together and talk through a new user story, raising "what should happen if...?" examples to reach a shared understanding before anything is written down as a test. Which ATDD stage is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Discuss</text><feedback><text>Correct — exploring the requirement with stakeholders through examples is the Discuss stage.</text></feedback></answer>
+    <answer fraction="0"><text>Distill</text><feedback><text>Distill is when those examples are written up as acceptance tests; the conversation itself is Discuss.</text></feedback></answer>
+    <answer fraction="0"><text>Develop</text><feedback><text>Develop is implementation; the up-front conversation with examples is Discuss.</text></feedback></answer>
+    <answer fraction="0"><text>Demo</text><feedback><text>Demo verifies the finished feature; the initial exploration of the story is Discuss.</text></feedback></answer>
+    <generalfeedback><text>This is Discuss: the Three Amigos explore the story together, using concrete "what if" examples to build a shared understanding of the requirement. Turning those examples into written acceptance tests would be the next stage, Distill.</text></generalfeedback>
+  </question>
+</quiz>

@@ -46008,6 +46008,2568 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
 
   // src/data/quizRendered.js
   var QUIZ_RENDERED = {
+    "atdd-cycle": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What ATDD is",
+            "text": "<p>What is <strong>Acceptance Test-Driven Development (ATDD)</strong>?</p>",
+            "answers": [
+              {
+                "text": "A collaborative practice in which the team agrees on acceptance tests for a requirement, written from the customer's perspective, before the feature is developed",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ATDD agrees acceptance tests up front, collaboratively, and drives development from them."
+              },
+              {
+                "text": "A way for testers to write bug reports after the developers have finished coding a feature",
+                "fraction": 0,
+                "feedback": "ATDD is test-first and collaborative; it is not after-the-fact bug reporting by testers alone."
+              },
+              {
+                "text": "A profiling technique for measuring how long each acceptance test takes to run",
+                "fraction": 0,
+                "feedback": "That is performance measurement; ATDD is about agreeing acceptance tests before development."
+              },
+              {
+                "text": "A tool that automatically generates production code from a database schema",
+                "fraction": 0,
+                "feedback": "ATDD is a collaboration and specification practice, not a code generator."
+              }
+            ],
+            "generalFeedback": 'ATDD (Acceptance Test-Driven Development) has the whole team \u2014 business, developers, and testers \u2014 agree on concrete acceptance tests for a requirement before it is built. Those tests are written from the customer/business perspective, express what "done" means, and drive the implementation outside-in.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What an acceptance test is",
+            "text": "<p>What is an <strong>acceptance test</strong> in ATDD?</p>",
+            "answers": [
+              {
+                "text": "A test, expressed from the customer/business point of view, that checks whether a feature satisfies an agreed requirement",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an acceptance test verifies the feature against the customer's expectation of the requirement."
+              },
+              {
+                "text": "A test that a single developer writes to check one small internal function in isolation",
+                "fraction": 0,
+                "feedback": "That describes a unit test; an acceptance test works at the customer/requirement level."
+              },
+              {
+                "text": "A measurement of how much of the source code the test suite executes",
+                "fraction": 0,
+                "feedback": "That is code coverage; an acceptance test verifies a requirement from the customer's view."
+              },
+              {
+                "text": "A checklist of coding-style rules the code must follow",
+                "fraction": 0,
+                "feedback": "Style rules are a linting concern; an acceptance test checks customer-facing behaviour."
+              }
+            ],
+            "generalFeedback": 'An acceptance test states, in customer/business terms, what the feature must do to be accepted. Unlike a developer unit test (which checks internal units), it captures the requirement as the customer sees it and is the yardstick for whether the feature is "done".',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "The four ATDD cycle stages",
+            "text": "<p>The commonly taught ATDD cycle has four stages. What are their names?</p>",
+            "answers": [
+              {
+                "text": "Discuss, Distill, Develop, Demo",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the four stages of the ATDD cycle are Discuss, Distill, Develop, and Demo."
+              },
+              {
+                "text": "Red, Green, Refactor, Release",
+                "fraction": 0,
+                "feedback": "Red-Green-Refactor is the TDD micro-cycle, not the four-stage ATDD cycle."
+              },
+              {
+                "text": "Plan, Do, Check, Act",
+                "fraction": 0,
+                "feedback": "That is the PDCA improvement cycle; the ATDD cycle is Discuss, Distill, Develop, Demo."
+              },
+              {
+                "text": "Design, Deploy, Debug, Document",
+                "fraction": 0,
+                "feedback": "Those are not the ATDD stages; the four are Discuss, Distill, Develop, Demo."
+              }
+            ],
+            "generalFeedback": "Markus G\xE4rtner's widely taught ATDD cycle has four stages: Discuss (talk through a requirement with examples), Distill (turn examples into acceptance tests), Develop (implement and make the tests pass), and Demo (show/verify the feature with stakeholders).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Discuss means",
+            "text": "<p>In the ATDD cycle, what happens in the <strong>Discuss</strong> stage?</p>",
+            "answers": [
+              {
+                "text": "The team talks through the requirement or story with stakeholders, using concrete examples to build a shared understanding",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Discuss explores the requirement with stakeholders through concrete examples."
+              },
+              {
+                "text": "The team writes the production code that implements the feature",
+                "fraction": 0,
+                "feedback": "Implementation happens in Develop; Discuss is the conversation about the requirement."
+              },
+              {
+                "text": "The team shows the finished feature to the product owner for sign-off",
+                "fraction": 0,
+                "feedback": "That is Demo; Discuss comes first and is about understanding the requirement."
+              },
+              {
+                "text": "The team measures branch coverage of the acceptance suite",
+                "fraction": 0,
+                "feedback": "Coverage measurement is unrelated; Discuss is the shared conversation using examples."
+              }
+            ],
+            "generalFeedback": "Discuss is the first stage: the team and stakeholders talk through a user story or requirement, raising concrete examples and edge cases so everyone shares the same understanding of what is wanted before any test is written or code is built.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Distill means",
+            "text": "<p>In the ATDD cycle, what happens in the <strong>Distill</strong> stage?</p>",
+            "answers": [
+              {
+                "text": "The concrete examples from the discussion are turned into acceptance tests / acceptance criteria, often in Given-When-Then form",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Distill converts the agreed examples into acceptance tests."
+              },
+              {
+                "text": "The team deploys the release to the production servers",
+                "fraction": 0,
+                "feedback": "Deployment is not an ATDD stage; Distill turns examples into acceptance tests."
+              },
+              {
+                "text": "The team brainstorms the requirement with the customer for the first time",
+                "fraction": 0,
+                "feedback": "That first conversation is Discuss; Distill formalises its examples into tests."
+              },
+              {
+                "text": "The team profiles the feature to find performance bottlenecks",
+                "fraction": 0,
+                "feedback": "Profiling is unrelated; Distill produces the acceptance tests from the examples."
+              }
+            ],
+            "generalFeedback": "Distill is the second stage: the examples raised while discussing are refined and written down as acceptance tests (acceptance criteria), frequently in a Given-When-Then structure. These become the shared, agreed definition of what the feature must do.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Develop means",
+            "text": "<p>In the ATDD cycle, what happens in the <strong>Develop</strong> stage?</p>",
+            "answers": [
+              {
+                "text": "Developers implement the feature and make the acceptance test pass, typically using unit-level TDD (red-green-refactor) inside",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Develop builds the feature to satisfy the acceptance test, using TDD internally."
+              },
+              {
+                "text": "The team only talks about the requirement and writes nothing",
+                "fraction": 0,
+                "feedback": "Talking is Discuss; Develop is where the feature is actually implemented."
+              },
+              {
+                "text": "The team deletes the acceptance tests so they do not slow the build",
+                "fraction": 0,
+                "feedback": "Acceptance tests are kept and made to pass; they are not deleted in Develop."
+              },
+              {
+                "text": "The customer signs off on the finished feature",
+                "fraction": 0,
+                "feedback": "Sign-off happens in Demo; Develop is the implementation stage."
+              }
+            ],
+            "generalFeedback": "Develop is the third stage: developers write the code that makes the agreed acceptance test pass. Inside this stage they normally use ordinary unit-level TDD (red-green-refactor), so ATDD's acceptance-level loop wraps around the developer's unit-level loop.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Demo means",
+            "text": "<p>In the ATDD cycle, what happens in the <strong>Demo</strong> stage?</p>",
+            "answers": [
+              {
+                "text": "The finished feature is shown to and verified with stakeholders to confirm it meets the agreed acceptance criteria",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Demo verifies with stakeholders that the feature satisfies the acceptance criteria."
+              },
+              {
+                "text": "The team first discovers what the requirement is",
+                "fraction": 0,
+                "feedback": "Discovering the requirement is Discuss; Demo confirms the finished result."
+              },
+              {
+                "text": "The team writes the acceptance tests from examples",
+                "fraction": 0,
+                "feedback": "Writing the tests is Distill; Demo shows the completed feature against them."
+              },
+              {
+                "text": "The team refactors internal code with no stakeholder present",
+                "fraction": 0,
+                "feedback": "Refactoring is part of Develop; Demo is the stakeholder verification."
+              }
+            ],
+            "generalFeedback": "Demo is the fourth stage: the completed feature is demonstrated to stakeholders and checked against the acceptance criteria agreed earlier. It closes the loop by confirming, with the people who asked for it, that the right thing was built.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Who the Three Amigos are",
+            "text": "<p>In ATDD, who are the <strong>Three Amigos</strong>?</p>",
+            "answers": [
+              {
+                "text": "A business/product representative, a developer, and a tester, who together specify the acceptance criteria",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the three perspectives are business/PO, developer, and tester."
+              },
+              {
+                "text": "Three senior developers who review each other's code",
+                "fraction": 0,
+                "feedback": "The Three Amigos are three different roles (business, dev, tester), not three developers."
+              },
+              {
+                "text": "The project manager, the scrum master, and the release manager",
+                "fraction": 0,
+                "feedback": "The Three Amigos are the business/PO, a developer, and a tester \u2014 not management roles."
+              },
+              {
+                "text": "Three separate automated testing tools",
+                "fraction": 0,
+                "feedback": "The Three Amigos are people bringing three perspectives, not tools."
+              }
+            ],
+            "generalFeedback": 'The "Three Amigos" are three viewpoints brought together to specify acceptance criteria: the business/product owner (what and why), the developer (how it can be built), and the tester (how it could fail or be misunderstood). Their collaboration is central to ATDD.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Specification by Example is",
+            "text": "<p>What does <strong>Specification by Example</strong> mean?</p>",
+            "answers": [
+              {
+                "text": "Requirements are captured as concrete, agreed examples that become executable specifications and living documentation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 concrete examples serve as the specification and can be run to verify the system."
+              },
+              {
+                "text": "Requirements are written only as abstract prose with no examples",
+                "fraction": 0,
+                "feedback": "The opposite \u2014 the whole point is to use concrete examples rather than vague prose."
+              },
+              {
+                "text": "Examples are used to illustrate a document but can never be executed",
+                "fraction": 0,
+                "feedback": "In Specification by Example the examples become executable, not merely illustrative."
+              },
+              {
+                "text": "Production code is written first and examples are added afterwards",
+                "fraction": 0,
+                "feedback": "Examples are agreed before/with development and drive it; they are not an afterthought."
+              }
+            ],
+            "generalFeedback": "Specification by Example (closely related to ATDD) captures requirements as concrete, agreed examples. Backed by automation, those examples run as acceptance tests, so they specify the behaviour and simultaneously verify it \u2014 and they stay accurate as living documentation.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Acceptance tests are written before development",
+            "text": "<p>In ATDD, the acceptance tests for a feature are agreed and written <strong>before</strong> that feature is developed.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ATDD is test-first at the acceptance level: the tests come before development."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "ATDD is test-first: acceptance tests are agreed before the feature is built, not after."
+              }
+            ],
+            "generalFeedback": 'The "Test-Driven" in Acceptance Test-Driven Development means the acceptance tests are written first. Agreeing them before development gives the team a shared target and a definition of "done" that drives the implementation.'
+          },
+          {
+            "type": "multichoice",
+            "name": "ATDD is collaborative",
+            "text": "<p>Which statement best describes <em>who</em> is involved in ATDD?</p>",
+            "answers": [
+              {
+                "text": "It is a collaborative activity in which business, developers, and testers together specify the acceptance tests",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ATDD is a whole-team collaboration, not the work of one role."
+              },
+              {
+                "text": "It is done solely by testers, working alone after the code is written",
+                "fraction": 0,
+                "feedback": "ATDD is collaborative and test-first; it is not a solo, after-coding tester activity."
+              },
+              {
+                "text": "It is done solely by developers, with no business or tester input",
+                "fraction": 0,
+                "feedback": "Business and testers are essential; ATDD needs all three perspectives."
+              },
+              {
+                "text": "It is done solely by the product owner, who hands finished tests to the team",
+                "fraction": 0,
+                "feedback": "The tests are produced together; the PO does not write them alone."
+              }
+            ],
+            "generalFeedback": 'A defining feature of ATDD is collaboration: the business/product owner, developers, and testers jointly agree the acceptance tests. This shared authorship is what creates a single, common understanding of "done".',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Acceptance criteria define done",
+            "text": "<p>In ATDD, what do the agreed <strong>acceptance criteria</strong> primarily establish?</p>",
+            "answers": [
+              {
+                "text": 'A shared definition of "done" \u2014 the conditions the feature must satisfy to be accepted',
+                "fraction": 100,
+                "feedback": "Correct \u2014 acceptance criteria are the agreed definition of when the feature is done."
+              },
+              {
+                "text": "The exact number of unit tests each class must have",
+                "fraction": 0,
+                "feedback": "That is a code-metric target; acceptance criteria define what the feature must do to be accepted."
+              },
+              {
+                "text": "The deployment schedule for the release",
+                "fraction": 0,
+                "feedback": 'Scheduling is a planning concern; acceptance criteria define "done" for the feature.'
+              },
+              {
+                "text": "The coding style the team must follow",
+                "fraction": 0,
+                "feedback": "Style is a separate concern; acceptance criteria capture the required behaviour."
+              }
+            ],
+            "generalFeedback": 'Acceptance criteria, agreed by the team, state what a feature must do to be accepted by the customer. They form the shared definition of "done", turning a vague requirement into a concrete, checkable target.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Given-When-Then for acceptance criteria",
+            "text": "<p>Acceptance criteria in ATDD are often written in a <strong>Given-When-Then</strong> form. What do those three parts express?</p>",
+            "answers": [
+              {
+                "text": "A precondition (Given), an action or event (When), and the expected outcome (Then)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Given-When-Then captures context, action, and expected result."
+              },
+              {
+                "text": "Three developers who must approve the test",
+                "fraction": 0,
+                "feedback": "Given-When-Then is a structure for one example, not a list of approvers."
+              },
+              {
+                "text": "The three environments dev, staging, and production",
+                "fraction": 0,
+                "feedback": "Given-When-Then describes context/action/outcome, not environments."
+              },
+              {
+                "text": "The past, present, and future versions of the feature",
+                "fraction": 0,
+                "feedback": "They are the parts of one acceptance example: precondition, action, outcome."
+              }
+            ],
+            "generalFeedback": "Given-When-Then is a common way to phrase an acceptance test or criterion: Given a starting context, When an action occurs, Then an observable outcome should hold. It makes a concrete example precise enough to be automated.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Outside-in direction of ATDD",
+            "text": "<p>ATDD is often described as an <strong>outside-in</strong> approach. What does that mean?</p>",
+            "answers": [
+              {
+                "text": "Development is driven from the outside \u2014 the customer-facing acceptance criteria \u2014 inward to the implementation",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ATDD starts from customer-level acceptance tests and works inward to the code."
+              },
+              {
+                "text": "Development starts from the database schema and works outward to the UI",
+                "fraction": 0,
+                "feedback": "That is an inside-out, data-first approach; ATDD drives from customer criteria inward."
+              },
+              {
+                "text": "Testing is performed only by people outside the company",
+                "fraction": 0,
+                "feedback": '"Outside-in" refers to starting from customer requirements, not to outsourcing testing.'
+              },
+              {
+                "text": "Code is written first and requirements are inferred afterwards",
+                "fraction": 0,
+                "feedback": "ATDD agrees the customer-level requirement first, then builds inward to satisfy it."
+              }
+            ],
+            "generalFeedback": "Outside-in means you begin at the boundary the customer cares about \u2014 the acceptance criteria \u2014 and let those drive the design of the internals. ATDD's acceptance tests set the target, and the implementation is grown inward to satisfy them.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "ATDD acronym expansion",
+            "text": '<p>The acronym <strong>ATDD</strong> stands for "Acceptance Test-Driven Development".</p>',
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ATDD expands to Acceptance Test-Driven Development."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "ATDD does stand for Acceptance Test-Driven Development."
+              }
+            ],
+            "generalFeedback": "ATDD = Acceptance Test-Driven Development: development driven by acceptance tests that are agreed, from the customer's perspective, before the feature is built."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Order of the four stages",
+            "text": "<p>What is the correct order of the four ATDD cycle stages?</p>",
+            "answers": [
+              {
+                "text": "Discuss, then Distill, then Develop, then Demo",
+                "fraction": 100,
+                "feedback": "Correct \u2014 understand the requirement, capture it as tests, build it, then verify with stakeholders."
+              },
+              {
+                "text": "Distill, then Discuss, then Demo, then Develop",
+                "fraction": 0,
+                "feedback": "You must Discuss before you can Distill examples, and Develop before you Demo."
+              },
+              {
+                "text": "Develop, then Discuss, then Distill, then Demo",
+                "fraction": 0,
+                "feedback": "Building before discussing and distilling defeats the purpose; Discuss comes first."
+              },
+              {
+                "text": "Demo, then Develop, then Distill, then Discuss",
+                "fraction": 0,
+                "feedback": "That is fully reversed; the cycle runs Discuss, Distill, Develop, Demo."
+              }
+            ],
+            "generalFeedback": "The ATDD cycle flows Discuss (understand the requirement with examples), Distill (turn examples into acceptance tests), Develop (implement and make them pass), Demo (verify with stakeholders). Each stage feeds the next.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Distill turns examples into tests",
+            "text": "<p>During <strong>Distill</strong>, what is the main output the team produces?</p>",
+            "answers": [
+              {
+                "text": "Acceptance tests / acceptance criteria (often Given-When-Then) derived from the agreed examples",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Distill converts the discussion's examples into concrete acceptance tests."
+              },
+              {
+                "text": "The production implementation of the feature",
+                "fraction": 0,
+                "feedback": "Implementation is the Develop output; Distill produces the acceptance tests."
+              },
+              {
+                "text": "A stakeholder sign-off that the feature is finished",
+                "fraction": 0,
+                "feedback": "Sign-off comes in Demo; Distill produces the tests that Demo later checks against."
+              },
+              {
+                "text": "A performance benchmark report",
+                "fraction": 0,
+                "feedback": "Benchmarking is unrelated; Distill yields the acceptance criteria."
+              }
+            ],
+            "generalFeedback": "Distill takes the concrete examples raised in Discuss and refines them into precise acceptance tests / criteria \u2014 frequently written as Given-When-Then. These agreed tests are the target the Develop stage will implement against.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Demo verifies with stakeholders",
+            "text": "<p>What distinguishes the <strong>Demo</strong> stage from the others?</p>",
+            "answers": [
+              {
+                "text": "It brings the stakeholders back to verify that the finished feature meets the acceptance criteria agreed earlier",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Demo is the stakeholder verification that the right thing was built."
+              },
+              {
+                "text": "It is where developers first learn what the requirement is",
+                "fraction": 0,
+                "feedback": "Requirements are understood in Discuss; Demo confirms the completed feature."
+              },
+              {
+                "text": "It is where the acceptance tests are first written from examples",
+                "fraction": 0,
+                "feedback": "Writing the tests is Distill; Demo checks the built feature against them."
+              },
+              {
+                "text": "It is where developers refactor internal code without any stakeholder",
+                "fraction": 0,
+                "feedback": "Refactoring happens in Develop; Demo is explicitly a stakeholder verification."
+              }
+            ],
+            "generalFeedback": "Demo closes the loop with the people who asked for the feature. The team shows the completed work and checks it against the acceptance criteria distilled earlier, confirming \u2014 with stakeholders present \u2014 that it satisfies the requirement.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why three perspectives",
+            "text": "<p>Why does ATDD bring together three roles (the Three Amigos) to specify acceptance criteria?</p>",
+            "answers": [
+              {
+                "text": "Because business, developer, and tester each notice different things \u2014 value and intent, feasibility, and ways it could fail \u2014 so together they specify more complete, correct criteria",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the three viewpoints complement each other and catch gaps a single role would miss."
+              },
+              {
+                "text": "Because three signatures are legally required before coding may start",
+                "fraction": 0,
+                "feedback": "It is about complementary perspectives, not a legal sign-off requirement."
+              },
+              {
+                "text": "Because it lets the work be split so no one has to talk to anyone else",
+                "fraction": 0,
+                "feedback": "The point is collaboration and conversation, not avoiding it."
+              },
+              {
+                "text": "Because three people always write code faster than one",
+                "fraction": 0,
+                "feedback": "The Three Amigos meet to specify criteria, not to speed up typing code."
+              }
+            ],
+            "generalFeedback": "Each amigo brings a distinct lens: the business/PO clarifies what is wanted and why, the developer flags what is feasible and any hidden complexity, and the tester probes edge cases and ambiguity. Combining the three yields acceptance criteria that are clearer and less likely to miss something.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ATDD versus TDD level",
+            "text": "<p>What is the key difference between <strong>ATDD</strong> and ordinary <strong>TDD</strong>?</p>",
+            "answers": [
+              {
+                "text": "ATDD drives development from customer-facing acceptance tests agreed with the business, while TDD drives it from developer-written unit tests at the code level",
+                "fraction": 100,
+                "feedback": "Correct \u2014 ATDD works at the acceptance/customer level; TDD at the unit/developer level."
+              },
+              {
+                "text": "ATDD writes tests after the code, while TDD writes them before",
+                "fraction": 0,
+                "feedback": "Both are test-first; the difference is the level (acceptance/customer vs unit/developer)."
+              },
+              {
+                "text": "ATDD is only manual testing, while TDD is only automated",
+                "fraction": 0,
+                "feedback": "Both can be automated; the real distinction is acceptance level versus unit level."
+              },
+              {
+                "text": "ATDD forbids unit tests, while TDD forbids acceptance tests",
+                "fraction": 0,
+                "feedback": "They coexist: ATDD's Develop stage typically uses unit-level TDD inside."
+              }
+            ],
+            "generalFeedback": "Both ATDD and TDD are test-first. TDD operates at the unit level \u2014 a developer writes a failing unit test, makes it pass, then refactors (red-green-refactor). ATDD operates at the acceptance level \u2014 the team agrees customer-facing acceptance tests that drive the feature outside-in. In practice, ATDD's Develop stage uses TDD inside.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ATDD versus BDD",
+            "text": "<p>How is <strong>BDD</strong> related to <strong>ATDD</strong>?</p>",
+            "answers": [
+              {
+                "text": "They are closely related, example-driven, collaborative practices; BDD especially emphasises describing behaviour in a shared, ubiquitous language (e.g. Gherkin's Given-When-Then)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 BDD is a close relative of ATDD with a strong emphasis on behaviour and shared language."
+              },
+              {
+                "text": "BDD is a performance-testing technique unrelated to ATDD",
+                "fraction": 0,
+                "feedback": "BDD is about specifying behaviour by example, closely aligned with ATDD, not performance."
+              },
+              {
+                "text": "BDD writes tests only after release, the opposite of ATDD",
+                "fraction": 0,
+                "feedback": "BDD, like ATDD, favours specifying behaviour before/with development."
+              },
+              {
+                "text": "BDD replaces all collaboration with fully automated code generation",
+                "fraction": 0,
+                "feedback": "BDD is a collaboration and specification practice, not code generation."
+              }
+            ],
+            "generalFeedback": "BDD and ATDD overlap heavily: both are collaborative and example-driven, and both specify behaviour before development. BDD puts particular emphasis on describing behaviour in a ubiquitous language shared by the whole team, often using Gherkin (Given-When-Then). Many teams treat their ATDD acceptance tests as BDD scenarios.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Develop uses TDD inside",
+            "text": "<p>While making an acceptance test pass in the <strong>Develop</strong> stage, what do developers typically do at the code level?</p>",
+            "answers": [
+              {
+                "text": "Use unit-level TDD (red-green-refactor) to grow the implementation until the acceptance test passes",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the acceptance loop wraps around an inner unit-level TDD loop."
+              },
+              {
+                "text": "Skip all unit tests because the acceptance test already exists",
+                "fraction": 0,
+                "feedback": "Unit tests are not skipped; TDD is normally used inside Develop."
+              },
+              {
+                "text": "Rewrite the acceptance criteria to match whatever code they produce",
+                "fraction": 0,
+                "feedback": "The agreed criteria are the target; you build to them, not rewrite them to fit the code."
+              },
+              {
+                "text": "Wait for the Demo stage to write any tests at all",
+                "fraction": 0,
+                "feedback": "Tests are written before and during development, not deferred to Demo."
+              }
+            ],
+            "generalFeedback": "ATDD nests loops: the outer loop is the acceptance test agreed with the business, and inside Develop the developer typically uses ordinary unit-level TDD (red-green-refactor) to build the code that eventually makes the acceptance test pass. Acceptance and unit tests complement each other.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Discuss uses concrete examples",
+            "text": "<p>What makes the <strong>Discuss</strong> conversation effective in ATDD?</p>",
+            "answers": [
+              {
+                "text": "Grounding the requirement in concrete examples so ambiguity surfaces and everyone shares the same understanding",
+                "fraction": 100,
+                "feedback": "Correct \u2014 concrete examples expose misunderstandings early and align the team."
+              },
+              {
+                "text": "Keeping the requirement as abstract as possible so it stays flexible",
+                "fraction": 0,
+                "feedback": "Abstraction hides ambiguity; concrete examples are what make Discuss effective."
+              },
+              {
+                "text": "Having only the developer present so decisions are quick",
+                "fraction": 0,
+                "feedback": "Discuss needs the stakeholders' input, not just a developer."
+              },
+              {
+                "text": "Writing the production code during the meeting",
+                "fraction": 0,
+                "feedback": "Coding is Develop; Discuss is about understanding via examples."
+              }
+            ],
+            "generalFeedback": 'Discuss works best when the team explores the requirement through concrete examples ("what should happen if...?"). Real cases and edge cases quickly reveal hidden assumptions and disagreements, producing a genuinely shared understanding before any test or code is written.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which stage comes first",
+            "text": "<p>Which stage of the ATDD cycle comes <strong>first</strong>?</p>",
+            "answers": [
+              {
+                "text": "Discuss",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the cycle begins by discussing the requirement with stakeholders."
+              },
+              {
+                "text": "Develop",
+                "fraction": 0,
+                "feedback": "Develop is third; the cycle starts with Discuss."
+              },
+              {
+                "text": "Demo",
+                "fraction": 0,
+                "feedback": "Demo is last; the cycle starts with Discuss."
+              },
+              {
+                "text": "Distill",
+                "fraction": 0,
+                "feedback": "Distill is second; it follows the Discuss conversation."
+              }
+            ],
+            "generalFeedback": "The cycle opens with Discuss: understanding the requirement with stakeholders through examples. Only then can the team Distill those examples into acceptance tests, Develop the feature, and Demo it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which stage comes last",
+            "text": "<p>Which stage of the ATDD cycle comes <strong>last</strong>?</p>",
+            "answers": [
+              {
+                "text": "Demo",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the cycle ends by demonstrating and verifying the feature with stakeholders."
+              },
+              {
+                "text": "Distill",
+                "fraction": 0,
+                "feedback": "Distill is second; the cycle ends with Demo."
+              },
+              {
+                "text": "Discuss",
+                "fraction": 0,
+                "feedback": "Discuss is first; the cycle ends with Demo."
+              },
+              {
+                "text": "Develop",
+                "fraction": 0,
+                "feedback": "Develop is third; Demo follows it as the final stage."
+              }
+            ],
+            "generalFeedback": "Demo is the final stage: after Discuss, Distill, and Develop, the team shows the finished feature to stakeholders and verifies it against the agreed acceptance criteria.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Acceptance tests drive development",
+            "text": '<p>In what sense do acceptance tests "drive" development in ATDD?</p>',
+            "answers": [
+              {
+                "text": "They are agreed first and act as the target the implementation must satisfy, guiding what gets built and defining when it is done",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the agreed acceptance tests set the goal that development works toward."
+              },
+              {
+                "text": "They are generated automatically from the finished code",
+                "fraction": 0,
+                "feedback": "Acceptance tests are agreed before development, not generated from finished code."
+              },
+              {
+                "text": "They are used only to reject the work at the very end",
+                "fraction": 0,
+                "feedback": "They guide the work throughout, not merely as a final gate."
+              },
+              {
+                "text": "They replace any need to talk to the customer",
+                "fraction": 0,
+                "feedback": "They come from customer collaboration; they do not replace it."
+              }
+            ],
+            "generalFeedback": 'Because the acceptance tests are agreed before coding and express what "done" means, they set the target for the whole effort. Development proceeds until those tests pass, so the tests shape and drive what gets built rather than merely judging it afterwards.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Business amigo's contribution",
+            "text": "<p>In a Three Amigos conversation, what does the <strong>business/product</strong> representative mainly contribute?</p>",
+            "answers": [
+              {
+                "text": "Clarity about what is wanted and why \u2014 the business value and intent behind the requirement",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the business voice defines the desired outcome and its value."
+              },
+              {
+                "text": "The unit-test structure the developers should use internally",
+                "fraction": 0,
+                "feedback": "Internal test structure is the developer's area, not the business representative's."
+              },
+              {
+                "text": "The exact edge cases and failure modes to probe",
+                "fraction": 0,
+                "feedback": "Probing edge cases is chiefly the tester's contribution; business supplies intent and value."
+              },
+              {
+                "text": "The continuous-integration pipeline configuration",
+                "fraction": 0,
+                "feedback": "CI setup is not the business representative's role in the conversation."
+              }
+            ],
+            "generalFeedback": 'The business/product owner brings the "what and why": the outcome the customer needs and the value behind it. The developer weighs feasibility and the tester probes how it could go wrong. Together the three specify well-rounded acceptance criteria.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Tester amigo's contribution",
+            "text": "<p>In a Three Amigos conversation, what does the <strong>tester</strong> mainly contribute?</p>",
+            "answers": [
+              {
+                "text": "Questions about edge cases, ambiguity, and how the feature could fail or be misunderstood",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the tester probes for gaps, edge cases, and ways the requirement could break."
+              },
+              {
+                "text": "The final business decision on whether the feature is worth building",
+                "fraction": 0,
+                "feedback": "That call belongs to the business/PO; the tester probes correctness and completeness."
+              },
+              {
+                "text": "The choice of programming language and frameworks",
+                "fraction": 0,
+                "feedback": "Technical implementation choices are the developer's area, not the tester's core role here."
+              },
+              {
+                "text": "Nothing \u2014 the tester only writes tests after coding is finished",
+                "fraction": 0,
+                "feedback": "In ATDD the tester participates up front in specifying criteria, not only afterwards."
+              }
+            ],
+            "generalFeedback": `The tester's lens is "how could this be wrong or misunderstood?" \u2014 surfacing edge cases, ambiguities, and failure modes while the criteria are still being written. This up-front questioning is far cheaper than discovering the gaps after the feature is built.`,
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Living documentation from examples",
+            "text": "<p>Why can ATDD/Specification-by-Example acceptance tests serve as <strong>living documentation</strong>?</p>",
+            "answers": [
+              {
+                "text": "Because they are executed against the system, a passing suite shows the documented examples still match the real behaviour, so the documentation cannot silently go stale",
+                "fraction": 100,
+                "feedback": "Correct \u2014 executing the examples keeps the documentation in step with the system."
+              },
+              {
+                "text": "Because they are printed and stored in a binder for reference",
+                "fraction": 0,
+                "feedback": "Living documentation is executable and self-checking, not a static archive."
+              },
+              {
+                "text": "Because a writer manually rewrites them after every release",
+                "fraction": 0,
+                "feedback": "The point is that execution keeps them current automatically, not manual rewriting."
+              },
+              {
+                "text": "Because they can be read but never run",
+                "fraction": 0,
+                "feedback": "They are run against the system; that is exactly what keeps them alive."
+              }
+            ],
+            "generalFeedback": "Ordinary documents drift from the code over time. Because ATDD acceptance tests (concrete examples) are executed, any behaviour change that is not reflected in them makes them fail. A green suite is evidence the examples still describe the real system \u2014 documentation that stays alive.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ATDD versus TDD: wrong thing versus wrong code",
+            "text": "<p>At the level each works, what kind of mistake does <strong>ATDD</strong> most directly guard against compared with <strong>TDD</strong>?</p>",
+            "answers": [
+              {
+                "text": "ATDD mainly guards against building the wrong thing (wrong requirement), while TDD mainly guards against building the thing wrong (defective code)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 acceptance-level ATDD targets requirement correctness; unit-level TDD targets code correctness."
+              },
+              {
+                "text": "ATDD guards against slow code, while TDD guards against slow tests",
+                "fraction": 0,
+                "feedback": "Neither is about speed; ATDD targets the right requirement, TDD targets correct code."
+              },
+              {
+                "text": "They guard against exactly the same mistakes at the same level",
+                "fraction": 0,
+                "feedback": "They work at different levels: acceptance/customer versus unit/developer."
+              },
+              {
+                "text": "ATDD guards against compiler errors, while TDD guards against typos",
+                "fraction": 0,
+                "feedback": "That trivialises both; ATDD is about the right requirement, TDD about correct units."
+              }
+            ],
+            "generalFeedback": "Because ATDD agrees customer-facing acceptance tests first, it chiefly protects against building the wrong feature \u2014 a requirement mismatch. TDD, working at the unit level, chiefly protects against defects in the code that is built. The two levels are complementary: right thing (ATDD) and thing done right (TDD).",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Place activity: turning examples into Given-When-Then",
+            "text": "<p>The team takes the concrete examples agreed in a story conversation and writes them up as Given-When-Then acceptance tests. Which ATDD stage is this?</p>",
+            "answers": [
+              {
+                "text": "Distill",
+                "fraction": 100,
+                "feedback": "Correct \u2014 converting agreed examples into acceptance tests is the Distill stage."
+              },
+              {
+                "text": "Discuss",
+                "fraction": 0,
+                "feedback": "Discuss is the conversation that surfaces the examples; writing them up as tests is Distill."
+              },
+              {
+                "text": "Develop",
+                "fraction": 0,
+                "feedback": "Develop implements the feature; formalising examples into tests is Distill."
+              },
+              {
+                "text": "Demo",
+                "fraction": 0,
+                "feedback": "Demo verifies the finished feature; producing the acceptance tests is Distill."
+              }
+            ],
+            "generalFeedback": "Distill is exactly this: taking the concrete examples raised while discussing and refining them into precise acceptance tests, often as Given-When-Then. The output is the agreed criteria the Develop stage will build toward.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Place activity: showing the feature to the PO",
+            "text": "<p>The developers show the completed feature to the product owner and walk through the acceptance criteria together to confirm it is right. Which ATDD stage is this?</p>",
+            "answers": [
+              {
+                "text": "Demo",
+                "fraction": 100,
+                "feedback": "Correct \u2014 verifying the finished feature with stakeholders is the Demo stage."
+              },
+              {
+                "text": "Discuss",
+                "fraction": 0,
+                "feedback": "Discuss happens before building; confirming the finished feature is Demo."
+              },
+              {
+                "text": "Distill",
+                "fraction": 0,
+                "feedback": "Distill produces the acceptance tests; checking the built feature against them is Demo."
+              },
+              {
+                "text": "Develop",
+                "fraction": 0,
+                "feedback": "Develop is the implementation; the stakeholder verification afterwards is Demo."
+              }
+            ],
+            "generalFeedback": "Demonstrating the completed work to stakeholders and confirming, with them, that it satisfies the agreed acceptance criteria is the Demo stage \u2014 the point where the team verifies it built the right thing.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Place activity: red-green-refactor while coding",
+            "text": "<p>A developer writes a failing unit test, makes it pass, and refactors, repeating this while building the code that will satisfy the acceptance test. Which ATDD stage does this happen in?</p>",
+            "answers": [
+              {
+                "text": "Develop \u2014 unit-level TDD is used inside the Develop stage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 red-green-refactor is the inner TDD loop within Develop."
+              },
+              {
+                "text": "Distill \u2014 because that is where all tests are written",
+                "fraction": 0,
+                "feedback": "Distill writes the acceptance tests; unit-level red-green-refactor happens in Develop."
+              },
+              {
+                "text": "Discuss \u2014 because coding starts as soon as the conversation begins",
+                "fraction": 0,
+                "feedback": "Discuss is conversation; the coding with unit TDD is the Develop stage."
+              },
+              {
+                "text": "Demo \u2014 because tests are run in front of stakeholders",
+                "fraction": 0,
+                "feedback": "Demo verifies the finished feature; the red-green-refactor coding is in Develop."
+              }
+            ],
+            "generalFeedback": "Inside Develop, the team makes the acceptance test pass by growing the implementation with ordinary unit-level TDD (red-green-refactor). ATDD's acceptance loop wraps around this inner unit-test loop; the two operate at different levels.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why acceptance tests come first",
+            "text": "<p>What is the strongest reason to agree the acceptance tests <strong>before</strong> starting development?</p>",
+            "answers": [
+              {
+                "text": 'It builds a shared understanding of "done" up front, reducing the risk of building the wrong thing and giving a clear target',
+                "fraction": 100,
+                "feedback": "Correct \u2014 agreeing tests first aligns everyone and prevents wasted effort on the wrong feature."
+              },
+              {
+                "text": "It guarantees the code will contain no bugs whatsoever",
+                "fraction": 0,
+                "feedback": "No practice guarantees zero bugs; ATDD's value is shared understanding and a clear target."
+              },
+              {
+                "text": "It lets the team skip talking to the customer later",
+                "fraction": 0,
+                "feedback": "ATDD is built on ongoing collaboration; it does not remove the need to communicate."
+              },
+              {
+                "text": "It makes unit tests unnecessary",
+                "fraction": 0,
+                "feedback": "Unit tests still matter; ATDD's Develop stage typically uses TDD inside."
+              }
+            ],
+            "generalFeedback": 'Agreeing acceptance tests up front forces the business, developers, and testers to reach one concrete definition of "done" before effort is spent. That shared understanding is the main defence against the costliest failure \u2014 building the wrong thing well.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Misconception: ATDD is only a tester activity",
+            "text": `<p>A colleague says, "ATDD is just the testers' job \u2014 they write the acceptance tests and hand them over." Why is this wrong?</p>`,
+            "answers": [
+              {
+                "text": "ATDD is collaborative: business, developers, and testers specify the acceptance tests together, so it is a whole-team activity, not a tester-only one",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the Three Amigos collaboration is central; ATDD is not owned by testers alone."
+              },
+              {
+                "text": "It is wrong because only developers are allowed to write acceptance tests",
+                "fraction": 0,
+                "feedback": "No single role owns it; the point is that all three collaborate, testers included."
+              },
+              {
+                "text": "It is correct \u2014 testers do own ATDD entirely",
+                "fraction": 0,
+                "feedback": "That is the misconception; ATDD is a collaborative, whole-team practice."
+              },
+              {
+                "text": "It is wrong because ATDD does not involve tests at all",
+                "fraction": 0,
+                "feedback": "ATDD is very much about acceptance tests; the error is thinking only testers make them."
+              }
+            ],
+            "generalFeedback": 'A core idea of ATDD is shared authorship of the acceptance criteria. The Three Amigos \u2014 business/PO, developer, tester \u2014 specify them together so the whole team owns one definition of "done". Treating it as a testers-only handoff loses the shared understanding that gives ATDD its value.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Misconception: acceptance tests after coding",
+            "text": "<p>A team writes the code first and only then writes acceptance tests to check it. Why is this not ATDD?</p>",
+            "answers": [
+              {
+                "text": 'ATDD is test-first at the acceptance level: the tests must be agreed before development so they can drive it and define "done"',
+                "fraction": 100,
+                "feedback": 'Correct \u2014 writing acceptance tests after the code inverts the "test-driven" idea of ATDD.'
+              },
+              {
+                "text": "It is not ATDD because acceptance tests may never be automated",
+                "fraction": 0,
+                "feedback": "Automation is not the issue; the issue is that the tests came after the code, not before."
+              },
+              {
+                "text": "It is actually correct ATDD, since the order does not matter",
+                "fraction": 0,
+                "feedback": "Order is central: ATDD requires the acceptance tests to come before development."
+              },
+              {
+                "text": "It is not ATDD because ATDD forbids writing any code",
+                "fraction": 0,
+                "feedback": "ATDD includes a Develop stage; the point is the tests precede that development."
+              }
+            ],
+            "generalFeedback": 'The "Test-Driven" in ATDD means the acceptance tests come first and shape what gets built. Writing them after the fact turns them into a verification checklist and forfeits the shared, up-front definition of "done" that drives the work.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Misconception: Develop skips unit tests",
+            "text": `<p>"Because ATDD already has an acceptance test, the Develop stage doesn't need any unit testing." Why is this a misconception?</p>`,
+            "answers": [
+              {
+                "text": "The Develop stage normally uses unit-level TDD inside; acceptance and unit tests operate at different levels and complement each other",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the acceptance loop wraps an inner unit-level TDD loop; both are used."
+              },
+              {
+                "text": "It is correct \u2014 one acceptance test fully replaces all unit tests",
+                "fraction": 0,
+                "feedback": "An acceptance test checks customer-level behaviour; it does not replace fine-grained unit tests."
+              },
+              {
+                "text": "It is a misconception because acceptance tests cannot be automated",
+                "fraction": 0,
+                "feedback": "Acceptance tests can be automated; the error is thinking they remove the need for unit tests."
+              },
+              {
+                "text": "It is a misconception because Develop is where acceptance tests are first written",
+                "fraction": 0,
+                "feedback": "Acceptance tests are written in Distill; the error here is dropping unit testing in Develop."
+              }
+            ],
+            "generalFeedback": 'ATDD nests loops. The outer, acceptance-level test defines customer-facing "done"; inside Develop, developers still use unit-level TDD (red-green-refactor) to build and verify the internals. The two levels catch different problems and are used together, not one instead of the other.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario: distinguishing ATDD from TDD",
+            "text": '<p>Consider two tests for a checkout feature. Test X, agreed with the product owner, says "Given a cart of $100 with a 10% coupon, When the customer checks out, Then the total is $90." Test Y, written by a developer, checks that the internal <code>applyDiscount()</code> function returns 90 for inputs (100, 0.10). Which is the ATDD-style acceptance test?</p>',
+            "answers": [
+              {
+                "text": "Test X \u2014 it is customer-facing, agreed with the business, and expressed as observable behaviour",
+                "fraction": 100,
+                "feedback": "Correct \u2014 X is an acceptance test; Y is a developer unit test."
+              },
+              {
+                "text": "Test Y \u2014 because it uses concrete numbers",
+                "fraction": 0,
+                "feedback": "Both use numbers; Y checks an internal function, so it is a unit test, not an acceptance test."
+              },
+              {
+                "text": "Both are unit tests, since both involve a discount",
+                "fraction": 0,
+                "feedback": "X is agreed with the business and describes customer behaviour \u2014 that is an acceptance test."
+              },
+              {
+                "text": "Neither is a test because no code is shown",
+                "fraction": 0,
+                "feedback": "Both are tests; X is the acceptance-level one and Y is the unit-level one."
+              }
+            ],
+            "generalFeedback": "Test X describes end-to-end, customer-visible behaviour agreed with the business \u2014 an ATDD acceptance test. Test Y verifies one internal function in isolation \u2014 a developer unit test (TDD). Both are valuable and typically coexist: Y is the kind of test written inside Develop to help make X pass.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Scenario: ATDD versus BDD emphasis",
+            "text": "<p>Two teams both agree acceptance tests before coding. Team A writes them as ad-hoc checklists; Team B writes them as Given-When-Then scenarios in a ubiquitous language shared with the business and runs them with a Cucumber-style tool. Which best describes Team B's emphasis?</p>",
+            "answers": [
+              {
+                "text": "It reflects the BDD emphasis: describing behaviour in a shared, ubiquitous language (Gherkin's Given-When-Then) that both people and tools can read",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Team B leans into BDD's focus on behaviour and shared language, a close relative of ATDD."
+              },
+              {
+                "text": "It shows Team B is doing unit-level TDD rather than acceptance testing",
+                "fraction": 0,
+                "feedback": "Given-When-Then scenarios are acceptance-level behaviour, not unit-level TDD."
+              },
+              {
+                "text": "It shows Team B has abandoned collaboration with the business",
+                "fraction": 0,
+                "feedback": "The opposite \u2014 a ubiquitous language shared with the business strengthens collaboration."
+              },
+              {
+                "text": "It shows Team B is doing performance testing",
+                "fraction": 0,
+                "feedback": "Given-When-Then scenarios describe functional behaviour, not performance."
+              }
+            ],
+            "generalFeedback": "Both teams practise ATDD (acceptance tests first, collaboratively). Team B additionally embraces BDD's emphasis: expressing behaviour in a ubiquitous language via Gherkin (Given-When-Then) and executing it with tools like Cucumber. BDD is a close relative of ATDD that foregrounds shared language and behaviour.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Role of concrete examples",
+            "text": "<p>Throughout the ATDD cycle, why are <strong>concrete examples</strong> (Specification by Example) so important?</p>",
+            "answers": [
+              {
+                "text": "They pin down ambiguous requirements precisely, become the executable acceptance tests, and double as living documentation of real behaviour",
+                "fraction": 100,
+                "feedback": "Correct \u2014 concrete examples align understanding, drive the tests, and stay accurate as documentation."
+              },
+              {
+                "text": "They exist only to make meetings longer and are discarded before coding",
+                "fraction": 0,
+                "feedback": "Examples are kept and turned into the acceptance tests; they are not thrown away."
+              },
+              {
+                "text": "They replace the need for any conversation between roles",
+                "fraction": 0,
+                "feedback": "Examples are the product of conversation, not a substitute for it."
+              },
+              {
+                "text": "They are only useful for measuring code coverage",
+                "fraction": 0,
+                "feedback": "Their role is shared understanding and executable specification, not coverage measurement."
+              }
+            ],
+            "generalFeedback": 'Concrete examples make a fuzzy requirement precise ("what exactly should happen when...?"). Distilled into acceptance tests, they specify the behaviour, verify it when run, and remain trustworthy documentation of what the system actually does \u2014 the essence of Specification by Example.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Cost of a missing amigo perspective",
+            "text": "<p>A team specifies acceptance criteria with only the product owner and a developer present; no tester takes part. What is the most likely consequence?</p>",
+            "answers": [
+              {
+                "text": "Edge cases, ambiguities, and failure modes are more likely to be missed, so the criteria are less complete and gaps surface later",
+                "fraction": 100,
+                "feedback": `Correct \u2014 without the tester's lens, exactly the "how could this go wrong?" cases tend to slip through.`
+              },
+              {
+                "text": "The criteria will be perfect, since two roles are enough for any requirement",
+                "fraction": 0,
+                "feedback": "Missing the tester's perspective typically leaves edge cases and ambiguities unaddressed."
+              },
+              {
+                "text": "Development will be impossible to start without a tester's signature",
+                "fraction": 0,
+                "feedback": "It is not about a signature; it is about the missing viewpoint reducing the quality of the criteria."
+              },
+              {
+                "text": "The feature will automatically have full unit-test coverage",
+                "fraction": 0,
+                "feedback": "The Three Amigos concerns specifying criteria, not generating unit-test coverage."
+              }
+            ],
+            "generalFeedback": "Each amigo covers a blind spot of the others. The tester specifically probes edge cases, ambiguity, and failure modes. Leaving that lens out of the conversation means such gaps are less likely to be caught early, and they tend to reappear as defects or rework once the feature is built.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Order a full set of activities",
+            "text": "<p>Put these four activities into the correct ATDD order: (1) implement the feature with unit TDD until the acceptance test passes; (2) show the finished feature to stakeholders for verification; (3) talk through the story with concrete examples; (4) write the examples up as acceptance tests.</p>",
+            "answers": [
+              {
+                "text": "3, then 4, then 1, then 2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Discuss (3), Distill (4), Develop (1), Demo (2)."
+              },
+              {
+                "text": "4, then 3, then 2, then 1",
+                "fraction": 0,
+                "feedback": "You discuss before distilling, and develop before demoing; this order is wrong."
+              },
+              {
+                "text": "1, then 2, then 3, then 4",
+                "fraction": 0,
+                "feedback": "Building and demoing before discussing and distilling reverses the cycle."
+              },
+              {
+                "text": "3, then 1, then 4, then 2",
+                "fraction": 0,
+                "feedback": "The acceptance tests (4, Distill) must be written before development (1, Develop)."
+              }
+            ],
+            "generalFeedback": "Mapping the activities to stages: (3) is Discuss, (4) is Distill, (1) is Develop, and (2) is Demo. The correct order therefore is 3, 4, 1, 2 \u2014 Discuss, Distill, Develop, Demo.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": 'What "done" means at the acceptance level',
+            "text": '<p>In ATDD, when is a feature considered "done" at the acceptance level?</p>',
+            "answers": [
+              {
+                "text": "When it satisfies the agreed acceptance criteria \u2014 the acceptance tests pass and stakeholders confirm it in the Demo",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 "done" is defined by the agreed acceptance criteria being met and verified.'
+              },
+              {
+                "text": "When the developer feels the code is finished, regardless of the criteria",
+                "fraction": 0,
+                "feedback": '"Done" is defined by the agreed acceptance criteria, not by individual feeling.'
+              },
+              {
+                "text": "When 100% branch coverage is reached, whatever the behaviour",
+                "fraction": 0,
+                "feedback": 'Coverage is a separate metric; acceptance "done" is meeting the agreed criteria.'
+              },
+              {
+                "text": "When the code compiles without warnings",
+                "fraction": 0,
+                "feedback": "Compiling cleanly is not the same as satisfying the customer's acceptance criteria."
+              }
+            ],
+            "generalFeedback": 'ATDD makes "done" objective and shared: the feature is done when it meets the acceptance criteria agreed up front \u2014 the acceptance tests pass and the stakeholders confirm it in the Demo. This removes ambiguity about whether the right thing was actually delivered.',
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Cycle order Discuss-Distill-Develop-Demo",
+            "text": "<p>The four stages of the ATDD cycle occur in the order Discuss, Distill, Develop, Demo.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is the order: understand, capture as tests, build, then verify with stakeholders."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The order is exactly Discuss, Distill, Develop, Demo."
+              }
+            ],
+            "generalFeedback": "The ATDD cycle runs Discuss (understand the requirement with examples), Distill (turn examples into acceptance tests), Develop (implement, making the tests pass with unit TDD inside), and Demo (verify the result with stakeholders)."
+          },
+          {
+            "type": "multichoice",
+            "name": "Place activity: exploring a story with examples",
+            "text": '<p>The business owner, a developer, and a tester sit together and talk through a new user story, raising "what should happen if...?" examples to reach a shared understanding before anything is written down as a test. Which ATDD stage is this?</p>',
+            "answers": [
+              {
+                "text": "Discuss",
+                "fraction": 100,
+                "feedback": "Correct \u2014 exploring the requirement with stakeholders through examples is the Discuss stage."
+              },
+              {
+                "text": "Distill",
+                "fraction": 0,
+                "feedback": "Distill is when those examples are written up as acceptance tests; the conversation itself is Discuss."
+              },
+              {
+                "text": "Develop",
+                "fraction": 0,
+                "feedback": "Develop is implementation; the up-front conversation with examples is Discuss."
+              },
+              {
+                "text": "Demo",
+                "fraction": 0,
+                "feedback": "Demo verifies the finished feature; the initial exploration of the story is Discuss."
+              }
+            ],
+            "generalFeedback": 'This is Discuss: the Three Amigos explore the story together, using concrete "what if" examples to build a shared understanding of the requirement. Turning those examples into written acceptance tests would be the next stage, Distill.',
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "ATDD \u662F\u4EC0\u9EBC",
+            "text": "<p>\u4EC0\u9EBC\u662F<strong>\u9A57\u6536\u6E2C\u8A66\u9A45\u52D5\u958B\u767C\uFF08Acceptance Test-Driven Development, ATDD\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7A2E\u5354\u4F5C\u5BE6\u8E10\uFF1A\u5718\u968A\u5728\u529F\u80FD\u958B\u767C\u4E4B\u524D\uFF0C\u5C31\u91DD\u5C0D\u67D0\u9805\u9700\u6C42\u3001\u5F9E\u5BA2\u6236\u89D2\u5EA6\u5171\u540C\u8B70\u5B9A\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ATDD \u4E8B\u5148\u5354\u4F5C\u8B70\u5B9A\u9A57\u6536\u6E2C\u8A66\uFF0C\u4E26\u4EE5\u5176\u9A45\u52D5\u958B\u767C\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u8B93\u6E2C\u8A66\u4EBA\u54E1\u5728\u958B\u767C\u8005\u628A\u529F\u80FD\u5BEB\u5B8C\u5F8C\u624D\u64B0\u5BEB\u7F3A\u9677\u5831\u544A\u7684\u65B9\u5F0F",
+                "fraction": 0,
+                "feedback": "ATDD \u662F\u6E2C\u8A66\u5148\u884C\u4E14\u5354\u4F5C\u7684\uFF1B\u4E26\u975E\u53EA\u7531\u6E2C\u8A66\u4EBA\u54E1\u4E8B\u5F8C\u56DE\u5831\u7F3A\u9677\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u91CF\u6E2C\u6BCF\u500B\u9A57\u6536\u6E2C\u8A66\u57F7\u884C\u9700\u6642\u591A\u4E45\u7684\u6548\u80FD\u5256\u6790\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6548\u80FD\u91CF\u6E2C\uFF1BATDD \u662F\u5728\u958B\u767C\u524D\u8B70\u5B9A\u9A57\u6536\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u4E00\u7A2E\u5F9E\u8CC7\u6599\u5EAB\u7DB1\u8981\u81EA\u52D5\u7522\u751F\u6B63\u5F0F\u7A0B\u5F0F\u78BC\u7684\u5DE5\u5177",
+                "fraction": 0,
+                "feedback": "ATDD \u662F\u5354\u4F5C\u8207\u898F\u683C\u5BE6\u8E10\uFF0C\u4E0D\u662F\u7A0B\u5F0F\u78BC\u7522\u751F\u5668\u3002"
+              }
+            ],
+            "generalFeedback": "ATDD\uFF08\u9A57\u6536\u6E2C\u8A66\u9A45\u52D5\u958B\u767C\uFF09\u8B93\u6574\u500B\u5718\u968A\u2014\u2014\u696D\u52D9\u3001\u958B\u767C\u8005\u8207\u6E2C\u8A66\u4EBA\u54E1\u2014\u2014\u5728\u9700\u6C42\u958B\u767C\u4E4B\u524D\uFF0C\u5148\u5171\u540C\u8B70\u5B9A\u5177\u9AD4\u7684\u9A57\u6536\u6E2C\u8A66\u3002\u9019\u4E9B\u6E2C\u8A66\u5F9E\u5BA2\u6236\uFF0F\u696D\u52D9\u89D2\u5EA6\u64B0\u5BEB\uFF0C\u8868\u9054\u300C\u5B8C\u6210\u300D\u7684\u610F\u7FA9\uFF0C\u4E26\u7531\u5916\u800C\u5167\uFF08outside-in\uFF09\u9A45\u52D5\u5BE6\u4F5C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9A57\u6536\u6E2C\u8A66\u662F\u4EC0\u9EBC",
+            "text": "<p>\u5728 ATDD \u4E2D\uFF0C<strong>\u9A57\u6536\u6E2C\u8A66\uFF08acceptance test\uFF09</strong>\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4E00\u7A2E\u5F9E\u5BA2\u6236\uFF0F\u696D\u52D9\u89D2\u5EA6\u8868\u9054\u7684\u6E2C\u8A66\uFF0C\u7528\u4F86\u6AA2\u67E5\u529F\u80FD\u662F\u5426\u6EFF\u8DB3\u8B70\u5B9A\u7684\u9700\u6C42",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u6E2C\u8A66\u4F9D\u5BA2\u6236\u5C0D\u9700\u6C42\u7684\u671F\u671B\u4F86\u9A57\u8B49\u529F\u80FD\u3002"
+              },
+              {
+                "text": "\u7531\u55AE\u4E00\u958B\u767C\u8005\u64B0\u5BEB\u3001\u7528\u4F86\u5B64\u7ACB\u6AA2\u67E5\u67D0\u500B\u5167\u90E8\u5C0F\u51FD\u5F0F\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u55AE\u5143\u6E2C\u8A66\uFF1B\u9A57\u6536\u6E2C\u8A66\u662F\u5728\u5BA2\u6236\uFF0F\u9700\u6C42\u5C64\u7D1A\u904B\u4F5C\u3002"
+              },
+              {
+                "text": "\u91CF\u6E2C\u6E2C\u8A66\u5957\u4EF6\u57F7\u884C\u5230\u591A\u5C11\u6BD4\u4F8B\u539F\u59CB\u78BC\u7684\u6307\u6A19",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387\uFF1B\u9A57\u6536\u6E2C\u8A66\u662F\u5F9E\u5BA2\u6236\u89D2\u5EA6\u9A57\u8B49\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u4E00\u4EFD\u7A0B\u5F0F\u78BC\u5FC5\u9808\u9075\u5B88\u7684\u7DE8\u78BC\u98A8\u683C\u898F\u5247\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u98A8\u683C\u898F\u5247\u5C6C\u65BC\u975C\u614B\u6AA2\u67E5\uFF1B\u9A57\u6536\u6E2C\u8A66\u6AA2\u67E5\u7684\u662F\u9762\u5411\u5BA2\u6236\u7684\u884C\u70BA\u3002"
+              }
+            ],
+            "generalFeedback": "\u9A57\u6536\u6E2C\u8A66\u4EE5\u5BA2\u6236\uFF0F\u696D\u52D9\u7528\u8A9E\u9673\u8FF0\u529F\u80FD\u5FC5\u9808\u505A\u5230\u4EC0\u9EBC\u624D\u6703\u88AB\u63A5\u53D7\u3002\u5B83\u4E0D\u50CF\u958B\u767C\u8005\u7684\u55AE\u5143\u6E2C\u8A66\uFF08\u6AA2\u67E5\u5167\u90E8\u55AE\u5143\uFF09\uFF0C\u800C\u662F\u6355\u6349\u5BA2\u6236\u773C\u4E2D\u7684\u9700\u6C42\uFF0C\u662F\u5224\u65B7\u529F\u80FD\u662F\u5426\u300C\u5B8C\u6210\u300D\u7684\u6E96\u7E69\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ATDD \u5FAA\u74B0\u7684\u56DB\u500B\u968E\u6BB5",
+            "text": "<p>\u5E38\u898B\u6559\u5B78\u4E2D\u7684 ATDD \u5FAA\u74B0\u6709\u56DB\u500B\u968E\u6BB5\uFF0C\u5B83\u5011\u7684\u540D\u7A31\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u8A0E\u8AD6\uFF08Discuss\uFF09\u3001\u8403\u53D6\uFF08Distill\uFF09\u3001\u958B\u767C\uFF08Develop\uFF09\u3001\u5C55\u793A\uFF08Demo\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ATDD \u5FAA\u74B0\u7684\u56DB\u500B\u968E\u6BB5\u662F Discuss\u3001Distill\u3001Develop\u3001Demo\u3002"
+              },
+              {
+                "text": "\u7D05\uFF08Red\uFF09\u3001\u7DA0\uFF08Green\uFF09\u3001\u91CD\u69CB\uFF08Refactor\uFF09\u3001\u767C\u5E03\uFF08Release\uFF09",
+                "fraction": 0,
+                "feedback": "\u7D05-\u7DA0-\u91CD\u69CB\u662F TDD \u7684\u5FAE\u5FAA\u74B0\uFF0C\u4E0D\u662F\u56DB\u968E\u6BB5\u7684 ATDD \u5FAA\u74B0\u3002"
+              },
+              {
+                "text": "\u8A08\u756B\uFF08Plan\uFF09\u3001\u57F7\u884C\uFF08Do\uFF09\u3001\u6AA2\u67E5\uFF08Check\uFF09\u3001\u884C\u52D5\uFF08Act\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F PDCA \u6539\u5584\u5FAA\u74B0\uFF1BATDD \u5FAA\u74B0\u662F Discuss\u3001Distill\u3001Develop\u3001Demo\u3002"
+              },
+              {
+                "text": "\u8A2D\u8A08\uFF08Design\uFF09\u3001\u90E8\u7F72\uFF08Deploy\uFF09\u3001\u9664\u932F\uFF08Debug\uFF09\u3001\u6587\u4EF6\uFF08Document\uFF09",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u4E0D\u662F ATDD \u7684\u968E\u6BB5\uFF1B\u56DB\u968E\u6BB5\u662F Discuss\u3001Distill\u3001Develop\u3001Demo\u3002"
+              }
+            ],
+            "generalFeedback": "Markus G\xE4rtner \u5EE3\u70BA\u6559\u5B78\u7684 ATDD \u5FAA\u74B0\u6709\u56DB\u500B\u968E\u6BB5\uFF1A\u8A0E\u8AD6\uFF08Discuss\uFF0C\u4EE5\u7BC4\u4F8B\u8AC7\u6E05\u695A\u9700\u6C42\uFF09\u3001\u8403\u53D6\uFF08Distill\uFF0C\u628A\u7BC4\u4F8B\u8F49\u6210\u9A57\u6536\u6E2C\u8A66\uFF09\u3001\u958B\u767C\uFF08Develop\uFF0C\u5BE6\u4F5C\u4E26\u8B93\u6E2C\u8A66\u901A\u904E\uFF09\u3001\u5C55\u793A\uFF08Demo\uFF0C\u5411\u5229\u5BB3\u95DC\u4FC2\u4EBA\u5C55\u793A\u8207\u9A57\u8B49\u529F\u80FD\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Discuss \u7684\u610F\u7FA9",
+            "text": "<p>\u5728 ATDD \u5FAA\u74B0\u4E2D\uFF0C<strong>\u8A0E\u8AD6\uFF08Discuss\uFF09</strong>\u968E\u6BB5\u6703\u767C\u751F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5718\u968A\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u4E00\u8D77\u8AC7\u6E05\u695A\u9700\u6C42\u6216\u4F7F\u7528\u8005\u6545\u4E8B\uFF0C\u85C9\u5177\u9AD4\u7BC4\u4F8B\u5EFA\u7ACB\u5171\u540C\u7406\u89E3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Discuss \u900F\u904E\u5177\u9AD4\u7BC4\u4F8B\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u4E00\u8D77\u63A2\u8A0E\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u64B0\u5BEB\u5BE6\u4F5C\u8A72\u529F\u80FD\u7684\u6B63\u5F0F\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u5BE6\u4F5C\u767C\u751F\u5728 Develop\uFF1BDiscuss \u662F\u91DD\u5C0D\u9700\u6C42\u7684\u5C0D\u8A71\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u628A\u5B8C\u6210\u7684\u529F\u80FD\u5C55\u793A\u7D66\u7522\u54C1\u8CA0\u8CAC\u4EBA\u7C3D\u6838",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F Demo\uFF1BDiscuss \u5728\u6700\u524D\u9762\uFF0C\u91CD\u9EDE\u5728\u7406\u89E3\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u91CF\u6E2C\u9A57\u6536\u5957\u4EF6\u7684\u5206\u652F\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u91CF\u6E2C\u8207\u6B64\u7121\u95DC\uFF1BDiscuss \u662F\u4EE5\u7BC4\u4F8B\u5EFA\u7ACB\u5171\u540C\u7406\u89E3\u7684\u5C0D\u8A71\u3002"
+              }
+            ],
+            "generalFeedback": "Discuss \u662F\u7B2C\u4E00\u500B\u968E\u6BB5\uFF1A\u5718\u968A\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u4E00\u8D77\u8AC7\u6E05\u695A\u4E00\u500B\u4F7F\u7528\u8005\u6545\u4E8B\u6216\u9700\u6C42\uFF0C\u63D0\u51FA\u5177\u9AD4\u7BC4\u4F8B\u8207\u908A\u754C\u60C5\u6CC1\uFF0C\u8B93\u5927\u5BB6\u5728\u64B0\u5BEB\u4EFB\u4F55\u6E2C\u8A66\u6216\u5BEB\u7A0B\u5F0F\u4E4B\u524D\uFF0C\u5C0D\u60F3\u8981\u7684\u6771\u897F\u6709\u76F8\u540C\u7684\u7406\u89E3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Distill \u7684\u610F\u7FA9",
+            "text": "<p>\u5728 ATDD \u5FAA\u74B0\u4E2D\uFF0C<strong>\u8403\u53D6\uFF08Distill\uFF09</strong>\u968E\u6BB5\u6703\u767C\u751F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u8A0E\u8AD6\u4E2D\u8B70\u5B9A\u7684\u5177\u9AD4\u7BC4\u4F8B\uFF0C\u8F49\u6210\u9A57\u6536\u6E2C\u8A66\uFF0F\u9A57\u6536\u6E96\u5247\uFF0C\u5E38\u4EE5 Given-When-Then \u5F62\u5F0F\u8868\u9054",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Distill \u628A\u8B70\u5B9A\u7684\u7BC4\u4F8B\u8F49\u63DB\u70BA\u9A57\u6536\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u628A\u7248\u672C\u90E8\u7F72\u5230\u6B63\u5F0F\u74B0\u5883\u7684\u4F3A\u670D\u5668",
+                "fraction": 0,
+                "feedback": "\u90E8\u7F72\u4E0D\u662F ATDD \u7684\u968E\u6BB5\uFF1BDistill \u662F\u628A\u7BC4\u4F8B\u8F49\u6210\u9A57\u6536\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u7B2C\u4E00\u6B21\u548C\u5BA2\u6236\u4E00\u8D77\u8166\u529B\u6FC0\u76EA\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u90A3\u7B2C\u4E00\u6B21\u5C0D\u8A71\u662F Discuss\uFF1BDistill \u662F\u628A\u5176\u7BC4\u4F8B\u6B63\u5F0F\u5316\u70BA\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u5256\u6790\u529F\u80FD\u4EE5\u627E\u51FA\u6548\u80FD\u74F6\u9838",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u5256\u6790\u8207\u6B64\u7121\u95DC\uFF1BDistill \u5F9E\u7BC4\u4F8B\u7522\u51FA\u9A57\u6536\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "Distill \u662F\u7B2C\u4E8C\u500B\u968E\u6BB5\uFF1A\u628A\u8A0E\u8AD6\u6642\u63D0\u51FA\u7684\u7BC4\u4F8B\u52A0\u4EE5\u7CBE\u7149\u4E26\u5BEB\u6210\u9A57\u6536\u6E2C\u8A66\uFF08\u9A57\u6536\u6E96\u5247\uFF09\uFF0C\u5E38\u63A1\u7528 Given-When-Then \u7D50\u69CB\u3002\u9019\u4E9B\u6210\u70BA\u5C0D\u529F\u80FD\u5FC5\u9808\u505A\u5230\u4EC0\u9EBC\u7684\u5171\u540C\u3001\u8B70\u5B9A\u7684\u5B9A\u7FA9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Develop \u7684\u610F\u7FA9",
+            "text": "<p>\u5728 ATDD \u5FAA\u74B0\u4E2D\uFF0C<strong>\u958B\u767C\uFF08Develop\uFF09</strong>\u968E\u6BB5\u6703\u767C\u751F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u958B\u767C\u8005\u5BE6\u4F5C\u529F\u80FD\u4E26\u8B93\u9A57\u6536\u6E2C\u8A66\u901A\u904E\uFF0C\u901A\u5E38\u5728\u5167\u90E8\u4F7F\u7528\u55AE\u5143\u5C64\u7D1A\u7684 TDD\uFF08\u7D05-\u7DA0-\u91CD\u69CB\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Develop \u6253\u9020\u529F\u80FD\u4EE5\u6EFF\u8DB3\u9A57\u6536\u6E2C\u8A66\uFF0C\u5167\u90E8\u4F7F\u7528 TDD\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u53EA\u8AC7\u8AD6\u9700\u6C42\u800C\u4E0D\u5BEB\u4EFB\u4F55\u6771\u897F",
+                "fraction": 0,
+                "feedback": "\u8AC7\u8AD6\u662F Discuss\uFF1BDevelop \u624D\u662F\u771F\u6B63\u5BE6\u4F5C\u529F\u80FD\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u522A\u6389\u9A57\u6536\u6E2C\u8A66\u4EE5\u514D\u62D6\u6162\u5EFA\u7F6E",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u6E2C\u8A66\u6703\u88AB\u4FDD\u7559\u4E26\u8A2D\u6CD5\u901A\u904E\uFF0C\u4E0D\u6703\u5728 Develop \u88AB\u522A\u9664\u3002"
+              },
+              {
+                "text": "\u5BA2\u6236\u5C0D\u5B8C\u6210\u7684\u529F\u80FD\u7C3D\u6838",
+                "fraction": 0,
+                "feedback": "\u7C3D\u6838\u767C\u751F\u5728 Demo\uFF1BDevelop \u662F\u5BE6\u4F5C\u968E\u6BB5\u3002"
+              }
+            ],
+            "generalFeedback": "Develop \u662F\u7B2C\u4E09\u500B\u968E\u6BB5\uFF1A\u958B\u767C\u8005\u64B0\u5BEB\u7A0B\u5F0F\u78BC\u8B93\u8B70\u5B9A\u7684\u9A57\u6536\u6E2C\u8A66\u901A\u904E\u3002\u5728\u6B64\u968E\u6BB5\u5167\u90E8\uFF0C\u4ED6\u5011\u901A\u5E38\u4F7F\u7528\u4E00\u822C\u7684\u55AE\u5143\u5C64\u7D1A TDD\uFF08\u7D05-\u7DA0-\u91CD\u69CB\uFF09\uFF0C\u56E0\u6B64 ATDD \u7684\u9A57\u6536\u5C64\u7D1A\u5FAA\u74B0\u5305\u8986\u8457\u958B\u767C\u8005\u7684\u55AE\u5143\u5C64\u7D1A\u5FAA\u74B0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Demo \u7684\u610F\u7FA9",
+            "text": "<p>\u5728 ATDD \u5FAA\u74B0\u4E2D\uFF0C<strong>\u5C55\u793A\uFF08Demo\uFF09</strong>\u968E\u6BB5\u6703\u767C\u751F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u5B8C\u6210\u7684\u529F\u80FD\u5C55\u793A\u7D66\u5229\u5BB3\u95DC\u4FC2\u4EBA\u4E26\u4E00\u8D77\u9A57\u8B49\uFF0C\u78BA\u8A8D\u7B26\u5408\u8B70\u5B9A\u7684\u9A57\u6536\u6E96\u5247",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Demo \u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u4E00\u8D77\u9A57\u8B49\u529F\u80FD\u6EFF\u8DB3\u9A57\u6536\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u7B2C\u4E00\u6B21\u767C\u73FE\u9700\u6C42\u662F\u4EC0\u9EBC",
+                "fraction": 0,
+                "feedback": "\u767C\u73FE\u9700\u6C42\u662F Discuss\uFF1BDemo \u662F\u78BA\u8A8D\u5B8C\u6210\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u5F9E\u7BC4\u4F8B\u64B0\u5BEB\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u64B0\u5BEB\u6E2C\u8A66\u662F Distill\uFF1BDemo \u662F\u62FF\u5B8C\u6210\u7684\u529F\u80FD\u5C0D\u7167\u5B83\u5011\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u5728\u6C92\u6709\u5229\u5BB3\u95DC\u4FC2\u4EBA\u5728\u5834\u4E0B\u91CD\u69CB\u5167\u90E8\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u91CD\u69CB\u5C6C\u65BC Develop\uFF1BDemo \u662F\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u4E00\u8D77\u9A57\u8B49\u3002"
+              }
+            ],
+            "generalFeedback": "Demo \u662F\u7B2C\u56DB\u500B\u968E\u6BB5\uFF1A\u628A\u5B8C\u6210\u7684\u529F\u80FD\u5C55\u793A\u7D66\u5229\u5BB3\u95DC\u4FC2\u4EBA\uFF0C\u4E26\u5C0D\u7167\u5148\u524D\u8B70\u5B9A\u7684\u9A57\u6536\u6E96\u5247\u6AA2\u67E5\u3002\u5B83\u8207\u63D0\u51FA\u9700\u6C42\u7684\u4EBA\u4E00\u8D77\u78BA\u8A8D\u6253\u9020\u4E86\u6B63\u78BA\u7684\u6771\u897F\uFF0C\u85C9\u6B64\u6536\u5408\u6574\u500B\u5FAA\u74B0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Three Amigos \u662F\u8AB0",
+            "text": "<p>\u5728 ATDD \u4E2D\uFF0C<strong>\u4E09\u528D\u5BA2\uFF08Three Amigos\uFF09</strong>\u662F\u8AB0\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u696D\u52D9\uFF0F\u7522\u54C1\u4EE3\u8868\u3001\u958B\u767C\u8005\u3001\u6E2C\u8A66\u4EBA\u54E1\uFF0C\u4E09\u8005\u4E00\u8D77\u8B70\u5B9A\u9A57\u6536\u6E96\u5247",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E09\u7A2E\u89C0\u9EDE\u662F\u696D\u52D9\uFF0FPO\u3001\u958B\u767C\u8005\u8207\u6E2C\u8A66\u4EBA\u54E1\u3002"
+              },
+              {
+                "text": "\u4E09\u4F4D\u5F7C\u6B64\u5BE9\u67E5\u7A0B\u5F0F\u78BC\u7684\u8CC7\u6DF1\u958B\u767C\u8005",
+                "fraction": 0,
+                "feedback": "\u4E09\u528D\u5BA2\u662F\u4E09\u7A2E\u4E0D\u540C\u89D2\u8272\uFF08\u696D\u52D9\u3001\u958B\u767C\u3001\u6E2C\u8A66\uFF09\uFF0C\u4E0D\u662F\u4E09\u4F4D\u958B\u767C\u8005\u3002"
+              },
+              {
+                "text": "\u5C08\u6848\u7D93\u7406\u3001Scrum Master \u8207\u767C\u5E03\u7D93\u7406",
+                "fraction": 0,
+                "feedback": "\u4E09\u528D\u5BA2\u662F\u696D\u52D9\uFF0FPO\u3001\u958B\u767C\u8005\u8207\u6E2C\u8A66\u4EBA\u54E1\uFF0C\u4E0D\u662F\u7BA1\u7406\u89D2\u8272\u3002"
+              },
+              {
+                "text": "\u4E09\u500B\u5404\u81EA\u7368\u7ACB\u7684\u81EA\u52D5\u5316\u6E2C\u8A66\u5DE5\u5177",
+                "fraction": 0,
+                "feedback": "\u4E09\u528D\u5BA2\u662F\u5E36\u4F86\u4E09\u7A2E\u89C0\u9EDE\u7684\u4EBA\uFF0C\u4E0D\u662F\u5DE5\u5177\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u4E09\u528D\u5BA2\u300D\u662F\u805A\u5728\u4E00\u8D77\u8B70\u5B9A\u9A57\u6536\u6E96\u5247\u7684\u4E09\u7A2E\u89C0\u9EDE\uFF1A\u696D\u52D9\uFF0F\u7522\u54C1\u8CA0\u8CAC\u4EBA\uFF08\u8981\u4EC0\u9EBC\u3001\u70BA\u4EC0\u9EBC\uFF09\u3001\u958B\u767C\u8005\uFF08\u5982\u4F55\u6253\u9020\uFF09\u3001\u6E2C\u8A66\u4EBA\u54E1\uFF08\u53EF\u80FD\u5982\u4F55\u5931\u6557\u6216\u88AB\u8AA4\u89E3\uFF09\u3002\u4ED6\u5011\u7684\u5354\u4F5C\u662F ATDD \u7684\u6838\u5FC3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7BC4\u4F8B\u898F\u683C\u5316\u662F\u4EC0\u9EBC",
+            "text": "<p><strong>\u7BC4\u4F8B\u898F\u683C\u5316\uFF08Specification by Example\uFF09</strong>\u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u9700\u6C42\u6355\u6349\u70BA\u5177\u9AD4\u3001\u8B70\u5B9A\u7684\u7BC4\u4F8B\uFF0C\u9019\u4E9B\u7BC4\u4F8B\u6210\u70BA\u53EF\u57F7\u884C\u7684\u898F\u683C\u8207\u6D3B\u6587\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5177\u9AD4\u7BC4\u4F8B\u4F5C\u70BA\u898F\u683C\uFF0C\u4E26\u53EF\u57F7\u884C\u4EE5\u9A57\u8B49\u7CFB\u7D71\u3002"
+              },
+              {
+                "text": "\u53EA\u7528\u62BD\u8C61\u7684\u6587\u5B57\u64B0\u5BEB\u9700\u6C42\u800C\u4E0D\u7528\u4EFB\u4F55\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u76F8\u53CD\u2014\u2014\u91CD\u9EDE\u662F\u7528\u5177\u9AD4\u7BC4\u4F8B\u800C\u975E\u6A21\u7CCA\u6587\u5B57\u3002"
+              },
+              {
+                "text": "\u7BC4\u4F8B\u53EA\u7528\u4F86\u8AAA\u660E\u6587\u4EF6\u3001\u4F46\u6C38\u9060\u7121\u6CD5\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u5728\u7BC4\u4F8B\u898F\u683C\u5316\u4E2D\uFF0C\u7BC4\u4F8B\u6703\u8B8A\u6210\u53EF\u57F7\u884C\u7684\uFF0C\u800C\u4E0D\u53EA\u662F\u8AAA\u660E\u7528\u9014\u3002"
+              },
+              {
+                "text": "\u5148\u5BEB\u6B63\u5F0F\u7A0B\u5F0F\u78BC\u3001\u4E4B\u5F8C\u624D\u88DC\u4E0A\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u7BC4\u4F8B\u662F\u5728\u958B\u767C\u4E4B\u524D\uFF0F\u4E4B\u4E2D\u8B70\u5B9A\u4E26\u9A45\u52D5\u958B\u767C\uFF0C\u4E0D\u662F\u4E8B\u5F8C\u88DC\u4E0A\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u7BC4\u4F8B\u898F\u683C\u5316\uFF08\u8207 ATDD \u5BC6\u5207\u76F8\u95DC\uFF09\u628A\u9700\u6C42\u6355\u6349\u70BA\u5177\u9AD4\u3001\u8B70\u5B9A\u7684\u7BC4\u4F8B\u3002\u5728\u81EA\u52D5\u5316\u652F\u63F4\u4E0B\uFF0C\u9019\u4E9B\u7BC4\u4F8B\u4EE5\u9A57\u6536\u6E2C\u8A66\u7684\u5F62\u5F0F\u57F7\u884C\uFF0C\u56E0\u6B64\u65E2\u898F\u7BC4\u884C\u70BA\u53C8\u540C\u6642\u9A57\u8B49\u884C\u70BA\u2014\u2014\u800C\u4E14\u4EE5\u6D3B\u6587\u4EF6\u7684\u5F62\u5F0F\u4FDD\u6301\u6E96\u78BA\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u9A57\u6536\u6E2C\u8A66\u5728\u958B\u767C\u4E4B\u524D\u64B0\u5BEB",
+            "text": "<p>\u5728 ATDD \u4E2D\uFF0C\u67D0\u529F\u80FD\u7684\u9A57\u6536\u6E2C\u8A66\u662F\u5728\u8A72\u529F\u80FD<strong>\u958B\u767C\u4E4B\u524D</strong>\u5C31\u8B70\u5B9A\u4E26\u64B0\u5BEB\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ATDD \u5728\u9A57\u6536\u5C64\u7D1A\u6E2C\u8A66\u5148\u884C\uFF1A\u6E2C\u8A66\u5148\u65BC\u958B\u767C\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "ATDD \u662F\u6E2C\u8A66\u5148\u884C\uFF1A\u9A57\u6536\u6E2C\u8A66\u5728\u529F\u80FD\u958B\u767C\u4E4B\u524D\u8B70\u5B9A\uFF0C\u800C\u975E\u4E4B\u5F8C\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u9A57\u6536\u6E2C\u8A66\u9A45\u52D5\u958B\u767C\u300D\u4E2D\u7684\u300C\u9A45\u52D5\u300D\u610F\u5473\u8457\u9A57\u6536\u6E2C\u8A66\u5148\u5BEB\u3002\u5728\u958B\u767C\u4E4B\u524D\u8B70\u5B9A\u5B83\u5011\uFF0C\u7D66\u5718\u968A\u4E00\u500B\u5171\u540C\u7684\u76EE\u6A19\uFF0C\u4EE5\u53CA\u4E00\u500B\u80FD\u9A45\u52D5\u5BE6\u4F5C\u7684\u300C\u5B8C\u6210\u300D\u5B9A\u7FA9\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "ATDD \u662F\u5354\u4F5C\u7684",
+            "text": "<p>\u4E0B\u5217\u4F55\u8005\u6700\u80FD\u63CF\u8FF0 ATDD \u4E2D<em>\u7531\u8AB0</em>\u53C3\u8207\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u662F\u4E00\u9805\u5354\u4F5C\u6D3B\u52D5\uFF0C\u7531\u696D\u52D9\u3001\u958B\u767C\u8005\u8207\u6E2C\u8A66\u4EBA\u54E1\u4E00\u8D77\u8B70\u5B9A\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ATDD \u662F\u5168\u5718\u968A\u5354\u4F5C\uFF0C\u4E0D\u662F\u55AE\u4E00\u89D2\u8272\u7684\u5DE5\u4F5C\u3002"
+              },
+              {
+                "text": "\u5B83\u5B8C\u5168\u7531\u6E2C\u8A66\u4EBA\u54E1\u5728\u7A0B\u5F0F\u78BC\u5BEB\u5B8C\u5F8C\u7368\u81EA\u9032\u884C",
+                "fraction": 0,
+                "feedback": "ATDD \u662F\u5354\u4F5C\u4E14\u6E2C\u8A66\u5148\u884C\u7684\uFF1B\u4E0D\u662F\u6E2C\u8A66\u4EBA\u54E1\u5728\u4E8B\u5F8C\u7368\u81EA\u9032\u884C\u3002"
+              },
+              {
+                "text": "\u5B83\u5B8C\u5168\u7531\u958B\u767C\u8005\u9032\u884C\uFF0C\u6C92\u6709\u696D\u52D9\u6216\u6E2C\u8A66\u4EBA\u54E1\u7684\u6295\u5165",
+                "fraction": 0,
+                "feedback": "\u696D\u52D9\u8207\u6E2C\u8A66\u4EBA\u54E1\u4E0D\u53EF\u6216\u7F3A\uFF1BATDD \u9700\u8981\u4E09\u7A2E\u89C0\u9EDE\u3002"
+              },
+              {
+                "text": "\u5B83\u5B8C\u5168\u7531\u7522\u54C1\u8CA0\u8CAC\u4EBA\u9032\u884C\uFF0C\u518D\u628A\u5B8C\u6210\u7684\u6E2C\u8A66\u4EA4\u7D66\u5718\u968A",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u662F\u4E00\u8D77\u7522\u51FA\u7684\uFF1BPO \u4E0D\u6703\u7368\u81EA\u64B0\u5BEB\u5B83\u5011\u3002"
+              }
+            ],
+            "generalFeedback": "ATDD \u7684\u4E00\u9805\u5B9A\u7FA9\u6027\u7279\u5FB5\u662F\u5354\u4F5C\uFF1A\u696D\u52D9\uFF0F\u7522\u54C1\u8CA0\u8CAC\u4EBA\u3001\u958B\u767C\u8005\u8207\u6E2C\u8A66\u4EBA\u54E1\u5171\u540C\u8B70\u5B9A\u9A57\u6536\u6E2C\u8A66\u3002\u9019\u7A2E\u5171\u540C\u4F5C\u8005\u8EAB\u4EFD\uFF0C\u6B63\u662F\u5EFA\u7ACB\u55AE\u4E00\u3001\u5171\u540C\u300C\u5B8C\u6210\u300D\u7406\u89E3\u7684\u539F\u56E0\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9A57\u6536\u6E96\u5247\u5B9A\u7FA9\u300C\u5B8C\u6210\u300D",
+            "text": "<p>\u5728 ATDD \u4E2D\uFF0C\u8B70\u5B9A\u7684<strong>\u9A57\u6536\u6E96\u5247\uFF08acceptance criteria\uFF09</strong>\u4E3B\u8981\u78BA\u7ACB\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5C0D\u300C\u5B8C\u6210\u300D\u7684\u5171\u540C\u5B9A\u7FA9\u2014\u2014\u529F\u80FD\u5FC5\u9808\u6EFF\u8DB3\u54EA\u4E9B\u689D\u4EF6\u624D\u6703\u88AB\u63A5\u53D7",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u6E96\u5247\u662F\u8B70\u5B9A\u7684\u300C\u4F55\u6642\u7B97\u5B8C\u6210\u300D\u7684\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u985E\u5225\u5FC5\u9808\u6709\u7684\u55AE\u5143\u6E2C\u8A66\u78BA\u5207\u6578\u91CF",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7A0B\u5F0F\u78BC\u6307\u6A19\u76EE\u6A19\uFF1B\u9A57\u6536\u6E96\u5247\u5B9A\u7FA9\u529F\u80FD\u88AB\u63A5\u53D7\u9808\u505A\u5230\u4EC0\u9EBC\u3002"
+              },
+              {
+                "text": "\u7248\u672C\u7684\u90E8\u7F72\u6642\u7A0B\u8868",
+                "fraction": 0,
+                "feedback": "\u6392\u7A0B\u5C6C\u65BC\u898F\u5283\u4E8B\u9805\uFF1B\u9A57\u6536\u6E96\u5247\u5B9A\u7FA9\u529F\u80FD\u7684\u300C\u5B8C\u6210\u300D\u3002"
+              },
+              {
+                "text": "\u5718\u968A\u5FC5\u9808\u9075\u5FAA\u7684\u7DE8\u78BC\u98A8\u683C",
+                "fraction": 0,
+                "feedback": "\u98A8\u683C\u662F\u53E6\u4E00\u56DE\u4E8B\uFF1B\u9A57\u6536\u6E96\u5247\u6355\u6349\u7684\u662F\u6240\u9700\u7684\u884C\u70BA\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u5718\u968A\u8B70\u5B9A\u7684\u9A57\u6536\u6E96\u5247\u9673\u8FF0\u529F\u80FD\u5FC5\u9808\u505A\u5230\u4EC0\u9EBC\u624D\u6703\u88AB\u5BA2\u6236\u63A5\u53D7\u3002\u5B83\u5011\u69CB\u6210\u5C0D\u300C\u5B8C\u6210\u300D\u7684\u5171\u540C\u5B9A\u7FA9\uFF0C\u628A\u6A21\u7CCA\u7684\u9700\u6C42\u8B8A\u6210\u5177\u9AD4\u3001\u53EF\u6AA2\u67E5\u7684\u76EE\u6A19\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7528 Given-When-Then \u8868\u9054\u9A57\u6536\u6E96\u5247",
+            "text": "<p>ATDD \u4E2D\u7684\u9A57\u6536\u6E96\u5247\u5E38\u4EE5 <strong>Given-When-Then</strong> \u5F62\u5F0F\u64B0\u5BEB\u3002\u9019\u4E09\u500B\u90E8\u5206\u5206\u5225\u8868\u9054\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u524D\u7F6E\u689D\u4EF6\uFF08Given\uFF09\u3001\u52D5\u4F5C\u6216\u4E8B\u4EF6\uFF08When\uFF09\u3001\u9810\u671F\u7D50\u679C\uFF08Then\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Given-When-Then \u6355\u6349\u60C5\u5883\u3001\u52D5\u4F5C\u8207\u9810\u671F\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u5FC5\u9808\u6838\u51C6\u6E2C\u8A66\u7684\u4E09\u4F4D\u958B\u767C\u8005",
+                "fraction": 0,
+                "feedback": "Given-When-Then \u662F\u63CF\u8FF0\u4E00\u500B\u7BC4\u4F8B\u7684\u7D50\u69CB\uFF0C\u4E0D\u662F\u6838\u51C6\u8005\u6E05\u55AE\u3002"
+              },
+              {
+                "text": "dev\u3001staging\u3001production \u4E09\u500B\u74B0\u5883",
+                "fraction": 0,
+                "feedback": "Given-When-Then \u63CF\u8FF0\u60C5\u5883\uFF0F\u52D5\u4F5C\uFF0F\u7D50\u679C\uFF0C\u4E0D\u662F\u74B0\u5883\u3002"
+              },
+              {
+                "text": "\u529F\u80FD\u7684\u904E\u53BB\u3001\u73FE\u5728\u8207\u672A\u4F86\u7248\u672C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u662F\u55AE\u4E00\u9A57\u6536\u7BC4\u4F8B\u7684\u7D44\u6210\uFF1A\u524D\u7F6E\u689D\u4EF6\u3001\u52D5\u4F5C\u3001\u7D50\u679C\u3002"
+              }
+            ],
+            "generalFeedback": "Given-When-Then \u662F\u8868\u9054\u9A57\u6536\u6E2C\u8A66\u6216\u6E96\u5247\u7684\u5E38\u898B\u65B9\u5F0F\uFF1AGiven \u8D77\u59CB\u60C5\u5883\u3001When \u767C\u751F\u52D5\u4F5C\u3001Then \u61C9\u6210\u7ACB\u7684\u53EF\u89C0\u5BDF\u7D50\u679C\u3002\u5B83\u8B93\u4E00\u500B\u5177\u9AD4\u7BC4\u4F8B\u7CBE\u78BA\u5230\u8DB3\u4EE5\u88AB\u81EA\u52D5\u5316\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ATDD \u7531\u5916\u800C\u5167\u7684\u65B9\u5411",
+            "text": "<p>ATDD \u5E38\u88AB\u63CF\u8FF0\u70BA\u4E00\u7A2E<strong>\u7531\u5916\u800C\u5167\uFF08outside-in\uFF09</strong>\u7684\u65B9\u6CD5\u3002\u9019\u662F\u4EC0\u9EBC\u610F\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u958B\u767C\u7531\u5916\u5074\u2014\u2014\u9762\u5411\u5BA2\u6236\u7684\u9A57\u6536\u6E96\u5247\u2014\u2014\u5411\u5167\u9A45\u52D5\u81F3\u5BE6\u4F5C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ATDD \u5F9E\u5BA2\u6236\u5C64\u7D1A\u7684\u9A57\u6536\u6E2C\u8A66\u51FA\u767C\uFF0C\u5411\u5167\u9A45\u52D5\u81F3\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u958B\u767C\u5F9E\u8CC7\u6599\u5EAB\u7DB1\u8981\u958B\u59CB\uFF0C\u5411\u5916\u505A\u5230\u4F7F\u7528\u8005\u4ECB\u9762",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7531\u5167\u800C\u5916\u3001\u8CC7\u6599\u5148\u884C\u7684\u505A\u6CD5\uFF1BATDD \u7531\u5BA2\u6236\u6E96\u5247\u5411\u5167\u9A45\u52D5\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66\u53EA\u7531\u516C\u53F8\u5916\u90E8\u7684\u4EBA\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u300C\u7531\u5916\u800C\u5167\u300D\u6307\u5F9E\u5BA2\u6236\u9700\u6C42\u51FA\u767C\uFF0C\u4E0D\u662F\u628A\u6E2C\u8A66\u5916\u5305\u3002"
+              },
+              {
+                "text": "\u5148\u5BEB\u7A0B\u5F0F\u78BC\uFF0C\u4E4B\u5F8C\u624D\u63A8\u65B7\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "ATDD \u5148\u8B70\u5B9A\u5BA2\u6236\u5C64\u7D1A\u7684\u9700\u6C42\uFF0C\u518D\u5411\u5167\u6253\u9020\u4EE5\u6EFF\u8DB3\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u7531\u5916\u800C\u5167\u610F\u5473\u8457\u5F9E\u5BA2\u6236\u5728\u610F\u7684\u908A\u754C\u2014\u2014\u9A57\u6536\u6E96\u5247\u2014\u2014\u958B\u59CB\uFF0C\u8B93\u5B83\u5011\u9A45\u52D5\u5167\u90E8\u7684\u8A2D\u8A08\u3002ATDD \u7684\u9A57\u6536\u6E2C\u8A66\u8A2D\u5B9A\u76EE\u6A19\uFF0C\u5BE6\u4F5C\u5247\u7531\u5167\u751F\u9577\u4EE5\u6EFF\u8DB3\u5B83\u5011\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "ATDD \u7E2E\u5BEB\u7684\u5C55\u958B",
+            "text": "<p>\u7E2E\u5BEB <strong>ATDD</strong> \u4EE3\u8868\u300CAcceptance Test-Driven Development\uFF08\u9A57\u6536\u6E2C\u8A66\u9A45\u52D5\u958B\u767C\uFF09\u300D\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ATDD \u5C55\u958B\u70BA Acceptance Test-Driven Development\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "ATDD \u78BA\u5BE6\u4EE3\u8868 Acceptance Test-Driven Development\u3002"
+              }
+            ],
+            "generalFeedback": "ATDD = Acceptance Test-Driven Development\uFF08\u9A57\u6536\u6E2C\u8A66\u9A45\u52D5\u958B\u767C\uFF09\uFF1A\u7531\u9A57\u6536\u6E2C\u8A66\u9A45\u52D5\u7684\u958B\u767C\uFF0C\u9019\u4E9B\u6E2C\u8A66\u5728\u529F\u80FD\u958B\u767C\u4E4B\u524D\u3001\u5F9E\u5BA2\u6236\u89D2\u5EA6\u8B70\u5B9A\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u56DB\u500B\u968E\u6BB5\u7684\u9806\u5E8F",
+            "text": "<p>ATDD \u5FAA\u74B0\u56DB\u500B\u968E\u6BB5\u7684\u6B63\u78BA\u9806\u5E8F\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5148 Discuss\uFF0C\u518D Distill\uFF0C\u518D Develop\uFF0C\u6700\u5F8C Demo",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5148\u7406\u89E3\u9700\u6C42\u3001\u5316\u70BA\u6E2C\u8A66\u3001\u5BE6\u4F5C\uFF0C\u6700\u5F8C\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "\u5148 Distill\uFF0C\u518D Discuss\uFF0C\u518D Demo\uFF0C\u6700\u5F8C Develop",
+                "fraction": 0,
+                "feedback": "\u5FC5\u9808\u5148 Discuss \u624D\u80FD Distill \u7BC4\u4F8B\uFF0C\u4E5F\u5FC5\u9808\u5148 Develop \u624D\u80FD Demo\u3002"
+              },
+              {
+                "text": "\u5148 Develop\uFF0C\u518D Discuss\uFF0C\u518D Distill\uFF0C\u6700\u5F8C Demo",
+                "fraction": 0,
+                "feedback": "\u5728\u8A0E\u8AD6\u8207\u8403\u53D6\u4E4B\u524D\u5C31\u958B\u767C\uFF0C\u9055\u80CC\u4E86\u672C\u610F\uFF1BDiscuss \u61C9\u5728\u6700\u524D\u9762\u3002"
+              },
+              {
+                "text": "\u5148 Demo\uFF0C\u518D Develop\uFF0C\u518D Distill\uFF0C\u6700\u5F8C Discuss",
+                "fraction": 0,
+                "feedback": "\u9019\u5B8C\u5168\u985B\u5012\u4E86\uFF1B\u5FAA\u74B0\u662F Discuss\u3001Distill\u3001Develop\u3001Demo\u3002"
+              }
+            ],
+            "generalFeedback": "ATDD \u5FAA\u74B0\u7684\u6D41\u7A0B\u662F Discuss\uFF08\u4EE5\u7BC4\u4F8B\u7406\u89E3\u9700\u6C42\uFF09\u3001Distill\uFF08\u628A\u7BC4\u4F8B\u8F49\u6210\u9A57\u6536\u6E2C\u8A66\uFF09\u3001Develop\uFF08\u5BE6\u4F5C\u4E26\u8B93\u5B83\u5011\u901A\u904E\uFF09\u3001Demo\uFF08\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u9A57\u8B49\uFF09\u3002\u6BCF\u500B\u968E\u6BB5\u90FD\u9935\u7D66\u4E0B\u4E00\u500B\u968E\u6BB5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Distill \u628A\u7BC4\u4F8B\u8F49\u6210\u6E2C\u8A66",
+            "text": "<p>\u5728 <strong>Distill</strong> \u671F\u9593\uFF0C\u5718\u968A\u7522\u51FA\u7684\u4E3B\u8981\u6210\u679C\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5F9E\u8B70\u5B9A\u7BC4\u4F8B\u884D\u751F\u51FA\u7684\u9A57\u6536\u6E2C\u8A66\uFF0F\u9A57\u6536\u6E96\u5247\uFF08\u5E38\u70BA Given-When-Then\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Distill \u628A\u8A0E\u8AD6\u7684\u7BC4\u4F8B\u8F49\u6210\u5177\u9AD4\u7684\u9A57\u6536\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u529F\u80FD\u7684\u6B63\u5F0F\u5BE6\u4F5C",
+                "fraction": 0,
+                "feedback": "\u5BE6\u4F5C\u662F Develop \u7684\u6210\u679C\uFF1BDistill \u7522\u51FA\u9A57\u6536\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5229\u5BB3\u95DC\u4FC2\u4EBA\u5C0D\u529F\u80FD\u5DF2\u5B8C\u6210\u7684\u7C3D\u6838",
+                "fraction": 0,
+                "feedback": "\u7C3D\u6838\u5728 Demo\uFF1BDistill \u7522\u51FA\u7684\u662F Demo \u4E4B\u5F8C\u7528\u4F86\u5C0D\u7167\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u4E00\u4EFD\u6548\u80FD\u57FA\u6E96\u5831\u544A",
+                "fraction": 0,
+                "feedback": "\u57FA\u6E96\u6E2C\u8A66\u8207\u6B64\u7121\u95DC\uFF1BDistill \u7522\u51FA\u7684\u662F\u9A57\u6536\u6E96\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "Distill \u628A Discuss \u4E2D\u63D0\u51FA\u7684\u5177\u9AD4\u7BC4\u4F8B\u7CBE\u7149\u6210\u7CBE\u78BA\u7684\u9A57\u6536\u6E2C\u8A66\uFF0F\u6E96\u5247\u2014\u2014\u5E38\u5BEB\u6210 Given-When-Then\u3002\u9019\u4E9B\u8B70\u5B9A\u7684\u6E2C\u8A66\u5C31\u662F Develop \u968E\u6BB5\u8981\u5BE6\u4F5C\u4EE5\u9054\u6210\u7684\u76EE\u6A19\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Demo \u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u9A57\u8B49",
+            "text": "<p><strong>Demo</strong> \u968E\u6BB5\u8207\u5176\u4ED6\u968E\u6BB5\u6709\u4F55\u4E0D\u540C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u628A\u5229\u5BB3\u95DC\u4FC2\u4EBA\u518D\u6B21\u627E\u4F86\uFF0C\u9A57\u8B49\u5B8C\u6210\u7684\u529F\u80FD\u7B26\u5408\u5148\u524D\u8B70\u5B9A\u7684\u9A57\u6536\u6E96\u5247",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Demo \u662F\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u4E00\u8D77\u9A57\u8B49\u6253\u9020\u4E86\u6B63\u78BA\u7684\u6771\u897F\u3002"
+              },
+              {
+                "text": "\u5B83\u662F\u958B\u767C\u8005\u7B2C\u4E00\u6B21\u5F97\u77E5\u9700\u6C42\u662F\u4EC0\u9EBC\u7684\u6642\u5019",
+                "fraction": 0,
+                "feedback": "\u9700\u6C42\u5728 Discuss \u5C31\u5DF2\u7406\u89E3\uFF1BDemo \u662F\u78BA\u8A8D\u5B8C\u6210\u7684\u529F\u80FD\u3002"
+              },
+              {
+                "text": "\u5B83\u662F\u9996\u6B21\u5F9E\u7BC4\u4F8B\u64B0\u5BEB\u9A57\u6536\u6E2C\u8A66\u7684\u6642\u5019",
+                "fraction": 0,
+                "feedback": "\u64B0\u5BEB\u6E2C\u8A66\u662F Distill\uFF1BDemo \u662F\u62FF\u6253\u9020\u597D\u7684\u529F\u80FD\u5C0D\u7167\u5B83\u5011\u6AA2\u67E5\u3002"
+              },
+              {
+                "text": "\u5B83\u662F\u958B\u767C\u8005\u5728\u6C92\u6709\u5229\u5BB3\u95DC\u4FC2\u4EBA\u4E0B\u91CD\u69CB\u5167\u90E8\u7A0B\u5F0F\u78BC\u7684\u6642\u5019",
+                "fraction": 0,
+                "feedback": "\u91CD\u69CB\u767C\u751F\u5728 Develop\uFF1BDemo \u660E\u78BA\u662F\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u4E00\u8D77\u7684\u9A57\u8B49\u3002"
+              }
+            ],
+            "generalFeedback": "Demo \u8207\u63D0\u51FA\u9700\u6C42\u7684\u4EBA\u6536\u5408\u6574\u500B\u5FAA\u74B0\u3002\u5718\u968A\u5C55\u793A\u5B8C\u6210\u7684\u6210\u679C\uFF0C\u4E26\u5C0D\u7167\u5148\u524D\u8403\u53D6\u7684\u9A57\u6536\u6E96\u5247\u6AA2\u67E5\uFF0C\u5728\u5229\u5BB3\u95DC\u4FC2\u4EBA\u5728\u5834\u4E0B\u78BA\u8A8D\u78BA\u5BE6\u6EFF\u8DB3\u4E86\u9700\u6C42\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4EC0\u9EBC\u9700\u8981\u4E09\u7A2E\u89C0\u9EDE",
+            "text": "<p>\u70BA\u4EC0\u9EBC ATDD \u8981\u628A\u4E09\u7A2E\u89D2\u8272\uFF08\u4E09\u528D\u5BA2\uFF09\u805A\u5728\u4E00\u8D77\u8B70\u5B9A\u9A57\u6536\u6E96\u5247\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u696D\u52D9\u3001\u958B\u767C\u8005\u3001\u6E2C\u8A66\u4EBA\u54E1\u5404\u81EA\u6703\u6CE8\u610F\u5230\u4E0D\u540C\u7684\u4E8B\u2014\u2014\u50F9\u503C\u8207\u610F\u5716\u3001\u53EF\u884C\u6027\u3001\u53EF\u80FD\u5982\u4F55\u5931\u6557\u2014\u2014\u4E00\u8D77\u624D\u80FD\u8A02\u51FA\u66F4\u5B8C\u6574\u3001\u66F4\u6B63\u78BA\u7684\u6E96\u5247",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E09\u7A2E\u89C0\u9EDE\u4E92\u88DC\uFF0C\u80FD\u88DC\u4E0A\u55AE\u4E00\u89D2\u8272\u6703\u6F0F\u6389\u7684\u7F3A\u53E3\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u958B\u5DE5\u5BEB\u7A0B\u5F0F\u524D\u6CD5\u5F8B\u4E0A\u9700\u8981\u4E09\u500B\u7C3D\u540D",
+                "fraction": 0,
+                "feedback": "\u91CD\u9EDE\u5728\u4E92\u88DC\u7684\u89C0\u9EDE\uFF0C\u4E0D\u662F\u6CD5\u5F8B\u7C3D\u6838\u8981\u6C42\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9019\u6A23\u53EF\u4EE5\u628A\u5DE5\u4F5C\u5207\u958B\uFF0C\u8B93\u5927\u5BB6\u4E0D\u5FC5\u5F7C\u6B64\u4EA4\u8AC7",
+                "fraction": 0,
+                "feedback": "\u91CD\u9EDE\u662F\u5354\u4F5C\u8207\u5C0D\u8A71\uFF0C\u800C\u975E\u907F\u514D\u5C0D\u8A71\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u4E09\u500B\u4EBA\u5BEB\u7A0B\u5F0F\u7E3D\u662F\u6BD4\u4E00\u500B\u4EBA\u5FEB",
+                "fraction": 0,
+                "feedback": "\u4E09\u528D\u5BA2\u662F\u70BA\u8B70\u5B9A\u6E96\u5247\u800C\u805A\uFF0C\u4E0D\u662F\u70BA\u4E86\u52A0\u5FEB\u6253\u5B57\u5BEB\u7A0B\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u4F4D\u528D\u5BA2\u5E36\u4F86\u4E0D\u540C\u8996\u89D2\uFF1A\u696D\u52D9\uFF0FPO \u91D0\u6E05\u8981\u4EC0\u9EBC\u3001\u70BA\u4EC0\u9EBC\uFF1B\u958B\u767C\u8005\u6307\u51FA\u53EF\u884C\u6027\u8207\u96B1\u85CF\u7684\u8907\u96DC\u5EA6\uFF1B\u6E2C\u8A66\u4EBA\u54E1\u63A2\u7A76\u908A\u754C\u60C5\u6CC1\u8207\u6A21\u7CCA\u4E4B\u8655\u3002\u4E09\u8005\u7D50\u5408\uFF0C\u8A02\u51FA\u7684\u9A57\u6536\u6E96\u5247\u66F4\u6E05\u695A\u3001\u4E5F\u66F4\u4E0D\u5BB9\u6613\u6F0F\u6389\u6771\u897F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ATDD \u8207 TDD \u7684\u5C64\u7D1A\u5DEE\u7570",
+            "text": "<p><strong>ATDD</strong> \u8207\u4E00\u822C\u7684 <strong>TDD</strong> \u7684\u95DC\u9375\u5DEE\u7570\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "ATDD \u4EE5\u8207\u696D\u52D9\u8B70\u5B9A\u3001\u9762\u5411\u5BA2\u6236\u7684\u9A57\u6536\u6E2C\u8A66\u9A45\u52D5\u958B\u767C\uFF1BTDD \u5247\u4EE5\u958B\u767C\u8005\u5728\u7A0B\u5F0F\u78BC\u5C64\u7D1A\u64B0\u5BEB\u7684\u55AE\u5143\u6E2C\u8A66\u9A45\u52D5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014ATDD \u5728\u9A57\u6536\uFF0F\u5BA2\u6236\u5C64\u7D1A\uFF0CTDD \u5728\u55AE\u5143\uFF0F\u958B\u767C\u8005\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "ATDD \u5728\u7A0B\u5F0F\u78BC\u4E4B\u5F8C\u5BEB\u6E2C\u8A66\uFF0CTDD \u5728\u4E4B\u524D\u5BEB",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u662F\u6E2C\u8A66\u5148\u884C\uFF1B\u5DEE\u5225\u5728\u5C64\u7D1A\uFF08\u9A57\u6536\uFF0F\u5BA2\u6236 vs \u55AE\u5143\uFF0F\u958B\u767C\u8005\uFF09\u3002"
+              },
+              {
+                "text": "ATDD \u53EA\u505A\u624B\u52D5\u6E2C\u8A66\uFF0CTDD \u53EA\u505A\u81EA\u52D5\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u80FD\u81EA\u52D5\u5316\uFF1B\u771F\u6B63\u7684\u5340\u5225\u662F\u9A57\u6536\u5C64\u7D1A\u5C0D\u55AE\u5143\u5C64\u7D1A\u3002"
+              },
+              {
+                "text": "ATDD \u7981\u6B62\u55AE\u5143\u6E2C\u8A66\uFF0CTDD \u7981\u6B62\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u4E26\u5B58\uFF1AATDD \u7684 Develop \u968E\u6BB5\u5167\u90E8\u901A\u5E38\u4F7F\u7528\u55AE\u5143\u5C64\u7D1A TDD\u3002"
+              }
+            ],
+            "generalFeedback": "ATDD \u8207 TDD \u90FD\u6E2C\u8A66\u5148\u884C\u3002TDD \u5728\u55AE\u5143\u5C64\u7D1A\u904B\u4F5C\u2014\u2014\u958B\u767C\u8005\u5BEB\u4E00\u500B\u5931\u6557\u7684\u55AE\u5143\u6E2C\u8A66\u3001\u8B93\u5B83\u901A\u904E\u3001\u518D\u91CD\u69CB\uFF08\u7D05-\u7DA0-\u91CD\u69CB\uFF09\u3002ATDD \u5728\u9A57\u6536\u5C64\u7D1A\u904B\u4F5C\u2014\u2014\u5718\u968A\u8B70\u5B9A\u9762\u5411\u5BA2\u6236\u7684\u9A57\u6536\u6E2C\u8A66\uFF0C\u7531\u5916\u800C\u5167\u9A45\u52D5\u529F\u80FD\u3002\u5BE6\u52D9\u4E0A\uFF0CATDD \u7684 Develop \u968E\u6BB5\u5167\u90E8\u5C31\u4F7F\u7528 TDD\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ATDD \u8207 BDD \u7684\u95DC\u4FC2",
+            "text": "<p><strong>BDD</strong> \u8207 <strong>ATDD</strong> \u6709\u4F55\u95DC\u4FC2\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5169\u8005\u662F\u5BC6\u5207\u76F8\u95DC\u3001\u4EE5\u7BC4\u4F8B\u9A45\u52D5\u4E14\u5354\u4F5C\u7684\u5BE6\u8E10\uFF1BBDD \u7279\u5225\u5F37\u8ABF\u7528\u5718\u968A\u5171\u901A\u7684\u901A\u7528\u8A9E\u8A00\uFF08\u5982 Gherkin \u7684 Given-When-Then\uFF09\u63CF\u8FF0\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014BDD \u662F ATDD \u7684\u8FD1\u89AA\uFF0C\u7279\u5225\u5F37\u8ABF\u884C\u70BA\u8207\u5171\u901A\u8A9E\u8A00\u3002"
+              },
+              {
+                "text": "BDD \u662F\u8207 ATDD \u7121\u95DC\u7684\u6548\u80FD\u6E2C\u8A66\u6280\u8853",
+                "fraction": 0,
+                "feedback": "BDD \u662F\u4EE5\u7BC4\u4F8B\u898F\u7BC4\u884C\u70BA\uFF0C\u8207 ATDD \u5BC6\u5207\u76F8\u95DC\uFF0C\u800C\u975E\u6548\u80FD\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "BDD \u53EA\u5728\u767C\u5E03\u5F8C\u624D\u5BEB\u6E2C\u8A66\uFF0C\u8207 ATDD \u76F8\u53CD",
+                "fraction": 0,
+                "feedback": "BDD \u8207 ATDD \u4E00\u6A23\uFF0C\u504F\u597D\u5728\u958B\u767C\u4E4B\u524D\uFF0F\u4E4B\u4E2D\u898F\u7BC4\u884C\u70BA\u3002"
+              },
+              {
+                "text": "BDD \u7528\u5168\u81EA\u52D5\u7A0B\u5F0F\u78BC\u7522\u751F\u53D6\u4EE3\u6240\u6709\u5354\u4F5C",
+                "fraction": 0,
+                "feedback": "BDD \u662F\u5354\u4F5C\u8207\u898F\u683C\u5BE6\u8E10\uFF0C\u4E0D\u662F\u7A0B\u5F0F\u78BC\u7522\u751F\u3002"
+              }
+            ],
+            "generalFeedback": "BDD \u8207 ATDD \u9AD8\u5EA6\u91CD\u758A\uFF1A\u5169\u8005\u90FD\u5354\u4F5C\u4E14\u4EE5\u7BC4\u4F8B\u9A45\u52D5\uFF0C\u4E5F\u90FD\u5728\u958B\u767C\u524D\u898F\u7BC4\u884C\u70BA\u3002BDD \u7279\u5225\u5F37\u8ABF\u7528\u6574\u500B\u5718\u968A\u5171\u901A\u7684\u901A\u7528\u8A9E\u8A00\u63CF\u8FF0\u884C\u70BA\uFF0C\u5E38\u4F7F\u7528 Gherkin\uFF08Given-When-Then\uFF09\u3002\u8A31\u591A\u5718\u968A\u628A ATDD \u7684\u9A57\u6536\u6E2C\u8A66\u5C31\u7576\u6210 BDD \u60C5\u5883\u4F86\u5BEB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Develop \u5167\u90E8\u4F7F\u7528 TDD",
+            "text": "<p>\u5728 <strong>Develop</strong> \u968E\u6BB5\u8A2D\u6CD5\u8B93\u9A57\u6536\u6E2C\u8A66\u901A\u904E\u6642\uFF0C\u958B\u767C\u8005\u5728\u7A0B\u5F0F\u78BC\u5C64\u7D1A\u901A\u5E38\u6703\u600E\u9EBC\u505A\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4F7F\u7528\u55AE\u5143\u5C64\u7D1A\u7684 TDD\uFF08\u7D05-\u7DA0-\u91CD\u69CB\uFF09\u9010\u6B65\u9577\u51FA\u5BE6\u4F5C\uFF0C\u76F4\u5230\u9A57\u6536\u6E2C\u8A66\u901A\u904E",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u5FAA\u74B0\u5305\u8986\u8457\u5167\u5C64\u7684\u55AE\u5143\u5C64\u7D1A TDD \u5FAA\u74B0\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5DF2\u7D93\u6709\u9A57\u6536\u6E2C\u8A66\uFF0C\u5C31\u7565\u904E\u6240\u6709\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u6E2C\u8A66\u4E0D\u6703\u88AB\u7565\u904E\uFF1BDevelop \u5167\u90E8\u901A\u5E38\u4ECD\u4F7F\u7528 TDD\u3002"
+              },
+              {
+                "text": "\u6539\u5BEB\u9A57\u6536\u6E96\u5247\u4EE5\u7B26\u5408\u4ED6\u5011\u5BEB\u51FA\u7684\u4EFB\u4F55\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u8B70\u5B9A\u7684\u6E96\u5247\u662F\u76EE\u6A19\uFF1B\u4F60\u8981\u6253\u9020\u53BB\u9054\u6210\u5B83\uFF0C\u800C\u975E\u6539\u6E96\u5247\u53BB\u9077\u5C31\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u7B49\u5230 Demo \u968E\u6BB5\u624D\u5BEB\u4EFB\u4F55\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6E2C\u8A66\u5728\u958B\u767C\u4E4B\u524D\u8207\u4E4B\u4E2D\u5C31\u5BEB\uFF0C\u4E0D\u6703\u62D6\u5230 Demo\u3002"
+              }
+            ],
+            "generalFeedback": "ATDD \u662F\u5DE2\u72C0\u7684\u5FAA\u74B0\uFF1A\u5916\u5C64\u662F\u8207\u696D\u52D9\u8B70\u5B9A\u7684\u9A57\u6536\u6E2C\u8A66\uFF0C\u800C\u5728 Develop \u5167\u90E8\uFF0C\u958B\u767C\u8005\u901A\u5E38\u4F7F\u7528\u4E00\u822C\u7684\u55AE\u5143\u5C64\u7D1A TDD\uFF08\u7D05-\u7DA0-\u91CD\u69CB\uFF09\u6253\u9020\u7A0B\u5F0F\u78BC\uFF0C\u6700\u7D42\u8B93\u9A57\u6536\u6E2C\u8A66\u901A\u904E\u3002\u9A57\u6536\u6E2C\u8A66\u8207\u55AE\u5143\u6E2C\u8A66\u4E92\u88DC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Discuss \u4F7F\u7528\u5177\u9AD4\u7BC4\u4F8B",
+            "text": "<p>\u5728 ATDD \u4E2D\uFF0C\u4EC0\u9EBC\u8B93 <strong>Discuss</strong> \u5C0D\u8A71\u6709\u6548\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u4EE5\u5177\u9AD4\u7BC4\u4F8B\u4F86\u843D\u5BE6\u9700\u6C42\uFF0C\u8B93\u6A21\u7CCA\u4E4B\u8655\u6D6E\u73FE\uFF0C\u4E26\u8B93\u5927\u5BB6\u6709\u76F8\u540C\u7684\u7406\u89E3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5177\u9AD4\u7BC4\u4F8B\u80FD\u53CA\u65E9\u66B4\u9732\u8AA4\u89E3\u4E26\u8B93\u5718\u968A\u5C0D\u9F4A\u3002"
+              },
+              {
+                "text": "\u628A\u9700\u6C42\u76E1\u91CF\u4FDD\u6301\u62BD\u8C61\uFF0C\u4EE5\u7DAD\u6301\u5F48\u6027",
+                "fraction": 0,
+                "feedback": "\u62BD\u8C61\u6703\u96B1\u85CF\u6A21\u7CCA\uFF1B\u5177\u9AD4\u7BC4\u4F8B\u624D\u662F\u8B93 Discuss \u6709\u6548\u7684\u95DC\u9375\u3002"
+              },
+              {
+                "text": "\u53EA\u8B93\u958B\u767C\u8005\u5728\u5834\uFF0C\u597D\u8B93\u6C7A\u7B56\u5FEB\u901F",
+                "fraction": 0,
+                "feedback": "Discuss \u9700\u8981\u5229\u5BB3\u95DC\u4FC2\u4EBA\u7684\u6295\u5165\uFF0C\u4E0D\u80FD\u53EA\u6709\u958B\u767C\u8005\u3002"
+              },
+              {
+                "text": "\u5728\u6703\u8B70\u4E2D\u5C31\u628A\u6B63\u5F0F\u7A0B\u5F0F\u78BC\u5BEB\u51FA\u4F86",
+                "fraction": 0,
+                "feedback": "\u5BEB\u7A0B\u5F0F\u662F Develop\uFF1BDiscuss \u91CD\u5728\u4EE5\u7BC4\u4F8B\u7406\u89E3\u3002"
+              }
+            ],
+            "generalFeedback": "\u7576\u5718\u968A\u900F\u904E\u5177\u9AD4\u7BC4\u4F8B\uFF08\u300C\u82E5\u2026\u2026\u61C9\u8A72\u767C\u751F\u4EC0\u9EBC\uFF1F\u300D\uFF09\u63A2\u8A0E\u9700\u6C42\u6642\uFF0CDiscuss \u6700\u70BA\u6709\u6548\u3002\u771F\u5BE6\u6848\u4F8B\u8207\u908A\u754C\u60C5\u6CC1\u80FD\u8FC5\u901F\u63ED\u9732\u96B1\u85CF\u7684\u5047\u8A2D\u8207\u5206\u6B67\uFF0C\u5728\u64B0\u5BEB\u4EFB\u4F55\u6E2C\u8A66\u6216\u7A0B\u5F0F\u78BC\u4E4B\u524D\uFF0C\u5C31\u5F62\u6210\u771F\u6B63\u5171\u540C\u7684\u7406\u89E3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u968E\u6BB5\u6700\u5148",
+            "text": "<p>ATDD \u5FAA\u74B0\u4E2D\u54EA\u500B\u968E\u6BB5<strong>\u6700\u5148</strong>\u767C\u751F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Discuss",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5FAA\u74B0\u5F9E\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u8A0E\u8AD6\u9700\u6C42\u958B\u59CB\u3002"
+              },
+              {
+                "text": "Develop",
+                "fraction": 0,
+                "feedback": "Develop \u662F\u7B2C\u4E09\u500B\uFF1B\u5FAA\u74B0\u5F9E Discuss \u958B\u59CB\u3002"
+              },
+              {
+                "text": "Demo",
+                "fraction": 0,
+                "feedback": "Demo \u662F\u6700\u5F8C\u4E00\u500B\uFF1B\u5FAA\u74B0\u5F9E Discuss \u958B\u59CB\u3002"
+              },
+              {
+                "text": "Distill",
+                "fraction": 0,
+                "feedback": "Distill \u662F\u7B2C\u4E8C\u500B\uFF1B\u5B83\u63A5\u5728 Discuss \u5C0D\u8A71\u4E4B\u5F8C\u3002"
+              }
+            ],
+            "generalFeedback": "\u5FAA\u74B0\u4EE5 Discuss \u958B\u5834\uFF1A\u900F\u904E\u7BC4\u4F8B\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u7406\u89E3\u9700\u6C42\u3002\u4E4B\u5F8C\u5718\u968A\u624D\u80FD\u628A\u9019\u4E9B\u7BC4\u4F8B Distill \u6210\u9A57\u6536\u6E2C\u8A66\u3001Develop \u529F\u80FD\uFF0C\u4E26 Demo \u5B83\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u968E\u6BB5\u6700\u5F8C",
+            "text": "<p>ATDD \u5FAA\u74B0\u4E2D\u54EA\u500B\u968E\u6BB5<strong>\u6700\u5F8C</strong>\u767C\u751F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Demo",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5FAA\u74B0\u4EE5\u5411\u5229\u5BB3\u95DC\u4FC2\u4EBA\u5C55\u793A\u4E26\u9A57\u8B49\u529F\u80FD\u4F5C\u7D50\u3002"
+              },
+              {
+                "text": "Distill",
+                "fraction": 0,
+                "feedback": "Distill \u662F\u7B2C\u4E8C\u500B\uFF1B\u5FAA\u74B0\u4EE5 Demo \u4F5C\u7D50\u3002"
+              },
+              {
+                "text": "Discuss",
+                "fraction": 0,
+                "feedback": "Discuss \u662F\u7B2C\u4E00\u500B\uFF1B\u5FAA\u74B0\u4EE5 Demo \u4F5C\u7D50\u3002"
+              },
+              {
+                "text": "Develop",
+                "fraction": 0,
+                "feedback": "Develop \u662F\u7B2C\u4E09\u500B\uFF1BDemo \u63A5\u5728\u5176\u5F8C\u4F5C\u70BA\u6700\u5F8C\u968E\u6BB5\u3002"
+              }
+            ],
+            "generalFeedback": "Demo \u662F\u6700\u5F8C\u968E\u6BB5\uFF1A\u5728 Discuss\u3001Distill\u3001Develop \u4E4B\u5F8C\uFF0C\u5718\u968A\u628A\u5B8C\u6210\u7684\u529F\u80FD\u5C55\u793A\u7D66\u5229\u5BB3\u95DC\u4FC2\u4EBA\uFF0C\u4E26\u5C0D\u7167\u8B70\u5B9A\u7684\u9A57\u6536\u6E96\u5247\u52A0\u4EE5\u9A57\u8B49\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9A57\u6536\u6E2C\u8A66\u9A45\u52D5\u958B\u767C",
+            "text": "<p>\u5728 ATDD \u4E2D\uFF0C\u9A57\u6536\u6E2C\u8A66\u662F\u5728\u4EC0\u9EBC\u610F\u7FA9\u4E0A\u300C\u9A45\u52D5\u300D\u958B\u767C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5011\u5148\u88AB\u8B70\u5B9A\uFF0C\u4F5C\u70BA\u5BE6\u4F5C\u5FC5\u9808\u6EFF\u8DB3\u7684\u76EE\u6A19\uFF0C\u6307\u5F15\u8981\u6253\u9020\u4EC0\u9EBC\u3001\u4E26\u5B9A\u7FA9\u4F55\u6642\u7B97\u5B8C\u6210",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8B70\u5B9A\u7684\u9A57\u6536\u6E2C\u8A66\u8A2D\u5B9A\u4E86\u958B\u767C\u8981\u9054\u6210\u7684\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u5F9E\u5B8C\u6210\u7684\u7A0B\u5F0F\u78BC\u81EA\u52D5\u7522\u751F",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u6E2C\u8A66\u5728\u958B\u767C\u4E4B\u524D\u8B70\u5B9A\uFF0C\u4E0D\u662F\u5F9E\u5B8C\u6210\u7684\u7A0B\u5F0F\u78BC\u7522\u751F\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u53EA\u5728\u6700\u5F8C\u7528\u4F86\u5426\u6C7A\u6210\u679C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u81EA\u59CB\u81F3\u7D42\u6307\u5F15\u5DE5\u4F5C\uFF0C\u4E0D\u53EA\u662F\u6700\u5F8C\u7684\u95DC\u5361\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u8B93\u5718\u968A\u4E0D\u518D\u9700\u8981\u8207\u5BA2\u6236\u4EA4\u8AC7",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u6E90\u81EA\u8207\u5BA2\u6236\u7684\u5354\u4F5C\uFF0C\u4E26\u4E0D\u53D6\u4EE3\u6E9D\u901A\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA\u9A57\u6536\u6E2C\u8A66\u5728\u5BEB\u7A0B\u5F0F\u4E4B\u524D\u8B70\u5B9A\u3001\u4E26\u8868\u9054\u300C\u5B8C\u6210\u300D\u7684\u610F\u7FA9\uFF0C\u5B83\u5011\u70BA\u6574\u500B\u5DE5\u4F5C\u8A2D\u5B9A\u76EE\u6A19\u3002\u958B\u767C\u6301\u7E8C\u9032\u884C\u76F4\u5230\u9019\u4E9B\u6E2C\u8A66\u901A\u904E\uFF0C\u56E0\u6B64\u6E2C\u8A66\u5F62\u5851\u4E26\u9A45\u52D5\u8981\u6253\u9020\u4EC0\u9EBC\uFF0C\u800C\u4E0D\u53EA\u662F\u4E8B\u5F8C\u8A55\u5224\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u696D\u52D9\u528D\u5BA2\u7684\u8CA2\u737B",
+            "text": "<p>\u5728\u4E09\u528D\u5BA2\u5C0D\u8A71\u4E2D\uFF0C<strong>\u696D\u52D9\uFF0F\u7522\u54C1</strong>\u4EE3\u8868\u4E3B\u8981\u8CA2\u737B\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u91D0\u6E05\u8981\u4EC0\u9EBC\u8207\u70BA\u4EC0\u9EBC\u2014\u2014\u9700\u6C42\u80CC\u5F8C\u7684\u696D\u52D9\u50F9\u503C\u8207\u610F\u5716",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u696D\u52D9\u7684\u8072\u97F3\u5B9A\u7FA9\u6240\u9700\u7684\u6210\u679C\u53CA\u5176\u50F9\u503C\u3002"
+              },
+              {
+                "text": "\u958B\u767C\u8005\u5167\u90E8\u61C9\u4F7F\u7528\u7684\u55AE\u5143\u6E2C\u8A66\u7D50\u69CB",
+                "fraction": 0,
+                "feedback": "\u5167\u90E8\u6E2C\u8A66\u7D50\u69CB\u662F\u958B\u767C\u8005\u7684\u7BC4\u7587\uFF0C\u4E0D\u662F\u696D\u52D9\u4EE3\u8868\u7684\u3002"
+              },
+              {
+                "text": "\u8981\u63A2\u7A76\u7684\u78BA\u5207\u908A\u754C\u60C5\u6CC1\u8207\u5931\u6557\u6A21\u5F0F",
+                "fraction": 0,
+                "feedback": "\u63A2\u7A76\u908A\u754C\u60C5\u6CC1\u4E3B\u8981\u662F\u6E2C\u8A66\u4EBA\u54E1\u7684\u8CA2\u737B\uFF1B\u696D\u52D9\u63D0\u4F9B\u610F\u5716\u8207\u50F9\u503C\u3002"
+              },
+              {
+                "text": "\u6301\u7E8C\u6574\u5408\u6D41\u6C34\u7DDA\u7684\u8A2D\u5B9A",
+                "fraction": 0,
+                "feedback": "CI \u8A2D\u5B9A\u4E0D\u662F\u696D\u52D9\u4EE3\u8868\u5728\u5C0D\u8A71\u4E2D\u7684\u89D2\u8272\u3002"
+              }
+            ],
+            "generalFeedback": "\u696D\u52D9\uFF0F\u7522\u54C1\u8CA0\u8CAC\u4EBA\u5E36\u4F86\u300C\u8981\u4EC0\u9EBC\u8207\u70BA\u4EC0\u9EBC\u300D\uFF1A\u5BA2\u6236\u9700\u8981\u7684\u6210\u679C\uFF0C\u4EE5\u53CA\u80CC\u5F8C\u7684\u50F9\u503C\u3002\u958B\u767C\u8005\u8861\u91CF\u53EF\u884C\u6027\uFF0C\u6E2C\u8A66\u4EBA\u54E1\u63A2\u7A76\u53EF\u80FD\u51FA\u932F\u4E4B\u8655\u3002\u4E09\u8005\u4E00\u8D77\u8A02\u51FA\u9762\u9762\u4FF1\u5230\u7684\u9A57\u6536\u6E96\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u528D\u5BA2\u7684\u8CA2\u737B",
+            "text": "<p>\u5728\u4E09\u528D\u5BA2\u5C0D\u8A71\u4E2D\uFF0C<strong>\u6E2C\u8A66\u4EBA\u54E1</strong>\u4E3B\u8981\u8CA2\u737B\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63D0\u51FA\u95DC\u65BC\u908A\u754C\u60C5\u6CC1\u3001\u6A21\u7CCA\u4E4B\u8655\uFF0C\u4EE5\u53CA\u529F\u80FD\u53EF\u80FD\u5982\u4F55\u5931\u6557\u6216\u88AB\u8AA4\u89E3\u7684\u554F\u984C",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6E2C\u8A66\u4EBA\u54E1\u63A2\u7A76\u7F3A\u53E3\u3001\u908A\u754C\u60C5\u6CC1\u8207\u9700\u6C42\u53EF\u80FD\u5D29\u58DE\u4E4B\u8655\u3002"
+              },
+              {
+                "text": "\u5C0D\u529F\u80FD\u662F\u5426\u503C\u5F97\u6253\u9020\u505A\u6700\u7D42\u7684\u696D\u52D9\u6C7A\u5B9A",
+                "fraction": 0,
+                "feedback": "\u90A3\u7531\u696D\u52D9\uFF0FPO \u6C7A\u5B9A\uFF1B\u6E2C\u8A66\u4EBA\u54E1\u63A2\u7A76\u6B63\u78BA\u6027\u8207\u5B8C\u6574\u6027\u3002"
+              },
+              {
+                "text": "\u9078\u64C7\u7A0B\u5F0F\u8A9E\u8A00\u8207\u6846\u67B6",
+                "fraction": 0,
+                "feedback": "\u6280\u8853\u5BE6\u4F5C\u9078\u64C7\u662F\u958B\u767C\u8005\u7684\u7BC4\u7587\uFF0C\u4E0D\u662F\u6E2C\u8A66\u4EBA\u54E1\u6B64\u8655\u7684\u6838\u5FC3\u89D2\u8272\u3002"
+              },
+              {
+                "text": "\u4EC0\u9EBC\u90FD\u4E0D\u505A\u2014\u2014\u6E2C\u8A66\u4EBA\u54E1\u53EA\u5728\u5BEB\u5B8C\u7A0B\u5F0F\u5F8C\u624D\u5BEB\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u5728 ATDD \u4E2D\u6E2C\u8A66\u4EBA\u54E1\u4E00\u958B\u59CB\u5C31\u53C3\u8207\u8B70\u5B9A\u6E96\u5247\uFF0C\u4E0D\u53EA\u662F\u4E8B\u5F8C\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66\u4EBA\u54E1\u7684\u8996\u89D2\u662F\u300C\u9019\u53EF\u80FD\u54EA\u88E1\u51FA\u932F\u6216\u88AB\u8AA4\u89E3\uFF1F\u300D\u2014\u2014\u5728\u6E96\u5247\u9084\u5728\u64B0\u5BEB\u6642\uFF0C\u5C31\u628A\u908A\u754C\u60C5\u6CC1\u3001\u6A21\u7CCA\u4E4B\u8655\u8207\u5931\u6557\u6A21\u5F0F\u6D6E\u73FE\u51FA\u4F86\u3002\u9019\u7A2E\u4E8B\u5148\u63D0\u554F\uFF0C\u9060\u6BD4\u529F\u80FD\u6253\u9020\u5B8C\u624D\u767C\u73FE\u7F3A\u53E3\u4FBF\u5B9C\u5F97\u591A\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7BC4\u4F8B\u5F62\u6210\u6D3B\u6587\u4EF6",
+            "text": "<p>\u70BA\u4EC0\u9EBC ATDD\uFF0F\u7BC4\u4F8B\u898F\u683C\u5316\u7684\u9A57\u6536\u6E2C\u8A66\u80FD\u4F5C\u70BA<strong>\u6D3B\u6587\u4EF6\uFF08living documentation\uFF09</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u56E0\u70BA\u5B83\u5011\u6703\u5C0D\u7CFB\u7D71\u57F7\u884C\uFF0C\u901A\u904E\u7684\u5957\u4EF6\u4EE3\u8868\u5DF2\u8A18\u9304\u7684\u7BC4\u4F8B\u4ECD\u8207\u771F\u5BE6\u884C\u70BA\u76F8\u7B26\uFF0C\u6587\u4EF6\u56E0\u6B64\u4E0D\u6703\u6084\u6084\u904E\u6642",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u57F7\u884C\u9019\u4E9B\u7BC4\u4F8B\u80FD\u8B93\u6587\u4EF6\u8207\u7CFB\u7D71\u4FDD\u6301\u540C\u6B65\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u5011\u88AB\u5370\u51FA\u4E26\u5B58\u653E\u5728\u8CC7\u6599\u593E\u4E2D\u5099\u67E5",
+                "fraction": 0,
+                "feedback": "\u6D3B\u6587\u4EF6\u662F\u53EF\u57F7\u884C\u4E14\u81EA\u6211\u6AA2\u67E5\u7684\uFF0C\u4E0D\u662F\u975C\u614B\u7684\u5B58\u6A94\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6709\u4EBA\u5728\u6BCF\u6B21\u767C\u5E03\u5F8C\u624B\u52D5\u6539\u5BEB\u5B83\u5011",
+                "fraction": 0,
+                "feedback": "\u91CD\u9EDE\u662F\u57F7\u884C\u8B93\u5B83\u5011\u81EA\u52D5\u4FDD\u6301\u6700\u65B0\uFF0C\u800C\u975E\u624B\u52D5\u6539\u5BEB\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u5B83\u5011\u53EA\u80FD\u88AB\u95B1\u8B80\u3001\u6C38\u9060\u7121\u6CD5\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u6703\u5C0D\u7CFB\u7D71\u57F7\u884C\uFF1B\u9019\u6B63\u662F\u8B93\u5B83\u5011\u4FDD\u6301\u9BAE\u6D3B\u7684\u539F\u56E0\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u822C\u6587\u4EF6\u6703\u96A8\u6642\u9593\u8207\u7A0B\u5F0F\u78BC\u812B\u7BC0\u3002\u56E0\u70BA ATDD \u9A57\u6536\u6E2C\u8A66\uFF08\u5177\u9AD4\u7BC4\u4F8B\uFF09\u6703\u88AB\u57F7\u884C\uFF0C\u4EFB\u4F55\u672A\u53CD\u6620\u5230\u5B83\u5011\u7684\u884C\u70BA\u8B8A\u66F4\u90FD\u6703\u4F7F\u5176\u5931\u6557\u3002\u7DA0\u8272\u5957\u4EF6\u5373\u662F\u9019\u4E9B\u7BC4\u4F8B\u4ECD\u63CF\u8FF0\u771F\u5BE6\u7CFB\u7D71\u7684\u8B49\u64DA\u2014\u2014\u4FDD\u6301\u9BAE\u6D3B\u7684\u6587\u4EF6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "ATDD \u8207 TDD\uFF1A\u505A\u932F\u6771\u897F vs \u6771\u897F\u505A\u932F",
+            "text": "<p>\u5C31\u5404\u81EA\u904B\u4F5C\u7684\u5C64\u7D1A\u800C\u8A00\uFF0C\u76F8\u8F03\u65BC <strong>TDD</strong>\uFF0C<strong>ATDD</strong> \u6700\u76F4\u63A5\u9632\u7BC4\u54EA\u4E00\u7A2E\u932F\u8AA4\uFF1F</p>",
+            "answers": [
+              {
+                "text": "ATDD \u4E3B\u8981\u9632\u7BC4\u505A\u932F\u6771\u897F\uFF08\u9700\u6C42\u932F\u8AA4\uFF09\uFF0CTDD \u4E3B\u8981\u9632\u7BC4\u628A\u6771\u897F\u505A\u932F\uFF08\u7A0B\u5F0F\u78BC\u6709\u7F3A\u9677\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u5C64\u7D1A\u7684 ATDD \u91DD\u5C0D\u9700\u6C42\u6B63\u78BA\u6027\uFF1B\u55AE\u5143\u5C64\u7D1A\u7684 TDD \u91DD\u5C0D\u7A0B\u5F0F\u78BC\u6B63\u78BA\u6027\u3002"
+              },
+              {
+                "text": "ATDD \u9632\u7BC4\u7A0B\u5F0F\u78BC\u592A\u6162\uFF0CTDD \u9632\u7BC4\u6E2C\u8A66\u592A\u6162",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u4E0D\u662F\u95DC\u65BC\u901F\u5EA6\uFF1BATDD \u91DD\u5C0D\u6B63\u78BA\u7684\u9700\u6C42\uFF0CTDD \u91DD\u5C0D\u6B63\u78BA\u7684\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u5728\u540C\u4E00\u5C64\u7D1A\u9632\u7BC4\u5B8C\u5168\u76F8\u540C\u7684\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u5728\u4E0D\u540C\u5C64\u7D1A\u904B\u4F5C\uFF1A\u9A57\u6536\uFF0F\u5BA2\u6236 vs \u55AE\u5143\uFF0F\u958B\u767C\u8005\u3002"
+              },
+              {
+                "text": "ATDD \u9632\u7BC4\u7DE8\u8B6F\u932F\u8AA4\uFF0CTDD \u9632\u7BC4\u6253\u5B57\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u9019\u628A\u5169\u8005\u90FD\u7463\u788E\u5316\u4E86\uFF1BATDD \u95DC\u65BC\u6B63\u78BA\u7684\u9700\u6C42\uFF0CTDD \u95DC\u65BC\u6B63\u78BA\u7684\u55AE\u5143\u3002"
+              }
+            ],
+            "generalFeedback": "\u56E0\u70BA ATDD \u5148\u8B70\u5B9A\u9762\u5411\u5BA2\u6236\u7684\u9A57\u6536\u6E2C\u8A66\uFF0C\u5B83\u4E3B\u8981\u9632\u7BC4\u6253\u9020\u932F\u7684\u529F\u80FD\u2014\u2014\u9700\u6C42\u4E0D\u7B26\u3002TDD \u5728\u55AE\u5143\u5C64\u7D1A\u904B\u4F5C\uFF0C\u4E3B\u8981\u9632\u7BC4\u6240\u6253\u9020\u7A0B\u5F0F\u78BC\u4E2D\u7684\u7F3A\u9677\u3002\u5169\u500B\u5C64\u7D1A\u4E92\u88DC\uFF1A\u6B63\u78BA\u7684\u6771\u897F\uFF08ATDD\uFF09\u8207\u628A\u6771\u897F\u505A\u5C0D\uFF08TDD\uFF09\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u6B78\u4F4D\u6D3B\u52D5\uFF1A\u628A\u7BC4\u4F8B\u8F49\u6210 Given-When-Then",
+            "text": "<p>\u5718\u968A\u628A\u5728\u6545\u4E8B\u5C0D\u8A71\u4E2D\u8B70\u5B9A\u7684\u5177\u9AD4\u7BC4\u4F8B\uFF0C\u5BEB\u6210 Given-When-Then \u7684\u9A57\u6536\u6E2C\u8A66\u3002\u9019\u662F\u54EA\u500B ATDD \u968E\u6BB5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Distill",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u628A\u8B70\u5B9A\u7684\u7BC4\u4F8B\u8F49\u6210\u9A57\u6536\u6E2C\u8A66\u5C31\u662F Distill \u968E\u6BB5\u3002"
+              },
+              {
+                "text": "Discuss",
+                "fraction": 0,
+                "feedback": "Discuss \u662F\u6D6E\u73FE\u7BC4\u4F8B\u7684\u5C0D\u8A71\uFF1B\u628A\u5B83\u5011\u5BEB\u6210\u6E2C\u8A66\u662F Distill\u3002"
+              },
+              {
+                "text": "Develop",
+                "fraction": 0,
+                "feedback": "Develop \u662F\u5BE6\u4F5C\u529F\u80FD\uFF1B\u628A\u7BC4\u4F8B\u6B63\u5F0F\u5316\u70BA\u6E2C\u8A66\u662F Distill\u3002"
+              },
+              {
+                "text": "Demo",
+                "fraction": 0,
+                "feedback": "Demo \u662F\u9A57\u8B49\u5B8C\u6210\u7684\u529F\u80FD\uFF1B\u7522\u51FA\u9A57\u6536\u6E2C\u8A66\u662F Distill\u3002"
+              }
+            ],
+            "generalFeedback": "Distill \u6B63\u662F\u5982\u6B64\uFF1A\u628A\u8A0E\u8AD6\u6642\u63D0\u51FA\u7684\u5177\u9AD4\u7BC4\u4F8B\u7CBE\u7149\u6210\u7CBE\u78BA\u7684\u9A57\u6536\u6E2C\u8A66\uFF0C\u5E38\u5BEB\u6210 Given-When-Then\u3002\u5176\u7522\u51FA\u5C31\u662F Develop \u968E\u6BB5\u8981\u6253\u9020\u4EE5\u9054\u6210\u7684\u8B70\u5B9A\u6E96\u5247\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6B78\u4F4D\u6D3B\u52D5\uFF1A\u628A\u529F\u80FD\u5C55\u793A\u7D66 PO",
+            "text": "<p>\u958B\u767C\u8005\u628A\u5B8C\u6210\u7684\u529F\u80FD\u5C55\u793A\u7D66\u7522\u54C1\u8CA0\u8CAC\u4EBA\uFF0C\u4E26\u4E00\u8D77\u8D70\u904E\u9A57\u6536\u6E96\u5247\u4EE5\u78BA\u8A8D\u6B63\u78BA\u3002\u9019\u662F\u54EA\u500B ATDD \u968E\u6BB5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Demo",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u4E00\u8D77\u9A57\u8B49\u5B8C\u6210\u7684\u529F\u80FD\u5C31\u662F Demo \u968E\u6BB5\u3002"
+              },
+              {
+                "text": "Discuss",
+                "fraction": 0,
+                "feedback": "Discuss \u5728\u6253\u9020\u4E4B\u524D\uFF1B\u78BA\u8A8D\u5B8C\u6210\u7684\u529F\u80FD\u662F Demo\u3002"
+              },
+              {
+                "text": "Distill",
+                "fraction": 0,
+                "feedback": "Distill \u7522\u51FA\u9A57\u6536\u6E2C\u8A66\uFF1B\u62FF\u6253\u9020\u597D\u7684\u529F\u80FD\u5C0D\u7167\u5B83\u5011\u6AA2\u67E5\u662F Demo\u3002"
+              },
+              {
+                "text": "Develop",
+                "fraction": 0,
+                "feedback": "Develop \u662F\u5BE6\u4F5C\uFF1B\u4E4B\u5F8C\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u7684\u9A57\u8B49\u662F Demo\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u5B8C\u6210\u7684\u6210\u679C\u5C55\u793A\u7D66\u5229\u5BB3\u95DC\u4FC2\u4EBA\uFF0C\u4E26\u8207\u4ED6\u5011\u4E00\u8D77\u78BA\u8A8D\u6EFF\u8DB3\u5148\u524D\u8B70\u5B9A\u7684\u9A57\u6536\u6E96\u5247\uFF0C\u5C31\u662F Demo \u968E\u6BB5\u2014\u2014\u5718\u968A\u9A57\u8B49\u6253\u9020\u4E86\u6B63\u78BA\u6771\u897F\u7684\u6642\u523B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6B78\u4F4D\u6D3B\u52D5\uFF1A\u5BEB\u7A0B\u5F0F\u6642\u7684\u7D05-\u7DA0-\u91CD\u69CB",
+            "text": "<p>\u958B\u767C\u8005\u5BEB\u4E00\u500B\u5931\u6557\u7684\u55AE\u5143\u6E2C\u8A66\u3001\u8B93\u5B83\u901A\u904E\u3001\u518D\u91CD\u69CB\uFF0C\u4E26\u5728\u6253\u9020\u80FD\u6EFF\u8DB3\u9A57\u6536\u6E2C\u8A66\u7684\u7A0B\u5F0F\u78BC\u6642\u53CD\u8986\u9032\u884C\u3002\u9019\u767C\u751F\u5728\u54EA\u500B ATDD \u968E\u6BB5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Develop\u2014\u2014\u55AE\u5143\u5C64\u7D1A TDD \u662F\u5728 Develop \u968E\u6BB5\u5167\u90E8\u4F7F\u7528\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D05-\u7DA0-\u91CD\u69CB\u662F Develop \u5167\u7684\u5167\u5C64 TDD \u5FAA\u74B0\u3002"
+              },
+              {
+                "text": "Distill\u2014\u2014\u56E0\u70BA\u6240\u6709\u6E2C\u8A66\u90FD\u5728\u90A3\u88E1\u64B0\u5BEB",
+                "fraction": 0,
+                "feedback": "Distill \u64B0\u5BEB\u9A57\u6536\u6E2C\u8A66\uFF1B\u55AE\u5143\u5C64\u7D1A\u7684\u7D05-\u7DA0-\u91CD\u69CB\u767C\u751F\u5728 Develop\u3002"
+              },
+              {
+                "text": "Discuss\u2014\u2014\u56E0\u70BA\u5C0D\u8A71\u4E00\u958B\u59CB\u5C31\u6703\u5BEB\u7A0B\u5F0F",
+                "fraction": 0,
+                "feedback": "Discuss \u662F\u5C0D\u8A71\uFF1B\u7528\u55AE\u5143 TDD \u5BEB\u7A0B\u5F0F\u662F Develop \u968E\u6BB5\u3002"
+              },
+              {
+                "text": "Demo\u2014\u2014\u56E0\u70BA\u6E2C\u8A66\u662F\u5728\u5229\u5BB3\u95DC\u4FC2\u4EBA\u9762\u524D\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "Demo \u9A57\u8B49\u5B8C\u6210\u7684\u529F\u80FD\uFF1B\u7D05-\u7DA0-\u91CD\u69CB\u7684\u5BEB\u7A0B\u5F0F\u5728 Develop\u3002"
+              }
+            ],
+            "generalFeedback": "\u5728 Develop \u5167\u90E8\uFF0C\u5718\u968A\u4EE5\u4E00\u822C\u7684\u55AE\u5143\u5C64\u7D1A TDD\uFF08\u7D05-\u7DA0-\u91CD\u69CB\uFF09\u9577\u51FA\u5BE6\u4F5C\uFF0C\u8B93\u9A57\u6536\u6E2C\u8A66\u901A\u904E\u3002ATDD \u7684\u9A57\u6536\u5FAA\u74B0\u5305\u8986\u8457\u9019\u500B\u5167\u5C64\u7684\u55AE\u5143\u6E2C\u8A66\u5FAA\u74B0\uFF1B\u5169\u8005\u5728\u4E0D\u540C\u5C64\u7D1A\u904B\u4F5C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4EC0\u9EBC\u9A57\u6536\u6E2C\u8A66\u8981\u5148\u5BEB",
+            "text": "<p>\u5728\u958B\u59CB\u958B\u767C<strong>\u4E4B\u524D</strong>\u5C31\u8B70\u5B9A\u9A57\u6536\u6E2C\u8A66\uFF0C\u6700\u6709\u529B\u7684\u7406\u7531\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u4E8B\u5148\u5EFA\u7ACB\u5C0D\u300C\u5B8C\u6210\u300D\u7684\u5171\u540C\u7406\u89E3\uFF0C\u964D\u4F4E\u6253\u9020\u932F\u6771\u897F\u7684\u98A8\u96AA\uFF0C\u4E26\u7D66\u51FA\u660E\u78BA\u76EE\u6A19",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5148\u8B70\u5B9A\u6E2C\u8A66\u80FD\u8B93\u5927\u5BB6\u5C0D\u9F4A\uFF0C\u907F\u514D\u628A\u529B\u6C23\u6D6A\u8CBB\u5728\u932F\u7684\u529F\u80FD\u4E0A\u3002"
+              },
+              {
+                "text": "\u5B83\u4FDD\u8B49\u7A0B\u5F0F\u78BC\u5C07\u5B8C\u5168\u6C92\u6709\u4EFB\u4F55\u932F\u8AA4",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u4EFB\u4F55\u5BE6\u8E10\u80FD\u4FDD\u8B49\u96F6\u932F\u8AA4\uFF1BATDD \u7684\u50F9\u503C\u5728\u5171\u540C\u7406\u89E3\u8207\u660E\u78BA\u76EE\u6A19\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u5718\u968A\u4E4B\u5F8C\u53EF\u4EE5\u4E0D\u5FC5\u518D\u8207\u5BA2\u6236\u4EA4\u8AC7",
+                "fraction": 0,
+                "feedback": "ATDD \u5EFA\u7ACB\u5728\u6301\u7E8C\u5354\u4F5C\u4E0A\uFF1B\u5B83\u4E0D\u6703\u6D88\u9664\u6E9D\u901A\u7684\u9700\u8981\u3002"
+              },
+              {
+                "text": "\u5B83\u8B93\u55AE\u5143\u6E2C\u8A66\u8B8A\u5F97\u4E0D\u5FC5\u8981",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u6E2C\u8A66\u4ECD\u7136\u91CD\u8981\uFF1BATDD \u7684 Develop \u968E\u6BB5\u5167\u90E8\u901A\u5E38\u4F7F\u7528 TDD\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E8B\u5148\u8B70\u5B9A\u9A57\u6536\u6E2C\u8A66\uFF0C\u8FEB\u4F7F\u696D\u52D9\u3001\u958B\u767C\u8005\u8207\u6E2C\u8A66\u4EBA\u54E1\u5728\u6295\u5165\u5FC3\u529B\u4E4B\u524D\uFF0C\u5C31\u5C0D\u300C\u5B8C\u6210\u300D\u9054\u6210\u4E00\u500B\u5177\u9AD4\u7684\u5B9A\u7FA9\u3002\u90A3\u4EFD\u5171\u540C\u7406\u89E3\uFF0C\u662F\u5C0D\u6297\u6700\u6602\u8CB4\u5931\u6557\u2014\u2014\u628A\u932F\u7684\u6771\u897F\u505A\u5F97\u5F88\u597D\u2014\u2014\u7684\u4E3B\u8981\u9632\u7DDA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FF7\u601D\uFF1AATDD \u53EA\u662F\u6E2C\u8A66\u4EBA\u54E1\u7684\u6D3B\u52D5",
+            "text": "<p>\u6709\u540C\u4E8B\u8AAA\uFF1A\u300CATDD \u53EA\u662F\u6E2C\u8A66\u4EBA\u54E1\u7684\u5DE5\u4F5C\u2014\u2014\u4ED6\u5011\u5BEB\u597D\u9A57\u6536\u6E2C\u8A66\u518D\u4EA4\u51FA\u53BB\u3002\u300D\u70BA\u4EC0\u9EBC\u9019\u662F\u932F\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "ATDD \u662F\u5354\u4F5C\u7684\uFF1A\u696D\u52D9\u3001\u958B\u767C\u8005\u8207\u6E2C\u8A66\u4EBA\u54E1\u4E00\u8D77\u8B70\u5B9A\u9A57\u6536\u6E2C\u8A66\uFF0C\u56E0\u6B64\u662F\u5168\u5718\u968A\u6D3B\u52D5\uFF0C\u800C\u975E\u6E2C\u8A66\u4EBA\u54E1\u7368\u6709",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4E09\u528D\u5BA2\u5354\u4F5C\u662F\u6838\u5FC3\uFF1BATDD \u4E0D\u7531\u6E2C\u8A66\u4EBA\u54E1\u7368\u81EA\u64C1\u6709\u3002"
+              },
+              {
+                "text": "\u932F\u662F\u56E0\u70BA\u53EA\u6709\u958B\u767C\u8005\u624D\u88AB\u5141\u8A31\u64B0\u5BEB\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u55AE\u4E00\u89D2\u8272\u64C1\u6709\u5B83\uFF1B\u91CD\u9EDE\u662F\u4E09\u8005\u5354\u4F5C\uFF0C\u5305\u542B\u6E2C\u8A66\u4EBA\u54E1\u3002"
+              },
+              {
+                "text": "\u662F\u5C0D\u7684\u2014\u2014\u6E2C\u8A66\u4EBA\u54E1\u78BA\u5BE6\u5B8C\u5168\u64C1\u6709 ATDD",
+                "fraction": 0,
+                "feedback": "\u90A3\u6B63\u662F\u8FF7\u601D\uFF1BATDD \u662F\u5354\u4F5C\u7684\u5168\u5718\u968A\u5BE6\u8E10\u3002"
+              },
+              {
+                "text": "\u932F\u662F\u56E0\u70BA ATDD \u6839\u672C\u4E0D\u6D89\u53CA\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "ATDD \u975E\u5E38\u95DC\u4E4E\u9A57\u6536\u6E2C\u8A66\uFF1B\u932F\u5728\u4EE5\u70BA\u53EA\u6709\u6E2C\u8A66\u4EBA\u54E1\u4F86\u505A\u3002"
+              }
+            ],
+            "generalFeedback": "ATDD \u7684\u4E00\u9805\u6838\u5FC3\u89C0\u5FF5\u662F\u9A57\u6536\u6E96\u5247\u7684\u5171\u540C\u4F5C\u8005\u8EAB\u4EFD\u3002\u4E09\u528D\u5BA2\u2014\u2014\u696D\u52D9\uFF0FPO\u3001\u958B\u767C\u8005\u3001\u6E2C\u8A66\u4EBA\u54E1\u2014\u2014\u4E00\u8D77\u8B70\u5B9A\u5B83\u5011\uFF0C\u8B93\u5168\u5718\u968A\u64C1\u6709\u55AE\u4E00\u7684\u300C\u5B8C\u6210\u300D\u5B9A\u7FA9\u3002\u628A\u5B83\u7576\u6210\u6E2C\u8A66\u4EBA\u54E1\u7684\u55AE\u5411\u4EA4\u4ED8\uFF0C\u6703\u5931\u53BB\u8CE6\u4E88 ATDD \u50F9\u503C\u7684\u5171\u540C\u7406\u89E3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FF7\u601D\uFF1A\u9A57\u6536\u6E2C\u8A66\u5728\u5BEB\u7A0B\u5F0F\u4E4B\u5F8C",
+            "text": "<p>\u67D0\u5718\u968A\u5148\u5BEB\u7A0B\u5F0F\u78BC\uFF0C\u4E4B\u5F8C\u624D\u5BEB\u9A57\u6536\u6E2C\u8A66\u4F86\u6AA2\u67E5\u5B83\u3002\u70BA\u4EC0\u9EBC\u9019\u4E0D\u662F ATDD\uFF1F</p>",
+            "answers": [
+              {
+                "text": "ATDD \u5728\u9A57\u6536\u5C64\u7D1A\u662F\u6E2C\u8A66\u5148\u884C\u7684\uFF1A\u6E2C\u8A66\u5FC5\u9808\u5728\u958B\u767C\u4E4B\u524D\u8B70\u5B9A\uFF0C\u624D\u80FD\u9A45\u52D5\u958B\u767C\u4E26\u5B9A\u7FA9\u300C\u5B8C\u6210\u300D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u7A0B\u5F0F\u78BC\u4E4B\u5F8C\u624D\u5BEB\u9A57\u6536\u6E2C\u8A66\uFF0C\u985B\u5012\u4E86 ATDD\u300C\u6E2C\u8A66\u9A45\u52D5\u300D\u7684\u672C\u610F\u3002"
+              },
+              {
+                "text": "\u4E0D\u662F ATDD \u662F\u56E0\u70BA\u9A57\u6536\u6E2C\u8A66\u53EF\u80FD\u6C38\u9060\u4E0D\u6703\u88AB\u81EA\u52D5\u5316",
+                "fraction": 0,
+                "feedback": "\u554F\u984C\u4E0D\u5728\u81EA\u52D5\u5316\uFF1B\u554F\u984C\u662F\u6E2C\u8A66\u5728\u7A0B\u5F0F\u78BC\u4E4B\u5F8C\u3001\u800C\u975E\u4E4B\u524D\u3002"
+              },
+              {
+                "text": "\u9019\u5176\u5BE6\u662F\u6B63\u78BA\u7684 ATDD\uFF0C\u56E0\u70BA\u9806\u5E8F\u7121\u95DC\u7DCA\u8981",
+                "fraction": 0,
+                "feedback": "\u9806\u5E8F\u81F3\u95DC\u91CD\u8981\uFF1AATDD \u8981\u6C42\u9A57\u6536\u6E2C\u8A66\u5728\u958B\u767C\u4E4B\u524D\u3002"
+              },
+              {
+                "text": "\u4E0D\u662F ATDD \u662F\u56E0\u70BA ATDD \u7981\u6B62\u5BEB\u4EFB\u4F55\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "ATDD \u5305\u542B Develop \u968E\u6BB5\uFF1B\u91CD\u9EDE\u662F\u6E2C\u8A66\u5148\u65BC\u8A72\u958B\u767C\u3002"
+              }
+            ],
+            "generalFeedback": "ATDD \u4E2D\u7684\u300C\u6E2C\u8A66\u9A45\u52D5\u300D\u610F\u5473\u8457\u9A57\u6536\u6E2C\u8A66\u5148\u5BEB\u3001\u4E26\u5F62\u5851\u8981\u6253\u9020\u4EC0\u9EBC\u3002\u4E8B\u5F8C\u624D\u5BEB\uFF0C\u6703\u628A\u5B83\u5011\u8B8A\u6210\u9A57\u8B49\u7528\u7684\u6AA2\u67E5\u8868\uFF0C\u4E26\u5931\u53BB\u9A45\u52D5\u5DE5\u4F5C\u7684\u90A3\u4EFD\u4E8B\u5148\u3001\u5171\u540C\u7684\u300C\u5B8C\u6210\u300D\u5B9A\u7FA9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FF7\u601D\uFF1ADevelop \u7565\u904E\u55AE\u5143\u6E2C\u8A66",
+            "text": "<p>\u300C\u56E0\u70BA ATDD \u5DF2\u7D93\u6709\u9A57\u6536\u6E2C\u8A66\uFF0CDevelop \u968E\u6BB5\u5C31\u4E0D\u9700\u8981\u4EFB\u4F55\u55AE\u5143\u6E2C\u8A66\u4E86\u3002\u300D\u70BA\u4EC0\u9EBC\u9019\u662F\u8FF7\u601D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Develop \u968E\u6BB5\u5167\u90E8\u901A\u5E38\u4ECD\u4F7F\u7528\u55AE\u5143\u5C64\u7D1A TDD\uFF1B\u9A57\u6536\u6E2C\u8A66\u8207\u55AE\u5143\u6E2C\u8A66\u5728\u4E0D\u540C\u5C64\u7D1A\u904B\u4F5C\u3001\u5F7C\u6B64\u4E92\u88DC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9A57\u6536\u5FAA\u74B0\u5305\u8986\u8457\u5167\u5C64\u7684\u55AE\u5143\u5C64\u7D1A TDD \u5FAA\u74B0\uFF1B\u5169\u8005\u4E26\u7528\u3002"
+              },
+              {
+                "text": "\u662F\u5C0D\u7684\u2014\u2014\u4E00\u500B\u9A57\u6536\u6E2C\u8A66\u5C31\u5B8C\u5168\u53D6\u4EE3\u4E86\u6240\u6709\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u6E2C\u8A66\u6AA2\u67E5\u5BA2\u6236\u5C64\u7D1A\u884C\u70BA\uFF1B\u5B83\u4E0D\u6703\u53D6\u4EE3\u7D30\u7C92\u5EA6\u7684\u55AE\u5143\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u662F\u8FF7\u601D\u662F\u56E0\u70BA\u9A57\u6536\u6E2C\u8A66\u7121\u6CD5\u88AB\u81EA\u52D5\u5316",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u6E2C\u8A66\u53EF\u4EE5\u81EA\u52D5\u5316\uFF1B\u932F\u5728\u4EE5\u70BA\u5B83\u5011\u6D88\u9664\u4E86\u55AE\u5143\u6E2C\u8A66\u7684\u9700\u8981\u3002"
+              },
+              {
+                "text": "\u662F\u8FF7\u601D\u662F\u56E0\u70BA Develop \u624D\u662F\u9996\u6B21\u64B0\u5BEB\u9A57\u6536\u6E2C\u8A66\u7684\u5730\u65B9",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u6E2C\u8A66\u5728 Distill \u64B0\u5BEB\uFF1B\u6B64\u8655\u7684\u932F\u5728 Develop \u4E2D\u653E\u6389\u55AE\u5143\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "ATDD \u662F\u5DE2\u72C0\u7684\u5FAA\u74B0\u3002\u5916\u5C64\u3001\u9A57\u6536\u5C64\u7D1A\u7684\u6E2C\u8A66\u5B9A\u7FA9\u9762\u5411\u5BA2\u6236\u7684\u300C\u5B8C\u6210\u300D\uFF1B\u5728 Develop \u5167\u90E8\uFF0C\u958B\u767C\u8005\u4ECD\u4F7F\u7528\u55AE\u5143\u5C64\u7D1A TDD\uFF08\u7D05-\u7DA0-\u91CD\u69CB\uFF09\u6253\u9020\u4E26\u9A57\u8B49\u5167\u90E8\u3002\u5169\u500B\u5C64\u7D1A\u6293\u7684\u554F\u984C\u4E0D\u540C\uFF0C\u662F\u4E26\u7528\u800C\u975E\u5F7C\u6B64\u53D6\u4EE3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\uFF1A\u5340\u5206 ATDD \u8207 TDD",
+            "text": "<p>\u8003\u616E\u7D50\u5E33\u529F\u80FD\u7684\u5169\u500B\u6E2C\u8A66\u3002\u6E2C\u8A66 X \u8207\u7522\u54C1\u8CA0\u8CAC\u4EBA\u8B70\u5B9A\uFF0C\u5167\u5BB9\u662F\u300CGiven \u4E00\u500B $100\u3001\u542B 10% \u6298\u50F9\u5238\u7684\u8CFC\u7269\u8ECA\uFF0CWhen \u9867\u5BA2\u7D50\u5E33\uFF0CThen \u7E3D\u984D\u70BA $90\u300D\u3002\u6E2C\u8A66 Y \u7531\u958B\u767C\u8005\u64B0\u5BEB\uFF0C\u6AA2\u67E5\u5167\u90E8\u7684 <code>applyDiscount()</code> \u51FD\u5F0F\u5728\u8F38\u5165 (100, 0.10) \u6642\u56DE\u50B3 90\u3002\u54EA\u4E00\u500B\u662F ATDD \u98A8\u683C\u7684\u9A57\u6536\u6E2C\u8A66\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6E2C\u8A66 X\u2014\u2014\u5B83\u9762\u5411\u5BA2\u6236\u3001\u8207\u696D\u52D9\u8B70\u5B9A\uFF0C\u4E26\u4EE5\u53EF\u89C0\u5BDF\u7684\u884C\u70BA\u8868\u9054",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014X \u662F\u9A57\u6536\u6E2C\u8A66\uFF1BY \u662F\u958B\u767C\u8005\u7684\u55AE\u5143\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u6E2C\u8A66 Y\u2014\u2014\u56E0\u70BA\u5B83\u4F7F\u7528\u5177\u9AD4\u7684\u6578\u5B57",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u7528\u6578\u5B57\uFF1BY \u6AA2\u67E5\u5167\u90E8\u51FD\u5F0F\uFF0C\u662F\u55AE\u5143\u6E2C\u8A66\uFF0C\u4E0D\u662F\u9A57\u6536\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F\u55AE\u5143\u6E2C\u8A66\uFF0C\u56E0\u70BA\u90FD\u6D89\u53CA\u6298\u6263",
+                "fraction": 0,
+                "feedback": "X \u8207\u696D\u52D9\u8B70\u5B9A\u4E14\u63CF\u8FF0\u5BA2\u6236\u884C\u70BA\u2014\u2014\u90A3\u662F\u9A57\u6536\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u4E0D\u662F\u6E2C\u8A66\uFF0C\u56E0\u70BA\u6C92\u6709\u51FA\u793A\u7A0B\u5F0F\u78BC",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u662F\u6E2C\u8A66\uFF1BX \u662F\u9A57\u6536\u5C64\u7D1A\u3001Y \u662F\u55AE\u5143\u5C64\u7D1A\u3002"
+              }
+            ],
+            "generalFeedback": "\u6E2C\u8A66 X \u63CF\u8FF0\u8207\u696D\u52D9\u8B70\u5B9A\u3001\u7AEF\u5230\u7AEF\u3001\u5BA2\u6236\u53EF\u898B\u7684\u884C\u70BA\u2014\u2014\u662F ATDD \u9A57\u6536\u6E2C\u8A66\u3002\u6E2C\u8A66 Y \u5B64\u7ACB\u9A57\u8B49\u4E00\u500B\u5167\u90E8\u51FD\u5F0F\u2014\u2014\u662F\u958B\u767C\u8005\u7684\u55AE\u5143\u6E2C\u8A66\uFF08TDD\uFF09\u3002\u5169\u8005\u90FD\u6709\u50F9\u503C\u4E14\u901A\u5E38\u4E26\u5B58\uFF1AY \u6B63\u662F\u5728 Develop \u5167\u90E8\u64B0\u5BEB\u3001\u7528\u4F86\u5E6B\u52A9\u8B93 X \u901A\u904E\u7684\u90A3\u7A2E\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u60C5\u5883\uFF1AATDD \u8207 BDD \u7684\u5074\u91CD",
+            "text": "<p>\u5169\u500B\u5718\u968A\u90FD\u5728\u5BEB\u7A0B\u5F0F\u4E4B\u524D\u8B70\u5B9A\u9A57\u6536\u6E2C\u8A66\u3002A \u5718\u968A\u628A\u5B83\u5011\u5BEB\u6210\u81E8\u6642\u7684\u6AA2\u67E5\u8868\uFF1BB \u5718\u968A\u628A\u5B83\u5011\u5BEB\u6210\u8207\u696D\u52D9\u5171\u901A\u7684\u901A\u7528\u8A9E\u8A00\u4E2D\u7684 Given-When-Then \u60C5\u5883\uFF0C\u4E26\u7528 Cucumber \u98A8\u683C\u7684\u5DE5\u5177\u57F7\u884C\u3002\u54EA\u4E00\u9805\u6700\u80FD\u63CF\u8FF0 B \u5718\u968A\u7684\u5074\u91CD\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u53CD\u6620 BDD \u7684\u5074\u91CD\uFF1A\u7528\u4EBA\u8207\u5DE5\u5177\u90FD\u80FD\u8B80\u7684\u5171\u901A\u901A\u7528\u8A9E\u8A00\uFF08Gherkin \u7684 Given-When-Then\uFF09\u63CF\u8FF0\u884C\u70BA",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014B \u5718\u968A\u504F\u5411 BDD \u5C0D\u884C\u70BA\u8207\u5171\u901A\u8A9E\u8A00\u7684\u8457\u91CD\uFF0C\u662F ATDD \u7684\u8FD1\u89AA\u3002"
+              },
+              {
+                "text": "\u5B83\u986F\u793A B \u5718\u968A\u5728\u505A\u55AE\u5143\u5C64\u7D1A TDD \u800C\u975E\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "Given-When-Then \u60C5\u5883\u662F\u9A57\u6536\u5C64\u7D1A\u7684\u884C\u70BA\uFF0C\u4E0D\u662F\u55AE\u5143\u5C64\u7D1A\u7684 TDD\u3002"
+              },
+              {
+                "text": "\u5B83\u986F\u793A B \u5718\u968A\u5DF2\u653E\u68C4\u8207\u696D\u52D9\u7684\u5354\u4F5C",
+                "fraction": 0,
+                "feedback": "\u6070\u597D\u76F8\u53CD\u2014\u2014\u8207\u696D\u52D9\u5171\u901A\u7684\u901A\u7528\u8A9E\u8A00\u5F37\u5316\u4E86\u5354\u4F5C\u3002"
+              },
+              {
+                "text": "\u5B83\u986F\u793A B \u5718\u968A\u5728\u505A\u6548\u80FD\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "Given-When-Then \u60C5\u5883\u63CF\u8FF0\u529F\u80FD\u884C\u70BA\uFF0C\u4E0D\u662F\u6548\u80FD\u3002"
+              }
+            ],
+            "generalFeedback": "\u5169\u500B\u5718\u968A\u90FD\u5728\u5BE6\u8E10 ATDD\uFF08\u5354\u4F5C\u3001\u9A57\u6536\u6E2C\u8A66\u5148\u884C\uFF09\u3002B \u5718\u968A\u984D\u5916\u64C1\u62B1 BDD \u7684\u5074\u91CD\uFF1A\u4EE5\u901A\u7528\u8A9E\u8A00\u900F\u904E Gherkin\uFF08Given-When-Then\uFF09\u8868\u9054\u884C\u70BA\uFF0C\u4E26\u4EE5 Cucumber \u4E4B\u985E\u7684\u5DE5\u5177\u57F7\u884C\u3002BDD \u662F ATDD \u7684\u8FD1\u89AA\uFF0C\u51F8\u986F\u5171\u901A\u8A9E\u8A00\u8207\u884C\u70BA\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5177\u9AD4\u7BC4\u4F8B\u7684\u89D2\u8272",
+            "text": "<p>\u5728\u6574\u500B ATDD \u5FAA\u74B0\u4E2D\uFF0C\u70BA\u4EC0\u9EBC<strong>\u5177\u9AD4\u7BC4\u4F8B</strong>\uFF08\u7BC4\u4F8B\u898F\u683C\u5316\uFF09\u5982\u6B64\u91CD\u8981\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5011\u7CBE\u78BA\u5730\u91D8\u4F4F\u6A21\u7CCA\u7684\u9700\u6C42\u3001\u6210\u70BA\u53EF\u57F7\u884C\u7684\u9A57\u6536\u6E2C\u8A66\uFF0C\u4E26\u517C\u4F5C\u771F\u5BE6\u884C\u70BA\u7684\u6D3B\u6587\u4EF6",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5177\u9AD4\u7BC4\u4F8B\u5C0D\u9F4A\u7406\u89E3\u3001\u9A45\u52D5\u6E2C\u8A66\uFF0C\u4E26\u4F5C\u70BA\u6587\u4EF6\u4FDD\u6301\u6E96\u78BA\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u53EA\u662F\u70BA\u4E86\u8B93\u6703\u8B70\u8B8A\u9577\uFF0C\u4E26\u5728\u5BEB\u7A0B\u5F0F\u524D\u88AB\u4E1F\u68C4",
+                "fraction": 0,
+                "feedback": "\u7BC4\u4F8B\u6703\u88AB\u4FDD\u7559\u4E26\u8F49\u6210\u9A57\u6536\u6E2C\u8A66\uFF0C\u4E0D\u6703\u88AB\u4E1F\u68C4\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u53D6\u4EE3\u4E86\u89D2\u8272\u4E4B\u9593\u4EFB\u4F55\u5C0D\u8A71\u7684\u9700\u8981",
+                "fraction": 0,
+                "feedback": "\u7BC4\u4F8B\u662F\u5C0D\u8A71\u7684\u7522\u7269\uFF0C\u4E0D\u662F\u5C0D\u8A71\u7684\u66FF\u4EE3\u54C1\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u53EA\u5C0D\u91CF\u6E2C\u7A0B\u5F0F\u78BC\u8986\u84CB\u7387\u6709\u7528",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u7684\u89D2\u8272\u662F\u5171\u540C\u7406\u89E3\u8207\u53EF\u57F7\u884C\u898F\u683C\uFF0C\u800C\u975E\u91CF\u6E2C\u8986\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u5177\u9AD4\u7BC4\u4F8B\u628A\u6A21\u7CCA\u7684\u9700\u6C42\u8B8A\u7CBE\u78BA\uFF08\u300C\u7576\u2026\u2026\u7A76\u7ADF\u8A72\u767C\u751F\u4EC0\u9EBC\uFF1F\u300D\uFF09\u3002\u8403\u53D6\u6210\u9A57\u6536\u6E2C\u8A66\u5F8C\uFF0C\u5B83\u5011\u898F\u7BC4\u884C\u70BA\u3001\u5728\u57F7\u884C\u6642\u9A57\u8B49\u884C\u70BA\uFF0C\u4E26\u6210\u70BA\u5C0D\u7CFB\u7D71\u5BE6\u969B\u4F5C\u70BA\u53EF\u4FE1\u8CF4\u7684\u6587\u4EF6\u2014\u2014\u9019\u6B63\u662F\u7BC4\u4F8B\u898F\u683C\u5316\u7684\u7CBE\u9AD3\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5C11\u4E86\u4E00\u7A2E\u528D\u5BA2\u89C0\u9EDE\u7684\u4EE3\u50F9",
+            "text": "<p>\u67D0\u5718\u968A\u8B70\u5B9A\u9A57\u6536\u6E96\u5247\u6642\uFF0C\u53EA\u6709\u7522\u54C1\u8CA0\u8CAC\u4EBA\u8207\u4E00\u4F4D\u958B\u767C\u8005\u5728\u5834\uFF0C\u6C92\u6709\u6E2C\u8A66\u4EBA\u54E1\u53C3\u8207\u3002\u6700\u53EF\u80FD\u7684\u5F8C\u679C\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u908A\u754C\u60C5\u6CC1\u3001\u6A21\u7CCA\u4E4B\u8655\u8207\u5931\u6557\u6A21\u5F0F\u66F4\u53EF\u80FD\u88AB\u6F0F\u6389\uFF0C\u56E0\u6B64\u6E96\u5247\u8F03\u4E0D\u5B8C\u6574\uFF0C\u7F3A\u53E3\u7A0D\u5F8C\u624D\u6D6E\u73FE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C11\u4E86\u6E2C\u8A66\u4EBA\u54E1\u7684\u8996\u89D2\uFF0C\u6B63\u662F\u90A3\u4E9B\u300C\u53EF\u80FD\u54EA\u88E1\u51FA\u932F\u300D\u7684\u60C5\u6CC1\u5BB9\u6613\u88AB\u6F0F\u6389\u3002"
+              },
+              {
+                "text": "\u6E96\u5247\u6703\u5B8C\u7F8E\u7121\u7F3A\uFF0C\u56E0\u70BA\u5169\u7A2E\u89D2\u8272\u8DB3\u4EE5\u61C9\u4ED8\u4EFB\u4F55\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u7F3A\u5C11\u6E2C\u8A66\u4EBA\u54E1\u7684\u89C0\u9EDE\uFF0C\u901A\u5E38\u6703\u8B93\u908A\u754C\u60C5\u6CC1\u8207\u6A21\u7CCA\u4E4B\u8655\u672A\u88AB\u8655\u7406\u3002"
+              },
+              {
+                "text": "\u6C92\u6709\u6E2C\u8A66\u4EBA\u54E1\u7684\u7C3D\u540D\u5C31\u7121\u6CD5\u958B\u59CB\u958B\u767C",
+                "fraction": 0,
+                "feedback": "\u91CD\u9EDE\u4E0D\u5728\u7C3D\u540D\uFF1B\u800C\u5728\u7F3A\u5C11\u7684\u8996\u89D2\u964D\u4F4E\u4E86\u6E96\u5247\u7684\u54C1\u8CEA\u3002"
+              },
+              {
+                "text": "\u529F\u80FD\u5C07\u81EA\u52D5\u64C1\u6709\u5B8C\u6574\u7684\u55AE\u5143\u6E2C\u8A66\u8986\u84CB\u7387",
+                "fraction": 0,
+                "feedback": "\u4E09\u528D\u5BA2\u95DC\u4E4E\u8B70\u5B9A\u6E96\u5247\uFF0C\u800C\u975E\u7522\u751F\u55AE\u5143\u6E2C\u8A66\u8986\u84CB\u7387\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u4F4D\u528D\u5BA2\u5F4C\u88DC\u5F7C\u6B64\u7684\u76F2\u9EDE\u3002\u6E2C\u8A66\u4EBA\u54E1\u7279\u5225\u63A2\u7A76\u908A\u754C\u60C5\u6CC1\u3001\u6A21\u7CCA\u4E4B\u8655\u8207\u5931\u6557\u6A21\u5F0F\u3002\u628A\u90A3\u500B\u8996\u89D2\u6392\u9664\u5728\u5C0D\u8A71\u4E4B\u5916\uFF0C\u9019\u985E\u7F3A\u53E3\u5C31\u8F03\u4E0D\u53EF\u80FD\u88AB\u53CA\u65E9\u6293\u5230\uFF0C\u5F80\u5F80\u5728\u529F\u80FD\u6253\u9020\u5B8C\u5F8C\u4EE5\u7F3A\u9677\u6216\u8FD4\u5DE5\u7684\u5F62\u5F0F\u91CD\u65B0\u51FA\u73FE\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u628A\u4E00\u6574\u7D44\u6D3B\u52D5\u6392\u5E8F",
+            "text": "<p>\u628A\u4E0B\u5217\u56DB\u9805\u6D3B\u52D5\u6392\u6210\u6B63\u78BA\u7684 ATDD \u9806\u5E8F\uFF1A(1) \u4EE5\u55AE\u5143 TDD \u5BE6\u4F5C\u529F\u80FD\u76F4\u5230\u9A57\u6536\u6E2C\u8A66\u901A\u904E\uFF1B(2) \u628A\u5B8C\u6210\u7684\u529F\u80FD\u5C55\u793A\u7D66\u5229\u5BB3\u95DC\u4FC2\u4EBA\u9A57\u8B49\uFF1B(3) \u4EE5\u5177\u9AD4\u7BC4\u4F8B\u8AC7\u6E05\u695A\u6545\u4E8B\uFF1B(4) \u628A\u7BC4\u4F8B\u5BEB\u6210\u9A57\u6536\u6E2C\u8A66\u3002</p>",
+            "answers": [
+              {
+                "text": "3\uFF0C\u7136\u5F8C 4\uFF0C\u7136\u5F8C 1\uFF0C\u7136\u5F8C 2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Discuss (3)\u3001Distill (4)\u3001Develop (1)\u3001Demo (2)\u3002"
+              },
+              {
+                "text": "4\uFF0C\u7136\u5F8C 3\uFF0C\u7136\u5F8C 2\uFF0C\u7136\u5F8C 1",
+                "fraction": 0,
+                "feedback": "\u8981\u5148\u8A0E\u8AD6\u624D\u80FD\u8403\u53D6\u3001\u5148\u958B\u767C\u624D\u80FD\u5C55\u793A\uFF1B\u9019\u500B\u9806\u5E8F\u662F\u932F\u7684\u3002"
+              },
+              {
+                "text": "1\uFF0C\u7136\u5F8C 2\uFF0C\u7136\u5F8C 3\uFF0C\u7136\u5F8C 4",
+                "fraction": 0,
+                "feedback": "\u5728\u8A0E\u8AD6\u8207\u8403\u53D6\u4E4B\u524D\u5C31\u958B\u767C\u8207\u5C55\u793A\uFF0C\u985B\u5012\u4E86\u5FAA\u74B0\u3002"
+              },
+              {
+                "text": "3\uFF0C\u7136\u5F8C 1\uFF0C\u7136\u5F8C 4\uFF0C\u7136\u5F8C 2",
+                "fraction": 0,
+                "feedback": "\u9A57\u6536\u6E2C\u8A66\uFF084\uFF0CDistill\uFF09\u5FC5\u9808\u5728\u958B\u767C\uFF081\uFF0CDevelop\uFF09\u4E4B\u524D\u64B0\u5BEB\u3002"
+              }
+            ],
+            "generalFeedback": "\u628A\u6D3B\u52D5\u5C0D\u61C9\u5230\u968E\u6BB5\uFF1A(3) \u662F Discuss\u3001(4) \u662F Distill\u3001(1) \u662F Develop\u3001(2) \u662F Demo\u3002\u56E0\u6B64\u6B63\u78BA\u9806\u5E8F\u662F 3\u30014\u30011\u30012\u2014\u2014Discuss\u3001Distill\u3001Develop\u3001Demo\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5728\u9A57\u6536\u5C64\u7D1A\u300C\u5B8C\u6210\u300D\u7684\u610F\u7FA9",
+            "text": "<p>\u5728 ATDD \u4E2D\uFF0C\u529F\u80FD\u5728\u9A57\u6536\u5C64\u7D1A\u4F55\u6642\u7B97\u300C\u5B8C\u6210\u300D\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7576\u5B83\u6EFF\u8DB3\u8B70\u5B9A\u7684\u9A57\u6536\u6E96\u5247\u2014\u2014\u9A57\u6536\u6E2C\u8A66\u901A\u904E\uFF0C\u4E14\u5229\u5BB3\u95DC\u4FC2\u4EBA\u5728 Demo \u4E2D\u78BA\u8A8D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u300C\u5B8C\u6210\u300D\u7531\u8B70\u5B9A\u7684\u9A57\u6536\u6E96\u5247\u9054\u6210\u4E26\u88AB\u9A57\u8B49\u4F86\u5B9A\u7FA9\u3002"
+              },
+              {
+                "text": "\u7576\u958B\u767C\u8005\u89BA\u5F97\u7A0B\u5F0F\u78BC\u5BEB\u5B8C\u4E86\uFF0C\u4E0D\u7BA1\u6E96\u5247\u5982\u4F55",
+                "fraction": 0,
+                "feedback": "\u300C\u5B8C\u6210\u300D\u7531\u8B70\u5B9A\u7684\u9A57\u6536\u6E96\u5247\u5B9A\u7FA9\uFF0C\u800C\u975E\u500B\u4EBA\u611F\u89BA\u3002"
+              },
+              {
+                "text": "\u7576\u9054\u5230 100% \u5206\u652F\u8986\u84CB\u7387\uFF0C\u4E0D\u8AD6\u884C\u70BA\u5982\u4F55",
+                "fraction": 0,
+                "feedback": "\u8986\u84CB\u7387\u662F\u53E6\u4E00\u7A2E\u6307\u6A19\uFF1B\u9A57\u6536\u7684\u300C\u5B8C\u6210\u300D\u662F\u9054\u6210\u8B70\u5B9A\u6E96\u5247\u3002"
+              },
+              {
+                "text": "\u7576\u7A0B\u5F0F\u78BC\u7DE8\u8B6F\u6C92\u6709\u8B66\u544A",
+                "fraction": 0,
+                "feedback": "\u4E7E\u6DE8\u5730\u7DE8\u8B6F\u4E0D\u7B49\u65BC\u6EFF\u8DB3\u5BA2\u6236\u7684\u9A57\u6536\u6E96\u5247\u3002"
+              }
+            ],
+            "generalFeedback": "ATDD \u8B93\u300C\u5B8C\u6210\u300D\u5BA2\u89C0\u4E14\u5171\u540C\uFF1A\u7576\u529F\u80FD\u6EFF\u8DB3\u4E8B\u5148\u8B70\u5B9A\u7684\u9A57\u6536\u6E96\u5247\u2014\u2014\u9A57\u6536\u6E2C\u8A66\u901A\u904E\u3001\u4E14\u5229\u5BB3\u95DC\u4FC2\u4EBA\u5728 Demo \u4E2D\u78BA\u8A8D\u2014\u2014\u5C31\u7B97\u5B8C\u6210\u3002\u9019\u6D88\u9664\u4E86\u5C0D\u662F\u5426\u771F\u6B63\u4EA4\u4ED8\u4E86\u6B63\u78BA\u6771\u897F\u7684\u6A21\u7CCA\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5FAA\u74B0\u9806\u5E8F Discuss-Distill-Develop-Demo",
+            "text": "<p>ATDD \u5FAA\u74B0\u7684\u56DB\u500B\u968E\u6BB5\u4F9D\u5E8F\u70BA Discuss\u3001Distill\u3001Develop\u3001Demo\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9806\u5E8F\u5C31\u662F\uFF1A\u7406\u89E3\u3001\u5316\u70BA\u6E2C\u8A66\u3001\u6253\u9020\uFF0C\u7136\u5F8C\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u9A57\u8B49\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u9806\u5E8F\u6B63\u662F Discuss\u3001Distill\u3001Develop\u3001Demo\u3002"
+              }
+            ],
+            "generalFeedback": "ATDD \u5FAA\u74B0\u7684\u6D41\u7A0B\u662F Discuss\uFF08\u4EE5\u7BC4\u4F8B\u7406\u89E3\u9700\u6C42\uFF09\u3001Distill\uFF08\u628A\u7BC4\u4F8B\u8F49\u6210\u9A57\u6536\u6E2C\u8A66\uFF09\u3001Develop\uFF08\u5BE6\u4F5C\u4E26\u8B93\u6E2C\u8A66\u5728\u5167\u90E8\u4EE5\u55AE\u5143 TDD \u901A\u904E\uFF09\u3001Demo\uFF08\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u9A57\u8B49\u7D50\u679C\uFF09\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6B78\u4F4D\u6D3B\u52D5\uFF1A\u4EE5\u7BC4\u4F8B\u63A2\u8A0E\u6545\u4E8B",
+            "text": "<p>\u696D\u52D9\u8CA0\u8CAC\u4EBA\u3001\u4E00\u4F4D\u958B\u767C\u8005\u8207\u4E00\u4F4D\u6E2C\u8A66\u4EBA\u54E1\u5750\u5728\u4E00\u8D77\uFF0C\u8AC7\u904E\u4E00\u500B\u65B0\u7684\u4F7F\u7528\u8005\u6545\u4E8B\uFF0C\u63D0\u51FA\u300C\u82E5\u2026\u2026\u61C9\u8A72\u767C\u751F\u4EC0\u9EBC\uFF1F\u300D\u7684\u7BC4\u4F8B\u4EE5\u9054\u6210\u5171\u540C\u7406\u89E3\uFF0C\u6B64\u6642\u5C1A\u672A\u628A\u4EFB\u4F55\u6771\u897F\u5BEB\u6210\u6E2C\u8A66\u3002\u9019\u662F\u54EA\u500B ATDD \u968E\u6BB5\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Discuss",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u900F\u904E\u7BC4\u4F8B\u8207\u5229\u5BB3\u95DC\u4FC2\u4EBA\u4E00\u8D77\u63A2\u8A0E\u9700\u6C42\u5C31\u662F Discuss \u968E\u6BB5\u3002"
+              },
+              {
+                "text": "Distill",
+                "fraction": 0,
+                "feedback": "Distill \u662F\u628A\u90A3\u4E9B\u7BC4\u4F8B\u5BEB\u6210\u9A57\u6536\u6E2C\u8A66\uFF1B\u5C0D\u8A71\u672C\u8EAB\u662F Discuss\u3002"
+              },
+              {
+                "text": "Develop",
+                "fraction": 0,
+                "feedback": "Develop \u662F\u5BE6\u4F5C\uFF1B\u4EE5\u7BC4\u4F8B\u9032\u884C\u7684\u4E8B\u5148\u5C0D\u8A71\u662F Discuss\u3002"
+              },
+              {
+                "text": "Demo",
+                "fraction": 0,
+                "feedback": "Demo \u9A57\u8B49\u5B8C\u6210\u7684\u529F\u80FD\uFF1B\u5C0D\u6545\u4E8B\u7684\u521D\u6B65\u63A2\u8A0E\u662F Discuss\u3002"
+              }
+            ],
+            "generalFeedback": "\u9019\u662F Discuss\uFF1A\u4E09\u528D\u5BA2\u4E00\u8D77\u63A2\u8A0E\u6545\u4E8B\uFF0C\u7528\u5177\u9AD4\u7684\u300C\u82E5\u2026\u2026\u300D\u7BC4\u4F8B\u5EFA\u7ACB\u5C0D\u9700\u6C42\u7684\u5171\u540C\u7406\u89E3\u3002\u628A\u9019\u4E9B\u7BC4\u4F8B\u5BEB\u6210\u9A57\u6536\u6E2C\u8A66\u6703\u662F\u4E0B\u4E00\u500B\u968E\u6BB5\u2014\u2014Distill\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "bdd-gherkin": {
       "en": {
         "easy": [
