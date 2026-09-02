@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Grammar Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a CFG</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In syntax-based testing, a <strong>context-free grammar (CFG)</strong> is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A finite set of terminals, nonterminals, productions, and a start symbol that together define a language</text><feedback><text>Correct — those four components define a CFG and the strings it generates.</text></feedback></answer>
+    <answer fraction="0"><text>A control-flow graph of a program's basic blocks</text><feedback><text>That is a CFG in the graph-coverage sense; here CFG means context-free grammar.</text></feedback></answer>
+    <answer fraction="0"><text>A table mapping test inputs to expected outputs</text><feedback><text>That is a test oracle or decision table, not a grammar.</text></feedback></answer>
+    <answer fraction="0"><text>A list of mutation operators applied to source code</text><feedback><text>That is program mutation; a grammar defines a language of strings.</text></feedback></answer>
+    <generalfeedback><text>A context-free grammar is the tuple of terminals, nonterminals, productions (rules), and a start symbol; it generates a set of strings called its language.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Terminal symbol</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>terminal</strong> symbol in a grammar is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A symbol that appears literally in generated strings and is never expanded further</text><feedback><text>Correct — terminals are the atomic tokens that make up the final strings.</text></feedback></answer>
+    <answer fraction="0"><text>A symbol that must be replaced using a production</text><feedback><text>That describes a nonterminal, which is expanded, not a terminal.</text></feedback></answer>
+    <answer fraction="0"><text>The single symbol a derivation begins from</text><feedback><text>That is the start symbol.</text></feedback></answer>
+    <answer fraction="0"><text>A rule that rewrites one string into another</text><feedback><text>That is a production, not a terminal.</text></feedback></answer>
+    <generalfeedback><text>Terminals are the literal tokens of the language; they never appear on the left side of a production and are never rewritten.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Nonterminal symbol</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>nonterminal</strong> symbol in a grammar is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A symbol that stands for a set of strings and is rewritten by productions until only terminals remain</text><feedback><text>Correct — nonterminals are placeholders expanded via productions.</text></feedback></answer>
+    <answer fraction="0"><text>A literal token that appears unchanged in every generated string</text><feedback><text>That is a terminal.</text></feedback></answer>
+    <answer fraction="0"><text>A test requirement produced by a coverage criterion</text><feedback><text>That is a test requirement, not a grammar symbol.</text></feedback></answer>
+    <answer fraction="0"><text>An input that the recognizer must reject</text><feedback><text>That is a negative test case, not a nonterminal.</text></feedback></answer>
+    <generalfeedback><text>Nonterminals (also called variables) are rewritten using productions; a valid string contains only terminals once all nonterminals are expanded.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Production rule</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>production</strong> (rule) of a grammar such as <code>A -> b C</code> specifies:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>How a nonterminal on the left may be replaced by the string of symbols on the right</text><feedback><text>Correct — a production is a rewrite rule from a nonterminal to a sequence of symbols.</text></feedback></answer>
+    <answer fraction="0"><text>A complete string in the language of the grammar</text><feedback><text>A production is a rule; a string is the result of applying rules.</text></feedback></answer>
+    <answer fraction="0"><text>The starting point of every derivation</text><feedback><text>That is the start symbol.</text></feedback></answer>
+    <answer fraction="0"><text>A terminal that cannot be expanded</text><feedback><text>A production has a nonterminal on its left and can be applied; terminals cannot.</text></feedback></answer>
+    <generalfeedback><text>A production rewrites the nonterminal on its left-hand side into the sequence on its right-hand side; derivations chain productions together.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Start symbol</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>start symbol</strong> of a grammar is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The distinguished nonterminal from which every derivation begins</text><feedback><text>Correct — all derivations of the language start from this symbol.</text></feedback></answer>
+    <answer fraction="0"><text>The first terminal in every generated string</text><feedback><text>The start symbol is a nonterminal, not a terminal of the output.</text></feedback></answer>
+    <answer fraction="0"><text>The last production applied in a derivation</text><feedback><text>The start symbol is where a derivation begins, not a production.</text></feedback></answer>
+    <answer fraction="0"><text>Any nonterminal chosen at random for a test</text><feedback><text>The start symbol is a single distinguished nonterminal fixed by the grammar.</text></feedback></answer>
+    <generalfeedback><text>Every derivation of the language starts from the start symbol (often written S); the language is exactly the set of terminal strings derivable from it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What is a derivation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>derivation</strong> in a grammar is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A sequence of production applications that rewrites the start symbol into a string of terminals</text><feedback><text>Correct — a derivation is the step-by-step rewriting that produces a string.</text></feedback></answer>
+    <answer fraction="0"><text>The set of all strings a grammar can produce</text><feedback><text>That is the language; a derivation produces one such string.</text></feedback></answer>
+    <answer fraction="0"><text>A single production of the grammar</text><feedback><text>A derivation applies many productions in sequence, not just one.</text></feedback></answer>
+    <answer fraction="0"><text>A proof that a grammar is ambiguous</text><feedback><text>Ambiguity is about multiple derivations of one string; a derivation itself is just a rewriting sequence.</text></feedback></answer>
+    <generalfeedback><text>A derivation starts at the start symbol and applies productions step by step until only terminals remain; the resulting terminal string is a member of the language.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Terminal Symbol Coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Terminal Symbol Coverage (TSC)</strong> for a grammar requires that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every terminal symbol of the grammar appears in at least one test string</text><feedback><text>Correct — TSC has one test requirement per terminal.</text></feedback></answer>
+    <answer fraction="0"><text>Every production of the grammar is used at least once</text><feedback><text>That is Production Coverage, not Terminal Symbol Coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Every possible derivation is exercised</text><feedback><text>That is derivation (all-derivations) coverage, generally infeasible.</text></feedback></answer>
+    <answer fraction="0"><text>Every nonterminal is used as a start symbol</text><feedback><text>There is one start symbol; TSC is about terminals appearing in tests.</text></feedback></answer>
+    <generalfeedback><text>TSC is the weakest grammar criterion: each terminal must appear in some generated/used test string.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Production Coverage definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>Production Coverage (PDC)</strong> for a grammar requires that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every production (rule alternative) is used in the derivation of at least one test string</text><feedback><text>Correct — PDC has one test requirement per production.</text></feedback></answer>
+    <answer fraction="0"><text>Every terminal symbol appears in at least one test string</text><feedback><text>That is Terminal Symbol Coverage, which PDC subsumes.</text></feedback></answer>
+    <answer fraction="0"><text>Every string of length up to n is generated</text><feedback><text>PDC counts productions used, not strings of bounded length.</text></feedback></answer>
+    <answer fraction="0"><text>Every nonterminal is rewritten exactly once</text><feedback><text>PDC requires each production to be used, and some may be used many times.</text></feedback></answer>
+    <generalfeedback><text>PDC requires each production to be exercised by at least one derivation. Because A -> x | y counts as two productions, both alternatives must be used.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count terminals</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider the grammar:</p><pre><code>S -> a A | b
+A -> c | d</code></pre><p>How many distinct <strong>terminal</strong> symbols does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — the terminals are a, b, c, d.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>That counts the nonterminals S and A, not the terminals.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Recount — a, b, c, d are four distinct terminals.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>That counts terminals plus nonterminals; there are only 4 terminals.</text></feedback></answer>
+    <generalfeedback><text>Terminals are the literal tokens on the right-hand sides that are never expanded: a, b, c, d — four in all.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count nonterminals</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider the grammar:</p><pre><code>S -> a A | b
+A -> c | d</code></pre><p>How many <strong>nonterminals</strong> does it have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — the nonterminals are S and A.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>There are two: S and A.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>That counts the terminals a, b, c, d, not the nonterminals.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Only S and A appear on a left-hand side; that is two.</text></feedback></answer>
+    <generalfeedback><text>Nonterminals are the symbols that appear on a left-hand side and get rewritten: S and A — two in all.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count productions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Consider the grammar:</p><pre><code>S -> a A | b
+A -> c | d</code></pre><p>Counting each alternative as a separate rule, how many <strong>productions</strong> are there?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — S -> a A, S -> b, A -> c, A -> d are four productions.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>That counts the two lines; each | introduces a separate production, so there are four.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Recount — each alternative counts separately: 2 + 2 = 4.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>There are only four alternatives across the two rules.</text></feedback></answer>
+    <generalfeedback><text>For Production Coverage every alternative counts separately: S -> a A, S -> b, A -> c, A -> d — four productions.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Leftmost derivation definition</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a <strong>leftmost</strong> derivation, at each step you rewrite:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The leftmost nonterminal in the current string</text><feedback><text>Correct — leftmost derivations always expand the leftmost remaining nonterminal.</text></feedback></answer>
+    <answer fraction="0"><text>The rightmost nonterminal in the current string</text><feedback><text>That defines a rightmost derivation.</text></feedback></answer>
+    <answer fraction="0"><text>The leftmost terminal in the current string</text><feedback><text>Terminals are never rewritten; only nonterminals are expanded.</text></feedback></answer>
+    <answer fraction="0"><text>Any nonterminal chosen at random</text><feedback><text>That is an arbitrary derivation; leftmost fixes the choice to the leftmost nonterminal.</text></feedback></answer>
+    <generalfeedback><text>A leftmost derivation expands the leftmost nonterminal at every step; a rightmost derivation always expands the rightmost one.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>BNF alternative bar</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In BNF-style notation such as <code>B -> c | d</code>, the vertical bar <code>|</code> denotes:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Alternative right-hand sides — B may be rewritten to c or to d</text><feedback><text>Correct — the bar separates alternative productions for the same nonterminal.</text></feedback></answer>
+    <answer fraction="0"><text>Concatenation — B must be rewritten to c followed by d</text><feedback><text>Concatenation is written by juxtaposition (c d); the bar means choice.</text></feedback></answer>
+    <answer fraction="0"><text>Repetition — B may be c repeated d times</text><feedback><text>The bar means alternation, not repetition.</text></feedback></answer>
+    <answer fraction="0"><text>A comment separating documentation from the rule</text><feedback><text>The bar is part of the grammar syntax, meaning alternation.</text></feedback></answer>
+    <generalfeedback><text>The bar is shorthand for separate productions: B -> c | d abbreviates B -> c and B -> d, two productions.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Language of a grammar</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>language</strong> generated by a grammar is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The set of all terminal strings derivable from the start symbol</text><feedback><text>Correct — the language is exactly the strings the grammar can derive.</text></feedback></answer>
+    <answer fraction="0"><text>The set of all productions in the grammar</text><feedback><text>Those are the rules; the language is the strings they generate.</text></feedback></answer>
+    <answer fraction="0"><text>The set of all nonterminals in the grammar</text><feedback><text>Nonterminals are symbols, not the strings of the language.</text></feedback></answer>
+    <answer fraction="0"><text>A single longest string the grammar can produce</text><feedback><text>The language is the whole set of derivable strings, not one string.</text></feedback></answer>
+    <generalfeedback><text>The language L(G) is the set of all terminal strings derivable from the start symbol; a string is "in the language" exactly when some derivation produces it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Grammar as generator</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When a grammar is used as a <strong>generator</strong> in testing, it is used to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Produce (derive) strings to use as test inputs</text><feedback><text>Correct — a generator applies productions to emit strings for testing.</text></feedback></answer>
+    <answer fraction="0"><text>Decide whether a given string is in the language</text><feedback><text>That is the recognizer role, not the generator role.</text></feedback></answer>
+    <answer fraction="0"><text>Compile the grammar into machine code</text><feedback><text>Generation produces strings, not object code.</text></feedback></answer>
+    <answer fraction="0"><text>Count how many productions a program contains</text><feedback><text>Generation derives strings; it does not analyze a program.</text></feedback></answer>
+    <generalfeedback><text>A generator walks the productions to derive valid strings (test inputs); a recognizer instead accepts or rejects a given string.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Grammar Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Derivable balanced string</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>Is the string <code>aacbb</code> in the language, and if so which productions derive it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes: S -> a S b twice, then S -> c (S =&gt; aSb =&gt; aaSbb =&gt; aacbb)</text><feedback><text>Correct — two wraps of a...b around a central c gives aacbb.</text></feedback></answer>
+    <answer fraction="0"><text>Yes, using only S -> c</text><feedback><text>S -> c alone derives just "c"; you also need S -> a S b twice.</text></feedback></answer>
+    <answer fraction="0"><text>No — the grammar cannot produce two a's</text><feedback><text>Applying S -> a S b twice produces two a's and two b's.</text></feedback></answer>
+    <answer fraction="0"><text>No — c may not appear in the middle</text><feedback><text>S -> c supplies the central c after the wraps; aacbb is in the language.</text></feedback></answer>
+    <generalfeedback><text>The language is a^n c b^n. For aacbb, n = 2: S =&gt; aSb =&gt; aaSbb =&gt; aacbb, using S -> a S b twice and S -> c once.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Unbalanced string not derivable</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>Is the string <code>acbb</code> in the language?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>No — every derivation produces equal numbers of a's and b's, but acbb has one a and two b's</text><feedback><text>Correct — a^n c b^n forces #a = #b, so acbb is not derivable.</text></feedback></answer>
+    <answer fraction="0"><text>Yes, using S -> a S b once then S -> c</text><feedback><text>That derives "acb" (one a, one b), not "acbb".</text></feedback></answer>
+    <answer fraction="0"><text>Yes, using S -> a S b twice</text><feedback><text>Two wraps give "aa...bb" with two a's; acbb has only one a.</text></feedback></answer>
+    <answer fraction="0"><text>No — the grammar cannot produce the terminal b at all</text><feedback><text>S -> a S b does produce b; the real reason is the a/b counts must be equal.</text></feedback></answer>
+    <generalfeedback><text>Each application of S -> a S b adds exactly one a and one b, so any derived string has #a = #b. acbb has 1 a and 2 b, so it is outside the language.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimum tests for PDC (independent choices)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> A B
+A -> x | y
+B -> z | w</code></pre><p>What is the minimum number of test strings needed to achieve Production Coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — e.g. xz and yw together use S -> A B, A -> x, A -> y, B -> z, B -> w.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>One string fixes one A-alternative and one B-alternative, so it can use only 3 of the 5 productions.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the number of strings in the language, not the minimum for PDC; two suffice.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the number of productions; a single string can cover several at once, so two strings suffice.</text></feedback></answer>
+    <generalfeedback><text>There are 5 productions. Each string chooses one A-alternative and one B-alternative, so at most 3 productions per string. xz and yw cover all 5, so the minimum is 2.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>TSC met but PDC not</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> a S | a</code></pre><p>Consider the test set { <code>a</code> }. Which is true?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It satisfies Terminal Symbol Coverage but not Production Coverage</text><feedback><text>Correct — the only terminal a appears, but production S -> a S is never used.</text></feedback></answer>
+    <answer fraction="0"><text>It satisfies both TSC and PDC</text><feedback><text>The derivation of "a" uses only S -> a; S -> a S is uncovered, so PDC fails.</text></feedback></answer>
+    <answer fraction="0"><text>It satisfies PDC but not TSC</text><feedback><text>PDC would require S -> a S too, which "a" does not use.</text></feedback></answer>
+    <answer fraction="0"><text>It satisfies neither</text><feedback><text>The terminal a does appear, so TSC is met.</text></feedback></answer>
+    <generalfeedback><text>"a" is derived by S -> a alone, covering the single terminal (TSC met) but leaving the recursive production S -> a S unused, so PDC fails. This shows TSC does not imply PDC.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>PDC subsumes TSC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Production Coverage subsumes Terminal Symbol Coverage: any test set that satisfies PDC also satisfies TSC.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — using every production forces every terminal (each appears on some right-hand side) to appear.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Every terminal occurs on the right-hand side of at least one production, so covering all productions covers all terminals.</text></feedback></answer>
+    <generalfeedback><text>Each terminal appears on some production's right-hand side. Exercising every production therefore uses every terminal, so PDC subsumes TSC (but not conversely).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the leftmost derivation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> A B
+A -> x | y
+B -> z | w</code></pre><p>Which is a correct <strong>leftmost</strong> derivation of <code>xz</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>S =&gt; A B =&gt; x B =&gt; x z</text><feedback><text>Correct — the leftmost nonterminal (A) is expanded before B at each step.</text></feedback></answer>
+    <answer fraction="0"><text>S =&gt; A B =&gt; A z =&gt; x z</text><feedback><text>That expands B (the rightmost nonterminal) first; it is a rightmost derivation.</text></feedback></answer>
+    <answer fraction="0"><text>S =&gt; A B =&gt; x z</text><feedback><text>This skips a step; each production replaces exactly one nonterminal.</text></feedback></answer>
+    <answer fraction="0"><text>S =&gt; x z</text><feedback><text>No single production rewrites S directly to x z; S -> A B must be applied first.</text></feedback></answer>
+    <generalfeedback><text>Leftmost means always expand the leftmost nonterminal: S =&gt; A B (S -> A B), then A first: =&gt; x B (A -> x), then B: =&gt; x z (B -> z).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Derivable string yz</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> A B
+A -> x | y
+B -> z | w</code></pre><p>Is <code>yz</code> in the language, and which productions derive it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes: S -> A B, then A -> y, then B -> z</text><feedback><text>Correct — S =&gt; A B =&gt; y B =&gt; y z.</text></feedback></answer>
+    <answer fraction="0"><text>Yes: S -> A B, then A -> x, then B -> z</text><feedback><text>A -> x yields "xz", not "yz"; you need A -> y.</text></feedback></answer>
+    <answer fraction="0"><text>No — y and z cannot appear in the same string</text><feedback><text>A can be y and B can be z independently, so yz is derivable.</text></feedback></answer>
+    <answer fraction="0"><text>No — the grammar has no production for y</text><feedback><text>A -> y is a production, so y is available.</text></feedback></answer>
+    <generalfeedback><text>The language is { xz, xw, yz, yw }. For yz: S =&gt; A B =&gt; y B =&gt; y z, using S -> A B, A -> y, B -> z.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>TSC requirement count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> A B
+A -> x | y
+B -> z | w</code></pre><p>How many test requirements does Terminal Symbol Coverage impose?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>Correct — one requirement per terminal: x, y, z, w.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the production count (for PDC); TSC counts the 4 terminals.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 is the number of nonterminals (S, A, B); TSC counts terminals, of which there are 4.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Recount — the terminals are x, y, z, w, so four requirements.</text></feedback></answer>
+    <generalfeedback><text>TSC has one requirement per terminal symbol. The terminals are x, y, z, w — four requirements.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PDC requirement count</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> A B
+A -> x | y
+B -> z | w</code></pre><p>How many test requirements does Production Coverage impose?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>Correct — S -> A B, A -> x, A -> y, B -> z, B -> w are five productions.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>That counts the three rule lines; each alternative counts separately, giving five.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the terminal count (for TSC); there are five productions.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>Recount — 1 (S) + 2 (A) + 2 (B) = 5 productions.</text></feedback></answer>
+    <generalfeedback><text>Counting each alternative separately: S -> A B (1), A -> x, A -> y (2), B -> z, B -> w (2) = 5 productions, so 5 PDC requirements.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Production sequence for acb</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>Which sequence of productions derives <code>acb</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>S -> a S b, then S -> c</text><feedback><text>Correct — S =&gt; aSb =&gt; a c b.</text></feedback></answer>
+    <answer fraction="0"><text>S -> c only</text><feedback><text>S -> c alone derives just "c", not "acb".</text></feedback></answer>
+    <answer fraction="0"><text>S -> a S b, then S -> a S b</text><feedback><text>Two wraps give "aa...bb"; you need S -> c to finish "acb".</text></feedback></answer>
+    <answer fraction="0"><text>S -> a S b, then S -> a S b, then S -> c</text><feedback><text>That derives "aacbb", not "acb".</text></feedback></answer>
+    <generalfeedback><text>acb needs one wrap and then the central c: S =&gt; aSb (S -> a S b) =&gt; a c b (S -> c). This single string already exercises both productions of the grammar.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>One recursive string covers PDC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>E -> E + T | T
+T -> a | b</code></pre><p>What is the minimum number of test strings needed to achieve Production Coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>Correct — a+b uses all four productions: E -> E + T, E -> T, T -> a, T -> b.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Two are not needed: the single recursive string a+b already exercises every production.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>One string suffices; a+b covers all four productions.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the production count; one well-chosen string can hit all of them.</text></feedback></answer>
+    <generalfeedback><text>Derive a+b leftmost: E =&gt; E + T (E -> E + T) =&gt; T + T (E -> T) =&gt; a + T (T -> a) =&gt; a + b (T -> b). All four productions are used, so one string achieves PDC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Uncovered production</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> A B
+A -> x | y
+B -> z | w</code></pre><p>Which production is left uncovered by the test set { <code>xz</code>, <code>xw</code> }?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A -> y</text><feedback><text>Correct — both strings begin with x, so A -> y is never used.</text></feedback></answer>
+    <answer fraction="0"><text>B -> z</text><feedback><text>xz uses B -> z, so it is covered.</text></feedback></answer>
+    <answer fraction="0"><text>B -> w</text><feedback><text>xw uses B -> w, so it is covered.</text></feedback></answer>
+    <answer fraction="0"><text>S -> A B</text><feedback><text>Both strings use S -> A B, so it is covered.</text></feedback></answer>
+    <generalfeedback><text>{ xz, xw } uses S -> A B, A -> x, B -> z, B -> w but never A -> y. So PDC is not met (and, incidentally, the terminal y is never generated).</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>TSC without PDC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test set can satisfy Terminal Symbol Coverage without satisfying Production Coverage.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — TSC does not subsume PDC; e.g. for S -> a S | a the set { a } meets TSC but not PDC.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Subsumption runs only one way: PDC implies TSC, but TSC does not imply PDC.</text></feedback></answer>
+    <generalfeedback><text>PDC subsumes TSC, not the reverse. A terminal may be reachable through a production that a TSC-satisfying set never exercises, leaving PDC unmet.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Recognizer role</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <strong>recognizer</strong> built from a grammar is used to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Decide whether a given input string is in the language (accept or reject it)</text><feedback><text>Correct — a recognizer parses an input and reports membership.</text></feedback></answer>
+    <answer fraction="0"><text>Derive new strings to serve as test inputs</text><feedback><text>That is the generator role, not the recognizer role.</text></feedback></answer>
+    <answer fraction="0"><text>Count the number of productions in the grammar</text><feedback><text>A recognizer classifies strings; it does not count rules.</text></feedback></answer>
+    <answer fraction="0"><text>Mutate the grammar to create invalid strings</text><feedback><text>That is grammar mutation; a recognizer only accepts or rejects.</text></feedback></answer>
+    <generalfeedback><text>A recognizer answers "is this string in L(G)?" by accepting or rejecting; a generator instead emits strings. The same grammar can back both roles.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Derivable nested sum</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>E -> E + T | T
+T -> a | b</code></pre><p>Is the string <code>a+b+a</code> in the language?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Yes — apply E -> E + T twice, then E -> T, then T -> a, T -> b, T -> a</text><feedback><text>Correct — E =&gt; E+T =&gt; E+T+T =&gt; T+T+T =&gt; a+b+a is derivable.</text></feedback></answer>
+    <answer fraction="0"><text>No — the grammar allows at most one + per string</text><feedback><text>E -> E + T is recursive, so any number of + operators is allowed.</text></feedback></answer>
+    <answer fraction="0"><text>No — the grammar cannot produce the terminal a twice</text><feedback><text>T -> a can be applied at more than one position, so a may occur repeatedly.</text></feedback></answer>
+    <answer fraction="0"><text>Yes, but only using T -> a (never T -> b)</text><feedback><text>The middle operand is b, so T -> b is needed; both a and b appear.</text></feedback></answer>
+    <generalfeedback><text>E -> E + T is left-recursive, so E =&gt; E+T =&gt; (E+T)+T =&gt; (T+T)+T =&gt; a+b+a. The recursion permits arbitrarily many + operators.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Grammar Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Why all-derivations is infeasible</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Covering <strong>every possible derivation</strong> of a grammar (all-derivations coverage) is generally infeasible because:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Recursive productions allow infinitely many derivations, so the requirement set is unbounded</text><feedback><text>Correct — this mirrors why complete path coverage is infeasible with loops.</text></feedback></answer>
+    <answer fraction="0"><text>Grammars have no start symbol to begin derivations</text><feedback><text>Every CFG has a start symbol; that is not the problem.</text></feedback></answer>
+    <answer fraction="0"><text>Terminals cannot be distinguished from nonterminals</text><feedback><text>They are clearly distinguished; recursion, not confusion, causes the blow-up.</text></feedback></answer>
+    <answer fraction="0"><text>Production Coverage already forbids more than one derivation</text><feedback><text>PDC places no such limit; the issue is the unbounded number of derivations.</text></feedback></answer>
+    <generalfeedback><text>A recursive production (e.g. E -> E + T) can be applied any number of times, yielding infinitely many derivations — analogous to loops making complete path coverage infeasible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mutant-only negative test (c to d)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Original grammar:</p><pre><code>S -> a S b | c</code></pre><p>You mutate the production <code>S -> c</code> into <code>S -> d</code>, giving the mutant <code>S -> a S b | d</code>. Which string does the mutant derive that is <strong>not</strong> in the original language (a valid negative test)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>aadbb</text><feedback><text>Correct — the mutant derives a^n d b^n; aadbb is outside the original a^n c b^n.</text></feedback></answer>
+    <answer fraction="0"><text>aacbb</text><feedback><text>aacbb is in the original language, so it is a valid input, not a negative test.</text></feedback></answer>
+    <answer fraction="0"><text>acb</text><feedback><text>acb is in the original language; the mutant no longer derives it, and it is not a negative test.</text></feedback></answer>
+    <answer fraction="0"><text>aadb</text><feedback><text>aadb has two a's but one b, so neither grammar derives it; it is not a mutant string.</text></feedback></answer>
+    <generalfeedback><text>The mutant language is a^n d b^n. aadbb (n = 2) is derivable by the mutant but not by the original, so it is exactly the kind of invalid input used to test error handling.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimal PDC set with a top-level choice</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> A | B
+A -> a A | a
+B -> b</code></pre><p>What is the minimum number of test strings needed for Production Coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — e.g. aa (covers S -> A, A -> a A, A -> a) and b (covers S -> B, B -> b).</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>One string picks either S -> A or S -> B, so it cannot cover both top-level alternatives.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Two strings suffice: "aa" and "b" together use all five productions.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 is the production count; strings cover several productions each, so two suffice.</text></feedback></answer>
+    <generalfeedback><text>There are 5 productions. "aa" gives S -> A, A -> a A, A -> a; "b" gives S -> B, B -> b. Because S -> A and S -> B are mutually exclusive in one derivation, no single string can do both, so the minimum is 2.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which string is outside the language</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>Which string is <strong>not</strong> in the language (so a parser should reject it)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>aabb</text><feedback><text>Correct — every string in the language contains exactly one central c; aabb has none.</text></feedback></answer>
+    <answer fraction="0"><text>aacbb</text><feedback><text>aacbb = a^2 c b^2 is in the language.</text></feedback></answer>
+    <answer fraction="0"><text>acb</text><feedback><text>acb = a^1 c b^1 is in the language.</text></feedback></answer>
+    <answer fraction="0"><text>c</text><feedback><text>c is derived directly by S -> c, so it is in the language.</text></feedback></answer>
+    <generalfeedback><text>Every derivation ends by applying S -> c, so each string has exactly one c in the middle. aabb has no c and is therefore outside the language.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Generator and recognizer in test generation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In grammar-based testing you want to produce valid inputs and also decide whether the system under test classifies them correctly. Which pairing of roles is right?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Use the grammar as a generator to derive inputs; use a recognizer as an oracle to check acceptance/rejection</text><feedback><text>Correct — generator produces strings, recognizer decides membership.</text></feedback></answer>
+    <answer fraction="0"><text>Use the grammar as a recognizer to derive inputs; use a generator to reject them</text><feedback><text>The roles are swapped: recognizers decide membership, generators produce strings.</text></feedback></answer>
+    <answer fraction="0"><text>Use mutation operators to both derive and classify inputs</text><feedback><text>Mutation creates invalid variants; it is not how valid inputs are generated or classified.</text></feedback></answer>
+    <answer fraction="0"><text>Use Production Coverage to derive inputs and Terminal Symbol Coverage to reject them</text><feedback><text>Those are coverage criteria, not the generator/recognizer mechanisms.</text></feedback></answer>
+    <generalfeedback><text>A generator walks the productions to emit strings (test inputs); a recognizer parses a string and answers whether it is in the language, acting as the oracle for valid/invalid classification.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Parse trees in an ambiguous grammar</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the ambiguous grammar:</p><pre><code>E -> E + E | a</code></pre><p>How many distinct <strong>parse trees</strong> does the string <code>a+a+a</code> have?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — (a+a)+a and a+(a+a) are the two distinct groupings.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>The grammar is ambiguous for this string; there are two distinct parse trees.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Only two ways to parenthesize three operands with one binary operator.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>The count is the Catalan number C(2) = 2, not 4.</text></feedback></answer>
+    <generalfeedback><text>With three operands there are C(2) = 2 ways to associate the additions: (a+a)+a and a+(a+a). Each yields a distinct parse tree, showing the grammar is ambiguous.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mutant-only negative test (extra b)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Original grammar (language a^n c b^n):</p><pre><code>S -> a S b | c</code></pre><p>You mutate <code>S -> a S b</code> into <code>S -> a S b b</code>. Which string is derivable by the <strong>mutant</strong> but rejected by the original (a good negative test)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>acbb</text><feedback><text>Correct — S =&gt; a S b b =&gt; a c b b; a^1 c b^2 is not in the original a^n c b^n.</text></feedback></answer>
+    <answer fraction="0"><text>c</text><feedback><text>c is derivable by both grammars (S -> c), so it is not a negative test.</text></feedback></answer>
+    <answer fraction="0"><text>acb</text><feedback><text>acb is in the original language, but the mutant (with S -> a S b b) cannot derive it, so it is not a mutant string.</text></feedback></answer>
+    <answer fraction="0"><text>aabb</text><feedback><text>aabb has no c, so neither grammar derives it.</text></feedback></answer>
+    <generalfeedback><text>The mutant derives a^n c b^(2n). acbb (n = 1) is derivable by the mutant but has unequal a/b counts, so the original rejects it — exactly a negative test for error handling.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimal PDC set for if-then grammar</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar (treat <code>if</code>, <code>then</code>, <code>s</code>, <code>t</code>, <code>f</code> as terminals):</p><pre><code>S -> if C then S | s
+C -> t | f</code></pre><p>What is the minimum number of test strings needed for Production Coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>Correct — "if t then s" and "if f then s" together use all four productions.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>One string fixes C to either t or f, so it cannot cover both C -> t and C -> f.</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>Two suffice: the two strings above cover S -> if C then S, S -> s, C -> t, C -> f.</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 is the production count; a single string covers several productions, so two suffice.</text></feedback></answer>
+    <generalfeedback><text>Four productions. "if t then s" covers S -> if C then S, C -> t, S -> s; "if f then s" adds C -> f. Because C -> t and C -> f cannot both occur in one derivation here, the minimum is 2.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mutation to accept an invalid string</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> A B
+A -> x | y
+B -> z | w</code></pre><p>The string <code>xy</code> is not in the language. Which single production mutation makes <code>xy</code> derivable (turning it into a mutant-accepted invalid input)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Change B -> w to B -> y</text><feedback><text>Correct — then S =&gt; A B =&gt; x B =&gt; x y using A -> x and the mutated B -> y.</text></feedback></answer>
+    <answer fraction="0"><text>Change A -> y to A -> x</text><feedback><text>That removes an A-alternative; it does not let B produce y, so xy stays underivable.</text></feedback></answer>
+    <answer fraction="0"><text>Change S -> A B to S -> B A</text><feedback><text>Then strings are (z|w)(x|y); xy (x then y) is still not derivable.</text></feedback></answer>
+    <answer fraction="0"><text>Change A -> x to A -> x y</text><feedback><text>Then A can be "xy" but S -> A B still appends a B, giving xyz or xyw, not "xy".</text></feedback></answer>
+    <generalfeedback><text>xy needs A to give x and the second symbol to be y. Making B -> y (from B -> w) lets S =&gt; A B =&gt; x B =&gt; x y. The mutant now accepts an invalid input, useful for negative testing of the recognizer.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>All-derivations like complete path</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Covering every derivation of a grammar with recursive productions is generally infeasible, for the same reason that Complete Path Coverage is infeasible on a graph with a loop.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — recursion in a grammar plays the role a loop plays in a graph: infinitely many possibilities.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>A recursive production can be applied arbitrarily often, giving unboundedly many derivations, just as a loop gives unboundedly many paths.</text></feedback></answer>
+    <generalfeedback><text>Recursion is the grammar analogue of a loop: both create an unbounded set of possibilities, so covering all of them (all derivations / all paths) cannot be finitely satisfied.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Count strings up to a length</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>How many distinct strings of length <strong>at most 5</strong> are in the language?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — c (length 1), acb (length 3), aacbb (length 5).</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>There are three: lengths 1, 3, and 5 (n = 0, 1, 2).</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>The next string, aaacbbb, has length 7, which exceeds 5.</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>Only n = 0, 1, 2 give lengths 1, 3, 5 within the bound; that is three strings.</text></feedback></answer>
+    <generalfeedback><text>A string a^n c b^n has length 2n + 1. Length at most 5 means 2n + 1 &lt;= 5, i.e. n &lt;= 2: c, acb, aacbb — three strings.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mutation dropping a terminal</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Original grammar (language a^n c b^n):</p><pre><code>S -> a S b | c</code></pre><p>You mutate <code>S -> a S b</code> into <code>S -> a S</code>. Which string becomes derivable by the mutant that was <strong>not</strong> in the original language?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>aac</text><feedback><text>Correct — the mutant derives a^n c; S =&gt; a S =&gt; a a S =&gt; a a c, which the original never produces.</text></feedback></answer>
+    <answer fraction="0"><text>aacbb</text><feedback><text>aacbb is in the original language, and the mutant (no b) cannot produce it at all.</text></feedback></answer>
+    <answer fraction="0"><text>acb</text><feedback><text>acb is in the original language; the mutant has no b, so it cannot derive it either.</text></feedback></answer>
+    <answer fraction="0"><text>abc</text><feedback><text>The mutant produces a^n c (no b), so abc is not derivable by it.</text></feedback></answer>
+    <generalfeedback><text>Dropping the trailing b changes the language to a^n c. aac (n = 2) is now derivable but is not in the original a^n c b^n, so it is a negative test for the recognizer.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Leftmost derivation on a recursive grammar</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>E -> E + T | T
+T -> a | b</code></pre><p>Which is a correct <strong>leftmost</strong> derivation of <code>a+b</code>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>E =&gt; E + T =&gt; T + T =&gt; a + T =&gt; a + b</text><feedback><text>Correct — the leftmost nonterminal is expanded at each step (E, then the inner E, then the T's left-to-right).</text></feedback></answer>
+    <answer fraction="0"><text>E =&gt; E + T =&gt; E + b =&gt; T + b =&gt; a + b</text><feedback><text>That expands the rightmost T before the left E; it is a rightmost derivation.</text></feedback></answer>
+    <answer fraction="0"><text>E =&gt; E + T =&gt; a + T =&gt; a + b</text><feedback><text>The leftmost symbol after step 1 is the nonterminal E, not a T; you cannot rewrite it to "a" without first applying E -> T.</text></feedback></answer>
+    <answer fraction="0"><text>E =&gt; T =&gt; a</text><feedback><text>That derives just "a"; it never produces the + operator.</text></feedback></answer>
+    <generalfeedback><text>Leftmost always expands the leftmost nonterminal: E =&gt; E + T (E -> E + T); the leftmost E next: =&gt; T + T (E -> T); then the T's: =&gt; a + T (T -> a) =&gt; a + b (T -> b).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Minimal PDC with three top-level choices</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given the grammar:</p><pre><code>S -> A | B | C
+A -> a
+B -> b
+C -> c</code></pre><p>What is the minimum number of test strings needed for Production Coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>Correct — a, b, c each fix a different top-level alternative; all three are needed.</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>One string uses exactly one of S -> A / S -> B / S -> C, so it cannot cover the other two.</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>Two strings cover only two of the three mutually exclusive S-alternatives.</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 is the production count; each string covers two productions (one S-alt plus one leaf), so three strings suffice.</text></feedback></answer>
+    <generalfeedback><text>There are 6 productions but the three S-alternatives are mutually exclusive per derivation. "a", "b", "c" each cover one S-alternative and its leaf, so exactly 3 strings achieve PDC.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why PDC subsumes TSC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does Production Coverage subsume Terminal Symbol Coverage?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every terminal appears on the right-hand side of some production, so using every production forces every terminal to appear</text><feedback><text>Correct — that is exactly why PDC implies TSC.</text></feedback></answer>
+    <answer fraction="0"><text>Because there are always fewer terminals than productions</text><feedback><text>Counts do not establish subsumption; the reason is that each terminal occurs on some right-hand side.</text></feedback></answer>
+    <answer fraction="0"><text>Because TSC and PDC impose exactly the same test requirements</text><feedback><text>They differ: PDC is strictly stronger, so they are not identical.</text></feedback></answer>
+    <answer fraction="0"><text>Because every production contains exactly one terminal</text><feedback><text>Productions may contain zero or many terminals; subsumption does not depend on that.</text></feedback></answer>
+    <generalfeedback><text>A symbol is a terminal of the grammar only if it appears on some production's right-hand side. Exercising all productions therefore generates every terminal, so PDC subsumes TSC; the converse fails.</text></generalfeedback>
+  </question>
+</quiz>

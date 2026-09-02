@@ -61294,6 +61294,2568 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
         ]
       }
     },
+    "grammar-coverage": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "What is a CFG",
+            "text": "<p>In syntax-based testing, a <strong>context-free grammar (CFG)</strong> is best described as:</p>",
+            "answers": [
+              {
+                "text": "A finite set of terminals, nonterminals, productions, and a start symbol that together define a language",
+                "fraction": 100,
+                "feedback": "Correct \u2014 those four components define a CFG and the strings it generates."
+              },
+              {
+                "text": "A control-flow graph of a program's basic blocks",
+                "fraction": 0,
+                "feedback": "That is a CFG in the graph-coverage sense; here CFG means context-free grammar."
+              },
+              {
+                "text": "A table mapping test inputs to expected outputs",
+                "fraction": 0,
+                "feedback": "That is a test oracle or decision table, not a grammar."
+              },
+              {
+                "text": "A list of mutation operators applied to source code",
+                "fraction": 0,
+                "feedback": "That is program mutation; a grammar defines a language of strings."
+              }
+            ],
+            "generalFeedback": "A context-free grammar is the tuple of terminals, nonterminals, productions (rules), and a start symbol; it generates a set of strings called its language.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Terminal symbol",
+            "text": "<p>A <strong>terminal</strong> symbol in a grammar is:</p>",
+            "answers": [
+              {
+                "text": "A symbol that appears literally in generated strings and is never expanded further",
+                "fraction": 100,
+                "feedback": "Correct \u2014 terminals are the atomic tokens that make up the final strings."
+              },
+              {
+                "text": "A symbol that must be replaced using a production",
+                "fraction": 0,
+                "feedback": "That describes a nonterminal, which is expanded, not a terminal."
+              },
+              {
+                "text": "The single symbol a derivation begins from",
+                "fraction": 0,
+                "feedback": "That is the start symbol."
+              },
+              {
+                "text": "A rule that rewrites one string into another",
+                "fraction": 0,
+                "feedback": "That is a production, not a terminal."
+              }
+            ],
+            "generalFeedback": "Terminals are the literal tokens of the language; they never appear on the left side of a production and are never rewritten.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Nonterminal symbol",
+            "text": "<p>A <strong>nonterminal</strong> symbol in a grammar is:</p>",
+            "answers": [
+              {
+                "text": "A symbol that stands for a set of strings and is rewritten by productions until only terminals remain",
+                "fraction": 100,
+                "feedback": "Correct \u2014 nonterminals are placeholders expanded via productions."
+              },
+              {
+                "text": "A literal token that appears unchanged in every generated string",
+                "fraction": 0,
+                "feedback": "That is a terminal."
+              },
+              {
+                "text": "A test requirement produced by a coverage criterion",
+                "fraction": 0,
+                "feedback": "That is a test requirement, not a grammar symbol."
+              },
+              {
+                "text": "An input that the recognizer must reject",
+                "fraction": 0,
+                "feedback": "That is a negative test case, not a nonterminal."
+              }
+            ],
+            "generalFeedback": "Nonterminals (also called variables) are rewritten using productions; a valid string contains only terminals once all nonterminals are expanded.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Production rule",
+            "text": "<p>A <strong>production</strong> (rule) of a grammar such as <code>A -> b C</code> specifies:</p>",
+            "answers": [
+              {
+                "text": "How a nonterminal on the left may be replaced by the string of symbols on the right",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a production is a rewrite rule from a nonterminal to a sequence of symbols."
+              },
+              {
+                "text": "A complete string in the language of the grammar",
+                "fraction": 0,
+                "feedback": "A production is a rule; a string is the result of applying rules."
+              },
+              {
+                "text": "The starting point of every derivation",
+                "fraction": 0,
+                "feedback": "That is the start symbol."
+              },
+              {
+                "text": "A terminal that cannot be expanded",
+                "fraction": 0,
+                "feedback": "A production has a nonterminal on its left and can be applied; terminals cannot."
+              }
+            ],
+            "generalFeedback": "A production rewrites the nonterminal on its left-hand side into the sequence on its right-hand side; derivations chain productions together.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Start symbol",
+            "text": "<p>The <strong>start symbol</strong> of a grammar is:</p>",
+            "answers": [
+              {
+                "text": "The distinguished nonterminal from which every derivation begins",
+                "fraction": 100,
+                "feedback": "Correct \u2014 all derivations of the language start from this symbol."
+              },
+              {
+                "text": "The first terminal in every generated string",
+                "fraction": 0,
+                "feedback": "The start symbol is a nonterminal, not a terminal of the output."
+              },
+              {
+                "text": "The last production applied in a derivation",
+                "fraction": 0,
+                "feedback": "The start symbol is where a derivation begins, not a production."
+              },
+              {
+                "text": "Any nonterminal chosen at random for a test",
+                "fraction": 0,
+                "feedback": "The start symbol is a single distinguished nonterminal fixed by the grammar."
+              }
+            ],
+            "generalFeedback": "Every derivation of the language starts from the start symbol (often written S); the language is exactly the set of terminal strings derivable from it.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What is a derivation",
+            "text": "<p>A <strong>derivation</strong> in a grammar is:</p>",
+            "answers": [
+              {
+                "text": "A sequence of production applications that rewrites the start symbol into a string of terminals",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a derivation is the step-by-step rewriting that produces a string."
+              },
+              {
+                "text": "The set of all strings a grammar can produce",
+                "fraction": 0,
+                "feedback": "That is the language; a derivation produces one such string."
+              },
+              {
+                "text": "A single production of the grammar",
+                "fraction": 0,
+                "feedback": "A derivation applies many productions in sequence, not just one."
+              },
+              {
+                "text": "A proof that a grammar is ambiguous",
+                "fraction": 0,
+                "feedback": "Ambiguity is about multiple derivations of one string; a derivation itself is just a rewriting sequence."
+              }
+            ],
+            "generalFeedback": "A derivation starts at the start symbol and applies productions step by step until only terminals remain; the resulting terminal string is a member of the language.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Terminal Symbol Coverage definition",
+            "text": "<p><strong>Terminal Symbol Coverage (TSC)</strong> for a grammar requires that:</p>",
+            "answers": [
+              {
+                "text": "Every terminal symbol of the grammar appears in at least one test string",
+                "fraction": 100,
+                "feedback": "Correct \u2014 TSC has one test requirement per terminal."
+              },
+              {
+                "text": "Every production of the grammar is used at least once",
+                "fraction": 0,
+                "feedback": "That is Production Coverage, not Terminal Symbol Coverage."
+              },
+              {
+                "text": "Every possible derivation is exercised",
+                "fraction": 0,
+                "feedback": "That is derivation (all-derivations) coverage, generally infeasible."
+              },
+              {
+                "text": "Every nonterminal is used as a start symbol",
+                "fraction": 0,
+                "feedback": "There is one start symbol; TSC is about terminals appearing in tests."
+              }
+            ],
+            "generalFeedback": "TSC is the weakest grammar criterion: each terminal must appear in some generated/used test string.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Production Coverage definition",
+            "text": "<p><strong>Production Coverage (PDC)</strong> for a grammar requires that:</p>",
+            "answers": [
+              {
+                "text": "Every production (rule alternative) is used in the derivation of at least one test string",
+                "fraction": 100,
+                "feedback": "Correct \u2014 PDC has one test requirement per production."
+              },
+              {
+                "text": "Every terminal symbol appears in at least one test string",
+                "fraction": 0,
+                "feedback": "That is Terminal Symbol Coverage, which PDC subsumes."
+              },
+              {
+                "text": "Every string of length up to n is generated",
+                "fraction": 0,
+                "feedback": "PDC counts productions used, not strings of bounded length."
+              },
+              {
+                "text": "Every nonterminal is rewritten exactly once",
+                "fraction": 0,
+                "feedback": "PDC requires each production to be used, and some may be used many times."
+              }
+            ],
+            "generalFeedback": "PDC requires each production to be exercised by at least one derivation. Because A -> x | y counts as two productions, both alternatives must be used.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count terminals",
+            "text": "<p>Consider the grammar:</p><pre><code>S -> a A | b\nA -> c | d</code></pre><p>How many distinct <strong>terminal</strong> symbols does it have?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the terminals are a, b, c, d."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "That counts the nonterminals S and A, not the terminals."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Recount \u2014 a, b, c, d are four distinct terminals."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "That counts terminals plus nonterminals; there are only 4 terminals."
+              }
+            ],
+            "generalFeedback": "Terminals are the literal tokens on the right-hand sides that are never expanded: a, b, c, d \u2014 four in all.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count nonterminals",
+            "text": "<p>Consider the grammar:</p><pre><code>S -> a A | b\nA -> c | d</code></pre><p>How many <strong>nonterminals</strong> does it have?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the nonterminals are S and A."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "There are two: S and A."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "That counts the terminals a, b, c, d, not the nonterminals."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Only S and A appear on a left-hand side; that is two."
+              }
+            ],
+            "generalFeedback": "Nonterminals are the symbols that appear on a left-hand side and get rewritten: S and A \u2014 two in all.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Count productions",
+            "text": "<p>Consider the grammar:</p><pre><code>S -> a A | b\nA -> c | d</code></pre><p>Counting each alternative as a separate rule, how many <strong>productions</strong> are there?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 S -> a A, S -> b, A -> c, A -> d are four productions."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "That counts the two lines; each | introduces a separate production, so there are four."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Recount \u2014 each alternative counts separately: 2 + 2 = 4."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "There are only four alternatives across the two rules."
+              }
+            ],
+            "generalFeedback": "For Production Coverage every alternative counts separately: S -> a A, S -> b, A -> c, A -> d \u2014 four productions.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Leftmost derivation definition",
+            "text": "<p>In a <strong>leftmost</strong> derivation, at each step you rewrite:</p>",
+            "answers": [
+              {
+                "text": "The leftmost nonterminal in the current string",
+                "fraction": 100,
+                "feedback": "Correct \u2014 leftmost derivations always expand the leftmost remaining nonterminal."
+              },
+              {
+                "text": "The rightmost nonterminal in the current string",
+                "fraction": 0,
+                "feedback": "That defines a rightmost derivation."
+              },
+              {
+                "text": "The leftmost terminal in the current string",
+                "fraction": 0,
+                "feedback": "Terminals are never rewritten; only nonterminals are expanded."
+              },
+              {
+                "text": "Any nonterminal chosen at random",
+                "fraction": 0,
+                "feedback": "That is an arbitrary derivation; leftmost fixes the choice to the leftmost nonterminal."
+              }
+            ],
+            "generalFeedback": "A leftmost derivation expands the leftmost nonterminal at every step; a rightmost derivation always expands the rightmost one.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "BNF alternative bar",
+            "text": "<p>In BNF-style notation such as <code>B -> c | d</code>, the vertical bar <code>|</code> denotes:</p>",
+            "answers": [
+              {
+                "text": "Alternative right-hand sides \u2014 B may be rewritten to c or to d",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the bar separates alternative productions for the same nonterminal."
+              },
+              {
+                "text": "Concatenation \u2014 B must be rewritten to c followed by d",
+                "fraction": 0,
+                "feedback": "Concatenation is written by juxtaposition (c d); the bar means choice."
+              },
+              {
+                "text": "Repetition \u2014 B may be c repeated d times",
+                "fraction": 0,
+                "feedback": "The bar means alternation, not repetition."
+              },
+              {
+                "text": "A comment separating documentation from the rule",
+                "fraction": 0,
+                "feedback": "The bar is part of the grammar syntax, meaning alternation."
+              }
+            ],
+            "generalFeedback": "The bar is shorthand for separate productions: B -> c | d abbreviates B -> c and B -> d, two productions.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Language of a grammar",
+            "text": "<p>The <strong>language</strong> generated by a grammar is:</p>",
+            "answers": [
+              {
+                "text": "The set of all terminal strings derivable from the start symbol",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the language is exactly the strings the grammar can derive."
+              },
+              {
+                "text": "The set of all productions in the grammar",
+                "fraction": 0,
+                "feedback": "Those are the rules; the language is the strings they generate."
+              },
+              {
+                "text": "The set of all nonterminals in the grammar",
+                "fraction": 0,
+                "feedback": "Nonterminals are symbols, not the strings of the language."
+              },
+              {
+                "text": "A single longest string the grammar can produce",
+                "fraction": 0,
+                "feedback": "The language is the whole set of derivable strings, not one string."
+              }
+            ],
+            "generalFeedback": 'The language L(G) is the set of all terminal strings derivable from the start symbol; a string is "in the language" exactly when some derivation produces it.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Grammar as generator",
+            "text": "<p>When a grammar is used as a <strong>generator</strong> in testing, it is used to:</p>",
+            "answers": [
+              {
+                "text": "Produce (derive) strings to use as test inputs",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a generator applies productions to emit strings for testing."
+              },
+              {
+                "text": "Decide whether a given string is in the language",
+                "fraction": 0,
+                "feedback": "That is the recognizer role, not the generator role."
+              },
+              {
+                "text": "Compile the grammar into machine code",
+                "fraction": 0,
+                "feedback": "Generation produces strings, not object code."
+              },
+              {
+                "text": "Count how many productions a program contains",
+                "fraction": 0,
+                "feedback": "Generation derives strings; it does not analyze a program."
+              }
+            ],
+            "generalFeedback": "A generator walks the productions to derive valid strings (test inputs); a recognizer instead accepts or rejects a given string.",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Derivable balanced string",
+            "text": "<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>Is the string <code>aacbb</code> in the language, and if so which productions derive it?</p>",
+            "answers": [
+              {
+                "text": "Yes: S -> a S b twice, then S -> c (S => aSb => aaSbb => aacbb)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 two wraps of a...b around a central c gives aacbb."
+              },
+              {
+                "text": "Yes, using only S -> c",
+                "fraction": 0,
+                "feedback": 'S -> c alone derives just "c"; you also need S -> a S b twice.'
+              },
+              {
+                "text": "No \u2014 the grammar cannot produce two a's",
+                "fraction": 0,
+                "feedback": "Applying S -> a S b twice produces two a's and two b's."
+              },
+              {
+                "text": "No \u2014 c may not appear in the middle",
+                "fraction": 0,
+                "feedback": "S -> c supplies the central c after the wraps; aacbb is in the language."
+              }
+            ],
+            "generalFeedback": "The language is a^n c b^n. For aacbb, n = 2: S => aSb => aaSbb => aacbb, using S -> a S b twice and S -> c once.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Unbalanced string not derivable",
+            "text": "<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>Is the string <code>acbb</code> in the language?</p>",
+            "answers": [
+              {
+                "text": "No \u2014 every derivation produces equal numbers of a's and b's, but acbb has one a and two b's",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a^n c b^n forces #a = #b, so acbb is not derivable."
+              },
+              {
+                "text": "Yes, using S -> a S b once then S -> c",
+                "fraction": 0,
+                "feedback": 'That derives "acb" (one a, one b), not "acbb".'
+              },
+              {
+                "text": "Yes, using S -> a S b twice",
+                "fraction": 0,
+                "feedback": `Two wraps give "aa...bb" with two a's; acbb has only one a.`
+              },
+              {
+                "text": "No \u2014 the grammar cannot produce the terminal b at all",
+                "fraction": 0,
+                "feedback": "S -> a S b does produce b; the real reason is the a/b counts must be equal."
+              }
+            ],
+            "generalFeedback": "Each application of S -> a S b adds exactly one a and one b, so any derived string has #a = #b. acbb has 1 a and 2 b, so it is outside the language.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimum tests for PDC (independent choices)",
+            "text": "<p>Given the grammar:</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>What is the minimum number of test strings needed to achieve Production Coverage?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 e.g. xz and yw together use S -> A B, A -> x, A -> y, B -> z, B -> w."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "One string fixes one A-alternative and one B-alternative, so it can use only 3 of the 5 productions."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the number of strings in the language, not the minimum for PDC; two suffice."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 is the number of productions; a single string can cover several at once, so two strings suffice."
+              }
+            ],
+            "generalFeedback": "There are 5 productions. Each string chooses one A-alternative and one B-alternative, so at most 3 productions per string. xz and yw cover all 5, so the minimum is 2.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "TSC met but PDC not",
+            "text": "<p>Given the grammar:</p><pre><code>S -> a S | a</code></pre><p>Consider the test set { <code>a</code> }. Which is true?</p>",
+            "answers": [
+              {
+                "text": "It satisfies Terminal Symbol Coverage but not Production Coverage",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the only terminal a appears, but production S -> a S is never used."
+              },
+              {
+                "text": "It satisfies both TSC and PDC",
+                "fraction": 0,
+                "feedback": 'The derivation of "a" uses only S -> a; S -> a S is uncovered, so PDC fails.'
+              },
+              {
+                "text": "It satisfies PDC but not TSC",
+                "fraction": 0,
+                "feedback": 'PDC would require S -> a S too, which "a" does not use.'
+              },
+              {
+                "text": "It satisfies neither",
+                "fraction": 0,
+                "feedback": "The terminal a does appear, so TSC is met."
+              }
+            ],
+            "generalFeedback": '"a" is derived by S -> a alone, covering the single terminal (TSC met) but leaving the recursive production S -> a S unused, so PDC fails. This shows TSC does not imply PDC.',
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "PDC subsumes TSC",
+            "text": "<p>Production Coverage subsumes Terminal Symbol Coverage: any test set that satisfies PDC also satisfies TSC.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 using every production forces every terminal (each appears on some right-hand side) to appear."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Every terminal occurs on the right-hand side of at least one production, so covering all productions covers all terminals."
+              }
+            ],
+            "generalFeedback": "Each terminal appears on some production's right-hand side. Exercising every production therefore uses every terminal, so PDC subsumes TSC (but not conversely)."
+          },
+          {
+            "type": "multichoice",
+            "name": "Identify the leftmost derivation",
+            "text": "<p>Given the grammar:</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>Which is a correct <strong>leftmost</strong> derivation of <code>xz</code>?</p>",
+            "answers": [
+              {
+                "text": "S => A B => x B => x z",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the leftmost nonterminal (A) is expanded before B at each step."
+              },
+              {
+                "text": "S => A B => A z => x z",
+                "fraction": 0,
+                "feedback": "That expands B (the rightmost nonterminal) first; it is a rightmost derivation."
+              },
+              {
+                "text": "S => A B => x z",
+                "fraction": 0,
+                "feedback": "This skips a step; each production replaces exactly one nonterminal."
+              },
+              {
+                "text": "S => x z",
+                "fraction": 0,
+                "feedback": "No single production rewrites S directly to x z; S -> A B must be applied first."
+              }
+            ],
+            "generalFeedback": "Leftmost means always expand the leftmost nonterminal: S => A B (S -> A B), then A first: => x B (A -> x), then B: => x z (B -> z).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Derivable string yz",
+            "text": "<p>Given the grammar:</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>Is <code>yz</code> in the language, and which productions derive it?</p>",
+            "answers": [
+              {
+                "text": "Yes: S -> A B, then A -> y, then B -> z",
+                "fraction": 100,
+                "feedback": "Correct \u2014 S => A B => y B => y z."
+              },
+              {
+                "text": "Yes: S -> A B, then A -> x, then B -> z",
+                "fraction": 0,
+                "feedback": 'A -> x yields "xz", not "yz"; you need A -> y.'
+              },
+              {
+                "text": "No \u2014 y and z cannot appear in the same string",
+                "fraction": 0,
+                "feedback": "A can be y and B can be z independently, so yz is derivable."
+              },
+              {
+                "text": "No \u2014 the grammar has no production for y",
+                "fraction": 0,
+                "feedback": "A -> y is a production, so y is available."
+              }
+            ],
+            "generalFeedback": "The language is { xz, xw, yz, yw }. For yz: S => A B => y B => y z, using S -> A B, A -> y, B -> z.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "TSC requirement count",
+            "text": "<p>Given the grammar:</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>How many test requirements does Terminal Symbol Coverage impose?</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 one requirement per terminal: x, y, z, w."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 is the production count (for PDC); TSC counts the 4 terminals."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 is the number of nonterminals (S, A, B); TSC counts terminals, of which there are 4."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Recount \u2014 the terminals are x, y, z, w, so four requirements."
+              }
+            ],
+            "generalFeedback": "TSC has one requirement per terminal symbol. The terminals are x, y, z, w \u2014 four requirements.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "PDC requirement count",
+            "text": "<p>Given the grammar:</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>How many test requirements does Production Coverage impose?</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "Correct \u2014 S -> A B, A -> x, A -> y, B -> z, B -> w are five productions."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "That counts the three rule lines; each alternative counts separately, giving five."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the terminal count (for TSC); there are five productions."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "Recount \u2014 1 (S) + 2 (A) + 2 (B) = 5 productions."
+              }
+            ],
+            "generalFeedback": "Counting each alternative separately: S -> A B (1), A -> x, A -> y (2), B -> z, B -> w (2) = 5 productions, so 5 PDC requirements.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Production sequence for acb",
+            "text": "<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>Which sequence of productions derives <code>acb</code>?</p>",
+            "answers": [
+              {
+                "text": "S -> a S b, then S -> c",
+                "fraction": 100,
+                "feedback": "Correct \u2014 S => aSb => a c b."
+              },
+              {
+                "text": "S -> c only",
+                "fraction": 0,
+                "feedback": 'S -> c alone derives just "c", not "acb".'
+              },
+              {
+                "text": "S -> a S b, then S -> a S b",
+                "fraction": 0,
+                "feedback": 'Two wraps give "aa...bb"; you need S -> c to finish "acb".'
+              },
+              {
+                "text": "S -> a S b, then S -> a S b, then S -> c",
+                "fraction": 0,
+                "feedback": 'That derives "aacbb", not "acb".'
+              }
+            ],
+            "generalFeedback": "acb needs one wrap and then the central c: S => aSb (S -> a S b) => a c b (S -> c). This single string already exercises both productions of the grammar.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "One recursive string covers PDC",
+            "text": "<p>Given the grammar:</p><pre><code>E -> E + T | T\nT -> a | b</code></pre><p>What is the minimum number of test strings needed to achieve Production Coverage?</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a+b uses all four productions: E -> E + T, E -> T, T -> a, T -> b."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Two are not needed: the single recursive string a+b already exercises every production."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "One string suffices; a+b covers all four productions."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the production count; one well-chosen string can hit all of them."
+              }
+            ],
+            "generalFeedback": "Derive a+b leftmost: E => E + T (E -> E + T) => T + T (E -> T) => a + T (T -> a) => a + b (T -> b). All four productions are used, so one string achieves PDC.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Uncovered production",
+            "text": "<p>Given the grammar:</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>Which production is left uncovered by the test set { <code>xz</code>, <code>xw</code> }?</p>",
+            "answers": [
+              {
+                "text": "A -> y",
+                "fraction": 100,
+                "feedback": "Correct \u2014 both strings begin with x, so A -> y is never used."
+              },
+              {
+                "text": "B -> z",
+                "fraction": 0,
+                "feedback": "xz uses B -> z, so it is covered."
+              },
+              {
+                "text": "B -> w",
+                "fraction": 0,
+                "feedback": "xw uses B -> w, so it is covered."
+              },
+              {
+                "text": "S -> A B",
+                "fraction": 0,
+                "feedback": "Both strings use S -> A B, so it is covered."
+              }
+            ],
+            "generalFeedback": "{ xz, xw } uses S -> A B, A -> x, B -> z, B -> w but never A -> y. So PDC is not met (and, incidentally, the terminal y is never generated).",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "TSC without PDC",
+            "text": "<p>A test set can satisfy Terminal Symbol Coverage without satisfying Production Coverage.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 TSC does not subsume PDC; e.g. for S -> a S | a the set { a } meets TSC but not PDC."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Subsumption runs only one way: PDC implies TSC, but TSC does not imply PDC."
+              }
+            ],
+            "generalFeedback": "PDC subsumes TSC, not the reverse. A terminal may be reachable through a production that a TSC-satisfying set never exercises, leaving PDC unmet."
+          },
+          {
+            "type": "multichoice",
+            "name": "Recognizer role",
+            "text": "<p>A <strong>recognizer</strong> built from a grammar is used to:</p>",
+            "answers": [
+              {
+                "text": "Decide whether a given input string is in the language (accept or reject it)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a recognizer parses an input and reports membership."
+              },
+              {
+                "text": "Derive new strings to serve as test inputs",
+                "fraction": 0,
+                "feedback": "That is the generator role, not the recognizer role."
+              },
+              {
+                "text": "Count the number of productions in the grammar",
+                "fraction": 0,
+                "feedback": "A recognizer classifies strings; it does not count rules."
+              },
+              {
+                "text": "Mutate the grammar to create invalid strings",
+                "fraction": 0,
+                "feedback": "That is grammar mutation; a recognizer only accepts or rejects."
+              }
+            ],
+            "generalFeedback": 'A recognizer answers "is this string in L(G)?" by accepting or rejecting; a generator instead emits strings. The same grammar can back both roles.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Derivable nested sum",
+            "text": "<p>Given the grammar:</p><pre><code>E -> E + T | T\nT -> a | b</code></pre><p>Is the string <code>a+b+a</code> in the language?</p>",
+            "answers": [
+              {
+                "text": "Yes \u2014 apply E -> E + T twice, then E -> T, then T -> a, T -> b, T -> a",
+                "fraction": 100,
+                "feedback": "Correct \u2014 E => E+T => E+T+T => T+T+T => a+b+a is derivable."
+              },
+              {
+                "text": "No \u2014 the grammar allows at most one + per string",
+                "fraction": 0,
+                "feedback": "E -> E + T is recursive, so any number of + operators is allowed."
+              },
+              {
+                "text": "No \u2014 the grammar cannot produce the terminal a twice",
+                "fraction": 0,
+                "feedback": "T -> a can be applied at more than one position, so a may occur repeatedly."
+              },
+              {
+                "text": "Yes, but only using T -> a (never T -> b)",
+                "fraction": 0,
+                "feedback": "The middle operand is b, so T -> b is needed; both a and b appear."
+              }
+            ],
+            "generalFeedback": "E -> E + T is left-recursive, so E => E+T => (E+T)+T => (T+T)+T => a+b+a. The recursion permits arbitrarily many + operators.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Why all-derivations is infeasible",
+            "text": "<p>Covering <strong>every possible derivation</strong> of a grammar (all-derivations coverage) is generally infeasible because:</p>",
+            "answers": [
+              {
+                "text": "Recursive productions allow infinitely many derivations, so the requirement set is unbounded",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this mirrors why complete path coverage is infeasible with loops."
+              },
+              {
+                "text": "Grammars have no start symbol to begin derivations",
+                "fraction": 0,
+                "feedback": "Every CFG has a start symbol; that is not the problem."
+              },
+              {
+                "text": "Terminals cannot be distinguished from nonterminals",
+                "fraction": 0,
+                "feedback": "They are clearly distinguished; recursion, not confusion, causes the blow-up."
+              },
+              {
+                "text": "Production Coverage already forbids more than one derivation",
+                "fraction": 0,
+                "feedback": "PDC places no such limit; the issue is the unbounded number of derivations."
+              }
+            ],
+            "generalFeedback": "A recursive production (e.g. E -> E + T) can be applied any number of times, yielding infinitely many derivations \u2014 analogous to loops making complete path coverage infeasible.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mutant-only negative test (c to d)",
+            "text": "<p>Original grammar:</p><pre><code>S -> a S b | c</code></pre><p>You mutate the production <code>S -> c</code> into <code>S -> d</code>, giving the mutant <code>S -> a S b | d</code>. Which string does the mutant derive that is <strong>not</strong> in the original language (a valid negative test)?</p>",
+            "answers": [
+              {
+                "text": "aadbb",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the mutant derives a^n d b^n; aadbb is outside the original a^n c b^n."
+              },
+              {
+                "text": "aacbb",
+                "fraction": 0,
+                "feedback": "aacbb is in the original language, so it is a valid input, not a negative test."
+              },
+              {
+                "text": "acb",
+                "fraction": 0,
+                "feedback": "acb is in the original language; the mutant no longer derives it, and it is not a negative test."
+              },
+              {
+                "text": "aadb",
+                "fraction": 0,
+                "feedback": "aadb has two a's but one b, so neither grammar derives it; it is not a mutant string."
+              }
+            ],
+            "generalFeedback": "The mutant language is a^n d b^n. aadbb (n = 2) is derivable by the mutant but not by the original, so it is exactly the kind of invalid input used to test error handling.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimal PDC set with a top-level choice",
+            "text": "<p>Given the grammar:</p><pre><code>S -> A | B\nA -> a A | a\nB -> b</code></pre><p>What is the minimum number of test strings needed for Production Coverage?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 e.g. aa (covers S -> A, A -> a A, A -> a) and b (covers S -> B, B -> b)."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "One string picks either S -> A or S -> B, so it cannot cover both top-level alternatives."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": 'Two strings suffice: "aa" and "b" together use all five productions.'
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 is the production count; strings cover several productions each, so two suffice."
+              }
+            ],
+            "generalFeedback": 'There are 5 productions. "aa" gives S -> A, A -> a A, A -> a; "b" gives S -> B, B -> b. Because S -> A and S -> B are mutually exclusive in one derivation, no single string can do both, so the minimum is 2.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which string is outside the language",
+            "text": "<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>Which string is <strong>not</strong> in the language (so a parser should reject it)?</p>",
+            "answers": [
+              {
+                "text": "aabb",
+                "fraction": 100,
+                "feedback": "Correct \u2014 every string in the language contains exactly one central c; aabb has none."
+              },
+              {
+                "text": "aacbb",
+                "fraction": 0,
+                "feedback": "aacbb = a^2 c b^2 is in the language."
+              },
+              {
+                "text": "acb",
+                "fraction": 0,
+                "feedback": "acb = a^1 c b^1 is in the language."
+              },
+              {
+                "text": "c",
+                "fraction": 0,
+                "feedback": "c is derived directly by S -> c, so it is in the language."
+              }
+            ],
+            "generalFeedback": "Every derivation ends by applying S -> c, so each string has exactly one c in the middle. aabb has no c and is therefore outside the language.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Generator and recognizer in test generation",
+            "text": "<p>In grammar-based testing you want to produce valid inputs and also decide whether the system under test classifies them correctly. Which pairing of roles is right?</p>",
+            "answers": [
+              {
+                "text": "Use the grammar as a generator to derive inputs; use a recognizer as an oracle to check acceptance/rejection",
+                "fraction": 100,
+                "feedback": "Correct \u2014 generator produces strings, recognizer decides membership."
+              },
+              {
+                "text": "Use the grammar as a recognizer to derive inputs; use a generator to reject them",
+                "fraction": 0,
+                "feedback": "The roles are swapped: recognizers decide membership, generators produce strings."
+              },
+              {
+                "text": "Use mutation operators to both derive and classify inputs",
+                "fraction": 0,
+                "feedback": "Mutation creates invalid variants; it is not how valid inputs are generated or classified."
+              },
+              {
+                "text": "Use Production Coverage to derive inputs and Terminal Symbol Coverage to reject them",
+                "fraction": 0,
+                "feedback": "Those are coverage criteria, not the generator/recognizer mechanisms."
+              }
+            ],
+            "generalFeedback": "A generator walks the productions to emit strings (test inputs); a recognizer parses a string and answers whether it is in the language, acting as the oracle for valid/invalid classification.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Parse trees in an ambiguous grammar",
+            "text": "<p>Given the ambiguous grammar:</p><pre><code>E -> E + E | a</code></pre><p>How many distinct <strong>parse trees</strong> does the string <code>a+a+a</code> have?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 (a+a)+a and a+(a+a) are the two distinct groupings."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "The grammar is ambiguous for this string; there are two distinct parse trees."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Only two ways to parenthesize three operands with one binary operator."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "The count is the Catalan number C(2) = 2, not 4."
+              }
+            ],
+            "generalFeedback": "With three operands there are C(2) = 2 ways to associate the additions: (a+a)+a and a+(a+a). Each yields a distinct parse tree, showing the grammar is ambiguous.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mutant-only negative test (extra b)",
+            "text": "<p>Original grammar (language a^n c b^n):</p><pre><code>S -> a S b | c</code></pre><p>You mutate <code>S -> a S b</code> into <code>S -> a S b b</code>. Which string is derivable by the <strong>mutant</strong> but rejected by the original (a good negative test)?</p>",
+            "answers": [
+              {
+                "text": "acbb",
+                "fraction": 100,
+                "feedback": "Correct \u2014 S => a S b b => a c b b; a^1 c b^2 is not in the original a^n c b^n."
+              },
+              {
+                "text": "c",
+                "fraction": 0,
+                "feedback": "c is derivable by both grammars (S -> c), so it is not a negative test."
+              },
+              {
+                "text": "acb",
+                "fraction": 0,
+                "feedback": "acb is in the original language, but the mutant (with S -> a S b b) cannot derive it, so it is not a mutant string."
+              },
+              {
+                "text": "aabb",
+                "fraction": 0,
+                "feedback": "aabb has no c, so neither grammar derives it."
+              }
+            ],
+            "generalFeedback": "The mutant derives a^n c b^(2n). acbb (n = 1) is derivable by the mutant but has unequal a/b counts, so the original rejects it \u2014 exactly a negative test for error handling.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimal PDC set for if-then grammar",
+            "text": "<p>Given the grammar (treat <code>if</code>, <code>then</code>, <code>s</code>, <code>t</code>, <code>f</code> as terminals):</p><pre><code>S -> if C then S | s\nC -> t | f</code></pre><p>What is the minimum number of test strings needed for Production Coverage?</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 "if t then s" and "if f then s" together use all four productions.'
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "One string fixes C to either t or f, so it cannot cover both C -> t and C -> f."
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "Two suffice: the two strings above cover S -> if C then S, S -> s, C -> t, C -> f."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 is the production count; a single string covers several productions, so two suffice."
+              }
+            ],
+            "generalFeedback": 'Four productions. "if t then s" covers S -> if C then S, C -> t, S -> s; "if f then s" adds C -> f. Because C -> t and C -> f cannot both occur in one derivation here, the minimum is 2.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mutation to accept an invalid string",
+            "text": "<p>Given the grammar:</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>The string <code>xy</code> is not in the language. Which single production mutation makes <code>xy</code> derivable (turning it into a mutant-accepted invalid input)?</p>",
+            "answers": [
+              {
+                "text": "Change B -> w to B -> y",
+                "fraction": 100,
+                "feedback": "Correct \u2014 then S => A B => x B => x y using A -> x and the mutated B -> y."
+              },
+              {
+                "text": "Change A -> y to A -> x",
+                "fraction": 0,
+                "feedback": "That removes an A-alternative; it does not let B produce y, so xy stays underivable."
+              },
+              {
+                "text": "Change S -> A B to S -> B A",
+                "fraction": 0,
+                "feedback": "Then strings are (z|w)(x|y); xy (x then y) is still not derivable."
+              },
+              {
+                "text": "Change A -> x to A -> x y",
+                "fraction": 0,
+                "feedback": 'Then A can be "xy" but S -> A B still appends a B, giving xyz or xyw, not "xy".'
+              }
+            ],
+            "generalFeedback": "xy needs A to give x and the second symbol to be y. Making B -> y (from B -> w) lets S => A B => x B => x y. The mutant now accepts an invalid input, useful for negative testing of the recognizer.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "All-derivations like complete path",
+            "text": "<p>Covering every derivation of a grammar with recursive productions is generally infeasible, for the same reason that Complete Path Coverage is infeasible on a graph with a loop.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 recursion in a grammar plays the role a loop plays in a graph: infinitely many possibilities."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "A recursive production can be applied arbitrarily often, giving unboundedly many derivations, just as a loop gives unboundedly many paths."
+              }
+            ],
+            "generalFeedback": "Recursion is the grammar analogue of a loop: both create an unbounded set of possibilities, so covering all of them (all derivations / all paths) cannot be finitely satisfied."
+          },
+          {
+            "type": "multichoice",
+            "name": "Count strings up to a length",
+            "text": "<p>Given the grammar:</p><pre><code>S -> a S b | c</code></pre><p>How many distinct strings of length <strong>at most 5</strong> are in the language?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 c (length 1), acb (length 3), aacbb (length 5)."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "There are three: lengths 1, 3, and 5 (n = 0, 1, 2)."
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "The next string, aaacbbb, has length 7, which exceeds 5."
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "Only n = 0, 1, 2 give lengths 1, 3, 5 within the bound; that is three strings."
+              }
+            ],
+            "generalFeedback": "A string a^n c b^n has length 2n + 1. Length at most 5 means 2n + 1 <= 5, i.e. n <= 2: c, acb, aacbb \u2014 three strings.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Mutation dropping a terminal",
+            "text": "<p>Original grammar (language a^n c b^n):</p><pre><code>S -> a S b | c</code></pre><p>You mutate <code>S -> a S b</code> into <code>S -> a S</code>. Which string becomes derivable by the mutant that was <strong>not</strong> in the original language?</p>",
+            "answers": [
+              {
+                "text": "aac",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the mutant derives a^n c; S => a S => a a S => a a c, which the original never produces."
+              },
+              {
+                "text": "aacbb",
+                "fraction": 0,
+                "feedback": "aacbb is in the original language, and the mutant (no b) cannot produce it at all."
+              },
+              {
+                "text": "acb",
+                "fraction": 0,
+                "feedback": "acb is in the original language; the mutant has no b, so it cannot derive it either."
+              },
+              {
+                "text": "abc",
+                "fraction": 0,
+                "feedback": "The mutant produces a^n c (no b), so abc is not derivable by it."
+              }
+            ],
+            "generalFeedback": "Dropping the trailing b changes the language to a^n c. aac (n = 2) is now derivable but is not in the original a^n c b^n, so it is a negative test for the recognizer.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Leftmost derivation on a recursive grammar",
+            "text": "<p>Given the grammar:</p><pre><code>E -> E + T | T\nT -> a | b</code></pre><p>Which is a correct <strong>leftmost</strong> derivation of <code>a+b</code>?</p>",
+            "answers": [
+              {
+                "text": "E => E + T => T + T => a + T => a + b",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the leftmost nonterminal is expanded at each step (E, then the inner E, then the T's left-to-right)."
+              },
+              {
+                "text": "E => E + T => E + b => T + b => a + b",
+                "fraction": 0,
+                "feedback": "That expands the rightmost T before the left E; it is a rightmost derivation."
+              },
+              {
+                "text": "E => E + T => a + T => a + b",
+                "fraction": 0,
+                "feedback": 'The leftmost symbol after step 1 is the nonterminal E, not a T; you cannot rewrite it to "a" without first applying E -> T.'
+              },
+              {
+                "text": "E => T => a",
+                "fraction": 0,
+                "feedback": 'That derives just "a"; it never produces the + operator.'
+              }
+            ],
+            "generalFeedback": "Leftmost always expands the leftmost nonterminal: E => E + T (E -> E + T); the leftmost E next: => T + T (E -> T); then the T's: => a + T (T -> a) => a + b (T -> b).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Minimal PDC with three top-level choices",
+            "text": "<p>Given the grammar:</p><pre><code>S -> A | B | C\nA -> a\nB -> b\nC -> c</code></pre><p>What is the minimum number of test strings needed for Production Coverage?</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a, b, c each fix a different top-level alternative; all three are needed."
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "One string uses exactly one of S -> A / S -> B / S -> C, so it cannot cover the other two."
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "Two strings cover only two of the three mutually exclusive S-alternatives."
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 is the production count; each string covers two productions (one S-alt plus one leaf), so three strings suffice."
+              }
+            ],
+            "generalFeedback": 'There are 6 productions but the three S-alternatives are mutually exclusive per derivation. "a", "b", "c" each cover one S-alternative and its leaf, so exactly 3 strings achieve PDC.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why PDC subsumes TSC",
+            "text": "<p>Why does Production Coverage subsume Terminal Symbol Coverage?</p>",
+            "answers": [
+              {
+                "text": "Every terminal appears on the right-hand side of some production, so using every production forces every terminal to appear",
+                "fraction": 100,
+                "feedback": "Correct \u2014 that is exactly why PDC implies TSC."
+              },
+              {
+                "text": "Because there are always fewer terminals than productions",
+                "fraction": 0,
+                "feedback": "Counts do not establish subsumption; the reason is that each terminal occurs on some right-hand side."
+              },
+              {
+                "text": "Because TSC and PDC impose exactly the same test requirements",
+                "fraction": 0,
+                "feedback": "They differ: PDC is strictly stronger, so they are not identical."
+              },
+              {
+                "text": "Because every production contains exactly one terminal",
+                "fraction": 0,
+                "feedback": "Productions may contain zero or many terminals; subsumption does not depend on that."
+              }
+            ],
+            "generalFeedback": "A symbol is a terminal of the grammar only if it appears on some production's right-hand side. Exercising all productions therefore generates every terminal, so PDC subsumes TSC; the converse fails.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F CFG",
+            "text": "<p>\u5728\u8A9E\u6CD5\u5F0F\u6E2C\u8A66\u4E2D\uFF0C<strong>\u4E0A\u4E0B\u6587\u7121\u95DC\u6587\u6CD5\uFF08CFG\uFF09</strong>\u6700\u597D\u7684\u63CF\u8FF0\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7531\u7D42\u7AEF\u7B26\u865F\u3001\u975E\u7D42\u7AEF\u7B26\u865F\u3001\u7522\u751F\u5F0F\u8207\u8D77\u59CB\u7B26\u865F\u7D44\u6210\u7684\u6709\u9650\u96C6\u5408\uFF0C\u5171\u540C\u5B9A\u7FA9\u4E00\u500B\u8A9E\u8A00",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u56DB\u500B\u7D44\u6210\u90E8\u5206\u5B9A\u7FA9\u4E86 CFG \u4EE5\u53CA\u5B83\u6240\u7522\u751F\u7684\u5B57\u4E32\u3002"
+              },
+              {
+                "text": "\u7A0B\u5F0F\u57FA\u672C\u5340\u584A\u7684\u63A7\u5236\u6D41\u7A0B\u5716",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u5716\u8986\u84CB\u610F\u7FA9\u4E0B\u7684 CFG\uFF1B\u6B64\u8655\u7684 CFG \u6307\u4E0A\u4E0B\u6587\u7121\u95DC\u6587\u6CD5\u3002"
+              },
+              {
+                "text": "\u628A\u6E2C\u8A66\u8F38\u5165\u5C0D\u61C9\u5230\u9810\u671F\u8F38\u51FA\u7684\u8868\u683C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u9810\u8A00\u6216\u6C7A\u7B56\u8868\uFF0C\u4E0D\u662F\u6587\u6CD5\u3002"
+              },
+              {
+                "text": "\u5957\u7528\u5728\u539F\u59CB\u78BC\u4E0A\u7684\u7A81\u8B8A\u904B\u7B97\u5B50\u6E05\u55AE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7A0B\u5F0F\u7A81\u8B8A\uFF1B\u6587\u6CD5\u5B9A\u7FA9\u7684\u662F\u5B57\u4E32\u7684\u8A9E\u8A00\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E0A\u4E0B\u6587\u7121\u95DC\u6587\u6CD5\u662F\u7D42\u7AEF\u7B26\u865F\u3001\u975E\u7D42\u7AEF\u7B26\u865F\u3001\u7522\u751F\u5F0F\uFF08\u898F\u5247\uFF09\u8207\u8D77\u59CB\u7B26\u865F\u7D44\u6210\u7684\u7D50\u69CB\uFF1B\u5B83\u7522\u751F\u4E00\u7D44\u7A31\u70BA\u5176\u8A9E\u8A00\u7684\u5B57\u4E32\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D42\u7AEF\u7B26\u865F",
+            "text": "<p>\u6587\u6CD5\u4E2D\u7684<strong>\u7D42\u7AEF\uFF08terminal\uFF09</strong>\u7B26\u865F\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5B57\u9762\u51FA\u73FE\u5728\u6240\u7522\u751F\u5B57\u4E32\u4E2D\u3001\u4E14\u4E0D\u518D\u88AB\u5C55\u958B\u7684\u7B26\u865F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D42\u7AEF\u662F\u69CB\u6210\u6700\u7D42\u5B57\u4E32\u7684\u539F\u5B50\u6027\u6A19\u8A18\u3002"
+              },
+              {
+                "text": "\u5FC5\u9808\u7528\u7522\u751F\u5F0F\u52A0\u4EE5\u66FF\u63DB\u7684\u7B26\u865F",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u975E\u7D42\u7AEF\uFF0C\u6703\u88AB\u5C55\u958B\uFF0C\u800C\u975E\u7D42\u7AEF\u3002"
+              },
+              {
+                "text": "\u63A8\u5C0E\u6240\u958B\u59CB\u7684\u90A3\u500B\u552F\u4E00\u7B26\u865F",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8D77\u59CB\u7B26\u865F\u3002"
+              },
+              {
+                "text": "\u628A\u4E00\u500B\u5B57\u4E32\u6539\u5BEB\u6210\u53E6\u4E00\u500B\u5B57\u4E32\u7684\u898F\u5247",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7522\u751F\u5F0F\uFF0C\u4E0D\u662F\u7D42\u7AEF\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D42\u7AEF\u662F\u8A9E\u8A00\u7684\u5B57\u9762\u6A19\u8A18\uFF1B\u5B83\u5011\u6C38\u4E0D\u51FA\u73FE\u5728\u7522\u751F\u5F0F\u7684\u5DE6\u5074\uFF0C\u4E5F\u6C38\u4E0D\u88AB\u6539\u5BEB\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u975E\u7D42\u7AEF\u7B26\u865F",
+            "text": "<p>\u6587\u6CD5\u4E2D\u7684<strong>\u975E\u7D42\u7AEF\uFF08nonterminal\uFF09</strong>\u7B26\u865F\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u4EE3\u8868\u4E00\u7D44\u5B57\u4E32\u3001\u4E26\u7531\u7522\u751F\u5F0F\u53CD\u8986\u6539\u5BEB\u76F4\u5230\u53EA\u5269\u7D42\u7AEF\u7684\u7B26\u865F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u975E\u7D42\u7AEF\u662F\u900F\u904E\u7522\u751F\u5F0F\u52A0\u4EE5\u5C55\u958B\u7684\u4F54\u4F4D\u7B26\u3002"
+              },
+              {
+                "text": "\u539F\u5C01\u4E0D\u52D5\u51FA\u73FE\u5728\u6BCF\u500B\u6240\u7522\u751F\u5B57\u4E32\u4E2D\u7684\u5B57\u9762\u6A19\u8A18",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7D42\u7AEF\u3002"
+              },
+              {
+                "text": "\u7531\u8986\u84CB\u6E96\u5247\u7522\u751F\u7684\u6E2C\u8A66\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6E2C\u8A66\u9700\u6C42\uFF0C\u4E0D\u662F\u6587\u6CD5\u7B26\u865F\u3002"
+              },
+              {
+                "text": "\u8FA8\u8B58\u5668\u5FC5\u9808\u62D2\u7D55\u7684\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8CA0\u5411\u6E2C\u8A66\u6848\u4F8B\uFF0C\u4E0D\u662F\u975E\u7D42\u7AEF\u3002"
+              }
+            ],
+            "generalFeedback": "\u975E\u7D42\u7AEF\uFF08\u53C8\u7A31\u8B8A\u6578\uFF09\u7531\u7522\u751F\u5F0F\u52A0\u4EE5\u6539\u5BEB\uFF1B\u7576\u6240\u6709\u975E\u7D42\u7AEF\u90FD\u5C55\u958B\u5F8C\uFF0C\u6709\u6548\u5B57\u4E32\u53EA\u6703\u5305\u542B\u7D42\u7AEF\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7522\u751F\u5F0F\u898F\u5247",
+            "text": "<p>\u6587\u6CD5\u7684\u4E00\u689D<strong>\u7522\u751F\u5F0F\uFF08\u898F\u5247\uFF09</strong>\uFF0C\u4F8B\u5982 <code>A -> b C</code>\uFF0C\u6240\u898F\u5B9A\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5DE6\u5074\u7684\u975E\u7D42\u7AEF\u53EF\u4EE5\u88AB\u53F3\u5074\u7684\u7B26\u865F\u5E8F\u5217\u6240\u66FF\u63DB\u7684\u65B9\u5F0F",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7522\u751F\u5F0F\u662F\u4E00\u689D\u5F9E\u975E\u7D42\u7AEF\u6539\u5BEB\u70BA\u7B26\u865F\u5E8F\u5217\u7684\u898F\u5247\u3002"
+              },
+              {
+                "text": "\u6587\u6CD5\u8A9E\u8A00\u4E2D\u7684\u4E00\u500B\u5B8C\u6574\u5B57\u4E32",
+                "fraction": 0,
+                "feedback": "\u7522\u751F\u5F0F\u662F\u898F\u5247\uFF1B\u5B57\u4E32\u662F\u5957\u7528\u898F\u5247\u5F8C\u7684\u7D50\u679C\u3002"
+              },
+              {
+                "text": "\u6BCF\u6B21\u63A8\u5C0E\u7684\u8D77\u9EDE",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8D77\u59CB\u7B26\u865F\u3002"
+              },
+              {
+                "text": "\u4E00\u500B\u7121\u6CD5\u88AB\u5C55\u958B\u7684\u7D42\u7AEF",
+                "fraction": 0,
+                "feedback": "\u7522\u751F\u5F0F\u5DE6\u5074\u662F\u975E\u7D42\u7AEF\u800C\u4E14\u53EF\u88AB\u5957\u7528\uFF1B\u7D42\u7AEF\u4E0D\u80FD\u3002"
+              }
+            ],
+            "generalFeedback": "\u7522\u751F\u5F0F\u628A\u5DE6\u5074\u7684\u975E\u7D42\u7AEF\u6539\u5BEB\u6210\u53F3\u5074\u7684\u5E8F\u5217\uFF1B\u63A8\u5C0E\u628A\u9019\u4E9B\u898F\u5247\u4E32\u63A5\u8D77\u4F86\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8D77\u59CB\u7B26\u865F",
+            "text": "<p>\u6587\u6CD5\u7684<strong>\u8D77\u59CB\u7B26\u865F</strong>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u6B21\u63A8\u5C0E\u90FD\u7531\u5B83\u958B\u59CB\u7684\u90A3\u500B\u7279\u5B9A\u975E\u7D42\u7AEF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A9E\u8A00\u7684\u6240\u6709\u63A8\u5C0E\u90FD\u5F9E\u9019\u500B\u7B26\u865F\u958B\u59CB\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u6240\u7522\u751F\u5B57\u4E32\u4E2D\u7684\u7B2C\u4E00\u500B\u7D42\u7AEF",
+                "fraction": 0,
+                "feedback": "\u8D77\u59CB\u7B26\u865F\u662F\u975E\u7D42\u7AEF\uFF0C\u4E0D\u662F\u8F38\u51FA\u4E2D\u7684\u7D42\u7AEF\u3002"
+              },
+              {
+                "text": "\u63A8\u5C0E\u4E2D\u5957\u7528\u7684\u6700\u5F8C\u4E00\u689D\u7522\u751F\u5F0F",
+                "fraction": 0,
+                "feedback": "\u8D77\u59CB\u7B26\u865F\u662F\u63A8\u5C0E\u7684\u8D77\u9EDE\uFF0C\u4E0D\u662F\u4E00\u689D\u7522\u751F\u5F0F\u3002"
+              },
+              {
+                "text": "\u70BA\u67D0\u6B21\u6E2C\u8A66\u96A8\u6A5F\u6311\u9078\u7684\u4EFB\u610F\u975E\u7D42\u7AEF",
+                "fraction": 0,
+                "feedback": "\u8D77\u59CB\u7B26\u865F\u662F\u6587\u6CD5\u56FA\u5B9A\u7684\u55AE\u4E00\u7279\u5B9A\u975E\u7D42\u7AEF\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A9E\u8A00\u7684\u6BCF\u6B21\u63A8\u5C0E\u90FD\u5F9E\u8D77\u59CB\u7B26\u865F\uFF08\u5E38\u5BEB\u4F5C S\uFF09\u958B\u59CB\uFF1B\u8A9E\u8A00\u6B63\u662F\u53EF\u7531\u5B83\u63A8\u5C0E\u51FA\u7684\u6240\u6709\u7D42\u7AEF\u5B57\u4E32\u6240\u7D44\u6210\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4EC0\u9EBC\u662F\u63A8\u5C0E",
+            "text": "<p>\u6587\u6CD5\u4E2D\u7684<strong>\u63A8\u5C0E\uFF08derivation\uFF09</strong>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u628A\u8D77\u59CB\u7B26\u865F\u6539\u5BEB\u6210\u4E00\u500B\u7D42\u7AEF\u5B57\u4E32\u7684\u4E00\u9023\u4E32\u7522\u751F\u5F0F\u5957\u7528",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A8\u5C0E\u662F\u7522\u751F\u4E00\u500B\u5B57\u4E32\u7684\u9010\u6B65\u6539\u5BEB\u904E\u7A0B\u3002"
+              },
+              {
+                "text": "\u6587\u6CD5\u6240\u80FD\u7522\u751F\u7684\u6240\u6709\u5B57\u4E32\u7684\u96C6\u5408",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8A9E\u8A00\uFF1B\u4E00\u6B21\u63A8\u5C0E\u53EA\u7522\u751F\u5176\u4E2D\u4E00\u500B\u5B57\u4E32\u3002"
+              },
+              {
+                "text": "\u6587\u6CD5\u7684\u55AE\u4E00\u4E00\u689D\u7522\u751F\u5F0F",
+                "fraction": 0,
+                "feedback": "\u63A8\u5C0E\u6309\u9806\u5E8F\u5957\u7528\u8A31\u591A\u7522\u751F\u5F0F\uFF0C\u4E0D\u53EA\u4E00\u689D\u3002"
+              },
+              {
+                "text": "\u8B49\u660E\u67D0\u6587\u6CD5\u5177\u6709\u6B67\u7FA9\u7684\u8B49\u64DA",
+                "fraction": 0,
+                "feedback": "\u6B67\u7FA9\u662F\u95DC\u65BC\u4E00\u500B\u5B57\u4E32\u6709\u591A\u500B\u63A8\u5C0E\uFF1B\u63A8\u5C0E\u672C\u8EAB\u53EA\u662F\u4E00\u500B\u6539\u5BEB\u5E8F\u5217\u3002"
+              }
+            ],
+            "generalFeedback": "\u63A8\u5C0E\u5F9E\u8D77\u59CB\u7B26\u865F\u958B\u59CB\uFF0C\u9010\u6B65\u5957\u7528\u7522\u751F\u5F0F\u76F4\u5230\u53EA\u5269\u7D42\u7AEF\uFF1B\u6240\u5F97\u7684\u7D42\u7AEF\u5B57\u4E32\u5373\u70BA\u8A9E\u8A00\u7684\u6210\u54E1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7D42\u7AEF\u7B26\u865F\u8986\u84CB\u5B9A\u7FA9",
+            "text": "<p>\u6587\u6CD5\u7684<strong>\u7D42\u7AEF\u7B26\u865F\u8986\u84CB\uFF08TSC\uFF09</strong>\u8981\u6C42\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6587\u6CD5\u7684\u6BCF\u500B\u7D42\u7AEF\u7B26\u865F\u90FD\u81F3\u5C11\u51FA\u73FE\u5728\u4E00\u500B\u6E2C\u8A66\u5B57\u4E32\u4E2D",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014TSC \u70BA\u6BCF\u500B\u7D42\u7AEF\u8A2D\u4E00\u689D\u6E2C\u8A66\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u6587\u6CD5\u7684\u6BCF\u689D\u7522\u751F\u5F0F\u90FD\u81F3\u5C11\u88AB\u4F7F\u7528\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7522\u751F\u5F0F\u8986\u84CB\uFF0C\u4E0D\u662F\u7D42\u7AEF\u7B26\u865F\u8986\u84CB\u3002"
+              },
+              {
+                "text": "\u6BCF\u4E00\u500B\u53EF\u80FD\u7684\u63A8\u5C0E\u90FD\u88AB\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u63A8\u5C0E\uFF08\u5168\u63A8\u5C0E\uFF09\u8986\u84CB\uFF0C\u4E00\u822C\u4E0D\u53EF\u884C\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u975E\u7D42\u7AEF\u90FD\u88AB\u7576\u4F5C\u8D77\u59CB\u7B26\u865F\u4F7F\u7528",
+                "fraction": 0,
+                "feedback": "\u8D77\u59CB\u7B26\u865F\u53EA\u6709\u4E00\u500B\uFF1BTSC \u8AC7\u7684\u662F\u7D42\u7AEF\u51FA\u73FE\u5728\u6E2C\u8A66\u4E2D\u3002"
+              }
+            ],
+            "generalFeedback": "TSC \u662F\u6700\u5F31\u7684\u6587\u6CD5\u6E96\u5247\uFF1A\u6BCF\u500B\u7D42\u7AEF\u90FD\u5FC5\u9808\u51FA\u73FE\u5728\u67D0\u500B\u6240\u7522\u751F\uFF0F\u6240\u7528\u7684\u6E2C\u8A66\u5B57\u4E32\u4E2D\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u7522\u751F\u5F0F\u8986\u84CB\u5B9A\u7FA9",
+            "text": "<p>\u6587\u6CD5\u7684<strong>\u7522\u751F\u5F0F\u8986\u84CB\uFF08PDC\uFF09</strong>\u8981\u6C42\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u689D\u7522\u751F\u5F0F\uFF08\u898F\u5247\u7684\u6BCF\u500B\u9078\u9805\uFF09\u90FD\u5728\u81F3\u5C11\u4E00\u500B\u6E2C\u8A66\u5B57\u4E32\u7684\u63A8\u5C0E\u4E2D\u88AB\u4F7F\u7528",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014PDC \u70BA\u6BCF\u689D\u7522\u751F\u5F0F\u8A2D\u4E00\u689D\u6E2C\u8A66\u9700\u6C42\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u7D42\u7AEF\u7B26\u865F\u90FD\u81F3\u5C11\u51FA\u73FE\u5728\u4E00\u500B\u6E2C\u8A66\u5B57\u4E32\u4E2D",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7D42\u7AEF\u7B26\u865F\u8986\u84CB\uFF0CPDC \u860A\u6DB5\u5B83\u3002"
+              },
+              {
+                "text": "\u7522\u751F\u51FA\u6240\u6709\u9577\u5EA6\u4E0D\u8D85\u904E n \u7684\u5B57\u4E32",
+                "fraction": 0,
+                "feedback": "PDC \u8A08\u7B97\u6240\u7528\u7684\u7522\u751F\u5F0F\uFF0C\u800C\u975E\u6709\u754C\u9577\u5EA6\u7684\u5B57\u4E32\u3002"
+              },
+              {
+                "text": "\u6BCF\u500B\u975E\u7D42\u7AEF\u90FD\u88AB\u6539\u5BEB\u6070\u597D\u4E00\u6B21",
+                "fraction": 0,
+                "feedback": "PDC \u8981\u6C42\u6BCF\u689D\u7522\u751F\u5F0F\u90FD\u88AB\u4F7F\u7528\uFF0C\u6709\u4E9B\u53EF\u80FD\u88AB\u4F7F\u7528\u591A\u6B21\u3002"
+              }
+            ],
+            "generalFeedback": "PDC \u8981\u6C42\u6BCF\u689D\u7522\u751F\u5F0F\u90FD\u81F3\u5C11\u88AB\u4E00\u6B21\u63A8\u5C0E\u57F7\u884C\u5230\u3002\u7531\u65BC A -> x | y \u7B97\u4F5C\u5169\u689D\u7522\u751F\u5F0F\uFF0C\u5169\u500B\u9078\u9805\u90FD\u5FC5\u9808\u88AB\u4F7F\u7528\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u7D42\u7AEF\u6578",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u6587\u6CD5\uFF1A</p><pre><code>S -> a A | b\nA -> c | d</code></pre><p>\u5B83\u6709\u5E7E\u500B\u76F8\u7570\u7684<strong>\u7D42\u7AEF</strong>\u7B26\u865F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7D42\u7AEF\u70BA a\u3001b\u3001c\u3001d\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u90A3\u7B97\u7684\u662F\u975E\u7D42\u7AEF S \u8207 A\uFF0C\u4E0D\u662F\u7D42\u7AEF\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u91CD\u6578\u4E00\u6B21\u2014\u2014a\u3001b\u3001c\u3001d \u662F\u56DB\u500B\u76F8\u7570\u7D42\u7AEF\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u90A3\u628A\u7D42\u7AEF\u8207\u975E\u7D42\u7AEF\u4E00\u8D77\u7B97\u4E86\uFF1B\u7D42\u7AEF\u53EA\u6709 4 \u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u7D42\u7AEF\u662F\u51FA\u73FE\u5728\u53F3\u5074\u3001\u6C38\u4E0D\u88AB\u5C55\u958B\u7684\u5B57\u9762\u6A19\u8A18\uFF1Aa\u3001b\u3001c\u3001d\uFF0C\u5171\u56DB\u500B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u975E\u7D42\u7AEF\u6578",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u6587\u6CD5\uFF1A</p><pre><code>S -> a A | b\nA -> c | d</code></pre><p>\u5B83\u6709\u5E7E\u500B<strong>\u975E\u7D42\u7AEF</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u975E\u7D42\u7AEF\u70BA S \u8207 A\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u6709\u5169\u500B\uFF1AS \u8207 A\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u90A3\u7B97\u7684\u662F\u7D42\u7AEF a\u3001b\u3001c\u3001d\uFF0C\u4E0D\u662F\u975E\u7D42\u7AEF\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709 S \u8207 A \u51FA\u73FE\u5728\u5DE6\u5074\uFF0C\u4E5F\u5C31\u662F\u5169\u500B\u3002"
+              }
+            ],
+            "generalFeedback": "\u975E\u7D42\u7AEF\u662F\u51FA\u73FE\u5728\u5DE6\u5074\u3001\u6703\u88AB\u6539\u5BEB\u7684\u7B26\u865F\uFF1AS \u8207 A\uFF0C\u5171\u5169\u500B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u7522\u751F\u5F0F\u6578",
+            "text": "<p>\u8003\u616E\u4EE5\u4E0B\u6587\u6CD5\uFF1A</p><pre><code>S -> a A | b\nA -> c | d</code></pre><p>\u628A\u6BCF\u500B\u9078\u9805\u7B97\u4F5C\u4E00\u689D\u7368\u7ACB\u898F\u5247\uFF0C\u5171\u6709\u5E7E\u689D<strong>\u7522\u751F\u5F0F</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014S -> a A\u3001S -> b\u3001A -> c\u3001A -> d \u5171\u56DB\u689D\u7522\u751F\u5F0F\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u90A3\u7B97\u7684\u662F\u5169\u884C\uFF1B\u6BCF\u500B | \u5F15\u5165\u4E00\u689D\u7368\u7ACB\u7522\u751F\u5F0F\uFF0C\u56E0\u6B64\u5171\u56DB\u689D\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u91CD\u6578\u4E00\u6B21\u2014\u2014\u6BCF\u500B\u9078\u9805\u5206\u958B\u7B97\uFF1A2 + 2 = 4\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u5169\u689D\u898F\u5247\u5408\u8D77\u4F86\u53EA\u6709\u56DB\u500B\u9078\u9805\u3002"
+              }
+            ],
+            "generalFeedback": "\u5C0D\u7522\u751F\u5F0F\u8986\u84CB\u800C\u8A00\uFF0C\u6BCF\u500B\u9078\u9805\u5206\u958B\u7B97\uFF1AS -> a A\u3001S -> b\u3001A -> c\u3001A -> d\uFF0C\u5171\u56DB\u689D\u7522\u751F\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6700\u5DE6\u63A8\u5C0E\u5B9A\u7FA9",
+            "text": "<p>\u5728<strong>\u6700\u5DE6\uFF08leftmost\uFF09</strong>\u63A8\u5C0E\u4E2D\uFF0C\u6BCF\u4E00\u6B65\u6539\u5BEB\u7684\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u76EE\u524D\u5B57\u4E32\u4E2D\u6700\u5DE6\u908A\u7684\u975E\u7D42\u7AEF",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6700\u5DE6\u63A8\u5C0E\u7E3D\u662F\u5C55\u958B\u6700\u5DE6\u908A\u5C1A\u5B58\u7684\u975E\u7D42\u7AEF\u3002"
+              },
+              {
+                "text": "\u76EE\u524D\u5B57\u4E32\u4E2D\u6700\u53F3\u908A\u7684\u975E\u7D42\u7AEF",
+                "fraction": 0,
+                "feedback": "\u90A3\u5B9A\u7FA9\u7684\u662F\u6700\u53F3\u63A8\u5C0E\u3002"
+              },
+              {
+                "text": "\u76EE\u524D\u5B57\u4E32\u4E2D\u6700\u5DE6\u908A\u7684\u7D42\u7AEF",
+                "fraction": 0,
+                "feedback": "\u7D42\u7AEF\u6C38\u4E0D\u88AB\u6539\u5BEB\uFF1B\u53EA\u6709\u975E\u7D42\u7AEF\u6703\u88AB\u5C55\u958B\u3002"
+              },
+              {
+                "text": "\u96A8\u6A5F\u6311\u9078\u7684\u4EFB\u610F\u975E\u7D42\u7AEF",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u4EFB\u610F\u63A8\u5C0E\uFF1B\u6700\u5DE6\u63A8\u5C0E\u628A\u9078\u64C7\u56FA\u5B9A\u70BA\u6700\u5DE6\u908A\u7684\u975E\u7D42\u7AEF\u3002"
+              }
+            ],
+            "generalFeedback": "\u6700\u5DE6\u63A8\u5C0E\u6BCF\u4E00\u6B65\u90FD\u5C55\u958B\u6700\u5DE6\u908A\u7684\u975E\u7D42\u7AEF\uFF1B\u6700\u53F3\u63A8\u5C0E\u5247\u7E3D\u662F\u5C55\u958B\u6700\u53F3\u908A\u7684\u90A3\u500B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "BNF \u9078\u9805\u8C4E\u7DDA",
+            "text": "<p>\u5728 BNF \u5F0F\u8A18\u6CD5\u4E2D\uFF0C\u4F8B\u5982 <code>B -> c | d</code>\uFF0C\u8C4E\u7DDA <code>|</code> \u8868\u793A\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u53F3\u5074\u7684\u66FF\u4EE3\u9078\u9805\u2014\u2014B \u53EF\u88AB\u6539\u5BEB\u6210 c\uFF0C\u6216\u6539\u5BEB\u6210 d",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8C4E\u7DDA\u5206\u9694\u540C\u4E00\u975E\u7D42\u7AEF\u7684\u591A\u689D\u66FF\u4EE3\u7522\u751F\u5F0F\u3002"
+              },
+              {
+                "text": "\u4E32\u63A5\u2014\u2014B \u5FC5\u9808\u88AB\u6539\u5BEB\u6210 c \u5F8C\u9762\u63A5\u8457 d",
+                "fraction": 0,
+                "feedback": "\u4E32\u63A5\u4EE5\u4E26\u5217\u66F8\u5BEB\uFF08c d\uFF09\uFF1B\u8C4E\u7DDA\u8868\u793A\u9078\u64C7\u3002"
+              },
+              {
+                "text": "\u91CD\u8907\u2014\u2014B \u53EF\u4EE5\u662F c \u91CD\u8907 d \u6B21",
+                "fraction": 0,
+                "feedback": "\u8C4E\u7DDA\u8868\u793A\u7684\u662F\u9078\u9805\uFF0C\u4E0D\u662F\u91CD\u8907\u3002"
+              },
+              {
+                "text": "\u628A\u8AAA\u660E\u6587\u5B57\u8207\u898F\u5247\u5206\u958B\u7684\u8A3B\u89E3",
+                "fraction": 0,
+                "feedback": "\u8C4E\u7DDA\u662F\u6587\u6CD5\u8A9E\u6CD5\u7684\u4E00\u90E8\u5206\uFF0C\u8868\u793A\u9078\u9805\u3002"
+              }
+            ],
+            "generalFeedback": "\u8C4E\u7DDA\u662F\u591A\u689D\u7522\u751F\u5F0F\u7684\u7C21\u5BEB\uFF1AB -> c | d \u7E2E\u5BEB\u4E86 B -> c \u8207 B -> d \u5169\u689D\u7522\u751F\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6587\u6CD5\u7684\u8A9E\u8A00",
+            "text": "<p>\u6587\u6CD5\u6240\u7522\u751F\u7684<strong>\u8A9E\u8A00</strong>\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u6240\u6709\u53EF\u7531\u8D77\u59CB\u7B26\u865F\u63A8\u5C0E\u51FA\u7684\u7D42\u7AEF\u5B57\u4E32\u6240\u7D44\u6210\u7684\u96C6\u5408",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A9E\u8A00\u6B63\u662F\u6587\u6CD5\u80FD\u63A8\u5C0E\u51FA\u7684\u90A3\u4E9B\u5B57\u4E32\u3002"
+              },
+              {
+                "text": "\u6587\u6CD5\u4E2D\u6240\u6709\u7522\u751F\u5F0F\u6240\u7D44\u6210\u7684\u96C6\u5408",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u898F\u5247\uFF1B\u8A9E\u8A00\u662F\u5B83\u5011\u6240\u7522\u751F\u7684\u5B57\u4E32\u3002"
+              },
+              {
+                "text": "\u6587\u6CD5\u4E2D\u6240\u6709\u975E\u7D42\u7AEF\u6240\u7D44\u6210\u7684\u96C6\u5408",
+                "fraction": 0,
+                "feedback": "\u975E\u7D42\u7AEF\u662F\u7B26\u865F\uFF0C\u4E0D\u662F\u8A9E\u8A00\u7684\u5B57\u4E32\u3002"
+              },
+              {
+                "text": "\u6587\u6CD5\u6240\u80FD\u7522\u751F\u7684\u6700\u9577\u7684\u55AE\u4E00\u5B57\u4E32",
+                "fraction": 0,
+                "feedback": "\u8A9E\u8A00\u662F\u6240\u6709\u53EF\u63A8\u5C0E\u5B57\u4E32\u7684\u6574\u500B\u96C6\u5408\uFF0C\u4E0D\u662F\u55AE\u4E00\u5B57\u4E32\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A9E\u8A00 L(G) \u662F\u6240\u6709\u53EF\u7531\u8D77\u59CB\u7B26\u865F\u63A8\u5C0E\u51FA\u7684\u7D42\u7AEF\u5B57\u4E32\u6240\u7D44\u6210\u7684\u96C6\u5408\uFF1B\u4E00\u500B\u5B57\u4E32\u300C\u5C6C\u65BC\u8A72\u8A9E\u8A00\u300D\u6B63\u662F\u7576\u5B58\u5728\u67D0\u500B\u63A8\u5C0E\u80FD\u7522\u751F\u5B83\u6642\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F5C\u70BA\u7522\u751F\u5668\u7684\u6587\u6CD5",
+            "text": "<p>\u7576\u6587\u6CD5\u5728\u6E2C\u8A66\u4E2D\u4F5C\u70BA<strong>\u7522\u751F\u5668\uFF08generator\uFF09</strong>\u4F7F\u7528\u6642\uFF0C\u7528\u9014\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u7522\u751F\uFF08\u63A8\u5C0E\uFF09\u5B57\u4E32\u4EE5\u4F5C\u70BA\u6E2C\u8A66\u8F38\u5165",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7522\u751F\u5668\u5957\u7528\u7522\u751F\u5F0F\u4EE5\u8F38\u51FA\u7528\u65BC\u6E2C\u8A66\u7684\u5B57\u4E32\u3002"
+              },
+              {
+                "text": "\u5224\u5B9A\u67D0\u500B\u7D66\u5B9A\u5B57\u4E32\u662F\u5426\u5C6C\u65BC\u8A72\u8A9E\u8A00",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u8FA8\u8B58\u5668\u7684\u89D2\u8272\uFF0C\u4E0D\u662F\u7522\u751F\u5668\u7684\u89D2\u8272\u3002"
+              },
+              {
+                "text": "\u628A\u6587\u6CD5\u7DE8\u8B6F\u6210\u6A5F\u5668\u78BC",
+                "fraction": 0,
+                "feedback": "\u7522\u751F\u7684\u662F\u5B57\u4E32\uFF0C\u4E0D\u662F\u76EE\u7684\u78BC\u3002"
+              },
+              {
+                "text": "\u8A08\u7B97\u7A0B\u5F0F\u5305\u542B\u5E7E\u689D\u7522\u751F\u5F0F",
+                "fraction": 0,
+                "feedback": "\u7522\u751F\u662F\u63A8\u5C0E\u5B57\u4E32\uFF1B\u5B83\u4E0D\u5206\u6790\u7A0B\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u7522\u751F\u5668\u6CBF\u8457\u7522\u751F\u5F0F\u63A8\u5C0E\u51FA\u6709\u6548\u5B57\u4E32\uFF08\u6E2C\u8A66\u8F38\u5165\uFF09\uFF1B\u8FA8\u8B58\u5668\u5247\u662F\u63A5\u53D7\u6216\u62D2\u7D55\u4E00\u500B\u7D66\u5B9A\u5B57\u4E32\u3002",
+            "single": true
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u53EF\u63A8\u5C0E\u7684\u5E73\u8861\u5B57\u4E32",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> a S b | c</code></pre><p>\u5B57\u4E32 <code>aacbb</code> \u662F\u5426\u5C6C\u65BC\u8A72\u8A9E\u8A00\uFF1F\u82E5\u662F\uFF0C\u7528\u54EA\u4E9B\u7522\u751F\u5F0F\u63A8\u5C0E\u5B83\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u662F\uFF1AS -> a S b \u5169\u6B21\uFF0C\u518D S -> c\uFF08S => aSb => aaSbb => aacbb\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5728\u4E2D\u592E\u7684 c \u5916\u570D\u5305\u4E86\u5169\u5C64 a...b\uFF0C\u5F97\u5230 aacbb\u3002"
+              },
+              {
+                "text": "\u662F\uFF0C\u53EA\u7528 S -> c",
+                "fraction": 0,
+                "feedback": "\u55AE\u7528 S -> c \u53EA\u80FD\u63A8\u51FA\u300Cc\u300D\uFF1B\u9084\u9700\u8981 S -> a S b \u5169\u6B21\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u6B64\u6587\u6CD5\u7121\u6CD5\u7522\u751F\u5169\u500B a",
+                "fraction": 0,
+                "feedback": "\u5957\u7528 S -> a S b \u5169\u6B21\u6703\u7522\u751F\u5169\u500B a \u8207\u5169\u500B b\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014c \u4E0D\u53EF\u4EE5\u51FA\u73FE\u5728\u4E2D\u9593",
+                "fraction": 0,
+                "feedback": "\u5305\u5B8C\u4E4B\u5F8C\u7531 S -> c \u63D0\u4F9B\u4E2D\u592E\u7684 c\uFF1Baacbb \u5C6C\u65BC\u8A72\u8A9E\u8A00\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u8A9E\u8A00\u70BA a^n c b^n\u3002\u5C0D aacbb\uFF0Cn = 2\uFF1AS => aSb => aaSbb => aacbb\uFF0C\u4F7F\u7528 S -> a S b \u5169\u6B21\u8207 S -> c \u4E00\u6B21\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E0D\u5E73\u8861\u5B57\u4E32\u4E0D\u53EF\u63A8\u5C0E",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> a S b | c</code></pre><p>\u5B57\u4E32 <code>acbb</code> \u662F\u5426\u5C6C\u65BC\u8A72\u8A9E\u8A00\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5426\u2014\u2014\u6BCF\u6B21\u63A8\u5C0E\u90FD\u7522\u751F\u540C\u6A23\u6578\u91CF\u7684 a \u8207 b\uFF0C\u4F46 acbb \u6709\u4E00\u500B a\u3001\u5169\u500B b",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a^n c b^n \u5F37\u5236 #a = #b\uFF0C\u6545 acbb \u4E0D\u53EF\u63A8\u5C0E\u3002"
+              },
+              {
+                "text": "\u662F\uFF0C\u7528 S -> a S b \u4E00\u6B21\u518D S -> c",
+                "fraction": 0,
+                "feedback": "\u90A3\u63A8\u51FA\u7684\u662F\u300Cacb\u300D\uFF08\u4E00\u500B a\u3001\u4E00\u500B b\uFF09\uFF0C\u4E0D\u662F\u300Cacbb\u300D\u3002"
+              },
+              {
+                "text": "\u662F\uFF0C\u7528 S -> a S b \u5169\u6B21",
+                "fraction": 0,
+                "feedback": "\u5305\u5169\u5C64\u6703\u5F97\u5230\u6709\u5169\u500B a \u7684\u300Caa...bb\u300D\uFF1Bacbb \u53EA\u6709\u4E00\u500B a\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u6B64\u6587\u6CD5\u6839\u672C\u7121\u6CD5\u7522\u751F\u7D42\u7AEF b",
+                "fraction": 0,
+                "feedback": "S -> a S b \u78BA\u5BE6\u6703\u7522\u751F b\uFF1B\u771F\u6B63\u7684\u539F\u56E0\u662F a \u8207 b \u7684\u6578\u91CF\u5FC5\u9808\u76F8\u7B49\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u6B21\u5957\u7528 S -> a S b \u6070\u597D\u589E\u52A0\u4E00\u500B a \u8207\u4E00\u500B b\uFF0C\u6545\u4EFB\u4F55\u63A8\u5C0E\u51FA\u7684\u5B57\u4E32\u90FD\u6EFF\u8DB3 #a = #b\u3002acbb \u6709 1 \u500B a\u30012 \u500B b\uFF0C\u56E0\u6B64\u5728\u8A9E\u8A00\u4E4B\u5916\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9054\u6210 PDC \u7684\u6700\u5C11\u6E2C\u8A66\uFF08\u7368\u7ACB\u9078\u64C7\uFF09",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>\u8981\u9054\u6210\u7522\u751F\u5F0F\u8986\u84CB\uFF0C\u6700\u5C11\u9700\u8981\u5E7E\u500B\u6E2C\u8A66\u5B57\u4E32\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F8B\u5982 xz \u8207 yw \u5408\u8D77\u4F86\u4F7F\u7528 S -> A B\u3001A -> x\u3001A -> y\u3001B -> z\u3001B -> w\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u5B57\u4E32\u56FA\u5B9A\u4E00\u500B A \u9078\u9805\u8207\u4E00\u500B B \u9078\u9805\uFF0C\u6545\u6700\u591A\u53EA\u80FD\u7528\u5230 5 \u689D\u7522\u751F\u5F0F\u4E2D\u7684 3 \u689D\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u8A9E\u8A00\u4E2D\u7684\u5B57\u4E32\u6578\uFF0C\u4E0D\u662F PDC \u7684\u6700\u5C11\u503C\uFF1B\u5169\u500B\u5C31\u8DB3\u5920\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 \u662F\u7522\u751F\u5F0F\u6578\uFF1B\u55AE\u4E00\u5B57\u4E32\u4E00\u6B21\u53EF\u6DB5\u84CB\u591A\u689D\uFF0C\u6545\u5169\u500B\u5B57\u4E32\u5C31\u8DB3\u5920\u3002"
+              }
+            ],
+            "generalFeedback": "\u5171 5 \u689D\u7522\u751F\u5F0F\u3002\u6BCF\u500B\u5B57\u4E32\u9078\u4E00\u500B A \u9078\u9805\u8207\u4E00\u500B B \u9078\u9805\uFF0C\u6545\u6BCF\u500B\u5B57\u4E32\u6700\u591A\u6DB5\u84CB 3 \u689D\u3002xz \u8207 yw \u6DB5\u84CB\u5168\u90E8 5 \u689D\uFF0C\u56E0\u6B64\u6700\u5C11\u70BA 2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6EFF\u8DB3 TSC \u4F46\u4E0D\u6EFF\u8DB3 PDC",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> a S | a</code></pre><p>\u8003\u616E\u6E2C\u8A66\u96C6\u5408 { <code>a</code> }\u3002\u4E0B\u5217\u4F55\u8005\u70BA\u771F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u6EFF\u8DB3\u7D42\u7AEF\u7B26\u865F\u8986\u84CB\uFF0C\u4F46\u4E0D\u6EFF\u8DB3\u7522\u751F\u5F0F\u8986\u84CB",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u552F\u4E00\u7684\u7D42\u7AEF a \u6709\u51FA\u73FE\uFF0C\u4F46\u7522\u751F\u5F0F S -> a S \u5F9E\u672A\u88AB\u4F7F\u7528\u3002"
+              },
+              {
+                "text": "\u5B83\u540C\u6642\u6EFF\u8DB3 TSC \u8207 PDC",
+                "fraction": 0,
+                "feedback": "\u300Ca\u300D\u7684\u63A8\u5C0E\u53EA\u7528\u4E86 S -> a\uFF1BS -> a S \u672A\u88AB\u6DB5\u84CB\uFF0C\u6545 PDC \u4E0D\u6210\u7ACB\u3002"
+              },
+              {
+                "text": "\u5B83\u6EFF\u8DB3 PDC \u4F46\u4E0D\u6EFF\u8DB3 TSC",
+                "fraction": 0,
+                "feedback": "PDC \u9084\u6703\u8981\u6C42 S -> a S\uFF0C\u800C\u300Ca\u300D\u4E26\u672A\u4F7F\u7528\u5B83\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u4E0D\u6EFF\u8DB3",
+                "fraction": 0,
+                "feedback": "\u7D42\u7AEF a \u78BA\u5BE6\u6709\u51FA\u73FE\uFF0C\u6545 TSC \u6210\u7ACB\u3002"
+              }
+            ],
+            "generalFeedback": "\u300Ca\u300D\u50C5\u7531 S -> a \u63A8\u51FA\uFF0C\u6DB5\u84CB\u4E86\u552F\u4E00\u7684\u7D42\u7AEF\uFF08TSC \u6210\u7ACB\uFF09\uFF0C\u537B\u8B93\u905E\u8FF4\u7522\u751F\u5F0F S -> a S \u672A\u88AB\u4F7F\u7528\uFF0C\u6545 PDC \u4E0D\u6210\u7ACB\u3002\u9019\u8AAA\u660E TSC \u4E26\u4E0D\u860A\u6DB5 PDC\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "PDC \u860A\u6DB5 TSC",
+            "text": "<p>\u7522\u751F\u5F0F\u8986\u84CB\u860A\u6DB5\uFF08subsumes\uFF09\u7D42\u7AEF\u7B26\u865F\u8986\u84CB\uFF1A\u4EFB\u4F55\u6EFF\u8DB3 PDC \u7684\u6E2C\u8A66\u96C6\u5408\u4E5F\u6EFF\u8DB3 TSC\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F7F\u7528\u6BCF\u689D\u7522\u751F\u5F0F\u6703\u5F37\u5236\u6BCF\u500B\u7D42\u7AEF\uFF08\u5404\u81EA\u90FD\u51FA\u73FE\u5728\u67D0\u500B\u53F3\u5074\uFF09\u51FA\u73FE\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B\u7D42\u7AEF\u90FD\u51FA\u73FE\u5728\u81F3\u5C11\u4E00\u689D\u7522\u751F\u5F0F\u7684\u53F3\u5074\uFF0C\u6545\u6DB5\u84CB\u6240\u6709\u7522\u751F\u5F0F\u5373\u6DB5\u84CB\u6240\u6709\u7D42\u7AEF\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u7D42\u7AEF\u90FD\u51FA\u73FE\u5728\u67D0\u689D\u7522\u751F\u5F0F\u7684\u53F3\u5074\u3002\u56E0\u6B64\u57F7\u884C\u6BCF\u689D\u7522\u751F\u5F0F\u5C31\u6703\u7528\u5230\u6BCF\u500B\u7D42\u7AEF\uFF0C\u6545 PDC \u860A\u6DB5 TSC\uFF08\u53CD\u4E4B\u4E0D\u7136\uFF09\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8A8D\u6700\u5DE6\u63A8\u5C0E",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>\u4E0B\u5217\u4F55\u8005\u662F <code>xz</code> \u7684\u6B63\u78BA<strong>\u6700\u5DE6</strong>\u63A8\u5C0E\uFF1F</p>",
+            "answers": [
+              {
+                "text": "S => A B => x B => x z",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u4E00\u6B65\u90FD\u5148\u5C55\u958B\u6700\u5DE6\u908A\u7684\u975E\u7D42\u7AEF\uFF08A\uFF09\u518D\u8655\u7406 B\u3002"
+              },
+              {
+                "text": "S => A B => A z => x z",
+                "fraction": 0,
+                "feedback": "\u90A3\u5148\u5C55\u958B B\uFF08\u6700\u53F3\u908A\u7684\u975E\u7D42\u7AEF\uFF09\uFF1B\u90A3\u662F\u6700\u53F3\u63A8\u5C0E\u3002"
+              },
+              {
+                "text": "S => A B => x z",
+                "fraction": 0,
+                "feedback": "\u9019\u7565\u904E\u4E86\u4E00\u6B65\uFF1B\u6BCF\u689D\u7522\u751F\u5F0F\u6070\u597D\u66FF\u63DB\u4E00\u500B\u975E\u7D42\u7AEF\u3002"
+              },
+              {
+                "text": "S => x z",
+                "fraction": 0,
+                "feedback": "\u6C92\u6709\u55AE\u4E00\u7522\u751F\u5F0F\u80FD\u628A S \u76F4\u63A5\u6539\u5BEB\u6210 x z\uFF1B\u5FC5\u9808\u5148\u5957\u7528 S -> A B\u3002"
+              }
+            ],
+            "generalFeedback": "\u6700\u5DE6\u8868\u793A\u7E3D\u662F\u5C55\u958B\u6700\u5DE6\u908A\u7684\u975E\u7D42\u7AEF\uFF1AS => A B\uFF08S -> A B\uFF09\uFF0C\u63A5\u8457\u5148\u8655\u7406 A\uFF1A=> x B\uFF08A -> x\uFF09\uFF0C\u518D\u8655\u7406 B\uFF1A=> x z\uFF08B -> z\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53EF\u63A8\u5C0E\u5B57\u4E32 yz",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p><code>yz</code> \u662F\u5426\u5C6C\u65BC\u8A72\u8A9E\u8A00\uFF1F\u7528\u54EA\u4E9B\u7522\u751F\u5F0F\u63A8\u5C0E\u5B83\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u662F\uFF1AS -> A B\uFF0C\u518D A -> y\uFF0C\u518D B -> z",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014S => A B => y B => y z\u3002"
+              },
+              {
+                "text": "\u662F\uFF1AS -> A B\uFF0C\u518D A -> x\uFF0C\u518D B -> z",
+                "fraction": 0,
+                "feedback": "A -> x \u5F97\u5230\u300Cxz\u300D\uFF0C\u4E0D\u662F\u300Cyz\u300D\uFF1B\u4F60\u9700\u8981 A -> y\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014y \u8207 z \u4E0D\u80FD\u51FA\u73FE\u5728\u540C\u4E00\u500B\u5B57\u4E32\u4E2D",
+                "fraction": 0,
+                "feedback": "A \u53EF\u70BA y\u3001B \u53EF\u70BA z\uFF0C\u5169\u8005\u4E92\u4E0D\u76F8\u5E72\uFF0C\u6545 yz \u53EF\u63A8\u5C0E\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u6B64\u6587\u6CD5\u6C92\u6709\u7522\u751F y \u7684\u7522\u751F\u5F0F",
+                "fraction": 0,
+                "feedback": "A -> y \u662F\u4E00\u689D\u7522\u751F\u5F0F\uFF0C\u6545 y \u662F\u53EF\u7528\u7684\u3002"
+              }
+            ],
+            "generalFeedback": "\u6B64\u8A9E\u8A00\u70BA { xz, xw, yz, yw }\u3002\u5C0D yz\uFF1AS => A B => y B => y z\uFF0C\u4F7F\u7528 S -> A B\u3001A -> y\u3001B -> z\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "TSC \u9700\u6C42\u6578",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>\u7D42\u7AEF\u7B26\u865F\u8986\u84CB\u6703\u7522\u751F\u5E7E\u689D\u6E2C\u8A66\u9700\u6C42\uFF1F</p>",
+            "answers": [
+              {
+                "text": "4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u500B\u7D42\u7AEF\u4E00\u689D\u9700\u6C42\uFF1Ax\u3001y\u3001z\u3001w\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 \u662F\u7522\u751F\u5F0F\u6578\uFF08\u7528\u65BC PDC\uFF09\uFF1BTSC \u8A08\u7B97\u7684\u662F 4 \u500B\u7D42\u7AEF\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "3 \u662F\u975E\u7D42\u7AEF\u6578\uFF08S\u3001A\u3001B\uFF09\uFF1BTSC \u8A08\u7B97\u7D42\u7AEF\uFF0C\u5171 4 \u500B\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u91CD\u6578\u4E00\u6B21\u2014\u2014\u7D42\u7AEF\u70BA x\u3001y\u3001z\u3001w\uFF0C\u6545\u56DB\u689D\u9700\u6C42\u3002"
+              }
+            ],
+            "generalFeedback": "TSC \u6BCF\u500B\u7D42\u7AEF\u7B26\u865F\u4E00\u689D\u9700\u6C42\u3002\u7D42\u7AEF\u70BA x\u3001y\u3001z\u3001w\uFF0C\u5171\u56DB\u689D\u9700\u6C42\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "PDC \u9700\u6C42\u6578",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>\u7522\u751F\u5F0F\u8986\u84CB\u6703\u7522\u751F\u5E7E\u689D\u6E2C\u8A66\u9700\u6C42\uFF1F</p>",
+            "answers": [
+              {
+                "text": "5",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014S -> A B\u3001A -> x\u3001A -> y\u3001B -> z\u3001B -> w \u5171\u4E94\u689D\u7522\u751F\u5F0F\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u90A3\u7B97\u7684\u662F\u4E09\u884C\u898F\u5247\uFF1B\u6BCF\u500B\u9078\u9805\u5206\u958B\u7B97\uFF0C\u5171\u4E94\u689D\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u7D42\u7AEF\u6578\uFF08\u7528\u65BC TSC\uFF09\uFF1B\u7522\u751F\u5F0F\u5171\u4E94\u689D\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "\u91CD\u6578\u4E00\u6B21\u2014\u20141\uFF08S\uFF09+ 2\uFF08A\uFF09+ 2\uFF08B\uFF09= 5 \u689D\u7522\u751F\u5F0F\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u500B\u9078\u9805\u5206\u958B\u7B97\uFF1AS -> A B\uFF081\uFF09\u3001A -> x\u3001A -> y\uFF082\uFF09\u3001B -> z\u3001B -> w\uFF082\uFF09= 5 \u689D\u7522\u751F\u5F0F\uFF0C\u6545 5 \u689D PDC \u9700\u6C42\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "acb \u7684\u7522\u751F\u5F0F\u5E8F\u5217",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> a S b | c</code></pre><p>\u54EA\u4E00\u7D44\u7522\u751F\u5F0F\u5E8F\u5217\u80FD\u63A8\u5C0E <code>acb</code>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "S -> a S b\uFF0C\u518D S -> c",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014S => aSb => a c b\u3002"
+              },
+              {
+                "text": "\u53EA\u7528 S -> c",
+                "fraction": 0,
+                "feedback": "\u55AE\u7528 S -> c \u53EA\u80FD\u63A8\u51FA\u300Cc\u300D\uFF0C\u800C\u975E\u300Cacb\u300D\u3002"
+              },
+              {
+                "text": "S -> a S b\uFF0C\u518D S -> a S b",
+                "fraction": 0,
+                "feedback": "\u5305\u5169\u5C64\u5F97\u5230\u300Caa...bb\u300D\uFF1B\u8981\u5B8C\u6210\u300Cacb\u300D\u9084\u9700 S -> c\u3002"
+              },
+              {
+                "text": "S -> a S b\uFF0C\u518D S -> a S b\uFF0C\u518D S -> c",
+                "fraction": 0,
+                "feedback": "\u90A3\u63A8\u51FA\u7684\u662F\u300Caacbb\u300D\uFF0C\u4E0D\u662F\u300Cacb\u300D\u3002"
+              }
+            ],
+            "generalFeedback": "acb \u9700\u8981\u5305\u4E00\u5C64\u518D\u653E\u4E2D\u592E\u7684 c\uFF1AS => aSb\uFF08S -> a S b\uFF09=> a c b\uFF08S -> c\uFF09\u3002\u9019\u55AE\u4E00\u5B57\u4E32\u5C31\u5DF2\u7D93\u57F7\u884C\u5230\u6B64\u6587\u6CD5\u7684\u5169\u689D\u7522\u751F\u5F0F\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4E00\u500B\u905E\u8FF4\u5B57\u4E32\u6DB5\u84CB PDC",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>E -> E + T | T\nT -> a | b</code></pre><p>\u8981\u9054\u6210\u7522\u751F\u5F0F\u8986\u84CB\uFF0C\u6700\u5C11\u9700\u8981\u5E7E\u500B\u6E2C\u8A66\u5B57\u4E32\uFF1F</p>",
+            "answers": [
+              {
+                "text": "1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a+b \u4F7F\u7528\u5168\u90E8\u56DB\u689D\u7522\u751F\u5F0F\uFF1AE -> E + T\u3001E -> T\u3001T -> a\u3001T -> b\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u4E0D\u9700\u8981\u5169\u500B\uFF1A\u55AE\u4E00\u905E\u8FF4\u5B57\u4E32 a+b \u5C31\u5DF2\u57F7\u884C\u5230\u6BCF\u689D\u7522\u751F\u5F0F\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u4E00\u500B\u5B57\u4E32\u5C31\u8DB3\u5920\uFF1Ba+b \u6DB5\u84CB\u5168\u90E8\u56DB\u689D\u7522\u751F\u5F0F\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u7522\u751F\u5F0F\u6578\uFF1B\u4E00\u500B\u7CBE\u5FC3\u6311\u9078\u7684\u5B57\u4E32\u5C31\u80FD\u5168\u90E8\u547D\u4E2D\u3002"
+              }
+            ],
+            "generalFeedback": "\u4EE5\u6700\u5DE6\u65B9\u5F0F\u63A8\u5C0E a+b\uFF1AE => E + T\uFF08E -> E + T\uFF09=> T + T\uFF08E -> T\uFF09=> a + T\uFF08T -> a\uFF09=> a + b\uFF08T -> b\uFF09\u3002\u56DB\u689D\u7522\u751F\u5F0F\u5168\u90E8\u7528\u5230\uFF0C\u6545\u4E00\u500B\u5B57\u4E32\u5373\u9054\u6210 PDC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u672A\u6DB5\u84CB\u7684\u7522\u751F\u5F0F",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>\u6E2C\u8A66\u96C6\u5408 { <code>xz</code>, <code>xw</code> } \u672A\u6DB5\u84CB\u5230\u54EA\u4E00\u689D\u7522\u751F\u5F0F\uFF1F</p>",
+            "answers": [
+              {
+                "text": "A -> y",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u500B\u5B57\u4E32\u90FD\u4EE5 x \u958B\u982D\uFF0C\u6545 A -> y \u5F9E\u672A\u88AB\u4F7F\u7528\u3002"
+              },
+              {
+                "text": "B -> z",
+                "fraction": 0,
+                "feedback": "xz \u4F7F\u7528\u4E86 B -> z\uFF0C\u6545\u5DF2\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "B -> w",
+                "fraction": 0,
+                "feedback": "xw \u4F7F\u7528\u4E86 B -> w\uFF0C\u6545\u5DF2\u6DB5\u84CB\u3002"
+              },
+              {
+                "text": "S -> A B",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u5B57\u4E32\u90FD\u4F7F\u7528 S -> A B\uFF0C\u6545\u5DF2\u6DB5\u84CB\u3002"
+              }
+            ],
+            "generalFeedback": "{ xz, xw } \u4F7F\u7528\u4E86 S -> A B\u3001A -> x\u3001B -> z\u3001B -> w\uFF0C\u4F46\u5F9E\u672A\u7528\u5230 A -> y\u3002\u6545 PDC \u4E0D\u6210\u7ACB\uFF08\u9644\u5E36\u5730\uFF0C\u7D42\u7AEF y \u4E5F\u5F9E\u672A\u88AB\u7522\u751F\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u6EFF\u8DB3 TSC \u537B\u4E0D\u6EFF\u8DB3 PDC",
+            "text": "<p>\u4E00\u500B\u6E2C\u8A66\u96C6\u5408\u53EF\u4EE5\u5728\u6EFF\u8DB3\u7D42\u7AEF\u7B26\u865F\u8986\u84CB\u7684\u540C\u6642\uFF0C\u4E0D\u6EFF\u8DB3\u7522\u751F\u5F0F\u8986\u84CB\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014TSC \u4E0D\u860A\u6DB5 PDC\uFF1B\u4F8B\u5982\u5C0D S -> a S | a\uFF0C\u96C6\u5408 { a } \u6EFF\u8DB3 TSC \u537B\u4E0D\u6EFF\u8DB3 PDC\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u860A\u6DB5\u53EA\u6709\u55AE\u5411\uFF1APDC \u860A\u6DB5 TSC\uFF0C\u4F46 TSC \u4E0D\u860A\u6DB5 PDC\u3002"
+              }
+            ],
+            "generalFeedback": "\u662F PDC \u860A\u6DB5 TSC\uFF0C\u800C\u975E\u53CD\u5411\u3002\u67D0\u500B\u7D42\u7AEF\u53EF\u80FD\u900F\u904E\u4E00\u689D\u6EFF\u8DB3 TSC \u7684\u96C6\u5408\u5F9E\u672A\u57F7\u884C\u5230\u7684\u7522\u751F\u5F0F\u624D\u53EF\u9054\uFF0C\u56E0\u800C PDC \u4E0D\u6210\u7ACB\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8FA8\u8B58\u5668\u7684\u89D2\u8272",
+            "text": "<p>\u7531\u6587\u6CD5\u5EFA\u69CB\u7684<strong>\u8FA8\u8B58\u5668\uFF08recognizer\uFF09</strong>\u7528\u9014\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5224\u5B9A\u67D0\u500B\u7D66\u5B9A\u8F38\u5165\u5B57\u4E32\u662F\u5426\u5C6C\u65BC\u8A72\u8A9E\u8A00\uFF08\u63A5\u53D7\u6216\u62D2\u7D55\u5B83\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8FA8\u8B58\u5668\u5256\u6790\u8F38\u5165\u4E26\u56DE\u5831\u662F\u5426\u70BA\u6210\u54E1\u3002"
+              },
+              {
+                "text": "\u63A8\u5C0E\u51FA\u65B0\u5B57\u4E32\u4EE5\u4F5C\u70BA\u6E2C\u8A66\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u7522\u751F\u5668\u7684\u89D2\u8272\uFF0C\u4E0D\u662F\u8FA8\u8B58\u5668\u7684\u89D2\u8272\u3002"
+              },
+              {
+                "text": "\u8A08\u7B97\u6587\u6CD5\u4E2D\u7684\u7522\u751F\u5F0F\u6578\u76EE",
+                "fraction": 0,
+                "feedback": "\u8FA8\u8B58\u5668\u5C0D\u5B57\u4E32\u5206\u985E\uFF1B\u5B83\u4E0D\u8A08\u7B97\u898F\u5247\u6578\u3002"
+              },
+              {
+                "text": "\u7A81\u8B8A\u6587\u6CD5\u4EE5\u88FD\u9020\u7121\u6548\u5B57\u4E32",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u6587\u6CD5\u7A81\u8B8A\uFF1B\u8FA8\u8B58\u5668\u53EA\u63A5\u53D7\u6216\u62D2\u7D55\u3002"
+              }
+            ],
+            "generalFeedback": "\u8FA8\u8B58\u5668\u56DE\u7B54\u300C\u9019\u500B\u5B57\u4E32\u5C6C\u65BC L(G) \u55CE\uFF1F\u300D\uFF0C\u4EE5\u63A5\u53D7\u6216\u62D2\u7D55\u4F5C\u7B54\uFF1B\u7522\u751F\u5668\u5247\u662F\u8F38\u51FA\u5B57\u4E32\u3002\u540C\u4E00\u4EFD\u6587\u6CD5\u53EF\u652F\u6490\u9019\u5169\u7A2E\u89D2\u8272\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u53EF\u63A8\u5C0E\u7684\u5DE2\u72C0\u52A0\u6CD5",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>E -> E + T | T\nT -> a | b</code></pre><p>\u5B57\u4E32 <code>a+b+a</code> \u662F\u5426\u5C6C\u65BC\u8A72\u8A9E\u8A00\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u662F\u2014\u2014\u5957\u7528 E -> E + T \u5169\u6B21\uFF0C\u518D E -> T\uFF0C\u518D T -> a\u3001T -> b\u3001T -> a",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014E => E+T => E+T+T => T+T+T => a+b+a \u53EF\u63A8\u5C0E\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u6B64\u6587\u6CD5\u6BCF\u500B\u5B57\u4E32\u6700\u591A\u53EA\u5141\u8A31\u4E00\u500B +",
+                "fraction": 0,
+                "feedback": "E -> E + T \u662F\u905E\u8FF4\u7684\uFF0C\u6545\u5141\u8A31\u4EFB\u610F\u6578\u91CF\u7684 +\u3002"
+              },
+              {
+                "text": "\u5426\u2014\u2014\u6B64\u6587\u6CD5\u7121\u6CD5\u7522\u751F\u5169\u6B21\u7D42\u7AEF a",
+                "fraction": 0,
+                "feedback": "T -> a \u53EF\u5728\u591A\u500B\u4F4D\u7F6E\u5957\u7528\uFF0C\u6545 a \u53EF\u91CD\u8907\u51FA\u73FE\u3002"
+              },
+              {
+                "text": "\u662F\uFF0C\u4F46\u53EA\u7528 T -> a\uFF08\u5F9E\u4E0D\u7528 T -> b\uFF09",
+                "fraction": 0,
+                "feedback": "\u4E2D\u9593\u7684\u904B\u7B97\u5143\u662F b\uFF0C\u6545\u9700\u8981 T -> b\uFF1Ba \u8207 b \u90FD\u6703\u51FA\u73FE\u3002"
+              }
+            ],
+            "generalFeedback": "E -> E + T \u70BA\u5DE6\u905E\u8FF4\uFF0C\u6545 E => E+T => (E+T)+T => (T+T)+T => a+b+a\u3002\u905E\u8FF4\u5141\u8A31\u4EFB\u610F\u591A\u500B + \u904B\u7B97\u5B50\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55\u5168\u63A8\u5C0E\u4E0D\u53EF\u884C",
+            "text": "<p>\u8986\u84CB\u6587\u6CD5\u7684<strong>\u6BCF\u4E00\u500B\u53EF\u80FD\u63A8\u5C0E</strong>\uFF08\u5168\u63A8\u5C0E\u8986\u84CB\uFF09\u4E00\u822C\u4E0D\u53EF\u884C\uFF0C\u539F\u56E0\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u905E\u8FF4\u7522\u751F\u5F0F\u5BB9\u8A31\u7121\u7AAE\u591A\u500B\u63A8\u5C0E\uFF0C\u6545\u9700\u6C42\u96C6\u5408\u662F\u7121\u754C\u7684",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u8207\u8FF4\u5708\u4F7F\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u4E0D\u53EF\u884C\u7684\u539F\u56E0\u76F8\u540C\u3002"
+              },
+              {
+                "text": "\u6587\u6CD5\u6C92\u6709\u8D77\u59CB\u7B26\u865F\u53EF\u4F9B\u958B\u59CB\u63A8\u5C0E",
+                "fraction": 0,
+                "feedback": "\u6BCF\u500B CFG \u90FD\u6709\u8D77\u59CB\u7B26\u865F\uFF1B\u554F\u984C\u4E0D\u5728\u6B64\u3002"
+              },
+              {
+                "text": "\u7D42\u7AEF\u8207\u975E\u7D42\u7AEF\u7121\u6CD5\u5340\u5206",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u53EF\u6E05\u695A\u5340\u5206\uFF1B\u9020\u6210\u7206\u70B8\u7684\u662F\u905E\u8FF4\uFF0C\u800C\u975E\u6DF7\u6DC6\u3002"
+              },
+              {
+                "text": "\u7522\u751F\u5F0F\u8986\u84CB\u672C\u4F86\u5C31\u7981\u6B62\u591A\u65BC\u4E00\u500B\u63A8\u5C0E",
+                "fraction": 0,
+                "feedback": "PDC \u4E26\u7121\u6B64\u9650\u5236\uFF1B\u554F\u984C\u5728\u65BC\u63A8\u5C0E\u6578\u76EE\u7121\u754C\u3002"
+              }
+            ],
+            "generalFeedback": "\u905E\u8FF4\u7522\u751F\u5F0F\uFF08\u4F8B\u5982 E -> E + T\uFF09\u53EF\u88AB\u5957\u7528\u4EFB\u610F\u591A\u6B21\uFF0C\u7522\u751F\u7121\u7AAE\u591A\u500B\u63A8\u5C0E\u2014\u2014\u9019\u8207\u8FF4\u5708\u4F7F\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u4E0D\u53EF\u884C\u76F8\u985E\u6BD4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u50C5\u7A81\u8B8A\u9AD4\u53EF\u63A8\u5C0E\u7684\u8CA0\u5411\u6E2C\u8A66\uFF08c \u6539 d\uFF09",
+            "text": "<p>\u539F\u59CB\u6587\u6CD5\uFF1A</p><pre><code>S -> a S b | c</code></pre><p>\u4F60\u628A\u7522\u751F\u5F0F <code>S -> c</code> \u7A81\u8B8A\u6210 <code>S -> d</code>\uFF0C\u5F97\u5230\u7A81\u8B8A\u9AD4 <code>S -> a S b | d</code>\u3002\u7A81\u8B8A\u9AD4\u80FD\u63A8\u5C0E\u3001\u4F46<strong>\u4E0D</strong>\u5C6C\u65BC\u539F\u59CB\u8A9E\u8A00\u7684\u5B57\u4E32\uFF08\u6709\u6548\u7684\u8CA0\u5411\u6E2C\u8A66\uFF09\u662F\u54EA\u4E00\u500B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "aadbb",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A81\u8B8A\u9AD4\u63A8\u5C0E a^n d b^n\uFF1Baadbb \u5728\u539F\u59CB\u7684 a^n c b^n \u4E4B\u5916\u3002"
+              },
+              {
+                "text": "aacbb",
+                "fraction": 0,
+                "feedback": "aacbb \u5C6C\u65BC\u539F\u59CB\u8A9E\u8A00\uFF0C\u6545\u5B83\u662F\u6709\u6548\u8F38\u5165\uFF0C\u800C\u975E\u8CA0\u5411\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "acb",
+                "fraction": 0,
+                "feedback": "acb \u5C6C\u65BC\u539F\u59CB\u8A9E\u8A00\uFF1B\u7A81\u8B8A\u9AD4\u4E0D\u518D\u63A8\u5C0E\u5B83\uFF0C\u4E14\u5B83\u4E0D\u662F\u8CA0\u5411\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "aadb",
+                "fraction": 0,
+                "feedback": "aadb \u6709\u5169\u500B a \u4F46\u53EA\u6709\u4E00\u500B b\uFF0C\u6545\u5169\u500B\u6587\u6CD5\u90FD\u7121\u6CD5\u63A8\u5C0E\u5B83\uFF1B\u5B83\u4E0D\u662F\u7A81\u8B8A\u9AD4\u5B57\u4E32\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u8B8A\u9AD4\u8A9E\u8A00\u70BA a^n d b^n\u3002aadbb\uFF08n = 2\uFF09\u53EF\u7531\u7A81\u8B8A\u9AD4\u63A8\u5C0E\uFF0C\u537B\u7121\u6CD5\u7531\u539F\u59CB\u63A8\u5C0E\uFF0C\u56E0\u6B64\u6B63\u662F\u7528\u4F86\u6E2C\u8A66\u932F\u8AA4\u8655\u7406\u7684\u90A3\u985E\u7121\u6548\u8F38\u5165\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u542B\u9802\u5C64\u9078\u64C7\u7684\u6700\u5C0F PDC \u96C6\u5408",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> A | B\nA -> a A | a\nB -> b</code></pre><p>\u8981\u9054\u6210\u7522\u751F\u5F0F\u8986\u84CB\uFF0C\u6700\u5C11\u9700\u8981\u5E7E\u500B\u6E2C\u8A66\u5B57\u4E32\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u4F8B\u5982 aa\uFF08\u6DB5\u84CB S -> A\u3001A -> a A\u3001A -> a\uFF09\u8207 b\uFF08\u6DB5\u84CB S -> B\u3001B -> b\uFF09\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u5B57\u4E32\u53EA\u6703\u9078 S -> A \u6216 S -> B\uFF0C\u6545\u7121\u6CD5\u540C\u6642\u6DB5\u84CB\u5169\u500B\u9802\u5C64\u9078\u9805\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u5B57\u4E32\u5C31\u8DB3\u5920\uFF1A\u300Caa\u300D\u8207\u300Cb\u300D\u5408\u8D77\u4F86\u4F7F\u7528\u5168\u90E8\u4E94\u689D\u7522\u751F\u5F0F\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "5 \u662F\u7522\u751F\u5F0F\u6578\uFF1B\u6BCF\u500B\u5B57\u4E32\u53EF\u6DB5\u84CB\u591A\u689D\uFF0C\u6545\u5169\u500B\u5C31\u8DB3\u5920\u3002"
+              }
+            ],
+            "generalFeedback": "\u5171 5 \u689D\u7522\u751F\u5F0F\u3002\u300Caa\u300D\u7D66\u51FA S -> A\u3001A -> a A\u3001A -> a\uFF1B\u300Cb\u300D\u7D66\u51FA S -> B\u3001B -> b\u3002\u7531\u65BC S -> A \u8207 S -> B \u5728\u55AE\u4E00\u63A8\u5C0E\u4E2D\u4E92\u65A5\uFF0C\u6C92\u6709\u4EFB\u4F55\u55AE\u4E00\u5B57\u4E32\u80FD\u540C\u6642\u505A\u5230\uFF0C\u6545\u6700\u5C11\u70BA 2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u5B57\u4E32\u5728\u8A9E\u8A00\u4E4B\u5916",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> a S b | c</code></pre><p>\u54EA\u4E00\u500B\u5B57\u4E32<strong>\u4E0D</strong>\u5C6C\u65BC\u8A72\u8A9E\u8A00\uFF08\u56E0\u6B64\u5256\u6790\u5668\u61C9\u62D2\u7D55\u5B83\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "aabb",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A9E\u8A00\u4E2D\u7684\u6BCF\u500B\u5B57\u4E32\u90FD\u6070\u542B\u4E00\u500B\u4E2D\u592E c\uFF1Baabb \u6C92\u6709 c\u3002"
+              },
+              {
+                "text": "aacbb",
+                "fraction": 0,
+                "feedback": "aacbb = a^2 c b^2 \u5C6C\u65BC\u8A72\u8A9E\u8A00\u3002"
+              },
+              {
+                "text": "acb",
+                "fraction": 0,
+                "feedback": "acb = a^1 c b^1 \u5C6C\u65BC\u8A72\u8A9E\u8A00\u3002"
+              },
+              {
+                "text": "c",
+                "fraction": 0,
+                "feedback": "c \u7531 S -> c \u76F4\u63A5\u63A8\u51FA\uFF0C\u6545\u5C6C\u65BC\u8A72\u8A9E\u8A00\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u6B21\u63A8\u5C0E\u6700\u5F8C\u90FD\u6703\u5957\u7528 S -> c\uFF0C\u6545\u6BCF\u500B\u5B57\u4E32\u5728\u4E2D\u9593\u6070\u6709\u4E00\u500B c\u3002aabb \u6C92\u6709 c\uFF0C\u56E0\u6B64\u5728\u8A9E\u8A00\u4E4B\u5916\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6E2C\u8A66\u7522\u751F\u4E2D\u7684\u7522\u751F\u5668\u8207\u8FA8\u8B58\u5668",
+            "text": "<p>\u5728\u6587\u6CD5\u5F0F\u6E2C\u8A66\u4E2D\uFF0C\u4F60\u60F3\u7522\u751F\u6709\u6548\u8F38\u5165\uFF0C\u4E26\u5224\u5B9A\u53D7\u6E2C\u7CFB\u7D71\u662F\u5426\u6B63\u78BA\u5730\u5C07\u5B83\u5011\u5206\u985E\u3002\u54EA\u4E00\u7A2E\u89D2\u8272\u914D\u5C0D\u662F\u6B63\u78BA\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A\u6587\u6CD5\u7576\u4F5C\u7522\u751F\u5668\u4F86\u63A8\u5C0E\u8F38\u5165\uFF1B\u628A\u8FA8\u8B58\u5668\u7576\u4F5C\u9810\u8A00\u4F86\u6AA2\u67E5\u63A5\u53D7\uFF0F\u62D2\u7D55",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7522\u751F\u5668\u7522\u751F\u5B57\u4E32\uFF0C\u8FA8\u8B58\u5668\u5224\u5B9A\u6210\u54E1\u8CC7\u683C\u3002"
+              },
+              {
+                "text": "\u628A\u6587\u6CD5\u7576\u4F5C\u8FA8\u8B58\u5668\u4F86\u63A8\u5C0E\u8F38\u5165\uFF1B\u7528\u7522\u751F\u5668\u4F86\u62D2\u7D55\u5B83\u5011",
+                "fraction": 0,
+                "feedback": "\u89D2\u8272\u985B\u5012\u4E86\uFF1A\u8FA8\u8B58\u5668\u5224\u5B9A\u6210\u54E1\u8CC7\u683C\uFF0C\u7522\u751F\u5668\u7522\u751F\u5B57\u4E32\u3002"
+              },
+              {
+                "text": "\u7528\u7A81\u8B8A\u904B\u7B97\u5B50\u4F86\u540C\u6642\u63A8\u5C0E\u8207\u5206\u985E\u8F38\u5165",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u88FD\u9020\u7684\u662F\u7121\u6548\u8B8A\u9AD4\uFF1B\u90A3\u4E0D\u662F\u7522\u751F\u6216\u5206\u985E\u6709\u6548\u8F38\u5165\u7684\u65B9\u5F0F\u3002"
+              },
+              {
+                "text": "\u7528\u7522\u751F\u5F0F\u8986\u84CB\u4F86\u63A8\u5C0E\u8F38\u5165\u3001\u7528\u7D42\u7AEF\u7B26\u865F\u8986\u84CB\u4F86\u62D2\u7D55\u5B83\u5011",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u8986\u84CB\u6E96\u5247\uFF0C\u4E0D\u662F\u7522\u751F\u5668\uFF0F\u8FA8\u8B58\u5668\u6A5F\u5236\u3002"
+              }
+            ],
+            "generalFeedback": "\u7522\u751F\u5668\u6CBF\u7522\u751F\u5F0F\u63A8\u5C0E\u4EE5\u8F38\u51FA\u5B57\u4E32\uFF08\u6E2C\u8A66\u8F38\u5165\uFF09\uFF1B\u8FA8\u8B58\u5668\u5256\u6790\u5B57\u4E32\u4E26\u56DE\u7B54\u5B83\u662F\u5426\u5C6C\u65BC\u8A72\u8A9E\u8A00\uFF0C\u5145\u7576\u6709\u6548\uFF0F\u7121\u6548\u5206\u985E\u7684\u9810\u8A00\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u6B67\u7FA9\u6587\u6CD5\u4E2D\u7684\u5256\u6790\u6A39",
+            "text": "<p>\u7D66\u5B9A\u6B67\u7FA9\u6587\u6CD5\uFF1A</p><pre><code>E -> E + E | a</code></pre><p>\u5B57\u4E32 <code>a+a+a</code> \u6709\u5E7E\u68F5\u76F8\u7570\u7684<strong>\u5256\u6790\u6A39</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014(a+a)+a \u8207 a+(a+a) \u662F\u5169\u7A2E\u76F8\u7570\u7684\u5206\u7D44\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u6B64\u6587\u6CD5\u5C0D\u9019\u500B\u5B57\u4E32\u5177\u6B67\u7FA9\uFF1B\u6709\u5169\u68F5\u76F8\u7570\u7684\u5256\u6790\u6A39\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u4E09\u500B\u904B\u7B97\u5143\u3001\u4E00\u500B\u4E8C\u5143\u904B\u7B97\u5B50\u53EA\u6709\u5169\u7A2E\u52A0\u62EC\u865F\u65B9\u5F0F\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u6B64\u6578\u76EE\u70BA Catalan \u6578 C(2) = 2\uFF0C\u800C\u975E 4\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E09\u500B\u904B\u7B97\u5143\u6709 C(2) = 2 \u7A2E\u7D50\u5408\u52A0\u6CD5\u7684\u65B9\u5F0F\uFF1A(a+a)+a \u8207 a+(a+a)\u3002\u5404\u5C0D\u61C9\u4E00\u68F5\u76F8\u7570\u5256\u6790\u6A39\uFF0C\u986F\u793A\u6B64\u6587\u6CD5\u5177\u6B67\u7FA9\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u50C5\u7A81\u8B8A\u9AD4\u53EF\u63A8\u5C0E\u7684\u8CA0\u5411\u6E2C\u8A66\uFF08\u591A\u4E00\u500B b\uFF09",
+            "text": "<p>\u539F\u59CB\u6587\u6CD5\uFF08\u8A9E\u8A00 a^n c b^n\uFF09\uFF1A</p><pre><code>S -> a S b | c</code></pre><p>\u4F60\u628A <code>S -> a S b</code> \u7A81\u8B8A\u6210 <code>S -> a S b b</code>\u3002\u54EA\u500B\u5B57\u4E32\u53EF\u7531<strong>\u7A81\u8B8A\u9AD4</strong>\u63A8\u5C0E\u3001\u537B\u88AB\u539F\u59CB\u62D2\u7D55\uFF08\u597D\u7684\u8CA0\u5411\u6E2C\u8A66\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "acbb",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014S => a S b b => a c b b\uFF1Ba^1 c b^2 \u4E0D\u5C6C\u65BC\u539F\u59CB\u7684 a^n c b^n\u3002"
+              },
+              {
+                "text": "c",
+                "fraction": 0,
+                "feedback": "c \u53EF\u7531\u5169\u500B\u6587\u6CD5\u63A8\u5C0E\uFF08S -> c\uFF09\uFF0C\u6545\u4E0D\u662F\u8CA0\u5411\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "acb",
+                "fraction": 0,
+                "feedback": "acb \u5C6C\u65BC\u539F\u59CB\u8A9E\u8A00\uFF0C\u4F46\u7A81\u8B8A\u9AD4\uFF08\u542B S -> a S b b\uFF09\u7121\u6CD5\u63A8\u5C0E\u5B83\uFF0C\u6545\u4E0D\u662F\u7A81\u8B8A\u9AD4\u5B57\u4E32\u3002"
+              },
+              {
+                "text": "aabb",
+                "fraction": 0,
+                "feedback": "aabb \u6C92\u6709 c\uFF0C\u6545\u5169\u500B\u6587\u6CD5\u90FD\u7121\u6CD5\u63A8\u5C0E\u5B83\u3002"
+              }
+            ],
+            "generalFeedback": "\u7A81\u8B8A\u9AD4\u63A8\u5C0E a^n c b^(2n)\u3002acbb\uFF08n = 1\uFF09\u53EF\u7531\u7A81\u8B8A\u9AD4\u63A8\u5C0E\uFF0C\u4F46 a\uFF0Fb \u6578\u91CF\u4E0D\u7B49\uFF0C\u6545\u539F\u59CB\u6703\u62D2\u7D55\u5B83\u2014\u2014\u6B63\u662F\u6E2C\u8A66\u932F\u8AA4\u8655\u7406\u7684\u8CA0\u5411\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "if-then \u6587\u6CD5\u7684\u6700\u5C0F PDC \u96C6\u5408",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF08\u628A <code>if</code>\u3001<code>then</code>\u3001<code>s</code>\u3001<code>t</code>\u3001<code>f</code> \u8996\u70BA\u7D42\u7AEF\uFF09\uFF1A</p><pre><code>S -> if C then S | s\nC -> t | f</code></pre><p>\u8981\u9054\u6210\u7522\u751F\u5F0F\u8986\u84CB\uFF0C\u6700\u5C11\u9700\u8981\u5E7E\u500B\u6E2C\u8A66\u5B57\u4E32\uFF1F</p>",
+            "answers": [
+              {
+                "text": "2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u300Cif t then s\u300D\u8207\u300Cif f then s\u300D\u5408\u8D77\u4F86\u4F7F\u7528\u5168\u90E8\u56DB\u689D\u7522\u751F\u5F0F\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u5B57\u4E32\u628A C \u56FA\u5B9A\u70BA t \u6216 f\uFF0C\u6545\u7121\u6CD5\u540C\u6642\u6DB5\u84CB C -> t \u8207 C -> f\u3002"
+              },
+              {
+                "text": "3",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u5C31\u8DB3\u5920\uFF1A\u4E0A\u8FF0\u5169\u500B\u5B57\u4E32\u6DB5\u84CB S -> if C then S\u3001S -> s\u3001C -> t\u3001C -> f\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "4 \u662F\u7522\u751F\u5F0F\u6578\uFF1B\u55AE\u4E00\u5B57\u4E32\u53EF\u6DB5\u84CB\u591A\u689D\uFF0C\u6545\u5169\u500B\u5C31\u8DB3\u5920\u3002"
+              }
+            ],
+            "generalFeedback": "\u56DB\u689D\u7522\u751F\u5F0F\u3002\u300Cif t then s\u300D\u6DB5\u84CB S -> if C then S\u3001C -> t\u3001S -> s\uFF1B\u300Cif f then s\u300D\u518D\u52A0\u4E0A C -> f\u3002\u7531\u65BC\u6B64\u8655 C -> t \u8207 C -> f \u4E0D\u80FD\u540C\u6642\u51FA\u73FE\u5728\u4E00\u6B21\u63A8\u5C0E\u4E2D\uFF0C\u6545\u6700\u5C11\u70BA 2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u4F7F\u7121\u6548\u5B57\u4E32\u88AB\u63A5\u53D7\u7684\u7A81\u8B8A",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> A B\nA -> x | y\nB -> z | w</code></pre><p>\u5B57\u4E32 <code>xy</code> \u4E0D\u5C6C\u65BC\u8A72\u8A9E\u8A00\u3002\u54EA\u4E00\u500B\u55AE\u4E00\u7522\u751F\u5F0F\u7A81\u8B8A\u6703\u4F7F <code>xy</code> \u8B8A\u70BA\u53EF\u63A8\u5C0E\uFF08\u8B93\u5B83\u6210\u70BA\u7A81\u8B8A\u9AD4\u63A5\u53D7\u7684\u7121\u6548\u8F38\u5165\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u628A B -> w \u6539\u6210 B -> y",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u90A3\u9EBC S => A B => x B => x y\uFF0C\u4F7F\u7528 A -> x \u8207\u7A81\u8B8A\u5F8C\u7684 B -> y\u3002"
+              },
+              {
+                "text": "\u628A A -> y \u6539\u6210 A -> x",
+                "fraction": 0,
+                "feedback": "\u90A3\u79FB\u9664\u4E00\u500B A \u9078\u9805\uFF1B\u5B83\u7121\u6CD5\u8B93 B \u7522\u751F y\uFF0C\u6545 xy \u4ECD\u4E0D\u53EF\u63A8\u5C0E\u3002"
+              },
+              {
+                "text": "\u628A S -> A B \u6539\u6210 S -> B A",
+                "fraction": 0,
+                "feedback": "\u90A3\u9EBC\u5B57\u4E32\u8B8A\u6210 (z|w)(x|y)\uFF1Bxy\uFF08x \u63A5\u8457 y\uFF09\u4ECD\u4E0D\u53EF\u63A8\u5C0E\u3002"
+              },
+              {
+                "text": "\u628A A -> x \u6539\u6210 A -> x y",
+                "fraction": 0,
+                "feedback": "\u90A3\u9EBC A \u53EF\u70BA\u300Cxy\u300D\uFF0C\u4F46 S -> A B \u4ECD\u6703\u63A5\u4E0A\u4E00\u500B B\uFF0C\u5F97\u5230 xyz \u6216 xyw\uFF0C\u800C\u975E\u300Cxy\u300D\u3002"
+              }
+            ],
+            "generalFeedback": "xy \u9700\u8981 A \u7D66\u51FA x\u3001\u7B2C\u4E8C\u500B\u7B26\u865F\u70BA y\u3002\u628A B -> w \u6539\u70BA B -> y \u5F8C\uFF0CS => A B => x B => x y\u3002\u7A81\u8B8A\u9AD4\u73FE\u5728\u63A5\u53D7\u4E00\u500B\u7121\u6548\u8F38\u5165\uFF0C\u9069\u5408\u7528\u4F86\u5C0D\u8FA8\u8B58\u5668\u505A\u8CA0\u5411\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u5168\u63A8\u5C0E\u5982\u540C\u5B8C\u6574\u8DEF\u5F91",
+            "text": "<p>\u8986\u84CB\u542B\u905E\u8FF4\u7522\u751F\u5F0F\u4E4B\u6587\u6CD5\u7684\u6BCF\u4E00\u500B\u63A8\u5C0E\u4E00\u822C\u4E0D\u53EF\u884C\uFF0C\u5176\u539F\u56E0\u8207\u542B\u8FF4\u5708\u4E4B\u5716\u4E0A\u5B8C\u6574\u8DEF\u5F91\u8986\u84CB\u4E0D\u53EF\u884C\u7684\u539F\u56E0\u76F8\u540C\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6587\u6CD5\u4E2D\u7684\u905E\u8FF4\u626E\u6F14\u5716\u4E2D\u8FF4\u5708\u7684\u89D2\u8272\uFF1A\u7121\u7AAE\u591A\u7A2E\u53EF\u80FD\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u905E\u8FF4\u7522\u751F\u5F0F\u53EF\u88AB\u5957\u7528\u4EFB\u610F\u591A\u6B21\uFF0C\u7522\u751F\u7121\u754C\u591A\u500B\u63A8\u5C0E\uFF0C\u5C31\u50CF\u8FF4\u5708\u7522\u751F\u7121\u754C\u591A\u689D\u8DEF\u5F91\u4E00\u6A23\u3002"
+              }
+            ],
+            "generalFeedback": "\u905E\u8FF4\u662F\u6587\u6CD5\u4E2D\u5C0D\u61C9\u8FF4\u5708\u7684\u6771\u897F\uFF1A\u5169\u8005\u90FD\u88FD\u9020\u51FA\u7121\u754C\u7684\u53EF\u80FD\u6027\u96C6\u5408\uFF0C\u6545\u8981\u8986\u84CB\u5176\u5168\u90E8\uFF08\u5168\u63A8\u5C0E\uFF0F\u6240\u6709\u8DEF\u5F91\uFF09\u7121\u6CD5\u5728\u6709\u9650\u6B65\u5167\u9054\u6210\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A08\u7B97\u4E0D\u8D85\u904E\u67D0\u9577\u5EA6\u7684\u5B57\u4E32\u6578",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> a S b | c</code></pre><p>\u8A9E\u8A00\u4E2D\u9577\u5EA6<strong>\u81F3\u591A\u70BA 5</strong> \u7684\u76F8\u7570\u5B57\u4E32\u6709\u5E7E\u500B\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014c\uFF08\u9577\u5EA6 1\uFF09\u3001acb\uFF08\u9577\u5EA6 3\uFF09\u3001aacbb\uFF08\u9577\u5EA6 5\uFF09\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u6709\u4E09\u500B\uFF1A\u9577\u5EA6 1\u30013\u30015\uFF08n = 0\u30011\u30012\uFF09\u3002"
+              },
+              {
+                "text": "4",
+                "fraction": 0,
+                "feedback": "\u4E0B\u4E00\u500B\u5B57\u4E32 aaacbbb \u9577\u5EA6\u70BA 7\uFF0C\u8D85\u904E 5\u3002"
+              },
+              {
+                "text": "5",
+                "fraction": 0,
+                "feedback": "\u53EA\u6709 n = 0\u30011\u30012 \u7D66\u51FA\u9577\u5EA6 1\u30013\u30015 \u5728\u754C\u5167\uFF1B\u90A3\u662F\u4E09\u500B\u5B57\u4E32\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B57\u4E32 a^n c b^n \u9577\u5EA6\u70BA 2n + 1\u3002\u9577\u5EA6\u81F3\u591A 5 \u8868\u793A 2n + 1 <= 5\uFF0C\u5373 n <= 2\uFF1Ac\u3001acb\u3001aacbb\u2014\u2014\u4E09\u500B\u5B57\u4E32\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u79FB\u9664\u7D42\u7AEF\u7684\u7A81\u8B8A",
+            "text": "<p>\u539F\u59CB\u6587\u6CD5\uFF08\u8A9E\u8A00 a^n c b^n\uFF09\uFF1A</p><pre><code>S -> a S b | c</code></pre><p>\u4F60\u628A <code>S -> a S b</code> \u7A81\u8B8A\u6210 <code>S -> a S</code>\u3002\u54EA\u500B\u5B57\u4E32\u56E0\u6B64\u8B8A\u70BA\u7A81\u8B8A\u9AD4\u53EF\u63A8\u5C0E\u3001\u537B<strong>\u4E0D</strong>\u5C6C\u65BC\u539F\u59CB\u8A9E\u8A00\uFF1F</p>",
+            "answers": [
+              {
+                "text": "aac",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7A81\u8B8A\u9AD4\u63A8\u5C0E a^n c\uFF1BS => a S => a a S => a a c\uFF0C\u539F\u59CB\u5F9E\u4E0D\u7522\u751F\u5B83\u3002"
+              },
+              {
+                "text": "aacbb",
+                "fraction": 0,
+                "feedback": "aacbb \u5C6C\u65BC\u539F\u59CB\u8A9E\u8A00\uFF0C\u800C\u7A81\u8B8A\u9AD4\uFF08\u7121 b\uFF09\u6839\u672C\u7121\u6CD5\u7522\u751F\u5B83\u3002"
+              },
+              {
+                "text": "acb",
+                "fraction": 0,
+                "feedback": "acb \u5C6C\u65BC\u539F\u59CB\u8A9E\u8A00\uFF1B\u7A81\u8B8A\u9AD4\u6C92\u6709 b\uFF0C\u6545\u4E5F\u7121\u6CD5\u63A8\u5C0E\u5B83\u3002"
+              },
+              {
+                "text": "abc",
+                "fraction": 0,
+                "feedback": "\u7A81\u8B8A\u9AD4\u7522\u751F a^n c\uFF08\u7121 b\uFF09\uFF0C\u6545 abc \u7121\u6CD5\u7531\u5B83\u63A8\u5C0E\u3002"
+              }
+            ],
+            "generalFeedback": "\u53BB\u6389\u5C3E\u7AEF\u7684 b \u4F7F\u8A9E\u8A00\u8B8A\u70BA a^n c\u3002aac\uFF08n = 2\uFF09\u73FE\u5728\u53EF\u63A8\u5C0E\uFF0C\u4F46\u4E0D\u5C6C\u65BC\u539F\u59CB\u7684 a^n c b^n\uFF0C\u6545\u662F\u5C0D\u8FA8\u8B58\u5668\u7684\u8CA0\u5411\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u905E\u8FF4\u6587\u6CD5\u4E0A\u7684\u6700\u5DE6\u63A8\u5C0E",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>E -> E + T | T\nT -> a | b</code></pre><p>\u4E0B\u5217\u4F55\u8005\u662F <code>a+b</code> \u7684\u6B63\u78BA<strong>\u6700\u5DE6</strong>\u63A8\u5C0E\uFF1F</p>",
+            "answers": [
+              {
+                "text": "E => E + T => T + T => a + T => a + b",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6BCF\u4E00\u6B65\u90FD\u5C55\u958B\u6700\u5DE6\u908A\u7684\u975E\u7D42\u7AEF\uFF08\u5148 E\uFF0C\u518D\u5167\u5C64 E\uFF0C\u518D\u7531\u5DE6\u81F3\u53F3\u8655\u7406\u5404 T\uFF09\u3002"
+              },
+              {
+                "text": "E => E + T => E + b => T + b => a + b",
+                "fraction": 0,
+                "feedback": "\u90A3\u5728\u5C55\u958B\u5DE6\u5074 E \u4E4B\u524D\u5148\u5C55\u958B\u53F3\u5074\u7684 T\uFF1B\u90A3\u662F\u6700\u53F3\u63A8\u5C0E\u3002"
+              },
+              {
+                "text": "E => E + T => a + T => a + b",
+                "fraction": 0,
+                "feedback": "\u7B2C\u4E00\u6B65\u5F8C\u6700\u5DE6\u7684\u7B26\u865F\u662F\u975E\u7D42\u7AEF E\uFF0C\u800C\u975E T\uFF1B\u672A\u5148\u5957\u7528 E -> T \u5C31\u7121\u6CD5\u628A\u5B83\u6539\u5BEB\u6210\u300Ca\u300D\u3002"
+              },
+              {
+                "text": "E => T => a",
+                "fraction": 0,
+                "feedback": "\u90A3\u53EA\u63A8\u51FA\u300Ca\u300D\uFF1B\u5F9E\u672A\u7522\u751F + \u904B\u7B97\u5B50\u3002"
+              }
+            ],
+            "generalFeedback": "\u6700\u5DE6\u7E3D\u662F\u5C55\u958B\u6700\u5DE6\u908A\u7684\u975E\u7D42\u7AEF\uFF1AE => E + T\uFF08E -> E + T\uFF09\uFF1B\u63A5\u8457\u6700\u5DE6\u7684 E\uFF1A=> T + T\uFF08E -> T\uFF09\uFF1B\u518D\u8655\u7406\u5404 T\uFF1A=> a + T\uFF08T -> a\uFF09=> a + b\uFF08T -> b\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u542B\u4E09\u500B\u9802\u5C64\u9078\u64C7\u7684\u6700\u5C0F PDC",
+            "text": "<p>\u7D66\u5B9A\u6587\u6CD5\uFF1A</p><pre><code>S -> A | B | C\nA -> a\nB -> b\nC -> c</code></pre><p>\u8981\u9054\u6210\u7522\u751F\u5F0F\u8986\u84CB\uFF0C\u6700\u5C11\u9700\u8981\u5E7E\u500B\u6E2C\u8A66\u5B57\u4E32\uFF1F</p>",
+            "answers": [
+              {
+                "text": "3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014a\u3001b\u3001c \u5404\u56FA\u5B9A\u4E00\u500B\u4E0D\u540C\u7684\u9802\u5C64\u9078\u9805\uFF1B\u4E09\u8005\u90FD\u9700\u8981\u3002"
+              },
+              {
+                "text": "1",
+                "fraction": 0,
+                "feedback": "\u55AE\u4E00\u5B57\u4E32\u6070\u7528 S -> A\uFF0FS -> B\uFF0FS -> C \u4E4B\u4E00\uFF0C\u6545\u7121\u6CD5\u6DB5\u84CB\u53E6\u5916\u5169\u500B\u3002"
+              },
+              {
+                "text": "2",
+                "fraction": 0,
+                "feedback": "\u5169\u500B\u5B57\u4E32\u53EA\u80FD\u6DB5\u84CB\u4E09\u500B\u4E92\u65A5 S \u9078\u9805\u4E2D\u7684\u5169\u500B\u3002"
+              },
+              {
+                "text": "6",
+                "fraction": 0,
+                "feedback": "6 \u662F\u7522\u751F\u5F0F\u6578\uFF1B\u6BCF\u500B\u5B57\u4E32\u6DB5\u84CB\u5169\u689D\uFF08\u4E00\u500B S \u9078\u9805\u52A0\u4E00\u500B\u8449\u5B50\uFF09\uFF0C\u6545\u4E09\u500B\u5B57\u4E32\u5C31\u8DB3\u5920\u3002"
+              }
+            ],
+            "generalFeedback": "\u5171 6 \u689D\u7522\u751F\u5F0F\uFF0C\u4F46\u4E09\u500B S \u9078\u9805\u5728\u6BCF\u6B21\u63A8\u5C0E\u4E2D\u4E92\u65A5\u3002\u300Ca\u300D\u3001\u300Cb\u300D\u3001\u300Cc\u300D\u5404\u6DB5\u84CB\u4E00\u500B S \u9078\u9805\u8207\u5176\u8449\u5B50\uFF0C\u6545\u6070\u597D 3 \u500B\u5B57\u4E32\u9054\u6210 PDC\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 PDC \u860A\u6DB5 TSC",
+            "text": "<p>\u70BA\u4EC0\u9EBC\u7522\u751F\u5F0F\u8986\u84CB\u860A\u6DB5\u7D42\u7AEF\u7B26\u865F\u8986\u84CB\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6BCF\u500B\u7D42\u7AEF\u90FD\u51FA\u73FE\u5728\u67D0\u689D\u7522\u751F\u5F0F\u7684\u53F3\u5074\uFF0C\u6545\u4F7F\u7528\u6BCF\u689D\u7522\u751F\u5F0F\u6703\u5F37\u5236\u6BCF\u500B\u7D42\u7AEF\u51FA\u73FE",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u6B63\u662F PDC \u860A\u6DB5 TSC \u7684\u539F\u56E0\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u7D42\u7AEF\u6578\u7E3D\u662F\u5C11\u65BC\u7522\u751F\u5F0F\u6578",
+                "fraction": 0,
+                "feedback": "\u6578\u76EE\u591A\u5BE1\u4E26\u4E0D\u5EFA\u7ACB\u860A\u6DB5\u95DC\u4FC2\uFF1B\u539F\u56E0\u5728\u65BC\u6BCF\u500B\u7D42\u7AEF\u90FD\u51FA\u73FE\u5728\u67D0\u500B\u53F3\u5074\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA TSC \u8207 PDC \u65BD\u52A0\u5B8C\u5168\u76F8\u540C\u7684\u6E2C\u8A66\u9700\u6C42",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u4E0D\u540C\uFF1APDC \u56B4\u683C\u66F4\u5F37\uFF0C\u6545\u4E26\u4E0D\u76F8\u540C\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u6BCF\u689D\u7522\u751F\u5F0F\u90FD\u6070\u597D\u542B\u4E00\u500B\u7D42\u7AEF",
+                "fraction": 0,
+                "feedback": "\u7522\u751F\u5F0F\u53EF\u542B\u96F6\u500B\u6216\u591A\u500B\u7D42\u7AEF\uFF1B\u860A\u6DB5\u95DC\u4FC2\u4E26\u4E0D\u4F9D\u8CF4\u65BC\u6B64\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E00\u500B\u7B26\u865F\u8981\u6210\u70BA\u6587\u6CD5\u7684\u7D42\u7AEF\uFF0C\u5FC5\u9808\u51FA\u73FE\u5728\u67D0\u689D\u7522\u751F\u5F0F\u7684\u53F3\u5074\u3002\u56E0\u6B64\u57F7\u884C\u6240\u6709\u7522\u751F\u5F0F\u6703\u7522\u751F\u6BCF\u500B\u7D42\u7AEF\uFF0C\u6545 PDC \u860A\u6DB5 TSC\uFF1B\u53CD\u5411\u4E0D\u6210\u7ACB\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "graph-coverage": {
       "en": {
         "easy": [

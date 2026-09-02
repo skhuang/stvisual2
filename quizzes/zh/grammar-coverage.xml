@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Grammar Coverage/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是 CFG</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在語法式測試中，<strong>上下文無關文法（CFG）</strong>最好的描述是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>由終端符號、非終端符號、產生式與起始符號組成的有限集合，共同定義一個語言</text><feedback><text>正確——這四個組成部分定義了 CFG 以及它所產生的字串。</text></feedback></answer>
+    <answer fraction="0"><text>程式基本區塊的控制流程圖</text><feedback><text>那是圖覆蓋意義下的 CFG；此處的 CFG 指上下文無關文法。</text></feedback></answer>
+    <answer fraction="0"><text>把測試輸入對應到預期輸出的表格</text><feedback><text>那是測試預言或決策表，不是文法。</text></feedback></answer>
+    <answer fraction="0"><text>套用在原始碼上的突變運算子清單</text><feedback><text>那是程式突變；文法定義的是字串的語言。</text></feedback></answer>
+    <generalfeedback><text>上下文無關文法是終端符號、非終端符號、產生式（規則）與起始符號組成的結構；它產生一組稱為其語言的字串。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>終端符號</text></name>
+    <questiontext format="html"><text><![CDATA[<p>文法中的<strong>終端（terminal）</strong>符號是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>字面出現在所產生字串中、且不再被展開的符號</text><feedback><text>正確——終端是構成最終字串的原子性標記。</text></feedback></answer>
+    <answer fraction="0"><text>必須用產生式加以替換的符號</text><feedback><text>那描述的是非終端，會被展開，而非終端。</text></feedback></answer>
+    <answer fraction="0"><text>推導所開始的那個唯一符號</text><feedback><text>那是起始符號。</text></feedback></answer>
+    <answer fraction="0"><text>把一個字串改寫成另一個字串的規則</text><feedback><text>那是產生式，不是終端。</text></feedback></answer>
+    <generalfeedback><text>終端是語言的字面標記；它們永不出現在產生式的左側，也永不被改寫。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>非終端符號</text></name>
+    <questiontext format="html"><text><![CDATA[<p>文法中的<strong>非終端（nonterminal）</strong>符號是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>代表一組字串、並由產生式反覆改寫直到只剩終端的符號</text><feedback><text>正確——非終端是透過產生式加以展開的佔位符。</text></feedback></answer>
+    <answer fraction="0"><text>原封不動出現在每個所產生字串中的字面標記</text><feedback><text>那是終端。</text></feedback></answer>
+    <answer fraction="0"><text>由覆蓋準則產生的測試需求</text><feedback><text>那是測試需求，不是文法符號。</text></feedback></answer>
+    <answer fraction="0"><text>辨識器必須拒絕的輸入</text><feedback><text>那是負向測試案例，不是非終端。</text></feedback></answer>
+    <generalfeedback><text>非終端（又稱變數）由產生式加以改寫；當所有非終端都展開後，有效字串只會包含終端。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>產生式規則</text></name>
+    <questiontext format="html"><text><![CDATA[<p>文法的一條<strong>產生式（規則）</strong>，例如 <code>A -> b C</code>，所規定的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>左側的非終端可以被右側的符號序列所替換的方式</text><feedback><text>正確——產生式是一條從非終端改寫為符號序列的規則。</text></feedback></answer>
+    <answer fraction="0"><text>文法語言中的一個完整字串</text><feedback><text>產生式是規則；字串是套用規則後的結果。</text></feedback></answer>
+    <answer fraction="0"><text>每次推導的起點</text><feedback><text>那是起始符號。</text></feedback></answer>
+    <answer fraction="0"><text>一個無法被展開的終端</text><feedback><text>產生式左側是非終端而且可被套用；終端不能。</text></feedback></answer>
+    <generalfeedback><text>產生式把左側的非終端改寫成右側的序列；推導把這些規則串接起來。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>起始符號</text></name>
+    <questiontext format="html"><text><![CDATA[<p>文法的<strong>起始符號</strong>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每次推導都由它開始的那個特定非終端</text><feedback><text>正確——語言的所有推導都從這個符號開始。</text></feedback></answer>
+    <answer fraction="0"><text>每個所產生字串中的第一個終端</text><feedback><text>起始符號是非終端，不是輸出中的終端。</text></feedback></answer>
+    <answer fraction="0"><text>推導中套用的最後一條產生式</text><feedback><text>起始符號是推導的起點，不是一條產生式。</text></feedback></answer>
+    <answer fraction="0"><text>為某次測試隨機挑選的任意非終端</text><feedback><text>起始符號是文法固定的單一特定非終端。</text></feedback></answer>
+    <generalfeedback><text>語言的每次推導都從起始符號（常寫作 S）開始；語言正是可由它推導出的所有終端字串所組成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是推導</text></name>
+    <questiontext format="html"><text><![CDATA[<p>文法中的<strong>推導（derivation）</strong>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把起始符號改寫成一個終端字串的一連串產生式套用</text><feedback><text>正確——推導是產生一個字串的逐步改寫過程。</text></feedback></answer>
+    <answer fraction="0"><text>文法所能產生的所有字串的集合</text><feedback><text>那是語言；一次推導只產生其中一個字串。</text></feedback></answer>
+    <answer fraction="0"><text>文法的單一一條產生式</text><feedback><text>推導按順序套用許多產生式，不只一條。</text></feedback></answer>
+    <answer fraction="0"><text>證明某文法具有歧義的證據</text><feedback><text>歧義是關於一個字串有多個推導；推導本身只是一個改寫序列。</text></feedback></answer>
+    <generalfeedback><text>推導從起始符號開始，逐步套用產生式直到只剩終端；所得的終端字串即為語言的成員。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>終端符號覆蓋定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>文法的<strong>終端符號覆蓋（TSC）</strong>要求：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>文法的每個終端符號都至少出現在一個測試字串中</text><feedback><text>正確——TSC 為每個終端設一條測試需求。</text></feedback></answer>
+    <answer fraction="0"><text>文法的每條產生式都至少被使用一次</text><feedback><text>那是產生式覆蓋，不是終端符號覆蓋。</text></feedback></answer>
+    <answer fraction="0"><text>每一個可能的推導都被執行</text><feedback><text>那是推導（全推導）覆蓋，一般不可行。</text></feedback></answer>
+    <answer fraction="0"><text>每個非終端都被當作起始符號使用</text><feedback><text>起始符號只有一個；TSC 談的是終端出現在測試中。</text></feedback></answer>
+    <generalfeedback><text>TSC 是最弱的文法準則：每個終端都必須出現在某個所產生／所用的測試字串中。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>產生式覆蓋定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>文法的<strong>產生式覆蓋（PDC）</strong>要求：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每條產生式（規則的每個選項）都在至少一個測試字串的推導中被使用</text><feedback><text>正確——PDC 為每條產生式設一條測試需求。</text></feedback></answer>
+    <answer fraction="0"><text>每個終端符號都至少出現在一個測試字串中</text><feedback><text>那是終端符號覆蓋，PDC 蘊涵它。</text></feedback></answer>
+    <answer fraction="0"><text>產生出所有長度不超過 n 的字串</text><feedback><text>PDC 計算所用的產生式，而非有界長度的字串。</text></feedback></answer>
+    <answer fraction="0"><text>每個非終端都被改寫恰好一次</text><feedback><text>PDC 要求每條產生式都被使用，有些可能被使用多次。</text></feedback></answer>
+    <generalfeedback><text>PDC 要求每條產生式都至少被一次推導執行到。由於 A -> x | y 算作兩條產生式，兩個選項都必須被使用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算終端數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下文法：</p><pre><code>S -> a A | b
+A -> c | d</code></pre><p>它有幾個相異的<strong>終端</strong>符號？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——終端為 a、b、c、d。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>那算的是非終端 S 與 A，不是終端。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>重數一次——a、b、c、d 是四個相異終端。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>那把終端與非終端一起算了；終端只有 4 個。</text></feedback></answer>
+    <generalfeedback><text>終端是出現在右側、永不被展開的字面標記：a、b、c、d，共四個。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算非終端數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下文法：</p><pre><code>S -> a A | b
+A -> c | d</code></pre><p>它有幾個<strong>非終端</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——非終端為 S 與 A。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>有兩個：S 與 A。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>那算的是終端 a、b、c、d，不是非終端。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>只有 S 與 A 出現在左側，也就是兩個。</text></feedback></answer>
+    <generalfeedback><text>非終端是出現在左側、會被改寫的符號：S 與 A，共兩個。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算產生式數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>考慮以下文法：</p><pre><code>S -> a A | b
+A -> c | d</code></pre><p>把每個選項算作一條獨立規則，共有幾條<strong>產生式</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——S -> a A、S -> b、A -> c、A -> d 共四條產生式。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>那算的是兩行；每個 | 引入一條獨立產生式，因此共四條。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>重數一次——每個選項分開算：2 + 2 = 4。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>兩條規則合起來只有四個選項。</text></feedback></answer>
+    <generalfeedback><text>對產生式覆蓋而言，每個選項分開算：S -> a A、S -> b、A -> c、A -> d，共四條產生式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最左推導定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在<strong>最左（leftmost）</strong>推導中，每一步改寫的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>目前字串中最左邊的非終端</text><feedback><text>正確——最左推導總是展開最左邊尚存的非終端。</text></feedback></answer>
+    <answer fraction="0"><text>目前字串中最右邊的非終端</text><feedback><text>那定義的是最右推導。</text></feedback></answer>
+    <answer fraction="0"><text>目前字串中最左邊的終端</text><feedback><text>終端永不被改寫；只有非終端會被展開。</text></feedback></answer>
+    <answer fraction="0"><text>隨機挑選的任意非終端</text><feedback><text>那是任意推導；最左推導把選擇固定為最左邊的非終端。</text></feedback></answer>
+    <generalfeedback><text>最左推導每一步都展開最左邊的非終端；最右推導則總是展開最右邊的那個。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>BNF 選項豎線</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在 BNF 式記法中，例如 <code>B -> c | d</code>，豎線 <code>|</code> 表示：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>右側的替代選項——B 可被改寫成 c，或改寫成 d</text><feedback><text>正確——豎線分隔同一非終端的多條替代產生式。</text></feedback></answer>
+    <answer fraction="0"><text>串接——B 必須被改寫成 c 後面接著 d</text><feedback><text>串接以並列書寫（c d）；豎線表示選擇。</text></feedback></answer>
+    <answer fraction="0"><text>重複——B 可以是 c 重複 d 次</text><feedback><text>豎線表示的是選項，不是重複。</text></feedback></answer>
+    <answer fraction="0"><text>把說明文字與規則分開的註解</text><feedback><text>豎線是文法語法的一部分，表示選項。</text></feedback></answer>
+    <generalfeedback><text>豎線是多條產生式的簡寫：B -> c | d 縮寫了 B -> c 與 B -> d 兩條產生式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>文法的語言</text></name>
+    <questiontext format="html"><text><![CDATA[<p>文法所產生的<strong>語言</strong>是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>所有可由起始符號推導出的終端字串所組成的集合</text><feedback><text>正確——語言正是文法能推導出的那些字串。</text></feedback></answer>
+    <answer fraction="0"><text>文法中所有產生式所組成的集合</text><feedback><text>那些是規則；語言是它們所產生的字串。</text></feedback></answer>
+    <answer fraction="0"><text>文法中所有非終端所組成的集合</text><feedback><text>非終端是符號，不是語言的字串。</text></feedback></answer>
+    <answer fraction="0"><text>文法所能產生的最長的單一字串</text><feedback><text>語言是所有可推導字串的整個集合，不是單一字串。</text></feedback></answer>
+    <generalfeedback><text>語言 L(G) 是所有可由起始符號推導出的終端字串所組成的集合；一個字串「屬於該語言」正是當存在某個推導能產生它時。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>作為產生器的文法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>當文法在測試中作為<strong>產生器（generator）</strong>使用時，用途是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>產生（推導）字串以作為測試輸入</text><feedback><text>正確——產生器套用產生式以輸出用於測試的字串。</text></feedback></answer>
+    <answer fraction="0"><text>判定某個給定字串是否屬於該語言</text><feedback><text>那是辨識器的角色，不是產生器的角色。</text></feedback></answer>
+    <answer fraction="0"><text>把文法編譯成機器碼</text><feedback><text>產生的是字串，不是目的碼。</text></feedback></answer>
+    <answer fraction="0"><text>計算程式包含幾條產生式</text><feedback><text>產生是推導字串；它不分析程式。</text></feedback></answer>
+    <generalfeedback><text>產生器沿著產生式推導出有效字串（測試輸入）；辨識器則是接受或拒絕一個給定字串。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Grammar Coverage/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>可推導的平衡字串</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> a S b | c</code></pre><p>字串 <code>aacbb</code> 是否屬於該語言？若是，用哪些產生式推導它？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>是：S -> a S b 兩次，再 S -> c（S =&gt; aSb =&gt; aaSbb =&gt; aacbb）</text><feedback><text>正確——在中央的 c 外圍包了兩層 a...b，得到 aacbb。</text></feedback></answer>
+    <answer fraction="0"><text>是，只用 S -> c</text><feedback><text>單用 S -> c 只能推出「c」；還需要 S -> a S b 兩次。</text></feedback></answer>
+    <answer fraction="0"><text>否——此文法無法產生兩個 a</text><feedback><text>套用 S -> a S b 兩次會產生兩個 a 與兩個 b。</text></feedback></answer>
+    <answer fraction="0"><text>否——c 不可以出現在中間</text><feedback><text>包完之後由 S -> c 提供中央的 c；aacbb 屬於該語言。</text></feedback></answer>
+    <generalfeedback><text>此語言為 a^n c b^n。對 aacbb，n = 2：S =&gt; aSb =&gt; aaSbb =&gt; aacbb，使用 S -> a S b 兩次與 S -> c 一次。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>不平衡字串不可推導</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> a S b | c</code></pre><p>字串 <code>acbb</code> 是否屬於該語言？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>否——每次推導都產生同樣數量的 a 與 b，但 acbb 有一個 a、兩個 b</text><feedback><text>正確——a^n c b^n 強制 #a = #b，故 acbb 不可推導。</text></feedback></answer>
+    <answer fraction="0"><text>是，用 S -> a S b 一次再 S -> c</text><feedback><text>那推出的是「acb」（一個 a、一個 b），不是「acbb」。</text></feedback></answer>
+    <answer fraction="0"><text>是，用 S -> a S b 兩次</text><feedback><text>包兩層會得到有兩個 a 的「aa...bb」；acbb 只有一個 a。</text></feedback></answer>
+    <answer fraction="0"><text>否——此文法根本無法產生終端 b</text><feedback><text>S -> a S b 確實會產生 b；真正的原因是 a 與 b 的數量必須相等。</text></feedback></answer>
+    <generalfeedback><text>每次套用 S -> a S b 恰好增加一個 a 與一個 b，故任何推導出的字串都滿足 #a = #b。acbb 有 1 個 a、2 個 b，因此在語言之外。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>達成 PDC 的最少測試（獨立選擇）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> A B
+A -> x | y
+B -> z | w</code></pre><p>要達成產生式覆蓋，最少需要幾個測試字串？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——例如 xz 與 yw 合起來使用 S -> A B、A -> x、A -> y、B -> z、B -> w。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>單一字串固定一個 A 選項與一個 B 選項，故最多只能用到 5 條產生式中的 3 條。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是語言中的字串數，不是 PDC 的最少值；兩個就足夠。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是產生式數；單一字串一次可涵蓋多條，故兩個字串就足夠。</text></feedback></answer>
+    <generalfeedback><text>共 5 條產生式。每個字串選一個 A 選項與一個 B 選項，故每個字串最多涵蓋 3 條。xz 與 yw 涵蓋全部 5 條，因此最少為 2。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>滿足 TSC 但不滿足 PDC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> a S | a</code></pre><p>考慮測試集合 { <code>a</code> }。下列何者為真？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它滿足終端符號覆蓋，但不滿足產生式覆蓋</text><feedback><text>正確——唯一的終端 a 有出現，但產生式 S -> a S 從未被使用。</text></feedback></answer>
+    <answer fraction="0"><text>它同時滿足 TSC 與 PDC</text><feedback><text>「a」的推導只用了 S -> a；S -> a S 未被涵蓋，故 PDC 不成立。</text></feedback></answer>
+    <answer fraction="0"><text>它滿足 PDC 但不滿足 TSC</text><feedback><text>PDC 還會要求 S -> a S，而「a」並未使用它。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都不滿足</text><feedback><text>終端 a 確實有出現，故 TSC 成立。</text></feedback></answer>
+    <generalfeedback><text>「a」僅由 S -> a 推出，涵蓋了唯一的終端（TSC 成立），卻讓遞迴產生式 S -> a S 未被使用，故 PDC 不成立。這說明 TSC 並不蘊涵 PDC。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>PDC 蘊涵 TSC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>產生式覆蓋蘊涵（subsumes）終端符號覆蓋：任何滿足 PDC 的測試集合也滿足 TSC。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——使用每條產生式會強制每個終端（各自都出現在某個右側）出現。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>每個終端都出現在至少一條產生式的右側，故涵蓋所有產生式即涵蓋所有終端。</text></feedback></answer>
+    <generalfeedback><text>每個終端都出現在某條產生式的右側。因此執行每條產生式就會用到每個終端，故 PDC 蘊涵 TSC（反之不然）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨認最左推導</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> A B
+A -> x | y
+B -> z | w</code></pre><p>下列何者是 <code>xz</code> 的正確<strong>最左</strong>推導？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>S =&gt; A B =&gt; x B =&gt; x z</text><feedback><text>正確——每一步都先展開最左邊的非終端（A）再處理 B。</text></feedback></answer>
+    <answer fraction="0"><text>S =&gt; A B =&gt; A z =&gt; x z</text><feedback><text>那先展開 B（最右邊的非終端）；那是最右推導。</text></feedback></answer>
+    <answer fraction="0"><text>S =&gt; A B =&gt; x z</text><feedback><text>這略過了一步；每條產生式恰好替換一個非終端。</text></feedback></answer>
+    <answer fraction="0"><text>S =&gt; x z</text><feedback><text>沒有單一產生式能把 S 直接改寫成 x z；必須先套用 S -> A B。</text></feedback></answer>
+    <generalfeedback><text>最左表示總是展開最左邊的非終端：S =&gt; A B（S -> A B），接著先處理 A：=&gt; x B（A -> x），再處理 B：=&gt; x z（B -> z）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可推導字串 yz</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> A B
+A -> x | y
+B -> z | w</code></pre><p><code>yz</code> 是否屬於該語言？用哪些產生式推導它？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>是：S -> A B，再 A -> y，再 B -> z</text><feedback><text>正確——S =&gt; A B =&gt; y B =&gt; y z。</text></feedback></answer>
+    <answer fraction="0"><text>是：S -> A B，再 A -> x，再 B -> z</text><feedback><text>A -> x 得到「xz」，不是「yz」；你需要 A -> y。</text></feedback></answer>
+    <answer fraction="0"><text>否——y 與 z 不能出現在同一個字串中</text><feedback><text>A 可為 y、B 可為 z，兩者互不相干，故 yz 可推導。</text></feedback></answer>
+    <answer fraction="0"><text>否——此文法沒有產生 y 的產生式</text><feedback><text>A -> y 是一條產生式，故 y 是可用的。</text></feedback></answer>
+    <generalfeedback><text>此語言為 { xz, xw, yz, yw }。對 yz：S =&gt; A B =&gt; y B =&gt; y z，使用 S -> A B、A -> y、B -> z。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>TSC 需求數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> A B
+A -> x | y
+B -> z | w</code></pre><p>終端符號覆蓋會產生幾條測試需求？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>4</text><feedback><text>正確——每個終端一條需求：x、y、z、w。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是產生式數（用於 PDC）；TSC 計算的是 4 個終端。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>3 是非終端數（S、A、B）；TSC 計算終端，共 4 個。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>重數一次——終端為 x、y、z、w，故四條需求。</text></feedback></answer>
+    <generalfeedback><text>TSC 每個終端符號一條需求。終端為 x、y、z、w，共四條需求。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>PDC 需求數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> A B
+A -> x | y
+B -> z | w</code></pre><p>產生式覆蓋會產生幾條測試需求？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>5</text><feedback><text>正確——S -> A B、A -> x、A -> y、B -> z、B -> w 共五條產生式。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>那算的是三行規則；每個選項分開算，共五條。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是終端數（用於 TSC）；產生式共五條。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>重數一次——1（S）+ 2（A）+ 2（B）= 5 條產生式。</text></feedback></answer>
+    <generalfeedback><text>每個選項分開算：S -> A B（1）、A -> x、A -> y（2）、B -> z、B -> w（2）= 5 條產生式，故 5 條 PDC 需求。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>acb 的產生式序列</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> a S b | c</code></pre><p>哪一組產生式序列能推導 <code>acb</code>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>S -> a S b，再 S -> c</text><feedback><text>正確——S =&gt; aSb =&gt; a c b。</text></feedback></answer>
+    <answer fraction="0"><text>只用 S -> c</text><feedback><text>單用 S -> c 只能推出「c」，而非「acb」。</text></feedback></answer>
+    <answer fraction="0"><text>S -> a S b，再 S -> a S b</text><feedback><text>包兩層得到「aa...bb」；要完成「acb」還需 S -> c。</text></feedback></answer>
+    <answer fraction="0"><text>S -> a S b，再 S -> a S b，再 S -> c</text><feedback><text>那推出的是「aacbb」，不是「acb」。</text></feedback></answer>
+    <generalfeedback><text>acb 需要包一層再放中央的 c：S =&gt; aSb（S -> a S b）=&gt; a c b（S -> c）。這單一字串就已經執行到此文法的兩條產生式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一個遞迴字串涵蓋 PDC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>E -> E + T | T
+T -> a | b</code></pre><p>要達成產生式覆蓋，最少需要幾個測試字串？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1</text><feedback><text>正確——a+b 使用全部四條產生式：E -> E + T、E -> T、T -> a、T -> b。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>不需要兩個：單一遞迴字串 a+b 就已執行到每條產生式。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>一個字串就足夠；a+b 涵蓋全部四條產生式。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是產生式數；一個精心挑選的字串就能全部命中。</text></feedback></answer>
+    <generalfeedback><text>以最左方式推導 a+b：E =&gt; E + T（E -> E + T）=&gt; T + T（E -> T）=&gt; a + T（T -> a）=&gt; a + b（T -> b）。四條產生式全部用到，故一個字串即達成 PDC。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>未涵蓋的產生式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> A B
+A -> x | y
+B -> z | w</code></pre><p>測試集合 { <code>xz</code>, <code>xw</code> } 未涵蓋到哪一條產生式？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A -> y</text><feedback><text>正確——兩個字串都以 x 開頭，故 A -> y 從未被使用。</text></feedback></answer>
+    <answer fraction="0"><text>B -> z</text><feedback><text>xz 使用了 B -> z，故已涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>B -> w</text><feedback><text>xw 使用了 B -> w，故已涵蓋。</text></feedback></answer>
+    <answer fraction="0"><text>S -> A B</text><feedback><text>兩個字串都使用 S -> A B，故已涵蓋。</text></feedback></answer>
+    <generalfeedback><text>{ xz, xw } 使用了 S -> A B、A -> x、B -> z、B -> w，但從未用到 A -> y。故 PDC 不成立（附帶地，終端 y 也從未被產生）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>滿足 TSC 卻不滿足 PDC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個測試集合可以在滿足終端符號覆蓋的同時，不滿足產生式覆蓋。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——TSC 不蘊涵 PDC；例如對 S -> a S | a，集合 { a } 滿足 TSC 卻不滿足 PDC。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>蘊涵只有單向：PDC 蘊涵 TSC，但 TSC 不蘊涵 PDC。</text></feedback></answer>
+    <generalfeedback><text>是 PDC 蘊涵 TSC，而非反向。某個終端可能透過一條滿足 TSC 的集合從未執行到的產生式才可達，因而 PDC 不成立。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識器的角色</text></name>
+    <questiontext format="html"><text><![CDATA[<p>由文法建構的<strong>辨識器（recognizer）</strong>用途是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>判定某個給定輸入字串是否屬於該語言（接受或拒絕它）</text><feedback><text>正確——辨識器剖析輸入並回報是否為成員。</text></feedback></answer>
+    <answer fraction="0"><text>推導出新字串以作為測試輸入</text><feedback><text>那是產生器的角色，不是辨識器的角色。</text></feedback></answer>
+    <answer fraction="0"><text>計算文法中的產生式數目</text><feedback><text>辨識器對字串分類；它不計算規則數。</text></feedback></answer>
+    <answer fraction="0"><text>突變文法以製造無效字串</text><feedback><text>那是文法突變；辨識器只接受或拒絕。</text></feedback></answer>
+    <generalfeedback><text>辨識器回答「這個字串屬於 L(G) 嗎？」，以接受或拒絕作答；產生器則是輸出字串。同一份文法可支撐這兩種角色。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>可推導的巢狀加法</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>E -> E + T | T
+T -> a | b</code></pre><p>字串 <code>a+b+a</code> 是否屬於該語言？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>是——套用 E -> E + T 兩次，再 E -> T，再 T -> a、T -> b、T -> a</text><feedback><text>正確——E =&gt; E+T =&gt; E+T+T =&gt; T+T+T =&gt; a+b+a 可推導。</text></feedback></answer>
+    <answer fraction="0"><text>否——此文法每個字串最多只允許一個 +</text><feedback><text>E -> E + T 是遞迴的，故允許任意數量的 +。</text></feedback></answer>
+    <answer fraction="0"><text>否——此文法無法產生兩次終端 a</text><feedback><text>T -> a 可在多個位置套用，故 a 可重複出現。</text></feedback></answer>
+    <answer fraction="0"><text>是，但只用 T -> a（從不用 T -> b）</text><feedback><text>中間的運算元是 b，故需要 T -> b；a 與 b 都會出現。</text></feedback></answer>
+    <generalfeedback><text>E -> E + T 為左遞迴，故 E =&gt; E+T =&gt; (E+T)+T =&gt; (T+T)+T =&gt; a+b+a。遞迴允許任意多個 + 運算子。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Grammar Coverage/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>為何全推導不可行</text></name>
+    <questiontext format="html"><text><![CDATA[<p>覆蓋文法的<strong>每一個可能推導</strong>（全推導覆蓋）一般不可行，原因是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>遞迴產生式容許無窮多個推導，故需求集合是無界的</text><feedback><text>正確——這與迴圈使完整路徑覆蓋不可行的原因相同。</text></feedback></answer>
+    <answer fraction="0"><text>文法沒有起始符號可供開始推導</text><feedback><text>每個 CFG 都有起始符號；問題不在此。</text></feedback></answer>
+    <answer fraction="0"><text>終端與非終端無法區分</text><feedback><text>兩者可清楚區分；造成爆炸的是遞迴，而非混淆。</text></feedback></answer>
+    <answer fraction="0"><text>產生式覆蓋本來就禁止多於一個推導</text><feedback><text>PDC 並無此限制；問題在於推導數目無界。</text></feedback></answer>
+    <generalfeedback><text>遞迴產生式（例如 E -> E + T）可被套用任意多次，產生無窮多個推導——這與迴圈使完整路徑覆蓋不可行相類比。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>僅突變體可推導的負向測試（c 改 d）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>原始文法：</p><pre><code>S -> a S b | c</code></pre><p>你把產生式 <code>S -> c</code> 突變成 <code>S -> d</code>，得到突變體 <code>S -> a S b | d</code>。突變體能推導、但<strong>不</strong>屬於原始語言的字串（有效的負向測試）是哪一個？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>aadbb</text><feedback><text>正確——突變體推導 a^n d b^n；aadbb 在原始的 a^n c b^n 之外。</text></feedback></answer>
+    <answer fraction="0"><text>aacbb</text><feedback><text>aacbb 屬於原始語言，故它是有效輸入，而非負向測試。</text></feedback></answer>
+    <answer fraction="0"><text>acb</text><feedback><text>acb 屬於原始語言；突變體不再推導它，且它不是負向測試。</text></feedback></answer>
+    <answer fraction="0"><text>aadb</text><feedback><text>aadb 有兩個 a 但只有一個 b，故兩個文法都無法推導它；它不是突變體字串。</text></feedback></answer>
+    <generalfeedback><text>突變體語言為 a^n d b^n。aadbb（n = 2）可由突變體推導，卻無法由原始推導，因此正是用來測試錯誤處理的那類無效輸入。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>含頂層選擇的最小 PDC 集合</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> A | B
+A -> a A | a
+B -> b</code></pre><p>要達成產生式覆蓋，最少需要幾個測試字串？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——例如 aa（涵蓋 S -> A、A -> a A、A -> a）與 b（涵蓋 S -> B、B -> b）。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>單一字串只會選 S -> A 或 S -> B，故無法同時涵蓋兩個頂層選項。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>兩個字串就足夠：「aa」與「b」合起來使用全部五條產生式。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>5 是產生式數；每個字串可涵蓋多條，故兩個就足夠。</text></feedback></answer>
+    <generalfeedback><text>共 5 條產生式。「aa」給出 S -> A、A -> a A、A -> a；「b」給出 S -> B、B -> b。由於 S -> A 與 S -> B 在單一推導中互斥，沒有任何單一字串能同時做到，故最少為 2。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個字串在語言之外</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> a S b | c</code></pre><p>哪一個字串<strong>不</strong>屬於該語言（因此剖析器應拒絕它）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>aabb</text><feedback><text>正確——語言中的每個字串都恰含一個中央 c；aabb 沒有 c。</text></feedback></answer>
+    <answer fraction="0"><text>aacbb</text><feedback><text>aacbb = a^2 c b^2 屬於該語言。</text></feedback></answer>
+    <answer fraction="0"><text>acb</text><feedback><text>acb = a^1 c b^1 屬於該語言。</text></feedback></answer>
+    <answer fraction="0"><text>c</text><feedback><text>c 由 S -> c 直接推出，故屬於該語言。</text></feedback></answer>
+    <generalfeedback><text>每次推導最後都會套用 S -> c，故每個字串在中間恰有一個 c。aabb 沒有 c，因此在語言之外。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>測試產生中的產生器與辨識器</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在文法式測試中，你想產生有效輸入，並判定受測系統是否正確地將它們分類。哪一種角色配對是正確的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把文法當作產生器來推導輸入；把辨識器當作預言來檢查接受／拒絕</text><feedback><text>正確——產生器產生字串，辨識器判定成員資格。</text></feedback></answer>
+    <answer fraction="0"><text>把文法當作辨識器來推導輸入；用產生器來拒絕它們</text><feedback><text>角色顛倒了：辨識器判定成員資格，產生器產生字串。</text></feedback></answer>
+    <answer fraction="0"><text>用突變運算子來同時推導與分類輸入</text><feedback><text>突變製造的是無效變體；那不是產生或分類有效輸入的方式。</text></feedback></answer>
+    <answer fraction="0"><text>用產生式覆蓋來推導輸入、用終端符號覆蓋來拒絕它們</text><feedback><text>那些是覆蓋準則，不是產生器／辨識器機制。</text></feedback></answer>
+    <generalfeedback><text>產生器沿產生式推導以輸出字串（測試輸入）；辨識器剖析字串並回答它是否屬於該語言，充當有效／無效分類的預言。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>歧義文法中的剖析樹</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定歧義文法：</p><pre><code>E -> E + E | a</code></pre><p>字串 <code>a+a+a</code> 有幾棵相異的<strong>剖析樹</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——(a+a)+a 與 a+(a+a) 是兩種相異的分組。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>此文法對這個字串具歧義；有兩棵相異的剖析樹。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>三個運算元、一個二元運算子只有兩種加括號方式。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>此數目為 Catalan 數 C(2) = 2，而非 4。</text></feedback></answer>
+    <generalfeedback><text>三個運算元有 C(2) = 2 種結合加法的方式：(a+a)+a 與 a+(a+a)。各對應一棵相異剖析樹，顯示此文法具歧義。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>僅突變體可推導的負向測試（多一個 b）</text></name>
+    <questiontext format="html"><text><![CDATA[<p>原始文法（語言 a^n c b^n）：</p><pre><code>S -> a S b | c</code></pre><p>你把 <code>S -> a S b</code> 突變成 <code>S -> a S b b</code>。哪個字串可由<strong>突變體</strong>推導、卻被原始拒絕（好的負向測試）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>acbb</text><feedback><text>正確——S =&gt; a S b b =&gt; a c b b；a^1 c b^2 不屬於原始的 a^n c b^n。</text></feedback></answer>
+    <answer fraction="0"><text>c</text><feedback><text>c 可由兩個文法推導（S -> c），故不是負向測試。</text></feedback></answer>
+    <answer fraction="0"><text>acb</text><feedback><text>acb 屬於原始語言，但突變體（含 S -> a S b b）無法推導它，故不是突變體字串。</text></feedback></answer>
+    <answer fraction="0"><text>aabb</text><feedback><text>aabb 沒有 c，故兩個文法都無法推導它。</text></feedback></answer>
+    <generalfeedback><text>突變體推導 a^n c b^(2n)。acbb（n = 1）可由突變體推導，但 a／b 數量不等，故原始會拒絕它——正是測試錯誤處理的負向測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>if-then 文法的最小 PDC 集合</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法（把 <code>if</code>、<code>then</code>、<code>s</code>、<code>t</code>、<code>f</code> 視為終端）：</p><pre><code>S -> if C then S | s
+C -> t | f</code></pre><p>要達成產生式覆蓋，最少需要幾個測試字串？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>2</text><feedback><text>正確——「if t then s」與「if f then s」合起來使用全部四條產生式。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>單一字串把 C 固定為 t 或 f，故無法同時涵蓋 C -> t 與 C -> f。</text></feedback></answer>
+    <answer fraction="0"><text>3</text><feedback><text>兩個就足夠：上述兩個字串涵蓋 S -> if C then S、S -> s、C -> t、C -> f。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>4 是產生式數；單一字串可涵蓋多條，故兩個就足夠。</text></feedback></answer>
+    <generalfeedback><text>四條產生式。「if t then s」涵蓋 S -> if C then S、C -> t、S -> s；「if f then s」再加上 C -> f。由於此處 C -> t 與 C -> f 不能同時出現在一次推導中，故最少為 2。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>使無效字串被接受的突變</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> A B
+A -> x | y
+B -> z | w</code></pre><p>字串 <code>xy</code> 不屬於該語言。哪一個單一產生式突變會使 <code>xy</code> 變為可推導（讓它成為突變體接受的無效輸入）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把 B -> w 改成 B -> y</text><feedback><text>正確——那麼 S =&gt; A B =&gt; x B =&gt; x y，使用 A -> x 與突變後的 B -> y。</text></feedback></answer>
+    <answer fraction="0"><text>把 A -> y 改成 A -> x</text><feedback><text>那移除一個 A 選項；它無法讓 B 產生 y，故 xy 仍不可推導。</text></feedback></answer>
+    <answer fraction="0"><text>把 S -> A B 改成 S -> B A</text><feedback><text>那麼字串變成 (z|w)(x|y)；xy（x 接著 y）仍不可推導。</text></feedback></answer>
+    <answer fraction="0"><text>把 A -> x 改成 A -> x y</text><feedback><text>那麼 A 可為「xy」，但 S -> A B 仍會接上一個 B，得到 xyz 或 xyw，而非「xy」。</text></feedback></answer>
+    <generalfeedback><text>xy 需要 A 給出 x、第二個符號為 y。把 B -> w 改為 B -> y 後，S =&gt; A B =&gt; x B =&gt; x y。突變體現在接受一個無效輸入，適合用來對辨識器做負向測試。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>全推導如同完整路徑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>覆蓋含遞迴產生式之文法的每一個推導一般不可行，其原因與含迴圈之圖上完整路徑覆蓋不可行的原因相同。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——文法中的遞迴扮演圖中迴圈的角色：無窮多種可能。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>遞迴產生式可被套用任意多次，產生無界多個推導，就像迴圈產生無界多條路徑一樣。</text></feedback></answer>
+    <generalfeedback><text>遞迴是文法中對應迴圈的東西：兩者都製造出無界的可能性集合，故要覆蓋其全部（全推導／所有路徑）無法在有限步內達成。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算不超過某長度的字串數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> a S b | c</code></pre><p>語言中長度<strong>至多為 5</strong> 的相異字串有幾個？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——c（長度 1）、acb（長度 3）、aacbb（長度 5）。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>有三個：長度 1、3、5（n = 0、1、2）。</text></feedback></answer>
+    <answer fraction="0"><text>4</text><feedback><text>下一個字串 aaacbbb 長度為 7，超過 5。</text></feedback></answer>
+    <answer fraction="0"><text>5</text><feedback><text>只有 n = 0、1、2 給出長度 1、3、5 在界內；那是三個字串。</text></feedback></answer>
+    <generalfeedback><text>字串 a^n c b^n 長度為 2n + 1。長度至多 5 表示 2n + 1 &lt;= 5，即 n &lt;= 2：c、acb、aacbb——三個字串。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>移除終端的突變</text></name>
+    <questiontext format="html"><text><![CDATA[<p>原始文法（語言 a^n c b^n）：</p><pre><code>S -> a S b | c</code></pre><p>你把 <code>S -> a S b</code> 突變成 <code>S -> a S</code>。哪個字串因此變為突變體可推導、卻<strong>不</strong>屬於原始語言？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>aac</text><feedback><text>正確——突變體推導 a^n c；S =&gt; a S =&gt; a a S =&gt; a a c，原始從不產生它。</text></feedback></answer>
+    <answer fraction="0"><text>aacbb</text><feedback><text>aacbb 屬於原始語言，而突變體（無 b）根本無法產生它。</text></feedback></answer>
+    <answer fraction="0"><text>acb</text><feedback><text>acb 屬於原始語言；突變體沒有 b，故也無法推導它。</text></feedback></answer>
+    <answer fraction="0"><text>abc</text><feedback><text>突變體產生 a^n c（無 b），故 abc 無法由它推導。</text></feedback></answer>
+    <generalfeedback><text>去掉尾端的 b 使語言變為 a^n c。aac（n = 2）現在可推導，但不屬於原始的 a^n c b^n，故是對辨識器的負向測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>遞迴文法上的最左推導</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>E -> E + T | T
+T -> a | b</code></pre><p>下列何者是 <code>a+b</code> 的正確<strong>最左</strong>推導？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>E =&gt; E + T =&gt; T + T =&gt; a + T =&gt; a + b</text><feedback><text>正確——每一步都展開最左邊的非終端（先 E，再內層 E，再由左至右處理各 T）。</text></feedback></answer>
+    <answer fraction="0"><text>E =&gt; E + T =&gt; E + b =&gt; T + b =&gt; a + b</text><feedback><text>那在展開左側 E 之前先展開右側的 T；那是最右推導。</text></feedback></answer>
+    <answer fraction="0"><text>E =&gt; E + T =&gt; a + T =&gt; a + b</text><feedback><text>第一步後最左的符號是非終端 E，而非 T；未先套用 E -> T 就無法把它改寫成「a」。</text></feedback></answer>
+    <answer fraction="0"><text>E =&gt; T =&gt; a</text><feedback><text>那只推出「a」；從未產生 + 運算子。</text></feedback></answer>
+    <generalfeedback><text>最左總是展開最左邊的非終端：E =&gt; E + T（E -> E + T）；接著最左的 E：=&gt; T + T（E -> T）；再處理各 T：=&gt; a + T（T -> a）=&gt; a + b（T -> b）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>含三個頂層選擇的最小 PDC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定文法：</p><pre><code>S -> A | B | C
+A -> a
+B -> b
+C -> c</code></pre><p>要達成產生式覆蓋，最少需要幾個測試字串？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3</text><feedback><text>正確——a、b、c 各固定一個不同的頂層選項；三者都需要。</text></feedback></answer>
+    <answer fraction="0"><text>1</text><feedback><text>單一字串恰用 S -> A／S -> B／S -> C 之一，故無法涵蓋另外兩個。</text></feedback></answer>
+    <answer fraction="0"><text>2</text><feedback><text>兩個字串只能涵蓋三個互斥 S 選項中的兩個。</text></feedback></answer>
+    <answer fraction="0"><text>6</text><feedback><text>6 是產生式數；每個字串涵蓋兩條（一個 S 選項加一個葉子），故三個字串就足夠。</text></feedback></answer>
+    <generalfeedback><text>共 6 條產生式，但三個 S 選項在每次推導中互斥。「a」、「b」、「c」各涵蓋一個 S 選項與其葉子，故恰好 3 個字串達成 PDC。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 PDC 蘊涵 TSC</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼產生式覆蓋蘊涵終端符號覆蓋？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個終端都出現在某條產生式的右側，故使用每條產生式會強制每個終端出現</text><feedback><text>正確——這正是 PDC 蘊涵 TSC 的原因。</text></feedback></answer>
+    <answer fraction="0"><text>因為終端數總是少於產生式數</text><feedback><text>數目多寡並不建立蘊涵關係；原因在於每個終端都出現在某個右側。</text></feedback></answer>
+    <answer fraction="0"><text>因為 TSC 與 PDC 施加完全相同的測試需求</text><feedback><text>兩者不同：PDC 嚴格更強，故並不相同。</text></feedback></answer>
+    <answer fraction="0"><text>因為每條產生式都恰好含一個終端</text><feedback><text>產生式可含零個或多個終端；蘊涵關係並不依賴於此。</text></feedback></answer>
+    <generalfeedback><text>一個符號要成為文法的終端，必須出現在某條產生式的右側。因此執行所有產生式會產生每個終端，故 PDC 蘊涵 TSC；反向不成立。</text></generalfeedback>
+  </question>
+</quiz>
