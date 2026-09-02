@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/V-Model/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What the V-model is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>V-model</em> of software development is best described as a model that:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Pairs each development (left) phase with a corresponding test (right) level, drawn in a V shape</text><feedback><text>Correct — the V-model lines up each development phase with the test level that later validates it.</text></feedback></answer>
+    <answer fraction="0"><text>Repeats short build-test-release cycles with continuous customer feedback</text><feedback><text>That describes an Agile/iterative model, not the V-model.</text></feedback></answer>
+    <answer fraction="0"><text>Delivers all testing in a single big-bang phase after every module is coded</text><feedback><text>The V-model deliberately spreads test design across the earlier phases; testing is not a single terminal phase.</text></feedback></answer>
+    <answer fraction="0"><text>Builds a throwaway prototype first and derives requirements from it</text><feedback><text>That is prototyping; the V-model instead pairs planned phases with test levels.</text></feedback></answer>
+    <generalfeedback><text>The V-model arranges the software life cycle as a V: development phases descend the left arm, test levels ascend the right arm, and each left phase is paired with the right-side level that validates it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The left arm of the V</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the V-model, the <em>left (descending) arm</em> represents:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The development phases — requirements, then design, progressing down toward coding</text><feedback><text>Correct — the left arm descends through the development/definition phases.</text></feedback></answer>
+    <answer fraction="0"><text>The test-execution levels, from unit up to acceptance</text><feedback><text>Those ascend the right arm, not the left.</text></feedback></answer>
+    <answer fraction="0"><text>The maintenance and retirement activities after release</text><feedback><text>The V-model's arms cover development and testing, not the post-release phases.</text></feedback></answer>
+    <answer fraction="0"><text>The project's budgeting and staffing plan</text><feedback><text>The arms model technical phases, not management planning.</text></feedback></answer>
+    <generalfeedback><text>The left arm of the V descends through the successive development phases (requirements → system design → architectural design → detailed design), ending at coding at the vertex.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The right arm of the V</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the V-model, the <em>right (ascending) arm</em> represents:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The test levels — unit, then integration, system, and acceptance, progressing upward</text><feedback><text>Correct — the right arm ascends through the successive test-execution levels.</text></feedback></answer>
+    <answer fraction="0"><text>The development phases from requirements down to coding</text><feedback><text>Those descend the left arm, not the right.</text></feedback></answer>
+    <answer fraction="0"><text>The sequence of code reviews performed before any design begins</text><feedback><text>Reviews are static checks within phases; the right arm is the ladder of dynamic test levels.</text></feedback></answer>
+    <answer fraction="0"><text>The rollback plan used if a release fails in production</text><feedback><text>That is an operations concern, not the right arm of the V.</text></feedback></answer>
+    <generalfeedback><text>The right arm ascends through the test levels (unit → integration → system → acceptance). Each level validates the output of the development phase it is paired with on the left.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What sits at the vertex</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At the <em>bottom vertex</em> of the V — the point joining the two arms — is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Coding (implementation)</text><feedback><text>Correct — coding sits at the vertex, joining the descending development arm to the ascending test arm.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing</text><feedback><text>Acceptance testing sits at the top of the right arm, paired with requirements, not at the vertex.</text></feedback></answer>
+    <answer fraction="0"><text>Requirements analysis</text><feedback><text>Requirements sits at the top of the left arm, not at the vertex.</text></feedback></answer>
+    <answer fraction="0"><text>System testing</text><feedback><text>System testing is a mid-upper level on the right arm, not the vertex.</text></feedback></answer>
+    <generalfeedback><text>Coding is the lowest point of the V: it is where the left (development) arm turns into the right (testing) arm. From there testing climbs back up level by level.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Requirements pairs with which level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the standard V-model, the <em>requirements / user-requirements</em> phase is paired with which test level?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Acceptance testing</text><feedback><text>Correct — acceptance testing validates the finished product against the user requirements.</text></feedback></answer>
+    <answer fraction="0"><text>Unit testing</text><feedback><text>Unit testing is paired with detailed/module design, not requirements.</text></feedback></answer>
+    <answer fraction="0"><text>Integration testing</text><feedback><text>Integration testing is paired with architectural design, not requirements.</text></feedback></answer>
+    <answer fraction="0"><text>System testing</text><feedback><text>System testing is paired with the system/high-level design, not the requirements phase.</text></feedback></answer>
+    <generalfeedback><text>Standard V-model pairing: requirements ↔ acceptance testing. The requirements are the basis against which acceptance tests are designed and later executed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>System design pairs with which level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the standard V-model, the <em>system (high-level / functional) design</em> phase is paired with which test level?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>System testing</text><feedback><text>Correct — system testing validates the integrated system against the system/functional design.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing</text><feedback><text>Acceptance testing is paired with the requirements phase, not the system design.</text></feedback></answer>
+    <answer fraction="0"><text>Integration testing</text><feedback><text>Integration testing is paired with architectural design, not system design.</text></feedback></answer>
+    <answer fraction="0"><text>Unit testing</text><feedback><text>Unit testing is paired with detailed/module design, not system design.</text></feedback></answer>
+    <generalfeedback><text>Standard V-model pairing: system/high-level design ↔ system testing. The system design document is the basis for the system-level tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Architectural design pairs with which level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the standard V-model, the <em>architectural / integration design</em> phase is paired with which test level?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Integration testing</text><feedback><text>Correct — integration testing validates that the modules cooperate as the architecture prescribes.</text></feedback></answer>
+    <answer fraction="0"><text>Unit testing</text><feedback><text>Unit testing is paired with detailed/module design, not architectural design.</text></feedback></answer>
+    <answer fraction="0"><text>System testing</text><feedback><text>System testing is paired with the system/high-level design, not architectural design.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing</text><feedback><text>Acceptance testing is paired with the requirements phase, not architectural design.</text></feedback></answer>
+    <generalfeedback><text>Standard V-model pairing: architectural/integration design ↔ integration testing. The architecture — which defines module interfaces and interactions — is the basis for the integration tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Detailed design pairs with which level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the standard V-model, the <em>module / detailed design</em> phase is paired with which test level?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unit / component testing</text><feedback><text>Correct — unit testing validates each individual module against its detailed design.</text></feedback></answer>
+    <answer fraction="0"><text>Integration testing</text><feedback><text>Integration testing is paired with architectural design, not detailed design.</text></feedback></answer>
+    <answer fraction="0"><text>System testing</text><feedback><text>System testing is paired with the system/high-level design, not detailed design.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing</text><feedback><text>Acceptance testing is paired with the requirements phase, not detailed design.</text></feedback></answer>
+    <generalfeedback><text>Standard V-model pairing: module/detailed design ↔ unit/component testing. The detailed design of each module is the basis for its unit tests. Detailed design leads directly into coding at the vertex.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Acceptance testing validates which phase</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Reading the V-model the other way: <em>acceptance testing</em> is the test level paired with which development phase?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The requirements / user-requirements phase</text><feedback><text>Correct — acceptance testing sits opposite requirements on the V.</text></feedback></answer>
+    <answer fraction="0"><text>The detailed / module design phase</text><feedback><text>That phase pairs with unit testing, not acceptance testing.</text></feedback></answer>
+    <answer fraction="0"><text>The architectural design phase</text><feedback><text>That phase pairs with integration testing, not acceptance testing.</text></feedback></answer>
+    <answer fraction="0"><text>The coding phase</text><feedback><text>Coding sits at the vertex; acceptance testing pairs with the requirements phase at the top of the left arm.</text></feedback></answer>
+    <generalfeedback><text>Acceptance testing is the mirror image of the requirements phase: the user requirements written on the left are exactly what acceptance testing checks on the right.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Unit testing validates which phase</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Reading the V-model the other way: <em>unit / component testing</em> is the test level paired with which development phase?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The module / detailed design phase</text><feedback><text>Correct — unit testing sits opposite detailed design on the V.</text></feedback></answer>
+    <answer fraction="0"><text>The requirements phase</text><feedback><text>That phase pairs with acceptance testing, not unit testing.</text></feedback></answer>
+    <answer fraction="0"><text>The system / high-level design phase</text><feedback><text>That phase pairs with system testing, not unit testing.</text></feedback></answer>
+    <answer fraction="0"><text>The architectural design phase</text><feedback><text>That phase pairs with integration testing, not unit testing.</text></feedback></answer>
+    <generalfeedback><text>Unit testing is the mirror image of detailed design: the internal behaviour designed for each module is exactly what its unit tests check.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What verification means (left side)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On the <em>left arm</em> of the V, activities are chiefly <strong>verification</strong>. Verification asks:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>"Are we building the product right?" — checking each phase's output conforms to its specification, via reviews and other static checks</text><feedback><text>Correct — verification is conformance-to-spec, largely through static techniques such as reviews and inspections.</text></feedback></answer>
+    <answer fraction="0"><text>"Are we building the right product?" — checking the delivered software meets the users' actual needs</text><feedback><text>That is validation, which lives on the right arm.</text></feedback></answer>
+    <answer fraction="0"><text>Only running the compiled program against live user data</text><feedback><text>Running the program is dynamic execution (validation-side activity); verification is largely static.</text></feedback></answer>
+    <answer fraction="0"><text>Measuring the server's throughput under peak load</text><feedback><text>That is performance testing, not the meaning of verification.</text></feedback></answer>
+    <generalfeedback><text>Verification (left arm) asks "did we build the product right?" — it confirms each artifact conforms to its specification, mainly through static checks (reviews, inspections, walkthroughs) and early test design.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What validation means (right side)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On the <em>right arm</em> of the V, activities are chiefly <strong>validation</strong>. Validation asks:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>"Are we building the right product?" — running the software to confirm it meets the users' actual needs</text><feedback><text>Correct — validation is dynamic execution that checks fitness for the users' real needs.</text></feedback></answer>
+    <answer fraction="0"><text>"Are we building the product right?" — reviewing documents for conformance to their specification</text><feedback><text>That is verification, which lives on the left arm.</text></feedback></answer>
+    <answer fraction="0"><text>Confirming the requirements document is internally consistent, without executing anything</text><feedback><text>That static review is a verification activity, not validation.</text></feedback></answer>
+    <answer fraction="0"><text>Estimating the project schedule and cost</text><feedback><text>That is project management, not validation.</text></feedback></answer>
+    <generalfeedback><text>Validation (right arm) asks "did we build the right product?" — it executes the software (dynamic testing) to confirm it satisfies the users' real needs. Acceptance/UAT is the clearest validation activity.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Early test design</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A defining idea of the V-model is <em>early test design</em>. This means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The tests for each level are planned and designed during the paired left-side phase, even though they are executed later</text><feedback><text>Correct — e.g. acceptance tests are designed while requirements are written, long before execution.</text></feedback></answer>
+    <answer fraction="0"><text>All tests are both designed and executed only after coding is finished</text><feedback><text>That is the very practice the V-model's early test design is meant to replace.</text></feedback></answer>
+    <answer fraction="0"><text>Testers are hired only at the end of the project</text><feedback><text>Early test design means testers engage from the start, not the end.</text></feedback></answer>
+    <answer fraction="0"><text>Coding is skipped and replaced by test scripts</text><feedback><text>Coding still happens at the vertex; test design merely starts early.</text></feedback></answer>
+    <generalfeedback><text>Early test design: as each left-side phase produces its artifact, the tests for the matching right-side level are designed there and then (acceptance tests with requirements, system tests with system design, and so on). Execution still happens later, up the right arm.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Coding sits at the vertex</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the V-model, coding (implementation) sits at the bottom vertex, joining the descending development arm to the ascending test arm.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — coding is the lowest point of the V, where development turns into testing.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Coding does sit at the vertex; the two arms meet at implementation.</text></feedback></answer>
+    <generalfeedback><text>The V descends through the development phases to coding at the vertex, then ascends through the test levels. Coding is the turning point that joins the two arms.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Testing is not only at the very end</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the V-model, all testing work begins only after coding is complete, with nothing test-related happening during the earlier development phases.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>This is the misconception the V-model corrects: test design starts early, during the paired left-side phases.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — although test execution happens later, test design/planning for each level begins during its paired development phase.</text></feedback></answer>
+    <generalfeedback><text>The whole point of the V-model over a naive waterfall is that testing is not deferred to the end: the tests for each level are designed alongside the matching development phase, even though they are executed up the right arm afterwards.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/V-Model/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Test basis for acceptance testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the V-model, which document is the <em>test basis</em> (the source the test cases are derived from) for <strong>acceptance testing</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The requirements / user-requirements specification</text><feedback><text>Correct — acceptance tests are derived from the requirements, its paired left-side artifact.</text></feedback></answer>
+    <answer fraction="0"><text>The module / detailed design</text><feedback><text>That is the basis for unit testing, not acceptance testing.</text></feedback></answer>
+    <answer fraction="0"><text>The architectural design</text><feedback><text>That is the basis for integration testing, not acceptance testing.</text></feedback></answer>
+    <answer fraction="0"><text>The source code of individual functions</text><feedback><text>Acceptance testing is derived from user requirements, not from reading the code.</text></feedback></answer>
+    <generalfeedback><text>Each right-side level draws its test basis from its paired left-side artifact. Acceptance testing ↔ requirements, so the requirements specification is the basis for the acceptance tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test basis for system testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the V-model, which document is the <em>test basis</em> for <strong>system testing</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The system / high-level (functional) design specification</text><feedback><text>Correct — system tests are derived from the system/functional design, its paired left-side artifact.</text></feedback></answer>
+    <answer fraction="0"><text>The user-requirements specification</text><feedback><text>That is the basis for acceptance testing, not system testing.</text></feedback></answer>
+    <answer fraction="0"><text>The detailed design of a single module</text><feedback><text>That is the basis for unit testing, not system testing.</text></feedback></answer>
+    <answer fraction="0"><text>The architectural / interface design</text><feedback><text>That is the basis for integration testing, not system testing.</text></feedback></answer>
+    <generalfeedback><text>System testing ↔ system/high-level design. The system design specification defines the whole system's functional behaviour, and system testing checks the integrated system against it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test basis for integration testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the V-model, which document is the <em>test basis</em> for <strong>integration testing</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The architectural / interface design</text><feedback><text>Correct — the architecture defines how modules interface, and integration tests are derived from it.</text></feedback></answer>
+    <answer fraction="0"><text>The user-requirements specification</text><feedback><text>That is the basis for acceptance testing, not integration testing.</text></feedback></answer>
+    <answer fraction="0"><text>The system / high-level design</text><feedback><text>That is the basis for system testing, not integration testing.</text></feedback></answer>
+    <answer fraction="0"><text>The detailed design of a single module</text><feedback><text>That is the basis for unit testing, not integration testing.</text></feedback></answer>
+    <generalfeedback><text>Integration testing ↔ architectural design. Because the architecture specifies module interfaces and interactions, it is exactly the basis against which integration tests are designed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test basis for unit testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the V-model, which document is the <em>test basis</em> for <strong>unit / component testing</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The module / detailed design</text><feedback><text>Correct — the detailed design defines each module's internal behaviour, and unit tests are derived from it.</text></feedback></answer>
+    <answer fraction="0"><text>The architectural / interface design</text><feedback><text>That is the basis for integration testing, not unit testing.</text></feedback></answer>
+    <answer fraction="0"><text>The system / high-level design</text><feedback><text>That is the basis for system testing, not unit testing.</text></feedback></answer>
+    <answer fraction="0"><text>The user-requirements specification</text><feedback><text>That is the basis for acceptance testing, not unit testing.</text></feedback></answer>
+    <generalfeedback><text>Unit testing ↔ detailed/module design. The detailed design describes what each individual module should do internally, so it is the basis for that module's unit tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which level validates architecture</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Your team has just finished the <em>architectural design</em>, which specifies how the modules interface and interact. Which test level (per the V-model) is designed to validate this phase's output?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Integration testing</text><feedback><text>Correct — architectural design ↔ integration testing; integration tests check that the modules cooperate as the architecture prescribes.</text></feedback></answer>
+    <answer fraction="0"><text>Unit testing</text><feedback><text>Unit testing validates detailed design (single-module behaviour), not the architecture's inter-module interfaces.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing</text><feedback><text>Acceptance testing validates the requirements, not the architectural design.</text></feedback></answer>
+    <answer fraction="0"><text>System testing</text><feedback><text>System testing validates the system/high-level design, not the architectural/interface design.</text></feedback></answer>
+    <generalfeedback><text>Match the phase to its paired level: architectural design ↔ integration testing. Because the architecture defines module interfaces, integration testing is what checks those interfaces work once modules are combined.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which level validates detailed design</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Your team has just finished the <em>detailed (module) design</em>, which specifies each module's internal behaviour. Which test level (per the V-model) is designed to validate this phase's output?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unit / component testing</text><feedback><text>Correct — detailed design ↔ unit testing; unit tests check each module against its detailed design.</text></feedback></answer>
+    <answer fraction="0"><text>Integration testing</text><feedback><text>Integration testing validates the architectural design (inter-module interfaces), not a single module's internal behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>System testing</text><feedback><text>System testing validates the system/high-level design, not the detailed design of one module.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing</text><feedback><text>Acceptance testing validates the requirements, not the detailed design.</text></feedback></answer>
+    <generalfeedback><text>Match the phase to its paired level: detailed/module design ↔ unit testing. The detailed design of each module is what its unit tests check.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify a requirements review</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team holds an inspection meeting to review the <em>requirements specification</em> for completeness and consistency, without running any code. In V-model terms this activity is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Verification (a static, left-arm activity)</text><feedback><text>Correct — reviewing an artifact for conformance, with no execution, is verification.</text></feedback></answer>
+    <answer fraction="0"><text>Validation (a dynamic, right-arm activity)</text><feedback><text>Validation involves executing the software; a document review does not.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing</text><feedback><text>Acceptance testing executes the finished product with users; a requirements inspection is a static review.</text></feedback></answer>
+    <answer fraction="0"><text>Integration testing</text><feedback><text>Integration testing dynamically exercises combined modules; a requirements review runs nothing.</text></feedback></answer>
+    <generalfeedback><text>Left arm = verification (static: reviews, inspections, "building the product right"). A requirements inspection runs no code, so it is a verification activity, not a validation (dynamic) one.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify executing acceptance tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Users run the finished software against their real business scenarios to confirm it meets their needs. In V-model terms this activity is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Validation (a dynamic, right-arm activity)</text><feedback><text>Correct — executing the software to confirm fitness for user needs is validation.</text></feedback></answer>
+    <answer fraction="0"><text>Verification (a static, left-arm activity)</text><feedback><text>Verification is static conformance checking; executing the product against user needs is validation.</text></feedback></answer>
+    <answer fraction="0"><text>A design review of the architecture</text><feedback><text>That is a static left-arm activity; running the software with users is dynamic validation.</text></feedback></answer>
+    <answer fraction="0"><text>Unit testing</text><feedback><text>Unit testing exercises single modules; this scenario is whole-product acceptance, a validation activity.</text></feedback></answer>
+    <generalfeedback><text>Right arm = validation (dynamic: executing the software, "building the right product"). Running the finished software against real user needs is the archetypal validation activity — acceptance/UAT.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why test design starts early</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the V-model have the tests for each level <em>designed during the paired left-side phase</em> rather than after coding?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Designing tests against each artifact exposes ambiguities/defects in that artifact early, and leaves the tests ready to execute when the code arrives</text><feedback><text>Correct — early test design finds specification/design faults sooner and prepares tests in advance.</text></feedback></answer>
+    <answer fraction="0"><text>It lets the team skip writing the requirements and design documents</text><feedback><text>Early test design depends on those documents as its basis; it does not eliminate them.</text></feedback></answer>
+    <answer fraction="0"><text>It removes the need to ever execute the tests</text><feedback><text>Tests are still executed later up the right arm; only their design is moved earlier.</text></feedback></answer>
+    <answer fraction="0"><text>It converts the sequential model into an iterative, Agile one</text><feedback><text>The V-model remains sequential; early test design does not make it iterative.</text></feedback></answer>
+    <generalfeedback><text>Designing tests while each artifact is fresh forces careful reading of that artifact, so ambiguities and defects surface early (cheap to fix), and the tests are ready to run the moment the corresponding code exists.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Testing activity during requirements</text></name>
+    <questiontext format="html"><text><![CDATA[<p>According to the V-model, what testing activity should occur <em>during the requirements phase</em> (before any code exists)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Designing and planning the acceptance tests (the level paired with requirements)</text><feedback><text>Correct — acceptance tests are designed while requirements are written; they execute later.</text></feedback></answer>
+    <answer fraction="0"><text>Executing the acceptance tests against the delivered system</text><feedback><text>Execution comes later, up the right arm; during requirements the acceptance tests are only designed.</text></feedback></answer>
+    <answer fraction="0"><text>Designing the unit tests for each module</text><feedback><text>Unit tests are designed later, during detailed design — the phase paired with unit testing.</text></feedback></answer>
+    <answer fraction="0"><text>No testing activity of any kind can happen yet</text><feedback><text>The V-model's early test design means acceptance-test design begins right here, at the requirements phase.</text></feedback></answer>
+    <generalfeedback><text>Requirements ↔ acceptance testing, so the requirements phase is exactly when acceptance tests are designed. That design work (though executed much later) is part of the phase's early test design.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why unit pairs with detailed design</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the V-model pair <em>unit testing</em> specifically with the <em>detailed (module) design</em> phase?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The detailed design specifies each module's internal behaviour, which is exactly what unit tests check</text><feedback><text>Correct — the artifact that defines a module's internals is the natural basis for its unit tests.</text></feedback></answer>
+    <answer fraction="0"><text>The detailed design lists the users' business goals, which unit tests confirm</text><feedback><text>Business goals live in the requirements (paired with acceptance testing), not the detailed design.</text></feedback></answer>
+    <answer fraction="0"><text>The detailed design fixes the interfaces between modules, which unit tests exercise</text><feedback><text>Inter-module interfaces belong to the architecture (paired with integration testing); unit tests target one module.</text></feedback></answer>
+    <answer fraction="0"><text>Because unit tests can only be written after the whole system is designed</text><feedback><text>Unit tests are designed at the detailed-design phase, not after all higher-level design is finished.</text></feedback></answer>
+    <generalfeedback><text>Each pairing matches a test level to the artifact that is its natural basis. The detailed design describes a single module's internal behaviour, so it is precisely what unit/component testing verifies.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why integration pairs with architecture</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does the V-model pair <em>integration testing</em> specifically with the <em>architectural design</em> phase?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The architecture defines the module interfaces and interactions, which is exactly what integration testing exercises</text><feedback><text>Correct — the artifact that specifies how modules connect is the natural basis for integration tests.</text></feedback></answer>
+    <answer fraction="0"><text>The architecture describes each module's internal algorithm, which integration tests check</text><feedback><text>Internal algorithms are detailed design (paired with unit testing); integration testing targets interactions.</text></feedback></answer>
+    <answer fraction="0"><text>The architecture states the user acceptance criteria, which integration tests confirm</text><feedback><text>Acceptance criteria come from the requirements (paired with acceptance testing), not the architecture.</text></feedback></answer>
+    <answer fraction="0"><text>Because integration tests can only run once the full system is deployed to users</text><feedback><text>Integration testing runs after unit testing and before system/acceptance testing, not only at deployment.</text></feedback></answer>
+    <generalfeedback><text>The architectural design specifies how modules are decomposed and how they talk to one another, so it is the natural basis for integration testing, which checks that combined modules interact correctly.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which side is dynamic execution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the V-model, dynamic <em>test execution</em> (actually running the software) is concentrated on which side, and under which term?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The right arm, under validation</text><feedback><text>Correct — the right arm's ascending test levels execute the software; this is validation.</text></feedback></answer>
+    <answer fraction="0"><text>The left arm, under verification</text><feedback><text>The left arm is mostly static (reviews, test design) — verification — not dynamic execution.</text></feedback></answer>
+    <answer fraction="0"><text>The left arm, under validation</text><feedback><text>The left arm is verification, and it is largely static rather than dynamic execution.</text></feedback></answer>
+    <answer fraction="0"><text>The right arm, under verification</text><feedback><text>The right arm is validation, not verification; verification is the left-arm term.</text></feedback></answer>
+    <generalfeedback><text>Left arm = verification (mostly static: reviews plus early test design). Right arm = validation (dynamic execution of the built software, level by level). Dynamic test execution therefore lives on the right arm, as validation.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Acceptance tests can be written from requirements</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the V-model, the acceptance test cases can be designed as soon as the requirements are agreed — that is, before any code is written.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — requirements ↔ acceptance testing, so acceptance tests are designed during the requirements phase (executed much later).</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Because acceptance testing is paired with requirements, its tests can indeed be designed once requirements are agreed, well before coding.</text></feedback></answer>
+    <generalfeedback><text>Early test design applies most visibly at the top of the V: the requirements are the basis for acceptance testing, so acceptance test cases can be authored as soon as requirements are settled — long before the code exists.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interpreting an early-design scenario</text></name>
+    <questiontext format="html"><text><![CDATA[<p>While writing the <em>architectural design</em> document, a team simultaneously drafts the integration test cases for the interfaces it defines. This practice illustrates:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Early test design — designing a level's tests during its paired left-side phase (architecture ↔ integration testing)</text><feedback><text>Correct — the integration tests are designed during the architectural phase they are paired with.</text></feedback></answer>
+    <answer fraction="0"><text>A mistake — integration tests must only be written after coding is complete</text><feedback><text>The V-model deliberately encourages designing these tests early, during architectural design.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing, because interfaces face the user</text><feedback><text>Interfaces between modules pair with integration testing; acceptance testing pairs with requirements.</text></feedback></answer>
+    <answer fraction="0"><text>An Agile sprint, because design and testing overlap</text><feedback><text>Overlapping test design with a phase is core V-model practice, not specifically Agile.</text></feedback></answer>
+    <generalfeedback><text>This is exactly the V-model's early test design: each left-side phase produces both its development artifact and the design of the tests for its paired right-side level. Architecture ↔ integration testing.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/V-Model/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Where an interface mismatch is caught</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Two subsystems exchange data in incompatible formats — a fault in how they interface. In the V-model, at which test <em>level</em> is this fault first targeted, and during which phase were those tests <em>designed</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Caught at integration testing; those tests were designed during architectural design</text><feedback><text>Correct — inter-module interface faults are the target of integration testing, whose basis is the architecture.</text></feedback></answer>
+    <answer fraction="0"><text>Caught at unit testing; those tests were designed during detailed design</text><feedback><text>Unit testing exercises a single module in isolation; a cross-subsystem interface mismatch is an integration concern.</text></feedback></answer>
+    <answer fraction="0"><text>Caught at acceptance testing; those tests were designed during the requirements phase</text><feedback><text>Acceptance testing checks user needs on the whole product; an interface-format mismatch is targeted earlier, at integration.</text></feedback></answer>
+    <answer fraction="0"><text>Caught at system testing; those tests were designed during detailed design</text><feedback><text>The level is wrong (interfaces ↔ integration) and system tests are designed during system design, not detailed design.</text></feedback></answer>
+    <generalfeedback><text>Interface/interaction faults between modules are exactly what integration testing targets, and integration testing is paired with — and designed during — the architectural design phase.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A product that misses user needs</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A delivered system conforms perfectly to its design documents, yet fails to meet what users actually needed. In the V-model, which level is meant to expose this, and is it verification or validation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Acceptance testing — a validation activity, checking the product against real user needs</text><feedback><text>Correct — "right product?" is validation, and acceptance testing (paired with requirements) is where user-need gaps surface.</text></feedback></answer>
+    <answer fraction="0"><text>Unit testing — a verification activity, checking each module against its detailed design</text><feedback><text>Conformance to a module's design is verification; it cannot reveal that the whole product misses user needs.</text></feedback></answer>
+    <answer fraction="0"><text>Integration testing — a validation activity, checking module interfaces</text><feedback><text>Integration testing targets interfaces (and is dynamic validation of that scope), not overall fitness for user needs.</text></feedback></answer>
+    <answer fraction="0"><text>A design review — a validation activity, checking the requirements document</text><feedback><text>A document review is static verification, not validation, and it cannot confirm real-world fitness.</text></feedback></answer>
+    <generalfeedback><text>"Built the product right" (matches design) is verification; "built the right product" (meets user needs) is validation. A system can pass all verification yet fail validation — acceptance testing, paired with requirements, is where that gap shows.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>How the V improves on waterfall</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Compared with the classic waterfall model, the V-model's chief improvement for testing is that it:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Involves testing early — the tests for each level are designed in parallel with the matching development phase, instead of only after coding</text><feedback><text>Correct — the V-model makes test design a first-class activity of every development phase.</text></feedback></answer>
+    <answer fraction="0"><text>Removes the design and requirements phases entirely</text><feedback><text>The V-model keeps all those phases; it adds a paired test level to each.</text></feedback></answer>
+    <answer fraction="0"><text>Lets requirements change freely at any point without cost</text><feedback><text>The V-model is still sequential; late requirement changes remain costly.</text></feedback></answer>
+    <answer fraction="0"><text>Replaces documents with working prototypes</text><feedback><text>That is prototyping/Agile; the V-model is still document-driven.</text></feedback></answer>
+    <generalfeedback><text>Waterfall pushes testing to the end. The V-model pairs every development phase with a test level and designs those tests early, so defects in requirements and design are found sooner — its main testing advantage over waterfall.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A weakness shared with waterfall</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Even with its early test design, the V-model still inherits which key weakness of the waterfall model?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>It is sequential and rigid — phases run in order, so it adapts poorly to changing requirements</text><feedback><text>Correct — early test design does not remove the underlying sequential, plan-driven structure.</text></feedback></answer>
+    <answer fraction="0"><text>It never tests the software at all</text><feedback><text>The V-model tests thoroughly, level by level; that is not the shared weakness.</text></feedback></answer>
+    <answer fraction="0"><text>It has no defined requirements phase</text><feedback><text>Requirements is the top-left phase of the V; it is clearly defined.</text></feedback></answer>
+    <answer fraction="0"><text>It forbids any design documentation</text><feedback><text>The V-model is heavily document-driven, the opposite of forbidding design docs.</text></feedback></answer>
+    <generalfeedback><text>The V-model reorganises when tests are designed, but it keeps waterfall's linear, phase-by-phase flow. It therefore struggles when requirements change late — the same rigidity waterfall is criticised for.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>V-model versus Agile</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Compared with Agile/iterative development, the V-model is a poor fit when:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Requirements are volatile and stakeholders need early, working increments to react to</text><feedback><text>Correct — the V-model assumes stable, well-understood requirements up front and produces no early prototypes.</text></feedback></answer>
+    <answer fraction="0"><text>Requirements are stable and well understood before design begins</text><feedback><text>That is precisely where the V-model works well, not poorly.</text></feedback></answer>
+    <answer fraction="0"><text>A clear phase structure with a matching test level for each phase is desired</text><feedback><text>That is a strength of the V-model, not a poor-fit situation.</text></feedback></answer>
+    <answer fraction="0"><text>Formal documentation and traceability are required by the domain</text><feedback><text>The V-model's document-driven rigor suits such domains; it is not a poor fit there.</text></feedback></answer>
+    <generalfeedback><text>Agile delivers working increments iteratively and welcomes change; the V-model plans all phases up front with no early prototypes. When requirements are volatile and early feedback is essential, the V-model fits poorly and Agile is preferred.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Misconception: testing only after coding</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Claim: "The V-model shows that every testing activity — including test design — happens strictly after coding, so testers need not be involved during requirements or design." Is this claim correct?</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>This is a common misconception. In the V-model, each level's tests are designed during its paired left-side phase, so testers engage from the start.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — although test execution ascends the right arm after coding, the design of each level's tests occurs during its paired development phase.</text></feedback></answer>
+    <generalfeedback><text>The trap: confusing test execution (which does come after coding) with test design (which the V-model deliberately moves early). Acceptance tests are designed with requirements, system tests with system design, and so on — so the claim is false.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Level furthest from the vertex</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Reading the V from the coding vertex outward, which test level sits <em>furthest</em> from the vertex (paired with the topmost left-side phase)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Acceptance testing (paired with requirements, at the top of the V)</text><feedback><text>Correct — requirements is the topmost left phase, so its partner, acceptance testing, is the outermost right level.</text></feedback></answer>
+    <answer fraction="0"><text>Unit testing (paired with detailed design)</text><feedback><text>Unit testing is nearest the vertex, not furthest — detailed design is the lowest left phase.</text></feedback></answer>
+    <answer fraction="0"><text>Integration testing (paired with architectural design)</text><feedback><text>Integration testing is a middle level, not the outermost.</text></feedback></answer>
+    <answer fraction="0"><text>System testing (paired with system design)</text><feedback><text>System testing is upper-middle, but acceptance testing (with requirements) sits above it.</text></feedback></answer>
+    <generalfeedback><text>The higher a phase sits on the left arm, the higher its paired level sits on the right. Requirements is the top-left phase, so acceptance testing is the outermost (furthest-from-vertex) right-side level.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Level closest to the vertex</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which test level sits <em>closest</em> to the coding vertex (paired with the lowest left-side design phase)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unit / component testing (paired with detailed design)</text><feedback><text>Correct — detailed design is the lowest left phase, leading into coding, so its partner unit testing is nearest the vertex.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing (paired with requirements)</text><feedback><text>Acceptance testing is furthest from the vertex, not closest.</text></feedback></answer>
+    <answer fraction="0"><text>System testing (paired with system design)</text><feedback><text>System testing is upper-middle, not closest to the vertex.</text></feedback></answer>
+    <answer fraction="0"><text>Integration testing (paired with architectural design)</text><feedback><text>Integration testing is closer than system/acceptance, but unit testing is nearer the vertex.</text></feedback></answer>
+    <generalfeedback><text>Detailed design is the lowest left phase (it flows straight into coding at the vertex), so its paired level, unit testing, is the first level up the right arm and the closest to the vertex.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Order of test execution up the right arm</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Ascending the right arm from the vertex, in what order are the test levels <em>executed</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unit → integration → system → acceptance</text><feedback><text>Correct — testing climbs from the smallest scope (unit) to the whole product against user needs (acceptance).</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance → system → integration → unit</text><feedback><text>That is the reverse; execution ascends from unit upward, not downward.</text></feedback></answer>
+    <answer fraction="0"><text>Integration → unit → acceptance → system</text><feedback><text>Unit precedes integration, and system precedes acceptance; this ordering is scrambled.</text></feedback></answer>
+    <answer fraction="0"><text>System → unit → integration → acceptance</text><feedback><text>Unit is first, not third; system testing comes after integration.</text></feedback></answer>
+    <generalfeedback><text>Up the right arm the scope widens: individual modules (unit), then their combinations (integration), then the whole system (system), then the product against user needs (acceptance). Execution order is unit → integration → system → acceptance.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which question validation answers</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The pair of guiding questions "Are we building the product right?" and "Are we building the right product?" map to the two arms of the V. Which arm/term answers "Are we building the <em>right product</em>?"</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The right arm — validation</text><feedback><text>Correct — "right product?" (fitness for user needs) is validation, done dynamically up the right arm.</text></feedback></answer>
+    <answer fraction="0"><text>The left arm — verification</text><feedback><text>Verification answers "building the product right?" (conformance to spec), not "the right product?".</text></feedback></answer>
+    <answer fraction="0"><text>The left arm — validation</text><feedback><text>The left arm is verification, not validation.</text></feedback></answer>
+    <answer fraction="0"><text>The right arm — verification</text><feedback><text>The right arm is validation; verification is the left-arm term.</text></feedback></answer>
+    <generalfeedback><text>"Building the product right?" = verification (left, static conformance). "Building the right product?" = validation (right, dynamic fitness for user needs). The second question is answered by the right arm's validation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Matching two bases at once</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Fill both blanks consistently with the standard V-model: the requirements specification is the test basis for ______, and the detailed design is the test basis for ______.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>acceptance testing; unit testing</text><feedback><text>Correct — requirements ↔ acceptance testing, detailed design ↔ unit testing.</text></feedback></answer>
+    <answer fraction="0"><text>system testing; integration testing</text><feedback><text>Requirements pair with acceptance (not system) and detailed design pairs with unit (not integration).</text></feedback></answer>
+    <answer fraction="0"><text>unit testing; acceptance testing</text><feedback><text>The pairings are reversed — requirements go with acceptance, detailed design with unit.</text></feedback></answer>
+    <answer fraction="0"><text>acceptance testing; integration testing</text><feedback><text>The first is right, but detailed design pairs with unit testing, not integration testing.</text></feedback></answer>
+    <generalfeedback><text>Standard pairings: requirements ↔ acceptance, system design ↔ system, architecture ↔ integration, detailed design ↔ unit. So requirements → acceptance testing and detailed design → unit testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Meaning of a matching validation per phase</text></name>
+    <questiontext format="html"><text><![CDATA[<p>An advantage often cited for the V-model is that "each development phase has a matching test level." What does this actually buy the project?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Every left-side artifact has a designated right-side level that will validate it, so no phase's output is left unchecked and traceability from tests to artifacts is clear</text><feedback><text>Correct — the explicit pairing gives every artifact a home for its verification/validation and clear test-to-artifact traceability.</text></feedback></answer>
+    <answer fraction="0"><text>It guarantees the software will contain no defects after acceptance testing</text><feedback><text>No model guarantees zero defects; the pairing improves coverage and traceability, not perfection.</text></feedback></answer>
+    <answer fraction="0"><text>It lets the team run all test levels simultaneously with the design phases</text><feedback><text>Tests are designed early but executed sequentially up the right arm, not all at once.</text></feedback></answer>
+    <answer fraction="0"><text>It eliminates the need for requirements traceability</text><feedback><text>The pairing strengthens traceability; it does not remove the need for it.</text></feedback></answer>
+    <generalfeedback><text>Pairing each phase with a test level means every artifact produced on the left has an explicit level responsible for checking it, giving structured coverage and clear traceability between tests and the artifacts they exercise.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When system tests are ideally designed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Applying early test design consistently, at which point are the <em>system test</em> cases ideally designed (even though they run later)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>During the system / high-level design phase (its paired left-side phase)</text><feedback><text>Correct — system testing ↔ system design, so system tests are designed during system design.</text></feedback></answer>
+    <answer fraction="0"><text>During the requirements phase</text><feedback><text>The requirements phase is when acceptance tests are designed; system tests pair with system design.</text></feedback></answer>
+    <answer fraction="0"><text>Only after acceptance testing has finished</text><feedback><text>System testing precedes acceptance testing; its tests are designed far earlier, at system design.</text></feedback></answer>
+    <answer fraction="0"><text>During the detailed design phase</text><feedback><text>Detailed design is when unit tests are designed; system tests pair with system/high-level design.</text></feedback></answer>
+    <generalfeedback><text>Early test design places each level's test design in its paired phase. System testing ↔ system/high-level design, so the system tests are ideally designed during the system design phase, then executed up the right arm after integration.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Cost of a late requirements change</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Late in a V-model project, a user requirement changes. Why is this typically expensive to accommodate?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Because the model is sequential, the change ripples through the already-completed design, code, and every paired test level's artifacts, all of which must be revised</text><feedback><text>Correct — a requirements change invalidates downstream artifacts and their paired (e.g. acceptance) tests, and there is no iterative mechanism to absorb it cheaply.</text></feedback></answer>
+    <answer fraction="0"><text>Because the V-model has no requirements phase, so the change has nowhere to be recorded</text><feedback><text>Requirements is the top-left phase of the V; the problem is rework downstream, not a missing phase.</text></feedback></answer>
+    <answer fraction="0"><text>Because test design cannot begin until the change is coded</text><feedback><text>The V-model designs tests early; the cost comes from reworking completed sequential artifacts, not from delayed test design.</text></feedback></answer>
+    <answer fraction="0"><text>Because acceptance testing is unrelated to the requirements and must be redone from scratch regardless</text><feedback><text>Acceptance testing is tightly paired with requirements; that pairing is precisely why the change forces acceptance-test rework.</text></feedback></answer>
+    <generalfeedback><text>The V-model's rigidity means a late requirements change forces revisiting the system/architecture/detailed designs, the code, and each paired test level (acceptance tests most directly). Unlike an iterative model, it cannot absorb such change in a later increment, so late changes are costly.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Spot the incorrect pairing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following development-phase ↔ test-level pairings is <strong>NOT</strong> part of the standard V-model?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>System / high-level design ↔ unit testing</text><feedback><text>Correct — this pairing is wrong. System design pairs with system testing; unit testing pairs with detailed design.</text></feedback></answer>
+    <answer fraction="0"><text>Requirements ↔ acceptance testing</text><feedback><text>This is a correct standard pairing, so it is not the answer.</text></feedback></answer>
+    <answer fraction="0"><text>Architectural design ↔ integration testing</text><feedback><text>This is a correct standard pairing, so it is not the answer.</text></feedback></answer>
+    <answer fraction="0"><text>Detailed / module design ↔ unit testing</text><feedback><text>This is a correct standard pairing, so it is not the answer.</text></feedback></answer>
+    <generalfeedback><text>The standard pairings are requirements ↔ acceptance, system design ↔ system, architecture ↔ integration, detailed design ↔ unit. "System design ↔ unit testing" mismatches two levels, so it is the incorrect pairing.</text></generalfeedback>
+  </question>
+</quiz>

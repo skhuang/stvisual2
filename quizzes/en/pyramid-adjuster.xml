@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Test Automation Pyramid/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>The three layers bottom to top</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the classic <em>test automation pyramid</em> (Mike Cohn), the layers from bottom to top are:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unit tests (base), integration/service tests (middle), UI/end-to-end tests (top)</text><feedback><text>Correct — a wide base of unit tests, a narrower band of integration/service tests, and a thin top of UI/E2E tests.</text></feedback></answer>
+    <answer fraction="0"><text>UI/end-to-end tests (base), integration tests (middle), unit tests (top)</text><feedback><text>That is upside down — it describes the ice-cream-cone anti-pattern, not the pyramid.</text></feedback></answer>
+    <answer fraction="0"><text>Integration tests (base), unit tests (middle), UI tests (top)</text><feedback><text>Unit tests form the base, not the middle.</text></feedback></answer>
+    <answer fraction="0"><text>Unit tests (base), UI/end-to-end tests (middle), integration tests (top)</text><feedback><text>UI/E2E sits at the top and integration in the middle, not the other way round.</text></feedback></answer>
+    <generalfeedback><text>Bottom to top: many unit tests, fewer integration/service tests, few UI/end-to-end tests. The width of each layer suggests how many tests of that kind you should have.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Layer with the most tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a healthy test automation pyramid, which layer should contain the <strong>most</strong> tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unit tests (the base)</text><feedback><text>Correct — the base is the widest layer, so unit tests are the most numerous.</text></feedback></answer>
+    <answer fraction="0"><text>UI/end-to-end tests (the top)</text><feedback><text>The top is the narrowest layer and should have the fewest tests.</text></feedback></answer>
+    <answer fraction="0"><text>Integration/service tests (the middle)</text><feedback><text>The middle sits between the two; the base (unit) has more.</text></feedback></answer>
+    <answer fraction="0"><text>All three layers should have equal numbers</text><feedback><text>A pyramid is deliberately unequal — a wide base narrowing to a thin top.</text></feedback></answer>
+    <generalfeedback><text>The base is the widest part of the pyramid: unit tests are the cheapest and fastest, so you can afford the most of them.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Layer with the fewest tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a healthy test automation pyramid, which layer should contain the <strong>fewest</strong> tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>UI/end-to-end tests (the top)</text><feedback><text>Correct — the top is the narrowest layer, so UI/E2E tests are the fewest.</text></feedback></answer>
+    <answer fraction="0"><text>Unit tests (the base)</text><feedback><text>Unit tests are the most numerous, not the fewest.</text></feedback></answer>
+    <answer fraction="0"><text>Integration/service tests (the middle)</text><feedback><text>The middle has more than the top; the top (UI/E2E) is the fewest.</text></feedback></answer>
+    <answer fraction="0"><text>They should all have the same small number</text><feedback><text>The layers differ; the top layer specifically is the thinnest.</text></feedback></answer>
+    <generalfeedback><text>UI/end-to-end tests are slow, expensive, and brittle, so you keep only a few of them at the narrow top of the pyramid.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Properties of unit tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which set of properties best describes <em>unit</em> tests at the base of the pyramid?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Fast, cheap, isolated, stable, and numerous</text><feedback><text>Correct — these properties are exactly why unit tests form the wide base.</text></feedback></answer>
+    <answer fraction="0"><text>Slow, expensive, and few</text><feedback><text>Those are properties of UI/end-to-end tests at the top, not unit tests.</text></feedback></answer>
+    <answer fraction="0"><text>Slow but very cheap and numerous</text><feedback><text>Unit tests are fast, not slow; speed is one of their defining traits.</text></feedback></answer>
+    <answer fraction="0"><text>Realistic, end-to-end, and brittle</text><feedback><text>Those describe UI/E2E tests; unit tests are isolated and stable.</text></feedback></answer>
+    <generalfeedback><text>Unit tests run in milliseconds, are cheap to write and maintain, are isolated from external systems, are deterministic/stable, and pinpoint failures — so you keep many of them and run them constantly.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Properties of UI/E2E tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which set of properties best describes <em>UI/end-to-end</em> tests at the top of the pyramid?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Slow, expensive, brittle/flaky, few — but the most realistic</text><feedback><text>Correct — they exercise the whole system like a real user, which is realistic but costly and fragile.</text></feedback></answer>
+    <answer fraction="0"><text>Fast, cheap, stable, and numerous</text><feedback><text>Those are unit-test properties, not UI/E2E.</text></feedback></answer>
+    <answer fraction="0"><text>Fast and deterministic but not realistic</text><feedback><text>UI/E2E tests are slow and the most realistic, not fast and unrealistic.</text></feedback></answer>
+    <answer fraction="0"><text>Cheap to maintain and rarely flaky</text><feedback><text>They are the most expensive to maintain and the most prone to flakiness.</text></feedback></answer>
+    <generalfeedback><text>End-to-end tests drive the whole system through the UI, so they are the most realistic but also the slowest, costliest, and flakiest — you keep only a few.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the middle layer is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <strong>middle</strong> layer of the test automation pyramid consists of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Integration/service (API) tests that check how components work together below the UI</text><feedback><text>Correct — the middle exercises component interactions and service/API boundaries without going through the UI.</text></feedback></answer>
+    <answer fraction="0"><text>Unit tests of single isolated functions</text><feedback><text>Those are the base layer, not the middle.</text></feedback></answer>
+    <answer fraction="0"><text>End-to-end tests driven through the browser UI</text><feedback><text>Those are the top layer, not the middle.</text></feedback></answer>
+    <answer fraction="0"><text>Manual exploratory testing sessions</text><feedback><text>The pyramid describes automated test layers; the middle is integration/service tests.</text></feedback></answer>
+    <generalfeedback><text>The middle band holds integration/service/API tests: moderate in speed and cost, they verify that components interact correctly at a level below the full UI.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The ice-cream cone anti-pattern</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>ice-cream cone</em> anti-pattern refers to a test distribution that is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Inverted — many UI/manual tests on top and too few unit tests at the bottom</text><feedback><text>Correct — the pyramid is turned upside down, with the bulk of testing at the slow, brittle top.</text></feedback></answer>
+    <answer fraction="0"><text>A healthy pyramid with a wide unit base</text><feedback><text>That is the desired shape, not the anti-pattern.</text></feedback></answer>
+    <answer fraction="0"><text>A fat unit base with a fat E2E top and a thin middle</text><feedback><text>That is the hourglass anti-pattern, not the ice-cream cone.</text></feedback></answer>
+    <answer fraction="0"><text>Having no automated tests at all</text><feedback><text>The ice-cream cone still has many tests — they are just concentrated at the wrong (top) layer.</text></feedback></answer>
+    <generalfeedback><text>The ice-cream cone is the inverted pyramid: most tests are slow, expensive UI or manual tests, with too small a unit base — giving slow, flaky, costly feedback.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read a ratio to identify the layer (base)</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team reports its automated tests as roughly <strong>70% / 20% / 10%</strong> across the three pyramid layers. The <strong>70%</strong> slice is the fastest and cheapest to run. Which layer is it?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unit tests (the base)</text><feedback><text>Correct — the largest, fastest, cheapest slice is the unit base.</text></feedback></answer>
+    <answer fraction="0"><text>Integration/service tests (the middle)</text><feedback><text>The middle is the 20% slice here, not the 70%.</text></feedback></answer>
+    <answer fraction="0"><text>UI/end-to-end tests (the top)</text><feedback><text>The top is the smallest, slowest slice — 10%, not 70%.</text></feedback></answer>
+    <answer fraction="0"><text>Cannot be determined from the numbers</text><feedback><text>The largest, fastest, cheapest slice is unmistakably the unit base.</text></feedback></answer>
+    <generalfeedback><text>In an illustrative 70/20/10 split, the 70% (largest, fastest, cheapest) is unit, 20% is integration, and 10% is UI/E2E. Treat the exact ratio as illustrative, not a law.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Most realistic layer</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which layer gives the testing that is <strong>closest to a real user's experience</strong> of the whole system?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>UI/end-to-end tests (the top)</text><feedback><text>Correct — E2E tests drive the fully integrated system as a user would, so they are the most realistic.</text></feedback></answer>
+    <answer fraction="0"><text>Unit tests (the base)</text><feedback><text>Unit tests check pieces in isolation and are the least like a real end-user scenario.</text></feedback></answer>
+    <answer fraction="0"><text>Integration/service tests (the middle)</text><feedback><text>These are more realistic than unit tests but still below the full-UI, whole-system level.</text></feedback></answer>
+    <answer fraction="0"><text>All layers are equally realistic</text><feedback><text>Realism increases as you move up the pyramid; the top is the most realistic.</text></feedback></answer>
+    <generalfeedback><text>Realism rises as you climb the pyramid: E2E tests exercise the whole system through its real interfaces, so they most closely match actual user behaviour — at the cost of speed and stability.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which tests run constantly to gate commits</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which layer's tests are typically run <strong>on every commit</strong> to give developers fast feedback in CI?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unit tests (the base)</text><feedback><text>Correct — being fast and stable, unit tests can run constantly and gate each commit.</text></feedback></answer>
+    <answer fraction="0"><text>UI/end-to-end tests (the top)</text><feedback><text>E2E tests are too slow and flaky to run on every commit; they are run less often.</text></feedback></answer>
+    <answer fraction="0"><text>Only manual tests</text><feedback><text>Manual tests cannot gate every commit; fast automated unit tests do.</text></feedback></answer>
+    <answer fraction="0"><text>No tests should run on a commit</text><feedback><text>Fast unit tests are exactly what should gate each commit in CI.</text></feedback></answer>
+    <generalfeedback><text>Because unit tests are fast and deterministic, they run on every commit as the CI gate; slower UI/E2E tests run less frequently (e.g. nightly or before release).</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Unit tests form the base</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the test automation pyramid, unit tests form the wide base.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — unit tests are the most numerous and sit at the base.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Unit tests do form the base; putting UI/E2E at the base is the inverted anti-pattern.</text></feedback></answer>
+    <generalfeedback><text>The pyramid's wide base is unit tests — fast, cheap, and numerous — with fewer integration tests above and few UI/E2E tests at the top.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>E2E more numerous than unit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a healthy pyramid, end-to-end (UI) tests should outnumber unit tests.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>This is the inverted (ice-cream-cone) shape, not a healthy pyramid.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — unit tests should far outnumber E2E tests; the reverse is the ice-cream-cone anti-pattern.</text></feedback></answer>
+    <generalfeedback><text>A healthy pyramid has many unit tests and few E2E tests. When E2E tests outnumber unit tests you have an inverted pyramid (ice-cream cone).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Layer that tests APIs below the UI</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which layer verifies that components and services interact correctly <strong>through their APIs, below the UI</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Integration/service tests (the middle)</text><feedback><text>Correct — the middle layer tests interactions at the service/API level, below the full UI.</text></feedback></answer>
+    <answer fraction="0"><text>Unit tests (the base)</text><feedback><text>Unit tests exercise a single component in isolation, not interactions across an API.</text></feedback></answer>
+    <answer fraction="0"><text>UI/end-to-end tests (the top)</text><feedback><text>E2E tests go through the UI; the middle layer deliberately tests below it.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance sign-off meetings</text><feedback><text>That is not an automated test layer; API-level testing is the integration/service layer.</text></feedback></answer>
+    <generalfeedback><text>Integration/service tests hit APIs and component boundaries directly, avoiding the slow, brittle UI while still checking that parts work together.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Most flaky layer</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which layer's tests are typically the most <strong>brittle and flaky</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>UI/end-to-end tests (the top)</text><feedback><text>Correct — depending on the whole stack, timing, and the UI makes E2E tests the most fragile.</text></feedback></answer>
+    <answer fraction="0"><text>Unit tests (the base)</text><feedback><text>Unit tests are isolated and deterministic, so they are the most stable, not the flakiest.</text></feedback></answer>
+    <answer fraction="0"><text>Integration/service tests (the middle)</text><feedback><text>These are more fragile than unit tests but less flaky than full UI/E2E tests.</text></feedback></answer>
+    <answer fraction="0"><text>All layers are equally flaky</text><feedback><text>Flakiness concentrates at the top; unit tests are the most stable.</text></feedback></answer>
+    <generalfeedback><text>E2E tests depend on many integrated parts, external state, timing, and the UI, so they flake most. Flakiness is concentrated at the top of the pyramid.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Read a ratio to identify the middle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite is split <strong>70% / 20% / 10%</strong> across unit / integration / UI. The <strong>20%</strong> slice corresponds to which layer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Integration/service tests (the middle)</text><feedback><text>Correct — 20% is the middle band between the 70% unit base and the 10% UI top.</text></feedback></answer>
+    <answer fraction="0"><text>Unit tests (the base)</text><feedback><text>Unit is the 70% slice, not the 20%.</text></feedback></answer>
+    <answer fraction="0"><text>UI/end-to-end tests (the top)</text><feedback><text>UI/E2E is the smallest slice — 10%, not 20%.</text></feedback></answer>
+    <answer fraction="0"><text>Manual tests</text><feedback><text>The pyramid's automated middle band is integration/service tests.</text></feedback></answer>
+    <generalfeedback><text>In an illustrative 70/20/10 split, the 20% middle is integration/service tests, between the unit base (70%) and the UI top (10%).</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Automation Pyramid/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Symptom: slow, flaky suite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team's automated suite is <strong>slow to run and frequently flaky</strong>. Which layer is most likely over-weighted?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>UI/end-to-end tests (the top)</text><feedback><text>Correct — too many slow, brittle E2E tests produce exactly this symptom.</text></feedback></answer>
+    <answer fraction="0"><text>Unit tests (the base)</text><feedback><text>Many unit tests keep the suite fast and stable, not slow and flaky.</text></feedback></answer>
+    <answer fraction="0"><text>There is no way to tell from the symptom</text><feedback><text>Slow and flaky strongly points to an over-large UI/E2E top.</text></feedback></answer>
+    <answer fraction="0"><text>The suite must have too few tests overall</text><feedback><text>The problem is the mix (too many E2E), not simply the total count.</text></feedback></answer>
+    <generalfeedback><text>Slowness and flakiness concentrate at the top of the pyramid, so a slow, flaky suite usually means too many UI/E2E tests relative to unit and integration tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What "push tests down" means</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The guideline to <em>push tests down</em> the pyramid means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test each behaviour at the lowest layer that still gives adequate confidence</text><feedback><text>Correct — prefer a fast unit or integration test over an E2E test whenever it gives enough confidence.</text></feedback></answer>
+    <answer fraction="0"><text>Delete all higher-level tests and rely only on the UI</text><feedback><text>Pushing down means moving coverage lower, not removing all higher tests or relying on the UI.</text></feedback></answer>
+    <answer fraction="0"><text>Move all tests up to the end-to-end layer for realism</text><feedback><text>That inverts the pyramid; pushing down means the opposite.</text></feedback></answer>
+    <answer fraction="0"><text>Run tests in a different physical location</text><feedback><text>"Down" refers to lower pyramid layers, not physical placement.</text></feedback></answer>
+    <generalfeedback><text>Push-down means choosing the lowest (cheapest, fastest, most stable) layer that still gives adequate confidence for a given behaviour, reserving slow E2E tests for what only they can cover.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which shape is healthy</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which distribution describes a <strong>healthy</strong> pyramid rather than an ice-cream cone?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Many unit tests, fewer integration tests, few UI/E2E tests</text><feedback><text>Correct — a wide unit base tapering to a thin UI top is the healthy pyramid.</text></feedback></answer>
+    <answer fraction="0"><text>Many UI/E2E tests, fewer integration tests, few unit tests</text><feedback><text>That is the inverted ice-cream cone, not a healthy pyramid.</text></feedback></answer>
+    <answer fraction="0"><text>Equal numbers of unit, integration, and UI tests</text><feedback><text>A pyramid is deliberately unequal, widest at the unit base.</text></feedback></answer>
+    <answer fraction="0"><text>Only UI tests and nothing else</text><feedback><text>That is an extreme ice-cream cone with no base at all.</text></feedback></answer>
+    <generalfeedback><text>A healthy pyramid narrows as it rises: the most unit tests, fewer integration tests, and the fewest UI/E2E tests. The ice-cream cone is this shape inverted.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why unit tests form the base</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why do unit tests form the <strong>base</strong> of the pyramid?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They are fast, cheap, stable, and pinpoint failures, so you can afford many of them and run them constantly</text><feedback><text>Correct — these properties make a large unit base the most efficient foundation.</text></feedback></answer>
+    <answer fraction="0"><text>They are the most realistic, so they deserve the most coverage</text><feedback><text>Realism is a property of E2E tests, not unit tests; that is not why unit tests form the base.</text></feedback></answer>
+    <answer fraction="0"><text>They are the only tests capable of finding any defects</text><feedback><text>Higher layers find defects unit tests cannot (e.g. interface and end-to-end faults).</text></feedback></answer>
+    <answer fraction="0"><text>They are the slowest, so they must run first</text><feedback><text>Unit tests are the fastest, which is precisely why there are many of them.</text></feedback></answer>
+    <generalfeedback><text>Unit tests are fast, cheap, isolated, deterministic, and localise failures precisely — so a large base of them gives quick, reliable feedback at low cost.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute unit count at 70/20/10</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite has <strong>200</strong> tests distributed as an illustrative <strong>70% / 20% / 10%</strong> (unit / integration / UI). How many are <strong>unit</strong> tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>140</text><feedback><text>Correct — 70% of 200 = 140.</text></feedback></answer>
+    <answer fraction="0"><text>40</text><feedback><text>40 is the integration count (20% of 200), not the unit count.</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 is the UI count (10% of 200), not the unit count.</text></feedback></answer>
+    <answer fraction="0"><text>70</text><feedback><text>70 is the percentage, not the number of tests; 70% of 200 is 140.</text></feedback></answer>
+    <generalfeedback><text>0.70 &#215; 200 = 140 unit, 0.20 &#215; 200 = 40 integration, 0.10 &#215; 200 = 20 UI. The ratio is illustrative, not a rule.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute integration count at 70/20/10</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite has <strong>300</strong> tests distributed as an illustrative <strong>70% / 20% / 10%</strong> (unit / integration / UI). How many are <strong>integration</strong> tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>60</text><feedback><text>Correct — 20% of 300 = 60.</text></feedback></answer>
+    <answer fraction="0"><text>210</text><feedback><text>210 is the unit count (70% of 300), not the integration count.</text></feedback></answer>
+    <answer fraction="0"><text>30</text><feedback><text>30 is the UI count (10% of 300), not the integration count.</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 is the percentage, not the number; 20% of 300 is 60.</text></feedback></answer>
+    <generalfeedback><text>0.20 &#215; 300 = 60 integration (with 210 unit and 30 UI). Treat the 70/20/10 split as illustrative.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify a test: full checkout flow</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test opens the browser, logs in, adds an item to the cart, and completes checkout as a real user would. Which layer does it belong to?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>UI/end-to-end (the top)</text><feedback><text>Correct — driving the whole application through the UI as a user is an E2E test.</text></feedback></answer>
+    <answer fraction="0"><text>Unit (the base)</text><feedback><text>A whole-application browser flow is far broader than a single isolated unit.</text></feedback></answer>
+    <answer fraction="0"><text>Integration/service (the middle)</text><feedback><text>This goes through the UI and the full stack, which is E2E rather than a below-the-UI integration test.</text></feedback></answer>
+    <answer fraction="0"><text>It is not a test of any pyramid layer</text><feedback><text>It is a classic end-to-end test at the top of the pyramid.</text></feedback></answer>
+    <generalfeedback><text>Exercising the entire integrated system through the real UI, as a user would, is the definition of an end-to-end (top-layer) test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify a test: one pure function</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test calls a single pure function with fixed inputs and asserts its return value, with no database, network, or UI involved. Which layer does it belong to?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unit (the base)</text><feedback><text>Correct — an isolated test of one function's logic is a unit test.</text></feedback></answer>
+    <answer fraction="0"><text>Integration/service (the middle)</text><feedback><text>Nothing is being integrated here; it is a single isolated function.</text></feedback></answer>
+    <answer fraction="0"><text>UI/end-to-end (the top)</text><feedback><text>No UI or full-system flow is involved, so it is not E2E.</text></feedback></answer>
+    <answer fraction="0"><text>It cannot be automated</text><feedback><text>A pure-function assertion is one of the easiest tests to automate — a unit test.</text></feedback></answer>
+    <generalfeedback><text>Testing one function in isolation with no external dependencies is the textbook unit test at the base of the pyramid.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify a test: service talks to database</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A test starts a service and a real test database, then checks that saving and reloading a record through the service's API works correctly — without opening any UI. Which layer does it belong to?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Integration/service (the middle)</text><feedback><text>Correct — it checks the service and database working together below the UI.</text></feedback></answer>
+    <answer fraction="0"><text>Unit (the base)</text><feedback><text>It involves two collaborating components (service + database), so it is not an isolated unit test.</text></feedback></answer>
+    <answer fraction="0"><text>UI/end-to-end (the top)</text><feedback><text>No UI is involved; the test stops at the service/API level.</text></feedback></answer>
+    <answer fraction="0"><text>It is a performance test only</text><feedback><text>It checks functional correctness of an interaction, which is an integration/service test.</text></feedback></answer>
+    <generalfeedback><text>Exercising a real interaction between components (service and database) through the API, without the UI, is a middle-layer integration/service test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Symptom: too many manual/UI tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team relies mostly on manual and UI tests, with almost no unit tests. This distribution is called:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An ice-cream cone (inverted pyramid)</text><feedback><text>Correct — most effort at the slow top and a tiny unit base is the ice-cream cone.</text></feedback></answer>
+    <answer fraction="0"><text>A healthy pyramid</text><feedback><text>A healthy pyramid has a large unit base, the opposite of this.</text></feedback></answer>
+    <answer fraction="0"><text>An hourglass</text><feedback><text>An hourglass has a fat unit base and fat E2E top with a thin middle; here the unit base is nearly missing.</text></feedback></answer>
+    <answer fraction="0"><text>A well-balanced test portfolio</text><feedback><text>Over-relying on manual/UI tests is unbalanced and gives slow, costly feedback.</text></feedback></answer>
+    <generalfeedback><text>Heavy manual/UI testing with a tiny unit base is the classic ice-cream-cone anti-pattern: the pyramid turned upside down.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Where flakiness concentrates</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Across the pyramid, flakiness (non-deterministic pass/fail) is generally concentrated at:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The top (UI/end-to-end tests)</text><feedback><text>Correct — dependence on the whole stack, timing, and the UI makes the top layer flakiest.</text></feedback></answer>
+    <answer fraction="0"><text>The base (unit tests)</text><feedback><text>Unit tests are isolated and deterministic, so they flake least.</text></feedback></answer>
+    <answer fraction="0"><text>Evenly across all three layers</text><feedback><text>Flakiness rises as you climb; it is not even.</text></feedback></answer>
+    <answer fraction="0"><text>Only in tests that have no assertions</text><feedback><text>Flakiness is about non-determinism, and it concentrates in E2E tests regardless of assertions.</text></feedback></answer>
+    <generalfeedback><text>The higher a test sits, the more moving parts, timing, and environment it depends on, so flakiness concentrates at the UI/E2E top.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why fast unit tests gate every commit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why are fast unit tests the natural choice to run on <strong>every commit</strong> in CI?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They finish quickly and are deterministic, so they give reliable feedback without slowing the pipeline</text><feedback><text>Correct — speed plus stability makes them ideal as a per-commit gate.</text></feedback></answer>
+    <answer fraction="0"><text>They are the only tests that can fail</text><feedback><text>Any layer's tests can fail; unit tests are chosen for speed and stability.</text></feedback></answer>
+    <answer fraction="0"><text>They exercise the whole system most realistically</text><feedback><text>That is E2E; unit tests are chosen precisely because they are fast, not because they are realistic.</text></feedback></answer>
+    <answer fraction="0"><text>They never need to be maintained</text><feedback><text>All tests need maintenance; the reason for the gate is speed and determinism.</text></feedback></answer>
+    <generalfeedback><text>A per-commit gate must be fast and reliable. Unit tests run in seconds and are deterministic, so they fit; slow, flaky E2E tests are run less often.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Compute UI count at 70/20/10</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite has <strong>500</strong> tests distributed as an illustrative <strong>70% / 20% / 10%</strong> (unit / integration / UI). How many are <strong>UI</strong> tests?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>50</text><feedback><text>Correct — 10% of 500 = 50.</text></feedback></answer>
+    <answer fraction="0"><text>350</text><feedback><text>350 is the unit count (70% of 500), not the UI count.</text></feedback></answer>
+    <answer fraction="0"><text>100</text><feedback><text>100 is the integration count (20% of 500), not the UI count.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 is the percentage, not the number; 10% of 500 is 50.</text></feedback></answer>
+    <generalfeedback><text>0.10 &#215; 500 = 50 UI (with 350 unit and 100 integration). The split is illustrative.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Move coverage down to fix slow flaky suite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>To fix a slow, flaky suite, it is generally better to move coverage <em>down</em> — replacing some E2E tests with equivalent unit or integration tests where they give adequate confidence.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — pushing coverage to lower layers speeds up the suite and reduces flakiness.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Moving coverage down is exactly the standard remedy for a slow, flaky suite.</text></feedback></answer>
+    <generalfeedback><text>Speed and stability improve as you move down the pyramid, so replacing redundant E2E tests with lower-level tests (where confidence is adequate) is the usual fix.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Choosing the layer for a behaviour</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A behaviour can be verified equally well by a fast unit test or by a slow E2E test. Which should you generally prefer?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The unit test, because it is the lowest layer that gives adequate confidence</text><feedback><text>Correct — push down: use the cheapest, fastest test that suffices.</text></feedback></answer>
+    <answer fraction="0"><text>The E2E test, because higher tests are always better</text><feedback><text>Higher tests are slower and flakier; you do not use them when a lower one suffices.</text></feedback></answer>
+    <answer fraction="0"><text>Both, always, for every behaviour</text><feedback><text>Duplicating every behaviour at E2E inflates a slow, flaky top layer needlessly.</text></feedback></answer>
+    <answer fraction="0"><text>Neither; leave the behaviour untested</text><feedback><text>The behaviour should be tested — at the lowest adequate layer.</text></feedback></answer>
+    <generalfeedback><text>When two layers give the same confidence, choose the lower one. Reserve E2E tests for behaviours only they can adequately cover.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Automation Pyramid/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose an inverted distribution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite is distributed <strong>10% unit / 20% integration / 70% UI</strong>. This is best diagnosed as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An ice-cream cone — the pyramid is inverted, with far too many UI tests</text><feedback><text>Correct — the bulk of testing sits at the slow, brittle top with a tiny unit base.</text></feedback></answer>
+    <answer fraction="0"><text>A healthy pyramid</text><feedback><text>A healthy pyramid has the most unit tests; here unit is only 10%.</text></feedback></answer>
+    <answer fraction="0"><text>An hourglass</text><feedback><text>An hourglass has fat top and base with a thin middle; here the base (unit) is thin, not fat.</text></feedback></answer>
+    <answer fraction="0"><text>A perfectly balanced portfolio</text><feedback><text>Concentrating 70% at the UI top is unbalanced — the ice-cream-cone anti-pattern.</text></feedback></answer>
+    <generalfeedback><text>Most tests at the top and few at the base is the inverted pyramid, i.e. the ice-cream cone: slow, flaky, expensive feedback.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Remediate an ice-cream cone</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Given an ice-cream-cone distribution (too many UI tests, too few unit tests), the standard remediation is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Add unit and integration tests and push coverage down, keeping only the E2E tests that earn their place</text><feedback><text>Correct — rebuild the base and trim redundant E2E tests to restore the pyramid shape.</text></feedback></answer>
+    <answer fraction="0"><text>Add even more UI tests for realism</text><feedback><text>That worsens the inversion; the top is already too heavy.</text></feedback></answer>
+    <answer fraction="0"><text>Delete all UI tests entirely</text><feedback><text>A few E2E tests are still valuable; the fix is rebalancing, not removing the whole top.</text></feedback></answer>
+    <answer fraction="0"><text>Stop automated testing and rely on manual testing</text><feedback><text>That deepens the anti-pattern rather than fixing it.</text></feedback></answer>
+    <generalfeedback><text>Fix an ice-cream cone by pushing coverage down: grow the unit and integration layers and keep only the high-value E2E tests, restoring a wide base.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Diagnose a thin middle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite has <strong>50% unit / 5% integration / 45% UI</strong> — a fat base and a fat top with almost nothing in between. This is best diagnosed as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An hourglass — the integration/service middle is too thin</text><feedback><text>Correct — a starved middle with heavy base and top is the hourglass anti-pattern.</text></feedback></answer>
+    <answer fraction="0"><text>An ice-cream cone</text><feedback><text>An ice-cream cone is inverted with a tiny base; here the base is large.</text></feedback></answer>
+    <answer fraction="0"><text>A healthy pyramid</text><feedback><text>A healthy pyramid has a substantial middle; here it is nearly missing.</text></feedback></answer>
+    <answer fraction="0"><text>An over-tested middle layer</text><feedback><text>The middle is under-tested (5%), not over-tested.</text></feedback></answer>
+    <generalfeedback><text>A fat unit base plus a fat E2E top with a starved integration middle is the hourglass: interaction faults slip through because the service layer is barely tested.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Remediate an hourglass</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The correct remediation for an hourglass distribution is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Build up the integration/service (middle) layer and move some E2E coverage down into it</text><feedback><text>Correct — thickening the middle catches interaction faults faster than E2E and restores the taper.</text></feedback></answer>
+    <answer fraction="0"><text>Add more UI tests to compensate for the thin middle</text><feedback><text>That relies on the slow top to catch interaction faults instead of fixing the missing middle.</text></feedback></answer>
+    <answer fraction="0"><text>Remove unit tests so the shape looks more like a pyramid</text><feedback><text>You never fix a shape by discarding the fast, valuable base.</text></feedback></answer>
+    <answer fraction="0"><text>Do nothing; an hourglass is optimal</text><feedback><text>An hourglass leaves interaction faults poorly covered; it is an anti-pattern to correct.</text></feedback></answer>
+    <generalfeedback><text>Fix an hourglass by growing the integration/service middle — the fastest place to catch component-interaction faults — and pushing some E2E coverage down into it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Realism versus speed/cost trade-off</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement best captures the core trade-off between the pyramid's layers?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Higher layers give more realism and confidence but slower, costlier, flakier feedback; lower layers give faster, cheaper, more stable feedback with less end-to-end realism</text><feedback><text>Correct — this is the central speed/cost-versus-realism trade-off of the pyramid.</text></feedback></answer>
+    <answer fraction="0"><text>Higher layers are strictly better than lower layers in every respect</text><feedback><text>Higher layers are slower, costlier, and flakier; they are not strictly better.</text></feedback></answer>
+    <answer fraction="0"><text>Lower layers are more realistic than higher layers</text><feedback><text>Realism increases as you go up, not down.</text></feedback></answer>
+    <answer fraction="0"><text>All layers have identical speed, cost, and realism</text><feedback><text>The layers differ sharply on exactly these dimensions.</text></feedback></answer>
+    <generalfeedback><text>Climbing the pyramid trades speed, cost, and stability for realism and end-to-end confidence. The pyramid shape balances these by favouring many cheap low-level tests and few expensive high-level ones.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why flakiness concentrates at the top</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does flakiness concentrate in the top layer of the pyramid?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>E2E tests depend on the whole integrated stack, timing, and external state, giving many chances for non-deterministic failures</text><feedback><text>Correct — more moving parts and timing dependencies mean more non-determinism.</text></feedback></answer>
+    <answer fraction="0"><text>E2E tests have weaker assertions than unit tests</text><feedback><text>Flakiness comes from non-determinism in the environment, not from assertion strength.</text></feedback></answer>
+    <answer fraction="0"><text>Unit tests are actually the flakiest, so the top only looks flaky</text><feedback><text>Unit tests are the most stable; the top is genuinely the flakiest.</text></feedback></answer>
+    <answer fraction="0"><text>Because the top layer runs most often</text><feedback><text>The top usually runs least often; flakiness is due to dependencies and timing, not frequency.</text></feedback></answer>
+    <generalfeedback><text>Every additional integrated component, network hop, timing dependency, and piece of shared state adds a source of non-determinism, so end-to-end tests at the top flake most.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When more E2E is justified</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When is adding <strong>more</strong> end-to-end tests genuinely justified despite their cost?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>For a few critical user journeys whose end-to-end confidence cannot be obtained adequately at a lower layer</text><feedback><text>Correct — E2E earns its place where only whole-system realism gives the needed confidence.</text></feedback></answer>
+    <answer fraction="0"><text>Whenever a behaviour could also be covered by a unit test</text><feedback><text>If a unit test suffices, push down; do not duplicate it at E2E.</text></feedback></answer>
+    <answer fraction="0"><text>To replace unit tests entirely for simplicity</text><feedback><text>Replacing the fast base with slow E2E tests inverts the pyramid.</text></feedback></answer>
+    <answer fraction="0"><text>Never — E2E tests are never justified</text><feedback><text>A few E2E tests for critical flows are valuable; the point is to keep them few.</text></feedback></answer>
+    <generalfeedback><text>Add E2E tests sparingly for critical end-to-end journeys where lower layers cannot give adequate confidence — not for behaviours a unit or integration test already covers.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Misconception: pyramid width means importance</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about the pyramid is a <strong>misconception</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The narrow top means UI/E2E tests are unimportant</text><feedback><text>Correct — this is the misconception; the width reflects count/proportion and speed, not importance.</text></feedback></answer>
+    <answer fraction="0"><text>The width of a layer reflects how many tests of that kind you should have</text><feedback><text>This is a correct reading of the pyramid, not a misconception.</text></feedback></answer>
+    <answer fraction="0"><text>E2E tests are still needed, just kept few</text><feedback><text>This is correct — E2E tests remain valuable but are few.</text></feedback></answer>
+    <answer fraction="0"><text>Lower layers give faster feedback than higher ones</text><feedback><text>This is a correct property of the pyramid, not a misconception.</text></feedback></answer>
+    <generalfeedback><text>The pyramid is about test count/proportion and feedback speed, not importance. A thin top does not mean E2E tests are unimportant — only that few of them are needed.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Misconception: delete all E2E tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Because E2E tests are slow and flaky, a healthy pyramid should have <em>zero</em> end-to-end tests.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>A healthy pyramid keeps a few E2E tests for critical flows, not zero.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — the top is thin, not empty; a few E2E tests remain essential.</text></feedback></answer>
+    <generalfeedback><text>The pyramid narrows to a few E2E tests, not none. Some end-to-end coverage is needed to confirm critical user journeys work through the whole system.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Rebalance: unit tests to add</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite of <strong>200</strong> tests is currently inverted at <strong>20 unit / 40 integration / 140 UI</strong>. You want to reach a <strong>70% / 20% / 10%</strong> target while keeping the total at 200. How many <strong>unit</strong> tests must you <strong>add</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>120</text><feedback><text>Correct — target unit = 70% of 200 = 140; you have 20, so add 140 &#8722; 20 = 120.</text></feedback></answer>
+    <answer fraction="0"><text>140</text><feedback><text>140 is the target unit count, but you already have 20, so you add only 120.</text></feedback></answer>
+    <answer fraction="0"><text>100</text><feedback><text>Recompute: target 140 minus current 20 is 120, not 100.</text></feedback></answer>
+    <answer fraction="0"><text>20</text><feedback><text>20 is the current unit count, not the number to add.</text></feedback></answer>
+    <generalfeedback><text>Target unit = 0.70 &#215; 200 = 140. Currently 20, so add 140 &#8722; 20 = 120. (Integration is already 40 = 20%; UI must drop from 140 to 20.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Rebalance: UI tests to remove</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A suite of <strong>100</strong> tests is currently <strong>40 unit / 10 integration / 50 UI</strong>. You want to reach a <strong>70% / 20% / 10%</strong> target while keeping the total at 100. How many <strong>UI</strong> tests must you <strong>remove</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>40</text><feedback><text>Correct — target UI = 10% of 100 = 10; you have 50, so remove 50 &#8722; 10 = 40.</text></feedback></answer>
+    <answer fraction="0"><text>10</text><feedback><text>10 is the target UI count, not the number to remove; you must remove 50 &#8722; 10 = 40.</text></feedback></answer>
+    <answer fraction="0"><text>50</text><feedback><text>50 is the current UI count; you keep 10, so remove only 40.</text></feedback></answer>
+    <answer fraction="0"><text>30</text><feedback><text>Recompute: 50 current minus 10 target is 40, not 30.</text></feedback></answer>
+    <generalfeedback><text>Target UI = 0.10 &#215; 100 = 10. Currently 50, so remove 50 &#8722; 10 = 40. (Unit rises from 40 to 70; integration rises from 10 to 20.)</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why not push everything to unit</text></name>
+    <questiontext format="html"><text><![CDATA[<p>If unit tests are the fastest and cheapest, why not push <strong>every</strong> test down to the unit layer and drop the higher layers?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unit tests cannot catch faults in how components interact or in real end-to-end user flows; some confidence comes only from higher layers</text><feedback><text>Correct — interface and whole-system faults need integration and E2E tests.</text></feedback></answer>
+    <answer fraction="0"><text>Because unit tests are actually the slowest layer</text><feedback><text>Unit tests are the fastest; the reason is coverage, not speed.</text></feedback></answer>
+    <answer fraction="0"><text>Because higher layers are cheaper than unit tests</text><feedback><text>Higher layers are more expensive, not cheaper.</text></feedback></answer>
+    <answer fraction="0"><text>You should, in fact, drop all higher layers</text><feedback><text>Dropping the higher layers would miss interaction and end-to-end faults entirely.</text></feedback></answer>
+    <generalfeedback><text>Each layer catches faults the others cannot: unit tests miss interface/interaction faults and real user-flow problems, so integration and a few E2E tests remain necessary. "Push down" means using the lowest <em>adequate</em> layer, not eliminating higher ones.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Interaction bug slips through with thin middle</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team has fast unit tests and a handful of E2E tests but almost no service-level tests, and bugs in how two services exchange data keep reaching production. What is the diagnosis and fix?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An hourglass with a starved middle; add integration/service tests to catch interaction faults early</text><feedback><text>Correct — the missing middle lets interaction faults slip past unit tests and only sometimes get caught by the few E2E tests.</text></feedback></answer>
+    <answer fraction="0"><text>An ice-cream cone; delete the unit tests</text><feedback><text>The unit base is fine; the problem is the missing integration middle, and you never delete the base.</text></feedback></answer>
+    <answer fraction="0"><text>A healthy pyramid; no change needed</text><feedback><text>Interaction bugs reaching production show the integration layer is inadequate.</text></feedback></answer>
+    <answer fraction="0"><text>Too many unit tests; remove some of them</text><feedback><text>Removing unit tests would not address the uncovered service interactions.</text></feedback></answer>
+    <generalfeedback><text>Fast unit tests plus a few E2E tests but a starved middle is an hourglass. Interaction faults between services are best and fastest caught by integration/service tests, so grow that middle layer.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Lowest adequate level for an interaction fault</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A defect concerns how two services exchange data over their API. Applying "test at the lowest level that gives adequate confidence," which layer should own that test?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Integration/service — it is the lowest layer that exercises the interaction between the two services</text><feedback><text>Correct — a unit test cannot see the interaction, and an E2E test is more than needed.</text></feedback></answer>
+    <answer fraction="0"><text>Unit — it is the fastest layer</text><feedback><text>A unit test isolates one component and cannot exercise the cross-service interaction, so it does not give adequate confidence.</text></feedback></answer>
+    <answer fraction="0"><text>UI/end-to-end — the most realistic layer</text><feedback><text>E2E would work but is slower and flakier than needed; the lowest adequate layer is integration.</text></feedback></answer>
+    <answer fraction="0"><text>None — such faults cannot be tested</text><feedback><text>They are exactly what integration/service tests target.</text></feedback></answer>
+    <generalfeedback><text>Push down to the lowest layer that still gives confidence. An interaction between two services is invisible to a unit test and overkill for E2E, so it belongs at the integration/service layer.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>70/20/10 is a strict law</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The exact 70/20/10 split is a strict rule that every project must follow to have a valid pyramid.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>The specific numbers are illustrative, not a mandatory law.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — ratios like 70/20/10 are illustrative; the principle is the shape (wide base, thin top), not exact percentages.</text></feedback></answer>
+    <generalfeedback><text>Concrete ratios are only rules of thumb to convey the shape. What matters is that unit tests dominate, integration tests are fewer, and UI/E2E tests are fewest — the exact numbers vary by project.</text></generalfeedback>
+  </question>
+</quiz>

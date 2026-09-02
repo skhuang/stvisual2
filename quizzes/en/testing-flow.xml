@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Testing Process Flow/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What a test plan is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>test plan</em> is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A document describing the scope, objectives, approach, resources and schedule of the intended test activities</text><feedback><text>Correct — the test plan is the output of test planning and sets out what will be tested, how, by whom, and when.</text></feedback></answer>
+    <answer fraction="0"><text>A list of the concrete inputs and expected results for one specific test</text><feedback><text>That describes a single test case, not the overall test plan.</text></feedback></answer>
+    <answer fraction="0"><text>A record of a single failure observed while running the software</text><feedback><text>That is a defect (incident) report, produced during execution.</text></feedback></answer>
+    <answer fraction="0"><text>The source code of the program under test</text><feedback><text>The code is part of the test object, not the test plan.</text></feedback></answer>
+    <generalfeedback><text>Test planning is the first activity of the fundamental test process; its work product, the test plan, defines the objectives, scope, approach, resources and schedule for testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What the test basis is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>test basis</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The body of knowledge (requirements, specifications, designs, user stories, risk reports) used as the basis for analysing and designing tests</text><feedback><text>Correct — tests are derived from the test basis.</text></feedback></answer>
+    <answer fraction="0"><text>The minimum set of tests that must pass before release</text><feedback><text>That is closer to an exit criterion or a smoke-test set, not the test basis.</text></feedback></answer>
+    <answer fraction="0"><text>The hardware and software environment in which tests are executed</text><feedback><text>That is the test environment, not the test basis.</text></feedback></answer>
+    <answer fraction="0"><text>The team of people responsible for testing</text><feedback><text>People are resources; the test basis is the source material tests are derived from.</text></feedback></answer>
+    <generalfeedback><text>The test basis is everything a test is derived from — requirements, specifications, design and implementation information, user stories, risk analyses and so on. Test analysis works from it to determine what to test.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a test condition is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>test condition</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A testable aspect of the test basis (a feature, function, requirement or quality attribute) that a test could exercise</text><feedback><text>Correct — test conditions say WHAT should be tested; they are identified during test analysis.</text></feedback></answer>
+    <answer fraction="0"><text>The concrete input values and expected outputs of a runnable test</text><feedback><text>Those belong to a test case, which is designed later from a test condition.</text></feedback></answer>
+    <answer fraction="0"><text>The state the system must be in before a test can start</text><feedback><text>That is a precondition of a test case, not a test condition.</text></feedback></answer>
+    <answer fraction="0"><text>A defect found during execution</text><feedback><text>A defect is an observed failure/fault, not a test condition.</text></feedback></answer>
+    <generalfeedback><text>A test condition is an item or aspect of the test basis (a function, requirement, or quality characteristic) worth testing. It answers &#8220;what to test&#8221; and is the output of test analysis; the concrete test case is designed from it afterwards.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a test case is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>test case</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A set of preconditions, inputs, expected results and postconditions developed to exercise a test condition</text><feedback><text>Correct — a test case makes a test condition concrete and executable.</text></feedback></answer>
+    <answer fraction="0"><text>A high-level statement of an aspect of the test basis worth testing</text><feedback><text>That is a test condition; a test case is derived from it and is concrete.</text></feedback></answer>
+    <answer fraction="0"><text>The overall schedule and resourcing document for testing</text><feedback><text>That is the test plan.</text></feedback></answer>
+    <answer fraction="0"><text>The end-of-project summary of how testing went</text><feedback><text>That is the test summary report, produced at test completion.</text></feedback></answer>
+    <generalfeedback><text>A test case turns a test condition into something you can run: it specifies preconditions, inputs, the expected results to compare against, and postconditions. It is the main work product of test design.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a test case must contain</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which element is essential to a well-formed test case?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The expected result to compare the actual result against</text><feedback><text>Correct — without a documented expected result you cannot decide pass or fail (the oracle problem).</text></feedback></answer>
+    <answer fraction="0"><text>The name of the developer who wrote the code</text><feedback><text>Useful metadata perhaps, but not an essential part of a test case.</text></feedback></answer>
+    <answer fraction="0"><text>A guarantee that the test will pass</text><feedback><text>A test case is not required to pass; it must have a defined expected result.</text></feedback></answer>
+    <answer fraction="0"><text>The total project budget</text><feedback><text>Budget is a planning concern, not part of a test case.</text></feedback></answer>
+    <generalfeedback><text>A test case specifies preconditions, inputs, expected results and postconditions. The expected result is essential: comparing the actual result to a predefined expected result is what makes a verdict (pass/fail) possible.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Entry criteria</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Entry criteria</em> for a test activity are:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The conditions that must be satisfied before that activity can sensibly begin</text><feedback><text>Correct — entry criteria gate the START of an activity (a &#8220;definition of ready&#8221;).</text></feedback></answer>
+    <answer fraction="0"><text>The conditions that must be met before testing can be declared finished</text><feedback><text>Those are exit criteria, which gate the stop, not the start.</text></feedback></answer>
+    <answer fraction="0"><text>The list of defects still open at the end of testing</text><feedback><text>That is residual-defect data, not entry criteria.</text></feedback></answer>
+    <answer fraction="0"><text>The inputs of a single test case</text><feedback><text>Those are test-case inputs, not entry criteria for an activity.</text></feedback></answer>
+    <generalfeedback><text>Entry criteria define what must be in place before an activity starts — e.g. a stable build deployed, the test environment ready, and test data available. They are checked at the start of test implementation/execution.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Exit criteria</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Exit criteria</em> for testing are:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The conditions that must be met before testing can be considered complete for the agreed objectives</text><feedback><text>Correct — exit criteria gate the STOP (a &#8220;definition of done&#8221; for testing).</text></feedback></answer>
+    <answer fraction="0"><text>The conditions that must be met before testing can begin</text><feedback><text>Those are entry criteria, which gate the start.</text></feedback></answer>
+    <answer fraction="0"><text>The list of stakeholders who approved the test plan</text><feedback><text>Approval sign-off is not the same as exit criteria.</text></feedback></answer>
+    <answer fraction="0"><text>The set of test conditions produced by test analysis</text><feedback><text>Those are analysis outputs, not exit criteria.</text></feedback></answer>
+    <generalfeedback><text>Exit criteria (completion criteria) state when testing is done — e.g. planned coverage achieved, no unresolved high-severity defects, and the time/budget consumed. They are checked during test monitoring &amp; control and at completion.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a test procedure is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>test procedure</em> (test script) is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A sequence of actions and test cases arranged in the order they will be executed, with any needed setup</text><feedback><text>Correct — the test procedure specifies the execution steps and ordering; it is built during test implementation.</text></feedback></answer>
+    <answer fraction="0"><text>A high-level aspect of the test basis worth testing</text><feedback><text>That is a test condition.</text></feedback></answer>
+    <answer fraction="0"><text>The overall objectives and schedule for the whole test effort</text><feedback><text>That is the test plan.</text></feedback></answer>
+    <answer fraction="0"><text>A report on how many tests passed</text><feedback><text>That is a test result / summary, not a procedure.</text></feedback></answer>
+    <generalfeedback><text>A test procedure specifies the sequence of steps (and the test cases in execution order) to run tests, including preconditions and setup. Producing test procedures is part of test implementation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a test suite is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>test suite</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A collection of test cases or test procedures grouped together to be run as a set</text><feedback><text>Correct — a suite bundles related tests for execution and reporting.</text></feedback></answer>
+    <answer fraction="0"><text>A single input/expected-result pair</text><feedback><text>That is one test case, not a suite of them.</text></feedback></answer>
+    <answer fraction="0"><text>The requirements document the tests are derived from</text><feedback><text>That is part of the test basis.</text></feedback></answer>
+    <answer fraction="0"><text>A tool that measures code coverage</text><feedback><text>That is a coverage tool, not a test suite.</text></feedback></answer>
+    <generalfeedback><text>A test suite groups test cases/procedures for execution (for example a smoke suite or a regression suite). Organising tests into suites happens during test implementation.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a defect report is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>defect (incident) report</em> primarily records:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An observed anomaly (the discrepancy between actual and expected behaviour) so it can be investigated and tracked</text><feedback><text>Correct — defect reports are logged during execution and drive the defect lifecycle.</text></feedback></answer>
+    <answer fraction="0"><text>The planned scope and schedule of testing</text><feedback><text>That is the test plan.</text></feedback></answer>
+    <answer fraction="0"><text>The list of test conditions to be covered</text><feedback><text>Those come from test analysis, not from a defect report.</text></feedback></answer>
+    <answer fraction="0"><text>A guarantee that the software is defect-free</text><feedback><text>Testing cannot prove the absence of defects; a defect report records a specific anomaly found.</text></feedback></answer>
+    <generalfeedback><text>When actual behaviour differs from expected behaviour during execution, the tester logs a defect report describing the anomaly, how to reproduce it, and its impact. This starts the defect lifecycle.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Correct order of the main activities</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Ignoring the continuous monitoring &amp; control activity, which sequence gives the correct order of the fundamental test process activities?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Planning, analysis, design, implementation, execution, completion</text><feedback><text>Correct — this is the canonical order (with monitoring &amp; control running throughout).</text></feedback></answer>
+    <answer fraction="0"><text>Planning, design, analysis, execution, implementation, completion</text><feedback><text>Analysis (what to test) must precede design (how to test), and implementation must precede execution.</text></feedback></answer>
+    <answer fraction="0"><text>Analysis, planning, design, execution, implementation, completion</text><feedback><text>Planning comes first, and implementation precedes execution.</text></feedback></answer>
+    <answer fraction="0"><text>Planning, analysis, design, execution, implementation, completion</text><feedback><text>Implementation (building procedures/data/environment) precedes execution, not the other way round.</text></feedback></answer>
+    <generalfeedback><text>The fundamental test process runs: test planning &#8594; test analysis &#8594; test design &#8594; test implementation &#8594; test execution &#8594; test completion, with test monitoring &amp; control as a continuous activity spanning all of them.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which activity runs the tests</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Actually running the tests, comparing actual results to expected results, and logging defects is done in:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test execution</text><feedback><text>Correct — execution runs the tests and records the outcomes and any defects.</text></feedback></answer>
+    <answer fraction="0"><text>Test analysis</text><feedback><text>Analysis identifies test conditions; it does not run tests.</text></feedback></answer>
+    <answer fraction="0"><text>Test design</text><feedback><text>Design produces test cases; it does not run them.</text></feedback></answer>
+    <answer fraction="0"><text>Test planning</text><feedback><text>Planning sets scope and approach; running tests happens much later.</text></feedback></answer>
+    <generalfeedback><text>Test execution is the activity where test suites are run, actual results are compared with expected results, discrepancies are logged as defects, and confirmation/regression testing takes place.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of test completion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The main purpose of <em>test completion</em> (test closure) is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Wrap up testing — report results, finalise and archive testware, and capture lessons learned</text><feedback><text>Correct — completion consolidates and hands over the outcomes of testing.</text></feedback></answer>
+    <answer fraction="0"><text>Identify the test conditions from the test basis</text><feedback><text>That is test analysis, near the start of the process.</text></feedback></answer>
+    <answer fraction="0"><text>Write the concrete inputs and expected results of each test</text><feedback><text>That is test design.</text></feedback></answer>
+    <answer fraction="0"><text>Run the test suites for the first time</text><feedback><text>That is test execution, which precedes completion.</text></feedback></answer>
+    <generalfeedback><text>Test completion happens when a milestone is reached (release, end of iteration, project close). It gathers data, produces a test summary report, finalises and archives testware, hands it over, and records lessons learned.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What monitoring and control is</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Test monitoring and control</em> is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>An ongoing activity that compares actual progress against the plan and takes corrective action throughout testing</text><feedback><text>Correct — it runs continuously, not just once, and steers the effort.</text></feedback></answer>
+    <answer fraction="0"><text>A one-off activity done only at the very end of the project</text><feedback><text>That would be closer to completion; monitoring &amp; control is continuous.</text></feedback></answer>
+    <answer fraction="0"><text>The activity that derives test cases from test conditions</text><feedback><text>That is test design.</text></feedback></answer>
+    <answer fraction="0"><text>The activity that logs each individual defect</text><feedback><text>Defects are logged during execution; monitoring uses that data to steer.</text></feedback></answer>
+    <generalfeedback><text>Test monitoring &amp; control runs throughout the whole process: monitoring gathers information (progress, coverage, defect data) and control uses it to guide testing so exit criteria can be met.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Analysis determines what to test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Test analysis determines <em>what</em> to test by identifying test conditions from the test basis.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — analysis works from the test basis to identify and prioritise test conditions (the &#8220;what&#8221;); designing the &#8220;how&#8221; comes next.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>It is true: test analysis identifies test conditions (what to test); test design then produces the test cases (how to test).</text></feedback></answer>
+    <generalfeedback><text>Test analysis analyses the test basis to determine what to test, producing test conditions. Test design then turns those conditions into concrete test cases.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testing Process Flow/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What precedes test design</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the fundamental test process, which activity immediately <strong>precedes</strong> test design?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test analysis</text><feedback><text>Correct — analysis identifies the test conditions that design then turns into test cases.</text></feedback></answer>
+    <answer fraction="0"><text>Test implementation</text><feedback><text>Implementation follows design, not precedes it.</text></feedback></answer>
+    <answer fraction="0"><text>Test execution</text><feedback><text>Execution comes much later, after implementation.</text></feedback></answer>
+    <answer fraction="0"><text>Test completion</text><feedback><text>Completion is the last activity, not before design.</text></feedback></answer>
+    <generalfeedback><text>The order is analysis &#8594; design &#8594; implementation. Test design consumes the test conditions produced by test analysis.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What follows test design</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which activity immediately <strong>follows</strong> test design?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test implementation</text><feedback><text>Correct — after the test cases are designed, implementation builds the procedures, suites, data and environment.</text></feedback></answer>
+    <answer fraction="0"><text>Test analysis</text><feedback><text>Analysis precedes design, not follows it.</text></feedback></answer>
+    <answer fraction="0"><text>Test execution</text><feedback><text>Execution comes after implementation, not directly after design.</text></feedback></answer>
+    <answer fraction="0"><text>Test planning</text><feedback><text>Planning is the first activity, not after design.</text></feedback></answer>
+    <generalfeedback><text>Analysis &#8594; design &#8594; implementation &#8594; execution. Implementation directly follows design: it makes the designed tests runnable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What follows test implementation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which activity immediately <strong>follows</strong> test implementation?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test execution</text><feedback><text>Correct — once the testware and environment are ready and entry criteria are met, the tests are executed.</text></feedback></answer>
+    <answer fraction="0"><text>Test design</text><feedback><text>Design precedes implementation.</text></feedback></answer>
+    <answer fraction="0"><text>Test analysis</text><feedback><text>Analysis is earlier still.</text></feedback></answer>
+    <answer fraction="0"><text>Test completion</text><feedback><text>Completion comes after execution, not directly after implementation.</text></feedback></answer>
+    <generalfeedback><text>Implementation &#8594; execution: implementation finalises the testware, data and environment (and checks readiness/entry criteria); execution then runs the tests.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Naming the activity from its work</text></name>
+    <questiontext format="html"><text><![CDATA[<p>&#8220;Analyse the test basis to determine testable features and derive test conditions.&#8221; This describes:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test analysis</text><feedback><text>Correct — evaluating the test basis and producing test conditions is exactly test analysis.</text></feedback></answer>
+    <answer fraction="0"><text>Test design</text><feedback><text>Design turns those conditions into test cases; it does not derive the conditions.</text></feedback></answer>
+    <answer fraction="0"><text>Test planning</text><feedback><text>Planning sets scope and approach; it does not analyse the basis into conditions.</text></feedback></answer>
+    <answer fraction="0"><text>Test implementation</text><feedback><text>Implementation builds procedures and data; it does not derive test conditions.</text></feedback></answer>
+    <generalfeedback><text>Test analysis evaluates the test basis, identifies testable features, and defines and prioritises test conditions — the &#8220;what to test&#8221;.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Spotting an entry criterion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is an <strong>entry</strong> criterion for starting test execution?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A stable, testable build is deployed and the test environment and test data are ready</text><feedback><text>Correct — that must hold before execution can meaningfully begin.</text></feedback></answer>
+    <answer fraction="0"><text>Planned requirements coverage has been achieved</text><feedback><text>That is an exit criterion — it describes when to stop, not when to start.</text></feedback></answer>
+    <answer fraction="0"><text>No high-severity defects remain open</text><feedback><text>That is an exit criterion, evaluated to decide completion.</text></feedback></answer>
+    <answer fraction="0"><text>The test summary report has been signed off</text><feedback><text>That happens at completion, well after execution starts.</text></feedback></answer>
+    <generalfeedback><text>Entry criteria gate the start: a deployable build, a ready environment and available test data are typical entry criteria for execution. Coverage achieved and no open high-severity defects are exit criteria.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Spotting an exit criterion</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is an <strong>exit</strong> criterion for testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>All planned test cases have been executed and the required coverage target has been met</text><feedback><text>Correct — that is a completion condition, checked to decide whether to stop.</text></feedback></answer>
+    <answer fraction="0"><text>The test environment has been provisioned</text><feedback><text>That is an entry criterion for execution.</text></feedback></answer>
+    <answer fraction="0"><text>The requirements specification is available</text><feedback><text>That enables analysis/design to start; it is an entry-side precondition, not an exit criterion.</text></feedback></answer>
+    <answer fraction="0"><text>Test data has been prepared</text><feedback><text>That is an entry-side readiness condition, not an exit criterion.</text></feedback></answer>
+    <generalfeedback><text>Exit (completion) criteria describe when testing is done: e.g. planned tests executed, coverage targets met, defect levels acceptable, and time/budget consumed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The derivation chain</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Fill the blank in the derivation chain: <em>test basis &#8594; ______ &#8594; test cases</em>.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test conditions</text><feedback><text>Correct — analysis derives test conditions from the basis, then design derives test cases from the conditions.</text></feedback></answer>
+    <answer fraction="0"><text>Defect reports</text><feedback><text>Defect reports come from execution, not between the basis and the test cases.</text></feedback></answer>
+    <answer fraction="0"><text>Test suites</text><feedback><text>Test suites group cases during implementation; they are not the step between basis and cases.</text></feedback></answer>
+    <answer fraction="0"><text>Exit criteria</text><feedback><text>Exit criteria are completion conditions, not a derivation step.</text></feedback></answer>
+    <generalfeedback><text>The flow is test basis &#8594; test conditions (analysis) &#8594; test cases (design) &#8594; test procedures/suites (implementation) &#8594; execution &#8594; defects &#8594; closure.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Confirmation testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After a developer fixes a reported defect, <em>confirmation (re-)testing</em> means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Re-executing the test that originally failed to confirm the defect is now fixed</text><feedback><text>Correct — confirmation testing verifies the specific fix.</text></feedback></answer>
+    <answer fraction="0"><text>Running a broad set of other tests to check nothing else broke</text><feedback><text>That is regression testing, a different purpose.</text></feedback></answer>
+    <answer fraction="0"><text>Writing a new test condition from the requirements</text><feedback><text>That is test analysis, unrelated to confirming a fix.</text></feedback></answer>
+    <answer fraction="0"><text>Reviewing the requirements document for defects</text><feedback><text>That is static verification of a work product, not confirmation testing of a fix.</text></feedback></answer>
+    <generalfeedback><text>Confirmation testing (re-testing) re-runs the previously failing test after the fix, to confirm the original defect has been removed. Regression testing separately checks that the change did not break anything else.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Regression testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The purpose of <em>regression testing</em> is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Detect whether a change has broken previously working functionality</text><feedback><text>Correct — regression testing guards against unintended side effects of changes.</text></feedback></answer>
+    <answer fraction="0"><text>Confirm that a specific reported defect has been fixed</text><feedback><text>That is confirmation (re-)testing, not regression testing.</text></feedback></answer>
+    <answer fraction="0"><text>Determine which test conditions to cover</text><feedback><text>That is test analysis.</text></feedback></answer>
+    <answer fraction="0"><text>Provision the test environment</text><feedback><text>That is part of test implementation.</text></feedback></answer>
+    <generalfeedback><text>A change (a fix or new feature) can have side effects. Regression testing re-runs existing tests on unchanged areas to detect such unintended breakages, whereas confirmation testing verifies the intended fix itself.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of traceability</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Maintaining <em>traceability</em> from test basis items to test conditions, test cases and results mainly enables you to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Measure coverage of the test basis and assess the impact of changes</text><feedback><text>Correct — traceability shows which requirements are covered and what to re-test when something changes.</text></feedback></answer>
+    <answer fraction="0"><text>Guarantee that the software contains no defects</text><feedback><text>No amount of tracing can prove the absence of defects.</text></feedback></answer>
+    <answer fraction="0"><text>Remove the need for exit criteria</text><feedback><text>Traceability supports evaluating exit criteria; it does not replace them.</text></feedback></answer>
+    <answer fraction="0"><text>Speed up the compiler</text><feedback><text>Traceability is about relating work products, not build performance.</text></feedback></answer>
+    <generalfeedback><text>Bidirectional traceability links requirements/test basis &#8596; test conditions &#8596; test cases &#8596; results/defects. It supports coverage measurement, impact analysis for changes, and meaningful progress reporting.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>After a defect is fixed</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In a typical defect lifecycle, immediately after the defect is marked <em>fixed/resolved</em> by the developer, the tester should:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Re-test (confirmation test) the fix and, if it passes, move the defect toward closed</text><feedback><text>Correct — the fix must be confirmed before the defect can be closed.</text></feedback></answer>
+    <answer fraction="0"><text>Immediately close the defect without re-running any test</text><feedback><text>A fix should be confirmed by re-testing before closing.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the defect report</text><feedback><text>Reports are retained for history and metrics, not deleted.</text></feedback></answer>
+    <answer fraction="0"><text>Reassign it to the requirements author</text><feedback><text>A resolved defect goes to the tester for confirmation, not back to requirements.</text></feedback></answer>
+    <generalfeedback><text>A common lifecycle is new &#8594; assigned &#8594; fixed &#8594; retest (confirmation) &#8594; closed, with a reopen path if the retest fails. The tester confirms the fix before closure.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Initial defect state</text></name>
+    <questiontext format="html"><text><![CDATA[<p>When a tester first logs an anomaly during execution, the defect typically enters which state?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>New (open), awaiting triage/assignment</text><feedback><text>Correct — a freshly reported defect starts as new/open before being assigned.</text></feedback></answer>
+    <answer fraction="0"><text>Closed</text><feedback><text>Closed is the end state, reached after a confirmed fix.</text></feedback></answer>
+    <answer fraction="0"><text>Fixed</text><feedback><text>Fixed comes after a developer resolves it, not at first report.</text></feedback></answer>
+    <answer fraction="0"><text>Retest passed</text><feedback><text>That occurs only after a fix has been confirmed.</text></feedback></answer>
+    <generalfeedback><text>The lifecycle usually begins new/open &#8594; assigned &#8594; in progress &#8594; fixed &#8594; retest &#8594; closed (with reopen/reject/defer branches). A newly logged defect is new/open.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Activity that produces procedures and checks readiness</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Building test procedures and suites, preparing test data and the environment, and checking that entry criteria/readiness are met belongs to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test implementation</text><feedback><text>Correct — implementation makes the designed tests runnable and confirms everything is ready to execute.</text></feedback></answer>
+    <answer fraction="0"><text>Test design</text><feedback><text>Design produces the test cases; organising procedures/data/environment is implementation.</text></feedback></answer>
+    <answer fraction="0"><text>Test execution</text><feedback><text>Execution runs the tests; the preparation of testware and environment precedes it.</text></feedback></answer>
+    <answer fraction="0"><text>Test completion</text><feedback><text>Completion wraps up testing after execution.</text></feedback></answer>
+    <generalfeedback><text>Test implementation organises testware for execution: it creates/finalises test procedures and suites, prepares test data and the environment, and verifies readiness (entry criteria) before execution starts.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Activity that builds test cases from conditions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Turning test conditions into concrete test cases (with inputs and expected results) is the job of:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test design</text><feedback><text>Correct — design elaborates test conditions into runnable test cases; the &#8220;how to test&#8221;.</text></feedback></answer>
+    <answer fraction="0"><text>Test analysis</text><feedback><text>Analysis produces the test conditions; design turns them into test cases.</text></feedback></answer>
+    <answer fraction="0"><text>Test implementation</text><feedback><text>Implementation sequences and organises the cases; it does not first create them from conditions.</text></feedback></answer>
+    <answer fraction="0"><text>Test monitoring and control</text><feedback><text>That steers the effort; it does not design test cases.</text></feedback></answer>
+    <generalfeedback><text>Test design takes the test conditions from analysis and designs test cases and sets of test cases (inputs, expected results, coverage items) — the &#8220;how to test&#8221;.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Confirmation before the fix</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Confirmation testing is normally performed <em>before</em> the defect has been fixed.</p>]]></text></questiontext>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — confirmation testing re-runs the failing test AFTER the fix, to confirm the defect is gone.</text></feedback></answer>
+    <answer fraction="0"><text>true</text><feedback><text>It is false: there is nothing to confirm until the fix has been made; confirmation testing follows the fix.</text></feedback></answer>
+    <generalfeedback><text>Confirmation (re-)testing is done after a fix is delivered, re-executing the previously failing test to confirm the defect has been resolved.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Testing Process Flow/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Reorder the scrambled process</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A colleague lists the sequential activities scrambled as: <em>execution, planning, design, completion, implementation, analysis</em>. Put them back into the correct order.</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Planning, analysis, design, implementation, execution, completion</text><feedback><text>Correct — the canonical sequential order of the fundamental test process.</text></feedback></answer>
+    <answer fraction="0"><text>Planning, analysis, design, execution, implementation, completion</text><feedback><text>Implementation must precede execution — you cannot run tests before the testware and environment are ready.</text></feedback></answer>
+    <answer fraction="0"><text>Planning, design, analysis, implementation, execution, completion</text><feedback><text>Analysis (what to test) must come before design (how to test).</text></feedback></answer>
+    <answer fraction="0"><text>Analysis, planning, design, implementation, execution, completion</text><feedback><text>Planning is the first activity, before analysis.</text></feedback></answer>
+    <generalfeedback><text>Sequentially: planning &#8594; analysis &#8594; design &#8594; implementation &#8594; execution &#8594; completion (with monitoring &amp; control throughout). Watch the two common traps: analysis before design, and implementation before execution.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why exit criteria matter</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why are agreed <em>exit criteria</em> important to the test process?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>They give an objective, agreed basis for deciding when to stop testing, rather than stopping arbitrarily</text><feedback><text>Correct — testing is potentially endless, so exit criteria define &#8220;done&#8221; up front.</text></feedback></answer>
+    <answer fraction="0"><text>They guarantee that the product is completely defect-free once met</text><feedback><text>Meeting exit criteria never proves the absence of defects.</text></feedback></answer>
+    <answer fraction="0"><text>They remove the need to plan or monitor testing</text><feedback><text>Exit criteria are set during planning and evaluated during monitoring &amp; control; they do not replace them.</text></feedback></answer>
+    <answer fraction="0"><text>They decide which test conditions to derive from the basis</text><feedback><text>That is test analysis, unrelated to stopping.</text></feedback></answer>
+    <generalfeedback><text>Because exhaustive testing is impossible, exit (completion) criteria provide an agreed, measurable basis for deciding when enough testing has been done, supporting a rational stop/continue decision.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What belongs in exit criteria</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is <strong>least</strong> appropriate as an exit criterion for testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The test environment has been installed and the build deployed</text><feedback><text>Correct — that is an entry/readiness condition; it says nothing about whether testing is complete.</text></feedback></answer>
+    <answer fraction="0"><text>The planned coverage target has been achieved</text><feedback><text>That is a legitimate exit criterion.</text></feedback></answer>
+    <answer fraction="0"><text>The residual defect rate is within the agreed threshold</text><feedback><text>That is a legitimate exit criterion.</text></feedback></answer>
+    <answer fraction="0"><text>The allotted test time/budget has been consumed</text><feedback><text>Time/budget is a commonly used (if blunt) exit criterion.</text></feedback></answer>
+    <generalfeedback><text>Exit criteria describe completion — coverage achieved, defect levels acceptable, time/budget consumed. &#8220;Environment installed / build deployed&#8221; is an entry-side readiness condition, not a measure of whether testing is finished.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Who produces the test summary report</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <em>test summary report</em> is produced as part of which activity?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test completion</text><feedback><text>Correct — the summary report is a completion work product that consolidates the results.</text></feedback></answer>
+    <answer fraction="0"><text>Test planning</text><feedback><text>Planning produces the test plan, not the summary report.</text></feedback></answer>
+    <answer fraction="0"><text>Test analysis</text><feedback><text>Analysis produces test conditions.</text></feedback></answer>
+    <answer fraction="0"><text>Test execution</text><feedback><text>Execution produces logs and defect reports; the consolidated summary is written at completion.</text></feedback></answer>
+    <generalfeedback><text>Test completion gathers data from finished activities and produces the test summary report for stakeholders, alongside archiving testware and capturing lessons learned.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Work product of test analysis</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which work product is the primary output of <em>test analysis</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>(Prioritised) test conditions</text><feedback><text>Correct — analysis evaluates the basis and yields test conditions.</text></feedback></answer>
+    <answer fraction="0"><text>Test cases with concrete inputs and expected results</text><feedback><text>Those are the output of test design.</text></feedback></answer>
+    <answer fraction="0"><text>Test procedures and suites ready to run</text><feedback><text>Those come from test implementation.</text></feedback></answer>
+    <answer fraction="0"><text>The test summary report</text><feedback><text>That comes from test completion.</text></feedback></answer>
+    <generalfeedback><text>Each activity has characteristic work products: analysis &#8594; test conditions; design &#8594; test cases; implementation &#8594; test procedures/suites, data, environment; execution &#8594; results/defect reports; completion &#8594; summary report and archived testware.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Monitoring and control vs planning</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement best distinguishes <em>test monitoring &amp; control</em> from <em>test planning</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Planning sets out the intended approach up front; monitoring &amp; control continuously compares actual progress with the plan and takes corrective action</text><feedback><text>Correct — planning defines the plan; monitoring &amp; control keeps testing on track against it.</text></feedback></answer>
+    <answer fraction="0"><text>They are the same activity under two different names</text><feedback><text>They are distinct: one defines the plan, the other continuously steers against it.</text></feedback></answer>
+    <answer fraction="0"><text>Planning happens continuously while monitoring &amp; control happens only at the start</text><feedback><text>It is the reverse: monitoring &amp; control is the continuous one.</text></feedback></answer>
+    <answer fraction="0"><text>Monitoring &amp; control derives the test cases from test conditions</text><feedback><text>That is test design, not monitoring &amp; control.</text></feedback></answer>
+    <generalfeedback><text>Planning is largely done up front (and revised as needed) and yields the plan. Monitoring &amp; control is a continuous activity: it measures progress/coverage/defects against the plan and applies control actions (e.g. re-prioritising, reallocating) to meet the exit criteria.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify a test completion activity</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is a genuine <em>test completion</em> activity?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Analysing lessons learned and archiving the testware for future reuse</text><feedback><text>Correct — capturing lessons learned and archiving/handing over testware are classic completion tasks.</text></feedback></answer>
+    <answer fraction="0"><text>Deriving test conditions from the requirements</text><feedback><text>That is test analysis, near the start of the process.</text></feedback></answer>
+    <answer fraction="0"><text>Preparing test data and provisioning the environment</text><feedback><text>That is test implementation.</text></feedback></answer>
+    <answer fraction="0"><text>Comparing actual results with expected results</text><feedback><text>That is test execution.</text></feedback></answer>
+    <generalfeedback><text>Test completion activities include: checking all defects are closed/deferred, creating the test summary report, finalising and archiving testware, handing it over, and capturing lessons learned for process improvement.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Subtle: which activity organises the suite</text></name>
+    <questiontext format="html"><text><![CDATA[<p>&#8220;Group the finished test cases into an executable regression suite, sequence them, and load the required test data.&#8221; This is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test implementation</text><feedback><text>Correct — organising cases into runnable suites/procedures with data prepared is implementation.</text></feedback></answer>
+    <answer fraction="0"><text>Test design</text><feedback><text>Design creates the cases; grouping/sequencing them for execution is implementation.</text></feedback></answer>
+    <answer fraction="0"><text>Test analysis</text><feedback><text>Analysis identifies conditions, not runnable suites.</text></feedback></answer>
+    <answer fraction="0"><text>Test execution</text><feedback><text>Execution runs the suite; assembling and loading it is the preceding implementation step.</text></feedback></answer>
+    <generalfeedback><text>Once test cases exist (design), implementation sequences them into test procedures/suites, prepares data and environment, and confirms readiness. Only then does execution run them.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Subtle: prioritising conditions by risk</text></name>
+    <questiontext format="html"><text><![CDATA[<p>&#8220;Review the requirements and risk report, list the testable features, and rank the resulting test conditions by risk.&#8221; This is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test analysis</text><feedback><text>Correct — identifying and prioritising test conditions from the basis is analysis.</text></feedback></answer>
+    <answer fraction="0"><text>Test design</text><feedback><text>Design comes next, converting the prioritised conditions into test cases.</text></feedback></answer>
+    <answer fraction="0"><text>Test planning</text><feedback><text>Planning sets overall strategy; deriving and ranking conditions is analysis.</text></feedback></answer>
+    <answer fraction="0"><text>Test monitoring and control</text><feedback><text>That steers progress; it does not derive test conditions.</text></feedback></answer>
+    <generalfeedback><text>Test analysis evaluates the test basis (including risk information), identifies testable features, and defines and prioritises test conditions — still the &#8220;what&#8221;, not yet the &#8220;how&#8221;.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Subtle: specifying inputs and expected results</text></name>
+    <questiontext format="html"><text><![CDATA[<p>&#8220;For the test condition &#8216;withdrawal exceeds balance&#8217;, specify the account state, the amount to withdraw, and the exact expected error message.&#8221; This is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test design</text><feedback><text>Correct — turning a condition into concrete inputs, preconditions and expected results is design.</text></feedback></answer>
+    <answer fraction="0"><text>Test analysis</text><feedback><text>Analysis produced the condition; specifying concrete inputs/expected results is design.</text></feedback></answer>
+    <answer fraction="0"><text>Test implementation</text><feedback><text>Implementation would then sequence and prepare this case for execution; it does not first specify its inputs/expected results.</text></feedback></answer>
+    <answer fraction="0"><text>Test execution</text><feedback><text>Execution runs the case; here we are still designing it.</text></feedback></answer>
+    <generalfeedback><text>Deriving concrete preconditions, inputs and expected results from a test condition is exactly test design (the &#8220;how&#8221;). Analysis gave the condition; implementation later makes the case runnable.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Verification of work products vs execution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Reviewing a requirements specification for ambiguities and contradictions, before any code is run, is best characterised as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Static verification of a work product, which can begin during test analysis</text><feedback><text>Correct — reviewing the test basis is static work and often surfaces defects early, before dynamic execution.</text></feedback></answer>
+    <answer fraction="0"><text>Test execution, because a defect was found</text><feedback><text>Execution requires running the software; reviewing a document is static, not dynamic.</text></feedback></answer>
+    <answer fraction="0"><text>Confirmation testing of a fix</text><feedback><text>There is no fix being re-tested here; this is a static review.</text></feedback></answer>
+    <answer fraction="0"><text>Test completion, because it wraps things up</text><feedback><text>Reviewing the basis happens early, not at closure.</text></feedback></answer>
+    <generalfeedback><text>Verification checks whether a work product meets its specification and can be done statically (reviews, static analysis) without executing code. Reviewing the test basis often happens as part of/around test analysis and can find defects before dynamic execution begins.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>When exit criteria are not met</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Monitoring shows that, at the planned end date, the agreed exit criteria are <strong>not</strong> yet met. Which response is most consistent with the test process?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Report the status and, via control, decide to continue testing or renegotiate the criteria/scope with stakeholders</text><feedback><text>Correct — unmet exit criteria feed a control decision; you do not simply declare done.</text></feedback></answer>
+    <answer fraction="0"><text>Automatically declare testing complete because the date arrived</text><feedback><text>A calendar date alone does not satisfy exit criteria; that ignores the criteria's purpose.</text></feedback></answer>
+    <answer fraction="0"><text>Delete the failing tests so the criteria appear satisfied</text><feedback><text>Gaming the metric hides risk; it is not a legitimate response.</text></feedback></answer>
+    <answer fraction="0"><text>Skip straight to archiving testware without any report</text><feedback><text>Completion still requires reporting; and the decision to stop must be made explicitly.</text></feedback></answer>
+    <generalfeedback><text>Exit criteria drive a stop/continue decision. If they are unmet, monitoring &amp; control reports the situation and stakeholders decide to continue testing, add resources, or consciously accept the risk by renegotiating scope/criteria — never by pretending they are met.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Monitoring vs control</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Within the continuous activity, which is a <em>control</em> action rather than a <em>monitoring</em> action?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Re-prioritising the remaining tests and reassigning testers because a risky area is behind</text><feedback><text>Correct — taking corrective action to steer the effort is control.</text></feedback></answer>
+    <answer fraction="0"><text>Measuring how many planned test cases have run so far</text><feedback><text>That is monitoring — gathering information, not acting on it.</text></feedback></answer>
+    <answer fraction="0"><text>Recording the current defect find/fix counts</text><feedback><text>That is monitoring (collecting data).</text></feedback></answer>
+    <answer fraction="0"><text>Reporting coverage progress against the plan</text><feedback><text>That is monitoring/reporting, not a corrective action.</text></feedback></answer>
+    <generalfeedback><text>Monitoring gathers and reports information (progress, coverage, defect data); control uses that information to take corrective actions — re-prioritising, reallocating resources, adjusting the schedule — so that the exit criteria can still be met.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Mismatched activity and work product</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which pairing of an activity with its characteristic work product is <strong>incorrect</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Test execution produces the test conditions</text><feedback><text>Correct — this pairing is wrong: test conditions come from test analysis, not execution.</text></feedback></answer>
+    <answer fraction="0"><text>Test design produces test cases</text><feedback><text>This pairing is correct, so it is not the answer.</text></feedback></answer>
+    <answer fraction="0"><text>Test implementation produces test procedures and suites</text><feedback><text>This pairing is correct, so it is not the answer.</text></feedback></answer>
+    <answer fraction="0"><text>Test completion produces the test summary report</text><feedback><text>This pairing is correct, so it is not the answer.</text></feedback></answer>
+    <generalfeedback><text>Characteristic work products: analysis &#8594; test conditions; design &#8594; test cases; implementation &#8594; test procedures/suites, data, environment; execution &#8594; test logs and defect reports; completion &#8594; test summary report. Execution does not produce test conditions.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Entry gates start, exit gates stop</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Entry criteria gate the <em>start</em> of a test activity, whereas exit criteria gate its <em>completion</em>.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — entry criteria are the &#8220;definition of ready&#8221; to begin; exit criteria are the &#8220;definition of done&#8221; to stop.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>It is true: entry criteria must hold before an activity begins; exit criteria must hold before it is declared complete.</text></feedback></answer>
+    <generalfeedback><text>Entry criteria (readiness) must be satisfied before an activity such as execution starts; exit/completion criteria must be satisfied before testing is considered finished. Confusing the two is a common error.</text></generalfeedback>
+  </question>
+</quiz>

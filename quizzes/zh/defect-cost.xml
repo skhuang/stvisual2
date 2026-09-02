@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Defect Cost Escalation/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>變更成本原則</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>變更成本（cost of change）</em>（缺陷成本遞增）原則指出：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>缺陷被發現得愈晚，修復它的成本傾向於愈高</text><feedback><text>正確——Boehm 的變更成本曲線會隨著發現時機延後而上升。</text></feedback></answer>
+    <answer fraction="0"><text>不論何時發現，修復缺陷的成本都相同</text><feedback><text>這條曲線的重點正是成本並非固定，而是會遞增。</text></feedback></answer>
+    <answer fraction="0"><text>愈晚發現的缺陷一定愈便宜，因為工具會隨時間進步</text><feedback><text>愈晚發現通常愈貴，而非愈便宜。</text></feedback></answer>
+    <answer fraction="0"><text>只有在生產環境發現的缺陷才有任何成本</text><feedback><text>早期發現的缺陷也要花成本修復；重點是愈晚修愈貴。</text></feedback></answer>
+    <generalfeedback><text>Boehm 的變更成本曲線捕捉到一個普遍觀察到的趨勢：同一個缺陷被發現得愈晚，修復成本就愈高，因為已有更多工作建立在它之上。常見的示意倍數會從需求階段約 1x 上升到生產階段的數十到數百倍。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是左移</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「左移（shift-left）」測試是指：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>把測試與品質活動移到生命週期較早的階段，讓缺陷更早被抓到</text><feedback><text>正確——把品質工作移到時間軸的左側（較早）。</text></feedback></answer>
+    <answer fraction="0"><text>把測試延到發布之後，以先省下前期時間</text><feedback><text>那是右移，與左移相反。</text></feedback></answer>
+    <answer fraction="0"><text>把所有測試移交給一個畫在組織圖左邊的獨立團隊</text><feedback><text>左移談的是生命週期中的時機，而非組織圖上的位置。</text></feedback></answer>
+    <answer fraction="0"><text>只有在程式碼部署到生產環境後才撰寫測試</text><feedback><text>那把測試推遲到最晚，與左移相反。</text></feedback></answer>
+    <generalfeedback><text>左移把審查與測試移到更早，使缺陷在接近被引入之處就被找到，此時修復最便宜。它是對變更成本曲線的實務回應。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>內部失效成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在品質成本中，<em>內部失效成本（internal failure cost）</em>發生於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>缺陷在產品發布前被發現時（例如重工與重新測試）</text><feedback><text>正確——內部失效是在客戶看到之前，於內部被抓到的。</text></feedback></answer>
+    <answer fraction="0"><text>缺陷在發布後被客戶發現時</text><feedback><text>那是外部失效成本。</text></feedback></answer>
+    <answer fraction="0"><text>團隊訓練人員以預防缺陷時</text><feedback><text>那是預防成本。</text></feedback></answer>
+    <answer fraction="0"><text>團隊進行檢查或測試以偵測缺陷時</text><feedback><text>那是鑑定成本。</text></feedback></answer>
+    <generalfeedback><text>內部失效成本是在交付前發現缺陷所產生的成本：重工、重新測試與重新檢查。它與外部失效成本相對，後者發生在客戶已取得產品之後。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>外部失效成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>外部失效成本（external failure cost）</em>發生於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>缺陷在發布後被客戶發現時（例如客服、修補程式、召回）</text><feedback><text>正確——外部失效已觸及客戶。</text></feedback></answer>
+    <answer fraction="0"><text>缺陷在發布前於內部被發現並修復時</text><feedback><text>那是內部失效成本。</text></feedback></answer>
+    <answer fraction="0"><text>團隊事先規劃與安排其品質活動時</text><feedback><text>那是預防成本。</text></feedback></answer>
+    <answer fraction="0"><text>審查者在撰寫任何程式碼前檢視設計文件時</text><feedback><text>那是鑑定成本。</text></feedback></answer>
+    <generalfeedback><text>外部失效成本在缺陷逸出到客戶後產生：客服電話、修補程式、保固、召回與商譽損失。它通常是最昂貴的一類品質成本。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>預防成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>預防成本（prevention cost）</em>是為了以下何者而花的錢：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從一開始就阻止缺陷被引入（例如訓練、更好的流程）</text><feedback><text>正確——預防讓缺陷不被製造出來。</text></feedback></answer>
+    <answer fraction="0"><text>找出已經存在的缺陷（例如審查與測試）</text><feedback><text>那是鑑定成本。</text></feedback></answer>
+    <answer fraction="0"><text>修復在發布前被發現的缺陷</text><feedback><text>那是內部失效成本。</text></feedback></answer>
+    <answer fraction="0"><text>處理發布後的客戶抱怨</text><feedback><text>那是外部失效成本。</text></feedback></answer>
+    <generalfeedback><text>預防成本（符合性成本的一部分）用於避免缺陷被引入：訓練、品質規劃、工具投資與流程改善。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>鑑定成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>鑑定成本（appraisal cost）</em>是為了以下何者而花的錢：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>評估或量測工作產物以找出缺陷（例如審查、檢查、測試）</text><feedback><text>正確——鑑定就是偵測可能已存在的缺陷。</text></feedback></answer>
+    <answer fraction="0"><text>從源頭預防缺陷被引入</text><feedback><text>那是預防成本。</text></feedback></answer>
+    <answer fraction="0"><text>賠償客戶在現場發生的失效</text><feedback><text>那是外部失效成本。</text></feedback></answer>
+    <answer fraction="0"><text>重工修復一個由客戶發現的缺陷</text><feedback><text>那是外部失效成本。</text></feedback></answer>
+    <generalfeedback><text>鑑定成本（符合性成本的一部分）用於量測與評估產品以找出缺陷：審查、檢查、測試與稽核。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最昂貴的發現階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>修復同一個缺陷，通常在何時被發現時<em>最</em>昂貴：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在生產環境、發布給客戶之後</text><feedback><text>正確——生產環境的修復帶有最高的示意倍數。</text></feedback></answer>
+    <answer fraction="0"><text>在需求階段</text><feedback><text>需求通常是修復缺陷最便宜的階段。</text></feedback></answer>
+    <answer fraction="0"><text>在設計階段</text><feedback><text>設計階段的修復比發布後的修復便宜。</text></feedback></answer>
+    <answer fraction="0"><text>在編碼階段</text><feedback><text>編碼階段的修復比發布後的修復便宜。</text></feedback></answer>
+    <generalfeedback><text>變更成本曲線在生產環境達到頂峰：觸及客戶的缺陷可能除了程式修正外，還需要修補程式、客服與商譽修復，使它成為最昂貴的發現之處。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>最便宜的發現階段</text></name>
+    <questiontext format="html"><text><![CDATA[<p>修復缺陷，通常在何時被發現時<em>最</em>便宜：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在它被引入的同一個早期階段（例如需求缺陷在需求階段就被抓到）</text><feedback><text>正確——在引入處就抓到缺陷可避免下游重工。</text></feedback></answer>
+    <answer fraction="0"><text>在生產環境</text><feedback><text>生產環境是最貴而非最便宜的修復之處。</text></feedback></answer>
+    <answer fraction="0"><text>在系統測試階段</text><feedback><text>系統測試比生產環境便宜，但比早期階段貴。</text></feedback></answer>
+    <answer fraction="0"><text>在客戶觸發召回之後</text><feedback><text>召回屬於最昂貴的結果之一，而非最便宜。</text></feedback></answer>
+    <generalfeedback><text>在缺陷被引入的階段就抓到，修復最便宜，因為尚未有任何東西建立在它之上。這正是把審查與測試左移能省錢的原因。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>愈晚代表愈貴</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一般而言，缺陷在軟體生命週期中被發現得愈晚，修復它就愈昂貴。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——這是變更成本曲線的核心概念。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>普遍觀察到的趨勢恰好相反：愈晚發現愈貴。</text></feedback></answer>
+    <generalfeedback><text>變更成本曲線捕捉到一個普遍趨勢：缺陷被發現得愈晚，修復愈貴。確切倍數會因研究與情境而異，但遞增的趨勢有充分支持。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>靜態技術如何找缺陷</text></name>
+    <questiontext format="html"><text><![CDATA[<p>審查與檢查等靜態技術是透過以下何種方式找出缺陷：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>檢視工作產物（需求、設計、程式碼）而不執行程式碼</text><feedback><text>正確——靜態技術是檢視工作產物而非執行它們。</text></feedback></answer>
+    <answer fraction="0"><text>執行程式並觀察失效</text><feedback><text>那是動態測試，不是靜態技術。</text></feedback></answer>
+    <answer fraction="0"><text>部署到生產環境並等待客戶回報</text><feedback><text>那是現場回饋，是最昂貴的偵測形式，也不是靜態技術。</text></feedback></answer>
+    <answer fraction="0"><text>在負載測試期間量測 CPU 使用率</text><feedback><text>那是動態的效能量測，不是靜態審查。</text></feedback></answer>
+    <generalfeedback><text>靜態技術（審查、走查、檢查、靜態分析）在不執行程式碼的情況下找缺陷，因此能在缺陷擴散前於早期產物中抓到它們——通常是在修復便宜的階段。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>預防與偵測之別</text></name>
+    <questiontext format="html"><text><![CDATA[<p>缺陷<em>預防（prevention）</em>與缺陷<em>偵測（detection）</em>的差別在於，預防：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>致力於阻止缺陷被引入，而不是在缺陷已存在後才找出它們</text><feedback><text>正確——預防在缺陷產生前就行動；偵測則找出已存在者。</text></feedback></answer>
+    <answer fraction="0"><text>只在程式碼被執行後才找出缺陷</text><feedback><text>那是動態偵測，不是預防。</text></feedback></answer>
+    <answer fraction="0"><text>只是外部失效成本的另一個名稱</text><feedback><text>預防是符合性成本；外部失效是失效成本，兩者是不同的類別。</text></feedback></answer>
+    <answer fraction="0"><text>只適用於已在生產環境中的缺陷</text><feedback><text>預防在缺陷存在前就適用，不限於生產環境的缺陷。</text></feedback></answer>
+    <generalfeedback><text>預防讓缺陷不被引入（訓練、更好的流程、更清楚的需求）；偵測則找出已存在的缺陷（審查、測試）。預防往往最經濟，因為被避免掉的缺陷不會產生任何遞增成本。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>簡單比值：編碼對生產</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設（示意上）在編碼階段修復缺陷的成本為基準單位的 10x，在生產環境修復為該單位的 100x。在生產環境修復的成本是在編碼階段修復的幾倍？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10x</text><feedback><text>正確——100 / 10 = 10。</text></feedback></answer>
+    <answer fraction="0"><text>90x</text><feedback><text>那是 100 減 10；題目問的是比值，100 / 10 = 10。</text></feedback></answer>
+    <answer fraction="0"><text>110x</text><feedback><text>那是 100 加 10；比值是 100 / 10 = 10。</text></feedback></answer>
+    <answer fraction="0"><text>1000x</text><feedback><text>那是 100 乘 10；比值是 100 / 10 = 10。</text></feedback></answer>
+    <generalfeedback><text>相對成本是兩個倍數的比值：100 / 10 = 10。以這些示意數字而言，生產環境的成本是編碼階段的 10 倍。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>兩類符合性成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p>品質成本中的兩類<em>符合性（conformance，達成良好品質）</em>成本是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>預防與鑑定</text><feedback><text>正確——符合性成本用於達成品質：預防與鑑定。</text></feedback></answer>
+    <answer fraction="0"><text>內部失效與外部失效</text><feedback><text>那是非符合性（失效）成本。</text></feedback></answer>
+    <answer fraction="0"><text>需求與設計</text><feedback><text>那是生命週期階段，不是品質成本類別。</text></feedback></answer>
+    <answer fraction="0"><text>可能性與衝擊</text><feedback><text>那是風險的兩個面向，不是品質成本類別。</text></feedback></answer>
+    <generalfeedback><text>品質成本分為符合性成本（預防 + 鑑定——為達成品質而花）與非符合性成本（內部 + 外部失效——做錯的代價）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>簡單比值：需求對系統測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>假設（示意上）在需求階段修復缺陷的成本為基準單位的 1x，在系統測試修復為該單位的 15x。在系統測試修復的成本是在需求階段修復的幾倍？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>15x</text><feedback><text>正確——15 / 1 = 15。</text></feedback></answer>
+    <answer fraction="0"><text>14x</text><feedback><text>那是 15 減 1；比值是 15 / 1 = 15。</text></feedback></answer>
+    <answer fraction="0"><text>16x</text><feedback><text>那是 15 加 1；比值是 15 / 1 = 15。</text></feedback></answer>
+    <answer fraction="0"><text>1/15x</text><feedback><text>那把比值顛倒了；系統測試較貴，所以是 15x 而非 1/15x。</text></feedback></answer>
+    <generalfeedback><text>相對成本是 15 / 1 = 15。以這些示意數字而言，系統測試的修復成本是需求階段的 15 倍。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>外部失效最昂貴</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在各類失效成本中，外部失效（由客戶發現者）通常是最昂貴的。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——外部失效在修復之外還加上客服、修補程式、召回與商譽損失。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>外部失效通常最昂貴，因為缺陷已觸及客戶。</text></feedback></answer>
+    <generalfeedback><text>外部失效成本通常是失效類別中最高者：除了修復缺陷外，組織可能還要面對客服負荷、緊急修補程式、召回、罰則與商譽損失。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Defect Cost Escalation/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>計算：生產對設計的比值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定示意倍數：在設計階段修復缺陷的成本為基準單位的 5x，在生產環境修復為該單位的 100x。在生產環境修復的成本是在設計階段修復的幾倍？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>20x</text><feedback><text>正確——100 / 5 = 20。</text></feedback></answer>
+    <answer fraction="0"><text>95x</text><feedback><text>那是 100 減 5；題目問的是比值，100 / 5 = 20。</text></feedback></answer>
+    <answer fraction="0"><text>105x</text><feedback><text>那是 100 加 5；比值是 100 / 5 = 20。</text></feedback></answer>
+    <answer fraction="0"><text>500x</text><feedback><text>那是 100 乘 5；比值是 100 / 5 = 20。</text></feedback></answer>
+    <generalfeedback><text>把兩個給定倍數相除：100 / 5 = 20。以這些示意數字而言，生產環境的成本是設計階段的 20 倍。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>外部失效為何最貴</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼外部失效成本通常是最高的一類品質成本？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>除了修復缺陷本身，還加上客服、修補程式或召回，以及商譽或信譽損失</text><feedback><text>正確——面向客戶的後果疊加在技術修復之上。</text></feedback></answer>
+    <answer fraction="0"><text>因為客戶發現的缺陷總是極容易重現</text><feedback><text>現場缺陷往往難以重現；這並不能解釋其高成本。</text></feedback></answer>
+    <answer fraction="0"><text>因為預防活動會向客戶收費</text><feedback><text>預防是內部的符合性成本，與外部失效成本無關。</text></feedback></answer>
+    <answer fraction="0"><text>因為內部重工完全免費</text><feedback><text>內部重工並非免費；而且那也不會使外部失效成為最貴者。</text></feedback></answer>
+    <generalfeedback><text>當缺陷觸及現場時，除了程式修正外還可能引發客服負荷、緊急修補程式、召回、合約罰則與長久的商譽損失，因此外部失效通常是最昂貴的類別。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>左移的理由</text></name>
+    <questiontext format="html"><text><![CDATA[<p>左移（更早審查與測試）主要的經濟理由是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>更早抓到缺陷的成本，遠低於等它擴散到後期階段後再修復</text><feedback><text>正確——早期偵測可避免遞增的下游成本。</text></feedback></answer>
+    <answer fraction="0"><text>更早測試不需任何工具，因此完全免費</text><feedback><text>早期品質工作仍有成本；重點是它能避免更大的後期成本。</text></feedback></answer>
+    <answer fraction="0"><text>後期階段永遠不會有缺陷</text><feedback><text>後期階段當然可能有缺陷；左移是要在那之前抓到它們。</text></feedback></answer>
+    <answer fraction="0"><text>它讓團隊可以完全略過需求分析</text><feedback><text>左移是強化需求審查等早期活動，而非略過它們。</text></feedback></answer>
+    <generalfeedback><text>左移的正當性來自變更成本曲線：在需求或設計階段抓到的缺陷，遠比同一缺陷在測試或生產環境被抓到便宜，所以把品質工作移到更早能降低總成本。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：訓練屬於哪類成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p>舉辦訓練課程教開發者安全編碼實務，以減少被寫出的缺陷，這是哪一類成本的例子：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>預防成本</text><feedback><text>正確——訓練降低了缺陷被引入的機會。</text></feedback></answer>
+    <answer fraction="0"><text>鑑定成本</text><feedback><text>鑑定是用於偵測已存在的缺陷，而非預防它們。</text></feedback></answer>
+    <answer fraction="0"><text>內部失效成本</text><feedback><text>內部失效是修復發布前發現之缺陷的成本，而非訓練。</text></feedback></answer>
+    <answer fraction="0"><text>外部失效成本</text><feedback><text>外部失效發生在發布後；訓練則發生在缺陷存在之前。</text></feedback></answer>
+    <generalfeedback><text>以減少缺陷被引入為目的的訓練，是典型的預防成本，屬於品質符合性成本的一部分。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：程式碼檢查屬於哪類成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為偵測缺陷而進行程式碼檢查所花的時間，被歸類為哪一類成本：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>鑑定成本</text><feedback><text>正確——鑑定涵蓋評估工作產物以找出缺陷，包含檢查。</text></feedback></answer>
+    <answer fraction="0"><text>預防成本</text><feedback><text>預防是阻止缺陷被引入；檢查則是偵測已存在者。</text></feedback></answer>
+    <answer fraction="0"><text>內部失效成本</text><feedback><text>內部失效是找到缺陷後的重工，而非為找出缺陷而進行的檢查。</text></feedback></answer>
+    <answer fraction="0"><text>外部失效成本</text><feedback><text>外部失效發生在發布後；檢查是內部的偵測活動。</text></feedback></answer>
+    <generalfeedback><text>檢查、審查與測試都是鑑定活動：它們評估產品以偵測缺陷。之後為修復所發現者而做的重工，則是另一類失效成本。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：發布前的重工</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試人員在發布前發現一個缺陷，為此進行重工與重新測試的工作，屬於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>內部失效成本</text><feedback><text>正確——該缺陷在觸及客戶前於內部被修復。</text></feedback></answer>
+    <answer fraction="0"><text>外部失效成本</text><feedback><text>外部失效須是缺陷已觸及客戶；此處是在發布前被抓到。</text></feedback></answer>
+    <answer fraction="0"><text>預防成本</text><feedback><text>預防是避免引入缺陷；這是為一個已存在缺陷所做的重工。</text></feedback></answer>
+    <answer fraction="0"><text>鑑定成本</text><feedback><text>鑑定是偵測活動（測試本身）；隨後的重工是失效成本。</text></feedback></answer>
+    <generalfeedback><text>為交付前抓到的缺陷所做的重工與重新測試，是內部失效成本。若同一缺陷是在客戶遇到後才修復，則屬外部失效成本。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：修補程式與客服專線</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為客戶在生產環境中遇到的臭蟲發布修補程式並配置客服專線，這是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>外部失效成本</text><feedback><text>正確——缺陷已觸及客戶，因此衍生的成本是外部失效。</text></feedback></answer>
+    <answer fraction="0"><text>內部失效成本</text><feedback><text>內部失效代表缺陷在發布前被抓到；此處是客戶遇到了它。</text></feedback></answer>
+    <answer fraction="0"><text>鑑定成本</text><feedback><text>鑑定是偵測活動，而非處理已發布缺陷的成本。</text></feedback></answer>
+    <answer fraction="0"><text>預防成本</text><feedback><text>預防發生在缺陷存在之前，而非面向客戶的失效之後。</text></feedback></answer>
+    <generalfeedback><text>為觸及客戶的缺陷所做的修補程式、客服、保固與召回，都是外部失效成本——通常是最昂貴的類別。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>審查對動態測試的成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為何審查一份設計文件，可能比等動態測試揭露同一缺陷更具成本效益？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>審查更早抓到缺陷，在它被編碼並被層層建構於其上之前，因此所需的下游重工較少</text><feedback><text>正確——更早偵測代表缺陷擴散得較少。</text></feedback></answer>
+    <answer fraction="0"><text>審查執行程式碼的速度比測試框架更快</text><feedback><text>審查根本不執行程式碼；它是靜態技術。</text></feedback></answer>
+    <answer fraction="0"><text>動態測試在任何情況下都絕不可能找到設計缺陷</text><feedback><text>動態測試能揭露設計缺陷，只是較晚且往往較貴。</text></feedback></answer>
+    <answer fraction="0"><text>審查總能找到每一個缺陷，保證零殘餘風險</text><feedback><text>沒有任何技術能找到每一個缺陷；審查降低風險但不消除它。</text></feedback></answer>
+    <generalfeedback><text>設計審查能在設計階段就抓到缺陷，早於程式碼與測試被建構於其上。動態測試只會在更晚、當更多產物依賴它之後才找到同一缺陷，因此修復更貴。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算：編碼對需求的比值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定示意倍數：在需求階段修復缺陷為 1x，在編碼階段修復為 10x。編碼階段的修復成本是需求階段的幾倍？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>10x</text><feedback><text>正確——10 / 1 = 10。</text></feedback></answer>
+    <answer fraction="0"><text>9x</text><feedback><text>那是 10 減 1；比值是 10 / 1 = 10。</text></feedback></answer>
+    <answer fraction="0"><text>11x</text><feedback><text>那是 10 加 1；比值是 10 / 1 = 10。</text></feedback></answer>
+    <answer fraction="0"><text>0.1x</text><feedback><text>那把比值顛倒了；編碼較貴，所以是 10x。</text></feedback></answer>
+    <generalfeedback><text>把給定倍數相除：10 / 1 = 10。以這些示意數字而言，編碼的修復成本是需求階段的 10 倍。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算：系統測試對編碼的比值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定示意倍數：在編碼階段修復缺陷為 10x，在系統測試修復為 15x。系統測試的修復成本是編碼階段的幾倍？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>1.5x</text><feedback><text>正確——15 / 10 = 1.5。</text></feedback></answer>
+    <answer fraction="0"><text>5x</text><feedback><text>那是 15 減 10；題目問的是比值，15 / 10 = 1.5。</text></feedback></answer>
+    <answer fraction="0"><text>25x</text><feedback><text>那是 15 加 10；比值是 15 / 10 = 1.5。</text></feedback></answer>
+    <answer fraction="0"><text>0.67x</text><feedback><text>那把比值顛倒了；系統測試較貴，所以是 1.5x。</text></feedback></answer>
+    <generalfeedback><text>把給定倍數相除：15 / 10 = 1.5。以這些示意數字而言，系統測試的修復成本是編碼階段的 1.5 倍。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>靜態技術的經濟效果</text></name>
+    <questiontext format="html"><text><![CDATA[<p>靜態技術（例如檢查）能降低成本，是因為它：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在程式碼被執行之前就偵測缺陷，往往落在修復較便宜的階段</text><feedback><text>正確——靜態且早期地找到缺陷可讓修復維持低廉。</text></feedback></answer>
+    <answer fraction="0"><text>需要先把軟體部署到生產環境</text><feedback><text>靜態技術完全不需執行或部署。</text></feedback></answer>
+    <answer fraction="0"><text>可取代擁有任何需求的必要性</text><feedback><text>靜態技術評估需求等產物；它並不移除對需求的需要。</text></feedback></answer>
+    <answer fraction="0"><text>只能作用於編譯後的二進位可執行檔</text><feedback><text>靜態技術適用於需求、設計與原始碼，不只是二進位檔。</text></feedback></answer>
+    <generalfeedback><text>靜態技術在不執行的情況下檢視產物，因此能在早期階段（需求、設計、程式碼）找到缺陷，而該時的變更成本最低。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算：設計對生產的金額比值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某缺陷若在設計階段抓到，修復成本為 $50；若逸出到生產環境，則為 $1000。逸出到生產環境貴了幾倍？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>20x</text><feedback><text>正確——1000 / 50 = 20。</text></feedback></answer>
+    <answer fraction="0"><text>950x</text><feedback><text>那是 1000 減 50；題目問的是比值，1000 / 50 = 20。</text></feedback></answer>
+    <answer fraction="0"><text>50x</text><feedback><text>那是給定值之一，而非比值；1000 / 50 = 20。</text></feedback></answer>
+    <answer fraction="0"><text>1050x</text><feedback><text>那是 1000 加 50；比值是 1000 / 50 = 20。</text></feedback></answer>
+    <generalfeedback><text>把兩個給定成本相除：1000 / 50 = 20。此處逸出到生產環境的成本是在設計階段修復的 20 倍。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>成本遞增的原因</text></name>
+    <questiontext format="html"><text><![CDATA[<p>缺陷在後期階段修復愈貴，主要原因是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>後續工作建立在它之上，因此修復它需要重做更多產物（設計、程式碼、測試、文件）</text><feedback><text>正確——缺陷擴散，需要拆掉並重做的東西更多。</text></feedback></answer>
+    <answer fraction="0"><text>程式設計師在後期階段的時薪較高</text><feedback><text>時薪不會隨階段系統性地上升；驅動因素是累積的重工。</text></feedback></answer>
+    <answer fraction="0"><text>後期的缺陷依定義一定更嚴重</text><feedback><text>嚴重度與何時被發現無關；成本上升是因為擴散。</text></feedback></answer>
+    <answer fraction="0"><text>編譯器隨著專案變老而變慢</text><feedback><text>工具速度不是原因；變更成本的遞增來自下游重工。</text></feedback></answer>
+    <generalfeedback><text>遞增之所以發生，是因為後期產物依賴有瑕疵的那一個。修復在生產環境才發現的需求缺陷，可能需要變更需求、設計、程式碼、測試與文件，還要處理現場影響。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：流程改善</text></name>
+    <questiontext format="html"><text><![CDATA[<p>改善需求撰寫流程，使含糊的需求較不易出現，這是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>預防成本</text><feedback><text>正確——改善流程以避免引入缺陷屬於預防。</text></feedback></answer>
+    <answer fraction="0"><text>鑑定成本</text><feedback><text>鑑定是偵測已存在的缺陷；此變更是阻止它們被引入。</text></feedback></answer>
+    <answer fraction="0"><text>內部失效成本</text><feedback><text>內部失效是為已發現缺陷所做的重工，而非流程改善。</text></feedback></answer>
+    <answer fraction="0"><text>外部失效成本</text><feedback><text>外部失效發生在發布後；流程改善是預防活動。</text></feedback></answer>
+    <generalfeedback><text>降低缺陷引入頻率的流程改善是預防成本，屬於品質符合性成本的一部分。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>計算：生產對系統測試的比值</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定示意倍數：在系統測試修復缺陷為 15x，在生產環境修復為 45x。在生產環境修復的成本是在系統測試修復的幾倍？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3x</text><feedback><text>正確——45 / 15 = 3。</text></feedback></answer>
+    <answer fraction="0"><text>30x</text><feedback><text>那是 45 減 15；題目問的是比值，45 / 15 = 3。</text></feedback></answer>
+    <answer fraction="0"><text>60x</text><feedback><text>那是 45 加 15；比值是 45 / 15 = 3。</text></feedback></answer>
+    <answer fraction="0"><text>0.33x</text><feedback><text>那把比值顛倒了；生產環境較貴，所以是 3x。</text></feedback></answer>
+    <generalfeedback><text>把給定倍數相除：45 / 15 = 3。以這些示意數字而言，生產環境的成本是系統測試的 3 倍。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Defect Cost Escalation/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>更早抓到的總節省</text></name>
+    <questiontext format="html"><text><![CDATA[<p>示意上，修復一個缺陷在設計階段花 5 單位，在生產環境花 100 單位。一次設計審查抓到 4 個原本會逸出到生產環境的缺陷。不計審查本身的成本，相較於在生產環境修復這 4 個缺陷，共節省多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>380 單位</text><feedback><text>正確——4 x (100 - 5) = 4 x 95 = 380。</text></feedback></answer>
+    <answer fraction="0"><text>400 單位</text><feedback><text>那是 4 x 100；每個仍要付 5 單位的設計修復，須扣除：4 x (100 - 5) = 380。</text></feedback></answer>
+    <answer fraction="0"><text>420 單位</text><feedback><text>那是 4 x (100 + 5)；每個缺陷的節省是 100 - 5 = 95，所以是 4 x 95 = 380。</text></feedback></answer>
+    <answer fraction="0"><text>20 單位</text><feedback><text>那是 4 x 5，只是設計成本；節省是 4 x (100 - 5) = 380。</text></feedback></answer>
+    <generalfeedback><text>每個在設計階段抓到的缺陷花 5 而非 100，節省 95。4 個缺陷共節省 4 x 95 = 380 單位。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>審查的損益平衡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一次設計審查要花 60 單位執行。它抓到的每個缺陷現在修復花 5 單位，但若逸出到生產環境會花 30 單位。此審查抓到 3 個這樣的缺陷。做這次審查的淨經濟結果是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>淨節省 15 單位（審查划得來）</text><feedback><text>正確——每個缺陷節省 30 - 5 = 25；3 x 25 = 75 被避免；75 - 60 = 15。</text></feedback></answer>
+    <answer fraction="0"><text>淨損失 60 單位</text><feedback><text>那忽略了下游節省；審查避免了 3 x 25 = 75 單位，超過其 60 單位成本。</text></feedback></answer>
+    <answer fraction="0"><text>淨節省 90 單位</text><feedback><text>那是 3 x 30（完整的生產成本）；還須扣除 3 個 5 單位的修復與 60 單位的審查。</text></feedback></answer>
+    <answer fraction="0"><text>剛好損益平衡（0 單位）</text><feedback><text>數字並未相抵：避免的 75 減去花費的 60，剩下 15 單位淨節省。</text></feedback></answer>
+    <generalfeedback><text>相較於逸出到生產環境，每個抓到的缺陷節省 30 - 5 = 25 單位。3 個缺陷共避免 75 單位。扣除 60 單位的審查成本：75 - 60 = 15 單位淨節省，因此這次審查划得來。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>曲線為何陡峭</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼變更成本曲線常被描述為跨階段陡峭（大致呈指數）成長？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>每個後期階段都在缺陷之上建構更多東西，因此重工隨它擴散經過設計、程式碼、測試與已發布產物而倍增</text><feedback><text>正確——複合的下游依賴推動了陡升。</text></feedback></answer>
+    <answer fraction="0"><text>因為通貨膨脹使所有成本每階段翻倍</text><feedback><text>通膨無關；上升來自累積的重工。</text></feedback></answer>
+    <answer fraction="0"><text>因為測試人員的人數每階段被要求翻倍</text><feedback><text>人力不會依規則翻倍；驅動因素是缺陷的擴散。</text></feedback></answer>
+    <answer fraction="0"><text>因為缺陷隨時間在生物學上自我繁殖</text><feedback><text>缺陷不會自行增殖；成本倍增是因為更多產物依賴這個瑕疵。</text></feedback></answer>
+    <generalfeedback><text>陡峭來自複合效應：一個被留在原處的缺陷會有愈來愈多工作建立在它之上，因此跨階段要移除它所需的重工量會快速成長。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>倍數是示意的，趨勢穩健</text></name>
+    <questiontext format="html"><text><![CDATA[<p>各階段確切的成本倍數是示意性的，會因研究與情境而異，但「愈晚修復愈貴」這個一般趨勢有廣泛的觀察支持。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——把具體數字當成典型示意值，而非確切的普世法則；但趨勢本身是穩健的。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>具體倍數確實會變動且有爭議，但遞增趨勢有充分支持，因此本敘述為真。</text></feedback></answer>
+    <generalfeedback><text>被報告的倍數（例如 1:5:10:15:100）會因來源而異，並高度取決於情境與量測方式。它們是有用的示意。有充分支持的是方向：愈晚修復缺陷傾向於愈貴。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>品質成本的取捨</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在品質成本模型中，增加預防與鑑定的支出通常會：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>降低失效成本，並在一定範圍內降低總品質成本</text><feedback><text>正確——符合性支出可換取更大的失效成本下降。</text></feedback></answer>
+    <answer fraction="0"><text>對失效成本沒有影響</text><feedback><text>核心取捨正是符合性支出會降低失效成本。</text></feedback></answer>
+    <answer fraction="0"><text>總是增加總品質成本而毫無好處</text><feedback><text>在一定範圍內，失效成本的下降會超過所增加的符合性成本。</text></feedback></answer>
+    <answer fraction="0"><text>永久消除所有殘餘風險</text><feedback><text>沒有任何支出能消除所有風險；總會有殘餘風險。</text></feedback></answer>
+    <generalfeedback><text>品質成本在符合性成本（預防 + 鑑定）與失效成本（內部 + 外部失效）之間權衡。在前兩者投資更多，通常能降低後兩者，在一個實務最適點之前使總品質成本下降。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>早期引入、晚期發現</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個缺陷在需求階段被<em>引入</em>，卻直到生產環境才被<em>發現</em>。它承擔的是哪個階段的修復成本？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>生產環境（後期）的成本，因為成本取決於缺陷何時被發現，而非何時被引入</text><feedback><text>正確——遞增與發現階段綁定。</text></feedback></answer>
+    <answer fraction="0"><text>需求階段的成本，因為那是它的源頭</text><feedback><text>低廉的需求成本只在它於需求階段被抓到時才適用；晚發現則承擔晚期成本。</text></feedback></answer>
+    <answer fraction="0"><text>需求與生產成本的平均</text><feedback><text>沒有取平均這回事；成本就是它被發現那個階段的成本。</text></feedback></answer>
+    <answer fraction="0"><text>不用成本，因為它是早期階段的舊缺陷</text><feedback><text>年紀不會消除成本；晚發現的舊缺陷很昂貴。</text></feedback></answer>
+    <generalfeedback><text>使成本遞增的是缺陷未被偵測而存活了多久。一個一路溜到生產環境的需求缺陷，承擔的是生產層級的修復成本，而非低廉的需求成本。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>依發現階段計修復成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p>給定示意修復成本：需求 1、設計 5、編碼 10、系統測試 15、生產 100（單位）。一個需求缺陷一路溜到系統測試才被抓到，修復它要花多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>15 單位</text><feedback><text>正確——它在系統測試被發現，因此承擔系統測試的成本 15。</text></feedback></answer>
+    <answer fraction="0"><text>1 單位</text><feedback><text>那是需求成本，只有在需求階段被抓到時才適用；它是在系統測試被發現的。</text></feedback></answer>
+    <answer fraction="0"><text>16 單位</text><feedback><text>那是 1 加 15；成本就是發現階段的成本，即 15。</text></feedback></answer>
+    <answer fraction="0"><text>100 單位</text><feedback><text>那是生產成本；缺陷是在系統測試被抓到，而非生產環境。</text></feedback></answer>
+    <generalfeedback><text>修復成本由缺陷被發現的階段決定。在系統測試被抓到時，這個需求缺陷花 15 單位，而非需求階段的 1 單位。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>使審查值得的最少缺陷數</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一次審查花 200 單位。它抓到的每個缺陷現在修復花 10 單位，但若溜到生產環境則花 100 單位。要讓審查至少回本，最少須抓到幾個缺陷？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>3 個缺陷</text><feedback><text>正確——每個缺陷節省 100 - 10 = 90；200 / 90 約為 2.22，所以需要 3。</text></feedback></answer>
+    <answer fraction="0"><text>2 個缺陷</text><feedback><text>2 x 90 = 180，小於 200；審查尚未回本。</text></feedback></answer>
+    <answer fraction="0"><text>20 個缺陷</text><feedback><text>那是把 200 除以 10，而非除以每缺陷 90 單位的節省。</text></feedback></answer>
+    <answer fraction="0"><text>200 個缺陷</text><feedback><text>那是審查的成本單位數，而非所需的缺陷數。</text></feedback></answer>
+    <generalfeedback><text>每個抓到的缺陷節省 100 - 10 = 90 單位。要涵蓋 200 單位的審查，需要 200 / 90 約 2.22 個缺陷，無條件進位到 3。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>兩種策略的總成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p>存在十個缺陷。策略 A 在設計階段全部抓到 10 個（每個 5 單位）。策略 B 讓 10 個全部溜到生產環境（每個 100 單位）。策略 B 的總成本比策略 A 多多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>950 單位</text><feedback><text>正確——10 x 100 - 10 x 5 = 1000 - 50 = 950。</text></feedback></answer>
+    <answer fraction="0"><text>1000 單位</text><feedback><text>那是策略 B 的總額；題目問的是差額，1000 - 50 = 950。</text></feedback></answer>
+    <answer fraction="0"><text>50 單位</text><feedback><text>那是策略 A 的總額；差額是 1000 - 50 = 950。</text></feedback></answer>
+    <answer fraction="0"><text>105 單位</text><feedback><text>那是單一缺陷的 100 + 5；10 個缺陷的差額是 950。</text></feedback></answer>
+    <generalfeedback><text>策略 A 花 10 x 5 = 50；策略 B 花 10 x 100 = 1000。策略 B 比策略 A 多花 1000 - 50 = 950 單位。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>預防為何划得來</text></name>
+    <questiontext format="html"><text><![CDATA[<p>預防「划得來」的核心經濟論證是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>花一單位預防一個缺陷，可避免日後找出並修復它的更大、遞增成本，尤其是在現場</text><feedback><text>正確——被預防的缺陷永遠不會產生下游遞增。</text></feedback></answer>
+    <answer fraction="0"><text>預防在所有司法管轄區都是法律強制的</text><feedback><text>此論證是經濟性的，並非普世的法律要求。</text></feedback></answer>
+    <answer fraction="0"><text>預防使鑑定變得沒有必要，因此可略過所有測試</text><feedback><text>預防與鑑定互補；測試仍然必要。</text></feedback></answer>
+    <answer fraction="0"><text>預防能把外部失效轉換成營收</text><feedback><text>預防是避免失效成本，而非把失效變成收入。</text></feedback></answer>
+    <generalfeedback><text>預防之所以經濟，是因為被避免掉的缺陷不會產生偵測、重工與現場失效等任何遞增的下游成本。花在早期阻止缺陷的錢，通常回報高於同樣的錢用於日後修復它們。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>部分抓到、部分逸出</text></name>
+    <questiontext format="html"><text><![CDATA[<p>示意修復成本：設計 5、生產 100（單位）。在 6 個缺陷中，一次審查在設計階段抓到 4 個，2 個逸出到生產環境。不計審查本身的成本，這 6 個缺陷的總修復成本是多少？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>220 單位</text><feedback><text>正確——4 x 5 + 2 x 100 = 20 + 200 = 220。</text></feedback></answer>
+    <answer fraction="0"><text>600 單位</text><feedback><text>那是 6 x 100，當作全部逸出；只有 2 個逸出，所以是 20 + 200 = 220。</text></feedback></answer>
+    <answer fraction="0"><text>30 單位</text><feedback><text>那是 6 x 5，當作全部在設計階段抓到；有 2 個逸出，所以是 220。</text></feedback></answer>
+    <answer fraction="0"><text>105 單位</text><feedback><text>那是單一對的 100 + 5；6 個缺陷的總額是 220。</text></feedback></answer>
+    <generalfeedback><text>把兩組相加：4 個缺陷各 5 單位（20）加上 2 個缺陷各 100 單位（200），共 220 單位。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>總品質成本</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>總品質成本（total cost of quality）</em>最適切地表達為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>預防 + 鑑定 + 內部失效 + 外部失效成本</text><feedback><text>正確——符合性成本加上非符合性成本。</text></feedback></answer>
+    <answer fraction="0"><text>只有外部失效的成本</text><feedback><text>外部失效是四項之一；總品質成本是四項之和。</text></feedback></answer>
+    <answer fraction="0"><text>預防減去鑑定</text><feedback><text>各類別是相加而非相減，且必須納入失效成本。</text></feedback></answer>
+    <answer fraction="0"><text>只有品保團隊的薪資</text><feedback><text>品質成本涵蓋預防、鑑定與兩類失效，不只是品保薪資。</text></feedback></answer>
+    <generalfeedback><text>總品質成本 = 符合性（預防 + 鑑定）+ 非符合性（內部失效 + 外部失效）。經濟地管理品質，意謂使此總額最小化，通常是把支出移向預防與早期鑑定。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>如何解讀 1:10:100 比例</text></name>
+    <questiontext format="html"><text><![CDATA[<p>關於「1:10:100」這類成本比例，下列哪個敘述最正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們是好記的示意性經驗法則；確切數字並非普世法則，但遞增趨勢有充分支持</text><feedback><text>正確——把它們當成典型示意值，而非確切常數。</text></feedback></answer>
+    <answer fraction="0"><text>它們是一條在每個專案都完全相同成立的確切物理法則</text><feedback><text>確切數字會因情境與研究而異；它們不是確切法則。</text></feedback></answer>
+    <answer fraction="0"><text>它們證明缺陷永遠無法便宜地修復</text><feedback><text>早期抓到的缺陷很便宜；這些比例描述的是若不抓到成本如何成長。</text></feedback></answer>
+    <answer fraction="0"><text>它們只適用於硬體，絕不適用於軟體</text><feedback><text>遞增趨勢在軟體也觀察得到；這些比例正廣泛用於描述它。</text></feedback></answer>
+    <generalfeedback><text>1:10:100 這類比例是變更成本趨勢的教學經驗法則。真實倍數變動很大，因此把數字當成示意，而依賴其穩健的定性訊息：愈晚愈貴。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>依這些數字審查不划算</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一次審查花 100 單位，抓到 2 個缺陷。每個缺陷現在修復花 5 單位，但若逸出到生產環境則花 40 單位（示意）。僅就這些數字而言，此審查在經濟上划得來嗎？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不划得來——被避免的下游成本（70 單位）小於 100 單位的審查，淨損失 30 單位</text><feedback><text>正確——每個缺陷節省 40 - 5 = 35；2 x 35 = 70；70 - 100 = -30。</text></feedback></answer>
+    <answer fraction="0"><text>划得來——它節省 80 單位</text><feedback><text>那會是 2 x 40；還須扣除 5 單位的修復與 100 單位的審查，結果是 30 單位損失。</text></feedback></answer>
+    <answer fraction="0"><text>划得來——它剛好節省 100 單位</text><feedback><text>被避免的成本只有 70 單位，小於 100 單位的審查，因此是損失。</text></feedback></answer>
+    <answer fraction="0"><text>它在 0 單位處損益平衡</text><feedback><text>避免的 70 減去花費的 100 是 30 單位淨損失，而非損益平衡。</text></feedback></answer>
+    <generalfeedback><text>每個抓到的缺陷節省 40 - 5 = 35 單位；兩個缺陷共避免 70 單位下游成本。審查花 100，故淨結果為 70 - 100 = -30 單位，就這些數字而言是損失。此處要損益平衡需 3 個缺陷（3 x 35 = 105 &gt; 100）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>該把支出移到哪裡</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊目前在外部失效處理（召回與客服）上花費甚鉅。依品質成本推理，最經濟的改善通常是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>在預防與更早的鑑定上投資更多，以降低大得多的下游失效成本</text><feedback><text>正確——用符合性支出換取失效成本下降可降低總額。</text></feedback></answer>
+    <answer fraction="0"><text>削減所有預防與鑑定支出，以現在省錢</text><feedback><text>那會進一步推高失效成本；與建議的做法相反。</text></feedback></answer>
+    <answer fraction="0"><text>等客戶回報每一個缺陷後再行動</text><feedback><text>那會使最昂貴的類別——外部失效——最大化。</text></feedback></answer>
+    <answer fraction="0"><text>把外部失效支出再增加更多</text><feedback><text>在最貴的類別上花更多，並不會降低總品質成本。</text></feedback></answer>
+    <generalfeedback><text>當失效成本主導時，品質成本推理主張把支出移向預防與早期鑑定。在那裡適度增加，通常會使內部與外部失效成本產生更大的下降，從而降低總額。</text></generalfeedback>
+  </question>
+</quiz>

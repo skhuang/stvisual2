@@ -12791,6 +12791,2568 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "defect-cost": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Cost of change principle",
+          "text": "<p>The <em>cost of change</em> (defect-cost escalation) principle states that:</p>",
+          "answers": [
+            {
+              "text": "The cost to fix a defect tends to increase the later in the lifecycle it is discovered",
+              "fraction": 100,
+              "feedback": "Correct — Boehm's cost-of-change curve rises as discovery moves to later phases."
+            },
+            {
+              "text": "The cost to fix a defect is the same regardless of when it is found",
+              "fraction": 0,
+              "feedback": "The whole point of the curve is that the cost is not constant; it escalates."
+            },
+            {
+              "text": "Defects found later are always cheaper because tooling improves over time",
+              "fraction": 0,
+              "feedback": "Later discovery is generally more expensive, not cheaper."
+            },
+            {
+              "text": "Only defects found in production carry any cost at all",
+              "fraction": 0,
+              "feedback": "Defects found early also cost something to fix; the point is that later fixes cost more."
+            }
+          ],
+          "generalFeedback": "Boehm's cost-of-change curve captures a widely observed trend: the same defect costs progressively more to fix the later it is discovered, because more work has been built on top of it. Typical illustrative multipliers rise from about 1x in requirements to tens or hundreds of times in production.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What is shift-left",
+          "text": "<p>&quot;Shift-left&quot; testing means:</p>",
+          "answers": [
+            {
+              "text": "Moving testing and quality activities earlier in the lifecycle so defects are caught sooner",
+              "fraction": 100,
+              "feedback": "Correct — shifting quality work to the left (earlier) on the timeline."
+            },
+            {
+              "text": "Delaying testing until after release to save time up front",
+              "fraction": 0,
+              "feedback": "That is shifting right, the opposite of shift-left."
+            },
+            {
+              "text": "Moving all testing to a separate team drawn on the left of the org chart",
+              "fraction": 0,
+              "feedback": "Shift-left is about timing in the lifecycle, not org-chart position."
+            },
+            {
+              "text": "Writing tests only after the code is deployed to production",
+              "fraction": 0,
+              "feedback": "That defers testing to the latest possible point, the opposite of shift-left."
+            }
+          ],
+          "generalFeedback": "Shift-left moves reviews and testing earlier so defects are found closer to where they are introduced, when they are cheapest to fix. It is the practical response to the cost-of-change curve.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Internal failure cost",
+          "text": "<p>In the cost of quality, an <em>internal failure cost</em> arises when:</p>",
+          "answers": [
+            {
+              "text": "A defect is found before the product is released (e.g. rework and re-testing)",
+              "fraction": 100,
+              "feedback": "Correct — internal failures are caught in-house, before the customer sees them."
+            },
+            {
+              "text": "A defect is found by the customer after release",
+              "fraction": 0,
+              "feedback": "That is an external failure cost."
+            },
+            {
+              "text": "The team trains staff to prevent defects",
+              "fraction": 0,
+              "feedback": "That is a prevention cost."
+            },
+            {
+              "text": "The team inspects or tests in order to detect defects",
+              "fraction": 0,
+              "feedback": "That is an appraisal cost."
+            }
+          ],
+          "generalFeedback": "Internal failure costs are the costs of defects discovered before delivery: rework, re-testing, and re-inspection. They contrast with external failure costs, which arise after the customer has the product.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "External failure cost",
+          "text": "<p>An <em>external failure cost</em> arises when:</p>",
+          "answers": [
+            {
+              "text": "A defect is found by the customer after release (e.g. support, patches, recalls)",
+              "fraction": 100,
+              "feedback": "Correct — external failures reach the customer."
+            },
+            {
+              "text": "A defect is found and fixed in-house before release",
+              "fraction": 0,
+              "feedback": "That is an internal failure cost."
+            },
+            {
+              "text": "The team plans and schedules its quality activities in advance",
+              "fraction": 0,
+              "feedback": "That is a prevention cost."
+            },
+            {
+              "text": "Reviewers inspect a design document before any code is written",
+              "fraction": 0,
+              "feedback": "That is an appraisal cost."
+            }
+          ],
+          "generalFeedback": "External failure costs arise once a defect escapes to the customer: support calls, patches, warranty, recalls, and reputation damage. They are usually the most expensive category of quality cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prevention cost",
+          "text": "<p>A <em>prevention cost</em> is money spent to:</p>",
+          "answers": [
+            {
+              "text": "Stop defects from being introduced in the first place (e.g. training, better processes)",
+              "fraction": 100,
+              "feedback": "Correct — prevention keeps defects from being created."
+            },
+            {
+              "text": "Find defects that already exist (e.g. reviews and testing)",
+              "fraction": 0,
+              "feedback": "That is an appraisal cost."
+            },
+            {
+              "text": "Repair a defect that was found before release",
+              "fraction": 0,
+              "feedback": "That is an internal failure cost."
+            },
+            {
+              "text": "Handle customer complaints after release",
+              "fraction": 0,
+              "feedback": "That is an external failure cost."
+            }
+          ],
+          "generalFeedback": "Prevention costs (part of the conformance cost) are spent to avoid defects being introduced: training, quality planning, tool investment, and process improvement.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Appraisal cost",
+          "text": "<p>An <em>appraisal cost</em> is money spent to:</p>",
+          "answers": [
+            {
+              "text": "Evaluate or measure work products to find defects (e.g. reviews, inspections, testing)",
+              "fraction": 100,
+              "feedback": "Correct — appraisal is about detecting defects that may already be present."
+            },
+            {
+              "text": "Prevent defects from ever being introduced",
+              "fraction": 0,
+              "feedback": "That is a prevention cost."
+            },
+            {
+              "text": "Compensate a customer for a failure in the field",
+              "fraction": 0,
+              "feedback": "That is an external failure cost."
+            },
+            {
+              "text": "Rework a defect that a customer discovered",
+              "fraction": 0,
+              "feedback": "That is an external failure cost."
+            }
+          ],
+          "generalFeedback": "Appraisal costs (part of the conformance cost) are spent measuring and evaluating products to find defects: reviews, inspections, testing, and audits.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Most expensive discovery phase",
+          "text": "<p>Fixing the same defect is generally <em>most</em> expensive when it is discovered:</p>",
+          "answers": [
+            {
+              "text": "In production, after release to customers",
+              "fraction": 100,
+              "feedback": "Correct — production fixes carry the highest illustrative multipliers."
+            },
+            {
+              "text": "During requirements",
+              "fraction": 0,
+              "feedback": "Requirements is typically the cheapest phase to fix a defect."
+            },
+            {
+              "text": "During design",
+              "fraction": 0,
+              "feedback": "Design fixes are cheaper than fixes made after release."
+            },
+            {
+              "text": "During coding",
+              "fraction": 0,
+              "feedback": "Coding fixes are cheaper than fixes made after release."
+            }
+          ],
+          "generalFeedback": "The cost-of-change curve peaks in production: a defect that reaches customers can require patches, support, and reputation repair on top of the code fix, making it the most expensive place to discover a defect.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Cheapest discovery phase",
+          "text": "<p>Fixing a defect is generally <em>cheapest</em> when it is discovered:</p>",
+          "answers": [
+            {
+              "text": "In the same early phase it was introduced (e.g. a requirements defect caught during requirements)",
+              "fraction": 100,
+              "feedback": "Correct — catching a defect where it is introduced avoids downstream rework."
+            },
+            {
+              "text": "In production",
+              "fraction": 0,
+              "feedback": "Production is the most expensive, not the cheapest, place to fix a defect."
+            },
+            {
+              "text": "During system testing",
+              "fraction": 0,
+              "feedback": "System test is cheaper than production but more expensive than early phases."
+            },
+            {
+              "text": "After a customer-triggered recall",
+              "fraction": 0,
+              "feedback": "A recall is among the most expensive outcomes, not the cheapest."
+            }
+          ],
+          "generalFeedback": "A defect caught in the phase where it is introduced is cheapest to fix, because nothing has yet been built on top of it. This is why shifting reviews and testing left saves money.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Later means more expensive",
+          "text": "<p>Generally, the later in the software lifecycle a defect is found, the more expensive it is to fix.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — this is the central idea of the cost-of-change curve."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The widely observed trend is the opposite: later discovery costs more."
+            }
+          ],
+          "generalFeedback": "The cost-of-change curve captures a general trend: fixing a defect gets more expensive the later it is found. Exact multipliers vary by study and context, but the escalating trend is well supported."
+        },
+        {
+          "type": "multichoice",
+          "name": "Static techniques find defects how",
+          "text": "<p>Static techniques such as reviews and inspections find defects by:</p>",
+          "answers": [
+            {
+              "text": "Examining the artifact (requirements, design, code) without executing the code",
+              "fraction": 100,
+              "feedback": "Correct — static techniques inspect work products rather than running them."
+            },
+            {
+              "text": "Running the program and observing failures",
+              "fraction": 0,
+              "feedback": "That is dynamic testing, not a static technique."
+            },
+            {
+              "text": "Deploying to production and waiting for customer reports",
+              "fraction": 0,
+              "feedback": "That is field feedback, the most expensive form of detection, and not a static technique."
+            },
+            {
+              "text": "Measuring CPU usage during a load test",
+              "fraction": 0,
+              "feedback": "That is a dynamic performance measurement, not a static review."
+            }
+          ],
+          "generalFeedback": "Static techniques (reviews, walkthroughs, inspections, static analysis) find defects without executing the code, so they can catch defects in early artifacts before they propagate — often in phases where fixes are cheap.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Prevention vs detection",
+          "text": "<p>Defect <em>prevention</em> differs from defect <em>detection</em> in that prevention:</p>",
+          "answers": [
+            {
+              "text": "Aims to stop defects from being introduced, rather than finding them after they already exist",
+              "fraction": 100,
+              "feedback": "Correct — prevention acts before defects are created; detection finds existing ones."
+            },
+            {
+              "text": "Finds defects only after the code has been executed",
+              "fraction": 0,
+              "feedback": "That describes dynamic detection, not prevention."
+            },
+            {
+              "text": "Is simply another name for external failure cost",
+              "fraction": 0,
+              "feedback": "Prevention is a conformance cost; external failure is a failure cost. They are different categories."
+            },
+            {
+              "text": "Applies only to defects already in production",
+              "fraction": 0,
+              "feedback": "Prevention applies before defects exist, not only to production defects."
+            }
+          ],
+          "generalFeedback": "Prevention keeps defects from being introduced (training, better processes, clearer requirements); detection finds defects that already exist (reviews, testing). Prevention tends to be the most economical because avoided defects incur no escalation cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Simple ratio coding vs production",
+          "text": "<p>Suppose (illustratively) fixing a defect during coding costs 10x a baseline unit and fixing it in production costs 100x that unit. Fixing in production costs how many times as much as fixing during coding?</p>",
+          "answers": [
+            {
+              "text": "10x",
+              "fraction": 100,
+              "feedback": "Correct — 100 / 10 = 10."
+            },
+            {
+              "text": "90x",
+              "fraction": 0,
+              "feedback": "That is 100 minus 10; the question asks for a ratio, 100 / 10 = 10."
+            },
+            {
+              "text": "110x",
+              "fraction": 0,
+              "feedback": "That is 100 plus 10; the ratio is 100 / 10 = 10."
+            },
+            {
+              "text": "1000x",
+              "fraction": 0,
+              "feedback": "That is 100 times 10; the ratio is 100 / 10 = 10."
+            }
+          ],
+          "generalFeedback": "The relative cost is the ratio of the two multipliers: 100 / 10 = 10. Production is 10 times as expensive as coding for these illustrative figures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Two conformance categories",
+          "text": "<p>The two categories of <em>conformance</em> (good-quality) cost in the cost of quality are:</p>",
+          "answers": [
+            {
+              "text": "Prevention and appraisal",
+              "fraction": 100,
+              "feedback": "Correct — conformance costs are spent to achieve quality: prevention and appraisal."
+            },
+            {
+              "text": "Internal failure and external failure",
+              "fraction": 0,
+              "feedback": "Those are the non-conformance (failure) costs."
+            },
+            {
+              "text": "Requirements and design",
+              "fraction": 0,
+              "feedback": "Those are lifecycle phases, not cost-of-quality categories."
+            },
+            {
+              "text": "Likelihood and impact",
+              "fraction": 0,
+              "feedback": "Those are the two dimensions of risk, not cost-of-quality categories."
+            }
+          ],
+          "generalFeedback": "Cost of quality splits into conformance costs (prevention + appraisal — spent to achieve quality) and non-conformance costs (internal + external failure — the cost of getting it wrong).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Simple ratio requirements vs system test",
+          "text": "<p>Suppose (illustratively) fixing a defect during requirements costs 1x a baseline unit and fixing it during system testing costs 15x that unit. Fixing in system testing costs how many times as much as fixing during requirements?</p>",
+          "answers": [
+            {
+              "text": "15x",
+              "fraction": 100,
+              "feedback": "Correct — 15 / 1 = 15."
+            },
+            {
+              "text": "14x",
+              "fraction": 0,
+              "feedback": "That is 15 minus 1; the ratio is 15 / 1 = 15."
+            },
+            {
+              "text": "16x",
+              "fraction": 0,
+              "feedback": "That is 15 plus 1; the ratio is 15 / 1 = 15."
+            },
+            {
+              "text": "1/15x",
+              "fraction": 0,
+              "feedback": "That inverts the ratio; system test is more expensive, so it is 15x, not 1/15x."
+            }
+          ],
+          "generalFeedback": "The relative cost is 15 / 1 = 15. System-test fixes cost 15 times a requirements fix for these illustrative figures.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "External failures most expensive",
+          "text": "<p>Among failure costs, external failures (those found by the customer) are typically the most expensive.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — external failures add support, patches, recalls, and reputation damage on top of the fix."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "External failures are generally the most expensive because the defect has reached the customer."
+            }
+          ],
+          "generalFeedback": "External failure costs are usually the highest failure category: beyond fixing the defect, the organisation may face support load, emergency patches, recalls, penalties, and loss of goodwill."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Compute production vs design ratio",
+          "text": "<p>Given illustrative multipliers where fixing a defect in design costs 5x a baseline unit and fixing it in production costs 100x that unit, fixing in production costs how many times as much as fixing in design?</p>",
+          "answers": [
+            {
+              "text": "20x",
+              "fraction": 100,
+              "feedback": "Correct — 100 / 5 = 20."
+            },
+            {
+              "text": "95x",
+              "fraction": 0,
+              "feedback": "That is 100 minus 5; the question asks for the ratio, 100 / 5 = 20."
+            },
+            {
+              "text": "105x",
+              "fraction": 0,
+              "feedback": "That is 100 plus 5; the ratio is 100 / 5 = 20."
+            },
+            {
+              "text": "500x",
+              "fraction": 0,
+              "feedback": "That is 100 times 5; the ratio is 100 / 5 = 20."
+            }
+          ],
+          "generalFeedback": "Divide the two given multipliers: 100 / 5 = 20. Production is 20 times as expensive as design for these illustrative figures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why external failure costs most",
+          "text": "<p>Why are external failure costs typically the highest category of quality cost?</p>",
+          "answers": [
+            {
+              "text": "Beyond fixing the defect they add support, patches or recalls, and reputation or goodwill damage",
+              "fraction": 100,
+              "feedback": "Correct — the customer-facing consequences pile on top of the technical fix."
+            },
+            {
+              "text": "Because customer-found defects are always trivially easy to reproduce",
+              "fraction": 0,
+              "feedback": "Reproducing field defects is often hard; that does not explain the high cost."
+            },
+            {
+              "text": "Because prevention activities are billed to the customer",
+              "fraction": 0,
+              "feedback": "Prevention is an internal conformance cost and is unrelated to external failure cost."
+            },
+            {
+              "text": "Because internal rework is entirely free",
+              "fraction": 0,
+              "feedback": "Internal rework is not free; and that would not make external failures the most expensive."
+            }
+          ],
+          "generalFeedback": "By the time a defect reaches the field it can trigger support load, emergency patches, recalls, contractual penalties, and lasting reputation damage — all on top of the code fix — which is why external failure is usually the costliest category.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Shift-left rationale",
+          "text": "<p>The main economic rationale for shift-left (reviewing and testing earlier) is that:</p>",
+          "answers": [
+            {
+              "text": "Catching defects earlier costs far less than fixing them after they have propagated to later phases",
+              "fraction": 100,
+              "feedback": "Correct — early detection avoids the escalating downstream cost."
+            },
+            {
+              "text": "Earlier testing needs no tools and is therefore completely free",
+              "fraction": 0,
+              "feedback": "Early quality work still has a cost; the point is that it avoids larger later costs."
+            },
+            {
+              "text": "Later phases never contain defects",
+              "fraction": 0,
+              "feedback": "Later phases certainly can contain defects; shift-left is about catching them before then."
+            },
+            {
+              "text": "It lets the team skip requirements analysis entirely",
+              "fraction": 0,
+              "feedback": "Shift-left strengthens early activities such as requirements review, it does not skip them."
+            }
+          ],
+          "generalFeedback": "Shift-left is justified by the cost-of-change curve: a defect caught in requirements or design is far cheaper to fix than the same defect caught in testing or production, so moving quality work earlier lowers total cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: training as cost type",
+          "text": "<p>Running a training course to teach developers secure-coding practices so that fewer defects are written is an example of a:</p>",
+          "answers": [
+            {
+              "text": "Prevention cost",
+              "fraction": 100,
+              "feedback": "Correct — training reduces the chance defects are introduced."
+            },
+            {
+              "text": "Appraisal cost",
+              "fraction": 0,
+              "feedback": "Appraisal is spent to detect existing defects, not to prevent them."
+            },
+            {
+              "text": "Internal failure cost",
+              "fraction": 0,
+              "feedback": "Internal failure is the cost of fixing defects found before release, not of training."
+            },
+            {
+              "text": "External failure cost",
+              "fraction": 0,
+              "feedback": "External failure arises after release; training happens before defects exist."
+            }
+          ],
+          "generalFeedback": "Training aimed at reducing the introduction of defects is a classic prevention cost, part of the conformance cost of quality.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: code inspection as cost type",
+          "text": "<p>Time spent performing a code inspection in order to detect defects is classified as a:</p>",
+          "answers": [
+            {
+              "text": "Appraisal cost",
+              "fraction": 100,
+              "feedback": "Correct — appraisal covers evaluating work products to find defects, including inspections."
+            },
+            {
+              "text": "Prevention cost",
+              "fraction": 0,
+              "feedback": "Prevention stops defects being introduced; an inspection detects ones that already exist."
+            },
+            {
+              "text": "Internal failure cost",
+              "fraction": 0,
+              "feedback": "Internal failure is the rework once a defect is found, not the act of inspecting to find it."
+            },
+            {
+              "text": "External failure cost",
+              "fraction": 0,
+              "feedback": "External failure arises after release; an inspection is an in-house detection activity."
+            }
+          ],
+          "generalFeedback": "Inspections, reviews, and testing are appraisal activities: they evaluate a product to detect defects. The subsequent rework to fix what they find is a separate failure cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: rework before release",
+          "text": "<p>The effort to rework and re-test a defect that testers found before the release is a:</p>",
+          "answers": [
+            {
+              "text": "Internal failure cost",
+              "fraction": 100,
+              "feedback": "Correct — the defect was fixed in-house before it reached the customer."
+            },
+            {
+              "text": "External failure cost",
+              "fraction": 0,
+              "feedback": "External failure requires the defect to have reached the customer; here it was caught before release."
+            },
+            {
+              "text": "Prevention cost",
+              "fraction": 0,
+              "feedback": "Prevention avoids introducing defects; this is rework for a defect that already exists."
+            },
+            {
+              "text": "Appraisal cost",
+              "fraction": 0,
+              "feedback": "Appraisal is the detection activity (the testing); the rework that follows is a failure cost."
+            }
+          ],
+          "generalFeedback": "Rework and re-testing for a defect caught before delivery is an internal failure cost. Had the same defect been fixed after the customer hit it, it would be an external failure cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: patch and support hotline",
+          "text": "<p>Issuing a patch and staffing a support hotline for a bug that customers hit in production is an:</p>",
+          "answers": [
+            {
+              "text": "External failure cost",
+              "fraction": 100,
+              "feedback": "Correct — the defect reached customers, so the resulting costs are external failures."
+            },
+            {
+              "text": "Internal failure cost",
+              "fraction": 0,
+              "feedback": "Internal failure would mean the defect was caught before release; here customers hit it."
+            },
+            {
+              "text": "Appraisal cost",
+              "fraction": 0,
+              "feedback": "Appraisal is a detection activity, not the cost of handling a released defect."
+            },
+            {
+              "text": "Prevention cost",
+              "fraction": 0,
+              "feedback": "Prevention happens before defects exist, not after a customer-facing failure."
+            }
+          ],
+          "generalFeedback": "Patches, support, warranty, and recalls for defects that reach the customer are external failure costs — usually the most expensive category.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Review vs dynamic testing cost",
+          "text": "<p>Why can a review of a design document be more cost-effective than waiting for dynamic testing to reveal the same defect?</p>",
+          "answers": [
+            {
+              "text": "The review catches the defect earlier, before it is coded and built upon, so less downstream rework is needed",
+              "fraction": 100,
+              "feedback": "Correct — earlier detection means the defect has propagated less."
+            },
+            {
+              "text": "The review executes the code faster than a test harness can",
+              "fraction": 0,
+              "feedback": "A review does not execute code at all; it is a static technique."
+            },
+            {
+              "text": "Dynamic testing can never find design defects under any circumstances",
+              "fraction": 0,
+              "feedback": "Dynamic testing can reveal design defects, just later and often more expensively."
+            },
+            {
+              "text": "Reviews always find every defect, guaranteeing zero residual risk",
+              "fraction": 0,
+              "feedback": "No technique finds every defect; reviews reduce risk but do not eliminate it."
+            }
+          ],
+          "generalFeedback": "A design review can catch a defect in the design phase, before code and tests are built on it. Dynamic testing finds the same defect only later, after more artifacts depend on it, so the fix is more expensive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute coding vs requirements ratio",
+          "text": "<p>Given illustrative multipliers of 1x to fix a defect in requirements and 10x to fix it in coding, the coding fix costs how many times the requirements fix?</p>",
+          "answers": [
+            {
+              "text": "10x",
+              "fraction": 100,
+              "feedback": "Correct — 10 / 1 = 10."
+            },
+            {
+              "text": "9x",
+              "fraction": 0,
+              "feedback": "That is 10 minus 1; the ratio is 10 / 1 = 10."
+            },
+            {
+              "text": "11x",
+              "fraction": 0,
+              "feedback": "That is 10 plus 1; the ratio is 10 / 1 = 10."
+            },
+            {
+              "text": "0.1x",
+              "fraction": 0,
+              "feedback": "That inverts the ratio; coding is more expensive, so it is 10x."
+            }
+          ],
+          "generalFeedback": "Divide the given multipliers: 10 / 1 = 10. Coding fixes cost 10 times a requirements fix for these illustrative figures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute system test vs coding ratio",
+          "text": "<p>Given illustrative multipliers of 10x to fix a defect during coding and 15x during system testing, the system-test fix costs how many times the coding fix?</p>",
+          "answers": [
+            {
+              "text": "1.5x",
+              "fraction": 100,
+              "feedback": "Correct — 15 / 10 = 1.5."
+            },
+            {
+              "text": "5x",
+              "fraction": 0,
+              "feedback": "That is 15 minus 10; the question asks for the ratio, 15 / 10 = 1.5."
+            },
+            {
+              "text": "25x",
+              "fraction": 0,
+              "feedback": "That is 15 plus 10; the ratio is 15 / 10 = 1.5."
+            },
+            {
+              "text": "0.67x",
+              "fraction": 0,
+              "feedback": "That inverts the ratio; system test is more expensive, so it is 1.5x."
+            }
+          ],
+          "generalFeedback": "Divide the given multipliers: 15 / 10 = 1.5. System-test fixes cost 1.5 times a coding fix for these illustrative figures.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Static technique economic effect",
+          "text": "<p>A static technique (such as an inspection) can reduce cost because it:</p>",
+          "answers": [
+            {
+              "text": "Detects defects before the code is executed, often in phases where fixes are cheaper",
+              "fraction": 100,
+              "feedback": "Correct — finding defects statically and early keeps fixes inexpensive."
+            },
+            {
+              "text": "Requires the software to be deployed to production first",
+              "fraction": 0,
+              "feedback": "Static techniques need no execution or deployment at all."
+            },
+            {
+              "text": "Replaces the need to have any requirements",
+              "fraction": 0,
+              "feedback": "Static techniques evaluate artifacts such as requirements; they do not remove the need for them."
+            },
+            {
+              "text": "Works only on compiled binary executables",
+              "fraction": 0,
+              "feedback": "Static techniques apply to requirements, designs, and source, not just binaries."
+            }
+          ],
+          "generalFeedback": "Static techniques examine artifacts without executing them, so they can find defects in early phases (requirements, design, code) where the cost of change is lowest.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute dollar ratio design vs production",
+          "text": "<p>A given defect costs $50 to fix if caught in design and $1000 to fix if it escapes to production. Escaping to production is how many times as expensive?</p>",
+          "answers": [
+            {
+              "text": "20x",
+              "fraction": 100,
+              "feedback": "Correct — 1000 / 50 = 20."
+            },
+            {
+              "text": "950x",
+              "fraction": 0,
+              "feedback": "That is 1000 minus 50; the question asks for the ratio, 1000 / 50 = 20."
+            },
+            {
+              "text": "50x",
+              "fraction": 0,
+              "feedback": "That is one of the given values, not the ratio; 1000 / 50 = 20."
+            },
+            {
+              "text": "1050x",
+              "fraction": 0,
+              "feedback": "That is 1000 plus 50; the ratio is 1000 / 50 = 20."
+            }
+          ],
+          "generalFeedback": "Divide the two given costs: 1000 / 50 = 20. Escaping to production is 20 times as expensive as fixing in design here.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why escalation happens",
+          "text": "<p>The primary reason a defect gets more expensive to fix in later phases is that:</p>",
+          "answers": [
+            {
+              "text": "Later work is built on top of it, so fixing it requires reworking more artifacts (design, code, tests, docs)",
+              "fraction": 100,
+              "feedback": "Correct — the defect propagates, and more must be undone and redone."
+            },
+            {
+              "text": "Programmers charge a higher hourly rate in later phases",
+              "fraction": 0,
+              "feedback": "Rates do not systematically rise by phase; the driver is accumulated rework."
+            },
+            {
+              "text": "Later defects are always more severe by definition",
+              "fraction": 0,
+              "feedback": "Severity is independent of when a defect is found; cost rises because of propagation."
+            },
+            {
+              "text": "Compilers become slower as the project ages",
+              "fraction": 0,
+              "feedback": "Tool speed is not the reason; the cost-of-change escalation comes from downstream rework."
+            }
+          ],
+          "generalFeedback": "Escalation happens because later artifacts depend on the flawed one. Fixing a requirements defect found in production may mean changing requirements, design, code, tests, and documentation, plus dealing with the field impact.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: process improvement",
+          "text": "<p>Improving the requirements-writing process so that ambiguous requirements are less likely to occur is a:</p>",
+          "answers": [
+            {
+              "text": "Prevention cost",
+              "fraction": 100,
+              "feedback": "Correct — improving the process to avoid introducing defects is prevention."
+            },
+            {
+              "text": "Appraisal cost",
+              "fraction": 0,
+              "feedback": "Appraisal detects existing defects; this change stops them being introduced."
+            },
+            {
+              "text": "Internal failure cost",
+              "fraction": 0,
+              "feedback": "Internal failure is rework for defects already found, not process improvement."
+            },
+            {
+              "text": "External failure cost",
+              "fraction": 0,
+              "feedback": "External failure arises after release; process improvement is a prevention activity."
+            }
+          ],
+          "generalFeedback": "Process improvement that reduces how often defects are introduced is a prevention cost, part of the conformance cost of quality.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute production vs system test ratio",
+          "text": "<p>Given illustrative multipliers of 15x to fix a defect in system testing and 45x in production, fixing in production costs how many times as much as fixing in system testing?</p>",
+          "answers": [
+            {
+              "text": "3x",
+              "fraction": 100,
+              "feedback": "Correct — 45 / 15 = 3."
+            },
+            {
+              "text": "30x",
+              "fraction": 0,
+              "feedback": "That is 45 minus 15; the question asks for the ratio, 45 / 15 = 3."
+            },
+            {
+              "text": "60x",
+              "fraction": 0,
+              "feedback": "That is 45 plus 15; the ratio is 45 / 15 = 3."
+            },
+            {
+              "text": "0.33x",
+              "fraction": 0,
+              "feedback": "That inverts the ratio; production is more expensive, so it is 3x."
+            }
+          ],
+          "generalFeedback": "Divide the given multipliers: 45 / 15 = 3. Production is 3 times as expensive as system testing for these illustrative figures.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Total savings from earlier catch",
+          "text": "<p>Illustratively, fixing a defect costs 5 units in design and 100 units in production. A design review catches 4 defects that would otherwise have escaped to production. Ignoring the cost of the review itself, how much is saved compared with fixing those 4 defects in production?</p>",
+          "answers": [
+            {
+              "text": "380 units",
+              "fraction": 100,
+              "feedback": "Correct — 4 x (100 - 5) = 4 x 95 = 380."
+            },
+            {
+              "text": "400 units",
+              "fraction": 0,
+              "feedback": "That is 4 x 100; you must subtract the 5-unit design fix still incurred for each: 4 x (100 - 5) = 380."
+            },
+            {
+              "text": "420 units",
+              "fraction": 0,
+              "feedback": "That is 4 x (100 + 5); the saving per defect is 100 - 5 = 95, so 4 x 95 = 380."
+            },
+            {
+              "text": "20 units",
+              "fraction": 0,
+              "feedback": "That is 4 x 5, the design cost alone; the saving is 4 x (100 - 5) = 380."
+            }
+          ],
+          "generalFeedback": "Each defect caught in design costs 5 instead of 100, saving 95. For 4 defects the saving is 4 x 95 = 380 units.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Break-even of a review",
+          "text": "<p>A design review costs 60 units to run. Each defect it catches costs 5 units to fix now but would cost 30 units if it escaped to production. The review catches 3 such defects. What is the net economic result of doing the review?</p>",
+          "answers": [
+            {
+              "text": "A net saving of 15 units (the review pays for itself)",
+              "fraction": 100,
+              "feedback": "Correct — saving per defect is 30 - 5 = 25; 3 x 25 = 75 avoided; 75 - 60 = 15."
+            },
+            {
+              "text": "A net loss of 60 units",
+              "fraction": 0,
+              "feedback": "That ignores the downstream savings; the review avoids 3 x 25 = 75 units, exceeding its 60-unit cost."
+            },
+            {
+              "text": "A net saving of 90 units",
+              "fraction": 0,
+              "feedback": "That is 3 x 30 (the full production cost); you must subtract both the 5-unit fixes and the 60-unit review."
+            },
+            {
+              "text": "Exactly break-even (0 units)",
+              "fraction": 0,
+              "feedback": "The numbers do not cancel: 75 avoided minus 60 spent leaves a 15-unit net saving."
+            }
+          ],
+          "generalFeedback": "Each caught defect saves 30 - 5 = 25 units versus escaping to production. For 3 defects that is 75 units avoided. Subtract the 60-unit review cost: 75 - 60 = 15 units net saving, so the review is worthwhile.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why the curve is steep",
+          "text": "<p>Why is the cost-of-change curve often described as growing steeply (roughly exponentially) across phases?</p>",
+          "answers": [
+            {
+              "text": "Each later phase builds more on the defect, so rework multiplies as it propagates through design, code, tests, and released artifacts",
+              "fraction": 100,
+              "feedback": "Correct — compounding downstream dependencies drive the steep rise."
+            },
+            {
+              "text": "Because currency inflation doubles all costs every phase",
+              "fraction": 0,
+              "feedback": "Inflation is unrelated; the rise comes from accumulated rework."
+            },
+            {
+              "text": "Because the number of testers is required to double each phase",
+              "fraction": 0,
+              "feedback": "Staffing does not double by rule; the driver is propagation of the defect."
+            },
+            {
+              "text": "Because defects reproduce themselves biologically over time",
+              "fraction": 0,
+              "feedback": "Defects do not multiply on their own; the cost multiplies because more artifacts depend on the flaw."
+            }
+          ],
+          "generalFeedback": "The steepness comes from compounding: a defect left in place has more and more work built on top of it, so the amount of rework needed to remove it grows quickly across phases.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Multipliers illustrative, trend robust",
+          "text": "<p>The exact per-phase cost multipliers are illustrative and vary between studies and contexts, but the general trend that later fixes cost more is widely observed.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — treat specific numbers as typical figures, not as an exact universal law; the trend, however, is robust."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "The specific multipliers do vary and are debated, yet the escalating trend is well supported, so the statement is true."
+            }
+          ],
+          "generalFeedback": "Reported multipliers (such as 1:5:10:15:100) differ across sources and depend heavily on context and measurement. They are useful illustrations. What is well supported is the direction: fixing defects later tends to cost more."
+        },
+        {
+          "type": "multichoice",
+          "name": "Cost-of-quality trade-off",
+          "text": "<p>In the cost-of-quality model, increasing spend on prevention and appraisal typically:</p>",
+          "answers": [
+            {
+              "text": "Reduces failure costs, and can lower the total cost of quality up to a point",
+              "fraction": 100,
+              "feedback": "Correct — conformance spending buys down the larger failure costs."
+            },
+            {
+              "text": "Has no effect on failure costs",
+              "fraction": 0,
+              "feedback": "The central trade-off is precisely that conformance spending reduces failure costs."
+            },
+            {
+              "text": "Always increases the total cost of quality with no benefit",
+              "fraction": 0,
+              "feedback": "Up to a point the reduction in failure cost outweighs the added conformance cost."
+            },
+            {
+              "text": "Eliminates all residual risk permanently",
+              "fraction": 0,
+              "feedback": "No amount of spending removes all risk; some residual risk always remains."
+            }
+          ],
+          "generalFeedback": "Cost of quality balances conformance costs (prevention + appraisal) against failure costs (internal + external). Investing more in the first two usually reduces the last two, lowering total cost of quality up to a practical optimum.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Early introduced, late found",
+          "text": "<p>A defect is <em>introduced</em> during requirements but is not <em>discovered</em> until production. Which phase's fix cost does it incur?</p>",
+          "answers": [
+            {
+              "text": "The production (late-phase) cost, because cost is driven by when the defect is found, not when it was introduced",
+              "fraction": 100,
+              "feedback": "Correct — the escalation is tied to the discovery phase."
+            },
+            {
+              "text": "The requirements cost, because that is where it originated",
+              "fraction": 0,
+              "feedback": "The low requirements cost would apply only if it had been caught there; found late, it incurs the late cost."
+            },
+            {
+              "text": "The average of the requirements and production costs",
+              "fraction": 0,
+              "feedback": "There is no averaging; the cost is that of the phase in which it is found."
+            },
+            {
+              "text": "No cost, because it is an old defect from an early phase",
+              "fraction": 0,
+              "feedback": "Age does not remove cost; an old defect found late is expensive."
+            }
+          ],
+          "generalFeedback": "What escalates the cost is how long a defect survives undetected. A requirements defect that slips all the way to production incurs the production-level fix cost, not the cheap requirements cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Fix cost by discovery phase",
+          "text": "<p>Given illustrative fix costs of requirements 1, design 5, coding 10, system test 15, production 100 (units), a requirements defect that slips through until it is caught in system test costs how much to fix?</p>",
+          "answers": [
+            {
+              "text": "15 units",
+              "fraction": 100,
+              "feedback": "Correct — it is found in system test, so it incurs the system-test cost of 15."
+            },
+            {
+              "text": "1 unit",
+              "fraction": 0,
+              "feedback": "That is the requirements cost, which applies only if caught in requirements; it was found in system test."
+            },
+            {
+              "text": "16 units",
+              "fraction": 0,
+              "feedback": "That adds 1 and 15; the cost is simply the discovery-phase cost, 15."
+            },
+            {
+              "text": "100 units",
+              "fraction": 0,
+              "feedback": "That is the production cost; the defect was caught in system test, not production."
+            }
+          ],
+          "generalFeedback": "The fix cost is set by the phase in which the defect is discovered. Caught in system test, the requirements defect costs 15 units, not the 1-unit requirements figure.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Minimum defects to justify a review",
+          "text": "<p>A review costs 200 units. Each defect it catches costs 10 units to fix now but 100 units if it reaches production. What is the minimum number of caught defects for the review to at least pay for itself?</p>",
+          "answers": [
+            {
+              "text": "3 defects",
+              "fraction": 100,
+              "feedback": "Correct — saving per defect is 100 - 10 = 90; 200 / 90 is about 2.22, so you need 3."
+            },
+            {
+              "text": "2 defects",
+              "fraction": 0,
+              "feedback": "2 x 90 = 180, which is less than 200; the review does not yet pay for itself."
+            },
+            {
+              "text": "20 defects",
+              "fraction": 0,
+              "feedback": "That divides 200 by 10 rather than by the 90-unit per-defect saving."
+            },
+            {
+              "text": "200 defects",
+              "fraction": 0,
+              "feedback": "That is the review cost in units, not the number of defects needed."
+            }
+          ],
+          "generalFeedback": "Each caught defect saves 100 - 10 = 90 units. To cover the 200-unit review you need 200 / 90, about 2.22 defects, rounded up to 3.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Total cost of two strategies",
+          "text": "<p>Ten defects exist. Strategy A catches all 10 in design (5 units each). Strategy B lets all 10 reach production (100 units each). How much more does Strategy B cost in total than Strategy A?</p>",
+          "answers": [
+            {
+              "text": "950 units",
+              "fraction": 100,
+              "feedback": "Correct — 10 x 100 - 10 x 5 = 1000 - 50 = 950."
+            },
+            {
+              "text": "1000 units",
+              "fraction": 0,
+              "feedback": "That is Strategy B's total; the question asks for the difference, 1000 - 50 = 950."
+            },
+            {
+              "text": "50 units",
+              "fraction": 0,
+              "feedback": "That is Strategy A's total; the difference is 1000 - 50 = 950."
+            },
+            {
+              "text": "105 units",
+              "fraction": 0,
+              "feedback": "That is 100 + 5 for a single defect; across 10 defects the difference is 950."
+            }
+          ],
+          "generalFeedback": "Strategy A costs 10 x 5 = 50; Strategy B costs 10 x 100 = 1000. Strategy B costs 1000 - 50 = 950 units more.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why prevention pays off",
+          "text": "<p>What is the core economic argument that prevention &quot;pays off&quot;?</p>",
+          "answers": [
+            {
+              "text": "A unit spent preventing a defect avoids the larger, escalating cost of finding and fixing it later, especially in the field",
+              "fraction": 100,
+              "feedback": "Correct — a prevented defect never incurs downstream escalation."
+            },
+            {
+              "text": "Prevention is legally mandated in all jurisdictions",
+              "fraction": 0,
+              "feedback": "The argument is economic, not a universal legal requirement."
+            },
+            {
+              "text": "Prevention makes appraisal unnecessary, so all testing can be skipped",
+              "fraction": 0,
+              "feedback": "Prevention complements appraisal; testing is still needed."
+            },
+            {
+              "text": "Prevention converts external failures into revenue",
+              "fraction": 0,
+              "feedback": "Prevention avoids failure costs; it does not turn failures into income."
+            }
+          ],
+          "generalFeedback": "Prevention is economical because an avoided defect incurs none of the escalating downstream costs of detection, rework, and field failure. Money spent early to stop defects generally returns more than the same money spent fixing them later.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mixed caught and escaped",
+          "text": "<p>Illustrative fix costs: design 5, production 100 (units). Of 6 defects, a review catches 4 in design and 2 escape to production. What is the total fix cost for these 6 defects, excluding the review's own cost?</p>",
+          "answers": [
+            {
+              "text": "220 units",
+              "fraction": 100,
+              "feedback": "Correct — 4 x 5 + 2 x 100 = 20 + 200 = 220."
+            },
+            {
+              "text": "600 units",
+              "fraction": 0,
+              "feedback": "That is 6 x 100, as if all escaped; only 2 escaped, so it is 20 + 200 = 220."
+            },
+            {
+              "text": "30 units",
+              "fraction": 0,
+              "feedback": "That is 6 x 5, as if all were caught in design; 2 escaped, so it is 220."
+            },
+            {
+              "text": "105 units",
+              "fraction": 0,
+              "feedback": "That is 100 + 5 for a single pair; across 6 defects the total is 220."
+            }
+          ],
+          "generalFeedback": "Add the two groups: 4 defects at 5 units (20) plus 2 defects at 100 units (200) gives 220 units total.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Total cost of quality",
+          "text": "<p>The <em>total cost of quality</em> is best expressed as:</p>",
+          "answers": [
+            {
+              "text": "Prevention + appraisal + internal failure + external failure costs",
+              "fraction": 100,
+              "feedback": "Correct — conformance plus non-conformance costs together."
+            },
+            {
+              "text": "Only the cost of external failures",
+              "fraction": 0,
+              "feedback": "External failure is one term of four; total cost of quality sums all four."
+            },
+            {
+              "text": "Prevention minus appraisal",
+              "fraction": 0,
+              "feedback": "The categories are summed, not subtracted, and failure costs must be included."
+            },
+            {
+              "text": "The salary of the QA team only",
+              "fraction": 0,
+              "feedback": "Cost of quality spans prevention, appraisal, and both failure categories, not just QA salaries."
+            }
+          ],
+          "generalFeedback": "Total cost of quality = conformance (prevention + appraisal) + non-conformance (internal failure + external failure). Managing quality economically means minimising this total, usually by shifting spend toward prevention and early appraisal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Reading the 1:10:100 ratios",
+          "text": "<p>Which statement about &quot;1:10:100&quot; style cost ratios is most accurate?</p>",
+          "answers": [
+            {
+              "text": "They are memorable illustrative heuristics; the precise numbers are not a universal law, though the escalating trend is well supported",
+              "fraction": 100,
+              "feedback": "Correct — use them as typical figures, not as exact constants."
+            },
+            {
+              "text": "They are an exact physical law that holds identically in every project",
+              "fraction": 0,
+              "feedback": "The precise numbers vary by context and study; they are not an exact law."
+            },
+            {
+              "text": "They prove that defects can never be fixed cheaply",
+              "fraction": 0,
+              "feedback": "Defects caught early are cheap; the ratios describe how cost grows if they are not."
+            },
+            {
+              "text": "They apply only to hardware and never to software",
+              "fraction": 0,
+              "feedback": "The escalation trend is observed in software too; the ratios are widely cited for it."
+            }
+          ],
+          "generalFeedback": "Ratios like 1:10:100 are teaching heuristics for the cost-of-change trend. Real multipliers vary widely, so treat the numbers as illustrative while relying on the robust qualitative message: later is more expensive.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Review not worthwhile on these numbers",
+          "text": "<p>A review costs 100 units and catches 2 defects. Each defect costs 5 units to fix now but 40 units if it escaped to production (illustrative). On these numbers alone, was the review economically worthwhile?</p>",
+          "answers": [
+            {
+              "text": "No, the avoided downstream cost (70 units) is less than the 100-unit review, a net loss of 30 units",
+              "fraction": 100,
+              "feedback": "Correct — saving per defect is 40 - 5 = 35; 2 x 35 = 70; 70 - 100 = -30."
+            },
+            {
+              "text": "Yes, it saves 80 units",
+              "fraction": 0,
+              "feedback": "That would be 2 x 40; you must subtract the 5-unit fixes and the 100-unit review, giving a 30-unit loss."
+            },
+            {
+              "text": "Yes, it saves exactly 100 units",
+              "fraction": 0,
+              "feedback": "The avoided cost is only 70 units, less than the 100-unit review, so it is a loss."
+            },
+            {
+              "text": "It breaks even at 0 units",
+              "fraction": 0,
+              "feedback": "70 avoided minus 100 spent is a 30-unit net loss, not break-even."
+            }
+          ],
+          "generalFeedback": "Each caught defect saves 40 - 5 = 35 units; two defects avoid 70 units downstream. The review costs 100, so the net result is 70 - 100 = -30 units, a loss on these figures. Break-even here would need 3 defects (3 x 35 = 105 > 100).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Where to shift spend",
+          "text": "<p>A team currently spends heavily on external-failure handling (recalls and support). By cost-of-quality reasoning, the most economical improvement is usually to:</p>",
+          "answers": [
+            {
+              "text": "Invest more in prevention and earlier appraisal to reduce the far larger downstream failure costs",
+              "fraction": 100,
+              "feedback": "Correct — buying down failure cost with conformance spending lowers the total."
+            },
+            {
+              "text": "Cut all prevention and appraisal spending to save money now",
+              "fraction": 0,
+              "feedback": "That would raise failure costs further; it is the opposite of the recommended move."
+            },
+            {
+              "text": "Wait for customers to report every defect before acting",
+              "fraction": 0,
+              "feedback": "That maximises the most expensive category, external failure."
+            },
+            {
+              "text": "Increase external-failure spending even further",
+              "fraction": 0,
+              "feedback": "Spending more on the costliest category does not reduce the total cost of quality."
+            }
+          ],
+          "generalFeedback": "When failure costs dominate, cost-of-quality reasoning says to shift spend toward prevention and early appraisal. A modest increase there typically produces a larger reduction in internal and external failure costs, lowering the total.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "變更成本原則",
+          "text": "<p><em>變更成本（cost of change）</em>（缺陷成本遞增）原則指出：</p>",
+          "answers": [
+            {
+              "text": "缺陷被發現得愈晚，修復它的成本傾向於愈高",
+              "fraction": 100,
+              "feedback": "正確——Boehm 的變更成本曲線會隨著發現時機延後而上升。"
+            },
+            {
+              "text": "不論何時發現，修復缺陷的成本都相同",
+              "fraction": 0,
+              "feedback": "這條曲線的重點正是成本並非固定，而是會遞增。"
+            },
+            {
+              "text": "愈晚發現的缺陷一定愈便宜，因為工具會隨時間進步",
+              "fraction": 0,
+              "feedback": "愈晚發現通常愈貴，而非愈便宜。"
+            },
+            {
+              "text": "只有在生產環境發現的缺陷才有任何成本",
+              "fraction": 0,
+              "feedback": "早期發現的缺陷也要花成本修復；重點是愈晚修愈貴。"
+            }
+          ],
+          "generalFeedback": "Boehm 的變更成本曲線捕捉到一個普遍觀察到的趨勢：同一個缺陷被發現得愈晚，修復成本就愈高，因為已有更多工作建立在它之上。常見的示意倍數會從需求階段約 1x 上升到生產階段的數十到數百倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是左移",
+          "text": "<p>「左移（shift-left）」測試是指：</p>",
+          "answers": [
+            {
+              "text": "把測試與品質活動移到生命週期較早的階段，讓缺陷更早被抓到",
+              "fraction": 100,
+              "feedback": "正確——把品質工作移到時間軸的左側（較早）。"
+            },
+            {
+              "text": "把測試延到發布之後，以先省下前期時間",
+              "fraction": 0,
+              "feedback": "那是右移，與左移相反。"
+            },
+            {
+              "text": "把所有測試移交給一個畫在組織圖左邊的獨立團隊",
+              "fraction": 0,
+              "feedback": "左移談的是生命週期中的時機，而非組織圖上的位置。"
+            },
+            {
+              "text": "只有在程式碼部署到生產環境後才撰寫測試",
+              "fraction": 0,
+              "feedback": "那把測試推遲到最晚，與左移相反。"
+            }
+          ],
+          "generalFeedback": "左移把審查與測試移到更早，使缺陷在接近被引入之處就被找到，此時修復最便宜。它是對變更成本曲線的實務回應。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "內部失效成本",
+          "text": "<p>在品質成本中，<em>內部失效成本（internal failure cost）</em>發生於：</p>",
+          "answers": [
+            {
+              "text": "缺陷在產品發布前被發現時（例如重工與重新測試）",
+              "fraction": 100,
+              "feedback": "正確——內部失效是在客戶看到之前，於內部被抓到的。"
+            },
+            {
+              "text": "缺陷在發布後被客戶發現時",
+              "fraction": 0,
+              "feedback": "那是外部失效成本。"
+            },
+            {
+              "text": "團隊訓練人員以預防缺陷時",
+              "fraction": 0,
+              "feedback": "那是預防成本。"
+            },
+            {
+              "text": "團隊進行檢查或測試以偵測缺陷時",
+              "fraction": 0,
+              "feedback": "那是鑑定成本。"
+            }
+          ],
+          "generalFeedback": "內部失效成本是在交付前發現缺陷所產生的成本：重工、重新測試與重新檢查。它與外部失效成本相對，後者發生在客戶已取得產品之後。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "外部失效成本",
+          "text": "<p><em>外部失效成本（external failure cost）</em>發生於：</p>",
+          "answers": [
+            {
+              "text": "缺陷在發布後被客戶發現時（例如客服、修補程式、召回）",
+              "fraction": 100,
+              "feedback": "正確——外部失效已觸及客戶。"
+            },
+            {
+              "text": "缺陷在發布前於內部被發現並修復時",
+              "fraction": 0,
+              "feedback": "那是內部失效成本。"
+            },
+            {
+              "text": "團隊事先規劃與安排其品質活動時",
+              "fraction": 0,
+              "feedback": "那是預防成本。"
+            },
+            {
+              "text": "審查者在撰寫任何程式碼前檢視設計文件時",
+              "fraction": 0,
+              "feedback": "那是鑑定成本。"
+            }
+          ],
+          "generalFeedback": "外部失效成本在缺陷逸出到客戶後產生：客服電話、修補程式、保固、召回與商譽損失。它通常是最昂貴的一類品質成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "預防成本",
+          "text": "<p><em>預防成本（prevention cost）</em>是為了以下何者而花的錢：</p>",
+          "answers": [
+            {
+              "text": "從一開始就阻止缺陷被引入（例如訓練、更好的流程）",
+              "fraction": 100,
+              "feedback": "正確——預防讓缺陷不被製造出來。"
+            },
+            {
+              "text": "找出已經存在的缺陷（例如審查與測試）",
+              "fraction": 0,
+              "feedback": "那是鑑定成本。"
+            },
+            {
+              "text": "修復在發布前被發現的缺陷",
+              "fraction": 0,
+              "feedback": "那是內部失效成本。"
+            },
+            {
+              "text": "處理發布後的客戶抱怨",
+              "fraction": 0,
+              "feedback": "那是外部失效成本。"
+            }
+          ],
+          "generalFeedback": "預防成本（符合性成本的一部分）用於避免缺陷被引入：訓練、品質規劃、工具投資與流程改善。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "鑑定成本",
+          "text": "<p><em>鑑定成本（appraisal cost）</em>是為了以下何者而花的錢：</p>",
+          "answers": [
+            {
+              "text": "評估或量測工作產物以找出缺陷（例如審查、檢查、測試）",
+              "fraction": 100,
+              "feedback": "正確——鑑定就是偵測可能已存在的缺陷。"
+            },
+            {
+              "text": "從源頭預防缺陷被引入",
+              "fraction": 0,
+              "feedback": "那是預防成本。"
+            },
+            {
+              "text": "賠償客戶在現場發生的失效",
+              "fraction": 0,
+              "feedback": "那是外部失效成本。"
+            },
+            {
+              "text": "重工修復一個由客戶發現的缺陷",
+              "fraction": 0,
+              "feedback": "那是外部失效成本。"
+            }
+          ],
+          "generalFeedback": "鑑定成本（符合性成本的一部分）用於量測與評估產品以找出缺陷：審查、檢查、測試與稽核。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最昂貴的發現階段",
+          "text": "<p>修復同一個缺陷，通常在何時被發現時<em>最</em>昂貴：</p>",
+          "answers": [
+            {
+              "text": "在生產環境、發布給客戶之後",
+              "fraction": 100,
+              "feedback": "正確——生產環境的修復帶有最高的示意倍數。"
+            },
+            {
+              "text": "在需求階段",
+              "fraction": 0,
+              "feedback": "需求通常是修復缺陷最便宜的階段。"
+            },
+            {
+              "text": "在設計階段",
+              "fraction": 0,
+              "feedback": "設計階段的修復比發布後的修復便宜。"
+            },
+            {
+              "text": "在編碼階段",
+              "fraction": 0,
+              "feedback": "編碼階段的修復比發布後的修復便宜。"
+            }
+          ],
+          "generalFeedback": "變更成本曲線在生產環境達到頂峰：觸及客戶的缺陷可能除了程式修正外，還需要修補程式、客服與商譽修復，使它成為最昂貴的發現之處。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最便宜的發現階段",
+          "text": "<p>修復缺陷，通常在何時被發現時<em>最</em>便宜：</p>",
+          "answers": [
+            {
+              "text": "在它被引入的同一個早期階段（例如需求缺陷在需求階段就被抓到）",
+              "fraction": 100,
+              "feedback": "正確——在引入處就抓到缺陷可避免下游重工。"
+            },
+            {
+              "text": "在生產環境",
+              "fraction": 0,
+              "feedback": "生產環境是最貴而非最便宜的修復之處。"
+            },
+            {
+              "text": "在系統測試階段",
+              "fraction": 0,
+              "feedback": "系統測試比生產環境便宜，但比早期階段貴。"
+            },
+            {
+              "text": "在客戶觸發召回之後",
+              "fraction": 0,
+              "feedback": "召回屬於最昂貴的結果之一，而非最便宜。"
+            }
+          ],
+          "generalFeedback": "在缺陷被引入的階段就抓到，修復最便宜，因為尚未有任何東西建立在它之上。這正是把審查與測試左移能省錢的原因。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "愈晚代表愈貴",
+          "text": "<p>一般而言，缺陷在軟體生命週期中被發現得愈晚，修復它就愈昂貴。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——這是變更成本曲線的核心概念。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "普遍觀察到的趨勢恰好相反：愈晚發現愈貴。"
+            }
+          ],
+          "generalFeedback": "變更成本曲線捕捉到一個普遍趨勢：缺陷被發現得愈晚，修復愈貴。確切倍數會因研究與情境而異，但遞增的趨勢有充分支持。"
+        },
+        {
+          "type": "multichoice",
+          "name": "靜態技術如何找缺陷",
+          "text": "<p>審查與檢查等靜態技術是透過以下何種方式找出缺陷：</p>",
+          "answers": [
+            {
+              "text": "檢視工作產物（需求、設計、程式碼）而不執行程式碼",
+              "fraction": 100,
+              "feedback": "正確——靜態技術是檢視工作產物而非執行它們。"
+            },
+            {
+              "text": "執行程式並觀察失效",
+              "fraction": 0,
+              "feedback": "那是動態測試，不是靜態技術。"
+            },
+            {
+              "text": "部署到生產環境並等待客戶回報",
+              "fraction": 0,
+              "feedback": "那是現場回饋，是最昂貴的偵測形式，也不是靜態技術。"
+            },
+            {
+              "text": "在負載測試期間量測 CPU 使用率",
+              "fraction": 0,
+              "feedback": "那是動態的效能量測，不是靜態審查。"
+            }
+          ],
+          "generalFeedback": "靜態技術（審查、走查、檢查、靜態分析）在不執行程式碼的情況下找缺陷，因此能在缺陷擴散前於早期產物中抓到它們——通常是在修復便宜的階段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "預防與偵測之別",
+          "text": "<p>缺陷<em>預防（prevention）</em>與缺陷<em>偵測（detection）</em>的差別在於，預防：</p>",
+          "answers": [
+            {
+              "text": "致力於阻止缺陷被引入，而不是在缺陷已存在後才找出它們",
+              "fraction": 100,
+              "feedback": "正確——預防在缺陷產生前就行動；偵測則找出已存在者。"
+            },
+            {
+              "text": "只在程式碼被執行後才找出缺陷",
+              "fraction": 0,
+              "feedback": "那是動態偵測，不是預防。"
+            },
+            {
+              "text": "只是外部失效成本的另一個名稱",
+              "fraction": 0,
+              "feedback": "預防是符合性成本；外部失效是失效成本，兩者是不同的類別。"
+            },
+            {
+              "text": "只適用於已在生產環境中的缺陷",
+              "fraction": 0,
+              "feedback": "預防在缺陷存在前就適用，不限於生產環境的缺陷。"
+            }
+          ],
+          "generalFeedback": "預防讓缺陷不被引入（訓練、更好的流程、更清楚的需求）；偵測則找出已存在的缺陷（審查、測試）。預防往往最經濟，因為被避免掉的缺陷不會產生任何遞增成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "簡單比值：編碼對生產",
+          "text": "<p>假設（示意上）在編碼階段修復缺陷的成本為基準單位的 10x，在生產環境修復為該單位的 100x。在生產環境修復的成本是在編碼階段修復的幾倍？</p>",
+          "answers": [
+            {
+              "text": "10x",
+              "fraction": 100,
+              "feedback": "正確——100 / 10 = 10。"
+            },
+            {
+              "text": "90x",
+              "fraction": 0,
+              "feedback": "那是 100 減 10；題目問的是比值，100 / 10 = 10。"
+            },
+            {
+              "text": "110x",
+              "fraction": 0,
+              "feedback": "那是 100 加 10；比值是 100 / 10 = 10。"
+            },
+            {
+              "text": "1000x",
+              "fraction": 0,
+              "feedback": "那是 100 乘 10；比值是 100 / 10 = 10。"
+            }
+          ],
+          "generalFeedback": "相對成本是兩個倍數的比值：100 / 10 = 10。以這些示意數字而言，生產環境的成本是編碼階段的 10 倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩類符合性成本",
+          "text": "<p>品質成本中的兩類<em>符合性（conformance，達成良好品質）</em>成本是：</p>",
+          "answers": [
+            {
+              "text": "預防與鑑定",
+              "fraction": 100,
+              "feedback": "正確——符合性成本用於達成品質：預防與鑑定。"
+            },
+            {
+              "text": "內部失效與外部失效",
+              "fraction": 0,
+              "feedback": "那是非符合性（失效）成本。"
+            },
+            {
+              "text": "需求與設計",
+              "fraction": 0,
+              "feedback": "那是生命週期階段，不是品質成本類別。"
+            },
+            {
+              "text": "可能性與衝擊",
+              "fraction": 0,
+              "feedback": "那是風險的兩個面向，不是品質成本類別。"
+            }
+          ],
+          "generalFeedback": "品質成本分為符合性成本（預防 + 鑑定——為達成品質而花）與非符合性成本（內部 + 外部失效——做錯的代價）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "簡單比值：需求對系統測試",
+          "text": "<p>假設（示意上）在需求階段修復缺陷的成本為基準單位的 1x，在系統測試修復為該單位的 15x。在系統測試修復的成本是在需求階段修復的幾倍？</p>",
+          "answers": [
+            {
+              "text": "15x",
+              "fraction": 100,
+              "feedback": "正確——15 / 1 = 15。"
+            },
+            {
+              "text": "14x",
+              "fraction": 0,
+              "feedback": "那是 15 減 1；比值是 15 / 1 = 15。"
+            },
+            {
+              "text": "16x",
+              "fraction": 0,
+              "feedback": "那是 15 加 1；比值是 15 / 1 = 15。"
+            },
+            {
+              "text": "1/15x",
+              "fraction": 0,
+              "feedback": "那把比值顛倒了；系統測試較貴，所以是 15x 而非 1/15x。"
+            }
+          ],
+          "generalFeedback": "相對成本是 15 / 1 = 15。以這些示意數字而言，系統測試的修復成本是需求階段的 15 倍。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "外部失效最昂貴",
+          "text": "<p>在各類失效成本中，外部失效（由客戶發現者）通常是最昂貴的。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——外部失效在修復之外還加上客服、修補程式、召回與商譽損失。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "外部失效通常最昂貴，因為缺陷已觸及客戶。"
+            }
+          ],
+          "generalFeedback": "外部失效成本通常是失效類別中最高者：除了修復缺陷外，組織可能還要面對客服負荷、緊急修補程式、召回、罰則與商譽損失。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "計算：生產對設計的比值",
+          "text": "<p>給定示意倍數：在設計階段修復缺陷的成本為基準單位的 5x，在生產環境修復為該單位的 100x。在生產環境修復的成本是在設計階段修復的幾倍？</p>",
+          "answers": [
+            {
+              "text": "20x",
+              "fraction": 100,
+              "feedback": "正確——100 / 5 = 20。"
+            },
+            {
+              "text": "95x",
+              "fraction": 0,
+              "feedback": "那是 100 減 5；題目問的是比值，100 / 5 = 20。"
+            },
+            {
+              "text": "105x",
+              "fraction": 0,
+              "feedback": "那是 100 加 5；比值是 100 / 5 = 20。"
+            },
+            {
+              "text": "500x",
+              "fraction": 0,
+              "feedback": "那是 100 乘 5；比值是 100 / 5 = 20。"
+            }
+          ],
+          "generalFeedback": "把兩個給定倍數相除：100 / 5 = 20。以這些示意數字而言，生產環境的成本是設計階段的 20 倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "外部失效為何最貴",
+          "text": "<p>為什麼外部失效成本通常是最高的一類品質成本？</p>",
+          "answers": [
+            {
+              "text": "除了修復缺陷本身，還加上客服、修補程式或召回，以及商譽或信譽損失",
+              "fraction": 100,
+              "feedback": "正確——面向客戶的後果疊加在技術修復之上。"
+            },
+            {
+              "text": "因為客戶發現的缺陷總是極容易重現",
+              "fraction": 0,
+              "feedback": "現場缺陷往往難以重現；這並不能解釋其高成本。"
+            },
+            {
+              "text": "因為預防活動會向客戶收費",
+              "fraction": 0,
+              "feedback": "預防是內部的符合性成本，與外部失效成本無關。"
+            },
+            {
+              "text": "因為內部重工完全免費",
+              "fraction": 0,
+              "feedback": "內部重工並非免費；而且那也不會使外部失效成為最貴者。"
+            }
+          ],
+          "generalFeedback": "當缺陷觸及現場時，除了程式修正外還可能引發客服負荷、緊急修補程式、召回、合約罰則與長久的商譽損失，因此外部失效通常是最昂貴的類別。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "左移的理由",
+          "text": "<p>左移（更早審查與測試）主要的經濟理由是：</p>",
+          "answers": [
+            {
+              "text": "更早抓到缺陷的成本，遠低於等它擴散到後期階段後再修復",
+              "fraction": 100,
+              "feedback": "正確——早期偵測可避免遞增的下游成本。"
+            },
+            {
+              "text": "更早測試不需任何工具，因此完全免費",
+              "fraction": 0,
+              "feedback": "早期品質工作仍有成本；重點是它能避免更大的後期成本。"
+            },
+            {
+              "text": "後期階段永遠不會有缺陷",
+              "fraction": 0,
+              "feedback": "後期階段當然可能有缺陷；左移是要在那之前抓到它們。"
+            },
+            {
+              "text": "它讓團隊可以完全略過需求分析",
+              "fraction": 0,
+              "feedback": "左移是強化需求審查等早期活動，而非略過它們。"
+            }
+          ],
+          "generalFeedback": "左移的正當性來自變更成本曲線：在需求或設計階段抓到的缺陷，遠比同一缺陷在測試或生產環境被抓到便宜，所以把品質工作移到更早能降低總成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：訓練屬於哪類成本",
+          "text": "<p>舉辦訓練課程教開發者安全編碼實務，以減少被寫出的缺陷，這是哪一類成本的例子：</p>",
+          "answers": [
+            {
+              "text": "預防成本",
+              "fraction": 100,
+              "feedback": "正確——訓練降低了缺陷被引入的機會。"
+            },
+            {
+              "text": "鑑定成本",
+              "fraction": 0,
+              "feedback": "鑑定是用於偵測已存在的缺陷，而非預防它們。"
+            },
+            {
+              "text": "內部失效成本",
+              "fraction": 0,
+              "feedback": "內部失效是修復發布前發現之缺陷的成本，而非訓練。"
+            },
+            {
+              "text": "外部失效成本",
+              "fraction": 0,
+              "feedback": "外部失效發生在發布後；訓練則發生在缺陷存在之前。"
+            }
+          ],
+          "generalFeedback": "以減少缺陷被引入為目的的訓練，是典型的預防成本，屬於品質符合性成本的一部分。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：程式碼檢查屬於哪類成本",
+          "text": "<p>為偵測缺陷而進行程式碼檢查所花的時間，被歸類為哪一類成本：</p>",
+          "answers": [
+            {
+              "text": "鑑定成本",
+              "fraction": 100,
+              "feedback": "正確——鑑定涵蓋評估工作產物以找出缺陷，包含檢查。"
+            },
+            {
+              "text": "預防成本",
+              "fraction": 0,
+              "feedback": "預防是阻止缺陷被引入；檢查則是偵測已存在者。"
+            },
+            {
+              "text": "內部失效成本",
+              "fraction": 0,
+              "feedback": "內部失效是找到缺陷後的重工，而非為找出缺陷而進行的檢查。"
+            },
+            {
+              "text": "外部失效成本",
+              "fraction": 0,
+              "feedback": "外部失效發生在發布後；檢查是內部的偵測活動。"
+            }
+          ],
+          "generalFeedback": "檢查、審查與測試都是鑑定活動：它們評估產品以偵測缺陷。之後為修復所發現者而做的重工，則是另一類失效成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：發布前的重工",
+          "text": "<p>測試人員在發布前發現一個缺陷，為此進行重工與重新測試的工作，屬於：</p>",
+          "answers": [
+            {
+              "text": "內部失效成本",
+              "fraction": 100,
+              "feedback": "正確——該缺陷在觸及客戶前於內部被修復。"
+            },
+            {
+              "text": "外部失效成本",
+              "fraction": 0,
+              "feedback": "外部失效須是缺陷已觸及客戶；此處是在發布前被抓到。"
+            },
+            {
+              "text": "預防成本",
+              "fraction": 0,
+              "feedback": "預防是避免引入缺陷；這是為一個已存在缺陷所做的重工。"
+            },
+            {
+              "text": "鑑定成本",
+              "fraction": 0,
+              "feedback": "鑑定是偵測活動（測試本身）；隨後的重工是失效成本。"
+            }
+          ],
+          "generalFeedback": "為交付前抓到的缺陷所做的重工與重新測試，是內部失效成本。若同一缺陷是在客戶遇到後才修復，則屬外部失效成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：修補程式與客服專線",
+          "text": "<p>為客戶在生產環境中遇到的臭蟲發布修補程式並配置客服專線，這是：</p>",
+          "answers": [
+            {
+              "text": "外部失效成本",
+              "fraction": 100,
+              "feedback": "正確——缺陷已觸及客戶，因此衍生的成本是外部失效。"
+            },
+            {
+              "text": "內部失效成本",
+              "fraction": 0,
+              "feedback": "內部失效代表缺陷在發布前被抓到；此處是客戶遇到了它。"
+            },
+            {
+              "text": "鑑定成本",
+              "fraction": 0,
+              "feedback": "鑑定是偵測活動，而非處理已發布缺陷的成本。"
+            },
+            {
+              "text": "預防成本",
+              "fraction": 0,
+              "feedback": "預防發生在缺陷存在之前，而非面向客戶的失效之後。"
+            }
+          ],
+          "generalFeedback": "為觸及客戶的缺陷所做的修補程式、客服、保固與召回，都是外部失效成本——通常是最昂貴的類別。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "審查對動態測試的成本",
+          "text": "<p>為何審查一份設計文件，可能比等動態測試揭露同一缺陷更具成本效益？</p>",
+          "answers": [
+            {
+              "text": "審查更早抓到缺陷，在它被編碼並被層層建構於其上之前，因此所需的下游重工較少",
+              "fraction": 100,
+              "feedback": "正確——更早偵測代表缺陷擴散得較少。"
+            },
+            {
+              "text": "審查執行程式碼的速度比測試框架更快",
+              "fraction": 0,
+              "feedback": "審查根本不執行程式碼；它是靜態技術。"
+            },
+            {
+              "text": "動態測試在任何情況下都絕不可能找到設計缺陷",
+              "fraction": 0,
+              "feedback": "動態測試能揭露設計缺陷，只是較晚且往往較貴。"
+            },
+            {
+              "text": "審查總能找到每一個缺陷，保證零殘餘風險",
+              "fraction": 0,
+              "feedback": "沒有任何技術能找到每一個缺陷；審查降低風險但不消除它。"
+            }
+          ],
+          "generalFeedback": "設計審查能在設計階段就抓到缺陷，早於程式碼與測試被建構於其上。動態測試只會在更晚、當更多產物依賴它之後才找到同一缺陷，因此修復更貴。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算：編碼對需求的比值",
+          "text": "<p>給定示意倍數：在需求階段修復缺陷為 1x，在編碼階段修復為 10x。編碼階段的修復成本是需求階段的幾倍？</p>",
+          "answers": [
+            {
+              "text": "10x",
+              "fraction": 100,
+              "feedback": "正確——10 / 1 = 10。"
+            },
+            {
+              "text": "9x",
+              "fraction": 0,
+              "feedback": "那是 10 減 1；比值是 10 / 1 = 10。"
+            },
+            {
+              "text": "11x",
+              "fraction": 0,
+              "feedback": "那是 10 加 1；比值是 10 / 1 = 10。"
+            },
+            {
+              "text": "0.1x",
+              "fraction": 0,
+              "feedback": "那把比值顛倒了；編碼較貴，所以是 10x。"
+            }
+          ],
+          "generalFeedback": "把給定倍數相除：10 / 1 = 10。以這些示意數字而言，編碼的修復成本是需求階段的 10 倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算：系統測試對編碼的比值",
+          "text": "<p>給定示意倍數：在編碼階段修復缺陷為 10x，在系統測試修復為 15x。系統測試的修復成本是編碼階段的幾倍？</p>",
+          "answers": [
+            {
+              "text": "1.5x",
+              "fraction": 100,
+              "feedback": "正確——15 / 10 = 1.5。"
+            },
+            {
+              "text": "5x",
+              "fraction": 0,
+              "feedback": "那是 15 減 10；題目問的是比值，15 / 10 = 1.5。"
+            },
+            {
+              "text": "25x",
+              "fraction": 0,
+              "feedback": "那是 15 加 10；比值是 15 / 10 = 1.5。"
+            },
+            {
+              "text": "0.67x",
+              "fraction": 0,
+              "feedback": "那把比值顛倒了；系統測試較貴，所以是 1.5x。"
+            }
+          ],
+          "generalFeedback": "把給定倍數相除：15 / 10 = 1.5。以這些示意數字而言，系統測試的修復成本是編碼階段的 1.5 倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "靜態技術的經濟效果",
+          "text": "<p>靜態技術（例如檢查）能降低成本，是因為它：</p>",
+          "answers": [
+            {
+              "text": "在程式碼被執行之前就偵測缺陷，往往落在修復較便宜的階段",
+              "fraction": 100,
+              "feedback": "正確——靜態且早期地找到缺陷可讓修復維持低廉。"
+            },
+            {
+              "text": "需要先把軟體部署到生產環境",
+              "fraction": 0,
+              "feedback": "靜態技術完全不需執行或部署。"
+            },
+            {
+              "text": "可取代擁有任何需求的必要性",
+              "fraction": 0,
+              "feedback": "靜態技術評估需求等產物；它並不移除對需求的需要。"
+            },
+            {
+              "text": "只能作用於編譯後的二進位可執行檔",
+              "fraction": 0,
+              "feedback": "靜態技術適用於需求、設計與原始碼，不只是二進位檔。"
+            }
+          ],
+          "generalFeedback": "靜態技術在不執行的情況下檢視產物，因此能在早期階段（需求、設計、程式碼）找到缺陷，而該時的變更成本最低。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算：設計對生產的金額比值",
+          "text": "<p>某缺陷若在設計階段抓到，修復成本為 $50；若逸出到生產環境，則為 $1000。逸出到生產環境貴了幾倍？</p>",
+          "answers": [
+            {
+              "text": "20x",
+              "fraction": 100,
+              "feedback": "正確——1000 / 50 = 20。"
+            },
+            {
+              "text": "950x",
+              "fraction": 0,
+              "feedback": "那是 1000 減 50；題目問的是比值，1000 / 50 = 20。"
+            },
+            {
+              "text": "50x",
+              "fraction": 0,
+              "feedback": "那是給定值之一，而非比值；1000 / 50 = 20。"
+            },
+            {
+              "text": "1050x",
+              "fraction": 0,
+              "feedback": "那是 1000 加 50；比值是 1000 / 50 = 20。"
+            }
+          ],
+          "generalFeedback": "把兩個給定成本相除：1000 / 50 = 20。此處逸出到生產環境的成本是在設計階段修復的 20 倍。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "成本遞增的原因",
+          "text": "<p>缺陷在後期階段修復愈貴，主要原因是：</p>",
+          "answers": [
+            {
+              "text": "後續工作建立在它之上，因此修復它需要重做更多產物（設計、程式碼、測試、文件）",
+              "fraction": 100,
+              "feedback": "正確——缺陷擴散，需要拆掉並重做的東西更多。"
+            },
+            {
+              "text": "程式設計師在後期階段的時薪較高",
+              "fraction": 0,
+              "feedback": "時薪不會隨階段系統性地上升；驅動因素是累積的重工。"
+            },
+            {
+              "text": "後期的缺陷依定義一定更嚴重",
+              "fraction": 0,
+              "feedback": "嚴重度與何時被發現無關；成本上升是因為擴散。"
+            },
+            {
+              "text": "編譯器隨著專案變老而變慢",
+              "fraction": 0,
+              "feedback": "工具速度不是原因；變更成本的遞增來自下游重工。"
+            }
+          ],
+          "generalFeedback": "遞增之所以發生，是因為後期產物依賴有瑕疵的那一個。修復在生產環境才發現的需求缺陷，可能需要變更需求、設計、程式碼、測試與文件，還要處理現場影響。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：流程改善",
+          "text": "<p>改善需求撰寫流程，使含糊的需求較不易出現，這是：</p>",
+          "answers": [
+            {
+              "text": "預防成本",
+              "fraction": 100,
+              "feedback": "正確——改善流程以避免引入缺陷屬於預防。"
+            },
+            {
+              "text": "鑑定成本",
+              "fraction": 0,
+              "feedback": "鑑定是偵測已存在的缺陷；此變更是阻止它們被引入。"
+            },
+            {
+              "text": "內部失效成本",
+              "fraction": 0,
+              "feedback": "內部失效是為已發現缺陷所做的重工，而非流程改善。"
+            },
+            {
+              "text": "外部失效成本",
+              "fraction": 0,
+              "feedback": "外部失效發生在發布後；流程改善是預防活動。"
+            }
+          ],
+          "generalFeedback": "降低缺陷引入頻率的流程改善是預防成本，屬於品質符合性成本的一部分。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "計算：生產對系統測試的比值",
+          "text": "<p>給定示意倍數：在系統測試修復缺陷為 15x，在生產環境修復為 45x。在生產環境修復的成本是在系統測試修復的幾倍？</p>",
+          "answers": [
+            {
+              "text": "3x",
+              "fraction": 100,
+              "feedback": "正確——45 / 15 = 3。"
+            },
+            {
+              "text": "30x",
+              "fraction": 0,
+              "feedback": "那是 45 減 15；題目問的是比值，45 / 15 = 3。"
+            },
+            {
+              "text": "60x",
+              "fraction": 0,
+              "feedback": "那是 45 加 15；比值是 45 / 15 = 3。"
+            },
+            {
+              "text": "0.33x",
+              "fraction": 0,
+              "feedback": "那把比值顛倒了；生產環境較貴，所以是 3x。"
+            }
+          ],
+          "generalFeedback": "把給定倍數相除：45 / 15 = 3。以這些示意數字而言，生產環境的成本是系統測試的 3 倍。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "更早抓到的總節省",
+          "text": "<p>示意上，修復一個缺陷在設計階段花 5 單位，在生產環境花 100 單位。一次設計審查抓到 4 個原本會逸出到生產環境的缺陷。不計審查本身的成本，相較於在生產環境修復這 4 個缺陷，共節省多少？</p>",
+          "answers": [
+            {
+              "text": "380 單位",
+              "fraction": 100,
+              "feedback": "正確——4 x (100 - 5) = 4 x 95 = 380。"
+            },
+            {
+              "text": "400 單位",
+              "fraction": 0,
+              "feedback": "那是 4 x 100；每個仍要付 5 單位的設計修復，須扣除：4 x (100 - 5) = 380。"
+            },
+            {
+              "text": "420 單位",
+              "fraction": 0,
+              "feedback": "那是 4 x (100 + 5)；每個缺陷的節省是 100 - 5 = 95，所以是 4 x 95 = 380。"
+            },
+            {
+              "text": "20 單位",
+              "fraction": 0,
+              "feedback": "那是 4 x 5，只是設計成本；節省是 4 x (100 - 5) = 380。"
+            }
+          ],
+          "generalFeedback": "每個在設計階段抓到的缺陷花 5 而非 100，節省 95。4 個缺陷共節省 4 x 95 = 380 單位。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "審查的損益平衡",
+          "text": "<p>一次設計審查要花 60 單位執行。它抓到的每個缺陷現在修復花 5 單位，但若逸出到生產環境會花 30 單位。此審查抓到 3 個這樣的缺陷。做這次審查的淨經濟結果是什麼？</p>",
+          "answers": [
+            {
+              "text": "淨節省 15 單位（審查划得來）",
+              "fraction": 100,
+              "feedback": "正確——每個缺陷節省 30 - 5 = 25；3 x 25 = 75 被避免；75 - 60 = 15。"
+            },
+            {
+              "text": "淨損失 60 單位",
+              "fraction": 0,
+              "feedback": "那忽略了下游節省；審查避免了 3 x 25 = 75 單位，超過其 60 單位成本。"
+            },
+            {
+              "text": "淨節省 90 單位",
+              "fraction": 0,
+              "feedback": "那是 3 x 30（完整的生產成本）；還須扣除 3 個 5 單位的修復與 60 單位的審查。"
+            },
+            {
+              "text": "剛好損益平衡（0 單位）",
+              "fraction": 0,
+              "feedback": "數字並未相抵：避免的 75 減去花費的 60，剩下 15 單位淨節省。"
+            }
+          ],
+          "generalFeedback": "相較於逸出到生產環境，每個抓到的缺陷節省 30 - 5 = 25 單位。3 個缺陷共避免 75 單位。扣除 60 單位的審查成本：75 - 60 = 15 單位淨節省，因此這次審查划得來。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "曲線為何陡峭",
+          "text": "<p>為什麼變更成本曲線常被描述為跨階段陡峭（大致呈指數）成長？</p>",
+          "answers": [
+            {
+              "text": "每個後期階段都在缺陷之上建構更多東西，因此重工隨它擴散經過設計、程式碼、測試與已發布產物而倍增",
+              "fraction": 100,
+              "feedback": "正確——複合的下游依賴推動了陡升。"
+            },
+            {
+              "text": "因為通貨膨脹使所有成本每階段翻倍",
+              "fraction": 0,
+              "feedback": "通膨無關；上升來自累積的重工。"
+            },
+            {
+              "text": "因為測試人員的人數每階段被要求翻倍",
+              "fraction": 0,
+              "feedback": "人力不會依規則翻倍；驅動因素是缺陷的擴散。"
+            },
+            {
+              "text": "因為缺陷隨時間在生物學上自我繁殖",
+              "fraction": 0,
+              "feedback": "缺陷不會自行增殖；成本倍增是因為更多產物依賴這個瑕疵。"
+            }
+          ],
+          "generalFeedback": "陡峭來自複合效應：一個被留在原處的缺陷會有愈來愈多工作建立在它之上，因此跨階段要移除它所需的重工量會快速成長。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "倍數是示意的，趨勢穩健",
+          "text": "<p>各階段確切的成本倍數是示意性的，會因研究與情境而異，但「愈晚修復愈貴」這個一般趨勢有廣泛的觀察支持。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——把具體數字當成典型示意值，而非確切的普世法則；但趨勢本身是穩健的。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "具體倍數確實會變動且有爭議，但遞增趨勢有充分支持，因此本敘述為真。"
+            }
+          ],
+          "generalFeedback": "被報告的倍數（例如 1:5:10:15:100）會因來源而異，並高度取決於情境與量測方式。它們是有用的示意。有充分支持的是方向：愈晚修復缺陷傾向於愈貴。"
+        },
+        {
+          "type": "multichoice",
+          "name": "品質成本的取捨",
+          "text": "<p>在品質成本模型中，增加預防與鑑定的支出通常會：</p>",
+          "answers": [
+            {
+              "text": "降低失效成本，並在一定範圍內降低總品質成本",
+              "fraction": 100,
+              "feedback": "正確——符合性支出可換取更大的失效成本下降。"
+            },
+            {
+              "text": "對失效成本沒有影響",
+              "fraction": 0,
+              "feedback": "核心取捨正是符合性支出會降低失效成本。"
+            },
+            {
+              "text": "總是增加總品質成本而毫無好處",
+              "fraction": 0,
+              "feedback": "在一定範圍內，失效成本的下降會超過所增加的符合性成本。"
+            },
+            {
+              "text": "永久消除所有殘餘風險",
+              "fraction": 0,
+              "feedback": "沒有任何支出能消除所有風險；總會有殘餘風險。"
+            }
+          ],
+          "generalFeedback": "品質成本在符合性成本（預防 + 鑑定）與失效成本（內部 + 外部失效）之間權衡。在前兩者投資更多，通常能降低後兩者，在一個實務最適點之前使總品質成本下降。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "早期引入、晚期發現",
+          "text": "<p>一個缺陷在需求階段被<em>引入</em>，卻直到生產環境才被<em>發現</em>。它承擔的是哪個階段的修復成本？</p>",
+          "answers": [
+            {
+              "text": "生產環境（後期）的成本，因為成本取決於缺陷何時被發現，而非何時被引入",
+              "fraction": 100,
+              "feedback": "正確——遞增與發現階段綁定。"
+            },
+            {
+              "text": "需求階段的成本，因為那是它的源頭",
+              "fraction": 0,
+              "feedback": "低廉的需求成本只在它於需求階段被抓到時才適用；晚發現則承擔晚期成本。"
+            },
+            {
+              "text": "需求與生產成本的平均",
+              "fraction": 0,
+              "feedback": "沒有取平均這回事；成本就是它被發現那個階段的成本。"
+            },
+            {
+              "text": "不用成本，因為它是早期階段的舊缺陷",
+              "fraction": 0,
+              "feedback": "年紀不會消除成本；晚發現的舊缺陷很昂貴。"
+            }
+          ],
+          "generalFeedback": "使成本遞增的是缺陷未被偵測而存活了多久。一個一路溜到生產環境的需求缺陷，承擔的是生產層級的修復成本，而非低廉的需求成本。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "依發現階段計修復成本",
+          "text": "<p>給定示意修復成本：需求 1、設計 5、編碼 10、系統測試 15、生產 100（單位）。一個需求缺陷一路溜到系統測試才被抓到，修復它要花多少？</p>",
+          "answers": [
+            {
+              "text": "15 單位",
+              "fraction": 100,
+              "feedback": "正確——它在系統測試被發現，因此承擔系統測試的成本 15。"
+            },
+            {
+              "text": "1 單位",
+              "fraction": 0,
+              "feedback": "那是需求成本，只有在需求階段被抓到時才適用；它是在系統測試被發現的。"
+            },
+            {
+              "text": "16 單位",
+              "fraction": 0,
+              "feedback": "那是 1 加 15；成本就是發現階段的成本，即 15。"
+            },
+            {
+              "text": "100 單位",
+              "fraction": 0,
+              "feedback": "那是生產成本；缺陷是在系統測試被抓到，而非生產環境。"
+            }
+          ],
+          "generalFeedback": "修復成本由缺陷被發現的階段決定。在系統測試被抓到時，這個需求缺陷花 15 單位，而非需求階段的 1 單位。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "使審查值得的最少缺陷數",
+          "text": "<p>一次審查花 200 單位。它抓到的每個缺陷現在修復花 10 單位，但若溜到生產環境則花 100 單位。要讓審查至少回本，最少須抓到幾個缺陷？</p>",
+          "answers": [
+            {
+              "text": "3 個缺陷",
+              "fraction": 100,
+              "feedback": "正確——每個缺陷節省 100 - 10 = 90；200 / 90 約為 2.22，所以需要 3。"
+            },
+            {
+              "text": "2 個缺陷",
+              "fraction": 0,
+              "feedback": "2 x 90 = 180，小於 200；審查尚未回本。"
+            },
+            {
+              "text": "20 個缺陷",
+              "fraction": 0,
+              "feedback": "那是把 200 除以 10，而非除以每缺陷 90 單位的節省。"
+            },
+            {
+              "text": "200 個缺陷",
+              "fraction": 0,
+              "feedback": "那是審查的成本單位數，而非所需的缺陷數。"
+            }
+          ],
+          "generalFeedback": "每個抓到的缺陷節省 100 - 10 = 90 單位。要涵蓋 200 單位的審查，需要 200 / 90 約 2.22 個缺陷，無條件進位到 3。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "兩種策略的總成本",
+          "text": "<p>存在十個缺陷。策略 A 在設計階段全部抓到 10 個（每個 5 單位）。策略 B 讓 10 個全部溜到生產環境（每個 100 單位）。策略 B 的總成本比策略 A 多多少？</p>",
+          "answers": [
+            {
+              "text": "950 單位",
+              "fraction": 100,
+              "feedback": "正確——10 x 100 - 10 x 5 = 1000 - 50 = 950。"
+            },
+            {
+              "text": "1000 單位",
+              "fraction": 0,
+              "feedback": "那是策略 B 的總額；題目問的是差額，1000 - 50 = 950。"
+            },
+            {
+              "text": "50 單位",
+              "fraction": 0,
+              "feedback": "那是策略 A 的總額；差額是 1000 - 50 = 950。"
+            },
+            {
+              "text": "105 單位",
+              "fraction": 0,
+              "feedback": "那是單一缺陷的 100 + 5；10 個缺陷的差額是 950。"
+            }
+          ],
+          "generalFeedback": "策略 A 花 10 x 5 = 50；策略 B 花 10 x 100 = 1000。策略 B 比策略 A 多花 1000 - 50 = 950 單位。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "預防為何划得來",
+          "text": "<p>預防「划得來」的核心經濟論證是什麼？</p>",
+          "answers": [
+            {
+              "text": "花一單位預防一個缺陷，可避免日後找出並修復它的更大、遞增成本，尤其是在現場",
+              "fraction": 100,
+              "feedback": "正確——被預防的缺陷永遠不會產生下游遞增。"
+            },
+            {
+              "text": "預防在所有司法管轄區都是法律強制的",
+              "fraction": 0,
+              "feedback": "此論證是經濟性的，並非普世的法律要求。"
+            },
+            {
+              "text": "預防使鑑定變得沒有必要，因此可略過所有測試",
+              "fraction": 0,
+              "feedback": "預防與鑑定互補；測試仍然必要。"
+            },
+            {
+              "text": "預防能把外部失效轉換成營收",
+              "fraction": 0,
+              "feedback": "預防是避免失效成本，而非把失效變成收入。"
+            }
+          ],
+          "generalFeedback": "預防之所以經濟，是因為被避免掉的缺陷不會產生偵測、重工與現場失效等任何遞增的下游成本。花在早期阻止缺陷的錢，通常回報高於同樣的錢用於日後修復它們。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "部分抓到、部分逸出",
+          "text": "<p>示意修復成本：設計 5、生產 100（單位）。在 6 個缺陷中，一次審查在設計階段抓到 4 個，2 個逸出到生產環境。不計審查本身的成本，這 6 個缺陷的總修復成本是多少？</p>",
+          "answers": [
+            {
+              "text": "220 單位",
+              "fraction": 100,
+              "feedback": "正確——4 x 5 + 2 x 100 = 20 + 200 = 220。"
+            },
+            {
+              "text": "600 單位",
+              "fraction": 0,
+              "feedback": "那是 6 x 100，當作全部逸出；只有 2 個逸出，所以是 20 + 200 = 220。"
+            },
+            {
+              "text": "30 單位",
+              "fraction": 0,
+              "feedback": "那是 6 x 5，當作全部在設計階段抓到；有 2 個逸出，所以是 220。"
+            },
+            {
+              "text": "105 單位",
+              "fraction": 0,
+              "feedback": "那是單一對的 100 + 5；6 個缺陷的總額是 220。"
+            }
+          ],
+          "generalFeedback": "把兩組相加：4 個缺陷各 5 單位（20）加上 2 個缺陷各 100 單位（200），共 220 單位。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "總品質成本",
+          "text": "<p><em>總品質成本（total cost of quality）</em>最適切地表達為：</p>",
+          "answers": [
+            {
+              "text": "預防 + 鑑定 + 內部失效 + 外部失效成本",
+              "fraction": 100,
+              "feedback": "正確——符合性成本加上非符合性成本。"
+            },
+            {
+              "text": "只有外部失效的成本",
+              "fraction": 0,
+              "feedback": "外部失效是四項之一；總品質成本是四項之和。"
+            },
+            {
+              "text": "預防減去鑑定",
+              "fraction": 0,
+              "feedback": "各類別是相加而非相減，且必須納入失效成本。"
+            },
+            {
+              "text": "只有品保團隊的薪資",
+              "fraction": 0,
+              "feedback": "品質成本涵蓋預防、鑑定與兩類失效，不只是品保薪資。"
+            }
+          ],
+          "generalFeedback": "總品質成本 = 符合性（預防 + 鑑定）+ 非符合性（內部失效 + 外部失效）。經濟地管理品質，意謂使此總額最小化，通常是把支出移向預防與早期鑑定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "如何解讀 1:10:100 比例",
+          "text": "<p>關於「1:10:100」這類成本比例，下列哪個敘述最正確？</p>",
+          "answers": [
+            {
+              "text": "它們是好記的示意性經驗法則；確切數字並非普世法則，但遞增趨勢有充分支持",
+              "fraction": 100,
+              "feedback": "正確——把它們當成典型示意值，而非確切常數。"
+            },
+            {
+              "text": "它們是一條在每個專案都完全相同成立的確切物理法則",
+              "fraction": 0,
+              "feedback": "確切數字會因情境與研究而異；它們不是確切法則。"
+            },
+            {
+              "text": "它們證明缺陷永遠無法便宜地修復",
+              "fraction": 0,
+              "feedback": "早期抓到的缺陷很便宜；這些比例描述的是若不抓到成本如何成長。"
+            },
+            {
+              "text": "它們只適用於硬體，絕不適用於軟體",
+              "fraction": 0,
+              "feedback": "遞增趨勢在軟體也觀察得到；這些比例正廣泛用於描述它。"
+            }
+          ],
+          "generalFeedback": "1:10:100 這類比例是變更成本趨勢的教學經驗法則。真實倍數變動很大，因此把數字當成示意，而依賴其穩健的定性訊息：愈晚愈貴。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "依這些數字審查不划算",
+          "text": "<p>一次審查花 100 單位，抓到 2 個缺陷。每個缺陷現在修復花 5 單位，但若逸出到生產環境則花 40 單位（示意）。僅就這些數字而言，此審查在經濟上划得來嗎？</p>",
+          "answers": [
+            {
+              "text": "不划得來——被避免的下游成本（70 單位）小於 100 單位的審查，淨損失 30 單位",
+              "fraction": 100,
+              "feedback": "正確——每個缺陷節省 40 - 5 = 35；2 x 35 = 70；70 - 100 = -30。"
+            },
+            {
+              "text": "划得來——它節省 80 單位",
+              "fraction": 0,
+              "feedback": "那會是 2 x 40；還須扣除 5 單位的修復與 100 單位的審查，結果是 30 單位損失。"
+            },
+            {
+              "text": "划得來——它剛好節省 100 單位",
+              "fraction": 0,
+              "feedback": "被避免的成本只有 70 單位，小於 100 單位的審查，因此是損失。"
+            },
+            {
+              "text": "它在 0 單位處損益平衡",
+              "fraction": 0,
+              "feedback": "避免的 70 減去花費的 100 是 30 單位淨損失，而非損益平衡。"
+            }
+          ],
+          "generalFeedback": "每個抓到的缺陷節省 40 - 5 = 35 單位；兩個缺陷共避免 70 單位下游成本。審查花 100，故淨結果為 70 - 100 = -30 單位，就這些數字而言是損失。此處要損益平衡需 3 個缺陷（3 x 35 = 105 > 100）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "該把支出移到哪裡",
+          "text": "<p>某團隊目前在外部失效處理（召回與客服）上花費甚鉅。依品質成本推理，最經濟的改善通常是：</p>",
+          "answers": [
+            {
+              "text": "在預防與更早的鑑定上投資更多，以降低大得多的下游失效成本",
+              "fraction": 100,
+              "feedback": "正確——用符合性支出換取失效成本下降可降低總額。"
+            },
+            {
+              "text": "削減所有預防與鑑定支出，以現在省錢",
+              "fraction": 0,
+              "feedback": "那會進一步推高失效成本；與建議的做法相反。"
+            },
+            {
+              "text": "等客戶回報每一個缺陷後再行動",
+              "fraction": 0,
+              "feedback": "那會使最昂貴的類別——外部失效——最大化。"
+            },
+            {
+              "text": "把外部失效支出再增加更多",
+              "fraction": 0,
+              "feedback": "在最貴的類別上花更多，並不會降低總品質成本。"
+            }
+          ],
+          "generalFeedback": "當失效成本主導時，品質成本推理主張把支出移向預防與早期鑑定。在那裡適度增加，通常會使內部與外部失效成本產生更大的下降，從而降低總額。",
+          "single": true
+        }
+      ]
+    }
+  },
   "fuzz-testing": {
     "en": {
       "easy": [
@@ -55505,6 +58067,2524 @@ export const QUIZ_RENDERED = {
       ]
     }
   },
+  "pyramid-adjuster": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "The three layers bottom to top",
+          "text": "<p>In the classic <em>test automation pyramid</em> (Mike Cohn), the layers from bottom to top are:</p>",
+          "answers": [
+            {
+              "text": "Unit tests (base), integration/service tests (middle), UI/end-to-end tests (top)",
+              "fraction": 100,
+              "feedback": "Correct — a wide base of unit tests, a narrower band of integration/service tests, and a thin top of UI/E2E tests."
+            },
+            {
+              "text": "UI/end-to-end tests (base), integration tests (middle), unit tests (top)",
+              "fraction": 0,
+              "feedback": "That is upside down — it describes the ice-cream-cone anti-pattern, not the pyramid."
+            },
+            {
+              "text": "Integration tests (base), unit tests (middle), UI tests (top)",
+              "fraction": 0,
+              "feedback": "Unit tests form the base, not the middle."
+            },
+            {
+              "text": "Unit tests (base), UI/end-to-end tests (middle), integration tests (top)",
+              "fraction": 0,
+              "feedback": "UI/E2E sits at the top and integration in the middle, not the other way round."
+            }
+          ],
+          "generalFeedback": "Bottom to top: many unit tests, fewer integration/service tests, few UI/end-to-end tests. The width of each layer suggests how many tests of that kind you should have.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Layer with the most tests",
+          "text": "<p>In a healthy test automation pyramid, which layer should contain the <strong>most</strong> tests?</p>",
+          "answers": [
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 100,
+              "feedback": "Correct — the base is the widest layer, so unit tests are the most numerous."
+            },
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 0,
+              "feedback": "The top is the narrowest layer and should have the fewest tests."
+            },
+            {
+              "text": "Integration/service tests (the middle)",
+              "fraction": 0,
+              "feedback": "The middle sits between the two; the base (unit) has more."
+            },
+            {
+              "text": "All three layers should have equal numbers",
+              "fraction": 0,
+              "feedback": "A pyramid is deliberately unequal — a wide base narrowing to a thin top."
+            }
+          ],
+          "generalFeedback": "The base is the widest part of the pyramid: unit tests are the cheapest and fastest, so you can afford the most of them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Layer with the fewest tests",
+          "text": "<p>In a healthy test automation pyramid, which layer should contain the <strong>fewest</strong> tests?</p>",
+          "answers": [
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 100,
+              "feedback": "Correct — the top is the narrowest layer, so UI/E2E tests are the fewest."
+            },
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 0,
+              "feedback": "Unit tests are the most numerous, not the fewest."
+            },
+            {
+              "text": "Integration/service tests (the middle)",
+              "fraction": 0,
+              "feedback": "The middle has more than the top; the top (UI/E2E) is the fewest."
+            },
+            {
+              "text": "They should all have the same small number",
+              "fraction": 0,
+              "feedback": "The layers differ; the top layer specifically is the thinnest."
+            }
+          ],
+          "generalFeedback": "UI/end-to-end tests are slow, expensive, and brittle, so you keep only a few of them at the narrow top of the pyramid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Properties of unit tests",
+          "text": "<p>Which set of properties best describes <em>unit</em> tests at the base of the pyramid?</p>",
+          "answers": [
+            {
+              "text": "Fast, cheap, isolated, stable, and numerous",
+              "fraction": 100,
+              "feedback": "Correct — these properties are exactly why unit tests form the wide base."
+            },
+            {
+              "text": "Slow, expensive, and few",
+              "fraction": 0,
+              "feedback": "Those are properties of UI/end-to-end tests at the top, not unit tests."
+            },
+            {
+              "text": "Slow but very cheap and numerous",
+              "fraction": 0,
+              "feedback": "Unit tests are fast, not slow; speed is one of their defining traits."
+            },
+            {
+              "text": "Realistic, end-to-end, and brittle",
+              "fraction": 0,
+              "feedback": "Those describe UI/E2E tests; unit tests are isolated and stable."
+            }
+          ],
+          "generalFeedback": "Unit tests run in milliseconds, are cheap to write and maintain, are isolated from external systems, are deterministic/stable, and pinpoint failures — so you keep many of them and run them constantly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Properties of UI/E2E tests",
+          "text": "<p>Which set of properties best describes <em>UI/end-to-end</em> tests at the top of the pyramid?</p>",
+          "answers": [
+            {
+              "text": "Slow, expensive, brittle/flaky, few — but the most realistic",
+              "fraction": 100,
+              "feedback": "Correct — they exercise the whole system like a real user, which is realistic but costly and fragile."
+            },
+            {
+              "text": "Fast, cheap, stable, and numerous",
+              "fraction": 0,
+              "feedback": "Those are unit-test properties, not UI/E2E."
+            },
+            {
+              "text": "Fast and deterministic but not realistic",
+              "fraction": 0,
+              "feedback": "UI/E2E tests are slow and the most realistic, not fast and unrealistic."
+            },
+            {
+              "text": "Cheap to maintain and rarely flaky",
+              "fraction": 0,
+              "feedback": "They are the most expensive to maintain and the most prone to flakiness."
+            }
+          ],
+          "generalFeedback": "End-to-end tests drive the whole system through the UI, so they are the most realistic but also the slowest, costliest, and flakiest — you keep only a few.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the middle layer is",
+          "text": "<p>The <strong>middle</strong> layer of the test automation pyramid consists of:</p>",
+          "answers": [
+            {
+              "text": "Integration/service (API) tests that check how components work together below the UI",
+              "fraction": 100,
+              "feedback": "Correct — the middle exercises component interactions and service/API boundaries without going through the UI."
+            },
+            {
+              "text": "Unit tests of single isolated functions",
+              "fraction": 0,
+              "feedback": "Those are the base layer, not the middle."
+            },
+            {
+              "text": "End-to-end tests driven through the browser UI",
+              "fraction": 0,
+              "feedback": "Those are the top layer, not the middle."
+            },
+            {
+              "text": "Manual exploratory testing sessions",
+              "fraction": 0,
+              "feedback": "The pyramid describes automated test layers; the middle is integration/service tests."
+            }
+          ],
+          "generalFeedback": "The middle band holds integration/service/API tests: moderate in speed and cost, they verify that components interact correctly at a level below the full UI.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The ice-cream cone anti-pattern",
+          "text": "<p>The <em>ice-cream cone</em> anti-pattern refers to a test distribution that is:</p>",
+          "answers": [
+            {
+              "text": "Inverted — many UI/manual tests on top and too few unit tests at the bottom",
+              "fraction": 100,
+              "feedback": "Correct — the pyramid is turned upside down, with the bulk of testing at the slow, brittle top."
+            },
+            {
+              "text": "A healthy pyramid with a wide unit base",
+              "fraction": 0,
+              "feedback": "That is the desired shape, not the anti-pattern."
+            },
+            {
+              "text": "A fat unit base with a fat E2E top and a thin middle",
+              "fraction": 0,
+              "feedback": "That is the hourglass anti-pattern, not the ice-cream cone."
+            },
+            {
+              "text": "Having no automated tests at all",
+              "fraction": 0,
+              "feedback": "The ice-cream cone still has many tests — they are just concentrated at the wrong (top) layer."
+            }
+          ],
+          "generalFeedback": "The ice-cream cone is the inverted pyramid: most tests are slow, expensive UI or manual tests, with too small a unit base — giving slow, flaky, costly feedback.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read a ratio to identify the layer (base)",
+          "text": "<p>A team reports its automated tests as roughly <strong>70% / 20% / 10%</strong> across the three pyramid layers. The <strong>70%</strong> slice is the fastest and cheapest to run. Which layer is it?</p>",
+          "answers": [
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 100,
+              "feedback": "Correct — the largest, fastest, cheapest slice is the unit base."
+            },
+            {
+              "text": "Integration/service tests (the middle)",
+              "fraction": 0,
+              "feedback": "The middle is the 20% slice here, not the 70%."
+            },
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 0,
+              "feedback": "The top is the smallest, slowest slice — 10%, not 70%."
+            },
+            {
+              "text": "Cannot be determined from the numbers",
+              "fraction": 0,
+              "feedback": "The largest, fastest, cheapest slice is unmistakably the unit base."
+            }
+          ],
+          "generalFeedback": "In an illustrative 70/20/10 split, the 70% (largest, fastest, cheapest) is unit, 20% is integration, and 10% is UI/E2E. Treat the exact ratio as illustrative, not a law.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Most realistic layer",
+          "text": "<p>Which layer gives the testing that is <strong>closest to a real user's experience</strong> of the whole system?</p>",
+          "answers": [
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 100,
+              "feedback": "Correct — E2E tests drive the fully integrated system as a user would, so they are the most realistic."
+            },
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 0,
+              "feedback": "Unit tests check pieces in isolation and are the least like a real end-user scenario."
+            },
+            {
+              "text": "Integration/service tests (the middle)",
+              "fraction": 0,
+              "feedback": "These are more realistic than unit tests but still below the full-UI, whole-system level."
+            },
+            {
+              "text": "All layers are equally realistic",
+              "fraction": 0,
+              "feedback": "Realism increases as you move up the pyramid; the top is the most realistic."
+            }
+          ],
+          "generalFeedback": "Realism rises as you climb the pyramid: E2E tests exercise the whole system through its real interfaces, so they most closely match actual user behaviour — at the cost of speed and stability.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which tests run constantly to gate commits",
+          "text": "<p>Which layer's tests are typically run <strong>on every commit</strong> to give developers fast feedback in CI?</p>",
+          "answers": [
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 100,
+              "feedback": "Correct — being fast and stable, unit tests can run constantly and gate each commit."
+            },
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 0,
+              "feedback": "E2E tests are too slow and flaky to run on every commit; they are run less often."
+            },
+            {
+              "text": "Only manual tests",
+              "fraction": 0,
+              "feedback": "Manual tests cannot gate every commit; fast automated unit tests do."
+            },
+            {
+              "text": "No tests should run on a commit",
+              "fraction": 0,
+              "feedback": "Fast unit tests are exactly what should gate each commit in CI."
+            }
+          ],
+          "generalFeedback": "Because unit tests are fast and deterministic, they run on every commit as the CI gate; slower UI/E2E tests run less frequently (e.g. nightly or before release).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Unit tests form the base",
+          "text": "<p>In the test automation pyramid, unit tests form the wide base.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — unit tests are the most numerous and sit at the base."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Unit tests do form the base; putting UI/E2E at the base is the inverted anti-pattern."
+            }
+          ],
+          "generalFeedback": "The pyramid's wide base is unit tests — fast, cheap, and numerous — with fewer integration tests above and few UI/E2E tests at the top."
+        },
+        {
+          "type": "truefalse",
+          "name": "E2E more numerous than unit",
+          "text": "<p>In a healthy pyramid, end-to-end (UI) tests should outnumber unit tests.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is the inverted (ice-cream-cone) shape, not a healthy pyramid."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — unit tests should far outnumber E2E tests; the reverse is the ice-cream-cone anti-pattern."
+            }
+          ],
+          "generalFeedback": "A healthy pyramid has many unit tests and few E2E tests. When E2E tests outnumber unit tests you have an inverted pyramid (ice-cream cone)."
+        },
+        {
+          "type": "multichoice",
+          "name": "Layer that tests APIs below the UI",
+          "text": "<p>Which layer verifies that components and services interact correctly <strong>through their APIs, below the UI</strong>?</p>",
+          "answers": [
+            {
+              "text": "Integration/service tests (the middle)",
+              "fraction": 100,
+              "feedback": "Correct — the middle layer tests interactions at the service/API level, below the full UI."
+            },
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 0,
+              "feedback": "Unit tests exercise a single component in isolation, not interactions across an API."
+            },
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 0,
+              "feedback": "E2E tests go through the UI; the middle layer deliberately tests below it."
+            },
+            {
+              "text": "Acceptance sign-off meetings",
+              "fraction": 0,
+              "feedback": "That is not an automated test layer; API-level testing is the integration/service layer."
+            }
+          ],
+          "generalFeedback": "Integration/service tests hit APIs and component boundaries directly, avoiding the slow, brittle UI while still checking that parts work together.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Most flaky layer",
+          "text": "<p>Which layer's tests are typically the most <strong>brittle and flaky</strong>?</p>",
+          "answers": [
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 100,
+              "feedback": "Correct — depending on the whole stack, timing, and the UI makes E2E tests the most fragile."
+            },
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 0,
+              "feedback": "Unit tests are isolated and deterministic, so they are the most stable, not the flakiest."
+            },
+            {
+              "text": "Integration/service tests (the middle)",
+              "fraction": 0,
+              "feedback": "These are more fragile than unit tests but less flaky than full UI/E2E tests."
+            },
+            {
+              "text": "All layers are equally flaky",
+              "fraction": 0,
+              "feedback": "Flakiness concentrates at the top; unit tests are the most stable."
+            }
+          ],
+          "generalFeedback": "E2E tests depend on many integrated parts, external state, timing, and the UI, so they flake most. Flakiness is concentrated at the top of the pyramid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Read a ratio to identify the middle",
+          "text": "<p>A suite is split <strong>70% / 20% / 10%</strong> across unit / integration / UI. The <strong>20%</strong> slice corresponds to which layer?</p>",
+          "answers": [
+            {
+              "text": "Integration/service tests (the middle)",
+              "fraction": 100,
+              "feedback": "Correct — 20% is the middle band between the 70% unit base and the 10% UI top."
+            },
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 0,
+              "feedback": "Unit is the 70% slice, not the 20%."
+            },
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 0,
+              "feedback": "UI/E2E is the smallest slice — 10%, not 20%."
+            },
+            {
+              "text": "Manual tests",
+              "fraction": 0,
+              "feedback": "The pyramid's automated middle band is integration/service tests."
+            }
+          ],
+          "generalFeedback": "In an illustrative 70/20/10 split, the 20% middle is integration/service tests, between the unit base (70%) and the UI top (10%).",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Symptom: slow, flaky suite",
+          "text": "<p>A team's automated suite is <strong>slow to run and frequently flaky</strong>. Which layer is most likely over-weighted?</p>",
+          "answers": [
+            {
+              "text": "UI/end-to-end tests (the top)",
+              "fraction": 100,
+              "feedback": "Correct — too many slow, brittle E2E tests produce exactly this symptom."
+            },
+            {
+              "text": "Unit tests (the base)",
+              "fraction": 0,
+              "feedback": "Many unit tests keep the suite fast and stable, not slow and flaky."
+            },
+            {
+              "text": "There is no way to tell from the symptom",
+              "fraction": 0,
+              "feedback": "Slow and flaky strongly points to an over-large UI/E2E top."
+            },
+            {
+              "text": "The suite must have too few tests overall",
+              "fraction": 0,
+              "feedback": "The problem is the mix (too many E2E), not simply the total count."
+            }
+          ],
+          "generalFeedback": "Slowness and flakiness concentrate at the top of the pyramid, so a slow, flaky suite usually means too many UI/E2E tests relative to unit and integration tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What \"push tests down\" means",
+          "text": "<p>The guideline to <em>push tests down</em> the pyramid means:</p>",
+          "answers": [
+            {
+              "text": "Test each behaviour at the lowest layer that still gives adequate confidence",
+              "fraction": 100,
+              "feedback": "Correct — prefer a fast unit or integration test over an E2E test whenever it gives enough confidence."
+            },
+            {
+              "text": "Delete all higher-level tests and rely only on the UI",
+              "fraction": 0,
+              "feedback": "Pushing down means moving coverage lower, not removing all higher tests or relying on the UI."
+            },
+            {
+              "text": "Move all tests up to the end-to-end layer for realism",
+              "fraction": 0,
+              "feedback": "That inverts the pyramid; pushing down means the opposite."
+            },
+            {
+              "text": "Run tests in a different physical location",
+              "fraction": 0,
+              "feedback": "\"Down\" refers to lower pyramid layers, not physical placement."
+            }
+          ],
+          "generalFeedback": "Push-down means choosing the lowest (cheapest, fastest, most stable) layer that still gives adequate confidence for a given behaviour, reserving slow E2E tests for what only they can cover.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which shape is healthy",
+          "text": "<p>Which distribution describes a <strong>healthy</strong> pyramid rather than an ice-cream cone?</p>",
+          "answers": [
+            {
+              "text": "Many unit tests, fewer integration tests, few UI/E2E tests",
+              "fraction": 100,
+              "feedback": "Correct — a wide unit base tapering to a thin UI top is the healthy pyramid."
+            },
+            {
+              "text": "Many UI/E2E tests, fewer integration tests, few unit tests",
+              "fraction": 0,
+              "feedback": "That is the inverted ice-cream cone, not a healthy pyramid."
+            },
+            {
+              "text": "Equal numbers of unit, integration, and UI tests",
+              "fraction": 0,
+              "feedback": "A pyramid is deliberately unequal, widest at the unit base."
+            },
+            {
+              "text": "Only UI tests and nothing else",
+              "fraction": 0,
+              "feedback": "That is an extreme ice-cream cone with no base at all."
+            }
+          ],
+          "generalFeedback": "A healthy pyramid narrows as it rises: the most unit tests, fewer integration tests, and the fewest UI/E2E tests. The ice-cream cone is this shape inverted.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why unit tests form the base",
+          "text": "<p>Why do unit tests form the <strong>base</strong> of the pyramid?</p>",
+          "answers": [
+            {
+              "text": "They are fast, cheap, stable, and pinpoint failures, so you can afford many of them and run them constantly",
+              "fraction": 100,
+              "feedback": "Correct — these properties make a large unit base the most efficient foundation."
+            },
+            {
+              "text": "They are the most realistic, so they deserve the most coverage",
+              "fraction": 0,
+              "feedback": "Realism is a property of E2E tests, not unit tests; that is not why unit tests form the base."
+            },
+            {
+              "text": "They are the only tests capable of finding any defects",
+              "fraction": 0,
+              "feedback": "Higher layers find defects unit tests cannot (e.g. interface and end-to-end faults)."
+            },
+            {
+              "text": "They are the slowest, so they must run first",
+              "fraction": 0,
+              "feedback": "Unit tests are the fastest, which is precisely why there are many of them."
+            }
+          ],
+          "generalFeedback": "Unit tests are fast, cheap, isolated, deterministic, and localise failures precisely — so a large base of them gives quick, reliable feedback at low cost.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute unit count at 70/20/10",
+          "text": "<p>A suite has <strong>200</strong> tests distributed as an illustrative <strong>70% / 20% / 10%</strong> (unit / integration / UI). How many are <strong>unit</strong> tests?</p>",
+          "answers": [
+            {
+              "text": "140",
+              "fraction": 100,
+              "feedback": "Correct — 70% of 200 = 140."
+            },
+            {
+              "text": "40",
+              "fraction": 0,
+              "feedback": "40 is the integration count (20% of 200), not the unit count."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 is the UI count (10% of 200), not the unit count."
+            },
+            {
+              "text": "70",
+              "fraction": 0,
+              "feedback": "70 is the percentage, not the number of tests; 70% of 200 is 140."
+            }
+          ],
+          "generalFeedback": "0.70 &#215; 200 = 140 unit, 0.20 &#215; 200 = 40 integration, 0.10 &#215; 200 = 20 UI. The ratio is illustrative, not a rule.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute integration count at 70/20/10",
+          "text": "<p>A suite has <strong>300</strong> tests distributed as an illustrative <strong>70% / 20% / 10%</strong> (unit / integration / UI). How many are <strong>integration</strong> tests?</p>",
+          "answers": [
+            {
+              "text": "60",
+              "fraction": 100,
+              "feedback": "Correct — 20% of 300 = 60."
+            },
+            {
+              "text": "210",
+              "fraction": 0,
+              "feedback": "210 is the unit count (70% of 300), not the integration count."
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 is the UI count (10% of 300), not the integration count."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 is the percentage, not the number; 20% of 300 is 60."
+            }
+          ],
+          "generalFeedback": "0.20 &#215; 300 = 60 integration (with 210 unit and 30 UI). Treat the 70/20/10 split as illustrative.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a test: full checkout flow",
+          "text": "<p>A test opens the browser, logs in, adds an item to the cart, and completes checkout as a real user would. Which layer does it belong to?</p>",
+          "answers": [
+            {
+              "text": "UI/end-to-end (the top)",
+              "fraction": 100,
+              "feedback": "Correct — driving the whole application through the UI as a user is an E2E test."
+            },
+            {
+              "text": "Unit (the base)",
+              "fraction": 0,
+              "feedback": "A whole-application browser flow is far broader than a single isolated unit."
+            },
+            {
+              "text": "Integration/service (the middle)",
+              "fraction": 0,
+              "feedback": "This goes through the UI and the full stack, which is E2E rather than a below-the-UI integration test."
+            },
+            {
+              "text": "It is not a test of any pyramid layer",
+              "fraction": 0,
+              "feedback": "It is a classic end-to-end test at the top of the pyramid."
+            }
+          ],
+          "generalFeedback": "Exercising the entire integrated system through the real UI, as a user would, is the definition of an end-to-end (top-layer) test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a test: one pure function",
+          "text": "<p>A test calls a single pure function with fixed inputs and asserts its return value, with no database, network, or UI involved. Which layer does it belong to?</p>",
+          "answers": [
+            {
+              "text": "Unit (the base)",
+              "fraction": 100,
+              "feedback": "Correct — an isolated test of one function's logic is a unit test."
+            },
+            {
+              "text": "Integration/service (the middle)",
+              "fraction": 0,
+              "feedback": "Nothing is being integrated here; it is a single isolated function."
+            },
+            {
+              "text": "UI/end-to-end (the top)",
+              "fraction": 0,
+              "feedback": "No UI or full-system flow is involved, so it is not E2E."
+            },
+            {
+              "text": "It cannot be automated",
+              "fraction": 0,
+              "feedback": "A pure-function assertion is one of the easiest tests to automate — a unit test."
+            }
+          ],
+          "generalFeedback": "Testing one function in isolation with no external dependencies is the textbook unit test at the base of the pyramid.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a test: service talks to database",
+          "text": "<p>A test starts a service and a real test database, then checks that saving and reloading a record through the service's API works correctly — without opening any UI. Which layer does it belong to?</p>",
+          "answers": [
+            {
+              "text": "Integration/service (the middle)",
+              "fraction": 100,
+              "feedback": "Correct — it checks the service and database working together below the UI."
+            },
+            {
+              "text": "Unit (the base)",
+              "fraction": 0,
+              "feedback": "It involves two collaborating components (service + database), so it is not an isolated unit test."
+            },
+            {
+              "text": "UI/end-to-end (the top)",
+              "fraction": 0,
+              "feedback": "No UI is involved; the test stops at the service/API level."
+            },
+            {
+              "text": "It is a performance test only",
+              "fraction": 0,
+              "feedback": "It checks functional correctness of an interaction, which is an integration/service test."
+            }
+          ],
+          "generalFeedback": "Exercising a real interaction between components (service and database) through the API, without the UI, is a middle-layer integration/service test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Symptom: too many manual/UI tests",
+          "text": "<p>A team relies mostly on manual and UI tests, with almost no unit tests. This distribution is called:</p>",
+          "answers": [
+            {
+              "text": "An ice-cream cone (inverted pyramid)",
+              "fraction": 100,
+              "feedback": "Correct — most effort at the slow top and a tiny unit base is the ice-cream cone."
+            },
+            {
+              "text": "A healthy pyramid",
+              "fraction": 0,
+              "feedback": "A healthy pyramid has a large unit base, the opposite of this."
+            },
+            {
+              "text": "An hourglass",
+              "fraction": 0,
+              "feedback": "An hourglass has a fat unit base and fat E2E top with a thin middle; here the unit base is nearly missing."
+            },
+            {
+              "text": "A well-balanced test portfolio",
+              "fraction": 0,
+              "feedback": "Over-relying on manual/UI tests is unbalanced and gives slow, costly feedback."
+            }
+          ],
+          "generalFeedback": "Heavy manual/UI testing with a tiny unit base is the classic ice-cream-cone anti-pattern: the pyramid turned upside down.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Where flakiness concentrates",
+          "text": "<p>Across the pyramid, flakiness (non-deterministic pass/fail) is generally concentrated at:</p>",
+          "answers": [
+            {
+              "text": "The top (UI/end-to-end tests)",
+              "fraction": 100,
+              "feedback": "Correct — dependence on the whole stack, timing, and the UI makes the top layer flakiest."
+            },
+            {
+              "text": "The base (unit tests)",
+              "fraction": 0,
+              "feedback": "Unit tests are isolated and deterministic, so they flake least."
+            },
+            {
+              "text": "Evenly across all three layers",
+              "fraction": 0,
+              "feedback": "Flakiness rises as you climb; it is not even."
+            },
+            {
+              "text": "Only in tests that have no assertions",
+              "fraction": 0,
+              "feedback": "Flakiness is about non-determinism, and it concentrates in E2E tests regardless of assertions."
+            }
+          ],
+          "generalFeedback": "The higher a test sits, the more moving parts, timing, and environment it depends on, so flakiness concentrates at the UI/E2E top.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why fast unit tests gate every commit",
+          "text": "<p>Why are fast unit tests the natural choice to run on <strong>every commit</strong> in CI?</p>",
+          "answers": [
+            {
+              "text": "They finish quickly and are deterministic, so they give reliable feedback without slowing the pipeline",
+              "fraction": 100,
+              "feedback": "Correct — speed plus stability makes them ideal as a per-commit gate."
+            },
+            {
+              "text": "They are the only tests that can fail",
+              "fraction": 0,
+              "feedback": "Any layer's tests can fail; unit tests are chosen for speed and stability."
+            },
+            {
+              "text": "They exercise the whole system most realistically",
+              "fraction": 0,
+              "feedback": "That is E2E; unit tests are chosen precisely because they are fast, not because they are realistic."
+            },
+            {
+              "text": "They never need to be maintained",
+              "fraction": 0,
+              "feedback": "All tests need maintenance; the reason for the gate is speed and determinism."
+            }
+          ],
+          "generalFeedback": "A per-commit gate must be fast and reliable. Unit tests run in seconds and are deterministic, so they fit; slow, flaky E2E tests are run less often.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Compute UI count at 70/20/10",
+          "text": "<p>A suite has <strong>500</strong> tests distributed as an illustrative <strong>70% / 20% / 10%</strong> (unit / integration / UI). How many are <strong>UI</strong> tests?</p>",
+          "answers": [
+            {
+              "text": "50",
+              "fraction": 100,
+              "feedback": "Correct — 10% of 500 = 50."
+            },
+            {
+              "text": "350",
+              "fraction": 0,
+              "feedback": "350 is the unit count (70% of 500), not the UI count."
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "100 is the integration count (20% of 500), not the UI count."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 is the percentage, not the number; 10% of 500 is 50."
+            }
+          ],
+          "generalFeedback": "0.10 &#215; 500 = 50 UI (with 350 unit and 100 integration). The split is illustrative.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Move coverage down to fix slow flaky suite",
+          "text": "<p>To fix a slow, flaky suite, it is generally better to move coverage <em>down</em> — replacing some E2E tests with equivalent unit or integration tests where they give adequate confidence.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — pushing coverage to lower layers speeds up the suite and reduces flakiness."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Moving coverage down is exactly the standard remedy for a slow, flaky suite."
+            }
+          ],
+          "generalFeedback": "Speed and stability improve as you move down the pyramid, so replacing redundant E2E tests with lower-level tests (where confidence is adequate) is the usual fix."
+        },
+        {
+          "type": "multichoice",
+          "name": "Choosing the layer for a behaviour",
+          "text": "<p>A behaviour can be verified equally well by a fast unit test or by a slow E2E test. Which should you generally prefer?</p>",
+          "answers": [
+            {
+              "text": "The unit test, because it is the lowest layer that gives adequate confidence",
+              "fraction": 100,
+              "feedback": "Correct — push down: use the cheapest, fastest test that suffices."
+            },
+            {
+              "text": "The E2E test, because higher tests are always better",
+              "fraction": 0,
+              "feedback": "Higher tests are slower and flakier; you do not use them when a lower one suffices."
+            },
+            {
+              "text": "Both, always, for every behaviour",
+              "fraction": 0,
+              "feedback": "Duplicating every behaviour at E2E inflates a slow, flaky top layer needlessly."
+            },
+            {
+              "text": "Neither; leave the behaviour untested",
+              "fraction": 0,
+              "feedback": "The behaviour should be tested — at the lowest adequate layer."
+            }
+          ],
+          "generalFeedback": "When two layers give the same confidence, choose the lower one. Reserve E2E tests for behaviours only they can adequately cover.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Diagnose an inverted distribution",
+          "text": "<p>A suite is distributed <strong>10% unit / 20% integration / 70% UI</strong>. This is best diagnosed as:</p>",
+          "answers": [
+            {
+              "text": "An ice-cream cone — the pyramid is inverted, with far too many UI tests",
+              "fraction": 100,
+              "feedback": "Correct — the bulk of testing sits at the slow, brittle top with a tiny unit base."
+            },
+            {
+              "text": "A healthy pyramid",
+              "fraction": 0,
+              "feedback": "A healthy pyramid has the most unit tests; here unit is only 10%."
+            },
+            {
+              "text": "An hourglass",
+              "fraction": 0,
+              "feedback": "An hourglass has fat top and base with a thin middle; here the base (unit) is thin, not fat."
+            },
+            {
+              "text": "A perfectly balanced portfolio",
+              "fraction": 0,
+              "feedback": "Concentrating 70% at the UI top is unbalanced — the ice-cream-cone anti-pattern."
+            }
+          ],
+          "generalFeedback": "Most tests at the top and few at the base is the inverted pyramid, i.e. the ice-cream cone: slow, flaky, expensive feedback.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Remediate an ice-cream cone",
+          "text": "<p>Given an ice-cream-cone distribution (too many UI tests, too few unit tests), the standard remediation is to:</p>",
+          "answers": [
+            {
+              "text": "Add unit and integration tests and push coverage down, keeping only the E2E tests that earn their place",
+              "fraction": 100,
+              "feedback": "Correct — rebuild the base and trim redundant E2E tests to restore the pyramid shape."
+            },
+            {
+              "text": "Add even more UI tests for realism",
+              "fraction": 0,
+              "feedback": "That worsens the inversion; the top is already too heavy."
+            },
+            {
+              "text": "Delete all UI tests entirely",
+              "fraction": 0,
+              "feedback": "A few E2E tests are still valuable; the fix is rebalancing, not removing the whole top."
+            },
+            {
+              "text": "Stop automated testing and rely on manual testing",
+              "fraction": 0,
+              "feedback": "That deepens the anti-pattern rather than fixing it."
+            }
+          ],
+          "generalFeedback": "Fix an ice-cream cone by pushing coverage down: grow the unit and integration layers and keep only the high-value E2E tests, restoring a wide base.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Diagnose a thin middle",
+          "text": "<p>A suite has <strong>50% unit / 5% integration / 45% UI</strong> — a fat base and a fat top with almost nothing in between. This is best diagnosed as:</p>",
+          "answers": [
+            {
+              "text": "An hourglass — the integration/service middle is too thin",
+              "fraction": 100,
+              "feedback": "Correct — a starved middle with heavy base and top is the hourglass anti-pattern."
+            },
+            {
+              "text": "An ice-cream cone",
+              "fraction": 0,
+              "feedback": "An ice-cream cone is inverted with a tiny base; here the base is large."
+            },
+            {
+              "text": "A healthy pyramid",
+              "fraction": 0,
+              "feedback": "A healthy pyramid has a substantial middle; here it is nearly missing."
+            },
+            {
+              "text": "An over-tested middle layer",
+              "fraction": 0,
+              "feedback": "The middle is under-tested (5%), not over-tested."
+            }
+          ],
+          "generalFeedback": "A fat unit base plus a fat E2E top with a starved integration middle is the hourglass: interaction faults slip through because the service layer is barely tested.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Remediate an hourglass",
+          "text": "<p>The correct remediation for an hourglass distribution is to:</p>",
+          "answers": [
+            {
+              "text": "Build up the integration/service (middle) layer and move some E2E coverage down into it",
+              "fraction": 100,
+              "feedback": "Correct — thickening the middle catches interaction faults faster than E2E and restores the taper."
+            },
+            {
+              "text": "Add more UI tests to compensate for the thin middle",
+              "fraction": 0,
+              "feedback": "That relies on the slow top to catch interaction faults instead of fixing the missing middle."
+            },
+            {
+              "text": "Remove unit tests so the shape looks more like a pyramid",
+              "fraction": 0,
+              "feedback": "You never fix a shape by discarding the fast, valuable base."
+            },
+            {
+              "text": "Do nothing; an hourglass is optimal",
+              "fraction": 0,
+              "feedback": "An hourglass leaves interaction faults poorly covered; it is an anti-pattern to correct."
+            }
+          ],
+          "generalFeedback": "Fix an hourglass by growing the integration/service middle — the fastest place to catch component-interaction faults — and pushing some E2E coverage down into it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Realism versus speed/cost trade-off",
+          "text": "<p>Which statement best captures the core trade-off between the pyramid's layers?</p>",
+          "answers": [
+            {
+              "text": "Higher layers give more realism and confidence but slower, costlier, flakier feedback; lower layers give faster, cheaper, more stable feedback with less end-to-end realism",
+              "fraction": 100,
+              "feedback": "Correct — this is the central speed/cost-versus-realism trade-off of the pyramid."
+            },
+            {
+              "text": "Higher layers are strictly better than lower layers in every respect",
+              "fraction": 0,
+              "feedback": "Higher layers are slower, costlier, and flakier; they are not strictly better."
+            },
+            {
+              "text": "Lower layers are more realistic than higher layers",
+              "fraction": 0,
+              "feedback": "Realism increases as you go up, not down."
+            },
+            {
+              "text": "All layers have identical speed, cost, and realism",
+              "fraction": 0,
+              "feedback": "The layers differ sharply on exactly these dimensions."
+            }
+          ],
+          "generalFeedback": "Climbing the pyramid trades speed, cost, and stability for realism and end-to-end confidence. The pyramid shape balances these by favouring many cheap low-level tests and few expensive high-level ones.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why flakiness concentrates at the top",
+          "text": "<p>Why does flakiness concentrate in the top layer of the pyramid?</p>",
+          "answers": [
+            {
+              "text": "E2E tests depend on the whole integrated stack, timing, and external state, giving many chances for non-deterministic failures",
+              "fraction": 100,
+              "feedback": "Correct — more moving parts and timing dependencies mean more non-determinism."
+            },
+            {
+              "text": "E2E tests have weaker assertions than unit tests",
+              "fraction": 0,
+              "feedback": "Flakiness comes from non-determinism in the environment, not from assertion strength."
+            },
+            {
+              "text": "Unit tests are actually the flakiest, so the top only looks flaky",
+              "fraction": 0,
+              "feedback": "Unit tests are the most stable; the top is genuinely the flakiest."
+            },
+            {
+              "text": "Because the top layer runs most often",
+              "fraction": 0,
+              "feedback": "The top usually runs least often; flakiness is due to dependencies and timing, not frequency."
+            }
+          ],
+          "generalFeedback": "Every additional integrated component, network hop, timing dependency, and piece of shared state adds a source of non-determinism, so end-to-end tests at the top flake most.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When more E2E is justified",
+          "text": "<p>When is adding <strong>more</strong> end-to-end tests genuinely justified despite their cost?</p>",
+          "answers": [
+            {
+              "text": "For a few critical user journeys whose end-to-end confidence cannot be obtained adequately at a lower layer",
+              "fraction": 100,
+              "feedback": "Correct — E2E earns its place where only whole-system realism gives the needed confidence."
+            },
+            {
+              "text": "Whenever a behaviour could also be covered by a unit test",
+              "fraction": 0,
+              "feedback": "If a unit test suffices, push down; do not duplicate it at E2E."
+            },
+            {
+              "text": "To replace unit tests entirely for simplicity",
+              "fraction": 0,
+              "feedback": "Replacing the fast base with slow E2E tests inverts the pyramid."
+            },
+            {
+              "text": "Never — E2E tests are never justified",
+              "fraction": 0,
+              "feedback": "A few E2E tests for critical flows are valuable; the point is to keep them few."
+            }
+          ],
+          "generalFeedback": "Add E2E tests sparingly for critical end-to-end journeys where lower layers cannot give adequate confidence — not for behaviours a unit or integration test already covers.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Misconception: pyramid width means importance",
+          "text": "<p>Which statement about the pyramid is a <strong>misconception</strong>?</p>",
+          "answers": [
+            {
+              "text": "The narrow top means UI/E2E tests are unimportant",
+              "fraction": 100,
+              "feedback": "Correct — this is the misconception; the width reflects count/proportion and speed, not importance."
+            },
+            {
+              "text": "The width of a layer reflects how many tests of that kind you should have",
+              "fraction": 0,
+              "feedback": "This is a correct reading of the pyramid, not a misconception."
+            },
+            {
+              "text": "E2E tests are still needed, just kept few",
+              "fraction": 0,
+              "feedback": "This is correct — E2E tests remain valuable but are few."
+            },
+            {
+              "text": "Lower layers give faster feedback than higher ones",
+              "fraction": 0,
+              "feedback": "This is a correct property of the pyramid, not a misconception."
+            }
+          ],
+          "generalFeedback": "The pyramid is about test count/proportion and feedback speed, not importance. A thin top does not mean E2E tests are unimportant — only that few of them are needed.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Misconception: delete all E2E tests",
+          "text": "<p>Because E2E tests are slow and flaky, a healthy pyramid should have <em>zero</em> end-to-end tests.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "A healthy pyramid keeps a few E2E tests for critical flows, not zero."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — the top is thin, not empty; a few E2E tests remain essential."
+            }
+          ],
+          "generalFeedback": "The pyramid narrows to a few E2E tests, not none. Some end-to-end coverage is needed to confirm critical user journeys work through the whole system."
+        },
+        {
+          "type": "multichoice",
+          "name": "Rebalance: unit tests to add",
+          "text": "<p>A suite of <strong>200</strong> tests is currently inverted at <strong>20 unit / 40 integration / 140 UI</strong>. You want to reach a <strong>70% / 20% / 10%</strong> target while keeping the total at 200. How many <strong>unit</strong> tests must you <strong>add</strong>?</p>",
+          "answers": [
+            {
+              "text": "120",
+              "fraction": 100,
+              "feedback": "Correct — target unit = 70% of 200 = 140; you have 20, so add 140 &#8722; 20 = 120."
+            },
+            {
+              "text": "140",
+              "fraction": 0,
+              "feedback": "140 is the target unit count, but you already have 20, so you add only 120."
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "Recompute: target 140 minus current 20 is 120, not 100."
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 is the current unit count, not the number to add."
+            }
+          ],
+          "generalFeedback": "Target unit = 0.70 &#215; 200 = 140. Currently 20, so add 140 &#8722; 20 = 120. (Integration is already 40 = 20%; UI must drop from 140 to 20.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Rebalance: UI tests to remove",
+          "text": "<p>A suite of <strong>100</strong> tests is currently <strong>40 unit / 10 integration / 50 UI</strong>. You want to reach a <strong>70% / 20% / 10%</strong> target while keeping the total at 100. How many <strong>UI</strong> tests must you <strong>remove</strong>?</p>",
+          "answers": [
+            {
+              "text": "40",
+              "fraction": 100,
+              "feedback": "Correct — target UI = 10% of 100 = 10; you have 50, so remove 50 &#8722; 10 = 40."
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 is the target UI count, not the number to remove; you must remove 50 &#8722; 10 = 40."
+            },
+            {
+              "text": "50",
+              "fraction": 0,
+              "feedback": "50 is the current UI count; you keep 10, so remove only 40."
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "Recompute: 50 current minus 10 target is 40, not 30."
+            }
+          ],
+          "generalFeedback": "Target UI = 0.10 &#215; 100 = 10. Currently 50, so remove 50 &#8722; 10 = 40. (Unit rises from 40 to 70; integration rises from 10 to 20.)",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why not push everything to unit",
+          "text": "<p>If unit tests are the fastest and cheapest, why not push <strong>every</strong> test down to the unit layer and drop the higher layers?</p>",
+          "answers": [
+            {
+              "text": "Unit tests cannot catch faults in how components interact or in real end-to-end user flows; some confidence comes only from higher layers",
+              "fraction": 100,
+              "feedback": "Correct — interface and whole-system faults need integration and E2E tests."
+            },
+            {
+              "text": "Because unit tests are actually the slowest layer",
+              "fraction": 0,
+              "feedback": "Unit tests are the fastest; the reason is coverage, not speed."
+            },
+            {
+              "text": "Because higher layers are cheaper than unit tests",
+              "fraction": 0,
+              "feedback": "Higher layers are more expensive, not cheaper."
+            },
+            {
+              "text": "You should, in fact, drop all higher layers",
+              "fraction": 0,
+              "feedback": "Dropping the higher layers would miss interaction and end-to-end faults entirely."
+            }
+          ],
+          "generalFeedback": "Each layer catches faults the others cannot: unit tests miss interface/interaction faults and real user-flow problems, so integration and a few E2E tests remain necessary. \"Push down\" means using the lowestlayer, not eliminating higher ones.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Interaction bug slips through with thin middle",
+          "text": "<p>A team has fast unit tests and a handful of E2E tests but almost no service-level tests, and bugs in how two services exchange data keep reaching production. What is the diagnosis and fix?</p>",
+          "answers": [
+            {
+              "text": "An hourglass with a starved middle; add integration/service tests to catch interaction faults early",
+              "fraction": 100,
+              "feedback": "Correct — the missing middle lets interaction faults slip past unit tests and only sometimes get caught by the few E2E tests."
+            },
+            {
+              "text": "An ice-cream cone; delete the unit tests",
+              "fraction": 0,
+              "feedback": "The unit base is fine; the problem is the missing integration middle, and you never delete the base."
+            },
+            {
+              "text": "A healthy pyramid; no change needed",
+              "fraction": 0,
+              "feedback": "Interaction bugs reaching production show the integration layer is inadequate."
+            },
+            {
+              "text": "Too many unit tests; remove some of them",
+              "fraction": 0,
+              "feedback": "Removing unit tests would not address the uncovered service interactions."
+            }
+          ],
+          "generalFeedback": "Fast unit tests plus a few E2E tests but a starved middle is an hourglass. Interaction faults between services are best and fastest caught by integration/service tests, so grow that middle layer.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Lowest adequate level for an interaction fault",
+          "text": "<p>A defect concerns how two services exchange data over their API. Applying \"test at the lowest level that gives adequate confidence,\" which layer should own that test?</p>",
+          "answers": [
+            {
+              "text": "Integration/service — it is the lowest layer that exercises the interaction between the two services",
+              "fraction": 100,
+              "feedback": "Correct — a unit test cannot see the interaction, and an E2E test is more than needed."
+            },
+            {
+              "text": "Unit — it is the fastest layer",
+              "fraction": 0,
+              "feedback": "A unit test isolates one component and cannot exercise the cross-service interaction, so it does not give adequate confidence."
+            },
+            {
+              "text": "UI/end-to-end — the most realistic layer",
+              "fraction": 0,
+              "feedback": "E2E would work but is slower and flakier than needed; the lowest adequate layer is integration."
+            },
+            {
+              "text": "None — such faults cannot be tested",
+              "fraction": 0,
+              "feedback": "They are exactly what integration/service tests target."
+            }
+          ],
+          "generalFeedback": "Push down to the lowest layer that still gives confidence. An interaction between two services is invisible to a unit test and overkill for E2E, so it belongs at the integration/service layer.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "70/20/10 is a strict law",
+          "text": "<p>The exact 70/20/10 split is a strict rule that every project must follow to have a valid pyramid.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "The specific numbers are illustrative, not a mandatory law."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — ratios like 70/20/10 are illustrative; the principle is the shape (wide base, thin top), not exact percentages."
+            }
+          ],
+          "generalFeedback": "Concrete ratios are only rules of thumb to convey the shape. What matters is that unit tests dominate, integration tests are fewer, and UI/E2E tests are fewest — the exact numbers vary by project."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "由下而上的三個層級",
+          "text": "<p>在經典的<em>測試自動化金字塔（test automation pyramid，Mike Cohn）</em>中，由下而上的層級依序是：</p>",
+          "answers": [
+            {
+              "text": "單元測試（底層）、整合／服務測試（中層）、UI／端到端測試（頂層）",
+              "fraction": 100,
+              "feedback": "正確——寬廣的單元測試底座、較窄的整合／服務測試帶、以及薄薄的 UI／E2E 測試頂端。"
+            },
+            {
+              "text": "UI／端到端測試（底層）、整合測試（中層）、單元測試（頂層）",
+              "fraction": 0,
+              "feedback": "這是上下顛倒的——它描述的是甜筒（ice-cream cone）反模式，而非金字塔。"
+            },
+            {
+              "text": "整合測試（底層）、單元測試（中層）、UI 測試（頂層）",
+              "fraction": 0,
+              "feedback": "單元測試構成底座，而非中層。"
+            },
+            {
+              "text": "單元測試（底層）、UI／端到端測試（中層）、整合測試（頂層）",
+              "fraction": 0,
+              "feedback": "UI／E2E 位於頂端、整合位於中層，而非相反。"
+            }
+          ],
+          "generalFeedback": "由下而上：大量單元測試、較少的整合／服務測試、少量的 UI／端到端測試。每層的寬度暗示該類測試應有的數量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試最多的層級",
+          "text": "<p>在健康的測試自動化金字塔中，哪一層應包含<strong>最多</strong>測試？</p>",
+          "answers": [
+            {
+              "text": "單元測試（底座）",
+              "fraction": 100,
+              "feedback": "正確——底座是最寬的一層，因此單元測試數量最多。"
+            },
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 0,
+              "feedback": "頂端是最窄的一層，應該擁有最少的測試。"
+            },
+            {
+              "text": "整合／服務測試（中層）",
+              "fraction": 0,
+              "feedback": "中層介於兩者之間；底座（單元）比它更多。"
+            },
+            {
+              "text": "三層應該數量相等",
+              "fraction": 0,
+              "feedback": "金字塔刻意不均等——寬廣的底座逐漸收窄至薄薄的頂端。"
+            }
+          ],
+          "generalFeedback": "底座是金字塔最寬的部分：單元測試最便宜也最快，因此你負擔得起最多的數量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試最少的層級",
+          "text": "<p>在健康的測試自動化金字塔中，哪一層應包含<strong>最少</strong>測試？</p>",
+          "answers": [
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 100,
+              "feedback": "正確——頂端是最窄的一層，因此 UI／E2E 測試數量最少。"
+            },
+            {
+              "text": "單元測試（底座）",
+              "fraction": 0,
+              "feedback": "單元測試數量最多，而非最少。"
+            },
+            {
+              "text": "整合／服務測試（中層）",
+              "fraction": 0,
+              "feedback": "中層比頂端多；頂端（UI／E2E）才是最少的。"
+            },
+            {
+              "text": "三層應該都是同樣的少量",
+              "fraction": 0,
+              "feedback": "各層數量不同；具體而言頂層最薄。"
+            }
+          ],
+          "generalFeedback": "UI／端到端測試又慢、又貴、又脆弱，因此只在金字塔狹窄的頂端保留少量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單元測試的特性",
+          "text": "<p>下列哪一組特性最能描述位於金字塔底座的<em>單元</em>測試？</p>",
+          "answers": [
+            {
+              "text": "快速、便宜、隔離、穩定、且數量眾多",
+              "fraction": 100,
+              "feedback": "正確——正是這些特性使單元測試構成寬廣的底座。"
+            },
+            {
+              "text": "緩慢、昂貴、且數量稀少",
+              "fraction": 0,
+              "feedback": "那些是頂端 UI／端到端測試的特性，而非單元測試。"
+            },
+            {
+              "text": "緩慢但非常便宜且數量眾多",
+              "fraction": 0,
+              "feedback": "單元測試是快速的，而非緩慢；速度正是它的定義特徵之一。"
+            },
+            {
+              "text": "真實、端到端、且脆弱",
+              "fraction": 0,
+              "feedback": "那些描述的是 UI／E2E 測試；單元測試是隔離且穩定的。"
+            }
+          ],
+          "generalFeedback": "單元測試在毫秒內執行、撰寫與維護皆便宜、與外部系統隔離、具決定性／穩定、並能精確定位失敗——因此可保留大量並持續執行它們。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UI／E2E 測試的特性",
+          "text": "<p>下列哪一組特性最能描述位於金字塔頂端的 <em>UI／端到端</em> 測試？</p>",
+          "answers": [
+            {
+              "text": "緩慢、昂貴、脆弱／不穩定（flaky）、數量少——但最為真實",
+              "fraction": 100,
+              "feedback": "正確——它們像真實使用者一樣操作整個系統，因此最真實但也最昂貴、最易碎。"
+            },
+            {
+              "text": "快速、便宜、穩定、且數量眾多",
+              "fraction": 0,
+              "feedback": "那些是單元測試的特性，不是 UI／E2E。"
+            },
+            {
+              "text": "快速且具決定性，但不真實",
+              "fraction": 0,
+              "feedback": "UI／E2E 測試緩慢且最真實，並非快速且不真實。"
+            },
+            {
+              "text": "維護便宜且很少不穩定",
+              "fraction": 0,
+              "feedback": "它們是維護最昂貴且最容易不穩定的。"
+            }
+          ],
+          "generalFeedback": "端到端測試透過 UI 驅動整個系統，因此最真實，但也最慢、最貴、最不穩定——只保留少量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "中層是什麼",
+          "text": "<p>測試自動化金字塔的<strong>中</strong>層由下列何者構成？</p>",
+          "answers": [
+            {
+              "text": "檢查元件如何在 UI 之下協同運作的整合／服務（API）測試",
+              "fraction": 100,
+              "feedback": "正確——中層在低於完整 UI 的層次上，測試元件互動與服務／API 邊界。"
+            },
+            {
+              "text": "對單一孤立函式進行的單元測試",
+              "fraction": 0,
+              "feedback": "那是底層，而非中層。"
+            },
+            {
+              "text": "透過瀏覽器 UI 驅動的端到端測試",
+              "fraction": 0,
+              "feedback": "那是頂層，而非中層。"
+            },
+            {
+              "text": "人工探索式測試作業",
+              "fraction": 0,
+              "feedback": "金字塔描述的是自動化測試層級；中層是整合／服務測試。"
+            }
+          ],
+          "generalFeedback": "中間帶為整合／服務／API 測試：速度與成本適中，在低於完整 UI 的層次驗證元件之間正確互動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "甜筒反模式",
+          "text": "<p><em>甜筒（ice-cream cone）</em>反模式所指的測試分布是：</p>",
+          "answers": [
+            {
+              "text": "顛倒的——頂端有大量 UI／人工測試，底部單元測試過少",
+              "fraction": 100,
+              "feedback": "正確——金字塔被上下顛倒，大部分測試集中在又慢又脆弱的頂端。"
+            },
+            {
+              "text": "擁有寬廣單元底座的健康金字塔",
+              "fraction": 0,
+              "feedback": "那是理想形狀，而非反模式。"
+            },
+            {
+              "text": "肥大的單元底座、肥大的 E2E 頂端、以及薄弱的中層",
+              "fraction": 0,
+              "feedback": "那是沙漏（hourglass）反模式，不是甜筒。"
+            },
+            {
+              "text": "完全沒有任何自動化測試",
+              "fraction": 0,
+              "feedback": "甜筒仍有很多測試——只是集中在錯誤的（頂）層。"
+            }
+          ],
+          "generalFeedback": "甜筒是顛倒的金字塔：大部分測試是又慢又貴的 UI 或人工測試，單元底座太小——導致回饋又慢、又不穩定、又昂貴。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀比例辨識層級（底座）",
+          "text": "<p>某團隊回報其自動化測試在三層金字塔中約為 <strong>70% / 20% / 10%</strong>。其中 <strong>70%</strong> 這一片執行起來最快、最便宜。它是哪一層？</p>",
+          "answers": [
+            {
+              "text": "單元測試（底座）",
+              "fraction": 100,
+              "feedback": "正確——最大、最快、最便宜的一片就是單元底座。"
+            },
+            {
+              "text": "整合／服務測試（中層）",
+              "fraction": 0,
+              "feedback": "此處中層是 20% 那一片，不是 70%。"
+            },
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 0,
+              "feedback": "頂端是最小、最慢的一片——10%，而非 70%。"
+            },
+            {
+              "text": "無法由數字判斷",
+              "fraction": 0,
+              "feedback": "最大、最快、最便宜的一片明確就是單元底座。"
+            }
+          ],
+          "generalFeedback": "在示意性的 70/20/10 分布中，70%（最大、最快、最便宜）是單元、20% 是整合、10% 是 UI／E2E。把確切比例當作示意，而非法則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最真實的層級",
+          "text": "<p>哪一層提供的測試<strong>最接近真實使用者</strong>對整個系統的體驗？</p>",
+          "answers": [
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 100,
+              "feedback": "正確——E2E 測試像使用者一樣驅動完整整合的系統，因此最真實。"
+            },
+            {
+              "text": "單元測試（底座）",
+              "fraction": 0,
+              "feedback": "單元測試孤立地檢查零件，最不像真實的終端使用者情境。"
+            },
+            {
+              "text": "整合／服務測試（中層）",
+              "fraction": 0,
+              "feedback": "這些比單元測試更真實，但仍低於完整 UI、整個系統的層次。"
+            },
+            {
+              "text": "各層同樣真實",
+              "fraction": 0,
+              "feedback": "真實度隨著往金字塔上方而提高；頂端最真實。"
+            }
+          ],
+          "generalFeedback": "真實度隨著往上攀升而提高：E2E 測試透過真實介面操作整個系統，因此最貼近實際使用者行為——代價是速度與穩定性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪些測試持續執行以把關提交",
+          "text": "<p>在 CI 中，哪一層的測試通常會在<strong>每次提交（commit）</strong>時執行，以給開發者快速回饋？</p>",
+          "answers": [
+            {
+              "text": "單元測試（底座）",
+              "fraction": 100,
+              "feedback": "正確——因為快速又穩定，單元測試可持續執行並把關每次提交。"
+            },
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 0,
+              "feedback": "E2E 測試太慢、太不穩定，無法在每次提交時執行；它們執行頻率較低。"
+            },
+            {
+              "text": "只有人工測試",
+              "fraction": 0,
+              "feedback": "人工測試無法把關每次提交；快速的自動化單元測試才行。"
+            },
+            {
+              "text": "提交時不應執行任何測試",
+              "fraction": 0,
+              "feedback": "快速的單元測試正是應在每次提交時把關 CI 的測試。"
+            }
+          ],
+          "generalFeedback": "由於單元測試快速且具決定性，它們在每次提交時執行作為 CI 把關；較慢的 UI／E2E 測試則較少執行（例如夜間或發佈前）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "單元測試構成底座",
+          "text": "<p>在測試自動化金字塔中，單元測試構成寬廣的底座。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——單元測試數量最多，位於底座。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "單元測試確實構成底座；把 UI／E2E 放在底座才是顛倒的反模式。"
+            }
+          ],
+          "generalFeedback": "金字塔寬廣的底座是單元測試——快速、便宜、數量眾多——其上是較少的整合測試，頂端是少量的 UI／E2E 測試。"
+        },
+        {
+          "type": "truefalse",
+          "name": "E2E 比單元多",
+          "text": "<p>在健康的金字塔中，端到端（UI）測試的數量應多於單元測試。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這是顛倒的（甜筒）形狀，而非健康的金字塔。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——單元測試應遠多於 E2E 測試；反過來就是甜筒反模式。"
+            }
+          ],
+          "generalFeedback": "健康的金字塔有大量單元測試與少量 E2E 測試。當 E2E 測試多於單元測試時，你得到的是顛倒的金字塔（甜筒）。"
+        },
+        {
+          "type": "multichoice",
+          "name": "在 UI 之下測試 API 的層級",
+          "text": "<p>哪一層驗證元件與服務<strong>透過其 API、在 UI 之下</strong>正確互動？</p>",
+          "answers": [
+            {
+              "text": "整合／服務測試（中層）",
+              "fraction": 100,
+              "feedback": "正確——中層在低於完整 UI 的服務／API 層次測試互動。"
+            },
+            {
+              "text": "單元測試（底座）",
+              "fraction": 0,
+              "feedback": "單元測試孤立地操作單一元件，而非跨 API 的互動。"
+            },
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 0,
+              "feedback": "E2E 測試會經過 UI；中層刻意在其之下測試。"
+            },
+            {
+              "text": "驗收簽核會議",
+              "fraction": 0,
+              "feedback": "那不是自動化測試層級；API 層次的測試是整合／服務層。"
+            }
+          ],
+          "generalFeedback": "整合／服務測試直接打 API 與元件邊界，避開又慢又脆弱的 UI，同時仍檢查各部分能否協同運作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最不穩定的層級",
+          "text": "<p>哪一層的測試通常最<strong>脆弱且不穩定（flaky）</strong>？</p>",
+          "answers": [
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 100,
+              "feedback": "正確——依賴整個技術堆疊、時序與 UI，使 E2E 測試最為易碎。"
+            },
+            {
+              "text": "單元測試（底座）",
+              "fraction": 0,
+              "feedback": "單元測試隔離且具決定性，因此最穩定，而非最不穩定。"
+            },
+            {
+              "text": "整合／服務測試（中層）",
+              "fraction": 0,
+              "feedback": "這些比單元測試更易碎，但比完整 UI／E2E 測試更不易不穩定。"
+            },
+            {
+              "text": "各層同樣不穩定",
+              "fraction": 0,
+              "feedback": "不穩定集中在頂端；單元測試最穩定。"
+            }
+          ],
+          "generalFeedback": "E2E 測試依賴許多整合的部分、外部狀態與時序，因此最容易不穩定。不穩定集中在金字塔頂端。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "讀比例辨識中層",
+          "text": "<p>某套件在 單元／整合／UI 之間分布為 <strong>70% / 20% / 10%</strong>。其中 <strong>20%</strong> 那一片對應哪一層？</p>",
+          "answers": [
+            {
+              "text": "整合／服務測試（中層）",
+              "fraction": 100,
+              "feedback": "正確——20% 是介於 70% 單元底座與 10% UI 頂端之間的中間帶。"
+            },
+            {
+              "text": "單元測試（底座）",
+              "fraction": 0,
+              "feedback": "單元是 70% 那一片，不是 20%。"
+            },
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 0,
+              "feedback": "UI／E2E 是最小的一片——10%，而非 20%。"
+            },
+            {
+              "text": "人工測試",
+              "fraction": 0,
+              "feedback": "金字塔的自動化中間帶是整合／服務測試。"
+            }
+          ],
+          "generalFeedback": "在示意性的 70/20/10 分布中，20% 的中層是整合／服務測試，介於單元底座（70%）與 UI 頂端（10%）之間。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "症狀：套件又慢又不穩定",
+          "text": "<p>某團隊的自動化套件<strong>執行緩慢且經常不穩定（flaky）</strong>。最可能是哪一層比重過高？</p>",
+          "answers": [
+            {
+              "text": "UI／端到端測試（頂端）",
+              "fraction": 100,
+              "feedback": "正確——過多又慢又脆弱的 E2E 測試正會造成這種症狀。"
+            },
+            {
+              "text": "單元測試（底座）",
+              "fraction": 0,
+              "feedback": "大量單元測試會讓套件保持快速與穩定，而不是又慢又不穩定。"
+            },
+            {
+              "text": "無法由此症狀判斷",
+              "fraction": 0,
+              "feedback": "又慢又不穩定強烈指向過大的 UI／E2E 頂端。"
+            },
+            {
+              "text": "套件整體測試數量一定太少",
+              "fraction": 0,
+              "feedback": "問題出在組合（太多 E2E），而非單純的總數。"
+            }
+          ],
+          "generalFeedback": "緩慢與不穩定集中在金字塔頂端，因此又慢又不穩定的套件通常意味著相對於單元與整合測試，UI／E2E 測試過多。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "「把測試往下推」的意思",
+          "text": "<p>把測試在金字塔中<em>往下推（push down）</em>的原則意思是：</p>",
+          "answers": [
+            {
+              "text": "在仍能提供足夠信心的最低層級測試每個行為",
+              "fraction": 100,
+              "feedback": "正確——只要能提供足夠信心，就優先用快速的單元或整合測試，而非 E2E 測試。"
+            },
+            {
+              "text": "刪除所有較高層級的測試，只依賴 UI",
+              "fraction": 0,
+              "feedback": "往下推是把覆蓋率往下移，而非移除所有較高層測試或只依賴 UI。"
+            },
+            {
+              "text": "為了真實性，把所有測試往上移到端到端層",
+              "fraction": 0,
+              "feedback": "那會顛倒金字塔；往下推的意思正好相反。"
+            },
+            {
+              "text": "把測試放到不同的實體地點執行",
+              "fraction": 0,
+              "feedback": "「往下」指的是金字塔較低的層級，而非實體擺放位置。"
+            }
+          ],
+          "generalFeedback": "往下推是指為某個行為選擇仍能提供足夠信心的最低（最便宜、最快、最穩定）層級，把慢速的 E2E 測試保留給只有它才能涵蓋的部分。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪種形狀是健康的",
+          "text": "<p>哪種分布描述的是<strong>健康</strong>的金字塔，而非甜筒？</p>",
+          "answers": [
+            {
+              "text": "大量單元測試、較少整合測試、少量 UI／E2E 測試",
+              "fraction": 100,
+              "feedback": "正確——寬廣的單元底座收窄至薄薄的 UI 頂端就是健康的金字塔。"
+            },
+            {
+              "text": "大量 UI／E2E 測試、較少整合測試、少量單元測試",
+              "fraction": 0,
+              "feedback": "那是顛倒的甜筒，而非健康的金字塔。"
+            },
+            {
+              "text": "單元、整合、UI 測試數量相等",
+              "fraction": 0,
+              "feedback": "金字塔刻意不均等，在單元底座最寬。"
+            },
+            {
+              "text": "只有 UI 測試，別無其他",
+              "fraction": 0,
+              "feedback": "那是完全沒有底座的極端甜筒。"
+            }
+          ],
+          "generalFeedback": "健康的金字塔往上收窄：單元測試最多、整合測試較少、UI／E2E 測試最少。甜筒就是這個形狀被顛倒。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何單元測試構成底座",
+          "text": "<p>為何單元測試構成金字塔的<strong>底座</strong>？</p>",
+          "answers": [
+            {
+              "text": "它們快速、便宜、穩定、且能精確定位失敗，因此可負擔大量並持續執行",
+              "fraction": 100,
+              "feedback": "正確——這些特性使龐大的單元底座成為最有效率的基礎。"
+            },
+            {
+              "text": "它們最真實，因此值得最多覆蓋率",
+              "fraction": 0,
+              "feedback": "真實性是 E2E 測試的特性，而非單元測試；那不是單元測試構成底座的原因。"
+            },
+            {
+              "text": "它們是唯一能找到任何缺陷的測試",
+              "fraction": 0,
+              "feedback": "較高層級能找到單元測試找不到的缺陷（例如介面與端到端錯誤）。"
+            },
+            {
+              "text": "它們最慢，所以必須先執行",
+              "fraction": 0,
+              "feedback": "單元測試最快，這正是為何數量眾多。"
+            }
+          ],
+          "generalFeedback": "單元測試快速、便宜、隔離、具決定性，並能精確定位失敗——因此龐大的底座能以低成本提供快速、可靠的回饋。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "依 70/20/10 計算單元數量",
+          "text": "<p>某套件有 <strong>200</strong> 個測試，依示意性的 <strong>70% / 20% / 10%</strong>（單元／整合／UI）分布。<strong>單元</strong>測試有幾個？</p>",
+          "answers": [
+            {
+              "text": "140",
+              "fraction": 100,
+              "feedback": "正確——200 的 70% = 140。"
+            },
+            {
+              "text": "40",
+              "fraction": 0,
+              "feedback": "40 是整合數量（200 的 20%），不是單元數量。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 是 UI 數量（200 的 10%），不是單元數量。"
+            },
+            {
+              "text": "70",
+              "fraction": 0,
+              "feedback": "70 是百分比，不是測試數量；200 的 70% 是 140。"
+            }
+          ],
+          "generalFeedback": "0.70 &#215; 200 = 140 單元、0.20 &#215; 200 = 40 整合、0.10 &#215; 200 = 20 UI。此比例為示意，並非規則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "依 70/20/10 計算整合數量",
+          "text": "<p>某套件有 <strong>300</strong> 個測試，依示意性的 <strong>70% / 20% / 10%</strong>（單元／整合／UI）分布。<strong>整合</strong>測試有幾個？</p>",
+          "answers": [
+            {
+              "text": "60",
+              "fraction": 100,
+              "feedback": "正確——300 的 20% = 60。"
+            },
+            {
+              "text": "210",
+              "fraction": 0,
+              "feedback": "210 是單元數量（300 的 70%），不是整合數量。"
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "30 是 UI 數量（300 的 10%），不是整合數量。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 是百分比，不是數量；300 的 20% 是 60。"
+            }
+          ],
+          "generalFeedback": "0.20 &#215; 300 = 60 整合（單元 210、UI 30）。把 70/20/10 分布當作示意。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類測試：完整結帳流程",
+          "text": "<p>某測試開啟瀏覽器、登入、把商品加入購物車，並像真實使用者一樣完成結帳。它屬於哪一層？</p>",
+          "answers": [
+            {
+              "text": "UI／端到端（頂端）",
+              "fraction": 100,
+              "feedback": "正確——像使用者一樣透過 UI 驅動整個應用程式就是 E2E 測試。"
+            },
+            {
+              "text": "單元（底座）",
+              "fraction": 0,
+              "feedback": "整個應用程式的瀏覽器流程遠比單一孤立單元更廣。"
+            },
+            {
+              "text": "整合／服務（中層）",
+              "fraction": 0,
+              "feedback": "這會經過 UI 與完整堆疊，屬於 E2E，而非在 UI 之下的整合測試。"
+            },
+            {
+              "text": "它不屬於任何金字塔層級的測試",
+              "fraction": 0,
+              "feedback": "它是金字塔頂端典型的端到端測試。"
+            }
+          ],
+          "generalFeedback": "像使用者一樣透過真實 UI 操作整個整合系統，正是端到端（頂層）測試的定義。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類測試：單一純函式",
+          "text": "<p>某測試以固定輸入呼叫單一純函式並斷言其回傳值，不涉及資料庫、網路或 UI。它屬於哪一層？</p>",
+          "answers": [
+            {
+              "text": "單元（底座）",
+              "fraction": 100,
+              "feedback": "正確——孤立地測試單一函式邏輯就是單元測試。"
+            },
+            {
+              "text": "整合／服務（中層）",
+              "fraction": 0,
+              "feedback": "此處沒有任何東西被整合；它是單一孤立的函式。"
+            },
+            {
+              "text": "UI／端到端（頂端）",
+              "fraction": 0,
+              "feedback": "不涉及 UI 或完整系統流程，因此不是 E2E。"
+            },
+            {
+              "text": "它無法被自動化",
+              "fraction": 0,
+              "feedback": "純函式的斷言是最容易自動化的測試之一——一個單元測試。"
+            }
+          ],
+          "generalFeedback": "在沒有外部相依的情況下孤立地測試單一函式，是金字塔底座教科書式的單元測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類測試：服務與資料庫溝通",
+          "text": "<p>某測試啟動一個服務與一個真實測試資料庫，然後檢查透過該服務的 API 儲存並重新載入一筆記錄是否正確運作——不開啟任何 UI。它屬於哪一層？</p>",
+          "answers": [
+            {
+              "text": "整合／服務（中層）",
+              "fraction": 100,
+              "feedback": "正確——它在 UI 之下檢查服務與資料庫協同運作。"
+            },
+            {
+              "text": "單元（底座）",
+              "fraction": 0,
+              "feedback": "它涉及兩個協作元件（服務＋資料庫），因此不是孤立的單元測試。"
+            },
+            {
+              "text": "UI／端到端（頂端）",
+              "fraction": 0,
+              "feedback": "不涉及 UI；測試止於服務／API 層次。"
+            },
+            {
+              "text": "它只是效能測試",
+              "fraction": 0,
+              "feedback": "它檢查一次互動的功能正確性，屬於整合／服務測試。"
+            }
+          ],
+          "generalFeedback": "在不經 UI 的情況下，透過 API 操作元件（服務與資料庫）之間的真實互動，是中層的整合／服務測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "症狀：過多人工／UI 測試",
+          "text": "<p>某團隊主要依賴人工與 UI 測試，幾乎沒有單元測試。這種分布稱為：</p>",
+          "answers": [
+            {
+              "text": "甜筒（顛倒的金字塔）",
+              "fraction": 100,
+              "feedback": "正確——大部分心力在慢速頂端、單元底座極小，就是甜筒。"
+            },
+            {
+              "text": "健康的金字塔",
+              "fraction": 0,
+              "feedback": "健康的金字塔有龐大的單元底座，與此相反。"
+            },
+            {
+              "text": "沙漏",
+              "fraction": 0,
+              "feedback": "沙漏是肥大的單元底座與肥大的 E2E 頂端加上薄弱的中層；此處單元底座幾乎缺失。"
+            },
+            {
+              "text": "均衡良好的測試組合",
+              "fraction": 0,
+              "feedback": "過度依賴人工／UI 測試並不均衡，回饋又慢又貴。"
+            }
+          ],
+          "generalFeedback": "大量人工／UI 測試加上極小的單元底座，是典型的甜筒反模式：金字塔被上下顛倒。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "不穩定集中在何處",
+          "text": "<p>在整個金字塔中，不穩定（非決定性的通過／失敗）通常集中在：</p>",
+          "answers": [
+            {
+              "text": "頂端（UI／端到端測試）",
+              "fraction": 100,
+              "feedback": "正確——依賴整個堆疊、時序與 UI，使頂層最容易不穩定。"
+            },
+            {
+              "text": "底座（單元測試）",
+              "fraction": 0,
+              "feedback": "單元測試隔離且具決定性，因此最不容易不穩定。"
+            },
+            {
+              "text": "三層平均分布",
+              "fraction": 0,
+              "feedback": "不穩定隨著往上而升高；並非平均。"
+            },
+            {
+              "text": "只在沒有斷言的測試中",
+              "fraction": 0,
+              "feedback": "不穩定關乎非決定性，而它集中在 E2E 測試，與是否有斷言無關。"
+            }
+          ],
+          "generalFeedback": "測試位置越高，所依賴的組件、時序與環境越多，因此不穩定集中在 UI／E2E 頂端。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何快速單元測試把關每次提交",
+          "text": "<p>為何快速的單元測試是在 CI 中於<strong>每次提交</strong>執行的自然選擇？</p>",
+          "answers": [
+            {
+              "text": "它們很快完成且具決定性，因此能在不拖慢管線的情況下提供可靠回饋",
+              "fraction": 100,
+              "feedback": "正確——快速加上穩定使它們成為理想的每次提交把關。"
+            },
+            {
+              "text": "它們是唯一會失敗的測試",
+              "fraction": 0,
+              "feedback": "任何層級的測試都可能失敗；選擇單元測試是因為快速與穩定。"
+            },
+            {
+              "text": "它們最真實地操作整個系統",
+              "fraction": 0,
+              "feedback": "那是 E2E；選擇單元測試正是因為快速，而非真實。"
+            },
+            {
+              "text": "它們永遠不需要維護",
+              "fraction": 0,
+              "feedback": "所有測試都需要維護；把關的理由是快速與決定性。"
+            }
+          ],
+          "generalFeedback": "每次提交的把關必須快速且可靠。單元測試在數秒內執行且具決定性，因此適合；慢速、不穩定的 E2E 測試則較少執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "依 70/20/10 計算 UI 數量",
+          "text": "<p>某套件有 <strong>500</strong> 個測試，依示意性的 <strong>70% / 20% / 10%</strong>（單元／整合／UI）分布。<strong>UI</strong> 測試有幾個？</p>",
+          "answers": [
+            {
+              "text": "50",
+              "fraction": 100,
+              "feedback": "正確——500 的 10% = 50。"
+            },
+            {
+              "text": "350",
+              "fraction": 0,
+              "feedback": "350 是單元數量（500 的 70%），不是 UI 數量。"
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "100 是整合數量（500 的 20%），不是 UI 數量。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 是百分比，不是數量；500 的 10% 是 50。"
+            }
+          ],
+          "generalFeedback": "0.10 &#215; 500 = 50 UI（單元 350、整合 100）。此分布為示意。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "把覆蓋率往下移以修復又慢又不穩定的套件",
+          "text": "<p>要修復又慢又不穩定的套件，通常較好的做法是把覆蓋率<em>往下移</em>——在能提供足夠信心之處，以等效的單元或整合測試取代部分 E2E 測試。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——把覆蓋率推到較低層級能加速套件並減少不穩定。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "把覆蓋率往下移正是修復又慢又不穩定套件的標準做法。"
+            }
+          ],
+          "generalFeedback": "速度與穩定性隨著往金字塔下方而改善，因此在信心足夠之處，以較低層級測試取代多餘的 E2E 測試是常見的修復方式。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為某行為選擇層級",
+          "text": "<p>某行為以一個快速的單元測試或一個慢速的 E2E 測試都能同樣好地驗證。通常應偏好哪一個？</p>",
+          "answers": [
+            {
+              "text": "單元測試，因為它是能提供足夠信心的最低層級",
+              "fraction": 100,
+              "feedback": "正確——往下推：使用足以勝任的最便宜、最快的測試。"
+            },
+            {
+              "text": "E2E 測試，因為較高的測試總是比較好",
+              "fraction": 0,
+              "feedback": "較高的測試更慢也更不穩定；在較低者已足夠時不會使用它。"
+            },
+            {
+              "text": "兩者都要，對每個行為都做",
+              "fraction": 0,
+              "feedback": "對每個行為都在 E2E 重複，會無謂地膨脹又慢又不穩定的頂層。"
+            },
+            {
+              "text": "都不做；讓該行為不被測試",
+              "fraction": 0,
+              "feedback": "該行為應被測試——在足夠的最低層級。"
+            }
+          ],
+          "generalFeedback": "當兩個層級提供相同信心時，選擇較低者。把 E2E 測試保留給只有它才能足夠涵蓋的行為。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "診斷顛倒的分布",
+          "text": "<p>某套件分布為 <strong>10% 單元 / 20% 整合 / 70% UI</strong>。最佳診斷為：</p>",
+          "answers": [
+            {
+              "text": "甜筒——金字塔被顛倒，UI 測試遠遠過多",
+              "fraction": 100,
+              "feedback": "正確——大部分測試集中在又慢又脆弱的頂端，單元底座極小。"
+            },
+            {
+              "text": "健康的金字塔",
+              "fraction": 0,
+              "feedback": "健康的金字塔以單元測試最多；此處單元僅 10%。"
+            },
+            {
+              "text": "沙漏",
+              "fraction": 0,
+              "feedback": "沙漏是頂端與底座都肥大、中層薄弱；此處底座（單元）是薄的，而非肥大。"
+            },
+            {
+              "text": "完美均衡的組合",
+              "fraction": 0,
+              "feedback": "把 70% 集中在 UI 頂端並不均衡——那是甜筒反模式。"
+            }
+          ],
+          "generalFeedback": "大部分測試在頂端、底座很少，就是顛倒的金字塔，即甜筒：回饋又慢、又不穩定、又昂貴。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "修復甜筒",
+          "text": "<p>對於甜筒分布（UI 測試太多、單元測試太少），標準的修復做法是：</p>",
+          "answers": [
+            {
+              "text": "增加單元與整合測試並把覆蓋率往下推，只保留真正值得的 E2E 測試",
+              "fraction": 100,
+              "feedback": "正確——重建底座並刪減多餘的 E2E 測試，以恢復金字塔形狀。"
+            },
+            {
+              "text": "為了真實性再加入更多 UI 測試",
+              "fraction": 0,
+              "feedback": "那會使顛倒更嚴重；頂端已經太重。"
+            },
+            {
+              "text": "完全刪除所有 UI 測試",
+              "fraction": 0,
+              "feedback": "少量 E2E 測試仍有價值；修復是重新平衡，而非移除整個頂端。"
+            },
+            {
+              "text": "停止自動化測試，改依賴人工測試",
+              "fraction": 0,
+              "feedback": "那會加深反模式，而非修復它。"
+            }
+          ],
+          "generalFeedback": "修復甜筒的方法是把覆蓋率往下推：擴大單元與整合層，只保留高價值的 E2E 測試，重建寬廣的底座。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "診斷薄弱的中層",
+          "text": "<p>某套件為 <strong>50% 單元 / 5% 整合 / 45% UI</strong>——肥大的底座與肥大的頂端，中間幾乎空無一物。最佳診斷為：</p>",
+          "answers": [
+            {
+              "text": "沙漏——整合／服務中層太薄",
+              "fraction": 100,
+              "feedback": "正確——中層匱乏、底座與頂端都很重，就是沙漏反模式。"
+            },
+            {
+              "text": "甜筒",
+              "fraction": 0,
+              "feedback": "甜筒是顛倒的、底座極小；此處底座很大。"
+            },
+            {
+              "text": "健康的金字塔",
+              "fraction": 0,
+              "feedback": "健康的金字塔有相當份量的中層；此處中層幾乎缺失。"
+            },
+            {
+              "text": "過度測試的中層",
+              "fraction": 0,
+              "feedback": "中層是測試不足（5%），而非過度測試。"
+            }
+          ],
+          "generalFeedback": "肥大的單元底座加上肥大的 E2E 頂端、加上匱乏的整合中層，就是沙漏：因為服務層幾乎沒被測試，互動錯誤會溜過去。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "修復沙漏",
+          "text": "<p>對於沙漏分布，正確的修復做法是：</p>",
+          "answers": [
+            {
+              "text": "擴充整合／服務（中）層，並把部分 E2E 覆蓋率往下移到其中",
+              "fraction": 100,
+              "feedback": "正確——加厚中層比 E2E 更快抓到互動錯誤，並恢復收窄的形狀。"
+            },
+            {
+              "text": "增加更多 UI 測試來彌補薄弱的中層",
+              "fraction": 0,
+              "feedback": "那是依賴慢速頂端來抓互動錯誤，而非修復缺失的中層。"
+            },
+            {
+              "text": "移除單元測試，讓形狀看起來更像金字塔",
+              "fraction": 0,
+              "feedback": "絕不能靠丟棄快速又有價值的底座來修形狀。"
+            },
+            {
+              "text": "什麼都不做；沙漏是最佳的",
+              "fraction": 0,
+              "feedback": "沙漏使互動錯誤覆蓋不足；它是需要矯正的反模式。"
+            }
+          ],
+          "generalFeedback": "修復沙漏的方法是擴大整合／服務中層——抓元件互動錯誤最快的地方——並把部分 E2E 覆蓋率往下移到其中。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "真實性與速度／成本的取捨",
+          "text": "<p>下列哪項最能抓住金字塔各層之間的核心取捨？</p>",
+          "answers": [
+            {
+              "text": "較高層提供更多真實性與信心，但回饋更慢、更貴、更不穩定；較低層提供更快、更便宜、更穩定的回饋，但端到端真實性較低",
+              "fraction": 100,
+              "feedback": "正確——這正是金字塔的核心：速度／成本對真實性的取捨。"
+            },
+            {
+              "text": "較高層在各方面都嚴格優於較低層",
+              "fraction": 0,
+              "feedback": "較高層更慢、更貴、更不穩定；並非嚴格較優。"
+            },
+            {
+              "text": "較低層比較高層更真實",
+              "fraction": 0,
+              "feedback": "真實性隨往上而提高，而非往下。"
+            },
+            {
+              "text": "各層在速度、成本、真實性上皆相同",
+              "fraction": 0,
+              "feedback": "各層在這些面向上差異極大。"
+            }
+          ],
+          "generalFeedback": "往金字塔上爬，是以速度、成本與穩定性換取真實性與端到端信心。金字塔形狀藉由偏好大量便宜的低層測試與少量昂貴的高層測試來平衡這些取捨。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何不穩定集中在頂端",
+          "text": "<p>為何不穩定集中在金字塔的頂層？</p>",
+          "answers": [
+            {
+              "text": "E2E 測試依賴整個整合堆疊、時序與外部狀態，帶來許多非決定性失敗的機會",
+              "fraction": 100,
+              "feedback": "正確——更多的活動零件與時序相依意味著更多的非決定性。"
+            },
+            {
+              "text": "E2E 測試的斷言比單元測試弱",
+              "fraction": 0,
+              "feedback": "不穩定來自環境的非決定性，而非斷言強弱。"
+            },
+            {
+              "text": "單元測試其實最不穩定，頂端只是看起來不穩定",
+              "fraction": 0,
+              "feedback": "單元測試最穩定；頂端是真的最不穩定。"
+            },
+            {
+              "text": "因為頂層執行得最頻繁",
+              "fraction": 0,
+              "feedback": "頂層通常執行得最少；不穩定源於相依與時序，而非頻率。"
+            }
+          ],
+          "generalFeedback": "每多一個整合元件、一次網路往返、一項時序相依、一份共享狀態，就多一個非決定性來源，因此頂端的端到端測試最容易不穩定。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "何時更多 E2E 是合理的",
+          "text": "<p>儘管 E2E 測試成本高，何時<strong>增加</strong>它們才是真正合理的？</p>",
+          "answers": [
+            {
+              "text": "對於少數關鍵使用者旅程，其端到端信心無法在較低層級充分取得",
+              "fraction": 100,
+              "feedback": "正確——當唯有整體系統的真實性才能提供所需信心時，E2E 才值得。"
+            },
+            {
+              "text": "只要某行為也能用單元測試涵蓋就增加",
+              "fraction": 0,
+              "feedback": "若單元測試已足夠，就往下推；不要在 E2E 重複它。"
+            },
+            {
+              "text": "為了簡化而完全取代單元測試",
+              "fraction": 0,
+              "feedback": "以慢速 E2E 取代快速底座會顛倒金字塔。"
+            },
+            {
+              "text": "永不——E2E 測試從來不合理",
+              "fraction": 0,
+              "feedback": "針對關鍵流程的少數 E2E 測試有價值；重點在於保持少量。"
+            }
+          ],
+          "generalFeedback": "對於較低層級無法提供足夠信心的關鍵端到端旅程，才謹慎增加 E2E 測試——而不是為了單元或整合測試已涵蓋的行為。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "迷思：金字塔寬度代表重要性",
+          "text": "<p>下列關於金字塔的敘述，哪一項是<strong>迷思</strong>？</p>",
+          "answers": [
+            {
+              "text": "狹窄的頂端代表 UI／E2E 測試不重要",
+              "fraction": 100,
+              "feedback": "正確——這是迷思；寬度反映的是數量／比例與速度，而非重要性。"
+            },
+            {
+              "text": "某層的寬度反映你應擁有該類測試的數量",
+              "fraction": 0,
+              "feedback": "這是對金字塔的正確解讀，而非迷思。"
+            },
+            {
+              "text": "E2E 測試仍有需要，只是保持少量",
+              "fraction": 0,
+              "feedback": "這是正確的——E2E 測試仍有價值，但數量少。"
+            },
+            {
+              "text": "較低層提供的回饋比較高層快",
+              "fraction": 0,
+              "feedback": "這是金字塔的正確特性，而非迷思。"
+            }
+          ],
+          "generalFeedback": "金字塔關乎測試數量／比例與回饋速度，而非重要性。薄薄的頂端不代表 E2E 測試不重要——只代表需要的數量少。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "迷思：刪除所有 E2E 測試",
+          "text": "<p>由於 E2E 測試又慢又不穩定，健康的金字塔應該有<em>零</em>個端到端測試。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "健康的金字塔會為關鍵流程保留少數 E2E 測試，而非零。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——頂端是薄的，而非空的；少數 E2E 測試仍不可或缺。"
+            }
+          ],
+          "generalFeedback": "金字塔收窄至少數 E2E 測試，而非沒有。需要一些端到端覆蓋，以確認關鍵使用者旅程能透過整個系統運作。"
+        },
+        {
+          "type": "multichoice",
+          "name": "再平衡：需增加的單元測試",
+          "text": "<p>一套 <strong>200</strong> 個測試目前顛倒為 <strong>20 單元 / 40 整合 / 140 UI</strong>。你想在維持總數 200 的前提下達到 <strong>70% / 20% / 10%</strong> 的目標。必須<strong>增加</strong>幾個<strong>單元</strong>測試？</p>",
+          "answers": [
+            {
+              "text": "120",
+              "fraction": 100,
+              "feedback": "正確——目標單元 = 200 的 70% = 140；目前有 20，故增加 140 &#8722; 20 = 120。"
+            },
+            {
+              "text": "140",
+              "fraction": 0,
+              "feedback": "140 是目標單元數量，但你已有 20，故只需增加 120。"
+            },
+            {
+              "text": "100",
+              "fraction": 0,
+              "feedback": "重算：目標 140 減目前 20 是 120，不是 100。"
+            },
+            {
+              "text": "20",
+              "fraction": 0,
+              "feedback": "20 是目前的單元數量，不是要增加的數量。"
+            }
+          ],
+          "generalFeedback": "目標單元 = 0.70 &#215; 200 = 140。目前 20，故增加 140 &#8722; 20 = 120。（整合已是 40 = 20%；UI 須由 140 降到 20。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "再平衡：需移除的 UI 測試",
+          "text": "<p>一套 <strong>100</strong> 個測試目前為 <strong>40 單元 / 10 整合 / 50 UI</strong>。你想在維持總數 100 的前提下達到 <strong>70% / 20% / 10%</strong> 的目標。必須<strong>移除</strong>幾個 <strong>UI</strong> 測試？</p>",
+          "answers": [
+            {
+              "text": "40",
+              "fraction": 100,
+              "feedback": "正確——目標 UI = 100 的 10% = 10；目前有 50，故移除 50 &#8722; 10 = 40。"
+            },
+            {
+              "text": "10",
+              "fraction": 0,
+              "feedback": "10 是目標 UI 數量，不是要移除的數量；你須移除 50 &#8722; 10 = 40。"
+            },
+            {
+              "text": "50",
+              "fraction": 0,
+              "feedback": "50 是目前的 UI 數量；你保留 10，故只移除 40。"
+            },
+            {
+              "text": "30",
+              "fraction": 0,
+              "feedback": "重算：目前 50 減目標 10 是 40，不是 30。"
+            }
+          ],
+          "generalFeedback": "目標 UI = 0.10 &#215; 100 = 10。目前 50，故移除 50 &#8722; 10 = 40。（單元由 40 升到 70；整合由 10 升到 20。）",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何不把所有測試都推到單元",
+          "text": "<p>若單元測試最快也最便宜，為何不把<strong>每個</strong>測試都往下推到單元層並捨棄較高層？</p>",
+          "answers": [
+            {
+              "text": "單元測試無法抓到元件如何互動或真實端到端使用者流程中的錯誤；某些信心只能來自較高層",
+              "fraction": 100,
+              "feedback": "正確——介面與整體系統錯誤需要整合與 E2E 測試。"
+            },
+            {
+              "text": "因為單元測試其實是最慢的一層",
+              "fraction": 0,
+              "feedback": "單元測試最快；原因在於覆蓋，而非速度。"
+            },
+            {
+              "text": "因為較高層比單元測試便宜",
+              "fraction": 0,
+              "feedback": "較高層更貴，而非更便宜。"
+            },
+            {
+              "text": "你確實應該捨棄所有較高層",
+              "fraction": 0,
+              "feedback": "捨棄較高層會完全漏掉互動與端到端錯誤。"
+            }
+          ],
+          "generalFeedback": "每一層都抓到其他層抓不到的錯誤：單元測試漏掉介面／互動錯誤與真實使用者流程問題，因此整合與少數 E2E 測試仍屬必要。「往下推」是指使用足夠的最低層級，而非消滅較高層。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "中層薄弱時互動錯誤溜過",
+          "text": "<p>某團隊有快速的單元測試與少數 E2E 測試，但幾乎沒有服務層測試，而兩個服務之間資料交換的錯誤一再流入正式環境。診斷與修復為何？</p>",
+          "answers": [
+            {
+              "text": "中層匱乏的沙漏；增加整合／服務測試以及早抓到互動錯誤",
+              "fraction": 100,
+              "feedback": "正確——缺失的中層讓互動錯誤溜過單元測試，只有時才被少數 E2E 測試抓到。"
+            },
+            {
+              "text": "甜筒；刪除單元測試",
+              "fraction": 0,
+              "feedback": "單元底座沒問題；問題是缺失的整合中層，而且絕不刪除底座。"
+            },
+            {
+              "text": "健康的金字塔；無須改變",
+              "fraction": 0,
+              "feedback": "互動錯誤流入正式環境顯示整合層不足。"
+            },
+            {
+              "text": "單元測試太多；移除一些",
+              "fraction": 0,
+              "feedback": "移除單元測試並不能處理未被涵蓋的服務互動。"
+            }
+          ],
+          "generalFeedback": "快速單元測試加上少數 E2E 測試、但中層匱乏，就是沙漏。服務之間的互動錯誤最好也最快由整合／服務測試抓到，因此要擴大該中層。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "互動錯誤的最低足夠層級",
+          "text": "<p>某缺陷關乎兩個服務如何透過其 API 交換資料。套用「在能提供足夠信心的最低層級測試」，該測試應由哪一層負責？</p>",
+          "answers": [
+            {
+              "text": "整合／服務——它是能操作兩個服務之間互動的最低層級",
+              "fraction": 100,
+              "feedback": "正確——單元測試看不到該互動，而 E2E 測試又超過所需。"
+            },
+            {
+              "text": "單元——它是最快的一層",
+              "fraction": 0,
+              "feedback": "單元測試孤立單一元件，無法操作跨服務的互動，因此無法提供足夠信心。"
+            },
+            {
+              "text": "UI／端到端——最真實的一層",
+              "fraction": 0,
+              "feedback": "E2E 可行，但比所需更慢也更不穩定；最低足夠層級是整合。"
+            },
+            {
+              "text": "無——這類錯誤無法被測試",
+              "fraction": 0,
+              "feedback": "它們正是整合／服務測試的目標。"
+            }
+          ],
+          "generalFeedback": "往下推到仍能提供信心的最低層級。兩個服務之間的互動對單元測試不可見，對 E2E 則過度，因此屬於整合／服務層。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "70/20/10 是嚴格法則",
+          "text": "<p>確切的 70/20/10 分割是一條嚴格規則，每個專案都必須遵守才算擁有有效的金字塔。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "那些具體數字是示意，而非強制法則。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——像 70/20/10 這樣的比例是示意；原則在於形狀（寬底座、薄頂端），而非確切百分比。"
+            }
+          ],
+          "generalFeedback": "具體比例只是傳達形狀的經驗法則。重點是單元測試占多數、整合測試較少、UI／E2E 測試最少——確切數字因專案而異。"
+        }
+      ]
+    }
+  },
   "risk-based-testing": {
     "en": {
       "easy": [
@@ -68310,6 +73390,10144 @@ export const QUIZ_RENDERED = {
             }
           ],
           "generalFeedback": "依序為每個目標各生成一個測試，可能把整個預算耗在苦戰單一不可行或無梯度的目標上，讓容易的目標乾等，且忽略一個測試常能覆蓋多個目標。整套（以及多目標）方法對所有剩餘目標一起最佳化單一套件，故搜尋能自適應地分配心力，並收下個別測試帶來的附帶覆蓋。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "testing-flow": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What a test plan is",
+          "text": "<p>A <em>test plan</em> is best described as:</p>",
+          "answers": [
+            {
+              "text": "A document describing the scope, objectives, approach, resources and schedule of the intended test activities",
+              "fraction": 100,
+              "feedback": "Correct — the test plan is the output of test planning and sets out what will be tested, how, by whom, and when."
+            },
+            {
+              "text": "A list of the concrete inputs and expected results for one specific test",
+              "fraction": 0,
+              "feedback": "That describes a single test case, not the overall test plan."
+            },
+            {
+              "text": "A record of a single failure observed while running the software",
+              "fraction": 0,
+              "feedback": "That is a defect (incident) report, produced during execution."
+            },
+            {
+              "text": "The source code of the program under test",
+              "fraction": 0,
+              "feedback": "The code is part of the test object, not the test plan."
+            }
+          ],
+          "generalFeedback": "Test planning is the first activity of the fundamental test process; its work product, the test plan, defines the objectives, scope, approach, resources and schedule for testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What the test basis is",
+          "text": "<p>The <em>test basis</em> is:</p>",
+          "answers": [
+            {
+              "text": "The body of knowledge (requirements, specifications, designs, user stories, risk reports) used as the basis for analysing and designing tests",
+              "fraction": 100,
+              "feedback": "Correct — tests are derived from the test basis."
+            },
+            {
+              "text": "The minimum set of tests that must pass before release",
+              "fraction": 0,
+              "feedback": "That is closer to an exit criterion or a smoke-test set, not the test basis."
+            },
+            {
+              "text": "The hardware and software environment in which tests are executed",
+              "fraction": 0,
+              "feedback": "That is the test environment, not the test basis."
+            },
+            {
+              "text": "The team of people responsible for testing",
+              "fraction": 0,
+              "feedback": "People are resources; the test basis is the source material tests are derived from."
+            }
+          ],
+          "generalFeedback": "The test basis is everything a test is derived from — requirements, specifications, design and implementation information, user stories, risk analyses and so on. Test analysis works from it to determine what to test.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test condition is",
+          "text": "<p>A <em>test condition</em> is:</p>",
+          "answers": [
+            {
+              "text": "A testable aspect of the test basis (a feature, function, requirement or quality attribute) that a test could exercise",
+              "fraction": 100,
+              "feedback": "Correct — test conditions say WHAT should be tested; they are identified during test analysis."
+            },
+            {
+              "text": "The concrete input values and expected outputs of a runnable test",
+              "fraction": 0,
+              "feedback": "Those belong to a test case, which is designed later from a test condition."
+            },
+            {
+              "text": "The state the system must be in before a test can start",
+              "fraction": 0,
+              "feedback": "That is a precondition of a test case, not a test condition."
+            },
+            {
+              "text": "A defect found during execution",
+              "fraction": 0,
+              "feedback": "A defect is an observed failure/fault, not a test condition."
+            }
+          ],
+          "generalFeedback": "A test condition is an item or aspect of the test basis (a function, requirement, or quality characteristic) worth testing. It answers &#8220;what to test&#8221; and is the output of test analysis; the concrete test case is designed from it afterwards.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test case is",
+          "text": "<p>A <em>test case</em> is:</p>",
+          "answers": [
+            {
+              "text": "A set of preconditions, inputs, expected results and postconditions developed to exercise a test condition",
+              "fraction": 100,
+              "feedback": "Correct — a test case makes a test condition concrete and executable."
+            },
+            {
+              "text": "A high-level statement of an aspect of the test basis worth testing",
+              "fraction": 0,
+              "feedback": "That is a test condition; a test case is derived from it and is concrete."
+            },
+            {
+              "text": "The overall schedule and resourcing document for testing",
+              "fraction": 0,
+              "feedback": "That is the test plan."
+            },
+            {
+              "text": "The end-of-project summary of how testing went",
+              "fraction": 0,
+              "feedback": "That is the test summary report, produced at test completion."
+            }
+          ],
+          "generalFeedback": "A test case turns a test condition into something you can run: it specifies preconditions, inputs, the expected results to compare against, and postconditions. It is the main work product of test design.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test case must contain",
+          "text": "<p>Which element is essential to a well-formed test case?</p>",
+          "answers": [
+            {
+              "text": "The expected result to compare the actual result against",
+              "fraction": 100,
+              "feedback": "Correct — without a documented expected result you cannot decide pass or fail (the oracle problem)."
+            },
+            {
+              "text": "The name of the developer who wrote the code",
+              "fraction": 0,
+              "feedback": "Useful metadata perhaps, but not an essential part of a test case."
+            },
+            {
+              "text": "A guarantee that the test will pass",
+              "fraction": 0,
+              "feedback": "A test case is not required to pass; it must have a defined expected result."
+            },
+            {
+              "text": "The total project budget",
+              "fraction": 0,
+              "feedback": "Budget is a planning concern, not part of a test case."
+            }
+          ],
+          "generalFeedback": "A test case specifies preconditions, inputs, expected results and postconditions. The expected result is essential: comparing the actual result to a predefined expected result is what makes a verdict (pass/fail) possible.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Entry criteria",
+          "text": "<p><em>Entry criteria</em> for a test activity are:</p>",
+          "answers": [
+            {
+              "text": "The conditions that must be satisfied before that activity can sensibly begin",
+              "fraction": 100,
+              "feedback": "Correct — entry criteria gate the START of an activity (a &#8220;definition of ready&#8221;)."
+            },
+            {
+              "text": "The conditions that must be met before testing can be declared finished",
+              "fraction": 0,
+              "feedback": "Those are exit criteria, which gate the stop, not the start."
+            },
+            {
+              "text": "The list of defects still open at the end of testing",
+              "fraction": 0,
+              "feedback": "That is residual-defect data, not entry criteria."
+            },
+            {
+              "text": "The inputs of a single test case",
+              "fraction": 0,
+              "feedback": "Those are test-case inputs, not entry criteria for an activity."
+            }
+          ],
+          "generalFeedback": "Entry criteria define what must be in place before an activity starts — e.g. a stable build deployed, the test environment ready, and test data available. They are checked at the start of test implementation/execution.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Exit criteria",
+          "text": "<p><em>Exit criteria</em> for testing are:</p>",
+          "answers": [
+            {
+              "text": "The conditions that must be met before testing can be considered complete for the agreed objectives",
+              "fraction": 100,
+              "feedback": "Correct — exit criteria gate the STOP (a &#8220;definition of done&#8221; for testing)."
+            },
+            {
+              "text": "The conditions that must be met before testing can begin",
+              "fraction": 0,
+              "feedback": "Those are entry criteria, which gate the start."
+            },
+            {
+              "text": "The list of stakeholders who approved the test plan",
+              "fraction": 0,
+              "feedback": "Approval sign-off is not the same as exit criteria."
+            },
+            {
+              "text": "The set of test conditions produced by test analysis",
+              "fraction": 0,
+              "feedback": "Those are analysis outputs, not exit criteria."
+            }
+          ],
+          "generalFeedback": "Exit criteria (completion criteria) state when testing is done — e.g. planned coverage achieved, no unresolved high-severity defects, and the time/budget consumed. They are checked during test monitoring & control and at completion.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test procedure is",
+          "text": "<p>A <em>test procedure</em> (test script) is:</p>",
+          "answers": [
+            {
+              "text": "A sequence of actions and test cases arranged in the order they will be executed, with any needed setup",
+              "fraction": 100,
+              "feedback": "Correct — the test procedure specifies the execution steps and ordering; it is built during test implementation."
+            },
+            {
+              "text": "A high-level aspect of the test basis worth testing",
+              "fraction": 0,
+              "feedback": "That is a test condition."
+            },
+            {
+              "text": "The overall objectives and schedule for the whole test effort",
+              "fraction": 0,
+              "feedback": "That is the test plan."
+            },
+            {
+              "text": "A report on how many tests passed",
+              "fraction": 0,
+              "feedback": "That is a test result / summary, not a procedure."
+            }
+          ],
+          "generalFeedback": "A test procedure specifies the sequence of steps (and the test cases in execution order) to run tests, including preconditions and setup. Producing test procedures is part of test implementation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test suite is",
+          "text": "<p>A <em>test suite</em> is:</p>",
+          "answers": [
+            {
+              "text": "A collection of test cases or test procedures grouped together to be run as a set",
+              "fraction": 100,
+              "feedback": "Correct — a suite bundles related tests for execution and reporting."
+            },
+            {
+              "text": "A single input/expected-result pair",
+              "fraction": 0,
+              "feedback": "That is one test case, not a suite of them."
+            },
+            {
+              "text": "The requirements document the tests are derived from",
+              "fraction": 0,
+              "feedback": "That is part of the test basis."
+            },
+            {
+              "text": "A tool that measures code coverage",
+              "fraction": 0,
+              "feedback": "That is a coverage tool, not a test suite."
+            }
+          ],
+          "generalFeedback": "A test suite groups test cases/procedures for execution (for example a smoke suite or a regression suite). Organising tests into suites happens during test implementation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a defect report is",
+          "text": "<p>A <em>defect (incident) report</em> primarily records:</p>",
+          "answers": [
+            {
+              "text": "An observed anomaly (the discrepancy between actual and expected behaviour) so it can be investigated and tracked",
+              "fraction": 100,
+              "feedback": "Correct — defect reports are logged during execution and drive the defect lifecycle."
+            },
+            {
+              "text": "The planned scope and schedule of testing",
+              "fraction": 0,
+              "feedback": "That is the test plan."
+            },
+            {
+              "text": "The list of test conditions to be covered",
+              "fraction": 0,
+              "feedback": "Those come from test analysis, not from a defect report."
+            },
+            {
+              "text": "A guarantee that the software is defect-free",
+              "fraction": 0,
+              "feedback": "Testing cannot prove the absence of defects; a defect report records a specific anomaly found."
+            }
+          ],
+          "generalFeedback": "When actual behaviour differs from expected behaviour during execution, the tester logs a defect report describing the anomaly, how to reproduce it, and its impact. This starts the defect lifecycle.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Correct order of the main activities",
+          "text": "<p>Ignoring the continuous monitoring &amp; control activity, which sequence gives the correct order of the fundamental test process activities?</p>",
+          "answers": [
+            {
+              "text": "Planning, analysis, design, implementation, execution, completion",
+              "fraction": 100,
+              "feedback": "Correct — this is the canonical order (with monitoring & control running throughout)."
+            },
+            {
+              "text": "Planning, design, analysis, execution, implementation, completion",
+              "fraction": 0,
+              "feedback": "Analysis (what to test) must precede design (how to test), and implementation must precede execution."
+            },
+            {
+              "text": "Analysis, planning, design, execution, implementation, completion",
+              "fraction": 0,
+              "feedback": "Planning comes first, and implementation precedes execution."
+            },
+            {
+              "text": "Planning, analysis, design, execution, implementation, completion",
+              "fraction": 0,
+              "feedback": "Implementation (building procedures/data/environment) precedes execution, not the other way round."
+            }
+          ],
+          "generalFeedback": "The fundamental test process runs: test planning &#8594; test analysis &#8594; test design &#8594; test implementation &#8594; test execution &#8594; test completion, with test monitoring & control as a continuous activity spanning all of them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which activity runs the tests",
+          "text": "<p>Actually running the tests, comparing actual results to expected results, and logging defects is done in:</p>",
+          "answers": [
+            {
+              "text": "Test execution",
+              "fraction": 100,
+              "feedback": "Correct — execution runs the tests and records the outcomes and any defects."
+            },
+            {
+              "text": "Test analysis",
+              "fraction": 0,
+              "feedback": "Analysis identifies test conditions; it does not run tests."
+            },
+            {
+              "text": "Test design",
+              "fraction": 0,
+              "feedback": "Design produces test cases; it does not run them."
+            },
+            {
+              "text": "Test planning",
+              "fraction": 0,
+              "feedback": "Planning sets scope and approach; running tests happens much later."
+            }
+          ],
+          "generalFeedback": "Test execution is the activity where test suites are run, actual results are compared with expected results, discrepancies are logged as defects, and confirmation/regression testing takes place.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of test completion",
+          "text": "<p>The main purpose of <em>test completion</em> (test closure) is to:</p>",
+          "answers": [
+            {
+              "text": "Wrap up testing — report results, finalise and archive testware, and capture lessons learned",
+              "fraction": 100,
+              "feedback": "Correct — completion consolidates and hands over the outcomes of testing."
+            },
+            {
+              "text": "Identify the test conditions from the test basis",
+              "fraction": 0,
+              "feedback": "That is test analysis, near the start of the process."
+            },
+            {
+              "text": "Write the concrete inputs and expected results of each test",
+              "fraction": 0,
+              "feedback": "That is test design."
+            },
+            {
+              "text": "Run the test suites for the first time",
+              "fraction": 0,
+              "feedback": "That is test execution, which precedes completion."
+            }
+          ],
+          "generalFeedback": "Test completion happens when a milestone is reached (release, end of iteration, project close). It gathers data, produces a test summary report, finalises and archives testware, hands it over, and records lessons learned.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What monitoring and control is",
+          "text": "<p><em>Test monitoring and control</em> is:</p>",
+          "answers": [
+            {
+              "text": "An ongoing activity that compares actual progress against the plan and takes corrective action throughout testing",
+              "fraction": 100,
+              "feedback": "Correct — it runs continuously, not just once, and steers the effort."
+            },
+            {
+              "text": "A one-off activity done only at the very end of the project",
+              "fraction": 0,
+              "feedback": "That would be closer to completion; monitoring & control is continuous."
+            },
+            {
+              "text": "The activity that derives test cases from test conditions",
+              "fraction": 0,
+              "feedback": "That is test design."
+            },
+            {
+              "text": "The activity that logs each individual defect",
+              "fraction": 0,
+              "feedback": "Defects are logged during execution; monitoring uses that data to steer."
+            }
+          ],
+          "generalFeedback": "Test monitoring & control runs throughout the whole process: monitoring gathers information (progress, coverage, defect data) and control uses it to guide testing so exit criteria can be met.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Analysis determines what to test",
+          "text": "<p>Test analysis determines <em>what</em> to test by identifying test conditions from the test basis.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — analysis works from the test basis to identify and prioritise test conditions (the &#8220;what&#8221;); designing the &#8220;how&#8221; comes next."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "It is true: test analysis identifies test conditions (what to test); test design then produces the test cases (how to test)."
+            }
+          ],
+          "generalFeedback": "Test analysis analyses the test basis to determine what to test, producing test conditions. Test design then turns those conditions into concrete test cases."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "What precedes test design",
+          "text": "<p>In the fundamental test process, which activity immediately <strong>precedes</strong> test design?</p>",
+          "answers": [
+            {
+              "text": "Test analysis",
+              "fraction": 100,
+              "feedback": "Correct — analysis identifies the test conditions that design then turns into test cases."
+            },
+            {
+              "text": "Test implementation",
+              "fraction": 0,
+              "feedback": "Implementation follows design, not precedes it."
+            },
+            {
+              "text": "Test execution",
+              "fraction": 0,
+              "feedback": "Execution comes much later, after implementation."
+            },
+            {
+              "text": "Test completion",
+              "fraction": 0,
+              "feedback": "Completion is the last activity, not before design."
+            }
+          ],
+          "generalFeedback": "The order is analysis &#8594; design &#8594; implementation. Test design consumes the test conditions produced by test analysis.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What follows test design",
+          "text": "<p>Which activity immediately <strong>follows</strong> test design?</p>",
+          "answers": [
+            {
+              "text": "Test implementation",
+              "fraction": 100,
+              "feedback": "Correct — after the test cases are designed, implementation builds the procedures, suites, data and environment."
+            },
+            {
+              "text": "Test analysis",
+              "fraction": 0,
+              "feedback": "Analysis precedes design, not follows it."
+            },
+            {
+              "text": "Test execution",
+              "fraction": 0,
+              "feedback": "Execution comes after implementation, not directly after design."
+            },
+            {
+              "text": "Test planning",
+              "fraction": 0,
+              "feedback": "Planning is the first activity, not after design."
+            }
+          ],
+          "generalFeedback": "Analysis &#8594; design &#8594; implementation &#8594; execution. Implementation directly follows design: it makes the designed tests runnable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What follows test implementation",
+          "text": "<p>Which activity immediately <strong>follows</strong> test implementation?</p>",
+          "answers": [
+            {
+              "text": "Test execution",
+              "fraction": 100,
+              "feedback": "Correct — once the testware and environment are ready and entry criteria are met, the tests are executed."
+            },
+            {
+              "text": "Test design",
+              "fraction": 0,
+              "feedback": "Design precedes implementation."
+            },
+            {
+              "text": "Test analysis",
+              "fraction": 0,
+              "feedback": "Analysis is earlier still."
+            },
+            {
+              "text": "Test completion",
+              "fraction": 0,
+              "feedback": "Completion comes after execution, not directly after implementation."
+            }
+          ],
+          "generalFeedback": "Implementation &#8594; execution: implementation finalises the testware, data and environment (and checks readiness/entry criteria); execution then runs the tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Naming the activity from its work",
+          "text": "<p>&#8220;Analyse the test basis to determine testable features and derive test conditions.&#8221; This describes:</p>",
+          "answers": [
+            {
+              "text": "Test analysis",
+              "fraction": 100,
+              "feedback": "Correct — evaluating the test basis and producing test conditions is exactly test analysis."
+            },
+            {
+              "text": "Test design",
+              "fraction": 0,
+              "feedback": "Design turns those conditions into test cases; it does not derive the conditions."
+            },
+            {
+              "text": "Test planning",
+              "fraction": 0,
+              "feedback": "Planning sets scope and approach; it does not analyse the basis into conditions."
+            },
+            {
+              "text": "Test implementation",
+              "fraction": 0,
+              "feedback": "Implementation builds procedures and data; it does not derive test conditions."
+            }
+          ],
+          "generalFeedback": "Test analysis evaluates the test basis, identifies testable features, and defines and prioritises test conditions — the &#8220;what to test&#8221;.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Spotting an entry criterion",
+          "text": "<p>Which of the following is an <strong>entry</strong> criterion for starting test execution?</p>",
+          "answers": [
+            {
+              "text": "A stable, testable build is deployed and the test environment and test data are ready",
+              "fraction": 100,
+              "feedback": "Correct — that must hold before execution can meaningfully begin."
+            },
+            {
+              "text": "Planned requirements coverage has been achieved",
+              "fraction": 0,
+              "feedback": "That is an exit criterion — it describes when to stop, not when to start."
+            },
+            {
+              "text": "No high-severity defects remain open",
+              "fraction": 0,
+              "feedback": "That is an exit criterion, evaluated to decide completion."
+            },
+            {
+              "text": "The test summary report has been signed off",
+              "fraction": 0,
+              "feedback": "That happens at completion, well after execution starts."
+            }
+          ],
+          "generalFeedback": "Entry criteria gate the start: a deployable build, a ready environment and available test data are typical entry criteria for execution. Coverage achieved and no open high-severity defects are exit criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Spotting an exit criterion",
+          "text": "<p>Which of the following is an <strong>exit</strong> criterion for testing?</p>",
+          "answers": [
+            {
+              "text": "All planned test cases have been executed and the required coverage target has been met",
+              "fraction": 100,
+              "feedback": "Correct — that is a completion condition, checked to decide whether to stop."
+            },
+            {
+              "text": "The test environment has been provisioned",
+              "fraction": 0,
+              "feedback": "That is an entry criterion for execution."
+            },
+            {
+              "text": "The requirements specification is available",
+              "fraction": 0,
+              "feedback": "That enables analysis/design to start; it is an entry-side precondition, not an exit criterion."
+            },
+            {
+              "text": "Test data has been prepared",
+              "fraction": 0,
+              "feedback": "That is an entry-side readiness condition, not an exit criterion."
+            }
+          ],
+          "generalFeedback": "Exit (completion) criteria describe when testing is done: e.g. planned tests executed, coverage targets met, defect levels acceptable, and time/budget consumed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The derivation chain",
+          "text": "<p>Fill the blank in the derivation chain: <em>test basis &#8594; ______ &#8594; test cases</em>.</p>",
+          "answers": [
+            {
+              "text": "Test conditions",
+              "fraction": 100,
+              "feedback": "Correct — analysis derives test conditions from the basis, then design derives test cases from the conditions."
+            },
+            {
+              "text": "Defect reports",
+              "fraction": 0,
+              "feedback": "Defect reports come from execution, not between the basis and the test cases."
+            },
+            {
+              "text": "Test suites",
+              "fraction": 0,
+              "feedback": "Test suites group cases during implementation; they are not the step between basis and cases."
+            },
+            {
+              "text": "Exit criteria",
+              "fraction": 0,
+              "feedback": "Exit criteria are completion conditions, not a derivation step."
+            }
+          ],
+          "generalFeedback": "The flow is test basis &#8594; test conditions (analysis) &#8594; test cases (design) &#8594; test procedures/suites (implementation) &#8594; execution &#8594; defects &#8594; closure.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Confirmation testing",
+          "text": "<p>After a developer fixes a reported defect, <em>confirmation (re-)testing</em> means:</p>",
+          "answers": [
+            {
+              "text": "Re-executing the test that originally failed to confirm the defect is now fixed",
+              "fraction": 100,
+              "feedback": "Correct — confirmation testing verifies the specific fix."
+            },
+            {
+              "text": "Running a broad set of other tests to check nothing else broke",
+              "fraction": 0,
+              "feedback": "That is regression testing, a different purpose."
+            },
+            {
+              "text": "Writing a new test condition from the requirements",
+              "fraction": 0,
+              "feedback": "That is test analysis, unrelated to confirming a fix."
+            },
+            {
+              "text": "Reviewing the requirements document for defects",
+              "fraction": 0,
+              "feedback": "That is static verification of a work product, not confirmation testing of a fix."
+            }
+          ],
+          "generalFeedback": "Confirmation testing (re-testing) re-runs the previously failing test after the fix, to confirm the original defect has been removed. Regression testing separately checks that the change did not break anything else.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Regression testing",
+          "text": "<p>The purpose of <em>regression testing</em> is to:</p>",
+          "answers": [
+            {
+              "text": "Detect whether a change has broken previously working functionality",
+              "fraction": 100,
+              "feedback": "Correct — regression testing guards against unintended side effects of changes."
+            },
+            {
+              "text": "Confirm that a specific reported defect has been fixed",
+              "fraction": 0,
+              "feedback": "That is confirmation (re-)testing, not regression testing."
+            },
+            {
+              "text": "Determine which test conditions to cover",
+              "fraction": 0,
+              "feedback": "That is test analysis."
+            },
+            {
+              "text": "Provision the test environment",
+              "fraction": 0,
+              "feedback": "That is part of test implementation."
+            }
+          ],
+          "generalFeedback": "A change (a fix or new feature) can have side effects. Regression testing re-runs existing tests on unchanged areas to detect such unintended breakages, whereas confirmation testing verifies the intended fix itself.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of traceability",
+          "text": "<p>Maintaining <em>traceability</em> from test basis items to test conditions, test cases and results mainly enables you to:</p>",
+          "answers": [
+            {
+              "text": "Measure coverage of the test basis and assess the impact of changes",
+              "fraction": 100,
+              "feedback": "Correct — traceability shows which requirements are covered and what to re-test when something changes."
+            },
+            {
+              "text": "Guarantee that the software contains no defects",
+              "fraction": 0,
+              "feedback": "No amount of tracing can prove the absence of defects."
+            },
+            {
+              "text": "Remove the need for exit criteria",
+              "fraction": 0,
+              "feedback": "Traceability supports evaluating exit criteria; it does not replace them."
+            },
+            {
+              "text": "Speed up the compiler",
+              "fraction": 0,
+              "feedback": "Traceability is about relating work products, not build performance."
+            }
+          ],
+          "generalFeedback": "Bidirectional traceability links requirements/test basis &#8596; test conditions &#8596; test cases &#8596; results/defects. It supports coverage measurement, impact analysis for changes, and meaningful progress reporting.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "After a defect is fixed",
+          "text": "<p>In a typical defect lifecycle, immediately after the defect is marked <em>fixed/resolved</em> by the developer, the tester should:</p>",
+          "answers": [
+            {
+              "text": "Re-test (confirmation test) the fix and, if it passes, move the defect toward closed",
+              "fraction": 100,
+              "feedback": "Correct — the fix must be confirmed before the defect can be closed."
+            },
+            {
+              "text": "Immediately close the defect without re-running any test",
+              "fraction": 0,
+              "feedback": "A fix should be confirmed by re-testing before closing."
+            },
+            {
+              "text": "Delete the defect report",
+              "fraction": 0,
+              "feedback": "Reports are retained for history and metrics, not deleted."
+            },
+            {
+              "text": "Reassign it to the requirements author",
+              "fraction": 0,
+              "feedback": "A resolved defect goes to the tester for confirmation, not back to requirements."
+            }
+          ],
+          "generalFeedback": "A common lifecycle is new &#8594; assigned &#8594; fixed &#8594; retest (confirmation) &#8594; closed, with a reopen path if the retest fails. The tester confirms the fix before closure.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Initial defect state",
+          "text": "<p>When a tester first logs an anomaly during execution, the defect typically enters which state?</p>",
+          "answers": [
+            {
+              "text": "New (open), awaiting triage/assignment",
+              "fraction": 100,
+              "feedback": "Correct — a freshly reported defect starts as new/open before being assigned."
+            },
+            {
+              "text": "Closed",
+              "fraction": 0,
+              "feedback": "Closed is the end state, reached after a confirmed fix."
+            },
+            {
+              "text": "Fixed",
+              "fraction": 0,
+              "feedback": "Fixed comes after a developer resolves it, not at first report."
+            },
+            {
+              "text": "Retest passed",
+              "fraction": 0,
+              "feedback": "That occurs only after a fix has been confirmed."
+            }
+          ],
+          "generalFeedback": "The lifecycle usually begins new/open &#8594; assigned &#8594; in progress &#8594; fixed &#8594; retest &#8594; closed (with reopen/reject/defer branches). A newly logged defect is new/open.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Activity that produces procedures and checks readiness",
+          "text": "<p>Building test procedures and suites, preparing test data and the environment, and checking that entry criteria/readiness are met belongs to:</p>",
+          "answers": [
+            {
+              "text": "Test implementation",
+              "fraction": 100,
+              "feedback": "Correct — implementation makes the designed tests runnable and confirms everything is ready to execute."
+            },
+            {
+              "text": "Test design",
+              "fraction": 0,
+              "feedback": "Design produces the test cases; organising procedures/data/environment is implementation."
+            },
+            {
+              "text": "Test execution",
+              "fraction": 0,
+              "feedback": "Execution runs the tests; the preparation of testware and environment precedes it."
+            },
+            {
+              "text": "Test completion",
+              "fraction": 0,
+              "feedback": "Completion wraps up testing after execution."
+            }
+          ],
+          "generalFeedback": "Test implementation organises testware for execution: it creates/finalises test procedures and suites, prepares test data and the environment, and verifies readiness (entry criteria) before execution starts.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Activity that builds test cases from conditions",
+          "text": "<p>Turning test conditions into concrete test cases (with inputs and expected results) is the job of:</p>",
+          "answers": [
+            {
+              "text": "Test design",
+              "fraction": 100,
+              "feedback": "Correct — design elaborates test conditions into runnable test cases; the &#8220;how to test&#8221;."
+            },
+            {
+              "text": "Test analysis",
+              "fraction": 0,
+              "feedback": "Analysis produces the test conditions; design turns them into test cases."
+            },
+            {
+              "text": "Test implementation",
+              "fraction": 0,
+              "feedback": "Implementation sequences and organises the cases; it does not first create them from conditions."
+            },
+            {
+              "text": "Test monitoring and control",
+              "fraction": 0,
+              "feedback": "That steers the effort; it does not design test cases."
+            }
+          ],
+          "generalFeedback": "Test design takes the test conditions from analysis and designs test cases and sets of test cases (inputs, expected results, coverage items) — the &#8220;how to test&#8221;.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Confirmation before the fix",
+          "text": "<p>Confirmation testing is normally performed <em>before</em> the defect has been fixed.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — confirmation testing re-runs the failing test AFTER the fix, to confirm the defect is gone."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "It is false: there is nothing to confirm until the fix has been made; confirmation testing follows the fix."
+            }
+          ],
+          "generalFeedback": "Confirmation (re-)testing is done after a fix is delivered, re-executing the previously failing test to confirm the defect has been resolved."
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Reorder the scrambled process",
+          "text": "<p>A colleague lists the sequential activities scrambled as: <em>execution, planning, design, completion, implementation, analysis</em>. Put them back into the correct order.</p>",
+          "answers": [
+            {
+              "text": "Planning, analysis, design, implementation, execution, completion",
+              "fraction": 100,
+              "feedback": "Correct — the canonical sequential order of the fundamental test process."
+            },
+            {
+              "text": "Planning, analysis, design, execution, implementation, completion",
+              "fraction": 0,
+              "feedback": "Implementation must precede execution — you cannot run tests before the testware and environment are ready."
+            },
+            {
+              "text": "Planning, design, analysis, implementation, execution, completion",
+              "fraction": 0,
+              "feedback": "Analysis (what to test) must come before design (how to test)."
+            },
+            {
+              "text": "Analysis, planning, design, implementation, execution, completion",
+              "fraction": 0,
+              "feedback": "Planning is the first activity, before analysis."
+            }
+          ],
+          "generalFeedback": "Sequentially: planning &#8594; analysis &#8594; design &#8594; implementation &#8594; execution &#8594; completion (with monitoring & control throughout). Watch the two common traps: analysis before design, and implementation before execution.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why exit criteria matter",
+          "text": "<p>Why are agreed <em>exit criteria</em> important to the test process?</p>",
+          "answers": [
+            {
+              "text": "They give an objective, agreed basis for deciding when to stop testing, rather than stopping arbitrarily",
+              "fraction": 100,
+              "feedback": "Correct — testing is potentially endless, so exit criteria define &#8220;done&#8221; up front."
+            },
+            {
+              "text": "They guarantee that the product is completely defect-free once met",
+              "fraction": 0,
+              "feedback": "Meeting exit criteria never proves the absence of defects."
+            },
+            {
+              "text": "They remove the need to plan or monitor testing",
+              "fraction": 0,
+              "feedback": "Exit criteria are set during planning and evaluated during monitoring & control; they do not replace them."
+            },
+            {
+              "text": "They decide which test conditions to derive from the basis",
+              "fraction": 0,
+              "feedback": "That is test analysis, unrelated to stopping."
+            }
+          ],
+          "generalFeedback": "Because exhaustive testing is impossible, exit (completion) criteria provide an agreed, measurable basis for deciding when enough testing has been done, supporting a rational stop/continue decision.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What belongs in exit criteria",
+          "text": "<p>Which of the following is <strong>least</strong> appropriate as an exit criterion for testing?</p>",
+          "answers": [
+            {
+              "text": "The test environment has been installed and the build deployed",
+              "fraction": 100,
+              "feedback": "Correct — that is an entry/readiness condition; it says nothing about whether testing is complete."
+            },
+            {
+              "text": "The planned coverage target has been achieved",
+              "fraction": 0,
+              "feedback": "That is a legitimate exit criterion."
+            },
+            {
+              "text": "The residual defect rate is within the agreed threshold",
+              "fraction": 0,
+              "feedback": "That is a legitimate exit criterion."
+            },
+            {
+              "text": "The allotted test time/budget has been consumed",
+              "fraction": 0,
+              "feedback": "Time/budget is a commonly used (if blunt) exit criterion."
+            }
+          ],
+          "generalFeedback": "Exit criteria describe completion — coverage achieved, defect levels acceptable, time/budget consumed. &#8220;Environment installed / build deployed&#8221; is an entry-side readiness condition, not a measure of whether testing is finished.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Who produces the test summary report",
+          "text": "<p>The <em>test summary report</em> is produced as part of which activity?</p>",
+          "answers": [
+            {
+              "text": "Test completion",
+              "fraction": 100,
+              "feedback": "Correct — the summary report is a completion work product that consolidates the results."
+            },
+            {
+              "text": "Test planning",
+              "fraction": 0,
+              "feedback": "Planning produces the test plan, not the summary report."
+            },
+            {
+              "text": "Test analysis",
+              "fraction": 0,
+              "feedback": "Analysis produces test conditions."
+            },
+            {
+              "text": "Test execution",
+              "fraction": 0,
+              "feedback": "Execution produces logs and defect reports; the consolidated summary is written at completion."
+            }
+          ],
+          "generalFeedback": "Test completion gathers data from finished activities and produces the test summary report for stakeholders, alongside archiving testware and capturing lessons learned.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Work product of test analysis",
+          "text": "<p>Which work product is the primary output of <em>test analysis</em>?</p>",
+          "answers": [
+            {
+              "text": "(Prioritised) test conditions",
+              "fraction": 100,
+              "feedback": "Correct — analysis evaluates the basis and yields test conditions."
+            },
+            {
+              "text": "Test cases with concrete inputs and expected results",
+              "fraction": 0,
+              "feedback": "Those are the output of test design."
+            },
+            {
+              "text": "Test procedures and suites ready to run",
+              "fraction": 0,
+              "feedback": "Those come from test implementation."
+            },
+            {
+              "text": "The test summary report",
+              "fraction": 0,
+              "feedback": "That comes from test completion."
+            }
+          ],
+          "generalFeedback": "Each activity has characteristic work products: analysis &#8594; test conditions; design &#8594; test cases; implementation &#8594; test procedures/suites, data, environment; execution &#8594; results/defect reports; completion &#8594; summary report and archived testware.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Monitoring and control vs planning",
+          "text": "<p>Which statement best distinguishes <em>test monitoring &amp; control</em> from <em>test planning</em>?</p>",
+          "answers": [
+            {
+              "text": "Planning sets out the intended approach up front; monitoring & control continuously compares actual progress with the plan and takes corrective action",
+              "fraction": 100,
+              "feedback": "Correct — planning defines the plan; monitoring & control keeps testing on track against it."
+            },
+            {
+              "text": "They are the same activity under two different names",
+              "fraction": 0,
+              "feedback": "They are distinct: one defines the plan, the other continuously steers against it."
+            },
+            {
+              "text": "Planning happens continuously while monitoring & control happens only at the start",
+              "fraction": 0,
+              "feedback": "It is the reverse: monitoring & control is the continuous one."
+            },
+            {
+              "text": "Monitoring & control derives the test cases from test conditions",
+              "fraction": 0,
+              "feedback": "That is test design, not monitoring & control."
+            }
+          ],
+          "generalFeedback": "Planning is largely done up front (and revised as needed) and yields the plan. Monitoring & control is a continuous activity: it measures progress/coverage/defects against the plan and applies control actions (e.g. re-prioritising, reallocating) to meet the exit criteria.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify a test completion activity",
+          "text": "<p>Which of the following is a genuine <em>test completion</em> activity?</p>",
+          "answers": [
+            {
+              "text": "Analysing lessons learned and archiving the testware for future reuse",
+              "fraction": 100,
+              "feedback": "Correct — capturing lessons learned and archiving/handing over testware are classic completion tasks."
+            },
+            {
+              "text": "Deriving test conditions from the requirements",
+              "fraction": 0,
+              "feedback": "That is test analysis, near the start of the process."
+            },
+            {
+              "text": "Preparing test data and provisioning the environment",
+              "fraction": 0,
+              "feedback": "That is test implementation."
+            },
+            {
+              "text": "Comparing actual results with expected results",
+              "fraction": 0,
+              "feedback": "That is test execution."
+            }
+          ],
+          "generalFeedback": "Test completion activities include: checking all defects are closed/deferred, creating the test summary report, finalising and archiving testware, handing it over, and capturing lessons learned for process improvement.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subtle: which activity organises the suite",
+          "text": "<p>&#8220;Group the finished test cases into an executable regression suite, sequence them, and load the required test data.&#8221; This is:</p>",
+          "answers": [
+            {
+              "text": "Test implementation",
+              "fraction": 100,
+              "feedback": "Correct — organising cases into runnable suites/procedures with data prepared is implementation."
+            },
+            {
+              "text": "Test design",
+              "fraction": 0,
+              "feedback": "Design creates the cases; grouping/sequencing them for execution is implementation."
+            },
+            {
+              "text": "Test analysis",
+              "fraction": 0,
+              "feedback": "Analysis identifies conditions, not runnable suites."
+            },
+            {
+              "text": "Test execution",
+              "fraction": 0,
+              "feedback": "Execution runs the suite; assembling and loading it is the preceding implementation step."
+            }
+          ],
+          "generalFeedback": "Once test cases exist (design), implementation sequences them into test procedures/suites, prepares data and environment, and confirms readiness. Only then does execution run them.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subtle: prioritising conditions by risk",
+          "text": "<p>&#8220;Review the requirements and risk report, list the testable features, and rank the resulting test conditions by risk.&#8221; This is:</p>",
+          "answers": [
+            {
+              "text": "Test analysis",
+              "fraction": 100,
+              "feedback": "Correct — identifying and prioritising test conditions from the basis is analysis."
+            },
+            {
+              "text": "Test design",
+              "fraction": 0,
+              "feedback": "Design comes next, converting the prioritised conditions into test cases."
+            },
+            {
+              "text": "Test planning",
+              "fraction": 0,
+              "feedback": "Planning sets overall strategy; deriving and ranking conditions is analysis."
+            },
+            {
+              "text": "Test monitoring and control",
+              "fraction": 0,
+              "feedback": "That steers progress; it does not derive test conditions."
+            }
+          ],
+          "generalFeedback": "Test analysis evaluates the test basis (including risk information), identifies testable features, and defines and prioritises test conditions — still the &#8220;what&#8221;, not yet the &#8220;how&#8221;.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Subtle: specifying inputs and expected results",
+          "text": "<p>&#8220;For the test condition &#8216;withdrawal exceeds balance&#8217;, specify the account state, the amount to withdraw, and the exact expected error message.&#8221; This is:</p>",
+          "answers": [
+            {
+              "text": "Test design",
+              "fraction": 100,
+              "feedback": "Correct — turning a condition into concrete inputs, preconditions and expected results is design."
+            },
+            {
+              "text": "Test analysis",
+              "fraction": 0,
+              "feedback": "Analysis produced the condition; specifying concrete inputs/expected results is design."
+            },
+            {
+              "text": "Test implementation",
+              "fraction": 0,
+              "feedback": "Implementation would then sequence and prepare this case for execution; it does not first specify its inputs/expected results."
+            },
+            {
+              "text": "Test execution",
+              "fraction": 0,
+              "feedback": "Execution runs the case; here we are still designing it."
+            }
+          ],
+          "generalFeedback": "Deriving concrete preconditions, inputs and expected results from a test condition is exactly test design (the &#8220;how&#8221;). Analysis gave the condition; implementation later makes the case runnable.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Verification of work products vs execution",
+          "text": "<p>Reviewing a requirements specification for ambiguities and contradictions, before any code is run, is best characterised as:</p>",
+          "answers": [
+            {
+              "text": "Static verification of a work product, which can begin during test analysis",
+              "fraction": 100,
+              "feedback": "Correct — reviewing the test basis is static work and often surfaces defects early, before dynamic execution."
+            },
+            {
+              "text": "Test execution, because a defect was found",
+              "fraction": 0,
+              "feedback": "Execution requires running the software; reviewing a document is static, not dynamic."
+            },
+            {
+              "text": "Confirmation testing of a fix",
+              "fraction": 0,
+              "feedback": "There is no fix being re-tested here; this is a static review."
+            },
+            {
+              "text": "Test completion, because it wraps things up",
+              "fraction": 0,
+              "feedback": "Reviewing the basis happens early, not at closure."
+            }
+          ],
+          "generalFeedback": "Verification checks whether a work product meets its specification and can be done statically (reviews, static analysis) without executing code. Reviewing the test basis often happens as part of/around test analysis and can find defects before dynamic execution begins.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When exit criteria are not met",
+          "text": "<p>Monitoring shows that, at the planned end date, the agreed exit criteria are <strong>not</strong> yet met. Which response is most consistent with the test process?</p>",
+          "answers": [
+            {
+              "text": "Report the status and, via control, decide to continue testing or renegotiate the criteria/scope with stakeholders",
+              "fraction": 100,
+              "feedback": "Correct — unmet exit criteria feed a control decision; you do not simply declare done."
+            },
+            {
+              "text": "Automatically declare testing complete because the date arrived",
+              "fraction": 0,
+              "feedback": "A calendar date alone does not satisfy exit criteria; that ignores the criteria's purpose."
+            },
+            {
+              "text": "Delete the failing tests so the criteria appear satisfied",
+              "fraction": 0,
+              "feedback": "Gaming the metric hides risk; it is not a legitimate response."
+            },
+            {
+              "text": "Skip straight to archiving testware without any report",
+              "fraction": 0,
+              "feedback": "Completion still requires reporting; and the decision to stop must be made explicitly."
+            }
+          ],
+          "generalFeedback": "Exit criteria drive a stop/continue decision. If they are unmet, monitoring & control reports the situation and stakeholders decide to continue testing, add resources, or consciously accept the risk by renegotiating scope/criteria — never by pretending they are met.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Monitoring vs control",
+          "text": "<p>Within the continuous activity, which is a <em>control</em> action rather than a <em>monitoring</em> action?</p>",
+          "answers": [
+            {
+              "text": "Re-prioritising the remaining tests and reassigning testers because a risky area is behind",
+              "fraction": 100,
+              "feedback": "Correct — taking corrective action to steer the effort is control."
+            },
+            {
+              "text": "Measuring how many planned test cases have run so far",
+              "fraction": 0,
+              "feedback": "That is monitoring — gathering information, not acting on it."
+            },
+            {
+              "text": "Recording the current defect find/fix counts",
+              "fraction": 0,
+              "feedback": "That is monitoring (collecting data)."
+            },
+            {
+              "text": "Reporting coverage progress against the plan",
+              "fraction": 0,
+              "feedback": "That is monitoring/reporting, not a corrective action."
+            }
+          ],
+          "generalFeedback": "Monitoring gathers and reports information (progress, coverage, defect data); control uses that information to take corrective actions — re-prioritising, reallocating resources, adjusting the schedule — so that the exit criteria can still be met.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Mismatched activity and work product",
+          "text": "<p>Which pairing of an activity with its characteristic work product is <strong>incorrect</strong>?</p>",
+          "answers": [
+            {
+              "text": "Test execution produces the test conditions",
+              "fraction": 100,
+              "feedback": "Correct — this pairing is wrong: test conditions come from test analysis, not execution."
+            },
+            {
+              "text": "Test design produces test cases",
+              "fraction": 0,
+              "feedback": "This pairing is correct, so it is not the answer."
+            },
+            {
+              "text": "Test implementation produces test procedures and suites",
+              "fraction": 0,
+              "feedback": "This pairing is correct, so it is not the answer."
+            },
+            {
+              "text": "Test completion produces the test summary report",
+              "fraction": 0,
+              "feedback": "This pairing is correct, so it is not the answer."
+            }
+          ],
+          "generalFeedback": "Characteristic work products: analysis &#8594; test conditions; design &#8594; test cases; implementation &#8594; test procedures/suites, data, environment; execution &#8594; test logs and defect reports; completion &#8594; test summary report. Execution does not produce test conditions.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Entry gates start, exit gates stop",
+          "text": "<p>Entry criteria gate the <em>start</em> of a test activity, whereas exit criteria gate its <em>completion</em>.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — entry criteria are the &#8220;definition of ready&#8221; to begin; exit criteria are the &#8220;definition of done&#8221; to stop."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "It is true: entry criteria must hold before an activity begins; exit criteria must hold before it is declared complete."
+            }
+          ],
+          "generalFeedback": "Entry criteria (readiness) must be satisfied before an activity such as execution starts; exit/completion criteria must be satisfied before testing is considered finished. Confusing the two is a common error."
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "測試計畫是什麼",
+          "text": "<p>對<em>測試計畫（test plan）</em>最貼切的描述是：</p>",
+          "answers": [
+            {
+              "text": "一份描述預定測試活動之範圍、目標、方法、資源與時程的文件",
+              "fraction": 100,
+              "feedback": "正確——測試計畫是測試規劃的產物，訂出要測什麼、如何測、由誰測、何時測。"
+            },
+            {
+              "text": "某一個特定測試的具體輸入與預期結果清單",
+              "fraction": 0,
+              "feedback": "那描述的是單一測試案例，不是整體測試計畫。"
+            },
+            {
+              "text": "執行軟體時觀察到某次失敗的紀錄",
+              "fraction": 0,
+              "feedback": "那是在執行階段產生的缺陷（事件）報告。"
+            },
+            {
+              "text": "待測程式的原始碼",
+              "fraction": 0,
+              "feedback": "程式碼屬於測試對象，不是測試計畫。"
+            }
+          ],
+          "generalFeedback": "測試規劃是基本測試流程的第一個活動；其產物測試計畫界定測試的目標、範圍、方法、資源與時程。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試基礎是什麼",
+          "text": "<p><em>測試基礎（test basis）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "用來分析與設計測試所依據的知識體（需求、規格、設計、使用者故事、風險報告等）",
+              "fraction": 100,
+              "feedback": "正確——測試是從測試基礎推導出來的。"
+            },
+            {
+              "text": "發行前必須通過的最小測試集合",
+              "fraction": 0,
+              "feedback": "那較接近退出準則或冒煙測試集，不是測試基礎。"
+            },
+            {
+              "text": "執行測試所在的軟硬體環境",
+              "fraction": 0,
+              "feedback": "那是測試環境，不是測試基礎。"
+            },
+            {
+              "text": "負責測試的人員團隊",
+              "fraction": 0,
+              "feedback": "人員是資源；測試基礎是測試推導的來源材料。"
+            }
+          ],
+          "generalFeedback": "測試基礎是測試所推導自的一切——需求、規格、設計與實作資訊、使用者故事、風險分析等。測試分析以它為依據來決定要測什麼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試條件是什麼",
+          "text": "<p><em>測試條件（test condition）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "測試基礎中一個可測試的面向（某功能、機能、需求或品質屬性），測試可據以驗證",
+              "fraction": 100,
+              "feedback": "正確——測試條件說明「要測什麼」；它在測試分析階段被識別出來。"
+            },
+            {
+              "text": "一個可執行測試的具體輸入值與預期輸出",
+              "fraction": 0,
+              "feedback": "那屬於測試案例，是稍後從測試條件設計出來的。"
+            },
+            {
+              "text": "測試開始前系統必須處於的狀態",
+              "fraction": 0,
+              "feedback": "那是測試案例的前置條件，不是測試條件。"
+            },
+            {
+              "text": "執行時發現的缺陷",
+              "fraction": 0,
+              "feedback": "缺陷是觀察到的失敗／錯誤，不是測試條件。"
+            }
+          ],
+          "generalFeedback": "測試條件是測試基礎中值得測試的項目或面向（某機能、需求或品質特性）。它回答「要測什麼」，是測試分析的產物；具體的測試案例則於之後設計而成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試案例是什麼",
+          "text": "<p><em>測試案例（test case）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "為驗證某測試條件而建立的一組前置條件、輸入、預期結果與後置條件",
+              "fraction": 100,
+              "feedback": "正確——測試案例讓測試條件變得具體且可執行。"
+            },
+            {
+              "text": "對測試基礎中一個值得測試面向的高階陳述",
+              "fraction": 0,
+              "feedback": "那是測試條件；測試案例是由它推導而來且更具體。"
+            },
+            {
+              "text": "測試整體的時程與資源配置文件",
+              "fraction": 0,
+              "feedback": "那是測試計畫。"
+            },
+            {
+              "text": "專案結束時對測試情況的總結",
+              "fraction": 0,
+              "feedback": "那是測試總結報告，於測試完成階段產生。"
+            }
+          ],
+          "generalFeedback": "測試案例把測試條件變成可執行的東西：它指定前置條件、輸入、用以比對的預期結果與後置條件。它是測試設計的主要產物。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試案例必須包含什麼",
+          "text": "<p>一個完整的測試案例中，何者是不可或缺的要素？</p>",
+          "answers": [
+            {
+              "text": "用以與實際結果比對的預期結果",
+              "fraction": 100,
+              "feedback": "正確——沒有記載預期結果就無法判定通過或失敗（此即神諭／oracle 問題）。"
+            },
+            {
+              "text": "撰寫程式碼之開發者的姓名",
+              "fraction": 0,
+              "feedback": "那也許是有用的中繼資料，但並非測試案例不可或缺的部分。"
+            },
+            {
+              "text": "保證該測試一定會通過",
+              "fraction": 0,
+              "feedback": "測試案例並不需要保證通過；它必須有明確定義的預期結果。"
+            },
+            {
+              "text": "整個專案的總預算",
+              "fraction": 0,
+              "feedback": "預算是規劃層面的事，不屬於測試案例。"
+            }
+          ],
+          "generalFeedback": "測試案例指定前置條件、輸入、預期結果與後置條件。其中預期結果不可或缺：把實際結果與預先定義的預期結果比對，正是能做出判定（通過／失敗）的關鍵。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "進入準則",
+          "text": "<p>某測試活動的<em>進入準則（entry criteria）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "在該活動能合理開始之前必須先滿足的條件",
+              "fraction": 100,
+              "feedback": "正確——進入準則把關活動的「開始」（即「就緒的定義」）。"
+            },
+            {
+              "text": "在測試可宣告結束之前必須滿足的條件",
+              "fraction": 0,
+              "feedback": "那是退出準則，把關的是停止而非開始。"
+            },
+            {
+              "text": "測試結束時仍未解決的缺陷清單",
+              "fraction": 0,
+              "feedback": "那是殘餘缺陷資料，不是進入準則。"
+            },
+            {
+              "text": "單一測試案例的輸入",
+              "fraction": 0,
+              "feedback": "那是測試案例的輸入，不是某活動的進入準則。"
+            }
+          ],
+          "generalFeedback": "進入準則界定活動開始前必須到位的事項——例如已部署穩定版本、測試環境就緒、測試資料備妥。它們在測試實作／執行的開始時被檢查。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "退出準則",
+          "text": "<p>測試的<em>退出準則（exit criteria）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "在測試可視為對既定目標已完成之前必須滿足的條件",
+              "fraction": 100,
+              "feedback": "正確——退出準則把關「停止」（測試的「完成的定義」）。"
+            },
+            {
+              "text": "在測試可以開始之前必須滿足的條件",
+              "fraction": 0,
+              "feedback": "那是進入準則，把關的是開始。"
+            },
+            {
+              "text": "核准測試計畫的利害關係人名單",
+              "fraction": 0,
+              "feedback": "核准簽核與退出準則並不相同。"
+            },
+            {
+              "text": "測試分析所產出的一組測試條件",
+              "fraction": 0,
+              "feedback": "那是分析的產物，不是退出準則。"
+            }
+          ],
+          "generalFeedback": "退出準則（完成準則）說明測試何時算完成——例如已達成計畫的覆蓋率、無未解決的高嚴重度缺陷、時間／預算已用盡。它們在測試監控與控制以及完成階段被檢查。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試程序是什麼",
+          "text": "<p><em>測試程序（test procedure，測試腳本）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "依執行順序排列的一連串動作與測試案例，並含所需的前置設定",
+              "fraction": 100,
+              "feedback": "正確——測試程序指定執行步驟與順序；它在測試實作階段建立。"
+            },
+            {
+              "text": "測試基礎中一個值得測試的高階面向",
+              "fraction": 0,
+              "feedback": "那是測試條件。"
+            },
+            {
+              "text": "整體測試工作的目標與時程",
+              "fraction": 0,
+              "feedback": "那是測試計畫。"
+            },
+            {
+              "text": "有多少測試通過的報告",
+              "fraction": 0,
+              "feedback": "那是測試結果／總結，不是程序。"
+            }
+          ],
+          "generalFeedback": "測試程序指定執行測試的步驟順序（以及依執行順序排列的測試案例），含前置條件與設定。產出測試程序屬於測試實作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試套組是什麼",
+          "text": "<p><em>測試套組（test suite）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "把一批測試案例或測試程序集結在一起、作為一組來執行的集合",
+              "fraction": 100,
+              "feedback": "正確——套組把相關的測試整合起來以便執行與報告。"
+            },
+            {
+              "text": "單一組輸入／預期結果配對",
+              "fraction": 0,
+              "feedback": "那是一個測試案例，而非一整組。"
+            },
+            {
+              "text": "測試所推導自的需求文件",
+              "fraction": 0,
+              "feedback": "那屬於測試基礎的一部分。"
+            },
+            {
+              "text": "一個量測程式碼覆蓋率的工具",
+              "fraction": 0,
+              "feedback": "那是覆蓋率工具，不是測試套組。"
+            }
+          ],
+          "generalFeedback": "測試套組把測試案例／程序集結起來以供執行（例如冒煙套組或回歸套組）。把測試組織成套組發生在測試實作階段。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷報告是什麼",
+          "text": "<p><em>缺陷（事件）報告</em>主要記錄：</p>",
+          "answers": [
+            {
+              "text": "觀察到的異常（實際行為與預期行為之間的差異），以便調查與追蹤",
+              "fraction": 100,
+              "feedback": "正確——缺陷報告在執行階段記錄，並推動缺陷生命週期。"
+            },
+            {
+              "text": "測試的計畫範圍與時程",
+              "fraction": 0,
+              "feedback": "那是測試計畫。"
+            },
+            {
+              "text": "要涵蓋的測試條件清單",
+              "fraction": 0,
+              "feedback": "那來自測試分析，不是缺陷報告。"
+            },
+            {
+              "text": "保證軟體毫無缺陷",
+              "fraction": 0,
+              "feedback": "測試無法證明沒有缺陷；缺陷報告記錄的是所發現的某個特定異常。"
+            }
+          ],
+          "generalFeedback": "當執行時實際行為與預期行為不同，測試者會記錄一份缺陷報告，描述異常、如何重現以及影響。這啟動了缺陷生命週期。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "主要活動的正確順序",
+          "text": "<p>先不計持續進行的監控與控制活動，下列哪個序列給出基本測試流程活動的正確順序？</p>",
+          "answers": [
+            {
+              "text": "規劃、分析、設計、實作、執行、完成",
+              "fraction": 100,
+              "feedback": "正確——這是標準順序（監控與控制則貫穿全程）。"
+            },
+            {
+              "text": "規劃、設計、分析、執行、實作、完成",
+              "fraction": 0,
+              "feedback": "分析（要測什麼）必須先於設計（如何測），且實作必須先於執行。"
+            },
+            {
+              "text": "分析、規劃、設計、執行、實作、完成",
+              "fraction": 0,
+              "feedback": "規劃在最前面，且實作先於執行。"
+            },
+            {
+              "text": "規劃、分析、設計、執行、實作、完成",
+              "fraction": 0,
+              "feedback": "實作（建立程序／資料／環境）先於執行，而非反過來。"
+            }
+          ],
+          "generalFeedback": "基本測試流程為：測試規劃 &#8594; 測試分析 &#8594; 測試設計 &#8594; 測試實作 &#8594; 測試執行 &#8594; 測試完成，並以測試監控與控制作為貫穿全部的持續性活動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個活動實際執行測試",
+          "text": "<p>實際執行測試、把實際結果與預期結果比對、並記錄缺陷，是在下列哪個活動進行？</p>",
+          "answers": [
+            {
+              "text": "測試執行",
+              "fraction": 100,
+              "feedback": "正確——執行負責跑測試並記錄結果與任何缺陷。"
+            },
+            {
+              "text": "測試分析",
+              "fraction": 0,
+              "feedback": "分析識別測試條件；它不執行測試。"
+            },
+            {
+              "text": "測試設計",
+              "fraction": 0,
+              "feedback": "設計產出測試案例；它不執行它們。"
+            },
+            {
+              "text": "測試規劃",
+              "fraction": 0,
+              "feedback": "規劃訂定範圍與方法；執行測試發生在很後面。"
+            }
+          ],
+          "generalFeedback": "測試執行是把測試套組跑起來、將實際結果與預期結果比對、把差異記為缺陷，並進行確認／回歸測試的活動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試完成的目的",
+          "text": "<p><em>測試完成（test completion，收尾）</em>的主要目的是：</p>",
+          "answers": [
+            {
+              "text": "為測試收尾——報告結果、定稿並歸檔測試資產，並汲取經驗教訓",
+              "fraction": 100,
+              "feedback": "正確——完成階段彙整並移交測試的成果。"
+            },
+            {
+              "text": "從測試基礎識別出測試條件",
+              "fraction": 0,
+              "feedback": "那是測試分析，位於流程前段。"
+            },
+            {
+              "text": "寫出每個測試的具體輸入與預期結果",
+              "fraction": 0,
+              "feedback": "那是測試設計。"
+            },
+            {
+              "text": "首次執行測試套組",
+              "fraction": 0,
+              "feedback": "那是測試執行，先於完成。"
+            }
+          ],
+          "generalFeedback": "測試完成發生在到達里程碑時（發行、疊代結束、專案收尾）。它蒐集資料、產出測試總結報告、定稿並歸檔測試資產、移交，並記錄經驗教訓。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "監控與控制是什麼",
+          "text": "<p><em>測試監控與控制（test monitoring and control）</em>是：</p>",
+          "answers": [
+            {
+              "text": "一項持續進行的活動，在整個測試過程中把實際進度與計畫比對並採取矯正行動",
+              "fraction": 100,
+              "feedback": "正確——它持續進行，而非只做一次，並引導整個工作。"
+            },
+            {
+              "text": "只在專案最末端做一次的一次性活動",
+              "fraction": 0,
+              "feedback": "那較接近完成階段；監控與控制是持續進行的。"
+            },
+            {
+              "text": "從測試條件推導測試案例的活動",
+              "fraction": 0,
+              "feedback": "那是測試設計。"
+            },
+            {
+              "text": "逐一記錄每個缺陷的活動",
+              "fraction": 0,
+              "feedback": "缺陷在執行階段記錄；監控利用這些資料來引導。"
+            }
+          ],
+          "generalFeedback": "測試監控與控制貫穿整個流程：監控蒐集資訊（進度、覆蓋率、缺陷資料），控制則用這些資訊引導測試，使退出準則得以達成。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "分析決定要測什麼",
+          "text": "<p>測試分析藉由從測試基礎識別測試條件，來決定<em>要測什麼</em>。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——分析從測試基礎識別並排序測試條件（「要測什麼」）；設計「如何測」則在其後。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此為真：測試分析識別測試條件（要測什麼）；測試設計再產出測試案例（如何測）。"
+            }
+          ],
+          "generalFeedback": "測試分析分析測試基礎以決定要測什麼，產出測試條件。測試設計再把這些條件轉成具體的測試案例。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "測試設計之前是什麼",
+          "text": "<p>在基本測試流程中，哪個活動緊接在測試設計<strong>之前</strong>？</p>",
+          "answers": [
+            {
+              "text": "測試分析",
+              "fraction": 100,
+              "feedback": "正確——分析識別出測試條件，設計再把它們轉成測試案例。"
+            },
+            {
+              "text": "測試實作",
+              "fraction": 0,
+              "feedback": "實作在設計之後，而非之前。"
+            },
+            {
+              "text": "測試執行",
+              "fraction": 0,
+              "feedback": "執行在很後面，位於實作之後。"
+            },
+            {
+              "text": "測試完成",
+              "fraction": 0,
+              "feedback": "完成是最後一個活動，不會在設計之前。"
+            }
+          ],
+          "generalFeedback": "順序為 分析 &#8594; 設計 &#8594; 實作。測試設計取用測試分析所產出的測試條件。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試設計之後是什麼",
+          "text": "<p>哪個活動緊接在測試設計<strong>之後</strong>？</p>",
+          "answers": [
+            {
+              "text": "測試實作",
+              "fraction": 100,
+              "feedback": "正確——測試案例設計完成後，實作接著建立程序、套組、資料與環境。"
+            },
+            {
+              "text": "測試分析",
+              "fraction": 0,
+              "feedback": "分析在設計之前，而非之後。"
+            },
+            {
+              "text": "測試執行",
+              "fraction": 0,
+              "feedback": "執行在實作之後，並非緊接在設計之後。"
+            },
+            {
+              "text": "測試規劃",
+              "fraction": 0,
+              "feedback": "規劃是第一個活動，不會在設計之後。"
+            }
+          ],
+          "generalFeedback": "分析 &#8594; 設計 &#8594; 實作 &#8594; 執行。實作緊接在設計之後：它讓設計好的測試變得可執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試實作之後是什麼",
+          "text": "<p>哪個活動緊接在測試實作<strong>之後</strong>？</p>",
+          "answers": [
+            {
+              "text": "測試執行",
+              "fraction": 100,
+              "feedback": "正確——一旦測試資產與環境就緒且進入準則滿足，即執行測試。"
+            },
+            {
+              "text": "測試設計",
+              "fraction": 0,
+              "feedback": "設計在實作之前。"
+            },
+            {
+              "text": "測試分析",
+              "fraction": 0,
+              "feedback": "分析更早。"
+            },
+            {
+              "text": "測試完成",
+              "fraction": 0,
+              "feedback": "完成在執行之後，並非緊接在實作之後。"
+            }
+          ],
+          "generalFeedback": "實作 &#8594; 執行：實作定稿測試資產、資料與環境（並檢查就緒／進入準則）；執行接著把測試跑起來。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "依工作內容指認活動",
+          "text": "<p>「分析測試基礎以決定可測試的功能並推導出測試條件。」這描述的是：</p>",
+          "answers": [
+            {
+              "text": "測試分析",
+              "fraction": 100,
+              "feedback": "正確——評估測試基礎並產出測試條件正是測試分析。"
+            },
+            {
+              "text": "測試設計",
+              "fraction": 0,
+              "feedback": "設計把這些條件轉成測試案例；它不推導條件本身。"
+            },
+            {
+              "text": "測試規劃",
+              "fraction": 0,
+              "feedback": "規劃訂定範圍與方法；它不把基礎分析成條件。"
+            },
+            {
+              "text": "測試實作",
+              "fraction": 0,
+              "feedback": "實作建立程序與資料；它不推導測試條件。"
+            }
+          ],
+          "generalFeedback": "測試分析評估測試基礎、識別可測試的功能，並定義與排序測試條件——即「要測什麼」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨認進入準則",
+          "text": "<p>下列何者是開始測試執行的<strong>進入</strong>準則？</p>",
+          "answers": [
+            {
+              "text": "已部署穩定、可測試的版本，且測試環境與測試資料皆已就緒",
+              "fraction": 100,
+              "feedback": "正確——這些必須在執行能有意義地開始之前成立。"
+            },
+            {
+              "text": "已達成計畫的需求覆蓋率",
+              "fraction": 0,
+              "feedback": "那是退出準則——它描述何時停止，而非何時開始。"
+            },
+            {
+              "text": "已無未解決的高嚴重度缺陷",
+              "fraction": 0,
+              "feedback": "那是退出準則，用來判定是否完成。"
+            },
+            {
+              "text": "測試總結報告已簽核",
+              "fraction": 0,
+              "feedback": "那發生在完成階段，遠在執行開始之後。"
+            }
+          ],
+          "generalFeedback": "進入準則把關開始：可部署的版本、就緒的環境與備妥的測試資料是執行的典型進入準則。已達覆蓋率與無未解決高嚴重度缺陷則屬退出準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "辨認退出準則",
+          "text": "<p>下列何者是測試的<strong>退出</strong>準則？</p>",
+          "answers": [
+            {
+              "text": "所有計畫的測試案例皆已執行，且已達成要求的覆蓋率目標",
+              "fraction": 100,
+              "feedback": "正確——那是完成條件，用來判定是否可停止。"
+            },
+            {
+              "text": "測試環境已建置完成",
+              "fraction": 0,
+              "feedback": "那是執行的進入準則。"
+            },
+            {
+              "text": "需求規格已可取得",
+              "fraction": 0,
+              "feedback": "那讓分析／設計得以開始，屬於進入側的前置條件，不是退出準則。"
+            },
+            {
+              "text": "測試資料已備妥",
+              "fraction": 0,
+              "feedback": "那是進入側的就緒條件，不是退出準則。"
+            }
+          ],
+          "generalFeedback": "退出（完成）準則描述測試何時算完成：例如計畫測試已執行、覆蓋率目標達成、缺陷水準可接受、時間／預算已用盡。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "推導鏈",
+          "text": "<p>填入推導鏈的空格：<em>測試基礎 &#8594; ______ &#8594; 測試案例</em>。</p>",
+          "answers": [
+            {
+              "text": "測試條件",
+              "fraction": 100,
+              "feedback": "正確——分析從基礎推導測試條件，設計再從條件推導測試案例。"
+            },
+            {
+              "text": "缺陷報告",
+              "fraction": 0,
+              "feedback": "缺陷報告來自執行，不在基礎與測試案例之間。"
+            },
+            {
+              "text": "測試套組",
+              "fraction": 0,
+              "feedback": "測試套組在實作階段把案例集結起來；它不是基礎到案例之間的步驟。"
+            },
+            {
+              "text": "退出準則",
+              "fraction": 0,
+              "feedback": "退出準則是完成條件，不是推導步驟。"
+            }
+          ],
+          "generalFeedback": "流程為 測試基礎 &#8594; 測試條件（分析）&#8594; 測試案例（設計）&#8594; 測試程序／套組（實作）&#8594; 執行 &#8594; 缺陷 &#8594; 收尾。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "確認測試",
+          "text": "<p>開發者修好了回報的缺陷之後，<em>確認測試（confirmation／re-test）</em>是指：</p>",
+          "answers": [
+            {
+              "text": "重新執行原本失敗的那個測試，以確認缺陷確已修復",
+              "fraction": 100,
+              "feedback": "正確——確認測試驗證的是那個特定修復。"
+            },
+            {
+              "text": "執行一大批其他測試，以檢查是否有別處被弄壞",
+              "fraction": 0,
+              "feedback": "那是回歸測試，目的不同。"
+            },
+            {
+              "text": "從需求撰寫一條新的測試條件",
+              "fraction": 0,
+              "feedback": "那是測試分析，與確認修復無關。"
+            },
+            {
+              "text": "審查需求文件以找出缺陷",
+              "fraction": 0,
+              "feedback": "那是對工作產物的靜態驗證，不是對修復的確認測試。"
+            }
+          ],
+          "generalFeedback": "確認測試（re-test）在修復交付後重跑先前失敗的測試，以確認原缺陷已被排除。回歸測試則另外檢查該變更沒有弄壞其他地方。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "回歸測試",
+          "text": "<p><em>回歸測試（regression testing）</em>的目的是：</p>",
+          "answers": [
+            {
+              "text": "偵測某項變更是否弄壞了先前正常運作的功能",
+              "fraction": 100,
+              "feedback": "正確——回歸測試防範變更帶來的非預期副作用。"
+            },
+            {
+              "text": "確認某個回報的缺陷已被修復",
+              "fraction": 0,
+              "feedback": "那是確認測試（re-test），不是回歸測試。"
+            },
+            {
+              "text": "決定要涵蓋哪些測試條件",
+              "fraction": 0,
+              "feedback": "那是測試分析。"
+            },
+            {
+              "text": "建置測試環境",
+              "fraction": 0,
+              "feedback": "那是測試實作的一部分。"
+            }
+          ],
+          "generalFeedback": "變更（修復或新功能）可能有副作用。回歸測試在未變動的區域重跑既有測試以偵測這類非預期的破壞，而確認測試驗證的是預期中的修復本身。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "可追溯性的目的",
+          "text": "<p>維護從測試基礎項目到測試條件、測試案例與結果的<em>可追溯性（traceability）</em>，主要能讓你：</p>",
+          "answers": [
+            {
+              "text": "量測對測試基礎的覆蓋程度，並評估變更的影響",
+              "fraction": 100,
+              "feedback": "正確——可追溯性顯示哪些需求被涵蓋，以及某處變更時需重測什麼。"
+            },
+            {
+              "text": "保證軟體不含任何缺陷",
+              "fraction": 0,
+              "feedback": "再多的追溯也無法證明沒有缺陷。"
+            },
+            {
+              "text": "免除設定退出準則的需要",
+              "fraction": 0,
+              "feedback": "可追溯性支援評估退出準則；它不取代退出準則。"
+            },
+            {
+              "text": "加快編譯器速度",
+              "fraction": 0,
+              "feedback": "可追溯性關乎串連工作產物，與建置效能無關。"
+            }
+          ],
+          "generalFeedback": "雙向可追溯性串連 需求／測試基礎 &#8596; 測試條件 &#8596; 測試案例 &#8596; 結果／缺陷。它支援覆蓋率量測、變更的影響分析，以及有意義的進度報告。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷修復之後",
+          "text": "<p>在典型的缺陷生命週期中，開發者把缺陷標記為<em>已修復／已解決</em>之後，測試者緊接著應：</p>",
+          "answers": [
+            {
+              "text": "重測（確認測試）該修復，若通過則把缺陷推向關閉",
+              "fraction": 100,
+              "feedback": "正確——修復必須先經確認，缺陷才能關閉。"
+            },
+            {
+              "text": "不重跑任何測試就立刻關閉缺陷",
+              "fraction": 0,
+              "feedback": "修復應先經重測確認再關閉。"
+            },
+            {
+              "text": "刪除該缺陷報告",
+              "fraction": 0,
+              "feedback": "報告會保留以供歷史與度量之用，不會被刪除。"
+            },
+            {
+              "text": "把它改派給需求撰寫者",
+              "fraction": 0,
+              "feedback": "已解決的缺陷交回測試者做確認，而非退回需求端。"
+            }
+          ],
+          "generalFeedback": "常見的生命週期為 新增 &#8594; 已指派 &#8594; 已修復 &#8594; 重測（確認）&#8594; 關閉，若重測失敗則有重新開啟的路徑。測試者在關閉前先確認修復。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "缺陷的起始狀態",
+          "text": "<p>當測試者在執行時首次記錄一項異常，該缺陷通常進入哪個狀態？</p>",
+          "answers": [
+            {
+              "text": "新增（開啟），等待分流／指派",
+              "fraction": 100,
+              "feedback": "正確——剛回報的缺陷在被指派之前先為新增／開啟。"
+            },
+            {
+              "text": "已關閉",
+              "fraction": 0,
+              "feedback": "關閉是結束狀態，於修復經確認後才達到。"
+            },
+            {
+              "text": "已修復",
+              "fraction": 0,
+              "feedback": "已修復發生在開發者解決之後，而非首次回報時。"
+            },
+            {
+              "text": "重測通過",
+              "fraction": 0,
+              "feedback": "那只在修復經確認之後才會出現。"
+            }
+          ],
+          "generalFeedback": "生命週期通常始於 新增／開啟 &#8594; 已指派 &#8594; 處理中 &#8594; 已修復 &#8594; 重測 &#8594; 關閉（並有重新開啟／退回／延後等分支）。剛記錄的缺陷為新增／開啟。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "產出程序並檢查就緒的活動",
+          "text": "<p>建立測試程序與套組、準備測試資料與環境，並檢查進入準則／就緒是否滿足，屬於：</p>",
+          "answers": [
+            {
+              "text": "測試實作",
+              "fraction": 100,
+              "feedback": "正確——實作讓設計好的測試變得可執行，並確認一切已備妥可執行。"
+            },
+            {
+              "text": "測試設計",
+              "fraction": 0,
+              "feedback": "設計產出測試案例；組織程序／資料／環境屬於實作。"
+            },
+            {
+              "text": "測試執行",
+              "fraction": 0,
+              "feedback": "執行把測試跑起來；測試資產與環境的準備先於它。"
+            },
+            {
+              "text": "測試完成",
+              "fraction": 0,
+              "feedback": "完成在執行之後收尾測試。"
+            }
+          ],
+          "generalFeedback": "測試實作為執行而組織測試資產：它建立／定稿測試程序與套組、準備測試資料與環境，並在執行開始前確認就緒（進入準則）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "從條件建立測試案例的活動",
+          "text": "<p>把測試條件轉成具體的測試案例（含輸入與預期結果）是哪個活動的工作？</p>",
+          "answers": [
+            {
+              "text": "測試設計",
+              "fraction": 100,
+              "feedback": "正確——設計把測試條件細化為可執行的測試案例；即「如何測」。"
+            },
+            {
+              "text": "測試分析",
+              "fraction": 0,
+              "feedback": "分析產出測試條件；設計再把它們轉成測試案例。"
+            },
+            {
+              "text": "測試實作",
+              "fraction": 0,
+              "feedback": "實作把案例排序並組織起來；它不是先從條件建立案例的一步。"
+            },
+            {
+              "text": "測試監控與控制",
+              "fraction": 0,
+              "feedback": "那是引導整體工作；它不設計測試案例。"
+            }
+          ],
+          "generalFeedback": "測試設計取用分析產出的測試條件，設計出測試案例與案例集（輸入、預期結果、覆蓋項目）——即「如何測」。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "修復前的確認",
+          "text": "<p>確認測試通常在缺陷被修復<em>之前</em>進行。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——確認測試在修復重跑失敗的測試，以確認缺陷已消除。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "此為假：在修復完成前無從確認；確認測試在修復之後進行。"
+            }
+          ],
+          "generalFeedback": "確認測試（re-test）在修復交付後才做，重跑先前失敗的測試以確認缺陷已解決。"
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "把打亂的流程重新排序",
+          "text": "<p>某同事把循序進行的活動打亂列成：<em>執行、規劃、設計、完成、實作、分析</em>。請把它們排回正確順序。</p>",
+          "answers": [
+            {
+              "text": "規劃、分析、設計、實作、執行、完成",
+              "fraction": 100,
+              "feedback": "正確——這是基本測試流程的標準循序順序。"
+            },
+            {
+              "text": "規劃、分析、設計、執行、實作、完成",
+              "fraction": 0,
+              "feedback": "實作必須先於執行——測試資產與環境就緒前無法跑測試。"
+            },
+            {
+              "text": "規劃、設計、分析、實作、執行、完成",
+              "fraction": 0,
+              "feedback": "分析（要測什麼）必須在設計（如何測）之前。"
+            },
+            {
+              "text": "分析、規劃、設計、實作、執行、完成",
+              "fraction": 0,
+              "feedback": "規劃是第一個活動，在分析之前。"
+            }
+          ],
+          "generalFeedback": "循序而言：規劃 &#8594; 分析 &#8594; 設計 &#8594; 實作 &#8594; 執行 &#8594; 完成（監控與控制貫穿全程）。注意兩個常見陷阱：分析先於設計、實作先於執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "退出準則為何重要",
+          "text": "<p>為何議定的<em>退出準則</em>對測試流程很重要？</p>",
+          "answers": [
+            {
+              "text": "它們提供客觀、經議定的依據來判定何時停止測試，而非隨意停止",
+              "fraction": 100,
+              "feedback": "正確——測試可能永無止境，因此退出準則預先界定「完成」。"
+            },
+            {
+              "text": "一旦滿足，就保證產品完全沒有缺陷",
+              "fraction": 0,
+              "feedback": "滿足退出準則永遠無法證明沒有缺陷。"
+            },
+            {
+              "text": "它們免除了規劃或監控測試的需要",
+              "fraction": 0,
+              "feedback": "退出準則在規劃時訂定、在監控與控制時評估；它們不取代這些活動。"
+            },
+            {
+              "text": "它們決定要從基礎推導哪些測試條件",
+              "fraction": 0,
+              "feedback": "那是測試分析，與停止無關。"
+            }
+          ],
+          "generalFeedback": "由於窮盡測試不可能，退出（完成）準則提供一個經議定、可衡量的依據來判定測試已做足，支援理性的停止／繼續決策。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "退出準則該包含什麼",
+          "text": "<p>下列何者<strong>最不</strong>適合作為測試的退出準則？</p>",
+          "answers": [
+            {
+              "text": "測試環境已安裝完成、版本已部署",
+              "fraction": 100,
+              "feedback": "正確——那是進入／就緒條件；它並未說明測試是否完成。"
+            },
+            {
+              "text": "已達成計畫的覆蓋率目標",
+              "fraction": 0,
+              "feedback": "那是正當的退出準則。"
+            },
+            {
+              "text": "殘餘缺陷率在議定的門檻之內",
+              "fraction": 0,
+              "feedback": "那是正當的退出準則。"
+            },
+            {
+              "text": "分配的測試時間／預算已用盡",
+              "fraction": 0,
+              "feedback": "時間／預算是常用（雖較粗略）的退出準則。"
+            }
+          ],
+          "generalFeedback": "退出準則描述完成——覆蓋率達成、缺陷水準可接受、時間／預算用盡。「環境已安裝／版本已部署」是進入側的就緒條件，而非測試是否完成的衡量。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "誰產出測試總結報告",
+          "text": "<p><em>測試總結報告（test summary report）</em>是作為哪個活動的一部分而產出？</p>",
+          "answers": [
+            {
+              "text": "測試完成",
+              "fraction": 100,
+              "feedback": "正確——總結報告是完成階段的產物，彙整測試結果。"
+            },
+            {
+              "text": "測試規劃",
+              "fraction": 0,
+              "feedback": "規劃產出測試計畫，不是總結報告。"
+            },
+            {
+              "text": "測試分析",
+              "fraction": 0,
+              "feedback": "分析產出測試條件。"
+            },
+            {
+              "text": "測試執行",
+              "fraction": 0,
+              "feedback": "執行產出日誌與缺陷報告；彙整的總結報告在完成階段撰寫。"
+            }
+          ],
+          "generalFeedback": "測試完成蒐集各已結束活動的資料，為利害關係人產出測試總結報告，並同時歸檔測試資產與汲取經驗教訓。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "測試分析的工作產物",
+          "text": "<p>下列何者是<em>測試分析</em>的主要輸出工作產物？</p>",
+          "answers": [
+            {
+              "text": "（經排序的）測試條件",
+              "fraction": 100,
+              "feedback": "正確——分析評估基礎並產出測試條件。"
+            },
+            {
+              "text": "含具體輸入與預期結果的測試案例",
+              "fraction": 0,
+              "feedback": "那是測試設計的輸出。"
+            },
+            {
+              "text": "可供執行的測試程序與套組",
+              "fraction": 0,
+              "feedback": "那來自測試實作。"
+            },
+            {
+              "text": "測試總結報告",
+              "fraction": 0,
+              "feedback": "那來自測試完成。"
+            }
+          ],
+          "generalFeedback": "每個活動有其特徵性的工作產物：分析 &#8594; 測試條件；設計 &#8594; 測試案例；實作 &#8594; 測試程序／套組、資料、環境；執行 &#8594; 結果／缺陷報告；完成 &#8594; 總結報告與歸檔的測試資產。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "監控與控制 vs 規劃",
+          "text": "<p>下列何者最能區分<em>測試監控與控制</em>和<em>測試規劃</em>？</p>",
+          "answers": [
+            {
+              "text": "規劃在前期訂出預定的方法；監控與控制則持續把實際進度與計畫比對並採取矯正行動",
+              "fraction": 100,
+              "feedback": "正確——規劃定義計畫；監控與控制據此把測試維持在正軌上。"
+            },
+            {
+              "text": "它們是同一活動的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們不同：一個定義計畫，另一個持續據此引導。"
+            },
+            {
+              "text": "規劃持續進行，而監控與控制只在一開始做",
+              "fraction": 0,
+              "feedback": "恰好相反：監控與控制才是持續進行的那個。"
+            },
+            {
+              "text": "監控與控制從測試條件推導測試案例",
+              "fraction": 0,
+              "feedback": "那是測試設計，不是監控與控制。"
+            }
+          ],
+          "generalFeedback": "規劃大多在前期完成（並視需要修訂）並產出計畫。監控與控制是持續性活動：把進度／覆蓋率／缺陷與計畫比對，並施以控制行動（如重新排序、重新配置）以達成退出準則。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "指認測試完成的活動",
+          "text": "<p>下列何者是真正的<em>測試完成</em>活動？</p>",
+          "answers": [
+            {
+              "text": "分析經驗教訓並歸檔測試資產以供日後重用",
+              "fraction": 100,
+              "feedback": "正確——汲取經驗教訓、歸檔／移交測試資產是典型的完成工作。"
+            },
+            {
+              "text": "從需求推導測試條件",
+              "fraction": 0,
+              "feedback": "那是測試分析，位於流程前段。"
+            },
+            {
+              "text": "準備測試資料並建置環境",
+              "fraction": 0,
+              "feedback": "那是測試實作。"
+            },
+            {
+              "text": "把實際結果與預期結果比對",
+              "fraction": 0,
+              "feedback": "那是測試執行。"
+            }
+          ],
+          "generalFeedback": "測試完成活動包括：檢查所有缺陷已關閉／延後、產出測試總結報告、定稿並歸檔測試資產、移交，以及汲取經驗教訓以供流程改善。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "細辨：組織套組是哪個活動",
+          "text": "<p>「把完成的測試案例集結成可執行的回歸套組、排序，並載入所需的測試資料。」這是：</p>",
+          "answers": [
+            {
+              "text": "測試實作",
+              "fraction": 100,
+              "feedback": "正確——把案例組織成可執行的套組／程序並備妥資料，屬於實作。"
+            },
+            {
+              "text": "測試設計",
+              "fraction": 0,
+              "feedback": "設計建立案例；把它們集結／排序以供執行則屬實作。"
+            },
+            {
+              "text": "測試分析",
+              "fraction": 0,
+              "feedback": "分析識別條件，不是可執行的套組。"
+            },
+            {
+              "text": "測試執行",
+              "fraction": 0,
+              "feedback": "執行把套組跑起來；組裝與載入它是前一步的實作。"
+            }
+          ],
+          "generalFeedback": "測試案例存在（設計）之後，實作把它們排序成測試程序／套組、備妥資料與環境並確認就緒。之後執行才把它們跑起來。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "細辨：依風險排序條件",
+          "text": "<p>「審閱需求與風險報告、列出可測試的功能，並把所得的測試條件依風險排序。」這是：</p>",
+          "answers": [
+            {
+              "text": "測試分析",
+              "fraction": 100,
+              "feedback": "正確——從基礎識別並排序測試條件屬於分析。"
+            },
+            {
+              "text": "測試設計",
+              "fraction": 0,
+              "feedback": "設計在其後，把排序好的條件轉成測試案例。"
+            },
+            {
+              "text": "測試規劃",
+              "fraction": 0,
+              "feedback": "規劃訂定整體策略；推導並排序條件屬於分析。"
+            },
+            {
+              "text": "測試監控與控制",
+              "fraction": 0,
+              "feedback": "那是引導進度；它不推導測試條件。"
+            }
+          ],
+          "generalFeedback": "測試分析評估測試基礎（含風險資訊）、識別可測試的功能，並定義與排序測試條件——仍是「要測什麼」，尚非「如何測」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "細辨：指定輸入與預期結果",
+          "text": "<p>「針對測試條件『提款超過餘額』，指定帳戶狀態、要提領的金額，以及確切的預期錯誤訊息。」這是：</p>",
+          "answers": [
+            {
+              "text": "測試設計",
+              "fraction": 100,
+              "feedback": "正確——把條件轉成具體的輸入、前置條件與預期結果屬於設計。"
+            },
+            {
+              "text": "測試分析",
+              "fraction": 0,
+              "feedback": "分析產出了該條件；指定具體輸入／預期結果屬於設計。"
+            },
+            {
+              "text": "測試實作",
+              "fraction": 0,
+              "feedback": "實作接著把這個案例排序並備妥以供執行；它不是先指定其輸入／預期結果的一步。"
+            },
+            {
+              "text": "測試執行",
+              "fraction": 0,
+              "feedback": "執行把案例跑起來；此處仍在設計它。"
+            }
+          ],
+          "generalFeedback": "從測試條件推導具體的前置條件、輸入與預期結果，正是測試設計（「如何測」）。分析給出條件；實作稍後才讓案例可執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "工作產物的驗證 vs 執行",
+          "text": "<p>在還沒跑任何程式碼之前，審查需求規格以找出模糊與矛盾之處，最適合被歸類為：</p>",
+          "answers": [
+            {
+              "text": "對工作產物的靜態驗證，可在測試分析期間開始",
+              "fraction": 100,
+              "feedback": "正確——審查測試基礎是靜態工作，常能在動態執行前及早發現缺陷。"
+            },
+            {
+              "text": "測試執行，因為發現了缺陷",
+              "fraction": 0,
+              "feedback": "執行需要跑軟體；審查文件是靜態的，不是動態的。"
+            },
+            {
+              "text": "對修復的確認測試",
+              "fraction": 0,
+              "feedback": "此處沒有在重測任何修復；這是靜態審查。"
+            },
+            {
+              "text": "測試完成，因為它在收尾",
+              "fraction": 0,
+              "feedback": "審查基礎發生在前期，而非收尾。"
+            }
+          ],
+          "generalFeedback": "驗證檢查工作產物是否符合其規格，可以靜態進行（審查、靜態分析）而不執行程式碼。審查測試基礎常在測試分析前後進行，並能在動態執行開始前發現缺陷。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "退出準則未達成時",
+          "text": "<p>監控顯示，在計畫的結束日期，議定的退出準則<strong>尚未</strong>達成。哪個回應最符合測試流程？</p>",
+          "answers": [
+            {
+              "text": "報告狀態，並透過控制決定繼續測試，或與利害關係人重新協商準則／範圍",
+              "fraction": 100,
+              "feedback": "正確——未達成的退出準則觸發控制決策；不能就這樣宣告完成。"
+            },
+            {
+              "text": "因為日期到了就自動宣告測試完成",
+              "fraction": 0,
+              "feedback": "光是日曆日期並不滿足退出準則；那忽略了準則的用意。"
+            },
+            {
+              "text": "刪除失敗的測試，讓準則看起來已滿足",
+              "fraction": 0,
+              "feedback": "操弄指標會隱藏風險；那不是正當的回應。"
+            },
+            {
+              "text": "不做任何報告就直接跳到歸檔測試資產",
+              "fraction": 0,
+              "feedback": "完成仍需報告；且停止的決定必須明確做出。"
+            }
+          ],
+          "generalFeedback": "退出準則驅動停止／繼續的決策。若未達成，監控與控制報告此情況，由利害關係人決定繼續測試、增加資源，或透過重新協商範圍／準則而有意識地接受風險——絕不是假裝它們已達成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "監控 vs 控制",
+          "text": "<p>在這項持續性活動中，下列何者是<em>控制</em>行動而非<em>監控</em>行動？</p>",
+          "answers": [
+            {
+              "text": "因為某高風險區域落後，而重新排序剩餘測試並重新指派測試者",
+              "fraction": 100,
+              "feedback": "正確——採取矯正行動以引導工作屬於控制。"
+            },
+            {
+              "text": "量測到目前為止已執行了多少計畫的測試案例",
+              "fraction": 0,
+              "feedback": "那是監控——蒐集資訊，而非據以行動。"
+            },
+            {
+              "text": "記錄目前的缺陷發現／修復數量",
+              "fraction": 0,
+              "feedback": "那是監控（蒐集資料）。"
+            },
+            {
+              "text": "把覆蓋率進度對照計畫加以報告",
+              "fraction": 0,
+              "feedback": "那是監控／報告，不是矯正行動。"
+            }
+          ],
+          "generalFeedback": "監控蒐集並報告資訊（進度、覆蓋率、缺陷資料）；控制利用這些資訊採取矯正行動——重新排序、重新配置資源、調整時程——以使退出準則仍能達成。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "活動與工作產物配對錯誤者",
+          "text": "<p>下列哪一組「活動與其特徵性工作產物」的配對是<strong>錯誤</strong>的？</p>",
+          "answers": [
+            {
+              "text": "測試執行產出測試條件",
+              "fraction": 100,
+              "feedback": "正確——這組配對是錯的：測試條件來自測試分析，而非執行。"
+            },
+            {
+              "text": "測試設計產出測試案例",
+              "fraction": 0,
+              "feedback": "這組配對正確，故非答案。"
+            },
+            {
+              "text": "測試實作產出測試程序與套組",
+              "fraction": 0,
+              "feedback": "這組配對正確，故非答案。"
+            },
+            {
+              "text": "測試完成產出測試總結報告",
+              "fraction": 0,
+              "feedback": "這組配對正確，故非答案。"
+            }
+          ],
+          "generalFeedback": "特徵性工作產物：分析 &#8594; 測試條件；設計 &#8594; 測試案例；實作 &#8594; 測試程序／套組、資料、環境；執行 &#8594; 測試日誌與缺陷報告；完成 &#8594; 測試總結報告。執行並不產出測試條件。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "進入把關開始、退出把關停止",
+          "text": "<p>進入準則把關測試活動的<em>開始</em>，而退出準則把關其<em>完成</em>。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——進入準則是可以開始的「就緒的定義」；退出準則是可以停止的「完成的定義」。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "此為真：進入準則必須在活動開始前成立；退出準則必須在宣告完成前成立。"
+            }
+          ],
+          "generalFeedback": "進入準則（就緒）必須在如執行等活動開始前滿足；退出／完成準則必須在測試被視為結束前滿足。混淆兩者是常見的錯誤。"
+        }
+      ]
+    }
+  },
+  "testing-method-tree": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "Black-box testing definition",
+          "text": "<p><strong>Black-box testing</strong> designs its tests based on:</p>",
+          "answers": [
+            {
+              "text": "The specification and external behavior, without knowledge of the internal code structure",
+              "fraction": 100,
+              "feedback": "Correct — black-box (specification-based) testing treats the implementation as opaque."
+            },
+            {
+              "text": "The internal control-flow graph of the code",
+              "fraction": 0,
+              "feedback": "That is white-box (structural) testing, which uses the code's structure."
+            },
+            {
+              "text": "The number of source lines executed by the tests",
+              "fraction": 0,
+              "feedback": "That describes a coverage measurement, not the black-box design basis."
+            },
+            {
+              "text": "The compiler's optimization settings",
+              "fraction": 0,
+              "feedback": "Compiler settings are unrelated to how black-box tests are derived."
+            }
+          ],
+          "generalFeedback": "Black-box (specification-based) testing derives tests from requirements and external behavior, treating the implementation as opaque — no code knowledge is used.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "White-box testing definition",
+          "text": "<p><strong>White-box (structural)</strong> testing designs its tests based on:</p>",
+          "answers": [
+            {
+              "text": "Knowledge of the internal code structure, such as statements, branches, and paths",
+              "fraction": 100,
+              "feedback": "Correct — white-box (glass-box) testing uses the internal structure of the code."
+            },
+            {
+              "text": "Only the published requirements, ignoring the code entirely",
+              "fraction": 0,
+              "feedback": "That is black-box testing; white-box uses the code structure."
+            },
+            {
+              "text": "The user's subjective satisfaction with the product",
+              "fraction": 0,
+              "feedback": "That is closer to validation/usability, not structural testing."
+            },
+            {
+              "text": "The hardware the program will run on",
+              "fraction": 0,
+              "feedback": "The target hardware is not the basis of white-box test design."
+            }
+          ],
+          "generalFeedback": "White-box (structural / glass-box) testing uses the internal structure of the code — statements, branches, paths, conditions — to derive and measure tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Grey-box testing definition",
+          "text": "<p><strong>Grey-box testing</strong> is characterized by:</p>",
+          "answers": [
+            {
+              "text": "Partial knowledge of the internal structure combined with tests driven through external interfaces",
+              "fraction": 100,
+              "feedback": "Correct — grey-box uses some internal insight (e.g. architecture or DB schema) while testing externally."
+            },
+            {
+              "text": "Complete ignorance of both the specification and the code",
+              "fraction": 0,
+              "feedback": "A tester always uses some basis; grey-box specifically uses partial internal knowledge."
+            },
+            {
+              "text": "A full mathematical proof of correctness",
+              "fraction": 0,
+              "feedback": "That is formal verification, not grey-box testing."
+            },
+            {
+              "text": "Testing only the colors of the graphical user interface",
+              "fraction": 0,
+              "feedback": "Grey-box is about the level of internal knowledge, not UI appearance."
+            }
+          ],
+          "generalFeedback": "Grey-box testing uses partial internal knowledge (architecture, data schema, key algorithms) to design tests that are still exercised through external interfaces.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Static testing definition",
+          "text": "<p><strong>Static testing</strong> is best described as:</p>",
+          "answers": [
+            {
+              "text": "Examining the software artifacts (documents or code) without executing the program",
+              "fraction": 100,
+              "feedback": "Correct — static techniques find defects by examination, with no execution."
+            },
+            {
+              "text": "Running the program with many different inputs",
+              "fraction": 0,
+              "feedback": "That is dynamic testing, which requires execution."
+            },
+            {
+              "text": "Measuring response time under heavy load",
+              "fraction": 0,
+              "feedback": "That is a dynamic, non-functional activity (performance testing)."
+            },
+            {
+              "text": "Deploying to production and monitoring live users",
+              "fraction": 0,
+              "feedback": "Monitoring a running system is dynamic, not static."
+            }
+          ],
+          "generalFeedback": "Static testing (reviews, walkthroughs, inspections, static analysis) finds defects by examining artifacts without executing the program.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Dynamic testing definition",
+          "text": "<p><strong>Dynamic testing</strong> is best described as:</p>",
+          "answers": [
+            {
+              "text": "Executing the program with inputs and observing its behavior",
+              "fraction": 100,
+              "feedback": "Correct — dynamic testing runs the software and compares behavior to expectations."
+            },
+            {
+              "text": "Reading the code together in a review meeting",
+              "fraction": 0,
+              "feedback": "That is a static technique (review); nothing is executed."
+            },
+            {
+              "text": "Checking a requirements document for typographical errors",
+              "fraction": 0,
+              "feedback": "That is static examination of a document, not dynamic testing."
+            },
+            {
+              "text": "Analyzing the source with a tool but never running it",
+              "fraction": 0,
+              "feedback": "That is static analysis; dynamic testing requires execution."
+            }
+          ],
+          "generalFeedback": "Dynamic testing requires executing the software and comparing the observed behavior against expected results.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Functional testing definition",
+          "text": "<p><strong>Functional testing</strong> is primarily concerned with:</p>",
+          "answers": [
+            {
+              "text": "What the system does — whether it produces the correct outputs for given inputs",
+              "fraction": 100,
+              "feedback": "Correct — functional testing checks behavior against the specified functions."
+            },
+            {
+              "text": "How fast the system responds under load",
+              "fraction": 0,
+              "feedback": "That is a non-functional (performance) concern."
+            },
+            {
+              "text": "How resistant the system is to attackers",
+              "fraction": 0,
+              "feedback": "That is a non-functional (security) concern."
+            },
+            {
+              "text": "How maintainable the source code is",
+              "fraction": 0,
+              "feedback": "Maintainability is a non-functional quality attribute, not a function."
+            }
+          ],
+          "generalFeedback": "Functional testing checks the functions/behavior of the system against the requirements — what it does — rather than how well it does it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Non-functional testing definition",
+          "text": "<p><strong>Non-functional testing</strong> primarily evaluates:</p>",
+          "answers": [
+            {
+              "text": "Quality attributes such as performance, security, usability, and reliability",
+              "fraction": 100,
+              "feedback": "Correct — non-functional testing targets how well the system operates."
+            },
+            {
+              "text": "Whether each required feature returns the correct result",
+              "fraction": 0,
+              "feedback": "That is functional testing (what the system does)."
+            },
+            {
+              "text": "Whether every statement in the code is executed",
+              "fraction": 0,
+              "feedback": "That is a structural coverage (white-box) concern."
+            },
+            {
+              "text": "Whether the requirements document is grammatically complete",
+              "fraction": 0,
+              "feedback": "That is a static review concern, not non-functional testing."
+            }
+          ],
+          "generalFeedback": "Non-functional testing targets how well the system operates — performance, security, usability, reliability, portability, etc. — rather than which features work.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Verification definition",
+          "text": "<p>In the classic V&amp;V distinction, <strong>verification</strong> asks:</p>",
+          "answers": [
+            {
+              "text": "\"Are we building the product right?\" — does it conform to its specification?",
+              "fraction": 100,
+              "feedback": "Correct — verification checks conformance to the spec and standards at each stage."
+            },
+            {
+              "text": "\"Are we building the right product?\" — does it meet the users' needs?",
+              "fraction": 0,
+              "feedback": "That is validation, not verification."
+            },
+            {
+              "text": "\"Is the product faster than the competitors' products?\"",
+              "fraction": 0,
+              "feedback": "That is a benchmarking/performance question, not verification."
+            },
+            {
+              "text": "\"Will customers be willing to pay for the product?\"",
+              "fraction": 0,
+              "feedback": "That is a market question, unrelated to the V&V distinction."
+            }
+          ],
+          "generalFeedback": "Verification checks conformance to specifications, designs and standards at each development stage — \"building the product right.\"",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Validation definition",
+          "text": "<p>In the classic V&amp;V distinction, <strong>validation</strong> asks:</p>",
+          "answers": [
+            {
+              "text": "\"Are we building the right product?\" — does it meet the users' actual needs?",
+              "fraction": 100,
+              "feedback": "Correct — validation checks fitness for use against real user needs."
+            },
+            {
+              "text": "\"Are we building the product right?\" — does it conform to the spec?",
+              "fraction": 0,
+              "feedback": "That is verification, not validation."
+            },
+            {
+              "text": "\"Does the source code compile without warnings?\"",
+              "fraction": 0,
+              "feedback": "That is a static/build concern, not validation."
+            },
+            {
+              "text": "\"Is every branch in the code covered by a test?\"",
+              "fraction": 0,
+              "feedback": "That is a white-box coverage concern, not validation."
+            }
+          ],
+          "generalFeedback": "Validation checks fitness for use — whether the finished product satisfies the users' real needs — \"building the right product.\"",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify boundary value analysis",
+          "text": "<p><strong>Boundary value analysis</strong> is an example of which kind of technique?</p>",
+          "answers": [
+            {
+              "text": "Black-box — it uses the input specification and partitions, not the code",
+              "fraction": 100,
+              "feedback": "Correct — BVA derives tests from the boundaries of specified input partitions."
+            },
+            {
+              "text": "White-box — it requires the control-flow graph",
+              "fraction": 0,
+              "feedback": "BVA needs no code structure; it works from the input spec."
+            },
+            {
+              "text": "Static — it never executes the program",
+              "fraction": 0,
+              "feedback": "BVA cases are executed against the program, so it is dynamic, not static."
+            },
+            {
+              "text": "Non-functional — it measures performance",
+              "fraction": 0,
+              "feedback": "BVA checks functional behavior at input boundaries, not performance."
+            }
+          ],
+          "generalFeedback": "Boundary value analysis derives tests from the boundaries of input partitions in the specification, with no code knowledge — a black-box technique.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify branch coverage",
+          "text": "<p><strong>Branch (decision) coverage</strong> is which kind of technique?</p>",
+          "answers": [
+            {
+              "text": "White-box — it is defined over the code's decisions and branches",
+              "fraction": 100,
+              "feedback": "Correct — branch coverage is measured against the code's structure."
+            },
+            {
+              "text": "Black-box — it needs only the specification",
+              "fraction": 0,
+              "feedback": "Branch coverage requires knowledge of the code's branches, so it is white-box."
+            },
+            {
+              "text": "Non-functional — it measures usability",
+              "fraction": 0,
+              "feedback": "Branch coverage is a structural metric, not a quality attribute."
+            },
+            {
+              "text": "Static — it needs no execution",
+              "fraction": 0,
+              "feedback": "Measuring branch coverage requires executing the tests, so it is dynamic."
+            }
+          ],
+          "generalFeedback": "Branch coverage is measured over the code's branches, requiring knowledge of internal structure — a white-box technique. (Measuring it also requires execution, so it is dynamic.)",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Code review is static",
+          "text": "<p>A code review (inspection) is a form of <strong>static</strong> testing.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — a review examines the code without executing it, so it is static."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Reviews find defects by reading, not running, the code — they are static."
+            }
+          ],
+          "generalFeedback": "Reviews, walkthroughs and inspections are static techniques: defects are found by examination, without executing the program."
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify equivalence partitioning",
+          "text": "<p><strong>Equivalence partitioning</strong> is which kind of technique?</p>",
+          "answers": [
+            {
+              "text": "Black-box — it partitions the input domain from the specification",
+              "fraction": 100,
+              "feedback": "Correct — equivalence partitioning groups inputs into classes from the spec."
+            },
+            {
+              "text": "White-box — it partitions the code paths",
+              "fraction": 0,
+              "feedback": "Equivalence partitioning works on the input domain, not code paths."
+            },
+            {
+              "text": "Static — it needs no test execution",
+              "fraction": 0,
+              "feedback": "The resulting cases are executed, so it is a dynamic, black-box technique."
+            },
+            {
+              "text": "A verification-only activity that never runs the software",
+              "fraction": 0,
+              "feedback": "Its test cases are executed against the software, so this is wrong."
+            }
+          ],
+          "generalFeedback": "Equivalence partitioning groups inputs into classes derived from the specification, without code knowledge — a black-box technique.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify statement coverage",
+          "text": "<p><strong>Statement coverage</strong> is which kind of technique?</p>",
+          "answers": [
+            {
+              "text": "White-box — it is defined over the code's executable statements",
+              "fraction": 100,
+              "feedback": "Correct — statement coverage is measured against the code's structure."
+            },
+            {
+              "text": "Black-box — it needs only the requirements",
+              "fraction": 0,
+              "feedback": "Statement coverage requires knowledge of the code, so it is white-box."
+            },
+            {
+              "text": "Non-functional — it measures reliability",
+              "fraction": 0,
+              "feedback": "Statement coverage is a structural metric, not a quality attribute."
+            },
+            {
+              "text": "Static — no execution is required",
+              "fraction": 0,
+              "feedback": "Measuring statement coverage requires running the tests, so it is dynamic."
+            }
+          ],
+          "generalFeedback": "Statement coverage is measured over the executable statements of the code, so it is a white-box (structural) technique; measuring it is dynamic (requires execution).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Black-box needs source code?",
+          "text": "<p>Black-box testing requires access to the program's <strong>source code</strong>.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — black-box testing is based on the specification and behavior, not the source."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Black-box treats the implementation as opaque; it does not need the source (that is white-box)."
+            }
+          ],
+          "generalFeedback": "Black-box testing derives tests from the specification and external behavior; the source code is not required. Needing the source is the mark of white-box testing."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Grey-box example (DB schema via UI)",
+          "text": "<p>A tester drives a web application through its public UI but uses knowledge of the <strong>database schema</strong> to craft inputs and check the stored results. This is best classified as:</p>",
+          "answers": [
+            {
+              "text": "Grey-box testing",
+              "fraction": 100,
+              "feedback": "Correct — partial internal knowledge (the schema) used while driving the system externally is grey-box."
+            },
+            {
+              "text": "Pure black-box testing",
+              "fraction": 0,
+              "feedback": "Pure black-box uses no internal knowledge; here the schema is used, so it is grey-box."
+            },
+            {
+              "text": "Pure white-box testing",
+              "fraction": 0,
+              "feedback": "White-box would drive tests from the code structure; here tests run through the UI with only partial knowledge."
+            },
+            {
+              "text": "Static analysis",
+              "fraction": 0,
+              "feedback": "The system is executed through the UI, so this is dynamic, not static."
+            }
+          ],
+          "generalFeedback": "Using partial internal knowledge (the DB schema) while exercising the system through external interfaces is the defining pattern of grey-box testing.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Walkthrough is dynamic?",
+          "text": "<p>A specification <strong>walkthrough</strong> is a dynamic testing activity.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — a walkthrough examines a document without executing software, so it is static."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Walkthroughs, like reviews and inspections, are static — no program is executed."
+            }
+          ],
+          "generalFeedback": "Walkthroughs (like reviews and inspections) are static techniques — defects are found by examination, with no code executed."
+        },
+        {
+          "type": "multichoice",
+          "name": "Performance testing: functional or not",
+          "text": "<p><strong>Performance testing</strong> (measuring throughput and response time under load) is classified as:</p>",
+          "answers": [
+            {
+              "text": "Non-functional testing",
+              "fraction": 100,
+              "feedback": "Correct — performance is a quality attribute (how well), so it is non-functional."
+            },
+            {
+              "text": "Functional testing",
+              "fraction": 0,
+              "feedback": "Functional testing checks what the system does; performance is about how well it does it."
+            },
+            {
+              "text": "White-box testing",
+              "fraction": 0,
+              "feedback": "Performance testing is usually black-box; the black/white axis is separate from functional/non-functional anyway."
+            },
+            {
+              "text": "Static testing",
+              "fraction": 0,
+              "feedback": "Performance testing executes the system under load, so it is dynamic, not static."
+            }
+          ],
+          "generalFeedback": "Performance concerns a quality attribute (how well the system performs, not which features work), so it is non-functional. It is also dynamic and usually black-box.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Requirements review: verification or validation",
+          "text": "<p>Reviewing the <strong>requirements specification</strong> against the applicable standards and the customer contract is an example of:</p>",
+          "answers": [
+            {
+              "text": "Verification — conformance to the specification and process (\"building the product right\")",
+              "fraction": 100,
+              "feedback": "Correct — a requirements review checks conformance to standards and the spec."
+            },
+            {
+              "text": "Validation — fitness for the users' real needs",
+              "fraction": 0,
+              "feedback": "Validation confirms real-world fitness of the delivered product, typically dynamically; a spec review is verification."
+            },
+            {
+              "text": "Non-functional testing",
+              "fraction": 0,
+              "feedback": "A document review is a static verification activity, not a non-functional test."
+            },
+            {
+              "text": "Dynamic testing",
+              "fraction": 0,
+              "feedback": "A review executes nothing, so it is static, not dynamic."
+            }
+          ],
+          "generalFeedback": "A requirements review checks conformance to specifications and standards — a verification activity, and a static one.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UAT: verification or validation",
+          "text": "<p><strong>User Acceptance Testing (UAT)</strong>, in which real users try the delivered system to confirm it meets their needs, is an example of:</p>",
+          "answers": [
+            {
+              "text": "Validation — fitness for use (\"building the right product\")",
+              "fraction": 100,
+              "feedback": "Correct — UAT confirms the product satisfies actual user needs."
+            },
+            {
+              "text": "Verification — conformance to the design document",
+              "fraction": 0,
+              "feedback": "Conformance to the design is verification; UAT checks real user needs, which is validation."
+            },
+            {
+              "text": "Static testing",
+              "fraction": 0,
+              "feedback": "UAT runs the delivered system, so it is dynamic, not static."
+            },
+            {
+              "text": "White-box testing",
+              "fraction": 0,
+              "feedback": "Users exercise the system through its interfaces, not its code — it is black-box, and the question is really about V&V."
+            }
+          ],
+          "generalFeedback": "UAT confirms the product satisfies the users' actual needs — validation. It is also dynamic and black-box.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which axis: BVA vs branch coverage",
+          "text": "<p><strong>Boundary value analysis</strong> and <strong>branch coverage</strong> differ primarily along which classification axis?</p>",
+          "answers": [
+            {
+              "text": "Black-box vs white-box (knowledge of the internal code structure)",
+              "fraction": 100,
+              "feedback": "Correct — BVA is spec-based (black-box) while branch coverage is structure-based (white-box)."
+            },
+            {
+              "text": "Static vs dynamic",
+              "fraction": 0,
+              "feedback": "Both are dynamic (their tests are executed); they do not differ on this axis."
+            },
+            {
+              "text": "Functional vs non-functional",
+              "fraction": 0,
+              "feedback": "Both are oriented to functional correctness; the real difference is the knowledge basis."
+            },
+            {
+              "text": "Verification vs validation",
+              "fraction": 0,
+              "feedback": "Both are typically verification-oriented; they differ on black-box vs white-box."
+            }
+          ],
+          "generalFeedback": "BVA is black-box (derived from the spec) and branch coverage is white-box (derived from the code structure); they differ on the knowledge/structure axis. Both are dynamic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Automation is orthogonal to black/white-box",
+          "text": "<p>A <strong>black-box</strong> acceptance suite is rewritten to run automatically via a UI-driving tool. On the black-box/white-box axis, the automated suite is now:</p>",
+          "answers": [
+            {
+              "text": "Still black-box — automation is an orthogonal axis and adds no code-structure knowledge",
+              "fraction": 100,
+              "feedback": "Correct — manual vs automated is independent of black-box vs white-box."
+            },
+            {
+              "text": "Now white-box, because a tool interacts with the program",
+              "fraction": 0,
+              "feedback": "Automating a test does not give it knowledge of the code's internal structure."
+            },
+            {
+              "text": "Now grey-box, because automation tools always read the source",
+              "fraction": 0,
+              "feedback": "A UI-driving tool does not read the source; the knowledge basis is unchanged."
+            },
+            {
+              "text": "Neither black- nor white-box any more",
+              "fraction": 0,
+              "feedback": "It remains black-box; only the manual/automated axis changed."
+            }
+          ],
+          "generalFeedback": "Manual vs automated is orthogonal to black-box vs white-box. Automating a black-box suite keeps it black-box; the knowledge basis is unchanged.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a source-scanning tool",
+          "text": "<p>A tool scans the <strong>source code</strong> for null-pointer risks and unused variables without ever running the program. This activity is:</p>",
+          "answers": [
+            {
+              "text": "Static analysis — a static technique that examines code without executing it",
+              "fraction": 100,
+              "feedback": "Correct — no execution takes place, so it is static analysis."
+            },
+            {
+              "text": "Dynamic testing — it executes the program",
+              "fraction": 0,
+              "feedback": "The tool never runs the program, so it is static, not dynamic."
+            },
+            {
+              "text": "Black-box testing — it ignores the code",
+              "fraction": 0,
+              "feedback": "It reads the source (structure), so it is not black-box."
+            },
+            {
+              "text": "Performance testing",
+              "fraction": 0,
+              "feedback": "It analyzes code, not runtime performance."
+            }
+          ],
+          "generalFeedback": "Static analysis examines the source/structure without execution, so it is static. Because it uses the code structure, it is structure-based rather than spec-based.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Family of error guessing and exploratory",
+          "text": "<p><strong>Error guessing</strong> and <strong>exploratory testing</strong>, which rely on the tester's experience rather than a formal model, belong to which family?</p>",
+          "answers": [
+            {
+              "text": "Experience-based techniques",
+              "fraction": 100,
+              "feedback": "Correct — these are experience-based techniques driven by tester intuition and skill."
+            },
+            {
+              "text": "Structure-based (white-box) coverage techniques",
+              "fraction": 0,
+              "feedback": "They do not use code structure or coverage criteria."
+            },
+            {
+              "text": "Static review techniques",
+              "fraction": 0,
+              "feedback": "They execute the software, so they are dynamic, not static reviews."
+            },
+            {
+              "text": "Non-functional techniques",
+              "fraction": 0,
+              "feedback": "They target functional defects using experience, not quality attributes."
+            }
+          ],
+          "generalFeedback": "Error guessing and exploratory testing are experience-based techniques — a dynamic, black-box family driven by the tester's knowledge and intuition rather than a formal specification or the code structure.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify state-transition testing",
+          "text": "<p><strong>State-transition testing</strong> derives its test cases from a behavioral state model built from the requirements. It is a:</p>",
+          "answers": [
+            {
+              "text": "Black-box technique — derived from a spec/behavioral model, not the code",
+              "fraction": 100,
+              "feedback": "Correct — the state model comes from the requirements, so it is black-box."
+            },
+            {
+              "text": "White-box technique — derived from the control-flow graph",
+              "fraction": 0,
+              "feedback": "The model is behavioral (from the spec), not the code's control-flow graph."
+            },
+            {
+              "text": "Static technique — no execution",
+              "fraction": 0,
+              "feedback": "The resulting cases are executed against the system, so it is dynamic."
+            },
+            {
+              "text": "Non-functional technique",
+              "fraction": 0,
+              "feedback": "It checks functional behavior via states and transitions, not a quality attribute."
+            }
+          ],
+          "generalFeedback": "State-transition testing uses a behavioral model derived from the specification, treating the implementation as opaque — a black-box technique.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify stress testing",
+          "text": "<p><strong>Stress testing</strong> (pushing the system beyond normal load to see how it degrades or fails) is:</p>",
+          "answers": [
+            {
+              "text": "Non-functional (and dynamic) testing",
+              "fraction": 100,
+              "feedback": "Correct — it evaluates behavior under extreme load, a quality attribute, by executing the system."
+            },
+            {
+              "text": "Functional testing",
+              "fraction": 0,
+              "feedback": "It checks a quality attribute under load, not whether specific features return correct results."
+            },
+            {
+              "text": "Static testing",
+              "fraction": 0,
+              "feedback": "It runs the system under load, so it is dynamic, not static."
+            },
+            {
+              "text": "White-box coverage measurement",
+              "fraction": 0,
+              "feedback": "It measures behavior under load, not code structure coverage."
+            }
+          ],
+          "generalFeedback": "Stress/load testing evaluates a quality attribute (behavior under extreme load), so it is non-functional; because it executes the system it is also dynamic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Pick the verification activity",
+          "text": "<p>Which of the following is a <strong>verification</strong> activity rather than a validation activity?</p>",
+          "answers": [
+            {
+              "text": "Inspecting a module's code against its detailed design document",
+              "fraction": 100,
+              "feedback": "Correct — checking conformance to the design is verification."
+            },
+            {
+              "text": "Having end users trial the product to confirm it meets their needs",
+              "fraction": 0,
+              "feedback": "That confirms fitness for use — validation."
+            },
+            {
+              "text": "Running a beta program to gather real-world feedback",
+              "fraction": 0,
+              "feedback": "A beta program checks real user needs — validation."
+            },
+            {
+              "text": "Confirming the finished system solves the customer's actual problem",
+              "fraction": 0,
+              "feedback": "That is fitness for use — validation."
+            }
+          ],
+          "generalFeedback": "Checking a module against its design document is verification (conformance to spec). The other options confirm fitness for the users' real needs — validation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify security testing",
+          "text": "<p><strong>Security testing</strong> (checking resistance to unauthorized access) is primarily:</p>",
+          "answers": [
+            {
+              "text": "Non-functional testing",
+              "fraction": 100,
+              "feedback": "Correct — security is a quality attribute, so security testing is non-functional."
+            },
+            {
+              "text": "Functional testing",
+              "fraction": 0,
+              "feedback": "Security concerns a quality attribute (how well it resists attack), not a listed feature's output."
+            },
+            {
+              "text": "A purely static technique",
+              "fraction": 0,
+              "feedback": "Security testing typically executes the system (e.g. penetration tests), so it is dynamic."
+            },
+            {
+              "text": "A verification-only activity",
+              "fraction": 0,
+              "feedback": "Security testing is a non-functional test category, not a V&V stage label."
+            }
+          ],
+          "generalFeedback": "Security is a quality attribute, so security testing is non-functional. It is typically dynamic and may be grey- or black-box depending on the knowledge used.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Clearest axis: walkthrough vs load test",
+          "text": "<p>The clearest classification difference between a <strong>walkthrough</strong> and a <strong>load test</strong> is:</p>",
+          "answers": [
+            {
+              "text": "Static vs dynamic — a walkthrough executes nothing, a load test executes the system",
+              "fraction": 100,
+              "feedback": "Correct — the defining contrast is execution."
+            },
+            {
+              "text": "Black-box vs white-box",
+              "fraction": 0,
+              "feedback": "A walkthrough is not really placed on the black/white-box axis; the definitional contrast here is static vs dynamic."
+            },
+            {
+              "text": "Verification vs validation",
+              "fraction": 0,
+              "feedback": "Both can serve verification; the clear contrast is that one executes and the other does not."
+            },
+            {
+              "text": "Manual vs automated",
+              "fraction": 0,
+              "feedback": "Either could be manual or automated; the defining difference is execution."
+            }
+          ],
+          "generalFeedback": "A walkthrough is static (nothing is executed) while a load test is dynamic (the system runs under load); the static-vs-dynamic axis is the defining contrast.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify basis-path testing",
+          "text": "<p><strong>Basis-path testing</strong> (deriving tests from the code's linearly independent paths) is a:</p>",
+          "answers": [
+            {
+              "text": "White-box (structure-based) technique",
+              "fraction": 100,
+              "feedback": "Correct — basis-path testing is derived from the code's control-flow graph."
+            },
+            {
+              "text": "Black-box technique",
+              "fraction": 0,
+              "feedback": "It uses the code's paths, so it is structure-based, not spec-based."
+            },
+            {
+              "text": "Non-functional technique",
+              "fraction": 0,
+              "feedback": "It targets structural coverage of paths, not a quality attribute."
+            },
+            {
+              "text": "Static technique",
+              "fraction": 0,
+              "feedback": "Its tests are executed, so it is dynamic, not static."
+            }
+          ],
+          "generalFeedback": "Basis-path testing is derived from the control-flow graph (independent paths) of the code, so it is white-box / structure-based, and dynamic.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Multi-axis: load testing",
+          "text": "<p><strong>Load testing</strong> executes the running system, is driven purely through external interfaces with no code knowledge, and measures response time under heavy traffic. Across the three axes it is:</p>",
+          "answers": [
+            {
+              "text": "Dynamic, black-box, and non-functional",
+              "fraction": 100,
+              "feedback": "Correct — it executes (dynamic), uses no code knowledge (black-box), and measures a quality attribute (non-functional)."
+            },
+            {
+              "text": "Static, white-box, and functional",
+              "fraction": 0,
+              "feedback": "It executes the system and uses no code knowledge, so it is dynamic and black-box, and it targets performance (non-functional)."
+            },
+            {
+              "text": "Dynamic, white-box, and non-functional",
+              "fraction": 0,
+              "feedback": "It uses no knowledge of the code's internal structure, so it is black-box, not white-box."
+            },
+            {
+              "text": "Static, black-box, and functional",
+              "fraction": 0,
+              "feedback": "It runs the system (dynamic) and measures performance (non-functional)."
+            }
+          ],
+          "generalFeedback": "Load testing executes the system (dynamic), needs no internal code knowledge (black-box), and targets a performance quality attribute (non-functional).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Static analysis as dynamic white-box?",
+          "text": "<p>Because static analysis inspects the source code, it is a form of <strong>dynamic white-box testing</strong>.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — static analysis is structure-based but does NOT execute the program, so it is static, not dynamic."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Static analysis uses the code structure but performs no execution, so it cannot be dynamic testing."
+            }
+          ],
+          "generalFeedback": "Static analysis is structure-based (it uses the code) yet static (no execution). \"White-box\" refers to knowledge of the structure, not to execution — so \"uses the code\" does not make it dynamic."
+        },
+        {
+          "type": "multichoice",
+          "name": "Why grey-box is not black plus white",
+          "text": "<p>Which statement best captures why <strong>grey-box</strong> testing is not simply \"black-box plus white-box\"?</p>",
+          "answers": [
+            {
+              "text": "It uses partial internal knowledge to design better externally-driven tests, rather than performing the complete sets of both black-box and white-box tests",
+              "fraction": 100,
+              "feedback": "Correct — grey-box combines a limited source of internal insight with external testing; it is not the union of the two full test sets."
+            },
+            {
+              "text": "It performs every possible black-box test and every possible white-box test",
+              "fraction": 0,
+              "feedback": "Grey-box uses only partial internal knowledge; it does not run the full white-box test set."
+            },
+            {
+              "text": "It is identical to white-box testing but with a different name",
+              "fraction": 0,
+              "feedback": "Grey-box uses only partial internal knowledge and drives tests externally, unlike full white-box testing."
+            },
+            {
+              "text": "It requires no knowledge of either the specification or the code",
+              "fraction": 0,
+              "feedback": "That would be neither; grey-box specifically uses partial internal knowledge."
+            }
+          ],
+          "generalFeedback": "Grey-box combines sources of knowledge — using limited internal insight (architecture, schema, key algorithms) to target external tests. It is not the union of complete black-box and white-box test sets.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify MC/DC on two axes",
+          "text": "<p><strong>MC/DC</strong> (Modified Condition/Decision Coverage) is best classified as:</p>",
+          "answers": [
+            {
+              "text": "White-box and dynamic — defined over code conditions and measured by executing tests",
+              "fraction": 100,
+              "feedback": "Correct — it is a structural criterion whose satisfaction is observed only by running the tests."
+            },
+            {
+              "text": "White-box and static — coverage can be computed without running the program",
+              "fraction": 0,
+              "feedback": "MC/DC is structural, but coverage is only observed by executing the tests, so it is dynamic."
+            },
+            {
+              "text": "Black-box and dynamic",
+              "fraction": 0,
+              "feedback": "MC/DC is defined over the code's conditions, so it is white-box, not black-box."
+            },
+            {
+              "text": "Black-box and static",
+              "fraction": 0,
+              "feedback": "It is defined over code conditions (white-box) and requires execution (dynamic)."
+            }
+          ],
+          "generalFeedback": "MC/DC is a structural (white-box) criterion, but coverage is only observed by executing the tests, so it is dynamic. Structural coverage criteria are not static.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Unit test against design spec",
+          "text": "<p>Executing a module's unit tests derived from its detailed <strong>design specification</strong>, to confirm the module conforms to that design, is chiefly an act of:</p>",
+          "answers": [
+            {
+              "text": "Verification — conformance to the specification",
+              "fraction": 100,
+              "feedback": "Correct — confirming conformance to the design spec is verification."
+            },
+            {
+              "text": "Validation — fitness for the end user's real needs",
+              "fraction": 0,
+              "feedback": "Validation checks real user needs; here we check conformance to the design — verification."
+            },
+            {
+              "text": "Non-functional testing",
+              "fraction": 0,
+              "feedback": "It checks functional conformance to the design, not a quality attribute."
+            },
+            {
+              "text": "Static analysis",
+              "fraction": 0,
+              "feedback": "The tests are executed, so this is dynamic, and its V&V role is verification."
+            }
+          ],
+          "generalFeedback": "Confirming conformance to the design specification is verification. The unit testing here is dynamic (and could be white-box), but on the V&V axis its role is verification.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Spec satisfied but wrong for users",
+          "text": "<p>A system perfectly satisfies its written requirements, yet those requirements misunderstood what users actually needed. Which activity is designed to catch this?</p>",
+          "answers": [
+            {
+              "text": "Validation — it checks fitness for real user needs, independent of the written spec",
+              "fraction": 100,
+              "feedback": "Correct — validation catches \"building the wrong product\" even when the spec is met."
+            },
+            {
+              "text": "Verification — it checks conformance to the written spec",
+              "fraction": 0,
+              "feedback": "Verification would pass here, because the product matches the (flawed) spec."
+            },
+            {
+              "text": "Statement coverage",
+              "fraction": 0,
+              "feedback": "Coverage measures which code ran, not whether the requirements were right."
+            },
+            {
+              "text": "Static analysis of the source",
+              "fraction": 0,
+              "feedback": "Static analysis inspects code quality, not whether the requirements meet user needs."
+            }
+          ],
+          "generalFeedback": "Verification would pass (the product matches the spec), but the spec itself is wrong. Only validation, which checks against real user needs, catches \"building the wrong product.\"",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why BVA is in the black-box family",
+          "text": "<p><strong>Boundary value analysis</strong> is classified in the black-box family because:</p>",
+          "answers": [
+            {
+              "text": "Its cases are derived from the boundaries of input partitions in the specification, needing no knowledge of the code",
+              "fraction": 100,
+              "feedback": "Correct — the test basis is the specified input domain, not the code."
+            },
+            {
+              "text": "It measures which branches of the code were executed",
+              "fraction": 0,
+              "feedback": "That describes branch coverage, a white-box technique, not BVA."
+            },
+            {
+              "text": "It never executes the program under test",
+              "fraction": 0,
+              "feedback": "BVA cases are executed; the reason it is black-box is its spec-based test basis, not a lack of execution."
+            },
+            {
+              "text": "It only evaluates non-functional quality attributes",
+              "fraction": 0,
+              "feedback": "BVA targets functional behavior at input boundaries, not quality attributes."
+            }
+          ],
+          "generalFeedback": "BVA belongs to the black-box family because its cases come from the boundaries of the specified input domain, requiring no knowledge of the code's internal structure.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "High coverage proves black-box testing?",
+          "text": "<p>Reporting <strong>90% branch coverage</strong> demonstrates that thorough black-box testing was performed.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — branch coverage is a white-box (structural) measure and says nothing about specification-based black-box testing."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Coverage is a structural metric; a high value does not indicate the specification was tested (black-box)."
+            }
+          ],
+          "generalFeedback": "Coverage metrics are white-box / structural. High coverage does not imply the specification was tested (black-box), and vice versa; the black/white-box and coverage notions are independent."
+        },
+        {
+          "type": "multichoice",
+          "name": "Which is white-box AND static",
+          "text": "<p>Which technique is both <strong>white-box (structure-based)</strong> AND <strong>static (no execution)</strong>?</p>",
+          "answers": [
+            {
+              "text": "Data-flow static analysis of the source code",
+              "fraction": 100,
+              "feedback": "Correct — it uses the code structure (white-box) but never executes it (static)."
+            },
+            {
+              "text": "Branch coverage measurement",
+              "fraction": 0,
+              "feedback": "Branch coverage is white-box but dynamic — it requires executing the tests."
+            },
+            {
+              "text": "Boundary value analysis",
+              "fraction": 0,
+              "feedback": "BVA is black-box (spec-based) and dynamic."
+            },
+            {
+              "text": "Load testing",
+              "fraction": 0,
+              "feedback": "Load testing is black-box and dynamic."
+            }
+          ],
+          "generalFeedback": "Data-flow static analysis examines the code's structure (white-box) without executing it (static). Branch coverage is white-box but dynamic; BVA is black-box; load testing is black-box and dynamic.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multi-axis: white-box dynamic functional",
+          "text": "<p>A developer writes unit tests <em>from the code</em>, runs them, and asserts each function returns the correct result. Ignoring any coverage measurement, across the three axes these tests are:</p>",
+          "answers": [
+            {
+              "text": "White-box, dynamic, and functional",
+              "fraction": 100,
+              "feedback": "Correct — derived from the code (white-box), executed (dynamic), and checking correct outputs (functional)."
+            },
+            {
+              "text": "Black-box, static, and non-functional",
+              "fraction": 0,
+              "feedback": "They are derived from the code (white-box), executed (dynamic), and check correct results (functional)."
+            },
+            {
+              "text": "White-box, static, and non-functional",
+              "fraction": 0,
+              "feedback": "Running the tests makes them dynamic, and checking correct results makes them functional."
+            },
+            {
+              "text": "Black-box, dynamic, and functional",
+              "fraction": 0,
+              "feedback": "Because they are written from the code, they are white-box, not black-box."
+            }
+          ],
+          "generalFeedback": "Tests derived from the code are white-box; running them is dynamic; asserting that each function returns the correct result is functional. Design basis, execution, and functional/non-functional are three separate axes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multi-axis: penetration test",
+          "text": "<p>A penetration tester is given partial architecture diagrams and some API internals, then attacks the running system to find security flaws. This is best described as:</p>",
+          "answers": [
+            {
+              "text": "Grey-box, dynamic, and non-functional",
+              "fraction": 100,
+              "feedback": "Correct — partial internal knowledge (grey-box), attacking a running system (dynamic), targeting security (non-functional)."
+            },
+            {
+              "text": "Black-box, static, and functional",
+              "fraction": 0,
+              "feedback": "The tester has partial internal knowledge (grey-box) and executes the system (dynamic), targeting a quality attribute (non-functional)."
+            },
+            {
+              "text": "White-box, static, and functional",
+              "fraction": 0,
+              "feedback": "Only partial knowledge is used (grey-box), the system is executed (dynamic), and the goal is security (non-functional)."
+            },
+            {
+              "text": "Pure black-box and functional",
+              "fraction": 0,
+              "feedback": "Using partial internals makes it grey-box, and the security goal is non-functional."
+            }
+          ],
+          "generalFeedback": "Partial internal knowledge makes it grey-box; attacking the running system makes it dynamic; targeting security (a quality attribute) makes it non-functional.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Multi-axis: design inspection",
+          "text": "<p>On the V&amp;V axis and the static/dynamic axis, a formal <strong>inspection of a design document</strong> is:</p>",
+          "answers": [
+            {
+              "text": "Verification and static",
+              "fraction": 100,
+              "feedback": "Correct — it checks conformance to the spec/standards (verification) and executes nothing (static)."
+            },
+            {
+              "text": "Validation and dynamic",
+              "fraction": 0,
+              "feedback": "An inspection executes nothing (static) and checks conformance to spec (verification)."
+            },
+            {
+              "text": "Verification and dynamic",
+              "fraction": 0,
+              "feedback": "It is verification, but nothing is executed, so it is static, not dynamic."
+            },
+            {
+              "text": "Validation and static",
+              "fraction": 0,
+              "feedback": "It is static, but it checks conformance to spec, so it is verification, not validation."
+            }
+          ],
+          "generalFeedback": "A design inspection checks conformance to the specification and standards (verification) and executes nothing (static).",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Regression testing is white-box by definition?",
+          "text": "<p>Regression testing is, by definition, a <strong>white-box</strong> technique.</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — regression testing is defined by its purpose (re-testing after a change) and can be black-box or white-box, manual or automated."
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Regression is about when and why you test, not the knowledge basis; it can be either black- or white-box."
+            }
+          ],
+          "generalFeedback": "Regression testing is categorized by purpose — confirming that a change did not break existing behavior — an axis orthogonal to black-box vs white-box. A regression suite may be either."
+        },
+        {
+          "type": "multichoice",
+          "name": "Verification/validation and static/dynamic",
+          "text": "<p>Which statement about <strong>verification and validation</strong> is correct?</p>",
+          "answers": [
+            {
+              "text": "Verification can be static (e.g. reviews) or dynamic (e.g. unit tests against the spec), while validation is normally dynamic",
+              "fraction": 100,
+              "feedback": "Correct — verification spans both static and dynamic methods; validation is usually dynamic."
+            },
+            {
+              "text": "Verification is always static and validation is always dynamic",
+              "fraction": 0,
+              "feedback": "Verification also includes dynamic methods, such as unit/integration tests checking conformance to the spec."
+            },
+            {
+              "text": "Verification and validation are the same activity under two names",
+              "fraction": 0,
+              "feedback": "They are distinct: conformance to spec versus fitness for user needs."
+            },
+            {
+              "text": "Validation must always be completed before any verification",
+              "fraction": 0,
+              "feedback": "There is no such strict ordering; verification runs throughout development."
+            }
+          ],
+          "generalFeedback": "Verification spans both static (reviews, inspections) and dynamic (spec-based unit/integration tests) methods; validation — confirming real-world fitness — is typically dynamic. They are distinct activities and not strictly ordered validation-first.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "EP design vs execution on two axes",
+          "text": "<p>A tester designs cases with <strong>equivalence partitioning</strong> (from the spec) and then runs them against the program. On the knowledge axis and the static/dynamic axis respectively, this is:</p>",
+          "answers": [
+            {
+              "text": "Black-box and dynamic — the design is spec-based, but running the cases executes the program",
+              "fraction": 100,
+              "feedback": "Correct — the design technique is black-box; executing the cases is dynamic."
+            },
+            {
+              "text": "White-box and static",
+              "fraction": 0,
+              "feedback": "The design uses the spec (black-box), and running the cases makes it dynamic."
+            },
+            {
+              "text": "Black-box and static",
+              "fraction": 0,
+              "feedback": "The cases are executed against the program, so the activity is dynamic, not static."
+            },
+            {
+              "text": "White-box and dynamic",
+              "fraction": 0,
+              "feedback": "Equivalence partitioning is spec-based, so it is black-box, not white-box."
+            }
+          ],
+          "generalFeedback": "Equivalence partitioning is a black-box design technique (spec-based); executing the resulting cases is dynamic. The design basis and the execution mode are separate axes.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "黑箱測試的定義",
+          "text": "<p><strong>黑箱測試（black-box testing）</strong>設計測試案例時所依據的是：</p>",
+          "answers": [
+            {
+              "text": "規格與對外行為，不需知道程式內部結構",
+              "fraction": 100,
+              "feedback": "正確——黑箱（規格導向）測試把實作視為不透明的。"
+            },
+            {
+              "text": "程式碼內部的控制流程圖",
+              "fraction": 0,
+              "feedback": "那是白箱（結構性）測試，會利用程式碼的結構。"
+            },
+            {
+              "text": "測試所執行到的原始碼行數",
+              "fraction": 0,
+              "feedback": "那描述的是覆蓋率量測，並非黑箱測試的設計依據。"
+            },
+            {
+              "text": "編譯器的最佳化設定",
+              "fraction": 0,
+              "feedback": "編譯器設定與黑箱測試如何產生無關。"
+            }
+          ],
+          "generalFeedback": "黑箱（規格導向）測試依需求與對外行為來設計測試，把實作視為不透明——不使用任何程式碼知識。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "白箱測試的定義",
+          "text": "<p><strong>白箱（結構性）</strong>測試設計測試案例時所依據的是：</p>",
+          "answers": [
+            {
+              "text": "程式內部結構的知識，例如敘述、分支與路徑",
+              "fraction": 100,
+              "feedback": "正確——白箱（透明箱）測試利用程式碼的內部結構。"
+            },
+            {
+              "text": "只看公佈的需求，完全不看程式碼",
+              "fraction": 0,
+              "feedback": "那是黑箱測試；白箱會利用程式碼結構。"
+            },
+            {
+              "text": "使用者對產品的主觀滿意度",
+              "fraction": 0,
+              "feedback": "那較接近驗證（validation）／可用性，而非結構性測試。"
+            },
+            {
+              "text": "程式將執行於哪種硬體",
+              "fraction": 0,
+              "feedback": "目標硬體並非白箱測試設計的依據。"
+            }
+          ],
+          "generalFeedback": "白箱（結構性／透明箱）測試利用程式碼的內部結構——敘述、分支、路徑、條件——來設計並量測測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "灰箱測試的定義",
+          "text": "<p><strong>灰箱測試（grey-box testing）</strong>的特徵是：</p>",
+          "answers": [
+            {
+              "text": "具備部分內部結構的知識，並透過對外介面來驅動測試",
+              "fraction": 100,
+              "feedback": "正確——灰箱運用部分內部洞見（如架構或資料庫結構）同時從外部進行測試。"
+            },
+            {
+              "text": "對規格與程式碼皆完全一無所知",
+              "fraction": 0,
+              "feedback": "測試者總會依據某些資訊；灰箱特指運用部分內部知識。"
+            },
+            {
+              "text": "對正確性進行完整的數學證明",
+              "fraction": 0,
+              "feedback": "那是形式化驗證，並非灰箱測試。"
+            },
+            {
+              "text": "只測試圖形使用者介面的顏色",
+              "fraction": 0,
+              "feedback": "灰箱關乎內部知識的多寡，而非 UI 外觀。"
+            }
+          ],
+          "generalFeedback": "灰箱測試運用部分內部知識（架構、資料結構、關鍵演算法）來設計測試，而這些測試仍透過對外介面來執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "靜態測試的定義",
+          "text": "<p><strong>靜態測試（static testing）</strong>最貼切的描述是：</p>",
+          "answers": [
+            {
+              "text": "檢視軟體產出物（文件或程式碼）而不執行程式",
+              "fraction": 100,
+              "feedback": "正確——靜態技術以檢視方式找出缺陷，不需執行。"
+            },
+            {
+              "text": "以許多不同輸入來執行程式",
+              "fraction": 0,
+              "feedback": "那是動態測試，需要執行。"
+            },
+            {
+              "text": "量測高負載下的回應時間",
+              "fraction": 0,
+              "feedback": "那是動態的非功能性活動（效能測試）。"
+            },
+            {
+              "text": "部署到正式環境並監看實際使用者",
+              "fraction": 0,
+              "feedback": "監看執行中的系統屬於動態，而非靜態。"
+            }
+          ],
+          "generalFeedback": "靜態測試（審查、走查、檢驗、靜態分析）以檢視產出物的方式找出缺陷，不執行程式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "動態測試的定義",
+          "text": "<p><strong>動態測試（dynamic testing）</strong>最貼切的描述是：</p>",
+          "answers": [
+            {
+              "text": "以輸入執行程式並觀察其行為",
+              "fraction": 100,
+              "feedback": "正確——動態測試執行軟體並將行為與預期比對。"
+            },
+            {
+              "text": "在審查會議中一起閱讀程式碼",
+              "fraction": 0,
+              "feedback": "那是靜態技術（審查）；沒有執行任何程式。"
+            },
+            {
+              "text": "檢查需求文件是否有錯字",
+              "fraction": 0,
+              "feedback": "那是對文件的靜態檢視，並非動態測試。"
+            },
+            {
+              "text": "用工具分析原始碼但從不執行它",
+              "fraction": 0,
+              "feedback": "那是靜態分析；動態測試需要執行。"
+            }
+          ],
+          "generalFeedback": "動態測試需要執行軟體，並將觀察到的行為與預期結果比對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "功能性測試的定義",
+          "text": "<p><strong>功能性測試（functional testing）</strong>主要關注的是：</p>",
+          "answers": [
+            {
+              "text": "系統「做什麼」——對給定輸入是否產生正確輸出",
+              "fraction": 100,
+              "feedback": "正確——功能性測試依規定的功能來檢查行為。"
+            },
+            {
+              "text": "系統在負載下回應有多快",
+              "fraction": 0,
+              "feedback": "那是非功能性（效能）的關注點。"
+            },
+            {
+              "text": "系統對攻擊者的抵抗力有多強",
+              "fraction": 0,
+              "feedback": "那是非功能性（安全性）的關注點。"
+            },
+            {
+              "text": "原始碼的可維護性有多高",
+              "fraction": 0,
+              "feedback": "可維護性是非功能性品質屬性，並非某項功能。"
+            }
+          ],
+          "generalFeedback": "功能性測試依需求檢查系統的功能／行為——「做什麼」——而非「做得多好」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "非功能性測試的定義",
+          "text": "<p><strong>非功能性測試（non-functional testing）</strong>主要評估的是：</p>",
+          "answers": [
+            {
+              "text": "品質屬性，例如效能、安全性、可用性與可靠性",
+              "fraction": 100,
+              "feedback": "正確——非功能性測試著重系統運作「有多好」。"
+            },
+            {
+              "text": "每項所需功能是否回傳正確結果",
+              "fraction": 0,
+              "feedback": "那是功能性測試（系統做什麼）。"
+            },
+            {
+              "text": "程式碼中每一條敘述是否都被執行",
+              "fraction": 0,
+              "feedback": "那是結構性覆蓋率（白箱）的關注點。"
+            },
+            {
+              "text": "需求文件的文法是否完整",
+              "fraction": 0,
+              "feedback": "那是靜態審查的關注點，並非非功能性測試。"
+            }
+          ],
+          "generalFeedback": "非功能性測試著重系統運作「有多好」——效能、安全性、可用性、可靠性、可攜性等——而非哪些功能可運作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗證（verification）的定義",
+          "text": "<p>在經典的 V&amp;V 區分中，<strong>驗證（verification）</strong>所問的是：</p>",
+          "answers": [
+            {
+              "text": "「我們有把產品做對嗎？」——它是否符合規格？",
+              "fraction": 100,
+              "feedback": "正確——驗證在各階段檢查是否符合規格與標準。"
+            },
+            {
+              "text": "「我們做的是對的產品嗎？」——它是否滿足使用者需求？",
+              "fraction": 0,
+              "feedback": "那是確認（validation），而非驗證。"
+            },
+            {
+              "text": "「這產品比競爭對手快嗎？」",
+              "fraction": 0,
+              "feedback": "那是效能／標竿比較問題，與驗證無關。"
+            },
+            {
+              "text": "「顧客會願意付錢買這產品嗎？」",
+              "fraction": 0,
+              "feedback": "那是市場問題，與 V&V 區分無關。"
+            }
+          ],
+          "generalFeedback": "驗證在每個開發階段檢查是否符合規格、設計與標準——「把產品做對」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "確認（validation）的定義",
+          "text": "<p>在經典的 V&amp;V 區分中，<strong>確認（validation）</strong>所問的是：</p>",
+          "answers": [
+            {
+              "text": "「我們做的是對的產品嗎？」——它是否滿足使用者真正的需求？",
+              "fraction": 100,
+              "feedback": "正確——確認依真正的使用者需求檢查是否適用。"
+            },
+            {
+              "text": "「我們有把產品做對嗎？」——它是否符合規格？",
+              "fraction": 0,
+              "feedback": "那是驗證，而非確認。"
+            },
+            {
+              "text": "「原始碼編譯時沒有警告嗎？」",
+              "fraction": 0,
+              "feedback": "那是靜態／建置的關注點，並非確認。"
+            },
+            {
+              "text": "「程式碼的每個分支都被某個測試覆蓋嗎？」",
+              "fraction": 0,
+              "feedback": "那是白箱覆蓋率的關注點，並非確認。"
+            }
+          ],
+          "generalFeedback": "確認檢查是否適用——完成的產品是否滿足使用者真正的需求——「做對的產品」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：邊界值分析",
+          "text": "<p><strong>邊界值分析（boundary value analysis）</strong>屬於哪一類技術？</p>",
+          "answers": [
+            {
+              "text": "黑箱——它使用輸入規格與分割，不看程式碼",
+              "fraction": 100,
+              "feedback": "正確——BVA 依規定輸入分割的邊界來產生測試。"
+            },
+            {
+              "text": "白箱——它需要控制流程圖",
+              "fraction": 0,
+              "feedback": "BVA 不需程式結構；它依輸入規格運作。"
+            },
+            {
+              "text": "靜態——它從不執行程式",
+              "fraction": 0,
+              "feedback": "BVA 的案例會對程式執行，因此是動態而非靜態。"
+            },
+            {
+              "text": "非功能性——它量測效能",
+              "fraction": 0,
+              "feedback": "BVA 檢查輸入邊界的功能行為，而非效能。"
+            }
+          ],
+          "generalFeedback": "邊界值分析依規格中輸入分割的邊界產生測試，不需程式碼知識——是黑箱技術。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：分支覆蓋率",
+          "text": "<p><strong>分支（決策）覆蓋率</strong>屬於哪一類技術？</p>",
+          "answers": [
+            {
+              "text": "白箱——它是依程式碼的決策與分支來定義的",
+              "fraction": 100,
+              "feedback": "正確——分支覆蓋率是針對程式碼結構量測的。"
+            },
+            {
+              "text": "黑箱——它只需要規格",
+              "fraction": 0,
+              "feedback": "分支覆蓋率需要程式碼分支的知識，因此是白箱。"
+            },
+            {
+              "text": "非功能性——它量測可用性",
+              "fraction": 0,
+              "feedback": "分支覆蓋率是結構性指標，並非品質屬性。"
+            },
+            {
+              "text": "靜態——它不需執行",
+              "fraction": 0,
+              "feedback": "量測分支覆蓋率需要執行測試，因此是動態。"
+            }
+          ],
+          "generalFeedback": "分支覆蓋率是針對程式碼的分支量測，需要內部結構的知識——是白箱技術。（量測它也需要執行，因此是動態。）",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "程式碼審查屬於靜態",
+          "text": "<p>程式碼審查（inspection）是一種<strong>靜態</strong>測試。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——審查是檢視程式碼而不執行它，因此屬於靜態。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "審查以閱讀而非執行程式碼來找缺陷——它們屬於靜態。"
+            }
+          ],
+          "generalFeedback": "審查、走查與檢驗都是靜態技術：以檢視方式找出缺陷，不執行程式。"
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：等價分割",
+          "text": "<p><strong>等價分割（equivalence partitioning）</strong>屬於哪一類技術？</p>",
+          "answers": [
+            {
+              "text": "黑箱——它依規格分割輸入定義域",
+              "fraction": 100,
+              "feedback": "正確——等價分割依規格把輸入分成若干類別。"
+            },
+            {
+              "text": "白箱——它分割的是程式碼路徑",
+              "fraction": 0,
+              "feedback": "等價分割作用於輸入定義域，而非程式碼路徑。"
+            },
+            {
+              "text": "靜態——它不需執行測試",
+              "fraction": 0,
+              "feedback": "產生的案例會被執行，因此是動態的黑箱技術。"
+            },
+            {
+              "text": "只做驗證、從不執行軟體的活動",
+              "fraction": 0,
+              "feedback": "它的測試案例會對軟體執行，因此此說法錯誤。"
+            }
+          ],
+          "generalFeedback": "等價分割依規格把輸入分成若干類別，不需程式碼知識——是黑箱技術。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：敘述覆蓋率",
+          "text": "<p><strong>敘述覆蓋率（statement coverage）</strong>屬於哪一類技術？</p>",
+          "answers": [
+            {
+              "text": "白箱——它是依程式碼的可執行敘述來定義的",
+              "fraction": 100,
+              "feedback": "正確——敘述覆蓋率是針對程式碼結構量測的。"
+            },
+            {
+              "text": "黑箱——它只需要需求",
+              "fraction": 0,
+              "feedback": "敘述覆蓋率需要程式碼的知識，因此是白箱。"
+            },
+            {
+              "text": "非功能性——它量測可靠性",
+              "fraction": 0,
+              "feedback": "敘述覆蓋率是結構性指標，並非品質屬性。"
+            },
+            {
+              "text": "靜態——不需執行",
+              "fraction": 0,
+              "feedback": "量測敘述覆蓋率需要執行測試，因此是動態。"
+            }
+          ],
+          "generalFeedback": "敘述覆蓋率是針對程式碼的可執行敘述量測，因此是白箱（結構性）技術；量測它是動態的（需要執行）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "黑箱需要原始碼嗎？",
+          "text": "<p>黑箱測試需要取得程式的<strong>原始碼</strong>。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——黑箱測試依規格與行為進行，而非依原始碼。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "黑箱把實作視為不透明；它不需原始碼（需要原始碼的是白箱）。"
+            }
+          ],
+          "generalFeedback": "黑箱測試依規格與對外行為來設計測試，不需要原始碼。需要原始碼是白箱測試的特徵。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "灰箱範例（透過 UI 用資料庫結構）",
+          "text": "<p>測試者透過網頁應用程式的公開 UI 來驅動測試，但利用<strong>資料庫結構</strong>的知識來設計輸入並檢查已儲存的結果。這最適合歸類為：</p>",
+          "answers": [
+            {
+              "text": "灰箱測試",
+              "fraction": 100,
+              "feedback": "正確——在從外部驅動系統時運用部分內部知識（結構）即為灰箱。"
+            },
+            {
+              "text": "純黑箱測試",
+              "fraction": 0,
+              "feedback": "純黑箱不使用任何內部知識；這裡用到了結構，因此是灰箱。"
+            },
+            {
+              "text": "純白箱測試",
+              "fraction": 0,
+              "feedback": "白箱會依程式碼結構驅動測試；這裡是透過 UI 執行、僅具部分知識。"
+            },
+            {
+              "text": "靜態分析",
+              "fraction": 0,
+              "feedback": "系統是透過 UI 執行的，因此是動態而非靜態。"
+            }
+          ],
+          "generalFeedback": "在透過對外介面操作系統的同時運用部分內部知識（資料庫結構），正是灰箱測試的典型模式。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "走查是動態的嗎？",
+          "text": "<p>規格<strong>走查（walkthrough）</strong>是一種動態測試活動。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——走查是檢視文件而不執行軟體，因此屬於靜態。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "走查與審查、檢驗一樣屬於靜態——沒有執行任何程式。"
+            }
+          ],
+          "generalFeedback": "走查（如同審查與檢驗）是靜態技術——以檢視方式找出缺陷，不執行任何程式碼。"
+        },
+        {
+          "type": "multichoice",
+          "name": "效能測試：功能性與否",
+          "text": "<p><strong>效能測試（performance testing）</strong>（量測負載下的吞吐量與回應時間）歸類為：</p>",
+          "answers": [
+            {
+              "text": "非功能性測試",
+              "fraction": 100,
+              "feedback": "正確——效能是品質屬性（做得多好），因此屬於非功能性。"
+            },
+            {
+              "text": "功能性測試",
+              "fraction": 0,
+              "feedback": "功能性測試檢查系統做什麼；效能關乎它做得多好。"
+            },
+            {
+              "text": "白箱測試",
+              "fraction": 0,
+              "feedback": "效能測試通常是黑箱；黑／白箱軸本來就與功能／非功能軸不同。"
+            },
+            {
+              "text": "靜態測試",
+              "fraction": 0,
+              "feedback": "效能測試在負載下執行系統，因此是動態而非靜態。"
+            }
+          ],
+          "generalFeedback": "效能關乎品質屬性（系統表現多好，而非哪些功能可運作），因此屬於非功能性。它同時也是動態且通常是黑箱。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需求審查：驗證或確認",
+          "text": "<p>將<strong>需求規格</strong>對照適用標準與客戶合約進行審查，是下列何者的例子？</p>",
+          "answers": [
+            {
+              "text": "驗證——符合規格與流程（「把產品做對」）",
+              "fraction": 100,
+              "feedback": "正確——需求審查檢查是否符合標準與規格。"
+            },
+            {
+              "text": "確認——是否適合使用者真正的需求",
+              "fraction": 0,
+              "feedback": "確認通常以動態方式確認交付產品在真實情境是否適用；規格審查屬於驗證。"
+            },
+            {
+              "text": "非功能性測試",
+              "fraction": 0,
+              "feedback": "文件審查是靜態的驗證活動，並非非功能性測試。"
+            },
+            {
+              "text": "動態測試",
+              "fraction": 0,
+              "feedback": "審查沒有執行任何東西，因此是靜態而非動態。"
+            }
+          ],
+          "generalFeedback": "需求審查檢查是否符合規格與標準——是驗證活動，也是靜態活動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "UAT：驗證或確認",
+          "text": "<p><strong>使用者驗收測試（UAT）</strong>——由真實使用者試用交付的系統以確認它滿足其需求——是下列何者的例子？</p>",
+          "answers": [
+            {
+              "text": "確認——是否適合使用（「做對的產品」）",
+              "fraction": 100,
+              "feedback": "正確——UAT 確認產品滿足使用者真正的需求。"
+            },
+            {
+              "text": "驗證——符合設計文件",
+              "fraction": 0,
+              "feedback": "符合設計是驗證；UAT 檢查真實使用者需求，屬於確認。"
+            },
+            {
+              "text": "靜態測試",
+              "fraction": 0,
+              "feedback": "UAT 會執行交付的系統，因此是動態而非靜態。"
+            },
+            {
+              "text": "白箱測試",
+              "fraction": 0,
+              "feedback": "使用者透過介面而非程式碼操作系統——這是黑箱，而問題其實是在問 V&V。"
+            }
+          ],
+          "generalFeedback": "UAT 確認產品滿足使用者真正的需求——是確認。它同時也是動態且黑箱。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個軸：BVA 與分支覆蓋率",
+          "text": "<p><strong>邊界值分析</strong>與<strong>分支覆蓋率</strong>主要在哪一條分類軸上不同？</p>",
+          "answers": [
+            {
+              "text": "黑箱與白箱（是否具備程式內部結構的知識）",
+              "fraction": 100,
+              "feedback": "正確——BVA 是規格導向（黑箱），而分支覆蓋率是結構導向（白箱）。"
+            },
+            {
+              "text": "靜態與動態",
+              "fraction": 0,
+              "feedback": "兩者都是動態的（測試都會被執行）；在此軸上並無差異。"
+            },
+            {
+              "text": "功能性與非功能性",
+              "fraction": 0,
+              "feedback": "兩者都偏向功能正確性；真正的差異在於知識依據。"
+            },
+            {
+              "text": "驗證與確認",
+              "fraction": 0,
+              "feedback": "兩者通常都偏向驗證；它們的差異在於黑箱與白箱。"
+            }
+          ],
+          "generalFeedback": "BVA 是黑箱（源自規格），分支覆蓋率是白箱（源自程式結構）；它們在知識／結構軸上不同。兩者都是動態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "自動化與黑／白箱正交",
+          "text": "<p>一個<strong>黑箱</strong>驗收測試組被改寫為透過 UI 驅動工具自動執行。在黑箱／白箱軸上，這個自動化測試組現在是：</p>",
+          "answers": [
+            {
+              "text": "仍是黑箱——自動化是一條正交的軸，並未加入程式結構的知識",
+              "fraction": 100,
+              "feedback": "正確——手動與自動化和黑箱與白箱互相獨立。"
+            },
+            {
+              "text": "變成白箱，因為有工具與程式互動",
+              "fraction": 0,
+              "feedback": "把測試自動化並不會賦予它對程式內部結構的知識。"
+            },
+            {
+              "text": "變成灰箱，因為自動化工具一定會讀原始碼",
+              "fraction": 0,
+              "feedback": "UI 驅動工具不會讀原始碼；知識依據並未改變。"
+            },
+            {
+              "text": "不再是黑箱也不是白箱",
+              "fraction": 0,
+              "feedback": "它仍是黑箱；只有手動／自動化這條軸改變了。"
+            }
+          ],
+          "generalFeedback": "手動與自動化和黑箱與白箱互相正交。把黑箱測試組自動化後它仍是黑箱；知識依據並未改變。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：掃描原始碼的工具",
+          "text": "<p>某工具掃描<strong>原始碼</strong>找出空指標風險與未使用變數，但從不執行程式。這項活動是：</p>",
+          "answers": [
+            {
+              "text": "靜態分析——一種檢視程式碼而不執行它的靜態技術",
+              "fraction": 100,
+              "feedback": "正確——沒有發生任何執行，因此是靜態分析。"
+            },
+            {
+              "text": "動態測試——它執行了程式",
+              "fraction": 0,
+              "feedback": "該工具從不執行程式，因此是靜態而非動態。"
+            },
+            {
+              "text": "黑箱測試——它忽略程式碼",
+              "fraction": 0,
+              "feedback": "它讀取原始碼（結構），因此不是黑箱。"
+            },
+            {
+              "text": "效能測試",
+              "fraction": 0,
+              "feedback": "它分析程式碼，而非執行期效能。"
+            }
+          ],
+          "generalFeedback": "靜態分析在不執行的情況下檢視原始碼／結構，因此是靜態。由於它使用程式碼結構，所以是結構導向而非規格導向。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "錯誤猜測與探索性測試所屬族群",
+          "text": "<p><strong>錯誤猜測（error guessing）</strong>與<strong>探索性測試（exploratory testing）</strong>依賴測試者的經驗而非正式模型，屬於哪一族群？</p>",
+          "answers": [
+            {
+              "text": "經驗導向技術",
+              "fraction": 100,
+              "feedback": "正確——這些是由測試者直覺與技巧驅動的經驗導向技術。"
+            },
+            {
+              "text": "結構導向（白箱）覆蓋率技術",
+              "fraction": 0,
+              "feedback": "它們不使用程式碼結構或覆蓋率準則。"
+            },
+            {
+              "text": "靜態審查技術",
+              "fraction": 0,
+              "feedback": "它們會執行軟體，因此是動態而非靜態審查。"
+            },
+            {
+              "text": "非功能性技術",
+              "fraction": 0,
+              "feedback": "它們憑經驗鎖定功能性缺陷，而非品質屬性。"
+            }
+          ],
+          "generalFeedback": "錯誤猜測與探索性測試是經驗導向技術——一種由測試者知識與直覺（而非正式規格或程式碼結構）驅動的動態、黑箱族群。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：狀態轉移測試",
+          "text": "<p><strong>狀態轉移測試（state-transition testing）</strong>從依需求建立的行為狀態模型導出測試案例。它是一種：</p>",
+          "answers": [
+            {
+              "text": "黑箱技術——源自規格／行為模型，而非程式碼",
+              "fraction": 100,
+              "feedback": "正確——狀態模型來自需求，因此是黑箱。"
+            },
+            {
+              "text": "白箱技術——源自控制流程圖",
+              "fraction": 0,
+              "feedback": "該模型是行為模型（源自規格），而非程式碼的控制流程圖。"
+            },
+            {
+              "text": "靜態技術——不需執行",
+              "fraction": 0,
+              "feedback": "產生的案例會對系統執行，因此是動態。"
+            },
+            {
+              "text": "非功能性技術",
+              "fraction": 0,
+              "feedback": "它透過狀態與轉移檢查功能行為，而非某項品質屬性。"
+            }
+          ],
+          "generalFeedback": "狀態轉移測試使用源自規格的行為模型，把實作視為不透明——是黑箱技術。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：壓力測試",
+          "text": "<p><strong>壓力測試（stress testing）</strong>（把系統推過正常負載，觀察它如何降級或失效）是：</p>",
+          "answers": [
+            {
+              "text": "非功能性（且動態）測試",
+              "fraction": 100,
+              "feedback": "正確——它藉由執行系統來評估負載下的行為（品質屬性）。"
+            },
+            {
+              "text": "功能性測試",
+              "fraction": 0,
+              "feedback": "它檢查負載下的品質屬性，而非某項功能是否回傳正確結果。"
+            },
+            {
+              "text": "靜態測試",
+              "fraction": 0,
+              "feedback": "它在負載下執行系統，因此是動態而非靜態。"
+            },
+            {
+              "text": "白箱覆蓋率量測",
+              "fraction": 0,
+              "feedback": "它量測負載下的行為，而非程式結構覆蓋率。"
+            }
+          ],
+          "generalFeedback": "壓力／負載測試評估品質屬性（極端負載下的行為），因此屬於非功能性；由於它執行系統，也是動態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "挑出驗證活動",
+          "text": "<p>下列何者屬於<strong>驗證</strong>活動，而非確認活動？</p>",
+          "answers": [
+            {
+              "text": "將某模組的程式碼對照其詳細設計文件進行檢驗",
+              "fraction": 100,
+              "feedback": "正確——檢查是否符合設計即為驗證。"
+            },
+            {
+              "text": "讓終端使用者試用產品以確認它滿足需求",
+              "fraction": 0,
+              "feedback": "那是確認是否適用——屬於確認。"
+            },
+            {
+              "text": "進行 beta 計畫以蒐集真實世界的回饋",
+              "fraction": 0,
+              "feedback": "beta 計畫檢查真實使用者需求——屬於確認。"
+            },
+            {
+              "text": "確認完成的系統解決了客戶真正的問題",
+              "fraction": 0,
+              "feedback": "那是是否適用——屬於確認。"
+            }
+          ],
+          "generalFeedback": "將模組對照其設計文件檢查屬於驗證（符合規格）。其他選項都是確認產品是否適合使用者真正的需求——屬於確認。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：安全性測試",
+          "text": "<p><strong>安全性測試（security testing）</strong>（檢查對未授權存取的抵抗力）主要是：</p>",
+          "answers": [
+            {
+              "text": "非功能性測試",
+              "fraction": 100,
+              "feedback": "正確——安全性是品質屬性，因此安全性測試屬於非功能性。"
+            },
+            {
+              "text": "功能性測試",
+              "fraction": 0,
+              "feedback": "安全性關乎品質屬性（抵抗攻擊做得多好），而非某項列出功能的輸出。"
+            },
+            {
+              "text": "純粹的靜態技術",
+              "fraction": 0,
+              "feedback": "安全性測試通常會執行系統（如滲透測試），因此是動態。"
+            },
+            {
+              "text": "只做驗證的活動",
+              "fraction": 0,
+              "feedback": "安全性測試是非功能性測試類別，而非 V&V 階段標籤。"
+            }
+          ],
+          "generalFeedback": "安全性是品質屬性，因此安全性測試屬於非功能性。它通常是動態，並視所用知識而可能是灰箱或黑箱。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "最清楚的軸：走查與負載測試",
+          "text": "<p><strong>走查</strong>與<strong>負載測試</strong>之間最清楚的分類差異是：</p>",
+          "answers": [
+            {
+              "text": "靜態與動態——走查不執行任何東西，負載測試會執行系統",
+              "fraction": 100,
+              "feedback": "正確——決定性的對比在於是否執行。"
+            },
+            {
+              "text": "黑箱與白箱",
+              "fraction": 0,
+              "feedback": "走查其實不太放在黑／白箱軸上；此處決定性的對比是靜態與動態。"
+            },
+            {
+              "text": "驗證與確認",
+              "fraction": 0,
+              "feedback": "兩者都可服務於驗證；清楚的對比是一者執行、一者不執行。"
+            },
+            {
+              "text": "手動與自動化",
+              "fraction": 0,
+              "feedback": "兩者都可能是手動或自動化；決定性的差異在於是否執行。"
+            }
+          ],
+          "generalFeedback": "走查是靜態（不執行任何東西），負載測試是動態（系統在負載下執行）；靜態與動態這條軸是決定性的對比。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：基本路徑測試",
+          "text": "<p><strong>基本路徑測試（basis-path testing）</strong>（從程式碼的線性獨立路徑導出測試）是一種：</p>",
+          "answers": [
+            {
+              "text": "白箱（結構導向）技術",
+              "fraction": 100,
+              "feedback": "正確——基本路徑測試源自程式碼的控制流程圖。"
+            },
+            {
+              "text": "黑箱技術",
+              "fraction": 0,
+              "feedback": "它使用程式碼的路徑，因此是結構導向而非規格導向。"
+            },
+            {
+              "text": "非功能性技術",
+              "fraction": 0,
+              "feedback": "它鎖定路徑的結構性覆蓋，而非品質屬性。"
+            },
+            {
+              "text": "靜態技術",
+              "fraction": 0,
+              "feedback": "它的測試會被執行，因此是動態而非靜態。"
+            }
+          ],
+          "generalFeedback": "基本路徑測試源自程式碼的控制流程圖（獨立路徑），因此是白箱／結構導向，且為動態。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "多軸分類：負載測試",
+          "text": "<p><strong>負載測試（load testing）</strong>會執行運作中的系統、完全透過對外介面驅動而不具程式碼知識，並量測高流量下的回應時間。就三條軸而言，它是：</p>",
+          "answers": [
+            {
+              "text": "動態、黑箱且非功能性",
+              "fraction": 100,
+              "feedback": "正確——它會執行（動態）、不使用程式碼知識（黑箱），並量測品質屬性（非功能性）。"
+            },
+            {
+              "text": "靜態、白箱且功能性",
+              "fraction": 0,
+              "feedback": "它會執行系統且不使用程式碼知識，因此是動態且黑箱，並鎖定效能（非功能性）。"
+            },
+            {
+              "text": "動態、白箱且非功能性",
+              "fraction": 0,
+              "feedback": "它不使用程式內部結構的知識，因此是黑箱而非白箱。"
+            },
+            {
+              "text": "靜態、黑箱且功能性",
+              "fraction": 0,
+              "feedback": "它會執行系統（動態）並量測效能（非功能性）。"
+            }
+          ],
+          "generalFeedback": "負載測試會執行系統（動態）、不需內部程式碼知識（黑箱），並鎖定效能這項品質屬性（非功能性）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "靜態分析算是動態白箱測試嗎？",
+          "text": "<p>因為靜態分析會檢視原始碼，所以它是一種<strong>動態白箱測試</strong>。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——靜態分析是結構導向，但「不」執行程式，因此是靜態而非動態。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "靜態分析使用程式碼結構，但不進行任何執行，因此不可能是動態測試。"
+            }
+          ],
+          "generalFeedback": "靜態分析是結構導向的（它使用程式碼）但屬靜態（不執行）。「白箱」指的是對結構的知識，而非執行——因此「使用程式碼」並不代表它是動態。"
+        },
+        {
+          "type": "multichoice",
+          "name": "為何灰箱不是黑箱加白箱",
+          "text": "<p>下列何者最能說明為何<strong>灰箱</strong>測試並非單純的「黑箱加白箱」？</p>",
+          "answers": [
+            {
+              "text": "它運用部分內部知識來設計更好的、從外部驅動的測試，而非執行黑箱與白箱兩者的完整測試集",
+              "fraction": 100,
+              "feedback": "正確——灰箱把有限的內部洞見與外部測試結合；它不是兩者完整測試集的聯集。"
+            },
+            {
+              "text": "它執行所有可能的黑箱測試以及所有可能的白箱測試",
+              "fraction": 0,
+              "feedback": "灰箱只運用部分內部知識；它不會跑完整的白箱測試集。"
+            },
+            {
+              "text": "它與白箱測試完全相同，只是換個名稱",
+              "fraction": 0,
+              "feedback": "灰箱只運用部分內部知識並從外部驅動測試，與完整白箱不同。"
+            },
+            {
+              "text": "它對規格與程式碼皆無需任何知識",
+              "fraction": 0,
+              "feedback": "那會是兩者皆非；灰箱特指運用部分內部知識。"
+            }
+          ],
+          "generalFeedback": "灰箱結合了知識來源——以有限的內部洞見（架構、結構、關鍵演算法）來鎖定外部測試。它並非黑箱與白箱完整測試集的聯集。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "就兩條軸分類 MC/DC",
+          "text": "<p><strong>MC/DC</strong>（修正條件／決策覆蓋率）最適合歸類為：</p>",
+          "answers": [
+            {
+              "text": "白箱且動態——依程式碼條件定義，須藉由執行測試來量測",
+              "fraction": 100,
+              "feedback": "正確——它是結構性準則，但只有透過執行測試才能觀察其是否滿足。"
+            },
+            {
+              "text": "白箱且靜態——不執行程式即可計算覆蓋率",
+              "fraction": 0,
+              "feedback": "MC/DC 是結構性的，但覆蓋率只有透過執行測試才能觀察，因此是動態。"
+            },
+            {
+              "text": "黑箱且動態",
+              "fraction": 0,
+              "feedback": "MC/DC 依程式碼的條件定義，因此是白箱而非黑箱。"
+            },
+            {
+              "text": "黑箱且靜態",
+              "fraction": 0,
+              "feedback": "它依程式碼條件定義（白箱）且需要執行（動態）。"
+            }
+          ],
+          "generalFeedback": "MC/DC 是結構性（白箱）準則，但覆蓋率只有透過執行測試才能觀察，因此是動態。結構性覆蓋率準則並非靜態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "對照設計規格的單元測試",
+          "text": "<p>執行由某模組詳細<strong>設計規格</strong>導出的單元測試，以確認該模組符合此設計，主要屬於下列何種行為？</p>",
+          "answers": [
+            {
+              "text": "驗證——符合規格",
+              "fraction": 100,
+              "feedback": "正確——確認符合設計規格即為驗證。"
+            },
+            {
+              "text": "確認——是否適合終端使用者真正的需求",
+              "fraction": 0,
+              "feedback": "確認檢查真實使用者需求；此處是檢查符合設計——屬於驗證。"
+            },
+            {
+              "text": "非功能性測試",
+              "fraction": 0,
+              "feedback": "它檢查對設計的功能性符合度，而非品質屬性。"
+            },
+            {
+              "text": "靜態分析",
+              "fraction": 0,
+              "feedback": "這些測試會被執行，因此是動態，而其 V&V 角色是驗證。"
+            }
+          ],
+          "generalFeedback": "確認符合設計規格即為驗證。此處的單元測試是動態的（也可能是白箱），但在 V&V 軸上其角色是驗證。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符合規格但不合使用者所需",
+          "text": "<p>某系統完全符合其書面需求，但那些需求誤解了使用者實際的需要。哪一項活動的設計目的正是要抓出這個問題？</p>",
+          "answers": [
+            {
+              "text": "確認——它檢查是否適合真實使用者需求，與書面規格無關",
+              "fraction": 100,
+              "feedback": "正確——即使符合規格，確認仍能抓出「做錯產品」。"
+            },
+            {
+              "text": "驗證——它檢查是否符合書面規格",
+              "fraction": 0,
+              "feedback": "此處驗證會通過，因為產品符合（有瑕疵的）規格。"
+            },
+            {
+              "text": "敘述覆蓋率",
+              "fraction": 0,
+              "feedback": "覆蓋率量測哪些程式碼被執行，而非需求是否正確。"
+            },
+            {
+              "text": "對原始碼的靜態分析",
+              "fraction": 0,
+              "feedback": "靜態分析檢視程式碼品質，而非需求是否滿足使用者需要。"
+            }
+          ],
+          "generalFeedback": "此處驗證會通過（產品符合規格），但規格本身錯了。只有依真實使用者需求檢查的確認，才能抓出「做錯產品」。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何 BVA 屬於黑箱族群",
+          "text": "<p><strong>邊界值分析</strong>被歸入黑箱族群，是因為：</p>",
+          "answers": [
+            {
+              "text": "它的案例源自規格中輸入分割的邊界，不需程式碼的知識",
+              "fraction": 100,
+              "feedback": "正確——測試依據是規定的輸入定義域，而非程式碼。"
+            },
+            {
+              "text": "它量測程式碼的哪些分支被執行",
+              "fraction": 0,
+              "feedback": "那描述的是分支覆蓋率（白箱技術），而非 BVA。"
+            },
+            {
+              "text": "它從不執行受測程式",
+              "fraction": 0,
+              "feedback": "BVA 的案例會被執行；它屬於黑箱的原因是規格導向的測試依據，而非不執行。"
+            },
+            {
+              "text": "它只評估非功能性品質屬性",
+              "fraction": 0,
+              "feedback": "BVA 鎖定輸入邊界的功能行為，而非品質屬性。"
+            }
+          ],
+          "generalFeedback": "BVA 屬於黑箱族群，是因為其案例源自規定輸入定義域的邊界，不需程式碼內部結構的知識。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "高覆蓋率能證明做了黑箱測試嗎？",
+          "text": "<p>回報<strong>90% 分支覆蓋率</strong>即證明已進行了徹底的黑箱測試。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——分支覆蓋率是白箱（結構性）指標，對規格導向的黑箱測試毫無說明力。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "覆蓋率是結構性指標；高數值並不代表規格已被測試（黑箱）。"
+            }
+          ],
+          "generalFeedback": "覆蓋率指標是白箱／結構性的。高覆蓋率並不代表規格已被測試（黑箱），反之亦然；黑／白箱與覆蓋率的概念互相獨立。"
+        },
+        {
+          "type": "multichoice",
+          "name": "何者同時是白箱且靜態",
+          "text": "<p>下列何者同時是<strong>白箱（結構導向）</strong>且<strong>靜態（不執行）</strong>？</p>",
+          "answers": [
+            {
+              "text": "對原始碼進行資料流靜態分析",
+              "fraction": 100,
+              "feedback": "正確——它使用程式碼結構（白箱）但從不執行它（靜態）。"
+            },
+            {
+              "text": "分支覆蓋率量測",
+              "fraction": 0,
+              "feedback": "分支覆蓋率是白箱但動態——它需要執行測試。"
+            },
+            {
+              "text": "邊界值分析",
+              "fraction": 0,
+              "feedback": "BVA 是黑箱（規格導向）且動態。"
+            },
+            {
+              "text": "負載測試",
+              "fraction": 0,
+              "feedback": "負載測試是黑箱且動態。"
+            }
+          ],
+          "generalFeedback": "資料流靜態分析檢視程式碼結構（白箱）而不執行它（靜態）。分支覆蓋率是白箱但動態；BVA 是黑箱；負載測試是黑箱且動態。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "多軸：白箱、動態、功能性",
+          "text": "<p>開發者<em>依程式碼</em>撰寫單元測試、執行它們，並斷言每個函式回傳正確結果。撇開任何覆蓋率量測不談，就三條軸而言這些測試是：</p>",
+          "answers": [
+            {
+              "text": "白箱、動態且功能性",
+              "fraction": 100,
+              "feedback": "正確——源自程式碼（白箱）、被執行（動態），並檢查輸出正確（功能性）。"
+            },
+            {
+              "text": "黑箱、靜態且非功能性",
+              "fraction": 0,
+              "feedback": "它們源自程式碼（白箱）、被執行（動態），並檢查結果正確（功能性）。"
+            },
+            {
+              "text": "白箱、靜態且非功能性",
+              "fraction": 0,
+              "feedback": "執行這些測試使其為動態，檢查結果正確使其為功能性。"
+            },
+            {
+              "text": "黑箱、動態且功能性",
+              "fraction": 0,
+              "feedback": "因為它們依程式碼撰寫，所以是白箱而非黑箱。"
+            }
+          ],
+          "generalFeedback": "依程式碼導出的測試是白箱；執行它們是動態；斷言每個函式回傳正確結果是功能性。設計依據、執行、功能／非功能是三條獨立的軸。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "多軸：滲透測試",
+          "text": "<p>某滲透測試者拿到部分架構圖與部分 API 內部細節，接著攻擊運作中的系統以找出安全漏洞。這最適合描述為：</p>",
+          "answers": [
+            {
+              "text": "灰箱、動態且非功能性",
+              "fraction": 100,
+              "feedback": "正確——部分內部知識（灰箱）、攻擊運作中的系統（動態）、鎖定安全性（非功能性）。"
+            },
+            {
+              "text": "黑箱、靜態且功能性",
+              "fraction": 0,
+              "feedback": "測試者具部分內部知識（灰箱）且會執行系統（動態），並鎖定品質屬性（非功能性）。"
+            },
+            {
+              "text": "白箱、靜態且功能性",
+              "fraction": 0,
+              "feedback": "只運用部分知識（灰箱）、系統被執行（動態）、目標是安全性（非功能性）。"
+            },
+            {
+              "text": "純黑箱且功能性",
+              "fraction": 0,
+              "feedback": "運用部分內部細節使其為灰箱，而安全性目標是非功能性。"
+            }
+          ],
+          "generalFeedback": "部分內部知識使其為灰箱；攻擊運作中的系統使其為動態；鎖定安全性（品質屬性）使其為非功能性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "多軸：設計檢驗",
+          "text": "<p>在 V&amp;V 軸與靜態／動態軸上，對<strong>設計文件</strong>進行正式檢驗（inspection）是：</p>",
+          "answers": [
+            {
+              "text": "驗證且靜態",
+              "fraction": 100,
+              "feedback": "正確——它檢查是否符合規格／標準（驗證）且不執行任何東西（靜態）。"
+            },
+            {
+              "text": "確認且動態",
+              "fraction": 0,
+              "feedback": "檢驗不執行任何東西（靜態），並檢查是否符合規格（驗證）。"
+            },
+            {
+              "text": "驗證且動態",
+              "fraction": 0,
+              "feedback": "它是驗證，但沒有執行任何東西，因此是靜態而非動態。"
+            },
+            {
+              "text": "確認且靜態",
+              "fraction": 0,
+              "feedback": "它是靜態，但檢查是否符合規格，因此是驗證而非確認。"
+            }
+          ],
+          "generalFeedback": "設計檢驗檢查是否符合規格與標準（驗證）且不執行任何東西（靜態）。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "回歸測試依定義是白箱嗎？",
+          "text": "<p>回歸測試（regression testing）依定義是一種<strong>白箱</strong>技術。</p>",
+          "answers": [
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——回歸測試由其目的（變更後重新測試）定義，可以是黑箱或白箱、手動或自動化。"
+            },
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "回歸關乎何時與為何測試，而非知識依據；它可以是黑箱或白箱。"
+            }
+          ],
+          "generalFeedback": "回歸測試依其目的分類——確認變更未破壞既有行為——這條軸與黑箱／白箱正交。回歸測試組可以是任一種。"
+        },
+        {
+          "type": "multichoice",
+          "name": "驗證／確認與靜態／動態",
+          "text": "<p>關於<strong>驗證與確認</strong>，下列哪一項敘述正確？</p>",
+          "answers": [
+            {
+              "text": "驗證可以是靜態（如審查）或動態（如對照規格的單元測試），而確認通常是動態",
+              "fraction": 100,
+              "feedback": "正確——驗證橫跨靜態與動態方法；確認通常是動態。"
+            },
+            {
+              "text": "驗證一定是靜態，確認一定是動態",
+              "fraction": 0,
+              "feedback": "驗證也包含動態方法，例如檢查是否符合規格的單元／整合測試。"
+            },
+            {
+              "text": "驗證與確認是同一活動的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們不同：符合規格 相對於 適合使用者需求。"
+            },
+            {
+              "text": "確認一定要在任何驗證之前完成",
+              "fraction": 0,
+              "feedback": "並無此嚴格順序；驗證在整個開發過程中都會進行。"
+            }
+          ],
+          "generalFeedback": "驗證橫跨靜態（審查、檢驗）與動態（對照規格的單元／整合測試）方法；確認——確認真實世界的適用性——通常是動態。兩者是不同的活動，也並非硬性規定確認在先。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "等價分割：設計與執行的兩條軸",
+          "text": "<p>測試者以<strong>等價分割</strong>（依規格）設計案例，然後對程式執行它們。在知識軸與靜態／動態軸上分別而言，這是：</p>",
+          "answers": [
+            {
+              "text": "黑箱且動態——設計是規格導向，但執行案例會運行程式",
+              "fraction": 100,
+              "feedback": "正確——設計技術是黑箱；執行案例是動態。"
+            },
+            {
+              "text": "白箱且靜態",
+              "fraction": 0,
+              "feedback": "設計使用規格（黑箱），而執行案例使其為動態。"
+            },
+            {
+              "text": "黑箱且靜態",
+              "fraction": 0,
+              "feedback": "案例會對程式執行，因此該活動是動態而非靜態。"
+            },
+            {
+              "text": "白箱且動態",
+              "fraction": 0,
+              "feedback": "等價分割是規格導向，因此是黑箱而非白箱。"
+            }
+          ],
+          "generalFeedback": "等價分割是黑箱設計技術（規格導向）；執行所產生的案例是動態。設計依據與執行方式是兩條獨立的軸。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "testing-types-table": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What a test level is",
+          "text": "<p>A <em>test level</em> is a group of test activities that are organised primarily by:</p>",
+          "answers": [
+            {
+              "text": "When they happen and what scope they cover in the development lifecycle (unit, integration, system, acceptance)",
+              "fraction": 100,
+              "feedback": "Correct — a level is defined by scope/when: unit, integration, system, acceptance."
+            },
+            {
+              "text": "The quality attribute or objective they target (functional, performance, security)",
+              "fraction": 0,
+              "feedback": "That describes a test, not a level."
+            },
+            {
+              "text": "The programming language used to write the tests",
+              "fraction": 0,
+              "feedback": "Levels are not defined by tooling or language."
+            },
+            {
+              "text": "Whether the tester is internal or external to the company",
+              "fraction": 0,
+              "feedback": "Who runs the test does not define a level; scope and lifecycle position do."
+            }
+          ],
+          "generalFeedback": "Test levels are groups of activities organised by scope and position in the lifecycle: unit/component, integration, system, and acceptance. They answer \"when/at what scope\", distinct from test types, which answer \"what quality attribute\".",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What a test type is",
+          "text": "<p>A <em>test type</em> is a group of test activities organised primarily by:</p>",
+          "answers": [
+            {
+              "text": "The specific quality characteristic or objective being evaluated (e.g. functional, performance, security)",
+              "fraction": 100,
+              "feedback": "Correct — a type is defined by the objective/attribute under test."
+            },
+            {
+              "text": "Its position in the lifecycle (unit, integration, system, acceptance)",
+              "fraction": 0,
+              "feedback": "That describes a test, not a type."
+            },
+            {
+              "text": "The number of testers assigned to it",
+              "fraction": 0,
+              "feedback": "Team size does not define a test type."
+            },
+            {
+              "text": "The order in which defects are reported",
+              "fraction": 0,
+              "feedback": "Defect reporting order is unrelated to how types are defined."
+            }
+          ],
+          "generalFeedback": "Test types group activities by the objective or quality attribute they evaluate — functional, non-functional, structural (white-box), and change-related. They answer \"what are we testing for\", distinct from levels, which answer \"at what scope/when\".",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The four test levels in order",
+          "text": "<p>Which sequence lists the classic test <strong>levels</strong> in their usual order?</p>",
+          "answers": [
+            {
+              "text": "Unit/component &#8594; integration &#8594; system &#8594; acceptance",
+              "fraction": 100,
+              "feedback": "Correct — this is the standard ordering of test levels."
+            },
+            {
+              "text": "Functional &#8594; non-functional &#8594; structural &#8594; change-related",
+              "fraction": 0,
+              "feedback": "Those are test, not levels."
+            },
+            {
+              "text": "Acceptance &#8594; system &#8594; integration &#8594; unit",
+              "fraction": 0,
+              "feedback": "This reverses the order; unit testing comes first."
+            },
+            {
+              "text": "Smoke &#8594; regression &#8594; performance &#8594; security",
+              "fraction": 0,
+              "feedback": "These are test types/activities, not the four levels."
+            }
+          ],
+          "generalFeedback": "The four classic test levels run from smallest to largest scope: unit/component, then integration, then system, then acceptance.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Functional vs non-functional",
+          "text": "<p><em>Functional</em> testing evaluates:</p>",
+          "answers": [
+            {
+              "text": "What the system does — the functions and behaviour it is supposed to provide",
+              "fraction": 100,
+              "feedback": "Correct — functional testing checks \"what\" the system does."
+            },
+            {
+              "text": "How well the system performs a function — its speed, security, or usability",
+              "fraction": 0,
+              "feedback": "That is non-functional testing (the \"how well\" qualities)."
+            },
+            {
+              "text": "The internal code structure and coverage achieved",
+              "fraction": 0,
+              "feedback": "That is structural (white-box) testing."
+            },
+            {
+              "text": "Whether a fix re-broke previously working features",
+              "fraction": 0,
+              "feedback": "That is change-related (regression) testing."
+            }
+          ],
+          "generalFeedback": "Functional testing asks \"does it do what it is supposed to do?\" — it evaluates the functions/behaviour. Non-functional testing asks \"how well?\" — performance, security, usability, and other quality attributes.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A non-functional type",
+          "text": "<p>Which of the following is a <strong>non-functional</strong> test type?</p>",
+          "answers": [
+            {
+              "text": "Performance (load/stress) testing",
+              "fraction": 100,
+              "feedback": "Correct — performance is a non-functional quality attribute."
+            },
+            {
+              "text": "Checking that \"add to cart\" adds the chosen item",
+              "fraction": 0,
+              "feedback": "That is functional testing — it checks what the system does."
+            },
+            {
+              "text": "Measuring statement coverage of the code",
+              "fraction": 0,
+              "feedback": "That is structural (white-box) testing, not non-functional."
+            },
+            {
+              "text": "Re-running a failed test after the defect is fixed",
+              "fraction": 0,
+              "feedback": "That is confirmation testing, a change-related activity."
+            }
+          ],
+          "generalFeedback": "Non-functional types evaluate \"how well\" — performance, security, usability, reliability, compatibility, portability, maintainability. Performance (including load and stress) is a classic example.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Confirmation testing defined",
+          "text": "<p><em>Confirmation (re-)testing</em> means:</p>",
+          "answers": [
+            {
+              "text": "Re-running the test that originally revealed a defect, after the fix, to confirm the defect is gone",
+              "fraction": 100,
+              "feedback": "Correct — confirmation testing verifies that the specific fix worked."
+            },
+            {
+              "text": "Running other tests to check the fix did not break anything else",
+              "fraction": 0,
+              "feedback": "That is regression testing, not confirmation testing."
+            },
+            {
+              "text": "A first quick check that the build is stable enough to test",
+              "fraction": 0,
+              "feedback": "That is smoke testing."
+            },
+            {
+              "text": "Testing the system against user business needs before go-live",
+              "fraction": 0,
+              "feedback": "That is acceptance testing, a level, not confirmation testing."
+            }
+          ],
+          "generalFeedback": "Confirmation testing (re-testing) re-executes the exact test case that failed, now that the defect is supposedly fixed, to confirm the fix. Checking for unintended side effects elsewhere is the separate activity of regression testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Regression testing defined",
+          "text": "<p><em>Regression testing</em> means:</p>",
+          "answers": [
+            {
+              "text": "Re-testing previously working functionality to detect unintended side effects introduced by a change",
+              "fraction": 100,
+              "feedback": "Correct — regression guards against a change breaking things that used to work."
+            },
+            {
+              "text": "Re-running only the one test that failed, to confirm the specific fix",
+              "fraction": 0,
+              "feedback": "That is confirmation (re-)testing, not regression."
+            },
+            {
+              "text": "Testing a brand-new feature for the first time",
+              "fraction": 0,
+              "feedback": "Testing new functionality is not regression testing; regression re-checks existing behaviour."
+            },
+            {
+              "text": "Measuring how fast the system responds under load",
+              "fraction": 0,
+              "feedback": "That is performance testing, a non-functional type."
+            }
+          ],
+          "generalFeedback": "Regression testing re-executes tests over already-working functionality after a change (a fix, enhancement, or configuration change) to catch unintended side effects. It is a change-related test type performed across levels.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Smoke testing defined",
+          "text": "<p><em>Smoke testing</em> is best described as:</p>",
+          "answers": [
+            {
+              "text": "A quick, shallow set of checks confirming the build's main functions work well enough to justify further testing",
+              "fraction": 100,
+              "feedback": "Correct — smoke testing is a broad, shallow \"is the build stable?\" check."
+            },
+            {
+              "text": "An exhaustive re-run of the entire test suite after every change",
+              "fraction": 0,
+              "feedback": "That would be full regression testing, not a quick smoke test."
+            },
+            {
+              "text": "A deep test of one specific area after a small change",
+              "fraction": 0,
+              "feedback": "That describes sanity testing, which is narrow and deep rather than broad and shallow."
+            },
+            {
+              "text": "Validation of the system against user requirements before release",
+              "fraction": 0,
+              "feedback": "That is acceptance testing, a level, not smoke testing."
+            }
+          ],
+          "generalFeedback": "A smoke test is a small, broad, shallow set of checks (often automated as build verification) run to decide whether a build is stable enough to spend more testing effort on it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Static vs dynamic testing",
+          "text": "<p>The distinguishing feature of <em>static</em> testing is that it:</p>",
+          "answers": [
+            {
+              "text": "Examines the work product without executing the code (reviews, static analysis)",
+              "fraction": 100,
+              "feedback": "Correct — static testing evaluates artefacts without running them."
+            },
+            {
+              "text": "Runs the software and observes its behaviour on inputs",
+              "fraction": 0,
+              "feedback": "That is dynamic testing, the opposite of static."
+            },
+            {
+              "text": "Can only be applied at the acceptance level",
+              "fraction": 0,
+              "feedback": "Static testing (reviews, analysis) can apply throughout, and it is defined by not executing code."
+            },
+            {
+              "text": "Requires measuring code coverage",
+              "fraction": 0,
+              "feedback": "Coverage is a dynamic/structural concern; static testing does not run the code."
+            }
+          ],
+          "generalFeedback": "Static testing evaluates work products (code, requirements, designs) without executing them — via reviews and static analysis. Dynamic testing executes the software and observes actual behaviour.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: testing one function in isolation",
+          "text": "<p>A developer tests a single function in isolation, checking its logic directly. Which test <strong>level</strong> is this?</p>",
+          "answers": [
+            {
+              "text": "Unit (component) testing",
+              "fraction": 100,
+              "feedback": "Correct — testing an individual component in isolation is the unit level."
+            },
+            {
+              "text": "Integration testing",
+              "fraction": 0,
+              "feedback": "Integration testing checks interactions between components, not one component alone."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing exercises the whole integrated system, not a single function."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing validates the finished system against user needs, not an isolated function."
+            }
+          ],
+          "generalFeedback": "Exercising an individual component/function in isolation is unit (component) testing — the smallest-scope level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: response time under load",
+          "text": "<p>A team measures how quickly the application responds when many users hit it at once. Which test <strong>type</strong> is this?</p>",
+          "answers": [
+            {
+              "text": "Performance testing (a non-functional type)",
+              "fraction": 100,
+              "feedback": "Correct — measuring response under load is non-functional performance testing."
+            },
+            {
+              "text": "Functional testing",
+              "fraction": 0,
+              "feedback": "Functional testing checks what the system does, not how fast it does it."
+            },
+            {
+              "text": "Acceptance (a level, wrongly named here)",
+              "fraction": 0,
+              "feedback": "Acceptance is a level, not the type being described; and this activity is performance testing."
+            },
+            {
+              "text": "Confirmation testing",
+              "fraction": 0,
+              "feedback": "Confirmation testing re-checks a fix; it does not measure response time."
+            }
+          ],
+          "generalFeedback": "Measuring speed/throughput under load evaluates a quality attribute (performance), so it is a non-functional test type — and it can be applied at any level (commonly system).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: users validate before go-live",
+          "text": "<p>Before release, the intended users try the system against their real business needs to decide whether to accept it. Which test <strong>level</strong> is this?</p>",
+          "answers": [
+            {
+              "text": "Acceptance testing",
+              "fraction": 100,
+              "feedback": "Correct — user validation against business needs prior to acceptance is the acceptance level."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing checks a single component, not the whole system against user needs."
+            },
+            {
+              "text": "Integration testing",
+              "fraction": 0,
+              "feedback": "Integration testing checks module interactions, not user acceptance."
+            },
+            {
+              "text": "Performance testing",
+              "fraction": 0,
+              "feedback": "Performance is a non-functional type, not a level; this activity is acceptance-level validation."
+            }
+          ],
+          "generalFeedback": "Validating the completed system against user requirements and business processes to establish confidence for release is acceptance testing — the last of the four levels.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Structural (white-box) testing",
+          "text": "<p><em>Structural (white-box)</em> testing is characterised by:</p>",
+          "answers": [
+            {
+              "text": "Deriving and measuring tests from the internal structure of the code (e.g. statement or branch coverage)",
+              "fraction": 100,
+              "feedback": "Correct — structural testing works from the code's internal structure and coverage."
+            },
+            {
+              "text": "Deriving tests only from the specification, ignoring the code",
+              "fraction": 0,
+              "feedback": "That is black-box (specification-based) testing, not structural."
+            },
+            {
+              "text": "Measuring the system's response time under load",
+              "fraction": 0,
+              "feedback": "That is performance testing, a non-functional type."
+            },
+            {
+              "text": "Re-running earlier tests after a change",
+              "fraction": 0,
+              "feedback": "That is regression testing, a change-related type."
+            }
+          ],
+          "generalFeedback": "Structural (white-box) testing uses the internal structure of the item — control flow, data flow — to derive tests and to measure coverage (statement, branch, etc.). It is a distinct test type that can be applied at any level.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Functional testing checks what the system does",
+          "text": "<p>Functional testing evaluates <em>what</em> the system does (its functions), while non-functional testing evaluates <em>how well</em> it does it.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — functional = what it does; non-functional = how well it does it."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "This is the standard distinction: functional targets behaviour/functions, non-functional targets quality attributes."
+            }
+          ],
+          "generalFeedback": "Functional testing checks the functions and behaviour the system provides; non-functional testing checks quality attributes such as performance, security, usability and reliability — \"how well\" those functions are delivered."
+        },
+        {
+          "type": "multichoice",
+          "name": "Which item is a test level, not a type",
+          "text": "<p>Which of the following is a test <strong>level</strong> (not a test type)?</p>",
+          "answers": [
+            {
+              "text": "Acceptance",
+              "fraction": 100,
+              "feedback": "Correct — acceptance is a test level (scope/when)."
+            },
+            {
+              "text": "Performance",
+              "fraction": 0,
+              "feedback": "Performance is a non-functional test type, not a level."
+            },
+            {
+              "text": "Security",
+              "fraction": 0,
+              "feedback": "Security is a non-functional test type, not a level."
+            },
+            {
+              "text": "Regression",
+              "fraction": 0,
+              "feedback": "Regression is a change-related test type, not a level."
+            }
+          ],
+          "generalFeedback": "Acceptance is one of the four levels (unit, integration, system, acceptance). Performance, security, and regression are all test types (non-functional or change-related), not levels.",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Test basis for the unit level",
+          "text": "<p>Which document is the usual <em>test basis</em> for <strong>unit (component)</strong> testing?</p>",
+          "answers": [
+            {
+              "text": "The detailed (low-level) design and the code of the component",
+              "fraction": 100,
+              "feedback": "Correct — unit testing is based on the component's detailed design and code."
+            },
+            {
+              "text": "The system requirements specification",
+              "fraction": 0,
+              "feedback": "That is the basis for system testing, not unit testing."
+            },
+            {
+              "text": "The user requirements and business processes",
+              "fraction": 0,
+              "feedback": "That is the basis for acceptance testing."
+            },
+            {
+              "text": "The software architecture and interface specifications",
+              "fraction": 0,
+              "feedback": "That is the basis for integration testing."
+            }
+          ],
+          "generalFeedback": "Each level draws on a different test basis. Unit testing is based on the detailed/component design and the code itself, since it targets the internals of a single component.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test basis for the system level",
+          "text": "<p>Which document is the usual <em>test basis</em> for <strong>system</strong> testing?</p>",
+          "answers": [
+            {
+              "text": "The system/software requirements specification (functional and non-functional)",
+              "fraction": 100,
+              "feedback": "Correct — system testing is based on the system requirements."
+            },
+            {
+              "text": "The component's detailed design and code",
+              "fraction": 0,
+              "feedback": "That is the basis for unit testing."
+            },
+            {
+              "text": "The software architecture and module interfaces",
+              "fraction": 0,
+              "feedback": "That is the basis for integration testing."
+            },
+            {
+              "text": "The legal contract signed with the customer",
+              "fraction": 0,
+              "feedback": "That belongs to (contractual) acceptance testing, not system testing."
+            }
+          ],
+          "generalFeedback": "System testing verifies the complete, integrated system against its specified requirements, so the system/software requirements specification (both functional and non-functional) is its test basis.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is acceptance a level or a type?",
+          "text": "<p>On the level-vs-type axes, <em>acceptance</em> testing is:</p>",
+          "answers": [
+            {
+              "text": "A test level (defined by scope/when in the lifecycle)",
+              "fraction": 100,
+              "feedback": "Correct — acceptance is the fourth test level."
+            },
+            {
+              "text": "A non-functional test type",
+              "fraction": 0,
+              "feedback": "Acceptance is a level; functional and non-functional types can both be run within it."
+            },
+            {
+              "text": "A structural test type",
+              "fraction": 0,
+              "feedback": "Acceptance is not a type at all; it is a level."
+            },
+            {
+              "text": "A change-related test type",
+              "fraction": 0,
+              "feedback": "Change-related types are confirmation and regression; acceptance is a level."
+            }
+          ],
+          "generalFeedback": "Acceptance sits on the level axis (unit, integration, system, acceptance). Within it you may still run functional and non-functional test types — the two axes are orthogonal.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is performance a level or a type?",
+          "text": "<p>On the level-vs-type axes, <em>performance</em> testing is:</p>",
+          "answers": [
+            {
+              "text": "A non-functional test type (it can be run at several levels)",
+              "fraction": 100,
+              "feedback": "Correct — performance is a non-functional type, not a level."
+            },
+            {
+              "text": "A test level between system and acceptance",
+              "fraction": 0,
+              "feedback": "There is no \"performance level\"; the levels are unit, integration, system, acceptance."
+            },
+            {
+              "text": "A test level that replaces system testing",
+              "fraction": 0,
+              "feedback": "Performance is a type; it does not sit on the level axis at all."
+            },
+            {
+              "text": "A change-related test type",
+              "fraction": 0,
+              "feedback": "Change-related types are confirmation and regression; performance is non-functional."
+            }
+          ],
+          "generalFeedback": "Performance is a non-functional test type. A common misconception treats it as a level, but it is an objective (a quality attribute) that can be pursued at unit, integration, system, or acceptance level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is integration a level or a type?",
+          "text": "<p>On the level-vs-type axes, <em>integration</em> testing is:</p>",
+          "answers": [
+            {
+              "text": "A test level (its scope is the interactions between components or systems)",
+              "fraction": 100,
+              "feedback": "Correct — integration is the second test level."
+            },
+            {
+              "text": "A non-functional test type",
+              "fraction": 0,
+              "feedback": "Integration is a level; non-functional types can be run within it."
+            },
+            {
+              "text": "A change-related test type",
+              "fraction": 0,
+              "feedback": "Change-related types are confirmation and regression; integration is a level."
+            },
+            {
+              "text": "A structural test type",
+              "fraction": 0,
+              "feedback": "Integration is defined by scope (interfaces), which makes it a level, not a type."
+            }
+          ],
+          "generalFeedback": "Integration is a test level: its scope is the interfaces and interactions between components (component integration) or between systems (system integration).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Is security a level or a type?",
+          "text": "<p>On the level-vs-type axes, <em>security</em> testing is:</p>",
+          "answers": [
+            {
+              "text": "A non-functional test type",
+              "fraction": 100,
+              "feedback": "Correct — security is a non-functional quality attribute, hence a type."
+            },
+            {
+              "text": "A test level after acceptance",
+              "fraction": 0,
+              "feedback": "There is no security level; the levels end at acceptance."
+            },
+            {
+              "text": "A structural test type",
+              "fraction": 0,
+              "feedback": "Security is non-functional, not structural (structural = coverage of code)."
+            },
+            {
+              "text": "A change-related test type",
+              "fraction": 0,
+              "feedback": "Change-related types are confirmation and regression; security is non-functional."
+            }
+          ],
+          "generalFeedback": "Security is a non-functional test type (protecting against threats, controlling access). Like other types, it can be applied at multiple levels — for instance security testing at the system level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which re-tests the fixed defect?",
+          "text": "<p>A defect was fixed. Which activity re-runs the exact test that had failed to check the <strong>fix itself</strong>?</p>",
+          "answers": [
+            {
+              "text": "Confirmation (re-)testing",
+              "fraction": 100,
+              "feedback": "Correct — confirmation testing re-executes the failed test to verify the fix."
+            },
+            {
+              "text": "Regression testing",
+              "fraction": 0,
+              "feedback": "Regression checks that nothing else broke; it is not the re-run of the specific failed test."
+            },
+            {
+              "text": "Smoke testing",
+              "fraction": 0,
+              "feedback": "Smoke testing is a broad build-stability check, not verification of a specific fix."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing is a level; the activity described is confirmation testing."
+            }
+          ],
+          "generalFeedback": "Confirmation testing re-executes the previously failing test after the fix to confirm the defect is resolved. Regression testing is the complementary activity of checking for unintended side effects elsewhere.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which checks nothing else broke?",
+          "text": "<p>After a fix, which activity re-runs other, previously passing tests to check <strong>nothing else broke</strong>?</p>",
+          "answers": [
+            {
+              "text": "Regression testing",
+              "fraction": 100,
+              "feedback": "Correct — regression testing detects unintended side effects of the change."
+            },
+            {
+              "text": "Confirmation (re-)testing",
+              "fraction": 0,
+              "feedback": "Confirmation re-runs the one failed test to verify the fix, not the surrounding tests."
+            },
+            {
+              "text": "Sanity testing",
+              "fraction": 0,
+              "feedback": "Sanity testing is a narrow, quick check of one area, not broad side-effect detection."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance is a level about user validation, not side-effect detection after a fix."
+            }
+          ],
+          "generalFeedback": "Regression testing re-runs previously passing tests to catch unintended side effects introduced by a change. Confirmation testing is the narrower re-run of the specific test that had failed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A type applied at a level",
+          "text": "<p>\"Performance testing carried out at the system level\" is best understood as:</p>",
+          "answers": [
+            {
+              "text": "A non-functional test(performance) applied at a particular test(system)",
+              "fraction": 100,
+              "feedback": "Correct — level and type are orthogonal, so a type is applied at a level."
+            },
+            {
+              "text": "A contradiction, because performance and system are two names for the same thing",
+              "fraction": 0,
+              "feedback": "They are on different axes (type vs level), so there is no contradiction."
+            },
+            {
+              "text": "Two separate test levels performed together",
+              "fraction": 0,
+              "feedback": "Performance is a type, not a level, so this is not two levels."
+            },
+            {
+              "text": "A change-related activity",
+              "fraction": 0,
+              "feedback": "Performance is non-functional, not change-related."
+            }
+          ],
+          "generalFeedback": "Because levels (when/scope) and types (which quality attribute) are orthogonal axes, any type can be run at any level. \"Performance testing at system level\" names the type (performance) and the level (system) together.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which level checks interfaces between components?",
+          "text": "<p>Which level's scope is specifically the <strong>interfaces and interactions between components</strong> that have already been unit-tested?</p>",
+          "answers": [
+            {
+              "text": "Integration testing",
+              "fraction": 100,
+              "feedback": "Correct — component integration testing targets interfaces between components."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing checks one component in isolation, not the interfaces between them."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing checks the whole integrated system's behaviour, not just component interfaces."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance validates the finished system against user needs, not component interfaces."
+            }
+          ],
+          "generalFeedback": "Integration testing (component integration) sits between unit and system testing; its scope is the interactions and interfaces between components that have already passed unit testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test basis for the acceptance level",
+          "text": "<p>Which is the usual <em>test basis</em> for <strong>acceptance</strong> testing?</p>",
+          "answers": [
+            {
+              "text": "User requirements, business processes, and (where relevant) contracts or regulations",
+              "fraction": 100,
+              "feedback": "Correct — acceptance testing is based on user/business needs and any contractual/regulatory requirements."
+            },
+            {
+              "text": "The component's code and detailed design",
+              "fraction": 0,
+              "feedback": "That is the basis for unit testing."
+            },
+            {
+              "text": "The software architecture and module interfaces",
+              "fraction": 0,
+              "feedback": "That is the basis for integration testing."
+            },
+            {
+              "text": "Statement- and branch-coverage reports",
+              "fraction": 0,
+              "feedback": "Coverage reports are a structural-testing artefact, not the acceptance test basis."
+            }
+          ],
+          "generalFeedback": "Acceptance testing establishes confidence for release, so its test basis is user requirements, business processes and rules, use cases, and any contractual or regulatory requirements.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test basis for the integration level",
+          "text": "<p>Which is the usual <em>test basis</em> for <strong>integration</strong> testing?</p>",
+          "answers": [
+            {
+              "text": "The software and system design, architecture, and interface specifications",
+              "fraction": 100,
+              "feedback": "Correct — integration testing is based on the design/architecture and interfaces."
+            },
+            {
+              "text": "The user requirements and business processes",
+              "fraction": 0,
+              "feedback": "That is the basis for acceptance testing."
+            },
+            {
+              "text": "The component's code alone",
+              "fraction": 0,
+              "feedback": "Code alone is closer to the unit-testing basis; integration draws on design and interfaces."
+            },
+            {
+              "text": "The signed customer contract",
+              "fraction": 0,
+              "feedback": "That belongs to contractual acceptance testing, not integration."
+            }
+          ],
+          "generalFeedback": "Integration testing targets how components/systems fit together, so its test basis is the software and system design, the architecture, workflows, and interface specifications.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "At which levels can regression be done?",
+          "text": "<p>At which test level(s) can <em>regression</em> testing be performed?</p>",
+          "answers": [
+            {
+              "text": "At any level — unit, integration, system, or acceptance",
+              "fraction": 100,
+              "feedback": "Correct — regression is a change-related type applied across all levels."
+            },
+            {
+              "text": "Only at the acceptance level",
+              "fraction": 0,
+              "feedback": "Regression is not tied to acceptance; it is run wherever a change could cause side effects."
+            },
+            {
+              "text": "Only at the system level",
+              "fraction": 0,
+              "feedback": "Regression applies at every level, not just system."
+            },
+            {
+              "text": "It is itself a level, so the question does not apply",
+              "fraction": 0,
+              "feedback": "Regression is a change-related test type, not a level."
+            }
+          ],
+          "generalFeedback": "Regression testing is a change-related test. Because types are orthogonal to levels, regression can and should be performed at any level where a change might have introduced side effects.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Performance testing is a level",
+          "text": "<p>Performance testing is one of the standard test <em>levels</em>.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Incorrect — performance is a non-functional test, not a level. The levels are unit, integration, system, and acceptance."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — performance is a non-functional test type, not a level."
+            }
+          ],
+          "generalFeedback": "The four levels are unit, integration, system, and acceptance. Performance is a non-functional test type that can be applied at any of those levels; it is not itself a level."
+        },
+        {
+          "type": "multichoice",
+          "name": "Purpose of a smoke test",
+          "text": "<p>The main purpose of running a <em>smoke</em> test on a new build is to:</p>",
+          "answers": [
+            {
+              "text": "Quickly decide whether the build is stable enough to warrant further, deeper testing",
+              "fraction": 100,
+              "feedback": "Correct — smoke testing is a fast go/no-go check on build stability."
+            },
+            {
+              "text": "Exhaustively verify every requirement in detail",
+              "fraction": 0,
+              "feedback": "That is thorough functional/system testing, not a quick smoke test."
+            },
+            {
+              "text": "Confirm that a specific reported defect has been fixed",
+              "fraction": 0,
+              "feedback": "That is confirmation testing, not smoke testing."
+            },
+            {
+              "text": "Measure the system's throughput under peak load",
+              "fraction": 0,
+              "feedback": "That is performance testing, a non-functional type."
+            }
+          ],
+          "generalFeedback": "A smoke test is a broad, shallow set of checks (often automated) that quickly establishes whether the critical functions of a build work — a gate deciding whether deeper testing is worthwhile.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Operational acceptance vs system testing",
+          "text": "<p>Testing backup/restore, installation, and disaster-recovery procedures, performed by operations/administration staff before go-live, is best classified as:</p>",
+          "answers": [
+            {
+              "text": "Operational acceptance testing (an acceptance-level activity focused on operational readiness)",
+              "fraction": 100,
+              "feedback": "Correct — operational acceptance (OAT) checks operational readiness at the acceptance level."
+            },
+            {
+              "text": "System testing, because it exercises the whole system",
+              "fraction": 0,
+              "feedback": "Although it uses the whole system, this is acceptance-level (operational acceptance) work done by operations staff against operational needs, not system-level verification against requirements."
+            },
+            {
+              "text": "Unit testing of the backup component",
+              "fraction": 0,
+              "feedback": "OAT exercises operational procedures on the whole system, not an isolated component."
+            },
+            {
+              "text": "Regression testing",
+              "fraction": 0,
+              "feedback": "OAT is about operational readiness, not re-checking for side effects of a change."
+            }
+          ],
+          "generalFeedback": "Operational acceptance testing (OAT) is a form of acceptance testing carried out by operations/system-administration staff to confirm the system is ready to operate — backup/restore, install/uninstall, maintenance, disaster recovery, and security procedures. It is distinct from system testing, which verifies the built system against its specified requirements.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Component vs system integration",
+          "text": "<p>Testing the interfaces between your application and a separate external payment system operated by another organisation is:</p>",
+          "answers": [
+            {
+              "text": "System integration testing (interactions between distinct systems)",
+              "fraction": 100,
+              "feedback": "Correct — testing interfaces between separate systems is system integration testing."
+            },
+            {
+              "text": "Component integration testing (interactions between components inside one system)",
+              "fraction": 0,
+              "feedback": "Component integration is within a single system; here two separate systems interact."
+            },
+            {
+              "text": "Unit testing of the payment module",
+              "fraction": 0,
+              "feedback": "This concerns cross-system interfaces, not a single component in isolation."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "This targets the interface between systems, an integration concern, not user acceptance."
+            }
+          ],
+          "generalFeedback": "Integration testing has two sub-forms. Component integration testing checks interactions between components within one system (after unit testing). System integration testing checks interactions between different systems or with external services (often after system testing).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Usability testing vs UAT",
+          "text": "<p>Which statement correctly separates <em>usability</em> testing from <em>user acceptance</em> testing (UAT)?</p>",
+          "answers": [
+            {
+              "text": "Usability is a non-functional test type (how easy the system is to use); UAT is a test level (users deciding whether to accept the system)",
+              "fraction": 100,
+              "feedback": "Correct — one is a type (quality attribute), the other is a level (lifecycle stage)."
+            },
+            {
+              "text": "Both are test levels performed one after the other",
+              "fraction": 0,
+              "feedback": "Usability is a type, not a level; only UAT is a level."
+            },
+            {
+              "text": "Both are non-functional test types",
+              "fraction": 0,
+              "feedback": "Usability is a non-functional type, but UAT is a level, not a type."
+            },
+            {
+              "text": "Usability is a level and UAT is a type",
+              "fraction": 0,
+              "feedback": "This reverses them: usability is the type and UAT is the level."
+            }
+          ],
+          "generalFeedback": "Usability testing evaluates a quality attribute (ease of use), so it is a non-functional test type and can run at various levels. User acceptance testing is a test level — the stage where users validate the system against their needs — and it may itself include usability checks.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why type is orthogonal to level",
+          "text": "<p>What does it mean to say test <em>types</em> are <strong>orthogonal</strong> to test <em>levels</em>?</p>",
+          "answers": [
+            {
+              "text": "Any test type can, in principle, be performed at any test level — the two classifications are independent",
+              "fraction": 100,
+              "feedback": "Correct — orthogonal means the axes vary independently, so any type pairs with any level."
+            },
+            {
+              "text": "Each test level is permanently tied to exactly one test type",
+              "fraction": 0,
+              "feedback": "That is the opposite of orthogonal; orthogonality means they are independent."
+            },
+            {
+              "text": "Test types replace test levels once the system is integrated",
+              "fraction": 0,
+              "feedback": "Types do not replace levels; the two coexist as independent axes."
+            },
+            {
+              "text": "Only functional testing can be done at more than one level",
+              "fraction": 0,
+              "feedback": "All types — functional, non-functional, structural, change-related — can span levels."
+            }
+          ],
+          "generalFeedback": "\"Orthogonal\" means the level axis (when/scope) and the type axis (which quality attribute/objective) vary independently. So functional, non-functional, structural, and change-related types can each be applied at unit, integration, system, or acceptance level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Smoke vs sanity vs regression",
+          "text": "<p>Which description correctly distinguishes smoke, sanity, and regression testing?</p>",
+          "answers": [
+            {
+              "text": "Smoke = broad shallow build-stability check; sanity = narrow deep check of one area after a small change; regression = re-testing existing functionality for side effects of a change",
+              "fraction": 100,
+              "feedback": "Correct — smoke is broad/shallow, sanity is narrow/deep, regression re-checks prior functionality."
+            },
+            {
+              "text": "All three mean the same thing: re-running the full test suite",
+              "fraction": 0,
+              "feedback": "They differ in breadth, depth, and purpose; they are not synonyms."
+            },
+            {
+              "text": "Smoke tests one area deeply; sanity checks the whole build shallowly; regression tests new features",
+              "fraction": 0,
+              "feedback": "This swaps smoke and sanity, and regression targets existing functionality, not new features."
+            },
+            {
+              "text": "Smoke and sanity are levels; regression is a type",
+              "fraction": 0,
+              "feedback": "All three are test activities/types, not levels."
+            }
+          ],
+          "generalFeedback": "Smoke testing is a broad, shallow check that a build's key functions work (build stability). Sanity testing is a narrow, deep check of a specific area after a small change. Regression testing re-tests previously working functionality across a change to detect unintended side effects.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Match level to its test basis",
+          "text": "<p>Which pairing of <strong>level</strong> to <strong>test basis</strong> is correct?</p>",
+          "answers": [
+            {
+              "text": "System testing &#8594; system/software requirements specification",
+              "fraction": 100,
+              "feedback": "Correct — system testing is based on the system requirements."
+            },
+            {
+              "text": "Unit testing &#8594; user requirements and business processes",
+              "fraction": 0,
+              "feedback": "User requirements/business processes are the acceptance basis; unit testing uses code and detailed design."
+            },
+            {
+              "text": "Acceptance testing &#8594; component code and detailed design",
+              "fraction": 0,
+              "feedback": "Component code/detailed design is the unit-testing basis; acceptance uses user/business requirements."
+            },
+            {
+              "text": "Integration testing &#8594; statement-coverage reports",
+              "fraction": 0,
+              "feedback": "Coverage reports are structural artefacts; integration's basis is design, architecture, and interfaces."
+            }
+          ],
+          "generalFeedback": "Test basis by level: unit &#8594; code/detailed design; integration &#8594; design/architecture/interfaces; system &#8594; system/software requirements; acceptance &#8594; user requirements/business processes (and contracts/regulations). Only the system pairing is correct here.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Regression is a test level",
+          "text": "<p>Regression testing is one of the four test <em>levels</em>.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "Incorrect — regression is a change-related testperformed across levels, not a level itself."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — regression is a change-related test type, not one of the levels."
+            }
+          ],
+          "generalFeedback": "The four levels are unit, integration, system, and acceptance. Regression (like confirmation) is a change-related test type that can be run at any of those levels; it is not itself a level."
+        },
+        {
+          "type": "multichoice",
+          "name": "System testing covers which types?",
+          "text": "<p>Which statement about the <em>types</em> exercised during <strong>system</strong> testing is correct?</p>",
+          "answers": [
+            {
+              "text": "System testing can include both functional and non-functional types (e.g. behaviour against requirements plus performance and security)",
+              "fraction": 100,
+              "feedback": "Correct — a level can host multiple types; system testing typically covers functional and non-functional."
+            },
+            {
+              "text": "System testing is purely functional and never non-functional",
+              "fraction": 0,
+              "feedback": "System testing routinely includes non-functional types such as performance and security."
+            },
+            {
+              "text": "System testing is purely non-functional and never functional",
+              "fraction": 0,
+              "feedback": "System testing also verifies functional behaviour against requirements."
+            },
+            {
+              "text": "System testing is itself a test type, so the question of types does not apply",
+              "fraction": 0,
+              "feedback": "System testing is a level; multiple types are exercised within it."
+            }
+          ],
+          "generalFeedback": "Because levels and types are orthogonal, a single level hosts several types. System testing commonly combines functional testing (behaviour against requirements) with non-functional testing (performance, security, reliability, etc.).",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify: patch verified, then suite re-run",
+          "text": "<p>After a bug fix, the tester first re-runs the exact failing test, then re-runs the surrounding suite of previously passing tests. These two activities are, respectively:</p>",
+          "answers": [
+            {
+              "text": "Confirmation testing, then regression testing",
+              "fraction": 100,
+              "feedback": "Correct — re-running the failed test is confirmation; re-running the rest is regression."
+            },
+            {
+              "text": "Regression testing, then confirmation testing",
+              "fraction": 0,
+              "feedback": "This reverses them: the specific failed test is confirmation, the surrounding suite is regression."
+            },
+            {
+              "text": "Smoke testing, then sanity testing",
+              "fraction": 0,
+              "feedback": "Neither activity is a build-stability or narrow-area check; they are the change-related pair."
+            },
+            {
+              "text": "Two runs of the same acceptance test",
+              "fraction": 0,
+              "feedback": "These are change-related type activities, not acceptance-level runs."
+            }
+          ],
+          "generalFeedback": "Confirmation (re-)testing re-runs the specific test that had failed to verify the fix; regression testing then re-runs previously passing tests to ensure the fix caused no unintended side effects. Both are change-related test types.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Alpha vs beta testing",
+          "text": "<p>Alpha and beta testing are both forms of <strong>acceptance</strong> testing. What distinguishes them?</p>",
+          "answers": [
+            {
+              "text": "Alpha is done at the developer's site (by potential users or an independent team); beta is done at the customers' own sites",
+              "fraction": 100,
+              "feedback": "Correct — alpha at the developer's site, beta in the field at customer sites."
+            },
+            {
+              "text": "Alpha is a test level and beta is a test type",
+              "fraction": 0,
+              "feedback": "Both are forms of acceptance-level testing, not a level/type split."
+            },
+            {
+              "text": "Alpha tests performance while beta tests functionality",
+              "fraction": 0,
+              "feedback": "The distinction is location/who, not functional vs non-functional."
+            },
+            {
+              "text": "Alpha is done after release and beta before development",
+              "fraction": 0,
+              "feedback": "Both occur before general release; the difference is where they are conducted."
+            }
+          ],
+          "generalFeedback": "Alpha and beta testing are operational/user forms of acceptance testing. Alpha is conducted at the developing organisation's site (by potential users or an independent test team); beta (\"field\") testing is conducted by real users at their own sites.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Contractual/regulatory acceptance",
+          "text": "<p>Testing a system against the acceptance criteria written into a signed contract, or against rules imposed by a government regulator, is:</p>",
+          "answers": [
+            {
+              "text": "Contractual/regulatory acceptance testing (a form of acceptance testing)",
+              "fraction": 100,
+              "feedback": "Correct — checking against contract or regulation is a form of acceptance testing."
+            },
+            {
+              "text": "Structural testing, because it measures coverage",
+              "fraction": 0,
+              "feedback": "It validates against contract/regulation, not code coverage."
+            },
+            {
+              "text": "Component integration testing",
+              "fraction": 0,
+              "feedback": "It concerns acceptance criteria for the whole system, not component interfaces."
+            },
+            {
+              "text": "Confirmation testing",
+              "fraction": 0,
+              "feedback": "Confirmation re-checks a fix; this is acceptance against contract/regulation."
+            }
+          ],
+          "generalFeedback": "Contractual acceptance testing verifies the system against acceptance criteria in a contract; regulatory acceptance testing verifies it against laws/regulations (e.g. safety, legal, government standards). Both are forms of the acceptance level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which axis is which in \"security testing at acceptance level\"",
+          "text": "<p>In the phrase \"security testing at the acceptance level\", which word names the <em>level</em> and which names the <em>type</em>?</p>",
+          "answers": [
+            {
+              "text": "\"Acceptance\" is the level; \"security\" is the (non-functional) type",
+              "fraction": 100,
+              "feedback": "Correct — acceptance is the level, security is the non-functional type."
+            },
+            {
+              "text": "\"Security\" is the level; \"acceptance\" is the type",
+              "fraction": 0,
+              "feedback": "This reverses the axes: acceptance is the level, security is the type."
+            },
+            {
+              "text": "Both words name levels",
+              "fraction": 0,
+              "feedback": "Security is a type, not a level."
+            },
+            {
+              "text": "Both words name types",
+              "fraction": 0,
+              "feedback": "Acceptance is a level, not a type."
+            }
+          ],
+          "generalFeedback": "Level = when/scope (acceptance); type = which quality attribute (security, a non-functional type). The phrase pairs one from each orthogonal axis: the security type applied at the acceptance level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Static testing example",
+          "text": "<p>Which activity is an example of <em>static</em> testing (as opposed to dynamic)?</p>",
+          "answers": [
+            {
+              "text": "A peer review of the requirements document to find defects before any code runs",
+              "fraction": 100,
+              "feedback": "Correct — a review inspects a work product without executing code, so it is static testing."
+            },
+            {
+              "text": "Running the program with test inputs and comparing the outputs to expected values",
+              "fraction": 0,
+              "feedback": "Executing the program is dynamic testing, not static."
+            },
+            {
+              "text": "Measuring branch coverage while the test suite executes",
+              "fraction": 0,
+              "feedback": "Coverage measured during execution is dynamic (structural) testing."
+            },
+            {
+              "text": "Load-testing the running application with many concurrent users",
+              "fraction": 0,
+              "feedback": "Load testing executes the system, so it is dynamic (non-functional) testing."
+            }
+          ],
+          "generalFeedback": "Static testing evaluates a work product without executing code — reviews (of requirements, design, or code) and static analysis. Dynamic testing runs the software; anything that observes running behaviour (including coverage measurement and load testing) is dynamic.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "One type can span multiple levels",
+          "text": "<p>A single test <em>type</em> (for example, functional testing) can be performed at more than one test <em>level</em>.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — because level and type are orthogonal, one type can be applied at several levels (functional testing at unit, integration, system, and acceptance)."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Types and levels are independent axes, so one type can span many levels."
+            }
+          ],
+          "generalFeedback": "Test types are orthogonal to test levels, so any type may be exercised at any level. Functional testing, for instance, is done at unit, integration, system, and acceptance levels; likewise performance and other non-functional types can span levels."
+        },
+        {
+          "type": "multichoice",
+          "name": "Identify the non-functional type",
+          "text": "<p>Which of the following is a <strong>non-functional</strong> test type rather than a functional check?</p>",
+          "answers": [
+            {
+              "text": "Portability testing — verifying the software can be moved to and run in another environment",
+              "fraction": 100,
+              "feedback": "Correct — portability is a non-functional quality attribute."
+            },
+            {
+              "text": "Verifying that a valid login is accepted and an invalid one rejected",
+              "fraction": 0,
+              "feedback": "That checks what the system does (behaviour), so it is functional testing."
+            },
+            {
+              "text": "Verifying that a discount is calculated according to the business rules",
+              "fraction": 0,
+              "feedback": "Calculating the correct result per the rules is a functional check."
+            },
+            {
+              "text": "Verifying that the report contains the required fields",
+              "fraction": 0,
+              "feedback": "Checking required content/behaviour is functional testing."
+            }
+          ],
+          "generalFeedback": "Non-functional types evaluate quality attributes — performance, security, usability, reliability, compatibility, portability, maintainability. Portability (moving the software to another environment) is non-functional; the other options check behaviour, which is functional.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "什麼是測試層級",
+          "text": "<p><em>測試層級（test level）</em>是一組測試活動，其主要的組織依據是：</p>",
+          "answers": [
+            {
+              "text": "它們在開發生命週期中發生的時機與涵蓋的範圍（單元、整合、系統、驗收）",
+              "fraction": 100,
+              "feedback": "正確——層級由範圍／時機定義：單元、整合、系統、驗收。"
+            },
+            {
+              "text": "它們針對的品質屬性或目標（功能性、效能、安全性）",
+              "fraction": 0,
+              "feedback": "那描述的是測試，不是層級。"
+            },
+            {
+              "text": "撰寫測試所使用的程式語言",
+              "fraction": 0,
+              "feedback": "層級並非由工具或語言定義。"
+            },
+            {
+              "text": "測試人員是公司內部還是外部",
+              "fraction": 0,
+              "feedback": "由誰執行測試不定義層級；範圍與生命週期位置才是。"
+            }
+          ],
+          "generalFeedback": "測試層級是依範圍與生命週期位置組織的活動群組：單元／元件、整合、系統、驗收。它們回答「何時／在什麼範圍」，有別於回答「針對什麼品質屬性」的測試類型。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "什麼是測試類型",
+          "text": "<p><em>測試類型（test type）</em>是一組測試活動，其主要的組織依據是：</p>",
+          "answers": [
+            {
+              "text": "所評估的特定品質特性或目標（例如功能性、效能、安全性）",
+              "fraction": 100,
+              "feedback": "正確——類型由受測的目標／屬性定義。"
+            },
+            {
+              "text": "它在生命週期中的位置（單元、整合、系統、驗收）",
+              "fraction": 0,
+              "feedback": "那描述的是測試，不是類型。"
+            },
+            {
+              "text": "指派給它的測試人員數量",
+              "fraction": 0,
+              "feedback": "團隊規模不定義測試類型。"
+            },
+            {
+              "text": "回報缺陷的先後順序",
+              "fraction": 0,
+              "feedback": "缺陷回報順序與類型的定義無關。"
+            }
+          ],
+          "generalFeedback": "測試類型依所評估的目標或品質屬性來分組活動——功能性、非功能性、結構性（白箱）與變更相關。它們回答「我們在測什麼」，有別於回答「在什麼範圍／時機」的層級。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "四個測試層級的順序",
+          "text": "<p>下列何者依常見順序列出經典的測試<strong>層級</strong>？</p>",
+          "answers": [
+            {
+              "text": "單元／元件 &#8594; 整合 &#8594; 系統 &#8594; 驗收",
+              "fraction": 100,
+              "feedback": "正確——這是測試層級的標準順序。"
+            },
+            {
+              "text": "功能性 &#8594; 非功能性 &#8594; 結構性 &#8594; 變更相關",
+              "fraction": 0,
+              "feedback": "那些是測試，不是層級。"
+            },
+            {
+              "text": "驗收 &#8594; 系統 &#8594; 整合 &#8594; 單元",
+              "fraction": 0,
+              "feedback": "這把順序顛倒了；單元測試最先。"
+            },
+            {
+              "text": "冒煙 &#8594; 迴歸 &#8594; 效能 &#8594; 安全性",
+              "fraction": 0,
+              "feedback": "這些是測試類型／活動，不是四個層級。"
+            }
+          ],
+          "generalFeedback": "四個經典測試層級由最小到最大範圍：單元／元件，接著整合，再來系統，最後驗收。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "功能性 vs 非功能性",
+          "text": "<p><em>功能性</em>測試評估的是：</p>",
+          "answers": [
+            {
+              "text": "系統做什麼——它應提供的功能與行為",
+              "fraction": 100,
+              "feedback": "正確——功能性測試檢查系統「做什麼」。"
+            },
+            {
+              "text": "系統把某功能做得多好——它的速度、安全性或易用性",
+              "fraction": 0,
+              "feedback": "那是非功能性測試（「做得多好」的品質）。"
+            },
+            {
+              "text": "內部程式碼結構與達成的覆蓋率",
+              "fraction": 0,
+              "feedback": "那是結構性（白箱）測試。"
+            },
+            {
+              "text": "某項修正是否又弄壞了原本正常的功能",
+              "fraction": 0,
+              "feedback": "那是變更相關（迴歸）測試。"
+            }
+          ],
+          "generalFeedback": "功能性測試問「它有沒有做到它該做的？」——評估功能／行為。非功能性測試問「做得多好？」——效能、安全性、易用性及其他品質屬性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "一種非功能性類型",
+          "text": "<p>下列何者是<strong>非功能性</strong>測試類型？</p>",
+          "answers": [
+            {
+              "text": "效能（負載／壓力）測試",
+              "fraction": 100,
+              "feedback": "正確——效能是非功能性品質屬性。"
+            },
+            {
+              "text": "檢查「加入購物車」會加入所選的品項",
+              "fraction": 0,
+              "feedback": "那是功能性測試——它檢查系統做什麼。"
+            },
+            {
+              "text": "量測程式碼的敘述覆蓋率",
+              "fraction": 0,
+              "feedback": "那是結構性（白箱）測試，非非功能性。"
+            },
+            {
+              "text": "缺陷修正後重跑先前失敗的測試",
+              "fraction": 0,
+              "feedback": "那是確認測試，屬變更相關活動。"
+            }
+          ],
+          "generalFeedback": "非功能性類型評估「做得多好」——效能、安全性、易用性、可靠性、相容性、可攜性、可維護性。效能（含負載與壓力）是經典例子。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "確認測試的定義",
+          "text": "<p><em>確認（再）測試</em>的意思是：</p>",
+          "answers": [
+            {
+              "text": "修正後重跑當初揭露該缺陷的那個測試，以確認缺陷已消除",
+              "fraction": 100,
+              "feedback": "正確——確認測試驗證該特定修正是否奏效。"
+            },
+            {
+              "text": "執行其他測試以檢查此修正沒有弄壞別的東西",
+              "fraction": 0,
+              "feedback": "那是迴歸測試，不是確認測試。"
+            },
+            {
+              "text": "首次快速檢查建置是否穩定到足以測試",
+              "fraction": 0,
+              "feedback": "那是冒煙測試。"
+            },
+            {
+              "text": "在上線前對照使用者業務需求測試系統",
+              "fraction": 0,
+              "feedback": "那是驗收測試，屬層級，非確認測試。"
+            }
+          ],
+          "generalFeedback": "確認測試（再測試）重新執行失敗的那個測試案例（在缺陷據稱已修正之後）以確認修正。至於檢查別處是否有非預期副作用，是另一項活動——迴歸測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "迴歸測試的定義",
+          "text": "<p><em>迴歸測試</em>的意思是：</p>",
+          "answers": [
+            {
+              "text": "重新測試原本正常的功能，以偵測變更引入的非預期副作用",
+              "fraction": 100,
+              "feedback": "正確——迴歸防止某項變更弄壞原本正常運作的東西。"
+            },
+            {
+              "text": "只重跑失敗的那一個測試，以確認該特定修正",
+              "fraction": 0,
+              "feedback": "那是確認（再）測試，非迴歸。"
+            },
+            {
+              "text": "首次測試一個全新的功能",
+              "fraction": 0,
+              "feedback": "測試新功能不是迴歸測試；迴歸重新檢查既有行為。"
+            },
+            {
+              "text": "量測系統在負載下的回應速度",
+              "fraction": 0,
+              "feedback": "那是效能測試，屬非功能性類型。"
+            }
+          ],
+          "generalFeedback": "迴歸測試在變更（修正、增強或組態變更）之後，對原本正常的功能重新執行測試，以捕捉非預期的副作用。它是跨層級執行的變更相關測試類型。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "冒煙測試的定義",
+          "text": "<p><em>冒煙測試</em>最適當的描述是：</p>",
+          "answers": [
+            {
+              "text": "一組快速、淺層的檢查，確認建置的主要功能夠正常、值得進一步測試",
+              "fraction": 100,
+              "feedback": "正確——冒煙測試是廣而淺的「建置是否穩定？」檢查。"
+            },
+            {
+              "text": "每次變更後徹底重跑整個測試套件",
+              "fraction": 0,
+              "feedback": "那會是完整迴歸測試，不是快速的冒煙測試。"
+            },
+            {
+              "text": "在小幅變更後對某一特定區域做深入測試",
+              "fraction": 0,
+              "feedback": "那描述的是理智測試（sanity），它是窄而深，而非廣而淺。"
+            },
+            {
+              "text": "在發行前對照使用者需求驗證系統",
+              "fraction": 0,
+              "feedback": "那是驗收測試，屬層級，非冒煙測試。"
+            }
+          ],
+          "generalFeedback": "冒煙測試是一組小型、廣而淺的檢查（常自動化為建置驗證），用來判斷某個建置是否穩定到值得投入更多測試心力。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "靜態 vs 動態測試",
+          "text": "<p><em>靜態</em>測試的關鍵特徵是它：</p>",
+          "answers": [
+            {
+              "text": "不執行程式碼即檢視工作產出（審查、靜態分析）",
+              "fraction": 100,
+              "feedback": "正確——靜態測試在不執行的情況下評估產出物。"
+            },
+            {
+              "text": "執行軟體並觀察它對輸入的行為",
+              "fraction": 0,
+              "feedback": "那是動態測試，與靜態相反。"
+            },
+            {
+              "text": "只能在驗收層級套用",
+              "fraction": 0,
+              "feedback": "靜態測試（審查、分析）可貫穿全程，且它的定義是不執行程式碼。"
+            },
+            {
+              "text": "需要量測程式碼覆蓋率",
+              "fraction": 0,
+              "feedback": "覆蓋率屬動態／結構性議題；靜態測試不執行程式碼。"
+            }
+          ],
+          "generalFeedback": "靜態測試在不執行工作產出（程式碼、需求、設計）的情況下評估它們——透過審查與靜態分析。動態測試則執行軟體並觀察實際行為。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：孤立測試單一函式",
+          "text": "<p>開發者孤立地測試單一函式，直接檢查其邏輯。這是哪個測試<strong>層級</strong>？</p>",
+          "answers": [
+            {
+              "text": "單元（元件）測試",
+              "fraction": 100,
+              "feedback": "正確——孤立地測試單一元件屬單元層級。"
+            },
+            {
+              "text": "整合測試",
+              "fraction": 0,
+              "feedback": "整合測試檢查元件之間的互動，而非單一元件本身。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試演練整個整合後的系統，而非單一函式。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試對照使用者需求驗證完成的系統，而非孤立的函式。"
+            }
+          ],
+          "generalFeedback": "孤立地演練單一元件／函式即單元（元件）測試——範圍最小的層級。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：負載下的回應時間",
+          "text": "<p>團隊量測在眾多使用者同時湧入時應用程式回應的速度。這是哪種測試<strong>類型</strong>？</p>",
+          "answers": [
+            {
+              "text": "效能測試（一種非功能性類型）",
+              "fraction": 100,
+              "feedback": "正確——量測負載下的回應是非功能性的效能測試。"
+            },
+            {
+              "text": "功能性測試",
+              "fraction": 0,
+              "feedback": "功能性測試檢查系統做什麼，而非它做得多快。"
+            },
+            {
+              "text": "驗收（此處誤稱為層級）",
+              "fraction": 0,
+              "feedback": "驗收是層級，並非此處所描述的類型；而此活動是效能測試。"
+            },
+            {
+              "text": "確認測試",
+              "fraction": 0,
+              "feedback": "確認測試重新檢查某項修正；它不量測回應時間。"
+            }
+          ],
+          "generalFeedback": "量測負載下的速度／吞吐量是評估品質屬性（效能），因此是非功能性測試類型——而它可套用於任何層級（常見於系統層級）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：使用者於上線前驗證",
+          "text": "<p>發行前，目標使用者對照真實業務需求試用系統，以決定是否接受它。這是哪個測試<strong>層級</strong>？</p>",
+          "answers": [
+            {
+              "text": "驗收測試",
+              "fraction": 100,
+              "feedback": "正確——在接受前對照業務需求由使用者驗證屬驗收層級。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試檢查單一元件，而非對照使用者需求測整個系統。"
+            },
+            {
+              "text": "整合測試",
+              "fraction": 0,
+              "feedback": "整合測試檢查模組互動，而非使用者接受度。"
+            },
+            {
+              "text": "效能測試",
+              "fraction": 0,
+              "feedback": "效能是非功能性類型，非層級；此活動是驗收層級的驗證。"
+            }
+          ],
+          "generalFeedback": "對照使用者需求與業務流程驗證已完成的系統、以建立發行信心，即驗收測試——四個層級中的最後一個。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "結構性（白箱）測試",
+          "text": "<p><em>結構性（白箱）</em>測試的特徵是：</p>",
+          "answers": [
+            {
+              "text": "從程式碼的內部結構推導並量測測試（例如敘述或分支覆蓋率）",
+              "fraction": 100,
+              "feedback": "正確——結構性測試從程式碼內部結構與覆蓋率著手。"
+            },
+            {
+              "text": "只從規格推導測試，忽略程式碼",
+              "fraction": 0,
+              "feedback": "那是黑箱（規格導向）測試，非結構性。"
+            },
+            {
+              "text": "量測系統在負載下的回應時間",
+              "fraction": 0,
+              "feedback": "那是效能測試，屬非功能性類型。"
+            },
+            {
+              "text": "在變更後重跑先前的測試",
+              "fraction": 0,
+              "feedback": "那是迴歸測試，屬變更相關類型。"
+            }
+          ],
+          "generalFeedback": "結構性（白箱）測試利用受測項目的內部結構——控制流、資料流——來推導測試並量測覆蓋率（敘述、分支等）。它是一種可套用於任何層級的獨立測試類型。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "功能性測試檢查系統做什麼",
+          "text": "<p>功能性測試評估系統<em>做什麼</em>（它的功能），而非功能性測試評估它<em>做得多好</em>。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——功能性 = 做什麼；非功能性 = 做得多好。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "這正是標準區分：功能性針對行為／功能，非功能性針對品質屬性。"
+            }
+          ],
+          "generalFeedback": "功能性測試檢查系統提供的功能與行為；非功能性測試檢查品質屬性，如效能、安全性、易用性與可靠性——即這些功能被交付得「多好」。"
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一項是層級而非類型",
+          "text": "<p>下列何者是測試<strong>層級</strong>（而非測試類型）？</p>",
+          "answers": [
+            {
+              "text": "驗收",
+              "fraction": 100,
+              "feedback": "正確——驗收是測試層級（範圍／時機）。"
+            },
+            {
+              "text": "效能",
+              "fraction": 0,
+              "feedback": "效能是非功能性測試類型，非層級。"
+            },
+            {
+              "text": "安全性",
+              "fraction": 0,
+              "feedback": "安全性是非功能性測試類型，非層級。"
+            },
+            {
+              "text": "迴歸",
+              "fraction": 0,
+              "feedback": "迴歸是變更相關測試類型，非層級。"
+            }
+          ],
+          "generalFeedback": "驗收是四個層級之一（單元、整合、系統、驗收）。效能、安全性與迴歸都是測試類型（非功能性或變更相關），而非層級。",
+          "single": true
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "單元層級的測試基礎",
+          "text": "<p><strong>單元（元件）</strong>測試通常以哪份文件作為<em>測試基礎</em>？</p>",
+          "answers": [
+            {
+              "text": "元件的詳細（低階）設計與程式碼",
+              "fraction": 100,
+              "feedback": "正確——單元測試以元件的詳細設計與程式碼為基礎。"
+            },
+            {
+              "text": "系統需求規格",
+              "fraction": 0,
+              "feedback": "那是系統測試的基礎，非單元測試。"
+            },
+            {
+              "text": "使用者需求與業務流程",
+              "fraction": 0,
+              "feedback": "那是驗收測試的基礎。"
+            },
+            {
+              "text": "軟體架構與介面規格",
+              "fraction": 0,
+              "feedback": "那是整合測試的基礎。"
+            }
+          ],
+          "generalFeedback": "各層級取用不同的測試基礎。單元測試以詳細／元件設計與程式碼本身為基礎，因為它針對單一元件的內部。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "系統層級的測試基礎",
+          "text": "<p><strong>系統</strong>測試通常以哪份文件作為<em>測試基礎</em>？</p>",
+          "answers": [
+            {
+              "text": "系統／軟體需求規格（功能性與非功能性）",
+              "fraction": 100,
+              "feedback": "正確——系統測試以系統需求為基礎。"
+            },
+            {
+              "text": "元件的詳細設計與程式碼",
+              "fraction": 0,
+              "feedback": "那是單元測試的基礎。"
+            },
+            {
+              "text": "軟體架構與模組介面",
+              "fraction": 0,
+              "feedback": "那是整合測試的基礎。"
+            },
+            {
+              "text": "與客戶簽訂的法律合約",
+              "fraction": 0,
+              "feedback": "那屬（合約性）驗收測試，非系統測試。"
+            }
+          ],
+          "generalFeedback": "系統測試對照規定的需求驗證完整、整合後的系統，因此其測試基礎是系統／軟體需求規格（功能性與非功能性皆含）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗收是層級還是類型？",
+          "text": "<p>在層級與類型兩軸上，<em>驗收</em>測試是：</p>",
+          "answers": [
+            {
+              "text": "一個測試層級（由生命週期中的範圍／時機定義）",
+              "fraction": 100,
+              "feedback": "正確——驗收是第四個測試層級。"
+            },
+            {
+              "text": "一種非功能性測試類型",
+              "fraction": 0,
+              "feedback": "驗收是層級；功能性與非功能性類型都可在其中執行。"
+            },
+            {
+              "text": "一種結構性測試類型",
+              "fraction": 0,
+              "feedback": "驗收根本不是類型；它是層級。"
+            },
+            {
+              "text": "一種變更相關測試類型",
+              "fraction": 0,
+              "feedback": "變更相關類型是確認與迴歸；驗收是層級。"
+            }
+          ],
+          "generalFeedback": "驗收位於層級軸（單元、整合、系統、驗收）。在其中你仍可執行功能性與非功能性測試類型——兩軸彼此正交。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "效能是層級還是類型？",
+          "text": "<p>在層級與類型兩軸上，<em>效能</em>測試是：</p>",
+          "answers": [
+            {
+              "text": "一種非功能性測試類型（可在多個層級執行）",
+              "fraction": 100,
+              "feedback": "正確——效能是非功能性類型，非層級。"
+            },
+            {
+              "text": "介於系統與驗收之間的一個測試層級",
+              "fraction": 0,
+              "feedback": "並無「效能層級」；層級是單元、整合、系統、驗收。"
+            },
+            {
+              "text": "取代系統測試的一個測試層級",
+              "fraction": 0,
+              "feedback": "效能是類型；它根本不在層級軸上。"
+            },
+            {
+              "text": "一種變更相關測試類型",
+              "fraction": 0,
+              "feedback": "變更相關類型是確認與迴歸；效能是非功能性。"
+            }
+          ],
+          "generalFeedback": "效能是非功能性測試類型。常見誤解把它當成層級，但它是一個目標（品質屬性），可在單元、整合、系統或驗收層級追求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "整合是層級還是類型？",
+          "text": "<p>在層級與類型兩軸上，<em>整合</em>測試是：</p>",
+          "answers": [
+            {
+              "text": "一個測試層級（其範圍是元件之間或系統之間的互動）",
+              "fraction": 100,
+              "feedback": "正確——整合是第二個測試層級。"
+            },
+            {
+              "text": "一種非功能性測試類型",
+              "fraction": 0,
+              "feedback": "整合是層級；非功能性類型可在其中執行。"
+            },
+            {
+              "text": "一種變更相關測試類型",
+              "fraction": 0,
+              "feedback": "變更相關類型是確認與迴歸；整合是層級。"
+            },
+            {
+              "text": "一種結構性測試類型",
+              "fraction": 0,
+              "feedback": "整合由範圍（介面）定義，這使它是層級，非類型。"
+            }
+          ],
+          "generalFeedback": "整合是測試層級：其範圍是元件之間（元件整合）或系統之間（系統整合）的介面與互動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "安全性是層級還是類型？",
+          "text": "<p>在層級與類型兩軸上，<em>安全性</em>測試是：</p>",
+          "answers": [
+            {
+              "text": "一種非功能性測試類型",
+              "fraction": 100,
+              "feedback": "正確——安全性是非功能性品質屬性，因此是類型。"
+            },
+            {
+              "text": "驗收之後的一個測試層級",
+              "fraction": 0,
+              "feedback": "並無安全性層級；層級終於驗收。"
+            },
+            {
+              "text": "一種結構性測試類型",
+              "fraction": 0,
+              "feedback": "安全性是非功能性，非結構性（結構性 = 程式碼覆蓋）。"
+            },
+            {
+              "text": "一種變更相關測試類型",
+              "fraction": 0,
+              "feedback": "變更相關類型是確認與迴歸；安全性是非功能性。"
+            }
+          ],
+          "generalFeedback": "安全性是非功能性測試類型（抵禦威脅、控制存取）。與其他類型一樣，它可套用於多個層級——例如系統層級的安全性測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個重新測試已修正的缺陷？",
+          "text": "<p>某缺陷已修正。哪項活動會重跑先前失敗的那個測試，以檢查<strong>修正本身</strong>？</p>",
+          "answers": [
+            {
+              "text": "確認（再）測試",
+              "fraction": 100,
+              "feedback": "正確——確認測試重新執行失敗的測試以驗證修正。"
+            },
+            {
+              "text": "迴歸測試",
+              "fraction": 0,
+              "feedback": "迴歸檢查別處是否被弄壞；它不是重跑那個特定失敗的測試。"
+            },
+            {
+              "text": "冒煙測試",
+              "fraction": 0,
+              "feedback": "冒煙測試是廣泛的建置穩定性檢查，非驗證某項特定修正。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試是層級；所描述的活動是確認測試。"
+            }
+          ],
+          "generalFeedback": "確認測試在修正後重新執行先前失敗的測試，以確認缺陷已解決。迴歸測試則是互補的活動——檢查別處是否有非預期副作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個檢查沒有弄壞其他東西？",
+          "text": "<p>修正後，哪項活動會重跑其他先前通過的測試，以檢查<strong>沒有弄壞別的東西</strong>？</p>",
+          "answers": [
+            {
+              "text": "迴歸測試",
+              "fraction": 100,
+              "feedback": "正確——迴歸測試偵測變更的非預期副作用。"
+            },
+            {
+              "text": "確認（再）測試",
+              "fraction": 0,
+              "feedback": "確認重跑失敗的那一個測試以驗證修正，而非周邊的測試。"
+            },
+            {
+              "text": "理智測試（sanity）",
+              "fraction": 0,
+              "feedback": "理智測試是對某一區域的窄而快檢查，非廣泛的副作用偵測。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收是關於使用者驗證的層級，非修正後的副作用偵測。"
+            }
+          ],
+          "generalFeedback": "迴歸測試重跑先前通過的測試，以捕捉變更引入的非預期副作用。確認測試則是較窄地重跑先前失敗的那個特定測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "套用於某層級的類型",
+          "text": "<p>「在系統層級執行的效能測試」最好理解為：</p>",
+          "answers": [
+            {
+              "text": "一種非功能性測試（效能）套用於某個特定測試（系統）",
+              "fraction": 100,
+              "feedback": "正確——層級與類型正交，因此類型套用於層級。"
+            },
+            {
+              "text": "一個矛盾，因為效能與系統是同一件事的兩個名稱",
+              "fraction": 0,
+              "feedback": "它們位於不同軸（類型 vs 層級），並無矛盾。"
+            },
+            {
+              "text": "兩個一起執行的獨立測試層級",
+              "fraction": 0,
+              "feedback": "效能是類型，非層級，所以這不是兩個層級。"
+            },
+            {
+              "text": "一項變更相關活動",
+              "fraction": 0,
+              "feedback": "效能是非功能性，非變更相關。"
+            }
+          ],
+          "generalFeedback": "由於層級（時機／範圍）與類型（哪個品質屬性）是正交的軸，任何類型都可在任何層級執行。「系統層級的效能測試」同時指出類型（效能）與層級（系統）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個層級檢查元件之間的介面？",
+          "text": "<p>哪個層級的範圍專門是已通過單元測試的<strong>元件之間的介面與互動</strong>？</p>",
+          "answers": [
+            {
+              "text": "整合測試",
+              "fraction": 100,
+              "feedback": "正確——元件整合測試針對元件之間的介面。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試孤立地檢查單一元件，而非它們之間的介面。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試檢查整個整合後系統的行為，而非只有元件介面。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收對照使用者需求驗證完成的系統，而非元件介面。"
+            }
+          ],
+          "generalFeedback": "整合測試（元件整合）位於單元與系統測試之間；其範圍是已通過單元測試的元件之間的互動與介面。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗收層級的測試基礎",
+          "text": "<p><strong>驗收</strong>測試通常以何者作為<em>測試基礎</em>？</p>",
+          "answers": [
+            {
+              "text": "使用者需求、業務流程，以及（相關時的）合約或法規",
+              "fraction": 100,
+              "feedback": "正確——驗收測試以使用者／業務需求及任何合約／法規需求為基礎。"
+            },
+            {
+              "text": "元件的程式碼與詳細設計",
+              "fraction": 0,
+              "feedback": "那是單元測試的基礎。"
+            },
+            {
+              "text": "軟體架構與模組介面",
+              "fraction": 0,
+              "feedback": "那是整合測試的基礎。"
+            },
+            {
+              "text": "敘述與分支覆蓋率報告",
+              "fraction": 0,
+              "feedback": "覆蓋率報告是結構性測試的產出，非驗收測試基礎。"
+            }
+          ],
+          "generalFeedback": "驗收測試建立發行信心，因此其測試基礎是使用者需求、業務流程與規則、使用案例，以及任何合約或法規需求。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "整合層級的測試基礎",
+          "text": "<p><strong>整合</strong>測試通常以何者作為<em>測試基礎</em>？</p>",
+          "answers": [
+            {
+              "text": "軟體與系統設計、架構及介面規格",
+              "fraction": 100,
+              "feedback": "正確——整合測試以設計／架構與介面為基礎。"
+            },
+            {
+              "text": "使用者需求與業務流程",
+              "fraction": 0,
+              "feedback": "那是驗收測試的基礎。"
+            },
+            {
+              "text": "只有元件的程式碼",
+              "fraction": 0,
+              "feedback": "只有程式碼較接近單元測試基礎；整合取用設計與介面。"
+            },
+            {
+              "text": "簽署的客戶合約",
+              "fraction": 0,
+              "feedback": "那屬合約性驗收測試，非整合。"
+            }
+          ],
+          "generalFeedback": "整合測試針對元件／系統如何組合，因此其測試基礎是軟體與系統設計、架構、工作流程與介面規格。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "迴歸可在哪些層級執行？",
+          "text": "<p><em>迴歸</em>測試可在哪個（些）測試層級執行？</p>",
+          "answers": [
+            {
+              "text": "任何層級——單元、整合、系統或驗收",
+              "fraction": 100,
+              "feedback": "正確——迴歸是跨所有層級套用的變更相關類型。"
+            },
+            {
+              "text": "只在驗收層級",
+              "fraction": 0,
+              "feedback": "迴歸不綁定於驗收；只要變更可能造成副作用，就會執行。"
+            },
+            {
+              "text": "只在系統層級",
+              "fraction": 0,
+              "feedback": "迴歸適用於每個層級，不只系統。"
+            },
+            {
+              "text": "它本身就是層級，因此此問不適用",
+              "fraction": 0,
+              "feedback": "迴歸是變更相關測試類型，非層級。"
+            }
+          ],
+          "generalFeedback": "迴歸測試是變更相關測試。由於類型與層級正交，迴歸可以且應該在任何變更可能引入副作用的層級執行。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "效能測試是一個層級",
+          "text": "<p>效能測試是標準測試<em>層級</em>之一。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "錯誤——效能是非功能性測試，非層級。層級是單元、整合、系統與驗收。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——效能是非功能性測試類型，非層級。"
+            }
+          ],
+          "generalFeedback": "四個層級是單元、整合、系統與驗收。效能是可在任一層級套用的非功能性測試類型；它本身不是層級。"
+        },
+        {
+          "type": "multichoice",
+          "name": "冒煙測試的目的",
+          "text": "<p>對新建置執行<em>冒煙</em>測試的主要目的是：</p>",
+          "answers": [
+            {
+              "text": "快速判斷該建置是否穩定到值得進一步、更深入的測試",
+              "fraction": 100,
+              "feedback": "正確——冒煙測試是對建置穩定性的快速通過／不通過檢查。"
+            },
+            {
+              "text": "詳盡地逐一驗證每一項需求",
+              "fraction": 0,
+              "feedback": "那是徹底的功能性／系統測試，非快速的冒煙測試。"
+            },
+            {
+              "text": "確認某個回報的特定缺陷已修正",
+              "fraction": 0,
+              "feedback": "那是確認測試，非冒煙測試。"
+            },
+            {
+              "text": "量測系統在尖峰負載下的吞吐量",
+              "fraction": 0,
+              "feedback": "那是效能測試，屬非功能性類型。"
+            }
+          ],
+          "generalFeedback": "冒煙測試是一組廣而淺的檢查（常自動化），快速確立某個建置的關鍵功能是否可運作——是決定是否值得進行更深入測試的一道關卡。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "作業驗收 vs 系統測試",
+          "text": "<p>在上線前由維運／管理人員測試備份／還原、安裝與災難復原程序，最適當的分類是：</p>",
+          "answers": [
+            {
+              "text": "作業驗收測試（一項聚焦於作業就緒度的驗收層級活動）",
+              "fraction": 100,
+              "feedback": "正確——作業驗收（OAT）在驗收層級檢查作業就緒度。"
+            },
+            {
+              "text": "系統測試，因為它演練整個系統",
+              "fraction": 0,
+              "feedback": "雖然它用到整個系統，但這是由維運人員針對作業需求進行的驗收層級（作業驗收）工作，而非對照需求的系統層級驗證。"
+            },
+            {
+              "text": "備份元件的單元測試",
+              "fraction": 0,
+              "feedback": "作業驗收在整個系統上演練作業程序，而非孤立的元件。"
+            },
+            {
+              "text": "迴歸測試",
+              "fraction": 0,
+              "feedback": "作業驗收關乎作業就緒度，而非重新檢查某變更的副作用。"
+            }
+          ],
+          "generalFeedback": "作業驗收測試（OAT）是由維運／系統管理人員執行的一種驗收測試，用以確認系統已就緒可運作——備份／還原、安裝／解除安裝、維護、災難復原與安全程序。它有別於對照規定需求驗證所建系統的系統測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "元件整合 vs 系統整合",
+          "text": "<p>測試你的應用程式與另一組織營運的獨立外部支付系統之間的介面，是：</p>",
+          "answers": [
+            {
+              "text": "系統整合測試（不同系統之間的互動）",
+              "fraction": 100,
+              "feedback": "正確——測試獨立系統之間的介面是系統整合測試。"
+            },
+            {
+              "text": "元件整合測試（單一系統內部元件之間的互動）",
+              "fraction": 0,
+              "feedback": "元件整合是在單一系統內；此處是兩個獨立系統互動。"
+            },
+            {
+              "text": "支付模組的單元測試",
+              "fraction": 0,
+              "feedback": "這關乎跨系統的介面，而非孤立的單一元件。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "這針對系統之間的介面，是整合議題，而非使用者驗收。"
+            }
+          ],
+          "generalFeedback": "整合測試有兩種子形式。元件整合測試檢查單一系統內元件之間的互動（在單元測試之後）。系統整合測試檢查不同系統之間或與外部服務的互動（常在系統測試之後）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "易用性測試 vs UAT",
+          "text": "<p>下列何者正確區分<em>易用性</em>測試與<em>使用者驗收</em>測試（UAT）？</p>",
+          "answers": [
+            {
+              "text": "易用性是非功能性測試類型（系統多易用）；UAT 是測試層級（使用者決定是否接受系統）",
+              "fraction": 100,
+              "feedback": "正確——一個是類型（品質屬性），另一個是層級（生命週期階段）。"
+            },
+            {
+              "text": "兩者都是先後進行的測試層級",
+              "fraction": 0,
+              "feedback": "易用性是類型，非層級；只有 UAT 是層級。"
+            },
+            {
+              "text": "兩者都是非功能性測試類型",
+              "fraction": 0,
+              "feedback": "易用性是非功能性類型，但 UAT 是層級，非類型。"
+            },
+            {
+              "text": "易用性是層級，UAT 是類型",
+              "fraction": 0,
+              "feedback": "這把兩者顛倒了：易用性是類型，UAT 是層級。"
+            }
+          ],
+          "generalFeedback": "易用性測試評估一個品質屬性（易用程度），因此是非功能性測試類型，可在多個層級執行。使用者驗收測試是一個測試層級——使用者對照需求驗證系統的階段——它本身可能包含易用性檢查。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何類型與層級正交",
+          "text": "<p>說測試<em>類型</em>與測試<em>層級</em><strong>正交</strong>是什麼意思？</p>",
+          "answers": [
+            {
+              "text": "任何測試類型原則上都可在任何測試層級執行——這兩種分類彼此獨立",
+              "fraction": 100,
+              "feedback": "正確——正交意味兩軸各自獨立變化，因此任何類型可搭配任何層級。"
+            },
+            {
+              "text": "每個測試層級永久綁定於恰好一種測試類型",
+              "fraction": 0,
+              "feedback": "那與正交相反；正交意味它們彼此獨立。"
+            },
+            {
+              "text": "系統整合後，測試類型會取代測試層級",
+              "fraction": 0,
+              "feedback": "類型不取代層級；兩者作為獨立的軸並存。"
+            },
+            {
+              "text": "只有功能性測試能在多於一個層級進行",
+              "fraction": 0,
+              "feedback": "所有類型——功能性、非功能性、結構性、變更相關——都能跨層級。"
+            }
+          ],
+          "generalFeedback": "「正交」意味層級軸（時機／範圍）與類型軸（哪個品質屬性／目標）各自獨立變化。因此功能性、非功能性、結構性與變更相關類型都可在單元、整合、系統或驗收層級套用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "冒煙 vs 理智 vs 迴歸",
+          "text": "<p>下列何者正確區分冒煙、理智（sanity）與迴歸測試？</p>",
+          "answers": [
+            {
+              "text": "冒煙 = 廣而淺的建置穩定性檢查；理智 = 小幅變更後對某一區域的窄而深檢查；迴歸 = 為變更的副作用重新測試既有功能",
+              "fraction": 100,
+              "feedback": "正確——冒煙廣而淺、理智窄而深、迴歸重新檢查既有功能。"
+            },
+            {
+              "text": "三者意思相同：重跑整個測試套件",
+              "fraction": 0,
+              "feedback": "它們在廣度、深度與目的上皆不同；並非同義。"
+            },
+            {
+              "text": "冒煙深測某一區域；理智淺測整個建置；迴歸測試新功能",
+              "fraction": 0,
+              "feedback": "這把冒煙與理智對調了，且迴歸針對既有功能，而非新功能。"
+            },
+            {
+              "text": "冒煙與理智是層級；迴歸是類型",
+              "fraction": 0,
+              "feedback": "三者都是測試活動／類型，而非層級。"
+            }
+          ],
+          "generalFeedback": "冒煙測試是廣而淺地檢查建置的關鍵功能是否運作（建置穩定性）。理智測試是小幅變更後對特定區域的窄而深檢查。迴歸測試在變更後跨越範圍重新測試原本正常的功能，以偵測非預期副作用。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "層級與其測試基礎的配對",
+          "text": "<p>下列<strong>層級</strong>對<strong>測試基礎</strong>的配對何者正確？</p>",
+          "answers": [
+            {
+              "text": "系統測試 &#8594; 系統／軟體需求規格",
+              "fraction": 100,
+              "feedback": "正確——系統測試以系統需求為基礎。"
+            },
+            {
+              "text": "單元測試 &#8594; 使用者需求與業務流程",
+              "fraction": 0,
+              "feedback": "使用者需求／業務流程是驗收的基礎；單元測試用程式碼與詳細設計。"
+            },
+            {
+              "text": "驗收測試 &#8594; 元件程式碼與詳細設計",
+              "fraction": 0,
+              "feedback": "元件程式碼／詳細設計是單元測試基礎；驗收用使用者／業務需求。"
+            },
+            {
+              "text": "整合測試 &#8594; 敘述覆蓋率報告",
+              "fraction": 0,
+              "feedback": "覆蓋率報告是結構性產出；整合的基礎是設計、架構與介面。"
+            }
+          ],
+          "generalFeedback": "各層級的測試基礎：單元 &#8594; 程式碼／詳細設計；整合 &#8594; 設計／架構／介面；系統 &#8594; 系統／軟體需求；驗收 &#8594; 使用者需求／業務流程（及合約／法規）。此處只有系統的配對正確。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "迴歸是一個測試層級",
+          "text": "<p>迴歸測試是四個測試<em>層級</em>之一。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "錯誤——迴歸是跨層級執行的變更相關測試，而非層級本身。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——迴歸是變更相關測試類型，並非層級之一。"
+            }
+          ],
+          "generalFeedback": "四個層級是單元、整合、系統與驗收。迴歸（如同確認）是可在任一層級執行的變更相關測試類型；它本身不是層級。"
+        },
+        {
+          "type": "multichoice",
+          "name": "系統測試涵蓋哪些類型？",
+          "text": "<p>關於<strong>系統</strong>測試期間所演練的<em>類型</em>，下列敘述何者正確？</p>",
+          "answers": [
+            {
+              "text": "系統測試可同時包含功能性與非功能性類型（例如對照需求的行為，加上效能與安全性）",
+              "fraction": 100,
+              "feedback": "正確——一個層級可容納多種類型；系統測試通常涵蓋功能性與非功能性。"
+            },
+            {
+              "text": "系統測試純粹是功能性，從不涉及非功能性",
+              "fraction": 0,
+              "feedback": "系統測試常包含效能與安全性等非功能性類型。"
+            },
+            {
+              "text": "系統測試純粹是非功能性，從不涉及功能性",
+              "fraction": 0,
+              "feedback": "系統測試也對照需求驗證功能性行為。"
+            },
+            {
+              "text": "系統測試本身就是一種測試類型，因此類型的問題不適用",
+              "fraction": 0,
+              "feedback": "系統測試是層級；其中會演練多種類型。"
+            }
+          ],
+          "generalFeedback": "由於層級與類型正交，單一層級會容納數種類型。系統測試常結合功能性測試（對照需求的行為）與非功能性測試（效能、安全性、可靠性等）。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "分類：驗證修補後再重跑套件",
+          "text": "<p>缺陷修正後，測試人員先重跑那個確切失敗的測試，再重跑周邊那組先前通過的測試。這兩項活動分別是：</p>",
+          "answers": [
+            {
+              "text": "確認測試，然後迴歸測試",
+              "fraction": 100,
+              "feedback": "正確——重跑失敗的測試是確認；重跑其餘是迴歸。"
+            },
+            {
+              "text": "迴歸測試，然後確認測試",
+              "fraction": 0,
+              "feedback": "這把兩者顛倒了：特定失敗的測試是確認，周邊套件是迴歸。"
+            },
+            {
+              "text": "冒煙測試，然後理智測試",
+              "fraction": 0,
+              "feedback": "兩項活動都不是建置穩定性或窄區域檢查；它們是變更相關的一對。"
+            },
+            {
+              "text": "同一個驗收測試跑兩次",
+              "fraction": 0,
+              "feedback": "這些是變更相關類型的活動，而非驗收層級的執行。"
+            }
+          ],
+          "generalFeedback": "確認（再）測試重跑先前失敗的那個特定測試以驗證修正；迴歸測試接著重跑先前通過的測試，以確保修正未造成非預期副作用。兩者都是變更相關測試類型。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Alpha vs Beta 測試",
+          "text": "<p>Alpha 與 Beta 測試都是<strong>驗收</strong>測試的形式。它們的區別是什麼？</p>",
+          "answers": [
+            {
+              "text": "Alpha 在開發者的場地進行（由潛在使用者或獨立團隊）；Beta 在客戶自己的場地進行",
+              "fraction": 100,
+              "feedback": "正確——Alpha 在開發者場地，Beta 在客戶現場（實地）。"
+            },
+            {
+              "text": "Alpha 是測試層級，Beta 是測試類型",
+              "fraction": 0,
+              "feedback": "兩者都是驗收層級測試的形式，並非層級／類型之分。"
+            },
+            {
+              "text": "Alpha 測效能，Beta 測功能",
+              "fraction": 0,
+              "feedback": "區別在於地點／由誰進行，而非功能性與非功能性之分。"
+            },
+            {
+              "text": "Alpha 在發行後進行，Beta 在開發前進行",
+              "fraction": 0,
+              "feedback": "兩者都在正式發行前進行；差異在於在何處進行。"
+            }
+          ],
+          "generalFeedback": "Alpha 與 Beta 測試是驗收測試的作業／使用者形式。Alpha 在開發組織的場地進行（由潛在使用者或獨立測試團隊）；Beta（「實地」）測試由真實使用者在其自己的場地進行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "合約性／法規性驗收",
+          "text": "<p>對照簽署合約中所載的驗收準則、或對照政府監管機關所施加的規則來測試系統，是：</p>",
+          "answers": [
+            {
+              "text": "合約性／法規性驗收測試（驗收測試的一種形式）",
+              "fraction": 100,
+              "feedback": "正確——對照合約或法規檢查是驗收測試的一種形式。"
+            },
+            {
+              "text": "結構性測試，因為它量測覆蓋率",
+              "fraction": 0,
+              "feedback": "它是對照合約／法規驗證，而非程式碼覆蓋率。"
+            },
+            {
+              "text": "元件整合測試",
+              "fraction": 0,
+              "feedback": "它關乎整個系統的驗收準則，而非元件介面。"
+            },
+            {
+              "text": "確認測試",
+              "fraction": 0,
+              "feedback": "確認重新檢查某項修正；這是對照合約／法規的驗收。"
+            }
+          ],
+          "generalFeedback": "合約性驗收測試對照合約中的驗收準則驗證系統；法規性驗收測試對照法律／法規（例如安全、法律、政府標準）驗證系統。兩者都是驗收層級的形式。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "「驗收層級的安全性測試」中各軸為何",
+          "text": "<p>在「驗收層級的安全性測試」這句話中，哪個詞指<em>層級</em>、哪個指<em>類型</em>？</p>",
+          "answers": [
+            {
+              "text": "「驗收」是層級；「安全性」是（非功能性）類型",
+              "fraction": 100,
+              "feedback": "正確——驗收是層級，安全性是非功能性類型。"
+            },
+            {
+              "text": "「安全性」是層級；「驗收」是類型",
+              "fraction": 0,
+              "feedback": "這把兩軸顛倒了：驗收是層級，安全性是類型。"
+            },
+            {
+              "text": "兩個詞都指層級",
+              "fraction": 0,
+              "feedback": "安全性是類型，非層級。"
+            },
+            {
+              "text": "兩個詞都指類型",
+              "fraction": 0,
+              "feedback": "驗收是層級，非類型。"
+            }
+          ],
+          "generalFeedback": "層級 = 時機／範圍（驗收）；類型 = 哪個品質屬性（安全性，一種非功能性類型）。這句話從兩個正交軸各取其一：套用於驗收層級的安全性類型。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "靜態測試的例子",
+          "text": "<p>下列哪項活動是<em>靜態</em>測試的例子（相對於動態）？</p>",
+          "answers": [
+            {
+              "text": "對需求文件進行同儕審查，在任何程式碼執行前找出缺陷",
+              "fraction": 100,
+              "feedback": "正確——審查在不執行程式碼的情況下檢視工作產出，因此是靜態測試。"
+            },
+            {
+              "text": "以測試輸入執行程式，並將輸出與預期值比較",
+              "fraction": 0,
+              "feedback": "執行程式是動態測試，非靜態。"
+            },
+            {
+              "text": "在測試套件執行時量測分支覆蓋率",
+              "fraction": 0,
+              "feedback": "在執行期間量測的覆蓋率是動態（結構性）測試。"
+            },
+            {
+              "text": "以眾多並行使用者對執行中的應用程式做負載測試",
+              "fraction": 0,
+              "feedback": "負載測試會執行系統，因此是動態（非功能性）測試。"
+            }
+          ],
+          "generalFeedback": "靜態測試在不執行程式碼的情況下評估工作產出——對需求、設計或程式碼的審查與靜態分析。動態測試會執行軟體；任何觀察執行中行為的活動（含覆蓋率量測與負載測試）都是動態。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "一種類型可跨多個層級",
+          "text": "<p>單一測試<em>類型</em>（例如功能性測試）可在多於一個測試<em>層級</em>執行。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——由於層級與類型正交，一種類型可在數個層級套用（功能性測試在單元、整合、系統與驗收）。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "類型與層級是獨立的軸，因此一種類型可跨多個層級。"
+            }
+          ],
+          "generalFeedback": "測試類型與測試層級正交，因此任何類型都可在任何層級演練。例如功能性測試在單元、整合、系統與驗收層級都會進行；同樣地，效能與其他非功能性類型也可跨層級。"
+        },
+        {
+          "type": "multichoice",
+          "name": "辨識非功能性類型",
+          "text": "<p>下列何者是<strong>非功能性</strong>測試類型，而非功能性檢查？</p>",
+          "answers": [
+            {
+              "text": "可攜性測試——驗證軟體能被移植到另一個環境並在其中執行",
+              "fraction": 100,
+              "feedback": "正確——可攜性是非功能性品質屬性。"
+            },
+            {
+              "text": "驗證有效登入被接受、無效登入被拒絕",
+              "fraction": 0,
+              "feedback": "那檢查系統做什麼（行為），因此是功能性測試。"
+            },
+            {
+              "text": "驗證折扣依業務規則計算",
+              "fraction": 0,
+              "feedback": "依規則算出正確結果是功能性檢查。"
+            },
+            {
+              "text": "驗證報表含有所需的欄位",
+              "fraction": 0,
+              "feedback": "檢查所需內容／行為是功能性測試。"
+            }
+          ],
+          "generalFeedback": "非功能性類型評估品質屬性——效能、安全性、易用性、可靠性、相容性、可攜性、可維護性。可攜性（把軟體移到另一環境）是非功能性；其他選項檢查行為，屬功能性。",
+          "single": true
+        }
+      ]
+    }
+  },
+  "v-model": {
+    "en": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "What the V-model is",
+          "text": "<p>The <em>V-model</em> of software development is best described as a model that:</p>",
+          "answers": [
+            {
+              "text": "Pairs each development (left) phase with a corresponding test (right) level, drawn in a V shape",
+              "fraction": 100,
+              "feedback": "Correct — the V-model lines up each development phase with the test level that later validates it."
+            },
+            {
+              "text": "Repeats short build-test-release cycles with continuous customer feedback",
+              "fraction": 0,
+              "feedback": "That describes an Agile/iterative model, not the V-model."
+            },
+            {
+              "text": "Delivers all testing in a single big-bang phase after every module is coded",
+              "fraction": 0,
+              "feedback": "The V-model deliberately spreads test design across the earlier phases; testing is not a single terminal phase."
+            },
+            {
+              "text": "Builds a throwaway prototype first and derives requirements from it",
+              "fraction": 0,
+              "feedback": "That is prototyping; the V-model instead pairs planned phases with test levels."
+            }
+          ],
+          "generalFeedback": "The V-model arranges the software life cycle as a V: development phases descend the left arm, test levels ascend the right arm, and each left phase is paired with the right-side level that validates it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The left arm of the V",
+          "text": "<p>In the V-model, the <em>left (descending) arm</em> represents:</p>",
+          "answers": [
+            {
+              "text": "The development phases — requirements, then design, progressing down toward coding",
+              "fraction": 100,
+              "feedback": "Correct — the left arm descends through the development/definition phases."
+            },
+            {
+              "text": "The test-execution levels, from unit up to acceptance",
+              "fraction": 0,
+              "feedback": "Those ascend the right arm, not the left."
+            },
+            {
+              "text": "The maintenance and retirement activities after release",
+              "fraction": 0,
+              "feedback": "The V-model's arms cover development and testing, not the post-release phases."
+            },
+            {
+              "text": "The project's budgeting and staffing plan",
+              "fraction": 0,
+              "feedback": "The arms model technical phases, not management planning."
+            }
+          ],
+          "generalFeedback": "The left arm of the V descends through the successive development phases (requirements → system design → architectural design → detailed design), ending at coding at the vertex.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "The right arm of the V",
+          "text": "<p>In the V-model, the <em>right (ascending) arm</em> represents:</p>",
+          "answers": [
+            {
+              "text": "The test levels — unit, then integration, system, and acceptance, progressing upward",
+              "fraction": 100,
+              "feedback": "Correct — the right arm ascends through the successive test-execution levels."
+            },
+            {
+              "text": "The development phases from requirements down to coding",
+              "fraction": 0,
+              "feedback": "Those descend the left arm, not the right."
+            },
+            {
+              "text": "The sequence of code reviews performed before any design begins",
+              "fraction": 0,
+              "feedback": "Reviews are static checks within phases; the right arm is the ladder of dynamic test levels."
+            },
+            {
+              "text": "The rollback plan used if a release fails in production",
+              "fraction": 0,
+              "feedback": "That is an operations concern, not the right arm of the V."
+            }
+          ],
+          "generalFeedback": "The right arm ascends through the test levels (unit → integration → system → acceptance). Each level validates the output of the development phase it is paired with on the left.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What sits at the vertex",
+          "text": "<p>At the <em>bottom vertex</em> of the V — the point joining the two arms — is:</p>",
+          "answers": [
+            {
+              "text": "Coding (implementation)",
+              "fraction": 100,
+              "feedback": "Correct — coding sits at the vertex, joining the descending development arm to the ascending test arm."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing sits at the top of the right arm, paired with requirements, not at the vertex."
+            },
+            {
+              "text": "Requirements analysis",
+              "fraction": 0,
+              "feedback": "Requirements sits at the top of the left arm, not at the vertex."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing is a mid-upper level on the right arm, not the vertex."
+            }
+          ],
+          "generalFeedback": "Coding is the lowest point of the V: it is where the left (development) arm turns into the right (testing) arm. From there testing climbs back up level by level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Requirements pairs with which level",
+          "text": "<p>In the standard V-model, the <em>requirements / user-requirements</em> phase is paired with which test level?</p>",
+          "answers": [
+            {
+              "text": "Acceptance testing",
+              "fraction": 100,
+              "feedback": "Correct — acceptance testing validates the finished product against the user requirements."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing is paired with detailed/module design, not requirements."
+            },
+            {
+              "text": "Integration testing",
+              "fraction": 0,
+              "feedback": "Integration testing is paired with architectural design, not requirements."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing is paired with the system/high-level design, not the requirements phase."
+            }
+          ],
+          "generalFeedback": "Standard V-model pairing: requirements ↔ acceptance testing. The requirements are the basis against which acceptance tests are designed and later executed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "System design pairs with which level",
+          "text": "<p>In the standard V-model, the <em>system (high-level / functional) design</em> phase is paired with which test level?</p>",
+          "answers": [
+            {
+              "text": "System testing",
+              "fraction": 100,
+              "feedback": "Correct — system testing validates the integrated system against the system/functional design."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing is paired with the requirements phase, not the system design."
+            },
+            {
+              "text": "Integration testing",
+              "fraction": 0,
+              "feedback": "Integration testing is paired with architectural design, not system design."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing is paired with detailed/module design, not system design."
+            }
+          ],
+          "generalFeedback": "Standard V-model pairing: system/high-level design ↔ system testing. The system design document is the basis for the system-level tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Architectural design pairs with which level",
+          "text": "<p>In the standard V-model, the <em>architectural / integration design</em> phase is paired with which test level?</p>",
+          "answers": [
+            {
+              "text": "Integration testing",
+              "fraction": 100,
+              "feedback": "Correct — integration testing validates that the modules cooperate as the architecture prescribes."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing is paired with detailed/module design, not architectural design."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing is paired with the system/high-level design, not architectural design."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing is paired with the requirements phase, not architectural design."
+            }
+          ],
+          "generalFeedback": "Standard V-model pairing: architectural/integration design ↔ integration testing. The architecture — which defines module interfaces and interactions — is the basis for the integration tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Detailed design pairs with which level",
+          "text": "<p>In the standard V-model, the <em>module / detailed design</em> phase is paired with which test level?</p>",
+          "answers": [
+            {
+              "text": "Unit / component testing",
+              "fraction": 100,
+              "feedback": "Correct — unit testing validates each individual module against its detailed design."
+            },
+            {
+              "text": "Integration testing",
+              "fraction": 0,
+              "feedback": "Integration testing is paired with architectural design, not detailed design."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing is paired with the system/high-level design, not detailed design."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing is paired with the requirements phase, not detailed design."
+            }
+          ],
+          "generalFeedback": "Standard V-model pairing: module/detailed design ↔ unit/component testing. The detailed design of each module is the basis for its unit tests. Detailed design leads directly into coding at the vertex.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Acceptance testing validates which phase",
+          "text": "<p>Reading the V-model the other way: <em>acceptance testing</em> is the test level paired with which development phase?</p>",
+          "answers": [
+            {
+              "text": "The requirements / user-requirements phase",
+              "fraction": 100,
+              "feedback": "Correct — acceptance testing sits opposite requirements on the V."
+            },
+            {
+              "text": "The detailed / module design phase",
+              "fraction": 0,
+              "feedback": "That phase pairs with unit testing, not acceptance testing."
+            },
+            {
+              "text": "The architectural design phase",
+              "fraction": 0,
+              "feedback": "That phase pairs with integration testing, not acceptance testing."
+            },
+            {
+              "text": "The coding phase",
+              "fraction": 0,
+              "feedback": "Coding sits at the vertex; acceptance testing pairs with the requirements phase at the top of the left arm."
+            }
+          ],
+          "generalFeedback": "Acceptance testing is the mirror image of the requirements phase: the user requirements written on the left are exactly what acceptance testing checks on the right.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Unit testing validates which phase",
+          "text": "<p>Reading the V-model the other way: <em>unit / component testing</em> is the test level paired with which development phase?</p>",
+          "answers": [
+            {
+              "text": "The module / detailed design phase",
+              "fraction": 100,
+              "feedback": "Correct — unit testing sits opposite detailed design on the V."
+            },
+            {
+              "text": "The requirements phase",
+              "fraction": 0,
+              "feedback": "That phase pairs with acceptance testing, not unit testing."
+            },
+            {
+              "text": "The system / high-level design phase",
+              "fraction": 0,
+              "feedback": "That phase pairs with system testing, not unit testing."
+            },
+            {
+              "text": "The architectural design phase",
+              "fraction": 0,
+              "feedback": "That phase pairs with integration testing, not unit testing."
+            }
+          ],
+          "generalFeedback": "Unit testing is the mirror image of detailed design: the internal behaviour designed for each module is exactly what its unit tests check.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What verification means (left side)",
+          "text": "<p>On the <em>left arm</em> of the V, activities are chiefly <strong>verification</strong>. Verification asks:</p>",
+          "answers": [
+            {
+              "text": "\"Are we building the product right?\" — checking each phase's output conforms to its specification, via reviews and other static checks",
+              "fraction": 100,
+              "feedback": "Correct — verification is conformance-to-spec, largely through static techniques such as reviews and inspections."
+            },
+            {
+              "text": "\"Are we building the right product?\" — checking the delivered software meets the users' actual needs",
+              "fraction": 0,
+              "feedback": "That is validation, which lives on the right arm."
+            },
+            {
+              "text": "Only running the compiled program against live user data",
+              "fraction": 0,
+              "feedback": "Running the program is dynamic execution (validation-side activity); verification is largely static."
+            },
+            {
+              "text": "Measuring the server's throughput under peak load",
+              "fraction": 0,
+              "feedback": "That is performance testing, not the meaning of verification."
+            }
+          ],
+          "generalFeedback": "Verification (left arm) asks \"did we build the product right?\" — it confirms each artifact conforms to its specification, mainly through static checks (reviews, inspections, walkthroughs) and early test design.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "What validation means (right side)",
+          "text": "<p>On the <em>right arm</em> of the V, activities are chiefly <strong>validation</strong>. Validation asks:</p>",
+          "answers": [
+            {
+              "text": "\"Are we building the right product?\" — running the software to confirm it meets the users' actual needs",
+              "fraction": 100,
+              "feedback": "Correct — validation is dynamic execution that checks fitness for the users' real needs."
+            },
+            {
+              "text": "\"Are we building the product right?\" — reviewing documents for conformance to their specification",
+              "fraction": 0,
+              "feedback": "That is verification, which lives on the left arm."
+            },
+            {
+              "text": "Confirming the requirements document is internally consistent, without executing anything",
+              "fraction": 0,
+              "feedback": "That static review is a verification activity, not validation."
+            },
+            {
+              "text": "Estimating the project schedule and cost",
+              "fraction": 0,
+              "feedback": "That is project management, not validation."
+            }
+          ],
+          "generalFeedback": "Validation (right arm) asks \"did we build the right product?\" — it executes the software (dynamic testing) to confirm it satisfies the users' real needs. Acceptance/UAT is the clearest validation activity.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Early test design",
+          "text": "<p>A defining idea of the V-model is <em>early test design</em>. This means:</p>",
+          "answers": [
+            {
+              "text": "The tests for each level are planned and designed during the paired left-side phase, even though they are executed later",
+              "fraction": 100,
+              "feedback": "Correct — e.g. acceptance tests are designed while requirements are written, long before execution."
+            },
+            {
+              "text": "All tests are both designed and executed only after coding is finished",
+              "fraction": 0,
+              "feedback": "That is the very practice the V-model's early test design is meant to replace."
+            },
+            {
+              "text": "Testers are hired only at the end of the project",
+              "fraction": 0,
+              "feedback": "Early test design means testers engage from the start, not the end."
+            },
+            {
+              "text": "Coding is skipped and replaced by test scripts",
+              "fraction": 0,
+              "feedback": "Coding still happens at the vertex; test design merely starts early."
+            }
+          ],
+          "generalFeedback": "Early test design: as each left-side phase produces its artifact, the tests for the matching right-side level are designed there and then (acceptance tests with requirements, system tests with system design, and so on). Execution still happens later, up the right arm.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Coding sits at the vertex",
+          "text": "<p>In the V-model, coding (implementation) sits at the bottom vertex, joining the descending development arm to the ascending test arm.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — coding is the lowest point of the V, where development turns into testing."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Coding does sit at the vertex; the two arms meet at implementation."
+            }
+          ],
+          "generalFeedback": "The V descends through the development phases to coding at the vertex, then ascends through the test levels. Coding is the turning point that joins the two arms."
+        },
+        {
+          "type": "truefalse",
+          "name": "Testing is not only at the very end",
+          "text": "<p>In the V-model, all testing work begins only after coding is complete, with nothing test-related happening during the earlier development phases.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is the misconception the V-model corrects: test design starts early, during the paired left-side phases."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — although test execution happens later, test design/planning for each level begins during its paired development phase."
+            }
+          ],
+          "generalFeedback": "The whole point of the V-model over a naive waterfall is that testing is not deferred to the end: the tests for each level are designed alongside the matching development phase, even though they are executed up the right arm afterwards."
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "Test basis for acceptance testing",
+          "text": "<p>In the V-model, which document is the <em>test basis</em> (the source the test cases are derived from) for <strong>acceptance testing</strong>?</p>",
+          "answers": [
+            {
+              "text": "The requirements / user-requirements specification",
+              "fraction": 100,
+              "feedback": "Correct — acceptance tests are derived from the requirements, its paired left-side artifact."
+            },
+            {
+              "text": "The module / detailed design",
+              "fraction": 0,
+              "feedback": "That is the basis for unit testing, not acceptance testing."
+            },
+            {
+              "text": "The architectural design",
+              "fraction": 0,
+              "feedback": "That is the basis for integration testing, not acceptance testing."
+            },
+            {
+              "text": "The source code of individual functions",
+              "fraction": 0,
+              "feedback": "Acceptance testing is derived from user requirements, not from reading the code."
+            }
+          ],
+          "generalFeedback": "Each right-side level draws its test basis from its paired left-side artifact. Acceptance testing ↔ requirements, so the requirements specification is the basis for the acceptance tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test basis for system testing",
+          "text": "<p>In the V-model, which document is the <em>test basis</em> for <strong>system testing</strong>?</p>",
+          "answers": [
+            {
+              "text": "The system / high-level (functional) design specification",
+              "fraction": 100,
+              "feedback": "Correct — system tests are derived from the system/functional design, its paired left-side artifact."
+            },
+            {
+              "text": "The user-requirements specification",
+              "fraction": 0,
+              "feedback": "That is the basis for acceptance testing, not system testing."
+            },
+            {
+              "text": "The detailed design of a single module",
+              "fraction": 0,
+              "feedback": "That is the basis for unit testing, not system testing."
+            },
+            {
+              "text": "The architectural / interface design",
+              "fraction": 0,
+              "feedback": "That is the basis for integration testing, not system testing."
+            }
+          ],
+          "generalFeedback": "System testing ↔ system/high-level design. The system design specification defines the whole system's functional behaviour, and system testing checks the integrated system against it.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test basis for integration testing",
+          "text": "<p>In the V-model, which document is the <em>test basis</em> for <strong>integration testing</strong>?</p>",
+          "answers": [
+            {
+              "text": "The architectural / interface design",
+              "fraction": 100,
+              "feedback": "Correct — the architecture defines how modules interface, and integration tests are derived from it."
+            },
+            {
+              "text": "The user-requirements specification",
+              "fraction": 0,
+              "feedback": "That is the basis for acceptance testing, not integration testing."
+            },
+            {
+              "text": "The system / high-level design",
+              "fraction": 0,
+              "feedback": "That is the basis for system testing, not integration testing."
+            },
+            {
+              "text": "The detailed design of a single module",
+              "fraction": 0,
+              "feedback": "That is the basis for unit testing, not integration testing."
+            }
+          ],
+          "generalFeedback": "Integration testing ↔ architectural design. Because the architecture specifies module interfaces and interactions, it is exactly the basis against which integration tests are designed.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Test basis for unit testing",
+          "text": "<p>In the V-model, which document is the <em>test basis</em> for <strong>unit / component testing</strong>?</p>",
+          "answers": [
+            {
+              "text": "The module / detailed design",
+              "fraction": 100,
+              "feedback": "Correct — the detailed design defines each module's internal behaviour, and unit tests are derived from it."
+            },
+            {
+              "text": "The architectural / interface design",
+              "fraction": 0,
+              "feedback": "That is the basis for integration testing, not unit testing."
+            },
+            {
+              "text": "The system / high-level design",
+              "fraction": 0,
+              "feedback": "That is the basis for system testing, not unit testing."
+            },
+            {
+              "text": "The user-requirements specification",
+              "fraction": 0,
+              "feedback": "That is the basis for acceptance testing, not unit testing."
+            }
+          ],
+          "generalFeedback": "Unit testing ↔ detailed/module design. The detailed design describes what each individual module should do internally, so it is the basis for that module's unit tests.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which level validates architecture",
+          "text": "<p>Your team has just finished the <em>architectural design</em>, which specifies how the modules interface and interact. Which test level (per the V-model) is designed to validate this phase's output?</p>",
+          "answers": [
+            {
+              "text": "Integration testing",
+              "fraction": 100,
+              "feedback": "Correct — architectural design ↔ integration testing; integration tests check that the modules cooperate as the architecture prescribes."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing validates detailed design (single-module behaviour), not the architecture's inter-module interfaces."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing validates the requirements, not the architectural design."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing validates the system/high-level design, not the architectural/interface design."
+            }
+          ],
+          "generalFeedback": "Match the phase to its paired level: architectural design ↔ integration testing. Because the architecture defines module interfaces, integration testing is what checks those interfaces work once modules are combined.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which level validates detailed design",
+          "text": "<p>Your team has just finished the <em>detailed (module) design</em>, which specifies each module's internal behaviour. Which test level (per the V-model) is designed to validate this phase's output?</p>",
+          "answers": [
+            {
+              "text": "Unit / component testing",
+              "fraction": 100,
+              "feedback": "Correct — detailed design ↔ unit testing; unit tests check each module against its detailed design."
+            },
+            {
+              "text": "Integration testing",
+              "fraction": 0,
+              "feedback": "Integration testing validates the architectural design (inter-module interfaces), not a single module's internal behaviour."
+            },
+            {
+              "text": "System testing",
+              "fraction": 0,
+              "feedback": "System testing validates the system/high-level design, not the detailed design of one module."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing validates the requirements, not the detailed design."
+            }
+          ],
+          "generalFeedback": "Match the phase to its paired level: detailed/module design ↔ unit testing. The detailed design of each module is what its unit tests check.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify a requirements review",
+          "text": "<p>A team holds an inspection meeting to review the <em>requirements specification</em> for completeness and consistency, without running any code. In V-model terms this activity is:</p>",
+          "answers": [
+            {
+              "text": "Verification (a static, left-arm activity)",
+              "fraction": 100,
+              "feedback": "Correct — reviewing an artifact for conformance, with no execution, is verification."
+            },
+            {
+              "text": "Validation (a dynamic, right-arm activity)",
+              "fraction": 0,
+              "feedback": "Validation involves executing the software; a document review does not."
+            },
+            {
+              "text": "Acceptance testing",
+              "fraction": 0,
+              "feedback": "Acceptance testing executes the finished product with users; a requirements inspection is a static review."
+            },
+            {
+              "text": "Integration testing",
+              "fraction": 0,
+              "feedback": "Integration testing dynamically exercises combined modules; a requirements review runs nothing."
+            }
+          ],
+          "generalFeedback": "Left arm = verification (static: reviews, inspections, \"building the product right\"). A requirements inspection runs no code, so it is a verification activity, not a validation (dynamic) one.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Classify executing acceptance tests",
+          "text": "<p>Users run the finished software against their real business scenarios to confirm it meets their needs. In V-model terms this activity is:</p>",
+          "answers": [
+            {
+              "text": "Validation (a dynamic, right-arm activity)",
+              "fraction": 100,
+              "feedback": "Correct — executing the software to confirm fitness for user needs is validation."
+            },
+            {
+              "text": "Verification (a static, left-arm activity)",
+              "fraction": 0,
+              "feedback": "Verification is static conformance checking; executing the product against user needs is validation."
+            },
+            {
+              "text": "A design review of the architecture",
+              "fraction": 0,
+              "feedback": "That is a static left-arm activity; running the software with users is dynamic validation."
+            },
+            {
+              "text": "Unit testing",
+              "fraction": 0,
+              "feedback": "Unit testing exercises single modules; this scenario is whole-product acceptance, a validation activity."
+            }
+          ],
+          "generalFeedback": "Right arm = validation (dynamic: executing the software, \"building the right product\"). Running the finished software against real user needs is the archetypal validation activity — acceptance/UAT.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why test design starts early",
+          "text": "<p>Why does the V-model have the tests for each level <em>designed during the paired left-side phase</em> rather than after coding?</p>",
+          "answers": [
+            {
+              "text": "Designing tests against each artifact exposes ambiguities/defects in that artifact early, and leaves the tests ready to execute when the code arrives",
+              "fraction": 100,
+              "feedback": "Correct — early test design finds specification/design faults sooner and prepares tests in advance."
+            },
+            {
+              "text": "It lets the team skip writing the requirements and design documents",
+              "fraction": 0,
+              "feedback": "Early test design depends on those documents as its basis; it does not eliminate them."
+            },
+            {
+              "text": "It removes the need to ever execute the tests",
+              "fraction": 0,
+              "feedback": "Tests are still executed later up the right arm; only their design is moved earlier."
+            },
+            {
+              "text": "It converts the sequential model into an iterative, Agile one",
+              "fraction": 0,
+              "feedback": "The V-model remains sequential; early test design does not make it iterative."
+            }
+          ],
+          "generalFeedback": "Designing tests while each artifact is fresh forces careful reading of that artifact, so ambiguities and defects surface early (cheap to fix), and the tests are ready to run the moment the corresponding code exists.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Testing activity during requirements",
+          "text": "<p>According to the V-model, what testing activity should occur <em>during the requirements phase</em> (before any code exists)?</p>",
+          "answers": [
+            {
+              "text": "Designing and planning the acceptance tests (the level paired with requirements)",
+              "fraction": 100,
+              "feedback": "Correct — acceptance tests are designed while requirements are written; they execute later."
+            },
+            {
+              "text": "Executing the acceptance tests against the delivered system",
+              "fraction": 0,
+              "feedback": "Execution comes later, up the right arm; during requirements the acceptance tests are only designed."
+            },
+            {
+              "text": "Designing the unit tests for each module",
+              "fraction": 0,
+              "feedback": "Unit tests are designed later, during detailed design — the phase paired with unit testing."
+            },
+            {
+              "text": "No testing activity of any kind can happen yet",
+              "fraction": 0,
+              "feedback": "The V-model's early test design means acceptance-test design begins right here, at the requirements phase."
+            }
+          ],
+          "generalFeedback": "Requirements ↔ acceptance testing, so the requirements phase is exactly when acceptance tests are designed. That design work (though executed much later) is part of the phase's early test design.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why unit pairs with detailed design",
+          "text": "<p>Why does the V-model pair <em>unit testing</em> specifically with the <em>detailed (module) design</em> phase?</p>",
+          "answers": [
+            {
+              "text": "The detailed design specifies each module's internal behaviour, which is exactly what unit tests check",
+              "fraction": 100,
+              "feedback": "Correct — the artifact that defines a module's internals is the natural basis for its unit tests."
+            },
+            {
+              "text": "The detailed design lists the users' business goals, which unit tests confirm",
+              "fraction": 0,
+              "feedback": "Business goals live in the requirements (paired with acceptance testing), not the detailed design."
+            },
+            {
+              "text": "The detailed design fixes the interfaces between modules, which unit tests exercise",
+              "fraction": 0,
+              "feedback": "Inter-module interfaces belong to the architecture (paired with integration testing); unit tests target one module."
+            },
+            {
+              "text": "Because unit tests can only be written after the whole system is designed",
+              "fraction": 0,
+              "feedback": "Unit tests are designed at the detailed-design phase, not after all higher-level design is finished."
+            }
+          ],
+          "generalFeedback": "Each pairing matches a test level to the artifact that is its natural basis. The detailed design describes a single module's internal behaviour, so it is precisely what unit/component testing verifies.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Why integration pairs with architecture",
+          "text": "<p>Why does the V-model pair <em>integration testing</em> specifically with the <em>architectural design</em> phase?</p>",
+          "answers": [
+            {
+              "text": "The architecture defines the module interfaces and interactions, which is exactly what integration testing exercises",
+              "fraction": 100,
+              "feedback": "Correct — the artifact that specifies how modules connect is the natural basis for integration tests."
+            },
+            {
+              "text": "The architecture describes each module's internal algorithm, which integration tests check",
+              "fraction": 0,
+              "feedback": "Internal algorithms are detailed design (paired with unit testing); integration testing targets interactions."
+            },
+            {
+              "text": "The architecture states the user acceptance criteria, which integration tests confirm",
+              "fraction": 0,
+              "feedback": "Acceptance criteria come from the requirements (paired with acceptance testing), not the architecture."
+            },
+            {
+              "text": "Because integration tests can only run once the full system is deployed to users",
+              "fraction": 0,
+              "feedback": "Integration testing runs after unit testing and before system/acceptance testing, not only at deployment."
+            }
+          ],
+          "generalFeedback": "The architectural design specifies how modules are decomposed and how they talk to one another, so it is the natural basis for integration testing, which checks that combined modules interact correctly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which side is dynamic execution",
+          "text": "<p>In the V-model, dynamic <em>test execution</em> (actually running the software) is concentrated on which side, and under which term?</p>",
+          "answers": [
+            {
+              "text": "The right arm, under validation",
+              "fraction": 100,
+              "feedback": "Correct — the right arm's ascending test levels execute the software; this is validation."
+            },
+            {
+              "text": "The left arm, under verification",
+              "fraction": 0,
+              "feedback": "The left arm is mostly static (reviews, test design) — verification — not dynamic execution."
+            },
+            {
+              "text": "The left arm, under validation",
+              "fraction": 0,
+              "feedback": "The left arm is verification, and it is largely static rather than dynamic execution."
+            },
+            {
+              "text": "The right arm, under verification",
+              "fraction": 0,
+              "feedback": "The right arm is validation, not verification; verification is the left-arm term."
+            }
+          ],
+          "generalFeedback": "Left arm = verification (mostly static: reviews plus early test design). Right arm = validation (dynamic execution of the built software, level by level). Dynamic test execution therefore lives on the right arm, as validation.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Acceptance tests can be written from requirements",
+          "text": "<p>In the V-model, the acceptance test cases can be designed as soon as the requirements are agreed — that is, before any code is written.</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "Correct — requirements ↔ acceptance testing, so acceptance tests are designed during the requirements phase (executed much later)."
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "Because acceptance testing is paired with requirements, its tests can indeed be designed once requirements are agreed, well before coding."
+            }
+          ],
+          "generalFeedback": "Early test design applies most visibly at the top of the V: the requirements are the basis for acceptance testing, so acceptance test cases can be authored as soon as requirements are settled — long before the code exists."
+        },
+        {
+          "type": "multichoice",
+          "name": "Interpreting an early-design scenario",
+          "text": "<p>While writing the <em>architectural design</em> document, a team simultaneously drafts the integration test cases for the interfaces it defines. This practice illustrates:</p>",
+          "answers": [
+            {
+              "text": "Early test design — designing a level's tests during its paired left-side phase (architecture ↔ integration testing)",
+              "fraction": 100,
+              "feedback": "Correct — the integration tests are designed during the architectural phase they are paired with."
+            },
+            {
+              "text": "A mistake — integration tests must only be written after coding is complete",
+              "fraction": 0,
+              "feedback": "The V-model deliberately encourages designing these tests early, during architectural design."
+            },
+            {
+              "text": "Acceptance testing, because interfaces face the user",
+              "fraction": 0,
+              "feedback": "Interfaces between modules pair with integration testing; acceptance testing pairs with requirements."
+            },
+            {
+              "text": "An Agile sprint, because design and testing overlap",
+              "fraction": 0,
+              "feedback": "Overlapping test design with a phase is core V-model practice, not specifically Agile."
+            }
+          ],
+          "generalFeedback": "This is exactly the V-model's early test design: each left-side phase produces both its development artifact and the design of the tests for its paired right-side level. Architecture ↔ integration testing.",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "Where an interface mismatch is caught",
+          "text": "<p>Two subsystems exchange data in incompatible formats — a fault in how they interface. In the V-model, at which test <em>level</em> is this fault first targeted, and during which phase were those tests <em>designed</em>?</p>",
+          "answers": [
+            {
+              "text": "Caught at integration testing; those tests were designed during architectural design",
+              "fraction": 100,
+              "feedback": "Correct — inter-module interface faults are the target of integration testing, whose basis is the architecture."
+            },
+            {
+              "text": "Caught at unit testing; those tests were designed during detailed design",
+              "fraction": 0,
+              "feedback": "Unit testing exercises a single module in isolation; a cross-subsystem interface mismatch is an integration concern."
+            },
+            {
+              "text": "Caught at acceptance testing; those tests were designed during the requirements phase",
+              "fraction": 0,
+              "feedback": "Acceptance testing checks user needs on the whole product; an interface-format mismatch is targeted earlier, at integration."
+            },
+            {
+              "text": "Caught at system testing; those tests were designed during detailed design",
+              "fraction": 0,
+              "feedback": "The level is wrong (interfaces ↔ integration) and system tests are designed during system design, not detailed design."
+            }
+          ],
+          "generalFeedback": "Interface/interaction faults between modules are exactly what integration testing targets, and integration testing is paired with — and designed during — the architectural design phase.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A product that misses user needs",
+          "text": "<p>A delivered system conforms perfectly to its design documents, yet fails to meet what users actually needed. In the V-model, which level is meant to expose this, and is it verification or validation?</p>",
+          "answers": [
+            {
+              "text": "Acceptance testing — a validation activity, checking the product against real user needs",
+              "fraction": 100,
+              "feedback": "Correct — \"right product?\" is validation, and acceptance testing (paired with requirements) is where user-need gaps surface."
+            },
+            {
+              "text": "Unit testing — a verification activity, checking each module against its detailed design",
+              "fraction": 0,
+              "feedback": "Conformance to a module's design is verification; it cannot reveal that the whole product misses user needs."
+            },
+            {
+              "text": "Integration testing — a validation activity, checking module interfaces",
+              "fraction": 0,
+              "feedback": "Integration testing targets interfaces (and is dynamic validation of that scope), not overall fitness for user needs."
+            },
+            {
+              "text": "A design review — a validation activity, checking the requirements document",
+              "fraction": 0,
+              "feedback": "A document review is static verification, not validation, and it cannot confirm real-world fitness."
+            }
+          ],
+          "generalFeedback": "\"Built the product right\" (matches design) is verification; \"built the right product\" (meets user needs) is validation. A system can pass all verification yet fail validation — acceptance testing, paired with requirements, is where that gap shows.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "How the V improves on waterfall",
+          "text": "<p>Compared with the classic waterfall model, the V-model's chief improvement for testing is that it:</p>",
+          "answers": [
+            {
+              "text": "Involves testing early — the tests for each level are designed in parallel with the matching development phase, instead of only after coding",
+              "fraction": 100,
+              "feedback": "Correct — the V-model makes test design a first-class activity of every development phase."
+            },
+            {
+              "text": "Removes the design and requirements phases entirely",
+              "fraction": 0,
+              "feedback": "The V-model keeps all those phases; it adds a paired test level to each."
+            },
+            {
+              "text": "Lets requirements change freely at any point without cost",
+              "fraction": 0,
+              "feedback": "The V-model is still sequential; late requirement changes remain costly."
+            },
+            {
+              "text": "Replaces documents with working prototypes",
+              "fraction": 0,
+              "feedback": "That is prototyping/Agile; the V-model is still document-driven."
+            }
+          ],
+          "generalFeedback": "Waterfall pushes testing to the end. The V-model pairs every development phase with a test level and designs those tests early, so defects in requirements and design are found sooner — its main testing advantage over waterfall.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "A weakness shared with waterfall",
+          "text": "<p>Even with its early test design, the V-model still inherits which key weakness of the waterfall model?</p>",
+          "answers": [
+            {
+              "text": "It is sequential and rigid — phases run in order, so it adapts poorly to changing requirements",
+              "fraction": 100,
+              "feedback": "Correct — early test design does not remove the underlying sequential, plan-driven structure."
+            },
+            {
+              "text": "It never tests the software at all",
+              "fraction": 0,
+              "feedback": "The V-model tests thoroughly, level by level; that is not the shared weakness."
+            },
+            {
+              "text": "It has no defined requirements phase",
+              "fraction": 0,
+              "feedback": "Requirements is the top-left phase of the V; it is clearly defined."
+            },
+            {
+              "text": "It forbids any design documentation",
+              "fraction": 0,
+              "feedback": "The V-model is heavily document-driven, the opposite of forbidding design docs."
+            }
+          ],
+          "generalFeedback": "The V-model reorganises when tests are designed, but it keeps waterfall's linear, phase-by-phase flow. It therefore struggles when requirements change late — the same rigidity waterfall is criticised for.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "V-model versus Agile",
+          "text": "<p>Compared with Agile/iterative development, the V-model is a poor fit when:</p>",
+          "answers": [
+            {
+              "text": "Requirements are volatile and stakeholders need early, working increments to react to",
+              "fraction": 100,
+              "feedback": "Correct — the V-model assumes stable, well-understood requirements up front and produces no early prototypes."
+            },
+            {
+              "text": "Requirements are stable and well understood before design begins",
+              "fraction": 0,
+              "feedback": "That is precisely where the V-model works well, not poorly."
+            },
+            {
+              "text": "A clear phase structure with a matching test level for each phase is desired",
+              "fraction": 0,
+              "feedback": "That is a strength of the V-model, not a poor-fit situation."
+            },
+            {
+              "text": "Formal documentation and traceability are required by the domain",
+              "fraction": 0,
+              "feedback": "The V-model's document-driven rigor suits such domains; it is not a poor fit there."
+            }
+          ],
+          "generalFeedback": "Agile delivers working increments iteratively and welcomes change; the V-model plans all phases up front with no early prototypes. When requirements are volatile and early feedback is essential, the V-model fits poorly and Agile is preferred.",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "Misconception: testing only after coding",
+          "text": "<p>Claim: \"The V-model shows that every testing activity — including test design — happens strictly after coding, so testers need not be involved during requirements or design.\" Is this claim correct?</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "This is a common misconception. In the V-model, each level's tests are designed during its paired left-side phase, so testers engage from the start."
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "Correct — although test execution ascends the right arm after coding, the design of each level's tests occurs during its paired development phase."
+            }
+          ],
+          "generalFeedback": "The trap: confusing test execution (which does come after coding) with test design (which the V-model deliberately moves early). Acceptance tests are designed with requirements, system tests with system design, and so on — so the claim is false."
+        },
+        {
+          "type": "multichoice",
+          "name": "Level furthest from the vertex",
+          "text": "<p>Reading the V from the coding vertex outward, which test level sits <em>furthest</em> from the vertex (paired with the topmost left-side phase)?</p>",
+          "answers": [
+            {
+              "text": "Acceptance testing (paired with requirements, at the top of the V)",
+              "fraction": 100,
+              "feedback": "Correct — requirements is the topmost left phase, so its partner, acceptance testing, is the outermost right level."
+            },
+            {
+              "text": "Unit testing (paired with detailed design)",
+              "fraction": 0,
+              "feedback": "Unit testing is nearest the vertex, not furthest — detailed design is the lowest left phase."
+            },
+            {
+              "text": "Integration testing (paired with architectural design)",
+              "fraction": 0,
+              "feedback": "Integration testing is a middle level, not the outermost."
+            },
+            {
+              "text": "System testing (paired with system design)",
+              "fraction": 0,
+              "feedback": "System testing is upper-middle, but acceptance testing (with requirements) sits above it."
+            }
+          ],
+          "generalFeedback": "The higher a phase sits on the left arm, the higher its paired level sits on the right. Requirements is the top-left phase, so acceptance testing is the outermost (furthest-from-vertex) right-side level.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Level closest to the vertex",
+          "text": "<p>Which test level sits <em>closest</em> to the coding vertex (paired with the lowest left-side design phase)?</p>",
+          "answers": [
+            {
+              "text": "Unit / component testing (paired with detailed design)",
+              "fraction": 100,
+              "feedback": "Correct — detailed design is the lowest left phase, leading into coding, so its partner unit testing is nearest the vertex."
+            },
+            {
+              "text": "Acceptance testing (paired with requirements)",
+              "fraction": 0,
+              "feedback": "Acceptance testing is furthest from the vertex, not closest."
+            },
+            {
+              "text": "System testing (paired with system design)",
+              "fraction": 0,
+              "feedback": "System testing is upper-middle, not closest to the vertex."
+            },
+            {
+              "text": "Integration testing (paired with architectural design)",
+              "fraction": 0,
+              "feedback": "Integration testing is closer than system/acceptance, but unit testing is nearer the vertex."
+            }
+          ],
+          "generalFeedback": "Detailed design is the lowest left phase (it flows straight into coding at the vertex), so its paired level, unit testing, is the first level up the right arm and the closest to the vertex.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Order of test execution up the right arm",
+          "text": "<p>Ascending the right arm from the vertex, in what order are the test levels <em>executed</em>?</p>",
+          "answers": [
+            {
+              "text": "Unit → integration → system → acceptance",
+              "fraction": 100,
+              "feedback": "Correct — testing climbs from the smallest scope (unit) to the whole product against user needs (acceptance)."
+            },
+            {
+              "text": "Acceptance → system → integration → unit",
+              "fraction": 0,
+              "feedback": "That is the reverse; execution ascends from unit upward, not downward."
+            },
+            {
+              "text": "Integration → unit → acceptance → system",
+              "fraction": 0,
+              "feedback": "Unit precedes integration, and system precedes acceptance; this ordering is scrambled."
+            },
+            {
+              "text": "System → unit → integration → acceptance",
+              "fraction": 0,
+              "feedback": "Unit is first, not third; system testing comes after integration."
+            }
+          ],
+          "generalFeedback": "Up the right arm the scope widens: individual modules (unit), then their combinations (integration), then the whole system (system), then the product against user needs (acceptance). Execution order is unit → integration → system → acceptance.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Which question validation answers",
+          "text": "<p>The pair of guiding questions \"Are we building the product right?\" and \"Are we building the right product?\" map to the two arms of the V. Which arm/term answers \"Are we building the <em>right product</em>?\"</p>",
+          "answers": [
+            {
+              "text": "The right arm — validation",
+              "fraction": 100,
+              "feedback": "Correct — \"right product?\" (fitness for user needs) is validation, done dynamically up the right arm."
+            },
+            {
+              "text": "The left arm — verification",
+              "fraction": 0,
+              "feedback": "Verification answers \"building the product right?\" (conformance to spec), not \"the right product?\"."
+            },
+            {
+              "text": "The left arm — validation",
+              "fraction": 0,
+              "feedback": "The left arm is verification, not validation."
+            },
+            {
+              "text": "The right arm — verification",
+              "fraction": 0,
+              "feedback": "The right arm is validation; verification is the left-arm term."
+            }
+          ],
+          "generalFeedback": "\"Building the product right?\" = verification (left, static conformance). \"Building the right product?\" = validation (right, dynamic fitness for user needs). The second question is answered by the right arm's validation.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Matching two bases at once",
+          "text": "<p>Fill both blanks consistently with the standard V-model: the requirements specification is the test basis for ______, and the detailed design is the test basis for ______.</p>",
+          "answers": [
+            {
+              "text": "acceptance testing; unit testing",
+              "fraction": 100,
+              "feedback": "Correct — requirements ↔ acceptance testing, detailed design ↔ unit testing."
+            },
+            {
+              "text": "system testing; integration testing",
+              "fraction": 0,
+              "feedback": "Requirements pair with acceptance (not system) and detailed design pairs with unit (not integration)."
+            },
+            {
+              "text": "unit testing; acceptance testing",
+              "fraction": 0,
+              "feedback": "The pairings are reversed — requirements go with acceptance, detailed design with unit."
+            },
+            {
+              "text": "acceptance testing; integration testing",
+              "fraction": 0,
+              "feedback": "The first is right, but detailed design pairs with unit testing, not integration testing."
+            }
+          ],
+          "generalFeedback": "Standard pairings: requirements ↔ acceptance, system design ↔ system, architecture ↔ integration, detailed design ↔ unit. So requirements → acceptance testing and detailed design → unit testing.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Meaning of a matching validation per phase",
+          "text": "<p>An advantage often cited for the V-model is that \"each development phase has a matching test level.\" What does this actually buy the project?</p>",
+          "answers": [
+            {
+              "text": "Every left-side artifact has a designated right-side level that will validate it, so no phase's output is left unchecked and traceability from tests to artifacts is clear",
+              "fraction": 100,
+              "feedback": "Correct — the explicit pairing gives every artifact a home for its verification/validation and clear test-to-artifact traceability."
+            },
+            {
+              "text": "It guarantees the software will contain no defects after acceptance testing",
+              "fraction": 0,
+              "feedback": "No model guarantees zero defects; the pairing improves coverage and traceability, not perfection."
+            },
+            {
+              "text": "It lets the team run all test levels simultaneously with the design phases",
+              "fraction": 0,
+              "feedback": "Tests are designed early but executed sequentially up the right arm, not all at once."
+            },
+            {
+              "text": "It eliminates the need for requirements traceability",
+              "fraction": 0,
+              "feedback": "The pairing strengthens traceability; it does not remove the need for it."
+            }
+          ],
+          "generalFeedback": "Pairing each phase with a test level means every artifact produced on the left has an explicit level responsible for checking it, giving structured coverage and clear traceability between tests and the artifacts they exercise.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "When system tests are ideally designed",
+          "text": "<p>Applying early test design consistently, at which point are the <em>system test</em> cases ideally designed (even though they run later)?</p>",
+          "answers": [
+            {
+              "text": "During the system / high-level design phase (its paired left-side phase)",
+              "fraction": 100,
+              "feedback": "Correct — system testing ↔ system design, so system tests are designed during system design."
+            },
+            {
+              "text": "During the requirements phase",
+              "fraction": 0,
+              "feedback": "The requirements phase is when acceptance tests are designed; system tests pair with system design."
+            },
+            {
+              "text": "Only after acceptance testing has finished",
+              "fraction": 0,
+              "feedback": "System testing precedes acceptance testing; its tests are designed far earlier, at system design."
+            },
+            {
+              "text": "During the detailed design phase",
+              "fraction": 0,
+              "feedback": "Detailed design is when unit tests are designed; system tests pair with system/high-level design."
+            }
+          ],
+          "generalFeedback": "Early test design places each level's test design in its paired phase. System testing ↔ system/high-level design, so the system tests are ideally designed during the system design phase, then executed up the right arm after integration.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Cost of a late requirements change",
+          "text": "<p>Late in a V-model project, a user requirement changes. Why is this typically expensive to accommodate?</p>",
+          "answers": [
+            {
+              "text": "Because the model is sequential, the change ripples through the already-completed design, code, and every paired test level's artifacts, all of which must be revised",
+              "fraction": 100,
+              "feedback": "Correct — a requirements change invalidates downstream artifacts and their paired (e.g. acceptance) tests, and there is no iterative mechanism to absorb it cheaply."
+            },
+            {
+              "text": "Because the V-model has no requirements phase, so the change has nowhere to be recorded",
+              "fraction": 0,
+              "feedback": "Requirements is the top-left phase of the V; the problem is rework downstream, not a missing phase."
+            },
+            {
+              "text": "Because test design cannot begin until the change is coded",
+              "fraction": 0,
+              "feedback": "The V-model designs tests early; the cost comes from reworking completed sequential artifacts, not from delayed test design."
+            },
+            {
+              "text": "Because acceptance testing is unrelated to the requirements and must be redone from scratch regardless",
+              "fraction": 0,
+              "feedback": "Acceptance testing is tightly paired with requirements; that pairing is precisely why the change forces acceptance-test rework."
+            }
+          ],
+          "generalFeedback": "The V-model's rigidity means a late requirements change forces revisiting the system/architecture/detailed designs, the code, and each paired test level (acceptance tests most directly). Unlike an iterative model, it cannot absorb such change in a later increment, so late changes are costly.",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "Spot the incorrect pairing",
+          "text": "<p>Which of the following development-phase ↔ test-level pairings is <strong>NOT</strong> part of the standard V-model?</p>",
+          "answers": [
+            {
+              "text": "System / high-level design ↔ unit testing",
+              "fraction": 100,
+              "feedback": "Correct — this pairing is wrong. System design pairs with system testing; unit testing pairs with detailed design."
+            },
+            {
+              "text": "Requirements ↔ acceptance testing",
+              "fraction": 0,
+              "feedback": "This is a correct standard pairing, so it is not the answer."
+            },
+            {
+              "text": "Architectural design ↔ integration testing",
+              "fraction": 0,
+              "feedback": "This is a correct standard pairing, so it is not the answer."
+            },
+            {
+              "text": "Detailed / module design ↔ unit testing",
+              "fraction": 0,
+              "feedback": "This is a correct standard pairing, so it is not the answer."
+            }
+          ],
+          "generalFeedback": "The standard pairings are requirements ↔ acceptance, system design ↔ system, architecture ↔ integration, detailed design ↔ unit. \"System design ↔ unit testing\" mismatches two levels, so it is the incorrect pairing.",
+          "single": true
+        }
+      ]
+    },
+    "zh": {
+      "easy": [
+        {
+          "type": "multichoice",
+          "name": "V-model 是什麼",
+          "text": "<p>軟體開發的 <em>V-model（V 模型）</em>最貼切的描述是一種：</p>",
+          "answers": [
+            {
+              "text": "將每個開發（左側）階段與對應的測試（右側）層級配對、畫成 V 字形的模型",
+              "fraction": 100,
+              "feedback": "正確——V 模型讓每個開發階段對齊之後負責驗證它的測試層級。"
+            },
+            {
+              "text": "以持續的顧客回饋反覆進行短週期的建置—測試—發布",
+              "fraction": 0,
+              "feedback": "那描述的是敏捷／迭代模型，不是 V 模型。"
+            },
+            {
+              "text": "在每個模組都寫完之後，才在單一的大爆炸階段一次做完所有測試",
+              "fraction": 0,
+              "feedback": "V 模型刻意把測試設計分散到較早的各階段；測試並非單一的最終階段。"
+            },
+            {
+              "text": "先做一個用完即丟的原型，再從中推導需求",
+              "fraction": 0,
+              "feedback": "那是原型法；V 模型是把規劃好的階段與測試層級配對。"
+            }
+          ],
+          "generalFeedback": "V 模型把軟體生命週期排成一個 V：開發階段沿左臂下降，測試層級沿右臂上升，且每個左側階段都與負責驗證它的右側層級配對。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "V 的左臂",
+          "text": "<p>在 V 模型中，<em>左臂（下降）</em>代表：</p>",
+          "answers": [
+            {
+              "text": "開發階段——需求，接著設計，逐步向下走到編碼",
+              "fraction": 100,
+              "feedback": "正確——左臂沿著開發／定義階段下降。"
+            },
+            {
+              "text": "測試執行層級，從單元往上到驗收",
+              "fraction": 0,
+              "feedback": "那些是沿右臂上升，不是左臂。"
+            },
+            {
+              "text": "發布之後的維護與退役活動",
+              "fraction": 0,
+              "feedback": "V 模型的兩臂涵蓋開發與測試，不包含發布後的階段。"
+            },
+            {
+              "text": "專案的預算與人力規劃",
+              "fraction": 0,
+              "feedback": "兩臂模型化的是技術階段，不是管理規劃。"
+            }
+          ],
+          "generalFeedback": "V 的左臂沿著接連的開發階段下降（需求 → 系統設計 → 架構設計 → 詳細設計），最後在頂點落到編碼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "V 的右臂",
+          "text": "<p>在 V 模型中，<em>右臂（上升）</em>代表：</p>",
+          "answers": [
+            {
+              "text": "測試層級——單元，接著整合、系統、驗收，逐步向上",
+              "fraction": 100,
+              "feedback": "正確——右臂沿著接連的測試執行層級上升。"
+            },
+            {
+              "text": "從需求向下到編碼的開發階段",
+              "fraction": 0,
+              "feedback": "那些是沿左臂下降，不是右臂。"
+            },
+            {
+              "text": "在任何設計開始前所進行的一連串程式碼審查",
+              "fraction": 0,
+              "feedback": "審查是各階段內的靜態檢查；右臂是動態測試層級的階梯。"
+            },
+            {
+              "text": "發布在正式環境失敗時所用的回復計畫",
+              "fraction": 0,
+              "feedback": "那是維運議題，不是 V 的右臂。"
+            }
+          ],
+          "generalFeedback": "右臂沿著測試層級上升（單元 → 整合 → 系統 → 驗收）。每個層級驗證它在左側所配對的開發階段之產出。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "頂點是什麼",
+          "text": "<p>在 V 的<em>底部頂點</em>——連接兩臂的那一點——是：</p>",
+          "answers": [
+            {
+              "text": "編碼（實作）",
+              "fraction": 100,
+              "feedback": "正確——編碼位於頂點，連接下降的開發臂與上升的測試臂。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試位於右臂頂端、與需求配對，而非頂點。"
+            },
+            {
+              "text": "需求分析",
+              "fraction": 0,
+              "feedback": "需求位於左臂頂端，而非頂點。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試是右臂中上段的層級，而非頂點。"
+            }
+          ],
+          "generalFeedback": "編碼是 V 的最低點：它是左側（開發）臂轉成右側（測試）臂之處。之後測試便逐級往上爬。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需求配對哪個層級",
+          "text": "<p>在標準 V 模型中，<em>需求／使用者需求</em>階段與哪個測試層級配對？</p>",
+          "answers": [
+            {
+              "text": "驗收測試",
+              "fraction": 100,
+              "feedback": "正確——驗收測試依使用者需求驗證完成的產品。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試與詳細／模組設計配對，而非需求。"
+            },
+            {
+              "text": "整合測試",
+              "fraction": 0,
+              "feedback": "整合測試與架構設計配對，而非需求。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試與系統／高階設計配對，而非需求階段。"
+            }
+          ],
+          "generalFeedback": "標準 V 模型配對：需求 ↔ 驗收測試。需求是驗收測試設計與日後執行時所對照的依據。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "系統設計配對哪個層級",
+          "text": "<p>在標準 V 模型中，<em>系統（高階／功能）設計</em>階段與哪個測試層級配對？</p>",
+          "answers": [
+            {
+              "text": "系統測試",
+              "fraction": 100,
+              "feedback": "正確——系統測試依系統／功能設計驗證整合後的系統。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試與需求階段配對，而非系統設計。"
+            },
+            {
+              "text": "整合測試",
+              "fraction": 0,
+              "feedback": "整合測試與架構設計配對，而非系統設計。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試與詳細／模組設計配對，而非系統設計。"
+            }
+          ],
+          "generalFeedback": "標準 V 模型配對：系統／高階設計 ↔ 系統測試。系統設計文件是系統層級測試的依據。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "架構設計配對哪個層級",
+          "text": "<p>在標準 V 模型中，<em>架構／整合設計</em>階段與哪個測試層級配對？</p>",
+          "answers": [
+            {
+              "text": "整合測試",
+              "fraction": 100,
+              "feedback": "正確——整合測試驗證各模組是否如架構所規定地協同運作。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試與詳細／模組設計配對，而非架構設計。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試與系統／高階設計配對，而非架構設計。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試與需求階段配對，而非架構設計。"
+            }
+          ],
+          "generalFeedback": "標準 V 模型配對：架構／整合設計 ↔ 整合測試。架構——它界定模組介面與互動——是整合測試的依據。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "詳細設計配對哪個層級",
+          "text": "<p>在標準 V 模型中，<em>模組／詳細設計</em>階段與哪個測試層級配對？</p>",
+          "answers": [
+            {
+              "text": "單元／元件測試",
+              "fraction": 100,
+              "feedback": "正確——單元測試依各模組的詳細設計驗證該模組。"
+            },
+            {
+              "text": "整合測試",
+              "fraction": 0,
+              "feedback": "整合測試與架構設計配對，而非詳細設計。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試與系統／高階設計配對，而非詳細設計。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試與需求階段配對，而非詳細設計。"
+            }
+          ],
+          "generalFeedback": "標準 V 模型配對：模組／詳細設計 ↔ 單元／元件測試。各模組的詳細設計是其單元測試的依據。詳細設計直接接續到頂點的編碼。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗收測試驗證哪個階段",
+          "text": "<p>反過來讀 V 模型：<em>驗收測試</em>是與哪個開發階段配對的測試層級？</p>",
+          "answers": [
+            {
+              "text": "需求／使用者需求階段",
+              "fraction": 100,
+              "feedback": "正確——驗收測試在 V 上與需求相對。"
+            },
+            {
+              "text": "詳細／模組設計階段",
+              "fraction": 0,
+              "feedback": "該階段與單元測試配對，而非驗收測試。"
+            },
+            {
+              "text": "架構設計階段",
+              "fraction": 0,
+              "feedback": "該階段與整合測試配對，而非驗收測試。"
+            },
+            {
+              "text": "編碼階段",
+              "fraction": 0,
+              "feedback": "編碼位於頂點；驗收測試在左臂頂端與需求階段配對。"
+            }
+          ],
+          "generalFeedback": "驗收測試是需求階段的鏡像：寫在左側的使用者需求，正是驗收測試在右側所檢查的對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單元測試驗證哪個階段",
+          "text": "<p>反過來讀 V 模型：<em>單元／元件測試</em>是與哪個開發階段配對的測試層級？</p>",
+          "answers": [
+            {
+              "text": "模組／詳細設計階段",
+              "fraction": 100,
+              "feedback": "正確——單元測試在 V 上與詳細設計相對。"
+            },
+            {
+              "text": "需求階段",
+              "fraction": 0,
+              "feedback": "該階段與驗收測試配對，而非單元測試。"
+            },
+            {
+              "text": "系統／高階設計階段",
+              "fraction": 0,
+              "feedback": "該階段與系統測試配對，而非單元測試。"
+            },
+            {
+              "text": "架構設計階段",
+              "fraction": 0,
+              "feedback": "該階段與整合測試配對，而非單元測試。"
+            }
+          ],
+          "generalFeedback": "單元測試是詳細設計的鏡像：為各模組設計的內部行為，正是其單元測試所檢查的對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "驗證（verification）的意義（左側）",
+          "text": "<p>在 V 的<em>左臂</em>，活動主要是<strong>驗證（verification）</strong>。驗證所問的是：</p>",
+          "answers": [
+            {
+              "text": "「我們把產品做對了嗎？」——透過審查等靜態檢查，確認每個階段的產出符合其規格",
+              "fraction": 100,
+              "feedback": "正確——驗證是「是否符合規格」，主要靠審查、檢視等靜態技術。"
+            },
+            {
+              "text": "「我們做的是對的產品嗎？」——確認交付的軟體符合使用者真正的需要",
+              "fraction": 0,
+              "feedback": "那是確效（validation），落在右臂。"
+            },
+            {
+              "text": "只在真實使用者資料上執行編譯後的程式",
+              "fraction": 0,
+              "feedback": "執行程式屬於動態執行（確效端活動）；驗證主要是靜態的。"
+            },
+            {
+              "text": "量測伺服器在尖峰負載下的吞吐量",
+              "fraction": 0,
+              "feedback": "那是效能測試，不是驗證的意義。"
+            }
+          ],
+          "generalFeedback": "驗證（左臂）問「我們是否把產品做對了？」——它確認每項產物符合其規格，主要透過靜態檢查（審查、檢視、走查）與早期測試設計。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "確效（validation）的意義（右側）",
+          "text": "<p>在 V 的<em>右臂</em>，活動主要是<strong>確效（validation）</strong>。確效所問的是：</p>",
+          "answers": [
+            {
+              "text": "「我們做的是對的產品嗎？」——執行軟體以確認它符合使用者真正的需要",
+              "fraction": 100,
+              "feedback": "正確——確效是動態執行，檢查是否符合使用者的真正需要。"
+            },
+            {
+              "text": "「我們把產品做對了嗎？」——審查文件是否符合其規格",
+              "fraction": 0,
+              "feedback": "那是驗證，落在左臂。"
+            },
+            {
+              "text": "在不執行任何東西的情況下，確認需求文件內部一致",
+              "fraction": 0,
+              "feedback": "那種靜態審查是驗證活動，不是確效。"
+            },
+            {
+              "text": "估算專案的時程與成本",
+              "fraction": 0,
+              "feedback": "那是專案管理，不是確效。"
+            }
+          ],
+          "generalFeedback": "確效（右臂）問「我們做的是對的產品嗎？」——它執行軟體（動態測試）以確認它滿足使用者真正的需要。驗收／UAT 是最典型的確效活動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "早期測試設計",
+          "text": "<p>V 模型的一個核心概念是<em>早期測試設計</em>。它的意思是：</p>",
+          "answers": [
+            {
+              "text": "每個層級的測試是在其所配對的左側階段就規劃與設計的，儘管稍後才執行",
+              "fraction": 100,
+              "feedback": "正確——例如驗收測試在撰寫需求時就設計好，遠早於執行。"
+            },
+            {
+              "text": "所有測試都只在編碼完成之後才設計並執行",
+              "fraction": 0,
+              "feedback": "那正是 V 模型的早期測試設計要取代的做法。"
+            },
+            {
+              "text": "測試人員只在專案結束時才被找來",
+              "fraction": 0,
+              "feedback": "早期測試設計代表測試人員從一開始就投入，而非最後才加入。"
+            },
+            {
+              "text": "跳過編碼，用測試腳本取代",
+              "fraction": 0,
+              "feedback": "編碼仍在頂點進行；只是測試設計提早開始。"
+            }
+          ],
+          "generalFeedback": "早期測試設計：當每個左側階段產出其產物時，就在當下設計相對應右側層級的測試（驗收測試配需求、系統測試配系統設計，以此類推）。執行仍發生在稍後，沿右臂進行。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "編碼位於頂點",
+          "text": "<p>在 V 模型中，編碼（實作）位於底部頂點，連接下降的開發臂與上升的測試臂。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——編碼是 V 的最低點，開發在此轉為測試。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "編碼確實位於頂點；兩臂在實作處相會。"
+            }
+          ],
+          "generalFeedback": "V 沿開發階段下降到頂點的編碼，再沿測試層級上升。編碼是連接兩臂的轉折點。"
+        },
+        {
+          "type": "truefalse",
+          "name": "測試不是只在最後才做",
+          "text": "<p>在 V 模型中，所有測試工作都只在編碼完成之後才開始，較早的開發階段完全沒有任何與測試相關的活動。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這正是 V 模型要糾正的迷思：測試設計提早開始，就在所配對的左側階段。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——雖然測試執行發生在稍後，但每個層級的測試設計／規劃在其所配對的開發階段就開始了。"
+            }
+          ],
+          "generalFeedback": "V 模型相對於天真的瀑布模型，重點正是測試不被延到最後：每個層級的測試與相對應的開發階段同步設計，儘管是稍後沿右臂執行。"
+        }
+      ],
+      "medium": [
+        {
+          "type": "multichoice",
+          "name": "驗收測試的測試依據",
+          "text": "<p>在 V 模型中，<strong>驗收測試</strong>的<em>測試依據</em>（推導測試案例的來源文件）是下列何者？</p>",
+          "answers": [
+            {
+              "text": "需求／使用者需求規格",
+              "fraction": 100,
+              "feedback": "正確——驗收測試由需求推導，需求是其配對的左側產物。"
+            },
+            {
+              "text": "模組／詳細設計",
+              "fraction": 0,
+              "feedback": "那是單元測試的依據，而非驗收測試。"
+            },
+            {
+              "text": "架構設計",
+              "fraction": 0,
+              "feedback": "那是整合測試的依據，而非驗收測試。"
+            },
+            {
+              "text": "各個函式的原始碼",
+              "fraction": 0,
+              "feedback": "驗收測試由使用者需求推導，而非閱讀程式碼。"
+            }
+          ],
+          "generalFeedback": "每個右側層級的測試依據取自其配對的左側產物。驗收測試 ↔ 需求，所以需求規格是驗收測試的依據。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "系統測試的測試依據",
+          "text": "<p>在 V 模型中，<strong>系統測試</strong>的<em>測試依據</em>是下列何者？</p>",
+          "answers": [
+            {
+              "text": "系統／高階（功能）設計規格",
+              "fraction": 100,
+              "feedback": "正確——系統測試由系統／功能設計推導，那是其配對的左側產物。"
+            },
+            {
+              "text": "使用者需求規格",
+              "fraction": 0,
+              "feedback": "那是驗收測試的依據，而非系統測試。"
+            },
+            {
+              "text": "單一模組的詳細設計",
+              "fraction": 0,
+              "feedback": "那是單元測試的依據，而非系統測試。"
+            },
+            {
+              "text": "架構／介面設計",
+              "fraction": 0,
+              "feedback": "那是整合測試的依據，而非系統測試。"
+            }
+          ],
+          "generalFeedback": "系統測試 ↔ 系統／高階設計。系統設計規格界定整個系統的功能行為，系統測試就依它來檢查整合後的系統。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "整合測試的測試依據",
+          "text": "<p>在 V 模型中，<strong>整合測試</strong>的<em>測試依據</em>是下列何者？</p>",
+          "answers": [
+            {
+              "text": "架構／介面設計",
+              "fraction": 100,
+              "feedback": "正確——架構界定模組如何介接，整合測試即由它推導。"
+            },
+            {
+              "text": "使用者需求規格",
+              "fraction": 0,
+              "feedback": "那是驗收測試的依據，而非整合測試。"
+            },
+            {
+              "text": "系統／高階設計",
+              "fraction": 0,
+              "feedback": "那是系統測試的依據，而非整合測試。"
+            },
+            {
+              "text": "單一模組的詳細設計",
+              "fraction": 0,
+              "feedback": "那是單元測試的依據，而非整合測試。"
+            }
+          ],
+          "generalFeedback": "整合測試 ↔ 架構設計。因為架構規範模組介面與互動，它正是整合測試設計時所對照的依據。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "單元測試的測試依據",
+          "text": "<p>在 V 模型中，<strong>單元／元件測試</strong>的<em>測試依據</em>是下列何者？</p>",
+          "answers": [
+            {
+              "text": "模組／詳細設計",
+              "fraction": 100,
+              "feedback": "正確——詳細設計界定各模組的內部行為，單元測試即由它推導。"
+            },
+            {
+              "text": "架構／介面設計",
+              "fraction": 0,
+              "feedback": "那是整合測試的依據，而非單元測試。"
+            },
+            {
+              "text": "系統／高階設計",
+              "fraction": 0,
+              "feedback": "那是系統測試的依據，而非單元測試。"
+            },
+            {
+              "text": "使用者需求規格",
+              "fraction": 0,
+              "feedback": "那是驗收測試的依據，而非單元測試。"
+            }
+          ],
+          "generalFeedback": "單元測試 ↔ 詳細／模組設計。詳細設計描述各個模組內部應做什麼，所以它是該模組單元測試的依據。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個層級驗證架構",
+          "text": "<p>你的團隊剛完成<em>架構設計</em>，它規範了各模組如何介接與互動。依 V 模型，哪個測試層級是用來驗證此階段產出的？</p>",
+          "answers": [
+            {
+              "text": "整合測試",
+              "fraction": 100,
+              "feedback": "正確——架構設計 ↔ 整合測試；整合測試檢查各模組是否如架構所規定地協作。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試驗證詳細設計（單一模組行為），而非架構的跨模組介面。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試驗證需求，而非架構設計。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試驗證系統／高階設計，而非架構／介面設計。"
+            }
+          ],
+          "generalFeedback": "把階段對應到其配對層級：架構設計 ↔ 整合測試。因為架構界定模組介面，整合測試正是在模組組合後檢查那些介面能否運作。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪個層級驗證詳細設計",
+          "text": "<p>你的團隊剛完成<em>詳細（模組）設計</em>，它規範了各模組的內部行為。依 V 模型，哪個測試層級是用來驗證此階段產出的？</p>",
+          "answers": [
+            {
+              "text": "單元／元件測試",
+              "fraction": 100,
+              "feedback": "正確——詳細設計 ↔ 單元測試；單元測試依詳細設計檢查各模組。"
+            },
+            {
+              "text": "整合測試",
+              "fraction": 0,
+              "feedback": "整合測試驗證架構設計（跨模組介面），而非單一模組的內部行為。"
+            },
+            {
+              "text": "系統測試",
+              "fraction": 0,
+              "feedback": "系統測試驗證系統／高階設計，而非單一模組的詳細設計。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試驗證需求，而非詳細設計。"
+            }
+          ],
+          "generalFeedback": "把階段對應到其配對層級：詳細／模組設計 ↔ 單元測試。各模組的詳細設計正是其單元測試所檢查的對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "將需求審查分類",
+          "text": "<p>某團隊開檢視會議，審查<em>需求規格</em>的完整性與一致性，過程中不執行任何程式碼。以 V 模型的術語，此活動是：</p>",
+          "answers": [
+            {
+              "text": "驗證（一種靜態的左臂活動）",
+              "fraction": 100,
+              "feedback": "正確——審查產物是否符合、且不執行，屬於驗證。"
+            },
+            {
+              "text": "確效（一種動態的右臂活動）",
+              "fraction": 0,
+              "feedback": "確效牽涉執行軟體；文件審查並不執行。"
+            },
+            {
+              "text": "驗收測試",
+              "fraction": 0,
+              "feedback": "驗收測試由使用者執行完成的產品；需求檢視是靜態審查。"
+            },
+            {
+              "text": "整合測試",
+              "fraction": 0,
+              "feedback": "整合測試動態地操作組合後的模組；需求審查不執行任何東西。"
+            }
+          ],
+          "generalFeedback": "左臂 = 驗證（靜態：審查、檢視、「把產品做對」）。需求檢視不執行程式碼，因此是驗證活動，而非確效（動態）活動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "將執行驗收測試分類",
+          "text": "<p>使用者拿完成的軟體針對真實的業務情境執行，以確認它符合需要。以 V 模型的術語，此活動是：</p>",
+          "answers": [
+            {
+              "text": "確效（一種動態的右臂活動）",
+              "fraction": 100,
+              "feedback": "正確——執行軟體以確認是否符合使用者需要，屬於確效。"
+            },
+            {
+              "text": "驗證（一種靜態的左臂活動）",
+              "fraction": 0,
+              "feedback": "驗證是靜態的符合性檢查；針對使用者需要執行產品屬於確效。"
+            },
+            {
+              "text": "對架構做的設計審查",
+              "fraction": 0,
+              "feedback": "那是靜態的左臂活動；由使用者執行軟體屬於動態確效。"
+            },
+            {
+              "text": "單元測試",
+              "fraction": 0,
+              "feedback": "單元測試操作單一模組；此情境是整個產品的驗收，屬確效活動。"
+            }
+          ],
+          "generalFeedback": "右臂 = 確效（動態：執行軟體、「做對的產品」）。拿完成的軟體針對真實使用者需要執行，是最典型的確效活動——驗收／UAT。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何測試設計要提早",
+          "text": "<p>為何 V 模型要讓各層級的測試<em>在其配對的左側階段就設計</em>，而不是等編碼之後？</p>",
+          "answers": [
+            {
+              "text": "針對每項產物設計測試能提早揭露該產物的含糊與缺陷，也讓測試在程式碼到位時就已備妥可執行",
+              "fraction": 100,
+              "feedback": "正確——早期測試設計能更早找到規格／設計缺陷，並事先備妥測試。"
+            },
+            {
+              "text": "它讓團隊得以省去撰寫需求與設計文件",
+              "fraction": 0,
+              "feedback": "早期測試設計以那些文件為依據，並不會消除它們。"
+            },
+            {
+              "text": "它讓測試永遠不必執行",
+              "fraction": 0,
+              "feedback": "測試仍在稍後沿右臂執行；只是把設計提早。"
+            },
+            {
+              "text": "它把循序模型轉成迭代、敏捷的模型",
+              "fraction": 0,
+              "feedback": "V 模型仍是循序的；早期測試設計不會使它變成迭代式。"
+            }
+          ],
+          "generalFeedback": "趁每項產物還新鮮時設計測試，會迫使仔細研讀該產物，讓含糊與缺陷提早浮現（修正成本低），而且測試在對應程式碼一存在就能立即執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "需求階段的測試活動",
+          "text": "<p>依 V 模型，在<em>需求階段</em>（尚無任何程式碼時）應進行什麼測試活動？</p>",
+          "answers": [
+            {
+              "text": "設計並規劃驗收測試（與需求配對的層級）",
+              "fraction": 100,
+              "feedback": "正確——驗收測試在撰寫需求時就設計；稍後才執行。"
+            },
+            {
+              "text": "針對交付的系統執行驗收測試",
+              "fraction": 0,
+              "feedback": "執行發生在稍後、沿右臂進行；在需求階段驗收測試只被設計。"
+            },
+            {
+              "text": "為每個模組設計單元測試",
+              "fraction": 0,
+              "feedback": "單元測試在稍後的詳細設計階段設計——那是與單元測試配對的階段。"
+            },
+            {
+              "text": "此時不可能有任何測試活動",
+              "fraction": 0,
+              "feedback": "V 模型的早期測試設計代表驗收測試設計就從這裡、在需求階段開始。"
+            }
+          ],
+          "generalFeedback": "需求 ↔ 驗收測試，所以需求階段正是設計驗收測試的時機。那份設計工作（雖然遠在稍後才執行）是此階段早期測試設計的一部分。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何單元配對詳細設計",
+          "text": "<p>為何 V 模型把<em>單元測試</em>特別與<em>詳細（模組）設計</em>階段配對？</p>",
+          "answers": [
+            {
+              "text": "詳細設計規範各模組的內部行為，而那正是單元測試所檢查的對象",
+              "fraction": 100,
+              "feedback": "正確——界定模組內部的產物，就是其單元測試的自然依據。"
+            },
+            {
+              "text": "詳細設計列出使用者的業務目標，單元測試加以確認",
+              "fraction": 0,
+              "feedback": "業務目標存在於需求（與驗收測試配對），而非詳細設計。"
+            },
+            {
+              "text": "詳細設計固定模組間的介面，單元測試加以操作",
+              "fraction": 0,
+              "feedback": "跨模組介面屬於架構（與整合測試配對）；單元測試針對單一模組。"
+            },
+            {
+              "text": "因為單元測試只能在整個系統設計完之後才撰寫",
+              "fraction": 0,
+              "feedback": "單元測試在詳細設計階段就設計，而非等所有較高層設計完成後。"
+            }
+          ],
+          "generalFeedback": "每組配對都把一個測試層級對應到它的自然依據產物。詳細設計描述單一模組的內部行為，因此正是單元／元件測試所驗證的對象。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "為何整合配對架構",
+          "text": "<p>為何 V 模型把<em>整合測試</em>特別與<em>架構設計</em>階段配對？</p>",
+          "answers": [
+            {
+              "text": "架構界定模組介面與互動，而那正是整合測試所操作的對象",
+              "fraction": 100,
+              "feedback": "正確——規範模組如何連接的產物，就是整合測試的自然依據。"
+            },
+            {
+              "text": "架構描述各模組的內部演算法，整合測試加以檢查",
+              "fraction": 0,
+              "feedback": "內部演算法屬詳細設計（與單元測試配對）；整合測試針對互動。"
+            },
+            {
+              "text": "架構陳述使用者驗收準則，整合測試加以確認",
+              "fraction": 0,
+              "feedback": "驗收準則來自需求（與驗收測試配對），而非架構。"
+            },
+            {
+              "text": "因為整合測試只能在整個系統部署給使用者後才能執行",
+              "fraction": 0,
+              "feedback": "整合測試在單元測試之後、系統／驗收測試之前執行，而非只在部署時。"
+            }
+          ],
+          "generalFeedback": "架構設計規範模組如何被分解、彼此如何溝通，因此它是整合測試的自然依據——整合測試檢查組合後的模組是否正確互動。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "哪一側是動態執行",
+          "text": "<p>在 V 模型中，動態的<em>測試執行</em>（實際執行軟體）集中在哪一側、用哪個術語？</p>",
+          "answers": [
+            {
+              "text": "右臂，屬確效",
+              "fraction": 100,
+              "feedback": "正確——右臂上升的測試層級會執行軟體；這是確效。"
+            },
+            {
+              "text": "左臂，屬驗證",
+              "fraction": 0,
+              "feedback": "左臂主要是靜態的（審查、測試設計）——驗證——而非動態執行。"
+            },
+            {
+              "text": "左臂，屬確效",
+              "fraction": 0,
+              "feedback": "左臂是驗證，而且大多是靜態而非動態執行。"
+            },
+            {
+              "text": "右臂，屬驗證",
+              "fraction": 0,
+              "feedback": "右臂是確效，而非驗證；驗證是左臂的術語。"
+            }
+          ],
+          "generalFeedback": "左臂 = 驗證（大多靜態：審查加早期測試設計）。右臂 = 確效（逐級動態執行已建置的軟體）。因此動態測試執行落在右臂，屬確效。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "驗收測試可從需求撰寫",
+          "text": "<p>在 V 模型中，驗收測試案例一旦需求議定就能設計——也就是在寫任何程式碼之前。</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 100,
+              "feedback": "正確——需求 ↔ 驗收測試，所以驗收測試在需求階段就設計（遠在稍後才執行）。"
+            },
+            {
+              "text": "false",
+              "fraction": 0,
+              "feedback": "因為驗收測試與需求配對，其測試確實能在需求議定後、遠早於編碼前就設計。"
+            }
+          ],
+          "generalFeedback": "早期測試設計在 V 的頂端最明顯：需求是驗收測試的依據，所以驗收測試案例一旦需求敲定就能撰寫——遠早於程式碼存在之前。"
+        },
+        {
+          "type": "multichoice",
+          "name": "解讀一個早期設計情境",
+          "text": "<p>某團隊在撰寫<em>架構設計</em>文件的同時，一併草擬針對它所界定介面的整合測試案例。此做法說明了：</p>",
+          "answers": [
+            {
+              "text": "早期測試設計——在某層級所配對的左側階段就設計該層級的測試（架構 ↔ 整合測試）",
+              "fraction": 100,
+              "feedback": "正確——整合測試在其所配對的架構階段就設計。"
+            },
+            {
+              "text": "一個錯誤——整合測試只能在編碼完成後才撰寫",
+              "fraction": 0,
+              "feedback": "V 模型刻意鼓勵在架構設計期間就提早設計這些測試。"
+            },
+            {
+              "text": "驗收測試，因為介面面向使用者",
+              "fraction": 0,
+              "feedback": "模組間的介面與整合測試配對；驗收測試與需求配對。"
+            },
+            {
+              "text": "一個敏捷衝刺，因為設計與測試重疊了",
+              "fraction": 0,
+              "feedback": "讓測試設計與某階段重疊是 V 模型的核心做法，而非敏捷所獨有。"
+            }
+          ],
+          "generalFeedback": "這正是 V 模型的早期測試設計：每個左側階段同時產出其開發產物與相對應右側層級的測試設計。架構 ↔ 整合測試。",
+          "single": true
+        }
+      ],
+      "hard": [
+        {
+          "type": "multichoice",
+          "name": "介面不相容在何處被抓到",
+          "text": "<p>兩個子系統以不相容的格式交換資料——這是它們如何介接的缺陷。在 V 模型中，此缺陷首先由哪個測試<em>層級</em>鎖定，而那些測試是在哪個階段<em>設計</em>的？</p>",
+          "answers": [
+            {
+              "text": "由整合測試抓到；那些測試在架構設計期間設計",
+              "fraction": 100,
+              "feedback": "正確——跨模組的介面缺陷是整合測試的鎖定對象，其依據是架構。"
+            },
+            {
+              "text": "由單元測試抓到；那些測試在詳細設計期間設計",
+              "fraction": 0,
+              "feedback": "單元測試孤立地操作單一模組；跨子系統的介面不相容是整合層級的議題。"
+            },
+            {
+              "text": "由驗收測試抓到；那些測試在需求階段設計",
+              "fraction": 0,
+              "feedback": "驗收測試在整個產品上檢查使用者需要；介面格式不相容在較早的整合層級就被鎖定。"
+            },
+            {
+              "text": "由系統測試抓到；那些測試在詳細設計期間設計",
+              "fraction": 0,
+              "feedback": "層級錯了（介面 ↔ 整合），而且系統測試在系統設計期間設計，非詳細設計。"
+            }
+          ],
+          "generalFeedback": "模組間的介面／互動缺陷正是整合測試所鎖定的對象，而整合測試與架構設計階段配對——並在該階段設計。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "符合設計卻不符使用者需要的產品",
+          "text": "<p>某交付的系統完全符合其設計文件，卻無法滿足使用者真正的需要。在 V 模型中，哪個層級旨在揭露這點，且它屬驗證還是確效？</p>",
+          "answers": [
+            {
+              "text": "驗收測試——一種確效活動，依真實使用者需要檢查產品",
+              "fraction": 100,
+              "feedback": "正確——「對的產品？」是確效，而驗收測試（與需求配對）正是使用者需要落差浮現之處。"
+            },
+            {
+              "text": "單元測試——一種驗證活動，依詳細設計檢查各模組",
+              "fraction": 0,
+              "feedback": "符合模組設計是驗證；它無法揭露整個產品不符使用者需要。"
+            },
+            {
+              "text": "整合測試——一種確效活動，檢查模組介面",
+              "fraction": 0,
+              "feedback": "整合測試鎖定介面（且在該範圍是動態確效），而非整體是否符合使用者需要。"
+            },
+            {
+              "text": "設計審查——一種確效活動，檢查需求文件",
+              "fraction": 0,
+              "feedback": "文件審查是靜態驗證，而非確效，也無法確認真實世界的適用性。"
+            }
+          ],
+          "generalFeedback": "「把產品做對了」（符合設計）是驗證；「做的是對的產品」（符合使用者需要）是確效。系統可能通過所有驗證卻無法通過確效——與需求配對的驗收測試正是此落差顯現之處。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "V 如何改進瀑布",
+          "text": "<p>相較於經典瀑布模型，V 模型在測試上的主要改進在於它：</p>",
+          "answers": [
+            {
+              "text": "讓測試提早介入——每個層級的測試與相對應的開發階段平行設計，而非只在編碼之後",
+              "fraction": 100,
+              "feedback": "正確——V 模型讓測試設計成為每個開發階段的一等公民活動。"
+            },
+            {
+              "text": "完全移除設計與需求階段",
+              "fraction": 0,
+              "feedback": "V 模型保留所有這些階段；它為每個階段加上一個配對的測試層級。"
+            },
+            {
+              "text": "讓需求可在任何時點自由變更而無成本",
+              "fraction": 0,
+              "feedback": "V 模型仍是循序的；後期需求變更依然昂貴。"
+            },
+            {
+              "text": "用可運作的原型取代文件",
+              "fraction": 0,
+              "feedback": "那是原型法／敏捷；V 模型仍以文件為驅動。"
+            }
+          ],
+          "generalFeedback": "瀑布把測試推到最後。V 模型讓每個開發階段配對一個測試層級並提早設計那些測試，因此需求與設計的缺陷能更早被發現——這是它相對瀑布在測試上的主要優勢。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "與瀑布共有的弱點",
+          "text": "<p>即便有早期測試設計，V 模型仍承襲瀑布模型的哪個關鍵弱點？</p>",
+          "answers": [
+            {
+              "text": "它循序且僵化——階段依序進行，因此對需求變更的適應性差",
+              "fraction": 100,
+              "feedback": "正確——早期測試設計並未移除其底層的循序、計畫驅動結構。"
+            },
+            {
+              "text": "它根本不測試軟體",
+              "fraction": 0,
+              "feedback": "V 模型逐級徹底測試；那不是共有的弱點。"
+            },
+            {
+              "text": "它沒有明確定義的需求階段",
+              "fraction": 0,
+              "feedback": "需求是 V 的左上階段；它有明確定義。"
+            },
+            {
+              "text": "它禁止任何設計文件",
+              "fraction": 0,
+              "feedback": "V 模型高度以文件為驅動，與禁止設計文件恰恰相反。"
+            }
+          ],
+          "generalFeedback": "V 模型重整了測試設計的時機，但保留瀑布的線性、逐階段流程。因此當需求後期變更時它會很吃力——正是瀑布被詬病的那種僵化。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "V 模型對比敏捷",
+          "text": "<p>相較於敏捷／迭代開發，V 模型在下列何種情況並不適用？</p>",
+          "answers": [
+            {
+              "text": "需求多變，且利害關係人需要提早的、可運作的增量以便回應",
+              "fraction": 100,
+              "feedback": "正確——V 模型假設需求在前期就穩定且被充分理解，也不產出提早的原型。"
+            },
+            {
+              "text": "需求在設計開始前就穩定且被充分理解",
+              "fraction": 0,
+              "feedback": "那正是 V 模型運作良好之處，而非不適用之處。"
+            },
+            {
+              "text": "希望有清楚的階段結構、且每個階段都有配對的測試層級",
+              "fraction": 0,
+              "feedback": "那是 V 模型的優點，而非不適用的情況。"
+            },
+            {
+              "text": "領域要求正式的文件與可追溯性",
+              "fraction": 0,
+              "feedback": "V 模型以文件為驅動的嚴謹性適合此類領域；在那裡它並不失配。"
+            }
+          ],
+          "generalFeedback": "敏捷以迭代交付可運作的增量並歡迎變更；V 模型在前期就規劃好所有階段、沒有提早的原型。當需求多變且提早回饋至關重要時，V 模型並不適用，此時較宜採用敏捷。",
+          "single": true
+        },
+        {
+          "type": "truefalse",
+          "name": "迷思：測試只在編碼之後",
+          "text": "<p>主張：「V 模型顯示每項測試活動——包括測試設計——都嚴格發生在編碼之後，因此測試人員不必在需求或設計期間參與。」此主張正確嗎？</p>",
+          "answers": [
+            {
+              "text": "true",
+              "fraction": 0,
+              "feedback": "這是常見迷思。在 V 模型中，每個層級的測試在其配對的左側階段就設計，因此測試人員從一開始就參與。"
+            },
+            {
+              "text": "false",
+              "fraction": 100,
+              "feedback": "正確——雖然測試執行沿右臂在編碼之後進行，但每個層級的測試設計發生在其配對的開發階段。"
+            }
+          ],
+          "generalFeedback": "陷阱在於：把測試執行（確實在編碼之後）與測試設計（V 模型刻意提早）混為一談。驗收測試與需求同步設計、系統測試與系統設計同步設計，以此類推——因此該主張為假。"
+        },
+        {
+          "type": "multichoice",
+          "name": "離頂點最遠的層級",
+          "text": "<p>從編碼頂點向外讀 V，哪個測試層級離頂點<em>最遠</em>（與最上方的左側階段配對）？</p>",
+          "answers": [
+            {
+              "text": "驗收測試（與需求配對，位於 V 的頂端）",
+              "fraction": 100,
+              "feedback": "正確——需求是最上方的左側階段，因此其夥伴驗收測試是最外側的右側層級。"
+            },
+            {
+              "text": "單元測試（與詳細設計配對）",
+              "fraction": 0,
+              "feedback": "單元測試離頂點最近，而非最遠——詳細設計是最下方的左側階段。"
+            },
+            {
+              "text": "整合測試（與架構設計配對）",
+              "fraction": 0,
+              "feedback": "整合測試是中間層級，並非最外側。"
+            },
+            {
+              "text": "系統測試（與系統設計配對）",
+              "fraction": 0,
+              "feedback": "系統測試偏中上，但驗收測試（與需求配對）位於它之上。"
+            }
+          ],
+          "generalFeedback": "某階段在左臂位置越高，其配對層級在右臂位置也越高。需求是最上方的左側階段，因此驗收測試是最外側（離頂點最遠）的右側層級。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "離頂點最近的層級",
+          "text": "<p>哪個測試層級離編碼頂點<em>最近</em>（與最下方的左側設計階段配對）？</p>",
+          "answers": [
+            {
+              "text": "單元／元件測試（與詳細設計配對）",
+              "fraction": 100,
+              "feedback": "正確——詳細設計是最下方的左側階段、接續到編碼，因此其夥伴單元測試離頂點最近。"
+            },
+            {
+              "text": "驗收測試（與需求配對）",
+              "fraction": 0,
+              "feedback": "驗收測試離頂點最遠，而非最近。"
+            },
+            {
+              "text": "系統測試（與系統設計配對）",
+              "fraction": 0,
+              "feedback": "系統測試偏中上，並非離頂點最近。"
+            },
+            {
+              "text": "整合測試（與架構設計配對）",
+              "fraction": 0,
+              "feedback": "整合測試比系統／驗收更近，但單元測試離頂點更近。"
+            }
+          ],
+          "generalFeedback": "詳細設計是最下方的左側階段（它直接接續到頂點的編碼），因此其配對層級單元測試是右臂上的第一級、也是離頂點最近的。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "沿右臂的測試執行順序",
+          "text": "<p>從頂點沿右臂上升，測試層級是以什麼順序<em>執行</em>的？</p>",
+          "answers": [
+            {
+              "text": "單元 → 整合 → 系統 → 驗收",
+              "fraction": 100,
+              "feedback": "正確——測試從最小範圍（單元）攀升到整個產品對照使用者需要（驗收）。"
+            },
+            {
+              "text": "驗收 → 系統 → 整合 → 單元",
+              "fraction": 0,
+              "feedback": "那是相反的；執行從單元向上，而非向下。"
+            },
+            {
+              "text": "整合 → 單元 → 驗收 → 系統",
+              "fraction": 0,
+              "feedback": "單元先於整合，系統先於驗收；此順序被打亂了。"
+            },
+            {
+              "text": "系統 → 單元 → 整合 → 驗收",
+              "fraction": 0,
+              "feedback": "單元是第一個而非第三個；系統測試在整合之後。"
+            }
+          ],
+          "generalFeedback": "沿右臂上升時範圍逐漸擴大：個別模組（單元）、其組合（整合）、整個系統（系統）、產品對照使用者需要（驗收）。執行順序為單元 → 整合 → 系統 → 驗收。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "確效回答哪個問題",
+          "text": "<p>「我們把產品做對了嗎？」與「我們做的是對的產品嗎？」這對指引問題對應到 V 的兩臂。哪一臂／術語回答「我們做的是<em>對的產品</em>嗎？」</p>",
+          "answers": [
+            {
+              "text": "右臂——確效",
+              "fraction": 100,
+              "feedback": "正確——「對的產品？」（是否符合使用者需要）是確效，沿右臂動態進行。"
+            },
+            {
+              "text": "左臂——驗證",
+              "fraction": 0,
+              "feedback": "驗證回答「把產品做對了嗎？」（符合規格），而非「對的產品？」。"
+            },
+            {
+              "text": "左臂——確效",
+              "fraction": 0,
+              "feedback": "左臂是驗證，而非確效。"
+            },
+            {
+              "text": "右臂——驗證",
+              "fraction": 0,
+              "feedback": "右臂是確效；驗證是左臂的術語。"
+            }
+          ],
+          "generalFeedback": "「把產品做對了嗎？」= 驗證（左，靜態符合性）。「做的是對的產品嗎？」= 確效（右，動態符合使用者需要）。第二個問題由右臂的確效來回答。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "同時配對兩項依據",
+          "text": "<p>依標準 V 模型一致地填入兩個空格：需求規格是 ______ 的測試依據，而詳細設計是 ______ 的測試依據。</p>",
+          "answers": [
+            {
+              "text": "驗收測試；單元測試",
+              "fraction": 100,
+              "feedback": "正確——需求 ↔ 驗收測試，詳細設計 ↔ 單元測試。"
+            },
+            {
+              "text": "系統測試；整合測試",
+              "fraction": 0,
+              "feedback": "需求配驗收（非系統），詳細設計配單元（非整合）。"
+            },
+            {
+              "text": "單元測試；驗收測試",
+              "fraction": 0,
+              "feedback": "配對顛倒了——需求配驗收，詳細設計配單元。"
+            },
+            {
+              "text": "驗收測試；整合測試",
+              "fraction": 0,
+              "feedback": "第一個對，但詳細設計配單元測試，而非整合測試。"
+            }
+          ],
+          "generalFeedback": "標準配對：需求 ↔ 驗收、系統設計 ↔ 系統、架構 ↔ 整合、詳細設計 ↔ 單元。所以需求 → 驗收測試，詳細設計 → 單元測試。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "每階段皆有配對確效的意義",
+          "text": "<p>V 模型常被稱道的一項優點是「每個開發階段都有配對的測試層級」。這實際上為專案帶來什麼？</p>",
+          "answers": [
+            {
+              "text": "每個左側產物都有指定的右側層級來驗證它，因此沒有任何階段的產出未被檢查，且測試對應到產物的可追溯性清楚",
+              "fraction": 100,
+              "feedback": "正確——明確的配對讓每項產物都有其驗證／確效的歸屬，並有清楚的測試對產物可追溯性。"
+            },
+            {
+              "text": "它保證軟體在驗收測試後不含任何缺陷",
+              "fraction": 0,
+              "feedback": "沒有模型能保證零缺陷；配對提升的是涵蓋與可追溯性，而非完美無缺。"
+            },
+            {
+              "text": "它讓團隊得以在設計階段同時執行所有測試層級",
+              "fraction": 0,
+              "feedback": "測試提早設計，但沿右臂循序執行，而非一次全部執行。"
+            },
+            {
+              "text": "它消除對需求可追溯性的需要",
+              "fraction": 0,
+              "feedback": "配對強化可追溯性；它並不會消除對它的需要。"
+            }
+          ],
+          "generalFeedback": "把每個階段配對一個測試層級，代表左側所產出的每項產物都有明確負責檢查它的層級，帶來結構化的涵蓋與測試對其所操作產物之間的清楚可追溯性。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "系統測試何時被設計",
+          "text": "<p>一致地套用早期測試設計，<em>系統測試</em>案例理想上是在哪一時點設計的（儘管稍後才執行）？</p>",
+          "answers": [
+            {
+              "text": "在系統／高階設計階段（其配對的左側階段）",
+              "fraction": 100,
+              "feedback": "正確——系統測試 ↔ 系統設計，所以系統測試在系統設計期間設計。"
+            },
+            {
+              "text": "在需求階段",
+              "fraction": 0,
+              "feedback": "需求階段是設計驗收測試的時機；系統測試與系統設計配對。"
+            },
+            {
+              "text": "只在驗收測試完成之後",
+              "fraction": 0,
+              "feedback": "系統測試先於驗收測試；其測試遠早於此、在系統設計時就設計。"
+            },
+            {
+              "text": "在詳細設計階段",
+              "fraction": 0,
+              "feedback": "詳細設計是設計單元測試的時機；系統測試與系統／高階設計配對。"
+            }
+          ],
+          "generalFeedback": "早期測試設計把每個層級的測試設計放在其配對階段。系統測試 ↔ 系統／高階設計，所以系統測試理想上在系統設計階段設計，再於整合之後沿右臂執行。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "後期需求變更的成本",
+          "text": "<p>在 V 模型專案的後期，某項使用者需求變更了。為何這通常代價高昂？</p>",
+          "answers": [
+            {
+              "text": "因為模型是循序的，變更會波及已完成的設計、程式碼與每個配對測試層級的產物，全都必須修訂",
+              "fraction": 100,
+              "feedback": "正確——需求變更使下游產物與其配對（如驗收）測試失效，而且沒有迭代機制能廉價吸收它。"
+            },
+            {
+              "text": "因為 V 模型沒有需求階段，變更無處可記錄",
+              "fraction": 0,
+              "feedback": "需求是 V 的左上階段；問題在下游的返工，而非缺少階段。"
+            },
+            {
+              "text": "因為測試設計必須等變更被編碼後才能開始",
+              "fraction": 0,
+              "feedback": "V 模型提早設計測試；成本來自對已完成循序產物的返工，而非測試設計被延遲。"
+            },
+            {
+              "text": "因為驗收測試與需求無關，無論如何都得從頭重做",
+              "fraction": 0,
+              "feedback": "驗收測試與需求緊密配對；正是該配對使得變更迫使驗收測試返工。"
+            }
+          ],
+          "generalFeedback": "V 模型的僵化代表後期需求變更會迫使重新檢視系統／架構／詳細設計、程式碼，以及每個配對測試層級（最直接是驗收測試）。不像迭代模型，它無法在後續增量中吸收此變更，因此後期變更代價高昂。",
+          "single": true
+        },
+        {
+          "type": "multichoice",
+          "name": "找出錯誤的配對",
+          "text": "<p>下列哪一組開發階段 ↔ 測試層級的配對<strong>不</strong>屬於標準 V 模型？</p>",
+          "answers": [
+            {
+              "text": "系統／高階設計 ↔ 單元測試",
+              "fraction": 100,
+              "feedback": "正確——這組配對是錯的。系統設計配系統測試；單元測試配詳細設計。"
+            },
+            {
+              "text": "需求 ↔ 驗收測試",
+              "fraction": 0,
+              "feedback": "這是正確的標準配對，故非答案。"
+            },
+            {
+              "text": "架構設計 ↔ 整合測試",
+              "fraction": 0,
+              "feedback": "這是正確的標準配對，故非答案。"
+            },
+            {
+              "text": "詳細／模組設計 ↔ 單元測試",
+              "fraction": 0,
+              "feedback": "這是正確的標準配對，故非答案。"
+            }
+          ],
+          "generalFeedback": "標準配對為需求 ↔ 驗收、系統設計 ↔ 系統、架構 ↔ 整合、詳細設計 ↔ 單元。「系統設計 ↔ 單元測試」錯配了兩個層級，因此是錯誤的配對。",
           "single": true
         }
       ]

@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Test Levels and Types/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>What a test level is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>test level</em> is a group of test activities that are organised primarily by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>When they happen and what scope they cover in the development lifecycle (unit, integration, system, acceptance)</text><feedback><text>Correct — a level is defined by scope/when: unit, integration, system, acceptance.</text></feedback></answer>
+    <answer fraction="0"><text>The quality attribute or objective they target (functional, performance, security)</text><feedback><text>That describes a test <em>type</em>, not a level.</text></feedback></answer>
+    <answer fraction="0"><text>The programming language used to write the tests</text><feedback><text>Levels are not defined by tooling or language.</text></feedback></answer>
+    <answer fraction="0"><text>Whether the tester is internal or external to the company</text><feedback><text>Who runs the test does not define a level; scope and lifecycle position do.</text></feedback></answer>
+    <generalfeedback><text>Test levels are groups of activities organised by scope and position in the lifecycle: unit/component, integration, system, and acceptance. They answer "when/at what scope", distinct from test types, which answer "what quality attribute".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>What a test type is</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A <em>test type</em> is a group of test activities organised primarily by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The specific quality characteristic or objective being evaluated (e.g. functional, performance, security)</text><feedback><text>Correct — a type is defined by the objective/attribute under test.</text></feedback></answer>
+    <answer fraction="0"><text>Its position in the lifecycle (unit, integration, system, acceptance)</text><feedback><text>That describes a test <em>level</em>, not a type.</text></feedback></answer>
+    <answer fraction="0"><text>The number of testers assigned to it</text><feedback><text>Team size does not define a test type.</text></feedback></answer>
+    <answer fraction="0"><text>The order in which defects are reported</text><feedback><text>Defect reporting order is unrelated to how types are defined.</text></feedback></answer>
+    <generalfeedback><text>Test types group activities by the objective or quality attribute they evaluate — functional, non-functional, structural (white-box), and change-related. They answer "what are we testing for", distinct from levels, which answer "at what scope/when".</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>The four test levels in order</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which sequence lists the classic test <strong>levels</strong> in their usual order?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unit/component &#8594; integration &#8594; system &#8594; acceptance</text><feedback><text>Correct — this is the standard ordering of test levels.</text></feedback></answer>
+    <answer fraction="0"><text>Functional &#8594; non-functional &#8594; structural &#8594; change-related</text><feedback><text>Those are test <em>types</em>, not levels.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance &#8594; system &#8594; integration &#8594; unit</text><feedback><text>This reverses the order; unit testing comes first.</text></feedback></answer>
+    <answer fraction="0"><text>Smoke &#8594; regression &#8594; performance &#8594; security</text><feedback><text>These are test types/activities, not the four levels.</text></feedback></answer>
+    <generalfeedback><text>The four classic test levels run from smallest to largest scope: unit/component, then integration, then system, then acceptance.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Functional vs non-functional</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Functional</em> testing evaluates:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>What the system does — the functions and behaviour it is supposed to provide</text><feedback><text>Correct — functional testing checks "what" the system does.</text></feedback></answer>
+    <answer fraction="0"><text>How well the system performs a function — its speed, security, or usability</text><feedback><text>That is non-functional testing (the "how well" qualities).</text></feedback></answer>
+    <answer fraction="0"><text>The internal code structure and coverage achieved</text><feedback><text>That is structural (white-box) testing.</text></feedback></answer>
+    <answer fraction="0"><text>Whether a fix re-broke previously working features</text><feedback><text>That is change-related (regression) testing.</text></feedback></answer>
+    <generalfeedback><text>Functional testing asks "does it do what it is supposed to do?" — it evaluates the functions/behaviour. Non-functional testing asks "how well?" — performance, security, usability, and other quality attributes.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A non-functional type</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is a <strong>non-functional</strong> test type?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Performance (load/stress) testing</text><feedback><text>Correct — performance is a non-functional quality attribute.</text></feedback></answer>
+    <answer fraction="0"><text>Checking that "add to cart" adds the chosen item</text><feedback><text>That is functional testing — it checks what the system does.</text></feedback></answer>
+    <answer fraction="0"><text>Measuring statement coverage of the code</text><feedback><text>That is structural (white-box) testing, not non-functional.</text></feedback></answer>
+    <answer fraction="0"><text>Re-running a failed test after the defect is fixed</text><feedback><text>That is confirmation testing, a change-related activity.</text></feedback></answer>
+    <generalfeedback><text>Non-functional types evaluate "how well" — performance, security, usability, reliability, compatibility, portability, maintainability. Performance (including load and stress) is a classic example.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Confirmation testing defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Confirmation (re-)testing</em> means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Re-running the test that originally revealed a defect, after the fix, to confirm the defect is gone</text><feedback><text>Correct — confirmation testing verifies that the specific fix worked.</text></feedback></answer>
+    <answer fraction="0"><text>Running other tests to check the fix did not break anything else</text><feedback><text>That is regression testing, not confirmation testing.</text></feedback></answer>
+    <answer fraction="0"><text>A first quick check that the build is stable enough to test</text><feedback><text>That is smoke testing.</text></feedback></answer>
+    <answer fraction="0"><text>Testing the system against user business needs before go-live</text><feedback><text>That is acceptance testing, a level, not confirmation testing.</text></feedback></answer>
+    <generalfeedback><text>Confirmation testing (re-testing) re-executes the exact test case that failed, now that the defect is supposedly fixed, to confirm the fix. Checking for unintended side effects elsewhere is the separate activity of regression testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Regression testing defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Regression testing</em> means:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Re-testing previously working functionality to detect unintended side effects introduced by a change</text><feedback><text>Correct — regression guards against a change breaking things that used to work.</text></feedback></answer>
+    <answer fraction="0"><text>Re-running only the one test that failed, to confirm the specific fix</text><feedback><text>That is confirmation (re-)testing, not regression.</text></feedback></answer>
+    <answer fraction="0"><text>Testing a brand-new feature for the first time</text><feedback><text>Testing new functionality is not regression testing; regression re-checks existing behaviour.</text></feedback></answer>
+    <answer fraction="0"><text>Measuring how fast the system responds under load</text><feedback><text>That is performance testing, a non-functional type.</text></feedback></answer>
+    <generalfeedback><text>Regression testing re-executes tests over already-working functionality after a change (a fix, enhancement, or configuration change) to catch unintended side effects. It is a change-related test type performed across levels.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Smoke testing defined</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Smoke testing</em> is best described as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A quick, shallow set of checks confirming the build's main functions work well enough to justify further testing</text><feedback><text>Correct — smoke testing is a broad, shallow "is the build stable?" check.</text></feedback></answer>
+    <answer fraction="0"><text>An exhaustive re-run of the entire test suite after every change</text><feedback><text>That would be full regression testing, not a quick smoke test.</text></feedback></answer>
+    <answer fraction="0"><text>A deep test of one specific area after a small change</text><feedback><text>That describes sanity testing, which is narrow and deep rather than broad and shallow.</text></feedback></answer>
+    <answer fraction="0"><text>Validation of the system against user requirements before release</text><feedback><text>That is acceptance testing, a level, not smoke testing.</text></feedback></answer>
+    <generalfeedback><text>A smoke test is a small, broad, shallow set of checks (often automated as build verification) run to decide whether a build is stable enough to spend more testing effort on it.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Static vs dynamic testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The distinguishing feature of <em>static</em> testing is that it:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Examines the work product without executing the code (reviews, static analysis)</text><feedback><text>Correct — static testing evaluates artefacts without running them.</text></feedback></answer>
+    <answer fraction="0"><text>Runs the software and observes its behaviour on inputs</text><feedback><text>That is dynamic testing, the opposite of static.</text></feedback></answer>
+    <answer fraction="0"><text>Can only be applied at the acceptance level</text><feedback><text>Static testing (reviews, analysis) can apply throughout, and it is defined by not executing code.</text></feedback></answer>
+    <answer fraction="0"><text>Requires measuring code coverage</text><feedback><text>Coverage is a dynamic/structural concern; static testing does not run the code.</text></feedback></answer>
+    <generalfeedback><text>Static testing evaluates work products (code, requirements, designs) without executing them — via reviews and static analysis. Dynamic testing executes the software and observes actual behaviour.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: testing one function in isolation</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A developer tests a single function in isolation, checking its logic directly. Which test <strong>level</strong> is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Unit (component) testing</text><feedback><text>Correct — testing an individual component in isolation is the unit level.</text></feedback></answer>
+    <answer fraction="0"><text>Integration testing</text><feedback><text>Integration testing checks interactions between components, not one component alone.</text></feedback></answer>
+    <answer fraction="0"><text>System testing</text><feedback><text>System testing exercises the whole integrated system, not a single function.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing</text><feedback><text>Acceptance testing validates the finished system against user needs, not an isolated function.</text></feedback></answer>
+    <generalfeedback><text>Exercising an individual component/function in isolation is unit (component) testing — the smallest-scope level.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: response time under load</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A team measures how quickly the application responds when many users hit it at once. Which test <strong>type</strong> is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Performance testing (a non-functional type)</text><feedback><text>Correct — measuring response under load is non-functional performance testing.</text></feedback></answer>
+    <answer fraction="0"><text>Functional testing</text><feedback><text>Functional testing checks what the system does, not how fast it does it.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance (a level, wrongly named here)</text><feedback><text>Acceptance is a level, not the type being described; and this activity is performance testing.</text></feedback></answer>
+    <answer fraction="0"><text>Confirmation testing</text><feedback><text>Confirmation testing re-checks a fix; it does not measure response time.</text></feedback></answer>
+    <generalfeedback><text>Measuring speed/throughput under load evaluates a quality attribute (performance), so it is a non-functional test type — and it can be applied at any level (commonly system).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: users validate before go-live</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Before release, the intended users try the system against their real business needs to decide whether to accept it. Which test <strong>level</strong> is this?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Acceptance testing</text><feedback><text>Correct — user validation against business needs prior to acceptance is the acceptance level.</text></feedback></answer>
+    <answer fraction="0"><text>Unit testing</text><feedback><text>Unit testing checks a single component, not the whole system against user needs.</text></feedback></answer>
+    <answer fraction="0"><text>Integration testing</text><feedback><text>Integration testing checks module interactions, not user acceptance.</text></feedback></answer>
+    <answer fraction="0"><text>Performance testing</text><feedback><text>Performance is a non-functional type, not a level; this activity is acceptance-level validation.</text></feedback></answer>
+    <generalfeedback><text>Validating the completed system against user requirements and business processes to establish confidence for release is acceptance testing — the last of the four levels.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Structural (white-box) testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>Structural (white-box)</em> testing is characterised by:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Deriving and measuring tests from the internal structure of the code (e.g. statement or branch coverage)</text><feedback><text>Correct — structural testing works from the code's internal structure and coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Deriving tests only from the specification, ignoring the code</text><feedback><text>That is black-box (specification-based) testing, not structural.</text></feedback></answer>
+    <answer fraction="0"><text>Measuring the system's response time under load</text><feedback><text>That is performance testing, a non-functional type.</text></feedback></answer>
+    <answer fraction="0"><text>Re-running earlier tests after a change</text><feedback><text>That is regression testing, a change-related type.</text></feedback></answer>
+    <generalfeedback><text>Structural (white-box) testing uses the internal structure of the item — control flow, data flow — to derive tests and to measure coverage (statement, branch, etc.). It is a distinct test type that can be applied at any level.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Functional testing checks what the system does</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Functional testing evaluates <em>what</em> the system does (its functions), while non-functional testing evaluates <em>how well</em> it does it.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — functional = what it does; non-functional = how well it does it.</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>This is the standard distinction: functional targets behaviour/functions, non-functional targets quality attributes.</text></feedback></answer>
+    <generalfeedback><text>Functional testing checks the functions and behaviour the system provides; non-functional testing checks quality attributes such as performance, security, usability and reliability — "how well" those functions are delivered.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which item is a test level, not a type</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is a test <strong>level</strong> (not a test type)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Acceptance</text><feedback><text>Correct — acceptance is a test level (scope/when).</text></feedback></answer>
+    <answer fraction="0"><text>Performance</text><feedback><text>Performance is a non-functional test type, not a level.</text></feedback></answer>
+    <answer fraction="0"><text>Security</text><feedback><text>Security is a non-functional test type, not a level.</text></feedback></answer>
+    <answer fraction="0"><text>Regression</text><feedback><text>Regression is a change-related test type, not a level.</text></feedback></answer>
+    <generalfeedback><text>Acceptance is one of the four levels (unit, integration, system, acceptance). Performance, security, and regression are all test types (non-functional or change-related), not levels.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Levels and Types/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Test basis for the unit level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which document is the usual <em>test basis</em> for <strong>unit (component)</strong> testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The detailed (low-level) design and the code of the component</text><feedback><text>Correct — unit testing is based on the component's detailed design and code.</text></feedback></answer>
+    <answer fraction="0"><text>The system requirements specification</text><feedback><text>That is the basis for system testing, not unit testing.</text></feedback></answer>
+    <answer fraction="0"><text>The user requirements and business processes</text><feedback><text>That is the basis for acceptance testing.</text></feedback></answer>
+    <answer fraction="0"><text>The software architecture and interface specifications</text><feedback><text>That is the basis for integration testing.</text></feedback></answer>
+    <generalfeedback><text>Each level draws on a different test basis. Unit testing is based on the detailed/component design and the code itself, since it targets the internals of a single component.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test basis for the system level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which document is the usual <em>test basis</em> for <strong>system</strong> testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The system/software requirements specification (functional and non-functional)</text><feedback><text>Correct — system testing is based on the system requirements.</text></feedback></answer>
+    <answer fraction="0"><text>The component's detailed design and code</text><feedback><text>That is the basis for unit testing.</text></feedback></answer>
+    <answer fraction="0"><text>The software architecture and module interfaces</text><feedback><text>That is the basis for integration testing.</text></feedback></answer>
+    <answer fraction="0"><text>The legal contract signed with the customer</text><feedback><text>That belongs to (contractual) acceptance testing, not system testing.</text></feedback></answer>
+    <generalfeedback><text>System testing verifies the complete, integrated system against its specified requirements, so the system/software requirements specification (both functional and non-functional) is its test basis.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Is acceptance a level or a type?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On the level-vs-type axes, <em>acceptance</em> testing is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A test level (defined by scope/when in the lifecycle)</text><feedback><text>Correct — acceptance is the fourth test level.</text></feedback></answer>
+    <answer fraction="0"><text>A non-functional test type</text><feedback><text>Acceptance is a level; functional and non-functional types can both be run within it.</text></feedback></answer>
+    <answer fraction="0"><text>A structural test type</text><feedback><text>Acceptance is not a type at all; it is a level.</text></feedback></answer>
+    <answer fraction="0"><text>A change-related test type</text><feedback><text>Change-related types are confirmation and regression; acceptance is a level.</text></feedback></answer>
+    <generalfeedback><text>Acceptance sits on the level axis (unit, integration, system, acceptance). Within it you may still run functional and non-functional test types — the two axes are orthogonal.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Is performance a level or a type?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On the level-vs-type axes, <em>performance</em> testing is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A non-functional test type (it can be run at several levels)</text><feedback><text>Correct — performance is a non-functional type, not a level.</text></feedback></answer>
+    <answer fraction="0"><text>A test level between system and acceptance</text><feedback><text>There is no "performance level"; the levels are unit, integration, system, acceptance.</text></feedback></answer>
+    <answer fraction="0"><text>A test level that replaces system testing</text><feedback><text>Performance is a type; it does not sit on the level axis at all.</text></feedback></answer>
+    <answer fraction="0"><text>A change-related test type</text><feedback><text>Change-related types are confirmation and regression; performance is non-functional.</text></feedback></answer>
+    <generalfeedback><text>Performance is a non-functional test type. A common misconception treats it as a level, but it is an objective (a quality attribute) that can be pursued at unit, integration, system, or acceptance level.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Is integration a level or a type?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On the level-vs-type axes, <em>integration</em> testing is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A test level (its scope is the interactions between components or systems)</text><feedback><text>Correct — integration is the second test level.</text></feedback></answer>
+    <answer fraction="0"><text>A non-functional test type</text><feedback><text>Integration is a level; non-functional types can be run within it.</text></feedback></answer>
+    <answer fraction="0"><text>A change-related test type</text><feedback><text>Change-related types are confirmation and regression; integration is a level.</text></feedback></answer>
+    <answer fraction="0"><text>A structural test type</text><feedback><text>Integration is defined by scope (interfaces), which makes it a level, not a type.</text></feedback></answer>
+    <generalfeedback><text>Integration is a test level: its scope is the interfaces and interactions between components (component integration) or between systems (system integration).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Is security a level or a type?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>On the level-vs-type axes, <em>security</em> testing is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A non-functional test type</text><feedback><text>Correct — security is a non-functional quality attribute, hence a type.</text></feedback></answer>
+    <answer fraction="0"><text>A test level after acceptance</text><feedback><text>There is no security level; the levels end at acceptance.</text></feedback></answer>
+    <answer fraction="0"><text>A structural test type</text><feedback><text>Security is non-functional, not structural (structural = coverage of code).</text></feedback></answer>
+    <answer fraction="0"><text>A change-related test type</text><feedback><text>Change-related types are confirmation and regression; security is non-functional.</text></feedback></answer>
+    <generalfeedback><text>Security is a non-functional test type (protecting against threats, controlling access). Like other types, it can be applied at multiple levels — for instance security testing at the system level.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which re-tests the fixed defect?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A defect was fixed. Which activity re-runs the exact test that had failed to check the <strong>fix itself</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Confirmation (re-)testing</text><feedback><text>Correct — confirmation testing re-executes the failed test to verify the fix.</text></feedback></answer>
+    <answer fraction="0"><text>Regression testing</text><feedback><text>Regression checks that nothing else broke; it is not the re-run of the specific failed test.</text></feedback></answer>
+    <answer fraction="0"><text>Smoke testing</text><feedback><text>Smoke testing is a broad build-stability check, not verification of a specific fix.</text></feedback></answer>
+    <answer fraction="0"><text>System testing</text><feedback><text>System testing is a level; the activity described is confirmation testing.</text></feedback></answer>
+    <generalfeedback><text>Confirmation testing re-executes the previously failing test after the fix to confirm the defect is resolved. Regression testing is the complementary activity of checking for unintended side effects elsewhere.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which checks nothing else broke?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After a fix, which activity re-runs other, previously passing tests to check <strong>nothing else broke</strong>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Regression testing</text><feedback><text>Correct — regression testing detects unintended side effects of the change.</text></feedback></answer>
+    <answer fraction="0"><text>Confirmation (re-)testing</text><feedback><text>Confirmation re-runs the one failed test to verify the fix, not the surrounding tests.</text></feedback></answer>
+    <answer fraction="0"><text>Sanity testing</text><feedback><text>Sanity testing is a narrow, quick check of one area, not broad side-effect detection.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing</text><feedback><text>Acceptance is a level about user validation, not side-effect detection after a fix.</text></feedback></answer>
+    <generalfeedback><text>Regression testing re-runs previously passing tests to catch unintended side effects introduced by a change. Confirmation testing is the narrower re-run of the specific test that had failed.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>A type applied at a level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>"Performance testing carried out at the system level" is best understood as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A non-functional test <em>type</em> (performance) applied at a particular test <em>level</em> (system)</text><feedback><text>Correct — level and type are orthogonal, so a type is applied at a level.</text></feedback></answer>
+    <answer fraction="0"><text>A contradiction, because performance and system are two names for the same thing</text><feedback><text>They are on different axes (type vs level), so there is no contradiction.</text></feedback></answer>
+    <answer fraction="0"><text>Two separate test levels performed together</text><feedback><text>Performance is a type, not a level, so this is not two levels.</text></feedback></answer>
+    <answer fraction="0"><text>A change-related activity</text><feedback><text>Performance is non-functional, not change-related.</text></feedback></answer>
+    <generalfeedback><text>Because levels (when/scope) and types (which quality attribute) are orthogonal axes, any type can be run at any level. "Performance testing at system level" names the type (performance) and the level (system) together.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which level checks interfaces between components?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which level's scope is specifically the <strong>interfaces and interactions between components</strong> that have already been unit-tested?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Integration testing</text><feedback><text>Correct — component integration testing targets interfaces between components.</text></feedback></answer>
+    <answer fraction="0"><text>Unit testing</text><feedback><text>Unit testing checks one component in isolation, not the interfaces between them.</text></feedback></answer>
+    <answer fraction="0"><text>System testing</text><feedback><text>System testing checks the whole integrated system's behaviour, not just component interfaces.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing</text><feedback><text>Acceptance validates the finished system against user needs, not component interfaces.</text></feedback></answer>
+    <generalfeedback><text>Integration testing (component integration) sits between unit and system testing; its scope is the interactions and interfaces between components that have already passed unit testing.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test basis for the acceptance level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which is the usual <em>test basis</em> for <strong>acceptance</strong> testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>User requirements, business processes, and (where relevant) contracts or regulations</text><feedback><text>Correct — acceptance testing is based on user/business needs and any contractual/regulatory requirements.</text></feedback></answer>
+    <answer fraction="0"><text>The component's code and detailed design</text><feedback><text>That is the basis for unit testing.</text></feedback></answer>
+    <answer fraction="0"><text>The software architecture and module interfaces</text><feedback><text>That is the basis for integration testing.</text></feedback></answer>
+    <answer fraction="0"><text>Statement- and branch-coverage reports</text><feedback><text>Coverage reports are a structural-testing artefact, not the acceptance test basis.</text></feedback></answer>
+    <generalfeedback><text>Acceptance testing establishes confidence for release, so its test basis is user requirements, business processes and rules, use cases, and any contractual or regulatory requirements.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Test basis for the integration level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which is the usual <em>test basis</em> for <strong>integration</strong> testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>The software and system design, architecture, and interface specifications</text><feedback><text>Correct — integration testing is based on the design/architecture and interfaces.</text></feedback></answer>
+    <answer fraction="0"><text>The user requirements and business processes</text><feedback><text>That is the basis for acceptance testing.</text></feedback></answer>
+    <answer fraction="0"><text>The component's code alone</text><feedback><text>Code alone is closer to the unit-testing basis; integration draws on design and interfaces.</text></feedback></answer>
+    <answer fraction="0"><text>The signed customer contract</text><feedback><text>That belongs to contractual acceptance testing, not integration.</text></feedback></answer>
+    <generalfeedback><text>Integration testing targets how components/systems fit together, so its test basis is the software and system design, the architecture, workflows, and interface specifications.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>At which levels can regression be done?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>At which test level(s) can <em>regression</em> testing be performed?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>At any level — unit, integration, system, or acceptance</text><feedback><text>Correct — regression is a change-related type applied across all levels.</text></feedback></answer>
+    <answer fraction="0"><text>Only at the acceptance level</text><feedback><text>Regression is not tied to acceptance; it is run wherever a change could cause side effects.</text></feedback></answer>
+    <answer fraction="0"><text>Only at the system level</text><feedback><text>Regression applies at every level, not just system.</text></feedback></answer>
+    <answer fraction="0"><text>It is itself a level, so the question does not apply</text><feedback><text>Regression is a change-related test type, not a level.</text></feedback></answer>
+    <generalfeedback><text>Regression testing is a change-related test <em>type</em>. Because types are orthogonal to levels, regression can and should be performed at any level where a change might have introduced side effects.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Performance testing is a level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Performance testing is one of the standard test <em>levels</em>.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>Incorrect — performance is a non-functional test <em>type</em>, not a level. The levels are unit, integration, system, and acceptance.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — performance is a non-functional test type, not a level.</text></feedback></answer>
+    <generalfeedback><text>The four levels are unit, integration, system, and acceptance. Performance is a non-functional test type that can be applied at any of those levels; it is not itself a level.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Purpose of a smoke test</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The main purpose of running a <em>smoke</em> test on a new build is to:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Quickly decide whether the build is stable enough to warrant further, deeper testing</text><feedback><text>Correct — smoke testing is a fast go/no-go check on build stability.</text></feedback></answer>
+    <answer fraction="0"><text>Exhaustively verify every requirement in detail</text><feedback><text>That is thorough functional/system testing, not a quick smoke test.</text></feedback></answer>
+    <answer fraction="0"><text>Confirm that a specific reported defect has been fixed</text><feedback><text>That is confirmation testing, not smoke testing.</text></feedback></answer>
+    <answer fraction="0"><text>Measure the system's throughput under peak load</text><feedback><text>That is performance testing, a non-functional type.</text></feedback></answer>
+    <generalfeedback><text>A smoke test is a broad, shallow set of checks (often automated) that quickly establishes whether the critical functions of a build work — a gate deciding whether deeper testing is worthwhile.</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Levels and Types/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>Operational acceptance vs system testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Testing backup/restore, installation, and disaster-recovery procedures, performed by operations/administration staff before go-live, is best classified as:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Operational acceptance testing (an acceptance-level activity focused on operational readiness)</text><feedback><text>Correct — operational acceptance (OAT) checks operational readiness at the acceptance level.</text></feedback></answer>
+    <answer fraction="0"><text>System testing, because it exercises the whole system</text><feedback><text>Although it uses the whole system, this is acceptance-level (operational acceptance) work done by operations staff against operational needs, not system-level verification against requirements.</text></feedback></answer>
+    <answer fraction="0"><text>Unit testing of the backup component</text><feedback><text>OAT exercises operational procedures on the whole system, not an isolated component.</text></feedback></answer>
+    <answer fraction="0"><text>Regression testing</text><feedback><text>OAT is about operational readiness, not re-checking for side effects of a change.</text></feedback></answer>
+    <generalfeedback><text>Operational acceptance testing (OAT) is a form of acceptance testing carried out by operations/system-administration staff to confirm the system is ready to operate — backup/restore, install/uninstall, maintenance, disaster recovery, and security procedures. It is distinct from system testing, which verifies the built system against its specified requirements.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Component vs system integration</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Testing the interfaces between your application and a separate external payment system operated by another organisation is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>System integration testing (interactions between distinct systems)</text><feedback><text>Correct — testing interfaces between separate systems is system integration testing.</text></feedback></answer>
+    <answer fraction="0"><text>Component integration testing (interactions between components inside one system)</text><feedback><text>Component integration is within a single system; here two separate systems interact.</text></feedback></answer>
+    <answer fraction="0"><text>Unit testing of the payment module</text><feedback><text>This concerns cross-system interfaces, not a single component in isolation.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing</text><feedback><text>This targets the interface between systems, an integration concern, not user acceptance.</text></feedback></answer>
+    <generalfeedback><text>Integration testing has two sub-forms. Component integration testing checks interactions between components within one system (after unit testing). System integration testing checks interactions between different systems or with external services (often after system testing).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Usability testing vs UAT</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement correctly separates <em>usability</em> testing from <em>user acceptance</em> testing (UAT)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Usability is a non-functional test type (how easy the system is to use); UAT is a test level (users deciding whether to accept the system)</text><feedback><text>Correct — one is a type (quality attribute), the other is a level (lifecycle stage).</text></feedback></answer>
+    <answer fraction="0"><text>Both are test levels performed one after the other</text><feedback><text>Usability is a type, not a level; only UAT is a level.</text></feedback></answer>
+    <answer fraction="0"><text>Both are non-functional test types</text><feedback><text>Usability is a non-functional type, but UAT is a level, not a type.</text></feedback></answer>
+    <answer fraction="0"><text>Usability is a level and UAT is a type</text><feedback><text>This reverses them: usability is the type and UAT is the level.</text></feedback></answer>
+    <generalfeedback><text>Usability testing evaluates a quality attribute (ease of use), so it is a non-functional test type and can run at various levels. User acceptance testing is a test level — the stage where users validate the system against their needs — and it may itself include usability checks.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Why type is orthogonal to level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does it mean to say test <em>types</em> are <strong>orthogonal</strong> to test <em>levels</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Any test type can, in principle, be performed at any test level — the two classifications are independent</text><feedback><text>Correct — orthogonal means the axes vary independently, so any type pairs with any level.</text></feedback></answer>
+    <answer fraction="0"><text>Each test level is permanently tied to exactly one test type</text><feedback><text>That is the opposite of orthogonal; orthogonality means they are independent.</text></feedback></answer>
+    <answer fraction="0"><text>Test types replace test levels once the system is integrated</text><feedback><text>Types do not replace levels; the two coexist as independent axes.</text></feedback></answer>
+    <answer fraction="0"><text>Only functional testing can be done at more than one level</text><feedback><text>All types — functional, non-functional, structural, change-related — can span levels.</text></feedback></answer>
+    <generalfeedback><text>"Orthogonal" means the level axis (when/scope) and the type axis (which quality attribute/objective) vary independently. So functional, non-functional, structural, and change-related types can each be applied at unit, integration, system, or acceptance level.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Smoke vs sanity vs regression</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which description correctly distinguishes smoke, sanity, and regression testing?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Smoke = broad shallow build-stability check; sanity = narrow deep check of one area after a small change; regression = re-testing existing functionality for side effects of a change</text><feedback><text>Correct — smoke is broad/shallow, sanity is narrow/deep, regression re-checks prior functionality.</text></feedback></answer>
+    <answer fraction="0"><text>All three mean the same thing: re-running the full test suite</text><feedback><text>They differ in breadth, depth, and purpose; they are not synonyms.</text></feedback></answer>
+    <answer fraction="0"><text>Smoke tests one area deeply; sanity checks the whole build shallowly; regression tests new features</text><feedback><text>This swaps smoke and sanity, and regression targets existing functionality, not new features.</text></feedback></answer>
+    <answer fraction="0"><text>Smoke and sanity are levels; regression is a type</text><feedback><text>All three are test activities/types, not levels.</text></feedback></answer>
+    <generalfeedback><text>Smoke testing is a broad, shallow check that a build's key functions work (build stability). Sanity testing is a narrow, deep check of a specific area after a small change. Regression testing re-tests previously working functionality across a change to detect unintended side effects.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Match level to its test basis</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which pairing of <strong>level</strong> to <strong>test basis</strong> is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>System testing &#8594; system/software requirements specification</text><feedback><text>Correct — system testing is based on the system requirements.</text></feedback></answer>
+    <answer fraction="0"><text>Unit testing &#8594; user requirements and business processes</text><feedback><text>User requirements/business processes are the acceptance basis; unit testing uses code and detailed design.</text></feedback></answer>
+    <answer fraction="0"><text>Acceptance testing &#8594; component code and detailed design</text><feedback><text>Component code/detailed design is the unit-testing basis; acceptance uses user/business requirements.</text></feedback></answer>
+    <answer fraction="0"><text>Integration testing &#8594; statement-coverage reports</text><feedback><text>Coverage reports are structural artefacts; integration's basis is design, architecture, and interfaces.</text></feedback></answer>
+    <generalfeedback><text>Test basis by level: unit &#8594; code/detailed design; integration &#8594; design/architecture/interfaces; system &#8594; system/software requirements; acceptance &#8594; user requirements/business processes (and contracts/regulations). Only the system pairing is correct here.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>Regression is a test level</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Regression testing is one of the four test <em>levels</em>.</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>Incorrect — regression is a change-related test <em>type</em> performed across levels, not a level itself.</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>Correct — regression is a change-related test type, not one of the levels.</text></feedback></answer>
+    <generalfeedback><text>The four levels are unit, integration, system, and acceptance. Regression (like confirmation) is a change-related test type that can be run at any of those levels; it is not itself a level.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>System testing covers which types?</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement about the <em>types</em> exercised during <strong>system</strong> testing is correct?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>System testing can include both functional and non-functional types (e.g. behaviour against requirements plus performance and security)</text><feedback><text>Correct — a level can host multiple types; system testing typically covers functional and non-functional.</text></feedback></answer>
+    <answer fraction="0"><text>System testing is purely functional and never non-functional</text><feedback><text>System testing routinely includes non-functional types such as performance and security.</text></feedback></answer>
+    <answer fraction="0"><text>System testing is purely non-functional and never functional</text><feedback><text>System testing also verifies functional behaviour against requirements.</text></feedback></answer>
+    <answer fraction="0"><text>System testing is itself a test type, so the question of types does not apply</text><feedback><text>System testing is a level; multiple types are exercised within it.</text></feedback></answer>
+    <generalfeedback><text>Because levels and types are orthogonal, a single level hosts several types. System testing commonly combines functional testing (behaviour against requirements) with non-functional testing (performance, security, reliability, etc.).</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Classify: patch verified, then suite re-run</text></name>
+    <questiontext format="html"><text><![CDATA[<p>After a bug fix, the tester first re-runs the exact failing test, then re-runs the surrounding suite of previously passing tests. These two activities are, respectively:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Confirmation testing, then regression testing</text><feedback><text>Correct — re-running the failed test is confirmation; re-running the rest is regression.</text></feedback></answer>
+    <answer fraction="0"><text>Regression testing, then confirmation testing</text><feedback><text>This reverses them: the specific failed test is confirmation, the surrounding suite is regression.</text></feedback></answer>
+    <answer fraction="0"><text>Smoke testing, then sanity testing</text><feedback><text>Neither activity is a build-stability or narrow-area check; they are the change-related pair.</text></feedback></answer>
+    <answer fraction="0"><text>Two runs of the same acceptance test</text><feedback><text>These are change-related type activities, not acceptance-level runs.</text></feedback></answer>
+    <generalfeedback><text>Confirmation (re-)testing re-runs the specific test that had failed to verify the fix; regression testing then re-runs previously passing tests to ensure the fix caused no unintended side effects. Both are change-related test types.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Alpha vs beta testing</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Alpha and beta testing are both forms of <strong>acceptance</strong> testing. What distinguishes them?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Alpha is done at the developer's site (by potential users or an independent team); beta is done at the customers' own sites</text><feedback><text>Correct — alpha at the developer's site, beta in the field at customer sites.</text></feedback></answer>
+    <answer fraction="0"><text>Alpha is a test level and beta is a test type</text><feedback><text>Both are forms of acceptance-level testing, not a level/type split.</text></feedback></answer>
+    <answer fraction="0"><text>Alpha tests performance while beta tests functionality</text><feedback><text>The distinction is location/who, not functional vs non-functional.</text></feedback></answer>
+    <answer fraction="0"><text>Alpha is done after release and beta before development</text><feedback><text>Both occur before general release; the difference is where they are conducted.</text></feedback></answer>
+    <generalfeedback><text>Alpha and beta testing are operational/user forms of acceptance testing. Alpha is conducted at the developing organisation's site (by potential users or an independent test team); beta ("field") testing is conducted by real users at their own sites.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Contractual/regulatory acceptance</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Testing a system against the acceptance criteria written into a signed contract, or against rules imposed by a government regulator, is:</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Contractual/regulatory acceptance testing (a form of acceptance testing)</text><feedback><text>Correct — checking against contract or regulation is a form of acceptance testing.</text></feedback></answer>
+    <answer fraction="0"><text>Structural testing, because it measures coverage</text><feedback><text>It validates against contract/regulation, not code coverage.</text></feedback></answer>
+    <answer fraction="0"><text>Component integration testing</text><feedback><text>It concerns acceptance criteria for the whole system, not component interfaces.</text></feedback></answer>
+    <answer fraction="0"><text>Confirmation testing</text><feedback><text>Confirmation re-checks a fix; this is acceptance against contract/regulation.</text></feedback></answer>
+    <generalfeedback><text>Contractual acceptance testing verifies the system against acceptance criteria in a contract; regulatory acceptance testing verifies it against laws/regulations (e.g. safety, legal, government standards). Both are forms of the acceptance level.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Which axis is which in "security testing at acceptance level"</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the phrase "security testing at the acceptance level", which word names the <em>level</em> and which names the <em>type</em>?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>"Acceptance" is the level; "security" is the (non-functional) type</text><feedback><text>Correct — acceptance is the level, security is the non-functional type.</text></feedback></answer>
+    <answer fraction="0"><text>"Security" is the level; "acceptance" is the type</text><feedback><text>This reverses the axes: acceptance is the level, security is the type.</text></feedback></answer>
+    <answer fraction="0"><text>Both words name levels</text><feedback><text>Security is a type, not a level.</text></feedback></answer>
+    <answer fraction="0"><text>Both words name types</text><feedback><text>Acceptance is a level, not a type.</text></feedback></answer>
+    <generalfeedback><text>Level = when/scope (acceptance); type = which quality attribute (security, a non-functional type). The phrase pairs one from each orthogonal axis: the security type applied at the acceptance level.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Static testing example</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which activity is an example of <em>static</em> testing (as opposed to dynamic)?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>A peer review of the requirements document to find defects before any code runs</text><feedback><text>Correct — a review inspects a work product without executing code, so it is static testing.</text></feedback></answer>
+    <answer fraction="0"><text>Running the program with test inputs and comparing the outputs to expected values</text><feedback><text>Executing the program is dynamic testing, not static.</text></feedback></answer>
+    <answer fraction="0"><text>Measuring branch coverage while the test suite executes</text><feedback><text>Coverage measured during execution is dynamic (structural) testing.</text></feedback></answer>
+    <answer fraction="0"><text>Load-testing the running application with many concurrent users</text><feedback><text>Load testing executes the system, so it is dynamic (non-functional) testing.</text></feedback></answer>
+    <generalfeedback><text>Static testing evaluates a work product without executing code — reviews (of requirements, design, or code) and static analysis. Dynamic testing runs the software; anything that observes running behaviour (including coverage measurement and load testing) is dynamic.</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>One type can span multiple levels</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A single test <em>type</em> (for example, functional testing) can be performed at more than one test <em>level</em>.</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>Correct — because level and type are orthogonal, one type can be applied at several levels (functional testing at unit, integration, system, and acceptance).</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>Types and levels are independent axes, so one type can span many levels.</text></feedback></answer>
+    <generalfeedback><text>Test types are orthogonal to test levels, so any type may be exercised at any level. Functional testing, for instance, is done at unit, integration, system, and acceptance levels; likewise performance and other non-functional types can span levels.</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Identify the non-functional type</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which of the following is a <strong>non-functional</strong> test type rather than a functional check?</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Portability testing — verifying the software can be moved to and run in another environment</text><feedback><text>Correct — portability is a non-functional quality attribute.</text></feedback></answer>
+    <answer fraction="0"><text>Verifying that a valid login is accepted and an invalid one rejected</text><feedback><text>That checks what the system does (behaviour), so it is functional testing.</text></feedback></answer>
+    <answer fraction="0"><text>Verifying that a discount is calculated according to the business rules</text><feedback><text>Calculating the correct result per the rules is a functional check.</text></feedback></answer>
+    <answer fraction="0"><text>Verifying that the report contains the required fields</text><feedback><text>Checking required content/behaviour is functional testing.</text></feedback></answer>
+    <generalfeedback><text>Non-functional types evaluate quality attributes — performance, security, usability, reliability, compatibility, portability, maintainability. Portability (moving the software to another environment) is non-functional; the other options check behaviour, which is functional.</text></generalfeedback>
+  </question>
+</quiz>

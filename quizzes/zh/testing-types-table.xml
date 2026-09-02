@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Test Levels and Types/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是測試層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>測試層級（test level）</em>是一組測試活動，其主要的組織依據是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們在開發生命週期中發生的時機與涵蓋的範圍（單元、整合、系統、驗收）</text><feedback><text>正確——層級由範圍／時機定義：單元、整合、系統、驗收。</text></feedback></answer>
+    <answer fraction="0"><text>它們針對的品質屬性或目標（功能性、效能、安全性）</text><feedback><text>那描述的是測試<em>類型</em>，不是層級。</text></feedback></answer>
+    <answer fraction="0"><text>撰寫測試所使用的程式語言</text><feedback><text>層級並非由工具或語言定義。</text></feedback></answer>
+    <answer fraction="0"><text>測試人員是公司內部還是外部</text><feedback><text>由誰執行測試不定義層級；範圍與生命週期位置才是。</text></feedback></answer>
+    <generalfeedback><text>測試層級是依範圍與生命週期位置組織的活動群組：單元／元件、整合、系統、驗收。它們回答「何時／在什麼範圍」，有別於回答「針對什麼品質屬性」的測試類型。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>什麼是測試類型</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>測試類型（test type）</em>是一組測試活動，其主要的組織依據是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>所評估的特定品質特性或目標（例如功能性、效能、安全性）</text><feedback><text>正確——類型由受測的目標／屬性定義。</text></feedback></answer>
+    <answer fraction="0"><text>它在生命週期中的位置（單元、整合、系統、驗收）</text><feedback><text>那描述的是測試<em>層級</em>，不是類型。</text></feedback></answer>
+    <answer fraction="0"><text>指派給它的測試人員數量</text><feedback><text>團隊規模不定義測試類型。</text></feedback></answer>
+    <answer fraction="0"><text>回報缺陷的先後順序</text><feedback><text>缺陷回報順序與類型的定義無關。</text></feedback></answer>
+    <generalfeedback><text>測試類型依所評估的目標或品質屬性來分組活動——功能性、非功能性、結構性（白箱）與變更相關。它們回答「我們在測什麼」，有別於回答「在什麼範圍／時機」的層級。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>四個測試層級的順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者依常見順序列出經典的測試<strong>層級</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元／元件 &#8594; 整合 &#8594; 系統 &#8594; 驗收</text><feedback><text>正確——這是測試層級的標準順序。</text></feedback></answer>
+    <answer fraction="0"><text>功能性 &#8594; 非功能性 &#8594; 結構性 &#8594; 變更相關</text><feedback><text>那些是測試<em>類型</em>，不是層級。</text></feedback></answer>
+    <answer fraction="0"><text>驗收 &#8594; 系統 &#8594; 整合 &#8594; 單元</text><feedback><text>這把順序顛倒了；單元測試最先。</text></feedback></answer>
+    <answer fraction="0"><text>冒煙 &#8594; 迴歸 &#8594; 效能 &#8594; 安全性</text><feedback><text>這些是測試類型／活動，不是四個層級。</text></feedback></answer>
+    <generalfeedback><text>四個經典測試層級由最小到最大範圍：單元／元件，接著整合，再來系統，最後驗收。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>功能性 vs 非功能性</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>功能性</em>測試評估的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>系統做什麼——它應提供的功能與行為</text><feedback><text>正確——功能性測試檢查系統「做什麼」。</text></feedback></answer>
+    <answer fraction="0"><text>系統把某功能做得多好——它的速度、安全性或易用性</text><feedback><text>那是非功能性測試（「做得多好」的品質）。</text></feedback></answer>
+    <answer fraction="0"><text>內部程式碼結構與達成的覆蓋率</text><feedback><text>那是結構性（白箱）測試。</text></feedback></answer>
+    <answer fraction="0"><text>某項修正是否又弄壞了原本正常的功能</text><feedback><text>那是變更相關（迴歸）測試。</text></feedback></answer>
+    <generalfeedback><text>功能性測試問「它有沒有做到它該做的？」——評估功能／行為。非功能性測試問「做得多好？」——效能、安全性、易用性及其他品質屬性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>一種非功能性類型</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是<strong>非功能性</strong>測試類型？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>效能（負載／壓力）測試</text><feedback><text>正確——效能是非功能性品質屬性。</text></feedback></answer>
+    <answer fraction="0"><text>檢查「加入購物車」會加入所選的品項</text><feedback><text>那是功能性測試——它檢查系統做什麼。</text></feedback></answer>
+    <answer fraction="0"><text>量測程式碼的敘述覆蓋率</text><feedback><text>那是結構性（白箱）測試，非非功能性。</text></feedback></answer>
+    <answer fraction="0"><text>缺陷修正後重跑先前失敗的測試</text><feedback><text>那是確認測試，屬變更相關活動。</text></feedback></answer>
+    <generalfeedback><text>非功能性類型評估「做得多好」——效能、安全性、易用性、可靠性、相容性、可攜性、可維護性。效能（含負載與壓力）是經典例子。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>確認測試的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>確認（再）測試</em>的意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>修正後重跑當初揭露該缺陷的那個測試，以確認缺陷已消除</text><feedback><text>正確——確認測試驗證該特定修正是否奏效。</text></feedback></answer>
+    <answer fraction="0"><text>執行其他測試以檢查此修正沒有弄壞別的東西</text><feedback><text>那是迴歸測試，不是確認測試。</text></feedback></answer>
+    <answer fraction="0"><text>首次快速檢查建置是否穩定到足以測試</text><feedback><text>那是冒煙測試。</text></feedback></answer>
+    <answer fraction="0"><text>在上線前對照使用者業務需求測試系統</text><feedback><text>那是驗收測試，屬層級，非確認測試。</text></feedback></answer>
+    <generalfeedback><text>確認測試（再測試）重新執行失敗的那個測試案例（在缺陷據稱已修正之後）以確認修正。至於檢查別處是否有非預期副作用，是另一項活動——迴歸測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>迴歸測試的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>迴歸測試</em>的意思是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>重新測試原本正常的功能，以偵測變更引入的非預期副作用</text><feedback><text>正確——迴歸防止某項變更弄壞原本正常運作的東西。</text></feedback></answer>
+    <answer fraction="0"><text>只重跑失敗的那一個測試，以確認該特定修正</text><feedback><text>那是確認（再）測試，非迴歸。</text></feedback></answer>
+    <answer fraction="0"><text>首次測試一個全新的功能</text><feedback><text>測試新功能不是迴歸測試；迴歸重新檢查既有行為。</text></feedback></answer>
+    <answer fraction="0"><text>量測系統在負載下的回應速度</text><feedback><text>那是效能測試，屬非功能性類型。</text></feedback></answer>
+    <generalfeedback><text>迴歸測試在變更（修正、增強或組態變更）之後，對原本正常的功能重新執行測試，以捕捉非預期的副作用。它是跨層級執行的變更相關測試類型。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>冒煙測試的定義</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>冒煙測試</em>最適當的描述是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一組快速、淺層的檢查，確認建置的主要功能夠正常、值得進一步測試</text><feedback><text>正確——冒煙測試是廣而淺的「建置是否穩定？」檢查。</text></feedback></answer>
+    <answer fraction="0"><text>每次變更後徹底重跑整個測試套件</text><feedback><text>那會是完整迴歸測試，不是快速的冒煙測試。</text></feedback></answer>
+    <answer fraction="0"><text>在小幅變更後對某一特定區域做深入測試</text><feedback><text>那描述的是理智測試（sanity），它是窄而深，而非廣而淺。</text></feedback></answer>
+    <answer fraction="0"><text>在發行前對照使用者需求驗證系統</text><feedback><text>那是驗收測試，屬層級，非冒煙測試。</text></feedback></answer>
+    <generalfeedback><text>冒煙測試是一組小型、廣而淺的檢查（常自動化為建置驗證），用來判斷某個建置是否穩定到值得投入更多測試心力。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>靜態 vs 動態測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>靜態</em>測試的關鍵特徵是它：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>不執行程式碼即檢視工作產出（審查、靜態分析）</text><feedback><text>正確——靜態測試在不執行的情況下評估產出物。</text></feedback></answer>
+    <answer fraction="0"><text>執行軟體並觀察它對輸入的行為</text><feedback><text>那是動態測試，與靜態相反。</text></feedback></answer>
+    <answer fraction="0"><text>只能在驗收層級套用</text><feedback><text>靜態測試（審查、分析）可貫穿全程，且它的定義是不執行程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>需要量測程式碼覆蓋率</text><feedback><text>覆蓋率屬動態／結構性議題；靜態測試不執行程式碼。</text></feedback></answer>
+    <generalfeedback><text>靜態測試在不執行工作產出（程式碼、需求、設計）的情況下評估它們——透過審查與靜態分析。動態測試則執行軟體並觀察實際行為。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：孤立測試單一函式</text></name>
+    <questiontext format="html"><text><![CDATA[<p>開發者孤立地測試單一函式，直接檢查其邏輯。這是哪個測試<strong>層級</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元（元件）測試</text><feedback><text>正確——孤立地測試單一元件屬單元層級。</text></feedback></answer>
+    <answer fraction="0"><text>整合測試</text><feedback><text>整合測試檢查元件之間的互動，而非單一元件本身。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試</text><feedback><text>系統測試演練整個整合後的系統，而非單一函式。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試</text><feedback><text>驗收測試對照使用者需求驗證完成的系統，而非孤立的函式。</text></feedback></answer>
+    <generalfeedback><text>孤立地演練單一元件／函式即單元（元件）測試——範圍最小的層級。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：負載下的回應時間</text></name>
+    <questiontext format="html"><text><![CDATA[<p>團隊量測在眾多使用者同時湧入時應用程式回應的速度。這是哪種測試<strong>類型</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>效能測試（一種非功能性類型）</text><feedback><text>正確——量測負載下的回應是非功能性的效能測試。</text></feedback></answer>
+    <answer fraction="0"><text>功能性測試</text><feedback><text>功能性測試檢查系統做什麼，而非它做得多快。</text></feedback></answer>
+    <answer fraction="0"><text>驗收（此處誤稱為層級）</text><feedback><text>驗收是層級，並非此處所描述的類型；而此活動是效能測試。</text></feedback></answer>
+    <answer fraction="0"><text>確認測試</text><feedback><text>確認測試重新檢查某項修正；它不量測回應時間。</text></feedback></answer>
+    <generalfeedback><text>量測負載下的速度／吞吐量是評估品質屬性（效能），因此是非功能性測試類型——而它可套用於任何層級（常見於系統層級）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：使用者於上線前驗證</text></name>
+    <questiontext format="html"><text><![CDATA[<p>發行前，目標使用者對照真實業務需求試用系統，以決定是否接受它。這是哪個測試<strong>層級</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驗收測試</text><feedback><text>正確——在接受前對照業務需求由使用者驗證屬驗收層級。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試</text><feedback><text>單元測試檢查單一元件，而非對照使用者需求測整個系統。</text></feedback></answer>
+    <answer fraction="0"><text>整合測試</text><feedback><text>整合測試檢查模組互動，而非使用者接受度。</text></feedback></answer>
+    <answer fraction="0"><text>效能測試</text><feedback><text>效能是非功能性類型，非層級；此活動是驗收層級的驗證。</text></feedback></answer>
+    <generalfeedback><text>對照使用者需求與業務流程驗證已完成的系統、以建立發行信心，即驗收測試——四個層級中的最後一個。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>結構性（白箱）測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>結構性（白箱）</em>測試的特徵是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>從程式碼的內部結構推導並量測測試（例如敘述或分支覆蓋率）</text><feedback><text>正確——結構性測試從程式碼內部結構與覆蓋率著手。</text></feedback></answer>
+    <answer fraction="0"><text>只從規格推導測試，忽略程式碼</text><feedback><text>那是黑箱（規格導向）測試，非結構性。</text></feedback></answer>
+    <answer fraction="0"><text>量測系統在負載下的回應時間</text><feedback><text>那是效能測試，屬非功能性類型。</text></feedback></answer>
+    <answer fraction="0"><text>在變更後重跑先前的測試</text><feedback><text>那是迴歸測試，屬變更相關類型。</text></feedback></answer>
+    <generalfeedback><text>結構性（白箱）測試利用受測項目的內部結構——控制流、資料流——來推導測試並量測覆蓋率（敘述、分支等）。它是一種可套用於任何層級的獨立測試類型。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>功能性測試檢查系統做什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>功能性測試評估系統<em>做什麼</em>（它的功能），而非功能性測試評估它<em>做得多好</em>。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——功能性 = 做什麼；非功能性 = 做得多好。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>這正是標準區分：功能性針對行為／功能，非功能性針對品質屬性。</text></feedback></answer>
+    <generalfeedback><text>功能性測試檢查系統提供的功能與行為；非功能性測試檢查品質屬性，如效能、安全性、易用性與可靠性——即這些功能被交付得「多好」。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪一項是層級而非類型</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是測試<strong>層級</strong>（而非測試類型）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>驗收</text><feedback><text>正確——驗收是測試層級（範圍／時機）。</text></feedback></answer>
+    <answer fraction="0"><text>效能</text><feedback><text>效能是非功能性測試類型，非層級。</text></feedback></answer>
+    <answer fraction="0"><text>安全性</text><feedback><text>安全性是非功能性測試類型，非層級。</text></feedback></answer>
+    <answer fraction="0"><text>迴歸</text><feedback><text>迴歸是變更相關測試類型，非層級。</text></feedback></answer>
+    <generalfeedback><text>驗收是四個層級之一（單元、整合、系統、驗收）。效能、安全性與迴歸都是測試類型（非功能性或變更相關），而非層級。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Levels and Types/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>單元層級的測試基礎</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>單元（元件）</strong>測試通常以哪份文件作為<em>測試基礎</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>元件的詳細（低階）設計與程式碼</text><feedback><text>正確——單元測試以元件的詳細設計與程式碼為基礎。</text></feedback></answer>
+    <answer fraction="0"><text>系統需求規格</text><feedback><text>那是系統測試的基礎，非單元測試。</text></feedback></answer>
+    <answer fraction="0"><text>使用者需求與業務流程</text><feedback><text>那是驗收測試的基礎。</text></feedback></answer>
+    <answer fraction="0"><text>軟體架構與介面規格</text><feedback><text>那是整合測試的基礎。</text></feedback></answer>
+    <generalfeedback><text>各層級取用不同的測試基礎。單元測試以詳細／元件設計與程式碼本身為基礎，因為它針對單一元件的內部。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>系統層級的測試基礎</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>系統</strong>測試通常以哪份文件作為<em>測試基礎</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>系統／軟體需求規格（功能性與非功能性）</text><feedback><text>正確——系統測試以系統需求為基礎。</text></feedback></answer>
+    <answer fraction="0"><text>元件的詳細設計與程式碼</text><feedback><text>那是單元測試的基礎。</text></feedback></answer>
+    <answer fraction="0"><text>軟體架構與模組介面</text><feedback><text>那是整合測試的基礎。</text></feedback></answer>
+    <answer fraction="0"><text>與客戶簽訂的法律合約</text><feedback><text>那屬（合約性）驗收測試，非系統測試。</text></feedback></answer>
+    <generalfeedback><text>系統測試對照規定的需求驗證完整、整合後的系統，因此其測試基礎是系統／軟體需求規格（功能性與非功能性皆含）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗收是層級還是類型？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在層級與類型兩軸上，<em>驗收</em>測試是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個測試層級（由生命週期中的範圍／時機定義）</text><feedback><text>正確——驗收是第四個測試層級。</text></feedback></answer>
+    <answer fraction="0"><text>一種非功能性測試類型</text><feedback><text>驗收是層級；功能性與非功能性類型都可在其中執行。</text></feedback></answer>
+    <answer fraction="0"><text>一種結構性測試類型</text><feedback><text>驗收根本不是類型；它是層級。</text></feedback></answer>
+    <answer fraction="0"><text>一種變更相關測試類型</text><feedback><text>變更相關類型是確認與迴歸；驗收是層級。</text></feedback></answer>
+    <generalfeedback><text>驗收位於層級軸（單元、整合、系統、驗收）。在其中你仍可執行功能性與非功能性測試類型——兩軸彼此正交。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>效能是層級還是類型？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在層級與類型兩軸上，<em>效能</em>測試是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一種非功能性測試類型（可在多個層級執行）</text><feedback><text>正確——效能是非功能性類型，非層級。</text></feedback></answer>
+    <answer fraction="0"><text>介於系統與驗收之間的一個測試層級</text><feedback><text>並無「效能層級」；層級是單元、整合、系統、驗收。</text></feedback></answer>
+    <answer fraction="0"><text>取代系統測試的一個測試層級</text><feedback><text>效能是類型；它根本不在層級軸上。</text></feedback></answer>
+    <answer fraction="0"><text>一種變更相關測試類型</text><feedback><text>變更相關類型是確認與迴歸；效能是非功能性。</text></feedback></answer>
+    <generalfeedback><text>效能是非功能性測試類型。常見誤解把它當成層級，但它是一個目標（品質屬性），可在單元、整合、系統或驗收層級追求。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>整合是層級還是類型？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在層級與類型兩軸上，<em>整合</em>測試是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一個測試層級（其範圍是元件之間或系統之間的互動）</text><feedback><text>正確——整合是第二個測試層級。</text></feedback></answer>
+    <answer fraction="0"><text>一種非功能性測試類型</text><feedback><text>整合是層級；非功能性類型可在其中執行。</text></feedback></answer>
+    <answer fraction="0"><text>一種變更相關測試類型</text><feedback><text>變更相關類型是確認與迴歸；整合是層級。</text></feedback></answer>
+    <answer fraction="0"><text>一種結構性測試類型</text><feedback><text>整合由範圍（介面）定義，這使它是層級，非類型。</text></feedback></answer>
+    <generalfeedback><text>整合是測試層級：其範圍是元件之間（元件整合）或系統之間（系統整合）的介面與互動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>安全性是層級還是類型？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在層級與類型兩軸上，<em>安全性</em>測試是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一種非功能性測試類型</text><feedback><text>正確——安全性是非功能性品質屬性，因此是類型。</text></feedback></answer>
+    <answer fraction="0"><text>驗收之後的一個測試層級</text><feedback><text>並無安全性層級；層級終於驗收。</text></feedback></answer>
+    <answer fraction="0"><text>一種結構性測試類型</text><feedback><text>安全性是非功能性，非結構性（結構性 = 程式碼覆蓋）。</text></feedback></answer>
+    <answer fraction="0"><text>一種變更相關測試類型</text><feedback><text>變更相關類型是確認與迴歸；安全性是非功能性。</text></feedback></answer>
+    <generalfeedback><text>安全性是非功能性測試類型（抵禦威脅、控制存取）。與其他類型一樣，它可套用於多個層級——例如系統層級的安全性測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個重新測試已修正的缺陷？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某缺陷已修正。哪項活動會重跑先前失敗的那個測試，以檢查<strong>修正本身</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>確認（再）測試</text><feedback><text>正確——確認測試重新執行失敗的測試以驗證修正。</text></feedback></answer>
+    <answer fraction="0"><text>迴歸測試</text><feedback><text>迴歸檢查別處是否被弄壞；它不是重跑那個特定失敗的測試。</text></feedback></answer>
+    <answer fraction="0"><text>冒煙測試</text><feedback><text>冒煙測試是廣泛的建置穩定性檢查，非驗證某項特定修正。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試</text><feedback><text>系統測試是層級；所描述的活動是確認測試。</text></feedback></answer>
+    <generalfeedback><text>確認測試在修正後重新執行先前失敗的測試，以確認缺陷已解決。迴歸測試則是互補的活動——檢查別處是否有非預期副作用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個檢查沒有弄壞其他東西？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>修正後，哪項活動會重跑其他先前通過的測試，以檢查<strong>沒有弄壞別的東西</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>迴歸測試</text><feedback><text>正確——迴歸測試偵測變更的非預期副作用。</text></feedback></answer>
+    <answer fraction="0"><text>確認（再）測試</text><feedback><text>確認重跑失敗的那一個測試以驗證修正，而非周邊的測試。</text></feedback></answer>
+    <answer fraction="0"><text>理智測試（sanity）</text><feedback><text>理智測試是對某一區域的窄而快檢查，非廣泛的副作用偵測。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試</text><feedback><text>驗收是關於使用者驗證的層級，非修正後的副作用偵測。</text></feedback></answer>
+    <generalfeedback><text>迴歸測試重跑先前通過的測試，以捕捉變更引入的非預期副作用。確認測試則是較窄地重跑先前失敗的那個特定測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>套用於某層級的類型</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「在系統層級執行的效能測試」最好理解為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>一種非功能性測試<em>類型</em>（效能）套用於某個特定測試<em>層級</em>（系統）</text><feedback><text>正確——層級與類型正交，因此類型套用於層級。</text></feedback></answer>
+    <answer fraction="0"><text>一個矛盾，因為效能與系統是同一件事的兩個名稱</text><feedback><text>它們位於不同軸（類型 vs 層級），並無矛盾。</text></feedback></answer>
+    <answer fraction="0"><text>兩個一起執行的獨立測試層級</text><feedback><text>效能是類型，非層級，所以這不是兩個層級。</text></feedback></answer>
+    <answer fraction="0"><text>一項變更相關活動</text><feedback><text>效能是非功能性，非變更相關。</text></feedback></answer>
+    <generalfeedback><text>由於層級（時機／範圍）與類型（哪個品質屬性）是正交的軸，任何類型都可在任何層級執行。「系統層級的效能測試」同時指出類型（效能）與層級（系統）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個層級檢查元件之間的介面？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪個層級的範圍專門是已通過單元測試的<strong>元件之間的介面與互動</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>整合測試</text><feedback><text>正確——元件整合測試針對元件之間的介面。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試</text><feedback><text>單元測試孤立地檢查單一元件，而非它們之間的介面。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試</text><feedback><text>系統測試檢查整個整合後系統的行為，而非只有元件介面。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試</text><feedback><text>驗收對照使用者需求驗證完成的系統，而非元件介面。</text></feedback></answer>
+    <generalfeedback><text>整合測試（元件整合）位於單元與系統測試之間；其範圍是已通過單元測試的元件之間的互動與介面。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>驗收層級的測試基礎</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>驗收</strong>測試通常以何者作為<em>測試基礎</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>使用者需求、業務流程，以及（相關時的）合約或法規</text><feedback><text>正確——驗收測試以使用者／業務需求及任何合約／法規需求為基礎。</text></feedback></answer>
+    <answer fraction="0"><text>元件的程式碼與詳細設計</text><feedback><text>那是單元測試的基礎。</text></feedback></answer>
+    <answer fraction="0"><text>軟體架構與模組介面</text><feedback><text>那是整合測試的基礎。</text></feedback></answer>
+    <answer fraction="0"><text>敘述與分支覆蓋率報告</text><feedback><text>覆蓋率報告是結構性測試的產出，非驗收測試基礎。</text></feedback></answer>
+    <generalfeedback><text>驗收測試建立發行信心，因此其測試基礎是使用者需求、業務流程與規則、使用案例，以及任何合約或法規需求。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>整合層級的測試基礎</text></name>
+    <questiontext format="html"><text><![CDATA[<p><strong>整合</strong>測試通常以何者作為<em>測試基礎</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>軟體與系統設計、架構及介面規格</text><feedback><text>正確——整合測試以設計／架構與介面為基礎。</text></feedback></answer>
+    <answer fraction="0"><text>使用者需求與業務流程</text><feedback><text>那是驗收測試的基礎。</text></feedback></answer>
+    <answer fraction="0"><text>只有元件的程式碼</text><feedback><text>只有程式碼較接近單元測試基礎；整合取用設計與介面。</text></feedback></answer>
+    <answer fraction="0"><text>簽署的客戶合約</text><feedback><text>那屬合約性驗收測試，非整合。</text></feedback></answer>
+    <generalfeedback><text>整合測試針對元件／系統如何組合，因此其測試基礎是軟體與系統設計、架構、工作流程與介面規格。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>迴歸可在哪些層級執行？</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>迴歸</em>測試可在哪個（些）測試層級執行？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>任何層級——單元、整合、系統或驗收</text><feedback><text>正確——迴歸是跨所有層級套用的變更相關類型。</text></feedback></answer>
+    <answer fraction="0"><text>只在驗收層級</text><feedback><text>迴歸不綁定於驗收；只要變更可能造成副作用，就會執行。</text></feedback></answer>
+    <answer fraction="0"><text>只在系統層級</text><feedback><text>迴歸適用於每個層級，不只系統。</text></feedback></answer>
+    <answer fraction="0"><text>它本身就是層級，因此此問不適用</text><feedback><text>迴歸是變更相關測試類型，非層級。</text></feedback></answer>
+    <generalfeedback><text>迴歸測試是變更相關測試<em>類型</em>。由於類型與層級正交，迴歸可以且應該在任何變更可能引入副作用的層級執行。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>效能測試是一個層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>效能測試是標準測試<em>層級</em>之一。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>錯誤——效能是非功能性測試<em>類型</em>，非層級。層級是單元、整合、系統與驗收。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——效能是非功能性測試類型，非層級。</text></feedback></answer>
+    <generalfeedback><text>四個層級是單元、整合、系統與驗收。效能是可在任一層級套用的非功能性測試類型；它本身不是層級。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>冒煙測試的目的</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對新建置執行<em>冒煙</em>測試的主要目的是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>快速判斷該建置是否穩定到值得進一步、更深入的測試</text><feedback><text>正確——冒煙測試是對建置穩定性的快速通過／不通過檢查。</text></feedback></answer>
+    <answer fraction="0"><text>詳盡地逐一驗證每一項需求</text><feedback><text>那是徹底的功能性／系統測試，非快速的冒煙測試。</text></feedback></answer>
+    <answer fraction="0"><text>確認某個回報的特定缺陷已修正</text><feedback><text>那是確認測試，非冒煙測試。</text></feedback></answer>
+    <answer fraction="0"><text>量測系統在尖峰負載下的吞吐量</text><feedback><text>那是效能測試，屬非功能性類型。</text></feedback></answer>
+    <generalfeedback><text>冒煙測試是一組廣而淺的檢查（常自動化），快速確立某個建置的關鍵功能是否可運作——是決定是否值得進行更深入測試的一道關卡。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Test Levels and Types/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>作業驗收 vs 系統測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在上線前由維運／管理人員測試備份／還原、安裝與災難復原程序，最適當的分類是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>作業驗收測試（一項聚焦於作業就緒度的驗收層級活動）</text><feedback><text>正確——作業驗收（OAT）在驗收層級檢查作業就緒度。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試，因為它演練整個系統</text><feedback><text>雖然它用到整個系統，但這是由維運人員針對作業需求進行的驗收層級（作業驗收）工作，而非對照需求的系統層級驗證。</text></feedback></answer>
+    <answer fraction="0"><text>備份元件的單元測試</text><feedback><text>作業驗收在整個系統上演練作業程序，而非孤立的元件。</text></feedback></answer>
+    <answer fraction="0"><text>迴歸測試</text><feedback><text>作業驗收關乎作業就緒度，而非重新檢查某變更的副作用。</text></feedback></answer>
+    <generalfeedback><text>作業驗收測試（OAT）是由維運／系統管理人員執行的一種驗收測試，用以確認系統已就緒可運作——備份／還原、安裝／解除安裝、維護、災難復原與安全程序。它有別於對照規定需求驗證所建系統的系統測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>元件整合 vs 系統整合</text></name>
+    <questiontext format="html"><text><![CDATA[<p>測試你的應用程式與另一組織營運的獨立外部支付系統之間的介面，是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>系統整合測試（不同系統之間的互動）</text><feedback><text>正確——測試獨立系統之間的介面是系統整合測試。</text></feedback></answer>
+    <answer fraction="0"><text>元件整合測試（單一系統內部元件之間的互動）</text><feedback><text>元件整合是在單一系統內；此處是兩個獨立系統互動。</text></feedback></answer>
+    <answer fraction="0"><text>支付模組的單元測試</text><feedback><text>這關乎跨系統的介面，而非孤立的單一元件。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試</text><feedback><text>這針對系統之間的介面，是整合議題，而非使用者驗收。</text></feedback></answer>
+    <generalfeedback><text>整合測試有兩種子形式。元件整合測試檢查單一系統內元件之間的互動（在單元測試之後）。系統整合測試檢查不同系統之間或與外部服務的互動（常在系統測試之後）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>易用性測試 vs UAT</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者正確區分<em>易用性</em>測試與<em>使用者驗收</em>測試（UAT）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>易用性是非功能性測試類型（系統多易用）；UAT 是測試層級（使用者決定是否接受系統）</text><feedback><text>正確——一個是類型（品質屬性），另一個是層級（生命週期階段）。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是先後進行的測試層級</text><feedback><text>易用性是類型，非層級；只有 UAT 是層級。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是非功能性測試類型</text><feedback><text>易用性是非功能性類型，但 UAT 是層級，非類型。</text></feedback></answer>
+    <answer fraction="0"><text>易用性是層級，UAT 是類型</text><feedback><text>這把兩者顛倒了：易用性是類型，UAT 是層級。</text></feedback></answer>
+    <generalfeedback><text>易用性測試評估一個品質屬性（易用程度），因此是非功能性測試類型，可在多個層級執行。使用者驗收測試是一個測試層級——使用者對照需求驗證系統的階段——它本身可能包含易用性檢查。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何類型與層級正交</text></name>
+    <questiontext format="html"><text><![CDATA[<p>說測試<em>類型</em>與測試<em>層級</em><strong>正交</strong>是什麼意思？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>任何測試類型原則上都可在任何測試層級執行——這兩種分類彼此獨立</text><feedback><text>正確——正交意味兩軸各自獨立變化，因此任何類型可搭配任何層級。</text></feedback></answer>
+    <answer fraction="0"><text>每個測試層級永久綁定於恰好一種測試類型</text><feedback><text>那與正交相反；正交意味它們彼此獨立。</text></feedback></answer>
+    <answer fraction="0"><text>系統整合後，測試類型會取代測試層級</text><feedback><text>類型不取代層級；兩者作為獨立的軸並存。</text></feedback></answer>
+    <answer fraction="0"><text>只有功能性測試能在多於一個層級進行</text><feedback><text>所有類型——功能性、非功能性、結構性、變更相關——都能跨層級。</text></feedback></answer>
+    <generalfeedback><text>「正交」意味層級軸（時機／範圍）與類型軸（哪個品質屬性／目標）各自獨立變化。因此功能性、非功能性、結構性與變更相關類型都可在單元、整合、系統或驗收層級套用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>冒煙 vs 理智 vs 迴歸</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者正確區分冒煙、理智（sanity）與迴歸測試？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>冒煙 = 廣而淺的建置穩定性檢查；理智 = 小幅變更後對某一區域的窄而深檢查；迴歸 = 為變更的副作用重新測試既有功能</text><feedback><text>正確——冒煙廣而淺、理智窄而深、迴歸重新檢查既有功能。</text></feedback></answer>
+    <answer fraction="0"><text>三者意思相同：重跑整個測試套件</text><feedback><text>它們在廣度、深度與目的上皆不同；並非同義。</text></feedback></answer>
+    <answer fraction="0"><text>冒煙深測某一區域；理智淺測整個建置；迴歸測試新功能</text><feedback><text>這把冒煙與理智對調了，且迴歸針對既有功能，而非新功能。</text></feedback></answer>
+    <answer fraction="0"><text>冒煙與理智是層級；迴歸是類型</text><feedback><text>三者都是測試活動／類型，而非層級。</text></feedback></answer>
+    <generalfeedback><text>冒煙測試是廣而淺地檢查建置的關鍵功能是否運作（建置穩定性）。理智測試是小幅變更後對特定區域的窄而深檢查。迴歸測試在變更後跨越範圍重新測試原本正常的功能，以偵測非預期副作用。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>層級與其測試基礎的配對</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列<strong>層級</strong>對<strong>測試基礎</strong>的配對何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>系統測試 &#8594; 系統／軟體需求規格</text><feedback><text>正確——系統測試以系統需求為基礎。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試 &#8594; 使用者需求與業務流程</text><feedback><text>使用者需求／業務流程是驗收的基礎；單元測試用程式碼與詳細設計。</text></feedback></answer>
+    <answer fraction="0"><text>驗收測試 &#8594; 元件程式碼與詳細設計</text><feedback><text>元件程式碼／詳細設計是單元測試基礎；驗收用使用者／業務需求。</text></feedback></answer>
+    <answer fraction="0"><text>整合測試 &#8594; 敘述覆蓋率報告</text><feedback><text>覆蓋率報告是結構性產出；整合的基礎是設計、架構與介面。</text></feedback></answer>
+    <generalfeedback><text>各層級的測試基礎：單元 &#8594; 程式碼／詳細設計；整合 &#8594; 設計／架構／介面；系統 &#8594; 系統／軟體需求；驗收 &#8594; 使用者需求／業務流程（及合約／法規）。此處只有系統的配對正確。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>迴歸是一個測試層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>迴歸測試是四個測試<em>層級</em>之一。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>錯誤——迴歸是跨層級執行的變更相關測試<em>類型</em>，而非層級本身。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——迴歸是變更相關測試類型，並非層級之一。</text></feedback></answer>
+    <generalfeedback><text>四個層級是單元、整合、系統與驗收。迴歸（如同確認）是可在任一層級執行的變更相關測試類型；它本身不是層級。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>系統測試涵蓋哪些類型？</text></name>
+    <questiontext format="html"><text><![CDATA[<p>關於<strong>系統</strong>測試期間所演練的<em>類型</em>，下列敘述何者正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>系統測試可同時包含功能性與非功能性類型（例如對照需求的行為，加上效能與安全性）</text><feedback><text>正確——一個層級可容納多種類型；系統測試通常涵蓋功能性與非功能性。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試純粹是功能性，從不涉及非功能性</text><feedback><text>系統測試常包含效能與安全性等非功能性類型。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試純粹是非功能性，從不涉及功能性</text><feedback><text>系統測試也對照需求驗證功能性行為。</text></feedback></answer>
+    <answer fraction="0"><text>系統測試本身就是一種測試類型，因此類型的問題不適用</text><feedback><text>系統測試是層級；其中會演練多種類型。</text></feedback></answer>
+    <generalfeedback><text>由於層級與類型正交，單一層級會容納數種類型。系統測試常結合功能性測試（對照需求的行為）與非功能性測試（效能、安全性、可靠性等）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類：驗證修補後再重跑套件</text></name>
+    <questiontext format="html"><text><![CDATA[<p>缺陷修正後，測試人員先重跑那個確切失敗的測試，再重跑周邊那組先前通過的測試。這兩項活動分別是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>確認測試，然後迴歸測試</text><feedback><text>正確——重跑失敗的測試是確認；重跑其餘是迴歸。</text></feedback></answer>
+    <answer fraction="0"><text>迴歸測試，然後確認測試</text><feedback><text>這把兩者顛倒了：特定失敗的測試是確認，周邊套件是迴歸。</text></feedback></answer>
+    <answer fraction="0"><text>冒煙測試，然後理智測試</text><feedback><text>兩項活動都不是建置穩定性或窄區域檢查；它們是變更相關的一對。</text></feedback></answer>
+    <answer fraction="0"><text>同一個驗收測試跑兩次</text><feedback><text>這些是變更相關類型的活動，而非驗收層級的執行。</text></feedback></answer>
+    <generalfeedback><text>確認（再）測試重跑先前失敗的那個特定測試以驗證修正；迴歸測試接著重跑先前通過的測試，以確保修正未造成非預期副作用。兩者都是變更相關測試類型。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Alpha vs Beta 測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Alpha 與 Beta 測試都是<strong>驗收</strong>測試的形式。它們的區別是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Alpha 在開發者的場地進行（由潛在使用者或獨立團隊）；Beta 在客戶自己的場地進行</text><feedback><text>正確——Alpha 在開發者場地，Beta 在客戶現場（實地）。</text></feedback></answer>
+    <answer fraction="0"><text>Alpha 是測試層級，Beta 是測試類型</text><feedback><text>兩者都是驗收層級測試的形式，並非層級／類型之分。</text></feedback></answer>
+    <answer fraction="0"><text>Alpha 測效能，Beta 測功能</text><feedback><text>區別在於地點／由誰進行，而非功能性與非功能性之分。</text></feedback></answer>
+    <answer fraction="0"><text>Alpha 在發行後進行，Beta 在開發前進行</text><feedback><text>兩者都在正式發行前進行；差異在於在何處進行。</text></feedback></answer>
+    <generalfeedback><text>Alpha 與 Beta 測試是驗收測試的作業／使用者形式。Alpha 在開發組織的場地進行（由潛在使用者或獨立測試團隊）；Beta（「實地」）測試由真實使用者在其自己的場地進行。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>合約性／法規性驗收</text></name>
+    <questiontext format="html"><text><![CDATA[<p>對照簽署合約中所載的驗收準則、或對照政府監管機關所施加的規則來測試系統，是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>合約性／法規性驗收測試（驗收測試的一種形式）</text><feedback><text>正確——對照合約或法規檢查是驗收測試的一種形式。</text></feedback></answer>
+    <answer fraction="0"><text>結構性測試，因為它量測覆蓋率</text><feedback><text>它是對照合約／法規驗證，而非程式碼覆蓋率。</text></feedback></answer>
+    <answer fraction="0"><text>元件整合測試</text><feedback><text>它關乎整個系統的驗收準則，而非元件介面。</text></feedback></answer>
+    <answer fraction="0"><text>確認測試</text><feedback><text>確認重新檢查某項修正；這是對照合約／法規的驗收。</text></feedback></answer>
+    <generalfeedback><text>合約性驗收測試對照合約中的驗收準則驗證系統；法規性驗收測試對照法律／法規（例如安全、法律、政府標準）驗證系統。兩者都是驗收層級的形式。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>「驗收層級的安全性測試」中各軸為何</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在「驗收層級的安全性測試」這句話中，哪個詞指<em>層級</em>、哪個指<em>類型</em>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>「驗收」是層級；「安全性」是（非功能性）類型</text><feedback><text>正確——驗收是層級，安全性是非功能性類型。</text></feedback></answer>
+    <answer fraction="0"><text>「安全性」是層級；「驗收」是類型</text><feedback><text>這把兩軸顛倒了：驗收是層級，安全性是類型。</text></feedback></answer>
+    <answer fraction="0"><text>兩個詞都指層級</text><feedback><text>安全性是類型，非層級。</text></feedback></answer>
+    <answer fraction="0"><text>兩個詞都指類型</text><feedback><text>驗收是層級，非類型。</text></feedback></answer>
+    <generalfeedback><text>層級 = 時機／範圍（驗收）；類型 = 哪個品質屬性（安全性，一種非功能性類型）。這句話從兩個正交軸各取其一：套用於驗收層級的安全性類型。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>靜態測試的例子</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪項活動是<em>靜態</em>測試的例子（相對於動態）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>對需求文件進行同儕審查，在任何程式碼執行前找出缺陷</text><feedback><text>正確——審查在不執行程式碼的情況下檢視工作產出，因此是靜態測試。</text></feedback></answer>
+    <answer fraction="0"><text>以測試輸入執行程式，並將輸出與預期值比較</text><feedback><text>執行程式是動態測試，非靜態。</text></feedback></answer>
+    <answer fraction="0"><text>在測試套件執行時量測分支覆蓋率</text><feedback><text>在執行期間量測的覆蓋率是動態（結構性）測試。</text></feedback></answer>
+    <answer fraction="0"><text>以眾多並行使用者對執行中的應用程式做負載測試</text><feedback><text>負載測試會執行系統，因此是動態（非功能性）測試。</text></feedback></answer>
+    <generalfeedback><text>靜態測試在不執行程式碼的情況下評估工作產出——對需求、設計或程式碼的審查與靜態分析。動態測試會執行軟體；任何觀察執行中行為的活動（含覆蓋率量測與負載測試）都是動態。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>一種類型可跨多個層級</text></name>
+    <questiontext format="html"><text><![CDATA[<p>單一測試<em>類型</em>（例如功能性測試）可在多於一個測試<em>層級</em>執行。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——由於層級與類型正交，一種類型可在數個層級套用（功能性測試在單元、整合、系統與驗收）。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>類型與層級是獨立的軸，因此一種類型可跨多個層級。</text></feedback></answer>
+    <generalfeedback><text>測試類型與測試層級正交，因此任何類型都可在任何層級演練。例如功能性測試在單元、整合、系統與驗收層級都會進行；同樣地，效能與其他非功能性類型也可跨層級。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>辨識非功能性類型</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列何者是<strong>非功能性</strong>測試類型，而非功能性檢查？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>可攜性測試——驗證軟體能被移植到另一個環境並在其中執行</text><feedback><text>正確——可攜性是非功能性品質屬性。</text></feedback></answer>
+    <answer fraction="0"><text>驗證有效登入被接受、無效登入被拒絕</text><feedback><text>那檢查系統做什麼（行為），因此是功能性測試。</text></feedback></answer>
+    <answer fraction="0"><text>驗證折扣依業務規則計算</text><feedback><text>依規則算出正確結果是功能性檢查。</text></feedback></answer>
+    <answer fraction="0"><text>驗證報表含有所需的欄位</text><feedback><text>檢查所需內容／行為是功能性測試。</text></feedback></answer>
+    <generalfeedback><text>非功能性類型評估品質屬性——效能、安全性、易用性、可靠性、相容性、可攜性、可維護性。可攜性（把軟體移到另一環境）是非功能性；其他選項檢查行為，屬功能性。</text></generalfeedback>
+  </question>
+</quiz>
