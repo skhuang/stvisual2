@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category><text>$course$/top/Agile Testing Quadrants/easy</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>象限的兩個座標軸</text></name>
+    <questiontext format="html"><text><![CDATA[<p>敏捷測試象限（Marick；Crispin 與 Gregory）以<strong>兩個</strong>座標軸組織。請問是哪一組？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>縱軸：面向業務 vs 面向技術；橫軸：支援團隊 vs 評鑑產品</text><feedback><text>正確——縱向的業務／技術軸與橫向的支援／評鑑軸。</text></feedback></answer>
+    <answer fraction="0"><text>縱軸：手動 vs 自動化；橫軸：快 vs 慢</text><feedback><text>自動化與速度是結果，而非定義象限的座標軸。</text></feedback></answer>
+    <answer fraction="0"><text>縱軸：單元 vs 系統；橫軸：黑箱 vs 白箱</text><feedback><text>那些是測試層級／技術，不是象限的兩個座標軸。</text></feedback></answer>
+    <answer fraction="0"><text>縱軸：功能性 vs 非功能性；橫軸：便宜 vs 昂貴</text><feedback><text>成本與功能／非功能之分並非定義象限的座標軸。</text></feedback></answer>
+    <generalfeedback><text>象限使用兩個座標軸：縱軸區分面向業務的測試（上方）與面向技術的測試（下方）；橫軸區分支援團隊／引導開發的測試（左側）與評鑑產品的測試（右側）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>面向業務的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「<em>面向業務</em>」的測試（座標格上半部）是以下列何種語彙表達？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>業務／客戶能理解的語彙——以領域用語與行為描述</text><feedback><text>正確——面向業務的測試以業務能理解的語言表達。</text></feedback></answer>
+    <answer fraction="0"><text>只有開發者能理解的語彙——以程式碼、類別與 API 描述</text><feedback><text>那描述的是面向技術的測試，位於下半部。</text></feedback></answer>
+    <answer fraction="0"><text>只描述硬體效能上限</text><feedback><text>那是面向技術評鑑的一種，不是「面向業務」的意義。</text></feedback></answer>
+    <answer fraction="0"><text>永遠無法自動化</text><feedback><text>面向業務並不代表手動；許多面向業務的測試都可自動化。</text></feedback></answer>
+    <generalfeedback><text>面向業務的測試以業務／客戶能理解的語彙表達——以領域語言描述功能與行為。它們位於座標格的上半部（Q2 與 Q3）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>面向技術的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>「<em>面向技術</em>」的測試（座標格下半部）是以下列何種語彙表達？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>程式設計師／技術人員使用的語彙——以程式碼、元件、協定與資源上限等技術用語描述</text><feedback><text>正確——面向技術的測試以技術語言表達。</text></feedback></answer>
+    <answer fraction="0"><text>業務關係人使用的語彙——以領域功能與工作流程描述</text><feedback><text>那描述的是面向業務的測試，位於上半部。</text></feedback></answer>
+    <answer fraction="0"><text>總是由終端使用者手動執行</text><feedback><text>面向技術的測試通常是自動化或以工具驅動，而非使用者手動執行。</text></feedback></answer>
+    <answer fraction="0"><text>只存在於使用者介面</text><feedback><text>面向技術的測試針對程式碼、元件與基礎設施，不只是 UI。</text></feedback></answer>
+    <generalfeedback><text>面向技術的測試以程式設計師與技術人員使用的技術語彙表達——單元、元件、API、協定與資源行為。它們位於座標格的下半部（Q1 與 Q4）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>支援團隊的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>位於左側、<em>支援團隊</em>（引導開發）的測試，最佳描述為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>引導開發的測試——在程式碼之前或同時撰寫，用以定義要建構什麼</text><feedback><text>正確——支援團隊的測試在開發進行時引導開發。</text></feedback></answer>
+    <answer fraction="0"><text>在產品建構完成後評估成品、找出弱點的測試</text><feedback><text>那描述的是位於右側、評鑑產品的測試。</text></feedback></answer>
+    <answer fraction="0"><text>只在發布後、由終端使用者撰寫的測試</text><feedback><text>支援類測試在程式碼之前／同時撰寫，而非發布後。</text></feedback></answer>
+    <answer fraction="0"><text>永遠是手動的測試</text><feedback><text>支援團隊的測試大量自動化（尤其 Q1）；其定義並非「手動」。</text></feedback></answer>
+    <generalfeedback><text>支援團隊的測試（左欄，Q1 與 Q2）引導開發：在程式碼之前或同時撰寫，用以表達意圖並在建構過程中提供快速回饋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>評鑑產品的意義</text></name>
+    <questiontext format="html"><text><![CDATA[<p>位於右側、<em>評鑑產品</em>的測試，最佳描述為：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>評估已建構成品、從使用者或某項品質屬性的角度找出不足的測試</text><feedback><text>正確——評鑑類測試在產品存在後對其進行評估。</text></feedback></answer>
+    <answer fraction="0"><text>在程式碼之前撰寫、用以定義預期行為的測試</text><feedback><text>那描述的是位於左側、支援團隊的測試。</text></feedback></answer>
+    <answer fraction="0"><text>只有編譯器才會執行的測試</text><feedback><text>評鑑類測試由人與工具執行，而非編譯器。</text></feedback></answer>
+    <answer fraction="0"><text>必須永遠自動化的測試</text><feedback><text>評鑑包含大量手動工作（Q3）以及以工具為主的工作（Q4）。</text></feedback></answer>
+    <generalfeedback><text>評鑑產品的測試（右欄，Q3 與 Q4）評估已建構的產品、尋找不足——或從使用者角度（Q3），或針對技術品質屬性（Q4）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Q1 包含什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一類測試屬於 <strong>Q1</strong>（面向技術、支援團隊）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>單元測試、元件測試，以及 API／整合測試（TDD）</text><feedback><text>正確——Q1 包含引導程式碼的開發者測試。</text></feedback></answer>
+    <answer fraction="0"><text>探索式測試與可用性測試</text><feedback><text>那些是面向業務的評鑑，屬於 Q3。</text></feedback></answer>
+    <answer fraction="0"><text>效能、負載與安全性測試</text><feedback><text>那些是面向技術的評鑑，屬於 Q4。</text></feedback></answer>
+    <answer fraction="0"><text>功能故事測試與原型</text><feedback><text>那些是面向業務的支援，屬於 Q2。</text></feedback></answer>
+    <generalfeedback><text>Q1 面向技術且支援團隊：作為測試驅動開發一部分而撰寫的單元測試、元件測試與 API／整合測試。通常完全自動化。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Q2 包含什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一類測試屬於 <strong>Q2</strong>（面向業務、支援團隊）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>功能／故事測試、範例、原型、模擬，以及引導開發的驗收測試</text><feedback><text>正確——Q2 包含定義要建構什麼的面向業務測試。</text></feedback></answer>
+    <answer fraction="0"><text>單元與元件測試</text><feedback><text>那些是面向技術的支援，屬於 Q1。</text></feedback></answer>
+    <answer fraction="0"><text>對成品進行的探索式測試與使用者驗收測試</text><feedback><text>那些是面向業務的評鑑，屬於 Q3。</text></feedback></answer>
+    <answer fraction="0"><text>負載與壓力測試</text><feedback><text>那些是面向技術的評鑑，屬於 Q4。</text></feedback></answer>
+    <generalfeedback><text>Q2 面向業務且支援團隊：功能／故事測試、範例、原型、模擬，以及引導開發的驗收測試。它混合自動化與部分手動工作。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Q3 包含什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一類測試屬於 <strong>Q3</strong>（面向業務、評鑑產品）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>探索式測試、可用性測試、使用者驗收測試，以及 alpha／beta</text><feedback><text>正確——Q3 包含對成品的面向業務評鑑。</text></feedback></answer>
+    <answer fraction="0"><text>單元測試與元件測試</text><feedback><text>那些是面向技術的支援，屬於 Q1。</text></feedback></answer>
+    <answer fraction="0"><text>效能、負載與安全性測試</text><feedback><text>那些是面向技術的評鑑，屬於 Q4。</text></feedback></answer>
+    <answer fraction="0"><text>引導開發的原型與故事測試</text><feedback><text>那些是面向業務的支援，屬於 Q2。</text></feedback></answer>
+    <generalfeedback><text>Q3 面向業務且評鑑產品：探索式測試、可用性測試、使用者驗收測試，以及 alpha／beta。它主要為手動，仰賴人的判斷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>Q4 包含什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一類測試屬於 <strong>Q4</strong>（面向技術、評鑑產品）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>效能、負載、壓力、安全性，以及其他非功能性（「-ility」）測試</text><feedback><text>正確——Q4 包含以工具為主的技術評鑑。</text></feedback></answer>
+    <answer fraction="0"><text>撰寫於編碼期間的單元與 API 測試</text><feedback><text>那些是面向技術的支援，屬於 Q1。</text></feedback></answer>
+    <answer fraction="0"><text>探索式與可用性測試</text><feedback><text>那些是面向業務的評鑑，屬於 Q3。</text></feedback></answer>
+    <answer fraction="0"><text>引導開發的故事測試與範例</text><feedback><text>那些是面向業務的支援，屬於 Q2。</text></feedback></answer>
+    <generalfeedback><text>Q4 面向技術且評鑑產品：效能、負載、壓力、安全性，以及其他非功能性「-ility」測試。它以工具為主，需要專門工具。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>定位單元測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>作為 TDD 一部分撰寫的<em>單元測試</em>屬於哪一個象限？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1（面向技術、支援團隊）</text><feedback><text>正確——單元測試屬技術性且引導開發，因此為 Q1。</text></feedback></answer>
+    <answer fraction="0"><text>Q2（面向業務、支援團隊）</text><feedback><text>單元測試面向技術，並非面向業務。</text></feedback></answer>
+    <answer fraction="0"><text>Q3（面向業務、評鑑產品）</text><feedback><text>單元測試支援開發；它們不從使用者角度評鑑成品。</text></feedback></answer>
+    <answer fraction="0"><text>Q4（面向技術、評鑑產品）</text><feedback><text>單元測試引導程式碼（支援），並非把它當成非功能屬性來評鑑。</text></feedback></answer>
+    <generalfeedback><text>單元測試面向技術（以程式碼語彙撰寫）且支援團隊（與程式碼一同撰寫以引導開發），因此落在 Q1。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>定位探索式測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>探索式測試</em>屬於哪一個象限？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q3（面向業務、評鑑產品）</text><feedback><text>正確——探索式測試從使用者角度評鑑成品。</text></feedback></answer>
+    <answer fraction="0"><text>Q1（面向技術、支援團隊）</text><feedback><text>探索式測試面向業務且評鑑產品；它不引導程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>Q2（面向業務、支援團隊）</text><feedback><text>探索式測試評鑑已建構成品；它不引導開發。</text></feedback></answer>
+    <answer fraction="0"><text>Q4（面向技術、評鑑產品）</text><feedback><text>探索式測試面向業務（使用者角度），並非面向技術。</text></feedback></answer>
+    <generalfeedback><text>探索式測試面向業務（從使用者角度評估行為）且評鑑已建構的產品，因此落在 Q3。它主要是手動、仰賴人判斷的活動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>定位效能測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p><em>效能測試</em>屬於哪一個象限？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q4（面向技術、評鑑產品）</text><feedback><text>正確——效能是對成品的技術性評鑑。</text></feedback></answer>
+    <answer fraction="0"><text>Q1（面向技術、支援團隊）</text><feedback><text>效能測試評鑑成品；它不引導開發。</text></feedback></answer>
+    <answer fraction="0"><text>Q2（面向業務、支援團隊）</text><feedback><text>效能面向技術且屬評鑑，並非面向業務的支援。</text></feedback></answer>
+    <answer fraction="0"><text>Q3（面向業務、評鑑產品）</text><feedback><text>效能面向技術，並非面向業務。</text></feedback></answer>
+    <generalfeedback><text>效能測試面向技術（一項技術品質屬性）且評鑑已建構的產品，因此落在 Q4。它以工具為主。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>定位功能故事測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>表達驗收準則以引導開發的<em>功能（故事）測試</em>屬於哪一個象限？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q2（面向業務、支援團隊）</text><feedback><text>正確——故事測試面向業務且引導開發，因此為 Q2。</text></feedback></answer>
+    <answer fraction="0"><text>Q1（面向技術、支援團隊）</text><feedback><text>故事測試面向業務，並非面向技術。</text></feedback></answer>
+    <answer fraction="0"><text>Q3（面向業務、評鑑產品）</text><feedback><text>這些引導開發（支援）；它們不是對成品的評鑑。</text></feedback></answer>
+    <answer fraction="0"><text>Q4（面向技術、評鑑產品）</text><feedback><text>故事測試是面向業務的支援，並非技術性評鑑。</text></feedback></answer>
+    <generalfeedback><text>功能／故事測試以業務用語表達驗收準則、並為引導開發而撰寫，因此屬於面向業務的支援——Q2。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個象限面向技術且支援團隊</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一個象限的定義是<strong>面向技術</strong>且<strong>支援團隊</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1</text><feedback><text>正確——Q1 面向技術且支援團隊。</text></feedback></answer>
+    <answer fraction="0"><text>Q2</text><feedback><text>Q2 支援團隊，但面向業務。</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>Q3 面向業務且評鑑產品。</text></feedback></answer>
+    <answer fraction="0"><text>Q4</text><feedback><text>Q4 面向技術，但評鑑產品。</text></feedback></answer>
+    <generalfeedback><text>Q1 位於面向技術（下方）與支援團隊（左側）的交會處：單元、元件與 API 測試。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>縱軸是業務 vs 技術</text></name>
+    <questiontext format="html"><text><![CDATA[<p>在敏捷測試象限中，<em>縱</em>軸區分面向業務的測試與面向技術的測試。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——縱軸＝面向業務（上方）vs 面向技術（下方）。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>縱軸正是面向業務 vs 面向技術；橫軸才是支援 vs 評鑑。</text></feedback></answer>
+    <generalfeedback><text>縱軸：面向業務（上方）vs 面向技術（下方）。橫軸：支援團隊（左側）vs 評鑑產品（右側）。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Agile Testing Quadrants/medium</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>從座標軸分類：業務＋支援</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試被描述為<strong>面向業務</strong>且<strong>支援團隊</strong>（引導開發）。它屬於哪一個象限？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q2</text><feedback><text>正確——面向業務＋支援團隊＝Q2。</text></feedback></answer>
+    <answer fraction="0"><text>Q1</text><feedback><text>Q1 支援團隊，但面向技術，並非面向業務。</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>Q3 面向業務，但評鑑產品而非支援團隊。</text></feedback></answer>
+    <answer fraction="0"><text>Q4</text><feedback><text>Q4 面向技術且評鑑產品。</text></feedback></answer>
+    <generalfeedback><text>讀取兩個座標軸值：面向業務（上方）與支援團隊（左側）交會於 Q2——功能／故事測試、範例、原型。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從座標軸分類：技術＋評鑑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試被描述為<strong>面向技術</strong>且<strong>評鑑產品</strong>。它屬於哪一個象限？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q4</text><feedback><text>正確——面向技術＋評鑑產品＝Q4。</text></feedback></answer>
+    <answer fraction="0"><text>Q1</text><feedback><text>Q1 面向技術，但支援團隊，並非評鑑。</text></feedback></answer>
+    <answer fraction="0"><text>Q2</text><feedback><text>Q2 面向業務且支援團隊。</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>Q3 評鑑產品，但面向業務。</text></feedback></answer>
+    <generalfeedback><text>面向技術（下方）與評鑑產品（右側）交會於 Q4——效能、負載、壓力、安全性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從座標軸分類：技術＋支援</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試被描述為<strong>面向技術</strong>且<strong>支援團隊</strong>。它屬於哪一個象限？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1</text><feedback><text>正確——面向技術＋支援團隊＝Q1。</text></feedback></answer>
+    <answer fraction="0"><text>Q2</text><feedback><text>Q2 支援團隊，但面向業務。</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>Q3 面向業務且評鑑產品。</text></feedback></answer>
+    <answer fraction="0"><text>Q4</text><feedback><text>Q4 面向技術，但評鑑產品而非支援團隊。</text></feedback></answer>
+    <generalfeedback><text>面向技術（下方）與支援團隊（左側）交會於 Q1——單元、元件與 API／整合測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>從座標軸分類：業務＋評鑑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某測試被描述為<strong>面向業務</strong>且<strong>評鑑產品</strong>。它屬於哪一個象限？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q3</text><feedback><text>正確——面向業務＋評鑑產品＝Q3。</text></feedback></answer>
+    <answer fraction="0"><text>Q1</text><feedback><text>Q1 面向技術且支援團隊。</text></feedback></answer>
+    <answer fraction="0"><text>Q2</text><feedback><text>Q2 面向業務，但支援團隊而非評鑑。</text></feedback></answer>
+    <answer fraction="0"><text>Q4</text><feedback><text>Q4 評鑑產品，但面向技術。</text></feedback></answer>
+    <generalfeedback><text>面向業務（上方）與評鑑產品（右側）交會於 Q3——探索式、可用性、UAT、alpha／beta。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個象限通常完全自動化</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一個象限<strong>通常完全自動化</strong>？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1</text><feedback><text>正確——Q1（單元／元件／API 測試）通常完全自動化。</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>Q3（探索式、可用性、UAT）主要為手動。</text></feedback></answer>
+    <answer fraction="0"><text>Q4</text><feedback><text>Q4 以工具為主，而非單元測試意義下的「完全自動化」；完全自動化的象限是 Q1。</text></feedback></answer>
+    <answer fraction="0"><text>無——沒有任何象限自動化</text><feedback><text>Q1 正是特徵性地完全自動化的象限。</text></feedback></answer>
+    <generalfeedback><text>Q1（面向技術的支援）是特徵性地完全自動化的象限——快速、可重複、持續執行的開發者測試。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個象限主要為手動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一個象限<strong>主要為手動</strong>、仰賴人的判斷？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q3</text><feedback><text>正確——Q3（探索式、可用性、UAT）主要為手動。</text></feedback></answer>
+    <answer fraction="0"><text>Q1</text><feedback><text>Q1 特徵性地完全自動化。</text></feedback></answer>
+    <answer fraction="0"><text>Q4</text><feedback><text>Q4 以工具為主，而非主要仰賴人的手動判斷。</text></feedback></answer>
+    <answer fraction="0"><text>Q2</text><feedback><text>Q2 屬混合（自動化加上部分手動），但特徵性地手動的象限是 Q3。</text></feedback></answer>
+    <generalfeedback><text>Q3（面向業務的評鑑，如探索式與可用性測試）主要為手動——它仰賴工具無法取代的人為觀察與判斷。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個象限以工具為主</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一個象限特徵性地<strong>以工具為主</strong>（需要專門工具）？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q4</text><feedback><text>正確——Q4（效能、負載、安全性）需要專門工具。</text></feedback></answer>
+    <answer fraction="0"><text>Q2</text><feedback><text>Q2 屬自動化／手動混合；以工具為主的象限是 Q4。</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>Q3 主要為手動，而非以工具為主。</text></feedback></answer>
+    <answer fraction="0"><text>Q1</text><feedback><text>Q1 是完全自動化的開發者測試；需要專門工具的象限是 Q4。</text></feedback></answer>
+    <generalfeedback><text>Q4（面向技術的評鑑，如效能與安全性）特徵性地以工具為主：它仰賴專門工具產生負載、量測資源或探測安全性。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪個象限混合自動化與手動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一個象限特徵性地<strong>混合</strong>自動化與部分手動工作？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q2</text><feedback><text>正確——Q2 混合自動化的故事測試與部分手動工作（如檢視原型）。</text></feedback></answer>
+    <answer fraction="0"><text>Q1</text><feedback><text>Q1 特徵性地完全自動化。</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>Q3 主要為手動。</text></feedback></answer>
+    <answer fraction="0"><text>Q4</text><feedback><text>Q4 特徵性地以工具為主。</text></feedback></answer>
+    <generalfeedback><text>Q2 混合自動化與手動工作：功能／故事測試常自動化，而原型與模擬常涉及手動檢視與討論。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>支援團隊的測試做什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>關於<em>支援團隊</em>（左欄）的測試，哪一項敘述正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們在程式碼之前或同時撰寫，以引導開發並提供快速回饋</text><feedback><text>正確——支援類測試引導產品的建構。</text></feedback></answer>
+    <answer fraction="0"><text>它們只能在產品交付給真實使用者之後執行</text><feedback><text>那描述的是評鑑（尤其是現場）測試，不是支援團隊的測試。</text></feedback></answer>
+    <answer fraction="0"><text>它們只量測非功能屬性，例如效能</text><feedback><text>非功能評鑑屬 Q4；支援類測試引導功能開發。</text></feedback></answer>
+    <answer fraction="0"><text>它們永遠面向業務</text><feedback><text>支援跨越 Q1（面向技術）與 Q2（面向業務）。</text></feedback></answer>
+    <generalfeedback><text>支援團隊的測試（Q1 與 Q2）引導開發：在程式碼之前／同時撰寫，定義預期行為並在建構過程中提供快速回饋。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>評鑑產品的測試做什麼</text></name>
+    <questiontext format="html"><text><![CDATA[<p>關於<em>評鑑產品</em>（右欄）的測試，哪一項敘述正確？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它們評估已經建構完成的產品，以揭露不足</text><feedback><text>正確——評鑑類測試評估已建構的產品。</text></feedback></answer>
+    <answer fraction="0"><text>它們在任何程式碼存在之前撰寫，以定義設計</text><feedback><text>那描述的是位於左側、支援團隊的測試。</text></feedback></answer>
+    <answer fraction="0"><text>它們永遠面向技術</text><feedback><text>評鑑跨越 Q3（面向業務）與 Q4（面向技術）。</text></feedback></answer>
+    <answer fraction="0"><text>它們永遠只是單元測試</text><feedback><text>單元測試屬 Q1 支援；評鑑包含探索式、可用性、效能與安全性。</text></feedback></answer>
+    <generalfeedback><text>評鑑產品的測試（Q3 與 Q4）在產品存在後評估它、尋找不足——或從使用者角度（Q3），或針對技術品質屬性（Q4）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>編號代表執行順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>象限編號意味著你必須依 Q1 &#8594; Q2 &#8594; Q3 &#8594; Q4 的順序執行測試。</p>]]></text></questiontext>
+    <answer fraction="0"><text>true</text><feedback><text>錯誤——編號只是標籤；它們不規定順序。</text></feedback></answer>
+    <answer fraction="100"><text>false</text><feedback><text>正確——編號是標籤，不是順序。</text></feedback></answer>
+    <generalfeedback><text>象限編號只是四個區域的標籤。它們不隱含任何執行順序或優先次序——團隊會依情況同時跨象限工作。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>編號是標籤而非順序</text></name>
+    <questiontext format="html"><text><![CDATA[<p>象限編號（Q1&#8211;Q4）只是四個區域的標籤，並不描述順序或優先次序。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——編號是標籤，不是順序或優先次序。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>編號不編碼順序或優先次序；它們只標示四個區域。</text></feedback></answer>
+    <generalfeedback><text>Q1&#8211;Q4 是標示兩座標軸四個交會處的標籤。一個常見誤解是把編號當成工作流程；並非如此。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪兩個象限支援團隊</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一對象限構成<strong>支援團隊</strong>（左）欄？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1 與 Q2</text><feedback><text>正確——Q1 與 Q2 是左（支援）欄。</text></feedback></answer>
+    <answer fraction="0"><text>Q3 與 Q4</text><feedback><text>Q3 與 Q4 構成評鑑產品（右）欄。</text></feedback></answer>
+    <answer fraction="0"><text>Q1 與 Q4</text><feedback><text>Q1 與 Q4 是面向技術（下）列，而非支援欄。</text></feedback></answer>
+    <answer fraction="0"><text>Q2 與 Q3</text><feedback><text>Q2 與 Q3 是面向業務（上）列，而非支援欄。</text></feedback></answer>
+    <generalfeedback><text>左欄（支援團隊／引導開發）是 Q1（面向技術）與 Q2（面向業務）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>哪兩個象限面向業務</text></name>
+    <questiontext format="html"><text><![CDATA[<p>哪一對象限構成<strong>面向業務</strong>（上）列？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q2 與 Q3</text><feedback><text>正確——Q2 與 Q3 是面向業務（上）列。</text></feedback></answer>
+    <answer fraction="0"><text>Q1 與 Q4</text><feedback><text>Q1 與 Q4 是面向技術（下）列。</text></feedback></answer>
+    <answer fraction="0"><text>Q1 與 Q2</text><feedback><text>Q1 與 Q2 是支援團隊（左）欄，而非面向業務列。</text></feedback></answer>
+    <answer fraction="0"><text>Q3 與 Q4</text><feedback><text>Q3 與 Q4 是評鑑產品（右）欄，而非面向業務列。</text></feedback></answer>
+    <generalfeedback><text>上列（面向業務）是 Q2（支援團隊）與 Q3（評鑑產品）。下列（面向技術）是 Q1 與 Q4。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類所述測試：同時大量使用者</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某工具模擬數千名同時使用者，觀察回應時間是否維持在可接受範圍。依兩個座標軸（面向技術、評鑑產品）判斷，這屬於哪一個象限？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q4</text><feedback><text>正確——對成品的技術性評鑑屬 Q4。</text></feedback></answer>
+    <answer fraction="0"><text>Q1</text><feedback><text>這評鑑已建構成品；它不引導開發，故非 Q1。</text></feedback></answer>
+    <answer fraction="0"><text>Q2</text><feedback><text>這面向技術，而非面向業務，且屬評鑑而非支援。</text></feedback></answer>
+    <answer fraction="0"><text>Q3</text><feedback><text>這面向技術（資源行為），而非面向業務的使用者評鑑。</text></feedback></answer>
+    <generalfeedback><text>負載測試面向技術（涉及資源／回應行為）且評鑑已建構的產品，故落在 Q4——並以工具為主。</text></generalfeedback>
+  </question>
+  <question type="category">
+    <category><text>$course$/top/Agile Testing Quadrants/hard</text></category>
+  </question>
+  <question type="multichoice">
+    <name><text>推理到象限：安全性測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依兩個座標軸推理，<em>安全性測試</em>（滲透測試、檢查存取控制）屬於何處？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q4——它面向技術且評鑑已建構的產品</text><feedback><text>正確——安全性是針對成品評估的技術品質屬性。</text></feedback></answer>
+    <answer fraction="0"><text>Q1——它面向技術且支援團隊</text><feedback><text>安全性測試評鑑產品；它不像單元測試那樣引導開發。</text></feedback></answer>
+    <answer fraction="0"><text>Q2——它面向業務且支援團隊</text><feedback><text>安全性面向技術而非面向業務，且屬評鑑。</text></feedback></answer>
+    <answer fraction="0"><text>Q3——它面向業務且評鑑產品</text><feedback><text>安全性以技術用語描述，故面向技術而非面向業務。</text></feedback></answer>
+    <generalfeedback><text>安全性是一項技術（非功能）品質屬性，故面向技術；且它評估已建構的產品，故屬評鑑。面向技術＋評鑑＝Q4，以工具為主。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>推理到象限：可用性測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依兩個座標軸推理，<em>可用性測試</em>（觀察真實使用者嘗試完成任務）屬於何處？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q3——它面向業務且評鑑已建構的產品</text><feedback><text>正確——可用性從使用者角度對成品進行判斷。</text></feedback></answer>
+    <answer fraction="0"><text>Q4——它面向技術且評鑑產品</text><feedback><text>可用性以使用者用語（面向業務）判斷，而非技術資源用語。</text></feedback></answer>
+    <answer fraction="0"><text>Q2——它面向業務且支援團隊</text><feedback><text>可用性測試評鑑已建構的產品；它不在編碼前引導開發。</text></feedback></answer>
+    <answer fraction="0"><text>Q1——它面向技術且支援團隊</text><feedback><text>可用性面向業務且屬評鑑，並非開發者支援測試。</text></feedback></answer>
+    <generalfeedback><text>可用性從使用者角度評估（面向業務），且在產品存在後評估它（評鑑）。面向業務＋評鑑＝Q3，主要為手動。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>推理到象限：API 測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依兩個座標軸推理，開發期間撰寫的<em>自動化 API／整合測試</em>屬於何處？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1——它面向技術且支援團隊</text><feedback><text>正確——API 測試屬技術性且引導開發，因此為 Q1。</text></feedback></answer>
+    <answer fraction="0"><text>Q4——它面向技術且評鑑產品</text><feedback><text>它於開發期間撰寫以引導程式碼，屬支援團隊而非評鑑成品。</text></feedback></answer>
+    <answer fraction="0"><text>Q2——它面向業務且支援團隊</text><feedback><text>API 測試以技術用語描述，故面向技術而非面向業務。</text></feedback></answer>
+    <answer fraction="0"><text>Q3——它面向業務且評鑑產品</text><feedback><text>API 測試面向技術且支援開發，並非面向業務的評鑑。</text></feedback></answer>
+    <generalfeedback><text>API／整合測試以技術用語表達（面向技術），且與程式碼一同撰寫以引導開發（支援）。面向技術＋支援＝Q1，自動化。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>推理到象限：原型／模擬</text></name>
+    <questiontext format="html"><text><![CDATA[<p>依兩個座標軸推理，在編碼前建立<em>原型或模擬</em>以與業務一同探索某功能屬於何處？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q2——它面向業務且支援團隊</text><feedback><text>正確——原型是引導開發的面向業務工具。</text></feedback></answer>
+    <answer fraction="0"><text>Q3——它面向業務且評鑑產品</text><feedback><text>原型在產品存在前引導開發；它不評鑑已建構的產品。</text></feedback></answer>
+    <answer fraction="0"><text>Q1——它面向技術且支援團隊</text><feedback><text>原型以業務用語構思，故面向業務而非面向技術。</text></feedback></answer>
+    <answer fraction="0"><text>Q4——它面向技術且評鑑產品</text><feedback><text>原型是面向業務的支援，並非技術性評鑑。</text></feedback></answer>
+    <generalfeedback><text>原型與模擬面向業務（以領域用語探索）且支援團隊（在編碼前引導要建構什麼）。面向業務＋支援＝Q2。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>同一功能：支援 vs 評鑑</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一個面向業務的驗收範例在編碼<em>之前</em>撰寫以定義某功能；稍後，測試者在執行中的產品裡自由探索同一功能。這兩者分別屬於：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>先 Q2 再 Q3——前者引導開發（支援），後者評鑑已建構的產品</text><feedback><text>正確——同一面向業務的功能，但建構前支援 vs 建構後評鑑。</text></feedback></answer>
+    <answer fraction="0"><text>先 Q3 再 Q2——先探索、後驗收範例</text><feedback><text>這順序相反：事前的範例是支援（Q2）；稍後的探索是評鑑（Q3）。</text></feedback></answer>
+    <answer fraction="0"><text>先 Q1 再 Q4——兩者都面向技術</text><feedback><text>兩項活動都面向業務，而非面向技術。</text></feedback></answer>
+    <answer fraction="0"><text>兩者都是 Q2，因為它們涉及同一功能</text><feedback><text>橫軸不同：範例是支援（Q2），探索是評鑑（Q3）。</text></feedback></answer>
+    <generalfeedback><text>縱向位置（面向業務）相同，但橫軸不同。編碼前撰寫的驗收範例引導開發（Q2）；探索已完成的功能則評鑑產品（Q3）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>誤解：面向業務代表手動</text></name>
+    <questiontext format="html"><text><![CDATA[<p>有人主張「面向業務的測試依定義就是手動的」。為什麼這是錯的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>面向業務描述的是語言／對象，而非執行方式；許多 Q2 故事測試都自動化</text><feedback><text>正確——縱軸關乎對象，而非自動化。</text></feedback></answer>
+    <answer fraction="0"><text>它是對的——面向業務的測試永遠無法自動化</text><feedback><text>Q2 功能／故事測試經常自動化，故此主張為假。</text></feedback></answer>
+    <answer fraction="0"><text>因為面向業務的測試其實面向技術</text><feedback><text>它們確實面向業務；錯誤在於把它等同於「手動」。</text></feedback></answer>
+    <answer fraction="0"><text>因為只有 Q4 測試能自動化</text><feedback><text>自動化不限於 Q4；Q1 完全自動化，Q2 也常自動化。</text></feedback></answer>
+    <generalfeedback><text>「面向業務」陳述的是測試的對象／語言（縱軸），而非它如何執行。Q2（面向業務的支援）常自動化；自動化並不限於任一象限。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>誤解：Q4 最不重要</text></name>
+    <questiontext format="html"><text><![CDATA[<p>有人主張「Q4 編號最大，所以最不重要、可以略過」。正確的回應是什麼？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>編號不帶優先次序；Q4 涵蓋關鍵的非功能屬性（效能、安全性），只是以工具為主</text><feedback><text>正確——編號是標籤；Q4 不可或缺，只是以工具驅動。</text></feedback></answer>
+    <answer fraction="0"><text>正確——Q4 因編號在最後而屬選用</text><feedback><text>編號不帶優先次序；Q4 涵蓋不可或缺的品質屬性。</text></feedback></answer>
+    <answer fraction="0"><text>Q4 應永遠最先做，因為效能最重要</text><feedback><text>編號不論哪個方向都不隱含順序；Q4 不因規則而最先或最後。</text></feedback></answer>
+    <answer fraction="0"><text>Q4 不重要，因為它面向技術</text><feedback><text>面向技術並不使一個象限不重要。</text></feedback></answer>
+    <generalfeedback><text>象限編號是標籤，不是優先次序排名。Q4（效能、負載、安全性與其他「-ility」測試）評估關鍵的非功能屬性；「4」只表示它是四個區域之一。Q4 的特徵在於以工具為主。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>跨象限的自動化策略</text></name>
+    <questiontext format="html"><text><![CDATA[<p>下列哪一項將象限對應到自動化方式是正確的？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1 完全自動化；Q2 自動化加部分手動；Q3 主要手動；Q4 以工具為主</text><feedback><text>正確——這是四個象限的標準自動化樣貌。</text></feedback></answer>
+    <answer fraction="0"><text>Q1 手動；Q2 以工具為主；Q3 自動化；Q4 混合</text><feedback><text>這打亂了每個象限的自動化樣貌。</text></feedback></answer>
+    <answer fraction="0"><text>四個象限都完全自動化</text><feedback><text>Q3 主要為手動並仰賴人的判斷，故此為假。</text></feedback></answer>
+    <answer fraction="0"><text>四個象限都完全手動</text><feedback><text>Q1 完全自動化且 Q4 以工具為主，故此為假。</text></feedback></answer>
+    <generalfeedback><text>自動化適用性因象限而異：Q1 完全自動化，Q2 混合自動化與部分手動，Q3 主要手動（人的判斷），Q4 以工具為主（專門工具）。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>為何 Q3 難以完全自動化</text></name>
+    <questiontext format="html"><text><![CDATA[<p>為什麼 <strong>Q3</strong>（探索式、可用性）被描述為主要手動而非完全自動化？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>它仰賴對使用者體驗的人為觀察與判斷，而工具無法完全取代</text><feedback><text>正確——Q3 需要對使用者體驗的人為洞察。</text></feedback></answer>
+    <answer fraction="0"><text>因為面向業務的測試在技術上不可能腳本化</text><feedback><text>Q2（同樣面向業務）經常自動化，故並非不可能。</text></feedback></answer>
+    <answer fraction="0"><text>因為 Q3 測試不重要、不值得自動化</text><feedback><text>Q3 很重要；重點在於它仰賴人的判斷。</text></feedback></answer>
+    <answer fraction="0"><text>因為 Q3 在任何程式碼存在之前執行</text><feedback><text>Q3 評鑑已建構的產品，故在程式碼存在之後執行，而非之前。</text></feedback></answer>
+    <generalfeedback><text>Q3 從使用者角度評鑑已建構的產品——探索式與可用性測試仰賴對體驗的人為觀察、直覺與判斷，因此即使在高度自動化的流水線中仍以手動為主。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>推理到象限：可靠性／-ility 測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>某團隊在真實負載下長時間執行產品以量測穩定性與故障率（可靠性，或「-ility」測試）。屬於哪一個象限？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q4——面向技術的評鑑（成品的一項非功能品質屬性）</text><feedback><text>正確——可靠性是技術性「-ility」評鑑，故為 Q4。</text></feedback></answer>
+    <answer fraction="0"><text>Q1——面向技術的支援</text><feedback><text>這評鑑已建構的產品；它不在開發期間引導程式碼。</text></feedback></answer>
+    <answer fraction="0"><text>Q3——面向業務的評鑑</text><feedback><text>可靠性以技術用語量測，故面向技術而非面向業務。</text></feedback></answer>
+    <answer fraction="0"><text>Q2——面向業務的支援</text><feedback><text>可靠性是技術性評鑑，並非引導開發的面向業務工具。</text></feedback></answer>
+    <generalfeedback><text>可靠性（如效能、安全性、可擴充性與其他「-ility」屬性）是成品的技術品質，故屬面向技術的評鑑——Q4，且以工具為主。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>推理到象限：UAT／beta</text></name>
+    <questiontext format="html"><text><![CDATA[<p>真實使用者依自身需求試用完成的版本（使用者驗收測試，之後在客戶端進行 beta）。屬於哪一個象限？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q3——對成品的面向業務評鑑</text><feedback><text>正確——UAT 與 alpha／beta 是面向業務的評鑑，故為 Q3。</text></feedback></answer>
+    <answer fraction="0"><text>Q2——面向業務的支援</text><feedback><text>UAT 評估完成的產品；它不在編碼前引導開發。</text></feedback></answer>
+    <answer fraction="0"><text>Q4——面向技術的評鑑</text><feedback><text>UAT 以使用者／業務用語判斷，而非技術資源用語。</text></feedback></answer>
+    <answer fraction="0"><text>Q1——面向技術的支援</text><feedback><text>UAT 面向業務且屬評鑑，並非開發者支援測試。</text></feedback></answer>
+    <generalfeedback><text>使用者驗收測試與 alpha／beta 面向業務（使用者依自身需求判斷）且評鑑完成的產品，故落在 Q3——主要為手動。（注意：其 Q2 支援版本會是編碼前撰寫的可執行驗收範例。）</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>推理到象限：TDD 中的元件測試</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一位實踐 TDD 的開發者先寫一個失敗的<em>元件測試</em>，再寫程式碼使其通過。該測試屬於哪一個象限？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q1——面向技術的支援（在撰寫程式碼時引導它）</text><feedback><text>正確——TDD 元件測試是面向技術的支援，故為 Q1。</text></feedback></answer>
+    <answer fraction="0"><text>Q4——面向技術的評鑑</text><feedback><text>該測試引導開發；它不評鑑完成的產品。</text></feedback></answer>
+    <answer fraction="0"><text>Q2——面向業務的支援</text><feedback><text>元件測試以技術用語表達，故面向技術。</text></feedback></answer>
+    <answer fraction="0"><text>Q3——面向業務的評鑑</text><feedback><text>TDD 元件測試面向技術且支援開發，並非面向業務的評鑑。</text></feedback></answer>
+    <generalfeedback><text>TDD 元件測試面向技術（技術用語）且支援團隊（與程式碼一同撰寫以引導它）。面向技術＋支援＝Q1，完全自動化。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>在同一產品上區分 Q3 與 Q4</text></name>
+    <questiontext format="html"><text><![CDATA[<p>兩者都評鑑已建構的產品。是什麼區分 <strong>Q3</strong> 評鑑與 <strong>Q4</strong> 評鑑？</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>縱軸：Q3 面向業務（使用者角度）；Q4 面向技術（技術品質屬性）</text><feedback><text>正確——兩者都評鑑，但在面向業務 vs 面向技術上不同。</text></feedback></answer>
+    <answer fraction="0"><text>Q3 支援團隊，而 Q4 評鑑產品</text><feedback><text>Q3 與 Q4 都評鑑產品；它們的橫向位置相同。</text></feedback></answer>
+    <answer fraction="0"><text>Q3 在編碼前執行，而 Q4 在其後</text><feedback><text>兩者都是對已建構產品的評鑑；都不是編碼前的支援活動。</text></feedback></answer>
+    <answer fraction="0"><text>Q3 自動化，而 Q4 手動</text><feedback><text>傾向恰好相反：Q3 主要為手動，Q4 以工具為主。</text></feedback></answer>
+    <generalfeedback><text>Q3 與 Q4 共享橫向位置（評鑑產品），差別在縱軸：Q3 從業務／使用者角度評鑑（探索式、可用性），Q4 評鑑技術品質屬性（效能、安全性）。</text></generalfeedback>
+  </question>
+  <question type="truefalse">
+    <name><text>類型依兩軸對應，而非依編號</text></name>
+    <questiontext format="html"><text><![CDATA[<p>一種測試類型依其<em>兩個座標軸位置</em>（面向業務／技術，以及支援／評鑑）被放入象限，而非依象限編號所隱含的任何順序。</p>]]></text></questiontext>
+    <answer fraction="100"><text>true</text><feedback><text>正確——定位依兩個座標軸；編號不帶順序。</text></feedback></answer>
+    <answer fraction="0"><text>false</text><feedback><text>定位由兩個座標軸值決定；編號只是標籤。</text></feedback></answer>
+    <generalfeedback><text>每種測試類型純粹依其兩個座標軸位置對應到象限——它是面向業務或面向技術，以及它支援團隊或評鑑產品。象限編號是標籤，不隱含順序或優先次序。</text></generalfeedback>
+  </question>
+  <question type="multichoice">
+    <name><text>分類壓力測試並說明理由</text></name>
+    <questiontext format="html"><text><![CDATA[<p>壓力測試把系統推過正常上限，以觀察它如何故障與復原。用兩個座標軸判斷，正確的定位與理由是：</p>]]></text></questiontext>
+    <single>true</single>
+    <answer fraction="100"><text>Q4，因為它面向技術（資源／故障行為）且評鑑已建構的產品</text><feedback><text>正確——對成品的技術性評鑑屬 Q4，以工具為主。</text></feedback></answer>
+    <answer fraction="0"><text>Q1，因為它面向技術，因此支援團隊</text><feedback><text>面向技術並不使它成為支援；壓力測試評鑑已建構的產品。</text></feedback></answer>
+    <answer fraction="0"><text>Q3，因為故障影響使用者，使它面向業務</text><feedback><text>壓力測試以技術／資源用語表達，故面向技術（Q4），而非面向業務。</text></feedback></answer>
+    <answer fraction="0"><text>Q2，因為它在開發之前規劃</text><feedback><text>壓力測試評鑑已建構的產品；它不是編碼前的面向業務支援。</text></feedback></answer>
+    <generalfeedback><text>壓力測試涉及技術性的資源／故障行為（面向技術）且評估已建構的產品（評鑑）。面向技術＋評鑑＝Q4，以工具為主。注意必須讀取兩個座標軸：僅面向技術並不決定支援或評鑑。</text></generalfeedback>
+  </question>
+</quiz>

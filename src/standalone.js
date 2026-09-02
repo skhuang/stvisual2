@@ -46008,6 +46008,2546 @@ The lattice panel draws the subsumption order \u2014 ACoC \u2192 TWC \u2192 PWC 
 
   // src/data/quizRendered.js
   var QUIZ_RENDERED = {
+    "agile-quadrants": {
+      "en": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "The two axes of the quadrants",
+            "text": "<p>The Agile Testing Quadrants (Marick; Crispin &amp; Gregory) are organised by <strong>two</strong> axes. Which pair are they?</p>",
+            "answers": [
+              {
+                "text": "Vertical: business-facing vs technology-facing; horizontal: supporting the team vs critiquing the product",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a vertical business/technology axis and a horizontal support/critique axis."
+              },
+              {
+                "text": "Vertical: manual vs automated; horizontal: fast vs slow",
+                "fraction": 0,
+                "feedback": "Automation and speed are consequences, not the defining axes."
+              },
+              {
+                "text": "Vertical: unit vs system; horizontal: black-box vs white-box",
+                "fraction": 0,
+                "feedback": "Those are levels/techniques, not the two quadrant axes."
+              },
+              {
+                "text": "Vertical: functional vs non-functional; horizontal: cheap vs expensive",
+                "fraction": 0,
+                "feedback": "Cost and the functional split are not the axes that define the quadrants."
+              }
+            ],
+            "generalFeedback": "The quadrants use two axes: the vertical axis separates business-facing tests (top) from technology-facing tests (bottom), and the horizontal axis separates tests that support the team / guide development (left) from tests that critique the product (right).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What business-facing means",
+            "text": "<p>A <em>business-facing</em> test (top half of the grid) is one expressed in terms that:</p>",
+            "answers": [
+              {
+                "text": "The business/customer would understand \u2014 described in domain terms and behaviour",
+                "fraction": 100,
+                "feedback": "Correct \u2014 business-facing tests are framed in language the business understands."
+              },
+              {
+                "text": "Only a developer would understand \u2014 described in code, classes and APIs",
+                "fraction": 0,
+                "feedback": "That describes technology-facing tests, the bottom half."
+              },
+              {
+                "text": "Describe hardware performance limits only",
+                "fraction": 0,
+                "feedback": "That is one kind of technology-facing critique, not the meaning of business-facing."
+              },
+              {
+                "text": "Can never be automated",
+                "fraction": 0,
+                "feedback": "Business-facing does not mean manual; many business-facing tests are automated."
+              }
+            ],
+            "generalFeedback": "Business-facing tests are described in terms the business/customer understands \u2014 features and behaviour in domain language. They sit in the top half of the grid (Q2 and Q3).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What technology-facing means",
+            "text": "<p>A <em>technology-facing</em> test (bottom half of the grid) is one expressed in terms that:</p>",
+            "answers": [
+              {
+                "text": "Programmers/technologists use \u2014 described in technical terms such as code, components, protocols and resource limits",
+                "fraction": 100,
+                "feedback": "Correct \u2014 technology-facing tests are framed in technical language."
+              },
+              {
+                "text": "Business stakeholders use \u2014 described in domain features and workflows",
+                "fraction": 0,
+                "feedback": "That describes business-facing tests, the top half."
+              },
+              {
+                "text": "Are always run manually by end users",
+                "fraction": 0,
+                "feedback": "Technology-facing tests are typically automated or tool-driven, not manual user runs."
+              },
+              {
+                "text": "Only exist for the user interface",
+                "fraction": 0,
+                "feedback": "Technology-facing tests target code, components and infrastructure, not just the UI."
+              }
+            ],
+            "generalFeedback": "Technology-facing tests are described in technical terms that programmers and technologists use \u2014 units, components, APIs, protocols, and resource behaviour. They sit in the bottom half of the grid (Q1 and Q4).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What supporting the team means",
+            "text": "<p>Tests on the left, that <em>support the team</em> (guide development), are best characterised as:</p>",
+            "answers": [
+              {
+                "text": "Tests that guide development \u2014 written before or alongside the code to define what to build",
+                "fraction": 100,
+                "feedback": "Correct \u2014 supporting-the-team tests guide development as it happens."
+              },
+              {
+                "text": "Tests that evaluate the finished product to find weaknesses after it is built",
+                "fraction": 0,
+                "feedback": "That describes critiquing-the-product tests, on the right."
+              },
+              {
+                "text": "Tests written only after release, by end users",
+                "fraction": 0,
+                "feedback": "Supporting tests are written before/with the code, not after release."
+              },
+              {
+                "text": "Tests that are always manual",
+                "fraction": 0,
+                "feedback": "Support-the-team tests are heavily automated (especially Q1); they are not defined by being manual."
+              }
+            ],
+            "generalFeedback": "Supporting-the-team tests (the left column, Q1 and Q2) guide development: they are written before or with the code to express intent and give fast feedback while building.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What critiquing the product means",
+            "text": "<p>Tests on the right, that <em>critique the product</em>, are best characterised as:</p>",
+            "answers": [
+              {
+                "text": "Tests that evaluate the built product to find shortcomings, from the user's or a quality attribute's perspective",
+                "fraction": 100,
+                "feedback": "Correct \u2014 critiquing tests assess the product after it exists."
+              },
+              {
+                "text": "Tests written before the code to define the expected behaviour",
+                "fraction": 0,
+                "feedback": "That describes supporting-the-team tests, on the left."
+              },
+              {
+                "text": "Tests that only a compiler performs",
+                "fraction": 0,
+                "feedback": "Critiquing tests are performed by people and tools, not the compiler."
+              },
+              {
+                "text": "Tests that must always be automated",
+                "fraction": 0,
+                "feedback": "Critiquing includes largely manual work (Q3) as well as tool-based work (Q4)."
+              }
+            ],
+            "generalFeedback": "Critiquing-the-product tests (the right column, Q3 and Q4) evaluate the product that has been built, looking for shortcomings \u2014 either from the user's viewpoint (Q3) or against technical quality attributes (Q4).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Q1 contains",
+            "text": "<p>Which kinds of test belong in <strong>Q1</strong> (technology-facing, supporting the team)?</p>",
+            "answers": [
+              {
+                "text": "Unit tests, component tests, and API/integration tests (TDD)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Q1 holds developer tests that guide the code."
+              },
+              {
+                "text": "Exploratory testing and usability testing",
+                "fraction": 0,
+                "feedback": "Those are business-facing critiques and belong in Q3."
+              },
+              {
+                "text": "Performance, load and security testing",
+                "fraction": 0,
+                "feedback": "Those are technology-facing critiques and belong in Q4."
+              },
+              {
+                "text": "Functional story tests and prototypes",
+                "fraction": 0,
+                "feedback": "Those are business-facing supports and belong in Q2."
+              }
+            ],
+            "generalFeedback": "Q1 is technology-facing and supports the team: unit tests, component tests, and API/integration tests written as part of test-driven development. It is typically fully automated.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Q2 contains",
+            "text": "<p>Which kinds of test belong in <strong>Q2</strong> (business-facing, supporting the team)?</p>",
+            "answers": [
+              {
+                "text": "Functional/story tests, examples, prototypes, simulations, and acceptance tests that guide development",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Q2 holds business-facing tests that define what to build."
+              },
+              {
+                "text": "Unit and component tests",
+                "fraction": 0,
+                "feedback": "Those are technology-facing supports and belong in Q1."
+              },
+              {
+                "text": "Exploratory and user acceptance testing of the finished product",
+                "fraction": 0,
+                "feedback": "Those are business-facing critiques and belong in Q3."
+              },
+              {
+                "text": "Load and stress testing",
+                "fraction": 0,
+                "feedback": "Those are technology-facing critiques and belong in Q4."
+              }
+            ],
+            "generalFeedback": "Q2 is business-facing and supports the team: functional/story tests, examples, prototypes, simulations, and acceptance tests that guide development. It mixes automated and some manual work.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Q3 contains",
+            "text": "<p>Which kinds of test belong in <strong>Q3</strong> (business-facing, critiquing the product)?</p>",
+            "answers": [
+              {
+                "text": "Exploratory testing, usability testing, user acceptance testing, and alpha/beta",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Q3 holds business-facing critiques of the built product."
+              },
+              {
+                "text": "Unit tests and component tests",
+                "fraction": 0,
+                "feedback": "Those are technology-facing supports and belong in Q1."
+              },
+              {
+                "text": "Performance, load and security testing",
+                "fraction": 0,
+                "feedback": "Those are technology-facing critiques and belong in Q4."
+              },
+              {
+                "text": "Prototypes and story tests that guide development",
+                "fraction": 0,
+                "feedback": "Those are business-facing supports and belong in Q2."
+              }
+            ],
+            "generalFeedback": "Q3 is business-facing and critiques the product: exploratory testing, usability testing, user acceptance testing, and alpha/beta. It is largely manual, relying on human judgement.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What Q4 contains",
+            "text": "<p>Which kinds of test belong in <strong>Q4</strong> (technology-facing, critiquing the product)?</p>",
+            "answers": [
+              {
+                "text": 'Performance, load, stress, security and other non-functional ("-ility") tests',
+                "fraction": 100,
+                "feedback": "Correct \u2014 Q4 holds tool-based technical critiques."
+              },
+              {
+                "text": "Unit and API tests written during coding",
+                "fraction": 0,
+                "feedback": "Those are technology-facing supports and belong in Q1."
+              },
+              {
+                "text": "Exploratory and usability testing",
+                "fraction": 0,
+                "feedback": "Those are business-facing critiques and belong in Q3."
+              },
+              {
+                "text": "Story tests and examples that guide development",
+                "fraction": 0,
+                "feedback": "Those are business-facing supports and belong in Q2."
+              }
+            ],
+            "generalFeedback": 'Q4 is technology-facing and critiques the product: performance, load, stress, security, and other non-functional "-ility" tests. It is tool-based, needing specialised tooling.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Place unit tests",
+            "text": "<p><em>Unit tests</em> written as part of TDD fall into which quadrant?</p>",
+            "answers": [
+              {
+                "text": "Q1 (technology-facing, supporting the team)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 unit tests are technical and guide development, so Q1."
+              },
+              {
+                "text": "Q2 (business-facing, supporting the team)",
+                "fraction": 0,
+                "feedback": "Unit tests are technology-facing, not business-facing."
+              },
+              {
+                "text": "Q3 (business-facing, critiquing the product)",
+                "fraction": 0,
+                "feedback": "Unit tests support development; they do not critique the finished product from the user's view."
+              },
+              {
+                "text": "Q4 (technology-facing, critiquing the product)",
+                "fraction": 0,
+                "feedback": "Unit tests guide the code (support), they do not critique it as a non-functional attribute."
+              }
+            ],
+            "generalFeedback": "Unit tests are technology-facing (written in code terms) and support the team (written with the code to guide development), placing them in Q1.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Place exploratory testing",
+            "text": "<p><em>Exploratory testing</em> falls into which quadrant?</p>",
+            "answers": [
+              {
+                "text": "Q3 (business-facing, critiquing the product)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 exploratory testing critiques the built product from the user's perspective."
+              },
+              {
+                "text": "Q1 (technology-facing, supporting the team)",
+                "fraction": 0,
+                "feedback": "Exploratory testing is business-facing and critiques the product; it does not guide the code."
+              },
+              {
+                "text": "Q2 (business-facing, supporting the team)",
+                "fraction": 0,
+                "feedback": "Exploratory testing critiques the built product; it does not guide development."
+              },
+              {
+                "text": "Q4 (technology-facing, critiquing the product)",
+                "fraction": 0,
+                "feedback": "Exploratory testing is business-facing (user perspective), not technology-facing."
+              }
+            ],
+            "generalFeedback": "Exploratory testing is business-facing (assessing behaviour from the user's viewpoint) and critiques the product that has been built, placing it in Q3. It is largely a manual, human-judgement activity.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Place performance testing",
+            "text": "<p><em>Performance testing</em> falls into which quadrant?</p>",
+            "answers": [
+              {
+                "text": "Q4 (technology-facing, critiquing the product)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 performance is a technical critique of the built product."
+              },
+              {
+                "text": "Q1 (technology-facing, supporting the team)",
+                "fraction": 0,
+                "feedback": "Performance testing critiques the built product; it does not guide development."
+              },
+              {
+                "text": "Q2 (business-facing, supporting the team)",
+                "fraction": 0,
+                "feedback": "Performance is technology-facing and a critique, not a business-facing support."
+              },
+              {
+                "text": "Q3 (business-facing, critiquing the product)",
+                "fraction": 0,
+                "feedback": "Performance is technology-facing, not business-facing."
+              }
+            ],
+            "generalFeedback": "Performance testing is technology-facing (a technical quality attribute) and critiques the built product, placing it in Q4. It is tool-based.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Place functional story tests",
+            "text": "<p><em>Functional (story) tests</em> that express acceptance criteria to guide development fall into which quadrant?</p>",
+            "answers": [
+              {
+                "text": "Q2 (business-facing, supporting the team)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 story tests are business-facing and guide development, so Q2."
+              },
+              {
+                "text": "Q1 (technology-facing, supporting the team)",
+                "fraction": 0,
+                "feedback": "Story tests are business-facing, not technology-facing."
+              },
+              {
+                "text": "Q3 (business-facing, critiquing the product)",
+                "fraction": 0,
+                "feedback": "These guide development (support); they are not a critique of the finished product."
+              },
+              {
+                "text": "Q4 (technology-facing, critiquing the product)",
+                "fraction": 0,
+                "feedback": "Story tests are business-facing supports, not technical critiques."
+              }
+            ],
+            "generalFeedback": "Functional/story tests express acceptance criteria in business terms and are written to guide development, making them business-facing supports \u2014 Q2.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which quadrant is tech-facing and supports the team",
+            "text": "<p>Which quadrant is defined by being <strong>technology-facing</strong> and <strong>supporting the team</strong>?</p>",
+            "answers": [
+              {
+                "text": "Q1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Q1 is technology-facing and supports the team."
+              },
+              {
+                "text": "Q2",
+                "fraction": 0,
+                "feedback": "Q2 supports the team but is business-facing."
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "Q3 is business-facing and critiques the product."
+              },
+              {
+                "text": "Q4",
+                "fraction": 0,
+                "feedback": "Q4 is technology-facing but critiques the product."
+              }
+            ],
+            "generalFeedback": "Q1 sits at the intersection of technology-facing (bottom) and supporting the team (left): unit, component and API tests.",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Vertical axis is business vs technology",
+            "text": "<p>On the Agile Testing Quadrants, the <em>vertical</em> axis distinguishes business-facing tests from technology-facing tests.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 vertical = business-facing (top) vs technology-facing (bottom)."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The vertical axis is exactly business-facing vs technology-facing; the horizontal axis is support vs critique."
+              }
+            ],
+            "generalFeedback": "Vertical axis: business-facing (top) vs technology-facing (bottom). Horizontal axis: supporting the team (left) vs critiquing the product (right)."
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "Classify from axes: business + support",
+            "text": "<p>A test is described as <strong>business-facing</strong> and <strong>supporting the team</strong> (it guides development). Which quadrant is it?</p>",
+            "answers": [
+              {
+                "text": "Q2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 business-facing + supporting the team = Q2."
+              },
+              {
+                "text": "Q1",
+                "fraction": 0,
+                "feedback": "Q1 supports the team but is technology-facing, not business-facing."
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "Q3 is business-facing but critiques the product rather than supporting the team."
+              },
+              {
+                "text": "Q4",
+                "fraction": 0,
+                "feedback": "Q4 is technology-facing and critiques the product."
+              }
+            ],
+            "generalFeedback": "Read the two axis values: business-facing (top) and supporting the team (left) intersect at Q2 \u2014 functional/story tests, examples, prototypes.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify from axes: technology + critique",
+            "text": "<p>A test is described as <strong>technology-facing</strong> and <strong>critiquing the product</strong>. Which quadrant is it?</p>",
+            "answers": [
+              {
+                "text": "Q4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 technology-facing + critiquing the product = Q4."
+              },
+              {
+                "text": "Q1",
+                "fraction": 0,
+                "feedback": "Q1 is technology-facing but supports the team, not a critique."
+              },
+              {
+                "text": "Q2",
+                "fraction": 0,
+                "feedback": "Q2 is business-facing and supports the team."
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "Q3 critiques the product but is business-facing."
+              }
+            ],
+            "generalFeedback": "Technology-facing (bottom) and critiquing the product (right) intersect at Q4 \u2014 performance, load, stress, security.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify from axes: technology + support",
+            "text": "<p>A test is described as <strong>technology-facing</strong> and <strong>supporting the team</strong>. Which quadrant is it?</p>",
+            "answers": [
+              {
+                "text": "Q1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 technology-facing + supporting the team = Q1."
+              },
+              {
+                "text": "Q2",
+                "fraction": 0,
+                "feedback": "Q2 supports the team but is business-facing."
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "Q3 is business-facing and critiques the product."
+              },
+              {
+                "text": "Q4",
+                "fraction": 0,
+                "feedback": "Q4 is technology-facing but critiques the product rather than supporting the team."
+              }
+            ],
+            "generalFeedback": "Technology-facing (bottom) and supporting the team (left) intersect at Q1 \u2014 unit, component and API/integration tests.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify from axes: business + critique",
+            "text": "<p>A test is described as <strong>business-facing</strong> and <strong>critiquing the product</strong>. Which quadrant is it?</p>",
+            "answers": [
+              {
+                "text": "Q3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 business-facing + critiquing the product = Q3."
+              },
+              {
+                "text": "Q1",
+                "fraction": 0,
+                "feedback": "Q1 is technology-facing and supports the team."
+              },
+              {
+                "text": "Q2",
+                "fraction": 0,
+                "feedback": "Q2 is business-facing but supports the team rather than critiquing."
+              },
+              {
+                "text": "Q4",
+                "fraction": 0,
+                "feedback": "Q4 critiques the product but is technology-facing."
+              }
+            ],
+            "generalFeedback": "Business-facing (top) and critiquing the product (right) intersect at Q3 \u2014 exploratory, usability, UAT, alpha/beta.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which quadrant is typically fully automated",
+            "text": "<p>Which quadrant is <strong>typically fully automated</strong>?</p>",
+            "answers": [
+              {
+                "text": "Q1",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Q1 (unit/component/API tests) is normally fully automated."
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "Q3 (exploratory, usability, UAT) is largely manual."
+              },
+              {
+                "text": "Q4",
+                "fraction": 0,
+                "feedback": 'Q4 is tool-based rather than "fully automated" in the unit-test sense; the fully automated quadrant is Q1.'
+              },
+              {
+                "text": "None \u2014 no quadrant is automated",
+                "fraction": 0,
+                "feedback": "Q1 is the quadrant that is characteristically fully automated."
+              }
+            ],
+            "generalFeedback": "Q1 (technology-facing supports) is the quadrant that is characteristically fully automated \u2014 fast, repeatable developer tests run continuously.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which quadrant is largely manual",
+            "text": "<p>Which quadrant is <strong>largely manual</strong>, relying on human judgement?</p>",
+            "answers": [
+              {
+                "text": "Q3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Q3 (exploratory, usability, UAT) is largely manual."
+              },
+              {
+                "text": "Q1",
+                "fraction": 0,
+                "feedback": "Q1 is characteristically fully automated."
+              },
+              {
+                "text": "Q4",
+                "fraction": 0,
+                "feedback": "Q4 is tool-based, not chiefly manual human judgement."
+              },
+              {
+                "text": "Q2",
+                "fraction": 0,
+                "feedback": "Q2 is mixed (automated plus some manual), but the characteristically manual quadrant is Q3."
+              }
+            ],
+            "generalFeedback": "Q3 (business-facing critiques such as exploratory and usability testing) is largely manual \u2014 it depends on human observation and judgement that tools cannot replace.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which quadrant is tool-based",
+            "text": "<p>Which quadrant is characteristically <strong>tool-based</strong> (needs specialised tooling)?</p>",
+            "answers": [
+              {
+                "text": "Q4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Q4 (performance, load, security) needs specialised tools."
+              },
+              {
+                "text": "Q2",
+                "fraction": 0,
+                "feedback": "Q2 is mixed automated/manual; the tool-based quadrant is Q4."
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "Q3 is largely manual, not tool-based."
+              },
+              {
+                "text": "Q1",
+                "fraction": 0,
+                "feedback": "Q1 is fully automated developer tests; the specialised-tooling quadrant is Q4."
+              }
+            ],
+            "generalFeedback": "Q4 (technology-facing critiques such as performance and security) is characteristically tool-based: it relies on specialised tooling to generate load, measure resources, or probe security.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which quadrant mixes automated and manual",
+            "text": "<p>Which quadrant characteristically uses a <strong>mix</strong> of automation and some manual work?</p>",
+            "answers": [
+              {
+                "text": "Q2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Q2 mixes automated story tests with some manual work (e.g. reviewing prototypes)."
+              },
+              {
+                "text": "Q1",
+                "fraction": 0,
+                "feedback": "Q1 is characteristically fully automated."
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "Q3 is largely manual."
+              },
+              {
+                "text": "Q4",
+                "fraction": 0,
+                "feedback": "Q4 is characteristically tool-based."
+              }
+            ],
+            "generalFeedback": "Q2 mixes automation and manual work: functional/story tests are commonly automated, while prototypes and simulations often involve manual review and conversation.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What supporting-the-team tests do",
+            "text": "<p>Which statement about <em>supporting-the-team</em> (left-column) tests is correct?</p>",
+            "answers": [
+              {
+                "text": "They are written before or with the code to guide development and give fast feedback",
+                "fraction": 100,
+                "feedback": "Correct \u2014 support tests guide the building of the product."
+              },
+              {
+                "text": "They can only be run after the product ships to real users",
+                "fraction": 0,
+                "feedback": "That describes critiquing (and specifically field) tests, not supporting-the-team tests."
+              },
+              {
+                "text": "They exclusively measure non-functional attributes such as performance",
+                "fraction": 0,
+                "feedback": "Non-functional critiques are Q4; support tests guide functional development."
+              },
+              {
+                "text": "They are always business-facing",
+                "fraction": 0,
+                "feedback": "Support spans Q1 (technology-facing) and Q2 (business-facing)."
+              }
+            ],
+            "generalFeedback": "Supporting-the-team tests (Q1 and Q2) guide development: written before/with the code, they define expected behaviour and give the team fast feedback while building.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "What critiquing-the-product tests do",
+            "text": "<p>Which statement about <em>critiquing-the-product</em> (right-column) tests is correct?</p>",
+            "answers": [
+              {
+                "text": "They evaluate the product that has already been built, to expose shortcomings",
+                "fraction": 100,
+                "feedback": "Correct \u2014 critiquing tests assess the built product."
+              },
+              {
+                "text": "They are written before any code exists to define the design",
+                "fraction": 0,
+                "feedback": "That describes supporting-the-team tests, on the left."
+              },
+              {
+                "text": "They are always technology-facing",
+                "fraction": 0,
+                "feedback": "Critique spans Q3 (business-facing) and Q4 (technology-facing)."
+              },
+              {
+                "text": "They are only ever unit tests",
+                "fraction": 0,
+                "feedback": "Unit tests are Q1 supports; critiques include exploratory, usability, performance and security."
+              }
+            ],
+            "generalFeedback": "Critiquing-the-product tests (Q3 and Q4) evaluate the product after it exists, looking for shortcomings \u2014 either from the user's perspective (Q3) or against technical quality attributes (Q4).",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "Numbers imply an execution order",
+            "text": "<p>The quadrant numbers mean you must execute testing in the order Q1 &#8594; Q2 &#8594; Q3 &#8594; Q4.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "Incorrect \u2014 the numbers are only labels; they do not prescribe an order."
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the numbers are labels, not a sequence."
+              }
+            ],
+            "generalFeedback": "The quadrant numbers are just labels for the four regions. They imply no execution order or priority \u2014 teams work across quadrants concurrently as the situation demands."
+          },
+          {
+            "type": "truefalse",
+            "name": "Numbers are labels not a sequence",
+            "text": "<p>The quadrant numbers (Q1&#8211;Q4) are simply labels for the four regions and do not describe a sequence or priority.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the numbers are labels, not an order or priority."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "The numbers do not encode order or priority; they only identify the four regions."
+              }
+            ],
+            "generalFeedback": "Q1&#8211;Q4 are labels identifying the four intersections of the two axes. A common misconception is that the numbering is a workflow; it is not."
+          },
+          {
+            "type": "multichoice",
+            "name": "Which two quadrants support the team",
+            "text": "<p>Which pair of quadrants make up the <strong>supporting-the-team</strong> (left) column?</p>",
+            "answers": [
+              {
+                "text": "Q1 and Q2",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Q1 and Q2 are the left (support) column."
+              },
+              {
+                "text": "Q3 and Q4",
+                "fraction": 0,
+                "feedback": "Q3 and Q4 form the critiquing-the-product (right) column."
+              },
+              {
+                "text": "Q1 and Q4",
+                "fraction": 0,
+                "feedback": "Q1 and Q4 are the technology-facing (bottom) row, not the support column."
+              },
+              {
+                "text": "Q2 and Q3",
+                "fraction": 0,
+                "feedback": "Q2 and Q3 are the business-facing (top) row, not the support column."
+              }
+            ],
+            "generalFeedback": "The left column (supporting the team / guiding development) is Q1 (technology-facing) and Q2 (business-facing).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Which two quadrants are business-facing",
+            "text": "<p>Which pair of quadrants make up the <strong>business-facing</strong> (top) row?</p>",
+            "answers": [
+              {
+                "text": "Q2 and Q3",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Q2 and Q3 are the business-facing (top) row."
+              },
+              {
+                "text": "Q1 and Q4",
+                "fraction": 0,
+                "feedback": "Q1 and Q4 are the technology-facing (bottom) row."
+              },
+              {
+                "text": "Q1 and Q2",
+                "fraction": 0,
+                "feedback": "Q1 and Q2 are the supporting-the-team (left) column, not the business-facing row."
+              },
+              {
+                "text": "Q3 and Q4",
+                "fraction": 0,
+                "feedback": "Q3 and Q4 are the critiquing-the-product (right) column, not the business-facing row."
+              }
+            ],
+            "generalFeedback": "The top row (business-facing) is Q2 (supporting the team) and Q3 (critiquing the product). The bottom row (technology-facing) is Q1 and Q4.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify a described test: many users at once",
+            "text": "<p>A tool simulates thousands of simultaneous users to see whether response times stay acceptable. Reading the two axes (technology-facing, critiquing the product), which quadrant is this?</p>",
+            "answers": [
+              {
+                "text": "Q4",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a technical critique of the built product is Q4."
+              },
+              {
+                "text": "Q1",
+                "fraction": 0,
+                "feedback": "This critiques the built product; it does not guide development, so not Q1."
+              },
+              {
+                "text": "Q2",
+                "fraction": 0,
+                "feedback": "This is technology-facing, not business-facing, and it critiques rather than supports."
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "This is technology-facing (resource behaviour), not a business-facing user critique."
+              }
+            ],
+            "generalFeedback": "Load testing is technology-facing (it concerns resource/response behaviour) and critiques the built product, so it lands in Q4 \u2014 and it is tool-based.",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "Reason to the quadrant: security testing",
+            "text": "<p>Reasoning from the two axes, where does <em>security testing</em> (penetration testing, checking access controls) belong?</p>",
+            "answers": [
+              {
+                "text": "Q4 \u2014 it is technology-facing and critiques the built product",
+                "fraction": 100,
+                "feedback": "Correct \u2014 security is a technical quality attribute assessed on the built product."
+              },
+              {
+                "text": "Q1 \u2014 it is technology-facing and supports the team",
+                "fraction": 0,
+                "feedback": "Security testing critiques the product; it does not guide development like unit tests."
+              },
+              {
+                "text": "Q2 \u2014 it is business-facing and supports the team",
+                "fraction": 0,
+                "feedback": "Security is technology-facing, not business-facing, and it is a critique."
+              },
+              {
+                "text": "Q3 \u2014 it is business-facing and critiques the product",
+                "fraction": 0,
+                "feedback": "Security is described in technical terms, so it is technology-facing, not business-facing."
+              }
+            ],
+            "generalFeedback": "Security is a technical (non-functional) quality attribute, so it is technology-facing; and it evaluates the built product, so it critiques. Technology-facing + critique = Q4, tool-based.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Reason to the quadrant: usability testing",
+            "text": "<p>Reasoning from the two axes, where does <em>usability testing</em> (watching real users try to complete tasks) belong?</p>",
+            "answers": [
+              {
+                "text": "Q3 \u2014 it is business-facing and critiques the built product",
+                "fraction": 100,
+                "feedback": "Correct \u2014 usability is judged from the user's perspective on the built product."
+              },
+              {
+                "text": "Q4 \u2014 it is technology-facing and critiques the product",
+                "fraction": 0,
+                "feedback": "Usability is judged in user terms (business-facing), not technical resource terms."
+              },
+              {
+                "text": "Q2 \u2014 it is business-facing and supports the team",
+                "fraction": 0,
+                "feedback": "Usability testing evaluates the built product; it does not guide development before coding."
+              },
+              {
+                "text": "Q1 \u2014 it is technology-facing and supports the team",
+                "fraction": 0,
+                "feedback": "Usability is business-facing and a critique, not a developer support test."
+              }
+            ],
+            "generalFeedback": "Usability is assessed from the user's viewpoint (business-facing) and evaluates the product after it exists (critique). Business-facing + critique = Q3, largely manual.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Reason to the quadrant: API test",
+            "text": "<p>Reasoning from the two axes, where does an <em>automated API/integration test</em> written during development belong?</p>",
+            "answers": [
+              {
+                "text": "Q1 \u2014 it is technology-facing and supports the team",
+                "fraction": 100,
+                "feedback": "Correct \u2014 an API test is technical and guides development, so Q1."
+              },
+              {
+                "text": "Q4 \u2014 it is technology-facing and critiques the product",
+                "fraction": 0,
+                "feedback": "Written during development to guide code, it supports the team rather than critiquing a finished product."
+              },
+              {
+                "text": "Q2 \u2014 it is business-facing and supports the team",
+                "fraction": 0,
+                "feedback": "An API test is described in technical terms, so it is technology-facing, not business-facing."
+              },
+              {
+                "text": "Q3 \u2014 it is business-facing and critiques the product",
+                "fraction": 0,
+                "feedback": "An API test is technology-facing and supports development, not a business-facing critique."
+              }
+            ],
+            "generalFeedback": "An API/integration test is expressed in technical terms (technology-facing) and is written with the code to guide development (support). Technology-facing + support = Q1, automated.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Reason to the quadrant: prototype/simulation",
+            "text": "<p>Reasoning from the two axes, where does building a <em>prototype or simulation</em> to explore a feature with the business before coding belong?</p>",
+            "answers": [
+              {
+                "text": "Q2 \u2014 it is business-facing and supports the team",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a prototype is a business-facing device that guides development."
+              },
+              {
+                "text": "Q3 \u2014 it is business-facing and critiques the product",
+                "fraction": 0,
+                "feedback": "A prototype guides development before the product exists; it does not critique a built product."
+              },
+              {
+                "text": "Q1 \u2014 it is technology-facing and supports the team",
+                "fraction": 0,
+                "feedback": "A prototype is framed in business terms, so it is business-facing, not technology-facing."
+              },
+              {
+                "text": "Q4 \u2014 it is technology-facing and critiques the product",
+                "fraction": 0,
+                "feedback": "A prototype is a business-facing support, not a technical critique."
+              }
+            ],
+            "generalFeedback": "Prototypes and simulations are business-facing (explored in domain terms) and support the team (they guide what to build before coding). Business-facing + support = Q2.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Same feature, support vs critique",
+            "text": "<p>A business-facing acceptance example is written <em>before</em> coding to define a feature; later, testers freely explore that same feature in the running product. Respectively, these belong to:</p>",
+            "answers": [
+              {
+                "text": "Q2 then Q3 \u2014 the first guides development (support), the second critiques the built product",
+                "fraction": 100,
+                "feedback": "Correct \u2014 same business-facing feature, but support before build vs critique after build."
+              },
+              {
+                "text": "Q3 then Q2 \u2014 exploration first, acceptance example second",
+                "fraction": 0,
+                "feedback": "This reverses them: the up-front example supports (Q2); the later exploration critiques (Q3)."
+              },
+              {
+                "text": "Q1 then Q4 \u2014 both are technology-facing",
+                "fraction": 0,
+                "feedback": "Both activities are business-facing, not technology-facing."
+              },
+              {
+                "text": "Both are Q2, because they concern the same feature",
+                "fraction": 0,
+                "feedback": "The horizontal axis differs: the example supports (Q2), the exploration critiques (Q3)."
+              }
+            ],
+            "generalFeedback": "The vertical position (business-facing) is the same, but the horizontal axis differs. An acceptance example written before coding guides development (Q2); exploring the finished feature critiques the product (Q3).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Misconception: business-facing means manual",
+            "text": '<p>Someone claims "business-facing tests are, by definition, manual." Why is this wrong?</p>',
+            "answers": [
+              {
+                "text": "Business-facing describes the language/audience, not the execution method; many Q2 story tests are automated",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the vertical axis is about audience, not automation."
+              },
+              {
+                "text": "It is right \u2014 business-facing tests can never be automated",
+                "fraction": 0,
+                "feedback": "Q2 functional/story tests are frequently automated, so the claim is false."
+              },
+              {
+                "text": "Because business-facing tests are actually technology-facing",
+                "fraction": 0,
+                "feedback": 'They are genuinely business-facing; the error is equating that with "manual".'
+              },
+              {
+                "text": "Because only Q4 tests can be automated",
+                "fraction": 0,
+                "feedback": "Automation is not restricted to Q4; Q1 is fully automated and Q2 is often automated."
+              }
+            ],
+            "generalFeedback": '"Business-facing" is a statement about the audience/language of a test (the vertical axis), not about how it is run. Q2 (business-facing supports) is commonly automated; automation is not confined to any one quadrant.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Misconception: Q4 is least important",
+            "text": '<p>Someone argues "Q4 has the highest number, so it is the least important and can be skipped." What is the correct response?</p>',
+            "answers": [
+              {
+                "text": "The numbers carry no priority; Q4 covers critical non-functional attributes (performance, security) and is simply tool-based",
+                "fraction": 100,
+                "feedback": "Correct \u2014 the number is a label; Q4 is essential, just tool-driven."
+              },
+              {
+                "text": "Correct \u2014 Q4 is optional because it is numbered last",
+                "fraction": 0,
+                "feedback": "The numbers imply no priority; Q4 covers essential quality attributes."
+              },
+              {
+                "text": "Q4 should always be done first because performance matters most",
+                "fraction": 0,
+                "feedback": "The numbers imply no order either way; Q4 is neither first nor last by rule."
+              },
+              {
+                "text": "Q4 is unimportant because it is technology-facing",
+                "fraction": 0,
+                "feedback": "Being technology-facing does not make a quadrant unimportant."
+              }
+            ],
+            "generalFeedback": 'Quadrant numbers are labels, not a priority ranking. Q4 (performance, load, security and other "-ility" tests) evaluates critical non-functional attributes; the "4" only means it is one of the four regions. What distinguishes Q4 is that it is tool-based.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Automation strategy across quadrants",
+            "text": "<p>Which mapping of quadrant to automation approach is correct?</p>",
+            "answers": [
+              {
+                "text": "Q1 fully automated; Q2 automated plus some manual; Q3 largely manual; Q4 tool-based",
+                "fraction": 100,
+                "feedback": "Correct \u2014 this is the standard automation profile of the four quadrants."
+              },
+              {
+                "text": "Q1 manual; Q2 tool-based; Q3 automated; Q4 mixed",
+                "fraction": 0,
+                "feedback": "This scrambles every quadrant's automation profile."
+              },
+              {
+                "text": "All four quadrants are fully automated",
+                "fraction": 0,
+                "feedback": "Q3 is largely manual and depends on human judgement, so this is false."
+              },
+              {
+                "text": "All four quadrants are entirely manual",
+                "fraction": 0,
+                "feedback": "Q1 is fully automated and Q4 is tool-based, so this is false."
+              }
+            ],
+            "generalFeedback": "Automation applicability differs by quadrant: Q1 is fully automated, Q2 mixes automation with some manual work, Q3 is largely manual (human judgement), and Q4 is tool-based (specialised tooling).",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Why Q3 resists full automation",
+            "text": "<p>Why is <strong>Q3</strong> (exploratory, usability) described as largely manual rather than fully automated?</p>",
+            "answers": [
+              {
+                "text": "It relies on human observation and judgement about the user experience, which tools cannot fully replace",
+                "fraction": 100,
+                "feedback": "Correct \u2014 Q3 needs human insight into the user's experience."
+              },
+              {
+                "text": "Because business-facing tests are technically impossible to script",
+                "fraction": 0,
+                "feedback": "Q2 (also business-facing) is frequently automated, so it is not impossibility."
+              },
+              {
+                "text": "Because Q3 tests are unimportant and not worth automating",
+                "fraction": 0,
+                "feedback": "Q3 is important; the point is that it depends on human judgement."
+              },
+              {
+                "text": "Because Q3 runs before any code exists",
+                "fraction": 0,
+                "feedback": "Q3 critiques the built product, so it runs after code exists, not before."
+              }
+            ],
+            "generalFeedback": "Q3 evaluates the built product from the user's perspective \u2014 exploratory and usability testing depend on human observation, intuition and judgement about experience, which is why it stays largely manual even in a highly automated pipeline.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Reason to the quadrant: reliability/-ility test",
+            "text": '<p>A team runs the product for a long period under realistic load to measure stability and failure rate (a reliability, or "-ility", test). Which quadrant?</p>',
+            "answers": [
+              {
+                "text": "Q4 \u2014 technology-facing critique (a non-functional quality attribute of the built product)",
+                "fraction": 100,
+                "feedback": 'Correct \u2014 reliability is a technical "-ility" critique, so Q4.'
+              },
+              {
+                "text": "Q1 \u2014 technology-facing support",
+                "fraction": 0,
+                "feedback": "This critiques the built product; it does not guide the code during development."
+              },
+              {
+                "text": "Q3 \u2014 business-facing critique",
+                "fraction": 0,
+                "feedback": "Reliability is measured in technical terms, so it is technology-facing, not business-facing."
+              },
+              {
+                "text": "Q2 \u2014 business-facing support",
+                "fraction": 0,
+                "feedback": "Reliability is a technical critique, not a business-facing device that guides development."
+              }
+            ],
+            "generalFeedback": 'Reliability (like performance, security, scalability and other "-ility" attributes) is a technical quality of the built product, so it is a technology-facing critique \u2014 Q4, and tool-based.',
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Reason to the quadrant: UAT / beta",
+            "text": "<p>Real users try the finished release against their own needs (user acceptance testing, and later a beta at customer sites). Which quadrant?</p>",
+            "answers": [
+              {
+                "text": "Q3 \u2014 business-facing critique of the built product",
+                "fraction": 100,
+                "feedback": "Correct \u2014 UAT and alpha/beta are business-facing critiques, so Q3."
+              },
+              {
+                "text": "Q2 \u2014 business-facing support",
+                "fraction": 0,
+                "feedback": "UAT evaluates the finished product; it does not guide development before coding."
+              },
+              {
+                "text": "Q4 \u2014 technology-facing critique",
+                "fraction": 0,
+                "feedback": "UAT is judged in user/business terms, not technical resource terms."
+              },
+              {
+                "text": "Q1 \u2014 technology-facing support",
+                "fraction": 0,
+                "feedback": "UAT is business-facing and a critique, not a developer support test."
+              }
+            ],
+            "generalFeedback": "User acceptance testing and alpha/beta are business-facing (users judge against their needs) and critique the finished product, placing them in Q3 \u2014 largely manual. (Note: the Q2 support version would be an executable acceptance example written before coding.)",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Reason to the quadrant: component test in TDD",
+            "text": "<p>A developer practising TDD writes a failing <em>component test</em>, then code to pass it. Which quadrant is that test in?</p>",
+            "answers": [
+              {
+                "text": "Q1 \u2014 technology-facing support (guides the code as it is written)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 TDD component tests are technology-facing supports, so Q1."
+              },
+              {
+                "text": "Q4 \u2014 technology-facing critique",
+                "fraction": 0,
+                "feedback": "The test guides development; it does not critique a finished product."
+              },
+              {
+                "text": "Q2 \u2014 business-facing support",
+                "fraction": 0,
+                "feedback": "A component test is expressed in technical terms, so it is technology-facing."
+              },
+              {
+                "text": "Q3 \u2014 business-facing critique",
+                "fraction": 0,
+                "feedback": "A TDD component test is technology-facing and supports development, not a business-facing critique."
+              }
+            ],
+            "generalFeedback": "TDD component tests are technology-facing (technical terms) and support the team (written with the code to guide it). Technology-facing + support = Q1, fully automated.",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Distinguish Q3 from Q4 on the same product",
+            "text": "<p>Both critique the built product. What separates a <strong>Q3</strong> critique from a <strong>Q4</strong> critique?</p>",
+            "answers": [
+              {
+                "text": "The vertical axis: Q3 is business-facing (user's perspective); Q4 is technology-facing (technical quality attributes)",
+                "fraction": 100,
+                "feedback": "Correct \u2014 both critique, but they differ on business- vs technology-facing."
+              },
+              {
+                "text": "Q3 supports the team while Q4 critiques the product",
+                "fraction": 0,
+                "feedback": "Both Q3 and Q4 critique the product; they share the horizontal position."
+              },
+              {
+                "text": "Q3 runs before coding while Q4 runs after",
+                "fraction": 0,
+                "feedback": "Both are critiques of the built product; neither is a pre-coding support activity."
+              },
+              {
+                "text": "Q3 is automated while Q4 is manual",
+                "fraction": 0,
+                "feedback": "It is the reverse tendency: Q3 is largely manual and Q4 is tool-based."
+              }
+            ],
+            "generalFeedback": "Q3 and Q4 share the horizontal position (critiquing the product) and differ on the vertical axis: Q3 critiques from the business/user perspective (exploratory, usability), while Q4 critiques technical quality attributes (performance, security).",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "A type maps by both axes, not the label",
+            "text": "<p>A test type is placed in a quadrant according to its <em>two axis positions</em> (business/technology-facing and support/critique), not according to any ordering implied by the quadrant numbers.</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "Correct \u2014 placement follows the two axes; the numbers carry no order."
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "Placement is determined by the two axis values; the numbers are only labels."
+              }
+            ],
+            "generalFeedback": "Every test type maps to a quadrant purely by its two axis positions \u2014 whether it is business- or technology-facing, and whether it supports the team or critiques the product. The quadrant numbers are labels and imply no sequence or priority."
+          },
+          {
+            "type": "multichoice",
+            "name": "Classify stress testing and justify",
+            "text": "<p>Stress testing pushes the system beyond normal limits to see how it fails and recovers. Using the two axes, the correct placement and reason is:</p>",
+            "answers": [
+              {
+                "text": "Q4, because it is technology-facing (resource/failure behaviour) and critiques the built product",
+                "fraction": 100,
+                "feedback": "Correct \u2014 a technical critique of the built product is Q4, tool-based."
+              },
+              {
+                "text": "Q1, because it is technology-facing and therefore supports the team",
+                "fraction": 0,
+                "feedback": "Being technology-facing does not make it a support; stress testing critiques a built product."
+              },
+              {
+                "text": "Q3, because failures affect users, making it business-facing",
+                "fraction": 0,
+                "feedback": "Stress testing is expressed in technical/resource terms, so it is technology-facing (Q4), not business-facing."
+              },
+              {
+                "text": "Q2, because it is planned before development",
+                "fraction": 0,
+                "feedback": "Stress testing critiques the built product; it is not a pre-coding business-facing support."
+              }
+            ],
+            "generalFeedback": "Stress testing concerns technical resource/failure behaviour (technology-facing) and evaluates the built product (critique). Technology-facing + critique = Q4, tool-based. Note that both axes must be read: technology-facing alone does not decide support vs critique.",
+            "single": true
+          }
+        ]
+      },
+      "zh": {
+        "easy": [
+          {
+            "type": "multichoice",
+            "name": "\u8C61\u9650\u7684\u5169\u500B\u5EA7\u6A19\u8EF8",
+            "text": "<p>\u654F\u6377\u6E2C\u8A66\u8C61\u9650\uFF08Marick\uFF1BCrispin \u8207 Gregory\uFF09\u4EE5<strong>\u5169\u500B</strong>\u5EA7\u6A19\u8EF8\u7D44\u7E54\u3002\u8ACB\u554F\u662F\u54EA\u4E00\u7D44\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7E31\u8EF8\uFF1A\u9762\u5411\u696D\u52D9 vs \u9762\u5411\u6280\u8853\uFF1B\u6A6B\u8EF8\uFF1A\u652F\u63F4\u5718\u968A vs \u8A55\u9451\u7522\u54C1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7E31\u5411\u7684\u696D\u52D9\uFF0F\u6280\u8853\u8EF8\u8207\u6A6B\u5411\u7684\u652F\u63F4\uFF0F\u8A55\u9451\u8EF8\u3002"
+              },
+              {
+                "text": "\u7E31\u8EF8\uFF1A\u624B\u52D5 vs \u81EA\u52D5\u5316\uFF1B\u6A6B\u8EF8\uFF1A\u5FEB vs \u6162",
+                "fraction": 0,
+                "feedback": "\u81EA\u52D5\u5316\u8207\u901F\u5EA6\u662F\u7D50\u679C\uFF0C\u800C\u975E\u5B9A\u7FA9\u8C61\u9650\u7684\u5EA7\u6A19\u8EF8\u3002"
+              },
+              {
+                "text": "\u7E31\u8EF8\uFF1A\u55AE\u5143 vs \u7CFB\u7D71\uFF1B\u6A6B\u8EF8\uFF1A\u9ED1\u7BB1 vs \u767D\u7BB1",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u6E2C\u8A66\u5C64\u7D1A\uFF0F\u6280\u8853\uFF0C\u4E0D\u662F\u8C61\u9650\u7684\u5169\u500B\u5EA7\u6A19\u8EF8\u3002"
+              },
+              {
+                "text": "\u7E31\u8EF8\uFF1A\u529F\u80FD\u6027 vs \u975E\u529F\u80FD\u6027\uFF1B\u6A6B\u8EF8\uFF1A\u4FBF\u5B9C vs \u6602\u8CB4",
+                "fraction": 0,
+                "feedback": "\u6210\u672C\u8207\u529F\u80FD\uFF0F\u975E\u529F\u80FD\u4E4B\u5206\u4E26\u975E\u5B9A\u7FA9\u8C61\u9650\u7684\u5EA7\u6A19\u8EF8\u3002"
+              }
+            ],
+            "generalFeedback": "\u8C61\u9650\u4F7F\u7528\u5169\u500B\u5EA7\u6A19\u8EF8\uFF1A\u7E31\u8EF8\u5340\u5206\u9762\u5411\u696D\u52D9\u7684\u6E2C\u8A66\uFF08\u4E0A\u65B9\uFF09\u8207\u9762\u5411\u6280\u8853\u7684\u6E2C\u8A66\uFF08\u4E0B\u65B9\uFF09\uFF1B\u6A6B\u8EF8\u5340\u5206\u652F\u63F4\u5718\u968A\uFF0F\u5F15\u5C0E\u958B\u767C\u7684\u6E2C\u8A66\uFF08\u5DE6\u5074\uFF09\u8207\u8A55\u9451\u7522\u54C1\u7684\u6E2C\u8A66\uFF08\u53F3\u5074\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9762\u5411\u696D\u52D9\u7684\u610F\u7FA9",
+            "text": "<p>\u300C<em>\u9762\u5411\u696D\u52D9</em>\u300D\u7684\u6E2C\u8A66\uFF08\u5EA7\u6A19\u683C\u4E0A\u534A\u90E8\uFF09\u662F\u4EE5\u4E0B\u5217\u4F55\u7A2E\u8A9E\u5F59\u8868\u9054\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u696D\u52D9\uFF0F\u5BA2\u6236\u80FD\u7406\u89E3\u7684\u8A9E\u5F59\u2014\u2014\u4EE5\u9818\u57DF\u7528\u8A9E\u8207\u884C\u70BA\u63CF\u8FF0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9762\u5411\u696D\u52D9\u7684\u6E2C\u8A66\u4EE5\u696D\u52D9\u80FD\u7406\u89E3\u7684\u8A9E\u8A00\u8868\u9054\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u958B\u767C\u8005\u80FD\u7406\u89E3\u7684\u8A9E\u5F59\u2014\u2014\u4EE5\u7A0B\u5F0F\u78BC\u3001\u985E\u5225\u8207 API \u63CF\u8FF0",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u9762\u5411\u6280\u8853\u7684\u6E2C\u8A66\uFF0C\u4F4D\u65BC\u4E0B\u534A\u90E8\u3002"
+              },
+              {
+                "text": "\u53EA\u63CF\u8FF0\u786C\u9AD4\u6548\u80FD\u4E0A\u9650",
+                "fraction": 0,
+                "feedback": "\u90A3\u662F\u9762\u5411\u6280\u8853\u8A55\u9451\u7684\u4E00\u7A2E\uFF0C\u4E0D\u662F\u300C\u9762\u5411\u696D\u52D9\u300D\u7684\u610F\u7FA9\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u7121\u6CD5\u81EA\u52D5\u5316",
+                "fraction": 0,
+                "feedback": "\u9762\u5411\u696D\u52D9\u4E26\u4E0D\u4EE3\u8868\u624B\u52D5\uFF1B\u8A31\u591A\u9762\u5411\u696D\u52D9\u7684\u6E2C\u8A66\u90FD\u53EF\u81EA\u52D5\u5316\u3002"
+              }
+            ],
+            "generalFeedback": "\u9762\u5411\u696D\u52D9\u7684\u6E2C\u8A66\u4EE5\u696D\u52D9\uFF0F\u5BA2\u6236\u80FD\u7406\u89E3\u7684\u8A9E\u5F59\u8868\u9054\u2014\u2014\u4EE5\u9818\u57DF\u8A9E\u8A00\u63CF\u8FF0\u529F\u80FD\u8207\u884C\u70BA\u3002\u5B83\u5011\u4F4D\u65BC\u5EA7\u6A19\u683C\u7684\u4E0A\u534A\u90E8\uFF08Q2 \u8207 Q3\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u9762\u5411\u6280\u8853\u7684\u610F\u7FA9",
+            "text": "<p>\u300C<em>\u9762\u5411\u6280\u8853</em>\u300D\u7684\u6E2C\u8A66\uFF08\u5EA7\u6A19\u683C\u4E0B\u534A\u90E8\uFF09\u662F\u4EE5\u4E0B\u5217\u4F55\u7A2E\u8A9E\u5F59\u8868\u9054\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7A0B\u5F0F\u8A2D\u8A08\u5E2B\uFF0F\u6280\u8853\u4EBA\u54E1\u4F7F\u7528\u7684\u8A9E\u5F59\u2014\u2014\u4EE5\u7A0B\u5F0F\u78BC\u3001\u5143\u4EF6\u3001\u5354\u5B9A\u8207\u8CC7\u6E90\u4E0A\u9650\u7B49\u6280\u8853\u7528\u8A9E\u63CF\u8FF0",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9762\u5411\u6280\u8853\u7684\u6E2C\u8A66\u4EE5\u6280\u8853\u8A9E\u8A00\u8868\u9054\u3002"
+              },
+              {
+                "text": "\u696D\u52D9\u95DC\u4FC2\u4EBA\u4F7F\u7528\u7684\u8A9E\u5F59\u2014\u2014\u4EE5\u9818\u57DF\u529F\u80FD\u8207\u5DE5\u4F5C\u6D41\u7A0B\u63CF\u8FF0",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u9762\u5411\u696D\u52D9\u7684\u6E2C\u8A66\uFF0C\u4F4D\u65BC\u4E0A\u534A\u90E8\u3002"
+              },
+              {
+                "text": "\u7E3D\u662F\u7531\u7D42\u7AEF\u4F7F\u7528\u8005\u624B\u52D5\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u9762\u5411\u6280\u8853\u7684\u6E2C\u8A66\u901A\u5E38\u662F\u81EA\u52D5\u5316\u6216\u4EE5\u5DE5\u5177\u9A45\u52D5\uFF0C\u800C\u975E\u4F7F\u7528\u8005\u624B\u52D5\u57F7\u884C\u3002"
+              },
+              {
+                "text": "\u53EA\u5B58\u5728\u65BC\u4F7F\u7528\u8005\u4ECB\u9762",
+                "fraction": 0,
+                "feedback": "\u9762\u5411\u6280\u8853\u7684\u6E2C\u8A66\u91DD\u5C0D\u7A0B\u5F0F\u78BC\u3001\u5143\u4EF6\u8207\u57FA\u790E\u8A2D\u65BD\uFF0C\u4E0D\u53EA\u662F UI\u3002"
+              }
+            ],
+            "generalFeedback": "\u9762\u5411\u6280\u8853\u7684\u6E2C\u8A66\u4EE5\u7A0B\u5F0F\u8A2D\u8A08\u5E2B\u8207\u6280\u8853\u4EBA\u54E1\u4F7F\u7528\u7684\u6280\u8853\u8A9E\u5F59\u8868\u9054\u2014\u2014\u55AE\u5143\u3001\u5143\u4EF6\u3001API\u3001\u5354\u5B9A\u8207\u8CC7\u6E90\u884C\u70BA\u3002\u5B83\u5011\u4F4D\u65BC\u5EA7\u6A19\u683C\u7684\u4E0B\u534A\u90E8\uFF08Q1 \u8207 Q4\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u652F\u63F4\u5718\u968A\u7684\u610F\u7FA9",
+            "text": "<p>\u4F4D\u65BC\u5DE6\u5074\u3001<em>\u652F\u63F4\u5718\u968A</em>\uFF08\u5F15\u5C0E\u958B\u767C\uFF09\u7684\u6E2C\u8A66\uFF0C\u6700\u4F73\u63CF\u8FF0\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5F15\u5C0E\u958B\u767C\u7684\u6E2C\u8A66\u2014\u2014\u5728\u7A0B\u5F0F\u78BC\u4E4B\u524D\u6216\u540C\u6642\u64B0\u5BEB\uFF0C\u7528\u4EE5\u5B9A\u7FA9\u8981\u5EFA\u69CB\u4EC0\u9EBC",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u652F\u63F4\u5718\u968A\u7684\u6E2C\u8A66\u5728\u958B\u767C\u9032\u884C\u6642\u5F15\u5C0E\u958B\u767C\u3002"
+              },
+              {
+                "text": "\u5728\u7522\u54C1\u5EFA\u69CB\u5B8C\u6210\u5F8C\u8A55\u4F30\u6210\u54C1\u3001\u627E\u51FA\u5F31\u9EDE\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u4F4D\u65BC\u53F3\u5074\u3001\u8A55\u9451\u7522\u54C1\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u53EA\u5728\u767C\u5E03\u5F8C\u3001\u7531\u7D42\u7AEF\u4F7F\u7528\u8005\u64B0\u5BEB\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u652F\u63F4\u985E\u6E2C\u8A66\u5728\u7A0B\u5F0F\u78BC\u4E4B\u524D\uFF0F\u540C\u6642\u64B0\u5BEB\uFF0C\u800C\u975E\u767C\u5E03\u5F8C\u3002"
+              },
+              {
+                "text": "\u6C38\u9060\u662F\u624B\u52D5\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u652F\u63F4\u5718\u968A\u7684\u6E2C\u8A66\u5927\u91CF\u81EA\u52D5\u5316\uFF08\u5C24\u5176 Q1\uFF09\uFF1B\u5176\u5B9A\u7FA9\u4E26\u975E\u300C\u624B\u52D5\u300D\u3002"
+              }
+            ],
+            "generalFeedback": "\u652F\u63F4\u5718\u968A\u7684\u6E2C\u8A66\uFF08\u5DE6\u6B04\uFF0CQ1 \u8207 Q2\uFF09\u5F15\u5C0E\u958B\u767C\uFF1A\u5728\u7A0B\u5F0F\u78BC\u4E4B\u524D\u6216\u540C\u6642\u64B0\u5BEB\uFF0C\u7528\u4EE5\u8868\u9054\u610F\u5716\u4E26\u5728\u5EFA\u69CB\u904E\u7A0B\u4E2D\u63D0\u4F9B\u5FEB\u901F\u56DE\u994B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A55\u9451\u7522\u54C1\u7684\u610F\u7FA9",
+            "text": "<p>\u4F4D\u65BC\u53F3\u5074\u3001<em>\u8A55\u9451\u7522\u54C1</em>\u7684\u6E2C\u8A66\uFF0C\u6700\u4F73\u63CF\u8FF0\u70BA\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u8A55\u4F30\u5DF2\u5EFA\u69CB\u6210\u54C1\u3001\u5F9E\u4F7F\u7528\u8005\u6216\u67D0\u9805\u54C1\u8CEA\u5C6C\u6027\u7684\u89D2\u5EA6\u627E\u51FA\u4E0D\u8DB3\u7684\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A55\u9451\u985E\u6E2C\u8A66\u5728\u7522\u54C1\u5B58\u5728\u5F8C\u5C0D\u5176\u9032\u884C\u8A55\u4F30\u3002"
+              },
+              {
+                "text": "\u5728\u7A0B\u5F0F\u78BC\u4E4B\u524D\u64B0\u5BEB\u3001\u7528\u4EE5\u5B9A\u7FA9\u9810\u671F\u884C\u70BA\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u4F4D\u65BC\u5DE6\u5074\u3001\u652F\u63F4\u5718\u968A\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u53EA\u6709\u7DE8\u8B6F\u5668\u624D\u6703\u57F7\u884C\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u8A55\u9451\u985E\u6E2C\u8A66\u7531\u4EBA\u8207\u5DE5\u5177\u57F7\u884C\uFF0C\u800C\u975E\u7DE8\u8B6F\u5668\u3002"
+              },
+              {
+                "text": "\u5FC5\u9808\u6C38\u9060\u81EA\u52D5\u5316\u7684\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u8A55\u9451\u5305\u542B\u5927\u91CF\u624B\u52D5\u5DE5\u4F5C\uFF08Q3\uFF09\u4EE5\u53CA\u4EE5\u5DE5\u5177\u70BA\u4E3B\u7684\u5DE5\u4F5C\uFF08Q4\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A55\u9451\u7522\u54C1\u7684\u6E2C\u8A66\uFF08\u53F3\u6B04\uFF0CQ3 \u8207 Q4\uFF09\u8A55\u4F30\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\u3001\u5C0B\u627E\u4E0D\u8DB3\u2014\u2014\u6216\u5F9E\u4F7F\u7528\u8005\u89D2\u5EA6\uFF08Q3\uFF09\uFF0C\u6216\u91DD\u5C0D\u6280\u8853\u54C1\u8CEA\u5C6C\u6027\uFF08Q4\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Q1 \u5305\u542B\u4EC0\u9EBC",
+            "text": "<p>\u54EA\u4E00\u985E\u6E2C\u8A66\u5C6C\u65BC <strong>Q1</strong>\uFF08\u9762\u5411\u6280\u8853\u3001\u652F\u63F4\u5718\u968A\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u55AE\u5143\u6E2C\u8A66\u3001\u5143\u4EF6\u6E2C\u8A66\uFF0C\u4EE5\u53CA API\uFF0F\u6574\u5408\u6E2C\u8A66\uFF08TDD\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Q1 \u5305\u542B\u5F15\u5C0E\u7A0B\u5F0F\u78BC\u7684\u958B\u767C\u8005\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u63A2\u7D22\u5F0F\u6E2C\u8A66\u8207\u53EF\u7528\u6027\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u9762\u5411\u696D\u52D9\u7684\u8A55\u9451\uFF0C\u5C6C\u65BC Q3\u3002"
+              },
+              {
+                "text": "\u6548\u80FD\u3001\u8CA0\u8F09\u8207\u5B89\u5168\u6027\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u9762\u5411\u6280\u8853\u7684\u8A55\u9451\uFF0C\u5C6C\u65BC Q4\u3002"
+              },
+              {
+                "text": "\u529F\u80FD\u6545\u4E8B\u6E2C\u8A66\u8207\u539F\u578B",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u9762\u5411\u696D\u52D9\u7684\u652F\u63F4\uFF0C\u5C6C\u65BC Q2\u3002"
+              }
+            ],
+            "generalFeedback": "Q1 \u9762\u5411\u6280\u8853\u4E14\u652F\u63F4\u5718\u968A\uFF1A\u4F5C\u70BA\u6E2C\u8A66\u9A45\u52D5\u958B\u767C\u4E00\u90E8\u5206\u800C\u64B0\u5BEB\u7684\u55AE\u5143\u6E2C\u8A66\u3001\u5143\u4EF6\u6E2C\u8A66\u8207 API\uFF0F\u6574\u5408\u6E2C\u8A66\u3002\u901A\u5E38\u5B8C\u5168\u81EA\u52D5\u5316\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Q2 \u5305\u542B\u4EC0\u9EBC",
+            "text": "<p>\u54EA\u4E00\u985E\u6E2C\u8A66\u5C6C\u65BC <strong>Q2</strong>\uFF08\u9762\u5411\u696D\u52D9\u3001\u652F\u63F4\u5718\u968A\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u529F\u80FD\uFF0F\u6545\u4E8B\u6E2C\u8A66\u3001\u7BC4\u4F8B\u3001\u539F\u578B\u3001\u6A21\u64EC\uFF0C\u4EE5\u53CA\u5F15\u5C0E\u958B\u767C\u7684\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Q2 \u5305\u542B\u5B9A\u7FA9\u8981\u5EFA\u69CB\u4EC0\u9EBC\u7684\u9762\u5411\u696D\u52D9\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u55AE\u5143\u8207\u5143\u4EF6\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u9762\u5411\u6280\u8853\u7684\u652F\u63F4\uFF0C\u5C6C\u65BC Q1\u3002"
+              },
+              {
+                "text": "\u5C0D\u6210\u54C1\u9032\u884C\u7684\u63A2\u7D22\u5F0F\u6E2C\u8A66\u8207\u4F7F\u7528\u8005\u9A57\u6536\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u9762\u5411\u696D\u52D9\u7684\u8A55\u9451\uFF0C\u5C6C\u65BC Q3\u3002"
+              },
+              {
+                "text": "\u8CA0\u8F09\u8207\u58D3\u529B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u9762\u5411\u6280\u8853\u7684\u8A55\u9451\uFF0C\u5C6C\u65BC Q4\u3002"
+              }
+            ],
+            "generalFeedback": "Q2 \u9762\u5411\u696D\u52D9\u4E14\u652F\u63F4\u5718\u968A\uFF1A\u529F\u80FD\uFF0F\u6545\u4E8B\u6E2C\u8A66\u3001\u7BC4\u4F8B\u3001\u539F\u578B\u3001\u6A21\u64EC\uFF0C\u4EE5\u53CA\u5F15\u5C0E\u958B\u767C\u7684\u9A57\u6536\u6E2C\u8A66\u3002\u5B83\u6DF7\u5408\u81EA\u52D5\u5316\u8207\u90E8\u5206\u624B\u52D5\u5DE5\u4F5C\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Q3 \u5305\u542B\u4EC0\u9EBC",
+            "text": "<p>\u54EA\u4E00\u985E\u6E2C\u8A66\u5C6C\u65BC <strong>Q3</strong>\uFF08\u9762\u5411\u696D\u52D9\u3001\u8A55\u9451\u7522\u54C1\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u63A2\u7D22\u5F0F\u6E2C\u8A66\u3001\u53EF\u7528\u6027\u6E2C\u8A66\u3001\u4F7F\u7528\u8005\u9A57\u6536\u6E2C\u8A66\uFF0C\u4EE5\u53CA alpha\uFF0Fbeta",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Q3 \u5305\u542B\u5C0D\u6210\u54C1\u7684\u9762\u5411\u696D\u52D9\u8A55\u9451\u3002"
+              },
+              {
+                "text": "\u55AE\u5143\u6E2C\u8A66\u8207\u5143\u4EF6\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u9762\u5411\u6280\u8853\u7684\u652F\u63F4\uFF0C\u5C6C\u65BC Q1\u3002"
+              },
+              {
+                "text": "\u6548\u80FD\u3001\u8CA0\u8F09\u8207\u5B89\u5168\u6027\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u9762\u5411\u6280\u8853\u7684\u8A55\u9451\uFF0C\u5C6C\u65BC Q4\u3002"
+              },
+              {
+                "text": "\u5F15\u5C0E\u958B\u767C\u7684\u539F\u578B\u8207\u6545\u4E8B\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u9762\u5411\u696D\u52D9\u7684\u652F\u63F4\uFF0C\u5C6C\u65BC Q2\u3002"
+              }
+            ],
+            "generalFeedback": "Q3 \u9762\u5411\u696D\u52D9\u4E14\u8A55\u9451\u7522\u54C1\uFF1A\u63A2\u7D22\u5F0F\u6E2C\u8A66\u3001\u53EF\u7528\u6027\u6E2C\u8A66\u3001\u4F7F\u7528\u8005\u9A57\u6536\u6E2C\u8A66\uFF0C\u4EE5\u53CA alpha\uFF0Fbeta\u3002\u5B83\u4E3B\u8981\u70BA\u624B\u52D5\uFF0C\u4EF0\u8CF4\u4EBA\u7684\u5224\u65B7\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "Q4 \u5305\u542B\u4EC0\u9EBC",
+            "text": "<p>\u54EA\u4E00\u985E\u6E2C\u8A66\u5C6C\u65BC <strong>Q4</strong>\uFF08\u9762\u5411\u6280\u8853\u3001\u8A55\u9451\u7522\u54C1\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u6548\u80FD\u3001\u8CA0\u8F09\u3001\u58D3\u529B\u3001\u5B89\u5168\u6027\uFF0C\u4EE5\u53CA\u5176\u4ED6\u975E\u529F\u80FD\u6027\uFF08\u300C-ility\u300D\uFF09\u6E2C\u8A66",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Q4 \u5305\u542B\u4EE5\u5DE5\u5177\u70BA\u4E3B\u7684\u6280\u8853\u8A55\u9451\u3002"
+              },
+              {
+                "text": "\u64B0\u5BEB\u65BC\u7DE8\u78BC\u671F\u9593\u7684\u55AE\u5143\u8207 API \u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u9762\u5411\u6280\u8853\u7684\u652F\u63F4\uFF0C\u5C6C\u65BC Q1\u3002"
+              },
+              {
+                "text": "\u63A2\u7D22\u5F0F\u8207\u53EF\u7528\u6027\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u9762\u5411\u696D\u52D9\u7684\u8A55\u9451\uFF0C\u5C6C\u65BC Q3\u3002"
+              },
+              {
+                "text": "\u5F15\u5C0E\u958B\u767C\u7684\u6545\u4E8B\u6E2C\u8A66\u8207\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u90A3\u4E9B\u662F\u9762\u5411\u696D\u52D9\u7684\u652F\u63F4\uFF0C\u5C6C\u65BC Q2\u3002"
+              }
+            ],
+            "generalFeedback": "Q4 \u9762\u5411\u6280\u8853\u4E14\u8A55\u9451\u7522\u54C1\uFF1A\u6548\u80FD\u3001\u8CA0\u8F09\u3001\u58D3\u529B\u3001\u5B89\u5168\u6027\uFF0C\u4EE5\u53CA\u5176\u4ED6\u975E\u529F\u80FD\u6027\u300C-ility\u300D\u6E2C\u8A66\u3002\u5B83\u4EE5\u5DE5\u5177\u70BA\u4E3B\uFF0C\u9700\u8981\u5C08\u9580\u5DE5\u5177\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B9A\u4F4D\u55AE\u5143\u6E2C\u8A66",
+            "text": "<p>\u4F5C\u70BA TDD \u4E00\u90E8\u5206\u64B0\u5BEB\u7684<em>\u55AE\u5143\u6E2C\u8A66</em>\u5C6C\u65BC\u54EA\u4E00\u500B\u8C61\u9650\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q1\uFF08\u9762\u5411\u6280\u8853\u3001\u652F\u63F4\u5718\u968A\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u55AE\u5143\u6E2C\u8A66\u5C6C\u6280\u8853\u6027\u4E14\u5F15\u5C0E\u958B\u767C\uFF0C\u56E0\u6B64\u70BA Q1\u3002"
+              },
+              {
+                "text": "Q2\uFF08\u9762\u5411\u696D\u52D9\u3001\u652F\u63F4\u5718\u968A\uFF09",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u6E2C\u8A66\u9762\u5411\u6280\u8853\uFF0C\u4E26\u975E\u9762\u5411\u696D\u52D9\u3002"
+              },
+              {
+                "text": "Q3\uFF08\u9762\u5411\u696D\u52D9\u3001\u8A55\u9451\u7522\u54C1\uFF09",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u6E2C\u8A66\u652F\u63F4\u958B\u767C\uFF1B\u5B83\u5011\u4E0D\u5F9E\u4F7F\u7528\u8005\u89D2\u5EA6\u8A55\u9451\u6210\u54C1\u3002"
+              },
+              {
+                "text": "Q4\uFF08\u9762\u5411\u6280\u8853\u3001\u8A55\u9451\u7522\u54C1\uFF09",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u6E2C\u8A66\u5F15\u5C0E\u7A0B\u5F0F\u78BC\uFF08\u652F\u63F4\uFF09\uFF0C\u4E26\u975E\u628A\u5B83\u7576\u6210\u975E\u529F\u80FD\u5C6C\u6027\u4F86\u8A55\u9451\u3002"
+              }
+            ],
+            "generalFeedback": "\u55AE\u5143\u6E2C\u8A66\u9762\u5411\u6280\u8853\uFF08\u4EE5\u7A0B\u5F0F\u78BC\u8A9E\u5F59\u64B0\u5BEB\uFF09\u4E14\u652F\u63F4\u5718\u968A\uFF08\u8207\u7A0B\u5F0F\u78BC\u4E00\u540C\u64B0\u5BEB\u4EE5\u5F15\u5C0E\u958B\u767C\uFF09\uFF0C\u56E0\u6B64\u843D\u5728 Q1\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B9A\u4F4D\u63A2\u7D22\u5F0F\u6E2C\u8A66",
+            "text": "<p><em>\u63A2\u7D22\u5F0F\u6E2C\u8A66</em>\u5C6C\u65BC\u54EA\u4E00\u500B\u8C61\u9650\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q3\uFF08\u9762\u5411\u696D\u52D9\u3001\u8A55\u9451\u7522\u54C1\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u63A2\u7D22\u5F0F\u6E2C\u8A66\u5F9E\u4F7F\u7528\u8005\u89D2\u5EA6\u8A55\u9451\u6210\u54C1\u3002"
+              },
+              {
+                "text": "Q1\uFF08\u9762\u5411\u6280\u8853\u3001\u652F\u63F4\u5718\u968A\uFF09",
+                "fraction": 0,
+                "feedback": "\u63A2\u7D22\u5F0F\u6E2C\u8A66\u9762\u5411\u696D\u52D9\u4E14\u8A55\u9451\u7522\u54C1\uFF1B\u5B83\u4E0D\u5F15\u5C0E\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "Q2\uFF08\u9762\u5411\u696D\u52D9\u3001\u652F\u63F4\u5718\u968A\uFF09",
+                "fraction": 0,
+                "feedback": "\u63A2\u7D22\u5F0F\u6E2C\u8A66\u8A55\u9451\u5DF2\u5EFA\u69CB\u6210\u54C1\uFF1B\u5B83\u4E0D\u5F15\u5C0E\u958B\u767C\u3002"
+              },
+              {
+                "text": "Q4\uFF08\u9762\u5411\u6280\u8853\u3001\u8A55\u9451\u7522\u54C1\uFF09",
+                "fraction": 0,
+                "feedback": "\u63A2\u7D22\u5F0F\u6E2C\u8A66\u9762\u5411\u696D\u52D9\uFF08\u4F7F\u7528\u8005\u89D2\u5EA6\uFF09\uFF0C\u4E26\u975E\u9762\u5411\u6280\u8853\u3002"
+              }
+            ],
+            "generalFeedback": "\u63A2\u7D22\u5F0F\u6E2C\u8A66\u9762\u5411\u696D\u52D9\uFF08\u5F9E\u4F7F\u7528\u8005\u89D2\u5EA6\u8A55\u4F30\u884C\u70BA\uFF09\u4E14\u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\uFF0C\u56E0\u6B64\u843D\u5728 Q3\u3002\u5B83\u4E3B\u8981\u662F\u624B\u52D5\u3001\u4EF0\u8CF4\u4EBA\u5224\u65B7\u7684\u6D3B\u52D5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B9A\u4F4D\u6548\u80FD\u6E2C\u8A66",
+            "text": "<p><em>\u6548\u80FD\u6E2C\u8A66</em>\u5C6C\u65BC\u54EA\u4E00\u500B\u8C61\u9650\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q4\uFF08\u9762\u5411\u6280\u8853\u3001\u8A55\u9451\u7522\u54C1\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6548\u80FD\u662F\u5C0D\u6210\u54C1\u7684\u6280\u8853\u6027\u8A55\u9451\u3002"
+              },
+              {
+                "text": "Q1\uFF08\u9762\u5411\u6280\u8853\u3001\u652F\u63F4\u5718\u968A\uFF09",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u6E2C\u8A66\u8A55\u9451\u6210\u54C1\uFF1B\u5B83\u4E0D\u5F15\u5C0E\u958B\u767C\u3002"
+              },
+              {
+                "text": "Q2\uFF08\u9762\u5411\u696D\u52D9\u3001\u652F\u63F4\u5718\u968A\uFF09",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u9762\u5411\u6280\u8853\u4E14\u5C6C\u8A55\u9451\uFF0C\u4E26\u975E\u9762\u5411\u696D\u52D9\u7684\u652F\u63F4\u3002"
+              },
+              {
+                "text": "Q3\uFF08\u9762\u5411\u696D\u52D9\u3001\u8A55\u9451\u7522\u54C1\uFF09",
+                "fraction": 0,
+                "feedback": "\u6548\u80FD\u9762\u5411\u6280\u8853\uFF0C\u4E26\u975E\u9762\u5411\u696D\u52D9\u3002"
+              }
+            ],
+            "generalFeedback": "\u6548\u80FD\u6E2C\u8A66\u9762\u5411\u6280\u8853\uFF08\u4E00\u9805\u6280\u8853\u54C1\u8CEA\u5C6C\u6027\uFF09\u4E14\u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\uFF0C\u56E0\u6B64\u843D\u5728 Q4\u3002\u5B83\u4EE5\u5DE5\u5177\u70BA\u4E3B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5B9A\u4F4D\u529F\u80FD\u6545\u4E8B\u6E2C\u8A66",
+            "text": "<p>\u8868\u9054\u9A57\u6536\u6E96\u5247\u4EE5\u5F15\u5C0E\u958B\u767C\u7684<em>\u529F\u80FD\uFF08\u6545\u4E8B\uFF09\u6E2C\u8A66</em>\u5C6C\u65BC\u54EA\u4E00\u500B\u8C61\u9650\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q2\uFF08\u9762\u5411\u696D\u52D9\u3001\u652F\u63F4\u5718\u968A\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u6545\u4E8B\u6E2C\u8A66\u9762\u5411\u696D\u52D9\u4E14\u5F15\u5C0E\u958B\u767C\uFF0C\u56E0\u6B64\u70BA Q2\u3002"
+              },
+              {
+                "text": "Q1\uFF08\u9762\u5411\u6280\u8853\u3001\u652F\u63F4\u5718\u968A\uFF09",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u6E2C\u8A66\u9762\u5411\u696D\u52D9\uFF0C\u4E26\u975E\u9762\u5411\u6280\u8853\u3002"
+              },
+              {
+                "text": "Q3\uFF08\u9762\u5411\u696D\u52D9\u3001\u8A55\u9451\u7522\u54C1\uFF09",
+                "fraction": 0,
+                "feedback": "\u9019\u4E9B\u5F15\u5C0E\u958B\u767C\uFF08\u652F\u63F4\uFF09\uFF1B\u5B83\u5011\u4E0D\u662F\u5C0D\u6210\u54C1\u7684\u8A55\u9451\u3002"
+              },
+              {
+                "text": "Q4\uFF08\u9762\u5411\u6280\u8853\u3001\u8A55\u9451\u7522\u54C1\uFF09",
+                "fraction": 0,
+                "feedback": "\u6545\u4E8B\u6E2C\u8A66\u662F\u9762\u5411\u696D\u52D9\u7684\u652F\u63F4\uFF0C\u4E26\u975E\u6280\u8853\u6027\u8A55\u9451\u3002"
+              }
+            ],
+            "generalFeedback": "\u529F\u80FD\uFF0F\u6545\u4E8B\u6E2C\u8A66\u4EE5\u696D\u52D9\u7528\u8A9E\u8868\u9054\u9A57\u6536\u6E96\u5247\u3001\u4E26\u70BA\u5F15\u5C0E\u958B\u767C\u800C\u64B0\u5BEB\uFF0C\u56E0\u6B64\u5C6C\u65BC\u9762\u5411\u696D\u52D9\u7684\u652F\u63F4\u2014\u2014Q2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u8C61\u9650\u9762\u5411\u6280\u8853\u4E14\u652F\u63F4\u5718\u968A",
+            "text": "<p>\u54EA\u4E00\u500B\u8C61\u9650\u7684\u5B9A\u7FA9\u662F<strong>\u9762\u5411\u6280\u8853</strong>\u4E14<strong>\u652F\u63F4\u5718\u968A</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Q1 \u9762\u5411\u6280\u8853\u4E14\u652F\u63F4\u5718\u968A\u3002"
+              },
+              {
+                "text": "Q2",
+                "fraction": 0,
+                "feedback": "Q2 \u652F\u63F4\u5718\u968A\uFF0C\u4F46\u9762\u5411\u696D\u52D9\u3002"
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "Q3 \u9762\u5411\u696D\u52D9\u4E14\u8A55\u9451\u7522\u54C1\u3002"
+              },
+              {
+                "text": "Q4",
+                "fraction": 0,
+                "feedback": "Q4 \u9762\u5411\u6280\u8853\uFF0C\u4F46\u8A55\u9451\u7522\u54C1\u3002"
+              }
+            ],
+            "generalFeedback": "Q1 \u4F4D\u65BC\u9762\u5411\u6280\u8853\uFF08\u4E0B\u65B9\uFF09\u8207\u652F\u63F4\u5718\u968A\uFF08\u5DE6\u5074\uFF09\u7684\u4EA4\u6703\u8655\uFF1A\u55AE\u5143\u3001\u5143\u4EF6\u8207 API \u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u7E31\u8EF8\u662F\u696D\u52D9 vs \u6280\u8853",
+            "text": "<p>\u5728\u654F\u6377\u6E2C\u8A66\u8C61\u9650\u4E2D\uFF0C<em>\u7E31</em>\u8EF8\u5340\u5206\u9762\u5411\u696D\u52D9\u7684\u6E2C\u8A66\u8207\u9762\u5411\u6280\u8853\u7684\u6E2C\u8A66\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7E31\u8EF8\uFF1D\u9762\u5411\u696D\u52D9\uFF08\u4E0A\u65B9\uFF09vs \u9762\u5411\u6280\u8853\uFF08\u4E0B\u65B9\uFF09\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u7E31\u8EF8\u6B63\u662F\u9762\u5411\u696D\u52D9 vs \u9762\u5411\u6280\u8853\uFF1B\u6A6B\u8EF8\u624D\u662F\u652F\u63F4 vs \u8A55\u9451\u3002"
+              }
+            ],
+            "generalFeedback": "\u7E31\u8EF8\uFF1A\u9762\u5411\u696D\u52D9\uFF08\u4E0A\u65B9\uFF09vs \u9762\u5411\u6280\u8853\uFF08\u4E0B\u65B9\uFF09\u3002\u6A6B\u8EF8\uFF1A\u652F\u63F4\u5718\u968A\uFF08\u5DE6\u5074\uFF09vs \u8A55\u9451\u7522\u54C1\uFF08\u53F3\u5074\uFF09\u3002"
+          }
+        ],
+        "medium": [
+          {
+            "type": "multichoice",
+            "name": "\u5F9E\u5EA7\u6A19\u8EF8\u5206\u985E\uFF1A\u696D\u52D9\uFF0B\u652F\u63F4",
+            "text": "<p>\u67D0\u6E2C\u8A66\u88AB\u63CF\u8FF0\u70BA<strong>\u9762\u5411\u696D\u52D9</strong>\u4E14<strong>\u652F\u63F4\u5718\u968A</strong>\uFF08\u5F15\u5C0E\u958B\u767C\uFF09\u3002\u5B83\u5C6C\u65BC\u54EA\u4E00\u500B\u8C61\u9650\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9762\u5411\u696D\u52D9\uFF0B\u652F\u63F4\u5718\u968A\uFF1DQ2\u3002"
+              },
+              {
+                "text": "Q1",
+                "fraction": 0,
+                "feedback": "Q1 \u652F\u63F4\u5718\u968A\uFF0C\u4F46\u9762\u5411\u6280\u8853\uFF0C\u4E26\u975E\u9762\u5411\u696D\u52D9\u3002"
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "Q3 \u9762\u5411\u696D\u52D9\uFF0C\u4F46\u8A55\u9451\u7522\u54C1\u800C\u975E\u652F\u63F4\u5718\u968A\u3002"
+              },
+              {
+                "text": "Q4",
+                "fraction": 0,
+                "feedback": "Q4 \u9762\u5411\u6280\u8853\u4E14\u8A55\u9451\u7522\u54C1\u3002"
+              }
+            ],
+            "generalFeedback": "\u8B80\u53D6\u5169\u500B\u5EA7\u6A19\u8EF8\u503C\uFF1A\u9762\u5411\u696D\u52D9\uFF08\u4E0A\u65B9\uFF09\u8207\u652F\u63F4\u5718\u968A\uFF08\u5DE6\u5074\uFF09\u4EA4\u6703\u65BC Q2\u2014\u2014\u529F\u80FD\uFF0F\u6545\u4E8B\u6E2C\u8A66\u3001\u7BC4\u4F8B\u3001\u539F\u578B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F9E\u5EA7\u6A19\u8EF8\u5206\u985E\uFF1A\u6280\u8853\uFF0B\u8A55\u9451",
+            "text": "<p>\u67D0\u6E2C\u8A66\u88AB\u63CF\u8FF0\u70BA<strong>\u9762\u5411\u6280\u8853</strong>\u4E14<strong>\u8A55\u9451\u7522\u54C1</strong>\u3002\u5B83\u5C6C\u65BC\u54EA\u4E00\u500B\u8C61\u9650\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9762\u5411\u6280\u8853\uFF0B\u8A55\u9451\u7522\u54C1\uFF1DQ4\u3002"
+              },
+              {
+                "text": "Q1",
+                "fraction": 0,
+                "feedback": "Q1 \u9762\u5411\u6280\u8853\uFF0C\u4F46\u652F\u63F4\u5718\u968A\uFF0C\u4E26\u975E\u8A55\u9451\u3002"
+              },
+              {
+                "text": "Q2",
+                "fraction": 0,
+                "feedback": "Q2 \u9762\u5411\u696D\u52D9\u4E14\u652F\u63F4\u5718\u968A\u3002"
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "Q3 \u8A55\u9451\u7522\u54C1\uFF0C\u4F46\u9762\u5411\u696D\u52D9\u3002"
+              }
+            ],
+            "generalFeedback": "\u9762\u5411\u6280\u8853\uFF08\u4E0B\u65B9\uFF09\u8207\u8A55\u9451\u7522\u54C1\uFF08\u53F3\u5074\uFF09\u4EA4\u6703\u65BC Q4\u2014\u2014\u6548\u80FD\u3001\u8CA0\u8F09\u3001\u58D3\u529B\u3001\u5B89\u5168\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F9E\u5EA7\u6A19\u8EF8\u5206\u985E\uFF1A\u6280\u8853\uFF0B\u652F\u63F4",
+            "text": "<p>\u67D0\u6E2C\u8A66\u88AB\u63CF\u8FF0\u70BA<strong>\u9762\u5411\u6280\u8853</strong>\u4E14<strong>\u652F\u63F4\u5718\u968A</strong>\u3002\u5B83\u5C6C\u65BC\u54EA\u4E00\u500B\u8C61\u9650\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9762\u5411\u6280\u8853\uFF0B\u652F\u63F4\u5718\u968A\uFF1DQ1\u3002"
+              },
+              {
+                "text": "Q2",
+                "fraction": 0,
+                "feedback": "Q2 \u652F\u63F4\u5718\u968A\uFF0C\u4F46\u9762\u5411\u696D\u52D9\u3002"
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "Q3 \u9762\u5411\u696D\u52D9\u4E14\u8A55\u9451\u7522\u54C1\u3002"
+              },
+              {
+                "text": "Q4",
+                "fraction": 0,
+                "feedback": "Q4 \u9762\u5411\u6280\u8853\uFF0C\u4F46\u8A55\u9451\u7522\u54C1\u800C\u975E\u652F\u63F4\u5718\u968A\u3002"
+              }
+            ],
+            "generalFeedback": "\u9762\u5411\u6280\u8853\uFF08\u4E0B\u65B9\uFF09\u8207\u652F\u63F4\u5718\u968A\uFF08\u5DE6\u5074\uFF09\u4EA4\u6703\u65BC Q1\u2014\u2014\u55AE\u5143\u3001\u5143\u4EF6\u8207 API\uFF0F\u6574\u5408\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5F9E\u5EA7\u6A19\u8EF8\u5206\u985E\uFF1A\u696D\u52D9\uFF0B\u8A55\u9451",
+            "text": "<p>\u67D0\u6E2C\u8A66\u88AB\u63CF\u8FF0\u70BA<strong>\u9762\u5411\u696D\u52D9</strong>\u4E14<strong>\u8A55\u9451\u7522\u54C1</strong>\u3002\u5B83\u5C6C\u65BC\u54EA\u4E00\u500B\u8C61\u9650\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9762\u5411\u696D\u52D9\uFF0B\u8A55\u9451\u7522\u54C1\uFF1DQ3\u3002"
+              },
+              {
+                "text": "Q1",
+                "fraction": 0,
+                "feedback": "Q1 \u9762\u5411\u6280\u8853\u4E14\u652F\u63F4\u5718\u968A\u3002"
+              },
+              {
+                "text": "Q2",
+                "fraction": 0,
+                "feedback": "Q2 \u9762\u5411\u696D\u52D9\uFF0C\u4F46\u652F\u63F4\u5718\u968A\u800C\u975E\u8A55\u9451\u3002"
+              },
+              {
+                "text": "Q4",
+                "fraction": 0,
+                "feedback": "Q4 \u8A55\u9451\u7522\u54C1\uFF0C\u4F46\u9762\u5411\u6280\u8853\u3002"
+              }
+            ],
+            "generalFeedback": "\u9762\u5411\u696D\u52D9\uFF08\u4E0A\u65B9\uFF09\u8207\u8A55\u9451\u7522\u54C1\uFF08\u53F3\u5074\uFF09\u4EA4\u6703\u65BC Q3\u2014\u2014\u63A2\u7D22\u5F0F\u3001\u53EF\u7528\u6027\u3001UAT\u3001alpha\uFF0Fbeta\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u8C61\u9650\u901A\u5E38\u5B8C\u5168\u81EA\u52D5\u5316",
+            "text": "<p>\u54EA\u4E00\u500B\u8C61\u9650<strong>\u901A\u5E38\u5B8C\u5168\u81EA\u52D5\u5316</strong>\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Q1\uFF08\u55AE\u5143\uFF0F\u5143\u4EF6\uFF0FAPI \u6E2C\u8A66\uFF09\u901A\u5E38\u5B8C\u5168\u81EA\u52D5\u5316\u3002"
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "Q3\uFF08\u63A2\u7D22\u5F0F\u3001\u53EF\u7528\u6027\u3001UAT\uFF09\u4E3B\u8981\u70BA\u624B\u52D5\u3002"
+              },
+              {
+                "text": "Q4",
+                "fraction": 0,
+                "feedback": "Q4 \u4EE5\u5DE5\u5177\u70BA\u4E3B\uFF0C\u800C\u975E\u55AE\u5143\u6E2C\u8A66\u610F\u7FA9\u4E0B\u7684\u300C\u5B8C\u5168\u81EA\u52D5\u5316\u300D\uFF1B\u5B8C\u5168\u81EA\u52D5\u5316\u7684\u8C61\u9650\u662F Q1\u3002"
+              },
+              {
+                "text": "\u7121\u2014\u2014\u6C92\u6709\u4EFB\u4F55\u8C61\u9650\u81EA\u52D5\u5316",
+                "fraction": 0,
+                "feedback": "Q1 \u6B63\u662F\u7279\u5FB5\u6027\u5730\u5B8C\u5168\u81EA\u52D5\u5316\u7684\u8C61\u9650\u3002"
+              }
+            ],
+            "generalFeedback": "Q1\uFF08\u9762\u5411\u6280\u8853\u7684\u652F\u63F4\uFF09\u662F\u7279\u5FB5\u6027\u5730\u5B8C\u5168\u81EA\u52D5\u5316\u7684\u8C61\u9650\u2014\u2014\u5FEB\u901F\u3001\u53EF\u91CD\u8907\u3001\u6301\u7E8C\u57F7\u884C\u7684\u958B\u767C\u8005\u6E2C\u8A66\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u8C61\u9650\u4E3B\u8981\u70BA\u624B\u52D5",
+            "text": "<p>\u54EA\u4E00\u500B\u8C61\u9650<strong>\u4E3B\u8981\u70BA\u624B\u52D5</strong>\u3001\u4EF0\u8CF4\u4EBA\u7684\u5224\u65B7\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Q3\uFF08\u63A2\u7D22\u5F0F\u3001\u53EF\u7528\u6027\u3001UAT\uFF09\u4E3B\u8981\u70BA\u624B\u52D5\u3002"
+              },
+              {
+                "text": "Q1",
+                "fraction": 0,
+                "feedback": "Q1 \u7279\u5FB5\u6027\u5730\u5B8C\u5168\u81EA\u52D5\u5316\u3002"
+              },
+              {
+                "text": "Q4",
+                "fraction": 0,
+                "feedback": "Q4 \u4EE5\u5DE5\u5177\u70BA\u4E3B\uFF0C\u800C\u975E\u4E3B\u8981\u4EF0\u8CF4\u4EBA\u7684\u624B\u52D5\u5224\u65B7\u3002"
+              },
+              {
+                "text": "Q2",
+                "fraction": 0,
+                "feedback": "Q2 \u5C6C\u6DF7\u5408\uFF08\u81EA\u52D5\u5316\u52A0\u4E0A\u90E8\u5206\u624B\u52D5\uFF09\uFF0C\u4F46\u7279\u5FB5\u6027\u5730\u624B\u52D5\u7684\u8C61\u9650\u662F Q3\u3002"
+              }
+            ],
+            "generalFeedback": "Q3\uFF08\u9762\u5411\u696D\u52D9\u7684\u8A55\u9451\uFF0C\u5982\u63A2\u7D22\u5F0F\u8207\u53EF\u7528\u6027\u6E2C\u8A66\uFF09\u4E3B\u8981\u70BA\u624B\u52D5\u2014\u2014\u5B83\u4EF0\u8CF4\u5DE5\u5177\u7121\u6CD5\u53D6\u4EE3\u7684\u4EBA\u70BA\u89C0\u5BDF\u8207\u5224\u65B7\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u8C61\u9650\u4EE5\u5DE5\u5177\u70BA\u4E3B",
+            "text": "<p>\u54EA\u4E00\u500B\u8C61\u9650\u7279\u5FB5\u6027\u5730<strong>\u4EE5\u5DE5\u5177\u70BA\u4E3B</strong>\uFF08\u9700\u8981\u5C08\u9580\u5DE5\u5177\uFF09\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Q4\uFF08\u6548\u80FD\u3001\u8CA0\u8F09\u3001\u5B89\u5168\u6027\uFF09\u9700\u8981\u5C08\u9580\u5DE5\u5177\u3002"
+              },
+              {
+                "text": "Q2",
+                "fraction": 0,
+                "feedback": "Q2 \u5C6C\u81EA\u52D5\u5316\uFF0F\u624B\u52D5\u6DF7\u5408\uFF1B\u4EE5\u5DE5\u5177\u70BA\u4E3B\u7684\u8C61\u9650\u662F Q4\u3002"
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "Q3 \u4E3B\u8981\u70BA\u624B\u52D5\uFF0C\u800C\u975E\u4EE5\u5DE5\u5177\u70BA\u4E3B\u3002"
+              },
+              {
+                "text": "Q1",
+                "fraction": 0,
+                "feedback": "Q1 \u662F\u5B8C\u5168\u81EA\u52D5\u5316\u7684\u958B\u767C\u8005\u6E2C\u8A66\uFF1B\u9700\u8981\u5C08\u9580\u5DE5\u5177\u7684\u8C61\u9650\u662F Q4\u3002"
+              }
+            ],
+            "generalFeedback": "Q4\uFF08\u9762\u5411\u6280\u8853\u7684\u8A55\u9451\uFF0C\u5982\u6548\u80FD\u8207\u5B89\u5168\u6027\uFF09\u7279\u5FB5\u6027\u5730\u4EE5\u5DE5\u5177\u70BA\u4E3B\uFF1A\u5B83\u4EF0\u8CF4\u5C08\u9580\u5DE5\u5177\u7522\u751F\u8CA0\u8F09\u3001\u91CF\u6E2C\u8CC7\u6E90\u6216\u63A2\u6E2C\u5B89\u5168\u6027\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u500B\u8C61\u9650\u6DF7\u5408\u81EA\u52D5\u5316\u8207\u624B\u52D5",
+            "text": "<p>\u54EA\u4E00\u500B\u8C61\u9650\u7279\u5FB5\u6027\u5730<strong>\u6DF7\u5408</strong>\u81EA\u52D5\u5316\u8207\u90E8\u5206\u624B\u52D5\u5DE5\u4F5C\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Q2 \u6DF7\u5408\u81EA\u52D5\u5316\u7684\u6545\u4E8B\u6E2C\u8A66\u8207\u90E8\u5206\u624B\u52D5\u5DE5\u4F5C\uFF08\u5982\u6AA2\u8996\u539F\u578B\uFF09\u3002"
+              },
+              {
+                "text": "Q1",
+                "fraction": 0,
+                "feedback": "Q1 \u7279\u5FB5\u6027\u5730\u5B8C\u5168\u81EA\u52D5\u5316\u3002"
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "Q3 \u4E3B\u8981\u70BA\u624B\u52D5\u3002"
+              },
+              {
+                "text": "Q4",
+                "fraction": 0,
+                "feedback": "Q4 \u7279\u5FB5\u6027\u5730\u4EE5\u5DE5\u5177\u70BA\u4E3B\u3002"
+              }
+            ],
+            "generalFeedback": "Q2 \u6DF7\u5408\u81EA\u52D5\u5316\u8207\u624B\u52D5\u5DE5\u4F5C\uFF1A\u529F\u80FD\uFF0F\u6545\u4E8B\u6E2C\u8A66\u5E38\u81EA\u52D5\u5316\uFF0C\u800C\u539F\u578B\u8207\u6A21\u64EC\u5E38\u6D89\u53CA\u624B\u52D5\u6AA2\u8996\u8207\u8A0E\u8AD6\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u652F\u63F4\u5718\u968A\u7684\u6E2C\u8A66\u505A\u4EC0\u9EBC",
+            "text": "<p>\u95DC\u65BC<em>\u652F\u63F4\u5718\u968A</em>\uFF08\u5DE6\u6B04\uFF09\u7684\u6E2C\u8A66\uFF0C\u54EA\u4E00\u9805\u6558\u8FF0\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5011\u5728\u7A0B\u5F0F\u78BC\u4E4B\u524D\u6216\u540C\u6642\u64B0\u5BEB\uFF0C\u4EE5\u5F15\u5C0E\u958B\u767C\u4E26\u63D0\u4F9B\u5FEB\u901F\u56DE\u994B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u652F\u63F4\u985E\u6E2C\u8A66\u5F15\u5C0E\u7522\u54C1\u7684\u5EFA\u69CB\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u53EA\u80FD\u5728\u7522\u54C1\u4EA4\u4ED8\u7D66\u771F\u5BE6\u4F7F\u7528\u8005\u4E4B\u5F8C\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u8A55\u9451\uFF08\u5C24\u5176\u662F\u73FE\u5834\uFF09\u6E2C\u8A66\uFF0C\u4E0D\u662F\u652F\u63F4\u5718\u968A\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u53EA\u91CF\u6E2C\u975E\u529F\u80FD\u5C6C\u6027\uFF0C\u4F8B\u5982\u6548\u80FD",
+                "fraction": 0,
+                "feedback": "\u975E\u529F\u80FD\u8A55\u9451\u5C6C Q4\uFF1B\u652F\u63F4\u985E\u6E2C\u8A66\u5F15\u5C0E\u529F\u80FD\u958B\u767C\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u6C38\u9060\u9762\u5411\u696D\u52D9",
+                "fraction": 0,
+                "feedback": "\u652F\u63F4\u8DE8\u8D8A Q1\uFF08\u9762\u5411\u6280\u8853\uFF09\u8207 Q2\uFF08\u9762\u5411\u696D\u52D9\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u652F\u63F4\u5718\u968A\u7684\u6E2C\u8A66\uFF08Q1 \u8207 Q2\uFF09\u5F15\u5C0E\u958B\u767C\uFF1A\u5728\u7A0B\u5F0F\u78BC\u4E4B\u524D\uFF0F\u540C\u6642\u64B0\u5BEB\uFF0C\u5B9A\u7FA9\u9810\u671F\u884C\u70BA\u4E26\u5728\u5EFA\u69CB\u904E\u7A0B\u4E2D\u63D0\u4F9B\u5FEB\u901F\u56DE\u994B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8A55\u9451\u7522\u54C1\u7684\u6E2C\u8A66\u505A\u4EC0\u9EBC",
+            "text": "<p>\u95DC\u65BC<em>\u8A55\u9451\u7522\u54C1</em>\uFF08\u53F3\u6B04\uFF09\u7684\u6E2C\u8A66\uFF0C\u54EA\u4E00\u9805\u6558\u8FF0\u6B63\u78BA\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u5011\u8A55\u4F30\u5DF2\u7D93\u5EFA\u69CB\u5B8C\u6210\u7684\u7522\u54C1\uFF0C\u4EE5\u63ED\u9732\u4E0D\u8DB3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u8A55\u9451\u985E\u6E2C\u8A66\u8A55\u4F30\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u5728\u4EFB\u4F55\u7A0B\u5F0F\u78BC\u5B58\u5728\u4E4B\u524D\u64B0\u5BEB\uFF0C\u4EE5\u5B9A\u7FA9\u8A2D\u8A08",
+                "fraction": 0,
+                "feedback": "\u90A3\u63CF\u8FF0\u7684\u662F\u4F4D\u65BC\u5DE6\u5074\u3001\u652F\u63F4\u5718\u968A\u7684\u6E2C\u8A66\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u6C38\u9060\u9762\u5411\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u8A55\u9451\u8DE8\u8D8A Q3\uFF08\u9762\u5411\u696D\u52D9\uFF09\u8207 Q4\uFF08\u9762\u5411\u6280\u8853\uFF09\u3002"
+              },
+              {
+                "text": "\u5B83\u5011\u6C38\u9060\u53EA\u662F\u55AE\u5143\u6E2C\u8A66",
+                "fraction": 0,
+                "feedback": "\u55AE\u5143\u6E2C\u8A66\u5C6C Q1 \u652F\u63F4\uFF1B\u8A55\u9451\u5305\u542B\u63A2\u7D22\u5F0F\u3001\u53EF\u7528\u6027\u3001\u6548\u80FD\u8207\u5B89\u5168\u6027\u3002"
+              }
+            ],
+            "generalFeedback": "\u8A55\u9451\u7522\u54C1\u7684\u6E2C\u8A66\uFF08Q3 \u8207 Q4\uFF09\u5728\u7522\u54C1\u5B58\u5728\u5F8C\u8A55\u4F30\u5B83\u3001\u5C0B\u627E\u4E0D\u8DB3\u2014\u2014\u6216\u5F9E\u4F7F\u7528\u8005\u89D2\u5EA6\uFF08Q3\uFF09\uFF0C\u6216\u91DD\u5C0D\u6280\u8853\u54C1\u8CEA\u5C6C\u6027\uFF08Q4\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u7DE8\u865F\u4EE3\u8868\u57F7\u884C\u9806\u5E8F",
+            "text": "<p>\u8C61\u9650\u7DE8\u865F\u610F\u5473\u8457\u4F60\u5FC5\u9808\u4F9D Q1 &#8594; Q2 &#8594; Q3 &#8594; Q4 \u7684\u9806\u5E8F\u57F7\u884C\u6E2C\u8A66\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 0,
+                "feedback": "\u932F\u8AA4\u2014\u2014\u7DE8\u865F\u53EA\u662F\u6A19\u7C64\uFF1B\u5B83\u5011\u4E0D\u898F\u5B9A\u9806\u5E8F\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7DE8\u865F\u662F\u6A19\u7C64\uFF0C\u4E0D\u662F\u9806\u5E8F\u3002"
+              }
+            ],
+            "generalFeedback": "\u8C61\u9650\u7DE8\u865F\u53EA\u662F\u56DB\u500B\u5340\u57DF\u7684\u6A19\u7C64\u3002\u5B83\u5011\u4E0D\u96B1\u542B\u4EFB\u4F55\u57F7\u884C\u9806\u5E8F\u6216\u512A\u5148\u6B21\u5E8F\u2014\u2014\u5718\u968A\u6703\u4F9D\u60C5\u6CC1\u540C\u6642\u8DE8\u8C61\u9650\u5DE5\u4F5C\u3002"
+          },
+          {
+            "type": "truefalse",
+            "name": "\u7DE8\u865F\u662F\u6A19\u7C64\u800C\u975E\u9806\u5E8F",
+            "text": "<p>\u8C61\u9650\u7DE8\u865F\uFF08Q1&#8211;Q4\uFF09\u53EA\u662F\u56DB\u500B\u5340\u57DF\u7684\u6A19\u7C64\uFF0C\u4E26\u4E0D\u63CF\u8FF0\u9806\u5E8F\u6216\u512A\u5148\u6B21\u5E8F\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7DE8\u865F\u662F\u6A19\u7C64\uFF0C\u4E0D\u662F\u9806\u5E8F\u6216\u512A\u5148\u6B21\u5E8F\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u7DE8\u865F\u4E0D\u7DE8\u78BC\u9806\u5E8F\u6216\u512A\u5148\u6B21\u5E8F\uFF1B\u5B83\u5011\u53EA\u6A19\u793A\u56DB\u500B\u5340\u57DF\u3002"
+              }
+            ],
+            "generalFeedback": "Q1&#8211;Q4 \u662F\u6A19\u793A\u5169\u5EA7\u6A19\u8EF8\u56DB\u500B\u4EA4\u6703\u8655\u7684\u6A19\u7C64\u3002\u4E00\u500B\u5E38\u898B\u8AA4\u89E3\u662F\u628A\u7DE8\u865F\u7576\u6210\u5DE5\u4F5C\u6D41\u7A0B\uFF1B\u4E26\u975E\u5982\u6B64\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u5169\u500B\u8C61\u9650\u652F\u63F4\u5718\u968A",
+            "text": "<p>\u54EA\u4E00\u5C0D\u8C61\u9650\u69CB\u6210<strong>\u652F\u63F4\u5718\u968A</strong>\uFF08\u5DE6\uFF09\u6B04\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q1 \u8207 Q2",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Q1 \u8207 Q2 \u662F\u5DE6\uFF08\u652F\u63F4\uFF09\u6B04\u3002"
+              },
+              {
+                "text": "Q3 \u8207 Q4",
+                "fraction": 0,
+                "feedback": "Q3 \u8207 Q4 \u69CB\u6210\u8A55\u9451\u7522\u54C1\uFF08\u53F3\uFF09\u6B04\u3002"
+              },
+              {
+                "text": "Q1 \u8207 Q4",
+                "fraction": 0,
+                "feedback": "Q1 \u8207 Q4 \u662F\u9762\u5411\u6280\u8853\uFF08\u4E0B\uFF09\u5217\uFF0C\u800C\u975E\u652F\u63F4\u6B04\u3002"
+              },
+              {
+                "text": "Q2 \u8207 Q3",
+                "fraction": 0,
+                "feedback": "Q2 \u8207 Q3 \u662F\u9762\u5411\u696D\u52D9\uFF08\u4E0A\uFF09\u5217\uFF0C\u800C\u975E\u652F\u63F4\u6B04\u3002"
+              }
+            ],
+            "generalFeedback": "\u5DE6\u6B04\uFF08\u652F\u63F4\u5718\u968A\uFF0F\u5F15\u5C0E\u958B\u767C\uFF09\u662F Q1\uFF08\u9762\u5411\u6280\u8853\uFF09\u8207 Q2\uFF08\u9762\u5411\u696D\u52D9\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u54EA\u5169\u500B\u8C61\u9650\u9762\u5411\u696D\u52D9",
+            "text": "<p>\u54EA\u4E00\u5C0D\u8C61\u9650\u69CB\u6210<strong>\u9762\u5411\u696D\u52D9</strong>\uFF08\u4E0A\uFF09\u5217\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q2 \u8207 Q3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Q2 \u8207 Q3 \u662F\u9762\u5411\u696D\u52D9\uFF08\u4E0A\uFF09\u5217\u3002"
+              },
+              {
+                "text": "Q1 \u8207 Q4",
+                "fraction": 0,
+                "feedback": "Q1 \u8207 Q4 \u662F\u9762\u5411\u6280\u8853\uFF08\u4E0B\uFF09\u5217\u3002"
+              },
+              {
+                "text": "Q1 \u8207 Q2",
+                "fraction": 0,
+                "feedback": "Q1 \u8207 Q2 \u662F\u652F\u63F4\u5718\u968A\uFF08\u5DE6\uFF09\u6B04\uFF0C\u800C\u975E\u9762\u5411\u696D\u52D9\u5217\u3002"
+              },
+              {
+                "text": "Q3 \u8207 Q4",
+                "fraction": 0,
+                "feedback": "Q3 \u8207 Q4 \u662F\u8A55\u9451\u7522\u54C1\uFF08\u53F3\uFF09\u6B04\uFF0C\u800C\u975E\u9762\u5411\u696D\u52D9\u5217\u3002"
+              }
+            ],
+            "generalFeedback": "\u4E0A\u5217\uFF08\u9762\u5411\u696D\u52D9\uFF09\u662F Q2\uFF08\u652F\u63F4\u5718\u968A\uFF09\u8207 Q3\uFF08\u8A55\u9451\u7522\u54C1\uFF09\u3002\u4E0B\u5217\uFF08\u9762\u5411\u6280\u8853\uFF09\u662F Q1 \u8207 Q4\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u6240\u8FF0\u6E2C\u8A66\uFF1A\u540C\u6642\u5927\u91CF\u4F7F\u7528\u8005",
+            "text": "<p>\u67D0\u5DE5\u5177\u6A21\u64EC\u6578\u5343\u540D\u540C\u6642\u4F7F\u7528\u8005\uFF0C\u89C0\u5BDF\u56DE\u61C9\u6642\u9593\u662F\u5426\u7DAD\u6301\u5728\u53EF\u63A5\u53D7\u7BC4\u570D\u3002\u4F9D\u5169\u500B\u5EA7\u6A19\u8EF8\uFF08\u9762\u5411\u6280\u8853\u3001\u8A55\u9451\u7522\u54C1\uFF09\u5224\u65B7\uFF0C\u9019\u5C6C\u65BC\u54EA\u4E00\u500B\u8C61\u9650\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q4",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u6210\u54C1\u7684\u6280\u8853\u6027\u8A55\u9451\u5C6C Q4\u3002"
+              },
+              {
+                "text": "Q1",
+                "fraction": 0,
+                "feedback": "\u9019\u8A55\u9451\u5DF2\u5EFA\u69CB\u6210\u54C1\uFF1B\u5B83\u4E0D\u5F15\u5C0E\u958B\u767C\uFF0C\u6545\u975E Q1\u3002"
+              },
+              {
+                "text": "Q2",
+                "fraction": 0,
+                "feedback": "\u9019\u9762\u5411\u6280\u8853\uFF0C\u800C\u975E\u9762\u5411\u696D\u52D9\uFF0C\u4E14\u5C6C\u8A55\u9451\u800C\u975E\u652F\u63F4\u3002"
+              },
+              {
+                "text": "Q3",
+                "fraction": 0,
+                "feedback": "\u9019\u9762\u5411\u6280\u8853\uFF08\u8CC7\u6E90\u884C\u70BA\uFF09\uFF0C\u800C\u975E\u9762\u5411\u696D\u52D9\u7684\u4F7F\u7528\u8005\u8A55\u9451\u3002"
+              }
+            ],
+            "generalFeedback": "\u8CA0\u8F09\u6E2C\u8A66\u9762\u5411\u6280\u8853\uFF08\u6D89\u53CA\u8CC7\u6E90\uFF0F\u56DE\u61C9\u884C\u70BA\uFF09\u4E14\u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\uFF0C\u6545\u843D\u5728 Q4\u2014\u2014\u4E26\u4EE5\u5DE5\u5177\u70BA\u4E3B\u3002",
+            "single": true
+          }
+        ],
+        "hard": [
+          {
+            "type": "multichoice",
+            "name": "\u63A8\u7406\u5230\u8C61\u9650\uFF1A\u5B89\u5168\u6027\u6E2C\u8A66",
+            "text": "<p>\u4F9D\u5169\u500B\u5EA7\u6A19\u8EF8\u63A8\u7406\uFF0C<em>\u5B89\u5168\u6027\u6E2C\u8A66</em>\uFF08\u6EF2\u900F\u6E2C\u8A66\u3001\u6AA2\u67E5\u5B58\u53D6\u63A7\u5236\uFF09\u5C6C\u65BC\u4F55\u8655\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q4\u2014\u2014\u5B83\u9762\u5411\u6280\u8853\u4E14\u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B89\u5168\u6027\u662F\u91DD\u5C0D\u6210\u54C1\u8A55\u4F30\u7684\u6280\u8853\u54C1\u8CEA\u5C6C\u6027\u3002"
+              },
+              {
+                "text": "Q1\u2014\u2014\u5B83\u9762\u5411\u6280\u8853\u4E14\u652F\u63F4\u5718\u968A",
+                "fraction": 0,
+                "feedback": "\u5B89\u5168\u6027\u6E2C\u8A66\u8A55\u9451\u7522\u54C1\uFF1B\u5B83\u4E0D\u50CF\u55AE\u5143\u6E2C\u8A66\u90A3\u6A23\u5F15\u5C0E\u958B\u767C\u3002"
+              },
+              {
+                "text": "Q2\u2014\u2014\u5B83\u9762\u5411\u696D\u52D9\u4E14\u652F\u63F4\u5718\u968A",
+                "fraction": 0,
+                "feedback": "\u5B89\u5168\u6027\u9762\u5411\u6280\u8853\u800C\u975E\u9762\u5411\u696D\u52D9\uFF0C\u4E14\u5C6C\u8A55\u9451\u3002"
+              },
+              {
+                "text": "Q3\u2014\u2014\u5B83\u9762\u5411\u696D\u52D9\u4E14\u8A55\u9451\u7522\u54C1",
+                "fraction": 0,
+                "feedback": "\u5B89\u5168\u6027\u4EE5\u6280\u8853\u7528\u8A9E\u63CF\u8FF0\uFF0C\u6545\u9762\u5411\u6280\u8853\u800C\u975E\u9762\u5411\u696D\u52D9\u3002"
+              }
+            ],
+            "generalFeedback": "\u5B89\u5168\u6027\u662F\u4E00\u9805\u6280\u8853\uFF08\u975E\u529F\u80FD\uFF09\u54C1\u8CEA\u5C6C\u6027\uFF0C\u6545\u9762\u5411\u6280\u8853\uFF1B\u4E14\u5B83\u8A55\u4F30\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\uFF0C\u6545\u5C6C\u8A55\u9451\u3002\u9762\u5411\u6280\u8853\uFF0B\u8A55\u9451\uFF1DQ4\uFF0C\u4EE5\u5DE5\u5177\u70BA\u4E3B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63A8\u7406\u5230\u8C61\u9650\uFF1A\u53EF\u7528\u6027\u6E2C\u8A66",
+            "text": "<p>\u4F9D\u5169\u500B\u5EA7\u6A19\u8EF8\u63A8\u7406\uFF0C<em>\u53EF\u7528\u6027\u6E2C\u8A66</em>\uFF08\u89C0\u5BDF\u771F\u5BE6\u4F7F\u7528\u8005\u5617\u8A66\u5B8C\u6210\u4EFB\u52D9\uFF09\u5C6C\u65BC\u4F55\u8655\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q3\u2014\u2014\u5B83\u9762\u5411\u696D\u52D9\u4E14\u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u7528\u6027\u5F9E\u4F7F\u7528\u8005\u89D2\u5EA6\u5C0D\u6210\u54C1\u9032\u884C\u5224\u65B7\u3002"
+              },
+              {
+                "text": "Q4\u2014\u2014\u5B83\u9762\u5411\u6280\u8853\u4E14\u8A55\u9451\u7522\u54C1",
+                "fraction": 0,
+                "feedback": "\u53EF\u7528\u6027\u4EE5\u4F7F\u7528\u8005\u7528\u8A9E\uFF08\u9762\u5411\u696D\u52D9\uFF09\u5224\u65B7\uFF0C\u800C\u975E\u6280\u8853\u8CC7\u6E90\u7528\u8A9E\u3002"
+              },
+              {
+                "text": "Q2\u2014\u2014\u5B83\u9762\u5411\u696D\u52D9\u4E14\u652F\u63F4\u5718\u968A",
+                "fraction": 0,
+                "feedback": "\u53EF\u7528\u6027\u6E2C\u8A66\u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\uFF1B\u5B83\u4E0D\u5728\u7DE8\u78BC\u524D\u5F15\u5C0E\u958B\u767C\u3002"
+              },
+              {
+                "text": "Q1\u2014\u2014\u5B83\u9762\u5411\u6280\u8853\u4E14\u652F\u63F4\u5718\u968A",
+                "fraction": 0,
+                "feedback": "\u53EF\u7528\u6027\u9762\u5411\u696D\u52D9\u4E14\u5C6C\u8A55\u9451\uFF0C\u4E26\u975E\u958B\u767C\u8005\u652F\u63F4\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u7528\u6027\u5F9E\u4F7F\u7528\u8005\u89D2\u5EA6\u8A55\u4F30\uFF08\u9762\u5411\u696D\u52D9\uFF09\uFF0C\u4E14\u5728\u7522\u54C1\u5B58\u5728\u5F8C\u8A55\u4F30\u5B83\uFF08\u8A55\u9451\uFF09\u3002\u9762\u5411\u696D\u52D9\uFF0B\u8A55\u9451\uFF1DQ3\uFF0C\u4E3B\u8981\u70BA\u624B\u52D5\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63A8\u7406\u5230\u8C61\u9650\uFF1AAPI \u6E2C\u8A66",
+            "text": "<p>\u4F9D\u5169\u500B\u5EA7\u6A19\u8EF8\u63A8\u7406\uFF0C\u958B\u767C\u671F\u9593\u64B0\u5BEB\u7684<em>\u81EA\u52D5\u5316 API\uFF0F\u6574\u5408\u6E2C\u8A66</em>\u5C6C\u65BC\u4F55\u8655\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q1\u2014\u2014\u5B83\u9762\u5411\u6280\u8853\u4E14\u652F\u63F4\u5718\u968A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014API \u6E2C\u8A66\u5C6C\u6280\u8853\u6027\u4E14\u5F15\u5C0E\u958B\u767C\uFF0C\u56E0\u6B64\u70BA Q1\u3002"
+              },
+              {
+                "text": "Q4\u2014\u2014\u5B83\u9762\u5411\u6280\u8853\u4E14\u8A55\u9451\u7522\u54C1",
+                "fraction": 0,
+                "feedback": "\u5B83\u65BC\u958B\u767C\u671F\u9593\u64B0\u5BEB\u4EE5\u5F15\u5C0E\u7A0B\u5F0F\u78BC\uFF0C\u5C6C\u652F\u63F4\u5718\u968A\u800C\u975E\u8A55\u9451\u6210\u54C1\u3002"
+              },
+              {
+                "text": "Q2\u2014\u2014\u5B83\u9762\u5411\u696D\u52D9\u4E14\u652F\u63F4\u5718\u968A",
+                "fraction": 0,
+                "feedback": "API \u6E2C\u8A66\u4EE5\u6280\u8853\u7528\u8A9E\u63CF\u8FF0\uFF0C\u6545\u9762\u5411\u6280\u8853\u800C\u975E\u9762\u5411\u696D\u52D9\u3002"
+              },
+              {
+                "text": "Q3\u2014\u2014\u5B83\u9762\u5411\u696D\u52D9\u4E14\u8A55\u9451\u7522\u54C1",
+                "fraction": 0,
+                "feedback": "API \u6E2C\u8A66\u9762\u5411\u6280\u8853\u4E14\u652F\u63F4\u958B\u767C\uFF0C\u4E26\u975E\u9762\u5411\u696D\u52D9\u7684\u8A55\u9451\u3002"
+              }
+            ],
+            "generalFeedback": "API\uFF0F\u6574\u5408\u6E2C\u8A66\u4EE5\u6280\u8853\u7528\u8A9E\u8868\u9054\uFF08\u9762\u5411\u6280\u8853\uFF09\uFF0C\u4E14\u8207\u7A0B\u5F0F\u78BC\u4E00\u540C\u64B0\u5BEB\u4EE5\u5F15\u5C0E\u958B\u767C\uFF08\u652F\u63F4\uFF09\u3002\u9762\u5411\u6280\u8853\uFF0B\u652F\u63F4\uFF1DQ1\uFF0C\u81EA\u52D5\u5316\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63A8\u7406\u5230\u8C61\u9650\uFF1A\u539F\u578B\uFF0F\u6A21\u64EC",
+            "text": "<p>\u4F9D\u5169\u500B\u5EA7\u6A19\u8EF8\u63A8\u7406\uFF0C\u5728\u7DE8\u78BC\u524D\u5EFA\u7ACB<em>\u539F\u578B\u6216\u6A21\u64EC</em>\u4EE5\u8207\u696D\u52D9\u4E00\u540C\u63A2\u7D22\u67D0\u529F\u80FD\u5C6C\u65BC\u4F55\u8655\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q2\u2014\u2014\u5B83\u9762\u5411\u696D\u52D9\u4E14\u652F\u63F4\u5718\u968A",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u539F\u578B\u662F\u5F15\u5C0E\u958B\u767C\u7684\u9762\u5411\u696D\u52D9\u5DE5\u5177\u3002"
+              },
+              {
+                "text": "Q3\u2014\u2014\u5B83\u9762\u5411\u696D\u52D9\u4E14\u8A55\u9451\u7522\u54C1",
+                "fraction": 0,
+                "feedback": "\u539F\u578B\u5728\u7522\u54C1\u5B58\u5728\u524D\u5F15\u5C0E\u958B\u767C\uFF1B\u5B83\u4E0D\u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\u3002"
+              },
+              {
+                "text": "Q1\u2014\u2014\u5B83\u9762\u5411\u6280\u8853\u4E14\u652F\u63F4\u5718\u968A",
+                "fraction": 0,
+                "feedback": "\u539F\u578B\u4EE5\u696D\u52D9\u7528\u8A9E\u69CB\u601D\uFF0C\u6545\u9762\u5411\u696D\u52D9\u800C\u975E\u9762\u5411\u6280\u8853\u3002"
+              },
+              {
+                "text": "Q4\u2014\u2014\u5B83\u9762\u5411\u6280\u8853\u4E14\u8A55\u9451\u7522\u54C1",
+                "fraction": 0,
+                "feedback": "\u539F\u578B\u662F\u9762\u5411\u696D\u52D9\u7684\u652F\u63F4\uFF0C\u4E26\u975E\u6280\u8853\u6027\u8A55\u9451\u3002"
+              }
+            ],
+            "generalFeedback": "\u539F\u578B\u8207\u6A21\u64EC\u9762\u5411\u696D\u52D9\uFF08\u4EE5\u9818\u57DF\u7528\u8A9E\u63A2\u7D22\uFF09\u4E14\u652F\u63F4\u5718\u968A\uFF08\u5728\u7DE8\u78BC\u524D\u5F15\u5C0E\u8981\u5EFA\u69CB\u4EC0\u9EBC\uFF09\u3002\u9762\u5411\u696D\u52D9\uFF0B\u652F\u63F4\uFF1DQ2\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u540C\u4E00\u529F\u80FD\uFF1A\u652F\u63F4 vs \u8A55\u9451",
+            "text": "<p>\u4E00\u500B\u9762\u5411\u696D\u52D9\u7684\u9A57\u6536\u7BC4\u4F8B\u5728\u7DE8\u78BC<em>\u4E4B\u524D</em>\u64B0\u5BEB\u4EE5\u5B9A\u7FA9\u67D0\u529F\u80FD\uFF1B\u7A0D\u5F8C\uFF0C\u6E2C\u8A66\u8005\u5728\u57F7\u884C\u4E2D\u7684\u7522\u54C1\u88E1\u81EA\u7531\u63A2\u7D22\u540C\u4E00\u529F\u80FD\u3002\u9019\u5169\u8005\u5206\u5225\u5C6C\u65BC\uFF1A</p>",
+            "answers": [
+              {
+                "text": "\u5148 Q2 \u518D Q3\u2014\u2014\u524D\u8005\u5F15\u5C0E\u958B\u767C\uFF08\u652F\u63F4\uFF09\uFF0C\u5F8C\u8005\u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u540C\u4E00\u9762\u5411\u696D\u52D9\u7684\u529F\u80FD\uFF0C\u4F46\u5EFA\u69CB\u524D\u652F\u63F4 vs \u5EFA\u69CB\u5F8C\u8A55\u9451\u3002"
+              },
+              {
+                "text": "\u5148 Q3 \u518D Q2\u2014\u2014\u5148\u63A2\u7D22\u3001\u5F8C\u9A57\u6536\u7BC4\u4F8B",
+                "fraction": 0,
+                "feedback": "\u9019\u9806\u5E8F\u76F8\u53CD\uFF1A\u4E8B\u524D\u7684\u7BC4\u4F8B\u662F\u652F\u63F4\uFF08Q2\uFF09\uFF1B\u7A0D\u5F8C\u7684\u63A2\u7D22\u662F\u8A55\u9451\uFF08Q3\uFF09\u3002"
+              },
+              {
+                "text": "\u5148 Q1 \u518D Q4\u2014\u2014\u5169\u8005\u90FD\u9762\u5411\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u5169\u9805\u6D3B\u52D5\u90FD\u9762\u5411\u696D\u52D9\uFF0C\u800C\u975E\u9762\u5411\u6280\u8853\u3002"
+              },
+              {
+                "text": "\u5169\u8005\u90FD\u662F Q2\uFF0C\u56E0\u70BA\u5B83\u5011\u6D89\u53CA\u540C\u4E00\u529F\u80FD",
+                "fraction": 0,
+                "feedback": "\u6A6B\u8EF8\u4E0D\u540C\uFF1A\u7BC4\u4F8B\u662F\u652F\u63F4\uFF08Q2\uFF09\uFF0C\u63A2\u7D22\u662F\u8A55\u9451\uFF08Q3\uFF09\u3002"
+              }
+            ],
+            "generalFeedback": "\u7E31\u5411\u4F4D\u7F6E\uFF08\u9762\u5411\u696D\u52D9\uFF09\u76F8\u540C\uFF0C\u4F46\u6A6B\u8EF8\u4E0D\u540C\u3002\u7DE8\u78BC\u524D\u64B0\u5BEB\u7684\u9A57\u6536\u7BC4\u4F8B\u5F15\u5C0E\u958B\u767C\uFF08Q2\uFF09\uFF1B\u63A2\u7D22\u5DF2\u5B8C\u6210\u7684\u529F\u80FD\u5247\u8A55\u9451\u7522\u54C1\uFF08Q3\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8AA4\u89E3\uFF1A\u9762\u5411\u696D\u52D9\u4EE3\u8868\u624B\u52D5",
+            "text": "<p>\u6709\u4EBA\u4E3B\u5F35\u300C\u9762\u5411\u696D\u52D9\u7684\u6E2C\u8A66\u4F9D\u5B9A\u7FA9\u5C31\u662F\u624B\u52D5\u7684\u300D\u3002\u70BA\u4EC0\u9EBC\u9019\u662F\u932F\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u9762\u5411\u696D\u52D9\u63CF\u8FF0\u7684\u662F\u8A9E\u8A00\uFF0F\u5C0D\u8C61\uFF0C\u800C\u975E\u57F7\u884C\u65B9\u5F0F\uFF1B\u8A31\u591A Q2 \u6545\u4E8B\u6E2C\u8A66\u90FD\u81EA\u52D5\u5316",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7E31\u8EF8\u95DC\u4E4E\u5C0D\u8C61\uFF0C\u800C\u975E\u81EA\u52D5\u5316\u3002"
+              },
+              {
+                "text": "\u5B83\u662F\u5C0D\u7684\u2014\u2014\u9762\u5411\u696D\u52D9\u7684\u6E2C\u8A66\u6C38\u9060\u7121\u6CD5\u81EA\u52D5\u5316",
+                "fraction": 0,
+                "feedback": "Q2 \u529F\u80FD\uFF0F\u6545\u4E8B\u6E2C\u8A66\u7D93\u5E38\u81EA\u52D5\u5316\uFF0C\u6545\u6B64\u4E3B\u5F35\u70BA\u5047\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9762\u5411\u696D\u52D9\u7684\u6E2C\u8A66\u5176\u5BE6\u9762\u5411\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u5B83\u5011\u78BA\u5BE6\u9762\u5411\u696D\u52D9\uFF1B\u932F\u8AA4\u5728\u65BC\u628A\u5B83\u7B49\u540C\u65BC\u300C\u624B\u52D5\u300D\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u53EA\u6709 Q4 \u6E2C\u8A66\u80FD\u81EA\u52D5\u5316",
+                "fraction": 0,
+                "feedback": "\u81EA\u52D5\u5316\u4E0D\u9650\u65BC Q4\uFF1BQ1 \u5B8C\u5168\u81EA\u52D5\u5316\uFF0CQ2 \u4E5F\u5E38\u81EA\u52D5\u5316\u3002"
+              }
+            ],
+            "generalFeedback": "\u300C\u9762\u5411\u696D\u52D9\u300D\u9673\u8FF0\u7684\u662F\u6E2C\u8A66\u7684\u5C0D\u8C61\uFF0F\u8A9E\u8A00\uFF08\u7E31\u8EF8\uFF09\uFF0C\u800C\u975E\u5B83\u5982\u4F55\u57F7\u884C\u3002Q2\uFF08\u9762\u5411\u696D\u52D9\u7684\u652F\u63F4\uFF09\u5E38\u81EA\u52D5\u5316\uFF1B\u81EA\u52D5\u5316\u4E26\u4E0D\u9650\u65BC\u4EFB\u4E00\u8C61\u9650\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8AA4\u89E3\uFF1AQ4 \u6700\u4E0D\u91CD\u8981",
+            "text": "<p>\u6709\u4EBA\u4E3B\u5F35\u300CQ4 \u7DE8\u865F\u6700\u5927\uFF0C\u6240\u4EE5\u6700\u4E0D\u91CD\u8981\u3001\u53EF\u4EE5\u7565\u904E\u300D\u3002\u6B63\u78BA\u7684\u56DE\u61C9\u662F\u4EC0\u9EBC\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7DE8\u865F\u4E0D\u5E36\u512A\u5148\u6B21\u5E8F\uFF1BQ4 \u6DB5\u84CB\u95DC\u9375\u7684\u975E\u529F\u80FD\u5C6C\u6027\uFF08\u6548\u80FD\u3001\u5B89\u5168\u6027\uFF09\uFF0C\u53EA\u662F\u4EE5\u5DE5\u5177\u70BA\u4E3B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u7DE8\u865F\u662F\u6A19\u7C64\uFF1BQ4 \u4E0D\u53EF\u6216\u7F3A\uFF0C\u53EA\u662F\u4EE5\u5DE5\u5177\u9A45\u52D5\u3002"
+              },
+              {
+                "text": "\u6B63\u78BA\u2014\u2014Q4 \u56E0\u7DE8\u865F\u5728\u6700\u5F8C\u800C\u5C6C\u9078\u7528",
+                "fraction": 0,
+                "feedback": "\u7DE8\u865F\u4E0D\u5E36\u512A\u5148\u6B21\u5E8F\uFF1BQ4 \u6DB5\u84CB\u4E0D\u53EF\u6216\u7F3A\u7684\u54C1\u8CEA\u5C6C\u6027\u3002"
+              },
+              {
+                "text": "Q4 \u61C9\u6C38\u9060\u6700\u5148\u505A\uFF0C\u56E0\u70BA\u6548\u80FD\u6700\u91CD\u8981",
+                "fraction": 0,
+                "feedback": "\u7DE8\u865F\u4E0D\u8AD6\u54EA\u500B\u65B9\u5411\u90FD\u4E0D\u96B1\u542B\u9806\u5E8F\uFF1BQ4 \u4E0D\u56E0\u898F\u5247\u800C\u6700\u5148\u6216\u6700\u5F8C\u3002"
+              },
+              {
+                "text": "Q4 \u4E0D\u91CD\u8981\uFF0C\u56E0\u70BA\u5B83\u9762\u5411\u6280\u8853",
+                "fraction": 0,
+                "feedback": "\u9762\u5411\u6280\u8853\u4E26\u4E0D\u4F7F\u4E00\u500B\u8C61\u9650\u4E0D\u91CD\u8981\u3002"
+              }
+            ],
+            "generalFeedback": "\u8C61\u9650\u7DE8\u865F\u662F\u6A19\u7C64\uFF0C\u4E0D\u662F\u512A\u5148\u6B21\u5E8F\u6392\u540D\u3002Q4\uFF08\u6548\u80FD\u3001\u8CA0\u8F09\u3001\u5B89\u5168\u6027\u8207\u5176\u4ED6\u300C-ility\u300D\u6E2C\u8A66\uFF09\u8A55\u4F30\u95DC\u9375\u7684\u975E\u529F\u80FD\u5C6C\u6027\uFF1B\u300C4\u300D\u53EA\u8868\u793A\u5B83\u662F\u56DB\u500B\u5340\u57DF\u4E4B\u4E00\u3002Q4 \u7684\u7279\u5FB5\u5728\u65BC\u4EE5\u5DE5\u5177\u70BA\u4E3B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u8DE8\u8C61\u9650\u7684\u81EA\u52D5\u5316\u7B56\u7565",
+            "text": "<p>\u4E0B\u5217\u54EA\u4E00\u9805\u5C07\u8C61\u9650\u5C0D\u61C9\u5230\u81EA\u52D5\u5316\u65B9\u5F0F\u662F\u6B63\u78BA\u7684\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q1 \u5B8C\u5168\u81EA\u52D5\u5316\uFF1BQ2 \u81EA\u52D5\u5316\u52A0\u90E8\u5206\u624B\u52D5\uFF1BQ3 \u4E3B\u8981\u624B\u52D5\uFF1BQ4 \u4EE5\u5DE5\u5177\u70BA\u4E3B",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u9019\u662F\u56DB\u500B\u8C61\u9650\u7684\u6A19\u6E96\u81EA\u52D5\u5316\u6A23\u8C8C\u3002"
+              },
+              {
+                "text": "Q1 \u624B\u52D5\uFF1BQ2 \u4EE5\u5DE5\u5177\u70BA\u4E3B\uFF1BQ3 \u81EA\u52D5\u5316\uFF1BQ4 \u6DF7\u5408",
+                "fraction": 0,
+                "feedback": "\u9019\u6253\u4E82\u4E86\u6BCF\u500B\u8C61\u9650\u7684\u81EA\u52D5\u5316\u6A23\u8C8C\u3002"
+              },
+              {
+                "text": "\u56DB\u500B\u8C61\u9650\u90FD\u5B8C\u5168\u81EA\u52D5\u5316",
+                "fraction": 0,
+                "feedback": "Q3 \u4E3B\u8981\u70BA\u624B\u52D5\u4E26\u4EF0\u8CF4\u4EBA\u7684\u5224\u65B7\uFF0C\u6545\u6B64\u70BA\u5047\u3002"
+              },
+              {
+                "text": "\u56DB\u500B\u8C61\u9650\u90FD\u5B8C\u5168\u624B\u52D5",
+                "fraction": 0,
+                "feedback": "Q1 \u5B8C\u5168\u81EA\u52D5\u5316\u4E14 Q4 \u4EE5\u5DE5\u5177\u70BA\u4E3B\uFF0C\u6545\u6B64\u70BA\u5047\u3002"
+              }
+            ],
+            "generalFeedback": "\u81EA\u52D5\u5316\u9069\u7528\u6027\u56E0\u8C61\u9650\u800C\u7570\uFF1AQ1 \u5B8C\u5168\u81EA\u52D5\u5316\uFF0CQ2 \u6DF7\u5408\u81EA\u52D5\u5316\u8207\u90E8\u5206\u624B\u52D5\uFF0CQ3 \u4E3B\u8981\u624B\u52D5\uFF08\u4EBA\u7684\u5224\u65B7\uFF09\uFF0CQ4 \u4EE5\u5DE5\u5177\u70BA\u4E3B\uFF08\u5C08\u9580\u5DE5\u5177\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u70BA\u4F55 Q3 \u96E3\u4EE5\u5B8C\u5168\u81EA\u52D5\u5316",
+            "text": "<p>\u70BA\u4EC0\u9EBC <strong>Q3</strong>\uFF08\u63A2\u7D22\u5F0F\u3001\u53EF\u7528\u6027\uFF09\u88AB\u63CF\u8FF0\u70BA\u4E3B\u8981\u624B\u52D5\u800C\u975E\u5B8C\u5168\u81EA\u52D5\u5316\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u5B83\u4EF0\u8CF4\u5C0D\u4F7F\u7528\u8005\u9AD4\u9A57\u7684\u4EBA\u70BA\u89C0\u5BDF\u8207\u5224\u65B7\uFF0C\u800C\u5DE5\u5177\u7121\u6CD5\u5B8C\u5168\u53D6\u4EE3",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014Q3 \u9700\u8981\u5C0D\u4F7F\u7528\u8005\u9AD4\u9A57\u7684\u4EBA\u70BA\u6D1E\u5BDF\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA\u9762\u5411\u696D\u52D9\u7684\u6E2C\u8A66\u5728\u6280\u8853\u4E0A\u4E0D\u53EF\u80FD\u8173\u672C\u5316",
+                "fraction": 0,
+                "feedback": "Q2\uFF08\u540C\u6A23\u9762\u5411\u696D\u52D9\uFF09\u7D93\u5E38\u81EA\u52D5\u5316\uFF0C\u6545\u4E26\u975E\u4E0D\u53EF\u80FD\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA Q3 \u6E2C\u8A66\u4E0D\u91CD\u8981\u3001\u4E0D\u503C\u5F97\u81EA\u52D5\u5316",
+                "fraction": 0,
+                "feedback": "Q3 \u5F88\u91CD\u8981\uFF1B\u91CD\u9EDE\u5728\u65BC\u5B83\u4EF0\u8CF4\u4EBA\u7684\u5224\u65B7\u3002"
+              },
+              {
+                "text": "\u56E0\u70BA Q3 \u5728\u4EFB\u4F55\u7A0B\u5F0F\u78BC\u5B58\u5728\u4E4B\u524D\u57F7\u884C",
+                "fraction": 0,
+                "feedback": "Q3 \u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\uFF0C\u6545\u5728\u7A0B\u5F0F\u78BC\u5B58\u5728\u4E4B\u5F8C\u57F7\u884C\uFF0C\u800C\u975E\u4E4B\u524D\u3002"
+              }
+            ],
+            "generalFeedback": "Q3 \u5F9E\u4F7F\u7528\u8005\u89D2\u5EA6\u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\u2014\u2014\u63A2\u7D22\u5F0F\u8207\u53EF\u7528\u6027\u6E2C\u8A66\u4EF0\u8CF4\u5C0D\u9AD4\u9A57\u7684\u4EBA\u70BA\u89C0\u5BDF\u3001\u76F4\u89BA\u8207\u5224\u65B7\uFF0C\u56E0\u6B64\u5373\u4F7F\u5728\u9AD8\u5EA6\u81EA\u52D5\u5316\u7684\u6D41\u6C34\u7DDA\u4E2D\u4ECD\u4EE5\u624B\u52D5\u70BA\u4E3B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63A8\u7406\u5230\u8C61\u9650\uFF1A\u53EF\u9760\u6027\uFF0F-ility \u6E2C\u8A66",
+            "text": "<p>\u67D0\u5718\u968A\u5728\u771F\u5BE6\u8CA0\u8F09\u4E0B\u9577\u6642\u9593\u57F7\u884C\u7522\u54C1\u4EE5\u91CF\u6E2C\u7A69\u5B9A\u6027\u8207\u6545\u969C\u7387\uFF08\u53EF\u9760\u6027\uFF0C\u6216\u300C-ility\u300D\u6E2C\u8A66\uFF09\u3002\u5C6C\u65BC\u54EA\u4E00\u500B\u8C61\u9650\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q4\u2014\u2014\u9762\u5411\u6280\u8853\u7684\u8A55\u9451\uFF08\u6210\u54C1\u7684\u4E00\u9805\u975E\u529F\u80FD\u54C1\u8CEA\u5C6C\u6027\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u53EF\u9760\u6027\u662F\u6280\u8853\u6027\u300C-ility\u300D\u8A55\u9451\uFF0C\u6545\u70BA Q4\u3002"
+              },
+              {
+                "text": "Q1\u2014\u2014\u9762\u5411\u6280\u8853\u7684\u652F\u63F4",
+                "fraction": 0,
+                "feedback": "\u9019\u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\uFF1B\u5B83\u4E0D\u5728\u958B\u767C\u671F\u9593\u5F15\u5C0E\u7A0B\u5F0F\u78BC\u3002"
+              },
+              {
+                "text": "Q3\u2014\u2014\u9762\u5411\u696D\u52D9\u7684\u8A55\u9451",
+                "fraction": 0,
+                "feedback": "\u53EF\u9760\u6027\u4EE5\u6280\u8853\u7528\u8A9E\u91CF\u6E2C\uFF0C\u6545\u9762\u5411\u6280\u8853\u800C\u975E\u9762\u5411\u696D\u52D9\u3002"
+              },
+              {
+                "text": "Q2\u2014\u2014\u9762\u5411\u696D\u52D9\u7684\u652F\u63F4",
+                "fraction": 0,
+                "feedback": "\u53EF\u9760\u6027\u662F\u6280\u8853\u6027\u8A55\u9451\uFF0C\u4E26\u975E\u5F15\u5C0E\u958B\u767C\u7684\u9762\u5411\u696D\u52D9\u5DE5\u5177\u3002"
+              }
+            ],
+            "generalFeedback": "\u53EF\u9760\u6027\uFF08\u5982\u6548\u80FD\u3001\u5B89\u5168\u6027\u3001\u53EF\u64F4\u5145\u6027\u8207\u5176\u4ED6\u300C-ility\u300D\u5C6C\u6027\uFF09\u662F\u6210\u54C1\u7684\u6280\u8853\u54C1\u8CEA\uFF0C\u6545\u5C6C\u9762\u5411\u6280\u8853\u7684\u8A55\u9451\u2014\u2014Q4\uFF0C\u4E14\u4EE5\u5DE5\u5177\u70BA\u4E3B\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63A8\u7406\u5230\u8C61\u9650\uFF1AUAT\uFF0Fbeta",
+            "text": "<p>\u771F\u5BE6\u4F7F\u7528\u8005\u4F9D\u81EA\u8EAB\u9700\u6C42\u8A66\u7528\u5B8C\u6210\u7684\u7248\u672C\uFF08\u4F7F\u7528\u8005\u9A57\u6536\u6E2C\u8A66\uFF0C\u4E4B\u5F8C\u5728\u5BA2\u6236\u7AEF\u9032\u884C beta\uFF09\u3002\u5C6C\u65BC\u54EA\u4E00\u500B\u8C61\u9650\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q3\u2014\u2014\u5C0D\u6210\u54C1\u7684\u9762\u5411\u696D\u52D9\u8A55\u9451",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014UAT \u8207 alpha\uFF0Fbeta \u662F\u9762\u5411\u696D\u52D9\u7684\u8A55\u9451\uFF0C\u6545\u70BA Q3\u3002"
+              },
+              {
+                "text": "Q2\u2014\u2014\u9762\u5411\u696D\u52D9\u7684\u652F\u63F4",
+                "fraction": 0,
+                "feedback": "UAT \u8A55\u4F30\u5B8C\u6210\u7684\u7522\u54C1\uFF1B\u5B83\u4E0D\u5728\u7DE8\u78BC\u524D\u5F15\u5C0E\u958B\u767C\u3002"
+              },
+              {
+                "text": "Q4\u2014\u2014\u9762\u5411\u6280\u8853\u7684\u8A55\u9451",
+                "fraction": 0,
+                "feedback": "UAT \u4EE5\u4F7F\u7528\u8005\uFF0F\u696D\u52D9\u7528\u8A9E\u5224\u65B7\uFF0C\u800C\u975E\u6280\u8853\u8CC7\u6E90\u7528\u8A9E\u3002"
+              },
+              {
+                "text": "Q1\u2014\u2014\u9762\u5411\u6280\u8853\u7684\u652F\u63F4",
+                "fraction": 0,
+                "feedback": "UAT \u9762\u5411\u696D\u52D9\u4E14\u5C6C\u8A55\u9451\uFF0C\u4E26\u975E\u958B\u767C\u8005\u652F\u63F4\u6E2C\u8A66\u3002"
+              }
+            ],
+            "generalFeedback": "\u4F7F\u7528\u8005\u9A57\u6536\u6E2C\u8A66\u8207 alpha\uFF0Fbeta \u9762\u5411\u696D\u52D9\uFF08\u4F7F\u7528\u8005\u4F9D\u81EA\u8EAB\u9700\u6C42\u5224\u65B7\uFF09\u4E14\u8A55\u9451\u5B8C\u6210\u7684\u7522\u54C1\uFF0C\u6545\u843D\u5728 Q3\u2014\u2014\u4E3B\u8981\u70BA\u624B\u52D5\u3002\uFF08\u6CE8\u610F\uFF1A\u5176 Q2 \u652F\u63F4\u7248\u672C\u6703\u662F\u7DE8\u78BC\u524D\u64B0\u5BEB\u7684\u53EF\u57F7\u884C\u9A57\u6536\u7BC4\u4F8B\u3002\uFF09",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u63A8\u7406\u5230\u8C61\u9650\uFF1ATDD \u4E2D\u7684\u5143\u4EF6\u6E2C\u8A66",
+            "text": "<p>\u4E00\u4F4D\u5BE6\u8E10 TDD \u7684\u958B\u767C\u8005\u5148\u5BEB\u4E00\u500B\u5931\u6557\u7684<em>\u5143\u4EF6\u6E2C\u8A66</em>\uFF0C\u518D\u5BEB\u7A0B\u5F0F\u78BC\u4F7F\u5176\u901A\u904E\u3002\u8A72\u6E2C\u8A66\u5C6C\u65BC\u54EA\u4E00\u500B\u8C61\u9650\uFF1F</p>",
+            "answers": [
+              {
+                "text": "Q1\u2014\u2014\u9762\u5411\u6280\u8853\u7684\u652F\u63F4\uFF08\u5728\u64B0\u5BEB\u7A0B\u5F0F\u78BC\u6642\u5F15\u5C0E\u5B83\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014TDD \u5143\u4EF6\u6E2C\u8A66\u662F\u9762\u5411\u6280\u8853\u7684\u652F\u63F4\uFF0C\u6545\u70BA Q1\u3002"
+              },
+              {
+                "text": "Q4\u2014\u2014\u9762\u5411\u6280\u8853\u7684\u8A55\u9451",
+                "fraction": 0,
+                "feedback": "\u8A72\u6E2C\u8A66\u5F15\u5C0E\u958B\u767C\uFF1B\u5B83\u4E0D\u8A55\u9451\u5B8C\u6210\u7684\u7522\u54C1\u3002"
+              },
+              {
+                "text": "Q2\u2014\u2014\u9762\u5411\u696D\u52D9\u7684\u652F\u63F4",
+                "fraction": 0,
+                "feedback": "\u5143\u4EF6\u6E2C\u8A66\u4EE5\u6280\u8853\u7528\u8A9E\u8868\u9054\uFF0C\u6545\u9762\u5411\u6280\u8853\u3002"
+              },
+              {
+                "text": "Q3\u2014\u2014\u9762\u5411\u696D\u52D9\u7684\u8A55\u9451",
+                "fraction": 0,
+                "feedback": "TDD \u5143\u4EF6\u6E2C\u8A66\u9762\u5411\u6280\u8853\u4E14\u652F\u63F4\u958B\u767C\uFF0C\u4E26\u975E\u9762\u5411\u696D\u52D9\u7684\u8A55\u9451\u3002"
+              }
+            ],
+            "generalFeedback": "TDD \u5143\u4EF6\u6E2C\u8A66\u9762\u5411\u6280\u8853\uFF08\u6280\u8853\u7528\u8A9E\uFF09\u4E14\u652F\u63F4\u5718\u968A\uFF08\u8207\u7A0B\u5F0F\u78BC\u4E00\u540C\u64B0\u5BEB\u4EE5\u5F15\u5C0E\u5B83\uFF09\u3002\u9762\u5411\u6280\u8853\uFF0B\u652F\u63F4\uFF1DQ1\uFF0C\u5B8C\u5168\u81EA\u52D5\u5316\u3002",
+            "single": true
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5728\u540C\u4E00\u7522\u54C1\u4E0A\u5340\u5206 Q3 \u8207 Q4",
+            "text": "<p>\u5169\u8005\u90FD\u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\u3002\u662F\u4EC0\u9EBC\u5340\u5206 <strong>Q3</strong> \u8A55\u9451\u8207 <strong>Q4</strong> \u8A55\u9451\uFF1F</p>",
+            "answers": [
+              {
+                "text": "\u7E31\u8EF8\uFF1AQ3 \u9762\u5411\u696D\u52D9\uFF08\u4F7F\u7528\u8005\u89D2\u5EA6\uFF09\uFF1BQ4 \u9762\u5411\u6280\u8853\uFF08\u6280\u8853\u54C1\u8CEA\u5C6C\u6027\uFF09",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5169\u8005\u90FD\u8A55\u9451\uFF0C\u4F46\u5728\u9762\u5411\u696D\u52D9 vs \u9762\u5411\u6280\u8853\u4E0A\u4E0D\u540C\u3002"
+              },
+              {
+                "text": "Q3 \u652F\u63F4\u5718\u968A\uFF0C\u800C Q4 \u8A55\u9451\u7522\u54C1",
+                "fraction": 0,
+                "feedback": "Q3 \u8207 Q4 \u90FD\u8A55\u9451\u7522\u54C1\uFF1B\u5B83\u5011\u7684\u6A6B\u5411\u4F4D\u7F6E\u76F8\u540C\u3002"
+              },
+              {
+                "text": "Q3 \u5728\u7DE8\u78BC\u524D\u57F7\u884C\uFF0C\u800C Q4 \u5728\u5176\u5F8C",
+                "fraction": 0,
+                "feedback": "\u5169\u8005\u90FD\u662F\u5C0D\u5DF2\u5EFA\u69CB\u7522\u54C1\u7684\u8A55\u9451\uFF1B\u90FD\u4E0D\u662F\u7DE8\u78BC\u524D\u7684\u652F\u63F4\u6D3B\u52D5\u3002"
+              },
+              {
+                "text": "Q3 \u81EA\u52D5\u5316\uFF0C\u800C Q4 \u624B\u52D5",
+                "fraction": 0,
+                "feedback": "\u50BE\u5411\u6070\u597D\u76F8\u53CD\uFF1AQ3 \u4E3B\u8981\u70BA\u624B\u52D5\uFF0CQ4 \u4EE5\u5DE5\u5177\u70BA\u4E3B\u3002"
+              }
+            ],
+            "generalFeedback": "Q3 \u8207 Q4 \u5171\u4EAB\u6A6B\u5411\u4F4D\u7F6E\uFF08\u8A55\u9451\u7522\u54C1\uFF09\uFF0C\u5DEE\u5225\u5728\u7E31\u8EF8\uFF1AQ3 \u5F9E\u696D\u52D9\uFF0F\u4F7F\u7528\u8005\u89D2\u5EA6\u8A55\u9451\uFF08\u63A2\u7D22\u5F0F\u3001\u53EF\u7528\u6027\uFF09\uFF0CQ4 \u8A55\u9451\u6280\u8853\u54C1\u8CEA\u5C6C\u6027\uFF08\u6548\u80FD\u3001\u5B89\u5168\u6027\uFF09\u3002",
+            "single": true
+          },
+          {
+            "type": "truefalse",
+            "name": "\u985E\u578B\u4F9D\u5169\u8EF8\u5C0D\u61C9\uFF0C\u800C\u975E\u4F9D\u7DE8\u865F",
+            "text": "<p>\u4E00\u7A2E\u6E2C\u8A66\u985E\u578B\u4F9D\u5176<em>\u5169\u500B\u5EA7\u6A19\u8EF8\u4F4D\u7F6E</em>\uFF08\u9762\u5411\u696D\u52D9\uFF0F\u6280\u8853\uFF0C\u4EE5\u53CA\u652F\u63F4\uFF0F\u8A55\u9451\uFF09\u88AB\u653E\u5165\u8C61\u9650\uFF0C\u800C\u975E\u4F9D\u8C61\u9650\u7DE8\u865F\u6240\u96B1\u542B\u7684\u4EFB\u4F55\u9806\u5E8F\u3002</p>",
+            "answers": [
+              {
+                "text": "true",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5B9A\u4F4D\u4F9D\u5169\u500B\u5EA7\u6A19\u8EF8\uFF1B\u7DE8\u865F\u4E0D\u5E36\u9806\u5E8F\u3002"
+              },
+              {
+                "text": "false",
+                "fraction": 0,
+                "feedback": "\u5B9A\u4F4D\u7531\u5169\u500B\u5EA7\u6A19\u8EF8\u503C\u6C7A\u5B9A\uFF1B\u7DE8\u865F\u53EA\u662F\u6A19\u7C64\u3002"
+              }
+            ],
+            "generalFeedback": "\u6BCF\u7A2E\u6E2C\u8A66\u985E\u578B\u7D14\u7CB9\u4F9D\u5176\u5169\u500B\u5EA7\u6A19\u8EF8\u4F4D\u7F6E\u5C0D\u61C9\u5230\u8C61\u9650\u2014\u2014\u5B83\u662F\u9762\u5411\u696D\u52D9\u6216\u9762\u5411\u6280\u8853\uFF0C\u4EE5\u53CA\u5B83\u652F\u63F4\u5718\u968A\u6216\u8A55\u9451\u7522\u54C1\u3002\u8C61\u9650\u7DE8\u865F\u662F\u6A19\u7C64\uFF0C\u4E0D\u96B1\u542B\u9806\u5E8F\u6216\u512A\u5148\u6B21\u5E8F\u3002"
+          },
+          {
+            "type": "multichoice",
+            "name": "\u5206\u985E\u58D3\u529B\u6E2C\u8A66\u4E26\u8AAA\u660E\u7406\u7531",
+            "text": "<p>\u58D3\u529B\u6E2C\u8A66\u628A\u7CFB\u7D71\u63A8\u904E\u6B63\u5E38\u4E0A\u9650\uFF0C\u4EE5\u89C0\u5BDF\u5B83\u5982\u4F55\u6545\u969C\u8207\u5FA9\u539F\u3002\u7528\u5169\u500B\u5EA7\u6A19\u8EF8\u5224\u65B7\uFF0C\u6B63\u78BA\u7684\u5B9A\u4F4D\u8207\u7406\u7531\u662F\uFF1A</p>",
+            "answers": [
+              {
+                "text": "Q4\uFF0C\u56E0\u70BA\u5B83\u9762\u5411\u6280\u8853\uFF08\u8CC7\u6E90\uFF0F\u6545\u969C\u884C\u70BA\uFF09\u4E14\u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1",
+                "fraction": 100,
+                "feedback": "\u6B63\u78BA\u2014\u2014\u5C0D\u6210\u54C1\u7684\u6280\u8853\u6027\u8A55\u9451\u5C6C Q4\uFF0C\u4EE5\u5DE5\u5177\u70BA\u4E3B\u3002"
+              },
+              {
+                "text": "Q1\uFF0C\u56E0\u70BA\u5B83\u9762\u5411\u6280\u8853\uFF0C\u56E0\u6B64\u652F\u63F4\u5718\u968A",
+                "fraction": 0,
+                "feedback": "\u9762\u5411\u6280\u8853\u4E26\u4E0D\u4F7F\u5B83\u6210\u70BA\u652F\u63F4\uFF1B\u58D3\u529B\u6E2C\u8A66\u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\u3002"
+              },
+              {
+                "text": "Q3\uFF0C\u56E0\u70BA\u6545\u969C\u5F71\u97FF\u4F7F\u7528\u8005\uFF0C\u4F7F\u5B83\u9762\u5411\u696D\u52D9",
+                "fraction": 0,
+                "feedback": "\u58D3\u529B\u6E2C\u8A66\u4EE5\u6280\u8853\uFF0F\u8CC7\u6E90\u7528\u8A9E\u8868\u9054\uFF0C\u6545\u9762\u5411\u6280\u8853\uFF08Q4\uFF09\uFF0C\u800C\u975E\u9762\u5411\u696D\u52D9\u3002"
+              },
+              {
+                "text": "Q2\uFF0C\u56E0\u70BA\u5B83\u5728\u958B\u767C\u4E4B\u524D\u898F\u5283",
+                "fraction": 0,
+                "feedback": "\u58D3\u529B\u6E2C\u8A66\u8A55\u9451\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\uFF1B\u5B83\u4E0D\u662F\u7DE8\u78BC\u524D\u7684\u9762\u5411\u696D\u52D9\u652F\u63F4\u3002"
+              }
+            ],
+            "generalFeedback": "\u58D3\u529B\u6E2C\u8A66\u6D89\u53CA\u6280\u8853\u6027\u7684\u8CC7\u6E90\uFF0F\u6545\u969C\u884C\u70BA\uFF08\u9762\u5411\u6280\u8853\uFF09\u4E14\u8A55\u4F30\u5DF2\u5EFA\u69CB\u7684\u7522\u54C1\uFF08\u8A55\u9451\uFF09\u3002\u9762\u5411\u6280\u8853\uFF0B\u8A55\u9451\uFF1DQ4\uFF0C\u4EE5\u5DE5\u5177\u70BA\u4E3B\u3002\u6CE8\u610F\u5FC5\u9808\u8B80\u53D6\u5169\u500B\u5EA7\u6A19\u8EF8\uFF1A\u50C5\u9762\u5411\u6280\u8853\u4E26\u4E0D\u6C7A\u5B9A\u652F\u63F4\u6216\u8A55\u9451\u3002",
+            "single": true
+          }
+        ]
+      }
+    },
     "atdd-cycle": {
       "en": {
         "easy": [
